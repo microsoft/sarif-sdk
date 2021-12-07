@@ -916,10 +916,19 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             var testCases = new Tuple<string, string>[]
             {
                 new Tuple<string, string>(null, null),
-                new Tuple<string, string>("file.txt", "file.txt"),
-                new Tuple<string, string>("file://directory/file.txt", "file.txt"),
-                new Tuple<string, string>("/file.txt", "file.txt"),
-                new Tuple<string, string>("directory/file.txt", "file.txt"),
+                new Tuple<string, string>(@"file.txt", "file.txt"),
+                new Tuple<string, string>(@"file://directory/file.txt", "file.txt"),
+                new Tuple<string, string>(@"/file.txt", "file.txt"),
+                new Tuple<string, string>(@"directory/file.txt", "file.txt"),
+
+                new Tuple<string, string>(@"scheme://servername.example.com/folder/file.txt", "file.txt"),
+                new Tuple<string, string>(@"scheme://username@servername.example.com/folder/file.txt", "file.txt"),
+                new Tuple<string, string>(@"ssh://username@servername.example.com/folder/file.txt", "file.txt"),
+                new Tuple<string, string>(@"ftp://username@ftp.example.com/folder/file.txt", "file.txt"),
+                new Tuple<string, string>(@"ftp://ftp.example.com/folder/file.txt", "file.txt"),
+                new Tuple<string, string>(@"smb://servername/Share/folder/file.txt", "file.txt"),
+                new Tuple<string, string>(@"dav://example.hostname.com/folder/file.txt", "file.txt"),
+                new Tuple<string, string>(@"nfs://servername/folder/file.txt", "file.txt"),
             };
 
             if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
@@ -927,6 +936,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 testCases.Append(new Tuple<string, string>(@".\file.txt", "file.txt"));
                 testCases.Append(new Tuple<string, string>(@"c:\directory\file.txt", "file.txt"));
                 testCases.Append(new Tuple<string, string>(@"\\computer\computer\file.txt", "file.txt"));
+            }
+            else
+            {
+                testCases.Append(new Tuple<string, string>(@"./file.txt", "file.txt"));
+                testCases.Append(new Tuple<string, string>(@"/home/user/directory/file.txt", "file.txt"));
             }
 
             foreach (Tuple<string, string> testCase in testCases)
