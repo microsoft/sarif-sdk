@@ -30,7 +30,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         }
 
         [Fact]
-        [Trait(TestTraits.WindowsOnly, "true")]
         public void PrereleaseCompatibilityTransformer_UpgradesPrereleaseTwoZeroZero()
         {
             string comprehensiveSarifPath = Path.Combine(Environment.CurrentDirectory, @"v2\ObsoleteFormats\ComprehensivePrereleaseTwoZeroZero.sarif");
@@ -44,7 +43,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         }
 
         [Fact]
-        [Trait(TestTraits.WindowsOnly, "true")]
         public void PrereleaseCompatibilityTransformer_NestedFiles()
         {
             RunTest("NestedFiles.sarif");
