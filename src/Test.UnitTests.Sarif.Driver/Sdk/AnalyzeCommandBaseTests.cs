@@ -934,12 +934,18 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
             {
                 testCases.Append(new Tuple<string, string>(@".\file.txt", "file.txt"));
+                testCases.Append(new Tuple<string, string>(@"..\file.txt", "file.txt"));
+                testCases.Append(new Tuple<string, string>(@"..\directory\file.txt", "file.txt"));
+                testCases.Append(new Tuple<string, string>(@".\..\directory\file.txt", "file.txt"));
                 testCases.Append(new Tuple<string, string>(@"c:\directory\file.txt", "file.txt"));
                 testCases.Append(new Tuple<string, string>(@"\\computer\computer\file.txt", "file.txt"));
             }
             else
             {
                 testCases.Append(new Tuple<string, string>(@"./file.txt", "file.txt"));
+                testCases.Append(new Tuple<string, string>(@"../file.txt", "file.txt"));
+                testCases.Append(new Tuple<string, string>(@"../directory/file.txt", "file.txt"));
+                testCases.Append(new Tuple<string, string>(@"./../directory/file.txt", "file.txt"));
                 testCases.Append(new Tuple<string, string>(@"/home/user/directory/file.txt", "file.txt"));
             }
 
