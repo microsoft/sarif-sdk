@@ -371,7 +371,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             expectedSarif = expectedSarif ?? "{}";
             JToken expectedToken = JsonConvert.DeserializeObject<JToken>(expectedSarif);
-
+            actualSarif = actualSarif.Replace(@"\r\n", @"\n");
             JToken actualToken = JsonConvert.DeserializeObject<JToken>(actualSarif);
             if (!JToken.DeepEquals(actualToken, expectedToken)) { return false; }
 
@@ -384,7 +384,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             actualObject = JsonConvert.DeserializeObject<T>(actualSarif, settings);
             string roundTrippedSarif = JsonConvert.SerializeObject(actualObject, settings);
-
+            roundTrippedSarif = roundTrippedSarif.Replace(@"\r\n", @"\n");
             JToken roundTrippedToken = JsonConvert.DeserializeObject<JToken>(roundTrippedSarif);
             return (JToken.DeepEquals(actualToken, roundTrippedToken));
         }
