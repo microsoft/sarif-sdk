@@ -56,16 +56,22 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         public void MimeType_Directory()
         {
             string directory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
-            Assert.Equal((RuntimeInformation.IsOSPlatform(OSPlatform.Windows)) ? "application/x-directory" : "inode/directory", 
+            if (!string.IsNullOrWhiteSpace(directory))
+            {
+                Assert.Equal((RuntimeInformation.IsOSPlatform(OSPlatform.Linux)) ? "application/octet-stream" : "application/x-directory",
                 MimeType.DetermineFromFileExtension(directory));
+            }
         }
 
         [Fact]
         public void MimeType_DirectoryUri()
         {
             string directory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
-            Assert.Equal((RuntimeInformation.IsOSPlatform(OSPlatform.Windows)) ? "application/x-directory" : "inode/directory",
+            if (!string.IsNullOrWhiteSpace(directory))
+            {
+                Assert.Equal((RuntimeInformation.IsOSPlatform(OSPlatform.Linux)) ? "application/octet-stream" : "application/x-directory",
                 MimeType.DetermineFromFileExtension(new Uri(directory)));
+            }
         }
     }
 }
