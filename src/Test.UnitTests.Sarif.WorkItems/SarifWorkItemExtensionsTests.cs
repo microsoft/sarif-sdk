@@ -4,6 +4,7 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Text;
 
 using FluentAssertions;
@@ -17,6 +18,8 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
 {
     public class SarifWorkItemExtensionsTests
     {
+        private readonly string testSarifFilePath = Path.Combine(Directory.GetCurrentDirectory(), "Test", "Data", "File{0}.sarif");
+
         [Fact]
         public void SarifWorkItemExtensions_CreateWorkItemTitle_HandlesSingleResultWithRuleIdOnly()
         {
@@ -245,7 +248,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
         public void SarifWorkItemExtensions_CreateWorkItemDescription_MultipleResults()
         {
             string toolName = "TestToolName";
-            string firstLocation = @"C:\Test\Data\File{0}sarif";
+            string firstLocation = testSarifFilePath;
             int numOfResult = 15;
             string additionLocationCount = "14";
 
@@ -275,7 +278,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
         public void SarifWorkItemExtensions_CreateWorkItemDescription_ResultsShouldNotBeFiled()
         {
             string toolName = "TestToolName";
-            string firstLocation = @"C:\Test\Data\File{0}sarif";
+            string firstLocation = testSarifFilePath;
             int numOfResult = 8;
             int expectedNumOfResult = 0;
 
@@ -318,7 +321,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
         public void SarifWorkItemExtensions_CreateWorkItemDescription_MultipleResultsMultipleLocations()
         {
             string toolName = "TestToolName";
-            string firstLocation = @"C:\Test\Data\File{0}sarif";
+            string firstLocation = testSarifFilePath;
             int numOfResult = 15;
             string additionLocationCount = "29"; // 15 results each results have 2 locations
 
@@ -358,9 +361,9 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
         public void SarifWorkItemExtensions_CreateWorkItemDescription_SingleResultWithMultipleArtifacts()
         {
             string toolName = "TestToolName";
-            string firstLocation = @"C:\Test\Data\File1.sarif";
-            string secondLocation = @"C:\Test\Data\File2.sarif";
-            string thirdLocation = @"C:\Test\Data\File3.sarif";
+            string firstLocation = string.Format(testSarifFilePath, 1);
+            string secondLocation = string.Format(testSarifFilePath, 2);
+            string thirdLocation = string.Format(testSarifFilePath, 3);
 
             SarifLog sarifLog = TestData.CreateSimpleLogWithRules(0, 1);
             sarifLog.Runs[0].Results[0].Locations = new[]
