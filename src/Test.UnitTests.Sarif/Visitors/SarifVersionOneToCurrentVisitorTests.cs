@@ -47,7 +47,6 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests.Visitors
             => RunTest("MinimumWithPropertiesAndTags.sarif");
 
         [Fact]
-        [Trait(TestTraits.WindowsOnly, "true")]
         public void SarifTransformerTests_ToCurrent_NestedFiles()
             => RunTest("NestedFiles.sarif");
 
@@ -56,7 +55,6 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests.Visitors
             => RunTest("OneRunWithLogicalLocations.sarif");
 
         [Fact]
-        [Trait(TestTraits.WindowsOnly, "true")]
         public void SarifTransformerTests_ToCurrent_OneRunWithFiles()
             => RunTest("OneRunWithFiles.sarif");
 
