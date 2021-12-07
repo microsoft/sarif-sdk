@@ -137,7 +137,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 string commandLine = Environment.CommandLine;
                 string lowerCaseCommandLine = commandLine.ToLower();
 
-                if (lowerCaseCommandLine.Contains("testhost.") || lowerCaseCommandLine.Contains( Path.DirectorySeparatorChar + "xunit.console"))
+                if (lowerCaseCommandLine.Contains("testhost.") || lowerCaseCommandLine.Contains(Path.DirectorySeparatorChar + "xunit.console"))
                 {
                     int index = commandLine.LastIndexOf(Path.DirectorySeparatorChar);
                     string argumentToRedact = commandLine.Substring(0, index + 1);
