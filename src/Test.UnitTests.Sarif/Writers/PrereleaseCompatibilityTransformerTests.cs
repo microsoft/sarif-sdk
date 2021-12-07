@@ -43,6 +43,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         }
 
         [Fact]
+        [Trait(TestTraits.WindowsOnly, "true")]
         public void PrereleaseCompatibilityTransformer_NestedFiles()
         {
             RunTest("NestedFiles.sarif");

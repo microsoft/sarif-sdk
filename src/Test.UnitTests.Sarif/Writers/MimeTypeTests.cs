@@ -2,6 +2,7 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System;
+using System.Runtime.InteropServices;
 
 using Xunit;
 
@@ -52,19 +53,19 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         }
 
         [Fact]
-        [Trait(TestTraits.WindowsOnly, "true")]
         public void MimeType_Directory()
         {
             string directory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
-            Assert.Equal("application/x-directory", MimeType.DetermineFromFileExtension(directory));
+            Assert.Equal((RuntimeInformation.IsOSPlatform(OSPlatform.Windows)) ? "application/x-directory" : "inode/directory", 
+                MimeType.DetermineFromFileExtension(directory));
         }
 
         [Fact]
-        [Trait(TestTraits.WindowsOnly, "true")]
         public void MimeType_DirectoryUri()
         {
             string directory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
-            Assert.Equal("application/x-directory", MimeType.DetermineFromFileExtension(new Uri(directory)));
+            Assert.Equal((RuntimeInformation.IsOSPlatform(OSPlatform.Windows)) ? "application/x-directory" : "inode/directory",
+                MimeType.DetermineFromFileExtension(new Uri(directory)));
         }
     }
 }
