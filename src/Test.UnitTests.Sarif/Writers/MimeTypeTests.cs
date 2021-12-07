@@ -2,7 +2,6 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System;
-using System.Runtime.InteropServices;
 
 using Xunit;
 
@@ -58,8 +57,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             string directory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
             if (!string.IsNullOrWhiteSpace(directory))
             {
-                Assert.Equal((RuntimeInformation.IsOSPlatform(OSPlatform.Linux)) ? "application/octet-stream" : "application/x-directory",
-                MimeType.DetermineFromFileExtension(directory));
+                Assert.Equal("application/x-directory", MimeType.DetermineFromFileExtension(directory));
             }
         }
 
@@ -69,8 +67,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             string directory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
             if (!string.IsNullOrWhiteSpace(directory))
             {
-                Assert.Equal((RuntimeInformation.IsOSPlatform(OSPlatform.Linux)) ? "application/octet-stream" : "application/x-directory",
-                MimeType.DetermineFromFileExtension(new Uri(directory)));
+                Assert.Equal("application/x-directory", MimeType.DetermineFromFileExtension(new Uri(directory)));
             }
         }
     }
