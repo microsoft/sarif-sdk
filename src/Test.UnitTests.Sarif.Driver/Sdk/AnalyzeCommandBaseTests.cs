@@ -908,7 +908,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         }
 
         [Fact]
-        [Trait(TestTraits.WindowsOnly, "true")]
         public void AnalyzeCommandBase_GetFileNameFromUriWorks()
         {
             var sb = new StringBuilder();
@@ -943,7 +942,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         #region ResultsCachingTestsAndHelpers
 
         [Fact]
-        [Trait(TestTraits.WindowsOnly, "true")]
         public void AnalyzeCommandBase_CachesErrors()
         {
             // Produce two errors results
@@ -966,7 +964,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         }
 
         [Fact]
-        [Trait(TestTraits.WindowsOnly, "true")]
         public void AnalyzeCommandBase_CachesNotes()
         {
             // Produce three results in verbose runs only
@@ -990,7 +987,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         }
 
         [Fact]
-        [Trait(TestTraits.WindowsOnly, "true")]
         public void AnalyzeCommandBase_CachesNotificationsWithoutPersistingToLogFile()
         {
             var testCase = new ResultsCachingTestCase
@@ -1014,7 +1010,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         }
 
         [Fact]
-        [Trait(TestTraits.WindowsOnly, "true")]
         public void AnalyzeCommandBase_CachesNotificationsWhenPersistingToLogFile()
         {
             var testCase = new ResultsCachingTestCase
@@ -1039,7 +1034,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         }
 
         [Fact]
-        [Trait(TestTraits.WindowsOnly, "true")]
         public void AnalyzeCommandBase_CachesResultsWithoutPersistingToLogFile()
         {
             var testCase = new ResultsCachingTestCase
@@ -1062,7 +1056,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         }
 
         [Fact]
-        [Trait(TestTraits.WindowsOnly, "true")]
         public void AnalyzeCommandBase_CachesResultsWhenPersistingToLogFile()
         {
             var testCase = new ResultsCachingTestCase
@@ -1085,7 +1078,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         }
 
         [Fact]
-        [Trait(TestTraits.WindowsOnly, "true")]
         public void AnalyzeCommandBase_ShouldEmitAutomationDetailsWhenIdOrGuidExists()
         {
             const string automationId = "automation-id";
@@ -1124,7 +1116,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         }
 
         [Fact(Timeout = 5000)]
-        [Trait(TestTraits.WindowsOnly, "true")]
         public void AnalyzeCommandBase_ShouldGenerateSameResultsWhenRunningSingleAndMultiThread_CoyoteTest()
         {
             Configuration config = Configuration.Create().WithTestingIterations(100).WithConcurrencyFuzzingEnabled();
@@ -1144,7 +1135,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         }
 
         [Fact]
-        [Trait(TestTraits.WindowsOnly, "true")]
         public void AnalyzeCommandBase_ShouldGenerateSameResultsWhenRunningSingleAndMultiThread()
         {
             int[] scenarios = SetupScenarios();
@@ -1174,19 +1164,19 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 for (int i = 0; i < scenario; i++)
                 {
                     singleThreadTargets.Add($"Error.{i}.cpp");
-                    multiThreadTargets.Add($@"{Environment.CurrentDirectory}\Error.{i}.cpp");
+                    multiThreadTargets.Add($@"{Environment.CurrentDirectory}{Path.DirectorySeparatorChar}Error.{i}.cpp");
                 }
 
                 for (int i = 0; i < scenario / 2; i++)
                 {
                     singleThreadTargets.Add($"Warning.{i}.cpp");
-                    multiThreadTargets.Add($@"{Environment.CurrentDirectory}\Warning.{i}.cpp");
+                    multiThreadTargets.Add($@"{Environment.CurrentDirectory}{Path.DirectorySeparatorChar}Warning.{i}.cpp");
                 }
 
                 for (int i = 0; i < scenario / 5; i++)
                 {
                     singleThreadTargets.Add($"Note.{i}.cpp");
-                    multiThreadTargets.Add($@"{Environment.CurrentDirectory}\Note.{i}.cpp");
+                    multiThreadTargets.Add($@"{Environment.CurrentDirectory}{Path.DirectorySeparatorChar}Note.{i}.cpp");
                 }
 
                 var testCase = new ResultsCachingTestCase
@@ -1398,7 +1388,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             for (int i = 0; i < files.Count; i++)
             {
                 string fullyQualifiedName = Path.GetFileName(files[i]) == files[i]
-                    ? Environment.CurrentDirectory + @"\" + files[i]
+                    ? Environment.CurrentDirectory + Path.DirectorySeparatorChar + files[i]
                     : files[i];
                 string fileNameWithoutExtension = Path.GetFileNameWithoutExtension(fullyQualifiedName);
                 mockFileSystem.Setup(x => x.FileReadAllText(It.Is<string>(f => f == fullyQualifiedName))).Returns(logFileContents);
