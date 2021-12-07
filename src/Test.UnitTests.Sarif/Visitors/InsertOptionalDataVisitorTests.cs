@@ -223,7 +223,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         }
 
         [Fact]
-        [Trait(TestTraits.WindowsOnly, "true")]
         public void InsertOptionalDataVisitor_PersistsHashesAndTextFiles()
         {
             RunTest("CoreTests-Relative.sarif",
@@ -232,7 +231,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         }
 
         [Fact]
-        [Trait(TestTraits.WindowsOnly, "true")]
         public void InsertOptionalDataVisitor_PersistsAll()
         {
             RunTest("CoreTests-Relative.sarif",
@@ -374,7 +372,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         }
 
         [Fact]
-        [Trait(TestTraits.WindowsOnly, "true")]
         public void InsertOptionalDataVisitor_CanVisitIndividualResultsInASuppliedRun()
         {
             const string TestFileContents =
@@ -683,11 +680,10 @@ Three";
         }
 
         [Fact]
-        [Trait(TestTraits.WindowsOnly, "true")]
         public void InsertOptionalDataVisitor_ResolvesOriginalUriBaseIds()
         {
             string inputFileName = "InsertOptionalDataVisitor.txt";
-            string testDirectory = GetTestDirectory("InsertOptionalDataVisitor") + @"\";
+            string testDirectory = GetTestDirectory("InsertOptionalDataVisitor") + Path.DirectorySeparatorChar;
             string uriBaseId = "TEST_DIR";
 
             IDictionary<string, ArtifactLocation> originalUriBaseIds = new Dictionary<string, ArtifactLocation> { { uriBaseId, new ArtifactLocation { Uri = new Uri(testDirectory, UriKind.Absolute) } } };
