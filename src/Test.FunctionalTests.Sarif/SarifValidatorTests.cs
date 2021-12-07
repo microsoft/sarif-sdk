@@ -194,10 +194,10 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         private static readonly string[] s_testFileDirectories = new string[]
         {
-            @"v2\ConverterTestData",
-            @"v2\SpecExamples",
-            @"v2\ObsoleteFormats",
-            @"..\..\Test.UnitTests.Sarif\netcoreapp3.1\TestData"
+            Path.Combine("v2", "ConverterTestData"),
+            Path.Combine("v2", "SpecExamples"),
+            Path.Combine("v2", "ObsoleteFormats"),
+            Path.Combine("..", "..", "Test.UnitTests.Sarif", "netcoreapp3.1", "TestData")
         };
 
         private static IEnumerable<string> s_testCases;
