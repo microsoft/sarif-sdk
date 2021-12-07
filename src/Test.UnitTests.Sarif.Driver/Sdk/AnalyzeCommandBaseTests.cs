@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Runtime.InteropServices;
 using System.Text;
 
 using FluentAssertions;
@@ -916,13 +917,17 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             {
                 new Tuple<string, string>(null, null),
                 new Tuple<string, string>("file.txt", "file.txt"),
-                new Tuple<string, string>(@".\file.txt", "file.txt"),
-                new Tuple<string, string>(@"c:\directory\file.txt", "file.txt"),
-                new Tuple<string, string>(@"\\computer\computer\file.txt", "file.txt"),
                 new Tuple<string, string>("file://directory/file.txt", "file.txt"),
                 new Tuple<string, string>("/file.txt", "file.txt"),
                 new Tuple<string, string>("directory/file.txt", "file.txt"),
             };
+
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+            {
+                testCases.Append(new Tuple<string, string>(@".\file.txt", "file.txt"));
+                testCases.Append(new Tuple<string, string>(@"c:\directory\file.txt", "file.txt"));
+                testCases.Append(new Tuple<string, string>(@"\\computer\computer\file.txt", "file.txt"));
+            }
 
             foreach (Tuple<string, string> testCase in testCases)
             {
