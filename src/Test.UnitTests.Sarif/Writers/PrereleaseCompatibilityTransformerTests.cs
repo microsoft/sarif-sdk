@@ -32,7 +32,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         [Fact]
         public void PrereleaseCompatibilityTransformer_UpgradesPrereleaseTwoZeroZero()
         {
-            string comprehensiveSarifPath = Path.Combine(Environment.CurrentDirectory, @"v2\ObsoleteFormats\ComprehensivePrereleaseTwoZeroZero.sarif");
+            string comprehensiveSarifPath = Path.Combine(Environment.CurrentDirectory, "v2", "ObsoleteFormats", "ComprehensivePrereleaseTwoZeroZero.sarif");
 
             string sarifText = File.ReadAllText(comprehensiveSarifPath);
 
