@@ -21,7 +21,7 @@ namespace SarifBaseline.Extensions
 
         public static BaselineFilteringMode GetBaselineFilteringMode(this SarifLog log)
         {
-            if (log == null) { throw new ArgumentNullException("log"); }
+            if (log == null) { throw new ArgumentNullException(nameof(log)); }
 
             BaselineFilteringMode mode;
 
@@ -42,7 +42,7 @@ namespace SarifBaseline.Extensions
 
         public static void SetBaselineFilteringMode(this SarifLog log, BaselineFilteringMode mode)
         {
-            if (log == null) { throw new ArgumentNullException("log"); }
+            if (log == null) { throw new ArgumentNullException(nameof(log)); }
             log.SetProperty<string>(SarifLogExtensions.BaselineFilteringPropertyName, mode.ToString());
         }
 

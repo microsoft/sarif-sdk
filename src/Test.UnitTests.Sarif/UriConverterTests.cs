@@ -61,7 +61,7 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif
             testObject.NonEmptyUri.OriginalString.Should().Be("https://www.example.com/rules/TST0001.html");
             testObject.EmptyUri.OriginalString.Should().BeEmpty();
             testObject.EmptyUriList.Should().BeEmpty();
-            testObject.NonEmptyUriList.Count().Should().Be(2);
+            testObject.NonEmptyUriList.Count.Should().Be(2);
             testObject.NonEmptyUriList.Select(uri => uri.OriginalString).Should().ContainInOrder(
                 "https://www.example.com/page1",
                 "https://www.example.com/page2");

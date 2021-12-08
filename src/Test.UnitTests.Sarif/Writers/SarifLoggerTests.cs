@@ -196,7 +196,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             };
 
             var sb = new StringBuilder();
-            int argumentsCount = analysisTargetsArguments.Count();
+            int argumentsCount = analysisTargetsArguments.Length;
 
             for (int i = 0; i < argumentsCount; i++)
             {

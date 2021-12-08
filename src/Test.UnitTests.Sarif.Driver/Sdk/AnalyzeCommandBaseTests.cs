@@ -1583,8 +1583,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 // cases will not do this, because the return of 'not applicable' from the CanAnalyze
                 // method will result in Analyze not getting called subsequently for those scan targets.
                 (NotificationsWillBeConvertedToErrorResults
-                    ? Files.Count() - Files.Where((f) => f.Contains("NotApplicable")).Count()
-                    : 0);
+                    ? Files.Count - Files.Count((f) => f.Contains("NotApplicable")) : 0);
 
             public int ExpectedWarningCount =>
                 Files.Where((f) => f.Contains("Warning")).Count();
