@@ -150,20 +150,19 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
 
             IEnumerable<Result> results = log?.Runs?[0]?.Results.Where(r => r.ShouldBeFiled());
             Uri runRepositoryUri = log?.Runs.FirstOrDefault()?.VersionControlProvenance?.FirstOrDefault().RepositoryUri;
-            Uri detectionLocationUri = !string.IsNullOrEmpty(runRepositoryUri?.OriginalString) ?
-                                       runRepositoryUri :
-                                       results?.FirstOrDefault()?.Locations?[0].PhysicalLocation?.ArtifactLocation?.Uri;
+            Uri detectionLocationUri = !string.IsNullOrEmpty(runRepositoryUri?.OriginalString)
+                ? runRepositoryUri
+                : results?.FirstOrDefault()?.Locations?[0].PhysicalLocation?.ArtifactLocation?.Uri;
 
             string detectionLocation = (detectionLocationUri?.IsAbsoluteUri == true && detectionLocationUri?.Scheme == "https")
                 ? context.CreateLinkText(detectionLocationUri.OriginalString, detectionLocationUri?.OriginalString)
                 : detectionLocationUri?.OriginalString;
 
-            int locCount = results == null ? 0 :
-                           results
-                           .Where(r => r.Locations != null)
-                           .SelectMany(r => r.Locations)
-                           .Where(l => l.PhysicalLocation != null && l.PhysicalLocation.ArtifactLocation != null && l.PhysicalLocation.ArtifactLocation.Uri != null)
-                           .Count();
+            int locCount = results == null
+                ? 0
+                : results.Where(r => r.Locations != null)
+                         .SelectMany(r => r.Locations)
+                         .Count(l => l.PhysicalLocation != null && l.PhysicalLocation.ArtifactLocation != null && l.PhysicalLocation.ArtifactLocation.Uri != null);
 
             if (locCount > 1)
             {
