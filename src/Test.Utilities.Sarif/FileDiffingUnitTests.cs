@@ -27,14 +27,14 @@ namespace Microsoft.CodeAnalysis.Sarif
     {
         public static string GetTestDirectory(string subdirectory = "")
         {
-            return Path.GetFullPath(Path.Combine(@$"TestData", subdirectory));
+            return Path.GetFullPath(Path.Combine("TestData", subdirectory));
         }
 
         public static string GetProductDirectory()
         {
             string path = typeof(FileDiffingUnitTests).Assembly.Location;
             path = MoveUp(path, 6);
-            return Path.Combine(path, @"src") + Path.DirectorySeparatorChar.ToString();
+            return Path.Combine(path, "src") + Path.DirectorySeparatorChar.ToString();
         }
 
         public static string MoveUp(string path, int numberOfLevels)
@@ -81,9 +81,9 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         protected virtual string ProductDirectory => GetProductDirectory();
 
-        protected virtual string TestDirectory => Path.Combine(ProductDirectory, TestBinaryName, @"TestData") + Path.DirectorySeparatorChar.ToString();
+        protected virtual string TestDirectory => Path.Combine(ProductDirectory, TestBinaryName, "TestData") + Path.DirectorySeparatorChar.ToString();
 
-        protected virtual string ProductTestDataDirectory => Path.Combine(ProductDirectory, @"TestData", TypeUnderTest);
+        protected virtual string ProductTestDataDirectory => Path.Combine(ProductDirectory, "TestData", TypeUnderTest);
 
         protected virtual string IntermediateTestFolder { get { return string.Empty; } }
 
