@@ -145,6 +145,11 @@ namespace Microsoft.CodeAnalysis.Sarif
             return true;
         }
 
+        public static string UseLinuxNewline(this string input)
+        {
+            return input?.Replace(@"\r\n", @"\n");
+        }
+
         public static Message ToMessage(this string text)
         {
             return new Message { Text = text };

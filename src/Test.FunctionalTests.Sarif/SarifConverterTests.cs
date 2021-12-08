@@ -165,10 +165,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 return generatedFileName;
             }
 
-            string expectedSarif = File.ReadAllText(expectedFileName).Replace(@"\r\n", @"\n");
+            string expectedSarif = File.ReadAllText(expectedFileName);
             PrereleaseCompatibilityTransformer.UpdateToCurrentVersion(expectedSarif, formatting: Formatting.Indented, out expectedSarif);
 
-            string actualSarif = File.ReadAllText(generatedFileName).Replace(@"\r\n", @"\n");
+            string actualSarif = File.ReadAllText(generatedFileName);
 
             if (!FileDiffingUnitTests.AreEquivalent<SarifLog>(actualSarif,
                                                               expectedSarif,

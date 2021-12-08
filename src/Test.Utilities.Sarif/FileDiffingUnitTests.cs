@@ -370,8 +370,8 @@ namespace Microsoft.CodeAnalysis.Sarif
             actualObject = default;
 
             expectedSarif = expectedSarif ?? "{}";
-            actualSarif = actualSarif.Replace(@"\r\n", @"\n");
-            expectedSarif = expectedSarif.Replace(@"\r\n", @"\n");
+            actualSarif = actualSarif.UseLinuxNewline();
+            expectedSarif = expectedSarif.UseLinuxNewline();
             JToken expectedToken = JsonConvert.DeserializeObject<JToken>(expectedSarif);
             JToken actualToken = JsonConvert.DeserializeObject<JToken>(actualSarif);
             if (!JToken.DeepEquals(actualToken, expectedToken)) { return false; }
