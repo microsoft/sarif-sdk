@@ -18,7 +18,7 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Driver.Sdk
         {
             var skimmer = new TestRule();
 
-            skimmer.MessageStrings.Count.Should().Be(new TestRule().MessageStrings.Count());
+            skimmer.MessageStrings.Count.Should().Be(new TestRule().MessageStrings.Count);
             skimmer.MessageStrings["Failed"].Text.Should().Be(SkimmerBaseTestResources.TEST1001_Failed);
             skimmer.MessageStrings["Note"].Text.Should().Be(SkimmerBaseTestResources.TEST1001_Note);
             skimmer.MessageStrings["Pass"].Text.Should().Be(SkimmerBaseTestResources.TEST1001_Pass);

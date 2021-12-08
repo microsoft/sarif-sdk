@@ -12,7 +12,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
     {
         public static IDictionary<string, ArtifactLocation> ConstructUriBaseIdsDictionary(this CommonOptionsBase options)
         {
-            if (options.UriBaseIds == null || options.UriBaseIds.Count() == 0) { return null; }
+            if (options.UriBaseIds == null || !options.UriBaseIds.Any()) { return null; }
 
             var uriBaseIdsDictionary = new Dictionary<string, ArtifactLocation>();
 
