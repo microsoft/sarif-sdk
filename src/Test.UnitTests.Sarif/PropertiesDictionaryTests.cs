@@ -4,6 +4,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Threading.Tasks;
 
 using FluentAssertions;
 
@@ -124,6 +125,40 @@ namespace Microsoft.CodeAnalysis.Sarif
             ((TypedPropertiesDictionary<Version>)properties[MapKey])[ValueKey].Should().Be(version);
         }
 
+        [Fact]
+        public void PropertiesDictionary_ConcurrentReadAndWrite()
+        {
+            var properties = new PropertiesDictionary();
+
+            Exception exception = Record.Exception(() =>
+            {
+                List<Task> taskList = new List<Task>();
+
+                for (int i = 0; i < 1000; i++)
+                {
+                    // repeatedly set to same field
+                    taskList.Add(Task.Factory.StartNew(() =>
+                    properties.SetProperty(StringSetProperty, new StringSet(new string[] { i.ToString() }))));
+
+                    // repeatedly set to different fields
+                    taskList.Add(Task.Factory.StartNew(() =>
+                    properties.SetProperty(GetStringSetProperty(i), new StringSet(new string[] { i.ToString() }))));
+
+                    // repeatedly read from same field
+                    taskList.Add(Task.Factory.StartNew(() =>
+                    properties.GetProperty(StringSetProperty)));
+
+                    // repeatedly read from different fields
+                    taskList.Add(Task.Factory.StartNew(() =>
+                    properties.GetProperty(GetStringSetProperty(i))));
+                }
+
+                Task.WaitAll(taskList.ToArray());
+            });
+            Assert.Null(exception);
+        }
+
+
         private void ValidateProperties(PropertiesDictionary actual, PropertiesDictionary expected)
         {
             actual.Keys.Count.Should().Be(expected.Keys.Count);
@@ -191,6 +226,10 @@ namespace Microsoft.CodeAnalysis.Sarif
         public static PerLanguageOption<StringSet> StringSetProperty { get; } =
             new PerLanguageOption<StringSet>(
                 FEATURE, nameof(StringSetProperty), defaultValue: () => { return STRINGSET_DEFAULT; });
+
+        public static PerLanguageOption<StringSet> GetStringSetProperty(int i) =>
+            new PerLanguageOption<StringSet>(
+                FEATURE, nameof(StringSetProperty) + i, defaultValue: () => { return STRINGSET_DEFAULT; });
 
         public static PerLanguageOption<IntegerSet> IntegerSetProperty { get; } =
             new PerLanguageOption<IntegerSet>(

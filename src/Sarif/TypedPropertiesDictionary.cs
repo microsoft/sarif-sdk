@@ -2,8 +2,8 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
-using System.Runtime.Serialization;
 
 using Newtonsoft.Json;
 
@@ -13,7 +13,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
     [Serializable]
     [JsonConverter(typeof(TypedPropertiesDictionaryConverter))]
-    public class TypedPropertiesDictionary<T> : Dictionary<string, T>, IMarker where T : new()
+    public class TypedPropertiesDictionary<T> : ConcurrentDictionary<string, T>, IMarker where T : new()
     {
         public TypedPropertiesDictionary() : this(null, StringComparer.Ordinal)
         {
@@ -28,11 +28,6 @@ namespace Microsoft.CodeAnalysis.Sarif
                     this[key] = (T)initializer[key];
                 }
             }
-        }
-
-        protected TypedPropertiesDictionary(SerializationInfo info, StreamingContext context)
-            : base(info, context)
-        {
         }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

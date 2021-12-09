@@ -6,7 +6,6 @@ using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.ComponentModel;
 using System.IO;
-using System.Runtime.Serialization;
 using System.Xml;
 
 using Newtonsoft.Json;
@@ -34,11 +33,6 @@ namespace Microsoft.CodeAnalysis.Sarif
             PropertiesDictionary initializer,
             IEqualityComparer<string> comparer)
             : base(initializer, comparer)
-        {
-        }
-
-        protected PropertiesDictionary(SerializationInfo info, StreamingContext context)
-            : base(info, context)
         {
         }
 
