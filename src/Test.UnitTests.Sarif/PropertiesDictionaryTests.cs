@@ -18,80 +18,85 @@ namespace Microsoft.CodeAnalysis.Sarif
         private const string OPTIONS = FEATURE + ".Options";
 
         private static readonly bool BOOL_DEFAULT = true;
+        private static readonly bool BOOL_NONDEFAULT = false;
         private static readonly StringSet STRINGSET_DEFAULT = new StringSet(new string[] { "a", "b", "c" });
+        private static readonly StringSet STRINGSET_NONDEFAULT = new StringSet(new string[] { "d", "e", "f" });
         private static readonly IntegerSet INTEGERSET_DEFAULT = new IntegerSet(new int[] { -1, 0, 1, 2 });
+        private static readonly IntegerSet INTEGERSET_NONDEFAULT = new IntegerSet(new int[] { -3, 0, 6, 9 });
         private static readonly PropertiesDictionary PROPERTIES_DEFAULT = new PropertiesDictionary
         {
             { "TestKey", "TestValue" }
         };
+        private static readonly PropertiesDictionary PROPERTIES_NONDEFAULT = new PropertiesDictionary
+        {
+            { "TestNonDefaultKey", "TestNonDefaultValue" },
+            { "NewKey", 1337 },
+            { "AnotherKey", true }
+        };
 
         [Fact]
-        public void PropertiesDictionary_RoundTripBoolean()
+        public void PropertiesDictionary_RoundTrip_Boolean()
         {
             var properties = new PropertiesDictionary();
             properties.GetProperty(BooleanProperty).Should().Be(BOOL_DEFAULT);
 
-            bool nonDefaultValue = false;
-            properties.SetProperty(BooleanProperty, nonDefaultValue);
-            properties.GetProperty(BooleanProperty).Should().Be(nonDefaultValue);
+            properties.SetProperty(BooleanProperty, BOOL_NONDEFAULT);
+            properties.GetProperty(BooleanProperty).Should().Be(BOOL_NONDEFAULT);
 
             properties = RoundTripThroughXml(properties);
-            properties.GetProperty(BooleanProperty).Should().Be(nonDefaultValue);
+            properties.GetProperty(BooleanProperty).Should().Be(BOOL_NONDEFAULT);
 
             properties = RoundTripThroughJson(properties);
-            properties.GetProperty(BooleanProperty).Should().Be(nonDefaultValue);
+            properties.GetProperty(BooleanProperty).Should().Be(BOOL_NONDEFAULT);
         }
 
         [Fact]
-        public void PropertiesDictionary_RoundTripStringSet()
+        public void PropertiesDictionary_RoundTrip_StringSet()
         {
             var properties = new PropertiesDictionary();
             ValidateSets(properties.GetProperty(StringSetProperty), STRINGSET_DEFAULT);
 
-            var nonDefaultValue = new StringSet(new string[] { "d", "e" });
-            properties.SetProperty(StringSetProperty, nonDefaultValue);
+            properties.SetProperty(StringSetProperty, STRINGSET_NONDEFAULT);
 
             properties = RoundTripThroughXml(properties);
-            ValidateSets(properties.GetProperty(StringSetProperty), nonDefaultValue);
+            ValidateSets(properties.GetProperty(StringSetProperty), STRINGSET_NONDEFAULT);
 
             properties = RoundTripThroughJson(properties);
-            ValidateSets(properties.GetProperty(StringSetProperty), nonDefaultValue);
+            ValidateSets(properties.GetProperty(StringSetProperty), STRINGSET_NONDEFAULT);
         }
 
         [Fact]
-        public void PropertiesDictionary_RoundTripIntegerSet()
+        public void PropertiesDictionary_RoundTrip_IntegerSet()
         {
             var properties = new PropertiesDictionary();
             ValidateSets(properties.GetProperty(IntegerSetProperty), INTEGERSET_DEFAULT);
 
-            var nonDefaultValue = new IntegerSet(new int[] { 3, 4 });
-            properties.SetProperty(IntegerSetProperty, nonDefaultValue);
+            properties.SetProperty(IntegerSetProperty, INTEGERSET_NONDEFAULT);
 
             properties = RoundTripThroughXml(properties);
-            ValidateSets(properties.GetProperty(IntegerSetProperty), nonDefaultValue);
+            ValidateSets(properties.GetProperty(IntegerSetProperty), INTEGERSET_NONDEFAULT);
 
             properties = RoundTripThroughJson(properties);
-            ValidateSets(properties.GetProperty(IntegerSetProperty), nonDefaultValue);
+            ValidateSets(properties.GetProperty(IntegerSetProperty), INTEGERSET_NONDEFAULT);
         }
 
         [Fact]
-        public void PropertiesDictionary_RoundTripNestedPropertiesDictionary()
+        public void PropertiesDictionary_RoundTrip_NestedPropertiesDictionary()
         {
             var properties = new PropertiesDictionary();
             ValidateProperties(properties.GetProperty(PropertiesDictionaryProperty), PROPERTIES_DEFAULT);
 
-            var nonDefaultValue = new PropertiesDictionary { { "NewKey", 1337 }, { "AnotherKey", true } };
-            properties.SetProperty(PropertiesDictionaryProperty, nonDefaultValue);
+            properties.SetProperty(PropertiesDictionaryProperty, PROPERTIES_NONDEFAULT);
 
             properties = RoundTripThroughXml(properties);
-            ValidateProperties(properties.GetProperty(PropertiesDictionaryProperty), nonDefaultValue);
+            ValidateProperties(properties.GetProperty(PropertiesDictionaryProperty), PROPERTIES_NONDEFAULT);
 
             properties = RoundTripThroughJson(properties);
-            ValidateProperties(properties.GetProperty(PropertiesDictionaryProperty), nonDefaultValue);
+            ValidateProperties(properties.GetProperty(PropertiesDictionaryProperty), PROPERTIES_NONDEFAULT);
         }
 
         [Fact]
-        public void PropertiesDictionary_RoundTripEmptyStringToVersionMap()
+        public void PropertiesDictionary_RoundTrip_EmptyStringToVersionMap()
         {
             const string MapKey = "MapKey";
             const string ValueKey = "NewKey";
@@ -109,7 +114,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         }
 
         [Fact]
-        public void PropertiesDictionary_RoundTripStringToVersionMap()
+        public void PropertiesDictionary_RoundTrip_StringToVersionMap()
         {
             const string MapKey = "MapKey";
             const string ValueKey = "NewKey";
@@ -158,6 +163,35 @@ namespace Microsoft.CodeAnalysis.Sarif
             Assert.Null(exception);
         }
 
+        [Fact]
+        public void PropertiesDictionary_TestCacheDescription()
+        {
+            PropertiesDictionary_TestCacheDescription_Helper(GenerateBooleanProperty, BOOL_NONDEFAULT);
+            PropertiesDictionary_TestCacheDescription_Helper(GenerateStringSetProperty, STRINGSET_NONDEFAULT);
+            PropertiesDictionary_TestCacheDescription_Helper(GenerateIntegerSetProperty, INTEGERSET_NONDEFAULT);
+            PropertiesDictionary_TestCacheDescription_Helper(GeneratePropertiesDictionaryProperty, PROPERTIES_NONDEFAULT);
+        }
+        private void PropertiesDictionary_TestCacheDescription_Helper(Func<int, string, IOption> GeneratePropertyMethod, object value)
+        {
+            string textLoaded = string.Empty;
+            string desc = "desc to save, no: ";
+
+            var properties = new PropertiesDictionary();
+
+            properties.SetProperty(GeneratePropertyMethod(1, desc + 1), value, true);
+            properties.SetProperty(GeneratePropertyMethod(2, null), value, true);
+            properties.SetProperty(GeneratePropertyMethod(3, desc + 3), value, true);
+            properties.SetProperty(GeneratePropertyMethod(4, desc + 4), value, false);
+            properties.SetProperty(GeneratePropertyMethod(5, desc + 5), value, true);
+
+            textLoaded = RoundTripWriteToXmlAndReadAsText(properties);
+            textLoaded.Should().Contain(desc + 1);
+            textLoaded.Should().NotContain(desc + 2);
+            textLoaded.Should().Contain(desc + 3);
+            textLoaded.Should().NotContain(desc + 4);
+            textLoaded.Should().Contain(desc + 5);
+        }
+
         private void ValidateProperties(PropertiesDictionary actual, PropertiesDictionary expected)
         {
             actual.Keys.Count.Should().Be(expected.Keys.Count);
@@ -198,6 +232,26 @@ namespace Microsoft.CodeAnalysis.Sarif
             return properties;
         }
 
+        private string RoundTripWriteToXmlAndReadAsText(PropertiesDictionary properties)
+        {
+            string temp = Path.GetTempFileName();
+            string textLoaded = string.Empty;
+
+            try
+            {
+                properties.SaveToXml(temp);
+                textLoaded = File.ReadAllText(temp);
+            }
+            finally
+            {
+                if (File.Exists(temp))
+                {
+                    File.Delete(temp);
+                }
+            }
+            return textLoaded;
+        }
+
         private PropertiesDictionary RoundTripThroughJson(PropertiesDictionary properties)
         {
             string temp = Path.GetTempFileName();
@@ -222,20 +276,32 @@ namespace Microsoft.CodeAnalysis.Sarif
             new PerLanguageOption<bool>(
                 FEATURE, nameof(BooleanProperty), defaultValue: () => { return BOOL_DEFAULT; });
 
+        public static PerLanguageOption<bool> GenerateBooleanProperty(int i, string description = null) =>
+            new PerLanguageOption<bool>(
+                FEATURE, nameof(BooleanProperty) + i, defaultValue: () => { return BOOL_DEFAULT; }, description);
+
         public static PerLanguageOption<StringSet> StringSetProperty { get; } =
             new PerLanguageOption<StringSet>(
                 FEATURE, nameof(StringSetProperty), defaultValue: () => { return STRINGSET_DEFAULT; });
 
-        public static PerLanguageOption<StringSet> GenerateStringSetProperty(int i) =>
+        public static PerLanguageOption<StringSet> GenerateStringSetProperty(int i, string description = null) =>
             new PerLanguageOption<StringSet>(
-                FEATURE, nameof(StringSetProperty) + i, defaultValue: () => { return STRINGSET_DEFAULT; });
+                FEATURE, nameof(StringSetProperty) + i, defaultValue: () => { return STRINGSET_DEFAULT; }, description);
 
         public static PerLanguageOption<IntegerSet> IntegerSetProperty { get; } =
             new PerLanguageOption<IntegerSet>(
                 FEATURE, nameof(IntegerSetProperty), defaultValue: () => { return INTEGERSET_DEFAULT; });
 
+        public static PerLanguageOption<IntegerSet> GenerateIntegerSetProperty(int i, string description = null) =>
+            new PerLanguageOption<IntegerSet>(
+                FEATURE, nameof(IntegerSetProperty) + i, defaultValue: () => { return INTEGERSET_DEFAULT; }, description);
+
         public static PerLanguageOption<PropertiesDictionary> PropertiesDictionaryProperty { get; } =
             new PerLanguageOption<PropertiesDictionary>(
                 FEATURE, nameof(PropertiesDictionaryProperty), defaultValue: () => { return PROPERTIES_DEFAULT; });
+
+        public static PerLanguageOption<PropertiesDictionary> GeneratePropertiesDictionaryProperty(int i, string description = null) =>
+            new PerLanguageOption<PropertiesDictionary>(
+                FEATURE, nameof(PropertiesDictionaryProperty) + i, defaultValue: () => { return PROPERTIES_DEFAULT; }, description);
     }
 }
