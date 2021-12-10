@@ -182,9 +182,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
         protected virtual void PostLogFile(string postUri, string outputFilePath, IFileSystem fileSystem)
         {
-            PostLogFile(postUri, outputFilePath, fileSystem, new HttpClient())
-                .GetAwaiter()
-                .GetResult();
+            using (var httpClient = new HttpClient())
+            {
+                PostLogFile(postUri, outputFilePath, fileSystem, httpClient)
+                    .GetAwaiter()
+                    .GetResult();
+            }
         }
 
         internal static async Task PostLogFile(string postUri, string outputFilePath, IFileSystem fileSystem, HttpClient httpClient)

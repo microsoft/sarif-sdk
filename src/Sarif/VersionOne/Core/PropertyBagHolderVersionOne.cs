@@ -43,7 +43,7 @@ namespace Microsoft.CodeAnalysis.Sarif.VersionOne
 
         public bool TryGetProperty(string propertyName, out string value)
         {
-            if (Properties != null && Properties.Keys.Contains(propertyName))
+            if (Properties != null && Properties.ContainsKey(propertyName))
             {
                 value = GetProperty(propertyName);
                 return true;
@@ -79,7 +79,7 @@ namespace Microsoft.CodeAnalysis.Sarif.VersionOne
 
         public bool TryGetProperty<T>(string propertyName, out T value)
         {
-            if (Properties != null && Properties.Keys.Contains(propertyName))
+            if (Properties != null && Properties.ContainsKey(propertyName))
             {
                 value = GetProperty<T>(propertyName);
                 return true;
