@@ -31,7 +31,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        protected Dictionary<string, string> SettingNameToDescriptionsMap { get; set; }
+        protected ConcurrentDictionary<string, string> SettingNameToDescriptionsMap { get; set; }
 
         public virtual T GetProperty(PerLanguageOption<T> setting)
         {
@@ -69,7 +69,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             if (cacheDescription)
             {
-                SettingNameToDescriptionsMap = SettingNameToDescriptionsMap ?? new Dictionary<string, string>();
+                SettingNameToDescriptionsMap ??= new ConcurrentDictionary<string, string>();
                 SettingNameToDescriptionsMap[setting.Name] = setting.Description;
             }
 

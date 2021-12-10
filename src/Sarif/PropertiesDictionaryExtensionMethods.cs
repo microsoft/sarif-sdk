@@ -3,6 +3,7 @@
 
 using System;
 using System.Collections;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.ComponentModel;
@@ -27,7 +28,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             XmlWriter writer,
             XmlWriterSettings settings,
             string name,
-            Dictionary<string, string> settingNameToDescriptionMap)
+            ConcurrentDictionary<string, string> settingNameToDescriptionMap)
         {
             if (propertyBag == null)
             {

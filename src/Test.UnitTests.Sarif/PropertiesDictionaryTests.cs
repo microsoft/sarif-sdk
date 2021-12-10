@@ -142,7 +142,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
                     // repeatedly set to different fields
                     taskList.Add(Task.Factory.StartNew(() =>
-                    properties.SetProperty(GetStringSetProperty(i), new StringSet(new string[] { i.ToString() }))));
+                    properties.SetProperty(GenerateStringSetProperty(i), new StringSet(new string[] { i.ToString() }))));
 
                     // repeatedly read from same field
                     taskList.Add(Task.Factory.StartNew(() =>
@@ -150,14 +150,13 @@ namespace Microsoft.CodeAnalysis.Sarif
 
                     // repeatedly read from different fields
                     taskList.Add(Task.Factory.StartNew(() =>
-                    properties.GetProperty(GetStringSetProperty(i))));
+                    properties.GetProperty(GenerateStringSetProperty(i))));
                 }
 
                 Task.WaitAll(taskList.ToArray());
             });
             Assert.Null(exception);
         }
-
 
         private void ValidateProperties(PropertiesDictionary actual, PropertiesDictionary expected)
         {
@@ -227,7 +226,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             new PerLanguageOption<StringSet>(
                 FEATURE, nameof(StringSetProperty), defaultValue: () => { return STRINGSET_DEFAULT; });
 
-        public static PerLanguageOption<StringSet> GetStringSetProperty(int i) =>
+        public static PerLanguageOption<StringSet> GenerateStringSetProperty(int i) =>
             new PerLanguageOption<StringSet>(
                 FEATURE, nameof(StringSetProperty) + i, defaultValue: () => { return STRINGSET_DEFAULT; });
 
