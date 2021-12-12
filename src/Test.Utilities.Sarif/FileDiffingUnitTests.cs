@@ -71,9 +71,11 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         protected virtual string ProductDirectory => GetProductDirectory();
 
-        protected virtual string TestDirectory => Path.Combine(ProductDirectory, TestBinaryName, @"TestData\");
+        // The single TestData directory at the root of the project which stores shared test assets.
+        protected virtual string ProductTestDataDirectory => Path.Combine(ProductDirectory, @"TestData\");
 
-        protected virtual string ProductTestDataDirectory => Path.Combine(ProductDirectory, @"TestData\", TypeUnderTest);
+        // A TestData directory at the root of each test binary, which provides test assets only for it.
+        protected virtual string TestBinaryTestDataDirectory => Path.Combine(ProductDirectory, TestBinaryName, @"TestData\");
 
         protected virtual string IntermediateTestFolder { get { return string.Empty; } }
 
@@ -275,7 +277,10 @@ namespace Microsoft.CodeAnalysis.Sarif
                 sb.AppendLine(
                     "To rebaseline with current behavior:");
 
-                string testDirectory = Path.Combine(ProductTestDataDirectory, "ExpectedOutputs");
+                // TODO I suspect this baseline command works in some contexts (when we have a specific type under
+                // test) but breaks the general case of rebaselining some tests that are global to the project, 
+                // such as in the BinSkim project.
+                string testDirectory = Path.Combine(TestBinaryTestDataDirectory, TypeUnderTest, "ExpectedOutputs");
                 sb.AppendLine(GenerateRebaselineCommand(TypeUnderTest, testDirectory, actualRootDirectory));
             }
 

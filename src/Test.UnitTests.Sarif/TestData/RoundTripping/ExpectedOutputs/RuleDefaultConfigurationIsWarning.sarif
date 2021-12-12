@@ -1,0 +1,46 @@
+{
+  "$schema": "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0-rtm.5.json",
+  "version": "2.1.0",
+  "runs": [
+    {
+      "tool": {
+        "driver": {
+          "name": "FailureLevelRoundtrippingTester",
+          "rules": [
+            {
+              "id": "HasDefaultConfigurationLevel",
+              "defaultConfiguration": { "level": "error" }
+            }
+          ]
+        }
+      },
+      "results": [
+        {
+          "ruleId": "HasDefaultConfigurationLevel/ShouldBeNone",
+          "level": "none",
+          "message": { "text": "Level should be 'none' (this example is for rule trace output)." }
+        },
+        {
+          "ruleId": "HasDefaultConfigurationLevel/ShouldBeNone",
+          "kind": "notApplicable",
+          "message": { "text": "Level should be 'none' because kind is not 'fail' (so 'none' is the default)." }
+        },
+        {
+          "ruleId": "HasDefaultConfigurationLevel/ShouldBeNote",
+          "level": "note",
+          "message": { "text": "Level should be 'note' as it is directly expressed on the result." }
+        },
+        {
+          "ruleId": "HasDefaultConfigurationLevel/ShouldBeWarning",
+          "message": { "text": "Level is 'warning' both because kind is implictly 'fail' (so 'warning' is the default) and because 'warning' is the explicit rule default." }
+        },
+        {
+          "ruleId": "HasDefaultConfigurationLevel/ShouldBeError",
+          "level": "error",
+          "message": { "text": "Level should be 'error' as it is directly expressed on the result." }
+        }
+      ],
+      "columnKind": "utf16CodeUnits"
+    }
+  ]
+}
