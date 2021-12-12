@@ -1,5 +1,9 @@
 # SARIF Package Release History (SDK, Driver, Converters, and Multitool)
 
+## Unreleased
+
+* BUGFIX: Fix `InvalidOperationException` when using PropertiesDictionary in a multithreaded application. [#2415](https://github.com/microsoft/sarif-sdk/pull/2415)
+
 ## **v2.4.12** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.4.12) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.4.12) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.4.12) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.4.12) | [Multitool Library](https://www.nuget.org/packages/Sarif.Multitool.Library/2.4.12)
 
 * FEATURE: `MultithreadCommandBase` will use cache when hashing is enabled. [#2388](https://github.com/microsoft/sarif-sdk/pull/2388)

@@ -171,6 +171,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             PropertiesDictionary_TestCacheDescription_Helper(GenerateIntegerSetProperty, INTEGERSET_NONDEFAULT);
             PropertiesDictionary_TestCacheDescription_Helper(GeneratePropertiesDictionaryProperty, PROPERTIES_NONDEFAULT);
         }
+
         private void PropertiesDictionary_TestCacheDescription_Helper(Func<int, string, IOption> GeneratePropertyMethod, object value)
         {
             string textLoaded = string.Empty;

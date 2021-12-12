@@ -71,10 +71,19 @@ namespace Microsoft.CodeAnalysis.Sarif
             {
                 object property = propertyBag[key];
 
+                if (settingNameToDescriptionMap != null)
+                {
+                    string description;
+
+                    if (settingNameToDescriptionMap.TryGetValue(key, out description))
+                    {
+                        writer.WriteComment(description);
+                    }
+                }
+
                 StringSet stringSet = property as StringSet;
                 if (stringSet != null)
                 {
-                    SaveSettingNameToDescriptionMap(writer, key, settingNameToDescriptionMap);
                     SaveSet(writer, stringSet, key);
                     continue;
                 }
@@ -82,7 +91,6 @@ namespace Microsoft.CodeAnalysis.Sarif
                 IntegerSet integerSet = property as IntegerSet;
                 if (integerSet != null)
                 {
-                    SaveSettingNameToDescriptionMap(writer, key, settingNameToDescriptionMap);
                     SaveSet(writer, integerSet, key);
                     continue;
                 }
@@ -90,12 +98,9 @@ namespace Microsoft.CodeAnalysis.Sarif
                 IDictionary pb = property as IDictionary;
                 if (pb != null)
                 {
-                    SaveSettingNameToDescriptionMap(writer, key, settingNameToDescriptionMap);
                     ((IDictionary)pb).SavePropertiesToXmlStream(writer, settings, key, settingNameToDescriptionMap);
                     continue;
                 }
-
-                SaveSettingNameToDescriptionMap(writer, key, settingNameToDescriptionMap);
 
                 writer.WriteStartElement(PROPERTY_ID);
                 writer.WriteAttributeString(KEY_ID, key);
@@ -113,19 +118,6 @@ namespace Microsoft.CodeAnalysis.Sarif
                 writer.WriteEndElement(); // KeyValuePair
             }
             writer.WriteEndElement(); // Properties
-        }
-
-        private static void SaveSettingNameToDescriptionMap(XmlWriter writer, string key, ConcurrentDictionary<string, string> settingNameToDescriptionMap)
-        {
-            if (settingNameToDescriptionMap != null)
-            {
-                string description;
-
-                if (settingNameToDescriptionMap.TryGetValue(key, out description))
-                {
-                    writer.WriteComment(description);
-                }
-            }
         }
 
         private static string NormalizeTypeName(string typeName)
