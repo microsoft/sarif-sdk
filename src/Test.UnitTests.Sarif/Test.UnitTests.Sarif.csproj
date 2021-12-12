@@ -68,6 +68,7 @@
     <None Remove="TestData\PrereleaseCompatibilityTransformer\Inputs\V1.sarif" />
     <None Remove="TestData\PrereleaseCompatibilityTransformer\Inputs\WithExternalPropertyFiles.01-24.sarif" />
     <None Remove="TestData\PrereleaseCompatibilityTransformer\Inputs\WithSuppressions.sarif" />
+    <None Remove="TestData\RoundTripping\ExpectedOutputs\InvocationOverridesRuleDefaultConfigurationOfError.sarif" />
     <None Remove="TestData\RoundTripping\ExpectedOutputs\NoRuleDefaultConfiguration.sarif" />
     <None Remove="TestData\RoundTripping\ExpectedOutputs\PropertyBagComprehensiveValueTypes.sarif" />
     <None Remove="TestData\RoundTripping\ExpectedOutputs\RuleDefaultConfigurationIsError.sarif" />
@@ -130,6 +131,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="TestData\PrereleaseCompatibilityTransformer\ExpectedOutputs\RegressionTests.sarif" />
     <EmbeddedResource Include="TestData\PrereleaseCompatibilityTransformer\Inputs\RegressionTests.sarif" />
+    <EmbeddedResource Include="TestData\RoundTripping\ExpectedOutputs\InvocationOverridesRuleDefaultConfigurationOfError.sarif" />
     <EmbeddedResource Include="TestData\RoundTripping\ExpectedOutputs\NoRuleDefaultConfiguration.sarif" />
     <EmbeddedResource Include="TestData\RoundTripping\ExpectedOutputs\PropertyBagComprehensiveValueTypes.sarif" />
     <EmbeddedResource Include="TestData\RoundTripping\ExpectedOutputs\RuleDefaultConfigurationIsError.sarif" />

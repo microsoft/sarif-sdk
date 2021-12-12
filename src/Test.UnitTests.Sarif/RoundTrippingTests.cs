@@ -47,29 +47,34 @@ namespace Microsoft.CodeAnalysis.Sarif
         }
 
         [Fact]
-        public void SarifLog_ResultsWithNoRuleDefaultConfiguration_CanBeRoundTripped()
+        public void SarifLog_InvocationThatOverridesRuleDefaultConfiguration_CanBeRoundTripped()
         {
-            string testName = "NoRuleDefaultConfiguration.sarif";
-            string sarifLogText = GetResourceContents(testName);
-            SarifLog sarifLog = JsonConvert.DeserializeObject<SarifLog>(sarifLogText);
-
-            // This helper will extract and validate the expected level
-            // from every result and notification in the log
-            ValidateNotificationAndResultLevels(sarifLog);
-
-            // If this test succeeds
-            RunTest(testName);            
+            RunTestHelper("InvocationOverridesRuleDefaultConfigurationOfError.sarif");
         }
 
-        private void ValidateNotificationAndResultLevels(SarifLog sarifLog)
+        [Fact]
+        public void SarifLog_ResultsWithNoRuleDefaultConfiguration_CanBeRoundTripped()
         {
-            Console.WriteLine(sarifLog != null);
+            RunTestHelper("NoRuleDefaultConfiguration.sarif");
+        }
+
+        [Fact]
+        public void SarifLog_RuleDefaultConfigurationOfError_CanBeRoundTripped()
+        {
+            RunTestHelper("RuleDefaultConfigurationIsError");
+        }
+
+        [Fact]
+        public void SarifLog_RuleDefaultConfigurationOfWarning_CanBeRoundTripped()
+        {
+            RunTestHelper("RuleDefaultConfigurationIsWarning");
         }
 
         [Fact]
         public void SarifLog_PropertyBagProperties_CanBeRoundTripped()
         {
-            string sarifLogText = GetResourceContents("PropertyBagComprehensiveValueTypes.sarif");
+            string testFileName = "PropertyBagComprehensiveValueTypes.sarif";
+            string sarifLogText = GetResourceContents(testFileName);
 
             SarifLog log = JsonConvert.DeserializeObject<SarifLog>(sarifLogText);
 
@@ -141,6 +146,25 @@ namespace Microsoft.CodeAnalysis.Sarif
             string roundTrippedContents = JsonConvert.SerializeObject(log, Formatting.Indented);
 
             roundTrippedContents.Should().Be(sarifLogText);
+
+            RunTestHelper(testFileName);
+        }
+        private void RunTestHelper(string testFileName)
+        {
+            string sarifLogText = GetResourceContents(testFileName);
+            SarifLog sarifLog = JsonConvert.DeserializeObject<SarifLog>(sarifLogText);
+
+            // This helper will extract and validate the expected level
+            // from every result and notification in the log
+            ValidateNotificationAndResultLevels(sarifLog);
+
+            // If this test succeeds
+            RunTest(testFileName);
+        }
+
+        private void ValidateNotificationAndResultLevels(SarifLog sarifLog)
+        {
+            Console.WriteLine(sarifLog != null);
         }
     }
 }

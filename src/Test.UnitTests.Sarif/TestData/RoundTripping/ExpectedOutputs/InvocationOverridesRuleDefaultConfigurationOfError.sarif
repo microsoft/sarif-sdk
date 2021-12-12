@@ -19,13 +19,14 @@
           "ruleConfigurationOverrides": [
             {
               "descriptor": {
-                "id": "ExplicitDefaultLevel" 
+                "id": "ExplicitDefaultLevel"
               },
               "configuration": {
                 "level": "note"
               }
             }
-          ]
+          ],
+          "executionSuccessful": true
         }
       ],
       "results": [

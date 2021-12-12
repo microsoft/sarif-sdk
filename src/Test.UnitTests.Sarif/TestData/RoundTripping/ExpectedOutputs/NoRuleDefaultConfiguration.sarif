@@ -18,13 +18,13 @@
           "ruleId": "NoDefaultConfigurationLevel/ShouldBeNone",
           "level": "none",
           "message": {
-            "text": "Level should be 'none' (this example is for rule trace output)."
+            "text": "Level should be 'none' as it is directly expressed on the result. This is a rule trace message."
           }
         },
         {
           "ruleId": "NoDefaultConfigurationLevel/ShouldBeNone",
           "message": {
-            "text": "Level should be 'none' because kind is not 'fail' (so 'none' is the default)."
+            "text": "Level should be 'none' because kind is not 'fail' and level is missing (so 'none' is the default)."
           }
         },
         {
