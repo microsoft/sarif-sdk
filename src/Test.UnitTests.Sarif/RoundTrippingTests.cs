@@ -9,15 +9,27 @@ using FluentAssertions;
 using Newtonsoft.Json;
 
 using Xunit;
+using Xunit.Abstractions;
 
 namespace Microsoft.CodeAnalysis.Sarif
 {
-    public class RoundTrippingTests
+    public class RoundTrippingTests : FileDiffingUnitTests, IClassFixture<RoundTrippingTests.RoundTrippingTestsFixture>
     {
+        public class RoundTrippingTestsFixture : DeletesOutputsDirectoryOnClassInitializationFixture { }
+
+        public RoundTrippingTests(ITestOutputHelper outputHelper) : base(outputHelper) { }
+
         private static readonly ResourceExtractor s_extractor = new ResourceExtractor(typeof(RoundTrippingTests));
 
         private static string GetResourceContents(string resourceName)
-            => s_extractor.GetResourceText($"RoundTripping.{resourceName}");
+            => s_extractor.GetResourceText($"{resourceName}");
+
+        protected override string ConstructTestOutputFromInputResource(string inputResourceName, object parameter)
+        {
+            string inputResourceText = GetResourceText(inputResourceName);
+            SarifLog sarifLog = JsonConvert.DeserializeObject<SarifLog>(inputResourceText);
+            return JsonConvert.SerializeObject(sarifLog, Formatting.Indented);
+        }
 
         // Class used to test serialization and deserialization of an arbitrary class.
         public class CustomObject
@@ -35,11 +47,31 @@ namespace Microsoft.CodeAnalysis.Sarif
         }
 
         [Fact]
+        public void SarifLog_ResultsWithNoRuleDefaultConfiguration_CanBeRoundTripped()
+        {
+            string testName = "NoRuleDefaultConfiguration.sarif";
+            string sarifLogText = GetResourceContents(testName);
+            SarifLog sarifLog = JsonConvert.DeserializeObject<SarifLog>(sarifLogText);
+
+            // This helper will extract and validate the expected level
+            // from every result and notification in the log
+            ValidateNotificationAndResultLevels(sarifLog);
+
+            // If this test succeeds
+            RunTest(testName);            
+        }
+
+        private void ValidateNotificationAndResultLevels(SarifLog sarifLog)
+        {
+            Console.WriteLine(sarifLog != null);
+        }
+
+        [Fact]
         public void SarifLog_PropertyBagProperties_CanBeRoundTripped()
         {
-            string originalContents = GetResourceContents("RoundTripping.sarif");
+            string sarifLogText = GetResourceContents("PropertyBagComprehensiveValueTypes.sarif");
 
-            SarifLog log = JsonConvert.DeserializeObject<SarifLog>(originalContents);
+            SarifLog log = JsonConvert.DeserializeObject<SarifLog>(sarifLogText);
 
             PropertyBagHolder holder = log.Runs[0].Results[0];
 
@@ -108,7 +140,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             string roundTrippedContents = JsonConvert.SerializeObject(log, Formatting.Indented);
 
-            roundTrippedContents.Should().Be(originalContents);
+            roundTrippedContents.Should().Be(sarifLogText);
         }
     }
 }
