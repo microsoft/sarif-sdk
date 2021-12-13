@@ -73,6 +73,7 @@
     <None Remove="TestData\RoundTripping\ExpectedOutputs\PropertyBagComprehensiveValueTypes.sarif" />
     <None Remove="TestData\RoundTripping\ExpectedOutputs\RuleDefaultConfigurationIsError.sarif" />
     <None Remove="TestData\RoundTripping\ExpectedOutputs\RuleDefaultConfigurationIsWarning.sarif" />
+    <None Remove="TestData\RoundTripping\Inputs\InvocationOverridesRuleDefaultConfigurationOfError.sarif" />
     <None Remove="TestData\RoundTripping\Inputs\NoRuleDefaultConfiguration.sarif" />
     <None Remove="TestData\RoundTripping\Inputs\PropertyBagComprehensiveValueTypes.sarif" />
     <None Remove="TestData\RoundTripping\Inputs\RuleDefaultConfigurationIsError.sarif" />
@@ -136,6 +137,7 @@
     <EmbeddedResource Include="TestData\RoundTripping\ExpectedOutputs\PropertyBagComprehensiveValueTypes.sarif" />
     <EmbeddedResource Include="TestData\RoundTripping\ExpectedOutputs\RuleDefaultConfigurationIsError.sarif" />
     <EmbeddedResource Include="TestData\RoundTripping\ExpectedOutputs\RuleDefaultConfigurationIsWarning.sarif" />
+    <EmbeddedResource Include="TestData\RoundTripping\Inputs\InvocationOverridesRuleDefaultConfigurationOfError.sarif" />
     <EmbeddedResource Include="TestData\RoundTripping\Inputs\NoRuleDefaultConfiguration.sarif" />
     <EmbeddedResource Include="TestData\RoundTripping\Inputs\PropertyBagComprehensiveValueTypes.sarif" />
     <EmbeddedResource Include="TestData\RoundTripping\Inputs\RuleDefaultConfigurationIsError.sarif" />

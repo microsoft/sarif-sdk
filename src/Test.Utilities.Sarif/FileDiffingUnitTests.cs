@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft. All rights reserved.
+﻿(c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System;
@@ -389,6 +389,9 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         private string ConstructFullExpectedOutputResourceName(string resourceName)
             => "ExpectedOutputs." + resourceName;
+
+        private string GetInputSarifTextFromResource(string resourceName)
+            => GetResourceText(ConstructFullInputResourceName(resourceName));
 
         private string ConstructFullInputResourceName(string resourceName)
             => "Inputs." + resourceName;
