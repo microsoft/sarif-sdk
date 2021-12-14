@@ -141,7 +141,6 @@
     <EmbeddedResource Include="TestData\RoundTripping\Inputs\NoRuleDefaultConfiguration.sarif" />
     <EmbeddedResource Include="TestData\RoundTripping\Inputs\PropertyBagComprehensiveValueTypes.sarif" />
     <EmbeddedResource Include="TestData\RoundTripping\Inputs\RuleDefaultConfigurationIsError.sarif" />
-    <EmbeddedResource Include="TestData\RoundTripping\Inputs\RuleDefaultConfigurationIsWarning.sarif" />
     <EmbeddedResource Include="TestData\SarifLogger\SimpleExample.sarif" />
     <EmbeddedResource Include="TestData\SarifVersionOneToCurrentVisitor\ExpectedOutputs\NonDottedQuadFileVersion.sarif" />
     <EmbeddedResource Include="TestData\SarifVersionOneToCurrentVisitor\ExpectedOutputs\ResultLocationsAsEmptyArray.sarif" />

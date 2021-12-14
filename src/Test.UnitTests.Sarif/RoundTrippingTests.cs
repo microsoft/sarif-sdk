@@ -19,14 +19,9 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         public RoundTrippingTests(ITestOutputHelper outputHelper) : base(outputHelper) { }
 
-        private static readonly ResourceExtractor s_extractor = new ResourceExtractor(typeof(RoundTrippingTests));
-
-        private static string GetResourceContents(string resourceName)
-            => s_extractor.GetResourceText($"{resourceName}");
-
         protected override string ConstructTestOutputFromInputResource(string inputResourceName, object parameter)
         {
-            string inputResourceText = GetResourceText(inputResourceName);
+            string inputResourceText = GetInputSarifTextFromResource(inputResourceName);
             SarifLog sarifLog = JsonConvert.DeserializeObject<SarifLog>(inputResourceText);
             return JsonConvert.SerializeObject(sarifLog, Formatting.Indented);
         }
@@ -61,20 +56,20 @@ namespace Microsoft.CodeAnalysis.Sarif
         [Fact]
         public void SarifLog_RuleDefaultConfigurationOfError_CanBeRoundTripped()
         {
-            RunTestHelper("RuleDefaultConfigurationIsError");
+            RunTestHelper("RuleDefaultConfigurationIsError.sarif");
         }
 
         [Fact]
         public void SarifLog_RuleDefaultConfigurationOfWarning_CanBeRoundTripped()
         {
-            RunTestHelper("RuleDefaultConfigurationIsWarning");
+            RunTestHelper("RuleDefaultConfigurationIsWarning.sarif");
         }
 
         [Fact]
         public void SarifLog_PropertyBagProperties_CanBeRoundTripped()
         {
             string testFileName = "PropertyBagComprehensiveValueTypes.sarif";
-            string sarifLogText = GetResourceContents(testFileName);
+            string sarifLogText = GetInputSarifTextFromResource(testFileName);
 
             SarifLog log = JsonConvert.DeserializeObject<SarifLog>(sarifLogText);
 
@@ -151,7 +146,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         }
         private void RunTestHelper(string testFileName)
         {
-            string sarifLogText = GetResourceContents(testFileName);
+            string sarifLogText = GetInputSarifTextFromResource(testFileName);
             SarifLog sarifLog = JsonConvert.DeserializeObject<SarifLog>(sarifLogText);
 
             // This helper will extract and validate the expected level

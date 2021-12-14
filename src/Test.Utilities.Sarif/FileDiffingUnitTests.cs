@@ -1,4 +1,4 @@
-﻿(c) Microsoft. All rights reserved.
+﻿// Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System;
@@ -114,7 +114,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             expectedOutputResourceName = Path.GetFileNameWithoutExtension(expectedOutputResourceName) + SarifConstants.SarifFileExtension;
             string expectedSarifText = GetExpectedSarifTextFromResource(expectedOutputResourceName);
 
-            string actualSarifText = ConstructTestOutputFromInputResource(ConstructFullInputResourceName(inputResourceName), parameter);
+            string actualSarifText = ConstructTestOutputFromInputResource(inputResourceName, parameter);
 
             // The comparison code is shared between this one-input-to-one-output method and the
             // overload that takes multiple inputs and multiple outputs. So set up the lists and
@@ -384,16 +384,16 @@ namespace Microsoft.CodeAnalysis.Sarif
             return (JToken.DeepEquals(actualToken, roundTrippedToken));
         }
 
-        private string GetExpectedSarifTextFromResource(string resourceName)
+        public string GetExpectedSarifTextFromResource(string resourceName)
             => GetResourceText(ConstructFullExpectedOutputResourceName(resourceName));
 
-        private string ConstructFullExpectedOutputResourceName(string resourceName)
-            => "ExpectedOutputs." + resourceName;
+        public string ConstructFullExpectedOutputResourceName(string resourceName)
+            => @$"Microsoft.CodeAnalysis.{TestBinaryName}.TestData.{TypeUnderTest}.ExpectedOutputs.{resourceName}";
 
-        private string GetInputSarifTextFromResource(string resourceName)
+        public string GetInputSarifTextFromResource(string resourceName)
             => GetResourceText(ConstructFullInputResourceName(resourceName));
 
-        private string ConstructFullInputResourceName(string resourceName)
-            => "Inputs." + resourceName;
+        public string ConstructFullInputResourceName(string resourceName)
+            => @$"Microsoft.CodeAnalysis.{TestBinaryName}.TestData.{TypeUnderTest}.Inputs.{resourceName}";
     }
 }
