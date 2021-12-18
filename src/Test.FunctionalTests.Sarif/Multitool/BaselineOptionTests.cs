@@ -86,18 +86,18 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             string testName = parameter as string;
 
             string fileToBeValidated = "ToBeValidated.sarif";
-            string filePathToBeValidated = Path.Combine(this.OutputFolderPath, fileToBeValidated);
-            string logText = GetResourceText($"Inputs.{fileToBeValidated}");
+            string filePathToBeValidated = Path.Combine(this.TestOutputDirectory, fileToBeValidated);
+            string logText = GetInputSarifTextFromResource(fileToBeValidated);
 
             string baselineFile = $"{testName}.Baseline.sarif";
-            string baselineFilePath = Path.Combine(this.OutputFolderPath, baselineFile);
-            string baselineText = GetResourceText($"Inputs.{baselineFile}");
+            string baselineFilePath = Path.Combine(this.TestOutputDirectory, baselineFile);
+            string baselineText = GetInputSarifTextFromResource(baselineFile);
 
             File.WriteAllText(baselineFilePath, baselineText);
 
-            string inputLogDirectory = this.OutputFolderPath;
+            string inputLogDirectory = this.TestOutputDirectory;
             string inputLogFileName = Path.GetFileName(inputResourceName);
-            string inputLogFilePath = Path.Combine(this.OutputFolderPath, inputLogFileName);
+            string inputLogFilePath = Path.Combine(this.TestOutputDirectory, inputLogFileName);
 
             string outputLogFilePath = Guid.NewGuid().ToString();
 

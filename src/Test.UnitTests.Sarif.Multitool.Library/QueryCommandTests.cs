@@ -16,8 +16,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         [Fact]
         public void QueryCommand_Basics()
         {
-            string filePath = "elfie-arriba.Q.sarif";
-            File.WriteAllText(filePath, Extractor.GetResourceText(@"PageCommand.elfie-arriba.sarif"));
+            // This resource comes from the PageCommand tests...
+            string filePath = "Microsoft.CodeAnalysis.Sarif.Multitool.TestData.PageCommand.elfie-arriba.sarif";
+            File.WriteAllText(filePath, Extractor.GetResourceText(filePath));
 
             // All Results: No filter
             RunAndVerifyCount(5, new QueryOptions() { Expression = "", InputFilePath = filePath });
@@ -46,7 +47,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             string outputFilePath = "elfie-arriba.CSCAN0020.actual.sarif";
             RunAndVerifyCount(1, new QueryOptions() { Expression = "RuleId = 'CSCAN0020/0'", InputFilePath = filePath, OutputFilePath = outputFilePath, Minify = false, Force = true });
 
-            string expected = Extractor.GetResourceText("QueryCommand.elfie-arriba.CSCAN0020.sarif");
+            string expected = Extractor.GetResourceText("elfie-arriba.CSCAN0020.sarif");
             string actual = File.ReadAllText(outputFilePath);
             Assert.Equal(expected, actual);
         }

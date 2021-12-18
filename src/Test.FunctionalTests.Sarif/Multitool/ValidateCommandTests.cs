@@ -449,11 +449,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
         protected override string ConstructTestOutputFromInputResource(string inputResourceName, object parameter)
         {
-            string v2LogText = GetResourceText(inputResourceName);
+            string v2LogText = GetInputSarifTextFromResource(inputResourceName);
 
-            string inputLogDirectory = this.OutputFolderPath;
+            string inputLogDirectory = this.TestOutputDirectory;
             string inputLogFileName = Path.GetFileName(inputResourceName);
-            string inputLogFilePath = Path.Combine(this.OutputFolderPath, inputLogFileName);
+            string inputLogFilePath = Path.Combine(this.TestOutputDirectory, inputLogFileName);
 
             string actualLogFilePath = Guid.NewGuid().ToString();
 

@@ -14,6 +14,7 @@
     <CoyoteVersion>1.3.1</CoyoteVersion>
     <PowershellExecutable Condition="'$(OS)'=='Windows_NT'">powershell</PowershellExecutable>
     <PowershellExecutable Condition="'$(PowershellExecutable)'==''">pwsh</PowershellExecutable>
+    <RootNamespace>Microsoft.CodeAnalysis.Sarif.Driver</RootNamespace>
   </PropertyGroup>
 
   <Target Name="CopyFunctionalTestsData" AfterTargets="Build">

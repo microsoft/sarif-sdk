@@ -17,14 +17,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 {
     public class QueryCommandPropertyBagTests : IClassFixture<QueryCommandPropertyBagTests.TestFixture>
     {
-        private const string FilePath = "property-bag-queries.sarif";
+        private const string FilePath = "Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Multitool.TestData.QueryCommand.property-bag-queries.sarif";
 
         public class TestFixture
         {
             public TestFixture()
             {
                 ResourceExtractor extractor = new ResourceExtractor(typeof(QueryCommandPropertyBagTests));
-                File.WriteAllText(FilePath, extractor.GetResourceText($"QueryCommand.{FilePath}"));
+                File.WriteAllText(FilePath, extractor.GetResourceText(FilePath));
             }
         }
 

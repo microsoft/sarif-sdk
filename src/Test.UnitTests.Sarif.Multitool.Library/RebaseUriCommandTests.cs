@@ -20,11 +20,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 {
     public class RebaseUriCommandTests : FileDiffingUnitTests
     {
-        private static readonly ResourceExtractor Extractor = new ResourceExtractor(typeof(RebaseUriCommandTests));
-
         private RebaseUriOptions options;
 
         public RebaseUriCommandTests(ITestOutputHelper outputHelper) : base(outputHelper) { }
+
+        protected override string TestLogResourceNameRoot =>
+            "Microsoft.CodeAnalysis.Sarif.Multitool.TestData.RebaseUriCommand";
 
         [Fact]
         public void RebaseUriCommand_InjectsRegions()
@@ -123,14 +124,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             return RunRebaseUriCommand(testFilePath, this.options);
         }
 
-        protected override string GetResourceText(string resourceName)
-        {
-            return Extractor.GetResourceText($"RebaseUriCommand.{resourceName}");
-        }
-
         private string RunRebaseUriCommand(string testFilePath, RebaseUriOptions options)
         {
-            string inputSarifLog = Extractor.GetResourceText($"RebaseUriCommand.{testFilePath}");
+            string inputSarifLog = GetInputSarifTextFromResource(testFilePath);
 
             string logFilePath = @"c:\logs\mylog.sarif";
             StringBuilder transformedContents = new StringBuilder();

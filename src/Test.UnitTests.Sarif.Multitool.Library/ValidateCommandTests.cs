@@ -96,7 +96,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         {
             string path = "ValidateSarif.sarif";
             string outputPath = "ValidateSarifOutput.sarif";
-            File.WriteAllText(path, Extractor.GetResourceText($"ValidateCommand.{path}"));
+            File.WriteAllText(path, Extractor.GetResourceText(path));
 
             SarifLog sarifLog = ExecuteTest(path, outputPath);
             sarifLog.Runs.Count.Should().Be(1);
@@ -109,8 +109,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             string path = "ValidateSarif.sarif";
             string configuration = "Configuration.xml";
             string outputPath = "ValidateSarifOutput.sarif";
-            File.WriteAllText(path, Extractor.GetResourceText($"ValidateCommand.{path}"));
-            File.WriteAllText(configuration, Extractor.GetResourceText($"ValidateCommand.{configuration}"));
+            File.WriteAllText(path, Extractor.GetResourceText(path));
+            File.WriteAllText(configuration, Extractor.GetResourceText(configuration));
 
             SarifLog sarifLog = ExecuteTest(path, outputPath, configuration);
             sarifLog.Runs.Count.Should().Be(1);
@@ -123,8 +123,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             string path = "ValidateSarif.sarif";
             string configuration = "Configuration.json";
             string outputPath = "ValidateSarifOutput.sarif";
-            File.WriteAllText(path, Extractor.GetResourceText($"ValidateCommand.{path}"));
-            File.WriteAllText(configuration, Extractor.GetResourceText($"ValidateCommand.{configuration}"));
+            File.WriteAllText(path, Extractor.GetResourceText(path));
+            File.WriteAllText(configuration, Extractor.GetResourceText(configuration));
 
             SarifLog sarifLog = ExecuteTest(path, outputPath, configuration);
             sarifLog.Runs.Count.Should().Be(1);

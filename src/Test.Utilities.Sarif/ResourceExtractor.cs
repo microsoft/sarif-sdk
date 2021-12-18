@@ -12,58 +12,96 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// </summary>
     public class ResourceExtractor
     {
-        private Assembly ClassAssembly { get; }
+        private readonly Type testClass;
+        private readonly string typeUnderTestName;
 
-        public ResourceExtractor(Type forType)
+        public Assembly ResourceAssembly => testClass.Assembly;
+
+        public string DefaultResourceNamespaceRoot => @$"{this.testClass.Namespace}.TestData.{this.typeUnderTestName}";
+
+        public ResourceExtractor(Type type)
         {
-            ClassAssembly = forType.Assembly;
+            this.testClass = type;
+            this.typeUnderTestName = type.Name.Substring(0, type.Name.Length - "Tests".Length);
         }
 
-        private string GetResourcePath(string resourceName, string root = null)
+        public string GetResourceText(string resourcePath)
         {
-            string[] resourceNames = ClassAssembly.GetManifestResourceNames();
-            foreach (string name in resourceNames)
-            {
-                if (name == resourceName) { return name; }
+            using Stream stream = GetManifestResourceStream(resourcePath, out string fallbackResourcePath);
 
-                // TODO: we should consider zapping this and requiring a completely formed resource name.
-                if (name.EndsWith($"{root ?? ""}.{resourceName}", StringComparison.OrdinalIgnoreCase)) { return name; }
-            }
+            ValidateStream(resourcePath, fallbackResourcePath, stream);
 
-            throw new ArgumentException($"Could not find {resourceName}. Valid Names:\r\n{string.Join("\r\n", resourceNames)}");
+            using StreamReader reader = new StreamReader(stream);
+            return reader.ReadToEnd();
         }
 
-        public string GetResourceText(string resourceName, string root = null)
+        public byte[] GetResourceBytes(string resourcePath)
         {
-            string resourcePath = GetResourcePath(resourceName, root);
-            string text = null;
+            using Stream stream = GetManifestResourceStream(resourcePath, out string fallbackResourcePath);
 
-            using (Stream stream = ClassAssembly.GetManifestResourceStream(resourcePath))
+            ValidateStream(resourcePath, fallbackResourcePath, stream);
+
+            if (stream == null)
             {
-                if (stream == null) { return null; }
-
-                using (StreamReader reader = new StreamReader(stream))
-                {
-                    text = reader.ReadToEnd();
-                }
+                return GetBytesFromStream(stream);
             }
-            return text;
+
+            return GetBytesFromStream(stream);
         }
 
-        public byte[] GetResourceBytes(string resourceName, string root = null)
+        private Stream GetManifestResourceStream(string resourcePath, out string fallbackResourcePath)
         {
-            string resourcePath = GetResourcePath(resourceName, root);
-            byte[] bytes = null;
+            fallbackResourcePath = null;
 
-            using (Stream stream = ClassAssembly.GetManifestResourceStream(resourcePath))
+            // First look to see whether we've been provided a fully-qualified resource path.
+            Stream stream = ResourceAssembly.GetManifestResourceStream(resourcePath);
+
+            if (stream == null)
             {
-                using (MemoryStream memoryStream = new MemoryStream())
-                {
-                    stream.CopyTo(memoryStream);
-                    bytes = memoryStream.ToArray();
-                }
+                // If this succeeds, we were provided a short resource name which 
+                // needs to be appended to the default resource namespace root in 
+                // order to construct the fully-qualified name.
+                fallbackResourcePath = $"{DefaultResourceNamespaceRoot}.{resourcePath}";
+                stream = ResourceAssembly.GetManifestResourceStream(fallbackResourcePath);
             }
-            return bytes;
+
+            return stream;
+        }
+
+        private byte[] GetBytesFromStream(Stream stream)
+        {
+            using MemoryStream memoryStream = new MemoryStream();
+            stream.CopyTo(memoryStream);
+            return memoryStream.ToArray();
+        }
+
+        private void ValidateStream(string resourcePath, string fallbackResourcePath, Stream stream)
+        {
+            if (stream != null) { return; }
+
+            string[] resourceNames = ResourceAssembly.GetManifestResourceNames();
+            Array.Sort(resourceNames);
+
+            string fallbackMessage = fallbackResourcePath == null ? null :
+                $"Also considered:{Environment.NewLine}{fallbackResourcePath}{Environment.NewLine}{Environment.NewLine}";
+
+            // This code produces a message such as what follows. The report includes the original argument passed to
+            // GetResourceText and also shows the fallback path, if one was considered, built from the namespace info.
+            //
+            //------------------------------------------------------------------------------------------------------
+            //  System.ArgumentException : Could not find:
+            //  Inputs.InvalidResult.csv
+            //
+            //  Also considered:
+            //  Microsoft.CodeAnalysis.Sarif.Converters.TestData.FlawFinderConverter.Inputs.InvalidResult.csv
+            //
+            //  Valid Names:
+            //  Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Converters.TestData.ClangTidy.ExpectedOutputs.NoResults.sarif
+            //  Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Converters.TestData.ClangTidy.ExpectedOutputs.ValidResults.sarif
+            //
+            throw new ArgumentException(
+                $"Could not find:{Environment.NewLine}{resourcePath}{Environment.NewLine}{Environment.NewLine}{fallbackMessage}" +                
+                $"Valid Names:{Environment.NewLine}{string.Join($"{Environment.NewLine}", resourceNames)}");
         }
     }
 }

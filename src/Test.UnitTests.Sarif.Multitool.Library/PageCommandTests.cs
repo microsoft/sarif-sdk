@@ -24,7 +24,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         {
             string sampleFilePath = "elfie-arriba.sarif";
             string pagedSamplePath = "elfie-arriba.paged.sarif";
-            File.WriteAllText(sampleFilePath, Extractor.GetResourceText(@"PageCommand.elfie-arriba.sarif"));
+            File.WriteAllText(sampleFilePath, Extractor.GetResourceText(sampleFilePath));
 
             // Normal file, valid subsets
             RunAndCompare(new PageOptions() { Index = 1, Count = 2, InputFilePath = sampleFilePath, OutputFilePath = pagedSamplePath });
@@ -49,7 +49,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         {
             string sampleFilePath = "elfie-arriba.sarif";
             string pagedSamplePath = "elfie-arriba.paged.sarif";
-            File.WriteAllText(sampleFilePath, Extractor.GetResourceText(@"PageCommand.elfie-arriba.sarif"));
+            File.WriteAllText(sampleFilePath, Extractor.GetResourceText(sampleFilePath));
 
             // File too small for map / results / ArrayStarts
             RunAndCompare(new PageOptions() { TargetMapSizeRatio = 0.009, Index = 1, Count = 2, InputFilePath = sampleFilePath, OutputFilePath = pagedSamplePath });
@@ -177,7 +177,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         {
             string sampleFilePath = "elfie-arriba.sarif";
             string pagedSamplePath = "elfie-arriba.paged.sarif";
-            File.WriteAllText(sampleFilePath, Extractor.GetResourceText(@"PageCommand.elfie-arriba.sarif"));
+            File.WriteAllText(sampleFilePath, Extractor.GetResourceText(sampleFilePath));
 
             // Index >= Count
             Assert.Throws<ArgumentOutOfRangeException>(() => RunAndCompare(new PageOptions() { Index = 5, Count = 1, InputFilePath = sampleFilePath, OutputFilePath = pagedSamplePath }));

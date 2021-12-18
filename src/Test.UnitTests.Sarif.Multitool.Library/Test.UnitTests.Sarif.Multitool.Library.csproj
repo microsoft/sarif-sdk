@@ -11,7 +11,7 @@
     <TargetFrameworks>netcoreapp3.1</TargetFrameworks>
     <IsPackable>false</IsPackable>
     <IsTestProject>true</IsTestProject>
-    <RootNamespace>Microsoft.CodeAnalysis.Sarif.Multitool</RootNamespace>
+    <RootNamespace>Microsoft.CodeAnalysis.Sarif.Multitool.Library</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>

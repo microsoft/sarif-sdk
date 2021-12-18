@@ -38,23 +38,23 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         [Fact]
         public void Converter_WhenInputIsEmpty_ReturnsNoResults()
         {
-            string input = GetResourceText("Inputs.Empty.csv");
-            string expectedOutput = GetResourceText("ExpectedOutputs.NoResults.sarif");
+            string input = Extractor.GetResourceText("Inputs.Empty.csv");
+            string expectedOutput = Extractor.GetResourceText("ExpectedOutputs.NoResults.sarif");
             RunTestCase(input, expectedOutput);
         }
 
         [Fact]
         public void Converter_WhenInputContainsOnlyHeaderLine_ReturnsNoResults()
         {
-            string input = GetResourceText("Inputs.OnlyHeaderLine.csv");
-            string expectedOutput = GetResourceText("ExpectedOutputs.NoResults.sarif");
+            string input = Extractor.GetResourceText("Inputs.OnlyHeaderLine.csv");
+            string expectedOutput = Extractor.GetResourceText("ExpectedOutputs.NoResults.sarif");
             RunTestCase(input, expectedOutput);
         }
 
         [Fact]
         public void Converter_WhenHeaderRowIsInvalid_ThrowsExpectedException()
         {
-            string input = GetResourceText("Inputs.InvalidHeader.csv");
+            string input = Extractor.GetResourceText("Inputs.InvalidHeader.csv");
             Action action = () => RunTestCase(input, NoOutputExpected);
             action.Should().Throw<HeaderValidationException>();
         }
@@ -62,7 +62,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         [Fact]
         public void Converter_WhenResultRowIsInvalid_ThrowsExpectedException()
         {
-            string input = GetResourceText("Inputs.InvalidResult.csv");
+            string input = Extractor.GetResourceText("Inputs.InvalidResult.csv");
             Action action = () => RunTestCase(input, NoOutputExpected);
             action.Should().Throw<TypeConverterException>();
         }
@@ -70,23 +70,20 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         [Fact]
         public void Converter_WhenInputContainsValidResults_ReturnsExpectedOutput()
         {
-            string input = GetResourceText("Inputs.ValidResults.csv");
-            string expectedOutput = GetResourceText("ExpectedOutputs.ValidResults.sarif");
+            string input = Extractor.GetResourceText("Inputs.ValidResults.csv");
+            string expectedOutput = Extractor.GetResourceText("ExpectedOutputs.ValidResults.sarif");
             RunTestCase(input, expectedOutput);
         }
 
         [Fact]
         public void Converter_WhenCsvIsOldVersion_ReturnsExpectedOutput()
         {
-            string input = GetResourceText("Inputs.OldVersionResult.csv");
+            string input = Extractor.GetResourceText("Inputs.OldVersionResult.csv");
             Action action = () => RunTestCase(input, NoOutputExpected);
             action.Should().Throw<HeaderValidationException>();
         }
 
-        private static readonly ResourceExtractor s_extractor = new ResourceExtractor(typeof(FlawFinderConverterTests));
+        private static readonly ResourceExtractor Extractor = new ResourceExtractor(typeof(FlawFinderConverterTests));
         private const string ResourceNamePrefix = ToolFormat.FlawFinder;
-
-        private static string GetResourceText(string resourceNameSuffix) =>
-            s_extractor.GetResourceText($"TestData.{ResourceNamePrefix}.{resourceNameSuffix}");
     }
 }

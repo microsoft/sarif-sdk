@@ -17,7 +17,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         public void WhenInputContainsOnePolicy_ShouldSucceed()
         {
             string path = "WithPolicy.sarif";
-            File.WriteAllText(path, Extractor.GetResourceText($"ApplyPolicyCommand.{path}"));
+            File.WriteAllText(path, Extractor.GetResourceText(path));
 
             // Verify log loads, has correct Result count, and spot check a Result
             SarifLog log = ExecuteTest(path);
@@ -29,7 +29,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         public void WhenInputContainsMultiplePolicies_ShouldApplyPoliciesInOrder()
         {
             string path = "WithPolicy2.sarif";
-            File.WriteAllText(path, Extractor.GetResourceText($"ApplyPolicyCommand.{path}"));
+            File.WriteAllText(path, Extractor.GetResourceText(path));
 
             // Verify log loads, has correct Result count, and spot check a Result
             SarifLog log = ExecuteTest(path);
