@@ -162,7 +162,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
                 ? 0
                 : results.Where(r => r.Locations != null)
                          .SelectMany(r => r.Locations)
-                         .Count(l => l.PhysicalLocation != null && l.PhysicalLocation.ArtifactLocation != null && l.PhysicalLocation.ArtifactLocation.Uri != null);
+                         .Count(l => l.PhysicalLocation?.ArtifactLocation?.Uri != null);
 
             if (locCount > 1)
             {
