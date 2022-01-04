@@ -3,6 +3,7 @@
 
 using System;
 using System.Collections;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.ComponentModel;
@@ -27,7 +28,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             XmlWriter writer,
             XmlWriterSettings settings,
             string name,
-            Dictionary<string, string> settingNameToDescriptionMap)
+            IDictionary<string, string> settingNameToDescriptionMap)
         {
             if (propertyBag == null)
             {
@@ -70,6 +71,16 @@ namespace Microsoft.CodeAnalysis.Sarif
             {
                 object property = propertyBag[key];
 
+                if (settingNameToDescriptionMap != null)
+                {
+                    string description;
+
+                    if (settingNameToDescriptionMap.TryGetValue(key, out description))
+                    {
+                        writer.WriteComment(description);
+                    }
+                }
+
                 StringSet stringSet = property as StringSet;
                 if (stringSet != null)
                 {
@@ -89,16 +100,6 @@ namespace Microsoft.CodeAnalysis.Sarif
                 {
                     ((IDictionary)pb).SavePropertiesToXmlStream(writer, settings, key, settingNameToDescriptionMap);
                     continue;
-                }
-
-                if (settingNameToDescriptionMap != null)
-                {
-                    string description;
-
-                    if (settingNameToDescriptionMap.TryGetValue(key, out description))
-                    {
-                        writer.WriteComment(description);
-                    }
                 }
 
                 writer.WriteStartElement(PROPERTY_ID);
