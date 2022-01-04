@@ -73,7 +73,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             if (value == null && this.ContainsKey(setting.Name))
             {
-                this.TryRemove(setting.Name, out T Value);
+                this.Remove(setting.Name);
                 return;
             }
 
