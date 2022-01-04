@@ -28,7 +28,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             XmlWriter writer,
             XmlWriterSettings settings,
             string name,
-            ConcurrentDictionary<string, string> settingNameToDescriptionMap)
+            IDictionary<string, string> settingNameToDescriptionMap)
         {
             if (propertyBag == null)
             {

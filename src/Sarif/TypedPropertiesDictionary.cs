@@ -30,6 +30,16 @@ namespace Microsoft.CodeAnalysis.Sarif
             }
         }
 
+        public void Add(string key, T value)
+        {
+            ((IDictionary<string, T>)this).Add(key, value);
+        }
+
+        public void Remove(string key)
+        {
+            ((IDictionary<string, T>)this).Remove(key);
+        }
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         protected ConcurrentDictionary<string, string> SettingNameToDescriptionsMap { get; set; }
 
@@ -63,7 +73,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             if (value == null && this.ContainsKey(setting.Name))
             {
-                this.Remove(setting.Name);
+                this.TryRemove(setting.Name, out T Value);
                 return;
             }
 
