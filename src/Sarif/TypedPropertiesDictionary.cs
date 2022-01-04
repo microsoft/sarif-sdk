@@ -2,8 +2,8 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
-using System.Runtime.Serialization;
 
 using Newtonsoft.Json;
 
@@ -13,7 +13,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
     [Serializable]
     [JsonConverter(typeof(TypedPropertiesDictionaryConverter))]
-    public class TypedPropertiesDictionary<T> : Dictionary<string, T>, IMarker where T : new()
+    public class TypedPropertiesDictionary<T> : ConcurrentDictionary<string, T>, IMarker where T : new()
     {
         public TypedPropertiesDictionary() : this(null, StringComparer.Ordinal)
         {
@@ -30,13 +30,18 @@ namespace Microsoft.CodeAnalysis.Sarif
             }
         }
 
-        protected TypedPropertiesDictionary(SerializationInfo info, StreamingContext context)
-            : base(info, context)
+        public void Add(string key, T value)
         {
+            ((IDictionary<string, T>)this).Add(key, value);
+        }
+
+        public void Remove(string key)
+        {
+            ((IDictionary<string, T>)this).Remove(key);
         }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        protected Dictionary<string, string> SettingNameToDescriptionsMap { get; set; }
+        protected ConcurrentDictionary<string, string> SettingNameToDescriptionsMap { get; set; }
 
         public virtual T GetProperty(PerLanguageOption<T> setting)
         {
@@ -74,7 +79,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             if (cacheDescription)
             {
-                SettingNameToDescriptionsMap = SettingNameToDescriptionsMap ?? new Dictionary<string, string>();
+                SettingNameToDescriptionsMap ??= new ConcurrentDictionary<string, string>();
                 SettingNameToDescriptionsMap[setting.Name] = setting.Description;
             }
 
