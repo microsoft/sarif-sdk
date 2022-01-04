@@ -430,6 +430,37 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
             description.Should().BeEquivalentTo($"This work item contains 1 '{toolName}' issue(s) detected in {firstLocation}. Click the 'Scans' tab to review results.");
         }
 
+        [Fact]
+        public void SarifWorkItemExtensions_ShouldBeFiledTests()
+        {
+            var testCases = new[]
+            {
+                new { Result = (Result)null, Expected = false },
+                new { Result = new Result { Kind = ResultKind.Pass }, Expected = false },
+                new { Result = new Result { Kind = ResultKind.Fail }, Expected = true },
+                new { Result = new Result { Kind = ResultKind.Open }, Expected = true },
+                new { Result = new Result { Kind = ResultKind.Review }, Expected = true },
+                new { Result = new Result { Kind = ResultKind.Informational }, Expected = false },
+                new { Result = new Result { Kind = ResultKind.None }, Expected = false },
+                new { Result = new Result { Kind = ResultKind.NotApplicable }, Expected = false },
+                new { Result = new Result { Kind = ResultKind.Fail, BaselineState = BaselineState.Absent }, Expected = false },
+                new { Result = new Result { Kind = ResultKind.Open, BaselineState = BaselineState.Updated }, Expected = false },
+                new { Result = new Result { Kind = ResultKind.Review, BaselineState = BaselineState.Unchanged }, Expected = false },
+                new { Result = new Result { Kind = ResultKind.Fail, BaselineState = BaselineState.New }, Expected = true },
+                new { Result = new Result { Kind = ResultKind.Fail, BaselineState = BaselineState.None }, Expected = true },
+                new { Result = new Result { Kind = ResultKind.Fail, Suppressions = new [] { new Suppression { Status = SuppressionStatus.Accepted } } }, Expected = false },
+                new { Result = new Result { Kind = ResultKind.Fail, Suppressions = new [] { new Suppression { Status = SuppressionStatus.Rejected } } }, Expected = false },
+                new { Result = new Result { Kind = ResultKind.Fail, Suppressions = new Suppression[] {  } }, Expected = true },
+                new { Result = new Result { Kind = ResultKind.Fail, Suppressions = new [] { new Suppression { Status = SuppressionStatus.Rejected }, new Suppression { Status = SuppressionStatus.UnderReview } } }, Expected = false },
+            };
+
+            foreach (var test in testCases)
+            {
+                bool actual = test.Result.ShouldBeFiled();
+                actual.Should().Be(actual);
+            }
+        }
+
         private static readonly string ToolName = Guid.NewGuid().ToString();
 
         public Tuple<string, Result>[] ResultsWithVariousRuleExpressions = new[]

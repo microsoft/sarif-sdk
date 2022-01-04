@@ -12,6 +12,11 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
     {
         public static bool ShouldBeFiled(this Result result)
         {
+            if (result == null)
+            {
+                return false;
+            }
+
             if (result.BaselineState == BaselineState.Absent ||
                 result.BaselineState == BaselineState.Updated ||
                 result.BaselineState == BaselineState.Unchanged)
