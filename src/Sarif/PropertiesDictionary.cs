@@ -15,7 +15,6 @@ using Newtonsoft.Json.Linq;
 
 namespace Microsoft.CodeAnalysis.Sarif
 {
-    [Serializable]
     [JsonConverter(typeof(TypedPropertiesDictionaryConverter))]
     public class PropertiesDictionary : TypedPropertiesDictionary<object>
     {
