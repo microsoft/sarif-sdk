@@ -3,6 +3,7 @@
 
 using System;
 using System.Collections;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
@@ -584,6 +585,16 @@ namespace Microsoft.CodeAnalysis.Sarif
                 // Consume the end element
                 xmlReader.Read();
             }
+        }
+
+        public static void Add<T>(this ConcurrentDictionary<string, T> concurrentDictionary, string key, T value)
+        {
+            ((IDictionary<string, T>)concurrentDictionary).Add(key, value);
+        }
+
+        public static void Remove<T>(this ConcurrentDictionary<string, T> concurrentDictionary, string key)
+        {
+            ((IDictionary<string, T>)concurrentDictionary).Remove(key);
         }
     }
 }
