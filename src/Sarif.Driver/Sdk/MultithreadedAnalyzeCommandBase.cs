@@ -30,16 +30,19 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         internal bool _captureConsoleOutput;
 
         internal ConsoleLogger _consoleLogger;
+        internal ConcurrentDictionary<string, IAnalysisLogger> _analysisLoggerCache;
 
         private Run _run;
         private Tool _tool;
         private bool _computeHashes;
-        private int _fileContextsCount;
         private TContext _rootContext;
-        private ConcurrentDictionary<int, TContext> _fileContexts;
+        private int _fileContextsCount;
+        private Channel<int> _hashChannel;
+        private OptionallyEmittedData _dataToInsert;
         private Channel<int> _resultsWritingChannel;
         private Channel<int> _fileEnumerationChannel;
-        private IDictionary<string, HashData> _pathToHashDataMap;
+        private Dictionary<string, List<string>> _hashToFilesMap;
+        private ConcurrentDictionary<int, TContext> _fileContexts;
 
         public Exception ExecutionException { get; set; }
 
@@ -48,8 +51,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         public static bool RaiseUnhandledExceptionInDriverCode { get; set; }
 
         public virtual FileFormat ConfigurationFormat { get { return FileFormat.Json; } }
-
-        protected IFileSystem FileSystem { get; }
 
         protected MultithreadedAnalyzeCommandBase(IFileSystem fileSystem = null)
         {
@@ -110,6 +111,17 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 catch (Exception ex)
                 {
                     RuntimeErrors |= RuntimeConditions.ExceptionProcessingBaseline;
+                    ExecutionException = ex;
+                    return FAILURE;
+                }
+
+                try
+                {
+                    PostLogFile(options.PostUri, options.OutputFilePath, FileSystem);
+                }
+                catch (Exception ex)
+                {
+                    RuntimeErrors |= RuntimeConditions.ExceptionPostingLogFile;
                     ExecutionException = ex;
                     return FAILURE;
                 }
@@ -178,6 +190,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 SingleReader = false,
             };
             _fileEnumerationChannel = Channel.CreateBounded<int>(channelOptions);
+            _hashChannel = Channel.CreateBounded<int>(channelOptions);
 
             channelOptions = new BoundedChannelOptions(2000)
             {
@@ -195,11 +208,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 workers[i] = AnalyzeTargetAsync(skimmers, disabledSkimmers);
             }
 
+            Task<bool> hashFiles = HashAsync();
             Task<bool> findFiles = FindFilesAsync(options, rootContext);
             Task<bool> writeResults = WriteResultsAsync(rootContext);
 
             // FindFiles is single-thread and will close its write channel
             findFiles.Wait();
+            hashFiles.Wait();
 
             Task.WhenAll(workers)
                 .ContinueWith(_ => _resultsWritingChannel.Writer.Complete())
@@ -245,45 +260,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
                         while (context?.AnalysisComplete == true)
                         {
-                            var cachingLogger = (CachingLogger)context.Logger;
-                            IDictionary<ReportingDescriptor, IList<Result>> results = cachingLogger.Results;
-
-                            if (results?.Count > 0)
+                            if (_computeHashes)
                             {
-                                if (context.Hashes != null)
-                                {
-                                    Debug.Assert(_run != null);
-                                    int index = _run.GetFileIndex(new ArtifactLocation() { Uri = context.TargetUri });
-
-                                    _run.Artifacts[index].Hashes = new Dictionary<string, string>
-                                    {
-                                        { "sha-256", context.Hashes.Sha256 },
-                                    };
-                                }
-
-                                foreach (KeyValuePair<ReportingDescriptor, IList<Result>> kv in results)
-                                {
-                                    foreach (Result result in kv.Value)
-                                    {
-                                        rootContext.Logger.Log(kv.Key, result);
-                                    }
-                                }
+                                bool cache = _analysisLoggerCache.TryGetValue(context.Hashes.Sha256, out IAnalysisLogger logger);
+                                LogCachingLogger(rootContext, logger ?? context.Logger, context, clone: cache);
                             }
-
-                            if (cachingLogger.ToolNotifications != null)
+                            else
                             {
-                                foreach (Notification notification in cachingLogger.ToolNotifications)
-                                {
-                                    rootContext.Logger.LogToolNotification(notification);
-                                }
-                            }
-
-                            if (cachingLogger.ConfigurationNotifications != null)
-                            {
-                                foreach (Notification notification in cachingLogger.ConfigurationNotifications)
-                                {
-                                    rootContext.Logger.LogConfigurationNotification(notification);
-                                }
+                                LogCachingLogger(rootContext, context.Logger, context);
                             }
 
                             RuntimeErrors |= context.RuntimeErrors;
@@ -305,10 +289,62 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 }
             }
 
-            Debug.Assert(_fileContexts.Count == 0);
+            Debug.Assert(_fileContexts.IsEmpty);
             Debug.Assert(_fileContextsCount == currentIndex);
 
             return true;
+        }
+
+        private void LogCachingLogger(TContext rootContext, IAnalysisLogger logger, TContext context, bool clone = false)
+        {
+            var cachingLogger = (CachingLogger)logger;
+            IDictionary<ReportingDescriptor, IList<Result>> results = cachingLogger.Results;
+
+            if (results?.Count > 0)
+            {
+                foreach (KeyValuePair<ReportingDescriptor, IList<Result>> kv in results)
+                {
+                    foreach (Result result in kv.Value)
+                    {
+                        Result currentResult = result;
+                        if (clone)
+                        {
+                            Result clonedResult = result.DeepClone();
+
+                            UpdateLocationsAndMessageWithCurrentUri(clonedResult.Locations, clonedResult.Message, context.TargetUri);
+
+                            currentResult = clonedResult;
+                        }
+
+                        rootContext.Logger.Log(kv.Key, currentResult);
+                    }
+                }
+            }
+
+            if (cachingLogger.ToolNotifications != null)
+            {
+                foreach (Notification notification in cachingLogger.ToolNotifications)
+                {
+                    rootContext.Logger.LogToolNotification(notification);
+                }
+            }
+
+            if (cachingLogger.ConfigurationNotifications != null)
+            {
+                foreach (Notification notification in cachingLogger.ConfigurationNotifications)
+                {
+                    Notification currentNotification = notification;
+                    if (clone)
+                    {
+                        Notification clonedNotification = notification.DeepClone();
+                        UpdateLocationsAndMessageWithCurrentUri(clonedNotification.Locations, notification.Message, context.TargetUri);
+
+                        currentNotification = clonedNotification;
+                    }
+
+                    rootContext.Logger.LogConfigurationNotification(currentNotification);
+                }
+            }
         }
 
         private async Task<bool> FindFilesAsync(TOptions options, TContext rootContext)
@@ -384,11 +420,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                                           filePath: file)
                         );
 
-                        await _fileEnumerationChannel.Writer.WriteAsync(_fileContextsCount++);
+                        await _hashChannel.Writer.WriteAsync(_fileContextsCount++);
                     }
                 }
             }
-            _fileEnumerationChannel.Writer.Complete();
+
+            _hashChannel.Writer.Complete();
 
             if (_fileContextsCount == 0)
             {
@@ -404,7 +441,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             var sortedDiskItems = new SortedSet<string>();
 
             queue.Enqueue(directory);
-            foreach (string childDirectory in Directory.EnumerateDirectories(directory, "*", SearchOption.TopDirectoryOnly))
+            foreach (string childDirectory in FileSystem.DirectoryEnumerateDirectories(directory, "*", SearchOption.TopDirectoryOnly))
             {
                 sortedDiskItems.Add(childDirectory);
             }
@@ -413,6 +450,51 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             {
                 EnqueueAllDirectories(queue, childDirectory);
             }
+        }
+
+        private async Task<bool> HashAsync()
+        {
+            ChannelReader<int> reader = _hashChannel.Reader;
+
+            // Wait until there is work or the channel is closed.
+            while (await reader.WaitToReadAsync())
+            {
+                // Loop while there is work to do.
+                while (reader.TryRead(out int index))
+                {
+                    if (_computeHashes)
+                    {
+                        if (_hashToFilesMap == null)
+                        {
+                            _hashToFilesMap = new Dictionary<string, List<string>>();
+                        }
+
+                        TContext context = _fileContexts[index];
+                        string localPath = context.TargetUri.LocalPath;
+
+                        HashData hashData = HashUtilities.ComputeHashes(localPath);
+
+                        if (!_hashToFilesMap.TryGetValue(hashData.Sha256, out List<string> paths))
+                        {
+                            paths = new List<string>();
+                            _hashToFilesMap[hashData.Sha256] = paths;
+                        }
+
+                        _run?.GetFileIndex(new ArtifactLocation { Uri = context.TargetUri },
+                                           dataToInsert: _dataToInsert,
+                                           hashData: hashData);
+
+                        paths.Add(localPath);
+                        context.Hashes = hashData;
+                    }
+
+                    await _fileEnumerationChannel.Writer.WriteAsync(index);
+                }
+            }
+
+            _fileEnumerationChannel.Writer.Complete();
+
+            return true;
         }
 
         private async Task<bool> AnalyzeTargetAsync(IEnumerable<Skimmer<TContext>> skimmers, ISet<string> disabledSkimmers)
@@ -432,15 +514,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                         context = _fileContexts[item];
 
                         DetermineApplicabilityAndAnalyze(context, skimmers, disabledSkimmers);
-
-                        if (_computeHashes && ((CachingLogger)context.Logger).Results?.Count > 0)
-                        {
-                            Debug.Assert(context.Hashes == null);
-
-                            string sha256Hash = HashUtilities.ComputeSha256Hash(context.TargetUri.LocalPath);
-
-                            context.Hashes = new HashData(md5: null, sha1: null, sha256: sha256Hash);
-                        }
                     }
                     catch (Exception e)
                     {
@@ -458,14 +531,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
         protected virtual void ValidateOptions(TOptions options, TContext context)
         {
-            _computeHashes = (options.DataToInsert.ToFlags() & OptionallyEmittedData.Hashes) != 0;
+            _dataToInsert = options.DataToInsert.ToFlags();
+            _computeHashes = (_dataToInsert & OptionallyEmittedData.Hashes) != 0;
 
             bool succeeded = true;
 
-            succeeded &= ValidateFile(context, options.OutputFilePath, shouldExist: null);
-            succeeded &= ValidateFile(context, options.ConfigurationFilePath, shouldExist: true);
-            succeeded &= ValidateFiles(context, options.PluginFilePaths, shouldExist: true);
-            succeeded &= ValidateFile(context, options.BaselineSarifFile, shouldExist: true);
+            succeeded &= ValidateFile(context, options.OutputFilePath, DefaultPolicyName, shouldExist: null);
+            succeeded &= ValidateFile(context, options.ConfigurationFilePath, DefaultPolicyName, shouldExist: true);
+            succeeded &= ValidateFiles(context, options.PluginFilePaths, DefaultPolicyName, shouldExist: true);
+            succeeded &= ValidateFile(context, options.BaselineSarifFile, DefaultPolicyName, shouldExist: true);
             succeeded &= ValidateInvocationPropertiesToLog(context, options.InvocationPropertiesToLog);
             succeeded &= ValidateOutputFileCanBeCreated(context, options.OutputFilePath, options.Force);
             succeeded &= options.ValidateOutputOptions(context);
@@ -474,86 +548,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             {
                 ThrowExitApplicationException(context, ExitReason.InvalidCommandLineOption);
             }
-        }
-
-        private bool ValidateFiles(TContext context, IEnumerable<string> filePaths, bool shouldExist)
-        {
-            if (filePaths == null) { return true; }
-
-            bool succeeded = true;
-
-            foreach (string filePath in filePaths)
-            {
-                succeeded &= ValidateFile(context, filePath, shouldExist);
-            }
-
-            return succeeded;
-        }
-
-        private bool ValidateFile(TContext context, string filePath, bool? shouldExist)
-        {
-            if (filePath == null || filePath == DefaultPolicyName) { return true; }
-
-            Exception exception = null;
-
-            try
-            {
-                bool fileExists = FileSystem.FileExists(filePath);
-
-                if (fileExists || shouldExist == null || !shouldExist.Value)
-                {
-                    return true;
-                }
-
-                Errors.LogMissingFile(context, filePath);
-            }
-            catch (IOException ex) { exception = ex; }
-            catch (SecurityException ex) { exception = ex; }
-            catch (UnauthorizedAccessException ex) { exception = ex; }
-
-            if (exception != null)
-            {
-                Errors.LogExceptionAccessingFile(context, filePath, exception);
-            }
-
-            return false;
-        }
-
-        private static bool ValidateInvocationPropertiesToLog(TContext context, IEnumerable<string> propertiesToLog)
-        {
-            bool succeeded = true;
-
-            if (propertiesToLog != null)
-            {
-                var validPropertyNames = new HashSet<string>(
-                    typeof(Invocation).GetProperties(BindingFlags.Public | BindingFlags.Instance)
-                        .Select(propInfo => propInfo.Name),
-                    StringComparer.OrdinalIgnoreCase);
-
-                foreach (string propertyName in propertiesToLog)
-                {
-                    if (!validPropertyNames.Contains(propertyName))
-                    {
-                        Errors.LogInvalidInvocationPropertyName(context, propertyName);
-                        succeeded = false;
-                    }
-                }
-            }
-
-            return succeeded;
-        }
-
-        private bool ValidateOutputFileCanBeCreated(TContext context, string outputFilePath, bool force)
-        {
-            bool succeeded = true;
-
-            if (!DriverUtilities.CanCreateOutputFile(outputFilePath, force, FileSystem))
-            {
-                Errors.LogOutputFileAlreadyExists(context, outputFilePath);
-                succeeded = false;
-            }
-
-            return succeeded;
         }
 
         internal AggregatingLogger InitializeLogger(AnalyzeOptionsBase analyzeOptions)
@@ -566,6 +560,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             {
                 _consoleLogger = new ConsoleLogger(analyzeOptions.Quiet, _tool.Driver.Name, analyzeOptions.Level, analyzeOptions.Kind) { CaptureOutput = _captureConsoleOutput };
                 logger.Loggers.Add(_consoleLogger);
+            }
+
+            if ((analyzeOptions.DataToInsert.ToFlags() & OptionallyEmittedData.Hashes) != 0)
+            {
+                _analysisLoggerCache = new ConcurrentDictionary<string, IAnalysisLogger>();
             }
 
             return logger;
@@ -656,12 +655,19 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                     {
                         LogFilePersistenceOptions logFilePersistenceOptions = analyzeOptions.ConvertToLogFilePersistenceOptions();
 
-                        OptionallyEmittedData dataToInsert = analyzeOptions.DataToInsert.ToFlags();
+                        OptionallyEmittedData dataToInsert = _dataToInsert;
                         OptionallyEmittedData dataToRemove = analyzeOptions.DataToRemove.ToFlags();
 
                         SarifLogger sarifLogger;
 
-                        _run = new Run();
+                        _run = new Run()
+                        {
+                            AutomationDetails = new RunAutomationDetails
+                            {
+                                Id = analyzeOptions.AutomationId,
+                                Guid = analyzeOptions.AutomationGuid
+                            }
+                        };
 
                         if (analyzeOptions.SarifOutputVersion != SarifVersion.OneZeroZero)
                         {
@@ -694,7 +700,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                                                                      kinds: analyzeOptions.Kind,
                                                                      insertProperties: analyzeOptions.InsertProperties);
                         }
-                        _pathToHashDataMap = sarifLogger.AnalysisTargetToHashDataMap;
                         sarifLogger.AnalysisStarted();
                         aggregatingLogger.Loggers.Add(sarifLogger);
                     },
@@ -859,7 +864,25 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 return context;
             }
 
+            IAnalysisLogger logger = context.Logger;
+
+            int numberOfFiles = 1;
+            if (_computeHashes)
+            {
+                numberOfFiles = _hashToFilesMap[context.Hashes.Sha256].Count;
+                if (numberOfFiles > 1 && _analysisLoggerCache.ContainsKey(context.Hashes.Sha256))
+                {
+                    return context;
+                }
+            }
+
             context.Logger.AnalyzingTarget(context);
+
+            if (_computeHashes && numberOfFiles > 1)
+            {
+                _analysisLoggerCache[context.Hashes.Sha256] = logger;
+            }
+
             IEnumerable<Skimmer<TContext>> applicableSkimmers = DetermineApplicabilityForTarget(context, skimmers, disabledSkimmers);
             AnalyzeTarget(context, applicableSkimmers, disabledSkimmers);
 

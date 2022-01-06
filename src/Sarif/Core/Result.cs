@@ -118,8 +118,10 @@ namespace Microsoft.CodeAnalysis.Sarif
                 return true;
             }
 
-            isSuppressed = suppressions.Any(s => s.Status == SuppressionStatus.Accepted)
-                && !suppressions.Any(s => s.Status == SuppressionStatus.Rejected || s.Status == SuppressionStatus.UnderReview);
+            // If the status of any of the suppressions is "underReview" or "rejected",
+            // then the result should not be considered suppressed. Otherwise, the result should be considered suppressed.
+            // https://github.com/microsoft/sarif-tutorials/blob/main/docs/Displaying-results-in-a-viewer.md#determining-suppression-status
+            isSuppressed = !suppressions.Any(s => s.Status == SuppressionStatus.UnderReview || s.Status == SuppressionStatus.Rejected);
             return true;
         }
 

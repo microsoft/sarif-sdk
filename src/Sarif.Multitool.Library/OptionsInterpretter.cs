@@ -14,7 +14,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         //  Poor man's dependency injection
         public OptionsInterpretter() : this(new EnvironmentVariableGetter())
         {
-
         }
 
         public OptionsInterpretter(IEnvironmentVariableGetter environmentVariableGetter)
@@ -24,7 +23,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
         private readonly IEnvironmentVariableGetter _environmentVariableGetter;
 
-        //  Protected methods for abstract classes and public methods for concrete classes to ensure proper roll up and no 
+        //  Protected methods for abstract classes and public methods for concrete classes to ensure proper roll up and no
         //  redundant execution.  Only leaves of the class diagram should have public methods and be called outside this class
         protected void ConsumeEnvVarsAndInterpretOptions(CommonOptionsBase commonOptionsBase)
         {
@@ -38,17 +37,17 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         }
 
 #pragma warning disable IDE0060 // Ignore unused parameter for now
+
         protected void ConsumeEnvVarsAndInterpretOptions(ExportConfigurationOptions exportConfigurationOptions)
 #pragma warning restore IDE0060
         {
-
         }
 
 #pragma warning disable IDE0060 // Ignore unused parameter for now
+
         protected void ConsumeEnvVarsAndInterpretOptions(ExportRulesMetadataOptions exportConfigurationOptions)
 #pragma warning restore IDE0060
         {
-
         }
 
         protected void ConsumeEnvVarsAndInterpretOptions(AnalyzeOptionsBase analyzeOptionsBase)
@@ -73,16 +72,23 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             ConsumeEnvVarsAndInterpretOptions((CommonOptionsBase)singleFileOptionsBase);
         }
 
+        public void ConsumeEnvVarsAndInterpretOptions(SuppressOptions options)
+        {
+            ConsumeEnvVarsAndInterpretOptions((SingleFileOptionsBase)options);
+        }
+
         public void ConsumeEnvVarsAndInterpretOptions(AbsoluteUriOptions absoluteUriOptions)
         {
             ConsumeEnvVarsAndInterpretOptions((MultipleFilesOptionsBase)absoluteUriOptions);
         }
 
 #if DEBUG
+
         public void ConsumeEnvVarsAndInterpretOptions(AnalyzeTestOptions analyzeTestOptions)
         {
             ConsumeEnvVarsAndInterpretOptions((AnalyzeOptionsBase)analyzeTestOptions);
         }
+
 #endif
 
         public void ConsumeEnvVarsAndInterpretOptions(ApplyPolicyOptions applyPolicyOptions)
@@ -121,17 +127,17 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         }
 
 #pragma warning disable IDE0060 // Ignore unused parameter for now
+
         public void ConsumeEnvVarsAndInterpretOptions(PageOptions pageOptions)
 #pragma warning restore IDE0060
         {
-
         }
 
 #pragma warning disable IDE0060 // Ignore unused parameter for now
+
         public void ConsumeEnvVarsAndInterpretOptions(QueryOptions queryOptions)
 #pragma warning restore IDE0060
         {
-
         }
 
         public void ConsumeEnvVarsAndInterpretOptions(RebaseUriOptions rebaseUriOptions)

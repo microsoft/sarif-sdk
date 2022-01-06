@@ -141,23 +141,33 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
                 .Sum() ?? 0;
         }
 
-        public static string CreateWorkItemDescription(this SarifLog log, SarifWorkItemContext context, IList<Uri> locationUris)
+        public static string CreateWorkItemDescription(this SarifLog log, SarifWorkItemContext context)
         {
             int totalResults = log.GetAggregateFilableResultsCount();
             List<string> toolNames = log.GetToolNames();
             string phrasedToolNames = toolNames.ToAndPhrase();
             string multipleToolsFooter = toolNames.Count > 1 ? WorkItemsResources.MultipleToolsFooter : string.Empty;
 
+            IEnumerable<Result> results = log?.Runs?[0]?.Results.Where(r => r.ShouldBeFiled());
             Uri runRepositoryUri = log?.Runs.FirstOrDefault()?.VersionControlProvenance?.FirstOrDefault().RepositoryUri;
-            Uri detectionLocationUri = !string.IsNullOrEmpty(runRepositoryUri?.OriginalString) ? runRepositoryUri : locationUris?[0];
+            Uri detectionLocationUri = !string.IsNullOrEmpty(runRepositoryUri?.OriginalString) ?
+                                       runRepositoryUri :
+                                       results?.FirstOrDefault().Locations?[0].PhysicalLocation?.ArtifactLocation?.Uri;
 
             string detectionLocation = (detectionLocationUri?.IsAbsoluteUri == true && detectionLocationUri?.Scheme == "https")
                 ? context.CreateLinkText(detectionLocationUri.OriginalString, detectionLocationUri?.OriginalString)
                 : detectionLocationUri?.OriginalString;
 
-            if (locationUris?.Count > 1)
+            int locCount = results == null ? 0 :
+                           results
+                           .Where(r => r.Locations != null)
+                           .SelectMany(r => r.Locations)
+                           .Where(l => l.PhysicalLocation != null && l.PhysicalLocation.ArtifactLocation != null && l.PhysicalLocation.ArtifactLocation.Uri != null)
+                           .Count();
+
+            if (locCount > 1)
             {
-                int additionalLocations = locationUris.Count - 1;
+                int additionalLocations = locCount - 1;
                 detectionLocation = $"{detectionLocation} (+{additionalLocations} locations)";
             }
 

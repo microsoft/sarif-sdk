@@ -1,5 +1,17 @@
 # SARIF Package Release History (SDK, Driver, Converters, and Multitool)
 
+## Unreleased
+
+* BREAKING: Fix `InvalidOperationException` when using PropertiesDictionary in a multithreaded application, and remove `[Serializable]` from it. Now use of BinaryFormatter on it will result in `SerializationException`: Type `PropertiesDictionary` is not marked as serializable. [#2415](https://github.com/microsoft/sarif-sdk/pull/2415)
+
+## **v2.4.12** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.4.12) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.4.12) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.4.12) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.4.12) | [Multitool Library](https://www.nuget.org/packages/Sarif.Multitool.Library/2.4.12)
+
+* FEATURE: `MultithreadCommandBase` will use cache when hashing is enabled. [#2388](https://github.com/microsoft/sarif-sdk/pull/2388)
+* FEATURE: Flow suppressions when baselining. [#2390](https://github.com/microsoft/sarif-sdk/pull/2390)
+* BUGFIX: Fix number of results when filing work item. [#2391](https://github.com/microsoft/sarif-sdk/pull/2391)
+* FEATURE: Add `suppress` command to multitool. [#2394](https://github.com/microsoft/sarif-sdk/pull/2394)
+* BUGFIX: Fix `TryIsSuppressed` logic. [#2395](https://github.com/microsoft/sarif-sdk/pull/2395)
+
 ## **v2.4.11** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.4.11) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.4.11) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.4.11) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.4.11) | [Multitool Library](https://www.nuget.org/packages/Sarif.Multitool.Library/2.4.11)
 
 * BUGFIX: Fix partitioning visitor log duplication. [#2369](https://github.com/microsoft/sarif-sdk/pull/2369)

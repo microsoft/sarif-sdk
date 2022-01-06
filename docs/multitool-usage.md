@@ -11,10 +11,11 @@ Use the SARIF Multitool to rewrite, enrich, filter, result match, and do other c
 | file-work-items | Send SARIF results to a work item tracking system such as GitHub or Azure DevOps |
 | match-results-forward | Match Results run over run to identify New, Absent, and Unchanged Results |
 | merge | Merge multiple SARIF files into one |
-| page | Extract a subset of results from a source SARIF file. |
-| query | Find the matching subset of a SARIF file and output it or log it. |
-| rebaseuri | Rebase the URIs in one or more sarif files. |
+| page | Extract a subset of results from a source SARIF file |
+| query | Find the matching subset of a SARIF file and output it or log it |
+| rebaseuri | Rebase the URIs in one or more sarif files |
 | rewrite | Transform a SARIF file to a reformatted version |
+| suppress | Suppress results from a SARIF file |
 | validate | Validate a SARIF File against the schema and against additional correctness rules. |
 | help | See Usage |
 | version | Display version information |
@@ -54,8 +55,14 @@ Sarif.Multitool export-validation-config validation.xml
 : Export validation rules metadata
 Sarif.Multitool export-validation-rules ValidationRules.md
 
+: Merge multiple SARIF files into one
+Sarif.Multitool merge C:\Input\*.sarif --recurse --output-directory=C:\Output\ --output-file=MergeResult.sarif
+
 : Extract new Results only from New Baseline
 Sarif.Multitool query NewBaseline.sarif --expression "BaselineState == 'New'" --output Current.NewResults.sarif
+
+: Suppress Results
+Sarif.Multitool suppress current.sarif --justification "some justification" --alias "some alias" --guids --timestamps --expiryInDays 5 --status Accepted --output suppressed.sarif
 
 : Validate a SARIF file conforms to the schema
 Sarif.Multitool validate Other.sarif
