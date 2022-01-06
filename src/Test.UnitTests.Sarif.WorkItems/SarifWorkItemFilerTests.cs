@@ -49,7 +49,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
         [Fact]
         public void WorkItemFiler_PerRunSplitStrategyPartitionsProperlyGithub()
         {
-            SarifWorkItemContext context = GitHubTestContext;
+            SarifWorkItemContext context = CreateGitHubTestContext();
 
             SarifLog sarifLog = TestData.CreateSimpleLog();
 
@@ -114,7 +114,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
             // Set all results baseline state to 'Unchanged' so no work item should be filed.
             sarifLog.Runs.SelectMany(run => run.Results).ForEach(result => result.BaselineState = BaselineState.Unchanged);
 
-            SarifWorkItemContext context = GitHubTestContext;
+            SarifWorkItemContext context = CreateGitHubTestContext();
 
             context.SplittingStrategy = SplittingStrategy.None;
 
@@ -153,7 +153,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
                 .SelectMany(run => run.Results)
                 .ForEach(result => result.Suppressions = new[] { new Suppression { Status = SuppressionStatus.Accepted } });
 
-            SarifWorkItemContext context = GitHubTestContext;
+            SarifWorkItemContext context = CreateGitHubTestContext();
             context.SplittingStrategy = SplittingStrategy.None;
 
             int numberOfWorkItems = 0;
@@ -407,7 +407,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
 
         private static Mock<SarifWorkItemFiler> CreateMockSarifWorkItemFiler(SarifWorkItemContext context = null)
         {
-            context = context ?? GitHubTestContext;
+            context = context ?? CreateGitHubTestContext();
 
             var mockFiler = new Mock<SarifWorkItemFiler>(context.HostUri, context);
 
@@ -436,11 +436,14 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
         public static int CreateWorkItemCalled = 0, CreateAttachmentCount = 0, UpdateIssueCount = 0;
         public static bool ConnectCalled = false;
 
-        private static readonly SarifWorkItemContext GitHubTestContext = new SarifWorkItemContext()
+        private static SarifWorkItemContext CreateGitHubTestContext()
         {
-            HostUri = GitHubFilingUri,
-            PersonalAccessToken = TestData.NotActuallyASecret
-        };
+            return new SarifWorkItemContext()
+            {
+                HostUri = GitHubFilingUri,
+                PersonalAccessToken = TestData.NotActuallyASecret
+            };
+        }
 
         private static SarifWorkItemContext CreateAzureDevOpsTestContext()
         {
