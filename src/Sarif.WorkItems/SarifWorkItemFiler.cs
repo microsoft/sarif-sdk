@@ -199,17 +199,18 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
 
                     Logger.LogInformation($"Splitting strategy - {splittingStrategy}");
 
-                    if (splittingStrategy == SplittingStrategy.None)
-                    {
-                        return new[] { sarifLog };
-                    }
-
                     PartitionFunction<string> partitionFunction = null;
 
                     Stopwatch splittingStopwatch = Stopwatch.StartNew();
 
                     switch (splittingStrategy)
                     {
+                        case SplittingStrategy.None:
+                        {
+                            // get ride of results should not be filed
+                            partitionFunction = (result) => result.ShouldBeFiled() ? "Include" : null;
+                            break;
+                        }
                         case SplittingStrategy.PerRun:
                         {
                             partitionFunction = (result) => result.ShouldBeFiled() ? "Include" : null;
@@ -289,12 +290,6 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
             using (Logger.BeginScopeContext(nameof(FileWorkItemInternal)))
             {
                 string logId = sarifLog.GetProperty<Guid>(LOGID_PROPERTY_NAME).ToString();
-
-                if (sarifLog.Runs?.Any(run => run.Results?.Any(result => result.ShouldBeFiled()) == true) != true)
-                {
-                    // If the sarifLog does not contain result which should be filed as a work item, return null.
-                    return null;
-                }
 
                 // The helper below will initialize the sarif work item model with a copy
                 // of the root pipeline filing context. This context will then be initialized

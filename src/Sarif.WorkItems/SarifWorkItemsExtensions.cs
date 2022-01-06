@@ -14,7 +14,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
         {
             if (result == null)
             {
-                return false;
+                throw new ArgumentNullException(nameof(result));
             }
 
             if (result.BaselineState == BaselineState.Absent ||

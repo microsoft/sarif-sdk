@@ -43,7 +43,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
             int numberOfRuns = sarifLog.Runs.Count;
             context.SetProperty(ExpectedWorkItemsCount, numberOfRuns);
 
-            TestWorkItemFiler(sarifLog, context, true);
+            TestWorkItemFiler(sarifLog, context, adoClient: true);
         }
 
         [Fact]
@@ -59,7 +59,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
             int numberOfRuns = sarifLog.Runs.Count;
             context.SetProperty(ExpectedWorkItemsCount, numberOfRuns);
 
-            TestWorkItemFiler(sarifLog, context, false);
+            TestWorkItemFiler(sarifLog, context, adoClient: false);
         }
 
         [Fact]
@@ -73,7 +73,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
             int numberOfResults = sarifLog.Runs.Sum(run => run.Results.Count);
             context.SetProperty(ExpectedWorkItemsCount, numberOfResults);
 
-            TestWorkItemFiler(sarifLog, context, true);
+            TestWorkItemFiler(sarifLog, context, adoClient: true);
         }
 
         [Fact]
@@ -114,7 +114,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
             // Set all results baseline state to 'Unchanged' so no work item should be filed.
             sarifLog.Runs.SelectMany(run => run.Results).ForEach(result => result.BaselineState = BaselineState.Unchanged);
 
-            SarifWorkItemContext context = CreateAzureDevOpsTestContext();
+            SarifWorkItemContext context = GitHubTestContext;
 
             context.SplittingStrategy = SplittingStrategy.None;
 
@@ -122,7 +122,45 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
             context.SetProperty(ExpectedWorkItemsCount, numberOfResults);
             context.SetProperty(ExpectedFilingResult, FilingResult.None);
 
-            TestWorkItemFiler(sarifLog, context, true);
+            TestWorkItemFiler(sarifLog, context, adoClient: false);
+        }
+
+        [Fact]
+        public void WorkItemFiler_MixedResultsShouldBeFiled()
+        {
+            SarifLog sarifLog = TestData.CreateSimpleLogWithRules(ruleIdStartIndex: 0, resultCount: 5);
+
+            // Set baseline state of first result to 'Absent', other results should still file workf item.
+            sarifLog.Runs.First().Results.First().BaselineState = BaselineState.Absent;
+
+            SarifWorkItemContext context = CreateAzureDevOpsTestContext();
+            context.SplittingStrategy = SplittingStrategy.None;
+
+            int numberOfWorkItems = 1;
+            context.SetProperty(ExpectedWorkItemsCount, numberOfWorkItems);
+            context.SetProperty(ExpectedFilingResult, FilingResult.Succeeded);
+
+            TestWorkItemFiler(sarifLog, context, adoClient: true);
+        }
+
+        [Fact]
+        public void WorkItemFiler_ResultsWithSuppressionsShouldNotBeFiled()
+        {
+            SarifLog sarifLog = TestData.CreateSimpleLog();
+
+            // Set all results baseline state to 'Unchanged' so no work item should be filed.
+            sarifLog.Runs
+                .SelectMany(run => run.Results)
+                .ForEach(result => result.Suppressions = new[] { new Suppression { Status = SuppressionStatus.Accepted } });
+
+            SarifWorkItemContext context = GitHubTestContext;
+            context.SplittingStrategy = SplittingStrategy.None;
+
+            int numberOfWorkItems = 0;
+            context.SetProperty(ExpectedWorkItemsCount, numberOfWorkItems);
+            context.SetProperty(ExpectedFilingResult, FilingResult.None);
+
+            TestWorkItemFiler(sarifLog, context, adoClient: false);
         }
 
         [Fact]
@@ -138,7 +176,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
             context.SetProperty(ExpectedWorkItemsCount, numberOfResults);
             context.SetProperty(ExpectedFilingResult, FilingResult.None);
 
-            TestWorkItemFiler(sarifLog, context, true);
+            TestWorkItemFiler(sarifLog, context, adoClient: true);
         }
 
         private void TestWorkItemFiler(SarifLog sarifLog, SarifWorkItemContext context, bool adoClient)
@@ -231,7 +269,8 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
             {
                 foreach (Run run in updatedSarifLog.Runs)
                 {
-                    foreach (Result result in run.Results)
+                    // only verify results are used to file work item
+                    foreach (Result result in run.Results.Where(r => r.ShouldBeFiled()))
                     {
                         result.WorkItemUris.Should().NotBeNull();
                         result.WorkItemUris.Count.Should().Be(1);

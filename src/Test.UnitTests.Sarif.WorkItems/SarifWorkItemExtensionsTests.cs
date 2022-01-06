@@ -18,6 +18,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
 {
     public class SarifWorkItemExtensionsTests
     {
+        // Use portable file path so the tests can run on windows and other platforms.
         private readonly string testSarifFilePath = Path.Combine(Directory.GetCurrentDirectory(), "Test", "Data", "File{0}.sarif");
 
         [Fact]
@@ -435,7 +436,6 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
         {
             var testCases = new[]
             {
-                new { Result = (Result)null, Expected = false },
                 new { Result = new Result { Kind = ResultKind.Pass }, Expected = false },
                 new { Result = new Result { Kind = ResultKind.Fail }, Expected = true },
                 new { Result = new Result { Kind = ResultKind.Open }, Expected = true },
@@ -459,6 +459,11 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
                 bool actual = test.Result.ShouldBeFiled();
                 actual.Should().Be(actual);
             }
+
+            // test case for null result
+            Result nullResult = null;
+            Assert.Throws<ArgumentNullException>(() => nullResult.ShouldBeFiled());
+            (nullResult?.ShouldBeFiled()).Should().BeNull();
         }
 
         private static readonly string ToolName = Guid.NewGuid().ToString();
