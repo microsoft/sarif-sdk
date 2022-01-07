@@ -7,9 +7,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Reflection;
 using System.Runtime.InteropServices;
-using System.Security;
 using System.Threading.Channels;
 using System.Threading.Tasks;
 
@@ -660,14 +658,17 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
                         SarifLogger sarifLogger;
 
-                        _run = new Run()
+                        _run = new Run();
+
+                        if (!string.IsNullOrWhiteSpace(analyzeOptions.AutomationId)
+                        || !string.IsNullOrWhiteSpace(analyzeOptions.AutomationGuid))
                         {
-                            AutomationDetails = new RunAutomationDetails
+                            _run.AutomationDetails = new RunAutomationDetails
                             {
                                 Id = analyzeOptions.AutomationId,
                                 Guid = analyzeOptions.AutomationGuid
-                            }
-                        };
+                            };
+                        }
 
                         if (analyzeOptions.SarifOutputVersion != SarifVersion.OneZeroZero)
                         {
