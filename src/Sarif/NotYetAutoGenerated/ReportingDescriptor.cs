@@ -41,66 +41,77 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <summary>
         /// A stable, opaque identifier for the report.
         /// </summary>
+        [JsonProperty(Order = 1)]
         [DataMember(Name = "id", IsRequired = false, EmitDefaultValue = false)]
         public virtual string Id { get; set; }
 
         /// <summary>
         /// An array of stable, opaque identifiers by which this report was known in some previous version of the analysis tool.
         /// </summary>
+        [JsonProperty(Order = 8)]
         [DataMember(Name = "deprecatedIds", IsRequired = false, EmitDefaultValue = false)]
         public virtual IList<string> DeprecatedIds { get; set; }
 
         /// <summary>
         /// A unique identifer for the reporting descriptor in the form of a GUID.
         /// </summary>
+        [JsonProperty(Order = 9)]
         [DataMember(Name = "guid", IsRequired = false, EmitDefaultValue = false)]
         public virtual string Guid { get; set; }
 
         /// <summary>
         /// An array of unique identifies in the form of a GUID by which this report was known in some previous version of the analysis tool.
         /// </summary>
+        [JsonProperty(Order = 10)]
         [DataMember(Name = "deprecatedGuids", IsRequired = false, EmitDefaultValue = false)]
         public virtual IList<string> DeprecatedGuids { get; set; }
 
         /// <summary>
         /// A report identifier that is understandable to an end user.
         /// </summary>
+        [JsonProperty(Order = 7)]
         [DataMember(Name = "name", IsRequired = false, EmitDefaultValue = false)]
         public virtual string Name { get; set; }
 
         /// <summary>
         /// An array of readable identifiers by which this report was known in some previous version of the analysis tool.
         /// </summary>
+        [JsonProperty(Order = 11)]
         [DataMember(Name = "deprecatedNames", IsRequired = false, EmitDefaultValue = false)]
         public virtual IList<string> DeprecatedNames { get; set; }
 
         /// <summary>
         /// A concise description of the report. Should be a single sentence that is understandable when visible space is limited to a single line of text.
         /// </summary>
+        [JsonProperty(Order = 6)]
         [DataMember(Name = "shortDescription", IsRequired = false, EmitDefaultValue = false)]
         public virtual MultiformatMessageString ShortDescription { get; set; }
 
         /// <summary>
         /// A description of the report. Should, as far as possible, provide details sufficient to enable resolution of any problem indicated by the result.
         /// </summary>
+        [JsonProperty(Order = 2)]
         [DataMember(Name = "fullDescription", IsRequired = false, EmitDefaultValue = false)]
         public virtual MultiformatMessageString FullDescription { get; set; }
 
         /// <summary>
         /// A set of name/value pairs with arbitrary names. Each value is a multiformatMessageString object, which holds message strings in plain text and (optionally) Markdown format. The strings can include placeholders, which can be used to construct a message in combination with an arbitrary number of additional string arguments.
         /// </summary>
+        [JsonProperty(Order = 5)]
         [DataMember(Name = "messageStrings", IsRequired = false, EmitDefaultValue = false)]
         public virtual IDictionary<string, MultiformatMessageString> MessageStrings { get; set; }
 
         /// <summary>
         /// Default reporting configuration information.
         /// </summary>
+        [JsonProperty(Order = 12)]
         [DataMember(Name = "defaultConfiguration", IsRequired = false, EmitDefaultValue = false)]
         public virtual ReportingConfiguration DefaultConfiguration { get; set; }
 
         /// <summary>
         /// A URI where the primary documentation for the report can be found.
         /// </summary>
+        [JsonProperty(Order = 3)]
         [DataMember(Name = "helpUri", IsRequired = false, EmitDefaultValue = false)]
         [JsonConverter(typeof(Microsoft.CodeAnalysis.Sarif.Readers.UriConverter))]
         public virtual Uri HelpUri { get; set; }
@@ -108,6 +119,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <summary>
         /// Provides the primary documentation for the report, useful when there is no online documentation.
         /// </summary>
+        [JsonProperty(Order = 4)]
         [DataMember(Name = "help", IsRequired = false, EmitDefaultValue = false)]
         public virtual MultiformatMessageString Help { get; set; }
 
@@ -115,12 +127,13 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// An array of objects that describe relationships between this reporting descriptor and others.
         /// </summary>
         [DataMember(Name = "relationships", IsRequired = false, EmitDefaultValue = false)]
-        [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
+        [JsonProperty(Order = 13, DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
         public virtual IList<ReportingDescriptorRelationship> Relationships { get; set; }
 
         /// <summary>
         /// Key/value pairs that provide additional information about the report.
         /// </summary>
+        [JsonProperty(Order = 14)]
         [DataMember(Name = "properties", IsRequired = false, EmitDefaultValue = false)]
         internal override IDictionary<string, SerializedPropertyInfo> Properties { get; set; }
 
