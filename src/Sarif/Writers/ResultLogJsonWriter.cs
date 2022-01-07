@@ -322,7 +322,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
             // Results go here in schema order
 
-            SerializeIfNotNull(_run.AutomationDetails, "automationDetails");
             SerializeIfNotNull(_run.RunAggregates, "runAggregates");
             SerializeIfNotNull(_run.BaselineGuid, "baselineGuid");
             SerializeIfNotNull(_run.RedactionTokens, "redactionTokens");
