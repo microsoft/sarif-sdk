@@ -72,6 +72,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                             modifiedLog |= ApplyRtm1Changes(logObject);
                             goto case "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0-rtm.4.json";
                         }
+                        case "http://json.schemastore.org/sarif-2.1.0-rtm.5":
+                        case "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0-rtm.5.json":
                         case "http://json.schemastore.org/sarif-2.1.0-rtm.4":
                         case "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0-rtm.4.json":
                         case "http://json.schemastore.org/sarif-2.1.0-rtm.3":
@@ -85,8 +87,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                             modifiedLog |= UpdateSarifLogVersionAndSchema(logObject);
                             break;
                         }
-                        case "http://json.schemastore.org/sarif-2.1.0-rtm.5":
-                        case "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0-rtm.5.json":
+                        case "http://json.schemastore.org/sarif-2.1.0-rtm.6":
+                        case "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0-rtm.6.json":
                         {
                             // Current schema version. There should be no work to do
                             break;

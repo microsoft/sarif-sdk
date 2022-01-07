@@ -63,7 +63,7 @@ describe("formatter:sarif", () => {
         it ("should return a log with correct SARIF version and tool metadata", () => {
             const log = JSON.parse(formatter(code, null));
 
-            assert.strictEqual(log['$schema'], 'http://json.schemastore.org/sarif-2.1.0-rtm.5');
+            assert.strictEqual(log['$schema'], 'http://json.schemastore.org/sarif-2.1.0-rtm.6');
             assert.strictEqual(log.version, '2.1.0');
 
             assert.strictEqual(log.runs[0].tool.driver.name, "ESLint");
