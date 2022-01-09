@@ -295,7 +295,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             }
 
             if ((_writeConditions & Conditions.InvocationsWritten) != Conditions.InvocationsWritten &&
-                _run.Invocations?.Count > 0)
+                _run.ShouldSerializeInvocations())
             {
                 WriteInvocations(_run.Invocations);
             }
@@ -307,13 +307,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             SerializeIfNotNull(_run.OriginalUriBaseIds, "originalUriBaseIds");
 
             if ((_writeConditions & Conditions.FilesWritten) != Conditions.FilesWritten &&
-                _run.Artifacts != null)
+                _run.ShouldSerializeArtifacts())
             {
                 WriteArtifacts(_run.Artifacts);
             }
 
             if ((_writeConditions & Conditions.LogicalLocationsWritten) != Conditions.LogicalLocationsWritten &&
-                _run.LogicalLocations != null)
+                _run.ShouldSerializeLogicalLocations())
             {
                 WriteLogicalLocations(_run.LogicalLocations);
             }
