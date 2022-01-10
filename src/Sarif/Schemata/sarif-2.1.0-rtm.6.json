@@ -1778,14 +1778,14 @@
         "properties": {
           "description": "Key/value pairs that provide additional information about the region.",
           "$ref": "#/definitions/propertyBag"
-        },
+        }
+      },
 
-        "anyOf": [
-          { "required": [ "startLine" ] },
-          { "required": [ "charOffset" ] },
-          { "required": [ "byteOffset" ] }
-        ]
-      }
+      "anyOf": [
+        { "required": [ "startLine" ] },
+        { "required": [ "charOffset" ] },
+        { "required": [ "byteOffset" ] }
+      ]
     },
 
     "replacement": {
