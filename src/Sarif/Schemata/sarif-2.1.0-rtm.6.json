@@ -15,13 +15,12 @@
 
     "version": {
       "description": "The SARIF format version of this log file.",
-      "enum": [ "2.1.0" ],
-      "type": "string"
+      "enum": [ "2.1.0" ]
     },
 
     "runs": {
       "description": "The set of runs contained in this log file.",
-      "type": [ "array", "null" ],
+      "type": "array",
       "minItems": 0,
       "uniqueItems": false,
       "items": {
@@ -182,8 +181,7 @@
               "userSpecifiedConfiguration",
               "toolSpecifiedConfiguration",
               "debugOutputFile"
-            ],
-            "type": "string"
+            ]
           }
         },
 
@@ -589,8 +587,7 @@
 
         "version": {
           "description": "The SARIF format version of this external properties object.",
-          "enum": [ "2.1.0" ],
-          "type": "string"
+          "enum": [ "2.1.0" ]
         },
 
         "guid": {
@@ -1566,8 +1563,7 @@
         "level": {
           "description": "A value specifying the severity level of the notification.",
           "default": "warning",
-          "enum": [ "none", "note", "warning", "error" ],
-          "type": "string"
+          "enum": [ "none", "note", "warning", "error" ]
         },
 
         "threadId": {
@@ -1779,13 +1775,7 @@
           "description": "Key/value pairs that provide additional information about the region.",
           "$ref": "#/definitions/propertyBag"
         }
-      },
-
-      "anyOf": [
-        { "required": [ "startLine" ] },
-        { "required": [ "charOffset" ] },
-        { "required": [ "byteOffset" ] }
-      ]
+      }
     },
 
     "replacement": {
@@ -1934,8 +1924,7 @@
         "level": {
           "description": "Specifies the failure level for the report.",
           "default": "warning",
-          "enum": [ "none", "note", "warning", "error" ],
-          "type": "string"
+          "enum": [ "none", "note", "warning", "error" ]
         },
 
         "rank": {
@@ -2059,15 +2048,13 @@
         "kind": {
           "description": "A value that categorizes results by evaluation state.",
           "default": "fail",
-          "enum": [ "notApplicable", "pass", "fail", "review", "open", "informational" ],
-          "type": "string"
+          "enum": [ "notApplicable", "pass", "fail", "review", "open", "informational" ]
         },
 
         "level": {
           "description": "A value specifying the severity level of the result.",
           "default": "warning",
-          "enum": [ "none", "note", "warning", "error" ],
-          "type": "string"
+          "enum": [ "none", "note", "warning", "error" ]
         },
 
         "message": {
@@ -2197,8 +2184,7 @@
             "unchanged",
             "updated",
             "absent"
-          ],
-          "type": "string"
+          ]
         },
 
         "rank": {
@@ -2368,7 +2354,7 @@
           "description": "The language of the messages emitted into the log file during this run (expressed as an ISO 639-1 two-letter lowercase culture code) and an optional region (expressed as an ISO 3166-1 two-letter uppercase subculture code associated with a country or region). The casing is recommended but not required (in order for this data to conform to RFC5646).",
           "type": "string",
           "default": "en-US",
-          "pattern": "^(?i)[a-zA]{2}(-[a-z]{2})?$"
+          "pattern": "^[a-zA-Z]{2}|^[a-zA-Z]{2}-[a-zA-Z]{2}]?$"
         },
 
         "versionControlProvenance": {
@@ -2488,8 +2474,7 @@
 
         "columnKind": {
           "description": "Specifies the unit in which the tool measures columns.",
-          "enum": [ "utf16CodeUnits", "unicodeCodePoints" ],
-          "type": "string"
+          "enum": [ "utf16CodeUnits", "unicodeCodePoints" ]
         },
 
         "externalPropertyFileReferences": {
@@ -2727,8 +2712,7 @@
           "enum": [
             "inSource",
             "external"
-          ],
-          "type": "string"
+          ]
         },
 
         "status": {
@@ -2737,8 +2721,7 @@
             "accepted",
             "underReview",
             "rejected"
-          ],
-          "type": "string"
+          ]
         },
 
         "justification": {
@@ -2891,8 +2874,7 @@
         "importance": {
           "description": "Specifies the importance of this location in understanding the code flow in which it occurs. The order from most to least important is \"essential\", \"important\", \"unimportant\". Default: \"important\".",
           "enum": [ "important", "essential", "unimportant" ],
-          "default": "important",
-          "type": "string"
+          "default": "important"
         },
 
         "webRequest": {
@@ -3078,7 +3060,7 @@
           "description": "The language of the messages emitted into the log file during this run (expressed as an ISO 639-1 two-letter lowercase language code) and an optional region (expressed as an ISO 3166-1 two-letter uppercase subculture code associated with a country or region). The casing is recommended but not required (in order for this data to conform to RFC5646).",
           "type": "string",
           "default": "en-US",
-          "pattern": "^(?i)[a-zA]{2}(-[a-z]{2})?$"
+          "pattern": "^[a-zA-Z]{2}|^[a-zA-Z]{2}-[a-zA-Z]{2}]?$"
         },
 
         "contents": {
@@ -3090,8 +3072,7 @@
             "enum": [
               "localizedData",
               "nonLocalizedData"
-            ],
-            "type": "string"
+            ]
           }
         },
 
