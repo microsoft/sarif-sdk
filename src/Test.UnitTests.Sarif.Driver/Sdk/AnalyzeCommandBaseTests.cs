@@ -1103,8 +1103,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         }
 
         [Fact]
-        public void AnalyzeCommandBase_ShouldEmitAutomationDetailsWhenIdOrGuidExists()
+        public void AnalyzeCommandBase_AutomationDetailsTests()
         {
+            const string whiteSpace = " ";
             const string automationId = "automation-id";
             const string automationGuid = "automation-guid";
 
@@ -1122,7 +1123,43 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 {
                     AutomationId = automationId,
                     AutomationGuid = automationGuid
-                }
+                },
+                new TestAnalyzeOptions
+                {
+                },
+                new TestAnalyzeOptions
+                {
+                    AutomationId = string.Empty,
+                    AutomationGuid = string.Empty
+                },
+                new TestAnalyzeOptions
+                {
+                    AutomationId = null,
+                    AutomationGuid = null
+                },
+                new TestAnalyzeOptions
+                {
+                    AutomationId = whiteSpace,
+                    AutomationGuid = whiteSpace
+                },
+                new TestAnalyzeOptions
+                {
+                    AutomationId = string.Empty,
+                    AutomationGuid = null
+                },
+                new TestAnalyzeOptions
+                {
+                    AutomationId = null,
+                    AutomationGuid = whiteSpace
+                },
+                new TestAnalyzeOptions
+                {
+                    AutomationGuid = string.Empty
+                },
+                new TestAnalyzeOptions
+                {
+                    AutomationId = null
+                },
             };
 
             foreach (TestAnalyzeOptions enhancedOption in enhancedOptions)
@@ -1368,6 +1405,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             if (testCase.PersistLogFileToDisk)
             {
                 runWithCaching.Artifacts.Should().NotBeEmpty();
+
+                if (string.IsNullOrWhiteSpace(options.AutomationId) && string.IsNullOrWhiteSpace(options.AutomationGuid))
+                {
+                    runWithCaching.AutomationDetails.Should().Be(null);
+                }
 
                 if (!string.IsNullOrWhiteSpace(options.AutomationId))
                 {

@@ -295,7 +295,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             }
 
             if ((_writeConditions & Conditions.InvocationsWritten) != Conditions.InvocationsWritten &&
-                _run.Invocations?.Count > 0)
+                _run.ShouldSerializeInvocations())
             {
                 WriteInvocations(_run.Invocations);
             }
@@ -307,29 +307,42 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             SerializeIfNotNull(_run.OriginalUriBaseIds, "originalUriBaseIds");
 
             if ((_writeConditions & Conditions.FilesWritten) != Conditions.FilesWritten &&
-                _run.Artifacts != null)
+                _run.ShouldSerializeArtifacts())
             {
                 WriteArtifacts(_run.Artifacts);
             }
 
             if ((_writeConditions & Conditions.LogicalLocationsWritten) != Conditions.LogicalLocationsWritten &&
-                _run.LogicalLocations != null)
+                _run.ShouldSerializeLogicalLocations())
             {
                 WriteLogicalLocations(_run.LogicalLocations);
             }
 
-            SerializeIfNotNull(_run.Graphs, "graphs");
+            // All ShouldSerialize() will not be triggered automatically when manually write node by node.
+            // To make sure the same logic applied we should call the same method here, if it is defined.
+            if (_run.ShouldSerializeGraphs())
+            {
+                Serialize(_run.Graphs, "graphs");
+            }
 
             // Results go here in schema order
-
-            SerializeIfNotNull(_run.AutomationDetails, "automationDetails");
+            if (_run.ShouldSerializeAutomationDetails())
+            {
+                Serialize(_run.AutomationDetails, "automationDetails");
+            }
             SerializeIfNotNull(_run.RunAggregates, "runAggregates");
             SerializeIfNotNull(_run.BaselineGuid, "baselineGuid");
             SerializeIfNotNull(_run.RedactionTokens, "redactionTokens");
             SerializeIfNotNull(_run.DefaultEncoding, "defaultEncoding");
             SerializeIfNotNull(_run.DefaultSourceLanguage, "defaultSourceLanguage");
-            SerializeIfNotNull(_run.NewlineSequences, "newlineSequences");
-            SerializeIfNotNull(_run.ColumnKind == ColumnKind.UnicodeCodePoints ? "unicodeCodePoints" : "utf16CodeUnits", "columnKind");
+            if (_run.ShouldSerializeNewlineSequences())
+            {
+                Serialize(_run.NewlineSequences, "newlineSequences");
+            }
+            if (_run.ShouldSerializeColumnKind())
+            {
+                Serialize(_run.ColumnKind == ColumnKind.UnicodeCodePoints ? "unicodeCodePoints" : "utf16CodeUnits", "columnKind");
+            }
             SerializeIfNotNull(_run.ExternalPropertyFileReferences, "externalPropertyFileReferences");
             SerializeIfNotNull(_run.ThreadFlowLocations, "threadFlowLocations");
             SerializeIfNotNull(_run.Taxonomies, "taxonomies");
