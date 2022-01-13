@@ -13,6 +13,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 {
     public class UrisShouldBeReachable : SarifValidationSkimmerBase
     {
+        private readonly List<string> hostBlacklist = new List<string>
+        {
+            "schemastore.azurewebsites.net",
+        };
         internal IHttpClient httpProvider;
 
         public UrisShouldBeReachable()
@@ -91,7 +95,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             {
                 // Ok, it's a well-formed absolute URI. If it's not reachable, _now_ we can report it.
                 Uri uri = new Uri(uriString, UriKind.Absolute);
-                if (!IsUriReachable(uri.AbsoluteUri))
+                if (!hostBlacklist.Contains(uri.Host, StringComparer.OrdinalIgnoreCase) && !IsUriReachable(uri.AbsoluteUri))
                 {
                     // {0}: The URI '{1}' was not reachable via an HTTP GET request.
                     LogResult(
