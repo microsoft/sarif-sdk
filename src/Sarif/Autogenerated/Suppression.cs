@@ -34,7 +34,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         }
 
         /// <summary>
-        /// A stable, unique identifer for the suprression in the form of a GUID.
+        /// A stable, unique identifier for the suprression in the form of a GUID.
         /// </summary>
         [DataMember(Name = "guid", IsRequired = false, EmitDefaultValue = false)]
         public virtual string Guid { get; set; }

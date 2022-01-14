@@ -74,7 +74,7 @@ namespace Microsoft.CodeAnalysis.Sarif.VersionOne
         public string Snippet { get; set; }
 
         /// <summary>
-        /// A unique identifer for the result.
+        /// A unique identifier for the result.
         /// </summary>
         [DataMember(Name = "id", IsRequired = false, EmitDefaultValue = false)]
         public string Id { get; set; }

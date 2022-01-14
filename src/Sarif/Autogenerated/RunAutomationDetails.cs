@@ -45,7 +45,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         public virtual string Id { get; set; }
 
         /// <summary>
-        /// A stable, unique identifer for this object's containing run object in the form of a GUID.
+        /// A stable, unique identifier for this object's containing run object in the form of a GUID.
         /// </summary>
         [DataMember(Name = "guid", IsRequired = false, EmitDefaultValue = false)]
         public virtual string Guid { get; set; }
