@@ -2,6 +2,8 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Runtime.CompilerServices;
 
 using Microsoft.CodeAnalysis.Sarif;
@@ -33,6 +35,17 @@ namespace Microsoft.CodeAnalysis.Test.Utilities.Sarif
             // when it is initialized, it should retrieve the test rule behavior that 
             // specifies this from the context object that parameterizes the call.
             return behaviors & ~behaviors.AccessibleOutsideOfContextOnly();
+        }
+
+        public static IList<T> Shuffle<T>(this IList<T> list, Random random = null)
+        {
+            if (list == null)
+            {
+                return null;
+            }
+
+            random ??= new Random();
+            return list.OrderBy(item => random.Next()).ToList();
         }
     }
 }
