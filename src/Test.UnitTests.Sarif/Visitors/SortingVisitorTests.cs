@@ -98,11 +98,11 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Visitors
             // create a log with all results have same value.
             SarifLog sarifLog = new SarifLog
             {
-                Runs = new []
+                Runs = new[]
                 {
                     new Run
                     {
-                        Results = new []
+                        Results = new[]
                         {
                             new Result
                             {
