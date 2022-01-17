@@ -33,7 +33,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline
             Run result = defaultBaseliner.CreateBaselinedRun(baseline, next);
 
             result.Results.Should().OnlyContain(r => r.BaselineState == BaselineState.Unchanged);
-            result.Results.Should().HaveCount(baseline.Results.Count());
+            result.Results.Should().HaveCount(baseline.Results.Count);
         }
 
         [Fact]
@@ -47,7 +47,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline
             Run result = defaultBaseliner.CreateBaselinedRun(baseline, next);
 
             result.Results.Where(r => r.BaselineState == BaselineState.New).Should().ContainSingle();
-            result.Results.Should().HaveCount(baseline.Results.Count() + 1);
+            result.Results.Should().HaveCount(baseline.Results.Count + 1);
         }
 
         [Fact]
@@ -61,7 +61,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline
             Run result = defaultBaseliner.CreateBaselinedRun(baseline, next);
 
             result.Results.Where(r => r.BaselineState == BaselineState.Absent).Should().ContainSingle();
-            result.Results.Should().HaveCount(baseline.Results.Count());
+            result.Results.Should().HaveCount(baseline.Results.Count);
         }
 
         [Fact]
@@ -77,7 +77,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline
 
             result.Results.Where(r => r.BaselineState == BaselineState.New).Should().ContainSingle();
             result.Results.Where(r => r.BaselineState == BaselineState.Absent).Should().ContainSingle();
-            result.Results.Should().HaveCount(baseline.Results.Count() + 1);
+            result.Results.Should().HaveCount(baseline.Results.Count + 1);
         }
 
         [Fact]
@@ -91,7 +91,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline
             Run result = defaultBaseliner.CreateBaselinedRun(baseline, next);
 
             result.Results.Should().OnlyContain(r => r.BaselineState == BaselineState.Unchanged);
-            result.Results.Should().HaveCount(baseline.Results.Count());
+            result.Results.Should().HaveCount(baseline.Results.Count);
         }
     }
 }

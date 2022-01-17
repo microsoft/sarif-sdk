@@ -18,8 +18,8 @@
             },
             {
               "id": "TEST0002",
-              "name": "This isn't pascal case",
-              "helpUri": "http://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html"
+              "helpUri": "http://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html",
+              "name": "This isn't pascal case"
             }
           ]
         }

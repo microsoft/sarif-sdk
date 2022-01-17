@@ -27,7 +27,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
             IDictionary<string, ArtifactLocation> uriBaseIds = commonOptionsBase.ConstructUriBaseIdsDictionary();
 
-            uriBaseIds.Count().Should().Be(1);
+            uriBaseIds.Count.Should().Be(1);
             uriBaseIds.Keys.First().Should().Be(name);
             uriBaseIds.Values.First().Uri.LocalPath.Should().Be(path);
         }
@@ -59,7 +59,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
             IDictionary<string, ArtifactLocation> uriBaseIds = commonOptionsBase.ConstructUriBaseIdsDictionary();
 
-            uriBaseIds.Count().Should().Be(1);
+            uriBaseIds.Count.Should().Be(1);
             uriBaseIds.Keys.First().Should().Be(name);
             uriBaseIds.Values.First().Uri.LocalPath.Should().Be(Environment.CurrentDirectory);
         }

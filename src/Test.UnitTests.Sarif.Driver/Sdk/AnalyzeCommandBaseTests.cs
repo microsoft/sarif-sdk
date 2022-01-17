@@ -1078,8 +1078,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         }
 
         [Fact]
-        public void AnalyzeCommandBase_ShouldEmitAutomationDetailsWhenIdOrGuidExists()
+        public void AnalyzeCommandBase_AutomationDetailsTests()
         {
+            const string whiteSpace = " ";
             const string automationId = "automation-id";
             const string automationGuid = "automation-guid";
 
@@ -1097,7 +1098,43 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 {
                     AutomationId = automationId,
                     AutomationGuid = automationGuid
-                }
+                },
+                new TestAnalyzeOptions
+                {
+                },
+                new TestAnalyzeOptions
+                {
+                    AutomationId = string.Empty,
+                    AutomationGuid = string.Empty
+                },
+                new TestAnalyzeOptions
+                {
+                    AutomationId = null,
+                    AutomationGuid = null
+                },
+                new TestAnalyzeOptions
+                {
+                    AutomationId = whiteSpace,
+                    AutomationGuid = whiteSpace
+                },
+                new TestAnalyzeOptions
+                {
+                    AutomationId = string.Empty,
+                    AutomationGuid = null
+                },
+                new TestAnalyzeOptions
+                {
+                    AutomationId = null,
+                    AutomationGuid = whiteSpace
+                },
+                new TestAnalyzeOptions
+                {
+                    AutomationGuid = string.Empty
+                },
+                new TestAnalyzeOptions
+                {
+                    AutomationId = null
+                },
             };
 
             foreach (TestAnalyzeOptions enhancedOption in enhancedOptions)
@@ -1344,6 +1381,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             {
                 runWithCaching.Artifacts.Should().NotBeEmpty();
 
+                if (string.IsNullOrWhiteSpace(options.AutomationId) && string.IsNullOrWhiteSpace(options.AutomationGuid))
+                {
+                    runWithCaching.AutomationDetails.Should().Be(null);
+                }
+
                 if (!string.IsNullOrWhiteSpace(options.AutomationId))
                 {
                     runWithCaching.AutomationDetails.Id.Should().Be(options.AutomationId);
@@ -1558,8 +1600,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 // cases will not do this, because the return of 'not applicable' from the CanAnalyze
                 // method will result in Analyze not getting called subsequently for those scan targets.
                 (NotificationsWillBeConvertedToErrorResults
-                    ? Files.Count() - Files.Where((f) => f.Contains("NotApplicable")).Count()
-                    : 0);
+                    ? Files.Count - Files.Count((f) => f.Contains("NotApplicable")) : 0);
 
             public int ExpectedWarningCount =>
                 Files.Where((f) => f.Contains("Warning")).Count();

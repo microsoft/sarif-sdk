@@ -7,9 +7,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Reflection;
 using System.Runtime.InteropServices;
-using System.Security;
 using System.Threading.Channels;
 using System.Threading.Tasks;
 
@@ -289,7 +287,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 }
             }
 
-            Debug.Assert(_fileContexts.Count == 0);
+            Debug.Assert(_fileContexts.IsEmpty);
             Debug.Assert(_fileContextsCount == currentIndex);
 
             return true;
