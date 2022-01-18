@@ -9,14 +9,20 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 {
     public class SortingVisitor : SarifRewritingVisitor
     {
-        private readonly IDictionary<int, int> ruleIndexMap = new ConcurrentDictionary<int, int>();
-        private readonly IDictionary<int, int> artifactIndexMap = new ConcurrentDictionary<int, int>();
+        private readonly IDictionary<int, int> ruleIndexMap;
+        private readonly IDictionary<int, int> artifactIndexMap;
+
+        public SortingVisitor()
+        {
+            ruleIndexMap = new ConcurrentDictionary<int, int>();
+            artifactIndexMap = new ConcurrentDictionary<int, int>();
+        }
 
         public override Run VisitRun(Run node)
         {
             if (node?.Artifacts != null)
             {
-                IDictionary<Artifact, int> oldIndexes = new Dictionary<Artifact, int>();
+                IDictionary<Artifact, int> oldIndexes = new Dictionary<Artifact, int>(capacity: node.Artifacts.Count);
                 // save old indexes
                 for (int i = 0; i < node.Artifacts.Count; i++)
                 {
@@ -32,14 +38,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 // udpate new indexes
                 for (int newIndex = 0; newIndex < node.Artifacts.Count; newIndex++)
                 {
-                    if (oldIndexes.TryGetValue(node.Artifacts[newIndex], out int oldIndex))
+                    if (oldIndexes.TryGetValue(node.Artifacts[newIndex], out int oldIndex)
+                        && !artifactIndexMap.TryGetValue(oldIndex, out _))
                     {
-                        if (!artifactIndexMap.TryGetValue(oldIndex, out _))
-                        {
-                            artifactIndexMap.Add(oldIndex, newIndex);
-                        }
+                        artifactIndexMap.Add(oldIndex, newIndex);
                     }
                 }
+
+                oldIndexes.Clear();
             }
 
             // traverse child nodes first, so the child list properties should be sorted
@@ -59,7 +65,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             ToolComponent current = base.VisitToolComponent(node);
             if (current?.Rules != null)
             {
-                IDictionary<ReportingDescriptor, int> oldIndexes = new Dictionary<ReportingDescriptor, int>();
+                IDictionary<ReportingDescriptor, int> oldIndexes = new Dictionary<ReportingDescriptor, int>(capacity: current.Rules.Count);
                 // before sort the rules, save old indexes
                 for (int i = 0; i < current.Rules.Count; i++)
                 {
@@ -75,12 +81,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 // udpate new indexes
                 for (int newIndex = 0; newIndex < current.Rules.Count; newIndex++)
                 {
-                    if (oldIndexes.TryGetValue(current.Rules[newIndex], out int oldIndex))
+                    if (oldIndexes.TryGetValue(current.Rules[newIndex], out int oldIndex)
+                        && !ruleIndexMap.TryGetValue(oldIndex, out _))
                     {
-                        if (!ruleIndexMap.TryGetValue(oldIndex, out _))
-                        {
-                            ruleIndexMap.Add(oldIndex, newIndex);
-                        }
+                        ruleIndexMap.Add(oldIndex, newIndex);
                     }
                 }
 
@@ -94,13 +98,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             Result current = base.VisitResult(node);
             if (current != null)
             {
-                if (current.RuleIndex != -1)
+                // update old index to new index
+                if (current.RuleIndex != -1
+                    && ruleIndexMap.TryGetValue(current.RuleIndex, out int newIndex))
                 {
-                    // update old index to new index
-                    if (ruleIndexMap.TryGetValue(current.RuleIndex, out int newIndex))
-                    {
-                        current.RuleIndex = newIndex;
-                    }
+                    current.RuleIndex = newIndex;
                 }
 
                 if (current.Locations != null)
@@ -153,13 +155,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         public override ArtifactLocation VisitArtifactLocation(ArtifactLocation node)
         {
             ArtifactLocation current = base.VisitArtifactLocation(node);
-            if (current.Index != -1)
+            // update old index to new index
+            if (current.Index != -1
+                && artifactIndexMap.TryGetValue(current.Index, out int newIndex))
             {
-                // update old index to new index
-                if (artifactIndexMap.TryGetValue(current.Index, out int newIndex))
-                {
-                    current.Index = newIndex;
-                }
+                current.Index = newIndex;
             }
 
             return current;
