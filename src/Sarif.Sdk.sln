@@ -47,7 +47,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{90E0CA8D-0D6
 		BinSkimConfiguration.xml = BinSkimConfiguration.xml
 		build.props = build.props
 		CommonAssemblyInfo.cs = CommonAssemblyInfo.cs
-		NuGet.Config = NuGet.Config
 		ReleaseHistory.md = ReleaseHistory.md
 	EndProjectSection
 EndProject
