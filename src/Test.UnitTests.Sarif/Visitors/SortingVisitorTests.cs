@@ -70,13 +70,10 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Visitors
 
             // make sure result's ruleIndex points to right rule in sorted log
             IList<ReportingDescriptor> rules = sortedLog1.Runs.First().Tool.Driver.Rules;
-            foreach (Result result in sortedLog1.Runs.First().Results)
+            foreach (Result result in sortedLog1.Runs.First().Results.Where(r => r.RuleIndex != -1))
             {
-                if (result.RuleIndex != -1)
-                {
-                    int ruleIndex = rules.IndexOf(rules.First(r => r.Id.Equals(result.RuleId)));
-                    result.RuleIndex.Should().Be(ruleIndex);
-                }
+                int ruleIndex = rules.IndexOf(rules.First(r => r.Id.Equals(result.RuleId)));
+                result.RuleIndex.Should().Be(ruleIndex);
             }
 
             // make sure artifactLocation index points to right artifacts
@@ -162,7 +159,7 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Visitors
                 {
                     new CodeFlow
                     {
-                        ThreadFlows = new []
+                        ThreadFlows = new[]
                         {
                             new ThreadFlow
                             {
@@ -212,8 +209,10 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Visitors
 
         private static void ShuffleSarifLog(SarifLog log, Random random)
         {
-            Run run = log.Runs.First();
+            Run run = log?.Runs.First();
             IList<ReportingDescriptor> rules = run?.Tool?.Driver?.Rules;
+            IList<Result> results = run?.Results;
+            IList<Artifact> artifacts = run?.Artifacts;
 
             if (rules != null)
             {
@@ -230,81 +229,75 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Visitors
                 }
 
                 // update results rule index
-                IList<Result> results = log?.Runs?.First()?.Results;
-                foreach (Result result in results)
+                foreach (Result result in results.Where(r => r.RuleIndex != -1))
                 {
-                    if (result.RuleIndex != -1
-                        && ruleIndexMapping.TryGetValue(result.RuleId, out int newIndex))
+                    if (ruleIndexMapping.TryGetValue(result.RuleId, out int newIndex))
                     {
                         result.RuleIndex = newIndex;
+                    }
+                }
+            }
 
+            if (artifacts != null)
+            {
+                IDictionary<int, int> artifactIndexMapping = new Dictionary<int, int>();
+
+                // store old artifacts indexes
+                IDictionary<Artifact, int> oldMapping = new Dictionary<Artifact, int>();
+                for (int i = 0; i < artifacts.Count; i++)
+                {
+                    oldMapping.Add(artifacts[i], i);
+                }
+
+                // shuffle artifacts
+                artifacts = artifacts.Shuffle(random);
+                log.Runs.First().Artifacts = artifacts;
+
+                // store new artifacts indexes 
+                for (int i = 0; i < artifacts.Count; i++)
+                {
+                    if (oldMapping.TryGetValue(artifacts[i], out int oldIndex))
+                    {
+                        artifactIndexMapping.Add(oldIndex, i);
                     }
                 }
 
-                IList<Artifact> artifacts = run?.Artifacts;
-                if (artifacts != null)
+                // update all artifacts' index if its set.
+                List<ArtifactLocation> locToUpdate = new List<ArtifactLocation>();
+                locToUpdate.AddRange(
+                    results
+                    .SelectMany(r => r.Locations)
+                    .Select(l => l.PhysicalLocation.ArtifactLocation));
+
+                locToUpdate.AddRange(
+                    results
+                    .SelectMany(r => r.CodeFlows)
+                    .SelectMany(c => c.ThreadFlows)
+                    .SelectMany(t => t.Locations)
+                    .Select(l => l.Location.PhysicalLocation.ArtifactLocation));
+
+                foreach (ArtifactLocation artifactLocation in locToUpdate.Where(l => l.Index != -1))
                 {
-                    IDictionary<int, int> artifactIndexMapping = new Dictionary<int, int>();
-
-                    // store old artifacts indexes
-                    IDictionary<Artifact, int> oldMapping = new Dictionary<Artifact, int>();
-                    for (int i = 0; i < artifacts.Count; i++)
+                    if (artifactIndexMapping.TryGetValue(artifactLocation.Index, out int newIndex))
                     {
-                        oldMapping.Add(artifacts[i], i);
-                    }
-
-                    // shuffle artifacts
-                    artifacts = artifacts.Shuffle(random);
-                    log.Runs.First().Artifacts = artifacts;
-
-                    // store new artifacts indexes 
-                    for (int i = 0; i < artifacts.Count; i++)
-                    {
-                        if (oldMapping.TryGetValue(artifacts[i], out int oldIndex))
-                        {
-                            artifactIndexMapping.Add(oldIndex, i);
-                        }
-                    }
-
-                    // update all artifacts' index if its set.
-                    List<ArtifactLocation> locToUpdate = new List<ArtifactLocation>();
-                    locToUpdate.AddRange(
-                        results
-                        .SelectMany(r => r.Locations)
-                        .Select(l => l.PhysicalLocation.ArtifactLocation));
-
-                    locToUpdate.AddRange(
-                        results
-                        .SelectMany(r => r.CodeFlows)
-                        .SelectMany(c => c.ThreadFlows)
-                        .SelectMany(t => t.Locations)
-                        .Select(l => l.Location.PhysicalLocation.ArtifactLocation));
-
-                    foreach (ArtifactLocation artifactLocation in locToUpdate)
-                    {
-                        if (artifactLocation.Index != -1
-                            && artifactIndexMapping.TryGetValue(artifactLocation.Index, out int newIndex))
-                        {
-                            artifactLocation.Index = newIndex;
-
-                        }
+                        artifactLocation.Index = newIndex;
                     }
                 }
+            }
 
-                // shuffle results
-                log.Runs.First().Results = results.Shuffle();
+            // shuffle results
+            log.Runs.First().Results = results.Shuffle(random);
 
-                // shuffle codeflow locations
-                foreach (Result result in log.Runs.First().Results)
+            // shuffle codeflow locations
+            foreach (Result result in log.Runs.First().Results)
+            {
+                result.CodeFlows = result.CodeFlows.Shuffle(random);
+                foreach (CodeFlow codeFlow in result.CodeFlows)
                 {
-                    result.CodeFlows = result.CodeFlows.Shuffle();
-                    foreach (CodeFlow codeFlow in result.CodeFlows)
+                    codeFlow.ThreadFlows = codeFlow.ThreadFlows.Shuffle(random);
+                    foreach (ThreadFlow threadFlow in codeFlow.ThreadFlows)
                     {
-                        codeFlow.ThreadFlows = codeFlow.ThreadFlows.Shuffle();
-                        foreach (ThreadFlow threadFlow in codeFlow.ThreadFlows)
-                        {
-                            threadFlow.Locations = threadFlow.Locations.Shuffle();
-                        }
+                        threadFlow.Locations = threadFlow.Locations.Shuffle(random);
                     }
                 }
             }
