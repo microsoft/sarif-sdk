@@ -35,7 +35,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         }
 
         /// <summary>
-        /// A unique identifer for the tool component in the form of a GUID.
+        /// A unique identifier for the tool component in the form of a GUID.
         /// </summary>
         [DataMember(Name = "guid", IsRequired = false, EmitDefaultValue = false)]
         public virtual string Guid { get; set; }

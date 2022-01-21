@@ -47,13 +47,13 @@ namespace Microsoft.CodeAnalysis.Sarif
         public virtual SarifVersion Version { get; set; }
 
         /// <summary>
-        /// A stable, unique identifer for this external properties object, in the form of a GUID.
+        /// A stable, unique identifier for this external properties object, in the form of a GUID.
         /// </summary>
         [DataMember(Name = "guid", IsRequired = false, EmitDefaultValue = false)]
         public virtual string Guid { get; set; }
 
         /// <summary>
-        /// A stable, unique identifer for the run associated with this external properties object, in the form of a GUID.
+        /// A stable, unique identifier for the run associated with this external properties object, in the form of a GUID.
         /// </summary>
         [DataMember(Name = "runGuid", IsRequired = false, EmitDefaultValue = false)]
         public virtual string RunGuid { get; set; }
