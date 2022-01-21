@@ -18,6 +18,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             artifactIndexMap = new ConcurrentDictionary<int, int>();
         }
 
+        public override SarifLog VisitSarifLog(SarifLog node)
+        {
+            SarifLog current = base.VisitSarifLog(node);
+            if (node?.Runs != null)
+            {
+                current.Runs = current.Runs.OrderBy(r => r, RunSortingComparer.Instance).ToList();
+            }
+            return current;
+        }
+
         public override Run VisitRun(Run node)
         {
             if (node?.Artifacts != null)
