@@ -125,6 +125,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 }
             }
 
+            _rootContext.Dispose();
+
             if (options.RichReturnCode)
             {
                 return (int)RuntimeErrors;
@@ -166,7 +168,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             // 9. Run all multi-threaded analysis operations.
             AnalyzeTargets(analyzeOptions, _rootContext, skimmers);
 
-            // 10. For test purposes, raise an unhandled exception if indicated
+            // 11. For test purposes, raise an unhandled exception if indicated
             if (RaiseUnhandledExceptionInDriverCode)
             {
                 throw new InvalidOperationException(GetType().Name);
@@ -805,10 +807,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 #endif
         }
 
-        protected virtual void AnalyzeTargets(
-            TOptions options,
-            TContext rootContext,
-            IEnumerable<Skimmer<TContext>> skimmers)
+        protected virtual void AnalyzeTargets(TOptions options,
+                                              TContext rootContext,
+                                              IEnumerable<Skimmer<TContext>> skimmers)
         {
             var disabledSkimmers = new SortedSet<string>();
 
