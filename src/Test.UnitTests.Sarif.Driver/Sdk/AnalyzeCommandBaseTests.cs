@@ -660,7 +660,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         {
             PostUriTestHelper(@"https://httpbin.org/post", TestAnalyzeCommand.SUCCESS, RuntimeConditions.None);
             PostUriTestHelper(@"https://httpbin.org/get", TestAnalyzeCommand.FAILURE, RuntimeConditions.ExceptionPostingLogFile);
-            PostUriTestHelper(@"https://host.does.not.exists.com", TestAnalyzeCommand.FAILURE, RuntimeConditions.ExceptionPostingLogFile);
+            PostUriTestHelper(@"https://host.does.not.exist", TestAnalyzeCommand.FAILURE, RuntimeConditions.ExceptionPostingLogFile);
         }
 
         [Fact]
