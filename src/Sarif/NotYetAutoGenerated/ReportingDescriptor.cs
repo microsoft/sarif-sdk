@@ -53,7 +53,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         public virtual IList<string> DeprecatedIds { get; set; }
 
         /// <summary>
-        /// A unique identifer for the reporting descriptor in the form of a GUID.
+        /// A unique identifier for the reporting descriptor in the form of a GUID.
         /// </summary>
         [DataMember(Name = "guid", IsRequired = false, EmitDefaultValue = false, Order = 9)]
         public virtual string Guid { get; set; }
