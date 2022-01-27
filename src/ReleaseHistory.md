@@ -2,7 +2,6 @@
 
 ## Unreleased
 
-* BUGFIX: Update command line argument name from `postUri` to `post-uri`. [#2427](https://github.com/microsoft/sarif-sdk/pull/2427)
 * BUGFIX: Adjust Json Serialization field order for ReportingDescriptor and skip emit empty AutomationDetails node. [#2420](https://github.com/microsoft/sarif-sdk/pull/2420)
 * BREAKING: Fix `InvalidOperationException` when using PropertiesDictionary in a multithreaded application, and remove `[Serializable]` from it. Now use of BinaryFormatter on it will result in `SerializationException`: Type `PropertiesDictionary` is not marked as serializable. [#2415](https://github.com/microsoft/sarif-sdk/pull/2415)
 
