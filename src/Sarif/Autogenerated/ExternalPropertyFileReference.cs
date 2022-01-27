@@ -41,7 +41,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         public virtual ArtifactLocation Location { get; set; }
 
         /// <summary>
-        /// A stable, unique identifer for the external property file in the form of a GUID.
+        /// A stable, unique identifier for the external property file in the form of a GUID.
         /// </summary>
         [DataMember(Name = "guid", IsRequired = false, EmitDefaultValue = false)]
         public virtual string Guid { get; set; }

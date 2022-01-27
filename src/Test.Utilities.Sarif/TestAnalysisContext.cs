@@ -33,8 +33,11 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         public DefaultTraces Traces { get; set; }
 
+        public bool Disposed { get; private set; }
+
         public void Dispose()
         {
+            Disposed = true;
         }
     }
 }
