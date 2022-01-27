@@ -107,7 +107,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
                 bool succeeded = (RuntimeErrors & ~RuntimeConditions.Nonfatal) == RuntimeConditions.None;
 
-
                 if (succeeded)
                 {
                     try
