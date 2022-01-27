@@ -33,7 +33,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         private Run _run;
         private Tool _tool;
         private bool _computeHashes;
-        private TContext _rootContext;
+        internal TContext _rootContext;
         private int _fileContextsCount;
         private Channel<int> _hashChannel;
         private OptionallyEmittedData _dataToInsert;
@@ -66,73 +66,78 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
         public override int Run(TOptions options)
         {
-            // Initialize an common logger that drives all outputs. This
-            // object drives logging for console, statistics, etc.
-            using (AggregatingLogger logger = InitializeLogger(options))
+            try
             {
-                try
+                // Initialize an common logger that drives all outputs. This
+                // object drives logging for console, statistics, etc.
+                using (AggregatingLogger logger = InitializeLogger(options))
                 {
-                    Analyze(options, logger);
-                }
-                catch (ExitApplicationException<ExitReason> ex)
-                {
-                    // These exceptions have already been logged
-                    ExecutionException = ex;
-                    return FAILURE;
-                }
-                catch (Exception ex)
-                {
-                    ex = ex.InnerException ?? ex;
-
-                    if (!(ex is ExitApplicationException<ExitReason>))
+                    try
                     {
-                        // These exceptions escaped our net and must be logged here
-                        RuntimeErrors |= Errors.LogUnhandledEngineException(_rootContext, ex);
+                        Analyze(options, logger);
                     }
-                    ExecutionException = ex;
-                    return FAILURE;
+                    catch (ExitApplicationException<ExitReason> ex)
+                    {
+                        // These exceptions have already been logged
+                        ExecutionException = ex;
+                        return FAILURE;
+                    }
+                    catch (Exception ex)
+                    {
+                        ex = ex.InnerException ?? ex;
+
+                        if (!(ex is ExitApplicationException<ExitReason>))
+                        {
+                            // These exceptions escaped our net and must be logged here
+                            RuntimeErrors |= Errors.LogUnhandledEngineException(_rootContext, ex);
+                        }
+                        ExecutionException = ex;
+                        return FAILURE;
+                    }
+                    finally
+                    {
+                        logger.AnalysisStopped(RuntimeErrors);
+                    }
                 }
-                finally
+
+                bool succeeded = (RuntimeErrors & ~RuntimeConditions.Nonfatal) == RuntimeConditions.None;
+
+                if (succeeded)
                 {
-                    logger.AnalysisStopped(RuntimeErrors);
+                    try
+                    {
+                        ProcessBaseline(_rootContext, options, FileSystem);
+                    }
+                    catch (Exception ex)
+                    {
+                        RuntimeErrors |= RuntimeConditions.ExceptionProcessingBaseline;
+                        ExecutionException = ex;
+                        return FAILURE;
+                    }
+
+                    try
+                    {
+                        PostLogFile(options.PostUri, options.OutputFilePath, FileSystem);
+                    }
+                    catch (Exception ex)
+                    {
+                        RuntimeErrors |= RuntimeConditions.ExceptionPostingLogFile;
+                        ExecutionException = ex;
+                        return FAILURE;
+                    }
                 }
+
+                if (options.RichReturnCode)
+                {
+                    return (int)RuntimeErrors;
+                }
+
+                return succeeded ? SUCCESS : FAILURE;
             }
-
-            bool succeeded = (RuntimeErrors & ~RuntimeConditions.Nonfatal) == RuntimeConditions.None;
-
-            if (succeeded)
+            finally
             {
-                try
-                {
-                    ProcessBaseline(_rootContext, options, FileSystem);
-                }
-                catch (Exception ex)
-                {
-                    RuntimeErrors |= RuntimeConditions.ExceptionProcessingBaseline;
-                    ExecutionException = ex;
-                    return FAILURE;
-                }
-
-                try
-                {
-                    PostLogFile(options.PostUri, options.OutputFilePath, FileSystem);
-                }
-                catch (Exception ex)
-                {
-                    RuntimeErrors |= RuntimeConditions.ExceptionPostingLogFile;
-                    ExecutionException = ex;
-                    return FAILURE;
-                }
+                _rootContext?.Dispose();
             }
-
-            _rootContext.Dispose();
-
-            if (options.RichReturnCode)
-            {
-                return (int)RuntimeErrors;
-            }
-
-            return succeeded ? SUCCESS : FAILURE;
         }
 
         private void Analyze(TOptions analyzeOptions, AggregatingLogger logger)
@@ -168,7 +173,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             // 9. Run all multi-threaded analysis operations.
             AnalyzeTargets(analyzeOptions, _rootContext, skimmers);
 
-            // 11. For test purposes, raise an unhandled exception if indicated
+            // 10. For test purposes, raise an unhandled exception if indicated
             if (RaiseUnhandledExceptionInDriverCode)
             {
                 throw new InvalidOperationException(GetType().Name);
