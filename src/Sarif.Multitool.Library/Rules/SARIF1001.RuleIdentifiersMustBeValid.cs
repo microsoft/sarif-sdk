@@ -19,7 +19,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         /// ([3.49.3](https://docs.oasis-open.org/sarif/sarif/v2.1.0/os/sarif-v2.1.0-os.html#_Toc34317839))
         /// explains the reasons for this). The optional 'name' property
         /// ([3.49.7](https://docs.oasis-open.org/sarif/sarif/v2.1.0/os/sarif-v2.1.0-os.html#_Toc34317843))
-        /// is an identifer that is understandable to an end user. Therefore if both 'id' and 'name'
+        /// is an identifier that is understandable to an end user. Therefore if both 'id' and 'name'
         /// are present, they must be different. If both 'name' and 'id' are opaque identifiers,
         /// omit the 'name' property. If both 'name' and 'id' are human-readable identifiers, then
         /// consider assigning an opaque identifier to each rule, but in the meantime, omit the 'name'
@@ -42,7 +42,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                 // ([3.49.3](https://docs.oasis-open.org/sarif/sarif/v2.1.0/os/sarif-v2.1.0-os.html#_Toc34317839))
                 // explains the reasons for this). The optional 'name' property
                 // ([3.49.7](https://docs.oasis-open.org/sarif/sarif/v2.1.0/os/sarif-v2.1.0-os.html#_Toc34317843))
-                // is an identifer that is understandable to an end user. Therefore if both 'id' and
+                // is an identifier that is understandable to an end user. Therefore if both 'id' and
                 // 'name' are present, they must be different. If they are identical, the tool must
                 // omit the 'name' property.
                 LogResult(
