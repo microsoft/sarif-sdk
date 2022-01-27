@@ -165,7 +165,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
             if (options.Timestamps && suppression.TryGetProperty("timeUtc", out DateTime timeUtc))
             {
-                timeUtc.Should().BeCloseTo(DateTime.UtcNow);
+                timeUtc.Should().BeCloseTo(DateTime.UtcNow, precision: 500);
             }
 
             if (options.ExpiryInDays > 0 && suppression.TryGetProperty("expiryUtc", out DateTime expiryUtc))

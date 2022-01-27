@@ -40,6 +40,19 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             this.Output = output;
         }
 
+        [Fact]
+        public void AnalyzeCommandBase_RootContextIsDisposed()
+        {
+            var options = new TestAnalyzeOptions();
+            var singleThreadedCommand = new TestAnalyzeCommand();
+            int result = singleThreadedCommand.Run(options);
+            singleThreadedCommand._rootContext.Disposed.Should().BeTrue();
+
+            var multithreadedAnalyzeCommand = new TestMultithreadedAnalyzeCommand();
+            result = singleThreadedCommand.Run(options);
+            singleThreadedCommand._rootContext.Disposed.Should().BeTrue();
+        }
+
         private void ExceptionTestHelper(
             RuntimeConditions runtimeConditions,
             ExitReason expectedExitReason = ExitReason.None,
@@ -1237,10 +1250,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
                 testCase.FileSystem = null;
                 testCase.Files = multiThreadTargets;
-                Run runMultiThread = RunAnalyzeCommand(options, testCase, multithreaded: true);
+                Run runMultithreaded = RunAnalyzeCommand(options, testCase, multithreaded: true);
 
-                runMultiThread.Results.Should().BeEquivalentTo(runSingleThread.Results);
-                runMultiThread.Artifacts.Should().BeEquivalentTo(runSingleThread.Artifacts);
+                runMultithreaded.Results.Should().BeEquivalentTo(runSingleThread.Results);
+                runMultithreaded.Artifacts.Should().BeEquivalentTo(runSingleThread.Artifacts);
             }
         }
 
