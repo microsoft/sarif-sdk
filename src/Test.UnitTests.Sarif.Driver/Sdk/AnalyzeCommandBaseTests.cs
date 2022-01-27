@@ -1258,21 +1258,93 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         }
 
         [Fact]
-        public void AnalyzeCommandBase_MultithreadedShouldUseCacheIfFilesAreTheSame()
+        public void AnalyzeCommandBase_Multithreaded_ShouldOnlyLogArtifactsWhenHashesIsEnabled()
         {
-            // Generating 20 files with different names but same content.
-            RunMultithreadedAnalyzeCommand(ComprehensiveKindAndLevelsByFilePath,
-                                           generateSameOutput: true,
-                                           expectedResultCode: 0,
-                                           expectedResultCount: 20,
-                                           expectedCacheSize: 1);
+            const int expectedNumberOfArtifacts = 2;
+            const int expectedNumberOfResultsWithErrors = 1;
+            const int expectedNumberOfResultsWithWarnings = 1;
+            var files = new List<string>
+            {
+                $@"{Environment.CurrentDirectory}\Error.dll",
+                $@"{Environment.CurrentDirectory}\Warning.dll",
+                $@"{Environment.CurrentDirectory}\Note.dll",
+                $@"{Environment.CurrentDirectory}\Pass.dll",
+                $@"{Environment.CurrentDirectory}\NotApplicable.exe",
+                $@"{Environment.CurrentDirectory}\Informational.sys",
+                $@"{Environment.CurrentDirectory}\Open.cab",
+                $@"{Environment.CurrentDirectory}\Review.dll",
+                $@"{Environment.CurrentDirectory}\NoIssues.dll",
+            };
 
-            // Generating 20 files with different names and content.
-            RunMultithreadedAnalyzeCommand(ComprehensiveKindAndLevelsByFilePath,
-                                           generateSameOutput: false,
-                                           expectedResultCode: 0,
-                                           expectedResultCount: 7,
-                                           expectedCacheSize: 0);
+            var testCase = new ResultsCachingTestCase
+            {
+                Files = files,
+                PersistLogFileToDisk = true,
+                FileSystem = CreateDefaultFileSystemForResultsCaching(files, generateSameInput: false)
+            };
+
+            var options = new TestAnalyzeOptions
+            {
+                TestRuleBehaviors = testCase.TestRuleBehaviors,
+                OutputFilePath = testCase.PersistLogFileToDisk ? Guid.NewGuid().ToString() : null,
+                TargetFileSpecifiers = new string[] { Guid.NewGuid().ToString() },
+                Kind = new List<ResultKind> { ResultKind.Fail },
+                Level = new List<FailureLevel> { FailureLevel.Warning, FailureLevel.Error },
+                DataToInsert = new OptionallyEmittedData[] { OptionallyEmittedData.Hashes },
+            };
+
+            Run run = RunAnalyzeCommand(options, testCase, multithreaded: true);
+
+            // Hashes is enabled and we should expect to see two artifacts because we have:
+            // one result with Error level and one result with Warning level.
+            run.Artifacts.Should().HaveCount(expectedNumberOfArtifacts);
+            run.Results.Count(r => r.Level == FailureLevel.Error).Should().Be(expectedNumberOfResultsWithErrors);
+            run.Results.Count(r => r.Level == FailureLevel.Warning).Should().Be(expectedNumberOfResultsWithWarnings);
+
+            options.DataToInsert = new List<OptionallyEmittedData>();
+
+            run = RunAnalyzeCommand(options, testCase, multithreaded: true);
+
+            // Hashes is disabled so no artifacts are expected.
+            run.Artifacts.Should().BeNull();
+            run.Results.Should().HaveCount(expectedNumberOfArtifacts);
+            run.Results.Count(r => r.Level == FailureLevel.Error).Should().Be(expectedNumberOfResultsWithErrors);
+            run.Results.Count(r => r.Level == FailureLevel.Warning).Should().Be(expectedNumberOfResultsWithWarnings);
+        }
+
+        [Fact]
+        public void AnalyzeCommmandBase_SingleThreaded_ShouldOnlyLogArtifactsWhenHashesIsEnabled()
+        {
+            var testCase = new ResultsCachingTestCase
+            {
+                Files = ComprehensiveKindAndLevelsByFileName,
+                PersistLogFileToDisk = true,
+                FileSystem = null
+            };
+
+            var options = new TestAnalyzeOptions
+            {
+                TestRuleBehaviors = testCase.TestRuleBehaviors,
+                OutputFilePath = testCase.PersistLogFileToDisk ? Guid.NewGuid().ToString() : null,
+                TargetFileSpecifiers = new string[] { Guid.NewGuid().ToString() },
+                Kind = new List<ResultKind> { ResultKind.Fail },
+                Level = new List<FailureLevel> { FailureLevel.Warning, FailureLevel.Error },
+                DataToInsert = new OptionallyEmittedData[] { OptionallyEmittedData.Hashes },
+            };
+
+            Run runSingleThread = RunAnalyzeCommand(options, testCase, multithreaded: false);
+
+            // Hashes is enabled and we should expect to see seven artifacts because we have seven distinct results
+            // of which five are error and two are warnings.
+            runSingleThread.Results.Should().HaveCount(7);
+            runSingleThread.Artifacts.Should().NotBeEmpty();
+            runSingleThread.Artifacts.Should().HaveCount(7);
+
+            // Hashes is disabled so no artifacts are expected.
+            options.DataToInsert = new List<OptionallyEmittedData>();
+            runSingleThread = RunAnalyzeCommand(options, testCase, multithreaded: false);
+            runSingleThread.Artifacts.Should().BeNull();
+            runSingleThread.Results.Should().HaveCount(7);
         }
 
         private static readonly IList<string> ComprehensiveKindAndLevelsByFileName = new List<string>
@@ -1511,50 +1583,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             return captureConsoleOutput
                 ? ConvertConsoleOutputToSarifLog(consoleLogger.CapturedOutput)
                 : JsonConvert.DeserializeObject<SarifLog>(File.ReadAllText(options.OutputFilePath));
-        }
-
-        private static void RunMultithreadedAnalyzeCommand(IList<string> files,
-                                                           bool generateSameOutput,
-                                                           int expectedResultCode,
-                                                           int expectedResultCount,
-                                                           int expectedCacheSize)
-        {
-            var testCase = new ResultsCachingTestCase
-            {
-                Files = files,
-                PersistLogFileToDisk = true,
-                FileSystem = CreateDefaultFileSystemForResultsCaching(files, generateSameOutput)
-            };
-
-            var options = new TestAnalyzeOptions
-            {
-                OutputFilePath = Guid.NewGuid().ToString(),
-                TargetFileSpecifiers = new string[] { Guid.NewGuid().ToString() },
-                Kind = new List<ResultKind> { ResultKind.Fail },
-                Level = new List<FailureLevel> { FailureLevel.Warning, FailureLevel.Error },
-                DataToInsert = new OptionallyEmittedData[] { OptionallyEmittedData.Hashes }
-            };
-
-            try
-            {
-                TestRule.s_testRuleBehaviors = testCase.TestRuleBehaviors.AccessibleOutsideOfContextOnly();
-
-                var command = new TestMultithreadedAnalyzeCommand(testCase.FileSystem)
-                {
-                    DefaultPluginAssemblies = new Assembly[] { typeof(AnalyzeCommandBaseTests).Assembly }
-                };
-
-                HashUtilities.FileSystem = testCase.FileSystem;
-                command.Run(options).Should().Be(expectedResultCode);
-
-                SarifLog sarifLog = JsonConvert.DeserializeObject<SarifLog>(File.ReadAllText(options.OutputFilePath));
-                sarifLog.Runs[0].Results.Count.Should().Be(expectedResultCount);
-                command._analysisLoggerCache.Count.Should().Be(expectedCacheSize);
-            }
-            finally
-            {
-                TestRule.s_testRuleBehaviors = TestRuleBehaviors.None;
-            }
         }
 
         private static SarifLog ConvertConsoleOutputToSarifLog(string consoleOutput)

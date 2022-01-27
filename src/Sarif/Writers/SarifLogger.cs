@@ -98,8 +98,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 dataToRemove,
                 invocationTokensToRedact,
                 invocationPropertiesToLog,
-                defaultFileEncoding,
-                AnalysisTargetToHashDataMap);
+                defaultFileEncoding);
 
             tool = tool ?? Tool.CreateFromAssemblyData();
 
@@ -155,8 +154,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             OptionallyEmittedData dataToRemove,
             IEnumerable<string> invocationTokensToRedact,
             IEnumerable<string> invocationPropertiesToLog,
-            string defaultFileEncoding = null,
-            IDictionary<string, HashData> filePathToHashDataMap = null)
+            string defaultFileEncoding = null)
         {
             _run.Invocations ??= new List<Invocation>();
             if (defaultFileEncoding != null)
@@ -164,43 +162,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 _run.DefaultEncoding = defaultFileEncoding;
             }
 
-            Encoding encoding = SarifUtilities.GetEncodingFromName(_run.DefaultEncoding);
-
             if (analysisTargets != null)
             {
                 _run.Artifacts ??= new List<Artifact>();
-
-                foreach (string target in analysisTargets)
-                {
-                    Uri uri = new Uri(UriHelper.MakeValidUri(target), UriKind.RelativeOrAbsolute);
-
-                    HashData hashData = null;
-                    if (dataToInsert.HasFlag(OptionallyEmittedData.Hashes))
-                    {
-                        filePathToHashDataMap?.TryGetValue(target, out hashData);
-                    }
-
-                    var artifact = Artifact.Create(
-                        new Uri(target, UriKind.RelativeOrAbsolute),
-                        dataToInsert,
-                        encoding,
-                        hashData: hashData);
-
-                    var fileLocation = new ArtifactLocation
-                    {
-                        Uri = uri
-                    };
-
-                    artifact.Location = fileLocation;
-
-                    // This call will insert the file object into run.Files if not already present
-                    artifact.Location.Index = _run.GetFileIndex(
-                        artifact.Location,
-                        addToFilesTableIfNotPresent: true,
-                        dataToInsert: dataToInsert,
-                        encoding: encoding,
-                        hashData: hashData);
-                }
             }
 
             var invocation = Invocation.Create(
@@ -447,12 +411,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 catch (ArgumentException) { } // Unrecognized encoding name
             }
 
+            HashData hashData = null;
+            AnalysisTargetToHashDataMap?.TryGetValue(fileLocation.Uri.OriginalString, out hashData);
+
             // Ensure Artifact is in Run.Artifacts and ArtifactLocation.Index is set to point to it
             int index = _run.GetFileIndex(
                 fileLocation,
                 addToFilesTableIfNotPresent: _persistArtifacts,
                 _dataToInsert,
-                encoding);
+                encoding,
+                hashData);
 
             // Remove redundant Uri and UriBaseId once index has been set
             if (index > -1 && this.Optimize)

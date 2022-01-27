@@ -32,12 +32,11 @@ namespace Microsoft.CodeAnalysis.Sarif
             throw new InvalidOperationException("Author this code along with tests for originalUriBaseIds that are nested");
         }
 
-        public int GetFileIndex(
-            ArtifactLocation fileLocation,
-            bool addToFilesTableIfNotPresent = true,
-            OptionallyEmittedData dataToInsert = OptionallyEmittedData.None,
-            Encoding encoding = null,
-            HashData hashData = null)
+        public int GetFileIndex(ArtifactLocation fileLocation,
+                                bool addToFilesTableIfNotPresent = true,
+                                OptionallyEmittedData dataToInsert = OptionallyEmittedData.None,
+                                Encoding encoding = null,
+                                HashData hashData = null)
         {
             if (fileLocation == null) { throw new ArgumentNullException(nameof(fileLocation)); }
 

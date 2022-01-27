@@ -307,6 +307,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
             if (results?.Count > 0)
             {
+                if (_computeHashes)
+                {
+                    _run?.GetFileIndex(new ArtifactLocation { Uri = context.TargetUri },
+                                       dataToInsert: _dataToInsert,
+                                       hashData: context.Hashes);
+                }
+
                 foreach (KeyValuePair<ReportingDescriptor, IList<Result>> kv in results)
                 {
                     foreach (Result result in kv.Value)
@@ -484,10 +491,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                             paths = new List<string>();
                             _hashToFilesMap[hashData.Sha256] = paths;
                         }
-
-                        _run?.GetFileIndex(new ArtifactLocation { Uri = context.TargetUri },
-                                           dataToInsert: _dataToInsert,
-                                           hashData: hashData);
 
                         paths.Add(localPath);
                         context.Hashes = hashData;
