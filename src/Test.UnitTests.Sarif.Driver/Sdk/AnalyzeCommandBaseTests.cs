@@ -1165,7 +1165,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             }
         }
 
-        [Fact(Timeout = 5000, Skip = "Artifacts will be different while we don't fix SarifLogger and AnalyzeCommandBase.")]
+        [Fact(Timeout = 5000)]
         public void AnalyzeCommandBase_ShouldGenerateSameResultsWhenRunningSingleAndMultiThread_CoyoteTest()
         {
             Configuration config = Configuration.Create().WithTestingIterations(100).WithConcurrencyFuzzingEnabled();
