@@ -2,7 +2,7 @@
 
 ## Unreleased
 
-* BUGFIX: Fix `AnalyzeCommandBase` and `MultithreadedAnalyzeCommandBase` from outputting all artifacts to SARIF even if no results were produced when Hashes is enabled. [#2433](https://github.com/microsoft/sarif-sdk/pull/2433)
+* BREAKING: `AnalyzeCommandBase` previously persisted all scan target artifacts to SARIF logs rather than only persisting artifacts referenced by an analysis result, when an option to persist hashes, text file or binary information was set. `MultithreadedAnalyzeCommandBase` previously persisted all scan targets artifacts to SARIF logs in cases when hash insertion was eenabled rather than only persisting artifacts referenced by an analysis result. [#2433](https://github.com/microsoft/sarif-sdk/pull/2433)
 * BUGFIX: Adjust Json Serialization field order for ReportingDescriptor and skip emit empty AutomationDetails node. [#2420](https://github.com/microsoft/sarif-sdk/pull/2420)
 * BREAKING: Fix `InvalidOperationException` when using PropertiesDictionary in a multithreaded application, and remove `[Serializable]` from it. Now use of BinaryFormatter on it will result in `SerializationException`: Type `PropertiesDictionary` is not marked as serializable. [#2415](https://github.com/microsoft/sarif-sdk/pull/2415)
 

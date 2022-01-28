@@ -31,13 +31,14 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         public static IDictionary<string, HashData> MultithreadedComputeTargetFileHashes(IEnumerable<string> analysisTargets, bool suppressConsoleOutput = false)
         {
-            var fileToHashDataMap = new ConcurrentDictionary<string, HashData>();
-            if (analysisTargets == null) { return fileToHashDataMap; }
+            if (analysisTargets == null) { return null; }
 
             if (!suppressConsoleOutput)
             {
                 Console.WriteLine("Computing file hashes...");
             }
+
+            var fileToHashDataMap = new ConcurrentDictionary<string, HashData>();
 
             var queue = new ConcurrentQueue<string>(analysisTargets);
 

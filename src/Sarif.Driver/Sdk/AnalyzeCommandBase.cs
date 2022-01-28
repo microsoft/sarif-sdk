@@ -287,7 +287,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
                 if ((options.DataToInsert.ToFlags() & OptionallyEmittedData.Hashes) != 0)
                 {
-                    if (_pathToHashDataMap?.TryGetValue(filePath, out HashData hashData) == true)
+                    if (_pathToHashDataMap != null && _pathToHashDataMap.TryGetValue(filePath, out HashData hashData))
                     {
                         context.Hashes = hashData;
                     }

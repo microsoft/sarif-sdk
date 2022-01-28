@@ -2,6 +2,7 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
@@ -30,21 +31,20 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
         protected const LogFilePersistenceOptions DefaultLogFilePersistenceOptions = LogFilePersistenceOptions.PrettyPrint;
 
-        public SarifLogger(
-            string outputFilePath,
-            LogFilePersistenceOptions logFilePersistenceOptions = DefaultLogFilePersistenceOptions,
-            OptionallyEmittedData dataToInsert = OptionallyEmittedData.None,
-            OptionallyEmittedData dataToRemove = OptionallyEmittedData.None,
-            Tool tool = null,
-            Run run = null,
-            IEnumerable<string> analysisTargets = null,
-            IEnumerable<string> invocationTokensToRedact = null,
-            IEnumerable<string> invocationPropertiesToLog = null,
-            string defaultFileEncoding = null,
-            bool quiet = false,
-            IEnumerable<FailureLevel> levels = null,
-            IEnumerable<ResultKind> kinds = null,
-            IEnumerable<string> insertProperties = null)
+        public SarifLogger(string outputFilePath,
+                           LogFilePersistenceOptions logFilePersistenceOptions = DefaultLogFilePersistenceOptions,
+                           OptionallyEmittedData dataToInsert = OptionallyEmittedData.None,
+                           OptionallyEmittedData dataToRemove = OptionallyEmittedData.None,
+                           Tool tool = null,
+                           Run run = null,
+                           IEnumerable<string> analysisTargets = null,
+                           IEnumerable<string> invocationTokensToRedact = null,
+                           IEnumerable<string> invocationPropertiesToLog = null,
+                           string defaultFileEncoding = null,
+                           bool quiet = false,
+                           IEnumerable<FailureLevel> levels = null,
+                           IEnumerable<ResultKind> kinds = null,
+                           IEnumerable<string> insertProperties = null)
             : this(new StreamWriter(new FileStream(outputFilePath, FileMode.Create, FileAccess.Write, FileShare.None)),
                   logFilePersistenceOptions: logFilePersistenceOptions,
                   dataToInsert: dataToInsert,
@@ -62,26 +62,25 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         {
         }
 
-        public SarifLogger(
-            TextWriter textWriter,
-            LogFilePersistenceOptions logFilePersistenceOptions = DefaultLogFilePersistenceOptions,
-            OptionallyEmittedData dataToInsert = OptionallyEmittedData.None,
-            OptionallyEmittedData dataToRemove = OptionallyEmittedData.None,
-            Tool tool = null,
-            Run run = null,
-            IEnumerable<string> analysisTargets = null,
-            IEnumerable<string> invocationTokensToRedact = null,
-            IEnumerable<string> invocationPropertiesToLog = null,
-            string defaultFileEncoding = null,
-            bool closeWriterOnDispose = true,
-            bool quiet = false,
-            IEnumerable<FailureLevel> levels = null,
-            IEnumerable<ResultKind> kinds = null,
-            IEnumerable<string> insertProperties = null) : this(textWriter, logFilePersistenceOptions, closeWriterOnDispose, levels, kinds)
+        public SarifLogger(TextWriter textWriter,
+                           LogFilePersistenceOptions logFilePersistenceOptions = DefaultLogFilePersistenceOptions,
+                           OptionallyEmittedData dataToInsert = OptionallyEmittedData.None,
+                           OptionallyEmittedData dataToRemove = OptionallyEmittedData.None,
+                           Tool tool = null,
+                           Run run = null,
+                           IEnumerable<string> analysisTargets = null,
+                           IEnumerable<string> invocationTokensToRedact = null,
+                           IEnumerable<string> invocationPropertiesToLog = null,
+                           string defaultFileEncoding = null,
+                           bool closeWriterOnDispose = true,
+                           bool quiet = false,
+                           IEnumerable<FailureLevel> levels = null,
+                           IEnumerable<ResultKind> kinds = null,
+                           IEnumerable<string> insertProperties = null) : this(textWriter, logFilePersistenceOptions, closeWriterOnDispose, levels, kinds)
         {
             if (dataToInsert.HasFlag(OptionallyEmittedData.Hashes))
             {
-                AnalysisTargetToHashDataMap = HashUtilities.MultithreadedComputeTargetFileHashes(analysisTargets, quiet);
+                AnalysisTargetToHashDataMap = HashUtilities.MultithreadedComputeTargetFileHashes(analysisTargets, quiet) ?? new ConcurrentDictionary<string, HashData>();
             }
 
             _run = run ?? new Run();
@@ -92,14 +91,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 _insertOptionalDataVisitor = new InsertOptionalDataVisitor(dataToInsert, _run, insertProperties);
             }
 
-            EnhanceRun(
-                analysisTargets,
-                dataToInsert,
-                dataToRemove,
-                invocationTokensToRedact,
-                invocationPropertiesToLog,
-                defaultFileEncoding,
-                AnalysisTargetToHashDataMap);
+            EnhanceRun(analysisTargets,
+                       dataToInsert,
+                       dataToRemove,
+                       invocationTokensToRedact,
+                       invocationPropertiesToLog,
+                       defaultFileEncoding,
+                       AnalysisTargetToHashDataMap);
 
             tool = tool ?? Tool.CreateFromAssemblyData();
 
@@ -124,12 +122,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 (_dataToInsert & OptionallyEmittedData.BinaryFiles) != 0;
         }
 
-        private SarifLogger(
-            TextWriter textWriter,
-            LogFilePersistenceOptions logFilePersistenceOptions,
-            bool closeWriterOnDipose,
-            IEnumerable<FailureLevel> levels,
-            IEnumerable<ResultKind> kinds) : base(failureLevels: levels, resultKinds: kinds)
+        private SarifLogger(TextWriter textWriter,
+                            LogFilePersistenceOptions logFilePersistenceOptions,
+                            bool closeWriterOnDipose,
+                            IEnumerable<FailureLevel> levels,
+                            IEnumerable<ResultKind> kinds) : base(failureLevels: levels, resultKinds: kinds)
         {
             _textWriter = textWriter;
             _closeWriterOnDispose = closeWriterOnDipose;
@@ -150,14 +147,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             RuleToIndexMap = new Dictionary<ReportingDescriptor, int>(ReportingDescriptor.ValueComparer);
         }
 
-        private void EnhanceRun(
-            IEnumerable<string> analysisTargets,
-            OptionallyEmittedData dataToInsert,
-            OptionallyEmittedData dataToRemove,
-            IEnumerable<string> invocationTokensToRedact,
-            IEnumerable<string> invocationPropertiesToLog,
-            string defaultFileEncoding = null,
-            IDictionary<string, HashData> filePathToHashDataMap = null)
+        private void EnhanceRun(IEnumerable<string> analysisTargets,
+                                OptionallyEmittedData dataToInsert,
+                                OptionallyEmittedData dataToRemove,
+                                IEnumerable<string> invocationTokensToRedact,
+                                IEnumerable<string> invocationPropertiesToLog,
+                                string defaultFileEncoding = null,
+                                IDictionary<string, HashData> filePathToHashDataMap = null)
         {
             _run.Invocations ??= new List<Invocation>();
             if (defaultFileEncoding != null)
@@ -452,12 +448,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             AnalysisTargetToHashDataMap?.TryGetValue(fileLocation.Uri.OriginalString, out hashData);
 
             // Ensure Artifact is in Run.Artifacts and ArtifactLocation.Index is set to point to it
-            int index = _run.GetFileIndex(
-                fileLocation,
-                addToFilesTableIfNotPresent: _persistArtifacts,
-                _dataToInsert,
-                encoding,
-                hashData);
+            int index = _run.GetFileIndex(fileLocation,
+                                          addToFilesTableIfNotPresent: _persistArtifacts,
+                                          _dataToInsert,
+                                          encoding,
+                                          hashData);
 
             // Remove redundant Uri and UriBaseId once index has been set
             if (index > -1 && this.Optimize)
