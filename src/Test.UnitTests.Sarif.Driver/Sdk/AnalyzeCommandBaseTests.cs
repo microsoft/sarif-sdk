@@ -1184,7 +1184,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             Assert.True(report.NumOfFoundBugs == 0, $"Coyote found {report.NumOfFoundBugs} bug(s).");
         }
 
-        [Fact(Skip = "Artifacts will be different while we don't fix SarifLogger and AnalyzeCommandBase.)]
+        [Fact(Skip = "Artifacts will be different while we don't fix SarifLogger and AnalyzeCommandBase.")]
         public void AnalyzeCommandBase_ShouldGenerateSameResultsWhenRunningSingleAndMultiThread()
         {
             int[] scenarios = SetupScenarios();

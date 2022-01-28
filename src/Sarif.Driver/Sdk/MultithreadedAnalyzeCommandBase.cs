@@ -308,12 +308,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
             if (results?.Count > 0)
             {
-                if (_persistArtifacts)
-                {
-                    _run?.GetFileIndex(new ArtifactLocation { Uri = context.TargetUri },
-                                       dataToInsert: _dataToInsert,
-                                       hashData: context.Hashes);
-                }
+                _run?.GetFileIndex(new ArtifactLocation { Uri = context.TargetUri },
+                                   addToFilesTableIfNotPresent: _persistArtifacts,
+                                   dataToInsert: _dataToInsert,
+                                   hashData: context.Hashes);
 
                 foreach (KeyValuePair<ReportingDescriptor, IList<Result>> kv in results)
                 {
