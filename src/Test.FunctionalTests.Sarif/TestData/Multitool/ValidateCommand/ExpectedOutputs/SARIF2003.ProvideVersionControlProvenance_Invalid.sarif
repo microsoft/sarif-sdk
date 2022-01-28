@@ -31,6 +31,14 @@
           "executionSuccessful": true
         }
       ],
+      "artifacts": [
+        {
+          "location": {
+            "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF2003.ProvideVersionControlProvenance_Invalid.sarif",
+            "uriBaseId": "TEST_DIR"
+          }
+        }
+      ],
       "results": [
         {
           "ruleId": "SARIF2003",
@@ -46,8 +54,7 @@
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF2003.ProvideVersionControlProvenance_Invalid.sarif",
-                  "uriBaseId": "TEST_DIR"
+                  "index": 0
                 },
                 "region": {
                   "startLine": 5,

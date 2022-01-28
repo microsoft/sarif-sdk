@@ -46,6 +46,14 @@
           "executionSuccessful": true
         }
       ],
+      "artifacts": [
+        {
+          "location": {
+            "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF1004.ExpressUriBaseIdsCorrectly_Invalid.sarif",
+            "uriBaseId": "TEST_DIR"
+          }
+        }
+      ],
       "results": [
         {
           "ruleId": "SARIF1004",
@@ -63,8 +71,7 @@
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF1004.ExpressUriBaseIdsCorrectly_Invalid.sarif",
-                  "uriBaseId": "TEST_DIR"
+                  "index": 0
                 },
                 "region": {
                   "startLine": 101,
@@ -90,8 +97,7 @@
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF1004.ExpressUriBaseIdsCorrectly_Invalid.sarif",
-                  "uriBaseId": "TEST_DIR"
+                  "index": 0
                 },
                 "region": {
                   "startLine": 101,
@@ -117,8 +123,7 @@
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF1004.ExpressUriBaseIdsCorrectly_Invalid.sarif",
-                  "uriBaseId": "TEST_DIR"
+                  "index": 0
                 },
                 "region": {
                   "startLine": 107,
@@ -144,8 +149,7 @@
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF1004.ExpressUriBaseIdsCorrectly_Invalid.sarif",
-                  "uriBaseId": "TEST_DIR"
+                  "index": 0
                 },
                 "region": {
                   "startLine": 114,
@@ -171,8 +175,7 @@
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF1004.ExpressUriBaseIdsCorrectly_Invalid.sarif",
-                  "uriBaseId": "TEST_DIR"
+                  "index": 0
                 },
                 "region": {
                   "startLine": 120,
@@ -198,8 +201,7 @@
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF1004.ExpressUriBaseIdsCorrectly_Invalid.sarif",
-                  "uriBaseId": "TEST_DIR"
+                  "index": 0
                 },
                 "region": {
                   "startLine": 120,
@@ -225,8 +227,7 @@
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF1004.ExpressUriBaseIdsCorrectly_Invalid.sarif",
-                  "uriBaseId": "TEST_DIR"
+                  "index": 0
                 },
                 "region": {
                   "startLine": 126,
@@ -252,8 +253,7 @@
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF1004.ExpressUriBaseIdsCorrectly_Invalid.sarif",
-                  "uriBaseId": "TEST_DIR"
+                  "index": 0
                 },
                 "region": {
                   "startLine": 126,
@@ -279,8 +279,7 @@
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF1004.ExpressUriBaseIdsCorrectly_Invalid.sarif",
-                  "uriBaseId": "TEST_DIR"
+                  "index": 0
                 },
                 "region": {
                   "startLine": 84,
@@ -306,8 +305,7 @@
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF1004.ExpressUriBaseIdsCorrectly_Invalid.sarif",
-                  "uriBaseId": "TEST_DIR"
+                  "index": 0
                 },
                 "region": {
                   "startLine": 155,
@@ -333,8 +331,7 @@
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF1004.ExpressUriBaseIdsCorrectly_Invalid.sarif",
-                  "uriBaseId": "TEST_DIR"
+                  "index": 0
                 },
                 "region": {
                   "startLine": 224,
@@ -360,8 +357,7 @@
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF1004.ExpressUriBaseIdsCorrectly_Invalid.sarif",
-                  "uriBaseId": "TEST_DIR"
+                  "index": 0
                 },
                 "region": {
                   "startLine": 162,
@@ -386,8 +382,7 @@
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF1004.ExpressUriBaseIdsCorrectly_Invalid.sarif",
-                  "uriBaseId": "TEST_DIR"
+                  "index": 0
                 },
                 "region": {
                   "startLine": 171,
@@ -413,8 +408,7 @@
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF1004.ExpressUriBaseIdsCorrectly_Invalid.sarif",
-                  "uriBaseId": "TEST_DIR"
+                  "index": 0
                 },
                 "region": {
                   "startLine": 200,
@@ -440,8 +434,7 @@
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF1004.ExpressUriBaseIdsCorrectly_Invalid.sarif",
-                  "uriBaseId": "TEST_DIR"
+                  "index": 0
                 },
                 "region": {
                   "startLine": 233,
@@ -467,8 +460,7 @@
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF1004.ExpressUriBaseIdsCorrectly_Invalid.sarif",
-                  "uriBaseId": "TEST_DIR"
+                  "index": 0
                 },
                 "region": {
                   "startLine": 182,
@@ -494,8 +486,7 @@
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF1004.ExpressUriBaseIdsCorrectly_Invalid.sarif",
-                  "uriBaseId": "TEST_DIR"
+                  "index": 0
                 },
                 "region": {
                   "startLine": 215,
@@ -521,8 +512,7 @@
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF1004.ExpressUriBaseIdsCorrectly_Invalid.sarif",
-                  "uriBaseId": "TEST_DIR"
+                  "index": 0
                 },
                 "region": {
                   "startLine": 244,
@@ -548,8 +538,7 @@
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF1004.ExpressUriBaseIdsCorrectly_Invalid.sarif",
-                  "uriBaseId": "TEST_DIR"
+                  "index": 0
                 },
                 "region": {
                   "startLine": 142,
@@ -575,8 +564,7 @@
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF1004.ExpressUriBaseIdsCorrectly_Invalid.sarif",
-                  "uriBaseId": "TEST_DIR"
+                  "index": 0
                 },
                 "region": {
                   "startLine": 55,
@@ -602,8 +590,7 @@
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF1004.ExpressUriBaseIdsCorrectly_Invalid.sarif",
-                  "uriBaseId": "TEST_DIR"
+                  "index": 0
                 },
                 "region": {
                   "startLine": 15,
@@ -629,8 +616,7 @@
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF1004.ExpressUriBaseIdsCorrectly_Invalid.sarif",
-                  "uriBaseId": "TEST_DIR"
+                  "index": 0
                 },
                 "region": {
                   "startLine": 59,
@@ -656,8 +642,7 @@
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF1004.ExpressUriBaseIdsCorrectly_Invalid.sarif",
-                  "uriBaseId": "TEST_DIR"
+                  "index": 0
                 },
                 "region": {
                   "startLine": 63,
@@ -683,8 +668,7 @@
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF1004.ExpressUriBaseIdsCorrectly_Invalid.sarif",
-                  "uriBaseId": "TEST_DIR"
+                  "index": 0
                 },
                 "region": {
                   "startLine": 67,
@@ -710,8 +694,7 @@
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF1004.ExpressUriBaseIdsCorrectly_Invalid.sarif",
-                  "uriBaseId": "TEST_DIR"
+                  "index": 0
                 },
                 "region": {
                   "startLine": 71,
@@ -737,8 +720,7 @@
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF1004.ExpressUriBaseIdsCorrectly_Invalid.sarif",
-                  "uriBaseId": "TEST_DIR"
+                  "index": 0
                 },
                 "region": {
                   "startLine": 25,
@@ -764,8 +746,7 @@
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF1004.ExpressUriBaseIdsCorrectly_Invalid.sarif",
-                  "uriBaseId": "TEST_DIR"
+                  "index": 0
                 },
                 "region": {
                   "startLine": 42,
@@ -791,8 +772,7 @@
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF1004.ExpressUriBaseIdsCorrectly_Invalid.sarif",
-                  "uriBaseId": "TEST_DIR"
+                  "index": 0
                 },
                 "region": {
                   "startLine": 94,
@@ -818,8 +798,7 @@
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF1004.ExpressUriBaseIdsCorrectly_Invalid.sarif",
-                  "uriBaseId": "TEST_DIR"
+                  "index": 0
                 },
                 "region": {
                   "startLine": 132,

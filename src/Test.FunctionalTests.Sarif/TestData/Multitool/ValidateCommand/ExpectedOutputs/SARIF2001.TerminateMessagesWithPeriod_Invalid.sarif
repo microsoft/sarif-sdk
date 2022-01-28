@@ -28,6 +28,14 @@
           "executionSuccessful": true
         }
       ],
+      "artifacts": [
+        {
+          "location": {
+            "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF2001.TerminateMessagesWithPeriod_Invalid.sarif",
+            "uriBaseId": "TEST_DIR"
+          }
+        }
+      ],
       "results": [
         {
           "ruleId": "SARIF2001",
@@ -44,8 +52,7 @@
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF2001.TerminateMessagesWithPeriod_Invalid.sarif",
-                  "uriBaseId": "TEST_DIR"
+                  "index": 0
                 },
                 "region": {
                   "startLine": 18,

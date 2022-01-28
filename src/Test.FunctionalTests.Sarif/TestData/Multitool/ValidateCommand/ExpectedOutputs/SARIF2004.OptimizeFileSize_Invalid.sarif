@@ -40,6 +40,14 @@
           "executionSuccessful": true
         }
       ],
+      "artifacts": [
+        {
+          "location": {
+            "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF2004.OptimizeFileSize_Invalid.sarif",
+            "uriBaseId": "TEST_DIR"
+          }
+        }
+      ],
       "results": [
         {
           "ruleId": "SARIF2004",
@@ -54,8 +62,7 @@
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF2004.OptimizeFileSize_Invalid.sarif",
-                  "uriBaseId": "TEST_DIR"
+                  "index": 0
                 },
                 "region": {
                   "startLine": 18,
@@ -78,8 +85,7 @@
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF2004.OptimizeFileSize_Invalid.sarif",
-                  "uriBaseId": "TEST_DIR"
+                  "index": 0
                 },
                 "region": {
                   "startLine": 11,
@@ -103,8 +109,7 @@
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF2004.OptimizeFileSize_Invalid.sarif",
-                  "uriBaseId": "TEST_DIR"
+                  "index": 0
                 },
                 "region": {
                   "startLine": 56,
@@ -127,8 +132,7 @@
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF2004.OptimizeFileSize_Invalid.sarif",
-                  "uriBaseId": "TEST_DIR"
+                  "index": 0
                 },
                 "region": {
                   "startLine": 69,
@@ -151,8 +155,7 @@
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF2004.OptimizeFileSize_Invalid.sarif",
-                  "uriBaseId": "TEST_DIR"
+                  "index": 0
                 },
                 "region": {
                   "startLine": 81,
@@ -175,8 +178,7 @@
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF2004.OptimizeFileSize_Invalid.sarif",
-                  "uriBaseId": "TEST_DIR"
+                  "index": 0
                 },
                 "region": {
                   "startLine": 94,

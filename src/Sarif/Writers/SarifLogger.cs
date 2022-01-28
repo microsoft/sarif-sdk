@@ -119,6 +119,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
             _persistArtifacts =
                 (_dataToInsert & OptionallyEmittedData.Hashes) != 0 ||
+                (_dataToInsert & OptionallyEmittedData.Artifacts) != 0 ||
                 (_dataToInsert & OptionallyEmittedData.TextFiles) != 0 ||
                 (_dataToInsert & OptionallyEmittedData.BinaryFiles) != 0;
         }
