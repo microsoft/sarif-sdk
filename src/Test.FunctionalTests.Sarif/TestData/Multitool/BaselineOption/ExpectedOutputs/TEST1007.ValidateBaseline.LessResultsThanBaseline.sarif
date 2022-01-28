@@ -9,10 +9,10 @@
           "rules": [
             {
               "id": "SARIF2012",
-              "name": "ProvideRuleProperties",
               "fullDescription": {
                 "text": "Rule metadata should provide information that makes it easy to understand and fix the problem.\r\n\r\nProvide the 'name' property, which contains a \"friendly name\" that helps users see at a glance the purpose of the rule. For uniformity of experience across all tools that produce SARIF, the friendly name should be a single Pascal-case identifier, for example, 'ProvideRuleFriendlyName'.\r\n\r\nProvide the 'helpUri' property, which contains a URI where users can find detailed information about the rule. This information should include a detailed description of the invalid pattern, an explanation of why the pattern is poor practice (particularly in contexts such as security or accessibility where driving considerations might not be readily apparent), guidance for resolving the problem (including describing circumstances in which ignoring the problem altogether might be appropriate), examples of invalid and valid patterns, and special considerations (such as noting when a violation should never be ignored or suppressed, noting when a violation could cause downstream tool noise, and noting when a rule can be configured in some way to refine or alter the analysis)."
               },
+              "helpUri": "http://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html",
               "messageStrings": {
                 "Note_FriendlyNameNotAPascalIdentifier": {
                   "text": "{0}: '{1}' is not a Pascal-case identifier. For uniformity of experience across all tools that produce SARIF, the friendly name should be a single Pascal-case identifier, for example, 'ProvideRuleFriendlyName'."
@@ -30,49 +30,49 @@
                   "text": "'{0}' does not provide metadata for rule '{1}'. Rule metadata contains information that helps the user understand why each rule fires and what the user can do to fix it."
                 }
               },
+              "name": "ProvideRuleProperties",
               "defaultConfiguration": {
                 "level": "note"
-              },
-              "helpUri": "http://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html"
+              }
             },
             {
               "id": "SARIF2003",
-              "name": "ProvideVersionControlProvenance",
               "fullDescription": {
                 "text": "Provide 'versionControlProvenance' to record which version of the code was analyzed, and to enable paths to be expressed relative to the root of the repository."
               },
+              "helpUri": "http://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html",
               "messageStrings": {
                 "Note_Default": {
                   "text": "{0}: This run does not provide 'versionControlProvenance'. As a result, it is not possible to determine which version of code was analyzed, nor to map relative paths to their locations within the repository."
                 }
               },
+              "name": "ProvideVersionControlProvenance",
               "defaultConfiguration": {
                 "level": "note"
-              },
-              "helpUri": "http://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html"
+              }
             },
             {
               "id": "SARIF2002",
-              "name": "ProvideMessageArguments",
               "fullDescription": {
                 "text": "In result messages, use the 'message.id' and 'message.arguments' properties rather than 'message.text'. This has several advantages. If 'text' is lengthy, using 'id' and 'arguments' makes the SARIF file smaller. If the rule metadata is stored externally to the SARIF log file, the message text can be improved (for example, by adding more text, clarifying the phrasing, or fixing typos), and the result messages will pick up the improvements the next time it is displayed. Finally, SARIF supports localizing messages into different languages, which is possible if the SARIF file contains 'message.id' and 'message.arguments', but not if it contains 'message.text' directly."
               },
+              "helpUri": "http://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html",
               "messageStrings": {
                 "Note_Default": {
                   "text": "{0}: The 'message' property of this result contains a 'text' property. Consider replacing it with 'id' and 'arguments' properties. This potentially reduces the log file size, allows the message text to be improved without modifying the log file, and enables localization."
                 }
               },
+              "name": "ProvideMessageArguments",
               "defaultConfiguration": {
                 "level": "note"
-              },
-              "helpUri": "http://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html"
+              }
             },
             {
               "id": "SARIF2005",
-              "name": "ProvideToolProperties",
               "fullDescription": {
                 "text": "Provide information that makes it easy to identify the name and version of your tool.\r\n\r\nThe tool's 'name' property should be no more than three words long. This makes it easy to remember and allows it to fit into a narrow column when displaying a list of results. If you need to provide more information about your tool, use the 'fullName' property.\r\n\r\nThe tool should provide either or both of the 'version' and 'semanticVersion' properties. This enables the log file consumer to determine whether the file was produced by an up to date version, and to avoid accidentally comparing log files produced by different tool versions.\r\n\r\nIf 'version' is used, facilitate comparison between versions by specifying a version number that starts with an integer, optionally followed by any desired characters."
               },
+              "helpUri": "http://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html",
               "messageStrings": {
                 "Warning_ProvideToolVersion": {
                   "text": "{0}: The tool '{1}' does not provide any of the version-related properties {2}. Providing version information enables the log file consumer to determine whether the file was produced by an up to date version, and to avoid accidentally comparing log files produced by different tool versions."
@@ -87,7 +87,7 @@
                   "text": "{0}: The tool '{1}' does not provide 'informationUri'. This property helps the developer responsible for addessing a result by providing a way to learn more about the tool."
                 }
               },
-              "helpUri": "http://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html"
+              "name": "ProvideToolProperties"
             }
           ]
         }

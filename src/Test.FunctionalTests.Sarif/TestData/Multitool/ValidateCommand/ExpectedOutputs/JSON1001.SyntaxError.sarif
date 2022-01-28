@@ -9,7 +9,6 @@
           "rules": [
             {
               "id": "JSON0001",
-              "name": "SyntaxError",
               "fullDescription": {
                 "text": "The schema is not a valid JSON document."
               },
@@ -18,6 +17,7 @@
                   "text": "at \"{0}\": JSON syntax error: {1}"
                 }
               },
+              "name": "SyntaxError",
               "defaultConfiguration": {
                 "level": "error"
               }

@@ -9,10 +9,10 @@
           "rules": [
             {
               "id": "SARIF1010",
-              "name": "RuleIdMustBeConsistent",
               "fullDescription": {
                 "text": "Every result must contain at least one of the properties 'ruleId' and 'rule.id'. If both are present, they must be equal. See the SARIF specification ([§3.27.5](https://docs.oasis-open.org/sarif/sarif/v2.1.0/os/sarif-v2.1.0-os.html#_Toc34317643))."
               },
+              "helpUri": "http://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html",
               "messageStrings": {
                 "Error_ResultRuleIdMustBeConsistent": {
                   "text": "{0}: This result contains both the 'ruleId' property '{1}' and the 'rule.id' property '{2}', but they are not equal. The SARIF specification ([§3.27.5](https://docs.oasis-open.org/sarif/sarif/v2.1.0/os/sarif-v2.1.0-os.html#_Toc34317643)) requires that if both of these properties are present, they must be equal."
@@ -21,10 +21,10 @@
                   "text": "{0}: This result contains neither of the properties 'ruleId' or 'rule.id'. The SARIF specification ([§3.27.5](https://docs.oasis-open.org/sarif/sarif/v2.1.0/os/sarif-v2.1.0-os.html#_Toc34317643)) requires at least one of these properties to be present."
                 }
               },
+              "name": "RuleIdMustBeConsistent",
               "defaultConfiguration": {
                 "level": "error"
-              },
-              "helpUri": "http://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html"
+              }
             }
           ]
         }

@@ -9,20 +9,20 @@
           "rules": [
             {
               "id": "GH1004",
-              "name": "ReviewArraysThatExceedConfigurableDefaults",
               "fullDescription": {
                 "text": "GitHub Advanced Security code scanning limits the amount of information it displays. There are limits on the number of runs per log file, rules per run, results per run, locations per result, code flows per result, and steps per code flow. You can provide a configuration file at the root of your repository to specify higher limits."
               },
+              "helpUri": "http://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html",
               "messageStrings": {
                 "Error_Default": {
                   "text": "{0}: This array contains {1} element(s), which exceeds the default limit of {2} imposed by GitHub Advanced Security code scanning. GitHub will only display information up to that limit. You can provide a configuration file at the root of your repository to specify a higher limit."
                 }
               },
+              "name": "ReviewArraysThatExceedConfigurableDefaults",
               "defaultConfiguration": {
                 "enabled": false,
                 "level": "error"
-              },
-              "helpUri": "http://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html"
+              }
             }
           ]
         }

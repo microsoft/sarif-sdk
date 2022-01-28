@@ -9,7 +9,6 @@
           "rules": [
             {
               "id": "JSON1002",
-              "name": "RequiredPropertyMissing",
               "fullDescription": {
                 "text": "A property required by the schema's \"required\" property is missing."
               },
@@ -18,6 +17,7 @@
                   "text": "at \"{0}\": The required property \"{1}\" is missing."
                 }
               },
+              "name": "RequiredPropertyMissing",
               "defaultConfiguration": {
                 "level": "error"
               }

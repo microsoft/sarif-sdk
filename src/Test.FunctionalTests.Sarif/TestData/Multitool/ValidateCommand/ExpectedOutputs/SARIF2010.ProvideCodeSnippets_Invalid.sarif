@@ -9,19 +9,19 @@
           "rules": [
             {
               "id": "SARIF2010",
-              "name": "ProvideCodeSnippets",
               "fullDescription": {
                 "text": "Provide code snippets to enable users to see the code that triggered each result, even if they are not enlisted in the code."
               },
+              "helpUri": "http://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html",
               "messageStrings": {
                 "Note_Default": {
                   "text": "{0}: The 'region' object in this result location does not provide a 'snippet' property. Providing a code snippet enables users to see the code that triggered the result, even if they are not enlisted in the code."
                 }
               },
+              "name": "ProvideCodeSnippets",
               "defaultConfiguration": {
                 "level": "note"
-              },
-              "helpUri": "http://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html"
+              }
             }
           ]
         }

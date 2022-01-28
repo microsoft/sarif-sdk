@@ -9,19 +9,19 @@
           "rules": [
             {
               "id": "SARIF2015",
-              "name": "EnquoteDynamicMessageContent",
               "fullDescription": {
                 "text": "Place dynamic content in single quotes to set it off from the static text and to make it easier to spot. It's especially helpful when the dynamic content is a string that might contain spaces, and most especially when the string might be empty (and so would be invisible if it weren't for the quotes). We recommend single quotes for a less cluttered appearance, even though US English usage would require double quotes.\r\n\r\nThis is part of a set of authoring practices that make your rule messages more readable, understandable, and actionable. See also 'SARIF2001.TerminateMessagesWithPeriod' and 'SARIF2014.ProvideDynamicMessageContent'."
               },
+              "helpUri": "http://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html",
               "messageStrings": {
                 "Note_Default": {
                   "text": "{0}: In rule '{1}', the message with id '{2}' includes dynamic content that is not enclosed in single quotes. Enquoting dynamic content makes it easier to spot, and single quotes give a less cluttered appearance."
                 }
               },
+              "name": "EnquoteDynamicMessageContent",
               "defaultConfiguration": {
                 "level": "note"
-              },
-              "helpUri": "http://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html"
+              }
             }
           ]
         }

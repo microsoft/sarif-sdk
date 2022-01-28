@@ -9,19 +9,19 @@
           "rules": [
             {
               "id": "SARIF2011",
-              "name": "ProvideContextRegion",
               "fullDescription": {
                 "text": "Provide context regions to enable users to see a portion of the code that surrounds each result, even if they are not enlisted in the code."
               },
+              "helpUri": "http://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html",
               "messageStrings": {
                 "Note_Default": {
                   "text": "{0}: This result location does not provide a 'contextRegion' property. Providing a context region enables users to see a portion of the code that surrounds the result, even if they are not enlisted in the code."
                 }
               },
+              "name": "ProvideContextRegion",
               "defaultConfiguration": {
                 "level": "note"
-              },
-              "helpUri": "http://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html"
+              }
             }
           ]
         }
