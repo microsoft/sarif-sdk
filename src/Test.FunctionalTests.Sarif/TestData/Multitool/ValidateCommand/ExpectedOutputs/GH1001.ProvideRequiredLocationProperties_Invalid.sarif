@@ -9,10 +9,10 @@
           "rules": [
             {
               "id": "GH1001",
+              "name": "ProvideRequiredLocationProperties",
               "fullDescription": {
                 "text": "Each result location must provide the property 'physicalLocation.artifactLocation.uri'. GitHub Advanced Security code scanning will not display a result whose location does not provide the URI of the artifact that contains the result."
               },
-              "helpUri": "http://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html",
               "messageStrings": {
                 "Error_NoLocationsArray": {
                   "text": "{0}: The 'locations' property is absent. GitHub Advanced Security code scanning will not display a result unless it provides a location that specifies the URI of the artifact that contains the result."
@@ -24,11 +24,11 @@
                   "text": "{0}: '{1}' is absent. GitHub Advanced Security code scanning will not display a result location that does not provide the URI of the artifact that contains the result."
                 }
               },
-              "name": "ProvideRequiredLocationProperties",
               "defaultConfiguration": {
                 "enabled": false,
                 "level": "error"
-              }
+              },
+              "helpUri": "http://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html"
             }
           ]
         }

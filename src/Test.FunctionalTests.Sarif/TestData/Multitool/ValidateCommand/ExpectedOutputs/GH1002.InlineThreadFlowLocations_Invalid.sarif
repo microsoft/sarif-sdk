@@ -9,20 +9,20 @@
           "rules": [
             {
               "id": "GH1002",
+              "name": "InlineThreadFlowLocations",
               "fullDescription": {
                 "text": "Results that include codeFlows must specify each threadFlowLocation directly within the codeFlow, rather than relying on threadFlowLocation.index to refer to an element of the run.threadFlowLocations array. GitHub Advanced Security code scanning will not display a result that uses such threadFlowLocations."
               },
-              "helpUri": "http://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html",
               "messageStrings": {
                 "Error_Default": {
                   "text": "{0}: This 'threadFlowLocation' uses its 'index' property to refer to information in the 'run.threadFlowLocations' array. GitHub Advanced Security code scanning will not display a result that includes such a 'threadFlowLocation'."
                 }
               },
-              "name": "InlineThreadFlowLocations",
               "defaultConfiguration": {
                 "enabled": false,
                 "level": "error"
-              }
+              },
+              "helpUri": "http://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html"
             }
           ]
         }

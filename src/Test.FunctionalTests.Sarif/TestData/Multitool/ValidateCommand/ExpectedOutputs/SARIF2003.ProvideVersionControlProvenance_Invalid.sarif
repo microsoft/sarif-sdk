@@ -9,19 +9,19 @@
           "rules": [
             {
               "id": "SARIF2003",
+              "name": "ProvideVersionControlProvenance",
               "fullDescription": {
                 "text": "Provide 'versionControlProvenance' to record which version of the code was analyzed, and to enable paths to be expressed relative to the root of the repository."
               },
-              "helpUri": "http://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html",
               "messageStrings": {
                 "Note_Default": {
                   "text": "{0}: This run does not provide 'versionControlProvenance'. As a result, it is not possible to determine which version of code was analyzed, nor to map relative paths to their locations within the repository."
                 }
               },
-              "name": "ProvideVersionControlProvenance",
               "defaultConfiguration": {
                 "level": "note"
-              }
+              },
+              "helpUri": "http://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html"
             }
           ]
         }

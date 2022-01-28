@@ -112,7 +112,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 PrettyPrint = true,
                 Optimize = true,
                 Kind = new List<ResultKind> { ResultKind.Fail },
-                DataToInsert = new List<OptionallyEmittedData> { OptionallyEmittedData.Artifacts },
                 Level = new List<FailureLevel> { FailureLevel.Error, FailureLevel.Warning, FailureLevel.Note, FailureLevel.None },
             };
 

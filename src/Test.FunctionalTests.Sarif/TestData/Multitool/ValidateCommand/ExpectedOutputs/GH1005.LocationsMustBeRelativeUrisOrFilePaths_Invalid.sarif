@@ -9,20 +9,20 @@
           "rules": [
             {
               "id": "GH1005",
+              "name": "LocationsMustBeRelativeUrisOrFilePaths",
               "fullDescription": {
                 "text": "GitHub Advanced Security code scanning only displays results whose locations are specified by file paths, either as relative URIs or as absolute URIs that use the 'file' scheme."
               },
-              "helpUri": "http://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html",
               "messageStrings": {
                 "Error_Default": {
                   "text": "{0}: '{1}' is not a file path. GitHub Advanced Security code scanning only displays results whose locations are specified by file paths, either as relative URIs or as absolute URIs that use the 'file' scheme."
                 }
               },
-              "name": "LocationsMustBeRelativeUrisOrFilePaths",
               "defaultConfiguration": {
                 "enabled": false,
                 "level": "error"
-              }
+              },
+              "helpUri": "http://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html"
             }
           ]
         }

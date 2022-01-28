@@ -67,7 +67,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <summary>
         /// A report identifier that is understandable to an end user.
         /// </summary>
-        [DataMember(Name = "name", IsRequired = false, EmitDefaultValue = false, Order = 7)]
+        [DataMember(Name = "name", IsRequired = false, EmitDefaultValue = false, Order = 2)]
         public virtual string Name { get; set; }
 
         /// <summary>
@@ -85,7 +85,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <summary>
         /// A description of the report. Should, as far as possible, provide details sufficient to enable resolution of any problem indicated by the result.
         /// </summary>
-        [DataMember(Name = "fullDescription", IsRequired = false, EmitDefaultValue = false, Order = 2)]
+        [DataMember(Name = "fullDescription", IsRequired = false, EmitDefaultValue = false, Order = 3)]
         public virtual MultiformatMessageString FullDescription { get; set; }
 
         /// <summary>
@@ -103,7 +103,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <summary>
         /// A URI where the primary documentation for the report can be found.
         /// </summary>
-        [DataMember(Name = "helpUri", IsRequired = false, EmitDefaultValue = false, Order = 3)]
+        [DataMember(Name = "helpUri", IsRequired = false, EmitDefaultValue = false, Order = 13)]
         [JsonConverter(typeof(Microsoft.CodeAnalysis.Sarif.Readers.UriConverter))]
         public virtual Uri HelpUri { get; set; }
 
@@ -116,15 +116,15 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <summary>
         /// An array of objects that describe relationships between this reporting descriptor and others.
         /// </summary>
-        [DataMember(Name = "relationships", IsRequired = false, EmitDefaultValue = false, Order = 13)]
-        [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate, Order = 13)]
+        [DataMember(Name = "relationships", IsRequired = false, EmitDefaultValue = false, Order = 14)]
+        [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate, Order = 14)]
         public virtual IList<ReportingDescriptorRelationship> Relationships { get; set; }
 
         /// <summary>
         /// Key/value pairs that provide additional information about the report.
         /// </summary>
         [JsonProperty(Order = 14)]
-        [DataMember(Name = "properties", IsRequired = false, EmitDefaultValue = false, Order = 14)]
+        [DataMember(Name = "properties", IsRequired = false, EmitDefaultValue = false, Order = 15)]
         internal override IDictionary<string, SerializedPropertyInfo> Properties { get; set; }
 
         /// <summary>

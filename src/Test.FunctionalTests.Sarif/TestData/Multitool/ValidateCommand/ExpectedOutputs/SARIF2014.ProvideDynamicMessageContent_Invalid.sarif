@@ -9,19 +9,19 @@
           "rules": [
             {
               "id": "SARIF2014",
+              "name": "ProvideDynamicMessageContent",
               "fullDescription": {
                 "text": "Include \"dynamic content\" (information that varies among results from the same rule) to makes your messages more specific, and to avoid the \"wall of bugs\" phenomenon, where hundreds of occurrences of the same message appear unapproachable.\r\n\r\nThis is part of a set of authoring practices that make your rule messages more readable, understandable, and actionable. See also 'SARIF2001.TerminateMessagesWithPeriod' and 'SARIF2015.EnquoteDynamicMessageContent'."
               },
-              "helpUri": "http://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html",
               "messageStrings": {
                 "Note_Default": {
                   "text": "{0}: In rule '{1}', the message with id '{2}' does not include any dynamic content. Dynamic content makes your messages more specific and avoids the \"wall of bugs\" phenomenon, where hundreds of occurrences of the same message appear unapproachable."
                 }
               },
-              "name": "ProvideDynamicMessageContent",
               "defaultConfiguration": {
                 "level": "note"
-              }
+              },
+              "helpUri": "http://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html"
             }
           ]
         }
@@ -60,7 +60,7 @@
                   "index": 0
                 },
                 "region": {
-                  "startLine": 19,
+                  "startLine": 18,
                   "startColumn": 74
                 }
               }

@@ -1248,14 +1248,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 run.Artifacts.Should().HaveCount(expectedNumberOfArtifacts);
                 run.Results.Count(r => r.Level == FailureLevel.Error).Should().Be(expectedNumberOfResultsWithErrors);
                 run.Results.Count(r => r.Level == FailureLevel.Warning).Should().Be(expectedNumberOfResultsWithWarnings);
-
-                options.DataToInsert = new List<OptionallyEmittedData>();
-                run = RunAnalyzeCommand(options, resultsCachingTestCase, multithreaded: testCase.IsMultithreaded);
-
-                // Hashes is not enabled, so no artifacts are expected.
-                run.Artifacts.Should().BeNull();
-                run.Results.Count(r => r.Level == FailureLevel.Error).Should().Be(expectedNumberOfResultsWithErrors);
-                run.Results.Count(r => r.Level == FailureLevel.Warning).Should().Be(expectedNumberOfResultsWithWarnings);
             }
         }
 

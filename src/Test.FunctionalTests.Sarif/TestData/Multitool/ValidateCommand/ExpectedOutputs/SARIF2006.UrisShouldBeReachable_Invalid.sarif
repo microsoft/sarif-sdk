@@ -9,19 +9,19 @@
           "rules": [
             {
               "id": "SARIF2006",
+              "name": "UrisShouldBeReachable",
               "fullDescription": {
                 "text": "URIs that refer to locations such as rule help pages and result-related work items should be reachable via an HTTP GET request."
               },
-              "helpUri": "http://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html",
               "messageStrings": {
                 "Note_Default": {
                   "text": "{0}: The URI '{1}' was not reachable via an HTTP GET request."
                 }
               },
-              "name": "UrisShouldBeReachable",
               "defaultConfiguration": {
                 "level": "note"
-              }
+              },
+              "helpUri": "http://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html"
             }
           ]
         }

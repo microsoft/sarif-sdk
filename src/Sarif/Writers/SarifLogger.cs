@@ -20,7 +20,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
     {
         private readonly Run _run;
         private readonly TextWriter _textWriter;
-        private readonly bool _persistArtifacts;
         private readonly bool _closeWriterOnDispose;
         private readonly LogFilePersistenceOptions _logFilePersistenceOptions;
         private readonly JsonTextWriter _jsonTextWriter;
@@ -114,12 +113,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                     RuleToIndexMap[_run.Tool.Driver.Rules[i]] = i;
                 }
             }
-
-            _persistArtifacts =
-                (_dataToInsert & OptionallyEmittedData.Hashes) != 0 ||
-                (_dataToInsert & OptionallyEmittedData.Artifacts) != 0 ||
-                (_dataToInsert & OptionallyEmittedData.TextFiles) != 0 ||
-                (_dataToInsert & OptionallyEmittedData.BinaryFiles) != 0;
         }
 
         private SarifLogger(TextWriter textWriter,
@@ -449,7 +442,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
             // Ensure Artifact is in Run.Artifacts and ArtifactLocation.Index is set to point to it
             int index = _run.GetFileIndex(fileLocation,
-                                          addToFilesTableIfNotPresent: _persistArtifacts,
+                                          addToFilesTableIfNotPresent: true,
                                           _dataToInsert,
                                           encoding,
                                           hashData);
