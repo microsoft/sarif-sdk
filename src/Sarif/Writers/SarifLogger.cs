@@ -447,12 +447,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 catch (ArgumentException) { } // Unrecognized encoding name
             }
 
+            HashData hashData = null;
+            AnalysisTargetToHashDataMap?.TryGetValue(fileLocation.Uri.OriginalString, out hashData);
+
             // Ensure Artifact is in Run.Artifacts and ArtifactLocation.Index is set to point to it
             int index = _run.GetFileIndex(
                 fileLocation,
                 addToFilesTableIfNotPresent: _persistArtifacts,
                 _dataToInsert,
-                encoding);
+                encoding,
+                hashData);
 
             // Remove redundant Uri and UriBaseId once index has been set
             if (index > -1 && this.Optimize)

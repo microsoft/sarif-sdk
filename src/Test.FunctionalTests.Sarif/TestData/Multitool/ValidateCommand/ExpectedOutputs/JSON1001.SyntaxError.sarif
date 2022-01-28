@@ -9,7 +9,6 @@
           "rules": [
             {
               "id": "JSON0001",
-              "name": "SyntaxError",
               "fullDescription": {
                 "text": "The schema is not a valid JSON document."
               },
@@ -18,6 +17,7 @@
                   "text": "at \"{0}\": JSON syntax error: {1}"
                 }
               },
+              "name": "SyntaxError",
               "defaultConfiguration": {
                 "level": "error"
               }
@@ -28,14 +28,6 @@
       "invocations": [
         {
           "executionSuccessful": true
-        }
-      ],
-      "artifacts": [
-        {
-          "location": {
-            "uri": "FunctionalTestOutput.ValidateCommand/Inputs.JSON1001.SyntaxError.sarif",
-            "uriBaseId": "TEST_DIR"
-          }
         }
       ],
       "results": [
@@ -54,7 +46,8 @@
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "index": 0
+                  "uri": "FunctionalTestOutput.ValidateCommand/Inputs.JSON1001.SyntaxError.sarif",
+                  "uriBaseId": "TEST_DIR"
                 },
                 "region": {
                   "startLine": 3,

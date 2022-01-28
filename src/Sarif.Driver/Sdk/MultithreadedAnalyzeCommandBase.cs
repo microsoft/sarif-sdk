@@ -33,7 +33,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         private Run _run;
         private Tool _tool;
         private bool _computeHashes;
-        private bool _persistArtifacts;
         internal TContext _rootContext;
         private int _fileContextsCount;
         private Channel<int> _hashChannel;
@@ -41,6 +40,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         private Channel<int> _resultsWritingChannel;
         private Channel<int> _fileEnumerationChannel;
         private Dictionary<string, List<string>> _hashToFilesMap;
+        private IDictionary<string, HashData> _pathToHashDataMap;
         private ConcurrentDictionary<int, TContext> _fileContexts;
 
         public Exception ExecutionException { get; set; }
@@ -308,11 +308,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
             if (results?.Count > 0)
             {
-                _run?.GetFileIndex(new ArtifactLocation { Uri = context.TargetUri },
-                                   addToFilesTableIfNotPresent: _persistArtifacts,
-                                   dataToInsert: _dataToInsert,
-                                   hashData: context.Hashes);
-
                 foreach (KeyValuePair<ReportingDescriptor, IList<Result>> kv in results)
                 {
                     foreach (Result result in kv.Value)
@@ -493,6 +488,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
                         paths.Add(localPath);
                         context.Hashes = hashData;
+                        _pathToHashDataMap?.Add(localPath, hashData);
                     }
 
                     await _fileEnumerationChannel.Writer.WriteAsync(index);
@@ -540,11 +536,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         {
             _dataToInsert = options.DataToInsert.ToFlags();
             _computeHashes = (_dataToInsert & OptionallyEmittedData.Hashes) != 0;
-
-            _persistArtifacts =
-                (_dataToInsert & OptionallyEmittedData.Hashes) != 0 ||
-                (_dataToInsert & OptionallyEmittedData.TextFiles) != 0 ||
-                (_dataToInsert & OptionallyEmittedData.BinaryFiles) != 0;
 
             bool succeeded = true;
 
@@ -712,6 +703,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                                                                      kinds: analyzeOptions.Kind,
                                                                      insertProperties: analyzeOptions.InsertProperties);
                         }
+                        _pathToHashDataMap = sarifLogger.AnalysisTargetToHashDataMap;
                         sarifLogger.AnalysisStarted();
                         aggregatingLogger.Loggers.Add(sarifLogger);
                     },

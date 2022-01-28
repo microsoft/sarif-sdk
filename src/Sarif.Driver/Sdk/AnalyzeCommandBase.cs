@@ -169,7 +169,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             targets = ValidateTargetsExist(_rootContext, targets);
 
             // 5. Initialize report file, if configured.
-            InitializeOutputFile(options, _rootContext, targets);
+            InitializeOutputFile(options, _rootContext);
 
             // 6. Instantiate skimmers.
             ISet<Skimmer<TContext>> skimmers = CreateSkimmers(options, _rootContext);
@@ -287,13 +287,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
                 if ((options.DataToInsert.ToFlags() & OptionallyEmittedData.Hashes) != 0)
                 {
-                    if (_pathToHashDataMap != null && _pathToHashDataMap.TryGetValue(filePath, out HashData hashData))
+                    if (_pathToHashDataMap?.TryGetValue(filePath, out HashData hashData) == true)
                     {
                         context.Hashes = hashData;
                     }
                     else
                     {
                         context.Hashes = HashUtilities.ComputeHashes(filePath);
+                        _pathToHashDataMap?.Add(filePath, context.Hashes);
                     }
                 }
             }
@@ -352,7 +353,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             }
         }
 
-        private void InitializeOutputFile(TOptions analyzeOptions, TContext context, ISet<string> targets)
+        private void InitializeOutputFile(TOptions analyzeOptions, TContext context)
         {
             string filePath = analyzeOptions.OutputFilePath;
             AggregatingLogger aggregatingLogger = (AggregatingLogger)context.Logger;
@@ -388,7 +389,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                                     dataToRemove,
                                     tool: _tool,
                                     run: _run,
-                                    analysisTargets: targets,
+                                    analysisTargets: null,
                                     quiet: analyzeOptions.Quiet,
                                     invocationTokensToRedact: GenerateSensitiveTokensList(),
                                     invocationPropertiesToLog: analyzeOptions.InvocationPropertiesToLog,
@@ -404,7 +405,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                                     dataToRemove,
                                     tool: _tool,
                                     run: _run,
-                                    analysisTargets: targets,
+                                    analysisTargets: null,
                                     invocationTokensToRedact: GenerateSensitiveTokensList(),
                                     invocationPropertiesToLog: analyzeOptions.InvocationPropertiesToLog,
                                     levels: analyzeOptions.Level,
