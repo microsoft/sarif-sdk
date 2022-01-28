@@ -1166,7 +1166,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         }
 
         [Fact(Timeout = 5000)]
-        public void AnalyzeCommandBase_ShouldGenerateSameResultsWhenRunningSingleAndMultiThread_CoyoteTest()
+        public void AnalyzeCommandBase_ShouldGenerateSameResultsWhenRunningSingleAndMultithreaded_CoyoteTest()
         {
             Configuration config = Configuration.Create().WithTestingIterations(100).WithConcurrencyFuzzingEnabled();
             var engine = TestingEngine.Create(config, AnalyzeCommandBase_ShouldGenerateSameResultsWhenRunningSingleAndMultiThread_CoyoteHelper);
@@ -1185,14 +1185,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         }
 
         [Fact]
-        public void AnalyzeCommandBase_ShouldGenerateSameResultsWhenRunningSingleAndMultiThread()
+        public void AnalyzeCommandBase_ShouldGenerateSameResultsWhenRunningSingleAndMultithreaded()
         {
             int[] scenarios = SetupScenarios();
             AnalyzeScenarios(scenarios);
         }
 
         [Fact]
-        public void AnalyzeCommandBase_Multithreaded_ShouldOnlyLogArtifactsWhenResultsAreFound()
+        public void AnalyzeCommandBase_ShouldOnlyLogArtifactsWhenResultsAreFound()
         {
             const int expectedNumberOfArtifacts = 2;
             const int expectedNumberOfResultsWithErrors = 1;
@@ -1210,38 +1210,53 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 $@"{Environment.CurrentDirectory}\NoIssues.dll",
             };
 
-            var testCase = new ResultsCachingTestCase
+            var testCases = new[]
             {
-                Files = files,
-                PersistLogFileToDisk = true,
-                FileSystem = CreateDefaultFileSystemForResultsCaching(files, generateSameInput: false)
+                new
+                {
+                    IsMultithreaded = false
+                },
+                new
+                {
+                    IsMultithreaded = true
+                }
             };
 
-            var options = new TestAnalyzeOptions
+            foreach (var testCase in testCases)
             {
-                TestRuleBehaviors = testCase.TestRuleBehaviors,
-                OutputFilePath = testCase.PersistLogFileToDisk ? Guid.NewGuid().ToString() : null,
-                TargetFileSpecifiers = new string[] { Guid.NewGuid().ToString() },
-                Kind = new List<ResultKind> { ResultKind.Fail },
-                Level = new List<FailureLevel> { FailureLevel.Warning, FailureLevel.Error },
-                DataToInsert = new OptionallyEmittedData[] { OptionallyEmittedData.Hashes },
-            };
+                var resultsCachingTestCase = new ResultsCachingTestCase
+                {
+                    Files = files,
+                    PersistLogFileToDisk = true,
+                    FileSystem = CreateDefaultFileSystemForResultsCaching(files, generateSameInput: false)
+                };
 
-            Run run = RunAnalyzeCommand(options, testCase, multithreaded: true);
+                var options = new TestAnalyzeOptions
+                {
+                    TestRuleBehaviors = resultsCachingTestCase.TestRuleBehaviors,
+                    OutputFilePath = resultsCachingTestCase.PersistLogFileToDisk ? Guid.NewGuid().ToString() : null,
+                    TargetFileSpecifiers = new string[] { Guid.NewGuid().ToString() },
+                    Kind = new List<ResultKind> { ResultKind.Fail },
+                    Level = new List<FailureLevel> { FailureLevel.Warning, FailureLevel.Error },
+                    DataToInsert = new OptionallyEmittedData[] { OptionallyEmittedData.Hashes },
+                };
 
-            // Hashes is enabled and we should expect to see two artifacts because we have:
-            // one result with Error level and one result with Warning level.
-            run.Artifacts.Should().HaveCount(expectedNumberOfArtifacts);
-            run.Results.Count(r => r.Level == FailureLevel.Error).Should().Be(expectedNumberOfResultsWithErrors);
-            run.Results.Count(r => r.Level == FailureLevel.Warning).Should().Be(expectedNumberOfResultsWithWarnings);
+                Run run = RunAnalyzeCommand(options, resultsCachingTestCase, multithreaded: testCase.IsMultithreaded);
 
-            options.DataToInsert = new List<OptionallyEmittedData>();
-            run = RunAnalyzeCommand(options, testCase, multithreaded: true);
+                // Hashes is enabled and we should expect to see two artifacts because we have:
+                // one result with Error level and one result with Warning level.
+                run.Artifacts.Should().HaveCount(expectedNumberOfArtifacts);
+                run.Results.Count(r => r.Level == FailureLevel.Error).Should().Be(expectedNumberOfResultsWithErrors);
+                run.Results.Count(r => r.Level == FailureLevel.Warning).Should().Be(expectedNumberOfResultsWithWarnings);
 
-            // Hashes is not enabled, so no artifacts are expected.
-            run.Artifacts.Should().BeNull();
-            run.Results.Count(r => r.Level == FailureLevel.Error).Should().Be(expectedNumberOfResultsWithErrors);
-            run.Results.Count(r => r.Level == FailureLevel.Warning).Should().Be(expectedNumberOfResultsWithWarnings);
+                options.DataToInsert = new List<OptionallyEmittedData>();
+                run = RunAnalyzeCommand(options, resultsCachingTestCase, multithreaded: testCase.IsMultithreaded);
+
+                // Hashes is not enabled, so no artifacts are expected.
+                run.Artifacts.Should().BeNull();
+                run.Results.Count(r => r.Level == FailureLevel.Error).Should().Be(expectedNumberOfResultsWithErrors);
+                run.Results.Count(r => r.Level == FailureLevel.Warning).Should().Be(expectedNumberOfResultsWithWarnings);
+            }
         }
 
         private void AnalyzeCommandBase_ShouldGenerateSameResultsWhenRunningSingleAndMultiThread_CoyoteHelper()
