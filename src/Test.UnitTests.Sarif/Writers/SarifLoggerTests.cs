@@ -335,7 +335,23 @@ namespace Microsoft.CodeAnalysis.Sarif
                     levels: new List<FailureLevel> { FailureLevel.Warning, FailureLevel.Error },
                     kinds: new List<ResultKind> { ResultKind.Fail }))
                 {
-                    LogSimpleResult(sarifLogger);
+                    var rule = new ReportingDescriptor { Id = "RuleId" };
+                    Result result = CreateSimpleResult(rule);
+                    result.Locations = new List<Location>
+                    {
+                        new Location
+                        {
+                            PhysicalLocation = new PhysicalLocation
+                            {
+                                ArtifactLocation = new ArtifactLocation
+                                {
+                                    Uri = new Uri(file)
+                                }
+                            }
+                        }
+                    };
+
+                    LogSimpleResult(sarifLogger, rule, result);
                 }
             }
 
@@ -346,55 +362,6 @@ namespace Microsoft.CodeAnalysis.Sarif
             sarifLog.Runs[0].Artifacts[0].Hashes["md5"].Should().Be("4B9DC12934390387862CC4AB5E4A2159");
             sarifLog.Runs[0].Artifacts[0].Hashes["sha-1"].Should().Be("9B59B1C1E3F5F7013B10F6C6B7436293685BAACE");
             sarifLog.Runs[0].Artifacts[0].Hashes["sha-256"].Should().Be("0953D7B3ADA7FED683680D2107EE517A9DBEC2D0AF7594A91F058D104B7A2AEB");
-        }
-
-        [Fact]
-        public void SarifLogger_WritesFileContents_EvenWhenLocationUsesUriBaseId()
-        {
-            var sb = new StringBuilder();
-
-            // Create a temporary file whose extension signals that it is textual.
-            // This ensures that the ArtifactContents.Text property, rather than
-            // the Binary property, is populated, so the test of the Text property
-            // at the end will work.
-            using (var tempFile = new TempFile(".txt"))
-            {
-                string tempFilePath = tempFile.Name;
-
-                File.WriteAllText(tempFilePath, "#include \"windows.h\";");
-
-                var run = new Run
-                {
-                    // To get text contents, we also need to specify an encoding that
-                    // Encoding.GetEncoding() will accept.
-                    DefaultEncoding = "UTF-8"
-                };
-
-                var analysisTargets = new List<string>
-                {
-                    tempFilePath
-                };
-
-                using (var textWriter = new StringWriter(sb))
-                {
-                    // Create a logger that inserts artifact contents.
-                    using (_ = new SarifLogger(
-                        textWriter,
-                        run: run,
-                        analysisTargets: analysisTargets,
-                        dataToInsert: OptionallyEmittedData.TextFiles,
-                        levels: new List<FailureLevel> { FailureLevel.Warning, FailureLevel.Error },
-                        kinds: new List<ResultKind> { ResultKind.Fail }))
-                    {
-                    }
-
-                    // The logger should have populated the artifact contents.
-                    string logText = sb.ToString();
-                    SarifLog sarifLog = JsonConvert.DeserializeObject<SarifLog>(logText);
-
-                    sarifLog.Runs[0].Artifacts[0].Contents?.Text.Should().NotBeNullOrEmpty();
-                }
-            }
         }
 
         [Fact]
@@ -501,7 +468,23 @@ namespace Microsoft.CodeAnalysis.Sarif
                     levels: new List<FailureLevel> { FailureLevel.Warning, FailureLevel.Error },
                     kinds: new List<ResultKind> { ResultKind.Fail }))
                 {
-                    LogSimpleResult(sarifLogger);
+                    var rule = new ReportingDescriptor { Id = "RuleId" };
+                    Result result = CreateSimpleResult(rule);
+                    result.Locations = new List<Location>
+                    {
+                        new Location
+                        {
+                            PhysicalLocation = new PhysicalLocation
+                            {
+                                ArtifactLocation = new ArtifactLocation
+                                {
+                                    Uri = new Uri(file)
+                                }
+                            }
+                        }
+                    };
+
+                    LogSimpleResult(sarifLogger, rule, result);
                 }
             }
 
@@ -910,7 +893,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             // The logger should have merged the analysis targets into the existing Artifacts array.
             IList<Artifact> artifacts = sarifLog.Runs[0].Artifacts;
-            artifacts.Count.Should().Be(4);
+            artifacts.Count.Should().Be(2);
         }
 
         [Fact]
@@ -951,6 +934,11 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             ReportingDescriptor rule = new ReportingDescriptor { Id = "RuleId" };
             sarifLogger.Log(rule, CreateSimpleResult(rule));
+        }
+
+        private void LogSimpleResult(SarifLogger sarifLogger, ReportingDescriptor rule, Result result)
+        {
+            sarifLogger.Log(rule, result);
         }
 
         private Result CreateSimpleResult(ReportingDescriptor rule)
