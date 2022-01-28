@@ -309,7 +309,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             {
                 _run?.GetFileIndex(new ArtifactLocation { Uri = context.TargetUri },
                                    dataToInsert: _dataToInsert,
-                                   hashData: _computeHashes ? context.Hashes : null);
+                                   hashData: context.Hashes);
 
                 foreach (KeyValuePair<ReportingDescriptor, IList<Result>> kv in results)
                 {
