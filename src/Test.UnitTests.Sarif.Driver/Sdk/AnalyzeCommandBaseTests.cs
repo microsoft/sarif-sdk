@@ -1258,7 +1258,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         }
 
         [Fact]
-        public void AnalyzeCommandBase_Multithreaded_ShouldOnlyLogArtifactsWhenHashesIsEnabled()
+        public void AnalyzeCommandBase_Multithreaded_ShouldOnlyLogArtifactsWhenResultsAreFound()
         {
             const int expectedNumberOfArtifacts = 2;
             const int expectedNumberOfResultsWithErrors = 1;
@@ -1300,20 +1300,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             run.Artifacts.Should().HaveCount(expectedNumberOfArtifacts);
             run.Results.Count(r => r.Level == FailureLevel.Error).Should().Be(expectedNumberOfResultsWithErrors);
             run.Results.Count(r => r.Level == FailureLevel.Warning).Should().Be(expectedNumberOfResultsWithWarnings);
-
-            options.DataToInsert = new List<OptionallyEmittedData>();
-
-            run = RunAnalyzeCommand(options, testCase, multithreaded: true);
-
-            // Hashes is disabled so no artifacts are expected.
-            run.Artifacts.Should().BeNull();
-            run.Results.Should().HaveCount(expectedNumberOfArtifacts);
-            run.Results.Count(r => r.Level == FailureLevel.Error).Should().Be(expectedNumberOfResultsWithErrors);
-            run.Results.Count(r => r.Level == FailureLevel.Warning).Should().Be(expectedNumberOfResultsWithWarnings);
         }
 
         [Fact]
-        public void AnalyzeCommandBase_SingleThreaded_ShouldOnlyLogArtifactsWhenHashesIsEnabled()
+        public void AnalyzeCommandBase_SingleThreaded_ShouldOnlyLogArtifactsWhenResultsAreFound()
         {
             const int expectedNumberOfResultsWithErrors = 5;
             const int expectedNumberOfResultsWithWarnings = 2;
@@ -1343,12 +1333,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             runSingleThread.Artifacts.Should().NotBeEmpty();
             runSingleThread.Results.Should().HaveCount(totalNumber);
             runSingleThread.Artifacts.Should().HaveCount(totalNumber);
-
-            // Hashes is disabled so no artifacts are expected.
-            options.DataToInsert = new List<OptionallyEmittedData>();
-            runSingleThread = RunAnalyzeCommand(options, testCase, multithreaded: false);
-            runSingleThread.Artifacts.Should().BeNull();
-            runSingleThread.Results.Should().HaveCount(totalNumber);
         }
 
         private static readonly IList<string> ComprehensiveKindAndLevelsByFileName = new List<string>
