@@ -1313,8 +1313,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         }
 
         [Fact]
-        public void AnalyzeCommmandBase_SingleThreaded_ShouldOnlyLogArtifactsWhenHashesIsEnabled()
+        public void AnalyzeCommandBase_SingleThreaded_ShouldOnlyLogArtifactsWhenHashesIsEnabled()
         {
+            const int expectedNumberOfResultsWithErrors = 5;
+            const int expectedNumberOfResultsWithWarnings = 2;
+            int totalNumber = expectedNumberOfResultsWithErrors + expectedNumberOfResultsWithWarnings;
+
             var testCase = new ResultsCachingTestCase
             {
                 Files = ComprehensiveKindAndLevelsByFileName,
@@ -1336,15 +1340,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
             // Hashes is enabled and we should expect to see seven artifacts because we have seven distinct results
             // of which five are error and two are warnings.
-            runSingleThread.Results.Should().HaveCount(7);
             runSingleThread.Artifacts.Should().NotBeEmpty();
-            runSingleThread.Artifacts.Should().HaveCount(7);
+            runSingleThread.Results.Should().HaveCount(totalNumber);
+            runSingleThread.Artifacts.Should().HaveCount(totalNumber);
 
             // Hashes is disabled so no artifacts are expected.
             options.DataToInsert = new List<OptionallyEmittedData>();
             runSingleThread = RunAnalyzeCommand(options, testCase, multithreaded: false);
             runSingleThread.Artifacts.Should().BeNull();
-            runSingleThread.Results.Should().HaveCount(7);
+            runSingleThread.Results.Should().HaveCount(totalNumber);
         }
 
         private static readonly IList<string> ComprehensiveKindAndLevelsByFileName = new List<string>
