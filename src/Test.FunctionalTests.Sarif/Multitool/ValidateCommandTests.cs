@@ -7,8 +7,6 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 
-using FluentAssertions;
-
 using Microsoft.CodeAnalysis.Sarif.Driver;
 using Microsoft.CodeAnalysis.Sarif.Multitool.Rules;
 using Microsoft.CodeAnalysis.Sarif.Visitors;
@@ -46,6 +44,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         [Fact]
         public void JSON1002_DeserializationError()
             => RunTest("JSON1002.DeserializationError.sarif");
+
+        [Fact]
+        public void JSON1003_LocationIdMustBeValid()
+            => RunTest("JSON1003.LocationIdMustBeValid.sarif");
+
+        [Fact]
+        public void JSON1004_LocationIdMustBeValid_Valid()
+            => RunTest("JSON1004.LocationIdMustBeValid_Valid.sarif");
 
         [Fact]
         public void SARIF1001_RuleIdentifiersMustBeValid_Valid()
@@ -507,8 +513,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 {
                     Console.WriteLine(validateCommand.ExecutionException.ToString());
                 }
-
-                returnCode.Should().Be(0);
             }
 
             string actualLogFileContents = File.ReadAllText(actualLogFilePath);

@@ -450,4 +450,10 @@ Semantics: Assuming the reader of the log file (an end user or another tool) has
   <data name="SARIF2016_FileUrisShouldBeRelative_Note_ShouldNotContainBackSlash_Text" xml:space="preserve">
     <value>{0}: The relative file URL '{1}' contains one or more backslashes, which will be preserved when concatenating to an absolute URL. This can result in inconsistent representations, compared to URLs created from an absolute file path, which may be regarded as not equivalent. Replace all backslashes with forward slashes.</value>
   </data>
+  <data name="SARIF2017_LocationIdMustBeValid_FullDescription_Text" xml:space="preserve">
+    <value>Location Id should be a non-negative 32bit integer. See the SARIF specification ([3.28.2](https://docs.oasis-open.org/sarif/sarif/v2.1.0/os/sarif-v2.1.0-os.html#_Toc34317672)).</value>
+  </data>
+  <data name="SARIF2017_LocationIdMustBeValid_Error_Default_Text" xml:space="preserve">
+    <value>{0}: location is specified with invalid Id '{1}'. Location Id should be a non-negative 32bit integer. See the SARIF specification ([3.28.2](https://docs.oasis-open.org/sarif/sarif/v2.1.0/os/sarif-v2.1.0-os.html#_Toc34317672)).</value>
+  </data>
 </root>

@@ -113,6 +113,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         protected virtual void Analyze(Invocation invocation, string invocationPointer)
         {
         }
+
+        protected virtual void Analyze(Location location, string locationPointer)
+        {
+        }
+
         protected virtual void Analyze(LogicalLocation logicalLocation, string logicalLocationPointer)
         {
         }
@@ -566,6 +571,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 
         private void Visit(Location location, string locationPointer)
         {
+            Analyze(location, locationPointer);
+
             if (location.Message != null)
             {
                 Visit(location.Message, locationPointer.AtProperty(SarifPropertyName.Message));
