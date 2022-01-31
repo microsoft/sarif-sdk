@@ -1166,7 +1166,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         }
 
         [Fact(Timeout = 5000)]
-        public void AnalyzeCommandBase_ShouldGenerateSameResultsWhenRunningSingleAndMultiThread_CoyoteTest()
+        public void AnalyzeCommandBase_ShouldGenerateSameResultsWhenRunningSingleAndMultithreaded_CoyoteTest()
         {
             Configuration config = Configuration.Create().WithTestingIterations(100).WithConcurrencyFuzzingEnabled();
             var engine = TestingEngine.Create(config, AnalyzeCommandBase_ShouldGenerateSameResultsWhenRunningSingleAndMultiThread_CoyoteHelper);
@@ -1185,10 +1185,70 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         }
 
         [Fact]
-        public void AnalyzeCommandBase_ShouldGenerateSameResultsWhenRunningSingleAndMultiThread()
+        public void AnalyzeCommandBase_ShouldGenerateSameResultsWhenRunningSingleAndMultithreaded()
         {
             int[] scenarios = SetupScenarios();
             AnalyzeScenarios(scenarios);
+        }
+
+        [Fact]
+        public void AnalyzeCommandBase_ShouldOnlyLogArtifactsWhenResultsAreFound()
+        {
+            const int expectedNumberOfArtifacts = 2;
+            const int expectedNumberOfResultsWithErrors = 1;
+            const int expectedNumberOfResultsWithWarnings = 1;
+            var files = new List<string>
+            {
+                $@"{Environment.CurrentDirectory}\Error.dll",
+                $@"{Environment.CurrentDirectory}\Warning.dll",
+                $@"{Environment.CurrentDirectory}\Note.dll",
+                $@"{Environment.CurrentDirectory}\Pass.dll",
+                $@"{Environment.CurrentDirectory}\NotApplicable.exe",
+                $@"{Environment.CurrentDirectory}\Informational.sys",
+                $@"{Environment.CurrentDirectory}\Open.cab",
+                $@"{Environment.CurrentDirectory}\Review.dll",
+                $@"{Environment.CurrentDirectory}\NoIssues.dll",
+            };
+
+            var testCases = new[]
+            {
+                new
+                {
+                    IsMultithreaded = false
+                },
+                new
+                {
+                    IsMultithreaded = true
+                }
+            };
+
+            foreach (var testCase in testCases)
+            {
+                var resultsCachingTestCase = new ResultsCachingTestCase
+                {
+                    Files = files,
+                    PersistLogFileToDisk = true,
+                    FileSystem = CreateDefaultFileSystemForResultsCaching(files, generateSameInput: false)
+                };
+
+                var options = new TestAnalyzeOptions
+                {
+                    TestRuleBehaviors = resultsCachingTestCase.TestRuleBehaviors,
+                    OutputFilePath = resultsCachingTestCase.PersistLogFileToDisk ? Guid.NewGuid().ToString() : null,
+                    TargetFileSpecifiers = new string[] { Guid.NewGuid().ToString() },
+                    Kind = new List<ResultKind> { ResultKind.Fail },
+                    Level = new List<FailureLevel> { FailureLevel.Warning, FailureLevel.Error },
+                    DataToInsert = new OptionallyEmittedData[] { OptionallyEmittedData.Hashes },
+                };
+
+                Run run = RunAnalyzeCommand(options, resultsCachingTestCase, multithreaded: testCase.IsMultithreaded);
+
+                // Hashes is enabled and we should expect to see two artifacts because we have:
+                // one result with Error level and one result with Warning level.
+                run.Artifacts.Should().HaveCount(expectedNumberOfArtifacts);
+                run.Results.Count(r => r.Level == FailureLevel.Error).Should().Be(expectedNumberOfResultsWithErrors);
+                run.Results.Count(r => r.Level == FailureLevel.Warning).Should().Be(expectedNumberOfResultsWithWarnings);
+            }
         }
 
         private void AnalyzeCommandBase_ShouldGenerateSameResultsWhenRunningSingleAndMultiThread_CoyoteHelper()
