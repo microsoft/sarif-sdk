@@ -37,6 +37,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         public const string ProvideDynamicMessageContent = "SARIF2014";
         public const string EnquoteDynamicMessageContent = "SARIF2015";
         public const string FileUrisShouldBeRelative = "SARIF2016";
+        public const string LocationIdMustBeValid = "SARIF2017";
 
         // Rules required to upload SARIF files to GitHub Advanced Security code scanning.
         // These rules are disabled by default. The can be enabled by running the Multitool
