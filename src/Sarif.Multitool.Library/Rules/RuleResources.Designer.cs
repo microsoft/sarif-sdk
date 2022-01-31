@@ -960,23 +960,5 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
                 return ResourceManager.GetString("SARIF2016_FileUrisShouldBeRelative_Note_ShouldNotStartWithSlash_Text", resourceCulture);
             }
         }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to {0}: location is specified with invalid Id &apos;{1}&apos;. Location Id should be a non-negative 32bit integer. See the SARIF specification ([3.28.2](https://docs.oasis-open.org/sarif/sarif/v2.1.0/os/sarif-v2.1.0-os.html#_Toc34317672))..
-        /// </summary>
-        internal static string SARIF2017_LocationIdMustBeValid_Error_Default_Text {
-            get {
-                return ResourceManager.GetString("SARIF2017_LocationIdMustBeValid_Error_Default_Text", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Location Id should be a non-negative 32bit integer. See the SARIF specification ([3.28.2](https://docs.oasis-open.org/sarif/sarif/v2.1.0/os/sarif-v2.1.0-os.html#_Toc34317672))..
-        /// </summary>
-        internal static string SARIF2017_LocationIdMustBeValid_FullDescription_Text {
-            get {
-                return ResourceManager.GetString("SARIF2017_LocationIdMustBeValid_FullDescription_Text", resourceCulture);
-            }
-        }
     }
 }
