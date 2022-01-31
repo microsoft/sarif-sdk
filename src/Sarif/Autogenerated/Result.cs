@@ -125,7 +125,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         public IList<Location> Locations { get; set; }
 
         /// <summary>
-        /// A stable, unique identifer for the result in the form of a GUID.
+        /// A stable, unique identifier for the result in the form of a GUID.
         /// </summary>
         [DataMember(Name = "guid", IsRequired = false, EmitDefaultValue = false)]
         public string Guid { get; set; }
