@@ -6,7 +6,7 @@
 * BUGFIX: Adjust Json Serialization field order for ReportingDescriptor and skip emit empty AutomationDetails node. [#2420](https://github.com/microsoft/sarif-sdk/pull/2420)
 * BREAKING: Fix `InvalidOperationException` when using PropertiesDictionary in a multithreaded application, and remove `[Serializable]` from it. Now use of BinaryFormatter on it will result in `SerializationException`: Type `PropertiesDictionary` is not marked as serializable. [#2415](https://github.com/microsoft/sarif-sdk/pull/2415)
 * BREAKING: `SarifLogger` now emits an artifacts table entry if `artifactLocation` is not null for tool configuration and tool execution notifications. [#2437](https://github.com/microsoft/sarif-sdk/pull/2437)
-* BUGFIX: Fix `ArgumentException` when recurse is enabled and two file target specifiers generates the same file path. [#2438](https://github.com/microsoft/sarif-sdk/pull/2438)
+* BUGFIX: Fix `ArgumentException` when `--recurse` is enabled and two file target specifiers generates the same file path. [#2438](https://github.com/microsoft/sarif-sdk/pull/2438)
 
 ## **v2.4.12** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.4.12) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.4.12) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.4.12) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.4.12) | [Multitool Library](https://www.nuget.org/packages/Sarif.Multitool.Library/2.4.12)
 
