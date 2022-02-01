@@ -1210,19 +1210,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 $@"{Environment.CurrentDirectory}\NoIssues.dll",
             };
 
-            var testCases = new[]
-            {
-                new
-                {
-                    IsMultithreaded = false
-                },
-                new
-                {
-                    IsMultithreaded = true
-                }
-            };
-
-            foreach (var testCase in testCases)
+            foreach (bool multithreaded in new bool[] { false, true })
             {
                 var resultsCachingTestCase = new ResultsCachingTestCase
                 {
@@ -1241,7 +1229,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                     DataToInsert = new OptionallyEmittedData[] { OptionallyEmittedData.Hashes },
                 };
 
-                Run run = RunAnalyzeCommand(options, resultsCachingTestCase, multithreaded: testCase.IsMultithreaded);
+                Run run = RunAnalyzeCommand(options, resultsCachingTestCase, multithreaded: multithreaded);
 
                 // Hashes is enabled and we should expect to see two artifacts because we have:
                 // one result with Error level and one result with Warning level.
@@ -1249,6 +1237,46 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 run.Results.Count(r => r.Level == FailureLevel.Error).Should().Be(expectedNumberOfResultsWithErrors);
                 run.Results.Count(r => r.Level == FailureLevel.Warning).Should().Be(expectedNumberOfResultsWithWarnings);
             }
+        }
+
+        [Fact]
+        public void AnalyzeCommandBase_ShouldNotThrowException_WhenAnalyzingSameFileBasedOnTwoTargetFileSpecifiers()
+        {
+            var files = new List<string>
+            {
+                $@"{Environment.CurrentDirectory}\Error.dll"
+            };
+
+            Action action = () =>
+            {
+                foreach (bool multithreaded in new bool[] { false, true })
+                {
+                    var resultsCachingTestCase = new ResultsCachingTestCase
+                    {
+                        Files = files,
+                        PersistLogFileToDisk = true,
+                        FileSystem = CreateDefaultFileSystemForResultsCaching(files, generateSameInput: true)
+                    };
+
+                    var options = new TestAnalyzeOptions
+                    {
+                        TestRuleBehaviors = resultsCachingTestCase.TestRuleBehaviors,
+                        OutputFilePath = resultsCachingTestCase.PersistLogFileToDisk ? Guid.NewGuid().ToString() : null,
+                        TargetFileSpecifiers = new string[] { Guid.NewGuid().ToString(), Guid.NewGuid().ToString() },
+                        Kind = new List<ResultKind> { ResultKind.Fail },
+                        Level = new List<FailureLevel> { FailureLevel.Warning, FailureLevel.Error },
+                        DataToInsert = new OptionallyEmittedData[] { OptionallyEmittedData.Hashes },
+                    };
+
+                    TestRule.s_testRuleBehaviors = resultsCachingTestCase.TestRuleBehaviors.AccessibleOutsideOfContextOnly();
+                    RunAnalyzeCommand(options,
+                                      resultsCachingTestCase.FileSystem,
+                                      resultsCachingTestCase.ExpectedReturnCode,
+                                      multithreaded: multithreaded);
+                }
+            };
+
+            action.Should().NotThrow();
         }
 
         private void AnalyzeCommandBase_ShouldGenerateSameResultsWhenRunningSingleAndMultiThread_CoyoteHelper()
@@ -1509,7 +1537,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 mockFileSystem.Setup(x => x.FileReadAllText(It.Is<string>(f => f == fullyQualifiedName))).Returns(logFileContents);
 
                 mockFileSystem.Setup(x => x.FileOpenRead(It.Is<string>(f => f == fullyQualifiedName)))
-                        .Returns(new MemoryStream(Encoding.UTF8.GetBytes(generateSameInput ? logFileContents : fileNameWithoutExtension)));
+                    .Returns(new NonDisposingDelegatingStream(new MemoryStream(Encoding.UTF8.GetBytes(generateSameInput ? logFileContents : fileNameWithoutExtension))));
             }
             return mockFileSystem.Object;
         }

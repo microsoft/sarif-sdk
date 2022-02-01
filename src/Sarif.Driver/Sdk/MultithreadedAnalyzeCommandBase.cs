@@ -488,7 +488,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
                         paths.Add(localPath);
                         context.Hashes = hashData;
-                        _pathToHashDataMap?.Add(localPath, hashData);
+
+                        if (_pathToHashDataMap != null && !_pathToHashDataMap.ContainsKey(localPath))
+                        {
+                            _pathToHashDataMap.Add(localPath, hashData);
+                        }
                     }
 
                     await _fileEnumerationChannel.Writer.WriteAsync(index);
