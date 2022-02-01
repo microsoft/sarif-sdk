@@ -1210,19 +1210,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 $@"{Environment.CurrentDirectory}\NoIssues.dll",
             };
 
-            var testCases = new[]
-            {
-                new
-                {
-                    IsMultithreaded = false
-                },
-                new
-                {
-                    IsMultithreaded = true
-                }
-            };
-
-            foreach (var testCase in testCases)
+            foreach (bool multithreaded in new bool[] { false, true })
             {
                 var resultsCachingTestCase = new ResultsCachingTestCase
                 {
@@ -1241,7 +1229,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                     DataToInsert = new OptionallyEmittedData[] { OptionallyEmittedData.Hashes },
                 };
 
-                Run run = RunAnalyzeCommand(options, resultsCachingTestCase, multithreaded: testCase.IsMultithreaded);
+                Run run = RunAnalyzeCommand(options, resultsCachingTestCase, multithreaded: multithreaded);
 
                 // Hashes is enabled and we should expect to see two artifacts because we have:
                 // one result with Error level and one result with Warning level.
@@ -1259,21 +1247,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 $@"{Environment.CurrentDirectory}\Error.dll"
             };
 
-            var testCases = new[]
-            {
-                new
-                {
-                    IsMultithreaded = false
-                },
-                new
-                {
-                    IsMultithreaded = true
-                }
-            };
-
             Action action = () =>
             {
-                foreach (var testCase in testCases)
+                foreach (bool multithreaded in new bool[] { false, true })
                 {
                     var resultsCachingTestCase = new ResultsCachingTestCase
                     {
@@ -1296,7 +1272,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                     RunAnalyzeCommand(options,
                                       resultsCachingTestCase.FileSystem,
                                       resultsCachingTestCase.ExpectedReturnCode,
-                                      multithreaded: testCase.IsMultithreaded);
+                                      multithreaded: multithreaded);
                 }
             };
 
