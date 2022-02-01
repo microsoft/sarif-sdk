@@ -1251,6 +1251,58 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             }
         }
 
+        [Fact]
+        public void AnalyzeCommandBase_ShouldNotThrowException_WhenAnalyzingSameFileBasedOnTwoTargetFileSpecifiers()
+        {
+            var files = new List<string>
+            {
+                $@"{Environment.CurrentDirectory}\Error.dll"
+            };
+
+            var testCases = new[]
+            {
+                new
+                {
+                    IsMultithreaded = false
+                },
+                new
+                {
+                    IsMultithreaded = true
+                }
+            };
+
+            Action action = () =>
+            {
+                foreach (var testCase in testCases)
+                {
+                    var resultsCachingTestCase = new ResultsCachingTestCase
+                    {
+                        Files = files,
+                        PersistLogFileToDisk = true,
+                        FileSystem = CreateDefaultFileSystemForResultsCaching(files, generateSameInput: true)
+                    };
+
+                    var options = new TestAnalyzeOptions
+                    {
+                        TestRuleBehaviors = resultsCachingTestCase.TestRuleBehaviors,
+                        OutputFilePath = resultsCachingTestCase.PersistLogFileToDisk ? Guid.NewGuid().ToString() : null,
+                        TargetFileSpecifiers = new string[] { Guid.NewGuid().ToString(), Guid.NewGuid().ToString() },
+                        Kind = new List<ResultKind> { ResultKind.Fail },
+                        Level = new List<FailureLevel> { FailureLevel.Warning, FailureLevel.Error },
+                        DataToInsert = new OptionallyEmittedData[] { OptionallyEmittedData.Hashes },
+                    };
+
+                    TestRule.s_testRuleBehaviors = resultsCachingTestCase.TestRuleBehaviors.AccessibleOutsideOfContextOnly();
+                    RunAnalyzeCommand(options,
+                                      resultsCachingTestCase.FileSystem,
+                                      resultsCachingTestCase.ExpectedReturnCode,
+                                      multithreaded: testCase.IsMultithreaded);
+                }
+            };
+
+            action.Should().NotThrow();
+        }
+
         private void AnalyzeCommandBase_ShouldGenerateSameResultsWhenRunningSingleAndMultiThread_CoyoteHelper()
         {
             int[] scenarios = SetupScenarios(true);
@@ -1509,7 +1561,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 mockFileSystem.Setup(x => x.FileReadAllText(It.Is<string>(f => f == fullyQualifiedName))).Returns(logFileContents);
 
                 mockFileSystem.Setup(x => x.FileOpenRead(It.Is<string>(f => f == fullyQualifiedName)))
-                        .Returns(new MemoryStream(Encoding.UTF8.GetBytes(generateSameInput ? logFileContents : fileNameWithoutExtension)));
+                    .Returns(new NonDisposingDelegatingStream(new MemoryStream(Encoding.UTF8.GetBytes(generateSameInput ? logFileContents : fileNameWithoutExtension))));
+                    //.Callback(new MemoryStream(Encoding.UTF8.GetBytes(generateSameInput ? logFileContents : fileNameWithoutExtension)));
+                        //.Returns(new MemoryStream(Encoding.UTF8.GetBytes(generateSameInput ? logFileContents : fileNameWithoutExtension)));
             }
             return mockFileSystem.Object;
         }
