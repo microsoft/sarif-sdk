@@ -1562,8 +1562,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
                 mockFileSystem.Setup(x => x.FileOpenRead(It.Is<string>(f => f == fullyQualifiedName)))
                     .Returns(new NonDisposingDelegatingStream(new MemoryStream(Encoding.UTF8.GetBytes(generateSameInput ? logFileContents : fileNameWithoutExtension))));
-                    //.Callback(new MemoryStream(Encoding.UTF8.GetBytes(generateSameInput ? logFileContents : fileNameWithoutExtension)));
-                        //.Returns(new MemoryStream(Encoding.UTF8.GetBytes(generateSameInput ? logFileContents : fileNameWithoutExtension)));
+                //.Callback(new MemoryStream(Encoding.UTF8.GetBytes(generateSameInput ? logFileContents : fileNameWithoutExtension)));
+                //.Returns(new MemoryStream(Encoding.UTF8.GetBytes(generateSameInput ? logFileContents : fileNameWithoutExtension)));
             }
             return mockFileSystem.Object;
         }
