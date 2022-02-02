@@ -81,7 +81,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
         protected override string IntermediateTestFolder => @"Multitool";
 
-        protected override string ConstructTestOutputFromInputResource(string inputResourceName, object parameter)
+        protected override string ConstructTestOutputFromInputResource(string inputResourceName, object parameter, int expectedReturnCode = SUCCESS)
         {
             string testName = parameter as string;
 
@@ -136,7 +136,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 Console.WriteLine(validateCommand.ExecutionException.ToString());
             }
 
-            returnCode.Should().Be(0);
+            returnCode.Should().Be(expectedReturnCode);
 
             string actualLogFileContents = File.ReadAllText(this.IsInline ? baselineFilePath : outputLogFilePath);
             SarifLog actualLog = JsonConvert.DeserializeObject<SarifLog>(actualLogFileContents);

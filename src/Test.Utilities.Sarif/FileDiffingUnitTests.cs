@@ -11,6 +11,7 @@ using System.Text;
 
 using FluentAssertions;
 
+using Microsoft.CodeAnalysis.Sarif.Driver;
 using Microsoft.CodeAnalysis.Sarif.Readers;
 using Microsoft.CodeAnalysis.Sarif.VersionOne;
 using Microsoft.CodeAnalysis.Sarif.Writers;
@@ -25,6 +26,9 @@ namespace Microsoft.CodeAnalysis.Sarif
 {
     public abstract class FileDiffingUnitTests
     {
+        internal const int FAILURE = AnalyzeCommandBase<TestAnalysisContext, AnalyzeOptionsBase>.FAILURE;
+        internal const int SUCCESS = AnalyzeCommandBase<TestAnalysisContext, AnalyzeOptionsBase>.SUCCESS;
+
         public static string GetTestDirectory(string subdirectory = "")
         {
             return Path.GetFullPath(Path.Combine(@$"TestData\", subdirectory));
@@ -87,7 +91,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         // shouldn't have to supply even an empty implementation of the one that they don't use.
         // Therefore this class implements both of those methods to throw NotImplementedException
         // so you don't accidentally call the wrong one.
-        protected virtual string ConstructTestOutputFromInputResource(string inputResourceName, object parameter)
+        protected virtual string ConstructTestOutputFromInputResource(string inputResourceName, object parameter, int expectedReturnCode = SUCCESS)
             => throw new NotImplementedException(nameof(ConstructTestOutputFromInputResource));
 
         protected virtual IDictionary<string, string> ConstructTestOutputsFromInputResources(IEnumerable<string> inputResourceNames, object parameter)
@@ -96,7 +100,8 @@ namespace Microsoft.CodeAnalysis.Sarif
         protected virtual void RunTest(string inputResourceName,
                                        string expectedOutputResourceName = null,
                                        object parameter = null,
-                                       bool enforceNotificationsFree = false)
+                                       bool enforceNotificationsFree = false,
+                                       int expectedReturnCode = SUCCESS)
         {
             // In the simple case of one input file and one output file, the output resource name
             // can be inferred from the input resource name. In the case of arbitrary numbers of
@@ -112,7 +117,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             expectedOutputResourceName = Path.GetFileNameWithoutExtension(expectedOutputResourceName) + SarifConstants.SarifFileExtension;
             string expectedSarifText = GetExpectedSarifTextFromResource(expectedOutputResourceName);
 
-            string actualSarifText = ConstructTestOutputFromInputResource(ConstructFullInputResourceName(inputResourceName), parameter);
+            string actualSarifText = ConstructTestOutputFromInputResource(ConstructFullInputResourceName(inputResourceName), parameter, expectedReturnCode);
 
             // The comparison code is shared between this one-input-to-one-output method and the
             // overload that takes multiple inputs and multiple outputs. So set up the lists and
@@ -140,7 +145,8 @@ namespace Microsoft.CodeAnalysis.Sarif
                                     expectedOutputResourceNameDictionary,
                                     expectedSarifTexts,
                                     actualSarifTexts,
-                                    enforceNotificationsFree);
+                                    enforceNotificationsFree,
+                                    expectedReturnCode);
         }
 
         protected virtual void RunTest(IList<string> inputResourceNames,
@@ -168,7 +174,8 @@ namespace Microsoft.CodeAnalysis.Sarif
             IDictionary<string, string> expectedOutputResourceNameDictionary,
             IDictionary<string, string> expectedSarifTextDictionary,
             IDictionary<string, string> actualSarifTextDictionary,
-            bool enforceNotificationsFree)
+            bool enforceNotificationsFree,
+            int expectedReturnCode = SUCCESS)
         {
             if (inputResourceNames.Count == 0)
             {
@@ -205,7 +212,8 @@ namespace Microsoft.CodeAnalysis.Sarif
 
                     passed &= AreEquivalent<SarifLog>(actualSarifTextDictionary[key],
                                                       expectedSarifTextDictionary[key],
-                                                      out SarifLog actual);
+                                                      out SarifLog actual,
+                                                      expectedReturnCode: expectedReturnCode);
 
                     if (enforceNotificationsFree &&
                         actual != null &&
@@ -222,7 +230,8 @@ namespace Microsoft.CodeAnalysis.Sarif
                         actualSarifTextDictionary[key],
                         expectedSarifTextDictionary[key],
                         out SarifLogVersionOne actual,
-                        SarifContractResolverVersionOne.Instance);
+                        SarifContractResolverVersionOne.Instance,
+                        expectedReturnCode: expectedReturnCode);
                 }
             }
 
@@ -355,7 +364,8 @@ namespace Microsoft.CodeAnalysis.Sarif
         public static bool AreEquivalent<T>(string actualSarif,
                                             string expectedSarif,
                                             out T actualObject,
-                                            IContractResolver contractResolver = null)
+                                            IContractResolver contractResolver = null,
+                                            int expectedReturnCode = SUCCESS)
         {
             actualObject = default;
 
@@ -363,6 +373,16 @@ namespace Microsoft.CodeAnalysis.Sarif
             JToken expectedToken = JsonConvert.DeserializeObject<JToken>(expectedSarif);
 
             JToken actualToken = JsonConvert.DeserializeObject<JToken>(actualSarif);
+
+            // When running DeepEquals for the failed cases,
+            // skip compare the toolExecutionNotifications which contains detail debugging info,
+            // which could varies in each run.
+            if (expectedReturnCode == FAILURE)
+            {
+                RemoveFields(expectedToken, new[] { "toolExecutionNotifications" });
+                RemoveFields(actualToken, new[] { "toolExecutionNotifications" });
+            }
+
             if (!JToken.DeepEquals(actualToken, expectedToken)) { return false; }
 
             // Make sure we can successfully roundtrip what was just generated.
@@ -376,6 +396,15 @@ namespace Microsoft.CodeAnalysis.Sarif
             string roundTrippedSarif = JsonConvert.SerializeObject(actualObject, settings);
 
             JToken roundTrippedToken = JsonConvert.DeserializeObject<JToken>(roundTrippedSarif);
+
+            // When running DeepEquals for the failed cases,
+            // skip compare the toolExecutionNotifications which contains detail debugging info,
+            // which could varies in each run.
+            if (expectedReturnCode == FAILURE)
+            {
+                RemoveFields(roundTrippedToken, new[] { "toolExecutionNotifications" });
+            }
+
             return (JToken.DeepEquals(actualToken, roundTrippedToken));
         }
 
@@ -387,5 +416,28 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         private string ConstructFullInputResourceName(string resourceName)
             => "Inputs." + resourceName;
+
+        private static void RemoveFields(JToken token, string[] fields)
+        {
+            if (!(token is JContainer container))
+            {
+                return;
+            }
+
+            var removeList = new List<JToken>();
+            foreach (JToken el in container.Children())
+            {
+                if (el is JProperty p && fields.Contains(p.Name))
+                {
+                    removeList.Add(el);
+                }
+                RemoveFields(el, fields);
+            }
+
+            foreach (JToken el in removeList)
+            {
+                el.Remove();
+            }
+        }
     }
 }

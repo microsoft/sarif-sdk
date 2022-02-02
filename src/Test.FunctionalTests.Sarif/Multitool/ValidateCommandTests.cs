@@ -48,6 +48,22 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             => RunTest("JSON1002.DeserializationError.sarif");
 
         [Fact]
+        public void JSON1006_ValueTooLarge_LocationId_Valid()
+            => RunTest("JSON1006.ValueTooLarge_LocationId_Valid.sarif", expectedReturnCode: SUCCESS);
+
+        [Fact]
+        public void JSON1006_ValueTooLarge_LocationId_Invalid()
+            => RunTest("JSON1006.ValueTooLarge_LocationId_Invalid.sarif", expectedReturnCode: FAILURE);
+
+        [Fact]
+        public void JSON1008_ValueTooSmall_LocationId_Valid()
+            => RunTest("JSON1008.ValueTooSmall_LocationId_Valid.sarif", expectedReturnCode: SUCCESS);
+
+        [Fact]
+        public void JSON1008_ValueTooSmall_LocationId_Invalid()
+            => RunTest("JSON1008.ValueTooSmall_LocationId_Invalid.sarif", expectedReturnCode: SUCCESS);
+
+        [Fact]
         public void SARIF1001_RuleIdentifiersMustBeValid_Valid()
             => RunValidTestForRule(RuleId.RuleIdentifiersMustBeValid);
 
@@ -447,7 +463,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         private string MakeTestFileName(ReportingDescriptor rule, string testFileNameSuffix)
             => $"{rule.Id}.{rule.Name}{testFileNameSuffix}";
 
-        protected override string ConstructTestOutputFromInputResource(string inputResourceName, object parameter)
+        protected override string ConstructTestOutputFromInputResource(string inputResourceName, object parameter, int expectedReturnCode = SUCCESS)
         {
             string v2LogText = GetResourceText(inputResourceName);
 
@@ -508,7 +524,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                     Console.WriteLine(validateCommand.ExecutionException.ToString());
                 }
 
-                returnCode.Should().Be(0);
+                returnCode.Should().Be(expectedReturnCode);
             }
 
             string actualLogFileContents = File.ReadAllText(actualLogFilePath);
