@@ -36,7 +36,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 // save old indexes
                 for (int i = 0; i < node.Artifacts.Count; i++)
                 {
-                    if (!oldIndexes.TryGetValue(node.Artifacts[i], out int index))
+                    if (!oldIndexes.ContainsKey(node.Artifacts[i]))
                     {
                         oldIndexes.Add(node.Artifacts[i], i);
                     }
@@ -79,7 +79,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 // before sort the rules, save old indexes
                 for (int i = 0; i < current.Rules.Count; i++)
                 {
-                    if (!oldIndexes.TryGetValue(current.Rules[i], out int index))
+                    if (!oldIndexes.ContainsKey(current.Rules[i]))
                     {
                         oldIndexes.Add(current.Rules[i], i);
                     }
