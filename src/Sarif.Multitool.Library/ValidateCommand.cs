@@ -1,6 +1,7 @@
 ﻿// Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
@@ -89,6 +90,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 // This exception can happen, for example, if a property required by the schema is
                 // missing.
             }
+            //catch (JsonReaderException)
+            //{
+            //    // This exception can happen, for example, if a property of integer type is not within
+            //    // the minimum and maximum value specified in the schema.
+            //}
 
             return log;
         }
