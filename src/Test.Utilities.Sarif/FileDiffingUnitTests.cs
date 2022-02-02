@@ -375,7 +375,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             JToken actualToken = JsonConvert.DeserializeObject<JToken>(actualSarif);
 
             // When running DeepEquals for the failed cases,
-            // skip compare the toolExecutionNotifications which contains detail debugging info,
+            // skip comparing the toolExecutionNotifications that contains detail debugging info,
             // which could varies in each run.
             if (expectedReturnCode == FAILURE)
             {
@@ -398,7 +398,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             JToken roundTrippedToken = JsonConvert.DeserializeObject<JToken>(roundTrippedSarif);
 
             // When running DeepEquals for the failed cases,
-            // skip compare the toolExecutionNotifications which contains detail debugging info,
+            // skip comparing the toolExecutionNotifications that contains detail debugging info,
             // which could varies in each run.
             if (expectedReturnCode == FAILURE)
             {
