@@ -89,6 +89,18 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 // This exception can happen, for example, if a property required by the schema is
                 // missing.
             }
+            catch (JsonReaderException jsonReaderException)
+            {
+                if (jsonReaderException.Message.Contains("too large or small for an Int32"))
+                {
+                    // This exception can happen, for example, if a property of integer type is not within
+                    // the minimum and maximum value of Int32.
+                }
+                else
+                {
+                    throw;
+                }
+            }
 
             return log;
         }

@@ -1292,6 +1292,7 @@
           "description": "Value that distinguishes this location from all other locations within a single result object.",
           "type": "integer",
           "minimum": -1,
+          "maximum": 2147483647,
           "default": -1
         },
 
