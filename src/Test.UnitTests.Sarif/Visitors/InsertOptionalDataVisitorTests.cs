@@ -29,7 +29,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         {
         }
 
-        protected override string ConstructTestOutputFromInputResource(string inputResourceName, object parameter)
+        protected override string ConstructTestOutputFromInputResource(string inputResourceName, object parameter, int expectedReturnCode = SUCCESS)
         {
             SarifLog actualLog = PrereleaseCompatibilityTransformer.UpdateToCurrentVersion(
                 GetResourceText(inputResourceName),

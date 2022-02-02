@@ -46,7 +46,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             RunTest("FilterByPredicate.sarif", "RuleIdPredicate.sarif", predicate);
         }
 
-        protected override string ConstructTestOutputFromInputResource(string inputResourceName, object parameter)
+        protected override string ConstructTestOutputFromInputResource(string inputResourceName, object parameter, int expectedReturnCode = SUCCESS)
         {
             var predicate = (FilteringVisitor.IncludeResultPredicate)parameter;
 

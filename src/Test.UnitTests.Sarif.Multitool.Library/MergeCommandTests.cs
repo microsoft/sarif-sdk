@@ -48,7 +48,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             RunTest("DuplicatedResults.sarif");
         }
 
-        protected override string ConstructTestOutputFromInputResource(string inputResourceName, object parameter)
+        protected override string ConstructTestOutputFromInputResource(string inputResourceName, object parameter, int expectedReturnCode = SUCCESS)
         {
             const string InputFolderPath = @"C:\input";
             string targetFileSpecifier = Path.Combine(InputFolderPath, inputResourceName);
@@ -73,7 +73,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             var mergeCommand = new MergeCommand(fileSystem);
 
             int returnCode = mergeCommand.Run(options);
-            returnCode.Should().Be(0);
+            returnCode.Should().Be(expectedReturnCode);
 
             return File.ReadAllText(outputFilePath);
         }

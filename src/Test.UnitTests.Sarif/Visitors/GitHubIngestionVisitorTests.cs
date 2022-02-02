@@ -12,7 +12,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
     {
         public GitHubIngestionVisitorTests(ITestOutputHelper outputHelper) : base(outputHelper) { }
 
-        protected override string ConstructTestOutputFromInputResource(string inputResourceName, object parameter)
+        protected override string ConstructTestOutputFromInputResource(string inputResourceName, object parameter, int expectedReturnCode = SUCCESS)
         {
             string logContents = GetResourceText(inputResourceName);
             SarifLog sarifLog = JsonConvert.DeserializeObject<SarifLog>(logContents);

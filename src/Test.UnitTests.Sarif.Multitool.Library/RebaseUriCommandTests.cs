@@ -118,7 +118,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             };
         }
 
-        protected override string ConstructTestOutputFromInputResource(string testFilePath, object parameter)
+        protected override string ConstructTestOutputFromInputResource(string testFilePath, object parameter, int expectedReturnCode = SUCCESS)
         {
             return RunRebaseUriCommand(testFilePath, this.options);
         }
