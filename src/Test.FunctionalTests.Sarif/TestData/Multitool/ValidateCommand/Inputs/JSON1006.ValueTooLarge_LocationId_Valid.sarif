@@ -21,7 +21,7 @@
               "id": 2147483647,
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "file1.cs"
+                  "uri": "Test.Int32.Max.cs"
                 }
               }
             }

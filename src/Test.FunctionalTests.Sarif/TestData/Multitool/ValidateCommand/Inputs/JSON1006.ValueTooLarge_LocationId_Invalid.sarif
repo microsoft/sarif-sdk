@@ -21,15 +21,15 @@
               "id": 2147483648,
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "file1.cs"
+                  "uri": "Test.Int32.Max+1.cs"
                 }
               }
             },
             {
-              "id": 2147483647000,
+              "id": 9223372036854775807,
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "file1.cs"
+                  "uri": "Test.Int64.Max.cs"
                 }
               }
             }
