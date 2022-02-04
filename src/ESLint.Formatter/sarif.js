@@ -133,7 +133,7 @@ module.exports = function (results, data) {
                 }
             }
 
-            const messages = result.messages.concat(result.suppressedMessages);
+            const messages = result.suppressedMessages ? result.messages.concat(result.suppressedMessages) : result.messages;
 
             if (messages.length > 0) {
                 messages.forEach(message => {
@@ -229,6 +229,8 @@ module.exports = function (results, data) {
                                 justification: suppression.justification
                             }
                         });
+                    } else {
+                        sarifRepresentation.suppressions = [];
                     }
 
                     if (message.ruleId) {

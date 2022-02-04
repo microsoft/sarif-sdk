@@ -127,6 +127,8 @@ describe("formatter:sarif", () => {
             assert(log.runs[0].results[0].locations[0].physicalLocation.artifactLocation.uri.startsWith(uriPrefix));
             assert(log.runs[0].results[0].locations[0].physicalLocation.artifactLocation.uri.endsWith("/" + sourceFilePath1));
             assert.strictEqual(log.runs[0].results[0].locations[0].physicalLocation.artifactLocation.index, 0);
+            assert.isDefined(log.runs[0].results[0].suppressions);
+            assert.lengthOf(log.runs[0].results[0].suppressions, 0);
         });
     });
 
@@ -186,6 +188,34 @@ describe("formatter:sarif", () => {
             assert.strictEqual(log.runs[0].results[0].suppressions[0].justification, code[0].suppressedMessages[0].suppressions[0].justification);
             assert.strictEqual(log.runs[0].results[0].suppressions[1].kind, "inSource");
             assert.strictEqual(log.runs[0].results[0].suppressions[1].justification, code[0].suppressedMessages[0].suppressions[1].justification);
+        });
+    });
+
+    describe("when passed one message and no suppressedMessages array", () => {
+        const code = [{
+            filePath: sourceFilePath1,
+            messages: [{
+                message: "Unexpected value.",
+                severity: 2,
+                ruleId: testRuleId
+            }]
+        }];
+
+        it("should return a log with one file and one result", () => {
+            const log = JSON.parse(formatter(code, { rulesMeta: rules }));
+
+            assert(log.runs[0].artifacts[0].location.uri.startsWith(uriPrefix));
+            assert(log.runs[0].artifacts[0].location.uri, "/" + sourceFilePath1);
+            assert.isDefined(log.runs[0].results);
+            assert.lengthOf(log.runs[0].results, 1);
+            assert.strictEqual(log.runs[0].results[0].level, "error");
+            assert.isDefined(log.runs[0].results[0].message);
+            assert.strictEqual(log.runs[0].results[0].message.text, code[0].messages[0].message);
+            assert(log.runs[0].results[0].locations[0].physicalLocation.artifactLocation.uri.startsWith(uriPrefix));
+            assert(log.runs[0].results[0].locations[0].physicalLocation.artifactLocation.uri.endsWith("/" + sourceFilePath1));
+            assert.strictEqual(log.runs[0].results[0].locations[0].physicalLocation.artifactLocation.index, 0);
+            assert.isDefined(log.runs[0].results[0].suppressions);
+            assert.lengthOf(log.runs[0].results[0].suppressions, 0);
         });
     });
 });
@@ -356,7 +386,7 @@ describe("formatter:sarif", () => {
             const log = JSON.parse(formatter(code, rules));
 
             assert.lengthOf(log.runs[0].results, 2)
-            assert.isUndefined(log.runs[0].results[0].suppressions);
+            assert.lengthOf(log.runs[0].results[0].suppressions, 0);
             assert.lengthOf(log.runs[0].results[1].suppressions, 1);
             assert.strictEqual(log.runs[0].results[1].suppressions[0].kind, "inSource");
             assert.strictEqual(log.runs[0].results[1].suppressions[0].justification, code[0].suppressedMessages[0].suppressions[0].justification);
@@ -487,6 +517,11 @@ describe("formatter:sarif", () => {
             assert.strictEqual(log.runs[0].results[2].locations[0].physicalLocation.region.startLine, 18);
             assert.isUndefined(log.runs[0].results[2].locations[0].physicalLocation.region.startColumn);
             assert.isUndefined(log.runs[0].results[2].locations[0].physicalLocation.region.snippet);
+
+            assert.lengthOf(log.runs[0].results[0].suppressions, 0);
+            assert.lengthOf(log.runs[0].results[1].suppressions, 0);
+            assert.lengthOf(log.runs[0].results[2].suppressions, 0);
+            assert.lengthOf(log.runs[0].results[3].suppressions, 0);
         });
     });
 });
@@ -568,6 +603,9 @@ describe("formatter:sarif", () => {
             assert.strictEqual(log.runs[0].results[0].locations[0].physicalLocation.region.startLine, 18);
             assert.isUndefined(log.runs[0].results[0].locations[0].physicalLocation.region.startColumn);
             assert.isUndefined(log.runs[0].results[0].locations[0].physicalLocation.region.snippet);
+
+            assert.lengthOf(log.runs[0].results[0].suppressions, 0);
+            assert.lengthOf(log.runs[0].results[1].suppressions, 0);
         });
     });
 });
