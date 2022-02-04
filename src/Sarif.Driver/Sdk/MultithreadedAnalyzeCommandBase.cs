@@ -40,6 +40,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         private Channel<int> _resultsWritingChannel;
         private Channel<int> _fileEnumerationChannel;
         private Dictionary<string, List<string>> _hashToFilesMap;
+        private IDictionary<string, HashData> _pathToHashDataMap;
         private ConcurrentDictionary<int, TContext> _fileContexts;
 
         public Exception ExecutionException { get; set; }
@@ -485,12 +486,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                             _hashToFilesMap[hashData.Sha256] = paths;
                         }
 
-                        _run?.GetFileIndex(new ArtifactLocation { Uri = context.TargetUri },
-                                           dataToInsert: _dataToInsert,
-                                           hashData: hashData);
-
                         paths.Add(localPath);
                         context.Hashes = hashData;
+
+                        if (_pathToHashDataMap != null && !_pathToHashDataMap.ContainsKey(localPath))
+                        {
+                            _pathToHashDataMap.Add(localPath, hashData);
+                        }
                     }
 
                     await _fileEnumerationChannel.Writer.WriteAsync(index);
@@ -705,6 +707,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                                                                      kinds: analyzeOptions.Kind,
                                                                      insertProperties: analyzeOptions.InsertProperties);
                         }
+                        _pathToHashDataMap = sarifLogger.AnalysisTargetToHashDataMap;
                         sarifLogger.AnalysisStarted();
                         aggregatingLogger.Loggers.Add(sarifLogger);
                     },
