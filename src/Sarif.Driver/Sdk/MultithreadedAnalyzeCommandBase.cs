@@ -7,9 +7,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Reflection;
 using System.Runtime.InteropServices;
-using System.Security;
 using System.Threading.Channels;
 using System.Threading.Tasks;
 
@@ -35,13 +33,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         private Run _run;
         private Tool _tool;
         private bool _computeHashes;
-        private TContext _rootContext;
+        internal TContext _rootContext;
         private int _fileContextsCount;
         private Channel<int> _hashChannel;
         private OptionallyEmittedData _dataToInsert;
         private Channel<int> _resultsWritingChannel;
         private Channel<int> _fileEnumerationChannel;
         private Dictionary<string, List<string>> _hashToFilesMap;
+        private IDictionary<string, HashData> _pathToHashDataMap;
         private ConcurrentDictionary<int, TContext> _fileContexts;
 
         public Exception ExecutionException { get; set; }
@@ -68,71 +67,78 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
         public override int Run(TOptions options)
         {
-            // Initialize an common logger that drives all outputs. This
-            // object drives logging for console, statistics, etc.
-            using (AggregatingLogger logger = InitializeLogger(options))
+            try
             {
-                try
+                // Initialize an common logger that drives all outputs. This
+                // object drives logging for console, statistics, etc.
+                using (AggregatingLogger logger = InitializeLogger(options))
                 {
-                    Analyze(options, logger);
-                }
-                catch (ExitApplicationException<ExitReason> ex)
-                {
-                    // These exceptions have already been logged
-                    ExecutionException = ex;
-                    return FAILURE;
-                }
-                catch (Exception ex)
-                {
-                    ex = ex.InnerException ?? ex;
-
-                    if (!(ex is ExitApplicationException<ExitReason>))
+                    try
                     {
-                        // These exceptions escaped our net and must be logged here
-                        RuntimeErrors |= Errors.LogUnhandledEngineException(_rootContext, ex);
+                        Analyze(options, logger);
                     }
-                    ExecutionException = ex;
-                    return FAILURE;
+                    catch (ExitApplicationException<ExitReason> ex)
+                    {
+                        // These exceptions have already been logged
+                        ExecutionException = ex;
+                        return FAILURE;
+                    }
+                    catch (Exception ex)
+                    {
+                        ex = ex.InnerException ?? ex;
+
+                        if (!(ex is ExitApplicationException<ExitReason>))
+                        {
+                            // These exceptions escaped our net and must be logged here
+                            RuntimeErrors |= Errors.LogUnhandledEngineException(_rootContext, ex);
+                        }
+                        ExecutionException = ex;
+                        return FAILURE;
+                    }
+                    finally
+                    {
+                        logger.AnalysisStopped(RuntimeErrors);
+                    }
                 }
-                finally
+
+                bool succeeded = (RuntimeErrors & ~RuntimeConditions.Nonfatal) == RuntimeConditions.None;
+
+                if (succeeded)
                 {
-                    logger.AnalysisStopped(RuntimeErrors);
+                    try
+                    {
+                        ProcessBaseline(_rootContext, options, FileSystem);
+                    }
+                    catch (Exception ex)
+                    {
+                        RuntimeErrors |= RuntimeConditions.ExceptionProcessingBaseline;
+                        ExecutionException = ex;
+                        return FAILURE;
+                    }
+
+                    try
+                    {
+                        PostLogFile(options.PostUri, options.OutputFilePath, FileSystem);
+                    }
+                    catch (Exception ex)
+                    {
+                        RuntimeErrors |= RuntimeConditions.ExceptionPostingLogFile;
+                        ExecutionException = ex;
+                        return FAILURE;
+                    }
                 }
+
+                if (options.RichReturnCode)
+                {
+                    return (int)RuntimeErrors;
+                }
+
+                return succeeded ? SUCCESS : FAILURE;
             }
-
-            bool succeeded = (RuntimeErrors & ~RuntimeConditions.Nonfatal) == RuntimeConditions.None;
-
-            if (succeeded)
+            finally
             {
-                try
-                {
-                    ProcessBaseline(_rootContext, options, FileSystem);
-                }
-                catch (Exception ex)
-                {
-                    RuntimeErrors |= RuntimeConditions.ExceptionProcessingBaseline;
-                    ExecutionException = ex;
-                    return FAILURE;
-                }
-
-                try
-                {
-                    PostLogFile(options.PostUri, options.OutputFilePath, FileSystem);
-                }
-                catch (Exception ex)
-                {
-                    RuntimeErrors |= RuntimeConditions.ExceptionPostingLogFile;
-                    ExecutionException = ex;
-                    return FAILURE;
-                }
+                _rootContext?.Dispose();
             }
-
-            if (options.RichReturnCode)
-            {
-                return (int)RuntimeErrors;
-            }
-
-            return succeeded ? SUCCESS : FAILURE;
         }
 
         private void Analyze(TOptions analyzeOptions, AggregatingLogger logger)
@@ -480,12 +486,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                             _hashToFilesMap[hashData.Sha256] = paths;
                         }
 
-                        _run?.GetFileIndex(new ArtifactLocation { Uri = context.TargetUri },
-                                           dataToInsert: _dataToInsert,
-                                           hashData: hashData);
-
                         paths.Add(localPath);
                         context.Hashes = hashData;
+
+                        if (_pathToHashDataMap != null && !_pathToHashDataMap.ContainsKey(localPath))
+                        {
+                            _pathToHashDataMap.Add(localPath, hashData);
+                        }
                     }
 
                     await _fileEnumerationChannel.Writer.WriteAsync(index);
@@ -700,6 +707,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                                                                      kinds: analyzeOptions.Kind,
                                                                      insertProperties: analyzeOptions.InsertProperties);
                         }
+                        _pathToHashDataMap = sarifLogger.AnalysisTargetToHashDataMap;
                         sarifLogger.AnalysisStarted();
                         aggregatingLogger.Loggers.Add(sarifLogger);
                     },
@@ -807,10 +815,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 #endif
         }
 
-        protected virtual void AnalyzeTargets(
-            TOptions options,
-            TContext rootContext,
-            IEnumerable<Skimmer<TContext>> skimmers)
+        protected virtual void AnalyzeTargets(TOptions options,
+                                              TContext rootContext,
+                                              IEnumerable<Skimmer<TContext>> skimmers)
         {
             var disabledSkimmers = new SortedSet<string>();
 

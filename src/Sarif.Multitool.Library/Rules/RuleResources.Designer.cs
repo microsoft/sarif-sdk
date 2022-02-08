@@ -19,7 +19,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class RuleResources {
@@ -200,7 +200,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The two identity-related properties of a SARIF rule must be consistent. The required &apos;id&apos; property must be a &quot;stable, opaque identifier&quot; (the SARIF specification ([3.49.3](https://docs.oasis-open.org/sarif/sarif/v2.1.0/os/sarif-v2.1.0-os.html#_Toc34317839)) explains the reasons for this). The optional &apos;name&apos; property ([3.49.7](https://docs.oasis-open.org/sarif/sarif/v2.1.0/os/sarif-v2.1.0-os.html#_Toc34317843)) is an identifer that is understandable to an end user. Therefore if both &apos;id&apos; and &apos;name&apos; are pres [rest of string was truncated]&quot;;.
+        ///   Looks up a localized string similar to The two identity-related properties of a SARIF rule must be consistent. The required &apos;id&apos; property must be a &quot;stable, opaque identifier&quot; (the SARIF specification ([3.49.3](https://docs.oasis-open.org/sarif/sarif/v2.1.0/os/sarif-v2.1.0-os.html#_Toc34317839)) explains the reasons for this). The optional &apos;name&apos; property ([3.49.7](https://docs.oasis-open.org/sarif/sarif/v2.1.0/os/sarif-v2.1.0-os.html#_Toc34317843)) is an identifier that is understandable to an end user. Therefore if both &apos;id&apos; and &apos;name&apos; are pre [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string SARIF1001_RuleIdentifiersMustBeValid_FullDescription_Text {
             get {
@@ -209,7 +209,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}: The rule &apos;{1}&apos; has a &apos;name&apos; property that is identical to its &apos;id&apos; property. The required &apos;id&apos; property must be a &quot;stable, opaque identifier&quot; (the SARIF specification ([3.49.3](https://docs.oasis-open.org/sarif/sarif/v2.1.0/os/sarif-v2.1.0-os.html#_Toc34317839)) explains the reasons for this). The optional &apos;name&apos; property ([3.49.7](https://docs.oasis-open.org/sarif/sarif/v2.1.0/os/sarif-v2.1.0-os.html#_Toc34317843)) is an identifer that is understandable to an end user. Therefore if both &apos;id&apos; and &apos;name [rest of string was truncated]&quot;;.
+        ///   Looks up a localized string similar to {0}: The rule &apos;{1}&apos; has a &apos;name&apos; property that is identical to its &apos;id&apos; property. The required &apos;id&apos; property must be a &quot;stable, opaque identifier&quot; (the SARIF specification ([3.49.3](https://docs.oasis-open.org/sarif/sarif/v2.1.0/os/sarif-v2.1.0-os.html#_Toc34317839)) explains the reasons for this). The optional &apos;name&apos; property ([3.49.7](https://docs.oasis-open.org/sarif/sarif/v2.1.0/os/sarif-v2.1.0-os.html#_Toc34317843)) is an identifier that is understandable to an end user. Therefore if both &apos;id&apos; and &apos;nam [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string SARIF1001_RuleIdentifiersMustBeValid_Warning_Default_Text {
             get {
