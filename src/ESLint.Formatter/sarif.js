@@ -132,9 +132,11 @@ module.exports = function (results, data) {
                     console.log(err);
                 }
             }
-            if (result.messages.length > 0) {
 
-                result.messages.forEach(message => {
+            const messages = result.suppressedMessages ? result.messages.concat(result.suppressedMessages) : result.messages;
+
+            if (messages.length > 0) {
+                messages.forEach(message => {
 
                     const sarifRepresentation = {
                         level: getResultLevel(message),
@@ -208,7 +210,7 @@ module.exports = function (results, data) {
                         }
                         if (message.column > 0) {
                             sarifRepresentation.locations[0].physicalLocation.region.startColumn = message.column;
-                        };
+                        }
                     }
 
                     if (message.source) {
@@ -218,6 +220,17 @@ module.exports = function (results, data) {
                         sarifRepresentation.locations[0].physicalLocation.region.snippet = {
                             text: message.source
                         };
+                    }
+
+                    if (message.suppressions) {
+                        sarifRepresentation.suppressions = message.suppressions.map(suppression => {
+                            return {
+                                kind: suppression.kind === "directive" ? "inSource" : "external",
+                                justification: suppression.justification
+                            }
+                        });
+                    } else {
+                        sarifRepresentation.suppressions = [];
                     }
 
                     if (message.ruleId) {
