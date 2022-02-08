@@ -3,6 +3,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 
 using FluentAssertions;
@@ -22,34 +23,19 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Visitors
 
         public SortingVisitorTests(ITestOutputHelper outputHelper)
         {
-            random = RandomSarifLogGenerator.GenerateRandomAndLog(outputHelper);
+            this.random = RandomSarifLogGenerator.GenerateRandomAndLog(outputHelper);
         }
 
         [Fact]
         public void SortingVisitor_ShuffleTest()
         {
             bool areEqual;
-            // create a test sarif log
+
             SarifLog originalLog = CreateTestSarifLog(this.random);
+            SarifLog shuffledLog1 = ShuffleSarifLog(originalLog, this.random);
+            SarifLog shuffledLog2 = ShuffleSarifLog(originalLog, this.random);
 
-            SarifLog shuffledLog1 = originalLog.DeepClone();
-            SarifLog shuffledLog2 = originalLog.DeepClone();
-
-            // original log and cloned log should be same
-            areEqual = SarifLogEqualityComparer.Instance.Equals(originalLog, shuffledLog1);
-            areEqual.Should().BeTrue();
-
-            areEqual = SarifLogEqualityComparer.Instance.Equals(originalLog, shuffledLog2);
-            areEqual.Should().BeTrue();
-
-            areEqual = SarifLogEqualityComparer.Instance.Equals(shuffledLog1, shuffledLog2);
-            areEqual.Should().BeTrue();
-
-            // shuffle sarif log
-            ShuffleSarifLog(shuffledLog1, this.random);
-            ShuffleSarifLog(shuffledLog2, this.random);
-
-            // shuffled logs should be not same as each other and original log.
+            // Shuffled logs should be not same as each other and original log.
             areEqual = SarifLogEqualityComparer.Instance.Equals(originalLog, shuffledLog1);
             areEqual.Should().BeFalse();
 
@@ -59,16 +45,13 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Visitors
             areEqual = SarifLogEqualityComparer.Instance.Equals(shuffledLog1, shuffledLog2);
             areEqual.Should().BeFalse();
 
-            // sort shuffled logs using visitor
             SarifLog sortedLog1 = new SortingVisitor().VisitSarifLog(shuffledLog1);
             SarifLog sortedLog2 = new SortingVisitor().VisitSarifLog(shuffledLog2);
 
-            // verify sorted logs should be same (deterministic)
-            // sorted logs may not be same with original log due to random values
             areEqual = SarifLogEqualityComparer.Instance.Equals(sortedLog1, sortedLog2);
             areEqual.Should().BeTrue();
 
-            // make sure result's ruleIndex points to right rule in sorted log
+            // Make sure result's ruleIndex points to right rule in sorted log.
             IList<ReportingDescriptor> rules = sortedLog1.Runs.First().Tool.Driver.Rules;
             foreach (Result result in sortedLog1.Runs.First().Results.Where(r => r.RuleIndex != -1))
             {
@@ -76,7 +59,7 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Visitors
                 result.RuleIndex.Should().Be(ruleIndex);
             }
 
-            // make sure artifactLocation index points to right artifacts
+            // Make sure artifactLocation index points to right artifacts.
             IList<Artifact> artifacts = sortedLog1.Runs.First().Artifacts;
             foreach (Result result in sortedLog1.Runs.First().Results)
             {
@@ -91,9 +74,8 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Visitors
         [Fact]
         public void SortingVisitor_NullEmptyListTests()
         {
-            // arrange
-            // create a log with all results have same value.
-            SarifLog sarifLog = new SarifLog
+            // Create a log with all results have same values.
+            var sarifLog = new SarifLog
             {
                 Runs = new[]
                 {
@@ -118,19 +100,16 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Visitors
                 },
             };
 
-            // setup results
             IList<Result> results = sarifLog.Runs[0].Results;
             results[0].Locations = new[] { new Location { Message = new Message { Text = "test location" } } };
             results[1].Locations = null;
             results[2].Locations = new List<Location>();
 
-            // act
             SarifLog sortedLog = new SortingVisitor().VisitSarifLog(sarifLog);
 
-            // assert
-            // if collection elements all values are same expect a child list
+            // If sorting a collection with element has a list type property
             // the order should depend on list values.
-            // expected order: null < empty < collection has element
+            // Expected order: null < empty < collection has element.
             results = sortedLog.Runs[0].Results;
             results[0].Locations.Should().BeNull();
             results[1].Locations.Should().BeEmpty();
@@ -139,168 +118,116 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Visitors
 
         private static SarifLog CreateTestSarifLog(Random random)
         {
-            SarifLog sarifLog = RandomSarifLogGenerator.GenerateSarifLogWithRuns(random, runCount: 1, resultCount: random.Next(100));
-
-            CreateCodeFlows(sarifLog.Runs?.First()?.Results, sarifLog.Runs?.First()?.Artifacts, random);
+            SarifLog sarifLog = RandomSarifLogGenerator.GenerateSarifLogWithRuns(
+                randomGen: random,
+                runCount: random.Next(1, 5),
+                dataFields: RandomDataFields.CodeFlow | RandomDataFields.ThreadFlow | RandomDataFields.LogicalLocation);
 
             return sarifLog;
         }
 
-        private static void CreateCodeFlows(IList<Result> results, IList<Artifact> artifacts, Random random)
+        private static SarifLog ShuffleSarifLog(SarifLog originalLog, Random random)
         {
-            if (results?.Any() != true || artifacts?.Any() != true)
-            {
-                return;
-            }
+            SarifLog logToBeShuffled = originalLog.DeepClone();
 
-            foreach (Result result in results)
+            bool areEqual = SarifLogEqualityComparer.Instance.Equals(originalLog, logToBeShuffled);
+            areEqual.Should().BeTrue();
+
+            // Shuffle the log cloned from original log until
+            // find the log is different than original log.
+            do
             {
-                result.CodeFlows = new[]
+                foreach (Run run in logToBeShuffled?.Runs)
                 {
-                    new CodeFlow
+                    IList<ReportingDescriptor> rules = run?.Tool?.Driver?.Rules;
+                    IList<Result> results = run?.Results;
+                    IList<Artifact> artifacts = run?.Artifacts;
+
+                    if (rules != null)
                     {
-                        ThreadFlows = new[]
+                        IDictionary<string, int> ruleIndexMapping = new Dictionary<string, int>();
+
+                        rules = rules.Shuffle(random);
+                        run.Tool.Driver.Rules = rules;
+
+                        for (int i = 0; i < rules.Count; i++)
                         {
-                            new ThreadFlow
+                            ruleIndexMapping.Add(rules[i].Id, i);
+                        }
+
+                        foreach (Result result in results.Where(r => r.RuleIndex != -1))
+                        {
+                            if (ruleIndexMapping.TryGetValue(result.RuleId, out int newIndex))
                             {
-                                Locations = GenerateRandomThreadFlowLocations(
-                                    count: random.Next(10), artifacts, random)
+                                result.RuleIndex = newIndex;
                             }
                         }
                     }
-                };
-            }
-        }
 
-        private static IList<ThreadFlowLocation> GenerateRandomThreadFlowLocations(int count, IList<Artifact> artifacts, Random random)
-        {
-            var locations = new List<ThreadFlowLocation>();
-
-            for (int i = 0; i < count; i++)
-            {
-                locations.Add(new ThreadFlowLocation
-                {
-                    Importance = RandomEnumValue<ThreadFlowLocationImportance>(random),
-                    Location = new Location
+                    if (artifacts != null)
                     {
-                        PhysicalLocation = new PhysicalLocation
+                        IDictionary<int, int> artifactIndexMapping = new Dictionary<int, int>();
+
+                        IDictionary<Artifact, int> oldMapping = new Dictionary<Artifact, int>();
+                        for (int i = 0; i < artifacts.Count; i++)
                         {
-                            ArtifactLocation = new ArtifactLocation
+                            oldMapping.Add(artifacts[i], i);
+                        }
+
+                        artifacts = artifacts.Shuffle(random);
+                        run.Artifacts = artifacts;
+
+                        for (int i = 0; i < artifacts.Count; i++)
+                        {
+                            if (oldMapping.TryGetValue(artifacts[i], out int oldIndex))
                             {
-                                Index = random.Next(artifacts.Count),
-                            },
-                            Region = new Region
+                                artifactIndexMapping.Add(oldIndex, i);
+                            }
+                        }
+
+                        var locToUpdate = new List<ArtifactLocation>();
+                        locToUpdate.AddRange(
+                            results
+                            .SelectMany(r => r.Locations)
+                            .Select(l => l.PhysicalLocation.ArtifactLocation));
+
+                        locToUpdate.AddRange(
+                            results
+                            .SelectMany(r => r.CodeFlows)
+                            .SelectMany(c => c.ThreadFlows)
+                            .SelectMany(t => t.Locations)
+                            .Select(l => l.Location.PhysicalLocation.ArtifactLocation));
+
+                        foreach (ArtifactLocation artifactLocation in locToUpdate.Where(l => l.Index != -1))
+                        {
+                            if (artifactIndexMapping.TryGetValue(artifactLocation.Index, out int newIndex))
                             {
-                                StartLine = random.Next(500),
-                                StartColumn = random.Next(100),
-                            },
-                        },
-                    },
-                });
-            }
-            return locations;
-        }
+                                artifactLocation.Index = newIndex;
+                            }
+                        }
+                    }
 
-        private static T RandomEnumValue<T>(Random random) where T : Enum
-        {
-            Array enums = Enum.GetValues(typeof(T));
-            return (T)enums.GetValue(random.Next(enums.Length));
-        }
 
-        private static void ShuffleSarifLog(SarifLog log, Random random)
-        {
-            Run run = log?.Runs.First();
-            IList<ReportingDescriptor> rules = run?.Tool?.Driver?.Rules;
-            IList<Result> results = run?.Results;
-            IList<Artifact> artifacts = run?.Artifacts;
+                    run.Results = results.Shuffle(random);
 
-            if (rules != null)
-            {
-                IDictionary<string, int> ruleIndexMapping = new Dictionary<string, int>();
-
-                // shuffle rules
-                rules = rules.Shuffle(random);
-                log.Runs.First().Tool.Driver.Rules = rules;
-
-                // store new rules indexes 
-                for (int i = 0; i < rules.Count; i++)
-                {
-                    ruleIndexMapping.Add(rules[i].Id, i);
-                }
-
-                // update results rule index
-                foreach (Result result in results.Where(r => r.RuleIndex != -1))
-                {
-                    if (ruleIndexMapping.TryGetValue(result.RuleId, out int newIndex))
+                    foreach (Result result in run.Results)
                     {
-                        result.RuleIndex = newIndex;
+                        result.CodeFlows = result.CodeFlows.Shuffle(random);
+                        foreach (CodeFlow codeFlow in result.CodeFlows)
+                        {
+                            codeFlow.ThreadFlows = codeFlow.ThreadFlows.Shuffle(random);
+                            foreach (ThreadFlow threadFlow in codeFlow.ThreadFlows)
+                            {
+                                threadFlow.Locations = threadFlow.Locations.Shuffle(random);
+                            }
+                        }
                     }
                 }
+                logToBeShuffled.Runs = logToBeShuffled.Runs.Shuffle(random);
             }
+            while (SarifLogEqualityComparer.Instance.Equals(logToBeShuffled, originalLog));
 
-            if (artifacts != null)
-            {
-                IDictionary<int, int> artifactIndexMapping = new Dictionary<int, int>();
-
-                // store old artifacts indexes
-                IDictionary<Artifact, int> oldMapping = new Dictionary<Artifact, int>();
-                for (int i = 0; i < artifacts.Count; i++)
-                {
-                    oldMapping.Add(artifacts[i], i);
-                }
-
-                // shuffle artifacts
-                artifacts = artifacts.Shuffle(random);
-                log.Runs.First().Artifacts = artifacts;
-
-                // store new artifacts indexes 
-                for (int i = 0; i < artifacts.Count; i++)
-                {
-                    if (oldMapping.TryGetValue(artifacts[i], out int oldIndex))
-                    {
-                        artifactIndexMapping.Add(oldIndex, i);
-                    }
-                }
-
-                // update all artifacts' index if its set.
-                List<ArtifactLocation> locToUpdate = new List<ArtifactLocation>();
-                locToUpdate.AddRange(
-                    results
-                    .SelectMany(r => r.Locations)
-                    .Select(l => l.PhysicalLocation.ArtifactLocation));
-
-                locToUpdate.AddRange(
-                    results
-                    .SelectMany(r => r.CodeFlows)
-                    .SelectMany(c => c.ThreadFlows)
-                    .SelectMany(t => t.Locations)
-                    .Select(l => l.Location.PhysicalLocation.ArtifactLocation));
-
-                foreach (ArtifactLocation artifactLocation in locToUpdate.Where(l => l.Index != -1))
-                {
-                    if (artifactIndexMapping.TryGetValue(artifactLocation.Index, out int newIndex))
-                    {
-                        artifactLocation.Index = newIndex;
-                    }
-                }
-            }
-
-            // shuffle results
-            log.Runs.First().Results = results.Shuffle(random);
-
-            // shuffle codeflow locations
-            foreach (Result result in log.Runs.First().Results)
-            {
-                result.CodeFlows = result.CodeFlows.Shuffle(random);
-                foreach (CodeFlow codeFlow in result.CodeFlows)
-                {
-                    codeFlow.ThreadFlows = codeFlow.ThreadFlows.Shuffle(random);
-                    foreach (ThreadFlow threadFlow in codeFlow.ThreadFlows)
-                    {
-                        threadFlow.Locations = threadFlow.Locations.Shuffle(random);
-                    }
-                }
-            }
+            return logToBeShuffled;
         }
     }
 }

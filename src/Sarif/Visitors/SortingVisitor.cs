@@ -5,66 +5,51 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 
+using Microsoft.CodeAnalysis.Sarif.Comparers;
+
 namespace Microsoft.CodeAnalysis.Sarif.Visitors
 {
     public class SortingVisitor : SarifRewritingVisitor
     {
+        // Dictionaries to cache new index to old index mappings.
         private readonly IDictionary<int, int> ruleIndexMap;
         private readonly IDictionary<int, int> artifactIndexMap;
 
         public SortingVisitor()
         {
-            ruleIndexMap = new ConcurrentDictionary<int, int>();
-            artifactIndexMap = new ConcurrentDictionary<int, int>();
+            this.ruleIndexMap = new ConcurrentDictionary<int, int>();
+            this.artifactIndexMap = new ConcurrentDictionary<int, int>();
         }
 
         public override SarifLog VisitSarifLog(SarifLog node)
         {
             SarifLog current = base.VisitSarifLog(node);
-            if (node?.Runs != null)
+
+            if (current?.Runs != null)
             {
-                current.Runs = current.Runs.OrderBy(r => r, RunSortingComparer.Instance).ToList();
+                current.Runs = current.Runs.OrderBy(r => r, RunComparer.Instance).ToList();
             }
+
             return current;
         }
 
         public override Run VisitRun(Run node)
         {
+            // Reset index maps for each run object.
+            this.ruleIndexMap.Clear();
+            this.artifactIndexMap.Clear();
+
             if (node?.Artifacts != null)
             {
-                IDictionary<Artifact, int> oldIndexes = new Dictionary<Artifact, int>(capacity: node.Artifacts.Count);
-                // save old indexes
-                for (int i = 0; i < node.Artifacts.Count; i++)
-                {
-                    if (!oldIndexes.ContainsKey(node.Artifacts[i]))
-                    {
-                        oldIndexes.Add(node.Artifacts[i], i);
-                    }
-                }
-
-                // sort
-                node.Artifacts = node.Artifacts.OrderBy(a => a, ArtifactSortingComparer.Instance).ToList();
-
-                // udpate new indexes
-                for (int newIndex = 0; newIndex < node.Artifacts.Count; newIndex++)
-                {
-                    if (oldIndexes.TryGetValue(node.Artifacts[newIndex], out int oldIndex)
-                        && !artifactIndexMap.TryGetValue(oldIndex, out _))
-                    {
-                        artifactIndexMap.Add(oldIndex, newIndex);
-                    }
-                }
-
-                oldIndexes.Clear();
+                node.Artifacts = this.SortAndBuildIndexMap(node?.Artifacts, ArtifactComparer.Instance, this.artifactIndexMap);
             }
 
-            // traverse child nodes first, so the child list properties should be sorted
+            // Traverse child nodes first to make sure the child properties are sorted.
             Run current = base.VisitRun(node);
 
-            // then sort properties of current node
             if (current?.Results != null)
             {
-                current.Results = current.Results.OrderBy(r => r, ResultSortingComparer.Instance).ToList();
+                current.Results = current.Results.OrderBy(r => r, ResultComparer.Instance).ToList();
             }
 
             return current;
@@ -72,107 +57,133 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
         public override ToolComponent VisitToolComponent(ToolComponent node)
         {
-            ToolComponent current = base.VisitToolComponent(node);
-            if (current?.Rules != null)
+            if (node?.Rules != null)
             {
-                IDictionary<ReportingDescriptor, int> oldIndexes = new Dictionary<ReportingDescriptor, int>(capacity: current.Rules.Count);
-                // before sort the rules, save old indexes
-                for (int i = 0; i < current.Rules.Count; i++)
-                {
-                    if (!oldIndexes.ContainsKey(current.Rules[i]))
-                    {
-                        oldIndexes.Add(current.Rules[i], i);
-                    }
-                }
-
-                // sort rules
-                current.Rules = current.Rules.OrderBy(r => r, ReportingDescriptorSortingComparer.Instance).ToList();
-
-                // udpate new indexes
-                for (int newIndex = 0; newIndex < current.Rules.Count; newIndex++)
-                {
-                    if (oldIndexes.TryGetValue(current.Rules[newIndex], out int oldIndex)
-                        && !ruleIndexMap.TryGetValue(oldIndex, out _))
-                    {
-                        ruleIndexMap.Add(oldIndex, newIndex);
-                    }
-                }
-
-                oldIndexes.Clear();
+                node.Rules = this.SortAndBuildIndexMap(node?.Rules, ReportingDescriptorComparer.Instance, this.ruleIndexMap);
             }
-            return current;
+
+            return base.VisitToolComponent(node);
         }
 
         public override Result VisitResult(Result node)
         {
             Result current = base.VisitResult(node);
+
             if (current != null)
             {
-                // update old index to new index
-                if (current.RuleIndex != -1
-                    && ruleIndexMap.TryGetValue(current.RuleIndex, out int newIndex))
+                if (current.RuleIndex != -1 && this.ruleIndexMap.TryGetValue(current.RuleIndex, out int newIndex))
                 {
                     current.RuleIndex = newIndex;
                 }
 
                 if (current.Locations != null)
                 {
-                    current.Locations = current.Locations.OrderBy(r => r, LocationSortingComparer.Instance).ToList();
+                    current.Locations = current.Locations.OrderBy(r => r, LocationComparer.Instance).ToList();
                 }
+
                 if (current.CodeFlows != null)
                 {
-                    current.CodeFlows = current.CodeFlows.OrderBy(r => r, CodeFlowSortingComparer.Instance).ToList();
+                    current.CodeFlows = current.CodeFlows.OrderBy(r => r, CodeFlowComparer.Instance).ToList();
                 }
             }
+
             return current;
         }
 
         public override CodeFlow VisitCodeFlow(CodeFlow node)
         {
             CodeFlow current = base.VisitCodeFlow(node);
+
             if (current?.ThreadFlows != null)
             {
-                current.ThreadFlows = current.ThreadFlows.OrderBy(t => t, ThreadFlowSortingComparer.Instance).ToList();
+                current.ThreadFlows = current.ThreadFlows.OrderBy(t => t, ThreadFlowComparer.Instance).ToList();
             }
+
             return current;
         }
 
         public override ThreadFlow VisitThreadFlow(ThreadFlow node)
         {
             ThreadFlow current = base.VisitThreadFlow(node);
+
             if (current?.Locations != null)
             {
-                current.Locations = current.Locations.OrderBy(t => t, ThreadFlowLocationSortingComparer.Instance).ToList();
+                current.Locations = current.Locations.OrderBy(t => t, ThreadFlowLocationComparer.Instance).ToList();
             }
-            return current;
-        }
 
-        public override ThreadFlowLocation VisitThreadFlowLocation(ThreadFlowLocation node)
-        {
-            return base.VisitThreadFlowLocation(node);
+            return current;
         }
 
         public override Location VisitLocation(Location node)
         {
             Location current = base.VisitLocation(node);
+
             if (current?.LogicalLocations != null)
             {
-                current.LogicalLocations = current.LogicalLocations.OrderBy(t => t, LogicalLocationSortingComparer.Instance).ToList();
+                current.LogicalLocations = current.LogicalLocations.OrderBy(t => t, LogicalLocationComparer.Instance).ToList();
             }
+
             return current;
         }
 
         public override ArtifactLocation VisitArtifactLocation(ArtifactLocation node)
         {
             ArtifactLocation current = base.VisitArtifactLocation(node);
-            // update old index to new index
-            if (current.Index != -1
-                && artifactIndexMap.TryGetValue(current.Index, out int newIndex))
+
+            if (current.Index != -1 && this.artifactIndexMap.TryGetValue(current.Index, out int newIndex))
             {
                 current.Index = newIndex;
             }
 
             return current;
+        }
+
+        private IList<T> SortAndBuildIndexMap<T>(IList<T> list, IComparer<T> comparer, IDictionary<int, int> indexMapping)
+        {
+            if (list != null)
+            {
+                IDictionary<T, int> unsortedIndices = this.CacheListIndices(list);
+
+                list = list.OrderBy(r => r, comparer).ToList();
+
+                this.MapNewIndices(list, unsortedIndices, indexMapping);
+
+                unsortedIndices.Clear();
+            }
+
+            return list;
+        }
+
+        private IDictionary<T, int> CacheListIndices<T>(IList<T> list)
+        {
+            // Assume each item in the list is unique (has different reference).
+            // According to sarif-2.1.0-rtm.5.json, artifacts array of runs and rules array of toolComponent
+            // are defined as "uniqueItems".
+            var dict = new Dictionary<T, int>(capacity: list.Count);
+
+            for (int i = 0; i < list.Count; i++)
+            {
+                // If some objects are same (with same reference), keep only 1 object
+                // in the dictionary and set of indices in hash set.
+                if (!dict.ContainsKey(list[i]))
+                {
+                    dict.Add(list[i], i);
+                }
+            }
+
+            return dict;
+        }
+
+        private void MapNewIndices<T>(IList<T> newList, IDictionary<T, int> oldIndices, IDictionary<int, int> indexMapping)
+        {
+            for (int newIndex = 0; newIndex < newList.Count; newIndex++)
+            {
+                if (oldIndices.TryGetValue(newList[newIndex], out int oldIndex) &&
+                    !indexMapping.ContainsKey(oldIndex))
+                {
+                    indexMapping.Add(oldIndex, newIndex);
+                }
+            }
         }
     }
 }

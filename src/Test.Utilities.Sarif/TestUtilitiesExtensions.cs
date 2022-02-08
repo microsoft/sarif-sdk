@@ -37,14 +37,19 @@ namespace Microsoft.CodeAnalysis.Test.Utilities.Sarif
             return behaviors & ~behaviors.AccessibleOutsideOfContextOnly();
         }
 
-        public static IList<T> Shuffle<T>(this IList<T> list, Random random = null)
+        public static IList<T> Shuffle<T>(this IList<T> list, Random random)
         {
             if (list == null)
             {
                 return null;
             }
 
-            random ??= new Random();
+            if (random == null)
+            {
+                // Random object with seed logged in test is required.
+                throw new ArgumentNullException(nameof(random));
+            }
+
             return list.OrderBy(item => random.Next()).ToList();
         }
     }
