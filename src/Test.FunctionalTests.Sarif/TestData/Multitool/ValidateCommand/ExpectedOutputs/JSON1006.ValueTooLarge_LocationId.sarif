@@ -1,0 +1,104 @@
+{
+  "$schema": "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0-rtm.5.json",
+  "version": "2.1.0",
+  "runs": [
+    {
+      "tool": {
+        "driver": {
+          "name": "SARIF Functional Testing",
+          "rules": [
+            {
+              "id": "JSON1006",
+              "name": "ValueTooLarge",
+              "fullDescription": {
+                "text": "A numeric value is greater than the maximum value permitted by the schema's \"maximum\" property."
+              },
+              "messageStrings": {
+                "default": {
+                  "text": "at \"{0}\": The value {1} is greater than the maximum value of {2}."
+                }
+              },
+              "defaultConfiguration": {
+                "level": "error"
+              }
+            }
+          ]
+        }
+      },
+      "invocations": [
+        {
+          "executionSuccessful": true
+        }
+      ],
+      "artifacts": [
+        {
+          "location": {
+            "uri": "FunctionalTestOutput.ValidateCommand/Inputs.JSON1006.ValueTooLarge_LocationId.sarif",
+            "uriBaseId": "TEST_DIR"
+          }
+        }
+      ],
+      "results": [
+        {
+          "ruleId": "JSON1006",
+          "ruleIndex": 0,
+          "level": "error",
+          "message": {
+            "id": "default",
+            "arguments": [
+              "runs[0].results[0].locations[1].id",
+              "2147483648",
+              "2147483647"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 29,
+                  "startColumn": 30
+                }
+              }
+            }
+          ],
+          "properties": {
+            "jsonPath": "runs[0].results[0].locations[1].id"
+          }
+        },
+        {
+          "ruleId": "JSON1006",
+          "ruleIndex": 0,
+          "level": "error",
+          "message": {
+            "id": "default",
+            "arguments": [
+              "runs[0].results[0].locations[2].id",
+              "9.223372036854776E+18",
+              "2147483647"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 37,
+                  "startColumn": 39
+                }
+              }
+            }
+          ],
+          "properties": {
+            "jsonPath": "runs[0].results[0].locations[2].id"
+          }
+        }
+      ],
+      "columnKind": "utf16CodeUnits"
+    }
+  ]
+}

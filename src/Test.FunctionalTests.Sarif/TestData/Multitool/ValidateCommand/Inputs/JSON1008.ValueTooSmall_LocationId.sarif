@@ -18,6 +18,14 @@
           },
           "locations": [
             {
+              "id": -2,
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "Test.-2.cs"
+                }
+              }
+            },
+            {
               "id": 0,
               "physicalLocation": {
                 "artifactLocation": {

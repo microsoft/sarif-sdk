@@ -48,20 +48,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             => RunTest("JSON1002.DeserializationError.sarif");
 
         [Fact]
-        public void JSON1006_ValueTooLarge_LocationId_Valid()
-            => RunTest("JSON1006.ValueTooLarge_LocationId_Valid.sarif");
+        public void JSON1006_ValueTooLarge_LocationId()
+            => RunTest("JSON1006.ValueTooLarge_LocationId.sarif");
 
         [Fact]
-        public void JSON1006_ValueTooLarge_LocationId_Invalid()
-            => RunTest("JSON1006.ValueTooLarge_LocationId_Invalid.sarif");
-
-        [Fact]
-        public void JSON1008_ValueTooSmall_LocationId_Valid()
-            => RunTest("JSON1008.ValueTooSmall_LocationId_Valid.sarif");
-
-        [Fact]
-        public void JSON1008_ValueTooSmall_LocationId_Invalid()
-            => RunTest("JSON1008.ValueTooSmall_LocationId_Invalid.sarif");
+        public void JSON1008_ValueTooSmall_LocationId()
+            => RunTest("JSON1008.ValueTooSmall_LocationId.sarif");
 
         [Fact]
         public void SARIF1001_RuleIdentifiersMustBeValid_Valid()

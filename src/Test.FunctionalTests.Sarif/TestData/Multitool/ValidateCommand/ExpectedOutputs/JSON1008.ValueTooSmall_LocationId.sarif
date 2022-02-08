@@ -8,14 +8,14 @@
           "name": "SARIF Functional Testing",
           "rules": [
             {
-              "id": "JSON1006",
-              "name": "ValueTooLarge",
+              "id": "JSON1008",
+              "name": "ValueTooSmall",
               "fullDescription": {
-                "text": "A numeric value is greater than the maximum value permitted by the schema's \"maximum\" property."
+                "text": "A numeric value is less than the minimum value permitted by the schema's \"minimum\" property."
               },
               "messageStrings": {
                 "default": {
-                  "text": "at \"{0}\": The value {1} is greater than the maximum value of {2}."
+                  "text": "at \"{0}\": The value {1} is less than the minimum value of {2}."
                 }
               },
               "defaultConfiguration": {
@@ -33,22 +33,22 @@
       "artifacts": [
         {
           "location": {
-            "uri": "FunctionalTestOutput.ValidateCommand/Inputs.JSON1006.ValueTooLarge_LocationId_Invalid.sarif",
+            "uri": "FunctionalTestOutput.ValidateCommand/Inputs.JSON1008.ValueTooSmall_LocationId.sarif",
             "uriBaseId": "TEST_DIR"
           }
         }
       ],
       "results": [
         {
-          "ruleId": "JSON1006",
+          "ruleId": "JSON1008",
           "ruleIndex": 0,
           "level": "error",
           "message": {
             "id": "default",
             "arguments": [
               "runs[0].results[0].locations[0].id",
-              "2147483648",
-              "2147483647"
+              "-2",
+              "-1"
             ]
           },
           "locations": [
@@ -59,42 +59,13 @@
                 },
                 "region": {
                   "startLine": 21,
-                  "startColumn": 30
+                  "startColumn": 22
                 }
               }
             }
           ],
           "properties": {
             "jsonPath": "runs[0].results[0].locations[0].id"
-          }
-        },
-        {
-          "ruleId": "JSON1006",
-          "ruleIndex": 0,
-          "level": "error",
-          "message": {
-            "id": "default",
-            "arguments": [
-              "runs[0].results[0].locations[1].id",
-              "9.223372036854776E+18",
-              "2147483647"
-            ]
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "index": 0
-                },
-                "region": {
-                  "startLine": 29,
-                  "startColumn": 39
-                }
-              }
-            }
-          ],
-          "properties": {
-            "jsonPath": "runs[0].results[0].locations[1].id"
           }
         }
       ],
