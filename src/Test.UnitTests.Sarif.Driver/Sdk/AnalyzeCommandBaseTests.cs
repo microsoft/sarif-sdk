@@ -600,7 +600,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             TestRuleBehaviors behaviors = TestRuleBehaviors.None,
             string configFileName = null,
             RuntimeConditions runtimeConditions = RuntimeConditions.None,
-            int expectedReturnCode = TestAnalyzeCommand.SUCCESS)
+            int expectedReturnCode = TestAnalyzeCommand.SUCCESS,
+            string postUri = null)
         {
             string path = Path.GetTempFileName();
             Run run = null;
@@ -616,7 +617,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                     OutputFilePath = path,
                     SarifOutputVersion = SarifVersion.Current,
                     Force = true,
-                    TestRuleBehaviors = behaviors
+                    TestRuleBehaviors = behaviors,
+                    PostUri = postUri,
                 };
 
                 var command = new TestAnalyzeCommand();
@@ -665,6 +667,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
             toolNotificationCount.Should().Be(0);
             configurationNotificationCount.Should().Be(0);
+        }
+
+        [Fact]
+        public void AnalyzeCommandBase_EndToEndAnalysisWithPostUri()
+        {
+            PostUriTestHelper(@"https://httpbin.org/post", TestAnalyzeCommand.SUCCESS, RuntimeConditions.None);
+            PostUriTestHelper(@"https://httpbin.org/get", TestAnalyzeCommand.FAILURE, RuntimeConditions.ExceptionPostingLogFile);
+            PostUriTestHelper(@"https://host.does.not.exist", TestAnalyzeCommand.FAILURE, RuntimeConditions.ExceptionPostingLogFile);
         }
 
         [Fact]
@@ -1768,5 +1778,35 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         }
 
         #endregion ResultsCachingTestsAndHelpers
+
+        private void PostUriTestHelper(string postUri, int expectedReturnCode, RuntimeConditions runtimeConditions)
+        {
+            string location = GetThisTestAssemblyFilePath();
+
+            Run run = AnalyzeFile(
+                location,
+                TestRuleBehaviors.LogError,
+                postUri: postUri,
+                expectedReturnCode: expectedReturnCode,
+                runtimeConditions: runtimeConditions);
+
+            int resultCount = 0;
+            int toolNotificationCount = 0;
+            int configurationNotificationCount = 0;
+
+            SarifHelpers.ValidateRun(
+                run,
+                (issue) => { resultCount++; },
+                (toolNotification) => { toolNotificationCount++; },
+                (configurationNotification) => { configurationNotificationCount++; });
+
+            // As configured by injected TestRuleBehaviors, we should
+            // see an error per scan target (one file in this case).
+            resultCount.Should().Be(1);
+            run.Results[0].Kind.Should().Be(ResultKind.Fail);
+
+            toolNotificationCount.Should().Be(0);
+            configurationNotificationCount.Should().Be(0);
+        }
     }
 }

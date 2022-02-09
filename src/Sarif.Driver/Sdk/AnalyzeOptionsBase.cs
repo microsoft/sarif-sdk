@@ -111,7 +111,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         public string BaselineSarifFile { get; set; }
 
         [Option(
-            "postUri",
+            "post-uri",
             HelpText = "A URI to which the SARIF log file will be posted.")]
         public string PostUri { get; set; }
     }
