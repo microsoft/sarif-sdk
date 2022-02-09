@@ -5,6 +5,8 @@ using System;
 using System.Collections.Generic;
 using System.Reflection;
 
+using FluentAssertions;
+
 using Microsoft.CodeAnalysis.Test.Utilities.Sarif;
 
 namespace Microsoft.CodeAnalysis.Sarif.Driver
@@ -59,7 +61,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
         public int Run(AnalyzeOptionsBase options)
         {
-            return base.Run((TestAnalyzeOptions)options);
+            int result = base.Run((TestAnalyzeOptions)options);
+            this._rootContext?.Disposed.Should().BeTrue();
+            return result;
         }
 
         protected override TestAnalysisContext DetermineApplicabilityAndAnalyze(TestAnalysisContext context, IEnumerable<Skimmer<TestAnalysisContext>> skimmers, ISet<string> disabledSkimmers)

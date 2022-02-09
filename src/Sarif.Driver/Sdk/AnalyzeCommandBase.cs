@@ -27,7 +27,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
         private Run _run;
         private Tool _tool;
-        private TContext _rootContext;
+        internal TContext _rootContext;
         private CacheByFileHashLogger _cacheByFileHashLogger;
         private IDictionary<string, HashData> _pathToHashDataMap;
 
@@ -55,87 +55,94 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
         public override int Run(TOptions options)
         {
-            //  To correctly initialize the logger, we must first add Hashes to dataToInsert
-#pragma warning disable CS0618 // Type or member is obsolete
-            if (options.ComputeFileHashes)
-#pragma warning restore CS0618
+            try
             {
-                OptionallyEmittedData dataToInsert = options.DataToInsert.ToFlags();
-                dataToInsert |= OptionallyEmittedData.Hashes;
-
-                options.DataToInsert = Enum.GetValues(typeof(OptionallyEmittedData)).Cast<OptionallyEmittedData>()
-                    .Where(oed => dataToInsert.HasFlag(oed)).ToList();
-            }
-
-            // 0. Initialize an common logger that drives all outputs. This
-            //    object drives logging for console, statistics, etc.
-            using (AggregatingLogger logger = InitializeLogger(options))
-            {
-                //  Once the logger has been correctly initialized, we can raise a warning
-                _rootContext = CreateContext(options, logger, RuntimeErrors);
+                //  To correctly initialize the logger, we must first add Hashes to dataToInsert
 #pragma warning disable CS0618 // Type or member is obsolete
                 if (options.ComputeFileHashes)
 #pragma warning restore CS0618
                 {
-                    Warnings.LogObsoleteOption(_rootContext, "--hashes", SdkResources.ComputeFileHashes_ReplaceInsertHashes);
+                    OptionallyEmittedData dataToInsert = options.DataToInsert.ToFlags();
+                    dataToInsert |= OptionallyEmittedData.Hashes;
+
+                    options.DataToInsert = Enum.GetValues(typeof(OptionallyEmittedData)).Cast<OptionallyEmittedData>()
+                        .Where(oed => dataToInsert.HasFlag(oed)).ToList();
                 }
 
-                try
+                // 0. Initialize an common logger that drives all outputs. This
+                //    object drives logging for console, statistics, etc.
+                using (AggregatingLogger logger = InitializeLogger(options))
                 {
-                    Analyze(options, logger);
+                    //  Once the logger has been correctly initialized, we can raise a warning
+                    _rootContext = CreateContext(options, logger, RuntimeErrors);
+#pragma warning disable CS0618 // Type or member is obsolete
+                    if (options.ComputeFileHashes)
+#pragma warning restore CS0618
+                    {
+                        Warnings.LogObsoleteOption(_rootContext, "--hashes", SdkResources.ComputeFileHashes_ReplaceInsertHashes);
+                    }
+
+                    try
+                    {
+                        Analyze(options, logger);
+                    }
+                    catch (ExitApplicationException<ExitReason> ex)
+                    {
+                        // These exceptions have already been logged
+                        ExecutionException = ex;
+                        return FAILURE;
+                    }
+                    catch (Exception ex)
+                    {
+                        // These exceptions escaped our net and must be logged here
+                        RuntimeErrors |= Errors.LogUnhandledEngineException(_rootContext, ex);
+                        ExecutionException = ex;
+                        return FAILURE;
+                    }
+                    finally
+                    {
+                        logger.AnalysisStopped(RuntimeErrors);
+                    }
                 }
-                catch (ExitApplicationException<ExitReason> ex)
+
+                bool succeeded = (RuntimeErrors & ~RuntimeConditions.Nonfatal) == RuntimeConditions.None;
+
+                if (succeeded)
                 {
-                    // These exceptions have already been logged
-                    ExecutionException = ex;
-                    return FAILURE;
+                    try
+                    {
+                        ProcessBaseline(_rootContext, options, FileSystem);
+                    }
+                    catch (Exception ex)
+                    {
+                        RuntimeErrors |= RuntimeConditions.ExceptionProcessingBaseline;
+                        ExecutionException = ex;
+                        return FAILURE;
+                    }
+
+                    try
+                    {
+                        PostLogFile(options.PostUri, options.OutputFilePath, FileSystem);
+                    }
+                    catch (Exception ex)
+                    {
+                        RuntimeErrors |= RuntimeConditions.ExceptionPostingLogFile;
+                        ExecutionException = ex;
+                        return FAILURE;
+                    }
                 }
-                catch (Exception ex)
+
+                if (options.RichReturnCode)
                 {
-                    // These exceptions escaped our net and must be logged here
-                    RuntimeErrors |= Errors.LogUnhandledEngineException(_rootContext, ex);
-                    ExecutionException = ex;
-                    return FAILURE;
+                    return (int)RuntimeErrors;
                 }
-                finally
-                {
-                    logger.AnalysisStopped(RuntimeErrors);
-                }
+
+                return succeeded ? SUCCESS : FAILURE;
             }
-
-            bool succeeded = (RuntimeErrors & ~RuntimeConditions.Nonfatal) == RuntimeConditions.None;
-
-            if (succeeded)
+            finally
             {
-                try
-                {
-                    ProcessBaseline(_rootContext, options, FileSystem);
-                }
-                catch (Exception ex)
-                {
-                    RuntimeErrors |= RuntimeConditions.ExceptionProcessingBaseline;
-                    ExecutionException = ex;
-                    return FAILURE;
-                }
-
-                try
-                {
-                    PostLogFile(options.PostUri, options.OutputFilePath, FileSystem);
-                }
-                catch (Exception ex)
-                {
-                    RuntimeErrors |= RuntimeConditions.ExceptionPostingLogFile;
-                    ExecutionException = ex;
-                    return FAILURE;
-                }
+                _rootContext?.Dispose();
             }
-
-            if (options.RichReturnCode)
-            {
-                return (int)RuntimeErrors;
-            }
-
-            return succeeded ? SUCCESS : FAILURE;
         }
 
         private void Analyze(TOptions options, AggregatingLogger logger)
@@ -162,7 +169,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             targets = ValidateTargetsExist(_rootContext, targets);
 
             // 5. Initialize report file, if configured.
-            InitializeOutputFile(options, _rootContext, targets);
+            InitializeOutputFile(options, _rootContext);
 
             // 6. Instantiate skimmers.
             ISet<Skimmer<TContext>> skimmers = CreateSkimmers(options, _rootContext);
@@ -287,6 +294,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                     else
                     {
                         context.Hashes = HashUtilities.ComputeHashes(filePath);
+                        _pathToHashDataMap?.Add(filePath, context.Hashes);
                     }
                 }
             }
@@ -345,7 +353,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             }
         }
 
-        private void InitializeOutputFile(TOptions analyzeOptions, TContext context, ISet<string> targets)
+        private void InitializeOutputFile(TOptions analyzeOptions, TContext context)
         {
             string filePath = analyzeOptions.OutputFilePath;
             AggregatingLogger aggregatingLogger = (AggregatingLogger)context.Logger;
@@ -381,7 +389,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                                     dataToRemove,
                                     tool: _tool,
                                     run: _run,
-                                    analysisTargets: targets,
+                                    analysisTargets: null,
                                     quiet: analyzeOptions.Quiet,
                                     invocationTokensToRedact: GenerateSensitiveTokensList(),
                                     invocationPropertiesToLog: analyzeOptions.InvocationPropertiesToLog,
@@ -397,7 +405,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                                     dataToRemove,
                                     tool: _tool,
                                     run: _run,
-                                    analysisTargets: targets,
+                                    analysisTargets: null,
                                     invocationTokensToRedact: GenerateSensitiveTokensList(),
                                     invocationPropertiesToLog: analyzeOptions.InvocationPropertiesToLog,
                                     levels: analyzeOptions.Level,

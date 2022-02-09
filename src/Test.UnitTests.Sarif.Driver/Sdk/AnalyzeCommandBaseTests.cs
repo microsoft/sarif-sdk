@@ -40,6 +40,19 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             this.Output = output;
         }
 
+        [Fact]
+        public void AnalyzeCommandBase_RootContextIsDisposed()
+        {
+            var options = new TestAnalyzeOptions();
+            var singleThreadedCommand = new TestAnalyzeCommand();
+            int result = singleThreadedCommand.Run(options);
+            singleThreadedCommand._rootContext.Disposed.Should().BeTrue();
+
+            var multithreadedAnalyzeCommand = new TestMultithreadedAnalyzeCommand();
+            result = singleThreadedCommand.Run(options);
+            singleThreadedCommand._rootContext.Disposed.Should().BeTrue();
+        }
+
         private void ExceptionTestHelper(
             RuntimeConditions runtimeConditions,
             ExitReason expectedExitReason = ExitReason.None,
@@ -586,7 +599,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             TestRuleBehaviors behaviors = TestRuleBehaviors.None,
             string configFileName = null,
             RuntimeConditions runtimeConditions = RuntimeConditions.None,
-            int expectedReturnCode = TestAnalyzeCommand.SUCCESS)
+            int expectedReturnCode = TestAnalyzeCommand.SUCCESS,
+            string postUri = null)
         {
             string path = Path.GetTempFileName();
             Run run = null;
@@ -602,7 +616,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                     OutputFilePath = path,
                     SarifOutputVersion = SarifVersion.Current,
                     Force = true,
-                    TestRuleBehaviors = behaviors
+                    TestRuleBehaviors = behaviors,
+                    PostUri = postUri,
                 };
 
                 var command = new TestAnalyzeCommand();
@@ -651,6 +666,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
             toolNotificationCount.Should().Be(0);
             configurationNotificationCount.Should().Be(0);
+        }
+
+        [Fact]
+        public void AnalyzeCommandBase_EndToEndAnalysisWithPostUri()
+        {
+            PostUriTestHelper(@"https://httpbin.org/post", TestAnalyzeCommand.SUCCESS, RuntimeConditions.None);
+            PostUriTestHelper(@"https://httpbin.org/get", TestAnalyzeCommand.FAILURE, RuntimeConditions.ExceptionPostingLogFile);
+            PostUriTestHelper(@"https://host.does.not.exist", TestAnalyzeCommand.FAILURE, RuntimeConditions.ExceptionPostingLogFile);
         }
 
         [Fact]
@@ -1078,8 +1101,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         }
 
         [Fact]
-        public void AnalyzeCommandBase_ShouldEmitAutomationDetailsWhenIdOrGuidExists()
+        public void AnalyzeCommandBase_AutomationDetailsTests()
         {
+            const string whiteSpace = " ";
             const string automationId = "automation-id";
             const string automationGuid = "automation-guid";
 
@@ -1097,7 +1121,43 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 {
                     AutomationId = automationId,
                     AutomationGuid = automationGuid
-                }
+                },
+                new TestAnalyzeOptions
+                {
+                },
+                new TestAnalyzeOptions
+                {
+                    AutomationId = string.Empty,
+                    AutomationGuid = string.Empty
+                },
+                new TestAnalyzeOptions
+                {
+                    AutomationId = null,
+                    AutomationGuid = null
+                },
+                new TestAnalyzeOptions
+                {
+                    AutomationId = whiteSpace,
+                    AutomationGuid = whiteSpace
+                },
+                new TestAnalyzeOptions
+                {
+                    AutomationId = string.Empty,
+                    AutomationGuid = null
+                },
+                new TestAnalyzeOptions
+                {
+                    AutomationId = null,
+                    AutomationGuid = whiteSpace
+                },
+                new TestAnalyzeOptions
+                {
+                    AutomationGuid = string.Empty
+                },
+                new TestAnalyzeOptions
+                {
+                    AutomationId = null
+                },
             };
 
             foreach (TestAnalyzeOptions enhancedOption in enhancedOptions)
@@ -1116,7 +1176,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         }
 
         [Fact(Timeout = 5000)]
-        public void AnalyzeCommandBase_ShouldGenerateSameResultsWhenRunningSingleAndMultiThread_CoyoteTest()
+        public void AnalyzeCommandBase_ShouldGenerateSameResultsWhenRunningSingleAndMultithreaded_CoyoteTest()
         {
             Configuration config = Configuration.Create().WithTestingIterations(100).WithConcurrencyFuzzingEnabled();
             var engine = TestingEngine.Create(config, AnalyzeCommandBase_ShouldGenerateSameResultsWhenRunningSingleAndMultiThread_CoyoteHelper);
@@ -1135,10 +1195,98 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         }
 
         [Fact]
-        public void AnalyzeCommandBase_ShouldGenerateSameResultsWhenRunningSingleAndMultiThread()
+        public void AnalyzeCommandBase_ShouldGenerateSameResultsWhenRunningSingleAndMultithreaded()
         {
             int[] scenarios = SetupScenarios();
             AnalyzeScenarios(scenarios);
+        }
+
+        [Fact]
+        public void AnalyzeCommandBase_ShouldOnlyLogArtifactsWhenResultsAreFound()
+        {
+            const int expectedNumberOfArtifacts = 2;
+            const int expectedNumberOfResultsWithErrors = 1;
+            const int expectedNumberOfResultsWithWarnings = 1;
+            var files = new List<string>
+            {
+                $@"{Environment.CurrentDirectory}\Error.dll",
+                $@"{Environment.CurrentDirectory}\Warning.dll",
+                $@"{Environment.CurrentDirectory}\Note.dll",
+                $@"{Environment.CurrentDirectory}\Pass.dll",
+                $@"{Environment.CurrentDirectory}\NotApplicable.exe",
+                $@"{Environment.CurrentDirectory}\Informational.sys",
+                $@"{Environment.CurrentDirectory}\Open.cab",
+                $@"{Environment.CurrentDirectory}\Review.dll",
+                $@"{Environment.CurrentDirectory}\NoIssues.dll",
+            };
+
+            foreach (bool multithreaded in new bool[] { false, true })
+            {
+                var resultsCachingTestCase = new ResultsCachingTestCase
+                {
+                    Files = files,
+                    PersistLogFileToDisk = true,
+                    FileSystem = CreateDefaultFileSystemForResultsCaching(files, generateSameInput: false)
+                };
+
+                var options = new TestAnalyzeOptions
+                {
+                    TestRuleBehaviors = resultsCachingTestCase.TestRuleBehaviors,
+                    OutputFilePath = resultsCachingTestCase.PersistLogFileToDisk ? Guid.NewGuid().ToString() : null,
+                    TargetFileSpecifiers = new string[] { Guid.NewGuid().ToString() },
+                    Kind = new List<ResultKind> { ResultKind.Fail },
+                    Level = new List<FailureLevel> { FailureLevel.Warning, FailureLevel.Error },
+                    DataToInsert = new OptionallyEmittedData[] { OptionallyEmittedData.Hashes },
+                };
+
+                Run run = RunAnalyzeCommand(options, resultsCachingTestCase, multithreaded: multithreaded);
+
+                // Hashes is enabled and we should expect to see two artifacts because we have:
+                // one result with Error level and one result with Warning level.
+                run.Artifacts.Should().HaveCount(expectedNumberOfArtifacts);
+                run.Results.Count(r => r.Level == FailureLevel.Error).Should().Be(expectedNumberOfResultsWithErrors);
+                run.Results.Count(r => r.Level == FailureLevel.Warning).Should().Be(expectedNumberOfResultsWithWarnings);
+            }
+        }
+
+        [Fact]
+        public void AnalyzeCommandBase_ShouldNotThrowException_WhenAnalyzingSameFileBasedOnTwoTargetFileSpecifiers()
+        {
+            var files = new List<string>
+            {
+                $@"{Environment.CurrentDirectory}\Error.dll"
+            };
+
+            Action action = () =>
+            {
+                foreach (bool multithreaded in new bool[] { false, true })
+                {
+                    var resultsCachingTestCase = new ResultsCachingTestCase
+                    {
+                        Files = files,
+                        PersistLogFileToDisk = true,
+                        FileSystem = CreateDefaultFileSystemForResultsCaching(files, generateSameInput: true)
+                    };
+
+                    var options = new TestAnalyzeOptions
+                    {
+                        TestRuleBehaviors = resultsCachingTestCase.TestRuleBehaviors,
+                        OutputFilePath = resultsCachingTestCase.PersistLogFileToDisk ? Guid.NewGuid().ToString() : null,
+                        TargetFileSpecifiers = new string[] { Guid.NewGuid().ToString(), Guid.NewGuid().ToString() },
+                        Kind = new List<ResultKind> { ResultKind.Fail },
+                        Level = new List<FailureLevel> { FailureLevel.Warning, FailureLevel.Error },
+                        DataToInsert = new OptionallyEmittedData[] { OptionallyEmittedData.Hashes },
+                    };
+
+                    TestRule.s_testRuleBehaviors = resultsCachingTestCase.TestRuleBehaviors.AccessibleOutsideOfContextOnly();
+                    RunAnalyzeCommand(options,
+                                      resultsCachingTestCase.FileSystem,
+                                      resultsCachingTestCase.ExpectedReturnCode,
+                                      multithreaded: multithreaded);
+                }
+            };
+
+            action.Should().NotThrow();
         }
 
         private void AnalyzeCommandBase_ShouldGenerateSameResultsWhenRunningSingleAndMultiThread_CoyoteHelper()
@@ -1200,10 +1348,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
                 testCase.FileSystem = null;
                 testCase.Files = multiThreadTargets;
-                Run runMultiThread = RunAnalyzeCommand(options, testCase, multithreaded: true);
+                Run runMultithreaded = RunAnalyzeCommand(options, testCase, multithreaded: true);
 
-                runMultiThread.Results.Should().BeEquivalentTo(runSingleThread.Results);
-                runMultiThread.Artifacts.Should().BeEquivalentTo(runSingleThread.Artifacts);
+                runMultithreaded.Results.Should().BeEquivalentTo(runSingleThread.Results);
+                runMultithreaded.Artifacts.Should().BeEquivalentTo(runSingleThread.Artifacts);
             }
         }
 
@@ -1344,6 +1492,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             {
                 runWithCaching.Artifacts.Should().NotBeEmpty();
 
+                if (string.IsNullOrWhiteSpace(options.AutomationId) && string.IsNullOrWhiteSpace(options.AutomationGuid))
+                {
+                    runWithCaching.AutomationDetails.Should().Be(null);
+                }
+
                 if (!string.IsNullOrWhiteSpace(options.AutomationId))
                 {
                     runWithCaching.AutomationDetails.Id.Should().Be(options.AutomationId);
@@ -1394,7 +1547,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 mockFileSystem.Setup(x => x.FileReadAllText(It.Is<string>(f => f == fullyQualifiedName))).Returns(logFileContents);
 
                 mockFileSystem.Setup(x => x.FileOpenRead(It.Is<string>(f => f == fullyQualifiedName)))
-                        .Returns(new MemoryStream(Encoding.UTF8.GetBytes(generateSameInput ? logFileContents : fileNameWithoutExtension)));
+                    .Returns(new NonDisposingDelegatingStream(new MemoryStream(Encoding.UTF8.GetBytes(generateSameInput ? logFileContents : fileNameWithoutExtension))));
             }
             return mockFileSystem.Object;
         }
@@ -1558,8 +1711,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 // cases will not do this, because the return of 'not applicable' from the CanAnalyze
                 // method will result in Analyze not getting called subsequently for those scan targets.
                 (NotificationsWillBeConvertedToErrorResults
-                    ? Files.Count() - Files.Where((f) => f.Contains("NotApplicable")).Count()
-                    : 0);
+                    ? Files.Count - Files.Count((f) => f.Contains("NotApplicable")) : 0);
 
             public int ExpectedWarningCount =>
                 Files.Where((f) => f.Contains("Warning")).Count();
@@ -1601,5 +1753,35 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         }
 
         #endregion ResultsCachingTestsAndHelpers
+
+        private void PostUriTestHelper(string postUri, int expectedReturnCode, RuntimeConditions runtimeConditions)
+        {
+            string location = GetThisTestAssemblyFilePath();
+
+            Run run = AnalyzeFile(
+                location,
+                TestRuleBehaviors.LogError,
+                postUri: postUri,
+                expectedReturnCode: expectedReturnCode,
+                runtimeConditions: runtimeConditions);
+
+            int resultCount = 0;
+            int toolNotificationCount = 0;
+            int configurationNotificationCount = 0;
+
+            SarifHelpers.ValidateRun(
+                run,
+                (issue) => { resultCount++; },
+                (toolNotification) => { toolNotificationCount++; },
+                (configurationNotification) => { configurationNotificationCount++; });
+
+            // As configured by injected TestRuleBehaviors, we should
+            // see an error per scan target (one file in this case).
+            resultCount.Should().Be(1);
+            run.Results[0].Kind.Should().Be(ResultKind.Fail);
+
+            toolNotificationCount.Should().Be(0);
+            configurationNotificationCount.Should().Be(0);
+        }
     }
 }

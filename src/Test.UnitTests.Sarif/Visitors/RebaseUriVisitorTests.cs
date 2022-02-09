@@ -203,7 +203,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
             SarifLog sarifLog = PrereleaseCompatibilityTransformer.UpdateToCurrentVersion(inputText, formatting: Formatting.None, out inputText);
 
-            sarifLog.Runs.Count().Should().Be(1);
+            sarifLog.Runs.Count.Should().Be(1);
 
             var visitor = new RebaseVerifyingVisitor();
             visitor.VisitRun(sarifLog.Runs[0]);

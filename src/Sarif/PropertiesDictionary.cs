@@ -2,11 +2,11 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.ComponentModel;
 using System.IO;
-using System.Runtime.Serialization;
 using System.Xml;
 
 using Newtonsoft.Json;
@@ -15,7 +15,6 @@ using Newtonsoft.Json.Linq;
 
 namespace Microsoft.CodeAnalysis.Sarif
 {
-    [Serializable]
     [JsonConverter(typeof(TypedPropertiesDictionaryConverter))]
     public class PropertiesDictionary : TypedPropertiesDictionary<object>
     {
@@ -34,11 +33,6 @@ namespace Microsoft.CodeAnalysis.Sarif
             PropertiesDictionary initializer,
             IEqualityComparer<string> comparer)
             : base(initializer, comparer)
-        {
-        }
-
-        protected PropertiesDictionary(SerializationInfo info, StreamingContext context)
-            : base(info, context)
         {
         }
 
@@ -91,7 +85,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             if (cacheDescription)
             {
-                SettingNameToDescriptionsMap = SettingNameToDescriptionsMap ?? new Dictionary<string, string>();
+                SettingNameToDescriptionsMap ??= new ConcurrentDictionary<string, string>();
                 SettingNameToDescriptionsMap[setting.Name] = setting.Description;
             }
 

@@ -19,7 +19,7 @@ namespace SarifBaseline.Extensions
         /// <returns>Strings in set which contain requiredPart, or full set if no requiredPart provided</returns>
         public static IEnumerable<string> WhereContainsPart(this IEnumerable<string> set, string requiredPart)
         {
-            if (set == null) { throw new ArgumentNullException("set"); }
+            if (set == null) { throw new ArgumentNullException(nameof(set)); }
 
             if (string.IsNullOrEmpty(requiredPart))
             {
