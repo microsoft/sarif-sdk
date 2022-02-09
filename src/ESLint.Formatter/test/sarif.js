@@ -24,23 +24,22 @@ const rules = {
             description: "disallow unused variables",
             category: "Variables",
             recommended: true,
-            url: "https://eslint.org/docs/rules/no-unused-vars"
+            url: "https://eslint.org/docs/rules/no-unused-vars",
+            formattedDescription: "Disallow unused variables." // Property for test only
         },
         fixable: "code"
     },
     "no-extra-semi": {
         type: "suggestion",
-
         docs: {
             description: "disallow unnecessary semicolons",
             category: "Possible Errors",
             recommended: true,
-            url: "https://eslint.org/docs/rules/no-extra-semi"
+            url: "https://eslint.org/docs/rules/no-extra-semi",
+            formattedDescription: "Disallow unnecessary semicolons." // Property for test only
         },
-
         fixable: "code",
         schema: [],
-
         messages: {
             unexpected: "Unnecessary semicolon."
         }
@@ -239,7 +238,8 @@ describe("formatter:sarif", () => {
 
             assert.strictEqual(log.runs[0].tool.driver.rules.length, 1);
             assert.strictEqual(log.runs[0].tool.driver.rules[0].id, ruleid);
-            assert.strictEqual(log.runs[0].tool.driver.rules[0].shortDescription.text, rule.docs.description);
+            assert.strictEqual(log.runs[0].tool.driver.rules[0].shortDescription.text, rule.docs.formattedDescription);
+            assert.strictEqual(log.runs[0].tool.driver.rules[0].help.text, rule.docs.formattedDescription);
             assert.strictEqual(log.runs[0].tool.driver.rules[0].helpUri, rule.docs.url);
             assert.strictEqual(log.runs[0].tool.driver.rules[0].properties.category, rule.docs.category);
         });
@@ -263,6 +263,8 @@ describe("formatter:sarif", () => {
 
             assert.strictEqual(log.runs[0].results[0].locations[0].physicalLocation.region.startLine, code[0].messages[0].line);
             assert.isUndefined(log.runs[0].results[0].locations[0].physicalLocation.region.startColumn);
+            assert.isUndefined(log.runs[0].results[0].locations[0].physicalLocation.region.endLine);
+            assert.isUndefined(log.runs[0].results[0].locations[0].physicalLocation.region.endColumn);
             assert.isUndefined(log.runs[0].results[0].locations[0].physicalLocation.region.snippet);
         });
     });
@@ -286,6 +288,8 @@ describe("formatter:sarif", () => {
 
             assert.strictEqual(log.runs[0].results[0].locations[0].physicalLocation.region.startLine, code[0].messages[0].line);
             assert.isUndefined(log.runs[0].results[0].locations[0].physicalLocation.region.startColumn);
+            assert.isUndefined(log.runs[0].results[0].locations[0].physicalLocation.region.endLine);
+            assert.isUndefined(log.runs[0].results[0].locations[0].physicalLocation.region.endColumn);
             assert.isUndefined(log.runs[0].results[0].locations[0].physicalLocation.region.snippet);
         });
     });
@@ -309,6 +313,35 @@ describe("formatter:sarif", () => {
 
             assert.strictEqual(log.runs[0].results[0].locations[0].physicalLocation.region.startLine, code[0].messages[0].line);
             assert.strictEqual(log.runs[0].results[0].locations[0].physicalLocation.region.startColumn, code[0].messages[0].column);
+            assert.isUndefined(log.runs[0].results[0].locations[0].physicalLocation.region.endLine);
+            assert.isUndefined(log.runs[0].results[0].locations[0].physicalLocation.region.endColumn);
+            assert.isUndefined(log.runs[0].results[0].locations[0].physicalLocation.region.snippet);
+        });
+    });
+});
+
+describe("formatter:sarif", () => {
+    describe("when passed one message with line, column, end line and end column but no source string", () => {
+        const code = [{
+            filePath: sourceFilePath1,
+            messages: [{
+                message: "Unexpected value.",
+                ruleId: testRuleId,
+                line: 10,
+                column: 5,
+                endLine: 10,
+                endColumn: 23
+            }],
+            suppressedMessages: []
+        }];
+
+        it("should return a log with one result whose location contains a region with line, column, endLine and endColumn #s", () => {
+            const log = JSON.parse(formatter(code));
+
+            assert.strictEqual(log.runs[0].results[0].locations[0].physicalLocation.region.startLine, code[0].messages[0].line);
+            assert.strictEqual(log.runs[0].results[0].locations[0].physicalLocation.region.startColumn, code[0].messages[0].column);
+            assert.strictEqual(log.runs[0].results[0].locations[0].physicalLocation.region.endLine, code[0].messages[0].endLine);
+            assert.strictEqual(log.runs[0].results[0].locations[0].physicalLocation.region.endColumn, code[0].messages[0].endColumn);
             assert.isUndefined(log.runs[0].results[0].locations[0].physicalLocation.region.snippet);
         });
     });
@@ -333,6 +366,8 @@ describe("formatter:sarif", () => {
 
             assert.strictEqual(log.runs[0].results[0].locations[0].physicalLocation.region.startLine, code[0].messages[0].line);
             assert.strictEqual(log.runs[0].results[0].locations[0].physicalLocation.region.startColumn, code[0].messages[0].column);
+            assert.isUndefined(log.runs[0].results[0].locations[0].physicalLocation.region.endLine);
+            assert.isUndefined(log.runs[0].results[0].locations[0].physicalLocation.region.endColumn);
             assert.strictEqual(log.runs[0].results[0].locations[0].physicalLocation.region.snippet.text, code[0].messages[0].source);
         });
     });
@@ -356,6 +391,8 @@ describe("formatter:sarif", () => {
 
             assert.isUndefined(log.runs[0].results[0].locations[0].physicalLocation.region.startLine);
             assert.isUndefined(log.runs[0].results[0].locations[0].physicalLocation.region.startColumn);
+            assert.isUndefined(log.runs[0].results[0].locations[0].physicalLocation.region.endLine);
+            assert.isUndefined(log.runs[0].results[0].locations[0].physicalLocation.region.endColumn);
             assert.strictEqual(log.runs[0].results[0].locations[0].physicalLocation.region.snippet.text, code[0].messages[0].source);
         });
     });
@@ -404,7 +441,8 @@ describe("formatter:sarif", () => {
             type: "suggestion",
             docs: {
                 description: "custom description",
-                category: "Possible Errors"
+                category: "Possible Errors",
+                formattedDescription: "Custom description." // Property for test only
             }
         };
         const code = [{
@@ -412,7 +450,7 @@ describe("formatter:sarif", () => {
             messages: [{
                 message: "Unexpected value.",
                 severity: 2,
-                ruleId: testRuleId
+                ruleId: testRuleId,
             },
             {
                 ruleId: ruleid1,
@@ -460,17 +498,20 @@ describe("formatter:sarif", () => {
 
 
             assert.strictEqual(log.runs[0].tool.driver.rules[0].id, ruleid1);
-            assert.strictEqual(log.runs[0].tool.driver.rules[0].shortDescription.text, rule1.docs.description);
+            assert.strictEqual(log.runs[0].tool.driver.rules[0].shortDescription.text, rule1.docs.formattedDescription);
+            assert.strictEqual(log.runs[0].tool.driver.rules[0].help.text, rule1.docs.formattedDescription);
             assert.strictEqual(log.runs[0].tool.driver.rules[0].helpUri, rule1.docs.url);
             assert.strictEqual(log.runs[0].tool.driver.rules[0].properties.category, rule1.docs.category);
 
             assert.strictEqual(log.runs[0].tool.driver.rules[1].id, ruleid2);
-            assert.strictEqual(log.runs[0].tool.driver.rules[1].shortDescription.text, rule2.docs.description);
+            assert.strictEqual(log.runs[0].tool.driver.rules[1].shortDescription.text, rule2.docs.formattedDescription);
+            assert.strictEqual(log.runs[0].tool.driver.rules[1].help.text, rule2.docs.formattedDescription);
             assert.strictEqual(log.runs[0].tool.driver.rules[1].helpUri, rule2.docs.url);
             assert.strictEqual(log.runs[0].tool.driver.rules[1].properties.category, rule2.docs.category);
 
             assert.strictEqual(log.runs[0].tool.driver.rules[2].id, ruleid3);
-            assert.strictEqual(log.runs[0].tool.driver.rules[2].shortDescription.text, rule3.docs.description);
+            assert.strictEqual(log.runs[0].tool.driver.rules[2].shortDescription.text, rule3.docs.formattedDescription);
+            assert.strictEqual(log.runs[0].tool.driver.rules[2].help.text, rule3.docs.formattedDescription);
             assert.strictEqual(log.runs[0].tool.driver.rules[2].helpUri, rule3.docs.url);
             assert.strictEqual(log.runs[0].tool.driver.rules[2].properties.category, rule3.docs.category);
 
@@ -536,7 +577,8 @@ describe("formatter:sarif", () => {
             type: "suggestion",
             docs: {
                 description: "custom description",
-                category: "Possible Errors"
+                category: "Possible Errors",
+                formattedDescription: "Custom description." // Property for test only
             }
         };
         const code = [{
@@ -577,12 +619,14 @@ describe("formatter:sarif", () => {
             assert(log.runs[0].artifacts[1].location.uri.endsWith(sourceFilePath2));
 
             assert.strictEqual(log.runs[0].tool.driver.rules[0].id, ruleid2);
-            assert.strictEqual(log.runs[0].tool.driver.rules[0].shortDescription.text, rule2.docs.description);
+            assert.strictEqual(log.runs[0].tool.driver.rules[0].shortDescription.text, rule2.docs.formattedDescription);
+            assert.strictEqual(log.runs[0].tool.driver.rules[0].help.text, rule2.docs.formattedDescription);
             assert.strictEqual(log.runs[0].tool.driver.rules[0].helpUri, rule2.docs.url);
             assert.strictEqual(log.runs[0].tool.driver.rules[0].properties.category, rule2.docs.category);
 
             assert.strictEqual(log.runs[0].tool.driver.rules[1].id, ruleid3);
-            assert.strictEqual(log.runs[0].tool.driver.rules[1].shortDescription.text, rule3.docs.description);
+            assert.strictEqual(log.runs[0].tool.driver.rules[1].shortDescription.text, rule3.docs.formattedDescription);
+            assert.strictEqual(log.runs[0].tool.driver.rules[1].help.text, rule3.docs.formattedDescription);
             assert.strictEqual(log.runs[0].tool.driver.rules[1].helpUri, rule3.docs.url);
             assert.strictEqual(log.runs[0].tool.driver.rules[1].properties.category, rule3.docs.category);
 
@@ -686,6 +730,7 @@ describe("formatter:sarif", () => {
 
             assert.strictEqual(log.runs[0].tool.driver.rules[0].id, ruleid);
             assert.isUndefined(log.runs[0].tool.driver.rules[0].shortDescription);
+            assert.isUndefined(log.runs[0].tool.driver.rules[0].help);
             assert.strictEqual(log.runs[0].tool.driver.rules[0].helpUri, rule.docs.url);
             assert.strictEqual(log.runs[0].tool.driver.rules[0].properties.category, rule.docs.category);
 

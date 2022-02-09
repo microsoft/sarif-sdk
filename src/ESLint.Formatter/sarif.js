@@ -44,6 +44,21 @@ function getResultLevel(message) {
     return "warning";
 }
 
+/**
+ * Capitalize first letter and add trailing period character
+ * @param {string} text string to be formatted
+ * @returns {string} formatted string
+ * @private
+ */
+function formatRuleText(text) {
+    if (text) {
+        text = text[0].toUpperCase() + text.slice(1);
+        text = text.slice(-1) == "." ? text : text + ".";
+    }
+
+    return text;
+}
+
 //------------------------------------------------------------------------------
 // Public Interface
 //------------------------------------------------------------------------------
@@ -175,7 +190,10 @@ module.exports = function (results, data) {
                                 };
                                 if (meta.docs.description) {
                                     sarifRules[message.ruleId].shortDescription = {
-                                        text: meta.docs.description
+                                        text: formatRuleText(meta.docs.description)
+                                    };
+                                    sarifRules[message.ruleId].help = {
+                                        text: formatRuleText(meta.docs.description)
                                     };
                                 }
                             }
@@ -210,6 +228,12 @@ module.exports = function (results, data) {
                         }
                         if (message.column > 0) {
                             sarifRepresentation.locations[0].physicalLocation.region.startColumn = message.column;
+                        }
+                        if (message.endLine > 0) {
+                            sarifRepresentation.locations[0].physicalLocation.region.endLine = message.endLine;
+                        }
+                        if (message.endColumn > 0) {
+                            sarifRepresentation.locations[0].physicalLocation.region.endColumn = message.endColumn;
                         }
                     }
 
