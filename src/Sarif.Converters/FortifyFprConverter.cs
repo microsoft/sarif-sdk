@@ -245,13 +245,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             {
                 if (originalUriBasePath.StartsWith("/"))
                 {
-                    if (platform == "Linux")
+                    if (!platform.ToLowerInvariant().Contains("windows"))
                     {
                         originalUriBasePath = "file://" + originalUriBasePath;
                     }
                     else
                     {
-                        return null;
+                        // "SourceBasePath" is the user facing xml node name in the input file.
+                        throw new InvalidDataException($"SourceBasePath '{originalUriBasePath}' is not a valid path in platform '{platform}'.");
                     }
                 }
 

@@ -5,7 +5,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
-using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Xml;
@@ -190,6 +189,8 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         public static string GetFileName(this Uri uri)
         {
+            if (uri == null) { return null; }
+
             if (!uri.IsAbsoluteUri)
             {
                 const string baseUri = "https://example.com";

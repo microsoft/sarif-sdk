@@ -934,8 +934,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         [Fact]
         public void AnalyzeCommandBase_GetFileNameFromUriWorks()
         {
-            var sb = new StringBuilder();
-
             var testCases = new Tuple<string, string>[]
             {
                 new Tuple<string, string>(null, null),
@@ -972,6 +970,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 testCases.Append(new Tuple<string, string>(@"/home/user/directory/file.txt", "file.txt"));
             }
 
+            var sb = new StringBuilder();
             foreach (Tuple<string, string> testCase in testCases)
             {
                 Uri uri = testCase.Item1 != null ? new Uri(testCase.Item1, UriKind.RelativeOrAbsolute) : null;
@@ -979,11 +978,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
                 string actualFileName = AnalyzeCommandBase<TestAnalysisContext, AnalyzeOptionsBase>.GetFileNameFromUri(uri);
 
-                if (!object.Equals(actualFileName, expectedFileName))
+                if (!Equals(actualFileName, expectedFileName))
                 {
                     sb.AppendFormat("Incorrect file name returned for uri '{0}'. Expected '{1}' but saw '{2}'.", uri, expectedFileName, actualFileName).AppendLine();
                 }
             }
+
             sb.Length.Should().Be(0, because: "all URI to file name conversions should succeed but the following cases failed." + Environment.NewLine + sb.ToString());
         }
 

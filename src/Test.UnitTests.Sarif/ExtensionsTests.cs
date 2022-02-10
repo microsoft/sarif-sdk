@@ -3,6 +3,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Xml;
 using System.Xml.Linq;
@@ -416,47 +417,86 @@ namespace Microsoft.CodeAnalysis.Sarif
         [Fact]
         public void Extensions_GetFileName()
         {
-            var tuples = new List<Tuple<Uri, string>>
+            const string expectedResult = "file.ext";
+            var testCases = new List<(string, string)>
             {
-                new Tuple<Uri, string>(new Uri("file.a", UriKind.Relative), "file.a"),
-                new Tuple<Uri, string>(new Uri("/file.a", UriKind.Relative), "file.a"),
-                new Tuple<Uri, string>(new Uri("\\file.a", UriKind.Relative), "file.a"),
-
-                new Tuple<Uri, string>(new Uri("path/file.a", UriKind.Relative), "file.a"),
-                new Tuple<Uri, string>(new Uri("/path/file.a", UriKind.Relative), "file.a"),
-                new Tuple<Uri, string>(new Uri("path\\file.a", UriKind.Relative), "file.a"),
-                new Tuple<Uri, string>(new Uri("\\path\\file.a", UriKind.Relative), "file.a"),
-
-                new Tuple<Uri, string>(new Uri("file.a?some-query-string", UriKind.Relative), "file.a"),
-                new Tuple<Uri, string>(new Uri("/file.a?some-query-string", UriKind.Relative), "file.a"),
-                new Tuple<Uri, string>(new Uri("\\file.a?some-query-string", UriKind.Relative), "file.a"),
-
-                new Tuple<Uri, string>(new Uri("path/file.a?some-query-string", UriKind.Relative), "file.a"),
-                new Tuple<Uri, string>(new Uri("/path/file.a?some-query-string", UriKind.Relative), "file.a"),
-                new Tuple<Uri, string>(new Uri("path\\file.a?some-query-string", UriKind.Relative), "file.a"),
-                new Tuple<Uri, string>(new Uri("\\path\\file.a?some-query-string", UriKind.Relative), "file.a"),
-
-                new Tuple<Uri, string>(new Uri("C:\\path\\file.a", UriKind.Absolute), "file.a"),
-                new Tuple<Uri, string>(new Uri("file:///C:/path/file.a", UriKind.Absolute), "file.a"),
-                new Tuple<Uri, string>(new Uri("/home/username/path/file.a", UriKind.Relative), "file.a"),
-                new Tuple<Uri, string>(new Uri("file:///home/username/path/file.a", UriKind.Absolute), "file.a"),
-
-                new Tuple<Uri, string>(new Uri("https://github.com/microsoft/sarif-sdk/NuGet.Config", UriKind.Absolute), "NuGet.Config"),
-                new Tuple<Uri, string>(new Uri("https://github.com/microsoft/sarif-sdk/NuGet.Config?some-query-string", UriKind.Absolute), "NuGet.Config"),
+                (null, null),
+                (@"", string.Empty),
+                (@"file.ext", expectedResult),
+                (@"C:\path\file.ext", expectedResult),
+                (@"\\hostname\path\file.ext", expectedResult),
+                (@"file:///C:/path/file.ext", expectedResult),
+                (@"file.ext?some-query-string", expectedResult),
+                (@"\\hostname\c:\path\file.ext", expectedResult),
+                (@"/home/username/path/file.ext", expectedResult),
+                (@"nfs://servername/folder/file.ext", expectedResult),
+                (@"file://hostname/C:/path/file.ext", expectedResult),
+                (@"file:///home/username/path/file.ext", expectedResult),
+                (@"ftp://ftp.example.com/folder/file.ext", expectedResult),
+                (@"smb://servername/Share/folder/file.ext", expectedResult),
+                (@"dav://example.hostname.com/folder/file.ext", expectedResult),
+                (@"file://hostname/home/username/path/file.ext", expectedResult),
+                (@"ftp://username@ftp.example.com/folder/file.ext", expectedResult),
+                (@"scheme://servername.example.com/folder/file.ext", expectedResult),
+                (@"https://github.com/microsoft/sarif-sdk/file.ext", expectedResult),
+                (@"ssh://username@servername.example.com/folder/file.ext", expectedResult),
+                (@"scheme://username@servername.example.com/folder/file.ext", expectedResult),
+                (@"https://github.com/microsoft/sarif-sdk/file.ext?some-query-string", expectedResult),
             };
 
-            var sb = new StringBuilder();
-            foreach (Tuple<Uri, string> tuple in tuples)
+            var testCasesWithSlashReplaceable = new List<(string, string)>
             {
-                string fileName = tuple.Item1.GetFileName();
+                (@"\", string.Empty),
+                (@".\", string.Empty),
+                (@"..\", string.Empty),
+                (@"path\", string.Empty),
+                (@"\path\", string.Empty),
+                (@".\path\", string.Empty),
+                (@"..\path\", string.Empty),
+                (@"\file.ext", expectedResult),
+                (@".\file.ext", expectedResult),
+                (@"..\file.ext", expectedResult),
+                (@"path\file.ext", expectedResult),
+                (@"\path\file.ext", expectedResult),
+                (@"..\path\file.ext", expectedResult),
+                (@".\..\path\file.ext", expectedResult),
+                (@"\file.ext?some-query-string", expectedResult),
+                (@"path\file.ext?some-query-string", expectedResult),
+                (@"\path\file.ext?some-query-string", expectedResult),
+            };
 
-                if (!fileName.Equals(tuple.Item2))
+            testCases.AddRange(testCasesWithSlashReplaceable);
+            testCases.AddRange(testCasesWithSlashReplaceable.Select(t => (t.Item1.Replace(@"\", @"/"), t.Item2)));
+
+            var testCasesWithMixSlash = new List<(string, string)>
+            {
+                (@"C:/path\file.ext", expectedResult),
+                (@"C:\path/file.ext", expectedResult),
+                (@"\\hostname/path\file.ext", expectedResult),
+                (@"file:///C:\path/file.ext", expectedResult),
+                (@"\\hostname/c:\path\file.ext", expectedResult),
+                (@"\home\username/path/file.ext", expectedResult),
+                (@"nfs://servername/folder\file.ext", expectedResult),
+                (@"https://github.com/microsoft/sarif-sdk\file.ext", expectedResult),
+            };
+
+            testCases.AddRange(testCasesWithMixSlash);
+
+            var sb = new StringBuilder();
+            foreach ((string, string) testCase in testCases)
+            {
+                Uri uri = testCase.Item1 != null ? new Uri(testCase.Item1, UriKind.RelativeOrAbsolute) : null;
+                string expectedFileName = testCase.Item2;
+
+                string actualFileName = uri.GetFileName();
+
+                if (!Equals(actualFileName, expectedFileName))
                 {
-                    sb.Append($"{fileName} should be equal {tuple.Item2};");
+                    sb.AppendFormat("Incorrect file name returned for uri '{0}'. Expected '{1}' but saw '{2}'.", uri, expectedFileName, actualFileName).AppendLine();
                 }
             }
 
-            sb.Length.Should().Be(0);
+            sb.Length.Should().Be(0, because: "all URI to file name conversions should succeed but the following cases failed." + Environment.NewLine + sb.ToString());
         }
     }
 }
