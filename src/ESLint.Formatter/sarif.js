@@ -51,9 +51,10 @@ function getResultLevel(message) {
  * @private
  */
 function formatRuleText(text) {
-    if (text) {
+    if (text && typeof text === 'string' && text.trim()) {
+        text = text.trim();
         text = text[0].toUpperCase() + text.slice(1);
-        text = text.slice(-1) == "." ? text : text + ".";
+        text = text.slice(-1) === "." ? text : text + ".";
     }
 
     return text;

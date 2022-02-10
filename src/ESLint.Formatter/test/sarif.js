@@ -749,3 +749,102 @@ describe("formatter:sarif", () => {
         });
     });
 });
+
+describe("formatter:formatRuleText", () => {
+    describe("unit tests", () => {
+        var formatRuleText = formatter.__get__('formatRuleText');
+        it("test cases", () => {
+            var input; // undefined
+            var text = formatRuleText(input);
+            assert.isUndefined(input);
+            assert.isUndefined(text);
+
+            input = NaN;
+            text = formatRuleText(input);
+            assert.isNaN(input);
+            assert.isNaN(text);
+
+            input = null;
+            text = formatRuleText(input);
+            assert.isNull(input);
+            assert.isNull(text);
+
+            input = "";
+            text = formatRuleText(input);
+            assert.isEmpty(input);
+            assert.isEmpty(text);
+
+            input = "      ";
+            text = formatRuleText(input);
+            assert.strictEqual(input, text);
+
+            input = ".";
+            text = formatRuleText(input);
+            assert.strictEqual(input, text);
+
+            input = "A";
+            text = formatRuleText(input);
+            assert.strictEqual(text, "A.");
+
+            input = "!";
+            text = formatRuleText(input);
+            assert.strictEqual(text, "!.");
+
+            input = "Abc.";
+            text = formatRuleText(input);
+            assert.strictEqual(input, text);
+
+            input = "'abc.'";
+            text = formatRuleText(input);
+            assert.strictEqual(text, "'abc.'.");
+
+            input = "a b c";
+            text = formatRuleText(input);
+            assert.strictEqual(text, "A b c.");
+
+            input = "   a b c   ";
+            text = formatRuleText(input);
+            assert.strictEqual(text, "A b c.");
+
+            input = "     a      ";
+            text = formatRuleText(input);
+            assert.strictEqual(text, "A.");
+
+            input = "aaaaa";
+            text = formatRuleText(input);
+            assert.strictEqual(text, "Aaaaa.");
+
+            input = "AAAA";
+            text = formatRuleText(input);
+            assert.strictEqual(text, "AAAA.");
+
+            input = ".....";
+            text = formatRuleText(input);
+            assert.strictEqual(text, ".....");
+
+            input = ".abC";
+            text = formatRuleText(input);
+            assert.strictEqual(text, ".abC.");
+
+            input = "%^&";
+            text = formatRuleText(input);
+            assert.strictEqual(text, "%^&.");
+
+            input = 0;
+            text = formatRuleText(input);
+            assert.strictEqual(text, input);
+
+            input = 1;
+            text = formatRuleText(input);
+            assert.strictEqual(text, input);
+
+            input = false;
+            text = formatRuleText(input);
+            assert.strictEqual(text, input);
+
+            input = true;
+            text = formatRuleText(input);
+            assert.strictEqual(text, input);
+        });
+    });
+});
