@@ -47,7 +47,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Comparers
         }
 
         /// <summary>
-        /// Compare 2 lists of type T derived from IComparable.
+        /// Compare 2 lists of type T which is derived from IComparable.
         /// </summary>
         /// <typeparam name="T">type derived from IComparable</typeparam>
         /// <param name="left"></param>
@@ -114,11 +114,26 @@ namespace Microsoft.CodeAnalysis.Sarif.Comparers
             return compareResult;
         }
 
+        /// <summary>
+        /// Compare 2 dictionaries of type T which is derived from IComparable.
+        /// </summary>
+        /// <typeparam name="T">type derived from IComparable</typeparam>
+        /// <param name="left"></param>
+        /// <param name="right"></param>
+        /// <returns></returns>
         public static int CompareDictionary<T>(IDictionary<string, T> left, IDictionary<string, T> right) where T : IComparable
         {
             return CompareDictionaryHelper(left, right, (a, b) => a.CompareTo(b));
         }
 
+        /// <summary>
+        /// Compare 2 dictionaries of type T using a Comparer<T>.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="left"></param>
+        /// <param name="right"></param>
+        /// <param name="comparer"></param>
+        /// <returns></returns>
         public static int CompareDictionary<T>(IDictionary<string, T> left, IDictionary<string, T> right, IComparer<T> comparer)
         {
             if (comparer == null)
