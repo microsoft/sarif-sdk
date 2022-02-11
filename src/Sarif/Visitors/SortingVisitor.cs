@@ -1,7 +1,6 @@
 ﻿// Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -11,14 +10,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 {
     public class SortingVisitor : SarifRewritingVisitor
     {
-        // Dictionaries to cache new index to old index mappings.
         private readonly IDictionary<int, int> ruleIndexMap;
         private readonly IDictionary<int, int> artifactIndexMap;
 
         public SortingVisitor()
         {
-            this.ruleIndexMap = new ConcurrentDictionary<int, int>();
-            this.artifactIndexMap = new ConcurrentDictionary<int, int>();
+            this.ruleIndexMap = new Dictionary<int, int>();
+            this.artifactIndexMap = new Dictionary<int, int>();
         }
 
         public override SarifLog VisitSarifLog(SarifLog node)
@@ -35,7 +33,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
         public override Run VisitRun(Run node)
         {
-            // Reset index maps for each run object.
             this.ruleIndexMap.Clear();
             this.artifactIndexMap.Clear();
 
@@ -44,7 +41,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 node.Artifacts = this.SortAndBuildIndexMap(node?.Artifacts, ArtifactComparer.Instance, this.artifactIndexMap);
             }
 
-            // Traverse child nodes first to make sure the child properties are sorted.
             Run current = base.VisitRun(node);
 
             if (current?.Results != null)
@@ -163,12 +159,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
             for (int i = 0; i < list.Count; i++)
             {
-                // If some objects are same (with same reference), keep only 1 object
-                // in the dictionary and set of indices in hash set.
-                if (!dict.ContainsKey(list[i]))
-                {
-                    dict.Add(list[i], i);
-                }
+                dict[list[i]] = i;
             }
 
             return dict;
@@ -178,10 +169,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         {
             for (int newIndex = 0; newIndex < newList.Count; newIndex++)
             {
-                if (oldIndices.TryGetValue(newList[newIndex], out int oldIndex) &&
-                    !indexMapping.ContainsKey(oldIndex))
+                if (oldIndices.TryGetValue(newList[newIndex], out int oldIndex))
                 {
-                    indexMapping.Add(oldIndex, newIndex);
+                    indexMapping[oldIndex] = newIndex;
                 }
             }
         }

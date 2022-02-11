@@ -197,7 +197,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             var locations = new List<ThreadFlowLocation>();
 
-            for (int i = 0; i < random.Next(10); i++)
+            for (int i = 0; i < random.Next(10) + 1; i++)
             {
                 locations.Add(new ThreadFlowLocation
                 {

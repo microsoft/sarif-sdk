@@ -3,8 +3,9 @@
 
 using System;
 using System.Collections.Generic;
-using System.Configuration;
+using System.IO;
 using System.Linq;
+using System.Text;
 
 using FluentAssertions;
 
@@ -12,17 +13,23 @@ using Microsoft.CodeAnalysis.Sarif;
 using Microsoft.CodeAnalysis.Sarif.Visitors;
 using Microsoft.CodeAnalysis.Test.Utilities.Sarif;
 
+using Newtonsoft.Json;
+
 using Xunit;
 using Xunit.Abstractions;
 
 namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Visitors
 {
-    public class SortingVisitorTests
+    public class SortingVisitorTests : FileDiffingUnitTests
     {
         private readonly Random random;
+        private readonly ITestOutputHelper _outputHelper;
 
-        public SortingVisitorTests(ITestOutputHelper outputHelper)
+        protected override string OutputFolderPath => Path.Combine(Path.GetDirectoryName(ThisAssembly.Location), "UnitTestOutput." + TypeUnderTest);
+
+        public SortingVisitorTests(ITestOutputHelper outputHelper) : base(outputHelper)
         {
+            this._outputHelper = outputHelper;
             this.random = RandomSarifLogGenerator.GenerateRandomAndLog(outputHelper);
         }
 
@@ -35,7 +42,6 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Visitors
             SarifLog shuffledLog1 = ShuffleSarifLog(originalLog, this.random);
             SarifLog shuffledLog2 = ShuffleSarifLog(originalLog, this.random);
 
-            // Shuffled logs should be not same as each other and original log.
             areEqual = SarifLogEqualityComparer.Instance.Equals(originalLog, shuffledLog1);
             areEqual.Should().BeFalse();
 
@@ -49,24 +55,32 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Visitors
             SarifLog sortedLog2 = new SortingVisitor().VisitSarifLog(shuffledLog2);
 
             areEqual = SarifLogEqualityComparer.Instance.Equals(sortedLog1, sortedLog2);
+            
             areEqual.Should().BeTrue();
 
-            // Make sure result's ruleIndex points to right rule in sorted log.
-            IList<ReportingDescriptor> rules = sortedLog1.Runs.First().Tool.Driver.Rules;
-            foreach (Result result in sortedLog1.Runs.First().Results.Where(r => r.RuleIndex != -1))
-            {
-                int ruleIndex = rules.IndexOf(rules.First(r => r.Id.Equals(result.RuleId)));
-                result.RuleIndex.Should().Be(ruleIndex);
-            }
+            areEqual = this.VerifySarifLogAreSame(sortedLog1, sortedLog2);
 
-            // Make sure artifactLocation index points to right artifacts.
-            IList<Artifact> artifacts = sortedLog1.Runs.First().Artifacts;
-            foreach (Result result in sortedLog1.Runs.First().Results)
+            areEqual.Should().BeTrue();
+
+            foreach (Run run in sortedLog1.Runs)
             {
-                ArtifactLocation artifactLoc = result?.Locations?.First()?.PhysicalLocation?.ArtifactLocation;
-                if (artifactLoc != null && artifactLoc.Index != -1)
+                IList<ReportingDescriptor> rules = run.Tool.Driver.Rules;
+                IList<Artifact> artifacts = run.Artifacts;
+
+                foreach (Result result in run.Results)
                 {
-                    artifactLoc.Uri.Should().Be(artifacts[artifactLoc.Index].Location.Uri);
+                    if (result.RuleIndex != -1)
+                    {
+                        int ruleIndex = rules.IndexOf(rules.First(r => r.Id.Equals(result.RuleId)));
+                        result.RuleIndex.Should().Be(ruleIndex);
+                    }
+
+                    ArtifactLocation artifactLoc = result?.Locations?.First()?.PhysicalLocation?.ArtifactLocation;
+
+                    if (artifactLoc != null && artifactLoc.Index != -1)
+                    {
+                        artifactLoc.Uri.Should().Be(artifacts[artifactLoc.Index].Location.Uri);
+                    }
                 }
             }
         }
@@ -107,9 +121,6 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Visitors
 
             SarifLog sortedLog = new SortingVisitor().VisitSarifLog(sarifLog);
 
-            // If sorting a collection with element has a list type property
-            // the order should depend on list values.
-            // Expected order: null < empty < collection has element.
             results = sortedLog.Runs[0].Results;
             results[0].Locations.Should().BeNull();
             results[1].Locations.Should().BeEmpty();
@@ -130,12 +141,7 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Visitors
         {
             SarifLog logToBeShuffled = originalLog.DeepClone();
 
-            bool areEqual = SarifLogEqualityComparer.Instance.Equals(originalLog, logToBeShuffled);
-            areEqual.Should().BeTrue();
-
-            // Shuffle the log cloned from original log until
-            // find the log is different than original log.
-            do
+            while (SarifLogEqualityComparer.Instance.Equals(logToBeShuffled, originalLog))
             {
                 foreach (Run run in logToBeShuffled?.Runs)
                 {
@@ -145,14 +151,13 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Visitors
 
                     if (rules != null)
                     {
-                        IDictionary<string, int> ruleIndexMapping = new Dictionary<string, int>();
-
+                        var ruleIndexMapping = new Dictionary<string, int>();
                         rules = rules.Shuffle(random);
                         run.Tool.Driver.Rules = rules;
 
                         for (int i = 0; i < rules.Count; i++)
                         {
-                            ruleIndexMapping.Add(rules[i].Id, i);
+                            ruleIndexMapping[rules[i].Id] = i;
                         }
 
                         foreach (Result result in results.Where(r => r.RuleIndex != -1))
@@ -166,12 +171,12 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Visitors
 
                     if (artifacts != null)
                     {
-                        IDictionary<int, int> artifactIndexMapping = new Dictionary<int, int>();
+                        var artifactIndexMapping = new Dictionary<int, int>();
+                        var oldMapping = new Dictionary<Artifact, int>();
 
-                        IDictionary<Artifact, int> oldMapping = new Dictionary<Artifact, int>();
                         for (int i = 0; i < artifacts.Count; i++)
                         {
-                            oldMapping.Add(artifacts[i], i);
+                            oldMapping[artifacts[i]] = i;
                         }
 
                         artifacts = artifacts.Shuffle(random);
@@ -181,11 +186,12 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Visitors
                         {
                             if (oldMapping.TryGetValue(artifacts[i], out int oldIndex))
                             {
-                                artifactIndexMapping.Add(oldIndex, i);
+                                artifactIndexMapping[oldIndex] = i;
                             }
                         }
 
                         var locToUpdate = new List<ArtifactLocation>();
+
                         locToUpdate.AddRange(
                             results
                             .SelectMany(r => r.Locations)
@@ -207,15 +213,16 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Visitors
                         }
                     }
 
-
                     run.Results = results.Shuffle(random);
 
                     foreach (Result result in run.Results)
                     {
                         result.CodeFlows = result.CodeFlows.Shuffle(random);
+
                         foreach (CodeFlow codeFlow in result.CodeFlows)
                         {
                             codeFlow.ThreadFlows = codeFlow.ThreadFlows.Shuffle(random);
+
                             foreach (ThreadFlow threadFlow in codeFlow.ThreadFlows)
                             {
                                 threadFlow.Locations = threadFlow.Locations.Shuffle(random);
@@ -225,9 +232,43 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Visitors
                 }
                 logToBeShuffled.Runs = logToBeShuffled.Runs.Shuffle(random);
             }
-            while (SarifLogEqualityComparer.Instance.Equals(logToBeShuffled, originalLog));
 
             return logToBeShuffled;
+        }
+
+        private bool VerifySarifLogAreSame(SarifLog first, SarifLog second)
+        {
+            string firstLogText = ReadSarifLogAsString(first);
+            string secondLogText = ReadSarifLogAsString(second);
+
+            bool areEqual = AreEquivalent<SarifLog>(firstLogText, secondLogText, out SarifLog _);
+
+            if (!areEqual)
+            {
+                string firstLogFile = Path.Combine(OutputFolderPath, $"{Guid.NewGuid()}.sarif");
+                string secondLogFile = Path.Combine(OutputFolderPath, $"{Guid.NewGuid()}.sarif");
+
+                File.WriteAllText(firstLogFile, firstLogText);
+                File.WriteAllText(secondLogFile, secondLogText);
+
+                var sb = new StringBuilder();
+                sb.AppendLine("The sorted Sarif logs did not match.");
+                sb.AppendLine("To compare all difference for this test suite:");
+                sb.AppendLine(FileDiffingUnitTests.GenerateDiffCommand(TypeUnderTest, firstLogFile, secondLogFile));
+                this._outputHelper.WriteLine(sb.ToString());
+            }
+
+            return areEqual;
+        }
+
+        private static string ReadSarifLogAsString(SarifLog sarifLog)
+        {
+            var settings = new JsonSerializerSettings()
+            {
+                Formatting = Formatting.Indented
+            };
+
+            return JsonConvert.SerializeObject(sarifLog, settings);
         }
     }
 }

@@ -4,7 +4,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.CompilerServices;
 
 namespace Microsoft.CodeAnalysis.Sarif.Comparers
 {
@@ -18,15 +17,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Comparers
         /// <param name="right">The second object to compare.</param>
         /// <param name="result">
         /// 0 if both objects are same or both are null.
-        /// 1 if the first object is null and the second object is not null.
-        /// 2 if the first object is not null and the second object is null.
+        /// -1 if the first object is null and the second object is not null.
+        /// 1 if the first object is not null and the second object is null.
         /// </param>
-        /// <returns>Return true if can get a definite result, otherwise return false.</returns>
+        /// <returns>Return true if can get a definite compare result, otherwise return false.</returns>
         public static bool CompareReference(object left, object right, out int result)
         {
             result = 0;
 
-            // ReferenceEquals returns true if both are null
             if (object.ReferenceEquals(left, right))
             {
                 result = 0;
@@ -45,8 +43,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Comparers
                 return true;
             }
 
-            // Cannot determine the comparison result based on reference
-            // need further comparing objects properties.
             return false;
         }
 
@@ -81,7 +77,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Comparers
             return CompareListHelper(left, right, comparer.Compare);
         }
 
-        /// Main function for comparing 2 lists.
         private static int CompareListHelper<T>(IList<T> left, IList<T> right, Func<T, T, int> compareFunc)
         {
             if (compareFunc == null)
@@ -134,7 +129,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Comparers
             return CompareDictionaryHelper(left, right, comparer.Compare);
         }
 
-        /// Main function for comparing 2 dictionaries.
         private static int CompareDictionaryHelper<T>(IDictionary<string, T> left, IDictionary<string, T> right, Func<T, T, int> compareFunc)
         {
             if (compareFunc == null)
@@ -185,22 +179,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Comparers
         /// <returns></returns>
         public static int CompareUri(Uri left, Uri right)
         {
-            int result = Uri.Compare(
-                left,
-                right,
-                UriComponents.Path,
-                UriFormat.SafeUnescaped,
-                StringComparison.Ordinal);
-
-            // Uri.Compare returns int value indicates lexical relationship between
-            // 2 Uris, can be any number. Just return 3 options 0/1/-1.
-            return result switch
+            if (CompareReference(left, right, out int compareResult))
             {
-                var x when x == 0 => 0,
-                var x when x > 0 => 1,
-                var x when x < 0 => -1,
-                _ => result
-            };
+                return compareResult;
+            }
+
+            return left.OriginalString.CompareTo(right.OriginalString);
         }
     }
 }

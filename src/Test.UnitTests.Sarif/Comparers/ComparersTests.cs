@@ -54,6 +54,7 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Comparers
         {
             IList<int> list1 = null;
             IList<int> list2 = null;
+
             ComparerHelper.CompareList(list1, list2).Should().Be(0);
             ComparerHelper.CompareList(list2, list1).Should().Be(0);
         }
@@ -63,6 +64,7 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Comparers
         {
             IList<int> list1 = null;
             IList<int> list2 = Enumerable.Range(-10, 20).ToList();
+
             ComparerHelper.CompareList(list1, list2).Should().Be(-1);
             ComparerHelper.CompareList(list2, list1).Should().Be(1);
         }
@@ -72,6 +74,7 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Comparers
         {
             IList<int> list1 = Enumerable.Range(0, 11).ToList();
             IList<int> list2 = Enumerable.Range(0, 10).ToList();
+
             ComparerHelper.CompareList(list1, list2).Should().Be(1);
             ComparerHelper.CompareList(list2, list1).Should().Be(-1);
         }
@@ -81,6 +84,7 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Comparers
         {
             IList<int> list1 = Enumerable.Range(0, 10).ToList();
             IList<int> list2 = Enumerable.Range(1, 10).ToList();
+
             ComparerHelper.CompareList(list1, list2).Should().Be(-1);
             ComparerHelper.CompareList(list2, list1).Should().Be(1);
         }
@@ -145,6 +149,7 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Comparers
         {
             IDictionary<string, string> list1 = null;
             IDictionary<string, string> list2 = null;
+
             ComparerHelper.CompareDictionary(list1, list2).Should().Be(0);
             ComparerHelper.CompareDictionary(list2, list1).Should().Be(0);
         }
@@ -153,8 +158,8 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Comparers
         public void CompareDictionary_CompareNullToNotNull_Tests()
         {
             IDictionary<string, string> list1 = null;
-            IDictionary<string, string> list2 = new Dictionary<string, string>()
-            { { "a", "a" } };
+            IDictionary<string, string> list2 = new Dictionary<string, string>() { { "a", "a" } };
+
             ComparerHelper.CompareDictionary(list1, list2).Should().Be(-1);
             ComparerHelper.CompareDictionary(list2, list1).Should().Be(1);
         }
@@ -162,10 +167,9 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Comparers
         [Fact]
         public void CompareDictionary_DifferentCount_Tests()
         {
-            IDictionary<string, string> list1 = new Dictionary<string, string>()
-            { { "a", "a" }, { "b", "b" } };
-            IDictionary<string, string> list2 = new Dictionary<string, string>()
-            { { "c", "c" } };
+            IDictionary<string, string> list1 = new Dictionary<string, string>() { { "a", "a" }, { "b", "b" } };
+            IDictionary<string, string> list2 = new Dictionary<string, string>() { { "c", "c" } };
+
             ComparerHelper.CompareDictionary(list1, list2).Should().Be(1);
             ComparerHelper.CompareDictionary(list2, list1).Should().Be(-1);
         }
@@ -173,10 +177,11 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Comparers
         [Fact]
         public void CompareDictionary_SameCountDifferentElement_Tests()
         {
-            IDictionary<string, string> list1 = new Dictionary<string, string>()
-            { { "a", "a" }, { "b", "b" } };
-            IDictionary<string, string> list2 = new Dictionary<string, string>()
-            { { "c", "c" }, { "d", "d" } };
+            IDictionary<string, string> list1 =
+                new Dictionary<string, string>() { { "a", "a" }, { "b", "b" } };
+            IDictionary<string, string> list2 =
+                new Dictionary<string, string>() { { "c", "c" }, { "d", "d" } };
+
             ComparerHelper.CompareDictionary(list1, list2).Should().Be(-1);
             ComparerHelper.CompareDictionary(list2, list1).Should().Be(1);
         }
@@ -248,6 +253,7 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Comparers
 
             rules1.Add(null);
             rules2.Add(null);
+
             ComparerHelper.CompareList(rules1, rules2, ReportingConfigurationComparer.Instance).Should().Be(0);
 
             rules1.Add(new ReportingConfiguration() { Rank = 26.648d });
@@ -255,7 +261,6 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Comparers
 
             ComparerHelper.CompareList(rules1, rules2, ReportingConfigurationComparer.Instance).Should().Be(-1);
             ComparerHelper.CompareList(rules2, rules1, ReportingConfigurationComparer.Instance).Should().Be(1);
-
 
             rules1.Insert(0, new ReportingConfiguration() { Level = FailureLevel.Error });
             rules2.Insert(0, new ReportingConfiguration() { Level = FailureLevel.Warning });
@@ -265,6 +270,7 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Comparers
 
             rules1.Insert(0, new ReportingConfiguration() { Enabled = false, Rank = 80d });
             rules2.Insert(0, new ReportingConfiguration() { Enabled = true, Rank = 80d });
+
             ComparerHelper.CompareList(rules1, rules2, ReportingConfigurationComparer.Instance).Should().Be(-1);
             ComparerHelper.CompareList(rules2, rules1, ReportingConfigurationComparer.Instance).Should().Be(1);
         }
@@ -277,6 +283,7 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Comparers
 
             list1.Add(null);
             list2.Add(null);
+
             ComparerHelper.CompareList(list1, list2, ToolComponentComparer.Instance).Should().Be(0);
 
             list1.Insert(0, new ToolComponent() { Guid = Guid.Empty.ToString() });
@@ -284,7 +291,6 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Comparers
 
             ComparerHelper.CompareList(list1, list2, ToolComponentComparer.Instance).Should().Be(-1);
             ComparerHelper.CompareList(list2, list1, ToolComponentComparer.Instance).Should().Be(1);
-
 
             list1.Insert(0, new ToolComponent() { Name = "scan tool" });
             list2.Insert(0, new ToolComponent() { Name = "code scan tool" });
@@ -349,6 +355,7 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Comparers
 
             rules1.Add(null);
             rules2.Add(null);
+
             ComparerHelper.CompareList(rules1, rules2, ReportingDescriptorComparer.Instance).Should().Be(0);
 
             rules1.Insert(0, new ReportingDescriptor() { Id = "TestRule1" });
@@ -356,7 +363,6 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Comparers
 
             ComparerHelper.CompareList(rules1, rules2, ReportingDescriptorComparer.Instance).Should().Be(-1);
             ComparerHelper.CompareList(rules2, rules1, ReportingDescriptorComparer.Instance).Should().Be(1);
-
 
             rules1.Insert(0, new ReportingDescriptor() { DeprecatedIds = new string[] { "OldRuleId3" }, Id = "TestRule1" });
             rules2.Insert(0, new ReportingDescriptor() { DeprecatedIds = new string[] { "OldRuleId2" }, Id = "TestRule1" });
@@ -421,6 +427,7 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Comparers
 
             regions1.Add(null);
             regions2.Add(null);
+
             ComparerHelper.CompareList(regions1, regions2, RegionComparer.Instance).Should().Be(0);
 
             regions1.Insert(0, new Region() { StartLine = 0, StartColumn = 0 });
@@ -466,7 +473,7 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Comparers
             ComparerHelper.CompareList(regions2, regions1, RegionComparer.Instance).Should().Be(1);
 
             regions1.Insert(0, new Region() { ByteOffset = 67, ByteLength = 9 });
-            regions2.Insert(0, new Region() { CharOffset = 67, ByteLength = 11 });
+            regions2.Insert(0, new Region() { ByteOffset = 67, ByteLength = 11 });
 
             ComparerHelper.CompareList(regions1, regions2, RegionComparer.Instance).Should().Be(-1);
             ComparerHelper.CompareList(regions2, regions1, RegionComparer.Instance).Should().Be(1);
@@ -480,6 +487,7 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Comparers
 
             artifacts1.Add(null);
             artifacts2.Add(null);
+
             ComparerHelper.CompareList(artifacts1, artifacts2, ArtifactComparer.Instance).Should().Be(0);
 
             artifacts1.Insert(0, new Artifact() { Description = new Message { Text = "Represents for an artifact" } });
@@ -563,6 +571,7 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Comparers
 
             locations1.Add(null);
             locations2.Add(null);
+
             ComparerHelper.CompareList(locations1, locations2, ThreadFlowLocationComparer.Instance).Should().Be(0);
 
             Location loc1 = new Location
@@ -638,6 +647,7 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Comparers
 
             runs1.Add(null);
             runs2.Add(null);
+
             ComparerHelper.CompareList(runs1, runs2, RunComparer.Instance).Should().Be(0);
 
             runs1.Insert(0, new Run() { Artifacts = new Artifact[] { new Artifact { Description = new Message { Text = "artifact 1" } } } });
@@ -663,6 +673,44 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Comparers
 
             ComparerHelper.CompareList(runs1, runs2, RunComparer.Instance).Should().Be(-1);
             ComparerHelper.CompareList(runs2, runs1, RunComparer.Instance).Should().Be(1);
+        }
+
+        [Fact]
+        public void ComparerHelp_CompareUir_Tests()
+        {
+            var testUris = new List<(Uri, int)>()
+            {
+                (null, -1),
+                (null, 0),
+                (new Uri(@"", UriKind.RelativeOrAbsolute), 1),
+                (new Uri(string.Empty, UriKind.RelativeOrAbsolute), 0),
+                (new Uri(@"file.ext", UriKind.RelativeOrAbsolute), 1),
+                (new Uri(@"C:\path\file.ext", UriKind.RelativeOrAbsolute), -1),
+                (new Uri(@"\\hostname\path\file.ext", UriKind.RelativeOrAbsolute), -1),
+                (new Uri(@"file:///C:/path/file.ext", UriKind.RelativeOrAbsolute), 1),
+                (new Uri(@"file.ext?some-query-string", UriKind.RelativeOrAbsolute), -1),
+                (new Uri(@"\\hostname\c:\path\file.ext", UriKind.RelativeOrAbsolute), -1),
+                (new Uri(@"/home/username/path/file.ext", UriKind.RelativeOrAbsolute), -1),
+                (new Uri(@"nfs://servername/folder/file.ext", UriKind.RelativeOrAbsolute), 1),
+                (new Uri(@"file://hostname/C:/path/file.ext", UriKind.RelativeOrAbsolute), -1),
+                (new Uri(@"file:///home/username/path/file.ext", UriKind.RelativeOrAbsolute), -1),
+                (new Uri(@"ftp://ftp.example.com/folder/file.ext", UriKind.RelativeOrAbsolute), 1),
+                (new Uri(@"smb://servername/Share/folder/file.ext", UriKind.RelativeOrAbsolute), 1),
+                (new Uri(@"dav://example.hostname.com/folder/file.ext", UriKind.RelativeOrAbsolute), -1),
+                (new Uri(@"file://hostname/home/username/path/file.ext", UriKind.RelativeOrAbsolute), 1),
+                (new Uri(@"ftp://username@ftp.example.com/folder/file.ext", UriKind.RelativeOrAbsolute), 1),
+                (new Uri(@"scheme://servername.example.com/folder/file.ext", UriKind.RelativeOrAbsolute), 1),
+                (new Uri(@"https://github.com/microsoft/sarif-sdk/file.ext", UriKind.RelativeOrAbsolute), -1),
+                (new Uri(@"ssh://username@servername.example.com/folder/file.ext", UriKind.RelativeOrAbsolute), 1),
+                (new Uri(@"scheme://username@servername.example.com/folder/file.ext", UriKind.RelativeOrAbsolute), -1),
+                (new Uri(@"https://github.com/microsoft/sarif-sdk/file.ext?some-query-string", UriKind.RelativeOrAbsolute), -1),
+            };
+
+            for (int i = 1; i < testUris.Count; i++)
+            {
+                int result = ComparerHelper.CompareUri(testUris[i].Item1, testUris[i - 1].Item1);
+                result.Should().Be(testUris[i].Item2);
+            }
         }
     }
 }
