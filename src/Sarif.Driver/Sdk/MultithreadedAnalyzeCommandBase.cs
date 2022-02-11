@@ -873,11 +873,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
             IAnalysisLogger logger = context.Logger;
 
-            int numberOfFiles = 1;
             if (_computeHashes)
             {
-                numberOfFiles = _hashToFilesMap[context.Hashes.Sha256].Count;
-                if (numberOfFiles > 1 && _analysisLoggerCache.ContainsKey(context.Hashes.Sha256))
+                if (_analysisLoggerCache.ContainsKey(context.Hashes.Sha256))
                 {
                     return context;
                 }
@@ -885,9 +883,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
             context.Logger.AnalyzingTarget(context);
 
-            if (_computeHashes && numberOfFiles > 1)
+            if (_computeHashes)
             {
-                _analysisLoggerCache[context.Hashes.Sha256] = logger;
+                if (!_analysisLoggerCache.TryAdd(context.Hashes.Sha256, logger))
+                {
+                    return context;
+                }
             }
 
             IEnumerable<Skimmer<TContext>> applicableSkimmers = DetermineApplicabilityForTarget(context, skimmers, disabledSkimmers);
