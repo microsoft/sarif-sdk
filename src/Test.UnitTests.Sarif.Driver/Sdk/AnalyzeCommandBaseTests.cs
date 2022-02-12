@@ -677,6 +677,53 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         }
 
         [Fact]
+        public void MultithreadedAnalyzeCommandBase_EndToEndMultithreadedAnalysis()
+        {
+            string specifier = "*.xyz";
+
+            int filesCount = 4;
+            var files = new List<string>();
+            for (int i = 0; i < filesCount; i++)
+            {
+                files.Add(Path.GetFullPath($@".\File{i}.txt"));
+            }
+
+            var mockStream = new Mock<Stream>();
+            mockStream.Setup(m => m.CanRead).Returns(true);
+            mockStream.Setup(m => m.CanSeek).Returns(true);
+            mockStream.Setup(m => m.ReadByte()).Returns('a');
+
+            var mockFileSystem = new Mock<IFileSystem>();
+            mockFileSystem.Setup(x => x.DirectoryExists(It.IsAny<string>())).Returns(true);
+            mockFileSystem.Setup(x => x.DirectoryGetFiles(It.IsAny<string>(), specifier)).Returns(files);
+            mockFileSystem.Setup(x => x.FileExists(It.Is<string>(s => s.EndsWith(specifier)))).Returns(true);
+            mockFileSystem.Setup(x => x.DirectoryEnumerateFiles(It.IsAny<string>(),
+                                                                It.IsAny<string>(),
+                                                                It.IsAny<SearchOption>())).Returns(files);
+            mockFileSystem.Setup(x => x.FileOpenRead(It.IsAny<string>())).Returns(mockStream.Object);
+
+
+            for (int i = 0; i < 2; i++)
+            {
+                var options = new TestAnalyzeOptions
+                {
+                    TargetFileSpecifiers = new [] { specifier},
+                    SarifOutputVersion = SarifVersion.Current,
+                    TestRuleBehaviors = TestRuleBehaviors.LogError,
+                    DataToInsert = new[] { OptionallyEmittedData.Hashes },
+                };
+
+                var command = new TestMultithreadedAnalyzeCommand(mockFileSystem.Object);
+                command.DefaultPluginAssemblies = new Assembly[] { this.GetType().Assembly };
+                int result = command.Run(options);
+
+                command.ExecutionException?.InnerException.Should().BeNull();
+
+                result.Should().Be(MultithreadedAnalyzeCommandBase<TestAnalysisContext, TestAnalyzeOptions>.SUCCESS);
+            }
+        }
+
+        [Fact]
         public void AnalyzeCommandBase_PersistsSarifOneZeroZero()
         {
             string fileName = GetThisTestAssemblyFilePath();

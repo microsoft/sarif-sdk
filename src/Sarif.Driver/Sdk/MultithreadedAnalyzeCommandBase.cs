@@ -478,7 +478,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                         TContext context = _fileContexts[index];
                         string localPath = context.TargetUri.LocalPath;
 
-                        HashData hashData = HashUtilities.ComputeHashes(localPath);
+                        HashData hashData = HashUtilities.ComputeHashes(localPath, FileSystem);
 
                         if (!_hashToFilesMap.TryGetValue(hashData.Sha256, out List<string> paths))
                         {
@@ -592,7 +592,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
             if (filePath != null)
             {
-                context.TargetUri = new Uri(filePath);
+                context.TargetUri = new Uri(filePath, UriKind.RelativeOrAbsolute);
             }
 
             return context;

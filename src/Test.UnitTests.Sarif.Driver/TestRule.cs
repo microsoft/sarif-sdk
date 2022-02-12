@@ -7,6 +7,7 @@ using System.Composition;
 using System.IO;
 using System.Reflection;
 using System.Resources;
+using System.Threading;
 
 using FluentAssertions;
 
@@ -169,13 +170,20 @@ namespace Microsoft.CodeAnalysis.Sarif
 
                 case TestRuleBehaviors.LogError:
                 {
-                    context.Logger.Log(this,
-                        new Result
-                        {
-                            RuleId = this.Id,
-                            Level = FailureLevel.Error,
-                            Message = new Message { Text = "Simple test rule message." }
-                        });
+                    uint errorsCount = context.Policy.GetProperty(ErrorsCount);
+
+                    for (uint i = 0; i < errorsCount; i++)
+                    {
+                        context.Logger.Log(this,
+                            new Result
+                            {
+                                RuleId = this.Id,
+                                Level = FailureLevel.Error,
+                                Message = new Message { Text = "Simple test rule message." }
+                            });
+
+                        Thread.Sleep(5);
+                    }
                     break;
                 }
 
@@ -245,10 +253,14 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         public IEnumerable<IOption> GetOptions()
         {
-            return new IOption[] { Behaviors, UnusedOption };
+            return new IOption[] { Behaviors, UnusedOption, ErrorsCount };
         }
 
         private const string AnalyzerName = TestRuleId + "." + nameof(TestRule);
+
+        public static PerLanguageOption<uint> ErrorsCount { get; } =
+            new PerLanguageOption<uint>(
+                AnalyzerName, nameof(ErrorsCount), defaultValue: () => { return 1; });
 
         public static PerLanguageOption<TestRuleBehaviors> Behaviors { get; } =
             new PerLanguageOption<TestRuleBehaviors>(
