@@ -483,6 +483,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             testCases.AddRange(testCasesWithMixSlash);
 
             var sb = new StringBuilder();
+
             foreach ((string, string) testCase in testCases)
             {
                 Uri uri = testCase.Item1 != null ? new Uri(testCase.Item1, UriKind.RelativeOrAbsolute) : null;

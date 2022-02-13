@@ -24,12 +24,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
         // test setup
 
-        private static readonly string currentDirectory = Directory.GetCurrentDirectory();
-        private static readonly string LogFileDirectory = Path.Combine(currentDirectory, "John", "Sarif logs");
+        private static readonly string CurrentDirectory = Directory.GetCurrentDirectory();
+        private static readonly string LogFileDirectory = Path.Combine(CurrentDirectory, "John", "Sarif logs");
         private static readonly string LogFileName = "example.sarif";
-        private static readonly string BaseFileDirectory = Path.Combine(currentDirectory, "Scan Results", "First Run");
+        private static readonly string BaseFileDirectory = Path.Combine(CurrentDirectory, "Scan Results", "First Run");
         private static readonly string BaselineFileName = "baseline.sarif";
-        private static readonly string SchemaFilePath = Path.Combine(currentDirectory, "schemas", "SimpleSchemaForTest.json");
+        private static readonly string SchemaFilePath = Path.Combine(CurrentDirectory, "schemas", "SimpleSchemaForTest.json");
 
         private const string SchemaFileContents =
 @"{

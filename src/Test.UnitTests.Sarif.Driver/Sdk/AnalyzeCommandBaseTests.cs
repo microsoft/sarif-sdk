@@ -934,44 +934,76 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         [Fact]
         public void AnalyzeCommandBase_GetFileNameFromUriWorks()
         {
-            var testCases = new Tuple<string, string>[]
-            {
-                new Tuple<string, string>(null, null),
-                new Tuple<string, string>(@"file.txt", "file.txt"),
-                new Tuple<string, string>(@"file://directory/file.txt", "file.txt"),
-                new Tuple<string, string>(@"/file.txt", "file.txt"),
-                new Tuple<string, string>(@"directory/file.txt", "file.txt"),
+            const string expectedResult = "file.ext";
 
-                new Tuple<string, string>(@"scheme://servername.example.com/folder/file.txt", "file.txt"),
-                new Tuple<string, string>(@"scheme://username@servername.example.com/folder/file.txt", "file.txt"),
-                new Tuple<string, string>(@"ssh://username@servername.example.com/folder/file.txt", "file.txt"),
-                new Tuple<string, string>(@"ftp://username@ftp.example.com/folder/file.txt", "file.txt"),
-                new Tuple<string, string>(@"ftp://ftp.example.com/folder/file.txt", "file.txt"),
-                new Tuple<string, string>(@"smb://servername/Share/folder/file.txt", "file.txt"),
-                new Tuple<string, string>(@"dav://example.hostname.com/folder/file.txt", "file.txt"),
-                new Tuple<string, string>(@"nfs://servername/folder/file.txt", "file.txt"),
+            var testCases = new List<(string, string)>
+            {
+                (null, null),
+                (@"", string.Empty),
+                (@"file.ext", expectedResult),
+                (@"C:\path\file.ext", expectedResult),
+                (@"\\hostname\path\file.ext", expectedResult),
+                (@"file:///C:/path/file.ext", expectedResult),
+                (@"\\hostname\c:\path\file.ext", expectedResult),
+                (@"/home/username/path/file.ext", expectedResult),
+                (@"nfs://servername/folder/file.ext", expectedResult),
+                (@"file://hostname/C:/path/file.ext", expectedResult),
+                (@"file:///home/username/path/file.ext", expectedResult),
+                (@"ftp://ftp.example.com/folder/file.ext", expectedResult),
+                (@"smb://servername/Share/folder/file.ext", expectedResult),
+                (@"dav://example.hostname.com/folder/file.ext", expectedResult),
+                (@"file://hostname/home/username/path/file.ext", expectedResult),
+                (@"ftp://username@ftp.example.com/folder/file.ext", expectedResult),
+                (@"scheme://servername.example.com/folder/file.ext", expectedResult),
+                (@"https://github.com/microsoft/sarif-sdk/file.ext", expectedResult),
+                (@"ssh://username@servername.example.com/folder/file.ext", expectedResult),
+                (@"scheme://username@servername.example.com/folder/file.ext", expectedResult),
             };
 
-            if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+            var testCasesWithSlashReplaceable = new List<(string, string)>
             {
-                testCases.Append(new Tuple<string, string>(@".\file.txt", "file.txt"));
-                testCases.Append(new Tuple<string, string>(@"..\file.txt", "file.txt"));
-                testCases.Append(new Tuple<string, string>(@"..\directory\file.txt", "file.txt"));
-                testCases.Append(new Tuple<string, string>(@".\..\directory\file.txt", "file.txt"));
-                testCases.Append(new Tuple<string, string>(@"c:\directory\file.txt", "file.txt"));
-                testCases.Append(new Tuple<string, string>(@"\\computer\computer\file.txt", "file.txt"));
+                (@"\", string.Empty),
+                (@".\", string.Empty),
+                (@"..\", string.Empty),
+                (@"path\", string.Empty),
+                (@"\path\", string.Empty),
+                (@".\path\", string.Empty),
+                (@"..\path\", string.Empty),
+                (@"\file.ext", expectedResult),
+                (@".\file.ext", expectedResult),
+                (@"..\file.ext", expectedResult),
+                (@"path\file.ext", expectedResult),
+                (@"\path\file.ext", expectedResult),
+                (@"..\path\file.ext", expectedResult),
+                (@".\..\path\file.ext", expectedResult),
+            };
+
+            if (!RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+            {
+                testCases.AddRange(testCasesWithSlashReplaceable);
             }
             else
             {
-                testCases.Append(new Tuple<string, string>(@"./file.txt", "file.txt"));
-                testCases.Append(new Tuple<string, string>(@"../file.txt", "file.txt"));
-                testCases.Append(new Tuple<string, string>(@"../directory/file.txt", "file.txt"));
-                testCases.Append(new Tuple<string, string>(@"./../directory/file.txt", "file.txt"));
-                testCases.Append(new Tuple<string, string>(@"/home/user/directory/file.txt", "file.txt"));
+                testCases.AddRange(testCasesWithSlashReplaceable.Select(t => (t.Item1.Replace(@"\", @"/"), t.Item2)));
             }
 
+            var testCasesWithMixSlash = new List<(string, string)>
+            {
+                (@"C:/path\file.ext", expectedResult),
+                (@"C:\path/file.ext", expectedResult),
+                (@"\\hostname/path\file.ext", expectedResult),
+                (@"file:///C:\path/file.ext", expectedResult),
+                (@"\\hostname/c:\path\file.ext", expectedResult),
+                (@"\home\username/path/file.ext", expectedResult),
+                (@"nfs://servername/folder\file.ext", expectedResult),
+                (@"https://github.com/microsoft/sarif-sdk\file.ext", expectedResult),
+            };
+
+            testCases.AddRange(testCasesWithMixSlash);
+
             var sb = new StringBuilder();
-            foreach (Tuple<string, string> testCase in testCases)
+
+            foreach ((string, string) testCase in testCases)
             {
                 Uri uri = testCase.Item1 != null ? new Uri(testCase.Item1, UriKind.RelativeOrAbsolute) : null;
                 string expectedFileName = testCase.Item2;
@@ -1430,8 +1462,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             "Review.2.of.2.dll"
         };
 
+        private static readonly string rootDir = $"{Environment.CurrentDirectory}{Path.DirectorySeparatorChar}";
+
         private static readonly IList<string> ComprehensiveKindAndLevelsByFilePath = new List<string>
         {
+            
+
             // Every one of these files will be regarded as identical in content by level/kind. So every file
             // with 'Error' as a prefix should produce an error result, whether using results caching or not.
             // We distinguish file names as this is required in the actual scenario, i.e., when 'replaying'
@@ -1440,26 +1476,26 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             // of files tend to have the same name but appear in different directories). For a source code scanner,
             // however, two files in the same directory may hash the same (an empty file that produces no scan
             // results is an obvious case).
-            $@"{Environment.CurrentDirectory}{Path.DirectorySeparatorChar}Error.1.of.5.cpp",
-            $@"{Environment.CurrentDirectory}{Path.DirectorySeparatorChar}Error.2.of.5.cs",
-            $@"{Environment.CurrentDirectory}{Path.DirectorySeparatorChar}Error.3.of.5.exe",
-            $@"{Environment.CurrentDirectory}{Path.DirectorySeparatorChar}Error.4.of.5.h",
-            $@"{Environment.CurrentDirectory}{Path.DirectorySeparatorChar}Error.5.of.5.sys",
-            $@"{Environment.CurrentDirectory}{Path.DirectorySeparatorChar}Warning.1.of.2.java",
-            $@"{Environment.CurrentDirectory}{Path.DirectorySeparatorChar}Warning.2.of.2.cs",
-            $@"{Environment.CurrentDirectory}{Path.DirectorySeparatorChar}Note.1.of.3.dll",
-            $@"{Environment.CurrentDirectory}{Path.DirectorySeparatorChar}Note.2.of.3.exe",
-            $@"{Environment.CurrentDirectory}{Path.DirectorySeparatorChar}Note.3.of.3jar",
-            $@"{Environment.CurrentDirectory}{Path.DirectorySeparatorChar}Pass.1.of.4.cs",
-            $@"{Environment.CurrentDirectory}{Path.DirectorySeparatorChar}Pass.2.of.4.cpp",
-            $@"{Environment.CurrentDirectory}{Path.DirectorySeparatorChar}Pass.3.of.4.exe",
-            $@"{Environment.CurrentDirectory}{Path.DirectorySeparatorChar}Pass.4.of.4.dll",
-            $@"{Environment.CurrentDirectory}{Path.DirectorySeparatorChar}NotApplicable.1.of.2.js",
-            $@"{Environment.CurrentDirectory}{Path.DirectorySeparatorChar}NotApplicable.2.of.2.exe",
-            $@"{Environment.CurrentDirectory}{Path.DirectorySeparatorChar}Informational.1.of.1.sys",
-            $@"{Environment.CurrentDirectory}{Path.DirectorySeparatorChar}Open.1.of.1.cab",
-            $@"{Environment.CurrentDirectory}{Path.DirectorySeparatorChar}Review.1.of.2.txt",
-            $@"{Environment.CurrentDirectory}{Path.DirectorySeparatorChar}Review.2.of.2.dll"
+            $"{rootDir}Error.1.of.5.cpp",
+            $"{rootDir}Error.2.of.5.cs",
+            $"{rootDir}Error.3.of.5.exe",
+            $"{rootDir}Error.4.of.5.h",
+            $"{rootDir}Error.5.of.5.sys",
+            $"{rootDir}Warning.1.of.2.java",
+            $"{rootDir}Warning.2.of.2.cs",
+            $"{rootDir}Note.1.of.3.dll",
+            $"{rootDir}Note.2.of.3.exe",
+            $"{rootDir}Note.3.of.3jar",
+            $"{rootDir}Pass.1.of.4.cs",
+            $"{rootDir}Pass.2.of.4.cpp",
+            $"{rootDir}Pass.3.of.4.exe",
+            $"{rootDir}Pass.4.of.4.dll",
+            $"{rootDir}NotApplicable.1.of.2.js",
+            $"{rootDir}NotApplicable.2.of.2.exe",
+            $"{rootDir}Informational.1.of.1.sys",
+            $"{rootDir}Open.1.of.1.cab",
+            $"{rootDir}Review.1.of.2.txt",
+            $"{rootDir}Review.2.of.2.dll"
         };
 
         private static void RunResultsCachingTestCase(ResultsCachingTestCase testCase,

@@ -371,8 +371,8 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             expectedSarif = expectedSarif ?? "{}";
 
-            actualSarif = actualSarif.UseLinuxNewline();
-            expectedSarif = expectedSarif.UseLinuxNewline();
+            actualSarif = actualSarif.NormalizeToLinuxNewlines();
+            expectedSarif = expectedSarif.NormalizeToLinuxNewlines();
 
             JToken expectedToken = JsonConvert.DeserializeObject<JToken>(expectedSarif);
 

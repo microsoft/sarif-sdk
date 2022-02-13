@@ -57,7 +57,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         protected override string ConstructTestOutputFromInputResource(string inputResourceName, object parameter)
         {
             string InputFolderPath = Directory.GetCurrentDirectory();
-            string targetFileSpecifier = !inputResourceName.EndsWith("FileNameOnlyWithoutPath.sarif")
+            string targetFileSpecifier =
+                !inputResourceName.EndsWith("FileNameOnlyWithoutPath.sarif", StringComparison.Ordinal)
                 ? Path.Combine(InputFolderPath, inputResourceName)
                 : inputResourceName;
             string outputFileName = Guid.NewGuid().ToString() + SarifConstants.SarifFileExtension;
@@ -87,7 +88,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
         private void PrepareFileSystemMock(string inputResourceName, string inputFolderPath, string outputFilePath, Mock<IFileSystem> mockFileSystem)
         {
-            if (inputResourceName.EndsWith("NoInputFiles.sarif"))
+            if (inputResourceName.EndsWith("NoInputFiles.sarif", StringComparison.Ordinal))
             {
                 // We mock the file system to fake out the read operations.
                 mockFileSystem.Setup(x => x.FileExists(outputFilePath)).Returns(false);
@@ -101,7 +102,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 return;
             }
 
-            if (inputResourceName.EndsWith("DuplicatedResults.sarif") || inputResourceName.EndsWith("FileNameOnlyWithoutPath.sarif"))
+            if (inputResourceName.EndsWith("DuplicatedResults.sarif", StringComparison.Ordinal) ||
+                inputResourceName.EndsWith("FileNameOnlyWithoutPath.sarif", StringComparison.Ordinal))
             {
                 // We mock the file system to fake out the read operations.
                 mockFileSystem.Setup(x => x.FileExists(outputFilePath)).Returns(true);

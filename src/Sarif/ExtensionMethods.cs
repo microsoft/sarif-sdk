@@ -144,7 +144,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return true;
         }
 
-        public static string UseLinuxNewline(this string input)
+        public static string NormalizeToLinuxNewlines(this string input)
         {
             return input?.Replace(@"\r\n", @"\n");
         }
