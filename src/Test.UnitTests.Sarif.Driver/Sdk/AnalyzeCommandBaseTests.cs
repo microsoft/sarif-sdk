@@ -661,7 +661,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
             // As configured by injected TestRuleBehaviors, we should
             // see an error per scan target (one file in this case).
-            resultCount.Should().Be(1);
+            resultCount.Should().Be((int)TestRule.ErrorsCount.DefaultValue());
             run.Results[0].Kind.Should().Be(ResultKind.Fail);
 
             toolNotificationCount.Should().Be(0);
@@ -681,7 +681,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         {
             string specifier = "*.xyz";
 
-            int filesCount = 4;
+            int filesCount = 10;
             var files = new List<string>();
             for (int i = 0; i < filesCount; i++)
             {
@@ -702,8 +702,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                                                                 It.IsAny<SearchOption>())).Returns(files);
             mockFileSystem.Setup(x => x.FileOpenRead(It.IsAny<string>())).Returns(mockStream.Object);
 
-
-            for (int i = 0; i < 2; i++)
+            for (int i = 0; i < 100; i++)
             {
                 var options = new TestAnalyzeOptions
                 {
@@ -714,12 +713,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 };
 
                 var command = new TestMultithreadedAnalyzeCommand(mockFileSystem.Object);
+                TestMultithreadedAnalyzeCommand.s_numberOfThreadsForTesting = 10;
                 command.DefaultPluginAssemblies = new Assembly[] { this.GetType().Assembly };
+                
                 int result = command.Run(options);
 
-                command.ExecutionException?.InnerException.Should().BeNull();
+                command.ExecutionException?.InnerException.Should().BeNull($"Iteration: {i}, Seed: {TestRule.s_seed}");
 
-                result.Should().Be(MultithreadedAnalyzeCommandBase<TestAnalysisContext, TestAnalyzeOptions>.SUCCESS);
+                result.Should().Be(CommandBase.SUCCESS, $"Iteration: {i}, Seed: {TestRule.s_seed}");
             }
         }
 
@@ -786,7 +787,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
             // As configured by the inject TestRuleBehaviors value, we should see
             // an error for every scan target (of which there is one file in this test).
-            resultCount.Should().Be(1);
+            resultCount.Should().Be((int)TestRule.ErrorsCount.DefaultValue());
             run.Results[0].Level.Should().Be(FailureLevel.Error);
 
             toolNotificationCount.Should().Be(0);
@@ -821,8 +822,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                     (configurationNotification) => { configurationNotificationCount++; });
 
                 // As configured by context, we should see a single error raised.
-                resultCount.Should().Be(1);
-                run.Results.Count((result) => result.Level == FailureLevel.Error).Should().Be(1);
+                resultCount.Should().Be((int)TestRule.ErrorsCount.DefaultValue());
+                run.Results.Count((result) => result.Level == FailureLevel.Error).Should().Be((int)TestRule.ErrorsCount.DefaultValue());
 
                 toolNotificationCount.Should().Be(0);
                 configurationNotificationCount.Should().Be(0);
@@ -1824,7 +1825,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
             // As configured by injected TestRuleBehaviors, we should
             // see an error per scan target (one file in this case).
-            resultCount.Should().Be(1);
+            resultCount.Should().Be((int)TestRule.ErrorsCount.DefaultValue());
             run.Results[0].Kind.Should().Be(ResultKind.Fail);
 
             toolNotificationCount.Should().Be(0);

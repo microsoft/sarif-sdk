@@ -71,7 +71,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         [SuppressMessage("Microsoft.Security.Cryptography", "CA5350:MD5CannotBeUsed")]
         public static HashData ComputeHashes(string fileName, IFileSystem fileSystem = null)
         {
-            fileSystem ??= Sarif.FileSystem.Instance;
+            fileSystem ??= FileSystem;
             try
             {
                 using (Stream stream = fileSystem.FileOpenRead(fileName))

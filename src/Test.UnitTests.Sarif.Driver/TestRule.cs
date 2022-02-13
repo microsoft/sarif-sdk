@@ -23,6 +23,9 @@ namespace Microsoft.CodeAnalysis.Sarif
     [Export(typeof(ReportingDescriptor)), Export(typeof(IOptionsProvider)), Export(typeof(Skimmer<TestAnalysisContext>))]
     internal class TestRule : TestRuleBase, IOptionsProvider
     {
+        internal static int s_seed = (int)DateTime.UtcNow.Ticks;
+        internal static Random s_random = new Random(s_seed);
+
         [ThreadStatic]
         internal static TestRuleBehaviors s_testRuleBehaviors;
 
@@ -182,7 +185,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                                 Message = new Message { Text = "Simple test rule message." }
                             });
 
-                        Thread.Sleep(5);
+                        Thread.Sleep(s_random.Next(0, 10));
                     }
                     break;
                 }
@@ -260,7 +263,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         public static PerLanguageOption<uint> ErrorsCount { get; } =
             new PerLanguageOption<uint>(
-                AnalyzerName, nameof(ErrorsCount), defaultValue: () => { return 1; });
+                AnalyzerName, nameof(ErrorsCount), defaultValue: () => { return 15; });
 
         public static PerLanguageOption<TestRuleBehaviors> Behaviors { get; } =
             new PerLanguageOption<TestRuleBehaviors>(
