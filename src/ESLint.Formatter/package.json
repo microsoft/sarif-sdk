@@ -31,7 +31,8 @@
   "dependencies": {
     "jschardet": "latest",
     "lodash": "^4.17.14",
-    "utf8": "^3.0.0"
+    "utf8": "^3.0.0",
+    "remove-markdown": "^0.3.0"
   },
   "devDependencies": {
     "chai": "^4.2.0",

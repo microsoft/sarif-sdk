@@ -5,11 +5,12 @@
 
 "use strict";
 
-const lodash = require("lodash");
 const fs = require("fs");
-const utf8 = require("utf8");
-const jschardet = require("jschardet");
 const url = require('url');
+const utf8 = require("utf8");
+const lodash = require("lodash");
+const jschardet = require("jschardet");
+const removeMarkdown = require('remove-markdown');
 
 //------------------------------------------------------------------------------
 // Helper Functions
@@ -191,7 +192,7 @@ module.exports = function (results, data) {
                                 };
                                 if (meta.docs.description) {
                                     sarifRules[message.ruleId].shortDescription = {
-                                        text: formatRuleText(meta.docs.description)
+                                        text: formatRuleText(removeMarkdown(meta.docs.description))
                                     };
                                     sarifRules[message.ruleId].help = {
                                         text: formatRuleText(meta.docs.description)

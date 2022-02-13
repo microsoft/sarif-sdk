@@ -398,8 +398,6 @@ describe("formatter:sarif", () => {
     });
 });
 
-
-
 describe("formatter:sarif", () => {
     describe("when passed one message and one suppressedMessage", () => {
         const code = [{
@@ -748,6 +746,60 @@ describe("formatter:sarif", () => {
             assert.isUndefined(log.runs[0].results[0].locations[0].physicalLocation.region.snippet);
         });
     });
+
+    describe("when passed a rule with markdown style description", () => {
+        const ruleid = "custom-rule-markdown-description";
+
+        rules[ruleid] = {
+            type: "suggestion",
+            docs: {
+                description: "# This is a heading\n\nThis is a paragraph with [a link](http://www.example.com/) in it.",
+                category: "Possible Errors"
+            }
+        };
+        const code = [{
+            filePath: sourceFilePath1,
+            messages: [{
+                message: "Custom error.",
+                ruleId: ruleid,
+                line: 42,
+                column: 15,
+                endLine: 42,
+                endColumn: 25
+            }],
+            suppressedMessages: []
+        }];
+        it("should return a log with rule which shortDescription is in plain text", () => {
+            const log = JSON.parse(formatter(code, { rulesMeta: rules }));
+            const rule = rules[ruleid];
+
+            assert.lengthOf(log.runs[0].artifacts, 1);
+            assert.lengthOf(log.runs[0].results, 1);
+
+            assert.strictEqual(log.runs[0].tool.driver.rules[0].id, ruleid);
+
+            assert(log.runs[0].artifacts[0].location.uri.startsWith(uriPrefix));
+            assert(log.runs[0].artifacts[0].location.uri.endsWith(sourceFilePath1));
+
+            assert.strictEqual(log.runs[0].tool.driver.rules[0].id, ruleid);
+            assert.strictEqual(log.runs[0].tool.driver.rules[0].shortDescription.text, "This is a heading\n\nThis is a paragraph with a link in it.");
+            assert.strictEqual(log.runs[0].tool.driver.rules[0].help.text, rule.docs.description);
+            assert.strictEqual(log.runs[0].tool.driver.rules[0].helpUri, rule.docs.url);
+            assert.strictEqual(log.runs[0].tool.driver.rules[0].properties.category, rule.docs.category);
+
+            assert.strictEqual(log.runs[0].results[0].ruleId, ruleid);
+            assert.strictEqual(log.runs[0].results[0].level, "warning");
+            assert.strictEqual(log.runs[0].results[0].message.text, "Custom error.");
+            assert(log.runs[0].results[0].locations[0].physicalLocation.artifactLocation.uri.startsWith(uriPrefix));
+            assert(log.runs[0].results[0].locations[0].physicalLocation.artifactLocation.uri.endsWith(sourceFilePath1));
+
+            assert.strictEqual(log.runs[0].results[0].locations[0].physicalLocation.region.startLine, 42);
+            assert.strictEqual(log.runs[0].results[0].locations[0].physicalLocation.region.startColumn, 15);
+            assert.strictEqual(log.runs[0].results[0].locations[0].physicalLocation.region.endLine, 42);
+            assert.strictEqual(log.runs[0].results[0].locations[0].physicalLocation.region.endColumn, 25);
+            assert.isUndefined(log.runs[0].results[0].locations[0].physicalLocation.region.snippet);
+        });
+    });
 });
 
 describe("formatter:formatRuleText", () => {
@@ -756,95 +808,41 @@ describe("formatter:formatRuleText", () => {
         it("test cases", () => {
             var input; // undefined
             var text = formatRuleText(input);
-            assert.isUndefined(input);
             assert.isUndefined(text);
 
             input = NaN;
             text = formatRuleText(input);
-            assert.isNaN(input);
             assert.isNaN(text);
 
             input = null;
             text = formatRuleText(input);
-            assert.isNull(input);
             assert.isNull(text);
 
-            input = "";
-            text = formatRuleText(input);
-            assert.isEmpty(input);
-            assert.isEmpty(text);
+            const testCases = [
+                { input: "", expected: "" },
+                { input: ".", expected: "." },
+                { input: "!", expected: "!." },
+                { input: "A", expected: "A." },
+                { input: "%^&", expected: "%^&." },
+                { input: "Abc.", expected: "Abc." },
+                { input: ".abC", expected: ".abC." },
+                { input: "AAAA", expected: "AAAA." },
+                { input: "aaaaa", expected: "Aaaaa." },
+                { input: "a b c", expected: "A b c." },
+                { input: "'abc.'", expected: "'abc.'." },
+                { input: "      ", expected: "      " },
+                { input: "......", expected: "......" },
+                { input: "   a b c   ", expected: "A b c." },
+                { input: "     a      ", expected: "A." },
+                { input: 0, expected: 0 },
+                { input: -1, expected: -1 },
+                { input: false, expected: false },
+                { input: true, expected: true },
+            ];
 
-            input = "      ";
-            text = formatRuleText(input);
-            assert.strictEqual(input, text);
-
-            input = ".";
-            text = formatRuleText(input);
-            assert.strictEqual(input, text);
-
-            input = "A";
-            text = formatRuleText(input);
-            assert.strictEqual(text, "A.");
-
-            input = "!";
-            text = formatRuleText(input);
-            assert.strictEqual(text, "!.");
-
-            input = "Abc.";
-            text = formatRuleText(input);
-            assert.strictEqual(input, text);
-
-            input = "'abc.'";
-            text = formatRuleText(input);
-            assert.strictEqual(text, "'abc.'.");
-
-            input = "a b c";
-            text = formatRuleText(input);
-            assert.strictEqual(text, "A b c.");
-
-            input = "   a b c   ";
-            text = formatRuleText(input);
-            assert.strictEqual(text, "A b c.");
-
-            input = "     a      ";
-            text = formatRuleText(input);
-            assert.strictEqual(text, "A.");
-
-            input = "aaaaa";
-            text = formatRuleText(input);
-            assert.strictEqual(text, "Aaaaa.");
-
-            input = "AAAA";
-            text = formatRuleText(input);
-            assert.strictEqual(text, "AAAA.");
-
-            input = ".....";
-            text = formatRuleText(input);
-            assert.strictEqual(text, ".....");
-
-            input = ".abC";
-            text = formatRuleText(input);
-            assert.strictEqual(text, ".abC.");
-
-            input = "%^&";
-            text = formatRuleText(input);
-            assert.strictEqual(text, "%^&.");
-
-            input = 0;
-            text = formatRuleText(input);
-            assert.strictEqual(text, input);
-
-            input = 1;
-            text = formatRuleText(input);
-            assert.strictEqual(text, input);
-
-            input = false;
-            text = formatRuleText(input);
-            assert.strictEqual(text, input);
-
-            input = true;
-            text = formatRuleText(input);
-            assert.strictEqual(text, input);
+            for (const test of testCases) {
+                assert.strictEqual(test.expected, formatRuleText(test.input));
+            }
         });
     });
 });
