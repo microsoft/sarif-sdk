@@ -39,7 +39,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         private OptionallyEmittedData _dataToInsert;
         private Channel<int> _resultsWritingChannel;
         private Channel<int> _fileEnumerationChannel;
-        private Dictionary<string, List<string>> _hashToFilesMap;
         private IDictionary<string, HashData> _pathToHashDataMap;
         private ConcurrentDictionary<int, TContext> _fileContexts;
 
@@ -470,23 +469,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 {
                     if (_computeHashes)
                     {
-                        if (_hashToFilesMap == null)
-                        {
-                            _hashToFilesMap = new Dictionary<string, List<string>>();
-                        }
-
                         TContext context = _fileContexts[index];
                         string localPath = context.TargetUri.LocalPath;
 
                         HashData hashData = HashUtilities.ComputeHashes(localPath);
 
-                        if (!_hashToFilesMap.TryGetValue(hashData.Sha256, out List<string> paths))
-                        {
-                            paths = new List<string>();
-                            _hashToFilesMap[hashData.Sha256] = paths;
-                        }
-
-                        paths.Add(localPath);
                         context.Hashes = hashData;
 
                         if (_pathToHashDataMap != null && !_pathToHashDataMap.ContainsKey(localPath))

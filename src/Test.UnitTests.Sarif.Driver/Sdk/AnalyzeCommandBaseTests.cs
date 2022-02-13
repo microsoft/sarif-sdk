@@ -1370,7 +1370,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                                            generateSameOutput: false,
                                            expectedResultCode: 0,
                                            expectedResultCount: 7,
-                                           expectedCacheSize: 0);
+                                           expectedCacheSize: 20);
         }
 
         private static readonly IList<string> ComprehensiveKindAndLevelsByFileName = new List<string>
