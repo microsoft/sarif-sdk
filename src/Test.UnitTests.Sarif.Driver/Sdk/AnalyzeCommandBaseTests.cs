@@ -941,13 +941,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 (null, null),
                 (@"", string.Empty),
                 (@"file.ext", expectedResult),
-                (@"C:\path\file.ext", expectedResult),
-                (@"\\hostname\path\file.ext", expectedResult),
-                (@"file:///C:/path/file.ext", expectedResult),
-                (@"\\hostname\c:\path\file.ext", expectedResult),
                 (@"/home/username/path/file.ext", expectedResult),
                 (@"nfs://servername/folder/file.ext", expectedResult),
-                (@"file://hostname/C:/path/file.ext", expectedResult),
                 (@"file:///home/username/path/file.ext", expectedResult),
                 (@"ftp://ftp.example.com/folder/file.ext", expectedResult),
                 (@"smb://servername/Share/folder/file.ext", expectedResult),
@@ -978,28 +973,30 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 (@".\..\path\file.ext", expectedResult),
             };
 
-            if (!RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+            var testCasesWindowsOnly = new List<(string, string)>
+            {
+                (@"C:\path\file.ext", expectedResult),
+                (@"C:/path\file.ext", expectedResult),
+                (@"C:\path/file.ext", expectedResult),
+                (@"\\hostname\path\file.ext", expectedResult),
+                (@"\\hostname/path\file.ext", expectedResult),
+                (@"file:///C:/path/file.ext", expectedResult),
+                (@"file:///C:\path/file.ext", expectedResult),
+                (@"\\hostname\c:\path\file.ext", expectedResult),
+                (@"\\hostname/c:\path\file.ext", expectedResult),
+                (@"nfs://servername/folder\file.ext", expectedResult),
+                (@"file://hostname/C:/path/file.ext", expectedResult),
+            };
+
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
             {
                 testCases.AddRange(testCasesWithSlashReplaceable);
+                testCases.AddRange(testCasesWindowsOnly);
             }
             else
             {
                 testCases.AddRange(testCasesWithSlashReplaceable.Select(t => (t.Item1.Replace(@"\", @"/"), t.Item2)));
             }
-
-            var testCasesWithMixSlash = new List<(string, string)>
-            {
-                (@"C:/path\file.ext", expectedResult),
-                (@"C:\path/file.ext", expectedResult),
-                (@"\\hostname/path\file.ext", expectedResult),
-                (@"file:///C:\path/file.ext", expectedResult),
-                (@"\\hostname/c:\path\file.ext", expectedResult),
-                (@"\home\username/path/file.ext", expectedResult),
-                (@"nfs://servername/folder\file.ext", expectedResult),
-                (@"https://github.com/microsoft/sarif-sdk\file.ext", expectedResult),
-            };
-
-            testCases.AddRange(testCasesWithMixSlash);
 
             var sb = new StringBuilder();
 
