@@ -72,6 +72,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         public static HashData ComputeHashes(string fileName, IFileSystem fileSystem = null)
         {
             fileSystem ??= FileSystem;
+
             try
             {
                 using (Stream stream = fileSystem.FileOpenRead(fileName))
