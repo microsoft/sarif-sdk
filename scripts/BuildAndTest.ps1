@@ -82,6 +82,7 @@ param(
 Set-StrictMode -Version Latest
 $ErrorActionPreference = "Stop"
 $InformationPreference = "Continue"
+$NonWindowsOptions = ""
 
 $ScriptName = $([io.Path]::GetFileNameWithoutExtension($PSCommandPath))
 
@@ -218,12 +219,10 @@ if (-not $NoBuild) {
 }
 
 if (-not $NoTest) {
-    if ($ENV:OS) {
-        & dotnet test $SourceRoot\$SolutionFile --no-build --configuration $Configuration
+    if (-not $ENV:OS) {
+        $NonWindowsOptions = "--filter WindowsOnly!=true"
     }
-    else {
-        & dotnet test $SourceRoot\$SolutionFile --no-build --configuration $Configuration --filter WindowsOnly!=true
-    }
+    & dotnet test $SourceRoot\$SolutionFile --no-build --configuration $Configuration $NonWindowsOptions
     if ($LASTEXITCODE -ne 0) {
         Exit-WithFailureMessage $ScriptName "Tests failed."
     }
