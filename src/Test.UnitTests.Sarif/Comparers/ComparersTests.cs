@@ -209,7 +209,7 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Comparers
             ComparerHelper.CompareDictionary(dict2, dict1).Should().Be(1);
 
             dict1 = new Dictionary<string, string>() { { "a", "a" }, { "b", "b" }, { "c", "c" } };
-            dict2 = new Dictionary<string, string>() { { "c", "c" }, { "b", "b" }, { "a", "a"} };
+            dict2 = new Dictionary<string, string>() { { "c", "c" }, { "b", "b" }, { "a", "a" } };
 
             ComparerHelper.CompareDictionary(dict1, dict2).Should().Be(-1);
             ComparerHelper.CompareDictionary(dict2, dict1).Should().Be(1);
