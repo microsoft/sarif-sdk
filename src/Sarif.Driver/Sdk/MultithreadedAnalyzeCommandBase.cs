@@ -185,9 +185,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                                                  IEnumerable<Skimmer<TContext>> skimmers,
                                                  ISet<string> disabledSkimmers)
         {
-            options.Threads = options.Threads > 0 ?
-                options.Threads :
-                (Debugger.IsAttached) ? 1 : Environment.ProcessorCount;
+            options.Threads = options.Threads > 0
+                ? options.Threads
+                : (Debugger.IsAttached) ? 1 : Environment.ProcessorCount;
 
             var channelOptions = new BoundedChannelOptions(2000)
             {
@@ -472,7 +472,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                         TContext context = _fileContexts[index];
                         string localPath = context.TargetUri.LocalPath;
 
-                        HashData hashData = HashUtilities.ComputeHashes(localPath);
+                        HashData hashData = HashUtilities.ComputeHashes(localPath, FileSystem);
 
                         context.Hashes = hashData;
 
@@ -579,7 +579,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
             if (filePath != null)
             {
-                context.TargetUri = new Uri(filePath);
+                context.TargetUri = new Uri(filePath, UriKind.RelativeOrAbsolute);
             }
 
             return context;

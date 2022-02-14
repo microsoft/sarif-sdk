@@ -69,11 +69,12 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         [SuppressMessage("Microsoft.Security.Cryptography", "CA5354:SHA1CannotBeUsed")]
         [SuppressMessage("Microsoft.Security.Cryptography", "CA5350:MD5CannotBeUsed")]
-        public static HashData ComputeHashes(string fileName)
+        public static HashData ComputeHashes(string fileName, IFileSystem fileSystem = null)
         {
+            fileSystem ??= FileSystem;
             try
             {
-                using (Stream stream = FileSystem.FileOpenRead(fileName))
+                using (Stream stream = fileSystem.FileOpenRead(fileName))
                 {
                     using (var bufferedStream = new BufferedStream(stream, 1024 * 32))
                     {

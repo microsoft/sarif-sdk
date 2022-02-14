@@ -7,6 +7,7 @@ using System.Composition;
 using System.IO;
 using System.Reflection;
 using System.Resources;
+using System.Threading;
 
 using FluentAssertions;
 
@@ -22,6 +23,9 @@ namespace Microsoft.CodeAnalysis.Sarif
     [Export(typeof(ReportingDescriptor)), Export(typeof(IOptionsProvider)), Export(typeof(Skimmer<TestAnalysisContext>))]
     internal class TestRule : TestRuleBase, IOptionsProvider
     {
+        internal static int s_seed = (int)DateTime.UtcNow.Ticks;
+        internal static Random s_random = new Random(s_seed);
+
         [ThreadStatic]
         internal static TestRuleBehaviors s_testRuleBehaviors;
 
@@ -169,13 +173,20 @@ namespace Microsoft.CodeAnalysis.Sarif
 
                 case TestRuleBehaviors.LogError:
                 {
-                    context.Logger.Log(this,
-                        new Result
-                        {
-                            RuleId = this.Id,
-                            Level = FailureLevel.Error,
-                            Message = new Message { Text = "Simple test rule message." }
-                        });
+                    uint errorsCount = context.Policy.GetProperty(ErrorsCount);
+
+                    for (uint i = 0; i < errorsCount; i++)
+                    {
+                        context.Logger.Log(this,
+                            new Result
+                            {
+                                RuleId = this.Id,
+                                Level = FailureLevel.Error,
+                                Message = new Message { Text = "Simple test rule message." }
+                            });
+
+                        Thread.Sleep(s_random.Next(0, 10));
+                    }
                     break;
                 }
 
@@ -245,10 +256,14 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         public IEnumerable<IOption> GetOptions()
         {
-            return new IOption[] { Behaviors, UnusedOption };
+            return new IOption[] { Behaviors, UnusedOption, ErrorsCount };
         }
 
         private const string AnalyzerName = TestRuleId + "." + nameof(TestRule);
+
+        public static PerLanguageOption<uint> ErrorsCount { get; } =
+            new PerLanguageOption<uint>(
+                AnalyzerName, nameof(ErrorsCount), defaultValue: () => { return 1; });
 
         public static PerLanguageOption<TestRuleBehaviors> Behaviors { get; } =
             new PerLanguageOption<TestRuleBehaviors>(
