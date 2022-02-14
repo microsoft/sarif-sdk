@@ -13,20 +13,20 @@
             {
               "id": "docker.io/fluxcd/flux:1.24.1 (alpine 3.14.2): libcurl-7.78.0-r0 CVE-2021-22945",
               "name": "OS Package Vulnerability (Alpine)",
-              "shortDescription": {
-                "text": "CVE-2021-22945 Package: libcurl"
-              },
               "fullDescription": {
                 "text": "curl: use-after-free and double-free in MQTT sending."
+              },
+              "help": {
+                "text": "Vulnerability CVE-2021-22945\nSeverity: CRITICAL\nPackage: libcurl\nInstalled Version: 7.78.0-r0\nFixed Version: 7.79.0-r0\nLink: [CVE-2021-22945](https://avd.aquasec.com/nvd/cve-2021-22945)",
+                "markdown": "**Vulnerability CVE-2021-22945**\n| Severity | Package | Installed Version | Fixed Version | Link |\n| --- | --- | --- | --- | --- |\n|CRITICAL|libcurl|7.78.0-r0|7.79.0-r0|[CVE-2021-22945](https://avd.aquasec.com/nvd/cve-2021-22945)|\n"
+              },
+              "shortDescription": {
+                "text": "CVE-2021-22945 Package: libcurl"
               },
               "defaultConfiguration": {
                 "level": "error"
               },
               "helpUri": "https://avd.aquasec.com/nvd/cve-2021-22945",
-              "help": {
-                "text": "Vulnerability CVE-2021-22945\nSeverity: CRITICAL\nPackage: libcurl\nInstalled Version: 7.78.0-r0\nFixed Version: 7.79.0-r0\nLink: [CVE-2021-22945](https://avd.aquasec.com/nvd/cve-2021-22945)",
-                "markdown": "**Vulnerability CVE-2021-22945**\n| Severity | Package | Installed Version | Fixed Version | Link |\n| --- | --- | --- | --- | --- |\n|CRITICAL|libcurl|7.78.0-r0|7.79.0-r0|[CVE-2021-22945](https://avd.aquasec.com/nvd/cve-2021-22945)|\n"
-              },
               "properties": {
                 "tags": [ "vulnerability", "CRITICAL", "libcurl" ],
                 "precision": "very-high"
@@ -73,20 +73,20 @@
             {
               "id": "docker.io/fluxcd/flux:1.24.1 (alpine 3.14.2): libcurl-7.78.0-r0 CVE-2021-22946",
               "name": "OS Package Vulnerability (Alpine)",
-              "shortDescription": {
-                "text": "CVE-2021-22946 Package: libcurl"
-              },
               "fullDescription": {
                 "text": "curl: Requirement to use TLS not properly enforced for IMAP, POP3, and FTP protocols."
+              },
+              "help": {
+                "text": "Vulnerability CVE-2021-22946\nSeverity: HIGH\nPackage: libcurl\nInstalled Version: 7.78.0-r0\nFixed Version: 7.79.0-r0\nLink: [CVE-2021-22946](https://avd.aquasec.com/nvd/cve-2021-22946)",
+                "markdown": "**Vulnerability CVE-2021-22946**\n| Severity | Package | Installed Version | Fixed Version | Link |\n| --- | --- | --- | --- | --- |\n|HIGH|libcurl|7.78.0-r0|7.79.0-r0|[CVE-2021-22946](https://avd.aquasec.com/nvd/cve-2021-22946)|\n"
+              },
+              "shortDescription": {
+                "text": "CVE-2021-22946 Package: libcurl"
               },
               "defaultConfiguration": {
                 "level": "error"
               },
               "helpUri": "https://avd.aquasec.com/nvd/cve-2021-22946",
-              "help": {
-                "text": "Vulnerability CVE-2021-22946\nSeverity: HIGH\nPackage: libcurl\nInstalled Version: 7.78.0-r0\nFixed Version: 7.79.0-r0\nLink: [CVE-2021-22946](https://avd.aquasec.com/nvd/cve-2021-22946)",
-                "markdown": "**Vulnerability CVE-2021-22946**\n| Severity | Package | Installed Version | Fixed Version | Link |\n| --- | --- | --- | --- | --- |\n|HIGH|libcurl|7.78.0-r0|7.79.0-r0|[CVE-2021-22946](https://avd.aquasec.com/nvd/cve-2021-22946)|\n"
-              },
               "properties": {
                 "tags": [ "vulnerability", "HIGH", "libcurl" ],
                 "precision": "very-high"
@@ -113,366 +113,6 @@
               "physicalLocation": {
                 "artifactLocation": {
                   "uri": "docker.io/fluxcd/flux:1.24.1",
-                  "uriBaseId": "ROOTPATH"
-                }
-              }
-            }
-          ]
-        }
-      ],
-      "columnKind": "utf16CodeUnits"
-    },
-    {
-      "tool": {
-        "driver": {
-          "name": "Trivy",
-          "fullName": "Trivy Vulnerability Scanner",
-          "version": "0.15.0",
-          "informationUri": "https://github.com/aquasecurity/trivy",
-          "rules": [
-            {
-              "id": "docker.io/fluxcd/flux:1.24.1 (alpine 3.14.2): nettle-3.7.2-r0 CVE-2021-3580",
-              "name": "OS Package Vulnerability (Alpine)",
-              "shortDescription": {
-                "text": "CVE-2021-3580 Package: nettle"
-              },
-              "fullDescription": {
-                "text": "nettle: Remote crash in RSA decryption via manipulated ciphertext."
-              },
-              "defaultConfiguration": {
-                "level": "error"
-              },
-              "helpUri": "https://avd.aquasec.com/nvd/cve-2021-3580",
-              "help": {
-                "text": "Vulnerability CVE-2021-3580\nSeverity: HIGH\nPackage: nettle\nInstalled Version: 3.7.2-r0\nFixed Version: 3.7.3-r0\nLink: [CVE-2021-3580](https://avd.aquasec.com/nvd/cve-2021-3580)",
-                "markdown": "**Vulnerability CVE-2021-3580**\n| Severity | Package | Installed Version | Fixed Version | Link |\n| --- | --- | --- | --- | --- |\n|HIGH|nettle|3.7.2-r0|3.7.3-r0|[CVE-2021-3580](https://avd.aquasec.com/nvd/cve-2021-3580)|\n"
-              },
-              "properties": {
-                "tags": [ "vulnerability", "HIGH", "nettle" ],
-                "precision": "very-high"
-              }
-            }
-          ]
-        }
-      },
-      "originalUriBaseIds": {
-        "ROOTPATH": {
-          "uri": "file:///"
-        }
-      },
-      "results": [
-        {
-          "ruleId": "docker.io/fluxcd/flux:1.24.1 (alpine 3.14.2): nettle-3.7.2-r0 CVE-2021-3580",
-          "ruleIndex": 0,
-          "level": "error",
-          "message": {
-            "text": "A flaw was found in the way nettle&#39;s RSA decryption functions handled specially crafted ciphertext. An attacker could use this flaw to provide a manipulated ciphertext leading to application crash and denial of service."
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "docker.io/fluxcd/flux:1.24.1",
-                  "uriBaseId": "ROOTPATH"
-                }
-              }
-            }
-          ]
-        }
-      ],
-      "columnKind": "utf16CodeUnits"
-    },
-    {
-      "tool": {
-        "driver": {
-          "name": "Trivy",
-          "fullName": "Trivy Vulnerability Scanner",
-          "version": "0.15.0",
-          "informationUri": "https://github.com/aquasecurity/trivy",
-          "rules": [
-            {
-              "id": "docker.io/fluxcd/flux:1.24.1 (alpine 3.14.2): openssh-client-common-8.6_p1-r2 CVE-2021-41617",
-              "name": "OS Package Vulnerability (Alpine)",
-              "shortDescription": {
-                "text": "CVE-2021-41617 Package: openssh-client-common"
-              },
-              "fullDescription": {
-                "text": "openssh: privilege escalation when AuthorizedKeysCommand/AuthorizedPrincipalsCommand are configured."
-              },
-              "defaultConfiguration": {
-                "level": "error"
-              },
-              "helpUri": "https://avd.aquasec.com/nvd/cve-2021-41617",
-              "help": {
-                "text": "Vulnerability CVE-2021-41617\nSeverity: HIGH\nPackage: openssh-client-common\nInstalled Version: 8.6_p1-r2\nFixed Version: 8.6_p1-r3\nLink: [CVE-2021-41617](https://avd.aquasec.com/nvd/cve-2021-41617)",
-                "markdown": "**Vulnerability CVE-2021-41617**\n| Severity | Package | Installed Version | Fixed Version | Link |\n| --- | --- | --- | --- | --- |\n|HIGH|openssh-client-common|8.6_p1-r2|8.6_p1-r3|[CVE-2021-41617](https://avd.aquasec.com/nvd/cve-2021-41617)|\n"
-              },
-              "properties": {
-                "tags": [ "vulnerability", "HIGH", "openssh-client-common" ],
-                "precision": "very-high"
-              }
-            }
-          ]
-        }
-      },
-      "originalUriBaseIds": {
-        "ROOTPATH": {
-          "uri": "file:///"
-        }
-      },
-      "results": [
-        {
-          "ruleId": "docker.io/fluxcd/flux:1.24.1 (alpine 3.14.2): openssh-client-common-8.6_p1-r2 CVE-2021-41617",
-          "ruleIndex": 0,
-          "level": "error",
-          "message": {
-            "text": "sshd in OpenSSH 6.2 through 8.x before 8.8, when certain non-default configurations are used, allows privilege escalation because supplemental groups are not initialized as expected. Helper programs for AuthorizedKeysCommand and AuthorizedPrincipalsCommand may run with privileges associated with group memberships of the sshd process, if the configuration specifies running the command as a different user."
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "docker.io/fluxcd/flux:1.24.1",
-                  "uriBaseId": "ROOTPATH"
-                }
-              }
-            }
-          ]
-        }
-      ],
-      "columnKind": "utf16CodeUnits"
-    },
-    {
-      "tool": {
-        "driver": {
-          "name": "Trivy",
-          "fullName": "Trivy Vulnerability Scanner",
-          "version": "0.15.0",
-          "informationUri": "https://github.com/aquasecurity/trivy",
-          "rules": [
-            {
-              "id": "docker.io/fluxcd/flux:1.24.1 (alpine 3.14.2): openssh-client-default-8.6_p1-r2 CVE-2021-41617",
-              "name": "OS Package Vulnerability (Alpine)",
-              "shortDescription": {
-                "text": "CVE-2021-41617 Package: openssh-client-default"
-              },
-              "fullDescription": {
-                "text": "openssh: privilege escalation when AuthorizedKeysCommand/AuthorizedPrincipalsCommand are configured."
-              },
-              "defaultConfiguration": {
-                "level": "error"
-              },
-              "helpUri": "https://avd.aquasec.com/nvd/cve-2021-41617",
-              "help": {
-                "text": "Vulnerability CVE-2021-41617\nSeverity: HIGH\nPackage: openssh-client-default\nInstalled Version: 8.6_p1-r2\nFixed Version: 8.6_p1-r3\nLink: [CVE-2021-41617](https://avd.aquasec.com/nvd/cve-2021-41617)",
-                "markdown": "**Vulnerability CVE-2021-41617**\n| Severity | Package | Installed Version | Fixed Version | Link |\n| --- | --- | --- | --- | --- |\n|HIGH|openssh-client-default|8.6_p1-r2|8.6_p1-r3|[CVE-2021-41617](https://avd.aquasec.com/nvd/cve-2021-41617)|\n"
-              },
-              "properties": {
-                "tags": [ "vulnerability", "HIGH", "openssh-client-default" ],
-                "precision": "very-high"
-              }
-            }
-          ]
-        }
-      },
-      "originalUriBaseIds": {
-        "ROOTPATH": {
-          "uri": "file:///"
-        }
-      },
-      "results": [
-        {
-          "ruleId": "docker.io/fluxcd/flux:1.24.1 (alpine 3.14.2): openssh-client-default-8.6_p1-r2 CVE-2021-41617",
-          "ruleIndex": 0,
-          "level": "error",
-          "message": {
-            "text": "sshd in OpenSSH 6.2 through 8.x before 8.8, when certain non-default configurations are used, allows privilege escalation because supplemental groups are not initialized as expected. Helper programs for AuthorizedKeysCommand and AuthorizedPrincipalsCommand may run with privileges associated with group memberships of the sshd process, if the configuration specifies running the command as a different user."
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "docker.io/fluxcd/flux:1.24.1",
-                  "uriBaseId": "ROOTPATH"
-                }
-              }
-            }
-          ]
-        }
-      ],
-      "columnKind": "utf16CodeUnits"
-    },
-    {
-      "tool": {
-        "driver": {
-          "name": "Trivy",
-          "fullName": "Trivy Vulnerability Scanner",
-          "version": "0.15.0",
-          "informationUri": "https://github.com/aquasecurity/trivy",
-          "rules": [
-            {
-              "id": "docker.io/fluxcd/flux:1.24.1 (alpine 3.14.2): openssh-keygen-8.6_p1-r2 CVE-2021-41617",
-              "name": "OS Package Vulnerability (Alpine)",
-              "shortDescription": {
-                "text": "CVE-2021-41617 Package: openssh-keygen"
-              },
-              "fullDescription": {
-                "text": "openssh: privilege escalation when AuthorizedKeysCommand/AuthorizedPrincipalsCommand are configured."
-              },
-              "defaultConfiguration": {
-                "level": "error"
-              },
-              "helpUri": "https://avd.aquasec.com/nvd/cve-2021-41617",
-              "help": {
-                "text": "Vulnerability CVE-2021-41617\nSeverity: HIGH\nPackage: openssh-keygen\nInstalled Version: 8.6_p1-r2\nFixed Version: 8.6_p1-r3\nLink: [CVE-2021-41617](https://avd.aquasec.com/nvd/cve-2021-41617)",
-                "markdown": "**Vulnerability CVE-2021-41617**\n| Severity | Package | Installed Version | Fixed Version | Link |\n| --- | --- | --- | --- | --- |\n|HIGH|openssh-keygen|8.6_p1-r2|8.6_p1-r3|[CVE-2021-41617](https://avd.aquasec.com/nvd/cve-2021-41617)|\n"
-              },
-              "properties": {
-                "tags": [ "vulnerability", "HIGH", "openssh-keygen" ],
-                "precision": "very-high"
-              }
-            }
-          ]
-        }
-      },
-      "originalUriBaseIds": {
-        "ROOTPATH": {
-          "uri": "file:///"
-        }
-      },
-      "results": [
-        {
-          "ruleId": "docker.io/fluxcd/flux:1.24.1 (alpine 3.14.2): openssh-keygen-8.6_p1-r2 CVE-2021-41617",
-          "ruleIndex": 0,
-          "level": "error",
-          "message": {
-            "text": "sshd in OpenSSH 6.2 through 8.x before 8.8, when certain non-default configurations are used, allows privilege escalation because supplemental groups are not initialized as expected. Helper programs for AuthorizedKeysCommand and AuthorizedPrincipalsCommand may run with privileges associated with group memberships of the sshd process, if the configuration specifies running the command as a different user."
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "docker.io/fluxcd/flux:1.24.1",
-                  "uriBaseId": "ROOTPATH"
-                }
-              }
-            }
-          ]
-        }
-      ],
-      "columnKind": "utf16CodeUnits"
-    },
-    {
-      "tool": {
-        "driver": {
-          "name": "Trivy",
-          "fullName": "Trivy Vulnerability Scanner",
-          "version": "0.15.0",
-          "informationUri": "https://github.com/aquasecurity/trivy",
-          "rules": [
-            {
-              "id": "docker.io/fluxcd/flux:1.24.1 (alpine 3.14.2): libcurl-7.78.0-r0 CVE-2021-22945",
-              "name": "OS Package Vulnerability (Alpine)",
-              "shortDescription": {
-                "text": "CVE-2021-22945 Package: libcurl"
-              },
-              "fullDescription": {
-                "text": "curl: use-after-free and double-free in MQTT sending."
-              },
-              "defaultConfiguration": {
-                "level": "error"
-              },
-              "helpUri": "https://avd.aquasec.com/nvd/cve-2021-22945",
-              "help": {
-                "text": "Vulnerability CVE-2021-22945\nSeverity: CRITICAL\nPackage: libcurl\nInstalled Version: 7.78.0-r0\nFixed Version: 7.79.0-r0\nLink: [CVE-2021-22945](https://avd.aquasec.com/nvd/cve-2021-22945)",
-                "markdown": "**Vulnerability CVE-2021-22945**\n| Severity | Package | Installed Version | Fixed Version | Link |\n| --- | --- | --- | --- | --- |\n|CRITICAL|libcurl|7.78.0-r0|7.79.0-r0|[CVE-2021-22945](https://avd.aquasec.com/nvd/cve-2021-22945)|\n"
-              },
-              "properties": {
-                "tags": [ "vulnerability", "CRITICAL", "libcurl" ],
-                "precision": "very-high"
-              }
-            }
-          ]
-        }
-      },
-      "originalUriBaseIds": {
-        "ROOTPATH": {
-          "uri": "file:///"
-        }
-      },
-      "results": [
-        {
-          "ruleId": "usr/local/bin/kustomize: github.com/ulikunitz/xz-v0.5.5 CVE-2021-29482",
-          "ruleIndex": 0,
-          "level": "error",
-          "message": {
-            "text": "xz is a compression and decompression library focusing on the xz format completely written in Go. The function readUvarint used to read the xz container format may not terminate a loop provide malicous input. The problem has been fixed in release v0.5.8. As a workaround users can limit the size of the compressed file input to a reasonable size for their use case. The standard library had recently the same issue and got the CVE-2020-16845 allocated."
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "usr/local/bin/kustomize",
-                  "uriBaseId": "ROOTPATH"
-                }
-              }
-            }
-          ]
-        }
-      ],
-      "columnKind": "utf16CodeUnits"
-    },
-    {
-      "tool": {
-        "driver": {
-          "name": "Trivy",
-          "fullName": "Trivy Vulnerability Scanner",
-          "version": "0.15.0",
-          "informationUri": "https://github.com/aquasecurity/trivy",
-          "rules": [
-            {
-              "id": "docker.io/fluxcd/flux:1.24.1 (alpine 3.14.2): libcurl-7.78.0-r0 CVE-2021-22946",
-              "name": "OS Package Vulnerability (Alpine)",
-              "shortDescription": {
-                "text": "CVE-2021-22946 Package: libcurl"
-              },
-              "fullDescription": {
-                "text": "curl: Requirement to use TLS not properly enforced for IMAP, POP3, and FTP protocols."
-              },
-              "defaultConfiguration": {
-                "level": "error"
-              },
-              "helpUri": "https://avd.aquasec.com/nvd/cve-2021-22946",
-              "help": {
-                "text": "Vulnerability CVE-2021-22946\nSeverity: HIGH\nPackage: libcurl\nInstalled Version: 7.78.0-r0\nFixed Version: 7.79.0-r0\nLink: [CVE-2021-22946](https://avd.aquasec.com/nvd/cve-2021-22946)",
-                "markdown": "**Vulnerability CVE-2021-22946**\n| Severity | Package | Installed Version | Fixed Version | Link |\n| --- | --- | --- | --- | --- |\n|HIGH|libcurl|7.78.0-r0|7.79.0-r0|[CVE-2021-22946](https://avd.aquasec.com/nvd/cve-2021-22946)|\n"
-              },
-              "properties": {
-                "tags": [ "vulnerability", "HIGH", "libcurl" ],
-                "precision": "very-high"
-              }
-            }
-          ]
-        }
-      },
-      "originalUriBaseIds": {
-        "ROOTPATH": {
-          "uri": "file:///"
-        }
-      },
-      "results": [
-        {
-          "ruleId": "usr/local/bin/kustomize: golang.org/x/crypto-v0.0.0-20200622213623-75b288015ac9 CVE-2020-29652",
-          "ruleIndex": 0,
-          "level": "error",
-          "message": {
-            "text": "A nil pointer dereference in the golang.org/x/crypto/ssh component through v0.0.0-20201203163018-be400aefbc4c for Go allows remote attackers to cause a denial of service against SSH servers."
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "usr/local/bin/kustomize",
                   "uriBaseId": "ROOTPATH"
                 }
               }
