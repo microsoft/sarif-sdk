@@ -688,6 +688,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 files.Add(Path.GetFullPath($@".\File{i}.txt"));
             }
 
+            var propertiesDictionary = new PropertiesDictionary();
+            propertiesDictionary.SetProperty(TestRule.ErrorsCount, (uint)15);
+            propertiesDictionary.SetProperty(TestRule.Behaviors, TestRuleBehaviors.LogError);
+
+            using var tempFile = new TempFile(".xml");
+            propertiesDictionary.SaveToXml(tempFile.Name);
+
             var mockStream = new Mock<Stream>();
             mockStream.Setup(m => m.CanRead).Returns(true);
             mockStream.Setup(m => m.CanSeek).Returns(true);
@@ -701,21 +708,23 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                                                                 It.IsAny<string>(),
                                                                 It.IsAny<SearchOption>())).Returns(files);
             mockFileSystem.Setup(x => x.FileOpenRead(It.IsAny<string>())).Returns(mockStream.Object);
+            mockFileSystem.Setup(x => x.FileExists(tempFile.Name)).Returns(true);
 
             for (int i = 0; i < 100; i++)
             {
                 var options = new TestAnalyzeOptions
                 {
-                    TargetFileSpecifiers = new [] { specifier},
+                    Threads = 10,
+                    TargetFileSpecifiers = new[] { specifier },
                     SarifOutputVersion = SarifVersion.Current,
                     TestRuleBehaviors = TestRuleBehaviors.LogError,
                     DataToInsert = new[] { OptionallyEmittedData.Hashes },
+                    ConfigurationFilePath = tempFile.Name
                 };
 
                 var command = new TestMultithreadedAnalyzeCommand(mockFileSystem.Object);
-                TestMultithreadedAnalyzeCommand.s_numberOfThreadsForTesting = 10;
                 command.DefaultPluginAssemblies = new Assembly[] { this.GetType().Assembly };
-                
+
                 int result = command.Run(options);
 
                 command.ExecutionException?.InnerException.Should().BeNull($"Iteration: {i}, Seed: {TestRule.s_seed}");

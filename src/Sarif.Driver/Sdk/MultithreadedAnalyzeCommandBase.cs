@@ -30,8 +30,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         internal ConsoleLogger _consoleLogger;
         internal ConcurrentDictionary<string, IAnalysisLogger> _analysisLoggerCache;
 
-        internal static int? s_numberOfThreadsForTesting;
-
         private Run _run;
         private Tool _tool;
         private bool _computeHashes;
@@ -188,11 +186,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                                                  IEnumerable<Skimmer<TContext>> skimmers,
                                                  ISet<string> disabledSkimmers)
         {
-            options.Threads = options.Threads > 0 ?
-                options.Threads :
-                (Debugger.IsAttached) ? 1 : Environment.ProcessorCount;
-
-            options.Threads = s_numberOfThreadsForTesting ?? options.Threads;
+            options.Threads = options.Threads > 0
+                ? options.Threads
+                : (Debugger.IsAttached) ? 1 : Environment.ProcessorCount;
 
             var channelOptions = new BoundedChannelOptions(2000)
             {

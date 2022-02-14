@@ -263,7 +263,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         public static PerLanguageOption<uint> ErrorsCount { get; } =
             new PerLanguageOption<uint>(
-                AnalyzerName, nameof(ErrorsCount), defaultValue: () => { return 15; });
+                AnalyzerName, nameof(ErrorsCount), defaultValue: () => { return 1; });
 
         public static PerLanguageOption<TestRuleBehaviors> Behaviors { get; } =
             new PerLanguageOption<TestRuleBehaviors>(
