@@ -102,7 +102,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             if (this.Location?.PhysicalLocation?.ArtifactLocation?.Uri != null)
             {
-                string fileName = this.Location.PhysicalLocation.ArtifactLocation.Uri.OriginalString;
+                string fileName = this.Location.PhysicalLocation.ArtifactLocation.Uri.LocalPath;
                 result += IN + fileName;
 
                 if (this.Location?.PhysicalLocation?.Region != null)
