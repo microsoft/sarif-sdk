@@ -710,6 +710,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             mockFileSystem.Setup(x => x.FileOpenRead(It.IsAny<string>())).Returns(mockStream.Object);
             mockFileSystem.Setup(x => x.FileExists(tempFile.Name)).Returns(true);
 
+            Output.WriteLine($"The seed that will be used is: {TestRule.s_seed}");
+
             for (int i = 0; i < 50; i++)
             {
                 var options = new TestAnalyzeOptions
@@ -727,7 +729,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
                 int result = command.Run(options);
 
-                command.ExecutionException?.InnerException.Should().BeNull($"Iteration: {i}, Seed: {TestRule.s_seed}");
+                command.ExecutionException?.InnerException.Should().BeNull();
 
                 result.Should().Be(CommandBase.SUCCESS, $"Iteration: {i}, Seed: {TestRule.s_seed}");
             }
