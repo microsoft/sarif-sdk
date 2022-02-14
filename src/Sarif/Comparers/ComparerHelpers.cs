@@ -163,8 +163,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Comparers
                 return compareResult;
             }
 
-            IList<string> leftKeys = left.Keys.OrderBy(k => k).ToList();
-            IList<string> rightKeys = right.Keys.OrderBy(k => k).ToList();
+            IList<string> leftKeys = left.Keys.ToList();
+            IList<string> rightKeys = right.Keys.ToList();
 
             for (int i = 0; i < leftKeys.Count; ++i)
             {

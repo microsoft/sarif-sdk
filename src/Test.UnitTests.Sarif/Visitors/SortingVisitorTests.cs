@@ -54,12 +54,10 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Visitors
             SarifLog sortedLog1 = new SortingVisitor().VisitSarifLog(shuffledLog1);
             SarifLog sortedLog2 = new SortingVisitor().VisitSarifLog(shuffledLog2);
 
-            areEqual = SarifLogEqualityComparer.Instance.Equals(sortedLog1, sortedLog2);
-            
+            areEqual = this.VerifySarifLogAreSame(sortedLog1, sortedLog2);
             areEqual.Should().BeTrue();
 
-            areEqual = this.VerifySarifLogAreSame(sortedLog1, sortedLog2);
-
+            areEqual = SarifLogEqualityComparer.Instance.Equals(sortedLog1, sortedLog2);
             areEqual.Should().BeTrue();
 
             foreach (Run run in sortedLog1.Runs)

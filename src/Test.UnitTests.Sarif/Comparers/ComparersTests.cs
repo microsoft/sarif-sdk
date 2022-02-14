@@ -122,75 +122,104 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Comparers
         [Fact]
         public void CompareDictionary_Shuffle_Tests()
         {
-            IDictionary<string, string> dict1 = new Dictionary<string, string>();
-            dict1.Add("a", "a");
-            dict1.Add("b", "b");
-            dict1.Add("c", "c");
+            var dict1 = new Dictionary<string, string>
+            {
+                { "b", "b" },
+                { "c", "c" },
+                { "d", "d" }
+            };
 
-            IDictionary<string, string> dict2 = new Dictionary<string, string>();
-            dict2.Add("b", "b");
-            dict2.Add("c", "c");
-            dict2.Add("a", "a");
+            var dict2 = new Dictionary<string, string>
+            {
+                { "d", "d" },
+                { "c", "c" },
+                { "b", "b" }
+            };
 
             int result = ComparerHelper.CompareDictionary(dict1, dict2);
-            result.Should().Be(0);
-
-            dict2["c"] = "d";
-
-            result = ComparerHelper.CompareDictionary(dict1, dict2);
             result.Should().Be(-1);
 
             result = ComparerHelper.CompareDictionary(dict2, dict1);
             result.Should().Be(1);
+
+            dict2 = new Dictionary<string, string>
+            {
+                { "a", "a" },
+                { "b", "b" },
+                { "c", "c" }
+            };
+
+            result = ComparerHelper.CompareDictionary(dict1, dict2);
+            result.Should().Be(1);
+
+            result = ComparerHelper.CompareDictionary(dict2, dict1);
+            result.Should().Be(-1);
+
+            dict2 = new Dictionary<string, string>
+            {
+                { "b", "a" },
+                { "c", "c" },
+                { "d", "d" }
+            };
+
+            result = ComparerHelper.CompareDictionary(dict1, dict2);
+            result.Should().Be(1);
+
+            result = ComparerHelper.CompareDictionary(dict2, dict1);
+            result.Should().Be(-1);
         }
 
         [Fact]
         public void CompareDictionary_BothNull_Tests()
         {
-            IDictionary<string, string> list1 = null;
-            IDictionary<string, string> list2 = null;
+            IDictionary<string, string> dict1 = null;
+            IDictionary<string, string> dict2 = null;
 
-            ComparerHelper.CompareDictionary(list1, list2).Should().Be(0);
-            ComparerHelper.CompareDictionary(list2, list1).Should().Be(0);
+            ComparerHelper.CompareDictionary(dict1, dict2).Should().Be(0);
+            ComparerHelper.CompareDictionary(dict2, dict1).Should().Be(0);
         }
 
         [Fact]
         public void CompareDictionary_CompareNullToNotNull_Tests()
         {
-            IDictionary<string, string> list1 = null;
-            IDictionary<string, string> list2 = new Dictionary<string, string>() { { "a", "a" } };
+            IDictionary<string, string> dict1 = null;
+            IDictionary<string, string> dict2 = new Dictionary<string, string>() { { "a", "a" } };
 
-            ComparerHelper.CompareDictionary(list1, list2).Should().Be(-1);
-            ComparerHelper.CompareDictionary(list2, list1).Should().Be(1);
+            ComparerHelper.CompareDictionary(dict1, dict2).Should().Be(-1);
+            ComparerHelper.CompareDictionary(dict2, dict1).Should().Be(1);
         }
 
         [Fact]
         public void CompareDictionary_DifferentCount_Tests()
         {
-            IDictionary<string, string> list1 = new Dictionary<string, string>() { { "a", "a" }, { "b", "b" } };
-            IDictionary<string, string> list2 = new Dictionary<string, string>() { { "c", "c" } };
+            var dict1 = new Dictionary<string, string>() { { "a", "a" }, { "b", "b" } };
+            var dict2 = new Dictionary<string, string>() { { "c", "c" } };
 
-            ComparerHelper.CompareDictionary(list1, list2).Should().Be(1);
-            ComparerHelper.CompareDictionary(list2, list1).Should().Be(-1);
+            ComparerHelper.CompareDictionary(dict1, dict2).Should().Be(1);
+            ComparerHelper.CompareDictionary(dict2, dict1).Should().Be(-1);
         }
 
         [Fact]
         public void CompareDictionary_SameCountDifferentElement_Tests()
         {
-            IDictionary<string, string> list1 =
-                new Dictionary<string, string>() { { "a", "a" }, { "b", "b" } };
-            IDictionary<string, string> list2 =
-                new Dictionary<string, string>() { { "c", "c" }, { "d", "d" } };
+            var dict1 = new Dictionary<string, string>() { { "a", "a" }, { "b", "b" } };
+            var dict2 = new Dictionary<string, string>() { { "c", "c" }, { "d", "d" } };
 
-            ComparerHelper.CompareDictionary(list1, list2).Should().Be(-1);
-            ComparerHelper.CompareDictionary(list2, list1).Should().Be(1);
+            ComparerHelper.CompareDictionary(dict1, dict2).Should().Be(-1);
+            ComparerHelper.CompareDictionary(dict2, dict1).Should().Be(1);
+
+            dict1 = new Dictionary<string, string>() { { "a", "a" }, { "b", "b" }, { "c", "c" } };
+            dict2 = new Dictionary<string, string>() { { "c", "c" }, { "b", "b" }, { "a", "a"} };
+
+            ComparerHelper.CompareDictionary(dict1, dict2).Should().Be(-1);
+            ComparerHelper.CompareDictionary(dict2, dict1).Should().Be(1);
         }
 
         [Fact]
         public void CompareDictionary_WithNullComparer_Tests()
         {
-            IDictionary<string, Location> loc1 = new Dictionary<string, Location>();
-            IDictionary<string, Location> loc2 = new Dictionary<string, Location>();
+            var loc1 = new Dictionary<string, Location>();
+            var loc2 = new Dictionary<string, Location>();
 
             Action act = () => ComparerHelper.CompareDictionary(loc1, loc2, comparer: null);
             act.Should().Throw<ArgumentNullException>();
@@ -199,12 +228,17 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Comparers
         [Fact]
         public void CompareDictionary_WithComparer_Tests()
         {
-            IDictionary<string, Location> loc1 = new Dictionary<string, Location>();
-            loc1.Add("1", null);
-            loc1.Add("2", new Location { Id = 2 });
-            IDictionary<string, Location> loc2 = new Dictionary<string, Location>();
-            loc2.Add("1", new Location { Id = 1 });
-            loc2.Add("2", new Location { Id = 2 });
+            var loc1 = new Dictionary<string, Location>
+            {
+                { "1", null },
+                { "2", new Location { Id = 2 } }
+            };
+
+            var loc2 = new Dictionary<string, Location>
+            {
+                { "1", new Location { Id = 1 } },
+                { "2", new Location { Id = 2 } }
+            };
 
             int result = ComparerHelper.CompareDictionary(loc1, loc2, LocationComparer.Instance);
             result.Should().Be(-1);
@@ -561,6 +595,58 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Comparers
 
             ComparerHelper.CompareList(artifacts1, artifacts2, ArtifactComparer.Instance).Should().Be(1);
             ComparerHelper.CompareList(artifacts2, artifacts1, ArtifactComparer.Instance).Should().Be(-1);
+        }
+
+        [Fact]
+        public void ThreadFlowComparer_Tests()
+        {
+            var threadFlow1 = new List<ThreadFlow>();
+            var threadFlow2 = new List<ThreadFlow>();
+
+            threadFlow1.Add(null);
+            threadFlow2.Add(null);
+
+            ComparerHelper.CompareList(threadFlow1, threadFlow2, ThreadFlowComparer.Instance).Should().Be(0);
+
+            threadFlow1.Insert(0, new ThreadFlow() { Id = "threadFlow1" });
+            threadFlow2.Insert(0, new ThreadFlow() { Id = "threadFlow2" });
+
+            ComparerHelper.CompareList(threadFlow1, threadFlow2, ThreadFlowComparer.Instance).Should().Be(-1);
+            ComparerHelper.CompareList(threadFlow2, threadFlow1, ThreadFlowComparer.Instance).Should().Be(1);
+
+            threadFlow1.Insert(0, new ThreadFlow() { Message = new Message { Id = "arg1" } });
+            threadFlow2.Insert(0, new ThreadFlow() { Message = new Message { Id = "fileArg" } });
+
+            ComparerHelper.CompareList(threadFlow1, threadFlow2, ThreadFlowComparer.Instance).Should().Be(-1);
+            ComparerHelper.CompareList(threadFlow2, threadFlow1, ThreadFlowComparer.Instance).Should().Be(1);
+
+            Location loc1 = new Location
+            {
+                PhysicalLocation = new PhysicalLocation
+                {
+                    ArtifactLocation = new ArtifactLocation
+                    {
+                        Uri = new Uri("path/to/file1.c", UriKind.Relative)
+                    }
+                }
+            };
+
+            Location loc2 = new Location
+            {
+                PhysicalLocation = new PhysicalLocation
+                {
+                    ArtifactLocation = new ArtifactLocation
+                    {
+                        Uri = new Uri("path/to/file2.c", UriKind.Relative)
+                    }
+                }
+            };
+
+            threadFlow1.Insert(0, new ThreadFlow() { Locations = new ThreadFlowLocation[] { new ThreadFlowLocation { Location = loc1 } } });
+            threadFlow2.Insert(0, new ThreadFlow() { Locations = new ThreadFlowLocation[] { new ThreadFlowLocation { Location = loc2 } } });
+
+            ComparerHelper.CompareList(threadFlow1, threadFlow2, ThreadFlowComparer.Instance).Should().Be(-1);
+            ComparerHelper.CompareList(threadFlow2, threadFlow1, ThreadFlowComparer.Instance).Should().Be(1);
         }
 
         [Fact]
