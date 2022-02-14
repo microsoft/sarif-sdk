@@ -710,7 +710,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             mockFileSystem.Setup(x => x.FileOpenRead(It.IsAny<string>())).Returns(mockStream.Object);
             mockFileSystem.Setup(x => x.FileExists(tempFile.Name)).Returns(true);
 
-            for (int i = 0; i < 100; i++)
+            for (int i = 0; i < 50; i++)
             {
                 var options = new TestAnalyzeOptions
                 {
