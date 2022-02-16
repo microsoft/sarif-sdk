@@ -686,7 +686,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             var files = new List<string>();
             for (int i = 0; i < filesCount; i++)
             {
-                files.Add(Path.GetFullPath($@".\File{i}.txt"));
+                files.Add(Path.GetFullPath($@".{Path.DirectorySeparatorChar}File{i}.txt"));
             }
 
             var propertiesDictionary = new PropertiesDictionary();
@@ -1322,15 +1322,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             const int expectedNumberOfResultsWithWarnings = 1;
             var files = new List<string>
             {
-                $@"{Environment.CurrentDirectory}\Error.dll",
-                $@"{Environment.CurrentDirectory}\Warning.dll",
-                $@"{Environment.CurrentDirectory}\Note.dll",
-                $@"{Environment.CurrentDirectory}\Pass.dll",
-                $@"{Environment.CurrentDirectory}\NotApplicable.exe",
-                $@"{Environment.CurrentDirectory}\Informational.sys",
-                $@"{Environment.CurrentDirectory}\Open.cab",
-                $@"{Environment.CurrentDirectory}\Review.dll",
-                $@"{Environment.CurrentDirectory}\NoIssues.dll",
+                $@"{rootDir}Error.dll",
+                $@"{rootDir}Warning.dll",
+                $@"{rootDir}Note.dll",
+                $@"{rootDir}Pass.dll",
+                $@"{rootDir}NotApplicable.exe",
+                $@"{rootDir}Informational.sys",
+                $@"{rootDir}Open.cab",
+                $@"{rootDir}Review.dll",
+                $@"{rootDir}NoIssues.dll",
             };
 
             foreach (bool multithreaded in new bool[] { false, true })
@@ -1367,7 +1367,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         {
             var files = new List<string>
             {
-                $@"{Environment.CurrentDirectory}\Error.dll"
+                $@"{rootDir}Error.dll"
             };
 
             Action action = () =>
@@ -1425,19 +1425,19 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 for (int i = 0; i < scenario; i++)
                 {
                     singleThreadTargets.Add($"Error.{i}.cpp");
-                    multiThreadTargets.Add($@"{Environment.CurrentDirectory}{Path.DirectorySeparatorChar}Error.{i}.cpp");
+                    multiThreadTargets.Add($@"{rootDir}Error.{i}.cpp");
                 }
 
                 for (int i = 0; i < scenario / 2; i++)
                 {
                     singleThreadTargets.Add($"Warning.{i}.cpp");
-                    multiThreadTargets.Add($@"{Environment.CurrentDirectory}{Path.DirectorySeparatorChar}Warning.{i}.cpp");
+                    multiThreadTargets.Add($@"{rootDir}Warning.{i}.cpp");
                 }
 
                 for (int i = 0; i < scenario / 5; i++)
                 {
                     singleThreadTargets.Add($"Note.{i}.cpp");
-                    multiThreadTargets.Add($@"{Environment.CurrentDirectory}{Path.DirectorySeparatorChar}Note.{i}.cpp");
+                    multiThreadTargets.Add($@"{rootDir}Note.{i}.cpp");
                 }
 
                 var testCase = new ResultsCachingTestCase
