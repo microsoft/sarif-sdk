@@ -5,6 +5,7 @@ using System;
 using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Numerics;
 using System.Runtime.Serialization;
 using Microsoft.CodeAnalysis.Sarif.Readers;
 using Newtonsoft.Json;
@@ -40,7 +41,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         [DataMember(Name = "id", IsRequired = false, EmitDefaultValue = false)]
         [DefaultValue(-1)]
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
-        public virtual int Id { get; set; }
+        public virtual BigInteger Id { get; set; }
 
         /// <summary>
         /// Identifies the artifact and region.
@@ -155,7 +156,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new Location(this);
         }
 
-        protected virtual void Init(int id, PhysicalLocation physicalLocation, IEnumerable<LogicalLocation> logicalLocations, Message message, IEnumerable<Region> annotations, IEnumerable<LocationRelationship> relationships, IDictionary<string, SerializedPropertyInfo> properties)
+        protected virtual void Init(BigInteger id, PhysicalLocation physicalLocation, IEnumerable<LogicalLocation> logicalLocations, Message message, IEnumerable<Region> annotations, IEnumerable<LocationRelationship> relationships, IDictionary<string, SerializedPropertyInfo> properties)
         {
             Id = id;
             if (physicalLocation != null)
