@@ -18,8 +18,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
 {
     public class SarifWorkItemExtensionsTests
     {
-        // Use portable file path so the tests can run on windows and other platforms.
-        private readonly string testSarifFilePath = Path.Combine(Directory.GetCurrentDirectory(), "Test", "Data", "File{0}.sarif");
+        private static readonly string s_testSarifFilePathTemplate = Path.Combine(Directory.GetCurrentDirectory(), "Test", "Data", "File{0}.sarif");
 
         [Fact]
         public void SarifWorkItemExtensions_CreateWorkItemTitle_HandlesSingleResultWithRuleIdOnly()
@@ -233,140 +232,177 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
         [Fact]
         public void SarifWorkItemExtensions_CreateWorkItemDescription_SingleResultMultipleLocations()
         {
-            string toolName = "TestToolName";
-            string firstLocation = @"C:\Test\Data\File1.sarif";
-            string additionLocationCount = "2";
+            string toolName = TestData.TestToolName;
+            int additionLocationCount = 2;
+            int expectedResultCount = 1;
+            string multipleToolsFooter = string.Empty;
 
             SarifLog sarifLog = TestData.CreateOneIdThreeLocations();
             sarifLog.Runs[0].VersionControlProvenance = null;
 
             string description = sarifLog.CreateWorkItemDescription(new SarifWorkItemContext() { CurrentProvider = Microsoft.WorkItems.FilingClient.SourceControlProvider.AzureDevOps });
 
-            description.Should().BeEquivalentTo($"This work item contains 1 '{toolName}' issue(s) detected in {firstLocation} (+{additionLocationCount} locations). Click the 'Scans' tab to review results.");
+            // This work item contains {0} {1} issue(s) detected in {2}{3}. Click the 'Scans' tab to review results.
+            description.Should().BeEquivalentTo(
+                string.Format(
+                    WorkItemsResources.WorkItemBodyTemplateText,
+                    expectedResultCount,
+                    $"'{toolName}'",
+                    $"{TestData.FileLocations.Location1} (+{additionLocationCount} locations)",
+                    multipleToolsFooter));
         }
 
         [Fact]
         public void SarifWorkItemExtensions_CreateWorkItemDescription_MultipleResults()
         {
-            string toolName = "TestToolName";
-            string firstLocation = testSarifFilePath;
+            string toolName = TestData.TestToolName;
+            string firstLocation = s_testSarifFilePathTemplate;
             int numOfResult = 15;
-            string additionLocationCount = "14";
+            int additionLocationCount = 14;
+            string multipleToolsFooter = string.Empty;
 
             int index = 1;
             SarifLog sarifLog = TestData.CreateSimpleLogWithRules(0, numOfResult);
-            sarifLog.Runs[0].Results.ForEach(r => r.Locations
-                                               = new[]
-                                               {
-                                                   new Location
-                                                   {
-                                                       PhysicalLocation = new PhysicalLocation
-                                                       {
-                                                           ArtifactLocation = new ArtifactLocation
-                                                           {
-                                                               Uri = new Uri(string.Format(firstLocation, index++))
-                                                           }
-                                                       }
-                                                   }
-                                               });
+            sarifLog.Runs[0].Results.ForEach(
+                r => r.Locations
+                = new[]
+                {
+                    new Location
+                    {
+                        PhysicalLocation = new PhysicalLocation
+                        {
+                            ArtifactLocation = new ArtifactLocation
+                            {
+                                Uri = new Uri(string.Format(firstLocation, index++))
+                            }
+                        }
+                    }
+                });
 
             string description = sarifLog.CreateWorkItemDescription(new SarifWorkItemContext() { CurrentProvider = Microsoft.WorkItems.FilingClient.SourceControlProvider.AzureDevOps });
 
-            description.Should().BeEquivalentTo($"This work item contains {numOfResult} '{toolName}' issue(s) detected in {string.Format(firstLocation, 1)} (+{additionLocationCount} locations). Click the 'Scans' tab to review results.");
+            // This work item contains {0} {1} issue(s) detected in {2}{3}. Click the 'Scans' tab to review results.
+            description.Should().BeEquivalentTo(
+                string.Format(
+                    WorkItemsResources.WorkItemBodyTemplateText,
+                    numOfResult,
+                    $"'{toolName}'",
+                    string.Format(SarifWorkItemFiler.s_multipleLocationsTextPattern, string.Format(firstLocation, 1), additionLocationCount),
+                    multipleToolsFooter));
         }
 
         [Fact]
         public void SarifWorkItemExtensions_CreateWorkItemDescription_ResultsShouldNotBeFiled()
         {
-            string toolName = "TestToolName";
-            string firstLocation = testSarifFilePath;
+            string toolName = TestData.TestToolName;
+            string multipleToolsFooter = string.Empty;
+            string firstLocation = string.Format(s_testSarifFilePathTemplate, 1);
             int numOfResult = 8;
             int expectedNumOfResult = 0;
 
             int index = 1;
-            SarifLog sarifLog = TestData.CreateSimpleLogWithRules(0, numOfResult);
-            sarifLog.Runs[0].Results.ForEach(r => r.Locations
-                                               = new[]
-                                               {
-                                                   new Location
-                                                   {
-                                                       PhysicalLocation = new PhysicalLocation
-                                                       {
-                                                           ArtifactLocation = new ArtifactLocation
-                                                           {
-                                                               Uri = new Uri(string.Format(firstLocation, index++))
-                                                           }
-                                                       }
-                                                   }
-                                               });
+            SarifLog sarifLog = TestData.CreateSimpleLogWithRules(ruleIdStartIndex: 0, numOfResult);
 
-            sarifLog.Runs[0].Results.ForEach(r => r.BaselineState = BaselineState.Unchanged);
+            foreach (Result result in sarifLog.Runs[0].Results)
+            {
+                result.Locations = new[]
+                {
+                    new Location { PhysicalLocation = new PhysicalLocation { ArtifactLocation = new ArtifactLocation { Uri = new Uri(string.Format(firstLocation, index++)) } } }
+                };
+                result.BaselineState = BaselineState.Unchanged;
+            }
+
             string description = sarifLog.CreateWorkItemDescription(new SarifWorkItemContext() { CurrentProvider = Microsoft.WorkItems.FilingClient.SourceControlProvider.AzureDevOps });
 
-            description.Should().BeEquivalentTo($"This work item contains {expectedNumOfResult} '{toolName}' issue(s) detected in . Click the 'Scans' tab to review results.");
+            // This work item contains {0} {1} issue(s) detected in {2}{3}. Click the 'Scans' tab to review results.
+            description.Should().BeEquivalentTo(
+                string.Format(
+                    WorkItemsResources.WorkItemBodyTemplateText,
+                    expectedNumOfResult,
+                    $"'{toolName}'",
+                    string.Empty,
+                    multipleToolsFooter));
         }
 
         [Fact]
         public void SarifWorkItemExtensions_CreateWorkItemDescription_WithoutResults()
         {
+            string multipleToolsFooter = string.Empty;
             int numOfResult = 0;
 
             SarifLog sarifLog = TestData.CreateSimpleLogWithRules(0, numOfResult);
 
             string description = sarifLog.CreateWorkItemDescription(new SarifWorkItemContext() { CurrentProvider = Microsoft.WorkItems.FilingClient.SourceControlProvider.AzureDevOps });
 
-            description.Should().BeEquivalentTo($"This work item contains {numOfResult} '' issue(s) detected in . Click the 'Scans' tab to review results.");
+            // This work item contains {0} {1} issue(s) detected in {2}{3}. Click the 'Scans' tab to review results.
+            description.Should().BeEquivalentTo(
+                string.Format(
+                    WorkItemsResources.WorkItemBodyTemplateText,
+                    numOfResult,
+                    $"''",
+                    string.Empty,
+                    multipleToolsFooter));
         }
 
         [Fact]
         public void SarifWorkItemExtensions_CreateWorkItemDescription_MultipleResultsMultipleLocations()
         {
-            string toolName = "TestToolName";
-            string firstLocation = testSarifFilePath;
+            string toolName = TestData.TestToolName;
+            string multipleToolsFooter = string.Empty;
+            string firstLocation = s_testSarifFilePathTemplate;
             int numOfResult = 15;
             string additionLocationCount = "29"; // 15 results each results have 2 locations
 
             int index = 1;
             SarifLog sarifLog = TestData.CreateSimpleLogWithRules(0, numOfResult);
-            sarifLog.Runs[0].Results.ForEach(r => r.Locations
-                                               = new[]
-                                               {
-                                                   new Location
-                                                   {
-                                                       PhysicalLocation = new PhysicalLocation
-                                                       {
-                                                           ArtifactLocation = new ArtifactLocation
-                                                           {
-                                                               Uri = new Uri(string.Format(firstLocation, index++))
-                                                           }
-                                                       }
-                                                   },
-                                                   new Location
-                                                   {
-                                                       PhysicalLocation = new PhysicalLocation
-                                                       {
-                                                           ArtifactLocation = new ArtifactLocation
-                                                           {
-                                                               Uri = new Uri(string.Format(firstLocation, index++))
-                                                           }
-                                                       }
-                                                   }
-                                               });
+            sarifLog.Runs[0].Results.ForEach(
+                r => r.Locations = new[]
+                {
+                    new Location
+                    {
+                        PhysicalLocation = new PhysicalLocation
+                        {
+                            ArtifactLocation = new ArtifactLocation
+                            {
+                                Uri = new Uri(string.Format(firstLocation, index++))
+                            }
+                        }
+                    },
+                    new Location
+                    {
+                        PhysicalLocation = new PhysicalLocation
+                        {
+                            ArtifactLocation = new ArtifactLocation
+                            {
+                                Uri = new Uri(string.Format(firstLocation, index++))
+                            }
+                        }
+                    }
+                });
 
             string description = sarifLog.CreateWorkItemDescription(new SarifWorkItemContext() { CurrentProvider = Microsoft.WorkItems.FilingClient.SourceControlProvider.AzureDevOps });
 
-            description.Should().BeEquivalentTo($"This work item contains {numOfResult} '{toolName}' issue(s) detected in {string.Format(firstLocation, 1)} (+{additionLocationCount} locations). Click the 'Scans' tab to review results.");
+            // This work item contains {0} {1} issue(s) detected in {2}{3}. Click the 'Scans' tab to review results.
+            description.Should().BeEquivalentTo(
+                string.Format(
+                    WorkItemsResources.WorkItemBodyTemplateText,
+                    numOfResult,
+                    $"'{toolName}'",
+                    string.Format(SarifWorkItemFiler.s_multipleLocationsTextPattern, string.Format(firstLocation, 1), additionLocationCount),
+                    multipleToolsFooter));
         }
 
         [Fact]
         public void SarifWorkItemExtensions_CreateWorkItemDescription_SingleResultWithMultipleArtifacts()
         {
-            string toolName = "TestToolName";
-            string firstLocation = string.Format(testSarifFilePath, 1);
-            string secondLocation = string.Format(testSarifFilePath, 2);
-            string thirdLocation = string.Format(testSarifFilePath, 3);
+            string toolName = TestData.TestToolName;
+            int numOfResult = 1;
+            string multipleToolsFooter = string.Empty;
+            string firstLocation = string.Format(s_testSarifFilePathTemplate, 1);
+            string secondLocation = string.Format(s_testSarifFilePathTemplate, 2);
+            string thirdLocation = string.Format(s_testSarifFilePathTemplate, 3);
 
-            SarifLog sarifLog = TestData.CreateSimpleLogWithRules(0, 1);
+            SarifLog sarifLog = TestData.CreateSimpleLogWithRules(0, numOfResult);
             sarifLog.Runs[0].Results[0].Locations = new[]
             {
                 new Location
@@ -428,7 +464,37 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
 
             string description = sarifLog.CreateWorkItemDescription(new SarifWorkItemContext() { CurrentProvider = Microsoft.WorkItems.FilingClient.SourceControlProvider.AzureDevOps });
 
-            description.Should().BeEquivalentTo($"This work item contains 1 '{toolName}' issue(s) detected in {firstLocation}. Click the 'Scans' tab to review results.");
+            // This work item contains {0} {1} issue(s) detected in {2}{3}. Click the 'Scans' tab to review results.
+            description.Should().BeEquivalentTo(
+                string.Format(
+                    WorkItemsResources.WorkItemBodyTemplateText,
+                    numOfResult,
+                    $"'{toolName}'",
+                    firstLocation,
+                    multipleToolsFooter));
+        }
+
+        [Fact]
+        public void SarifWorkItemExtensions_CreateWorkItemDescription_MultipleRunsDifferenceTools()
+        {
+            string toolName1 = TestData.TestToolName;
+            string toolName2 = TestData.SecondTestToolName;
+            int numOfResult = 3;
+            int additionLocationCount = 2;
+            string multipleToolsFooter = WorkItemsResources.MultipleToolsFooter;
+
+            SarifLog sarifLog = TestData.CreateTwoRunThreeResultLog();
+
+            string description = sarifLog.CreateWorkItemDescription(new SarifWorkItemContext() { CurrentProvider = Microsoft.WorkItems.FilingClient.SourceControlProvider.AzureDevOps });
+
+            // This work item contains {0} {1} issue(s) detected in {2}{3}. Click the 'Scans' tab to review results.
+            description.Should().BeEquivalentTo(
+                string.Format(
+                    WorkItemsResources.WorkItemBodyTemplateText,
+                    numOfResult,
+                    $"'{toolName1}' and '{toolName2}'",
+                    string.Format(SarifWorkItemFiler.s_multipleLocationsTextPattern, TestData.FileLocations.Location1, additionLocationCount),
+                    multipleToolsFooter));
         }
 
         [Fact]
@@ -462,7 +528,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
 
             // test case for null result
             Result nullResult = null;
-            Assert.Throws<ArgumentNullException>(() => nullResult.ShouldBeFiled());
+            Assert.Throws<NullReferenceException>(() => nullResult.ShouldBeFiled());
             (nullResult?.ShouldBeFiled()).Should().BeNull();
         }
 

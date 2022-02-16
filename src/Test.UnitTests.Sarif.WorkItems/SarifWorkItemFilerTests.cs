@@ -130,7 +130,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
         {
             SarifLog sarifLog = TestData.CreateSimpleLogWithRules(ruleIdStartIndex: 0, resultCount: 5);
 
-            // Set baseline state of first result to 'Absent', other results should still file workf item.
+            // Set baseline state of first result to 'Absent', other results should still file a work item.
             sarifLog.Runs.First().Results.First().BaselineState = BaselineState.Absent;
 
             SarifWorkItemContext context = CreateAzureDevOpsTestContext();
@@ -161,6 +161,36 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
             context.SetProperty(ExpectedFilingResult, FilingResult.None);
 
             TestWorkItemFiler(sarifLog, context, adoClient: false);
+        }
+
+        [Fact]
+        public void WorkItemFiler_VerifyFilerClientIsNotCalled_IfNoFilableResult()
+        {
+            SarifLog sarifLog = TestData.CreateSimpleLog();
+
+            sarifLog.Runs.FirstOrDefault().Results?
+                .ForEach(result => result.Suppressions = new[] { new Suppression { Status = SuppressionStatus.Accepted } });
+
+            sarifLog.SetProperty(SarifWorkItemFiler.LOGID_PROPERTY_NAME, Guid.NewGuid());
+
+            SarifWorkItemContext context = CreateGitHubTestContext();
+            context.SplittingStrategy = SplittingStrategy.PerRun;
+
+            int numberOfWorkItems = 0;
+            context.SetProperty(ExpectedWorkItemsCount, numberOfWorkItems);
+            context.SetProperty(ExpectedFilingResult, FilingResult.None);
+
+            ConnectCalled = false;
+            CreateWorkItemCalled = 0;
+
+            SarifWorkItemFiler filer = CreateMockSarifWorkItemFiler(context).Object;
+            FilingClient client = CreateGitHubMocksAndFilingClient(null, null, filer);
+            SarifWorkItemModel model = filer.FileWorkItemInternal(sarifLog, context, client);
+
+            model.Should().BeNull();
+            filer.FilingResult.Should().Be(FilingResult.Canceled);
+            ConnectCalled.Should().BeFalse();
+            CreateWorkItemCalled.Should().Be(0);
         }
 
         [Fact]

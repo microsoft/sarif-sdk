@@ -41,13 +41,14 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
                 }
             }
 
-            bool? resultContainsWorkItemUri = sarifLog.Runs?.Any(run => run.Results.Any(result => result.WorkItemUris?.Count > 0));
-            if (resultContainsWorkItemUri == true)
+            foreach(Run run in sarifLog.Runs)
             {
-                Uri workItemUri = sarifLog.Runs?.Where(run => run.Results != null && run.Results.Any(result => result.WorkItemUris?.Count > 0)).LastOrDefault()
-                    .Results.Where(result => result.WorkItemUris != null && result.WorkItemUris.Count > 0).LastOrDefault()
-                    .WorkItemUris.LastOrDefault();
-                this.Uri = workItemUri;
+                Result resultContainsWorkItemUri = run.Results.LastOrDefault(result => result.WorkItemUris?.Count > 0);
+                if (resultContainsWorkItemUri != null)
+                {
+                    this.Uri = resultContainsWorkItemUri.WorkItemUris.LastOrDefault();
+                    break;
+                }
             }
 
             // Shared GitHub/Azure DevOps concepts

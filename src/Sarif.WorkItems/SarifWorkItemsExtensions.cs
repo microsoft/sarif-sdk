@@ -6,17 +6,14 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 
+using Microsoft.VisualStudio.Services.Common;
+
 namespace Microsoft.CodeAnalysis.Sarif.WorkItems
 {
     public static class SarifWorkItemsExtensions
     {
         public static bool ShouldBeFiled(this Result result)
         {
-            if (result == null)
-            {
-                throw new ArgumentNullException(nameof(result));
-            }
-
             if (result.BaselineState == BaselineState.Absent ||
                 result.BaselineState == BaselineState.Updated ||
                 result.BaselineState == BaselineState.Unchanged)
@@ -148,32 +145,41 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
 
         public static string CreateWorkItemDescription(this SarifLog log, SarifWorkItemContext context)
         {
-            int totalResults = log.GetAggregateFilableResultsCount();
+            int totalResults = 0;
+            int artifactLocationCount = 0;
+            Uri firstDetectedLocation = null;
+            IEnumerable<Result> results = log?.Runs?.SelectMany(run => run.Results.Where(r => r.ShouldBeFiled()));
+
+            foreach (Result result in results.AsEmptyIfNull())
+            {
+                if (result.ShouldBeFiled())
+                {
+                    totalResults++;
+                    foreach (Location location in result.Locations.AsEmptyIfNull())
+                    {
+                        firstDetectedLocation ??= location.PhysicalLocation?.ArtifactLocation?.Uri;
+                        artifactLocationCount += location.PhysicalLocation?.ArtifactLocation?.Uri != null ? 1 : 0;
+                    }
+                }
+            }
+
             List<string> toolNames = log.GetToolNames();
             string phrasedToolNames = toolNames.ToAndPhrase();
             string multipleToolsFooter = toolNames.Count > 1 ? WorkItemsResources.MultipleToolsFooter : string.Empty;
 
-            IEnumerable<Result> results = log?.Runs?[0]?.Results.Where(r => r.ShouldBeFiled());
             Uri runRepositoryUri = log?.Runs.FirstOrDefault()?.VersionControlProvenance?.FirstOrDefault().RepositoryUri;
             Uri detectionLocationUri = !string.IsNullOrEmpty(runRepositoryUri?.OriginalString)
                 ? runRepositoryUri
-                : results?.FirstOrDefault()?.Locations?[0].PhysicalLocation?.ArtifactLocation?.Uri;
+                : firstDetectedLocation;
 
             string detectionLocation = (detectionLocationUri?.IsAbsoluteUri == true && detectionLocationUri?.Scheme == "https")
                 ? context.CreateLinkText(detectionLocationUri.OriginalString, detectionLocationUri?.OriginalString)
                 : detectionLocationUri?.OriginalString;
 
-            int locCount = results == null
-                ? 0
-                : results.Where(r => r.Locations != null)
-                         .SelectMany(r => r.Locations)
-                         .Count(l => l.PhysicalLocation?.ArtifactLocation?.Uri != null);
-
-            if (locCount > 1)
-            {
-                int additionalLocations = locCount - 1;
-                detectionLocation = $"{detectionLocation} (+{additionalLocations} locations)";
-            }
+            // "{0} (+{1} locations)"
+            detectionLocation = artifactLocationCount > 1
+                ? string.Format(SarifWorkItemFiler.s_multipleLocationsTextPattern, detectionLocation, artifactLocationCount - 1)
+                : detectionLocation;
 
             // This work item contains {0} {1} issue(s) detected in {2}{3}. Click the 'Scans' tab to review results.
             string description =
