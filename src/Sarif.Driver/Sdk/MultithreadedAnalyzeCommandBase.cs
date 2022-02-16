@@ -39,7 +39,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         private OptionallyEmittedData _dataToInsert;
         private Channel<int> _resultsWritingChannel;
         private Channel<int> _fileEnumerationChannel;
-        private Dictionary<string, List<string>> _hashToFilesMap;
         private IDictionary<string, HashData> _pathToHashDataMap;
         private ConcurrentDictionary<int, TContext> _fileContexts;
 
@@ -186,9 +185,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                                                  IEnumerable<Skimmer<TContext>> skimmers,
                                                  ISet<string> disabledSkimmers)
         {
-            options.Threads = options.Threads > 0 ?
-                options.Threads :
-                (Debugger.IsAttached) ? 1 : Environment.ProcessorCount;
+            options.Threads = options.Threads > 0
+                ? options.Threads
+                : (Debugger.IsAttached) ? 1 : Environment.ProcessorCount;
 
             var channelOptions = new BoundedChannelOptions(2000)
             {
@@ -470,23 +469,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 {
                     if (_computeHashes)
                     {
-                        if (_hashToFilesMap == null)
-                        {
-                            _hashToFilesMap = new Dictionary<string, List<string>>();
-                        }
-
                         TContext context = _fileContexts[index];
                         string localPath = context.TargetUri.LocalPath;
 
-                        HashData hashData = HashUtilities.ComputeHashes(localPath);
+                        HashData hashData = HashUtilities.ComputeHashes(localPath, FileSystem);
 
-                        if (!_hashToFilesMap.TryGetValue(hashData.Sha256, out List<string> paths))
-                        {
-                            paths = new List<string>();
-                            _hashToFilesMap[hashData.Sha256] = paths;
-                        }
-
-                        paths.Add(localPath);
                         context.Hashes = hashData;
 
                         if (_pathToHashDataMap != null && !_pathToHashDataMap.ContainsKey(localPath))
@@ -592,7 +579,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
             if (filePath != null)
             {
-                context.TargetUri = new Uri(filePath);
+                context.TargetUri = new Uri(filePath, UriKind.RelativeOrAbsolute);
             }
 
             return context;
@@ -873,11 +860,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
             IAnalysisLogger logger = context.Logger;
 
-            int numberOfFiles = 1;
             if (_computeHashes)
             {
-                numberOfFiles = _hashToFilesMap[context.Hashes.Sha256].Count;
-                if (numberOfFiles > 1 && _analysisLoggerCache.ContainsKey(context.Hashes.Sha256))
+                if (_analysisLoggerCache.ContainsKey(context.Hashes.Sha256))
                 {
                     return context;
                 }
@@ -885,9 +870,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
             context.Logger.AnalyzingTarget(context);
 
-            if (_computeHashes && numberOfFiles > 1)
+            if (_computeHashes)
             {
-                _analysisLoggerCache[context.Hashes.Sha256] = logger;
+                if (!_analysisLoggerCache.TryAdd(context.Hashes.Sha256, logger))
+                {
+                    return context;
+                }
             }
 
             IEnumerable<Skimmer<TContext>> applicableSkimmers = DetermineApplicabilityForTarget(context, skimmers, disabledSkimmers);

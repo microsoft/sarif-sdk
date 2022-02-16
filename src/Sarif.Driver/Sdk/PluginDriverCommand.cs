@@ -112,7 +112,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         {
             bool succeeded = true;
 
-            if (!DriverUtilities.CanCreateOutputFile(outputFilePath, force, FileSystem))
+            if (!string.IsNullOrWhiteSpace(outputFilePath) &&
+                !DriverUtilities.CanCreateOutputFile(outputFilePath, force, FileSystem))
             {
                 Errors.LogOutputFileAlreadyExists(context, outputFilePath);
                 succeeded = false;
