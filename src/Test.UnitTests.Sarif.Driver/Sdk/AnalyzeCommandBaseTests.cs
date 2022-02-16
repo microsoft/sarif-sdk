@@ -599,7 +599,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             TestRuleBehaviors behaviors = TestRuleBehaviors.None,
             string configFileName = null,
             RuntimeConditions runtimeConditions = RuntimeConditions.None,
-            int expectedReturnCode = TestAnalyzeCommand.SUCCESS)
+            int expectedReturnCode = TestAnalyzeCommand.SUCCESS,
+            string postUri = null)
         {
             string path = Path.GetTempFileName();
             Run run = null;
@@ -615,7 +616,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                     OutputFilePath = path,
                     SarifOutputVersion = SarifVersion.Current,
                     Force = true,
-                    TestRuleBehaviors = behaviors
+                    TestRuleBehaviors = behaviors,
+                    PostUri = postUri,
                 };
 
                 var command = new TestAnalyzeCommand();
@@ -659,11 +661,78 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
             // As configured by injected TestRuleBehaviors, we should
             // see an error per scan target (one file in this case).
-            resultCount.Should().Be(1);
+            resultCount.Should().Be((int)TestRule.ErrorsCount.DefaultValue());
             run.Results[0].Kind.Should().Be(ResultKind.Fail);
 
             toolNotificationCount.Should().Be(0);
             configurationNotificationCount.Should().Be(0);
+        }
+
+        [Fact]
+        public void AnalyzeCommandBase_EndToEndAnalysisWithPostUri()
+        {
+            PostUriTestHelper(@"https://httpbin.org/post", TestAnalyzeCommand.SUCCESS, RuntimeConditions.None);
+            PostUriTestHelper(@"https://httpbin.org/get", TestAnalyzeCommand.FAILURE, RuntimeConditions.ExceptionPostingLogFile);
+            PostUriTestHelper(@"https://host.does.not.exist", TestAnalyzeCommand.FAILURE, RuntimeConditions.ExceptionPostingLogFile);
+        }
+
+        [Fact]
+        public void MultithreadedAnalyzeCommandBase_EndToEndMultithreadedAnalysis()
+        {
+            string specifier = "*.xyz";
+
+            int filesCount = 10;
+            var files = new List<string>();
+            for (int i = 0; i < filesCount; i++)
+            {
+                files.Add(Path.GetFullPath($@".\File{i}.txt"));
+            }
+
+            var propertiesDictionary = new PropertiesDictionary();
+            propertiesDictionary.SetProperty(TestRule.ErrorsCount, (uint)15);
+            propertiesDictionary.SetProperty(TestRule.Behaviors, TestRuleBehaviors.LogError);
+
+            using var tempFile = new TempFile(".xml");
+            propertiesDictionary.SaveToXml(tempFile.Name);
+
+            var mockStream = new Mock<Stream>();
+            mockStream.Setup(m => m.CanRead).Returns(true);
+            mockStream.Setup(m => m.CanSeek).Returns(true);
+            mockStream.Setup(m => m.ReadByte()).Returns('a');
+
+            var mockFileSystem = new Mock<IFileSystem>();
+            mockFileSystem.Setup(x => x.DirectoryExists(It.IsAny<string>())).Returns(true);
+            mockFileSystem.Setup(x => x.DirectoryGetFiles(It.IsAny<string>(), specifier)).Returns(files);
+            mockFileSystem.Setup(x => x.FileExists(It.Is<string>(s => s.EndsWith(specifier)))).Returns(true);
+            mockFileSystem.Setup(x => x.DirectoryEnumerateFiles(It.IsAny<string>(),
+                                                                It.IsAny<string>(),
+                                                                It.IsAny<SearchOption>())).Returns(files);
+            mockFileSystem.Setup(x => x.FileOpenRead(It.IsAny<string>())).Returns(mockStream.Object);
+            mockFileSystem.Setup(x => x.FileExists(tempFile.Name)).Returns(true);
+
+            Output.WriteLine($"The seed that will be used is: {TestRule.s_seed}");
+
+            for (int i = 0; i < 50; i++)
+            {
+                var options = new TestAnalyzeOptions
+                {
+                    Threads = 10,
+                    TargetFileSpecifiers = new[] { specifier },
+                    SarifOutputVersion = SarifVersion.Current,
+                    TestRuleBehaviors = TestRuleBehaviors.LogError,
+                    DataToInsert = new[] { OptionallyEmittedData.Hashes },
+                    ConfigurationFilePath = tempFile.Name
+                };
+
+                var command = new TestMultithreadedAnalyzeCommand(mockFileSystem.Object);
+                command.DefaultPluginAssemblies = new Assembly[] { this.GetType().Assembly };
+
+                int result = command.Run(options);
+
+                command.ExecutionException?.InnerException.Should().BeNull();
+
+                result.Should().Be(CommandBase.SUCCESS, $"Iteration: {i}, Seed: {TestRule.s_seed}");
+            }
         }
 
         [Fact]
@@ -729,7 +798,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
             // As configured by the inject TestRuleBehaviors value, we should see
             // an error for every scan target (of which there is one file in this test).
-            resultCount.Should().Be(1);
+            resultCount.Should().Be((int)TestRule.ErrorsCount.DefaultValue());
             run.Results[0].Level.Should().Be(FailureLevel.Error);
 
             toolNotificationCount.Should().Be(0);
@@ -764,8 +833,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                     (configurationNotification) => { configurationNotificationCount++; });
 
                 // As configured by context, we should see a single error raised.
-                resultCount.Should().Be(1);
-                run.Results.Count((result) => result.Level == FailureLevel.Error).Should().Be(1);
+                resultCount.Should().Be((int)TestRule.ErrorsCount.DefaultValue());
+                run.Results.Count((result) => result.Level == FailureLevel.Error).Should().Be((int)TestRule.ErrorsCount.DefaultValue());
 
                 toolNotificationCount.Should().Be(0);
                 configurationNotificationCount.Should().Be(0);
@@ -1360,7 +1429,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                                            generateSameOutput: false,
                                            expectedResultCode: 0,
                                            expectedResultCount: 7,
-                                           expectedCacheSize: 0);
+                                           expectedCacheSize: 20);
         }
 
         private static readonly IList<string> ComprehensiveKindAndLevelsByFileName = new List<string>
@@ -1743,5 +1812,35 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         }
 
         #endregion ResultsCachingTestsAndHelpers
+
+        private void PostUriTestHelper(string postUri, int expectedReturnCode, RuntimeConditions runtimeConditions)
+        {
+            string location = GetThisTestAssemblyFilePath();
+
+            Run run = AnalyzeFile(
+                location,
+                TestRuleBehaviors.LogError,
+                postUri: postUri,
+                expectedReturnCode: expectedReturnCode,
+                runtimeConditions: runtimeConditions);
+
+            int resultCount = 0;
+            int toolNotificationCount = 0;
+            int configurationNotificationCount = 0;
+
+            SarifHelpers.ValidateRun(
+                run,
+                (issue) => { resultCount++; },
+                (toolNotification) => { toolNotificationCount++; },
+                (configurationNotification) => { configurationNotificationCount++; });
+
+            // As configured by injected TestRuleBehaviors, we should
+            // see an error per scan target (one file in this case).
+            resultCount.Should().Be((int)TestRule.ErrorsCount.DefaultValue());
+            run.Results[0].Kind.Should().Be(ResultKind.Fail);
+
+            toolNotificationCount.Should().Be(0);
+            configurationNotificationCount.Should().Be(0);
+        }
     }
 }
