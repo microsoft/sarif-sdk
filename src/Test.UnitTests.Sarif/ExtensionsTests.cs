@@ -429,6 +429,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 (@"file.ext?some-query-string", expectedResult),
                 (@"\\hostname\c:\path\file.ext", expectedResult),
                 (@"/home/username/path/file.ext", expectedResult),
+                (@"~\home\username\path\file.ext", expectedResult),
                 (@"nfs://servername/folder/file.ext", expectedResult),
                 (@"file://hostname/C:/path/file.ext", expectedResult),
                 (@"file:///home/username/path/file.ext", expectedResult),
@@ -476,6 +477,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 (@"file:///C:\path/file.ext", expectedResult),
                 (@"\\hostname/c:\path\file.ext", expectedResult),
                 (@"\home\username/path/file.ext", expectedResult),
+                (@"~\home\username/path/file.ext", expectedResult),
                 (@"nfs://servername/folder\file.ext", expectedResult),
                 (@"https://github.com/microsoft/sarif-sdk\file.ext", expectedResult),
             };
