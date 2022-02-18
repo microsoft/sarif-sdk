@@ -780,7 +780,6 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Comparers
                 (new Uri(@"C:\path\file.ext", UriKind.RelativeOrAbsolute), -1),
                 (new Uri(@"\\hostname\path\file.ext", UriKind.RelativeOrAbsolute), -1),
                 (new Uri(@"file:///C:/path/file.ext", UriKind.RelativeOrAbsolute), 1),
-                (new Uri(@"file.ext?some-query-string", UriKind.RelativeOrAbsolute), -1),
                 (new Uri(@"\\hostname\c:\path\file.ext", UriKind.RelativeOrAbsolute), -1),
                 (new Uri(@"/home/username/path/file.ext", UriKind.RelativeOrAbsolute), -1),
                 (new Uri(@"nfs://servername/folder/file.ext", UriKind.RelativeOrAbsolute), 1),
