@@ -6,5 +6,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     public static class TestTraits
     {
         public const string Bug = nameof(Bug);
+
+        public const string WindowsOnly = nameof(WindowsOnly);
     }
 }

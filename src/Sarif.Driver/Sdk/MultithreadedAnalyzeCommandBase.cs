@@ -579,7 +579,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
             if (filePath != null)
             {
-                context.TargetUri = new Uri(filePath, UriKind.RelativeOrAbsolute);
+                context.TargetUri = new Uri(filePath);
             }
 
             return context;

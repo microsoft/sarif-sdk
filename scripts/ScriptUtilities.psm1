@@ -12,13 +12,13 @@ $InformationPreference = "Continue"
 
 $RepoRoot = $(Resolve-Path $PSScriptRoot\..).Path
 $Platform = "AnyCPU"
-$SourceRoot = "$RepoRoot\src"
-$JsonSchemaPath = "$SourceRoot\Sarif\Schemata\sarif-schema.json"
-$BuildPropsPath = "$SourceRoot\build.props"
-$BuildRoot = "$RepoRoot\bld"
-$BinRoot = "$BuildRoot\bin"
+$SourceRoot = Join-Path $RepoRoot "src"
+$JsonSchemaPath = Join-Path $SourceRoot "Sarif" "Schemata" "sarif-schema.json"
+$BuildPropsPath = Join-Path $SourceRoot "build.props"
+$BuildRoot = Join-Path $RepoRoot "bld"
+$BinRoot = Join-Path $BuildRoot "bin"
 $SolutionFile = "Sarif.Sdk.sln"
-$SampleSolutionFile = "Samples\Sarif.Sdk.Sample.sln"
+$SampleSolutionFile = Join-Path "Samples" "Sarif.Sdk.Sample.sln"
 
 $MSBuildXmlNamespaces = @{ msbuild = "http://schemas.microsoft.com/developer/msbuild/2003" }
 
