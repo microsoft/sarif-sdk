@@ -17,10 +17,10 @@ namespace Microsoft.CodeAnalysis.Sarif
     {
         public static string GeneratorBaseUri = @"C:\src\";
 
-        public static Random GenerateRandomAndLog(ITestOutputHelper output, [CallerMemberName] string testName = "")
+        public static Random GenerateRandomAndLog(ITestOutputHelper output, [CallerMemberName] string testName = "", int? seed = null)
         {
             // Slightly roundabout.  We want to randomly test this, but we also want to be able to repeat this if the test fails.
-            int randomSeed = (new Random()).Next();
+            int randomSeed = seed ?? (new Random()).Next();
 
             Random random = new Random(randomSeed);
 
