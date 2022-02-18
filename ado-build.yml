@@ -23,7 +23,6 @@ jobs:
     inputs:
       targetType: filePath
       filePath: ./scripts/BuildAndTest.ps1
-      pwsh: true
   
   - task: PublishBuildArtifacts@1
     inputs:
@@ -42,4 +41,3 @@ jobs:
     inputs:
       targetType: filePath
       filePath: ./scripts/BuildMultitoolForNpm.ps1
-      pwsh: true
