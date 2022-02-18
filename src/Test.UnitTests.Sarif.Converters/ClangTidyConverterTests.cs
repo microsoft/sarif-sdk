@@ -51,6 +51,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         }
 
         [Fact]
+        [Trait(TestTraits.WindowsOnly, "true")]
         public void Converter_WhenInputContainsValidResults_ReturnsExpectedOutput()
         {
             string input = GetResourceText("Inputs.ValidResults.yaml");

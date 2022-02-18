@@ -54,7 +54,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
             string inputSarifLog = JsonConvert.SerializeObject(sarifLog);
 
-            string logFilePath = @"c:\logs\mylog.sarif";
+            string logFilePath = Path.Combine(Directory.GetCurrentDirectory(), "mylog.sarif");
             StringBuilder transformedContents = new StringBuilder();
 
             RebaseUriOptions options = CreateDefaultOptions();
@@ -132,7 +132,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         {
             string inputSarifLog = Extractor.GetResourceText($"RebaseUriCommand.{testFilePath}");
 
-            string logFilePath = @"c:\logs\mylog.sarif";
+            string logFilePath = Path.Combine(Directory.GetCurrentDirectory(), "mylog.sarif");
             StringBuilder transformedContents = new StringBuilder();
 
             options.TargetFileSpecifiers = new string[] { logFilePath };
