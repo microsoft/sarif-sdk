@@ -18,7 +18,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Comparers
         {
             int compareResult = 0;
 
-            if (left.TryReferenceCompare(right, out compareResult))
+            if (left.TryReferenceCompares(right, out compareResult))
             {
                 return compareResult;
             }
@@ -93,7 +93,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Comparers
                 return compareResult;
             }
 
-            compareResult = left.Hashes.DictionaryCompare(right.Hashes);
+            compareResult = left.Hashes.DictionaryCompares(right.Hashes);
 
             if (compareResult != 0)
             {

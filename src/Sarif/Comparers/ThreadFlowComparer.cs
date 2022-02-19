@@ -18,7 +18,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Comparers
         {
             int compareResult = 0;
 
-            if (left.TryReferenceCompare(right, out compareResult))
+            if (left.TryReferenceCompares(right, out compareResult))
             {
                 return compareResult;
             }
@@ -37,7 +37,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Comparers
                 return compareResult;
             }
 
-            compareResult = left.Locations.ListCompare(right.Locations, ThreadFlowLocationComparer.Instance);
+            compareResult = left.Locations.ListCompares(right.Locations, ThreadFlowLocationComparer.Instance);
 
             if (compareResult != 0)
             {

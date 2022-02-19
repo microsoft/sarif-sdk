@@ -18,12 +18,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Comparers
         {
             int compareResult = 0;
 
-            if (left.TryReferenceCompare(right, out compareResult))
+            if (left.TryReferenceCompares(right, out compareResult))
             {
                 return compareResult;
             }
 
-            compareResult = left.Uri.UriCompare(right.Uri);
+            compareResult = left.Uri.UriCompares(right.Uri);
 
             if (compareResult != 0)
             {

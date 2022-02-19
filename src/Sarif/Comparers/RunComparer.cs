@@ -18,12 +18,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Comparers
         {
             int compareResult = 0;
 
-            if (left.TryReferenceCompare(right, out compareResult))
+            if (left.TryReferenceCompares(right, out compareResult))
             {
                 return compareResult;
             }
 
-            compareResult = left.Artifacts.ListCompare(right.Artifacts, ArtifactComparer.Instance);
+            compareResult = left.Artifacts.ListCompares(right.Artifacts, ArtifactComparer.Instance);
 
             if (compareResult != 0)
             {
@@ -37,7 +37,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Comparers
                 return compareResult;
             }
 
-            compareResult = left.Results.ListCompare(right.Results, ResultComparer.Instance);
+            compareResult = left.Results.ListCompares(right.Results, ResultComparer.Instance);
 
             if (compareResult != 0)
             {

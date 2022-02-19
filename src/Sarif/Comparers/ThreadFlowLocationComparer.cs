@@ -18,7 +18,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Comparers
         {
             int compareResult = 0;
 
-            if (left.TryReferenceCompare(right, out compareResult))
+            if (left.TryReferenceCompares(right, out compareResult))
             {
                 return compareResult;
             }
@@ -37,7 +37,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Comparers
                 return compareResult;
             }
 
-            compareResult = left.Kinds.ListCompare(right.Kinds);
+            compareResult = left.Kinds.ListCompares(right.Kinds);
 
             if (compareResult != 0)
             {

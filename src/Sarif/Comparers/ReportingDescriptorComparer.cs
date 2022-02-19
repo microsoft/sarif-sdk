@@ -18,7 +18,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Comparers
         {
             int compareResult = 0;
 
-            if (left.TryReferenceCompare(right, out compareResult))
+            if (left.TryReferenceCompares(right, out compareResult))
             {
                 return compareResult;
             }
@@ -30,7 +30,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Comparers
                 return compareResult;
             }
 
-            compareResult = left.DeprecatedIds.ListCompare(right.DeprecatedIds);
+            compareResult = left.DeprecatedIds.ListCompares(right.DeprecatedIds);
 
             if (compareResult != 0)
             {
@@ -44,7 +44,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Comparers
                 return compareResult;
             }
 
-            compareResult = left.DeprecatedGuids.ListCompare(right.DeprecatedGuids);
+            compareResult = left.DeprecatedGuids.ListCompares(right.DeprecatedGuids);
 
             if (compareResult != 0)
             {
@@ -58,7 +58,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Comparers
                 return compareResult;
             }
 
-            compareResult = left.DeprecatedNames.ListCompare(right.DeprecatedNames);
+            compareResult = left.DeprecatedNames.ListCompares(right.DeprecatedNames);
 
             if (compareResult != 0)
             {
@@ -86,7 +86,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Comparers
                 return compareResult;
             }
 
-            compareResult = left.HelpUri.UriCompare(right.HelpUri);
+            compareResult = left.HelpUri.UriCompares(right.HelpUri);
 
             if (compareResult != 0)
             {

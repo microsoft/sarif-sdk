@@ -19,7 +19,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Comparers
         {
             int compareResult = 0;
 
-            if (left.TryReferenceCompare(right, out compareResult))
+            if (left.TryReferenceCompares(right, out compareResult))
             {
                 return compareResult;
             }
@@ -80,21 +80,21 @@ namespace Microsoft.CodeAnalysis.Sarif.Comparers
                 return compareResult;
             }
 
-            compareResult = left.DownloadUri.UriCompare(right.DownloadUri);
+            compareResult = left.DownloadUri.UriCompares(right.DownloadUri);
 
             if (compareResult != 0)
             {
                 return compareResult;
             }
 
-            compareResult = left.InformationUri.UriCompare(right.InformationUri);
+            compareResult = left.InformationUri.UriCompares(right.InformationUri);
 
             if (compareResult != 0)
             {
                 return compareResult;
             }
 
-            compareResult = left.Rules.ListCompare(right.Rules, ReportingDescriptorComparer.Instance);
+            compareResult = left.Rules.ListCompares(right.Rules, ReportingDescriptorComparer.Instance);
 
             if (compareResult != 0)
             {

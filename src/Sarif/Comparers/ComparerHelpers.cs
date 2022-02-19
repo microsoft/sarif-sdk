@@ -21,7 +21,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Comparers
         /// 1 if the first object is not null and the second object is null.
         /// </param>
         /// <returns>Return true if you can get a definite compare result, otherwise return false.</returns>
-        public static bool TryReferenceCompare(this object left, object right, out int result)
+        public static bool TryReferenceCompares(this object left, object right, out int result)
         {
             result = 0;
 
@@ -45,12 +45,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Comparers
             return false;
         }
 
-        public static int ListCompare<T>(this IList<T> left, IList<T> right) where T : IComparable
+        public static int ListCompares<T>(this IList<T> left, IList<T> right) where T : IComparable
         {
             return CompareListHelper(left, right, (a, b) => a.CompareTo(b));
         }
 
-        public static int ListCompare<T>(this IList<T> left, IList<T> right, IComparer<T> comparer)
+        public static int ListCompares<T>(this IList<T> left, IList<T> right, IComparer<T> comparer)
         {
             if (comparer == null)
             {
@@ -69,7 +69,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Comparers
 
             int compareResult = 0;
 
-            if (left.TryReferenceCompare(right, out compareResult))
+            if (left.TryReferenceCompares(right, out compareResult))
             {
                 return compareResult;
             }
@@ -83,7 +83,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Comparers
 
             for (int i = 0; i < left.Count; ++i)
             {
-                if (left[i].TryReferenceCompare(right[i], out compareResult) && compareResult != 0)
+                if (left[i].TryReferenceCompares(right[i], out compareResult) && compareResult != 0)
                 {
                     return compareResult;
                 }
@@ -99,12 +99,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Comparers
             return compareResult;
         }
 
-        public static int DictionaryCompare<T>(this IDictionary<string, T> left, IDictionary<string, T> right) where T : IComparable
+        public static int DictionaryCompares<T>(this IDictionary<string, T> left, IDictionary<string, T> right) where T : IComparable
         {
             return DictionaryCompareHelper(left, right, (a, b) => a.CompareTo(b));
         }
 
-        public static int DictionaryCompare<T>(this IDictionary<string, T> left, IDictionary<string, T> right, IComparer<T> comparer)
+        public static int DictionaryCompares<T>(this IDictionary<string, T> left, IDictionary<string, T> right, IComparer<T> comparer)
         {
             if (comparer == null)
             {
@@ -123,7 +123,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Comparers
 
             int compareResult = 0;
 
-            if (left.TryReferenceCompare(right, out compareResult))
+            if (left.TryReferenceCompares(right, out compareResult))
             {
                 return compareResult;
             }
@@ -158,11 +158,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Comparers
             return compareResult;
         }
 
-        public static int UriCompare(this Uri left, Uri right)
+        public static int UriCompares(this Uri left, Uri right)
         {
             int compareResult = 0;
 
-            if (left.TryReferenceCompare(right, out compareResult))
+            if (left.TryReferenceCompares(right, out compareResult))
             {
                 return compareResult;
             }
