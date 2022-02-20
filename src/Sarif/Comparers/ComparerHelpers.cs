@@ -9,18 +9,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Comparers
 {
     internal static class ComparerExtensions
     {
-        /// <summary>
-        /// Compare 2 object references. Return value 'false' presents the need to
-        /// compare objects values to get the final result.
-        /// </summary>
-        /// <param name="left">The first object to compare.</param>
-        /// <param name="right">The second object to compare.</param>
-        /// <param name="result">
+        /// Compare 2 object by references.
+        /// Return value 'true' presents you can get a definite compare result.
+        /// The out parameter 'result' presents compare result:
         /// 0 if both objects are the same or both are null.
         /// -1 if the first object is null and the second object is not null.
         /// 1 if the first object is not null and the second object is null.
-        /// </param>
-        /// <returns>Return true if you can get a definite compare result, otherwise return false.</returns>
+        /// Return value 'false' presents the need to compare objects other properties to get the final result.
         public static bool TryReferenceCompares(this object left, object right, out int result)
         {
             result = 0;
