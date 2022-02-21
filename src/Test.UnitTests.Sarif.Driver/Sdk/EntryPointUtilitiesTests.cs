@@ -12,10 +12,11 @@ using Xunit;
 
 namespace Microsoft.CodeAnalysis.Sarif.Driver
 {
+    [Trait(TestTraits.WindowsOnly, "true")]
     public class EntryPointUtilitiesTests_GenerateArguments
     {
         [Fact]
-        public void EnryPointUtilities_GenerateArguments_SucceedsWithEmptyArgumentList()
+        public void EntryPointUtilities_GenerateArguments_SucceedsWithEmptyArgumentList()
         {
             string[] result = EntryPointUtilities.GenerateArguments(new string[0], null, null);
 
@@ -23,7 +24,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         }
 
         [Fact]
-        public void EnryPointUtilities_GenerateArguments_SucceedsWithNormalArguments()
+        public void EntryPointUtilities_GenerateArguments_SucceedsWithNormalArguments()
         {
             string[] args = new[] { "/y:z", "/x" };
 
@@ -34,7 +35,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         }
 
         [Fact]
-        public void EnryPointUtilities_GenerateArguments_ExpandsResponseFileContents()
+        public void EntryPointUtilities_GenerateArguments_ExpandsResponseFileContents()
         {
             const string ResponseFileName = "test.rsp";
             string[] responseFileContents = new[] { "/b", "/c:val /d", "   /e   " };
@@ -49,7 +50,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         }
 
         [Fact]
-        public void EnryPointUtilities_GenerateArguments_ExceptionIfResponseFileDoesNotExist()
+        public void EntryPointUtilities_GenerateArguments_ExceptionIfResponseFileDoesNotExist()
         {
             string NonexistentResponseFile = Guid.NewGuid().ToString() + ".rsp";
             string[] args = new[] { "/a", "@" + NonexistentResponseFile, "/f" };
@@ -60,7 +61,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         }
 
         [Fact]
-        public void EnryPointUtilities_GenerateArguments_StripsQuotesFromAroundArgsWithSpacesInResponseFiles()
+        public void EntryPointUtilities_GenerateArguments_StripsQuotesFromAroundArgsWithSpacesInResponseFiles()
         {
             const string ResponseFileName = "test.rsp";
             string[] responseFileContents = new[] { "a \"one two\" b" };
@@ -75,10 +76,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         }
 
         [Fact]
-        public void EnryPointUtilities_GenerateArguments_ExpandsEnvironmentVariablesInResponseFilePathName()
+        public void EntryPointUtilities_GenerateArguments_ExpandsEnvironmentVariablesInResponseFilePathName()
         {
             const string DirectoryVariableName = "InstallationDirectory";
-            const string DirectoryName = @"c:\MyDirectory";
+            string DirectoryName = Path.Combine(Directory.GetCurrentDirectory(), "MyDirectory");
             var environmentVariableDictionary = new Dictionary<string, string>
             {
                 { DirectoryVariableName, DirectoryName }
