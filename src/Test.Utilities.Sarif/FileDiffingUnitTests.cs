@@ -27,19 +27,29 @@ namespace Microsoft.CodeAnalysis.Sarif
     {
         public static string GetTestDirectory(string subdirectory = "")
         {
-            return Path.GetFullPath(Path.Combine(@$"TestData\", subdirectory));
+            return Path.GetFullPath(Path.Combine("TestData", subdirectory));
         }
 
         public static string GetProductDirectory()
         {
             string path = typeof(FileDiffingUnitTests).Assembly.Location;
-            path = GitHelper.Default.GetTopLevel(path);
-            return Path.Combine(path, @"src\");
+            path = MoveUp(path, 6);
+            return Path.Combine(path, "src") + Path.DirectorySeparatorChar.ToString();
+        }
+
+        public static string MoveUp(string path, int numberOfLevels)
+        {
+            string parentPath = path.TrimEnd(new[] { '/', '\\' });
+            for (int i = 0; i < numberOfLevels; i++)
+            {
+                parentPath = Directory.GetParent(parentPath).ToString();
+            }
+            return parentPath;
         }
 
         public static string GetProductTestDataDirectory(string testBinaryName, string subdirectory = "")
         {
-            return Path.GetFullPath(Path.Combine(GetProductDirectory(), $".\\{testBinaryName}\\TestData", subdirectory));
+            return Path.GetFullPath(Path.Combine(MoveUp(GetProductDirectory(), 1), testBinaryName, "TestData", subdirectory));
         }
 
         private readonly ITestOutputHelper _outputHelper;
@@ -71,9 +81,9 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         protected virtual string ProductDirectory => GetProductDirectory();
 
-        protected virtual string TestDirectory => Path.Combine(ProductDirectory, TestBinaryName, @"TestData\");
+        protected virtual string TestDirectory => Path.Combine(ProductDirectory, TestBinaryName, "TestData") + Path.DirectorySeparatorChar.ToString();
 
-        protected virtual string ProductTestDataDirectory => Path.Combine(ProductDirectory, @"TestData\", TypeUnderTest);
+        protected virtual string ProductTestDataDirectory => Path.Combine(ProductDirectory, "TestData", TypeUnderTest);
 
         protected virtual string IntermediateTestFolder { get { return string.Empty; } }
 
@@ -360,6 +370,10 @@ namespace Microsoft.CodeAnalysis.Sarif
             actualObject = default;
 
             expectedSarif = expectedSarif ?? "{}";
+
+            actualSarif = actualSarif.NormalizeToLinuxNewlines();
+            expectedSarif = expectedSarif.NormalizeToLinuxNewlines();
+
             JToken expectedToken = JsonConvert.DeserializeObject<JToken>(expectedSarif);
 
             JToken actualToken = JsonConvert.DeserializeObject<JToken>(actualSarif);

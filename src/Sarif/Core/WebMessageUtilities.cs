@@ -31,18 +31,19 @@ namespace Microsoft.CodeAnalysis.Sarif
         // "target" field on the request line is a valid URI. Nor do we verify that the request body or response
         // body contains only "VCHAR"s (visible characters as opposed to control characters), as required by
         // the RFC.
-        internal const string CRLF = "\r\n";
+        internal static string WindowsNewline = "\r\n";
+        internal static string NonWindowsNewline = "\n";
         internal const string TokenPattern = "[!#$%&'*+._`|~0-9a-zA-Z^-]+";
         internal const string HttpVersionPattern = @"(?<protocol>HTTP)/(?<version>[0-9]\.[0-9])";
 
-        private const string HeaderPattern =
+        private static readonly string HeaderPattern =
             @"^
               (?<fieldName>" + TokenPattern + @")       # The field name, which must be a token,
               :                                         # immediately followed by a colon,
               \s*                                       # optional white space,
               (?<fieldValue>.*?)                        # and the field value, which is a non-greedy match (.*?)
               \s*?                                      # so that it doesn't include the optional trailing white space...
-              \r\n                                      # ... or the CRLF.
+              (\r\n|\n)                                 # ... or the NewLine.
                                                         # The pattern does _not_ include '$' because there might
                                                         # be more headers, or a body, to follow."
               ;
@@ -54,7 +55,8 @@ namespace Microsoft.CodeAnalysis.Sarif
             var headers = new Dictionary<string, string>();
             totalLength = 0;
 
-            while (!requestString.StartsWith(CRLF))     // An empty line signals the end of the headers.
+            while (!requestString.StartsWith(WindowsNewline) && !requestString.StartsWith(NonWindowsNewline))
+            // An empty line signals the end of the headers.
             {
                 ParseHeaderLine(requestString, out string fieldName, out string fieldValue, out int length);
                 if (headers.ContainsKey(fieldName))
@@ -67,7 +69,11 @@ namespace Microsoft.CodeAnalysis.Sarif
                 totalLength += length;
             }
 
-            totalLength += CRLF.Length;                 // Skip past the empty line;
+            // Skip past whatever version of newline found.
+            totalLength +=
+                requestString.StartsWith(WindowsNewline)
+                ? WindowsNewline.Length
+                : NonWindowsNewline.Length;
 
             return headers;
         }

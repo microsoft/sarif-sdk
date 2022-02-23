@@ -15,6 +15,7 @@ using Xunit;
 
 namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Core
 {
+    [Trait(TestTraits.WindowsOnly, "true")]
     public class StackTests
     {
         [Fact(Skip = "Broken by new, unexpected framework behavior in StackTrace class. Issue #1163")]

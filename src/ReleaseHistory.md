@@ -8,7 +8,8 @@
 * BREAKING: `SarifLogger` now emits an artifacts table entry if `artifactLocation` is not null for tool configuration and tool execution notifications. [#2437](https://github.com/microsoft/sarif-sdk/pull/2437)
 * BUGFIX: Fix `ArgumentException` when `--recurse` is enabled and two file target specifiers generates the same file path. [#2438](https://github.com/microsoft/sarif-sdk/pull/2438)
 * BUGFIX: Fix 'InvalidOperationException' with message `Collection was modified; enumeration operation may not execute` in `MultithreadedAnalyzeCommandBase`, which is raised when analyzing with the `--hashes` switch. [#2447](https://github.com/microsoft/sarif-sdk/pull/2447)
-* BUGFIX: Fix missing endLine/endColumn properties and remove vulnerable packages for ESLint SARIF formatter
+* BUGFIX: Fix `Merge` command produces empty SARIF file in Linux when providing file name only without path. [#2408](https://github.com/microsoft/sarif-sdk/pull/2408)
+* BUGFIX: Fix missing `endLine` and `endColumn` properties and remove vulnerable packages for ESLint SARIF formatter. [#2458](https://github.com/microsoft/sarif-sdk/pull/2458)
 
 ## **v2.4.12** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.4.12) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.4.12) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.4.12) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.4.12) | [Multitool Library](https://www.nuget.org/packages/Sarif.Multitool.Library/2.4.12)
 
