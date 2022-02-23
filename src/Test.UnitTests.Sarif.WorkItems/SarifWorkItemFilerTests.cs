@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 
 using FluentAssertions;
 
+using Microsoft.CodeAnalysis.Sarif.VersionOne;
 using Microsoft.CodeAnalysis.Test.Utilities.Sarif;
 using Microsoft.CodeAnalysis.WorkItems;
 using Microsoft.TeamFoundation.WorkItemTracking.WebApi.Models;
@@ -53,9 +54,9 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
 
             SarifLog sarifLog = TestData.CreateSimpleLog();
 
-            // Our default splitting strategy is PerRun, that is, one
-            // work item (and corresponding attachment) should be filed 
-            // for each run in the log file.
+            context.SplittingStrategy = SplittingStrategy.PerRun;
+            context.DataToRemove = OptionallyEmittedData.NondeterministicProperties;
+
             int numberOfRuns = sarifLog.Runs.Count;
             context.SetProperty(ExpectedWorkItemsCount, numberOfRuns);
 
@@ -74,6 +75,115 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
             context.SetProperty(ExpectedWorkItemsCount, numberOfResults);
 
             TestWorkItemFiler(sarifLog, context, adoClient: true);
+        }
+
+        [Fact]
+        public void WorkItemFiler_PerFingerprintSplitStrategyPartitionsProperly()
+        {
+            SarifLog sarifLog = TestData.CreateSimpleLog();
+            SarifWorkItemContext context = CreateAzureDevOpsTestContext();
+
+            string propertyName = "sha-256";
+            context.SplittingStrategy = SplittingStrategy.PerFingerprint;
+            context.PropertyName = propertyName;
+
+            foreach(Result result in sarifLog.Runs.First().Results)
+            {
+                result.Fingerprints ??= new Dictionary<string, string>();
+                result.Fingerprints.Add(propertyName, "86c5ceb27e1bf441130299c0209e5f35b88089f62c06b2b09d65772274f12057");
+            }
+            int numberOfResults = sarifLog.Runs.First().Results.Select(result => result.Fingerprints[propertyName]).Distinct().Count();
+            context.SetProperty(ExpectedWorkItemsCount, numberOfResults);
+
+            TestWorkItemFiler(sarifLog, context, adoClient: true);
+        }
+
+        [Fact]
+        public void WorkItemFiler_PerPropertyBagPropertySplitStrategyPartitionsProperly()
+        {
+            SarifLog sarifLog = TestData.CreateSimpleLog();
+            SarifWorkItemContext context = CreateAzureDevOpsTestContext();
+
+            string propertyName = "runAutomationId";
+            string propertyValue = Guid.NewGuid().ToString();
+            context.SplittingStrategy = SplittingStrategy.PerPropertyBagProperty;
+            context.PropertyName = propertyName;
+
+            foreach (Result result in sarifLog.Runs.First().Results)
+            {
+                result.SetProperty(propertyName, propertyValue);
+            }
+            int numberOfResults = sarifLog.Runs.First().Results.Select(result => result.GetProperty(propertyName)).Distinct().Count();
+            context.SetProperty(ExpectedWorkItemsCount, numberOfResults);
+
+            TestWorkItemFiler(sarifLog, context, adoClient: true);
+        }
+
+        [Fact]
+        public void WorkItemFiler_PerRunPerOrgPerEntityTypePerPartialFingerprintSplitStrategyPartitionsProperly()
+        {
+            SarifLog sarifLog = TestData.CreateSimpleLog();
+            SarifWorkItemContext context = CreateAzureDevOpsTestContext();
+
+            context.SplittingStrategy = SplittingStrategy.PerRunPerOrgPerEntityTypePerPartialFingerprint;
+
+            Result result = sarifLog.Runs.First().Results.First();
+            result.SetProperty("OrganizationName", "organization1");
+            result.SetProperty("EtlEntity", "builddefinition");
+            result.PartialFingerprints ??= new Dictionary<string, string> { { "SecretHash/v1", "hash value 1" } };
+
+            result = sarifLog.Runs.First().Results.Last();
+            result.SetProperty("OrganizationName", "organization1");
+            result.SetProperty("EtlEntity", "builddefinition");
+            result.PartialFingerprints ??= new Dictionary<string, string> { { "SecretHash/v1", "hash value 2" } };
+
+            int numberOfResults = 2;
+            context.SetProperty(ExpectedWorkItemsCount, numberOfResults);
+
+            TestWorkItemFiler(sarifLog, context, adoClient: true);
+        }
+
+        [Fact]
+        public void WorkItemFiler_PerRunPerOrgPerEntityTypePerRepositoryPerPartialFingerprintSplitStrategyPartitionsProperly()
+        {
+            SarifLog sarifLog = TestData.CreateSimpleLog();
+            SarifWorkItemContext context = CreateAzureDevOpsTestContext();
+
+            context.SplittingStrategy = SplittingStrategy.PerRunPerOrgPerEntityTypePerRepositoryPerPartialFingerprint;
+
+            var projectId = Guid.NewGuid();
+            var repositoryId = Guid.NewGuid();
+
+            Result result = sarifLog.Runs.First().Results.First();
+            result.SetProperty("ProjectId", projectId);
+            result.SetProperty("RepositoryId", repositoryId);
+            result.SetProperty("OrganizationName", "organization1");
+            result.SetProperty("EtlEntity", "builddefinition");
+            result.PartialFingerprints ??= new Dictionary<string, string> { { "SecretHash/v1", "hash value" } };
+
+            result = sarifLog.Runs.First().Results.Last();
+            result.SetProperty("ProjectId", projectId);
+            result.SetProperty("RepositoryId", repositoryId);
+            result.SetProperty("OrganizationName", "organization1");
+            result.SetProperty("EtlEntity", "builddefinition");
+            result.PartialFingerprints ??= new Dictionary<string, string> { { "SecretHash/v1", "hash value" } };
+
+            int numberOfResults = 1;
+            context.SetProperty(ExpectedWorkItemsCount, numberOfResults);
+
+            TestWorkItemFiler(sarifLog, context, adoClient: true);
+        }
+
+        [Fact]
+        public void WorkItemFiler_SplitStrategyPartitionsNotSupported()
+        {
+            SarifWorkItemContext context = CreateAzureDevOpsTestContext();
+
+            SarifLog sarifLog = TestData.CreateSimpleLog();
+
+            context.SplittingStrategy = SplittingStrategy.PerRunPerTargetPerRule;
+
+            Assert.Throws<ArgumentOutOfRangeException>(() => TestWorkItemFiler(sarifLog, context, adoClient: true));
         }
 
         [Fact]
@@ -135,6 +245,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
 
             SarifWorkItemContext context = CreateAzureDevOpsTestContext();
             context.SplittingStrategy = SplittingStrategy.None;
+            context.DataToInsert = OptionallyEmittedData.Hashes;
 
             int numberOfWorkItems = 1;
             context.SetProperty(ExpectedWorkItemsCount, numberOfWorkItems);
@@ -209,6 +320,16 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
             TestWorkItemFiler(sarifLog, context, adoClient: true);
         }
 
+        [Fact]
+        public void WorkItemFiler_FileWorkItems_RelativeSarifLogPath()
+        {
+            Uri uri = new Uri("path/to/sarif/log.sarif", UriKind.Relative);
+            SarifWorkItemContext context = CreateAzureDevOpsTestContext();
+
+            SarifWorkItemFiler filer = new SarifWorkItemFiler(context.HostUri, context);
+            Assert.Throws<ArgumentException>(() => filer.FileWorkItems(uri));
+        }
+
         private void TestWorkItemFiler(SarifLog sarifLog, SarifWorkItemContext context, bool adoClient)
         {
             // ONE. Create test data that the low-level ADO client mocks
@@ -240,7 +361,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
             CreateWorkItemCalled = CreateAttachmentCount = UpdateIssueCount = 0;
 
             // THREE. Create a default mock SARIF filer and client.
-            SarifWorkItemFiler filer = CreateMockSarifWorkItemFiler(context).Object;
+            using SarifWorkItemFiler filer = CreateMockSarifWorkItemFiler(context).Object;
 
             // FOUR. Based on which client we are using (ADO or GitHub), create the correct context.
             //       This implies created both the connection mocks and the mocks for filing, updating, and attaching work items.
