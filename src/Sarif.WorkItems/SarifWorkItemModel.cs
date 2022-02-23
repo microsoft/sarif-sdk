@@ -41,7 +41,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
                 }
             }
 
-            foreach(Run run in sarifLog.Runs)
+            foreach (Run run in sarifLog.Runs)
             {
                 Result resultContainsWorkItemUri = run.Results.LastOrDefault(result => result.WorkItemUris?.Count > 0);
                 if (resultContainsWorkItemUri != null)

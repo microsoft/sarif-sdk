@@ -87,11 +87,12 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
             context.SplittingStrategy = SplittingStrategy.PerFingerprint;
             context.PropertyName = propertyName;
 
-            foreach(Result result in sarifLog.Runs.First().Results)
+            foreach (Result result in sarifLog.Runs.First().Results)
             {
                 result.Fingerprints ??= new Dictionary<string, string>();
                 result.Fingerprints.Add(propertyName, "86c5ceb27e1bf441130299c0209e5f35b88089f62c06b2b09d65772274f12057");
             }
+
             int numberOfResults = sarifLog.Runs.First().Results.Select(result => result.Fingerprints[propertyName]).Distinct().Count();
             context.SetProperty(ExpectedWorkItemsCount, numberOfResults);
 
@@ -113,6 +114,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
             {
                 result.SetProperty(propertyName, propertyValue);
             }
+
             int numberOfResults = sarifLog.Runs.First().Results.Select(result => result.GetProperty(propertyName)).Distinct().Count();
             context.SetProperty(ExpectedWorkItemsCount, numberOfResults);
 

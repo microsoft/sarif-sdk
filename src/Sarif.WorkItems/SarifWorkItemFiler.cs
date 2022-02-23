@@ -333,7 +333,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
                             sarifWorkItemModel = updatedSarifWorkItemModel;
                         }
                     }
-                    
+
                     if (string.IsNullOrWhiteSpace(sarifWorkItemModel.Title) || string.IsNullOrWhiteSpace(sarifWorkItemModel.BodyOrDescription))
                     {
                         this.Logger.LogWarning("Attempt to call work item client with invalid work item values.", logId);
