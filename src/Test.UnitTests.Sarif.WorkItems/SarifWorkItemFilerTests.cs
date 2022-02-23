@@ -266,7 +266,6 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
             CreateWorkItemCalled.Should().Be(expectedWorkItemsCount);
             CreateAttachmentCount.Should().Be(adoClient ? expectedWorkItemsCount : 0);
 
-            // default value is FilingResult.Succeeded
             FilingResult expectedFilingResult = context.GetProperty(ExpectedFilingResult);
 
             // This property is a naive mechanism to ensure that the code
@@ -299,7 +298,6 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
             {
                 foreach (Run run in updatedSarifLog.Runs)
                 {
-                    // only verify results are used to file work item
                     foreach (Result result in run.Results.Where(r => r.ShouldBeFiled()))
                     {
                         result.WorkItemUris.Should().NotBeNull();

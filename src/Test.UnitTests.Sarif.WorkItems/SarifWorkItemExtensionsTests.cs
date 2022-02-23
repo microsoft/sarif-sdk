@@ -294,11 +294,9 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
         [Fact]
         public void SarifWorkItemExtensions_CreateWorkItemDescription_ResultsShouldNotBeFiled()
         {
-            string toolName = TestData.TestToolName;
             string multipleToolsFooter = string.Empty;
             string firstLocation = string.Format(s_testSarifFilePathTemplate, 1);
             int numOfResult = 8;
-            int expectedNumOfResult = 0;
 
             int index = 1;
             SarifLog sarifLog = TestData.CreateSimpleLogWithRules(ruleIdStartIndex: 0, numOfResult);
@@ -313,15 +311,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
             }
 
             string description = sarifLog.CreateWorkItemDescription(new SarifWorkItemContext() { CurrentProvider = Microsoft.WorkItems.FilingClient.SourceControlProvider.AzureDevOps });
-
-            // This work item contains {0} {1} issue(s) detected in {2}{3}. Click the 'Scans' tab to review results.
-            description.Should().BeEquivalentTo(
-                string.Format(
-                    WorkItemsResources.WorkItemBodyTemplateText,
-                    expectedNumOfResult,
-                    $"'{toolName}'",
-                    string.Empty,
-                    multipleToolsFooter));
+            description.Should().BeNull();
         }
 
         [Fact]
@@ -333,15 +323,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
             SarifLog sarifLog = TestData.CreateSimpleLogWithRules(0, numOfResult);
 
             string description = sarifLog.CreateWorkItemDescription(new SarifWorkItemContext() { CurrentProvider = Microsoft.WorkItems.FilingClient.SourceControlProvider.AzureDevOps });
-
-            // This work item contains {0} {1} issue(s) detected in {2}{3}. Click the 'Scans' tab to review results.
-            description.Should().BeEquivalentTo(
-                string.Format(
-                    WorkItemsResources.WorkItemBodyTemplateText,
-                    numOfResult,
-                    $"''",
-                    string.Empty,
-                    multipleToolsFooter));
+            description.Should().BeNull();
         }
 
         [Fact]

@@ -148,19 +148,22 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
             int totalResults = 0;
             int artifactLocationCount = 0;
             Uri firstDetectedLocation = null;
+
             IEnumerable<Result> results = log?.Runs?.SelectMany(run => run.Results.Where(r => r.ShouldBeFiled()));
 
             foreach (Result result in results.AsEmptyIfNull())
             {
-                if (result.ShouldBeFiled())
+                totalResults++;
+                foreach (Location location in result.Locations.AsEmptyIfNull())
                 {
-                    totalResults++;
-                    foreach (Location location in result.Locations.AsEmptyIfNull())
-                    {
-                        firstDetectedLocation ??= location.PhysicalLocation?.ArtifactLocation?.Uri;
-                        artifactLocationCount += location.PhysicalLocation?.ArtifactLocation?.Uri != null ? 1 : 0;
-                    }
+                    firstDetectedLocation ??= location.PhysicalLocation?.ArtifactLocation?.Uri;
+                    artifactLocationCount += location.PhysicalLocation?.ArtifactLocation?.Uri != null ? 1 : 0;
                 }
+            }
+
+            if (totalResults == 0)
+            {
+                return null;
             }
 
             List<string> toolNames = log.GetToolNames();
