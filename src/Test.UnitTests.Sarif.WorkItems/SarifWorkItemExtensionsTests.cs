@@ -110,14 +110,14 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
 
             // A logical location that's a path is truncated to it's file name
             expected = ":Warning]: TestRuleId: Test Rule (in '0123456789')";
-            result.Locations[0].LogicalLocation.FullyQualifiedName = "ll" + new string('b', 1024) + "\\0123456789";
+            result.Locations[0].LogicalLocation.FullyQualifiedName = "ll" + new string('b', 1024) + Path.DirectorySeparatorChar + "0123456789";
             title = sarifLog.Runs[0].CreateWorkItemTitle();
             title.Should().EndWith(expected);
 
             // A logical location that's a path is truncated using its full path
-            expectedTemplate = "[aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa:Warning]: TestRuleId: Test Rule (in 'll0123456789\\...')";
-            expected = $":Warning]: TestRuleId: Test Rule (in 'll0123456789\\" + new string('c', maxLength - expectedTemplate.Length) + "...')";
-            result.Locations[0].LogicalLocation.FullyQualifiedName = "ll0123456789\\" + new string('c', 1024);
+            expectedTemplate = "[aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa:Warning]: TestRuleId: Test Rule (in 'll0123456789" + Path.DirectorySeparatorChar + "...')";
+            expected = $":Warning]: TestRuleId: Test Rule (in 'll0123456789" + Path.DirectorySeparatorChar + new string('c', maxLength - expectedTemplate.Length) + "...')";
+            result.Locations[0].LogicalLocation.FullyQualifiedName = "ll0123456789" + Path.DirectorySeparatorChar + new string('c', 1024);
             title = sarifLog.Runs[0].CreateWorkItemTitle();
             title.Should().EndWith(expected);
         }

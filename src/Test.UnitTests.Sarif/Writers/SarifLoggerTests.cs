@@ -135,13 +135,13 @@ namespace Microsoft.CodeAnalysis.Sarif
                 string commandLine = Environment.CommandLine;
                 string lowerCaseCommandLine = commandLine.ToLower();
 
-                if (lowerCaseCommandLine.Contains("testhost.") || lowerCaseCommandLine.Contains("\\xunit.console"))
+                if (lowerCaseCommandLine.Contains("testhost.") || lowerCaseCommandLine.Contains(Path.DirectorySeparatorChar + "xunit.console"))
                 {
-                    int index = commandLine.LastIndexOf("\\");
+                    int index = commandLine.LastIndexOf(Path.DirectorySeparatorChar);
                     string argumentToRedact = commandLine.Substring(0, index + 1);
                     tokensToRedact = new string[] { argumentToRedact };
                 }
-                else if (pathToExe.IndexOf(@"\Extensions", StringComparison.OrdinalIgnoreCase) != -1)
+                else if (pathToExe.IndexOf(Path.DirectorySeparatorChar + "Extensions", StringComparison.OrdinalIgnoreCase) != -1)
                 {
                     string appVeyor = "Appveyor";
                     if (commandLine.IndexOf(appVeyor, StringComparison.OrdinalIgnoreCase) != -1)
@@ -154,7 +154,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                         // The calling assembly lives in an \Extensions directory that hangs off
                         // the directory of the test driver (the location of which we can't retrieve
                         // from Assembly.GetEntryAssembly() as we are running in an AppDomain).
-                        pathToExe = pathToExe.Substring(0, pathToExe.Length - @"\Extensions".Length);
+                        pathToExe = pathToExe.Substring(0, pathToExe.Length - (Path.DirectorySeparatorChar + "Extensions").Length);
                         tokensToRedact = new string[] { pathToExe };
                     }
                 }

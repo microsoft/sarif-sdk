@@ -5,7 +5,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
-using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Xml;
@@ -145,6 +144,11 @@ namespace Microsoft.CodeAnalysis.Sarif
             return true;
         }
 
+        public static string NormalizeToLinuxNewlines(this string input)
+        {
+            return input?.Replace(@"\r\n", @"\n");
+        }
+
         public static Message ToMessage(this string text)
         {
             return new Message { Text = text };
@@ -185,14 +189,16 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         public static string GetFileName(this Uri uri)
         {
+            if (uri == null) { return null; }
+
             if (!uri.IsAbsoluteUri)
             {
                 const string baseUri = "https://example.com";
                 var newAbsoluteUri = new Uri(new Uri(baseUri), uri.OriginalString);
-                return Path.GetFileName(newAbsoluteUri.LocalPath);
+                return newAbsoluteUri.AbsolutePath.Split('/').Last();
             }
 
-            return Path.GetFileName(uri.LocalPath);
+            return uri.AbsolutePath.Split('/').Last();
         }
 
         public static string GetFilePath(this Uri uri)

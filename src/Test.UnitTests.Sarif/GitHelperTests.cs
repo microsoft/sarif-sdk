@@ -12,6 +12,7 @@ using Xunit;
 
 namespace Microsoft.CodeAnalysis.Sarif
 {
+    [Trait(TestTraits.WindowsOnly, "true")]
     public class GitHelperTests
     {
         [Fact]
