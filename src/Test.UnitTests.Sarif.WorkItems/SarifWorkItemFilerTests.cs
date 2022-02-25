@@ -10,9 +10,11 @@ using System.Threading.Tasks;
 
 using FluentAssertions;
 
+using Microsoft.CodeAnalysis.Sarif.VersionOne;
 using Microsoft.CodeAnalysis.Test.Utilities.Sarif;
 using Microsoft.CodeAnalysis.WorkItems;
 using Microsoft.TeamFoundation.WorkItemTracking.WebApi.Models;
+using Microsoft.VisualStudio.Services.Common;
 using Microsoft.VisualStudio.Services.WebApi;
 using Microsoft.VisualStudio.Services.WebApi.Patch.Json;
 using Microsoft.WorkItems;
@@ -42,23 +44,23 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
             int numberOfRuns = sarifLog.Runs.Count;
             context.SetProperty(ExpectedWorkItemsCount, numberOfRuns);
 
-            TestWorkItemFiler(sarifLog, context, true);
+            TestWorkItemFiler(sarifLog, context, adoClient: true);
         }
 
         [Fact]
         public void WorkItemFiler_PerRunSplitStrategyPartitionsProperlyGithub()
         {
-            SarifWorkItemContext context = GitHubTestContext;
+            SarifWorkItemContext context = CreateGitHubTestContext();
 
             SarifLog sarifLog = TestData.CreateSimpleLog();
 
-            // Our default splitting strategy is PerRun, that is, one
-            // work item (and corresponding attachment) should be filed 
-            // for each run in the log file.
+            context.SplittingStrategy = SplittingStrategy.PerRun;
+            context.DataToRemove = OptionallyEmittedData.NondeterministicProperties;
+
             int numberOfRuns = sarifLog.Runs.Count;
             context.SetProperty(ExpectedWorkItemsCount, numberOfRuns);
 
-            TestWorkItemFiler(sarifLog, context, false);
+            TestWorkItemFiler(sarifLog, context, adoClient: false);
         }
 
         [Fact]
@@ -72,7 +74,118 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
             int numberOfResults = sarifLog.Runs.Sum(run => run.Results.Count);
             context.SetProperty(ExpectedWorkItemsCount, numberOfResults);
 
-            TestWorkItemFiler(sarifLog, context, true);
+            TestWorkItemFiler(sarifLog, context, adoClient: true);
+        }
+
+        [Fact]
+        public void WorkItemFiler_PerFingerprintSplitStrategyPartitionsProperly()
+        {
+            SarifLog sarifLog = TestData.CreateSimpleLog();
+            SarifWorkItemContext context = CreateAzureDevOpsTestContext();
+
+            string propertyName = "sha-256";
+            context.SplittingStrategy = SplittingStrategy.PerFingerprint;
+            context.PropertyName = propertyName;
+
+            foreach (Result result in sarifLog.Runs.First().Results)
+            {
+                result.Fingerprints ??= new Dictionary<string, string>();
+                result.Fingerprints.Add(propertyName, "86c5ceb27e1bf441130299c0209e5f35b88089f62c06b2b09d65772274f12057");
+            }
+
+            int numberOfResults = sarifLog.Runs.First().Results.Select(result => result.Fingerprints[propertyName]).Distinct().Count();
+            context.SetProperty(ExpectedWorkItemsCount, numberOfResults);
+
+            TestWorkItemFiler(sarifLog, context, adoClient: true);
+        }
+
+        [Fact]
+        public void WorkItemFiler_PerPropertyBagPropertySplitStrategyPartitionsProperly()
+        {
+            SarifLog sarifLog = TestData.CreateSimpleLog();
+            SarifWorkItemContext context = CreateAzureDevOpsTestContext();
+
+            string propertyName = "runAutomationId";
+            string propertyValue = Guid.NewGuid().ToString();
+            context.SplittingStrategy = SplittingStrategy.PerPropertyBagProperty;
+            context.PropertyName = propertyName;
+
+            foreach (Result result in sarifLog.Runs.First().Results)
+            {
+                result.SetProperty(propertyName, propertyValue);
+            }
+
+            int numberOfResults = sarifLog.Runs.First().Results.Select(result => result.GetProperty(propertyName)).Distinct().Count();
+            context.SetProperty(ExpectedWorkItemsCount, numberOfResults);
+
+            TestWorkItemFiler(sarifLog, context, adoClient: true);
+        }
+
+        [Fact]
+        public void WorkItemFiler_PerRunPerOrgPerEntityTypePerPartialFingerprintSplitStrategyPartitionsProperly()
+        {
+            SarifLog sarifLog = TestData.CreateSimpleLog();
+            SarifWorkItemContext context = CreateAzureDevOpsTestContext();
+
+            context.SplittingStrategy = SplittingStrategy.PerRunPerOrgPerEntityTypePerPartialFingerprint;
+
+            Result result = sarifLog.Runs.First().Results.First();
+            result.SetProperty("OrganizationName", "organization1");
+            result.SetProperty("EtlEntity", "builddefinition");
+            result.PartialFingerprints ??= new Dictionary<string, string> { { "SecretHash/v1", "hash value 1" } };
+
+            result = sarifLog.Runs.First().Results.Last();
+            result.SetProperty("OrganizationName", "organization1");
+            result.SetProperty("EtlEntity", "builddefinition");
+            result.PartialFingerprints ??= new Dictionary<string, string> { { "SecretHash/v1", "hash value 2" } };
+
+            int numberOfResults = 2;
+            context.SetProperty(ExpectedWorkItemsCount, numberOfResults);
+
+            TestWorkItemFiler(sarifLog, context, adoClient: true);
+        }
+
+        [Fact]
+        public void WorkItemFiler_PerRunPerOrgPerEntityTypePerRepositoryPerPartialFingerprintSplitStrategyPartitionsProperly()
+        {
+            SarifLog sarifLog = TestData.CreateSimpleLog();
+            SarifWorkItemContext context = CreateAzureDevOpsTestContext();
+
+            context.SplittingStrategy = SplittingStrategy.PerRunPerOrgPerEntityTypePerRepositoryPerPartialFingerprint;
+
+            var projectId = Guid.NewGuid();
+            var repositoryId = Guid.NewGuid();
+
+            Result result = sarifLog.Runs.First().Results.First();
+            result.SetProperty("ProjectId", projectId);
+            result.SetProperty("RepositoryId", repositoryId);
+            result.SetProperty("OrganizationName", "organization1");
+            result.SetProperty("EtlEntity", "builddefinition");
+            result.PartialFingerprints ??= new Dictionary<string, string> { { "SecretHash/v1", "hash value" } };
+
+            result = sarifLog.Runs.First().Results.Last();
+            result.SetProperty("ProjectId", projectId);
+            result.SetProperty("RepositoryId", repositoryId);
+            result.SetProperty("OrganizationName", "organization1");
+            result.SetProperty("EtlEntity", "builddefinition");
+            result.PartialFingerprints ??= new Dictionary<string, string> { { "SecretHash/v1", "hash value" } };
+
+            int numberOfResults = 1;
+            context.SetProperty(ExpectedWorkItemsCount, numberOfResults);
+
+            TestWorkItemFiler(sarifLog, context, adoClient: true);
+        }
+
+        [Fact]
+        public void WorkItemFiler_SplitStrategyPartitionsNotSupported()
+        {
+            SarifWorkItemContext context = CreateAzureDevOpsTestContext();
+
+            SarifLog sarifLog = TestData.CreateSimpleLog();
+
+            context.SplittingStrategy = SplittingStrategy.PerRunPerTargetPerRule;
+
+            Assert.Throws<ArgumentOutOfRangeException>(() => TestWorkItemFiler(sarifLog, context, adoClient: true));
         }
 
         [Fact]
@@ -103,6 +216,120 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
             Action action = () => filer.FileWorkItems(sarifLogFileLocation: null);
 
             action.Should().Throw<ArgumentNullException>();
+        }
+
+        [Fact]
+        public void WorkItemFiler_SarifLogResultsShouldNotBeFiled()
+        {
+            SarifLog sarifLog = TestData.CreateSimpleLog();
+
+            // Set all results baseline state to 'Unchanged' so no work item should be filed.
+            sarifLog.Runs.SelectMany(run => run.Results).ForEach(result => result.BaselineState = BaselineState.Unchanged);
+
+            SarifWorkItemContext context = CreateGitHubTestContext();
+
+            context.SplittingStrategy = SplittingStrategy.None;
+
+            int numberOfResults = 0;
+            context.SetProperty(ExpectedWorkItemsCount, numberOfResults);
+            context.SetProperty(ExpectedFilingResult, FilingResult.None);
+
+            TestWorkItemFiler(sarifLog, context, adoClient: false);
+        }
+
+        [Fact]
+        public void WorkItemFiler_MixedResultsShouldBeFiled()
+        {
+            SarifLog sarifLog = TestData.CreateSimpleLogWithRules(ruleIdStartIndex: 0, resultCount: 5);
+
+            // Set baseline state of first result to 'Absent', other results should still file a work item.
+            sarifLog.Runs.First().Results.First().BaselineState = BaselineState.Absent;
+
+            SarifWorkItemContext context = CreateAzureDevOpsTestContext();
+            context.SplittingStrategy = SplittingStrategy.None;
+            context.DataToInsert = OptionallyEmittedData.Hashes;
+
+            int numberOfWorkItems = 1;
+            context.SetProperty(ExpectedWorkItemsCount, numberOfWorkItems);
+            context.SetProperty(ExpectedFilingResult, FilingResult.Succeeded);
+
+            TestWorkItemFiler(sarifLog, context, adoClient: true);
+        }
+
+        [Fact]
+        public void WorkItemFiler_ResultsWithSuppressionsShouldNotBeFiled()
+        {
+            SarifLog sarifLog = TestData.CreateSimpleLog();
+
+            // Set all results baseline state to 'Unchanged' so no work item should be filed.
+            sarifLog.Runs
+                .SelectMany(run => run.Results)
+                .ForEach(result => result.Suppressions = new[] { new Suppression { Status = SuppressionStatus.Accepted } });
+
+            SarifWorkItemContext context = CreateGitHubTestContext();
+            context.SplittingStrategy = SplittingStrategy.None;
+
+            int numberOfWorkItems = 0;
+            context.SetProperty(ExpectedWorkItemsCount, numberOfWorkItems);
+            context.SetProperty(ExpectedFilingResult, FilingResult.None);
+
+            TestWorkItemFiler(sarifLog, context, adoClient: false);
+        }
+
+        [Fact]
+        public void WorkItemFiler_VerifyFilerClientIsNotCalled_IfNoFilableResult()
+        {
+            SarifLog sarifLog = TestData.CreateSimpleLog();
+
+            sarifLog.Runs.FirstOrDefault().Results?
+                .ForEach(result => result.Suppressions = new[] { new Suppression { Status = SuppressionStatus.Accepted } });
+
+            sarifLog.SetProperty(SarifWorkItemFiler.LOGID_PROPERTY_NAME, Guid.NewGuid());
+
+            SarifWorkItemContext context = CreateGitHubTestContext();
+            context.SplittingStrategy = SplittingStrategy.PerRun;
+
+            int numberOfWorkItems = 0;
+            context.SetProperty(ExpectedWorkItemsCount, numberOfWorkItems);
+            context.SetProperty(ExpectedFilingResult, FilingResult.None);
+
+            ConnectCalled = false;
+            CreateWorkItemCalled = 0;
+
+            SarifWorkItemFiler filer = CreateMockSarifWorkItemFiler(context).Object;
+            FilingClient client = CreateGitHubMocksAndFilingClient(null, null, filer);
+            SarifWorkItemModel model = filer.FileWorkItemInternal(sarifLog, context, client);
+
+            model.Should().BeNull();
+            filer.FilingResult.Should().Be(FilingResult.Canceled);
+            ConnectCalled.Should().BeFalse();
+            CreateWorkItemCalled.Should().Be(0);
+        }
+
+        [Fact]
+        public void WorkItemFiler_SarifLogResultsAreEmpty()
+        {
+            SarifLog sarifLog = TestData.CreateEmptyRun();
+
+            SarifWorkItemContext context = CreateAzureDevOpsTestContext();
+
+            context.SplittingStrategy = SplittingStrategy.None;
+
+            int numberOfResults = 0;
+            context.SetProperty(ExpectedWorkItemsCount, numberOfResults);
+            context.SetProperty(ExpectedFilingResult, FilingResult.None);
+
+            TestWorkItemFiler(sarifLog, context, adoClient: true);
+        }
+
+        [Fact]
+        public void WorkItemFiler_FileWorkItems_RelativeSarifLogPath()
+        {
+            Uri uri = new Uri("path/to/sarif/log.sarif", UriKind.Relative);
+            SarifWorkItemContext context = CreateAzureDevOpsTestContext();
+
+            SarifWorkItemFiler filer = new SarifWorkItemFiler(context.HostUri, context);
+            Assert.Throws<ArgumentException>(() => filer.FileWorkItems(uri));
         }
 
         private void TestWorkItemFiler(SarifLog sarifLog, SarifWorkItemContext context, bool adoClient)
@@ -136,7 +363,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
             CreateWorkItemCalled = CreateAttachmentCount = UpdateIssueCount = 0;
 
             // THREE. Create a default mock SARIF filer and client.
-            SarifWorkItemFiler filer = CreateMockSarifWorkItemFiler(context).Object;
+            using SarifWorkItemFiler filer = CreateMockSarifWorkItemFiler(context).Object;
 
             // FOUR. Based on which client we are using (ADO or GitHub), create the correct context.
             //       This implies created both the connection mocks and the mocks for filing, updating, and attaching work items.
@@ -162,6 +389,8 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
             CreateWorkItemCalled.Should().Be(expectedWorkItemsCount);
             CreateAttachmentCount.Should().Be(adoClient ? expectedWorkItemsCount : 0);
 
+            FilingResult expectedFilingResult = context.GetProperty(ExpectedFilingResult);
+
             // This property is a naive mechanism to ensure that the code
             // executed comprehensively (i.e., that execution was not limited
             // due to unhandled exceptions). This is required because we have
@@ -169,7 +398,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
             // for exceptions and other negative conditions. I wouldn't expect this
             // little helper to survive but it closes the loop for the current
             // rudimentary in-flight implementation.
-            filer.FilingResult.Should().Be(FilingResult.Succeeded);
+            filer.FilingResult.Should().Be(expectedFilingResult);
 
             filer.FiledWorkItems.Count.Should().Be(expectedWorkItemsCount);
 
@@ -188,20 +417,23 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
             // 
             updatedSarifLog.Should().NotBeEquivalentTo(sarifLog);
 
-            foreach (Run run in updatedSarifLog.Runs)
+            if (expectedWorkItemsCount > 0)
             {
-                foreach (Result result in run.Results)
+                foreach (Run run in updatedSarifLog.Runs)
                 {
-                    result.WorkItemUris.Should().NotBeNull();
-                    result.WorkItemUris.Count.Should().Be(1);
-                    result.WorkItemUris[0].Should().Be(bugHtmlUri);
+                    foreach (Result result in run.Results.Where(r => r.ShouldBeFiled()))
+                    {
+                        result.WorkItemUris.Should().NotBeNull();
+                        result.WorkItemUris.Count.Should().Be(1);
+                        result.WorkItemUris[0].Should().Be(bugHtmlUri);
 
-                    result.TryGetProperty(SarifWorkItemFiler.PROGRAMMABLE_URIS_PROPERTY_NAME, out List<Uri> programmableUris)
-                        .Should().BeTrue();
+                        result.TryGetProperty(SarifWorkItemFiler.PROGRAMMABLE_URIS_PROPERTY_NAME, out List<Uri> programmableUris)
+                            .Should().BeTrue();
 
-                    programmableUris.Should().NotBeNull();
-                    programmableUris.Count.Should().Be(1);
-                    programmableUris[0].Should().Be(bugUri);
+                        programmableUris.Should().NotBeNull();
+                        programmableUris.Count.Should().Be(1);
+                        programmableUris[0].Should().Be(bugUri);
+                    }
                 }
             }
         }
@@ -326,7 +558,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
 
         private static Mock<SarifWorkItemFiler> CreateMockSarifWorkItemFiler(SarifWorkItemContext context = null)
         {
-            context = context ?? GitHubTestContext;
+            context = context ?? CreateGitHubTestContext();
 
             var mockFiler = new Mock<SarifWorkItemFiler>(context.HostUri, context);
 
@@ -355,11 +587,14 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
         public static int CreateWorkItemCalled = 0, CreateAttachmentCount = 0, UpdateIssueCount = 0;
         public static bool ConnectCalled = false;
 
-        private static readonly SarifWorkItemContext GitHubTestContext = new SarifWorkItemContext()
+        private static SarifWorkItemContext CreateGitHubTestContext()
         {
-            HostUri = GitHubFilingUri,
-            PersonalAccessToken = TestData.NotActuallyASecret
-        };
+            return new SarifWorkItemContext()
+            {
+                HostUri = GitHubFilingUri,
+                PersonalAccessToken = TestData.NotActuallyASecret
+            };
+        }
 
         private static SarifWorkItemContext CreateAzureDevOpsTestContext()
         {
@@ -374,5 +609,10 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
             new PerLanguageOption<int>(
                 "Extensibility", nameof(ExpectedWorkItemsCount),
                 defaultValue: () => { return 1; });
+
+        internal static PerLanguageOption<FilingResult> ExpectedFilingResult { get; } =
+            new PerLanguageOption<FilingResult>(
+                "Extensibility", nameof(ExpectedFilingResult),
+                defaultValue: () => { return FilingResult.Succeeded; });
     }
 }
