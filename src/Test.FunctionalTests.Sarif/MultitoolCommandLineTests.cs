@@ -13,6 +13,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
     public class MultitoolCommandLineTests
     {
         [Fact]
+        [Trait(TestTraits.WindowsOnly, "true")]
         [Trait(TestTraits.Bug, "https://github.com/microsoft/sarif-sdk/issues/1487")]
         public void Multitool_LaunchesAndRunsSuccessfully()
         {

@@ -177,7 +177,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             SarifVersion targetVersion,
             RewriteOptions options = null)
         {
-            const string LogFilePath = @"c:\logs\mylog.sarif";
+            string LogFilePath = Path.Combine(Directory.GetCurrentDirectory(), "mylog.sarif");
 
             options ??= new RewriteOptions
             {

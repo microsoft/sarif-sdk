@@ -82,6 +82,7 @@ param(
 Set-StrictMode -Version Latest
 $ErrorActionPreference = "Stop"
 $InformationPreference = "Continue"
+$NonWindowsOptions = @{}
 
 $ScriptName = $([io.Path]::GetFileNameWithoutExtension($PSCommandPath))
 
@@ -192,7 +193,7 @@ Install-VersionConstantsFile
 
 if (-not $NoRestore) {
     Write-Information "Restoring NuGet packages for $SampleSolutionFile..."
-        & $NuGetExePath restore -ConfigFile $NuGetConfigFile -Verbosity $NuGetVerbosity -OutputDirectory $NuGetSamplesPackageRoot $SourceRoot\$SampleSolutionFile
+        & $NuGetExePath restore -ConfigFile $NuGetConfigFile -Verbosity $NuGetVerbosity -OutputDirectory $NuGetSamplesPackageRoot (Join-Path $SourceRoot $SampleSolutionFile)
     if ($LASTEXITCODE -ne 0) {
         Exit-WithFailureMessage $ScriptName "NuGet restore failed for $SampleSolutionFile."
     }
@@ -212,11 +213,16 @@ if (-not $?) {
 
 if (-not $NoBuild) {
     Invoke-DotNetBuild $SolutionFile
-    Invoke-DotNetBuild $sampleSolutionFile
+    if ($ENV:OS) {
+        Invoke-DotNetBuild $sampleSolutionFile
+    }
 }
 
 if (-not $NoTest) {
-    & dotnet test $SourceRoot\$SolutionFile --no-build --configuration $Configuration
+    if (-not $ENV:OS) {
+        $NonWindowsOptions = @{ "-filter" = "WindowsOnly!=true" }
+    }
+    & dotnet test $SourceRoot\$SolutionFile --no-build --configuration $Configuration @NonWindowsOptions
     if ($LASTEXITCODE -ne 0) {
         Exit-WithFailureMessage $ScriptName "Tests failed."
     }
@@ -236,8 +242,8 @@ if (-not $NoSigningDirectory) {
 
 if (-not $NoPackage) {
     & dotnet pack $SourceRoot\$SolutionFile --no-build --configuration $Configuration
-    if ($LASTEXITCODE -ne 0) {
-        Exit-WithFailureMessage $ScriptName "Tests failed."
+    if ($ENV:OS -and $LASTEXITCODE -ne 0) {
+        Exit-WithFailureMessage $ScriptName "Package failed."
     }
 }
 

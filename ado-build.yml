@@ -1,11 +1,21 @@
 pr:
 - 'main'
 
-pool:
-  vmImage: 'windows-latest'
-
 jobs:
 - job: NET_pipeline
+  strategy:
+    matrix:
+      linux:
+        imageName: 'ubuntu-latest'
+      mac:
+        imageName: 'macOS-latest'
+      windows:
+        imageName: 'windows-latest'
+    maxParallel: 4
+
+  pool: 
+    vmImage: $(imageName)
+
   steps:
   # Build and test
   - task: PowerShell@2
@@ -22,6 +32,8 @@ jobs:
   - task: ComponentGovernanceComponentDetection@0
 
 - job: npm_pipeline
+  pool:
+    vmImage: 'windows-latest'
   steps:
   # Build Multitool for npm
   - task: PowerShell@2

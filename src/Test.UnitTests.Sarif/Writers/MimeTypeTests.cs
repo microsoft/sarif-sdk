@@ -55,14 +55,20 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         public void MimeType_Directory()
         {
             string directory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
-            Assert.Equal("application/x-directory", MimeType.DetermineFromFileExtension(directory));
+            if (!string.IsNullOrWhiteSpace(directory))
+            {
+                Assert.Equal("application/x-directory", MimeType.DetermineFromFileExtension(directory));
+            }
         }
 
         [Fact]
         public void MimeType_DirectoryUri()
         {
             string directory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
-            Assert.Equal("application/x-directory", MimeType.DetermineFromFileExtension(new Uri(directory)));
+            if (!string.IsNullOrWhiteSpace(directory))
+            {
+                Assert.Equal("application/x-directory", MimeType.DetermineFromFileExtension(new Uri(directory)));
+            }
         }
     }
 }
