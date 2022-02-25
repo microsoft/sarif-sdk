@@ -176,6 +176,24 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         }
 
         [Fact]
+        public void InvalidTargetFilePath()
+        {
+            string validPath = GetThisTestAssemblyFilePath();
+            string[] invalidPaths = validPath.Split('.');
+
+            var options = new TestAnalyzeOptions()
+            {
+                TestRuleBehaviors = TestRuleBehaviors.RegardAnalysisTargetAsInvalid,
+                TargetFileSpecifiers = invalidPaths,
+            };
+
+            ExceptionTestHelper(
+                RuntimeConditions.NoValidAnalysisTargets,
+                analyzeOptions: options,
+                expectedExitReason: ExitReason.NoValidAnalysisTargets);
+        }
+
+        [Fact]
         public void ExceptionLoadingTarget()
         {
             var options = new TestAnalyzeOptions()
