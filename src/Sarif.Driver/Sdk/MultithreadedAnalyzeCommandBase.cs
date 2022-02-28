@@ -380,25 +380,27 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 directory = Path.GetFullPath(directory);
                 var directories = new Queue<string>();
 
-                if (FileSystem.DirectoryExists(directory))
+                if (!FileSystem.DirectoryExists(directory))
                 {
+                    continue;
+                }
 
-                    if (options.Recurse)
-                    {
-                        EnqueueAllDirectories(directories, directory);
-                    }
-                    else
-                    {
-                        directories.Enqueue(directory);
-                    }
+                if (options.Recurse)
+                {
+                    EnqueueAllDirectories(directories, directory);
+                }
+                else
+                {
+                    directories.Enqueue(directory);
+                }
 
-                    var sortedFiles = new SortedSet<string>();
+                var sortedFiles = new SortedSet<string>();
 
-                    while (directories.Count > 0)
-                    {
-                        sortedFiles.Clear();
+                while (directories.Count > 0)
+                {
+                    sortedFiles.Clear();
 
-                        directory = Path.GetFullPath(directories.Dequeue());
+                    directory = Path.GetFullPath(directories.Dequeue());
 
 #if NETFRAMEWORK
                     // .NET Framework: Directory.Enumerate with empty filter returns NO files.
@@ -410,26 +412,25 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                     }
 #endif
 
-                        foreach (string file in FileSystem.DirectoryEnumerateFiles(directory,
-                                                                                   filter,
-                                                                                   SearchOption.TopDirectoryOnly))
-                        {
-                            sortedFiles.Add(file);
-                        }
+                    foreach (string file in FileSystem.DirectoryEnumerateFiles(directory,
+                                                                               filter,
+                                                                               SearchOption.TopDirectoryOnly))
+                    {
+                        sortedFiles.Add(file);
+                    }
 
-                        foreach (string file in sortedFiles)
-                        {
-                            _fileContexts.TryAdd(
-                                _fileContextsCount,
-                                CreateContext(options,
-                                              new CachingLogger(options.Level, options.Kind),
-                                              rootContext.RuntimeErrors,
-                                              rootContext.Policy,
-                                              filePath: file)
-                            );
+                    foreach (string file in sortedFiles)
+                    {
+                        _fileContexts.TryAdd(
+                            _fileContextsCount,
+                            CreateContext(options,
+                                          new CachingLogger(options.Level, options.Kind),
+                                          rootContext.RuntimeErrors,
+                                          rootContext.Policy,
+                                          filePath: file)
+                        );
 
-                            await _hashChannel.Writer.WriteAsync(_fileContextsCount++);
-                        }
+                        await _hashChannel.Writer.WriteAsync(_fileContextsCount++);
                     }
                 }
             }
