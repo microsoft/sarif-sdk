@@ -1,7 +1,9 @@
 ﻿// Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
+using System;
 using System.Collections.Generic;
+using System.IO;
 
 using FluentAssertions;
 
@@ -95,9 +97,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         [Fact]
         public void FortifyFprConverter_GetOriginalUriBaseIdsDictionary_sourceIsRelativeWithTrailingSlash()
         {
-            Dictionary<string, ArtifactLocation> originalUriBaseIdsDictionary = FortifyFprConverter.GetOriginalUriBaseIdsDictionary("/some/relative/path/", "Windows Server 2016");
+            Action action = () => FortifyFprConverter.GetOriginalUriBaseIdsDictionary("/some/relative/path/", "Windows Server 2016");
 
-            originalUriBaseIdsDictionary.Should().BeNull();
+            action.Should().Throw<InvalidDataException>();
         }
 
         [Fact]
