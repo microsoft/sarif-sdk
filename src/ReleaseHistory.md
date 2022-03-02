@@ -9,6 +9,7 @@
 * BUGFIX: Fix `ArgumentException` when `--recurse` is enabled and two file target specifiers generates the same file path. [#2438](https://github.com/microsoft/sarif-sdk/pull/2438)
 * BUGFIX: Fix 'InvalidOperationException' with message `Collection was modified; enumeration operation may not execute` in `MultithreadedAnalyzeCommandBase`, which is raised when analyzing with the `--hashes` switch. [#2447](https://github.com/microsoft/sarif-sdk/pull/2447)
 * BUGFIX: Fix `Merge` command produces empty SARIF file in Linux when providing file name only without path. [#2408](https://github.com/microsoft/sarif-sdk/pull/2408)
+* FEATURE: Add `--sort-results` argument to the `rewrite` command to get sorted SARIF results. [#2422](https://github.com/microsoft/sarif-sdk/pull/2422)
 * BUGFIX: Fix `NullReferenceException` when filing work item with a SARIF file which has no filable results. [#2412](https://github.com/microsoft/sarif-sdk/pull/2412)
 * BUGFIX: Fix missing `endLine` and `endColumn` properties and remove vulnerable packages for ESLint SARIF formatter. [#2458](https://github.com/microsoft/sarif-sdk/pull/2458)
 
