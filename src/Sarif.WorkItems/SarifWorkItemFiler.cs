@@ -26,6 +26,8 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
         private readonly object m_syncRoot = new object();
         private FilingClient m_filingClient = null;
 
+        internal static readonly string s_multipleLocationsTextPattern = "{0} (+{1} locations)";
+
         /// <summary>
         /// Initializes a new instance of the <see cref="SarifWorkItemFiler"> class.</see>
         /// </summary>
@@ -199,17 +201,17 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
 
                     Logger.LogInformation($"Splitting strategy - {splittingStrategy}");
 
-                    if (splittingStrategy == SplittingStrategy.None)
-                    {
-                        return new[] { sarifLog };
-                    }
-
                     PartitionFunction<string> partitionFunction = null;
 
                     Stopwatch splittingStopwatch = Stopwatch.StartNew();
 
                     switch (splittingStrategy)
                     {
+                        case SplittingStrategy.None:
+                        {
+                            partitionFunction = (result) => result.ShouldBeFiled() ? "Include" : null;
+                            break;
+                        }
                         case SplittingStrategy.PerRun:
                         {
                             partitionFunction = (result) => result.ShouldBeFiled() ? "Include" : null;
@@ -332,6 +334,13 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
                         }
                     }
 
+                    if (string.IsNullOrWhiteSpace(sarifWorkItemModel.Title) || string.IsNullOrWhiteSpace(sarifWorkItemModel.BodyOrDescription))
+                    {
+                        this.Logger.LogWarning("Attempt to call work item client with invalid work item values.", logId);
+                        this.LogMetricsForProcessedModel(sarifLog, sarifWorkItemModel, FilingResult.Canceled);
+                        return null;
+                    }
+
                     Task<IEnumerable<WorkItemModel>> task = filingClient.FileWorkItems(new[] { sarifWorkItemModel });
                     task.Wait();
                     this.FiledWorkItems.AddRange(task.Result);
@@ -387,23 +396,23 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
                 : "";
 
             var workItemMetrics = new Dictionary<string, object>
-                {
-                    { "LogId", logId },
-                    { "WorkItemModelId", sarifWorkItemModel.Id },
-                    { nameof(sarifWorkItemModel.Area), sarifWorkItemModel.Area },
-                    { nameof(sarifWorkItemModel.BodyOrDescription), sarifWorkItemModel.BodyOrDescription },
-                    { "FilingResult", filingResult.ToString() },
-                    { nameof(sarifWorkItemModel.CommentOrDiscussion), sarifWorkItemModel.CommentOrDiscussion },
-                    { nameof(sarifWorkItemModel.HtmlUri), sarifWorkItemModel.HtmlUri },
-                    { nameof(sarifWorkItemModel.Iteration), sarifWorkItemModel.Iteration },
-                    { "LabelsOrTags", tags },
-                    { "LocationUri", uris },
-                    { nameof(sarifWorkItemModel.Milestone), sarifWorkItemModel.Milestone },
-                    { nameof(sarifWorkItemModel.OwnerOrAccount), sarifWorkItemModel.OwnerOrAccount },
-                    { nameof(sarifWorkItemModel.RepositoryOrProject), sarifWorkItemModel.RepositoryOrProject },
-                    { nameof(sarifWorkItemModel.Title), sarifWorkItemModel.Title },
-                    { nameof(sarifWorkItemModel.Uri), sarifWorkItemModel.Uri },
-                };
+            {
+                { "LogId", logId },
+                { "WorkItemModelId", sarifWorkItemModel.Id },
+                { nameof(sarifWorkItemModel.Area), sarifWorkItemModel.Area },
+                { nameof(sarifWorkItemModel.BodyOrDescription), sarifWorkItemModel.BodyOrDescription },
+                { "FilingResult", filingResult.ToString() },
+                { nameof(sarifWorkItemModel.CommentOrDiscussion), sarifWorkItemModel.CommentOrDiscussion },
+                { nameof(sarifWorkItemModel.HtmlUri), sarifWorkItemModel.HtmlUri },
+                { nameof(sarifWorkItemModel.Iteration), sarifWorkItemModel.Iteration },
+                { "LabelsOrTags", tags },
+                { "LocationUri", uris },
+                { nameof(sarifWorkItemModel.Milestone), sarifWorkItemModel.Milestone },
+                { nameof(sarifWorkItemModel.OwnerOrAccount), sarifWorkItemModel.OwnerOrAccount },
+                { nameof(sarifWorkItemModel.RepositoryOrProject), sarifWorkItemModel.RepositoryOrProject },
+                { nameof(sarifWorkItemModel.Title), sarifWorkItemModel.Title },
+                { nameof(sarifWorkItemModel.Uri), sarifWorkItemModel.Uri },
+            };
 
             foreach (string key in additionalCustomDimensions.Keys)
             {

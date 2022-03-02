@@ -5,11 +5,11 @@
 
 "use strict";
 
-const lodash = require("lodash");
 const fs = require("fs");
-const utf8 = require("utf8");
-const jschardet = require("jschardet");
 const url = require('url');
+const utf8 = require("utf8");
+const lodash = require("lodash");
+const jschardet = require("jschardet");
 
 //------------------------------------------------------------------------------
 // Helper Functions
@@ -210,6 +210,12 @@ module.exports = function (results, data) {
                         }
                         if (message.column > 0) {
                             sarifRepresentation.locations[0].physicalLocation.region.startColumn = message.column;
+                        }
+                        if (message.endLine > 0) {
+                            sarifRepresentation.locations[0].physicalLocation.region.endLine = message.endLine;
+                        }
+                        if (message.endColumn > 0) {
+                            sarifRepresentation.locations[0].physicalLocation.region.endColumn = message.endColumn;
                         }
                     }
 
