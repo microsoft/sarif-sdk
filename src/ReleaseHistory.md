@@ -11,6 +11,7 @@
 * BUGFIX: Fix `Merge` command produces empty SARIF file in Linux when providing file name only without path. [#2408](https://github.com/microsoft/sarif-sdk/pull/2408)
 * BUGFIX: Fix `NullReferenceException` when filing work item with a SARIF file which has no filable results. [#2412](https://github.com/microsoft/sarif-sdk/pull/2412)
 * BUGFIX: Fix missing `endLine` and `endColumn` properties and remove vulnerable packages for ESLint SARIF formatter. [#2458](https://github.com/microsoft/sarif-sdk/pull/2458)
+* BREAKING: `Id` field of `Location` changed from `int`(32bit) to `BigInteger`(unlimited) [#2463](https://github.com/microsoft/sarif-sdk/pull/2463)
 
 ## **v2.4.12** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.4.12) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.4.12) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.4.12) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.4.12) | [Multitool Library](https://www.nuget.org/packages/Sarif.Multitool.Library/2.4.12)
 

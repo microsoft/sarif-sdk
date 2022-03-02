@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Numerics;
 using System.Runtime.Serialization;
-using Microsoft.CodeAnalysis.Sarif.Readers;
+
 using Newtonsoft.Json;
 
 namespace Microsoft.CodeAnalysis.Sarif

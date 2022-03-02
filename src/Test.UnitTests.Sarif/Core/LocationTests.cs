@@ -1,9 +1,14 @@
 ﻿// Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
+using System;
+using System.Numerics;
+
 using FluentAssertions;
 
 using Microsoft.CodeAnalysis.Sarif;
+
+using Newtonsoft.Json;
 
 using Xunit;
 
@@ -11,6 +16,8 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Core
 {
     public class LocationTests
     {
+        private const string Id = "\"Id\"";
+
         [Fact]
         public void Location_LogicalLocation_WhenLogicalLocationsIsAbsent_ReturnsNull()
         {
@@ -84,6 +91,69 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Core
             location.LogicalLocation = null;
 
             location.LogicalLocations.Should().BeNull();
+        }
+
+        [Fact]
+        public void Location_SerializeId()
+        {
+            var location = new Location();
+            AssertShouldSerializeId(location, false);
+
+            location.Id = -1;
+            AssertShouldSerializeId(location, false);
+
+            location.Id = 0;
+            AssertShouldSerializeId(location, true);
+
+            location.Id = 1;
+            AssertShouldSerializeId(location, true);
+
+            location.Id = int.MaxValue;
+            AssertShouldSerializeId(location, true);
+
+            location.Id = long.MaxValue;
+            AssertShouldSerializeId(location, true);
+
+            location.Id++;
+            AssertShouldSerializeId(location, true);
+        }
+
+        [Fact]
+        public void Location_DeserializeId()
+        {
+            string jsonLocation = "{}";
+            AssertDeserializeId(jsonLocation, -1);
+
+            jsonLocation = "{\"id\":-1}";
+            AssertDeserializeId(jsonLocation, -1);
+
+            jsonLocation = "{\"id\":0}";
+            AssertDeserializeId(jsonLocation, 0);
+
+            jsonLocation = "{\"id\":1}";
+            AssertDeserializeId(jsonLocation, 1);
+
+            jsonLocation = $"{{\"id\":{int.MaxValue}}}";
+            AssertDeserializeId(jsonLocation, int.MaxValue);
+
+            jsonLocation = $"{{\"id\":{long.MaxValue}}}";
+            AssertDeserializeId(jsonLocation, long.MaxValue);
+
+            jsonLocation = $"{{\"id\":{new BigInteger(long.MaxValue) + 1}}}";
+            AssertDeserializeId(jsonLocation, new BigInteger(long.MaxValue) + 1);
+        }
+
+        private void AssertShouldSerializeId(Location location, bool should = true)
+        {
+            Assert.True(should == location.ShouldSerializeId());
+            string testSerializedString = JsonConvert.SerializeObject(location);
+            Assert.True(should == testSerializedString.Contains(Id, StringComparison.InvariantCultureIgnoreCase));
+        }
+
+        private void AssertDeserializeId(string jsonLocation, BigInteger id)
+        {
+            Location location = JsonConvert.DeserializeObject<Location>(jsonLocation);
+            Assert.True(location.Id == id);
         }
     }
 }
