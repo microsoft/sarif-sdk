@@ -553,7 +553,6 @@ describe("formatter:sarif", () => {
 
 describe("formatter:sarif", () => {
     describe("when passed two results with one having no message and one with two messages", () => {
-        const ruleid1 = "no-unused-vars";
         const ruleid2 = "no-extra-semi";
         const ruleid3 = "custom-rule";
 
