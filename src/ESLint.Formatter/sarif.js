@@ -188,7 +188,7 @@ module.exports = function (results, data) {
 
                         if (containsSuppressedMessages) {
                             sarifRepresentation.suppressions = message.suppressions ?
-                                sarifRepresentation.suppressions = message.suppressions.map(suppression => {
+                                message.suppressions.map(suppression => {
                                     return {
                                         kind: suppression.kind === "directive" ? "inSource" : "external",
                                         justification: suppression.justification
