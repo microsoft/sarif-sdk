@@ -17,11 +17,11 @@ jobs:
       - name: Install ESLint
         run: |
           npm install eslint
-          npm install @microsoft/eslint-formatter-sarif
           npm install @microsoft/sarif-multitool
           
-      - name: Init ESLint
-        run: npm init @eslint/config
+      - name: Install ESLint SARIF formatter dependencies
+        run: npm install
+        working-directory: ./src/ESLint.Formatter
 
       - name: Run local eslint + sarif formatter
         run: npx eslint ./src/ESLint.Formatter
