@@ -127,8 +127,7 @@ describe("formatter:sarif", () => {
             assert(log.runs[0].results[0].locations[0].physicalLocation.artifactLocation.uri.startsWith(uriPrefix));
             assert(log.runs[0].results[0].locations[0].physicalLocation.artifactLocation.uri.endsWith("/" + sourceFilePath1));
             assert.strictEqual(log.runs[0].results[0].locations[0].physicalLocation.artifactLocation.index, 0);
-            assert.isDefined(log.runs[0].results[0].suppressions);
-            assert.lengthOf(log.runs[0].results[0].suppressions, 0);
+            assert.isUndefined(log.runs[0].results[0].suppressions);
         });
     });
 
@@ -214,8 +213,7 @@ describe("formatter:sarif", () => {
             assert(log.runs[0].results[0].locations[0].physicalLocation.artifactLocation.uri.startsWith(uriPrefix));
             assert(log.runs[0].results[0].locations[0].physicalLocation.artifactLocation.uri.endsWith("/" + sourceFilePath1));
             assert.strictEqual(log.runs[0].results[0].locations[0].physicalLocation.artifactLocation.index, 0);
-            assert.isDefined(log.runs[0].results[0].suppressions);
-            assert.lengthOf(log.runs[0].results[0].suppressions, 0);
+            assert.isUndefined(log.runs[0].results[0].suppressions);
         });
     });
 });
@@ -545,17 +543,16 @@ describe("formatter:sarif", () => {
             assert.isUndefined(log.runs[0].results[3].locations[0].physicalLocation.region.endColumn);
             assert.isUndefined(log.runs[0].results[3].locations[0].physicalLocation.region.snippet);
 
-            assert.lengthOf(log.runs[0].results[0].suppressions, 0);
-            assert.lengthOf(log.runs[0].results[1].suppressions, 0);
-            assert.lengthOf(log.runs[0].results[2].suppressions, 0);
-            assert.lengthOf(log.runs[0].results[3].suppressions, 0);
+            assert.isUndefined(log.runs[0].results[0].suppressions);
+            assert.isUndefined(log.runs[0].results[1].suppressions);
+            assert.isUndefined(log.runs[0].results[2].suppressions);
+            assert.isUndefined(log.runs[0].results[3].suppressions);
         });
     });
 });
 
 describe("formatter:sarif", () => {
     describe("when passed two results with one having no message and one with two messages", () => {
-        const ruleid1 = "no-unused-vars";
         const ruleid2 = "no-extra-semi";
         const ruleid3 = "custom-rule";
 
@@ -642,8 +639,8 @@ describe("formatter:sarif", () => {
             assert.strictEqual(log.runs[0].results[1].locations[0].physicalLocation.region.endColumn, 19);
             assert.isUndefined(log.runs[0].results[1].locations[0].physicalLocation.region.snippet);
 
-            assert.lengthOf(log.runs[0].results[0].suppressions, 0);
-            assert.lengthOf(log.runs[0].results[1].suppressions, 0);
+            assert.isUndefined(log.runs[0].results[0].suppressions);
+            assert.isUndefined(log.runs[0].results[1].suppressions);
         });
     });
 });
@@ -682,6 +679,7 @@ describe("formatter:sarif", () => {
             assert.strictEqual(notification.descriptor.id, "ESL0999");
             assert.strictEqual(notification.level, "error");
             assert.strictEqual(notification.message.text, "Internal error.");
+            assert.isUndefined(notification.suppressions);
 
             assert.lengthOf(notification.locations, 1)
             let notificationUri = notification.locations[0].physicalLocation.artifactLocation.uri
@@ -739,6 +737,53 @@ describe("formatter:sarif", () => {
             assert.strictEqual(log.runs[0].results[0].locations[0].physicalLocation.region.startLine, 42);
             assert.isUndefined(log.runs[0].results[0].locations[0].physicalLocation.region.startColumn);
             assert.isUndefined(log.runs[0].results[0].locations[0].physicalLocation.region.snippet);
+        });
+    });
+});
+
+describe("formatter:sarif", () => {
+    describe("when passed one message, one notification and one suppressedMessage", () => {
+        const code = [{
+            filePath: sourceFilePath1,
+            messages: [{
+                message: "Unexpected value.",
+                severity: 2,
+                ruleId: testRuleId,
+                source: "getValue()"
+            },
+            {
+                message: "Internal error.",
+                severity: 2,
+                // no ruleId property
+            }],
+            suppressedMessages: [{
+                message: "Unexpected value.",
+                severity: 2,
+                ruleId: testRuleId,
+                source: "getValue()",
+                suppressions: [{ kind: "directive", justification: "foo" }]
+            }]
+        }];
+
+        it("should return a log with one notification and two results, one of which has suppressions", () => {
+            const log = JSON.parse(formatter(code, rules));
+
+            assert.lengthOf(log.runs[0].results, 2);
+            assert.lengthOf(log.runs[0].results[0].suppressions, 0);
+            assert.lengthOf(log.runs[0].results[1].suppressions, 1);
+            assert.strictEqual(log.runs[0].results[1].suppressions[0].kind, "inSource");
+            assert.strictEqual(log.runs[0].results[1].suppressions[0].justification, code[0].suppressedMessages[0].suppressions[0].justification);
+
+            assert.lengthOf(log.runs[0].invocations, 1);
+            let invocation = log.runs[0].invocations[0];
+            assert.isFalse(invocation.executionSuccessful);
+
+            assert.lengthOf(invocation.toolConfigurationNotifications, 1);
+            let notification = invocation.toolConfigurationNotifications[0];
+            assert.strictEqual(notification.descriptor.id, "ESL0999");
+            assert.strictEqual(notification.level, "error");
+            assert.strictEqual(notification.message.text, "Internal error.");
+            assert.isUndefined(notification.suppressions);
         });
     });
 });
