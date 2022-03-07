@@ -18,7 +18,7 @@
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "file:///e:/src/binskim3/src/Test.FunctionalTests.BinSkim.Driver/BaselineTestsData/Native_x86_VS2015_AtlProxyStubPS.dll",
+                  "uri": "file:///e:/src/binskim3/src/Test.FunctionalTests.BinSkim.Driver/BaselineTestData/Native_x86_VS2015_AtlProxyStubPS.dll",
                   "index": 10
                 }
               }
@@ -39,7 +39,7 @@
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "file:///e:/src/binskim3/src/Test.FunctionalTests.BinSkim.Driver/BaselineTestsData/Native_x86_VS2015_Default_Debug.dll",
+                  "uri": "file:///e:/src/binskim3/src/Test.FunctionalTests.BinSkim.Driver/BaselineTestData/Native_x86_VS2015_Default_Debug.dll",
                   "index": 12
                 }
               }
@@ -61,7 +61,7 @@
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "file:///e:/src/binskim3/src/Test.FunctionalTests.BinSkim.Driver/BaselineTestsData/Native_x86_VS2015_Default_Debug.dll",
+                  "uri": "file:///e:/src/binskim3/src/Test.FunctionalTests.BinSkim.Driver/BaselineTestData/Native_x86_VS2015_Default_Debug.dll",
                   "index": 12
                 }
               }
@@ -83,7 +83,7 @@
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "file:///e:/src/binskim3/src/Test.FunctionalTests.BinSkim.Driver/BaselineTestsData/Native_x86_VS2015_Default_Debug.dll",
+                  "uri": "file:///e:/src/binskim3/src/Test.FunctionalTests.BinSkim.Driver/BaselineTestData/Native_x86_VS2015_Default_Debug.dll",
                   "index": 12
                 }
               }
@@ -241,7 +241,7 @@
                 {
                   "physicalLocation": {
                     "artifactLocation": {
-                      "uri": "file:///e:/src/binskim3/src/Test.FunctionalTests.BinSkim.Driver/BaselineTestsData/MixedMode_x86_VS2013_MissingPdb.dll"
+                      "uri": "file:///e:/src/binskim3/src/Test.FunctionalTests.BinSkim.Driver/BaselineTestData/MixedMode_x86_VS2013_MissingPdb.dll"
                     }
                   }
                 }
@@ -262,7 +262,7 @@
                 {
                   "physicalLocation": {
                     "artifactLocation": {
-                      "uri": "file:///e:/src/binskim3/src/Test.FunctionalTests.BinSkim.Driver/BaselineTestsData/MixedMode_x86_VS2013_MissingPdb.dll"
+                      "uri": "file:///e:/src/binskim3/src/Test.FunctionalTests.BinSkim.Driver/BaselineTestData/MixedMode_x86_VS2013_MissingPdb.dll"
                     }
                   }
                 }
@@ -283,7 +283,7 @@
                 {
                   "physicalLocation": {
                     "artifactLocation": {
-                      "uri": "file:///e:/src/binskim3/src/Test.FunctionalTests.BinSkim.Driver/BaselineTestsData/MixedMode_x86_VS2013_MissingPdb.dll"
+                      "uri": "file:///e:/src/binskim3/src/Test.FunctionalTests.BinSkim.Driver/BaselineTestData/MixedMode_x86_VS2013_MissingPdb.dll"
                     }
                   }
                 }
@@ -304,7 +304,7 @@
                 {
                   "physicalLocation": {
                     "artifactLocation": {
-                      "uri": "file:///e:/src/binskim3/src/Test.FunctionalTests.BinSkim.Driver/BaselineTestsData/MixedMode_x86_VS2013_MissingPdb.dll"
+                      "uri": "file:///e:/src/binskim3/src/Test.FunctionalTests.BinSkim.Driver/BaselineTestData/MixedMode_x86_VS2013_MissingPdb.dll"
                     }
                   }
                 }
@@ -325,7 +325,7 @@
                 {
                   "physicalLocation": {
                     "artifactLocation": {
-                      "uri": "file:///e:/src/binskim3/src/Test.FunctionalTests.BinSkim.Driver/BaselineTestsData/MixedMode_x86_VS2013_MissingPdb.dll"
+                      "uri": "file:///e:/src/binskim3/src/Test.FunctionalTests.BinSkim.Driver/BaselineTestData/MixedMode_x86_VS2013_MissingPdb.dll"
                     }
                   }
                 }
@@ -346,7 +346,7 @@
                 {
                   "physicalLocation": {
                     "artifactLocation": {
-                      "uri": "file:///e:/src/binskim3/src/Test.FunctionalTests.BinSkim.Driver/BaselineTestsData/MixedMode_x86_VS2013_MissingPdb.dll"
+                      "uri": "file:///e:/src/binskim3/src/Test.FunctionalTests.BinSkim.Driver/BaselineTestData/MixedMode_x86_VS2013_MissingPdb.dll"
                     }
                   }
                 }
@@ -367,7 +367,7 @@
                 {
                   "physicalLocation": {
                     "artifactLocation": {
-                      "uri": "file:///e:/src/binskim3/src/Test.FunctionalTests.BinSkim.Driver/BaselineTestsData/MixedMode_x86_VS2013_MissingPdb.dll"
+                      "uri": "file:///e:/src/binskim3/src/Test.FunctionalTests.BinSkim.Driver/BaselineTestData/MixedMode_x86_VS2013_MissingPdb.dll"
                     }
                   }
                 }
@@ -388,7 +388,7 @@
                 {
                   "physicalLocation": {
                     "artifactLocation": {
-                      "uri": "file:///e:/src/binskim3/src/Test.FunctionalTests.BinSkim.Driver/BaselineTestsData/Native_x86_VS2017_15.5.4_PdbStripped.dll"
+                      "uri": "file:///e:/src/binskim3/src/Test.FunctionalTests.BinSkim.Driver/BaselineTestData/Native_x86_VS2017_15.5.4_PdbStripped.dll"
                     }
                   }
                 }
@@ -409,7 +409,7 @@
                 {
                   "physicalLocation": {
                     "artifactLocation": {
-                      "uri": "file:///e:/src/binskim3/src/Test.FunctionalTests.BinSkim.Driver/BaselineTestsData/Native_x86_VS2017_15.5.4_PdbStripped.dll"
+                      "uri": "file:///e:/src/binskim3/src/Test.FunctionalTests.BinSkim.Driver/BaselineTestData/Native_x86_VS2017_15.5.4_PdbStripped.dll"
                     }
                   }
                 }
@@ -430,7 +430,7 @@
                 {
                   "physicalLocation": {
                     "artifactLocation": {
-                      "uri": "file:///e:/src/binskim3/src/Test.FunctionalTests.BinSkim.Driver/BaselineTestsData/Native_x86_VS2017_15.5.4_PdbStripped.dll"
+                      "uri": "file:///e:/src/binskim3/src/Test.FunctionalTests.BinSkim.Driver/BaselineTestData/Native_x86_VS2017_15.5.4_PdbStripped.dll"
                     }
                   }
                 }
@@ -451,7 +451,7 @@
                 {
                   "physicalLocation": {
                     "artifactLocation": {
-                      "uri": "file:///e:/src/binskim3/src/Test.FunctionalTests.BinSkim.Driver/BaselineTestsData/Native_x86_VS2017_15.5.4_PdbStripped.dll"
+                      "uri": "file:///e:/src/binskim3/src/Test.FunctionalTests.BinSkim.Driver/BaselineTestData/Native_x86_VS2017_15.5.4_PdbStripped.dll"
                     }
                   }
                 }
@@ -472,7 +472,7 @@
                 {
                   "physicalLocation": {
                     "artifactLocation": {
-                      "uri": "file:///e:/src/binskim3/src/Test.FunctionalTests.BinSkim.Driver/BaselineTestsData/Native_x86_VS2017_15.5.4_PdbStripped.dll"
+                      "uri": "file:///e:/src/binskim3/src/Test.FunctionalTests.BinSkim.Driver/BaselineTestData/Native_x86_VS2017_15.5.4_PdbStripped.dll"
                     }
                   }
                 }
@@ -493,7 +493,7 @@
                 {
                   "physicalLocation": {
                     "artifactLocation": {
-                      "uri": "file:///e:/src/binskim3/src/Test.FunctionalTests.BinSkim.Driver/BaselineTestsData/Native_x86_VS2017_15.5.4_PdbStripped.dll"
+                      "uri": "file:///e:/src/binskim3/src/Test.FunctionalTests.BinSkim.Driver/BaselineTestData/Native_x86_VS2017_15.5.4_PdbStripped.dll"
                     }
                   }
                 }
@@ -514,7 +514,7 @@
                 {
                   "physicalLocation": {
                     "artifactLocation": {
-                      "uri": "file:///e:/src/binskim3/src/Test.FunctionalTests.BinSkim.Driver/BaselineTestsData/Native_x86_VS2017_15.5.4_PdbStripped.dll"
+                      "uri": "file:///e:/src/binskim3/src/Test.FunctionalTests.BinSkim.Driver/BaselineTestData/Native_x86_VS2017_15.5.4_PdbStripped.dll"
                     }
                   }
                 }
@@ -537,119 +537,119 @@
       "artifacts": [
         {
           "location": {
-            "uri": "file:///e:/src/binskim3/src/Test.FunctionalTests.BinSkim.Driver/BaselineTestsData/ManagedInteropAssemblyForAtlTestLibrary.dll",
+            "uri": "file:///e:/src/binskim3/src/Test.FunctionalTests.BinSkim.Driver/BaselineTestData/ManagedInteropAssemblyForAtlTestLibrary.dll",
             "index": 0
           },
           "mimeType": "application/octet-stream"
         },
         {
           "location": {
-            "uri": "file:///e:/src/binskim3/src/Test.FunctionalTests.BinSkim.Driver/BaselineTestsData/ManagedResourcesOnly.dll",
+            "uri": "file:///e:/src/binskim3/src/Test.FunctionalTests.BinSkim.Driver/BaselineTestData/ManagedResourcesOnly.dll",
             "index": 1
           },
           "mimeType": "application/octet-stream"
         },
         {
           "location": {
-            "uri": "file:///e:/src/binskim3/src/Test.FunctionalTests.BinSkim.Driver/BaselineTestsData/Managed_x86_VS2015_FSharp.dll",
+            "uri": "file:///e:/src/binskim3/src/Test.FunctionalTests.BinSkim.Driver/BaselineTestData/Managed_x86_VS2015_FSharp.dll",
             "index": 2
           },
           "mimeType": "application/octet-stream"
         },
         {
           "location": {
-            "uri": "file:///e:/src/binskim3/src/Test.FunctionalTests.BinSkim.Driver/BaselineTestsData/MixedMode_x64_VS2013_Default.dll",
+            "uri": "file:///e:/src/binskim3/src/Test.FunctionalTests.BinSkim.Driver/BaselineTestData/MixedMode_x64_VS2013_Default.dll",
             "index": 3
           },
           "mimeType": "application/octet-stream"
         },
         {
           "location": {
-            "uri": "file:///e:/src/binskim3/src/Test.FunctionalTests.BinSkim.Driver/BaselineTestsData/MixedMode_x86_VS2013_MissingPdb.dll",
+            "uri": "file:///e:/src/binskim3/src/Test.FunctionalTests.BinSkim.Driver/BaselineTestData/MixedMode_x86_VS2013_MissingPdb.dll",
             "index": 4
           },
           "mimeType": "application/octet-stream"
         },
         {
           "location": {
-            "uri": "file:///e:/src/binskim3/src/Test.FunctionalTests.BinSkim.Driver/BaselineTestsData/Native_ARM_VS2015_CvtresResourceOnly.dll",
+            "uri": "file:///e:/src/binskim3/src/Test.FunctionalTests.BinSkim.Driver/BaselineTestData/Native_ARM_VS2015_CvtresResourceOnly.dll",
             "index": 5
           },
           "mimeType": "application/octet-stream"
         },
         {
           "location": {
-            "uri": "file:///e:/src/binskim3/src/Test.FunctionalTests.BinSkim.Driver/BaselineTestsData/Native_x64_VS2013_Default.dll",
+            "uri": "file:///e:/src/binskim3/src/Test.FunctionalTests.BinSkim.Driver/BaselineTestData/Native_x64_VS2013_Default.dll",
             "index": 6
           },
           "mimeType": "application/octet-stream"
         },
         {
           "location": {
-            "uri": "file:///e:/src/binskim3/src/Test.FunctionalTests.BinSkim.Driver/BaselineTestsData/Native_x64_VS2015_CvtresResourceOnly.dll",
+            "uri": "file:///e:/src/binskim3/src/Test.FunctionalTests.BinSkim.Driver/BaselineTestData/Native_x64_VS2015_CvtresResourceOnly.dll",
             "index": 7
           },
           "mimeType": "application/octet-stream"
         },
         {
           "location": {
-            "uri": "file:///e:/src/binskim3/src/Test.FunctionalTests.BinSkim.Driver/BaselineTestsData/Native_x64_VS2015_Default.dll",
+            "uri": "file:///e:/src/binskim3/src/Test.FunctionalTests.BinSkim.Driver/BaselineTestData/Native_x64_VS2015_Default.dll",
             "index": 8
           },
           "mimeType": "application/octet-stream"
         },
         {
           "location": {
-            "uri": "file:///e:/src/binskim3/src/Test.FunctionalTests.BinSkim.Driver/BaselineTestsData/Native_x86_VS2013_ResourceOnly.dll",
+            "uri": "file:///e:/src/binskim3/src/Test.FunctionalTests.BinSkim.Driver/BaselineTestData/Native_x86_VS2013_ResourceOnly.dll",
             "index": 9
           },
           "mimeType": "application/octet-stream"
         },
         {
           "location": {
-            "uri": "file:///e:/src/binskim3/src/Test.FunctionalTests.BinSkim.Driver/BaselineTestsData/Native_x86_VS2015_AtlProxyStubPS.dll",
+            "uri": "file:///e:/src/binskim3/src/Test.FunctionalTests.BinSkim.Driver/BaselineTestData/Native_x86_VS2015_AtlProxyStubPS.dll",
             "index": 10
           },
           "mimeType": "application/octet-stream"
         },
         {
           "location": {
-            "uri": "file:///e:/src/binskim3/src/Test.FunctionalTests.BinSkim.Driver/BaselineTestsData/Native_x86_VS2015_CvtresResourceOnly.dll",
+            "uri": "file:///e:/src/binskim3/src/Test.FunctionalTests.BinSkim.Driver/BaselineTestData/Native_x86_VS2015_CvtresResourceOnly.dll",
             "index": 11
           },
           "mimeType": "application/octet-stream"
         },
         {
           "location": {
-            "uri": "file:///e:/src/binskim3/src/Test.FunctionalTests.BinSkim.Driver/BaselineTestsData/Native_x86_VS2015_Default_Debug.dll",
+            "uri": "file:///e:/src/binskim3/src/Test.FunctionalTests.BinSkim.Driver/BaselineTestData/Native_x86_VS2015_Default_Debug.dll",
             "index": 12
           },
           "mimeType": "application/octet-stream"
         },
         {
           "location": {
-            "uri": "file:///e:/src/binskim3/src/Test.FunctionalTests.BinSkim.Driver/BaselineTestsData/Native_x86_VS2017_15.5.4_PdbStripped.dll",
+            "uri": "file:///e:/src/binskim3/src/Test.FunctionalTests.BinSkim.Driver/BaselineTestData/Native_x86_VS2017_15.5.4_PdbStripped.dll",
             "index": 13
           },
           "mimeType": "application/octet-stream"
         },
         {
           "location": {
-            "uri": "file:///e:/src/binskim3/src/Test.FunctionalTests.BinSkim.Driver/BaselineTestsData/Uwp_ARM_VS2015_DefaultBlankApp.dll",
+            "uri": "file:///e:/src/binskim3/src/Test.FunctionalTests.BinSkim.Driver/BaselineTestData/Uwp_ARM_VS2015_DefaultBlankApp.dll",
             "index": 14
           },
           "mimeType": "application/octet-stream"
         },
         {
           "location": {
-            "uri": "file:///e:/src/binskim3/src/Test.FunctionalTests.BinSkim.Driver/BaselineTestsData/Uwp_x64_VS2015_DefaultBlankApp.dll",
+            "uri": "file:///e:/src/binskim3/src/Test.FunctionalTests.BinSkim.Driver/BaselineTestData/Uwp_x64_VS2015_DefaultBlankApp.dll",
             "index": 15
           },
           "mimeType": "application/octet-stream"
         },
         {
           "location": {
-            "uri": "file:///e:/src/binskim3/src/Test.FunctionalTests.BinSkim.Driver/BaselineTestsData/Uwp_x86_VS2015_DefaultBlankApp.dll",
+            "uri": "file:///e:/src/binskim3/src/Test.FunctionalTests.BinSkim.Driver/BaselineTestData/Uwp_x86_VS2015_DefaultBlankApp.dll",
             "index": 16
           },
           "mimeType": "application/octet-stream"
