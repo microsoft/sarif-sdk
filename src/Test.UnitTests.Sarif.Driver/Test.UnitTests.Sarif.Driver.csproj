@@ -22,11 +22,11 @@
     <ExecCommand>$(PowershellExecutable) -executionpolicy bypass -command &quot;.$(PathSeparator)rewriteUnitTests.ps1 -Configuration $(Configuration) -CoyoteVersion $(CoyoteVersion) -TargetFramework $(TargetFramework)&quot;</ExecCommand>
   </PropertyGroup>
 
-  <Target Name="CopyFunctionalTestsData" AfterTargets="Build">
+  <Target Name="CopyFunctionalTestData" AfterTargets="Build">
     <ItemGroup>
-      <TestFiles Include="$(SolutionDir)FunctionalTestsData\**\*" />
+      <TestFiles Include="$(SolutionDir)FunctionalTestData\**\*" />
     </ItemGroup>
-    <Copy SourceFiles="@(TestFiles)" DestinationFolder="$(OutputPath)\FunctionalTestsData\%(RecursiveDir)" />
+    <Copy SourceFiles="@(TestFiles)" DestinationFolder="$(OutputPath)\FunctionalTestData\%(RecursiveDir)" />
   </Target>
 
   <ItemGroup>
