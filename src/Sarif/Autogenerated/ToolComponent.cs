@@ -15,7 +15,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// A component, such as a plug-in or the driver, of the analysis tool that was run.
     /// </summary>
     [DataContract]
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "1.1.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "1.1.3.0")]
     public partial class ToolComponent : PropertyBagHolder, ISarifNode
     {
         public static IEqualityComparer<ToolComponent> ValueComparer => ToolComponentEqualityComparer.Instance;
@@ -35,7 +35,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         }
 
         /// <summary>
-        /// A unique identifer for the tool component in the form of a GUID.
+        /// A unique identifier for the tool component in the form of a GUID.
         /// </summary>
         [DataMember(Name = "guid", IsRequired = false, EmitDefaultValue = false)]
         public virtual string Guid { get; set; }

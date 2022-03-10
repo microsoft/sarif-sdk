@@ -14,7 +14,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// Describes a runtime exception encountered during the execution of an analysis tool.
     /// </summary>
     [DataContract]
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "1.1.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "1.1.3.0")]
     public partial class ExceptionData : PropertyBagHolder, ISarifNode
     {
         public static IEqualityComparer<ExceptionData> ValueComparer => ExceptionDataEqualityComparer.Instance;

@@ -88,7 +88,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             if (!fileSystem.FileExists(filePath))
             {
-                throw new ArgumentException(nameof(filePath));
+                throw new ArgumentException($"File path does not exist: '{filePath}'", nameof(filePath));
             }
 
             using Stream fileStream = fileSystem.FileOpenRead(filePath);

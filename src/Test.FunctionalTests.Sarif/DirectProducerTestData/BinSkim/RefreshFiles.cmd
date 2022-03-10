@@ -15,7 +15,7 @@ for %%i in (*.sarif) do call :CopyFile %%i || goto :Exit
 goto :Exit
 
 :CopyFile
-set File=%root%\src\binskim\src\Test.FunctionalTests.BinSkim.Driver\BaselineTestsData\Expected\%1
+set File=%root%\src\binskim\src\Test.FunctionalTests.BinSkim.Driver\BaselineTestData\Expected\%1
 copy %file% .
 
 if "%ERRORLEVEL%" NEQ "0" (echo %File% copy FAILED.)

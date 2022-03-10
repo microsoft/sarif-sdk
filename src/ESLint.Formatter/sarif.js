@@ -5,11 +5,11 @@
 
 "use strict";
 
-const lodash = require("lodash");
 const fs = require("fs");
-const utf8 = require("utf8");
-const jschardet = require("jschardet");
 const url = require('url');
+const utf8 = require("utf8");
+const lodash = require("lodash");
+const jschardet = require("jschardet");
 
 //------------------------------------------------------------------------------
 // Helper Functions
@@ -132,9 +132,12 @@ module.exports = function (results, data) {
                     console.log(err);
                 }
             }
-            if (result.messages.length > 0) {
 
-                result.messages.forEach(message => {
+            const containsSuppressedMessages = result.suppressedMessages && result.suppressedMessages.length > 0;
+            const messages = containsSuppressedMessages ? result.messages.concat(result.suppressedMessages) : result.messages;
+
+            if (messages.length > 0) {
+                messages.forEach(message => {
 
                     const sarifRepresentation = {
                         level: getResultLevel(message),
@@ -182,6 +185,17 @@ module.exports = function (results, data) {
                         if (sarifRuleIndices[message.ruleId] !== "undefined") {
                             sarifRepresentation.ruleIndex = sarifRuleIndices[message.ruleId];
                         }
+
+                        if (containsSuppressedMessages) {
+                            sarifRepresentation.suppressions = message.suppressions ?
+                                message.suppressions.map(suppression => {
+                                    return {
+                                        kind: suppression.kind === "directive" ? "inSource" : "external",
+                                        justification: suppression.justification
+                                    }
+                                }) :
+                                [];
+                        }
                     } else {
                         // ESLint produces a message with no ruleId when it encounters an internal
                         // error. SARIF represents this as a tool execution notification rather
@@ -208,7 +222,13 @@ module.exports = function (results, data) {
                         }
                         if (message.column > 0) {
                             sarifRepresentation.locations[0].physicalLocation.region.startColumn = message.column;
-                        };
+                        }
+                        if (message.endLine > 0) {
+                            sarifRepresentation.locations[0].physicalLocation.region.endLine = message.endLine;
+                        }
+                        if (message.endColumn > 0) {
+                            sarifRepresentation.locations[0].physicalLocation.region.endColumn = message.endColumn;
+                        }
                     }
 
                     if (message.source) {

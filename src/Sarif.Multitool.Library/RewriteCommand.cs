@@ -59,6 +59,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 SarifLog reformattedLog = new RemoveOptionalDataVisitor(dataToRemove).VisitSarifLog(actualLog);
                 reformattedLog = new InsertOptionalDataVisitor(dataToInsert, originalUriBaseIds, insertProperties: options.InsertProperties).VisitSarifLog(reformattedLog);
 
+                if (options.SortResults)
+                {
+                    reformattedLog = new SortingVisitor().VisitSarifLog(reformattedLog);
+                }
+
                 if (options.SarifOutputVersion == SarifVersion.OneZeroZero)
                 {
                     var visitor = new SarifCurrentToVersionOneVisitor();

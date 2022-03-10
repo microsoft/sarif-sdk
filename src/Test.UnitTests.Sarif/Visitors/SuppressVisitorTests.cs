@@ -14,6 +14,8 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests.Visitors
 {
     public class SuppressVisitorTests
     {
+        private const int DateTimeAssertPrecision = 500;
+
         [Fact]
         public void SuppressVisitor_ShouldFlowPropertiesCorrectly()
         {
@@ -125,12 +127,12 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests.Visitors
 
                 if (timestamps && suppression.TryGetProperty("timeUtc", out DateTime timeUtc))
                 {
-                    timeUtc.Should().BeCloseTo(DateTime.UtcNow);
+                    timeUtc.Should().BeCloseTo(DateTime.UtcNow, DateTimeAssertPrecision);
                 }
 
                 if (expiryInDays > 0 && suppression.TryGetProperty("expiryUtc", out DateTime expiryUtc))
                 {
-                    expiryUtc.Should().BeCloseTo(DateTime.UtcNow.AddDays(expiryInDays));
+                    expiryUtc.Should().BeCloseTo(DateTime.UtcNow.AddDays(expiryInDays), DateTimeAssertPrecision);
                 }
             }
         }
