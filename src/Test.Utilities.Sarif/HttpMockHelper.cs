@@ -14,7 +14,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     public class HttpMockHelper : DelegatingHandler
     {
         public const string AnyContentText = "29f8354b-8b0d-4d21-91ac-bd04c47b85fb";
-            
+
         public static StringContent AnyContent()
         {
             return new StringContent(AnyContentText);

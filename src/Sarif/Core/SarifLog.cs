@@ -142,7 +142,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="stream">Stream to write SARIF to</param>
         public void Save(Stream stream)
         {
-            using var streamWriter = new StreamWriter(stream);
+            var streamWriter = new StreamWriter(stream);
             this.Save(streamWriter);
         }
 
@@ -154,8 +154,9 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             var serializer = new JsonSerializer();
 
-            using var writer = new JsonTextWriter(streamWriter);
+            var writer = new JsonTextWriter(streamWriter);
             serializer.Serialize(writer, this);
+            writer.Flush();
         }
 
         /// <summary>
