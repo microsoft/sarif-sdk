@@ -243,10 +243,17 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         {
             if (!string.IsNullOrWhiteSpace(originalUriBasePath))
             {
-                if (originalUriBasePath.StartsWith("/") &&
-                     platform == "Linux")
+                if (originalUriBasePath.StartsWith("/"))
                 {
-                    originalUriBasePath = "file://" + originalUriBasePath;
+                    if (!platform.ToLowerInvariant().Contains("windows"))
+                    {
+                        originalUriBasePath = "file://" + originalUriBasePath;
+                    }
+                    else
+                    {
+                        // "SourceBasePath" is the user facing xml node name in the input file.
+                        throw new InvalidDataException($"SourceBasePath '{originalUriBasePath}' is not a valid path in platform '{platform}'.");
+                    }
                 }
 
                 if (!originalUriBasePath.EndsWith("/"))

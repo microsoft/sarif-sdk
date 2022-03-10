@@ -1,6 +1,7 @@
 ﻿// Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
+using System;
 using System.IO;
 
 using FluentAssertions;
@@ -23,7 +24,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         [Trait(TestTraits.Bug, "https://github.com/microsoft/sarif-sdk/issues/1046")]
         public void ValueEquals_ReturnsTrueForTwoIdenticalLogObjects()
         {
-            const string ComprehensiveTestSamplePath = @"v2\SpecExamples\Comprehensive.sarif";
+            string ComprehensiveTestSamplePath = Path.Combine("v2", "SpecExamples", "Comprehensive.sarif");
             string comprehensiveTestSampleContents = File.ReadAllText(ComprehensiveTestSamplePath);
 
             PrereleaseCompatibilityTransformer.UpdateToCurrentVersion(comprehensiveTestSampleContents, formatting: Formatting.None, out comprehensiveTestSampleContents);

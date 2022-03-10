@@ -197,13 +197,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         [Fact]
         public void RebaseUriVisitor_VisitFileData_RebasesAllTheThings()
         {
-            string comprehensiveSarifPath = Path.Combine(Environment.CurrentDirectory, @"v2\SpecExamples\Comprehensive.sarif");
+            string comprehensiveSarifPath = Path.Combine(Environment.CurrentDirectory, "v2", "SpecExamples", "Comprehensive.sarif");
 
             string inputText = File.ReadAllText(comprehensiveSarifPath);
 
             SarifLog sarifLog = PrereleaseCompatibilityTransformer.UpdateToCurrentVersion(inputText, formatting: Formatting.None, out inputText);
 
-            sarifLog.Runs.Count().Should().Be(1);
+            sarifLog.Runs.Count.Should().Be(1);
 
             var visitor = new RebaseVerifyingVisitor();
             visitor.VisitRun(sarifLog.Runs[0]);

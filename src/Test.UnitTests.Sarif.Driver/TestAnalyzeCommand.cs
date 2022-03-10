@@ -5,6 +5,8 @@ using System;
 using System.Collections.Generic;
 using System.Reflection;
 
+using FluentAssertions;
+
 namespace Microsoft.CodeAnalysis.Sarif.Driver
 {
     public class TestAnalyzeCommand : AnalyzeCommandBase<TestAnalysisContext, TestAnalyzeOptions>, ITestAnalyzeCommand
@@ -69,6 +71,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             }
 
             base.ProcessBaseline(context, options, fileSystem);
+        }
+
+        public override int Run(TestAnalyzeOptions options)
+        {
+            int result = base.Run(options);
+            this._rootContext?.Disposed.Should().BeTrue();
+            return result;
         }
     }
 }

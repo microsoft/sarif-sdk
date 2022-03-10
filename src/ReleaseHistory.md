@@ -1,5 +1,18 @@
 # SARIF Package Release History (SDK, Driver, Converters, and Multitool)
 
+## **v2.4.13** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.4.13) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.4.13) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.4.13) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.4.13) | [Multitool Library](https://www.nuget.org/packages/Sarif.Multitool.Library/2.4.13)
+
+* BREAKING: `AnalyzeCommandBase` previously persisted all scan target artifacts to SARIF logs rather than only persisting artifacts referenced by an analysis result, when an option to persist hashes, text file or binary information was set. `MultithreadedAnalyzeCommandBase` previously persisted all scan targets artifacts to SARIF logs in cases when hash insertion was eenabled rather than only persisting artifacts referenced by an analysis result. [#2433](https://github.com/microsoft/sarif-sdk/pull/2433)
+* BUGFIX: Adjust Json Serialization field order for ReportingDescriptor and skip emit empty AutomationDetails node. [#2420](https://github.com/microsoft/sarif-sdk/pull/2420)
+* BREAKING: Fix `InvalidOperationException` when using PropertiesDictionary in a multithreaded application, and remove `[Serializable]` from it. Now use of BinaryFormatter on it will result in `SerializationException`: Type `PropertiesDictionary` is not marked as serializable. [#2415](https://github.com/microsoft/sarif-sdk/pull/2415)
+* BREAKING: `SarifLogger` now emits an artifacts table entry if `artifactLocation` is not null for tool configuration and tool execution notifications. [#2437](https://github.com/microsoft/sarif-sdk/pull/2437)
+* BUGFIX: Fix `ArgumentException` when `--recurse` is enabled and two file target specifiers generates the same file path. [#2438](https://github.com/microsoft/sarif-sdk/pull/2438)
+* BUGFIX: Fix 'InvalidOperationException' with message `Collection was modified; enumeration operation may not execute` in `MultithreadedAnalyzeCommandBase`, which is raised when analyzing with the `--hashes` switch. [#2447](https://github.com/microsoft/sarif-sdk/pull/2447)
+* BUGFIX: Fix `Merge` command produces empty SARIF file in Linux when providing file name only without path. [#2408](https://github.com/microsoft/sarif-sdk/pull/2408)
+* FEATURE: Add `--sort-results` argument to the `rewrite` command to get sorted SARIF results. [#2422](https://github.com/microsoft/sarif-sdk/pull/2422)
+* BUGFIX: Fix `NullReferenceException` when filing work item with a SARIF file which has no filable results. [#2412](https://github.com/microsoft/sarif-sdk/pull/2412)
+* BUGFIX: Fix missing `endLine` and `endColumn` properties and remove vulnerable packages for ESLint SARIF formatter. [#2458](https://github.com/microsoft/sarif-sdk/pull/2458)
+
 ## **v2.4.12** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.4.12) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.4.12) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.4.12) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.4.12) | [Multitool Library](https://www.nuget.org/packages/Sarif.Multitool.Library/2.4.12)
 
 * FEATURE: `MultithreadCommandBase` will use cache when hashing is enabled. [#2388](https://github.com/microsoft/sarif-sdk/pull/2388)

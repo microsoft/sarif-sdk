@@ -28,7 +28,7 @@ Content-Length: 51
 Vary: Accept-Encoding
 Content-Type: text/plain
 
-Hello World!My payload includes a trailing CRLF.
+Hello World!My payload includes a trailing NewLine.
 ";
 
             WebResponse webResponse = WebResponse.Parse(ResponseString);
@@ -46,7 +46,7 @@ Hello World!My payload includes a trailing CRLF.
             webResponse.Headers["Content-Length"].Should().Be("51");
             webResponse.Headers["Vary"].Should().Be("Accept-Encoding");
             webResponse.Headers["Content-Type"].Should().Be("text/plain");
-            webResponse.Body.Text.Should().Be("Hello World!My payload includes a trailing CRLF.\r\n");
+            webResponse.Body.Text.Should().Be("Hello World!My payload includes a trailing NewLine." + Environment.NewLine);
         }
 
         [Fact]
