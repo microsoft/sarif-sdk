@@ -145,7 +145,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             // These are defaults takens from legacy mscorlib reference source.
             // https://referencesource.microsoft.com/#mscorlib/system/io/streamwriter.cs,62bd8ad495f57b21
-            using var streamWriter = new StreamWriter(stream, Encoding.UTF8, 1024);
+            using var streamWriter = new StreamWriter(stream, Encoding.UTF8, 1024, leaveOpen: true);
             this.Save(streamWriter);
         }
 
