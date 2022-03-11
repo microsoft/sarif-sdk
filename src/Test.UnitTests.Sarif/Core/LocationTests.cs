@@ -94,91 +94,145 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Core
         }
 
         [Fact]
-        public void Location_SerializeId()
+        public void Location_VerifyIdRoundTripFromObject()
         {
             var location = new Location();
-            AssertShouldSerializeId(location, false);
+            VerifyIdRoundTripFromObjectHelper(location, shouldSerialize: false, reconstructedLocationId: -1);
 
             location.Id = long.MinValue;
-            AssertShouldSerializeId(location, false);
+            VerifyIdRoundTripFromObjectHelper(location, shouldSerialize: false, reconstructedLocationId: -1);
             location.Id--;
-            AssertShouldSerializeId(location, false);
+            VerifyIdRoundTripFromObjectHelper(location, shouldSerialize: false, reconstructedLocationId: -1);
 
             location.Id = int.MinValue;
-            AssertShouldSerializeId(location, false);
+            VerifyIdRoundTripFromObjectHelper(location, shouldSerialize: false, reconstructedLocationId: -1);
             location.Id--;
-            AssertShouldSerializeId(location, false);
+            VerifyIdRoundTripFromObjectHelper(location, shouldSerialize: false, reconstructedLocationId: -1);
 
             location.Id = -2;
-            AssertShouldSerializeId(location, false);
+            VerifyIdRoundTripFromObjectHelper(location, shouldSerialize: false, reconstructedLocationId: -1);
 
             location.Id = -1;
-            AssertShouldSerializeId(location, false);
+            VerifyIdRoundTripFromObjectHelper(location, shouldSerialize: false, reconstructedLocationId: -1);
 
             location.Id = 0;
-            AssertShouldSerializeId(location, true);
+            VerifyIdRoundTripFromObjectHelper(location, shouldSerialize: true, reconstructedLocationId: location.Id);
 
             location.Id = 1;
-            AssertShouldSerializeId(location, true);
+            VerifyIdRoundTripFromObjectHelper(location, shouldSerialize: true, reconstructedLocationId: location.Id);
 
             location.Id = 2;
-            AssertShouldSerializeId(location, true);
+            VerifyIdRoundTripFromObjectHelper(location, shouldSerialize: true, reconstructedLocationId: location.Id);
 
             location.Id = int.MaxValue;
-            AssertShouldSerializeId(location, true);
+            VerifyIdRoundTripFromObjectHelper(location, shouldSerialize: true, reconstructedLocationId: location.Id);
             location.Id++;
-            AssertShouldSerializeId(location, true);
+            VerifyIdRoundTripFromObjectHelper(location, shouldSerialize: true, reconstructedLocationId: location.Id);
 
             location.Id = long.MaxValue;
-            AssertShouldSerializeId(location, true);
+            VerifyIdRoundTripFromObjectHelper(location, shouldSerialize: true, reconstructedLocationId: location.Id);
             location.Id++;
-            AssertShouldSerializeId(location, true);
+            VerifyIdRoundTripFromObjectHelper(location, shouldSerialize: true, reconstructedLocationId: location.Id);
 
             location.Id = ulong.MaxValue;
-            AssertShouldSerializeId(location, true);
+            VerifyIdRoundTripFromObjectHelper(location, shouldSerialize: true, reconstructedLocationId: location.Id);
             location.Id++;
-            AssertShouldSerializeId(location, true);
+            VerifyIdRoundTripFromObjectHelper(location, shouldSerialize: true, reconstructedLocationId: location.Id);
         }
 
         [Fact]
-        public void Location_DeserializeId()
+        public void Location_VerifyIdRoundTripFromJson()
         {
             string jsonLocation = "{}";
-            AssertDeserializeId(jsonLocation, -1);
+            VerifyIdRoundTripFromJsonHelper(jsonLocation, deserializedId: -1,
+                shouldSerialize: false, reconstructedLocationId: -1);
+
+            jsonLocation = $"{{\"id\":{long.MinValue}}}";
+            VerifyIdRoundTripFromJsonHelper(jsonLocation, deserializedId: long.MinValue,
+                shouldSerialize: false, reconstructedLocationId: -1);
+
+            jsonLocation = $"{{\"id\":{new BigInteger(long.MinValue) - 1}}}";
+            VerifyIdRoundTripFromJsonHelper(jsonLocation, deserializedId: new BigInteger(long.MinValue) - 1,
+                shouldSerialize: false, reconstructedLocationId: -1);
+
+            jsonLocation = $"{{\"id\":{int.MinValue}}}";
+            VerifyIdRoundTripFromJsonHelper(jsonLocation, deserializedId: int.MinValue,
+                shouldSerialize: false, reconstructedLocationId: -1);
+
+            jsonLocation = $"{{\"id\":{new BigInteger(int.MinValue) - 1}}}";
+            VerifyIdRoundTripFromJsonHelper(jsonLocation, deserializedId: new BigInteger(int.MinValue) - 1,
+                shouldSerialize: false, reconstructedLocationId: -1);
+
+            jsonLocation = "{\"id\":-2}";
+            VerifyIdRoundTripFromJsonHelper(jsonLocation, deserializedId: -2,
+                shouldSerialize: false, reconstructedLocationId: -1);
 
             jsonLocation = "{\"id\":-1}";
-            AssertDeserializeId(jsonLocation, -1);
+            VerifyIdRoundTripFromJsonHelper(jsonLocation, deserializedId: -1,
+                shouldSerialize: false, reconstructedLocationId: -1);
 
             jsonLocation = "{\"id\":0}";
-            AssertDeserializeId(jsonLocation, 0);
+            VerifyIdRoundTripFromJsonHelper(jsonLocation, deserializedId: 0,
+                shouldSerialize: true, reconstructedLocationId: 0);
 
             jsonLocation = "{\"id\":1}";
-            AssertDeserializeId(jsonLocation, 1);
+            VerifyIdRoundTripFromJsonHelper(jsonLocation, deserializedId: 1,
+                shouldSerialize: true, reconstructedLocationId: 1);
+
+            jsonLocation = "{\"id\":2}";
+            VerifyIdRoundTripFromJsonHelper(jsonLocation, deserializedId: 2,
+                shouldSerialize: true, reconstructedLocationId: 2);
 
             jsonLocation = $"{{\"id\":{int.MaxValue}}}";
-            AssertDeserializeId(jsonLocation, int.MaxValue);
+            VerifyIdRoundTripFromJsonHelper(jsonLocation, deserializedId: int.MaxValue,
+                shouldSerialize: true, reconstructedLocationId: int.MaxValue);
+
+            jsonLocation = $"{{\"id\":{new BigInteger(int.MaxValue) + 1}}}";
+            VerifyIdRoundTripFromJsonHelper(jsonLocation, deserializedId: new BigInteger(int.MaxValue) + 1,
+                shouldSerialize: true, reconstructedLocationId: new BigInteger(int.MaxValue) + 1);
 
             jsonLocation = $"{{\"id\":{long.MaxValue}}}";
-            AssertDeserializeId(jsonLocation, long.MaxValue);
-
-            jsonLocation = $"{{\"id\":{ulong.MaxValue}}}";
-            AssertDeserializeId(jsonLocation, ulong.MaxValue);
+            VerifyIdRoundTripFromJsonHelper(jsonLocation, deserializedId: long.MaxValue,
+                shouldSerialize: true, reconstructedLocationId: long.MaxValue);
 
             jsonLocation = $"{{\"id\":{new BigInteger(long.MaxValue) + 1}}}";
-            AssertDeserializeId(jsonLocation, new BigInteger(long.MaxValue) + 1);
+            VerifyIdRoundTripFromJsonHelper(jsonLocation, deserializedId: new BigInteger(long.MaxValue) + 1,
+                shouldSerialize: true, reconstructedLocationId: new BigInteger(long.MaxValue) + 1);
+
+            jsonLocation = $"{{\"id\":{ulong.MaxValue}}}";
+            VerifyIdRoundTripFromJsonHelper(jsonLocation, deserializedId: ulong.MaxValue,
+                shouldSerialize: true, reconstructedLocationId: ulong.MaxValue);
+
+            jsonLocation = $"{{\"id\":{new BigInteger(ulong.MaxValue) + 1}}}";
+            VerifyIdRoundTripFromJsonHelper(jsonLocation, deserializedId: new BigInteger(ulong.MaxValue) + 1,
+                shouldSerialize: true, reconstructedLocationId: new BigInteger(ulong.MaxValue) + 1);
         }
 
-        private void AssertShouldSerializeId(Location location, bool should = true)
+        private void VerifyIdRoundTripFromObjectHelper(Location location, bool shouldSerialize, BigInteger reconstructedLocationId)
         {
-            Assert.True(should == location.ShouldSerializeId());
-            string testSerializedString = JsonConvert.SerializeObject(location);
-            Assert.True(should == testSerializedString.Contains(Id, StringComparison.InvariantCultureIgnoreCase));
+            Assert.True(shouldSerialize == location.ShouldSerializeId());
+            string jsonLocation = JsonConvert.SerializeObject(location);
+            Assert.True(shouldSerialize == jsonLocation.Contains(Id, StringComparison.InvariantCultureIgnoreCase));
+
+            Location reconstructedLocation = JsonConvert.DeserializeObject<Location>(jsonLocation);
+            Assert.True(reconstructedLocation.Id == reconstructedLocationId);
+
+            Assert.True(shouldSerialize == reconstructedLocation.ShouldSerializeId());
+            string reconstructedJsonLocation = JsonConvert.SerializeObject(reconstructedLocation);
+            Assert.True(shouldSerialize == reconstructedJsonLocation.Contains(Id, StringComparison.InvariantCultureIgnoreCase));
         }
 
-        private void AssertDeserializeId(string jsonLocation, BigInteger id)
+        private void VerifyIdRoundTripFromJsonHelper(string jsonLocation, BigInteger deserializedId, bool shouldSerialize, BigInteger reconstructedLocationId)
         {
             Location location = JsonConvert.DeserializeObject<Location>(jsonLocation);
-            Assert.True(location.Id == id);
+            Assert.True(location.Id == deserializedId);
+
+            Assert.True(shouldSerialize == location.ShouldSerializeId());
+            string reconstructedJsonLocation = JsonConvert.SerializeObject(location);
+            Assert.True(shouldSerialize == reconstructedJsonLocation.Contains(Id, StringComparison.InvariantCultureIgnoreCase));
+
+            Location reconstructedLocation = JsonConvert.DeserializeObject<Location>(reconstructedJsonLocation);
+            Assert.True(reconstructedLocation.Id == reconstructedLocationId);
         }
     }
 }
