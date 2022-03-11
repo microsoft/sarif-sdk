@@ -210,9 +210,17 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Core
 
         private void VerifyIdRoundTripFromObjectHelper(Location location, bool shouldSerialize, BigInteger reconstructedLocationId)
         {
-            location.ShouldSerializeId().Should().Be(shouldSerialize);
+            location.ShouldSerializeId().Should().Be(shouldSerialize,
+                "JsonConvert.SerializeObject(location): {0}, ShouldSerializeId: {1}, shouldSerialize: {2}", 
+                JsonConvert.SerializeObject(location),
+                location.ShouldSerializeId(),
+                shouldSerialize);
             string jsonLocation = JsonConvert.SerializeObject(location);
-            jsonLocation.Contains(Id, StringComparison.InvariantCultureIgnoreCase).Should().Be(shouldSerialize);
+            jsonLocation.Contains(Id, StringComparison.InvariantCultureIgnoreCase).Should().Be(shouldSerialize,
+                "jsonLocation: {0}, Id: {1}, shouldSerialize: {2}",
+                jsonLocation,
+                Id,
+                shouldSerialize);
 
             Location reconstructedLocation = JsonConvert.DeserializeObject<Location>(jsonLocation);
             reconstructedLocation.Id.Should().Be(reconstructedLocationId);
