@@ -210,29 +210,29 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Core
 
         private void VerifyIdRoundTripFromObjectHelper(Location location, bool shouldSerialize, BigInteger reconstructedLocationId)
         {
-            Assert.True(shouldSerialize == location.ShouldSerializeId());
+            location.ShouldSerializeId().Should().Be(shouldSerialize);
             string jsonLocation = JsonConvert.SerializeObject(location);
-            Assert.True(shouldSerialize == jsonLocation.Contains(Id, StringComparison.InvariantCultureIgnoreCase));
+            jsonLocation.Contains(Id, StringComparison.InvariantCultureIgnoreCase).Should().Be(shouldSerialize);
 
             Location reconstructedLocation = JsonConvert.DeserializeObject<Location>(jsonLocation);
-            Assert.True(reconstructedLocation.Id == reconstructedLocationId);
+            reconstructedLocation.Id.Should().Be(reconstructedLocationId);
 
-            Assert.True(shouldSerialize == reconstructedLocation.ShouldSerializeId());
+            reconstructedLocation.ShouldSerializeId().Should().Be(shouldSerialize);
             string reconstructedJsonLocation = JsonConvert.SerializeObject(reconstructedLocation);
-            Assert.True(shouldSerialize == reconstructedJsonLocation.Contains(Id, StringComparison.InvariantCultureIgnoreCase));
+            reconstructedJsonLocation.Contains(Id, StringComparison.InvariantCultureIgnoreCase).Should().Be(shouldSerialize);
         }
 
         private void VerifyIdRoundTripFromJsonHelper(string jsonLocation, BigInteger deserializedId, bool shouldSerialize, BigInteger reconstructedLocationId)
         {
             Location location = JsonConvert.DeserializeObject<Location>(jsonLocation);
-            Assert.True(location.Id == deserializedId);
+            location.Id.Should().Be(deserializedId);
 
-            Assert.True(shouldSerialize == location.ShouldSerializeId());
+            location.ShouldSerializeId().Should().Be(shouldSerialize);
             string reconstructedJsonLocation = JsonConvert.SerializeObject(location);
-            Assert.True(shouldSerialize == reconstructedJsonLocation.Contains(Id, StringComparison.InvariantCultureIgnoreCase));
+            reconstructedJsonLocation.Contains(Id, StringComparison.InvariantCultureIgnoreCase).Should().Be(shouldSerialize);
 
             Location reconstructedLocation = JsonConvert.DeserializeObject<Location>(reconstructedJsonLocation);
-            Assert.True(reconstructedLocation.Id == reconstructedLocationId);
+            reconstructedLocation.Id.Should().Be(reconstructedLocationId);
         }
     }
 }
