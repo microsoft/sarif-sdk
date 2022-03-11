@@ -17,10 +17,10 @@ namespace Microsoft.CodeAnalysis.Sarif
     {
         public static string GeneratorBaseUri = @"C:\src\";
 
-        public static Random GenerateRandomAndLog(ITestOutputHelper output, [CallerMemberName] string testName = "")
+        public static Random GenerateRandomAndLog(ITestOutputHelper output, [CallerMemberName] string testName = "", int? seed = null)
         {
             // Slightly roundabout.  We want to randomly test this, but we also want to be able to repeat this if the test fails.
-            int randomSeed = (new Random()).Next();
+            int randomSeed = seed ?? (new Random()).Next();
 
             Random random = new Random(randomSeed);
 
@@ -29,7 +29,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return random;
         }
 
-        public static SarifLog GenerateSarifLogWithRuns(Random randomGen, int runCount, int? resultCount = null)
+        public static SarifLog GenerateSarifLogWithRuns(Random randomGen, int runCount, int? resultCount = null, RandomDataFields dataFields = RandomDataFields.None)
         {
             SarifLog log = new SarifLog();
 
@@ -40,13 +40,13 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             for (int i = 0; i < runCount; i++)
             {
-                log.Runs.Add(GenerateRandomRun(randomGen, resultCount));
+                log.Runs.Add(GenerateRandomRun(randomGen, resultCount, dataFields));
             }
 
             return log;
         }
 
-        public static Run GenerateRandomRun(Random random, int? resultCount = null)
+        public static Run GenerateRandomRun(Random random, int? resultCount = null, RandomDataFields dataFields = RandomDataFields.None)
         {
             List<string> ruleIds = new List<string>() { "TEST001", "TEST002", "TEST003", "TEST004", "TEST005" };
             List<Uri> filePaths = GenerateFakeFiles(GeneratorBaseUri, random.Next(20) + 1).Select(a => new Uri(a)).ToList();
@@ -64,7 +64,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                     }
                 },
                 Artifacts = GenerateFiles(filePaths),
-                Results = GenerateFakeResults(random, ruleIds, filePaths, results)
+                Results = GenerateFakeResults(random, ruleIds, filePaths, results, dataFields)
             };
         }
 
@@ -96,7 +96,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return results;
         }
 
-        public static IList<Result> GenerateFakeResults(Random random, List<string> ruleIds, List<Uri> filePaths, int resultCount)
+        public static IList<Result> GenerateFakeResults(Random random, List<string> ruleIds, List<Uri> filePaths, int resultCount, RandomDataFields dataFields = RandomDataFields.None)
         {
             List<Result> results = new List<Result>();
             for (int i = 0; i < resultCount; i++)
@@ -118,9 +118,15 @@ namespace Microsoft.CodeAnalysis.Sarif
                                     Uri = filePaths[fileIndex],
                                     Index = fileIndex
                                 },
-                            }
+                            },
+                            LogicalLocations = dataFields.HasFlag(RandomDataFields.LogicalLocation) ?
+                                               GenerateLogicalLocations(random) :
+                                               null,
                         }
-                    }
+                    },
+                    CodeFlows = dataFields.HasFlag(RandomDataFields.CodeFlow) ?
+                                GenerateCodeFlows(random, filePaths, dataFields) :
+                                null,
                 });
             }
             return results;
@@ -161,5 +167,92 @@ namespace Microsoft.CodeAnalysis.Sarif
             }
             return rules;
         }
+
+        public static IList<CodeFlow> GenerateCodeFlows(Random random, IList<Uri> artifacts, RandomDataFields dataFields)
+        {
+            if (artifacts?.Any() != true)
+            {
+                return null;
+            }
+
+            var codeFlow = new CodeFlow
+            {
+                Message = new Message { Text = "code flow message" },
+                ThreadFlows = new[]
+                {
+                    new ThreadFlow
+                    {
+                        Message = new Message { Text = "thread flow message" },
+                        Locations = dataFields.HasFlag(RandomDataFields.ThreadFlow) ?
+                                    GenerateThreadFlowLocations(random, artifacts) :
+                                    null,
+                    },
+                },
+            };
+
+            return new[] { codeFlow };
+        }
+
+        public static IList<ThreadFlowLocation> GenerateThreadFlowLocations(Random random, IList<Uri> artifacts)
+        {
+            var locations = new List<ThreadFlowLocation>();
+
+            for (int i = 0; i < random.Next(10) + 1; i++)
+            {
+                locations.Add(new ThreadFlowLocation
+                {
+                    Importance = RandomEnumValue<ThreadFlowLocationImportance>(random),
+                    Location = new Location
+                    {
+                        PhysicalLocation = new PhysicalLocation
+                        {
+                            ArtifactLocation = new ArtifactLocation
+                            {
+                                Index = random.Next(artifacts.Count),
+                            },
+                            Region = new Region
+                            {
+                                StartLine = random.Next(500),
+                                StartColumn = random.Next(100),
+                            },
+                        },
+                    },
+                });
+            }
+
+            return locations;
+        }
+
+        public static IList<LogicalLocation> GenerateLogicalLocations(Random random)
+        {
+            var logicalLocations = new List<LogicalLocation>();
+            for (int i = 0; i < random.Next(5); i++)
+            {
+                logicalLocations.Add(new LogicalLocation
+                {
+                    Name = $"Class{i}",
+                    Index = i,
+                    FullyQualifiedName = "namespaceA::namespaceB::namespaceC",
+                    Kind = LogicalLocationKind.Type,
+                });
+            }
+
+            return logicalLocations;
+        }
+
+        public static T RandomEnumValue<T>(Random random) where T : Enum
+        {
+            Array enums = Enum.GetValues(typeof(T));
+            return (T)enums.GetValue(random.Next(enums.Length));
+        }
+    }
+
+    [Flags]
+    public enum RandomDataFields
+    {
+        None = 0,
+        CodeFlow = 0b1,
+        ThreadFlow = 0b10,
+        LogicalLocation = 0b100,
     }
 }

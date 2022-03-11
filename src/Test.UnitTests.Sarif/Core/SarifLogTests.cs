@@ -258,6 +258,45 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests.Core
         }
 
         [Fact]
+        public void SarifLog_SaveToMemoryStreamRoundtrips()
+        {
+            SarifLog sarifLog = GetSarifLogWithMinimalUniqueData();
+
+            var memoryStream = new MemoryStream();
+            sarifLog.Save(memoryStream);
+
+            memoryStream.Seek(0, SeekOrigin.Begin);
+            var reader = new StreamReader(memoryStream);
+            SarifLog newSarifLog = JsonConvert.DeserializeObject<SarifLog>(reader.ReadToEnd());
+
+            newSarifLog.Should().BeEquivalentTo(sarifLog);
+        }
+
+
+        [Fact]
+        public void SarifLog_SaveToStreamWriterRoundtrips()
+        {
+            SarifLog sarifLog = GetSarifLogWithMinimalUniqueData();
+
+            var memoryStream = new MemoryStream();
+            var writer = new StreamWriter(memoryStream); ;
+            sarifLog.Save(writer);
+
+            memoryStream.Seek(0, SeekOrigin.Begin);
+            var reader = new StreamReader(memoryStream);
+            SarifLog newSarifLog = JsonConvert.DeserializeObject<SarifLog>(reader.ReadToEnd());
+
+            newSarifLog.Should().BeEquivalentTo(sarifLog);
+        }
+
+        private static SarifLog GetSarifLogWithMinimalUniqueData()
+        {
+            var sarifLog = new SarifLog() { Runs = new[] { new Run() { } } };
+            sarifLog.Runs[0].SetProperty("test", Guid.NewGuid().ToString());
+            return sarifLog;
+        }
+
+        [Fact]
         public async Task SarifLog_Post_WithValidParameters_ShouldNotThrownAnExceptionWhenRequestIsValid()
         {
             var postUri = new Uri("https://github.com/microsoft/sarif-sdk");
@@ -265,11 +304,12 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests.Core
             var httpMock = new HttpMockHelper();
             var memoryStream = new MemoryStream();
             sarifLog.Save(memoryStream);
-
+            memoryStream.Seek(0, SeekOrigin.Begin);
             httpMock.Mock(
                 new HttpRequestMessage(HttpMethod.Post, postUri) { Content = new StreamContent(memoryStream) },
                 HttpMockHelper.BadRequestResponse);
 
+            memoryStream.Seek(0, SeekOrigin.Begin);
             await Assert.ThrowsAsync<HttpRequestException>(async () =>
             {
                 await SarifLog.Post(postUri,
@@ -280,10 +320,12 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests.Core
 
             memoryStream = new MemoryStream();
             sarifLog.Save(memoryStream);
+            memoryStream.Seek(0, SeekOrigin.Begin);
             httpMock.Mock(
                 new HttpRequestMessage(HttpMethod.Post, postUri) { Content = new StreamContent(memoryStream) },
                 HttpMockHelper.OKResponse);
 
+            memoryStream.Seek(0, SeekOrigin.Begin);
             try
             {
                 await SarifLog.Post(postUri,
