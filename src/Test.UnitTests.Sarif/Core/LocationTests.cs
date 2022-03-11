@@ -216,6 +216,7 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Core
                 location.ShouldSerializeId(),
                 shouldSerialize.ToString(),
 location.Id.ToString(),
+(location.Id > -1).ToString(),
 (location.Id > new BigInteger(-1)).ToString()
 );
             string jsonLocation = JsonConvert.SerializeObject(location);
