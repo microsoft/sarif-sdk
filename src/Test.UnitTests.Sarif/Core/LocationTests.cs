@@ -99,6 +99,19 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Core
             var location = new Location();
             AssertShouldSerializeId(location, false);
 
+            location.Id = long.MinValue;
+            AssertShouldSerializeId(location, false);
+            location.Id--;
+            AssertShouldSerializeId(location, false);
+
+            location.Id = int.MinValue;
+            AssertShouldSerializeId(location, false);
+            location.Id--;
+            AssertShouldSerializeId(location, false);
+
+            location.Id = -2;
+            AssertShouldSerializeId(location, false);
+
             location.Id = -1;
             AssertShouldSerializeId(location, false);
 
@@ -108,12 +121,21 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Core
             location.Id = 1;
             AssertShouldSerializeId(location, true);
 
+            location.Id = 2;
+            AssertShouldSerializeId(location, true);
+
             location.Id = int.MaxValue;
+            AssertShouldSerializeId(location, true);
+            location.Id++;
             AssertShouldSerializeId(location, true);
 
             location.Id = long.MaxValue;
             AssertShouldSerializeId(location, true);
+            location.Id++;
+            AssertShouldSerializeId(location, true);
 
+            location.Id = ulong.MaxValue;
+            AssertShouldSerializeId(location, true);
             location.Id++;
             AssertShouldSerializeId(location, true);
         }
@@ -138,6 +160,9 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Core
 
             jsonLocation = $"{{\"id\":{long.MaxValue}}}";
             AssertDeserializeId(jsonLocation, long.MaxValue);
+
+            jsonLocation = $"{{\"id\":{ulong.MaxValue}}}";
+            AssertDeserializeId(jsonLocation, ulong.MaxValue);
 
             jsonLocation = $"{{\"id\":{new BigInteger(long.MaxValue) + 1}}}";
             AssertDeserializeId(jsonLocation, new BigInteger(long.MaxValue) + 1);
