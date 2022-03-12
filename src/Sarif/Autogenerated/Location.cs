@@ -45,7 +45,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         public bool ShouldSerializeId()
         {
-            return Id > -1;
+            return Id >= 0;
         }
 
         /// <summary>

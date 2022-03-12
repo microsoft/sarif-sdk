@@ -99,15 +99,15 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Core
             var location = new Location();
             VerifyIdRoundTripFromObjectHelper(location, shouldSerialize: false, reconstructedLocationId: -1);
 
-            //location.Id = long.MinValue;
-            //VerifyIdRoundTripFromObjectHelper(location, shouldSerialize: false, reconstructedLocationId: -1);
-            //location.Id--;
-            //VerifyIdRoundTripFromObjectHelper(location, shouldSerialize: false, reconstructedLocationId: -1);
+            location.Id = long.MinValue;
+            VerifyIdRoundTripFromObjectHelper(location, shouldSerialize: false, reconstructedLocationId: -1);
+            location.Id--;
+            VerifyIdRoundTripFromObjectHelper(location, shouldSerialize: false, reconstructedLocationId: -1);
 
-            //location.Id = int.MinValue;
-            //VerifyIdRoundTripFromObjectHelper(location, shouldSerialize: false, reconstructedLocationId: -1);
-            //location.Id--;
-            //VerifyIdRoundTripFromObjectHelper(location, shouldSerialize: false, reconstructedLocationId: -1);
+            location.Id = int.MinValue;
+            VerifyIdRoundTripFromObjectHelper(location, shouldSerialize: false, reconstructedLocationId: -1);
+            location.Id--;
+            VerifyIdRoundTripFromObjectHelper(location, shouldSerialize: false, reconstructedLocationId: -1);
 
             location.Id = -2;
             VerifyIdRoundTripFromObjectHelper(location, shouldSerialize: false, reconstructedLocationId: -1);
@@ -210,21 +210,9 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Core
 
         private void VerifyIdRoundTripFromObjectHelper(Location location, bool shouldSerialize, BigInteger reconstructedLocationId)
         {
-//            location.ShouldSerializeId().Should().Be(shouldSerialize,
-//                "JsonConvert.SerializeObject(location): {0}, ShouldSerializeId: {1}, shouldSerialize: {2}, Id: {3}, GreaterThan: {4}, GreaterThanV2: {5}",
-//                JsonConvert.SerializeObject(location),
-//                location.ShouldSerializeId(),
-//                shouldSerialize.ToString(),
-//location.Id.ToString(),
-//(location.Id > -1).ToString(),
-//(location.Id > new BigInteger(-1)).ToString()
-//);
+            location.ShouldSerializeId().Should().Be(shouldSerialize);
             string jsonLocation = JsonConvert.SerializeObject(location);
-            jsonLocation.Contains(Id, StringComparison.InvariantCultureIgnoreCase).Should().Be(shouldSerialize,
-                "jsonLocation: {0}, Id: {1}, shouldSerialize: {2}",
-                jsonLocation,
-                Id,
-                shouldSerialize);
+            jsonLocation.Contains(Id, StringComparison.InvariantCultureIgnoreCase).Should().Be(shouldSerialize);
 
             Location reconstructedLocation = JsonConvert.DeserializeObject<Location>(jsonLocation);
             reconstructedLocation.Id.Should().Be(reconstructedLocationId);
