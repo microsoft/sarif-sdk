@@ -24,17 +24,12 @@ namespace Microsoft.CodeAnalysis.Sarif
                 return false;
             }
 
-            return left.SerializedValue.Equals(right.SerializedValue);
+            return left.Equals(right);
         }
 
         public int GetHashCode(SerializedPropertyInfo serializedPropertyInfo)
         {
-            if (serializedPropertyInfo.SerializedValue == null)
-            {
-                return 0;
-            }
-
-            return serializedPropertyInfo.SerializedValue.GetHashCode();
+            return serializedPropertyInfo.GetHashCode();
         }
     }
 }
