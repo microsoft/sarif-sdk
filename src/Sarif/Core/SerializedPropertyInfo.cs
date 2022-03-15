@@ -20,6 +20,8 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         public static IComparer<SerializedPropertyInfo> Comparer => SerializedPropertyInfoComparer.Instance;
 
+        public int ValueGetHashCode() => ValueComparer.GetHashCode(this);
+
         /// <summary>
         /// Initializes a new instance of the <see cref="SerializedPropertyInfo"/> class.
         /// </summary>

@@ -6,7 +6,7 @@
         "valueTypeName": "SerializedPropertyInfo",
         "namespaceName": "Microsoft.CodeAnalysis.Sarif.Readers",
         "comparisonKind": "EqualityComparerEquals",
-        "hashKind": "ScalarReferenceType",
+        "hashKind": "ObjectModelType",
         "initializationKind": "SimpleAssign"
       }
     },
@@ -518,7 +518,7 @@
         "valueTypeName": "SerializedPropertyInfo",
         "namespaceName": "Microsoft.CodeAnalysis.Sarif.Readers",
         "comparisonKind": "EqualityComparerEquals",
-        "hashKind": "ScalarReferenceType",
+        "hashKind": "ObjectModelType",
         "initializationKind": "SimpleAssign"
       }
     }

@@ -25,6 +25,41 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Core
             {
                 new
                 {
+                    Left = default(SerializedPropertyInfo),
+                    Right = default(SerializedPropertyInfo),
+                    ExpectedEqualsResult = true,
+                    ExpectedCompareResult = 0
+                },
+                new
+                {
+                    Left = default(SerializedPropertyInfo),
+                    Right = new SerializedPropertyInfo(null, isString:false),
+                    ExpectedEqualsResult = false,
+                    ExpectedCompareResult = -1
+                },
+                new
+                {
+                    Left = new SerializedPropertyInfo(null, isString:false),
+                    Right = new SerializedPropertyInfo(string.Empty, isString:false),
+                    ExpectedEqualsResult = false,
+                    ExpectedCompareResult = -1
+                },
+                new
+                {
+                    Left = new SerializedPropertyInfo(string.Empty, isString:true),
+                    Right = new SerializedPropertyInfo(JsonConvert.SerializeObject(string.Empty), isString:true),
+                    ExpectedEqualsResult = false,
+                    ExpectedCompareResult = -1
+                },
+                new
+                {
+                    Left = new SerializedPropertyInfo(JsonConvert.SerializeObject(null), isString:true),
+                    Right = new SerializedPropertyInfo(JsonConvert.SerializeObject(string.Empty), isString:true),
+                    ExpectedEqualsResult = false,
+                    ExpectedCompareResult = 1
+                },
+                new
+                {
                     Left = new SerializedPropertyInfo(null, isString:false),
                     Right = new SerializedPropertyInfo(null, isString:false),
                     ExpectedEqualsResult = true,
@@ -63,7 +98,7 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Core
                     Left = new SerializedPropertyInfo(JsonConvert.SerializeObject(-1), isString:false),
                     Right = new SerializedPropertyInfo(JsonConvert.SerializeObject(-10), isString:false),
                     ExpectedEqualsResult = false,
-                    ExpectedCompareResult = -1 // "-1" < "-10"
+                    ExpectedCompareResult = -1
                 },
                 new
                 {
@@ -78,6 +113,20 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Core
                     Right = new SerializedPropertyInfo(JsonConvert.SerializeObject("cba"), isString:true),
                     ExpectedEqualsResult = false,
                     ExpectedCompareResult = -1
+                },
+                new
+                {
+                    Left = new SerializedPropertyInfo(JsonConvert.SerializeObject("10"), isString:true),
+                    Right = new SerializedPropertyInfo(JsonConvert.SerializeObject("10"), isString:false),
+                    ExpectedEqualsResult = false,
+                    ExpectedCompareResult = 1
+                },
+                new
+                {
+                    Left = new SerializedPropertyInfo(JsonConvert.SerializeObject("\"10\""), isString:true),
+                    Right = new SerializedPropertyInfo(JsonConvert.SerializeObject("\"10\""), isString:true),
+                    ExpectedEqualsResult = true,
+                    ExpectedCompareResult = 0
                 },
                 new
                 {
@@ -109,15 +158,13 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Core
                 },
                 new
                 {
-                    // "99" compares "\"99\""
                     Left = new SerializedPropertyInfo(JsonConvert.SerializeObject(99), isString:false),
                     Right = new SerializedPropertyInfo(JsonConvert.SerializeObject("99"), isString:true),
                     ExpectedEqualsResult = false,
-                    ExpectedCompareResult = 1
+                    ExpectedCompareResult = -1
                 },
                 new
                 {
-                    // serialzed string: "[\"a\",\"b\",\"c\"]"
                     Left = new SerializedPropertyInfo(JsonConvert.SerializeObject(new[] { "a", "b", "c" }), isString:false),
                     Right = new SerializedPropertyInfo(JsonConvert.SerializeObject(new[] { "a", "b", "c" }), isString:false),
                     ExpectedEqualsResult = true,
@@ -132,7 +179,6 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Core
                 },
                 new
                 {
-                    // serialzed string: "{\"a\":1,\"b\":true}"
                     Left = new SerializedPropertyInfo(JsonConvert.SerializeObject(new { a = 1, b = true }), isString:false),
                     Right = new SerializedPropertyInfo(JsonConvert.SerializeObject(new { a = 1, b = true }), isString:false),
                     ExpectedEqualsResult = true,
@@ -159,12 +205,12 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Core
                 bool equalsResult = SerializedPropertyInfo.ValueComparer.Equals(testCase.Left, testCase.Right);
                 equalsResult.Should().Be(
                     testCase.ExpectedEqualsResult,
-                    $"left: {testCase.Left.SerializedValue} right: {testCase.Right.SerializedValue}");
+                    $"left: {testCase.Left?.SerializedValue} right: {testCase.Right?.SerializedValue}");
 
                 int compareResult = SerializedPropertyInfo.Comparer.Compare(testCase.Left, testCase.Right);
                 compareResult.Should().Be(
                     testCase.ExpectedCompareResult,
-                    $"left: {testCase.Left.SerializedValue} right: {testCase.Right.SerializedValue}");
+                    $"left: {testCase.Left?.SerializedValue} right: {testCase.Right?.SerializedValue}");
             }
         }
     }

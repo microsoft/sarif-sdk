@@ -3,6 +3,8 @@
 
 using System.Collections.Generic;
 
+using Microsoft.CodeAnalysis.Sarif.Comparers;
+
 namespace Microsoft.CodeAnalysis.Sarif
 {
     /// <summary>
@@ -14,29 +16,21 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         public int Compare(SerializedPropertyInfo left, SerializedPropertyInfo right)
         {
-            if (object.ReferenceEquals(left, right))
+            int compareResult = 0;
+
+            if (left.TryReferenceCompares(right, out compareResult))
             {
-                return 0;
+                return compareResult;
             }
 
-            if (left == null)
-            {
-                return -1;
-            }
-
-            if (right == null)
-            {
-                return 1;
-            }
-
-            int compareResult = string.Compare(left.SerializedValue, right.SerializedValue);
+            compareResult = left.IsString.CompareTo(right.IsString);
 
             if (compareResult != 0)
             {
                 return compareResult;
             }
 
-            compareResult = left.IsString.CompareTo(right.IsString);
+            compareResult = string.Compare(left.SerializedValue, right.SerializedValue);
 
             return compareResult;
         }
