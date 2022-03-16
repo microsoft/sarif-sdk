@@ -208,6 +208,19 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Core
                 shouldSerialize: true, reconstructedLocationId: new BigInteger(ulong.MaxValue) + 1);
         }
 
+        [Fact]
+        public void Location_VerifyAbleToDeserializeWithBigIntegerId()
+        {
+            string context = new ResourceExtractor(typeof(LocationTests)).GetResourceText("LocationId_BigInteger.sarif");
+            SarifLog sarifLog = JsonConvert.DeserializeObject<SarifLog>(context);
+            sarifLog.Runs[0].Results[0].Locations[0].Id.Should().Be(BigInteger.Parse("31197130097450771296369962162453149327732752356239421572342053257324632475324"));
+            sarifLog.Runs[0].Results[0].Locations[1].Id.Should().Be(new BigInteger(long.MaxValue) + 1);
+            sarifLog.Runs[0].Results[0].Locations[2].Id.Should().Be(new BigInteger(int.MaxValue) + 1);
+            sarifLog.Runs[0].Results[0].Locations[3].Id.Should().Be(2);
+            sarifLog.Runs[0].Results[0].Locations[4].Id.Should().Be(0);
+            sarifLog.Runs[0].Results[0].Locations[5].Id.Should().Be(-1);
+        }
+
         private void VerifyIdRoundTripFromObjectHelper(Location location, bool shouldSerialize, BigInteger reconstructedLocationId)
         {
             location.ShouldSerializeId().Should().Be(shouldSerialize);

@@ -33,6 +33,7 @@
     <None Remove="TestData\InsertOptionalDataVisitor\ExpectedOutputs\CoreTests-Relative_Guids.sarif" />
     <None Remove="TestData\InsertOptionalDataVisitor\ExpectedOutputs\CoreTests-Relative_VersionControlDetails.sarif" />
     <None Remove="TestData\InsertOptionalDataVisitor\Inputs\CoreTests-Absolute.sarif" />
+    <None Remove="TestData\JsonConverters\LocationId_BigInteger.sarif" />
     <None Remove="TestData\JsonConverters\UriConverterTests.json" />
     <None Remove="TestData\Map\Sample.json" />
     <None Remove="TestData\Map\TinyArray.json" />
@@ -103,7 +104,7 @@
     <EmbeddedResource Include="TestData\GitHubIngestionVisitor\Inputs\WithArtifacts.sarif" />
     <EmbeddedResource Include="TestData\GitHubIngestionVisitor\Inputs\TooManyResults.sarif" />
     <EmbeddedResource Include="TestData\InsertOptionalDataVisitor\ExpectedOutputs\CoreTests-Relative_VersionControlDetails.sarif" />
-    <EmbeddedResource Include="TestData\Readers\elfie-arriba-utf8-bom.sarif" />
+	<EmbeddedResource Include="TestData\Readers\elfie-arriba-utf8-bom.sarif" />
     <EmbeddedResource Include="TestData\Baseline\elfie-arriba.sarif" />
     <EmbeddedResource Include="TestData\Baseline\SuppressionTestCurrent.sarif" />
     <EmbeddedResource Include="TestData\Baseline\SuppressionTestPrevious.sarif" />
@@ -113,7 +114,8 @@
     <EmbeddedResource Include="TestData\InsertOptionalDataVisitor\ExpectedOutputs\TopLevelOriginalUriBaseIdUriMissing_ContextRegionSnippets.sarif" />
     <EmbeddedResource Include="TestData\InsertOptionalDataVisitor\Inputs\CoreTests-Absolute.sarif" />
     <EmbeddedResource Include="TestData\InsertOptionalDataVisitor\Inputs\TopLevelOriginalUriBaseIdUriMissing.sarif" />
-    <EmbeddedResource Include="TestData\JsonConverters\UriConverterTests.json" />
+	<EmbeddedResource Include="TestData\JsonConverters\LocationId_BigInteger.sarif" />
+	<EmbeddedResource Include="TestData\JsonConverters\UriConverterTests.json" />
     <EmbeddedResource Include="TestData\Map\TinyArray.json">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </EmbeddedResource>
