@@ -398,7 +398,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                         return false;
                     }
 
-                    if (!object.Equals(value_4.Value, value_5))
+                    if (!SerializedPropertyInfo.ValueComparer.Equals(value_4.Value, value_5))
                     {
                         return false;
                     }

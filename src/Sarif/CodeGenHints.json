@@ -5,8 +5,8 @@
       "arguments": {
         "valueTypeName": "SerializedPropertyInfo",
         "namespaceName": "Microsoft.CodeAnalysis.Sarif.Readers",
-        "comparisonKind": "ObjectEquals",
-        "hashKind": "ScalarReferenceType",
+        "comparisonKind": "EqualityComparerEquals",
+        "hashKind": "ObjectModelType",
         "initializationKind": "SimpleAssign"
       }
     },
@@ -517,8 +517,8 @@
       "arguments": {
         "valueTypeName": "SerializedPropertyInfo",
         "namespaceName": "Microsoft.CodeAnalysis.Sarif.Readers",
-        "comparisonKind": "ObjectEquals",
-        "hashKind": "ScalarReferenceType",
+        "comparisonKind": "EqualityComparerEquals",
+        "hashKind": "ObjectModelType",
         "initializationKind": "SimpleAssign"
       }
     }
