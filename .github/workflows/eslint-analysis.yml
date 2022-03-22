@@ -18,7 +18,7 @@ jobs:
         run: npm i eslint @microsoft/eslint-formatter-sarif
           
       - name: Run eslint
-        run: npx eslint .
+        run: npx eslint ./src/
              --config ./src/ESLint.Formatter/.eslintrc.js
              --ext .js,.jsx,.ts,.tsx 
              --format @microsoft/eslint-formatter-sarif 
