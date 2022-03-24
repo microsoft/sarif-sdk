@@ -194,7 +194,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 Artifacts = _files.OrderBy(d => d.Value.Item2)
                                   .Select(p => p.Value)
                                   .Select(t => t.Item1)
-                                  .ToList() as IList<Artifact>,
+                                  .ToList(),
                 Tool = new Tool
                 {
                     Driver = new ToolComponent
