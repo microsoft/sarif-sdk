@@ -1,12 +1,14 @@
 # SARIF Package Release History (SDK, Driver, Converters, and Multitool)
 
 ## UNRELEASED
+
 * BUGFIX: Eliminate dispose of stream and `StreamWriter` arguments passed to `SarifLog.Save` helpers. This would result in `ObjectDisposedException` being raised on attempt to access streams after save.
+* BREAKING: `Id` property of `Location` changed from `int`(32bit) to `BigInteger`(unlimited) to fix `Newtonsoft.Json.JsonReaderException: JSON integer XXXXX is too large or small for an Int32.` [#2463](https://github.com/microsoft/sarif-sdk/pull/2463)
 
 ## **v2.4.13** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.4.13) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.4.13) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.4.13) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.4.13) | [Multitool Library](https://www.nuget.org/packages/Sarif.Multitool.Library/2.4.13)
 
 * BREAKING: `AnalyzeCommandBase` previously persisted all scan target artifacts to SARIF logs rather than only persisting artifacts referenced by an analysis result, when an option to persist hashes, text file or binary information was set. `MultithreadedAnalyzeCommandBase` previously persisted all scan targets artifacts to SARIF logs in cases when hash insertion was eenabled rather than only persisting artifacts referenced by an analysis result. [#2433](https://github.com/microsoft/sarif-sdk/pull/2433)
-* BUGFIX: Adjust Json Serialization field order for ReportingDescriptor and skip emit empty AutomationDetails node. [#2420](https://github.com/microsoft/sarif-sdk/pull/2420)
+* BUGFIX: Adjust Json Serialization property order for ReportingDescriptor and skip emit empty AutomationDetails node. [#2420](https://github.com/microsoft/sarif-sdk/pull/2420)
 * BREAKING: Fix `InvalidOperationException` when using PropertiesDictionary in a multithreaded application, and remove `[Serializable]` from it. Now use of BinaryFormatter on it will result in `SerializationException`: Type `PropertiesDictionary` is not marked as serializable. [#2415](https://github.com/microsoft/sarif-sdk/pull/2415)
 * BREAKING: `SarifLogger` now emits an artifacts table entry if `artifactLocation` is not null for tool configuration and tool execution notifications. [#2437](https://github.com/microsoft/sarif-sdk/pull/2437)
 * BUGFIX: Fix `ArgumentException` when `--recurse` is enabled and two file target specifiers generates the same file path. [#2438](https://github.com/microsoft/sarif-sdk/pull/2438)
