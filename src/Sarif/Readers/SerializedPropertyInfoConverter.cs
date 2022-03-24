@@ -34,7 +34,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         public static void Write(JsonWriter writer, SerializedPropertyInfo value)
         {
-            SerializedPropertyInfo spi = (SerializedPropertyInfo)value;
+            SerializedPropertyInfo spi = value;
 
             if (spi == null || spi.SerializedValue == null)
             {

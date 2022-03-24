@@ -98,7 +98,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 IDictionary pb = property as IDictionary;
                 if (pb != null)
                 {
-                    ((IDictionary)pb).SavePropertiesToXmlStream(writer, settings, key, settingNameToDescriptionMap);
+                    pb.SavePropertiesToXmlStream(writer, settings, key, settingNameToDescriptionMap);
                     continue;
                 }
 
