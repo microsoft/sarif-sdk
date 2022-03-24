@@ -75,8 +75,8 @@ namespace Microsoft.WorkItems.Logging
             EventId eventId = new EventId(1);
             Dictionary<string, object> customDimensions = new Dictionary<string, object>();
             customDimensions.Add("Empty", "");
-            customDimensions.Add("Null1", (string)null);
-            customDimensions.Add("Null2", (object)null);
+            customDimensions.Add("Null1", null);
+            customDimensions.Add("Null2", null);
             customDimensions.Add("HasValue", 3);
 
             MetricsLogValues values = new MetricsLogValues(message, eventId, customDimensions);
@@ -84,10 +84,10 @@ namespace Microsoft.WorkItems.Logging
             values.Count.Should().Be(customDimensions.Count);
 
             string sentinelValue = "<empty>";
-            ((IEnumerable<KeyValuePair<string, object>>)values).Single(v => v.Key == "Empty").Value.Should().Be(sentinelValue);
-            ((IEnumerable<KeyValuePair<string, object>>)values).Single(v => v.Key == "Null1").Value.Should().Be(sentinelValue);
-            ((IEnumerable<KeyValuePair<string, object>>)values).Single(v => v.Key == "Null2").Value.Should().Be(sentinelValue);
-            ((IEnumerable<KeyValuePair<string, object>>)values).Single(v => v.Key == "HasValue").Value.Should().Be(3);
+            values.Single(v => v.Key == "Empty").Value.Should().Be(sentinelValue);
+            values.Single(v => v.Key == "Null1").Value.Should().Be(sentinelValue);
+            values.Single(v => v.Key == "Null2").Value.Should().Be(sentinelValue);
+            values.Single(v => v.Key == "HasValue").Value.Should().Be(3);
         }
     }
 }
