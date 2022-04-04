@@ -9,13 +9,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Map
 {
     public class JsonMapBuilderTests
     {
-        private static readonly ResourceExtractor Extractor = new ResourceExtractor(typeof(JsonMapBuilderTests));
+        private static readonly TestAssetResourceExtractor Extractor = new TestAssetResourceExtractor(typeof(JsonMapBuilderTests));
 
         [Fact]
         public void JsonMapBuilder_Basic_20x()
         {
-            string sampleFilePath = "Map.Sample.json";
-            File.WriteAllText(sampleFilePath, Extractor.GetResourceText("Map.Sample.json"));
+            string sampleFilePath = "Sample.json";
+            File.WriteAllText(sampleFilePath, Extractor.GetResourceText("Sample.json"));
 
             // Allow a map 20x the size of the original file
             JsonMapNode root = JsonMapBuilder.Build(sampleFilePath, new JsonMapSettings(20));
@@ -61,8 +61,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Map
         [Fact]
         public void JsonMapBuilder_Basic_2x()
         {
-            string sampleFilePath = "Map.Sample.json";
-            File.WriteAllText(sampleFilePath, Extractor.GetResourceText("Map.Sample.json"));
+            string sampleFilePath = "Sample.json";
+            File.WriteAllText(sampleFilePath, Extractor.GetResourceText("Sample.json"));
 
             // Allow a map 2x the size of the original file
             JsonMapNode root = JsonMapBuilder.Build(sampleFilePath, new JsonMapSettings(2));
@@ -82,8 +82,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Map
         [Fact]
         public void JsonMapBuilder_EveryTwo()
         {
-            string sampleFilePath = "Map.TinyArray.json";
-            File.WriteAllText(sampleFilePath, Extractor.GetResourceText("Map.TinyArray.json"));
+            string sampleFilePath = "TinyArray.json";
+            File.WriteAllText(sampleFilePath, Extractor.GetResourceText("TinyArray.json"));
 
             // File: 300b.
             // Map: Root (90b) + Array (5b x 50 (Count 100 / Every 2)) = 340b
@@ -110,8 +110,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Map
         [Fact]
         public void JsonMapBuilder_EveryFour()
         {
-            string sampleFilePath = "Map.TinyArray.json";
-            File.WriteAllText(sampleFilePath, Extractor.GetResourceText("Map.TinyArray.json"));
+            string sampleFilePath = "TinyArray.json";
+            File.WriteAllText(sampleFilePath, Extractor.GetResourceText("TinyArray.json"));
 
             // File: 300b.
             // Map: Root (90b) + Array (5b x 25 (Count 100 / Every 4)) = 215b

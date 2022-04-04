@@ -37,15 +37,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         [Fact]
         public void Converter_WhenInputIsEmpty_ReturnsNoResults()
         {
-            string input = Extractor.GetResourceText("Inputs.Empty.json");
-            string expectedOutput = Extractor.GetResourceText("ExpectedOutputs.NoResults.sarif");
+            string input = Extractor.GetResourceInputText("Empty.json");
+            string expectedOutput = Extractor.GetResourceExpectedOutputsText("NoResults.sarif");
             RunTestCase(input, expectedOutput);
         }
 
         [Fact]
         public void Converter_WhenResultRowIsInvalid_ThrowsExpectedException()
         {
-            string input = Extractor.GetResourceText("Inputs.InvalidResult.json");
+            string input = Extractor.GetResourceInputText("InvalidResult.json");
             Action action = () => RunTestCase(input, NoOutputExpected);
             action.Should().Throw<JsonSerializationException>();
         }
@@ -53,12 +53,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         [Fact]
         public void Converter_WhenInputContainsValidResults_ReturnsExpectedOutput()
         {
-            string input = Extractor.GetResourceText("Inputs.ValidResults.json");
-            string expectedOutput = Extractor.GetResourceText("ExpectedOutputs.ValidResults.sarif");
+            string input = Extractor.GetResourceInputText("ValidResults.json");
+            string expectedOutput = Extractor.GetResourceExpectedOutputsText("ValidResults.sarif");
             RunTestCase(input, expectedOutput);
         }
 
-        private static readonly ResourceExtractor Extractor = new ResourceExtractor(typeof(HdfConverterTests));
+        private static readonly TestAssetResourceExtractor Extractor = new TestAssetResourceExtractor(typeof(HdfConverterTests));
         private const string ResourceNamePrefix = ToolFormat.Hdf;
     }
 }

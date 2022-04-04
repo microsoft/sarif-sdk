@@ -14,6 +14,7 @@ using FluentAssertions;
 using Microsoft.CodeAnalysis.Sarif.Readers;
 using Microsoft.CodeAnalysis.Sarif.VersionOne;
 using Microsoft.CodeAnalysis.Sarif.Writers;
+using Microsoft.CodeAnalysis.Test.Utilities.Sarif;
 
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -25,32 +26,15 @@ namespace Microsoft.CodeAnalysis.Sarif
 {
     public abstract class FileDiffingUnitTests
     {
-        public static string GetTestDirectory(string subdirectory = "")
-        {
-            return Path.GetFullPath(Path.Combine(@$"TestData\", subdirectory));
-        }
-
-        public static string GetProductDirectory()
-        {
-            string path = typeof(FileDiffingUnitTests).Assembly.Location;
-            path = GitHelper.Default.GetTopLevel(path);
-            return Path.Combine(path, @"src\");
-        }
-
-        public static string GetProductTestDataDirectory(string testBinaryName, string subdirectory = "")
-        {
-            return Path.GetFullPath(Path.Combine(GetProductDirectory(), $".\\{testBinaryName}\\TestData", subdirectory));
-        }
-
         private readonly ITestOutputHelper _outputHelper;
         private readonly bool _testProducesSarifCurrentVersion;
-        private readonly ResourceExtractor _resourceExtractor;
+        private readonly TestAssetResourceExtractor _resourceExtractor;
 
         public FileDiffingUnitTests(ITestOutputHelper outputHelper, bool testProducesSarifCurrentVersion = true)
         {
             _outputHelper = outputHelper;
             _testProducesSarifCurrentVersion = testProducesSarifCurrentVersion;
-            _resourceExtractor = new ResourceExtractor(this.GetType());
+            _resourceExtractor = new TestAssetResourceExtractor(this.GetType());
 
             Directory.CreateDirectory(TestOutputDirectory);
         }
@@ -74,7 +58,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// 
         ///     D:\src\sarif-sdk\src\
         /// </summary>
-        protected virtual string ProductRootDirectory => GetProductDirectory();
+        protected virtual string ProductRootDirectory => DirectoryHelpers.GetEnlistmentRoot();
 
         /// <summary>
         /// The directory at the root of the project which stores shared test assets (i.e.
@@ -104,7 +88,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// 
         ///     Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Multitool.TestData.
         /// </summary>
-        protected virtual string TestLogResourceNameRoot => @$"Microsoft.CodeAnalysis.{TestBinaryName}.TestData.{TypeUnderTest}";
+        protected virtual string TestLogResourceNameRoot => @$"{TestBinaryName}.TestData.{TypeUnderTest}";
 
         public string GetExpectedOutputFileFromResource(string resourceName)
             => GetResourceText(GetFullResourcePathForInputResource(resourceName));

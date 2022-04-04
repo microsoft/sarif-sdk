@@ -26,10 +26,8 @@ namespace Microsoft.CodeAnalysis.Sarif
     {
         private const string TempFileBaseId = "TEMP_ROOT";
 
-        private static string GetResourceContents(string resourceName)
-            => ResourceExtractor.GetResourceText($"SarifLogger.{resourceName}");
-
         private readonly ITestOutputHelper output;
+        private readonly static TestAssetResourceExtractor Extractor = new TestAssetResourceExtractor(typeof(SarifLoggerTests));
 
         public SarifLoggerTests(ITestOutputHelper output)
         {
@@ -49,7 +47,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         private static void StreamOwnershipHelper(bool closeWriterOnDispose)
         {
-            string expectedText = GetResourceContents("SimpleExample.sarif");
+            string expectedText = Extractor.GetResourceText("SimpleExample.sarif");
 
             MemoryStream memoryStream = new MemoryStream();
             var streamWriter = new StreamWriter(memoryStream);

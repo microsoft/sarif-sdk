@@ -17,7 +17,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 {
     public class PageCommandTests
     {
-        private static readonly ResourceExtractor Extractor = new ResourceExtractor(typeof(PageCommandTests));
+        private static readonly TestAssetResourceExtractor Extractor = new TestAssetResourceExtractor(typeof(PageCommandTests));
 
         [Fact]
         public void PageCommand_Basics()

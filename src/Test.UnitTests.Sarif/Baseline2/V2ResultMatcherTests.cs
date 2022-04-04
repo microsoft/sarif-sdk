@@ -29,8 +29,7 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Baseline
         private const string SuppressionTestCurrentFilePath = "SuppressionTestCurrent.sarif";
         private SarifLog SuppressionTestCurrentLog { get; }
 
-        private static readonly IResultMatcher matcher = new V2ResultMatcher();
-        private static readonly ResourceExtractor extractor = new ResourceExtractor(typeof(V2ResultMatcherTests));
+        private static readonly IResultMatcher s_matcher = new V2ResultMatcher();
 
         public V2ResultMatcherTests()
         {
@@ -42,13 +41,13 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Baseline
 
         private static SarifLog GetLogFromResource(string filePath)
         {
-            string fileContents = extractor.GetResourceText(filePath);
+            string fileContents = OverallBaseliningTests.BaselineNamespaceExtractor.GetResourceText(filePath);
             return JsonConvert.DeserializeObject<SarifLog>(fileContents);
         }
 
         private static IEnumerable<MatchedResults> CreateMatchedResults(Run previous, Run current)
         {
-            return matcher.Match(
+            return s_matcher.Match(
                 previous.Results.Select(r => new ExtractedResult(r, previous)).ToList(),
                 current.Results.Select(r => new ExtractedResult(r, current)).ToList()
             );

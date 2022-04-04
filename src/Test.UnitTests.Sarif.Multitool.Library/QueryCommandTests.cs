@@ -11,13 +11,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 {
     public class QueryCommandTests
     {
-        private static readonly ResourceExtractor Extractor = new ResourceExtractor(typeof(QueryCommandTests));
+        private static readonly TestAssetResourceExtractor Extractor = new TestAssetResourceExtractor(typeof(QueryCommandTests));
 
         [Fact]
         public void QueryCommand_Basics()
         {
-            // This resource comes from the PageCommand tests...
-            string filePath = "Microsoft.CodeAnalysis.Sarif.Multitool.TestData.PageCommand.elfie-arriba.sarif";
+            string filePath = "elfie-arriba.sarif";
             File.WriteAllText(filePath, Extractor.GetResourceText(filePath));
 
             // All Results: No filter

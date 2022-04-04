@@ -28,9 +28,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
     public class MergeCommandTests : FileDiffingUnitTests, IClassFixture<MergeCommandTests.MergeCommandTestsFixture>
     {
         public class MergeCommandTestsFixture : DeletesOutputsDirectoryOnClassInitializationFixture { }
-
-        protected override string TestLogResourceNameRoot => "Microsoft.CodeAnalysis.Sarif.Multitool.TestData." + TypeUnderTest;
-
+        
         public MergeCommandTests(ITestOutputHelper outputHelper) : base(outputHelper)
         {
         }

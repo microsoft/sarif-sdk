@@ -11,7 +11,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 {
     public class ApplyPolicyCommandTests
     {
-        private static readonly ResourceExtractor Extractor = new ResourceExtractor(typeof(ApplyPolicyCommandTests));
+        private static readonly TestAssetResourceExtractor Extractor = new TestAssetResourceExtractor(typeof(ApplyPolicyCommandTests));
 
         [Fact]
         public void WhenInputContainsOnePolicy_ShouldSucceed()

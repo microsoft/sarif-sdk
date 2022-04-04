@@ -16,7 +16,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 {
     public class ValidateCommandTests
     {
-        private static readonly ResourceExtractor Extractor = new ResourceExtractor(typeof(ValidateCommandTests));
+        private static readonly TestAssetResourceExtractor Extractor = new TestAssetResourceExtractor(typeof(ValidateCommandTests));
 
         // A simple schema against which a SARIF log file successfully validates.
         // This way, we don't have to read the SARIF schema from disk to run these tests.

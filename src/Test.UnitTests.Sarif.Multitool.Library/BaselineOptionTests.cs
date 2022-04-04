@@ -20,7 +20,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 {
     public class BaselineOptionTests
     {
-        private static readonly ResourceExtractor Extractor = new ResourceExtractor(typeof(ValidateCommandTests));
+        private static readonly TestAssetResourceExtractor Extractor = new TestAssetResourceExtractor(typeof(ValidateCommandTests));
 
         // test setup
         private const string LogFileDirectory = @"C:\Users\John\Sarif logs";

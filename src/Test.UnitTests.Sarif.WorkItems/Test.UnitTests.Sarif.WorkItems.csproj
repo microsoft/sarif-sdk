@@ -11,7 +11,7 @@
     <TargetFrameworks>netcoreapp3.1</TargetFrameworks>
     <IsPackable>false</IsPackable>
     <IsTestProject>true</IsTestProject>
-    <RootNamespace>Microsoft.CodeAnalysis.Sarif.WorkItems</RootNamespace>
+    <RootNamespace>Test.UnitTests.Sarif.WorkItems</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>

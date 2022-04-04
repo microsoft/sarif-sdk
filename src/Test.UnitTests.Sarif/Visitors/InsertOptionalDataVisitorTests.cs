@@ -31,10 +31,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
         protected override string ConstructTestOutputFromInputResource(string inputResourceName, object parameter)
         {
-            SarifLog actualLog = PrereleaseCompatibilityTransformer.UpdateToCurrentVersion(
-                GetResourceText(inputResourceName),
-                formatting: Formatting.Indented,
-                updatedLog: out _);
+            SarifLog actualLog =
+                PrereleaseCompatibilityTransformer.UpdateToCurrentVersion(GetInputSarifTextFromResource(inputResourceName),
+                                                                          formatting: Formatting.Indented,
+                                                                          updatedLog: out _);
 
             // Some of the tests operate on SARIF files that mention the absolute path of the file
             // that was "analyzed" (InsertOptionalDataVisitor.txt). That path depends on the repo
@@ -48,7 +48,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             // to the expected output.
             string enlistmentRoot = GitHelper.Default.GetRepositoryRoot(Environment.CurrentDirectory, useCache: false);
 
-            if (inputResourceName == "Inputs.CoreTests-Relative.sarif")
+            if (inputResourceName == "CoreTests-Relative.sarif")
             {
                 Uri originalUri = actualLog.Runs[0].OriginalUriBaseIds["TESTROOT"].Uri;
                 string uriString = originalUri.ToString();
@@ -75,7 +75,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     actualLog.Runs[0].OriginalUriBaseIds[repoRootUriBaseId] = new ArtifactLocation { Uri = new Uri(repoRootString, UriKind.Absolute) };
                 }
             }
-            else if (inputResourceName == "Inputs.CoreTests-Absolute.sarif")
+            else if (inputResourceName == "CoreTests-Absolute.sarif")
             {
                 Uri originalUri = actualLog.Runs[0].Artifacts[0].Location.Uri;
                 string uriString = originalUri.ToString();
@@ -675,7 +675,7 @@ Three";
         public void InsertOptionalDataVisitor_ResolvesOriginalUriBaseIds()
         {
             string inputFileName = "InsertOptionalDataVisitor.txt";
-            string testDirectory = GetTestDirectory("InsertOptionalDataVisitor") + @"\";
+            string testDirectory = GetInputSarifTextFromResource(inputFileName);
             string uriBaseId = "TEST_DIR";
 
             IDictionary<string, ArtifactLocation> originalUriBaseIds = new Dictionary<string, ArtifactLocation> { { uriBaseId, new ArtifactLocation { Uri = new Uri(testDirectory, UriKind.Absolute) } } };

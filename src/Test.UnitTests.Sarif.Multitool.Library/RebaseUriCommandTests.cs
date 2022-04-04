@@ -8,6 +8,7 @@ using System.Text;
 using FluentAssertions;
 
 using Microsoft.Extensions.Options;
+using Microsoft.CodeAnalysis.Test.Utilities.Sarif;
 
 using Moq;
 
@@ -24,13 +25,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
         public RebaseUriCommandTests(ITestOutputHelper outputHelper) : base(outputHelper) { }
 
-        protected override string TestLogResourceNameRoot =>
-            "Microsoft.CodeAnalysis.Sarif.Multitool.TestData.RebaseUriCommand";
-
         [Fact]
         public void RebaseUriCommand_InjectsRegions()
         {
-            string productDirectory = FileDiffingFunctionalTests.GetProductDirectory();
+            string productDirectory = ProductRootDirectory;
             string analysisFile = Path.Combine(productDirectory, @"ReleaseHistory.md");
             File.Exists(analysisFile).Should().BeTrue();
 

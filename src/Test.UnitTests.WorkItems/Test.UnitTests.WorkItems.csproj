@@ -3,7 +3,7 @@
   <PropertyGroup Label="AssemblyAttributes">
     <AssemblyTitle>Universal Work Item Filer Unit Tests</AssemblyTitle>
     <Description>Unit tests for the Universal Work Item Filer, which files issues in GitHub or AzureDevOps.</Description>
-    <RootNamespace>Microsoft.WorkItems</RootNamespace>
+    <RootNamespace>Test.UnitTests.WorkItems</RootNamespace>
   </PropertyGroup>
 
   <Import Project="$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildThisFileDirectory), build.props))\build.props" />

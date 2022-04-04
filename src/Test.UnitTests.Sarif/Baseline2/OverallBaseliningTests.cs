@@ -22,23 +22,19 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Baseline
         private const string SampleFilePath = "elfie-arriba.sarif";
         private SarifLog SampleLog { get; }
 
-        private static readonly ISarifLogMatcher matcher = ResultMatchingBaselinerFactory.GetDefaultResultMatchingBaseliner();
-        private static readonly ResourceExtractor extractor = new ResourceExtractor(typeof(OverallBaseliningTests));
+        private static readonly ISarifLogMatcher s_matcher = ResultMatchingBaselinerFactory.GetDefaultResultMatchingBaseliner();
+        public static readonly TestAssetResourceExtractor BaselineNamespaceExtractor =
+            new TestAssetResourceExtractor(typeof(OverallBaseliningTests).Assembly, testAssetDirectory: "Baseline");
 
         public OverallBaseliningTests()
         {
-            SampleLog = GetLogFromResource(SampleFilePath);
-        }
-
-        private static SarifLog GetLogFromResource(string filePath)
-        {
-            string fileContents = extractor.GetResourceText(filePath);
-            return JsonConvert.DeserializeObject<SarifLog>(fileContents);
+            string fileContents = BaselineNamespaceExtractor.GetResourceText(SampleFilePath);
+            SampleLog = JsonConvert.DeserializeObject<SarifLog>(fileContents);
         }
 
         private static SarifLog Baseline(SarifLog baseline, SarifLog current)
         {
-            return matcher.Match(new[] { baseline }, new[] { current }).FirstOrDefault();
+            return s_matcher.Match(new[] { baseline }, new[] { current }).FirstOrDefault();
         }
 
         [Fact]

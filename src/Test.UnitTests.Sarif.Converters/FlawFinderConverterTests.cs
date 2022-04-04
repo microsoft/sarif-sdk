@@ -83,7 +83,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             action.Should().Throw<HeaderValidationException>();
         }
 
-        private static readonly ResourceExtractor Extractor = new ResourceExtractor(typeof(FlawFinderConverterTests));
+        private static readonly TestAssetResourceExtractor Extractor = new TestAssetResourceExtractor(typeof(FlawFinderConverterTests));
         private const string ResourceNamePrefix = ToolFormat.FlawFinder;
     }
 }

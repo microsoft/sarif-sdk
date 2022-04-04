@@ -15,7 +15,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 {
     public class ConvertCommandTests
     {
-        private static readonly ResourceExtractor Extractor = new ResourceExtractor(typeof(ConvertCommandTests));
+        private static readonly TestAssetResourceExtractor Extractor = new TestAssetResourceExtractor(typeof(ConvertCommandTests));
 
         [Fact]
         public void ConvertCommand_SemmleQlExample()

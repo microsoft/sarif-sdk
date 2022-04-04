@@ -22,7 +22,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             Path.Combine(Path.GetDirectoryName(ThisAssembly.Location), $"FunctionalTestOutput.{TypeUnderTest}");
 
         protected override string TestLogResourceNameRoot =>
-            "Microsoft.CodeAnalysis.Test.FunctionalTests.Sarif.TestData." +
+            "Test.FunctionalTests.Sarif.TestData." +
             IntermediateTestFolder + "." +
             TypeUnderTest;
     }
