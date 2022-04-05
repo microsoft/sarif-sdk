@@ -23,7 +23,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         {
             public TestFixture()
             {
-                TestAssetResourceExtractor extractor = new TestAssetResourceExtractor(typeof(QueryCommand));
+                TestAssetResourceExtractor extractor = new TestAssetResourceExtractor(typeof(QueryCommandTests));
                 File.WriteAllText(fileWithPropertyBag, extractor.GetResourceText(fileWithPropertyBag));
             }
         }
@@ -31,14 +31,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         [Fact]
         public void QueryCommand_CanAccessResultAndRulePropertyBags()
         {
-            RunAndVerifyCount(2, "properties.name == 'Terisa'");
+            RunAndVerifyCount(2, "properties.name == 'Calliope'");
             RunAndVerifyCount(2, "rule.properties.Category == 'security'");
         }
 
         [Fact]
         public void QueryCommand_ComparesPropertyBagPropertyNamesCaseSensitively()
         {
-            RunAndVerifyCount(0, "properties.nAmE == 'Terisa'");
+            RunAndVerifyCount(0, "properties.nAmE == 'Calliope'");
             RunAndVerifyCount(0, "rule.properties.CaTegORy == 'security'");
         }
 

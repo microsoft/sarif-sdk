@@ -38,7 +38,7 @@
       "artifacts": [
         {
           "location": {
-            "uri": "FunctionalTestOutput.ValidateCommand/Inputs.GH1003.ProvideRequiredRegionProperties_Invalid.sarif",
+            "uri": "FunctionalTestOutput.ValidateCommand/GH1003.ProvideRequiredRegionProperties_Invalid.sarif",
             "uriBaseId": "TEST_DIR"
           }
         }

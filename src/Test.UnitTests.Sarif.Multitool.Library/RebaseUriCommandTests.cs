@@ -29,7 +29,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         public void RebaseUriCommand_InjectsRegions()
         {
             string productDirectory = ProductRootDirectory;
-            string analysisFile = Path.Combine(productDirectory, @"ReleaseHistory.md");
+            string analysisFile = Path.Combine(productDirectory, "src", "ReleaseHistory.md");
             File.Exists(analysisFile).Should().BeTrue();
 
             var sarifLog = new SarifLog

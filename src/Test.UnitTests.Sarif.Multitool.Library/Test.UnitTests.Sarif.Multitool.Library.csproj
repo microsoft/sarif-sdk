@@ -15,6 +15,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="TestData\MergeCommand\ExpectedOutputs\DuplicatedResults.sarif" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Content Include="xunit.runner.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -30,6 +34,7 @@
     <EmbeddedResource Include="TestData\ExportValidationRulesMetadataCommand\ExpectedOutputs\NonStandardMessageStringKey.md" />
     <EmbeddedResource Include="TestData\ExportValidationRulesMetadataCommand\ExpectedOutputs\StandardMessageStringKey.md" />
     <EmbeddedResource Include="TestData\ExportValidationRulesMetadataCommand\ExpectedOutputs\TextShortDescription.md" />
+    <EmbeddedResource Include="TestData\MergeCommand\ExpectedOutputs\DuplicatedResults.sarif" />
     <EmbeddedResource Include="TestData\MergeCommand\ExpectedOutputs\NoInputFiles.sarif" />
     <EmbeddedResource Include="TestData\MergeCommand\Inputs\DuplicatedResults.sarif" />
     <EmbeddedResource Include="TestData\QueryCommand\elfie-arriba.CSCAN0020.sarif" />

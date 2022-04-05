@@ -457,7 +457,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
             string actualLogFilePath = Guid.NewGuid().ToString();
 
-            string ruleUnderTest = Path.GetFileNameWithoutExtension(inputLogFilePath).Split('.')[1];
+            string ruleUnderTest = Path.GetFileNameWithoutExtension(inputLogFilePath).Split('.')[0];
 
             // All SARIF rule prefixes require update to current release.
             // All rules with JSON prefix are low level syntax/deserialization checks.

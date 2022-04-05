@@ -43,6 +43,7 @@
     <None Remove="TestData\InsertOptionalDataVisitor\ExpectedOutputs\CoreTests-Relative_Guids.sarif" />
     <None Remove="TestData\InsertOptionalDataVisitor\ExpectedOutputs\CoreTests-Relative_VersionControlDetails.sarif" />
     <None Remove="TestData\InsertOptionalDataVisitor\Inputs\CoreTests-Absolute.sarif" />
+    <None Remove="TestData\InsertOptionalDataVisitor\InsertOptionalDataVisitor.txt" />
     <None Remove="TestData\JsonMapBuilder\Sample.json" />
     <None Remove="TestData\JsonMapBuilder\TinyArray.json" />
     <None Remove="TestData\PrereleaseCompatibilityTransformer\ExpectedOutputs\ArtifactsWithRoles.sarif" />
@@ -124,6 +125,9 @@
     <EmbeddedResource Include="TestData\GitHubIngestionVisitor\Inputs\WithArtifacts.sarif" />
     <EmbeddedResource Include="TestData\GitHubIngestionVisitor\Inputs\TooManyResults.sarif" />
     <EmbeddedResource Include="TestData\InsertOptionalDataVisitor\ExpectedOutputs\CoreTests-Relative_VersionControlDetails.sarif" />
+    <EmbeddedResource Include="TestData\InsertOptionalDataVisitor\InsertOptionalDataVisitor.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
     <EmbeddedResource Include="TestData\JsonMapBuilder\Sample.json" />
     <EmbeddedResource Include="TestData\JsonMapBuilder\TinyArray.json" />
     <EmbeddedResource Include="TestData\Readers\elfie-arriba-utf8-bom.sarif" />
@@ -337,9 +341,6 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="TestData\InsertOptionalDataVisitor\InsertOptionalDataVisitor.sarif">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="TestData\InsertOptionalDataVisitor\InsertOptionalDataVisitor.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>

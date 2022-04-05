@@ -675,7 +675,8 @@ Three";
         public void InsertOptionalDataVisitor_ResolvesOriginalUriBaseIds()
         {
             string inputFileName = "InsertOptionalDataVisitor.txt";
-            string testDirectory = GetInputSarifTextFromResource(inputFileName);
+            string inputFileText = GetResourceText(inputFileName);
+            string testDirectory = Path.GetDirectoryName(GetResourceDiskPath(inputFileName));
             string uriBaseId = "TEST_DIR";
 
             IDictionary<string, ArtifactLocation> originalUriBaseIds = new Dictionary<string, ArtifactLocation> { { uriBaseId, new ArtifactLocation { Uri = new Uri(testDirectory, UriKind.Absolute) } } };
@@ -717,7 +718,9 @@ Three";
             visitor.VisitRun(run);
 
             run.OriginalUriBaseIds.Should().Equal(originalUriBaseIds);
-            run.Artifacts[0].Contents.Text.Should().Be(File.ReadAllText(Path.Combine(testDirectory, inputFileName)));
+
+            run.Artifacts[0].Contents?.Text?.Should().NotBeNull();
+            run.Artifacts[0].Contents.Text.Should().Be(inputFileText);
         }
     }
 }
