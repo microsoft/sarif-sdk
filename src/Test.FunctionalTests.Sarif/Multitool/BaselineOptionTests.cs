@@ -26,7 +26,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         public static readonly TestAssetResourceExtractor BaselineNamespaceExtractor =
             new TestAssetResourceExtractor(typeof(BaselineOptionTests).Assembly, testAssetDirectory: "Baseline");
 
-
         public BaselineOptionTests(ITestOutputHelper outputHelper, bool testProducesSarifCurrentVersion = true)
             : base(outputHelper, testProducesSarifCurrentVersion)
         {

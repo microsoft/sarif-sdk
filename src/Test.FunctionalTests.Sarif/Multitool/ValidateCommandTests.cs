@@ -473,6 +473,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
             string actualLogFilePath = Guid.NewGuid().ToString();
 
+            // Splits a test file name such as 'GH1001.ProvideRequiredLocationProperties.cs'
+            // and retrieves the rule id, which by convention is a dot-delimited prefix.
+            // For this example file, we retrieve 'GH1001'. Note that this file naming 
+            // convention allows us to do clever things later in filtering and validating
+            // output (because we understand this test file relates specifically to that rule).
             string ruleUnderTest = Path.GetFileNameWithoutExtension(inputLogFilePath).Split('.')[0];
 
             // All SARIF rule prefixes require update to current release.
