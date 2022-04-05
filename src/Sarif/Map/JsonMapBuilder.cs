@@ -187,7 +187,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Map
         {
             long arraySizeBytes = node.End - node.Start;
             double sizeBudget = arraySizeBytes * settings.CurrentSizeRatio;
-            double countBudget = (double)((sizeBudget - JsonMapSettings.NodeSizeEstimateBytes) / JsonMapSettings.ArrayStartSizeEstimateBytes);
+            double countBudget = (sizeBudget - JsonMapSettings.NodeSizeEstimateBytes) / JsonMapSettings.ArrayStartSizeEstimateBytes;
 
             if (arraySizeBytes < settings.MinimumSizeForNode || node.Count < 2 || countBudget < 2)
             {
@@ -205,7 +205,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Map
                 // If not every item, build a new array with every Nth item
                 if (every > 1)
                 {
-                    int newCount = (int)(node.Count / every);
+                    int newCount = node.Count / every;
                     List<long> newStarts = new List<long>(newCount);
 
                     for (int i = 0; i * every < node.Count; ++i)

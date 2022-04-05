@@ -46,27 +46,27 @@ namespace Microsoft.CodeAnalysis.Sarif.Query.Evaluators
             }
             else if (fieldType == typeof(int))
             {
-                return new LongEvaluator<int>(value => (long)value, term);
+                return new LongEvaluator<int>(value => value, term);
             }
             else if (fieldType == typeof(uint))
             {
-                return new LongEvaluator<uint>(value => (long)value, term);
+                return new LongEvaluator<uint>(value => value, term);
             }
             else if (fieldType == typeof(short))
             {
-                return new LongEvaluator<short>(value => (long)value, term);
+                return new LongEvaluator<short>(value => value, term);
             }
             else if (fieldType == typeof(ushort))
             {
-                return new LongEvaluator<ushort>(value => (long)value, term);
+                return new LongEvaluator<ushort>(value => value, term);
             }
             else if (fieldType == typeof(byte))
             {
-                return new LongEvaluator<byte>(value => (long)value, term);
+                return new LongEvaluator<byte>(value => value, term);
             }
             else if (fieldType == typeof(sbyte))
             {
-                return new LongEvaluator<sbyte>(value => (long)value, term);
+                return new LongEvaluator<sbyte>(value => value, term);
             }
             else if (fieldType == typeof(string))
             {

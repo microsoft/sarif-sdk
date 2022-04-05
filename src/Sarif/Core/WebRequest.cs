@@ -66,7 +66,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             (?<target>[^\s]+)                                               # the target URI, which we don't validate further,
             \x20                                                            # another space,
             (?<httpVersion>" + WebMessageUtilities.HttpVersionPattern + @") # and the HTTP version, e.g., 'HTTP/1.1'.
-            \r\n";
+            (\r\n|\n)";
 
         private static readonly Regex s_requestLineRegex = SarifUtilities.RegexFromPattern(RequestLinePattern);
 

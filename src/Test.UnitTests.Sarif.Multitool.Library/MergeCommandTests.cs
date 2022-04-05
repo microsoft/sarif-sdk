@@ -46,11 +46,19 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             RunTest("DuplicatedResults.sarif");
         }
 
+        [Fact]
+        public void MergeCommand_WhenPassNoFolderOnlyFile_ProducesCorrectResults()
+        {
+            RunTest("FileNameOnlyWithoutPath.sarif");
+        }
+
         protected override string ConstructTestOutputFromInputResource(string inputResourceName, object parameter)
         {
-            const string InputFolderPath = @"C:\input";
-            string targetFileSpecifier = Path.Combine(InputFolderPath, inputResourceName);
-
+            string InputFolderPath = Directory.GetCurrentDirectory();
+            string targetFileSpecifier =
+                !inputResourceName.EndsWith("FileNameOnlyWithoutPath.sarif", StringComparison.Ordinal)
+                ? Path.Combine(InputFolderPath, inputResourceName)
+                : inputResourceName;
             string outputFileName = Guid.NewGuid().ToString() + SarifConstants.SarifFileExtension;
             string outputFilePath = Path.Combine(TestOutputDirectory, outputFileName);
 
@@ -78,7 +86,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
         private void PrepareFileSystemMock(string inputResourceName, string inputFolderPath, string outputFilePath, Mock<IFileSystem> mockFileSystem)
         {
-            if (inputResourceName.EndsWith("NoInputFiles.sarif"))
+            if (inputResourceName.EndsWith("NoInputFiles.sarif", StringComparison.Ordinal))
             {
                 // We mock the file system to fake out the read operations.
                 mockFileSystem.Setup(x => x.FileExists(outputFilePath)).Returns(false);
@@ -92,7 +100,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 return;
             }
 
-            if (inputResourceName.EndsWith("DuplicatedResults.sarif"))
+            if (inputResourceName.EndsWith("DuplicatedResults.sarif", StringComparison.Ordinal) ||
+                inputResourceName.EndsWith("FileNameOnlyWithoutPath.sarif", StringComparison.Ordinal))
             {
                 // We mock the file system to fake out the read operations.
                 mockFileSystem.Setup(x => x.FileExists(outputFilePath)).Returns(true);

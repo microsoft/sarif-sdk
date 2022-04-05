@@ -13,6 +13,13 @@ namespace Microsoft.CodeAnalysis.Sarif
 {
     public class HttpMockHelper : DelegatingHandler
     {
+        public const string AnyContentText = "29f8354b-8b0d-4d21-91ac-bd04c47b85fb";
+
+        public static StringContent AnyContent()
+        {
+            return new StringContent(AnyContentText);
+        }
+
         public static readonly HttpResponseMessage OKResponse =
             new HttpResponseMessage(HttpStatusCode.OK);
 
@@ -34,26 +41,30 @@ namespace Microsoft.CodeAnalysis.Sarif
         public static readonly HttpResponseMessage NonAuthoritativeInformationResponse =
             new HttpResponseMessage(HttpStatusCode.NonAuthoritativeInformation);
 
-        private readonly List<Tuple<HttpRequestMessage, HttpResponseMessage>> fakeResponses =
-            new List<Tuple<HttpRequestMessage, HttpResponseMessage>>();
+        private readonly List<Tuple<HttpRequestMessage, string, HttpResponseMessage>> mockedResponses =
+            new List<Tuple<HttpRequestMessage, string, HttpResponseMessage>>();
 
-        public void Mock(HttpRequestMessage httpRequestMessage, HttpStatusCode httpStatusCode, HttpContent httpContent)
+        public void Mock(HttpRequestMessage httpRequestMessage, HttpStatusCode httpStatusCode, HttpContent responseContent)
         {
-            this.fakeResponses.Add(new Tuple<HttpRequestMessage, HttpResponseMessage>(
+            string requestContent = httpRequestMessage?.Content?.ReadAsStringAsync().GetAwaiter().GetResult();
+            this.mockedResponses.Add(new Tuple<HttpRequestMessage, string, HttpResponseMessage>(
                 httpRequestMessage,
-                new HttpResponseMessage(httpStatusCode) { RequestMessage = httpRequestMessage, Content = httpContent }));
+                requestContent ?? string.Empty,
+                new HttpResponseMessage(httpStatusCode) { RequestMessage = httpRequestMessage, Content = responseContent }));
         }
 
         public void Mock(HttpRequestMessage httpRequestMessage, HttpResponseMessage httpResponseMessage)
         {
-            this.fakeResponses.Add(new Tuple<HttpRequestMessage, HttpResponseMessage>(
+            string requestContent = httpRequestMessage?.Content?.ReadAsStringAsync().GetAwaiter().GetResult();
+            this.mockedResponses.Add(new Tuple<HttpRequestMessage, string, HttpResponseMessage>(
                 httpRequestMessage,
+                requestContent ?? string.Empty,
                 httpResponseMessage));
         }
 
         public void Clear()
         {
-            this.fakeResponses.Clear();
+            this.mockedResponses.Clear();
         }
 
         private static bool CompareHeaders(HttpRequestHeaders headers1, HttpRequestHeaders headers2)
@@ -80,22 +91,26 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         protected override Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
         {
-            Tuple<HttpRequestMessage, HttpResponseMessage> fakeResponse;
+            Tuple<HttpRequestMessage, string, HttpResponseMessage> fakeResponse;
+
+            string content = request.Content?.ReadAsStringAsync().GetAwaiter().GetResult() ?? string.Empty;
 
             if (request.Headers.IsEmptyEnumerable())
             {
-                fakeResponse = this.fakeResponses.Find(fr =>
-                    fr.Item1.RequestUri == request.RequestUri
-                    && fr.Item1.Headers.IsEmptyEnumerable());
+                fakeResponse = this.mockedResponses.Find(fr =>
+                    fr.Item1.RequestUri == request.RequestUri &&
+                    fr.Item1.Headers.IsEmptyEnumerable()
+                    && (fr.Item2 == content || fr.Item2 == AnyContentText));
             }
             else
             {
-                fakeResponse = this.fakeResponses.Find(fr =>
+                fakeResponse = this.mockedResponses.Find(fr =>
                     fr.Item1.RequestUri == request.RequestUri
-                    && CompareHeaders(request.Headers, fr.Item1.Headers));
+                    && CompareHeaders(request.Headers, fr.Item1.Headers)
+                    && (fr.Item2 == content || fr.Item2 == AnyContentText));
             }
 
-            return Task.FromResult(fakeResponse.Item2);
+            return Task.FromResult(fakeResponse.Item3);
         }
     }
 }

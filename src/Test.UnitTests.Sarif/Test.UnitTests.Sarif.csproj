@@ -43,9 +43,10 @@
     <None Remove="TestData\InsertOptionalDataVisitor\ExpectedOutputs\CoreTests-Relative_Guids.sarif" />
     <None Remove="TestData\InsertOptionalDataVisitor\ExpectedOutputs\CoreTests-Relative_VersionControlDetails.sarif" />
     <None Remove="TestData\InsertOptionalDataVisitor\Inputs\CoreTests-Absolute.sarif" />
-    <None Remove="TestData\InsertOptionalDataVisitor\InsertOptionalDataVisitor.txt" />
-    <None Remove="TestData\JsonMapBuilder\Sample.json" />
-    <None Remove="TestData\JsonMapBuilder\TinyArray.json" />
+    <None Remove="TestData\JsonConverters\LocationId_BigInteger.sarif" />
+    <None Remove="TestData\JsonConverters\UriConverterTests.json" />
+    <None Remove="TestData\Map\Sample.json" />
+    <None Remove="TestData\Map\TinyArray.json" />
     <None Remove="TestData\PrereleaseCompatibilityTransformer\ExpectedOutputs\ArtifactsWithRoles.sarif" />
     <None Remove="TestData\PrereleaseCompatibilityTransformer\ExpectedOutputs\ComprehensiveToolProperties.01-24.sarif" />
     <None Remove="TestData\PrereleaseCompatibilityTransformer\ExpectedOutputs\ComprehensiveToolProperties.sarif" />
@@ -140,6 +141,10 @@
     <EmbeddedResource Include="TestData\InsertOptionalDataVisitor\ExpectedOutputs\TopLevelOriginalUriBaseIdUriMissing_ContextRegionSnippets.sarif" />
     <EmbeddedResource Include="TestData\InsertOptionalDataVisitor\Inputs\CoreTests-Absolute.sarif" />
     <EmbeddedResource Include="TestData\InsertOptionalDataVisitor\Inputs\TopLevelOriginalUriBaseIdUriMissing.sarif" />
+	<EmbeddedResource Include="TestData\JsonConverters\LocationId_BigInteger.sarif" />
+	<EmbeddedResource Include="TestData\JsonConverters\UriConverterTests.json" />
+    <EmbeddedResource Include="TestData\Map\TinyArray.json" />      
+    <EmbeddedResource Include="TestData\Map\Sample.json" />
     <EmbeddedResource Include="TestData\PrereleaseCompatibilityTransformer\ExpectedOutputs\RegressionTests.sarif" />
     <EmbeddedResource Include="TestData\PrereleaseCompatibilityTransformer\Inputs\RegressionTests.sarif" />
     <EmbeddedResource Include="TestData\RoundTripping\ExpectedOutputs\InvocationOverridesRuleDefaultConfigurationOfError.sarif" />
@@ -163,7 +168,7 @@
 
   <ItemGroup>
     <PackageReference Include="FluentAssertions" Version="5.10.2" />
-    <PackageReference Include="Microsoft.Json.Schema" Version="1.1.1" />
+    <PackageReference Include="Microsoft.Json.Schema" Version="1.1.3" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.0.0" />
     <PackageReference Include="Moq" Version="4.13.1" />
     <PackageReference Include="System.Collections.Immutable" Version="5.0.0" />

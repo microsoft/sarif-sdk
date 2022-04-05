@@ -18,6 +18,7 @@ using Xunit.Abstractions;
 
 namespace Microsoft.CodeAnalysis.Sarif.Multitool
 {
+    [Trait(TestTraits.WindowsOnly, "true")]
     public class BaselineOptionTests : FileDiffingFunctionalTests
     {
         private bool IsInline = false;

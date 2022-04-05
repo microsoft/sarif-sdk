@@ -15,7 +15,7 @@
               },
               "messageStrings": {
                 "default": {
-                  "text": "at \"{0}\": JSON syntax error: {1}"
+                  "text": "{0}: JSON syntax error: {1}"
                 }
               },
               "defaultConfiguration": {

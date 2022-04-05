@@ -124,6 +124,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             => RunValidTestForRule(RuleId.ReferenceFinalSchema);
 
         [Fact]
+        [Trait(TestTraits.WindowsOnly, "true")]
         public void SARIF1011_ReferenceFinalSchema_Invalid()
             => RunInvalidTestForRule(RuleId.ReferenceFinalSchema);
 
@@ -132,6 +133,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             => RunValidTestForRule(RuleId.MessageArgumentsMustBeConsistentWithRule);
 
         [Fact]
+        [Trait(TestTraits.WindowsOnly, "true")]
         public void SARIF1012_MessageArgumentsMustBeConsistentWithRule_Invalid()
             => RunInvalidTestForRule(RuleId.MessageArgumentsMustBeConsistentWithRule);
 
@@ -140,6 +142,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             => RunValidTestForRule(RuleId.TerminateMessagesWithPeriod);
 
         [Fact]
+        [Trait(TestTraits.WindowsOnly, "true")]
         public void SARIF2001_TerminateMessagesWithPeriod_Invalid()
             => RunInvalidTestForRule(RuleId.TerminateMessagesWithPeriod);
 
@@ -164,6 +167,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             => RunValidTestForRule(RuleId.OptimizeFileSize);
 
         [Fact]
+        [Trait(TestTraits.WindowsOnly, "true")]
         public void SARIF2004_OptimizeFileSize_Invalid()
             => RunInvalidTestForRule(RuleId.OptimizeFileSize);
 
@@ -172,6 +176,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             => RunValidTestForRule(RuleId.ProvideToolProperties);
 
         [Fact]
+        [Trait(TestTraits.WindowsOnly, "true")]
         public void SARIF2005_ProvideToolProperties_Invalid()
             => RunInvalidTestForRule(RuleId.ProvideToolProperties);
 
@@ -193,6 +198,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         }
 
         [Fact]
+        [Trait(TestTraits.WindowsOnly, "true")]
         public void SARIF2005_ProvideToolProperties_DottedQuadFileVersion_RejectedByConfiguration()
         {
             var acceptableVersionProperties = new KeyValuePair<string, object>(
@@ -223,6 +229,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         }
 
         [Fact]
+        [Trait(TestTraits.WindowsOnly, "true")]
         public void SARIF2005_ProvideToolProperties_MissingInformationUri_RejectedByConfiguration()
         {
             var informationUriRequired = new KeyValuePair<string, object>(
@@ -256,10 +263,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             => RunTest("SARIF2007.ExpressPathsRelativeToRepoRoot_LoadRelatedUriBaseId_Valid.sarif");
 
         [Fact]
+        [Trait(TestTraits.WindowsOnly, "true")]
         public void SARIF2007_ExpressPathsRelativeToRepoRoot_DoNotLoadNotRelatedUriBaseId_Invalid()
             => RunTest("SARIF2007.ExpressPathsRelativeToRepoRoot_DoNotLoadNotRelatedUriBaseId_Invalid.sarif");
 
         [Fact]
+        [Trait(TestTraits.WindowsOnly, "true")]
         public void SARIF2007_ExpressPathsRelativeToRepoRoot_Invalid()
             => RunInvalidTestForRule(RuleId.ExpressPathsRelativeToRepoRoot);
 
@@ -304,14 +313,17 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             => RunValidTestForRule(RuleId.ProvideRuleProperties);
 
         [Fact]
+        [Trait(TestTraits.WindowsOnly, "true")]
         public void SARIF2012_ProvideRuleProperties_Invalid()
             => RunInvalidTestForRule(RuleId.ProvideRuleProperties);
 
         [Fact]
+        [Trait(TestTraits.WindowsOnly, "true")]
         public void SARIF2012_ProvideRuleProperties_WithoutRuleMetadata()
             => RunTest("SARIF2012.ProvideRuleProperties_WithoutRuleMetadata.sarif");
 
         [Fact]
+        [Trait(TestTraits.WindowsOnly, "true")]
         public void SARIF2012_ProvideRuleProperties_WithoutRules()
             => RunTest("SARIF2012.ProvideRuleProperties_WithoutRules.sarif");
 
@@ -328,6 +340,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             => RunValidTestForRule(RuleId.ProvideDynamicMessageContent);
 
         [Fact]
+        [Trait(TestTraits.WindowsOnly, "true")]
         public void SARIF2014_ProvideDynamicMessageContent_Invalid()
             => RunInvalidTestForRule(RuleId.ProvideDynamicMessageContent);
 
@@ -336,6 +349,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             => RunValidTestForRule(RuleId.EnquoteDynamicMessageContent);
 
         [Fact]
+        [Trait(TestTraits.WindowsOnly, "true")]
         public void SARIF2015_EnquoteDynamicMessageContent_Invalid()
             => RunInvalidTestForRule(RuleId.EnquoteDynamicMessageContent);
 
@@ -344,6 +358,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             => RunValidTestForRule(RuleId.FileUrisShouldBeRelative);
 
         [Fact]
+        [Trait(TestTraits.WindowsOnly, "true")]
         public void SARIF2016_FileUrisShouldBeRelative_Invalid()
             => RunInvalidTestForRule(RuleId.FileUrisShouldBeRelative);
 
@@ -392,6 +407,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             => RunValidTestForRule(RuleId.ProvideCheckoutPath);
 
         [Fact]
+        [Trait(TestTraits.WindowsOnly, "true")]
         public void GH1006_ProvideCheckoutPath_Invalid()
             => RunInvalidTestForRule(RuleId.ProvideCheckoutPath);
 

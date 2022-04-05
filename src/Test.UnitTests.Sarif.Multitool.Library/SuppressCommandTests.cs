@@ -19,6 +19,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 {
     public class SuppressCommandTests
     {
+        private const int DateTimeAssertPrecision = 500;
+
         [Fact]
         public void SuppressCommand_ShouldReturnFailure_WhenBadArgumentsAreSupplied()
         {
@@ -165,12 +167,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
             if (options.Timestamps && suppression.TryGetProperty("timeUtc", out DateTime timeUtc))
             {
-                timeUtc.Should().BeCloseTo(DateTime.UtcNow);
+                timeUtc.Should().BeCloseTo(DateTime.UtcNow, DateTimeAssertPrecision);
             }
 
             if (options.ExpiryInDays > 0 && suppression.TryGetProperty("expiryUtc", out DateTime expiryUtc))
             {
-                expiryUtc.Should().BeCloseTo(DateTime.UtcNow.AddDays(options.ExpiryInDays));
+                expiryUtc.Should().BeCloseTo(DateTime.UtcNow.AddDays(options.ExpiryInDays), DateTimeAssertPrecision);
             }
         }
     }

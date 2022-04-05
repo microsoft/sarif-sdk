@@ -13,7 +13,7 @@
     <IsTestProject>true</IsTestProject>
     <RootNamespace>Test.UnitTests.Sarif.Multitool.Library</RootNamespace>
   </PropertyGroup>
-
+  
   <ItemGroup>
     <None Remove="TestData\MergeCommand\ExpectedOutputs\DuplicatedResults.sarif" />
   </ItemGroup>
@@ -28,14 +28,16 @@
     <EmbeddedResource Include="TestData\ApplyPolicyCommand\WithPolicy2.sarif" />
     <EmbeddedResource Include="TestData\ApplyPolicyCommand\WithPolicy.sarif" />
     <EmbeddedResource Include="TestData\ConvertCommand\SemmleQlSample.csv" />
-    <EmbeddedResource Include="TestData\ExportValidationRulesMetadataCommand\ExpectedOutputs\MarkdownFullDescription.md" />
-    <EmbeddedResource Include="TestData\ExportValidationRulesMetadataCommand\ExpectedOutputs\MarkdownShortDescription.md" />
-    <EmbeddedResource Include="TestData\ExportValidationRulesMetadataCommand\ExpectedOutputs\NoDescription.md" />
-    <EmbeddedResource Include="TestData\ExportValidationRulesMetadataCommand\ExpectedOutputs\NonStandardMessageStringKey.md" />
-    <EmbeddedResource Include="TestData\ExportValidationRulesMetadataCommand\ExpectedOutputs\StandardMessageStringKey.md" />
-    <EmbeddedResource Include="TestData\ExportValidationRulesMetadataCommand\ExpectedOutputs\TextShortDescription.md" />
+    <EmbeddedResource Include="TestData\ExportRuleDocumentationCommand\ExpectedOutputs\NonStandardMessageStringKey.md" />
+    <EmbeddedResource Include="TestData\ExportRuleDocumentationCommand\ExpectedOutputs\StandardMessageStringKey.md" />
+    <EmbeddedResource Include="TestData\ExportRuleDocumentationCommand\ExpectedOutputs\TextShortDescription.md" />
+    <EmbeddedResource Include="TestData\ExportRuleDocumentationCommand\ExpectedOutputs\MarkdownShortDescription.md" />
+    <EmbeddedResource Include="TestData\ExportRuleDocumentationCommand\ExpectedOutputs\MarkdownFullDescription.md" />
+    <EmbeddedResource Include="TestData\ExportRuleDocumentationCommand\ExpectedOutputs\NoDescription.md" />
+    <EmbeddedResource Include="TestData\MergeCommand\ExpectedOutputs\FileNameOnlyWithoutPath.sarif" />
     <EmbeddedResource Include="TestData\MergeCommand\ExpectedOutputs\DuplicatedResults.sarif" />
     <EmbeddedResource Include="TestData\MergeCommand\ExpectedOutputs\NoInputFiles.sarif" />
+    <EmbeddedResource Include="TestData\MergeCommand\Inputs\FileNameOnlyWithoutPath.sarif" />
     <EmbeddedResource Include="TestData\MergeCommand\Inputs\DuplicatedResults.sarif" />
     <EmbeddedResource Include="TestData\QueryCommand\elfie-arriba.CSCAN0020.sarif" />
     <EmbeddedResource Include="TestData\PageCommand\elfie-arriba.sarif" />

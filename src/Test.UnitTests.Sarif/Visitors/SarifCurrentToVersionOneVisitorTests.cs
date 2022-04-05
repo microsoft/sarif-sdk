@@ -44,6 +44,7 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests.Visitors
         public void SarifTransformerTests_ToVersionOne_OneRunWithLogicalLocations() => RunTest("OneRunWithLogicalLocations.sarif");
 
         [Fact]
+        [Trait(TestTraits.WindowsOnly, "true")]
         public void SarifTransformerTests_ToVersionOne_OneRunWithFiles() => RunTest("OneRunWithFiles.sarif");
 
         [Fact]

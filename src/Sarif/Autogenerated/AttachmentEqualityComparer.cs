@@ -11,7 +11,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// <summary>
     /// Defines methods to support the comparison of objects of type Attachment for equality.
     /// </summary>
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "1.1.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "1.1.3.0")]
     internal sealed class AttachmentEqualityComparer : IEqualityComparer<Attachment>
     {
         internal static readonly AttachmentEqualityComparer Instance = new AttachmentEqualityComparer();
@@ -95,7 +95,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                         return false;
                     }
 
-                    if (!object.Equals(value_0.Value, value_1))
+                    if (!SerializedPropertyInfo.ValueComparer.Equals(value_0.Value, value_1))
                     {
                         return false;
                     }

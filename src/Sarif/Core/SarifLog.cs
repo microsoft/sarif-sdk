@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Net.Http;
+using System.Text;
 using System.Threading.Tasks;
 
 using Microsoft.CodeAnalysis.Sarif.Readers;
@@ -87,7 +88,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             if (!fileSystem.FileExists(filePath))
             {
-                throw new ArgumentException(nameof(filePath));
+                throw new ArgumentException($"File path does not exist: '{filePath}'", nameof(filePath));
             }
 
             using Stream fileStream = fileSystem.FileOpenRead(filePath);
@@ -142,7 +143,9 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="stream">Stream to write SARIF to</param>
         public void Save(Stream stream)
         {
-            using var streamWriter = new StreamWriter(stream);
+            // These are defaults takens from legacy mscorlib reference source.
+            // https://referencesource.microsoft.com/#mscorlib/system/io/streamwriter.cs,62bd8ad495f57b21
+            using var streamWriter = new StreamWriter(stream, Encoding.UTF8, 1024, leaveOpen: true);
             this.Save(streamWriter);
         }
 
@@ -154,8 +157,9 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             var serializer = new JsonSerializer();
 
-            using var writer = new JsonTextWriter(streamWriter);
+            var writer = new JsonTextWriter(streamWriter);
             serializer.Serialize(writer, this);
+            writer.Flush();
         }
 
         /// <summary>

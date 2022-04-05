@@ -13,7 +13,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// Information that describes a run's identity and role within an engineering system process.
     /// </summary>
     [DataContract]
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "1.1.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "1.1.3.0")]
     public partial class RunAutomationDetails : PropertyBagHolder, ISarifNode
     {
         public static IEqualityComparer<RunAutomationDetails> ValueComparer => RunAutomationDetailsEqualityComparer.Instance;
@@ -45,7 +45,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         public virtual string Id { get; set; }
 
         /// <summary>
-        /// A stable, unique identifer for this object's containing run object in the form of a GUID.
+        /// A stable, unique identifier for this object's containing run object in the form of a GUID.
         /// </summary>
         [DataMember(Name = "guid", IsRequired = false, EmitDefaultValue = false)]
         public virtual string Guid { get; set; }

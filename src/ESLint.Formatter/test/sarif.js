@@ -87,7 +87,8 @@ describe("formatter:sarif", () => {
     describe("when passed no messages", () => {
         const code = [{
             filePath: sourceFilePath1,
-            messages: []
+            messages: [],
+            suppressedMessages: []
         }];
 
         it("should return a log with files, but no results", () => {
@@ -109,12 +110,13 @@ describe("formatter:sarif", () => {
                 message: "Unexpected value.",
                 severity: 2,
                 ruleId: testRuleId
-            }]
+            }],
+            suppressedMessages: []
         }];
 
         it("should return a log with one file and one result", () => {
             const log = JSON.parse(formatter(code, { rulesMeta: rules }));
-            
+
             assert(log.runs[0].artifacts[0].location.uri.startsWith(uriPrefix));
             assert(log.runs[0].artifacts[0].location.uri, "/" + sourceFilePath1);
             assert.isDefined(log.runs[0].results);
@@ -125,6 +127,93 @@ describe("formatter:sarif", () => {
             assert(log.runs[0].results[0].locations[0].physicalLocation.artifactLocation.uri.startsWith(uriPrefix));
             assert(log.runs[0].results[0].locations[0].physicalLocation.artifactLocation.uri.endsWith("/" + sourceFilePath1));
             assert.strictEqual(log.runs[0].results[0].locations[0].physicalLocation.artifactLocation.index, 0);
+            assert.isUndefined(log.runs[0].results[0].suppressions);
+        });
+    });
+
+    describe("when passed one suppressedMessage", () => {
+        const code = [{
+            filePath: sourceFilePath1,
+            messages: [],
+            suppressedMessages: [{
+                message: "Unexpected value.",
+                severity: 2,
+                ruleId: testRuleId,
+                suppressions: [{ kind: "directive", justification: "foo" }]
+            }]
+        }];
+
+        it("should return a log with one file and one result", () => {
+            const log = JSON.parse(formatter(code, { rulesMeta: rules }));
+
+            assert(log.runs[0].artifacts[0].location.uri.startsWith(uriPrefix));
+            assert(log.runs[0].artifacts[0].location.uri, "/" + sourceFilePath1);
+            assert.isDefined(log.runs[0].results);
+            assert.lengthOf(log.runs[0].results, 1);
+            assert.strictEqual(log.runs[0].results[0].level, "error");
+            assert.isDefined(log.runs[0].results[0].message);
+            assert.strictEqual(log.runs[0].results[0].message.text, code[0].suppressedMessages[0].message);
+            assert(log.runs[0].results[0].locations[0].physicalLocation.artifactLocation.uri.startsWith(uriPrefix));
+            assert(log.runs[0].results[0].locations[0].physicalLocation.artifactLocation.uri.endsWith("/" + sourceFilePath1));
+            assert.strictEqual(log.runs[0].results[0].locations[0].physicalLocation.artifactLocation.index, 0);
+            assert.lengthOf(log.runs[0].results[0].suppressions, 1);
+            assert.strictEqual(log.runs[0].results[0].suppressions[0].kind, "inSource");
+            assert.strictEqual(log.runs[0].results[0].suppressions[0].justification, code[0].suppressedMessages[0].suppressions[0].justification);
+        });
+    });
+
+    describe("when passed one suppressedMessage with multiple suppressions", () => {
+        const code = [{
+            filePath: sourceFilePath1,
+            messages: [],
+            suppressedMessages: [{
+                message: "Unexpected value.",
+                severity: 2,
+                ruleId: testRuleId,
+                suppressions: [
+                    { kind: "directive", justification: "foo" },
+                    { kind: "directive", justification: "bar" }
+                ]
+            }]
+        }];
+
+        it("should return a log with one file and one result", () => {
+            const log = JSON.parse(formatter(code, { rulesMeta: rules }));
+
+            assert.isDefined(log.runs[0].results[0].message);
+            assert.strictEqual(log.runs[0].results[0].message.text, code[0].suppressedMessages[0].message);
+            assert.lengthOf(log.runs[0].results[0].suppressions, 2);
+            assert.strictEqual(log.runs[0].results[0].suppressions[0].kind, "inSource");
+            assert.strictEqual(log.runs[0].results[0].suppressions[0].justification, code[0].suppressedMessages[0].suppressions[0].justification);
+            assert.strictEqual(log.runs[0].results[0].suppressions[1].kind, "inSource");
+            assert.strictEqual(log.runs[0].results[0].suppressions[1].justification, code[0].suppressedMessages[0].suppressions[1].justification);
+        });
+    });
+
+    describe("when passed one message and no suppressedMessages array", () => {
+        const code = [{
+            filePath: sourceFilePath1,
+            messages: [{
+                message: "Unexpected value.",
+                severity: 2,
+                ruleId: testRuleId
+            }]
+        }];
+
+        it("should return a log with one file and one result", () => {
+            const log = JSON.parse(formatter(code, { rulesMeta: rules }));
+
+            assert(log.runs[0].artifacts[0].location.uri.startsWith(uriPrefix));
+            assert(log.runs[0].artifacts[0].location.uri, "/" + sourceFilePath1);
+            assert.isDefined(log.runs[0].results);
+            assert.lengthOf(log.runs[0].results, 1);
+            assert.strictEqual(log.runs[0].results[0].level, "error");
+            assert.isDefined(log.runs[0].results[0].message);
+            assert.strictEqual(log.runs[0].results[0].message.text, code[0].messages[0].message);
+            assert(log.runs[0].results[0].locations[0].physicalLocation.artifactLocation.uri.startsWith(uriPrefix));
+            assert(log.runs[0].results[0].locations[0].physicalLocation.artifactLocation.uri.endsWith("/" + sourceFilePath1));
+            assert.strictEqual(log.runs[0].results[0].locations[0].physicalLocation.artifactLocation.index, 0);
+            assert.isUndefined(log.runs[0].results[0].suppressions);
         });
     });
 });
@@ -138,7 +227,8 @@ describe("formatter:sarif", () => {
                 message: "Unexpected value.",
                 ruleId: ruleid,
                 source: "getValue()"
-            }]
+            }],
+            suppressedMessages: []
         }];
 
         it("should return a log with one rule", () => {
@@ -162,7 +252,8 @@ describe("formatter:sarif", () => {
                 message: "Unexpected value.",
                 ruleId: testRuleId,
                 line: 10
-            }]
+            }],
+            suppressedMessages: []
         }];
 
         it("should return a log with one result whose location region has only a startLine", () => {
@@ -170,6 +261,8 @@ describe("formatter:sarif", () => {
 
             assert.strictEqual(log.runs[0].results[0].locations[0].physicalLocation.region.startLine, code[0].messages[0].line);
             assert.isUndefined(log.runs[0].results[0].locations[0].physicalLocation.region.startColumn);
+            assert.isUndefined(log.runs[0].results[0].locations[0].physicalLocation.region.endLine);
+            assert.isUndefined(log.runs[0].results[0].locations[0].physicalLocation.region.endColumn);
             assert.isUndefined(log.runs[0].results[0].locations[0].physicalLocation.region.snippet);
         });
     });
@@ -183,8 +276,11 @@ describe("formatter:sarif", () => {
                 message: "Unexpected value.",
                 ruleId: testRuleId,
                 line: 10,
-                column: 0
-            }]
+                column: 0,
+                endLine: 10,
+                endColumn: -1
+            }],
+            suppressedMessages: []
         }];
 
         it("should return a log with one result whose location contains a region with line # and no column #", () => {
@@ -192,6 +288,8 @@ describe("formatter:sarif", () => {
 
             assert.strictEqual(log.runs[0].results[0].locations[0].physicalLocation.region.startLine, code[0].messages[0].line);
             assert.isUndefined(log.runs[0].results[0].locations[0].physicalLocation.region.startColumn);
+            assert.strictEqual(log.runs[0].results[0].locations[0].physicalLocation.region.endLine, code[0].messages[0].endLine);
+            assert.isUndefined(log.runs[0].results[0].locations[0].physicalLocation.region.endColumn);
             assert.isUndefined(log.runs[0].results[0].locations[0].physicalLocation.region.snippet);
         });
     });
@@ -205,8 +303,11 @@ describe("formatter:sarif", () => {
                 message: "Unexpected value.",
                 ruleId: testRuleId,
                 line: 10,
-                column: 5
-            }]
+                column: 5,
+                endLine: 11,
+                endColumn: 25
+            }],
+            suppressedMessages: []
         }];
 
         it("should return a log with one result whose location contains a region with line and column #s", () => {
@@ -214,6 +315,8 @@ describe("formatter:sarif", () => {
 
             assert.strictEqual(log.runs[0].results[0].locations[0].physicalLocation.region.startLine, code[0].messages[0].line);
             assert.strictEqual(log.runs[0].results[0].locations[0].physicalLocation.region.startColumn, code[0].messages[0].column);
+            assert.strictEqual(log.runs[0].results[0].locations[0].physicalLocation.region.endLine, code[0].messages[0].endLine);
+            assert.strictEqual(log.runs[0].results[0].locations[0].physicalLocation.region.endColumn, code[0].messages[0].endColumn);
             assert.isUndefined(log.runs[0].results[0].locations[0].physicalLocation.region.snippet);
         });
     });
@@ -228,8 +331,11 @@ describe("formatter:sarif", () => {
                 ruleId: testRuleId,
                 line: 10,
                 column: 5,
+                endLine: 10,
+                endColumn: 30,
                 source: "getValue()"
-            }]
+            }],
+            suppressedMessages: []
         }];
 
         it("should return a log with one result whose location contains a region with line and column #s", () => {
@@ -237,6 +343,8 @@ describe("formatter:sarif", () => {
 
             assert.strictEqual(log.runs[0].results[0].locations[0].physicalLocation.region.startLine, code[0].messages[0].line);
             assert.strictEqual(log.runs[0].results[0].locations[0].physicalLocation.region.startColumn, code[0].messages[0].column);
+            assert.strictEqual(log.runs[0].results[0].locations[0].physicalLocation.region.endLine, code[0].messages[0].endLine);
+            assert.strictEqual(log.runs[0].results[0].locations[0].physicalLocation.region.endColumn, code[0].messages[0].endColumn);
             assert.strictEqual(log.runs[0].results[0].locations[0].physicalLocation.region.snippet.text, code[0].messages[0].source);
         });
     });
@@ -251,7 +359,8 @@ describe("formatter:sarif", () => {
                 severity: 2,
                 ruleId: testRuleId,
                 source: "getValue()"
-            }]
+            }],
+            suppressedMessages: []
         }];
 
         it("should return a log with one result whose location contains a region with line and column #s", () => {
@@ -259,7 +368,40 @@ describe("formatter:sarif", () => {
 
             assert.isUndefined(log.runs[0].results[0].locations[0].physicalLocation.region.startLine);
             assert.isUndefined(log.runs[0].results[0].locations[0].physicalLocation.region.startColumn);
+            assert.isUndefined(log.runs[0].results[0].locations[0].physicalLocation.region.endLine);
+            assert.isUndefined(log.runs[0].results[0].locations[0].physicalLocation.region.endColumn);
             assert.strictEqual(log.runs[0].results[0].locations[0].physicalLocation.region.snippet.text, code[0].messages[0].source);
+        });
+    });
+});
+
+describe("formatter:sarif", () => {
+    describe("when passed one message and one suppressedMessage", () => {
+        const code = [{
+            filePath: sourceFilePath1,
+            messages: [{
+                message: "Unexpected value.",
+                severity: 2,
+                ruleId: testRuleId,
+                source: "getValue()"
+            }],
+            suppressedMessages: [{
+                message: "Unexpected value.",
+                severity: 2,
+                ruleId: testRuleId,
+                source: "getValue()",
+                suppressions: [{ kind: "directive", justification: "foo" }]
+            }]
+        }];
+
+        it("should return a log with two results, one of which has suppressions", () => {
+            const log = JSON.parse(formatter(code, rules));
+
+            assert.lengthOf(log.runs[0].results, 2)
+            assert.lengthOf(log.runs[0].results[0].suppressions, 0);
+            assert.lengthOf(log.runs[0].results[1].suppressions, 1);
+            assert.strictEqual(log.runs[0].results[1].suppressions[0].kind, "inSource");
+            assert.strictEqual(log.runs[0].results[1].suppressions[0].justification, code[0].suppressedMessages[0].suppressions[0].justification);
         });
     });
 });
@@ -290,8 +432,11 @@ describe("formatter:sarif", () => {
                 severity: 1,
                 line: 10,
                 column: 5,
+                endLine: 10,
+                endColumn: 35,
                 source: "doSomething(thingId)"
-            }]
+            }],
+            suppressedMessages: []
         },
         {
             filePath: sourceFilePath2,
@@ -299,13 +444,15 @@ describe("formatter:sarif", () => {
                 message: "Unexpected something.",
                 severity: 2,
                 ruleId: ruleid2,
-                line: 18
+                line: 18,
+                column: 20,
             },
             {
                 message: "Custom error.",
                 ruleId: ruleid3,
                 line: 42
-            }]
+            }],
+            suppressedMessages: []
         }];
 
         it("should return a log with two files, three rules, and four results", () => {
@@ -380,18 +527,32 @@ describe("formatter:sarif", () => {
 
             assert.strictEqual(log.runs[0].results[1].locations[0].physicalLocation.region.startLine, 10);
             assert.strictEqual(log.runs[0].results[1].locations[0].physicalLocation.region.startColumn, 5);
+            assert.strictEqual(log.runs[0].results[1].locations[0].physicalLocation.region.endLine, 10);
+            assert.strictEqual(log.runs[0].results[1].locations[0].physicalLocation.region.endColumn, 35);
             assert.strictEqual(log.runs[0].results[1].locations[0].physicalLocation.region.snippet.text, "doSomething(thingId)");
 
             assert.strictEqual(log.runs[0].results[2].locations[0].physicalLocation.region.startLine, 18);
-            assert.isUndefined(log.runs[0].results[2].locations[0].physicalLocation.region.startColumn);
+            assert.strictEqual(log.runs[0].results[2].locations[0].physicalLocation.region.startColumn, 20);
+            assert.isUndefined(log.runs[0].results[2].locations[0].physicalLocation.region.endLine);
+            assert.isUndefined(log.runs[0].results[2].locations[0].physicalLocation.region.endColumn);
             assert.isUndefined(log.runs[0].results[2].locations[0].physicalLocation.region.snippet);
+
+            assert.strictEqual(log.runs[0].results[3].locations[0].physicalLocation.region.startLine, 42);
+            assert.isUndefined(log.runs[0].results[3].locations[0].physicalLocation.region.startColumn);
+            assert.isUndefined(log.runs[0].results[3].locations[0].physicalLocation.region.endLine);
+            assert.isUndefined(log.runs[0].results[3].locations[0].physicalLocation.region.endColumn);
+            assert.isUndefined(log.runs[0].results[3].locations[0].physicalLocation.region.snippet);
+
+            assert.isUndefined(log.runs[0].results[0].suppressions);
+            assert.isUndefined(log.runs[0].results[1].suppressions);
+            assert.isUndefined(log.runs[0].results[2].suppressions);
+            assert.isUndefined(log.runs[0].results[3].suppressions);
         });
     });
 });
 
 describe("formatter:sarif", () => {
     describe("when passed two results with one having no message and one with two messages", () => {
-        const ruleid1 = "no-unused-vars";
         const ruleid2 = "no-extra-semi";
         const ruleid3 = "custom-rule";
 
@@ -404,7 +565,8 @@ describe("formatter:sarif", () => {
         };
         const code = [{
             filePath: sourceFilePath1,
-            messages: [ ]
+            messages: [],
+            suppressedMessages: []
         },
         {
             filePath: sourceFilePath2,
@@ -412,13 +574,17 @@ describe("formatter:sarif", () => {
                 message: "Unexpected something.",
                 severity: 2,
                 ruleId: ruleid2,
-                line: 18
+                line: 18,
+                column: 29
             },
             {
                 message: "Custom error.",
                 ruleId: ruleid3,
-                line: 42
-            }]
+                line: 42,
+                column: 7,
+                endColumn: 19
+            }],
+            suppressedMessages: []
         }];
 
         it("should return a log with two files, two rules, and two results", () => {
@@ -462,8 +628,19 @@ describe("formatter:sarif", () => {
             assert(log.runs[0].results[1].locations[0].physicalLocation.artifactLocation.uri.endsWith(sourceFilePath2));
 
             assert.strictEqual(log.runs[0].results[0].locations[0].physicalLocation.region.startLine, 18);
-            assert.isUndefined(log.runs[0].results[0].locations[0].physicalLocation.region.startColumn);
+            assert.strictEqual(log.runs[0].results[0].locations[0].physicalLocation.region.startColumn, 29);
+            assert.isUndefined(log.runs[0].results[0].locations[0].physicalLocation.region.endLine);
+            assert.isUndefined(log.runs[0].results[0].locations[0].physicalLocation.region.endColumn);
             assert.isUndefined(log.runs[0].results[0].locations[0].physicalLocation.region.snippet);
+
+            assert.strictEqual(log.runs[0].results[1].locations[0].physicalLocation.region.startLine, 42);
+            assert.strictEqual(log.runs[0].results[1].locations[0].physicalLocation.region.startColumn, 7);
+            assert.isUndefined(log.runs[0].results[1].locations[0].physicalLocation.region.endLine);
+            assert.strictEqual(log.runs[0].results[1].locations[0].physicalLocation.region.endColumn, 19);
+            assert.isUndefined(log.runs[0].results[1].locations[0].physicalLocation.region.snippet);
+
+            assert.isUndefined(log.runs[0].results[0].suppressions);
+            assert.isUndefined(log.runs[0].results[1].suppressions);
         });
     });
 });
@@ -476,7 +653,8 @@ describe("formatter:sarif", () => {
                 message: "Internal error.",
                 severity: 2,
                 // no ruleId property
-            }]
+            }],
+            suppressedMessages: []
         }];
 
         it("should return a log with no rules, no results, and a tool execution notification", () => {
@@ -501,6 +679,7 @@ describe("formatter:sarif", () => {
             assert.strictEqual(notification.descriptor.id, "ESL0999");
             assert.strictEqual(notification.level, "error");
             assert.strictEqual(notification.message.text, "Internal error.");
+            assert.isUndefined(notification.suppressions);
 
             assert.lengthOf(notification.locations, 1)
             let notificationUri = notification.locations[0].physicalLocation.artifactLocation.uri
@@ -526,7 +705,8 @@ describe("formatter:sarif", () => {
                 message: "Custom error.",
                 ruleId: ruleid,
                 line: 42
-            }]
+            }],
+            suppressedMessages: []
         }];
         it("should return a log with one file, one rule, and one result", () => {
             const log = JSON.parse(formatter(code, { rulesMeta: rules }));
@@ -557,6 +737,53 @@ describe("formatter:sarif", () => {
             assert.strictEqual(log.runs[0].results[0].locations[0].physicalLocation.region.startLine, 42);
             assert.isUndefined(log.runs[0].results[0].locations[0].physicalLocation.region.startColumn);
             assert.isUndefined(log.runs[0].results[0].locations[0].physicalLocation.region.snippet);
+        });
+    });
+});
+
+describe("formatter:sarif", () => {
+    describe("when passed one message, one notification and one suppressedMessage", () => {
+        const code = [{
+            filePath: sourceFilePath1,
+            messages: [{
+                message: "Unexpected value.",
+                severity: 2,
+                ruleId: testRuleId,
+                source: "getValue()"
+            },
+            {
+                message: "Internal error.",
+                severity: 2,
+                // no ruleId property
+            }],
+            suppressedMessages: [{
+                message: "Unexpected value.",
+                severity: 2,
+                ruleId: testRuleId,
+                source: "getValue()",
+                suppressions: [{ kind: "directive", justification: "foo" }]
+            }]
+        }];
+
+        it("should return a log with one notification and two results, one of which has suppressions", () => {
+            const log = JSON.parse(formatter(code, rules));
+
+            assert.lengthOf(log.runs[0].results, 2);
+            assert.lengthOf(log.runs[0].results[0].suppressions, 0);
+            assert.lengthOf(log.runs[0].results[1].suppressions, 1);
+            assert.strictEqual(log.runs[0].results[1].suppressions[0].kind, "inSource");
+            assert.strictEqual(log.runs[0].results[1].suppressions[0].justification, code[0].suppressedMessages[0].suppressions[0].justification);
+
+            assert.lengthOf(log.runs[0].invocations, 1);
+            let invocation = log.runs[0].invocations[0];
+            assert.isFalse(invocation.executionSuccessful);
+
+            assert.lengthOf(invocation.toolConfigurationNotifications, 1);
+            let notification = invocation.toolConfigurationNotifications[0];
+            assert.strictEqual(notification.descriptor.id, "ESL0999");
+            assert.strictEqual(notification.level, "error");
+            assert.strictEqual(notification.message.text, "Internal error.");
+            assert.isUndefined(notification.suppressions);
         });
     });
 });

@@ -23,12 +23,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         private static readonly TestAssetResourceExtractor Extractor = new TestAssetResourceExtractor(typeof(ValidateCommandTests));
 
         // test setup
-        private const string LogFileDirectory = @"C:\Users\John\Sarif logs";
 
-        private const string LogFileName = "example.sarif";
-        private const string BaseFileDirectory = @"C:\Scan Results\First Run";
-        private const string BaselineFileName = "baseline.sarif";
-        private const string SchemaFilePath = @"c:\schemas\SimpleSchemaForTest.json";
+        private static readonly string CurrentDirectory = Directory.GetCurrentDirectory();
+        private static readonly string LogFileDirectory = Path.Combine(CurrentDirectory, "John", "Sarif logs");
+        private static readonly string LogFileName = "example.sarif";
+        private static readonly string BaseFileDirectory = Path.Combine(CurrentDirectory, "Scan Results", "First Run");
+        private static readonly string BaselineFileName = "baseline.sarif";
+        private static readonly string SchemaFilePath = Path.Combine(CurrentDirectory, "schemas", "SimpleSchemaForTest.json");
 
         private const string SchemaFileContents =
 @"{

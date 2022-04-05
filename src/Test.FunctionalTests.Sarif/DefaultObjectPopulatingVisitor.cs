@@ -3,6 +3,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Numerics;
 using System.Reflection;
 
 using Microsoft.Json.Schema;
@@ -161,7 +162,15 @@ namespace Microsoft.CodeAnalysis.Sarif
                 // we'll compute a default value based on the node type
                 if (defaultValue != null)
                 {
-                    property.SetValue(node, defaultValue);
+                    if (property.PropertyType == typeof(BigInteger))
+                    {
+                        property.SetValue(node, BigInteger.Parse(defaultValue.ToString()));
+                    }
+                    else
+                    {
+                        property.SetValue(node, defaultValue);
+                    }
+
                     continue;
                 }
                 PopulatePropertyWithGeneratedDefaultValue(node, property);
