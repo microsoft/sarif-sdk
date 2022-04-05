@@ -38,7 +38,7 @@ namespace Microsoft.CodeAnalysis.Test.Utilities.Sarif
 
         public static string GetFileNameWithoutExtension(this Assembly assembly)
         {
-            return (assembly == null) 
+            return (assembly == null)
                 ? null
                 : Path.GetFileNameWithoutExtension(assembly.Location);
         }

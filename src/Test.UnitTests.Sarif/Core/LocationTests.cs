@@ -17,6 +17,7 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Core
     public class LocationTests
     {
         private const string Id = "\"Id\"";
+        private static readonly TestAssetResourceExtractor Extractor = new TestAssetResourceExtractor(typeof(LocationTests));
 
         [Fact]
         public void Location_LogicalLocation_WhenLogicalLocationsIsAbsent_ReturnsNull()
@@ -211,7 +212,7 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Core
         [Fact]
         public void Location_VerifyAbleToDeserializeWithBigIntegerId()
         {
-            string content = new ResourceExtractor(typeof(LocationTests)).GetResourceText("LocationId_BigInteger.sarif");
+            string content = Extractor.GetResourceText("LocationId_BigInteger.sarif");
             SarifLog sarifLog = JsonConvert.DeserializeObject<SarifLog>(content);
             sarifLog.Runs[0].Results[0].Locations[0].Id.Should().Be(BigInteger.Parse("31197130097450771296369962162453149327732752356239421572342053257324632475324"));
             sarifLog.Runs[0].Results[0].Locations[1].Id.Should().Be(new BigInteger(long.MaxValue) + 1);

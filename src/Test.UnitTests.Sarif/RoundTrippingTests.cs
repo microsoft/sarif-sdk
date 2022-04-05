@@ -48,24 +48,6 @@ namespace Microsoft.CodeAnalysis.Sarif
         }
 
         [Fact]
-        public void SarifLog_ResultsWithNoRuleDefaultConfiguration_CanBeRoundTripped()
-        {
-            RunTestHelper("NoRuleDefaultConfiguration.sarif");
-        }
-
-        [Fact]
-        public void SarifLog_RuleDefaultConfigurationOfError_CanBeRoundTripped()
-        {
-            RunTestHelper("RuleDefaultConfigurationIsError.sarif");
-        }
-
-        [Fact]
-        public void SarifLog_RuleDefaultConfigurationOfWarning_CanBeRoundTripped()
-        {
-            RunTestHelper("RuleDefaultConfigurationIsWarning.sarif");
-        }
-
-        [Fact]
         public void SarifLog_PropertyBagProperties_CanBeRoundTripped()
         {
             string testFileName = "PropertyBagComprehensiveValueTypes.sarif";
@@ -149,17 +131,8 @@ namespace Microsoft.CodeAnalysis.Sarif
             string sarifLogText = GetInputSarifTextFromResource(testFileName);
             SarifLog sarifLog = JsonConvert.DeserializeObject<SarifLog>(sarifLogText);
 
-            // This helper will extract and validate the expected level
-            // from every result and notification in the log
-            ValidateNotificationAndResultLevels(sarifLog);
-
             // If this test succeeds
             RunTest(testFileName);
-        }
-
-        private void ValidateNotificationAndResultLevels(SarifLog sarifLog)
-        {
-            Console.WriteLine(sarifLog != null);
         }
     }
 }

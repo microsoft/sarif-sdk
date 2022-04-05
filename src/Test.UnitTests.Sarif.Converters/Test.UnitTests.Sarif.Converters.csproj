@@ -56,7 +56,6 @@
     <EmbeddedResource Include="TestData\ClangTidyConverter\Inputs\InvalidResult.yaml" />
     <EmbeddedResource Include="TestData\ClangTidyConverter\Inputs\ValidResults.yaml" />
     <EmbeddedResource Include="TestData\ClangTidyConverter\Inputs\ValidResultsWithLog.yaml" />
-    <EmbeddedResource Include="TestData\ClangTidyConverter\Inputs\ValidResultsWithLog.yaml.log" />
     <EmbeddedResource Include="TestData\FlawFinderConverter\ExpectedOutputs\NoResults.sarif" />
     <EmbeddedResource Include="TestData\FlawFinderConverter\ExpectedOutputs\ValidResults.sarif" />
     <EmbeddedResource Include="TestData\FlawFinderConverter\Inputs\Empty.csv" />

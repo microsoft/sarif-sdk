@@ -144,7 +144,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             //  Test.UnitTests.Sarif.Converters.TestData.HdfConverter.InvalidResults.json
             //
             throw new ArgumentException(
-                $"Could not find:{Environment.NewLine}{resourcePath}{Environment.NewLine}{Environment.NewLine}{fallbackMessage}" +                
+                $"Could not find:{Environment.NewLine}{resourcePath}{Environment.NewLine}{Environment.NewLine}{fallbackMessage}" +
                 $"Valid Names:{Environment.NewLine}{string.Join($"{Environment.NewLine}", resourceNames)}");
         }
     }

@@ -92,7 +92,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         public string GetExpectedOutputFileFromResource(string resourceName)
             => GetResourceText(GetFullResourcePathForExpectedOutputResource(resourceName));
-        
+
         public string GetInputSarifTextFromResource(string resourceName)
             => GetResourceText(GetFullResourcePathForInputResource(resourceName));
 
@@ -422,6 +422,6 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             JToken roundTrippedToken = JsonConvert.DeserializeObject<JToken>(roundTrippedSarif);
             return (JToken.DeepEquals(actualToken, roundTrippedToken));
-        }        
+        }
     }
 }

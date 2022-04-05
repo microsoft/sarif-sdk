@@ -7,8 +7,8 @@ using System.Text;
 
 using FluentAssertions;
 
-using Microsoft.Extensions.Options;
 using Microsoft.CodeAnalysis.Test.Utilities.Sarif;
+using Microsoft.Extensions.Options;
 
 using Moq;
 
