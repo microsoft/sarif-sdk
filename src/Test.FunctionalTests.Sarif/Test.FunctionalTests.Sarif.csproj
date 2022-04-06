@@ -130,41 +130,6 @@
     <Content Include="v1\ConverterTestData\StaticDriverVerifier\sdv-harness.c" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Update="v1\ConverterTestData\StaticDriverVerifier\cancelspinlock_bug1.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>cancelspinlock_bug1.tt</DependentUpon>
-    </Compile>
-    <Compile Update="v1\ConverterTestData\StaticDriverVerifier\checkadddevice_bug1.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>checkadddevice_bug1.tt</DependentUpon>
-    </Compile>
-    <Compile Update="v1\ConverterTestData\StaticDriverVerifier\checkdriverunload_bug1.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>checkdriverunload_bug1.tt</DependentUpon>
-    </Compile>
-    <Compile Update="v1\ConverterTestData\StaticDriverVerifier\checkirpmjpnp_bug1.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>checkirpmjpnp_bug1.tt</DependentUpon>
-    </Compile>
-    <Compile Update="v1\ConverterTestData\StaticDriverVerifier\dispatchroutine_bug1.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>dispatchroutine_bug1.tt</DependentUpon>
-    </Compile>
-    <Compile Update="v1\ConverterTestData\StaticDriverVerifier\iocompletion_bug1.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>iocompletion_bug1.tt</DependentUpon>
-    </Compile>
-    <Compile Update="v1\ConverterTestData\StaticDriverVerifier\iodpcroutine_bug1.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>iodpcroutine_bug1.tt</DependentUpon>
-    </Compile>
     <Compile Update="v1\ConverterTestData\StaticDriverVerifier\isrroutine_bug1.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
@@ -360,40 +325,10 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>TFS373273.cpp.xml</DependentUpon>
     </Compile>
-    <Compile Update="v2\ConverterTestData\StaticDriverVerifier\cancelspinlock_bug1.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>cancelspinlock_bug1.tt</DependentUpon>
-    </Compile>
-    <Compile Update="v2\ConverterTestData\StaticDriverVerifier\checkadddevice_bug1.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>checkadddevice_bug1.tt</DependentUpon>
-    </Compile>
-    <Compile Update="v2\ConverterTestData\StaticDriverVerifier\checkdriverunload_bug1.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>checkdriverunload_bug1.tt</DependentUpon>
-    </Compile>
     <Compile Update="v2\ConverterTestData\StaticDriverVerifier\checkirpmjpnp_bug1.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>checkirpmjpnp_bug1.tt</DependentUpon>
-    </Compile>
-    <Compile Update="v2\ConverterTestData\StaticDriverVerifier\dispatchroutine_bug1.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>dispatchroutine_bug1.tt</DependentUpon>
-    </Compile>
-    <Compile Update="v2\ConverterTestData\StaticDriverVerifier\iocompletion_bug1.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>iocompletion_bug1.tt</DependentUpon>
-    </Compile>
-    <Compile Update="v2\ConverterTestData\StaticDriverVerifier\iodpcroutine_bug1.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>iodpcroutine_bug1.tt</DependentUpon>
     </Compile>
     <Compile Update="v2\ConverterTestData\StaticDriverVerifier\src\sdv\rules\wdm\cancelspinlock.cs">
       <DesignTime>True</DesignTime>
@@ -433,31 +368,24 @@
     </None>
     <None Update="v1\ConverterTestData\StaticDriverVerifier\cancelspinlock_bug1.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>cancelspinlock_bug1.cs</LastGenOutput>
     </None>
     <None Update="v1\ConverterTestData\StaticDriverVerifier\checkadddevice_bug1.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>checkadddevice_bug1.cs</LastGenOutput>
     </None>
     <None Update="v1\ConverterTestData\StaticDriverVerifier\checkdriverunload_bug1.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>checkdriverunload_bug1.cs</LastGenOutput>
     </None>
     <None Update="v1\ConverterTestData\StaticDriverVerifier\checkirpmjpnp_bug1.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>checkirpmjpnp_bug1.cs</LastGenOutput>
     </None>
     <None Update="v1\ConverterTestData\StaticDriverVerifier\dispatchroutine_bug1.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>dispatchroutine_bug1.cs</LastGenOutput>
     </None>
     <None Update="v1\ConverterTestData\StaticDriverVerifier\iocompletion_bug1.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>iocompletion_bug1.cs</LastGenOutput>
     </None>
     <None Update="v1\ConverterTestData\StaticDriverVerifier\iodpcroutine_bug1.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>iodpcroutine_bug1.cs</LastGenOutput>
     </None>
     <None Update="v1\ConverterTestData\StaticDriverVerifier\isrroutine_bug1.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
@@ -730,15 +658,12 @@
     </None>
     <None Update="v2\ConverterTestData\StaticDriverVerifier\cancelspinlock_bug1.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>cancelspinlock_bug1.cs</LastGenOutput>
     </None>
     <None Update="v2\ConverterTestData\StaticDriverVerifier\checkadddevice_bug1.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>checkadddevice_bug1.cs</LastGenOutput>
     </None>
     <None Update="v2\ConverterTestData\StaticDriverVerifier\checkdriverunload_bug1.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>checkdriverunload_bug1.cs</LastGenOutput>
     </None>
     <None Update="v2\ConverterTestData\StaticDriverVerifier\checkirpmjpnp_bug1.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
@@ -746,15 +671,12 @@
     </None>
     <None Update="v2\ConverterTestData\StaticDriverVerifier\dispatchroutine_bug1.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>dispatchroutine_bug1.cs</LastGenOutput>
     </None>
     <None Update="v2\ConverterTestData\StaticDriverVerifier\iocompletion_bug1.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>iocompletion_bug1.cs</LastGenOutput>
     </None>
     <None Update="v2\ConverterTestData\StaticDriverVerifier\iodpcroutine_bug1.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>iodpcroutine_bug1.cs</LastGenOutput>
     </None>
     <None Update="v2\ConverterTestData\StaticDriverVerifier\isrroutine_bug1.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
