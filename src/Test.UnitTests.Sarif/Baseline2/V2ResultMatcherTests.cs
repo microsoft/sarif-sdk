@@ -41,7 +41,7 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Baseline
 
         private static SarifLog GetLogFromResource(string filePath)
         {
-            string fileContents = OverallBaseliningTests.BaselineNamespaceExtractor.GetResourceText(filePath);
+            string fileContents = OverallBaseliningTests.s_extractor.GetResourceText(filePath);
             return JsonConvert.DeserializeObject<SarifLog>(fileContents);
         }
 

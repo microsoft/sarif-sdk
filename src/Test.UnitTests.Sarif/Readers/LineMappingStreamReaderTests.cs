@@ -14,7 +14,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
 {
     public class LineMappingStreamReaderTests
     {
-        private readonly TestAssetResourceExtractor Extractor =
+        private readonly TestAssetResourceExtractor s_extractor =
             new TestAssetResourceExtractor(typeof(LineMappingStreamReaderTests).Assembly, "Readers");
 
         [Fact]
@@ -118,7 +118,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
         public void LineMappingStreamReader_BomHandling()
         {
             string sampleFilePath = "elfie-arriba-utf8-bom.sarif";
-            File.WriteAllBytes(sampleFilePath, Extractor.GetResourceBytes("elfie-arriba-utf8-bom.sarif"));
+            File.WriteAllBytes(sampleFilePath, s_extractor.GetResourceBytes("elfie-arriba-utf8-bom.sarif"));
 
             // Read the Json with a LineMappingStreamReader
             using (LineMappingStreamReader streamReader = new LineMappingStreamReader(File.OpenRead(sampleFilePath)))

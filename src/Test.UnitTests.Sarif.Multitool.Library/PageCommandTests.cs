@@ -17,14 +17,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 {
     public class PageCommandTests
     {
-        private static readonly TestAssetResourceExtractor Extractor = new TestAssetResourceExtractor(typeof(PageCommandTests));
+        private static readonly TestAssetResourceExtractor s_extractor = new TestAssetResourceExtractor(typeof(PageCommandTests));
 
         [Fact]
         public void PageCommand_Basics()
         {
             string sampleFilePath = "elfie-arriba.sarif";
             string pagedSamplePath = "elfie-arriba.paged.sarif";
-            File.WriteAllText(sampleFilePath, Extractor.GetResourceText(sampleFilePath));
+            File.WriteAllText(sampleFilePath, s_extractor.GetResourceText(sampleFilePath));
 
             // Normal file, valid subsets
             RunAndCompare(new PageOptions() { Index = 1, Count = 2, InputFilePath = sampleFilePath, OutputFilePath = pagedSamplePath });
@@ -49,7 +49,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         {
             string sampleFilePath = "elfie-arriba.sarif";
             string pagedSamplePath = "elfie-arriba.paged.sarif";
-            File.WriteAllText(sampleFilePath, Extractor.GetResourceText(sampleFilePath));
+            File.WriteAllText(sampleFilePath, s_extractor.GetResourceText(sampleFilePath));
 
             // File too small for map / results / ArrayStarts
             RunAndCompare(new PageOptions() { TargetMapSizeRatio = 0.009, Index = 1, Count = 2, InputFilePath = sampleFilePath, OutputFilePath = pagedSamplePath });
@@ -177,7 +177,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         {
             string sampleFilePath = "elfie-arriba.sarif";
             string pagedSamplePath = "elfie-arriba.paged.sarif";
-            File.WriteAllText(sampleFilePath, Extractor.GetResourceText(sampleFilePath));
+            File.WriteAllText(sampleFilePath, s_extractor.GetResourceText(sampleFilePath));
 
             // Index >= Count
             Assert.Throws<ArgumentOutOfRangeException>(() => RunAndCompare(new PageOptions() { Index = 5, Count = 1, InputFilePath = sampleFilePath, OutputFilePath = pagedSamplePath }));

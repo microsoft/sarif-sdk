@@ -28,13 +28,13 @@ namespace Microsoft.CodeAnalysis.Sarif
     {
         private readonly ITestOutputHelper _outputHelper;
         private readonly bool _testProducesSarifCurrentVersion;
-        private readonly TestAssetResourceExtractor _resourceExtractor;
+        private readonly TestAssetResourceExtractor _extractor;
 
         public FileDiffingUnitTests(ITestOutputHelper outputHelper, bool testProducesSarifCurrentVersion = true)
         {
             _outputHelper = outputHelper;
             _testProducesSarifCurrentVersion = testProducesSarifCurrentVersion;
-            _resourceExtractor = new TestAssetResourceExtractor(this.GetType());
+            _extractor = new TestAssetResourceExtractor(this.GetType());
 
             Directory.CreateDirectory(TestOutputDirectory);
         }
@@ -135,7 +135,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             // can be inferred from the input resource name. In the case of arbitrary numbers of
             // input and output files (the other overload of RunTest), the output resource names
             // must be specified explicitly.
-            expectedOutputResourceName = expectedOutputResourceName ?? inputResourceName;
+            expectedOutputResourceName ??= inputResourceName;
 
             // When we retrieve test input content, we use the resource name as the test specified it.
             // But when we construct the names of the actual and expected output files, we ensure that
@@ -308,9 +308,6 @@ namespace Microsoft.CodeAnalysis.Sarif
                 sb.AppendLine(
                     "To rebaseline with current behavior:");
 
-                // TODO I suspect this baseline command works in some contexts (when we have a specific type under
-                // test) but breaks the general case of rebaselining some tests that are global to the project, 
-                // such as in the BinSkim project.
                 string testDirectory = Path.Combine(TestBinaryTestDataDirectory, TypeUnderTest, "ExpectedOutputs");
                 sb.AppendLine(GenerateRebaselineCommand(TypeUnderTest, testDirectory, actualRootDirectory));
             }
@@ -331,12 +328,12 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         protected virtual string GetResourceText(string resourcePath)
         {
-            return _resourceExtractor.GetResourceText(resourcePath);
+            return _extractor.GetResourceText(resourcePath);
         }
 
         protected byte[] GetResourceBytes(string resourcePath)
         {
-            return _resourceExtractor.GetResourceBytes(resourcePath);
+            return _extractor.GetResourceBytes(resourcePath);
         }
 
         protected void ValidateResults(string output)
@@ -411,7 +408,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             if (!JToken.DeepEquals(actualToken, expectedToken)) { return false; }
 
             // Make sure we can successfully roundtrip what was just generated.
-            JsonSerializerSettings settings = new JsonSerializerSettings()
+            var settings = new JsonSerializerSettings()
             {
                 ContractResolver = contractResolver,
                 Formatting = Formatting.Indented

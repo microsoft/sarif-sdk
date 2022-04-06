@@ -688,7 +688,7 @@ Three";
         {
             string inputFileName = "InsertOptionalDataVisitor.txt";
             string inputFileText = GetResourceText(inputFileName);
-            string testDirectory = Path.GetDirectoryName(GetResourceDiskPath(inputFileName));
+            string testDirectory = Path.GetDirectoryName(GetResourceDiskPath(inputFileName)) + Path.DirectorySeparatorChar;
             string uriBaseId = "TEST_DIR";
 
             IDictionary<string, ArtifactLocation> originalUriBaseIds = new Dictionary<string, ArtifactLocation> { { uriBaseId, new ArtifactLocation { Uri = new Uri(testDirectory, UriKind.Absolute) } } };

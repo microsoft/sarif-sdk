@@ -23,12 +23,12 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Baseline
         private SarifLog SampleLog { get; }
 
         private static readonly ISarifLogMatcher s_matcher = ResultMatchingBaselinerFactory.GetDefaultResultMatchingBaseliner();
-        public static readonly TestAssetResourceExtractor BaselineNamespaceExtractor =
+        public static readonly TestAssetResourceExtractor s_extractor =
             new TestAssetResourceExtractor(typeof(OverallBaseliningTests).Assembly, testAssetDirectory: "Baseline");
 
         public OverallBaseliningTests()
         {
-            string fileContents = BaselineNamespaceExtractor.GetResourceText(SampleFilePath);
+            string fileContents = s_extractor.GetResourceText(SampleFilePath);
             SampleLog = JsonConvert.DeserializeObject<SarifLog>(fileContents);
         }
 

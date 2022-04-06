@@ -126,12 +126,11 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             RunTestHelper(testFileName);
         }
+
         private void RunTestHelper(string testFileName)
         {
             string sarifLogText = GetInputSarifTextFromResource(testFileName);
             SarifLog sarifLog = JsonConvert.DeserializeObject<SarifLog>(sarifLogText);
-
-            // If this test succeeds
             RunTest(testFileName);
         }
     }

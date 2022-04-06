@@ -34,7 +34,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 var command = new ExportValidationRulesMetadataCommand();
                 command.BuildRule(test.Value, sb);
 
-                string expectedMarkdown = resourceExtractor.GetResourceText($"ExpectedOutputs.{test.Key}");
+                string expectedMarkdown = resourceExtractor.GetResourceExpectedOutputsText(test.Key);
                 sb.ToString().Should().Be(expectedMarkdown);
             }
         }

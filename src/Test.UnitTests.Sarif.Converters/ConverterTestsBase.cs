@@ -10,8 +10,6 @@ using Microsoft.CodeAnalysis.Sarif.Writers;
 
 using Newtonsoft.Json;
 
-using Xunit.Abstractions;
-
 namespace Microsoft.CodeAnalysis.Sarif
 {
     public class ConverterTestsBase<T> where T : ToolFileConverterBase, new()

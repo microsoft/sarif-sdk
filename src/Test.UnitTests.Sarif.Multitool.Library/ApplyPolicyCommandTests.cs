@@ -11,13 +11,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 {
     public class ApplyPolicyCommandTests
     {
-        private static readonly TestAssetResourceExtractor Extractor = new TestAssetResourceExtractor(typeof(ApplyPolicyCommandTests));
+        private static readonly TestAssetResourceExtractor s_extractor = new TestAssetResourceExtractor(typeof(ApplyPolicyCommandTests));
 
         [Fact]
         public void WhenInputContainsOnePolicy_ShouldSucceed()
         {
             string path = "WithPolicy.sarif";
-            File.WriteAllText(path, Extractor.GetResourceText(path));
+            File.WriteAllText(path, s_extractor.GetResourceText(path));
 
             // Verify log loads, has correct Result count, and spot check a Result
             SarifLog log = ExecuteTest(path);
@@ -29,7 +29,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         public void WhenInputContainsMultiplePolicies_ShouldApplyPoliciesInOrder()
         {
             string path = "WithPolicy2.sarif";
-            File.WriteAllText(path, Extractor.GetResourceText(path));
+            File.WriteAllText(path, s_extractor.GetResourceText(path));
 
             // Verify log loads, has correct Result count, and spot check a Result
             SarifLog log = ExecuteTest(path);
