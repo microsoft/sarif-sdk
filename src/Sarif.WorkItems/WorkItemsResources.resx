@@ -119,7 +119,7 @@
   </resheader>
   <data name="AzureDevOpsDefaultDescriptionFooter" xml:space="preserve">
     <value>&lt;br&gt;&lt;br&gt;For another viewing option, load the attached SARIF log file in: &lt;br&gt;
-&lt;li&gt;The &lt;a href="https://marketplace.visualstudio.com/_apis/public/gallery/publishers/WDGIS/vsextensions/MicrosoftSarifViewer/2.1.7/vspackage"&gt;Visual Studio SARIF add-in&lt;/a&gt;.&lt;/li&gt;
+&lt;li&gt;The &lt;a href="https://marketplace.visualstudio.com/items?itemName=WDGIS.MicrosoftSarifViewer"&gt;Visual Studio SARIF add-in&lt;/a&gt;.&lt;/li&gt;
 &lt;li&gt;The &lt;a href="https://marketplace.visualstudio.com/items?itemName=MS-SarifVSCode.sarif-viewer"&gt;VS Code SARIF extension&lt;/a&gt;.&lt;/li&gt;
 &lt;li&gt;The browser-hosted &lt;a href="https://microsoft.github.io/sarif-web-component/"&gt;SARIF web control&lt;/a&gt;.&lt;/li&gt;</value>
   </data>

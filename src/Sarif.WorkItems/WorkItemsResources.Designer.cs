@@ -19,7 +19,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class WorkItemsResources {
@@ -62,7 +62,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems {
         
         /// <summary>
         ///   Looks up a localized string similar to &lt;br&gt;&lt;br&gt;For another viewing option, load the attached SARIF log file in: &lt;br&gt;
-        ///&lt;li&gt;The &lt;a href=&quot;https://marketplace.visualstudio.com/_apis/public/gallery/publishers/WDGIS/vsextensions/MicrosoftSarifViewer/2.1.7/vspackage&quot;&gt;Visual Studio SARIF add-in&lt;/a&gt;.&lt;/li&gt;
+        ///&lt;li&gt;The &lt;a href=&quot;https://marketplace.visualstudio.com/items?itemName=WDGIS.MicrosoftSarifViewer&quot;&gt;Visual Studio SARIF add-in&lt;/a&gt;.&lt;/li&gt;
         ///&lt;li&gt;The &lt;a href=&quot;https://marketplace.visualstudio.com/items?itemName=MS-SarifVSCode.sarif-viewer&quot;&gt;VS Code SARIF extension&lt;/a&gt;.&lt;/li&gt;
         ///&lt;li&gt;The browser-hosted &lt;a href=&quot;https://microsoft.github.io/sarif-web-component/&quot;&gt;SARIF web control&lt;/a&gt;.&lt;/li&gt;.
         /// </summary>
