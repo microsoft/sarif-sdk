@@ -4,15 +4,14 @@
 using System;
 using System.CodeDom.Compiler;
 using System.Collections.Generic;
-
-using Microsoft.CodeAnalysis.Sarif.Readers;
+using Microsoft.CodeAnalysis.Sarif;
 
 namespace Microsoft.CodeAnalysis.Sarif
 {
     /// <summary>
     /// Defines methods to support the comparison of objects of type ReportingDescriptor for equality.
     /// </summary>
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "1.1.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "1.1.3.0")]
     internal sealed class ReportingDescriptorEqualityComparer : IEqualityComparer<ReportingDescriptor>
     {
         internal static readonly ReportingDescriptorEqualityComparer Instance = new ReportingDescriptorEqualityComparer();
@@ -190,7 +189,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                         return false;
                     }
 
-                    if (!object.Equals(value_2.Value, value_3))
+                    if (!SerializedPropertyInfo.ValueComparer.Equals(value_2.Value, value_3))
                     {
                         return false;
                     }
@@ -280,9 +279,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                         xor_0 ^= value_7.Key.GetHashCode();
                         if (value_7.Value != null)
                         {
-                            xor_0 ^= MultiformatMessageStringEqualityComparer
-                                        .Instance
-                                        .GetHashCode(value_7.Value);
+                            xor_0 ^= value_7.Value.ValueGetHashCode();
                         }
                     }
 
@@ -325,7 +322,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                         xor_1 ^= value_9.Key.GetHashCode();
                         if (value_9.Value != null)
                         {
-                            xor_1 ^= value_9.Value.GetHashCode();
+                            xor_1 ^= value_9.Value.ValueGetHashCode();
                         }
                     }
 

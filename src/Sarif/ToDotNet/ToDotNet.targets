@@ -38,7 +38,7 @@
   -->
   <Target Name="BuildAndInjectObjectModel">
     <!-- Build the object model if necessary. -->
-    <CallTarget Targets="BuildObjectModel" />
+    <!-- <CallTarget Targets="BuildObjectModel" /> -->
     
     <!-- Safety valve: It has happened a couple of times that the SARIF object
          model has required constructs that Microsoft.JSchema.ToDotNet could not

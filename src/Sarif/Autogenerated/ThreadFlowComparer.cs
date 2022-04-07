@@ -1,0 +1,66 @@
+// Copyright (c) Microsoft.  All Rights Reserved.
+// Licensed under the MIT license. See LICENSE file in the project root for full license information.
+
+using System;
+using System.CodeDom.Compiler;
+using System.Collections.Generic;
+using Microsoft.CodeAnalysis.Sarif;
+
+namespace Microsoft.CodeAnalysis.Sarif
+{
+    /// <summary>
+    /// Defines methods to support the comparison of objects of type ThreadFlow for sorting.
+    /// </summary>
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "1.1.3.0")]
+    internal sealed class ThreadFlowComparer : IComparer<ThreadFlow>
+    {
+        internal static readonly ThreadFlowComparer Instance = new ThreadFlowComparer();
+
+        public int Compare(ThreadFlow left, ThreadFlow right)
+        {
+            int compareResult = 0;
+            if (left.TryReferenceCompares(right, out compareResult))
+            {
+                return compareResult;
+            }
+
+            compareResult = string.Compare(left.Id, right.Id);
+            if (compareResult != 0)
+            {
+                return compareResult;
+            }
+
+            compareResult = MessageComparer.Instance.Compare(left.Message, right.Message);
+            if (compareResult != 0)
+            {
+                return compareResult;
+            }
+
+            compareResult = left.InitialState.ObjectCompares(right.InitialState);
+            if (compareResult != 0)
+            {
+                return compareResult;
+            }
+
+            compareResult = left.ImmutableState.ObjectCompares(right.ImmutableState);
+            if (compareResult != 0)
+            {
+                return compareResult;
+            }
+
+            compareResult = left.Locations.ListCompares(right.Locations, ThreadFlowLocationComparer.Instance);
+            if (compareResult != 0)
+            {
+                return compareResult;
+            }
+
+            compareResult = left.Properties.DictionaryCompares(right.Properties, SerializedPropertyInfoComparer.Instance);
+            if (compareResult != 0)
+            {
+                return compareResult;
+            }
+
+            return compareResult;
+        }
+    }
+}

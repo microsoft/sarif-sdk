@@ -5,7 +5,7 @@ using System;
 using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
-using Microsoft.CodeAnalysis.Sarif.Readers;
+using Microsoft.CodeAnalysis.Sarif;
 
 namespace Microsoft.CodeAnalysis.Sarif
 {
@@ -20,6 +20,8 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         public bool ValueEquals(RunAutomationDetails other) => ValueComparer.Equals(this, other);
         public int ValueGetHashCode() => ValueComparer.GetHashCode(this);
+
+        public static IComparer<RunAutomationDetails> Comparer => RunAutomationDetailsComparer.Instance;
 
         /// <summary>
         /// Gets a value indicating the type of object implementing <see cref="ISarifNode" />.
@@ -45,7 +47,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         public virtual string Id { get; set; }
 
         /// <summary>
-        /// A stable, unique identifier for this object's containing run object in the form of a GUID.
+        /// A stable, unique identifer for this object's containing run object in the form of a GUID.
         /// </summary>
         [DataMember(Name = "guid", IsRequired = false, EmitDefaultValue = false)]
         public virtual string Guid { get; set; }

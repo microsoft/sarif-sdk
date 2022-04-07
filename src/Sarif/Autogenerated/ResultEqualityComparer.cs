@@ -4,7 +4,7 @@
 using System;
 using System.CodeDom.Compiler;
 using System.Collections.Generic;
-using Microsoft.CodeAnalysis.Sarif.Readers;
+using Microsoft.CodeAnalysis.Sarif;
 
 namespace Microsoft.CodeAnalysis.Sarif
 {
@@ -647,7 +647,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                         xor_2 ^= value_19.Key.GetHashCode();
                         if (value_19.Value != null)
                         {
-                            xor_2 ^= value_19.Value.GetHashCode();
+                            xor_2 ^= value_19.Value.ValueGetHashCode();
                         }
                     }
 

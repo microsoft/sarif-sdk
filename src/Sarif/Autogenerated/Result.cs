@@ -25,6 +25,8 @@ namespace Microsoft.CodeAnalysis.Sarif
         public bool ValueEquals(Result other) => ValueComparer.Equals(this, other);
         public int ValueGetHashCode() => ValueComparer.GetHashCode(this);
 
+        public static IComparer<Result> Comparer => ResultComparer.Instance;
+
         /// <summary>
         /// Gets a value indicating the type of object implementing <see cref="ISarifNode" />.
         /// </summary>

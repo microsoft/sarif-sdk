@@ -8,7 +8,6 @@ using System.Linq;
 using FluentAssertions;
 
 using Microsoft.CodeAnalysis.Sarif;
-using Microsoft.CodeAnalysis.Sarif.Comparers;
 using Microsoft.CodeAnalysis.Test.Utilities.Sarif;
 
 using Xunit;
