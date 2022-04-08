@@ -63,8 +63,9 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems {
         /// <summary>
         ///   Looks up a localized string similar to &lt;br&gt;&lt;br&gt;For another viewing option, load the attached SARIF log file in: &lt;br&gt;
         ///&lt;li&gt;The &lt;a href=&quot;https://marketplace.visualstudio.com/items?itemName=WDGIS.MicrosoftSarifViewer&quot;&gt;Visual Studio SARIF add-in&lt;/a&gt;.&lt;/li&gt;
+        ///&lt;li&gt;The &lt;a href=&quot;https://marketplace.visualstudio.com/items?itemName=WDGIS.MicrosoftSarifViewer2022&quot;&gt;Visual Studio 2022 SARIF add-in&lt;/a&gt;.&lt;/li&gt;
         ///&lt;li&gt;The &lt;a href=&quot;https://marketplace.visualstudio.com/items?itemName=MS-SarifVSCode.sarif-viewer&quot;&gt;VS Code SARIF extension&lt;/a&gt;.&lt;/li&gt;
-        ///&lt;li&gt;The browser-hosted &lt;a href=&quot;https://microsoft.github.io/sarif-web-component/&quot;&gt;SARIF web control&lt;/a&gt;.&lt;/li&gt;.
+        ///&lt;li&gt;The browser-hoste [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string AzureDevOpsDefaultDescriptionFooter {
             get {
