@@ -26,6 +26,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         public RebaseUriCommandTests(ITestOutputHelper outputHelper) : base(outputHelper) { }
 
         [Fact]
+        [Trait(TestTraits.WindowsOnly, "true")]
         public void RebaseUriCommand_InjectsRegions()
         {
             string productDirectory = ProductRootDirectory;
