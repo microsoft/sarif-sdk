@@ -16,7 +16,7 @@
       "artifacts": [
         {
           "location": {
-            "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF2007.ExpressPathsRelativeToRepoRoot_LoadRelatedUriBaseId_Valid.sarif",
+            "uri": "FunctionalTestOutput.ValidateCommand/SARIF2007.ExpressPathsRelativeToRepoRoot_LoadRelatedUriBaseId_Valid.sarif",
             "uriBaseId": "TEST_DIR"
           }
         }

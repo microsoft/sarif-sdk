@@ -35,7 +35,7 @@
       "artifacts": [
         {
           "location": {
-            "uri": "FunctionalTestOutput.ValidateCommand/Inputs.GH1005.LocationsMustBeRelativeUrisOrFilePaths_Invalid.sarif",
+            "uri": "FunctionalTestOutput.ValidateCommand/GH1005.LocationsMustBeRelativeUrisOrFilePaths_Invalid.sarif",
             "uriBaseId": "TEST_DIR"
           }
         }

@@ -14,7 +14,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
         protected override string ConstructTestOutputFromInputResource(string inputResourceName, object parameter)
         {
-            string logContents = GetResourceText(inputResourceName);
+            string logContents = GetInputSarifTextFromResource(inputResourceName);
             SarifLog sarifLog = JsonConvert.DeserializeObject<SarifLog>(logContents);
 
             var visitor = new GitHubIngestionVisitor();

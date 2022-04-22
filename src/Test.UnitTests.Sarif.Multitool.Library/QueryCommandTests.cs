@@ -11,13 +11,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 {
     public class QueryCommandTests
     {
-        private static readonly ResourceExtractor Extractor = new ResourceExtractor(typeof(QueryCommandTests));
+        private static readonly TestAssetResourceExtractor s_extractor = new TestAssetResourceExtractor(typeof(QueryCommandTests));
 
         [Fact]
         public void QueryCommand_Basics()
         {
-            string filePath = "elfie-arriba.Q.sarif";
-            File.WriteAllText(filePath, Extractor.GetResourceText(@"PageCommand.elfie-arriba.sarif"));
+            string filePath = "elfie-arriba.sarif";
+            File.WriteAllText(filePath, s_extractor.GetResourceText(filePath));
 
             // All Results: No filter
             RunAndVerifyCount(5, new QueryOptions() { Expression = "", InputFilePath = filePath });
@@ -46,7 +46,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             string outputFilePath = "elfie-arriba.CSCAN0020.actual.sarif";
             RunAndVerifyCount(1, new QueryOptions() { Expression = "RuleId = 'CSCAN0020/0'", InputFilePath = filePath, OutputFilePath = outputFilePath, Minify = false, Force = true });
 
-            string expected = Extractor.GetResourceText("QueryCommand.elfie-arriba.CSCAN0020.sarif");
+            string expected = s_extractor.GetResourceText("elfie-arriba.CSCAN0020.sarif");
             string actual = File.ReadAllText(outputFilePath);
             Assert.Equal(expected, actual);
         }

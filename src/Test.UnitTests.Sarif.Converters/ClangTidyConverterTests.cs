@@ -37,15 +37,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         [Fact]
         public void Converter_WhenInputIsEmpty_ReturnsNoResults()
         {
-            string input = GetResourceText("Inputs.Empty.yaml");
-            string expectedOutput = GetResourceText("ExpectedOutputs.NoResults.sarif");
+            string input = s_extractor.GetResourceInputText("Empty.yaml");
+            string expectedOutput = s_extractor.GetResourceExpectedOutputsText("NoResults.sarif");
             RunTestCase(input, expectedOutput);
         }
 
         [Fact]
         public void Converter_WhenResultRowIsInvalid_ThrowsExpectedException()
         {
-            string input = GetResourceText("Inputs.InvalidResult.yaml");
+            string input = s_extractor.GetResourceInputText("InvalidResult.yaml");
             Action action = () => RunTestCase(input, NoOutputExpected);
             action.Should().Throw<YamlException>();
         }
@@ -54,15 +54,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         [Trait(TestTraits.WindowsOnly, "true")]
         public void Converter_WhenInputContainsValidResults_ReturnsExpectedOutput()
         {
-            string input = GetResourceText("Inputs.ValidResults.yaml");
-            string expectedOutput = GetResourceText("ExpectedOutputs.ValidResults.sarif");
+            string input = s_extractor.GetResourceInputText("ValidResults.yaml");
+            string expectedOutput = s_extractor.GetResourceExpectedOutputsText("ValidResults.sarif");
             RunTestCase(input, expectedOutput);
         }
 
-        private static readonly ResourceExtractor s_extractor = new ResourceExtractor(typeof(ClangTidyConverterTests));
+        private static readonly TestAssetResourceExtractor s_extractor = new TestAssetResourceExtractor(typeof(ClangTidyConverterTests));
         private const string ResourceNamePrefix = ToolFormat.ClangTidy;
-
-        private static string GetResourceText(string resourceNameSuffix) =>
-            s_extractor.GetResourceText($"TestData.{ResourceNamePrefix}.{resourceNameSuffix}");
     }
 }

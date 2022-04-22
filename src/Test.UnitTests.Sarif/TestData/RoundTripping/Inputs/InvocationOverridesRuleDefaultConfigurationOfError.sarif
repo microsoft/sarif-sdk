@@ -1,0 +1,61 @@
+{
+  "$schema": "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0-rtm.5.json",
+  "version": "2.1.0",
+  "runs": [
+    {
+      "tool": {
+        "driver": {
+          "name": "FailureLevelRoundtrippingTester",
+          "rules": [
+            {
+              "id": "ExplicitDefaultLevel",
+              "defaultConfiguration": { "level": "error" }
+            }
+          ]
+        }
+      },
+      "invocations": [
+        {
+          "ruleConfigurationOverrides": [
+            {
+              "descriptor": {
+                "id": "ExplicitDefaultLevel"
+              },
+              "configuration": {
+                "level": "note"
+              }
+            }
+          ],
+          "executionSuccessful": true
+        }
+      ],
+      "results": [
+        {
+          "ruleId": "ExplicitDefaultLevel/ShouldBeNone",
+          "level": "none",
+          "message": { "text": "Level should be 'none' as it is directly expressed on the result. This is a rule trace message." }
+        },
+        {
+          "ruleId": "ExplicitDefaultLevel/ShouldBeNone",
+          "kind": "open",
+          "message": { "text": "Level should be 'none' because kind is not 'fail' and level is missing (so 'none' is the default)." }
+        },
+        {
+          "ruleId": "ExplicitDefaultLevel/ShouldBeNote",
+          "message": { "text": "Level should be 'note' as level is missing and 'note' is the invocation override configuration default." }
+        },
+        {
+          "ruleId": "ExplicitDefaultLevel/ShouldBeWarning",
+          "level": "warning",
+          "message": { "text": "Level should be 'warning' as it is directly expressed on the result and overrides the default of 'note'." }
+        },
+        {
+          "ruleId": "ExplicitDefaultLevel/ShouldBeError",
+          "level": "error",
+          "message": { "text": "Level should be 'error' as as it is directly expressed on the result and overrides the default of 'note'." }
+        }
+      ],
+      "columnKind": "utf16CodeUnits"
+    }
+  ]
+}
