@@ -6,6 +6,8 @@ using System.IO;
 
 using FluentAssertions;
 
+using Microsoft.CodeAnalysis.Test.Utilities.Sarif;
+
 using Moq;
 
 using Xunit;
@@ -33,7 +35,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         [Fact]
         public void GetRepositoryRoot_WhenDotGitIsPresent_ReturnsTheDirectortyContainingDotGit()
         {
-            string productDirectory = Path.GetDirectoryName(FileDiffingUnitTests.GetProductDirectory());
+            string productDirectory = Path.GetDirectoryName(DirectoryHelpers.GetEnlistmentSrcDirectory());
             string repoDirectory = Directory.GetParent(productDirectory).FullName;
 
             var gitHelper = new GitHelper();
@@ -45,7 +47,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         public void GetRepositoryRoot_ByDefault_PopulatesTheDirectoryToRepoRootCache()
         {
             // Returns '\src\' location within repo, e.g., 'c:\src\sarif-sdk\src'
-            string productDirectory = Path.GetDirectoryName(FileDiffingUnitTests.GetProductDirectory());
+            string productDirectory = Path.GetDirectoryName(DirectoryHelpers.GetEnlistmentSrcDirectory());
             string repoDirectory = Directory.GetParent(productDirectory).FullName;
 
             var gitHelper = new GitHelper();

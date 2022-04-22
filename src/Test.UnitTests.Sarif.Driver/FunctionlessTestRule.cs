@@ -6,7 +6,7 @@ using System.Composition;
 using System.Resources;
 
 using Microsoft.CodeAnalysis.Sarif.Driver;
-using Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Driver.Sdk;
+using Microsoft.CodeAnalysis.Sarif.Driver.Sdk;
 
 namespace Microsoft.CodeAnalysis.Sarif
 {

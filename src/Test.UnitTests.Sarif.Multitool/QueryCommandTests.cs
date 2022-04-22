@@ -15,30 +15,30 @@ using Xunit;
 
 namespace Microsoft.CodeAnalysis.Sarif.Multitool
 {
-    public class QueryCommandPropertyBagTests : IClassFixture<QueryCommandPropertyBagTests.TestFixture>
+    public class QueryCommandTests : IClassFixture<QueryCommandTests.TestFixture>
     {
-        private const string FilePath = "property-bag-queries.sarif";
+        private const string fileWithPropertyBag = "property-bag-queries.sarif";
 
         public class TestFixture
         {
             public TestFixture()
             {
-                ResourceExtractor extractor = new ResourceExtractor(typeof(QueryCommandPropertyBagTests));
-                File.WriteAllText(FilePath, extractor.GetResourceText($"QueryCommand.{FilePath}"));
+                TestAssetResourceExtractor extractor = new TestAssetResourceExtractor(typeof(QueryCommandTests));
+                File.WriteAllText(fileWithPropertyBag, extractor.GetResourceText(fileWithPropertyBag));
             }
         }
 
         [Fact]
         public void QueryCommand_CanAccessResultAndRulePropertyBags()
         {
-            RunAndVerifyCount(2, "properties.name == 'Terisa'");
+            RunAndVerifyCount(2, "properties.name == 'Calliope'");
             RunAndVerifyCount(2, "rule.properties.Category == 'security'");
         }
 
         [Fact]
         public void QueryCommand_ComparesPropertyBagPropertyNamesCaseSensitively()
         {
-            RunAndVerifyCount(0, "properties.nAmE == 'Terisa'");
+            RunAndVerifyCount(0, "properties.nAmE == 'Calliope'");
             RunAndVerifyCount(0, "rule.properties.CaTegORy == 'security'");
         }
 
@@ -66,7 +66,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         public void QueryCommand_TreatsUnparseableValueAsHavingTheDefaultValue()
         {
             // In this test, all the results will match, so we need to know how many there are.
-            SarifLog sarifLog = JsonConvert.DeserializeObject<SarifLog>(File.ReadAllText(FilePath));
+            SarifLog sarifLog = JsonConvert.DeserializeObject<SarifLog>(File.ReadAllText(fileWithPropertyBag));
             int numResults = sarifLog.Runs[0].Results.Count;
 
             // 'name' is a string-valued property that doesn't parse to an integer. The
@@ -97,7 +97,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             var options = new QueryOptions
             {
                 Expression = expression,
-                InputFilePath = FilePath,
+                InputFilePath = fileWithPropertyBag,
                 ReturnCount = true
             };
 

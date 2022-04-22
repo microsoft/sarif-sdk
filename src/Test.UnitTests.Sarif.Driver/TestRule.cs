@@ -12,7 +12,7 @@ using System.Threading;
 using FluentAssertions;
 
 using Microsoft.CodeAnalysis.Sarif.Driver;
-using Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Driver.Sdk;
+using Microsoft.CodeAnalysis.Sarif.Driver.Sdk;
 using Microsoft.CodeAnalysis.Test.Utilities.Sarif;
 
 namespace Microsoft.CodeAnalysis.Sarif

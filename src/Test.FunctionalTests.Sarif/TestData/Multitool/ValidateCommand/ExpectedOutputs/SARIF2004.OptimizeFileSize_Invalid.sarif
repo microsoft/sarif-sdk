@@ -43,7 +43,7 @@
       "artifacts": [
         {
           "location": {
-            "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF2004.OptimizeFileSize_Invalid.sarif",
+            "uri": "FunctionalTestOutput.ValidateCommand/SARIF2004.OptimizeFileSize_Invalid.sarif",
             "uriBaseId": "TEST_DIR"
           }
         }

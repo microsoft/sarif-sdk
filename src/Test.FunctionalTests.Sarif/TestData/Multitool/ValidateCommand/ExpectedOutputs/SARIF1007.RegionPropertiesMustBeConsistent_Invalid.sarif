@@ -40,7 +40,7 @@
       "artifacts": [
         {
           "location": {
-            "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF1007.RegionPropertiesMustBeConsistent_Invalid.sarif",
+            "uri": "FunctionalTestOutput.ValidateCommand/SARIF1007.RegionPropertiesMustBeConsistent_Invalid.sarif",
             "uriBaseId": "TEST_DIR"
           }
         }

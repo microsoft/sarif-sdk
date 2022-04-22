@@ -16,7 +16,7 @@
       "artifacts": [
         {
           "location": {
-            "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF2005.ProvideToolProperties_MissingInformationUri.sarif",
+            "uri": "FunctionalTestOutput.ValidateCommand/SARIF2005.ProvideToolProperties_MissingInformationUri.sarif",
             "uriBaseId": "TEST_DIR"
           }
         }

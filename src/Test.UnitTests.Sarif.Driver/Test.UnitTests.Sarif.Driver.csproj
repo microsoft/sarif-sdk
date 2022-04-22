@@ -16,6 +16,7 @@
     <PowershellExecutable Condition="'$(PowershellExecutable)'==''">pwsh</PowershellExecutable>
     <PathSeparator Condition="'$(OS)'=='Windows_NT'">\</PathSeparator>
     <PathSeparator Condition="'$(OS)'!='Windows_NT'">/</PathSeparator>
+    <RootNamespace>Test.UnitTests.Sarif.Driver</RootNamespace>
   </PropertyGroup>
 
   <PropertyGroup>
@@ -66,6 +67,7 @@
     <EmbeddedResource Update="Sdk\SkimmerBaseTestResources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>SkimmerBaseTestResources.Designer.cs</LastGenOutput>
+      <CustomToolNamespace>Microsoft.CodeAnalysis.Sarif.Driver.Sdk</CustomToolNamespace>
     </EmbeddedResource>
   </ItemGroup>
 

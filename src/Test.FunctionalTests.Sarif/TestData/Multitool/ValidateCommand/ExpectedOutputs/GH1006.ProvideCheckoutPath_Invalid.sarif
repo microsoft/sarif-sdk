@@ -35,7 +35,7 @@
       "artifacts": [
         {
           "location": {
-            "uri": "FunctionalTestOutput.ValidateCommand/Inputs.GH1006.ProvideCheckoutPath_Invalid.sarif",
+            "uri": "FunctionalTestOutput.ValidateCommand/GH1006.ProvideCheckoutPath_Invalid.sarif",
             "uriBaseId": "TEST_DIR"
           }
         }

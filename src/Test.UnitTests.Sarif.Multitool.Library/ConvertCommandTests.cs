@@ -15,7 +15,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 {
     public class ConvertCommandTests
     {
-        private static readonly ResourceExtractor Extractor = new ResourceExtractor(typeof(ConvertCommandTests));
+        private static readonly TestAssetResourceExtractor s_extractor = new TestAssetResourceExtractor(typeof(ConvertCommandTests));
 
         [Fact]
         public void ConvertCommand_SemmleQlExample()
@@ -23,7 +23,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             // Try converting a tiny sample SemmleQl file
             string sampleFilePath = "SemmleQlSample.csv";
             string outputFilePath = Path.ChangeExtension(sampleFilePath, ".sarif");
-            File.WriteAllText(sampleFilePath, Extractor.GetResourceText($"ConvertCommand.{sampleFilePath}"));
+            File.WriteAllText(sampleFilePath, s_extractor.GetResourceText(sampleFilePath));
 
             var options = new ConvertOptions
             {
@@ -100,7 +100,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             // This time we expect it to fail because of the inconsistent output format options.
             string sampleFilePath = "SemmleQlSample.csv";
             string outputFilePath = Path.ChangeExtension(sampleFilePath, ".sarif");
-            File.WriteAllText(sampleFilePath, Extractor.GetResourceText($"ConvertCommand.{sampleFilePath}"));
+            File.WriteAllText(sampleFilePath, s_extractor.GetResourceText(sampleFilePath));
 
             var options = new ConvertOptions
             {

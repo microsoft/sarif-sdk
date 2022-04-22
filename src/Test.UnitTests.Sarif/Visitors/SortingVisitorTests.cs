@@ -25,8 +25,6 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Visitors
         private readonly Random random;
         private readonly ITestOutputHelper _outputHelper;
 
-        protected override string OutputFolderPath => Path.Combine(Path.GetDirectoryName(ThisAssembly.Location), "UnitTestOutput." + TypeUnderTest);
-
         public SortingVisitorTests(ITestOutputHelper outputHelper) : base(outputHelper)
         {
             this._outputHelper = outputHelper;
@@ -243,8 +241,9 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Visitors
 
             if (!areEqual)
             {
-                string firstLogFile = Path.Combine(OutputFolderPath, $"{Guid.NewGuid()}.sarif");
-                string secondLogFile = Path.Combine(OutputFolderPath, $"{Guid.NewGuid()}.sarif");
+                // NewGuid() is used here simply to ensure we create a unique file name.
+                string firstLogFile = GetOutputFilePath(directory: null, $"{Guid.NewGuid()}.sarif");
+                string secondLogFile = GetOutputFilePath(directory: null, $"{Guid.NewGuid()}.sarif");
 
                 File.WriteAllText(firstLogFile, firstLogText);
                 File.WriteAllText(secondLogFile, secondLogText);

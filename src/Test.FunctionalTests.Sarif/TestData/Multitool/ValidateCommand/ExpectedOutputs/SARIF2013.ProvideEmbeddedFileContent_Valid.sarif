@@ -16,7 +16,7 @@
       "artifacts": [
         {
           "location": {
-            "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF2013.ProvideEmbeddedFileContent_Valid.sarif",
+            "uri": "FunctionalTestOutput.ValidateCommand/SARIF2013.ProvideEmbeddedFileContent_Valid.sarif",
             "uriBaseId": "TEST_DIR"
           }
         }

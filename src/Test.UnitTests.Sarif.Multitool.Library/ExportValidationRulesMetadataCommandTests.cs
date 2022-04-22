@@ -27,15 +27,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 { "TextShortDescription.md", new TestRule2() },
             };
 
-            var resourceExtractor = new ResourceExtractor(this.GetType());
+            var resourceExtractor = new TestAssetResourceExtractor(this.GetType());
             foreach (KeyValuePair<string, SarifValidationSkimmerBase> test in tests)
             {
                 var sb = new StringBuilder();
                 var command = new ExportValidationRulesMetadataCommand();
                 command.BuildRule(test.Value, sb);
 
-                string expectedMarkdown = resourceExtractor.GetResourceText(test.Key);
-
+                string expectedMarkdown = resourceExtractor.GetResourceExpectedOutputsText(test.Key);
                 sb.ToString().Should().Be(expectedMarkdown);
             }
         }
