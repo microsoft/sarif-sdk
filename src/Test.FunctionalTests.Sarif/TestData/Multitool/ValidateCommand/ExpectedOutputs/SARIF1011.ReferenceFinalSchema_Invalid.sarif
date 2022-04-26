@@ -34,7 +34,7 @@
       "artifacts": [
         {
           "location": {
-            "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF1011.ReferenceFinalSchema_Invalid.sarif",
+            "uri": "FunctionalTestOutput.ValidateCommand/SARIF1011.ReferenceFinalSchema_Invalid.sarif",
             "uriBaseId": "TEST_DIR"
           }
         }

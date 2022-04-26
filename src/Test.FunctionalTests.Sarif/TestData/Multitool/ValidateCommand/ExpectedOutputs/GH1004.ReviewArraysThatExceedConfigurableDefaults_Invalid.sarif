@@ -35,7 +35,7 @@
       "artifacts": [
         {
           "location": {
-            "uri": "FunctionalTestOutput.ValidateCommand/Inputs.GH1004.ReviewArraysThatExceedConfigurableDefaults_Invalid.sarif",
+            "uri": "FunctionalTestOutput.ValidateCommand/GH1004.ReviewArraysThatExceedConfigurableDefaults_Invalid.sarif",
             "uriBaseId": "TEST_DIR"
           }
         }

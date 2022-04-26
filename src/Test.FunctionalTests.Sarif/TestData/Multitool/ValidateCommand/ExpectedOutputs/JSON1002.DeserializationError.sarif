@@ -11,11 +11,11 @@
               "id": "JSON1002",
               "name": "RequiredPropertyMissing",
               "fullDescription": {
-                "text": "A property required by the schema's \"required\" property is missing."
+                "text": "A property required by the schema's 'required' property is missing."
               },
               "messageStrings": {
                 "default": {
-                  "text": "at \"{0}\": The required property \"{1}\" is missing."
+                  "text": "{0}: The required property '{1}' is missing."
                 }
               },
               "defaultConfiguration": {
@@ -33,7 +33,7 @@
       "artifacts": [
         {
           "location": {
-            "uri": "FunctionalTestOutput.ValidateCommand/Inputs.JSON1002.DeserializationError.sarif",
+            "uri": "FunctionalTestOutput.ValidateCommand/JSON1002.DeserializationError.sarif",
             "uriBaseId": "TEST_DIR"
           }
         }

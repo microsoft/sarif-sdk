@@ -11,7 +11,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// <summary>
     /// Defines methods to support the comparison of objects of type ThreadFlowLocation for equality.
     /// </summary>
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "1.1.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "1.1.3.0")]
     internal sealed class ThreadFlowLocationEqualityComparer : IEqualityComparer<ThreadFlowLocation>
     {
         internal static readonly ThreadFlowLocationEqualityComparer Instance = new ThreadFlowLocationEqualityComparer();
@@ -157,7 +157,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                         return false;
                     }
 
-                    if (!object.Equals(value_2.Value, value_3))
+                    if (!SerializedPropertyInfo.ValueComparer.Equals(value_2.Value, value_3))
                     {
                         return false;
                     }

@@ -11,7 +11,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// <summary>
     /// Defines methods to support the comparison of objects of type Result for equality.
     /// </summary>
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "1.1.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "1.1.3.0")]
     internal sealed class ResultEqualityComparer : IEqualityComparer<Result>
     {
         internal static readonly ResultEqualityComparer Instance = new ResultEqualityComparer();
@@ -398,7 +398,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                         return false;
                     }
 
-                    if (!object.Equals(value_4.Value, value_5))
+                    if (!SerializedPropertyInfo.ValueComparer.Equals(value_4.Value, value_5))
                     {
                         return false;
                     }

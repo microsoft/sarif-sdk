@@ -15,7 +15,7 @@
               },
               "messageStrings": {
                 "default": {
-                  "text": "at \"{0}\": JSON syntax error: {1}"
+                  "text": "{0}: JSON syntax error: {1}"
                 }
               },
               "defaultConfiguration": {
@@ -33,7 +33,7 @@
       "artifacts": [
         {
           "location": {
-            "uri": "FunctionalTestOutput.ValidateCommand/Inputs.JSON1001.SyntaxError.sarif",
+            "uri": "FunctionalTestOutput.ValidateCommand/JSON1001.SyntaxError.sarif",
             "uriBaseId": "TEST_DIR"
           }
         }

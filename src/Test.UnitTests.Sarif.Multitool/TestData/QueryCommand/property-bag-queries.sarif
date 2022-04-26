@@ -51,7 +51,7 @@
           },
           "properties": {
             "comment": "Exact match.",
-            "name": "Terisa"
+            "name": "Calliope"
           }
         },
         {
@@ -62,7 +62,7 @@
           },
           "properties": {
             "comment": "Case-insensitive match.",
-            "name": "terisa"
+            "name": "calliope"
           }
         },
         {

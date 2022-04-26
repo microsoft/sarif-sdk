@@ -50,7 +50,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         {
             var predicate = (FilteringVisitor.IncludeResultPredicate)parameter;
 
-            string inputText = GetResourceText(inputResourceName);
+            string inputText = GetInputSarifTextFromResource(inputResourceName);
             SarifLog inputLog = JsonConvert.DeserializeObject<SarifLog>(inputText);
 
             SarifLog outputLog = SarifPartitioner.Filter(inputLog, predicate);

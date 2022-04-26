@@ -20,7 +20,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 {
     public class BaselineOptionTests
     {
-        private static readonly ResourceExtractor Extractor = new ResourceExtractor(typeof(ValidateCommandTests));
+        private static readonly TestAssetResourceExtractor s_extractor = new TestAssetResourceExtractor(typeof(ValidateCommandTests));
 
         // test setup
 
@@ -76,9 +76,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             string configuration = "Configuration.json";
             string outputPath = "ValidateSarifOutput.sarif";
             string baselineFilePath = "Baseline.sarif";
-            File.WriteAllText(path, Extractor.GetResourceText($"ValidateCommand.{path}"));
-            File.WriteAllText(configuration, Extractor.GetResourceText($"ValidateCommand.{configuration}"));
-            File.WriteAllText(baselineFilePath, Extractor.GetResourceText($"ValidateCommand.{baselineFilePath}"));
+            File.WriteAllText(path, s_extractor.GetResourceText(path));
+            File.WriteAllText(configuration, s_extractor.GetResourceText(configuration));
+            File.WriteAllText(baselineFilePath, s_extractor.GetResourceText(baselineFilePath));
 
             var options = new ValidateOptions
             {
@@ -110,9 +110,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             string configuration = "Configuration.json";
             string outputPath = "ValidateSarifOutputOneZeroZero.sarif";
             string baselineFilePath = "Baseline.sarif";
-            File.WriteAllText(path, Extractor.GetResourceText($"ValidateCommand.{path}"));
-            File.WriteAllText(configuration, Extractor.GetResourceText($"ValidateCommand.{configuration}"));
-            File.WriteAllText(baselineFilePath, Extractor.GetResourceText($"ValidateCommand.{baselineFilePath}"));
+            File.WriteAllText(path, s_extractor.GetResourceText(path));
+            File.WriteAllText(configuration, s_extractor.GetResourceText(configuration));
+            File.WriteAllText(baselineFilePath, s_extractor.GetResourceText(baselineFilePath));
 
             var options = new ValidateOptions
             {
@@ -141,9 +141,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             string configuration = "Configuration.json";
             string outputPath = "ValidateSarifOutputOneZeroZero.sarif";
             string baselineFilePath = "Baseline.sarif";
-            File.WriteAllText(path, Extractor.GetResourceText($"ValidateCommand.{path}"));
-            File.WriteAllText(configuration, Extractor.GetResourceText($"ValidateCommand.{configuration}"));
-            File.WriteAllText(baselineFilePath, Extractor.GetResourceText($"ValidateCommand.{baselineFilePath}"));
+            File.WriteAllText(path, s_extractor.GetResourceText(path));
+            File.WriteAllText(configuration, s_extractor.GetResourceText(configuration));
+            File.WriteAllText(baselineFilePath, s_extractor.GetResourceText(baselineFilePath));
 
             var options = new ValidateOptions
             {
@@ -172,9 +172,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             string configuration = "Configuration.json";
             string outputPath = "ValidateSarifOutput.sarif";
             string baselineFilePath = "Baseline.sarif";
-            File.WriteAllText(path, Extractor.GetResourceText($"ValidateCommand.{path}"));
-            File.WriteAllText(configuration, Extractor.GetResourceText($"ValidateCommand.{configuration}"));
-            File.WriteAllText(baselineFilePath, Extractor.GetResourceText($"ValidateCommand.{baselineFilePath}"));
+            File.WriteAllText(path, s_extractor.GetResourceText(path));
+            File.WriteAllText(configuration, s_extractor.GetResourceText(configuration));
+            File.WriteAllText(baselineFilePath, s_extractor.GetResourceText(baselineFilePath));
 
             var options = new ValidateOptions
             {

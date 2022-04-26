@@ -19,7 +19,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
         protected override string ConstructTestOutputFromInputResource(string inputResourceName, object parameter)
         {
-            string inputResourceText = GetResourceText(inputResourceName);
+            string inputResourceText = GetInputSarifTextFromResource(inputResourceName);
 
             PrereleaseCompatibilityTransformer.UpdateToCurrentVersion(
                 inputResourceText,

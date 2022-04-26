@@ -9,15 +9,22 @@ using FluentAssertions;
 using Newtonsoft.Json;
 
 using Xunit;
+using Xunit.Abstractions;
 
 namespace Microsoft.CodeAnalysis.Sarif
 {
-    public class RoundTrippingTests
+    public class RoundTrippingTests : FileDiffingUnitTests, IClassFixture<RoundTrippingTests.RoundTrippingTestsFixture>
     {
-        private static readonly ResourceExtractor s_extractor = new ResourceExtractor(typeof(RoundTrippingTests));
+        public class RoundTrippingTestsFixture : DeletesOutputsDirectoryOnClassInitializationFixture { }
 
-        private static string GetResourceContents(string resourceName)
-            => s_extractor.GetResourceText($"RoundTripping.{resourceName}");
+        public RoundTrippingTests(ITestOutputHelper outputHelper) : base(outputHelper) { }
+
+        protected override string ConstructTestOutputFromInputResource(string inputResourceName, object parameter)
+        {
+            string inputResourceText = GetInputSarifTextFromResource(inputResourceName);
+            SarifLog sarifLog = JsonConvert.DeserializeObject<SarifLog>(inputResourceText);
+            return JsonConvert.SerializeObject(sarifLog, Formatting.Indented);
+        }
 
         // Class used to test serialization and deserialization of an arbitrary class.
         public class CustomObject
@@ -35,11 +42,18 @@ namespace Microsoft.CodeAnalysis.Sarif
         }
 
         [Fact]
+        public void SarifLog_InvocationThatOverridesRuleDefaultConfiguration_CanBeRoundTripped()
+        {
+            RunTestHelper("InvocationOverridesRuleDefaultConfigurationOfError.sarif");
+        }
+
+        [Fact]
         public void SarifLog_PropertyBagProperties_CanBeRoundTripped()
         {
-            string originalContents = GetResourceContents("RoundTripping.sarif");
+            string testFileName = "PropertyBagComprehensiveValueTypes.sarif";
+            string sarifLogText = GetInputSarifTextFromResource(testFileName);
 
-            SarifLog log = JsonConvert.DeserializeObject<SarifLog>(originalContents);
+            SarifLog log = JsonConvert.DeserializeObject<SarifLog>(sarifLogText);
 
             PropertyBagHolder holder = log.Runs[0].Results[0];
 
@@ -108,7 +122,16 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             string roundTrippedContents = JsonConvert.SerializeObject(log, Formatting.Indented);
 
-            roundTrippedContents.Should().Be(originalContents);
+            roundTrippedContents.Should().Be(sarifLogText);
+
+            RunTestHelper(testFileName);
+        }
+
+        private void RunTestHelper(string testFileName)
+        {
+            string sarifLogText = GetInputSarifTextFromResource(testFileName);
+            SarifLog sarifLog = JsonConvert.DeserializeObject<SarifLog>(sarifLogText);
+            RunTest(testFileName);
         }
     }
 }

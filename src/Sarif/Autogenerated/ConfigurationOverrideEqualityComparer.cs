@@ -11,7 +11,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// <summary>
     /// Defines methods to support the comparison of objects of type ConfigurationOverride for equality.
     /// </summary>
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "1.1.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "1.1.3.0")]
     internal sealed class ConfigurationOverrideEqualityComparer : IEqualityComparer<ConfigurationOverride>
     {
         internal static readonly ConfigurationOverrideEqualityComparer Instance = new ConfigurationOverrideEqualityComparer();
@@ -53,7 +53,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                         return false;
                     }
 
-                    if (!object.Equals(value_0.Value, value_1))
+                    if (!SerializedPropertyInfo.ValueComparer.Equals(value_0.Value, value_1))
                     {
                         return false;
                     }

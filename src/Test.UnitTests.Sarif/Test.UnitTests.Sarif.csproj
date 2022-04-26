@@ -11,7 +11,17 @@
     <TargetFrameworks>netcoreapp3.1;</TargetFrameworks>
     <IsPackable>false</IsPackable>
     <IsTestProject>true</IsTestProject>
+    <RootNamespace>Test.UnitTests.Sarif</RootNamespace>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="TestData\JsonConverters\**" />
+    <Compile Remove="TestData\Map\**" />
+    <EmbeddedResource Remove="TestData\JsonConverters\**" />
+    <EmbeddedResource Remove="TestData\Map\**" />
+    <None Remove="TestData\JsonConverters\**" />
+    <None Remove="TestData\Map\**" />
+  </ItemGroup>
 
   <ItemGroup>
     <None Remove="TestData\Baseline\elfie-arriba.sarif" />
@@ -33,9 +43,7 @@
     <None Remove="TestData\InsertOptionalDataVisitor\ExpectedOutputs\CoreTests-Relative_Guids.sarif" />
     <None Remove="TestData\InsertOptionalDataVisitor\ExpectedOutputs\CoreTests-Relative_VersionControlDetails.sarif" />
     <None Remove="TestData\InsertOptionalDataVisitor\Inputs\CoreTests-Absolute.sarif" />
-    <None Remove="TestData\JsonConverters\UriConverterTests.json" />
-    <None Remove="TestData\Map\Sample.json" />
-    <None Remove="TestData\Map\TinyArray.json" />
+    <None Remove="TestData\Location\LocationId_BigInteger.sarif" />
     <None Remove="TestData\PrereleaseCompatibilityTransformer\ExpectedOutputs\ArtifactsWithRoles.sarif" />
     <None Remove="TestData\PrereleaseCompatibilityTransformer\ExpectedOutputs\ComprehensiveToolProperties.01-24.sarif" />
     <None Remove="TestData\PrereleaseCompatibilityTransformer\ExpectedOutputs\ComprehensiveToolProperties.sarif" />
@@ -68,6 +76,16 @@
     <None Remove="TestData\PrereleaseCompatibilityTransformer\Inputs\V1.sarif" />
     <None Remove="TestData\PrereleaseCompatibilityTransformer\Inputs\WithExternalPropertyFiles.01-24.sarif" />
     <None Remove="TestData\PrereleaseCompatibilityTransformer\Inputs\WithSuppressions.sarif" />
+    <None Remove="TestData\RoundTripping\ExpectedOutputs\InvocationOverridesRuleDefaultConfigurationOfError.sarif" />
+    <None Remove="TestData\RoundTripping\ExpectedOutputs\NoRuleDefaultConfiguration.sarif" />
+    <None Remove="TestData\RoundTripping\ExpectedOutputs\PropertyBagComprehensiveValueTypes.sarif" />
+    <None Remove="TestData\RoundTripping\ExpectedOutputs\RuleDefaultConfigurationIsError.sarif" />
+    <None Remove="TestData\RoundTripping\ExpectedOutputs\RuleDefaultConfigurationIsWarning.sarif" />
+    <None Remove="TestData\RoundTripping\Inputs\InvocationOverridesRuleDefaultConfigurationOfError.sarif" />
+    <None Remove="TestData\RoundTripping\Inputs\NoRuleDefaultConfiguration.sarif" />
+    <None Remove="TestData\RoundTripping\Inputs\PropertyBagComprehensiveValueTypes.sarif" />
+    <None Remove="TestData\RoundTripping\Inputs\RuleDefaultConfigurationIsError.sarif" />
+    <None Remove="TestData\RoundTripping\Inputs\RuleDefaultConfigurationIsWarning.sarif" />
     <None Remove="TestData\RoundTripping\RoundTripping.sarif" />
     <None Remove="TestData\SarifCurrentToVersionOneVisitor\ExpectedOutputs\OneRunWithNotificationTime.sarif" />
     <None Remove="TestData\SarifCurrentToVersionOneVisitor\Inputs\OneRunWithNotificationTime.sarif" />
@@ -82,6 +100,8 @@
     <None Remove="TestData\SarifVersionOneToCurrentVisitor\Inputs\NonDottedQuadFileVersion.sarif" />
     <None Remove="TestData\SarifVersionOneToCurrentVisitor\Inputs\OneRunWithAllReportingDescriptors.sarif" />
     <None Remove="TestData\SarifVersionOneToCurrentVisitor\Inputs\ResultLocationsAsEmptyArray.sarif" />
+    <None Remove="TestData\UriConverter\UriConverterTests.json" />
+    <None Remove="TestData\V2ResultMatcher\elfie-arriba.sarif" />
     <None Remove="xunit.runner.json" />
   </ItemGroup>
 
@@ -103,6 +123,12 @@
     <EmbeddedResource Include="TestData\GitHubIngestionVisitor\Inputs\WithArtifacts.sarif" />
     <EmbeddedResource Include="TestData\GitHubIngestionVisitor\Inputs\TooManyResults.sarif" />
     <EmbeddedResource Include="TestData\InsertOptionalDataVisitor\ExpectedOutputs\CoreTests-Relative_VersionControlDetails.sarif" />
+    <EmbeddedResource Include="TestData\InsertOptionalDataVisitor\InsertOptionalDataVisitor.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TestData\JsonMapBuilder\Sample.json" />
+    <EmbeddedResource Include="TestData\JsonMapBuilder\TinyArray.json" />
+    <EmbeddedResource Include="TestData\Location\LocationId_BigInteger.sarif" />
     <EmbeddedResource Include="TestData\Readers\elfie-arriba-utf8-bom.sarif" />
     <EmbeddedResource Include="TestData\Baseline\elfie-arriba.sarif" />
     <EmbeddedResource Include="TestData\Baseline\SuppressionTestCurrent.sarif" />
@@ -113,26 +139,24 @@
     <EmbeddedResource Include="TestData\InsertOptionalDataVisitor\ExpectedOutputs\TopLevelOriginalUriBaseIdUriMissing_ContextRegionSnippets.sarif" />
     <EmbeddedResource Include="TestData\InsertOptionalDataVisitor\Inputs\CoreTests-Absolute.sarif" />
     <EmbeddedResource Include="TestData\InsertOptionalDataVisitor\Inputs\TopLevelOriginalUriBaseIdUriMissing.sarif" />
-    <EmbeddedResource Include="TestData\JsonConverters\UriConverterTests.json" />
-    <EmbeddedResource Include="TestData\Map\TinyArray.json">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </EmbeddedResource>
-    <EmbeddedResource Include="TestData\Map\Sample.json">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </EmbeddedResource>
     <EmbeddedResource Include="TestData\PrereleaseCompatibilityTransformer\ExpectedOutputs\RegressionTests.sarif" />
     <EmbeddedResource Include="TestData\PrereleaseCompatibilityTransformer\Inputs\RegressionTests.sarif" />
-    <EmbeddedResource Include="TestData\RoundTripping\RoundTripping.sarif" />
+    <EmbeddedResource Include="TestData\RoundTripping\ExpectedOutputs\InvocationOverridesRuleDefaultConfigurationOfError.sarif" />
+    <EmbeddedResource Include="TestData\RoundTripping\ExpectedOutputs\PropertyBagComprehensiveValueTypes.sarif" />
+    <EmbeddedResource Include="TestData\RoundTripping\Inputs\InvocationOverridesRuleDefaultConfigurationOfError.sarif" />
+    <EmbeddedResource Include="TestData\RoundTripping\Inputs\PropertyBagComprehensiveValueTypes.sarif" />
     <EmbeddedResource Include="TestData\SarifLogger\SimpleExample.sarif" />
     <EmbeddedResource Include="TestData\SarifVersionOneToCurrentVisitor\ExpectedOutputs\NonDottedQuadFileVersion.sarif" />
     <EmbeddedResource Include="TestData\SarifVersionOneToCurrentVisitor\ExpectedOutputs\ResultLocationsAsEmptyArray.sarif" />
     <EmbeddedResource Include="TestData\SarifVersionOneToCurrentVisitor\Inputs\NonDottedQuadFileVersion.sarif" />
     <EmbeddedResource Include="TestData\SarifVersionOneToCurrentVisitor\Inputs\ResultLocationsAsEmptyArray.sarif" />
+    <EmbeddedResource Include="TestData\UriConverter\UriConverterTests.json" />
+    <EmbeddedResource Include="TestData\V2ResultMatcher\elfie-arriba.sarif" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="FluentAssertions" Version="5.10.2" />
-    <PackageReference Include="Microsoft.Json.Schema" Version="1.1.1" />
+    <PackageReference Include="Microsoft.Json.Schema" Version="1.1.3" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.0.0" />
     <PackageReference Include="Moq" Version="4.13.1" />
     <PackageReference Include="System.Collections.Immutable" Version="5.0.0" />
@@ -310,9 +334,6 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="TestData\InsertOptionalDataVisitor\InsertOptionalDataVisitor.sarif">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="TestData\InsertOptionalDataVisitor\InsertOptionalDataVisitor.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>

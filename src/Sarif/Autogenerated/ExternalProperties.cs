@@ -14,7 +14,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// The top-level element of an external property file.
     /// </summary>
     [DataContract]
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "1.1.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "1.1.3.0")]
     public partial class ExternalProperties : PropertyBagHolder, ISarifNode
     {
         public static IEqualityComparer<ExternalProperties> ValueComparer => ExternalPropertiesEqualityComparer.Instance;

@@ -24,7 +24,7 @@
               "id": "ERR997.ExceptionLoadingAnalysisTarget",
               "physicalLocation": {
                 "fileLocation": {
-                  "uri": "file:///Z:/src/Test.FunctionalTests.BinSkim.Driver/BaselineTestsData/Corrupted_Native_x86_VS2013_Default.exe"
+                  "uri": "file:///Z:/src/Test.FunctionalTests.BinSkim.Driver/BaselineTestData/Corrupted_Native_x86_VS2013_Default.exe"
                 }
               },
               "message": {

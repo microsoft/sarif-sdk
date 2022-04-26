@@ -100,7 +100,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             }
 
             ITestAnalyzeCommand command = multithreaded
-                ? (ITestAnalyzeCommand)new TestMultithreadedAnalyzeCommand()
+                ? new TestMultithreadedAnalyzeCommand()
                 : (ITestAnalyzeCommand)new TestAnalyzeCommand();
 
             command.DefaultPluginAssemblies = plugInAssemblies;

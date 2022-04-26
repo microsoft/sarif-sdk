@@ -465,15 +465,20 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
         protected override string ConstructTestOutputFromInputResource(string inputResourceName, object parameter)
         {
-            string v2LogText = GetResourceText(inputResourceName);
+            string v2LogText = GetInputSarifTextFromResource(inputResourceName);
 
-            string inputLogDirectory = this.OutputFolderPath;
+            string inputLogDirectory = this.TestOutputDirectory;
             string inputLogFileName = Path.GetFileName(inputResourceName);
-            string inputLogFilePath = Path.Combine(this.OutputFolderPath, inputLogFileName);
+            string inputLogFilePath = Path.Combine(this.TestOutputDirectory, inputLogFileName);
 
             string actualLogFilePath = Guid.NewGuid().ToString();
 
-            string ruleUnderTest = Path.GetFileNameWithoutExtension(inputLogFilePath).Split('.')[1];
+            // Splits a test file name such as 'GH1001.ProvideRequiredLocationProperties.sarif'
+            // and retrieves the rule id, which by convention is a dot-delimited prefix.
+            // For this example file, we retrieve 'GH1001'. Note that this file naming 
+            // convention allows us to do clever things later in filtering and validating
+            // output (because we understand this test file relates specifically to that rule).
+            string ruleUnderTest = Path.GetFileNameWithoutExtension(inputLogFilePath).Split('.')[0];
 
             // All SARIF rule prefixes require update to current release.
             // All rules with JSON prefix are low level syntax/deserialization checks.

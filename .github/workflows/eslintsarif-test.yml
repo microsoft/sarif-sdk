@@ -1,0 +1,47 @@
+name: ESlint sarif formatter test workflow
+on:
+  pull_request:
+    branches: 
+      - main
+    paths:
+      - 'src/ESLint.Formatter/**'
+  workflow_dispatch:
+
+jobs:
+  node_test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Install ESLint
+        run: |
+          npm install eslint
+          npm install @microsoft/sarif-multitool
+          
+      - name: Install ESLint SARIF formatter dependencies
+        run: npm install
+        working-directory: ./src/ESLint.Formatter
+
+      - name: Run local eslint + sarif formatter
+        run: npx eslint ./src/ESLint.Formatter
+             --config ./src/ESLint.Formatter/.eslintrc.js
+             --ext .js,.jsx,.ts,.tsx 
+             --format ./src/ESLint.Formatter/sarif.js
+             --output-file eslint-results.sarif
+        continue-on-error: true
+      
+      - name: Upload eslint results as artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: eslint-results
+          path: eslint-results.sarif
+      
+      - name: Validate sarif file
+        run: npx @microsoft/sarif-multitool validate eslint-results.sarif
+
+      - name: Upload SARIF file
+        uses: github/codeql-action/upload-sarif@v1
+        with:
+          sarif_file: eslint-results.sarif
+        wait-for-processing: true

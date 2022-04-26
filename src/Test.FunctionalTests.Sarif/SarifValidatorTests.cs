@@ -30,7 +30,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         public SarifValidatorTests()
         {
             _jsonSchemaFilePath = Path.Combine(Environment.CurrentDirectory, JsonSchemaFile);
-            string schemaText = File.ReadAllText(JsonSchemaFile);
+            string schemaText = File.ReadAllText(_jsonSchemaFilePath);
             _schema = SchemaReader.ReadSchema(schemaText, JsonSchemaFile);
         }
 

@@ -32,7 +32,7 @@
           "locations": [
             {
               "analysisTarget": {
-                "uri": "file:///Z:/src/BinSkim.Driver.FunctionalTests/BaselineTestsData/MixedMode_x86_VS2013_MissingPdb.dll"
+                "uri": "file:///Z:/src/BinSkim.Driver.FunctionalTests/BaselineTestData/MixedMode_x86_VS2013_MissingPdb.dll"
               }
             }
           ]
@@ -51,7 +51,7 @@
           "locations": [
             {
               "analysisTarget": {
-                "uri": "file:///Z:/src/BinSkim.Driver.FunctionalTests/BaselineTestsData/MixedMode_x86_VS2013_MissingPdb.dll"
+                "uri": "file:///Z:/src/BinSkim.Driver.FunctionalTests/BaselineTestData/MixedMode_x86_VS2013_MissingPdb.dll"
               }
             }
           ]
@@ -70,7 +70,7 @@
           "locations": [
             {
               "analysisTarget": {
-                "uri": "file:///Z:/src/BinSkim.Driver.FunctionalTests/BaselineTestsData/MixedMode_x86_VS2013_MissingPdb.dll"
+                "uri": "file:///Z:/src/BinSkim.Driver.FunctionalTests/BaselineTestData/MixedMode_x86_VS2013_MissingPdb.dll"
               }
             }
           ]
@@ -87,7 +87,7 @@
           "locations": [
             {
               "analysisTarget": {
-                "uri": "file:///Z:/src/BinSkim.Driver.FunctionalTests/BaselineTestsData/MixedMode_x86_VS2013_MissingPdb.dll"
+                "uri": "file:///Z:/src/BinSkim.Driver.FunctionalTests/BaselineTestData/MixedMode_x86_VS2013_MissingPdb.dll"
               }
             }
           ]
@@ -104,7 +104,7 @@
           "locations": [
             {
               "analysisTarget": {
-                "uri": "file:///Z:/src/BinSkim.Driver.FunctionalTests/BaselineTestsData/MixedMode_x86_VS2013_MissingPdb.dll"
+                "uri": "file:///Z:/src/BinSkim.Driver.FunctionalTests/BaselineTestData/MixedMode_x86_VS2013_MissingPdb.dll"
               }
             }
           ]
@@ -121,7 +121,7 @@
           "locations": [
             {
               "analysisTarget": {
-                "uri": "file:///Z:/src/BinSkim.Driver.FunctionalTests/BaselineTestsData/MixedMode_x86_VS2013_MissingPdb.dll"
+                "uri": "file:///Z:/src/BinSkim.Driver.FunctionalTests/BaselineTestData/MixedMode_x86_VS2013_MissingPdb.dll"
               }
             }
           ]
@@ -138,7 +138,7 @@
           "locations": [
             {
               "analysisTarget": {
-                "uri": "file:///Z:/src/BinSkim.Driver.FunctionalTests/BaselineTestsData/MixedMode_x86_VS2013_MissingPdb.dll"
+                "uri": "file:///Z:/src/BinSkim.Driver.FunctionalTests/BaselineTestData/MixedMode_x86_VS2013_MissingPdb.dll"
               }
             }
           ]
@@ -155,7 +155,7 @@
           "locations": [
             {
               "analysisTarget": {
-                "uri": "file:///Z:/src/BinSkim.Driver.FunctionalTests/BaselineTestsData/MixedMode_x86_VS2013_MissingPdb.dll"
+                "uri": "file:///Z:/src/BinSkim.Driver.FunctionalTests/BaselineTestData/MixedMode_x86_VS2013_MissingPdb.dll"
               }
             }
           ]
@@ -174,7 +174,7 @@
           "locations": [
             {
               "analysisTarget": {
-                "uri": "file:///Z:/src/BinSkim.Driver.FunctionalTests/BaselineTestsData/MixedMode_x86_VS2013_MissingPdb.dll"
+                "uri": "file:///Z:/src/BinSkim.Driver.FunctionalTests/BaselineTestData/MixedMode_x86_VS2013_MissingPdb.dll"
               }
             }
           ]
@@ -191,7 +191,7 @@
           "locations": [
             {
               "analysisTarget": {
-                "uri": "file:///Z:/src/BinSkim.Driver.FunctionalTests/BaselineTestsData/MixedMode_x86_VS2013_MissingPdb.dll"
+                "uri": "file:///Z:/src/BinSkim.Driver.FunctionalTests/BaselineTestData/MixedMode_x86_VS2013_MissingPdb.dll"
               }
             }
           ]
@@ -208,7 +208,7 @@
           "locations": [
             {
               "analysisTarget": {
-                "uri": "file:///Z:/src/BinSkim.Driver.FunctionalTests/BaselineTestsData/MixedMode_x86_VS2013_MissingPdb.dll"
+                "uri": "file:///Z:/src/BinSkim.Driver.FunctionalTests/BaselineTestData/MixedMode_x86_VS2013_MissingPdb.dll"
               }
             }
           ]
@@ -225,7 +225,7 @@
           "locations": [
             {
               "analysisTarget": {
-                "uri": "file:///Z:/src/BinSkim.Driver.FunctionalTests/BaselineTestsData/MixedMode_x86_VS2013_MissingPdb.dll"
+                "uri": "file:///Z:/src/BinSkim.Driver.FunctionalTests/BaselineTestData/MixedMode_x86_VS2013_MissingPdb.dll"
               }
             }
           ]
@@ -236,54 +236,54 @@
           "id": "ERR997.ExceptionLoadingPdb",
           "ruleId": "BA2006",
           "physicalLocation": {
-            "uri": "file:///Z:/src/BinSkim.Driver.FunctionalTests/BaselineTestsData/MixedMode_x86_VS2013_MissingPdb.dll"
+            "uri": "file:///Z:/src/BinSkim.Driver.FunctionalTests/BaselineTestData/MixedMode_x86_VS2013_MissingPdb.dll"
           },
-          "message": "'Z:\\src\\BinSkim.Driver.FunctionalTests\\BaselineTestsData\\MixedMode_x86_VS2013_MissingPdb.dll' was not evaluated for check 'BuildWithSecureTools' because its PDB could not be loaded. ('E_PDB_NOT_FOUND (File not found)')",
+          "message": "'Z:\\src\\BinSkim.Driver.FunctionalTests\\BaselineTestData\\MixedMode_x86_VS2013_MissingPdb.dll' was not evaluated for check 'BuildWithSecureTools' because its PDB could not be loaded. ('E_PDB_NOT_FOUND (File not found)')",
           "level": "error"
         },
         {
           "id": "ERR997.ExceptionLoadingPdb",
           "ruleId": "BA2014",
           "physicalLocation": {
-            "uri": "file:///Z:/src/BinSkim.Driver.FunctionalTests/BaselineTestsData/MixedMode_x86_VS2013_MissingPdb.dll"
+            "uri": "file:///Z:/src/BinSkim.Driver.FunctionalTests/BaselineTestData/MixedMode_x86_VS2013_MissingPdb.dll"
           },
-          "message": "'Z:\\src\\BinSkim.Driver.FunctionalTests\\BaselineTestsData\\MixedMode_x86_VS2013_MissingPdb.dll' was not evaluated for check 'DoNotDisableStackProtectionForFunctions' because its PDB could not be loaded. ('E_PDB_NOT_FOUND (File not found)')",
+          "message": "'Z:\\src\\BinSkim.Driver.FunctionalTests\\BaselineTestData\\MixedMode_x86_VS2013_MissingPdb.dll' was not evaluated for check 'DoNotDisableStackProtectionForFunctions' because its PDB could not be loaded. ('E_PDB_NOT_FOUND (File not found)')",
           "level": "error"
         },
         {
           "id": "ERR997.ExceptionLoadingPdb",
           "ruleId": "BA2002",
           "physicalLocation": {
-            "uri": "file:///Z:/src/BinSkim.Driver.FunctionalTests/BaselineTestsData/MixedMode_x86_VS2013_MissingPdb.dll"
+            "uri": "file:///Z:/src/BinSkim.Driver.FunctionalTests/BaselineTestData/MixedMode_x86_VS2013_MissingPdb.dll"
           },
-          "message": "'Z:\\src\\BinSkim.Driver.FunctionalTests\\BaselineTestsData\\MixedMode_x86_VS2013_MissingPdb.dll' was not evaluated for check 'DoNotIncorporateVulnerableDependencies' because its PDB could not be loaded. ('E_PDB_NOT_FOUND (File not found)')",
+          "message": "'Z:\\src\\BinSkim.Driver.FunctionalTests\\BaselineTestData\\MixedMode_x86_VS2013_MissingPdb.dll' was not evaluated for check 'DoNotIncorporateVulnerableDependencies' because its PDB could not be loaded. ('E_PDB_NOT_FOUND (File not found)')",
           "level": "error"
         },
         {
           "id": "ERR997.ExceptionLoadingPdb",
           "ruleId": "BA2007",
           "physicalLocation": {
-            "uri": "file:///Z:/src/BinSkim.Driver.FunctionalTests/BaselineTestsData/MixedMode_x86_VS2013_MissingPdb.dll"
+            "uri": "file:///Z:/src/BinSkim.Driver.FunctionalTests/BaselineTestData/MixedMode_x86_VS2013_MissingPdb.dll"
           },
-          "message": "'Z:\\src\\BinSkim.Driver.FunctionalTests\\BaselineTestsData\\MixedMode_x86_VS2013_MissingPdb.dll' was not evaluated for check 'EnableCriticalCompilerWarnings' because its PDB could not be loaded. ('E_PDB_NOT_FOUND (File not found)')",
+          "message": "'Z:\\src\\BinSkim.Driver.FunctionalTests\\BaselineTestData\\MixedMode_x86_VS2013_MissingPdb.dll' was not evaluated for check 'EnableCriticalCompilerWarnings' because its PDB could not be loaded. ('E_PDB_NOT_FOUND (File not found)')",
           "level": "error"
         },
         {
           "id": "ERR997.ExceptionLoadingPdb",
           "ruleId": "BA2011",
           "physicalLocation": {
-            "uri": "file:///Z:/src/BinSkim.Driver.FunctionalTests/BaselineTestsData/MixedMode_x86_VS2013_MissingPdb.dll"
+            "uri": "file:///Z:/src/BinSkim.Driver.FunctionalTests/BaselineTestData/MixedMode_x86_VS2013_MissingPdb.dll"
           },
-          "message": "'Z:\\src\\BinSkim.Driver.FunctionalTests\\BaselineTestsData\\MixedMode_x86_VS2013_MissingPdb.dll' was not evaluated for check 'EnableStackProtection' because its PDB could not be loaded. ('E_PDB_NOT_FOUND (File not found)')",
+          "message": "'Z:\\src\\BinSkim.Driver.FunctionalTests\\BaselineTestData\\MixedMode_x86_VS2013_MissingPdb.dll' was not evaluated for check 'EnableStackProtection' because its PDB could not be loaded. ('E_PDB_NOT_FOUND (File not found)')",
           "level": "error"
         },
         {
           "id": "ERR997.ExceptionLoadingPdb",
           "ruleId": "BA2013",
           "physicalLocation": {
-            "uri": "file:///Z:/src/BinSkim.Driver.FunctionalTests/BaselineTestsData/MixedMode_x86_VS2013_MissingPdb.dll"
+            "uri": "file:///Z:/src/BinSkim.Driver.FunctionalTests/BaselineTestData/MixedMode_x86_VS2013_MissingPdb.dll"
           },
-          "message": "'Z:\\src\\BinSkim.Driver.FunctionalTests\\BaselineTestsData\\MixedMode_x86_VS2013_MissingPdb.dll' was not evaluated for check 'InitializeStackProtection' because its PDB could not be loaded. ('E_PDB_NOT_FOUND (File not found)')",
+          "message": "'Z:\\src\\BinSkim.Driver.FunctionalTests\\BaselineTestData\\MixedMode_x86_VS2013_MissingPdb.dll' was not evaluated for check 'InitializeStackProtection' because its PDB could not be loaded. ('E_PDB_NOT_FOUND (File not found)')",
           "level": "error"
         }
       ],
@@ -291,7 +291,7 @@
         {
           "id": "MSG001.AnalyzingTarget",
           "physicalLocation": {
-            "uri": "file:///Z:/src/BinSkim.Driver.FunctionalTests/BaselineTestsData/MixedMode_x86_VS2013_MissingPdb.dll"
+            "uri": "file:///Z:/src/BinSkim.Driver.FunctionalTests/BaselineTestData/MixedMode_x86_VS2013_MissingPdb.dll"
           },
           "message": "Analyzing 'MixedMode_x86_VS2013_MissingPdb.dll'...",
           "level": "note",
@@ -469,7 +469,7 @@
         }
       },
       "files": {
-        "file:///Z:/src/BinSkim.Driver.FunctionalTests/BaselineTestsData/MixedMode_x86_VS2013_MissingPdb.dll": {
+        "file:///Z:/src/BinSkim.Driver.FunctionalTests/BaselineTestData/MixedMode_x86_VS2013_MissingPdb.dll": {
           "mimeType": "application/octet-stream",
           "hashes": [
             {
@@ -488,7 +488,7 @@
         }
       },
       "invocation": {
-        "commandLine": "\"Z:\\bld\\bin\\BinSkim.Driver\\x86_Release\\BinSkim.exe\" analyze Z:\\src\\BinSkim.Driver.FunctionalTests\\BaselineTestsData\\MixedMode_x86_VS2013_MissingPdb.dll --output Z:\\src\\BinSkim.Driver.FunctionalTests\\BaselineTestsData\\Expected\\MixedMode_x86_VS2013_MissingPdb.dll.sarif.temp --verbose --hashes --config default",
+        "commandLine": "\"Z:\\bld\\bin\\BinSkim.Driver\\x86_Release\\BinSkim.exe\" analyze Z:\\src\\BinSkim.Driver.FunctionalTests\\BaselineTestData\\MixedMode_x86_VS2013_MissingPdb.dll --output Z:\\src\\BinSkim.Driver.FunctionalTests\\BaselineTestData\\Expected\\MixedMode_x86_VS2013_MissingPdb.dll.sarif.temp --verbose --hashes --config default",
         "startTime": "2016-05-20T17:13:22.143Z",
         "endTime": "2016-05-20T17:13:22.730Z",
         "processId": 31820,
