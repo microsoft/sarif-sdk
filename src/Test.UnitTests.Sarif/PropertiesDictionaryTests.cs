@@ -172,6 +172,24 @@ namespace Microsoft.CodeAnalysis.Sarif
             PropertiesDictionary_TestCacheDescription_Helper(GeneratePropertiesDictionaryProperty, PROPERTIES_NONDEFAULT);
         }
 
+        [Fact]
+        public void PropertiesDictionary_ShouldNotThrownException_WhenComparerIsNull()
+        {
+            var initializer = new PropertiesDictionary();
+
+            Exception exception = Record.Exception(() =>
+            {
+                new PropertiesDictionary(initializer);
+            });
+            exception.Should().BeNull();
+
+            exception = Record.Exception(() =>
+            {
+                new PropertiesDictionary(initializer, comparer: null);
+            });
+            exception.Should().BeNull();
+        }
+
         private void PropertiesDictionary_TestCacheDescription_Helper(Func<int, string, IOption> GeneratePropertyMethod, object value)
         {
             string textLoaded = string.Empty;
