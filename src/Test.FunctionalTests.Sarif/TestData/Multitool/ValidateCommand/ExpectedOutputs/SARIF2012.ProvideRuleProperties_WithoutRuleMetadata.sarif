@@ -46,7 +46,7 @@
       "artifacts": [
         {
           "location": {
-            "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF2012.ProvideRuleProperties_WithoutRuleMetadata.sarif",
+            "uri": "FunctionalTestOutput.ValidateCommand/SARIF2012.ProvideRuleProperties_WithoutRuleMetadata.sarif",
             "uriBaseId": "TEST_DIR"
           }
         }

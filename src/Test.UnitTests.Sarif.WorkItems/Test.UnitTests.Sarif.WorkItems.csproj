@@ -12,6 +12,7 @@
     <TargetFrameworks Condition="$(OS) == 'Windows_NT'">$(TargetFrameworks);net48</TargetFrameworks>
     <IsPackable>false</IsPackable>
     <IsTestProject>true</IsTestProject>
+    <RootNamespace>Test.UnitTests.Sarif.WorkItems</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>

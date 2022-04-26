@@ -12,7 +12,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 {
     public class SarifConsolidatorTests
     {
-        private static readonly ResourceExtractor Extractor = new ResourceExtractor(typeof(SarifConsolidatorTests));
+        private static readonly TestAssetResourceExtractor s_extractor = new TestAssetResourceExtractor(typeof(SarifConsolidatorTests));
 
         // Sample objects to trim.
         // These are properties so they are re-created on each access, to avoid tests interfering with each other.

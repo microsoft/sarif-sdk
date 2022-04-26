@@ -7,6 +7,7 @@ using System.Text;
 
 using FluentAssertions;
 
+using Microsoft.CodeAnalysis.Test.Utilities.Sarif;
 using Microsoft.Extensions.Options;
 
 using Moq;
@@ -20,17 +21,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 {
     public class RebaseUriCommandTests : FileDiffingUnitTests
     {
-        private static readonly ResourceExtractor Extractor = new ResourceExtractor(typeof(RebaseUriCommandTests));
-
         private RebaseUriOptions options;
 
         public RebaseUriCommandTests(ITestOutputHelper outputHelper) : base(outputHelper) { }
 
         [Fact]
+        [Trait(TestTraits.WindowsOnly, "true")]
         public void RebaseUriCommand_InjectsRegions()
         {
-            string productDirectory = FileDiffingFunctionalTests.GetProductDirectory();
-            string analysisFile = Path.Combine(productDirectory, @"ReleaseHistory.md");
+            string productDirectory = ProductRootDirectory;
+            string analysisFile = Path.Combine(productDirectory, "src", "ReleaseHistory.md");
             File.Exists(analysisFile).Should().BeTrue();
 
             var sarifLog = new SarifLog
@@ -123,14 +123,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             return RunRebaseUriCommand(testFilePath, this.options);
         }
 
-        protected override string GetResourceText(string resourceName)
-        {
-            return Extractor.GetResourceText($"RebaseUriCommand.{resourceName}");
-        }
-
         private string RunRebaseUriCommand(string testFilePath, RebaseUriOptions options)
         {
-            string inputSarifLog = Extractor.GetResourceText($"RebaseUriCommand.{testFilePath}");
+            string inputSarifLog = GetInputSarifTextFromResource(testFilePath);
 
             string logFilePath = Path.Combine(Directory.GetCurrentDirectory(), "mylog.sarif");
             StringBuilder transformedContents = new StringBuilder();

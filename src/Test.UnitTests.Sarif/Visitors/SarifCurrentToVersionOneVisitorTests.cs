@@ -19,7 +19,7 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests.Visitors
 
         protected override string ConstructTestOutputFromInputResource(string inputResource, object parameter)
         {
-            string v2LogText = GetResourceText(inputResource);
+            string v2LogText = GetInputSarifTextFromResource(inputResource);
             PrereleaseCompatibilityTransformer.UpdateToCurrentVersion(v2LogText, formatting: Formatting.Indented, out v2LogText);
             SarifLog v2Log = JsonConvert.DeserializeObject<SarifLog>(v2LogText);
 

@@ -11,6 +11,7 @@
     <TargetFrameworks>netcoreapp3.1</TargetFrameworks>
     <IsPackable>false</IsPackable>
     <IsTestProject>true</IsTestProject>
+    <RootNamespace>Test.UnitTests.Sarif.Multitool</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>

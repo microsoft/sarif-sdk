@@ -14,5 +14,6 @@
     <OutputType>Exe</OutputType>
     <TargetFrameworks>netcoreapp3.1</TargetFrameworks>
     <IsPackable>false</IsPackable>
+    <RootNamespace>Test.EndToEnd.Baselining</RootNamespace>
   </PropertyGroup>
 </Project>

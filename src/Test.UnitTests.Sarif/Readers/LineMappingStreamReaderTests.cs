@@ -14,6 +14,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
 {
     public class LineMappingStreamReaderTests
     {
+        private readonly TestAssetResourceExtractor s_extractor =
+            new TestAssetResourceExtractor(typeof(LineMappingStreamReaderTests).Assembly, "Readers");
+
         [Fact]
         public void LineMappingStreamReader_Basics()
         {
@@ -43,7 +46,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
                 {
                     // Read a segment of the file
                     int lengthRead = reader.Read(buffer, 0, buffer.Length);
-                    if (lengthRead == 0) break;
+                    if (lengthRead == 0) { break; }
 
                     // Count the file bytes now in range
                     bytesRead += reader.CurrentEncoding.GetByteCount(buffer, 0, lengthRead);
@@ -52,7 +55,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
                     for (; nextLine < newlines.Count; nextLine++)
                     {
                         long nextNewlinePosition = newlines[nextLine];
-                        if (nextNewlinePosition > bytesRead) break;
+                        if (nextNewlinePosition > bytesRead) { break; }
 
                         long reportedAtPosition = reader.LineAndCharToOffset(nextLine, 1) - 1;
 
@@ -115,8 +118,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
         public void LineMappingStreamReader_BomHandling()
         {
             string sampleFilePath = "elfie-arriba-utf8-bom.sarif";
-            ResourceExtractor extractor = new ResourceExtractor(typeof(LineMappingStreamReaderTests));
-            File.WriteAllBytes(sampleFilePath, extractor.GetResourceBytes("elfie-arriba-utf8-bom.sarif"));
+            File.WriteAllBytes(sampleFilePath, s_extractor.GetResourceBytes("elfie-arriba-utf8-bom.sarif"));
 
             // Read the Json with a LineMappingStreamReader
             using (LineMappingStreamReader streamReader = new LineMappingStreamReader(File.OpenRead(sampleFilePath)))

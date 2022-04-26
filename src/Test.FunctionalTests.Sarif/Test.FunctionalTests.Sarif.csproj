@@ -10,6 +10,7 @@
     <TargetFrameworks>netcoreapp3.1</TargetFrameworks>
     <IsPackable>false</IsPackable>
     <IsTestProject>true</IsTestProject>
+    <RootNamespace>Test.FunctionalTests.Sarif</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>

@@ -15,14 +15,17 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
         }
 
-        // We throw this exception here in order to make it apparent to derived classes that they must override this accessor
-        protected override string IntermediateTestFolder { get { throw new InvalidOperationException(); } }
+        protected abstract string IntermediateTestFolder { get; }
 
-        protected override string OutputFolderPath => Path.Combine(Path.GetDirectoryName(ThisAssembly.Location), "FunctionalTestOutput." + TypeUnderTest);
+        protected override string TestOutputDirectory =>
+            Path.Combine(Path.GetDirectoryName(ThisAssembly.Location), $"FunctionalTestOutput.{TypeUnderTest}");
+
+        protected override string TestBinaryTestDataDirectory =>
+            Path.Combine(ProductRootDirectory, "src", TestBinaryName, "TestData", IntermediateTestFolder);
 
         protected override string TestLogResourceNameRoot =>
-        "Microsoft.CodeAnalysis.Test.FunctionalTests.Sarif.TestData." +
-        IntermediateTestFolder + "." +
-        TypeUnderTest;
+            "Test.FunctionalTests.Sarif.TestData." +
+            IntermediateTestFolder + "." +
+            TypeUnderTest;
     }
 }

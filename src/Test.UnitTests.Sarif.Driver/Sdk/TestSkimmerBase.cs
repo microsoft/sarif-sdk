@@ -8,7 +8,7 @@ using System.Resources;
 using Microsoft.CodeAnalysis.Sarif;
 using Microsoft.CodeAnalysis.Sarif.Driver;
 
-namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Driver.Sdk
+namespace Microsoft.CodeAnalysis.Sarif.Driver
 {
     // This class overrides all the abstract members of SkimmerBase. As a result,
     // when we want to write a set of tests that implement only a limited number
