@@ -1,5 +1,9 @@
 # SARIF Package Release History (SDK, Driver, Converters, and Multitool)
 
+## Unreleased
+
+* BUGFIX: Fix `ArgumentNullException` when `PropertiesDictionary` is used and comparer is null. [#2482](https://github.com/microsoft/sarif-sdk/pull/2482)
+
 ## **v2.4.14** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.4.14) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.4.14) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.4.14) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.4.14) | [Multitool Library](https://www.nuget.org/packages/Sarif.Multitool.Library/2.4.14)
 
 * BUGFIX: Eliminate dispose of stream and `StreamWriter` arguments passed to `SarifLog.Save` helpers. This would result in `ObjectDisposedException` being raised on attempt to access streams after save.
