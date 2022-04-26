@@ -123,7 +123,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 .ToList();
         }
 
-        public static SarifLog GetSarifLogFromResource(ResourceExtractor extractor, string resourceName)
+        public static SarifLog GetSarifLogFromResource(TestAssetResourceExtractor extractor, string resourceName)
         {
             string logFileContents = extractor.GetResourceText(resourceName);
             return JsonConvert.DeserializeObject<SarifLog>(logFileContents);

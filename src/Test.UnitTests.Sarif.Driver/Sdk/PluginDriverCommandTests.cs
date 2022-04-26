@@ -14,7 +14,7 @@ using Moq;
 
 using Xunit;
 
-namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Driver.Sdk
+namespace Microsoft.CodeAnalysis.Sarif.Driver
 {
     public class PluginDriverCommandTests
     {

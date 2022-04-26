@@ -33,7 +33,7 @@
       "artifacts": [
         {
           "location": {
-            "uri": "FunctionalTestOutput.ValidateCommand/Inputs.JSON1002.DeserializationError.sarif",
+            "uri": "FunctionalTestOutput.ValidateCommand/JSON1002.DeserializationError.sarif",
             "uriBaseId": "TEST_DIR"
           }
         }

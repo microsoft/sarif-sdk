@@ -1,6 +1,11 @@
 # SARIF Package Release History (SDK, Driver, Converters, and Multitool)
 
-## UNRELEASED
+## **v2.4.15** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.4.15) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.4.15) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.4.15) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.4.15) | [Multitool Library](https://www.nuget.org/packages/Sarif.Multitool.Library/2.4.15)
+
+* BUGFIX: Fix `ArgumentNullException` when `PropertiesDictionary` is instantiated with a null comparer. [#2482](https://github.com/microsoft/sarif-sdk/pull/2482)
+* BUGFIX: Fix `UnhandledEngineException` when target path does not exist for multithreaded application by validating directories as is done for singlethreaded analysis. [#2461](https://github.com/microsoft/sarif-sdk/pull/2461)
+
+## **v2.4.14** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.4.14) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.4.14) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.4.14) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.4.14) | [Multitool Library](https://www.nuget.org/packages/Sarif.Multitool.Library/2.4.14)
 
 * BUGFIX: Eliminate dispose of stream and `StreamWriter` arguments passed to `SarifLog.Save` helpers. This would result in `ObjectDisposedException` being raised on attempt to access streams after save.
 * BREAKING: `Id` property of `Location` changed from `int`(32bit) to `BigInteger`(unlimited) to fix `Newtonsoft.Json.JsonReaderException: JSON integer XXXXX is too large or small for an Int32.` [#2463](https://github.com/microsoft/sarif-sdk/pull/2463)

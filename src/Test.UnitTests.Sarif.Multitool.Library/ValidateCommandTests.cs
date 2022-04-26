@@ -16,7 +16,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 {
     public class ValidateCommandTests
     {
-        private static readonly ResourceExtractor Extractor = new ResourceExtractor(typeof(ValidateCommandTests));
+        private static readonly TestAssetResourceExtractor s_extractor = new TestAssetResourceExtractor(typeof(ValidateCommandTests));
 
         // A simple schema against which a SARIF log file successfully validates.
         // This way, we don't have to read the SARIF schema from disk to run these tests.
@@ -97,7 +97,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         {
             string path = "ValidateSarif.sarif";
             string outputPath = "ValidateSarifOutput.sarif";
-            File.WriteAllText(path, Extractor.GetResourceText($"ValidateCommand.{path}"));
+            File.WriteAllText(path, s_extractor.GetResourceText(path));
 
             SarifLog sarifLog = ExecuteTest(path, outputPath);
             sarifLog.Runs.Count.Should().Be(1);
@@ -110,8 +110,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             string path = "ValidateSarif.sarif";
             string configuration = "Configuration.xml";
             string outputPath = "ValidateSarifOutput.sarif";
-            File.WriteAllText(path, Extractor.GetResourceText($"ValidateCommand.{path}"));
-            File.WriteAllText(configuration, Extractor.GetResourceText($"ValidateCommand.{configuration}"));
+            File.WriteAllText(path, s_extractor.GetResourceText(path));
+            File.WriteAllText(configuration, s_extractor.GetResourceText(configuration));
 
             SarifLog sarifLog = ExecuteTest(path, outputPath, configuration);
             sarifLog.Runs.Count.Should().Be(1);
@@ -124,8 +124,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             string path = "ValidateSarif.sarif";
             string configuration = "Configuration.json";
             string outputPath = "ValidateSarifOutput.sarif";
-            File.WriteAllText(path, Extractor.GetResourceText($"ValidateCommand.{path}"));
-            File.WriteAllText(configuration, Extractor.GetResourceText($"ValidateCommand.{configuration}"));
+            File.WriteAllText(path, s_extractor.GetResourceText(path));
+            File.WriteAllText(configuration, s_extractor.GetResourceText(configuration));
 
             SarifLog sarifLog = ExecuteTest(path, outputPath, configuration);
             sarifLog.Runs.Count.Should().Be(1);

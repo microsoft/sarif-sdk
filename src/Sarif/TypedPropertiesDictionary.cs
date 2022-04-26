@@ -19,7 +19,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
         }
 
-        public TypedPropertiesDictionary(PropertiesDictionary initializer, IEqualityComparer<string> comparer) : base(comparer)
+        public TypedPropertiesDictionary(PropertiesDictionary initializer, IEqualityComparer<string> comparer) : base(comparer ?? StringComparer.Ordinal)
         {
             if (initializer != null)
             {

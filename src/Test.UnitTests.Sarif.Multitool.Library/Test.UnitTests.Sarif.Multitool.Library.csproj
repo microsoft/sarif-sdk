@@ -11,9 +11,25 @@
     <TargetFrameworks>netcoreapp3.1</TargetFrameworks>
     <IsPackable>false</IsPackable>
     <IsTestProject>true</IsTestProject>
-    <RootNamespace>Microsoft.CodeAnalysis.Sarif.Multitool</RootNamespace>
+    <RootNamespace>Test.UnitTests.Sarif.Multitool.Library</RootNamespace>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="TestData\ExportRuleDocumentationCommand\**" />
+    <EmbeddedResource Remove="TestData\ExportRuleDocumentationCommand\**" />
+    <None Remove="TestData\ExportRuleDocumentationCommand\**" />
+  </ItemGroup>
   
+  <ItemGroup>
+    <None Remove="TestData\ExportValidationRulesMetadataCommand\ExpectedOutputs\MarkdownFullDescription.md" />
+    <None Remove="TestData\ExportValidationRulesMetadataCommand\ExpectedOutputs\MarkdownShortDescription.md" />
+    <None Remove="TestData\ExportValidationRulesMetadataCommand\ExpectedOutputs\NoDescription.md" />
+    <None Remove="TestData\ExportValidationRulesMetadataCommand\ExpectedOutputs\NonStandardMessageStringKey.md" />
+    <None Remove="TestData\ExportValidationRulesMetadataCommand\ExpectedOutputs\StandardMessageStringKey.md" />
+    <None Remove="TestData\ExportValidationRulesMetadataCommand\ExpectedOutputs\TextShortDescription.md" />
+    <None Remove="TestData\MergeCommand\ExpectedOutputs\DuplicatedResults.sarif" />
+  </ItemGroup>
+
   <ItemGroup>
     <Content Include="xunit.runner.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -24,12 +40,12 @@
     <EmbeddedResource Include="TestData\ApplyPolicyCommand\WithPolicy2.sarif" />
     <EmbeddedResource Include="TestData\ApplyPolicyCommand\WithPolicy.sarif" />
     <EmbeddedResource Include="TestData\ConvertCommand\SemmleQlSample.csv" />
-    <EmbeddedResource Include="TestData\ExportRuleDocumentationCommand\ExpectedOutputs\NonStandardMessageStringKey.md" />
-    <EmbeddedResource Include="TestData\ExportRuleDocumentationCommand\ExpectedOutputs\StandardMessageStringKey.md" />
-    <EmbeddedResource Include="TestData\ExportRuleDocumentationCommand\ExpectedOutputs\TextShortDescription.md" />
-    <EmbeddedResource Include="TestData\ExportRuleDocumentationCommand\ExpectedOutputs\MarkdownShortDescription.md" />
-    <EmbeddedResource Include="TestData\ExportRuleDocumentationCommand\ExpectedOutputs\MarkdownFullDescription.md" />
-    <EmbeddedResource Include="TestData\ExportRuleDocumentationCommand\ExpectedOutputs\NoDescription.md" />
+    <EmbeddedResource Include="TestData\ExportValidationRulesMetadataCommand\ExpectedOutputs\MarkdownFullDescription.md" />
+    <EmbeddedResource Include="TestData\ExportValidationRulesMetadataCommand\ExpectedOutputs\MarkdownShortDescription.md" />
+    <EmbeddedResource Include="TestData\ExportValidationRulesMetadataCommand\ExpectedOutputs\NoDescription.md" />
+    <EmbeddedResource Include="TestData\ExportValidationRulesMetadataCommand\ExpectedOutputs\NonStandardMessageStringKey.md" />
+    <EmbeddedResource Include="TestData\ExportValidationRulesMetadataCommand\ExpectedOutputs\StandardMessageStringKey.md" />
+    <EmbeddedResource Include="TestData\ExportValidationRulesMetadataCommand\ExpectedOutputs\TextShortDescription.md" />
     <EmbeddedResource Include="TestData\MergeCommand\ExpectedOutputs\FileNameOnlyWithoutPath.sarif" />
     <EmbeddedResource Include="TestData\MergeCommand\ExpectedOutputs\DuplicatedResults.sarif" />
     <EmbeddedResource Include="TestData\MergeCommand\ExpectedOutputs\NoInputFiles.sarif" />
@@ -37,6 +53,7 @@
     <EmbeddedResource Include="TestData\MergeCommand\Inputs\DuplicatedResults.sarif" />
     <EmbeddedResource Include="TestData\QueryCommand\elfie-arriba.CSCAN0020.sarif" />
     <EmbeddedResource Include="TestData\PageCommand\elfie-arriba.sarif" />
+    <EmbeddedResource Include="TestData\QueryCommand\elfie-arriba.sarif" />
     <EmbeddedResource Include="TestData\RebaseUriCommand\ExpectedOutputs\RunWithArtifacts.sarif" />
     <EmbeddedResource Include="TestData\RebaseUriCommand\Inputs\RunWithArtifacts.sarif" />
     <EmbeddedResource Include="TestData\ValidateCommand\Configuration.json" />

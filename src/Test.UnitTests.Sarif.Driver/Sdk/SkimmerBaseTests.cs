@@ -9,7 +9,7 @@ using Microsoft.CodeAnalysis.Sarif;
 
 using Xunit;
 
-namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Driver.Sdk
+namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
 {
     public class SkimmerBaseTests
     {

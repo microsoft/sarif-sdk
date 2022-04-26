@@ -1,11 +1,10 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildThisFileDirectory), build.props))\build.props" />
 
   <PropertyGroup Label="AssemblyAttributes">
     <AssemblyTitle>SARIF Converters Library Unit Tests</AssemblyTitle>
-    <RootNamespace>Microsoft.CodeAnalysis.Sarif.Converters</RootNamespace>
+    <RootNamespace>Test.UnitTests.Sarif.Converters</RootNamespace>
   </PropertyGroup>
-
-  <Import Project="$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildThisFileDirectory), build.props))\build.props" />
 
   <PropertyGroup>
     <TargetFrameworks>netcoreapp3.1</TargetFrameworks>
@@ -14,24 +13,62 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="TestData\ClangTidy\ExpectedOutputs\NoResults.sarif" />
-    <None Remove="TestData\ClangTidy\ExpectedOutputs\ValidResults.sarif" />
-    <None Remove="TestData\ClangTidy\Inputs\Empty.yaml" />
-    <None Remove="TestData\ClangTidy\Inputs\InvalidResult.yaml" />
-    <None Remove="TestData\ClangTidy\Inputs\ValidResults.yaml" />
-    <None Remove="TestData\Hdf\ExpectedOutputs\NoResults.sarif" />
-    <None Remove="TestData\Hdf\ExpectedOutputs\ValidResults.sarif" />
-    <None Remove="TestData\Hdf\Inputs\Empty.json" />
-    <None Remove="TestData\Hdf\Inputs\InvalidResult.json" />
-    <None Remove="TestData\Hdf\Inputs\ValidResult.json" />
-    <None Remove="TestData\FlawFinder\ExpectedOutputs\NoResults.sarif" />
-    <None Remove="TestData\FlawFinder\ExpectedOutputs\ValidResults.sarif" />
-    <None Remove="TestData\FlawFinder\Inputs\Empty.csv" />
-    <None Remove="TestData\FlawFinder\Inputs\InvalidHeader.csv" />
-    <None Remove="TestData\FlawFinder\Inputs\InvalidResult.csv" />
-    <None Remove="TestData\FlawFinder\Inputs\OldVersionResult.csv" />
-    <None Remove="TestData\FlawFinder\Inputs\OnlyHeaderLine.csv" />
-    <None Remove="TestData\FlawFinder\Inputs\ValidResults.csv" />
+    <Compile Remove="TestData\ClangTidy\**" />
+    <Compile Remove="TestData\FlawFinder\**" />
+    <Compile Remove="TestData\Hdf\**" />
+    <EmbeddedResource Remove="TestData\ClangTidy\**" />
+    <EmbeddedResource Remove="TestData\FlawFinder\**" />
+    <EmbeddedResource Remove="TestData\Hdf\**" />
+    <None Remove="TestData\ClangTidy\**" />
+    <None Remove="TestData\FlawFinder\**" />
+    <None Remove="TestData\Hdf\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="TestData\ClangTidyConverter\ExpectedOutputs\NoResults.sarif" />
+    <None Remove="TestData\ClangTidyConverter\ExpectedOutputs\ValidResults.sarif" />
+    <None Remove="TestData\ClangTidyConverter\ExpectedOutputs\ValidResultsWithLog.sarif" />
+    <None Remove="TestData\ClangTidyConverter\Inputs\Empty.yaml" />
+    <None Remove="TestData\ClangTidyConverter\Inputs\InvalidResult.yaml" />
+    <None Remove="TestData\ClangTidyConverter\Inputs\ValidResults.yaml" />
+    <None Remove="TestData\ClangTidyConverter\Inputs\ValidResultsWithLog.yaml" />
+    <None Remove="TestData\ClangTidyConverter\Inputs\ValidResultsWithLog.yaml.log" />
+    <None Remove="TestData\FlawFinderConverter\ExpectedOutputs\NoResults.sarif" />
+    <None Remove="TestData\FlawFinderConverter\ExpectedOutputs\ValidResults.sarif" />
+    <None Remove="TestData\FlawFinderConverter\Inputs\Empty.csv" />
+    <None Remove="TestData\FlawFinderConverter\Inputs\InvalidHeader.csv" />
+    <None Remove="TestData\FlawFinderConverter\Inputs\InvalidResult.csv" />
+    <None Remove="TestData\FlawFinderConverter\Inputs\OldVersionResult.csv" />
+    <None Remove="TestData\FlawFinderConverter\Inputs\OnlyHeaderLine.csv" />
+    <None Remove="TestData\FlawFinderConverter\Inputs\ValidResults.csv" />
+    <None Remove="TestData\HdfConverter\ExpectedOutputs\NoResults.sarif" />
+    <None Remove="TestData\HdfConverter\ExpectedOutputs\ValidResults.sarif" />
+    <None Remove="TestData\HdfConverter\Inputs\Empty.json" />
+    <None Remove="TestData\HdfConverter\Inputs\InvalidResult.json" />
+    <None Remove="TestData\HdfConverter\Inputs\ValidResults.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="TestData\ClangTidyConverter\ExpectedOutputs\NoResults.sarif" />
+    <EmbeddedResource Include="TestData\ClangTidyConverter\ExpectedOutputs\ValidResults.sarif" />
+    <EmbeddedResource Include="TestData\ClangTidyConverter\ExpectedOutputs\ValidResultsWithLog.sarif" />
+    <EmbeddedResource Include="TestData\ClangTidyConverter\Inputs\Empty.yaml" />
+    <EmbeddedResource Include="TestData\ClangTidyConverter\Inputs\InvalidResult.yaml" />
+    <EmbeddedResource Include="TestData\ClangTidyConverter\Inputs\ValidResults.yaml" />
+    <EmbeddedResource Include="TestData\ClangTidyConverter\Inputs\ValidResultsWithLog.yaml" />
+    <EmbeddedResource Include="TestData\FlawFinderConverter\ExpectedOutputs\NoResults.sarif" />
+    <EmbeddedResource Include="TestData\FlawFinderConverter\ExpectedOutputs\ValidResults.sarif" />
+    <EmbeddedResource Include="TestData\FlawFinderConverter\Inputs\Empty.csv" />
+    <EmbeddedResource Include="TestData\FlawFinderConverter\Inputs\InvalidHeader.csv" />
+    <EmbeddedResource Include="TestData\FlawFinderConverter\Inputs\InvalidResult.csv" />
+    <EmbeddedResource Include="TestData\FlawFinderConverter\Inputs\OldVersionResult.csv" />
+    <EmbeddedResource Include="TestData\FlawFinderConverter\Inputs\OnlyHeaderLine.csv" />
+    <EmbeddedResource Include="TestData\FlawFinderConverter\Inputs\ValidResults.csv" />
+    <EmbeddedResource Include="TestData\HdfConverter\ExpectedOutputs\NoResults.sarif" />
+    <EmbeddedResource Include="TestData\HdfConverter\ExpectedOutputs\ValidResults.sarif" />
+    <EmbeddedResource Include="TestData\HdfConverter\Inputs\Empty.json" />
+    <EmbeddedResource Include="TestData\HdfConverter\Inputs\InvalidResult.json" />
+    <EmbeddedResource Include="TestData\HdfConverter\Inputs\ValidResults.json" />
   </ItemGroup>
 
   <ItemGroup>
@@ -49,27 +86,6 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-  </ItemGroup>
-
-  <ItemGroup>
-    <EmbeddedResource Include="TestData\ClangTidy\ExpectedOutputs\NoResults.sarif" />
-    <EmbeddedResource Include="TestData\ClangTidy\ExpectedOutputs\ValidResults.sarif" />
-    <EmbeddedResource Include="TestData\ClangTidy\Inputs\Empty.yaml" />
-    <EmbeddedResource Include="TestData\ClangTidy\Inputs\InvalidResult.yaml" />
-    <EmbeddedResource Include="TestData\ClangTidy\Inputs\ValidResults.yaml" />
-    <EmbeddedResource Include="TestData\Hdf\ExpectedOutputs\NoResults.sarif" />
-    <EmbeddedResource Include="TestData\Hdf\ExpectedOutputs\ValidResults.sarif" />
-    <EmbeddedResource Include="TestData\Hdf\Inputs\ValidResults.json" />
-    <EmbeddedResource Include="TestData\Hdf\Inputs\InvalidResult.json" />
-    <EmbeddedResource Include="TestData\Hdf\Inputs\Empty.json" />
-    <EmbeddedResource Include="TestData\FlawFinder\ExpectedOutputs\NoResults.sarif" />
-    <EmbeddedResource Include="TestData\FlawFinder\ExpectedOutputs\ValidResults.sarif" />
-    <EmbeddedResource Include="TestData\FlawFinder\Inputs\Empty.csv" />
-    <EmbeddedResource Include="TestData\FlawFinder\Inputs\InvalidHeader.csv" />
-    <EmbeddedResource Include="TestData\FlawFinder\Inputs\OldVersionResult.csv" />
-    <EmbeddedResource Include="TestData\FlawFinder\Inputs\ValidResults.csv" />
-    <EmbeddedResource Include="TestData\FlawFinder\Inputs\InvalidResult.csv" />
-    <EmbeddedResource Include="TestData\FlawFinder\Inputs\OnlyHeaderLine.csv" />
   </ItemGroup>
 
   <ItemGroup>
