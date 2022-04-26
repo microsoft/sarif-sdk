@@ -380,6 +380,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 directory = Path.GetFullPath(directory);
                 var directories = new Queue<string>();
 
+                if (!FileSystem.DirectoryExists(directory))
+                {
+                    continue;
+                }
+
                 if (options.Recurse)
                 {
                     EnqueueAllDirectories(directories, directory);
