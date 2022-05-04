@@ -3,8 +3,6 @@
 
 using System.Collections.Generic;
 
-using Microsoft.CodeAnalysis.Sarif.Comparers;
-
 namespace Microsoft.CodeAnalysis.Sarif
 {
     /// <summary>

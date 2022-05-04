@@ -5,7 +5,6 @@ using System;
 using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
-using Microsoft.CodeAnalysis.Sarif.Readers;
 using Newtonsoft.Json;
 
 namespace Microsoft.CodeAnalysis.Sarif
@@ -14,13 +13,15 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// Specifies the information necessary to retrieve a desired revision from a version control system.
     /// </summary>
     [DataContract]
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "1.1.3.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "1.1.4.0")]
     public partial class VersionControlDetails : PropertyBagHolder, ISarifNode
     {
         public static IEqualityComparer<VersionControlDetails> ValueComparer => VersionControlDetailsEqualityComparer.Instance;
 
         public bool ValueEquals(VersionControlDetails other) => ValueComparer.Equals(this, other);
         public int ValueGetHashCode() => ValueComparer.GetHashCode(this);
+
+        public static IComparer<VersionControlDetails> Comparer => VersionControlDetailsComparer.Instance;
 
         /// <summary>
         /// Gets a value indicating the type of object implementing <see cref="ISarifNode" />.
@@ -37,7 +38,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// The absolute URI of the repository.
         /// </summary>
         [DataMember(Name = "repositoryUri", IsRequired = true)]
-        [JsonConverter(typeof(UriConverter))]
+        [JsonConverter(typeof(Microsoft.CodeAnalysis.Sarif.Readers.UriConverter))]
         public virtual Uri RepositoryUri { get; set; }
 
         /// <summary>

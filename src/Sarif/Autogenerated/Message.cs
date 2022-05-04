@@ -5,7 +5,6 @@ using System;
 using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
-using Microsoft.CodeAnalysis.Sarif.Readers;
 using Newtonsoft.Json;
 
 namespace Microsoft.CodeAnalysis.Sarif
@@ -14,13 +13,15 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// Encapsulates a message intended to be read by the end user.
     /// </summary>
     [DataContract]
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "1.1.3.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "1.1.4.0")]
     public partial class Message : PropertyBagHolder, ISarifNode
     {
         public static IEqualityComparer<Message> ValueComparer => MessageEqualityComparer.Instance;
 
         public bool ValueEquals(Message other) => ValueComparer.Equals(this, other);
         public int ValueGetHashCode() => ValueComparer.GetHashCode(this);
+
+        public static IComparer<Message> Comparer => MessageComparer.Instance;
 
         /// <summary>
         /// Gets a value indicating the type of object implementing <see cref="ISarifNode" />.
