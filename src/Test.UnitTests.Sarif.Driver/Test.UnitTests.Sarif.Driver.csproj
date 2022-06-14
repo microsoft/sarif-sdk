@@ -11,7 +11,7 @@
     <TargetFrameworks>netcoreapp3.1</TargetFrameworks>
     <IsPackable>false</IsPackable>
     <IsTestProject>true</IsTestProject>
-    <CoyoteVersion>1.3.1</CoyoteVersion>
+    <CoyoteVersion>1.5.7</CoyoteVersion>
     <PowershellExecutable Condition="'$(OS)'=='Windows_NT'">powershell</PowershellExecutable>
     <PowershellExecutable Condition="'$(PowershellExecutable)'==''">pwsh</PowershellExecutable>
     <PathSeparator Condition="'$(OS)'=='Windows_NT'">\</PathSeparator>
@@ -20,7 +20,7 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    <ExecCommand>$(PowershellExecutable) -executionpolicy bypass -command &quot;.$(PathSeparator)rewriteUnitTests.ps1 -Configuration $(Configuration) -CoyoteVersion $(CoyoteVersion) -TargetFramework $(TargetFramework)&quot;</ExecCommand>
+    <ExecCommand>$(PowershellExecutable) -executionpolicy bypass -command ".$(PathSeparator)rewriteUnitTests.ps1 -Configuration $(Configuration) -CoyoteVersion $(CoyoteVersion) -TargetFramework $(TargetFramework)"</ExecCommand>
   </PropertyGroup>
 
   <Target Name="CopyFunctionalTestData" AfterTargets="Build">
@@ -32,8 +32,8 @@
 
   <ItemGroup>
     <PackageReference Include="FluentAssertions" Version="5.10.2" />
-    <PackageReference Include="Microsoft.Coyote" Version="$(CoyoteVersion)" />
-    <PackageReference Include="Microsoft.Coyote.Test" Version="$(CoyoteVersion)" />
+    <PackageReference Include="Microsoft.Coyote" Version='$(CoyoteVersion)' />
+    <PackageReference Include="Microsoft.Coyote.Test" Version='$(CoyoteVersion)' />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.0.0" />
     <PackageReference Include="Moq" Version="4.13.1" />
     <PackageReference Include="System.Collections.Immutable" Version="5.0.0" />

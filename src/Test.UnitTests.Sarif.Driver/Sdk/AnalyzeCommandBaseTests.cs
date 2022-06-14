@@ -1309,14 +1309,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         [Fact(Timeout = 5000)]
         public void AnalyzeCommandBase_ShouldGenerateSameResultsWhenRunningSingleAndMultithreaded_CoyoteTest()
         {
-            Configuration config = Configuration.Create().WithTestingIterations(100).WithConcurrencyFuzzingEnabled();
+            Configuration config = Configuration.Create().WithTestingIterations(100);
             var engine = TestingEngine.Create(config, AnalyzeCommandBase_ShouldGenerateSameResultsWhenRunningSingleAndMultiThread_CoyoteHelper);
             string TestLogDirectory = ".";
 
             engine.Run();
             TestReport report = engine.TestReport;
 
-            var filenames = new List<string>(engine.TryEmitTraces(TestLogDirectory, "AnalyzeCommandBase_ShouldGenerateSameResultsWhenRunningSingleAndMultiThread_CoyoteTest_Log"));
+            engine.TryEmitReports(TestLogDirectory, "AnalyzeCommandBase_ShouldGenerateSameResultsWhenRunningSingleAndMultiThread_CoyoteTest_Log", out IEnumerable<string> filenames);
             foreach (string item in filenames)
             {
                 Output.WriteLine("See log file: {0}", item);
