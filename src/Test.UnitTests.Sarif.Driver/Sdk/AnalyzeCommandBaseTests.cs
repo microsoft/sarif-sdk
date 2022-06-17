@@ -1309,7 +1309,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         [Fact(Timeout = 5000)]
         public void AnalyzeCommandBase_ShouldGenerateSameResultsWhenRunningSingleAndMultithreaded_CoyoteTest()
         {
-            Configuration config = Configuration.Create().WithTestingIterations(100);
+            Configuration config = Configuration.Create().WithTestingIterations(10);
             var engine = TestingEngine.Create(config, AnalyzeCommandBase_ShouldGenerateSameResultsWhenRunningSingleAndMultiThread_CoyoteHelper);
             string TestLogDirectory = ".";
 
