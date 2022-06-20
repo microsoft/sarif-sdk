@@ -267,8 +267,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                         {
                             if (_computeHashes)
                             {
-                                bool cache = _analysisLoggerCache.TryGetValue(context.Hashes.Sha256, out IAnalysisLogger logger);
-                                LogCachingLogger(rootContext, logger ?? context.Logger, context, clone: cache);
+                                bool foundInCache = _analysisLoggerCache.TryGetValue(context.Hashes.Sha256, out IAnalysisLogger logger);
+                                LogCachingLogger(rootContext, logger ?? context.Logger, context, cloneResultsBeforeLogging: foundInCache);
                             }
                             else
                             {
@@ -300,7 +300,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             return true;
         }
 
-        private void LogCachingLogger(TContext rootContext, IAnalysisLogger logger, TContext context, bool clone = false)
+        private void LogCachingLogger(TContext rootContext, IAnalysisLogger logger, TContext context, bool cloneResultsBeforeLogging = false)
         {
             var cachingLogger = (CachingLogger)logger;
             IDictionary<ReportingDescriptor, IList<Result>> results = cachingLogger.Results;
@@ -312,7 +312,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                     foreach (Result result in kv.Value)
                     {
                         Result currentResult = result;
-                        if (clone)
+                        if (cloneResultsBeforeLogging)
                         {
                             Result clonedResult = result.DeepClone();
 
@@ -339,7 +339,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 foreach (Notification notification in cachingLogger.ConfigurationNotifications)
                 {
                     Notification currentNotification = notification;
-                    if (clone)
+                    if (cloneResultsBeforeLogging)
                     {
                         Notification clonedNotification = notification.DeepClone();
                         UpdateLocationsAndMessageWithCurrentUri(clonedNotification.Locations, notification.Message, context.TargetUri);
@@ -877,7 +877,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
             if (_computeHashes)
             {
-                if (!_analysisLoggerCache.TryAdd(context.Hashes.Sha256, logger))
+                if (_analysisLoggerCache.ContainsKey(context.Hashes.Sha256))
                 {
                     return context;
                 }
@@ -885,6 +885,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
             IEnumerable<Skimmer<TContext>> applicableSkimmers = DetermineApplicabilityForTarget(context, skimmers, disabledSkimmers);
             AnalyzeTarget(context, applicableSkimmers, disabledSkimmers);
+
+            if (_computeHashes)
+            {
+                _analysisLoggerCache.TryAdd(context.Hashes.Sha256, context.Logger);
+            }
 
             return context;
         }
