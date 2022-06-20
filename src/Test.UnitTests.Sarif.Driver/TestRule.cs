@@ -174,18 +174,20 @@ namespace Microsoft.CodeAnalysis.Sarif
                 case TestRuleBehaviors.LogError:
                 {
                     uint errorsCount = context.Policy.GetProperty(ErrorsCount);
-
-                    for (uint i = 0; i < errorsCount; i++)
+                    for (int j = 0; j < 5; j++)
                     {
-                        context.Logger.Log(this,
-                            new Result
-                            {
-                                RuleId = this.Id,
-                                Level = FailureLevel.Error,
-                                Message = new Message { Text = "Simple test rule message." }
-                            });
+                        for (uint i = 0; i < 500; i++)
+                        {
+                            context.Logger.Log(this,
+                                new Result
+                                {
+                                    RuleId = this.Id,
+                                    Level = FailureLevel.Error,
+                                    Message = new Message { Text = "Simple test rule message." }
+                                });
 
-                        Thread.Sleep(s_random.Next(0, 10));
+                            Thread.Sleep(1);
+                        }
                     }
                     break;
                 }

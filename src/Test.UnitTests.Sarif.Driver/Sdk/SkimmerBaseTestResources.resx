@@ -144,4 +144,10 @@
   <data name="TEST1001_Review" xml:space="preserve">
     <value>'{0}' should be reviewed for possible issues.</value>
   </data>
+  <data name="TEST1009_Failed" xml:space="preserve">
+    <value>This test plainly failed for '{0}'.</value>
+  </data>
+  <data name="TEST1009_Pass" xml:space="preserve">
+    <value>This test plainly passed for '{0}'.</value>
+  </data>
 </root>

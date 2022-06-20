@@ -19,7 +19,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class SkimmerBaseTestResources {
@@ -138,6 +138,24 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk {
         internal static string TEST1001_Review {
             get {
                 return ResourceManager.GetString("TEST1001_Review", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This test plainly failed for &apos;{0}&apos;..
+        /// </summary>
+        internal static string TEST1009_Failed {
+            get {
+                return ResourceManager.GetString("TEST1009_Failed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This test plainly passed for &apos;{0}&apos;..
+        /// </summary>
+        internal static string TEST1009_Pass {
+            get {
+                return ResourceManager.GetString("TEST1009_Pass", resourceCulture);
             }
         }
     }

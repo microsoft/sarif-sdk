@@ -696,11 +696,67 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         }
 
         [Fact]
+        public void MultithreadedAnalyzeCommandBase_OneZeroZero_EndToEndAnalysis()
+        {
+            string specifier = "*.xyz";
+
+            int filesCount = 1000;
+            var files = new List<string>();
+            for (int i = 0; i < filesCount; i++)
+            {
+                files.Add(Path.GetFullPath($@".{Path.DirectorySeparatorChar}iteration{i}{Path.DirectorySeparatorChar}File.txt"));
+            }
+
+            var propertiesDictionary = new PropertiesDictionary();
+            propertiesDictionary.SetProperty(TestRule.ErrorsCount, (uint)500);
+            propertiesDictionary.SetProperty(TestRule.Behaviors, TestRuleBehaviors.LogError);
+
+            using var tempFile = new TempFile(".xml");
+            propertiesDictionary.SaveToXml(tempFile.Name);
+
+            var mockStream = new Mock<Stream>();
+            mockStream.Setup(m => m.CanRead).Returns(true);
+            mockStream.Setup(m => m.CanSeek).Returns(true);
+            mockStream.Setup(m => m.ReadByte()).Returns('a');
+
+            var mockFileSystem = new Mock<IFileSystem>();
+            mockFileSystem.Setup(x => x.DirectoryExists(It.IsAny<string>())).Returns(true);
+            mockFileSystem.Setup(x => x.DirectoryGetFiles(It.IsAny<string>(), specifier)).Returns(files);
+            mockFileSystem.Setup(x => x.FileExists(It.Is<string>(s => s.EndsWith(specifier)))).Returns(true);
+            mockFileSystem.Setup(x => x.DirectoryEnumerateFiles(It.IsAny<string>(),
+                                                                It.IsAny<string>(),
+                                                                It.IsAny<SearchOption>())).Returns(files);
+            mockFileSystem.Setup(x => x.FileOpenRead(It.IsAny<string>())).Returns(mockStream.Object);
+            mockFileSystem.Setup(x => x.FileExists(tempFile.Name)).Returns(true);
+
+            Output.WriteLine($"The seed that will be used is: {TestRule.s_seed}");
+
+            var options = new TestAnalyzeOptions
+            {
+                Threads = 5,
+                TargetFileSpecifiers = new[] { specifier },
+                SarifOutputVersion = SarifVersion.OneZeroZero,
+                TestRuleBehaviors = TestRuleBehaviors.LogError,
+                DataToInsert = new[] { OptionallyEmittedData.Hashes },
+                ConfigurationFilePath = tempFile.Name
+            };
+
+            var command = new TestMultithreadedAnalyzeCommand(mockFileSystem.Object);
+            command.DefaultPluginAssemblies = new Assembly[] { this.GetType().Assembly };
+
+            int result = command.Run(options);
+
+            command.ExecutionException?.InnerException.Should().BeNull();
+
+            result.Should().Be(CommandBase.SUCCESS, $"Seed: {TestRule.s_seed}");
+        }
+
+        [Fact]
         public void MultithreadedAnalyzeCommandBase_EndToEndMultithreadedAnalysis()
         {
             string specifier = "*.xyz";
 
-            int filesCount = 10;
+            int filesCount = 1000;
             var files = new List<string>();
             for (int i = 0; i < filesCount; i++)
             {
@@ -731,7 +787,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
             Output.WriteLine($"The seed that will be used is: {TestRule.s_seed}");
 
-            for (int i = 0; i < 50; i++)
+            for (int i = 0; i < 1; i++)
             {
                 var options = new TestAnalyzeOptions
                 {
@@ -898,18 +954,24 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
                 // Three notifications. One for each disabled rule, i.e. SimpleTestRule
                 // and SimpleTestRule + an error notification that all rules have been disabled
-                configurationNotificationCount.Should().Be(3);
+                configurationNotificationCount.Should().Be(allRulesDisabledConfiguration.Count + 1);
 
                 run.Invocations.Should().NotBeNull();
                 run.Invocations.Count.Should().Be(1);
 
                 // Error: all rules were disabled
-                run.Invocations[0].ToolConfigurationNotifications.Count((notification) => notification.Level == FailureLevel.Error).Should().Be(1);
-                run.Invocations[0].ToolConfigurationNotifications.Count((notification) => notification.Descriptor.Id == Errors.ERR997_AllRulesExplicitlyDisabled).Should().Be(1);
+                run.Invocations[0].ToolConfigurationNotifications.Count((notification) =>
+                    notification.Level == FailureLevel.Error).Should().Be(1);
+
+                run.Invocations[0].ToolConfigurationNotifications.Count((notification) =>
+                    notification.Descriptor.Id == Errors.ERR997_AllRulesExplicitlyDisabled).Should().Be(1);
 
                 // Warnings: one per disabled rule.
-                run.Invocations[0].ToolConfigurationNotifications.Count((notification) => notification.Level == FailureLevel.Warning).Should().Be(2);
-                run.Invocations[0].ToolConfigurationNotifications.Where((notification) => notification.Descriptor.Id == Warnings.Wrn999_RuleExplicitlyDisabled).Count().Should().Be(2);
+                run.Invocations[0].ToolConfigurationNotifications.Count((notification) =>
+                    notification.Level == FailureLevel.Warning).Should().Be(allRulesDisabledConfiguration.Count);
+
+                run.Invocations[0].ToolConfigurationNotifications.Where((notification) =>
+                    notification.Descriptor.Id == Warnings.Wrn999_RuleExplicitlyDisabled).Count().Should().Be(allRulesDisabledConfiguration.Count);
 
                 // We raised a notification error, which means the invocation failed.
                 run.Invocations[0].ExecutionSuccessful.Should().Be(false);
@@ -1309,7 +1371,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         [Fact(Timeout = 5000)]
         public void AnalyzeCommandBase_ShouldGenerateSameResultsWhenRunningSingleAndMultithreaded_CoyoteTest()
         {
-            Configuration config = Configuration.Create().WithTestingIterations(100).WithConcurrencyFuzzingEnabled();
+            Configuration config = Configuration.Create().WithTestingIterations(1000).WithConcurrencyFuzzingEnabled();
             var engine = TestingEngine.Create(config, AnalyzeCommandBase_ShouldGenerateSameResultsWhenRunningSingleAndMultiThread_CoyoteHelper);
             string TestLogDirectory = ".";
 
