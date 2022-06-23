@@ -16,6 +16,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
     {
         public CachingLogger(IEnumerable<FailureLevel> levels, IEnumerable<ResultKind> kinds) : base(levels, kinds)
         {
+            IsLocked = true;
         }
 
         public IDictionary<ReportingDescriptor, IList<Result>> Results { get; set; }
@@ -24,12 +25,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
         public IList<Notification> ToolNotifications { get; set; }
 
+        public bool IsLocked { get; private set; }
+
         public void AnalysisStarted()
         {
         }
 
         public void AnalysisStopped(RuntimeConditions runtimeConditions)
         {
+            // Note: this method appears to be called after all runs are complete and therefore is not the ideal place for this.
+            IsLocked = false;
         }
 
         public void AnalyzingTarget(IAnalysisContext context)

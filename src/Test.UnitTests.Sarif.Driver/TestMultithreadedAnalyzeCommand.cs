@@ -7,6 +7,7 @@ using System.Reflection;
 
 using FluentAssertions;
 
+using Microsoft.CodeAnalysis.Sarif.Writers;
 using Microsoft.CodeAnalysis.Test.Utilities.Sarif;
 
 namespace Microsoft.CodeAnalysis.Sarif.Driver
@@ -27,6 +28,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             string filePath = null)
         {
             TestAnalysisContext context = base.CreateContext(options, logger, runtimeErrors, policy, filePath);
+
+            //CachingLogger cachingLogger = (CachingLogger)context.Logger;
+            var aggregatingLogger = context.Logger as AggregatingLogger;
+
+            if(aggregatingLogger != null)
+            {
+                aggregatingLogger.Loggers.Add(new TestMessageLogger());
+            }
 
             if (context.Policy == null)
             {

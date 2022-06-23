@@ -10,6 +10,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 
 using FluentAssertions;
+//using FluentAssertions.Common;
 
 using Microsoft.CodeAnalysis.Sarif.Converters;
 using Microsoft.CodeAnalysis.Sarif.Readers;
@@ -756,7 +757,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         {
             string specifier = "*.xyz";
 
-            int filesCount = 1000;
+            int filesCount = 50;
             var files = new List<string>();
             for (int i = 0; i < filesCount; i++)
             {
@@ -787,8 +788,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
             Output.WriteLine($"The seed that will be used is: {TestRule.s_seed}");
 
-            for (int i = 0; i < 1; i++)
+            for (int i = 0; i < 3; i++)
             {
+                string outputFile = Path.GetFullPath($@".{Path.DirectorySeparatorChar}Result{i}.sarif");
+
                 var options = new TestAnalyzeOptions
                 {
                     Threads = 10,
@@ -796,7 +799,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                     SarifOutputVersion = SarifVersion.Current,
                     TestRuleBehaviors = TestRuleBehaviors.LogError,
                     DataToInsert = new[] { OptionallyEmittedData.Hashes },
-                    ConfigurationFilePath = tempFile.Name
+                    ConfigurationFilePath = tempFile.Name,
+                    OutputFilePath = outputFile,
                 };
 
                 var command = new TestMultithreadedAnalyzeCommand(mockFileSystem.Object);
@@ -805,8 +809,33 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 int result = command.Run(options);
 
                 command.ExecutionException?.InnerException.Should().BeNull();
+                command.ExecutionException.Should().BeNull();
+
+                if (i > 0)
+                {
+                    FileInfo outputFileInfo = new FileInfo(outputFile);
+                    FileInfo previousFileInfo = new FileInfo(Path.GetFullPath($@".{Path.DirectorySeparatorChar}Result{i - 1}.sarif"));
+
+                    outputFileInfo.Length.Should().Be(previousFileInfo.Length, $"Different file lengths indicates inconsistent sarif results.");
+                }
 
                 result.Should().Be(CommandBase.SUCCESS, $"Iteration: {i}, Seed: {TestRule.s_seed}");
+
+                string outputSarifContents = File.ReadAllText(outputFile);
+                SarifLog sarifLog = JsonConvert.DeserializeObject<SarifLog>(outputSarifContents);
+
+                sarifLog.Runs?.Count().Should().Be(1);
+                sarifLog.Runs[0].Results?.Count().Should().Be(25000);
+
+                var aggregatedLogger = (AggregatingLogger)command._rootContext.Logger;
+
+                foreach(IAnalysisLogger logger in aggregatedLogger.Loggers)
+                {
+                    TestMessageLogger testMessageLogger = logger as TestMessageLogger;
+                    if (testMessageLogger == null) { continue; }
+                    int errorsCount = Convert.ToInt32(TestRule.ErrorsCount);
+                    testMessageLogger.FailTargets.Count.Should().Be(filesCount * errorsCount);
+                }
             }
         }
 

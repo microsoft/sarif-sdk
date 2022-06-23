@@ -268,6 +268,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                             if (_computeHashes)
                             {
                                 bool cache = _analysisLoggerCache.TryGetValue(context.Hashes.Sha256, out IAnalysisLogger logger);
+                                var cachingLogger = (CachingLogger)logger;
                                 LogCachingLogger(rootContext, logger ?? context.Logger, context, clone: cache);
                             }
                             else

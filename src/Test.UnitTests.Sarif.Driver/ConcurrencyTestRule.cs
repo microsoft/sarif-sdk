@@ -96,17 +96,6 @@ namespace Microsoft.CodeAnalysis.Sarif
             AnalysisApplicability applicability = AnalysisApplicability.ApplicableToSpecifiedTarget;
             reasonIfNotApplicable = null;
 
-            if (context.Policy.GetProperty(Behaviors).HasFlag(TestRuleBehaviors.RaiseExceptionInvokingCanAnalyze))
-            {
-                throw new InvalidOperationException(nameof(TestRuleBehaviors.RaiseExceptionInvokingCanAnalyze));
-            }
-
-            if (context.Policy.GetProperty(Behaviors).HasFlag(TestRuleBehaviors.RegardAnalysisTargetAsNotApplicable))
-            {
-                reasonIfNotApplicable = "testing NotApplicableToSpecifiedTarget";
-                return AnalysisApplicability.NotApplicableToSpecifiedTarget;
-            }
-
             return applicability;
         }
 
@@ -131,7 +120,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 case TestRuleBehaviors.LogError:
                 {
                     uint errorsCount = context.Policy.GetProperty(ErrorsCount);
-                    for (int j = 0;  j < 100;  j++ )
+                    for (int j = 0; j < 100;  j++ )
                     {
                         for (uint i = 0; i < errorsCount; i++)
                         {
