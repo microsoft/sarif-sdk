@@ -96,6 +96,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
         public DefaultTraces Traces { get; set; }
 
+
+        /// <summary>
+        /// Gets or sets the maximum file size (in kilobytes) that will be analyzed.
+        /// If not set, it will analyze all sizes.
+        /// </summary>
+        public int FileSizeInKilobytes { get; set; } = -1;
+
         public void Dispose()
         {
             // Nothing to dispose.

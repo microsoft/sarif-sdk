@@ -30,6 +30,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
         public DefaultTraces Traces { get; set; }
 
+        public int FileSizeInKilobytes { get; set; } = -1;
+
         public void Dispose() { }
     }
 }
