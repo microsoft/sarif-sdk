@@ -252,7 +252,17 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 }
                 // Currently, we do not filter on any extensions.
                 var fileSpecifier = new FileSpecifier(normalizedSpecifier, recurse: analyzeOptions.Recurse, fileSystem: FileSystem);
-                foreach (string file in fileSpecifier.Files) { targets.Add(file); }
+                foreach (string file in fileSpecifier.Files)
+                {
+                    var targetFileInfo = new FileInfo(file);
+                    long fileSize = targetFileInfo.Length / 1024;
+
+                    // Only include files that are below the max size limit.
+                    if (_rootContext.FileSizeInKilobytes == -1 || fileSize < analyzeOptions.FileSizeInKilobytes)
+                    {
+                        targets.Add(file);
+                    }
+                }
             }
             return targets;
         }
@@ -589,18 +599,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             string target,
             ISet<string> disabledSkimmers)
         {
-            var targetFileInfo = new FileInfo(target);
-            long fileSize = targetFileInfo.Length / 1024;
-
-            if (rootContext.FileSizeInKilobytes != -1 && fileSize > rootContext.FileSizeInKilobytes)
-            {
-                //  To correctly initialize the logger, we must first add Hashes to dataToInsert
-#pragma warning disable CS0618 // Type or member is obsolete
-                options.ComputeFileHashes = false;
-#pragma warning restore CS0618
-            }
-
-
             TContext context = CreateContext(
                 options,
                 rootContext.Logger,
