@@ -114,5 +114,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             "post-uri",
             HelpText = "A URI to which the SARIF log file will be posted.")]
         public string PostUri { get; set; }
+
+        [Option(
+            "file-size-in-kb",
+            HelpText = "The maximum file size (in kilobytes) that will be analyzed.",
+            Default = 1024)]
+        public int FileSizeInKilobytes { get; internal set; }
     }
 }

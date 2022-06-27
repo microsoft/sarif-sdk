@@ -29,5 +29,11 @@ namespace Microsoft.CodeAnalysis.Sarif
         bool AnalysisComplete { get; set; }
 
         DefaultTraces Traces { get; set; }
+
+        /// <summary>
+        /// Gets or sets the maximum file size (in kilobytes) that will be analyzed.
+        /// If not set, it will analyze all sizes.
+        /// </summary>
+        int FileSizeInKilobytes { get; set; }
     }
 }

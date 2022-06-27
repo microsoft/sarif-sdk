@@ -75,6 +75,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 {
                     //  Once the logger has been correctly initialized, we can raise a warning
                     _rootContext = CreateContext(options, logger, RuntimeErrors);
+
 #pragma warning disable CS0618 // Type or member is obsolete
                     if (options.ComputeFileHashes)
 #pragma warning restore CS0618
@@ -280,6 +281,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 RuntimeErrors = runtimeErrors,
                 Policy = policy
             };
+
+            context.FileSizeInKilobytes = options.FileSizeInKilobytes;
 
             if (filePath != null)
             {
@@ -586,6 +589,18 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             string target,
             ISet<string> disabledSkimmers)
         {
+            var targetFileInfo = new FileInfo(target);
+            long fileSize = targetFileInfo.Length / 1024;
+
+            if (rootContext.FileSizeInKilobytes != -1 && fileSize > rootContext.FileSizeInKilobytes)
+            {
+                //  To correctly initialize the logger, we must first add Hashes to dataToInsert
+#pragma warning disable CS0618 // Type or member is obsolete
+                options.ComputeFileHashes = false;
+#pragma warning restore CS0618
+            }
+
+
             TContext context = CreateContext(
                 options,
                 rootContext.Logger,

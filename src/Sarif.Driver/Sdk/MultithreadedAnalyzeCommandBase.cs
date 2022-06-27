@@ -416,7 +416,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                                                                                filter,
                                                                                SearchOption.TopDirectoryOnly))
                     {
-                        sortedFiles.Add(file);
+                        var targetFileInfo = new FileInfo(file);
+                        long fileSize = targetFileInfo.Length / 1024;
+
+                        // Only include files that are below the max size limit.
+                        if (_rootContext.FileSizeInKilobytes == -1 || fileSize < rootContext.FileSizeInKilobytes)
+                        {
+                            sortedFiles.Add(file);
+                        }
                     }
 
                     foreach (string file in sortedFiles)
