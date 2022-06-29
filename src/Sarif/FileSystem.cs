@@ -383,5 +383,18 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             return File.ReadLines(path);
         }
+
+        /// <summary>
+        /// Uses <see cref="FileInfo"/> to calculate the size of a file in bytes.
+        /// </summary>
+        /// <param name="path">
+        /// The fully qualified name or relative name of the file.
+        /// </param>
+        /// <returns></returns>
+        public long GetFileSize(string path)
+        {
+            FileInfo fileInfo = new FileInfo(path);
+            return fileInfo.Length;
+        }
     }
 }
