@@ -586,6 +586,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 Policy = policy
             };
 
+            context.FileSizeInKilobytes = options.FileSizeInKilobytes;
+
             if (filePath != null)
             {
                 context.TargetUri = new Uri(filePath);
