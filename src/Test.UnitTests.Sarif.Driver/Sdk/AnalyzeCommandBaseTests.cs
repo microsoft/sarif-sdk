@@ -755,6 +755,135 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         }
 
         [Fact]
+        public void MultithreadedAnalyzeCommandBase_TargetFileSizeTestCases()
+        {
+            Random random = new Random();
+            int randomMaxFileSize = random.Next(1, int.MaxValue - 1);
+            long randomFileSize = (long)random.Next(1, int.MaxValue - 1);
+            
+
+            dynamic[] testCases = new[]
+            {
+                new {
+                    expectedExitReason = ExitReason.None,
+                    fileSize = (long)ulong.MinValue,
+                    maxFileSize = int.MinValue
+                },
+                new {
+                    expectedExitReason = ExitReason.None,
+                    fileSize = (long)ulong.MinValue,
+                    maxFileSize = (int)0
+                },
+                new {
+                    expectedExitReason = ExitReason.None,
+                    fileSize = (long)ulong.MinValue,
+                    maxFileSize = randomMaxFileSize
+                },
+                new {
+                    expectedExitReason = ExitReason.None,
+                    fileSize = (long)ulong.MinValue,
+                    maxFileSize = int.MaxValue
+                },
+                new {
+                    expectedExitReason = ExitReason.NoValidAnalysisTargets,
+                    fileSize = randomFileSize,
+                    maxFileSize = int.MinValue
+                },
+                new {
+                    expectedExitReason = ExitReason.NoValidAnalysisTargets,
+                    fileSize = randomFileSize,
+                    maxFileSize = (int)0
+                },
+                new {
+                    expectedExitReason = ExitReason.None,
+                    fileSize = randomFileSize,
+                    maxFileSize = int.MaxValue,
+                },
+                new {
+                    expectedExitReason = ExitReason.NoValidAnalysisTargets,
+                    fileSize = long.MaxValue,
+                    maxFileSize = int.MinValue
+                },
+                new {
+                    expectedExitReason = ExitReason.NoValidAnalysisTargets,
+                    fileSize = long.MaxValue,
+                    maxFileSize = (int)0
+                },
+                new {
+                    expectedExitReason = ExitReason.NoValidAnalysisTargets,
+                    fileSize = long.MaxValue,
+                    maxFileSize = int.MaxValue,
+                },
+            };
+
+            foreach(dynamic testCase in testCases)
+            {
+                string specifier = "*.xyz";
+
+                int filesCount = 10;
+                var files = new List<string>();
+                for (int i = 0; i < filesCount; i++)
+                {
+                    files.Add(Path.GetFullPath($@".{Path.DirectorySeparatorChar}File{i}.txt"));
+                }
+
+                var propertiesDictionary = new PropertiesDictionary();
+                propertiesDictionary.SetProperty(TestRule.ErrorsCount, (uint)15);
+                propertiesDictionary.SetProperty(TestRule.Behaviors, TestRuleBehaviors.LogError);
+
+                using var tempFile = new TempFile(".xml");
+                propertiesDictionary.SaveToXml(tempFile.Name);
+
+                var mockStream = new Mock<Stream>();
+                mockStream.Setup(m => m.CanRead).Returns(true);
+                mockStream.Setup(m => m.CanSeek).Returns(true);
+                mockStream.Setup(m => m.ReadByte()).Returns('a');
+
+                var mockFileSystem = new Mock<IFileSystem>();
+                mockFileSystem.Setup(x => x.DirectoryExists(It.IsAny<string>())).Returns(true);
+                mockFileSystem.Setup(x => x.DirectoryGetFiles(It.IsAny<string>(), specifier)).Returns(files);
+                mockFileSystem.Setup(x => x.FileExists(It.Is<string>(s => s.EndsWith(specifier)))).Returns(true);
+                mockFileSystem.Setup(x => x.DirectoryEnumerateFiles(It.IsAny<string>(),
+                                                                    It.IsAny<string>(),
+                                                                    It.IsAny<SearchOption>())).Returns(files);
+                mockFileSystem.Setup(x => x.FileOpenRead(It.IsAny<string>())).Returns(mockStream.Object);
+                mockFileSystem.Setup(x => x.FileExists(tempFile.Name)).Returns(true);
+                mockFileSystem.Setup(x => x.GetFileSize(It.IsAny<string>())).Returns(testCase.fileSize);
+
+                Output.WriteLine($"The seed that will be used is: {TestRule.s_seed}");
+
+                var options = new TestAnalyzeOptions
+                {
+                    Threads = 10,
+                    TargetFileSpecifiers = new[] { specifier },
+                    SarifOutputVersion = SarifVersion.Current,
+                    TestRuleBehaviors = TestRuleBehaviors.LogError,
+                    DataToInsert = new[] { OptionallyEmittedData.Hashes },
+                    ConfigurationFilePath = tempFile.Name,
+                    FileSizeInKilobytes = testCase.maxFileSize
+                };
+
+                var command = new TestMultithreadedAnalyzeCommand(mockFileSystem.Object);
+                command.DefaultPluginAssemblies = new Assembly[] { this.GetType().Assembly };
+
+                int result = command.Run(options);
+
+                if (testCase.expectedExitReason == ExitReason.None)
+                {
+                        command.ExecutionException?.InnerException.Should().BeNull();
+                        result.Should().Be(CommandBase.SUCCESS, $"Seed: {TestRule.s_seed}");
+                }
+                else
+                {
+                    var exception = command.ExecutionException as ExitApplicationException<ExitReason>;
+                    exception.Should().NotBeNull($"Seed: {TestRule.s_seed}, MaxFileSize: {testCase.maxFileSize}, FileSize: {testCase.fileSize}");
+                    exception.ExitReason.Should().Be(testCase.expectedExitReason, $"Seed: {TestRule.s_seed}, MaxFileSize: {testCase.maxFileSize}, FileSize: {testCase.fileSize}");
+                    result.Should().Be(CommandBase.FAILURE, $"Seed: {TestRule.s_seed}, MaxFileSize: {testCase.maxFileSize}, FileSize: {testCase.fileSize}");
+                }
+            }
+        }
+
+        [Fact]
         public void AnalyzeCommandBase_PersistsSarifOneZeroZero()
         {
             string fileName = GetThisTestAssemblyFilePath();

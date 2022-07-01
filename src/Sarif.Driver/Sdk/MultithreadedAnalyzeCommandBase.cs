@@ -586,7 +586,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 Policy = policy
             };
 
-            context.FileSizeInKilobytes = options.FileSizeInKilobytes;
+            context.FileSizeInKilobytes = options.FileSizeInKilobytes > 0 ? options.FileSizeInKilobytes : 1024;
 
             if (filePath != null)
             {
