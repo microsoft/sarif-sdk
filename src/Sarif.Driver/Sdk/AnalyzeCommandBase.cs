@@ -205,8 +205,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             succeeded &= ValidateFiles(context, analyzeOptions.PluginFilePaths, DefaultPolicyName, shouldExist: true);
             succeeded &= ValidateFile(context, analyzeOptions.OutputFilePath, DefaultPolicyName, shouldExist: null);
             succeeded &= ValidateInvocationPropertiesToLog(context, analyzeOptions.InvocationPropertiesToLog);
-            succeeded &= ValidateFileSizeInKilobytes(analyzeOptions.FileSizeInKilobytes);
             succeeded &= analyzeOptions.ValidateOutputOptions(context);
+            succeeded &= analyzeOptions.FileSizeInKilobytes > 0;
 
             if (!succeeded)
             {

@@ -412,15 +412,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                     }
 #endif
 
-                    foreach (string file in FileSystem.DirectoryEnumerateFiles(directory,
-                                                                               filter,
-                                                                               SearchOption.TopDirectoryOnly))
+                    foreach (string file in FileSystem.DirectoryEnumerateFiles(directory, filter, SearchOption.TopDirectoryOnly)
+                            .Where(file => IsTargetWithinFileSizeLimit(file, _rootContext.FileSizeInKilobytes)))
                     {
                         // Only include files that are below the max size limit.
-                        if (IsTargetWithinFileSizeLimit(file, _rootContext.FileSizeInKilobytes))
-                        {
-                            sortedFiles.Add(file);
-                        }
+                        sortedFiles.Add(file);
                     }
 
                     foreach (string file in sortedFiles)
@@ -545,8 +541,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             succeeded &= ValidateFiles(context, options.PluginFilePaths, DefaultPolicyName, shouldExist: true);
             succeeded &= ValidateOutputFileCanBeCreated(context, options.OutputFilePath, options.Force);
             succeeded &= ValidateInvocationPropertiesToLog(context, options.InvocationPropertiesToLog);
-            succeeded &= ValidateFileSizeInKilobytes(options.FileSizeInKilobytes);
             succeeded &= options.ValidateOutputOptions(context);
+            succeeded &= options.FileSizeInKilobytes > 0;
 
             if (!succeeded)
             {

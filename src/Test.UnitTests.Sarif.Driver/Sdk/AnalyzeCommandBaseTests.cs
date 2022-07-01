@@ -757,17 +757,17 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         [Fact]
         public void MultithreadedAnalyzeCommandBase_TargetFileSizeTestCases()
         {
-            Random random = new Random();
-            int randomMaxFileSize = random.Next(1, int.MaxValue - 1);
-            long randomFileSize = (long)random.Next(2, int.MaxValue - 1);
-
-
             dynamic[] testCases = new[]
             {
                 new {
                     expectedExitReason = ExitReason.InvalidCommandLineOption,
                     fileSize = (long)ulong.MinValue,
                     maxFileSize = int.MinValue
+                },
+                new {
+                    expectedExitReason = ExitReason.InvalidCommandLineOption,
+                    fileSize = (long)ulong.MinValue,
+                    maxFileSize = -1
                 },
                 new {
                     expectedExitReason = ExitReason.InvalidCommandLineOption,
@@ -782,7 +782,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 new {
                     expectedExitReason = ExitReason.None,
                     fileSize = (long)ulong.MinValue,
-                    maxFileSize = randomMaxFileSize
+                    maxFileSize = 2000
+                },
+                new {
+                    expectedExitReason = ExitReason.None,
+                    fileSize = (long)ulong.MinValue,
+                    maxFileSize = 1000
                 },
                 new {
                     expectedExitReason = ExitReason.None,
@@ -791,13 +796,18 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 },
                 new {
                     expectedExitReason = ExitReason.NoValidAnalysisTargets,
-                    fileSize = randomFileSize,
+                    fileSize = (long)20000,
                     maxFileSize = 1
                 },
                 new {
                     expectedExitReason = ExitReason.None,
-                    fileSize = randomFileSize,
+                    fileSize = (long)20000,
                     maxFileSize = int.MaxValue
+                },
+                new {
+                    expectedExitReason = ExitReason.None,
+                    fileSize = (long)10,
+                    maxFileSize = 10
                 },
                 new {
                     expectedExitReason = ExitReason.InvalidCommandLineOption,
@@ -850,15 +860,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 mockFileSystem.Setup(x => x.FileExists(tempFile.Name)).Returns(true);
                 mockFileSystem.Setup(x => x.GetFileSize(It.IsAny<string>())).Returns(testCase.fileSize);
 
+                bool expectedToBeWithinLimits = testCase.maxFileSize == -1 ||
+                    testCase.fileSize / 1024 < testCase.maxFileSize;
+
                 Output.WriteLine($"The seed that will be used is: {TestRule.s_seed}");
 
                 var options = new TestAnalyzeOptions
                 {
-                    Threads = 10,
                     TargetFileSpecifiers = new[] { specifier },
                     SarifOutputVersion = SarifVersion.Current,
                     TestRuleBehaviors = TestRuleBehaviors.LogError,
-                    DataToInsert = new[] { OptionallyEmittedData.Hashes },
                     ConfigurationFilePath = tempFile.Name,
                     FileSizeInKilobytes = testCase.maxFileSize
                 };
@@ -880,6 +891,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                     exception.ExitReason.Should().Be(testCase.expectedExitReason, $"Seed: {TestRule.s_seed}, MaxFileSize: {testCase.maxFileSize}, FileSize: {testCase.fileSize}");
                     result.Should().Be(CommandBase.FAILURE, $"Seed: {TestRule.s_seed}, MaxFileSize: {testCase.maxFileSize}, FileSize: {testCase.fileSize}");
                 }
+
+                bool isFileWithinLimits = command.IsTargetWithinFileSizeLimit($@".{Path.DirectorySeparatorChar}File0.txt", testCase.maxFileSize);
+                isFileWithinLimits.Should().Be(expectedToBeWithinLimits);
             }
         }
 

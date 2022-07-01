@@ -129,11 +129,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             return succeeded;
         }
 
-        internal bool ValidateFileSizeInKilobytes(int fileSizeInKilobytes)
-        {
-            return fileSizeInKilobytes > 0;
-        }
-
         protected virtual void ProcessBaseline(IAnalysisContext context, T driverOptions, IFileSystem fileSystem)
         {
             if (!(driverOptions is AnalyzeOptionsBase options))
