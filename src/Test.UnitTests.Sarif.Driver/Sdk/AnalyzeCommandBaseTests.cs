@@ -772,12 +772,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 new {
                     expectedExitReason = ExitReason.InvalidCommandLineOption,
                     fileSize = (long)ulong.MinValue,
-                    maxFileSize = (int)0
+                    maxFileSize = 0
                 },
                 new {
                     expectedExitReason = ExitReason.None,
                     fileSize = (long)ulong.MinValue,
-                    maxFileSize = (int)0 + 1
+                    maxFileSize = 1
                 },
                 new {
                     expectedExitReason = ExitReason.None,
@@ -792,7 +792,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 new {
                     expectedExitReason = ExitReason.NoValidAnalysisTargets,
                     fileSize = randomFileSize,
-                    maxFileSize = (int)0 + 1
+                    maxFileSize = 1
                 },
                 new {
                     expectedExitReason = ExitReason.None,
@@ -807,7 +807,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 new {
                     expectedExitReason = ExitReason.InvalidCommandLineOption,
                     fileSize = long.MaxValue,
-                    maxFileSize = (int)0
+                    maxFileSize = 0
                 },
                 new {
                     expectedExitReason = ExitReason.NoValidAnalysisTargets,
