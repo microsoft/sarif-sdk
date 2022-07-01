@@ -759,20 +759,25 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         {
             Random random = new Random();
             int randomMaxFileSize = random.Next(1, int.MaxValue - 1);
-            long randomFileSize = (long)random.Next(1, int.MaxValue - 1);
-            
+            long randomFileSize = (long)random.Next(2, int.MaxValue - 1);
+
 
             dynamic[] testCases = new[]
             {
                 new {
-                    expectedExitReason = ExitReason.None,
+                    expectedExitReason = ExitReason.InvalidCommandLineOption,
                     fileSize = (long)ulong.MinValue,
                     maxFileSize = int.MinValue
                 },
                 new {
-                    expectedExitReason = ExitReason.None,
+                    expectedExitReason = ExitReason.InvalidCommandLineOption,
                     fileSize = (long)ulong.MinValue,
                     maxFileSize = (int)0
+                },
+                new {
+                    expectedExitReason = ExitReason.None,
+                    fileSize = (long)ulong.MinValue,
+                    maxFileSize = (int)0 + 1
                 },
                 new {
                     expectedExitReason = ExitReason.None,
@@ -787,36 +792,31 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 new {
                     expectedExitReason = ExitReason.NoValidAnalysisTargets,
                     fileSize = randomFileSize,
-                    maxFileSize = int.MinValue
-                },
-                new {
-                    expectedExitReason = ExitReason.NoValidAnalysisTargets,
-                    fileSize = randomFileSize,
-                    maxFileSize = (int)0
+                    maxFileSize = (int)0 + 1
                 },
                 new {
                     expectedExitReason = ExitReason.None,
                     fileSize = randomFileSize,
-                    maxFileSize = int.MaxValue,
+                    maxFileSize = int.MaxValue
                 },
                 new {
-                    expectedExitReason = ExitReason.NoValidAnalysisTargets,
+                    expectedExitReason = ExitReason.InvalidCommandLineOption,
                     fileSize = long.MaxValue,
                     maxFileSize = int.MinValue
                 },
                 new {
-                    expectedExitReason = ExitReason.NoValidAnalysisTargets,
+                    expectedExitReason = ExitReason.InvalidCommandLineOption,
                     fileSize = long.MaxValue,
                     maxFileSize = (int)0
                 },
                 new {
                     expectedExitReason = ExitReason.NoValidAnalysisTargets,
                     fileSize = long.MaxValue,
-                    maxFileSize = int.MaxValue,
+                    maxFileSize = int.MaxValue
                 },
             };
 
-            foreach(dynamic testCase in testCases)
+            foreach (dynamic testCase in testCases)
             {
                 string specifier = "*.xyz";
 
@@ -870,8 +870,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
                 if (testCase.expectedExitReason == ExitReason.None)
                 {
-                        command.ExecutionException?.InnerException.Should().BeNull();
-                        result.Should().Be(CommandBase.SUCCESS, $"Seed: {TestRule.s_seed}");
+                    command.ExecutionException?.InnerException.Should().BeNull();
+                    result.Should().Be(CommandBase.SUCCESS, $"Seed: {TestRule.s_seed}");
                 }
                 else
                 {

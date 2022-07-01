@@ -199,12 +199,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         {
             bool succeeded = true;
 
-            succeeded &= ValidateFile(context, analyzeOptions.OutputFilePath, DefaultPolicyName, shouldExist: null);
             succeeded &= ValidateFile(context, analyzeOptions.ConfigurationFilePath, DefaultPolicyName, shouldExist: true);
-            succeeded &= ValidateFiles(context, analyzeOptions.PluginFilePaths, DefaultPolicyName, shouldExist: true);
             succeeded &= ValidateFile(context, analyzeOptions.BaselineSarifFile, DefaultPolicyName, shouldExist: true);
-            succeeded &= ValidateInvocationPropertiesToLog(context, analyzeOptions.InvocationPropertiesToLog);
             succeeded &= ValidateOutputFileCanBeCreated(context, analyzeOptions.OutputFilePath, analyzeOptions.Force);
+            succeeded &= ValidateFiles(context, analyzeOptions.PluginFilePaths, DefaultPolicyName, shouldExist: true);
+            succeeded &= ValidateFile(context, analyzeOptions.OutputFilePath, DefaultPolicyName, shouldExist: null);
+            succeeded &= ValidateInvocationPropertiesToLog(context, analyzeOptions.InvocationPropertiesToLog);
+            succeeded &= ValidateFileSizeInKilobytes(analyzeOptions.FileSizeInKilobytes);
             succeeded &= analyzeOptions.ValidateOutputOptions(context);
 
             if (!succeeded)
@@ -289,7 +290,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 Policy = policy
             };
 
-            context.FileSizeInKilobytes = options.FileSizeInKilobytes > 0 ? options.FileSizeInKilobytes : 1024;
+            context.FileSizeInKilobytes = options.FileSizeInKilobytes;
 
             if (filePath != null)
             {

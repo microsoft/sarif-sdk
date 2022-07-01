@@ -1,5 +1,9 @@
 # SARIF Package Release History (SDK, Driver, Converters, and Multitool)
 
+## Unreleased
+
+* BUGFIX: Resolve OutofMemoryException and NullReferenceException' failures by adding `--file-size-in-kb` argument to specify a max file size to analyze or default to 1024KB. [#2494](https://github.com/microsoft/sarif-sdk/pull/2494)
+
 ## **v2.4.15** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.4.15) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.4.15) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.4.15) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.4.15) | [Multitool Library](https://www.nuget.org/packages/Sarif.Multitool.Library/2.4.15)
 
 * BUGFIX: Fix `ArgumentNullException` when `PropertiesDictionary` is instantiated with a null comparer. [#2482](https://github.com/microsoft/sarif-sdk/pull/2482)
