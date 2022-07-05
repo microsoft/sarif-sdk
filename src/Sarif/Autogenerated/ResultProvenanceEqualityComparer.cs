@@ -4,14 +4,13 @@
 using System;
 using System.CodeDom.Compiler;
 using System.Collections.Generic;
-using Microsoft.CodeAnalysis.Sarif.Readers;
 
 namespace Microsoft.CodeAnalysis.Sarif
 {
     /// <summary>
     /// Defines methods to support the comparison of objects of type ResultProvenance for equality.
     /// </summary>
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "1.1.3.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "1.1.4.0")]
     internal sealed class ResultProvenanceEqualityComparer : IEqualityComparer<ResultProvenance>
     {
         internal static readonly ResultProvenanceEqualityComparer Instance = new ResultProvenanceEqualityComparer();
@@ -143,7 +142,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                         xor_0 ^= value_3.Key.GetHashCode();
                         if (value_3.Value != null)
                         {
-                            xor_0 ^= value_3.Value.GetHashCode();
+                            xor_0 ^= value_3.Value.ValueGetHashCode();
                         }
                     }
 
