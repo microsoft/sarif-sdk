@@ -15,7 +15,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         // Configuration errors:
         private const string ERR997_MissingFile = "ERR997.MissingFile";
         private const string ERR997_NoRulesLoaded = "ERR997.NoRulesLoaded";
-        private const string ERR997_NoPluginsConfigured = "ERR997.NoPluginsConfigured";
+        internal const string ERR997_NoPluginsConfigured = "ERR997.NoPluginsConfigured";
         private const string ERR997_ExceptionLoadingPlugIn = "ERR997.ExceptionLoadingPlugIn";
         private const string ERR997_NoValidAnalysisTargets = "ERR997.NoValidAnalysisTargets";
         private const string ERR997_ExceptionAccessingFile = "ERR997.ExceptionAccessingFile";
@@ -267,7 +267,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             }
 
             Assembly assembly = Assembly.GetEntryAssembly();
-            assembly = assembly ?? Assembly.GetExecutingAssembly();
+            assembly ??= Assembly.GetExecutingAssembly();
             string exeName = Path.GetFileName(assembly.Location);
 
             // Check '{0}' was disabled while analyzing '{1}' because the analysis
@@ -514,7 +514,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             string messageFormat,
             params string[] args)
         {
-            messageFormat = messageFormat ?? GetMessageFormatResourceForNotification(notificationId);
+            messageFormat ??= GetMessageFormatResourceForNotification(notificationId);
 
             string message = string.Format(CultureInfo.CurrentCulture, messageFormat, args);
 
