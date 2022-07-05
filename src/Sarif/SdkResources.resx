@@ -178,7 +178,7 @@
     <value>Could not load analysis target '{0}'.</value>
   </data>
   <data name="ERR997_ExceptionLoadingPlugIn" xml:space="preserve">
-    <value>Could not load the plug-in '{0}'.</value>
+    <value>Could not load the plugin '{0}'.</value>
   </data>
   <data name="ERR997_MissingFile" xml:space="preserve">
     <value>A required file specified on the command line could not be found: '{0}'.</value>
@@ -277,5 +277,8 @@ You can also refer to properties in the result's property bag with 'properties.&
   </data>
   <data name="WRN997_InvalidOption" xml:space="preserve">
     <value>Option '{0}' is invalid for this command.</value>
+  </data>
+  <data name="ERR997_NoPluginsConfigured" xml:space="preserve">
+    <value>No plugins were configured or successfully located and so no rules were loaded.</value>
   </data>
 </root>

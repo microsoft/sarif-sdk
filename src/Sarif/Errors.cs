@@ -15,13 +15,14 @@ namespace Microsoft.CodeAnalysis.Sarif
         // Configuration errors:
         private const string ERR997_MissingFile = "ERR997.MissingFile";
         private const string ERR997_NoRulesLoaded = "ERR997.NoRulesLoaded";
+        private const string ERR997_NoPluginsConfigured = "ERR997.NoPluginsConfigured";
         private const string ERR997_ExceptionLoadingPlugIn = "ERR997.ExceptionLoadingPlugIn";
         private const string ERR997_NoValidAnalysisTargets = "ERR997.NoValidAnalysisTargets";
         private const string ERR997_ExceptionAccessingFile = "ERR997.ExceptionAccessingFile";
-        private const string ERR997_MissingReportingConfiguration = "ERR997.MissingReportingConfiguration";
         private const string ERR997_ExceptionCreatingLogFile = "ERR997.ExceptionCreatingLogFile";
         internal const string ERR997_AllRulesExplicitlyDisabled = "ERR997.AllRulesExplicitlyDisabled";
         private const string ERR997_InvalidInvocationPropertyName = "ERR997.InvalidInvocationPropertyName";
+        private const string ERR997_MissingReportingConfiguration = "ERR997.MissingReportingConfiguration";
         private const string ERR997_ExceptionLoadingAnalysisTarget = "ERR997.ExceptionLoadingAnalysisTarget";
         private const string ERR997_ExceptionInstantiatingSkimmers = "ERR997.ExceptionInstantiatingSkimmers";
         private const string ERR997_OutputFileAlreadyExists = "ERR997.OutputFileAlreadyExists";
@@ -125,6 +126,26 @@ namespace Microsoft.CodeAnalysis.Sarif
                     exception: null,
                     persistExceptionStack: false,
                     messageFormat: null));
+
+            context.RuntimeErrors |= RuntimeConditions.NoRulesLoaded;
+        }
+        public static void LogNoPluginsConfigured(IAnalysisContext context)
+        {
+            if (context == null)
+            {
+                throw new ArgumentNullException(nameof(context));
+            }
+
+            // No analysis plugins were configured, therefore no rules loaded.
+            context.Logger.LogConfigurationNotification(
+                    Errors.CreateNotification(
+                        context.TargetUri,
+                        ERR997_NoPluginsConfigured,
+                        ruleId: null,
+                        FailureLevel.Error,
+                        exception: null,
+                        persistExceptionStack: false,
+                        messageFormat: null));
 
             context.RuntimeErrors |= RuntimeConditions.NoRulesLoaded;
         }
