@@ -100,7 +100,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             // avoid having to do a try/catch. Unfortunately Uri.TryCreate will return true
             // even for a malformed URI string.
             string uriString = artifactLocation.Uri.OriginalString;
-            if (uriString != null && Uri.IsWellFormedUriString(uriString, UriKind.RelativeOrAbsolute))
+            if (uriString != null && IsWellFormedUri(uriString, UriKind.RelativeOrAbsolute))
             {
                 var uri = new Uri(uriString, UriKind.RelativeOrAbsolute);
 

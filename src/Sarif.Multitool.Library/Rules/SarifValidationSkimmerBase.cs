@@ -246,6 +246,18 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             return sb.ToString();
         }
 
+        internal static bool IsWellFormedUri(string uriString, UriKind uriKind)
+        {
+            bool isWellFormed = Uri.IsWellFormedUriString(uriString, UriKind.RelativeOrAbsolute);
+            bool csBug = (uriString.StartsWith("file:/") && Uri.TryCreate(uriString, uriKind, out Uri result));
+
+            return isWellFormed || csBug;
+        }
+        //=>
+        //Uri.IsWellFormedUriString(uriString, UriKind.RelativeOrAbsolute) ||
+        //    (uriString.StartsWith("file:/") &&
+        //        Uri.TryCreate(uriString, uriKind, out Uri result));
+
         private static readonly string s_javaScriptIdentifierPattern = @"^[$_\p{L}][$_\p{L}0-9]*$";
         private static readonly Regex s_javaScriptIdentifierRegex = new Regex(s_javaScriptIdentifierPattern, RegexOptions.Compiled);
 
