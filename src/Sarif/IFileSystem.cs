@@ -317,7 +317,9 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="path">
         /// The fully qualified name or relative name of the file.
         /// </param>
-        /// <returns></returns>
+        /// <returns>
+        /// A long representing the size of the file in bytes.
+        /// </returns>
         long GetFileSize(string path);
     }
 }
