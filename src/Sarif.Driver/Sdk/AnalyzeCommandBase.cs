@@ -206,7 +206,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             succeeded &= ValidateFile(context, analyzeOptions.OutputFilePath, DefaultPolicyName, shouldExist: null);
             succeeded &= ValidateInvocationPropertiesToLog(context, analyzeOptions.InvocationPropertiesToLog);
             succeeded &= analyzeOptions.ValidateOutputOptions(context);
-            succeeded &= analyzeOptions.FileSizeInKilobytes > 0;
+            succeeded &= analyzeOptions.MaxFileInKilobytes > 0;
 
             if (!succeeded)
             {
@@ -256,7 +256,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 foreach (string file in fileSpecifier.Files)
                 {
                     // Only include files that are below the max size limit.
-                    if (IsTargetWithinFileSizeLimit(file, _rootContext.FileSizeInKilobytes))
+                    if (IsTargetWithinFileSizeLimit(file, _rootContext.MaxFileInKilobytes))
                     {
                         targets.Add(file);
                     }
@@ -290,7 +290,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 Policy = policy
             };
 
-            context.FileSizeInKilobytes = options.FileSizeInKilobytes;
+            context.MaxFileInKilobytes = options.MaxFileInKilobytes;
 
             if (filePath != null)
             {

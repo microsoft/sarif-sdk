@@ -132,7 +132,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             mockFileSystem.Setup(x => x.FileWriteAllText(It.IsAny<string>(), It.IsAny<string>()));
             mockFileSystem.Setup(x => x.FileCreate(outputLogFilePath)).Returns((string path) => File.Create(path));
             mockFileSystem.Setup(x => x.FileCreate(baselineFilePath)).Returns((string path) => File.Create(path));
-            mockFileSystem.Setup(x => x.GetFileSize(It.IsAny<string>())).Returns(100);
+            mockFileSystem.Setup(x => x.FileInfoLength(It.IsAny<string>())).Returns(100);
 
             var validateCommand = new ValidateCommand(mockFileSystem.Object);
             int returnCode = validateCommand.Run(validateOptions);

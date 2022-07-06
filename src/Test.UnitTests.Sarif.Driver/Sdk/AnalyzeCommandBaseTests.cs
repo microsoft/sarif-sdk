@@ -858,7 +858,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                                                                     It.IsAny<SearchOption>())).Returns(files);
                 mockFileSystem.Setup(x => x.FileOpenRead(It.IsAny<string>())).Returns(mockStream.Object);
                 mockFileSystem.Setup(x => x.FileExists(tempFile.Name)).Returns(true);
-                mockFileSystem.Setup(x => x.GetFileSize(It.IsAny<string>())).Returns(testCase.fileSize);
+                mockFileSystem.Setup(x => x.FileInfoLength(It.IsAny<string>())).Returns(testCase.fileSize);
 
                 bool expectedToBeWithinLimits = testCase.maxFileSize == -1 ||
                     testCase.fileSize / 1024 < testCase.maxFileSize;
@@ -871,7 +871,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                     SarifOutputVersion = SarifVersion.Current,
                     TestRuleBehaviors = TestRuleBehaviors.LogError,
                     ConfigurationFilePath = tempFile.Name,
-                    FileSizeInKilobytes = testCase.maxFileSize
+                    MaxFileInKilobytes = testCase.maxFileSize
                 };
 
                 var command = new TestMultithreadedAnalyzeCommand(mockFileSystem.Object);

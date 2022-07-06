@@ -320,6 +320,6 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <returns>
         /// A long representing the size of the file in bytes.
         /// </returns>
-        long GetFileSize(string path);
+        long FileInfoLength(string path);
     }
 }

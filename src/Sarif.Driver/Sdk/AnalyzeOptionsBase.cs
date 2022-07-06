@@ -116,9 +116,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         public string PostUri { get; set; }
 
         [Option(
-            "file-size-in-kb",
+            "max-file-size-in-kb",
             HelpText = "The maximum file size (in kilobytes) that will be analyzed.",
             Default = 1024)]
-        public int FileSizeInKilobytes { get; internal set; } = 1024;
+        public int MaxFileInKilobytes { get; internal set; } = 1024;
     }
 }

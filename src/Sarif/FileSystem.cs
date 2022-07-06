@@ -393,7 +393,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <returns>
         /// A long representing the size of the file in bytes.
         /// </returns>
-        public long GetFileSize(string path)
+        public long FileInfoLength(string path)
         {
             FileInfo fileInfo = new FileInfo(path);
             return fileInfo.Length;

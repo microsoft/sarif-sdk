@@ -43,7 +43,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
         public bool IsTargetWithinFileSizeLimit(string path, int maxFileSize)
         {
-            long fileSize = FileSystem.GetFileSize(path) / 1024;
+            long fileSize = FileSystem.FileInfoLength(path) / 1024;
 
             return (maxFileSize == -1 || fileSize < maxFileSize);
         }

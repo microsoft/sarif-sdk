@@ -7,10 +7,6 @@ using System.Threading.Tasks;
 
 using FluentAssertions;
 
-using Microsoft.CodeAnalysis.Sarif;
-using Microsoft.CodeAnalysis.Sarif.Driver;
-using Microsoft.VisualBasic;
-
 using Moq;
 
 using Xunit;
