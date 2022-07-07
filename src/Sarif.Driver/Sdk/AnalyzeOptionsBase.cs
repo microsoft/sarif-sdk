@@ -119,6 +119,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             "max-file-size-in-kb",
             HelpText = "The maximum file size (in kilobytes) that will be analyzed.",
             Default = 1024)]
-        public int MaxFileInKilobytes { get; internal set; } = 1024;
+        public int MaxFileSizeInKilobytes { get; internal set; } = 1024;
     }
 }

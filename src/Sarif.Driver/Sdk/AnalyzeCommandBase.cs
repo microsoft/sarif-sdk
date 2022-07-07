@@ -206,7 +206,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             succeeded &= ValidateFile(context, analyzeOptions.OutputFilePath, DefaultPolicyName, shouldExist: null);
             succeeded &= ValidateInvocationPropertiesToLog(context, analyzeOptions.InvocationPropertiesToLog);
             succeeded &= analyzeOptions.ValidateOutputOptions(context);
-            succeeded &= analyzeOptions.MaxFileInKilobytes > 0;
+            succeeded &= analyzeOptions.MaxFileSizeInKilobytes > 0;
 
             if (!succeeded)
             {
@@ -290,7 +290,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 Policy = policy
             };
 
-            context.MaxFileInKilobytes = options.MaxFileInKilobytes;
+            context.MaxFileInKilobytes = options.MaxFileSizeInKilobytes;
 
             if (filePath != null)
             {

@@ -871,7 +871,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                     SarifOutputVersion = SarifVersion.Current,
                     TestRuleBehaviors = TestRuleBehaviors.LogError,
                     ConfigurationFilePath = tempFile.Name,
-                    MaxFileInKilobytes = testCase.maxFileSize
+                    MaxFileSizeInKilobytes = testCase.maxFileSize
                 };
 
                 var command = new TestMultithreadedAnalyzeCommand(mockFileSystem.Object);
