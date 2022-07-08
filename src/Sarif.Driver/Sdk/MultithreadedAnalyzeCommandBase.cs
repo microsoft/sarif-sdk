@@ -412,11 +412,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                     }
 #endif
 
-                    foreach (string file in FileSystem.DirectoryEnumerateFiles(directory,
-                                                                               filter,
-                                                                               SearchOption.TopDirectoryOnly))
+                    foreach (string file in FileSystem.DirectoryEnumerateFiles(directory, filter, SearchOption.TopDirectoryOnly))
                     {
-                        sortedFiles.Add(file);
+                        // Only include files that are below the max size limit.
+                        if (IsTargetWithinFileSizeLimit(file, _rootContext.MaxFileSizeInKilobytes))
+                        {
+                            sortedFiles.Add(file);
+                        }
                     }
 
                     foreach (string file in sortedFiles)
@@ -537,11 +539,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
             succeeded &= ValidateFile(context, options.OutputFilePath, DefaultPolicyName, shouldExist: null);
             succeeded &= ValidateFile(context, options.ConfigurationFilePath, DefaultPolicyName, shouldExist: true);
-            succeeded &= ValidateFiles(context, options.PluginFilePaths, DefaultPolicyName, shouldExist: true);
             succeeded &= ValidateFile(context, options.BaselineSarifFile, DefaultPolicyName, shouldExist: true);
-            succeeded &= ValidateInvocationPropertiesToLog(context, options.InvocationPropertiesToLog);
+            succeeded &= ValidateFiles(context, options.PluginFilePaths, DefaultPolicyName, shouldExist: true);
             succeeded &= ValidateOutputFileCanBeCreated(context, options.OutputFilePath, options.Force);
+            succeeded &= ValidateInvocationPropertiesToLog(context, options.InvocationPropertiesToLog);
             succeeded &= options.ValidateOutputOptions(context);
+            succeeded &= options.MaxFileSizeInKilobytes > 0;
 
             if (!succeeded)
             {
@@ -581,6 +584,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 RuntimeErrors = runtimeErrors,
                 Policy = policy
             };
+
+            context.MaxFileSizeInKilobytes = options.MaxFileSizeInKilobytes;
 
             if (filePath != null)
             {

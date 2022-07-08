@@ -91,7 +91,7 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests.Core
         [Fact]
         public void SarifLog_SplitPerRun()
         {
-            var random = new Random();
+            Random random = RandomSarifLogGenerator.GenerateRandomAndLog(this.output);
             SarifLog sarifLog = RandomSarifLogGenerator.GenerateSarifLogWithRuns(random, 1);
             sarifLog.Split(SplittingStrategy.PerRun).Should().HaveCount(1);
 
@@ -102,7 +102,7 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests.Core
         [Fact]
         public void SarifLog_SplitPerResult()
         {
-            var random = new Random();
+            Random random = RandomSarifLogGenerator.GenerateRandomAndLog(this.output);
             SarifLog sarifLog = RandomSarifLogGenerator.GenerateSarifLogWithRuns(random, runCount: 1, resultCount: 5);
             int countOfDistinctRules = sarifLog.Runs[0].Results.Select(r => r.RuleId).Distinct().Count();
             IList<SarifLog> logs = sarifLog.Split(SplittingStrategy.PerResult).ToList();
@@ -119,7 +119,7 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests.Core
         [Fact]
         public void SarifLog_SplitPerTarget()
         {
-            var random = new Random();
+            Random random = RandomSarifLogGenerator.GenerateRandomAndLog(this.output);
             SarifLog sarifLog = RandomSarifLogGenerator.GenerateSarifLogWithRuns(random, 1);
             IList<SarifLog> logs = sarifLog.Split(SplittingStrategy.PerRunPerTarget).ToList();
             logs.Count.Should().Be(
@@ -143,7 +143,7 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests.Core
         [Fact]
         public void SarifLog_SplitPerTarget_WithEmptyLocations()
         {
-            var random = new Random();
+            Random random = RandomSarifLogGenerator.GenerateRandomAndLog(this.output);
             SarifLog sarifLog = RandomSarifLogGenerator.GenerateSarifLogWithRuns(random, 1);
 
             // set random result's location to empty
@@ -188,13 +188,7 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests.Core
         [Fact]
         public void SarifLog_LoadDeferred()
         {
-            byte[] data = new byte[4];
-            RandomNumberGenerator.Fill(data);
-            int seed = BitConverter.ToInt32(data);
-            var random = new Random(seed);
-
-            this.output.WriteLine($"The seed passed to the Random instance was : {seed}.");
-
+            Random random = RandomSarifLogGenerator.GenerateRandomAndLog(this.output);
             SarifLog sarifLog = RandomSarifLogGenerator.GenerateSarifLogWithRuns(random, 1);
             string sarifLogText = JsonConvert.SerializeObject(sarifLog);
             byte[] byteArray = Encoding.ASCII.GetBytes(sarifLogText);

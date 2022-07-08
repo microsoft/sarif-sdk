@@ -35,6 +35,8 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         public bool Disposed { get; private set; }
 
+        public int MaxFileSizeInKilobytes { get; set; }
+
         public void Dispose()
         {
             Disposed = true;

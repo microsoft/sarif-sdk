@@ -755,6 +755,144 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         }
 
         [Fact]
+        public void MultithreadedAnalyzeCommandBase_TargetFileSizeTestCases()
+        {
+            dynamic[] testCases = new[]
+            {
+                new {
+                    expectedExitReason = ExitReason.InvalidCommandLineOption,
+                    fileSize = (long)ulong.MinValue,
+                    maxFileSize = int.MinValue
+                },
+                new {
+                    expectedExitReason = ExitReason.InvalidCommandLineOption,
+                    fileSize = (long)ulong.MinValue,
+                    maxFileSize = -1
+                },
+                new {
+                    expectedExitReason = ExitReason.InvalidCommandLineOption,
+                    fileSize = (long)ulong.MinValue,
+                    maxFileSize = 0
+                },
+                new {
+                    expectedExitReason = ExitReason.None,
+                    fileSize = (long)ulong.MinValue,
+                    maxFileSize = 1
+                },
+                new {
+                    expectedExitReason = ExitReason.None,
+                    fileSize = (long)ulong.MinValue,
+                    maxFileSize = 2000
+                },
+                new {
+                    expectedExitReason = ExitReason.None,
+                    fileSize = (long)ulong.MinValue,
+                    maxFileSize = 1000
+                },
+                new {
+                    expectedExitReason = ExitReason.None,
+                    fileSize = (long)ulong.MinValue,
+                    maxFileSize = int.MaxValue
+                },
+                new {
+                    expectedExitReason = ExitReason.NoValidAnalysisTargets,
+                    fileSize = (long)20000,
+                    maxFileSize = 1
+                },
+                new {
+                    expectedExitReason = ExitReason.None,
+                    fileSize = (long)20000,
+                    maxFileSize = int.MaxValue
+                },
+                new {
+                    expectedExitReason = ExitReason.None,
+                    fileSize = (long)10,
+                    maxFileSize = 10
+                },
+                new {
+                    expectedExitReason = ExitReason.InvalidCommandLineOption,
+                    fileSize = long.MaxValue,
+                    maxFileSize = int.MinValue
+                },
+                new {
+                    expectedExitReason = ExitReason.InvalidCommandLineOption,
+                    fileSize = long.MaxValue,
+                    maxFileSize = 0
+                },
+                new {
+                    expectedExitReason = ExitReason.NoValidAnalysisTargets,
+                    fileSize = long.MaxValue,
+                    maxFileSize = int.MaxValue
+                },
+            };
+
+            foreach (dynamic testCase in testCases)
+            {
+                string specifier = "*.xyz";
+
+                int filesCount = 10;
+                var files = new List<string>();
+                for (int i = 0; i < filesCount; i++)
+                {
+                    files.Add(Path.GetFullPath($@".{Path.DirectorySeparatorChar}File{i}.txt"));
+                }
+
+                var propertiesDictionary = new PropertiesDictionary();
+                propertiesDictionary.SetProperty(TestRule.ErrorsCount, (uint)15);
+                propertiesDictionary.SetProperty(TestRule.Behaviors, TestRuleBehaviors.LogError);
+
+                using var tempFile = new TempFile(".xml");
+                propertiesDictionary.SaveToXml(tempFile.Name);
+
+                var mockStream = new Mock<Stream>();
+                mockStream.Setup(m => m.CanRead).Returns(true);
+                mockStream.Setup(m => m.CanSeek).Returns(true);
+                mockStream.Setup(m => m.ReadByte()).Returns('a');
+
+                var mockFileSystem = new Mock<IFileSystem>();
+                mockFileSystem.Setup(x => x.DirectoryExists(It.IsAny<string>())).Returns(true);
+                mockFileSystem.Setup(x => x.DirectoryGetFiles(It.IsAny<string>(), specifier)).Returns(files);
+                mockFileSystem.Setup(x => x.FileExists(It.Is<string>(s => s.EndsWith(specifier)))).Returns(true);
+                mockFileSystem.Setup(x => x.DirectoryEnumerateFiles(It.IsAny<string>(),
+                                                                    It.IsAny<string>(),
+                                                                    It.IsAny<SearchOption>())).Returns(files);
+                mockFileSystem.Setup(x => x.FileOpenRead(It.IsAny<string>())).Returns(mockStream.Object);
+                mockFileSystem.Setup(x => x.FileExists(tempFile.Name)).Returns(true);
+                mockFileSystem.Setup(x => x.FileInfoLength(It.IsAny<string>())).Returns(testCase.fileSize);
+
+                bool expectedToBeWithinLimits = testCase.maxFileSize == -1 ||
+                    testCase.fileSize / 1024 < testCase.maxFileSize;
+
+                Output.WriteLine($"The seed that will be used is: {TestRule.s_seed}");
+
+                var options = new TestAnalyzeOptions
+                {
+                    TargetFileSpecifiers = new[] { specifier },
+                    SarifOutputVersion = SarifVersion.Current,
+                    TestRuleBehaviors = TestRuleBehaviors.LogError,
+                    ConfigurationFilePath = tempFile.Name,
+                    MaxFileSizeInKilobytes = testCase.maxFileSize
+                };
+
+                int expectedReturnCode = testCase.expectedExitReason == ExitReason.None ? 0 : 1;
+
+                RunAnalyzeCommand(
+                    options: options,
+                    expectedReturnCode: expectedReturnCode,
+                    fileSystem: mockFileSystem.Object,
+                    multithreaded: true,
+                    exitReason: testCase.expectedExitReason);
+
+                RunAnalyzeCommand(
+                    options: options,
+                    expectedReturnCode: expectedReturnCode,
+                    fileSystem: mockFileSystem.Object,
+                    multithreaded: false,
+                    exitReason: testCase.expectedExitReason);
+            }
+        }
+
+        [Fact]
         public void AnalyzeCommandBase_PersistsSarifOneZeroZero()
         {
             string fileName = GetThisTestAssemblyFilePath();
@@ -1711,7 +1849,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         private static SarifLog RunAnalyzeCommand(TestAnalyzeOptions options,
                                                   IFileSystem fileSystem,
                                                   int expectedReturnCode,
-                                                  bool multithreaded)
+                                                  bool multithreaded,
+                                                  ExitReason exitReason = ExitReason.None)
         {
             // If no log file is specified, we will convert the console output into a log file
             bool captureConsoleOutput = string.IsNullOrEmpty(options.OutputFilePath);
@@ -1735,6 +1874,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             finally
             {
                 HashUtilities.FileSystem = null;
+            }
+
+            if (exitReason != ExitReason.None)
+            {
+                var exception = command.ExecutionException as ExitApplicationException<ExitReason>;
+                exception.Should().NotBeNull();
+                exception.ExitReason.Should().Be(exitReason);
             }
 
             ConsoleLogger consoleLogger = multithreaded
