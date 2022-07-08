@@ -874,26 +874,21 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                     MaxFileSizeInKilobytes = testCase.maxFileSize
                 };
 
-                var command = new TestMultithreadedAnalyzeCommand(mockFileSystem.Object);
-                command.DefaultPluginAssemblies = new Assembly[] { this.GetType().Assembly };
+                int expectedReturnCode = testCase.expectedExitReason == ExitReason.None ? 0 : 1;
 
-                int result = command.Run(options);
+                RunAnalyzeCommand(
+                    options: options,
+                    expectedReturnCode: expectedReturnCode,
+                    fileSystem: mockFileSystem.Object,
+                    multithreaded: true,
+                    exitReason: testCase.expectedExitReason);
 
-                if (testCase.expectedExitReason == ExitReason.None)
-                {
-                    command.ExecutionException?.InnerException.Should().BeNull();
-                    result.Should().Be(CommandBase.SUCCESS, $"Seed: {TestRule.s_seed}");
-                }
-                else
-                {
-                    var exception = command.ExecutionException as ExitApplicationException<ExitReason>;
-                    exception.Should().NotBeNull($"Seed: {TestRule.s_seed}, MaxFileSize: {testCase.maxFileSize}, FileSize: {testCase.fileSize}");
-                    exception.ExitReason.Should().Be(testCase.expectedExitReason, $"Seed: {TestRule.s_seed}, MaxFileSize: {testCase.maxFileSize}, FileSize: {testCase.fileSize}");
-                    result.Should().Be(CommandBase.FAILURE, $"Seed: {TestRule.s_seed}, MaxFileSize: {testCase.maxFileSize}, FileSize: {testCase.fileSize}");
-                }
-
-                bool isFileWithinLimits = command.IsTargetWithinFileSizeLimit($@".{Path.DirectorySeparatorChar}File0.txt", testCase.maxFileSize);
-                isFileWithinLimits.Should().Be(expectedToBeWithinLimits);
+                RunAnalyzeCommand(
+                    options: options,
+                    expectedReturnCode: expectedReturnCode,
+                    fileSystem: mockFileSystem.Object,
+                    multithreaded: false,
+                    exitReason: testCase.expectedExitReason);
             }
         }
 
@@ -1854,7 +1849,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         private static SarifLog RunAnalyzeCommand(TestAnalyzeOptions options,
                                                   IFileSystem fileSystem,
                                                   int expectedReturnCode,
-                                                  bool multithreaded)
+                                                  bool multithreaded,
+                                                  ExitReason exitReason = ExitReason.None)
         {
             // If no log file is specified, we will convert the console output into a log file
             bool captureConsoleOutput = string.IsNullOrEmpty(options.OutputFilePath);
@@ -1878,6 +1874,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             finally
             {
                 HashUtilities.FileSystem = null;
+            }
+
+            if (exitReason != ExitReason.None)
+            {
+                var exception = command.ExecutionException as ExitApplicationException<ExitReason>;
+                exception.Should().NotBeNull();
+                exception.ExitReason.Should().Be(exitReason);
             }
 
             ConsoleLogger consoleLogger = multithreaded

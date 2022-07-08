@@ -256,7 +256,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 foreach (string file in fileSpecifier.Files)
                 {
                     // Only include files that are below the max size limit.
-                    if (IsTargetWithinFileSizeLimit(file, _rootContext.MaxFileInKilobytes))
+                    if (IsTargetWithinFileSizeLimit(file, _rootContext.MaxFileSizeInKilobytes))
                     {
                         targets.Add(file);
                     }
@@ -290,7 +290,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 Policy = policy
             };
 
-            context.MaxFileInKilobytes = options.MaxFileSizeInKilobytes;
+            context.MaxFileSizeInKilobytes = options.MaxFileSizeInKilobytes;
 
             if (filePath != null)
             {
