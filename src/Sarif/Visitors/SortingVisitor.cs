@@ -4,8 +4,6 @@
 using System.Collections.Generic;
 using System.Linq;
 
-using Microsoft.CodeAnalysis.Sarif.Comparers;
-
 namespace Microsoft.CodeAnalysis.Sarif.Visitors
 {
     public class SortingVisitor : SarifRewritingVisitor
