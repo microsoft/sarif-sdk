@@ -246,7 +246,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             return sb.ToString();
         }
 
-        internal static bool IsWellFormedUri(string uriString, UriKind uriKind)
+        internal static bool UriIsWellFormedUriString(string uriString, UriKind uriKind)
         {
             bool isWellFormed = Uri.IsWellFormedUriString(uriString, UriKind.RelativeOrAbsolute);
             bool csBug = (uriString.StartsWith("file:/") && Uri.TryCreate(uriString, uriKind, out Uri result));

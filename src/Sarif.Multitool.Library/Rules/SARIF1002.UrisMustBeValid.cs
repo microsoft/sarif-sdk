@@ -80,7 +80,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             string uriString = uri?.OriginalString;
             if (uriString != null)
             {
-                if (!IsWellFormedUri(uriString, UriKind.RelativeOrAbsolute))
+                if (!UriIsWellFormedUriString(uriString, UriKind.RelativeOrAbsolute))
                 {
                     // {0}: The string '{1}' is not a valid URI reference. URIs must conform to
                     // [RFC 3986](https://tools.ietf.org/html/rfc3986).
