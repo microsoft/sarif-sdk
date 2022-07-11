@@ -4,14 +4,13 @@
 using System;
 using System.CodeDom.Compiler;
 using System.Collections.Generic;
-using Microsoft.CodeAnalysis.Sarif.Readers;
 
 namespace Microsoft.CodeAnalysis.Sarif
 {
     /// <summary>
     /// Defines methods to support the comparison of objects of type Attachment for equality.
     /// </summary>
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "1.1.3.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "1.1.4.0")]
     internal sealed class AttachmentEqualityComparer : IEqualityComparer<Attachment>
     {
         internal static readonly AttachmentEqualityComparer Instance = new AttachmentEqualityComparer();
@@ -158,7 +157,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                         xor_0 ^= value_4.Key.GetHashCode();
                         if (value_4.Value != null)
                         {
-                            xor_0 ^= value_4.Value.GetHashCode();
+                            xor_0 ^= value_4.Value.ValueGetHashCode();
                         }
                     }
 
