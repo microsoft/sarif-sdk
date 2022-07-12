@@ -130,7 +130,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 },
             };
 
-            foreach(var testCase in testCases)
+            foreach (var testCase in testCases)
             {
                 SarifValidationSkimmerBase.IsWellFormedUriString(testCase.uriString, testCase.uriKind).Should().BeTrue();
             }
