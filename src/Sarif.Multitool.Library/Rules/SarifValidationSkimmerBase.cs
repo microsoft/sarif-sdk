@@ -246,12 +246,20 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             return sb.ToString();
         }
 
-        internal static bool UriIsWellFormedUriString(string uriString, UriKind uriKind)
+        /// <summary>
+        /// Validate URIs conform to [RFC 3986](https://tools.ietf.org/html/rfc3986).
+        /// </summary>
+        /// <param name="uriString">The string used to attempt to construct a `Uri`.</param>
+        /// <param name="uriKind">The type of the `Uri` in `uriString`.</param>
+        /// <returns></returns>
+        internal static bool IsWellFormedUriString(string uriString, UriKind uriKind)
         {
             bool isWellFormed = Uri.IsWellFormedUriString(uriString, uriKind);
-            bool csBug = (uriString.StartsWith("file:/") && Uri.TryCreate(uriString, uriKind, out Uri result));
 
-            return isWellFormed || csBug;
+            // `System.Uri.IsWellFormedUriString` incorrectly returns false if the `authority` is missing from the Uri string.
+            bool subjectToWellKnownClrBug = (uriString.StartsWith("file:/", StringComparison.OrdinalIgnoreCase) && Uri.TryCreate(uriString, uriKind, out Uri result));
+
+            return isWellFormed || subjectToWellKnownClrBug;
         }
 
         private static readonly string s_javaScriptIdentifierPattern = @"^[$_\p{L}][$_\p{L}0-9]*$";
