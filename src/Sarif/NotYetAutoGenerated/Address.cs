@@ -5,6 +5,7 @@ using System;
 using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Numerics;
 using System.Runtime.Serialization;
 
 using Newtonsoft.Json;
@@ -42,7 +43,12 @@ namespace Microsoft.CodeAnalysis.Sarif
         [DataMember(Name = "absoluteAddress", IsRequired = false, EmitDefaultValue = false)]
         [DefaultValue(-1)]
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
-        public int AbsoluteAddress { get; set; }
+        public BigInteger AbsoluteAddress { get; set; }
+
+        public bool ShouldSerializeAbsoluteAddress()
+        {
+            return AbsoluteAddress >= 0;
+        }
 
         /// <summary>
         /// The address expressed as a byte offset from the absolute address of the top-most parent object.
@@ -147,7 +153,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="properties">
         /// An initialization value for the <see cref="P:Properties" /> property.
         /// </param>
-        public Address(int absoluteAddress, int? relativeAddress, int? length, string kind, string name, string fullyQualifiedName, int? offsetFromParent, int index, int parentIndex, IDictionary<string, SerializedPropertyInfo> properties)
+        public Address(BigInteger absoluteAddress, int? relativeAddress, int? length, string kind, string name, string fullyQualifiedName, int? offsetFromParent, int index, int parentIndex, IDictionary<string, SerializedPropertyInfo> properties)
         {
             Init(absoluteAddress, relativeAddress, length, kind, name, fullyQualifiedName, offsetFromParent, index, parentIndex, properties);
         }
@@ -189,7 +195,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new Address(this);
         }
 
-        private void Init(int absoluteAddress, int? relativeAddress, int? length, string kind, string name, string fullyQualifiedName, int? offsetFromParent, int index, int parentIndex, IDictionary<string, SerializedPropertyInfo> properties)
+        private void Init(BigInteger absoluteAddress, int? relativeAddress, int? length, string kind, string name, string fullyQualifiedName, int? offsetFromParent, int index, int parentIndex, IDictionary<string, SerializedPropertyInfo> properties)
         {
             AbsoluteAddress = absoluteAddress;
             RelativeAddress = relativeAddress;

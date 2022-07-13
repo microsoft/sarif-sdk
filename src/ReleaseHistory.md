@@ -3,6 +3,7 @@
 ## Unreleased
 
 * FEATURE: Add `max-file-size-in-kb` argument that allows filtering scan targets by file size. [#2494](https://github.com/microsoft/sarif-sdk/pull/2494)
+* BREAKING: `absoluteAddress` property of `address` changed from `int`(32bit) to `BigInteger`(unlimited) to fix `Newtonsoft.Json.JsonReaderException: JSON integer XXXXX is too large or small for an Int32.` [#2502](https://github.com/microsoft/sarif-sdk/pull/2502)
 
 ## **v2.4.15** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.4.15) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.4.15) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.4.15) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.4.15) | [Multitool Library](https://www.nuget.org/packages/Sarif.Multitool.Library/2.4.15)
 

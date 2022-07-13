@@ -1,0 +1,88 @@
+{
+  "runs": [
+    {
+      "tool": {
+        "driver": {
+          "name": "abcdscan",
+          "rules": [
+            {
+              "id": "android_detect_tapjacking",
+              "name": "AndroidDetectTapjacking",
+              "helpUri": "https://github.com/"
+            }
+          ],
+          "version": "0.0.8",
+          "informationUri": "https://github.com/",
+          "semanticVersion": "0.0.8"
+        }
+      },
+      "invocations": [
+        {
+          "executionSuccessful": true,
+          "endTimeUtc": "2022-01-16T17:04:25Z"
+        }
+      ],
+      "results": [
+        {
+          "message": {
+            "text": "This app does not have capabilities to prevent tapjacking attacks. An attacker can hijack the user's taps and tricks him into performing some critical operations that he did not intend to."
+          },
+          "level": "note",
+          "locations": [
+            {
+              "id": 1,
+              "physicalLocation": {
+                "address": {
+                  "absoluteAddress": 31197130097450771296369962162453149327732752356239421572342053257324632475324
+                }
+              }
+            },
+            {
+              "id": 2,
+              "physicalLocation": {
+                "address": {
+                  "absoluteAddress": 9223372036854775808
+                }
+              }
+            },
+            {
+              "id": 3,
+              "physicalLocation": {
+                "address": {
+                  "absoluteAddress": 2147483648
+                }
+              }
+            },
+            {
+              "id": 3,
+              "physicalLocation": {
+                "address": {
+                  "absoluteAddress": 2
+                }
+              }
+            },
+            {
+              "id": 4,
+              "physicalLocation": {
+                "address": {
+                  "absoluteAddress": 0
+                }
+              }
+            },
+            {
+              "id": 5,
+              "physicalLocation": {
+                "address": {
+                }
+              }
+            }
+          ],
+          "ruleId": "android_detect_tapjacking",
+          "ruleIndex": 0
+        }
+      ]
+    }
+  ],
+  "version": "2.1.0",
+  "$schema": "https://raw.githubusercontent.com/oasis-tcs/sarif-spec/master/Schemata/sarif-schema-2.1.0.json"
+}

@@ -24,88 +24,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Remove="TestData\Baseline\elfie-arriba.sarif" />
-    <None Remove="TestData\Baseline\SuppressionTestCurrent.sarif" />
-    <None Remove="TestData\Baseline\SuppressionTestPrevious.sarif" />
-    <None Remove="TestData\GitHubIngestionVisitor\ExpectedOutputs\Fingerprints.sarif" />
-    <None Remove="TestData\GitHubIngestionVisitor\ExpectedOutputs\NonErrorResults.sarif" />
-    <None Remove="TestData\GitHubIngestionVisitor\ExpectedOutputs\ThreadFlowLocations.sarif" />
-    <None Remove="TestData\GitHubIngestionVisitor\ExpectedOutputs\TooManyResults.sarif" />
-    <None Remove="TestData\GitHubIngestionVisitor\ExpectedOutputs\WithArtifacts.sarif" />
-    <None Remove="TestData\GitHubIngestionVisitor\Inputs\Fingerprints.sarif" />
-    <None Remove="TestData\GitHubIngestionVisitor\Inputs\NonErrorResults.sarif" />
-    <None Remove="TestData\GitHubIngestionVisitor\Inputs\ThreadFlowLocations.sarif" />
-    <None Remove="TestData\GitHubIngestionVisitor\Inputs\TooManyResults.sarif" />
-    <None Remove="TestData\GitHubIngestionVisitor\Inputs\WithArtifacts.sarif" />
-    <None Remove="TestData\GitHubIngestionVisitor\RelatedLocationMessage.sarif" />
-    <None Remove="TestData\InsertOptionalDataVisitor\ExpectedOutputs\CoreTests-Absolute_TextFiles.sarif" />
-    <None Remove="TestData\InsertOptionalDataVisitor\ExpectedOutputs\CoreTests-Relative_All.sarif" />
-    <None Remove="TestData\InsertOptionalDataVisitor\ExpectedOutputs\CoreTests-Relative_Guids.sarif" />
-    <None Remove="TestData\InsertOptionalDataVisitor\ExpectedOutputs\CoreTests-Relative_VersionControlDetails.sarif" />
-    <None Remove="TestData\InsertOptionalDataVisitor\Inputs\CoreTests-Absolute.sarif" />
-    <None Remove="TestData\Location\LocationId_BigInteger.sarif" />
-    <None Remove="TestData\PrereleaseCompatibilityTransformer\ExpectedOutputs\ArtifactsWithRoles.sarif" />
-    <None Remove="TestData\PrereleaseCompatibilityTransformer\ExpectedOutputs\ComprehensiveToolProperties.01-24.sarif" />
-    <None Remove="TestData\PrereleaseCompatibilityTransformer\ExpectedOutputs\ComprehensiveToolProperties.sarif" />
-    <None Remove="TestData\PrereleaseCompatibilityTransformer\ExpectedOutputs\LocationWithId.sarif" />
-    <None Remove="TestData\PrereleaseCompatibilityTransformer\ExpectedOutputs\MultiformatMessageStrings.sarif" />
-    <None Remove="TestData\PrereleaseCompatibilityTransformer\ExpectedOutputs\NestedInnerExceptionsInNotifications.sarif" />
-    <None Remove="TestData\PrereleaseCompatibilityTransformer\ExpectedOutputs\OneRunWithBasicInvocation.sarif" />
-    <None Remove="TestData\PrereleaseCompatibilityTransformer\ExpectedOutputs\OneRunWithInvocationExitCode.sarif" />
-    <None Remove="TestData\PrereleaseCompatibilityTransformer\ExpectedOutputs\OneRunWithRedactionToken.sarif" />
-    <None Remove="TestData\PrereleaseCompatibilityTransformer\ExpectedOutputs\RegressionTests.sarif" />
-    <None Remove="TestData\PrereleaseCompatibilityTransformer\ExpectedOutputs\RunResources.sarif" />
-    <None Remove="TestData\PrereleaseCompatibilityTransformer\ExpectedOutputs\ThreadFlowLocationWithKind.sarif" />
-    <None Remove="TestData\PrereleaseCompatibilityTransformer\ExpectedOutputs\ToolWithLanguage.sarif" />
-    <None Remove="TestData\PrereleaseCompatibilityTransformer\ExpectedOutputs\V1.sarif" />
-    <None Remove="TestData\PrereleaseCompatibilityTransformer\ExpectedOutputs\WithExternalPropertyFiles.01-24.sarif" />
-    <None Remove="TestData\PrereleaseCompatibilityTransformer\ExpectedOutputs\WithSuppressions.sarif" />
-    <None Remove="TestData\PrereleaseCompatibilityTransformer\Inputs\ArtifactsWithRoles.sarif" />
-    <None Remove="TestData\PrereleaseCompatibilityTransformer\Inputs\ComprehensiveToolProperties.01-24.sarif" />
-    <None Remove="TestData\PrereleaseCompatibilityTransformer\Inputs\ComprehensiveToolProperties.sarif" />
-    <None Remove="TestData\PrereleaseCompatibilityTransformer\Inputs\LocationWithId.sarif" />
-    <None Remove="TestData\PrereleaseCompatibilityTransformer\Inputs\MultiformatMessageStrings.sarif" />
-    <None Remove="TestData\PrereleaseCompatibilityTransformer\Inputs\NestedInnerExceptionsInNotifications.sarif" />
-    <None Remove="TestData\PrereleaseCompatibilityTransformer\Inputs\OneRunWithBasicInvocation.sarif" />
-    <None Remove="TestData\PrereleaseCompatibilityTransformer\Inputs\OneRunWithInvocationExitCode.sarif" />
-    <None Remove="TestData\PrereleaseCompatibilityTransformer\Inputs\OneRunWithRedactionToken.sarif" />
-    <None Remove="TestData\PrereleaseCompatibilityTransformer\Inputs\RegressionTests.sarif" />
-    <None Remove="TestData\PrereleaseCompatibilityTransformer\Inputs\RunResources.sarif" />
-    <None Remove="TestData\PrereleaseCompatibilityTransformer\Inputs\ThreadFlowLocationWithKind.sarif" />
-    <None Remove="TestData\PrereleaseCompatibilityTransformer\Inputs\ToolWithLanguage.sarif" />
-    <None Remove="TestData\PrereleaseCompatibilityTransformer\Inputs\V1.sarif" />
-    <None Remove="TestData\PrereleaseCompatibilityTransformer\Inputs\WithExternalPropertyFiles.01-24.sarif" />
-    <None Remove="TestData\PrereleaseCompatibilityTransformer\Inputs\WithSuppressions.sarif" />
-    <None Remove="TestData\RoundTripping\ExpectedOutputs\InvocationOverridesRuleDefaultConfigurationOfError.sarif" />
-    <None Remove="TestData\RoundTripping\ExpectedOutputs\NoRuleDefaultConfiguration.sarif" />
-    <None Remove="TestData\RoundTripping\ExpectedOutputs\PropertyBagComprehensiveValueTypes.sarif" />
-    <None Remove="TestData\RoundTripping\ExpectedOutputs\RuleDefaultConfigurationIsError.sarif" />
-    <None Remove="TestData\RoundTripping\ExpectedOutputs\RuleDefaultConfigurationIsWarning.sarif" />
-    <None Remove="TestData\RoundTripping\Inputs\InvocationOverridesRuleDefaultConfigurationOfError.sarif" />
-    <None Remove="TestData\RoundTripping\Inputs\NoRuleDefaultConfiguration.sarif" />
-    <None Remove="TestData\RoundTripping\Inputs\PropertyBagComprehensiveValueTypes.sarif" />
-    <None Remove="TestData\RoundTripping\Inputs\RuleDefaultConfigurationIsError.sarif" />
-    <None Remove="TestData\RoundTripping\Inputs\RuleDefaultConfigurationIsWarning.sarif" />
-    <None Remove="TestData\RoundTripping\RoundTripping.sarif" />
-    <None Remove="TestData\SarifCurrentToVersionOneVisitor\ExpectedOutputs\OneRunWithNotificationTime.sarif" />
-    <None Remove="TestData\SarifCurrentToVersionOneVisitor\Inputs\OneRunWithNotificationTime.sarif" />
-    <None Remove="TestData\SarifLogger\SimpleExample.sarif" />
-    <None Remove="TestData\SarifVersionOneToCurrentVisitor\ExpectedOutputs\MinimumWithLanguage.sarif" />
-    <None Remove="TestData\SarifVersionOneToCurrentVisitor\ExpectedOutputs\NestedInnerExceptionsInNotifications.sarif" />
-    <None Remove="TestData\SarifVersionOneToCurrentVisitor\ExpectedOutputs\NonDottedQuadFileVersion.sarif" />
-    <None Remove="TestData\SarifVersionOneToCurrentVisitor\ExpectedOutputs\OneRunWithAllReportingDescriptors.sarif" />
-    <None Remove="TestData\SarifVersionOneToCurrentVisitor\ExpectedOutputs\ResultLocationsAsEmptyArray.sarif" />
-    <None Remove="TestData\SarifVersionOneToCurrentVisitor\Inputs\MinimumWithLanguage.sarif" />
-    <None Remove="TestData\SarifVersionOneToCurrentVisitor\Inputs\NestedInnerExceptionsInNotifications.sarif" />
-    <None Remove="TestData\SarifVersionOneToCurrentVisitor\Inputs\NonDottedQuadFileVersion.sarif" />
-    <None Remove="TestData\SarifVersionOneToCurrentVisitor\Inputs\OneRunWithAllReportingDescriptors.sarif" />
-    <None Remove="TestData\SarifVersionOneToCurrentVisitor\Inputs\ResultLocationsAsEmptyArray.sarif" />
-    <None Remove="TestData\UriConverter\UriConverterTests.json" />
-    <None Remove="TestData\V2ResultMatcher\elfie-arriba.sarif" />
-    <None Remove="xunit.runner.json" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Content Include="xunit.runner.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -128,6 +46,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="TestData\JsonMapBuilder\Sample.json" />
     <EmbeddedResource Include="TestData\JsonMapBuilder\TinyArray.json" />
+    <EmbeddedResource Include="TestData\Address\Address_BigInteger.sarif" />
     <EmbeddedResource Include="TestData\Location\LocationId_BigInteger.sarif" />
     <EmbeddedResource Include="TestData\Readers\elfie-arriba-utf8-bom.sarif" />
     <EmbeddedResource Include="TestData\Baseline\elfie-arriba.sarif" />
