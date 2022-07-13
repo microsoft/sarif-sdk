@@ -40,6 +40,12 @@
             "uriBaseId": "SRCROOT",
             "index": 1
           }
+        },
+        {
+          "location": {
+            "uri": "file:/c:/src/file.c",
+            "index": 2
+          }
         }
       ],
       "results": [
