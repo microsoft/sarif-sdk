@@ -19,7 +19,7 @@ namespace Microsoft.CodeAnalysis.Sarif {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class SdkResources {
@@ -169,7 +169,7 @@ namespace Microsoft.CodeAnalysis.Sarif {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Could not load the plug-in &apos;{0}&apos;..
+        ///   Looks up a localized string similar to Could not load the plugin &apos;{0}&apos;..
         /// </summary>
         public static string ERR997_ExceptionLoadingPlugIn {
             get {
@@ -201,6 +201,15 @@ namespace Microsoft.CodeAnalysis.Sarif {
         public static string ERR997_MissingReportingConfiguration {
             get {
                 return ResourceManager.GetString("ERR997_MissingReportingConfiguration", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No plugins were configured or successfully located and so no rules were loaded..
+        /// </summary>
+        public static string ERR997_NoPluginsConfigured {
+            get {
+                return ResourceManager.GetString("ERR997_NoPluginsConfigured", resourceCulture);
             }
         }
         

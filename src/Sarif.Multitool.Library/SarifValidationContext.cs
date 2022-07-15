@@ -96,6 +96,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
         public DefaultTraces Traces { get; set; }
 
+        public int MaxFileSizeInKilobytes { get; set; }
+
         public void Dispose()
         {
             // Nothing to dispose.

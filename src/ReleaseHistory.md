@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+* FEATURE: Add `max-file-size-in-kb` argument that allows filtering scan targets by file size. [#2494](https://github.com/microsoft/sarif-sdk/pull/2494)
+* BUGFIX: Fix false positive for `SARIF1002.UrisMustBeValid` for file URIs that omit the `authority`. [#2501](https://github.com/microsoft/sarif-sdk/pull/2501)
 * DEPENDENCY: Updating [Newtonsoft.Json](https://www.nuget.org/packages/Newtonsoft.Json/13.0.1) to v13.0.1, [Microsoft.Json.Schema](https://www.nuget.org/packages/Microsoft.Json.Schema) to v1.1.5, and [Microsoft.Json.Pointer](https://www.nuget.org/packages/Microsoft.Json.Pointer) to v1.1.5 in response to [Advisory: Improper Handling of Exceptional Conditions in Newtonsoft.Json](https://github.com/advisories/GHSA-5crp-9r3c-p9vr). [#2504](https://github.com/microsoft/sarif-sdk/pull/2504)
 
 ## **v2.4.15** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.4.15) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.4.15) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.4.15) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.4.15) | [Multitool Library](https://www.nuget.org/packages/Sarif.Multitool.Library/2.4.15)

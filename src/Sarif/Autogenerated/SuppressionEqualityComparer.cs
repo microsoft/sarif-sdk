@@ -4,14 +4,13 @@
 using System;
 using System.CodeDom.Compiler;
 using System.Collections.Generic;
-using Microsoft.CodeAnalysis.Sarif.Readers;
 
 namespace Microsoft.CodeAnalysis.Sarif
 {
     /// <summary>
     /// Defines methods to support the comparison of objects of type Suppression for equality.
     /// </summary>
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "1.1.3.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "1.1.4.0")]
     internal sealed class SuppressionEqualityComparer : IEqualityComparer<Suppression>
     {
         internal static readonly SuppressionEqualityComparer Instance = new SuppressionEqualityComparer();
@@ -114,7 +113,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                         xor_0 ^= value_2.Key.GetHashCode();
                         if (value_2.Value != null)
                         {
-                            xor_0 ^= value_2.Value.GetHashCode();
+                            xor_0 ^= value_2.Value.ValueGetHashCode();
                         }
                     }
 
