@@ -20,7 +20,7 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    <ExecCommand>$(PowershellExecutable) -executionpolicy bypass -command &quot;.$(PathSeparator)rewriteUnitTests.ps1 -Configuration $(Configuration) -CoyoteVersion $(CoyoteVersion) -TargetFramework $(TargetFramework)&quot;</ExecCommand>
+    <ExecCommand>$(PowershellExecutable) -executionpolicy bypass -command ".$(PathSeparator)rewriteUnitTests.ps1 -Configuration $(Configuration) -CoyoteVersion $(CoyoteVersion) -TargetFramework $(TargetFramework)"</ExecCommand>
   </PropertyGroup>
 
   <Target Name="CopyFunctionalTestData" AfterTargets="Build">
@@ -34,7 +34,7 @@
     <PackageReference Include="FluentAssertions" Version="5.10.2" />
     <PackageReference Include="Microsoft.Coyote" Version="$(CoyoteVersion)" />
     <PackageReference Include="Microsoft.Coyote.Test" Version="$(CoyoteVersion)" />
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.0.0" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.4.0-preview-20220707-01" />
     <PackageReference Include="Moq" Version="4.13.1" />
     <PackageReference Include="System.Collections.Immutable" Version="5.0.0" />
     <PackageReference Include="System.Composition" Version="5.0.0" />
