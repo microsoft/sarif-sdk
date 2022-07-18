@@ -10,7 +10,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// <summary>
     /// Defines methods to support the comparison of objects of type SpecialLocations for equality.
     /// </summary>
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "1.1.4.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "1.1.5.0")]
     internal sealed class SpecialLocationsEqualityComparer : IEqualityComparer<SpecialLocations>
     {
         internal static readonly SpecialLocationsEqualityComparer Instance = new SpecialLocationsEqualityComparer();

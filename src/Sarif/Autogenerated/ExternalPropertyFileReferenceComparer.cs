@@ -10,7 +10,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// <summary>
     /// Defines methods to support the comparison of objects of type ExternalPropertyFileReference for sorting.
     /// </summary>
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "1.1.4.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "1.1.5.0")]
     internal sealed class ExternalPropertyFileReferenceComparer : IComparer<ExternalPropertyFileReference>
     {
         internal static readonly ExternalPropertyFileReferenceComparer Instance = new ExternalPropertyFileReferenceComparer();
