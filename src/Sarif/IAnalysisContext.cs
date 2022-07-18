@@ -29,5 +29,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         bool AnalysisComplete { get; set; }
 
         DefaultTraces Traces { get; set; }
+
+        int MaxFileSizeInKilobytes { get; set; }
     }
 }
