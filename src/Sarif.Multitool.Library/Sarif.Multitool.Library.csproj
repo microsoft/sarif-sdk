@@ -15,7 +15,7 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.Azure.Kusto.Data" Version="9.0.8" />
-    <PackageReference Include="Microsoft.Json.Pointer" Version="1.1.2" />
+    <PackageReference Include="Microsoft.Json.Pointer" Version="1.1.5" />
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0" PrivateAssets="All" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
     <PackageReference Include="System.Threading.Channels" Version="5.0.0" />
