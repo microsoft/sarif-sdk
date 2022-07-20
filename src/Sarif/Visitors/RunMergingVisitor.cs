@@ -78,7 +78,23 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             }
 
             // Cache RuleId and set Result.RuleIndex to the (new) index
-            string ruleId = node.ResolvedRuleId(CurrentRun);
+            string resultRuleId = node.ResolvedRuleId(CurrentRun);
+            string ruleId = resultRuleId;
+            ReportingDescriptor rule = null;
+
+            // Result's rule Id is a sub rule Id
+            if (!string.IsNullOrEmpty(ruleId) &&
+                ruleId.IndexOf(SarifConstants.HierarchicalComponentSeparator) > 0)
+            {
+                rule = node.GetRule(CurrentRun);
+                string possilbeParentRuleId = rule?.Id;
+                if (possilbeParentRuleId != null &&
+                    ruleId.StartsWith(possilbeParentRuleId + SarifConstants.HierarchicalComponentSeparator))
+                {
+                    ruleId = possilbeParentRuleId;
+                }
+            }
+
             if (!string.IsNullOrEmpty(ruleId))
             {
                 if (RuleIdToIndex.TryGetValue(ruleId, out int ruleIndex))
@@ -87,15 +103,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 }
                 else
                 {
-                    ReportingDescriptor rule = node.GetRule(CurrentRun);
                     int newIndex = Rules.Count;
-                    Rules.Add(rule);
+                    Rules.Add(rule ?? node.GetRule(CurrentRun));
 
                     RuleIdToIndex[ruleId] = newIndex;
                     node.RuleIndex = newIndex;
                 }
 
-                node.RuleId = ruleId;
+                node.RuleId = resultRuleId;
             }
 
             Result result = base.VisitResult(node);

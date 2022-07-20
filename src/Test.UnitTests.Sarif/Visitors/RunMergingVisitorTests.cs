@@ -2,6 +2,7 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System.Collections.Generic;
+using System.Linq;
 
 using FluentAssertions;
 
@@ -357,6 +358,85 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 newResult.GetRule(mergedRun).Id.Should().Be(expectedRuleId);
 
                 firstResultIndex++;
+            }
+        }
+
+        [Fact]
+        public void RunMergingVisitor_MergeSubRulesProperly()
+        {
+            var previousRun = new Run
+            {
+                Tool = new Tool
+                {
+                    Driver = new ToolComponent
+                    {
+                        Name = "Test Tool",
+                        Rules = new List<ReportingDescriptor>()
+                        {
+                            new ReportingDescriptor() { Id = "Rule/001" },
+                            new ReportingDescriptor() { Id = "Rule/002" },
+                            new ReportingDescriptor() { Id = "Rule/003" },
+                            new ReportingDescriptor() { Id = "Rule/004" },
+                            new ReportingDescriptor() { Id = "Rule/005" },
+                        }
+                    },
+                },
+                Results = new List<Result>
+                {
+                    new Result { RuleId = "Rule/001/SubRule1", RuleIndex = 0 },
+                    new Result { RuleId = "Rule/001/SubRule2", RuleIndex = 0 },
+                    new Result { RuleId = "Rule/002/SubRule1", RuleIndex = 1 },
+                    new Result { RuleId = "Rule/002/SubRule2", RuleIndex = 1 },
+                    new Result { RuleId = "Rule/004", RuleIndex = 3 },
+                }
+            };
+
+            var currentRun = new Run
+            {
+                Tool = new Tool
+                {
+                    Driver = new ToolComponent
+                    {
+                        Name = "Test Tool",
+                        Rules = new List<ReportingDescriptor>()
+                        {
+                            new ReportingDescriptor() { Id = "Rule/004" },
+                            new ReportingDescriptor() { Id = "Rule/002" },
+                            new ReportingDescriptor() { Id = "Rule/003" },
+                        }
+                    },
+                },
+                Results = new List<Result>
+                {
+                    new Result { RuleId = "Rule/002/SubRule3", RuleIndex = 1 },
+                    new Result { RuleId = "Rule/002/SubRule4", RuleIndex = 1 },
+                    new Result { RuleId = "Rule/003/SubRule1", RuleIndex = 2 },
+                    new Result { RuleId = "Rule/003/SubRule2", RuleIndex = 2 },
+                }
+            };
+
+            // Use the RunMergingVisitor to merge two runs, via Run.MergeResultsFrom
+            Run mergedRun = currentRun.DeepClone();
+            Run baselineRunCopy = previousRun.DeepClone();
+
+            mergedRun.MergeResultsFrom(baselineRunCopy);
+
+            // We should get Rule/001, Rule/002, Rule/003 and Rule/004.
+            // Rule/005 wasn't referenced.
+            mergedRun.Tool.Driver.Rules.Count.Should().Be(4);
+            mergedRun.Tool.Driver.Rules.Any(r => r.Id == "Rule/001").Should().BeTrue();
+            mergedRun.Tool.Driver.Rules.Any(r => r.Id == "Rule/002").Should().BeTrue();
+            mergedRun.Tool.Driver.Rules.Any(r => r.Id == "Rule/003").Should().BeTrue();
+            mergedRun.Tool.Driver.Rules.Any(r => r.Id == "Rule/004").Should().BeTrue();
+            mergedRun.Tool.Driver.Rules.Any(r => r.Id == "Rule/005").Should().BeFalse();
+
+            // Verify each sub rule should match to right parent rule.
+            mergedRun.Results.Count.Should().Be(9);
+            foreach (Result result in mergedRun.Results)
+            {
+                string subRule = result.RuleId;
+                string parentRule = result.GetRule(mergedRun).Id;
+                subRule.StartsWith(parentRule).Should().BeTrue();
             }
         }
     }

@@ -278,6 +278,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
             run.Graphs = graphs;
             run.Invocations = invocations;
             run.Properties = properties;
+            run.VersionControlProvenance = MergeVersionControlDetails(currentRuns.Concat(previousRuns));
 
             return new SarifLog()
             {
@@ -342,6 +343,25 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
                         : baseProperties;
                 }
             }
+        }
+
+        private static IList<VersionControlDetails> MergeVersionControlDetails(IEnumerable<Run> runs)
+        {
+            // use HashSet with EqualityComparer to avoid duplicated entries
+            var versionControlSet = new HashSet<VersionControlDetails>(VersionControlDetails.ValueComparer);
+            foreach (Run run in runs)
+            {
+                if (run.VersionControlProvenance == null)
+                {
+                    continue;
+                }
+
+                foreach (VersionControlDetails versionControlProvenance in run.VersionControlProvenance)
+                {
+                    versionControlSet.Add(versionControlProvenance);
+                }
+            }
+            return versionControlSet.Any() ? versionControlSet.ToList() : null;
         }
     }
 }
