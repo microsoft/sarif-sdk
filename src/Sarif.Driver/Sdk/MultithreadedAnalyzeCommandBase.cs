@@ -306,7 +306,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             var cachingLogger = (CachingLogger)logger;
             IDictionary<ReportingDescriptor, IList<Result>> results = cachingLogger.Results;
 
-            if (results?.Count > 0)
+            if (results?.Count > 0 && !cachingLogger.IsLocked)
             {
                 foreach (KeyValuePair<ReportingDescriptor, IList<Result>> kv in results)
                 {
@@ -972,6 +972,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                     Errors.LogUnhandledRuleExceptionAnalyzingTarget(disabledSkimmers, context, ex);
                 }
             }
+
+            CachingLogger cachingLogger = context.Logger as CachingLogger;
+            cachingLogger.ReleaseLock();
         }
 
         protected virtual IEnumerable<Skimmer<TContext>> DetermineApplicabilityForTarget(

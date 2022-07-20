@@ -3,6 +3,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Threading;
 
 namespace Microsoft.CodeAnalysis.Sarif.Writers
 {
@@ -16,8 +17,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
     {
         public CachingLogger(IEnumerable<FailureLevel> levels, IEnumerable<ResultKind> kinds) : base(levels, kinds)
         {
-            IsLocked = true;
+            s_rwl = new ReaderWriterLock();
         }
+
 
         public IDictionary<ReportingDescriptor, IList<Result>> Results { get; set; }
 
@@ -27,14 +29,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
         public bool IsLocked { get; private set; }
 
+        internal static ReaderWriterLock s_rwl { get; set; }
+
         public void AnalysisStarted()
         {
         }
 
         public void AnalysisStopped(RuntimeConditions runtimeConditions)
         {
-            // Note: this method appears to be called after all runs are complete and therefore is not the ideal place for this.
-            IsLocked = false;
         }
 
         public void AnalyzingTarget(IAnalysisContext context)
@@ -43,6 +45,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
         public void Log(ReportingDescriptor rule, Result result)
         {
+            if(!IsLocked)
+            {
+                LockReader();
+            }
+
             if (rule == null)
             {
                 throw new ArgumentNullException(nameof(rule));
@@ -97,6 +104,27 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
             ToolNotifications ??= new List<Notification>();
             ToolNotifications.Add(notification);
+        }
+
+        public bool TryGetResults(out IDictionary<ReportingDescriptor, IList<Result>> results)
+        {
+            results = Results;
+            return s_rwl.IsReaderLockHeld;
+        }
+
+        public void ReleaseLock()
+        {
+            if(s_rwl.IsReaderLockHeld)
+            {
+                s_rwl.ReleaseReaderLock();
+                IsLocked = false;
+            }
+        }
+
+        internal void LockReader()
+        {
+            s_rwl.AcquireReaderLock(5000);
+            IsLocked = true;
         }
     }
 }
