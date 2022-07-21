@@ -8,7 +8,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// <summary>
     /// A value that specifies the unit in which the tool measures columns.
     /// </summary>
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "1.1.4.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "1.1.5.0")]
     public enum ColumnKind
     {
         None,

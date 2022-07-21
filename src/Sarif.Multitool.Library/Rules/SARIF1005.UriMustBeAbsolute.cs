@@ -77,7 +77,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             // Check for well-formedness first, before attempting to create a Uri object, to
             // avoid having to do a try/catch. Unfortunately Uri.TryCreate will return true
             // even for a malformed URI string.
-            if (uriString != null && Uri.IsWellFormedUriString(uriString, UriKind.RelativeOrAbsolute))
+            if (uriString != null && IsWellFormedUriString(uriString, UriKind.RelativeOrAbsolute))
             {
                 // Ok, it's a well-formed URI of some kind. If it's not absolute, _now_ we
                 // can report it.

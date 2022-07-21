@@ -310,5 +310,16 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// The fully qualified location of <paramref name="path"/>, such as "C:\MyFile.txt".
         /// </returns>
         string PathGetFullPath(string path);
+
+        /// <summary>
+        /// Uses <see cref="FileInfo"/> to calculate the size of a file in bytes.
+        /// </summary>
+        /// <param name="path">
+        /// The fully qualified name or relative name of the file.
+        /// </param>
+        /// <returns>
+        /// A long representing the size of the file in bytes.
+        /// </returns>
+        long FileInfoLength(string path);
     }
 }

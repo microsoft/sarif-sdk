@@ -14,7 +14,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// Identifies a particular toolComponent object, either the driver or an extension.
     /// </summary>
     [DataContract]
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "1.1.4.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "1.1.5.0")]
     public partial class ToolComponentReference : PropertyBagHolder, ISarifNode
     {
         public static IEqualityComparer<ToolComponentReference> ValueComparer => ToolComponentReferenceEqualityComparer.Instance;
