@@ -10,7 +10,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// <summary>
     /// Defines methods to support the comparison of objects of type ResultProvenance for sorting.
     /// </summary>
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "1.1.4.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "1.1.5.0")]
     internal sealed class ResultProvenanceComparer : IComparer<ResultProvenance>
     {
         internal static readonly ResultProvenanceComparer Instance = new ResultProvenanceComparer();

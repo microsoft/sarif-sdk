@@ -10,7 +10,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// <summary>
     /// Defines methods to support the comparison of objects of type Result for sorting.
     /// </summary>
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "1.1.4.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "1.1.5.0")]
     internal sealed class ResultComparer : IComparer<Result>
     {
         internal static readonly ResultComparer Instance = new ResultComparer();
