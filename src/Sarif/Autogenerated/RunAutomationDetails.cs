@@ -12,7 +12,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// Information that describes a run's identity and role within an engineering system process.
     /// </summary>
     [DataContract]
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "1.1.4.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "1.1.5.0")]
     public partial class RunAutomationDetails : PropertyBagHolder, ISarifNode
     {
         public static IEqualityComparer<RunAutomationDetails> ValueComparer => RunAutomationDetailsEqualityComparer.Instance;

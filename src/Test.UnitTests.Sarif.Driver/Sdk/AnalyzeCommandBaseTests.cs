@@ -1447,17 +1447,19 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         [Fact(Timeout = 5000)]
         public void AnalyzeCommandBase_ShouldGenerateSameResultsWhenRunningSingleAndMultithreaded_CoyoteTest()
         {
-            Configuration config = Configuration.Create().WithTestingIterations(100).WithConcurrencyFuzzingEnabled();
+            Configuration config = Configuration.Create().WithTestingIterations(100).WithSystematicFuzzingEnabled();
             var engine = TestingEngine.Create(config, AnalyzeCommandBase_ShouldGenerateSameResultsWhenRunningSingleAndMultiThread_CoyoteHelper);
             string TestLogDirectory = ".";
 
             engine.Run();
             TestReport report = engine.TestReport;
 
-            var filenames = new List<string>(engine.TryEmitTraces(TestLogDirectory, "AnalyzeCommandBase_ShouldGenerateSameResultsWhenRunningSingleAndMultiThread_CoyoteTest_Log"));
-            foreach (string item in filenames)
+            if (engine.TryEmitReports(TestLogDirectory, "AnalyzeCommandBase_ShouldGenerateSameResultsWhenRunningSingleAndMultiThread_CoyoteTest_Log", out IEnumerable<string> repoPaths))
             {
-                Output.WriteLine("See log file: {0}", item);
+                foreach (string item in repoPaths)
+                {
+                    Output.WriteLine("See log file: {0}", item);
+                }
             }
 
             Assert.True(report.NumOfFoundBugs == 0, $"Coyote found {report.NumOfFoundBugs} bug(s).");

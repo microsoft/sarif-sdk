@@ -14,7 +14,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// Contains information about how and when a result was detected.
     /// </summary>
     [DataContract]
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "1.1.4.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "1.1.5.0")]
     public partial class ResultProvenance : PropertyBagHolder, ISarifNode
     {
         public static IEqualityComparer<ResultProvenance> ValueComparer => ResultProvenanceEqualityComparer.Instance;

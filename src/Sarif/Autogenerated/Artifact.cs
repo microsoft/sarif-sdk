@@ -14,7 +14,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// A single artifact. In some cases, this artifact might be nested within another artifact.
     /// </summary>
     [DataContract]
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "1.1.4.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "1.1.5.0")]
     public partial class Artifact : PropertyBagHolder, ISarifNode
     {
         public static IEqualityComparer<Artifact> ValueComparer => ArtifactEqualityComparer.Instance;

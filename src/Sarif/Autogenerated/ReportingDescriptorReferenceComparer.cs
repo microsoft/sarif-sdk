@@ -10,7 +10,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// <summary>
     /// Defines methods to support the comparison of objects of type ReportingDescriptorReference for sorting.
     /// </summary>
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "1.1.4.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "1.1.5.0")]
     internal sealed class ReportingDescriptorReferenceComparer : IComparer<ReportingDescriptorReference>
     {
         internal static readonly ReportingDescriptorReferenceComparer Instance = new ReportingDescriptorReferenceComparer();

@@ -12,7 +12,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// The replacement of a single region of an artifact.
     /// </summary>
     [DataContract]
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "1.1.4.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "1.1.5.0")]
     public partial class Replacement : PropertyBagHolder, ISarifNode
     {
         public static IEqualityComparer<Replacement> ValueComparer => ReplacementEqualityComparer.Instance;
