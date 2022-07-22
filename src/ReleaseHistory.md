@@ -1,10 +1,13 @@
 # SARIF Package Release History (SDK, Driver, Converters, and Multitool)
 
+## Unreleased
+
+* BREAKING: Fix `Newtonsoft.Json.JsonReaderException: JSON integer XXXXX is too large or small for an Int32.` for `absoluteAddress` property of `address`, by changing it from `int`(32bit) to `BigInteger`(unlimited). [#2503](https://github.com/microsoft/sarif-sdk/pull/2503)
+
 ## **v2.4.16** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.4.16) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.4.16) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.4.16) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.4.16) | [Multitool Library](https://www.nuget.org/packages/Sarif.Multitool.Library/2.4.16)
 
 * FEATURE: Add `max-file-size-in-kb` argument that allows filtering scan targets by file size. [#2494](https://github.com/microsoft/sarif-sdk/pull/2494)
 * BUGFIX: Fix false positive for `SARIF1002.UrisMustBeValid` for file URIs that omit the `authority`. [#2501](https://github.com/microsoft/sarif-sdk/pull/2501)
-* BREAKING: Fix `Newtonsoft.Json.JsonReaderException: JSON integer XXXXX is too large or small for an Int32.` for `absoluteAddress` property of `address`, by changing it from `int`(32bit) to `BigInteger`(unlimited). [#2503](https://github.com/microsoft/sarif-sdk/pull/2503)
 * DEPENDENCY BREAKING: SARIF now requires Newtonsoft.JSON 13.0.1. Updating [Newtonsoft.Json](https://www.nuget.org/packages/Newtonsoft.Json/13.0.1) to v13.0.1, [Microsoft.Json.Schema](https://www.nuget.org/packages/Microsoft.Json.Schema) to v1.1.5, [Microsoft.Json.Pointer](https://www.nuget.org/packages/Microsoft.Json.Pointer) to v1.1.5, [Microsoft.Azure.Kusto.Data](https://www.nuget.org/packages/Microsoft.Azure.Kusto.Data) to v10.0.3, [Microsoft.NET.Test.Sdk](https://www.nuget.org/packages/Microsoft.NET.Test.Sdk/17.4.0-preview-20220707-01) to v17.4.0-preview-20220707-01, [Microsoft.Extensions.Logging.ApplicationInsights](https://www.nuget.org/packages/Microsoft.Extensions.Logging.ApplicationInsights/2.20.0) to v.2.20.0, [Microsoft.TeamFoundationServer.Client](https://www.nuget.org/packages/Microsoft.TeamFoundationServer.Client/16.170.0) to v.16.170.0, [Microsoft.Coyote](https://www.nuget.org/packages/Microsoft.Coyote) to v.1.5.8 and [Microsoft.Coyote.Test](https://www.nuget.org/packages/Microsoft.Coyote.Test) to v.1.5.8 in response to [Advisory: Improper Handling of Exceptional Conditions in Newtonsoft.Json](https://github.com/advisories/GHSA-5crp-9r3c-p9vr). [#2504](https://github.com/microsoft/sarif-sdk/pull/2504)
 
 ## **v2.4.15** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.4.15) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.4.15) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.4.15) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.4.15) | [Multitool Library](https://www.nuget.org/packages/Sarif.Multitool.Library/2.4.15)
