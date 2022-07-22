@@ -375,9 +375,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                         {
                             new ReportingDescriptor() { Id = "Rule/001" },
                             new ReportingDescriptor() { Id = "Rule/002" },
-                            new ReportingDescriptor() { Id = "Rule/003" },
-                            new ReportingDescriptor() { Id = "Rule/004" },
-                            new ReportingDescriptor() { Id = "Rule/005" },
+                            new ReportingDescriptor() { Id = "Rule/003" }, // not referenced by this run's results
+                            new ReportingDescriptor() { Id = "Rule004" },
+                            new ReportingDescriptor() { Id = "Rule/006" }, // no reference
                         }
                     },
                 },
@@ -387,7 +387,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     new Result { RuleId = "Rule/001/SubRule2", RuleIndex = 0 },
                     new Result { RuleId = "Rule/002/SubRule1", RuleIndex = 1 },
                     new Result { RuleId = "Rule/002/SubRule2", RuleIndex = 1 },
-                    new Result { RuleId = "Rule/004", RuleIndex = 3 },
+                    new Result { RuleId = "Rule004", RuleIndex = 3 }, // not a sub rule
                 }
             };
 
@@ -403,6 +403,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                             new ReportingDescriptor() { Id = "Rule/004" },
                             new ReportingDescriptor() { Id = "Rule/002" },
                             new ReportingDescriptor() { Id = "Rule/003" },
+                            new ReportingDescriptor() { Id = "Rule/005" },
                         }
                     },
                 },
@@ -412,31 +413,36 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     new Result { RuleId = "Rule/002/SubRule4", RuleIndex = 1 },
                     new Result { RuleId = "Rule/003/SubRule1", RuleIndex = 2 },
                     new Result { RuleId = "Rule/003/SubRule2", RuleIndex = 2 },
+                    new Result { RuleIndex = 3 }, // RuleId is not set ("Rule/005")
+                    new Result { RuleId = "Rule/DoesNotExist" }, // rule definition does not exist, should create a empty rule for it.
                 }
             };
 
-            // Use the RunMergingVisitor to merge two runs, via Run.MergeResultsFrom
             Run mergedRun = currentRun.DeepClone();
             Run baselineRunCopy = previousRun.DeepClone();
 
             mergedRun.MergeResultsFrom(baselineRunCopy);
 
-            // We should get Rule/001, Rule/002, Rule/003 and Rule/004.
-            // Rule/005 wasn't referenced.
-            mergedRun.Tool.Driver.Rules.Count.Should().Be(4);
+            // We should get Rule/001, Rule/002, Rule/003, Rule/004 and Rule/005.
+            // Rule/006 wasn't referenced. With 1 extra rule "Rule/DoesNotExist".
+            mergedRun.Tool.Driver.Rules.Count.Should().Be(6);
             mergedRun.Tool.Driver.Rules.Any(r => r.Id == "Rule/001").Should().BeTrue();
             mergedRun.Tool.Driver.Rules.Any(r => r.Id == "Rule/002").Should().BeTrue();
             mergedRun.Tool.Driver.Rules.Any(r => r.Id == "Rule/003").Should().BeTrue();
-            mergedRun.Tool.Driver.Rules.Any(r => r.Id == "Rule/004").Should().BeTrue();
-            mergedRun.Tool.Driver.Rules.Any(r => r.Id == "Rule/005").Should().BeFalse();
+            mergedRun.Tool.Driver.Rules.Any(r => r.Id == "Rule004").Should().BeTrue();
+            mergedRun.Tool.Driver.Rules.Any(r => r.Id == "Rule/005").Should().BeTrue();
+            mergedRun.Tool.Driver.Rules.Any(r => r.Id == "Rule/006").Should().BeFalse();
+            mergedRun.Tool.Driver.Rules.Any(r => r.Id == "Rule/DoesNotExist").Should().BeTrue();
 
-            // Verify each sub rule should match to right parent rule.
-            mergedRun.Results.Count.Should().Be(9);
+            mergedRun.Results.Count.Should().Be(11);
             foreach (Result result in mergedRun.Results)
             {
-                string subRule = result.RuleId;
-                string parentRule = result.GetRule(mergedRun).Id;
-                subRule.StartsWith(parentRule).Should().BeTrue();
+                string subRuleId = result.RuleId;
+                string parentRuleId = result.GetRule(mergedRun).Id;
+                if (subRuleId != parentRuleId)
+                {
+                    subRuleId.StartsWith(parentRuleId).Should().BeTrue();
+                }
             }
         }
     }
