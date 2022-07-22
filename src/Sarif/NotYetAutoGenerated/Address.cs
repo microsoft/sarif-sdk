@@ -45,11 +45,6 @@ namespace Microsoft.CodeAnalysis.Sarif
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
         public BigInteger AbsoluteAddress { get; set; }
 
-        public bool ShouldSerializeAbsoluteAddress()
-        {
-            return AbsoluteAddress >= 0;
-        }
-
         /// <summary>
         /// The address expressed as a byte offset from the absolute address of the top-most parent object.
         /// </summary>
