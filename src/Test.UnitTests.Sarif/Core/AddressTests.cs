@@ -20,7 +20,7 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Core
         private static readonly TestAssetResourceExtractor s_extractor = new TestAssetResourceExtractor(typeof(AddressTests));
 
         [Fact]
-        public void Address_VerifyRoundTripFromObject()
+        public void VerifyRoundTripFromObject()
         {
             // Arrange
             var testCases = new[] {
@@ -54,79 +54,78 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Core
                     (!testCase.absoluteAddress.HasValue || testCase.absoluteAddress.Value < 0) ? -1 : testCase.absoluteAddress.Value;
 
                 // Act & Assert
-                Address_VerifyRoundTripFromObjectHelper(address,
-                    expectedShouldSerializeAbsoluteAddress: testCase.expectedShouldSerializeAbsoluteAddress,
-                    expectedAbsoluteAddress: expectedAbsoluteAddress);
+                VerifyRoundTripFromObjectHelper(address,
+                    testCase.expectedShouldSerializeAbsoluteAddress,
+                    expectedAbsoluteAddress);
             }
-
         }
 
         [Fact]
-        public void Address_VerifyRoundTripFromJson()
+        public void VerifyRoundTripFromJson()
         {
             // Arrange
             var testCases = new[] {
-                new { json = "{}",
+                new { jsonAddress = "{}",
                     expectedAbsoluteAddress = (BigInteger)(-1),
                     expectedShouldSerializeAbsoluteAddress = false,
                     expectedReconstructedAbsoluteAddress = (BigInteger)(-1) },
-                new { json = $"{{{AbsoluteAddress}:{new BigInteger(long.MinValue) - 1}}}",
+                new { jsonAddress = $"{{{AbsoluteAddress}:{new BigInteger(long.MinValue) - 1}}}",
                     expectedAbsoluteAddress = (BigInteger)long.MinValue - 1,
                     expectedShouldSerializeAbsoluteAddress = false,
                     expectedReconstructedAbsoluteAddress = (BigInteger)(-1) },
-                new { json = $"{{{AbsoluteAddress}:{long.MinValue}}}",
+                new { jsonAddress = $"{{{AbsoluteAddress}:{long.MinValue}}}",
                     expectedAbsoluteAddress = (BigInteger)long.MinValue,
                     expectedShouldSerializeAbsoluteAddress = false,
                     expectedReconstructedAbsoluteAddress = (BigInteger)(-1) },
-                new { json = $"{{{AbsoluteAddress}:{new BigInteger(int.MinValue) - 1}}}",
+                new { jsonAddress = $"{{{AbsoluteAddress}:{new BigInteger(int.MinValue) - 1}}}",
                     expectedAbsoluteAddress = (BigInteger)int.MinValue - 1,
                     expectedShouldSerializeAbsoluteAddress = false,
                     expectedReconstructedAbsoluteAddress = (BigInteger)(-1) },
-                new { json = $"{{{AbsoluteAddress}:{int.MinValue}}}",
+                new { jsonAddress = $"{{{AbsoluteAddress}:{int.MinValue}}}",
                     expectedAbsoluteAddress = (BigInteger)int.MinValue,
                     expectedShouldSerializeAbsoluteAddress = false,
                     expectedReconstructedAbsoluteAddress = (BigInteger)(-1) },
-                new { json = $"{{{AbsoluteAddress}:-2}}",
+                new { jsonAddress = $"{{{AbsoluteAddress}:-2}}",
                     expectedAbsoluteAddress = (BigInteger)(-2),
                     expectedShouldSerializeAbsoluteAddress = false,
                     expectedReconstructedAbsoluteAddress = (BigInteger)(-1) },
-                new { json = $"{{{AbsoluteAddress}:-1}}",
+                new { jsonAddress = $"{{{AbsoluteAddress}:-1}}",
                     expectedAbsoluteAddress = (BigInteger)(-1),
                     expectedShouldSerializeAbsoluteAddress = false,
                     expectedReconstructedAbsoluteAddress = (BigInteger)(-1) },
-                new { json = $"{{{AbsoluteAddress}:0}}",
+                new { jsonAddress = $"{{{AbsoluteAddress}:0}}",
                     expectedAbsoluteAddress = (BigInteger)(0),
                     expectedShouldSerializeAbsoluteAddress = true,
                     expectedReconstructedAbsoluteAddress = (BigInteger)(0) },
-                new { json = $"{{{AbsoluteAddress}:1}}",
+                new { jsonAddress = $"{{{AbsoluteAddress}:1}}",
                     expectedAbsoluteAddress = (BigInteger)(1),
                     expectedShouldSerializeAbsoluteAddress = true,
                     expectedReconstructedAbsoluteAddress = (BigInteger)(1) },
-                new { json = $"{{{AbsoluteAddress}:2}}",
+                new { jsonAddress = $"{{{AbsoluteAddress}:2}}",
                     expectedAbsoluteAddress = (BigInteger)(2),
                     expectedShouldSerializeAbsoluteAddress = true,
                     expectedReconstructedAbsoluteAddress = (BigInteger)(2) },
-                new { json = $"{{{AbsoluteAddress}:{int.MaxValue}}}",
+                new { jsonAddress = $"{{{AbsoluteAddress}:{int.MaxValue}}}",
                     expectedAbsoluteAddress = (BigInteger)int.MaxValue,
                     expectedShouldSerializeAbsoluteAddress = true,
                     expectedReconstructedAbsoluteAddress = (BigInteger)int.MaxValue },
-                new { json = $"{{{AbsoluteAddress}:{new BigInteger(int.MaxValue) + 1}}}",
+                new { jsonAddress = $"{{{AbsoluteAddress}:{new BigInteger(int.MaxValue) + 1}}}",
                     expectedAbsoluteAddress = (BigInteger)int.MaxValue + 1,
                     expectedShouldSerializeAbsoluteAddress = true,
                     expectedReconstructedAbsoluteAddress = (BigInteger)int.MaxValue + 1 },
-                new { json = $"{{{AbsoluteAddress}:{long.MaxValue}}}",
+                new { jsonAddress = $"{{{AbsoluteAddress}:{long.MaxValue}}}",
                     expectedAbsoluteAddress = (BigInteger)long.MaxValue,
                     expectedShouldSerializeAbsoluteAddress = true,
                     expectedReconstructedAbsoluteAddress = (BigInteger)long.MaxValue },
-                new { json = $"{{{AbsoluteAddress}:{new BigInteger(long.MaxValue) + 1}}}",
+                new { jsonAddress = $"{{{AbsoluteAddress}:{new BigInteger(long.MaxValue) + 1}}}",
                     expectedAbsoluteAddress = (BigInteger)long.MaxValue + 1,
                     expectedShouldSerializeAbsoluteAddress = true,
                     expectedReconstructedAbsoluteAddress = (BigInteger)long.MaxValue + 1 },
-                new { json = $"{{{AbsoluteAddress}:{ulong.MaxValue}}}",
+                new { jsonAddress = $"{{{AbsoluteAddress}:{ulong.MaxValue}}}",
                     expectedAbsoluteAddress = (BigInteger)ulong.MaxValue,
                     expectedShouldSerializeAbsoluteAddress = true,
                     expectedReconstructedAbsoluteAddress = (BigInteger)ulong.MaxValue },
-                new { json = $"{{{AbsoluteAddress}:{new BigInteger(ulong.MaxValue) + 1}}}",
+                new { jsonAddress = $"{{{AbsoluteAddress}:{new BigInteger(ulong.MaxValue) + 1}}}",
                     expectedAbsoluteAddress = (BigInteger)ulong.MaxValue + 1,
                     expectedShouldSerializeAbsoluteAddress = true,
                     expectedReconstructedAbsoluteAddress = (BigInteger)ulong.MaxValue + 1 },
@@ -135,16 +134,16 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Core
             foreach (var testCase in testCases)
             {
                 // Act & Assert
-                Address_VerifyRoundTripFromJsonHelper(
-                    jsonAddress: testCase.json,
-                    expectedAbsoluteAddress: testCase.expectedAbsoluteAddress,
-                    expectedShouldSerializeAbsoluteAddress: testCase.expectedShouldSerializeAbsoluteAddress,
-                    expectedReconstructedAbsoluteAddress: testCase.expectedReconstructedAbsoluteAddress);
+                VerifyRoundTripFromJsonHelper(
+                    testCase.jsonAddress,
+                    testCase.expectedAbsoluteAddress,
+                    testCase.expectedShouldSerializeAbsoluteAddress,
+                    testCase.expectedReconstructedAbsoluteAddress);
             }
         }
 
         [Fact]
-        public void Address_VerifyAbleToDeserializeWithBigInteger()
+        public void VerifyAbleToDeserializeWithBigInteger()
         {
             // Arrange
             string content = s_extractor.GetResourceText("Address_BigInteger.sarif");
@@ -164,7 +163,7 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Core
             sarifLog.Runs[0].Results[0].Locations[5].PhysicalLocation.Address.AbsoluteAddress.Should().Be(-1);
         }
 
-        private static void Address_VerifyRoundTripFromObjectHelper(Address address,
+        private static void VerifyRoundTripFromObjectHelper(Address address,
             bool expectedShouldSerializeAbsoluteAddress, BigInteger expectedAbsoluteAddress)
         {
             // Act
@@ -195,7 +194,7 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Core
                 .Should().Be(expectedShouldSerializeAbsoluteAddress);
         }
 
-        private static void Address_VerifyRoundTripFromJsonHelper(string jsonAddress,
+        private static void VerifyRoundTripFromJsonHelper(string jsonAddress,
             BigInteger expectedAbsoluteAddress, bool expectedShouldSerializeAbsoluteAddress, BigInteger expectedReconstructedAbsoluteAddress)
         {
             // Act
