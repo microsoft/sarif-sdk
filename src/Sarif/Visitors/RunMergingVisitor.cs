@@ -91,7 +91,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 else
                 {
                     int newIndex = Rules.Count;
-                    Rules.Add(rule ?? node.GetRule(CurrentRun));
+                    Rules.Add(rule);
 
                     RuleIdToIndex[ruleId] = newIndex;
                     node.RuleIndex = newIndex;
