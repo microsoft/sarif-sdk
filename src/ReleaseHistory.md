@@ -1,5 +1,10 @@
 # SARIF Package Release History (SDK, Driver, Converters, and Multitool)
 
+## Unreleased
+
+* BUGFIX: Fix issue `match-results-forward` command generates invalid Sarif when results contain sub ruleId. [#2486](https://github.com/microsoft/sarif-sdk/pull/2486)
+* BUGFIX: Fix issue `match-results-forward` command generates Sarif missing VersionControlDetails data. [#2487](https://github.com/microsoft/sarif-sdk/pull/2487)
+
 ## **v2.4.16** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.4.16) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.4.16) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.4.16) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.4.16) | [Multitool Library](https://www.nuget.org/packages/Sarif.Multitool.Library/2.4.16)
 
 * FEATURE: Add `max-file-size-in-kb` argument that allows filtering scan targets by file size. [#2494](https://github.com/microsoft/sarif-sdk/pull/2494)
