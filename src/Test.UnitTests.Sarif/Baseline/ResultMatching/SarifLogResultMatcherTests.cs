@@ -399,17 +399,17 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
                 .Where(run => run.VersionControlProvenance != null)
                 .SelectMany(run => run.VersionControlProvenance).Count().Should().Be(0);
 
-            VersionControlDetails versionControl1 = new VersionControlDetails
+            var versionControl1 = new VersionControlDetails
             {
                 RepositoryUri = new Uri("https://github.com/user/repo"),
                 Branch = "main",
             };
-            VersionControlDetails versionControl2 = new VersionControlDetails
+            var versionControl2 = new VersionControlDetails
             {
                 RepositoryUri = new Uri("https://github.com/user/repo"),
                 Branch = "myBranch",
             };
-            VersionControlDetails versionControl3 = new VersionControlDetails
+            var versionControl3 = new VersionControlDetails
             {
                 RepositoryUri = new Uri("https://github.com/anotheruser/repo"),
             };
@@ -427,7 +427,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
 
             matchedLog = s_preserveMostRecentPropertyBagMatcher.Match(logHasVersionControl, anotherLogHasVersionControl);
             var versionControlList = matchedLog.Runs
-                .Where(run => run.VersionControlProvenance != null)
                 .SelectMany(run => run.VersionControlProvenance).ToList();
             versionControlList.Count.Should().Be(3);
             versionControlList.Contains(versionControl1, VersionControlDetails.ValueComparer).Should().BeTrue();
