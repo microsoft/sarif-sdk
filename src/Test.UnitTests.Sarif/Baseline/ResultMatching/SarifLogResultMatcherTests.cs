@@ -387,54 +387,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
             matchedLog.Runs[0].Results?.Where((r) => { return r.GetProperty("Key") == currentPropertyValue; }).Count().Should().Be(matchedLog.Runs[0].Results.Count);
         }
 
-        [Fact]
-        public void SarifLogResultMatcher_PreservesVersionControlProvenanceProperly()
-        {
-            Random random = RandomSarifLogGenerator.GenerateRandomAndLog(this.output);
-            SarifLog logHasNoVersionControl = RandomSarifLogGenerator.GenerateSarifLogWithRuns(random, 2);
-            SarifLog anotherLogHasNoVersionControl = RandomSarifLogGenerator.GenerateSarifLogWithRuns(random, 3);
-
-            SarifLog matchedLog = s_preserveOldestPropertyBagMatcher.Match(logHasNoVersionControl, anotherLogHasNoVersionControl);
-            matchedLog.Runs
-                .Where(run => run.VersionControlProvenance != null)
-                .SelectMany(run => run.VersionControlProvenance).Count().Should().Be(0);
-
-            VersionControlDetails versionControl1 = new VersionControlDetails
-            {
-                RepositoryUri = new Uri("https://github.com/user/repo"),
-                Branch = "main",
-            };
-            VersionControlDetails versionControl2 = new VersionControlDetails
-            {
-                RepositoryUri = new Uri("https://github.com/user/repo"),
-                Branch = "myBranch",
-            };
-            VersionControlDetails versionControl3 = new VersionControlDetails
-            {
-                RepositoryUri = new Uri("https://github.com/anotheruser/repo"),
-            };
-
-            // 3 unqiue versionControlProvenances
-            SarifLog logHasVersionControl = RandomSarifLogGenerator.GenerateSarifLogWithRuns(random, 4);
-            logHasVersionControl.Runs[0].VersionControlProvenance = new[] { versionControl1 };
-            logHasVersionControl.Runs[1].VersionControlProvenance = new[] { versionControl1 };
-            logHasVersionControl.Runs[2].VersionControlProvenance = new[] { versionControl2 };
-            logHasVersionControl.Runs[3].VersionControlProvenance = new[] { versionControl2 };
-
-            SarifLog anotherLogHasVersionControl = RandomSarifLogGenerator.GenerateSarifLogWithRuns(random, 2);
-            anotherLogHasVersionControl.Runs[0].VersionControlProvenance = new[] { versionControl3 };
-            anotherLogHasVersionControl.Runs[0].VersionControlProvenance = new[] { versionControl3 };
-
-            matchedLog = s_preserveMostRecentPropertyBagMatcher.Match(logHasVersionControl, anotherLogHasVersionControl);
-            var versionControlList = matchedLog.Runs
-                .Where(run => run.VersionControlProvenance != null)
-                .SelectMany(run => run.VersionControlProvenance).ToList();
-            versionControlList.Count.Should().Be(3);
-            versionControlList.Contains(versionControl1, VersionControlDetails.ValueComparer).Should().BeTrue();
-            versionControlList.Contains(versionControl2, VersionControlDetails.ValueComparer).Should().BeTrue();
-            versionControlList.Contains(versionControl3, VersionControlDetails.ValueComparer).Should().BeTrue();
-        }
-
         private void SetPropertyOnAllResultObjects(SarifLog sarifLog, string propertyKey, string propertyValue)
         {
             foreach (Run run in sarifLog.Runs)
