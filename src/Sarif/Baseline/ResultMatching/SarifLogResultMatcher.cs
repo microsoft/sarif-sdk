@@ -279,8 +279,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
             run.Invocations = invocations;
             run.Properties = properties;
             run.VersionControlProvenance = MergeList(
-                currentRuns.SelectMany(run => run.VersionControlProvenance),
-                previousRuns.SelectMany(run => run.VersionControlProvenance),
+                currentRuns.SelectMany(run => run.VersionControlProvenance ?? Enumerable.Empty<VersionControlDetails>()),
+                previousRuns.SelectMany(run => run.VersionControlProvenance ?? Enumerable.Empty<VersionControlDetails>()),
                 VersionControlDetails.ValueComparer);
 
             return new SarifLog()
@@ -351,8 +351,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
         private static IList<T> MergeList<T>(IEnumerable<T> source1, IEnumerable<T> source2, IEqualityComparer<T> comparer)
         {
             var elementSet = new HashSet<T>(comparer);
-            IEnumerable<T> source = source1 ?? Enumerable.Empty<T>();
-            source = source.Concat(source2 ?? Enumerable.Empty<T>());
+            List<T> source = new List<T>();
+            source.AddRange(source1);
+            source.AddRange(source2);
 
             foreach (T element in source)
             {
