@@ -278,7 +278,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
             run.Graphs = graphs;
             run.Invocations = invocations;
             run.Properties = properties;
-            run.VersionControlProvenance = MergeVersionControlDetails(currentRuns.Concat(previousRuns));
+            run.VersionControlProvenance = MergeList(
+                currentRuns.SelectMany(run => run.VersionControlProvenance),
+                previousRuns.SelectMany(run => run.VersionControlProvenance),
+                VersionControlDetails.ValueComparer);
 
             return new SarifLog()
             {
@@ -345,22 +348,21 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
             }
         }
 
-        private static IList<VersionControlDetails> MergeVersionControlDetails(IEnumerable<Run> runs)
+        private static IList<T> MergeList<T>(IEnumerable<T> source1, IEnumerable<T> source2, IEqualityComparer<T> comparer)
         {
-            var versionControlSet = new HashSet<VersionControlDetails>(VersionControlDetails.ValueComparer);
-            foreach (Run run in runs)
+            var elementSet = new HashSet<T>(comparer);
+            IEnumerable<T> source = source1 ?? Enumerable.Empty<T>();
+            source = source.Concat(source2 ?? Enumerable.Empty<T>());
+
+            foreach (T element in source)
             {
-                if (run.VersionControlProvenance == null)
+                if (element == null)
                 {
                     continue;
                 }
-
-                foreach (VersionControlDetails versionControlProvenance in run.VersionControlProvenance)
-                {
-                    versionControlSet.Add(versionControlProvenance);
-                }
+                elementSet.Add(element);
             }
-            return versionControlSet.Any() ? versionControlSet.ToList() : null;
+            return elementSet.Any() ? elementSet.ToList() : null;
         }
     }
 }
