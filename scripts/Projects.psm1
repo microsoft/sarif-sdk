@@ -10,7 +10,7 @@
 $Frameworks = @{}
 
 # .NET Framework versions for which we build.
-$Frameworks.NetFx = @("net452", "net461", "net472")
+$Frameworks.NetFx = @("net48")
 
 # Frameworks for which we build libraries.
 $Frameworks.Library = @("netstandard2.0", "netstandard2.1") + $Frameworks.NetFx
