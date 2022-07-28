@@ -251,7 +251,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 run.Results.Add(
                     new Result
                     {
-                        RuleId = createSubRule ? $"TESTRULE/00{i}" :  $"TESTRULE00{i}",
+                        RuleId = createSubRule ? $"TESTRULE/00{i}" : $"TESTRULE00{i}",
                         Guid = Guid.NewGuid().ToString(), // this value makes sure every result does not equal to other results
                     });
             }
