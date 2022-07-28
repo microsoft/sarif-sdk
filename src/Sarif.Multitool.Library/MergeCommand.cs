@@ -7,6 +7,7 @@ using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Channels;
 using System.Threading.Tasks;
@@ -30,6 +31,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         private readonly Dictionary<string, SarifLog> _idToSarifLogMap;
         private readonly Dictionary<string, HashSet<Result>> _ruleIdToResultsMap;
         private readonly Dictionary<string, RunMergingVisitor> _ruleIdToMergeVisitorsMap;
+
+        private static readonly string s_invalidFileNameCharRegexString = $"[{Regex.Escape(new string(Path.GetInvalidFileNameChars()))}]";
+        private static readonly Regex s_invalidFileNameCharRegex = new Regex(s_invalidFileNameCharRegexString, RegexOptions.Compiled | RegexOptions.CultureInvariant);
 
         public MergeCommand(IFileSystem fileSystem = null) : base(fileSystem)
         {
@@ -117,7 +121,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                     mergedLog.SchemaUri = mergedLog.Version.ConvertToSchemaUri();
 
                     FileSystem.DirectoryCreateDirectory(outputDirectory);
-                    outputFilePath = Path.Combine(outputDirectory, GetOutputFileName(_options, key));
+                    outputFilePath = Path.Combine(outputDirectory, ReplaceInvalidCharInFileName(GetOutputFileName(_options, key), "."));
                     WriteSarifFile(FileSystem, mergedLog, outputFilePath, _options.Minify);
                 }
             }
@@ -179,7 +183,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                                     };
                                 }
 
-                                key = CreateRuleKey(result.RuleId, run);
+                                if (_options.MergeRuns)
+                                {
+                                    key = CreateRuleKey(null, run);
+                                }
+                                else
+                                {
+                                    key = CreateRuleKey(result.RuleId, run);
+                                }
 
                                 if (!_ruleIdToRunsMap.TryGetValue(key, out Run splitRun))
                                 {
@@ -306,6 +317,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             }
 
             return prefix ?? string.Empty;
+        }
+
+        private static string ReplaceInvalidCharInFileName(string fileName, string replacement)
+        {
+            return s_invalidFileNameCharRegex.Replace(fileName, replacement);
         }
     }
 
