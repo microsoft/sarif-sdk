@@ -1,8 +1,8 @@
 # SARIF Package Release History (SDK, Driver, Converters, and Multitool)
 
-## UNRELEASED (will be 2.5.0)
-* BUGFIX: Loosen Newtonsoft.JSON minimum version requirement to 6.0.8 (for .NET framework) or 9.0.1 (for all other compilations).
-* BUGFIX: Broaden set of supported .NET frameworks for compatibility reasons.
+## 2.5.0.beta-1
+* BUGFIX: Loosen Newtonsoft.JSON minimum version requirement to 6.0.8 (for .NET framework) or 9.0.1 (for all other compilations) for Sarif.Sdk. Sarif.Converts requires 8.0.1, minimally, for .NET framework compilations.
+* BUGFIX: Broaden set of supported .NET frameworks for compatibility reasons. Sarif.Sdk now supports net45 forward. Sarif.Driver and Sarif.WorkItems requires net461 due to other dependencies.
 * BUGFIX: Set default stack limit in Newtonsoft.JSON utilization (if `JsonConvert.Defaults` is not already configured) to address GitHub advisory [GHSA-5crp-9r3c-p9vr](https://github.com/advisories/GHSA-5crp-9r3c-p9vr).
 
 ## **v2.4.16** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.4.16) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.4.16) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.4.16) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.4.16) | [Multitool Library](https://www.nuget.org/packages/Sarif.Multitool.Library/2.4.16)
