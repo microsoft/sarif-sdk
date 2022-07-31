@@ -42,7 +42,7 @@ jobs:
         languages: csharp
 
     - run: |
-        .\BuildAndTest.cmd -NoFormat -NoTest
+        .\BuildAndTest.cmd -NoFormat -NoTest -NoSamples
 
     - name: Perform CodeQL Analysis
       uses: github/codeql-action/analyze@v1

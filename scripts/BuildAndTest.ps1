@@ -31,7 +31,10 @@
 .PARAMETER Associate
     Associate SARIF files with Visual Studio.
 .PARAMETER NoFormat
-    Do not format files based on dotnet-format tool
+    Do not format files based on dotnet-format tool.
+.PARAMETER NoSamples
+    Do not compiles samples.
+
 #>
 
 [CmdletBinding()]
@@ -192,10 +195,13 @@ if (-not $NoClean) {
 Install-VersionConstantsFile
 
 if (-not $NoRestore) {
-    Write-Information "Restoring NuGet packages for $SampleSolutionFile..."
-        & $NuGetExePath restore -ConfigFile $NuGetConfigFile -Verbosity $NuGetVerbosity -OutputDirectory $NuGetSamplesPackageRoot (Join-Path $SourceRoot $SampleSolutionFile)
-    if ($LASTEXITCODE -ne 0) {
-        Exit-WithFailureMessage $ScriptName "NuGet restore failed for $SampleSolutionFile."
+    if (-not $NoSamples) {
+
+        Write-Information "Restoring NuGet packages for $SampleSolutionFile..."
+            & $NuGetExePath restore -ConfigFile $NuGetConfigFile -Verbosity $NuGetVerbosity -OutputDirectory $NuGetSamplesPackageRoot (Join-Path $SourceRoot $SampleSolutionFile)
+        if ($LASTEXITCODE -ne 0) {
+            Exit-WithFailureMessage $ScriptName "NuGet restore failed for $SampleSolutionFile."
+        }
     }
 }
 
@@ -214,7 +220,10 @@ if (-not $?) {
 if (-not $NoBuild) {
     Invoke-DotNetBuild $SolutionFile
     if ($ENV:OS) {
-        Invoke-DotNetBuild $sampleSolutionFile
+        if (-not $NoSamples) {
+
+            Invoke-DotNetBuild $sampleSolutionFile
+        }
     }
 }
 
