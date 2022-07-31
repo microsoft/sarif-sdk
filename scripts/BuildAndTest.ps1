@@ -34,7 +34,6 @@
     Do not format files based on dotnet-format tool.
 .PARAMETER NoSamples
     Do not compiles samples.
-
 #>
 
 [CmdletBinding()]
@@ -79,7 +78,10 @@ param(
     $Associate,
     
     [switch]
-    $NoFormat
+    $NoFormat,
+
+    [switch]
+    $NoSamples
 )
 
 Set-StrictMode -Version Latest
