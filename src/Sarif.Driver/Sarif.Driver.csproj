@@ -45,6 +45,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Reference Condition="'$(TargetFramework)' == 'net48'" Include="System.Net.Http" />
+    <Reference Condition="'$(TargetFramework)' == 'net45'" Include="System.Net.Http" />
   </ItemGroup>
 </Project>
