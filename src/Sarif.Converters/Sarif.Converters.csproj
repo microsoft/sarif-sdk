@@ -37,9 +37,23 @@
     <EmbeddedResource Include="Schemata\FxCopReport.xsd" />
   </ItemGroup>
 
+  <Choose>
+    <When Condition="$(TargetFramework) == 'netstandard2.0'">
+      <ItemGroup>
+        <PackageReference Include="Newtonsoft.Json" Version="9.0.1" />
+      </ItemGroup>
+    </When>
+    <Otherwise>
+      <ItemGroup>
+        <PackageReference Include="Newtonsoft.Json" Version="8.0.1" />
+        <Reference Include="System.Web" />
+        <Reference Include="System.Net.Http" />
+      </ItemGroup>
+    </Otherwise>
+  </Choose>
+
   <ItemGroup>
     <PackageReference Include="CsvHelper" Version="15.0.5" />
-    <PackageReference Include="Newtonsoft.Json" Version="9.0.1" />
     <PackageReference Include="System.Collections.Immutable" Version="5.0.0" />
     <PackageReference Include="System.IO.Compression" Version="4.3.0" />
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0" PrivateAssets="All" />
