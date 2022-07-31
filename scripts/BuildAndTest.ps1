@@ -129,7 +129,7 @@ function New-SigningDirectory {
                 # Everything we copy is a DLL, _except_ that application projects built for
                 # NetFX have a .exe extension.
                 $fileExtension = ".dll"
-                if ($Projects.Applications -contains $project -and $Frameworks.NetFx -contains $framework) {
+                if ($Projects.Applications -contains $project -and $Frameworks.ApplicationNetFx -contains $framework) {
                     $fileExtension = ".exe"
                 }
 

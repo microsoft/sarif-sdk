@@ -52,7 +52,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="default.configuration.xml" Pack="true" PackagePath="lib/netstandard2.1;lib/net48" CopyToOutputDirectory="PreserveNewest" />
+    <None Include="default.configuration.xml" Pack="true" PackagePath="lib/netstandard2.0;lib/net461" CopyToOutputDirectory="PreserveNewest" />
     <None Include="..\..\policies\*" Pack="true" PackagePath="policies" />
     <None Include="**\*.cs" Pack="true" PackagePath="src" />
     <None Include="..\ReleaseHistory.md" Pack="true" PackagePath="/" />
