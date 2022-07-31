@@ -3,14 +3,14 @@
   <PropertyGroup Label="AssemblyAttributes">
     <AssemblyTitle>SARIF Multitool Library</AssemblyTitle>
     <Description>The public API exposing the commands used by the SARIF Multitool.</Description>
-    <RootNamespace>Microsoft.CodeAnalysis.Sarif.Multitool</RootNamespace>
   </PropertyGroup>
 
   <Import Project="$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildThisFileDirectory), build.props))\build.props" />
-
+  
   <PropertyGroup>
-    <TargetFrameworks>netstandard2.1;</TargetFrameworks>
+    <TargetFrameworks>netstandard2.0;</TargetFrameworks>
     <TargetFrameworks Condition="$(OS) == 'Windows_NT'">$(TargetFrameworks);net461</TargetFrameworks>
+    <RootNamespace>Microsoft.CodeAnalysis.Sarif.Multitool</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
@@ -19,7 +19,7 @@
     <PackageReference Include="Microsoft.Json.Schema" Version="1.1.4" />
     <PackageReference Include="Microsoft.Json.Schema.Validation" Version="1.1.4" />
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0" PrivateAssets="All" />
-    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
     <PackageReference Include="System.Threading.Channels" Version="5.0.0" />
   </ItemGroup>
 

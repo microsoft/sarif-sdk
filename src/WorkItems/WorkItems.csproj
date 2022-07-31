@@ -11,15 +11,15 @@
   <PropertyGroup Label="AssemblyAttributes">
     <AssemblyTitle>Universal Work Item Filing Library</AssemblyTitle>
     <Description>Classes for filing work items in either GitHub or AzureDevOps.</Description>
+    <AssemblyName>WorkItems</AssemblyName>
+    <RootNamespace>Microsoft.WorkItems</RootNamespace>
   </PropertyGroup>
 
   <Import Project="$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildThisFileDirectory), build.props))\build.props" />
 
   <PropertyGroup>
     <TargetFrameworks>netstandard2.0</TargetFrameworks>
-    <TargetFrameworks Condition="$(OS) == 'Windows_NT'">$(TargetFrameworks);net48</TargetFrameworks>
-    <AssemblyName>WorkItems</AssemblyName>
-    <RootNamespace>Microsoft.WorkItems</RootNamespace>
+    <TargetFrameworks Condition="$(OS) == 'Windows_NT'">$(TargetFrameworks);net461</TargetFrameworks>
   </PropertyGroup>
 
   <ItemGroup>
