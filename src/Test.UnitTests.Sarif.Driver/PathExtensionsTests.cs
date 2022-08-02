@@ -47,7 +47,7 @@ namespace Test.UnitTests.Sarif.Driver
         }
 
         private void VerifyReplaceInvalidCharInFileName(string fileName, string replacement, string expectFileName)
-        { 
+        {
             if (fileName == null)
             {
                 Action action = () => PathExtensions.ReplaceInvalidCharInFileName(fileName, replacement);
