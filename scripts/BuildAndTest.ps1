@@ -192,9 +192,8 @@ if (-not $NoClean) {
 Install-VersionConstantsFile
 
 if (-not $NoRestore) {
-    Write-Information "!!!!!!!!!!!!!!!!!!!!"
     Write-Information "Restoring NuGet packages for $SampleSolutionFile..."
-        & $NuGetExePath restore -ConfigFile $NuGetConfigFile -Verbosity $NuGetVerbosity -OutputDirectory $NuGetSamplesPackageRoot (Join-Path $SourceRoot $SampleSolutionFile)
+        & $NuGetExePath restore -ConfigFile $NuGetConfigFile -Verbosity $NuGetVerbosity -OutputDirectory $NuGetPackageRoot (Join-Path $SourceRoot $SampleSolutionFile)
     if ($LASTEXITCODE -ne 0) {
         Exit-WithFailureMessage $ScriptName "NuGet restore failed for $SampleSolutionFile."
     }
