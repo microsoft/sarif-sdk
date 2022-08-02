@@ -2,7 +2,8 @@
 
 ## Unreleased
 
-* BUGFIX: Fix issue `merge` command generates SARIF with multiple runs [#2488](https://github.com/microsoft/sarif-sdk/pull/2488)
+* BUGFIX: Fix the issue `merge` command generates SARIF with multiple runs even specified `--merge-runs` option [#2488](https://github.com/microsoft/sarif-sdk/pull/2488)
+* BUGFIX: Fix `System.IO.DirectoryNotFoundException` when merge Sarif files contains sub rule id with `--split PerRule` option.
 
 ## **v2.4.16** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.4.16) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.4.16) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.4.16) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.4.16) | [Multitool Library](https://www.nuget.org/packages/Sarif.Multitool.Library/2.4.16)
 
