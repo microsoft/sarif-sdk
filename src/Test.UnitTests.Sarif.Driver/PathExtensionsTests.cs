@@ -50,26 +50,26 @@ namespace Test.UnitTests.Sarif.Driver
         {
             if (fileName == null)
             {
-                Action action = () => PathExtensions.ReplaceInvalidCharInFileName(fileName, replacement);
+                Action action = () => fileName.ReplaceInvalidCharInFileName(replacement);
                 action.Should().Throw<ArgumentNullException>().WithMessage($"*{nameof(fileName)}*");
                 return;
             }
 
             if (replacement == null)
             {
-                Action action = () => PathExtensions.ReplaceInvalidCharInFileName(fileName, replacement);
+                Action action = () => fileName.ReplaceInvalidCharInFileName(replacement);
                 action.Should().Throw<ArgumentNullException>().WithMessage($"*{nameof(replacement)}*");
                 return;
             }
 
             if (replacement.Any() && Path.GetInvalidFileNameChars().ToList().Contains(replacement[0]))
             {
-                Action action = () => PathExtensions.ReplaceInvalidCharInFileName(fileName, replacement);
+                Action action = () => fileName.ReplaceInvalidCharInFileName(replacement);
                 action.Should().Throw<ArgumentException>().WithMessage($"*{nameof(replacement)}*");
                 return;
             }
 
-            string actual = PathExtensions.ReplaceInvalidCharInFileName(fileName, replacement);
+            string actual = fileName.ReplaceInvalidCharInFileName(replacement);
             actual.Should().Be(expectFileName, $"file name: {fileName} | replacement: {replacement} | expected: {expectFileName} | actual: {actual}");
         }
 

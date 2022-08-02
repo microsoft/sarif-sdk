@@ -120,7 +120,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                     FileSystem.DirectoryCreateDirectory(outputDirectory);
                     outputFilePath = Path.Combine(
                         outputDirectory,
-                        PathExtensions.ReplaceInvalidCharInFileName(GetOutputFileName(_options, key), "."));
+                        GetOutputFileName(_options, key).ReplaceInvalidCharInFileName("."));
                     WriteSarifFile(FileSystem, mergedLog, outputFilePath, _options.Minify);
                 }
             }
@@ -182,14 +182,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                                     };
                                 }
 
-                                if (_options.MergeRuns)
-                                {
-                                    key = CreateRuleKey(null, run);
-                                }
-                                else
-                                {
-                                    key = CreateRuleKey(result.RuleId, run);
-                                }
+                                string ruleId = _options.MergeRuns ? null : result.RuleId;
+                                key = CreateRuleKey(ruleId, run);
 
                                 if (!_ruleIdToRunsMap.TryGetValue(key, out Run splitRun))
                                 {

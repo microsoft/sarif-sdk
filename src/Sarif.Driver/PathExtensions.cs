@@ -165,7 +165,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         /// <returns></returns>
         /// <exception cref="ArgumentNullException"></exception>
         /// <exception cref="ArgumentException"></exception>
-        public static string ReplaceInvalidCharInFileName(string fileName, string replacement)
+        public static string ReplaceInvalidCharInFileName(this string fileName, string replacement)
         {
             if (fileName == null)
             {

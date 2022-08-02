@@ -34,6 +34,51 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         }
 
         [Fact]
+        public void MergeCommand_WhenSpecifyInlineOption_ShouldReturnErrorCode()
+        {
+            var mockFileSystem = new Mock<IFileSystem>();
+            IFileSystem fileSystem = mockFileSystem.Object;
+
+            var options = new MergeOptions
+            {
+                PrettyPrint = true,
+                OutputDirectoryPath = testDirectory,
+                OutputFileName = "merged.sarif",
+                TargetFileSpecifiers = new[] { "*.sarif" },
+                MergeRuns = true,
+                Force = true,
+                Inline = true,
+            };
+
+            var mergeCommand = new MergeCommand(fileSystem);
+            int returnCode = mergeCommand.Run(options);
+            returnCode.Should().Be(1);
+        }
+
+        [Fact]
+        public void MergeCommand_IfCanNotCreateOutputFile_ShouldReturnErrorCode()
+        {
+            var mockFileSystem = new Mock<IFileSystem>();
+            IFileSystem fileSystem = mockFileSystem.Object;
+            string outputFilePath = Path.Combine(testDirectory, "merged.sarif");
+            mockFileSystem.Setup(x => x.FileExists(outputFilePath)).Returns(false);
+
+            var options = new MergeOptions
+            {
+                PrettyPrint = true,
+                OutputDirectoryPath = testDirectory,
+                OutputFileName = "merged.sarif",
+                TargetFileSpecifiers = new[] { "*.sarif" },
+                MergeRuns = true,
+                Force = false,
+            };
+
+            var mergeCommand = new MergeCommand(fileSystem);
+            int returnCode = mergeCommand.Run(options);
+            returnCode.Should().Be(1);
+        }
+
+        [Fact]
         public void MergeCommand_WhenMergeRunsOn_RunShouldAggregateByToolVersion_SingleToolVersion()
         {
             // 2 logs, 2 runs, same tool verison. 9 results
