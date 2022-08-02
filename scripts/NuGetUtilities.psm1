@@ -17,7 +17,8 @@ $NugetExePath = "nuget"
 if ($ENV:OS) {
     $NugetExePath = "$RepoRoot\.nuget\NuGet.exe"
 }
-$NuGetPackageRoot = Join-Path $SourceRoot (Join-Path "bin" "packages")
+$NuGetPackageRoot = "$RepoRoot\bld\packages\"
+$NuGetSamplesPackageRoot = "$RepoRoot\src\Samples\packages\"
 $NuGetConfigFile = Join-Path $RepoRoot "NuGet.Config"
 
 $PackageSource = "https://nuget.org"
