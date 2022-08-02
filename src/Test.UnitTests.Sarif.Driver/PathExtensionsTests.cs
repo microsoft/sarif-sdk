@@ -10,6 +10,7 @@ using System.Text;
 
 using FluentAssertions;
 
+using Microsoft.CodeAnalysis.Sarif;
 using Microsoft.CodeAnalysis.Sarif.Driver;
 
 using Xunit;
@@ -32,9 +33,21 @@ namespace Test.UnitTests.Sarif.Driver
 
         [Theory]
         [MemberData(nameof(TestData))]
-        [ClassData(typeof(ComprehensiveTestDataGenerator))]
+        [Trait(TestTraits.WindowsOnly, "true")]
         public void ReplaceInvalidCharInFileName_ShouldCorrectFilePath(string fileName, string replacement, string expectFileName)
         {
+            VerifyReplaceInvalidCharInFileName(fileName, replacement, expectFileName);
+        }
+
+        [Theory]
+        [ClassData(typeof(ComprehensiveTestDataGenerator))]
+        public void ReplaceInvalidCharInFileName_ShouldCorrectFilePath_Comprehensive(string fileName, string replacement, string expectFileName)
+        {
+            VerifyReplaceInvalidCharInFileName(fileName, replacement, expectFileName);
+        }
+
+        private void VerifyReplaceInvalidCharInFileName(string fileName, string replacement, string expectFileName)
+        { 
             if (fileName == null)
             {
                 Action action = () => PathExtensions.ReplaceInvalidCharInFileName(fileName, replacement);
