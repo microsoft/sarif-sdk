@@ -76,7 +76,7 @@ param(
     $Associate,
     
     [switch]
-    $NoFormat,
+    $NoFormat
 )
 
 Set-StrictMode -Version Latest
