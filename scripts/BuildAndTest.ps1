@@ -32,8 +32,6 @@
     Associate SARIF files with Visual Studio.
 .PARAMETER NoFormat
     Do not format files based on dotnet-format tool.
-.PARAMETER NoSamples
-    Do not compiles samples.
 #>
 
 [CmdletBinding()]
@@ -79,9 +77,6 @@ param(
     
     [switch]
     $NoFormat,
-
-    [switch]
-    $NoSamples
 )
 
 Set-StrictMode -Version Latest
@@ -197,13 +192,11 @@ if (-not $NoClean) {
 Install-VersionConstantsFile
 
 if (-not $NoRestore) {
-    if (-not $NoSamples) {
-
-        Write-Information "Restoring NuGet packages for $SampleSolutionFile..."
-            & $NuGetExePath restore -ConfigFile $NuGetConfigFile -Verbosity $NuGetVerbosity -OutputDirectory $NuGetSamplesPackageRoot (Join-Path $SourceRoot $SampleSolutionFile)
-        if ($LASTEXITCODE -ne 0) {
-            Exit-WithFailureMessage $ScriptName "NuGet restore failed for $SampleSolutionFile."
-        }
+    Write-Information "!!!!!!!!!!!!!!!!!!!!"
+    Write-Information "Restoring NuGet packages for $SampleSolutionFile..."
+        & $NuGetExePath restore -ConfigFile $NuGetConfigFile -Verbosity $NuGetVerbosity -OutputDirectory $NuGetSamplesPackageRoot (Join-Path $SourceRoot $SampleSolutionFile)
+    if ($LASTEXITCODE -ne 0) {
+        Exit-WithFailureMessage $ScriptName "NuGet restore failed for $SampleSolutionFile."
     }
 }
 
@@ -222,10 +215,7 @@ if (-not $?) {
 if (-not $NoBuild) {
     Invoke-DotNetBuild $SolutionFile
     if ($ENV:OS) {
-        if (-not $NoSamples) {
-
-            Invoke-DotNetBuild $sampleSolutionFile
-        }
+        Invoke-DotNetBuild $sampleSolutionFile
     }
 }
 
