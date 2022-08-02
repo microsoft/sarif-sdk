@@ -8,11 +8,15 @@ using System.Text;
 
 using FluentAssertions;
 
+using Microsoft.VisualStudio.Services.Common;
+
 using Moq;
 
 using Newtonsoft.Json;
 
 using Xunit;
+
+using Xunit.Abstractions;
 
 namespace Microsoft.CodeAnalysis.Sarif.Multitool
 {
@@ -20,18 +24,27 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
     {
         private static readonly string testDirectory = Directory.GetCurrentDirectory();
 
+        private readonly ITestOutputHelper output;
+        private readonly Random random;
+
+        public MergeCommandUnitTests(ITestOutputHelper testOutput)
+        {
+            this.output = testOutput;
+            this.random = RandomSarifLogGenerator.GenerateRandomAndLog(this.output);
+        }
+
         [Fact]
         public void MergeCommand_WhenMergeRunsOn_RunShouldAggregateByToolVersion_SingleToolVersion()
         {
             // 2 logs, 2 runs, same tool verison. 9 results
-            SarifLog sarifLog1 = new SarifLog { Runs = new[] { CreateTestRun(3) } };
-            SarifLog sarifLog2 = new SarifLog { Runs = new[] { CreateTestRun(6) } };
+            var sarifLog1 = new SarifLog { Runs = new[] { CreateTestRun(3) } };
+            var sarifLog2 = new SarifLog { Runs = new[] { CreateTestRun(6) } };
             string sarifLog1Json = JsonConvert.SerializeObject(sarifLog1);
             string sarifLog2Json = JsonConvert.SerializeObject(sarifLog2);
             string sarifLog1FilePath = Path.Combine(testDirectory, "SarifLog1.sarif");
             string sarifLog2FilePath = Path.Combine(testDirectory, "SarifLog2.sarif");
             string outputFilePath = Path.Combine(testDirectory, "merged.sarif");
-            StringBuilder outputStringBuilder = new StringBuilder();
+            var outputStringBuilder = new StringBuilder();
 
             var mockFileSystem = new Mock<IFileSystem>();
             ArrangeMockFileSystemRead(mockFileSystem, sarifLog1Json, sarifLog1FilePath);
@@ -64,14 +77,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         public void MergeCommand_WhenMergeRunsOn_RunShouldAggregateByToolVersion_ThreeToolVersions()
         {
             // 2 logs 3 runs, 3 unique tool versions
-            SarifLog sarifLog1 = new SarifLog { Runs = new[] { CreateTestRun(7, "Tool1"), CreateTestRun(4, "Tool2") } };
-            SarifLog sarifLog2 = new SarifLog { Runs = new[] { CreateTestRun(2, "Tool3") } };
+            var sarifLog1 = new SarifLog { Runs = new[] { CreateTestRun(7, false, "Tool1"), CreateTestRun(4, false, "Tool2") } };
+            var sarifLog2 = new SarifLog { Runs = new[] { CreateTestRun(2, false, "Tool3") } };
             string sarifLog1Json = JsonConvert.SerializeObject(sarifLog1);
             string sarifLog2Json = JsonConvert.SerializeObject(sarifLog2);
             string sarifLog1FilePath = Path.Combine(testDirectory, "SarifLog1.sarif");
             string sarifLog2FilePath = Path.Combine(testDirectory, "SarifLog2.sarif");
             string outputFilePath = Path.Combine(testDirectory, "merged.sarif");
-            StringBuilder outputStringBuilder = new StringBuilder();
+            var outputStringBuilder = new StringBuilder();
 
             var mockFileSystem = new Mock<IFileSystem>();
             ArrangeMockFileSystemRead(mockFileSystem, sarifLog1Json, sarifLog1FilePath);
@@ -118,14 +131,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         public void MergeCommand_WhenMergeRunsOff_RunShouldAggregateByRuleToolVersion_SingleToolVersion()
         {
             // 2 logs 2 runs, same tool version, 6 rules
-            SarifLog sarifLog1 = new SarifLog { Runs = new[] { CreateTestRun(5) } };
-            SarifLog sarifLog2 = new SarifLog { Runs = new[] { CreateTestRun(6) } };
+            var sarifLog1 = new SarifLog { Runs = new[] { CreateTestRun(5) } };
+            var sarifLog2 = new SarifLog { Runs = new[] { CreateTestRun(6) } };
             string sarifLog1Json = JsonConvert.SerializeObject(sarifLog1);
             string sarifLog2Json = JsonConvert.SerializeObject(sarifLog2);
             string sarifLog1FilePath = Path.Combine(testDirectory, "SarifLog1.sarif");
             string sarifLog2FilePath = Path.Combine(testDirectory, "SarifLog2.sarif");
             string outputFilePath = Path.Combine(testDirectory, "merged.sarif");
-            StringBuilder outputStringBuilder = new StringBuilder();
+            var outputStringBuilder = new StringBuilder();
 
             var mockFileSystem = new Mock<IFileSystem>();
             ArrangeMockFileSystemRead(mockFileSystem, sarifLog1Json, sarifLog1FilePath);
@@ -163,25 +176,25 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         public void MergeCommand_WhenSplitPerRule_LogShouldAggregateByRuleToolVersion()
         {
             // 2 logs 2 runs, same tool version, 6 rules
-            SarifLog sarifLog1 = new SarifLog { Runs = new[] { CreateTestRun(6, null, true) } };
-            SarifLog sarifLog2 = new SarifLog { Runs = new[] { CreateTestRun(4, null, true) } };
+            var sarifLog1 = new SarifLog { Runs = new[] { CreateTestRun(6, true) } };
+            var sarifLog2 = new SarifLog { Runs = new[] { CreateTestRun(4, true) } };
             string sarifLog1Json = JsonConvert.SerializeObject(sarifLog1);
             string sarifLog2Json = JsonConvert.SerializeObject(sarifLog2);
             string sarifLog1FilePath = Path.Combine(testDirectory, "SarifLog1.sarif");
             string sarifLog2FilePath = Path.Combine(testDirectory, "SarifLog2.sarif");
 
             string outputFilePath1 = Path.Combine(testDirectory, "TESTRULE.001_merged.sarif");
-            StringBuilder outputStringBuilder1 = new StringBuilder();
+            var outputStringBuilder1 = new StringBuilder();
             string outputFilePath2 = Path.Combine(testDirectory, "TESTRULE.002_merged.sarif");
-            StringBuilder outputStringBuilder2 = new StringBuilder();
+            var outputStringBuilder2 = new StringBuilder();
             string outputFilePath3 = Path.Combine(testDirectory, "TESTRULE.003_merged.sarif");
-            StringBuilder outputStringBuilder3 = new StringBuilder();
+            var outputStringBuilder3 = new StringBuilder();
             string outputFilePath4 = Path.Combine(testDirectory, "TESTRULE.004_merged.sarif");
-            StringBuilder outputStringBuilder4 = new StringBuilder();
+            var outputStringBuilder4 = new StringBuilder();
             string outputFilePath5 = Path.Combine(testDirectory, "TESTRULE.005_merged.sarif");
-            StringBuilder outputStringBuilder5 = new StringBuilder();
+            var outputStringBuilder5 = new StringBuilder();
             string outputFilePath6 = Path.Combine(testDirectory, "TESTRULE.006_merged.sarif");
-            StringBuilder outputStringBuilder6 = new StringBuilder();
+            var outputStringBuilder6 = new StringBuilder();
 
             var mockFileSystem = new Mock<IFileSystem>();
             ArrangeMockFileSystemRead(mockFileSystem, sarifLog1Json, sarifLog1FilePath);
@@ -211,7 +224,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             returnCode.Should().Be(0);
 
             // should have 6 merged logs each log has result of 1 rule
-            List<SarifLog> mergedLogs = new List<SarifLog>
+            var mergedLogs = new List<SarifLog>
             {
                 JsonConvert.DeserializeObject<SarifLog>(outputStringBuilder1.ToString()),
                 JsonConvert.DeserializeObject<SarifLog>(outputStringBuilder2.ToString()),
@@ -228,32 +241,21 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             }
         }
 
-        private static Run CreateTestRun(int numberOfResult, string toolName = null, bool createSubRule = false)
+        private Run CreateTestRun(int numberOfResult, bool createSubRule = false, string toolName = null, string version = null, string semanticVersion = null)
         {
-            var driver = new ToolComponent
-            {
-                Name = toolName ?? "TestTool",
-                Version = "15.0.0.0",
-                SemanticVersion = "15.0.0",
-            };
-
-            var run = new Run
-            {
-                Tool = new Tool
-                {
-                    Driver = driver,
-                },
-            };
-
+            Run run = RandomSarifLogGenerator.GenerateRandomRun(this.random, 0);
+            run.Tool.Driver.Name = toolName ?? "TestTool";
+            run.Tool.Driver.Version = version ?? "15.0.0.0";
+            run.Tool.Driver.SemanticVersion = semanticVersion ?? "15.0.0.0";
             run.Results ??= new List<Result>();
+
+            var artifactUri = new Uri("path/to/file", UriKind.Relative);
+
             for (int i = 1; i <= numberOfResult; i++)
             {
-                run.Results.Add(
-                    new Result
-                    {
-                        RuleId = createSubRule ? $"TESTRULE/00{i}" : $"TESTRULE00{i}",
-                        Guid = Guid.NewGuid().ToString(), // this value makes sure every result does not equal to other results
-                    });
+                string ruleId = createSubRule ? $"TESTRULE/00{i}" : $"TESTRULE00{i}";
+                run.Results.AddRange(
+                    RandomSarifLogGenerator.GenerateFakeResults(this.random, new List<string> { ruleId }, new List<Uri> { artifactUri }, 1));
             }
 
             return run;

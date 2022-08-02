@@ -32,9 +32,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         private readonly Dictionary<string, HashSet<Result>> _ruleIdToResultsMap;
         private readonly Dictionary<string, RunMergingVisitor> _ruleIdToMergeVisitorsMap;
 
-        private static readonly string s_invalidFileNameCharRegexString = $"[{Regex.Escape(new string(Path.GetInvalidFileNameChars()))}]";
-        private static readonly Regex s_invalidFileNameCharRegex = new Regex(s_invalidFileNameCharRegexString, RegexOptions.Compiled | RegexOptions.CultureInvariant);
-
         public MergeCommand(IFileSystem fileSystem = null) : base(fileSystem)
         {
             _ruleIdToRunsMap = new Dictionary<string, Run>();
@@ -121,7 +118,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                     mergedLog.SchemaUri = mergedLog.Version.ConvertToSchemaUri();
 
                     FileSystem.DirectoryCreateDirectory(outputDirectory);
-                    outputFilePath = Path.Combine(outputDirectory, ReplaceInvalidCharInFileName(GetOutputFileName(_options, key), "."));
+                    outputFilePath = Path.Combine(
+                        outputDirectory,
+                        PathExtensions.ReplaceInvalidCharInFileName(GetOutputFileName(_options, key), "."));
                     WriteSarifFile(FileSystem, mergedLog, outputFilePath, _options.Minify);
                 }
             }
@@ -219,7 +218,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             return true;
         }
 
-        private string CreateRuleKey(string ruleId, Run run)
+        private static string CreateRuleKey(string ruleId, Run run)
         {
             return
                 (ruleId ?? "") +
@@ -317,11 +316,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             }
 
             return prefix ?? string.Empty;
-        }
-
-        private static string ReplaceInvalidCharInFileName(string fileName, string replacement)
-        {
-            return s_invalidFileNameCharRegex.Replace(fileName, replacement);
         }
     }
 
