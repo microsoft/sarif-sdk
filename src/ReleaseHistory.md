@@ -1,6 +1,6 @@
 # SARIF Package Release History (SDK, Driver, Converters, and Multitool)
 
-## 3.0.0.preview-1
+## 3.0.0-beta1
 * BUGFIX: Loosen Newtonsoft.JSON minimum version requirement to 6.0.8 (for .NET framework) or 9.0.1 (for all other compilations) for Sarif.Sdk. Sarif.Converts requires 8.0.1, minimally, for .NET framework compilations.
 * BUGFIX: Broaden set of supported .NET frameworks for compatibility reasons. Sarif.Sdk now supports net45 forward. Sarif.Driver and Sarif.WorkItems requires net461 due to other dependencies.
 * BUGFIX: Set default stack limit in Newtonsoft.JSON utilization (if `JsonConvert.Defaults` is not already configured) to address GitHub advisory [GHSA-5crp-9r3c-p9vr](https://github.com/advisories/GHSA-5crp-9r3c-p9vr).
