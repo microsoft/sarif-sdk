@@ -23,9 +23,6 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             // Mitigation for Newtonsoft.Json v12 vulnerability GHSA-5crp-9r3c-p9vr
             JsonConvert.DefaultSettings ??= () => new JsonSerializerSettings { MaxDepth = 64 };
-#if NETSTANDARD
-            JsonReader.MaxDepth ??= 64;
-#endif
         }
 
         protected PropertyBagHolder()
