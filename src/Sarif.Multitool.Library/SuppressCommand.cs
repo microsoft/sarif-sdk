@@ -2,9 +2,16 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
+
+using Kusto.Cloud.Platform.Utils;
 
 using Microsoft.CodeAnalysis.Sarif.Driver;
+using Microsoft.CodeAnalysis.Sarif.Query;
+using Microsoft.CodeAnalysis.Sarif.Query.Evaluators;
 using Microsoft.CodeAnalysis.Sarif.Readers;
 using Microsoft.CodeAnalysis.Sarif.Visitors;
 using Microsoft.CodeAnalysis.Sarif.Writers;
@@ -34,12 +41,19 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                                                                                                      options.Formatting,
                                                                                                      out string _);
 
+                if (!string.IsNullOrWhiteSpace(options.Expression))
+                {
+                    // Merge list of guids if exit??
+                    options.Guids = ReturnQueryExpressionGuids(options);
+                }
+
                 SarifLog reformattedLog = new SuppressVisitor(options.Justification,
                                                               options.Alias,
-                                                              options.Guids,
+                                                              options.UniqueIdentifiers,
                                                               options.Timestamps,
                                                               options.ExpiryInDays,
-                                                              options.Status).VisitSarifLog(currentSarifLog);
+                                                              options.Status,
+                                                              options.Guids).VisitSarifLog(currentSarifLog);
 
                 string actualOutputPath = CommandUtilities.GetTransformedOutputFileName(options);
                 if (options.SarifOutputVersion == SarifVersion.OneZeroZero)
@@ -64,6 +78,53 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             }
 
             return SUCCESS;
+        }
+
+        private IEnumerable<string> ReturnQueryExpressionGuids(SuppressOptions options)
+        {
+            int originalTotal = 0;
+            int matchCount = 0;
+            // Parse the Query and create a Result evaluator for it
+            IExpression expression = ExpressionParser.ParseExpression(options.Expression);
+            IExpressionEvaluator<Result> evaluator = expression.ToEvaluator<Result>(SarifEvaluators.ResultEvaluator);
+
+            // Read the log
+            SarifLog log = ReadSarifFile<SarifLog>(this.FileSystem, options.InputFilePath);
+
+            foreach (Run run in log.Runs)
+            {
+                if (run.Results == null) { continue; }
+                run.SetRunOnResults();
+
+                originalTotal += run.Results.Count;
+
+                // Find matches for Results in the Run
+                BitArray matches = new BitArray(run.Results.Count);
+                evaluator.Evaluate(run.Results, matches);
+
+                // Count the new matches
+                matchCount += matches.TrueCount();
+
+                // Filter the Run.Results to the matches
+                run.Results = matches.MatchingSubset<Result>(run.Results);
+
+                //// Write to console, if caller requested
+                //if (options.WriteToConsole)
+                //{
+                //    foreach (Result result in run.Results)
+                //    {
+                //        Console.WriteLine(result.FormatForVisualStudio());
+                //    }
+                //}
+            }
+
+            // Remove any Runs with no remaining matches
+            log.Runs = log.Runs.Where(r => (r?.Results?.Count ?? 0) > 0).ToList();
+
+            var guids = log.Runs.SelectMany(x => x.Results.Select(y => y.Guid)).ToList();
+
+            return guids;
+            
         }
 
         private bool ValidateOptions(SuppressOptions options)

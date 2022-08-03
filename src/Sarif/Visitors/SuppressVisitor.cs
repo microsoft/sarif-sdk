@@ -3,12 +3,14 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Microsoft.CodeAnalysis.Sarif.Visitors
 {
     public class SuppressVisitor : SarifRewritingVisitor
     {
-        private readonly bool guids;
+        private readonly bool uuids;
+        private readonly IEnumerable<string> guids;
         private readonly string alias;
         private readonly bool timestamps;
         private readonly DateTime timeUtc;
@@ -19,19 +21,21 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
         public SuppressVisitor(string justification,
                                string alias,
-                               bool guids,
+                               bool uuids,
                                bool timestamps,
                                int expiryInDays,
-                               SuppressionStatus suppressionStatus)
+                               SuppressionStatus suppressionStatus,
+                               IEnumerable<string> guids)
         {
             this.alias = alias;
-            this.guids = guids;
+            this.uuids = uuids;
             this.timestamps = timestamps;
             this.timeUtc = DateTime.UtcNow;
             this.expiryInDays = expiryInDays;
             this.justification = justification;
             this.suppressionStatus = suppressionStatus;
             this.expiryUtc = this.timeUtc.AddDays(expiryInDays);
+            this.guids = guids;
         }
 
         public override Result VisitResult(Result node)
@@ -53,7 +57,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 suppression.SetProperty(nameof(alias), alias);
             }
 
-            if (guids)
+            if (this.uuids)
             {
                 suppression.Guid = Guid.NewGuid().ToString(SarifConstants.GuidFormat);
             }
@@ -68,7 +72,18 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 suppression.SetProperty(nameof(expiryUtc), expiryUtc);
             }
 
-            node.Suppressions.Add(suppression);
+            if (this.guids != null && this.guids.Any()) 
+            {
+                if (this.guids.Contains(node.Guid))
+                {
+                    node.Suppressions.Add(suppression);
+                }
+            }
+            else
+            {
+                node.Suppressions.Add(suppression);
+            }
+            
             return base.VisitResult(node);
         }
     }

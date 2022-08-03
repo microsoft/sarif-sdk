@@ -1,6 +1,8 @@
 ﻿// Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
+using System.Collections.Generic;
+
 using CommandLine;
 
 using Microsoft.CodeAnalysis.Sarif.Driver;
@@ -22,9 +24,22 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         public string Alias { get; set; }
 
         [Option(
-            "guids",
+            "uuids",
             HelpText = "A UUID that will be associated with a suppression.")]
-        public bool Guids { get; set; }
+        public bool UniqueIdentifiers { get; set; }
+
+        [Value(0,
+            MetaName = "<Guids>",
+            HelpText = "Guid(s) to SARIF log(s) comprising the current set of results, without result matching information",
+            Required = false)]
+        public IEnumerable<string> Guids { get; set; }
+
+        [Option(
+            'e',
+            "expression",
+            HelpText = "Result Expression to Evaluate (ex: (BaselineState != 'Unchanged'))",
+            Required = false)]
+        public string Expression { get; set; }
 
         [Option(
             "timestamps",
