@@ -30,9 +30,7 @@
 
   <PropertyGroup>
     <TargetFrameworks>netcoreapp3.1</TargetFrameworks>
-    <!-- 
-      net462 is the current minimal supported .NET framework.
-    -->
+    <!-- net462 is the current minimal supported .NET framework. -->
     <TargetFrameworks Condition="$(OS) == 'Windows_NT'">$(TargetFrameworks);net462</TargetFrameworks>
   </PropertyGroup>
 

@@ -15,7 +15,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Processors
     [Serializable]
     public class SarifLogPipeline
     {
-#if !NET45
+#if NETSTANDARD
         [JsonRequired]
 #endif
         public List<SarifLogActionTuple> Actions
