@@ -28,17 +28,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             HelpText = "A UUID that will be associated with a suppression.")]
         public bool UniqueIdentifiers { get; set; }
 
-        [Value(0,
-            MetaName = "<Guids>",
+        [Option(            
+            "<Guids>",
             HelpText = "Guid(s) to SARIF log(s) comprising the current set of results, without result matching information",
-            Required = false)]
+            Default = null)]
         public IEnumerable<string> Guids { get; set; }
 
         [Option(
             'e',
             "expression",
-            HelpText = "Result Expression to Evaluate (ex: (BaselineState != 'Unchanged'))",
-            Required = false)]
+            HelpText = "Result Expression to Evaluate (ex: (BaselineState != 'Unchanged'))")]
         public string Expression { get; set; }
 
         [Option(
