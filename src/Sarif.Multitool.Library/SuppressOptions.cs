@@ -29,7 +29,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         public bool UniqueIdentifiers { get; set; }
 
         [Option(            
-            "<Guids>",
+            "guids",
             HelpText = "Guid(s) to SARIF log(s) comprising the current set of results, without result matching information",
             Default = null)]
         public IEnumerable<string> Guids { get; set; }
