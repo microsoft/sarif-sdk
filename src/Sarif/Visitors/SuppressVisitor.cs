@@ -10,7 +10,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
     public class SuppressVisitor : SarifRewritingVisitor
     {
         private readonly bool uuids;
-        private readonly IEnumerable<string> guids;
+        private readonly IEnumerable<string> resultsGuids;
         private readonly string alias;
         private readonly bool timestamps;
         private readonly DateTime timeUtc;
@@ -25,7 +25,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                                bool timestamps,
                                int expiryInDays,
                                SuppressionStatus suppressionStatus,
-                               IEnumerable<string> guids)
+                               IEnumerable<string> resultsGuids)
         {
             this.alias = alias;
             this.uuids = uuids;
@@ -35,7 +35,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             this.justification = justification;
             this.suppressionStatus = suppressionStatus;
             this.expiryUtc = this.timeUtc.AddDays(expiryInDays);
-            this.guids = guids;
+            this.resultsGuids = resultsGuids;
         }
 
         public override Result VisitResult(Result node)
@@ -72,9 +72,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 suppression.SetProperty(nameof(expiryUtc), expiryUtc);
             }
 
-            if (this.guids != null && this.guids.Any()) 
+            if (this.resultsGuids != null && this.resultsGuids.Any()) 
             {
-                if (this.guids.Contains(node.Guid))
+                if (this.resultsGuids.Contains(node.Guid))
                 {
                     node.Suppressions.Add(suppression);
                 }

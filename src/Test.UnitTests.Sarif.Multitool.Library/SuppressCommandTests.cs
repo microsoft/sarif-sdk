@@ -100,7 +100,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 },
                 new SuppressOptions
                 {
-                    UniqueIdentifiers = true,
+                    Guids = true,
                     InputFilePath = @"C:\input.sarif",
                     OutputFilePath = @"C:\output.sarif",
                     Justification = "some justification",
@@ -108,7 +108,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 },
                 new SuppressOptions
                 {
-                    UniqueIdentifiers = true,
+                    Guids = true,
                     ExpiryInDays = 5,
                     Timestamps = true,
                     InputFilePath = @"C:\input.sarif",
@@ -118,7 +118,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 },
                 new SuppressOptions
                 {
-                    UniqueIdentifiers = true,
+                    Guids = true,
                     ExpiryInDays = 5,
                     Timestamps = true,
                     InputFilePath = @"C:\input.sarif",
@@ -129,14 +129,26 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 },
                 new SuppressOptions
                 {
-                    UniqueIdentifiers = true,
+                    Guids = true,
                     ExpiryInDays = 5,
                     Timestamps = true,
                     InputFilePath = @"C:\input.sarif",
                     OutputFilePath = @"C:\output.sarif",
                     Justification = "some justification",
-                    Guids = new List<string>() { "NEWGUID"},
+                    ResultsGuids = new List<string>() { "GUID"},
                     Expression = string.Empty,
+                    Status = SuppressionStatus.Accepted
+                },
+                new SuppressOptions
+                {
+                    Guids = true,
+                    ExpiryInDays = 5,
+                    Timestamps = true,
+                    InputFilePath = @"C:\input.sarif",
+                    OutputFilePath = @"C:\output.sarif",
+                    Justification = "some justification",
+                    ResultsGuids = new List<string>() { "GUID", "GUID2"},
+                    Expression = "BaseLineState = \"New\"",
                     Status = SuppressionStatus.Accepted
                 },
             };
@@ -160,7 +172,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                             new Result
                             {
                                 RuleId = "Test0001",
-                                Guid = "NEWGUID",
+                                Guid = "GUID",
                                 BaselineState = BaselineState.New
                             }
                         }
@@ -203,7 +215,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 suppression.GetProperty("alias").Should().Be(options.Alias);
             }
 
-            if (options.UniqueIdentifiers)
+            if (options.Guids)
             {
                 suppression.Guid.Should().NotBeNullOrEmpty();
             }

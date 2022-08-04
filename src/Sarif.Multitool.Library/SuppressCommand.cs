@@ -43,17 +43,24 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
                 if (!string.IsNullOrWhiteSpace(options.Expression))
                 {
-                    // Merge list of guids if exit??
-                    options.Guids = ReturnQueryExpressionGuids(options);
+                    var expressionGuids = ReturnQueryExpressionGuids(options);
+                    if (options.ResultsGuids != null && options.ResultsGuids.Any())
+                    {
+                        options.ResultsGuids.Union(expressionGuids);
+                    }
+                    else
+                    {
+                        options.ResultsGuids = expressionGuids;
+                    }                   
                 }
 
                 SarifLog reformattedLog = new SuppressVisitor(options.Justification,
                                                               options.Alias,
-                                                              options.UniqueIdentifiers,
+                                                              options.Guids,
                                                               options.Timestamps,
                                                               options.ExpiryInDays,
                                                               options.Status,
-                                                              options.Guids).VisitSarifLog(currentSarifLog);
+                                                              options.ResultsGuids).VisitSarifLog(currentSarifLog);
 
                 string actualOutputPath = CommandUtilities.GetTransformedOutputFileName(options);
                 if (options.SarifOutputVersion == SarifVersion.OneZeroZero)
@@ -107,24 +114,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
                 // Filter the Run.Results to the matches
                 run.Results = matches.MatchingSubset<Result>(run.Results);
-
-                //// Write to console, if caller requested
-                //if (options.WriteToConsole)
-                //{
-                //    foreach (Result result in run.Results)
-                //    {
-                //        Console.WriteLine(result.FormatForVisualStudio());
-                //    }
-                //}
             }
 
             // Remove any Runs with no remaining matches
             log.Runs = log.Runs.Where(r => (r?.Results?.Count ?? 0) > 0).ToList();
-
             var guids = log.Runs.SelectMany(x => x.Results.Select(y => y.Guid)).ToList();
 
-            return guids;
-            
+            return guids;            
         }
 
         private bool ValidateOptions(SuppressOptions options)

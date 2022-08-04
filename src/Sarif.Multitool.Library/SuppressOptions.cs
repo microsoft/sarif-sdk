@@ -24,15 +24,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         public string Alias { get; set; }
 
         [Option(
-            "uuids",
+            "guids",
             HelpText = "A UUID that will be associated with a suppression.")]
-        public bool UniqueIdentifiers { get; set; }
+        public bool Guids { get; set; }
 
         [Option(            
-            "guids",
-            HelpText = "Guid(s) to SARIF log(s) comprising the current set of results, without result matching information",
+            "results-guids",
+            HelpText = "Guid(s) to SARIF log result(s) comprising the current result guid, without result matching information",
             Default = null)]
-        public IEnumerable<string> Guids { get; set; }
+        public IEnumerable<string> ResultsGuids { get; set; }
 
         [Option(
             'e',
