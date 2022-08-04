@@ -296,7 +296,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
             run.Graphs = graphs;
             run.Invocations = invocations;
             run.Properties = properties;
-            run.VersionControlProvenance = versionControls;
+            run.VersionControlProvenance = versionControls.Any() ? versionControls : null;
 
             return new SarifLog()
             {
