@@ -10,13 +10,26 @@
 $Frameworks = @{}
 
 # .NET Framework versions for which we build.
-$Frameworks.NetFx = @("net452", "net461", "net472")
+# net45 is the minimal framework we build the SDK against.
+# net461 is required to build the work items assemblies
+# and any upstream consumer of them.
+$Frameworks.NetFx = @("net45", "net461")
 
 # Frameworks for which we build libraries.
-$Frameworks.Library = @("netstandard2.0", "netstandard2.1") + $Frameworks.NetFx
+$Frameworks.Library = @("netstandard2.0") + $Frameworks.NetFx
+
+# net462 is the current minimum supported .NET
+# framework, so we use it for all client tools.
+# it is fine to support a down-level, unsupported
+# .NET framework for a library, because the client 
+# app can then control timing for updating to a more
+# current .NET framework. When we control the app
+# we will require the minimal supported version to 
+# ensure that the runtime we are executing on is secure.
+$Frameworks.ApplicationNetFx = @("net462")
 
 # Frameworks for which we build applications.
-$Frameworks.Application = @("netcoreapp3.1") + $Frameworks.NetFx
+$Frameworks.Application = @("netcoreapp3.1") + $Frameworks.ApplicationNetFx
 
 $Frameworks.All = ($Frameworks.Library + $Frameworks.Application | Select -Unique)
 

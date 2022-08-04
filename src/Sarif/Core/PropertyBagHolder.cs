@@ -19,6 +19,12 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// </summary>
     public class PropertyBagHolder : IPropertyBagHolder
     {
+        static PropertyBagHolder()
+        {
+            // Mitigation for Newtonsoft.Json v12 vulnerability GHSA-5crp-9r3c-p9vr
+            JsonConvert.DefaultSettings ??= () => new JsonSerializerSettings { MaxDepth = 64 };
+        }
+
         protected PropertyBagHolder()
         {
             Tags = new TagsCollection(this);
