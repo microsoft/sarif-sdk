@@ -501,5 +501,48 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             sb.Length.Should().Be(0, because: "all URI to file name conversions should succeed but the following cases failed." + Environment.NewLine + sb.ToString());
         }
+
+        [Theory]
+        [MemberData(nameof(MergeWithListTestData))]
+        public void Extensions_MergeWithListTests<T>(IEnumerable<T> first, IEnumerable<T> second, IEqualityComparer<T> comparer, IEnumerable<T> expected)
+        {
+            Action action = () => first.MergeWithList(second, comparer).ToList();
+            if (expected == null)
+            {
+                action.Should().Throw<ArgumentNullException>();
+                return;
+            }
+
+            IEnumerable<T> actual = first.MergeWithList(second, comparer);
+
+            var actualSet = new HashSet<T>(actual, comparer);
+            var expectedSet = new HashSet<T>(expected, comparer);
+            actualSet.SetEquals(expectedSet).Should().Be(true);
+        }
+
+        public static IEnumerable<object[]> MergeWithListTestData()
+        {
+            return new List<object[]>
+            {
+                // first list, second list, comparer, expected list
+                new object[] { null, null, null, null },
+                new object[] { new List<int> { 1, 2, 3 } , null, null, null },
+                new object[] { new List<int> { 1, 2, 3 }, new List<int> { 3, 2, 1 }, null, null },
+                new object[] { new List<int> { 1, 2, 3 }, new List<int> { 4, 3, 2 }, EqualityComparer<int>.Default, new List<int> { 1, 2, 3, 4 } },
+                new object[] { new List<string> {}, new List<string> {}, StringComparer.Ordinal, new List<string> {} },
+                new object[] { new List<string> { "a", "b", "c" }, new List<string> {}, StringComparer.Ordinal, new List<string> { "a", "b", "c" } },
+                new object[] { new List<string> {}, new List<string> { "a", "b", "c" }, StringComparer.Ordinal, new List<string> { "a", "b", "c" } },
+                new object[] { new List<string> { "A", "B", "C" }, new List<string> { "a", "b", "c" }, StringComparer.Ordinal, new List<string> { "a", "b", "c", "A", "B", "C" } },
+                new object[] { new List<string> { "A", "B", "C" }, new List<string> { "a", "b", "c" }, StringComparer.OrdinalIgnoreCase, new List<string> { "A", "B", "C" } },
+                new object[] { new List<string> { "a", "a", "a" }, new List<string> { "B", "B", "B" }, StringComparer.Ordinal, new List<string> { "a", "B" } },
+                new object[]
+                {
+                    new List<Message> { new Message { Text = "Test/001" }, new Message { Text = "Test/002" } },
+                    new List<Message> { new Message { Text = "Test/001" }, new Message { Text = "Test/002", Markdown = "`Test/002`" } },
+                    Message.ValueComparer,
+                    new List<Message> { new Message { Text = "Test/001" }, new Message { Text = "Test/002" }, new Message { Text = "Test/002", Markdown = "`Test/002`" } },
+                },
+            };
+        }
     }
 }

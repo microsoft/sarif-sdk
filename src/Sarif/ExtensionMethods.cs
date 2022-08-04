@@ -514,6 +514,45 @@ namespace Microsoft.CodeAnalysis.Sarif
             return propertyBag;
         }
 
+        public static IEnumerable<T> MergeWithList<T>(
+            this IEnumerable<T> list,
+            IEnumerable<T> anotherList, 
+            IEqualityComparer<T> equalityComparer)
+        {
+            if (list == null)
+            {
+                throw new ArgumentNullException(nameof(list));
+            }
+
+            if (anotherList == null)
+            {
+                throw new ArgumentNullException(nameof(anotherList));
+            }
+
+            if (equalityComparer == null)
+            {
+                throw new ArgumentNullException(nameof(equalityComparer));
+            }
+
+            var elementSet = new HashSet<T>(equalityComparer);
+
+            foreach (T element in list)
+            {
+                if (elementSet.Add(element))
+                {
+                    yield return element;
+                }
+            }
+
+            foreach (T element in anotherList)
+            {
+                if (elementSet.Add(element))
+                {
+                    yield return element;
+                }
+            }
+        }
+
         /// <summary>Checks if a character is a newline.</summary>
         /// <param name="testedCharacter">The character to check.</param>
         /// <returns>true if newline, false if not.</returns>

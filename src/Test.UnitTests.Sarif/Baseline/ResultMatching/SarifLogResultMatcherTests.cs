@@ -415,15 +415,19 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
             };
 
             // 3 unqiue versionControlProvenances
-            SarifLog logHasVersionControl = RandomSarifLogGenerator.GenerateSarifLogWithRuns(random, 4);
+            SarifLog logHasVersionControl = RandomSarifLogGenerator.GenerateSarifLogWithRuns(random, 7);
             logHasVersionControl.Runs[0].VersionControlProvenance = new[] { versionControl1 };
             logHasVersionControl.Runs[1].VersionControlProvenance = new[] { versionControl1 };
             logHasVersionControl.Runs[2].VersionControlProvenance = new[] { versionControl2 };
             logHasVersionControl.Runs[3].VersionControlProvenance = new[] { versionControl2 };
+            logHasVersionControl.Runs[5].VersionControlProvenance = null;
+            logHasVersionControl.Runs[6].VersionControlProvenance = Array.Empty<VersionControlDetails>();
 
-            SarifLog anotherLogHasVersionControl = RandomSarifLogGenerator.GenerateSarifLogWithRuns(random, 2);
+            SarifLog anotherLogHasVersionControl = RandomSarifLogGenerator.GenerateSarifLogWithRuns(random, 4);
             anotherLogHasVersionControl.Runs[0].VersionControlProvenance = new[] { versionControl3 };
             anotherLogHasVersionControl.Runs[0].VersionControlProvenance = new[] { versionControl3 };
+            anotherLogHasVersionControl.Runs[2].VersionControlProvenance = Array.Empty<VersionControlDetails>();
+            anotherLogHasVersionControl.Runs[3].VersionControlProvenance = null;
 
             matchedLog = s_preserveMostRecentPropertyBagMatcher.Match(logHasVersionControl, anotherLogHasVersionControl);
             var versionControlList = matchedLog.Runs
