@@ -516,7 +516,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         public static IEnumerable<T> MergeWithList<T>(
             this IEnumerable<T> list,
-            IEnumerable<T> anotherList, 
+            IEnumerable<T> anotherList,
             IEqualityComparer<T> equalityComparer)
         {
             if (list == null)
