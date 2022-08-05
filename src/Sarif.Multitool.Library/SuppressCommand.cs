@@ -53,6 +53,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                         options.ResultsGuids = expressionGuids;
                     }
                 }
+                Console.WriteLine($"Suppressing {options.ResultsGuids.Count()} of {currentSarifLog.Runs.Sum(i => i.Results.Count)} results.");
 
                 SarifLog reformattedLog = new SuppressVisitor(options.Justification,
                                                               options.Alias,
