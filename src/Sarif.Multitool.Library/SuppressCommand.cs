@@ -51,7 +51,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                     else
                     {
                         options.ResultsGuids = expressionGuids;
-                    }                   
+                    }
                 }
 
                 SarifLog reformattedLog = new SuppressVisitor(options.Justification,
@@ -76,7 +76,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 }
 
                 w.Stop();
-                Console.WriteLine($"Supress completed in {w.Elapsed}.");
+                Console.WriteLine($"Suppress completed in {w.Elapsed}.");
             }
             catch (Exception ex)
             {
@@ -120,7 +120,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             log.Runs = log.Runs.Where(r => (r?.Results?.Count ?? 0) > 0).ToList();
             var guids = log.Runs.SelectMany(x => x.Results.Select(y => y.Guid)).ToList();
 
-            return guids;            
+            return guids;
         }
 
         private bool ValidateOptions(SuppressOptions options)
