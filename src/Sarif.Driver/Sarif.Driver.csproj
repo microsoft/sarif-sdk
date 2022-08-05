@@ -9,7 +9,6 @@
 
   <PropertyGroup>
     <TargetFrameworks>netstandard2.0</TargetFrameworks>
-    <!-- We must require at least net461 in order to use System.Threading.Channels -->
     <TargetFrameworks Condition="$(OS) == 'Windows_NT'">$(TargetFrameworks);net461</TargetFrameworks>
   </PropertyGroup>
 
