@@ -9,7 +9,7 @@
 
   <PropertyGroup>
     <TargetFrameworks>netstandard2.0</TargetFrameworks>
-    <TargetFrameworks Condition="$(OS) == 'Windows_NT'">$(TargetFrameworks);net472</TargetFrameworks>
+    <TargetFrameworks Condition="$(OS) == 'Windows_NT'">$(TargetFrameworks);net45</TargetFrameworks>
   </PropertyGroup>
 
   <ItemGroup>
@@ -36,6 +36,21 @@
     <EmbeddedResource Include="RulesData\ContrastSecurity.sarif" />
     <EmbeddedResource Include="Schemata\FxCopReport.xsd" />
   </ItemGroup>
+
+  <Choose>
+    <When Condition="$(TargetFramework) == 'netstandard2.0'">
+      <ItemGroup>
+        <PackageReference Include="Newtonsoft.Json" Version="9.0.1" />
+        <PackageReference Include="System.IO.FileSystem.Primitives" Version="4.3.0" />
+        <PackageReference Include="System.Text.Encoding.Extensions" Version="4.3.0" />
+      </ItemGroup>
+    </When>
+    <Otherwise>
+      <ItemGroup>
+        <PackageReference Include="Newtonsoft.Json" Version="8.0.1" />
+      </ItemGroup>
+    </Otherwise>
+  </Choose>
 
   <ItemGroup>
     <PackageReference Include="CsvHelper" Version="15.0.5" />

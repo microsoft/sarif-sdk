@@ -75,9 +75,11 @@
 
   <ItemGroup>
     <PackageReference Include="FluentAssertions" Version="5.10.2" />
-    <PackageReference Include="Microsoft.Json.Schema" Version="1.1.5" />
+    <PackageReference Include="Microsoft.Json.Schema" Version="1.1.4" />
+    <PackageReference Include="Microsoft.Json.Schema.Validation" Version="1.1.4" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.4.0-preview-20220707-01" />
     <PackageReference Include="Moq" Version="4.13.1" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
     <PackageReference Include="System.Collections.Immutable" Version="5.0.0" />
     <PackageReference Include="System.Composition" Version="5.0.0" />
     <PackageReference Include="xunit" Version="2.4.1" />
