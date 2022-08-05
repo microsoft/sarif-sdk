@@ -28,10 +28,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             HelpText = "A UUID that will be associated with a suppression.")]
         public bool Guids { get; set; }
 
-        [Option(            
+        [Option(
             "results-guids",
-            HelpText = "Guid(s) to SARIF log result(s) comprising the current result guid, without result matching information",
-            Default = null)]
+            HelpText = "A comma delimited list of SARIF log result guid(s) to suppress.",
+            Default = null,
+            Separator = ',')]
         public IEnumerable<string> ResultsGuids { get; set; }
 
         [Option(
