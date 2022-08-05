@@ -10,10 +10,10 @@
 $Frameworks = @{}
 
 # .NET Framework versions for which we build.
-# net45 is the minimal framework we build the SDK against.
-# net461 is required to build the work items assemblies
+# net462 is this minimal support .NET framework. We allow linkage
+# to net461 for compatibility reasons.
 # and any upstream consumer of them.
-$Frameworks.NetFx = @("net45", "net461")
+$Frameworks.NetFx = @("net461")
 
 # Frameworks for which we build libraries.
 $Frameworks.Library = @("netstandard2.0") + $Frameworks.NetFx
