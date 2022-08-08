@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Security.Cryptography;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace Microsoft.CodeAnalysis.Sarif
@@ -184,6 +185,16 @@ namespace Microsoft.CodeAnalysis.Sarif
             catch (IOException) { }
             catch (UnauthorizedAccessException) { }
             return md5;
+        }
+
+
+        public static string ComputeSha256HashValue(string value)
+        {
+            using (var sha = SHA256.Create())
+            {
+                byte[] hashBytes = sha.ComputeHash(Encoding.UTF8.GetBytes(value));
+                return BitConverter.ToString(hashBytes).Replace("-", string.Empty);
+            }
         }
     }
 }
