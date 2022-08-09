@@ -53,7 +53,19 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                         options.ResultsGuids = expressionGuids;
                     }
                 }
-                Console.WriteLine($"Suppressing {options.ResultsGuids.Count()} of {currentSarifLog.Runs.Sum(i => i.Results.Count)} results.");
+                if (options.ResultsGuids != null)
+                {
+                    Console.WriteLine($"Suppressing {options.ResultsGuids.Count()} of {currentSarifLog.Runs.Sum(i => i.Results.Count)} results.");
+#if DEBUG
+                    foreach (var result in options.ResultsGuids)
+                    {
+                        Console.WriteLine($"{result}");
+                    }
+#endif
+                } else
+                {
+                    Console.WriteLine($"Suppressing {currentSarifLog.Runs.Sum(i => i.Results.Count)} of {currentSarifLog.Runs.Sum(i => i.Results.Count)} results.");
+                }
 
                 SarifLog reformattedLog = new SuppressVisitor(options.Justification,
                                                               options.Alias,

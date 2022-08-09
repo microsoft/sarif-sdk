@@ -151,6 +151,18 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                     Expression = "BaseLineState = \"New\"",
                     Status = SuppressionStatus.Accepted
                 },
+                new SuppressOptions
+                {
+                    Guids = true,
+                    ExpiryInDays = 5,
+                    Timestamps = true,
+                    InputFilePath = @"C:\input.sarif",
+                    OutputFilePath = @"C:\output.sarif",
+                    Justification = "some justification",
+                    ResultsGuids = new List<string>() {},
+                    Expression = "BaseLineState = \"New\"",
+                    Status = SuppressionStatus.Accepted
+                },
             };
 
             foreach (SuppressOptions options in optionsTestCases)
