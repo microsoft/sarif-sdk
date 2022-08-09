@@ -46,7 +46,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                     var expressionGuids = ReturnQueryExpressionGuids(options);
                     if (options.ResultsGuids != null && options.ResultsGuids.Any())
                     {
-                        options.ResultsGuids.Union(expressionGuids);
+                        options.ResultsGuids = expressionGuids.Union(options.ResultsGuids);
                     }
                     else
                     {
