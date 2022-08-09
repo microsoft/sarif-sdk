@@ -15,5 +15,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters.CisCatObjectModel
 
         [JsonProperty("result")]
         public string Result { get; set; }
+
+        public bool IsPass()
+        {
+            return this.Result == "pass";
+        }
     }
 }

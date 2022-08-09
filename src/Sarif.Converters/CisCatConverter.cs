@@ -45,7 +45,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             var results = new List<Result>();
             foreach (CisCatRule rule in log.Rules)
             {
-                results.Add(CreateResult(rule));
+                if (!rule.IsPass())
+                {
+                    results.Add(CreateResult(rule));
+                }
             }
 
             PersistResults(output, results, run);
@@ -109,13 +112,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             //Result: "info|notchecked|pass|unknown": Level = None, Kind = Informational|NotApplicable|Pass|Review
             switch (rule.Result)
             {
+                //PASS CASES ARE NOT INCLUDED IN THE RESULTS, AS MATCH FORWARD DOES NOT PRODUCE
+                //THE CORRECT ABSENT / NEW STATES WHEN THEY EXIST
+                // case "pass":
+                //     result.Level = FailureLevel.None;
+                //     result.Kind = ResultKind.Pass;
+                //     break;
                 case "fail":
                     result.Level = FailureLevel.Error;
                     result.Kind = ResultKind.Fail;
-                    break;
-                case "pass":
-                    result.Level = FailureLevel.None;
-                    result.Kind = ResultKind.Pass;
                     break;
                 case "notchecked":
                     result.Level = FailureLevel.None;
@@ -135,32 +140,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             //Set the unique fingerprint
             result.Fingerprints = new Dictionary<string, string>();
             result.Fingerprints.Add("0", HashUtilities.ComputeSha256HashValue(rule.RuleId).ToLower());
-
-            // var region = new Region
-            // {
-            //     StartColumn = int.Parse(defect.Column),
-            //     StartLine = int.Parse(defect.Line)
-            // };
-
-            // var fileUri = new Uri($"{defect.FilePath}", UriKind.RelativeOrAbsolute);
-            // var physicalLocation = new PhysicalLocation
-            // {
-            //     ArtifactLocation = new ArtifactLocation
-            //     {
-            //         Uri = fileUri
-            //     },
-            //     Region = region
-            // };
-
-            // var location = new Location
-            // {
-            //     PhysicalLocation = physicalLocation
-            // };
-
-            // result.Locations = new List<Location>
-            // {
-            //     location
-            // };
 
             return result;
         }
