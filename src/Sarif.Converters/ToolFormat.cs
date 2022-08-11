@@ -39,6 +39,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         /// <summary>Heimdall Tools's file format.</summary>
         public const string Hdf = nameof(Hdf);
 
+        /// <summary>Tenable Nessus XML file format.</summary>
+        public const string Nessus = nameof(Nessus);
+
         /// <summary>PREfast's file format.</summary>
         public const string PREfast = nameof(PREfast);
 

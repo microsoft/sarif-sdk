@@ -79,6 +79,7 @@ Run ```Sarif.Multitool convert --help``` for the current list.
 - Fortify
 - FortifyFpr
 - FxCop
+- Nessus
 - PREfast
 - Pylint
 - SemmleQL
