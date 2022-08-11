@@ -1,6 +1,7 @@
 ﻿// Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -400,7 +401,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                         Name = "Test Tool",
                         Rules = new List<ReportingDescriptor>()
                         {
-                            new ReportingDescriptor() { Id = "Rule/004" },
+                            new ReportingDescriptor() { Id = "Rule/004" }, // no reference
                             new ReportingDescriptor() { Id = "Rule/002" },
                             new ReportingDescriptor() { Id = "Rule/003" },
                             new ReportingDescriptor() { Id = "Rule/005" },
@@ -423,16 +424,27 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
             mergedRun.MergeResultsFrom(baselineRunCopy);
 
-            // We should get Rule/001, Rule/002, Rule/003, Rule/004 and Rule/005.
-            // Rule/006 wasn't referenced. With 1 extra rule "Rule/DoesNotExist".
+            // We should get Rule/001, Rule/002, Rule/003, Rule004, Rule/005 and 1 extra rule "Rule/DoesNotExist".
+            // Rule/004 and Rule/006 weren't referenced.
+            var expectedRules = new Dictionary<string, int>();
             mergedRun.Tool.Driver.Rules.Count.Should().Be(6);
-            mergedRun.Tool.Driver.Rules.Any(r => r.Id == "Rule/001").Should().BeTrue();
-            mergedRun.Tool.Driver.Rules.Any(r => r.Id == "Rule/002").Should().BeTrue();
-            mergedRun.Tool.Driver.Rules.Any(r => r.Id == "Rule/003").Should().BeTrue();
-            mergedRun.Tool.Driver.Rules.Any(r => r.Id == "Rule004").Should().BeTrue();
-            mergedRun.Tool.Driver.Rules.Any(r => r.Id == "Rule/005").Should().BeTrue();
-            mergedRun.Tool.Driver.Rules.Any(r => r.Id == "Rule/006").Should().BeFalse();
-            mergedRun.Tool.Driver.Rules.Any(r => r.Id == "Rule/DoesNotExist").Should().BeTrue();
+            foreach (ReportingDescriptor rule in mergedRun.Tool.Driver.Rules)
+            {
+                if (!expectedRules.ContainsKey(rule.Id))
+                {
+                    expectedRules[rule.Id] = 0;
+                }
+                expectedRules[rule.Id]++;
+            }
+
+            expectedRules["Rule/001"].Should().Be(1);
+            expectedRules["Rule/002"].Should().Be(1);
+            expectedRules["Rule/003"].Should().Be(1);
+            expectedRules["Rule004"].Should().Be(1);
+            expectedRules["Rule/005"].Should().Be(1);
+            expectedRules["Rule/DoesNotExist"].Should().Be(1);
+            expectedRules.ContainsKey("Rule/004").Should().BeFalse();
+            expectedRules.ContainsKey("Rule/006").Should().BeFalse();
 
             mergedRun.Results.Count.Should().Be(11);
             foreach (Result result in mergedRun.Results)
@@ -444,6 +456,40 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     subRuleId.StartsWith(parentRuleId).Should().BeTrue();
                 }
             }
+        }
+
+        [Fact]
+        public void RunMergingVisitor_WhenCurrentRunIsNull_ShouldThrowException()
+        {
+            Run currentRun = null;
+            var baselineRun = new Run
+            {
+                Tool = new Tool
+                {
+                    Driver = new ToolComponent
+                    {
+                        Name = "Test Tool",
+                        Rules = new List<ReportingDescriptor>()
+                        {
+                            new ReportingDescriptor() { Id = "Rule001" },
+                            new ReportingDescriptor() { Id = "Rule002" },
+                        }
+                    },
+                },
+                Results = new List<Result>
+                {
+                    new Result { RuleIndex = 1 },
+                    new Result { RuleIndex = 0 },
+                    new Result { RuleIndex = 1 }
+                }
+            };
+
+            RunMergingVisitor currentVisitor = new RunMergingVisitor();
+            currentVisitor.Visit(baselineRun);
+
+            currentVisitor.CurrentRun = currentRun;
+            Action action = () => currentVisitor.VisitResult(baselineRun.Results[0]);
+            action.Should().Throw<InvalidOperationException>("Expect VisitResult method throw InvalidOperationException when RunMergingVisitor.CurrentRun is null");
         }
     }
 }

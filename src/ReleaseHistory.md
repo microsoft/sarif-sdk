@@ -2,7 +2,7 @@
 
 ## Unreleased
 
-* BUGFIX: Fix issue `match-results-forward` command generates invalid Sarif when results contain sub ruleId. [#2486](https://github.com/microsoft/sarif-sdk/pull/2486)
+* BUGFIX: Fix an issue where the `match-results-forward` command generates Sarif with duplicated rules if there are results with sub `ruleId`. [#2486](https://github.com/microsoft/sarif-sdk/pull/2486)
 
 ## **v2.4.16** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.4.16) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.4.16) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.4.16) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.4.16) | [Multitool Library](https://www.nuget.org/packages/Sarif.Multitool.Library/2.4.16)
 
