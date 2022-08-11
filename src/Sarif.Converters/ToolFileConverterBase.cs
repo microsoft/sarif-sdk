@@ -105,5 +105,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             return run;
         }
+
+        protected static void PersistResults(IResultLogWriter output, SarifLog log)
+        {
+            output.WriteLog(log);
+            return;
+        }
     }
 }
