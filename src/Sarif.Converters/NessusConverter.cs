@@ -123,13 +123,17 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             Result result = new Result
             {
                 RuleId = item.PluginId,
-                Message = new Message { Text = item.PluginOutput },
+                Message = new Message
+                {
+                    Text = string.IsNullOrWhiteSpace(item.PluginOutput.Trim()) ? item.Synopsis.Trim() : item.PluginOutput.Trim(),
+                },
             };
 
             //set misc properties
             result.SetProperty("port", item.Port);
             result.SetProperty("protocol", item.Protocol);
             result.SetProperty("service", item.ServiceName);
+            result.SetProperty("targetId", hostName);
 
             //set solution if present
             if (!string.IsNullOrWhiteSpace(item.Solution) && !item.Solution.Equals("n/a"))
@@ -188,6 +192,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             //Set the unique fingerprint per item
             var fingerprints = new List<string>() {
+                hostName,
                 item.PluginId,
                 item.Port,
                 item.Protocol,
