@@ -1,5 +1,10 @@
 # SARIF Package Release History (SDK, Driver, Converters, and Multitool)
 
+## **v3.0.0** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/3.0.0) | [Driver](https://www.nuget.org/packages/Sarif.Driver/3.0.0) | [Converters](https://www.nuget.org/packages/Sarif.Converters/3.0.0) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/3.0.0) | [Multitool Library](https://www.nuget.org/packages/Sarif.Multitool.Library/3.0.0)
+* BUGFIX: Loosen Newtonsoft.JSON minimum version requirement to 6.0.8 (for .NET framework) or 9.0.1 (for all other compilations) for Sarif.Sdk. Sarif.Converts requires 8.0.1, minimally, for .NET framework compilations.
+* BUGFIX: Broaden set of supported .NET frameworks for compatibility reasons. Sarif.Sdk, Sarif.Driver and Sarif.WorkItems requires net461.
+* BUGFIX: Set default stack limit in Newtonsoft.JSON utilization (if `JsonConvert.Defaults` is not already configured) to address GitHub advisory [GHSA-5crp-9r3c-p9vr](https://github.com/advisories/GHSA-5crp-9r3c-p9vr).
+
 ## **v2.4.16** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.4.16) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.4.16) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.4.16) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.4.16) | [Multitool Library](https://www.nuget.org/packages/Sarif.Multitool.Library/2.4.16)
 
 * FEATURE: Add `max-file-size-in-kb` argument that allows filtering scan targets by file size. [#2494](https://github.com/microsoft/sarif-sdk/pull/2494)
