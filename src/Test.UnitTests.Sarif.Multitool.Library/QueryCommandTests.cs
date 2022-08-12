@@ -30,6 +30,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             RunAndVerifyCount(1, new QueryOptions() { Expression = "Level != Error", InputFilePath = filePath });
             RunAndVerifyCount(1, new QueryOptions() { Expression = "Level != Error && RuleId = CSCAN0060/0", InputFilePath = filePath });
 
+            // Suppression filtering
+            RunAndVerifyCount(1, new QueryOptions() { Expression = "IsSuppressed == True", InputFilePath = filePath });
+            RunAndVerifyCount(1, new QueryOptions() { Expression = "IsSuppressed == True && RuleId = CSCAN0060/0", InputFilePath = filePath });
+
             // Intersection w/no matches
             RunAndVerifyCount(0, new QueryOptions() { Expression = "Level != Error && RuleId != CSCAN0060/0", InputFilePath = filePath });
 
