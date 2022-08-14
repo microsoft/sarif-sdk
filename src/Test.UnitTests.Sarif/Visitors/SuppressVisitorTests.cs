@@ -3,6 +3,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 using FluentAssertions;
 
@@ -19,61 +20,78 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests.Visitors
         [Fact]
         public void SuppressVisitor_ShouldFlowPropertiesCorrectly()
         {
+            var guids = new List<string>() { "704cf481-0cfd-46ae-90cd-533cdc6c3bb4", "ecaa7988-5cef-411b-b468-6c20851d6994", "c65b76c7-3cd6-4381-9216-430bcc7fab2d", "04753e26-d297-43e2-a7f7-ae2d34c398c9", "54cb1f58-f401-4f8e-8f42-f2482a123b85" };
             var testCases = new[]
             {
                 new
                 {
                     Alias = string.Empty,
                     Justification = "some suppress justification",
-                    Guids = false,
+                    Uuids = false,
                     Timestamps = false,
                     ExpiryInDays = 0,
-                    SuppressionStatus = SuppressionStatus.Accepted
+                    SuppressionStatus = SuppressionStatus.Accepted,
+                    Guids = new List<string>()
                 },
                 new
                 {
                     Alias = "some alias",
                     Justification = "some suppress justification",
-                    Guids = false,
+                    Uuids = false,
                     Timestamps = false,
                     ExpiryInDays = 0,
-                    SuppressionStatus = SuppressionStatus.Accepted
+                    SuppressionStatus = SuppressionStatus.Accepted,
+                    Guids = new List<string>()
                 },
                 new
                 {
                     Alias = "some alias",
                     Justification = "some suppress justification",
-                    Guids = true,
+                    Uuids = true,
                     Timestamps = false,
                     ExpiryInDays = 0,
-                    SuppressionStatus = SuppressionStatus.Accepted
+                    SuppressionStatus = SuppressionStatus.Accepted,
+                    Guids = new List<string>()
                 },
                 new
                 {
                     Alias = "some alias",
                     Justification = "some suppress justification",
-                    Guids = true,
+                    Uuids = true,
                     Timestamps = true,
                     ExpiryInDays = 0,
-                    SuppressionStatus = SuppressionStatus.Accepted
+                    SuppressionStatus = SuppressionStatus.Accepted,
+                    Guids = new List<string>()
                 },
                 new
                 {
                     Alias = "some alias",
                     Justification = "some suppress justification",
-                    Guids = true,
-                    Timestamps = true,
-                    ExpiryInDays = 1,
-                    SuppressionStatus = SuppressionStatus.Accepted
-                },
-                new
-                {
-                    Alias = "some alias",
-                    Justification = "some suppress justification",
-                    Guids = true,
+                    Uuids = true,
                     Timestamps = true,
                     ExpiryInDays = 1,
-                    SuppressionStatus = SuppressionStatus.UnderReview
+                    SuppressionStatus = SuppressionStatus.Accepted,
+                    Guids = new List<string>()
+                },
+                new
+                {
+                    Alias = "some alias",
+                    Justification = "some suppress justification",
+                    Uuids = true,
+                    Timestamps = true,
+                    ExpiryInDays = 1,
+                    SuppressionStatus = SuppressionStatus.UnderReview,
+                    Guids = new List<string>()
+                },
+                new
+                {
+                    Alias = "some alias",
+                    Justification = "some suppress justification",
+                    Uuids = true,
+                    Timestamps = true,
+                    ExpiryInDays = 1,
+                    SuppressionStatus = SuppressionStatus.Accepted,
+                    Guids = guids.ToList()
                 },
             };
 
@@ -81,26 +99,29 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests.Visitors
             {
                 VerifySuppressVisitor(testCase.Alias,
                                       testCase.Justification,
-                                      testCase.Guids,
+                                      testCase.Uuids,
                                       testCase.Timestamps,
                                       testCase.ExpiryInDays,
-                                      testCase.SuppressionStatus);
+                                      testCase.SuppressionStatus,
+                                      testCase.Guids);
             }
         }
 
         private static void VerifySuppressVisitor(string alias,
                                                   string justification,
-                                                  bool guids,
+                                                  bool uuids,
                                                   bool timestamps,
                                                   int expiryInDays,
-                                                  SuppressionStatus suppressionStatus)
+                                                  SuppressionStatus suppressionStatus,
+                                                  IEnumerable<string> guids)
         {
             var visitor = new SuppressVisitor(justification,
                                               alias,
-                                              guids,
+                                              uuids,
                                               timestamps,
                                               expiryInDays,
-                                              suppressionStatus);
+                                              suppressionStatus, 
+                                              guids);
 
             var random = new Random();
             SarifLog current = RandomSarifLogGenerator.GenerateSarifLogWithRuns(random, runCount: 1, resultCount: 1);
@@ -120,7 +141,7 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests.Visitors
                     suppression.GetProperty("alias").Should().Be(alias);
                 }
 
-                if (guids)
+                if (uuids)
                 {
                     suppression.Guid.Should().NotBeNullOrEmpty();
                 }

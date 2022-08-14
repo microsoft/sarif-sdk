@@ -3,6 +3,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Text;
 
 using FluentAssertions;
@@ -56,6 +57,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                     OutputFilePath = outputPath,
                     Status = SuppressionStatus.Accepted
                 },
+                new SuppressOptions
+                {
+                    ExpiryInDays = 1,
+                    Justification = "some justification",
+                    OutputFilePath = outputPath,
+                    Expression = "fail",
+                    Status = SuppressionStatus.Accepted
+                },
             };
 
             var mock = new Mock<IFileSystem>();
@@ -107,6 +116,41 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                     Justification = "some justification",
                     Status = SuppressionStatus.Accepted
                 },
+                new SuppressOptions
+                {
+                    Guids = true,
+                    ExpiryInDays = 5,
+                    Timestamps = true,
+                    InputFilePath = @"C:\input.sarif",
+                    OutputFilePath = @"C:\output.sarif",
+                    Justification = "some justification",
+                    Expression = "BaseLineState = \"New\"",
+                    Status = SuppressionStatus.Accepted
+                },
+                new SuppressOptions
+                {
+                    Guids = true,
+                    ExpiryInDays = 5,
+                    Timestamps = true,
+                    InputFilePath = @"C:\input.sarif",
+                    OutputFilePath = @"C:\output.sarif",
+                    Justification = "some justification",
+                    ResultsGuids = new List<string>() { "GUID"},
+                    Expression = string.Empty,
+                    Status = SuppressionStatus.Accepted
+                },
+                new SuppressOptions
+                {
+                    Guids = true,
+                    ExpiryInDays = 5,
+                    Timestamps = true,
+                    InputFilePath = @"C:\input.sarif",
+                    OutputFilePath = @"C:\output.sarif",
+                    Justification = "some justification",
+                    ResultsGuids = new List<string>() { "GUID", "GUID2"},
+                    Expression = "BaseLineState = \"New\"",
+                    Status = SuppressionStatus.Accepted
+                },
             };
 
             foreach (SuppressOptions options in optionsTestCases)
@@ -127,7 +171,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                         {
                             new Result
                             {
-                                RuleId = "Test0001"
+                                RuleId = "Test0001",
+                                Guid = "GUID",
+                                BaselineState = BaselineState.New
                             }
                         }
                     }
@@ -135,10 +181,19 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             };
 
             var transformedContents = new StringBuilder();
+            var currentStream = new MemoryStream(Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(current)));
+
+            var currentContents = new StringBuilder(JsonConvert.SerializeObject(current));
             var mockFileSystem = new Mock<IFileSystem>();
+
             mockFileSystem
                 .Setup(x => x.FileReadAllText(options.InputFilePath))
                 .Returns(JsonConvert.SerializeObject(current));
+
+            mockFileSystem
+                .Setup(x => x.FileOpenRead(options.InputFilePath))
+                .Returns(() =>
+                    currentStream);
 
             mockFileSystem
                 .Setup(x => x.FileCreate(options.OutputFilePath))
@@ -163,6 +218,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             if (options.Guids)
             {
                 suppression.Guid.Should().NotBeNullOrEmpty();
+            }
+
+            if (!string.IsNullOrWhiteSpace(options.Expression))
+            {
+                suppressed.Runs[0].Results[0].BaselineState.Should().Be(BaselineState.New);
             }
 
             if (options.Timestamps && suppression.TryGetProperty("timeUtc", out DateTime timeUtc))
