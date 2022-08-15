@@ -1,0 +1,62 @@
+{
+  "$schema": "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0-rtm.5.json",
+  "version": "2.1.0",
+  "runs": [
+    {
+      "results": [
+        {
+          "ruleId": "rule.id.2",
+          "level": "error",
+          "message": {
+            "text": "Rule id 2 title"
+          },
+          "fingerprints": {
+            "0": "d23eea429d06cfe703ab69b8d0d0c1abd41fc9e26b4167575e3356733c97bf61"
+          }
+        }
+      ],
+      "tool": {
+        "driver": {
+          "name": "CisCat",
+          "fullName": "CIS Benchmark Title",
+          "version": "2.1.0",
+          "semanticVersion": "2.1.0",
+          "informationUri": "https://www.cisecurity.org/cybersecurity-tools/cis-cat-pro_pre",
+          "rules": [
+            {
+              "id": "rule.id.1",
+              "name": "Rule id 1 title",
+              "fullDescription": {
+                "text": "Rule id 1 title",
+                "markdown": "Rule id 1 title"
+              },
+              "help": {
+                "text": "Rule id 1 title",
+                "markdown": "Rule id 1 title"
+              }
+            },
+            {
+              "id": "rule.id.2",
+              "name": "Rule id 2 title",
+              "fullDescription": {
+                "text": "Rule id 2 title",
+                "markdown": "Rule id 2 title"
+              },
+              "help": {
+                "text": "Rule id 2 title",
+                "markdown": "Rule id 2 title"
+              }
+            }
+          ],
+          "properties": {
+            "benchmarkId": "cis.benchmark.id",
+            "profileId": "profile.id",
+            "profileTitle": "profile.title",
+            "score": "50.00"
+          }
+        }
+      },
+      "columnKind": "utf16CodeUnits"
+    }
+  ]
+}
