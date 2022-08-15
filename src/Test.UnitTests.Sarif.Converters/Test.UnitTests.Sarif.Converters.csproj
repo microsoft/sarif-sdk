@@ -46,6 +46,11 @@
     <None Remove="TestData\HdfConverter\Inputs\Empty.json" />
     <None Remove="TestData\HdfConverter\Inputs\InvalidResult.json" />
     <None Remove="TestData\HdfConverter\Inputs\ValidResults.json" />
+    <None Remove="TestData\CisCatConverter\Inputs\InvalidResults.json" />
+    <None Remove="TestData\CisCatConverter\Inputs\NoResults.json" />
+    <None Remove="TestData\CisCatConverter\Inputs\ValidResults.json" />
+    <None Remove="TestData\CisCatConverter\ExpectedOutputs\NoResults.sarif" />
+    <None Remove="TestData\CisCatConverter\ExpectedOutputs\ValidResults.sarif" />
   </ItemGroup>
 
   <ItemGroup>
@@ -69,6 +74,11 @@
     <EmbeddedResource Include="TestData\HdfConverter\Inputs\Empty.json" />
     <EmbeddedResource Include="TestData\HdfConverter\Inputs\InvalidResult.json" />
     <EmbeddedResource Include="TestData\HdfConverter\Inputs\ValidResults.json" />
+    <EmbeddedResource Include="TestData\CisCatConverter\Inputs\InvalidResults.json" />
+    <EmbeddedResource Include="TestData\CisCatConverter\Inputs\NoResults.json" />
+    <EmbeddedResource Include="TestData\CisCatConverter\Inputs\ValidResults.json" />
+    <EmbeddedResource Include="TestData\CisCatConverter\ExpectedOutputs\NoResults.sarif" />
+    <EmbeddedResource Include="TestData\CisCatConverter\ExpectedOutputs\ValidResults.sarif" />
   </ItemGroup>
 
   <ItemGroup>
