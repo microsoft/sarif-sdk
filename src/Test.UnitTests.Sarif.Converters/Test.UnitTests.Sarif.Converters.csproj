@@ -51,6 +51,12 @@
     <None Remove="TestData\CisCatConverter\Inputs\ValidResults.json" />
     <None Remove="TestData\CisCatConverter\ExpectedOutputs\NoResults.sarif" />
     <None Remove="TestData\CisCatConverter\ExpectedOutputs\ValidResults.sarif" />
+    <None Remove="TestData\NessusConverter\Inputs\InvalidResults.nessus.xml" />
+    <None Remove="TestData\NessusConverter\Inputs\NoResults.nessus.xml" />
+    <None Remove="TestData\NessusConverter\Inputs\ValidResults.nessus.xml" />
+    <None Remove="TestData\NessusConverter\ExpectedOutputs\NoResults.sarif" />
+    <None Remove="TestData\NessusConverter\ExpectedOutputs\ValidResults.sarif" />
+    <None Remove="TestData\NessusConverter\ExpectedOutputs\InvalidResults.sarif" />
   </ItemGroup>
 
   <ItemGroup>
@@ -79,6 +85,12 @@
     <EmbeddedResource Include="TestData\CisCatConverter\Inputs\ValidResults.json" />
     <EmbeddedResource Include="TestData\CisCatConverter\ExpectedOutputs\NoResults.sarif" />
     <EmbeddedResource Include="TestData\CisCatConverter\ExpectedOutputs\ValidResults.sarif" />
+    <EmbeddedResource Include="TestData\NessusConverter\Inputs\InvalidResults.nessus.xml" />
+    <EmbeddedResource Include="TestData\NessusConverter\Inputs\NoResults.nessus.xml" />
+    <EmbeddedResource Include="TestData\NessusConverter\Inputs\ValidResults.nessus.xml" />
+    <EmbeddedResource Include="TestData\NessusConverter\ExpectedOutputs\NoResults.sarif" />
+    <EmbeddedResource Include="TestData\NessusConverter\ExpectedOutputs\ValidResults.sarif" />
+    <EmbeddedResource Include="TestData\NessusConverter\ExpectedOutputs\InvalidResults.sarif" />
   </ItemGroup>
 
   <ItemGroup>
