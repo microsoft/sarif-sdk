@@ -60,7 +60,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                             run.Tool.Driver.Rules.Add(CreateReportDescriptor(item));
                         }
 
-                        run.Results.Add(CreateResult(item, host.Name));
+                        if (item.Severity != "0")
+                        {
+                            run.Results.Add(CreateResult(item, host.Name));
+                        }
                     }
 
                     log.Runs.Add(run);
@@ -139,10 +142,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             if (!string.IsNullOrWhiteSpace(item.Solution) && !item.Solution.Equals("n/a"))
                 result.SetProperty("solution", item.Solution);
 
-            //set severity (rank)
-            //ignore risk factor (H/M/L) as it conflicts with rank 
+            //set result level (risk rating)
+            //ignoring risk factor (H/M/L) as it conflicts with severity
+            //cvss3 base score overrides severity 
             result.Kind = ResultKind.Fail;
-            result.Rank = double.Parse(item.Severity);
+            result.Level = getResultLevel(item.Cvss3BaseScore, item.Severity);
+
+            //set severity value
+            result.SetProperty("severity", item.Severity);
 
             //vulnerable packages contain cve / cvss data
             if (!string.IsNullOrEmpty(item.Cvss3BaseScore))
@@ -203,6 +210,37 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             result.Fingerprints.Add("0", HashUtilities.ComputeSha256HashValue(string.Join(".", fingerprints)).ToLower());
 
             return result;
+        }
+
+        private FailureLevel getResultLevel(string cvss3BaseScore, string severity)
+        {
+            //Failure level by cvss score
+            if (!string.IsNullOrWhiteSpace(cvss3BaseScore))
+            {
+                double cvss3score = double.Parse(cvss3BaseScore);
+
+                if (cvss3score >= 7.0)
+                    return FailureLevel.Error;
+                else if (cvss3score >= 4.0 && cvss3score < 7.0)
+                    return FailureLevel.Warning;
+                else if (cvss3score > 0 && cvss3score < 4.0)
+                    return FailureLevel.Note;
+                else
+                    return FailureLevel.None;
+            }
+            else
+            {
+                if (severity == "4")
+                    return FailureLevel.Error;
+                else if (severity == "3")
+                    return FailureLevel.Error;
+                else if (severity == "2")
+                    return FailureLevel.Warning;
+                else if (severity == "1")
+                    return FailureLevel.Note;
+                else
+                    return FailureLevel.None;
+            }
         }
     }
 }
