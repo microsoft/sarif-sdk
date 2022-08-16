@@ -40,18 +40,19 @@
       "results": [
         {
           "ruleId": "12345",
+          "level": "note",
           "message": {
             "text": "plugin output text"
           },
           "fingerprints": {
             "0": "1e6bb36ff29ed6c40f06c82791515391820f7b546e700886adbd88b2c897279c"
           },
-          "rank": 1.0,
           "properties": {
             "port": "99999",
             "protocol": "tcp",
             "service": "unknown",
-            "targetId": "10.0.0.1"
+            "targetId": "10.0.0.1",
+            "severity": "1"
           }
         }
       ],
@@ -95,19 +96,20 @@
       "results": [
         {
           "ruleId": "12345",
+          "level": "error",
           "message": {
             "text": "plugin output"
           },
           "fingerprints": {
             "0": "c630cd9cdc8784d7ecdbbbe2ae5b6e0e30609841d2df1cef336b5e646391d876"
           },
-          "rank": 2.0,
           "properties": {
             "port": "0",
             "protocol": "tcp",
             "service": "unknown",
             "targetId": "10.0.0.2",
             "solution": "Solution text or generate a proper SSL certificate for this service.",
+            "severity": "2",
             "cvss3BaseScore": "9.0",
             "cvss3Vector": "AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:L/A:N"
           }
