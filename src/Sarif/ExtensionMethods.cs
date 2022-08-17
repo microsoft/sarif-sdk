@@ -514,7 +514,16 @@ namespace Microsoft.CodeAnalysis.Sarif
             return propertyBag;
         }
 
-        public static IEnumerable<T> MergeWithList<T>(
+        /// <summary>
+        /// Merge elements from another IEnumerable into current one, keep unqiue elements, remove duplicated ones.
+        /// </summary>
+        /// <typeparam name="T">The type of object in the list.</typeparam>
+        /// <param name="list">The original list.</param>
+        /// <param name="anotherList">The list containing elements to merge into <paramref name="list"/>.</param>
+        /// <param name="equalityComparer">A comparer to check if an elements equals another.</param>
+        /// <returns>The original list <paramref name="list"/> with merged elements. </returns>
+        /// <exception cref="ArgumentNullException"></exception>
+        public static IEnumerable<T> DistinctMerge<T>(
             this IEnumerable<T> list,
             IEnumerable<T> anotherList,
             IEqualityComparer<T> equalityComparer)

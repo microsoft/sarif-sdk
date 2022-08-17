@@ -506,14 +506,14 @@ namespace Microsoft.CodeAnalysis.Sarif
         [MemberData(nameof(MergeWithListTestData))]
         public void Extensions_MergeWithListTests<T>(IEnumerable<T> first, IEnumerable<T> second, IEqualityComparer<T> comparer, IEnumerable<T> expected)
         {
-            Action action = () => first.MergeWithList(second, comparer).ToList();
+            Action action = () => first.DistinctMerge(second, comparer).ToList();
             if (expected == null)
             {
                 action.Should().Throw<ArgumentNullException>();
                 return;
             }
 
-            IEnumerable<T> actual = first.MergeWithList(second, comparer);
+            IEnumerable<T> actual = first.DistinctMerge(second, comparer);
 
             var actualSet = new HashSet<T>(actual, comparer);
             var expectedSet = new HashSet<T>(expected, comparer);

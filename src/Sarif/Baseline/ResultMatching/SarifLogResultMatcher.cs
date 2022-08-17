@@ -277,7 +277,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
 
                 if (currentRun?.VersionControlProvenance != null)
                 {
-                    versionControls = versionControls.MergeWithList(
+                    versionControls = versionControls.DistinctMerge(
                         currentRun.VersionControlProvenance,
                         VersionControlDetails.ValueComparer).ToList();
                 }
@@ -287,7 +287,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
             {
                 if (previousRun?.VersionControlProvenance != null)
                 {
-                    versionControls = versionControls.MergeWithList(
+                    versionControls = versionControls.DistinctMerge(
                         previousRun.VersionControlProvenance,
                         VersionControlDetails.ValueComparer).ToList();
                 }
