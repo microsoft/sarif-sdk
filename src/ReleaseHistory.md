@@ -1,6 +1,6 @@
 # SARIF Package Release History (SDK, Driver, Converters, and Multitool)
 
-## **v3.1.0-beta1** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/3.1.0-beta1) | [Driver](https://www.nuget.org/packages/Sarif.Driver/3.1.0-beta1) | [Converters](https://www.nuget.org/packages/Sarif.Converters/3.1.0-beta1) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/3.1.0-beta1) | [Multitool Library](https://www.nuget.org/packages/Sarif.Multitool.Library/3.1.0-beta1)
+## **v3.1.0** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/3.1.0) | [Driver](https://www.nuget.org/packages/Sarif.Driver/3.1.0) | [Converters](https://www.nuget.org/packages/Sarif.Converters/3.1.0) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/3.1.0) | [Multitool Library](https://www.nuget.org/packages/Sarif.Multitool.Library/3.1.0)
 
 * DEPENDENCY BREAKING: SARIF.SDK now requires `System.Collections.Immutable` 1.5.0. [#2504](https://github.com/microsoft/sarif-sdk/pull/2533)
 
