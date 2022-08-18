@@ -115,6 +115,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                     mergedLog.Version = SarifVersion.Current;
                     mergedLog.SchemaUri = mergedLog.Version.ConvertToSchemaUri();
 
+                    // We must replace invalid file characters in the constructed output file name
+                    // that may appear in any rule ids incorporated into the file name candidate.
                     FileSystem.DirectoryCreateDirectory(outputDirectory);
                     outputFilePath = Path.Combine(
                         outputDirectory,

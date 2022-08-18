@@ -31,19 +31,36 @@ namespace Test.UnitTests.Sarif.Driver
             outputHelper.WriteLine($"TestName: {nameof(PathExtensionsTests)} has random seed {randomSeed}");
         }
 
-        [Theory]
-        [MemberData(nameof(TestData))]
+        [Fact]
         [Trait(TestTraits.WindowsOnly, "true")]
-        public void ReplaceInvalidCharInFileName_ShouldCorrectFilePath(string fileName, string replacement, string expectFileName)
+        public void ReplaceInvalidCharInFileName_ShouldCorrectFilePath()
         {
-            VerifyReplaceInvalidCharInFileName(fileName, replacement, expectFileName);
+            string[][] testCases = new[]
+            {
+                // fileName | replacement | expectedFileName
+                new string[] { null, ".", null },
+                new string[] { "file.cpp", null, null },
+                new string[] { "cppfile", "?", null },
+                new string[] { "", ".", "" },
+                new string[] { "cppfile", ".", "cppfile" },
+                new string[] { "file/cpp", "_", "file_cpp" },
+                new string[] { "?file*test*cpp?", "+", "+file+test+cpp+" },
+                new string[] { "?file*test*cpp?", "", "filetestcpp" },
+            };
+
+            foreach (string[] test in testCases)
+            {
+                VerifyReplaceInvalidCharInFileName(test[0], test[1], test[2]);
+            }
         }
 
-        [Theory]
-        [ClassData(typeof(ComprehensiveTestDataGenerator))]
-        public void ReplaceInvalidCharInFileName_ShouldCorrectFilePath_Comprehensive(string fileName, string replacement, string expectFileName)
+        [Fact]
+        public void ReplaceInvalidCharInFileName_ShouldCorrectFilePath_Comprehensive()
         {
-            VerifyReplaceInvalidCharInFileName(fileName, replacement, expectFileName);
+            foreach (string[] test in new ComprehensiveTestDataGenerator())
+            {
+                VerifyReplaceInvalidCharInFileName(test[0], test[1], test[2]);
+            }
         }
 
         private void VerifyReplaceInvalidCharInFileName(string fileName, string replacement, string expectFileName)
@@ -73,28 +90,15 @@ namespace Test.UnitTests.Sarif.Driver
             actual.Should().Be(expectFileName, $"file name: {fileName} | replacement: {replacement} | expected: {expectFileName} | actual: {actual}");
         }
 
-        public static IEnumerable<object[]> TestData()
-        {
-            // fileName | replacement | expectedFileName
-            yield return new object[] { null, ".", null };
-            yield return new object[] { "file.cpp", null, null };
-            yield return new object[] { "cppfile", "?", null };
-            yield return new object[] { "", ".", "" };
-            yield return new object[] { "cppfile", ".", "cppfile" };
-            yield return new object[] { "file/cpp", "_", "file_cpp" };
-            yield return new object[] { "?file*test*cpp?", "+", "+file+test+cpp+" };
-            yield return new object[] { "?file*test*cpp?", "", "filetestcpp" };
-        }
-
-        internal class ComprehensiveTestDataGenerator : IEnumerable<object[]>
+        internal class ComprehensiveTestDataGenerator : IEnumerable<string[]>
         {
             IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 
-            public IEnumerator<object[]> GetEnumerator()
+            public IEnumerator<string[]> GetEnumerator()
             {
                 char[] invalidChars = Path.GetInvalidFileNameChars();
                 char[] validChars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789._-+".ToCharArray();
-                char replacement = '_';
+                string replacement = "_";
                 var hitmap = invalidChars.ToHashSet();
 
                 while (hitmap.Count > 0)
@@ -111,7 +115,7 @@ namespace Test.UnitTests.Sarif.Driver
 
                     RemoveItems(hitmap, invalidCharSet);
 
-                    yield return new object[] { fileNameWithInvalidChar, replacement, replacedFileName };
+                    yield return new string[] { fileNameWithInvalidChar, replacement, replacedFileName };
                 }
             }
 
@@ -126,7 +130,7 @@ namespace Test.UnitTests.Sarif.Driver
                 return result;
             }
 
-            private static void ConstructRandomFileName(char[] invalidSet, char[] validSet, char replacement, out string invalidFileName, out string replacedFileName)
+            private static void ConstructRandomFileName(char[] invalidSet, char[] validSet, string replacement, out string invalidFileName, out string replacedFileName)
             {
                 int length = invalidSet.Length + validSet.Length;
                 var invalidStr = new StringBuilder(length);
