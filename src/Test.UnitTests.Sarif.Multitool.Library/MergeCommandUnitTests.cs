@@ -81,7 +81,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         [Fact]
         public void MergeCommand_WhenMergeRunsOn_RunShouldAggregateByToolVersion_SingleToolVersion()
         {
-            // 2 logs, 2 runs, same tool verison. 9 results
             var sarifLog1 = new SarifLog { Runs = new[] { CreateTestRun(3) } };
             var sarifLog2 = new SarifLog { Runs = new[] { CreateTestRun(6) } };
             string sarifLog1Json = JsonConvert.SerializeObject(sarifLog1);
@@ -121,7 +120,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         [Fact]
         public void MergeCommand_WhenMergeRunsOn_RunShouldAggregateByToolVersion_ThreeToolVersions()
         {
-            // 2 logs 3 runs, 3 unique tool versions
             var sarifLog1 = new SarifLog { Runs = new[] { CreateTestRun(7, false, "Tool1"), CreateTestRun(4, false, "Tool2") } };
             var sarifLog2 = new SarifLog { Runs = new[] { CreateTestRun(2, false, "Tool3") } };
             string sarifLog1Json = JsonConvert.SerializeObject(sarifLog1);
@@ -175,7 +173,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         [Fact]
         public void MergeCommand_WhenMergeRunsOff_RunShouldAggregateByRuleToolVersion_SingleToolVersion()
         {
-            // 2 logs 2 runs, same tool version, 6 rules
             var sarifLog1 = new SarifLog { Runs = new[] { CreateTestRun(5) } };
             var sarifLog2 = new SarifLog { Runs = new[] { CreateTestRun(6) } };
             string sarifLog1Json = JsonConvert.SerializeObject(sarifLog1);
@@ -220,7 +217,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         [Fact]
         public void MergeCommand_WhenSplitPerRule_LogShouldAggregateByRuleToolVersion()
         {
-            // 2 logs 2 runs, same tool version, 6 rules
             var sarifLog1 = new SarifLog { Runs = new[] { CreateTestRun(6, true) } };
             var sarifLog2 = new SarifLog { Runs = new[] { CreateTestRun(4, true) } };
             string sarifLog1Json = JsonConvert.SerializeObject(sarifLog1);
