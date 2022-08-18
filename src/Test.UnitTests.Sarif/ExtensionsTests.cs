@@ -503,8 +503,8 @@ namespace Microsoft.CodeAnalysis.Sarif
         }
 
         [Theory]
-        [MemberData(nameof(MergeWithListTestData))]
-        public void Extensions_MergeWithListTests<T>(IEnumerable<T> first, IEnumerable<T> second, IEqualityComparer<T> comparer, IEnumerable<T> expected)
+        [MemberData(nameof(DistinctMergeTestData))]
+        public void Extensions_DistinctMergeTests<T>(IEnumerable<T> first, IEnumerable<T> second, IEqualityComparer<T> comparer, IEnumerable<T> expected)
         {
             Action action = () => first.DistinctMerge(second, comparer).ToList();
             if (expected == null)
@@ -520,7 +520,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             actualSet.SetEquals(expectedSet).Should().Be(true);
         }
 
-        public static IEnumerable<object[]> MergeWithListTestData()
+        public static IEnumerable<object[]> DistinctMergeTestData()
         {
             return new List<object[]>
             {
