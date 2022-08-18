@@ -85,7 +85,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 annotatedCodeLocation.Module = v2ThreadFlowLocation.Module;
                 annotatedCodeLocation.Properties = v2ThreadFlowLocation.Properties;
                 annotatedCodeLocation.State = ConvertToV1MessageStringsDictionary(v2ThreadFlowLocation.State);
-                annotatedCodeLocation.Step = v2ThreadFlowLocation.ExecutionOrder;
+                annotatedCodeLocation.Step = (int)v2ThreadFlowLocation.ExecutionOrder;
             }
 
             return annotatedCodeLocation;
@@ -202,9 +202,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 fileData = new FileDataVersionOne
                 {
                     Hashes = CreateHashVersionOneListFromV2Hashes(v2FileData.Hashes),
-                    Length = v2FileData.Length == -1 ? 0 : v2FileData.Length,
+                    Length = v2FileData.Length == -1 ? 0 : (int)v2FileData.Length,
                     MimeType = v2FileData.MimeType,
-                    Offset = v2FileData.Offset,
+                    Offset = (int)v2FileData.Offset,
                     ParentKey = parentKey,
                     Properties = v2FileData.Properties,
                     Uri = v2FileData.Location?.Uri,
@@ -278,7 +278,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     EnvironmentVariables = v2Invocation.EnvironmentVariables,
                     FileName = v2Invocation.ExecutableLocation?.Uri?.OriginalString,
                     Machine = v2Invocation.Machine,
-                    ProcessId = v2Invocation.ProcessId,
+                    ProcessId = (int)v2Invocation.ProcessId,
                     Properties = v2Invocation.Properties,
                     ResponseFiles = CreateResponseFilesDictionary(v2Invocation.ResponseFiles),
                     StartTime = v2Invocation.StartTimeUtc,
@@ -374,7 +374,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     PhysicalLocation = CreatePhysicalLocationVersionOne(v2Notification.Locations?[0].PhysicalLocation),
                     Properties = v2Notification.Properties,
                     RuleId = v2Notification.AssociatedRule?.Id,
-                    ThreadId = v2Notification.ThreadId,
+                    ThreadId = (int)v2Notification.ThreadId,
                     Time = v2Notification.TimeUtc
                 };
             }
@@ -503,8 +503,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     // There are no text-related properties. Therefore either the region is
                     // described entirely by binary-related properties, or the region is an
                     // insertion point at the start of the file.
-                    region.Length = v2Region.ByteLength;
-                    region.Offset = v2Region.ByteOffset;
+                    region.Length = (int)v2Region.ByteLength;
+                    region.Offset = (int)v2Region.ByteOffset;
                 }
             }
 
@@ -747,8 +747,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     }
                 }
 
-                replacement.DeletedLength = v2Replacement.DeletedRegion.ByteLength;
-                replacement.Offset = v2Replacement.DeletedRegion.ByteOffset;
+                replacement.DeletedLength = (int)v2Replacement.DeletedRegion.ByteLength;
+                replacement.Offset = (int)v2Replacement.DeletedRegion.ByteOffset;
             }
 
             return replacement;
@@ -1163,7 +1163,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     // Offset = v2StackFrame.Location?.PhysicalLocation?.Address?.OffsetFromParent ?? 0,
                     Parameters = v2StackFrame.Parameters,
                     Properties = v2StackFrame.Properties,
-                    ThreadId = v2StackFrame.ThreadId
+                    ThreadId = (int)v2StackFrame.ThreadId
                 };
 
                 Location location = v2StackFrame.Location;

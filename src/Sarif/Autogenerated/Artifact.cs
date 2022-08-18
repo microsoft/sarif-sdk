@@ -5,6 +5,7 @@ using System;
 using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Numerics;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 
@@ -59,7 +60,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// The offset in bytes of the artifact within its containing artifact.
         /// </summary>
         [DataMember(Name = "offset", IsRequired = false, EmitDefaultValue = false)]
-        public virtual int Offset { get; set; }
+        public virtual BigInteger Offset { get; set; }
 
         /// <summary>
         /// The length of the artifact in bytes.
@@ -67,7 +68,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         [DataMember(Name = "length", IsRequired = false, EmitDefaultValue = false)]
         [DefaultValue(-1)]
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
-        public virtual int Length { get; set; }
+        public virtual BigInteger Length { get; set; }
 
         /// <summary>
         /// The role or roles played by the artifact in the analysis.
@@ -171,7 +172,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="properties">
         /// An initialization value for the <see cref="P:Properties" /> property.
         /// </param>
-        public Artifact(Message description, ArtifactLocation location, int parentIndex, int offset, int length, ArtifactRoles roles, string mimeType, ArtifactContent contents, string encoding, string sourceLanguage, IDictionary<string, string> hashes, DateTime lastModifiedTimeUtc, IDictionary<string, SerializedPropertyInfo> properties)
+        public Artifact(Message description, ArtifactLocation location, int parentIndex, BigInteger offset, BigInteger length, ArtifactRoles roles, string mimeType, ArtifactContent contents, string encoding, string sourceLanguage, IDictionary<string, string> hashes, DateTime lastModifiedTimeUtc, IDictionary<string, SerializedPropertyInfo> properties)
         {
             Init(description, location, parentIndex, offset, length, roles, mimeType, contents, encoding, sourceLanguage, hashes, lastModifiedTimeUtc, properties);
         }
@@ -213,7 +214,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new Artifact(this);
         }
 
-        protected virtual void Init(Message description, ArtifactLocation location, int parentIndex, int offset, int length, ArtifactRoles roles, string mimeType, ArtifactContent contents, string encoding, string sourceLanguage, IDictionary<string, string> hashes, DateTime lastModifiedTimeUtc, IDictionary<string, SerializedPropertyInfo> properties)
+        protected virtual void Init(Message description, ArtifactLocation location, int parentIndex, BigInteger offset, BigInteger length, ArtifactRoles roles, string mimeType, ArtifactContent contents, string encoding, string sourceLanguage, IDictionary<string, string> hashes, DateTime lastModifiedTimeUtc, IDictionary<string, SerializedPropertyInfo> properties)
         {
             if (description != null)
             {

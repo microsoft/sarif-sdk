@@ -4,6 +4,7 @@
 using System;
 using System.CodeDom.Compiler;
 using System.Collections.Generic;
+using System.Numerics;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 
@@ -50,7 +51,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// The thread identifier of the stack frame.
         /// </summary>
         [DataMember(Name = "threadId", IsRequired = false, EmitDefaultValue = false)]
-        public virtual int ThreadId { get; set; }
+        public virtual BigInteger ThreadId { get; set; }
 
         /// <summary>
         /// The parameters of the call that is executing.
@@ -90,7 +91,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="properties">
         /// An initialization value for the <see cref="P:Properties" /> property.
         /// </param>
-        public StackFrame(Location location, string module, int threadId, IEnumerable<string> parameters, IDictionary<string, SerializedPropertyInfo> properties)
+        public StackFrame(Location location, string module, BigInteger threadId, IEnumerable<string> parameters, IDictionary<string, SerializedPropertyInfo> properties)
         {
             Init(location, module, threadId, parameters, properties);
         }
@@ -132,7 +133,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new StackFrame(this);
         }
 
-        protected virtual void Init(Location location, string module, int threadId, IEnumerable<string> parameters, IDictionary<string, SerializedPropertyInfo> properties)
+        protected virtual void Init(Location location, string module, BigInteger threadId, IEnumerable<string> parameters, IDictionary<string, SerializedPropertyInfo> properties)
         {
             if (location != null)
             {

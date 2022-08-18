@@ -100,5 +100,10 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             return fileContent;
         }
+
+        public bool ShouldSerializeLength()
+        {
+            return Length >= 0;
+        }
     }
 }
