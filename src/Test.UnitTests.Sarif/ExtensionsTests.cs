@@ -502,13 +502,75 @@ namespace Microsoft.CodeAnalysis.Sarif
             sb.Length.Should().Be(0, because: "all URI to file name conversions should succeed but the following cases failed." + Environment.NewLine + sb.ToString());
         }
 
-        [Theory]
-        [MemberData(nameof(DistinctMergeTestData))]
-        public void Extensions_DistinctMergeTests<T>(IEnumerable<T> first, IEnumerable<T> second, IEqualityComparer<T> comparer, IEnumerable<T> expected)
+        [Fact]
+        public void Extensions_DistinctMergeTests()
         {
-            Action action = () => first.DistinctMerge(second, comparer).ToList();
+            object[][] intTestCases = new[]
+            {
+                // first list, second list, comparer, expected list
+                new object[] { null, null, null, null },
+                new object[] { new List<int> { 1, 2, 3 } , null, null, null },
+                new object[] { new List<int> { 1, 2, 3 }, new List<int> { 3, 2, 1 }, null, null },
+                new object[] { new List<int> { 1, 2, 3 }, new List<int> { 4, 3, 2 }, EqualityComparer<int>.Default, new List<int> { 1, 2, 3, 4 } },
+            };
+
+            object[][] stringTestCases = new[]
+            {
+                new object[] { new List<string> {}, new List<string> {}, StringComparer.Ordinal, new List<string> {} },
+                new object[] { new List<string> { "a", "b", "c" }, new List<string> {}, StringComparer.Ordinal, new List<string> { "a", "b", "c" } },
+                new object[] { new List<string> {}, new List<string> { "a", "b", "c" }, StringComparer.Ordinal, new List<string> { "a", "b", "c" } },
+                new object[] { new List<string> { "A", "B", "C" }, new List<string> { "a", "b", "c" }, StringComparer.Ordinal, new List<string> { "a", "b", "c", "A", "B", "C" } },
+                new object[] { new List<string> { "A", "B", "C" }, new List<string> { "a", "b", "c" }, StringComparer.OrdinalIgnoreCase, new List<string> { "A", "B", "C" } },
+                new object[] { new List<string> { "a", "a", "a" }, new List<string> { "B", "B", "B" }, StringComparer.Ordinal, new List<string> { "a", "B" } },
+            };
+
+            object[][] classTestCases = new[]
+            {
+                new object[]
+                {
+                    new List<Message> { new Message { Text = "Test/001" }, new Message { Text = "Test/002" } },
+                    new List<Message> { new Message { Text = "Test/001" }, new Message { Text = "Test/002", Markdown = "`Test/002`" } },
+                    Message.ValueComparer,
+                    new List<Message> { new Message { Text = "Test/001" }, new Message { Text = "Test/002" }, new Message { Text = "Test/002", Markdown = "`Test/002`" } },
+                },
+            };
+
+            foreach (object[] test in intTestCases)
+            {
+                var first = test[0] as IEnumerable<int>;
+                var second = test[1] as IEnumerable<int>;
+                var comparer = test[2] as IEqualityComparer<int>;
+                var expected = test[3] as IEnumerable<int>;
+
+                this.VerifyDistinctMerge(first, second, comparer, expected);
+            }
+
+            foreach (object[] test in stringTestCases)
+            {
+                var first = test[0] as IEnumerable<string>;
+                var second = test[1] as IEnumerable<string>;
+                var comparer = test[2] as IEqualityComparer<string>;
+                var expected = test[3] as IEnumerable<string>;
+
+                this.VerifyDistinctMerge(first, second, comparer, expected);
+            }
+
+            foreach (object[] test in classTestCases)
+            {
+                var first = test[0] as IEnumerable<Message>;
+                var second = test[1] as IEnumerable<Message>;
+                var comparer = test[2] as IEqualityComparer<Message>;
+                var expected = test[3] as IEnumerable<Message>;
+
+                this.VerifyDistinctMerge(first, second, comparer, expected);
+            }
+        }
+
+        private void VerifyDistinctMerge<T>(IEnumerable<T> first, IEnumerable<T> second, IEqualityComparer<T> comparer, IEnumerable<T> expected)
+        {
             if (expected == null)
             {
+                Action action = () => first.DistinctMerge(second, comparer).ToList();
                 action.Should().Throw<ArgumentNullException>();
                 return;
             }
@@ -518,31 +580,6 @@ namespace Microsoft.CodeAnalysis.Sarif
             var actualSet = new HashSet<T>(actual, comparer);
             var expectedSet = new HashSet<T>(expected, comparer);
             actualSet.SetEquals(expectedSet).Should().Be(true);
-        }
-
-        public static IEnumerable<object[]> DistinctMergeTestData()
-        {
-            return new List<object[]>
-            {
-                // first list, second list, comparer, expected list
-                new object[] { null, null, null, null },
-                new object[] { new List<int> { 1, 2, 3 } , null, null, null },
-                new object[] { new List<int> { 1, 2, 3 }, new List<int> { 3, 2, 1 }, null, null },
-                new object[] { new List<int> { 1, 2, 3 }, new List<int> { 4, 3, 2 }, EqualityComparer<int>.Default, new List<int> { 1, 2, 3, 4 } },
-                new object[] { new List<string> {}, new List<string> {}, StringComparer.Ordinal, new List<string> {} },
-                new object[] { new List<string> { "a", "b", "c" }, new List<string> {}, StringComparer.Ordinal, new List<string> { "a", "b", "c" } },
-                new object[] { new List<string> {}, new List<string> { "a", "b", "c" }, StringComparer.Ordinal, new List<string> { "a", "b", "c" } },
-                new object[] { new List<string> { "A", "B", "C" }, new List<string> { "a", "b", "c" }, StringComparer.Ordinal, new List<string> { "a", "b", "c", "A", "B", "C" } },
-                new object[] { new List<string> { "A", "B", "C" }, new List<string> { "a", "b", "c" }, StringComparer.OrdinalIgnoreCase, new List<string> { "A", "B", "C" } },
-                new object[] { new List<string> { "a", "a", "a" }, new List<string> { "B", "B", "B" }, StringComparer.Ordinal, new List<string> { "a", "B" } },
-                new object[]
-                {
-                    new List<Message> { new Message { Text = "Test/001" }, new Message { Text = "Test/002" } },
-                    new List<Message> { new Message { Text = "Test/001" }, new Message { Text = "Test/002", Markdown = "`Test/002`" } },
-                    Message.ValueComparer,
-                    new List<Message> { new Message { Text = "Test/001" }, new Message { Text = "Test/002" }, new Message { Text = "Test/002", Markdown = "`Test/002`" } },
-                },
-            };
         }
     }
 }
