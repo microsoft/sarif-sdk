@@ -3,6 +3,8 @@
 ## Unreleased
 
 * BUGFIX: Fix issue `match-results-forward` command generates Sarif missing `VersionControlDetails` data. [#2487](https://github.com/microsoft/sarif-sdk/pull/2487)
+* BUGFIX: Update `merge` command to properly produce runs by tool and version when passed the `--merge-runs` argument. [#2488](https://github.com/microsoft/sarif-sdk/pull/2488)
+* BUGFIX: Eliminate `IOException` and `DirectoryNotFoundException` exceptions thrown by `merge` command when splitting by rule (due to invalid file characters in rule ids).
 
 ## **v3.1.0** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/3.1.0) | [Driver](https://www.nuget.org/packages/Sarif.Driver/3.1.0) | [Converters](https://www.nuget.org/packages/Sarif.Converters/3.1.0) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/3.1.0) | [Multitool Library](https://www.nuget.org/packages/Sarif.Multitool.Library/3.1.0)
 

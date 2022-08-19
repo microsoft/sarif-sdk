@@ -5,6 +5,7 @@ using System;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Text.RegularExpressions;
 // Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
@@ -19,6 +20,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
     /// <summary>Path extension functions.</summary>
     public static class PathExtensions
     {
+        private static readonly Regex s_invalidFileNameCharRegex = new Regex(
+            $"[{Regex.Escape(new string(Path.GetInvalidFileNameChars()))}]",
+            RegexOptions.Compiled | RegexOptions.CultureInvariant);
+
         /// <summary>Gets a path relative to the SdlCommon library.</summary>
         /// <param name="relativePath">The relative path to obtain to SdlCommon.dll.</param>
         /// <returns>The path relative to the SdlCommon library.</returns>
@@ -152,6 +157,34 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
                 return sourcePath;
             }
+        }
+
+        /// <summary>
+        /// Replace invalid file name characters in given file name with specified valid character.
+        /// </summary>
+        /// <param name="fileName">The file name to check if contains invalid file name characters.</param>
+        /// <param name="replacement">The string to replace the invalid file name characters.</param>
+        /// <returns>A valid file name string.</returns>
+        /// <exception cref="ArgumentNullException">Throw when any argument is null.</exception>
+        /// <exception cref="ArgumentException">Throw if the replacement contains invalid file name character.</exception>
+        public static string ReplaceInvalidCharInFileName(this string fileName, string replacement)
+        {
+            if (fileName == null)
+            {
+                throw new ArgumentNullException(nameof(fileName));
+            }
+
+            if (replacement == null)
+            {
+                throw new ArgumentNullException(nameof(replacement));
+            }
+
+            if (s_invalidFileNameCharRegex.IsMatch(replacement))
+            {
+                throw new ArgumentException($"\"{replacement}\" contains invalid file name char.", nameof(replacement));
+            }
+
+            return s_invalidFileNameCharRegex.Replace(fileName, replacement);
         }
 
         /// <summary>Adds slashes to the temporary array.</summary>
