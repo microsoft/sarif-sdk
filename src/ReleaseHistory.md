@@ -2,7 +2,7 @@
 
 ## Unreleased
 
-* BUGFIX: Fix issue `match-results-forward` command generates Sarif missing `VersionControlDetails` data. [#2487](https://github.com/microsoft/sarif-sdk/pull/2487)
+* BUGFIX: Resolve issue where match-results-forward command fails to generate VersionControlDetails data. [#2487](https://github.com/microsoft/sarif-sdk/pull/2487)
 * BUGFIX: Update `merge` command to properly produce runs by tool and version when passed the `--merge-runs` argument. [#2488](https://github.com/microsoft/sarif-sdk/pull/2488)
 * BUGFIX: Eliminate `IOException` and `DirectoryNotFoundException` exceptions thrown by `merge` command when splitting by rule (due to invalid file characters in rule ids).
 
