@@ -44,9 +44,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 if (!string.IsNullOrWhiteSpace(options.Expression))
                 {
                     var expressionGuids = ReturnQueryExpressionGuids(options);
-                    if (options.ResultsGuids != null && options.ResultsGuids.Any())
+                    if (options.ResultsGuids != null && options.ResultsGuids.Where(i => !string.IsNullOrWhiteSpace(i)).Count() > 0)
                     {
-                        options.ResultsGuids = expressionGuids.Union(options.ResultsGuids);
+                        options.ResultsGuids = expressionGuids.Union(options.ResultsGuids.Where(i => !string.IsNullOrWhiteSpace(i)));
                     }
                     else
                     {
@@ -62,7 +62,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                         Console.WriteLine($"{result}");
                     }
 #endif
-                } else
+                }
+                else
                 {
                     Console.WriteLine($"Suppressing {currentSarifLog.Runs.Sum(i => i.Results.Count)} of {currentSarifLog.Runs.Sum(i => i.Results.Count)} results.");
                 }
