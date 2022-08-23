@@ -31,7 +31,7 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests.Visitors
                     Timestamps = false,
                     ExpiryInDays = 0,
                     SuppressionStatus = SuppressionStatus.Accepted,
-                    Guids = new List<string>()
+                    Guids = default(List<string>)
                 },
                 new
                 {
@@ -81,7 +81,7 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests.Visitors
                     Timestamps = true,
                     ExpiryInDays = 1,
                     SuppressionStatus = SuppressionStatus.UnderReview,
-                    Guids = new List<string>()
+                    Guids = default(List<string>)
                 },
                 new
                 {
@@ -154,6 +154,11 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests.Visitors
                 if (expiryInDays > 0 && suppression.TryGetProperty("expiryUtc", out DateTime expiryUtc))
                 {
                     expiryUtc.Should().BeCloseTo(DateTime.UtcNow.AddDays(expiryInDays), DateTimeAssertPrecision);
+                }
+
+                if (guids != null && guids.Any())
+                {
+                    suppression.Should().Match(b => (guids.Contains(result.Guid, StringComparer.OrdinalIgnoreCase)));
                 }
             }
         }
