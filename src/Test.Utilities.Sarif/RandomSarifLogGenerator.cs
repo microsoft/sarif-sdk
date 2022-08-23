@@ -13,7 +13,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// <summary>
     /// Generate random sarif logs for testing.
     /// </summary>
-    internal static class RandomSarifLogGenerator
+    public static class RandomSarifLogGenerator
     {
         public static string GeneratorBaseUri = @"C:\src\";
 
