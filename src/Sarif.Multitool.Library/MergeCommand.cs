@@ -6,7 +6,6 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
 using System.IO;
-using System.Linq;
 using System.Threading;
 using System.Threading.Channels;
 using System.Threading.Tasks;
@@ -116,8 +115,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                     mergedLog.Version = SarifVersion.Current;
                     mergedLog.SchemaUri = mergedLog.Version.ConvertToSchemaUri();
 
+                    // We must replace invalid file characters in the constructed output file name
+                    // that may appear in any rule ids incorporated into the file name candidate.
                     FileSystem.DirectoryCreateDirectory(outputDirectory);
-                    outputFilePath = Path.Combine(outputDirectory, GetOutputFileName(_options, key));
+                    outputFilePath = Path.Combine(
+                        outputDirectory,
+                        GetOutputFileName(_options, key).ReplaceInvalidCharInFileName("."));
                     WriteSarifFile(FileSystem, mergedLog, outputFilePath, _options.Minify);
                 }
             }
@@ -179,7 +182,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                                     };
                                 }
 
-                                key = CreateRuleKey(result.RuleId, run);
+                                string ruleId = _options.MergeRuns ? null : result.RuleId;
+                                key = CreateRuleKey(ruleId, run);
 
                                 if (!_ruleIdToRunsMap.TryGetValue(key, out Run splitRun))
                                 {
@@ -208,7 +212,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             return true;
         }
 
-        private string CreateRuleKey(string ruleId, Run run)
+        private static string CreateRuleKey(string ruleId, Run run)
         {
             return
                 (ruleId ?? "") +
