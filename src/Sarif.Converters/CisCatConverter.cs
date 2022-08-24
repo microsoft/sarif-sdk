@@ -132,8 +132,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                     break;
                 case "unknown":
                 default:
-                    result.Level = FailureLevel.None;
-                    result.Kind = ResultKind.Review;
+                    result.Level = FailureLevel.Warning;
+                    result.Kind = ResultKind.Fail;
                     break;
             };
 
