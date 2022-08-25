@@ -5,18 +5,15 @@ using System;
 using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
-
-using Microsoft.CodeAnalysis.Sarif.Readers;
-
 using Newtonsoft.Json;
 
 namespace Microsoft.CodeAnalysis.Sarif
 {
     /// <summary>
-    /// Static Analysis Results Format (SARIF) Version 2.0.0-csd.2.beta-2019-01-24 JSON Schema: a standard format for the output of static analysis tools.
+    /// Static Analysis Results Format (SARIF) Version 2.1.0-rtm.5 JSON Schema: a standard format for the output of static analysis tools.
     /// </summary>
     [DataContract]
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.61.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "1.1.5.0")]
     public partial class SarifLog : PropertyBagHolder, ISarifNode
     {
         public static IEqualityComparer<SarifLog> ValueComparer => SarifLogEqualityComparer.Instance;
@@ -29,7 +26,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <summary>
         /// Gets a value indicating the type of object implementing <see cref="ISarifNode" />.
         /// </summary>
-        public SarifNodeKind SarifNodeKind
+        public virtual SarifNodeKind SarifNodeKind
         {
             get
             {
@@ -41,27 +38,27 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// The URI of the JSON schema corresponding to the version.
         /// </summary>
         [DataMember(Name = "$schema", IsRequired = false, EmitDefaultValue = false)]
-        [JsonConverter(typeof(UriConverter))]
-        public Uri SchemaUri { get; set; }
+        [JsonConverter(typeof(Microsoft.CodeAnalysis.Sarif.Readers.UriConverter))]
+        public virtual Uri SchemaUri { get; set; }
 
         /// <summary>
         /// The SARIF format version of this log file.
         /// </summary>
         [DataMember(Name = "version", IsRequired = true)]
         [JsonConverter(typeof(Microsoft.CodeAnalysis.Sarif.Readers.SarifVersionConverter))]
-        public SarifVersion Version { get; set; }
+        public virtual SarifVersion Version { get; set; }
 
         /// <summary>
         /// The set of runs contained in this log file.
         /// </summary>
         [DataMember(Name = "runs", IsRequired = true)]
-        public IList<Run> Runs { get; set; }
+        public virtual IList<Run> Runs { get; set; }
 
         /// <summary>
         /// References to external property files that share data between runs.
         /// </summary>
         [DataMember(Name = "inlineExternalProperties", IsRequired = false, EmitDefaultValue = false)]
-        public IList<ExternalProperties> InlineExternalProperties { get; set; }
+        public virtual IList<ExternalProperties> InlineExternalProperties { get; set; }
 
         /// <summary>
         /// Key/value pairs that provide additional information about the log file.
@@ -130,7 +127,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <summary>
         /// Creates a deep copy of this instance.
         /// </summary>
-        public SarifLog DeepClone()
+        public virtual SarifLog DeepClone()
         {
             return (SarifLog)DeepCloneCore();
         }
@@ -140,7 +137,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new SarifLog(this);
         }
 
-        private void Init(Uri schemaUri, SarifVersion version, IEnumerable<Run> runs, IEnumerable<ExternalProperties> inlineExternalProperties, IDictionary<string, SerializedPropertyInfo> properties)
+        protected virtual void Init(Uri schemaUri, SarifVersion version, IEnumerable<Run> runs, IEnumerable<ExternalProperties> inlineExternalProperties, IDictionary<string, SerializedPropertyInfo> properties)
         {
             if (schemaUri != null)
             {
