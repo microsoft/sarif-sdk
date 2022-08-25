@@ -22,6 +22,16 @@
     <None Remove="TestData\ClangTidy\**" />
     <None Remove="TestData\FlawFinder\**" />
     <None Remove="TestData\Hdf\**" />
+    <None Remove="TestData\GenericSarifConverter\ExpectedOutput\ValidResults.sarif" />
+    <None Remove="TestData\GenericSarifConverter\ExpectedOutput\NoResults.sarif" />
+    <None Remove="TestData\GenericSarifConverter\ExpectedOutput\HelpNoText.sarif" />
+    <None Remove="TestData\GenericSarifConverter\ExpectedOutput\HelpNoMarkdown.sarif" />
+    <None Remove="TestData\GenericSarifConverter\ExpectedOutput\NoHelp.sarif" />
+    <None Remove="TestData\GenericSarifConverter\Inputs\HelpNoText.GenericSarif.sarif" />
+    <None Remove="TestData\GenericSarifConverter\Inputs\HelpNoMarkdown.GenericSarif.sarif" />
+    <None Remove="TestData\GenericSarifConverter\Inputs\ValidResults.GenericSarif.sarif" />
+    <None Remove="TestData\GenericSarifConverter\Inputs\NoHelp.GenericSarif.sarif" />
+    <None Remove="TestData\GenericSarifConverter\Inputs\NoResults.GenericSarif.sarif" />
   </ItemGroup>
 
   <ItemGroup>
@@ -91,6 +101,16 @@
     <EmbeddedResource Include="TestData\NessusConverter\ExpectedOutputs\NoResults.sarif" />
     <EmbeddedResource Include="TestData\NessusConverter\ExpectedOutputs\ValidResults.sarif" />
     <EmbeddedResource Include="TestData\NessusConverter\ExpectedOutputs\InvalidResults.sarif" />
+    <EmbeddedResource Include="TestData\GenericSarifConverter\ExpectedOutput\ValidResults.sarif" />
+    <EmbeddedResource Include="TestData\GenericSarifConverter\ExpectedOutput\NoResults.sarif" />
+    <EmbeddedResource Include="TestData\GenericSarifConverter\ExpectedOutput\HelpNoText.sarif" />
+    <EmbeddedResource Include="TestData\GenericSarifConverter\ExpectedOutput\HelpNoMarkdown.sarif" />
+    <EmbeddedResource Include="TestData\GenericSarifConverter\ExpectedOutput\NoHelp.sarif" />
+    <EmbeddedResource Include="TestData\GenericSarifConverter\Inputs\HelpNoText.GenericSarif.sarif" />
+    <EmbeddedResource Include="TestData\GenericSarifConverter\Inputs\HelpNoMarkdown.GenericSarif.sarif" />
+    <EmbeddedResource Include="TestData\GenericSarifConverter\Inputs\ValidResults.GenericSarif.sarif" />
+    <EmbeddedResource Include="TestData\GenericSarifConverter\Inputs\NoHelp.GenericSarif.sarif" />
+    <EmbeddedResource Include="TestData\GenericSarifConverter\Inputs\NoResults.GenericSarif.sarif" />
   </ItemGroup>
 
   <ItemGroup>
