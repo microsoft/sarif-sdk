@@ -8,8 +8,6 @@ using System.Linq;
 using System.Xml;
 using System.Xml.Serialization;
 
-using Microsoft.CodeAnalysis.Sarif.Converters.NessusObjectModel;
-
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 
