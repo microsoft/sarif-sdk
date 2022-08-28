@@ -296,7 +296,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             {
                 string ruleId = createSubRule ? $"TESTRULE/00{i}" : $"TESTRULE00{i}";
                 run.Results.AddRange(
-                    RandomSarifLogGenerator.GenerateFakeResults(this.random, new List<string> { ruleId }, new List<Uri> { artifactUri }, 1));
+                    RandomSarifLogGenerator.GenerateFakeResults(this.random, new List<string> { ruleId }, new List<string> { }, new List<Uri> { artifactUri }, 1));
             }
 
             return run;

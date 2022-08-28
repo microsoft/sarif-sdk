@@ -39,6 +39,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         /// <summary>FxCop's file format.</summary>
         public const string FxCop = nameof(FxCop);
 
+        // <summary>Generic sarif format</summary>
+        public const string GenericSarif = nameof(GenericSarif);
+
         /// <summary>Heimdall Tools's file format.</summary>
         public const string Hdf = nameof(Hdf);
 
@@ -61,6 +64,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         public const string TSLint = nameof(TSLint);
 
         /// <summary>MSBuild's build log format, from which diagnostic messages can be parsed.</summary>
-        public const string MSBuild = nameof(MSBuild);
+        public const string MSBuild = nameof(MSBuild);        
     }
 }

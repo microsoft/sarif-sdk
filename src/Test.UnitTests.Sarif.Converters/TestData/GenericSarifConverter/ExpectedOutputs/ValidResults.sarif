@@ -1,0 +1,82 @@
+{
+  "$schema": "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0-rtm.5.json",
+  "version": "2.1.0",
+  "runs": [
+    {
+      "results": [
+        {
+          "ruleId": "SARIF2002",
+          "ruleIndex": 0,
+          "level": "error",
+          "message": {
+            "id": "Note_Default",
+            "arguments": [
+              "runs[0].results[0].message"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///C:/repo/Github.com/sarif-sdk/bld/bin/AnyCPU_Debug/Test.UnitTests.Sarif.Multitool.Library/netcoreapp3.1/ValidateSarif.sarif",
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 31,
+                  "startColumn": 22
+                }
+              }
+            }
+          ]
+        }
+      ],
+      "tool": {
+        "driver": {
+          "name": "testhost",
+          "organization": "Microsoft Corporation",
+          "product": "Microsoft.TestHost",
+          "fullName": "testhost 15.0.0.0",
+          "version": "15.0.0.0",
+          "semanticVersion": "15.0.0",
+          "rules": [
+            {
+              "id": "SARIF2002",
+              "fullDescription": {
+                "text": "In result messages, use the 'message.id' and 'message.arguments' properties rather than 'message.text'. This has several advantages. If 'text' is lengthy, using 'id' and 'arguments' makes the SARIF file smaller. If the rule metadata is stored externally to the SARIF log file, the message text can be improved (for example, by adding more text, clarifying the phrasing, or fixing typos), and the result messages will pick up the improvements the next time it is displayed. Finally, SARIF supports localizing messages into different languages, which is possible if the SARIF file contains 'message.id' and 'message.arguments', but not if it contains 'message.text' directly."
+              },
+              "helpUri": "http://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html",
+              "help": {
+                "markdown": "Markdown text",
+                "text": "text"
+              },              
+              "messageStrings": {
+                "Note_Default": {
+                  "text": "{0}: The 'message' property of this result contains a 'text' property. Consider replacing it with 'id' and 'arguments' properties. This potentially reduces the log file size, allows the message text to be improved without modifying the log file, and enables localization."
+                }
+              },
+              "name": "ProvideMessageArguments",
+              "defaultConfiguration": {
+                "level": "error"
+              }
+            }
+          ]
+        }
+      },
+      "invocations": [
+        {
+          "startTimeUtc": "2021-07-15T00:44:48.223Z",
+          "endTimeUtc": "2021-07-15T00:44:50.817Z",
+          "executionSuccessful": true
+        }
+      ],
+      "artifacts": [
+        {
+          "location": {
+            "uri": "file:///C:/repo/Github.com/sarif-sdk/bld/bin/AnyCPU_Debug/Test.UnitTests.Sarif.Multitool.Library/netcoreapp3.1/ValidateSarif.sarif"
+          }
+        }
+      ],
+      "columnKind": "utf16CodeUnits"
+    }
+  ]
+}
