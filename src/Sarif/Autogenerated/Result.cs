@@ -70,7 +70,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         [DefaultValue(ResultKind.Fail)]
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
         [JsonConverter(typeof(Microsoft.CodeAnalysis.Sarif.Readers.EnumConverter))]
-        public ResultKind Kind
+        public virtual ResultKind Kind
         {
             get { return _kind; }
             set
@@ -92,7 +92,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         [DefaultValue(FailureLevel.Warning)]
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
         [JsonConverter(typeof(Microsoft.CodeAnalysis.Sarif.Readers.EnumConverter))]
-        public FailureLevel Level
+        public virtual FailureLevel Level
         {
             get { return _level; }
             set

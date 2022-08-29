@@ -5,7 +5,6 @@ using System;
 using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Numerics;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 
@@ -60,7 +59,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// The response status code. Example: 451.
         /// </summary>
         [DataMember(Name = "statusCode", IsRequired = false, EmitDefaultValue = false)]
-        public virtual BigInteger StatusCode { get; set; }
+        public virtual int StatusCode { get; set; }
 
         /// <summary>
         /// The response reason. Example: 'Not found'.
@@ -133,7 +132,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="properties">
         /// An initialization value for the <see cref="P:Properties" /> property.
         /// </param>
-        public WebResponse(int index, string protocol, string version, BigInteger statusCode, string reasonPhrase, IDictionary<string, string> headers, ArtifactContent body, bool noResponseReceived, IDictionary<string, SerializedPropertyInfo> properties)
+        public WebResponse(int index, string protocol, string version, int statusCode, string reasonPhrase, IDictionary<string, string> headers, ArtifactContent body, bool noResponseReceived, IDictionary<string, SerializedPropertyInfo> properties)
         {
             Init(index, protocol, version, statusCode, reasonPhrase, headers, body, noResponseReceived, properties);
         }
@@ -175,7 +174,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new WebResponse(this);
         }
 
-        protected virtual void Init(int index, string protocol, string version, BigInteger statusCode, string reasonPhrase, IDictionary<string, string> headers, ArtifactContent body, bool noResponseReceived, IDictionary<string, SerializedPropertyInfo> properties)
+        protected virtual void Init(int index, string protocol, string version, int statusCode, string reasonPhrase, IDictionary<string, string> headers, ArtifactContent body, bool noResponseReceived, IDictionary<string, SerializedPropertyInfo> properties)
         {
             Index = index;
             Protocol = protocol;

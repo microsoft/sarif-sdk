@@ -5,7 +5,6 @@ using System;
 using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Numerics;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 
@@ -54,7 +53,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         [DataMember(Name = "itemCount", IsRequired = false, EmitDefaultValue = false)]
         [DefaultValue(-1)]
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
-        public virtual BigInteger ItemCount { get; set; }
+        public virtual int ItemCount { get; set; }
 
         /// <summary>
         /// Key/value pairs that provide additional information about the external property file.
@@ -85,7 +84,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="properties">
         /// An initialization value for the <see cref="P:Properties" /> property.
         /// </param>
-        public ExternalPropertyFileReference(ArtifactLocation location, string guid, BigInteger itemCount, IDictionary<string, SerializedPropertyInfo> properties)
+        public ExternalPropertyFileReference(ArtifactLocation location, string guid, int itemCount, IDictionary<string, SerializedPropertyInfo> properties)
         {
             Init(location, guid, itemCount, properties);
         }
@@ -127,7 +126,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new ExternalPropertyFileReference(this);
         }
 
-        protected virtual void Init(ArtifactLocation location, string guid, BigInteger itemCount, IDictionary<string, SerializedPropertyInfo> properties)
+        protected virtual void Init(ArtifactLocation location, string guid, int itemCount, IDictionary<string, SerializedPropertyInfo> properties)
         {
             if (location != null)
             {

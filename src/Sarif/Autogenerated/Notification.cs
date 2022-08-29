@@ -5,7 +5,6 @@ using System;
 using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Numerics;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 
@@ -62,7 +61,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// The thread identifier of the code that generated the notification.
         /// </summary>
         [DataMember(Name = "threadId", IsRequired = false, EmitDefaultValue = false)]
-        public virtual BigInteger ThreadId { get; set; }
+        public virtual int ThreadId { get; set; }
 
         /// <summary>
         /// The Coordinated Universal Time (UTC) date and time at which the analysis tool generated the notification.
@@ -133,7 +132,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="properties">
         /// An initialization value for the <see cref="P:Properties" /> property.
         /// </param>
-        public Notification(IEnumerable<Location> locations, Message message, FailureLevel level, BigInteger threadId, DateTime timeUtc, ExceptionData exception, ReportingDescriptorReference descriptor, ReportingDescriptorReference associatedRule, IDictionary<string, SerializedPropertyInfo> properties)
+        public Notification(IEnumerable<Location> locations, Message message, FailureLevel level, int threadId, DateTime timeUtc, ExceptionData exception, ReportingDescriptorReference descriptor, ReportingDescriptorReference associatedRule, IDictionary<string, SerializedPropertyInfo> properties)
         {
             Init(locations, message, level, threadId, timeUtc, exception, descriptor, associatedRule, properties);
         }
@@ -175,7 +174,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new Notification(this);
         }
 
-        protected virtual void Init(IEnumerable<Location> locations, Message message, FailureLevel level, BigInteger threadId, DateTime timeUtc, ExceptionData exception, ReportingDescriptorReference descriptor, ReportingDescriptorReference associatedRule, IDictionary<string, SerializedPropertyInfo> properties)
+        protected virtual void Init(IEnumerable<Location> locations, Message message, FailureLevel level, int threadId, DateTime timeUtc, ExceptionData exception, ReportingDescriptorReference descriptor, ReportingDescriptorReference associatedRule, IDictionary<string, SerializedPropertyInfo> properties)
         {
             if (locations != null)
             {

@@ -791,7 +791,8 @@
           "description": "A non-negative integer specifying the number of items contained in the external property file.",
           "type": "integer",
           "default": -1,
-          "minimum": -1
+          "minimum": -1,
+          "maximum": 2147483647
         },
 
         "properties": {
@@ -1239,7 +1240,9 @@
 
         "processId": {
           "description": "The id of the process in which the invocation occurred.",
-          "type": "integer"
+          "type": "integer",
+          "minimum": -2147483648,
+          "maximum": 2147483647
         },
 
         "executableLocation": {
@@ -1576,7 +1579,9 @@
 
         "threadId": {
           "description": "The thread identifier of the code that generated the notification.",
-          "type": "integer"
+          "type": "integer",
+          "minimum": -2147483648,
+          "maximum": 2147483647
         },
 
         "timeUtc": {
@@ -2690,7 +2695,9 @@
 
         "threadId": {
           "description": "The thread identifier of the stack frame.",
-          "type": "integer"
+          "type": "integer",
+          "minimum": -2147483648,
+          "maximum": 2147483647
         },
 
         "parameters": {
@@ -2873,14 +2880,16 @@
         "nestingLevel": {
           "description": "An integer representing a containment hierarchy within the thread flow.",
           "type": "integer",
-          "minimum": 0
+          "minimum": 0,
+          "maximum": 2147483647
         },
 
         "executionOrder": {
           "description": "An integer representing the temporal order in which execution reached this location.",
           "type": "integer",
           "default": -1,
-          "minimum": -1
+          "minimum": -1,
+          "maximum": 2147483647
         },
 
         "executionTimeUtc": {
@@ -3353,7 +3362,9 @@
 
         "statusCode": {
           "description": "The response status code. Example: 451.",
-          "type": "integer"
+          "type": "integer",
+          "minimum": -2147483648,
+          "maximum": 2147483647
         },
 
         "reasonPhrase": {

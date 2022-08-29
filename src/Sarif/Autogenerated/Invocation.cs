@@ -147,7 +147,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// The id of the process in which the invocation occurred.
         /// </summary>
         [DataMember(Name = "processId", IsRequired = false, EmitDefaultValue = false)]
-        public virtual BigInteger ProcessId { get; set; }
+        public virtual int ProcessId { get; set; }
 
         /// <summary>
         /// An absolute URI specifying the location of the executable that was invoked.
@@ -291,7 +291,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="properties">
         /// An initialization value for the <see cref="P:Properties" /> property.
         /// </param>
-        public Invocation(string commandLine, IEnumerable<string> arguments, IEnumerable<ArtifactLocation> responseFiles, DateTime startTimeUtc, DateTime endTimeUtc, BigInteger exitCode, IEnumerable<ConfigurationOverride> ruleConfigurationOverrides, IEnumerable<ConfigurationOverride> notificationConfigurationOverrides, IEnumerable<Notification> toolExecutionNotifications, IEnumerable<Notification> toolConfigurationNotifications, string exitCodeDescription, string exitSignalName, BigInteger exitSignalNumber, string processStartFailureMessage, bool executionSuccessful, string machine, string account, BigInteger processId, ArtifactLocation executableLocation, ArtifactLocation workingDirectory, IDictionary<string, string> environmentVariables, ArtifactLocation stdin, ArtifactLocation stdout, ArtifactLocation stderr, ArtifactLocation stdoutStderr, IDictionary<string, SerializedPropertyInfo> properties)
+        public Invocation(string commandLine, IEnumerable<string> arguments, IEnumerable<ArtifactLocation> responseFiles, DateTime startTimeUtc, DateTime endTimeUtc, BigInteger exitCode, IEnumerable<ConfigurationOverride> ruleConfigurationOverrides, IEnumerable<ConfigurationOverride> notificationConfigurationOverrides, IEnumerable<Notification> toolExecutionNotifications, IEnumerable<Notification> toolConfigurationNotifications, string exitCodeDescription, string exitSignalName, BigInteger exitSignalNumber, string processStartFailureMessage, bool executionSuccessful, string machine, string account, int processId, ArtifactLocation executableLocation, ArtifactLocation workingDirectory, IDictionary<string, string> environmentVariables, ArtifactLocation stdin, ArtifactLocation stdout, ArtifactLocation stderr, ArtifactLocation stdoutStderr, IDictionary<string, SerializedPropertyInfo> properties)
         {
             Init(commandLine, arguments, responseFiles, startTimeUtc, endTimeUtc, exitCode, ruleConfigurationOverrides, notificationConfigurationOverrides, toolExecutionNotifications, toolConfigurationNotifications, exitCodeDescription, exitSignalName, exitSignalNumber, processStartFailureMessage, executionSuccessful, machine, account, processId, executableLocation, workingDirectory, environmentVariables, stdin, stdout, stderr, stdoutStderr, properties);
         }
@@ -333,7 +333,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new Invocation(this);
         }
 
-        protected virtual void Init(string commandLine, IEnumerable<string> arguments, IEnumerable<ArtifactLocation> responseFiles, DateTime startTimeUtc, DateTime endTimeUtc, BigInteger exitCode, IEnumerable<ConfigurationOverride> ruleConfigurationOverrides, IEnumerable<ConfigurationOverride> notificationConfigurationOverrides, IEnumerable<Notification> toolExecutionNotifications, IEnumerable<Notification> toolConfigurationNotifications, string exitCodeDescription, string exitSignalName, BigInteger exitSignalNumber, string processStartFailureMessage, bool executionSuccessful, string machine, string account, BigInteger processId, ArtifactLocation executableLocation, ArtifactLocation workingDirectory, IDictionary<string, string> environmentVariables, ArtifactLocation stdin, ArtifactLocation stdout, ArtifactLocation stderr, ArtifactLocation stdoutStderr, IDictionary<string, SerializedPropertyInfo> properties)
+        protected virtual void Init(string commandLine, IEnumerable<string> arguments, IEnumerable<ArtifactLocation> responseFiles, DateTime startTimeUtc, DateTime endTimeUtc, BigInteger exitCode, IEnumerable<ConfigurationOverride> ruleConfigurationOverrides, IEnumerable<ConfigurationOverride> notificationConfigurationOverrides, IEnumerable<Notification> toolExecutionNotifications, IEnumerable<Notification> toolConfigurationNotifications, string exitCodeDescription, string exitSignalName, BigInteger exitSignalNumber, string processStartFailureMessage, bool executionSuccessful, string machine, string account, int processId, ArtifactLocation executableLocation, ArtifactLocation workingDirectory, IDictionary<string, string> environmentVariables, ArtifactLocation stdin, ArtifactLocation stdout, ArtifactLocation stderr, ArtifactLocation stdoutStderr, IDictionary<string, SerializedPropertyInfo> properties)
         {
             CommandLine = commandLine;
             if (arguments != null)
