@@ -41,6 +41,7 @@
         {
           "ruleId": "12345",
           "level": "note",
+          "rank": 3.0,
           "message": {
             "text": "plugin output text"
           },
@@ -97,6 +98,7 @@
         {
           "ruleId": "12345",
           "level": "error",
+          "rank": 9.0,
           "message": {
             "text": "plugin output"
           },
