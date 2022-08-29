@@ -121,19 +121,23 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 case "fail":
                     result.Level = FailureLevel.Error;
                     result.Kind = ResultKind.Fail;
+                    result.Rank = RankConstants.High;
                     break;
                 case "notchecked":
                     result.Level = FailureLevel.None;
                     result.Kind = ResultKind.NotApplicable;
+                    result.Rank = RankConstants.None;
                     break;
                 case "informational":
                     result.Level = FailureLevel.None;
                     result.Kind = ResultKind.Informational;
+                    result.Rank = RankConstants.None;
                     break;
                 case "unknown":
                 default:
                     result.Level = FailureLevel.Warning;
                     result.Kind = ResultKind.Fail;
+                    result.Rank = RankConstants.Medium;
                     break;
             };
 
