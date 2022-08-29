@@ -142,11 +142,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             if (!string.IsNullOrWhiteSpace(item.Solution) && !item.Solution.Equals("n/a"))
                 result.SetProperty("solution", item.Solution);
 
-            //set result level (risk rating)
+            //set result level and rank (Critical - Low risk rating)
             //ignoring risk factor (H/M/L) as it conflicts with severity
             //cvss3 base score overrides severity 
+            FailureLevel level = FailureLevel.None;
+            double rank = RankConstants.None;
+            getResultSeverity(item.Cvss3BaseScore, item.Severity, out level, out rank);
+
             result.Kind = ResultKind.Fail;
-            result.Level = getResultLevel(item.Cvss3BaseScore, item.Severity);
+            result.Level = level;
+            result.Rank = rank;
 
             //set severity value
             result.SetProperty("severity", item.Severity);
@@ -212,34 +217,61 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             return result;
         }
 
-        private FailureLevel getResultLevel(string cvss3BaseScore, string severity)
+        private void getResultSeverity(string cvss3BaseScore, string severity, out FailureLevel level, out double rank)
         {
+            // Default values
+            level = FailureLevel.None;
+            rank = RankConstants.None;
+
             //Failure level by cvss score
             if (!string.IsNullOrWhiteSpace(cvss3BaseScore))
             {
                 double cvss3score = double.Parse(cvss3BaseScore);
 
-                if (cvss3score >= 7.0)
-                    return FailureLevel.Error;
+                if (cvss3score >= 9.0)
+                {
+                    level = FailureLevel.Error;
+                    rank = cvss3score;
+                }
+                if (cvss3score >= 7.0 && cvss3score < 9.0)
+                {
+                    level = FailureLevel.Error;
+                    rank = cvss3score;
+                }
                 else if (cvss3score >= 4.0 && cvss3score < 7.0)
-                    return FailureLevel.Warning;
+                {
+                    level = FailureLevel.Warning;
+                    rank = cvss3score;
+
+                }
                 else if (cvss3score > 0 && cvss3score < 4.0)
-                    return FailureLevel.Note;
-                else
-                    return FailureLevel.None;
+                {
+                    level = FailureLevel.Note;
+                    rank = cvss3score;
+                }
             }
             else
             {
                 if (severity == "4")
-                    return FailureLevel.Error;
+                {
+                    level = FailureLevel.Error;
+                    rank = RankConstants.Critical;
+                }
                 else if (severity == "3")
-                    return FailureLevel.Error;
+                {
+                    level = FailureLevel.Error;
+                    rank = RankConstants.High;
+                }
                 else if (severity == "2")
-                    return FailureLevel.Warning;
+                {
+                    level = FailureLevel.Warning;
+                    rank = RankConstants.Medium;
+                }
                 else if (severity == "1")
-                    return FailureLevel.Note;
-                else
-                    return FailureLevel.None;
+                {
+                    level = FailureLevel.Note;
+                    rank = RankConstants.Low;
+                }
             }
         }
     }
