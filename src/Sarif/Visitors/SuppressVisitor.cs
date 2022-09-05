@@ -45,7 +45,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 node.Suppressions = new List<Suppression>();
             }
 
-
+            // Skip if node is already suppressed
+            bool isSuppressed = false;
+            if (node.TryIsSuppressed(out isSuppressed) && isSuppressed)
+            {
+                return base.VisitResult(node);
+            }
 
             var suppression = new Suppression
             {

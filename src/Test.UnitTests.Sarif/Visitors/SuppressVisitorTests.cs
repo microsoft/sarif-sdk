@@ -45,6 +45,52 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests.Visitors
                                   guids);
         }
 
+        [Theory]
+        [InlineData("some alias", "some suppress justification", true, false, 0, SuppressionStatus.Accepted, null)]
+        public void SuppressVisitor_ShouldNotDuplicateEntries(string alias, string justification, bool uuids, bool timestamps, int expiryInDays, SuppressionStatus suppressionStatus, params object[] resultsGuids)
+        {
+            var random = new Random();
+            SarifLog current = RandomSarifLogGenerator.GenerateSarifLogWithRuns(random, runCount: 1, resultCount: 1);
+
+            //First suppression entry
+            List<string> guids = default(List<string>);
+            if (resultsGuids != null)
+            {
+                guids = new List<string>();
+                string[] items = resultsGuids.First() as string[];
+                guids.AddRange(items);
+            }
+
+            var visitor = new SuppressVisitor(justification,
+                                              alias,
+                                              uuids,
+                                              timestamps,
+                                              expiryInDays,
+                                              suppressionStatus,
+                                              guids);
+
+            SarifLog suppressed = visitor.VisitSarifLog(current);
+            IList<Result> results = suppressed.Runs[0].Results;
+
+            // Verify suppression was added
+            foreach (Result result in results)
+            {
+                result.Suppressions.Should().NotBeNullOrEmpty();
+                result.Suppressions.Count.Should().Be(1);
+            }
+
+            // Suppress a second time
+            SarifLog suppressed2 = visitor.VisitSarifLog(suppressed);
+
+            // Verify duplicate suppression was not added
+            foreach (Result result in results)
+            {
+                result.Suppressions.Should().NotBeNullOrEmpty();
+                result.Suppressions.Count.Should().Be(1);
+            }
+
+        }
+
         private static void VerifySuppressVisitor(string alias,
                                                   string justification,
                                                   bool uuids,
