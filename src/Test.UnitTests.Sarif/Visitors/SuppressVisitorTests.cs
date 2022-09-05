@@ -17,94 +17,32 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests.Visitors
     {
         private const int DateTimeAssertPrecision = 500;
 
-        [Fact]
-        public void SuppressVisitor_ShouldFlowPropertiesCorrectly()
+        [Theory]
+        [InlineData("", "some suppress justification", false, false, 0, SuppressionStatus.Accepted, null)]
+        [InlineData("some alias", "some suppress justification", false, false, 0, SuppressionStatus.Accepted, null)]
+        [InlineData("some alias", "some suppress justification", true, false, 0, SuppressionStatus.Accepted, null)]
+        [InlineData("some alias", "some suppress justification", true, true, 0, SuppressionStatus.Accepted, null)]
+        [InlineData("some alias", "some suppress justification", true, true, 1, SuppressionStatus.Accepted, null)]
+        [InlineData("some alias", "some suppress justification", true, true, 1, SuppressionStatus.UnderReview, null)]
+        [InlineData("some alias", "some suppress justification", true, true, 1, SuppressionStatus.Accepted, new object[] { new string[] { "704cf481-0cfd-46ae-90cd-533cdc6c3bb4", "ecaa7988-5cef-411b-b468-6c20851d6994", "c65b76c7-3cd6-4381-9216-430bcc7fab2d", "04753e26-d297-43e2-a7f7-ae2d34c398c9", "54cb1f58-f401-4f8e-8f42-f2482a123b85" } })]
+        [InlineData("some alias", "some suppress justification", true, true, 1, SuppressionStatus.Accepted, new object[] { new string[] { } })]
+        public void SuppressVisitor_ShouldFlowPropertiesCorrectly(string alias, string justification, bool uuids, bool timestamps, int expiryInDays, SuppressionStatus suppressionStatus, params object[] resultsGuids)
         {
-            var guids = new List<string>() { "704cf481-0cfd-46ae-90cd-533cdc6c3bb4", "ecaa7988-5cef-411b-b468-6c20851d6994", "c65b76c7-3cd6-4381-9216-430bcc7fab2d", "04753e26-d297-43e2-a7f7-ae2d34c398c9", "54cb1f58-f401-4f8e-8f42-f2482a123b85" };
-            var testCases = new[]
+            List<string> guids = default(List<string>);
+            if (resultsGuids != null)
             {
-                new
-                {
-                    Alias = string.Empty,
-                    Justification = "some suppress justification",
-                    Uuids = false,
-                    Timestamps = false,
-                    ExpiryInDays = 0,
-                    SuppressionStatus = SuppressionStatus.Accepted,
-                    Guids = default(List<string>)
-                },
-                new
-                {
-                    Alias = "some alias",
-                    Justification = "some suppress justification",
-                    Uuids = false,
-                    Timestamps = false,
-                    ExpiryInDays = 0,
-                    SuppressionStatus = SuppressionStatus.Accepted,
-                    Guids = new List<string>()
-                },
-                new
-                {
-                    Alias = "some alias",
-                    Justification = "some suppress justification",
-                    Uuids = true,
-                    Timestamps = false,
-                    ExpiryInDays = 0,
-                    SuppressionStatus = SuppressionStatus.Accepted,
-                    Guids = new List<string>()
-                },
-                new
-                {
-                    Alias = "some alias",
-                    Justification = "some suppress justification",
-                    Uuids = true,
-                    Timestamps = true,
-                    ExpiryInDays = 0,
-                    SuppressionStatus = SuppressionStatus.Accepted,
-                    Guids = new List<string>()
-                },
-                new
-                {
-                    Alias = "some alias",
-                    Justification = "some suppress justification",
-                    Uuids = true,
-                    Timestamps = true,
-                    ExpiryInDays = 1,
-                    SuppressionStatus = SuppressionStatus.Accepted,
-                    Guids = new List<string>()
-                },
-                new
-                {
-                    Alias = "some alias",
-                    Justification = "some suppress justification",
-                    Uuids = true,
-                    Timestamps = true,
-                    ExpiryInDays = 1,
-                    SuppressionStatus = SuppressionStatus.UnderReview,
-                    Guids = default(List<string>)
-                },
-                new
-                {
-                    Alias = "some alias",
-                    Justification = "some suppress justification",
-                    Uuids = true,
-                    Timestamps = true,
-                    ExpiryInDays = 1,
-                    SuppressionStatus = SuppressionStatus.Accepted,
-                    Guids = guids.ToList()
-                },
-            };
-
-            foreach (var testCase in testCases)
-            {
-                VerifySuppressVisitor(testCase.Alias,
-                                      testCase.Justification,
-                                      testCase.Uuids,
-                                      testCase.Timestamps,
-                                      testCase.ExpiryInDays,
-                                      testCase.SuppressionStatus,
-                                      testCase.Guids);
+                guids = new List<string>();
+                string[] items = resultsGuids.First() as string[];
+                guids.AddRange(items);
             }
+
+            VerifySuppressVisitor(alias,
+                                  justification,
+                                  uuids,
+                                  timestamps,
+                                  expiryInDays,
+                                  suppressionStatus,
+                                  guids);
         }
 
         private static void VerifySuppressVisitor(string alias,
@@ -120,7 +58,7 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests.Visitors
                                               uuids,
                                               timestamps,
                                               expiryInDays,
-                                              suppressionStatus, 
+                                              suppressionStatus,
                                               guids);
 
             var random = new Random();
@@ -129,6 +67,13 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests.Visitors
             IList<Result> results = suppressed.Runs[0].Results;
             foreach (Result result in results)
             {
+                //Suppressions will not exist if guids is an empty search
+                if (guids != null && !guids.Any())
+                {
+                    result.Suppressions.Should().BeNullOrEmpty();
+                    return;
+                }
+
                 result.Suppressions.Should().NotBeNullOrEmpty();
 
                 Suppression suppression = result.Suppressions[0];
@@ -156,7 +101,7 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests.Visitors
                     expiryUtc.Should().BeCloseTo(DateTime.UtcNow.AddDays(expiryInDays), DateTimeAssertPrecision);
                 }
 
-                if (guids != null && guids.Any())
+                if (guids != null)
                 {
                     suppression.Should().Match(b => (guids.Contains(result.Guid, StringComparer.OrdinalIgnoreCase)));
                 }

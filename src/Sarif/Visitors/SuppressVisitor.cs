@@ -45,6 +45,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 node.Suppressions = new List<Suppression>();
             }
 
+
+
             var suppression = new Suppression
             {
                 Status = suppressionStatus,
@@ -72,7 +74,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 suppression.SetProperty(nameof(expiryUtc), expiryUtc);
             }
 
-            if (this.resultsGuids != null && this.resultsGuids.Any()) 
+            if (this.resultsGuids != null)
             {
                 if (this.resultsGuids.Contains(node.Guid, StringComparer.OrdinalIgnoreCase))
                 {
@@ -83,7 +85,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             {
                 node.Suppressions.Add(suppression);
             }
-            
+
             return base.VisitResult(node);
         }
     }
