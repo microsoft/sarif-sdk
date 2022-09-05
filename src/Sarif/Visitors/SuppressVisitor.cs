@@ -45,6 +45,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 node.Suppressions = new List<Suppression>();
             }
 
+            // Skip if node is already suppressed
+            bool isSuppressed = false;
+            if (node.TryIsSuppressed(out isSuppressed) && isSuppressed)
+            {
+                return base.VisitResult(node);
+            }
+
             var suppression = new Suppression
             {
                 Status = suppressionStatus,
@@ -72,9 +79,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 suppression.SetProperty(nameof(expiryUtc), expiryUtc);
             }
 
-            if (this.resultsGuids != null && this.resultsGuids.Any()) 
+            if (this.resultsGuids != null)
             {
-                if (this.resultsGuids.Contains(node.Guid))
+                if (this.resultsGuids.Contains(node.Guid, StringComparer.OrdinalIgnoreCase))
                 {
                     node.Suppressions.Add(suppression);
                 }
@@ -83,7 +90,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             {
                 node.Suppressions.Add(suppression);
             }
-            
+
             return base.VisitResult(node);
         }
     }
