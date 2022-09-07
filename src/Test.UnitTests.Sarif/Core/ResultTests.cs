@@ -56,8 +56,8 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Core
         {
             var result = new Result
             {
-                Suppressions = new List<Suppression>() {}
-            };            
+                Suppressions = new List<Suppression>() { }
+            };
 
             result.TryIsSuppressed(out bool isSuppressed).Should().BeTrue();
             isSuppressed.Should().BeFalse();
