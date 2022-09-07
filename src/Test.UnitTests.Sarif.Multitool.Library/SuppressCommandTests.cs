@@ -197,7 +197,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                             {
                                 RuleId = "Test0001",
                                 Guid = "GUID",
-                                BaselineState = BaselineState.New 
+                                BaselineState = BaselineState.New
                             }
                         }
                     }
