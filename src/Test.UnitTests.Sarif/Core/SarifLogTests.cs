@@ -91,7 +91,7 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests.Core
         [Fact]
         public void SarifLog_SplitPerRun()
         {
-            Random random = RandomSarifLogGenerator.GenerateRandomAndLog(this.output, seed: 1529710912);
+            Random random = RandomSarifLogGenerator.GenerateRandomAndLog(this.output);
 
             SarifLog sarifLog = RandomSarifLogGenerator.GenerateSarifLogWithRuns(random, 1);
 
