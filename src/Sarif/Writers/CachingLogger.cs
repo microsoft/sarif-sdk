@@ -20,14 +20,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             s_rwl = new ReaderWriterLock();
         }
 
-
         public IDictionary<ReportingDescriptor, IList<Result>> Results { get; set; }
 
         public IList<Notification> ConfigurationNotifications { get; set; }
 
         public IList<Notification> ToolNotifications { get; set; }
 
-        public bool IsLocked { get; private set; }
+        public bool IsLocked => s_rwl.IsReaderLockHeld;
 
         internal static ReaderWriterLock s_rwl { get; set; }
 
@@ -45,7 +44,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
         public void Log(ReportingDescriptor rule, Result result)
         {
-            if(!IsLocked)
+            if (!IsLocked)
             {
                 LockReader();
             }
@@ -114,17 +113,17 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
         public void ReleaseLock()
         {
-            if(s_rwl.IsReaderLockHeld)
+            if (s_rwl.IsReaderLockHeld)
             {
                 s_rwl.ReleaseReaderLock();
-                IsLocked = false;
+                //IsLocked = false;
             }
         }
 
         internal void LockReader()
         {
             s_rwl.AcquireReaderLock(5000);
-            IsLocked = true;
+            //IsLocked = true;
         }
     }
 }

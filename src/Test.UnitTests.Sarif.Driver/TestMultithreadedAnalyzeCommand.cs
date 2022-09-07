@@ -29,13 +29,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         {
             TestAnalysisContext context = base.CreateContext(options, logger, runtimeErrors, policy, filePath);
 
-            //CachingLogger cachingLogger = (CachingLogger)context.Logger;
+            /*
+            // Uncomment this section to debug concurrency failures in production.
             var aggregatingLogger = context.Logger as AggregatingLogger;
 
-            if(aggregatingLogger != null)
+            if (aggregatingLogger != null)
             {
                 aggregatingLogger.Loggers.Add(new TestMessageLogger());
             }
+            */
 
             if (context.Policy == null)
             {

@@ -825,11 +825,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 SarifLog sarifLog = JsonConvert.DeserializeObject<SarifLog>(outputSarifContents);
 
                 sarifLog.Runs?.Count().Should().Be(1);
-                sarifLog.Runs[0].Results?.Count().Should().Be(25000);
+                sarifLog.Runs[0].Results?.Count().Should().Be(750);
 
                 var aggregatedLogger = (AggregatingLogger)command._rootContext.Logger;
 
-                foreach(IAnalysisLogger logger in aggregatedLogger.Loggers)
+                foreach (IAnalysisLogger logger in aggregatedLogger.Loggers)
                 {
                     TestMessageLogger testMessageLogger = logger as TestMessageLogger;
                     if (testMessageLogger == null) { continue; }
