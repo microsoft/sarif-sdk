@@ -291,12 +291,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             run.Results ??= new List<Result>();
 
             var artifactUri = new Uri("path/to/file", UriKind.Relative);
+            var guid = Guid.NewGuid().ToString();
 
             for (int i = 1; i <= numberOfResult; i++)
             {
                 string ruleId = createSubRule ? $"TESTRULE/00{i}" : $"TESTRULE00{i}";
                 run.Results.AddRange(
-                    RandomSarifLogGenerator.GenerateFakeResults(this.random, new List<string> { ruleId }, new List<Uri> { artifactUri }, 1));
+                    RandomSarifLogGenerator.GenerateFakeResults(this.random, new List<string> { ruleId }, new List<string>() { guid }, new List<Uri> { artifactUri }, 1));
             }
 
             return run;
