@@ -17,57 +17,214 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests.Visitors
     {
         private const int DateTimeAssertPrecision = 500;
 
-        [Theory]
-        [InlineData("", "some suppress justification", false, false, 0, SuppressionStatus.Accepted, null)]
-        [InlineData("some alias", "some suppress justification", false, false, 0, SuppressionStatus.Accepted, null)]
-        [InlineData("some alias", "some suppress justification", true, false, 0, SuppressionStatus.Accepted, null)]
-        [InlineData("some alias", "some suppress justification", true, true, 0, SuppressionStatus.Accepted, null)]
-        [InlineData("some alias", "some suppress justification", true, true, 1, SuppressionStatus.Accepted, null)]
-        [InlineData("some alias", "some suppress justification", true, true, 1, SuppressionStatus.UnderReview, null)]
-        [InlineData("some alias", "some suppress justification", true, true, 1, SuppressionStatus.Accepted, new object[] { new string[] { "704cf481-0cfd-46ae-90cd-533cdc6c3bb4", "ecaa7988-5cef-411b-b468-6c20851d6994", "c65b76c7-3cd6-4381-9216-430bcc7fab2d", "04753e26-d297-43e2-a7f7-ae2d34c398c9", "54cb1f58-f401-4f8e-8f42-f2482a123b85" } })]
-        [InlineData("some alias", "some suppress justification", true, true, 1, SuppressionStatus.Accepted, new object[] { new string[] { } })]
-        public void SuppressVisitor_ShouldFlowPropertiesCorrectly(string alias, string justification, bool uuids, bool timestamps, int expiryInDays, SuppressionStatus suppressionStatus, params object[] resultsGuids)
+        [Fact]
+        public void SuppressVisitor_ShouldFlowPropertiesCorrectly_EmptyAlias()
         {
-            List<string> guids = default(List<string>);
-            if (resultsGuids != null)
+            var testCase = new
             {
-                guids = new List<string>();
-                string[] items = resultsGuids.First() as string[];
-                guids.AddRange(items);
-            }
+                alias = string.Empty,
+                justification = "some suppress justification",
+                uuids = false,
+                timestamps = false,
+                expiryInDays = 0,
+                suppressionStatus = SuppressionStatus.Accepted,
+                resultGuids = default(List<string>),
+            };
 
-            VerifySuppressVisitor(alias,
-                                  justification,
-                                  uuids,
-                                  timestamps,
-                                  expiryInDays,
-                                  suppressionStatus,
-                                  guids);
+            VerifySuppressVisitor(testCase.alias,
+                                  testCase.justification,
+                                  testCase.uuids,
+                                  testCase.timestamps,
+                                  testCase.expiryInDays,
+                                  testCase.suppressionStatus,
+                                  testCase.resultGuids);
         }
 
-        [Theory]
-        [InlineData("some alias", "some suppress justification", true, false, 0, SuppressionStatus.Accepted, null)]
-        public void SuppressVisitor_ShouldNotDuplicateEntries(string alias, string justification, bool uuids, bool timestamps, int expiryInDays, SuppressionStatus suppressionStatus, params object[] resultsGuids)
+        [Fact]
+        public void SuppressVisitor_ShouldFlowPropertiesCorrectly_With_Alias()
         {
+            var testCase = new
+            {
+                alias = "some alias",
+                justification = "some suppress justification",
+                uuids = false,
+                timestamps = false,
+                expiryInDays = 0,
+                suppressionStatus = SuppressionStatus.Accepted,
+                resultGuids = default(List<string>),
+            };
+
+            VerifySuppressVisitor(testCase.alias,
+                                  testCase.justification,
+                                  testCase.uuids,
+                                  testCase.timestamps,
+                                  testCase.expiryInDays,
+                                  testCase.suppressionStatus,
+                                  testCase.resultGuids);
+        }
+
+        [Fact]
+        public void SuppressVisitor_ShouldFlowPropertiesCorrectly_With_Uuids()
+        {
+            var testCase = new
+            {
+                alias = "some alias",
+                justification = "some suppress justification",
+                uuids = true,
+                timestamps = false,
+                expiryInDays = 0,
+                suppressionStatus = SuppressionStatus.Accepted,
+                resultGuids = default(List<string>),
+            };
+
+            VerifySuppressVisitor(testCase.alias,
+                                  testCase.justification,
+                                  testCase.uuids,
+                                  testCase.timestamps,
+                                  testCase.expiryInDays,
+                                  testCase.suppressionStatus,
+                                  testCase.resultGuids);
+        }
+
+        [Fact]
+        public void SuppressVisitor_ShouldFlowPropertiesCorrectly_With_Timestamps()
+        {
+            var testCase = new
+            {
+                alias = "some alias",
+                justification = "some suppress justification",
+                uuids = true,
+                timestamps = true,
+                expiryInDays = 0,
+                suppressionStatus = SuppressionStatus.Accepted,
+                resultGuids = default(List<string>),
+            };
+
+            VerifySuppressVisitor(testCase.alias,
+                                  testCase.justification,
+                                  testCase.uuids,
+                                  testCase.timestamps,
+                                  testCase.expiryInDays,
+                                  testCase.suppressionStatus,
+                                  testCase.resultGuids);
+        }
+
+        [Fact]
+        public void SuppressVisitor_ShouldFlowPropertiesCorrectly_With_Expiry()
+        {
+            var testCase = new
+            {
+                alias = "some alias",
+                justification = "some suppress justification",
+                uuids = true,
+                timestamps = true,
+                expiryInDays = 1,
+                suppressionStatus = SuppressionStatus.Accepted,
+                resultGuids = default(List<string>),
+            };
+
+            VerifySuppressVisitor(testCase.alias,
+                                  testCase.justification,
+                                  testCase.uuids,
+                                  testCase.timestamps,
+                                  testCase.expiryInDays,
+                                  testCase.suppressionStatus,
+                                  testCase.resultGuids);
+        }
+
+        [Fact]
+        public void SuppressVisitor_ShouldFlowPropertiesCorrectly_UnderReview()
+        {
+            var testCase = new
+            {
+                alias = "some alias",
+                justification = "some suppress justification",
+                uuids = true,
+                timestamps = true,
+                expiryInDays = 1,
+                suppressionStatus = SuppressionStatus.UnderReview,
+                resultGuids = default(List<string>),
+            };
+
+            VerifySuppressVisitor(testCase.alias,
+                                  testCase.justification,
+                                  testCase.uuids,
+                                  testCase.timestamps,
+                                  testCase.expiryInDays,
+                                  testCase.suppressionStatus,
+                                  testCase.resultGuids);
+        }
+
+        [Fact]
+        public void SuppressVisitor_ShouldFlowPropertiesCorrectly_With_Result_Guids()
+        {
+            var testCase = new
+            {
+                alias = "some alias",
+                justification = "some suppress justification",
+                uuids = true,
+                timestamps = true,
+                expiryInDays = 1,
+                suppressionStatus = SuppressionStatus.Accepted,
+                resultGuids = new List<string>() { "704cf481-0cfd-46ae-90cd-533cdc6c3bb4", "ecaa7988-5cef-411b-b468-6c20851d6994", "c65b76c7-3cd6-4381-9216-430bcc7fab2d", "04753e26-d297-43e2-a7f7-ae2d34c398c9", "54cb1f58-f401-4f8e-8f42-f2482a123b85" },
+            };
+
+            VerifySuppressVisitor(testCase.alias,
+                                  testCase.justification,
+                                  testCase.uuids,
+                                  testCase.timestamps,
+                                  testCase.expiryInDays,
+                                  testCase.suppressionStatus,
+                                  testCase.resultGuids);
+        }
+
+        [Fact]
+        public void SuppressVisitor_ShouldFlowPropertiesCorrectly_Empty_Result_Guids()
+        {
+            var testCase = new
+            {
+                alias = "some alias",
+                justification = "some suppress justification",
+                uuids = true,
+                timestamps = true,
+                expiryInDays = 1,
+                suppressionStatus = SuppressionStatus.Accepted,
+                resultGuids = new List<string>() { },
+            };
+
+            VerifySuppressVisitor(testCase.alias,
+                                  testCase.justification,
+                                  testCase.uuids,
+                                  testCase.timestamps,
+                                  testCase.expiryInDays,
+                                  testCase.suppressionStatus,
+                                  testCase.resultGuids);
+        }
+
+        [Fact]
+        public void SuppressVisitor_ShouldNotDuplicateEntries()
+        {
+            var testCase = new
+            {
+                alias = "some alias",
+                justification = "some suppress justification",
+                uuids = true,
+                timestamps = false,
+                expiryInDays = 0,
+                suppressionStatus = SuppressionStatus.Accepted,
+                resultGuids = default(List<string>),
+            };
+
             var random = new Random();
             SarifLog current = RandomSarifLogGenerator.GenerateSarifLogWithRuns(random, runCount: 1, resultCount: 1);
 
-            //First suppression entry
-            List<string> guids = default(List<string>);
-            if (resultsGuids != null)
-            {
-                guids = new List<string>();
-                string[] items = resultsGuids.First() as string[];
-                guids.AddRange(items);
-            }
-
-            var visitor = new SuppressVisitor(justification,
-                                              alias,
-                                              uuids,
-                                              timestamps,
-                                              expiryInDays,
-                                              suppressionStatus,
-                                              guids);
+            var visitor = new SuppressVisitor(testCase.justification,
+                                              testCase.alias,
+                                              testCase.uuids,
+                                              testCase.timestamps,
+                                              testCase.expiryInDays,
+                                              testCase.suppressionStatus,
+                                              testCase.resultGuids);
 
             SarifLog suppressed = visitor.VisitSarifLog(current);
             IList<Result> results = suppressed.Runs[0].Results;
