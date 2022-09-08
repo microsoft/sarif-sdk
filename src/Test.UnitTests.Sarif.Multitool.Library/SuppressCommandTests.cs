@@ -30,7 +30,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             {
                 new SuppressOptions
                 {
-                    ExpiryInDays = 1
+                    ExpiryInDays = -1
                 },
                 new SuppressOptions
                 {
