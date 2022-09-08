@@ -6,6 +6,7 @@
 * BUGFIX: Remove duplicated rule definitions when executing `match-results-forward` commands for results with sub-rule ids. [#2486](https://github.com/microsoft/sarif-sdk/pull/2486)
 * BUGFIX: Update `merge` command to properly produce runs by tool and version when passed the `--merge-runs` argument. [#2488](https://github.com/microsoft/sarif-sdk/pull/2488)
 * BUGFIX: Eliminate `IOException` and `DirectoryNotFoundException` exceptions thrown by `merge` command when splitting by rule (due to invalid file characters in rule ids).
+* FEATURE: Add `ignore-non-fatal-runtime-conditions` argument that allows program to exit as code `0` instead of `1`. Initial supported value `NoValidAnalysisTargets`. [#2542](https://github.com/microsoft/sarif-sdk/pull/2542)
 
 ## **v3.1.0** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/3.1.0) | [Driver](https://www.nuget.org/packages/Sarif.Driver/3.1.0) | [Converters](https://www.nuget.org/packages/Sarif.Converters/3.1.0) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/3.1.0) | [Multitool Library](https://www.nuget.org/packages/Sarif.Multitool.Library/3.1.0)
 
