@@ -120,5 +120,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             HelpText = "The maximum file size (in kilobytes) that will be analyzed.",
             Default = 1024)]
         public int MaxFileSizeInKilobytes { get; internal set; } = 1024;
+
+        [Option(
+            "ignoreNonFatalRunTimeConditions",
+            Separator = ';',
+            Default = null,
+            HelpText = "Non-Fatal RunTime Conditions, expressed as a semicolon-delimited list, " +
+                       "that should be ignored and will not cause the program to return 1 as failure. " +
+                       "Valid values: NoValidAnalysisTargets.")]
+        public IEnumerable<RuntimeConditions> IgnoreNonFatalRunTimeConditions { get; set; }
     }
 }

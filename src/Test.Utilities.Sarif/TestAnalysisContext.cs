@@ -2,6 +2,7 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System;
+using System.Collections.Generic;
 
 using Microsoft.CodeAnalysis.Sarif.Driver;
 
@@ -36,6 +37,8 @@ namespace Microsoft.CodeAnalysis.Sarif
         public bool Disposed { get; private set; }
 
         public int MaxFileSizeInKilobytes { get; set; }
+
+        public IEnumerable<RuntimeConditions> IgnoreNonFatalRunTimeConditions { get; set; }
 
         public void Dispose()
         {

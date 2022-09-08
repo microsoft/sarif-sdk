@@ -150,7 +150,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             context.RuntimeErrors |= RuntimeConditions.NoRulesLoaded;
         }
 
-        public static void LogNoValidAnalysisTargets(IAnalysisContext context)
+        public static void LogNoValidAnalysisTargets(IAnalysisContext context, bool addToRuntimeErrors)
         {
             if (context == null)
             {
@@ -168,7 +168,10 @@ namespace Microsoft.CodeAnalysis.Sarif
                     persistExceptionStack: false,
                     messageFormat: null));
 
-            context.RuntimeErrors |= RuntimeConditions.NoValidAnalysisTargets;
+            if (addToRuntimeErrors)
+            {
+                context.RuntimeErrors |= RuntimeConditions.NoValidAnalysisTargets;
+            }
         }
 
         public static void LogExceptionCreatingLogFile(IAnalysisContext context, string fileName, Exception exception)

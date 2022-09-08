@@ -167,7 +167,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             //    access all analysis targets. Helper will return
             //    a list that potentially filters out files which
             //    did not exist, could not be accessed, etc.
-            targets = ValidateTargetsExist(_rootContext, targets);
+            targets = ValidateTargetsExist(_rootContext, targets, options);
 
             // 5. Initialize report file, if configured.
             InitializeOutputFile(options, _rootContext);
@@ -265,12 +265,19 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             return targets;
         }
 
-        private ISet<string> ValidateTargetsExist(TContext context, ISet<string> targets)
+        private ISet<string> ValidateTargetsExist(TContext context, ISet<string> targets, TOptions analyzeOptions)
         {
             if (targets.Count == 0)
             {
-                Errors.LogNoValidAnalysisTargets(context);
-                ThrowExitApplicationException(context, ExitReason.NoValidAnalysisTargets);
+                bool ignoreNoValidAnalysisTargets = analyzeOptions is AnalyzeOptionsBase analyzeOptionsBase
+                && analyzeOptionsBase.IgnoreNonFatalRunTimeConditions.Contains(RuntimeConditions.NoValidAnalysisTargets);
+
+                Errors.LogNoValidAnalysisTargets(context, !ignoreNoValidAnalysisTargets);
+
+                if (!ignoreNoValidAnalysisTargets)
+                {
+                    ThrowExitApplicationException(context, ExitReason.NoValidAnalysisTargets);
+                }
             }
 
             return targets;
@@ -291,6 +298,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             };
 
             context.MaxFileSizeInKilobytes = options.MaxFileSizeInKilobytes;
+            context.IgnoreNonFatalRunTimeConditions = options.IgnoreNonFatalRunTimeConditions;
 
             if (filePath != null)
             {

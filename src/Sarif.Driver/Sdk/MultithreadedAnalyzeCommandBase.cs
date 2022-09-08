@@ -441,8 +441,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
             if (_fileContextsCount == 0)
             {
-                Errors.LogNoValidAnalysisTargets(rootContext);
-                ThrowExitApplicationException(rootContext, ExitReason.NoValidAnalysisTargets);
+                bool ignoreNoValidAnalysisTargets = options is AnalyzeOptionsBase analyzeOptionsBase
+                && analyzeOptionsBase.IgnoreNonFatalRunTimeConditions.Contains(RuntimeConditions.NoValidAnalysisTargets);
+
+                Errors.LogNoValidAnalysisTargets(rootContext, !ignoreNoValidAnalysisTargets);
+
+                if (!ignoreNoValidAnalysisTargets)
+                {
+                    ThrowExitApplicationException(rootContext, ExitReason.NoValidAnalysisTargets);
+                }
             }
 
             return true;
