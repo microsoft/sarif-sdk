@@ -13,13 +13,15 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// Key/value pairs that provide additional information about the object.
     /// </summary>
     [DataContract]
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "1.1.3.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "1.1.5.0")]
     public partial class PropertyBag : ISarifNode
     {
         public static IEqualityComparer<PropertyBag> ValueComparer => PropertyBagEqualityComparer.Instance;
 
         public bool ValueEquals(PropertyBag other) => ValueComparer.Equals(this, other);
         public int ValueGetHashCode() => ValueComparer.GetHashCode(this);
+
+        public static IComparer<PropertyBag> Comparer => PropertyBagComparer.Instance;
 
         /// <summary>
         /// Gets a value indicating the type of object implementing <see cref="ISarifNode" />.

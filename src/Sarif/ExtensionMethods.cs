@@ -514,6 +514,54 @@ namespace Microsoft.CodeAnalysis.Sarif
             return propertyBag;
         }
 
+        /// <summary>
+        /// Merge elements from another IEnumerable into current one, keep unqiue elements, remove duplicated ones.
+        /// </summary>
+        /// <typeparam name="T">The type of object in the list.</typeparam>
+        /// <param name="list">The original list.</param>
+        /// <param name="anotherList">The list containing elements to merge into <paramref name="list"/>.</param>
+        /// <param name="equalityComparer">A comparer to check if an elements equals another.</param>
+        /// <returns>The original list <paramref name="list"/> with merged elements. </returns>
+        /// <exception cref="ArgumentNullException"></exception>
+        public static IEnumerable<T> DistinctMerge<T>(
+            this IEnumerable<T> list,
+            IEnumerable<T> anotherList,
+            IEqualityComparer<T> equalityComparer)
+        {
+            if (list == null)
+            {
+                throw new ArgumentNullException(nameof(list));
+            }
+
+            if (anotherList == null)
+            {
+                throw new ArgumentNullException(nameof(anotherList));
+            }
+
+            if (equalityComparer == null)
+            {
+                throw new ArgumentNullException(nameof(equalityComparer));
+            }
+
+            var elementSet = new HashSet<T>(equalityComparer);
+
+            foreach (T element in list)
+            {
+                if (elementSet.Add(element))
+                {
+                    yield return element;
+                }
+            }
+
+            foreach (T element in anotherList)
+            {
+                if (elementSet.Add(element))
+                {
+                    yield return element;
+                }
+            }
+        }
+
         /// <summary>Checks if a character is a newline.</summary>
         /// <param name="testedCharacter">The character to check.</param>
         /// <returns>true if newline, false if not.</returns>

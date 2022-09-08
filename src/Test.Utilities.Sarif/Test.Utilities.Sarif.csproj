@@ -6,7 +6,10 @@
 
   <ItemGroup>
     <PackageReference Include="FluentAssertions" Version="5.10.2" />
-    <PackageReference Include="System.Collections.Immutable" Version="5.0.0" />
+    <!-- We consume this version of Newtonsoft.Json arbitrarily,
+         to demonstrate we can bind to it and run successfuly -->
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+    <PackageReference Include="System.Collections.Immutable" Version="1.5.0" />
     <PackageReference Include="System.Composition" Version="5.0.0" />
     <PackageReference Include="xunit" Version="2.4.1" />
   </ItemGroup>

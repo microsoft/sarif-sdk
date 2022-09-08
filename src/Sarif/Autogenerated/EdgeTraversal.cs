@@ -5,7 +5,6 @@ using System;
 using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
-using Microsoft.CodeAnalysis.Sarif.Readers;
 
 namespace Microsoft.CodeAnalysis.Sarif
 {
@@ -13,13 +12,15 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// Represents the traversal of a single edge during a graph traversal.
     /// </summary>
     [DataContract]
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "1.1.3.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "1.1.5.0")]
     public partial class EdgeTraversal : PropertyBagHolder, ISarifNode
     {
         public static IEqualityComparer<EdgeTraversal> ValueComparer => EdgeTraversalEqualityComparer.Instance;
 
         public bool ValueEquals(EdgeTraversal other) => ValueComparer.Equals(this, other);
         public int ValueGetHashCode() => ValueComparer.GetHashCode(this);
+
+        public static IComparer<EdgeTraversal> Comparer => EdgeTraversalComparer.Instance;
 
         /// <summary>
         /// Gets a value indicating the type of object implementing <see cref="ISarifNode" />.

@@ -6,7 +6,6 @@ using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.Serialization;
-using Microsoft.CodeAnalysis.Sarif.Readers;
 using Newtonsoft.Json;
 
 namespace Microsoft.CodeAnalysis.Sarif
@@ -15,13 +14,15 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// Contains information that enables a SARIF consumer to locate the external property file that contains the value of an externalized property associated with the run.
     /// </summary>
     [DataContract]
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "1.1.3.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "1.1.5.0")]
     public partial class ExternalPropertyFileReference : PropertyBagHolder, ISarifNode
     {
         public static IEqualityComparer<ExternalPropertyFileReference> ValueComparer => ExternalPropertyFileReferenceEqualityComparer.Instance;
 
         public bool ValueEquals(ExternalPropertyFileReference other) => ValueComparer.Equals(this, other);
         public int ValueGetHashCode() => ValueComparer.GetHashCode(this);
+
+        public static IComparer<ExternalPropertyFileReference> Comparer => ExternalPropertyFileReferenceComparer.Instance;
 
         /// <summary>
         /// Gets a value indicating the type of object implementing <see cref="ISarifNode" />.

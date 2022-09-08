@@ -4,14 +4,13 @@
 using System;
 using System.CodeDom.Compiler;
 using System.Collections.Generic;
-using Microsoft.CodeAnalysis.Sarif.Readers;
 
 namespace Microsoft.CodeAnalysis.Sarif
 {
     /// <summary>
     /// Defines methods to support the comparison of objects of type Run for equality.
     /// </summary>
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "1.1.3.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "1.1.5.0")]
     internal sealed class RunEqualityComparer : IEqualityComparer<Run>
     {
         internal static readonly RunEqualityComparer Instance = new RunEqualityComparer();
@@ -519,7 +518,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                         xor_0 ^= value_6.Key.GetHashCode();
                         if (value_6.Value != null)
                         {
-                            xor_0 ^= value_6.Value.GetHashCode();
+                            xor_0 ^= value_6.Value.ValueGetHashCode();
                         }
                     }
 
@@ -734,7 +733,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                         xor_1 ^= value_21.Key.GetHashCode();
                         if (value_21.Value != null)
                         {
-                            xor_1 ^= value_21.Value.GetHashCode();
+                            xor_1 ^= value_21.Value.ValueGetHashCode();
                         }
                     }
 

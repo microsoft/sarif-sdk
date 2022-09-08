@@ -1,5 +1,26 @@
 # SARIF Package Release History (SDK, Driver, Converters, and Multitool)
 
+## Unreleased
+
+* BUGFIX: Resolve issue where `match-results-forward` command fails to generate VersionControlDetails data. [#2487](https://github.com/microsoft/sarif-sdk/pull/2487)
+* BUGFIX: Remove duplicated rule definitions when executing `match-results-forward` commands for results with sub-rule ids. [#2486](https://github.com/microsoft/sarif-sdk/pull/2486)
+* BUGFIX: Update `merge` command to properly produce runs by tool and version when passed the `--merge-runs` argument. [#2488](https://github.com/microsoft/sarif-sdk/pull/2488)
+* BUGFIX: Eliminate `IOException` and `DirectoryNotFoundException` exceptions thrown by `merge` command when splitting by rule (due to invalid file characters in rule ids).
+
+## **v3.1.0** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/3.1.0) | [Driver](https://www.nuget.org/packages/Sarif.Driver/3.1.0) | [Converters](https://www.nuget.org/packages/Sarif.Converters/3.1.0) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/3.1.0) | [Multitool Library](https://www.nuget.org/packages/Sarif.Multitool.Library/3.1.0)
+
+* BUGFIX: Loosen `System.Collections.Immutable` minimum version requirement to 1.5.0. [#2504](https://github.com/microsoft/sarif-sdk/pull/2533)
+
+## **v3.0.0** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/3.0.0) | [Driver](https://www.nuget.org/packages/Sarif.Driver/3.0.0) | [Converters](https://www.nuget.org/packages/Sarif.Converters/3.0.0) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/3.0.0) | [Multitool Library](https://www.nuget.org/packages/Sarif.Multitool.Library/3.0.0)
+* BUGFIX: Loosen Newtonsoft.JSON minimum version requirement to 6.0.8 (for .NET framework) or 9.0.1 (for all other compilations) for Sarif.Sdk. Sarif.Converts requires 8.0.1, minimally, for .NET framework compilations.
+* BUGFIX: Broaden set of supported .NET frameworks for compatibility reasons. Sarif.Sdk, Sarif.Driver and Sarif.WorkItems requires net461.
+
+## **v2.4.16** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.4.16) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.4.16) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.4.16) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.4.16) | [Multitool Library](https://www.nuget.org/packages/Sarif.Multitool.Library/2.4.16)
+
+* FEATURE: Add `max-file-size-in-kb` argument that allows filtering scan targets by file size. [#2494](https://github.com/microsoft/sarif-sdk/pull/2494)
+* BUGFIX: Fix false positive for `SARIF1002.UrisMustBeValid` for file URIs that omit the `authority`. [#2501](https://github.com/microsoft/sarif-sdk/pull/2501)
+* DEPENDENCY BREAKING: SARIF now requires Newtonsoft.JSON 13.0.1. Updating [Newtonsoft.Json](https://www.nuget.org/packages/Newtonsoft.Json/13.0.1) to v13.0.1, [Microsoft.Json.Schema](https://www.nuget.org/packages/Microsoft.Json.Schema) to v1.1.5, [Microsoft.Json.Pointer](https://www.nuget.org/packages/Microsoft.Json.Pointer) to v1.1.5, [Microsoft.Azure.Kusto.Data](https://www.nuget.org/packages/Microsoft.Azure.Kusto.Data) to v10.0.3, [Microsoft.NET.Test.Sdk](https://www.nuget.org/packages/Microsoft.NET.Test.Sdk/17.4.0-preview-20220707-01) to v17.4.0-preview-20220707-01, [Microsoft.Extensions.Logging.ApplicationInsights](https://www.nuget.org/packages/Microsoft.Extensions.Logging.ApplicationInsights/2.20.0) to v.2.20.0, [Microsoft.TeamFoundationServer.Client](https://www.nuget.org/packages/Microsoft.TeamFoundationServer.Client/16.170.0) to v.16.170.0, [Microsoft.Coyote](https://www.nuget.org/packages/Microsoft.Coyote) to v.1.5.8 and [Microsoft.Coyote.Test](https://www.nuget.org/packages/Microsoft.Coyote.Test) to v.1.5.8 in response to [Advisory: Improper Handling of Exceptional Conditions in Newtonsoft.Json](https://github.com/advisories/GHSA-5crp-9r3c-p9vr). [#2504](https://github.com/microsoft/sarif-sdk/pull/2504)
+
 ## **v2.4.15** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.4.15) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.4.15) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.4.15) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.4.15) | [Multitool Library](https://www.nuget.org/packages/Sarif.Multitool.Library/2.4.15)
 
 * BUGFIX: Fix `ArgumentNullException` when `PropertiesDictionary` is instantiated with a null comparer. [#2482](https://github.com/microsoft/sarif-sdk/pull/2482)

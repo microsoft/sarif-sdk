@@ -1,6 +1,7 @@
 ﻿// Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
+using System;
 using System.Text;
 
 using FluentAssertions;
@@ -75,6 +76,87 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
             string errorMessage = sb.ToString();
             errorMessage.Should().BeEmpty();
+        }
+
+        [Fact]
+        public void SarifValidationSkimmerBase_UriIsWellFormedUriString_ShouldReturnTrueIfWellFormedUri()
+        {
+            var testCases = new[]
+            {
+                new
+                {
+                    uriKind = UriKind.Absolute,
+                    uriString = "file:///c:/Code/sarif-sdk/src/"
+                },
+                new
+                {
+                    uriKind = UriKind.Absolute,
+                    uriString = "https://example.com/my-project"
+                },
+                new
+                {
+                    uriKind = UriKind.Absolute,
+                    uriString = "file:/c:/src/file.c"
+                },
+                new
+                {
+                    uriKind = UriKind.Absolute,
+                    uriString = "file:/C:/src/file.c"
+                },
+                new
+                {
+                    uriKind = UriKind.Absolute,
+                    uriString = "FILE:/C:/SRC/FILE.c"
+                },
+                new
+                {
+                    uriKind = UriKind.RelativeOrAbsolute,
+                    uriString = "file:///c:/Code/sarif-sdk/src/"
+                },
+                new
+                {
+                    uriKind = UriKind.RelativeOrAbsolute,
+                    uriString = "https://example.com/my-project"
+                },
+                new
+                {
+                    uriKind = UriKind.RelativeOrAbsolute,
+                    uriString = "file:/c:/src/file.c"
+                },
+                new
+                {
+                    uriKind = UriKind.RelativeOrAbsolute,
+                    uriString = "file://networkLocation/folder/someDoc.txt"
+                },
+            };
+
+            foreach (var testCase in testCases)
+            {
+                SarifValidationSkimmerBase.IsWellFormedUriString(testCase.uriString, testCase.uriKind).Should().BeTrue();
+            }
+        }
+
+        [Fact]
+        public void SarifValidationSkimmerBase_UriIsWellFormedUriString_ShouldReturnFalseIfNotWellFormedUri()
+        {
+            var testCases = new[]
+            {
+                new
+                {
+                    uriKind = UriKind.Absolute,
+                    uriString = "ht%tp://www.example.com/rules/tst0001.html"
+                },
+                new
+                {
+                    uriKind = UriKind.RelativeOrAbsolute,
+                    uriString = "ht%tp://www.example.com/rules/tst0001.html"
+                },
+            };
+
+            foreach (var testCase in testCases)
+            {
+                SarifValidationSkimmerBase.IsWellFormedUriString(testCase.uriString, testCase.uriKind).Should().BeFalse();
+            }
         }
     }
 }

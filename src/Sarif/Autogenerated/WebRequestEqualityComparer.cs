@@ -4,14 +4,13 @@
 using System;
 using System.CodeDom.Compiler;
 using System.Collections.Generic;
-using Microsoft.CodeAnalysis.Sarif.Readers;
 
 namespace Microsoft.CodeAnalysis.Sarif
 {
     /// <summary>
     /// Defines methods to support the comparison of objects of type WebRequest for equality.
     /// </summary>
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "1.1.3.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "1.1.5.0")]
     internal sealed class WebRequestEqualityComparer : IEqualityComparer<WebRequest>
     {
         internal static readonly WebRequestEqualityComparer Instance = new WebRequestEqualityComparer();
@@ -204,7 +203,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                         xor_2 ^= value_8.Key.GetHashCode();
                         if (value_8.Value != null)
                         {
-                            xor_2 ^= value_8.Value.GetHashCode();
+                            xor_2 ^= value_8.Value.ValueGetHashCode();
                         }
                     }
 

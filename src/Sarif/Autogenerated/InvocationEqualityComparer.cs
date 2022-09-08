@@ -4,14 +4,13 @@
 using System;
 using System.CodeDom.Compiler;
 using System.Collections.Generic;
-using Microsoft.CodeAnalysis.Sarif.Readers;
 
 namespace Microsoft.CodeAnalysis.Sarif
 {
     /// <summary>
     /// Defines methods to support the comparison of objects of type Invocation for equality.
     /// </summary>
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "1.1.3.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "1.1.5.0")]
     internal sealed class InvocationEqualityComparer : IEqualityComparer<Invocation>
     {
         internal static readonly InvocationEqualityComparer Instance = new InvocationEqualityComparer();
@@ -464,7 +463,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                         xor_1 ^= value_11.Key.GetHashCode();
                         if (value_11.Value != null)
                         {
-                            xor_1 ^= value_11.Value.GetHashCode();
+                            xor_1 ^= value_11.Value.ValueGetHashCode();
                         }
                     }
 

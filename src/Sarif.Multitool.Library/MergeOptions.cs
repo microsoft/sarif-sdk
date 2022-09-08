@@ -32,7 +32,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
         [Option(
             "merge-runs",
-            HelpText = "Merge runs of the same tool + verion combination (requires " +
+            HelpText = "Merge runs of the same tool + version combination (requires " +
                        "eliding run-specific details such as invocations data.")]
         public bool MergeRuns { get; set; }
     }

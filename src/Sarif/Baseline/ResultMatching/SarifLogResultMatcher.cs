@@ -253,6 +253,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
 
             var graphs = new List<Graph>();
             var invocations = new List<Invocation>();
+            var versionControls = new List<VersionControlDetails>();
 
             // TODO tool message strings are not currently handled
             // https://github.com/Microsoft/sarif-sdk/issues/1286
@@ -273,11 +274,29 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
                 {
                     properties = currentRun.Properties;
                 }
+
+                if (currentRun?.VersionControlProvenance != null)
+                {
+                    versionControls = versionControls.DistinctMerge(
+                        currentRun.VersionControlProvenance,
+                        VersionControlDetails.ValueComparer).ToList();
+                }
+            }
+
+            foreach (Run previousRun in previousRuns ?? Enumerable.Empty<Run>())
+            {
+                if (previousRun?.VersionControlProvenance != null)
+                {
+                    versionControls = versionControls.DistinctMerge(
+                        previousRun.VersionControlProvenance,
+                        VersionControlDetails.ValueComparer).ToList();
+                }
             }
 
             run.Graphs = graphs;
             run.Invocations = invocations;
             run.Properties = properties;
+            run.VersionControlProvenance = versionControls.Any() ? versionControls : null;
 
             return new SarifLog()
             {

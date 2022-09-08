@@ -4,14 +4,13 @@
 using System;
 using System.CodeDom.Compiler;
 using System.Collections.Generic;
-using Microsoft.CodeAnalysis.Sarif.Readers;
 
 namespace Microsoft.CodeAnalysis.Sarif
 {
     /// <summary>
     /// Defines methods to support the comparison of objects of type GraphTraversal for equality.
     /// </summary>
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "1.1.3.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "1.1.5.0")]
     internal sealed class GraphTraversalEqualityComparer : IEqualityComparer<GraphTraversal>
     {
         internal static readonly GraphTraversalEqualityComparer Instance = new GraphTraversalEqualityComparer();
@@ -142,7 +141,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                         xor_0 ^= value_4.Key.GetHashCode();
                         if (value_4.Value != null)
                         {
-                            xor_0 ^= value_4.Value.GetHashCode();
+                            xor_0 ^= value_4.Value.ValueGetHashCode();
                         }
                     }
 
@@ -175,7 +174,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                         xor_1 ^= value_6.Key.GetHashCode();
                         if (value_6.Value != null)
                         {
-                            xor_1 ^= value_6.Value.GetHashCode();
+                            xor_1 ^= value_6.Value.ValueGetHashCode();
                         }
                     }
 

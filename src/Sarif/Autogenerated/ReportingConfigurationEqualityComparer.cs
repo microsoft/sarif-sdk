@@ -11,7 +11,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// <summary>
     /// Defines methods to support the comparison of objects of type ReportingConfiguration for equality.
     /// </summary>
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "1.1.3.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "1.1.5.0")]
     internal sealed class ReportingConfigurationEqualityComparer : IEqualityComparer<ReportingConfiguration>
     {
         internal static readonly ReportingConfigurationEqualityComparer Instance = new ReportingConfigurationEqualityComparer();
@@ -112,7 +112,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                         xor_0 ^= value_4.Key.GetHashCode();
                         if (value_4.Value != null)
                         {
-                            xor_0 ^= value_4.Value.GetHashCode();
+                            xor_0 ^= value_4.Value.ValueGetHashCode();
                         }
                     }
 
@@ -128,7 +128,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                         xor_1 ^= value_5.Key.GetHashCode();
                         if (value_5.Value != null)
                         {
-                            xor_1 ^= value_5.Value.GetHashCode();
+                            xor_1 ^= value_5.Value.ValueGetHashCode();
                         }
                     }
 

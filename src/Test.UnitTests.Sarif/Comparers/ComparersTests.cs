@@ -8,7 +8,6 @@ using System.Linq;
 using FluentAssertions;
 
 using Microsoft.CodeAnalysis.Sarif;
-using Microsoft.CodeAnalysis.Sarif.Comparers;
 using Microsoft.CodeAnalysis.Test.Utilities.Sarif;
 
 using Xunit;
@@ -517,6 +516,57 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Comparers
 
             regions1.ListCompares(regions2, RegionComparer.Instance).Should().Be(-1);
             regions2.ListCompares(regions1, RegionComparer.Instance).Should().Be(1);
+        }
+
+        [Fact]
+        public void AddressComparer_Tests()
+        {
+            var address1 = new List<Address>();
+            var address2 = new List<Address>();
+
+            address1.Add(null);
+            address2.Add(null);
+
+            address1.ListCompares(address2, AddressComparer.Instance).Should().Be(0);
+
+            address1.Insert(0, new Address() { AbsoluteAddress = 0xAAA });
+            address2.Insert(0, new Address() { AbsoluteAddress = 0xBBB });
+
+            address1.ListCompares(address2, AddressComparer.Instance).Should().Be(-1);
+            address2.ListCompares(address1, AddressComparer.Instance).Should().Be(1);
+
+            address1.Insert(0, new Address() { RelativeAddress = null, AbsoluteAddress = 0xAAA });
+            address2.Insert(0, new Address() { RelativeAddress = 0x0, AbsoluteAddress = 0xAAA });
+
+            address1.ListCompares(address2, AddressComparer.Instance).Should().Be(-1);
+            address2.ListCompares(address1, AddressComparer.Instance).Should().Be(1);
+
+            address1.Insert(0, new Address() { Length = 10, RelativeAddress = 0x101, AbsoluteAddress = 0xAAA });
+            address2.Insert(0, new Address() { Length = null, RelativeAddress = 0x101, AbsoluteAddress = 0xAAA });
+
+            address1.ListCompares(address2, AddressComparer.Instance).Should().Be(1);
+            address2.ListCompares(address1, AddressComparer.Instance).Should().Be(-1);
+
+            address1.Insert(0, new Address() { OffsetFromParent = 0x255, Length = 10, RelativeAddress = 0x101, AbsoluteAddress = 0xAAA });
+            address2.Insert(0, new Address() { OffsetFromParent = 0x0, Length = 10, RelativeAddress = 0x101, AbsoluteAddress = 0xAAA });
+
+            address1.Insert(0, new Address() { Name = "GetFunctionName()", OffsetFromParent = 0x255, Length = 10, RelativeAddress = 0x101, AbsoluteAddress = 0xAAA });
+            address2.Insert(0, new Address() { Name = "VariableName", OffsetFromParent = 0x255, Length = 10, RelativeAddress = 0x101, AbsoluteAddress = 0xAAA });
+
+            address1.ListCompares(address2, AddressComparer.Instance).Should().Be(-1);
+            address2.ListCompares(address1, AddressComparer.Instance).Should().Be(1);
+
+            address1.Insert(0, new Address() { Kind = "function", Name = "GetFunctionName()", OffsetFromParent = 0x255, Length = 10, RelativeAddress = 0x101, AbsoluteAddress = 0xAAA });
+            address2.Insert(0, new Address() { Kind = "system", Name = "GetFunctionName()", OffsetFromParent = 0x255, Length = 10, RelativeAddress = 0x101, AbsoluteAddress = 0xAAA });
+
+            address1.ListCompares(address2, AddressComparer.Instance).Should().Be(-1);
+            address2.ListCompares(address1, AddressComparer.Instance).Should().Be(1);
+
+            address1.Insert(0, new Address() { FullyQualifiedName = "namespace::GetFunctionName", Kind = "function", Name = "GetFunctionName()", OffsetFromParent = 0x255, Length = 10, RelativeAddress = 0x101, AbsoluteAddress = 0xAAA });
+            address2.Insert(0, new Address() { FullyQualifiedName = null, Kind = "function", Name = "GetFunctionName()", OffsetFromParent = 0x255, Length = 10, RelativeAddress = 0x101, AbsoluteAddress = 0xAAA });
+
+            address1.ListCompares(address2, AddressComparer.Instance).Should().Be(1);
+            address2.ListCompares(address1, AddressComparer.Instance).Should().Be(-1);
         }
 
         [Fact]
