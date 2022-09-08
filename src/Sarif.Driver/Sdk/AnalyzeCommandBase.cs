@@ -167,7 +167,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             //    access all analysis targets. Helper will return
             //    a list that potentially filters out files which
             //    did not exist, could not be accessed, etc.
-            targets = ValidateTargetsExist(_rootContext, targets, options);
+            targets = ValidateTargetsExist(_rootContext, targets);
 
             // 5. Initialize report file, if configured.
             InitializeOutputFile(options, _rootContext);
@@ -265,13 +265,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             return targets;
         }
 
-        private ISet<string> ValidateTargetsExist(TContext context, ISet<string> targets, TOptions analyzeOptions)
+        private ISet<string> ValidateTargetsExist(TContext context, ISet<string> targets)
         {
             if (targets.Count == 0)
             {
-                bool ignoreNoValidAnalysisTargets = analyzeOptions is AnalyzeOptionsBase analyzeOptionsBase
-                    && analyzeOptionsBase.IgnoreNonFatalRunTimeConditions != null
-                    && analyzeOptionsBase.IgnoreNonFatalRunTimeConditions.Contains(RuntimeConditions.NoValidAnalysisTargets);
+                bool ignoreNoValidAnalysisTargets = context is IAnalysisContext analysisContext
+                    && analysisContext.IgnoreNonFatalRunTimeConditions != null
+                    && analysisContext.IgnoreNonFatalRunTimeConditions.Contains(RuntimeConditions.NoValidAnalysisTargets);
 
                 Errors.LogNoValidAnalysisTargets(context, !ignoreNoValidAnalysisTargets);
 
