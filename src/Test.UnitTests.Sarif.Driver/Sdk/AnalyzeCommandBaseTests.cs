@@ -193,7 +193,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 analyzeOptions: options,
                 expectedExitReason: ExitReason.NoValidAnalysisTargets);
 
-            options.IgnoreNonFatalRuntimeConditions = 
+            options.IgnoreNonFatalRuntimeConditions =
                 new List<RuntimeConditions>() { RuntimeConditions.NoValidAnalysisTargets };
 
             ExceptionTestHelper(
