@@ -99,7 +99,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
         public int MaxFileSizeInKilobytes { get; set; }
 
-        public IEnumerable<RuntimeConditions> IgnoreNonFatalRunTimeConditions { get; set; }
+        public IEnumerable<RuntimeConditions> IgnoreNonFatalRuntimeConditions { get; set; }
 
         public void Dispose()
         {

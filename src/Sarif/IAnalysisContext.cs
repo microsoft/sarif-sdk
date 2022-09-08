@@ -33,6 +33,6 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         int MaxFileSizeInKilobytes { get; set; }
 
-        IEnumerable<RuntimeConditions> IgnoreNonFatalRunTimeConditions { get; set; }
+        IEnumerable<RuntimeConditions> IgnoreNonFatalRuntimeConditions { get; set; }
     }
 }

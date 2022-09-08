@@ -125,9 +125,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             "ignore-non-fatal-runtime-conditions",
             Separator = ';',
             Default = null,
-            HelpText = "Non-Fatal RunTime Conditions, expressed as a semicolon-delimited list, " +
+            HelpText = "Non-Fatal Runtime Conditions, expressed as a semicolon-delimited list, " +
                        "that should be ignored and will not cause the program to return failure code 1. " +
                        "Valid values: NoValidAnalysisTargets.")]
-        public IEnumerable<RuntimeConditions> IgnoreNonFatalRunTimeConditions { get; set; }
+        public IEnumerable<RuntimeConditions> IgnoreNonFatalRuntimeConditions { get; set; }
     }
 }

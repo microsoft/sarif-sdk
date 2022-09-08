@@ -442,8 +442,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             if (_fileContextsCount == 0)
             {
                 bool ignoreNoValidAnalysisTargets = rootContext is IAnalysisContext analysisContext
-                    && analysisContext.IgnoreNonFatalRunTimeConditions != null
-                    && analysisContext.IgnoreNonFatalRunTimeConditions.Contains(RuntimeConditions.NoValidAnalysisTargets);
+                    && analysisContext.IgnoreNonFatalRuntimeConditions != null
+                    && analysisContext.IgnoreNonFatalRuntimeConditions.Contains(RuntimeConditions.NoValidAnalysisTargets);
 
                 Errors.LogNoValidAnalysisTargets(rootContext, !ignoreNoValidAnalysisTargets);
 
@@ -594,7 +594,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             };
 
             context.MaxFileSizeInKilobytes = options.MaxFileSizeInKilobytes;
-            context.IgnoreNonFatalRunTimeConditions = options.IgnoreNonFatalRunTimeConditions;
+            context.IgnoreNonFatalRuntimeConditions = options.IgnoreNonFatalRuntimeConditions;
 
             if (filePath != null)
             {
