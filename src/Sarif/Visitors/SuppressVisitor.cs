@@ -14,8 +14,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         private readonly string alias;
         private readonly bool timestamps;
         private readonly DateTime timeUtc;
-        private readonly DateTime expiryUtc;
         private readonly int expiryInDays;
+        private readonly DateTime? expiryUtc;
         private readonly string justification;
         private readonly SuppressionStatus suppressionStatus;
 
@@ -24,6 +24,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                                bool uuids,
                                bool timestamps,
                                int expiryInDays,
+                               DateTime? expiryUtc,
                                SuppressionStatus suppressionStatus,
                                IEnumerable<string> resultsGuids)
         {
@@ -32,9 +33,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             this.timestamps = timestamps;
             this.timeUtc = DateTime.UtcNow;
             this.expiryInDays = expiryInDays;
+            this.expiryUtc = expiryUtc;
             this.justification = justification;
             this.suppressionStatus = suppressionStatus;
-            this.expiryUtc = this.timeUtc.AddDays(expiryInDays);
             this.resultsGuids = resultsGuids;
         }
 
@@ -76,7 +77,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
             if (expiryInDays > 0)
             {
-                suppression.SetProperty(nameof(expiryUtc), expiryUtc);
+                suppression.SetProperty(nameof(expiryUtc), timeUtc.AddDays(expiryInDays));
+            }
+
+            if (expiryUtc.HasValue)
+            {
+                suppression.SetProperty(nameof(expiryUtc), expiryUtc.Value);
             }
 
             if (this.resultsGuids != null)

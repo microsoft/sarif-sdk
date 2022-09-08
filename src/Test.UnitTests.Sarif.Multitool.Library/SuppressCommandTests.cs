@@ -30,7 +30,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             {
                 new SuppressOptions
                 {
-                    ExpiryInDays = -1
+                    ExpiryInDays = 1
                 },
                 new SuppressOptions
                 {
@@ -65,6 +65,21 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                     Expression = "fail",
                     Status = SuppressionStatus.Accepted
                 },
+                new SuppressOptions
+                {
+                    ExpiryUtc = DateTime.UtcNow.AddDays(-1),
+                    Justification = "some justification",
+                    OutputFilePath = outputPath,
+                    Status = SuppressionStatus.Accepted
+                },
+                new SuppressOptions
+                {
+                    ExpiryInDays = 1,
+                    ExpiryUtc = DateTime.UtcNow.AddDays(1),
+                    Justification = "some justification",
+                    OutputFilePath = outputPath,
+                    Status = SuppressionStatus.Accepted
+                },
             };
 
             var mock = new Mock<IFileSystem>();
@@ -83,90 +98,102 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         {
             var optionsTestCases = new SuppressOptions[]
             {
-                new SuppressOptions
-                {
-                    Alias = "some alias",
-                    InputFilePath = @"C:\input.sarif",
-                    OutputFilePath = @"C:\output.sarif",
-                    Justification = "some justification",
-                    Status = SuppressionStatus.Accepted
-                },
-                new SuppressOptions
-                {
-                    InputFilePath = @"C:\input.sarif",
-                    OutputFilePath = @"C:\output.sarif",
-                    Justification = "some justification",
-                    Status = SuppressionStatus.UnderReview
-                },
+                // new SuppressOptions
+                // {
+                //     Alias = "some alias",
+                //     InputFilePath = @"C:\input.sarif",
+                //     OutputFilePath = @"C:\output.sarif",
+                //     Justification = "some justification",
+                //     Status = SuppressionStatus.Accepted
+                // },
+                // new SuppressOptions
+                // {
+                //     InputFilePath = @"C:\input.sarif",
+                //     OutputFilePath = @"C:\output.sarif",
+                //     Justification = "some justification",
+                //     Status = SuppressionStatus.UnderReview
+                // },
+                // new SuppressOptions
+                // {
+                //     Guids = true,
+                //     InputFilePath = @"C:\input.sarif",
+                //     OutputFilePath = @"C:\output.sarif",
+                //     Justification = "some justification",
+                //     Status = SuppressionStatus.Accepted
+                // },
+                // new SuppressOptions
+                // {
+                //     Guids = true,
+                //     ExpiryInDays = 5,
+                //     Timestamps = true,
+                //     InputFilePath = @"C:\input.sarif",
+                //     OutputFilePath = @"C:\output.sarif",
+                //     Justification = "some justification",
+                //     Status = SuppressionStatus.Accepted
+                // },
+                // new SuppressOptions
+                // {
+                //     Guids = true,
+                //     ExpiryInDays = 5,
+                //     Timestamps = true,
+                //     InputFilePath = @"C:\input.sarif",
+                //     OutputFilePath = @"C:\output.sarif",
+                //     Justification = "some justification",
+                //     Expression = "BaseLineState = \"New\"",
+                //     Status = SuppressionStatus.Accepted
+                // },
+                // new SuppressOptions
+                // {
+                //     Guids = true,
+                //     ExpiryInDays = 5,
+                //     Timestamps = true,
+                //     InputFilePath = @"C:\input.sarif",
+                //     OutputFilePath = @"C:\output.sarif",
+                //     Justification = "some justification",
+                //     ResultsGuids = new List<string>() { "GUID"},
+                //     Expression = string.Empty,
+                //     Status = SuppressionStatus.Accepted
+                // },
+                // new SuppressOptions
+                // {
+                //     Guids = true,
+                //     ExpiryInDays = 5,
+                //     Timestamps = true,
+                //     InputFilePath = @"C:\input.sarif",
+                //     OutputFilePath = @"C:\output.sarif",
+                //     Justification = "some justification",
+                //     ResultsGuids = new List<string>() { "GUID", "GUID2"},
+                //     Expression = "BaseLineState = \"New\"",
+                //     Status = SuppressionStatus.Accepted
+                // },
+                // new SuppressOptions
+                // {
+                //     Guids = true,
+                //     ExpiryInDays = 5,
+                //     Timestamps = true,
+                //     InputFilePath = @"C:\input.sarif",
+                //     OutputFilePath = @"C:\output.sarif",
+                //     Justification = "some justification",
+                //     ResultsGuids = new List<string>() {},
+                //     Expression = "BaseLineState = \"New\"",
+                //     Status = SuppressionStatus.Accepted
+                // },
+                // new SuppressOptions
+                // {
+                //     Guids = true,
+                //     ExpiryInDays = 5,
+                //     Timestamps = true,
+                //     InputFilePath = @"C:\input.sarif",
+                //     OutputFilePath = @"C:\output.sarif",
+                //     Justification = "some justification",
+                //     ResultsGuids = new List<string>() {},
+                //     Expression = "IsSuppressed == False",
+                //     Status = SuppressionStatus.Accepted
+                // },
                 new SuppressOptions
                 {
                     Guids = true,
-                    InputFilePath = @"C:\input.sarif",
-                    OutputFilePath = @"C:\output.sarif",
-                    Justification = "some justification",
-                    Status = SuppressionStatus.Accepted
-                },
-                new SuppressOptions
-                {
-                    Guids = true,
-                    ExpiryInDays = 5,
-                    Timestamps = true,
-                    InputFilePath = @"C:\input.sarif",
-                    OutputFilePath = @"C:\output.sarif",
-                    Justification = "some justification",
-                    Status = SuppressionStatus.Accepted
-                },
-                new SuppressOptions
-                {
-                    Guids = true,
-                    ExpiryInDays = 5,
-                    Timestamps = true,
-                    InputFilePath = @"C:\input.sarif",
-                    OutputFilePath = @"C:\output.sarif",
-                    Justification = "some justification",
-                    Expression = "BaseLineState = \"New\"",
-                    Status = SuppressionStatus.Accepted
-                },
-                new SuppressOptions
-                {
-                    Guids = true,
-                    ExpiryInDays = 5,
-                    Timestamps = true,
-                    InputFilePath = @"C:\input.sarif",
-                    OutputFilePath = @"C:\output.sarif",
-                    Justification = "some justification",
-                    ResultsGuids = new List<string>() { "GUID"},
-                    Expression = string.Empty,
-                    Status = SuppressionStatus.Accepted
-                },
-                new SuppressOptions
-                {
-                    Guids = true,
-                    ExpiryInDays = 5,
-                    Timestamps = true,
-                    InputFilePath = @"C:\input.sarif",
-                    OutputFilePath = @"C:\output.sarif",
-                    Justification = "some justification",
-                    ResultsGuids = new List<string>() { "GUID", "GUID2"},
-                    Expression = "BaseLineState = \"New\"",
-                    Status = SuppressionStatus.Accepted
-                },
-                new SuppressOptions
-                {
-                    Guids = true,
-                    ExpiryInDays = 5,
-                    Timestamps = true,
-                    InputFilePath = @"C:\input.sarif",
-                    OutputFilePath = @"C:\output.sarif",
-                    Justification = "some justification",
-                    ResultsGuids = new List<string>() {},
-                    Expression = "BaseLineState = \"New\"",
-                    Status = SuppressionStatus.Accepted
-                },
-                new SuppressOptions
-                {
-                    Guids = true,
-                    ExpiryInDays = 5,
+                    ExpiryUtc = DateTime.UtcNow.AddDays(30),
                     Timestamps = true,
                     InputFilePath = @"C:\input.sarif",
                     OutputFilePath = @"C:\output.sarif",
@@ -253,9 +280,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                     timeUtc.Should().BeCloseTo(DateTime.UtcNow, DateTimeAssertPrecision);
                 }
 
-                if (options.ExpiryInDays > 0 && suppression.TryGetProperty("expiryUtc", out DateTime expiryUtc))
+                if (options.ExpiryInDays > 0)
                 {
-                    expiryUtc.Should().BeCloseTo(DateTime.UtcNow.AddDays(options.ExpiryInDays), DateTimeAssertPrecision);
+                    suppression.TryGetProperty("expiryUtc", out DateTime expiryInDaysUtc).Should().BeTrue();
+                    expiryInDaysUtc.Should().BeCloseTo(DateTime.UtcNow.AddDays(options.ExpiryInDays), DateTimeAssertPrecision);
+                }
+
+                if (options.ExpiryUtc.HasValue)
+                {
+                    suppression.TryGetProperty("expiryUtc", out DateTime expiryUtc).Should().BeTrue();
+                    expiryUtc.Should().BeCloseTo(options.ExpiryUtc.Value, DateTimeAssertPrecision);
                 }
             }
         }

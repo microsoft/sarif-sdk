@@ -27,6 +27,7 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests.Visitors
                 uuids = false,
                 timestamps = false,
                 expiryInDays = 0,
+                expiryUtc = default(DateTime?),
                 suppressionStatus = SuppressionStatus.Accepted,
                 resultGuids = default(List<string>),
             };
@@ -36,6 +37,7 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests.Visitors
                                   testCase.uuids,
                                   testCase.timestamps,
                                   testCase.expiryInDays,
+                                  testCase.expiryUtc,
                                   testCase.suppressionStatus,
                                   testCase.resultGuids);
         }
@@ -50,6 +52,7 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests.Visitors
                 uuids = false,
                 timestamps = false,
                 expiryInDays = 0,
+                expiryUtc = default(DateTime?),
                 suppressionStatus = SuppressionStatus.Accepted,
                 resultGuids = default(List<string>),
             };
@@ -59,6 +62,7 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests.Visitors
                                   testCase.uuids,
                                   testCase.timestamps,
                                   testCase.expiryInDays,
+                                  testCase.expiryUtc,
                                   testCase.suppressionStatus,
                                   testCase.resultGuids);
         }
@@ -73,6 +77,7 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests.Visitors
                 uuids = true,
                 timestamps = false,
                 expiryInDays = 0,
+                expiryUtc = default(DateTime?),
                 suppressionStatus = SuppressionStatus.Accepted,
                 resultGuids = default(List<string>),
             };
@@ -82,6 +87,7 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests.Visitors
                                   testCase.uuids,
                                   testCase.timestamps,
                                   testCase.expiryInDays,
+                                  testCase.expiryUtc,
                                   testCase.suppressionStatus,
                                   testCase.resultGuids);
         }
@@ -96,6 +102,7 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests.Visitors
                 uuids = true,
                 timestamps = true,
                 expiryInDays = 0,
+                expiryUtc = default(DateTime?),
                 suppressionStatus = SuppressionStatus.Accepted,
                 resultGuids = default(List<string>),
             };
@@ -105,6 +112,7 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests.Visitors
                                   testCase.uuids,
                                   testCase.timestamps,
                                   testCase.expiryInDays,
+                                  testCase.expiryUtc,
                                   testCase.suppressionStatus,
                                   testCase.resultGuids);
         }
@@ -119,6 +127,7 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests.Visitors
                 uuids = true,
                 timestamps = true,
                 expiryInDays = 1,
+                expiryUtc = default(DateTime?),
                 suppressionStatus = SuppressionStatus.Accepted,
                 resultGuids = default(List<string>),
             };
@@ -128,6 +137,32 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests.Visitors
                                   testCase.uuids,
                                   testCase.timestamps,
                                   testCase.expiryInDays,
+                                  testCase.expiryUtc,
+                                  testCase.suppressionStatus,
+                                  testCase.resultGuids);
+        }
+
+        [Fact]
+        public void SuppressVisitor_ShouldFlowPropertiesCorrectly_With_ExpiryDateUtc()
+        {
+            var testCase = new
+            {
+                alias = "some alias",
+                justification = "some suppress justification",
+                uuids = true,
+                timestamps = true,
+                expiryInDays = 0,
+                expiryUtc = DateTime.UtcNow.AddDays(30),
+                suppressionStatus = SuppressionStatus.Accepted,
+                resultGuids = default(List<string>),
+            };
+
+            VerifySuppressVisitor(testCase.alias,
+                                  testCase.justification,
+                                  testCase.uuids,
+                                  testCase.timestamps,
+                                  testCase.expiryInDays,
+                                  testCase.expiryUtc,
                                   testCase.suppressionStatus,
                                   testCase.resultGuids);
         }
@@ -142,6 +177,7 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests.Visitors
                 uuids = true,
                 timestamps = true,
                 expiryInDays = 1,
+                expiryUtc = default(DateTime?),
                 suppressionStatus = SuppressionStatus.UnderReview,
                 resultGuids = default(List<string>),
             };
@@ -151,6 +187,7 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests.Visitors
                                   testCase.uuids,
                                   testCase.timestamps,
                                   testCase.expiryInDays,
+                                  testCase.expiryUtc,
                                   testCase.suppressionStatus,
                                   testCase.resultGuids);
         }
@@ -165,6 +202,7 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests.Visitors
                 uuids = true,
                 timestamps = true,
                 expiryInDays = 1,
+                expiryUtc = default(DateTime?),
                 suppressionStatus = SuppressionStatus.Accepted,
                 resultGuids = new List<string>() { "704cf481-0cfd-46ae-90cd-533cdc6c3bb4", "ecaa7988-5cef-411b-b468-6c20851d6994", "c65b76c7-3cd6-4381-9216-430bcc7fab2d", "04753e26-d297-43e2-a7f7-ae2d34c398c9", "54cb1f58-f401-4f8e-8f42-f2482a123b85" },
             };
@@ -174,6 +212,7 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests.Visitors
                                   testCase.uuids,
                                   testCase.timestamps,
                                   testCase.expiryInDays,
+                                  testCase.expiryUtc,
                                   testCase.suppressionStatus,
                                   testCase.resultGuids);
         }
@@ -188,6 +227,7 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests.Visitors
                 uuids = true,
                 timestamps = true,
                 expiryInDays = 1,
+                expiryUtc = default(DateTime?),
                 suppressionStatus = SuppressionStatus.Accepted,
                 resultGuids = new List<string>() { },
             };
@@ -197,6 +237,7 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests.Visitors
                                   testCase.uuids,
                                   testCase.timestamps,
                                   testCase.expiryInDays,
+                                  testCase.expiryUtc,
                                   testCase.suppressionStatus,
                                   testCase.resultGuids);
         }
@@ -211,6 +252,7 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests.Visitors
                 uuids = true,
                 timestamps = false,
                 expiryInDays = 0,
+                expiryUtc = default(DateTime?),
                 suppressionStatus = SuppressionStatus.Accepted,
                 resultGuids = default(List<string>),
             };
@@ -223,6 +265,7 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests.Visitors
                                               testCase.uuids,
                                               testCase.timestamps,
                                               testCase.expiryInDays,
+                                              testCase.expiryUtc,
                                               testCase.suppressionStatus,
                                               testCase.resultGuids);
 
@@ -363,6 +406,7 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests.Visitors
                                                   bool uuids,
                                                   bool timestamps,
                                                   int expiryInDays,
+                                                  DateTime? expiryUtc,
                                                   SuppressionStatus suppressionStatus,
                                                   IEnumerable<string> guids)
         {
@@ -371,6 +415,7 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests.Visitors
                                               uuids,
                                               timestamps,
                                               expiryInDays,
+                                              expiryUtc,
                                               suppressionStatus,
                                               guids);
 
@@ -409,9 +454,16 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests.Visitors
                     timeUtc.Should().BeCloseTo(DateTime.UtcNow, DateTimeAssertPrecision);
                 }
 
-                if (expiryInDays > 0 && suppression.TryGetProperty("expiryUtc", out DateTime expiryUtc))
+                if (expiryInDays > 0)
                 {
-                    expiryUtc.Should().BeCloseTo(DateTime.UtcNow.AddDays(expiryInDays), DateTimeAssertPrecision);
+                    suppression.TryGetProperty("expiryUtc", out DateTime expiryInDaysUtc).Should().BeTrue();
+                    expiryInDaysUtc.Should().BeCloseTo(DateTime.UtcNow.AddDays(expiryInDays), DateTimeAssertPrecision);
+                }
+
+                if (expiryUtc.HasValue)
+                {
+                    suppression.TryGetProperty("expiryUtc", out DateTime expiryTimestampUtc).Should().BeTrue();
+                    expiryTimestampUtc.Should().BeCloseTo(expiryUtc.Value, DateTimeAssertPrecision);
                 }
 
                 if (guids != null)

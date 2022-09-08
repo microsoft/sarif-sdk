@@ -73,6 +73,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                                                               options.Guids,
                                                               options.Timestamps,
                                                               options.ExpiryInDays,
+                                                              options.ExpiryUtc,
                                                               options.Status,
                                                               options.ResultsGuids).VisitSarifLog(currentSarifLog);
 
@@ -143,6 +144,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
             valid &= options.Validate();
             valid &= options.ExpiryInDays >= 0;
+            if (options.ExpiryUtc.HasValue)
+            {
+                valid &= options.ExpiryUtc.Value > DateTime.UtcNow;
+                valid &= options.ExpiryInDays == 0;
+            }
             valid &= !string.IsNullOrWhiteSpace(options.Justification);
             valid &= (options.Status == SuppressionStatus.Accepted || options.Status == SuppressionStatus.UnderReview);
             valid &= DriverUtilities.ReportWhetherOutputFileCanBeCreated(options.OutputFilePath, options.Force, FileSystem);
