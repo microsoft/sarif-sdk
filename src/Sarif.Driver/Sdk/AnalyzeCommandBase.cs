@@ -270,7 +270,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             if (targets.Count == 0)
             {
                 bool ignoreNoValidAnalysisTargets = analyzeOptions is AnalyzeOptionsBase analyzeOptionsBase
-                && analyzeOptionsBase.IgnoreNonFatalRunTimeConditions.Contains(RuntimeConditions.NoValidAnalysisTargets);
+                    && analyzeOptionsBase.IgnoreNonFatalRunTimeConditions != null
+                    && analyzeOptionsBase.IgnoreNonFatalRunTimeConditions.Contains(RuntimeConditions.NoValidAnalysisTargets);
 
                 Errors.LogNoValidAnalysisTargets(context, !ignoreNoValidAnalysisTargets);
 
