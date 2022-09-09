@@ -20,6 +20,7 @@ extends:
             inputs:
             - input: checkout
               repository: self
+              submodules: true
             outputs:
             - output: pipelineArtifact
               targetPath: $(System.DefaultWorkingDirectory)/msbuild.binlog
