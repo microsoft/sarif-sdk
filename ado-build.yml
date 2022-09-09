@@ -1,43 +1,66 @@
 pr:
 - 'main'
 
-jobs:
-- job: NET_pipeline
-  strategy:
-    matrix:
-      linux:
-        imageName: 'ubuntu-latest'
-      mac:
-        imageName: 'macOS-latest'
-      windows:
-        imageName: 'windows-latest'
-    maxParallel: 4
+resources:
+  repositories:
+    - repository: 1esPipelines
+      type: git
+      name: 1ESPipelineTemplates/1ESPipelineTemplates
+      ref: refs/tags/release
+extends:
+    template: v1/1ES.Unofficial.PipelineTemplate.yml@1esPipelines
+    parameters:
+        
+      stages:
+      - stage: build
 
-  pool: 
-    vmImage: $(imageName)
+        jobs:
+        - job: NET_pipeline
+          templateContext:
+            inputs:
+            - input: checkout
+              repository: self
+            outputs:
+            - output: pipelineArtifact
+              targetPath: $(System.DefaultWorkingDirectory)
+          
+            breakGlass:
+              justification: Testing Break Glass Scenario
+          strategy:
+            matrix:
+              linux:
+                imageName: 'ubuntu-latest'
+              mac:
+                imageName: 'macOS-latest'
+              windows:
+                imageName: 'windows-latest'
+            maxParallel: 4
 
-  steps:
-  # Build and test
-  - task: PowerShell@2
-    displayName: Build and Test
-    inputs:
-      targetType: filePath
-      filePath: ./scripts/BuildAndTest.ps1
-  
-  - task: PublishBuildArtifacts@1
-    inputs:
-      pathToPublish: 'msbuild.binlog'
-      artifactName: 'binlog'
+          pool: 
+            vmImage: $(imageName)
 
-  - task: ComponentGovernanceComponentDetection@0
+          steps:
+          # Build and test
+          - task: PowerShell@2
+            displayName: Build and Test
+            inputs:
+              targetType: filePath
+              filePath: ./scripts/BuildAndTest.ps1
+          
+          - task: PublishBuildArtifacts@1
+            inputs:
+              pathToPublish: 'msbuild.binlog'
+              artifactName: 'binlog'
 
-- job: npm_pipeline
-  pool:
-    vmImage: 'windows-latest'
-  steps:
-  # Build Multitool for npm
-  - task: PowerShell@2
-    displayName: Build Multitool for npm
-    inputs:
-      targetType: filePath
-      filePath: ./scripts/BuildMultitoolForNpm.ps1
+          - task: ComponentGovernanceComponentDetection@0
+
+        - job: npm_pipeline
+          pool:
+            vmImage: 'windows-latest'
+          steps:
+          # Build Multitool for npm
+          - task: PowerShell@2
+            displayName: Build Multitool for npm
+            inputs:
+              targetType: filePath
+              filePath: ./scripts/BuildMultitoolForNpm.ps1
