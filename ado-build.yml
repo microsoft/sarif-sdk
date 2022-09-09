@@ -22,7 +22,8 @@ extends:
               repository: self
             outputs:
             - output: pipelineArtifact
-              targetPath: $(System.DefaultWorkingDirectory)
+              targetPath: $(System.DefaultWorkingDirectory)/msbuild.binlog
+              artifactName: 'binlog'
           
             breakGlass:
               justification: Testing Break Glass Scenario
@@ -47,10 +48,6 @@ extends:
               targetType: filePath
               filePath: ./scripts/BuildAndTest.ps1
           
-          - task: PublishBuildArtifacts@1
-            inputs:
-              pathToPublish: 'msbuild.binlog'
-              artifactName: 'binlog'
 
           - task: ComponentGovernanceComponentDetection@0
 
