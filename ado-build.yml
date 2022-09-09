@@ -52,6 +52,16 @@ extends:
           - task: ComponentGovernanceComponentDetection@0
 
         - job: npm_pipeline
+          templateContext:
+            inputs:
+            - input: checkout
+              repository: self
+            outputs:
+            - output: pipelineArtifact
+              targetPath: $(System.DefaultWorkingDirectory)
+          
+            breakGlass:
+              justification: Testing Break Glass Scenario
           pool:
             vmImage: 'windows-latest'
           steps:
