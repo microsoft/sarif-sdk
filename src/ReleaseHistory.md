@@ -1,5 +1,6 @@
 # SARIF Package Release History (SDK, Driver, Converters, and Multitool)
 
+## Unreleased
 * FEATURE: Allow initialization of file regions cache in `InsertOptionalDataVisitor` (previously initialized exclusively from `FileRegionsCache.Instance`).
 * BUGFIX: Resolve issue where `match-results-forward` command fails to generate VersionControlDetails data. [#2487](https://github.com/microsoft/sarif-sdk/pull/2487)
 * BUGFIX: Remove duplicated rule definitions when executing `match-results-forward` commands for results with sub-rule ids. [#2486](https://github.com/microsoft/sarif-sdk/pull/2486)
