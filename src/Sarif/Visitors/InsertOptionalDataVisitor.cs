@@ -43,7 +43,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             IDictionary<string, ArtifactLocation> originalUriBaseIds = null,
             IFileSystem fileSystem = null,
             GitHelper.ProcessRunner processRunner = null,
-            IEnumerable<string> insertProperties = null)
+            IEnumerable<string> insertProperties = null,
+            FileRegionsCache fileRegionsCache = null)
         {
             _fileSystem = fileSystem ?? FileSystem.Instance;
             _processRunner = processRunner;
@@ -53,6 +54,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             _dataToInsert = dataToInsert;
             _originalUriBaseIds = originalUriBaseIds;
             _insertProperties = insertProperties ?? new List<string>();
+
+            _fileRegionsCache = fileRegionsCache ?? FileRegionsCache.Instance;
         }
 
         public override Run VisitRun(Run node)
@@ -110,8 +113,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             {
                 Region expandedRegion;
                 ArtifactLocation artifactLocation = node.ArtifactLocation;
-
-                _fileRegionsCache ??= FileRegionsCache.Instance;
 
                 if (artifactLocation.Uri == null && artifactLocation.Index >= 0)
                 {
