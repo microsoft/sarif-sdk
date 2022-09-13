@@ -185,7 +185,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                                 Message = new Message { Text = "Simple test rule message." }
                             });
 
-                        Thread.Sleep(1);
+                        Thread.Sleep(s_random.Next(0, 10));
                     }
                     break;
                 }
