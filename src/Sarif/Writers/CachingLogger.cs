@@ -17,7 +17,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
     {
         public CachingLogger(IEnumerable<FailureLevel> levels, IEnumerable<ResultKind> kinds) : base(levels, kinds)
         {
-            s_rwl = new ReaderWriterLock();
+            // This reader lock is used to prevent reads while actively logging.
+            s_readerLock = new ReaderWriterLock();
         }
 
         public IDictionary<ReportingDescriptor, IList<Result>> Results { get; set; }
@@ -26,9 +27,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
         public IList<Notification> ToolNotifications { get; set; }
 
-        public bool IsLocked => s_rwl.IsReaderLockHeld;
+        public bool IsLocked => s_readerLock.IsReaderLockHeld;
 
-        internal static ReaderWriterLock s_rwl { get; set; }
+        internal static ReaderWriterLock s_readerLock { get; set; }
 
         public void AnalysisStarted()
         {
@@ -108,21 +109,21 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         public bool TryGetResults(out IDictionary<ReportingDescriptor, IList<Result>> results)
         {
             results = Results;
-            return s_rwl.IsReaderLockHeld;
+            return s_readerLock.IsReaderLockHeld;
         }
 
         public void ReleaseLock()
         {
-            if (s_rwl.IsReaderLockHeld)
+            if (s_readerLock.IsReaderLockHeld)
             {
-                s_rwl.ReleaseReaderLock();
+                s_readerLock.ReleaseReaderLock();
                 //IsLocked = false;
             }
         }
 
         internal void LockReader()
         {
-            s_rwl.AcquireReaderLock(5000);
+            s_readerLock.AcquireReaderLock(5000);
             //IsLocked = true;
         }
     }

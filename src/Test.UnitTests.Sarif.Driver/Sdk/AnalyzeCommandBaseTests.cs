@@ -10,7 +10,6 @@ using System.Runtime.InteropServices;
 using System.Text;
 
 using FluentAssertions;
-//using FluentAssertions.Common;
 
 using Microsoft.CodeAnalysis.Sarif.Converters;
 using Microsoft.CodeAnalysis.Sarif.Readers;

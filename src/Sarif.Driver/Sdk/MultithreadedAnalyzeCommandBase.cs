@@ -306,6 +306,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             var cachingLogger = (CachingLogger)logger;
             IDictionary<ReportingDescriptor, IList<Result>> results = cachingLogger.Results;
 
+            // We should not try to read from a cachingLogger while analysis is still in progress.
             if (results?.Count > 0 && !cachingLogger.IsLocked)
             {
                 foreach (KeyValuePair<ReportingDescriptor, IList<Result>> kv in results)
@@ -978,6 +979,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 }
             }
 
+            // At this point, analysis has completed for a given target and it is safe to read the results.
             CachingLogger cachingLogger = context.Logger as CachingLogger;
             cachingLogger.ReleaseLock();
         }

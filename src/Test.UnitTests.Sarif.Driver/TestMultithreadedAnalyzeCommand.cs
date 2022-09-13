@@ -30,7 +30,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             TestAnalysisContext context = base.CreateContext(options, logger, runtimeErrors, policy, filePath);
 
             /*
-            // Uncomment this section to debug concurrency failures in production.
+            // TODO: investigate disprenancy in logging for existing tests when
+            // using an `AggregatingLogger` as opposed to the default.
+            // Debugging: Uncomment this code segument to use the `AggregatingLogger`
+            // which logs content relevant to and to provoke concurrency errors.
+            // This type of logger is not compatible with some existing tests.
             var aggregatingLogger = context.Logger as AggregatingLogger;
 
             if (aggregatingLogger != null)
