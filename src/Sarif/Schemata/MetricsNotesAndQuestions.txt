@@ -1,0 +1,50 @@
+Q: Why are we publishing metrics?
+A: 
+    We want to package computed, useful data that seamless integrates with static analysis results in the developer code authoring experience.
+    Our metrics are 'unopinionated' in raw form.
+
+Q: What's the core scenario?
+A: 
+    Overlay data on code constructs in the IDE?
+    [yes] Create and render a metrics report? (could be the error list for now, simple reporting)
+    [yes] What about breaks/transforming specific metrics into a quality report? User-configured or constructed from the 'unopinionated' data.
+
+Q: Verify we have consensus on structure: discrete metrics descriptors and discrete metrics entries. Or should we merge metrics descriptors with rules (and possibly introduce a 'kind' property to distinguish)?
+A: Merge in all cases where we don't torture the design unduly.
+
+Q: Are we fine w/using reporting descriptor for metrics descriptors? It is not a perfect fit but we've taken this expedient approach with taxonomies (our arbitrary reporting descriptor-based taxonomy/grouping mechanism).
+A: On surface, properties that are present look applicable (as applicable as taxonomies). Anything missing?
+
+Q: What is our metrics data object definition?
+A:
+
+Q: What high-level names? We have rules + results for analysis data. 
+A: MetricsRules + MetricsResults? MetricsDescriptors + Metrics? Metrics + MetricsData? 
+
+Q: Should we add 'name' to reporting descriptor reference?
+A: 
+
+https://www.omg.org/spec/SMM/1.2/PDF
+
+* Types of metrics:
+    nominal ('test' vs 'product' binary or code) (is this just a tag/label? not a metric)
+    ordinal ([fix this] cyclomatic complexity of '7.5'), arbitrary ordered values, less interesting
+    [****] interval, e.g., temperature, elevation, metrics normalized to a bounded range
+    ratio (code coverage was increased by X%)
+* How precisely do we describe numeric types? allow consumer to interpret based on the metric descriptor.
+    * are we strictly presentation focused? 
+* Can metrics describe constraints on values?
+* Are all results computed? [YES] Do we provide metrics that drive computation? [NOT A GOAL]
+* Do we permit ranges?
+
+Special symbols (=NA()), core value/type (scientific notation, fixed/range ), formatting string ("dd:hh:mm").
+Bignum. 2^32
+[WARN producers against making consumers' lives a living hell in non-metrics scenarios]
+[Consumer s/be advised that a bignum type is likely to be required]
+Floating point precision a necessary consideration?
+
+TODOs:
+Capture answers numeric types/supported metrics
+Symbols, format strings, can we standardize?
+Send any substantive metrics reports on to MF
+

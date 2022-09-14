@@ -1,0 +1,132 @@
+{
+"$schema": "http://json-schema.org/draft-04/schema#",
+"properties": {
+  
+"rules": {
+    "description": "An array of reportingDescriptor objects relevant to the analysis performed by the tool component.",
+    "type": "array",
+    "minItems": 0,
+    "uniqueItems": true,
+    "default": [],
+    "items": {
+      "$ref": "#/definitions/reportingDescriptor"
+    }
+  },
+
+  "taxa": {
+    "description": "An array of reportingDescriptor objects relevant to the definitions of both standalone and tool-defined taxonomies.",
+    "type": "array",
+    "minItems": 0,
+    "uniqueItems": true,
+    "default": [],
+    "items": {
+      "$ref": "#/definitions/reportingDescriptor"
+    }
+  },
+
+  "metricsDescriptors": {
+    "description": "An array of reportingDescriptor objects relevant to the metrics production performed by the tool component.",
+    "type": "array",
+    "minItems": 0,
+    "uniqueItems": true,
+    "default": [],
+    "items": {
+      "$ref": "#/definitions/reportingDescriptor"
+    }
+  },
+
+  "metrics": {
+    "description": "The set of metrics contained in an SARIF log. The metrics array may be absent when a tool run does not produce this data. It must be present (but may be empty) if a log file represents an actual metrics report.",
+    "type": "array",
+    "minItems": 0,
+    "uniqueItems": false,
+    "items": {
+      "$ref": "#/definitions/result"
+    }
+  },
+
+  "metricResult"
+    "description": "A single metric.",
+    "items": {
+      "properties": {
+        "metric": {
+            "description": "A reference to the metrics descriptor of which this metric is an instance.",
+            "items": {
+                "$ref": "#/definitions/reportingDescriptor"}          
+        },
+        "value": {
+            "description": "A metric value.",
+            "items": {
+                "$ref": "#/definitions/????"}},        
+        "baseline": {
+            "description": "The previously computed metric value, if any.",
+            "items": {
+                "$ref": "#/definitions/????"}},
+    }
+  },
+
+  "reportingDescriptor": {
+    "description": "Metadata that describes a specific report produced by the tool, as part of the analysis it provides or its runtime reporting.",
+    "properties": {
+      "id": {
+        "description": "A stable, opaque identifier for the report."},
+      "deprecatedIds": {
+        "description": "An array of stable, opaque identifiers by which this report was known in some previous version of the analysis tool.",},
+      "guid": {
+        "description": "A unique identifer for the reporting descriptor in the form of a GUID.",},
+      "deprecatedGuids": {
+        "description": "An array of unique identifies in the form of a GUID by which this report was known in some previous version of the analysis tool.",      },
+      "name": {
+        "description": "A report identifier that is understandable to an end user.",
+      },
+      "deprecatedNames": {
+        "description": "An array of readable identifiers by which this report was known in some previous version of the analysis tool.",
+      },
+      "shortDescription": {
+        "description": "A concise description of the report. Should be a single sentence that is understandable when visible space is limited to a single line of text.",      },
+      "fullDescription": {
+        "description": "A description of the report. Should, as far as possible, provide details sufficient to enable resolution of any problem indicated by the result.",      },
+      "messageStrings": {
+        "description": "A set of name/value pairs with arbitrary names. Each value is a multiformatMessageString object, which holds message strings in plain text and (optionally) Markdown format. The strings can include placeholders, which can be used to construct a message in combination with an arbitrary number of additional string arguments.",
+      },
+      "defaultConfiguration": {
+        "description": "Default reporting configuration information.",
+      },
+      "helpUri": {
+        "description": "A URI where the primary documentation for the report can be found.",
+      },
+      "help": {
+        "description": "Provides the primary documentation for the report, useful when there is no online documentation.",
+      },
+      "relationships": {
+        "description": "An array of objects that describe relationships between this reporting descriptor and others.",
+      },
+      "properties": {
+        "description": "Key/value pairs that provide additional information about the report.",
+      }
+    },
+    "required": [ "id" ]
+  },
+
+  "reportingDescriptorReference": {
+    "description": "Information about how to locate a relevant reporting descriptor.",
+    "properties": {
+
+      "id": {
+        "description": "The id of the descriptor.",},
+      "index": {
+        "description": "The index into an array of descriptors in toolComponent.ruleDescriptors, toolComponent.notificationDescriptors, or toolComponent.taxonomyDescriptors, depending on context.",      },
+      "guid": {
+        "description": "A guid that uniquely identifies the descriptor.",      },
+      "toolComponent": {
+        "description": "A reference used to locate the toolComponent associated with the descriptor.",      },
+      "properties": {
+        "description": "Key/value pairs that provide additional information about the reporting descriptor reference.",      }
+    },
+    "anyOf": [
+      { "required": [ "index" ] },
+      { "required": [ "guid" ] },
+      { "required": [ "id" ] }
+    ]
+  },
+}
