@@ -142,7 +142,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return region;
         }
 
-        internal Region ConstructMultilineContextSnippet(Region inputRegion, Uri uri)
+        public Region ConstructMultilineContextSnippet(Region inputRegion, Uri uri)
         {
             if (inputRegion?.IsBinaryRegion != false)
             {
