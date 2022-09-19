@@ -17,8 +17,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
     {
         public CachingLogger(IEnumerable<FailureLevel> levels, IEnumerable<ResultKind> kinds) : base(levels, kinds)
         {
-            // This reader lock is used to prevent reads while actively logging.
-            s_readerLock = new ReaderWriterLock();
+            // This reader lock is used to ensure only a single writer until
+            // logging is complete, after which all threads can read Results.
+            _semaphore = new SemaphoreSlim(initialCount: 1, maxCount: 1);
         }
 
         public IDictionary<ReportingDescriptor, IList<Result>> Results { get; set; }
@@ -26,10 +27,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         public IList<Notification> ConfigurationNotifications { get; set; }
 
         public IList<Notification> ToolNotifications { get; set; }
+        
+        /// <summary>
+        /// Gets or sets a boolean value that indicates whether the Results
+        /// object associated with this logger is fixed and ready to replay.
+        /// </summary>
+        public bool CacheFinalized { get; private set; }
 
-        public bool IsLocked => s_readerLock.IsReaderLockHeld;
-
-        internal static ReaderWriterLock s_readerLock { get; set; }
+        private readonly SemaphoreSlim _semaphore;
 
         public void AnalysisStarted()
         {
@@ -41,15 +46,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
         public void AnalyzingTarget(IAnalysisContext context)
         {
+            _semaphore.Wait();
         }
 
         public void Log(ReportingDescriptor rule, Result result)
         {
-            if (!IsLocked)
-            {
-                LockReader();
-            }
-
             if (rule == null)
             {
                 throw new ArgumentNullException(nameof(rule));
@@ -106,25 +107,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             ToolNotifications.Add(notification);
         }
 
-        public bool TryGetResults(out IDictionary<ReportingDescriptor, IList<Result>> results)
-        {
-            results = Results;
-            return s_readerLock.IsReaderLockHeld;
-        }
-
         public void ReleaseLock()
         {
-            if (s_readerLock.IsReaderLockHeld)
-            {
-                s_readerLock.ReleaseReaderLock();
-                //IsLocked = false;
-            }
-        }
-
-        internal void LockReader()
-        {
-            s_readerLock.AcquireReaderLock(5000);
-            //IsLocked = true;
+            CacheFinalized = true;
+            _semaphore.Release();
         }
     }
 }

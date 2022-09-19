@@ -28,7 +28,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         internal bool _captureConsoleOutput;
 
         internal ConsoleLogger _consoleLogger;
-        internal ConcurrentDictionary<string, IAnalysisLogger> _analysisLoggerCache;
+        internal ConcurrentDictionary<string, CachingLogger> _analysisLoggerCache;
 
         private Run _run;
         private Tool _tool;
@@ -263,17 +263,20 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                     {
                         context = _fileContexts[currentIndex];
 
+                        // All file context objects come with a CachingLogger instance.
+                        Debug.Assert(context.Logger as CachingLogger != null);
+
                         while (context?.AnalysisComplete == true)
                         {
                             if (_computeHashes)
                             {
-                                bool cache = _analysisLoggerCache.TryGetValue(context.Hashes.Sha256, out IAnalysisLogger logger);
+                                bool cache = _analysisLoggerCache.TryGetValue(context.Hashes.Sha256, out CachingLogger logger);
                                 var cachingLogger = (CachingLogger)logger;
-                                LogCachingLogger(rootContext, logger ?? context.Logger, context, clone: cache);
+                                LogCachingLogger(rootContext, logger ?? (CachingLogger)context.Logger, context, clone: cache);
                             }
                             else
                             {
-                                LogCachingLogger(rootContext, context.Logger, context);
+                                LogCachingLogger(rootContext, (CachingLogger)context.Logger, context);
                             }
 
                             RuntimeErrors |= context.RuntimeErrors;
@@ -301,13 +304,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             return true;
         }
 
-        private void LogCachingLogger(TContext rootContext, IAnalysisLogger logger, TContext context, bool clone = false)
+        private void LogCachingLogger(TContext rootContext, CachingLogger cachingLogger, TContext context, bool clone = false)
         {
-            var cachingLogger = (CachingLogger)logger;
             IDictionary<ReportingDescriptor, IList<Result>> results = cachingLogger.Results;
 
             // We should not try to read from a cachingLogger while analysis is still in progress.
-            if (results?.Count > 0 && !cachingLogger.IsLocked)
+            if (results?.Count > 0)
             {
                 foreach (KeyValuePair<ReportingDescriptor, IList<Result>> kv in results)
                 {
@@ -568,7 +570,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
             if ((analyzeOptions.DataToInsert.ToFlags() & OptionallyEmittedData.Hashes) != 0)
             {
-                _analysisLoggerCache = new ConcurrentDictionary<string, IAnalysisLogger>();
+                _analysisLoggerCache = new ConcurrentDictionary<string, CachingLogger>();
             }
 
             return logger;
@@ -870,29 +872,36 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 return context;
             }
 
-            IAnalysisLogger logger = context.Logger;
-
-            if (_computeHashes)
-            {
-                if (_analysisLoggerCache.ContainsKey(context.Hashes.Sha256))
-                {
-                    return context;
-                }
-            }
-
-            context.Logger.AnalyzingTarget(context);
+            CachingLogger logger = (CachingLogger)context.Logger;
 
             if (_computeHashes)
             {
                 if (!_analysisLoggerCache.TryAdd(context.Hashes.Sha256, logger))
                 {
-                    return context;
+                    // Reset logger to the first one associated with current file hash.
+                    logger = _analysisLoggerCache[context.Hashes.Sha256];
                 }
+            }
+
+            // This code will block on the per-file-hash semaphore.
+            // Only a single thread per-file hash will move forward.
+            logger.AnalyzingTarget(context);
+
+            // If the very first logger that scanned the file has 
+            // finalized the cache, we have no work to do, except
+            // to release our semaphore to let unblock any other
+            // thread analyzing the current file, by hash.
+            if (logger.CacheFinalized)
+            {
+                logger.ReleaseLock();
+                return context;
             }
 
             IEnumerable<Skimmer<TContext>> applicableSkimmers = DetermineApplicabilityForTarget(context, skimmers, disabledSkimmers);
             AnalyzeTarget(context, applicableSkimmers, disabledSkimmers);
-
+            
+            // This release will finalize the logger cache.
+            logger.ReleaseLock();
             return context;
         }
 
@@ -978,10 +987,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                     Errors.LogUnhandledRuleExceptionAnalyzingTarget(disabledSkimmers, context, ex);
                 }
             }
-
-            // At this point, analysis has completed for a given target and it is safe to read the results.
-            CachingLogger cachingLogger = context.Logger as CachingLogger;
-            cachingLogger.ReleaseLock();
         }
 
         protected virtual IEnumerable<Skimmer<TContext>> DetermineApplicabilityForTarget(
