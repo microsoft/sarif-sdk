@@ -92,11 +92,16 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests.Core
         public void SarifLog_SplitPerRun()
         {
             Random random = RandomSarifLogGenerator.GenerateRandomAndLog(this.output);
+
             SarifLog sarifLog = RandomSarifLogGenerator.GenerateSarifLogWithRuns(random, 1);
-            sarifLog.Split(SplittingStrategy.PerRun).Should().HaveCount(1);
+
+            int expectedLogCount = sarifLog.Runs.First().Results.Any() ? 1 : 0;
+            sarifLog.Split(SplittingStrategy.PerRun).Should().HaveCount(expectedLogCount);
 
             sarifLog = RandomSarifLogGenerator.GenerateSarifLogWithRuns(random, 3);
-            sarifLog.Split(SplittingStrategy.PerRun).Should().HaveCount(3);
+
+            expectedLogCount = sarifLog.Runs.Count(run => run.Results.Any());
+            sarifLog.Split(SplittingStrategy.PerRun).Should().HaveCount(expectedLogCount);
         }
 
         [Fact]
