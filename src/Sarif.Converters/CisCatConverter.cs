@@ -4,6 +4,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 
 using Microsoft.CodeAnalysis.Sarif.Converters.CisCatObjectModel;
 
@@ -43,12 +44,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             }
 
             var results = new List<Result>();
-            foreach (CisCatRule rule in log.Rules)
+            foreach (CisCatRule rule in log.Rules.Where(i => !i.IsPass()))
             {
-                if (!rule.IsPass())
-                {
-                    results.Add(CreateResult(rule));
-                }
+                results.Add(CreateResult(rule));
             }
 
             PersistResults(output, results, run);
