@@ -204,59 +204,59 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 }
             };
 
-            var transformedContents = new StringBuilder();
-            var currentStream = new MemoryStream(Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(current)));
-
-            var currentContents = new StringBuilder(JsonConvert.SerializeObject(current));
-            var mockFileSystem = new Mock<IFileSystem>();
-
-            mockFileSystem
-                .Setup(x => x.FileReadAllText(options.InputFilePath))
-                .Returns(JsonConvert.SerializeObject(current));
-
-            mockFileSystem
-                .Setup(x => x.FileOpenRead(options.InputFilePath))
-                .Returns(() =>
-                    currentStream);
-
-            mockFileSystem
-                .Setup(x => x.FileCreate(options.OutputFilePath))
-                .Returns(() => new MemoryStreamToStringBuilder(transformedContents));
-
-            var command = new SuppressCommand(mockFileSystem.Object);
-            command.Run(options).Should().Be(CommandBase.SUCCESS);
-
-            SarifLog suppressed = JsonConvert.DeserializeObject<SarifLog>(transformedContents.ToString());
-            suppressed.Runs[0].Results[0].Suppressions.Should().NotBeNullOrEmpty();
-
-            Suppression suppression = suppressed.Runs[0].Results[0].Suppressions[0];
-            suppression.Status.Should().Be(options.Status);
-            suppression.Kind.Should().Be(SuppressionKind.External);
-            suppression.Justification.Should().Be(options.Justification);
-
-            if (!string.IsNullOrWhiteSpace(options.Alias))
+            using (MemoryStream currentStream = new MemoryStream(Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(current))))
             {
-                suppression.GetProperty("alias").Should().Be(options.Alias);
-            }
+                var transformedContents = new StringBuilder();
+                var mockFileSystem = new Mock<IFileSystem>();
 
-            if (options.Guids)
-            {
-                suppression.Guid.Should().NotBeNullOrEmpty();
-            }
+                mockFileSystem
+                    .Setup(x => x.FileReadAllText(options.InputFilePath))
+                    .Returns(JsonConvert.SerializeObject(current));
 
-            if (!string.IsNullOrWhiteSpace(options.Expression))
-            {
-                suppressed.Runs[0].Results[0].BaselineState.Should().Be(BaselineState.New);
-            }
+                mockFileSystem
+                    .Setup(x => x.FileOpenRead(options.InputFilePath))
+                    .Returns(() =>
+                        currentStream);
 
-            if (options.Timestamps && suppression.TryGetProperty("timeUtc", out DateTime timeUtc))
-            {
-                timeUtc.Should().BeCloseTo(DateTime.UtcNow, DateTimeAssertPrecision);
-            }
+                mockFileSystem
+                    .Setup(x => x.FileCreate(options.OutputFilePath))
+                    .Returns(() => new MemoryStreamToStringBuilder(transformedContents));
 
-            if (options.ExpiryInDays > 0 && suppression.TryGetProperty("expiryUtc", out DateTime expiryUtc))
-            {
-                expiryUtc.Should().BeCloseTo(DateTime.UtcNow.AddDays(options.ExpiryInDays), DateTimeAssertPrecision);
+                var command = new SuppressCommand(mockFileSystem.Object);
+                command.Run(options).Should().Be(CommandBase.SUCCESS);
+
+                SarifLog suppressed = JsonConvert.DeserializeObject<SarifLog>(transformedContents.ToString());
+                suppressed.Runs[0].Results[0].Suppressions.Should().NotBeNullOrEmpty();
+
+                Suppression suppression = suppressed.Runs[0].Results[0].Suppressions[0];
+                suppression.Status.Should().Be(options.Status);
+                suppression.Kind.Should().Be(SuppressionKind.External);
+                suppression.Justification.Should().Be(options.Justification);
+
+                if (!string.IsNullOrWhiteSpace(options.Alias))
+                {
+                    suppression.GetProperty("alias").Should().Be(options.Alias);
+                }
+
+                if (options.Guids)
+                {
+                    suppression.Guid.Should().NotBeNullOrEmpty();
+                }
+
+                if (!string.IsNullOrWhiteSpace(options.Expression))
+                {
+                    suppressed.Runs[0].Results[0].BaselineState.Should().Be(BaselineState.New);
+                }
+
+                if (options.Timestamps && suppression.TryGetProperty("timeUtc", out DateTime timeUtc))
+                {
+                    timeUtc.Should().BeCloseTo(DateTime.UtcNow, DateTimeAssertPrecision);
+                }
+
+                if (options.ExpiryInDays > 0 && suppression.TryGetProperty("expiryUtc", out DateTime expiryUtc))
+                {
+                    expiryUtc.Should().BeCloseTo(DateTime.UtcNow.AddDays(options.ExpiryInDays), DateTimeAssertPrecision);
+                }
             }
         }
     }

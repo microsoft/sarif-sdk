@@ -238,9 +238,10 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests.Visitors
 
             // Suppress a second time
             SarifLog suppressed2 = visitor.VisitSarifLog(suppressed);
+            IList<Result> results2 = suppressed2.Runs[0].Results;
 
             // Verify duplicate suppression was not added
-            foreach (Result result in results)
+            foreach (Result result in results2)
             {
                 result.Suppressions.Should().NotBeNullOrEmpty();
                 result.Suppressions.Count.Should().Be(1);
