@@ -14,6 +14,9 @@ namespace Microsoft.CodeAnalysis.Sarif
             FailTargets = new HashSet<string>();
             PassTargets = new HashSet<string>();
             NotApplicableTargets = new HashSet<string>();
+            OpenTargets = new HashSet<string>();
+            ReviewTargets = new HashSet<string>();
+            InformationalTargets = new HashSet<string>();
         }
 
         public RuntimeConditions RuntimeErrors { get; set; }
@@ -23,6 +26,13 @@ namespace Microsoft.CodeAnalysis.Sarif
         public HashSet<string> FailTargets { get; set; }
 
         public HashSet<string> NotApplicableTargets { get; set; }
+
+        public HashSet<string> OpenTargets { get; set; }
+
+        public HashSet<string> ReviewTargets { get; set; }
+
+        public HashSet<string> InformationalTargets { get; set; }
+
 
         public List<string> Messages { get; set; }
 
@@ -67,6 +77,22 @@ namespace Microsoft.CodeAnalysis.Sarif
                 case ResultKind.NotApplicable:
                 {
                     NotApplicableTargets.Add(targetPath);
+                    break;
+                }
+
+                case ResultKind.Informational:
+                {
+                    InformationalTargets.Add(targetPath);
+                    break;
+                }
+
+                case ResultKind.Open:
+                {
+                    break;
+                }
+
+                case ResultKind.Review:
+                {
                     break;
                 }
 

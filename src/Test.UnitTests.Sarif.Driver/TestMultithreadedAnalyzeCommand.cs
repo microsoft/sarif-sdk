@@ -29,8 +29,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         {
             TestAnalysisContext context = base.CreateContext(options, logger, runtimeErrors, policy, filePath);
 
-            /*
-            // TODO: investigate disprenancy in logging for existing tests when
+            // TODO: investigate discrepancy in logging for existing tests when
             // using an `AggregatingLogger` as opposed to the default.
             // Debugging: Uncomment this code segument to use the `AggregatingLogger`
             // which logs content relevant to and to provoke concurrency errors.
@@ -41,7 +40,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             {
                 aggregatingLogger.Loggers.Add(new TestMessageLogger());
             }
-            */
 
             if (context.Policy == null)
             {

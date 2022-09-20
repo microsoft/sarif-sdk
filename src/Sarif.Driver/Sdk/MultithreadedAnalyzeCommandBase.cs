@@ -271,7 +271,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                             if (_computeHashes)
                             {
                                 bool cache = _analysisLoggerCache.TryGetValue(context.Hashes.Sha256, out CachingLogger logger);
-                                var cachingLogger = (CachingLogger)logger;
                                 LogCachingLogger(rootContext, logger ?? (CachingLogger)context.Logger, context, clone: cache);
                             }
                             else
@@ -526,8 +525,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                     }
                     finally
                     {
-                        if (context != null) { context.AnalysisComplete = true; }
                         await _resultsWritingChannel.Writer.WriteAsync(item);
+                        if (context != null) { context.AnalysisComplete = true; }
                     }
                 }
             }

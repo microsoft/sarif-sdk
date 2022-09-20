@@ -756,7 +756,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         {
             string specifier = "*.xyz";
 
-            int filesCount = 50;
+            uint filesCount = 50;
             var files = new List<string>();
             for (int i = 0; i < filesCount; i++)
             {
@@ -787,7 +787,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
             Output.WriteLine($"The seed that will be used is: {TestRule.s_seed}");
 
-            for (int i = 0; i < 3; i++)
+            for (int i = 0; i < 5; i++)
             {
                 string outputFile = Path.GetFullPath($@".{Path.DirectorySeparatorChar}Result{i}.sarif");
 
@@ -824,16 +824,17 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 SarifLog sarifLog = JsonConvert.DeserializeObject<SarifLog>(outputSarifContents);
 
                 sarifLog.Runs?.Count().Should().Be(1);
-                sarifLog.Runs[0].Results?.Count().Should().Be(750);
+                sarifLog.Runs[0].Results?.Count().Should().Be((int)filesCount * 15); // 15 == # of results per file
 
                 var aggregatedLogger = (AggregatingLogger)command._rootContext.Logger;
 
                 foreach (IAnalysisLogger logger in aggregatedLogger.Loggers)
                 {
-                    TestMessageLogger testMessageLogger = logger as TestMessageLogger;
+                    var testMessageLogger = logger as TestMessageLogger;
                     if (testMessageLogger == null) { continue; }
-                    int errorsCount = Convert.ToInt32(TestRule.ErrorsCount);
-                    testMessageLogger.FailTargets.Count.Should().Be(filesCount * errorsCount);
+
+                    uint errorsCount = TestRule.ErrorsCount.DefaultValue();
+                    testMessageLogger.FailTargets.Count.Should().Be((int)(filesCount * errorsCount));
                 }
             }
         }
@@ -1928,6 +1929,17 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 TestRule.s_testRuleBehaviors = testCase.TestRuleBehaviors.AccessibleOutsideOfContextOnly();
                 sarifLog = RunAnalyzeCommand(options, testCase.FileSystem, testCase.ExpectedReturnCode, multithreaded);
                 run = sarifLog.Runs[0];
+
+                if (run.Results.Count != testCase.ExpectedResultsCount)
+                {
+                    string badRepro = JsonConvert.SerializeObject(sarifLog, Formatting.Indented);
+                    File.WriteAllText(@"d:\repros\badrepro.txt", badRepro);
+                }
+                else
+                {
+                    string goodRepro = JsonConvert.SerializeObject(sarifLog, Formatting.Indented);
+                    File.WriteAllText(@"d:\repros\goodrepro.txt", goodRepro);
+                }
 
                 run.Results.Count.Should().Be(testCase.ExpectedResultsCount);
             }
