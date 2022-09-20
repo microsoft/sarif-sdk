@@ -4,11 +4,13 @@
 using System;
 using System.IO;
 
+using FluentAssertions;
+
 using Microsoft.CodeAnalysis.Sarif.Writers;
 
-using Xunit;
-using FluentAssertions;
 using Newtonsoft.Json;
+
+using Xunit;
 
 namespace Microsoft.CodeAnalysis.Sarif.Converters
 {
