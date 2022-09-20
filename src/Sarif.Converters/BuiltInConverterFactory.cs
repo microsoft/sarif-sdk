@@ -39,6 +39,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             CreateConverterRecord<NessusConverter>(result, ToolFormat.Nessus);
             CreateConverterRecord<PREfastConverter>(result, ToolFormat.PREfast);
             CreateConverterRecord<PylintConverter>(result, ToolFormat.Pylint);
+            CreateConverterRecord<SnykOpenSourceConverter>(result, ToolFormat.SnykOpenSource);
             CreateConverterRecord<SemmleQLConverter>(result, ToolFormat.SemmleQL);
             CreateConverterRecord<StaticDriverVerifierConverter>(result, ToolFormat.StaticDriverVerifier);
             CreateConverterRecord<TSLintConverter>(result, ToolFormat.TSLint);

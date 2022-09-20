@@ -1,0 +1,30 @@
+[
+  {
+    "invalidvulnerabilities": [
+      {}
+    ],
+    "notok": false,
+    "dependencyCount": 10,
+    "org": "test-org-1234",
+    "policy": "# Snyk (https://snyk.io) policy file, patches or ignores known vulnerabilities.\nversion: v1.25.0\nignore: {}\npatch: {}\n",
+    "isPrivate": true,
+    "packageManager": "nuget",
+    "ignoreSettings": {
+      "adminOnly": false,
+      "reasonRequired": false,
+      "disregardFilesystemIgnores": false
+    },
+    "summary": "1 vulnerable dependency path",
+    "filesystemPolicy": false,
+    "filtered": {
+      "ignore": [],
+      "patch": []
+    },
+    "uniqueCount": 1,
+    "missingtargetFile": "src/Common/packages.config",
+    "projectName": "puma-prey",
+    "foundProjectCount": 8,
+    "nodisplayTargetFile": "src/Common/packages.config",
+    "wrongpath": "/Users/test/source/puma-prey"
+  }
+]

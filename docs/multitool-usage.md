@@ -78,13 +78,17 @@ Run ```Sarif.Multitool convert --help``` for the current list.
 - ClangTidy
 - CppCheck
 - ContrastSecurity
+- FlawFinder
 - Fortify
 - FortifyFpr
 - FxCop
+- GenericSarif
+- Hdf
 - Nessus
 - PREfast
 - Pylint
 - SemmleQL
+- SnykOpenSource
 - StaticDriverVerifier
 - TSLint
 
