@@ -84,6 +84,7 @@ Run ```Sarif.Multitool convert --help``` for the current list.
 - Nessus
 - PREfast
 - Pylint
+- SnykOpenSource
 - SemmleQL
 - StaticDriverVerifier
 - TSLint

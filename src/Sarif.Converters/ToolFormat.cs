@@ -51,6 +51,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         /// <summary>Pylint file format.</summary>
         public const string Pylint = nameof(Pylint);
 
+        /// <summary>SnykOpenSource's file format.</summary>
+        public const string SnykOpenSource = nameof(SnykOpenSource);
+
         /// <summary>Semmle's file format.</summary>
         public const string SemmleQL = nameof(SemmleQL);
 

@@ -57,6 +57,11 @@
     <None Remove="TestData\NessusConverter\ExpectedOutputs\NoResults.sarif" />
     <None Remove="TestData\NessusConverter\ExpectedOutputs\ValidResults.sarif" />
     <None Remove="TestData\NessusConverter\ExpectedOutputs\InvalidResults.sarif" />
+    <None Remove="TestData\SnykOpenSourceConverter\Inputs\InvalidResults.json" />
+    <None Remove="TestData\SnykOpenSourceConverter\Inputs\NoResults.json" />
+    <None Remove="TestData\SnykOpenSourceConverter\Inputs\ValidResults.json" />
+    <None Remove="TestData\SnykOpenSourceConverter\ExpectedOutputs\NoResults.sarif" />
+    <None Remove="TestData\SnykOpenSourceConverter\ExpectedOutputs\ValidResults.sarif" />
   </ItemGroup>
 
   <ItemGroup>
@@ -91,6 +96,11 @@
     <EmbeddedResource Include="TestData\NessusConverter\ExpectedOutputs\NoResults.sarif" />
     <EmbeddedResource Include="TestData\NessusConverter\ExpectedOutputs\ValidResults.sarif" />
     <EmbeddedResource Include="TestData\NessusConverter\ExpectedOutputs\InvalidResults.sarif" />
+    <EmbeddedResource Include="TestData\SnykOpenSourceConverter\Inputs\InvalidResults.json" />
+    <EmbeddedResource Include="TestData\SnykOpenSourceConverter\Inputs\NoResults.json" />
+    <EmbeddedResource Include="TestData\SnykOpenSourceConverter\Inputs\ValidResults.json" />
+    <EmbeddedResource Include="TestData\SnykOpenSourceConverter\ExpectedOutputs\NoResults.sarif" />
+    <EmbeddedResource Include="TestData\SnykOpenSourceConverter\ExpectedOutputs\ValidResults.sarif" />
   </ItemGroup>
 
   <ItemGroup>
