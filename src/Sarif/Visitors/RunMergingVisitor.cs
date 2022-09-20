@@ -78,7 +78,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             }
 
             // Cache RuleId and set Result.RuleIndex to the (new) index
-            string ruleId = node.ResolvedRuleId(CurrentRun);
+            string resultRuleId = node.ResolvedRuleId(CurrentRun);
+            ReportingDescriptor rule = node.GetRule(CurrentRun);
+            string ruleId = rule?.Id ?? resultRuleId;
+
             if (!string.IsNullOrEmpty(ruleId))
             {
                 if (RuleIdToIndex.TryGetValue(ruleId, out int ruleIndex))
@@ -87,7 +90,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 }
                 else
                 {
-                    ReportingDescriptor rule = node.GetRule(CurrentRun);
                     int newIndex = Rules.Count;
                     Rules.Add(rule);
 
@@ -95,7 +97,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     node.RuleIndex = newIndex;
                 }
 
-                node.RuleId = ruleId;
+                node.RuleId ??= resultRuleId;
             }
 
             Result result = base.VisitResult(node);

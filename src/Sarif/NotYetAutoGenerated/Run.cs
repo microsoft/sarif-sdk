@@ -15,7 +15,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// Describes a single run of an analysis tool, and contains the reported output of that run.
     /// </summary>
     [DataContract]
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.62.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "1.1.5.0")]
     public partial class Run : PropertyBagHolder, ISarifNode
     {
         public static IEqualityComparer<Run> ValueComparer => RunEqualityComparer.Instance;
@@ -28,7 +28,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <summary>
         /// Gets a value indicating the type of object implementing <see cref="ISarifNode" />.
         /// </summary>
-        public SarifNodeKind SarifNodeKind
+        public virtual SarifNodeKind SarifNodeKind
         {
             get
             {
@@ -40,20 +40,20 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// Information about the tool or tool pipeline that generated the results in this run. A run can only contain results produced by a single tool or tool pipeline. A run can aggregate results from multiple log files, as long as context around the tool run (tool command-line arguments and the like) is identical for all aggregated files.
         /// </summary>
         [DataMember(Name = "tool", IsRequired = true)]
-        public Tool Tool { get; set; }
+        public virtual Tool Tool { get; set; }
 
         /// <summary>
         /// Describes the invocation of the analysis tool.
         /// </summary>
         [DataMember(Name = "invocations", IsRequired = false, EmitDefaultValue = false)]
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
-        public IList<Invocation> Invocations { get; set; }
+        public virtual IList<Invocation> Invocations { get; set; }
 
         /// <summary>
         /// A conversion object that describes how a converter transformed an analysis tool's native reporting format into the SARIF format.
         /// </summary>
         [DataMember(Name = "conversion", IsRequired = false, EmitDefaultValue = false)]
-        public Conversion Conversion { get; set; }
+        public virtual Conversion Conversion { get; set; }
 
         /// <summary>
         /// The language of the messages emitted into the log file during this run (expressed as an ISO 639-1 two-letter lowercase culture code) and an optional region (expressed as an ISO 3166-1 two-letter uppercase subculture code associated with a country or region). The casing is recommended but not required (in order for this data to conform to RFC5646).
@@ -61,159 +61,159 @@ namespace Microsoft.CodeAnalysis.Sarif
         [DataMember(Name = "language", IsRequired = false, EmitDefaultValue = false)]
         [DefaultValue("en-US")]
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
-        public string Language { get; set; }
+        public virtual string Language { get; set; }
 
         /// <summary>
         /// Specifies the revision in version control of the artifacts that were scanned.
         /// </summary>
         [DataMember(Name = "versionControlProvenance", IsRequired = false, EmitDefaultValue = false)]
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
-        public IList<VersionControlDetails> VersionControlProvenance { get; set; }
+        public virtual IList<VersionControlDetails> VersionControlProvenance { get; set; }
 
         /// <summary>
         /// The artifact location specified by each uriBaseId symbol on the machine where the tool originally ran.
         /// </summary>
         [DataMember(Name = "originalUriBaseIds", IsRequired = false, EmitDefaultValue = false)]
-        public IDictionary<string, ArtifactLocation> OriginalUriBaseIds { get; set; }
+        public virtual IDictionary<string, ArtifactLocation> OriginalUriBaseIds { get; set; }
 
         /// <summary>
         /// An array of artifact objects relevant to the run.
         /// </summary>
         [DataMember(Name = "artifacts", IsRequired = false, EmitDefaultValue = false)]
-        public IList<Artifact> Artifacts { get; set; }
+        public virtual IList<Artifact> Artifacts { get; set; }
 
         /// <summary>
         /// An array of logical locations such as namespaces, types or functions.
         /// </summary>
         [DataMember(Name = "logicalLocations", IsRequired = false, EmitDefaultValue = false)]
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
-        public IList<LogicalLocation> LogicalLocations { get; set; }
+        public virtual IList<LogicalLocation> LogicalLocations { get; set; }
 
         /// <summary>
         /// An array of zero or more unique graph objects associated with the run.
         /// </summary>
         [DataMember(Name = "graphs", IsRequired = false, EmitDefaultValue = false)]
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
-        public IList<Graph> Graphs { get; set; }
+        public virtual IList<Graph> Graphs { get; set; }
 
         /// <summary>
         /// The set of results contained in an SARIF log. The results array can be omitted when a run is solely exporting rules metadata. It must be present (but may be empty) if a log file represents an actual scan.
         /// </summary>
         [DataMember(Name = "results", IsRequired = false, EmitDefaultValue = false)]
-        public IList<Result> Results { get; set; }
+        public virtual IList<Result> Results { get; set; }
 
         /// <summary>
         /// Automation details that describe this run.
         /// </summary>
         [DataMember(Name = "automationDetails", IsRequired = false, EmitDefaultValue = false)]
-        public RunAutomationDetails AutomationDetails { get; set; }
+        public virtual RunAutomationDetails AutomationDetails { get; set; }
 
         /// <summary>
         /// Automation details that describe the aggregate of runs to which this run belongs.
         /// </summary>
         [DataMember(Name = "runAggregates", IsRequired = false, EmitDefaultValue = false)]
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
-        public IList<RunAutomationDetails> RunAggregates { get; set; }
+        public virtual IList<RunAutomationDetails> RunAggregates { get; set; }
 
         /// <summary>
         /// The 'guid' property of a previous SARIF 'run' that comprises the baseline that was used to compute result 'baselineState' properties for the run.
         /// </summary>
         [DataMember(Name = "baselineGuid", IsRequired = false, EmitDefaultValue = false)]
-        public string BaselineGuid { get; set; }
+        public virtual string BaselineGuid { get; set; }
 
         /// <summary>
         /// An array of strings used to replace sensitive information in a redaction-aware property.
         /// </summary>
         [DataMember(Name = "redactionTokens", IsRequired = false, EmitDefaultValue = false)]
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
-        public IList<string> RedactionTokens { get; set; }
+        public virtual IList<string> RedactionTokens { get; set; }
 
         /// <summary>
         /// Specifies the default encoding for any artifact object that refers to a text file.
         /// </summary>
         [DataMember(Name = "defaultEncoding", IsRequired = false, EmitDefaultValue = false)]
-        public string DefaultEncoding { get; set; }
+        public virtual string DefaultEncoding { get; set; }
 
         /// <summary>
         /// Specifies the default source language for any artifact object that refers to a text file that contains source code.
         /// </summary>
         [DataMember(Name = "defaultSourceLanguage", IsRequired = false, EmitDefaultValue = false)]
-        public string DefaultSourceLanguage { get; set; }
+        public virtual string DefaultSourceLanguage { get; set; }
 
         /// <summary>
         /// An ordered list of character sequences that were treated as line breaks when computing region information for the run.
         /// </summary>
         [DataMember(Name = "newlineSequences", IsRequired = false, EmitDefaultValue = false)]
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
-        public IList<string> NewlineSequences { get; set; }
+        public virtual IList<string> NewlineSequences { get; set; }
 
         /// <summary>
         /// Specifies the unit in which the tool measures columns.
         /// </summary>
         [DataMember(Name = "columnKind", IsRequired = false, EmitDefaultValue = false)]
         [JsonConverter(typeof(Microsoft.CodeAnalysis.Sarif.Readers.EnumConverter))]
-        public ColumnKind ColumnKind { get; set; }
+        public virtual ColumnKind ColumnKind { get; set; }
 
         /// <summary>
         /// References to external property files that should be inlined with the content of a root log file.
         /// </summary>
         [DataMember(Name = "externalPropertyFileReferences", IsRequired = false, EmitDefaultValue = false)]
-        public ExternalPropertyFileReferences ExternalPropertyFileReferences { get; set; }
+        public virtual ExternalPropertyFileReferences ExternalPropertyFileReferences { get; set; }
 
         /// <summary>
         /// An array of threadFlowLocation objects cached at run level.
         /// </summary>
         [DataMember(Name = "threadFlowLocations", IsRequired = false, EmitDefaultValue = false)]
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
-        public IList<ThreadFlowLocation> ThreadFlowLocations { get; set; }
+        public virtual IList<ThreadFlowLocation> ThreadFlowLocations { get; set; }
 
         /// <summary>
         /// An array of toolComponent objects relevant to a taxonomy in which results are categorized.
         /// </summary>
         [DataMember(Name = "taxonomies", IsRequired = false, EmitDefaultValue = false)]
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
-        public IList<ToolComponent> Taxonomies { get; set; }
+        public virtual IList<ToolComponent> Taxonomies { get; set; }
 
         /// <summary>
         /// Addresses associated with this run instance, if any.
         /// </summary>
         [DataMember(Name = "addresses", IsRequired = false, EmitDefaultValue = false)]
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
-        public IList<Address> Addresses { get; set; }
+        public virtual IList<Address> Addresses { get; set; }
 
         /// <summary>
         /// The set of available translations of the localized data provided by the tool.
         /// </summary>
         [DataMember(Name = "translations", IsRequired = false, EmitDefaultValue = false)]
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
-        public IList<ToolComponent> Translations { get; set; }
+        public virtual IList<ToolComponent> Translations { get; set; }
 
         /// <summary>
         /// Contains configurations that may potentially override both reportingDescriptor.defaultConfiguration (the tool's default severities) and invocation.configurationOverrides (severities established at run-time from the command line).
         /// </summary>
         [DataMember(Name = "policies", IsRequired = false, EmitDefaultValue = false)]
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
-        public IList<ToolComponent> Policies { get; set; }
+        public virtual IList<ToolComponent> Policies { get; set; }
 
         /// <summary>
         /// An array of request objects cached at run level.
         /// </summary>
         [DataMember(Name = "webRequests", IsRequired = false, EmitDefaultValue = false)]
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
-        public IList<WebRequest> WebRequests { get; set; }
+        public virtual IList<WebRequest> WebRequests { get; set; }
 
         /// <summary>
         /// An array of response objects cached at run level.
         /// </summary>
         [DataMember(Name = "webResponses", IsRequired = false, EmitDefaultValue = false)]
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
-        public IList<WebResponse> WebResponses { get; set; }
+        public virtual IList<WebResponse> WebResponses { get; set; }
 
         /// <summary>
         /// A specialLocations object that defines locations of special significance to SARIF consumers.
         /// </summary>
         [DataMember(Name = "specialLocations", IsRequired = false, EmitDefaultValue = false)]
-        public SpecialLocations SpecialLocations { get; set; }
+        public virtual SpecialLocations SpecialLocations { get; set; }
 
         /// <summary>
         /// Key/value pairs that provide additional information about the run.
@@ -353,7 +353,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <summary>
         /// Creates a deep copy of this instance.
         /// </summary>
-        public Run DeepClone()
+        public virtual Run DeepClone()
         {
             return (Run)DeepCloneCore();
         }
@@ -363,7 +363,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new Run(this);
         }
 
-        private void Init(Tool tool, IEnumerable<Invocation> invocations, Conversion conversion, string language, IEnumerable<VersionControlDetails> versionControlProvenance, IDictionary<string, ArtifactLocation> originalUriBaseIds, IEnumerable<Artifact> artifacts, IEnumerable<LogicalLocation> logicalLocations, IEnumerable<Graph> graphs, IEnumerable<Result> results, RunAutomationDetails automationDetails, IEnumerable<RunAutomationDetails> runAggregates, string baselineGuid, IEnumerable<string> redactionTokens, string defaultEncoding, string defaultSourceLanguage, IEnumerable<string> newlineSequences, ColumnKind columnKind, ExternalPropertyFileReferences externalPropertyFileReferences, IEnumerable<ThreadFlowLocation> threadFlowLocations, IEnumerable<ToolComponent> taxonomies, IEnumerable<Address> addresses, IEnumerable<ToolComponent> translations, IEnumerable<ToolComponent> policies, IEnumerable<WebRequest> webRequests, IEnumerable<WebResponse> webResponses, SpecialLocations specialLocations, IDictionary<string, SerializedPropertyInfo> properties)
+        protected virtual void Init(Tool tool, IEnumerable<Invocation> invocations, Conversion conversion, string language, IEnumerable<VersionControlDetails> versionControlProvenance, IDictionary<string, ArtifactLocation> originalUriBaseIds, IEnumerable<Artifact> artifacts, IEnumerable<LogicalLocation> logicalLocations, IEnumerable<Graph> graphs, IEnumerable<Result> results, RunAutomationDetails automationDetails, IEnumerable<RunAutomationDetails> runAggregates, string baselineGuid, IEnumerable<string> redactionTokens, string defaultEncoding, string defaultSourceLanguage, IEnumerable<string> newlineSequences, ColumnKind columnKind, ExternalPropertyFileReferences externalPropertyFileReferences, IEnumerable<ThreadFlowLocation> threadFlowLocations, IEnumerable<ToolComponent> taxonomies, IEnumerable<Address> addresses, IEnumerable<ToolComponent> translations, IEnumerable<ToolComponent> policies, IEnumerable<WebRequest> webRequests, IEnumerable<WebResponse> webResponses, SpecialLocations specialLocations, IDictionary<string, SerializedPropertyInfo> properties)
         {
             if (tool != null)
             {
