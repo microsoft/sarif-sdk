@@ -189,6 +189,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             //Set the unique fingerprint
             var fingerprints = new List<string>() {
                 item.Id,
+                item.PackageManager,
                 item.PackageName,
                 item.Version,
                 test.DisplayTargetFile,
