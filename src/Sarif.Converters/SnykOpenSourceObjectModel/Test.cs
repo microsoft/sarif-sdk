@@ -15,6 +15,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters.SnykOpenSourceObjectModel
         [JsonProperty("displayTargetFile")]
         public string DisplayTargetFile { get; set; }
 
+        [JsonProperty("path")]
+        public string Path { get; set; }
+
         [JsonProperty("projectName")]
         public string ProjectName { get; set; }
 

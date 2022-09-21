@@ -33,9 +33,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             List<Test> snykTests = logReader.ReadLog(input);
 
             //Init objects
+            var log = new SarifLog();
+            log.Runs = new List<Run>();
             var run = new Run();
             run.Tool = new Tool();
-            var results = new List<Result>();
+            run.Results = new List<Result>();
 
             //Set driver details
             run.Tool.Driver = CreateDriver();
@@ -53,14 +55,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                     }
 
                     //Add result for the rule if does not previously exist (there are duplicates???)
-                    if (!results.Any(i => i.RuleId == vulnerability.Id && i.Locations.Any(l => l.PhysicalLocation.ArtifactLocation.Uri.ToString().Equals(test.DisplayTargetFile))))
+                    if (!run.Results.Any(i => i.RuleId == vulnerability.Id && i.Locations.Any(l => l.PhysicalLocation.ArtifactLocation.Uri.ToString().Equals(test.DisplayTargetFile))))
                     {
-                        results.Add(CreateResult(vulnerability, test));
+                        run.Results.Add(CreateResult(vulnerability, test));
                     }
                 }
             }
 
-            PersistResults(output, results, run);
+            log.Runs.Add(run);
+            PersistResults(output, log);
         }
 
         private ToolComponent CreateDriver()
@@ -170,6 +173,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 ArtifactLocation = new ArtifactLocation()
                 {
                     Uri = new Uri(test.DisplayTargetFile, UriKind.Relative),
+                    UriBaseId = "%SRCROOT%",
                 },
                 Region = new Region()
                 {
