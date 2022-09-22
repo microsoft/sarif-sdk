@@ -44,6 +44,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                                 {
                                     rule.Help.Markdown = rule.Help.Text;
                                 }
+                                else if (string.IsNullOrEmpty(rule.Help.Text) && string.IsNullOrEmpty(rule.Help.Markdown))
+                                {
+                                    rule.Help = null;
+                                }
                             }
 
                         }
@@ -51,7 +55,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 }
 
                 PersistResults(output, log);
-            }            
+            }
         }
     }
 }
