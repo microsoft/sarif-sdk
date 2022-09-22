@@ -47,10 +47,12 @@ NOT RuleId = SM00251 OR OccurrenceCount > 10 AND OccurrenceCount < 100
 * CorrelationGuid
 * Guid
 * HostedViewerUri
+* IsSuppressed
 * Kind
 * Level
 * Message.Text
 * OccurrenceCount
+* Properties.[value]
 * Rank
 * RuleId
 * Uri
