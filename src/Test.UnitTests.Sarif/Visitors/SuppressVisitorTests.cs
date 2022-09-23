@@ -202,7 +202,7 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests.Visitors
         }
 
         [Fact]
-        public void SuppressVisitor_ShouldNotDuplicateEntries()
+        public void SuppressVisitor_ShouldNotDuplicateEntries_NoExpiry()
         {
             var testCase = new
             {
@@ -245,6 +245,111 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests.Visitors
             {
                 result.Suppressions.Should().NotBeNullOrEmpty();
                 result.Suppressions.Count.Should().Be(1);
+            }
+
+        }
+
+        [Fact]
+        public void SuppressVisitor_ShouldNotDuplicateEntries_ValidExpiry()
+        {
+            var testCase = new
+            {
+                alias = "some alias",
+                justification = "some suppress justification",
+                uuids = true,
+                timestamps = false,
+                expiryInDays = 3,
+                suppressionStatus = SuppressionStatus.Accepted,
+                resultGuids = default(List<string>),
+            };
+
+            var random = new Random();
+            SarifLog current = RandomSarifLogGenerator.GenerateSarifLogWithRuns(random, runCount: 1, resultCount: 1);
+
+            var visitor = new SuppressVisitor(testCase.justification,
+                                              testCase.alias,
+                                              testCase.uuids,
+                                              testCase.timestamps,
+                                              testCase.expiryInDays,
+                                              testCase.suppressionStatus,
+                                              testCase.resultGuids);
+
+            SarifLog suppressed = visitor.VisitSarifLog(current);
+            IList<Result> results = suppressed.Runs[0].Results;
+
+            // Verify suppression was added
+            foreach (Result result in results)
+            {
+                result.Suppressions.Should().NotBeNullOrEmpty();
+                result.Suppressions.Count.Should().Be(1);
+            }
+
+            // Suppress a second time
+            SarifLog suppressed2 = visitor.VisitSarifLog(suppressed);
+            IList<Result> results2 = suppressed2.Runs[0].Results;
+
+            // Verify duplicate suppression was not added
+            foreach (Result result in results2)
+            {
+                result.Suppressions.Should().NotBeNullOrEmpty();
+                result.Suppressions.Count.Should().Be(1);
+            }
+
+        }
+
+        [Fact]
+        public void SuppressVisitor_ShouldDuplicateEntries_InvalidExpiry()
+        {
+            var testCase = new
+            {
+                alias = "some alias",
+                justification = "some suppress justification",
+                uuids = true,
+                timestamps = false,
+                expiryInDays = 1,
+                suppressionStatus = SuppressionStatus.Accepted,
+                resultGuids = default(List<string>),
+            };
+
+            var random = new Random();
+            SarifLog current = RandomSarifLogGenerator.GenerateSarifLogWithRuns(random, runCount: 1, resultCount: 1);
+
+            var visitor = new SuppressVisitor(testCase.justification,
+                                              testCase.alias,
+                                              testCase.uuids,
+                                              testCase.timestamps,
+                                              testCase.expiryInDays,
+                                              testCase.suppressionStatus,
+                                              testCase.resultGuids);
+
+            SarifLog suppressed = visitor.VisitSarifLog(current);
+            IList<Result> results = suppressed.Runs[0].Results;
+
+            // Verify suppression was added
+            foreach (Result result in results)
+            {
+                result.Suppressions.Should().NotBeNullOrEmpty();
+                result.Suppressions.Count.Should().Be(1);
+            }
+
+            // Force suppressions to be expired
+            foreach (Result result in results)
+            {
+                foreach (Suppression suppression in result.Suppressions)
+                {
+                    suppression.SetProperty("expiryUtc", DateTime.UtcNow.AddDays(-1));
+                }
+            }
+
+            // Suppress a second time
+            SarifLog suppressed2 = visitor.VisitSarifLog(suppressed);
+            IList<Result> results2 = suppressed2.Runs[0].Results;
+
+            // Verify new suppression not added
+            foreach (Result result in results2)
+            {
+                result.Suppressions.Should().NotBeNullOrEmpty();
+                result.Suppressions.Count.Should().Be(2);
             }
 
         }
