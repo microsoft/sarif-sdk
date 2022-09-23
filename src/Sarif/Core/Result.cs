@@ -123,10 +123,10 @@ namespace Microsoft.CodeAnalysis.Sarif
             // https://github.com/microsoft/sarif-tutorials/blob/main/docs/Displaying-results-in-a-viewer.md#determining-suppression-status           
             isSuppressed = !suppressions.Any(s => s.Status == SuppressionStatus.UnderReview || s.Status == SuppressionStatus.Rejected);
 
-            // if it is suppressed and are expired            
+            // if we have suppressions, check expiration
             if (isSuppressed && checkExpired)
             {
-                isSuppressed = suppressions.Any(s => (s.TryGetProperty("expiryUtc", out DateTime expiryUtc) && expiryUtc > DateTime.UtcNow) && s.Status == SuppressionStatus.Accepted);
+                isSuppressed = suppressions.Any(s => (!s.TryGetProperty("expiryUtc", out DateTime noExpiryUtc) || (s.TryGetProperty("expiryUtc", out DateTime expiryUtc) && expiryUtc > DateTime.UtcNow)) && s.Status == SuppressionStatus.Accepted);
             }
 
             return true;

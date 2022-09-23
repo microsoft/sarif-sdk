@@ -48,7 +48,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
             // Skip if node is already suppressed
             bool isSuppressed = false;
-            if (node.TryIsSuppressed(out isSuppressed) && isSuppressed)
+            if (node.TryIsSuppressed(out isSuppressed, true) && isSuppressed)
             {
                 return base.VisitResult(node);
             }
