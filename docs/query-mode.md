@@ -52,7 +52,8 @@ NOT RuleId = SM00251 OR OccurrenceCount > 10 AND OccurrenceCount < 100
 * Level
 * Message.Text
 * OccurrenceCount
-* Properties.[value]
+* properties.[value]
 * Rank
+* rule.properties.[value]
 * RuleId
 * Uri
