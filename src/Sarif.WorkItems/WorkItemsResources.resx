@@ -143,6 +143,6 @@
     <value> (and other locations)</value>
   </data>
   <data name="WorkItemBodyTemplateText" xml:space="preserve">
-    <value>This work item contains {0} {1} issue(s) detected in {2}{3}. Click the 'Scans' tab to review results.If the 'Scans' tab is not present, please open the attached SARIF in one of the viewers below.</value>
+    <value>This work item contains {0} {1} issue(s) detected in {2}{3}. Click the 'Scans' tab to review results. If the 'Scans' tab is not present, please open the attached SARIF in one of the viewers below.</value>
   </data>
 </root>
