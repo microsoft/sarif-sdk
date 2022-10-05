@@ -8,6 +8,7 @@ using System.Linq;
 using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Text;
+using System.Threading.Tasks;
 
 using FluentAssertions;
 
@@ -18,6 +19,7 @@ using Microsoft.CodeAnalysis.Sarif.Writers;
 using Microsoft.CodeAnalysis.Test.Utilities.Sarif;
 
 using Microsoft.Coyote;
+using Microsoft.Coyote.Specifications;
 using Microsoft.Coyote.SystematicTesting;
 
 using Moq;
@@ -1444,10 +1446,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             }
         }
 
-        [Fact(Timeout = 5000)]
+        [Fact(Timeout = 10000)]
         public void AnalyzeCommandBase_ShouldGenerateSameResultsWhenRunningSingleAndMultithreaded_CoyoteTest()
         {
-            Configuration config = Configuration.Create().WithTestingIterations(100).WithSystematicFuzzingEnabled();
+            Configuration config = Configuration.Create().WithTestingIterations(100).WithMaxSchedulingSteps(100).WithVerbosityEnabled(true);
             var engine = TestingEngine.Create(config, AnalyzeCommandBase_ShouldGenerateSameResultsWhenRunningSingleAndMultiThread_CoyoteHelper);
             string TestLogDirectory = ".";
 
@@ -1465,6 +1467,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             Assert.True(report.NumOfFoundBugs == 0, $"Coyote found {report.NumOfFoundBugs} bug(s).");
         }
 
+        [Test]
         [Fact]
         public void AnalyzeCommandBase_ShouldGenerateSameResultsWhenRunningSingleAndMultithreaded()
         {
