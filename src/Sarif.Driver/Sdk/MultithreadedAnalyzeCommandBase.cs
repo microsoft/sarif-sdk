@@ -28,7 +28,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         internal bool _captureConsoleOutput;
 
         internal ConsoleLogger _consoleLogger;
-        internal ConcurrentDictionary<string, IAnalysisLogger> _analysisLoggerCache;
+        internal ConcurrentDictionary<string, CachingLogger> _analysisLoggerCache;
 
         private Run _run;
         private Tool _tool;
@@ -265,15 +265,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
                         while (context?.AnalysisComplete == true)
                         {
-                            if (_computeHashes)
-                            {
-                                bool cache = _analysisLoggerCache.TryGetValue(context.Hashes.Sha256, out IAnalysisLogger logger);
-                                LogCachingLogger(rootContext, logger ?? context.Logger, context, clone: cache);
-                            }
-                            else
-                            {
-                                LogCachingLogger(rootContext, context.Logger, context);
-                            }
+                            LogCachingLogger(rootContext, context, clone: _computeHashes);
 
                             RuntimeErrors |= context.RuntimeErrors;
 
@@ -300,9 +292,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             return true;
         }
 
-        private void LogCachingLogger(TContext rootContext, IAnalysisLogger logger, TContext context, bool clone = false)
+        private void LogCachingLogger(TContext rootContext, TContext context, bool clone = false)
         {
-            var cachingLogger = (CachingLogger)logger;
+            var cachingLogger = (CachingLogger)context.Logger;
             IDictionary<ReportingDescriptor, IList<Result>> results = cachingLogger.Results;
 
             if (results?.Count > 0)
@@ -532,9 +524,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
         protected virtual void ValidateOptions(TOptions options, TContext context)
         {
-            _dataToInsert = options.DataToInsert.ToFlags();
-            _computeHashes = (_dataToInsert & OptionallyEmittedData.Hashes) != 0;
-
             bool succeeded = true;
 
             succeeded &= ValidateFile(context, options.OutputFilePath, DefaultPolicyName, shouldExist: null);
@@ -564,9 +553,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 logger.Loggers.Add(_consoleLogger);
             }
 
-            if ((analyzeOptions.DataToInsert.ToFlags() & OptionallyEmittedData.Hashes) != 0)
+            _dataToInsert = analyzeOptions.DataToInsert.ToFlags();
+            _computeHashes = (_dataToInsert & OptionallyEmittedData.Hashes) != 0;
+
+            if (_computeHashes)
             {
-                _analysisLoggerCache = new ConcurrentDictionary<string, IAnalysisLogger>();
+                _analysisLoggerCache = new ConcurrentDictionary<string, CachingLogger>();
             }
 
             return logger;
@@ -868,28 +860,29 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 return context;
             }
 
-            IAnalysisLogger logger = context.Logger;
-
-            if (_computeHashes)
-            {
-                if (_analysisLoggerCache.ContainsKey(context.Hashes.Sha256))
-                {
-                    return context;
-                }
-            }
-
-            context.Logger.AnalyzingTarget(context);
+            CachingLogger logger = (CachingLogger)context.Logger;
 
             if (_computeHashes)
             {
                 if (!_analysisLoggerCache.TryAdd(context.Hashes.Sha256, logger))
                 {
-                    return context;
+                    logger = _analysisLoggerCache[context.Hashes.Sha256];
                 }
+            }
+
+            logger.AnalyzingTarget(context);
+
+            if (logger.CacheFinalized)
+            {
+                context.Logger = logger;
+                logger.ReleaseLock();
+                return context;
             }
 
             IEnumerable<Skimmer<TContext>> applicableSkimmers = DetermineApplicabilityForTarget(context, skimmers, disabledSkimmers);
             AnalyzeTarget(context, applicableSkimmers, disabledSkimmers);
+
+            logger.ReleaseLock();
 
             return context;
         }

@@ -1926,7 +1926,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 };
 
                 HashUtilities.FileSystem = testCase.FileSystem;
-                command.Run(options).Should().Be(expectedResultCode);
+                int result = command.Run(options);
+                result.Should().Be(expectedResultCode);
 
                 SarifLog sarifLog = JsonConvert.DeserializeObject<SarifLog>(File.ReadAllText(options.OutputFilePath));
                 sarifLog.Runs[0].Results.Count.Should().Be(expectedResultCount);
