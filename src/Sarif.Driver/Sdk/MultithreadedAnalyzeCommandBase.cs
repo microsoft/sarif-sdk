@@ -28,7 +28,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         internal bool _captureConsoleOutput;
 
         internal ConsoleLogger _consoleLogger;
-        internal ConcurrentDictionary<string, CachingLogger> _analysisLoggerCache;
 
         private Run _run;
         private Tool _tool;
@@ -192,7 +191,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             var channelOptions = new BoundedChannelOptions(2000)
             {
                 SingleWriter = true,
-                SingleReader = false,
+                SingleReader = false, 
+                FullMode = BoundedChannelFullMode.Wait
             };
             _fileEnumerationChannel = Channel.CreateBounded<int>(channelOptions);
             _hashChannel = Channel.CreateBounded<int>(channelOptions);
@@ -460,6 +460,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         {
             ChannelReader<int> reader = _hashChannel.Reader;
 
+            Dictionary<string, CachingLogger> loggerCache = null;
+
             // Wait until there is work or the channel is closed.
             while (await reader.WaitToReadAsync())
             {
@@ -479,6 +481,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                         {
                             _pathToHashDataMap.Add(localPath, hashData);
                         }
+
+                        loggerCache ??= new Dictionary<string, CachingLogger>();
+
+                        if (!loggerCache.TryGetValue(hashData.Sha256, out CachingLogger logger))
+                        {
+                            logger = loggerCache[hashData.Sha256] = (CachingLogger)context.Logger;
+                        }
+                        context.Logger = logger;
                     }
 
                     await _fileEnumerationChannel.Writer.WriteAsync(index);
@@ -555,11 +565,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
             _dataToInsert = analyzeOptions.DataToInsert.ToFlags();
             _computeHashes = (_dataToInsert & OptionallyEmittedData.Hashes) != 0;
-
-            if (_computeHashes)
-            {
-                _analysisLoggerCache = new ConcurrentDictionary<string, CachingLogger>();
-            }
 
             return logger;
         }
@@ -861,15 +866,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             }
 
             CachingLogger logger = (CachingLogger)context.Logger;
-
-            if (_computeHashes)
-            {
-                if (!_analysisLoggerCache.TryAdd(context.Hashes.Sha256, logger))
-                {
-                    logger = _analysisLoggerCache[context.Hashes.Sha256];
-                }
-            }
-
             logger.AnalyzingTarget(context);
 
             if (logger.CacheFinalized)
@@ -883,7 +879,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             AnalyzeTarget(context, applicableSkimmers, disabledSkimmers);
 
             logger.ReleaseLock();
-
             return context;
         }
 
