@@ -1450,7 +1450,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         public void AnalyzeCommandBase_ShouldGenerateSameResultsWhenRunningSingleAndMultithreaded_CoyoteTest()
         {
             var logger = new CoyoteTestOutputLogger(this.Output);
-            Configuration config = Configuration.Create().WithTestingIterations(100).WithMaxSchedulingSteps(100).WithVerbosityEnabled(true);
+            Configuration config = Configuration.Create().WithTestingIterations(10).WithMaxSchedulingSteps(100);
             var engine = TestingEngine.Create(config, AnalyzeCommandBase_ShouldGenerateSameResultsWhenRunningSingleAndMultiThread_CoyoteHelper);
             engine.Logger = logger;
 
@@ -1470,7 +1470,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             Assert.True(report.NumOfFoundBugs == 0, $"Coyote found {report.NumOfFoundBugs} bug(s).");
         }
 
-        [Test]
         [Fact]
         public void AnalyzeCommandBase_ShouldGenerateSameResultsWhenRunningSingleAndMultithreaded()
         {
@@ -1566,6 +1565,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             action.Should().NotThrow();
         }
 
+        [Test]
         private void AnalyzeCommandBase_ShouldGenerateSameResultsWhenRunningSingleAndMultiThread_CoyoteHelper()
         {
             int[] scenarios = SetupScenarios(true);
