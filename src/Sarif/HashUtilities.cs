@@ -82,7 +82,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                     // recognize the current specified file argument. In production,
                     // an exception will always be raised for a missing file. If
                     // we enter the code below, that indicates that a test 
-                    // encounterede an adverse condition and is attempting to produce
+                    // encountered an adverse condition and is attempting to produce
                     // a file hash for some source file in a notification stack. We
                     // return null here, as the actual source hash isn't interesting
                     // for this scenario, and we want to reliably finish test execution
