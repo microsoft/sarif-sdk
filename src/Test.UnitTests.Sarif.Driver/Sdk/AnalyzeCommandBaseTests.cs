@@ -1449,8 +1449,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         [Fact(Timeout = 10000)]
         public void AnalyzeCommandBase_ShouldGenerateSameResultsWhenRunningSingleAndMultithreaded_CoyoteTest()
         {
+            var logger = new CoyoteTestOutputLogger(this.Output);
             Configuration config = Configuration.Create().WithTestingIterations(100).WithMaxSchedulingSteps(100).WithVerbosityEnabled(true);
             var engine = TestingEngine.Create(config, AnalyzeCommandBase_ShouldGenerateSameResultsWhenRunningSingleAndMultiThread_CoyoteHelper);
+            engine.Logger = logger;
+
             string TestLogDirectory = ".";
 
             engine.Run();
