@@ -70,12 +70,17 @@ namespace Microsoft.CodeAnalysis.Sarif
                 if (dataToInsert.HasFlag(OptionallyEmittedData.Hashes))
                 {
                     HashData hashes = hashData ?? HashUtilities.ComputeHashes(filePath);
-                    artifact.Hashes = new Dictionary<string, string>
+
+                    // The hash utilities will return null data in some text contexts.
+                    if (hashes != null)
                     {
-                        { "md5", hashes.MD5 },
-                        { "sha-1", hashes.Sha1 },
-                        { "sha-256", hashes.Sha256 },
-                    };
+                        artifact.Hashes = new Dictionary<string, string>
+                        {
+                            { "md5", hashes.MD5 },
+                            { "sha-1", hashes.Sha1 },
+                            { "sha-256", hashes.Sha256 },
+                        };
+                    }
                 }
             }
             catch (Exception e) when (e is IOException || e is UnauthorizedAccessException) { }
