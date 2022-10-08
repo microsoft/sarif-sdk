@@ -116,6 +116,42 @@ namespace Microsoft.CodeAnalysis.Sarif
                 args: "rev-parse --abbrev-ref HEAD");
         }
 
+        /// <summary>
+        /// Returns the top-level directory of the root-most enlistment, even in cases
+        /// when the specified 'repoPath' argument refers to a location in a submodule.
+        /// </summary>
+        /// <param name="repoPath"></param>
+        /// <returns></returns>
+        public string GetRootTopLevel(string repoPath)
+        {
+            if (!this.fileSystem.DirectoryExists(repoPath) &&
+                !this.fileSystem.FileExists(repoPath))
+            {
+                return null;
+            }
+
+            string rootTopLevel = this.fileSystem.DirectoryExists(repoPath)
+                ? repoPath
+                : Path.GetDirectoryName(repoPath);
+
+            while (true)
+            {
+                if (this.fileSystem.DirectoryExists(Path.Combine(rootTopLevel, ".git")))
+                {
+                    return rootTopLevel;
+                }
+                rootTopLevel = Path.GetDirectoryName(rootTopLevel);
+            }
+        }
+
+        /// <summary>
+        /// Returns the current top-level directory of the enlisment associated with the specified
+        /// repo path. This may be the root-level of a submodule. This commands maps directly to 
+        /// the behavior implied by 'git rev-parse --show-toplevel' (and is current implemented
+        /// by shelling out to this git.exe command).
+        /// </summary>
+        /// <param name="repoPath"></param>
+        /// <returns></returns>
         public string GetTopLevel(string repoPath)
         {
             const string args = "rev-parse --show-toplevel";

@@ -33,7 +33,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         }
 
         [Fact]
-        public void GetRepositoryRoot_WhenDotGitIsPresent_ReturnsTheDirectortyContainingDotGit()
+        public void GetRepositoryRoot_WhenDotGitIsPresent_ReturnsTheDirectoryContainingDotGit()
         {
             string productDirectory = Path.GetDirectoryName(DirectoryHelpers.GetEnlistmentSrcDirectory());
             string repoDirectory = Directory.GetParent(productDirectory).FullName;
@@ -215,7 +215,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         }
 
         [Fact]
-        public void GetTopLevel_WhenGitDoesnotExist()
+        public void GetTopLevel_WhenGitDoesNotExist()
         {
             var mockFileSystem = new Mock<IFileSystem>();
             mockFileSystem.Setup(x => x.DirectoryExists(It.IsAny<string>())).Returns(false);
