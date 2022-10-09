@@ -562,6 +562,33 @@ namespace Microsoft.CodeAnalysis.Sarif
             }
         }
 
+        /// <summary>
+        /// Helper method for comparing Nullable type that will properly handle the case when 'left' is null.
+        /// </summary>
+        /// <typeparam name="T">The type of Nullable.</typeparam>
+        /// <param name="left">The source item.</param>
+        /// <param name="right">The target item.</param>
+        /// <returns></returns>
+        public static int ComparesNullable<T>(this T? left, T? right) where T : struct, IComparable
+        {
+            if (left == null && right == null)
+            {
+                return 0;
+            }
+
+            if (left == null)
+            {
+                return -1;
+            }
+
+            if (right == null)
+            {
+                return 1;
+            }
+
+            return left.Value.CompareTo(right.Value);
+        }
+
         /// <summary>Checks if a character is a newline.</summary>
         /// <param name="testedCharacter">The character to check.</param>
         /// <returns>true if newline, false if not.</returns>
