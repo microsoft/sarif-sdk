@@ -3,6 +3,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Threading;
 
 namespace Microsoft.CodeAnalysis.Sarif.Writers
 {
@@ -16,6 +17,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
     {
         public CachingLogger(IEnumerable<FailureLevel> levels, IEnumerable<ResultKind> kinds) : base(levels, kinds)
         {
+            // This reader lock is used to ensure only a single writer until
+            // logging is complete, after which all threads can read Results.
+            _semaphore = new SemaphoreSlim(initialCount: 1, maxCount: 1);
         }
 
         public IDictionary<ReportingDescriptor, IList<Result>> Results { get; set; }
@@ -23,6 +27,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         public IList<Notification> ConfigurationNotifications { get; set; }
 
         public IList<Notification> ToolNotifications { get; set; }
+
+        /// <summary>
+        /// Gets or sets a boolean value that indicates whether the Results
+        /// object associated with this logger is fixed and ready to replay.
+        /// </summary>
+        public bool CacheFinalized { get; private set; }
+
+        private readonly SemaphoreSlim _semaphore;
 
         public void AnalysisStarted()
         {
@@ -34,6 +46,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
         public void AnalyzingTarget(IAnalysisContext context)
         {
+            _semaphore.Wait();
         }
 
         public void Log(ReportingDescriptor rule, Result result)
@@ -92,6 +105,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
             ToolNotifications ??= new List<Notification>();
             ToolNotifications.Add(notification);
+        }
+
+        public void ReleaseLock()
+        {
+            CacheFinalized = true;
+            _semaphore.Release();
         }
     }
 }
