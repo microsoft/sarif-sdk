@@ -74,12 +74,14 @@ namespace Microsoft.CodeAnalysis.Sarif
                 return compareResult;
             }
 
-            if (left.Guid.ComparesNullable(right.Guid) != 0)
+            compareResult = left.Guid.ComparesNullable(right.Guid);
+            if (compareResult != 0)
             {
                 return compareResult;
             }
 
-            if (left.CorrelationGuid.ComparesNullable(right.CorrelationGuid) != 0)
+            compareResult = left.CorrelationGuid.ComparesNullable(right.CorrelationGuid);
+            if (compareResult != 0)
             {
                 return compareResult;
             }

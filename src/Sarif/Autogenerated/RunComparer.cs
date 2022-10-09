@@ -98,7 +98,8 @@ namespace Microsoft.CodeAnalysis.Sarif
                 return compareResult;
             }
 
-            if (left.BaselineGuid.ComparesNullable(right.BaselineGuid) != 0)
+            compareResult = left.BaselineGuid.ComparesNullable(right.BaselineGuid);
+            if (compareResult != 0)
             {
                 return compareResult;
             }
