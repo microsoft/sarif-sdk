@@ -29,7 +29,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             var artifact = new Artifact()
             {
                 Encoding = encoding?.WebName,
-                Hashes = CreateHashesDictionary(hashData),
+                Hashes = hashData != null ? CreateHashesDictionary(hashData) : null,
             };
 
             string mimeType = SarifWriters.MimeType.DetermineFromFileExtension(uri);
