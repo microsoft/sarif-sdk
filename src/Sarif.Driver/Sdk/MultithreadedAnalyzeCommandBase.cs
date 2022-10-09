@@ -34,6 +34,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         private bool _computeHashes;
         internal TContext _rootContext;
         private int _fileContextsCount;
+        private uint _ignoredFilesCount;
         private Channel<int> readyToHashChannel;
         private OptionallyEmittedData _dataToInsert;
         private Channel<int> _resultsWritingChannel;
@@ -367,6 +368,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             this._fileContextsCount = 0;
             this._fileContexts = new ConcurrentDictionary<int, TContext>();
 
+            // INTERESTING BREAKPOINT: debug 'ERR997.NoValidAnalysisTargets : No valid analysis targets were specified.'
+            // Set a conditional breakpoint on 'matchExpression.Name' to filter by specific rules.
+            // Set a conditional breakpoint on 'searchText' to filter on specific target text patterns.
             foreach (string specifier in options.TargetFileSpecifiers)
             {
                 string normalizedSpecifier = Environment.ExpandEnvironmentVariables(specifier);
@@ -428,7 +432,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                         if (IsTargetWithinFileSizeLimit(file, _rootContext.MaxFileSizeInKilobytes))
                         {
                             sortedFiles.Add(file);
+                            continue;
                         }
+                        _ignoredFilesCount++;
                     }
 
                     foreach (string file in sortedFiles)
@@ -448,6 +454,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             }
 
             readyToHashChannel.Writer.Complete();
+
+            if (_ignoredFilesCount > 0)
+            {
+                Warnings.LogOneOrMoreFilesSkippedDueToSize(rootContext);
+            }
 
             if (_fileContextsCount == 0)
             {

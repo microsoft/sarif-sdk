@@ -531,6 +531,15 @@ namespace Microsoft.CodeAnalysis.Sarif {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to One or more files were skipped for analysis due to exceeding size limits (currently configured as {0} KB). The &apos;max-file-size-in-kb&apos; command-line argument can be used to increase this threshold..
+        /// </summary>
+        public static string WRN997_OneOrMoreFilesSkippedDueToSize {
+            get {
+                return ResourceManager.GetString("WRN997_OneOrMoreFilesSkippedDueToSize", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Rule &apos;{0}&apos; was disabled as it cannot run on the current platform &apos;{1}&apos;.  It can only run on &apos;{2}&apos;..
         /// </summary>
         public static string WRN998_NotSupportedPlatform {
