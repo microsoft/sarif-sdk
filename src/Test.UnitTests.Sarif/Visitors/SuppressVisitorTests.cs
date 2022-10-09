@@ -122,7 +122,7 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests.Visitors
 
                 if (guids)
                 {
-                    suppression.Guid.Should().NotBeNullOrEmpty();
+                    suppression.Guid.Should().NotBeNull();
                 }
 
                 if (timestamps && suppression.TryGetProperty("timeUtc", out DateTime timeUtc))

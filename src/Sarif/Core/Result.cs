@@ -80,9 +80,9 @@ namespace Microsoft.CodeAnalysis.Sarif
                 }
 
                 // Look up by this.Rule.Guid, if present
-                if (!string.IsNullOrEmpty(this.Rule?.Guid) && rules != null)
+                if (!string.IsNullOrEmpty(this.Rule?.Guid?.ToString()) && rules != null)
                 {
-                    ReportingDescriptor rule = component.GetRuleByGuid(this.Rule.Guid);
+                    ReportingDescriptor rule = component.GetRuleByGuid(this.Rule.Guid.Value);
                     if (rule != null) { return rule; }
                 }
 

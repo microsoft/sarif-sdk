@@ -214,9 +214,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             node = base.VisitResult(node);
             _ruleIndex = -1;
 
-            if (string.IsNullOrEmpty(node.Guid) && _dataToInsert.HasFlag(OptionallyEmittedData.Guids))
+            if (!node.Guid.HasValue && _dataToInsert.HasFlag(OptionallyEmittedData.Guids))
             {
-                node.Guid = Guid.NewGuid().ToString(SarifConstants.GuidFormat);
+                node.Guid = Guid.NewGuid();
             }
 
             if (_dataToInsert.HasFlag(OptionallyEmittedData.GitBlameInformation))

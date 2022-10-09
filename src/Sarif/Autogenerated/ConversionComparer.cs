@@ -10,7 +10,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// <summary>
     /// Defines methods to support the comparison of objects of type Conversion for sorting.
     /// </summary>
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "1.1.5.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "2.0.0.0")]
     internal sealed class ConversionComparer : IComparer<Conversion>
     {
         internal static readonly ConversionComparer Instance = new ConversionComparer();

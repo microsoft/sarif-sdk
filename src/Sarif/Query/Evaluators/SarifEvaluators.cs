@@ -17,9 +17,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Query.Evaluators
                 case "baselinestate":
                     return new EnumEvaluator<Result, BaselineState>(r => r.BaselineState, term);
                 case "correlationguid":
-                    return new StringEvaluator<Result>(r => r.CorrelationGuid, term, StringComparison.OrdinalIgnoreCase);
+                    return new StringEvaluator<Result>(r => r.CorrelationGuid?.ToString(), term, StringComparison.OrdinalIgnoreCase);
                 case "guid":
-                    return new StringEvaluator<Result>(r => r.Guid, term, StringComparison.OrdinalIgnoreCase);
+                    return new StringEvaluator<Result>(r => r.Guid?.ToString(), term, StringComparison.OrdinalIgnoreCase);
                 case "hostedvieweruri":
                     return new StringEvaluator<Result>(r => r.HostedViewerUri?.ToString(), term, StringComparison.OrdinalIgnoreCase);
                 case "kind":

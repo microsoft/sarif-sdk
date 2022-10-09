@@ -6,9 +6,7 @@ using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.Serialization;
-
 using Microsoft.CodeAnalysis.Sarif.Readers;
-
 using Newtonsoft.Json;
 
 namespace Microsoft.CodeAnalysis.Sarif
@@ -17,7 +15,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// Information about a rule or notification that can be configured at runtime.
     /// </summary>
     [DataContract]
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "1.1.5.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "2.0.0.0")]
     public partial class ReportingConfiguration : PropertyBagHolder, ISarifNode
     {
         public static IEqualityComparer<ReportingConfiguration> ValueComparer => ReportingConfigurationEqualityComparer.Instance;

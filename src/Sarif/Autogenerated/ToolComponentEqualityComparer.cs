@@ -10,7 +10,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// <summary>
     /// Defines methods to support the comparison of objects of type ToolComponent for equality.
     /// </summary>
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "1.1.5.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "2.0.0.0")]
     internal sealed class ToolComponentEqualityComparer : IEqualityComparer<ToolComponent>
     {
         internal static readonly ToolComponentEqualityComparer Instance = new ToolComponentEqualityComparer();
@@ -294,11 +294,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             int result = 17;
             unchecked
             {
-                if (obj.Guid != null)
-                {
-                    result = (result * 31) + obj.Guid.GetHashCode();
-                }
-
+                result = (result * 31) + obj.Guid.GetHashCode();
                 if (obj.Name != null)
                 {
                     result = (result * 31) + obj.Name.GetHashCode();

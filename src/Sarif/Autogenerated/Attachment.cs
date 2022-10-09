@@ -13,7 +13,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// An artifact relevant to a result.
     /// </summary>
     [DataContract]
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "1.1.5.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "2.0.0.0")]
     public partial class Attachment : PropertyBagHolder, ISarifNode
     {
         public static IEqualityComparer<Attachment> ValueComparer => AttachmentEqualityComparer.Instance;

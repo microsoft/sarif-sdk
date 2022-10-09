@@ -178,7 +178,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         [Fact]
         public void ResultLogJsonWriter_WritesAutomationDetails()
         {
-            string instanceGuid = Guid.NewGuid().ToString();
+            var instanceGuid = Guid.NewGuid();
             string automationLogicalId = Guid.NewGuid().ToString();
             string instanceId = automationLogicalId + "/" + instanceGuid;
 

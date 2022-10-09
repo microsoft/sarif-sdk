@@ -6,7 +6,6 @@ using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.Serialization;
-
 using Newtonsoft.Json;
 
 namespace Microsoft.CodeAnalysis.Sarif
@@ -15,7 +14,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// A physical or virtual address, or a range of addresses, in an 'addressable region' (memory or a binary file).
     /// </summary>
     [DataContract]
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "1.1.5.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "2.0.0.0")]
     public partial class Address : PropertyBagHolder, ISarifNode
     {
         public static IEqualityComparer<Address> ValueComparer => AddressEqualityComparer.Instance;

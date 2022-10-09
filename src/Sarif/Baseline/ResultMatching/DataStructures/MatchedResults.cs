@@ -170,7 +170,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
             Result result = (CurrentResult ?? PreviousResult).Result.DeepClone();
 
             // Assign a Guid, if not assigned by the Result producer
-            result.Guid = result.Guid ?? Guid.NewGuid().ToString(SarifConstants.GuidFormat);
+            result.Guid = result.Guid ?? Guid.NewGuid();
 
             // Assign a CorrelationGuid to map copies of this logical Result across baselined logs to each other
             if (PreviousResult?.Result == null)

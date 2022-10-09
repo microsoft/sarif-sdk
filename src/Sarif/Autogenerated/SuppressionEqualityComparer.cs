@@ -10,7 +10,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// <summary>
     /// Defines methods to support the comparison of objects of type Suppression for equality.
     /// </summary>
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "1.1.5.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "2.0.0.0")]
     internal sealed class SuppressionEqualityComparer : IEqualityComparer<Suppression>
     {
         internal static readonly SuppressionEqualityComparer Instance = new SuppressionEqualityComparer();
@@ -87,11 +87,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             int result = 17;
             unchecked
             {
-                if (obj.Guid != null)
-                {
-                    result = (result * 31) + obj.Guid.GetHashCode();
-                }
-
+                result = (result * 31) + obj.Guid.GetHashCode();
                 result = (result * 31) + obj.Kind.GetHashCode();
                 result = (result * 31) + obj.Status.GetHashCode();
                 if (obj.Justification != null)

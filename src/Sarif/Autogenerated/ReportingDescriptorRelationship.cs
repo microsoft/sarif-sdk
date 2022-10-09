@@ -13,7 +13,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// Information about the relation of one reporting descriptor to another.
     /// </summary>
     [DataContract]
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "1.1.5.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "2.0.0.0")]
     public partial class ReportingDescriptorRelationship : PropertyBagHolder, ISarifNode
     {
         public static IEqualityComparer<ReportingDescriptorRelationship> ValueComparer => ReportingDescriptorRelationshipEqualityComparer.Instance;

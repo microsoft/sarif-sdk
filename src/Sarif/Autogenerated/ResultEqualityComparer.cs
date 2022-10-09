@@ -10,7 +10,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// <summary>
     /// Defines methods to support the comparison of objects of type Result for equality.
     /// </summary>
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "1.1.5.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "2.0.0.0")]
     internal sealed class ResultEqualityComparer : IEqualityComparer<Result>
     {
         internal static readonly ResultEqualityComparer Instance = new ResultEqualityComparer();
@@ -452,16 +452,8 @@ namespace Microsoft.CodeAnalysis.Sarif
                     }
                 }
 
-                if (obj.Guid != null)
-                {
-                    result = (result * 31) + obj.Guid.GetHashCode();
-                }
-
-                if (obj.CorrelationGuid != null)
-                {
-                    result = (result * 31) + obj.CorrelationGuid.GetHashCode();
-                }
-
+                result = (result * 31) + obj.Guid.GetHashCode();
+                result = (result * 31) + obj.CorrelationGuid.GetHashCode();
                 result = (result * 31) + obj.OccurrenceCount.GetHashCode();
                 if (obj.PartialFingerprints != null)
                 {

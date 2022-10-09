@@ -10,7 +10,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// <summary>
     /// Defines methods to support the comparison of objects of type ExternalProperties for equality.
     /// </summary>
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "1.1.5.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "2.0.0.0")]
     internal sealed class ExternalPropertiesEqualityComparer : IEqualityComparer<ExternalProperties>
     {
         internal static readonly ExternalPropertiesEqualityComparer Instance = new ExternalPropertiesEqualityComparer();
@@ -376,16 +376,8 @@ namespace Microsoft.CodeAnalysis.Sarif
                 }
 
                 result = (result * 31) + obj.Version.GetHashCode();
-                if (obj.Guid != null)
-                {
-                    result = (result * 31) + obj.Guid.GetHashCode();
-                }
-
-                if (obj.RunGuid != null)
-                {
-                    result = (result * 31) + obj.RunGuid.GetHashCode();
-                }
-
+                result = (result * 31) + obj.Guid.GetHashCode();
+                result = (result * 31) + obj.RunGuid.GetHashCode();
                 if (obj.Conversion != null)
                 {
                     result = (result * 31) + obj.Conversion.ValueGetHashCode();

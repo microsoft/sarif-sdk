@@ -37,8 +37,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
             Random random = RandomSarifLogGenerator.GenerateRandomAndLog(this.output);
             SarifLog baselineLog = RandomSarifLogGenerator.GenerateSarifLogWithRuns(random, 1);
             SarifLog currentLog = baselineLog.DeepClone();
-            baselineLog.Runs[0].AutomationDetails = new RunAutomationDetails { Guid = Guid.NewGuid().ToString() };
-            currentLog.Runs[0].AutomationDetails = new RunAutomationDetails { Guid = Guid.NewGuid().ToString() };
+            baselineLog.Runs[0].AutomationDetails = new RunAutomationDetails { Guid = Guid.NewGuid() };
+            currentLog.Runs[0].AutomationDetails = new RunAutomationDetails { Guid = Guid.NewGuid() };
 
             // This code exists to force a result to diverge from the previous run. By modifying this tag, 
             // we ensure that at least one result will be regarded as new (which implies one result
@@ -54,7 +54,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
 
             foreach (Result result in baselineLog.Runs[0].Results)
             {
-                result.CorrelationGuid = Guid.NewGuid().ToString();
+                result.CorrelationGuid = Guid.NewGuid();
             }
 
             SarifLog calculatedNextBaseline = s_preserveOldestPropertyBagMatcher.Match(new SarifLog[] { baselineLog }, new SarifLog[] { currentLog }).First();
@@ -68,13 +68,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
             {
                 calculatedNextBaseline.Runs[0].Results.Should().HaveCount(currentLog.Runs[0].Results.Count + 1);
 
-                calculatedNextBaseline.Runs[0].Results.Where(r => string.IsNullOrEmpty(r.CorrelationGuid)).Should().HaveCount(0);
+                calculatedNextBaseline.Runs[0].Results.Where(r => string.IsNullOrEmpty(r.CorrelationGuid?.ToString())).Should().HaveCount(0);
 
                 calculatedNextBaseline.Runs[0].Results.Where(r => r.BaselineState == BaselineState.Absent).Should().HaveCount(1);
 
                 calculatedNextBaseline.Runs[0].Results.Where(r => r.BaselineState == BaselineState.Absent).First().TryGetProperty(SarifLogResultMatcher.ResultMatchingResultPropertyName, out Dictionary<string, string> AbsentResultProperties).Should().BeTrue();
                 AbsentResultProperties.Should().ContainKey("Run");
-                AbsentResultProperties["Run"].Should().BeEquivalentTo(baselineLog.Runs[0].AutomationDetails.Guid);
+                AbsentResultProperties["Run"].Should().BeEquivalentTo(baselineLog.Runs[0].AutomationDetails.Guid?.ToString());
 
                 if (currentLog.Runs[0].Results.Count > 1)
                 {
@@ -82,13 +82,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
 
                     calculatedNextBaseline.Runs[0].Results.Where(r => r.BaselineState == BaselineState.Unchanged).First().TryGetProperty(SarifLogResultMatcher.ResultMatchingResultPropertyName, out Dictionary<string, string> CurrentResultProperties).Should().BeTrue();
                     CurrentResultProperties.Should().ContainKey("Run");
-                    CurrentResultProperties["Run"].Should().BeEquivalentTo(currentLog.Runs[0].AutomationDetails.Guid);
+                    CurrentResultProperties["Run"].Should().BeEquivalentTo(currentLog.Runs[0].AutomationDetails.Guid?.ToString());
                 }
                 calculatedNextBaseline.Runs[0].Results.Where(r => r.BaselineState == BaselineState.New).Should().HaveCount(1);
 
                 calculatedNextBaseline.Runs[0].Results.Where(r => r.BaselineState == BaselineState.New).First().TryGetProperty(SarifLogResultMatcher.ResultMatchingResultPropertyName, out Dictionary<string, string> NewResultProperties).Should().BeTrue();
                 NewResultProperties.Should().ContainKey("Run");
-                NewResultProperties["Run"].Should().BeEquivalentTo(currentLog.Runs[0].AutomationDetails.Guid);
+                NewResultProperties["Run"].Should().BeEquivalentTo(currentLog.Runs[0].AutomationDetails.Guid?.ToString());
             }
         }
 
@@ -201,14 +201,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
             SarifLog baselineLog = RandomSarifLogGenerator.GenerateSarifLogWithRuns(random, 1);
             SarifLog currentLog = new SarifLog();
             currentLog.Runs = new Run[] { new Run() };
-            baselineLog.Runs[0].AutomationDetails = new RunAutomationDetails { Guid = Guid.NewGuid().ToString() };
+            baselineLog.Runs[0].AutomationDetails = new RunAutomationDetails { Guid = Guid.NewGuid() };
 
-            currentLog.Runs[0].AutomationDetails = new RunAutomationDetails { Guid = Guid.NewGuid().ToString() };
+            currentLog.Runs[0].AutomationDetails = new RunAutomationDetails { Guid = Guid.NewGuid() };
             currentLog.Runs[0].Tool = new Tool() { Driver = new ToolComponent { Name = "Test" } };
 
             foreach (Result result in baselineLog.Runs[0].Results)
             {
-                result.CorrelationGuid = Guid.NewGuid().ToString();
+                result.CorrelationGuid = Guid.NewGuid();
             }
 
             SarifLog calculatedNextBaseline = s_preserveOldestPropertyBagMatcher.Match(new SarifLog[] { baselineLog }, new SarifLog[] { currentLog }).First();
@@ -218,12 +218,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
             if (baselineLog.Runs[0].Results.Any())
             {
                 calculatedNextBaseline.Runs[0].Results.Should().HaveCount(baselineLog.Runs[0].Results.Count);
-                calculatedNextBaseline.Runs[0].Results.Where(r => string.IsNullOrEmpty(r.CorrelationGuid)).Should().HaveCount(0);
+                calculatedNextBaseline.Runs[0].Results.Where(r => string.IsNullOrEmpty(r.CorrelationGuid?.ToString())).Should().HaveCount(0);
                 calculatedNextBaseline.Runs[0].Results.Where(r => r.BaselineState == BaselineState.Absent).Should().HaveCount(baselineLog.Runs[0].Results.Count);
 
                 calculatedNextBaseline.Runs[0].Results.Where(r => r.BaselineState == BaselineState.Absent).First().TryGetProperty(SarifLogResultMatcher.ResultMatchingResultPropertyName, out Dictionary<string, string> AbsentResultProperties).Should().BeTrue();
                 AbsentResultProperties.Should().ContainKey("Run");
-                AbsentResultProperties["Run"].Should().BeEquivalentTo(baselineLog.Runs[0].AutomationDetails.Guid);
+                AbsentResultProperties["Run"].Should().BeEquivalentTo(baselineLog.Runs[0].AutomationDetails.Guid?.ToString());
             }
         }
 
@@ -232,7 +232,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
         {
             Random random = RandomSarifLogGenerator.GenerateRandomAndLog(this.output);
             SarifLog currentLog = RandomSarifLogGenerator.GenerateSarifLogWithRuns(random, 1);
-            currentLog.Runs[0].AutomationDetails = new RunAutomationDetails { Guid = Guid.NewGuid().ToString() };
+            currentLog.Runs[0].AutomationDetails = new RunAutomationDetails { Guid = Guid.NewGuid() };
 
             SarifLog calculatedNextBaseline = s_preserveOldestPropertyBagMatcher.Match(null, new SarifLog[] { currentLog }).First();
 
@@ -245,7 +245,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
 
                 // They should all have correllation ids
                 calculatedNextBaseline.Runs[0]
-                    .Results.Where(r => string.IsNullOrEmpty(r.CorrelationGuid)).Should().HaveCount(0);
+                    .Results.Where(r => string.IsNullOrEmpty(r.CorrelationGuid?.ToString())).Should().HaveCount(0);
 
                 // They should all be new.
                 calculatedNextBaseline.Runs[0]
@@ -259,7 +259,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
                     out Dictionary<string, object> NewResultProperties)
                     .Should().BeTrue();
                 NewResultProperties.Should().ContainKey("Run");
-                NewResultProperties["Run"].Should().BeEquivalentTo(currentLog.Runs[0].AutomationDetails.Guid);
+                NewResultProperties["Run"].Should().BeEquivalentTo(currentLog.Runs[0].AutomationDetails.Guid?.ToString());
             }
         }
 
@@ -268,7 +268,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
         {
             Random random = RandomSarifLogGenerator.GenerateRandomAndLog(this.output);
             SarifLog currentLog = RandomSarifLogGenerator.GenerateSarifLogWithRuns(random, 1);
-            currentLog.Runs[0].AutomationDetails = new RunAutomationDetails { Guid = Guid.NewGuid().ToString() };
+            currentLog.Runs[0].AutomationDetails = new RunAutomationDetails { Guid = Guid.NewGuid() };
 
             SarifLog calculatedNextBaseline = s_preserveOldestPropertyBagMatcher.Match(new SarifLog[0], new SarifLog[] { currentLog }).First();
 
@@ -281,7 +281,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
 
                 // They should all have correllation ids
                 calculatedNextBaseline.Runs[0]
-                    .Results.Where(r => string.IsNullOrEmpty(r.CorrelationGuid)).Should().HaveCount(0);
+                    .Results.Where(r => string.IsNullOrEmpty(r.CorrelationGuid?.ToString())).Should().HaveCount(0);
 
                 // They should all be new.
                 calculatedNextBaseline.Runs[0]
@@ -295,7 +295,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
                     out Dictionary<string, object> NewResultProperties)
                     .Should().BeTrue();
                 NewResultProperties.Should().ContainKey("Run");
-                NewResultProperties["Run"].Should().BeEquivalentTo(currentLog.Runs[0].AutomationDetails.Guid);
+                NewResultProperties["Run"].Should().BeEquivalentTo(currentLog.Runs[0].AutomationDetails.Guid?.ToString());
             }
         }
 

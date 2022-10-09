@@ -10,7 +10,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// <summary>
     /// Defines methods to support the comparison of objects of type RunAutomationDetails for equality.
     /// </summary>
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "1.1.5.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "2.0.0.0")]
     internal sealed class RunAutomationDetailsEqualityComparer : IEqualityComparer<RunAutomationDetails>
     {
         internal static readonly RunAutomationDetailsEqualityComparer Instance = new RunAutomationDetailsEqualityComparer();
@@ -92,16 +92,8 @@ namespace Microsoft.CodeAnalysis.Sarif
                     result = (result * 31) + obj.Id.GetHashCode();
                 }
 
-                if (obj.Guid != null)
-                {
-                    result = (result * 31) + obj.Guid.GetHashCode();
-                }
-
-                if (obj.CorrelationGuid != null)
-                {
-                    result = (result * 31) + obj.CorrelationGuid.GetHashCode();
-                }
-
+                result = (result * 31) + obj.Guid.GetHashCode();
+                result = (result * 31) + obj.CorrelationGuid.GetHashCode();
                 if (obj.Properties != null)
                 {
                     // Use xor for dictionaries to be order-independent.

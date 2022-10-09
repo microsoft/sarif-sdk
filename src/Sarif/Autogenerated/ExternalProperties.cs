@@ -13,7 +13,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// The top-level element of an external property file.
     /// </summary>
     [DataContract]
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "1.1.5.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "2.0.0.0")]
     public partial class ExternalProperties : PropertyBagHolder, ISarifNode
     {
         public static IEqualityComparer<ExternalProperties> ValueComparer => ExternalPropertiesEqualityComparer.Instance;
@@ -51,13 +51,13 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// A stable, unique identifier for this external properties object, in the form of a GUID.
         /// </summary>
         [DataMember(Name = "guid", IsRequired = false, EmitDefaultValue = false)]
-        public virtual string Guid { get; set; }
+        public virtual Guid Guid { get; set; }
 
         /// <summary>
         /// A stable, unique identifier for the run associated with this external properties object, in the form of a GUID.
         /// </summary>
         [DataMember(Name = "runGuid", IsRequired = false, EmitDefaultValue = false)]
-        public virtual string RunGuid { get; set; }
+        public virtual Guid RunGuid { get; set; }
 
         /// <summary>
         /// A conversion object that will be merged with a separate run.
@@ -246,7 +246,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="properties">
         /// An initialization value for the <see cref="P:Properties" /> property.
         /// </param>
-        public ExternalProperties(Uri schema, SarifVersion version, string guid, string runGuid, Conversion conversion, IEnumerable<Graph> graphs, PropertyBag externalizedProperties, IEnumerable<Artifact> artifacts, IEnumerable<Invocation> invocations, IEnumerable<LogicalLocation> logicalLocations, IEnumerable<ThreadFlowLocation> threadFlowLocations, IEnumerable<Result> results, IEnumerable<ToolComponent> taxonomies, ToolComponent driver, IEnumerable<ToolComponent> extensions, IEnumerable<ToolComponent> policies, IEnumerable<ToolComponent> translations, IEnumerable<Address> addresses, IEnumerable<WebRequest> webRequests, IEnumerable<WebResponse> webResponses, IDictionary<string, SerializedPropertyInfo> properties)
+        public ExternalProperties(Uri schema, SarifVersion version, Guid guid, Guid runGuid, Conversion conversion, IEnumerable<Graph> graphs, PropertyBag externalizedProperties, IEnumerable<Artifact> artifacts, IEnumerable<Invocation> invocations, IEnumerable<LogicalLocation> logicalLocations, IEnumerable<ThreadFlowLocation> threadFlowLocations, IEnumerable<Result> results, IEnumerable<ToolComponent> taxonomies, ToolComponent driver, IEnumerable<ToolComponent> extensions, IEnumerable<ToolComponent> policies, IEnumerable<ToolComponent> translations, IEnumerable<Address> addresses, IEnumerable<WebRequest> webRequests, IEnumerable<WebResponse> webResponses, IDictionary<string, SerializedPropertyInfo> properties)
         {
             Init(schema, version, guid, runGuid, conversion, graphs, externalizedProperties, artifacts, invocations, logicalLocations, threadFlowLocations, results, taxonomies, driver, extensions, policies, translations, addresses, webRequests, webResponses, properties);
         }
@@ -288,7 +288,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new ExternalProperties(this);
         }
 
-        protected virtual void Init(Uri schema, SarifVersion version, string guid, string runGuid, Conversion conversion, IEnumerable<Graph> graphs, PropertyBag externalizedProperties, IEnumerable<Artifact> artifacts, IEnumerable<Invocation> invocations, IEnumerable<LogicalLocation> logicalLocations, IEnumerable<ThreadFlowLocation> threadFlowLocations, IEnumerable<Result> results, IEnumerable<ToolComponent> taxonomies, ToolComponent driver, IEnumerable<ToolComponent> extensions, IEnumerable<ToolComponent> policies, IEnumerable<ToolComponent> translations, IEnumerable<Address> addresses, IEnumerable<WebRequest> webRequests, IEnumerable<WebResponse> webResponses, IDictionary<string, SerializedPropertyInfo> properties)
+        protected virtual void Init(Uri schema, SarifVersion version, Guid guid, Guid runGuid, Conversion conversion, IEnumerable<Graph> graphs, PropertyBag externalizedProperties, IEnumerable<Artifact> artifacts, IEnumerable<Invocation> invocations, IEnumerable<LogicalLocation> logicalLocations, IEnumerable<ThreadFlowLocation> threadFlowLocations, IEnumerable<Result> results, IEnumerable<ToolComponent> taxonomies, ToolComponent driver, IEnumerable<ToolComponent> extensions, IEnumerable<ToolComponent> policies, IEnumerable<ToolComponent> translations, IEnumerable<Address> addresses, IEnumerable<WebRequest> webRequests, IEnumerable<WebResponse> webResponses, IDictionary<string, SerializedPropertyInfo> properties)
         {
             if (schema != null)
             {

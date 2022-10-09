@@ -10,7 +10,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// <summary>
     /// Defines methods to support the comparison of objects of type ReportingDescriptor for equality.
     /// </summary>
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "1.1.5.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "2.0.0.0")]
     internal sealed class ReportingDescriptorEqualityComparer : IEqualityComparer<ReportingDescriptor>
     {
         internal static readonly ReportingDescriptorEqualityComparer Instance = new ReportingDescriptorEqualityComparer();
@@ -225,20 +225,13 @@ namespace Microsoft.CodeAnalysis.Sarif
                     }
                 }
 
-                if (obj.Guid != null)
-                {
-                    result = (result * 31) + obj.Guid.GetHashCode();
-                }
-
+                result = (result * 31) + obj.Guid.GetHashCode();
                 if (obj.DeprecatedGuids != null)
                 {
                     foreach (var value_5 in obj.DeprecatedGuids)
                     {
                         result = result * 31;
-                        if (value_5 != null)
-                        {
-                            result = (result * 31) + value_5.GetHashCode();
-                        }
+                        result = (result * 31) + value_5.GetHashCode();
                     }
                 }
 

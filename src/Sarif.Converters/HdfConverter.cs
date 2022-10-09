@@ -41,7 +41,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                         Version = hdfFile.Version,
                         InformationUri = new Uri(ToolInformationUri),
                         Rules = rulesAndResults.Item1,
-                        SupportedTaxonomies = new List<ToolComponentReference>() { new ToolComponentReference() { Name = "NIST SP800-53 v5", Guid = "AAFBAB93-5201-419E-8443-D4925C542398" } }
+                        SupportedTaxonomies = new List<ToolComponentReference>() { new ToolComponentReference() { Name = "NIST SP800-53 v5", Guid = Guid.Parse("AAFBAB93-5201-419E-8443-D4925C542398") } }
                     }
                 },
                 ExternalPropertyFileReferences = new ExternalPropertyFileReferences()
@@ -54,7 +54,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                             {
                                 Uri = new Uri("https://raw.githubusercontent.com/sarif-standard/taxonomies/main/NIST_SP800-53_v5.sarif"),
                             },
-                            Guid = "AAFBAB93-5201-419E-8443-D4925C542398"
+                            Guid = Guid.Parse("AAFBAB93-5201-419E-8443-D4925C542398")
                         }
                     }
                 },
@@ -111,7 +111,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                             ToolComponent = new ToolComponentReference()
                             {
                                 Name = "NIST",
-                                Guid = "AAFBAB93-5201-419E-8443-D4925C542398"
+                                Guid = Guid.Parse("AAFBAB93-5201-419E-8443-D4925C542398")
                             }
                         },
                         Kinds = new List<string>() { "relevant" },

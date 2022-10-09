@@ -1,6 +1,7 @@
 ﻿// Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
+using System;
 using System.Collections.ObjectModel;
 using System.Text;
 
@@ -23,7 +24,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
                 if (actualOutput != item.ExpectedOutput)
                 {
-                    sb.AppendLine($"    Input: {item.ToolComponentReference.Index} {item.ToolComponentReference.Guid ?? "null"} {item.DriverGuid ?? "null"} Expected: {item.ExpectedOutput} Actual: {actualOutput}");
+                    sb.AppendLine($"    Input: {item.ToolComponentReference.Index} {item.ToolComponentReference.Guid?.ToString() ?? "null"} {item.DriverGuid?.ToString() ?? "null"} Expected: {item.ExpectedOutput} Actual: {actualOutput}");
                 }
             }
 
@@ -33,7 +34,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
         private class ToolComponentReferenceTestCase
         {
-            public ToolComponentReferenceTestCase(int index, string toolGuid, string driverGuid, bool expectedOutput)
+            public ToolComponentReferenceTestCase(int index, Guid? toolGuid, Guid? driverGuid, bool expectedOutput)
             {
                 ToolComponentReference = new ToolComponentReference
                 {
@@ -46,16 +47,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             }
 
             public ToolComponentReference ToolComponentReference { get; }
-            public string DriverGuid { get; }
+            public Guid? DriverGuid { get; }
             public bool ExpectedOutput { get; }
         }
 
         private static readonly ReadOnlyCollection<ToolComponentReferenceTestCase> s_toolComponentReferenceTestCases =
             new ReadOnlyCollection<ToolComponentReferenceTestCase>(new[] {
                 new ToolComponentReferenceTestCase(-1, null, null, true),
-                new ToolComponentReferenceTestCase(-1, "774707BC-6949-4DB5-826D-9FC0E38BFDEE", "774707BC-6949-4DB5-826D-9FC0E38BFDEE", true),
-                new ToolComponentReferenceTestCase(-1, "774707BC-6949-4DB5-826D-9FC0E38BFDEF", "774707BC-6949-4DB5-826D-9FC0E38BFDEE", false),
-                new ToolComponentReferenceTestCase(2, "774707BC-6949-4DB5-826D-9FC0E38BFDEE", "774707BC-6949-4DB5-826D-9FC0E38BFDEE", false)
+                new ToolComponentReferenceTestCase(-1, Guid.Parse("774707BC-6949-4DB5-826D-9FC0E38BFDEE"), Guid.Parse("774707BC-6949-4DB5-826D-9FC0E38BFDEE"), true),
+                new ToolComponentReferenceTestCase(-1, Guid.Parse("774707BC-6949-4DB5-826D-9FC0E38BFDEF"), Guid.Parse("774707BC-6949-4DB5-826D-9FC0E38BFDEE"), false),
+                new ToolComponentReferenceTestCase(2, Guid.Parse("774707BC-6949-4DB5-826D-9FC0E38BFDEE"), Guid.Parse("774707BC-6949-4DB5-826D-9FC0E38BFDEE"), false)
         });
     }
 }

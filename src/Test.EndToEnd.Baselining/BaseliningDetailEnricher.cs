@@ -1,6 +1,7 @@
 // Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text.RegularExpressions;
@@ -36,7 +37,7 @@ namespace Test.EndToEnd.Baselining
         {
             foreach (Result result in currentLog.EnumerateResults())
             {
-                DetailByGuid[result.Guid] = Details(result);
+                DetailByGuid[result.Guid?.ToString()] = Details(result);
             }
         }
 
