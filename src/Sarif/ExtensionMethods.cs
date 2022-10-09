@@ -569,7 +569,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="left">The source item.</param>
         /// <param name="right">The target item.</param>
         /// <returns></returns>
-        public static int ComparesNullable<T>(this T? left, T? right) where T : struct, IComparable
+        public static int CompareTo<T>(this T? left, T? right) where T : struct, IComparable
         {
             if (left == null && right == null)
             {

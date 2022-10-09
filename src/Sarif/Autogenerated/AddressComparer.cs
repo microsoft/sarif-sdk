@@ -32,13 +32,13 @@ namespace Microsoft.CodeAnalysis.Sarif
                 return compareResult;
             }
 
-            compareResult = left.RelativeAddress.ComparesNullable(right.RelativeAddress);
+            compareResult = left.RelativeAddress.CompareTo(right.RelativeAddress);
             if (compareResult != 0)
             {
                 return compareResult;
             }
 
-            compareResult = left.Length.ComparesNullable(right.Length);
+            compareResult = left.Length.CompareTo(right.Length);
             if (compareResult != 0)
             {
                 return compareResult;
@@ -62,7 +62,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 return compareResult;
             }
 
-            compareResult = left.OffsetFromParent.ComparesNullable(right.OffsetFromParent);
+            compareResult = left.OffsetFromParent.CompareTo(right.OffsetFromParent);
             if (compareResult != 0)
             {
                 return compareResult;

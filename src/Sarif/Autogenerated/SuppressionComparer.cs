@@ -26,7 +26,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 return compareResult;
             }
 
-            compareResult = left.Guid.ComparesNullable(right.Guid);
+            compareResult = left.Guid.CompareTo(right.Guid);
             if (compareResult != 0)
             {
                 return compareResult;
