@@ -1,10 +1,12 @@
 ﻿// Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-using Microsoft.Coyote.IO;
 using System;
 using System.IO;
 using System.Text;
+
+using Microsoft.Coyote.IO;
+
 using Xunit.Abstractions;
 
 namespace Microsoft.CodeAnalysis.Sarif.Driver
