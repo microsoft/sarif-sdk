@@ -9,17 +9,42 @@ namespace Microsoft.CodeAnalysis.Sarif
 {
     public static class Warnings
     {
-        // Configuration warnings:
+        // Conditions that may indicate an issue with command-line configuration.
         public const string Wrn997_InvalidTarget = "WRN997.InvalidTarget";
+        public const string Wrn997_OneOrMoreFilesSkippedDueToSize = "WRN997.OneOrMoreFilesSkippedDueToSize";
 
         public const string Wrn997_ObsoleteOption = "WRN997.ObsoleteOption";
         public const string Wrn997_ObsoleteOptionWithReplacement = "WRN997.ObsoleteOptionWithReplacement";
 
-        // Rule disabling tool warnings:
+        // (Non-catastrophic) conditions that result in rules disabling themselves.
         public const string Wrn998_UnsupportedPlatform = "WRN998.UnsupportedPlatform";
 
-        // Analysis halting tool warnings:
+        // Warnings around dangerous
         public const string Wrn999_RuleExplicitlyDisabled = "WRN999.RuleExplicitlyDisabled";
+
+        public static void LogOneOrMoreFilesSkippedDueToSize(IAnalysisContext context)
+        {
+            if (context == null)
+            {
+                throw new ArgumentNullException(nameof(context));
+            }
+
+            // One or more files were skipped for analysis due to exceeding size limits
+            // (currently configured as {0} kilobytes). The 'max-file-size-in-kb'
+            // command-line argument can be used to increase this threshold.
+            context.Logger.LogConfigurationNotification(
+                Errors.CreateNotification(
+                    context.TargetUri,
+                    Wrn997_OneOrMoreFilesSkippedDueToSize,
+                    ruleId: null,
+                    FailureLevel.Warning,
+                    exception: null,
+                    persistExceptionStack: false,
+                    messageFormat: null,
+                    context.MaxFileSizeInKilobytes.ToString()));
+
+            context.RuntimeErrors |= RuntimeConditions.OneOrMoreFilesSkippedDueToSize;
+        }
 
         public static void LogExceptionInvalidTarget(IAnalysisContext context)
         {
