@@ -584,7 +584,7 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Core
             }
             else
             {
-                sarifLogText.Should().Contain(automationDetails.Guid.ToString());
+                sarifLogText.Should().Contain(automationDetails.Guid.Value.ToString(SarifConstants.GuidFormat));
             }
 
             if (automationDetails.CorrelationGuid == null)
@@ -594,7 +594,7 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Core
             }
             else
             {
-                sarifLogText.Should().Contain(automationDetails.CorrelationGuid.ToString());
+                sarifLogText.Should().Contain(automationDetails.CorrelationGuid.Value.ToString(SarifConstants.GuidFormat));
             }
 
             if (automationDetails.Description == null)
