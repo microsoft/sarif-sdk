@@ -115,7 +115,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="properties">
         /// An initialization value for the <see cref="P:Properties" /> property.
         /// </param>
-        public ResultProvenance(DateTime firstDetectionTimeUtc, DateTime lastDetectionTimeUtc, Guid firstDetectionRunGuid, Guid lastDetectionRunGuid, int invocationIndex, IEnumerable<PhysicalLocation> conversionSources, IDictionary<string, SerializedPropertyInfo> properties)
+        public ResultProvenance(DateTime firstDetectionTimeUtc, DateTime lastDetectionTimeUtc, Guid? firstDetectionRunGuid, Guid? lastDetectionRunGuid, int invocationIndex, IEnumerable<PhysicalLocation> conversionSources, IDictionary<string, SerializedPropertyInfo> properties)
         {
             Init(firstDetectionTimeUtc, lastDetectionTimeUtc, firstDetectionRunGuid, lastDetectionRunGuid, invocationIndex, conversionSources, properties);
         }

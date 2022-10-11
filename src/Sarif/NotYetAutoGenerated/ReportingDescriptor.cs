@@ -179,7 +179,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="properties">
         /// An initialization value for the <see cref="P:Properties" /> property.
         /// </param>
-        public ReportingDescriptor(string id, IEnumerable<string> deprecatedIds, Guid guid, IEnumerable<Guid> deprecatedGuids, string name, IEnumerable<string> deprecatedNames, MultiformatMessageString shortDescription, MultiformatMessageString fullDescription, IDictionary<string, MultiformatMessageString> messageStrings, ReportingConfiguration defaultConfiguration, Uri helpUri, MultiformatMessageString help, IEnumerable<ReportingDescriptorRelationship> relationships, IDictionary<string, SerializedPropertyInfo> properties)
+        public ReportingDescriptor(string id, IEnumerable<string> deprecatedIds, Guid? guid, IEnumerable<Guid> deprecatedGuids, string name, IEnumerable<string> deprecatedNames, MultiformatMessageString shortDescription, MultiformatMessageString fullDescription, IDictionary<string, MultiformatMessageString> messageStrings, ReportingConfiguration defaultConfiguration, Uri helpUri, MultiformatMessageString help, IEnumerable<ReportingDescriptorRelationship> relationships, IDictionary<string, SerializedPropertyInfo> properties)
         {
             Init(id, deprecatedIds, guid, deprecatedGuids, name, deprecatedNames, shortDescription, fullDescription, messageStrings, defaultConfiguration, helpUri, help, relationships, properties);
         }

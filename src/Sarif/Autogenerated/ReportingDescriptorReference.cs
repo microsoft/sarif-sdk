@@ -94,7 +94,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="properties">
         /// An initialization value for the <see cref="P:Properties" /> property.
         /// </param>
-        public ReportingDescriptorReference(string id, int index, Guid guid, ToolComponentReference toolComponent, IDictionary<string, SerializedPropertyInfo> properties)
+        public ReportingDescriptorReference(string id, int index, Guid? guid, ToolComponentReference toolComponent, IDictionary<string, SerializedPropertyInfo> properties)
         {
             Init(id, index, guid, toolComponent, properties);
         }

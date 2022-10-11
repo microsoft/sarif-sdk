@@ -101,7 +101,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="properties">
         /// An initialization value for the <see cref="P:Properties" /> property.
         /// </param>
-        public Suppression(Guid guid, SuppressionKind kind, SuppressionStatus status, string justification, Location location, IDictionary<string, SerializedPropertyInfo> properties)
+        public Suppression(Guid? guid, SuppressionKind kind, SuppressionStatus status, string justification, Location location, IDictionary<string, SerializedPropertyInfo> properties)
         {
             Init(guid, kind, status, justification, location, properties);
         }

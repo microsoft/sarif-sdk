@@ -88,7 +88,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="properties">
         /// An initialization value for the <see cref="P:Properties" /> property.
         /// </param>
-        public RunAutomationDetails(Message description, string id, Guid guid, Guid correlationGuid, IDictionary<string, SerializedPropertyInfo> properties)
+        public RunAutomationDetails(Message description, string id, Guid? guid, Guid? correlationGuid, IDictionary<string, SerializedPropertyInfo> properties)
         {
             Init(description, id, guid, correlationGuid, properties);
         }

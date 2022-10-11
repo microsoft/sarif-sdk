@@ -85,7 +85,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="properties">
         /// An initialization value for the <see cref="P:Properties" /> property.
         /// </param>
-        public ExternalPropertyFileReference(ArtifactLocation location, Guid guid, int itemCount, IDictionary<string, SerializedPropertyInfo> properties)
+        public ExternalPropertyFileReference(ArtifactLocation location, Guid? guid, int itemCount, IDictionary<string, SerializedPropertyInfo> properties)
         {
             Init(location, guid, itemCount, properties);
         }

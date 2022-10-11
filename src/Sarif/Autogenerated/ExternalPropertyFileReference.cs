@@ -6,6 +6,7 @@ using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.Serialization;
+
 using Newtonsoft.Json;
 
 namespace Microsoft.CodeAnalysis.Sarif
@@ -84,7 +85,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="properties">
         /// An initialization value for the <see cref="P:Properties" /> property.
         /// </param>
-        public ExternalPropertyFileReference(ArtifactLocation location, Guid guid, int itemCount, IDictionary<string, SerializedPropertyInfo> properties)
+        public ExternalPropertyFileReference(ArtifactLocation location, Guid? guid, int itemCount, IDictionary<string, SerializedPropertyInfo> properties)
         {
             Init(location, guid, itemCount, properties);
         }

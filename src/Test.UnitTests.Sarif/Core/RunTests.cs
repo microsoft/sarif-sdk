@@ -577,24 +577,24 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Core
                 sarifLogText.Should().Contain(automationDetails.Id);
             }
 
-            if (string.IsNullOrWhiteSpace(automationDetails.Guid?.ToString()))
+            if (automationDetails.Guid == null)
             {
                 // Checking if the property 'guid' exists.
                 sarifLogText.Should().NotContain(@"""guid""");
             }
             else
             {
-                sarifLogText.Should().Contain(automationDetails.Guid?.ToString());
+                sarifLogText.Should().Contain(automationDetails.Guid.ToString());
             }
 
-            if (string.IsNullOrWhiteSpace(automationDetails.CorrelationGuid?.ToString()))
+            if (automationDetails.CorrelationGuid == null)
             {
                 // Checking if the property 'correlationGuid' exists.
                 sarifLogText.Should().NotContain(@"""correlationGuid""");
             }
             else
             {
-                sarifLogText.Should().Contain(automationDetails.CorrelationGuid?.ToString());
+                sarifLogText.Should().Contain(automationDetails.CorrelationGuid.ToString());
             }
 
             if (automationDetails.Description == null)

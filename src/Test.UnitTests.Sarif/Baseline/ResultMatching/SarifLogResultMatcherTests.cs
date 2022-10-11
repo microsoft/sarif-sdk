@@ -68,7 +68,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
             {
                 calculatedNextBaseline.Runs[0].Results.Should().HaveCount(currentLog.Runs[0].Results.Count + 1);
 
-                calculatedNextBaseline.Runs[0].Results.Where(r => string.IsNullOrEmpty(r.CorrelationGuid?.ToString())).Should().HaveCount(0);
+                calculatedNextBaseline.Runs[0].Results.Where(r => r.CorrelationGuid == null).Should().HaveCount(0);
 
                 calculatedNextBaseline.Runs[0].Results.Where(r => r.BaselineState == BaselineState.Absent).Should().HaveCount(1);
 
@@ -218,7 +218,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
             if (baselineLog.Runs[0].Results.Any())
             {
                 calculatedNextBaseline.Runs[0].Results.Should().HaveCount(baselineLog.Runs[0].Results.Count);
-                calculatedNextBaseline.Runs[0].Results.Where(r => string.IsNullOrEmpty(r.CorrelationGuid?.ToString())).Should().HaveCount(0);
+                calculatedNextBaseline.Runs[0].Results.Where(r => r.CorrelationGuid == null).Should().HaveCount(0);
                 calculatedNextBaseline.Runs[0].Results.Where(r => r.BaselineState == BaselineState.Absent).Should().HaveCount(baselineLog.Runs[0].Results.Count);
 
                 calculatedNextBaseline.Runs[0].Results.Where(r => r.BaselineState == BaselineState.Absent).First().TryGetProperty(SarifLogResultMatcher.ResultMatchingResultPropertyName, out Dictionary<string, string> AbsentResultProperties).Should().BeTrue();
@@ -245,7 +245,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
 
                 // They should all have correllation ids
                 calculatedNextBaseline.Runs[0]
-                    .Results.Where(r => string.IsNullOrEmpty(r.CorrelationGuid?.ToString())).Should().HaveCount(0);
+                    .Results.Where(r => r.CorrelationGuid == null).Should().HaveCount(0);
 
                 // They should all be new.
                 calculatedNextBaseline.Runs[0]
@@ -281,7 +281,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
 
                 // They should all have correllation ids
                 calculatedNextBaseline.Runs[0]
-                    .Results.Where(r => string.IsNullOrEmpty(r.CorrelationGuid?.ToString())).Should().HaveCount(0);
+                    .Results.Where(r => r.CorrelationGuid == null).Should().HaveCount(0);
 
                 // They should all be new.
                 calculatedNextBaseline.Runs[0]

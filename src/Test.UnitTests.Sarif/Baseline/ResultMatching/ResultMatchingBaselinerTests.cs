@@ -54,7 +54,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
             {
                 calculatedNextBaseline.Runs[0].Results.Should().HaveCount(currentLog.Runs[0].Results.Count + 1);
 
-                calculatedNextBaseline.Runs[0].Results.Where(r => string.IsNullOrEmpty(r.CorrelationGuid?.ToString())).Should().HaveCount(0);
+                calculatedNextBaseline.Runs[0].Results.Where(r => r.CorrelationGuid == null).Should().HaveCount(0);
 
                 calculatedNextBaseline.Runs[0].Results.Where(r => r.BaselineState == BaselineState.Absent).Should().HaveCount(1);
 
