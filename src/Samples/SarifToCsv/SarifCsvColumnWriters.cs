@@ -99,10 +99,10 @@ namespace SarifToCsv
 
             // Result Basic Properties
             writers["BaselineState"] = (c) => { c.Writer.Write(c.Result.BaselineState.ToString()); };
-            writers["CorrelationGuid"] = (c) => { c.Writer.Write(c.Result.CorrelationGuid?.ToString()); };
+            writers["CorrelationGuid"] = (c) => { c.Writer.Write(c.Result.CorrelationGuid?.ToString() ?? ""); };
             writers["Fingerprints"] = (c) => { c.Writer.Write(string.Join("; ", c.Result.Fingerprints?.Values ?? Array.Empty<string>())); };
             writers["HostedViewerUri"] = (c) => { c.Writer.Write(c.Result.HostedViewerUri?.ToString() ?? ""); };
-            writers["Guid"] = (c) => { c.Writer.Write(c.Result.Guid?.ToString()); };
+            writers["Guid"] = (c) => { c.Writer.Write(c.Result.Guid?.ToString() ?? ""); };
             writers["Kind"] = (c) => { c.Writer.Write(c.Result.Kind.ToString()); };
             writers["Level"] = (c) => { c.Writer.Write(c.Result.Level.ToString()); };
             writers["Message.Text"] = (c) => { c.Writer.Write(c.Result.Message?.Text ?? ""); };
@@ -142,10 +142,10 @@ namespace SarifToCsv
             writers["Location.Region.Tags"] = (c) => { c.Writer.Write(string.Join("; ", ((IEnumerable<string>)c.PLoc?.Region?.Tags) ?? Array.Empty<string>())); };
 
             // Run Identity Properties
-            writers["Run.BaselineGuid"] = (c) => { c.Writer.Write(c.Run?.BaselineGuid?.ToString()); };
-            writers["Run.AutomationDetails.CorrelationGuid"] = (c) => { c.Writer.Write(c.Run?.AutomationDetails?.CorrelationGuid?.ToString()); };
+            writers["Run.BaselineGuid"] = (c) => { c.Writer.Write(c.Run?.BaselineGuid?.ToString() ?? ""); };
+            writers["Run.AutomationDetails.CorrelationGuid"] = (c) => { c.Writer.Write(c.Run?.AutomationDetails?.CorrelationGuid?.ToString() ?? ""); };
             writers["Run.AutomationDetails.Id"] = (c) => { c.Writer.Write(c.Run?.AutomationDetails?.Id ?? ""); };
-            writers["Run.AutomationDetails.Guid"] = (c) => { c.Writer.Write(c.Run?.AutomationDetails?.Guid?.ToString()); };
+            writers["Run.AutomationDetails.Guid"] = (c) => { c.Writer.Write(c.Run?.AutomationDetails?.Guid?.ToString() ?? ""); };
 
             // Run Basics
             writers["Run.Tool.Name"] = (c) => { c.Writer.Write(c.Run?.Tool?.Driver?.Name ?? ""); };
