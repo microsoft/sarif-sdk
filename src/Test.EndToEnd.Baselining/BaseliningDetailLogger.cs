@@ -61,10 +61,10 @@ namespace Test.EndToEnd.Baselining
                 switch (result.BaselineState)
                 {
                     case BaselineState.Absent:
-                        Write('-', result.Guid?.ToString());
+                        Write('-', result.Guid?.ToString(SarifConstants.GuidFormat));
                         break;
                     case BaselineState.New:
-                        Write('+', result.Guid?.ToString());
+                        Write('+', result.Guid?.ToString(SarifConstants.GuidFormat));
                         break;
                     case BaselineState.Unchanged:
                     case BaselineState.Updated:
@@ -75,14 +75,14 @@ namespace Test.EndToEnd.Baselining
                         if (previousResult == null)
                         {
                             // Write '?' for the Previous if we couldn't look it up
-                            Write('=', result.Guid?.ToString());
-                            Write('?', result.CorrelationGuid?.ToString());
+                            Write('=', result.Guid?.ToString(SarifConstants.GuidFormat));
+                            Write('?', result.CorrelationGuid?.ToString(SarifConstants.GuidFormat));
                         }
                         else if (result.Guid != previousResult.Guid)
                         {
                             // Only Log Unchanged results from the latest log (with a new Guid)
-                            Write('=', result.Guid?.ToString());
-                            Write(' ', previousResult.Guid?.ToString());
+                            Write('=', result.Guid?.ToString(SarifConstants.GuidFormat));
+                            Write(' ', previousResult.Guid?.ToString(SarifConstants.GuidFormat));
                         }
 
                         break;

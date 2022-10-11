@@ -37,7 +37,7 @@ namespace Test.EndToEnd.Baselining
         {
             foreach (Result result in currentLog.EnumerateResults())
             {
-                DetailByGuid[result.Guid?.ToString()] = Details(result);
+                DetailByGuid[result.Guid?.ToString(SarifConstants.GuidFormat)] = Details(result);
             }
         }
 

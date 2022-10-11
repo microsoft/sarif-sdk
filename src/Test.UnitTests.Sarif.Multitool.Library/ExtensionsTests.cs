@@ -24,7 +24,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
                 if (actualOutput != item.ExpectedOutput)
                 {
-                    sb.AppendLine($"    Input: {item.ToolComponentReference.Index} {item.ToolComponentReference.Guid?.ToString() ?? "null"} {item.DriverGuid?.ToString() ?? "null"} Expected: {item.ExpectedOutput} Actual: {actualOutput}");
+                    sb.AppendLine($"    Input: {item.ToolComponentReference.Index} {item.ToolComponentReference.Guid?.ToString(SarifConstants.GuidFormat) ?? "null"} {item.DriverGuid?.ToString(SarifConstants.GuidFormat) ?? "null"} Expected: {item.ExpectedOutput} Actual: {actualOutput}");
                 }
             }
 

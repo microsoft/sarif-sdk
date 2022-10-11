@@ -563,15 +563,16 @@ namespace Microsoft.CodeAnalysis.Sarif
         }
 
         /// <summary>
-        /// Helper method for comparing nullable struct that will properly handle the case when 'left' is null.
+        /// Extension method for comparing nullable structs
+        /// with proper handling of the case when 'left' is null.
         /// </summary>
         /// <typeparam name="T">The type of struct.</typeparam>
         /// <param name="left">The first item to compare.</param>
         /// <param name="right">The second item to compare.</param>
         /// <returns>
-        /// returns 1 if left is greater than right, -1 if left is less than right, 0 if they are equal.
+        /// Returns 1 if left is greater than right, -1 if left is less than right, 0 if they are equal.
         /// </returns>
-        public static int CompareTo<T>(this T? left, T? right) where T : struct, IComparable
+        internal static int CompareTo<T>(this T? left, T? right) where T : struct, IComparable
         {
             if (left == null && right == null)
             {
