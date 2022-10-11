@@ -89,7 +89,7 @@ namespace SarifToCsv
             }
             else
             {
-                throw new ArgumentException($"SarifToCsv doesn't know how to write column name \"{columnName}\". Valid names:\r\n\t{string.Join("\r\n\t", _writers.Keys)}");
+                throw new ArgumentException($"SarifToCsv doesn't know how to write column name \"{columnName}\". Valid names:\r\n\t{String.Join("\r\n\t", _writers.Keys)}");
             }
         }
 
@@ -100,21 +100,21 @@ namespace SarifToCsv
             // Result Basic Properties
             writers["BaselineState"] = (c) => { c.Writer.Write(c.Result.BaselineState.ToString()); };
             writers["CorrelationGuid"] = (c) => { c.Writer.Write(c.Result.CorrelationGuid?.ToString() ?? ""); };
-            writers["Fingerprints"] = (c) => { c.Writer.Write(string.Join("; ", c.Result.Fingerprints?.Values ?? Array.Empty<string>())); };
+            writers["Fingerprints"] = (c) => { c.Writer.Write(String.Join("; ", c.Result.Fingerprints?.Values ?? Array.Empty<string>())); };
             writers["HostedViewerUri"] = (c) => { c.Writer.Write(c.Result.HostedViewerUri?.ToString() ?? ""); };
-            writers["Guid"] = (c) => { c.Writer.Write(c.Result.Guid?.ToString() ?? ""); };
+            writers["Guid"] = (c) => { c.Writer.Write(c.Result.Guid ?? ""); };
             writers["Kind"] = (c) => { c.Writer.Write(c.Result.Kind.ToString()); };
             writers["Level"] = (c) => { c.Writer.Write(c.Result.Level.ToString()); };
             writers["Message.Text"] = (c) => { c.Writer.Write(c.Result.Message?.Text ?? ""); };
             writers["OccurrenceCount"] = (c) => { c.Writer.Write(c.Result.OccurrenceCount); };
-            writers["PartialFingerprints"] = (c) => { c.Writer.Write(string.Join("; ", c.Result.PartialFingerprints?.Values ?? Array.Empty<string>())); };
+            writers["PartialFingerprints"] = (c) => { c.Writer.Write(String.Join("; ", c.Result.PartialFingerprints?.Values ?? Array.Empty<string>())); };
             writers["Provenance"] = (c) => { c.Writer.Write(c.Result.Provenance?.ToString() ?? ""); };
             writers["Rank"] = (c) => { c.Writer.Write(c.Result.Rank.ToString()); };
             writers["RuleId"] = (c) => { c.Writer.Write(c.Result.GetRule(c.Run).Id ?? ""); };
             writers["RuleIndex"] = (c) => { c.Writer.Write(c.Result.RuleIndex); };
-            writers["Suppressions"] = (c) => { c.Writer.Write(string.Join("; ", c.Result.Suppressions?.Select(s => $"{s.Kind}|{s.Location}" ?? "") ?? Array.Empty<string>())); };
-            writers["Tags"] = (c) => { c.Writer.Write(string.Join("; ", ((IEnumerable<string>)c.Result.Tags) ?? Array.Empty<string>())); };
-            writers["WorkItemUris"] = (c) => { c.Writer.Write(string.Join("; ", c.Result.WorkItemUris?.Select((uri) => uri.ToString()) ?? Array.Empty<string>())); };
+            writers["Suppressions"] = (c) => { c.Writer.Write(String.Join("; ", c.Result.Suppressions?.Select(s => $"{s.Kind}|{s.Location}" ?? "") ?? Array.Empty<string>())); };
+            writers["Tags"] = (c) => { c.Writer.Write(String.Join("; ", ((IEnumerable<string>)c.Result.Tags) ?? Array.Empty<string>())); };
+            writers["WorkItemUris"] = (c) => { c.Writer.Write(String.Join("; ", c.Result.WorkItemUris?.Select((uri) => uri.ToString()) ?? Array.Empty<string>())); };
 
             // (Formatted) Message
             writers["Message"] = (c) => { c.Writer.Write(c.Result.GetMessageText(c.Result.GetRule(c.Run))); };
@@ -123,7 +123,7 @@ namespace SarifToCsv
             writers["Properties"] = WriteProperties;
 
             // PhysicalLocation Properties
-            writers["Location.Tags"] = (c) => { c.Writer.Write(string.Join("; ", ((IEnumerable<string>)c.PLoc?.Tags) ?? Array.Empty<string>())); };
+            writers["Location.Tags"] = (c) => { c.Writer.Write(String.Join("; ", ((IEnumerable<string>)c.PLoc?.Tags) ?? Array.Empty<string>())); };
             writers["Location.Uri"] = (c) => { c.Writer.Write(c.PLoc?.ArtifactLocation?.FileUri(c.Run)?.ToString() ?? ""); };
 
             // Region Properties
@@ -139,13 +139,13 @@ namespace SarifToCsv
             writers["Location.Region.SourceLanguage"] = (c) => { c.Writer.Write(c.PLoc?.Region?.SourceLanguage ?? ""); };
             writers["Location.Region.StartColumn"] = (c) => { c.Writer.Write(c.PLoc?.Region?.StartColumn ?? -1); };
             writers["Location.Region.StartLine"] = (c) => { c.Writer.Write(c.PLoc?.Region?.StartLine ?? -1); };
-            writers["Location.Region.Tags"] = (c) => { c.Writer.Write(string.Join("; ", ((IEnumerable<string>)c.PLoc?.Region?.Tags) ?? Array.Empty<string>())); };
+            writers["Location.Region.Tags"] = (c) => { c.Writer.Write(String.Join("; ", ((IEnumerable<string>)c.PLoc?.Region?.Tags) ?? Array.Empty<string>())); };
 
             // Run Identity Properties
-            writers["Run.BaselineGuid"] = (c) => { c.Writer.Write(c.Run?.BaselineGuid?.ToString() ?? ""); };
-            writers["Run.AutomationDetails.CorrelationGuid"] = (c) => { c.Writer.Write(c.Run?.AutomationDetails?.CorrelationGuid?.ToString() ?? ""); };
+            writers["Run.BaselineGuid"] = (c) => { c.Writer.Write(c.Run?.BaselineGuid ?? ""); };
+            writers["Run.AutomationDetails.CorrelationGuid"] = (c) => { c.Writer.Write(c.Run?.AutomationDetails?.CorrelationGuid ?? ""); };
             writers["Run.AutomationDetails.Id"] = (c) => { c.Writer.Write(c.Run?.AutomationDetails?.Id ?? ""); };
-            writers["Run.AutomationDetails.Guid"] = (c) => { c.Writer.Write(c.Run?.AutomationDetails?.Guid?.ToString() ?? ""); };
+            writers["Run.AutomationDetails.Guid"] = (c) => { c.Writer.Write(c.Run?.AutomationDetails?.Guid ?? ""); };
 
             // Run Basics
             writers["Run.Tool.Name"] = (c) => { c.Writer.Write(c.Run?.Tool?.Driver?.Name ?? ""); };
