@@ -376,8 +376,16 @@ namespace Microsoft.CodeAnalysis.Sarif
                 }
 
                 result = (result * 31) + obj.Version.GetHashCode();
-                result = (result * 31) + obj.Guid.GetHashCode();
-                result = (result * 31) + obj.RunGuid.GetHashCode();
+                if (obj.Guid != null)
+                {
+                    result = (result * 31) + obj.Guid.GetHashCode();
+                }
+
+                if (obj.RunGuid != null)
+                {
+                    result = (result * 31) + obj.RunGuid.GetHashCode();
+                }
+
                 if (obj.Conversion != null)
                 {
                     result = (result * 31) + obj.Conversion.ValueGetHashCode();

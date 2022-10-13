@@ -590,7 +590,11 @@ namespace Microsoft.CodeAnalysis.Sarif
                     }
                 }
 
-                result = (result * 31) + obj.BaselineGuid.GetHashCode();
+                if (obj.BaselineGuid != null)
+                {
+                    result = (result * 31) + obj.BaselineGuid.GetHashCode();
+                }
+
                 if (obj.RedactionTokens != null)
                 {
                     foreach (var value_12 in obj.RedactionTokens)

@@ -225,7 +225,11 @@ namespace Microsoft.CodeAnalysis.Sarif
                     }
                 }
 
-                result = (result * 31) + obj.Guid.GetHashCode();
+                if (obj.Guid != null)
+                {
+                    result = (result * 31) + obj.Guid.GetHashCode();
+                }
+
                 if (obj.DeprecatedGuids != null)
                 {
                     foreach (var value_5 in obj.DeprecatedGuids)

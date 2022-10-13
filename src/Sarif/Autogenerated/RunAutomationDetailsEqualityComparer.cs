@@ -92,8 +92,16 @@ namespace Microsoft.CodeAnalysis.Sarif
                     result = (result * 31) + obj.Id.GetHashCode();
                 }
 
-                result = (result * 31) + obj.Guid.GetHashCode();
-                result = (result * 31) + obj.CorrelationGuid.GetHashCode();
+                if (obj.Guid != null)
+                {
+                    result = (result * 31) + obj.Guid.GetHashCode();
+                }
+
+                if (obj.CorrelationGuid != null)
+                {
+                    result = (result * 31) + obj.CorrelationGuid.GetHashCode();
+                }
+
                 if (obj.Properties != null)
                 {
                     // Use xor for dictionaries to be order-independent.

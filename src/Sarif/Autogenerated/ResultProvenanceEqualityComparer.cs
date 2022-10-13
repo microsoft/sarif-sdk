@@ -110,8 +110,16 @@ namespace Microsoft.CodeAnalysis.Sarif
             {
                 result = (result * 31) + obj.FirstDetectionTimeUtc.GetHashCode();
                 result = (result * 31) + obj.LastDetectionTimeUtc.GetHashCode();
-                result = (result * 31) + obj.FirstDetectionRunGuid.GetHashCode();
-                result = (result * 31) + obj.LastDetectionRunGuid.GetHashCode();
+                if (obj.FirstDetectionRunGuid != null)
+                {
+                    result = (result * 31) + obj.FirstDetectionRunGuid.GetHashCode();
+                }
+
+                if (obj.LastDetectionRunGuid != null)
+                {
+                    result = (result * 31) + obj.LastDetectionRunGuid.GetHashCode();
+                }
+
                 result = (result * 31) + obj.InvocationIndex.GetHashCode();
                 if (obj.ConversionSources != null)
                 {

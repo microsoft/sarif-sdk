@@ -82,7 +82,11 @@ namespace Microsoft.CodeAnalysis.Sarif
                     result = (result * 31) + obj.Location.ValueGetHashCode();
                 }
 
-                result = (result * 31) + obj.Guid.GetHashCode();
+                if (obj.Guid != null)
+                {
+                    result = (result * 31) + obj.Guid.GetHashCode();
+                }
+
                 result = (result * 31) + obj.ItemCount.GetHashCode();
                 if (obj.Properties != null)
                 {

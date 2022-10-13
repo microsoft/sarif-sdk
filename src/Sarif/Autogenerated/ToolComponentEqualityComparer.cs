@@ -294,7 +294,11 @@ namespace Microsoft.CodeAnalysis.Sarif
             int result = 17;
             unchecked
             {
-                result = (result * 31) + obj.Guid.GetHashCode();
+                if (obj.Guid != null)
+                {
+                    result = (result * 31) + obj.Guid.GetHashCode();
+                }
+
                 if (obj.Name != null)
                 {
                     result = (result * 31) + obj.Name.GetHashCode();

@@ -88,7 +88,11 @@ namespace Microsoft.CodeAnalysis.Sarif
                 }
 
                 result = (result * 31) + obj.Index.GetHashCode();
-                result = (result * 31) + obj.Guid.GetHashCode();
+                if (obj.Guid != null)
+                {
+                    result = (result * 31) + obj.Guid.GetHashCode();
+                }
+
                 if (obj.ToolComponent != null)
                 {
                     result = (result * 31) + obj.ToolComponent.ValueGetHashCode();

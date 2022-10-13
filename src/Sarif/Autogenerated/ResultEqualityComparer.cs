@@ -452,8 +452,16 @@ namespace Microsoft.CodeAnalysis.Sarif
                     }
                 }
 
-                result = (result * 31) + obj.Guid.GetHashCode();
-                result = (result * 31) + obj.CorrelationGuid.GetHashCode();
+                if (obj.Guid != null)
+                {
+                    result = (result * 31) + obj.Guid.GetHashCode();
+                }
+
+                if (obj.CorrelationGuid != null)
+                {
+                    result = (result * 31) + obj.CorrelationGuid.GetHashCode();
+                }
+
                 result = (result * 31) + obj.OccurrenceCount.GetHashCode();
                 if (obj.PartialFingerprints != null)
                 {
