@@ -527,6 +527,13 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Core
             VaildateAutomationDetailsValues(sarifLog);
 
             sarifLog.Runs[0].AutomationDetails.Id = id;
+            sarifLog.Runs[0].AutomationDetails.Guid = Guid.Empty;
+            sarifLog.Runs[0].AutomationDetails.CorrelationGuid = Guid.Empty;
+
+            // 'id', 'guid', and 'correlationGuid' should appear in the JSON
+            VaildateAutomationDetailsValues(sarifLog);
+
+            sarifLog.Runs[0].AutomationDetails.Id = id;
             sarifLog.Runs[0].AutomationDetails.Guid = guid;
             sarifLog.Runs[0].AutomationDetails.CorrelationGuid = correlationGuid;
 
@@ -542,6 +549,8 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Core
         [Fact]
         public void Run_ShouldNotSerializeAutomationDetails_WhenAllPropertiesAreNullOrWhiteSpace()
         {
+            const string whiteSpace = " ";
+
             var sarifLog = new SarifLog
             {
                 Runs = new[] { new Run() }
@@ -556,6 +565,13 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Core
             VaildateAutomationDetailsValues(sarifLog);
 
             sarifLog.Runs[0].AutomationDetails.Id = null;
+            sarifLog.Runs[0].AutomationDetails.Guid = null;
+            sarifLog.Runs[0].AutomationDetails.CorrelationGuid = null;
+
+            // 'id', 'guid', and 'correlationGuid' should NOT appear in the JSON
+            VaildateAutomationDetailsValues(sarifLog);
+
+            sarifLog.Runs[0].AutomationDetails.Id = whiteSpace;
             sarifLog.Runs[0].AutomationDetails.Guid = null;
             sarifLog.Runs[0].AutomationDetails.CorrelationGuid = null;
 
