@@ -14,7 +14,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// Metadata that describes a specific report produced by the tool, as part of the analysis it provides or its runtime reporting.
     /// </summary>
     [DataContract]
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "2.0.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "2.1.0.0")]
     public partial class ReportingDescriptor : PropertyBagHolder, ISarifNode
     {
         public static IEqualityComparer<ReportingDescriptor> ValueComparer => ReportingDescriptorEqualityComparer.Instance;

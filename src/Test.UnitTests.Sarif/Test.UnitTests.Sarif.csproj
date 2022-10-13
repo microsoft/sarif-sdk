@@ -156,8 +156,8 @@
 
   <ItemGroup>
     <PackageReference Include="FluentAssertions" Version="5.10.2" />
-    <PackageReference Include="Microsoft.Json.Schema" Version="2.0.0" />
-    <PackageReference Include="Microsoft.Json.Schema.Validation" Version="2.0.0" />
+    <PackageReference Include="Microsoft.Json.Schema" Version="2.1.0" />
+    <PackageReference Include="Microsoft.Json.Schema.Validation" Version="2.1.0" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.4.0-preview-20220707-01" />
     <PackageReference Include="Moq" Version="4.13.1" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />

@@ -10,7 +10,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// <summary>
     /// Defines methods to support the comparison of objects of type ThreadFlow for sorting.
     /// </summary>
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "2.0.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "2.1.0.0")]
     internal sealed class ThreadFlowComparer : IComparer<ThreadFlow>
     {
         internal static readonly ThreadFlowComparer Instance = new ThreadFlowComparer();

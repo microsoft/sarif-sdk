@@ -14,7 +14,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// Describes the response to an HTTP request.
     /// </summary>
     [DataContract]
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "2.0.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "2.1.0.0")]
     public partial class WebResponse : PropertyBagHolder, ISarifNode
     {
         public static IEqualityComparer<WebResponse> ValueComparer => WebResponseEqualityComparer.Instance;
