@@ -1,5 +1,5 @@
 {
-  "$schema": "http://json-schema.org/draft-04/schema#",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
   "title": "Static Analysis Results Format (SARIF) Version 2.1.0-rtm.5 JSON Schema",
   "id": "https://raw.githubusercontent.com/schemastore/schemastore/master/src/schemas/json/sarif-2.1.0-rtm.5.json",
   "description": "Static Analysis Results Format (SARIF) Version 2.1.0-rtm.5 JSON Schema: a standard format for the output of static analysis tools.",
@@ -593,13 +593,13 @@
         "guid": {
           "description": "A stable, unique identifier for this external properties object, in the form of a GUID.",
           "type": "string",
-          "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-5][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}$"
+          "format": "uuid"
         },
 
         "runGuid": {
           "description": "A stable, unique identifier for the run associated with this external properties object, in the form of a GUID.",
           "type": "string",
-          "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-5][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}$"
+          "format": "uuid"
         },
 
         "conversion": {
@@ -780,7 +780,7 @@
         "guid": {
           "description": "A stable, unique identifier for the external property file in the form of a GUID.",
           "type": "string",
-          "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-5][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}$"
+          "format": "uuid"
         },
 
         "itemCount": {
@@ -1827,7 +1827,7 @@
         "guid": {
           "description": "A unique identifier for the reporting descriptor in the form of a GUID.",
           "type": "string",
-          "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-5][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}$"
+          "format": "uuid"
         },
 
         "deprecatedGuids": {
@@ -1837,7 +1837,7 @@
           "uniqueItems": true,
           "items": {
             "type": "string",
-            "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-5][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}$"
+            "format": "uuid"
           }
         },
 
@@ -1968,7 +1968,7 @@
         "guid": {
           "description": "A guid that uniquely identifies the descriptor.",
           "type": "string",
-          "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-5][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}$"
+          "format": "uuid"
         },
 
         "toolComponent": {
@@ -2081,13 +2081,13 @@
         "guid": {
           "description": "A stable, unique identifier for the result in the form of a GUID.",
           "type": "string",
-          "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-5][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}$"
+          "format": "uuid"
         },
 
         "correlationGuid": {
           "description": "A stable, unique identifier for the equivalence class of logically identical results to which this result belongs, in the form of a GUID.",
           "type": "string",
-          "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-5][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}$"
+          "format": "uuid"
         },
 
         "occurrenceCount": {
@@ -2289,13 +2289,13 @@
         "firstDetectionRunGuid": {
           "description": "A GUID-valued string equal to the automationDetails.guid property of the run in which the result was first detected.",
           "type": "string",
-          "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-5][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}$"
+          "format": "uuid"
         },
 
         "lastDetectionRunGuid": {
           "description": "A GUID-valued string equal to the automationDetails.guid property of the run in which the result was most recently detected.",
           "type": "string",
-          "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-5][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}$"
+          "format": "uuid"
         },
 
         "invocationIndex": {
@@ -2437,7 +2437,7 @@
         "baselineGuid": {
           "description": "The 'guid' property of a previous SARIF 'run' that comprises the baseline that was used to compute result 'baselineState' properties for the run.",
           "type": "string",
-          "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-5][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}$"
+          "format": "uuid"
         },
 
         "redactionTokens": {
@@ -2592,13 +2592,13 @@
         "guid": {
           "description": "A stable, unique identifier for this object's containing run object in the form of a GUID.",
           "type": "string",
-          "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-5][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}$"
+          "format": "uuid"
         },
 
         "correlationGuid": {
           "description": "A stable, unique identifier for the equivalence class of runs to which this object's containing run object belongs in the form of a GUID.",
           "type": "string",
-          "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-5][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}$"
+          "format": "uuid"
         },
 
         "properties": {
@@ -2704,7 +2704,7 @@
         "guid": {
           "description": "A stable, unique identifier for the suprression in the form of a GUID.",
           "type": "string",
-          "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-5][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}$"
+          "format": "uuid"
         },
 
         "kind": {
@@ -2934,7 +2934,7 @@
         "guid": {
           "description": "A unique identifier for the tool component in the form of a GUID.",
           "type": "string",
-          "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-5][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}$"
+          "format": "uuid"
         },
 
         "name": {
@@ -3143,7 +3143,7 @@
         "guid": {
           "description": "The 'guid' property of the referenced toolComponent.",
           "type": "string",
-          "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-5][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}$"
+          "format": "uuid"
         },
 
         "properties": {

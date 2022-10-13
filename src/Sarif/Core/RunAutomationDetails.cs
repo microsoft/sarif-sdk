@@ -12,8 +12,8 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         public bool ShouldSerializeId() => !string.IsNullOrWhiteSpace(this.Id);
 
-        public bool ShouldSerializeGuid() => !string.IsNullOrWhiteSpace(this.Guid);
+        public bool ShouldSerializeGuid() => this.Guid != null;
 
-        public bool ShouldSerializeCorrelationGuid() => !string.IsNullOrWhiteSpace(this.CorrelationGuid);
+        public bool ShouldSerializeCorrelationGuid() => this.CorrelationGuid != null;
     }
 }

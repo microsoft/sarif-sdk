@@ -811,12 +811,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
             if (v1Result != null)
             {
+                bool isIdGuid = Guid.TryParse(v1Result.Id, out Guid idGuid);
+
                 result = new Result
                 {
                     BaselineState = Utilities.CreateBaselineState(v1Result.BaselineState),
                     CodeFlows = v1Result.CodeFlows?.Select(CreateCodeFlow).ToList(),
                     Fixes = v1Result.Fixes?.Select(CreateFix).ToList(),
-                    Guid = v1Result.Id,
+                    Guid = isIdGuid ? idGuid : (Guid?)null,
                     Level = Utilities.CreateFailureLevel(v1Result.Level),
                     Kind = Utilities.CreateResultKind(v1Result.Level),
                     Locations = v1Result.Locations?.Select(CreateLocation).ToList(),
@@ -941,9 +943,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
                     if (v1Run.Id != null || v1Run.StableId != null)
                     {
+                        bool isIdGuid = Guid.TryParse(v1Run.Id, out Guid idGuid);
                         id = new RunAutomationDetails
                         {
-                            Guid = v1Run.Id,
+                            Guid = isIdGuid ? idGuid : (Guid?)null,
                             Id = v1Run.StableId != null ? v1Run.StableId + "/" : null
                         };
                     }
@@ -953,11 +956,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                         aggregateIds = new[] { new RunAutomationDetails { Id = v1Run.AutomationId + "/" } };
                     }
 
+                    bool isBaselineIdGuid = Guid.TryParse(v1Run.BaselineId, out Guid baselineIdGuid);
+
                     run = new Run()
                     {
                         AutomationDetails = id,
                         RunAggregates = aggregateIds,
-                        BaselineGuid = v1Run.BaselineId,
+                        BaselineGuid = isBaselineIdGuid ? baselineIdGuid : (Guid?)null,
                         Properties = v1Run.Properties,
                         Language = v1Run.Tool?.Language ?? "en-US",
                         Tool = CreateTool(v1Run.Tool),

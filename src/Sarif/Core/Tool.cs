@@ -88,7 +88,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             }
 
             // Lookup by GUID if present
-            if (!string.IsNullOrEmpty(reference.Guid))
+            if (reference.Guid != null)
             {
                 if (this.Extensions != null)
                 {

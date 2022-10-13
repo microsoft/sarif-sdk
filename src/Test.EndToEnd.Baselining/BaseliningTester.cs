@@ -249,7 +249,8 @@ namespace Test.EndToEnd.Baselining
             int resultIndex = 0;
             foreach (Result result in log.EnumerateResults())
             {
-                result.Guid = $"{logIndex:d3} {resultIndex:d3}";
+                bool isGuid = Guid.TryParse($"{logIndex:d3} {resultIndex:d3}", out Guid newGuid);
+                result.Guid = isGuid ? newGuid : (Guid?)null;
                 result.CorrelationGuid = null;
                 resultIndex++;
             }

@@ -73,7 +73,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching.ExactMatchers
             ExtractedResult resultA = new ExtractedResult(ResultMatchingTestHelpers.CreateMatchingResult("file://test", "file://test2", "test context"), null);
 
             Result changedResultA = resultA.Result.DeepClone();
-            changedResultA.CorrelationGuid = Guid.NewGuid().ToString();
+            changedResultA.CorrelationGuid = Guid.NewGuid();
             changedResultA.BaselineState = BaselineState.Unchanged;
 
             ExtractedResult resultB = new ExtractedResult(changedResultA, null);
@@ -91,14 +91,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching.ExactMatchers
             ExtractedResult resultAA = new ExtractedResult(ResultMatchingTestHelpers.CreateMatchingResult("file://test", "file://test2", "test context"), null);
 
             Result changedResultA = resultAA.Result.DeepClone();
-            changedResultA.CorrelationGuid = Guid.NewGuid().ToString();
+            changedResultA.CorrelationGuid = Guid.NewGuid();
             changedResultA.BaselineState = BaselineState.Unchanged;
 
             ExtractedResult resultBA = new ExtractedResult(changedResultA, null);
             ExtractedResult resultAB = new ExtractedResult(ResultMatchingTestHelpers.CreateMatchingResult("file://test", "file://test2", "test context2"), null);
 
             Result changedResultB = resultAB.Result.DeepClone();
-            changedResultA.CorrelationGuid = Guid.NewGuid().ToString();
+            changedResultA.CorrelationGuid = Guid.NewGuid();
             changedResultA.BaselineState = BaselineState.New;
 
             ExtractedResult resultBB = new ExtractedResult(changedResultB, null);
@@ -116,7 +116,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching.ExactMatchers
             ExtractedResult resultAA = new ExtractedResult(ResultMatchingTestHelpers.CreateMatchingResult("file://test", "file://test2", "test context"), null);
 
             Result changedResultA = resultAA.Result.DeepClone();
-            changedResultA.CorrelationGuid = Guid.NewGuid().ToString();
+            changedResultA.CorrelationGuid = Guid.NewGuid();
             changedResultA.BaselineState = BaselineState.Unchanged;
             changedResultA.SetProperty(SarifLogResultMatcher.ResultMatchingResultPropertyName, new Dictionary<string, string> { { "property", "value" } });
 
@@ -124,7 +124,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching.ExactMatchers
             ExtractedResult resultAB = new ExtractedResult(ResultMatchingTestHelpers.CreateMatchingResult("file://test", "file://test2", "test context2"), null);
 
             Result changedResultB = resultAB.Result.DeepClone();
-            changedResultA.CorrelationGuid = Guid.NewGuid().ToString();
+            changedResultA.CorrelationGuid = Guid.NewGuid();
             changedResultA.BaselineState = BaselineState.New;
 
             changedResultB.SetProperty(SarifLogResultMatcher.ResultMatchingResultPropertyName, new Dictionary<string, string> { { "property1", "value1" } });

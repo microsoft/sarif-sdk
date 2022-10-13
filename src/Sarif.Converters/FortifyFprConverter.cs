@@ -56,7 +56,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         private readonly ToolComponent CweToolComponent = new ToolComponent
         {
             Name = "CWE",
-            Guid = "25F72D7E-8A92-459D-AD67-64853F788765",
+            Guid = Guid.Parse("25F72D7E-8A92-459D-AD67-64853F788765"),
             Organization = "MITRE",
             ShortDescription = new MultiformatMessageString
             {
@@ -184,11 +184,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
         private Run CreateSarifRun()
         {
+            bool isIdGuid = Guid.TryParse(_runId, out Guid idGuid);
+
             var run = new Run()
             {
                 AutomationDetails = new RunAutomationDetails
                 {
-                    Guid = _runId,
+                    Guid = isIdGuid ? idGuid : (Guid?)null,
                     Id = _automationId + "/"
                 },
                 Artifacts = _files.OrderBy(d => d.Value.Item2)
@@ -1266,10 +1268,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             }
             else
             {
+                bool isGuid = Guid.TryParse(NormalizeGuid(ruleGuid), out Guid parsedGuid);
+
                 ReportingDescriptor rule = new ReportingDescriptor
                 {
                     Id = ruleGuid,
-                    Guid = NormalizeGuid(ruleGuid)
+                    Guid = isGuid ? parsedGuid : (Guid?)null
                 };
 
                 rule.DefaultConfiguration = new ReportingConfiguration();

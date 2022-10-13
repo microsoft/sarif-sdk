@@ -10,7 +10,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// <summary>
     /// Defines methods to support the comparison of objects of type Run for sorting.
     /// </summary>
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "1.1.5.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "2.1.0.0")]
     internal sealed class RunComparer : IComparer<Run>
     {
         internal static readonly RunComparer Instance = new RunComparer();
@@ -98,7 +98,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 return compareResult;
             }
 
-            compareResult = string.Compare(left.BaselineGuid, right.BaselineGuid);
+            compareResult = left.BaselineGuid.CompareTo(right.BaselineGuid);
             if (compareResult != 0)
             {
                 return compareResult;

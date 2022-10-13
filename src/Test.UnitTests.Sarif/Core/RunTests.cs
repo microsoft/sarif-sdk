@@ -496,8 +496,8 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Core
         public void Run_ShouldSerializeAutomationDetails_WhenAnyPropertyIsValid()
         {
             const string id = "automation-id";
-            const string guid = "automation-guid";
-            const string correlationGuid = "automation-correlation-guid";
+            Guid guid = Guid.Parse("8b02f0b8-6df5-40b2-9e93-5404e56676e2");
+            Guid correlationGuid = Guid.Parse("3d468dd8-3c62-45ed-b86a-a4fe9da93dd9");
 
             var sarifLog = new SarifLog
             {
@@ -506,21 +506,21 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Core
             sarifLog.Runs[0].AutomationDetails = new RunAutomationDetails();
 
             sarifLog.Runs[0].AutomationDetails.Id = id;
-            sarifLog.Runs[0].AutomationDetails.Guid = string.Empty;
-            sarifLog.Runs[0].AutomationDetails.CorrelationGuid = string.Empty;
+            sarifLog.Runs[0].AutomationDetails.Guid = null;
+            sarifLog.Runs[0].AutomationDetails.CorrelationGuid = null;
 
             // Only 'id' should appear in the JSON.
             VaildateAutomationDetailsValues(sarifLog);
 
             sarifLog.Runs[0].AutomationDetails.Id = string.Empty;
             sarifLog.Runs[0].AutomationDetails.Guid = guid;
-            sarifLog.Runs[0].AutomationDetails.CorrelationGuid = string.Empty;
+            sarifLog.Runs[0].AutomationDetails.CorrelationGuid = null;
 
             // Only 'guid' should appear in the JSON.
             VaildateAutomationDetailsValues(sarifLog);
 
             sarifLog.Runs[0].AutomationDetails.Id = string.Empty;
-            sarifLog.Runs[0].AutomationDetails.Guid = string.Empty;
+            sarifLog.Runs[0].AutomationDetails.Guid = null;
             sarifLog.Runs[0].AutomationDetails.CorrelationGuid = correlationGuid;
 
             // Only 'correlationGuid' should appear in the JSON.
@@ -542,8 +542,6 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Core
         [Fact]
         public void Run_ShouldNotSerializeAutomationDetails_WhenAllPropertiesAreNullOrWhiteSpace()
         {
-            const string whiteSpace = " ";
-
             var sarifLog = new SarifLog
             {
                 Runs = new[] { new Run() }
@@ -551,8 +549,8 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Core
             sarifLog.Runs[0].AutomationDetails = new RunAutomationDetails();
 
             sarifLog.Runs[0].AutomationDetails.Id = string.Empty;
-            sarifLog.Runs[0].AutomationDetails.Guid = string.Empty;
-            sarifLog.Runs[0].AutomationDetails.CorrelationGuid = string.Empty;
+            sarifLog.Runs[0].AutomationDetails.Guid = null;
+            sarifLog.Runs[0].AutomationDetails.CorrelationGuid = null;
 
             // 'id', 'guid', and 'correlationGuid' should NOT appear in the JSON
             VaildateAutomationDetailsValues(sarifLog);
@@ -560,13 +558,6 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Core
             sarifLog.Runs[0].AutomationDetails.Id = null;
             sarifLog.Runs[0].AutomationDetails.Guid = null;
             sarifLog.Runs[0].AutomationDetails.CorrelationGuid = null;
-
-            // 'id', 'guid', and 'correlationGuid' should NOT appear in the JSON
-            VaildateAutomationDetailsValues(sarifLog);
-
-            sarifLog.Runs[0].AutomationDetails.Id = whiteSpace;
-            sarifLog.Runs[0].AutomationDetails.Guid = whiteSpace;
-            sarifLog.Runs[0].AutomationDetails.CorrelationGuid = whiteSpace;
 
             // 'id', 'guid', and 'correlationGuid' should NOT appear in the JSON
             VaildateAutomationDetailsValues(sarifLog);
@@ -586,24 +577,24 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Core
                 sarifLogText.Should().Contain(automationDetails.Id);
             }
 
-            if (string.IsNullOrWhiteSpace(automationDetails.Guid))
+            if (automationDetails.Guid == null)
             {
                 // Checking if the property 'guid' exists.
                 sarifLogText.Should().NotContain(@"""guid""");
             }
             else
             {
-                sarifLogText.Should().Contain(automationDetails.Guid);
+                sarifLogText.Should().Contain(automationDetails.Guid.Value.ToString(SarifConstants.GuidFormat));
             }
 
-            if (string.IsNullOrWhiteSpace(automationDetails.CorrelationGuid))
+            if (automationDetails.CorrelationGuid == null)
             {
                 // Checking if the property 'correlationGuid' exists.
                 sarifLogText.Should().NotContain(@"""correlationGuid""");
             }
             else
             {
-                sarifLogText.Should().Contain(automationDetails.CorrelationGuid);
+                sarifLogText.Should().Contain(automationDetails.CorrelationGuid.Value.ToString(SarifConstants.GuidFormat));
             }
 
             if (automationDetails.Description == null)

@@ -1,8 +1,8 @@
 # SARIF Package Release History (SDK, Driver, Converters, and Multitool)
 
 ## Unreleased
+* BREAKING: For `Guid` properties defined in SARIF spec, updated Json schema to use `uuid`, and updated C# object model to use `Guid?` instead of `string`. [#2554](https://github.com/microsoft/sarif-sdk/pull/2554)
 * BUGFIX: Another attempt to resolve 'InvalidOperationException' with message `Collection was modified; enumeration operation may not execute` in `MultithreadedAnalyzeCommandBase`, raised when analyzing with the `--hashes` switch. [#2459](https://github.com/microsoft/sarif-sdk/pull/2549). There was a previous attempt to fix this in [#2447](https://github.com/microsoft/sarif-sdk/pull/2447).
-
 * FEATURE: Allow initialization of file regions cache in `InsertOptionalDataVisitor` (previously initialized exclusively from `FileRegionsCache.Instance`).
 * BUGFIX: Resolve issue where `match-results-forward` command fails to generate VersionControlDetails data. [#2487](https://github.com/microsoft/sarif-sdk/pull/2487)
 * BUGFIX: Remove duplicated rule definitions when executing `match-results-forward` commands for results with sub-rule ids. [#2486](https://github.com/microsoft/sarif-sdk/pull/2486)

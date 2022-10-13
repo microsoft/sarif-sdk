@@ -13,7 +13,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// A suppression that is relevant to a result.
     /// </summary>
     [DataContract]
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "1.1.5.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "2.1.0.0")]
     public partial class Suppression : PropertyBagHolder, ISarifNode
     {
         public static IEqualityComparer<Suppression> ValueComparer => SuppressionEqualityComparer.Instance;
@@ -38,7 +38,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// A stable, unique identifier for the suprression in the form of a GUID.
         /// </summary>
         [DataMember(Name = "guid", IsRequired = false, EmitDefaultValue = false)]
-        public virtual string Guid { get; set; }
+        public virtual Guid? Guid { get; set; }
 
         /// <summary>
         /// A string that indicates where the suppression is persisted.
@@ -100,7 +100,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="properties">
         /// An initialization value for the <see cref="P:Properties" /> property.
         /// </param>
-        public Suppression(string guid, SuppressionKind kind, SuppressionStatus status, string justification, Location location, IDictionary<string, SerializedPropertyInfo> properties)
+        public Suppression(Guid? guid, SuppressionKind kind, SuppressionStatus status, string justification, Location location, IDictionary<string, SerializedPropertyInfo> properties)
         {
             Init(guid, kind, status, justification, location, properties);
         }
@@ -142,7 +142,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new Suppression(this);
         }
 
-        protected virtual void Init(string guid, SuppressionKind kind, SuppressionStatus status, string justification, Location location, IDictionary<string, SerializedPropertyInfo> properties)
+        protected virtual void Init(Guid? guid, SuppressionKind kind, SuppressionStatus status, string justification, Location location, IDictionary<string, SerializedPropertyInfo> properties)
         {
             Guid = guid;
             Kind = kind;
