@@ -1401,6 +1401,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 },
                 new TestAnalyzeOptions
                 {
+                    AutomationId = string.Empty,
+                    AutomationGuid = automationGuid
+                },
+                new TestAnalyzeOptions
+                {
                     AutomationId = null,
                     AutomationGuid = null
                 },
@@ -1418,6 +1423,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 {
                     AutomationId = null,
                     AutomationGuid = Guid.Empty
+                },
+                new TestAnalyzeOptions
+                {
+                    AutomationId = null,
+                    AutomationGuid = automationGuid
                 },
                 new TestAnalyzeOptions
                 {
