@@ -37,14 +37,6 @@
           "executionSuccessful": true
         }
       ],
-      "artifacts": [
-        {
-          "location": {
-            "uri": "FunctionalTestOutput.ValidateCommand/SARIF2016.FileUrisShouldBeRelative_Invalid.sarif",
-            "uriBaseId": "TEST_DIR"
-          }
-        }
-      ],
       "results": [
         {
           "ruleId": "SARIF2016",
@@ -61,7 +53,8 @@
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "index": 0
+                  "uri": "FunctionalTestOutput.ValidateCommand/SARIF2016.FileUrisShouldBeRelative_Invalid.sarif",
+                  "uriBaseId": "TEST_DIR"
                 },
                 "region": {
                   "startLine": 28,
@@ -86,7 +79,8 @@
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "index": 0
+                  "uri": "FunctionalTestOutput.ValidateCommand/SARIF2016.FileUrisShouldBeRelative_Invalid.sarif",
+                  "uriBaseId": "TEST_DIR"
                 },
                 "region": {
                   "startLine": 35,
@@ -111,7 +105,8 @@
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "index": 0
+                  "uri": "FunctionalTestOutput.ValidateCommand/SARIF2016.FileUrisShouldBeRelative_Invalid.sarif",
+                  "uriBaseId": "TEST_DIR"
                 },
                 "region": {
                   "startLine": 42,

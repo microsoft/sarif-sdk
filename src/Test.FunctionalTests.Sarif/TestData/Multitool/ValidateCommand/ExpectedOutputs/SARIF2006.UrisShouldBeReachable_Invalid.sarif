@@ -31,14 +31,6 @@
           "executionSuccessful": true
         }
       ],
-      "artifacts": [
-        {
-          "location": {
-            "uri": "FunctionalTestOutput.ValidateCommand/SARIF2006.UrisShouldBeReachable_Invalid.sarif",
-            "uriBaseId": "TEST_DIR"
-          }
-        }
-      ],
       "results": [
         {
           "ruleId": "SARIF2006",
@@ -55,7 +47,8 @@
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "index": 0
+                  "uri": "FunctionalTestOutput.ValidateCommand/SARIF2006.UrisShouldBeReachable_Invalid.sarif",
+                  "uriBaseId": "TEST_DIR"
                 },
                 "region": {
                   "startLine": 33,
@@ -80,7 +73,8 @@
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "index": 0
+                  "uri": "FunctionalTestOutput.ValidateCommand/SARIF2006.UrisShouldBeReachable_Invalid.sarif",
+                  "uriBaseId": "TEST_DIR"
                 },
                 "region": {
                   "startLine": 10,
@@ -105,7 +99,8 @@
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "index": 0
+                  "uri": "FunctionalTestOutput.ValidateCommand/SARIF2006.UrisShouldBeReachable_Invalid.sarif",
+                  "uriBaseId": "TEST_DIR"
                 },
                 "region": {
                   "startLine": 14,
@@ -130,7 +125,8 @@
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "index": 0
+                  "uri": "FunctionalTestOutput.ValidateCommand/SARIF2006.UrisShouldBeReachable_Invalid.sarif",
+                  "uriBaseId": "TEST_DIR"
                 },
                 "region": {
                   "startLine": 21,

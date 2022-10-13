@@ -32,14 +32,6 @@
           "executionSuccessful": true
         }
       ],
-      "artifacts": [
-        {
-          "location": {
-            "uri": "FunctionalTestOutput.ValidateCommand/GH1002.InlineThreadFlowLocations_Invalid.sarif",
-            "uriBaseId": "TEST_DIR"
-          }
-        }
-      ],
       "results": [
         {
           "ruleId": "GH1002",
@@ -55,7 +47,8 @@
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "index": 0
+                  "uri": "FunctionalTestOutput.ValidateCommand/GH1002.InlineThreadFlowLocations_Invalid.sarif",
+                  "uriBaseId": "TEST_DIR"
                 },
                 "region": {
                   "startLine": 33,

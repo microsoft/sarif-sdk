@@ -31,14 +31,6 @@
           "executionSuccessful": true
         }
       ],
-      "artifacts": [
-        {
-          "location": {
-            "uri": "FunctionalTestOutput.ValidateCommand/SARIF1005.UriMustBeAbsolute_Invalid.sarif",
-            "uriBaseId": "TEST_DIR"
-          }
-        }
-      ],
       "results": [
         {
           "ruleId": "SARIF1005",
@@ -55,7 +47,8 @@
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "index": 0
+                  "uri": "FunctionalTestOutput.ValidateCommand/SARIF1005.UriMustBeAbsolute_Invalid.sarif",
+                  "uriBaseId": "TEST_DIR"
                 },
                 "region": {
                   "startLine": 2,
@@ -80,7 +73,8 @@
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "index": 0
+                  "uri": "FunctionalTestOutput.ValidateCommand/SARIF1005.UriMustBeAbsolute_Invalid.sarif",
+                  "uriBaseId": "TEST_DIR"
                 },
                 "region": {
                   "startLine": 42,
@@ -105,7 +99,8 @@
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "index": 0
+                  "uri": "FunctionalTestOutput.ValidateCommand/SARIF1005.UriMustBeAbsolute_Invalid.sarif",
+                  "uriBaseId": "TEST_DIR"
                 },
                 "region": {
                   "startLine": 10,
@@ -130,7 +125,8 @@
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "index": 0
+                  "uri": "FunctionalTestOutput.ValidateCommand/SARIF1005.UriMustBeAbsolute_Invalid.sarif",
+                  "uriBaseId": "TEST_DIR"
                 },
                 "region": {
                   "startLine": 14,
@@ -155,7 +151,8 @@
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "index": 0
+                  "uri": "FunctionalTestOutput.ValidateCommand/SARIF1005.UriMustBeAbsolute_Invalid.sarif",
+                  "uriBaseId": "TEST_DIR"
                 },
                 "region": {
                   "startLine": 18,
@@ -180,7 +177,8 @@
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "index": 0
+                  "uri": "FunctionalTestOutput.ValidateCommand/SARIF1005.UriMustBeAbsolute_Invalid.sarif",
+                  "uriBaseId": "TEST_DIR"
                 },
                 "region": {
                   "startLine": 24,
@@ -205,7 +203,8 @@
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "index": 0
+                  "uri": "FunctionalTestOutput.ValidateCommand/SARIF1005.UriMustBeAbsolute_Invalid.sarif",
+                  "uriBaseId": "TEST_DIR"
                 },
                 "region": {
                   "startLine": 31,

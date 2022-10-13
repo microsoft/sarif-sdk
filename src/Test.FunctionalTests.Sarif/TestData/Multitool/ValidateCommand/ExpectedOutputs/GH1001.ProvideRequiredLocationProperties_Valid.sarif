@@ -13,14 +13,6 @@
           "executionSuccessful": true
         }
       ],
-      "artifacts": [
-        {
-          "location": {
-            "uri": "FunctionalTestOutput.ValidateCommand/GH1001.ProvideRequiredLocationProperties_Valid.sarif",
-            "uriBaseId": "TEST_DIR"
-          }
-        }
-      ],
       "results": [],
       "columnKind": "utf16CodeUnits"
     }

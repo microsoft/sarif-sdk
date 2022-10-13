@@ -97,15 +97,6 @@
           "executionSuccessful": true
         }
       ],
-      "artifacts": [
-        {
-          "location": {
-            "uri": "FunctionalTestOutput.BaselineOption/ToBeValidated.sarif",
-            "uriBaseId": "TEST_DIR",
-            "index": 0
-          }
-        }
-      ],
       "results": [
         {
           "ruleId": "SARIF2003",
@@ -121,7 +112,8 @@
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "index": 0
+                  "uri": "FunctionalTestOutput.BaselineOption/ToBeValidated.sarif",
+                  "uriBaseId": "TEST_DIR"
                 },
                 "region": {
                   "startLine": 5,
@@ -130,7 +122,7 @@
               }
             }
           ],
-          "baselineState": "unchanged",
+          "baselineState": "updated",
           "properties": {
             "ResultMatching": {}
           }
@@ -149,7 +141,8 @@
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "index": 0
+                  "uri": "FunctionalTestOutput.BaselineOption/ToBeValidated.sarif",
+                  "uriBaseId": "TEST_DIR"
                 },
                 "region": {
                   "startLine": 9,
@@ -177,7 +170,8 @@
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "index": 0
+                  "uri": "FunctionalTestOutput.BaselineOption/ToBeValidated.sarif",
+                  "uriBaseId": "TEST_DIR"
                 },
                 "region": {
                   "startLine": 15,
@@ -205,7 +199,8 @@
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "index": 0
+                  "uri": "FunctionalTestOutput.BaselineOption/ToBeValidated.sarif",
+                  "uriBaseId": "TEST_DIR"
                 },
                 "region": {
                   "startLine": 21,
@@ -233,7 +228,8 @@
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "index": 0
+                  "uri": "FunctionalTestOutput.BaselineOption/ToBeValidated.sarif",
+                  "uriBaseId": "TEST_DIR"
                 },
                 "region": {
                   "startLine": 27,
@@ -262,7 +258,8 @@
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "index": 0
+                  "uri": "FunctionalTestOutput.BaselineOption/ToBeValidated.sarif",
+                  "uriBaseId": "TEST_DIR"
                 },
                 "region": {
                   "startLine": 27,
@@ -290,7 +287,8 @@
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "index": 0
+                  "uri": "FunctionalTestOutput.BaselineOption/ToBeValidated.sarif",
+                  "uriBaseId": "TEST_DIR"
                 },
                 "region": {
                   "startLine": 27,

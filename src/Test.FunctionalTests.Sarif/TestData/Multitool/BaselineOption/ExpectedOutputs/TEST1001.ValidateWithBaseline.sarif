@@ -97,15 +97,6 @@
           "executionSuccessful": true
         }
       ],
-      "artifacts": [
-        {
-          "location": {
-            "uri": "FunctionalTestOutput.BaselineOption/ToBeValidated.sarif",
-            "uriBaseId": "TEST_DIR",
-            "index": 0
-          }
-        }
-      ],
       "results": [
         {
           "ruleId": "SARIF2003",
@@ -121,7 +112,8 @@
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "index": 0
+                  "uri": "FunctionalTestOutput.BaselineOption/ToBeValidated.sarif",
+                  "uriBaseId": "TEST_DIR"
                 },
                 "region": {
                   "startLine": 5,
@@ -130,7 +122,7 @@
               }
             }
           ],
-          "baselineState": "unchanged",
+          "baselineState": "updated",
           "properties": {
             "ResultMatching": {}
           }
@@ -149,7 +141,8 @@
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "index": 0
+                  "uri": "FunctionalTestOutput.BaselineOption/ToBeValidated.sarif",
+                  "uriBaseId": "TEST_DIR"
                 },
                 "region": {
                   "startLine": 9,
@@ -158,7 +151,7 @@
               }
             }
           ],
-          "baselineState": "unchanged",
+          "baselineState": "updated",
           "properties": {
             "ResultMatching": {}
           }
@@ -177,7 +170,8 @@
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "index": 0
+                  "uri": "FunctionalTestOutput.BaselineOption/ToBeValidated.sarif",
+                  "uriBaseId": "TEST_DIR"
                 },
                 "region": {
                   "startLine": 15,
@@ -186,7 +180,7 @@
               }
             }
           ],
-          "baselineState": "unchanged",
+          "baselineState": "updated",
           "properties": {
             "ResultMatching": {}
           }
@@ -205,7 +199,8 @@
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "index": 0
+                  "uri": "FunctionalTestOutput.BaselineOption/ToBeValidated.sarif",
+                  "uriBaseId": "TEST_DIR"
                 },
                 "region": {
                   "startLine": 21,
@@ -214,7 +209,7 @@
               }
             }
           ],
-          "baselineState": "unchanged",
+          "baselineState": "updated",
           "properties": {
             "ResultMatching": {}
           }
@@ -233,7 +228,8 @@
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "index": 0
+                  "uri": "FunctionalTestOutput.BaselineOption/ToBeValidated.sarif",
+                  "uriBaseId": "TEST_DIR"
                 },
                 "region": {
                   "startLine": 27,
@@ -242,7 +238,7 @@
               }
             }
           ],
-          "baselineState": "unchanged",
+          "baselineState": "updated",
           "properties": {
             "ResultMatching": {}
           }
@@ -262,7 +258,8 @@
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "index": 0
+                  "uri": "FunctionalTestOutput.BaselineOption/ToBeValidated.sarif",
+                  "uriBaseId": "TEST_DIR"
                 },
                 "region": {
                   "startLine": 27,
@@ -271,7 +268,7 @@
               }
             }
           ],
-          "baselineState": "unchanged",
+          "baselineState": "updated",
           "properties": {
             "ResultMatching": {}
           }
@@ -290,7 +287,8 @@
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "index": 0
+                  "uri": "FunctionalTestOutput.BaselineOption/ToBeValidated.sarif",
+                  "uriBaseId": "TEST_DIR"
                 },
                 "region": {
                   "startLine": 27,
@@ -299,7 +297,7 @@
               }
             }
           ],
-          "baselineState": "unchanged",
+          "baselineState": "updated",
           "properties": {
             "ResultMatching": {}
           }

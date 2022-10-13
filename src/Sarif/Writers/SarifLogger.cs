@@ -442,7 +442,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
             // Ensure Artifact is in Run.Artifacts and ArtifactLocation.Index is set to point to it
             int index = _run.GetFileIndex(fileLocation,
-                                          addToFilesTableIfNotPresent: true,
+                                          addToFilesTableIfNotPresent: false,
                                           _dataToInsert,
                                           encoding,
                                           hashData);
