@@ -45,11 +45,6 @@ namespace Microsoft.CodeAnalysis.Sarif
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
         public virtual BigInteger Id { get; set; }
 
-        public bool ShouldSerializeId()
-        {
-            return Id >= 0;
-        }
-
         /// <summary>
         /// Identifies the artifact and region.
         /// </summary>
