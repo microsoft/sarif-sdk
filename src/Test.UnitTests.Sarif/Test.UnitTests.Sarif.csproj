@@ -340,7 +340,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="$(SolutionDir)\Test.FunctionalTests.Sarif\v2\SpecExamples\Comprehensive.sarif" CopyToOutputDirectory="PreserveNewest" LinkBase="v2\SpecExamples" />
-    <None Include="$(SolutionDir)\Test.FunctionalTests.Sarif\v2\ObsoleteFormats\ComprehensivePrereleaseTwoZeroZero.sarif" CopyToOutputDirectory="PreserveNewest" LinkBase="v2\ObsoleteFormats" />
+    <None Include="..\Test.FunctionalTests.Sarif\v2\SpecExamples\Comprehensive.sarif" CopyToOutputDirectory="PreserveNewest" LinkBase="v2\SpecExamples" />
+    <None Include="..\Test.FunctionalTests.Sarif\v2\ObsoleteFormats\ComprehensivePrereleaseTwoZeroZero.sarif" CopyToOutputDirectory="PreserveNewest" LinkBase="v2\ObsoleteFormats" />
   </ItemGroup>
 </Project>
