@@ -572,24 +572,9 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <returns>
         /// Returns 1 if left is greater than right, -1 if left is less than right, 0 if they are equal.
         /// </returns>
-        internal static int CompareTo<T>(this T? left, T? right) where T : struct, IComparable
+        internal static int CompareTo<T>(this T? left, T? right) where T : struct
         {
-            if (left == null && right == null)
-            {
-                return 0;
-            }
-
-            if (left == null)
-            {
-                return -1;
-            }
-
-            if (right == null)
-            {
-                return 1;
-            }
-
-            return left.Value.CompareTo(right.Value);
+            return Nullable.Compare(left, right);
         }
 
         /// <summary>Checks if a character is a newline.</summary>
