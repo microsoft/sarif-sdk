@@ -43,12 +43,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                            bool quiet = false,
                            IEnumerable<FailureLevel> levels = null,
                            IEnumerable<ResultKind> kinds = null,
-                           IEnumerable<string> insertProperties = null)
+                           IEnumerable<string> insertProperties = null,
+                           FileRegionsCache fileRegionsCache  = null)
             : this(new StreamWriter(new FileStream(outputFilePath, FileMode.Create, FileAccess.Write, FileShare.None)),
-                  logFilePersistenceOptions: logFilePersistenceOptions,
-                  dataToInsert: dataToInsert,
-                  dataToRemove: dataToRemove,
-                  tool: tool,
+                  logFilePersistenceOptions,
+                  dataToInsert,
+                  dataToRemove,
+                  tool,
                   run: run,
                   analysisTargets: analysisTargets,
                   invocationTokensToRedact: invocationTokensToRedact,
@@ -57,7 +58,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                   quiet: quiet,
                   levels: levels,
                   kinds: kinds,
-                  insertProperties: insertProperties)
+                  insertProperties: insertProperties,
+                  fileRegionsCache: fileRegionsCache)
         {
         }
 
@@ -75,7 +77,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                            bool quiet = false,
                            IEnumerable<FailureLevel> levels = null,
                            IEnumerable<ResultKind> kinds = null,
-                           IEnumerable<string> insertProperties = null) : this(textWriter, logFilePersistenceOptions, closeWriterOnDispose, levels, kinds)
+                           IEnumerable<string> insertProperties = null,
+                           FileRegionsCache fileRegionsCache = null) : this(textWriter, logFilePersistenceOptions, closeWriterOnDispose, levels, kinds)
         {
             if (dataToInsert.HasFlag(OptionallyEmittedData.Hashes))
             {
@@ -87,7 +90,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             if (dataToInsert.HasFlag(OptionallyEmittedData.RegionSnippets) ||
                 dataToInsert.HasFlag(OptionallyEmittedData.ContextRegionSnippets))
             {
-                _insertOptionalDataVisitor = new InsertOptionalDataVisitor(dataToInsert, _run, insertProperties);
+                _insertOptionalDataVisitor = new InsertOptionalDataVisitor(dataToInsert, _run, insertProperties, fileRegionsCache);
             }
 
             EnhanceRun(analysisTargets,

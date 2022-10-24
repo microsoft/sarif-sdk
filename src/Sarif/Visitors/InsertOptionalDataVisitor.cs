@@ -23,7 +23,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         private GitHelper _gitHelper;
 
         private int _ruleIndex;
-        private FileRegionsCache _fileRegionsCache;
+        private readonly FileRegionsCache _fileRegionsCache;
         private readonly OptionallyEmittedData _dataToInsert;
         private readonly IDictionary<string, ArtifactLocation> _originalUriBaseIds;
         private readonly IEnumerable<string> _insertProperties;
@@ -32,8 +32,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         private const string Email = nameof(Email);
         private const string CommitSha = nameof(CommitSha);
 
-        public InsertOptionalDataVisitor(OptionallyEmittedData dataToInsert, Run run, IEnumerable<string> insertProperties)
-            : this(dataToInsert, run?.OriginalUriBaseIds, insertProperties: insertProperties)
+        public InsertOptionalDataVisitor(OptionallyEmittedData dataToInsert,
+                                         Run run, IEnumerable<string> insertProperties,
+                                         FileRegionsCache fileRegionsCache = null)
+            : this(dataToInsert,
+                   run?.OriginalUriBaseIds,
+                   insertProperties: insertProperties,
+                   fileRegionsCache: fileRegionsCache)
         {
             _run = run ?? throw new ArgumentNullException(nameof(run));
         }
