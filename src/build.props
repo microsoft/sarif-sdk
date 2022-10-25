@@ -11,6 +11,7 @@
     <Product Condition=" '$(Product)' == '' ">Microsoft SARIF SDK</Product>
     <Copyright Condition=" '$(Copyright)' == '' ">© Microsoft Corporation. All rights reserved.</Copyright>
     <VersionPrefix>3.1.0</VersionPrefix>
+    <VersionSuffix></VersionSuffix>
     <PreviousVersionPrefix>3.1.0-beta1</PreviousVersionPrefix>
 
     <!-- SchemaVersionAsPublishedToSchemaStoreOrg identifies the current published version on json schema store at https://schemastore.azurewebsites.net/schemas/json/ -->
@@ -49,23 +50,23 @@
 
   <!-- Configuration specific properties -->
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' "
-                 Label="Debug build">
+    Label="Debug build">
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <DefineConstants>DEBUG;TRACE;CODE_ANALYSIS</DefineConstants>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Release' "
-               Label="Release build">
+    Label="Release build">
     <DebugType>portable</DebugType>
     <Optimize>true</Optimize>
     <DefineConstants>TRACE</DefineConstants>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Platform)' == 'x86'"
-                 Label="x86 build">
+    Label="x86 build">
     <PlatformTarget>x86</PlatformTarget>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Platform)' == 'x64'"
-                 Label="x64 build">
+    Label="x64 build">
     <PlatformTarget>x64</PlatformTarget>
   </PropertyGroup>
 
