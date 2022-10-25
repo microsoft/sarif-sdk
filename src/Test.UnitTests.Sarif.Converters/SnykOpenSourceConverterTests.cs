@@ -51,6 +51,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             RunTestCase(input, expectedOutput);
         }
 
+        [Fact]
+        public void Converter_WhenInputContainsValidResult_ReturnsExpectedOutput()
+        {
+            string input = Extractor.GetResourceInputText("ValidResult.json");
+            string expectedOutput = Extractor.GetResourceExpectedOutputsText("ValidResults.sarif");
+            RunTestCase(input, expectedOutput);
+        }
+
         private static readonly TestAssetResourceExtractor Extractor = new TestAssetResourceExtractor(typeof(SnykOpenSourceConverterTests));
         private const string ResourceNamePrefix = ToolFormat.SnykOpenSource;
 
