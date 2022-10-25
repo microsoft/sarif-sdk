@@ -7,13 +7,13 @@
         {
           "ruleId": "rule.id.2",
           "level": "error",
-          "rank": 8.0,
           "message": {
             "text": "Rule id 2 title"
           },
           "fingerprints": {
             "0": "d23eea429d06cfe703ab69b8d0d0c1abd41fc9e26b4167575e3356733c97bf61"
-          }
+          },
+          "rank": 8.0
         }
       ],
       "tool": {
@@ -34,6 +34,9 @@
               "help": {
                 "text": "Rule id 1 title",
                 "markdown": "Rule id 1 title"
+              },
+              "properties": {
+                "tags": ["security"]
               }
             },
             {
@@ -46,6 +49,10 @@
               "help": {
                 "text": "Rule id 2 title",
                 "markdown": "Rule id 2 title"
+              },
+              "properties": {
+                "security-severity": 8.0,
+                "tags": ["security"]
               }
             }
           ],

@@ -117,6 +117,28 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             descriptor.SetProperty("pluginPublicationDate", item.PluginPublicationDate);
             descriptor.SetProperty("pluginType", item.PluginType);
 
+            //Use for GH Security Advisories
+            //set result level and rank (Critical - Low risk rating)
+            //ignoring risk factor (H/M/L) as it conflicts with severity
+            //cvss3 base score overrides severity 
+            FailureLevel level = FailureLevel.None;
+            double rank = RankConstants.None;
+            getResultSeverity(item.Cvss3BaseScore, item.Severity, out level, out rank);
+            descriptor.SetProperty("security-severity", rank);
+
+            //Tags for GH filtering
+            var tags = new List<string>()
+            {
+                "security",
+            };
+
+            if (item.Cves.Any())
+            {
+                tags.AddRange(item.Cves);
+            }
+
+            descriptor.SetProperty("tags", tags);
+
             return descriptor;
         }
 

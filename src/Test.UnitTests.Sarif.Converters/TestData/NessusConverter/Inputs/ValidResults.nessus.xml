@@ -76,6 +76,8 @@
                 <cvss_vector>AV:N/AC:L/AU:N/C:P/I:P/A:N</cvss_vector>
                 <description>description text</description>
                 <synopsis>Synopis text</synopsis>
+                <cve>CVE-2018-10858</cve>
+                <cve>CVE-2018-10919</cve>
                 <see_also>https://github.com/microsoft/sarif-sdk</see_also>
                 <risk_factor>High</risk_factor>
                 <script_version>1.0</script_version>

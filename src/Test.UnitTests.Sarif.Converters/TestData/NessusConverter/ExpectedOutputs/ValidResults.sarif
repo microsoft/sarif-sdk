@@ -28,7 +28,9 @@
                 "pluginFamily": "Family Name",
                 "pluginModificationDate": "2022/08/15",
                 "pluginPublicationDate": "2021/08/15",
-                "pluginType": "remote"
+                "pluginType": "remote",
+                "security-severity": 3.0,
+                "tags": ["security"]
               }
             }
           ],
@@ -41,13 +43,13 @@
         {
           "ruleId": "12345",
           "level": "note",
-          "rank": 3.0,
           "message": {
             "text": "plugin output text"
           },
           "fingerprints": {
             "0": "1e6bb36ff29ed6c40f06c82791515391820f7b546e700886adbd88b2c897279c"
           },
+          "rank": 3.0,
           "properties": {
             "port": "99999",
             "protocol": "tcp",
@@ -85,7 +87,9 @@
                 "pluginFamily": "Family Name",
                 "pluginModificationDate": "2022/08/15",
                 "pluginPublicationDate": "2021/08/15",
-                "pluginType": "remote"
+                "pluginType": "remote",
+                "security-severity": 9.0,
+                "tags": ["security","CVE-2018-10858","CVE-2018-10919"]
               }
             }
           ],
@@ -98,13 +102,13 @@
         {
           "ruleId": "12345",
           "level": "error",
-          "rank": 9.0,
           "message": {
             "text": "plugin output"
           },
           "fingerprints": {
             "0": "c630cd9cdc8784d7ecdbbbe2ae5b6e0e30609841d2df1cef336b5e646391d876"
           },
+          "rank": 9.0,
           "properties": {
             "port": "0",
             "protocol": "tcp",
@@ -113,7 +117,8 @@
             "solution": "Solution text or generate a proper SSL certificate for this service.",
             "severity": "2",
             "cvss3BaseScore": "9.0",
-            "cvss3Vector": "AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:L/A:N"
+            "cvss3Vector": "AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:L/A:N",
+            "cve": ["CVE-2018-10858","CVE-2018-10919"]
           }
         }
       ],

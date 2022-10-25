@@ -93,6 +93,27 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 Markdown = rule.RuleTitle,
             };
 
+            //Use for GH Security Advisories
+            //set result level and rank (Critical - Low risk rating)
+            FailureLevel level = FailureLevel.None;
+            ResultKind kind = ResultKind.None;
+            double rank = RankConstants.None;
+            getResultSeverity(rule.Result, out level, out kind, out rank);
+
+            //Create only if a valid is assigned
+            if (rank != RankConstants.None)
+            {
+                descriptor.SetProperty("security-severity", rank);
+            }
+
+            //Tags for GH filtering
+            var tags = new List<string>()
+            {
+                "security",
+            };
+
+            descriptor.SetProperty("tags", tags);
+
             return descriptor;
         }
 
@@ -105,45 +126,63 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 Message = new Message { Text = rule.RuleTitle },
             };
 
-            //Kind & Level determine the status
-            //Result: "fail": Level = Error, Kind = Fail
-            //Result: "info|notchecked|pass|unknown": Level = None, Kind = Informational|NotApplicable|Pass|Review
-            switch (rule.Result)
-            {
-                //PASS CASES ARE NOT INCLUDED IN THE RESULTS, AS MATCH FORWARD DOES NOT PRODUCE
-                //THE CORRECT ABSENT / NEW STATES WHEN THEY EXIST
-                // case "pass":
-                //     result.Level = FailureLevel.None;
-                //     result.Kind = ResultKind.Pass;
-                //     break;
-                case "fail":
-                    result.Level = FailureLevel.Error;
-                    result.Kind = ResultKind.Fail;
-                    result.Rank = RankConstants.High;
-                    break;
-                case "notchecked":
-                    result.Level = FailureLevel.None;
-                    result.Kind = ResultKind.NotApplicable;
-                    result.Rank = RankConstants.None;
-                    break;
-                case "informational":
-                    result.Level = FailureLevel.None;
-                    result.Kind = ResultKind.Informational;
-                    result.Rank = RankConstants.None;
-                    break;
-                case "unknown":
-                default:
-                    result.Level = FailureLevel.Warning;
-                    result.Kind = ResultKind.Fail;
-                    result.Rank = RankConstants.Medium;
-                    break;
-            };
+            //set result kind, level and rank (Critical - Low risk rating)
+            FailureLevel level = FailureLevel.None;
+            ResultKind kind = ResultKind.None;
+            double rank = RankConstants.None;
+            getResultSeverity(rule.Result, out level, out kind, out rank);
+
+            //Set result object data
+            result.Level = level;
+            result.Kind = kind;
+            result.Rank = rank;
 
             //Set the unique fingerprint
             result.Fingerprints = new Dictionary<string, string>();
             result.Fingerprints.Add("0", HashUtilities.ComputeSha256HashValue(rule.RuleId).ToLower());
 
             return result;
+        }
+
+        private void getResultSeverity(string result, out FailureLevel level, out ResultKind kind, out double rank)
+        {
+            // Default values
+            level = FailureLevel.None;
+            kind = ResultKind.None;
+            rank = RankConstants.None;
+
+            //Kind & Level determine the status
+            //Result: "fail": Level = Error, Kind = Fail
+            //Result: "info|notchecked|pass|unknown": Level = None, Kind = Informational|NotApplicable|Pass|Review
+            switch (result)
+            {
+                case "pass":
+                    level = FailureLevel.None;
+                    kind = ResultKind.Pass;
+                    rank = RankConstants.None;
+                    break;
+                case "fail":
+                    level = FailureLevel.Error;
+                    kind = ResultKind.Fail;
+                    rank = RankConstants.High;
+                    break;
+                case "notchecked":
+                    level = FailureLevel.None;
+                    kind = ResultKind.NotApplicable;
+                    rank = RankConstants.None;
+                    break;
+                case "informational":
+                    level = FailureLevel.None;
+                    kind = ResultKind.Informational;
+                    rank = RankConstants.None;
+                    break;
+                case "unknown":
+                default:
+                    level = FailureLevel.Warning;
+                    kind = ResultKind.Fail;
+                    rank = RankConstants.Medium;
+                    break;
+            };
         }
     }
 }
