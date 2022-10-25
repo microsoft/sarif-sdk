@@ -45,5 +45,22 @@ namespace Microsoft.CodeAnalysis.Sarif
             Warnings.LogObsoleteOption(testContext.Object, "testObsoleteOption", "testReplacement");
             testLogger.Verify(x => x.LogConfigurationNotification(It.IsAny<Notification>()), Times.Exactly(2));
         }
+
+        [Fact]
+        public void Warnings_LogOneOrMoreFilesSkippedDueToSize()
+        {
+            var testLogger = new TestMessageLogger();
+            var binaryAnalysisContext = new TestAnalysisContext();
+            binaryAnalysisContext.Logger = testLogger;
+
+            Warnings.LogOneOrMoreFilesSkippedDueToSize(binaryAnalysisContext);
+
+            testLogger.Messages.Should().BeNull();
+            testLogger.ToolNotifications.Should().BeNull();
+            testLogger.ConfigurationNotifications.Count.Should().Equals(1);
+            testLogger.ConfigurationNotifications[0].Descriptor.Id.Should().BeEquivalentTo(Warnings.Wrn997_OneOrMoreFilesSkippedDueToSize);
+
+            binaryAnalysisContext.RuntimeErrors.Should().Be(RuntimeConditions.OneOrMoreFilesSkippedDueToSize);
+        }
     }
 }

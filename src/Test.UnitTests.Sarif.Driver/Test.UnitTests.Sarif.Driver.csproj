@@ -25,7 +25,7 @@
 
   <Target Name="CopyFunctionalTestData" AfterTargets="Build">
     <ItemGroup>
-      <TestFiles Include="$(SolutionDir)FunctionalTestData\**\*" />
+      <TestFiles Include="..\FunctionalTestData\**\*" />
     </ItemGroup>
     <Copy SourceFiles="@(TestFiles)" DestinationFolder="$(OutputPath)\FunctionalTestData\%(RecursiveDir)" />
   </Target>
