@@ -119,6 +119,7 @@
     <EmbeddedResource Include="TestData\SnykOpenSourceConverter\Inputs\InvalidResults.json" />
     <EmbeddedResource Include="TestData\SnykOpenSourceConverter\Inputs\NoResults.json" />
     <EmbeddedResource Include="TestData\SnykOpenSourceConverter\Inputs\ValidResults.json" />
+    <EmbeddedResource Include="TestData\SnykOpenSourceConverter\Inputs\ValidResult.json" />
     <EmbeddedResource Include="TestData\SnykOpenSourceConverter\ExpectedOutputs\NoResults.sarif" />
     <EmbeddedResource Include="TestData\SnykOpenSourceConverter\ExpectedOutputs\ValidResults.sarif" />
   </ItemGroup>

@@ -3,45 +3,6 @@
   "version": "2.1.0",
   "runs": [
     {
-      "results": [
-        {
-          "ruleId": "SNYK-DOTNET-NEWTONSOFTJSON-2774678",
-          "level": "error",
-          "message": {
-            "text": "This file introduces a vulnerable Newtonsoft.Json package with a high severity vulnerability."
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "src/Common/packages.config",
-                  "index": 0
-                },
-                "region": {
-                  "startLine": 1
-                }
-              }
-            }
-          ],
-          "fingerprints": {
-            "0": "8ea1e915fad81b081b2a960f83b28f71708dd67b03e724224a4e9fbc1bb72773"
-          },
-          "rank": 7.5,
-          "properties": {
-            "packageManager": "nuget",
-            "packageName": "Newtonsoft.Json",
-            "packageVersion": "10.0.3",
-            "cvss3BaseScore": "7.5",
-            "cvss3Vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H/E:P",
-            "vulnPublicationDate": "2022-04-24T10:58:25Z",
-            "semanticVersion": ["[,13.0.1)"],
-            "patchedVersion": ["13.0.1"],
-            "cve": [],
-            "cwe": ["CWE-755"],
-            "xref": ["GHSA-5crp-9r3c-p9vr"]
-          }
-        }
-      ],
       "tool": {
         "driver": {
           "name": "SnykOpenSource",
@@ -73,10 +34,42 @@
           ]
         }
       },
-      "artifacts": [
+      "results": [
         {
-          "location": {
-            "uri": "src/Common/packages.config"
+          "ruleId": "SNYK-DOTNET-NEWTONSOFTJSON-2774678",
+          "level": "error",
+          "message": {
+            "text": "This file introduces a vulnerable Newtonsoft.Json package with a high severity vulnerability."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/Common/packages.config",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 1
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "0": "5159c77798702b76a3298bb89325f876afa9776ec89ba94a1345c9edf96d3a49"
+          },
+          "rank": 7.5,
+          "properties": {
+            "packageManager": "nuget",
+            "packageName": "Newtonsoft.Json",
+            "packageVersion": "10.0.3",
+            "cvss3BaseScore": "7.5",
+            "cvss3Vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H/E:P",
+            "vulnPublicationDate": "2022-04-24T10:58:25Z",
+            "semanticVersion": ["[,13.0.1)"],
+            "patchedVersion": ["13.0.1"],
+            "cve": [],
+            "cwe": ["CWE-755"],
+            "xref": ["GHSA-5crp-9r3c-p9vr"]
           }
         }
       ],
