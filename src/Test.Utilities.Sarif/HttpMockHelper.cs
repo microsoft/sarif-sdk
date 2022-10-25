@@ -29,6 +29,9 @@ namespace Microsoft.CodeAnalysis.Sarif
         public static readonly HttpResponseMessage ForbiddenResponse =
             new HttpResponseMessage(HttpStatusCode.Forbidden);
 
+        public static readonly HttpResponseMessage BadGatewayResponse =
+            new HttpResponseMessage(HttpStatusCode.BadGateway);
+
         public static readonly HttpResponseMessage BadRequestResponse =
             new HttpResponseMessage(HttpStatusCode.BadRequest);
 
@@ -43,6 +46,23 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         private readonly List<Tuple<HttpRequestMessage, string, HttpResponseMessage>> mockedResponses =
             new List<Tuple<HttpRequestMessage, string, HttpResponseMessage>>();
+
+        public static HttpResponseMessage GetResponseForStatusCode(HttpStatusCode statusCode)
+        {
+            switch (statusCode)
+            {
+                case HttpStatusCode.OK: { return OKResponse; }
+                case HttpStatusCode.NotFound: { return NotFoundResponse; }
+                case HttpStatusCode.Forbidden: { return ForbiddenResponse; }
+                case HttpStatusCode.BadGateway: { return BadRequestResponse; }
+                case HttpStatusCode.BadRequest: { return BadRequestResponse; }
+                case HttpStatusCode.Unauthorized: { return UnauthorizedResponse; }
+                case HttpStatusCode.InternalServerError: { return InternalServerErrorResponse; }
+                case HttpStatusCode.NonAuthoritativeInformation: { return NonAuthoritativeInformationResponse; }
+            }
+
+            throw new NotImplementedException();
+        }
 
         public void Mock(HttpRequestMessage httpRequestMessage, HttpStatusCode httpStatusCode, HttpContent responseContent)
         {

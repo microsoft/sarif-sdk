@@ -20,13 +20,13 @@
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Include="$(SolutionDir)\Test.Data\Multitool\ValidationRules\Inputs\*" />
+    <EmbeddedResource Include="..\Test.Data\Multitool\ValidationRules\Inputs\*" />
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="$(SolutionDir)\Sarif\Schemata\sarif-$(SchemaVersionAsPublishedToSchemaStoreOrg).json" CopyToOutputDirectory="PreserveNewest" />
-    <None Include="$(SolutionDir)\Sarif\Schemata\sarif-external-property-file-$(SchemaVersionAsPublishedToSchemaStoreOrg).json" CopyToOutputDirectory="PreserveNewest" />
-    <None Include="$(SolutionDir)\Test.FunctionalTests.Sarif\v2\**\*.sarif" CopyToOutputDirectory="PreserveNewest" LinkBase="v2" />
+    <None Include="..\Sarif\Schemata\sarif-$(SchemaVersionAsPublishedToSchemaStoreOrg).json" CopyToOutputDirectory="PreserveNewest" />
+    <None Include="..\Sarif\Schemata\sarif-external-property-file-$(SchemaVersionAsPublishedToSchemaStoreOrg).json" CopyToOutputDirectory="PreserveNewest" />
+    <None Include="..\Test.FunctionalTests.Sarif\v2\**\*.sarif" CopyToOutputDirectory="PreserveNewest" LinkBase="v2" />
   </ItemGroup>
 
   <ItemGroup>
