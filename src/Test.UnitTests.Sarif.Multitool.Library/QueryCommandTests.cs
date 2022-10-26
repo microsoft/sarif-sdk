@@ -51,6 +51,38 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             Assert.Equal(expected, actual);
         }
 
+        [Fact]
+        public void QueryCommand_Properties()
+        {
+            string filePath = "WithProperties.sarif";
+            File.WriteAllText(filePath, s_extractor.GetResourceText(filePath));
+
+            // rule filter: string
+            RunAndVerifyCount(1, new QueryOptions() { Expression = "rule.properties.cwe == 'CWE-755'", InputFilePath = filePath });
+
+            // rule filter: double
+            RunAndVerifyCount(1, new QueryOptions() { Expression = "rule.properties.security-severity > 7.0", InputFilePath = filePath });
+
+            // rule filter: date time
+            RunAndVerifyCount(1, new QueryOptions() { Expression = "rule.properties.vulnPublicationDate > '2022-04-01T00:00:00'", InputFilePath = filePath });
+
+            // rule filter: date time
+            RunAndVerifyCount(1, new QueryOptions() { Expression = "rule.properties.vulnPublicationDate < '2022-04-30T00:00:00'", InputFilePath = filePath });
+
+            // result filter: string
+            RunAndVerifyCount(1, new QueryOptions() { Expression = "properties.packageManager == 'nuget'", InputFilePath = filePath });
+
+            // result filter: double
+            RunAndVerifyCount(0, new QueryOptions() { Expression = "properties.severity > 3.0", InputFilePath = filePath });
+
+            // result filter: date time
+            RunAndVerifyCount(1, new QueryOptions() { Expression = "properties.patchPublicationDate > '2022-06-01T00:00:00'", InputFilePath = filePath });
+
+            // result filter: date time
+            RunAndVerifyCount(0, new QueryOptions() { Expression = "properties.patchPublicationDate < '2022-04-25T00:00:00'", InputFilePath = filePath });
+        }
+
+
         private void RunAndVerifyCount(int expectedCount, QueryOptions options)
         {
             options.ReturnCount = true;
