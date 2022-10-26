@@ -67,16 +67,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             RunAndVerifyCount(1, new QueryOptions() { Expression = "rule.properties.vulnPublicationDate > '2022-04-01T00:00:00'", InputFilePath = filePath });
 
             // rule filter: date time
-            RunAndVerifyCount(1, new QueryOptions() { Expression = "rule.properties.vulnPublicationDate < '2022-04-30T00:00:00'", InputFilePath = filePath });
+            RunAndVerifyCount(2, new QueryOptions() { Expression = "rule.properties.vulnPublicationDate < '2022-04-30T00:00:00'", InputFilePath = filePath });
 
             // result filter: string
             RunAndVerifyCount(1, new QueryOptions() { Expression = "properties.packageManager == 'nuget'", InputFilePath = filePath });
 
             // result filter: double
-            RunAndVerifyCount(0, new QueryOptions() { Expression = "properties.severity > 3.0", InputFilePath = filePath });
+            RunAndVerifyCount(1, new QueryOptions() { Expression = "properties.packageManager == 'npm' && properties.severity > 3.0", InputFilePath = filePath });
 
             // result filter: date time
-            RunAndVerifyCount(1, new QueryOptions() { Expression = "properties.patchPublicationDate > '2022-06-01T00:00:00'", InputFilePath = filePath });
+            RunAndVerifyCount(2, new QueryOptions() { Expression = "properties.patchPublicationDate > '2022-06-01T00:00:00'", InputFilePath = filePath });
 
             // result filter: date time
             RunAndVerifyCount(0, new QueryOptions() { Expression = "properties.patchPublicationDate < '2022-04-25T00:00:00'", InputFilePath = filePath });

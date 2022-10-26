@@ -24,6 +24,23 @@
                 "security-severity": 8.0,
                 "vulnPublicationDate": "2022-04-24T10:58:25Z"
               }
+            },
+            {
+              "id": "TEST0002",
+              "name": "Test 2",
+              "shortDescription": {
+                "text": "Test description 2."
+              },
+              "messageStrings": {
+                "default": {
+                  "text": "Test description 2."
+                }
+              },
+              "properties": {
+                "cwe": "CWE-766",
+                "security-severity": 3.0,
+                "vulnPublicationDate": "2022-01-15T10:58:25Z"
+              }
             }
           ]
         }
@@ -39,6 +56,18 @@
             "packageManager": "nuget",
             "severity": 2.0,
             "patchPublicationDate": "2022-06-01T10:58:25Z"
+          }
+        },
+        {
+          "ruleId": "TEST0002",
+          "ruleIndex": 1,
+          "message": {
+            "text": "Test text 2."
+          },
+          "properties": {
+            "packageManager": "npm",
+            "severity": 9.0,
+            "patchPublicationDate": "2022-10-01T10:58:25Z"
           }
         }
       ],
