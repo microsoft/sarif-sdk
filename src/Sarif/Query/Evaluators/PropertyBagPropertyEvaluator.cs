@@ -65,7 +65,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Query.Evaluators
             else if (IsDoubleComparison(term))
                 return new DoubleEvaluator<Result>(GetProperty<double>, term);
             else
-                return new StringEvaluator<Result>(GetProperty<string>, term, StringComparison.OrdinalIgnoreCase) as IExpressionEvaluator<Result>;
+                return new StringEvaluator<Result>(GetProperty<string>, term, StringComparison.OrdinalIgnoreCase);
         }
 
         private static readonly ReadOnlyCollection<CompareOperator> s_stringSpecificOperators =
