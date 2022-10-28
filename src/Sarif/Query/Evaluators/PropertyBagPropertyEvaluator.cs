@@ -60,7 +60,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Query.Evaluators
         // This could cause problems if the comparand is string that happens to look like a number.
         private IExpressionEvaluator<Result> CreateEvaluator(TermExpression term)
         {
-            if (IsDateTimeComparison(term))
+            if (IsStringComparison(term))
+                return new StringEvaluator<Result>(GetProperty<string>, term, StringComparison.OrdinalIgnoreCase);
+            else if (IsDateTimeComparison(term))
                 return new DateTimeEvaluator<Result>(GetProperty<DateTime>, term);
             else if (IsDoubleComparison(term))
                 return new DoubleEvaluator<Result>(GetProperty<double>, term);

@@ -50,8 +50,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Query.Evaluators
                     return EvaluateNotEquals;
                 case CompareOperator.LessThan:
                     return EvaluateLessThan;
+                case CompareOperator.LessThanOrEquals:
+                    return EvaluateLessThanOrEquals;
                 case CompareOperator.GreaterThan:
                     return EvaluateGreaterThan;
+                case CompareOperator.GreaterThanOrEquals:
+                    return EvaluateGreaterThanOrEquals;
                 default:
                     throw new QueryParseException($"{term} does not support operator {term.Operator}");
             }
@@ -87,12 +91,32 @@ namespace Microsoft.CodeAnalysis.Sarif.Query.Evaluators
             }
         }
 
+        private void EvaluateLessThanOrEquals(ICollection<T> list, BitArray matches)
+        {
+            int i = 0;
+            foreach (T item in list)
+            {
+                matches.Set(i, _getter(item) <= _value);
+                i++;
+            }
+        }
+
         private void EvaluateGreaterThan(ICollection<T> list, BitArray matches)
         {
             int i = 0;
             foreach (T item in list)
             {
                 matches.Set(i, _getter(item) > _value);
+                i++;
+            }
+        }
+
+        private void EvaluateGreaterThanOrEquals(ICollection<T> list, BitArray matches)
+        {
+            int i = 0;
+            foreach (T item in list)
+            {
+                matches.Set(i, _getter(item) >= _value);
                 i++;
             }
         }
