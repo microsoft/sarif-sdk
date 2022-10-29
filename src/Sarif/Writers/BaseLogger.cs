@@ -15,8 +15,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         protected BaseLogger(IEnumerable<FailureLevel> failureLevels,
             IEnumerable<ResultKind> resultKinds)
         {
-            _failureLevels = failureLevels?.ToList() ?? new List<FailureLevel>();
-            _resultKinds = resultKinds?.ToList() ?? new List<ResultKind>();
+            _failureLevels = failureLevels?.ToList() ?? new List<FailureLevel>(new[] { FailureLevel.Error, FailureLevel.Warning }); ;
+            _resultKinds = resultKinds?.ToList() ?? new List<ResultKind>(new[] {  ResultKind.Fail });
 
             ValidateParameters();
         }

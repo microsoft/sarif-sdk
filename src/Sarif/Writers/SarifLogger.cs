@@ -40,24 +40,28 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                            IEnumerable<string> invocationTokensToRedact = null,
                            IEnumerable<string> invocationPropertiesToLog = null,
                            string defaultFileEncoding = null,
+                           bool closeWriterOnDispose = true,
                            bool quiet = false,
                            IEnumerable<FailureLevel> levels = null,
                            IEnumerable<ResultKind> kinds = null,
-                           IEnumerable<string> insertProperties = null)
+                           IEnumerable<string> insertProperties = null,
+                           FileRegionsCache fileRegionsCache = null)
             : this(new StreamWriter(new FileStream(outputFilePath, FileMode.Create, FileAccess.Write, FileShare.None)),
-                  logFilePersistenceOptions: logFilePersistenceOptions,
-                  dataToInsert: dataToInsert,
-                  dataToRemove: dataToRemove,
-                  tool: tool,
-                  run: run,
-                  analysisTargets: analysisTargets,
-                  invocationTokensToRedact: invocationTokensToRedact,
-                  invocationPropertiesToLog: invocationPropertiesToLog,
-                  defaultFileEncoding: defaultFileEncoding,
-                  quiet: quiet,
-                  levels: levels,
-                  kinds: kinds,
-                  insertProperties: insertProperties)
+                                    logFilePersistenceOptions,
+                                    dataToInsert,
+                                    dataToRemove,
+                                    tool,
+                                    run,
+                                    analysisTargets,
+                                    invocationTokensToRedact,
+                                    invocationPropertiesToLog,
+                                    defaultFileEncoding,
+                                    closeWriterOnDispose,
+                                    quiet,
+                                    levels,
+                                    kinds,
+                                    insertProperties,
+                                    fileRegionsCache)
         {
         }
 
@@ -75,8 +79,27 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                            bool quiet = false,
                            IEnumerable<FailureLevel> levels = null,
                            IEnumerable<ResultKind> kinds = null,
-                           IEnumerable<string> insertProperties = null) : this(textWriter, logFilePersistenceOptions, closeWriterOnDispose, levels, kinds)
+                           IEnumerable<string> insertProperties = null,
+                           FileRegionsCache fileRegionsCache = null) : base(failureLevels: levels, resultKinds: kinds)
         {
+            _textWriter = textWriter;
+            _closeWriterOnDispose = closeWriterOnDispose;
+            _jsonTextWriter = new JsonTextWriter(_textWriter);
+
+            _logFilePersistenceOptions = logFilePersistenceOptions;
+
+            if (PrettyPrint)
+            {
+                // Indented output is preferable for debugging
+                _jsonTextWriter.Formatting = Newtonsoft.Json.Formatting.Indented;
+            }
+
+            _jsonTextWriter.DateFormatString = DateTimeConverter.DateTimeFormat;
+            _jsonTextWriter.CloseOutput = _closeWriterOnDispose;
+
+            _issueLogJsonWriter = new ResultLogJsonWriter(_jsonTextWriter);
+            RuleToIndexMap = new Dictionary<ReportingDescriptor, int>(ReportingDescriptor.ValueComparer);
+
             if (dataToInsert.HasFlag(OptionallyEmittedData.Hashes))
             {
                 AnalysisTargetToHashDataMap = HashUtilities.MultithreadedComputeTargetFileHashes(analysisTargets, quiet) ?? new ConcurrentDictionary<string, HashData>();
@@ -87,7 +110,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             if (dataToInsert.HasFlag(OptionallyEmittedData.RegionSnippets) ||
                 dataToInsert.HasFlag(OptionallyEmittedData.ContextRegionSnippets))
             {
-                _insertOptionalDataVisitor = new InsertOptionalDataVisitor(dataToInsert, _run, insertProperties);
+                _insertOptionalDataVisitor = new InsertOptionalDataVisitor(dataToInsert,
+                                                                           _run,
+                                                                           insertProperties,
+                                                                           fileRegionsCache);
             }
 
             EnhanceRun(analysisTargets,
@@ -112,32 +138,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 {
                     RuleToIndexMap[_run.Tool.Driver.Rules[i]] = i;
                 }
-            }
-        }
-
-        private SarifLogger(TextWriter textWriter,
-                            LogFilePersistenceOptions logFilePersistenceOptions,
-                            bool closeWriterOnDipose,
-                            IEnumerable<FailureLevel> levels,
-                            IEnumerable<ResultKind> kinds) : base(failureLevels: levels, resultKinds: kinds)
-        {
-            _textWriter = textWriter;
-            _closeWriterOnDispose = closeWriterOnDipose;
-            _jsonTextWriter = new JsonTextWriter(_textWriter);
-
-            _logFilePersistenceOptions = logFilePersistenceOptions;
-
-            if (PrettyPrint)
-            {
-                // Indented output is preferable for debugging
-                _jsonTextWriter.Formatting = Newtonsoft.Json.Formatting.Indented;
-            }
-
-            _jsonTextWriter.DateFormatString = DateTimeConverter.DateTimeFormat;
-            _jsonTextWriter.CloseOutput = _closeWriterOnDispose;
-
-            _issueLogJsonWriter = new ResultLogJsonWriter(_jsonTextWriter);
-            RuleToIndexMap = new Dictionary<ReportingDescriptor, int>(ReportingDescriptor.ValueComparer);
+            }            
         }
 
         private void EnhanceRun(IEnumerable<string> analysisTargets,
