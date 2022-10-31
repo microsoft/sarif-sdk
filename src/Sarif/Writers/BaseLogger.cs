@@ -17,7 +17,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         {
             if (failureLevels == null && resultKinds == null)
             {
-                _failureLevels = new List<FailureLevel>(new[] { FailureLevel.Error, FailureLevel.Warning }); ;
+                _failureLevels = new List<FailureLevel>(new[] { FailureLevel.Error, FailureLevel.Warning });
                 _resultKinds = new List<ResultKind>(new[] { ResultKind.Fail });
             }
             else
