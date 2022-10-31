@@ -22,7 +22,6 @@ jobs:
   inputs:
     packageType: sdk
     version: 3.1.*
-    installationPath: $(Agent.ToolsDirectory)/dotnet
 
   # Build and test
   - task: PowerShell@2
