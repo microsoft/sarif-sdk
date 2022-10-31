@@ -26,7 +26,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 _resultKinds = resultKinds?.ToList() ?? new List<ResultKind>();
             }
 
-
             ValidateParameters();
         }
 
