@@ -15,14 +15,17 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         protected BaseLogger(IEnumerable<FailureLevel> failureLevels,
             IEnumerable<ResultKind> resultKinds)
         {
-            _failureLevels = failureLevels?.ToList() ?? new List<FailureLevel>(); ;
-            _resultKinds = resultKinds?.ToList() ?? new List<ResultKind>();
-
-            if (_failureLevels.Count == 0 && _resultKinds.Count == 0)
+            if (failureLevels == null && resultKinds == null)
             {
                 _failureLevels = new List<FailureLevel>(new[] { FailureLevel.Error, FailureLevel.Warning }); ;
                 _resultKinds = new List<ResultKind>(new[] { ResultKind.Fail });
             }
+            else
+            {
+                _failureLevels = failureLevels?.ToList() ?? new List<FailureLevel>(); ;
+                _resultKinds = resultKinds?.ToList() ?? new List<ResultKind>();
+            }
+
 
             ValidateParameters();
         }
