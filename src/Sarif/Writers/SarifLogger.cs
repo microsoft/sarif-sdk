@@ -138,7 +138,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 {
                     RuleToIndexMap[_run.Tool.Driver.Rules[i]] = i;
                 }
-            }            
+            }
         }
 
         private void EnhanceRun(IEnumerable<string> analysisTargets,

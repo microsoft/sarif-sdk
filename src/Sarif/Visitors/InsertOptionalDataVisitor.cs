@@ -33,12 +33,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         private const string CommitSha = nameof(CommitSha);
 
         public InsertOptionalDataVisitor(OptionallyEmittedData dataToInsert,
-                                         Run run, 
-                                         IEnumerable<string> insertProperties, 
+                                         Run run,
+                                         IEnumerable<string> insertProperties,
                                          FileRegionsCache fileRegionsCache = null)
             : this(dataToInsert,
-                   originalUriBaseIds: run?.OriginalUriBaseIds, 
-                   insertProperties: insertProperties, 
+                   originalUriBaseIds: run?.OriginalUriBaseIds,
+                   insertProperties: insertProperties,
                    fileRegionsCache: fileRegionsCache)
         {
             _run = run ?? throw new ArgumentNullException(nameof(run));
