@@ -142,7 +142,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return region;
         }
 
-        public Region ConstructMultilineContextSnippet(Region inputRegion, Uri uri)
+        public Region ConstructMultilineContextSnippet(Region inputRegion, Uri uri, string fileText = null)
         {
             if (inputRegion?.IsBinaryRegion != false)
             {
@@ -150,7 +150,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 return null;
             }
 
-            NewLineIndex newLineIndex = GetNewLineIndex(uri, fileText: null);
+            NewLineIndex newLineIndex = GetNewLineIndex(uri, fileText);
             if (newLineIndex == null)
             {
                 return null;
