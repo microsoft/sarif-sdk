@@ -361,14 +361,12 @@ namespace Microsoft.CodeAnalysis.Sarif
             {
                 newLineIndex = new NewLineIndex(fileText);
 
-                _cache[path] =
-                    new Tuple<string, NewLineIndex>(item1: path, item2: newLineIndex);
+                _cache[path] = new Tuple<string, NewLineIndex>(item1: path,
+                                                               item2: newLineIndex);
             }
             else
             {
-                Tuple<string, NewLineIndex> entry = _cache[path];
-
-                newLineIndex = entry.Item2;
+                newLineIndex = _cache[path].Item2;
             }
 
             return newLineIndex;
