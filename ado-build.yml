@@ -6,7 +6,7 @@ jobs:
   strategy:
     matrix:
       linux:
-        imageName: 'ubuntu-latest'
+        imageName: 'ubuntu-22.04'
       mac:
         imageName: 'macOS-latest'
       windows:
@@ -17,12 +17,6 @@ jobs:
     vmImage: $(imageName)
 
   steps:
-- task: UseDotNet@2
-  displayName: 'Use .NET Core sdk'
-  inputs:
-    packageType: sdk
-    version: 3.1.*
-
   # Build and test
   - task: PowerShell@2
     displayName: Build and Test
