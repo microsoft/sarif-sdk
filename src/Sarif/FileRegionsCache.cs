@@ -17,7 +17,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         public static readonly FileRegionsCache Instance = new FileRegionsCache();
         public const int DefaultCacheCapacity = 100;
         private readonly IFileSystem _fileSystem;
-        private readonly Cache<string, Tuple<string, NewLineIndex>> _cache;
+        internal readonly Cache<string, Tuple<string, NewLineIndex>> _cache;
 
         /// <summary>
         /// Creates a new <see cref="FileRegionsCache"/> object.
@@ -142,7 +142,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return region;
         }
 
-        public Region ConstructMultilineContextSnippet(Region inputRegion, Uri uri)
+        public Region ConstructMultilineContextSnippet(Region inputRegion, Uri uri, string fileText = null)
         {
             if (inputRegion?.IsBinaryRegion != false)
             {
@@ -150,7 +150,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 return null;
             }
 
-            NewLineIndex newLineIndex = GetNewLineIndex(uri, fileText: null);
+            NewLineIndex newLineIndex = GetNewLineIndex(uri, fileText);
             if (newLineIndex == null)
             {
                 return null;

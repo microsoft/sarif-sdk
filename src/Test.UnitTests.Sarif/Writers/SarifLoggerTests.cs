@@ -883,6 +883,61 @@ namespace Microsoft.CodeAnalysis.Sarif
         }
 
         [Fact]
+        public void SarifLogger_ConsumesFileRegionsCache()
+        {
+            var uri = new Uri("file:///test.txt");
+
+            var rule = new ReportingDescriptor
+            {
+                Id = "RuleId"
+            };
+
+            var result = new Result
+            {
+                RuleId = "RuleId",
+                Message = new Message { Text = "A test message." },
+                Locations = new[]
+                {
+                    new Location(){
+                        PhysicalLocation = new PhysicalLocation
+                        {
+                            Region = new Region{ StartLine = 2 },
+                            ArtifactLocation = new ArtifactLocation
+                            {
+                                Uri = uri
+                            }
+                        }
+                    }
+                }
+            };
+
+            var fileRegionsCache = new FileRegionsCache();
+            var region = new Region() { StartLine = 1 };
+            string fileText = $"{Environment.NewLine}Sample file text";
+
+            // This call forces text of file into the fileRegionsCache instance.
+            // If we can successfully populate region data afterwards, this is 
+            // solid proof we are consulting this cache instance.            
+            region.EndLine.Should().Be(0);
+            region = fileRegionsCache.PopulateTextRegionProperties(region, uri, populateSnippet: true, fileText);
+            region.EndLine.Should().Be(1);
+
+            var sb = new StringBuilder();
+            using var writer = new StringWriter(sb);
+
+            OptionallyEmittedData dataToInsert = OptionallyEmittedData.ComprehensiveRegionProperties | OptionallyEmittedData.ContextRegionSnippets;
+            var sarifLogger = new SarifLogger(writer, fileRegionsCache: fileRegionsCache, dataToInsert: dataToInsert);
+            sarifLogger.Log(rule, result);
+
+            region = new Region() { StartLine = 2 };
+            Region expectedRegion = fileRegionsCache.PopulateTextRegionProperties(region, uri, populateSnippet: true, fileText);
+
+            result.Locations[0].PhysicalLocation.Region.CharLength.Should().Be(expectedRegion.CharLength);
+            result.Locations[0].PhysicalLocation.ContextRegion.Should().NotBeNull();
+        }
+
+
+        [Fact]
         public void SarifLogger_ResultAndRuleIdMismatch()
         {
             var sb = new StringBuilder();
@@ -948,6 +1003,10 @@ namespace Microsoft.CodeAnalysis.Sarif
                 {
                     ValidateLoggerForExclusiveOption(logger, loggingOption);
                 };
+            }
+            catch (Exception e)
+            {
+                Assert.True(false, e.ToString());
             }
             finally
             {
