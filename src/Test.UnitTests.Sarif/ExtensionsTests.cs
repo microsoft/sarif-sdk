@@ -4,6 +4,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Numerics;
 using System.Text;
 using System.Xml;
 using System.Xml.Linq;
@@ -564,6 +565,50 @@ namespace Microsoft.CodeAnalysis.Sarif
 
                 this.VerifyDistinctMerge(first, second, comparer, expected);
             }
+        }
+
+        [Fact]
+        public void Extensions_CompareToTests()
+        {
+            const string guid = "25F72D7E-8A92-459D-AD67-64853F788765";
+            const string guid2 = "FFC64C90-42B6-44CE-8BEB-F6B7DAE649E5";
+            const string bigInteger = "31197130097450771296369962162453149327732752356239421572342053257324632475324";
+            const string bigInteger2 = "31197130097450771296369962162453149327732752356239421572342053257324632475325";
+
+            ((int?)null).CompareTo(null).Should().Be(0);
+            ((bool?)null).CompareTo(null).Should().Be(0);
+            ((Guid?)null).CompareTo(null).Should().Be(0);
+            ((BigInteger?)null).CompareTo(null).Should().Be(0);
+
+            ((int?)null).CompareTo(-1).Should().Be(-1);
+            ((bool?)null).CompareTo(false).Should().Be(-1);
+            ((Guid?)null).CompareTo(Guid.Empty).Should().Be(-1);
+            ((Guid?)null).CompareTo(Guid.NewGuid()).Should().Be(-1);
+            ((BigInteger?)null).CompareTo(ulong.MinValue).Should().Be(-1);
+
+            ((bool?)false).CompareTo(null).Should().Be(1);
+            ((Guid?)Guid.Empty).CompareTo(null).Should().Be(1);
+            ((BigInteger?)BigInteger.Parse(bigInteger)).CompareTo(null).Should().Be(1);
+            ((int?)int.MinValue).CompareTo(null).Should().Be(1);
+            ((Guid?)Guid.NewGuid()).CompareTo(null).Should().Be(1);
+
+            ((int?)5).CompareTo(5).Should().Be(0);
+            ((bool?)false).CompareTo(false).Should().Be(0);
+            ((Guid?)Guid.Empty).CompareTo(Guid.Empty).Should().Be(0);
+            ((Guid?)Guid.Parse(guid)).CompareTo((Guid?)Guid.Parse(guid)).Should().Be(0);
+            ((BigInteger?)BigInteger.Parse(bigInteger)).CompareTo(BigInteger.Parse(bigInteger)).Should().Be(0);
+
+            ((int?)5).CompareTo(6).Should().Be(-1);
+            ((bool?)false).CompareTo(true).Should().Be(-1);
+            ((Guid?)Guid.Empty).CompareTo(Guid.Parse(guid)).Should().Be(-1);
+            ((Guid?)Guid.Parse(guid)).CompareTo((Guid?)Guid.Parse(guid2)).Should().Be(-1);
+            ((BigInteger?)BigInteger.Parse(bigInteger)).CompareTo(BigInteger.Parse(bigInteger2)).Should().Be(-1);
+
+            ((int?)5).CompareTo(4).Should().Be(1);
+            ((bool?)true).CompareTo(false).Should().Be(1);
+            ((Guid?)Guid.Parse(guid)).CompareTo(Guid.Empty).Should().Be(1);
+            ((Guid?)Guid.Parse(guid2)).CompareTo((Guid?)Guid.Parse(guid)).Should().Be(1);
+            ((BigInteger?)BigInteger.Parse(bigInteger2)).CompareTo(BigInteger.Parse(bigInteger)).Should().Be(1);
         }
 
         private void VerifyDistinctMerge<T>(IEnumerable<T> first, IEnumerable<T> second, IEqualityComparer<T> comparer, IEnumerable<T> expected)

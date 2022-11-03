@@ -65,7 +65,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             nameof(RuleResources.SARIF2004_OptimizeFileSize_Warning_PreferRuleId_Text)
         };
 
-        private string driverGuid;
+        private Guid? driverGuid;
 
         protected override void Analyze(Run run, string runPointer)
         {

@@ -14,7 +14,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// Contains information about how and when a result was detected.
     /// </summary>
     [DataContract]
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "1.1.5.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "2.1.0.0")]
     public partial class ResultProvenance : PropertyBagHolder, ISarifNode
     {
         public static IEqualityComparer<ResultProvenance> ValueComparer => ResultProvenanceEqualityComparer.Instance;
@@ -53,13 +53,13 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// A GUID-valued string equal to the automationDetails.guid property of the run in which the result was first detected.
         /// </summary>
         [DataMember(Name = "firstDetectionRunGuid", IsRequired = false, EmitDefaultValue = false)]
-        public virtual string FirstDetectionRunGuid { get; set; }
+        public virtual Guid? FirstDetectionRunGuid { get; set; }
 
         /// <summary>
         /// A GUID-valued string equal to the automationDetails.guid property of the run in which the result was most recently detected.
         /// </summary>
         [DataMember(Name = "lastDetectionRunGuid", IsRequired = false, EmitDefaultValue = false)]
-        public virtual string LastDetectionRunGuid { get; set; }
+        public virtual Guid? LastDetectionRunGuid { get; set; }
 
         /// <summary>
         /// The index within the run.invocations array of the invocation object which describes the tool invocation that detected the result.
@@ -114,7 +114,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="properties">
         /// An initialization value for the <see cref="P:Properties" /> property.
         /// </param>
-        public ResultProvenance(DateTime firstDetectionTimeUtc, DateTime lastDetectionTimeUtc, string firstDetectionRunGuid, string lastDetectionRunGuid, int invocationIndex, IEnumerable<PhysicalLocation> conversionSources, IDictionary<string, SerializedPropertyInfo> properties)
+        public ResultProvenance(DateTime firstDetectionTimeUtc, DateTime lastDetectionTimeUtc, Guid? firstDetectionRunGuid, Guid? lastDetectionRunGuid, int invocationIndex, IEnumerable<PhysicalLocation> conversionSources, IDictionary<string, SerializedPropertyInfo> properties)
         {
             Init(firstDetectionTimeUtc, lastDetectionTimeUtc, firstDetectionRunGuid, lastDetectionRunGuid, invocationIndex, conversionSources, properties);
         }
@@ -156,7 +156,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new ResultProvenance(this);
         }
 
-        protected virtual void Init(DateTime firstDetectionTimeUtc, DateTime lastDetectionTimeUtc, string firstDetectionRunGuid, string lastDetectionRunGuid, int invocationIndex, IEnumerable<PhysicalLocation> conversionSources, IDictionary<string, SerializedPropertyInfo> properties)
+        protected virtual void Init(DateTime firstDetectionTimeUtc, DateTime lastDetectionTimeUtc, Guid? firstDetectionRunGuid, Guid? lastDetectionRunGuid, int invocationIndex, IEnumerable<PhysicalLocation> conversionSources, IDictionary<string, SerializedPropertyInfo> properties)
         {
             FirstDetectionTimeUtc = firstDetectionTimeUtc;
             LastDetectionTimeUtc = lastDetectionTimeUtc;

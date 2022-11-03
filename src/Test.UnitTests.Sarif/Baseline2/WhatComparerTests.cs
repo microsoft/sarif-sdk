@@ -27,7 +27,7 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Baseline
 
             // GUIDs
             // =====
-            string g1 = Guid.NewGuid().ToString(), g2 = Guid.NewGuid().ToString();
+            Guid? g1 = Guid.NewGuid(), g2 = Guid.NewGuid();
 
             // Match if Guids match.
             left.Guid = g1;

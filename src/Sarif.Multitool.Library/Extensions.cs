@@ -7,7 +7,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 {
     public static class Extensions
     {
-        public static bool RefersToDriver(this ToolComponentReference toolComponent, string driverGuid)
+        public static bool RefersToDriver(this ToolComponentReference toolComponent, Guid? driverGuid)
         {
             if (toolComponent.Index == -1)
             {
@@ -17,7 +17,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 }
                 else
                 {
-                    return toolComponent.Guid.Equals(driverGuid, StringComparison.OrdinalIgnoreCase);
+                    return toolComponent.Guid == driverGuid;
                 }
             }
 

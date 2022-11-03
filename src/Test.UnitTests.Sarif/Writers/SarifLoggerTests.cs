@@ -247,8 +247,8 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             string propertyName = "numberValue";
             double propertyValue = 3.14;
-            string baselineInstanceGuid = nameof(baselineInstanceGuid) + ":" + Guid.NewGuid().ToString();
-            string runInstanceGuid = Guid.NewGuid().ToString();
+            var baselineInstanceGuid = Guid.NewGuid();
+            var runInstanceGuid = Guid.NewGuid();
             string automationLogicalId = nameof(automationLogicalId) + ":" + Guid.NewGuid().ToString();
             string runInstanceId = automationLogicalId + "/" + runInstanceGuid;
             var conversion = new Conversion() { Tool = DefaultTool };

@@ -48,7 +48,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                         Version = flawFinderCsvResults?.FirstOrDefault()?.ToolVersion,
                         InformationUri = new Uri(ToolInformationUri),
                         Rules = rules,
-                        SupportedTaxonomies = new List<ToolComponentReference>() { new ToolComponentReference() { Name = "CWE", Guid = "FFC64C90-42B6-44CE-8BEB-F6B7DAE649E5" } }
+                        SupportedTaxonomies = new List<ToolComponentReference>() { new ToolComponentReference() { Name = "CWE", Guid = Guid.Parse("FFC64C90-42B6-44CE-8BEB-F6B7DAE649E5") } }
                     }
                 },
                 ExternalPropertyFileReferences = new ExternalPropertyFileReferences()
@@ -61,7 +61,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                             {
                                 Uri = new Uri("https://raw.githubusercontent.com/sarif-standard/taxonomies/main/CWE_v4.4.sarif"),
                             },
-                            Guid = "FFC64C90-42B6-44CE-8BEB-F6B7DAE649E5"
+                            Guid = Guid.Parse("FFC64C90-42B6-44CE-8BEB-F6B7DAE649E5")
                         }
                     }
                 },
@@ -131,7 +131,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                             ToolComponent = new ToolComponentReference()
                             {
                                 Name = "CWE",
-                                Guid = "FFC64C90-42B6-44CE-8BEB-F6B7DAE649E5"
+                                Guid = Guid.Parse("FFC64C90-42B6-44CE-8BEB-F6B7DAE649E5")
                             }
                         },
                         Kinds = new List<string>() { s.EndsWith("!") ? "incomparable" : "relevant" },

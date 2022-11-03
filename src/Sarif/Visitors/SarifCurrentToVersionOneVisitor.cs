@@ -786,7 +786,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 {
                     BaselineState = Utilities.CreateBaselineStateVersionOne(v2Result.BaselineState),
                     Fixes = v2Result.Fixes?.Select(CreateFixVersionOne).ToList(),
-                    Id = v2Result.Guid,
+                    Id = v2Result.Guid?.ToString(SarifConstants.GuidFormat),
                     Level = Utilities.CreateResultLevelVersionOne(v2Result.Level, v2Result.Kind),
                     Locations = v2Result.Locations?.Select(CreateLocationVersionOne).ToList(),
                     Message = v2Result.Message?.Text,
@@ -907,7 +907,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     CreateFileKeyIndexMappings(v2Run.Artifacts, out _v1FileKeyToV2IndexMap, out _v2FileIndexToV1KeyMap);
                     _v2RuleIndexToV1KeyMap = CreateV2RuleIndexToV1KeyMapping(v2Run.Tool.Driver.Rules);
 
-                    run.BaselineId = v2Run.BaselineGuid;
+                    run.BaselineId = v2Run.BaselineGuid?.ToString(SarifConstants.GuidFormat);
                     run.Files = CreateFileDataVersionOneDictionary();
                     run.Id = v2Run.AutomationDetails?.Id;
                     run.AutomationId = v2Run.RunAggregates?.FirstOrDefault()?.Id;

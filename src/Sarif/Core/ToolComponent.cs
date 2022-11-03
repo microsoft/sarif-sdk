@@ -13,17 +13,17 @@ namespace Microsoft.CodeAnalysis.Sarif
     public partial class ToolComponent
     {
         private Dictionary<string, ReportingDescriptor> _cachedRulesById;
-        private Dictionary<string, ReportingDescriptor> _cachedRulesByGuid;
+        private Dictionary<Guid, ReportingDescriptor> _cachedRulesByGuid;
 
         private void BuildRuleCaches()
         {
             _cachedRulesById = new Dictionary<string, ReportingDescriptor>();
-            _cachedRulesByGuid = new Dictionary<string, ReportingDescriptor>();
+            _cachedRulesByGuid = new Dictionary<Guid, ReportingDescriptor>();
 
             foreach (ReportingDescriptor r in this.Rules ?? Enumerable.Empty<ReportingDescriptor>())
             {
                 if (r.Id != null) { _cachedRulesById[r.Id] = r; }
-                if (r.Guid != null) { _cachedRulesByGuid[r.Guid] = r; }
+                if (r.Guid != null) { _cachedRulesByGuid[r.Guid.Value] = r; }
             }
         }
 
@@ -41,7 +41,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return rule;
         }
 
-        public ReportingDescriptor GetRuleByGuid(string ruleGuid)
+        public ReportingDescriptor GetRuleByGuid(Guid ruleGuid)
         {
             ReportingDescriptor rule = null;
 
