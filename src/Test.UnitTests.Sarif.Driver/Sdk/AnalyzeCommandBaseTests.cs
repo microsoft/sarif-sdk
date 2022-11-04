@@ -8,6 +8,7 @@ using System.Linq;
 using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Text;
+using System.Threading.Tasks;
 
 using FluentAssertions;
 
@@ -18,6 +19,7 @@ using Microsoft.CodeAnalysis.Sarif.Writers;
 using Microsoft.CodeAnalysis.Test.Utilities.Sarif;
 
 using Microsoft.Coyote;
+using Microsoft.Coyote.Specifications;
 using Microsoft.Coyote.SystematicTesting;
 
 using Moq;
@@ -1457,8 +1459,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         [Fact(Timeout = 5000, Skip = "TBD: this Coyote test will be enabled in a future nightly pipeline test run.")]
         public void AnalyzeCommandBase_ShouldGenerateSameResultsWhenRunningSingleAndMultithreaded_CoyoteTest()
         {
-            Configuration config = Configuration.Create().WithTestingIterations(100).WithSystematicFuzzingEnabled();
+            var logger = new CoyoteTestOutputLogger(this.Output);
+            Configuration config = Configuration.Create().WithTestingIterations(10).WithMaxSchedulingSteps(100);
             var engine = TestingEngine.Create(config, AnalyzeCommandBase_ShouldGenerateSameResultsWhenRunningSingleAndMultiThread_CoyoteHelper);
+            engine.Logger = logger;
+
             string TestLogDirectory = ".";
 
             engine.Run();
@@ -1570,6 +1575,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             action.Should().NotThrow();
         }
 
+        [Test]
         private void AnalyzeCommandBase_ShouldGenerateSameResultsWhenRunningSingleAndMultiThread_CoyoteHelper()
         {
             int[] scenarios = SetupScenarios(true);
