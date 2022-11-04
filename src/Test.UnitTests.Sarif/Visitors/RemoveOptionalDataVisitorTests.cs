@@ -22,7 +22,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     {
                         new Result()
                         {
-                            Guid = Guid.NewGuid().ToString(SarifConstants.GuidFormat)
+                            Guid = Guid.NewGuid()
                         }
                     }
                 }

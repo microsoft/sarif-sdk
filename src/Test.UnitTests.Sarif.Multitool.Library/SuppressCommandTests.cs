@@ -162,7 +162,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
             if (options.Guids)
             {
-                suppression.Guid.Should().NotBeNullOrEmpty();
+                suppression.Guid.Should().NotBeNull();
             }
 
             if (options.Timestamps && suppression.TryGetProperty("timeUtc", out DateTime timeUtc))

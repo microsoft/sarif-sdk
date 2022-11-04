@@ -15,7 +15,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// Describes a single run of an analysis tool, and contains the reported output of that run.
     /// </summary>
     [DataContract]
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "1.1.5.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "2.1.0.0")]
     public partial class Run : PropertyBagHolder, ISarifNode
     {
         public static IEqualityComparer<Run> ValueComparer => RunEqualityComparer.Instance;
@@ -119,7 +119,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// The 'guid' property of a previous SARIF 'run' that comprises the baseline that was used to compute result 'baselineState' properties for the run.
         /// </summary>
         [DataMember(Name = "baselineGuid", IsRequired = false, EmitDefaultValue = false)]
-        public virtual string BaselineGuid { get; set; }
+        public virtual Guid? BaselineGuid { get; set; }
 
         /// <summary>
         /// An array of strings used to replace sensitive information in a redaction-aware property.
@@ -321,7 +321,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="properties">
         /// An initialization value for the <see cref="P:Properties" /> property.
         /// </param>
-        public Run(Tool tool, IEnumerable<Invocation> invocations, Conversion conversion, string language, IEnumerable<VersionControlDetails> versionControlProvenance, IDictionary<string, ArtifactLocation> originalUriBaseIds, IEnumerable<Artifact> artifacts, IEnumerable<LogicalLocation> logicalLocations, IEnumerable<Graph> graphs, IEnumerable<Result> results, RunAutomationDetails automationDetails, IEnumerable<RunAutomationDetails> runAggregates, string baselineGuid, IEnumerable<string> redactionTokens, string defaultEncoding, string defaultSourceLanguage, IEnumerable<string> newlineSequences, ColumnKind columnKind, ExternalPropertyFileReferences externalPropertyFileReferences, IEnumerable<ThreadFlowLocation> threadFlowLocations, IEnumerable<ToolComponent> taxonomies, IEnumerable<Address> addresses, IEnumerable<ToolComponent> translations, IEnumerable<ToolComponent> policies, IEnumerable<WebRequest> webRequests, IEnumerable<WebResponse> webResponses, SpecialLocations specialLocations, IDictionary<string, SerializedPropertyInfo> properties)
+        public Run(Tool tool, IEnumerable<Invocation> invocations, Conversion conversion, string language, IEnumerable<VersionControlDetails> versionControlProvenance, IDictionary<string, ArtifactLocation> originalUriBaseIds, IEnumerable<Artifact> artifacts, IEnumerable<LogicalLocation> logicalLocations, IEnumerable<Graph> graphs, IEnumerable<Result> results, RunAutomationDetails automationDetails, IEnumerable<RunAutomationDetails> runAggregates, Guid? baselineGuid, IEnumerable<string> redactionTokens, string defaultEncoding, string defaultSourceLanguage, IEnumerable<string> newlineSequences, ColumnKind columnKind, ExternalPropertyFileReferences externalPropertyFileReferences, IEnumerable<ThreadFlowLocation> threadFlowLocations, IEnumerable<ToolComponent> taxonomies, IEnumerable<Address> addresses, IEnumerable<ToolComponent> translations, IEnumerable<ToolComponent> policies, IEnumerable<WebRequest> webRequests, IEnumerable<WebResponse> webResponses, SpecialLocations specialLocations, IDictionary<string, SerializedPropertyInfo> properties)
         {
             Init(tool, invocations, conversion, language, versionControlProvenance, originalUriBaseIds, artifacts, logicalLocations, graphs, results, automationDetails, runAggregates, baselineGuid, redactionTokens, defaultEncoding, defaultSourceLanguage, newlineSequences, columnKind, externalPropertyFileReferences, threadFlowLocations, taxonomies, addresses, translations, policies, webRequests, webResponses, specialLocations, properties);
         }
@@ -363,7 +363,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new Run(this);
         }
 
-        protected virtual void Init(Tool tool, IEnumerable<Invocation> invocations, Conversion conversion, string language, IEnumerable<VersionControlDetails> versionControlProvenance, IDictionary<string, ArtifactLocation> originalUriBaseIds, IEnumerable<Artifact> artifacts, IEnumerable<LogicalLocation> logicalLocations, IEnumerable<Graph> graphs, IEnumerable<Result> results, RunAutomationDetails automationDetails, IEnumerable<RunAutomationDetails> runAggregates, string baselineGuid, IEnumerable<string> redactionTokens, string defaultEncoding, string defaultSourceLanguage, IEnumerable<string> newlineSequences, ColumnKind columnKind, ExternalPropertyFileReferences externalPropertyFileReferences, IEnumerable<ThreadFlowLocation> threadFlowLocations, IEnumerable<ToolComponent> taxonomies, IEnumerable<Address> addresses, IEnumerable<ToolComponent> translations, IEnumerable<ToolComponent> policies, IEnumerable<WebRequest> webRequests, IEnumerable<WebResponse> webResponses, SpecialLocations specialLocations, IDictionary<string, SerializedPropertyInfo> properties)
+        protected virtual void Init(Tool tool, IEnumerable<Invocation> invocations, Conversion conversion, string language, IEnumerable<VersionControlDetails> versionControlProvenance, IDictionary<string, ArtifactLocation> originalUriBaseIds, IEnumerable<Artifact> artifacts, IEnumerable<LogicalLocation> logicalLocations, IEnumerable<Graph> graphs, IEnumerable<Result> results, RunAutomationDetails automationDetails, IEnumerable<RunAutomationDetails> runAggregates, Guid? baselineGuid, IEnumerable<string> redactionTokens, string defaultEncoding, string defaultSourceLanguage, IEnumerable<string> newlineSequences, ColumnKind columnKind, ExternalPropertyFileReferences externalPropertyFileReferences, IEnumerable<ThreadFlowLocation> threadFlowLocations, IEnumerable<ToolComponent> taxonomies, IEnumerable<Address> addresses, IEnumerable<ToolComponent> translations, IEnumerable<ToolComponent> policies, IEnumerable<WebRequest> webRequests, IEnumerable<WebResponse> webResponses, SpecialLocations specialLocations, IDictionary<string, SerializedPropertyInfo> properties)
         {
             if (tool != null)
             {

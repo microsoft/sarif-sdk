@@ -10,11 +10,11 @@
   </PropertyGroup>
 
   <PropertyGroup Condition="$(OS) == 'Windows_NT'">
-    <JsonSchemaToDotNetPath>$(MSBuildProjectDirectory)\..\packages\Microsoft.Json.Schema.ToDotNet.1.1.5\tools\net461\Microsoft.Json.Schema.ToDotNet.Cli.exe</JsonSchemaToDotNetPath>
+    <JsonSchemaToDotNetPath>$(MSBuildProjectDirectory)\..\packages\Microsoft.Json.Schema.ToDotNet.2.1.0\tools\net461\Microsoft.Json.Schema.ToDotNet.Cli.exe</JsonSchemaToDotNetPath>
     <ExecCommand>&quot;$(NuGetPath)\NuGet.exe&quot; restore &quot;$(MSBuildThisFileDirectory)packages.config&quot; -PackagesDirectory &quot;$(MSBuildThisFileDirectory)\..\..\packages&quot; -ConfigFile &quot;$(NuGetConfigPath)&quot; -Verbosity quiet</ExecCommand>
   </PropertyGroup>
   <PropertyGroup Condition="$(OS) != 'Windows_NT'">
-    <JsonSchemaToDotNetPath>$(MSBuildProjectDirectory)\..\packages\Microsoft.Json.Schema.ToDotNet.1.1.5\tools\netcoreapp3.1\Microsoft.Json.Schema.ToDotNet.Cli.dll</JsonSchemaToDotNetPath>
+    <JsonSchemaToDotNetPath>$(MSBuildProjectDirectory)\..\packages\Microsoft.Json.Schema.ToDotNet.2.1.0\tools\netcoreapp3.1\Microsoft.Json.Schema.ToDotNet.Cli.dll</JsonSchemaToDotNetPath>
     <ExecCommand>nuget restore &quot;$(MSBuildThisFileDirectory)packages.config&quot; -PackagesDirectory &quot;$(MSBuildThisFileDirectory)\..\..\packages&quot; -ConfigFile &quot;$(NuGetConfigPath)&quot; -Verbosity quiet</ExecCommand>
   </PropertyGroup>
 

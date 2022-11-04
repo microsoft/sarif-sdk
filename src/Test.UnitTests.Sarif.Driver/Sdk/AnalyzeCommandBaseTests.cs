@@ -1374,7 +1374,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         {
             const string whiteSpace = " ";
             const string automationId = "automation-id";
-            const string automationGuid = "automation-guid";
+            var automationGuid = Guid.NewGuid();
 
             TestAnalyzeOptions[] enhancedOptions = new[]
             {
@@ -1397,7 +1397,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 new TestAnalyzeOptions
                 {
                     AutomationId = string.Empty,
-                    AutomationGuid = string.Empty
+                    AutomationGuid = null
+                },
+                new TestAnalyzeOptions
+                {
+                    AutomationId = string.Empty,
+                    AutomationGuid = automationGuid
                 },
                 new TestAnalyzeOptions
                 {
@@ -1407,7 +1412,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 new TestAnalyzeOptions
                 {
                     AutomationId = whiteSpace,
-                    AutomationGuid = whiteSpace
+                    AutomationGuid = Guid.Empty
                 },
                 new TestAnalyzeOptions
                 {
@@ -1417,11 +1422,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 new TestAnalyzeOptions
                 {
                     AutomationId = null,
-                    AutomationGuid = whiteSpace
+                    AutomationGuid = Guid.Empty
                 },
                 new TestAnalyzeOptions
                 {
-                    AutomationGuid = string.Empty
+                    AutomationId = null,
+                    AutomationGuid = automationGuid
+                },
+                new TestAnalyzeOptions
+                {
+                    AutomationGuid = Guid.Empty
                 },
                 new TestAnalyzeOptions
                 {
@@ -1775,7 +1785,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             {
                 runWithCaching.Artifacts.Should().NotBeEmpty();
 
-                if (string.IsNullOrWhiteSpace(options.AutomationId) && string.IsNullOrWhiteSpace(options.AutomationGuid))
+                if (string.IsNullOrWhiteSpace(options.AutomationId) && options.AutomationGuid == null)
                 {
                     runWithCaching.AutomationDetails.Should().Be(null);
                 }
@@ -1785,7 +1795,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                     runWithCaching.AutomationDetails.Id.Should().Be(options.AutomationId);
                 }
 
-                if (!string.IsNullOrWhiteSpace(options.AutomationGuid))
+                if (options.AutomationGuid != null)
                 {
                     runWithCaching.AutomationDetails.Guid.Should().Be(options.AutomationGuid);
                 }

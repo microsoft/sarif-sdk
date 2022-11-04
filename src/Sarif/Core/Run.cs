@@ -224,8 +224,8 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             return this.AutomationDetails?.Description != null ||
                 !string.IsNullOrWhiteSpace(this.AutomationDetails?.Id) ||
-                !string.IsNullOrWhiteSpace(this.AutomationDetails?.Guid) ||
-                !string.IsNullOrWhiteSpace(this.AutomationDetails?.CorrelationGuid);
+                this.AutomationDetails?.Guid != null ||
+                this.AutomationDetails?.CorrelationGuid != null;
         }
 
         public bool ShouldSerializeInvocations()

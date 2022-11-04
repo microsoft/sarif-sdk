@@ -55,7 +55,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
             if (guids)
             {
-                suppression.Guid = Guid.NewGuid().ToString(SarifConstants.GuidFormat);
+                suppression.Guid = Guid.NewGuid();
             }
 
             if (timestamps)

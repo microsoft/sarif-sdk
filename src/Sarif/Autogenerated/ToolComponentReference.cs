@@ -14,7 +14,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// Identifies a particular toolComponent object, either the driver or an extension.
     /// </summary>
     [DataContract]
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "1.1.5.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "2.1.0.0")]
     public partial class ToolComponentReference : PropertyBagHolder, ISarifNode
     {
         public static IEqualityComparer<ToolComponentReference> ValueComparer => ToolComponentReferenceEqualityComparer.Instance;
@@ -53,7 +53,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// The 'guid' property of the referenced toolComponent.
         /// </summary>
         [DataMember(Name = "guid", IsRequired = false, EmitDefaultValue = false)]
-        public virtual string Guid { get; set; }
+        public virtual Guid? Guid { get; set; }
 
         /// <summary>
         /// Key/value pairs that provide additional information about the toolComponentReference.
@@ -84,7 +84,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="properties">
         /// An initialization value for the <see cref="P:Properties" /> property.
         /// </param>
-        public ToolComponentReference(string name, int index, string guid, IDictionary<string, SerializedPropertyInfo> properties)
+        public ToolComponentReference(string name, int index, Guid? guid, IDictionary<string, SerializedPropertyInfo> properties)
         {
             Init(name, index, guid, properties);
         }
@@ -126,7 +126,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new ToolComponentReference(this);
         }
 
-        protected virtual void Init(string name, int index, string guid, IDictionary<string, SerializedPropertyInfo> properties)
+        protected virtual void Init(string name, int index, Guid? guid, IDictionary<string, SerializedPropertyInfo> properties)
         {
             Name = name;
             Index = index;

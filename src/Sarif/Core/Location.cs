@@ -22,5 +22,10 @@ namespace Microsoft.CodeAnalysis.Sarif
                 }
             }
         }
+
+        public bool ShouldSerializeId()
+        {
+            return Id >= 0;
+        }
     }
 }

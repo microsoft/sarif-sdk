@@ -24,7 +24,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline
             // Add Guid
             if (result.Result.Guid != null)
             {
-                yield return new WhatComponent(result.RuleId, locationSpecifier, PropertySetBase, "Guid", result.Result.Guid);
+                yield return new WhatComponent(result.RuleId, locationSpecifier, PropertySetBase, "Guid", result.Result.Guid?.ToString(SarifConstants.GuidFormat));
             }
 
             // Add Message Text
