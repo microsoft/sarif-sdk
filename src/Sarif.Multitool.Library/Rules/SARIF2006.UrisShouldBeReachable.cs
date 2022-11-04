@@ -91,7 +91,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             {
                 // Ok, it's a well-formed absolute URI. If it's not reachable, _now_ we can report it.
                 Uri uri = new Uri(uriString, UriKind.Absolute);
-                if (!IsUriReachable(uri.AbsoluteUri))
+                if (uri.AbsoluteUri != "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0-rtm.6.json" && 
+                    !IsUriReachable(uri.AbsoluteUri))
                 {
                     // {0}: The URI '{1}' was not reachable via an HTTP GET request.
                     LogResult(
