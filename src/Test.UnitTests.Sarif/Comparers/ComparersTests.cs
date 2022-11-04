@@ -93,7 +93,7 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Comparers
         [Fact]
         public void CompareList_WithNullComparer_Tests()
         {
-            var tool = new ToolComponent { Guid = Guid.Empty.ToString() };
+            var tool = new ToolComponent { Guid = Guid.Empty };
 
             IList<Run> runs1 = new[] { new Run { Tool = new Tool { Driver = tool } } };
             IList<Run> runs2 = Array.Empty<Run>();
@@ -108,12 +108,12 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Comparers
             IList<Run> run1 = new List<Run>
             {
                 null,
-                new Run { Tool = new Tool { Driver = new ToolComponent { Guid = Guid.NewGuid().ToString() } } }
+                new Run { Tool = new Tool { Driver = new ToolComponent { Guid = Guid.NewGuid() } } }
             };
 
             IList<Run> run2 = new List<Run>
             {
-                new Run { Tool = new Tool { Driver = new ToolComponent { Guid = Guid.NewGuid().ToString() } } },
+                new Run { Tool = new Tool { Driver = new ToolComponent { Guid = Guid.NewGuid() } } },
                 null
             };
 
@@ -325,8 +325,8 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Comparers
 
             list1.ListCompares(list2, ToolComponentComparer.Instance).Should().Be(0);
 
-            list1.Insert(0, new ToolComponent() { Guid = Guid.Empty.ToString() });
-            list2.Insert(0, new ToolComponent() { Guid = Guid.NewGuid().ToString() });
+            list1.Insert(0, new ToolComponent() { Guid = Guid.Empty });
+            list2.Insert(0, new ToolComponent() { Guid = Guid.NewGuid() });
 
             list1.ListCompares(list2, ToolComponentComparer.Instance).Should().Be(-1);
             list2.ListCompares(list1, ToolComponentComparer.Instance).Should().Be(1);
@@ -409,8 +409,8 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Comparers
             rules1.ListCompares(rules2, ReportingDescriptorComparer.Instance).Should().Be(1);
             rules2.ListCompares(rules1, ReportingDescriptorComparer.Instance).Should().Be(-1);
 
-            rules1.Insert(0, new ReportingDescriptor() { Guid = Guid.NewGuid().ToString(), Id = "TestRule1" });
-            rules2.Insert(0, new ReportingDescriptor() { Guid = Guid.Empty.ToString(), Id = "TestRule1" });
+            rules1.Insert(0, new ReportingDescriptor() { Guid = Guid.NewGuid(), Id = "TestRule1" });
+            rules2.Insert(0, new ReportingDescriptor() { Guid = Guid.Empty, Id = "TestRule1" });
 
             rules1.ListCompares(rules2, ReportingDescriptorComparer.Instance).Should().Be(1);
             rules2.ListCompares(rules1, ReportingDescriptorComparer.Instance).Should().Be(-1);

@@ -102,7 +102,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 for (int i = 0; i < actualLog.Runs[0].Results.Count; ++i)
                 {
                     Result result = actualLog.Runs[0].Results[i];
-                    result.Guid.Should().NotBeNullOrEmpty(because: "OptionallyEmittedData.Guids flag was set");
+                    result.Guid.Should().NotBeNull(because: "OptionallyEmittedData.Guids flag was set");
 
                     result.Guid = null;
                 }

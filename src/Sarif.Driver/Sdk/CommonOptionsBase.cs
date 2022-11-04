@@ -1,6 +1,7 @@
 ﻿// Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
+using System;
 using System.Collections.Generic;
 
 using CommandLine;
@@ -100,7 +101,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         [Option(
             "automationGuid",
             HelpText = "A guid that will be persisted to the 'Run.AutomationDetails.Guid' property. See section '3.17.4' of the SARIF specification for more information.")]
-        public string AutomationGuid { get; set; }
+        public Guid? AutomationGuid { get; set; }
 
         public Formatting Formatting => this.PrettyPrint || (!this.PrettyPrint && !this.Minify)
             ? Formatting.Indented

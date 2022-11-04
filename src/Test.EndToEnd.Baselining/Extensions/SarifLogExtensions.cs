@@ -59,7 +59,9 @@ namespace SarifBaseline.Extensions
 
         public static Result FindByGuid(this SarifLog log, string guid)
         {
-            return log.EnumerateResults().Where(result => result.CorrelationGuid == guid || result.Guid == guid).FirstOrDefault();
+            bool isGuid = Guid.TryParse(guid, out Guid parsedGuid);
+            Guid? guidToCompare = isGuid ? parsedGuid : (Guid?)null;
+            return log.EnumerateResults().Where(result => result.CorrelationGuid == guidToCompare || result.Guid == guidToCompare).FirstOrDefault();
         }
     }
 }

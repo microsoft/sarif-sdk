@@ -14,7 +14,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// Metadata that describes a specific report produced by the tool, as part of the analysis it provides or its runtime reporting.
     /// </summary>
     [DataContract]
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "1.1.5.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "2.1.0.0")]
     public partial class ReportingDescriptor : PropertyBagHolder, ISarifNode
     {
         public static IEqualityComparer<ReportingDescriptor> ValueComparer => ReportingDescriptorEqualityComparer.Instance;
@@ -56,13 +56,13 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// A unique identifier for the reporting descriptor in the form of a GUID.
         /// </summary>
         [DataMember(Name = "guid", IsRequired = false, EmitDefaultValue = false, Order = 10)]
-        public virtual string Guid { get; set; }
+        public virtual Guid? Guid { get; set; }
 
         /// <summary>
         /// An array of unique identifies in the form of a GUID by which this report was known in some previous version of the analysis tool.
         /// </summary>
         [DataMember(Name = "deprecatedGuids", IsRequired = false, EmitDefaultValue = false, Order = 11)]
-        public virtual IList<string> DeprecatedGuids { get; set; }
+        public virtual IList<Guid> DeprecatedGuids { get; set; }
 
         /// <summary>
         /// A report identifier that is understandable to an end user.
@@ -179,7 +179,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="properties">
         /// An initialization value for the <see cref="P:Properties" /> property.
         /// </param>
-        public ReportingDescriptor(string id, IEnumerable<string> deprecatedIds, string guid, IEnumerable<string> deprecatedGuids, string name, IEnumerable<string> deprecatedNames, MultiformatMessageString shortDescription, MultiformatMessageString fullDescription, IDictionary<string, MultiformatMessageString> messageStrings, ReportingConfiguration defaultConfiguration, Uri helpUri, MultiformatMessageString help, IEnumerable<ReportingDescriptorRelationship> relationships, IDictionary<string, SerializedPropertyInfo> properties)
+        public ReportingDescriptor(string id, IEnumerable<string> deprecatedIds, Guid? guid, IEnumerable<Guid> deprecatedGuids, string name, IEnumerable<string> deprecatedNames, MultiformatMessageString shortDescription, MultiformatMessageString fullDescription, IDictionary<string, MultiformatMessageString> messageStrings, ReportingConfiguration defaultConfiguration, Uri helpUri, MultiformatMessageString help, IEnumerable<ReportingDescriptorRelationship> relationships, IDictionary<string, SerializedPropertyInfo> properties)
         {
             Init(id, deprecatedIds, guid, deprecatedGuids, name, deprecatedNames, shortDescription, fullDescription, messageStrings, defaultConfiguration, helpUri, help, relationships, properties);
         }
@@ -221,7 +221,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new ReportingDescriptor(this);
         }
 
-        protected virtual void Init(string id, IEnumerable<string> deprecatedIds, string guid, IEnumerable<string> deprecatedGuids, string name, IEnumerable<string> deprecatedNames, MultiformatMessageString shortDescription, MultiformatMessageString fullDescription, IDictionary<string, MultiformatMessageString> messageStrings, ReportingConfiguration defaultConfiguration, Uri helpUri, MultiformatMessageString help, IEnumerable<ReportingDescriptorRelationship> relationships, IDictionary<string, SerializedPropertyInfo> properties)
+        protected virtual void Init(string id, IEnumerable<string> deprecatedIds, Guid? guid, IEnumerable<Guid> deprecatedGuids, string name, IEnumerable<string> deprecatedNames, MultiformatMessageString shortDescription, MultiformatMessageString fullDescription, IDictionary<string, MultiformatMessageString> messageStrings, ReportingConfiguration defaultConfiguration, Uri helpUri, MultiformatMessageString help, IEnumerable<ReportingDescriptorRelationship> relationships, IDictionary<string, SerializedPropertyInfo> properties)
         {
             Id = id;
             if (deprecatedIds != null)
@@ -238,7 +238,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             Guid = guid;
             if (deprecatedGuids != null)
             {
-                var destination_1 = new List<string>();
+                var destination_1 = new List<Guid>();
                 foreach (var value_1 in deprecatedGuids)
                 {
                     destination_1.Add(value_1);

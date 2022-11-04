@@ -10,7 +10,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// <summary>
     /// Defines methods to support the comparison of objects of type ToolComponent for sorting.
     /// </summary>
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "1.1.5.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "2.1.0.0")]
     internal sealed class ToolComponentComparer : IComparer<ToolComponent>
     {
         internal static readonly ToolComponentComparer Instance = new ToolComponentComparer();
@@ -26,7 +26,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 return compareResult;
             }
 
-            compareResult = string.Compare(left.Guid, right.Guid);
+            compareResult = left.Guid.CompareTo(right.Guid);
             if (compareResult != 0)
             {
                 return compareResult;

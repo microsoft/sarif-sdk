@@ -14,7 +14,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// Contains information that enables a SARIF consumer to locate the external property file that contains the value of an externalized property associated with the run.
     /// </summary>
     [DataContract]
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "1.1.5.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "2.1.0.0")]
     public partial class ExternalPropertyFileReference : PropertyBagHolder, ISarifNode
     {
         public static IEqualityComparer<ExternalPropertyFileReference> ValueComparer => ExternalPropertyFileReferenceEqualityComparer.Instance;
@@ -45,7 +45,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// A stable, unique identifier for the external property file in the form of a GUID.
         /// </summary>
         [DataMember(Name = "guid", IsRequired = false, EmitDefaultValue = false)]
-        public virtual string Guid { get; set; }
+        public virtual Guid? Guid { get; set; }
 
         /// <summary>
         /// A non-negative integer specifying the number of items contained in the external property file.
@@ -84,7 +84,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="properties">
         /// An initialization value for the <see cref="P:Properties" /> property.
         /// </param>
-        public ExternalPropertyFileReference(ArtifactLocation location, string guid, int itemCount, IDictionary<string, SerializedPropertyInfo> properties)
+        public ExternalPropertyFileReference(ArtifactLocation location, Guid? guid, int itemCount, IDictionary<string, SerializedPropertyInfo> properties)
         {
             Init(location, guid, itemCount, properties);
         }
@@ -126,7 +126,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new ExternalPropertyFileReference(this);
         }
 
-        protected virtual void Init(ArtifactLocation location, string guid, int itemCount, IDictionary<string, SerializedPropertyInfo> properties)
+        protected virtual void Init(ArtifactLocation location, Guid? guid, int itemCount, IDictionary<string, SerializedPropertyInfo> properties)
         {
             if (location != null)
             {

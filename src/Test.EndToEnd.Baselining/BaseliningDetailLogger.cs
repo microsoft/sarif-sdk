@@ -47,7 +47,7 @@ namespace Test.EndToEnd.Baselining
 
         public void Write(SarifLog newBaselineLog, SarifLog baselineLog, BaseliningSummary summary)
         {
-            Dictionary<string, Result> baselineResultsByGuid = new Dictionary<string, Result>();
+            Dictionary<Guid?, Result> baselineResultsByGuid = new Dictionary<Guid?, Result>();
             foreach (Result result in baselineLog.EnumerateResults())
             {
                 baselineResultsByGuid[result.CorrelationGuid ?? result.Guid] = result;
@@ -61,10 +61,10 @@ namespace Test.EndToEnd.Baselining
                 switch (result.BaselineState)
                 {
                     case BaselineState.Absent:
-                        Write('-', result.Guid);
+                        Write('-', result.Guid?.ToString(SarifConstants.GuidFormat));
                         break;
                     case BaselineState.New:
-                        Write('+', result.Guid);
+                        Write('+', result.Guid?.ToString(SarifConstants.GuidFormat));
                         break;
                     case BaselineState.Unchanged:
                     case BaselineState.Updated:
@@ -75,14 +75,14 @@ namespace Test.EndToEnd.Baselining
                         if (previousResult == null)
                         {
                             // Write '?' for the Previous if we couldn't look it up
-                            Write('=', result.Guid);
-                            Write('?', result.CorrelationGuid);
+                            Write('=', result.Guid?.ToString(SarifConstants.GuidFormat));
+                            Write('?', result.CorrelationGuid?.ToString(SarifConstants.GuidFormat));
                         }
                         else if (result.Guid != previousResult.Guid)
                         {
                             // Only Log Unchanged results from the latest log (with a new Guid)
-                            Write('=', result.Guid);
-                            Write(' ', previousResult.Guid);
+                            Write('=', result.Guid?.ToString(SarifConstants.GuidFormat));
+                            Write(' ', previousResult.Guid?.ToString(SarifConstants.GuidFormat));
                         }
 
                         break;
