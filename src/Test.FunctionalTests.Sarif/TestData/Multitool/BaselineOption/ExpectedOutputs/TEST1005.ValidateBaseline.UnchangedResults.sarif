@@ -1,5 +1,5 @@
 {
-  "$schema": "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0-rtm.5.json",
+  "$schema": "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0-rtm.6.json",
   "version": "2.1.0",
   "runs": [
     {
@@ -7,6 +7,22 @@
         "driver": {
           "name": "SARIF Functional Testing",
           "rules": [
+            {
+              "id": "SARIF2006",
+              "name": "UrisShouldBeReachable",
+              "fullDescription": {
+                "text": "URIs that refer to locations such as rule help pages and result-related work items should be reachable via an HTTP GET request."
+              },
+              "messageStrings": {
+                "Note_Default": {
+                  "text": "{0}: The URI '{1}' was not reachable via an HTTP GET request."
+                }
+              },
+              "defaultConfiguration": {
+                "level": "note"
+              },
+              "helpUri": "http://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html"
+            },
             {
               "id": "SARIF2003",
               "name": "ProvideVersionControlProvenance",
@@ -108,8 +124,37 @@
       ],
       "results": [
         {
-          "ruleId": "SARIF2003",
+          "ruleId": "SARIF2006",
           "ruleIndex": 0,
+          "level": "note",
+          "message": {
+            "id": "Note_Default",
+            "arguments": [
+              "$schema",
+              "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0-rtm.6.json"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 2,
+                  "startColumn": 88
+                }
+              }
+            }
+          ],
+          "baselineState": "new",
+          "properties": {
+            "ResultMatching": {}
+          }
+        },
+        {
+          "ruleId": "SARIF2003",
+          "ruleIndex": 1,
           "level": "note",
           "message": {
             "id": "Note_Default",
@@ -137,7 +182,7 @@
         },
         {
           "ruleId": "SARIF2002",
-          "ruleIndex": 1,
+          "ruleIndex": 2,
           "level": "note",
           "message": {
             "id": "Note_Default",
@@ -165,7 +210,7 @@
         },
         {
           "ruleId": "SARIF2002",
-          "ruleIndex": 1,
+          "ruleIndex": 2,
           "level": "note",
           "message": {
             "id": "Note_Default",
@@ -193,7 +238,7 @@
         },
         {
           "ruleId": "SARIF2002",
-          "ruleIndex": 1,
+          "ruleIndex": 2,
           "level": "note",
           "message": {
             "id": "Note_Default",
@@ -221,7 +266,7 @@
         },
         {
           "ruleId": "SARIF2005",
-          "ruleIndex": 2,
+          "ruleIndex": 3,
           "message": {
             "id": "Warning_ProvideToolnformationUri",
             "arguments": [
@@ -249,7 +294,7 @@
         },
         {
           "ruleId": "SARIF2005",
-          "ruleIndex": 2,
+          "ruleIndex": 3,
           "message": {
             "id": "Warning_ProvideToolVersion",
             "arguments": [
@@ -278,7 +323,7 @@
         },
         {
           "ruleId": "SARIF2012",
-          "ruleIndex": 3,
+          "ruleIndex": 4,
           "level": "note",
           "message": {
             "id": "Note_ProvideMetadataForAllViolatedRules",

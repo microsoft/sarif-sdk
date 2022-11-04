@@ -1,5 +1,5 @@
 {
-  "$schema": "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0-rtm.5.json",
+  "$schema": "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0-rtm.6.json",
   "version": "2.1.0",
   "runs": [
     {
@@ -40,6 +40,31 @@
         }
       ],
       "results": [
+        {
+          "ruleId": "SARIF2006",
+          "ruleIndex": 0,
+          "level": "note",
+          "message": {
+            "id": "Note_Default",
+            "arguments": [
+              "$schema",
+              "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0-rtm.6.json"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 2,
+                  "startColumn": 88
+                }
+              }
+            }
+          ]
+        },
         {
           "ruleId": "SARIF2006",
           "ruleIndex": 0,
