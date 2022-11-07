@@ -58,10 +58,17 @@ namespace Microsoft.CodeAnalysis.Sarif.Query.Evaluators
         // and numbers. If the value being compared parses as a number, assume that a numeric
         // comparison was intended, and create a numeric evaluator. Otherwise, create a string evaluator.
         // This could cause problems if the comparand is string that happens to look like a number.
-        private IExpressionEvaluator<Result> CreateEvaluator(TermExpression term) =>
-           IsStringComparison(term)
-            ? new StringEvaluator<Result>(GetProperty<string>, term, StringComparison.OrdinalIgnoreCase) as IExpressionEvaluator<Result>
-            : new DoubleEvaluator<Result>(GetProperty<double>, term);
+        private IExpressionEvaluator<Result> CreateEvaluator(TermExpression term)
+        {
+            if (IsStringComparison(term))
+                return new StringEvaluator<Result>(GetProperty<string>, term, StringComparison.OrdinalIgnoreCase);
+            else if (IsDateTimeComparison(term))
+                return new DateTimeEvaluator<Result>(GetProperty<DateTime>, term);
+            else if (IsDoubleComparison(term))
+                return new DoubleEvaluator<Result>(GetProperty<double>, term);
+            else
+                return new StringEvaluator<Result>(GetProperty<string>, term, StringComparison.OrdinalIgnoreCase);
+        }
 
         private static readonly ReadOnlyCollection<CompareOperator> s_stringSpecificOperators =
             new ReadOnlyCollection<CompareOperator>(
@@ -73,7 +80,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Query.Evaluators
                 });
 
         private bool IsStringComparison(TermExpression term)
-            => s_stringSpecificOperators.Contains(term.Operator) || !double.TryParse(term.Value, out _);
+            => s_stringSpecificOperators.Contains(term.Operator);
+
+        private bool IsDoubleComparison(TermExpression term)
+            => double.TryParse(term.Value, out _);
+
+        private bool IsDateTimeComparison(TermExpression term)
+            => DateTime.TryParse(term.Value, out _);
 
         private T GetProperty<T>(Result result)
         {

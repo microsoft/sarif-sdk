@@ -288,20 +288,30 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             var messageLines = new List<string>();
 
-            foreach (Location location in result.Locations)
+            var ruleMessage = string.Format(
+                    CultureInfo.InvariantCulture, "{0} {1}: {2}",
+                    result.Kind == ResultKind.Fail ? result.Level.FormatForVisualStudio() : result.Kind.FormatForVisualStudio(),
+                    result.RuleId,
+                    result.GetMessageText(rule)
+                    );
+
+            if (result.Locations != null)
             {
-                Uri uri = location.PhysicalLocation.ArtifactLocation.Uri;
-                string path = uri.IsAbsoluteUri && uri.IsFile ? uri.LocalPath : uri.ToString();
-                messageLines.Add(
-                    string.Format(
-                        CultureInfo.InvariantCulture, "{0}{1}: {2} {3}: {4}",
+                foreach (Location location in result.Locations)
+                {
+                    Uri uri = location.PhysicalLocation.ArtifactLocation.Uri;
+                    string path = uri.IsAbsoluteUri && uri.IsFile ? uri.LocalPath : uri.ToString();
+
+                    ruleMessage = string.Format(
+                        CultureInfo.InvariantCulture, "{0}{1}: {2}",
                         path,
                         location.PhysicalLocation.Region.FormatForVisualStudio(),
-                        result.Kind == ResultKind.Fail ? result.Level.FormatForVisualStudio() : result.Kind.FormatForVisualStudio(),
-                        result.RuleId,
-                        result.GetMessageText(rule)
-                        ));
+                        ruleMessage
+                        );
+                }
             }
+
+            messageLines.Add(ruleMessage);
 
             return string.Join(Environment.NewLine, messageLines);
         }

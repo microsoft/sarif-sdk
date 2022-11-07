@@ -68,6 +68,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Query.Evaluators
             {
                 return new LongEvaluator<sbyte>(value => value, term);
             }
+            else if (fieldType == typeof(DateTime))
+            {
+                return new DateTimeEvaluator<DateTime>(value => value, term);
+            }
             else if (fieldType == typeof(string))
             {
                 // Default StringComparison only

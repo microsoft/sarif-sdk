@@ -63,6 +63,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         }
 
         [Fact]
+        public void QueryCommand_PerformsDateTimeSpecificComparisons()
+        {
+            RunAndVerifyCount(1, "rule.properties.publishDate > '2022-10-01' && rule.properties.publishDate < '2022-10-02'");   // result
+            RunAndVerifyCount(1, "properties.publishDate > '2022-10-28' && properties.publishDate < '2022-10-29'");    // rule
+        }
+
+        [Fact]
         public void QueryCommand_TreatsUnparseableValueAsHavingTheDefaultValue()
         {
             // In this test, all the results will match, so we need to know how many there are.
