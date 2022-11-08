@@ -74,7 +74,18 @@
           },
           "properties": {
             "matchState": "NotSuppressed"
-          }
+          },
+          "suppressions": [
+            {
+              "kind": "external",
+              "status": "accepted",
+              "justification": "justification",
+              "properties": {
+                "alias": "alias",
+                "expiryUtc": "2022-09-08T19:22:23.438465Z"
+              }
+            }
+          ]
         },
         {
           "ruleId": "CSCAN0060/0",
@@ -198,7 +209,7 @@
           },
           "properties": {
             "matchState": "NotSuppressed"
-          }
+         }         
         }
       ],
       "automationDetails": {},
