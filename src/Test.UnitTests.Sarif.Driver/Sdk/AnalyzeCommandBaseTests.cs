@@ -18,10 +18,6 @@ using Microsoft.CodeAnalysis.Sarif.VersionOne;
 using Microsoft.CodeAnalysis.Sarif.Writers;
 using Microsoft.CodeAnalysis.Test.Utilities.Sarif;
 
-using Microsoft.Coyote;
-using Microsoft.Coyote.Specifications;
-using Microsoft.Coyote.SystematicTesting;
-
 using Moq;
 
 using Newtonsoft.Json;
@@ -1456,37 +1452,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             }
         }
 
-        [Fact(Timeout = 5000, Skip = "TBD: this Coyote test will be enabled in a future nightly pipeline test run.")]
-        public void AnalyzeCommandBase_ShouldGenerateSameResultsWhenRunningSingleAndMultithreaded_CoyoteTest()
-        {
-            var logger = new CoyoteTestOutputLogger(this.Output);
-            Configuration config = Configuration.Create().WithTestingIterations(10).WithMaxSchedulingSteps(100);
-            var engine = TestingEngine.Create(config, AnalyzeCommandBase_ShouldGenerateSameResultsWhenRunningSingleAndMultiThread_CoyoteHelper);
-            engine.Logger = logger;
-
-            string TestLogDirectory = ".";
-
-            engine.Run();
-            TestReport report = engine.TestReport;
-
-            if (engine.TryEmitReports(TestLogDirectory, "AnalyzeCommandBase_ShouldGenerateSameResultsWhenRunningSingleAndMultiThread_CoyoteTest_Log", out IEnumerable<string> repoPaths))
-            {
-                foreach (string item in repoPaths)
-                {
-                    Output.WriteLine("See log file: {0}", item);
-                }
-            }
-
-            Assert.True(report.NumOfFoundBugs == 0, $"Coyote found {report.NumOfFoundBugs} bug(s).");
-        }
-
-        [Fact]
-        public void AnalyzeCommandBase_ShouldGenerateSameResultsWhenRunningSingleAndMultithreaded()
-        {
-            int[] scenarios = SetupScenarios();
-            AnalyzeScenarios(scenarios);
-        }
-
         [Fact]
         public void AnalyzeCommandBase_ShouldOnlyLogArtifactsWhenResultsAreFound()
         {
@@ -1575,21 +1540,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             action.Should().NotThrow();
         }
 
-        [Test]
-        private void AnalyzeCommandBase_ShouldGenerateSameResultsWhenRunningSingleAndMultiThread_CoyoteHelper()
-        {
-            int[] scenarios = SetupScenarios(true);
-            AnalyzeScenarios(scenarios);
-        }
-
-        private int[] SetupScenarios(bool IsCoyoteTest = false)
-        {
-            Coyote.Random.Generator random = Coyote.Random.Generator.Create();
-
-            return IsCoyoteTest ? new int[] { (random.NextInteger(10) + 1) } : new int[] { 10, 50, 100 };
-        }
-
-        private void AnalyzeScenarios(int[] scenarios)
+        [Theory]
+        [InlineData(new int[] { 10, 50, 100 })]
+        public static void AnalyzeCommandBase_ShouldGenerateSameResultsWhenRunningSingleAndMultiThread(int[] scenarios)
         {
             foreach (int scenario in scenarios)
             {
