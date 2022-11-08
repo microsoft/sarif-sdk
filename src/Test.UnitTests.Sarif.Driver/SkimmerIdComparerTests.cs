@@ -85,12 +85,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             rule.DefaultConfiguration = new ReportingConfiguration();
             rule.DefaultConfiguration.SetProperty<string>(Guid.NewGuid().ToString(), Guid.NewGuid().ToString());
 
-            rule.DeprecatedGuids = new string[] { Guid.NewGuid().ToString() };
+            rule.DeprecatedGuids = new Guid[] { Guid.NewGuid() };
             rule.DeprecatedIds = new string[] { Guid.NewGuid().ToString() };
             rule.DeprecatedNames = new string[] { Guid.NewGuid().ToString() };
             rule.FullDescription = new MultiformatMessageString { Text = Guid.NewGuid().ToString() };
 
-            rule.Guid = Guid.NewGuid().ToString();
+            rule.Guid = Guid.NewGuid();
             rule.Help = new MultiformatMessageString { Text = Guid.NewGuid().ToString() };
             rule.HelpUri = new Uri(Guid.NewGuid().ToString(), UriKind.RelativeOrAbsolute);
 

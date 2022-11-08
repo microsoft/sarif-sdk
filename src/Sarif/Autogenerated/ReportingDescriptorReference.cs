@@ -14,7 +14,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// Information about how to locate a relevant reporting descriptor.
     /// </summary>
     [DataContract]
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "1.1.5.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "2.1.0.0")]
     public partial class ReportingDescriptorReference : PropertyBagHolder, ISarifNode
     {
         public static IEqualityComparer<ReportingDescriptorReference> ValueComparer => ReportingDescriptorReferenceEqualityComparer.Instance;
@@ -53,7 +53,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// A guid that uniquely identifies the descriptor.
         /// </summary>
         [DataMember(Name = "guid", IsRequired = false, EmitDefaultValue = false)]
-        public virtual string Guid { get; set; }
+        public virtual Guid? Guid { get; set; }
 
         /// <summary>
         /// A reference used to locate the toolComponent associated with the descriptor.
@@ -93,7 +93,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="properties">
         /// An initialization value for the <see cref="P:Properties" /> property.
         /// </param>
-        public ReportingDescriptorReference(string id, int index, string guid, ToolComponentReference toolComponent, IDictionary<string, SerializedPropertyInfo> properties)
+        public ReportingDescriptorReference(string id, int index, Guid? guid, ToolComponentReference toolComponent, IDictionary<string, SerializedPropertyInfo> properties)
         {
             Init(id, index, guid, toolComponent, properties);
         }
@@ -135,7 +135,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new ReportingDescriptorReference(this);
         }
 
-        protected virtual void Init(string id, int index, string guid, ToolComponentReference toolComponent, IDictionary<string, SerializedPropertyInfo> properties)
+        protected virtual void Init(string id, int index, Guid? guid, ToolComponentReference toolComponent, IDictionary<string, SerializedPropertyInfo> properties)
         {
             Id = id;
             Index = index;

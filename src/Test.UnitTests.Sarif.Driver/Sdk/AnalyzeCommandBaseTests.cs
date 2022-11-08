@@ -8,6 +8,7 @@ using System.Linq;
 using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Text;
+using System.Threading.Tasks;
 
 using FluentAssertions;
 
@@ -18,6 +19,7 @@ using Microsoft.CodeAnalysis.Sarif.Writers;
 using Microsoft.CodeAnalysis.Test.Utilities.Sarif;
 
 using Microsoft.Coyote;
+using Microsoft.Coyote.Specifications;
 using Microsoft.Coyote.SystematicTesting;
 
 using Moq;
@@ -1374,7 +1376,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         {
             const string whiteSpace = " ";
             const string automationId = "automation-id";
-            const string automationGuid = "automation-guid";
+            var automationGuid = Guid.NewGuid();
 
             TestAnalyzeOptions[] enhancedOptions = new[]
             {
@@ -1397,7 +1399,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 new TestAnalyzeOptions
                 {
                     AutomationId = string.Empty,
-                    AutomationGuid = string.Empty
+                    AutomationGuid = null
+                },
+                new TestAnalyzeOptions
+                {
+                    AutomationId = string.Empty,
+                    AutomationGuid = automationGuid
                 },
                 new TestAnalyzeOptions
                 {
@@ -1407,7 +1414,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 new TestAnalyzeOptions
                 {
                     AutomationId = whiteSpace,
-                    AutomationGuid = whiteSpace
+                    AutomationGuid = Guid.Empty
                 },
                 new TestAnalyzeOptions
                 {
@@ -1417,11 +1424,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 new TestAnalyzeOptions
                 {
                     AutomationId = null,
-                    AutomationGuid = whiteSpace
+                    AutomationGuid = Guid.Empty
                 },
                 new TestAnalyzeOptions
                 {
-                    AutomationGuid = string.Empty
+                    AutomationId = null,
+                    AutomationGuid = automationGuid
+                },
+                new TestAnalyzeOptions
+                {
+                    AutomationGuid = Guid.Empty
                 },
                 new TestAnalyzeOptions
                 {
@@ -1444,11 +1456,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             }
         }
 
-        [Fact(Timeout = 5000)]
+        [Fact(Timeout = 5000, Skip = "TBD: this Coyote test will be enabled in a future nightly pipeline test run.")]
         public void AnalyzeCommandBase_ShouldGenerateSameResultsWhenRunningSingleAndMultithreaded_CoyoteTest()
         {
-            Configuration config = Configuration.Create().WithTestingIterations(100).WithSystematicFuzzingEnabled();
+            var logger = new CoyoteTestOutputLogger(this.Output);
+            Configuration config = Configuration.Create().WithTestingIterations(10).WithMaxSchedulingSteps(100);
             var engine = TestingEngine.Create(config, AnalyzeCommandBase_ShouldGenerateSameResultsWhenRunningSingleAndMultiThread_CoyoteHelper);
+            engine.Logger = logger;
+
             string TestLogDirectory = ".";
 
             engine.Run();
@@ -1560,6 +1575,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             action.Should().NotThrow();
         }
 
+        [Test]
         private void AnalyzeCommandBase_ShouldGenerateSameResultsWhenRunningSingleAndMultiThread_CoyoteHelper()
         {
             int[] scenarios = SetupScenarios(true);
@@ -1630,18 +1646,26 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         public void AnalyzeCommandBase_MultithreadedShouldUseCacheIfFilesAreTheSame()
         {
             // Generating 20 files with different names but same content.
+            // Generally, we expect the test analyzer to produce a result 
+            // based on the file name. Because every file is a duplicate 
+            // of every other in this case, though, we expect to see a 
+            // result for every file, because the first one analyzed 
+            // produces a result and therefore every identical file (by
+            // file hash, not by file name) will also produce that result.
             RunMultithreadedAnalyzeCommand(ComprehensiveKindAndLevelsByFilePath,
-                                           generateSameOutput: true,
+                                           generateDuplicateScanTargets: true,
                                            expectedResultCode: 0,
-                                           expectedResultCount: 20,
-                                           expectedCacheSize: 1);
+                                           expectedResultCount: 20);
 
             // Generating 20 files with different names and content.
+            // For this case, our expected result count matches the default
+            // behavior of the test analyzer and our default analyzer settings.
+            // By default, our analysis produces output for errors and warnings
+            // and there happen to be 7 files that comprises these failure levels.
             RunMultithreadedAnalyzeCommand(ComprehensiveKindAndLevelsByFilePath,
-                                           generateSameOutput: false,
+                                           generateDuplicateScanTargets: false,
                                            expectedResultCode: 0,
-                                           expectedResultCount: 7,
-                                           expectedCacheSize: 20);
+                                           expectedResultCount: 7);
         }
 
         private static readonly IList<string> ComprehensiveKindAndLevelsByFileName = new List<string>
@@ -1767,7 +1791,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             {
                 runWithCaching.Artifacts.Should().NotBeEmpty();
 
-                if (string.IsNullOrWhiteSpace(options.AutomationId) && string.IsNullOrWhiteSpace(options.AutomationGuid))
+                if (string.IsNullOrWhiteSpace(options.AutomationId) && options.AutomationGuid == null)
                 {
                     runWithCaching.AutomationDetails.Should().Be(null);
                 }
@@ -1777,7 +1801,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                     runWithCaching.AutomationDetails.Id.Should().Be(options.AutomationId);
                 }
 
-                if (!string.IsNullOrWhiteSpace(options.AutomationGuid))
+                if (options.AutomationGuid != null)
                 {
                     runWithCaching.AutomationDetails.Guid.Should().Be(options.AutomationGuid);
                 }
@@ -1801,8 +1825,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
         private static IFileSystem CreateDefaultFileSystemForResultsCaching(IList<string> files, bool generateSameInput = false)
         {
-            // This helper creates a file system that returns the same file contents for
-            // every file passed in the 'files' argument.
+            // This helper creates a file system that generates unique or entirely
+            // duplicate content for every file passed in the 'files' argument.
 
             string logFileContents = Guid.NewGuid().ToString();
 
@@ -1895,16 +1919,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         }
 
         private static void RunMultithreadedAnalyzeCommand(IList<string> files,
-                                                           bool generateSameOutput,
+                                                           bool generateDuplicateScanTargets,
                                                            int expectedResultCode,
-                                                           int expectedResultCount,
-                                                           int expectedCacheSize)
+                                                           int expectedResultCount)
         {
             var testCase = new ResultsCachingTestCase
             {
                 Files = files,
                 PersistLogFileToDisk = true,
-                FileSystem = CreateDefaultFileSystemForResultsCaching(files, generateSameOutput)
+                FileSystem = CreateDefaultFileSystemForResultsCaching(files, generateDuplicateScanTargets)
             };
 
             var options = new TestAnalyzeOptions
@@ -1926,11 +1949,20 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 };
 
                 HashUtilities.FileSystem = testCase.FileSystem;
-                command.Run(options).Should().Be(expectedResultCode);
+                int result = command.Run(options);
+                result.Should().Be(expectedResultCode);
 
                 SarifLog sarifLog = JsonConvert.DeserializeObject<SarifLog>(File.ReadAllText(options.OutputFilePath));
                 sarifLog.Runs[0].Results.Count.Should().Be(expectedResultCount);
-                command._analysisLoggerCache.Count.Should().Be(expectedCacheSize);
+
+                HashSet<string> hashes = new HashSet<string>();
+                foreach (Artifact artifact in sarifLog.Runs[0].Artifacts)
+                {
+                    hashes.Add(artifact.Hashes["sha-256"]);
+                }
+
+                int expectedUniqueFileHashCount = generateDuplicateScanTargets ? 1 : expectedResultCount;
+                hashes.Count.Should().Be(expectedUniqueFileHashCount);
             }
             finally
             {

@@ -288,20 +288,30 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             var messageLines = new List<string>();
 
-            foreach (Location location in result.Locations)
+            var ruleMessage = string.Format(
+                    CultureInfo.InvariantCulture, "{0} {1}: {2}",
+                    result.Kind == ResultKind.Fail ? result.Level.FormatForVisualStudio() : result.Kind.FormatForVisualStudio(),
+                    result.RuleId,
+                    result.GetMessageText(rule)
+                    );
+
+            if (result.Locations != null)
             {
-                Uri uri = location.PhysicalLocation.ArtifactLocation.Uri;
-                string path = uri.IsAbsoluteUri && uri.IsFile ? uri.LocalPath : uri.ToString();
-                messageLines.Add(
-                    string.Format(
-                        CultureInfo.InvariantCulture, "{0}{1}: {2} {3}: {4}",
+                foreach (Location location in result.Locations)
+                {
+                    Uri uri = location.PhysicalLocation.ArtifactLocation.Uri;
+                    string path = uri.IsAbsoluteUri && uri.IsFile ? uri.LocalPath : uri.ToString();
+
+                    ruleMessage = string.Format(
+                        CultureInfo.InvariantCulture, "{0}{1}: {2}",
                         path,
                         location.PhysicalLocation.Region.FormatForVisualStudio(),
-                        result.Kind == ResultKind.Fail ? result.Level.FormatForVisualStudio() : result.Kind.FormatForVisualStudio(),
-                        result.RuleId,
-                        result.GetMessageText(rule)
-                        ));
+                        ruleMessage
+                        );
+                }
             }
+
+            messageLines.Add(ruleMessage);
 
             return string.Join(Environment.NewLine, messageLines);
         }
@@ -560,6 +570,21 @@ namespace Microsoft.CodeAnalysis.Sarif
                     yield return element;
                 }
             }
+        }
+
+        /// <summary>
+        /// Extension method for comparing nullable structs
+        /// with proper handling of the case when 'left' is null.
+        /// </summary>
+        /// <typeparam name="T">The type of struct.</typeparam>
+        /// <param name="left">The first item to compare.</param>
+        /// <param name="right">The second item to compare.</param>
+        /// <returns>
+        /// Returns 1 if left is greater than right, -1 if left is less than right, 0 if they are equal.
+        /// </returns>
+        internal static int CompareTo<T>(this T? left, T? right) where T : struct
+        {
+            return Nullable.Compare(left, right);
         }
 
         /// <summary>Checks if a character is a newline.</summary>

@@ -1,5 +1,5 @@
 {
-  "$schema": "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0-rtm.5.json",
+  "$schema": "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0-rtm.6.json",
   "version": "2.1.0",
   "runs": [
     {
@@ -15,7 +15,8 @@
               "id": "TEST1002",
               "name": "PropertyBagWithNoMatchingProperty",
               "properties": {
-                "someOtherProperty": "x"
+                "someOtherProperty": "x",
+                "publishDate": "2022-10-01T13:01:42"
               }
             },
             {
@@ -51,7 +52,8 @@
           },
           "properties": {
             "comment": "Exact match.",
-            "name": "Calliope"
+            "name": "Calliope",
+            "publishDate": "2022-10-28T16:53:24"
           }
         },
         {

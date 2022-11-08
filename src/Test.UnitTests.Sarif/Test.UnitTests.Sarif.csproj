@@ -156,8 +156,8 @@
 
   <ItemGroup>
     <PackageReference Include="FluentAssertions" Version="5.10.2" />
-    <PackageReference Include="Microsoft.Json.Schema" Version="1.1.4" />
-    <PackageReference Include="Microsoft.Json.Schema.Validation" Version="1.1.4" />
+    <PackageReference Include="Microsoft.Json.Schema" Version="2.1.0" />
+    <PackageReference Include="Microsoft.Json.Schema.Validation" Version="2.1.0" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.4.0-preview-20220707-01" />
     <PackageReference Include="Moq" Version="4.13.1" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
@@ -340,7 +340,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="$(SolutionDir)\Test.FunctionalTests.Sarif\v2\SpecExamples\Comprehensive.sarif" CopyToOutputDirectory="PreserveNewest" LinkBase="v2\SpecExamples" />
-    <None Include="$(SolutionDir)\Test.FunctionalTests.Sarif\v2\ObsoleteFormats\ComprehensivePrereleaseTwoZeroZero.sarif" CopyToOutputDirectory="PreserveNewest" LinkBase="v2\ObsoleteFormats" />
+    <None Include="..\Test.FunctionalTests.Sarif\v2\SpecExamples\Comprehensive.sarif" CopyToOutputDirectory="PreserveNewest" LinkBase="v2\SpecExamples" />
+    <None Include="..\Test.FunctionalTests.Sarif\v2\ObsoleteFormats\ComprehensivePrereleaseTwoZeroZero.sarif" CopyToOutputDirectory="PreserveNewest" LinkBase="v2\ObsoleteFormats" />
   </ItemGroup>
 </Project>

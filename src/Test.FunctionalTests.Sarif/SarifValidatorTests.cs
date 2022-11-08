@@ -113,7 +113,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             public override ReportingDescriptor VisitReportingDescriptor(ReportingDescriptor node)
             {
-                node.DeprecatedGuids[0] = "36D2C336-7730-425A-9A94-43593A2A651C";
+                node.DeprecatedGuids[0] = Guid.Parse("36D2C336-7730-425A-9A94-43593A2A651C");
                 return base.VisitReportingDescriptor(node);
             }
         }

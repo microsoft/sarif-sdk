@@ -575,8 +575,8 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Baseline
             // The Guid also needs to be defined to provided an identity to attach other data (like Annotations) to the Result consistently.
             foreach (Result result in baselinedRun.Results ?? Enumerable.Empty<Result>())
             {
-                result.Guid.Should().NotBeNullOrEmpty();
-                result.CorrelationGuid.Should().NotBeNullOrEmpty();
+                result.Guid.Should().NotBeNull();
+                result.CorrelationGuid.Should().NotBeNull();
                 result.BaselineState.Should().NotBe(BaselineState.None);
             }
         }

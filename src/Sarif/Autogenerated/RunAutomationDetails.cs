@@ -12,7 +12,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// Information that describes a run's identity and role within an engineering system process.
     /// </summary>
     [DataContract]
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "1.1.5.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "2.1.0.0")]
     public partial class RunAutomationDetails : PropertyBagHolder, ISarifNode
     {
         public static IEqualityComparer<RunAutomationDetails> ValueComparer => RunAutomationDetailsEqualityComparer.Instance;
@@ -49,13 +49,13 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// A stable, unique identifier for this object's containing run object in the form of a GUID.
         /// </summary>
         [DataMember(Name = "guid", IsRequired = false, EmitDefaultValue = false)]
-        public virtual string Guid { get; set; }
+        public virtual Guid? Guid { get; set; }
 
         /// <summary>
         /// A stable, unique identifier for the equivalence class of runs to which this object's containing run object belongs in the form of a GUID.
         /// </summary>
         [DataMember(Name = "correlationGuid", IsRequired = false, EmitDefaultValue = false)]
-        public virtual string CorrelationGuid { get; set; }
+        public virtual Guid? CorrelationGuid { get; set; }
 
         /// <summary>
         /// Key/value pairs that provide additional information about the run automation details.
@@ -88,7 +88,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="properties">
         /// An initialization value for the <see cref="P:Properties" /> property.
         /// </param>
-        public RunAutomationDetails(Message description, string id, string guid, string correlationGuid, IDictionary<string, SerializedPropertyInfo> properties)
+        public RunAutomationDetails(Message description, string id, Guid? guid, Guid? correlationGuid, IDictionary<string, SerializedPropertyInfo> properties)
         {
             Init(description, id, guid, correlationGuid, properties);
         }
@@ -130,7 +130,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new RunAutomationDetails(this);
         }
 
-        protected virtual void Init(Message description, string id, string guid, string correlationGuid, IDictionary<string, SerializedPropertyInfo> properties)
+        protected virtual void Init(Message description, string id, Guid? guid, Guid? correlationGuid, IDictionary<string, SerializedPropertyInfo> properties)
         {
             if (description != null)
             {
