@@ -103,7 +103,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             //Create only if a valid is assigned
             if (rank != RankConstants.None)
             {
-                descriptor.SetProperty("security-severity", rank);
+                descriptor.SetProperty("security-severity", rank.ToString("F1"));
             }
 
             //Tags for GH filtering

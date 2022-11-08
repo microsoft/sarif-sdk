@@ -124,7 +124,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             FailureLevel level = FailureLevel.None;
             double rank = RankConstants.None;
             getResultSeverity(item.Cvss3BaseScore, item.Severity, out level, out rank);
-            descriptor.SetProperty("security-severity", rank);
+            descriptor.SetProperty("security-severity", rank.ToString("F1"));
 
             //Tags for GH filtering
             var tags = new List<string>()
