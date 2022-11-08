@@ -99,7 +99,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new ReportingDescriptor() { Id = this.RuleId ?? this.Rule?.Id };
         }
 
-        public bool TryIsSuppressed(out bool isSuppressed)
+        public bool TryIsSuppressed(out bool isSuppressed, bool checkExpired = false)
         {
             isSuppressed = false;
             if (this == null)
@@ -120,8 +120,15 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             // If the status of any of the suppressions is "underReview" or "rejected",
             // then the result should not be considered suppressed. Otherwise, the result should be considered suppressed.
-            // https://github.com/microsoft/sarif-tutorials/blob/main/docs/Displaying-results-in-a-viewer.md#determining-suppression-status
+            // https://github.com/microsoft/sarif-tutorials/blob/main/docs/Displaying-results-in-a-viewer.md#determining-suppression-status           
             isSuppressed = !suppressions.Any(s => s.Status == SuppressionStatus.UnderReview || s.Status == SuppressionStatus.Rejected);
+
+            // if we have suppressions, check expiration
+            if (isSuppressed && checkExpired)
+            {
+                isSuppressed = suppressions.Any(s => (!s.TryGetProperty("expiryUtc", out DateTime noExpiryUtc) || (s.TryGetProperty("expiryUtc", out DateTime expiryUtc) && expiryUtc > DateTime.UtcNow)) && s.Status == SuppressionStatus.Accepted);
+            }
+
             return true;
         }
 
