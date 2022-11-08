@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using System.Numerics;
 using System.Text;
 using System.Text.RegularExpressions;
 
@@ -192,7 +193,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                             catch (ArgumentException) { }
                         }
 
-                        int length = node.Length;
+                        BigInteger length = node.Length;
                         node = Artifact.Create(uri, _dataToInsert, encoding: encoding);
                         node.Length = length;
                         fileLocation.Index = -1;
