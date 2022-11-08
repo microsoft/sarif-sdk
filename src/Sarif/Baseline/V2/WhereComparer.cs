@@ -157,12 +157,17 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline
 
         private static int ResolvedStartColumn(Region region)
         {
-            return region.StartColumn == -1 ? 1 : region.StartColumn;
+            return (region.StartColumn == null || region.StartColumn.Value == -1) ? 1 : region.StartColumn.Value;
         }
 
         private static int ResolvedEndLine(Region region)
         {
-            return region.EndLine == -1 ? region.StartLine : region.EndLine;
+            if(region.EndLine == null || region.EndLine.Value == -1)
+            {
+                return (region.StartLine == null || region.StartLine.Value == -1) ? 1 : region.StartLine.Value;
+            }
+
+            return region.EndLine.Value;
         }
 
         public static int CompareTo(Uri left, Uri right)
@@ -202,7 +207,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline
 
             // Otherwise, return empty, so that all Results without matching locations
             // are put in the same "bucket" for matching. (File Rename handling)
-            return String.Empty;
+            return string.Empty;
         }
 
         // Add all Uris and FullyQualifiedLocations in the Result to a set

@@ -232,7 +232,11 @@ namespace Microsoft.CodeAnalysis.Sarif
                     result = (result * 31) + xor_0;
                 }
 
-                result = (result * 31) + obj.NestingLevel.GetHashCode();
+                if (obj.NestingLevel != null)
+                {
+                    result = (result * 31) + obj.NestingLevel.GetHashCode();
+                }
+
                 result = (result * 31) + obj.ExecutionOrder.GetHashCode();
                 result = (result * 31) + obj.ExecutionTimeUtc.GetHashCode();
                 result = (result * 31) + obj.Importance.GetHashCode();

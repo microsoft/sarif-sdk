@@ -108,8 +108,16 @@ namespace Microsoft.CodeAnalysis.Sarif
             unchecked
             {
                 result = (result * 31) + obj.AbsoluteAddress.GetHashCode();
-                result = (result * 31) + obj.RelativeAddress.GetHashCode();
-                result = (result * 31) + obj.Length.GetHashCode();
+                if (obj.RelativeAddress != null)
+                {
+                    result = (result * 31) + obj.RelativeAddress.GetHashCode();
+                }
+
+                if (obj.Length != null)
+                {
+                    result = (result * 31) + obj.Length.GetHashCode();
+                }
+
                 if (obj.Kind != null)
                 {
                     result = (result * 31) + obj.Kind.GetHashCode();
@@ -125,7 +133,11 @@ namespace Microsoft.CodeAnalysis.Sarif
                     result = (result * 31) + obj.FullyQualifiedName.GetHashCode();
                 }
 
-                result = (result * 31) + obj.OffsetFromParent.GetHashCode();
+                if (obj.OffsetFromParent != null)
+                {
+                    result = (result * 31) + obj.OffsetFromParent.GetHashCode();
+                }
+
                 result = (result * 31) + obj.Index.GetHashCode();
                 result = (result * 31) + obj.ParentIndex.GetHashCode();
                 if (obj.Properties != null)

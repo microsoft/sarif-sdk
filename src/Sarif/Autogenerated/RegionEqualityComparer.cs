@@ -117,10 +117,26 @@ namespace Microsoft.CodeAnalysis.Sarif
             int result = 17;
             unchecked
             {
-                result = (result * 31) + obj.StartLine.GetHashCode();
-                result = (result * 31) + obj.StartColumn.GetHashCode();
-                result = (result * 31) + obj.EndLine.GetHashCode();
-                result = (result * 31) + obj.EndColumn.GetHashCode();
+                if (obj.StartLine != null)
+                {
+                    result = (result * 31) + obj.StartLine.GetHashCode();
+                }
+
+                if (obj.StartColumn != null)
+                {
+                    result = (result * 31) + obj.StartColumn.GetHashCode();
+                }
+
+                if (obj.EndLine != null)
+                {
+                    result = (result * 31) + obj.EndLine.GetHashCode();
+                }
+
+                if (obj.EndColumn != null)
+                {
+                    result = (result * 31) + obj.EndColumn.GetHashCode();
+                }
+
                 result = (result * 31) + obj.CharOffset.GetHashCode();
                 result = (result * 31) + obj.CharLength.GetHashCode();
                 result = (result * 31) + obj.ByteOffset.GetHashCode();

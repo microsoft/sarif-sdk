@@ -150,7 +150,11 @@ namespace Microsoft.CodeAnalysis.Sarif
                 }
 
                 result = (result * 31) + obj.ParentIndex.GetHashCode();
-                result = (result * 31) + obj.Offset.GetHashCode();
+                if (obj.Offset != null)
+                {
+                    result = (result * 31) + obj.Offset.GetHashCode();
+                }
+
                 result = (result * 31) + obj.Length.GetHashCode();
                 result = (result * 31) + obj.Roles.GetHashCode();
                 if (obj.MimeType != null)

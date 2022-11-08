@@ -108,7 +108,11 @@ namespace Microsoft.CodeAnalysis.Sarif
                     result = (result * 31) + obj.Module.GetHashCode();
                 }
 
-                result = (result * 31) + obj.ThreadId.GetHashCode();
+                if (obj.ThreadId != null)
+                {
+                    result = (result * 31) + obj.ThreadId.GetHashCode();
+                }
+
                 if (obj.Parameters != null)
                 {
                     foreach (var value_2 in obj.Parameters)

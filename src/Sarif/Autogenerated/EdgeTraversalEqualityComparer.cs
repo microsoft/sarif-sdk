@@ -125,7 +125,11 @@ namespace Microsoft.CodeAnalysis.Sarif
                     result = (result * 31) + xor_0;
                 }
 
-                result = (result * 31) + obj.StepOverEdgeCount.GetHashCode();
+                if (obj.StepOverEdgeCount != null)
+                {
+                    result = (result * 31) + obj.StepOverEdgeCount.GetHashCode();
+                }
+
                 if (obj.Properties != null)
                 {
                     // Use xor for dictionaries to be order-independent.

@@ -170,11 +170,29 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline
             Region firstRegion = result.Result?.Locations?.FirstOrDefault()?.PhysicalLocation?.Region;
             if (firstRegion != null)
             {
-                rawMessage = rawMessage
-                    .Replace(firstRegion.StartLine.ToString(CultureInfo.InvariantCulture), "~SL~")
-                    .Replace(firstRegion.StartColumn.ToString(CultureInfo.InvariantCulture), "~SC~")
-                    .Replace(firstRegion.EndLine.ToString(CultureInfo.InvariantCulture), "~EL~")
-                    .Replace(firstRegion.EndColumn.ToString(CultureInfo.InvariantCulture), "~EC~");
+                if (firstRegion.StartLine != null)
+                {
+                    rawMessage = rawMessage
+                    .Replace(firstRegion.StartLine.Value.ToString(CultureInfo.InvariantCulture), "~SL~");
+                }
+
+                if (firstRegion.StartColumn != null)
+                {
+                    rawMessage = rawMessage
+                    .Replace(firstRegion.StartColumn.Value.ToString(CultureInfo.InvariantCulture), "~SC~");
+                }
+
+                if (firstRegion.EndLine != null)
+                {
+                    rawMessage = rawMessage
+                    .Replace(firstRegion.EndLine.Value.ToString(CultureInfo.InvariantCulture), "~EL~");
+                }
+
+                if (firstRegion.EndColumn != null)
+                {
+                    rawMessage = rawMessage
+                    .Replace(firstRegion.EndColumn.Value.ToString(CultureInfo.InvariantCulture), "~EC~");
+                }
             }
 
             return rawMessage;

@@ -136,7 +136,11 @@ namespace Microsoft.CodeAnalysis.Sarif
                 }
 
                 result = (result * 31) + obj.Level.GetHashCode();
-                result = (result * 31) + obj.ThreadId.GetHashCode();
+                if (obj.ThreadId != null)
+                {
+                    result = (result * 31) + obj.ThreadId.GetHashCode();
+                }
+
                 result = (result * 31) + obj.TimeUtc.GetHashCode();
                 if (obj.Exception != null)
                 {

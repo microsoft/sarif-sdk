@@ -462,7 +462,11 @@ namespace Microsoft.CodeAnalysis.Sarif
                     result = (result * 31) + obj.CorrelationGuid.GetHashCode();
                 }
 
-                result = (result * 31) + obj.OccurrenceCount.GetHashCode();
+                if (obj.OccurrenceCount != null)
+                {
+                    result = (result * 31) + obj.OccurrenceCount.GetHashCode();
+                }
+
                 if (obj.PartialFingerprints != null)
                 {
                     // Use xor for dictionaries to be order-independent.

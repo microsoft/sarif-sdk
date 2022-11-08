@@ -240,7 +240,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     {
                         foreach (IBlameHunk blameHunk in blameHunks)
                         {
-                            if (!blameHunk.ContainsLine(region.StartLine))
+                            if (!blameHunk.ContainsLine(region.StartLine ?? 1))
                             {
                                 continue;
                             }

@@ -1758,6 +1758,7 @@
         "charLength": {
           "description": "The length of the region in characters.",
           "type": "integer",
+          "default": 0,
           "minimum": 0,
           "maximum": 2147483647
         },
@@ -1772,6 +1773,7 @@
         "byteLength": {
           "description": "The length of the region in bytes.",
           "type": "integer",
+          "default": 0,
           "minimum": 0
         },
 

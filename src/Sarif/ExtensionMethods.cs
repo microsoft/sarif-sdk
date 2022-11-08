@@ -664,5 +664,16 @@ namespace Microsoft.CodeAnalysis.Sarif
                 xmlReader.Read();
             }
         }
+
+        /// <summary>
+        /// Extension method for coverting nullable integer to string.
+        /// </summary>
+        /// <param name="nullableInt">The nullable integer to convert.</param>
+        /// <param name="cultureInfo">The culture info used to do the convert.</param>
+        /// <returns>The output string.</returns>
+        internal static string ToString(this int? nullableInt, CultureInfo cultureInfo)
+        {
+            return nullableInt != null ? nullableInt.Value.ToString(cultureInfo) : string.Empty;
+        }
     }
 }

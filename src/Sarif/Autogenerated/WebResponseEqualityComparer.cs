@@ -130,7 +130,11 @@ namespace Microsoft.CodeAnalysis.Sarif
                     result = (result * 31) + obj.Version.GetHashCode();
                 }
 
-                result = (result * 31) + obj.StatusCode.GetHashCode();
+                if (obj.StatusCode != null)
+                {
+                    result = (result * 31) + obj.StatusCode.GetHashCode();
+                }
+
                 if (obj.ReasonPhrase != null)
                 {
                     result = (result * 31) + obj.ReasonPhrase.GetHashCode();

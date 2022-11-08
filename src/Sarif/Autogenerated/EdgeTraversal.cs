@@ -55,7 +55,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// The number of edge traversals necessary to return from a nested graph.
         /// </summary>
         [DataMember(Name = "stepOverEdgeCount", IsRequired = false, EmitDefaultValue = false)]
-        public virtual int StepOverEdgeCount { get; set; }
+        public virtual int? StepOverEdgeCount { get; set; }
 
         /// <summary>
         /// Key/value pairs that provide additional information about the edge traversal.
@@ -88,7 +88,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="properties">
         /// An initialization value for the <see cref="P:Properties" /> property.
         /// </param>
-        public EdgeTraversal(string edgeId, Message message, IDictionary<string, MultiformatMessageString> finalState, int stepOverEdgeCount, IDictionary<string, SerializedPropertyInfo> properties)
+        public EdgeTraversal(string edgeId, Message message, IDictionary<string, MultiformatMessageString> finalState, int? stepOverEdgeCount, IDictionary<string, SerializedPropertyInfo> properties)
         {
             Init(edgeId, message, finalState, stepOverEdgeCount, properties);
         }
@@ -130,7 +130,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new EdgeTraversal(this);
         }
 
-        protected virtual void Init(string edgeId, Message message, IDictionary<string, MultiformatMessageString> finalState, int stepOverEdgeCount, IDictionary<string, SerializedPropertyInfo> properties)
+        protected virtual void Init(string edgeId, Message message, IDictionary<string, MultiformatMessageString> finalState, int? stepOverEdgeCount, IDictionary<string, SerializedPropertyInfo> properties)
         {
             EdgeId = edgeId;
             if (message != null)

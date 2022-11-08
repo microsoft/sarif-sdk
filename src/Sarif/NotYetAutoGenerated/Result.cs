@@ -140,7 +140,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// A positive integer specifying the number of times this logically unique result was observed in this run.
         /// </summary>
         [DataMember(Name = "occurrenceCount", IsRequired = false, EmitDefaultValue = false)]
-        public virtual int OccurrenceCount { get; set; }
+        public virtual int? OccurrenceCount { get; set; }
 
         /// <summary>
         /// A set of strings that contribute to the stable, unique identity of the result.
@@ -373,7 +373,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="properties">
         /// An initialization value for the <see cref="P:Properties" /> property.
         /// </param>
-        public Result(string ruleId, int ruleIndex, ReportingDescriptorReference rule, ResultKind kind, FailureLevel level, Message message, ArtifactLocation analysisTarget, IEnumerable<Location> locations, Guid? guid, Guid? correlationGuid, int occurrenceCount, IDictionary<string, string> partialFingerprints, IDictionary<string, string> fingerprints, IEnumerable<Stack> stacks, IEnumerable<CodeFlow> codeFlows, IEnumerable<Graph> graphs, IEnumerable<GraphTraversal> graphTraversals, IEnumerable<Location> relatedLocations, IEnumerable<Suppression> suppressions, BaselineState baselineState, double rank, IEnumerable<Attachment> attachments, Uri hostedViewerUri, IEnumerable<Uri> workItemUris, ResultProvenance provenance, IEnumerable<Fix> fixes, IEnumerable<ReportingDescriptorReference> taxa, WebRequest webRequest, WebResponse webResponse, IDictionary<string, SerializedPropertyInfo> properties)
+        public Result(string ruleId, int ruleIndex, ReportingDescriptorReference rule, ResultKind kind, FailureLevel level, Message message, ArtifactLocation analysisTarget, IEnumerable<Location> locations, Guid? guid, Guid? correlationGuid, int? occurrenceCount, IDictionary<string, string> partialFingerprints, IDictionary<string, string> fingerprints, IEnumerable<Stack> stacks, IEnumerable<CodeFlow> codeFlows, IEnumerable<Graph> graphs, IEnumerable<GraphTraversal> graphTraversals, IEnumerable<Location> relatedLocations, IEnumerable<Suppression> suppressions, BaselineState baselineState, double rank, IEnumerable<Attachment> attachments, Uri hostedViewerUri, IEnumerable<Uri> workItemUris, ResultProvenance provenance, IEnumerable<Fix> fixes, IEnumerable<ReportingDescriptorReference> taxa, WebRequest webRequest, WebResponse webResponse, IDictionary<string, SerializedPropertyInfo> properties)
         {
             Init(ruleId, ruleIndex, rule, kind, level, message, analysisTarget, locations, guid, correlationGuid, occurrenceCount, partialFingerprints, fingerprints, stacks, codeFlows, graphs, graphTraversals, relatedLocations, suppressions, baselineState, rank, attachments, hostedViewerUri, workItemUris, provenance, fixes, taxa, webRequest, webResponse, properties);
         }
@@ -415,7 +415,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new Result(this);
         }
 
-        protected virtual void Init(string ruleId, int ruleIndex, ReportingDescriptorReference rule, ResultKind kind, FailureLevel level, Message message, ArtifactLocation analysisTarget, IEnumerable<Location> locations, Guid? guid, Guid? correlationGuid, int occurrenceCount, IDictionary<string, string> partialFingerprints, IDictionary<string, string> fingerprints, IEnumerable<Stack> stacks, IEnumerable<CodeFlow> codeFlows, IEnumerable<Graph> graphs, IEnumerable<GraphTraversal> graphTraversals, IEnumerable<Location> relatedLocations, IEnumerable<Suppression> suppressions, BaselineState baselineState, double rank, IEnumerable<Attachment> attachments, Uri hostedViewerUri, IEnumerable<Uri> workItemUris, ResultProvenance provenance, IEnumerable<Fix> fixes, IEnumerable<ReportingDescriptorReference> taxa, WebRequest webRequest, WebResponse webResponse, IDictionary<string, SerializedPropertyInfo> properties)
+        protected virtual void Init(string ruleId, int ruleIndex, ReportingDescriptorReference rule, ResultKind kind, FailureLevel level, Message message, ArtifactLocation analysisTarget, IEnumerable<Location> locations, Guid? guid, Guid? correlationGuid, int? occurrenceCount, IDictionary<string, string> partialFingerprints, IDictionary<string, string> fingerprints, IEnumerable<Stack> stacks, IEnumerable<CodeFlow> codeFlows, IEnumerable<Graph> graphs, IEnumerable<GraphTraversal> graphTraversals, IEnumerable<Location> relatedLocations, IEnumerable<Suppression> suppressions, BaselineState baselineState, double rank, IEnumerable<Attachment> attachments, Uri hostedViewerUri, IEnumerable<Uri> workItemUris, ResultProvenance provenance, IEnumerable<Fix> fixes, IEnumerable<ReportingDescriptorReference> taxa, WebRequest webRequest, WebResponse webResponse, IDictionary<string, SerializedPropertyInfo> properties)
         {
             RuleId = ruleId;
             RuleIndex = ruleIndex;

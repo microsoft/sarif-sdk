@@ -295,7 +295,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             {
                 // No explicit end column. Increment from end line through
                 // the end of the line, excluding new line characters
-                LineInfo lineInfo = lineIndex.GetLineInfoForLine(region.EndLine);
+                LineInfo lineInfo = lineIndex.GetLineInfoForLine(region.EndLine.Value);
                 int endColumnOffset = lineInfo.StartOffset;
 
                 while (endColumnOffset < fileText.Length &&
@@ -317,11 +317,11 @@ namespace Microsoft.CodeAnalysis.Sarif
             Assert(region.StartColumn > 0);
             Assert(region.EndColumn > 0);
 
-            LineInfo lineInfo = lineIndex.GetLineInfoForLine(region.StartLine);
+            LineInfo lineInfo = lineIndex.GetLineInfoForLine(region.StartLine.Value);
 
             // Now we have the offset of the starting line. Populate region.CharOffset.
             int offset = lineInfo.StartOffset;
-            offset += region.StartColumn - 1;
+            offset += region.StartColumn.Value - 1;
 
             if (region.CharOffset == 0 || region.CharOffset == -1)
             {
@@ -340,10 +340,10 @@ namespace Microsoft.CodeAnalysis.Sarif
             Assert(region.EndColumn > 0);
             Assert(region.CharOffset > 0 || (region.StartLine == 1 && region.StartColumn == 1));
 
-            LineInfo lineInfo = lineIndex.GetLineInfoForLine(region.EndLine);
+            LineInfo lineInfo = lineIndex.GetLineInfoForLine(region.EndLine.Value);
             int charLength = lineInfo.StartOffset;
             charLength -= region.CharOffset;
-            charLength += region.EndColumn - 1;
+            charLength += region.EndColumn.Value - 1;
 
             if (region.CharLength == 0)
             {
