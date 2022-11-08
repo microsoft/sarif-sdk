@@ -12,7 +12,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// Provides additional metadata related to translation.
     /// </summary>
     [DataContract]
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "2.1.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "2.2.0.0")]
     public partial class TranslationMetadata : PropertyBagHolder, ISarifNode
     {
         public static IEqualityComparer<TranslationMetadata> ValueComparer => TranslationMetadataEqualityComparer.Instance;

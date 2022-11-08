@@ -8,7 +8,7 @@ using System.Linq;
 
 namespace Microsoft.CodeAnalysis.Sarif
 {
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "2.1.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "2.2.0.0")]
     internal static class ComparerExtensions
     {
         public static bool TryReferenceCompares(this object left, object right, out int compareResult)

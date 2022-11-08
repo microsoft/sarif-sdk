@@ -12,7 +12,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// Describes a sequence of code locations that specify a path through a single thread of execution such as an operating system or fiber.
     /// </summary>
     [DataContract]
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "2.1.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "2.2.0.0")]
     public partial class ThreadFlow : PropertyBagHolder, ISarifNode
     {
         public static IEqualityComparer<ThreadFlow> ValueComparer => ThreadFlowEqualityComparer.Instance;

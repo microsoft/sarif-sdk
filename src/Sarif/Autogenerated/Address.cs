@@ -15,7 +15,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// A physical or virtual address, or a range of addresses, in an 'addressable region' (memory or a binary file).
     /// </summary>
     [DataContract]
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "2.1.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "2.2.0.0")]
     public partial class Address : PropertyBagHolder, ISarifNode
     {
         public static IEqualityComparer<Address> ValueComparer => AddressEqualityComparer.Instance;

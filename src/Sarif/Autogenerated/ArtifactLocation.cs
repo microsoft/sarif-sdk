@@ -14,7 +14,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// Specifies the location of an artifact.
     /// </summary>
     [DataContract]
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "2.1.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "2.2.0.0")]
     public partial class ArtifactLocation : PropertyBagHolder, ISarifNode
     {
         public static IEqualityComparer<ArtifactLocation> ValueComparer => ArtifactLocationEqualityComparer.Instance;

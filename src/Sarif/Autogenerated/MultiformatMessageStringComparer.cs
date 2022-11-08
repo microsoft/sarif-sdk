@@ -10,7 +10,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// <summary>
     /// Defines methods to support the comparison of objects of type MultiformatMessageString for sorting.
     /// </summary>
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "2.1.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "2.2.0.0")]
     internal sealed class MultiformatMessageStringComparer : IComparer<MultiformatMessageString>
     {
         internal static readonly MultiformatMessageStringComparer Instance = new MultiformatMessageStringComparer();
