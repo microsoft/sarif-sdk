@@ -97,14 +97,16 @@
           "description": "The index within run.addresses of the cached object for this address.",
           "type": "integer",
           "default": -1,
-          "minimum": -1
+          "minimum": -1,
+          "maximum": 2147483647
         },
 
         "parentIndex": {
           "description": "The index within run.addresses of the parent object.",
           "type": "integer",
           "default": -1,
-          "minimum": -1
+          "minimum": -1,
+          "maximum": 2147483647
         },
 
         "properties": {
@@ -134,7 +136,8 @@
           "description": "Identifies the index of the immediate parent of the artifact, if this artifact is nested.",
           "type": "integer",
           "default": -1,
-          "minimum": -1
+          "minimum": -1,
+          "maximum": 2147483647
         },
 
         "offset": {
@@ -307,7 +310,8 @@
           "description": "The index within the run artifacts array of the artifact object associated with the artifact location.",
           "type": "integer",
           "default": -1,
-          "minimum": -1
+          "minimum": -1,
+          "maximum": 2147483647
         },
 
         "description": {
@@ -522,7 +526,8 @@
         "stepOverEdgeCount": {
           "description": "The number of edge traversals necessary to return from a nested graph.",
           "type": "integer",
-          "minimum": 0
+          "minimum": 0,
+          "maximum": 2147483647
         },
 
         "properties": {
@@ -787,7 +792,8 @@
           "description": "A non-negative integer specifying the number of items contained in the external property file.",
           "type": "integer",
           "default": -1,
-          "minimum": -1
+          "minimum": -1,
+          "maximum": 2147483647
         },
 
         "properties": {
@@ -1051,14 +1057,16 @@
           "description": "The index within the run.graphs to be associated with the result.",
           "type": "integer",
           "default": -1,
-          "minimum": -1
+          "minimum": -1,
+          "maximum": 2147483647
         },
 
         "resultGraphIndex": {
           "description": "The index within the result.graphs to be associated with the result.",
           "type": "integer",
           "default": -1,
-          "minimum": -1
+          "minimum": -1,
+          "maximum": 2147483647
         },
 
         "description": {
@@ -1233,7 +1241,9 @@
 
         "processId": {
           "description": "The id of the process in which the invocation occurred.",
-          "type": "integer"
+          "type": "integer",
+          "minimum": -2147483648,
+          "maximum": 2147483647
         },
 
         "executableLocation": {
@@ -1395,7 +1405,8 @@
           "description": "The index within the logical locations array.",
           "type": "integer",
           "default": -1,
-          "minimum": -1
+          "minimum": -1,
+          "maximum": 2147483647
         },
 
         "fullyQualifiedName": {
@@ -1412,7 +1423,8 @@
           "description": "Identifies the index of the immediate parent of the construct in which the result was detected. For example, this property might point to a logical location that represents the namespace that holds a type.",
           "type": "integer",
           "default": -1,
-          "minimum": -1
+          "minimum": -1,
+          "maximum": 2147483647
         },
 
         "kind": {
@@ -1568,7 +1580,9 @@
 
         "threadId": {
           "description": "The thread identifier of the code that generated the notification.",
-          "type": "integer"
+          "type": "integer",
+          "minimum": -2147483648,
+          "maximum": 2147483647
         },
 
         "timeUtc": {
@@ -1709,38 +1723,44 @@
         "startLine": {
           "description": "The line number of the first character in the region.",
           "type": "integer",
-          "minimum": 1
+          "minimum": 1,
+          "maximum": 2147483647
         },
 
         "startColumn": {
           "description": "The column number of the first character in the region.",
           "type": "integer",
-          "minimum": 1
+          "minimum": 1,
+          "maximum": 2147483647
         },
 
         "endLine": {
           "description": "The line number of the last character in the region.",
           "type": "integer",
-          "minimum": 1
+          "minimum": 1,
+          "maximum": 2147483647
         },
 
         "endColumn": {
           "description": "The column number of the character following the end of the region.",
           "type": "integer",
-          "minimum": 1
+          "minimum": 1,
+          "maximum": 2147483647
         },
 
         "charOffset": {
           "description": "The zero-based offset from the beginning of the artifact of the first character in the region.",
           "type": "integer",
           "default": -1,
-          "minimum": -1
+          "minimum": -1,
+          "maximum": 2147483647
         },
 
         "charLength": {
           "description": "The length of the region in characters.",
           "type": "integer",
-          "minimum": 0
+          "minimum": 0,
+          "maximum": 2147483647
         },
 
         "byteOffset": {
@@ -1962,7 +1982,8 @@
           "description": "The index into an array of descriptors in toolComponent.ruleDescriptors, toolComponent.notificationDescriptors, or toolComponent.taxonomyDescriptors, depending on context.",
           "type": "integer",
           "default": -1,
-          "minimum": -1
+          "minimum": -1,
+          "maximum": 2147483647
         },
 
         "guid": {
@@ -2037,7 +2058,8 @@
           "description": "The index within the tool component rules array of the rule object associated with this result.",
           "type": "integer",
           "default": -1,
-          "minimum": -1
+          "minimum": -1,
+          "maximum": 2147483647
         },
 
         "rule": {
@@ -2302,7 +2324,8 @@
           "description": "The index within the run.invocations array of the invocation object which describes the tool invocation that detected the result.",
           "type": "integer",
           "default": -1,
-          "minimum": -1
+          "minimum": -1,
+          "maximum": 2147483647
         },
 
         "conversionSources": {
@@ -2673,7 +2696,9 @@
 
         "threadId": {
           "description": "The thread identifier of the stack frame.",
-          "type": "integer"
+          "type": "integer",
+          "minimum": -2147483648,
+          "maximum": 2147483647
         },
 
         "parameters": {
@@ -2804,7 +2829,8 @@
           "description": "The index within the run threadFlowLocations array.",
           "type": "integer",
           "default": -1,
-          "minimum": -1
+          "minimum": -1,
+          "maximum": 2147483647
         },
 
         "location": {
@@ -2855,14 +2881,16 @@
         "nestingLevel": {
           "description": "An integer representing a containment hierarchy within the thread flow.",
           "type": "integer",
-          "minimum": 0
+          "minimum": 0,
+          "maximum": 2147483647
         },
 
         "executionOrder": {
           "description": "An integer representing the temporal order in which execution reached this location.",
           "type": "integer",
           "default": -1,
-          "minimum": -1
+          "minimum": -1,
+          "maximum": 2147483647
         },
 
         "executionTimeUtc": {
@@ -3137,7 +3165,8 @@
           "description": "An index into the referenced toolComponent in tool.extensions.",
           "type": "integer",
           "default": -1,
-          "minimum": -1
+          "minimum": -1,
+          "maximum": 2147483647
         },
 
         "guid": {
@@ -3256,8 +3285,8 @@
           "description": "The index within the run.webRequests array of the request object associated with this result.",
           "type": "integer",
           "default": -1,
-          "minimum": -1
-
+          "minimum": -1,
+          "maximum": 2147483647
         },
 
         "protocol": {
@@ -3318,7 +3347,8 @@
           "description": "The index within the run.webResponses array of the response object associated with this result.",
           "type": "integer",
           "default": -1,
-          "minimum": -1
+          "minimum": -1,
+          "maximum": 2147483647
         },
 
         "protocol": {
@@ -3333,7 +3363,9 @@
 
         "statusCode": {
           "description": "The response status code. Example: 451.",
-          "type": "integer"
+          "type": "integer",
+          "minimum": -2147483648,
+          "maximum": 2147483647
         },
 
         "reasonPhrase": {

@@ -5,6 +5,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Numerics;
 
 using Microsoft.CodeAnalysis.Sarif.Query.Evaluators;
 
@@ -25,6 +26,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Query
         public int ID { get; set; }
         public State State { get; set; }
         public string Uri { get; set; }
+        public BigInteger AbsoluteAddress { get; set; }
         public bool InProgress => (State == State.Active || State == State.Blocked);
 
         public static IExpressionEvaluator<SampleItem> Evaluator(TermExpression term)
@@ -39,6 +41,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Query
                     return new StringEvaluator<SampleItem>(i => i.Uri, term, StringComparison.OrdinalIgnoreCase);
                 case "inprogress":
                     return new BoolEvaluator<SampleItem>(i => i.InProgress, term);
+                case "absoluteaddress":
+                    return new BigIntegerEvaluator<SampleItem>(i => i.AbsoluteAddress, term);
                 default:
                     throw new QueryParseException($"Property Name {term.PropertyName} unrecognized. Known Names: ID, State, Uri");
             }
@@ -57,6 +61,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Query
                 item.ID = i;
                 item.State = (State)(i % 4);
                 item.Uri = i.ToString();
+                item.AbsoluteAddress = BigInteger.Parse(ulong.MaxValue.ToString() + (1000000 * i).ToString());
 
                 set.Add(item);
             }
@@ -68,6 +73,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Query
             Run(3, "ID < 10 && State == Active", set);  // 1, 5, 9
             Run(0, "ID > 50 && Uri > 'Z' && State != Completed", set);
             Run(25, "ID < 50 && InProgress = true", set);
+            Run(3, "AbsoluteAddress < 184467440737095516153000000", set);
+            Run(1, "AbsoluteAddress == 184467440737095516159000000", set);
+            Run(99, "AbsoluteAddress != 184467440737095516159000000", set);
 
             // StartsWith, Contains, EndsWith
             Run(11, "Uri |> 9", set);           // StartsWith 9: 9, 9x
@@ -79,6 +87,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Query
 
             // Value (long) didn't parse
             Assert.Throws<QueryParseException>(() => Run(0, "ID < Active", set));
+
+            // Value (BigInteger) didn't parse
+            Assert.Throws<QueryParseException>(() => Run(0, "AbsoluteAddress < Active", set));
 
             // Operator (>) not supported for enum
             Assert.Throws<QueryParseException>(() => Run(0, "State > Blocked", set));

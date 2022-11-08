@@ -29,7 +29,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Query.Evaluators
                 case "message.text":
                     return new StringEvaluator<Result>(r => r.Message?.Text, term, StringComparison.OrdinalIgnoreCase);
                 case "occurrencecount":
-                    return new LongEvaluator<Result>(r => r.OccurrenceCount, term);
+                    return new BigIntegerEvaluator<Result>(r => r.OccurrenceCount, term);
                 case "rank":
                     return new DoubleEvaluator<Result>(r => r.Rank, term);
                 case "ruleid":
