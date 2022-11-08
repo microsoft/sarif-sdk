@@ -61,7 +61,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Query
                 item.ID = i;
                 item.State = (State)(i % 4);
                 item.Uri = i.ToString();
-                item.AbsoluteAddress = BigInteger.Parse(ulong.MaxValue.ToString() + (1000000 * i).ToString());
+                item.AbsoluteAddress = BigInteger.Parse(ulong.MaxValue.ToString() + 1000000 * i);
 
                 set.Add(item);
             }
