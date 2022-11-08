@@ -1,5 +1,5 @@
 {
-  "$schema": "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0-rtm.5.json",
+  "$schema": "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0-rtm.6.json",
   "version": "2.1.0",
   "runs": [
     {
@@ -29,7 +29,7 @@
                 "pluginModificationDate": "2022/08/15",
                 "pluginPublicationDate": "2021/08/15",
                 "pluginType": "remote",
-                "security-severity": 3.0,
+                "security-severity": "3.0",
                 "tags": ["security"]
               }
             }
@@ -88,7 +88,7 @@
                 "pluginModificationDate": "2022/08/15",
                 "pluginPublicationDate": "2021/08/15",
                 "pluginType": "remote",
-                "security-severity": 9.0,
+                "security-severity": "9.0",
                 "tags": ["security","CVE-2018-10858","CVE-2018-10919"]
               }
             }
