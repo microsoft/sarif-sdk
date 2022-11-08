@@ -2,7 +2,7 @@
 
 ## **v3.1.0** (UNRELEASED)
 
-* BREAKING: Properties changed from `int`(32bit) to `BigInteger`(unlimited): `Address.AbsoluteAddress`, `Address.RelativeAddress`, `Address.Length`, `Address.OffsetFromParent`, `Artifact.Offset`, `Artifact.Length`, `EdgeTraversal.StepOverEdgeCount`, `Invocation.ExitCode`, `Invocation.ExitSignalNumber`, `LocationRelationship.Target`, `Region.ByteOffset`, `Region.ByteLength`, `Result.OccurrenceCount`. [#2572](https://github.com/microsoft/sarif-sdk/pull/2572)
+* BREAKING: Properties changed from `int`(32bit) to `BigInteger`(unlimited): `Address.AbsoluteAddress`, `Address.RelativeAddress`, `Address.Length`, `Address.OffsetFromParent`, `Artifact.Offset`, `Artifact.Length`, `Invocation.ExitCode`, `Invocation.ExitSignalNumber`, `LocationRelationship.Target`, `Region.ByteOffset`, `Region.ByteLength`, `Result.OccurrenceCount`. [#2572](https://github.com/microsoft/sarif-sdk/pull/2572)
 * BREAKING: For `Guid` properties defined in SARIF spec, updated Json schema to use `uuid`, and updated C# object model to use `Guid?` instead of `string`. [#2555](https://github.com/microsoft/sarif-sdk/pull/2555)
 * FEATURE: Provide mechanism to populate `SarifLogger` with a `FileRegionsCache` instance.
 * BUGFIX: Another attempt to resolve 'InvalidOperationException' with message `Collection was modified; enumeration operation may not execute` in `MultithreadedAnalyzeCommandBase`, raised when analyzing with the `--hashes` switch. [#2459](https://github.com/microsoft/sarif-sdk/pull/2549). There was a previous attempt to fix this in [#2447](https://github.com/microsoft/sarif-sdk/pull/2447).

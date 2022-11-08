@@ -526,7 +526,8 @@
         "stepOverEdgeCount": {
           "description": "The number of edge traversals necessary to return from a nested graph.",
           "type": "integer",
-          "minimum": 0
+          "minimum": 0,
+          "maximum": 2147483647
         },
 
         "properties": {
