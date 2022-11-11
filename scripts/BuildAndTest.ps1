@@ -222,7 +222,7 @@ if (-not $NoTest) {
     if (-not $ENV:OS) {
         $NonWindowsOptions = @{ "-filter" = "WindowsOnly!=true" }
     }
-    & dotnet test $SourceRoot\$SolutionFile --no-build --configuration $Configuration @NonWindowsOptions
+    & dotnet test $SourceRoot\$SolutionFile --no-build --filter TestCategory!=Coyote --configuration $Configuration @NonWindowsOptions
     if ($LASTEXITCODE -ne 0) {
         Exit-WithFailureMessage $ScriptName "Tests failed."
     }

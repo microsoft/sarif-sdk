@@ -1,19 +1,18 @@
 ﻿// Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
+using System.Collections.Generic;
+using System.Globalization;
+using System.IO;
+using System.Text;
+using System.Threading.Tasks;
 
 using Microsoft.Coyote;
 using Microsoft.Coyote.Specifications;
 using Microsoft.Coyote.SystematicTesting;
-
-using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Microsoft.VisualStudio.TestTools.UnitTesting.Logging;
-using System.Globalization;
-using System.IO;
 
 namespace Microsoft.CodeAnalysis.Sarif.Driver
 {
@@ -23,28 +22,36 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         public Task AnalyzeCommandBase_ShouldGenerateSameResultsWhenRunningSingleAndMultiThread_CoyoteHelper()
         {
             Coyote.Random.Generator random = Coyote.Random.Generator.Create();
-            int[] scenarios = new int[] { (random.NextInteger(10) + 1) };
+            int numScenarios = random.NextInteger(10) + 1;
+            int[] scenarios = new int[] { numScenarios };
 
             AnalyzeCommandBaseTests.AnalyzeCommandBase_ShouldGenerateSameResultsWhenRunningSingleAndMultiThread(scenarios);
 
             return Task.CompletedTask;
         }
 
-        [TestMethod]
+        [TestMethod, TestCategory("Coyote")]
         public void CoyoteTest_ShouldGenerateSameResultsWhenRunningSingleAndMultiThread()
         {
             RunSystematicTest(AnalyzeCommandBase_ShouldGenerateSameResultsWhenRunningSingleAndMultiThread_CoyoteHelper);
         }
 
-        private static void RunSystematicTest(Func<Task> test)
+        private static void RunSystematicTest(Func<Task> test, string reproducibleScheduleFilePath = null)
         {
             // Configuration for how to run a concurrency unit test with Coyote.
             // This configuration will run the test 1000 times exploring different paths each time.
             Configuration config = Configuration
                 .Create()
-                .WithMaxSchedulingSteps(100000)
-                .WithTestingIterations(5000)
-                .WithPartiallyControlledConcurrencyAllowed();
+                .WithMaxSchedulingSteps(10)
+                .WithTestingIterations(10)
+                .WithPartiallyControlledConcurrencyAllowed()
+                .WithVerbosityEnabled(Coyote.Logging.VerbosityLevel.Debug);
+
+            if (reproducibleScheduleFilePath != null)
+            {
+                string trace = File.ReadAllText(reproducibleScheduleFilePath);
+                config = config.WithReproducibleTrace(trace);
+            }
 
             async Task TestActionAsync()
             {

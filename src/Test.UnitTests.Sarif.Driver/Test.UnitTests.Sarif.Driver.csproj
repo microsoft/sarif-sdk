@@ -11,7 +11,7 @@
     <TargetFrameworks>netcoreapp3.1</TargetFrameworks>
     <IsPackable>false</IsPackable>
     <IsTestProject>true</IsTestProject>
-    <CoyoteVersion>1.6.1</CoyoteVersion>
+    <CoyoteVersion>1.7.0</CoyoteVersion>
     <PowershellExecutable Condition="'$(OS)'=='Windows_NT'">powershell</PowershellExecutable>
     <PowershellExecutable Condition="'$(PowershellExecutable)'==''">pwsh</PowershellExecutable>
     <PathSeparator Condition="'$(OS)'=='Windows_NT'">\</PathSeparator>
@@ -34,6 +34,7 @@
     <PackageReference Include="FluentAssertions" Version="5.10.2" />
     <PackageReference Include="Microsoft.Coyote" Version="$(CoyoteVersion)" />
     <PackageReference Include="Microsoft.Coyote.Test" Version="$(CoyoteVersion)" />
+    <PackageReference Include="Microsoft.Coyote.Tool" Version="$(CoyoteVersion)" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.4.0-preview-20220707-01" />
     <PackageReference Include="Moq" Version="4.13.1" />
     <PackageReference Include="MSTest.TestAdapter" Version="2.2.10" />
