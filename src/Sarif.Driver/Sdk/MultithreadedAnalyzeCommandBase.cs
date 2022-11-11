@@ -219,7 +219,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             // 2: Files found on disk are put in a specific sort order, after which a 
             // reference to each scan target is put into a channel for hashing,
             // if hashing is enabled.
-            Task<bool> hashFilesAndPutInAnalysisQueue = HashFilesAndPutInAnalysisQueueAsnc();
+            Task<bool> hashFilesAndPutInAnalysisQueue = HashFilesAndPutInAnalysisQueueAsync();
 
             // 3: A dedicated set of threads pull scan targets and analyze them.
             //    On completing a scan, the thread writes the index of the 
@@ -485,7 +485,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             }
         }
 
-        private async Task<bool> HashFilesAndPutInAnalysisQueueAsnc()
+        private async Task<bool> HashFilesAndPutInAnalysisQueueAsync()
         {
             ChannelReader<int> reader = readyToHashChannel.Reader;
 

@@ -604,7 +604,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 rootContext.Policy,
                 target);
 
-            if ((options.DataToInsert.ToFlags() & OptionallyEmittedData.Hashes) != 0)
+            if ((options.DataToInsert.ToFlags() & OptionallyEmittedData.Hashes) != 0 & context.Hashes != null)
             {
                 _cacheByFileHashLogger.HashToResultsMap.TryGetValue(context.Hashes.Sha256, out List<Tuple<ReportingDescriptor, Result>> cachedResultTuples);
                 _cacheByFileHashLogger.HashToNotificationsMap.TryGetValue(context.Hashes.Sha256, out List<Notification> cachedNotifications);
