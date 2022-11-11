@@ -42,8 +42,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             // This configuration will run the test 1000 times exploring different paths each time.
             Configuration config = Configuration
                 .Create()
-                .WithMaxSchedulingSteps(10)
-                .WithTestingIterations(10)
+                .WithMaxSchedulingSteps(100000)
+                .WithTestingIterations(1000)
                 .WithPartiallyControlledConcurrencyAllowed()
                 .WithVerbosityEnabled(Coyote.Logging.VerbosityLevel.Debug);
 
