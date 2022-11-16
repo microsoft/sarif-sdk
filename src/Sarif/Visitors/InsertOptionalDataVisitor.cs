@@ -250,7 +250,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
                     if (contextRegion?.Snippet?.Text != null)
                     {
-                        string contextRegionHash = HashUtilities.ComputeMD5Hash(contextRegion.Snippet.Text);
+                        string contextRegionHash = HashUtilities.ComputeStringSha256Hash(contextRegion.Snippet.Text);
 
                         node.PartialFingerprints ??= new Dictionary<string, string>();
 

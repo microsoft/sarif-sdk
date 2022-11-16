@@ -150,6 +150,14 @@ namespace Microsoft.CodeAnalysis.Sarif
             catch (UnauthorizedAccessException) { }
             return sha256Hash;
         }
+        
+        public static string ComputeStringSha256Hash(string text)
+        {
+            using var sha = SHA256.Create();
+            byte[] byteHash = Encoding.UTF8.GetBytes(text);
+            byte[] checksum = sha.ComputeHash(byteHash);
+            return BitConverter.ToString(checksum).Replace("-", string.Empty);
+        }
 
         [SuppressMessage("Microsoft.Security.Cryptography", "CA5354:SHA1CannotBeUsed")]
         public static string ComputeSha1Hash(string fileName)
@@ -176,12 +184,27 @@ namespace Microsoft.CodeAnalysis.Sarif
         }
 
         [SuppressMessage("Microsoft.Security.Cryptography", "CA5350:MD5CannotBeUsed")]
-        public static string ComputeMD5Hash(string content)
+        public static string ComputeMD5Hash(string fileName)
         {
-            using var sha = MD5.Create();
-            byte[] byteHash = Encoding.UTF8.GetBytes(content);
-            byte[] checksum = sha.ComputeHash(byteHash);
-            return BitConverter.ToString(checksum).Replace("-", string.Empty);
+            string md5 = null;
+
+            try
+            {
+                using (Stream stream = FileSystem.FileOpenRead(fileName))
+                {
+                    using (var bufferedStream = new BufferedStream(stream, 1024 * 32))
+                    {
+                        using (var sha = MD5.Create())
+                        {
+                            byte[] checksum = sha.ComputeHash(bufferedStream);
+                            md5 = BitConverter.ToString(checksum).Replace("-", string.Empty);
+                        }
+                    }
+                }
+            }
+            catch (IOException) { }
+            catch (UnauthorizedAccessException) { }
+            return md5;
         }
     }
 }
