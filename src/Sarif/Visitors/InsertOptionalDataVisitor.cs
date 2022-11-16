@@ -257,7 +257,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                         if (!node.PartialFingerprints.ContainsKey(ContextRegionHash) ||
                             _dataToInsert.HasFlag(OptionallyEmittedData.OverwriteExistingData))
                         {
-                            node.PartialFingerprints.Add(ContextRegionHash, contextRegionHash);
+                            SarifUtilities.AddOrUpdateDictionaryEntry(node.PartialFingerprints, ContextRegionHash, contextRegionHash);
                         }
                     }
                 }
