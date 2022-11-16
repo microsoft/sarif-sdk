@@ -230,6 +230,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 OptionallyEmittedData.TextFiles |
                 OptionallyEmittedData.Hashes);
         }
+        
+        [Fact]
+        [Trait(TestTraits.WindowsOnly, "true")]
+        public void InsertOptionalDataVisitor_PersistsPartialFingerPrints()
+        {
+            RunTest("CoreTests-Relative.sarif", OptionallyEmittedData.PartialFingerprints);
+        }
 
         [Fact]
         [Trait(TestTraits.WindowsOnly, "true")]
@@ -244,6 +251,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         {
             RunTest("TopLevelOriginalUriBaseIdUriMissing.sarif",
                 OptionallyEmittedData.ContextRegionSnippets);
+        }
+        
+        [Fact]
+        public void InsertOptionalDataVisitor_PartialFingerprint_DoesNotFail_TopLevelOriginalUriBaseIdUriMissing()
+        {
+            RunTest("TopLevelOriginalUriBaseIdUriMissing.sarif",
+                OptionallyEmittedData.PartialFingerprints);
         }
 
         [Fact]
