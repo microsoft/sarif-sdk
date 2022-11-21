@@ -1,0 +1,57 @@
+pr:
+- 'main'
+
+resources:
+  repositories:
+    - repository: 1esPipelines
+      type: git
+      name: 1ESPipelineTemplates/1ESPipelineTemplates
+      ref: refs/tags/release
+  extends:
+    template: v1/1ES.Unofficial.PipelineTemplate.yml@1esPipelines
+    parameters:
+      pool:
+        name: 1ES-Shared-Hosted-Pool_Windows-Server-2022
+        os: windows      
+      
+      sdl:  
+        baseline:    
+          baselineFile: $(Build.SourcesDirectory)\guardian\SDL\.gdnbaselines
+        
+      stages:
+        - stage: build
+          jobs:
+            - job: build
+        
+              templateContext:
+                inputs:
+                  - input: checkout
+                    repository: self
+                    submodules: recursive
+                outputs:
+                  - output: pipelineArtifact
+                    targetPath: $(System.DefaultWorkingDirectory)
+          
+              steps:
+                - task: PowerShell@2
+                  displayName: Build and Test
+                  inputs:
+                    targetType: filePath
+                    filePath: $(System.DefaultWorkingDirectory)/scripts/BuildAndTest.ps1
+                    
+                - task: PublishBuildArtifacts@1
+                  inputs:
+                    pathToPublish: 'msbuild.binlog'
+                    artifactName: 'binlog'
+        
+        - stage: publish_npm
+          jobs:
+            - job: npm_pipeline
+              steps:
+                # Build Multitool for npm
+                - task: PowerShell@2
+                  displayName: Build Multitool for npm
+                  inputs:
+                    targetType: filePath
+                    filePath: $(System.DefaultWorkingDirectory)/scripts/BuildMultitoolForNpm.ps1
+                
