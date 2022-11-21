@@ -40,11 +40,6 @@ extends:
                   inputs:
                     targetType: filePath
                     filePath: $(System.DefaultWorkingDirectory)/scripts/BuildAndTest.ps1
-                    
-                - task: PublishBuildArtifacts@1
-                  inputs:
-                    pathToPublish: 'msbuild.binlog'
-                    artifactName: 'binlog'
         
         - stage: publish_npm
           jobs:
