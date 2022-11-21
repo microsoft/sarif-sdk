@@ -1,13 +1,16 @@
 pr:
 - 'main'
 
+pool:
+  vmImage: 'windows-latest'
+
 resources:
   repositories:
     - repository: 1esPipelines
       type: git
       name: 1ESPipelineTemplates/1ESPipelineTemplates
       ref: refs/tags/release
-  extends:
+extends:
     template: v1/1ES.Unofficial.PipelineTemplate.yml@1esPipelines
     parameters:
       pool:
@@ -21,8 +24,7 @@ resources:
       stages:
         - stage: build
           jobs:
-            - job: build
-        
+            - job: build        
               templateContext:
                 inputs:
                   - input: checkout
