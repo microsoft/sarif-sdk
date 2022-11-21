@@ -40,11 +40,7 @@ extends:
                   inputs:
                     targetType: filePath
                     filePath: $(System.DefaultWorkingDirectory)/scripts/BuildAndTest.ps1
-        
-        - stage: publish_npm
-          jobs:
-            - job: npm_pipeline
-              steps:
+
                 # Build Multitool for npm
                 - task: PowerShell@2
                   displayName: Build Multitool for npm
