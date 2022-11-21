@@ -1,0 +1,10 @@
+----- non msbuild error -----
+System.IO.FileNotFoundException: Could not load file or assembly 'Microsoft.UniversalApps.Deployment, Version=16.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a' or one of its dependencies. The system cannot find the file specified.
+File name: 'Microsoft.UniversalApps.Deployment, Version=16.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a'
+
+----- VS msbuild error -----
+msbuild : error MSB1003: Specify a project or solution file. The current working directory does not contain a project or solution file.
+
+----- Package Validator build error -----
+%object_root%\amcore\wcd\source\communicator\sense1ds\dll\$(o)\vpack : ERROR: PV1002: Package sense1ds[1.1000.1] is missing the content manifest. For more information, see https://osgwiki.com/wiki/PackageValidator#PV1002
+%object_root%\onecore\base\telemetry\utc\tests\functionaltests\vpacks\diagtrackservice.vb_release\$(o)\vpack : ERROR: PV1000: Package diagtrackservice.vb_release.x86[0.0.0] is missing provenance data. For more information, see https://osgwiki.com/wiki/PackageValidator#PV1000

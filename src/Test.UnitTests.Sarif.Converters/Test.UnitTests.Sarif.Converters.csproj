@@ -46,6 +46,11 @@
     <None Remove="TestData\HdfConverter\Inputs\Empty.json" />
     <None Remove="TestData\HdfConverter\Inputs\InvalidResult.json" />
     <None Remove="TestData\HdfConverter\Inputs\ValidResults.json" />
+    <None Remove="TestData\MSBuildConverter\ExpectedOutputs\NoResults.sarif" />
+    <None Remove="TestData\MSBuildConverter\ExpectedOutputs\ValidResults.sarif" />
+    <None Remove="TestData\MSBuildConverter\Inputs\Empty.ERR" />
+    <None Remove="TestData\MSBuildConverter\Inputs\InvalidResult.ERR" />
+    <None Remove="TestData\MSBuildConverter\Inputs\ValidResults.ERR" />
   </ItemGroup>
 
   <ItemGroup>
@@ -69,6 +74,11 @@
     <EmbeddedResource Include="TestData\HdfConverter\Inputs\Empty.json" />
     <EmbeddedResource Include="TestData\HdfConverter\Inputs\InvalidResult.json" />
     <EmbeddedResource Include="TestData\HdfConverter\Inputs\ValidResults.json" />
+    <EmbeddedResource Include="TestData\MSBuildConverter\ExpectedOutputs\NoResults.sarif" />
+    <EmbeddedResource Include="TestData\MSBuildConverter\ExpectedOutputs\ValidResults.sarif" />
+    <EmbeddedResource Include="TestData\MSBuildConverter\Inputs\Empty.ERR" />
+    <EmbeddedResource Include="TestData\MSBuildConverter\Inputs\InvalidResult.ERR" />
+    <EmbeddedResource Include="TestData\MSBuildConverter\Inputs\ValidResults.ERR" />
   </ItemGroup>
 
   <ItemGroup>

@@ -66,6 +66,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         }
 
         private const string ErrorLinePattern = @"
+            (?i)                               # Case insensitive
             ^
             \s*
             (                                  # EITHER
@@ -83,9 +84,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             \s*:\s*
             (?<qualifiedLevel>
               (?<levelQualification>.*)        # For example, 'fatal'.
-              (?<level>error|warning|note|info|pass|review|open|notapplicable)
+              (?<level>error|err|warning|wrn|note|info|pass|review|open|notapplicable)
             )
-            \s+
+            \s*:?\s*
             (?<ruleId>[^\s:]+)
             \s*:\s*
             (?<message>.*)
