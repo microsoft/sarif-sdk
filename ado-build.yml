@@ -17,9 +17,9 @@ extends:
         name: 1ES-Shared-Hosted-Pool_Windows-Server-2022
         os: windows      
       
-      sdl:  
-        baseline:    
-          baselineFile: $(Build.SourcesDirectory)\guardian\SDL\.gdnbaselines
+      sdl:
+        suppression:
+          suppressionFile: $(Build.SourcesDirectory)\guardian\SDL\.gdnsuppress
         
       stages:
         - stage: build

@@ -1,0 +1,184 @@
+{
+  "version": "latest",
+  "suppressionSets": {
+    "default": {
+      "name": "default",
+      "createdDate": "2022-11-21 22:51:06Z",
+      "lastUpdatedDate": "2022-11-21 22:51:06Z"
+    }
+  },
+  "results": {
+    "9fae0b11af5a003e425be86069f6918222d8a3fc9ad03f6ff596ca39cd995d8c": {
+      "signature": "9fae0b11af5a003e425be86069f6918222d8a3fc9ad03f6ff596ca39cd995d8c",
+      "alternativeSignatures": [
+        "775cdb63d07ca63750e99cd5554ccd81b3d6841d22c647a1789acb7cb4cd2856"
+      ],
+      "target": ".nuget/NuGet.exe",
+      "memberOf": [
+        "default"
+      ],
+      "tool": "binskim",
+      "ruleId": "BA2004",
+      "justification": null,
+      "createdDate": "2022-11-21 22:51:06Z",
+      "expirationDate": null,
+      "type": null
+    },
+    "65d12d6638388cf3bcce44704a874728bcb04277a169a067b823c00003aa197b": {
+      "signature": "65d12d6638388cf3bcce44704a874728bcb04277a169a067b823c00003aa197b",
+      "alternativeSignatures": [
+        "7edeaee7abef1c335d24878908c4d6d87f351486c39a856d2ccf3cf54deaa1f8"
+      ],
+      "target": ".nuget/NuGet.exe",
+      "memberOf": [
+        "default"
+      ],
+      "tool": "binskim",
+      "ruleId": "BA2015",
+      "justification": null,
+      "createdDate": "2022-11-21 22:51:06Z",
+      "expirationDate": null,
+      "type": null
+    },
+    "a764eb3f915154105e6833e04f0ec4c33fc220a9a4f6389744c8ba330c59f689": {
+      "signature": "a764eb3f915154105e6833e04f0ec4c33fc220a9a4f6389744c8ba330c59f689",
+      "alternativeSignatures": [],
+      "target": "packages/microsoft.data.sqlclient/2.1.1/lib/net46/Microsoft.Data.SqlClient.xml",
+      "memberOf": [
+        "default"
+      ],
+      "tool": "credscan",
+      "ruleId": "CSCAN-GENERAL0030",
+      "justification": null,
+      "createdDate": "2022-11-21 22:51:06Z",
+      "expirationDate": null,
+      "type": null
+    },
+    "5a4a41c46eb9b3790993b6308568d631054d0ca1cb7ae079adb7eb77d471ecf4": {
+      "signature": "5a4a41c46eb9b3790993b6308568d631054d0ca1cb7ae079adb7eb77d471ecf4",
+      "alternativeSignatures": [],
+      "target": "packages/microsoft.data.sqlclient/2.1.1/lib/netcoreapp2.1/Microsoft.Data.SqlClient.xml",
+      "memberOf": [
+        "default"
+      ],
+      "tool": "credscan",
+      "ruleId": "CSCAN-GENERAL0030",
+      "justification": null,
+      "createdDate": "2022-11-21 22:51:06Z",
+      "expirationDate": null,
+      "type": null
+    },
+    "c55b10ec112265934e359e0b42903251ad17707f70e1387fade870f4de04f091": {
+      "signature": "c55b10ec112265934e359e0b42903251ad17707f70e1387fade870f4de04f091",
+      "alternativeSignatures": [],
+      "target": "packages/microsoft.data.sqlclient/2.1.1/lib/netcoreapp3.1/Microsoft.Data.SqlClient.xml",
+      "memberOf": [
+        "default"
+      ],
+      "tool": "credscan",
+      "ruleId": "CSCAN-GENERAL0030",
+      "justification": null,
+      "createdDate": "2022-11-21 22:51:06Z",
+      "expirationDate": null,
+      "type": null
+    },
+    "a4bb3143be2893951d063f665ac3845b9674c2b1bb6bc3be2e8b8dae196bd687": {
+      "signature": "a4bb3143be2893951d063f665ac3845b9674c2b1bb6bc3be2e8b8dae196bd687",
+      "alternativeSignatures": [],
+      "target": "packages/microsoft.data.sqlclient/2.1.1/lib/netstandard2.0/Microsoft.Data.SqlClient.xml",
+      "memberOf": [
+        "default"
+      ],
+      "tool": "credscan",
+      "ruleId": "CSCAN-GENERAL0030",
+      "justification": null,
+      "createdDate": "2022-11-21 22:51:06Z",
+      "expirationDate": null,
+      "type": null
+    },
+    "fcd9b68effc8e0990121d905f13e410c9e81436f1e46044485db5735b1988cc4": {
+      "signature": "fcd9b68effc8e0990121d905f13e410c9e81436f1e46044485db5735b1988cc4",
+      "alternativeSignatures": [],
+      "target": "packages/microsoft.data.sqlclient/2.1.1/lib/netstandard2.1/Microsoft.Data.SqlClient.xml",
+      "memberOf": [
+        "default"
+      ],
+      "tool": "credscan",
+      "ruleId": "CSCAN-GENERAL0030",
+      "justification": null,
+      "createdDate": "2022-11-21 22:51:06Z",
+      "expirationDate": null,
+      "type": null
+    },
+    "af19e71a4c46a0f55116d23bdf90a63dcd29628020591dc13b64b74e6587cdc6": {
+      "signature": "af19e71a4c46a0f55116d23bdf90a63dcd29628020591dc13b64b74e6587cdc6",
+      "alternativeSignatures": [],
+      "target": "packages/microsoft.data.sqlclient/2.1.1/ref/net46/Microsoft.Data.SqlClient.xml",
+      "memberOf": [
+        "default"
+      ],
+      "tool": "credscan",
+      "ruleId": "CSCAN-GENERAL0030",
+      "justification": null,
+      "createdDate": "2022-11-21 22:51:06Z",
+      "expirationDate": null,
+      "type": null
+    },
+    "47a4a5439beef869a3daab1fbd0c410b487c714b317f7601f8b55d23b903c6cf": {
+      "signature": "47a4a5439beef869a3daab1fbd0c410b487c714b317f7601f8b55d23b903c6cf",
+      "alternativeSignatures": [],
+      "target": "packages/microsoft.data.sqlclient/2.1.1/ref/netcoreapp2.1/Microsoft.Data.SqlClient.xml",
+      "memberOf": [
+        "default"
+      ],
+      "tool": "credscan",
+      "ruleId": "CSCAN-GENERAL0030",
+      "justification": null,
+      "createdDate": "2022-11-21 22:51:06Z",
+      "expirationDate": null,
+      "type": null
+    },
+    "3dc7785b7f29f6e72b4c48d0ba22efe902d471d20220532c06fd6b2a27bfe442": {
+      "signature": "3dc7785b7f29f6e72b4c48d0ba22efe902d471d20220532c06fd6b2a27bfe442",
+      "alternativeSignatures": [],
+      "target": "packages/microsoft.data.sqlclient/2.1.1/ref/netcoreapp3.1/Microsoft.Data.SqlClient.xml",
+      "memberOf": [
+        "default"
+      ],
+      "tool": "credscan",
+      "ruleId": "CSCAN-GENERAL0030",
+      "justification": null,
+      "createdDate": "2022-11-21 22:51:06Z",
+      "expirationDate": null,
+      "type": null
+    },
+    "536c22b5add69c3dd2518118822c66b55b7d72bc00c6754604bf81a5c10b2a53": {
+      "signature": "536c22b5add69c3dd2518118822c66b55b7d72bc00c6754604bf81a5c10b2a53",
+      "alternativeSignatures": [],
+      "target": "packages/microsoft.data.sqlclient/2.1.1/ref/netstandard2.0/Microsoft.Data.SqlClient.xml",
+      "memberOf": [
+        "default"
+      ],
+      "tool": "credscan",
+      "ruleId": "CSCAN-GENERAL0030",
+      "justification": null,
+      "createdDate": "2022-11-21 22:51:06Z",
+      "expirationDate": null,
+      "type": null
+    },
+    "bcac98b6eb8683e72aa2571843739cf946b5e4c2ce4e81431c9afb3d9d4cf109": {
+      "signature": "bcac98b6eb8683e72aa2571843739cf946b5e4c2ce4e81431c9afb3d9d4cf109",
+      "alternativeSignatures": [],
+      "target": "packages/microsoft.data.sqlclient/2.1.1/ref/netstandard2.1/Microsoft.Data.SqlClient.xml",
+      "memberOf": [
+        "default"
+      ],
+      "tool": "credscan",
+      "ruleId": "CSCAN-GENERAL0030",
+      "justification": null,
+      "createdDate": "2022-11-21 22:51:06Z",
+      "expirationDate": null,
+      "type": null
+    }
+  }
+}
