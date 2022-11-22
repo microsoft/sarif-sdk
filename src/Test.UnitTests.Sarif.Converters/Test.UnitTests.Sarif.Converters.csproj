@@ -25,35 +25,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Remove="TestData\ClangTidyConverter\ExpectedOutputs\NoResults.sarif" />
-    <None Remove="TestData\ClangTidyConverter\ExpectedOutputs\ValidResults.sarif" />
-    <None Remove="TestData\ClangTidyConverter\ExpectedOutputs\ValidResultsWithLog.sarif" />
-    <None Remove="TestData\ClangTidyConverter\Inputs\Empty.yaml" />
-    <None Remove="TestData\ClangTidyConverter\Inputs\InvalidResult.yaml" />
-    <None Remove="TestData\ClangTidyConverter\Inputs\ValidResults.yaml" />
-    <None Remove="TestData\ClangTidyConverter\Inputs\ValidResultsWithLog.yaml" />
-    <None Remove="TestData\ClangTidyConverter\Inputs\ValidResultsWithLog.yaml.log" />
-    <None Remove="TestData\FlawFinderConverter\ExpectedOutputs\NoResults.sarif" />
-    <None Remove="TestData\FlawFinderConverter\ExpectedOutputs\ValidResults.sarif" />
-    <None Remove="TestData\FlawFinderConverter\Inputs\Empty.csv" />
-    <None Remove="TestData\FlawFinderConverter\Inputs\InvalidHeader.csv" />
-    <None Remove="TestData\FlawFinderConverter\Inputs\InvalidResult.csv" />
-    <None Remove="TestData\FlawFinderConverter\Inputs\OldVersionResult.csv" />
-    <None Remove="TestData\FlawFinderConverter\Inputs\OnlyHeaderLine.csv" />
-    <None Remove="TestData\FlawFinderConverter\Inputs\ValidResults.csv" />
-    <None Remove="TestData\HdfConverter\ExpectedOutputs\NoResults.sarif" />
-    <None Remove="TestData\HdfConverter\ExpectedOutputs\ValidResults.sarif" />
-    <None Remove="TestData\HdfConverter\Inputs\Empty.json" />
-    <None Remove="TestData\HdfConverter\Inputs\InvalidResult.json" />
-    <None Remove="TestData\HdfConverter\Inputs\ValidResults.json" />
-    <None Remove="TestData\MSBuildConverter\ExpectedOutputs\NoResults.sarif" />
-    <None Remove="TestData\MSBuildConverter\ExpectedOutputs\ValidResults.sarif" />
-    <None Remove="TestData\MSBuildConverter\Inputs\Empty.ERR" />
-    <None Remove="TestData\MSBuildConverter\Inputs\InvalidResult.ERR" />
-    <None Remove="TestData\MSBuildConverter\Inputs\ValidResults.ERR" />
-  </ItemGroup>
-
-  <ItemGroup>
     <EmbeddedResource Include="TestData\ClangTidyConverter\ExpectedOutputs\NoResults.sarif" />
     <EmbeddedResource Include="TestData\ClangTidyConverter\ExpectedOutputs\ValidResults.sarif" />
     <EmbeddedResource Include="TestData\ClangTidyConverter\ExpectedOutputs\ValidResultsWithLog.sarif" />

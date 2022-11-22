@@ -155,11 +155,17 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             resultKind = ResultKind.Fail;
             FailureLevel failureLevel = FailureLevel.None;
 
-            switch (level)
+            switch (level.ToLower())
             {
                 // Failure cases. ResultKind.Fail + specific failure level
-                case "warning": { failureLevel = FailureLevel.Warning; break; }
-                case "error": { failureLevel = FailureLevel.Error; break; }
+                case "warning":
+                case "wrn":
+                    failureLevel = FailureLevel.Warning;
+                    break;
+                case "error":
+                case "err":
+                    failureLevel = FailureLevel.Error;
+                    break;
                 case "note": { failureLevel = FailureLevel.Note; break; }
 
                 // Non-failure cases. FailureLevel.None + specific result kind
