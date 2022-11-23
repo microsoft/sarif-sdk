@@ -1,16 +1,6 @@
 pr:
 - 'main'
 
-strategy:
-  matrix:
-    linux:
-      imageName: 'ubuntu-20.04'
-    mac:
-      imageName: 'macOS-latest'
-    windows:
-      imageName: 'windows-latest'
-  maxParallel: 4
-
 resources:
   repositories:
     - repository: 1esPipelines
@@ -19,6 +9,17 @@ resources:
       ref: refs/tags/release
 extends:
     template: v1/1ES.Unofficial.PipelineTemplate.yml@1esPipelines
+
+    strategy:
+      matrix:
+        linux:
+          imageName: 'ubuntu-20.04'
+        mac:
+          imageName: 'macOS-latest'
+        windows:
+          imageName: 'windows-latest'
+      maxParallel: 4
+
     parameters:
       pool:
         vmImage: $(imageName)      
