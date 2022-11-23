@@ -40,5 +40,4 @@ extends:
                     filePath: $(System.DefaultWorkingDirectory)/scripts/BuildMultitoolForNpm.ps1
 
                 - publish: 'msbuild.binlog'
-                  artifactName: 'binlog'
                 
