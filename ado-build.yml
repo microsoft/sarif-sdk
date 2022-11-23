@@ -22,9 +22,14 @@ extends:
           suppressionFile: $(Build.SourcesDirectory)\guardian\SDL\.gdnsuppress
         
       stages:
-        - stage: build
+        - stage: Build
           jobs:
             - job: build        
+              templateContext:
+                inputs:
+                  - input: checkout
+                    repository: self
+          
               steps:
                 - task: PowerShell@2
                   displayName: Build and Test
