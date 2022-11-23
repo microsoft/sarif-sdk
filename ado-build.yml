@@ -27,7 +27,7 @@ extends:
             - job: Build
               templateContext:
                 outputs:
-                  output: pipelineArtifact
+                - output: pipelineArtifact
                   pathToPublish: 'msbuild.binlog'
                   artifactName: 'binlog'
                 
