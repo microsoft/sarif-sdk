@@ -24,18 +24,18 @@ extends:
       stages:
         - stage: Build
           jobs:
-            - job: build        
-              templateContext:
-                inputs:
-                  - input: checkout
-                    repository: self
-          
+            - job: build
               steps:
                 - task: PowerShell@2
                   displayName: Build and Test
                   inputs:
                     targetType: filePath
                     filePath: $(System.DefaultWorkingDirectory)/scripts/BuildAndTest.ps1
+
+                - task: PublishBuildArtifacts@1
+                  inputs:
+                    pathToPublish: 'msbuild.binlog'
+                    artifactName: 'binlog'
 
                 # Build Multitool for npm
                 - task: PowerShell@2
