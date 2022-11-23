@@ -31,9 +31,8 @@ extends:
                   inputs:
                     targetType: filePath
                     filePath: $(System.DefaultWorkingDirectory)/scripts/BuildAndTest.ps1
-
-                - task: PublishBuildArtifacts@1
-                  inputs:
+                  outputs:
+                    output: pipelineArtifact
                     pathToPublish: 'msbuild.binlog'
                     artifactName: 'binlog'
 
