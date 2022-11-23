@@ -29,6 +29,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 {
     public class AnalyzeCommandBaseTests
     {
+        public static int[] scenarios;
+
         private const int FAILURE = AnalyzeCommandBase<TestAnalysisContext, AnalyzeOptionsBase>.FAILURE;
         private const int SUCCESS = AnalyzeCommandBase<TestAnalysisContext, AnalyzeOptionsBase>.SUCCESS;
 
@@ -1540,10 +1542,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             action.Should().NotThrow();
         }
 
-        [Theory]
-        [InlineData(new int[] { 10, 50, 100 })]
-        public static void AnalyzeCommandBase_ShouldGenerateSameResultsWhenRunningSingleAndMultiThread(int[] scenarios)
+        [Fact]
+        public static void AnalyzeCommandBase_ShouldGenerateSameResultsWhenRunningSingleAndMultiThread()
         {
+            scenarios = new int[] { 10, 50, 100 };
+
             foreach (int scenario in scenarios)
             {
                 var singleThreadTargets = new List<string>();

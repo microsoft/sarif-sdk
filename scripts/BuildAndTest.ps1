@@ -32,6 +32,8 @@
     Associate SARIF files with Visual Studio.
 .PARAMETER NoFormat
     Do not format files based on dotnet-format tool.
+.PARAMETER CoyoteTesting
+    Run Coyote for concurrency testing.
 #>
 
 [CmdletBinding()]
@@ -76,7 +78,10 @@ param(
     $Associate,
     
     [switch]
-    $NoFormat
+    $NoFormat,
+
+    [switch]
+    $CoyoteTesting
 )
 
 Set-StrictMode -Version Latest
@@ -218,11 +223,21 @@ if (-not $NoBuild) {
     }
 }
 
+if ($CoyoteTesting) {
+echo "Run Coyote Tests"
+   dotnet test --filter TestCategory=CoyoteTest $SourceRoot\$SolutionFile --configuration Release 
+    if ($LASTEXITCODE -ne 0) {
+        Exit-WithFailureMessage $ScriptName "Tests failed."
+    }
+    exit 0
+}
+
 if (-not $NoTest) {
+    echo "Normal build and test"
     if (-not $ENV:OS) {
         $NonWindowsOptions = @{ "-filter" = "WindowsOnly!=true" }
     }
-    & dotnet test $SourceRoot\$SolutionFile --no-build --filter TestCategory!=Coyote --configuration $Configuration @NonWindowsOptions
+    & dotnet test $SourceRoot\$SolutionFile --no-build --filter TestCategory!=CoyoteTest --configuration $Configuration @NonWindowsOptions
     if ($LASTEXITCODE -ne 0) {
         Exit-WithFailureMessage $ScriptName "Tests failed."
     }

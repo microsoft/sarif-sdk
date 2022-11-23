@@ -23,14 +23,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         {
             Coyote.Random.Generator random = Coyote.Random.Generator.Create();
             int numScenarios = random.NextInteger(10) + 1;
-            int[] scenarios = new int[] { numScenarios };
+            AnalyzeCommandBaseTests.scenarios = new int[] { numScenarios };
 
-            AnalyzeCommandBaseTests.AnalyzeCommandBase_ShouldGenerateSameResultsWhenRunningSingleAndMultiThread(scenarios);
+            AnalyzeCommandBaseTests.AnalyzeCommandBase_ShouldGenerateSameResultsWhenRunningSingleAndMultiThread();
 
             return Task.CompletedTask;
         }
 
-        [TestMethod, TestCategory("Coyote")]
+        [TestMethod, TestCategory("CoyoteTest")]
         public void CoyoteTest_ShouldGenerateSameResultsWhenRunningSingleAndMultiThread()
         {
             RunSystematicTest(AnalyzeCommandBase_ShouldGenerateSameResultsWhenRunningSingleAndMultiThread_CoyoteHelper);
@@ -42,7 +42,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             // This configuration will run the test 1000 times exploring different paths each time.
             Configuration config = Configuration
                 .Create()
-                .WithTestingIterations(10000)
+                .WithMaxSchedulingSteps(1000)
+                .WithTestingIterations(100)
                 .WithPartiallyControlledConcurrencyAllowed()
                 .WithVerbosityEnabled(Coyote.Logging.VerbosityLevel.Debug);
 

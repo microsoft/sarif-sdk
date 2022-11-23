@@ -1,0 +1,19 @@
+# Run Coyote for systematically testing multithreaded code
+name: "Coyote Testing"
+
+on:
+  pull_request:
+    branches: [ main ]
+  schedule:
+    - cron: '0 0 * * 0'
+
+jobs:
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+      
+    - name: Add msbuild to PATH
+      uses: microsoft/setup-msbuild@v1.0.2
+
+    - run: |
+        .\BuildAndTest.cmd -CoyoteTesting
