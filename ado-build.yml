@@ -30,9 +30,7 @@ extends:
                 - input: checkout
                   repository: self
                   submodules: recursive
-                outputs:
-                  - output: pipelineArtifact
-                    targetPath: $(System.DefaultWorkingDirectory)/bld
+                  targetPath: $(System.DefaultWorkingDirectory)/bld/bin
 
               steps:
                 - task: PowerShell@2
