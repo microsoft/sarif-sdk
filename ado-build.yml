@@ -24,7 +24,7 @@ extends:
       stages:
         - stage: Build
           jobs:
-            - job: Build SDK
+            - job: Build
               templateContext:
                 outputs:
                   output: pipelineArtifact
@@ -38,8 +38,6 @@ extends:
                     targetType: filePath
                     filePath: $(System.DefaultWorkingDirectory)/scripts/BuildAndTest.ps1
 
-            - job: Build Multitool
-              steps:
                 # Build Multitool for npm
                 - task: PowerShell@2
                   displayName: Build Multitool for npm
