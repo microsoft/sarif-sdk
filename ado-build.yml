@@ -25,15 +25,6 @@ extends:
         - stage: Build
           jobs:
             - job: Build
-              templateContext:
-                inputs:
-                - input: checkout
-                  repository: self
-                  submodules: recursive
-                outputs:
-                - output: pipelineArtifact
-                  pathToPublish: 'msbuild.binlog'
-                  artifactName: 'binlog'
               steps:
                 - task: PowerShell@2
                   displayName: Build and Test
@@ -47,4 +38,7 @@ extends:
                   inputs:
                     targetType: filePath
                     filePath: $(System.DefaultWorkingDirectory)/scripts/BuildMultitoolForNpm.ps1
+
+                - publish: 'msbuild.binlog'
+                  artifactName: 'binlog'
                 
