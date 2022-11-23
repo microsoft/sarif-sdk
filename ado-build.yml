@@ -45,8 +45,7 @@ extends:
                     targetType: filePath
                     filePath: $(System.DefaultWorkingDirectory)/scripts/BuildMultitoolForNpm.ps1
 
-                - task: PublishPipelineArtifact@1
-                  inputs:
-                    path: 'msbuild.binlog'
-                    artifactName: 'BuildLog'
+                - publish: 'msbuild.binlog'
+                  displayName: Publish msbuild.binlog
+                  artifact: 'MsbuildBinLog'
                 
