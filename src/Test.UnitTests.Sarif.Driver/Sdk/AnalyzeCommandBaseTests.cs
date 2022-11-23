@@ -1571,7 +1571,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 {
                     Files = singleThreadTargets,
                     PersistLogFileToDisk = true,
-                    FileSystem = null
+                    FileSystem = CreateDefaultFileSystemForResultsCaching(singleThreadTargets)
                 };
 
                 var options = new TestAnalyzeOptions
@@ -1586,7 +1586,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
                 Run runSingleThread = RunAnalyzeCommand(options, testCase);
 
-                testCase.FileSystem = null;
+                testCase.FileSystem = CreateDefaultFileSystemForResultsCaching(multiThreadTargets);
                 testCase.Files = multiThreadTargets;
                 Run runMultithreaded = RunAnalyzeCommand(options, testCase, multithreaded: true);
 
