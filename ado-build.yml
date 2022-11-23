@@ -1,8 +1,15 @@
 pr:
 - 'main'
 
-pool:
-  vmImage: 'windows-latest'
+strategy:
+  matrix:
+    linux:
+      imageName: 'ubuntu-20.04'
+    mac:
+      imageName: 'macOS-latest'
+    windows:
+      imageName: 'windows-latest'
+  maxParallel: 4
 
 resources:
   repositories:
@@ -14,8 +21,7 @@ extends:
     template: v1/1ES.Unofficial.PipelineTemplate.yml@1esPipelines
     parameters:
       pool:
-        name: 1ES-Shared-Hosted-Pool_Windows-Server-2022
-        os: windows      
+        vmImage: $(imageName)      
       
       sdl:
         suppression:
