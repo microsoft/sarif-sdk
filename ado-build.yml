@@ -10,20 +10,7 @@ resources:
 extends:
     template: v1/1ES.Unofficial.PipelineTemplate.yml@1esPipelines
 
-    strategy:
-      matrix:
-        linux:
-          imageName: 'ubuntu-20.04'
-        mac:
-          imageName: 'macOS-latest'
-        windows:
-          imageName: 'windows-latest'
-      maxParallel: 4
-
     parameters:
-      pool:
-        vmImage: $(imageName)      
-      
       sdl:
         suppression:
           suppressionFile: $(Build.SourcesDirectory)\guardian\SDL\.gdnsuppress
@@ -32,6 +19,19 @@ extends:
         - stage: Build
           jobs:
             - job: Build
+              strategy:
+                matrix:
+                  linux:
+                    imageName: 'ubuntu-20.04'
+                  mac:
+                    imageName: 'macOS-latest'
+                  windows:
+                    imageName: 'windows-latest'
+                maxParallel: 4
+      
+              pool:
+                vmImage: $(imageName)            
+
               templateContext:
                 inputs:
                 - input: checkout
