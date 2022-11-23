@@ -22,7 +22,7 @@ $NuGetSamplesPackageRoot = Join-Path (Join-Path $SourceRoot "samples") "packages
 $NuGetConfigFile = Join-Path $RepoRoot "NuGet.Config"
 
 $PackageSource = "https://nuget.org"
-$PackageOutputDirectoryRoot = Join-Path (Join-Path $BuildRoot "Publish") "NuGet"
+$PackageOutputDirectoryRoot = Join-Path (Join-Path $BinRoot "Publish") "NuGet"
 
 function Get-PackageVersion([switch]$previous) {
     $versionPrefix, $schemaVersion, $stableSarifVersion = & $PSScriptRoot\Get-VersionConstants.ps1 -Previous:$previous
@@ -77,7 +77,7 @@ function New-NuGetPackageFromNuSpecFile($configuration, $project, $version, $suf
         Exit-WithFailureMessage $ScriptName "$project NuGet package creation failed."
     }
 
-    Write-Information "  Successfully created package '$BinRoot\..\Publish\NuGet\$Configuration\$Project.$version.nupkg'."
+    Write-Information "  Successfully created package '$BinRoot\Publish\NuGet\$Configuration\$Project.$version.nupkg'."
 }
 
 function New-NuGetPackages($configuration, $projects) {
