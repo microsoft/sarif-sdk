@@ -28,7 +28,7 @@ extends:
                 maxParallel: 4
       
               pool:
-                vmImage: $(poolName)            
+                name: $(poolName)            
 
               templateContext:
                 inputs:
