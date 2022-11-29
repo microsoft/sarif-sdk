@@ -22,15 +22,13 @@ extends:
               strategy:
                 matrix:
                   linux:
-                    imageName: 'ubuntu-20.04'
-                  mac:
-                    imageName: 'macOS-latest'
+                    poolName: 1ES-Shared-Hosted-Pool_Linux-Mariner-2
                   windows:
-                    imageName: 'windows-latest'
+                    poolName: 1ES-Shared-Hosted-Pool_Windows-Server-2022
                 maxParallel: 4
       
               pool:
-                vmImage: $(imageName)            
+                vmImage: $(poolName)            
 
               templateContext:
                 inputs:
