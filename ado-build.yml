@@ -23,8 +23,8 @@ extends:
                 matrix:
                   linux:
                     poolName: 1ES-Shared-Hosted-Pool_Linux-Mariner-2
-                  windows:
-                    poolName: 1ES-Shared-Hosted-Pool_Windows-Server-2022
+                  # windows:
+                  #  poolName: 1ES-Shared-Hosted-Pool_Windows-Server-2022
                 maxParallel: 4
       
               pool:
