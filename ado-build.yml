@@ -19,16 +19,16 @@ extends:
         - stage: Build
           jobs:
             - job: Build
-              strategy:
-                matrix:
-                  linux:
-                    poolName: 1ES-Shared-Hosted-Pool_Linux-Mariner-2
-                  # windows:
-                  #  poolName: 1ES-Shared-Hosted-Pool_Windows-Server-2022
-                maxParallel: 4
+              #strategy:
+              #  matrix:
+              #    linux:
+              #      poolName: 1ES-Shared-Hosted-Pool_Linux-Mariner-2
+              #    windows:
+              #     poolName: 1ES-Shared-Hosted-Pool_Windows-Server-2022
+              #  maxParallel: 4
       
               pool:
-                name: $(poolName)            
+                name: 1ES-Shared-Hosted-Pool_Linux-Mariner-2        
 
               templateContext:
                 inputs:
