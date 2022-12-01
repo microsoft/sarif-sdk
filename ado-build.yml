@@ -36,10 +36,10 @@ extends:
                   tenant: AME
                   identity: 1ESPipelineIdentity
               containers:
-              ${{ if eq($(os), 'windows') }}:
+              ${{ if eq(os, 'windows') }}:
                 default_windows_container:
                   image: oneespipelinesvalidation.azurecr.io/windows/servercore:1809
-              ${{ elseif eq($(os), 'linux') }}:
+              ${{ elseif eq(os, 'linux') }}:
                 default_linux_container:
                   image: onebranch.azurecr.io/linux/ubuntu-2004:latest
 
