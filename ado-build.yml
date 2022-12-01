@@ -19,16 +19,29 @@ extends:
         - stage: Build
           jobs:
             - job: Build
-              #strategy:
-              #  matrix:
-              #    linux:
-              #      poolName: 1ES-Shared-Hosted-Pool_Linux-Mariner-2
-              #    windows:
-              #     poolName: 1ES-Shared-Hosted-Pool_Windows-Server-2022
-              #  maxParallel: 4
+              strategy:
+                matrix:
+                  linux:
+                    poolName: 1ES-Shared-Hosted-Pool_Linux-Mariner-2
+                    os: linux
+                  windows:
+                    poolName: 1ES-Shared-Hosted-Pool_Windows-Server-2022
+                    os: windows
+                maxParallel: 4
       
               pool:
-                name: 1ES-Shared-Hosted-Pool_Linux-Mariner-2        
+                name: $(poolName)
+              authenticatedContainerRegistries:
+                - reistry: onebranch.azurecr.io
+                  tenant: AME
+                  identity: 1ESPipelineIdentity
+              containers:
+              ${{ if eq($(os), 'windows') }}:
+                default_windows_container:
+                  image: oneespipelinesvalidation.azurecr.io/windows/servercore:1809
+              ${{ else if eq($(os), 'linux') }}:
+                default_linux_container:
+                  image: onebranch.azurecr.io/linux/ubuntu-2004:latest
 
               templateContext:
                 inputs:
