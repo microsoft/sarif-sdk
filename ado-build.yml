@@ -1,6 +1,8 @@
 pr:
 - 'main'
 
+variables:
+  os: ''
 resources:
   repositories:
     - repository: 1esPipelines
@@ -23,10 +25,10 @@ extends:
                 matrix:
                   linux:
                     poolName: 1ES-Shared-Hosted-Pool_Linux-Mariner-2
-                    os: linux
+                    variables.os: 'linux'
                   windows:
                     poolName: 1ES-Shared-Hosted-Pool_Windows-Server-2022
-                    os: windows
+                    variables.os: 'windows'
                 maxParallel: 4
       
               pool:
@@ -36,10 +38,10 @@ extends:
                   tenant: AME
                   identity: 1ESPipelineIdentity
               containers:
-              ${{ if eq(os, 'windows') }}:
+              ${{ if eq(variables.os, 'windows') }}:
                 default_windows_container:
                   image: oneespipelinesvalidation.azurecr.io/windows/servercore:1809
-              ${{ elseif eq(os, 'linux') }}:
+              ${{ elseif eq(variables.os, 'linux') }}:
                 default_linux_container:
                   image: onebranch.azurecr.io/linux/ubuntu-2004:latest
 
