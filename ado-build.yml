@@ -23,10 +23,14 @@ extends:
                 matrix:
                   linux:
                     poolName: 1ES-Shared-Hosted-Pool_Linux-Mariner-2
-                    os: 'linux'
+                    container: 
+                      default_linux_container:
+                        image: onebranch.azurecr.io/linux/ubuntu-2004:latest
                   windows:
                     poolName: 1ES-Shared-Hosted-Pool_Windows-Server-2022
-                    os: 'windows'
+                    container: 
+                      default_windows_container:
+                        image: oneespipelinesvalidation.azurecr.io/windows/servercore:1809
                 maxParallel: 4
       
               pool:
@@ -38,12 +42,7 @@ extends:
                   identity: 1ESPipelineIdentity
 
               containers:
-              ${{ if eq('os', 'windows') }}:
-                default_windows_container:
-                  image: oneespipelinesvalidation.azurecr.io/windows/servercore:1809
-              ${{ elseif eq('os', 'linux') }}:
-                default_linux_container:
-                  image: onebranch.azurecr.io/linux/ubuntu-2004:latest
+                $(container)
 
               templateContext:
                 inputs:
