@@ -156,7 +156,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 if (node.Text == null &&
                     this.run.Tool.Driver.GlobalMessageStrings?.TryGetValue(node.Id, out formatString) == true)
                 {
-                    node.Text = node.Arguments?.Count > 0
+                    node.Text = node.Arguments?.Count > 0 && formatString != null
                         ? string.Format(CultureInfo.CurrentCulture, formatString.Text, node.Arguments.ToArray())
                         : formatString?.Text;
                 }
