@@ -46,7 +46,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         }
 
         [Fact]
-        public void RebaseUriCommand_RebaseRunWithArtifacts()
+        public void RunRewriteCommand_RewriteForGitHub()
         {
             string testFilePath = "RunWithArtifacts.sarif";
 

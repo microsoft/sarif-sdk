@@ -27,6 +27,11 @@
                 "Probability": "1.0",
                 "Kingdom": "Security Features",
                 "Type": "Insecure Randomness"
+              },
+              "messageStrings": {
+                "MatchAtBeginningOfFile": {
+                  "text": "This result is at the beginning of the file and selects '{0}'."
+                }
               }
             }
           ]
@@ -60,7 +65,10 @@
           "ruleIndex": 0,
           "level": "error",
           "message": {
-            "text": "The random number generator implemented by nextDouble() cannot withstand a cryptographic attack.\r\nStandard pseudorandom number generators cannot withstand cryptographic attacks."
+            "id": "MatchAtBeginningOfFile",
+            "arguments": [
+              "Region_At_Start_Of_File"
+            ]
           },
           "locations": [
             {
