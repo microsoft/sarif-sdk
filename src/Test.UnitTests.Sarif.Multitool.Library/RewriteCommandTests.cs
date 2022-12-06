@@ -42,7 +42,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
         protected override string ConstructTestOutputFromInputResource(string testFilePath, object parameter)
         {
-            return RunRewriteCommand(testFilePath, this.options);
+            return RunRewriteCommand(testFilePath);
         }
 
         [Fact]
@@ -55,21 +55,21 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             RunTest(testFilePath);
         }
 
-        private string RunRewriteCommand(string testFilePath, RewriteOptions options)
+        private string RunRewriteCommand(string testFilePath)
         {
             string inputSarifLog = GetInputSarifTextFromResource(testFilePath);
 
             string logFilePath = Path.Combine(Directory.GetCurrentDirectory(), "mylog.sarif");
             StringBuilder transformedContents = new StringBuilder();
 
-            options.InputFilePath = logFilePath;
-            options.OutputFilePath = null;
+            this.options.InputFilePath = logFilePath;
+            this.options.OutputFilePath = null;
 
             Mock<IFileSystem> mockFileSystem = ArrangeMockFileSystem(inputSarifLog, logFilePath, transformedContents);
 
             var RewriteCommand = new RewriteCommand(mockFileSystem.Object);
 
-            int returnCode = RewriteCommand.Run(options);
+            int returnCode = RewriteCommand.Run(this.options);
             string actualOutput = transformedContents.ToString();
 
             returnCode.Should().Be(0);
