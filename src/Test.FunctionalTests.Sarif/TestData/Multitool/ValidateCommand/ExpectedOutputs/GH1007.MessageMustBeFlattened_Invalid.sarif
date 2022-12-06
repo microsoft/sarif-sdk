@@ -1,0 +1,28 @@
+{
+  "$schema": "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0-rtm.6.json",
+  "version": "2.1.0",
+  "runs": [
+    {
+      "tool": {
+        "driver": {
+          "name": "SARIF Functional Testing"
+        }
+      },
+      "invocations": [
+        {
+          "executionSuccessful": true
+        }
+      ],
+      "artifacts": [
+        {
+          "location": {
+            "uri": "FunctionalTestOutput.ValidateCommand/GH1007.MessageMustBeFlattened_Invalid.sarif",
+            "uriBaseId": "TEST_DIR"
+          }
+        }
+      ],
+      "results": [],
+      "columnKind": "utf16CodeUnits"
+    }
+  ]
+}

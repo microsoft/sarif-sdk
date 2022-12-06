@@ -47,6 +47,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         public const string ReviewArraysThatExceedConfigurableDefaults = "GH1004";
         public const string LocationsMustBeRelativeUrisOrFilePaths = "GH1005";
         public const string ProvideCheckoutPath = "GH1006";
+        public const string MessageMustBeFlattened = "GH1007";
 
         // TEMPLATE:
         // public const string RuleFriendlyName = "SARIFnnnn";

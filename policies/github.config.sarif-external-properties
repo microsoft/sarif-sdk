@@ -53,6 +53,13 @@
           "defaultConfiguration": {
             "enabled": true
           }
+        },
+        {
+          "id": "GH1007",
+          "name": "MessageMustBeFlattened",
+          "defaultConfiguration": {
+            "enabled": true
+          }
         }
       ]
     }
