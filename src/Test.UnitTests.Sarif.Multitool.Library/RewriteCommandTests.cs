@@ -17,11 +17,78 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
 using Xunit;
+using Xunit.Abstractions;
 
 namespace Microsoft.CodeAnalysis.Sarif.Multitool
 {
-    public class RewriteCommandTests
+    public class RewriteCommandTests : FileDiffingUnitTests
     {
+        private RewriteOptions options;
+
+        public RewriteCommandTests(ITestOutputHelper outputHelper) : base(outputHelper) { }
+
+        private static RewriteOptions CreateDefaultOptions()
+        {
+            return new RewriteOptions
+            {
+                BasePath = @"C:\vs\src\2\s\",
+                BasePathToken = "SRCROOT",
+                Inline = true,
+                SarifOutputVersion = SarifVersion.Current,
+                PrettyPrint = true,
+                NormalizeForGitHub = true,
+            };
+        }
+
+        protected override string ConstructTestOutputFromInputResource(string testFilePath, object parameter)
+        {
+            return RunRewriteCommand(testFilePath, this.options);
+        }
+
+        [Fact]
+        public void RebaseUriCommand_RebaseRunWithArtifacts()
+        {
+            string testFilePath = "RunWithArtifacts.sarif";
+
+            this.options = CreateDefaultOptions();
+
+            RunTest(testFilePath);
+        }
+
+        private string RunRewriteCommand(string testFilePath, RewriteOptions options)
+        {
+            string inputSarifLog = GetInputSarifTextFromResource(testFilePath);
+
+            string logFilePath = Path.Combine(Directory.GetCurrentDirectory(), "mylog.sarif");
+            StringBuilder transformedContents = new StringBuilder();
+
+            options.InputFilePath = logFilePath;
+            options.OutputFilePath = null;
+
+            Mock<IFileSystem> mockFileSystem = ArrangeMockFileSystem(inputSarifLog, logFilePath, transformedContents);
+
+            var RewriteCommand = new RewriteCommand(mockFileSystem.Object);
+
+            int returnCode = RewriteCommand.Run(options);
+            string actualOutput = transformedContents.ToString();
+
+            returnCode.Should().Be(0);
+
+            return actualOutput;
+        }
+
+        private static Mock<IFileSystem> ArrangeMockFileSystem(string sarifLog, string logFilePath, StringBuilder transformedContents)
+        {
+            var mockFileSystem = new Mock<IFileSystem>();
+            mockFileSystem.Setup(x => x.FileReadAllText(logFilePath)).Returns(sarifLog);
+            mockFileSystem.Setup(x => x.FileOpenRead(logFilePath)).Returns(() => new MemoryStream(Encoding.UTF8.GetBytes(sarifLog)));
+            mockFileSystem.Setup(x => x.FileCreate(logFilePath)).Returns(() => new MemoryStreamToStringBuilder(transformedContents));
+            mockFileSystem.Setup(x => x.FileWriteAllText(logFilePath, It.IsAny<string>())).Callback<string, string>((path, contents) => { transformedContents.Append(contents); });
+            mockFileSystem.Setup(x => x.DirectoryExists(It.IsAny<string>())).Returns(true);
+            mockFileSystem.Setup(x => x.DirectoryGetFiles(It.IsAny<string>(), It.IsAny<string>())).Returns(new string[] { logFilePath });
+            return mockFileSystem;
+        }
+
         public const string MinimalPrereleaseV2Text =
     @"{
   ""$schema"": ""http://json.schemastore.org/sarif-2.0.0"",

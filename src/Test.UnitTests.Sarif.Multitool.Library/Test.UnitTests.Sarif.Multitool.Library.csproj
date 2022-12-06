@@ -21,16 +21,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Remove="TestData\ExportValidationRulesMetadataCommand\ExpectedOutputs\MarkdownFullDescription.md" />
-    <None Remove="TestData\ExportValidationRulesMetadataCommand\ExpectedOutputs\MarkdownShortDescription.md" />
-    <None Remove="TestData\ExportValidationRulesMetadataCommand\ExpectedOutputs\NoDescription.md" />
-    <None Remove="TestData\ExportValidationRulesMetadataCommand\ExpectedOutputs\NonStandardMessageStringKey.md" />
-    <None Remove="TestData\ExportValidationRulesMetadataCommand\ExpectedOutputs\StandardMessageStringKey.md" />
-    <None Remove="TestData\ExportValidationRulesMetadataCommand\ExpectedOutputs\TextShortDescription.md" />
-    <None Remove="TestData\MergeCommand\ExpectedOutputs\DuplicatedResults.sarif" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Content Include="xunit.runner.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -55,6 +45,8 @@
     <EmbeddedResource Include="TestData\PageCommand\elfie-arriba.sarif" />
     <EmbeddedResource Include="TestData\QueryCommand\elfie-arriba.sarif" />
     <EmbeddedResource Include="TestData\QueryCommand\WithProperties.sarif" />
+    <EmbeddedResource Include="TestData\RewriteCommand\ExpectedOutputs\RunWithArtifacts.sarif" />
+    <EmbeddedResource Include="TestData\RewriteCommand\Inputs\RunWithArtifacts.sarif" />
     <EmbeddedResource Include="TestData\RebaseUriCommand\ExpectedOutputs\RunWithArtifacts.sarif" />
     <EmbeddedResource Include="TestData\RebaseUriCommand\Inputs\RunWithArtifacts.sarif" />
     <EmbeddedResource Include="TestData\ValidateCommand\Configuration.json" />
