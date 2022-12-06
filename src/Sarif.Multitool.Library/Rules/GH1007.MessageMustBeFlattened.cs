@@ -21,13 +21,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         /// </summary>
         public override string Id => RuleId.MessageMustBeFlattened;
 
+        public override MultiformatMessageString FullDescription => new MultiformatMessageString { Text = RuleResources.GH1007_MessageMustBeFlattened_FullDescription_Text };
+
         protected override IEnumerable<string> MessageResourceNames => new string[] {
             nameof(RuleResources.GH1007_MessageMustBeFlattened_Error_Default_Text)
         };
 
         protected override void Analyze(Result result, string resultPointer)
         {
-            if (!string.IsNullOrEmpty(result.Message.Text))
+            if (string.IsNullOrEmpty(result.Message.Text))
             {
                 // {0}: The 'text' property of this result message is absent. GitHub Advanced Security code
                 // scanning will reject this file because it does not support the argumented message now.
