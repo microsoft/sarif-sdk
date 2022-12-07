@@ -2,7 +2,6 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System.Collections.Generic;
-using System.Globalization;
 using System.Linq;
 
 namespace Microsoft.CodeAnalysis.Sarif.Visitors
@@ -142,24 +141,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         {
             if (node.Text == null)
             {
-                ReportingDescriptor rule = this.ruleIndex != -1 ? this.run.Tool.Driver.Rules[this.ruleIndex] : null;
-
-                if (rule != null &&
-                    rule.MessageStrings != null &&
-                    rule.MessageStrings.TryGetValue(node.Id, out MultiformatMessageString formatString))
-                {
-                    node.Text = node.Arguments?.Count > 0
-                        ? rule.Format(node.Id, node.Arguments)
-                        : formatString?.Text;
-                }
-
-                if (node.Text == null &&
-                    this.run.Tool.Driver.GlobalMessageStrings?.TryGetValue(node.Id, out formatString) == true)
-                {
-                    node.Text = node.Arguments?.Count > 0 && formatString != null
-                        ? string.Format(CultureInfo.CurrentCulture, formatString.Text, node.Arguments.ToArray())
-                        : formatString?.Text;
-                }
+                VisitorHelper.FlattenMessage(node, this.ruleIndex, this.run);
             }
             return base.VisitMessage(node);
         }

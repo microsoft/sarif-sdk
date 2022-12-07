@@ -67,18 +67,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
                 if (options.NormalizeForGitHub)
                 {
-                    if ((reformattedLog.Runs?.Any(r => r.Artifacts?.Any(a => a.Location?.Uri?.IsAbsoluteUri == true) == true) == true) ||
-                        (reformattedLog.Runs?.Any(r => r.Results?.Any(s => s.Locations?.Any(l => l.PhysicalLocation?.ArtifactLocation?.Uri?.IsAbsoluteUri == true) == true) == true) == true))
+                    if(options.BasePath != null && options.BasePathToken != null)
                     {
-                        if (options.BasePath == null || options.BasePathToken == null)
-                        {
-                            throw new ArgumentException("The input SARIF file contains absolute Uri which will not work with GitHub. Please also provide `--base-path-value` and `--base-path-token` to convert them to relative Uri.");
-                        }
-                        else
-                        {
-                            var visitor = new RebaseUriVisitor(options.BasePathToken, new Uri(options.BasePath), options.RebaseRelativeUris);
-                            reformattedLog = visitor.VisitSarifLog(reformattedLog);
-                        }
+                        var visitor = new RebaseUriVisitor(options.BasePathToken, new Uri(options.BasePath), options.RebaseRelativeUris);
+                        reformattedLog = visitor.VisitSarifLog(reformattedLog);
                     }
 
                     reformattedLog = new GitHubIngestionVisitor().VisitSarifLog(reformattedLog);
