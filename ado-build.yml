@@ -14,7 +14,15 @@ extends:
       sdl:
         suppression:
           suppressionFile: $(Build.SourcesDirectory)\guardian\SDL\.gdnsuppress
-        
+      containers:
+        default_linux_container:
+          image: onebranch.azurecr.io/linux/ubuntu-2004:latest
+        default_windows_container:
+          image: oneespipelinesvalidation.azurecr.io/windows/servercore:1809
+      authenticatedContainerRegistries:
+        - reistry: onebranch.azurecr.io
+          tenant: AME
+          identity: 1ESPipelineIdentity
       stages:
         - stage: Build
           jobs:
@@ -23,27 +31,15 @@ extends:
                 matrix:
                   linux:
                     poolName: 1ES-Shared-Hosted-Pool_Linux-Mariner-2
-                    container: 
-                      default_linux_container:
-                        image: onebranch.azurecr.io/linux/ubuntu-2004:latest
                   windows:
                     poolName: 1ES-Shared-Hosted-Pool_Windows-Server-2022
-                    container: 
-                      default_windows_container:
-                        image: oneespipelinesvalidation.azurecr.io/windows/servercore:1809
                 maxParallel: 4
-      
+              ${{ if eq($(poolName), '1ES-Shared-Hosted-Pool_Windows-Server-2022'}}
+                container: default_windows_container
+              ${{ else }}
+                container: default_linux_container
               pool:
                 name: $(poolName)
-
-              authenticatedContainerRegistries:
-                - reistry: onebranch.azurecr.io
-                  tenant: AME
-                  identity: 1ESPipelineIdentity
-
-              containers:
-                $(container)
-
               templateContext:
                 inputs:
                 - input: checkout
@@ -70,4 +66,3 @@ extends:
                 - publish: 'msbuild.binlog'
                   displayName: Publish msbuild.binlog
                   artifact: 'MsbuildBinLog'
-                
