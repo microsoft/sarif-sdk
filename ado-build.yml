@@ -36,7 +36,7 @@ extends:
                 maxParallel: 4
                 
                 container:                
-                  ${{ if eq($(poolName), '1ES-Shared-Hosted-Pool_Windows-Server-2022'}}:
+                  ${{ if eq($(poolName), '1ES-Shared-Hosted-Pool_Windows-Server-2022') }}:
                     default_windows_container
                   ${{ else }}:
                     default_linux_container
