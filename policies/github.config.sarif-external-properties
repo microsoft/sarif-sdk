@@ -56,7 +56,7 @@
         },
         {
           "id": "GH1007",
-          "name": "MessageMustBeFlattened",
+          "name": "FlattenResultMessage",
           "defaultConfiguration": {
             "enabled": true
           }

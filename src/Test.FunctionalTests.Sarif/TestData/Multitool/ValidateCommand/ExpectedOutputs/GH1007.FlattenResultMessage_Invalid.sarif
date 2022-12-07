@@ -9,7 +9,7 @@
           "rules": [
             {
               "id": "GH1007",
-              "name": "MessageMustBeFlattened",
+              "name": "FlattenResultMessage",
               "fullDescription": {
                 "text": "GitHub Advanced Security code scanning will reject a SARIF file that express result messages with 'message.id' and 'message.arguments' but without the 'message.text' property since the arugmented message format is not supported yet. Please populate the flattened message text in 'message.text' property."
               },
@@ -34,7 +34,7 @@
       "artifacts": [
         {
           "location": {
-            "uri": "FunctionalTestOutput.ValidateCommand/GH1007.MessageMustBeFlattened_Invalid.sarif",
+            "uri": "FunctionalTestOutput.ValidateCommand/GH1007.FlattenResultMessage_Invalid.sarif",
             "uriBaseId": "TEST_DIR"
           }
         }

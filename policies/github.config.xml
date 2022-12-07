@@ -30,7 +30,7 @@
   <Properties Key='GH1006.ProvideCheckoutPath.Options'>
     <Property Key='RuleEnabled' Value='Error' />
   </Properties>
-  <Properties Key='GH1007.MessageMustBeFlattened.Options'>
+  <Properties Key='GH1007.FlattenResultMessage.Options'>
     <Property Key='RuleEnabled' Value='Error' />
   </Properties>
 </Properties>

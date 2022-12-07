@@ -202,18 +202,18 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         /// <summary>
         ///   Looks up a localized string similar to {0}: The &apos;text&apos; property of this result message is absent. GitHub Advanced Security code scanning will reject this file because it does not support the argumented message now. Try to populate the flattened message text in &apos;message.text&apos; property..
         /// </summary>
-        internal static string GH1007_MessageMustBeFlattened_Error_Default_Text {
+        internal static string GH1007_FlattenResultMessage_Error_Default_Text {
             get {
-                return ResourceManager.GetString("GH1007_MessageMustBeFlattened_Error_Default_Text", resourceCulture);
+                return ResourceManager.GetString("GH1007_FlattenResultMessage_Error_Default_Text", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to GitHub Advanced Security code scanning will reject a SARIF file that express result messages with &apos;message.id&apos; and &apos;message.arguments&apos; but without the &apos;message.text&apos; property since the arugmented message format is not supported yet. Please populate the flattened message text in &apos;message.text&apos; property..
         /// </summary>
-        internal static string GH1007_MessageMustBeFlattened_FullDescription_Text {
+        internal static string GH1007_FlattenResultMessage_FullDescription_Text {
             get {
-                return ResourceManager.GetString("GH1007_MessageMustBeFlattened_FullDescription_Text", resourceCulture);
+                return ResourceManager.GetString("GH1007_FlattenResultMessage_FullDescription_Text", resourceCulture);
             }
         }
         
