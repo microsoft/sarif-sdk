@@ -5,7 +5,6 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
-using System.Linq;
 
 using Microsoft.CodeAnalysis.Sarif.Driver;
 using Microsoft.CodeAnalysis.Sarif.Readers;
@@ -67,7 +66,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
                 if (options.NormalizeForGitHub)
                 {
-                    if(options.BasePath != null && options.BasePathToken != null)
+                    if (options.BasePath != null && options.BasePathToken != null)
                     {
                         var visitor = new RebaseUriVisitor(options.BasePathToken, new Uri(options.BasePath), options.RebaseRelativeUris);
                         reformattedLog = visitor.VisitSarifLog(reformattedLog);
