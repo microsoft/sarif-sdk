@@ -66,13 +66,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             return result;
         }
 
-        protected override TestAnalysisContext DetermineApplicabilityAndAnalyze(TestAnalysisContext context, IEnumerable<Skimmer<TestAnalysisContext>> skimmers, ISet<string> disabledSkimmers)
+        protected override TestAnalysisContext DetermineApplicabilityAndAnalyze(TestAnalyzeOptions options, TestAnalysisContext context, IEnumerable<Skimmer<TestAnalysisContext>> skimmers, ISet<string> disabledSkimmers)
         {
             TestRuleBehaviors behaviors = context.Policy.GetProperty(TestRule.Behaviors);
 
             TestRule.s_testRuleBehaviors = behaviors.AccessibleOutsideOfContextOnly();
 
-            return base.DetermineApplicabilityAndAnalyze(context, skimmers, disabledSkimmers);
+            return base.DetermineApplicabilityAndAnalyze(options, context, skimmers, disabledSkimmers);
         }
 
         protected override void ProcessBaseline(IAnalysisContext context, TestAnalyzeOptions options, IFileSystem fileSystem)

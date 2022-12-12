@@ -38,7 +38,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         // Parse errors:
         private const string ERR1000_ParseError = "ERR1000.ParseError";
 
-        public static void LogExceptionLoadingTarget(IAnalysisContext context)
+        public static void LogExceptionLoadingTarget(IAnalysisContext context, bool persistExceptionStack = false)
         {
             if (context == null)
             {
@@ -53,7 +53,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                     ruleId: null,
                     FailureLevel.Error,
                     context.TargetLoadException,
-                    persistExceptionStack: false,
+                    persistExceptionStack: persistExceptionStack,
                     messageFormat: null,
                     context.TargetUri.GetFileName()));
 

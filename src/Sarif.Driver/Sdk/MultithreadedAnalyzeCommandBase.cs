@@ -227,7 +227,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             var workers = new Task<bool>[options.Threads];
             for (int i = 0; i < options.Threads; i++)
             {
-                workers[i] = ScanTargetsAsync(skimmers, disabledSkimmers);
+                workers[i] = ScanTargetsAsync(options, skimmers, disabledSkimmers);
             }
 
             // 4: A single-threaded consumer watches for completed scans
@@ -529,7 +529,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             return true;
         }
 
-        private async Task<bool> ScanTargetsAsync(IEnumerable<Skimmer<TContext>> skimmers, ISet<string> disabledSkimmers)
+        private async Task<bool> ScanTargetsAsync(TOptions options, IEnumerable<Skimmer<TContext>> skimmers, ISet<string> disabledSkimmers)
         {
             ChannelReader<int> reader = readyToScanChannel.Reader;
 
@@ -545,7 +545,17 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                     {
                         context = _fileContexts[item];
 
-                        DetermineApplicabilityAndAnalyze(context, skimmers, disabledSkimmers);
+                        if (options.Level.Contains(FailureLevel.None))
+                        {
+                            Console.WriteLine("Start scanning file: {0}", context.TargetUri);
+                        }
+
+                        DetermineApplicabilityAndAnalyze(options, context, skimmers, disabledSkimmers);
+
+                        if (options.Level.Contains(FailureLevel.None))
+                        {
+                            Console.WriteLine("Finished scanning file: {0}", context.TargetUri);
+                        }
                     }
                     catch (Exception e)
                     {
@@ -875,6 +885,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         }
 
         protected virtual TContext DetermineApplicabilityAndAnalyze(
+            TOptions options,
             TContext context,
             IEnumerable<Skimmer<TContext>> skimmers,
             ISet<string> disabledSkimmers)
@@ -883,7 +894,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
             if (context.TargetLoadException != null)
             {
-                Errors.LogExceptionLoadingTarget(context);
+                Errors.LogExceptionLoadingTarget(context, options.Level.Contains(FailureLevel.None));
                 context.Dispose();
                 return context;
             }
