@@ -14,15 +14,18 @@ extends:
       sdl:
         suppression:
           suppressionFile: $(Build.SourcesDirectory)\guardian\SDL\.gdnsuppress
+
       containers:
         default_linux_container:
           image: onebranch.azurecr.io/linux/ubuntu-2004:latest
         default_windows_container:
           image: oneespipelinesvalidation.azurecr.io/windows/servercore:1809
+
       authenticatedContainerRegistries:
         - reistry: onebranch.azurecr.io
           tenant: AME
           identity: 1ESPipelineIdentity
+
       stages:
         - stage: Build
           jobs:
@@ -31,22 +34,21 @@ extends:
                 matrix:
                   linux:
                     poolName: 1ES-Shared-Hosted-Pool_Linux-Mariner-2
+                    os: linux
                   windows:
                     poolName: 1ES-Shared-Hosted-Pool_Windows-Server-2022
+                    os: windows
                 maxParallel: 4
-                
-                container:                
-                  ${{ if eq($(poolName), '1ES-Shared-Hosted-Pool_Windows-Server-2022') }}:
-                    default_windows_container
-                  ${{ else }}:
-                    default_linux_container
+
               pool:
                 name: $(poolName)
+                os: $(os)
+
               templateContext:
                 inputs:
-                - input: checkout
-                  repository: self
-                  submodules: recursive
+                  - input: checkout
+                    repository: self
+                    submodules: recursive
                 outputs:
                   - output: pipelineArtifact
                     targetPath: $(System.DefaultWorkingDirectory)/bld/bin
