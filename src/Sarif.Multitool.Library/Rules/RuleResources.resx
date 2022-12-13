@@ -450,10 +450,10 @@ Semantics: Assuming the reader of the log file (an end user or another tool) has
   <data name="SARIF2016_FileUrisShouldBeRelative_Note_ShouldNotContainBackSlash_Text" xml:space="preserve">
     <value>{0}: The relative file URL '{1}' contains one or more backslashes, which will be preserved when concatenating to an absolute URL. This can result in inconsistent representations, compared to URLs created from an absolute file path, which may be regarded as not equivalent. Replace all backslashes with forward slashes.</value>
   </data>
-  <data name="GH1007_FlattenResultMessage_Error_Default_Text" xml:space="preserve">
-    <value>{0}: The 'text' property of this result message is absent. GitHub Advanced Security code scanning will reject this file because it does not support the argumented message now. Try to populate the flattened message text in 'message.text' property.</value>
+  <data name="GH1007_ProvideFullyFormattedMessageStrings_Error_Default_Text" xml:space="preserve">
+    <value>{0}: The 'text' property of this result message is absent. GitHub Advanced Security code scanning will reject this file because it does not support the argumented message now. Try to provide fully formatted text in 'message.text' property.</value>
   </data>
-  <data name="GH1007_FlattenResultMessage_FullDescription_Text" xml:space="preserve">
-    <value>GitHub Advanced Security code scanning will reject a SARIF file that express result messages with 'message.id' and 'message.arguments' but without the 'message.text' property since the arugmented message format is not supported yet. Please populate the flattened message text in 'message.text' property.</value>
+  <data name="GH1007_ProvideFullyFormattedMessageStrings_FullDescription_Text" xml:space="preserve">
+    <value>GitHub Advanced Security code scanning will reject a SARIF file that express result messages with 'message.id' and 'message.arguments' but without the 'message.text' property since the arugmented message format is not supported yet. Please provide fully formatted text in 'message.text' property.</value>
   </data>
 </root>

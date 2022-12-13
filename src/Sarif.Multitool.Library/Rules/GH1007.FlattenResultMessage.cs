@@ -7,7 +7,7 @@ using Microsoft.Json.Pointer;
 
 namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 {
-    public class FlattenResultMessage : SarifValidationSkimmerBase
+    public class ProvideFullyFormattedMessageStrings : SarifValidationSkimmerBase
     {
         public override ReportingConfiguration DefaultConfiguration => new ReportingConfiguration
         {
@@ -18,12 +18,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         /// <summary>
         /// GH1007
         /// </summary>
-        public override string Id => RuleId.FlattenResultMessage;
+        public override string Id => RuleId.ProvideFullyFormattedMessageStrings;
 
-        public override MultiformatMessageString FullDescription => new MultiformatMessageString { Text = RuleResources.GH1007_FlattenResultMessage_FullDescription_Text };
+        public override MultiformatMessageString FullDescription => new MultiformatMessageString { Text = RuleResources.GH1007_ProvideFullyFormattedMessageStrings_FullDescription_Text };
 
         protected override IEnumerable<string> MessageResourceNames => new string[] {
-            nameof(RuleResources.GH1007_FlattenResultMessage_Error_Default_Text)
+            nameof(RuleResources.GH1007_ProvideFullyFormattedMessageStrings_Error_Default_Text)
         };
 
         public override bool EnabledByDefault => false;
@@ -37,7 +37,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                 // Try to populate the flattened message text in 'message.text' property.
                 LogResult(
                     resultPointer.AtProperty(SarifPropertyName.Message),
-                    nameof(RuleResources.GH1007_FlattenResultMessage_Error_Default_Text));
+                    nameof(RuleResources.GH1007_ProvideFullyFormattedMessageStrings_Error_Default_Text));
             }
         }
     }

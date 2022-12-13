@@ -16,7 +16,7 @@
       "artifacts": [
         {
           "location": {
-            "uri": "FunctionalTestOutput.ValidateCommand/GH1007.FlattenResultMessage_Valid.sarif",
+            "uri": "FunctionalTestOutput.ValidateCommand/GH1007.ProvideFullyFormattedMessageStrings_Valid.sarif",
             "uriBaseId": "TEST_DIR"
           }
         }
