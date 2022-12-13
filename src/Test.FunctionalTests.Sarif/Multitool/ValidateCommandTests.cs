@@ -412,11 +412,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             => RunInvalidTestForRule(RuleId.ProvideCheckoutPath);
 
         [Fact]
-        public void GH1007_FlattenResultMessage_Valid()
+        public void GH1007_ProvideFullyFormattedMessageStrings_Valid()
             => RunValidTestForRule(RuleId.ProvideFullyFormattedMessageStrings);
 
         [Fact]
-        public void GH1007_FlattenResultMessage_Invalid()
+        public void GH1007_ProvideFullyFormattedMessageStrings_Invalid()
             => RunInvalidTestForRule(RuleId.ProvideFullyFormattedMessageStrings);
 
         private void RunArrayLimitTest(string testFileNameSuffix)

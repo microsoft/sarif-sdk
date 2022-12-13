@@ -56,7 +56,7 @@
         },
         {
           "id": "GH1007",
-          "name": "FlattenResultMessage",
+          "name": "ProvideFullyFormattedMessageStrings",
           "defaultConfiguration": {
             "enabled": true
           }
