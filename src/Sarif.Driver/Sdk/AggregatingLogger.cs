@@ -53,6 +53,22 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             }
         }
 
+        public void CompletedAnalyzingTarget(IAnalysisContext context)
+        {
+            foreach (IAnalysisLogger logger in Loggers)
+            {
+                logger.CompletedAnalyzingTarget(context);
+            }
+        }
+
+        public void LogMemoryUsage(IAnalysisContext context)
+        {
+            foreach (IAnalysisLogger logger in Loggers)
+            {
+                logger.LogMemoryUsage(context);
+            }
+        }
+
         public void Log(ReportingDescriptor rule, Result result)
         {
             foreach (IAnalysisLogger logger in Loggers)

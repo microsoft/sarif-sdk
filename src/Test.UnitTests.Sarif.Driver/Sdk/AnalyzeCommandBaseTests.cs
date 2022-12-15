@@ -59,7 +59,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         private void ExceptionTestHelper(
             RuntimeConditions runtimeConditions,
             ExitReason expectedExitReason = ExitReason.None,
-            TestAnalyzeOptions analyzeOptions = null)
+            TestAnalyzeOptions analyzeOptions = null,
+            IEnumerable<string> expectedCapturedOutput = null)
         {
             analyzeOptions ??= new TestAnalyzeOptions()
             {
@@ -69,19 +70,22 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             ExceptionTestHelperImplementation(
                 runtimeConditions, expectedExitReason,
                 analyzeOptions,
-                multithreaded: false);
+                multithreaded: false,
+                expectedCapturedOutput);
 
             ExceptionTestHelperImplementation(
                 runtimeConditions, expectedExitReason,
                 analyzeOptions,
-                multithreaded: true);
+                multithreaded: true,
+                expectedCapturedOutput);
         }
 
         private void ExceptionTestHelperImplementation(
              RuntimeConditions runtimeConditions,
              ExitReason expectedExitReason,
              TestAnalyzeOptions analyzeOptions,
-             bool multithreaded)
+             bool multithreaded,
+             IEnumerable<string> expectedCapturedOutput = null)
         {
             TestRule.s_testRuleBehaviors = analyzeOptions.TestRuleBehaviors.AccessibleOutsideOfContextOnly();
             Assembly[] plugInAssemblies = null;
@@ -102,8 +106,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             }
 
             ITestAnalyzeCommand command = multithreaded
-                ? new TestMultithreadedAnalyzeCommand()
-                : (ITestAnalyzeCommand)new TestAnalyzeCommand();
+                ? new TestMultithreadedAnalyzeCommand() { _captureConsoleOutput = true }
+                : (ITestAnalyzeCommand)new TestAnalyzeCommand() { _captureConsoleOutput = true };
 
             command.DefaultPluginAssemblies = plugInAssemblies;
 
@@ -115,6 +119,18 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
             command.RuntimeErrors.Should().Be(runtimeConditions);
             result.Should().Be(expectedResult);
+
+            if (expectedCapturedOutput?.Any() == true)
+            {
+                ConsoleLogger consoleLogger = multithreaded
+                ? (command as TestMultithreadedAnalyzeCommand)._consoleLogger
+                : (command as TestAnalyzeCommand)._consoleLogger;
+
+                foreach (string capturedOutput in expectedCapturedOutput)
+                {
+                    consoleLogger.CapturedOutput.Should().Contain(capturedOutput);
+                }
+            }
 
             if (expectedExitReason != ExitReason.None)
             {
@@ -208,6 +224,38 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             ExceptionTestHelper(
                 RuntimeConditions.ExceptionLoadingTargetFile,
                 analyzeOptions: options);
+        }
+
+        [Fact]
+        public void RaiseStackOverflowException_WithLevelNote()
+        {
+            var options = new TestAnalyzeOptions()
+            {
+                TestRuleBehaviors = TestRuleBehaviors.RaiseStackOverflowException,
+                TargetFileSpecifiers = new string[] { GetThisTestAssemblyFilePath() },
+                Level = new List<FailureLevel>() { FailureLevel.Error, FailureLevel.Warning, FailureLevel.Note },
+            };
+
+            ExceptionTestHelper(
+                RuntimeConditions.ExceptionLoadingTargetFile,
+                analyzeOptions: options,
+                expectedCapturedOutput: new string[] { "Analyzing '", "error ERR997.ExceptionLoadingAnalysisTarget : Could not load analysis target '", "StackOverflowException:", "Current memory usage:" });
+        }
+
+        [Fact]
+        public void RaiseStackOverflowException_WithoutLevelNote()
+        {
+            var options = new TestAnalyzeOptions()
+            {
+                TestRuleBehaviors = TestRuleBehaviors.RaiseStackOverflowException,
+                TargetFileSpecifiers = new string[] { GetThisTestAssemblyFilePath() },
+                Level = new List<FailureLevel>() { FailureLevel.Error, FailureLevel.Warning },
+            };
+
+            ExceptionTestHelper(
+                RuntimeConditions.ExceptionLoadingTargetFile,
+                analyzeOptions: options,
+                expectedCapturedOutput: new string[] { "error ERR997.ExceptionLoadingAnalysisTarget : Could not load analysis target '" });
         }
 
         [Fact]

@@ -3,6 +3,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
 using System.Text;
@@ -90,7 +91,34 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
             WriteLineToConsole(string.Format(CultureInfo.CurrentCulture,
                     SdkResources.MSG001_AnalyzingTarget,
-                        context.TargetUri.GetFileName()));
+                        context.TargetUri.LocalPath));
+        }
+
+        public void CompletedAnalyzingTarget(IAnalysisContext context)
+        {
+            if (context == null)
+            {
+                throw new ArgumentNullException(nameof(context));
+            }
+
+            WriteLineToConsole(string.Format(CultureInfo.CurrentCulture,
+                    SdkResources.MSG_CompletedAnalyzingTarget,
+                        context.TargetUri.LocalPath));
+        }
+
+        public void LogMemoryUsage(IAnalysisContext context)
+        {
+            if (context == null)
+            {
+                throw new ArgumentNullException(nameof(context));
+            }
+
+            var currentProcess = Process.GetCurrentProcess();
+
+            WriteLineToConsole(string.Format(CultureInfo.CurrentCulture,
+                SdkResources.MSG_LogMemoryUsage,
+                currentProcess.WorkingSet64 / 1024 / 1024,
+                currentProcess.PeakWorkingSet64 / 1024 / 1024));
         }
 
         public void Log(ReportingDescriptor rule, Result result)

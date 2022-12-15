@@ -56,6 +56,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             }
         }
 
+        public void CompletedAnalyzingTarget(IAnalysisContext context)
+        {
+        }
+
+        public void LogMemoryUsage(IAnalysisContext context)
+        {
+        }
+
         public void Log(ReportingDescriptor rule, Result result)
         {
             if (!cacheLoggingData) { return; }

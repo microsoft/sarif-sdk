@@ -227,7 +227,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             var workers = new Task<bool>[options.Threads];
             for (int i = 0; i < options.Threads; i++)
             {
-                workers[i] = ScanTargetsAsync(options, skimmers, disabledSkimmers);
+                workers[i] = ScanTargetsAsync(options, rootContext, skimmers, disabledSkimmers);
             }
 
             // 4: A single-threaded consumer watches for completed scans
@@ -529,7 +529,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             return true;
         }
 
-        private async Task<bool> ScanTargetsAsync(TOptions options, IEnumerable<Skimmer<TContext>> skimmers, ISet<string> disabledSkimmers)
+        private async Task<bool> ScanTargetsAsync(TOptions options, TContext rootContext, IEnumerable<Skimmer<TContext>> skimmers, ISet<string> disabledSkimmers)
         {
             ChannelReader<int> reader = readyToScanChannel.Reader;
 
@@ -545,16 +545,17 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                     {
                         context = _fileContexts[item];
 
-                        if (options.Level.Contains(FailureLevel.None))
+                        if (options.Level.Contains(FailureLevel.Note))
                         {
-                            Console.WriteLine("Start scanning file: {0}", context.TargetUri);
+                            rootContext.Logger.AnalyzingTarget(context);
+                            rootContext.Logger.LogMemoryUsage(context);
                         }
 
                         DetermineApplicabilityAndAnalyze(options, context, skimmers, disabledSkimmers);
 
-                        if (options.Level.Contains(FailureLevel.None))
+                        if (options.Level.Contains(FailureLevel.Note))
                         {
-                            Console.WriteLine("Finished scanning file: {0}", context.TargetUri);
+                            rootContext.Logger.CompletedAnalyzingTarget(context);
                         }
                     }
                     catch (Exception e)
@@ -894,7 +895,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
             if (context.TargetLoadException != null)
             {
-                Errors.LogExceptionLoadingTarget(context, options.Level.Contains(FailureLevel.None));
+                Errors.LogExceptionLoadingTarget(context, options.Level.Contains(FailureLevel.Note));
                 context.Dispose();
                 return context;
             }

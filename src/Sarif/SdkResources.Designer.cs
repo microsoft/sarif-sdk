@@ -351,6 +351,24 @@ namespace Microsoft.CodeAnalysis.Sarif {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Completed analyzing &apos;{0}&apos;..
+        /// </summary>
+        public static string MSG_CompletedAnalyzingTarget {
+            get {
+                return ResourceManager.GetString("MSG_CompletedAnalyzingTarget", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Current memory usage: {0}MB, peak memory usage: {0}MB..
+        /// </summary>
+        public static string MSG_LogMemoryUsage {
+            get {
+                return ResourceManager.GetString("MSG_LogMemoryUsage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to One or more targets was skipped entirely as it was determined to be an invalid target for analysis. Pass --verbose on the command-line for more information..
         /// </summary>
         public static string MSG_OneOrMoreInvalidTargets {

@@ -47,6 +47,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 context.TargetLoadException = new InvalidOperationException();
             }
 
+            if (options.TestRuleBehaviors.HasFlag(TestRuleBehaviors.RaiseStackOverflowException))
+            {
+                context.TargetLoadException = new StackOverflowException();
+            }
+
             context.Options = options;
             return context;
         }

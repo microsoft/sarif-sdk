@@ -462,6 +462,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         {
         }
 
+        public void CompletedAnalyzingTarget(IAnalysisContext context)
+        {
+        }
+
+        public void LogMemoryUsage(IAnalysisContext context)
+        {
+        }
+
         public void LogToolNotification(Notification notification)
         {
             if (!ShouldLog(notification))

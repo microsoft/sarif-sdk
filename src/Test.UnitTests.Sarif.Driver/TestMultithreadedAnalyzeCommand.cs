@@ -38,10 +38,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
             context.IsValidAnalysisTarget = !behaviors.HasFlag(TestRuleBehaviors.RegardAnalysisTargetAsInvalid);
 
-            context.TargetLoadException =
-                behaviors.HasFlag(TestRuleBehaviors.RegardAnalysisTargetAsCorrupted)
-               ? new InvalidOperationException()
-               : null;
+            if (options.TestRuleBehaviors.HasFlag(TestRuleBehaviors.RegardAnalysisTargetAsCorrupted))
+            {
+                context.TargetLoadException = new InvalidOperationException();
+            }
+
+            if (options.TestRuleBehaviors.HasFlag(TestRuleBehaviors.RaiseStackOverflowException))
+            {
+                context.TargetLoadException = new StackOverflowException();
+            }
 
             context.Options = options;
 

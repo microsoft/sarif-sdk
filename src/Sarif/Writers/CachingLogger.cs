@@ -49,6 +49,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             _semaphore.Wait();
         }
 
+        public void CompletedAnalyzingTarget(IAnalysisContext context)
+        {
+        }
+
+        public void LogMemoryUsage(IAnalysisContext context)
+        {
+        }
+
         public void Log(ReportingDescriptor rule, Result result)
         {
             if (rule == null)

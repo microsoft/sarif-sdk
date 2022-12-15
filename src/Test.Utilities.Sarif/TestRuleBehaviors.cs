@@ -41,6 +41,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         RegardOptionsAsInvalid = 0x4000,
 
         RaiseExceptionProcessingBaseline = 0x8000,
-        RaiseExceptionPostingLogFile = 0x10000
+        RaiseExceptionPostingLogFile = 0x10000,
+        RaiseStackOverflowException = 0x20000
     }
 }

@@ -43,6 +43,14 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
         }
 
+        public void CompletedAnalyzingTarget(IAnalysisContext context)
+        {
+        }
+
+        public void LogMemoryUsage(IAnalysisContext context)
+        {
+        }
+
         public void Log(ReportingDescriptor rule, Result result)
         {
             NoteTestResult(result.Kind, result.Locations.First().PhysicalLocation.ArtifactLocation.Uri.LocalPath);

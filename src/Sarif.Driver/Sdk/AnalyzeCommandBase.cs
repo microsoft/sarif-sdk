@@ -604,18 +604,22 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 rootContext.Policy,
                 target);
 
+            if (options.Level.Contains(FailureLevel.Note))
+            {
+                rootContext.Logger.AnalyzingTarget(context);
+                rootContext.Logger.LogMemoryUsage(context);
+            }
+
             if ((options.DataToInsert.ToFlags() & OptionallyEmittedData.Hashes) != 0)
             {
                 _cacheByFileHashLogger.HashToResultsMap.TryGetValue(context.Hashes.Sha256, out List<Tuple<ReportingDescriptor, Result>> cachedResultTuples);
                 _cacheByFileHashLogger.HashToNotificationsMap.TryGetValue(context.Hashes.Sha256, out List<Notification> cachedNotifications);
 
-                bool replayCachedData = (cachedResultTuples != null || cachedNotifications != null);
+                bool replayCachedData = (cachedResultTuples?.Count > 0 || cachedNotifications?.Count > 0);
 
                 if (replayCachedData)
                 {
-                    context.Logger.AnalyzingTarget(context);
-
-                    if (cachedResultTuples != null)
+                    if (cachedResultTuples?.Count > 0)
                     {
                         foreach (Tuple<ReportingDescriptor, Result> cachedResultTuple in cachedResultTuples)
                         {
@@ -627,7 +631,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                         }
                     }
 
-                    if (cachedNotifications != null)
+                    if (cachedNotifications?.Count > 0)
                     {
                         foreach (Notification cachedNotification in cachedNotifications)
                         {
@@ -642,7 +646,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
             if (context.TargetLoadException != null)
             {
-                Errors.LogExceptionLoadingTarget(context);
+                Errors.LogExceptionLoadingTarget(context, options.Level.Contains(FailureLevel.Note));
                 context.Dispose();
                 return context;
             }
@@ -653,9 +657,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 return context;
             }
 
-            context.Logger.AnalyzingTarget(context);
             IEnumerable<Skimmer<TContext>> applicableSkimmers = DetermineApplicabilityForTarget(skimmers, context, disabledSkimmers);
             AnalyzeTarget(applicableSkimmers, context, disabledSkimmers);
+
+            if (options.Level.Contains(FailureLevel.Note))
+            {
+                rootContext.Logger.CompletedAnalyzingTarget(context);
+            }
 
             return context;
         }
