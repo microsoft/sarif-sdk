@@ -2158,7 +2158,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             TestAnalyzeCommand command = CreateTestCommand(context, consoleLogger);
 
             command.CheckIncompatibleRules(skimmers, context, disabledSkimmers);
-            
+
             disabledSkimmers.Count.Should().Be(0);
             context.RuntimeErrors.Should().Be(RuntimeConditions.None);
             consoleLogger.CapturedOutput.Should().BeNull();
