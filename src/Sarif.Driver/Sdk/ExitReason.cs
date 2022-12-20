@@ -11,6 +11,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         UnhandledExceptionInstantiatingSkimmers,
         UnhandledExceptionInEngine,
         NoRulesLoaded,
+        IncompatibleRulesDetected,
         NoValidAnalysisTargets,
         InvalidCommandLineOption,
         ExceptionProcessingBaseline,

@@ -52,6 +52,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         ExceptionPostingLogFile = 0x40000,
 
         // Non-fatal conditions
+        RuleIsIncompatibleWithAnotherRule = 0x00800000,
         UnassignedNonfatal = 0x00F00000,
         OneOrMoreFilesSkippedDueToSize = 0x01000000,
         RuleWasExplicitlyDisabled = 0x02000000,

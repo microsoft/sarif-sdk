@@ -268,6 +268,15 @@ namespace Microsoft.CodeAnalysis.Sarif {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Detected incompatible rules. Rule &apos;{0}&apos; is incompatible with rule &apos;{1}&apos;..
+        /// </summary>
+        public static string ERR998_IncompatibleRuleDetected {
+            get {
+                return ResourceManager.GetString("ERR998_IncompatibleRuleDetected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0}.
         /// </summary>
         public static string ERR999_UnhandledEngineException {
@@ -536,6 +545,15 @@ namespace Microsoft.CodeAnalysis.Sarif {
         public static string WRN997_OneOrMoreFilesSkippedDueToSize {
             get {
                 return ResourceManager.GetString("WRN997_OneOrMoreFilesSkippedDueToSize", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Detected incompatible rules. Rule &apos;{0}&apos; is incompatible with rule &apos;{1}&apos;..
+        /// </summary>
+        public static string Wrn998_IncompatibleRuleDetected {
+            get {
+                return ResourceManager.GetString("Wrn998_IncompatibleRuleDetected", resourceCulture);
             }
         }
         

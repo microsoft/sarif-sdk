@@ -273,4 +273,31 @@ namespace Microsoft.CodeAnalysis.Sarif
             new PerLanguageOption<bool>(
                 AnalyzerName, nameof(UnusedOption), defaultValue: () => { return true; });
     }
+
+    internal class IncompatibleTestRule : TestRuleBase
+    {
+        private readonly string ruleId;
+
+        private readonly ISet<string> incompatibleRules;
+
+        private readonly IncompatibleRuleHandling incompatibleRuleHandling;
+
+        public IncompatibleTestRule(string ruleId, ISet<string> incompatibleRules, IncompatibleRuleHandling incompatibleRuleHandling = IncompatibleRuleHandling.Ignore)
+        {
+            this.ruleId = ruleId;
+            this.incompatibleRules = incompatibleRules;
+            this.incompatibleRuleHandling = incompatibleRuleHandling;
+        }
+
+        public override string Id => this.ruleId;
+
+        public override ISet<string> IncompatibleRuleIds => this.incompatibleRules;
+
+        public override IncompatibleRuleHandling IncompatibleRuleHandling => this.incompatibleRuleHandling;
+
+        public override void Analyze(TestAnalysisContext context)
+        {
+            throw new NotImplementedException();
+        }
+    }
 }

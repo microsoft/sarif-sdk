@@ -18,6 +18,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         // (Non-catastrophic) conditions that result in rules disabling themselves.
         public const string Wrn998_UnsupportedPlatform = "WRN998.UnsupportedPlatform";
+        public const string Wrn998_IncompatibleRuleDetected = "WRN998.IncompatibleRuleDetected";
 
         // Warnings around dangerous
         public const string Wrn999_RuleExplicitlyDisabled = "WRN999.RuleExplicitlyDisabled";
@@ -188,6 +189,33 @@ namespace Microsoft.CodeAnalysis.Sarif
                     Message = new Message { Text = message },
                     Level = FailureLevel.Warning,
                 });
+        }
+
+        public static void LogIncompatibleRule(IAnalysisContext context, string ruleId, string incompatibleRuleId)
+        {
+            if (context == null)
+            {
+                throw new ArgumentNullException(nameof(context));
+            }
+
+            string message = string.Format(
+                CultureInfo.InvariantCulture,
+                SdkResources.Wrn998_IncompatibleRuleDetected,
+                ruleId,
+                incompatibleRuleId);
+
+            context.Logger.LogConfigurationNotification(
+                new Notification
+                {
+                    Descriptor = new ReportingDescriptorReference
+                    {
+                        Id = Wrn998_IncompatibleRuleDetected
+                    },
+                    Message = new Message { Text = message },
+                    Level = FailureLevel.Warning,
+                });
+
+            context.RuntimeErrors |= RuntimeConditions.RuleIsIncompatibleWithAnotherRule;
         }
     }
 }

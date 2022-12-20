@@ -2069,6 +2069,134 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
         #endregion ResultsCachingTestsAndHelpers
 
+        [Fact]
+        public void CheckIncompatibleRules_DisableIncompatibleRuleAndContinueAnalysis()
+        {
+            IncompatibleTestRule[] skimmers = new[]
+            {
+                new IncompatibleTestRule("TEST1001", null),
+                new IncompatibleTestRule("TEST1002", null),
+                new IncompatibleTestRule("TEST1003", new HashSet<string> { "TEST1001" },  IncompatibleRuleHandling.DisableAndContinueAnalysis),
+            };
+
+            var disabledSkimmers = new HashSet<string>();
+
+            var consoleLogger = new ConsoleLogger(false, "TestTool") { CaptureOutput = true };
+            var context = new TestAnalysisContext();
+            TestAnalyzeCommand command = CreateTestCommand(context, consoleLogger);
+
+            command.CheckIncompatibleRules(skimmers, context, disabledSkimmers);
+
+            disabledSkimmers.Count.Should().Be(1);
+            disabledSkimmers.First().Should().Be("TEST1001");
+            context.RuntimeErrors.Should().Be(RuntimeConditions.RuleIsIncompatibleWithAnotherRule);
+            consoleLogger.CapturedOutput.Contains(Warnings.Wrn998_IncompatibleRuleDetected).Should().BeTrue();
+        }
+
+        [Fact]
+        public void CheckIncompatibleRules_ExitAnalysis()
+        {
+            IncompatibleTestRule[] skimmers = new[]
+            {
+                new IncompatibleTestRule("TEST1001", null),
+                new IncompatibleTestRule("TEST1002", new HashSet<string> { "TEST1003" }, IncompatibleRuleHandling.ExitAnalysis),
+                new IncompatibleTestRule("TEST1003", null),
+            };
+
+            var disabledSkimmers = new HashSet<string>();
+
+            var consoleLogger = new ConsoleLogger(false, "TestTool") { CaptureOutput = true };
+            var context = new TestAnalysisContext();
+            TestAnalyzeCommand command = CreateTestCommand(context, consoleLogger);
+
+            ExitApplicationException<ExitReason> exception = Assert.Throws<ExitApplicationException<ExitReason>>(
+                () => command.CheckIncompatibleRules(skimmers, context, disabledSkimmers));
+
+            exception.ExitReason.Should().Be(ExitReason.IncompatibleRulesDetected);
+            disabledSkimmers.Count.Should().Be(0);
+            context.RuntimeErrors.Should().Be(RuntimeConditions.RuleIsIncompatibleWithAnotherRule);
+            consoleLogger.CapturedOutput.Contains(Errors.ERR998_IncompatibleRuleDetected);
+        }
+
+        [Fact]
+        public void CheckIncompatibleRules_Ignore()
+        {
+            IncompatibleTestRule[] skimmers = new[]
+            {
+                new IncompatibleTestRule("TEST1001", new HashSet<string> { "TEST1002" }, IncompatibleRuleHandling.Ignore),
+                new IncompatibleTestRule("TEST1002", null),
+                new IncompatibleTestRule("TEST1003", null),
+            };
+
+            var disabledSkimmers = new HashSet<string>();
+
+            var consoleLogger = new ConsoleLogger(false, "TestTool") { CaptureOutput = true };
+            var context = new TestAnalysisContext();
+            TestAnalyzeCommand command = CreateTestCommand(context, consoleLogger);
+
+            command.CheckIncompatibleRules(skimmers, context, disabledSkimmers);
+
+            disabledSkimmers.Count.Should().Be(0);
+            context.RuntimeErrors.Should().Be(RuntimeConditions.None);
+            consoleLogger.CapturedOutput.Should().BeNull();
+        }
+
+        [Fact]
+        public void CheckIncompatibleRules_IncompatibleRuleDoesNotExist()
+        {
+            IncompatibleTestRule[] skimmers = new[]
+            {
+                new IncompatibleTestRule("TEST1001", new HashSet<string> { "NA9999" }, IncompatibleRuleHandling.ExitAnalysis),
+                new IncompatibleTestRule("TEST1002", null,  IncompatibleRuleHandling.Ignore),
+                new IncompatibleTestRule("TEST1003", null, IncompatibleRuleHandling.Ignore),
+            };
+
+            var disabledSkimmers = new HashSet<string>();
+
+            var consoleLogger = new ConsoleLogger(false, "TestTool") { CaptureOutput = true };
+            var context = new TestAnalysisContext();
+            TestAnalyzeCommand command = CreateTestCommand(context, consoleLogger);
+
+            command.CheckIncompatibleRules(skimmers, context, disabledSkimmers);
+            
+            disabledSkimmers.Count.Should().Be(0);
+            context.RuntimeErrors.Should().Be(RuntimeConditions.None);
+            consoleLogger.CapturedOutput.Should().BeNull();
+        }
+
+        [Fact]
+        public void CheckIncompatibleRules_OriginalRuleAlreadyDisabled()
+        {
+            IncompatibleTestRule[] skimmers = new[]
+            {
+                new IncompatibleTestRule("TEST1001", null),
+                new IncompatibleTestRule("TEST1002", new HashSet<string> { "TEST1001" }, IncompatibleRuleHandling.DisableAndContinueAnalysis),
+                new IncompatibleTestRule("TEST1003", null),
+            };
+
+            var disabledSkimmers = new HashSet<string>() { "TEST1002" };
+
+            var consoleLogger = new ConsoleLogger(false, "TestTool") { CaptureOutput = true };
+            var context = new TestAnalysisContext();
+            TestAnalyzeCommand command = CreateTestCommand(context, consoleLogger);
+
+            command.CheckIncompatibleRules(skimmers, context, disabledSkimmers);
+
+            disabledSkimmers.Count.Should().Be(1);
+            context.RuntimeErrors.Should().Be(RuntimeConditions.None);
+            consoleLogger.CapturedOutput.Should().BeNull();
+        }
+
+        private TestAnalyzeCommand CreateTestCommand(TestAnalysisContext context, ConsoleLogger consoleLogger)
+        {
+            var command = new TestAnalyzeCommand();
+            var logger = new AggregatingLogger();
+            logger.Loggers.Add(consoleLogger);
+            context.Logger = logger;
+
+            return command;
+        }
+
         private void PostUriTestHelper(string postUri, int expectedReturnCode, RuntimeConditions runtimeConditions)
         {
             string location = GetThisTestAssemblyFilePath();
