@@ -27,9 +27,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
         public virtual bool EnabledByDefault => true;
 
-        public virtual ISet<string> IncompatibleRuleIds => null;
+        public virtual ISet<string> IncompatibleRuleIds { get; internal set; }
 
-        public virtual IncompatibleRuleHandling IncompatibleRuleHandling => IncompatibleRuleHandling.DisableAndContinueAnalysis;
+        public virtual IncompatibleRuleHandling IncompatibleRuleHandling { get; internal set; }
 
         public override IDictionary<string, MultiformatMessageString> MessageStrings
         {

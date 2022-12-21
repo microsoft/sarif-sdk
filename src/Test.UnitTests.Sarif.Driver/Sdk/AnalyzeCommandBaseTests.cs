@@ -2072,11 +2072,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         [Fact]
         public void CheckIncompatibleRules_DisableIncompatibleRuleAndContinueAnalysis()
         {
-            IncompatibleTestRule[] skimmers = new[]
+            TestRule[] skimmers = new[]
             {
-                new IncompatibleTestRule("TEST1001", null),
-                new IncompatibleTestRule("TEST1002", null),
-                new IncompatibleTestRule("TEST1003", new HashSet<string> { "TEST1001" },  IncompatibleRuleHandling.DisableAndContinueAnalysis),
+                new TestRule { Id = "TEST1001" },
+                new TestRule { Id = "TEST1002" },
+                new TestRule { Id = "TEST1003", IncompatibleRuleIds = new HashSet<string> { "TEST1001" }, IncompatibleRuleHandling = IncompatibleRuleHandling.DisableAndContinueAnalysis },
             };
 
             var disabledSkimmers = new HashSet<string>();
@@ -2096,11 +2096,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         [Fact]
         public void CheckIncompatibleRules_ExitAnalysis()
         {
-            IncompatibleTestRule[] skimmers = new[]
+            TestRule[] skimmers = new[]
             {
-                new IncompatibleTestRule("TEST1001", null),
-                new IncompatibleTestRule("TEST1002", new HashSet<string> { "TEST1003" }, IncompatibleRuleHandling.ExitAnalysis),
-                new IncompatibleTestRule("TEST1003", null),
+                new TestRule { Id = "TEST1001" },
+                new TestRule { Id = "TEST1002", IncompatibleRuleIds = new HashSet<string> { "TEST1003" }, IncompatibleRuleHandling = IncompatibleRuleHandling.ExitAnalysis },
+                new TestRule { Id = "TEST1003" },
             };
 
             var disabledSkimmers = new HashSet<string>();
@@ -2121,11 +2121,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         [Fact]
         public void CheckIncompatibleRules_Ignore()
         {
-            IncompatibleTestRule[] skimmers = new[]
+            TestRule[] skimmers = new[]
             {
-                new IncompatibleTestRule("TEST1001", new HashSet<string> { "TEST1002" }, IncompatibleRuleHandling.Ignore),
-                new IncompatibleTestRule("TEST1002", null),
-                new IncompatibleTestRule("TEST1003", null),
+                new TestRule { Id = "TEST1001", IncompatibleRuleIds = new HashSet<string> { "TEST1002" }, IncompatibleRuleHandling = IncompatibleRuleHandling.Ignore },
+                new TestRule { Id = "TEST1002" },
+                new TestRule { Id = "TEST1003" },
             };
 
             var disabledSkimmers = new HashSet<string>();
@@ -2144,11 +2144,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         [Fact]
         public void CheckIncompatibleRules_IncompatibleRuleDoesNotExist()
         {
-            IncompatibleTestRule[] skimmers = new[]
+            TestRule[] skimmers = new[]
             {
-                new IncompatibleTestRule("TEST1001", new HashSet<string> { "NA9999" }, IncompatibleRuleHandling.ExitAnalysis),
-                new IncompatibleTestRule("TEST1002", null,  IncompatibleRuleHandling.Ignore),
-                new IncompatibleTestRule("TEST1003", null, IncompatibleRuleHandling.Ignore),
+                new TestRule { Id = "TEST1001", IncompatibleRuleIds = new HashSet<string> { "NA9999" }, IncompatibleRuleHandling = IncompatibleRuleHandling.ExitAnalysis },
+                new TestRule { Id = "TEST1002", IncompatibleRuleHandling = IncompatibleRuleHandling.Ignore },
+                new TestRule { Id = "TEST1003", IncompatibleRuleHandling = IncompatibleRuleHandling.Ignore },
             };
 
             var disabledSkimmers = new HashSet<string>();
@@ -2167,11 +2167,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         [Fact]
         public void CheckIncompatibleRules_OriginalRuleAlreadyDisabled()
         {
-            IncompatibleTestRule[] skimmers = new[]
+            TestRule[] skimmers = new[]
             {
-                new IncompatibleTestRule("TEST1001", null),
-                new IncompatibleTestRule("TEST1002", new HashSet<string> { "TEST1001" }, IncompatibleRuleHandling.DisableAndContinueAnalysis),
-                new IncompatibleTestRule("TEST1003", null),
+                new TestRule { Id = "TEST1002", IncompatibleRuleIds = new HashSet<string> { "TEST1001" }, IncompatibleRuleHandling = IncompatibleRuleHandling.DisableAndContinueAnalysis },
+                new TestRule { Id = "TEST1001" },
+                new TestRule { Id = "TEST1003" },
             };
 
             var disabledSkimmers = new HashSet<string>() { "TEST1002" };
@@ -2185,6 +2185,54 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             disabledSkimmers.Count.Should().Be(1);
             context.RuntimeErrors.Should().Be(RuntimeConditions.None);
             consoleLogger.CapturedOutput.Should().BeNull();
+        }
+
+        [Fact]
+        public void CheckIncompatibleRules_AllIncompatibleRules()
+        {
+            TestRule[] skimmers = new[]
+            {
+                new TestRule { Id = "TEST1001" },
+                new TestRule { Id = "TEST1002", IncompatibleRuleIds = new HashSet<string> { "TEST1003" }, IncompatibleRuleHandling = IncompatibleRuleHandling.DisableAndContinueAnalysis },
+                new TestRule { Id = "TEST1003", IncompatibleRuleIds = new HashSet<string> { "TEST1001", "TEST1002" }, IncompatibleRuleHandling = IncompatibleRuleHandling.DisableAndContinueAnalysis },
+            };
+
+            var disabledSkimmers = new HashSet<string>();
+
+            var consoleLogger = new ConsoleLogger(false, "TestTool") { CaptureOutput = true };
+            var context = new TestAnalysisContext();
+            TestAnalyzeCommand command = CreateTestCommand(context, consoleLogger);
+
+            command.CheckIncompatibleRules(skimmers, context, disabledSkimmers);
+
+            disabledSkimmers.Count.Should().Be(3);
+            context.RuntimeErrors.Should().Be(RuntimeConditions.RuleIsIncompatibleWithAnotherRule);
+            consoleLogger.CapturedOutput.Contains(Warnings.Wrn998_IncompatibleRuleDetected).Should().BeTrue();
+        }
+
+        [Fact]
+        public void CheckIncompatibleRules_IncompatibleRuleHandlingOverride()
+        {
+            TestRule[] skimmers = new[]
+            {
+                new TestRule { Id = "TEST1001" },
+                new TestRule { Id = "TEST1002", IncompatibleRuleIds = new HashSet<string> { "TEST1001" }, IncompatibleRuleHandling = IncompatibleRuleHandling.DisableAndContinueAnalysis },
+                new TestRule { Id = "TEST1003", IncompatibleRuleIds = new HashSet<string> { "TEST1001" }, IncompatibleRuleHandling = IncompatibleRuleHandling.ExitAnalysis },
+            };
+
+            var disabledSkimmers = new HashSet<string>();
+
+            var consoleLogger = new ConsoleLogger(false, "TestTool") { CaptureOutput = true };
+            var context = new TestAnalysisContext();
+            TestAnalyzeCommand command = CreateTestCommand(context, consoleLogger);
+
+            ExitApplicationException<ExitReason> exception = Assert.Throws<ExitApplicationException<ExitReason>>(
+                () => command.CheckIncompatibleRules(skimmers, context, disabledSkimmers));
+
+            exception.ExitReason.Should().Be(ExitReason.IncompatibleRulesDetected);
+            disabledSkimmers.Count.Should().Be(0);
+            context.RuntimeErrors.Should().Be(RuntimeConditions.RuleIsIncompatibleWithAnotherRule);
+            consoleLogger.CapturedOutput.Contains(Errors.ERR998_IncompatibleRuleDetected);
         }
 
         private TestAnalyzeCommand CreateTestCommand(TestAnalysisContext context, ConsoleLogger consoleLogger)
