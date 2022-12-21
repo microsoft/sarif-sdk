@@ -604,11 +604,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 rootContext.Policy,
                 target);
 
-            if (options.Level.Contains(FailureLevel.Note))
-            {
-                rootContext.Logger.AnalyzingTarget(context);
-                rootContext.Logger.LogMemoryUsage(context);
-            }
+            rootContext.Logger.AnalyzingTarget(context);
+            rootContext.Logger.LogMemoryUsage(context);
 
             if ((options.DataToInsert.ToFlags() & OptionallyEmittedData.Hashes) != 0)
             {
@@ -646,7 +643,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
             if (context.TargetLoadException != null)
             {
-                Errors.LogExceptionLoadingTarget(context, options.Level.Contains(FailureLevel.Note));
+                Errors.LogExceptionLoadingTarget(context);
                 context.Dispose();
                 return context;
             }
@@ -659,11 +656,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
             IEnumerable<Skimmer<TContext>> applicableSkimmers = DetermineApplicabilityForTarget(skimmers, context, disabledSkimmers);
             AnalyzeTarget(applicableSkimmers, context, disabledSkimmers);
-
-            if (options.Level.Contains(FailureLevel.Note))
-            {
-                rootContext.Logger.CompletedAnalyzingTarget(context);
-            }
+            rootContext.Logger.CompletedAnalyzingTarget(context);
 
             return context;
         }

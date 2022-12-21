@@ -227,23 +227,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         }
 
         [Fact]
-        public void RaiseStackOverflowException_WithLevelNote()
-        {
-            var options = new TestAnalyzeOptions()
-            {
-                TestRuleBehaviors = TestRuleBehaviors.RaiseStackOverflowException,
-                TargetFileSpecifiers = new string[] { GetThisTestAssemblyFilePath() },
-                Level = new List<FailureLevel>() { FailureLevel.Error, FailureLevel.Warning, FailureLevel.Note },
-            };
-
-            ExceptionTestHelper(
-                RuntimeConditions.ExceptionLoadingTargetFile,
-                analyzeOptions: options,
-                expectedCapturedOutput: new string[] { "Analyzing '", "error ERR997.ExceptionLoadingAnalysisTarget : Could not load analysis target '", "StackOverflowException:", "Current memory usage:" });
-        }
-
-        [Fact]
-        public void RaiseStackOverflowException_WithoutLevelNote()
+        public void RaiseStackOverflowException()
         {
             var options = new TestAnalyzeOptions()
             {
@@ -255,7 +239,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             ExceptionTestHelper(
                 RuntimeConditions.ExceptionLoadingTargetFile,
                 analyzeOptions: options,
-                expectedCapturedOutput: new string[] { "error ERR997.ExceptionLoadingAnalysisTarget : Could not load analysis target '" });
+                expectedCapturedOutput: new string[] { "Analyzing '", "error ERR997.ExceptionLoadingAnalysisTarget : Could not load analysis target '", "StackOverflowException:", "Current memory usage:" });
         }
 
         [Fact]

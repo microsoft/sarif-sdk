@@ -545,18 +545,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                     {
                         context = _fileContexts[item];
 
-                        if (options.Level.Contains(FailureLevel.Note))
-                        {
-                            rootContext.Logger.AnalyzingTarget(context);
-                            rootContext.Logger.LogMemoryUsage(context);
-                        }
+                        rootContext.Logger.AnalyzingTarget(context);
+                        rootContext.Logger.LogMemoryUsage(context);
 
                         DetermineApplicabilityAndAnalyze(options, context, skimmers, disabledSkimmers);
 
-                        if (options.Level.Contains(FailureLevel.Note))
-                        {
-                            rootContext.Logger.CompletedAnalyzingTarget(context);
-                        }
+                        rootContext.Logger.CompletedAnalyzingTarget(context);
                     }
                     catch (Exception e)
                     {
@@ -895,7 +889,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
             if (context.TargetLoadException != null)
             {
-                Errors.LogExceptionLoadingTarget(context, options.Level.Contains(FailureLevel.Note));
+                Errors.LogExceptionLoadingTarget(context);
                 context.Dispose();
                 return context;
             }
