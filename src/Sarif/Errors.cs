@@ -53,7 +53,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                     ruleId: null,
                     FailureLevel.Error,
                     context.TargetLoadException,
-                    persistExceptionStack: false,
+                    persistExceptionStack: true,
                     messageFormat: null,
                     context.TargetUri.GetFileName()));
 
