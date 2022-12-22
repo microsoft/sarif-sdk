@@ -551,9 +551,9 @@ namespace Microsoft.CodeAnalysis.Sarif {
         /// <summary>
         ///   Looks up a localized string similar to Detected incompatible rules. Rule &apos;{0}&apos; is incompatible with rule &apos;{1}&apos;..
         /// </summary>
-        public static string Wrn998_IncompatibleRuleDetected {
+        public static string WRN998_IncompatibleRuleDetected {
             get {
-                return ResourceManager.GetString("Wrn998_IncompatibleRuleDetected", resourceCulture);
+                return ResourceManager.GetString("WRN998_IncompatibleRuleDetected", resourceCulture);
             }
         }
         

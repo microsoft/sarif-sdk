@@ -7,6 +7,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
     {
         Ignore = 0,
         DisableAndContinueAnalysis,
-        ExitAnalysis,
+        ExitAnalysis
     }
 }

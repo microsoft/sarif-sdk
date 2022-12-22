@@ -200,7 +200,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             string message = string.Format(
                 CultureInfo.InvariantCulture,
-                SdkResources.Wrn998_IncompatibleRuleDetected,
+                SdkResources.WRN998_IncompatibleRuleDetected,
                 ruleId,
                 incompatibleRuleId);
 

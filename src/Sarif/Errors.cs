@@ -498,7 +498,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                     FailureLevel.Error,
                     exception: null,
                     persistExceptionStack: false,
-                    messageFormat: SdkResources.Wrn998_IncompatibleRuleDetected,
+                    messageFormat: SdkResources.ERR998_IncompatibleRuleDetected,
                     ruleId,
                     incompatibleRuleId));
 

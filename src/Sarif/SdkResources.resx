@@ -287,7 +287,7 @@ You can also refer to properties in the result's property bag with 'properties.&
   <data name="ERR998_IncompatibleRuleDetected" xml:space="preserve">
     <value>Detected incompatible rules. Rule '{0}' is incompatible with rule '{1}'.</value>
   </data>
-  <data name="Wrn998_IncompatibleRuleDetected" xml:space="preserve">
+  <data name="WRN998_IncompatibleRuleDetected" xml:space="preserve">
     <value>Detected incompatible rules. Rule '{0}' is incompatible with rule '{1}'.</value>
   </data>
 </root>
