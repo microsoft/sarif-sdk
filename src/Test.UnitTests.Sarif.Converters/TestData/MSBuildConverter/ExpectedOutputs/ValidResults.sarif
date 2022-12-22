@@ -1,0 +1,50 @@
+{
+  "$schema": "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0-rtm.6.json",
+  "version": "2.1.0",
+  "runs": [
+    {
+      "results": [
+        {
+          "ruleId": "MSB1003",
+          "level": "error",
+          "message": {
+            "text": "Specify a project or solution file. The current working directory does not contain a project or solution file."
+          }
+        },
+        {
+          "ruleId": "MSB1001",
+          "level": "error",
+          "message": {
+            "text": "Unknown switch, Switch: /maxcpucount."
+          }
+        },
+        {
+          "ruleId": "PV1002",
+          "level": "error",
+          "message": {
+            "text": "Package sense1ds[1.1000.1] is missing the content manifest. For more information, see https://osgwiki.com/wiki/PackageValidator#PV1002"
+          }
+        },
+        {
+          "ruleId": "PV1000",
+          "level": "note",
+          "message": {
+            "text": "Package diagtrackservice.vb_release.x86[0.0.0] is missing provenance data. For more information, see https://osgwiki.com/wiki/PackageValidator#PV1000"
+          }
+        },
+        {
+          "ruleId": "PV1004",
+          "message": {
+            "text": "Package microsoft.timetraveldebugging.test.x86[0.0.25] is missing the manifest catalog. For more information, see https://osgwiki.com/wiki/PackageValidator#PV1004"
+          }
+        }
+      ],
+      "tool": {
+        "driver": {
+          "name": "MSBuild"
+        }
+      },
+      "columnKind": "utf16CodeUnits"
+    }
+  ]
+}

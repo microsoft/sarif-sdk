@@ -175,7 +175,7 @@
     <value>Could not instantiate skimmers from the following plugins: {0}.</value>
   </data>
   <data name="ERR997_ExceptionLoadingAnalysisTarget" xml:space="preserve">
-    <value>Could not load analysis target '{0}'.</value>
+    <value>Could not load analysis target '{0}' ({1} : '{2}').</value>
   </data>
   <data name="ERR997_ExceptionLoadingPlugIn" xml:space="preserve">
     <value>Could not load the plugin '{0}'.</value>

@@ -160,7 +160,7 @@ namespace Microsoft.CodeAnalysis.Sarif {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Could not load analysis target &apos;{0}&apos;..
+        ///   Looks up a localized string similar to Could not load analysis target &apos;{0}&apos; ({1} : &apos;{2}&apos;)..
         /// </summary>
         public static string ERR997_ExceptionLoadingAnalysisTarget {
             get {

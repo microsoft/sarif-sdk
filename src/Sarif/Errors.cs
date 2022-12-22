@@ -46,7 +46,10 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentNullException(nameof(context));
             }
 
-            // Could not load analysis target '{0}'.
+            string message = context.TargetLoadException.Message;
+            string execptionType = context.TargetLoadException.GetType().Name;
+
+            // Could not load analysis target '{0}' ({1} : '{2}').
             context.Logger.LogConfigurationNotification(
                 CreateNotification(
                     context.TargetUri,
@@ -54,9 +57,11 @@ namespace Microsoft.CodeAnalysis.Sarif
                     ruleId: null,
                     FailureLevel.Error,
                     context.TargetLoadException,
-                    persistExceptionStack: false,
+                    persistExceptionStack: true,
                     messageFormat: null,
-                    context.TargetUri.GetFileName()));
+                    context.TargetUri.GetFileName(),
+                    execptionType,
+                    message));
 
             context.RuntimeErrors |= RuntimeConditions.ExceptionLoadingTargetFile;
         }
