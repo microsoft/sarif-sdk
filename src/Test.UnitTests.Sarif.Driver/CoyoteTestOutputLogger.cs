@@ -5,7 +5,7 @@ using System;
 using System.IO;
 using System.Text;
 
-using Microsoft.Coyote.IO;
+using Microsoft.Coyote.Logging;
 
 using Xunit.Abstractions;
 
@@ -56,11 +56,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
         /// <inheritdoc/>
         public override void Write(string value) =>
-            this.Write(LogSeverity.Informational, value);
+            this.Write(LogSeverity.Info, value);
 
         /// <inheritdoc/>
         public override void Write(string format, params object[] args) =>
-            this.Write(LogSeverity.Informational, string.Format(format, args));
+            this.Write(LogSeverity.Info, string.Format(format, args));
 
         public void Write(LogSeverity severity, string value)
         {
@@ -78,11 +78,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             this.Write(severity, string.Format(format, args));
 
         /// <inheritdoc/>
-        public override void WriteLine(string value) => this.WriteLine(LogSeverity.Informational, value);
+        public override void WriteLine(string value) => this.WriteLine(LogSeverity.Info, value);
 
         /// <inheritdoc/>
         public override void WriteLine(string format, params object[] args) =>
-            this.WriteLine(LogSeverity.Informational, string.Format(format, args));
+            this.WriteLine(LogSeverity.Info, string.Format(format, args));
 
         /// <inheritdoc/>
         public void WriteLine(LogSeverity severity, string value)
@@ -125,6 +125,36 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             }
 
             base.Dispose(disposing);
+        }
+
+        public void Write(LogSeverity severity, string format, object arg0)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Write(LogSeverity severity, string format, object arg0, object arg1)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Write(LogSeverity severity, string format, object arg0, object arg1, object arg2)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void WriteLine(LogSeverity severity, string format, object arg0)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void WriteLine(LogSeverity severity, string format, object arg0, object arg1)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void WriteLine(LogSeverity severity, string format, object arg0, object arg1, object arg2)
+        {
+            throw new NotImplementedException();
         }
     }
 }
