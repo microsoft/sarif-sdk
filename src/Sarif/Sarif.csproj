@@ -47,6 +47,7 @@
   <ItemGroup>
     <PackageReference Include="System.Collections.Immutable" Version="1.5.0" />
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0" PrivateAssets="All" />
+    <PackageReference Include="CommandLineParser" Version="2.9.1" />
   </ItemGroup>
 
   <ItemGroup Label="Packaging">
