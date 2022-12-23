@@ -24,7 +24,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             testLogger.Messages.Should().BeNull();
             testLogger.ToolNotifications.Should().BeNull();
-            testLogger.ConfigurationNotifications.Count.Should().Equals(1);
+            testLogger.ConfigurationNotifications.Count.Should().Be(1);
             testLogger.ConfigurationNotifications[0].Descriptor.Id.Should().BeEquivalentTo(Warnings.Wrn999_RuleExplicitlyDisabled);
         }
 
@@ -57,7 +57,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             testLogger.Messages.Should().BeNull();
             testLogger.ToolNotifications.Should().BeNull();
-            testLogger.ConfigurationNotifications.Count.Should().Equals(1);
+            testLogger.ConfigurationNotifications.Count.Should().Be(1);
             testLogger.ConfigurationNotifications[0].Descriptor.Id.Should().BeEquivalentTo(Warnings.Wrn997_OneOrMoreFilesSkippedDueToSize);
 
             binaryAnalysisContext.RuntimeErrors.Should().Be(RuntimeConditions.OneOrMoreFilesSkippedDueToSize);
