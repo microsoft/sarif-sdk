@@ -343,11 +343,4 @@
     <None Include="..\Test.FunctionalTests.Sarif\v2\SpecExamples\Comprehensive.sarif" CopyToOutputDirectory="PreserveNewest" LinkBase="v2\SpecExamples" />
     <None Include="..\Test.FunctionalTests.Sarif\v2\ObsoleteFormats\ComprehensivePrereleaseTwoZeroZero.sarif" CopyToOutputDirectory="PreserveNewest" LinkBase="v2\ObsoleteFormats" />
   </ItemGroup>
-
-  <ItemGroup>
-    <PackageReference Update="Microsoft.CodeAnalysis.NetAnalyzers" Version="7.0.0">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
-    </PackageReference>
-  </ItemGroup>
 </Project>
