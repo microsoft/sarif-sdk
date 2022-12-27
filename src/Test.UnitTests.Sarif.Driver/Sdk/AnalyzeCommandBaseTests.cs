@@ -1462,7 +1462,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             var logger = new CoyoteTestOutputLogger(this.Output);
             Configuration config = Configuration.Create().WithTestingIterations(10).WithMaxSchedulingSteps(100);
             var engine = TestingEngine.Create(config, AnalyzeCommandBase_ShouldGenerateSameResultsWhenRunningSingleAndMultiThread_CoyoteHelper);
-            engine.Logger = logger;
+            engine.SetLogger(logger);
 
             string TestLogDirectory = ".";
 
