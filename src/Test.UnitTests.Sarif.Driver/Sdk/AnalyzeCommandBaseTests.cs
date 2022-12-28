@@ -40,6 +40,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         public AnalyzeCommandBaseTests(ITestOutputHelper output)
         {
             this.Output = output;
+            Output.WriteLine($"The seed that will be used is: {TestRule.s_seed}");
         }
 
         [Fact]
@@ -759,7 +760,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         public void MultithreadedAnalyzeCommandBase_TargetFileSizeTestCases()
         {
             dynamic[] testCases = new[]
-            {/*
+            {
                 new {
                     expectedExitReason = ExitReason.InvalidCommandLineOption,
                     fileSize = (long)ulong.MinValue,
@@ -794,7 +795,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                     expectedExitReason = ExitReason.None,
                     fileSize = (long)ulong.MinValue,
                     maxFileSize = long.MaxValue
-                },*/
+                },
                 new {
                     expectedExitReason = ExitReason.NoValidAnalysisTargets,
                     fileSize = (long)20000,
@@ -822,7 +823,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 },
                 new {
                     expectedExitReason = ExitReason.NoValidAnalysisTargets,
-                    fileSize = long.MaxValue,
+                    fileSize = long.MaxValue - 1,
                     maxFileSize = long.MaxValue
                 },
             };
@@ -863,8 +864,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
                 bool expectedToBeWithinLimits = testCase.maxFileSize == -1 ||
                     testCase.fileSize / 1024 < testCase.maxFileSize;
-
-                Output.WriteLine($"The seed that will be used is: {TestRule.s_seed}");
 
                 var options = new TestAnalyzeOptions
                 {
