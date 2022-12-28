@@ -178,7 +178,7 @@ namespace Microsoft.CodeAnalysis.Sarif {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Detected incompatible rules. Rule &apos;{0}&apos; is incompatible with rule &apos;{1}&apos;..
+        ///   Looks up a localized string similar to The current configuration enables rules that are not compatible (&apos;{0}&apos; has declared that it is not compatible with &apos;{1}&apos;). You can selectively disable one of the rules using an updated XML configuration (passed by the --config argument)..
         /// </summary>
         public static string ERR997_IncompatibleRulesDetected {
             get {
