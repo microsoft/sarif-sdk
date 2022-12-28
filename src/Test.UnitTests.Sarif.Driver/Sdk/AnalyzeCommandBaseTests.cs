@@ -1750,9 +1750,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 TestRuleBehaviors = testCase.TestRuleBehaviors,
                 OutputFilePath = testCase.PersistLogFileToDisk ? Guid.NewGuid().ToString() : null,
                 TargetFileSpecifiers = new string[] { Guid.NewGuid().ToString() },
-                Kind = new List<ResultKind> { ResultKind.Fail },
-                Level = new List<FailureLevel> { FailureLevel.Warning, FailureLevel.Error },
-                MaxFileSizeInKilobytes = AnalyzeContextBase.MaxFileSizeInKilobytesProperty.DefaultValue(),
             };
 
             EnhanceOptions(options, enhancedOptions);

@@ -123,10 +123,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 OutputFilePath = outputPath,
                 Force = true,
                 BaselineSarifFile = baselineFilePath,
-                Kind = new List<ResultKind> { ResultKind.Fail },
-                Level = new List<FailureLevel> { FailureLevel.Warning, FailureLevel.Error },
                 SarifOutputVersion = SarifVersion.OneZeroZero,
-                MaxFileSizeInKilobytes = AnalyzeContextBase.MaxFileSizeInKilobytesDefaultValue,
             };
 
             // Verify command returned success

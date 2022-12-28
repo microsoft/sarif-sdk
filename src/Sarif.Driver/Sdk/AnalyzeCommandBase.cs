@@ -302,7 +302,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             {
                 Logger = logger,
                 RuntimeErrors = runtimeErrors,
-                Policy = policy
+                Policy = policy ?? new PropertiesDictionary()
             };
 
             context.MaxFileSizeInKilobytes =

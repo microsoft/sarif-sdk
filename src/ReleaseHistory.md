@@ -5,6 +5,7 @@
 * BREAKING: Correct casing of `LogMissingreportingConfiguration` helper to `LogMissingReportingConfiguration`.
 * BREAKING: Change type of `MaxFileSizeInKilobytes` from int to long in `IAnalysisContext` and other classes.
 * BREAKING: For `Guid` properties defined in SARIF spec, updated Json schema to use `uuid`, and updated C# object model to use `Guid?` instead of `string`. [#2555](https://github.com/microsoft/sarif-sdk/pull/2555)
+* BUGFIX  : Resolve hangs due to unhandled exceptions during multithreaded analysis file enumeration phase.
 * BUGFIX  : Another attempt to resolve 'InvalidOperationException' with message `Collection was modified; enumeration operation may not execute` in `MultithreadedAnalyzeCommandBase`, raised when analyzing with the `--hashes` switch. [#2459](https://github.com/microsoft/sarif-sdk/pull/2549). There was a previous attempt to fix this in [#2447](https://github.com/microsoft/sarif-sdk/pull/2447).
 * BUGFIX  : Resolve issue where `match-results-forward` command fails to generate VersionControlDetails data. [#2487](https://github.com/microsoft/sarif-sdk/pull/2487)
 * BUGFIX  : Remove duplicated rule definitions when executing `match-results-forward` commands for results with sub-rule ids. [#2486](https://github.com/microsoft/sarif-sdk/pull/2486)
