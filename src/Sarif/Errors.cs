@@ -510,13 +510,17 @@ namespace Microsoft.CodeAnalysis.Sarif
             return RuntimeConditions.ExceptionInEngine;
         }
 
-        public static void LogIncompatibleRule(IAnalysisContext context, string ruleId, string incompatibleRuleId)
+        public static void LogIncompatibleRules(IAnalysisContext context, string ruleId, string incompatibleRuleId)
         {
             if (context == null)
             {
                 throw new ArgumentNullException(nameof(context));
             }
 
+            // The current configuration enables rules that are not compatible
+            // ('{0}' has declared that it is not compatible with '{1}'). You
+            // can selectively disable one of the rules using an updated XML
+            // configuration (passed by the --config argument).
             context.Logger.LogConfigurationNotification(
                 CreateNotification(
                     context.TargetUri,

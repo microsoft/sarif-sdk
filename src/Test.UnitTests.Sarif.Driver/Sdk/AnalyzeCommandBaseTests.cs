@@ -3,6 +3,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Data.Common;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -2083,15 +2084,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
             var consoleLogger = new ConsoleLogger(false, "TestTool") { CaptureOutput = true };
             var context = new TestAnalysisContext();
-            TestAnalyzeCommand command = CreateTestCommand(context, consoleLogger);
 
-            ExitApplicationException<ExitReason> exception = Assert.Throws<ExitApplicationException<ExitReason>>(
-                () => command.CheckIncompatibleRules(skimmers, context, disabledSkimmers));
+            this.RunCheckIncompatibleRulesTests(skimmers, disabledSkimmers, context, consoleLogger, true,
+                ExitReason.IncompatibleRulesDetected, RuntimeConditions.OneOrMoreRulesAreIncompatible,
+                Errors.ERR997_IncompatibleRulesDetected, multipleThreadsCommand: false);
 
-            exception.ExitReason.Should().Be(ExitReason.IncompatibleRulesDetected);
-            disabledSkimmers.Count.Should().Be(0);
-            context.RuntimeErrors.Should().Be(RuntimeConditions.OneOrMoreRulesAreIncompatible);
-            consoleLogger.CapturedOutput.Contains(Errors.ERR997_IncompatibleRulesDetected);
+            this.RunCheckIncompatibleRulesTests(skimmers, disabledSkimmers, context, consoleLogger, true,
+                ExitReason.IncompatibleRulesDetected, RuntimeConditions.OneOrMoreRulesAreIncompatible,
+                Errors.ERR997_IncompatibleRulesDetected, multipleThreadsCommand: true);
         }
 
         [Fact]
@@ -2108,13 +2108,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
             var consoleLogger = new ConsoleLogger(false, "TestTool") { CaptureOutput = true };
             var context = new TestAnalysisContext();
-            TestAnalyzeCommand command = CreateTestCommand(context, consoleLogger);
 
-            command.CheckIncompatibleRules(skimmers, context, disabledSkimmers);
+            this.RunCheckIncompatibleRulesTests(skimmers, disabledSkimmers, context, consoleLogger,
+                false, ExitReason.None, RuntimeConditions.None, null, multipleThreadsCommand: false);
 
-            disabledSkimmers.Count.Should().Be(0);
-            context.RuntimeErrors.Should().Be(RuntimeConditions.None);
-            consoleLogger.CapturedOutput.Should().BeNull();
+            this.RunCheckIncompatibleRulesTests(skimmers, disabledSkimmers, context, consoleLogger,
+                false, ExitReason.None, RuntimeConditions.None, null, multipleThreadsCommand: false);
         }
 
         [Fact]
@@ -2131,13 +2130,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
             var consoleLogger = new ConsoleLogger(false, "TestTool") { CaptureOutput = true };
             var context = new TestAnalysisContext();
-            TestAnalyzeCommand command = CreateTestCommand(context, consoleLogger);
 
-            command.CheckIncompatibleRules(skimmers, context, disabledSkimmers);
+            this.RunCheckIncompatibleRulesTests(skimmers, disabledSkimmers, context, consoleLogger,
+                false, ExitReason.None, RuntimeConditions.None, null, false);
 
-            disabledSkimmers.Count.Should().Be(0);
-            context.RuntimeErrors.Should().Be(RuntimeConditions.None);
-            consoleLogger.CapturedOutput.Should().BeNull();
+            this.RunCheckIncompatibleRulesTests(skimmers, disabledSkimmers, context, consoleLogger,
+                false, ExitReason.None, RuntimeConditions.None, null, true);
         }
 
         [Fact]
@@ -2154,13 +2152,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
             var consoleLogger = new ConsoleLogger(false, "TestTool") { CaptureOutput = true };
             var context = new TestAnalysisContext();
-            TestAnalyzeCommand command = CreateTestCommand(context, consoleLogger);
 
-            command.CheckIncompatibleRules(skimmers, context, disabledSkimmers);
+            this.RunCheckIncompatibleRulesTests(skimmers, disabledSkimmers, context, consoleLogger,
+                false, ExitReason.None, RuntimeConditions.None, null, false);
 
-            disabledSkimmers.Count.Should().Be(1);
-            context.RuntimeErrors.Should().Be(RuntimeConditions.None);
-            consoleLogger.CapturedOutput.Should().BeNull();
+            this.RunCheckIncompatibleRulesTests(skimmers, disabledSkimmers, context, consoleLogger,
+                false, ExitReason.None, RuntimeConditions.None, null, true);
         }
 
         [Fact]
@@ -2177,20 +2174,48 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
             var consoleLogger = new ConsoleLogger(false, "TestTool") { CaptureOutput = true };
             var context = new TestAnalysisContext();
-            TestAnalyzeCommand command = CreateTestCommand(context, consoleLogger);
 
-            ExitApplicationException<ExitReason> exception = Assert.Throws<ExitApplicationException<ExitReason>>(
-                () => command.CheckIncompatibleRules(skimmers, context, disabledSkimmers));
+            this.RunCheckIncompatibleRulesTests(skimmers, disabledSkimmers, context, consoleLogger,
+                true, ExitReason.IncompatibleRulesDetected, RuntimeConditions.OneOrMoreRulesAreIncompatible,
+                Errors.ERR997_IncompatibleRulesDetected, false);
 
-            exception.ExitReason.Should().Be(ExitReason.IncompatibleRulesDetected);
-            disabledSkimmers.Count.Should().Be(0);
-            context.RuntimeErrors.Should().Be(RuntimeConditions.OneOrMoreRulesAreIncompatible);
-            consoleLogger.CapturedOutput.Contains(Errors.ERR997_IncompatibleRulesDetected);
+            this.RunCheckIncompatibleRulesTests(skimmers, disabledSkimmers, context, consoleLogger,
+                true, ExitReason.IncompatibleRulesDetected, RuntimeConditions.OneOrMoreRulesAreIncompatible,
+                Errors.ERR997_IncompatibleRulesDetected, true);
         }
 
-        private TestAnalyzeCommand CreateTestCommand(TestAnalysisContext context, ConsoleLogger consoleLogger)
+        private void RunCheckIncompatibleRulesTests(IEnumerable<TestRule> skimmers, HashSet<string> disabledSkimmers,
+            TestAnalysisContext context, ConsoleLogger consoleLogger, bool expectExpcetion, ExitReason expectedExitReason,
+            RuntimeConditions expectedRuntimeConditions, string expectedErrorCode, bool multipleThreadsCommand)
         {
-            var command = new TestAnalyzeCommand();
+            ITestAnalyzeCommand command = this.CreateTestCommand(context, consoleLogger, multipleThreadsCommand);
+
+            if (expectExpcetion)
+            {
+                ExitApplicationException<ExitReason> exception = Assert.Throws<ExitApplicationException<ExitReason>>(
+                    () => command.CheckIncompatibleRules(skimmers, context, disabledSkimmers));
+
+                exception.ExitReason.Should().Be(expectedExitReason);
+            }
+
+            context.RuntimeErrors.Should().Be(expectedRuntimeConditions);
+
+            if (expectedErrorCode == null)
+            {
+                consoleLogger.CapturedOutput.Should().BeNull();
+            }
+            else
+            {
+                consoleLogger.CapturedOutput.Contains(expectedErrorCode);
+            }
+        }
+
+        private ITestAnalyzeCommand CreateTestCommand(TestAnalysisContext context, ConsoleLogger consoleLogger, bool multiThreadsCommand = false)
+        {
+            ITestAnalyzeCommand command = multiThreadsCommand ?
+                new TestMultithreadedAnalyzeCommand() :
+                (ITestAnalyzeCommand)new TestAnalyzeCommand();
+
             var logger = new AggregatingLogger();
             logger.Loggers.Add(consoleLogger);
             context.Logger = logger;

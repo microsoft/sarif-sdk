@@ -795,7 +795,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             };
         }
 
-        protected virtual void CheckIncompatibleRules(IEnumerable<Skimmer<TContext>> skimmers, TContext context, ISet<string> disabledSkimmers)
+        internal void CheckIncompatibleRules(IEnumerable<Skimmer<TContext>> skimmers, TContext context, ISet<string> disabledSkimmers)
         {
             var availableRules = new Dictionary<string, Skimmer<TContext>>();
 
@@ -820,7 +820,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 {
                     if (availableRules.ContainsKey(incompatibleRuleId))
                     {
-                        Errors.LogIncompatibleRule(context, entry.Key, incompatibleRuleId);
+                        Errors.LogIncompatibleRules(context, entry.Key, incompatibleRuleId);
                         ThrowExitApplicationException(context, ExitReason.IncompatibleRulesDetected);
                     }
                 }
