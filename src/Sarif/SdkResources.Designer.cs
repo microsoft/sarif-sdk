@@ -178,6 +178,15 @@ namespace Microsoft.CodeAnalysis.Sarif {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Detected incompatible rules. Rule &apos;{0}&apos; is incompatible with rule &apos;{1}&apos;..
+        /// </summary>
+        public static string ERR997_IncompatibleRulesDetected {
+            get {
+                return ResourceManager.GetString("ERR997_IncompatibleRulesDetected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to &apos;{0}&apos; is not a property of the Invocation object..
         /// </summary>
         public static string ERR997_InvalidInvocationPropertyName {
