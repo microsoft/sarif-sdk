@@ -3,6 +3,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Data.Common;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -2068,6 +2069,159 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         }
 
         #endregion ResultsCachingTestsAndHelpers
+
+        [Fact]
+        public void CheckIncompatibleRules_ExitAnalysis()
+        {
+            TestRule[] skimmers = new[]
+            {
+                new TestRule { Id = "TEST1001" },
+                new TestRule { Id = "TEST1002", IncompatibleRuleIds = new HashSet<string> { "TEST1003" } },
+                new TestRule { Id = "TEST1003" },
+            };
+
+            var disabledSkimmers = new HashSet<string>();
+
+            var consoleLogger = new ConsoleLogger(false, "TestTool") { CaptureOutput = true };
+            var context = new TestAnalysisContext();
+
+            this.RunCheckIncompatibleRulesTests(skimmers, disabledSkimmers, context, consoleLogger, true,
+                ExitReason.IncompatibleRulesDetected, RuntimeConditions.OneOrMoreRulesAreIncompatible,
+                Errors.ERR997_IncompatibleRulesDetected, multipleThreadsCommand: false);
+
+            this.RunCheckIncompatibleRulesTests(skimmers, disabledSkimmers, context, consoleLogger, true,
+                ExitReason.IncompatibleRulesDetected, RuntimeConditions.OneOrMoreRulesAreIncompatible,
+                Errors.ERR997_IncompatibleRulesDetected, multipleThreadsCommand: true);
+        }
+
+        [Fact]
+        public void CheckIncompatibleRules_NoIncompatibleRules()
+        {
+            TestRule[] skimmers = new[]
+            {
+                new TestRule { Id = "TEST1001" },
+                new TestRule { Id = "TEST1002" },
+                new TestRule { Id = "TEST1003" },
+            };
+
+            var disabledSkimmers = new HashSet<string>();
+
+            var consoleLogger = new ConsoleLogger(false, "TestTool") { CaptureOutput = true };
+            var context = new TestAnalysisContext();
+
+            this.RunCheckIncompatibleRulesTests(skimmers, disabledSkimmers, context, consoleLogger,
+                false, ExitReason.None, RuntimeConditions.None, null, multipleThreadsCommand: false);
+
+            this.RunCheckIncompatibleRulesTests(skimmers, disabledSkimmers, context, consoleLogger,
+                false, ExitReason.None, RuntimeConditions.None, null, multipleThreadsCommand: false);
+        }
+
+        [Fact]
+        public void CheckIncompatibleRules_IncompatibleRuleDoesNotExist()
+        {
+            TestRule[] skimmers = new[]
+            {
+                new TestRule { Id = "TEST1001", IncompatibleRuleIds = new HashSet<string> { "NA9999" } },
+                new TestRule { Id = "TEST1002" },
+                new TestRule { Id = "TEST1003" },
+            };
+
+            var disabledSkimmers = new HashSet<string>();
+
+            var consoleLogger = new ConsoleLogger(false, "TestTool") { CaptureOutput = true };
+            var context = new TestAnalysisContext();
+
+            this.RunCheckIncompatibleRulesTests(skimmers, disabledSkimmers, context, consoleLogger,
+                false, ExitReason.None, RuntimeConditions.None, null, false);
+
+            this.RunCheckIncompatibleRulesTests(skimmers, disabledSkimmers, context, consoleLogger,
+                false, ExitReason.None, RuntimeConditions.None, null, true);
+        }
+
+        [Fact]
+        public void CheckIncompatibleRules_RulesAlreadyDisabled()
+        {
+            TestRule[] skimmers = new[]
+            {
+                new TestRule { Id = "TEST1001" },
+                new TestRule { Id = "TEST1002", IncompatibleRuleIds = new HashSet<string> { "TEST1001" } },
+                new TestRule { Id = "TEST1003" },
+            };
+
+            var disabledSkimmers = new HashSet<string>() { "TEST1002" };
+
+            var consoleLogger = new ConsoleLogger(false, "TestTool") { CaptureOutput = true };
+            var context = new TestAnalysisContext();
+
+            this.RunCheckIncompatibleRulesTests(skimmers, disabledSkimmers, context, consoleLogger,
+                false, ExitReason.None, RuntimeConditions.None, null, false);
+
+            this.RunCheckIncompatibleRulesTests(skimmers, disabledSkimmers, context, consoleLogger,
+                false, ExitReason.None, RuntimeConditions.None, null, true);
+        }
+
+        [Fact]
+        public void CheckIncompatibleRules_MultipleIncompatibleRules()
+        {
+            TestRule[] skimmers = new[]
+            {
+                new TestRule { Id = "TEST1001" },
+                new TestRule { Id = "TEST1002", IncompatibleRuleIds = new HashSet<string> { "TEST1003" } },
+                new TestRule { Id = "TEST1003", IncompatibleRuleIds = new HashSet<string> { "TEST1001", "TEST1002" } },
+            };
+
+            var disabledSkimmers = new HashSet<string>();
+
+            var consoleLogger = new ConsoleLogger(false, "TestTool") { CaptureOutput = true };
+            var context = new TestAnalysisContext();
+
+            this.RunCheckIncompatibleRulesTests(skimmers, disabledSkimmers, context, consoleLogger,
+                true, ExitReason.IncompatibleRulesDetected, RuntimeConditions.OneOrMoreRulesAreIncompatible,
+                Errors.ERR997_IncompatibleRulesDetected, false);
+
+            this.RunCheckIncompatibleRulesTests(skimmers, disabledSkimmers, context, consoleLogger,
+                true, ExitReason.IncompatibleRulesDetected, RuntimeConditions.OneOrMoreRulesAreIncompatible,
+                Errors.ERR997_IncompatibleRulesDetected, true);
+        }
+
+        private void RunCheckIncompatibleRulesTests(IEnumerable<TestRule> skimmers, HashSet<string> disabledSkimmers,
+            TestAnalysisContext context, ConsoleLogger consoleLogger, bool expectExpcetion, ExitReason expectedExitReason,
+            RuntimeConditions expectedRuntimeConditions, string expectedErrorCode, bool multipleThreadsCommand)
+        {
+            ITestAnalyzeCommand command = this.CreateTestCommand(context, consoleLogger, multipleThreadsCommand);
+
+            if (expectExpcetion)
+            {
+                ExitApplicationException<ExitReason> exception = Assert.Throws<ExitApplicationException<ExitReason>>(
+                    () => command.CheckIncompatibleRules(skimmers, context, disabledSkimmers));
+
+                exception.ExitReason.Should().Be(expectedExitReason);
+            }
+
+            context.RuntimeErrors.Should().Be(expectedRuntimeConditions);
+
+            if (expectedErrorCode == null)
+            {
+                consoleLogger.CapturedOutput.Should().BeNull();
+            }
+            else
+            {
+                consoleLogger.CapturedOutput.Contains(expectedErrorCode);
+            }
+        }
+
+        private ITestAnalyzeCommand CreateTestCommand(TestAnalysisContext context, ConsoleLogger consoleLogger, bool multiThreadsCommand = false)
+        {
+            ITestAnalyzeCommand command = multiThreadsCommand ?
+                new TestMultithreadedAnalyzeCommand() :
+                (ITestAnalyzeCommand)new TestAnalyzeCommand();
+
+            var logger = new AggregatingLogger();
+            logger.Loggers.Add(consoleLogger);
+            context.Logger = logger;
+
+            return command;
+        }
 
         private void PostUriTestHelper(string postUri, int expectedReturnCode, RuntimeConditions runtimeConditions)
         {

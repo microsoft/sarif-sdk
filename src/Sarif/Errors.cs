@@ -26,6 +26,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         private const string ERR997_ExceptionLoadingAnalysisTarget = "ERR997.ExceptionLoadingAnalysisTarget";
         private const string ERR997_ExceptionInstantiatingSkimmers = "ERR997.ExceptionInstantiatingSkimmers";
         private const string ERR997_OutputFileAlreadyExists = "ERR997.OutputFileAlreadyExists";
+        internal const string ERR997_IncompatibleRulesDetected = "ERR997.IncompatibleRulesDetected";
 
         // Rule disabling tool errors:
         private const string ERR998_ExceptionInCanAnalyze = "ERR998.ExceptionInCanAnalyze";
@@ -507,6 +508,32 @@ namespace Microsoft.CodeAnalysis.Sarif
                     args: new string[] { exception.ToString() }));
 
             return RuntimeConditions.ExceptionInEngine;
+        }
+
+        public static void LogIncompatibleRules(IAnalysisContext context, string ruleId, string incompatibleRuleId)
+        {
+            if (context == null)
+            {
+                throw new ArgumentNullException(nameof(context));
+            }
+
+            // The current configuration enables rules that are not compatible
+            // ('{0}' has declared that it is not compatible with '{1}'). You
+            // can selectively disable one of the rules using an updated XML
+            // configuration (passed by the --config argument).
+            context.Logger.LogConfigurationNotification(
+                CreateNotification(
+                    context.TargetUri,
+                    ERR997_IncompatibleRulesDetected,
+                    ruleId: null,
+                    FailureLevel.Error,
+                    exception: null,
+                    persistExceptionStack: false,
+                    messageFormat: SdkResources.ERR997_IncompatibleRulesDetected,
+                    ruleId,
+                    incompatibleRuleId));
+
+            context.RuntimeErrors |= RuntimeConditions.OneOrMoreRulesAreIncompatible;
         }
 
         public static Notification CreateNotification(

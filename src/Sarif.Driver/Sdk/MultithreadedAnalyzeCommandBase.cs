@@ -865,6 +865,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 }
             }
 
+            this.CheckIncompatibleRules(skimmers, rootContext, disabledSkimmers);
+
             if (disabledSkimmers.Count == skimmers.Count())
             {
                 Errors.LogAllRulesExplicitlyDisabled(rootContext);
@@ -1069,6 +1071,38 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             {
                 ExitReason = exitReason
             };
+        }
+
+        internal void CheckIncompatibleRules(IEnumerable<Skimmer<TContext>> skimmers, TContext context, ISet<string> disabledSkimmers)
+        {
+            var availableRules = new Dictionary<string, Skimmer<TContext>>();
+
+            foreach (Skimmer<TContext> skimmer in skimmers)
+            {
+                if (disabledSkimmers.Contains(skimmer.Id))
+                {
+                    continue;
+                }
+
+                availableRules[skimmer.Id] = skimmer;
+            }
+
+            foreach (KeyValuePair<string, Skimmer<TContext>> entry in availableRules)
+            {
+                if (entry.Value.IncompatibleRuleIds?.Any() != true)
+                {
+                    continue;
+                }
+
+                foreach (string incompatibleRuleId in entry.Value.IncompatibleRuleIds)
+                {
+                    if (availableRules.ContainsKey(incompatibleRuleId))
+                    {
+                        Errors.LogIncompatibleRules(context, entry.Key, incompatibleRuleId);
+                        ThrowExitApplicationException(context, ExitReason.IncompatibleRulesDetected);
+                    }
+                }
+            }
         }
 
         protected virtual ISet<Skimmer<TContext>> InitializeSkimmers(ISet<Skimmer<TContext>> skimmers, TContext context)

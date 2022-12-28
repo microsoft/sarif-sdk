@@ -284,4 +284,7 @@ You can also refer to properties in the result's property bag with 'properties.&
   <data name="WRN997_OneOrMoreFilesSkippedDueToSize" xml:space="preserve">
     <value>One or more files were skipped for analysis due to exceeding size limits (currently configured as {0} KB). The 'max-file-size-in-kb' command-line argument can be used to increase this threshold.</value>
   </data>
+  <data name="ERR997_IncompatibleRulesDetected" xml:space="preserve">
+    <value>The current configuration enables rules that are not compatible ('{0}' has declared that it is not compatible with '{1}'). You can selectively disable one of the rules using an updated XML configuration (passed by the --config argument).</value>
+  </data>
 </root>
