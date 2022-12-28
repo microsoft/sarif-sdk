@@ -7,7 +7,7 @@ using System;
 namespace Microsoft.CodeAnalysis.Sarif.Multitool
 {
 #pragma warning disable CS0618
-    public class AnalyzeTestContext : AnalyzerContextBase
+    public class AnalyzeTestContext : AnalyzeContextBase
 #pragma warning restore CS0618
     {
         public override Exception TargetLoadException { get; set; }

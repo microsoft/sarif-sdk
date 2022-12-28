@@ -27,7 +27,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         // the captured output is useful to verify behavior.
         internal bool _captureConsoleOutput;
 
-        internal static long DefaultMaxFileInKBValue = 1024;
         internal ConsoleLogger _consoleLogger;
 
         private Run _run;
@@ -129,7 +128,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                     }
                 }
 
-                return options.RichReturnCode 
+                return options.RichReturnCode
                     ? (int)RuntimeErrors
                     : succeeded ? SUCCESS : FAILURE;
             }

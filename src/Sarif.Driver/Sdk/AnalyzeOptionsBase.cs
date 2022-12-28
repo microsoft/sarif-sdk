@@ -13,9 +13,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
     {
         public AnalyzeOptionsBase()
         {
+            // TODO: these defaults need to be converted to the configuration
+            // property pattern as followed by MaxFileSizeInKilobytes.
+            Traces = new string[] { };
             Kind = new List<ResultKind> { ResultKind.Fail };
             Level = new List<FailureLevel> { FailureLevel.Warning, FailureLevel.Error };
-            MaxFileSizeInKilobytes = AnalyzerContextBase.MaxFileSizeInKilobytesDefaultValue;
+
+            MaxFileSizeInKilobytes = AnalyzeContextBase.MaxFileSizeInKilobytesDefaultValue;
         }
 
         [Value(0,
@@ -125,7 +129,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         [Option(
             "max-file-size-in-kb",
             HelpText = "The maximum file size (in kilobytes) that will be analyzed.",
-            Default = AnalyzerContextBase.MaxFileSizeInKilobytesDefaultValue)]
+            Default = AnalyzeContextBase.MaxFileSizeInKilobytesDefaultValue)]
         public long MaxFileSizeInKilobytes { get; set; }
     }
 }

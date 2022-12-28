@@ -60,9 +60,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 SchemaFilePath = SchemaFilePath,
                 TargetFileSpecifiers = new string[] { logFilePath },
                 BaselineSarifFile = baseLineFilePath,
-                Kind = new List<ResultKind> { ResultKind.Fail },
-                Level = new List<FailureLevel> { FailureLevel.Warning, FailureLevel.Error },
-                MaxFileSizeInKilobytes = 1024,
             };
 
             int returnCode = validateCommand.Run(options);

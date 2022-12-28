@@ -28,8 +28,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
         // An additional IOptionsProvider instance, typically, the one
         // that exposes a client tool command-line interface.
-        public virtual IOptionsProvider AdditionalOptionsProvider 
-        { 
+        public virtual IOptionsProvider AdditionalOptionsProvider
+        {
             get { return null; }
             set { throw new InvalidOperationException(); }
         }
@@ -52,7 +52,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
         internal bool IsTargetWithinFileSizeLimit(string path, long maxFileSizeInKB, out long fileSizeInKb)
         {
-            fileSizeInKb = (FileSystem.FileInfoLength(path) + 1023)/ 1024;
+            fileSizeInKb = (FileSystem.FileInfoLength(path) + 1023) / 1024;
             return fileSizeInKb <= maxFileSizeInKB;
         }
 

@@ -341,7 +341,8 @@ namespace Microsoft.CodeAnalysis.Sarif
                     exception: exception,
                     persistExceptionStack: false,
                     messageFormat: null,
-                    pluginFilePath));        }
+                    pluginFilePath));
+        }
 
         public static void LogOutputFileAlreadyExists(IAnalysisContext context, string outputFilePath)
         {

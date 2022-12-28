@@ -8,7 +8,7 @@ using Newtonsoft.Json.Linq;
 
 namespace Microsoft.CodeAnalysis.Sarif.Multitool
 {
-    public class SarifValidationContext : AnalyzerContextBase
+    public class SarifValidationContext : AnalyzeContextBase
     {
         public enum ReportingDescriptorKind
         {
