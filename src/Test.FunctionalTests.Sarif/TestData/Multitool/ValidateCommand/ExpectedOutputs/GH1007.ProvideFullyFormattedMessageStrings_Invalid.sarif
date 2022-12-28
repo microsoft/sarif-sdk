@@ -1,0 +1,72 @@
+{
+  "$schema": "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0-rtm.6.json",
+  "version": "2.1.0",
+  "runs": [
+    {
+      "tool": {
+        "driver": {
+          "name": "SARIF Functional Testing",
+          "rules": [
+            {
+              "id": "GH1007",
+              "name": "ProvideFullyFormattedMessageStrings",
+              "fullDescription": {
+                "text": "GitHub Advanced Security code scanning will reject a SARIF file that express result messages with 'message.id' and 'message.arguments' but without the 'message.text' property since the arugmented message format is not supported yet. Please provide fully formatted text in 'message.text' property."
+              },
+              "messageStrings": {
+                "Error_Default": {
+                  "text": "{0}: The 'text' property of this result message is absent. GitHub Advanced Security code scanning will reject this file because it does not support the argumented message now. Try to provide fully formatted text in 'message.text' property."
+                }
+              },
+              "defaultConfiguration": {
+                "enabled": false,
+                "level": "error"
+              },
+              "helpUri": "http://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html"
+            }
+          ]
+        }
+      },
+      "invocations": [
+        {
+          "executionSuccessful": true
+        }
+      ],
+      "artifacts": [
+        {
+          "location": {
+            "uri": "FunctionalTestOutput.ValidateCommand/GH1007.ProvideFullyFormattedMessageStrings_Invalid.sarif",
+            "uriBaseId": "TEST_DIR"
+          }
+        }
+      ],
+      "results": [
+        {
+          "ruleId": "GH1007",
+          "ruleIndex": 0,
+          "level": "error",
+          "message": {
+            "id": "Error_Default",
+            "arguments": [
+              "runs[0].results[0].message"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 29,
+                  "startColumn": 22
+                }
+              }
+            }
+          ]
+        }
+      ],
+      "columnKind": "utf16CodeUnits"
+    }
+  ]
+}

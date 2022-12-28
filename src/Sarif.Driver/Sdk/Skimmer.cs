@@ -25,7 +25,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
         protected virtual IEnumerable<string> MessageResourceNames => throw new NotImplementedException();
 
-        virtual public bool EnabledByDefault => true;
+        protected virtual ISet<string> ConflictSkimmerSet => null;
+
+        public virtual bool EnabledByDefault => true;
 
         public override IDictionary<string, MultiformatMessageString> MessageStrings
         {
