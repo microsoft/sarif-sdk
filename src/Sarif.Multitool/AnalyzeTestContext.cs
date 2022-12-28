@@ -6,7 +6,9 @@ using System;
 
 namespace Microsoft.CodeAnalysis.Sarif.Multitool
 {
+#pragma warning disable CS0618
     public class AnalyzeTestContext : IAnalysisContext
+#pragma warning restore CS0618
     {
         public Exception TargetLoadException { get; set; }
 
@@ -30,7 +32,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
         public DefaultTraces Traces { get; set; }
 
-        public int MaxFileSizeInKilobytes { get; set; }
+        public long MaxFileSizeInKilobytes { get; set; }
 
         public void Dispose() { }
     }

@@ -41,7 +41,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             return assemblies;
         }
 
-        public bool IsTargetWithinFileSizeLimit(string path, int maxFileSizeInKB, out long fileSizeInKb)
+        internal bool IsTargetWithinFileSizeLimit(string path, long maxFileSizeInKB, out long fileSizeInKb)
         {
             fileSizeInKb = (FileSystem.FileInfoLength(path) + 1023)/ 1024;
             return fileSizeInKb < maxFileSizeInKB;

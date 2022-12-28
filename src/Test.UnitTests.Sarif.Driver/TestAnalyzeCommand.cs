@@ -9,7 +9,9 @@ using FluentAssertions;
 
 namespace Microsoft.CodeAnalysis.Sarif.Driver
 {
+#pragma warning disable CS0618
     public class TestAnalyzeCommand : AnalyzeCommandBase<TestAnalysisContext, TestAnalyzeOptions>, ITestAnalyzeCommand
+#pragma warning restore CS0618
     {
         public TestAnalyzeCommand(IFileSystem fileSystem = null) : base(fileSystem)
         {

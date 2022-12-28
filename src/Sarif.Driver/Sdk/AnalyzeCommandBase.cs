@@ -11,6 +11,7 @@ using Microsoft.CodeAnalysis.Sarif.Writers;
 
 namespace Microsoft.CodeAnalysis.Sarif.Driver
 {
+    [Obsolete("AnalyzeCommandBase will be deprecated entirely soon. Use MultithreadedAnalyzeCommandBase instead.")]
     public abstract class AnalyzeCommandBase<TContext, TOptions> : PluginDriverCommand<TOptions>
         where TContext : IAnalysisContext, new()
         where TOptions : AnalyzeOptionsBase
@@ -302,7 +303,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 Policy = policy
             };
 
-            context.MaxFileSizeInKilobytes = options.MaxFileSizeInKilobytes;
+            context.MaxFileSizeInKilobytes =
+                options.MaxFileSizeInKilobytes >= 0
+                ? options.MaxFileSizeInKilobytes
+                : 1024;
 
             if (filePath != null)
             {

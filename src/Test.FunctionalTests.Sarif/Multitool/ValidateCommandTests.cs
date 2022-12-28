@@ -510,6 +510,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 Optimize = true,
                 Kind = new List<ResultKind> { ResultKind.Fail },
                 Level = new List<FailureLevel> { FailureLevel.Error, FailureLevel.Warning, FailureLevel.Note, FailureLevel.None },
+                MaxFileSizeInKilobytes = 1024,
             };
 
             var mockFileSystem = new Mock<IFileSystem>();
