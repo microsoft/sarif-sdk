@@ -538,11 +538,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
                         loggerCache ??= new Dictionary<string, CachingLogger>();
 
-                        if (!loggerCache.TryGetValue(hashData.Sha256, out CachingLogger logger))
+                        if (hashData?.Sha256 != null)
                         {
-                            logger = loggerCache[hashData.Sha256] = (CachingLogger)context.Logger;
+                            context.Logger = loggerCache.TryGetValue(hashData.Sha256, out CachingLogger logger)
+                                ? logger
+                                : (loggerCache[hashData.Sha256] = (CachingLogger)context.Logger);
                         }
-                        context.Logger = logger;
                     }
 
                     await readyToScanChannel.Writer.WriteAsync(index);
