@@ -597,7 +597,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             succeeded &= ValidateOutputFileCanBeCreated(context, options.OutputFilePath, options.Force);
             succeeded &= ValidateInvocationPropertiesToLog(context, options.InvocationPropertiesToLog);
             succeeded &= options.ValidateOutputOptions(context);
-            succeeded &= options.MaxFileSizeInKilobytes > 0;
+
+            succeeded &= context.MaxFileSizeInKilobytes >= 0;
 
             if (!succeeded)
             {
