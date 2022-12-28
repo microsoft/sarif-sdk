@@ -411,6 +411,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         public void GH1006_ProvideCheckoutPath_Invalid()
             => RunInvalidTestForRule(RuleId.ProvideCheckoutPath);
 
+        [Fact]
+        public void GH1007_ProvideFullyFormattedMessageStrings_Valid()
+            => RunValidTestForRule(RuleId.ProvideFullyFormattedMessageStrings);
+
+        [Fact]
+        public void GH1007_ProvideFullyFormattedMessageStrings_Invalid()
+            => RunInvalidTestForRule(RuleId.ProvideFullyFormattedMessageStrings);
+
         private void RunArrayLimitTest(string testFileNameSuffix)
         {
             // Some of the actual limits are impractically large for testing purposes,
