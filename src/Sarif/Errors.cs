@@ -45,8 +45,10 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentNullException(nameof(context));
             }
 
+            context.RuntimeErrors |= RuntimeConditions.ExceptionLoadingTargetFile;
+
             string message = context.TargetLoadException.Message;
-            string execptionType = context.TargetLoadException.GetType().Name;
+            string exceptionType = context.TargetLoadException.GetType().Name;
 
             // Could not load analysis target '{0}' ({1} : '{2}').
             context.Logger.LogConfigurationNotification(
@@ -59,10 +61,8 @@ namespace Microsoft.CodeAnalysis.Sarif
                     persistExceptionStack: true,
                     messageFormat: null,
                     context.TargetUri.GetFileName(),
-                    execptionType,
+                    exceptionType,
                     message));
-
-            context.RuntimeErrors |= RuntimeConditions.ExceptionLoadingTargetFile;
         }
 
         public static void LogExceptionInstantiatingSkimmers(
@@ -74,6 +74,8 @@ namespace Microsoft.CodeAnalysis.Sarif
             {
                 throw new ArgumentNullException(nameof(context));
             }
+
+            context.RuntimeErrors |= RuntimeConditions.ExceptionInstantiatingSkimmers;
 
             string plugins = string.Join(", ",
                 skimmerAssemblies.Select(sa => '"' + Path.GetFileName(sa.Location) + '"'));
@@ -89,8 +91,6 @@ namespace Microsoft.CodeAnalysis.Sarif
                     persistExceptionStack: false,
                     messageFormat: null,
                     plugins));
-
-            context.RuntimeErrors |= RuntimeConditions.ExceptionInstantiatingSkimmers;
         }
 
         public static void LogNoRulesLoaded(IAnalysisContext context)
@@ -99,6 +99,8 @@ namespace Microsoft.CodeAnalysis.Sarif
             {
                 throw new ArgumentNullException(nameof(context));
             }
+
+            context.RuntimeErrors |= RuntimeConditions.NoRulesLoaded;
 
             // No analysis rules could be instantiated.
             context.Logger.LogConfigurationNotification(
@@ -110,8 +112,6 @@ namespace Microsoft.CodeAnalysis.Sarif
                     exception: null,
                     persistExceptionStack: false,
                     messageFormat: null));
-
-            context.RuntimeErrors |= RuntimeConditions.NoRulesLoaded;
         }
 
         public static void LogAllRulesExplicitlyDisabled(IAnalysisContext context)
@@ -120,6 +120,8 @@ namespace Microsoft.CodeAnalysis.Sarif
             {
                 throw new ArgumentNullException(nameof(context));
             }
+
+            context.RuntimeErrors |= RuntimeConditions.NoRulesLoaded;
 
             // All rules were explicitly disabled so there is no work to do.
             context.Logger.LogConfigurationNotification(
@@ -131,8 +133,6 @@ namespace Microsoft.CodeAnalysis.Sarif
                     exception: null,
                     persistExceptionStack: false,
                     messageFormat: null));
-
-            context.RuntimeErrors |= RuntimeConditions.NoRulesLoaded;
         }
         public static void LogNoPluginsConfigured(IAnalysisContext context)
         {
@@ -140,6 +140,8 @@ namespace Microsoft.CodeAnalysis.Sarif
             {
                 throw new ArgumentNullException(nameof(context));
             }
+
+            context.RuntimeErrors |= RuntimeConditions.NoRulesLoaded;
 
             // No analysis plugins were configured, therefore no rules loaded.
             context.Logger.LogConfigurationNotification(
@@ -152,7 +154,6 @@ namespace Microsoft.CodeAnalysis.Sarif
                         persistExceptionStack: false,
                         messageFormat: null));
 
-            context.RuntimeErrors |= RuntimeConditions.NoRulesLoaded;
         }
 
         public static void LogNoValidAnalysisTargets(IAnalysisContext context)
@@ -161,6 +162,8 @@ namespace Microsoft.CodeAnalysis.Sarif
             {
                 throw new ArgumentNullException(nameof(context));
             }
+
+            context.RuntimeErrors |= RuntimeConditions.NoValidAnalysisTargets;
 
             // No valid analysis targets were specified.
             context.Logger.LogConfigurationNotification(
@@ -173,7 +176,6 @@ namespace Microsoft.CodeAnalysis.Sarif
                     persistExceptionStack: false,
                     messageFormat: null));
 
-            context.RuntimeErrors |= RuntimeConditions.NoValidAnalysisTargets;
         }
 
         public static void LogExceptionCreatingLogFile(IAnalysisContext context, string fileName, Exception exception)
@@ -182,6 +184,8 @@ namespace Microsoft.CodeAnalysis.Sarif
             {
                 throw new ArgumentNullException(nameof(context));
             }
+
+            context.RuntimeErrors |= RuntimeConditions.ExceptionCreatingLogFile;
 
             // Could not create output file: '{0}'
             context.Logger.LogConfigurationNotification(
@@ -194,8 +198,6 @@ namespace Microsoft.CodeAnalysis.Sarif
                     persistExceptionStack: false,
                     messageFormat: null,
                     fileName));
-
-            context.RuntimeErrors |= RuntimeConditions.ExceptionCreatingLogFile;
         }
 
         public static void LogMissingFile(IAnalysisContext context, string fileName)
@@ -204,6 +206,8 @@ namespace Microsoft.CodeAnalysis.Sarif
             {
                 throw new ArgumentNullException(nameof(context));
             }
+
+            context.RuntimeErrors |= RuntimeConditions.MissingFile;
 
             // A required file specified on the command line could not be found: '{0}'. 
             context.Logger.LogConfigurationNotification(
@@ -216,8 +220,6 @@ namespace Microsoft.CodeAnalysis.Sarif
                     persistExceptionStack: false,
                     messageFormat: null,
                     fileName));
-
-            context.RuntimeErrors |= RuntimeConditions.MissingFile;
         }
 
         public static void LogExceptionAccessingFile(IAnalysisContext context, string fileName, Exception exception)
@@ -226,6 +228,8 @@ namespace Microsoft.CodeAnalysis.Sarif
             {
                 throw new ArgumentNullException(nameof(context));
             }
+
+            context.RuntimeErrors |= RuntimeConditions.ExceptionAccessingFile;
 
             // Could not access a file specified on the command-line: '{0}'.
             context.Logger.LogConfigurationNotification(
@@ -238,8 +242,6 @@ namespace Microsoft.CodeAnalysis.Sarif
                     persistExceptionStack: false,
                     messageFormat: null,
                     fileName));
-
-            context.RuntimeErrors |= RuntimeConditions.ExceptionAccessingFile;
         }
 
         public static void LogInvalidInvocationPropertyName(IAnalysisContext context, string propertyName)
@@ -248,6 +250,8 @@ namespace Microsoft.CodeAnalysis.Sarif
             {
                 throw new ArgumentNullException(nameof(context));
             }
+
+            context.RuntimeErrors |= RuntimeConditions.InvalidCommandLineOption;
 
             // '{0}' is not a property of the Invocation object.
             context.Logger.LogConfigurationNotification(
@@ -260,8 +264,6 @@ namespace Microsoft.CodeAnalysis.Sarif
                     persistExceptionStack: false,
                     messageFormat: null,
                     propertyName));
-
-            context.RuntimeErrors |= RuntimeConditions.InvalidCommandLineOption;
         }
 
         public static void LogMissingReportingConfiguration(IAnalysisContext context, string reasonForNotAnalyzing)
@@ -270,6 +272,8 @@ namespace Microsoft.CodeAnalysis.Sarif
             {
                 throw new ArgumentNullException(nameof(context));
             }
+
+            context.RuntimeErrors |= RuntimeConditions.RuleMissingRequiredConfiguration;
 
             var assembly = Assembly.GetEntryAssembly();
             assembly ??= Assembly.GetExecutingAssembly();
@@ -315,8 +319,6 @@ namespace Microsoft.CodeAnalysis.Sarif
                     Level = FailureLevel.Error,
                     Message = new Message { Text = message }
                 });
-
-            context.RuntimeErrors |= RuntimeConditions.RuleMissingRequiredConfiguration;
         }
 
         public static void LogExceptionLoadingPlugin(string pluginFilePath, IAnalysisContext context, Exception exception)
@@ -325,6 +327,8 @@ namespace Microsoft.CodeAnalysis.Sarif
             {
                 throw new ArgumentNullException(nameof(context));
             }
+
+            context.RuntimeErrors |= RuntimeConditions.ExceptionLoadingAnalysisPlugin;
 
             // Could not load plug-in '{0}'.
             context.Logger.LogConfigurationNotification(
@@ -336,10 +340,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                     exception: exception,
                     persistExceptionStack: false,
                     messageFormat: null,
-                    pluginFilePath));
-
-            context.RuntimeErrors |= RuntimeConditions.ExceptionLoadingAnalysisPlugin;
-        }
+                    pluginFilePath));        }
 
         public static void LogOutputFileAlreadyExists(IAnalysisContext context, string outputFilePath)
         {
@@ -347,6 +348,8 @@ namespace Microsoft.CodeAnalysis.Sarif
             {
                 throw new ArgumentNullException(nameof(context));
             }
+
+            context.RuntimeErrors |= RuntimeConditions.OutputFileAlreadyExists;
 
             context.Logger.LogConfigurationNotification(
                 CreateNotification(
@@ -358,8 +361,6 @@ namespace Microsoft.CodeAnalysis.Sarif
                     persistExceptionStack: false,
                     messageFormat: null,
                     outputFilePath));
-
-            context.RuntimeErrors |= RuntimeConditions.OutputFileAlreadyExists;
         }
 
         public static void LogTargetParseError(IAnalysisContext context, Region region, string message)
@@ -368,6 +369,8 @@ namespace Microsoft.CodeAnalysis.Sarif
             {
                 throw new ArgumentNullException(nameof(context));
             }
+
+            context.RuntimeErrors |= RuntimeConditions.TargetParseError;
 
             // {0}({1}): error {2}: {3}
             context.Logger.LogConfigurationNotification(
@@ -383,8 +386,6 @@ namespace Microsoft.CodeAnalysis.Sarif
                     region.FormatForVisualStudio(),
                     ERR1000_ParseError,
                     message));
-
-            context.RuntimeErrors |= RuntimeConditions.TargetParseError;
         }
 
         public static void LogUnhandledRuleExceptionAssessingTargetApplicability(
@@ -396,6 +397,8 @@ namespace Microsoft.CodeAnalysis.Sarif
             {
                 throw new ArgumentNullException(nameof(context));
             }
+
+            context.RuntimeErrors |= RuntimeConditions.ExceptionRaisedInSkimmerCanAnalyze;
 
             // An unhandled exception was raised attempting to determine whether '{0}'
             // is a valid analysis target for check '{1}' (which has been disabled 
@@ -421,8 +424,6 @@ namespace Microsoft.CodeAnalysis.Sarif
                     disabledSkimmers.Add(context.Rule.Id);
                 }
             }
-
-            context.RuntimeErrors |= RuntimeConditions.ExceptionRaisedInSkimmerCanAnalyze;
         }
 
         public static void LogUnhandledExceptionInitializingRule(IAnalysisContext context, Exception exception)
@@ -431,6 +432,8 @@ namespace Microsoft.CodeAnalysis.Sarif
             {
                 throw new ArgumentNullException(nameof(context));
             }
+
+            context.RuntimeErrors |= RuntimeConditions.ExceptionInSkimmerInitialize;
 
             // An unhandled exception was encountered initializing check '{0}', which 
             // has been disabled for the remainder of the analysis.
@@ -444,8 +447,6 @@ namespace Microsoft.CodeAnalysis.Sarif
                 persistExceptionStack: true,
                 messageFormat: null,
                 context.Rule.Name));
-
-            context.RuntimeErrors |= RuntimeConditions.ExceptionInSkimmerInitialize;
         }
 
         public static void LogUnhandledRuleExceptionAnalyzingTarget(
@@ -457,6 +458,8 @@ namespace Microsoft.CodeAnalysis.Sarif
             {
                 throw new ArgumentNullException(nameof(context));
             }
+
+            context.RuntimeErrors |= RuntimeConditions.ExceptionInSkimmerAnalyze;
 
             // An unhandled exception of type '{0}' was encountered analyzing
             // '{0}' for check '{1}' (which has been disabled for the
@@ -483,16 +486,16 @@ namespace Microsoft.CodeAnalysis.Sarif
                     disabledSkimmers.Add(context.Rule.Id);
                 }
             }
-
-            context.RuntimeErrors |= RuntimeConditions.ExceptionInSkimmerAnalyze;
         }
 
-        public static RuntimeConditions LogUnhandledEngineException(IAnalysisContext context, Exception exception)
+        public static void LogUnhandledEngineException(IAnalysisContext context, Exception exception)
         {
             if (context == null)
             {
                 throw new ArgumentNullException(nameof(context));
             }
+
+            context.RuntimeErrors |= RuntimeConditions.ExceptionInEngine;
 
             // An unhandled exception was raised during analysis.
             context.Logger.LogToolNotification(
@@ -505,8 +508,6 @@ namespace Microsoft.CodeAnalysis.Sarif
                     persistExceptionStack: true,
                     messageFormat: "{0}",
                     args: new string[] { exception.ToString() }));
-
-            return RuntimeConditions.ExceptionInEngine;
         }
 
         public static Notification CreateNotification(

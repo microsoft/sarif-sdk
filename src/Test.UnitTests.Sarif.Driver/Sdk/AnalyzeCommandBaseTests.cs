@@ -758,71 +758,71 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         public void MultithreadedAnalyzeCommandBase_TargetFileSizeTestCases()
         {
             dynamic[] testCases = new[]
-            {
+            {/*
                 new {
                     expectedExitReason = ExitReason.InvalidCommandLineOption,
                     fileSize = (long)ulong.MinValue,
-                    maxFileSize = int.MinValue
-                },
-                new {
-                    expectedExitReason = ExitReason.InvalidCommandLineOption,
-                    fileSize = (long)ulong.MinValue,
-                    maxFileSize = -1
+                    maxFileSize = long.MinValue
                 },
                 new {
                     expectedExitReason = ExitReason.InvalidCommandLineOption,
                     fileSize = (long)ulong.MinValue,
-                    maxFileSize = 0
+                    maxFileSize = (long) -1
+                },
+                new {
+                    expectedExitReason = ExitReason.InvalidCommandLineOption,
+                    fileSize = (long)ulong.MinValue,
+                    maxFileSize = (long)0
                 },
                 new {
                     expectedExitReason = ExitReason.None,
                     fileSize = (long)ulong.MinValue,
-                    maxFileSize = 1
+                    maxFileSize = (long)1
                 },
                 new {
                     expectedExitReason = ExitReason.None,
                     fileSize = (long)ulong.MinValue,
-                    maxFileSize = 2000
+                    maxFileSize = (long)2000
                 },
                 new {
                     expectedExitReason = ExitReason.None,
                     fileSize = (long)ulong.MinValue,
-                    maxFileSize = 1000
+                    maxFileSize = (long)1000
                 },
                 new {
                     expectedExitReason = ExitReason.None,
                     fileSize = (long)ulong.MinValue,
-                    maxFileSize = int.MaxValue
-                },
+                    maxFileSize = long.MaxValue
+                },*/
                 new {
                     expectedExitReason = ExitReason.NoValidAnalysisTargets,
                     fileSize = (long)20000,
-                    maxFileSize = 1
+                    maxFileSize = (long)1
                 },
                 new {
                     expectedExitReason = ExitReason.None,
                     fileSize = (long)20000,
-                    maxFileSize = int.MaxValue
+                    maxFileSize = long.MaxValue
                 },
                 new {
                     expectedExitReason = ExitReason.None,
                     fileSize = (long)10,
-                    maxFileSize = 10
+                    maxFileSize = (long)10
                 },
                 new {
                     expectedExitReason = ExitReason.InvalidCommandLineOption,
                     fileSize = long.MaxValue,
-                    maxFileSize = int.MinValue
+                    maxFileSize = long.MinValue
                 },
                 new {
                     expectedExitReason = ExitReason.InvalidCommandLineOption,
                     fileSize = long.MaxValue,
-                    maxFileSize = 0
+                    maxFileSize = (long)0
                 },
                 new {
                     expectedExitReason = ExitReason.NoValidAnalysisTargets,
                     fileSize = long.MaxValue,
-                    maxFileSize = int.MaxValue
+                    maxFileSize = long.MaxValue
                 },
             };
 
@@ -1751,6 +1751,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 TargetFileSpecifiers = new string[] { Guid.NewGuid().ToString() },
                 Kind = new List<ResultKind> { ResultKind.Fail },
                 Level = new List<FailureLevel> { FailureLevel.Warning, FailureLevel.Error },
+                MaxFileSizeInKilobytes = AnalyzeContextBase.MaxFileSizeInKilobytesProperty.DefaultValue(),
             };
 
             EnhanceOptions(options, enhancedOptions);

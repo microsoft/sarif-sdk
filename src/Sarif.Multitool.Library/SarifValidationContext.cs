@@ -8,7 +8,7 @@ using Newtonsoft.Json.Linq;
 
 namespace Microsoft.CodeAnalysis.Sarif.Multitool
 {
-    public class SarifValidationContext : IAnalysisContext
+    public class SarifValidationContext : AnalyzeContextBase
     {
         public enum ReportingDescriptorKind
         {
@@ -25,7 +25,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             CurrentReportingDescriptorKind = ReportingDescriptorKind.None;
         }
 
-        public bool IsValidAnalysisTarget
+        public override bool IsValidAnalysisTarget
         {
             get
             {
@@ -34,31 +34,31 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             }
         }
 
-        public IAnalysisLogger Logger { get; set; }
+        public override IAnalysisLogger Logger { get; set; }
 
-        public string MimeType
+        public override string MimeType
         {
             get { return "application/sarif-json"; }
             set { throw new InvalidOperationException(); }
         }
 
-        public bool AnalysisComplete { get; set; }
+        public override bool AnalysisComplete { get; set; }
 
-        public HashData Hashes { get; set; }
+        public override HashData Hashes { get; set; }
 
-        public PropertiesDictionary Policy { get; set; }
+        public override PropertiesDictionary Policy { get; set; }
 
-        public ReportingDescriptor Rule { get; set; }
+        public override ReportingDescriptor Rule { get; set; }
 
-        public RuntimeConditions RuntimeErrors { get; set; }
+        public override RuntimeConditions RuntimeErrors { get; set; }
 
-        public Exception TargetLoadException { get; set; }
+        public override Exception TargetLoadException { get; set; }
 
         public bool UpdateInputsToCurrentSarif { get; set; }
 
         private Uri _uri;
 
-        public Uri TargetUri
+        public override Uri TargetUri
         {
             get
             {
@@ -94,11 +94,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
         public JToken InputLogToken { get; internal set; }
 
-        public DefaultTraces Traces { get; set; }
+        public override DefaultTraces Traces { get; set; }
 
-        public long MaxFileSizeInKilobytes { get; set; }
-
-        public void Dispose()
+        public override void Dispose()
         {
             // Nothing to dispose.
         }

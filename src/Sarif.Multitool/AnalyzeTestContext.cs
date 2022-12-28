@@ -7,34 +7,32 @@ using System;
 namespace Microsoft.CodeAnalysis.Sarif.Multitool
 {
 #pragma warning disable CS0618
-    public class AnalyzeTestContext : IAnalysisContext
+    public class AnalyzeTestContext : AnalyzeContextBase
 #pragma warning restore CS0618
     {
-        public Exception TargetLoadException { get; set; }
+        public override Exception TargetLoadException { get; set; }
 
-        public bool IsValidAnalysisTarget => true;
+        public override bool IsValidAnalysisTarget => true;
 
-        public IAnalysisLogger Logger { get; set; }
+        public override IAnalysisLogger Logger { get; set; }
 
-        public ReportingDescriptor Rule { get; set; }
+        public override ReportingDescriptor Rule { get; set; }
 
-        public PropertiesDictionary Policy { get; set; }
+        public override PropertiesDictionary Policy { get; set; }
 
-        public string MimeType { get; set; }
+        public override string MimeType { get; set; }
 
-        public HashData Hashes { get; set; }
+        public override HashData Hashes { get; set; }
 
-        public RuntimeConditions RuntimeErrors { get; set; }
+        public override RuntimeConditions RuntimeErrors { get; set; }
 
-        public Uri TargetUri { get; set; }
+        public override Uri TargetUri { get; set; }
 
-        public bool AnalysisComplete { get; set; }
+        public override bool AnalysisComplete { get; set; }
 
-        public DefaultTraces Traces { get; set; }
+        public override DefaultTraces Traces { get; set; }
 
-        public long MaxFileSizeInKilobytes { get; set; }
-
-        public void Dispose() { }
+        public override void Dispose() { }
     }
 }
 #endif

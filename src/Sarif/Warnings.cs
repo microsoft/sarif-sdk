@@ -23,7 +23,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         // Warnings around dangerous
         public const string Wrn999_RuleExplicitlyDisabled = "WRN999.RuleExplicitlyDisabled";
 
-        public static void LogFileSkippedDueToSize(IAnalysisContext context, long fileSizeInKb)
+        public static void LogFileSkippedDueToSize(IAnalysisContext context, string skippedFile, long fileSizeInKb)
         {
             if (context == null)
             {
@@ -40,6 +40,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                     exception: null,
                     persistExceptionStack: false,
                     messageFormat: null,
+                    skippedFile,
                     fileSizeInKb.ToString(CultureInfo.CurrentCulture),
                     context.MaxFileSizeInKilobytes.ToString()));
 

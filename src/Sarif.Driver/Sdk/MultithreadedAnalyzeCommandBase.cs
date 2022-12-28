@@ -90,13 +90,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                         if (!(ex is ExitApplicationException<ExitReason>))
                         {
                             // These exceptions escaped our net and must be logged here
-                            RuntimeErrors |= Errors.LogUnhandledEngineException(_rootContext, ex);
+                            Errors.LogUnhandledEngineException(_rootContext, ex);
                         }
                         ExecutionException = ex;
                         return FAILURE;
                     }
                     finally
                     {
+                        RuntimeErrors |= _rootContext.RuntimeErrors;
                         logger.AnalysisStopped(RuntimeErrors);
                     }
                 }
@@ -295,9 +296,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                     }
                     catch (Exception e)
                     {
-                        context?.Dispose();
+                        if (context != null)
+                        {
+                            RuntimeErrors |= context.RuntimeErrors;
+                            context?.Dispose();
+                        }
                         context = default;
-                        RuntimeErrors |= Errors.LogUnhandledEngineException(rootContext, e);
+                        Errors.LogUnhandledEngineException(rootContext, e);
+                        RuntimeErrors |= rootContext.RuntimeErrors;
                         ThrowExitApplicationException(context, ExitReason.ExceptionWritingToLogFile, e);
                     }
                 }
@@ -367,7 +373,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
             if (!shouldEnqueue)
             {
-                Warnings.LogFileSkippedDueToSize(context, fileSizeInKb);
+                Warnings.LogFileSkippedDueToSize(context, file, fileSizeInKb);
             }
 
             return shouldEnqueue;
@@ -375,95 +381,105 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
         private async Task<bool> EnumerateFilesOnDiskAsync(TOptions options)
         {
-            this._fileContextsCount = 0;
-            this._fileContexts = new ConcurrentDictionary<int, TContext>();
-
-            // INTERESTING BREAKPOINT: debug 'ERR997.NoValidAnalysisTargets : No valid analysis targets were specified.'
-            // Set a conditional breakpoint on 'matchExpression.Name' to filter by specific rules.
-            // Set a conditional breakpoint on 'searchText' to filter on specific target text patterns.
-            foreach (string specifier in options.TargetFileSpecifiers)
+            try
             {
-                string normalizedSpecifier = Environment.ExpandEnvironmentVariables(specifier);
+                this._fileContextsCount = 0;
+                this._fileContexts = new ConcurrentDictionary<int, TContext>();
 
-                if (Uri.TryCreate(specifier, UriKind.RelativeOrAbsolute, out Uri uri))
+                // INTERESTING BREAKPOINT: debug 'ERR997.NoValidAnalysisTargets : No valid analysis targets were specified.'
+                // Set a conditional breakpoint on 'matchExpression.Name' to filter by specific rules.
+                // Set a conditional breakpoint on 'searchText' to filter on specific target text patterns.
+                foreach (string specifier in options.TargetFileSpecifiers)
                 {
-                    if (uri.IsAbsoluteUri && (uri.IsFile || uri.IsUnc))
+                    string normalizedSpecifier = Environment.ExpandEnvironmentVariables(specifier);
+
+                    if (Uri.TryCreate(specifier, UriKind.RelativeOrAbsolute, out Uri uri))
                     {
-                        normalizedSpecifier = uri.LocalPath;
+                        if (uri.IsAbsoluteUri && (uri.IsFile || uri.IsUnc))
+                        {
+                            normalizedSpecifier = uri.LocalPath;
+                        }
                     }
-                }
 
-                string filter = Path.GetFileName(normalizedSpecifier);
-                string directory = Path.GetDirectoryName(normalizedSpecifier);
+                    string filter = Path.GetFileName(normalizedSpecifier);
+                    string directory = Path.GetDirectoryName(normalizedSpecifier);
 
-                if (directory.Length == 0)
-                {
-                    directory = $".{Path.DirectorySeparatorChar}";
-                }
+                    if (directory.Length == 0)
+                    {
+                        directory = $".{Path.DirectorySeparatorChar}";
+                    }
 
-                directory = Path.GetFullPath(directory);
-                var directories = new Queue<string>();
+                    directory = Path.GetFullPath(directory);
+                    var directories = new Queue<string>();
 
-                if (!FileSystem.DirectoryExists(directory))
-                {
-                    continue;
-                }
+                    if (!FileSystem.DirectoryExists(directory))
+                    {
+                        continue;
+                    }
 
-                if (options.Recurse)
-                {
-                    EnqueueAllDirectories(directories, directory);
-                }
-                else
-                {
-                    directories.Enqueue(directory);
-                }
+                    if (options.Recurse)
+                    {
+                        EnqueueAllDirectories(directories, directory);
+                    }
+                    else
+                    {
+                        directories.Enqueue(directory);
+                    }
 
-                var sortedFiles = new SortedSet<string>();
+                    var sortedFiles = new SortedSet<string>();
 
-                while (directories.Count > 0)
-                {
-                    sortedFiles.Clear();
+                    while (directories.Count > 0)
+                    {
+                        sortedFiles.Clear();
 
-                    directory = Path.GetFullPath(directories.Dequeue());
+                        directory = Path.GetFullPath(directories.Dequeue());
 
 #if NETFRAMEWORK
-                    // .NET Framework: Directory.Enumerate with empty filter returns NO files.
-                    // .NET Core: Directory.Enumerate with empty filter returns all files in directory.
-                    // We will standardize on the .NET Core behavior.
-                    if (string.IsNullOrEmpty(filter))
-                    {
-                        filter = "*";
-                    }
+                        // .NET Framework: Directory.Enumerate with empty filter returns NO files.
+                        // .NET Core: Directory.Enumerate with empty filter returns all files in directory.
+                        // We will standardize on the .NET Core behavior.
+                        if (string.IsNullOrEmpty(filter))
+                        {
+                            filter = "*";
+                        }
 #endif
 
-                    foreach (string file in FileSystem.DirectoryEnumerateFiles(directory, filter, SearchOption.TopDirectoryOnly))
-                    {
-                        // Only include files that are below the max size limit.
-                        if (ShouldEnqueue(file, _rootContext))
+                        foreach (string file in FileSystem.DirectoryEnumerateFiles(directory, filter, SearchOption.TopDirectoryOnly))
                         {
-                            sortedFiles.Add(file);
-                            continue;
+                            // Only include files that are below the max size limit.
+                            if (ShouldEnqueue(file, _rootContext))
+                            {
+                                sortedFiles.Add(file);
+                                continue;
+                            }
+                            _ignoredFilesCount++;
                         }
-                        _ignoredFilesCount++;
-                    }
 
-                    foreach (string file in sortedFiles)
-                    {
-                        _fileContexts.TryAdd(
-                            _fileContextsCount,
-                            CreateContext(options,
-                                          new CachingLogger(options.Level, options.Kind),
-                                          _rootContext.RuntimeErrors,
-                                          _rootContext.Policy,
-                                          filePath: file)
-                        );
+                        foreach (string file in sortedFiles)
+                        {
+                            _fileContexts.TryAdd(
+                                _fileContextsCount,
+                                CreateContext(options,
+                                              new CachingLogger(options.Level, options.Kind),
+                                              _rootContext.RuntimeErrors,
+                                              _rootContext.Policy,
+                                              filePath: file)
+                            );
 
-                        await readyToHashChannel.Writer.WriteAsync(_fileContextsCount++);
+                            await readyToHashChannel.Writer.WriteAsync(_fileContextsCount++);
+                        }
                     }
                 }
             }
-
-            readyToHashChannel.Writer.Complete();
+            catch (Exception e)
+            {
+                Errors.LogUnhandledEngineException(_rootContext, e);
+                ThrowExitApplicationException(_rootContext, ExitReason.UnhandledExceptionInEngine);
+            }
+            finally
+            {
+                readyToHashChannel.Writer.Complete();
+            }
 
             if (_ignoredFilesCount > 0)
             {
@@ -616,7 +632,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         {
             var context = new TContext
             {
-                Policy = policy,
+                Policy = policy ?? new PropertiesDictionary(),
                 Logger = logger,
                 RuntimeErrors = runtimeErrors,
                 MaxFileSizeInKilobytes = options.MaxFileSizeInKilobytes

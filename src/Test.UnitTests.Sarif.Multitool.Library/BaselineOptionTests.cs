@@ -126,7 +126,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 Kind = new List<ResultKind> { ResultKind.Fail },
                 Level = new List<FailureLevel> { FailureLevel.Warning, FailureLevel.Error },
                 SarifOutputVersion = SarifVersion.OneZeroZero,
-                MaxFileSizeInKilobytes = 1024,
+                MaxFileSizeInKilobytes = AnalyzeContextBase.MaxFileSizeInKilobytesDefaultValue,
             };
 
             // Verify command returned success

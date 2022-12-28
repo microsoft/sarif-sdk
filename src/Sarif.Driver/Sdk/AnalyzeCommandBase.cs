@@ -97,12 +97,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                     catch (Exception ex)
                     {
                         // These exceptions escaped our net and must be logged here
-                        RuntimeErrors |= Errors.LogUnhandledEngineException(_rootContext, ex);
+                        Errors.LogUnhandledEngineException(_rootContext, ex);
                         ExecutionException = ex;
                         return FAILURE;
                     }
                     finally
                     {
+                        RuntimeErrors |= _rootContext.RuntimeErrors;
                         logger.AnalysisStopped(RuntimeErrors);
                     }
                 }
@@ -223,7 +224,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
             if (!shouldEnqueue)
             {
-                Warnings.LogFileSkippedDueToSize(context, fileSizeInKb);
+                Warnings.LogFileSkippedDueToSize(context, file, fileSizeInKb);
             }
 
             return shouldEnqueue;
