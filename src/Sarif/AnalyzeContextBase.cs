@@ -44,13 +44,14 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         abstract public void Dispose();
 
-        internal const long MaxFileSizeInKilobytesDefaultValue = 1024;
+        public static long MaxFileSizeInKilobytesDefaultValue { get; set; } = 1024;
+
         public static PerLanguageOption<long> MaxFileSizeInKilobytesProperty { get; } =
             new PerLanguageOption<long>(
                 "CoreSettings", nameof(MaxFileSizeInKilobytes), defaultValue: () => MaxFileSizeInKilobytesDefaultValue,
                 "Scan targets that fall below this size threshold (in kilobytes) will not be analyzed. " +
                 "It is legal to set this value to 0 (in order to potentially complete an analysis that " +
                 "records what scan targets would have been analyzed, given current configuration. " +
-                "Negative values will be discarded in favor of the default of 1024 KB.d");
+                $"Negative values will be discarded in favor of the default of {MaxFileSizeInKilobytesDefaultValue} KB.");
     }
 }

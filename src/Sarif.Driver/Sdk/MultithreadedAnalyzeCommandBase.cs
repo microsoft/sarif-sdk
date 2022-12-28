@@ -634,8 +634,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 Policy = policy ?? new PropertiesDictionary(),
                 Logger = logger,
                 RuntimeErrors = runtimeErrors,
-                MaxFileSizeInKilobytes = options.MaxFileSizeInKilobytes
             };
+
+            context.MaxFileSizeInKilobytes =
+                options.MaxFileSizeInKilobytes >= 0
+                    ? options.MaxFileSizeInKilobytes
+                    : AnalyzeContextBase.MaxFileSizeInKilobytesDefaultValue;
+
 
             if (filePath != null)
             {
