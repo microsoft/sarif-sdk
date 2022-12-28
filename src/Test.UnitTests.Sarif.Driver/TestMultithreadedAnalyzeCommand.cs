@@ -85,5 +85,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
             base.ProcessBaseline(context, options, fileSystem);
         }
+
+        public new void CheckIncompatibleRules(IEnumerable<Skimmer<TestAnalysisContext>> skimmers, TestAnalysisContext context, ISet<string> disabledSkimmers)
+        {
+            base.CheckIncompatibleRules(skimmers, context, disabledSkimmers);
+        }
     }
 }
