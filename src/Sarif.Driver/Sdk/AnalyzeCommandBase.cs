@@ -216,6 +216,18 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             }
         }
 
+        protected virtual bool ShouldEnqueue(string file, TContext context)
+        {
+            bool shouldEnqueue = IsTargetWithinFileSizeLimit(file, context.MaxFileSizeInKilobytes, out long fileSizeInKb);
+
+            if (!shouldEnqueue)
+            {
+                Warnings.LogFileSkippedDueToSize(context, fileSizeInKb);
+            }
+
+            return shouldEnqueue;
+        }
+
         internal AggregatingLogger InitializeLogger(AnalyzeOptionsBase analyzeOptions)
         {
             _tool = Tool.CreateFromAssemblyData();
@@ -256,7 +268,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 foreach (string file in fileSpecifier.Files)
                 {
                     // Only include files that are below the max size limit.
-                    if (IsTargetWithinFileSizeLimit(file, _rootContext.MaxFileSizeInKilobytes))
+                    if (ShouldEnqueue(file, _rootContext))
                     {
                         targets.Add(file);
                     }

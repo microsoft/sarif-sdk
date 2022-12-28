@@ -264,14 +264,14 @@ namespace Microsoft.CodeAnalysis.Sarif
             context.RuntimeErrors |= RuntimeConditions.InvalidCommandLineOption;
         }
 
-        public static void LogMissingreportingConfiguration(IAnalysisContext context, string reasonForNotAnalyzing)
+        public static void LogMissingReportingConfiguration(IAnalysisContext context, string reasonForNotAnalyzing)
         {
             if (context == null)
             {
                 throw new ArgumentNullException(nameof(context));
             }
 
-            Assembly assembly = Assembly.GetEntryAssembly();
+            var assembly = Assembly.GetEntryAssembly();
             assembly ??= Assembly.GetExecutingAssembly();
             string exeName = Path.GetFileName(assembly.Location);
 

@@ -48,7 +48,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
         public static bool RaiseUnhandledExceptionInDriverCode { get; set; }
 
-        public virtual FileFormat ConfigurationFormat { get { return FileFormat.Json; } }
+        public virtual FileFormat ConfigurationFormat => FileFormat.Json;
 
         protected MultithreadedAnalyzeCommandBase(IFileSystem fileSystem = null)
         {
@@ -127,12 +127,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                     }
                 }
 
-                if (options.RichReturnCode)
-                {
-                    return (int)RuntimeErrors;
-                }
-
-                return succeeded ? SUCCESS : FAILURE;
+                return options.RichReturnCode 
+                    ? (int)RuntimeErrors
+                    : succeeded ? SUCCESS : FAILURE;
             }
             finally
             {
@@ -214,7 +211,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
             // 1: First we initiate an asynchronous operation to locate disk files for
             // analysis, as specified in analysis configuration (file names, wildcards).
-            Task<bool> enumerateFilesOnDisk = EnumerateFilesOnDiskAsync(options, rootContext);
+            Task<bool> enumerateFilesOnDisk = EnumerateFilesOnDiskAsync(options);
 
             // 2: Files found on disk are put in a specific sort order, after which a 
             // reference to each scan target is put into a channel for hashing,
@@ -311,7 +308,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             return true;
         }
 
-        private void LogCachingLogger(TContext rootContext, TContext context, bool clone = false)
+        private static void LogCachingLogger(TContext rootContext, TContext context, bool clone = false)
         {
             var cachingLogger = (CachingLogger)context.Logger;
             IDictionary<ReportingDescriptor, IList<Result>> results = cachingLogger.Results;
@@ -363,7 +360,19 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             }
         }
 
-        private async Task<bool> EnumerateFilesOnDiskAsync(TOptions options, TContext rootContext)
+        protected virtual bool ShouldEnqueue(string file, TContext context)
+        {
+            bool shouldEnqueue = IsTargetWithinFileSizeLimit(file, context.MaxFileSizeInKilobytes, out long fileSizeInKb);
+
+            if (!shouldEnqueue)
+            {
+                Warnings.LogFileSkippedDueToSize(context, fileSizeInKb);
+            }
+
+            return shouldEnqueue;
+        }
+
+        private async Task<bool> EnumerateFilesOnDiskAsync(TOptions options)
         {
             this._fileContextsCount = 0;
             this._fileContexts = new ConcurrentDictionary<int, TContext>();
@@ -429,7 +438,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                     foreach (string file in FileSystem.DirectoryEnumerateFiles(directory, filter, SearchOption.TopDirectoryOnly))
                     {
                         // Only include files that are below the max size limit.
-                        if (IsTargetWithinFileSizeLimit(file, _rootContext.MaxFileSizeInKilobytes))
+                        if (ShouldEnqueue(file, _rootContext))
                         {
                             sortedFiles.Add(file);
                             continue;
@@ -443,8 +452,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                             _fileContextsCount,
                             CreateContext(options,
                                           new CachingLogger(options.Level, options.Kind),
-                                          rootContext.RuntimeErrors,
-                                          rootContext.Policy,
+                                          _rootContext.RuntimeErrors,
+                                          _rootContext.Policy,
                                           filePath: file)
                         );
 
@@ -457,13 +466,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
             if (_ignoredFilesCount > 0)
             {
-                Warnings.LogOneOrMoreFilesSkippedDueToSize(rootContext);
+                Warnings.LogOneOrMoreFilesSkippedDueToSize(_rootContext);
             }
 
             if (_fileContextsCount == 0)
             {
-                Errors.LogNoValidAnalysisTargets(rootContext);
-                ThrowExitApplicationException(rootContext, ExitReason.NoValidAnalysisTargets);
+                Errors.LogNoValidAnalysisTargets(_rootContext);
+                ThrowExitApplicationException(_rootContext, ExitReason.NoValidAnalysisTargets);
             }
 
             return true;
@@ -606,12 +615,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         {
             var context = new TContext
             {
+                Policy = policy,
                 Logger = logger,
                 RuntimeErrors = runtimeErrors,
-                Policy = policy
+                MaxFileSizeInKilobytes = options.MaxFileSizeInKilobytes
             };
-
-            context.MaxFileSizeInKilobytes = options.MaxFileSizeInKilobytes;
 
             if (filePath != null)
             {
@@ -675,7 +683,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         private void InitializeOutputFile(TOptions analyzeOptions, TContext context)
         {
             string filePath = analyzeOptions.OutputFilePath;
-            AggregatingLogger aggregatingLogger = (AggregatingLogger)context.Logger;
+            var aggregatingLogger = (AggregatingLogger)context.Logger;
 
             if (!string.IsNullOrEmpty(filePath))
             {
@@ -743,7 +751,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             }
         }
 
-        private IEnumerable<string> GenerateSensitiveTokensList()
+        private static IEnumerable<string> GenerateSensitiveTokensList()
         {
             var result = new List<string>
             {
@@ -813,7 +821,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             return result;
         }
 
-        private SupportedPlatform GetCurrentRunningOS()
+        private static SupportedPlatform GetCurrentRunningOS()
         {
             // RuntimeInformation is not present in NET452.
 #if NET452
@@ -894,7 +902,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 return context;
             }
 
-            CachingLogger logger = (CachingLogger)context.Logger;
+            var logger = (CachingLogger)context.Logger;
             logger.AnalyzingTarget(context);
 
             if (logger.CacheFinalized)
@@ -1073,7 +1081,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
         protected virtual ISet<Skimmer<TContext>> InitializeSkimmers(ISet<Skimmer<TContext>> skimmers, TContext context)
         {
-            SortedSet<Skimmer<TContext>> disabledSkimmers = new SortedSet<Skimmer<TContext>>(SkimmerIdComparer<TContext>.Instance);
+            var disabledSkimmers = new SortedSet<Skimmer<TContext>>(SkimmerIdComparer<TContext>.Instance);
 
             // ONE-TIME initialization of skimmers. Do not call
             // Initialize more than once per skimmer instantiation

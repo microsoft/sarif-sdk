@@ -14,6 +14,8 @@
 * FEATURE: Allow external set of `MaxFileSizeInKilobytes`, which will allow SDK users to change the value. (Default value is 1024) [#2578](https://github.com/microsoft/sarif-sdk/pull/2578)
 * FEATURE: Add a Github validation rule `GH1007`, which requires flattened result message so GHAS code scanning can ingest the log. [#2580](https://github.com/microsoft/sarif-sdk/issues/2580)
 * BUGFIX: MSBuild Converter now accepts case insensitive keywords and supports PackageValidator msbuild log output. [#2579](https://github.com/microsoft/sarif-sdk/pull/2579)
+* FEATURE: Provide overridable `ShouldEnqueue` predicate method to filter files from driver processing.
+* BREAKING: Correct casing of `LogMissingreportingConfiguration` helper to `LogMissingReportingConfiguration`.
 
 ## **v3.1.0** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/3.1.0) | [Driver](https://www.nuget.org/packages/Sarif.Driver/3.1.0) | [Converters](https://www.nuget.org/packages/Sarif.Converters/3.1.0) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/3.1.0) | [Multitool Library](https://www.nuget.org/packages/Sarif.Multitool.Library/3.1.0)
 
