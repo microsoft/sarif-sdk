@@ -451,7 +451,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                                 sortedFiles.Add(file);
                                 continue;
                             }
-                            _ignoredFilesCount++;
+
+                            if (!IsTargetWithinFileSizeLimit(file, _rootContext.MaxFileSizeInKilobytes, out long fileSizeInKb))
+                            { 
+                                _ignoredFilesCount++;
+                            }
                         }
 
                         foreach (string file in sortedFiles)
