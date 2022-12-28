@@ -18,8 +18,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
         public override ReportingDescriptor Rule { get; set; }
 
-        public override PropertiesDictionary Policy { get; set; }
-
         public override string MimeType { get; set; }
 
         public override HashData Hashes { get; set; }

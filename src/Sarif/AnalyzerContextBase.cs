@@ -29,7 +29,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         public abstract bool IsValidAnalysisTarget { get; }
 
         public abstract ReportingDescriptor Rule { get; set; }
-        public abstract PropertiesDictionary Policy { get; set; }
+        public PropertiesDictionary Policy { get; set; }
         public abstract IAnalysisLogger Logger { get; set; }
         public abstract RuntimeConditions RuntimeErrors { get; set; }
         public abstract bool AnalysisComplete { get; set; }

@@ -822,7 +822,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                     maxFileSize = (long)0
                 },
                 new {
-                    expectedExitReason = ExitReason.NoValidAnalysisTargets,
+                    expectedExitReason = ExitReason.None,
                     fileSize = long.MaxValue - 1,
                     maxFileSize = long.MaxValue
                 },

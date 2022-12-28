@@ -46,8 +46,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
         public override HashData Hashes { get; set; }
 
-        public override PropertiesDictionary Policy { get; set; }
-
         public override ReportingDescriptor Rule { get; set; }
 
         public override RuntimeConditions RuntimeErrors { get; set; }
