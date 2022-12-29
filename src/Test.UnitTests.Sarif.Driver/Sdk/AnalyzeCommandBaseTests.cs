@@ -915,7 +915,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
             RunAnalyzeCommand(
                 options: options,
-                expectedReturnCode: 1,
+                expectedReturnCode: 0,
                 fileSystem: mockFileSystem.Object,
                 multithreaded: true,
                 exitReason: ExitReason.None);
