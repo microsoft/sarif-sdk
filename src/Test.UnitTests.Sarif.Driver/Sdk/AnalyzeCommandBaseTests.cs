@@ -883,6 +883,45 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         }
 
         [Fact]
+        public void MultithreadedAnalyzeCommandBase_ErrorWhenHashing()
+        {
+            string specifier = "*.xyz";
+            var files = new List<string>
+            {
+                Path.GetFullPath($@".{Path.DirectorySeparatorChar}File1.txt")
+            };
+
+            var mockStream = new Mock<Stream>();
+            mockStream.Setup(m => m.CanRead).Returns(true);
+            mockStream.Setup(m => m.CanSeek).Returns(true);
+            mockStream.Setup(m => m.ReadByte()).Returns('a');
+            mockStream.Setup(m => m.Seek(It.IsAny<long>(), It.IsAny<SeekOrigin>())).Throws(new IOException());
+
+            var mockFileSystem = new Mock<IFileSystem>();
+            mockFileSystem.Setup(x => x.DirectoryExists(It.IsAny<string>())).Returns(true);
+            mockFileSystem.Setup(x => x.DirectoryGetFiles(It.IsAny<string>(), specifier)).Returns(files);
+            mockFileSystem.Setup(x => x.FileExists(It.Is<string>(s => s.EndsWith(specifier)))).Returns(true);
+            mockFileSystem.Setup(x => x.DirectoryEnumerateFiles(It.IsAny<string>(),
+                                                                It.IsAny<string>(),
+                                                                It.IsAny<SearchOption>())).Returns(files);
+            mockFileSystem.Setup(x => x.FileOpenRead(It.IsAny<string>())).Returns(mockStream.Object);
+
+            var options = new TestAnalyzeOptions
+            {
+                TargetFileSpecifiers = new[] { specifier },
+                TestRuleBehaviors = TestRuleBehaviors.LogError,
+                DataToInsert = new[] { OptionallyEmittedData.Hashes },
+            };
+
+            RunAnalyzeCommand(
+                options: options,
+                expectedReturnCode: 0,
+                fileSystem: mockFileSystem.Object,
+                multithreaded: true,
+                exitReason: ExitReason.None);
+        }
+
+        [Fact]
         public void AnalyzeCommandBase_PersistsSarifOneZeroZero()
         {
             string fileName = GetThisTestAssemblyFilePath();
