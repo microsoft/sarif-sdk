@@ -762,8 +762,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             dynamic[] testCases = new[]
             {
                 new {
-                    expectedExitReason = ExitReason.None,
-                    fileSize = long.MinValue,
+                    expectedExitReason = ExitReason.NoValidAnalysisTargets,
+                    fileSize = (long)1023,
+                    maxFileSize = (long)0
+                },
+                new {
+                    expectedExitReason = ExitReason.NoValidAnalysisTargets,
+                    fileSize = (long)0,
                     maxFileSize = (long)0
                 },
                 new {

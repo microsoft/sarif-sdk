@@ -453,7 +453,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                             }
 
                             if (!IsTargetWithinFileSizeLimit(file, _rootContext.MaxFileSizeInKilobytes, out long fileSizeInKb))
-                            { 
+                            {
                                 _ignoredFilesCount++;
                             }
                         }
