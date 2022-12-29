@@ -526,31 +526,40 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 // Loop while there is work to do.
                 while (reader.TryRead(out int index))
                 {
-                    if (_computeHashes)
+                    try
                     {
-                        TContext context = _fileContexts[index];
-                        string localPath = context.TargetUri.LocalPath;
-
-                        HashData hashData = HashUtilities.ComputeHashes(localPath, FileSystem);
-
-                        context.Hashes = hashData;
-
-                        if (_pathToHashDataMap != null && !_pathToHashDataMap.ContainsKey(localPath))
+                        if (_computeHashes)
                         {
-                            _pathToHashDataMap.Add(localPath, hashData);
-                        }
+                            TContext context = _fileContexts[index];
+                            string localPath = context.TargetUri.LocalPath;
 
-                        loggerCache ??= new Dictionary<string, CachingLogger>();
+                            HashData hashData = HashUtilities.ComputeHashes(localPath, FileSystem);
 
-                        if (hashData?.Sha256 != null)
-                        {
-                            context.Logger = loggerCache.TryGetValue(hashData.Sha256, out CachingLogger logger)
-                                ? logger
-                                : (loggerCache[hashData.Sha256] = (CachingLogger)context.Logger);
+                            context.Hashes = hashData;
+
+                            if (_pathToHashDataMap != null && !_pathToHashDataMap.ContainsKey(localPath))
+                            {
+                                _pathToHashDataMap.Add(localPath, hashData);
+                            }
+
+                            loggerCache ??= new Dictionary<string, CachingLogger>();
+
+                            if (hashData?.Sha256 != null)
+                            {
+                                context.Logger = loggerCache.TryGetValue(hashData.Sha256, out CachingLogger logger)
+                                    ? logger
+                                    : (loggerCache[hashData.Sha256] = (CachingLogger)context.Logger);
+                            }
                         }
                     }
-
-                    await readyToScanChannel.Writer.WriteAsync(index);
+                    catch (Exception e)
+                    {
+                        Errors.LogUnhandledEngineException(_rootContext, e);
+                    }
+                    finally
+                    {
+                        await readyToScanChannel.Writer.WriteAsync(index);
+                    }
                 }
             }
 
