@@ -762,18 +762,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             dynamic[] testCases = new[]
             {
                 new {
-                    expectedExitReason = ExitReason.InvalidCommandLineOption,
-                    fileSize = (long)ulong.MinValue,
-                    maxFileSize = long.MinValue
-                },
-                new {
-                    expectedExitReason = ExitReason.InvalidCommandLineOption,
-                    fileSize = (long)ulong.MinValue,
-                    maxFileSize = (long) -1
-                },
-                new {
-                    expectedExitReason = ExitReason.InvalidCommandLineOption,
-                    fileSize = (long)ulong.MinValue,
+                    expectedExitReason = ExitReason.None,
+                    fileSize = long.MinValue,
                     maxFileSize = (long)0
                 },
                 new {
@@ -812,12 +802,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                     maxFileSize = (long)10
                 },
                 new {
-                    expectedExitReason = ExitReason.InvalidCommandLineOption,
-                    fileSize = long.MaxValue,
-                    maxFileSize = long.MinValue
-                },
-                new {
-                    expectedExitReason = ExitReason.InvalidCommandLineOption,
+                    expectedExitReason = ExitReason.NoValidAnalysisTargets,
                     fileSize = long.MaxValue,
                     maxFileSize = (long)0
                 },
