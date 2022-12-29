@@ -1,6 +1,6 @@
 ﻿// Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
-
+#pragma warning disable CS0618
 using System;
 using System.Collections.Generic;
 using System.Data.Common;
@@ -9,7 +9,6 @@ using System.Linq;
 using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Text;
-using System.Threading.Tasks;
 
 using FluentAssertions;
 
@@ -20,7 +19,6 @@ using Microsoft.CodeAnalysis.Sarif.Writers;
 using Microsoft.CodeAnalysis.Test.Utilities.Sarif;
 
 using Microsoft.Coyote;
-using Microsoft.Coyote.Specifications;
 using Microsoft.Coyote.SystematicTesting;
 
 using Moq;
@@ -42,6 +40,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         public AnalyzeCommandBaseTests(ITestOutputHelper output)
         {
             this.Output = output;
+            Output.WriteLine($"The seed that will be used is: {TestRule.s_seed}");
         }
 
         [Fact]
@@ -763,69 +762,59 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             dynamic[] testCases = new[]
             {
                 new {
-                    expectedExitReason = ExitReason.InvalidCommandLineOption,
-                    fileSize = (long)ulong.MinValue,
-                    maxFileSize = int.MinValue
+                    expectedExitReason = ExitReason.NoValidAnalysisTargets,
+                    fileSize = (long)1023,
+                    maxFileSize = (long)0
                 },
                 new {
-                    expectedExitReason = ExitReason.InvalidCommandLineOption,
-                    fileSize = (long)ulong.MinValue,
-                    maxFileSize = -1
-                },
-                new {
-                    expectedExitReason = ExitReason.InvalidCommandLineOption,
-                    fileSize = (long)ulong.MinValue,
-                    maxFileSize = 0
+                    expectedExitReason = ExitReason.NoValidAnalysisTargets,
+                    fileSize = (long)0,
+                    maxFileSize = (long)0
                 },
                 new {
                     expectedExitReason = ExitReason.None,
                     fileSize = (long)ulong.MinValue,
-                    maxFileSize = 1
+                    maxFileSize = (long)1
                 },
                 new {
                     expectedExitReason = ExitReason.None,
                     fileSize = (long)ulong.MinValue,
-                    maxFileSize = 2000
+                    maxFileSize = (long)2000
                 },
                 new {
                     expectedExitReason = ExitReason.None,
                     fileSize = (long)ulong.MinValue,
-                    maxFileSize = 1000
+                    maxFileSize = (long)1000
                 },
                 new {
                     expectedExitReason = ExitReason.None,
                     fileSize = (long)ulong.MinValue,
-                    maxFileSize = int.MaxValue
+                    maxFileSize = long.MaxValue
                 },
                 new {
                     expectedExitReason = ExitReason.NoValidAnalysisTargets,
                     fileSize = (long)20000,
-                    maxFileSize = 1
+                    maxFileSize = (long)1
                 },
                 new {
                     expectedExitReason = ExitReason.None,
                     fileSize = (long)20000,
-                    maxFileSize = int.MaxValue
+                    maxFileSize = long.MaxValue
                 },
                 new {
                     expectedExitReason = ExitReason.None,
                     fileSize = (long)10,
-                    maxFileSize = 10
-                },
-                new {
-                    expectedExitReason = ExitReason.InvalidCommandLineOption,
-                    fileSize = long.MaxValue,
-                    maxFileSize = int.MinValue
-                },
-                new {
-                    expectedExitReason = ExitReason.InvalidCommandLineOption,
-                    fileSize = long.MaxValue,
-                    maxFileSize = 0
+                    maxFileSize = (long)10
                 },
                 new {
                     expectedExitReason = ExitReason.NoValidAnalysisTargets,
                     fileSize = long.MaxValue,
-                    maxFileSize = int.MaxValue
+                    maxFileSize = (long)0
+                },
+                new {
+                    expectedExitReason = ExitReason.None,
+                    fileSize = long.MaxValue - 1,
+                    maxFileSize = long.MaxValue
                 },
             };
 
@@ -865,8 +854,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
                 bool expectedToBeWithinLimits = testCase.maxFileSize == -1 ||
                     testCase.fileSize / 1024 < testCase.maxFileSize;
-
-                Output.WriteLine($"The seed that will be used is: {TestRule.s_seed}");
 
                 var options = new TestAnalyzeOptions
                 {
@@ -1752,8 +1739,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 TestRuleBehaviors = testCase.TestRuleBehaviors,
                 OutputFilePath = testCase.PersistLogFileToDisk ? Guid.NewGuid().ToString() : null,
                 TargetFileSpecifiers = new string[] { Guid.NewGuid().ToString() },
-                Kind = new List<ResultKind> { ResultKind.Fail },
-                Level = new List<FailureLevel> { FailureLevel.Warning, FailureLevel.Error },
             };
 
             EnhanceOptions(options, enhancedOptions);
@@ -2254,3 +2239,4 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         }
     }
 }
+#pragma warning restore CS0618
