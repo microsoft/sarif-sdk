@@ -520,13 +520,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
             Dictionary<string, CachingLogger> loggerCache = null;
 
-            // Wait until there is work or the channel is closed.
-            while (await reader.WaitToReadAsync())
+            try
             {
-                // Loop while there is work to do.
-                while (reader.TryRead(out int index))
+                // Wait until there is work or the channel is closed.
+                while (await reader.WaitToReadAsync())
                 {
-                    try
+                    // Loop while there is work to do.
+                    while (reader.TryRead(out int index))
                     {
                         if (_computeHashes)
                         {
@@ -551,19 +551,20 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                                     : (loggerCache[hashData.Sha256] = (CachingLogger)context.Logger);
                             }
                         }
-                    }
-                    catch (Exception e)
-                    {
-                        Errors.LogUnhandledEngineException(_rootContext, e);
-                    }
-                    finally
-                    {
+
                         await readyToScanChannel.Writer.WriteAsync(index);
                     }
                 }
             }
-
-            readyToScanChannel.Writer.Complete();
+            catch (Exception e)
+            {
+                Errors.LogUnhandledEngineException(_rootContext, e);
+                ThrowExitApplicationException(_rootContext, ExitReason.UnhandledExceptionInEngine);
+            }
+            finally
+            {
+                readyToScanChannel.Writer.Complete();
+            }
 
             return true;
         }
