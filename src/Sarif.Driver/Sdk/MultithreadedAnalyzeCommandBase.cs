@@ -538,7 +538,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                             TContext context = _fileContexts[index];
                             string localPath = context.TargetUri.LocalPath;
 
-                            HashData hashData = ShouldComputeHashes(localPath, context)
+                            HashData hashData = ShouldComputeHashes(localPath, _rootContext)
                                 ? HashUtilities.ComputeHashes(localPath, FileSystem)
                                 : null;
 
