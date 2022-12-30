@@ -378,6 +378,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             return shouldEnqueue;
         }
 
+        protected virtual bool ShouldComputeHashes(string file, TContext context)
+        {
+            return true;
+        }
+
         private async Task<bool> EnumerateFilesOnDiskAsync(TOptions options)
         {
             try
@@ -533,7 +538,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                             TContext context = _fileContexts[index];
                             string localPath = context.TargetUri.LocalPath;
 
-                            HashData hashData = HashUtilities.ComputeHashes(localPath, FileSystem);
+                            HashData hashData = ShouldComputeHashes(localPath, context)
+                                ? HashUtilities.ComputeHashes(localPath, FileSystem)
+                                : null;
 
                             context.Hashes = hashData;
 
