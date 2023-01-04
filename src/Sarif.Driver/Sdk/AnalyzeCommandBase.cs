@@ -625,7 +625,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 target);
 
             rootContext.Logger.AnalyzingTarget(context);
-            rootContext.Logger.LogMemoryUsage(context);
+
+            if (options.Traces.Contains(nameof(DefaultTraces.MemoryUsage), StringComparer.OrdinalIgnoreCase))
+            {
+                rootContext.Logger.LogMemoryUsage(context);
+            }
 
             if ((options.DataToInsert.ToFlags() & OptionallyEmittedData.Hashes) != 0)
             {

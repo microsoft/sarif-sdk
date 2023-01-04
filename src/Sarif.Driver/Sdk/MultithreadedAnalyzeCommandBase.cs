@@ -593,7 +593,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                         context = _fileContexts[item];
 
                         rootContext.Logger.AnalyzingTarget(context);
-                        rootContext.Logger.LogMemoryUsage(context);
+
+                        if (options.Traces.Contains(nameof(DefaultTraces.MemoryUsage), StringComparer.OrdinalIgnoreCase))
+                        {
+                            rootContext.Logger.LogMemoryUsage(context);
+                        }
 
                         DetermineApplicabilityAndAnalyze(options, context, skimmers, disabledSkimmers);
 

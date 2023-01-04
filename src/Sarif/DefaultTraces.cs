@@ -10,5 +10,6 @@ namespace Microsoft.CodeAnalysis.Sarif
     {
         None,
         ScanTime = 0x1,
+        MemoryUsage = 0x2,
     }
 }
