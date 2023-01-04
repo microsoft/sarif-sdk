@@ -239,7 +239,31 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             ExceptionTestHelper(
                 RuntimeConditions.ExceptionLoadingTargetFile,
                 analyzeOptions: options,
-                expectedCapturedOutput: new string[] { "Analyzing '", "error ERR997.ExceptionLoadingAnalysisTarget : Could not load analysis target '", "StackOverflowException:", "Current memory usage:" });
+                expectedCapturedOutput: new string[]
+                {
+                    "Analyzing '",
+                    "error ERR997.ExceptionLoadingAnalysisTarget : Could not load analysis target '",
+                    "StackOverflowException:"
+                });
+
+            options = new TestAnalyzeOptions()
+            {
+                TestRuleBehaviors = TestRuleBehaviors.RaiseStackOverflowException,
+                TargetFileSpecifiers = new string[] { GetThisTestAssemblyFilePath() },
+                Level = new List<FailureLevel>() { FailureLevel.Error, FailureLevel.Warning },
+                Traces = new List<string> { "MemoryUsage" },
+            };
+
+            ExceptionTestHelper(
+               RuntimeConditions.ExceptionLoadingTargetFile,
+               analyzeOptions: options,
+               expectedCapturedOutput: new string[]
+               {
+                   "Analyzing '",
+                   "error ERR997.ExceptionLoadingAnalysisTarget : Could not load analysis target '",
+                   "StackOverflowException:",
+                   "Current memory usage:"
+               });
         }
 
         [Fact]
