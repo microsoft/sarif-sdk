@@ -4,6 +4,7 @@
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -468,6 +469,19 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
         public void LogMemoryUsage(IAnalysisContext context)
         {
+            var currentProcess = Process.GetCurrentProcess();
+
+            LogConfigurationNotification(
+                Errors.CreateNotification(
+                    context.TargetUri,
+                    "MSG.LogMemoryUsage",
+                    ruleId: null,
+                    FailureLevel.Warning,
+                    exception: null,
+                    persistExceptionStack: false,
+                    messageFormat: null,
+                    (currentProcess.WorkingSet64 / 1024 / 1024).ToString(),
+                    (currentProcess.PeakWorkingSet64 / 1024 / 1024).ToString()));
         }
 
         public void LogToolNotification(Notification notification)
