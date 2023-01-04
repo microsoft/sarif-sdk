@@ -597,7 +597,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
                         DetermineApplicabilityAndAnalyze(options, context, skimmers, disabledSkimmers);
 
-                        rootContext.Logger.CompletedAnalyzingTarget(context);
+                        rootContext.Logger.TargetAnalysisCompleted(context);
                     }
                     catch (Exception e)
                     {

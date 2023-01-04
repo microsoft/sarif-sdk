@@ -11,7 +11,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         void AnalyzingTarget(IAnalysisContext context);
 
-        void CompletedAnalyzingTarget(IAnalysisContext context);
+        void TargetAnalysisCompleted(IAnalysisContext context);
 
         void LogMemoryUsage(IAnalysisContext context);
 

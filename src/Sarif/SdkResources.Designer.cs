@@ -360,15 +360,6 @@ namespace Microsoft.CodeAnalysis.Sarif {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Completed analyzing &apos;{0}&apos;..
-        /// </summary>
-        public static string MSG_CompletedAnalyzingTarget {
-            get {
-                return ResourceManager.GetString("MSG_CompletedAnalyzingTarget", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Current memory usage: {0}MB, peak memory usage: {0}MB..
         /// </summary>
         public static string MSG_LogMemoryUsage {
@@ -392,6 +383,15 @@ namespace Microsoft.CodeAnalysis.Sarif {
         public static string MSG_OneOrMoreNotApplicable {
             get {
                 return ResourceManager.GetString("MSG_OneOrMoreNotApplicable", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Completed analyzing &apos;{0}&apos;..
+        /// </summary>
+        public static string MSG_TargetAnalysisCompleted {
+            get {
+                return ResourceManager.GetString("MSG_TargetAnalysisCompleted", resourceCulture);
             }
         }
         

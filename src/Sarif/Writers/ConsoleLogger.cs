@@ -94,7 +94,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                         context.TargetUri.LocalPath));
         }
 
-        public void CompletedAnalyzingTarget(IAnalysisContext context)
+        public void TargetAnalysisCompleted(IAnalysisContext context)
         {
             if (context == null)
             {
@@ -102,7 +102,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             }
 
             WriteLineToConsole(string.Format(CultureInfo.CurrentCulture,
-                    SdkResources.MSG_CompletedAnalyzingTarget,
+                    SdkResources.MSG_TargetAnalysisCompleted,
                         context.TargetUri.LocalPath));
         }
 

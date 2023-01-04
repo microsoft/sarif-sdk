@@ -49,7 +49,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             _semaphore.Wait();
         }
 
-        public void CompletedAnalyzingTarget(IAnalysisContext context)
+        public void TargetAnalysisCompleted(IAnalysisContext context)
         {
         }
 

@@ -676,7 +676,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
             IEnumerable<Skimmer<TContext>> applicableSkimmers = DetermineApplicabilityForTarget(skimmers, context, disabledSkimmers);
             AnalyzeTarget(applicableSkimmers, context, disabledSkimmers);
-            rootContext.Logger.CompletedAnalyzingTarget(context);
+            rootContext.Logger.TargetAnalysisCompleted(context);
 
             return context;
         }

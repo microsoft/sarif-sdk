@@ -43,7 +43,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
         }
 
-        public void CompletedAnalyzingTarget(IAnalysisContext context)
+        public void TargetAnalysisCompleted(IAnalysisContext context)
         {
         }
 

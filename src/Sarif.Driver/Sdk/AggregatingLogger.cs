@@ -53,11 +53,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             }
         }
 
-        public void CompletedAnalyzingTarget(IAnalysisContext context)
+        public void TargetAnalysisCompleted(IAnalysisContext context)
         {
             foreach (IAnalysisLogger logger in Loggers)
             {
-                logger.CompletedAnalyzingTarget(context);
+                logger.TargetAnalysisCompleted(context);
             }
         }
 

@@ -56,7 +56,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             }
         }
 
-        public void CompletedAnalyzingTarget(IAnalysisContext context)
+        public void TargetAnalysisCompleted(IAnalysisContext context)
         {
         }
 
