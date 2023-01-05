@@ -150,7 +150,7 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests.Core
         {
             Random random = RandomSarifLogGenerator.GenerateRandomAndLog(this.output);
             SarifLog sarifLog = null;
-            
+
             while (true)
             {
                 sarifLog = RandomSarifLogGenerator.GenerateSarifLogWithRuns(random, 1);
