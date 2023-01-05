@@ -600,8 +600,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                         }
 
                         DetermineApplicabilityAndAnalyze(options, context, skimmers, disabledSkimmers);
-
-                        rootContext.Logger.TargetAnalysisCompleted(context);
                     }
                     catch (Exception e)
                     {
@@ -609,6 +607,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                     }
                     finally
                     {
+                        rootContext.Logger.TargetAnalysisCompleted(context);
+
                         if (context != null) { context.AnalysisComplete = true; }
                         await _resultsWritingChannel.Writer.WriteAsync(item);
                     }
