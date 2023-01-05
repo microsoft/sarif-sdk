@@ -178,6 +178,15 @@ namespace Microsoft.CodeAnalysis.Sarif {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The current configuration enables rules that are not compatible (&apos;{0}&apos; has declared that it is not compatible with &apos;{1}&apos;). You can selectively disable one of the rules using an updated XML configuration (passed by the --config argument)..
+        /// </summary>
+        public static string ERR997_IncompatibleRulesDetected {
+            get {
+                return ResourceManager.GetString("ERR997_IncompatibleRulesDetected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to &apos;{0}&apos; is not a property of the Invocation object..
         /// </summary>
         public static string ERR997_InvalidInvocationPropertyName {
@@ -491,6 +500,15 @@ namespace Microsoft.CodeAnalysis.Sarif {
         public static string ValueMustBeAtLeastOne {
             get {
                 return ResourceManager.GetString("ValueMustBeAtLeastOne", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &apos;{0}&apos; was not analyzed as its size ({1} kilobytes) exceeds the currently configured threshold ({2} kilobytes)..
+        /// </summary>
+        public static string WRN997_FileSkippedDueToSize {
+            get {
+                return ResourceManager.GetString("WRN997.FileSkippedDueToSize", resourceCulture);
             }
         }
         
