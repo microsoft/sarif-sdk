@@ -27,15 +27,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             string filePath = null)
         {
             TestAnalysisContext context = base.CreateContext(options, logger, runtimeErrors, policy, filePath);
-
-            if (context.Policy == null)
-            {
-                context.Policy = new PropertiesDictionary();
-                context.Policy.SetProperty(TestRule.Behaviors, options.TestRuleBehaviors.AccessibleWithinContextOnly());
-            }
+            context.Policy.SetProperty(TestRule.Behaviors, options.TestRuleBehaviors.AccessibleWithinContextOnly());
 
             TestRuleBehaviors behaviors = context.Policy.GetProperty(TestRule.Behaviors);
-
             context.IsValidAnalysisTarget = !behaviors.HasFlag(TestRuleBehaviors.RegardAnalysisTargetAsInvalid);
 
             context.TargetLoadException =
@@ -84,6 +78,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             }
 
             base.ProcessBaseline(context, options, fileSystem);
+        }
+
+        public new void CheckIncompatibleRules(IEnumerable<Skimmer<TestAnalysisContext>> skimmers, TestAnalysisContext context, ISet<string> disabledSkimmers)
+        {
+            base.CheckIncompatibleRules(skimmers, context, disabledSkimmers);
         }
     }
 }
