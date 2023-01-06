@@ -16,11 +16,17 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
             try
             {
-                PropertiesDictionary allOptions = new PropertiesDictionary();
+                var allOptions = new PropertiesDictionary();
 
                 // The export command could be updated in the future to accept an arbitrary set
                 // of analyzers for which to build an options XML file suitable for configuring them.
-                ImmutableArray<IOptionsProvider> providers = CompositionUtilities.GetExports<IOptionsProvider>(RetrievePluginAssemblies(DefaultPluginAssemblies, exportOptions.PluginFilePaths));
+                var providers = new List<IOptionsProvider>(CompositionUtilities.GetExports<IOptionsProvider>(RetrievePluginAssemblies(DefaultPluginAssemblies, exportOptions.PluginFilePaths)));
+
+                if (AdditionalOptionsProvider != null)
+                {
+                    providers.Add(AdditionalOptionsProvider);
+                }
+
                 foreach (IOptionsProvider provider in providers)
                 {
                     IOption sampleOption = null;

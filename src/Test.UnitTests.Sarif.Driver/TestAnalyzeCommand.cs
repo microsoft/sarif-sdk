@@ -9,7 +9,9 @@ using FluentAssertions;
 
 namespace Microsoft.CodeAnalysis.Sarif.Driver
 {
+#pragma warning disable CS0618
     public class TestAnalyzeCommand : AnalyzeCommandBase<TestAnalysisContext, TestAnalyzeOptions>, ITestAnalyzeCommand
+#pragma warning restore CS0618
     {
         public TestAnalyzeCommand(IFileSystem fileSystem = null) : base(fileSystem)
         {
@@ -31,9 +33,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         {
             TestAnalysisContext context = base.CreateContext(options, logger, runtimeErrors, policy, filePath);
 
-            if (context.Policy == null)
+            if (policy == null)
             {
-                context.Policy ??= new PropertiesDictionary();
                 context.Policy.SetProperty(TestRule.Behaviors, options.TestRuleBehaviors);
             }
 
@@ -78,6 +79,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             int result = base.Run(options);
             this._rootContext?.Disposed.Should().BeTrue();
             return result;
+        }
+
+        public new void CheckIncompatibleRules(IEnumerable<Skimmer<TestAnalysisContext>> skimmers, TestAnalysisContext context, ISet<string> disabledSkimmers)
+        {
+            base.CheckIncompatibleRules(skimmers, context, disabledSkimmers);
         }
     }
 }
