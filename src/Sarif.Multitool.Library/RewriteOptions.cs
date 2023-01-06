@@ -18,9 +18,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         public bool SortResults { get; set; }
 
         [Option(
-            "normalize-for-github",
-            HelpText = "Normalize SARIF to conform to GitHub Advanced Security code scanning ingestion requirements.")]
-        public bool NormalizeForGitHub { get; set; }
+            "normalize-for-ghas",
+            HelpText = "Normalize SARIF to conform to GitHub Advanced Security (GHAS) code scanning ingestion requirements.")]
+        public bool NormalizeForGhas { get; set; }
 
         [Option(
             'b',

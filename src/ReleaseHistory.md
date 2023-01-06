@@ -26,7 +26,8 @@
 * FEATURE : Provide mechanism to populate `SarifLogger` with a `FileRegionsCache` instance.
 * FEATURE : Allow initialization of file regions cache in `InsertOptionalDataVisitor` (previously initialized exclusively from `FileRegionsCache.Instance`).
 * FEATURE : Provide 'RuleScanTime` trace and emitted timing data. Provide `ScanExecution` trace with no utilization.
-* FEATURE: Add `--normalize-for-github` argument to the `rewrite` command to ensure rewritten SARIF is compatible with GitHub Advanced Security ingestion requirements. [#2581](https://github.com/microsoft/sarif-sdk/pull/2581)
+* FEATURE : Add `--normalize-for-ghas` argument to the `rewrite` command to ensure rewritten SARIF is compatible with GitHub Advanced Security (GHAS) ingestion requirements. [#2581](https://github.com/microsoft/sarif-sdk/pull/2581)
+* BREAKING: Rename `--normalize-for-github` argument to `--normalize-for-ghas` for `convert` command. [#2581](https://github.com/microsoft/sarif-sdk/pull/2581)
 
 ## **v3.1.0** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/3.1.0) | [Driver](https://www.nuget.org/packages/Sarif.Driver/3.1.0) | [Converters](https://www.nuget.org/packages/Sarif.Converters/3.1.0) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/3.1.0) | [Multitool Library](https://www.nuget.org/packages/Sarif.Multitool.Library/3.1.0)
 

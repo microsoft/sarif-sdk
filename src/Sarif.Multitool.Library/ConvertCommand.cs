@@ -62,7 +62,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                                                 dataToInsert,
                                                 convertOptions.PluginAssemblyPath);
 
-                if (convertOptions.NormalizeForGitHub)
+                if (convertOptions.NormalizeForGhas)
                 {
                     SarifLog sarifLog;
 

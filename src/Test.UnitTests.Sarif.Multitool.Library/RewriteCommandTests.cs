@@ -36,7 +36,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 Inline = true,
                 SarifOutputVersion = SarifVersion.Current,
                 PrettyPrint = true,
-                NormalizeForGitHub = true,
+                NormalizeForGhas = true,
             };
         }
 
@@ -46,7 +46,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         }
 
         [Fact]
-        public void RunRewriteCommand_RewriteForGitHub()
+        public void RunRewriteCommand_RewriteForGhas()
         {
             string testFilePath = "RunWithArtifacts.sarif";
 

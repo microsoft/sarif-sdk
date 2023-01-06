@@ -64,7 +64,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                     reformattedLog = new SortingVisitor().VisitSarifLog(reformattedLog);
                 }
 
-                if (options.NormalizeForGitHub)
+                if (options.NormalizeForGhas)
                 {
                     if (options.BasePath != null && options.BasePathToken != null)
                     {
