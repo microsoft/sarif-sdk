@@ -50,6 +50,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         OutputFileAlreadyExists = 0x10000,
         ExceptionProcessingBaseline = 0x20000,
         ExceptionPostingLogFile = 0x40000,
+        OneOrMoreRulesAreIncompatible = 0x80000,
 
         // Non-fatal conditions
         UnassignedNonfatal = 0x00F00000,
