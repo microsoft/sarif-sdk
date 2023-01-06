@@ -25,6 +25,7 @@
 * FEATURE : Add a Github validation rule `GH1007`, which requires flattened result message so GHAS code scanning can ingest the log. [#2580](https://github.com/microsoft/sarif-sdk/issues/2580)
 * FEATURE : Provide mechanism to populate `SarifLogger` with a `FileRegionsCache` instance.
 * FEATURE : Allow initialization of file regions cache in `InsertOptionalDataVisitor` (previously initialized exclusively from `FileRegionsCache.Instance`).
+* FEATURE : Provide 'RuleScanTime` trace and emitted timing data. Provide `ScanExecution` trace with no utilization.
 * FEATURE: Log additional debugging information for analyze command. [#2590](https://github.com/microsoft/sarif-sdk/pull/2590)
 
 ## **v3.1.0** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/3.1.0) | [Driver](https://www.nuget.org/packages/Sarif.Driver/3.1.0) | [Converters](https://www.nuget.org/packages/Sarif.Converters/3.1.0) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/3.1.0) | [Multitool Library](https://www.nuget.org/packages/Sarif.Multitool.Library/3.1.0)
