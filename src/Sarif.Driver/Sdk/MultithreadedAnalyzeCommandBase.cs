@@ -89,6 +89,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                         if (!(ex is ExitApplicationException<ExitReason>))
                         {
                             // These exceptions escaped our net and must be logged here
+                            _rootContext ??= new TContext { Logger = logger };
                             Errors.LogUnhandledEngineException(_rootContext, ex);
                         }
                         ExecutionException = ex;

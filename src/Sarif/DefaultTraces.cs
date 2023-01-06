@@ -9,6 +9,8 @@ namespace Microsoft.CodeAnalysis.Sarif
     public enum DefaultTraces
     {
         None,
-        ScanTime = 0x1,
+        ScanTime = 0x01,
+        ScanExecution = 0x2,
+        RuleScanTime = 0x04,
     }
 }
