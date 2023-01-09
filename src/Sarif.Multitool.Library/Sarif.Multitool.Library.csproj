@@ -19,7 +19,7 @@
     <PackageReference Include="Microsoft.Json.Schema" Version="2.1.0" />
     <PackageReference Include="Microsoft.Json.Schema.Validation" Version="2.1.0" />
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All" />
-    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
     <PackageReference Include="System.Threading.Channels" Version="5.0.0" />
   </ItemGroup>
 
