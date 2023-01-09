@@ -14,7 +14,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             ReportingDescriptor rule = ruleIndex != -1 ? run?.Tool?.Driver?.Rules?[ruleIndex] : null;
 
             if (rule?.MessageStrings != null &&
-                rule.MessageStrings.TryGetValue(node.Id, out MultiformatMessageString formatString) == true)
+                rule.MessageStrings.TryGetValue(node.Id, out MultiformatMessageString formatString))
             {
                 node.Text = node.Arguments?.Count > 0 && formatString != null
                     ? string.Format(CultureInfo.CurrentCulture, formatString.Text, node.Arguments.ToArray())
@@ -23,7 +23,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
             if (node.Text == null &&
                 run?.Tool?.Driver?.GlobalMessageStrings != null &&
-                run.Tool.Driver.GlobalMessageStrings.TryGetValue(node.Id, out formatString) == true)
+                run.Tool.Driver.GlobalMessageStrings.TryGetValue(node.Id, out formatString))
             {
                 node.Text = node.Arguments?.Count > 0 && formatString != null
                     ? string.Format(CultureInfo.CurrentCulture, formatString.Text, node.Arguments.ToArray())
