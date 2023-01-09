@@ -167,12 +167,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
             if (options.Timestamps && suppression.TryGetProperty("timeUtc", out DateTime timeUtc))
             {
-                timeUtc.Should().BeCloseTo(DateTime.UtcNow, DateTimeAssertPrecision);
+                timeUtc.Should().BeCloseTo(DateTime.UtcNow, TimeSpan.FromMilliseconds(DateTimeAssertPrecision));
             }
 
             if (options.ExpiryInDays > 0 && suppression.TryGetProperty("expiryUtc", out DateTime expiryUtc))
             {
-                expiryUtc.Should().BeCloseTo(DateTime.UtcNow.AddDays(options.ExpiryInDays), DateTimeAssertPrecision);
+                expiryUtc.Should().BeCloseTo(DateTime.UtcNow.AddDays(options.ExpiryInDays), TimeSpan.FromMilliseconds(DateTimeAssertPrecision));
             }
         }
     }
