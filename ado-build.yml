@@ -51,6 +51,8 @@ extends:
                     submodules: recursive
                 outputs:
                   - output: pipelineArtifact
+                    artifactName: Publish msbuild.binlog
+                    artifact: 'MsbuildBinLog'
                     targetPath: $(System.DefaultWorkingDirectory)/bld/bin
 
               steps:
@@ -66,7 +68,3 @@ extends:
                   inputs:
                     targetType: filePath
                     filePath: $(System.DefaultWorkingDirectory)/scripts/BuildMultitoolForNpm.ps1
-
-                - publish: 'msbuild.binlog'
-                  displayName: Publish msbuild.binlog
-                  artifact: 'MsbuildBinLog'
