@@ -237,28 +237,33 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 }
             }
 
-            if (_dataToInsert.HasFlag(OptionallyEmittedData.PartialFingerprints))
+            if (_dataToInsert.HasFlag(OptionallyEmittedData.ContextRegionSnippetPartialFingerprints) &&
+                    (node.PartialFingerprints == null || 
+                     !node.PartialFingerprints.ContainsKey(ContextRegionHash) ||
+                     _dataToInsert.HasFlag(OptionallyEmittedData.OverwriteExistingData)))
             {
                 Location primaryLocation = node.Locations?.FirstOrDefault();
                 if (primaryLocation != null)
                 {
                     PhysicalLocation physicalLocation = primaryLocation.PhysicalLocation;
                     Uri resolvedUri = GetResolvedArtifactLocationUri(physicalLocation.ArtifactLocation);
+                    
+                    ArtifactContent contextRegionSnippet = physicalLocation.ContextRegion?.Snippet;
 
-                    Region expandedRegion = _fileRegionsCache.PopulateTextRegionProperties(physicalLocation.Region, resolvedUri, false);
-                    Region contextRegion = _fileRegionsCache.ConstructMultilineContextSnippet(expandedRegion, resolvedUri);
-
-                    if (contextRegion?.Snippet?.Text != null)
+                    if (contextRegionSnippet == null)
                     {
-                        string contextRegionHash = HashUtilities.ComputeStringSha256Hash(contextRegion.Snippet.Text);
+                        Region expandedRegion =
+                            _fileRegionsCache.PopulateTextRegionProperties(physicalLocation.Region, resolvedUri, false);
+                        contextRegionSnippet = _fileRegionsCache.ConstructMultilineContextSnippet(expandedRegion, resolvedUri)?.Snippet;
+                    }
+
+                    if (contextRegionSnippet?.Text != null)
+                    {
+                        string contextRegionHash = HashUtilities.ComputeStringSha256Hash(contextRegionSnippet.Text);
 
                         node.PartialFingerprints ??= new Dictionary<string, string>();
-
-                        if (!node.PartialFingerprints.ContainsKey(ContextRegionHash) ||
-                            _dataToInsert.HasFlag(OptionallyEmittedData.OverwriteExistingData))
-                        {
-                            SarifUtilities.AddOrUpdateDictionaryEntry(node.PartialFingerprints, ContextRegionHash, contextRegionHash);
-                        }
+                        
+                        SarifUtilities.AddOrUpdateDictionaryEntry(node.PartialFingerprints, ContextRegionHash, contextRegionHash);
                     }
                 }
             }
