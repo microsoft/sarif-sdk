@@ -235,7 +235,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         [Trait(TestTraits.WindowsOnly, "true")]
         public void InsertOptionalDataVisitor_PersistsPartialFingerPrints()
         {
-            RunTest("CoreTests-Relative.sarif", OptionallyEmittedData.PartialFingerprints);
+            RunTest("CoreTests-Relative.sarif", OptionallyEmittedData.ContextRegionSnippetPartialFingerprints);
         }
 
         [Fact]
@@ -257,7 +257,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         public void InsertOptionalDataVisitor_PartialFingerprint_DoesNotFail_TopLevelOriginalUriBaseIdUriMissing()
         {
             RunTest("TopLevelOriginalUriBaseIdUriMissing.sarif",
-                OptionallyEmittedData.PartialFingerprints);
+                OptionallyEmittedData.ContextRegionSnippetPartialFingerprints);
         }
 
         [Fact]
