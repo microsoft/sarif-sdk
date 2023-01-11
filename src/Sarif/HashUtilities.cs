@@ -150,7 +150,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             catch (UnauthorizedAccessException) { }
             return sha256Hash;
         }
-        
+
         public static string ComputeStringSha256Hash(string text)
         {
             using var sha = SHA256.Create();

@@ -238,16 +238,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             }
 
             if (_dataToInsert.HasFlag(OptionallyEmittedData.ContextRegionSnippetPartialFingerprints) &&
-                    (node.PartialFingerprints == null || 
-                     !node.PartialFingerprints.ContainsKey(ContextRegionHash) ||
-                     _dataToInsert.HasFlag(OptionallyEmittedData.OverwriteExistingData)))
+                (node.PartialFingerprints == null ||
+                 !node.PartialFingerprints.ContainsKey(ContextRegionHash) ||
+                 _dataToInsert.HasFlag(OptionallyEmittedData.OverwriteExistingData)))
             {
                 Location primaryLocation = node.Locations?.FirstOrDefault();
                 if (primaryLocation != null)
                 {
                     PhysicalLocation physicalLocation = primaryLocation.PhysicalLocation;
                     Uri resolvedUri = GetResolvedArtifactLocationUri(physicalLocation.ArtifactLocation);
-                    
+
                     ArtifactContent contextRegionSnippet = physicalLocation.ContextRegion?.Snippet;
 
                     if (contextRegionSnippet == null)
@@ -262,7 +262,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                         string contextRegionHash = HashUtilities.ComputeStringSha256Hash(contextRegionSnippet.Text);
 
                         node.PartialFingerprints ??= new Dictionary<string, string>();
-                        
+
                         SarifUtilities.AddOrUpdateDictionaryEntry(node.PartialFingerprints, ContextRegionHash, contextRegionHash);
                     }
                 }
