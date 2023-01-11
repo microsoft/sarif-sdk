@@ -16,5 +16,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         RuntimeConditions RuntimeErrors { get; set; }
 
         int Run(AnalyzeOptionsBase options);
+
+        void CheckIncompatibleRules(IEnumerable<Skimmer<TestAnalysisContext>> skimmers, TestAnalysisContext context, ISet<string> disabledSkimmers);
     }
 }
