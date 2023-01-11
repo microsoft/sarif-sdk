@@ -664,10 +664,90 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         }
 
         [Fact]
+        public void AnalyzeCommand_Traces()
+        {
+            var sb = new StringBuilder();
+
+            foreach (DefaultTraces trace in new[] { DefaultTraces.None, DefaultTraces.ScanTime, DefaultTraces.RuleScanTime })
+            {
+                var options = new TestAnalyzeOptions
+                {
+                    OutputFilePath = Guid.NewGuid().ToString(),
+                    TargetFileSpecifiers = new string[] { Guid.NewGuid().ToString() },
+                    Traces = new[] { trace.ToString() },
+                    Level = new[] { FailureLevel.Warning , FailureLevel.Note },
+                };
+
+                Run run = RunMultithreadedAnalyzeCommand(ComprehensiveKindAndLevelsByFilePath,
+                                                         generateDuplicateScanTargets: false,
+                                                         expectedResultCode: SUCCESS,
+                                                         expectedResultCount: WARNING_COUNT + NOTE_COUNT,
+                                                         options);
+
+
+                int resultCount = 0;
+                int executionNotificationsCount = 0;
+                int configurationNotificationCount = 0;
+
+                SarifHelpers.ValidateRun(
+                    run,
+                    (issue) => { resultCount++; },
+                    (toolNotification) => { executionNotificationsCount++; },
+                    (configurationNotification) => { configurationNotificationCount++; });
+
+                IList<Notification> executionNotifications = run.Invocations[0].ToolExecutionNotifications;
+
+                switch (trace)
+                {
+                    case DefaultTraces.None:
+                    {
+                        if (executionNotificationsCount > 0 || configurationNotificationCount > 0)
+                        {
+                            sb.AppendLine($"\t{trace} : observed notifications when tracing was disabled.");
+                        }
+                        break;
+                    }
+                    case DefaultTraces.ScanTime:
+                    {
+                        // There is only one end-to-end scan time notification.
+                        if (executionNotifications?.Count != 1)
+                        {
+                            sb.AppendLine($"\t{trace} : expected 1 notification but saw {executionNotifications?.Count ?? 0}.");
+                            continue;
+                        }
+
+                        if (executionNotifications?.Where(t => t.Message.Text.Contains("elapsed")).Count() != 1)
+                        {
+                            sb.AppendLine($"\t{trace} : did not observe term 'elapsed' in scan timing notifications.");
+                        }
+                        break;
+                    }
+                    case DefaultTraces.RuleScanTime:
+                    {
+                        // We expect every rule to generate timing data for every scan target.
+                        int expectedNotificationsCount = run.Tool.Driver.Rules.Count * ALL_COUNT;
+                        // We expected timing data for every rule.
+                        if (executionNotificationsCount != expectedNotificationsCount)
+                        {
+                            sb.AppendLine($"\t{trace} : expected {expectedNotificationsCount} notifications but saw {executionNotificationsCount}.");
+                            continue;
+                        }
+
+                        if (executionNotifications?.Where(t => t.Message.Text.Contains("elapsed")).Count() != 1)
+                        {
+                            sb.AppendLine($"\t{trace} : did not observe term 'elapsed' in rule timing notifications.");
+                        }
+                        break;
+                    }
+                }
+            }
+            sb.Length.Should().Be(0, $"test cases failed : {Environment.NewLine}{sb}");
+        }
+
+        [Fact]
         public void AnalyzeCommandBase_DefaultEndToEndAnalysis()
         {
             string location = GetThisTestAssemblyFilePath();
-
             Run run = AnalyzeFile(location, TestRuleBehaviors.LogError);
 
             int resultCount = 0;
@@ -1729,10 +1809,21 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
         private static readonly string rootDir = $"{Environment.CurrentDirectory}{Path.DirectorySeparatorChar}";
 
-        private static readonly IList<string> ComprehensiveKindAndLevelsByFilePath = new List<string>
-        {
-            
+        private const int OPEN_COUNT = 1;
+        private const int ERROR_COUNT = 5;
+        private const int NOTE_COUNT = 3;
+        private const int PASS_COUNT = 4;
+        private const int REVIEW_COUNT = 2;
+        private const int WARNING_COUNT = 2;
+        private const int INFORMATIONAL_COUNT = 1;
+        private const int NOT_APPLICABLE_COUNT = 2;
 
+        private const int ALL_COUNT =
+            OPEN_COUNT + ERROR_COUNT + NOTE_COUNT + PASS_COUNT + REVIEW_COUNT +
+            WARNING_COUNT + INFORMATIONAL_COUNT + NOT_APPLICABLE_COUNT;
+
+        private static readonly IList<string> ComprehensiveKindAndLevelsByFilePath = new List<string>
+        {            
             // Every one of these files will be regarded as identical in content by level/kind. So every file
             // with 'Error' as a prefix should produce an error result, whether using results caching or not.
             // We distinguish file names as this is required in the actual scenario, i.e., when 'replaying'
@@ -1746,21 +1837,21 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             $"{rootDir}Error.3.of.5.exe",
             $"{rootDir}Error.4.of.5.h",
             $"{rootDir}Error.5.of.5.sys",
-            $"{rootDir}Warning.1.of.2.java",
-            $"{rootDir}Warning.2.of.2.cs",
+            $"{rootDir}Informational.1.of.1.sys",
             $"{rootDir}Note.1.of.3.dll",
             $"{rootDir}Note.2.of.3.exe",
-            $"{rootDir}Note.3.of.3jar",
+            $"{rootDir}Note.3.of.3.jar",
+            $"{rootDir}NotApplicable.1.of.2.js",
+            $"{rootDir}NotApplicable.2.of.2.exe",
+            $"{rootDir}Open.1.of.1.cab",
             $"{rootDir}Pass.1.of.4.cs",
             $"{rootDir}Pass.2.of.4.cpp",
             $"{rootDir}Pass.3.of.4.exe",
             $"{rootDir}Pass.4.of.4.dll",
-            $"{rootDir}NotApplicable.1.of.2.js",
-            $"{rootDir}NotApplicable.2.of.2.exe",
-            $"{rootDir}Informational.1.of.1.sys",
-            $"{rootDir}Open.1.of.1.cab",
             $"{rootDir}Review.1.of.2.txt",
-            $"{rootDir}Review.2.of.2.dll"
+            $"{rootDir}Review.2.of.2.dll",
+            $"{rootDir}Warning.1.of.2.java",
+            $"{rootDir}Warning.2.of.2.cs",
         };
 
         private static void RunResultsCachingTestCase(ResultsCachingTestCase testCase,
@@ -1943,10 +2034,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 : JsonConvert.DeserializeObject<SarifLog>(File.ReadAllText(options.OutputFilePath));
         }
 
-        private static void RunMultithreadedAnalyzeCommand(IList<string> files,
+        private static Run RunMultithreadedAnalyzeCommand(IList<string> files,
                                                            bool generateDuplicateScanTargets,
                                                            int expectedResultCode,
-                                                           int expectedResultCount)
+                                                           int expectedResultCount,
+                                                           TestAnalyzeOptions options = null)
         {
             var testCase = new ResultsCachingTestCase
             {
@@ -1955,7 +2047,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 FileSystem = CreateDefaultFileSystemForResultsCaching(files, generateDuplicateScanTargets)
             };
 
-            var options = new TestAnalyzeOptions
+            options ??= new TestAnalyzeOptions
             {
                 OutputFilePath = Guid.NewGuid().ToString(),
                 TargetFileSpecifiers = new string[] { Guid.NewGuid().ToString() },
@@ -1980,14 +2072,18 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 SarifLog sarifLog = JsonConvert.DeserializeObject<SarifLog>(File.ReadAllText(options.OutputFilePath));
                 sarifLog.Runs[0].Results.Count.Should().Be(expectedResultCount);
 
-                HashSet<string> hashes = new HashSet<string>();
-                foreach (Artifact artifact in sarifLog.Runs[0].Artifacts)
+                if (options.InsertProperties?.Where(p => p == "Hashes").Any() == true)
                 {
-                    hashes.Add(artifact.Hashes["sha-256"]);
-                }
+                    HashSet<string> hashes = new HashSet<string>();
+                    foreach (Artifact artifact in sarifLog.Runs[0].Artifacts)
+                    {
+                        hashes.Add(artifact.Hashes["sha-256"]);
+                    }
 
-                int expectedUniqueFileHashCount = generateDuplicateScanTargets ? 1 : expectedResultCount;
-                hashes.Count.Should().Be(expectedUniqueFileHashCount);
+                    int expectedUniqueFileHashCount = generateDuplicateScanTargets ? 1 : expectedResultCount;
+                    hashes.Count.Should().Be(expectedUniqueFileHashCount);
+                }
+                return sarifLog.Runs[0];
             }
             finally
             {
