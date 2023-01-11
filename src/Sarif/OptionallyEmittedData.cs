@@ -79,7 +79,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         // Enrich SARIF log with git blame information
         GitBlameInformation = 0x1000,
-        
+
         // Enrich SARIF log with partial fingerprint based on the hash value of the context region snippet (sha256)
         ContextRegionSnippetPartialFingerprints = 0x2000,
 

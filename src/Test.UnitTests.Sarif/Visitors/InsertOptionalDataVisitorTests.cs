@@ -230,7 +230,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 OptionallyEmittedData.TextFiles |
                 OptionallyEmittedData.Hashes);
         }
-        
+
         [Fact]
         [Trait(TestTraits.WindowsOnly, "true")]
         public void InsertOptionalDataVisitor_PersistsPartialFingerPrints()
@@ -252,7 +252,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             RunTest("TopLevelOriginalUriBaseIdUriMissing.sarif",
                 OptionallyEmittedData.ContextRegionSnippets);
         }
-        
+
         [Fact]
         public void InsertOptionalDataVisitor_PartialFingerprint_DoesNotFail_TopLevelOriginalUriBaseIdUriMissing()
         {
