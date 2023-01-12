@@ -32,6 +32,17 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
         }
 
+        public override AnalysisApplicability CanAnalyze(TestAnalysisContext context, out string reasonIfNotApplicable)
+        {
+            if (context.TargetUri.ToString().Contains("notapplicable", System.StringComparison.OrdinalIgnoreCase))
+            {
+                reasonIfNotApplicable = "Test conventions indicate this file should be regarded as invalid for scanning.";
+                return AnalysisApplicability.NotApplicableToSpecifiedTarget;
+            }
+
+            return base.CanAnalyze(context, out reasonIfNotApplicable);
+        }
+
         public IEnumerable<IOption> GetOptions()
         {
             return new IOption[] { Behaviors, UnusedOption };

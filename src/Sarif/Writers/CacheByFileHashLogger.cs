@@ -3,6 +3,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Data;
 
 namespace Microsoft.CodeAnalysis.Sarif.Writers
 {
@@ -88,7 +89,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             notifications.Add(notification);
         }
 
-        public void LogToolNotification(Notification notification)
+        public void LogToolNotification(Notification notification, ReportingDescriptor associatedRule)
         {
             //  In case someone adds something here:
             if (!ShouldLog(notification))

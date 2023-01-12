@@ -353,9 +353,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
             if (cachingLogger.ToolNotifications != null)
             {
-                foreach (Notification notification in cachingLogger.ToolNotifications)
+                foreach (Tuple<Notification, ReportingDescriptor> tuple in cachingLogger.ToolNotifications)
                 {
-                    rootContext.Logger.LogToolNotification(notification);
+                    rootContext.Logger.LogToolNotification(tuple.Item1, tuple.Item2);
                 }
             }
 
@@ -1077,7 +1077,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                                 {
                                     Text = timing,
                                 },
-                            });
+                            },
+                            skimmer);
                     }
 
                 }

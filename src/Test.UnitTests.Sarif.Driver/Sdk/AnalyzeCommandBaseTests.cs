@@ -724,8 +724,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                     }
                     case DefaultTraces.RuleScanTime:
                     {
-                        // We expect every rule to generate timing data for every scan target.
-                        int expectedNotificationsCount = run.Tool.Driver.Rules.Count * ALL_COUNT;
+                        // We expect every rule to generate timing data for every applicable scan target.
+                        int rulesCount = run.Tool.Driver.Rules.Count;
+                        int validTargetsCount = ALL_COUNT - NOT_APPLICABLE_COUNT;
+                        int expectedNotificationsCount = rulesCount * validTargetsCount;
+
                         // We expected timing data for every rule.
                         if (executionNotificationsCount != expectedNotificationsCount)
                         {
@@ -733,10 +736,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                             continue;
                         }
 
-                        if (executionNotifications?.Where(t => t.Message.Text.Contains("elapsed")).Count() != 1)
+                        if (executionNotifications?.Where(t => t.Message.Text.Contains("elapsed")).Count() != expectedNotificationsCount)
                         {
                             sb.AppendLine($"\t{trace} : did not observe term 'elapsed' in rule timing notifications.");
                         }
+
+                        if (executionNotifications?.GroupBy(t => t.AssociatedRule.Id).Count() != rulesCount)
+                        {
+                            sb.AppendLine($"\t{trace} : did not observe timing notifications for every rule.");
+                        }
+
                         break;
                     }
                 }
