@@ -1,6 +1,7 @@
 ﻿// Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 
@@ -18,6 +19,15 @@ namespace Microsoft.CodeAnalysis.Sarif
         public const int DefaultCacheCapacity = 100;
         private readonly IFileSystem _fileSystem;
         internal readonly Cache<string, Tuple<string, NewLineIndex>> _cache;
+        internal readonly Cache<string, Dictionary<int, string>> _rollingHashesCache;
+
+        private static readonly int tab = (int)"\t"[0];
+        private static readonly int space = (int)" "[0];
+        private static readonly int lf = (int)"\n"[0];
+        private static readonly int cr = (int)"\r"[0];
+        private static readonly int EOF = 65535;
+        private static readonly int BLOCK_SIZE = 100;
+        private static readonly long MOD = (long)37;
 
         /// <summary>
         /// Creates a new <see cref="FileRegionsCache"/> object.
@@ -34,6 +44,9 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             // Build a cache for this data, with the load method it should use to add new entries
             _cache = new Cache<string, Tuple<string, NewLineIndex>>(BuildIndexForFile, capacity);
+
+            // Build a cache of rolling hashes (partial hash per line) for this data
+            _rollingHashesCache = new Cache<string, Dictionary<int, string>>(BuildRollingHashIndexForFile, capacity);
         }
 
         /// <summary>
@@ -91,6 +104,150 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             this._cache.Clear();
         }
+
+        public Region SuvamTest(
+            Region inputRegion,
+            string fileText = null)
+        {
+            NewLineIndex index = null;
+            index = new NewLineIndex(fileText);
+
+            return inputRegion;
+        }
+
+        private long ComputeFirstMod()
+        {
+            long firstMod = (long)1;
+            for (int i = 0; i < BLOCK_SIZE; i++)
+            {
+                firstMod = firstMod * MOD;
+            }
+            return firstMod;
+        }
+
+        private void Hash(Uri uri)
+        {
+            string filePath = uri.GetFilePath();
+
+            if (!_rollingHashesCache.ContainsKey(filePath))
+            {
+                _rollingHashesCache[filePath] = new Dictionary<int, string>();
+            }
+
+            // Check if we have already computed the rolling hashes for this file.    
+            if (_rollingHashesCache[filePath].Count > 0)
+            {
+                return;
+            }
+
+            // A rolling view into the input
+            int[] window = new int[BLOCK_SIZE];
+
+            int[] lineNumbers = new int[BLOCK_SIZE];
+            for (int i = 0; i < lineNumbers.Length; i++)
+            {
+                lineNumbers[i] = -1;
+            }
+
+            long hashRaw = (long)0;
+            long firstMod = ComputeFirstMod();
+
+            // The current index in the window, will wrap around to zero when we reach BLOCK_SIZE
+            int index = 0;
+            // The line number of the character we are currently processing from the input
+            int lineNumber = 0;
+            // Is the next character to be read the start of a new line
+            bool lineStart = true;
+            // Was the previous character a CR (carriage return)
+            bool prevCR = false;
+
+            Dictionary<string, int> hashCounts = new Dictionary<string, int>();
+
+            // Output the current hash and line number to the cache
+            Action outputHash = () =>
+            {
+                string hashValue = Convert.ToString((ulong)hashRaw);
+
+                if (!hashCounts.ContainsKey(hashValue))
+                {
+                    hashCounts[hashValue] = 0;
+                }
+
+                hashCounts[hashValue]++;
+                _rollingHashesCache[filePath][lineNumbers[index]] = $"{hashValue}:{hashCounts[hashValue]}";
+            };
+
+            // Update the current hash value and increment the index in the window
+            Action<int> updateHash = (current) =>
+            {
+                int begin = window[index];
+                window[index] = current;
+
+                hashRaw = (MOD * hashRaw) + (long)current - (firstMod * (long)begin);
+
+                index = (index + 1) % BLOCK_SIZE;
+            };
+
+            // First process every character in the input, updating the hash and lineNumbers
+            // as we go. Once we reach a point in the window again then we've processed
+            // BLOCK_SIZE characters and if the last character at this point in the window
+            // was the start of a line then we should output the hash for that line.
+            Action<int> processCharacter = (current) =>
+            {
+                // skip tabs, spaces, and line feeds that come directly after a carriage return
+                if (current == space || current == tab || (prevCR && current == lf))
+                {
+                    prevCR = false;
+                    return;
+                }
+                // replace CR with LF
+                if (current == cr)
+                {
+                    current = lf;
+                    prevCR = true;
+                }
+                else
+                {
+                    prevCR = false;
+                }
+                if (lineNumbers[index] != -1)
+                {
+                    outputHash();
+                }
+                if (lineStart)
+                {
+                    lineStart = false;
+                    lineNumber++;
+                    lineNumbers[index] = lineNumber;
+                }
+                if (current == lf)
+                {
+                    lineStart = true;
+                }
+                updateHash(current);
+            };
+
+            string fileText = null;
+            try
+            {
+                if (_fileSystem.FileExists(filePath))
+                {
+                    fileText = _fileSystem.FileReadAllText(filePath);
+                }
+            }
+            catch (IOException) { }
+
+            if (fileText != null)
+            {
+                for (int i = 0; i < fileText.Length; i++)
+                {
+                    processCharacter(fileText[i]);
+                }
+
+                processCharacter(EOF);
+            }
+        }
+
 
         private Region PopulateTextRegionProperties(NewLineIndex lineIndex, Region inputRegion, string fileText, bool populateSnippet)
         {
@@ -400,6 +557,36 @@ namespace Microsoft.CodeAnalysis.Sarif
             }
 
             return new Tuple<string, NewLineIndex>(fileText, index);
+        }
+
+        /// <summary>
+        ///  Method to build cache entries which aren't already in the cache.
+        /// </summary>
+        /// <param name="localPath">Uri.LocalPath for the file to load</param>
+        /// <returns>Initialize a file in the cache with empty rolling hash index.</returns>
+        private Dictionary<int, string> BuildRollingHashIndexForFile(string localPath)
+        {
+            string fileText = null;
+            NewLineIndex index = null;
+
+            // We will expand this code later to construct all possible URLs from
+            // the log file, bearing in mind things like uriBaseIds. Also, we could
+            // consider downloading and caching web-hosted source files.
+            try
+            {
+                if (_fileSystem.FileExists(localPath))
+                {
+                    fileText = _fileSystem.FileReadAllText(localPath);
+                }
+            }
+            catch (IOException) { }
+
+            if (fileText != null)
+            {
+                index = new NewLineIndex(fileText);
+            }
+
+            return new Dictionary<int, string>();
         }
 
         private static void Assert(bool condition)
