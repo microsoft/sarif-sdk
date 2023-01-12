@@ -675,7 +675,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                     OutputFilePath = Guid.NewGuid().ToString(),
                     TargetFileSpecifiers = new string[] { Guid.NewGuid().ToString() },
                     Traces = new[] { trace.ToString() },
-                    Level = new[] { FailureLevel.Warning , FailureLevel.Note },
+                    Level = new[] { FailureLevel.Warning, FailureLevel.Note },
                 };
 
                 Run run = RunMultithreadedAnalyzeCommand(ComprehensiveKindAndLevelsByFilePath,
@@ -2122,6 +2122,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             public ResultsCachingTestCase()
             {
                 ExpectedReturnCode = SUCCESS;
+
+                // Currently, we enable the TestRule by default as well as FunctionlessTestRule.
+                // FunctionlessTest rule never emits a result, exception for one case, it
+                // honors the 'not applicable' designation to drop analysis for that scenario.
+                RulesCount = 2;
             }
 
             public bool Verbose;
@@ -2139,6 +2144,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             }
 
             public int ExpectedReturnCode;
+
+            public int RulesCount;
 
             public int ExpectedResultsCount =>
                 // Non-verbose results
@@ -2182,7 +2189,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 : 0;
 
             public int ExpectedNotApplicableCount => Verbose
-                ? Files.Where((f) => f.Contains("NotApplicable")).Count()
+                ? (Files.Where((f) => f.Contains("NotApplicable")).Count() * RulesCount)
                 : 0;
 
             public bool PersistLogFileToDisk;

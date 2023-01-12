@@ -24,6 +24,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         protected override IEnumerable<string> MessageResourceNames => new List<string>
         {
+            nameof(SkimmerBaseTestResources.NotApplicable_InvalidMetadata)
         };
 
         public override MultiformatMessageString FullDescription => new MultiformatMessageString { Text = "This is the full description for TEST1002" };
@@ -34,9 +35,11 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         public override AnalysisApplicability CanAnalyze(TestAnalysisContext context, out string reasonIfNotApplicable)
         {
-            if (context.TargetUri.ToString().Contains("notapplicable", System.StringComparison.OrdinalIgnoreCase))
+            string fileName = context.TargetUri.ToString();
+
+            if (fileName.Contains("NotApplicable"))
             {
-                reasonIfNotApplicable = "Test conventions indicate this file should be regarded as invalid for scanning.";
+                reasonIfNotApplicable = "test was configured to find target not applicable";
                 return AnalysisApplicability.NotApplicableToSpecifiedTarget;
             }
 

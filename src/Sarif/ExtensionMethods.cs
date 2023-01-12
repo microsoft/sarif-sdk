@@ -4,8 +4,10 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Dynamic;
 using System.Globalization;
 using System.Linq;
+using System.Text;
 using System.Text.RegularExpressions;
 using System.Xml;
 
@@ -15,6 +17,18 @@ namespace Microsoft.CodeAnalysis.Sarif
 {
     public static class ExtensionMethods
     {
+        public static string ToString(this IEnumerable<Result> results)
+        {
+            var sb = new StringBuilder();
+
+            foreach (Result result in results)
+            {
+                sb.AppendLine(result.ToString());
+            }
+
+            return sb.ToString();
+        }
+
         public static IEnumerable<SarifLog> Split(this SarifLog sarifLog, SplittingStrategy splittingStrategy)
         {
             PartitionFunction<string> partitionFunction = null;

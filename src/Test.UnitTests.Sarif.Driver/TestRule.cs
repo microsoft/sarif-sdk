@@ -126,7 +126,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             if (fileName.Contains("NotApplicable"))
             {
-                reasonIfNotApplicable = "test was configured to find target not applicable.";
+                reasonIfNotApplicable = "test was configured to find target not applicable";
                 applicability = AnalysisApplicability.NotApplicableToSpecifiedTarget;
             }
 
