@@ -6,6 +6,7 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
+using System.Reflection;
 using System.Security.Cryptography;
 using System.Threading.Tasks;
 
@@ -13,14 +14,6 @@ namespace Microsoft.CodeAnalysis.Sarif
 {
     public static class HashUtilities
     {
-        private static int tab = (int)"\t"[0];
-        private static int space = (int)" "[0];
-        private static int lf = (int)"\n"[0];
-        private static int cr = (int)"\r"[0];
-        private static int EOF = 65535;
-        private static int BLOCK_SIZE = 100;
-        private static long MOD = (long)37;
-
         static HashUtilities() => FileSystem = Sarif.FileSystem.Instance;
 
         private static IFileSystem _fileSystem;
@@ -35,16 +28,6 @@ namespace Microsoft.CodeAnalysis.Sarif
             {
                 _fileSystem = value;
             }
-        }
-
-        private static long ComputeFirstMod()
-        {
-            long firstMod = (long)1;
-            for (int i=0; i < BLOCK_SIZE; i++)
-            {
-                firstMod = firstMod * MOD;
-            }
-            return firstMod;
         }
 
         public static IDictionary<string, HashData> MultithreadedComputeTargetFileHashes(IEnumerable<string> analysisTargets, bool suppressConsoleOutput = false)
