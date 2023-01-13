@@ -30,6 +30,6 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         DefaultTraces Traces { get; set; }
 
-        int MaxFileSizeInKilobytes { get; set; }
+        long MaxFileSizeInKilobytes { get; set; }
     }
 }

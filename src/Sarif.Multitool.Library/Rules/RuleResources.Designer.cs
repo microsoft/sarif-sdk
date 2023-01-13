@@ -200,6 +200,24 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0}: The &apos;text&apos; property of this result message is absent. GitHub Advanced Security code scanning will reject this file because it does not support the argumented message now. Try to provide fully formatted text in &apos;message.text&apos; property..
+        /// </summary>
+        internal static string GH1007_ProvideFullyFormattedMessageStrings_Error_Default_Text {
+            get {
+                return ResourceManager.GetString("GH1007_ProvideFullyFormattedMessageStrings_Error_Default_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to GitHub Advanced Security code scanning will reject a SARIF file that express result messages with &apos;message.id&apos; and &apos;message.arguments&apos; but without the &apos;message.text&apos; property since the arugmented message format is not supported yet. Please provide fully formatted text in &apos;message.text&apos; property..
+        /// </summary>
+        internal static string GH1007_ProvideFullyFormattedMessageStrings_FullDescription_Text {
+            get {
+                return ResourceManager.GetString("GH1007_ProvideFullyFormattedMessageStrings_FullDescription_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The two identity-related properties of a SARIF rule must be consistent. The required &apos;id&apos; property must be a &quot;stable, opaque identifier&quot; (the SARIF specification ([3.49.3](https://docs.oasis-open.org/sarif/sarif/v2.1.0/os/sarif-v2.1.0-os.html#_Toc34317839)) explains the reasons for this). The optional &apos;name&apos; property ([3.49.7](https://docs.oasis-open.org/sarif/sarif/v2.1.0/os/sarif-v2.1.0-os.html#_Toc34317843)) is an identifier that is understandable to an end user. Therefore if both &apos;id&apos; and &apos;name&apos; are pre [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string SARIF1001_RuleIdentifiersMustBeValid_FullDescription_Text {
