@@ -61,11 +61,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             }
         }
 
-        public void LogToolNotification(Notification notification)
+        public void LogToolNotification(Notification notification, ReportingDescriptor associatedRule)
         {
             foreach (IAnalysisLogger logger in Loggers)
             {
-                logger.LogToolNotification(notification);
+                logger.LogToolNotification(notification, associatedRule);
             }
         }
 

@@ -249,7 +249,17 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
             if (rootContext.Traces.HasFlag(DefaultTraces.ScanTime))
             {
-                Console.WriteLine($"Done. {_fileContextsCount:n0} files scanned in {sw.Elapsed}.");
+                string timing = $"Done. {_fileContextsCount:n0} files scanned, elapsed time {sw.Elapsed}.";
+
+                rootContext.Logger.LogToolNotification(
+                    new Notification
+                    {
+                        Level = FailureLevel.Note,
+                        Message = new Message
+                        {
+                            Text = timing,
+                        },
+                    });
             }
             else
             {
@@ -343,9 +353,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
             if (cachingLogger.ToolNotifications != null)
             {
-                foreach (Notification notification in cachingLogger.ToolNotifications)
+                foreach (Tuple<Notification, ReportingDescriptor> tuple in cachingLogger.ToolNotifications)
                 {
-                    rootContext.Logger.LogToolNotification(notification);
+                    rootContext.Logger.LogToolNotification(tuple.Item1, tuple.Item2);
                 }
             }
 
@@ -659,6 +669,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 Logger = logger,
                 RuntimeErrors = runtimeErrors,
             };
+
+            context.Traces =
+                options.Traces.Any() ?
+                    (DefaultTraces)Enum.Parse(typeof(DefaultTraces), string.Join(",", options.Traces)) :
+                    DefaultTraces.None;
 
             context.MaxFileSizeInKilobytes =
                 options.MaxFileSizeInKilobytes >= 0
@@ -1041,7 +1056,31 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
                 try
                 {
+                    Stopwatch stopwatch = context.Traces.HasFlag(DefaultTraces.RuleScanTime)
+                        ? Stopwatch.StartNew()
+                        : null;
+
                     skimmer.Analyze(context);
+
+                    if (stopwatch != null && context.TargetUri.IsAbsoluteUri)
+                    {
+                        string file = context.TargetUri.LocalPath;
+                        string directory = Path.GetDirectoryName(file);
+                        file = Path.GetFileName(file);
+                        string timing = $"'{file}' : elapsed {stopwatch.Elapsed} : '{skimmer.Name}' : at '{directory}'";
+
+                        context.Logger.LogToolNotification(
+                            new Notification
+                            {
+                                Level = FailureLevel.Warning,
+                                Message = new Message
+                                {
+                                    Text = timing,
+                                },
+                            },
+                            skimmer);
+                    }
+
                 }
                 catch (Exception ex)
                 {

@@ -462,7 +462,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         {
         }
 
-        public void LogToolNotification(Notification notification)
+        public void LogToolNotification(Notification notification, ReportingDescriptor associatedRule)
         {
             if (!ShouldLog(notification))
             {
@@ -479,6 +479,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             _run.Invocations[0].ExecutionSuccessful &= notification.Level != FailureLevel.Error;
 
             CaptureFilesInNotification(notification);
+
+            if (associatedRule != null)
+            {
+                int ruleIndex = LogRule(associatedRule);
+                notification.AssociatedRule = new ReportingDescriptorReference
+                {
+                    Index = ruleIndex,
+                    Id = associatedRule.Id,
+                };
+            }
         }
 
         public void LogConfigurationNotification(Notification notification)
