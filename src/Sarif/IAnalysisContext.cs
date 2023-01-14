@@ -20,7 +20,6 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         ReportingDescriptor Rule { get; set; }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         PropertiesDictionary Policy { get; set; }
 
         IAnalysisLogger Logger { get; set; }

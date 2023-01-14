@@ -247,7 +247,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
             Console.WriteLine();
 
-            if (rootContext.Traces.HasFlag(DefaultTraces.ScanTime))
+            if (rootContext.Traces.Contains(nameof(DefaultTraces.ScanTime)))
             {
                 string timing = $"Done. {_fileContextsCount:n0} files scanned, elapsed time {sw.Elapsed}.";
 
@@ -665,26 +665,22 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         {
             var context = new TContext
             {
-                Policy = policy ?? new PropertiesDictionary(),
                 Logger = logger,
                 RuntimeErrors = runtimeErrors,
-            };
+                Policy = policy ?? new PropertiesDictionary(),
 
-            context.Traces =
-                options.Traces.Any() ?
-                    (DefaultTraces)Enum.Parse(typeof(DefaultTraces), string.Join(",", options.Traces)) :
-                    DefaultTraces.None;
+                Traces = options.Traces.Any()
+                    ? new HashSet<string>(options.Traces)
+                    : null,
 
-            context.MaxFileSizeInKilobytes =
-                options.MaxFileSizeInKilobytes >= 0
+                MaxFileSizeInKilobytes = options.MaxFileSizeInKilobytes >= 0
                     ? options.MaxFileSizeInKilobytes
-                    : AnalyzeContextBase.MaxFileSizeInKilobytesDefaultValue;
+                    : AnalyzeContextBase.MaxFileSizeInKilobytesDefaultValue,
 
-
-            if (filePath != null)
-            {
-                context.TargetUri = new Uri(filePath);
-            }
+                TargetUri = filePath != null
+                    ? new Uri(filePath)
+                    : null
+            };
 
             return context;
         }
@@ -1056,7 +1052,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
                 try
                 {
-                    Stopwatch stopwatch = context.Traces.HasFlag(DefaultTraces.RuleScanTime)
+                    Stopwatch stopwatch = context.Traces.Contains(nameof(DefaultTraces.RuleScanTime))
                         ? Stopwatch.StartNew()
                         : null;
 
