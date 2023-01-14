@@ -21,8 +21,8 @@ namespace Microsoft.CodeAnalysis.Sarif
         private static readonly bool BOOL_NONDEFAULT = false;
         private static readonly StringSet STRINGSET_DEFAULT = new StringSet(new string[] { "a", "b", "c" });
         private static readonly StringSet STRINGSET_NONDEFAULT = new StringSet(new string[] { "d", "e", "f" });
-        private static readonly IntegerSet INTEGERSET_DEFAULT = new IntegerSet(new int[] { -1, 0, 1, 2 });
-        private static readonly IntegerSet INTEGERSET_NONDEFAULT = new IntegerSet(new int[] { -3, 0, 6, 9 });
+        private static readonly ISet INTEGERSET_DEFAULT = new ISet(new int[] { -1, 0, 1, 2 });
+        private static readonly ISet INTEGERSET_NONDEFAULT = new ISet(new int[] { -3, 0, 6, 9 });
         private static readonly PropertiesDictionary PROPERTIES_DEFAULT = new PropertiesDictionary
         {
             { "TestKey", "TestValue" }
@@ -307,12 +307,12 @@ namespace Microsoft.CodeAnalysis.Sarif
             new PerLanguageOption<StringSet>(
                 FEATURE, nameof(StringSetProperty) + i, defaultValue: () => { return STRINGSET_DEFAULT; }, description);
 
-        public static PerLanguageOption<IntegerSet> IntegerSetProperty { get; } =
-            new PerLanguageOption<IntegerSet>(
+        public static PerLanguageOption<ISet> IntegerSetProperty { get; } =
+            new PerLanguageOption<ISet>(
                 FEATURE, nameof(IntegerSetProperty), defaultValue: () => { return INTEGERSET_DEFAULT; });
 
-        public static PerLanguageOption<IntegerSet> GenerateIntegerSetProperty(int i, string description = null) =>
-            new PerLanguageOption<IntegerSet>(
+        public static PerLanguageOption<ISet> GenerateIntegerSetProperty(int i, string description = null) =>
+            new PerLanguageOption<ISet>(
                 FEATURE, nameof(IntegerSetProperty) + i, defaultValue: () => { return INTEGERSET_DEFAULT; }, description);
 
         public static PerLanguageOption<PropertiesDictionary> PropertiesDictionaryProperty { get; } =

@@ -28,7 +28,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
         public override bool AnalysisComplete { get; set; }
 
-        public override DefaultTraces Traces { get; set; }
+        public override ISet<string> Traces { get; set; }
 
         public override void Dispose() { }
     }

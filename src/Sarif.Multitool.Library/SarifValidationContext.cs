@@ -92,7 +92,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
         public JToken InputLogToken { get; internal set; }
 
-        public override DefaultTraces Traces { get; set; }
+        public override ISet<string> Traces { get; set; }
 
         public override void Dispose()
         {

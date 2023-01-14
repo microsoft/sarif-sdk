@@ -24,7 +24,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         public override bool CanConvert(Type objectType)
         {
             return objectType == typeof(StringSet) ||
-                   objectType == typeof(IntegerSet) ||
+                   objectType == typeof(ISet) ||
                    objectType == typeof(PropertiesDictionary) ||
                    objectType == typeof(IDictionary);
         }
@@ -38,10 +38,10 @@ namespace Microsoft.CodeAnalysis.Sarif
                 ja = JArray.Load(reader);
                 return new StringSet(ja.Values().Select(token => token.ToString()));
             }
-            else if (objectType == typeof(IntegerSet))
+            else if (objectType == typeof(ISet))
             {
                 ja = JArray.Load(reader);
-                return new IntegerSet(ja.Values().Select(token => int.Parse(token.ToString())));
+                return new ISet(ja.Values().Select(token => int.Parse(token.ToString())));
             }
             else if (objectType == typeof(Version))
             {
@@ -83,7 +83,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                         ja = (JArray)property.Value;
                         if (ja.Children().First().Type == JTokenType.Integer)
                         {
-                            result[key] = token.ToObject<IntegerSet>(serializer);
+                            result[key] = token.ToObject<ISet>(serializer);
                         }
                         else
                         {
@@ -106,7 +106,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 ja = new JArray(stringSet.Select(i => new JValue(i)));
                 ja.WriteTo(writer);
             }
-            else if (value is IntegerSet integetSet)
+            else if (value is ISet integetSet)
             {
                 ja = new JArray(integetSet.Select(i => new JValue(i)));
                 ja.WriteTo(writer);
@@ -123,7 +123,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                     object dictionaryValue = dictionary[key];
 
                     if (dictionaryValue is IDictionary ||
-                        dictionaryValue is IntegerSet ||
+                        dictionaryValue is ISet ||
                         dictionaryValue is StringSet)
                     {
                         WriteJson(writer, dictionaryValue, serializer);

@@ -88,7 +88,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                     continue;
                 }
 
-                IntegerSet integerSet = property as IntegerSet;
+                ISet integerSet = property as ISet;
                 if (integerSet != null)
                 {
                     SaveSet(writer, integerSet, key);
@@ -228,7 +228,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                         }
                         else
                         {
-                            IntegerSet set = new IntegerSet();
+                            ISet set = new ISet();
                             propertyBag[key] = set;
                             LoadSet(set, reader);
                         }

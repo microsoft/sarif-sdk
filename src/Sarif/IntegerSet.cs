@@ -11,13 +11,13 @@ namespace Microsoft.CodeAnalysis.Sarif
 {
     [Serializable]
     [JsonConverter(typeof(TypedPropertiesDictionaryConverter))]
-    public class IntegerSet : HashSet<int>
+    public class ISet : HashSet<int>
     {
-        public IntegerSet() { }
+        public ISet() { }
 
-        public IntegerSet(IEnumerable<int> values) : base(values) { }
+        public ISet(IEnumerable<int> values) : base(values) { }
 
-        protected IntegerSet(SerializationInfo info, StreamingContext context)
+        protected ISet(SerializationInfo info, StreamingContext context)
             : base(info, context)
         {
         }
