@@ -54,7 +54,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         {
             long size = Math.Max(FileSystem.FileInfoLength(path), 1024);
             size = Math.Min(long.MaxValue - 1023, size);
-            fileSizeInKb = (size + 1023)/ 1024;
+            fileSizeInKb = (size + 1023) / 1024;
             return fileSizeInKb <= maxFileSizeInKB;
         }
 
