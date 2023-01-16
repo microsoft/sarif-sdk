@@ -233,7 +233,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
         [Fact]
         [Trait(TestTraits.WindowsOnly, "true")]
-        public void InsertOptionalDataVisitor_PersistsPartialFingerPrints()
+        public void InsertOptionalDataVisitor_PersistsContextRegionSnippetPartialFingerprints()
         {
             RunTest("CoreTests-Relative.sarif", OptionallyEmittedData.ContextRegionSnippetPartialFingerprints);
         }
@@ -251,13 +251,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         {
             RunTest("TopLevelOriginalUriBaseIdUriMissing.sarif",
                 OptionallyEmittedData.ContextRegionSnippets);
-        }
-
-        [Fact]
-        public void InsertOptionalDataVisitor_PartialFingerprint_DoesNotFail_TopLevelOriginalUriBaseIdUriMissing()
-        {
-            RunTest("TopLevelOriginalUriBaseIdUriMissing.sarif",
-                OptionallyEmittedData.ContextRegionSnippetPartialFingerprints);
         }
 
         [Fact]
@@ -446,6 +439,137 @@ Three";
 
                 run.Results[0].Locations[0].PhysicalLocation.Region.Snippet.Text.Should().Be(ExpectedSnippet);
             }
+        }
+
+        [Fact]
+        public void InsertOptionalDataVisitor_ContextRegionSnippetPartialFingerprintsFromExistingContextRegionSnippet()
+        {
+            string fileName = TempFile.CreateTempName();
+            string fileDirectory = Path.GetDirectoryName(fileName);
+
+            const string ContextRegionSnippet =
+@"One
+Two
+Three";
+            string expectedPartialFingerprintHash = HashUtilities.ComputeStringSha256Hash(ContextRegionSnippet);
+
+            var run = new Run
+            {
+                OriginalUriBaseIds =
+                    new Dictionary<string, ArtifactLocation>
+                    {
+                        [TestData.TestRootBaseId] = new ArtifactLocation
+                        {
+                            Uri = new Uri(fileDirectory, UriKind.Absolute)
+                        }
+                    },
+                Results = new List<Result>
+                {
+                    new Result
+                    {
+                        Locations = new List<Location>
+                        {
+                            new Location
+                            {
+                                PhysicalLocation = new PhysicalLocation
+                                {
+                                    ArtifactLocation = new ArtifactLocation
+                                    {
+                                        Uri = new Uri(fileName, UriKind.Relative),
+                                        UriBaseId = TestData.TestRootBaseId
+                                    },
+                                    ContextRegion = new Region
+                                    {
+                                        Snippet = new ArtifactContent
+                                        {
+                                            Text = ContextRegionSnippet
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            };
+
+            var visitor = new InsertOptionalDataVisitor(OptionallyEmittedData.ContextRegionSnippetPartialFingerprints,
+                run, insertProperties: null);
+
+            visitor.VisitResult(run.Results[0]);
+
+            run.Results[0].PartialFingerprints[InsertOptionalDataVisitor.ContextRegionHash].Should()
+                .Be(expectedPartialFingerprintHash);
+        }
+
+        [Theory]
+        [InlineData(true)]
+        [InlineData(false)]
+        public void InsertOptionalDataVisitor_ContextRegionSnippetPartialFingerprintsAlreadyExist(bool overwriteExistingData)
+        {
+            string fileName = TempFile.CreateTempName();
+            string fileDirectory = Path.GetDirectoryName(fileName);
+
+            const string ContextRegionSnippet =
+@"One
+Two
+Three";
+            const string ExistingPartialFingerprintHash = "123";
+            string expectedPartialFingerprintHash = overwriteExistingData
+                ? HashUtilities.ComputeStringSha256Hash(ContextRegionSnippet)
+                : ExistingPartialFingerprintHash;
+
+            var run = new Run
+            {
+                OriginalUriBaseIds =
+                    new Dictionary<string, ArtifactLocation>
+                    {
+                        [TestData.TestRootBaseId] = new ArtifactLocation
+                        {
+                            Uri = new Uri(fileDirectory, UriKind.Absolute)
+                        }
+                    },
+                Results = new List<Result>
+                {
+                    new Result
+                    {
+                        Locations = new List<Location>
+                        {
+                            new Location
+                            {
+                                PhysicalLocation = new PhysicalLocation
+                                {
+                                    ArtifactLocation = new ArtifactLocation
+                                    {
+                                        Uri = new Uri(fileName, UriKind.Relative),
+                                        UriBaseId = TestData.TestRootBaseId
+                                    },
+                                    ContextRegion = new Region
+                                    {
+                                        Snippet = new ArtifactContent
+                                        {
+                                            Text = ContextRegionSnippet
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        PartialFingerprints = new Dictionary<string, string>
+                        {
+                            { InsertOptionalDataVisitor.ContextRegionHash, ExistingPartialFingerprintHash }
+                        }
+                    }
+                }
+            };
+
+            var visitor = new InsertOptionalDataVisitor(
+                OptionallyEmittedData.ContextRegionSnippetPartialFingerprints |
+                OptionallyEmittedData.OverwriteExistingData,
+                run, insertProperties: null);
+
+            visitor.VisitResult(run.Results[0]);
+
+            run.Results[0].PartialFingerprints[InsertOptionalDataVisitor.ContextRegionHash].Should()
+                .Be(expectedPartialFingerprintHash);
         }
 
         private const int RuleIndex = 0;
