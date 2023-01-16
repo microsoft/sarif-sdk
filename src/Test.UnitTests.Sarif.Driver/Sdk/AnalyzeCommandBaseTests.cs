@@ -764,7 +764,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
                         if (executionNotifications?.Where(t => t.Message.Text.Contains("memory usage")).Count() != expectedNotificationsCount)
                         {
-                            sb.AppendLine($"\t{trace} : did not observe term 'elapsed' in rule memory usage notifications.");
+                            sb.AppendLine($"\t{trace} : did not observe term 'memory usage' in rule memory usage notifications.");
                         }
 
                         if (executionNotifications?.GroupBy(t => t.AssociatedRule.Id).Count() != rulesCount)
