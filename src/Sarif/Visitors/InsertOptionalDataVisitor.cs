@@ -432,7 +432,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         }
 
         private const string RepoRootUriBaseIdStem = "REPO_ROOT";
-        private const string ContextRegionHash = "contextRegionHash/v1";
+        public const string ContextRegionHash = "contextRegionHash/v1";
 
         // When there is only one repo root (the usual case), the uriBaseId is "REPO_ROOT" (unless
         // that symbol is already in use in originalUriBaseIds. The second and subsequent uriBaseIds
