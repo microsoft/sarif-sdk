@@ -1060,6 +1060,28 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                         ? Stopwatch.StartNew()
                         : null;
 
+                    if (context.Traces.HasFlag(DefaultTraces.MemoryUsage))
+                    {
+                        using (var currentProcess = Process.GetCurrentProcess())
+                        {
+                            string file = context.TargetUri.LocalPath;
+                            string directory = Path.GetDirectoryName(file);
+                            file = Path.GetFileName(file);
+                            string memoryUsage = $"'{file}' : current process memory usage {currentProcess.WorkingSet64 / 1024 / 1024}MB : '{skimmer.Id}.{skimmer.Name}' : at '{directory}'. Peak memory usage: {currentProcess.PeakWorkingSet64 / 1024 / 1024}MB";
+
+                            context.Logger.LogToolNotification(
+                            new Notification
+                            {
+                                Level = FailureLevel.Note,
+                                Message = new Message
+                                {
+                                    Text = memoryUsage,
+                                },
+                            },
+                            skimmer);
+                        }
+                    }
+
                     skimmer.Analyze(context);
 
                     if (stopwatch != null && context.TargetUri.IsAbsoluteUri)
@@ -1067,12 +1089,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                         string file = context.TargetUri.LocalPath;
                         string directory = Path.GetDirectoryName(file);
                         file = Path.GetFileName(file);
-                        string timing = $"'{file}' : elapsed {stopwatch.Elapsed} : '{skimmer.Name}' : at '{directory}'";
+                        string timing = $"'{file}' : elapsed {stopwatch.Elapsed} : '{skimmer.Id}.{skimmer.Name}' : at '{directory}'";
 
                         context.Logger.LogToolNotification(
                             new Notification
                             {
-                                Level = FailureLevel.Warning,
+                                Level = FailureLevel.Note,
                                 Message = new Message
                                 {
                                     Text = timing,

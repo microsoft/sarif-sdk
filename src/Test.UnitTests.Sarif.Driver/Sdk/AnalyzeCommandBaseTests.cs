@@ -668,7 +668,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         {
             var sb = new StringBuilder();
 
-            foreach (DefaultTraces trace in new[] { DefaultTraces.None, DefaultTraces.ScanTime, DefaultTraces.RuleScanTime })
+            foreach (DefaultTraces trace in new[] { DefaultTraces.None, DefaultTraces.ScanTime, DefaultTraces.RuleScanTime, DefaultTraces.MemoryUsage })
             {
                 var options = new TestAnalyzeOptions
                 {
@@ -744,6 +744,32 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                         if (executionNotifications?.GroupBy(t => t.AssociatedRule.Id).Count() != rulesCount)
                         {
                             sb.AppendLine($"\t{trace} : did not observe timing notifications for every rule.");
+                        }
+
+                        break;
+                    }
+                    case DefaultTraces.MemoryUsage:
+                    {
+                        // We expect every rule to generate memory usage data for every applicable scan target.
+                        int rulesCount = run.Tool.Driver.Rules.Count;
+                        int validTargetsCount = ALL_COUNT - NOT_APPLICABLE_COUNT;
+                        int expectedNotificationsCount = rulesCount * validTargetsCount;
+
+                        // We expected memory usage data for every rule.
+                        if (executionNotificationsCount != expectedNotificationsCount)
+                        {
+                            sb.AppendLine($"\t{trace} : expected {expectedNotificationsCount} notifications but saw {executionNotificationsCount}.");
+                            continue;
+                        }
+
+                        if (executionNotifications?.Where(t => t.Message.Text.Contains("memory usage")).Count() != expectedNotificationsCount)
+                        {
+                            sb.AppendLine($"\t{trace} : did not observe term 'elapsed' in rule memory usage notifications.");
+                        }
+
+                        if (executionNotifications?.GroupBy(t => t.AssociatedRule.Id).Count() != rulesCount)
+                        {
+                            sb.AppendLine($"\t{trace} : did not observe memory usage notifications for every rule.");
                         }
 
                         break;
