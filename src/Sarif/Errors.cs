@@ -448,7 +448,8 @@ namespace Microsoft.CodeAnalysis.Sarif
                 exception,
                 persistExceptionStack: true,
                 messageFormat: null,
-                context.Rule.Name));
+                context.Rule.Name),
+                context.Rule);
         }
 
         public static void LogUnhandledRuleExceptionAnalyzingTarget(
@@ -479,7 +480,8 @@ namespace Microsoft.CodeAnalysis.Sarif
                     messageFormat: null,
                     exception.GetType().Name,
                     context.TargetUri.GetFileName(),
-                    context.Rule.Name));
+                    context.Rule.Name),
+                    context.Rule);
 
             if (disabledSkimmers != null)
             {

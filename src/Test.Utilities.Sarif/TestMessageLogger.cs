@@ -77,7 +77,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             }
         }
 
-        public void LogToolNotification(Notification notification)
+        public void LogToolNotification(Notification notification, ReportingDescriptor associatedRule)
         {
             ToolNotifications = ToolNotifications ?? new List<Notification>();
             ToolNotifications.Add(notification);
