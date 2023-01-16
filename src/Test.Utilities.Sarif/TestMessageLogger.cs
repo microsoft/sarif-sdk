@@ -26,7 +26,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         public List<string> Messages { get; set; }
 
-        public List<Notification> ToolNotifications { get; set; }
+        public List<Tuple<Notification, ReportingDescriptor>> ToolNotifications { get; set; }
 
         public List<Notification> ConfigurationNotifications { get; set; }
 
@@ -79,8 +79,8 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         public void LogToolNotification(Notification notification, ReportingDescriptor associatedRule)
         {
-            ToolNotifications = ToolNotifications ?? new List<Notification>();
-            ToolNotifications.Add(notification);
+            ToolNotifications ??= new List<Tuple<Notification, ReportingDescriptor>>();
+            ToolNotifications.Add(new Tuple<Notification, ReportingDescriptor>(notification, associatedRule));
         }
 
         public void LogConfigurationNotification(Notification notification)
