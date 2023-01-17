@@ -19,14 +19,14 @@ namespace Microsoft.CodeAnalysis.Sarif
         public const int DefaultCacheCapacity = 100;
         private readonly IFileSystem _fileSystem;
         internal readonly Cache<string, Tuple<string, NewLineIndex>> _cache;
-        internal readonly Cache<string, Dictionary<int, string>> _rollingHashesCache;
+        internal readonly Dictionary<string, Dictionary<int, string>> _rollingHashesCache;
 
         private static readonly int tab = (int)"\t"[0];
         private static readonly int space = (int)" "[0];
         private static readonly int lf = (int)"\n"[0];
         private static readonly int cr = (int)"\r"[0];
         private static readonly int EOF = 65535;
-        private static readonly int BLOCK_SIZE = 100;
+        private static readonly int BLOCK_SIZE = 2;
         private static readonly long MOD = (long)37;
 
         /// <summary>
@@ -45,8 +45,8 @@ namespace Microsoft.CodeAnalysis.Sarif
             // Build a cache for this data, with the load method it should use to add new entries
             _cache = new Cache<string, Tuple<string, NewLineIndex>>(BuildIndexForFile, capacity);
 
-            // Build a cache of rolling hashes (partial hash per line) for this data
-            _rollingHashesCache = new Cache<string, Dictionary<int, string>>(BuildRollingHashIndexForFile, capacity);
+            // Build a cache of rolling hashes (partial hash per line) for each artifact
+            _rollingHashesCache = new Dictionary<string, Dictionary<int, string>>();
         }
 
         /// <summary>
@@ -105,14 +105,10 @@ namespace Microsoft.CodeAnalysis.Sarif
             this._cache.Clear();
         }
 
-        public Region SuvamTest(
-            Region inputRegion,
-            string fileText = null)
+        public void SuvamTest(
+            Uri uri)
         {
-            NewLineIndex index = null;
-            index = new NewLineIndex(fileText);
-
-            return inputRegion;
+            Hash(uri);
         }
 
         private long ComputeFirstMod()
@@ -131,7 +127,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             if (!_rollingHashesCache.ContainsKey(filePath))
             {
-                _rollingHashesCache[filePath] = new Dictionary<int, string>();
+                _rollingHashesCache.Add(filePath,new Dictionary<int, string>());
             }
 
             // Check if we have already computed the rolling hashes for this file.    
@@ -175,6 +171,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
                 hashCounts[hashValue]++;
                 _rollingHashesCache[filePath][lineNumbers[index]] = $"{hashValue}:{hashCounts[hashValue]}";
+                lineNumbers[index] = -1;
             };
 
             // Update the current hash value and increment the index in the window
