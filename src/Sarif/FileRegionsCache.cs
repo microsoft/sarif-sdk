@@ -26,7 +26,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         private static readonly int lf = (int)"\n"[0];
         private static readonly int cr = (int)"\r"[0];
         private static readonly int EOF = 65535;
-        private static readonly int BLOCK_SIZE = 2;
+        private static readonly int BLOCK_SIZE = 5;
         private static readonly long MOD = (long)37;
 
         /// <summary>
@@ -162,7 +162,8 @@ namespace Microsoft.CodeAnalysis.Sarif
             // Output the current hash and line number to the cache
             Action outputHash = () =>
             {
-                string hashValue = Convert.ToString((ulong)hashRaw);
+                ulong uhashRaw = (ulong)hashRaw;
+                string hashValue = uhashRaw.ToString("x16");
 
                 if (!hashCounts.ContainsKey(hashValue))
                 {
@@ -242,6 +243,16 @@ namespace Microsoft.CodeAnalysis.Sarif
                 }
 
                 processCharacter(EOF);
+
+                // Flush the remaining lines
+                for (int i = 0; i < BLOCK_SIZE; i++)
+                {
+                    if (lineNumbers[index] != -1)
+                    {
+                        outputHash();
+                    }
+                    updateHash(0);
+                }
             }
         }
 
