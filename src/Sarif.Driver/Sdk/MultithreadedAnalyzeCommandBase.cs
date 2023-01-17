@@ -1056,10 +1056,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
                 try
                 {
-                    Stopwatch stopwatch = context.Traces.HasFlag(DefaultTraces.RuleScanTime)
-                        ? Stopwatch.StartNew()
-                        : null;
-
                     if (context.Traces.HasFlag(DefaultTraces.MemoryUsage))
                     {
                         using (var currentProcess = Process.GetCurrentProcess())
@@ -1081,6 +1077,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                             skimmer);
                         }
                     }
+
+                    Stopwatch stopwatch = context.Traces.HasFlag(DefaultTraces.RuleScanTime)
+                        ? Stopwatch.StartNew()
+                        : null;
 
                     skimmer.Analyze(context);
 
