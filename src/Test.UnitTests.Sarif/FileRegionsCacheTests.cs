@@ -650,7 +650,7 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests
         [Fact]
         public void SuvamTest()
         {
-            string content = "abcd\nabcd";
+            string content = "a\nb\n  \t\tc\n d";
 
             Uri uri = new Uri(@"c:\myfile.txt");
 
