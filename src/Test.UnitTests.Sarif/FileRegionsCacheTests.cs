@@ -650,21 +650,15 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests
         [Fact]
         public void SuvamTest()
         {
-            string content = "This is a line\nYet another line\nFinal Line";
+            string content = "abcd\nabcd";
 
             Uri uri = new Uri(@"c:\myfile.txt");
 
             var run = new Run();
             IFileSystem mockFileSystem = MockFactory.MakeMockFileSystem(uri.LocalPath, content);
 
-            var region = new Region
-            {
-                CharOffset = 0,
-                CharLength = 300,
-            };
-
-            var fileRegionsCache = new FileRegionsCache();
-            region = fileRegionsCache.SuvamTest(region, content);
+            var fileRegionsCache = new FileRegionsCache(100, mockFileSystem);
+            fileRegionsCache.SuvamTest(uri);
 
         }
     }
