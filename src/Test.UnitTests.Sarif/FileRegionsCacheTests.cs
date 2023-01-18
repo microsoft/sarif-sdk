@@ -645,21 +645,5 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests
             multilineRegion.CharLength.Should().Be(content.Length);
             multilineRegion.Snippet.Text.Should().Be(content);
         }
-
-        // Placeholder for API Test
-        [Fact]
-        public void SuvamTest()
-        {
-            string content = "a\nb\n  \t\tc\n d";
-
-            Uri uri = new Uri(@"c:\myfile.txt");
-
-            var run = new Run();
-            IFileSystem mockFileSystem = MockFactory.MakeMockFileSystem(uri.LocalPath, content);
-
-            var fileRegionsCache = new FileRegionsCache(100, mockFileSystem);
-            fileRegionsCache.SuvamTest(uri);
-
-        }
     }
 }
