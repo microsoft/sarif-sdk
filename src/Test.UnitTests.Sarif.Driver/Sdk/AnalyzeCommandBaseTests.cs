@@ -750,28 +750,17 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                     }
                     case DefaultTraces.MemoryUsage:
                     {
-                        // We expect every rule to generate memory usage data for every applicable scan target.
-                        int rulesCount = run.Tool.Driver.Rules.Count;
-                        int validTargetsCount = ALL_COUNT - NOT_APPLICABLE_COUNT;
-                        int expectedNotificationsCount = rulesCount * validTargetsCount;
-
-                        // We expected memory usage data for every rule.
-                        if (executionNotificationsCount != expectedNotificationsCount)
+                        // There is only one memory usage notification.
+                        if (executionNotifications?.Count != 1)
                         {
-                            sb.AppendLine($"\t{trace} : expected {expectedNotificationsCount} notifications but saw {executionNotificationsCount}.");
+                            sb.AppendLine($"\t{trace} : expected 1 notification but saw {executionNotifications?.Count ?? 0}.");
                             continue;
                         }
 
-                        if (executionNotifications?.Where(t => t.Message.Text.Contains("memory usage")).Count() != expectedNotificationsCount)
+                        if (executionNotifications?.Where(t => t.Message.Text.Contains("memory usage")).Count() != 1)
                         {
-                            sb.AppendLine($"\t{trace} : did not observe term 'memory usage' in rule memory usage notifications.");
+                            sb.AppendLine($"\t{trace} : did not observe term 'memory usage' in memory usage notifications.");
                         }
-
-                        if (executionNotifications?.GroupBy(t => t.AssociatedRule.Id).Count() != rulesCount)
-                        {
-                            sb.AppendLine($"\t{trace} : did not observe memory usage notifications for every rule.");
-                        }
-
                         break;
                     }
                 }

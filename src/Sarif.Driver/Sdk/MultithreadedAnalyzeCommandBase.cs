@@ -265,6 +265,24 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             {
                 Console.WriteLine($"Done. {_fileContextsCount:n0} files scanned.");
             }
+
+            if (rootContext.Traces.HasFlag(DefaultTraces.MemoryUsage))
+            {
+                using (var currentProcess = Process.GetCurrentProcess())
+                {
+                    string memoryUsage = $"Current process memory usage {currentProcess.WorkingSet64 / 1024 / 1024}MB. Peak memory usage: {currentProcess.PeakWorkingSet64 / 1024 / 1024}MB.";
+
+                    rootContext.Logger.LogToolNotification(
+                    new Notification
+                    {
+                        Level = FailureLevel.Note,
+                        Message = new Message
+                        {
+                            Text = memoryUsage,
+                        },
+                    });
+                }
+            }
         }
 
         private async Task<bool> LogScanResultsAsync(TContext rootContext)
@@ -1062,28 +1080,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
                 try
                 {
-                    if (context.Traces.HasFlag(DefaultTraces.MemoryUsage))
-                    {
-                        using (var currentProcess = Process.GetCurrentProcess())
-                        {
-                            string file = context.TargetUri.LocalPath;
-                            string directory = Path.GetDirectoryName(file);
-                            file = Path.GetFileName(file);
-                            string memoryUsage = $"'{file}' : current process memory usage {currentProcess.WorkingSet64 / 1024 / 1024}MB : '{skimmer.Id}.{skimmer.Name}' : at '{directory}'. Peak memory usage: {currentProcess.PeakWorkingSet64 / 1024 / 1024}MB";
-
-                            context.Logger.LogToolNotification(
-                            new Notification
-                            {
-                                Level = FailureLevel.Note,
-                                Message = new Message
-                                {
-                                    Text = memoryUsage,
-                                },
-                            },
-                            skimmer);
-                        }
-                    }
-
                     Stopwatch stopwatch = context.Traces.HasFlag(DefaultTraces.RuleScanTime)
                         ? Stopwatch.StartNew()
                         : null;
