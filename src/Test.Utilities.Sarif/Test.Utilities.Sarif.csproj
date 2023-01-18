@@ -5,7 +5,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="FluentAssertions" Version="6.8.0" />
+    <PackageReference Include="FluentAssertions" Version="6.9.0" />
     <!-- We consume this version of Newtonsoft.Json arbitrarily,
          to demonstrate we can bind to it and run successfuly -->
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />

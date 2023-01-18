@@ -64,6 +64,17 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                     reformattedLog = new SortingVisitor().VisitSarifLog(reformattedLog);
                 }
 
+                if (options.NormalizeForGhas)
+                {
+                    if (options.BasePath != null && options.BasePathToken != null)
+                    {
+                        var visitor = new RebaseUriVisitor(options.BasePathToken, new Uri(options.BasePath), options.RebaseRelativeUris);
+                        reformattedLog = visitor.VisitSarifLog(reformattedLog);
+                    }
+
+                    reformattedLog = new GitHubIngestionVisitor().VisitSarifLog(reformattedLog);
+                }
+
                 if (options.SarifOutputVersion == SarifVersion.OneZeroZero)
                 {
                     var visitor = new SarifCurrentToVersionOneVisitor();
