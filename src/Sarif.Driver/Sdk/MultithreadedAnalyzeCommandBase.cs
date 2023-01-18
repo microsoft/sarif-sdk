@@ -907,9 +907,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         }
 
         protected virtual void AnalyzeTargets(TOptions options,
-                                              TContext rootContext,
+                                              TContext context,
                                               IEnumerable<Skimmer<TContext>> skimmers)
         {
+            if (skimmers == null)
+            {
+                Errors.LogNoRulesLoaded(context);
+                ThrowExitApplicationException(context, ExitReason.NoRulesLoaded);
+            }
+
             var disabledSkimmers = new SortedSet<string>();
 
             foreach (Skimmer<TContext> skimmer in skimmers)
@@ -917,12 +923,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 PerLanguageOption<RuleEnabledState> ruleEnabledProperty =
                     DefaultDriverOptions.CreateRuleSpecificOption(skimmer, DefaultDriverOptions.RuleEnabled);
 
-                RuleEnabledState ruleEnabled = rootContext.Policy.GetProperty(ruleEnabledProperty);
+                RuleEnabledState ruleEnabled = context.Policy.GetProperty(ruleEnabledProperty);
 
                 if (ruleEnabled == RuleEnabledState.Disabled)
                 {
                     disabledSkimmers.Add(skimmer.Id);
-                    Warnings.LogRuleExplicitlyDisabled(rootContext, skimmer.Id);
+                    Warnings.LogRuleExplicitlyDisabled(context, skimmer.Id);
                     RuntimeErrors |= RuntimeConditions.RuleWasExplicitlyDisabled;
                 }
                 else if (!skimmer.DefaultConfiguration.Enabled && ruleEnabled == RuleEnabledState.Default)
@@ -933,15 +939,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 }
             }
 
-            this.CheckIncompatibleRules(skimmers, rootContext, disabledSkimmers);
-
             if (disabledSkimmers.Count == skimmers.Count())
             {
-                Errors.LogAllRulesExplicitlyDisabled(rootContext);
-                ThrowExitApplicationException(rootContext, ExitReason.NoRulesLoaded);
+                Errors.LogAllRulesExplicitlyDisabled(context);
+                ThrowExitApplicationException(context, ExitReason.NoRulesLoaded);
             }
 
-            MultithreadedAnalyzeTargets(options, rootContext, skimmers, disabledSkimmers);
+            this.CheckIncompatibleRules(skimmers, context, disabledSkimmers);
+
+            MultithreadedAnalyzeTargets(options, context, skimmers, disabledSkimmers);
         }
 
         protected virtual TContext DetermineApplicabilityAndAnalyze(
