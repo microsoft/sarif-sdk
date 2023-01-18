@@ -137,13 +137,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             return base.VisitResult(node);
         }
 
-        public override Message VisitMessage(Message node)
+        public override Message VisitMessage(Message message)
         {
-            if (node.Text == null)
+            if (message.Text == null)
             {
-                VisitorHelper.FlattenMessage(node, this.ruleIndex, this.run);
+                message.Flatten(this.ruleIndex, this.run);
             }
-            return base.VisitMessage(node);
+
+            return base.VisitMessage(message);
         }
 
         // Merge properties from a source to a target, preferring the existing properties

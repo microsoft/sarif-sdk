@@ -256,14 +256,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             return node;
         }
 
-        public override Message VisitMessage(Message node)
+        public override Message VisitMessage(Message message)
         {
-            if ((node.Text == null || _dataToInsert.HasFlag(OptionallyEmittedData.OverwriteExistingData)) &&
+            if ((message.Text == null || _dataToInsert.HasFlag(OptionallyEmittedData.OverwriteExistingData)) &&
                 _dataToInsert.HasFlag(OptionallyEmittedData.FlattenedMessages))
             {
-                VisitorHelper.FlattenMessage(node, _ruleIndex, _run);
+                message.Flatten(_ruleIndex, _run);
             }
-            return base.VisitMessage(node);
+            return base.VisitMessage(message);
         }
 
         private List<VersionControlDetails> CreateVersionControlProvenance()
