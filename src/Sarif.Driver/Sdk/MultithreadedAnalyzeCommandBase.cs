@@ -270,7 +270,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             {
                 using (var currentProcess = Process.GetCurrentProcess())
                 {
-                    string memoryUsage = $"Current process memory usage {currentProcess.WorkingSet64 / 1024 / 1024}MB. Peak memory usage: {currentProcess.PeakWorkingSet64 / 1024 / 1024}MB.";
+                    string memoryUsage = $"Peak memory usage: {currentProcess.PeakWorkingSet64 / 1024 / 1024}MB.";
 
                     rootContext.Logger.LogToolNotification(
                     new Notification
