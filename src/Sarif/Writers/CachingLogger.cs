@@ -26,7 +26,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
         public IList<Notification> ConfigurationNotifications { get; set; }
 
-        public IList<Notification> ToolNotifications { get; set; }
+        public IList<Tuple<Notification, ReportingDescriptor>> ToolNotifications { get; set; }
 
         /// <summary>
         /// Gets or sets a boolean value that indicates whether the Results
@@ -96,15 +96,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             ConfigurationNotifications.Add(notification);
         }
 
-        public void LogToolNotification(Notification notification)
+        public void LogToolNotification(Notification notification, ReportingDescriptor associatedRule)
         {
             if (!ShouldLog(notification))
             {
                 return;
             }
 
-            ToolNotifications ??= new List<Notification>();
-            ToolNotifications.Add(notification);
+            ToolNotifications ??= new List<Tuple<Notification, ReportingDescriptor>>();
+            ToolNotifications.Add(new Tuple<Notification, ReportingDescriptor>(notification, associatedRule));
         }
 
         public void ReleaseLock()

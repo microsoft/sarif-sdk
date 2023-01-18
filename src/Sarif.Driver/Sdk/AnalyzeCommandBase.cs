@@ -305,6 +305,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 Policy = policy ?? new PropertiesDictionary()
             };
 
+            context.Traces =
+                options.Traces.Any() ?
+                    (DefaultTraces)Enum.Parse(typeof(DefaultTraces), string.Join(",", options.Traces)) :
+                    DefaultTraces.None;
+
             context.MaxFileSizeInKilobytes =
                 options.MaxFileSizeInKilobytes >= 0
                 ? options.MaxFileSizeInKilobytes

@@ -249,7 +249,17 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
             if (rootContext.Traces.HasFlag(DefaultTraces.ScanTime))
             {
-                Console.WriteLine($"Done. {_fileContextsCount:n0} files scanned in {sw.Elapsed}.");
+                string timing = $"Done. {_fileContextsCount:n0} files scanned, elapsed time {sw.Elapsed}.";
+
+                rootContext.Logger.LogToolNotification(
+                    new Notification
+                    {
+                        Level = FailureLevel.Note,
+                        Message = new Message
+                        {
+                            Text = timing,
+                        },
+                    });
             }
             else
             {
@@ -343,9 +353,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
             if (cachingLogger.ToolNotifications != null)
             {
-                foreach (Notification notification in cachingLogger.ToolNotifications)
+                foreach (Tuple<Notification, ReportingDescriptor> tuple in cachingLogger.ToolNotifications)
                 {
-                    rootContext.Logger.LogToolNotification(notification);
+                    rootContext.Logger.LogToolNotification(tuple.Item1, tuple.Item2);
                 }
             }
 
@@ -660,6 +670,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 RuntimeErrors = runtimeErrors,
             };
 
+            context.Traces =
+                options.Traces.Any() ?
+                    (DefaultTraces)Enum.Parse(typeof(DefaultTraces), string.Join(",", options.Traces)) :
+                    DefaultTraces.None;
+
             context.MaxFileSizeInKilobytes =
                 options.MaxFileSizeInKilobytes >= 0
                     ? options.MaxFileSizeInKilobytes
@@ -892,9 +907,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         }
 
         protected virtual void AnalyzeTargets(TOptions options,
-                                              TContext rootContext,
+                                              TContext context,
                                               IEnumerable<Skimmer<TContext>> skimmers)
         {
+            if (skimmers == null)
+            {
+                Errors.LogNoRulesLoaded(context);
+                ThrowExitApplicationException(context, ExitReason.NoRulesLoaded);
+            }
+
             var disabledSkimmers = new SortedSet<string>();
 
             foreach (Skimmer<TContext> skimmer in skimmers)
@@ -902,12 +923,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 PerLanguageOption<RuleEnabledState> ruleEnabledProperty =
                     DefaultDriverOptions.CreateRuleSpecificOption(skimmer, DefaultDriverOptions.RuleEnabled);
 
-                RuleEnabledState ruleEnabled = rootContext.Policy.GetProperty(ruleEnabledProperty);
+                RuleEnabledState ruleEnabled = context.Policy.GetProperty(ruleEnabledProperty);
 
                 if (ruleEnabled == RuleEnabledState.Disabled)
                 {
                     disabledSkimmers.Add(skimmer.Id);
-                    Warnings.LogRuleExplicitlyDisabled(rootContext, skimmer.Id);
+                    Warnings.LogRuleExplicitlyDisabled(context, skimmer.Id);
                     RuntimeErrors |= RuntimeConditions.RuleWasExplicitlyDisabled;
                 }
                 else if (!skimmer.DefaultConfiguration.Enabled && ruleEnabled == RuleEnabledState.Default)
@@ -918,15 +939,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 }
             }
 
-            this.CheckIncompatibleRules(skimmers, rootContext, disabledSkimmers);
-
             if (disabledSkimmers.Count == skimmers.Count())
             {
-                Errors.LogAllRulesExplicitlyDisabled(rootContext);
-                ThrowExitApplicationException(rootContext, ExitReason.NoRulesLoaded);
+                Errors.LogAllRulesExplicitlyDisabled(context);
+                ThrowExitApplicationException(context, ExitReason.NoRulesLoaded);
             }
 
-            MultithreadedAnalyzeTargets(options, rootContext, skimmers, disabledSkimmers);
+            this.CheckIncompatibleRules(skimmers, context, disabledSkimmers);
+
+            MultithreadedAnalyzeTargets(options, context, skimmers, disabledSkimmers);
         }
 
         protected virtual TContext DetermineApplicabilityAndAnalyze(
@@ -1041,7 +1062,31 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
                 try
                 {
+                    Stopwatch stopwatch = context.Traces.HasFlag(DefaultTraces.RuleScanTime)
+                        ? Stopwatch.StartNew()
+                        : null;
+
                     skimmer.Analyze(context);
+
+                    if (stopwatch != null && context.TargetUri.IsAbsoluteUri)
+                    {
+                        string file = context.TargetUri.LocalPath;
+                        string directory = Path.GetDirectoryName(file);
+                        file = Path.GetFileName(file);
+                        string timing = $"'{file}' : elapsed {stopwatch.Elapsed} : '{skimmer.Name}' : at '{directory}'";
+
+                        context.Logger.LogToolNotification(
+                            new Notification
+                            {
+                                Level = FailureLevel.Warning,
+                                Message = new Message
+                                {
+                                    Text = timing,
+                                },
+                            },
+                            skimmer);
+                    }
+
                 }
                 catch (Exception ex)
                 {

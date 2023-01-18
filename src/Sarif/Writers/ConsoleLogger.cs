@@ -178,7 +178,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             return (enquote ? "\"" : "") + message + (enquote ? "\"" : "");
         }
 
-        public void LogToolNotification(Notification notification)
+        public void LogToolNotification(Notification notification, ReportingDescriptor associatedRule)
         {
             if (!ShouldLog(notification))
             {

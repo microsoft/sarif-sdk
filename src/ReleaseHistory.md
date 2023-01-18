@@ -2,6 +2,7 @@
 
 ## **v3.2.0** (UNRELEASED)
 
+* BREAKING: Update `IAnalysisContext.LogToolNotification` method to add `ReportingDescriptor` parameter. This is required in order to populated `AssociatedRule` data in `Notification` instances. The new method has an option value of null for the `associatedRule` parameter to maximize build compatibility. [#2604](https://github.com/microsoft/sarif-sdk/pull/2604)
 * BREAKING: Correct casing of `LogMissingreportingConfiguration` helper to `LogMissingReportingConfiguration`. [#2599](https://github.com/microsoft/sarif-sdk/pull/2599)
 * BREAKING: Change type of `MaxFileSizeInKilobytes` from int to long in `IAnalysisContext` and other classes.  [#2599](https://github.com/microsoft/sarif-sdk/pull/2599)
 * BREAKING: For `Guid` properties defined in SARIF spec, updated Json schema to use `uuid`, and updated C# object model to use `Guid?` instead of `string`. [#2555](https://github.com/microsoft/sarif-sdk/pull/2555)
@@ -26,6 +27,7 @@
 * FEATURE : Provide mechanism to populate `SarifLogger` with a `FileRegionsCache` instance.
 * FEATURE : Allow initialization of file regions cache in `InsertOptionalDataVisitor` (previously initialized exclusively from `FileRegionsCache.Instance`).
 * FEATURE : Provide 'RuleScanTime` trace and emitted timing data. Provide `ScanExecution` trace with no utilization.
+* FEATURE : Populate associated rule data in `LogToolNotification` as called from `SarifLogger`. [#2604](https://github.com/microsoft/sarif-sdk/pull/2604)
 * FEATURE : Add `--normalize-for-ghas` argument to the `rewrite` command to ensure rewritten SARIF is compatible with GitHub Advanced Security (GHAS) ingestion requirements. [#2581](https://github.com/microsoft/sarif-sdk/pull/2581)
 * BREAKING: Rename `--normalize-for-github` argument to `--normalize-for-ghas` for `convert` command. [#2581](https://github.com/microsoft/sarif-sdk/pull/2581)
 

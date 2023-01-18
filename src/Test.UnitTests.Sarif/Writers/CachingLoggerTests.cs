@@ -32,7 +32,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             logger.LogConfigurationNotification(notification);
             logger.ConfigurationNotifications.Should().HaveCount(1);
 
-            logger.LogToolNotification(notification);
+            logger.LogToolNotification(notification, associatedRule: null);
             logger.ToolNotifications.Should().HaveCount(1);
         }
 
