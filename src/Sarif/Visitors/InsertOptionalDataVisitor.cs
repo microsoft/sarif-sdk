@@ -257,32 +257,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             return node;
         }
 
-        public override Message VisitMessage(Message node)
+        public override Message VisitMessage(Message message)
         {
-            if ((node.Text == null || _dataToInsert.HasFlag(OptionallyEmittedData.OverwriteExistingData)) &&
+            if ((message.Text == null || _dataToInsert.HasFlag(OptionallyEmittedData.OverwriteExistingData)) &&
                 _dataToInsert.HasFlag(OptionallyEmittedData.FlattenedMessages))
             {
-                MultiformatMessageString formatString = null;
-                ReportingDescriptor rule = _ruleIndex != -1 ? _run.Tool.Driver.Rules[_ruleIndex] : null;
-
-                if (rule != null &&
-                    rule.MessageStrings != null &&
-                    rule.MessageStrings.TryGetValue(node.Id, out formatString))
-                {
-                    node.Text = node.Arguments?.Count > 0
-                        ? rule.Format(node.Id, node.Arguments)
-                        : formatString?.Text;
-                }
-
-                if (node.Text == null &&
-                    _run.Tool.Driver.GlobalMessageStrings?.TryGetValue(node.Id, out formatString) == true)
-                {
-                    node.Text = node.Arguments?.Count > 0
-                        ? string.Format(CultureInfo.CurrentCulture, formatString.Text, node.Arguments.ToArray())
-                        : formatString?.Text;
-                }
+                message.Flatten(_ruleIndex, _run);
             }
-            return base.VisitMessage(node);
+            return base.VisitMessage(message);
         }
 
         private List<VersionControlDetails> CreateVersionControlProvenance()
