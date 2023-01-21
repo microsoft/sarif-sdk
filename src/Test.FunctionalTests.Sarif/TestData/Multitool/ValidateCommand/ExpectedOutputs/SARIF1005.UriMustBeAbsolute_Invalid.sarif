@@ -1,5 +1,5 @@
 {
-  "$schema": "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0-rtm.6.json",
+  "$schema": "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0-rtm.5.dotnet.json",
   "version": "2.1.0",
   "runs": [
     {
@@ -48,7 +48,7 @@
             "id": "Error_Default",
             "arguments": [
               "$schema",
-              "json.schemastore.org/sarif-2.1.0-rtm.6"
+              "json.schemastore.org/sarif-2.1.0-rtm.5.dotnet"
             ]
           },
           "locations": [
@@ -59,7 +59,7 @@
                 },
                 "region": {
                   "startLine": 2,
-                  "startColumn": 53
+                  "startColumn": 60
                 }
               }
             }
