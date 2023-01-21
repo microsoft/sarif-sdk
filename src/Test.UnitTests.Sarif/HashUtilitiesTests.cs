@@ -91,5 +91,46 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif
                 Console.SetOut(defaultOut);
             }
         }
+
+        [Fact]
+        public void RollingHash_EmptyString()
+        {
+            string testFileText = "";
+            Dictionary<int, string> expectedOutput = new Dictionary<int, string>();
+            expectedOutput.Add(1, "c129715d7a2bc9a3:1");
+
+            Dictionary<int, string> actualOutput = HashUtilities.RollingHash(testFileText);
+            Assert.Equal(expectedOutput, actualOutput);
+        }
+
+        [Fact]
+        public void RollingHash_NewLineCombo1()
+        {
+            string testFileText = " a\nb\n  \t\tc\n d";
+            Dictionary<int, string> expectedOutput = new Dictionary<int, string>();
+            expectedOutput.Add(1, "271789c17abda88f:1");
+            expectedOutput.Add(2, "54703d4cd895b18:1");
+            expectedOutput.Add(3, "180aee12dab6264:1");
+            expectedOutput.Add(4, "a23a3dc5e078b07b:1");
+
+            Dictionary<int, string> actualOutput = HashUtilities.RollingHash(testFileText);
+            Assert.Equal(expectedOutput, actualOutput);
+        }
+
+        [Fact]
+        public void RollingHash_NewLineCombo2()
+        {
+            string testFileText = " hello; \t\nworld!!!\n\n\n  \t\tGreetings\n End";
+            Dictionary<int, string> expectedOutput = new Dictionary<int, string>();
+            expectedOutput.Add(1, "8b7cf3e952e7aeb2:1");
+            expectedOutput.Add(2, "b1ae1287ec4718d9:1");
+            expectedOutput.Add(3, "bff680108adb0fcc:1");
+            expectedOutput.Add(4, "c6805c5e1288b612:1");
+            expectedOutput.Add(5, "b86d3392aea1be30:1");
+            expectedOutput.Add(6, "e6ceba753e1a442:1");
+
+            Dictionary<int, string> actualOutput = HashUtilities.RollingHash(testFileText);
+            Assert.Equal(expectedOutput, actualOutput);
+        }
     }
 }
