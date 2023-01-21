@@ -3,6 +3,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Numerics;
@@ -99,12 +100,12 @@ namespace AzureDevOpsCrawlers.Common.IO
 
         public void Write(int value)
         {
-            Write(value.ToString());
+            Write(value.ToString(CultureInfo.InvariantCulture));
         }
 
         public void Write(BigInteger value)
         {
-            Write(value.ToString());
+            Write(value.ToString(CultureInfo.InvariantCulture));
         }
 
         public void Write(string value)
