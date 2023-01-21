@@ -151,7 +151,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         private IDictionary<T, int> CacheListIndices<T>(IList<T> list)
         {
             // Assume each item in the list is unique (has different reference).
-            // According to sarif-2.1.0-rtm.6.json, artifacts array of runs and rules array of toolComponent
+            // According to sarif-2.1.0-rtm.5.dotnet.json, artifacts array of runs and rules array of toolComponent
             // are defined as "uniqueItems".
             var dict = new Dictionary<T, int>(capacity: list.Count);
 

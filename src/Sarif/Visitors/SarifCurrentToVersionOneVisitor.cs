@@ -202,9 +202,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 fileData = new FileDataVersionOne
                 {
                     Hashes = CreateHashVersionOneListFromV2Hashes(v2FileData.Hashes),
-                    Length = v2FileData.Length == -1 ? 0 : v2FileData.Length,
+                    Length = v2FileData.Length == -1 ? 0 : (int)v2FileData.Length,
                     MimeType = v2FileData.MimeType,
-                    Offset = v2FileData.Offset,
+                    Offset = (int)v2FileData.Offset,
                     ParentKey = parentKey,
                     Properties = v2FileData.Properties,
                     Uri = v2FileData.Location?.Uri,
@@ -503,8 +503,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     // There are no text-related properties. Therefore either the region is
                     // described entirely by binary-related properties, or the region is an
                     // insertion point at the start of the file.
-                    region.Length = v2Region.ByteLength;
-                    region.Offset = v2Region.ByteOffset;
+                    region.Length = (int)v2Region.ByteLength;
+                    region.Offset = (int)v2Region.ByteOffset;
                 }
             }
 
@@ -747,8 +747,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     }
                 }
 
-                replacement.DeletedLength = v2Replacement.DeletedRegion.ByteLength;
-                replacement.Offset = v2Replacement.DeletedRegion.ByteOffset;
+                replacement.DeletedLength = (int)v2Replacement.DeletedRegion.ByteLength;
+                replacement.Offset = (int)v2Replacement.DeletedRegion.ByteOffset;
             }
 
             return replacement;

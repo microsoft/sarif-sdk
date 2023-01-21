@@ -14,7 +14,7 @@
     <PreviousVersionPrefix>3.1.0-beta1</PreviousVersionPrefix>
 
     <!-- SchemaVersionAsPublishedToSchemaStoreOrg identifies the current published version on json schema store at https://schemastore.azurewebsites.net/schemas/json/ -->
-    <SchemaVersionAsPublishedToSchemaStoreOrg>2.1.0-rtm.6</SchemaVersionAsPublishedToSchemaStoreOrg>
+    <SchemaVersionAsPublishedToSchemaStoreOrg>2.1.0-rtm.5.dotnet</SchemaVersionAsPublishedToSchemaStoreOrg>
 
     <!-- The stable version of the SARIF specification. -->
     <StableSarifVersion>2.1.0</StableSarifVersion>

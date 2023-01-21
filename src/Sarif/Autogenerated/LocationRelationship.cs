@@ -4,6 +4,7 @@
 using System;
 using System.CodeDom.Compiler;
 using System.Collections.Generic;
+using System.Numerics;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 
@@ -38,7 +39,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// A reference to the related location.
         /// </summary>
         [DataMember(Name = "target", IsRequired = true)]
-        public virtual int Target { get; set; }
+        public virtual BigInteger Target { get; set; }
 
         /// <summary>
         /// A set of distinct strings that categorize the relationship. Well-known kinds include 'includes', 'isIncludedBy' and 'relevant'.
@@ -81,7 +82,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="properties">
         /// An initialization value for the <see cref="P:Properties" /> property.
         /// </param>
-        public LocationRelationship(int target, IEnumerable<string> kinds, Message description, IDictionary<string, SerializedPropertyInfo> properties)
+        public LocationRelationship(BigInteger target, IEnumerable<string> kinds, Message description, IDictionary<string, SerializedPropertyInfo> properties)
         {
             Init(target, kinds, description, properties);
         }
@@ -123,7 +124,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new LocationRelationship(this);
         }
 
-        protected virtual void Init(int target, IEnumerable<string> kinds, Message description, IDictionary<string, SerializedPropertyInfo> properties)
+        protected virtual void Init(BigInteger target, IEnumerable<string> kinds, Message description, IDictionary<string, SerializedPropertyInfo> properties)
         {
             Target = target;
             if (kinds != null)

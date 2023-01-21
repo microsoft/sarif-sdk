@@ -5,6 +5,7 @@ using System;
 using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Numerics;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 
@@ -79,13 +80,13 @@ namespace Microsoft.CodeAnalysis.Sarif
         [DataMember(Name = "byteOffset", IsRequired = false, EmitDefaultValue = false)]
         [DefaultValue(-1)]
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
-        public virtual int ByteOffset { get; set; }
+        public virtual BigInteger ByteOffset { get; set; }
 
         /// <summary>
         /// The length of the region in bytes.
         /// </summary>
         [DataMember(Name = "byteLength", IsRequired = false, EmitDefaultValue = false)]
-        public virtual int ByteLength { get; set; }
+        public virtual BigInteger ByteLength { get; set; }
 
         /// <summary>
         /// The portion of the artifact contents within the specified region.
@@ -159,7 +160,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="properties">
         /// An initialization value for the <see cref="P:Properties" /> property.
         /// </param>
-        public Region(int startLine, int startColumn, int endLine, int endColumn, int charOffset, int charLength, int byteOffset, int byteLength, ArtifactContent snippet, Message message, string sourceLanguage, IDictionary<string, SerializedPropertyInfo> properties)
+        public Region(int startLine, int startColumn, int endLine, int endColumn, int charOffset, int charLength, BigInteger byteOffset, BigInteger byteLength, ArtifactContent snippet, Message message, string sourceLanguage, IDictionary<string, SerializedPropertyInfo> properties)
         {
             Init(startLine, startColumn, endLine, endColumn, charOffset, charLength, byteOffset, byteLength, snippet, message, sourceLanguage, properties);
         }
@@ -201,7 +202,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new Region(this);
         }
 
-        protected virtual void Init(int startLine, int startColumn, int endLine, int endColumn, int charOffset, int charLength, int byteOffset, int byteLength, ArtifactContent snippet, Message message, string sourceLanguage, IDictionary<string, SerializedPropertyInfo> properties)
+        protected virtual void Init(int startLine, int startColumn, int endLine, int endColumn, int charOffset, int charLength, BigInteger byteOffset, BigInteger byteLength, ArtifactContent snippet, Message message, string sourceLanguage, IDictionary<string, SerializedPropertyInfo> properties)
         {
             StartLine = startLine;
             StartColumn = startColumn;

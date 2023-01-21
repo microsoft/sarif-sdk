@@ -2,6 +2,7 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System;
+using System.Numerics;
 using System.Runtime.CompilerServices;
 
 namespace Microsoft.CodeAnalysis.Sarif
@@ -176,9 +177,14 @@ namespace Microsoft.CodeAnalysis.Sarif
             return region.CharOffset + region.CharLength;
         }
 
-        private static int GetByteEndOffset(Region region)
+        private static BigInteger GetByteEndOffset(Region region)
         {
             return region.ByteOffset + region.ByteLength;
+        }
+
+        public bool ShouldSerializeByteOffset()
+        {
+            return ByteOffset >= 0;
         }
     }
 }

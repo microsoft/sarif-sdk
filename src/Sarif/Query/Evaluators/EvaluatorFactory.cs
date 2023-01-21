@@ -2,6 +2,7 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System;
+using System.Numerics;
 
 namespace Microsoft.CodeAnalysis.Sarif.Query.Evaluators
 {
@@ -39,6 +40,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Query.Evaluators
             else if (fieldType == typeof(float))
             {
                 return new DoubleEvaluator<float>(value => (double)value, term);
+            }
+            else if (fieldType == typeof(BigInteger))
+            {
+                return new BigIntegerEvaluator<BigInteger>(value => value, term);
             }
             else if (fieldType == typeof(long))
             {
