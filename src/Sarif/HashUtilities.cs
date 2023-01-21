@@ -8,6 +8,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Security.Cryptography;
 using System.Threading.Tasks;
+using Microsoft.CodeAnalysis.Sarif.Numeric;
 
 namespace Microsoft.CodeAnalysis.Sarif
 {
@@ -15,13 +16,13 @@ namespace Microsoft.CodeAnalysis.Sarif
     {
         static HashUtilities() => FileSystem = Sarif.FileSystem.Instance;
 
-        private static readonly int TAB = (int)"\t"[0];
-        private static readonly int SPACE = (int)" "[0];
-        private static readonly int LF = (int)"\n"[0];
-        private static readonly int CR = (int)"\r"[0];
+        private static readonly int TAB = '\t';
+        private static readonly int SPACE = ' ';
+        private static readonly int LF = '\n';
+        private static readonly int CR = '\r';
         private static readonly int EOF = 65535;
-        private static readonly int BLOCK_SIZE = 5;
-        private static readonly long MOD = (long)37;
+        private static readonly int BLOCK_SIZE = 100;
+        private static readonly Long MOD = new Long(37, 0, false);
 
         private static IFileSystem _fileSystem;
         internal static IFileSystem FileSystem
@@ -206,20 +207,10 @@ namespace Microsoft.CodeAnalysis.Sarif
             return md5;
         }
 
-        private static long ComputeFirstMod()
-        {
-            long firstMod = (long)1;
-            for (int i = 0; i < BLOCK_SIZE; i++)
-            {
-                firstMod = firstMod * MOD;
-            }
-            return firstMod;
-        }
-
-        private static Dictionary<int, string> Hash(string fileText)
+        public static Dictionary<int, string> RollingHash(string fileText)
         {
             Dictionary<int, string> rollingHashes = new Dictionary<int, string>();
-            
+
             // A rolling view into the input
             int[] window = new int[BLOCK_SIZE];
 
@@ -229,8 +220,8 @@ namespace Microsoft.CodeAnalysis.Sarif
                 lineNumbers[i] = -1;
             }
 
-            long hashRaw = (long)0;
-            long firstMod = ComputeFirstMod();
+            Long hashRaw = new Long(0, 0, false);
+            Long firstMod = ComputeFirstMod();
 
             // The current index in the window, will wrap around to zero when we reach BLOCK_SIZE
             int index = 0;
@@ -246,8 +237,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             // Output the current hash and line number to the cache
             Action outputHash = () =>
             {
-                ulong uhashRaw = (ulong)hashRaw;
-                string hashValue = uhashRaw.ToString("x16");
+                string hashValue = hashRaw.ToUnsigned().ToString(16);
 
                 if (!hashCounts.ContainsKey(hashValue))
                 {
@@ -265,7 +255,9 @@ namespace Microsoft.CodeAnalysis.Sarif
                 int begin = window[index];
                 window[index] = current;
 
-                hashRaw = (MOD * hashRaw) + (long)current - (firstMod * (long)begin);
+                hashRaw = MOD.Multiply(hashRaw)
+                            .Add(Long.FromInt(current))
+                            .Subtract(firstMod.Multiply(Long.FromInt(begin)));
 
                 index = (index + 1) % BLOCK_SIZE;
             };
@@ -308,7 +300,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 }
                 updateHash(current);
             };
-            
+
             if (fileText != null)
             {
                 for (int i = 0; i < fileText.Length; i++)
@@ -332,5 +324,27 @@ namespace Microsoft.CodeAnalysis.Sarif
             return rollingHashes;
         }
 
+        private static Long ComputeFirstMod()
+        {
+            Long firstMod = new Long(1, 0, false);
+
+            for(int i=0; i<100; i++)
+            {
+                firstMod = firstMod.Multiply(MOD);
+            }
+
+            return firstMod;
+        }
+
+        public static void TestMod()
+        {
+            Long mod = new Long(37, 0, false);
+            Long firstMod = new Long(1, 0, false); // L
+            for (int i = 0; i < 100; i++)
+            {
+                firstMod = firstMod.Multiply(mod);
+            }
+            return;
+        }
     }
 }
