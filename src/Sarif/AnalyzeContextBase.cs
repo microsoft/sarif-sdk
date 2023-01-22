@@ -27,8 +27,8 @@ namespace Microsoft.CodeAnalysis.Sarif
         }
 
         public virtual CancellationToken CancellationToken { get; set; }
-        public virtual IArtifactProvider ScanTargetsProvider { get; set; }
-        public virtual IEnumeratedArtifact CurrentScanTarget { get; set; }
+        public virtual IArtifactProvider TargetsProvider { get; set; }
+        public virtual IEnumeratedArtifact CurrentTarget { get; set; }
         public virtual Uri TargetUri { get; set; }
         public virtual string MimeType { get; set; }
         public virtual HashData Hashes { get; set; }

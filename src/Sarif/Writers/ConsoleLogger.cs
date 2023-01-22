@@ -90,7 +90,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
             WriteLineToConsole(string.Format(CultureInfo.CurrentCulture,
                     SdkResources.MSG001_AnalyzingTarget,
-                        context.TargetUri.GetFileName()));
+                        context.CurrentTarget.Uri.GetFileName()));
         }
 
         public void Log(ReportingDescriptor rule, Result result)

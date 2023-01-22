@@ -23,10 +23,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             TestAnalyzeOptions options,
             IAnalysisLogger logger,
             RuntimeConditions runtimeErrors,
-            PropertiesDictionary policy = null,
-            Uri targetUri = null)
+            PropertiesDictionary policy = null)
         {
-            TestAnalysisContext context = base.CreateContext(options, logger, runtimeErrors, policy, targetUri);
+            TestAnalysisContext context = base.CreateContext(options, logger, runtimeErrors, policy);
 
             if (options != null)
             {

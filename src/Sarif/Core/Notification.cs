@@ -22,11 +22,11 @@ namespace Microsoft.CodeAnalysis.Sarif
             if (this.Descriptor != null) { sb.Append(" : ").Append(this.Descriptor?.Id); }
             if (this.AssociatedRule != null) { sb.Append(" : ").Append(this.AssociatedRule?.Id); }
             
-            sb.Append(" : ").Append(this.Level);
+            sb.Append($" : {this.Level}");
 
             if (!string.IsNullOrEmpty(this.Message?.Text))
             {
-                sb.Append(" : ").Append(this.Message.Text);
+                sb.Append($" : {this.Message.Text}");
             }
             else if (this.Message?.Arguments != null)
             {
@@ -38,6 +38,12 @@ namespace Microsoft.CodeAnalysis.Sarif
                 sb.Length = sb.Length - 1;
                 sb.Append('}');
             }
+            
+            if (this.Exception != null)
+            {
+                sb.Append($" : {this.Exception.ToString().Replace(Environment.NewLine, string.Empty)}");
+            }
+
             return sb.ToString();
         }
 #endif

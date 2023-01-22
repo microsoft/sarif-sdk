@@ -33,7 +33,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             // '{0}' was skipped as its size ({1} kilobytes) exceeds the currently configured threshold ({2} kilobytes).
             context.Logger.LogConfigurationNotification(
                 Errors.CreateNotification(
-                    context.TargetUri,
+                    new Uri(skippedFile),
                     Wrn997_FileSkippedDueToSize,
                     ruleId: null,
                     FailureLevel.Warning,
@@ -59,7 +59,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             // command-line argument can be used to increase this threshold.
             context.Logger.LogConfigurationNotification(
                 Errors.CreateNotification(
-                    context.TargetUri,
+                    context.CurrentTarget?.Uri,
                     Wrn997_OneOrMoreFilesSkippedDueToSize,
                     ruleId: null,
                     FailureLevel.Warning,
@@ -81,7 +81,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             string message = string.Format(CultureInfo.InvariantCulture,
                 SdkResources.WRN997_InvalidTarget,
-                context.TargetUri.GetFileName());
+                context.CurrentTarget.Uri.GetFileName());
 
             context.Logger.LogConfigurationNotification(
                 new Notification
@@ -94,7 +94,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                             {
                                 ArtifactLocation = new ArtifactLocation
                                 {
-                                    Uri = context.TargetUri
+                                    Uri = context.CurrentTarget.Uri
                                 }
                             }
                         }
@@ -135,7 +135,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                             {
                                 ArtifactLocation = new ArtifactLocation
                                 {
-                                    Uri = context.TargetUri
+                                    Uri = context.CurrentTarget.Uri
                                 }
                             }
                         }

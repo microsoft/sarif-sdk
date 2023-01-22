@@ -360,7 +360,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                         {
                             Result clonedResult = result.DeepClone();
 
-                            UpdateLocationsAndMessageWithCurrentUri(clonedResult.Locations, clonedResult.Message, context.TargetUri);
+                            UpdateLocationsAndMessageWithCurrentUri(clonedResult.Locations, clonedResult.Message, context.CurrentTarget.Uri);
 
                             currentResult = clonedResult;
                         }
@@ -386,7 +386,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                     if (clone)
                     {
                         Notification clonedNotification = notification.DeepClone();
-                        UpdateLocationsAndMessageWithCurrentUri(clonedNotification.Locations, notification.Message, context.TargetUri);
+                        UpdateLocationsAndMessageWithCurrentUri(clonedNotification.Locations, notification.Message, context.CurrentTarget.Uri);
 
                         currentNotification = clonedNotification;
                     }
@@ -420,7 +420,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 this._fileContextsCount = 0;
                 this._fileContexts = new ConcurrentDictionary<int, TContext>();
 
-                if (context.ScanTargetsProvider != null)
+                if (context.TargetsProvider != null)
                 {
                     await EnumerateFilesFromArtifactsProvider(context);
                 }
@@ -542,15 +542,21 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
                     foreach (string file in sortedFiles)
                     {
-                        _fileContexts.TryAdd(
-                            _fileContextsCount,
+                        TContext fileContext =
                             CreateContext(options: null,
                                           new CachingLogger(context.FailureLevels, context.ResultKinds),
                                           context.RuntimeErrors,
-                                          context.Policy,
-                                          new Uri(file))
-                        );
+                                          context.Policy);
 
+                        fileContext.CurrentTarget = new EnumeratedArtifact
+                        {
+                            Uri = new Uri(file),
+                            FileSystem = FileSystem,
+                        };
+
+                        bool added = _fileContexts.TryAdd(_fileContextsCount, fileContext);
+                        Debug.Assert(added);
+                        
                         await readyToHashChannel.Writer.WriteAsync(_fileContextsCount++);
                     }
                 }
@@ -560,7 +566,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
         private async Task<bool> EnumerateFilesFromArtifactsProvider(TContext context)
         {
-            foreach (IEnumeratedArtifact artifact in context.ScanTargetsProvider.Artifacts)
+            foreach (IEnumeratedArtifact artifact in context.TargetsProvider.Artifacts)
             {
                 context.CancellationToken.ThrowIfCancellationRequested();
 
@@ -568,12 +574,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                     CreateContext(options: null,
                                   new CachingLogger(context.FailureLevels, context.ResultKinds),
                                   context.RuntimeErrors,
-                                  context.Policy,
-                                  artifact.Uri);
+                                  context.Policy);
 
+                // TBD: Push current target down into base?
+                fileContext.CurrentTarget = artifact;
                 fileContext.CancellationToken = context.CancellationToken;
-                fileContext.CurrentScanTarget = artifact;
-                _fileContexts.TryAdd(_fileContextsCount, fileContext);
+                
+                bool added = _fileContexts.TryAdd(_fileContextsCount, fileContext);
+                Debug.Assert(added);
+
                 await readyToHashChannel.Writer.WriteAsync(_fileContextsCount++);
             }
             return true;
@@ -617,7 +626,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
                             context.CancellationToken.ThrowIfCancellationRequested();
 
-                            string localPath = context.TargetUri.LocalPath;
+                            string localPath = context.CurrentTarget.Uri.LocalPath;
 
                             HashData hashData = ShouldComputeHashes(localPath, _rootContext)
                                 ? HashUtilities.ComputeHashes(localPath, FileSystem)
@@ -678,6 +687,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                         perFileContext = _fileContexts[item];
                         perFileContext.CancellationToken.ThrowIfCancellationRequested();
                         DetermineApplicabilityAndAnalyze(perFileContext, skimmers, disabledSkimmers);
+                        globalContext.RuntimeErrors |= perFileContext.RuntimeErrors;
                     }
                     catch (OperationCanceledException)
                     {
@@ -741,13 +751,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         protected virtual TContext CreateContext(TOptions options,
                                                  IAnalysisLogger logger,
                                                  RuntimeConditions runtimeErrors,
-                                                 PropertiesDictionary policy = null,
-                                                 Uri targetUri = null)
+                                                 PropertiesDictionary policy = null)
         {
             var context = new TContext
             {
                 Logger = logger,
-                TargetUri = targetUri,
                 RuntimeErrors = runtimeErrors,
                 Policy = policy ?? new PropertiesDictionary(),
             };
@@ -1161,9 +1169,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
                     skimmer.Analyze(context);
 
-                    Uri uri = context.CurrentScanTarget != null
-                        ? context.CurrentScanTarget.Uri
-                        : context.TargetUri;
+                    Uri uri = context.CurrentTarget != null
+                        ? context.CurrentTarget.Uri
+                        : context.CurrentTarget.Uri;
 
                     if (stopwatch != null && uri.IsAbsoluteUri)
                     {

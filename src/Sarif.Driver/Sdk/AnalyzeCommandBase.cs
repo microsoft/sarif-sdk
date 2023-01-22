@@ -76,7 +76,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 using (AggregatingLogger logger = InitializeLogger(options))
                 {
                     //  Once the logger has been correctly initialized, we can raise a warning
-                    _rootContext = CreateContext(options, logger, RuntimeErrors);
+                    //_rootContext = CreateContext(options, logger, RuntimeErrors);
 
 #pragma warning disable CS0618 // Type or member is obsolete
                     if (options.ComputeFileHashes)
@@ -317,7 +317,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
             if (filePath != null)
             {
-                context.TargetUri = new Uri(filePath);
+                context.CurrentTarget = new EnumeratedArtifact() { Uri = new Uri(filePath), FileSystem = FileSystem };
 
                 if ((options.DataToInsert.ToFlags() & OptionallyEmittedData.Hashes) != 0)
                 {
@@ -647,7 +647,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                             Result clonedResult = cachedResultTuple.Item2.DeepClone();
                             ReportingDescriptor cachedReportingDescriptor = cachedResultTuple.Item1;
 
-                            UpdateLocationsAndMessageWithCurrentUri(clonedResult.Locations, clonedResult.Message, context.TargetUri);
+                            UpdateLocationsAndMessageWithCurrentUri(clonedResult.Locations, clonedResult.Message, context.CurrentTarget.Uri);
                             context.Logger.Log(cachedReportingDescriptor, clonedResult);
                         }
                     }
@@ -657,7 +657,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                         foreach (Notification cachedNotification in cachedNotifications)
                         {
                             Notification clonedNotification = cachedNotification.DeepClone();
-                            UpdateLocationsAndMessageWithCurrentUri(clonedNotification.Locations, cachedNotification.Message, context.TargetUri);
+                            UpdateLocationsAndMessageWithCurrentUri(clonedNotification.Locations, cachedNotification.Message, context.CurrentTarget.Uri);
                             context.Logger.LogConfigurationNotification(clonedNotification);
                         }
                     }

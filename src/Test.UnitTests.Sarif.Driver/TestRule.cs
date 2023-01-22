@@ -123,7 +123,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 return AnalysisApplicability.NotApplicableToSpecifiedTarget;
             }
 
-            string fileName = Path.GetFileName(context.TargetUri.LocalPath);
+            string fileName = Path.GetFileName(context.CurrentTarget.Uri.LocalPath);
 
             if (fileName.Contains("NotApplicable"))
             {
@@ -200,56 +200,56 @@ namespace Microsoft.CodeAnalysis.Sarif
                 }
             }
 
-            string fileName = Path.GetFileName(context.TargetUri.LocalPath);
+            string fileName = Path.GetFileName(context.CurrentTarget.Uri.LocalPath);
 
             if (fileName.Contains(nameof(FailureLevel.Error)))
             {
                 context.Logger.Log(this,
                     RuleUtilities.BuildResult(FailureLevel.Error, context, null,
                     nameof(SkimmerBaseTestResources.TEST1001_Failed),
-                    context.TargetUri.GetFileName()));
+                    context.CurrentTarget.Uri.GetFileName()));
             }
             if (fileName.Contains(nameof(FailureLevel.Warning)))
             {
                 context.Logger.Log(this,
                     RuleUtilities.BuildResult(FailureLevel.Warning, context, null,
                     nameof(SkimmerBaseTestResources.TEST1001_Failed),
-                    context.TargetUri.GetFileName()));
+                    context.CurrentTarget.Uri.GetFileName()));
             }
             if (fileName.Contains(nameof(FailureLevel.Note)))
             {
                 context.Logger.Log(this,
                     RuleUtilities.BuildResult(FailureLevel.Note, context, null,
                     nameof(SkimmerBaseTestResources.TEST1001_Note),
-                    context.TargetUri.GetFileName()));
+                    context.CurrentTarget.Uri.GetFileName()));
             }
             else if (fileName.Contains(nameof(ResultKind.Pass)))
             {
                 context.Logger.Log(this,
                     RuleUtilities.BuildResult(ResultKind.Pass, context, null,
                     nameof(SkimmerBaseTestResources.TEST1001_Pass),
-                    context.TargetUri.GetFileName()));
+                    context.CurrentTarget.Uri.GetFileName()));
             }
             else if (fileName.Contains(nameof(ResultKind.Review)))
             {
                 context.Logger.Log(this,
                     RuleUtilities.BuildResult(ResultKind.Review, context, null,
                     nameof(SkimmerBaseTestResources.TEST1001_Review),
-                    context.TargetUri.GetFileName()));
+                    context.CurrentTarget.Uri.GetFileName()));
             }
             else if (fileName.Contains(nameof(ResultKind.Open)))
             {
                 context.Logger.Log(this,
                     RuleUtilities.BuildResult(ResultKind.Open, context, null,
                     nameof(SkimmerBaseTestResources.TEST1001_Open),
-                    context.TargetUri.GetFileName()));
+                    context.CurrentTarget.Uri.GetFileName()));
             }
             else if (fileName.Contains(nameof(ResultKind.Informational)))
             {
                 context.Logger.Log(this,
                     RuleUtilities.BuildResult(ResultKind.Informational, context, null,
                     nameof(SkimmerBaseTestResources.TEST1001_Information),
-                    context.TargetUri.GetFileName()));
+                    context.CurrentTarget.Uri.GetFileName()));
             }
         }
 

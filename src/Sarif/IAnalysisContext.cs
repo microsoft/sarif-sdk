@@ -11,9 +11,9 @@ namespace Microsoft.CodeAnalysis.Sarif
     {
         CancellationToken CancellationToken { get; set; }
 
-        IArtifactProvider ScanTargetsProvider { get; set; }
+        IArtifactProvider TargetsProvider { get; set; }
 
-        IEnumeratedArtifact CurrentScanTarget { get; set; }
+        IEnumeratedArtifact CurrentTarget { get; set; }
 
         ISet<string> TargetFileSpecifiers { get; set; }
         
@@ -26,10 +26,6 @@ namespace Microsoft.CodeAnalysis.Sarif
         bool Recurse { get; set; }
 
         int Threads { get; set; }
-
-
-        // TBD delete this.
-        Uri TargetUri { get; set; }
 
         string MimeType { get; set; }
 

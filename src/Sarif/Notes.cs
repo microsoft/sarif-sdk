@@ -17,14 +17,14 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentNullException(nameof(context));
             }
 
-            Debug.Assert(context.TargetUri != null);
+            Debug.Assert(context.CurrentTarget.Uri != null);
 
             // '{0}' was not evaluated for check '{1}' because the analysis
             // is not relevant for the following reason: {2}.
             context.Logger.Log(context.Rule,
                 RuleUtilities.BuildResult(ResultKind.NotApplicable, context, null,
                     nameof(SdkResources.NotApplicable_InvalidMetadata),
-                    context.TargetUri.GetFileName(),
+                    context.CurrentTarget.Uri.GetFileName(),
                     context.Rule.Name,
                     reasonForNotAnalyzing));
 
