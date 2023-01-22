@@ -540,15 +540,14 @@ namespace Microsoft.CodeAnalysis.Sarif
             context.RuntimeErrors |= RuntimeConditions.OneOrMoreRulesAreIncompatible;
         }
 
-        public static Notification CreateNotification(
-            Uri uri,
-            string notificationId,
-            string ruleId,
-            FailureLevel level,
-            Exception exception,
-            bool persistExceptionStack,
-            string messageFormat,
-            params string[] args)
+        public static Notification CreateNotification(Uri uri,
+                                                      string notificationId,
+                                                      string ruleId,
+                                                      FailureLevel level,
+                                                      Exception exception,
+                                                      bool persistExceptionStack,
+                                                      string messageFormat,
+                                                      params string[] args)
         {
             messageFormat ??= GetMessageFormatResourceForNotification(notificationId);
 
@@ -583,8 +582,9 @@ namespace Microsoft.CodeAnalysis.Sarif
                     }
                 },
                 Level = level,
-                Message = new Message { Text = message },
+                //TimeUtc = DateTime.UtcNow,
                 Exception = exceptionData,
+                Message = new Message { Text = message },
             };
 
             if (!string.IsNullOrWhiteSpace(notificationId))
@@ -613,6 +613,28 @@ namespace Microsoft.CodeAnalysis.Sarif
             return (string)typeof(SdkResources)
                             .GetProperty(resourceName, BindingFlags.Public | BindingFlags.Static)
                             .GetValue(obj: null, index: null);
+        }
+
+        internal static void LogAnalysisCanceled<TContext>(TContext globalContext) where TContext : IAnalysisContext, new()
+        {
+            if (globalContext.RuntimeErrors.HasFlag(RuntimeConditions.AnalysisCanceled))
+            {
+                return;
+            }
+
+            lock (globalContext)
+            {
+                if (!globalContext.RuntimeErrors.HasFlag(RuntimeConditions.AnalysisCanceled))
+                {
+                    // TBD emit the log message!
+                    globalContext.RuntimeErrors |= RuntimeConditions.AnalysisCanceled;
+                }
+            }
+        }
+
+        internal static void LogAnalysisTimedOut<TContext>(TContext context) where TContext : IAnalysisContext, new()
+        {
+            context.RuntimeErrors |= RuntimeConditions.AnalysisTimedOut;
         }
     }
 }

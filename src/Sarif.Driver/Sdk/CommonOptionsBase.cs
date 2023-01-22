@@ -10,7 +10,7 @@ using Newtonsoft.Json;
 
 namespace Microsoft.CodeAnalysis.Sarif.Driver
 {
-    public class CommonOptionsBase
+    public class CommonOptionsBase : PropertiesDictionary
     {
         [Option(
             'p',

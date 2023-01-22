@@ -306,14 +306,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             };
 
             context.Traces =
-                options.Traces.Any() ?
-                    (DefaultTraces)Enum.Parse(typeof(DefaultTraces), string.Join(",", options.Traces)) :
-                    DefaultTraces.None;
+                options?.Traces.Any() == true?
+                    new StringSet(options.Traces):
+                    new StringSet();
 
             context.MaxFileSizeInKilobytes =
                 options.MaxFileSizeInKilobytes >= 0
                 ? options.MaxFileSizeInKilobytes
-                : AnalyzeContextBase.MaxFileSizeInKilobytesDefaultValue;
+                : AnalyzeContextBase.MaxFileSizeInKilobytesProperty.DefaultValue();
 
             if (filePath != null)
             {

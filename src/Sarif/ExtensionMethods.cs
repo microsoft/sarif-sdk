@@ -539,7 +539,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         }
 
         /// <summary>
-        /// Merge elements from another IEnumerable into current one, keep unqiue elements, remove duplicated ones.
+        /// Merge elements from another IEnumerable into current one, keep unique elements, remove duplicated ones.
         /// </summary>
         /// <typeparam name="T">The type of object in the list.</typeparam>
         /// <param name="list">The original list.</param>

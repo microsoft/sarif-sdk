@@ -24,10 +24,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             IAnalysisLogger logger,
             RuntimeConditions runtimeErrors,
             PropertiesDictionary policy = null,
-            string filePath = null)
+            Uri targetUri = null)
         {
-            TestAnalysisContext context = base.CreateContext(options, logger, runtimeErrors, policy, filePath);
-            context.Policy.SetProperty(TestRule.Behaviors, options.TestRuleBehaviors.AccessibleWithinContextOnly());
+            TestAnalysisContext context = base.CreateContext(options, logger, runtimeErrors, policy, targetUri);
+
+            if (options != null)
+            {
+                context.Policy.SetProperty(TestRule.Behaviors, options.TestRuleBehaviors.AccessibleWithinContextOnly());
+            }
 
             TestRuleBehaviors behaviors = context.Policy.GetProperty(TestRule.Behaviors);
             context.IsValidAnalysisTarget = !behaviors.HasFlag(TestRuleBehaviors.RegardAnalysisTargetAsInvalid);

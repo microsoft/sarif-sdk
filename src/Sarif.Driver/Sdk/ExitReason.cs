@@ -16,6 +16,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         InvalidCommandLineOption,
         ExceptionProcessingBaseline,
         ExceptionPostingLogFile,
-        IncompatibleRulesDetected
+        IncompatibleRulesDetected,
+        AnalysisCanceled,
     }
 }

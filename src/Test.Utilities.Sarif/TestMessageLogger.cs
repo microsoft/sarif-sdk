@@ -14,8 +14,10 @@ namespace Microsoft.CodeAnalysis.Sarif
             FailTargets = new HashSet<string>();
             PassTargets = new HashSet<string>();
             NotApplicableTargets = new HashSet<string>();
+            Results = new List<Tuple<ReportingDescriptor, Result>>();
         }
 
+        public List<Tuple<ReportingDescriptor, Result>> Results { get; set; }
         public RuntimeConditions RuntimeErrors { get; set; }
 
         public HashSet<string> PassTargets { get; set; }
@@ -45,7 +47,8 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         public void Log(ReportingDescriptor rule, Result result)
         {
-            NoteTestResult(result.Kind, result.Locations.First().PhysicalLocation.ArtifactLocation.Uri.LocalPath);
+            Results.Add(new Tuple<ReportingDescriptor, Result>(rule, result));
+            NoteTestResult(result.Kind, result.Locations.First().PhysicalLocation.ArtifactLocation.Uri.ToString());
         }
 
         public void NoteTestResult(ResultKind kind, string targetPath)

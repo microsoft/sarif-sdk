@@ -32,6 +32,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 return Path.GetExtension(TargetUri.LocalPath).Equals(SarifConstants.SarifFileExtension, StringComparison.OrdinalIgnoreCase) ||
                        Path.GetExtension(TargetUri.LocalPath).Equals(".json", StringComparison.OrdinalIgnoreCase);
             }
+            set
+            {
+                throw new InvalidOperationException();
+            }
         }
 
         public override IAnalysisLogger Logger { get; set; }
@@ -91,8 +95,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         public ReportingDescriptorKind CurrentReportingDescriptorKind { get; internal set; }
 
         public JToken InputLogToken { get; internal set; }
-
-        public override DefaultTraces Traces { get; set; }
 
         public override void Dispose()
         {

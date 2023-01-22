@@ -8,6 +8,7 @@ using System.IO;
 using System.Reflection;
 using System.Resources;
 using System.Threading;
+using System.Threading.Tasks;
 
 using FluentAssertions;
 
@@ -149,6 +150,9 @@ namespace Microsoft.CodeAnalysis.Sarif
             (testRuleBehaviors & testRuleBehaviors.AccessibleWithinContextOnly())
                 .Should().Be(testRuleBehaviors);
 
+            int delay = context.Policy.GetProperty(DelayInMilliseconds);
+            Task.Delay(delay).Wait();
+
             switch (testRuleBehaviors)
             {
                 case TestRuleBehaviors.RaiseExceptionInvokingAnalyze:
@@ -260,6 +264,10 @@ namespace Microsoft.CodeAnalysis.Sarif
         }
 
         private const string AnalyzerName = TestRuleId + "." + nameof(TestRule);
+
+        public static PerLanguageOption<int> DelayInMilliseconds { get; } =
+            new PerLanguageOption<int>(
+                AnalyzerName, nameof(DelayInMilliseconds), defaultValue: () => 0);
 
         public static PerLanguageOption<uint> ErrorsCount { get; } =
             new PerLanguageOption<uint>(

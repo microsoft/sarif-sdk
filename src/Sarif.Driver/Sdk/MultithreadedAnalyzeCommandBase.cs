@@ -7,6 +7,8 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Net.Mime;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Threading.Channels;
 using System.Threading.Tasks;
@@ -180,7 +182,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         }
 
         private void MultithreadedAnalyzeTargets(TOptions options,
-                                                 TContext rootContext,
+                                                 TContext context,
                                                  IEnumerable<Skimmer<TContext>> skimmers,
                                                  ISet<string> disabledSkimmers)
         {
@@ -213,12 +215,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
             // 1: First we initiate an asynchronous operation to locate disk files for
             // analysis, as specified in analysis configuration (file names, wildcards).
-            Task<bool> enumerateFilesOnDisk = EnumerateFilesOnDiskAsync(options);
+            Task<bool> enumerateFilesOnDisk = EnumerateFilesOnDiskAsync(context);
 
             // 2: Files found on disk are put in a specific sort order, after which a 
             // reference to each scan target is put into a channel for hashing,
             // if hashing is enabled.
-            Task<bool> hashFilesAndPutInAnalysisQueue = HashFilesAndPutInAnalysisQueueAsnc();
+            Task<bool> hashFilesAndPutInAnalysisQueue = HashFilesAndPutInAnalysisQueueAsnc(context);
 
             // 3: A dedicated set of threads pull scan targets and analyze them.
             //    On completing a scan, the thread writes the index of the 
@@ -226,16 +228,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             var workers = new Task<bool>[options.Threads];
             for (int i = 0; i < options.Threads; i++)
             {
-                workers[i] = ScanTargetsAsync(skimmers, disabledSkimmers);
+                workers[i] = ScanTargetsAsync(context, skimmers, disabledSkimmers);
             }
 
             // 4: A single-threaded consumer watches for completed scans
-            //    and logs results, if any. This operation is singlle-threaded
+            //    and logs results, if any. This operation is single-threaded
             //    in order to help ensure determinism in log output. i.e., any
             //    scan of the same targets using the same production code
             //    should produce a log file that is byte-for-byte identical
             //    to the previous output.
-            Task<bool> logScanResults = LogScanResultsAsync(rootContext);
+            Task<bool> logScanResults = LogScanResultsAsync(context);
 
             Task.WhenAll(workers)
                 .ContinueWith(_ => _resultsWritingChannel.Writer.Complete())
@@ -247,18 +249,23 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
             Console.WriteLine();
 
-            if (rootContext.Traces.HasFlag(DefaultTraces.ScanTime))
+            if (context.Traces.Contains(nameof(DefaultTraces.ScanTime)))
             {
                 string timing = $"Done. {_fileContextsCount:n0} files scanned, elapsed time {sw.Elapsed}.";
 
-                rootContext.Logger.LogToolNotification(
+                context.Logger.LogToolNotification(
                     new Notification
                     {
-                        Level = FailureLevel.Note,
+                        Level = FailureLevel.Warning,
+                        Descriptor = new ReportingDescriptorReference
+                        {
+                            Id = $"TRC101.{nameof(DefaultTraces.ScanTime)}"
+                        },
                         Message = new Message
                         {
                             Text = timing,
                         },
+                        TimeUtc = DateTime.UtcNow,
                     });
             }
             else
@@ -295,32 +302,44 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                         {
                             LogCachingLogger(rootContext, context, clone: _computeHashes);
 
-                            RuntimeErrors |= context.RuntimeErrors;
-
-                            context.Dispose();
                             _fileContexts.TryRemove(currentIndex, out _);
                             _fileContexts.TryGetValue(currentIndex + 1, out context);
 
                             currentIndex++;
                         }
                     }
+                    catch (OperationCanceledException)
+                    {
+                        Errors.LogAnalysisCanceled(context);
+                        ThrowExitApplicationException(context, ExitReason.ExceptionWritingToLogFile);
+                    }
                     catch (Exception e)
+                    {
+                        Errors.LogUnhandledEngineException(rootContext, e);
+                        ThrowExitApplicationException(context, ExitReason.ExceptionWritingToLogFile, e);
+                    }
+                    finally
                     {
                         if (context != null)
                         {
                             RuntimeErrors |= context.RuntimeErrors;
-                            context?.Dispose();
+                            context.Dispose();
                         }
-                        context = default;
-                        Errors.LogUnhandledEngineException(rootContext, e);
+
                         RuntimeErrors |= rootContext.RuntimeErrors;
-                        ThrowExitApplicationException(context, ExitReason.ExceptionWritingToLogFile, e);
                     }
                 }
             }
 
-            Debug.Assert(_fileContexts.IsEmpty);
-            Debug.Assert(_fileContextsCount == currentIndex);
+            if (!_fileContexts.IsEmpty || _fileContextsCount != currentIndex)
+            {
+                // If we have abandoned context state, we must have halted analysis
+                // due to some catastrophic condition.
+                Debug.Assert(
+                    rootContext.RuntimeErrors.HasFlag(RuntimeConditions.AnalysisCanceled) ||
+                    rootContext.RuntimeErrors.HasFlag(RuntimeConditions.AnalysisTimedOut) ||
+                    rootContext.RuntimeErrors.HasFlag(RuntimeConditions.ExceptionInEngine));
+            }
 
             return true;
         }
@@ -394,60 +413,105 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             return true;
         }
 
-        private async Task<bool> EnumerateFilesOnDiskAsync(TOptions options)
+        private async Task<bool> EnumerateFilesOnDiskAsync(TContext context)
         {
             try
             {
                 this._fileContextsCount = 0;
                 this._fileContexts = new ConcurrentDictionary<int, TContext>();
 
-                // INTERESTING BREAKPOINT: debug 'ERR997.NoValidAnalysisTargets : No valid analysis targets were specified.'
-                // Set a conditional breakpoint on 'matchExpression.Name' to filter by specific rules.
-                // Set a conditional breakpoint on 'searchText' to filter on specific target text patterns.
-                foreach (string specifier in options.TargetFileSpecifiers)
+                if (context.ScanTargetsProvider != null)
                 {
-                    string normalizedSpecifier = Environment.ExpandEnvironmentVariables(specifier);
+                    await EnumerateFilesFromArtifactsProvider(context);
+                }
+                else
+                {
+                    await EnumerateFilesOnDisk(context);
+                }
+            }
+            catch (OperationCanceledException)
+            {
+                Errors.LogAnalysisCanceled(context);
+                ThrowExitApplicationException(context, ExitReason.ExceptionWritingToLogFile);
+                
+            }
+            catch (Exception e)
+            {
+                lock (context)
+                {
+                    Errors.LogUnhandledEngineException(context, e);
+                }
+                ThrowExitApplicationException(context, ExitReason.UnhandledExceptionInEngine);
+            }
+            finally
+            {
+                readyToHashChannel.Writer.Complete();
+            }
 
-                    if (Uri.TryCreate(specifier, UriKind.RelativeOrAbsolute, out Uri uri))
+            if (_ignoredFilesCount > 0)
+            {
+                Warnings.LogOneOrMoreFilesSkippedDueToSize(context);
+            }
+
+            if (_fileContextsCount == 0)
+            {
+                Errors.LogNoValidAnalysisTargets(context);
+                ThrowExitApplicationException(context, ExitReason.NoValidAnalysisTargets);
+            }
+
+            return true;
+        }
+
+        private async Task<bool> EnumerateFilesOnDisk(TContext context)
+        {
+            // INTERESTING BREAKPOINT: debug 'ERR997.NoValidAnalysisTargets : No valid analysis targets were specified.'
+            // Set a conditional breakpoint on 'matchExpression.Name' to filter by specific rules.
+            // Set a conditional breakpoint on 'searchText' to filter on specific target text patterns.
+            foreach (string specifier in context.TargetFileSpecifiers)
+            {
+                string normalizedSpecifier = Environment.ExpandEnvironmentVariables(specifier);
+
+                if (Uri.TryCreate(specifier, UriKind.RelativeOrAbsolute, out Uri uri))
+                {
+                    if (uri.IsAbsoluteUri && (uri.IsFile || uri.IsUnc))
                     {
-                        if (uri.IsAbsoluteUri && (uri.IsFile || uri.IsUnc))
-                        {
-                            normalizedSpecifier = uri.LocalPath;
-                        }
+                        normalizedSpecifier = uri.LocalPath;
                     }
+                }
 
-                    string filter = Path.GetFileName(normalizedSpecifier);
-                    string directory = Path.GetDirectoryName(normalizedSpecifier);
+                string filter = Path.GetFileName(normalizedSpecifier);
+                string directory = Path.GetDirectoryName(normalizedSpecifier);
 
-                    if (directory.Length == 0)
-                    {
-                        directory = $".{Path.DirectorySeparatorChar}";
-                    }
+                if (directory.Length == 0)
+                {
+                    directory = $".{Path.DirectorySeparatorChar}";
+                }
 
-                    directory = Path.GetFullPath(directory);
-                    var directories = new Queue<string>();
+                directory = Path.GetFullPath(directory);
+                var directories = new Queue<string>();
 
-                    if (!FileSystem.DirectoryExists(directory))
-                    {
-                        continue;
-                    }
+                if (!FileSystem.DirectoryExists(directory))
+                {
+                    continue;
+                }
 
-                    if (options.Recurse)
-                    {
-                        EnqueueAllDirectories(directories, directory);
-                    }
-                    else
-                    {
-                        directories.Enqueue(directory);
-                    }
+                if (context.Recurse)
+                {
+                    EnqueueAllDirectories(context, directories, directory);
+                }
+                else
+                {
+                    directories.Enqueue(directory);
+                }
 
-                    var sortedFiles = new SortedSet<string>();
+                var sortedFiles = new SortedSet<string>();
 
-                    while (directories.Count > 0)
-                    {
-                        sortedFiles.Clear();
+                while (directories.Count > 0)
+                {
+                    sortedFiles.Clear();
+                    context.CancellationToken.ThrowIfCancellationRequested();
 
-                        directory = Path.GetFullPath(directories.Dequeue());
+                    directory = Path.GetFullPath(directories.Dequeue());
 
 #if NETFRAMEWORK
                         // .NET Framework: Directory.Enumerate with empty filter returns NO files.
@@ -459,63 +523,66 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                         }
 #endif
 
-                        foreach (string file in FileSystem.DirectoryEnumerateFiles(directory, filter, SearchOption.TopDirectoryOnly))
-                        {
-                            // Only include files that are below the max size limit.
-                            if (ShouldEnqueue(file, _rootContext))
-                            {
-                                sortedFiles.Add(file);
-                                continue;
-                            }
+                    foreach (string file in FileSystem.DirectoryEnumerateFiles(directory, filter, SearchOption.TopDirectoryOnly))
+                    {
+                        context.CancellationToken.ThrowIfCancellationRequested();
 
-                            if (!IsTargetWithinFileSizeLimit(file, _rootContext.MaxFileSizeInKilobytes, out long fileSizeInKb))
-                            {
-                                _ignoredFilesCount++;
-                            }
+                        // Only include files that are below the max size limit.
+                        if (ShouldEnqueue(file, _rootContext))
+                        {
+                            sortedFiles.Add(file);
+                            continue;
                         }
 
-                        foreach (string file in sortedFiles)
+                        if (!IsTargetWithinFileSizeLimit(file, _rootContext.MaxFileSizeInKilobytes, out long fileSizeInKb))
                         {
-                            _fileContexts.TryAdd(
-                                _fileContextsCount,
-                                CreateContext(options,
-                                              new CachingLogger(options.Level, options.Kind),
-                                              _rootContext.RuntimeErrors,
-                                              _rootContext.Policy,
-                                              filePath: file)
-                            );
-
-                            await readyToHashChannel.Writer.WriteAsync(_fileContextsCount++);
+                            _ignoredFilesCount++;
                         }
+                    }
+
+                    foreach (string file in sortedFiles)
+                    {
+                        _fileContexts.TryAdd(
+                            _fileContextsCount,
+                            CreateContext(options: null,
+                                          new CachingLogger(context.FailureLevels, context.ResultKinds),
+                                          context.RuntimeErrors,
+                                          context.Policy,
+                                          new Uri(file))
+                        );
+
+                        await readyToHashChannel.Writer.WriteAsync(_fileContextsCount++);
                     }
                 }
             }
-            catch (Exception e)
-            {
-                Errors.LogUnhandledEngineException(_rootContext, e);
-                ThrowExitApplicationException(_rootContext, ExitReason.UnhandledExceptionInEngine);
-            }
-            finally
-            {
-                readyToHashChannel.Writer.Complete();
-            }
-
-            if (_ignoredFilesCount > 0)
-            {
-                Warnings.LogOneOrMoreFilesSkippedDueToSize(_rootContext);
-            }
-
-            if (_fileContextsCount == 0)
-            {
-                Errors.LogNoValidAnalysisTargets(_rootContext);
-                ThrowExitApplicationException(_rootContext, ExitReason.NoValidAnalysisTargets);
-            }
-
             return true;
         }
 
-        private void EnqueueAllDirectories(Queue<string> queue, string directory)
+        private async Task<bool> EnumerateFilesFromArtifactsProvider(TContext context)
         {
+            foreach (IEnumeratedArtifact artifact in context.ScanTargetsProvider.Artifacts)
+            {
+                context.CancellationToken.ThrowIfCancellationRequested();
+
+                TContext fileContext = 
+                    CreateContext(options: null,
+                                  new CachingLogger(context.FailureLevels, context.ResultKinds),
+                                  context.RuntimeErrors,
+                                  context.Policy,
+                                  artifact.Uri);
+
+                fileContext.CancellationToken = context.CancellationToken;
+                fileContext.CurrentScanTarget = artifact;
+                _fileContexts.TryAdd(_fileContextsCount, fileContext);
+                await readyToHashChannel.Writer.WriteAsync(_fileContextsCount++);
+            }
+            return true;
+        }
+
+        private void EnqueueAllDirectories(TContext context, Queue<string> queue, string directory)
+        {
+            context.CancellationToken.ThrowIfCancellationRequested();
+
             var sortedDiskItems = new SortedSet<string>();
 
             queue.Enqueue(directory);
@@ -526,11 +593,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
             foreach (string childDirectory in sortedDiskItems)
             {
-                EnqueueAllDirectories(queue, childDirectory);
+                EnqueueAllDirectories(context, queue, childDirectory);
             }
         }
 
-        private async Task<bool> HashFilesAndPutInAnalysisQueueAsnc()
+        private async Task<bool> HashFilesAndPutInAnalysisQueueAsnc(TContext globalContext)
         {
             ChannelReader<int> reader = readyToHashChannel.Reader;
 
@@ -547,6 +614,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                         if (_computeHashes)
                         {
                             TContext context = _fileContexts[index];
+
+                            context.CancellationToken.ThrowIfCancellationRequested();
+
                             string localPath = context.TargetUri.LocalPath;
 
                             HashData hashData = ShouldComputeHashes(localPath, _rootContext)
@@ -576,8 +646,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             }
             catch (Exception e)
             {
-                Errors.LogUnhandledEngineException(_rootContext, e);
-                ThrowExitApplicationException(_rootContext, ExitReason.UnhandledExceptionInEngine);
+                lock (globalContext)
+                {
+                    Errors.LogUnhandledEngineException(globalContext, e);
+                }
+
+                ThrowExitApplicationException(globalContext, ExitReason.UnhandledExceptionInEngine);
             }
             finally
             {
@@ -587,7 +661,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             return true;
         }
 
-        private async Task<bool> ScanTargetsAsync(IEnumerable<Skimmer<TContext>> skimmers, ISet<string> disabledSkimmers)
+        private async Task<bool> ScanTargetsAsync(TContext globalContext, IEnumerable<Skimmer<TContext>> skimmers, ISet<string> disabledSkimmers)
         {
             ChannelReader<int> reader = readyToScanChannel.Reader;
 
@@ -597,25 +671,32 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 // Loop while there is work to do.
                 while (reader.TryRead(out int item))
                 {
-                    TContext context = default;
+                    TContext perFileContext = default;
 
                     try
                     {
-                        context = _fileContexts[item];
-
-                        DetermineApplicabilityAndAnalyze(context, skimmers, disabledSkimmers);
+                        perFileContext = _fileContexts[item];
+                        perFileContext.CancellationToken.ThrowIfCancellationRequested();
+                        DetermineApplicabilityAndAnalyze(perFileContext, skimmers, disabledSkimmers);
+                    }
+                    catch (OperationCanceledException)
+                    {
+                        Errors.LogAnalysisCanceled(globalContext);
+                        ThrowExitApplicationException(globalContext, ExitReason.AnalysisCanceled);
                     }
                     catch (Exception e)
                     {
-                        Console.Error.WriteLine(e.Message);
+                        Errors.LogUnhandledEngineException(globalContext, e);
+                        ThrowExitApplicationException(globalContext, ExitReason.UnhandledExceptionInEngine);
                     }
                     finally
                     {
-                        if (context != null) { context.AnalysisComplete = true; }
+                        if (perFileContext != null) { perFileContext.AnalysisComplete = true; }
                         await _resultsWritingChannel.Writer.WriteAsync(item);
                     }
                 }
             }
+
             return true;
         }
 
@@ -661,29 +742,35 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                                                  IAnalysisLogger logger,
                                                  RuntimeConditions runtimeErrors,
                                                  PropertiesDictionary policy = null,
-                                                 string filePath = null)
+                                                 Uri targetUri = null)
         {
             var context = new TContext
             {
-                Policy = policy ?? new PropertiesDictionary(),
                 Logger = logger,
+                TargetUri = targetUri,
                 RuntimeErrors = runtimeErrors,
+                Policy = policy ?? new PropertiesDictionary(),
             };
 
-            context.Traces =
-                options.Traces.Any() ?
-                    (DefaultTraces)Enum.Parse(typeof(DefaultTraces), string.Join(",", options.Traces)) :
-                    DefaultTraces.None;
-
-            context.MaxFileSizeInKilobytes =
-                options.MaxFileSizeInKilobytes >= 0
-                    ? options.MaxFileSizeInKilobytes
-                    : AnalyzeContextBase.MaxFileSizeInKilobytesDefaultValue;
-
-
-            if (filePath != null)
+            if (options != null)
             {
-                context.TargetUri = new Uri(filePath);
+                context.Traces =
+                    options.Traces.Any() == true ?
+                       new StringSet(options.Traces) :
+                       new StringSet();
+
+                if (options.TargetFileSpecifiers != null)
+                {
+                    context.TargetFileSpecifiers = new StringSet(options.TargetFileSpecifiers);
+                }
+
+                if (options.MaxFileSizeInKilobytes != -1)
+                {
+                    context.MaxFileSizeInKilobytes= options.MaxFileSizeInKilobytes;
+                }
+
+                context.ResultKinds = new HashSet<ResultKind>(options.Kind);
+                context.FailureLevels = new HashSet<FailureLevel>(options.Level);
             }
 
             return context;
@@ -722,22 +809,25 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
             string extension = Path.GetExtension(configurationFileName);
 
+            PropertiesDictionary configuration = new PropertiesDictionary();
             if (extension.Equals(".xml", StringComparison.OrdinalIgnoreCase))
             {
-                context.Policy.LoadFromXml(configurationFileName);
+                configuration.LoadFromXml(configurationFileName);
             }
             else if (extension.Equals(".json", StringComparison.OrdinalIgnoreCase))
             {
-                context.Policy.LoadFromJson(configurationFileName);
+                configuration.LoadFromJson(configurationFileName);
             }
             else if (ConfigurationFormat == FileFormat.Xml)
             {
-                context.Policy.LoadFromXml(configurationFileName);
+                configuration.LoadFromXml(configurationFileName);
             }
             else
             {
-                context.Policy.LoadFromJson(configurationFileName);
+                configuration.LoadFromJson(configurationFileName);
             }
+            configuration.MergePreferFirst(context.Policy);
+            context.Policy = configuration;
         }
 
         private void InitializeOutputFile(TOptions analyzeOptions, TContext context)
@@ -980,7 +1070,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 return context;
             }
 
+            context.CancellationToken.ThrowIfCancellationRequested();
             IEnumerable<Skimmer<TContext>> applicableSkimmers = DetermineApplicabilityForTarget(context, skimmers, disabledSkimmers);
+
             AnalyzeTarget(context, applicableSkimmers, disabledSkimmers);
 
             logger.ReleaseLock();
@@ -1050,6 +1142,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         {
             foreach (Skimmer<TContext> skimmer in skimmers)
             {
+                context.CancellationToken.ThrowIfCancellationRequested();
                 if (disabledSkimmers.Count > 0)
                 {
                     lock (disabledSkimmers)
@@ -1062,15 +1155,19 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
                 try
                 {
-                    Stopwatch stopwatch = context.Traces.HasFlag(DefaultTraces.RuleScanTime)
+                    Stopwatch stopwatch = context.Traces.Contains(nameof(DefaultTraces.RuleScanTime))
                         ? Stopwatch.StartNew()
                         : null;
 
                     skimmer.Analyze(context);
 
-                    if (stopwatch != null && context.TargetUri.IsAbsoluteUri)
+                    Uri uri = context.CurrentScanTarget != null
+                        ? context.CurrentScanTarget.Uri
+                        : context.TargetUri;
+
+                    if (stopwatch != null && uri.IsAbsoluteUri)
                     {
-                        string file = context.TargetUri.LocalPath;
+                        string file = uri.LocalPath;
                         string directory = Path.GetDirectoryName(file);
                         file = Path.GetFileName(file);
                         string timing = $"'{file}' : elapsed {stopwatch.Elapsed} : '{skimmer.Name}' : at '{directory}'";
@@ -1078,11 +1175,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                         context.Logger.LogToolNotification(
                             new Notification
                             {
-                                Level = FailureLevel.Warning,
+                                Level = FailureLevel.Note,
+                                Descriptor = new ReportingDescriptorReference
+                                {
+                                    Id = $"TRC101.{nameof(DefaultTraces.RuleScanTime)}"
+                                },
                                 Message = new Message
                                 {
                                     Text = timing,
                                 },
+                                TimeUtc = DateTime.UtcNow,
                             },
                             skimmer);
                     }

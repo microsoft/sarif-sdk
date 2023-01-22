@@ -51,9 +51,11 @@ namespace Microsoft.CodeAnalysis.Sarif
         ExceptionProcessingBaseline = 0x20000,
         ExceptionPostingLogFile = 0x40000,
         OneOrMoreRulesAreIncompatible = 0x80000,
+        AnalysisCanceled = 0x100000,
+        AnalysisTimedOut = 0x200000,
 
         // Non-fatal conditions
-        UnassignedNonfatal = 0x00F00000,
+        UnassignedNonfatal = 0x00C00000,
         OneOrMoreFilesSkippedDueToSize = 0x01000000,
         RuleWasExplicitlyDisabled = 0x02000000,
         RuleCannotRunOnPlatform = 0x04000000,
@@ -63,6 +65,6 @@ namespace Microsoft.CodeAnalysis.Sarif
         OneOrMoreErrorsFired = 0x40000000,
         ObsoleteOption = 0x80000000,
 
-        Nonfatal = 0x7FF00000
+        Nonfatal = 0x7FC00000,
     }
 }

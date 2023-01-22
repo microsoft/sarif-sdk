@@ -13,18 +13,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
     {
         public AnalyzeOptionsBase()
         {
-            // TODO: these defaults need to be converted to the configuration
-            // property pattern as followed by MaxFileSizeInKilobytes.
-            Traces = new string[] { };
-            Kind = new List<ResultKind> { ResultKind.Fail };
-            Level = new List<FailureLevel> { FailureLevel.Warning, FailureLevel.Error };
-
-            MaxFileSizeInKilobytes = AnalyzeContextBase.MaxFileSizeInKilobytesDefaultValue;
+            Traces = AnalyzeContextBase.TracesProperty.DefaultValue();
+            Kind = AnalyzeContextBase.ResultKindsProperty.DefaultValue();
+            Level = AnalyzeContextBase.FailureLevelsProperty.DefaultValue();
+            MaxFileSizeInKilobytes = AnalyzeContextBase.MaxFileSizeInKilobytesProperty.DefaultValue();
         }
 
         [Value(0,
                HelpText = "One or more specifiers to a file, directory, or filter pattern that resolves to one or more binaries to analyze.")]
-        public IEnumerable<string> TargetFileSpecifiers { get; set; }
+        public IList<string> TargetFileSpecifiers { get; set; }
 
         [Option(
             'o',
