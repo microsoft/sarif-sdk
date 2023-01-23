@@ -335,16 +335,5 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             return firstMod;
         }
-
-        public static void TestMod()
-        {
-            Long mod = new Long(37, 0, false);
-            Long firstMod = new Long(1, 0, false); // L
-            for (int i = 0; i < 100; i++)
-            {
-                firstMod = firstMod.Multiply(mod);
-            }
-            return;
-        }
     }
 }

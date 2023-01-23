@@ -1,10 +1,12 @@
 ﻿// Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
+// This library is a port of the JavaScript Long numeric type.
+// The definition of Long, per ECMA-262 5th edition is: "all the positive and negative integers whose magnitude is no greater than 253 are representable in the Number type",
+// which is "representing the doubleprecision 64-bit format IEEE 754 values as specified in the IEEE Standard for Binary Floating-Point Arithmetic".
+
 using System;
 using System.Collections.Generic;
-
-using Newtonsoft.Json.Linq;
 
 namespace Microsoft.CodeAnalysis.Sarif.Numeric
 {
@@ -228,6 +230,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Numeric
             return FromBits(this.high >> (numBits - 32), 0, this.unsigned);
         }
 
+        /// <summary>
+        /// Construct a Long object from a given integer value.
+        /// </summary>
+        /// <param name="value">Integer value.</param>
+        /// <param name="unsigned">Expected sign of Long object.</param>
+        /// <returns>Long representation of the input integer (and sign).</returns>
         public static Long FromInt(int value, bool unsigned = false)
         {
             Long obj;  
@@ -281,6 +289,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Numeric
             return FromBits(this.low, this.high, true);
         }
 
+        /// <summary>
+        /// Returns the product of this and the specified Long.
+        /// </summary>
+        /// <param name="multiplier">Multiplier</param>
+        /// <returns>Product</returns>
         public Long Multiply(Long multiplier)
         {
             if (this.IsZero())
@@ -359,6 +372,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Numeric
             return FromBits((int)((c16 << 16) | c00), (int)((c48 << 16) | c32), this.unsigned);
         }
 
+        /// <summary>
+        /// Returns the sum of this and the specified Long.
+        /// </summary>
+        /// <param name="addend">Addend</param>
+        /// <returns>Sum</returns>
         public Long Add(Long addend)
         {
             // Divide each number into 4 chunks of 16 bits, and then sum the chunks.
@@ -388,6 +406,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Numeric
             return FromBits((int)((c16 << 16) | c00), (int)((c48 << 16) | c32), this.unsigned);
         }
 
+        /// <summary>
+        /// Returns the difference of this and the specified Long.
+        /// </summary>
+        /// <param name="subtrahend">Subtrahend</param>
+        /// <returns>Difference</returns>
         public Long Subtract(Long subtrahend)
         {
             return this.Add(subtrahend.Negate());
