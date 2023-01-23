@@ -60,7 +60,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 Kind = kind
             };
 
-            if (context.CurrentTarget.Uri != null)
+            if (context.CurrentTarget?.Uri != null)
             {
                 result.Locations = new List<Location> {
                     new Sarif.Location {

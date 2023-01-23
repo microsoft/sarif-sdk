@@ -756,6 +756,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             var context = new TContext
             {
                 Logger = logger,
+                FileSystem = FileSystem,
                 RuntimeErrors = runtimeErrors,
                 Policy = policy ?? new PropertiesDictionary(),
             };

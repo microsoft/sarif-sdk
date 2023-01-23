@@ -76,7 +76,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 using (AggregatingLogger logger = InitializeLogger(options))
                 {
                     //  Once the logger has been correctly initialized, we can raise a warning
-                    //_rootContext = CreateContext(options, logger, RuntimeErrors);
+                    _rootContext = CreateContext(options, logger, RuntimeErrors);
 
 #pragma warning disable CS0618 // Type or member is obsolete
                     if (options.ComputeFileHashes)

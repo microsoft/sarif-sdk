@@ -2020,7 +2020,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             try
             {
                 HashUtilities.FileSystem = fileSystem;
-                command.Run(options).Should().Be(expectedReturnCode);
+                int result = command.Run(options);
+                
+                result.Should().Be(expectedReturnCode);
             }
             finally
             {

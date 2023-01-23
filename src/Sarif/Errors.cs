@@ -147,7 +147,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             // No analysis plugins were configured, therefore no rules loaded.
             context.Logger.LogConfigurationNotification(
                     Errors.CreateNotification(
-                        context.CurrentTarget.Uri,
+                        null,
                         ERR997_NoPluginsConfigured,
                         ruleId: null,
                         FailureLevel.Error,
@@ -169,7 +169,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             // No valid analysis targets were specified.
             context.Logger.LogConfigurationNotification(
                 CreateNotification(
-                    context.CurrentTarget.Uri,
+                    context.CurrentTarget?.Uri,
                     ERR997_NoValidAnalysisTargets,
                     ruleId: null,
                     FailureLevel.Error,
@@ -257,7 +257,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             // '{0}' is not a property of the Invocation object.
             context.Logger.LogConfigurationNotification(
                 CreateNotification(
-                    context.CurrentTarget.Uri,
+                    uri: null,
                     ERR997_InvalidInvocationPropertyName,
                     ruleId: null,
                     FailureLevel.Error,
