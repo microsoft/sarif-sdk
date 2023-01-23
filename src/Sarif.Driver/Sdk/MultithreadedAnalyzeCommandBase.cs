@@ -490,7 +490,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 directory = Path.GetFullPath(directory);
                 var directories = new Queue<string>();
 
-                if (!FileSystem.DirectoryExists(directory))
+                if (!context.FileSystem.DirectoryExists(directory))
                 {
                     continue;
                 }
@@ -551,7 +551,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                         fileContext.CurrentTarget = new EnumeratedArtifact
                         {
                             Uri = new Uri(file),
-                            FileSystem = FileSystem,
+                            FileSystem = context.FileSystem,
                         };
 
                         bool added = _fileContexts.TryAdd(_fileContextsCount, fileContext);

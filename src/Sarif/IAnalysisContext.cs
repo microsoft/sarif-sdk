@@ -9,6 +9,8 @@ namespace Microsoft.CodeAnalysis.Sarif
 {
     public interface IAnalysisContext : IDisposable
     {
+        IFileSystem FileSystem { get; set; }
+
         CancellationToken CancellationToken { get; set; }
 
         IArtifactProvider TargetsProvider { get; set; }

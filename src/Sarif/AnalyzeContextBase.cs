@@ -25,7 +25,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 MaxFileSizeInKilobytesProperty
             };
         }
-
+        public virtual IFileSystem FileSystem { get; set; }
         public virtual CancellationToken CancellationToken { get; set; }
         public virtual IArtifactProvider TargetsProvider { get; set; }
         public virtual IEnumeratedArtifact CurrentTarget { get; set; }
