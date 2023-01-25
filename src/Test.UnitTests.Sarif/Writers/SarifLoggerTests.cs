@@ -1126,7 +1126,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 var emptyNotification = new Notification();
 
                 // Logging empty notification
-                sarifLogger.LogToolNotification(emptyNotification);
+                sarifLogger.LogToolNotification(emptyNotification, associatedRule: null);
                 sarifLogger.LogConfigurationNotification(emptyNotification);
 
                 var notificationWithLocation = new Notification
@@ -1146,7 +1146,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                     }
                 };
 
-                sarifLogger.LogToolNotification(notificationWithLocation);
+                sarifLogger.LogToolNotification(notificationWithLocation, associatedRule: null);
                 sarifLogger.LogConfigurationNotification(notificationWithLocation);
             }
 

@@ -14,7 +14,9 @@ using Newtonsoft.Json;
 
 namespace Microsoft.CodeAnalysis.Sarif.Multitool
 {
+#pragma warning disable CS0618
     public class ValidateCommand : AnalyzeCommandBase<SarifValidationContext, ValidateOptions>
+#pragma warning restore CS0618
     {
         private List<Assembly> _defaultPlugInAssemblies;
 

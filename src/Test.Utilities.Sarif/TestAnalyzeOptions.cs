@@ -9,12 +9,6 @@ namespace Microsoft.CodeAnalysis.Sarif
 {
     public class TestAnalyzeOptions : AnalyzeOptionsBase
     {
-        public TestAnalyzeOptions()
-        {
-            Kind = new List<ResultKind> { ResultKind.Fail };
-            Level = new List<FailureLevel> { FailureLevel.Warning, FailureLevel.Error };
-        }
-
         public TestRuleBehaviors TestRuleBehaviors { get; set; }
 
         public bool DisableCheck { get; set; }

@@ -1,14 +1,14 @@
 ﻿// Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
-
+#pragma warning disable CS0618
 using System;
 using System.Collections.Generic;
+using System.Data.Common;
 using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Text;
-using System.Threading.Tasks;
 
 using FluentAssertions;
 
@@ -19,7 +19,6 @@ using Microsoft.CodeAnalysis.Sarif.Writers;
 using Microsoft.CodeAnalysis.Test.Utilities.Sarif;
 
 using Microsoft.Coyote;
-using Microsoft.Coyote.Specifications;
 using Microsoft.Coyote.SystematicTesting;
 
 using Moq;
@@ -41,6 +40,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         public AnalyzeCommandBaseTests(ITestOutputHelper output)
         {
             this.Output = output;
+            Output.WriteLine($"The seed that will be used is: {TestRule.s_seed}");
         }
 
         [Fact]
@@ -664,10 +664,99 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         }
 
         [Fact]
+        public void AnalyzeCommand_Traces()
+        {
+            var sb = new StringBuilder();
+
+            foreach (DefaultTraces trace in new[] { DefaultTraces.None, DefaultTraces.ScanTime, DefaultTraces.RuleScanTime })
+            {
+                var options = new TestAnalyzeOptions
+                {
+                    OutputFilePath = Guid.NewGuid().ToString(),
+                    TargetFileSpecifiers = new string[] { Guid.NewGuid().ToString() },
+                    Traces = new[] { trace.ToString() },
+                    Level = new[] { FailureLevel.Warning, FailureLevel.Note },
+                };
+
+                Run run = RunMultithreadedAnalyzeCommand(ComprehensiveKindAndLevelsByFilePath,
+                                                         generateDuplicateScanTargets: false,
+                                                         expectedResultCode: SUCCESS,
+                                                         expectedResultCount: WARNING_COUNT + NOTE_COUNT,
+                                                         options);
+
+
+                int resultCount = 0;
+                int executionNotificationsCount = 0;
+                int configurationNotificationCount = 0;
+
+                SarifHelpers.ValidateRun(
+                    run,
+                    (issue) => { resultCount++; },
+                    (toolNotification) => { executionNotificationsCount++; },
+                    (configurationNotification) => { configurationNotificationCount++; });
+
+                IList<Notification> executionNotifications = run.Invocations[0].ToolExecutionNotifications;
+
+                switch (trace)
+                {
+                    case DefaultTraces.None:
+                    {
+                        if (executionNotificationsCount > 0 || configurationNotificationCount > 0)
+                        {
+                            sb.AppendLine($"\t{trace} : observed notifications when tracing was disabled.");
+                        }
+                        break;
+                    }
+                    case DefaultTraces.ScanTime:
+                    {
+                        // There is only one end-to-end scan time notification.
+                        if (executionNotifications?.Count != 1)
+                        {
+                            sb.AppendLine($"\t{trace} : expected 1 notification but saw {executionNotifications?.Count ?? 0}.");
+                            continue;
+                        }
+
+                        if (executionNotifications?.Where(t => t.Message.Text.Contains("elapsed")).Count() != 1)
+                        {
+                            sb.AppendLine($"\t{trace} : did not observe term 'elapsed' in scan timing notifications.");
+                        }
+                        break;
+                    }
+                    case DefaultTraces.RuleScanTime:
+                    {
+                        // We expect every rule to generate timing data for every applicable scan target.
+                        int rulesCount = run.Tool.Driver.Rules.Count;
+                        int validTargetsCount = ALL_COUNT - NOT_APPLICABLE_COUNT;
+                        int expectedNotificationsCount = rulesCount * validTargetsCount;
+
+                        // We expected timing data for every rule.
+                        if (executionNotificationsCount != expectedNotificationsCount)
+                        {
+                            sb.AppendLine($"\t{trace} : expected {expectedNotificationsCount} notifications but saw {executionNotificationsCount}.");
+                            continue;
+                        }
+
+                        if (executionNotifications?.Where(t => t.Message.Text.Contains("elapsed")).Count() != expectedNotificationsCount)
+                        {
+                            sb.AppendLine($"\t{trace} : did not observe term 'elapsed' in rule timing notifications.");
+                        }
+
+                        if (executionNotifications?.GroupBy(t => t.AssociatedRule.Id).Count() != rulesCount)
+                        {
+                            sb.AppendLine($"\t{trace} : did not observe timing notifications for every rule.");
+                        }
+
+                        break;
+                    }
+                }
+            }
+            sb.Length.Should().Be(0, $"test cases failed : {Environment.NewLine}{sb}");
+        }
+
+        [Fact]
         public void AnalyzeCommandBase_DefaultEndToEndAnalysis()
         {
             string location = GetThisTestAssemblyFilePath();
-
             Run run = AnalyzeFile(location, TestRuleBehaviors.LogError);
 
             int resultCount = 0;
@@ -762,69 +851,59 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             dynamic[] testCases = new[]
             {
                 new {
-                    expectedExitReason = ExitReason.InvalidCommandLineOption,
-                    fileSize = (long)ulong.MinValue,
-                    maxFileSize = int.MinValue
+                    expectedExitReason = ExitReason.NoValidAnalysisTargets,
+                    fileSize = (long)1023,
+                    maxFileSize = (long)0
                 },
                 new {
-                    expectedExitReason = ExitReason.InvalidCommandLineOption,
-                    fileSize = (long)ulong.MinValue,
-                    maxFileSize = -1
-                },
-                new {
-                    expectedExitReason = ExitReason.InvalidCommandLineOption,
-                    fileSize = (long)ulong.MinValue,
-                    maxFileSize = 0
+                    expectedExitReason = ExitReason.NoValidAnalysisTargets,
+                    fileSize = (long)0,
+                    maxFileSize = (long)0
                 },
                 new {
                     expectedExitReason = ExitReason.None,
                     fileSize = (long)ulong.MinValue,
-                    maxFileSize = 1
+                    maxFileSize = (long)1
                 },
                 new {
                     expectedExitReason = ExitReason.None,
                     fileSize = (long)ulong.MinValue,
-                    maxFileSize = 2000
+                    maxFileSize = (long)2000
                 },
                 new {
                     expectedExitReason = ExitReason.None,
                     fileSize = (long)ulong.MinValue,
-                    maxFileSize = 1000
+                    maxFileSize = (long)1000
                 },
                 new {
                     expectedExitReason = ExitReason.None,
                     fileSize = (long)ulong.MinValue,
-                    maxFileSize = int.MaxValue
+                    maxFileSize = long.MaxValue
                 },
                 new {
                     expectedExitReason = ExitReason.NoValidAnalysisTargets,
                     fileSize = (long)20000,
-                    maxFileSize = 1
+                    maxFileSize = (long)1
                 },
                 new {
                     expectedExitReason = ExitReason.None,
                     fileSize = (long)20000,
-                    maxFileSize = int.MaxValue
+                    maxFileSize = long.MaxValue
                 },
                 new {
                     expectedExitReason = ExitReason.None,
                     fileSize = (long)10,
-                    maxFileSize = 10
-                },
-                new {
-                    expectedExitReason = ExitReason.InvalidCommandLineOption,
-                    fileSize = long.MaxValue,
-                    maxFileSize = int.MinValue
-                },
-                new {
-                    expectedExitReason = ExitReason.InvalidCommandLineOption,
-                    fileSize = long.MaxValue,
-                    maxFileSize = 0
+                    maxFileSize = (long)10
                 },
                 new {
                     expectedExitReason = ExitReason.NoValidAnalysisTargets,
                     fileSize = long.MaxValue,
-                    maxFileSize = int.MaxValue
+                    maxFileSize = (long)0
+                },
+                new {
+                    expectedExitReason = ExitReason.None,
+                    fileSize = long.MaxValue - 1,
+                    maxFileSize = long.MaxValue
                 },
             };
 
@@ -865,8 +944,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 bool expectedToBeWithinLimits = testCase.maxFileSize == -1 ||
                     testCase.fileSize / 1024 < testCase.maxFileSize;
 
-                Output.WriteLine($"The seed that will be used is: {TestRule.s_seed}");
-
                 var options = new TestAnalyzeOptions
                 {
                     TargetFileSpecifiers = new[] { specifier },
@@ -892,6 +969,45 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                     multithreaded: false,
                     exitReason: testCase.expectedExitReason);
             }
+        }
+
+        [Fact]
+        public void MultithreadedAnalyzeCommandBase_ErrorWhenHashing()
+        {
+            string specifier = "*.xyz";
+            var files = new List<string>
+            {
+                Path.GetFullPath($@".{Path.DirectorySeparatorChar}File1.txt")
+            };
+
+            var mockStream = new Mock<Stream>();
+            mockStream.Setup(m => m.CanRead).Returns(true);
+            mockStream.Setup(m => m.CanSeek).Returns(true);
+            mockStream.Setup(m => m.ReadByte()).Returns('a');
+            mockStream.Setup(m => m.Seek(It.IsAny<long>(), It.IsAny<SeekOrigin>())).Throws(new IOException());
+
+            var mockFileSystem = new Mock<IFileSystem>();
+            mockFileSystem.Setup(x => x.DirectoryExists(It.IsAny<string>())).Returns(true);
+            mockFileSystem.Setup(x => x.DirectoryGetFiles(It.IsAny<string>(), specifier)).Returns(files);
+            mockFileSystem.Setup(x => x.FileExists(It.Is<string>(s => s.EndsWith(specifier)))).Returns(true);
+            mockFileSystem.Setup(x => x.DirectoryEnumerateFiles(It.IsAny<string>(),
+                                                                It.IsAny<string>(),
+                                                                It.IsAny<SearchOption>())).Returns(files);
+            mockFileSystem.Setup(x => x.FileOpenRead(It.IsAny<string>())).Returns(mockStream.Object);
+
+            var options = new TestAnalyzeOptions
+            {
+                TargetFileSpecifiers = new[] { specifier },
+                TestRuleBehaviors = TestRuleBehaviors.LogError,
+                DataToInsert = new[] { OptionallyEmittedData.Hashes },
+            };
+
+            RunAnalyzeCommand(
+                options: options,
+                expectedReturnCode: 0,
+                fileSystem: mockFileSystem.Object,
+                multithreaded: true,
+                exitReason: ExitReason.None);
         }
 
         [Fact]
@@ -1462,7 +1578,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             var logger = new CoyoteTestOutputLogger(this.Output);
             Configuration config = Configuration.Create().WithTestingIterations(10).WithMaxSchedulingSteps(100);
             var engine = TestingEngine.Create(config, AnalyzeCommandBase_ShouldGenerateSameResultsWhenRunningSingleAndMultiThread_CoyoteHelper);
-            engine.Logger = logger;
+            engine.SetLogger(logger);
 
             string TestLogDirectory = ".";
 
@@ -1702,10 +1818,21 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
         private static readonly string rootDir = $"{Environment.CurrentDirectory}{Path.DirectorySeparatorChar}";
 
-        private static readonly IList<string> ComprehensiveKindAndLevelsByFilePath = new List<string>
-        {
-            
+        private const int OPEN_COUNT = 1;
+        private const int ERROR_COUNT = 5;
+        private const int NOTE_COUNT = 3;
+        private const int PASS_COUNT = 4;
+        private const int REVIEW_COUNT = 2;
+        private const int WARNING_COUNT = 2;
+        private const int INFORMATIONAL_COUNT = 1;
+        private const int NOT_APPLICABLE_COUNT = 2;
 
+        private const int ALL_COUNT =
+            OPEN_COUNT + ERROR_COUNT + NOTE_COUNT + PASS_COUNT + REVIEW_COUNT +
+            WARNING_COUNT + INFORMATIONAL_COUNT + NOT_APPLICABLE_COUNT;
+
+        private static readonly IList<string> ComprehensiveKindAndLevelsByFilePath = new List<string>
+        {            
             // Every one of these files will be regarded as identical in content by level/kind. So every file
             // with 'Error' as a prefix should produce an error result, whether using results caching or not.
             // We distinguish file names as this is required in the actual scenario, i.e., when 'replaying'
@@ -1719,21 +1846,21 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             $"{rootDir}Error.3.of.5.exe",
             $"{rootDir}Error.4.of.5.h",
             $"{rootDir}Error.5.of.5.sys",
-            $"{rootDir}Warning.1.of.2.java",
-            $"{rootDir}Warning.2.of.2.cs",
+            $"{rootDir}Informational.1.of.1.sys",
             $"{rootDir}Note.1.of.3.dll",
             $"{rootDir}Note.2.of.3.exe",
-            $"{rootDir}Note.3.of.3jar",
+            $"{rootDir}Note.3.of.3.jar",
+            $"{rootDir}NotApplicable.1.of.2.js",
+            $"{rootDir}NotApplicable.2.of.2.exe",
+            $"{rootDir}Open.1.of.1.cab",
             $"{rootDir}Pass.1.of.4.cs",
             $"{rootDir}Pass.2.of.4.cpp",
             $"{rootDir}Pass.3.of.4.exe",
             $"{rootDir}Pass.4.of.4.dll",
-            $"{rootDir}NotApplicable.1.of.2.js",
-            $"{rootDir}NotApplicable.2.of.2.exe",
-            $"{rootDir}Informational.1.of.1.sys",
-            $"{rootDir}Open.1.of.1.cab",
             $"{rootDir}Review.1.of.2.txt",
-            $"{rootDir}Review.2.of.2.dll"
+            $"{rootDir}Review.2.of.2.dll",
+            $"{rootDir}Warning.1.of.2.java",
+            $"{rootDir}Warning.2.of.2.cs",
         };
 
         private static void RunResultsCachingTestCase(ResultsCachingTestCase testCase,
@@ -1751,8 +1878,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 TestRuleBehaviors = testCase.TestRuleBehaviors,
                 OutputFilePath = testCase.PersistLogFileToDisk ? Guid.NewGuid().ToString() : null,
                 TargetFileSpecifiers = new string[] { Guid.NewGuid().ToString() },
-                Kind = new List<ResultKind> { ResultKind.Fail },
-                Level = new List<FailureLevel> { FailureLevel.Warning, FailureLevel.Error },
             };
 
             EnhanceOptions(options, enhancedOptions);
@@ -1918,10 +2043,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 : JsonConvert.DeserializeObject<SarifLog>(File.ReadAllText(options.OutputFilePath));
         }
 
-        private static void RunMultithreadedAnalyzeCommand(IList<string> files,
+        private static Run RunMultithreadedAnalyzeCommand(IList<string> files,
                                                            bool generateDuplicateScanTargets,
                                                            int expectedResultCode,
-                                                           int expectedResultCount)
+                                                           int expectedResultCount,
+                                                           TestAnalyzeOptions options = null)
         {
             var testCase = new ResultsCachingTestCase
             {
@@ -1930,7 +2056,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 FileSystem = CreateDefaultFileSystemForResultsCaching(files, generateDuplicateScanTargets)
             };
 
-            var options = new TestAnalyzeOptions
+            options ??= new TestAnalyzeOptions
             {
                 OutputFilePath = Guid.NewGuid().ToString(),
                 TargetFileSpecifiers = new string[] { Guid.NewGuid().ToString() },
@@ -1955,14 +2081,18 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 SarifLog sarifLog = JsonConvert.DeserializeObject<SarifLog>(File.ReadAllText(options.OutputFilePath));
                 sarifLog.Runs[0].Results.Count.Should().Be(expectedResultCount);
 
-                HashSet<string> hashes = new HashSet<string>();
-                foreach (Artifact artifact in sarifLog.Runs[0].Artifacts)
+                if (options.InsertProperties?.Where(p => p == "Hashes").Any() == true)
                 {
-                    hashes.Add(artifact.Hashes["sha-256"]);
-                }
+                    HashSet<string> hashes = new HashSet<string>();
+                    foreach (Artifact artifact in sarifLog.Runs[0].Artifacts)
+                    {
+                        hashes.Add(artifact.Hashes["sha-256"]);
+                    }
 
-                int expectedUniqueFileHashCount = generateDuplicateScanTargets ? 1 : expectedResultCount;
-                hashes.Count.Should().Be(expectedUniqueFileHashCount);
+                    int expectedUniqueFileHashCount = generateDuplicateScanTargets ? 1 : expectedResultCount;
+                    hashes.Count.Should().Be(expectedUniqueFileHashCount);
+                }
+                return sarifLog.Runs[0];
             }
             finally
             {
@@ -1992,6 +2122,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             public ResultsCachingTestCase()
             {
                 ExpectedReturnCode = SUCCESS;
+
+                // Currently, we enable the TestRule by default as well as FunctionlessTestRule.
+                // FunctionlessTest rule never emits a result, exception for one case, it
+                // honors the 'not applicable' designation to drop analysis for that scenario.
+                RulesCount = 2;
             }
 
             public bool Verbose;
@@ -2009,6 +2144,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             }
 
             public int ExpectedReturnCode;
+
+            public int RulesCount;
 
             public int ExpectedResultsCount =>
                 // Non-verbose results
@@ -2052,7 +2189,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 : 0;
 
             public int ExpectedNotApplicableCount => Verbose
-                ? Files.Where((f) => f.Contains("NotApplicable")).Count()
+                ? (Files.Where((f) => f.Contains("NotApplicable")).Count() * RulesCount)
                 : 0;
 
             public bool PersistLogFileToDisk;
@@ -2068,6 +2205,159 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         }
 
         #endregion ResultsCachingTestsAndHelpers
+
+        [Fact]
+        public void CheckIncompatibleRules_ExitAnalysis()
+        {
+            TestRule[] skimmers = new[]
+            {
+                new TestRule { Id = "TEST1001" },
+                new TestRule { Id = "TEST1002", IncompatibleRuleIds = new HashSet<string> { "TEST1003" } },
+                new TestRule { Id = "TEST1003" },
+            };
+
+            var disabledSkimmers = new HashSet<string>();
+
+            var consoleLogger = new ConsoleLogger(false, "TestTool") { CaptureOutput = true };
+            var context = new TestAnalysisContext();
+
+            this.RunCheckIncompatibleRulesTests(skimmers, disabledSkimmers, context, consoleLogger, true,
+                ExitReason.IncompatibleRulesDetected, RuntimeConditions.OneOrMoreRulesAreIncompatible,
+                Errors.ERR997_IncompatibleRulesDetected, multipleThreadsCommand: false);
+
+            this.RunCheckIncompatibleRulesTests(skimmers, disabledSkimmers, context, consoleLogger, true,
+                ExitReason.IncompatibleRulesDetected, RuntimeConditions.OneOrMoreRulesAreIncompatible,
+                Errors.ERR997_IncompatibleRulesDetected, multipleThreadsCommand: true);
+        }
+
+        [Fact]
+        public void CheckIncompatibleRules_NoIncompatibleRules()
+        {
+            TestRule[] skimmers = new[]
+            {
+                new TestRule { Id = "TEST1001" },
+                new TestRule { Id = "TEST1002" },
+                new TestRule { Id = "TEST1003" },
+            };
+
+            var disabledSkimmers = new HashSet<string>();
+
+            var consoleLogger = new ConsoleLogger(false, "TestTool") { CaptureOutput = true };
+            var context = new TestAnalysisContext();
+
+            this.RunCheckIncompatibleRulesTests(skimmers, disabledSkimmers, context, consoleLogger,
+                false, ExitReason.None, RuntimeConditions.None, null, multipleThreadsCommand: false);
+
+            this.RunCheckIncompatibleRulesTests(skimmers, disabledSkimmers, context, consoleLogger,
+                false, ExitReason.None, RuntimeConditions.None, null, multipleThreadsCommand: false);
+        }
+
+        [Fact]
+        public void CheckIncompatibleRules_IncompatibleRuleDoesNotExist()
+        {
+            TestRule[] skimmers = new[]
+            {
+                new TestRule { Id = "TEST1001", IncompatibleRuleIds = new HashSet<string> { "NA9999" } },
+                new TestRule { Id = "TEST1002" },
+                new TestRule { Id = "TEST1003" },
+            };
+
+            var disabledSkimmers = new HashSet<string>();
+
+            var consoleLogger = new ConsoleLogger(false, "TestTool") { CaptureOutput = true };
+            var context = new TestAnalysisContext();
+
+            this.RunCheckIncompatibleRulesTests(skimmers, disabledSkimmers, context, consoleLogger,
+                false, ExitReason.None, RuntimeConditions.None, null, false);
+
+            this.RunCheckIncompatibleRulesTests(skimmers, disabledSkimmers, context, consoleLogger,
+                false, ExitReason.None, RuntimeConditions.None, null, true);
+        }
+
+        [Fact]
+        public void CheckIncompatibleRules_RulesAlreadyDisabled()
+        {
+            TestRule[] skimmers = new[]
+            {
+                new TestRule { Id = "TEST1001" },
+                new TestRule { Id = "TEST1002", IncompatibleRuleIds = new HashSet<string> { "TEST1001" } },
+                new TestRule { Id = "TEST1003" },
+            };
+
+            var disabledSkimmers = new HashSet<string>() { "TEST1002" };
+
+            var consoleLogger = new ConsoleLogger(false, "TestTool") { CaptureOutput = true };
+            var context = new TestAnalysisContext();
+
+            this.RunCheckIncompatibleRulesTests(skimmers, disabledSkimmers, context, consoleLogger,
+                false, ExitReason.None, RuntimeConditions.None, null, false);
+
+            this.RunCheckIncompatibleRulesTests(skimmers, disabledSkimmers, context, consoleLogger,
+                false, ExitReason.None, RuntimeConditions.None, null, true);
+        }
+
+        [Fact]
+        public void CheckIncompatibleRules_MultipleIncompatibleRules()
+        {
+            TestRule[] skimmers = new[]
+            {
+                new TestRule { Id = "TEST1001" },
+                new TestRule { Id = "TEST1002", IncompatibleRuleIds = new HashSet<string> { "TEST1003" } },
+                new TestRule { Id = "TEST1003", IncompatibleRuleIds = new HashSet<string> { "TEST1001", "TEST1002" } },
+            };
+
+            var disabledSkimmers = new HashSet<string>();
+
+            var consoleLogger = new ConsoleLogger(false, "TestTool") { CaptureOutput = true };
+            var context = new TestAnalysisContext();
+
+            this.RunCheckIncompatibleRulesTests(skimmers, disabledSkimmers, context, consoleLogger,
+                true, ExitReason.IncompatibleRulesDetected, RuntimeConditions.OneOrMoreRulesAreIncompatible,
+                Errors.ERR997_IncompatibleRulesDetected, false);
+
+            this.RunCheckIncompatibleRulesTests(skimmers, disabledSkimmers, context, consoleLogger,
+                true, ExitReason.IncompatibleRulesDetected, RuntimeConditions.OneOrMoreRulesAreIncompatible,
+                Errors.ERR997_IncompatibleRulesDetected, true);
+        }
+
+        private void RunCheckIncompatibleRulesTests(IEnumerable<TestRule> skimmers, HashSet<string> disabledSkimmers,
+            TestAnalysisContext context, ConsoleLogger consoleLogger, bool expectExpcetion, ExitReason expectedExitReason,
+            RuntimeConditions expectedRuntimeConditions, string expectedErrorCode, bool multipleThreadsCommand)
+        {
+            ITestAnalyzeCommand command = this.CreateTestCommand(context, consoleLogger, multipleThreadsCommand);
+
+            if (expectExpcetion)
+            {
+                ExitApplicationException<ExitReason> exception = Assert.Throws<ExitApplicationException<ExitReason>>(
+                    () => command.CheckIncompatibleRules(skimmers, context, disabledSkimmers));
+
+                exception.ExitReason.Should().Be(expectedExitReason);
+            }
+
+            context.RuntimeErrors.Should().Be(expectedRuntimeConditions);
+
+            if (expectedErrorCode == null)
+            {
+                consoleLogger.CapturedOutput.Should().BeNull();
+            }
+            else
+            {
+                consoleLogger.CapturedOutput.Contains(expectedErrorCode);
+            }
+        }
+
+        private ITestAnalyzeCommand CreateTestCommand(TestAnalysisContext context, ConsoleLogger consoleLogger, bool multiThreadsCommand = false)
+        {
+            ITestAnalyzeCommand command = multiThreadsCommand ?
+                new TestMultithreadedAnalyzeCommand() :
+                (ITestAnalyzeCommand)new TestAnalyzeCommand();
+
+            var logger = new AggregatingLogger();
+            logger.Loggers.Add(consoleLogger);
+            context.Logger = logger;
+
+            return command;
+        }
 
         private void PostUriTestHelper(string postUri, int expectedReturnCode, RuntimeConditions runtimeConditions)
         {
@@ -2100,3 +2390,4 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         }
     }
 }
+#pragma warning restore CS0618

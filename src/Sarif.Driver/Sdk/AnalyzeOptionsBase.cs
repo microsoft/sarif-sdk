@@ -11,6 +11,17 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
     [Verb("analyze", HelpText = "Analyze one or more binary files for security and correctness issues.")]
     public abstract class AnalyzeOptionsBase : CommonOptionsBase
     {
+        public AnalyzeOptionsBase()
+        {
+            // TODO: these defaults need to be converted to the configuration
+            // property pattern as followed by MaxFileSizeInKilobytes.
+            Traces = new string[] { };
+            Kind = new List<ResultKind> { ResultKind.Fail };
+            Level = new List<FailureLevel> { FailureLevel.Warning, FailureLevel.Error };
+
+            MaxFileSizeInKilobytes = AnalyzeContextBase.MaxFileSizeInKilobytesDefaultValue;
+        }
+
         [Value(0,
                HelpText = "One or more specifiers to a file, directory, or filter pattern that resolves to one or more binaries to analyze.")]
         public IEnumerable<string> TargetFileSpecifiers { get; set; }
@@ -118,7 +129,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         [Option(
             "max-file-size-in-kb",
             HelpText = "The maximum file size (in kilobytes) that will be analyzed.",
-            Default = 1024)]
-        public int MaxFileSizeInKilobytes { get; set; } = 1024;
+            Default = -1)]
+        public long MaxFileSizeInKilobytes { get; set; }
     }
 }

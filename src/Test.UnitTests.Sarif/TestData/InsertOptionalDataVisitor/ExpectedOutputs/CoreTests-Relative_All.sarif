@@ -137,7 +137,10 @@
                 }
               }
             }
-          ]
+          ],
+          "partialFingerprints": {
+            "contextRegionHash/v1": "8956EFCA4BE53438F6CAD34883A30D94B0F26894EA45CDFEAB81734B1C0E5893"
+          }
         },
         {
           "ruleId": "TEST2002",
@@ -181,7 +184,10 @@
                 }
               }
             }
-          ]
+          ],
+          "partialFingerprints": {
+            "contextRegionHash/v1": "A8E6D8E400AC11495E5D308D4A068A88E65CCC4005CD3206AFD03A90C3073A5D"
+          }
         },
         {
           "ruleId": "TEST2003",
@@ -220,7 +226,10 @@
                 }
               }
             }
-          ]
+          ],
+          "partialFingerprints": {
+            "contextRegionHash/v1": "FFDE893205ED0070645CCF4D03D931C33B8485C92890A33513A2630F21532C92"
+          }
         },
         {
           "ruleId": "TEST2004",
@@ -259,7 +268,10 @@
                 }
               }
             }
-          ]
+          ],
+          "partialFingerprints": {
+            "contextRegionHash/v1": "15A9C33CD387C7D92177BECD3D6CC5B19DE6994A82D3EF1F0D8A3C081FF164F5"
+          }
         },
         {
           "ruleId": "TEST2005",
@@ -299,7 +311,10 @@
                 }
               }
             }
-          ]
+          ],
+          "partialFingerprints": {
+            "contextRegionHash/v1": "0FE7124E860F0D9903C4CAC12DC3D4190457E9C02E4F9AECABB69B9C27798415"
+          }
         },
         {
           "ruleId": "TEST2006",
@@ -335,7 +350,10 @@
                 }
               }
             }
-          ]
+          ],
+          "partialFingerprints": {
+            "contextRegionHash/v1": "0FE7124E860F0D9903C4CAC12DC3D4190457E9C02E4F9AECABB69B9C27798415"
+          }
         }
       ],
       "columnKind": "utf16CodeUnits"

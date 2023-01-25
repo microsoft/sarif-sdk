@@ -11,6 +11,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     {
         // Conditions that may indicate an issue with command-line configuration.
         public const string Wrn997_InvalidTarget = "WRN997.InvalidTarget";
+        public const string Wrn997_FileSkippedDueToSize = "WRN997.FileSkippedDueToSize";
         public const string Wrn997_OneOrMoreFilesSkippedDueToSize = "WRN997.OneOrMoreFilesSkippedDueToSize";
 
         public const string Wrn997_ObsoleteOption = "WRN997.ObsoleteOption";
@@ -21,6 +22,30 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         // Warnings around dangerous
         public const string Wrn999_RuleExplicitlyDisabled = "WRN999.RuleExplicitlyDisabled";
+
+        public static void LogFileSkippedDueToSize(IAnalysisContext context, string skippedFile, long fileSizeInKb)
+        {
+            if (context == null)
+            {
+                throw new ArgumentNullException(nameof(context));
+            }
+
+            // '{0}' was skipped as its size ({1} kilobytes) exceeds the currently configured threshold ({2} kilobytes).
+            context.Logger.LogConfigurationNotification(
+                Errors.CreateNotification(
+                    context.TargetUri,
+                    Wrn997_FileSkippedDueToSize,
+                    ruleId: null,
+                    FailureLevel.Warning,
+                    exception: null,
+                    persistExceptionStack: false,
+                    messageFormat: null,
+                    skippedFile,
+                    fileSizeInKb.ToString(CultureInfo.CurrentCulture),
+                    context.MaxFileSizeInKilobytes.ToString()));
+
+            context.RuntimeErrors |= RuntimeConditions.OneOrMoreFilesSkippedDueToSize;
+        }
 
         public static void LogOneOrMoreFilesSkippedDueToSize(IAnalysisContext context)
         {

@@ -24,12 +24,26 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         protected override IEnumerable<string> MessageResourceNames => new List<string>
         {
+            nameof(SkimmerBaseTestResources.NotApplicable_InvalidMetadata)
         };
 
         public override MultiformatMessageString FullDescription => new MultiformatMessageString { Text = "This is the full description for TEST1002" };
 
         public override void Analyze(TestAnalysisContext context)
         {
+        }
+
+        public override AnalysisApplicability CanAnalyze(TestAnalysisContext context, out string reasonIfNotApplicable)
+        {
+            string fileName = context.TargetUri.ToString();
+
+            if (fileName.Contains("NotApplicable"))
+            {
+                reasonIfNotApplicable = "test was configured to find target not applicable";
+                return AnalysisApplicability.NotApplicableToSpecifiedTarget;
+            }
+
+            return base.CanAnalyze(context, out reasonIfNotApplicable);
         }
 
         public IEnumerable<IOption> GetOptions()
