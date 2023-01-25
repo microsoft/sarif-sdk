@@ -514,9 +514,14 @@ Three";
 Two
 Three";
             const string ExistingPartialFingerprintHash = "123";
+
             string expectedPartialFingerprintHash = overwriteExistingData
                 ? HashUtilities.ComputeStringSha256Hash(ContextRegionSnippet)
                 : ExistingPartialFingerprintHash;
+
+            OptionallyEmittedData dataToInsert = overwriteExistingData
+                ? OptionallyEmittedData.ContextRegionSnippetPartialFingerprints | OptionallyEmittedData.OverwriteExistingData
+                : OptionallyEmittedData.ContextRegionSnippetPartialFingerprints;
 
             var run = new Run
             {
@@ -561,10 +566,7 @@ Three";
                 }
             };
 
-            var visitor = new InsertOptionalDataVisitor(
-                OptionallyEmittedData.ContextRegionSnippetPartialFingerprints |
-                OptionallyEmittedData.OverwriteExistingData,
-                run, insertProperties: null);
+            var visitor = new InsertOptionalDataVisitor(dataToInsert, run, insertProperties: null);
 
             visitor.VisitResult(run.Results[0]);
 
