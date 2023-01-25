@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Security.Cryptography;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace Microsoft.CodeAnalysis.Sarif
@@ -148,6 +149,14 @@ namespace Microsoft.CodeAnalysis.Sarif
             catch (IOException) { }
             catch (UnauthorizedAccessException) { }
             return sha256Hash;
+        }
+
+        public static string ComputeStringSha256Hash(string text)
+        {
+            using var sha = SHA256.Create();
+            byte[] byteHash = Encoding.UTF8.GetBytes(text);
+            byte[] checksum = sha.ComputeHash(byteHash);
+            return BitConverter.ToString(checksum).Replace("-", string.Empty);
         }
 
         [SuppressMessage("Microsoft.Security.Cryptography", "CA5354:SHA1CannotBeUsed")]
