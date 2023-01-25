@@ -1,22 +1,27 @@
 ﻿// Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-// This library is a port of the JavaScript Long numeric type.
-// The definition of Long, per ECMA-262 5th edition is: "all the positive and negative integers whose magnitude is no greater than 253 are representable in the Number type",
-// which is "representing the doubleprecision 64-bit format IEEE 754 values as specified in the IEEE Standard for Binary Floating-Point Arithmetic".
-
 using System;
 using System.Collections.Generic;
+using System.Collections.Concurrent;
 
 namespace Microsoft.CodeAnalysis.Sarif.Numeric
 {
+    /// <summary>
+    /// This library is a port of the JavaScript Long numeric type.
+    /// The definition of Long, per ECMA-262 5th edition is: "all the positive and negative integers whose magnitude 
+    /// is no greater than 2^53 are representable in the Number type",
+    /// which is "representing the doubleprecision 64-bit format IEEE 754 values as specified in the IEEE Standard 
+    /// for Binary Floating-Point Arithmetic".
+    /// </summary>
     internal class Long
     {
         private readonly int low;
         private readonly int high;
         private readonly bool unsigned;
-        private static readonly Dictionary<int, Long> INT_CACHE = new Dictionary<int, Long>();
-        private static readonly Dictionary<uint, Long> UINT_CACHE = new Dictionary<uint, Long>();
+        private static readonly int InitialCapacity = 100;
+        private static readonly ConcurrentDictionary<int, Long> INT_CACHE = new ConcurrentDictionary<int, Long>(Environment.ProcessorCount * 2, InitialCapacity);
+        private static readonly ConcurrentDictionary<uint, Long> UINT_CACHE = new ConcurrentDictionary<uint, Long>(Environment.ProcessorCount * 2, InitialCapacity);
 
         public static Long ONE = new Long(1, 0, false);
         public static Long NEG_ONE = new Long(-1, 0, false);
@@ -221,12 +226,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Numeric
             {
                 return FromBits((this.low >> numBits) | (this.high << (32 - numBits)), this.high >> numBits, this.unsigned);
             }
-                
+
             if ((uint)numBits == 32)
             {
                 return FromBits(this.high, 0, this.unsigned);
             }
-                  
+
             return FromBits(this.high >> (numBits - 32), 0, this.unsigned);
         }
 
@@ -238,7 +243,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Numeric
         /// <returns>Long representation of the input integer (and sign).</returns>
         public static Long FromInt(int value, bool unsigned = false)
         {
-            Long obj;  
+            Long obj;
             bool cache;
             if (unsigned)
             {
@@ -494,7 +499,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Numeric
                 }
                 if (divisor.GreaterThan(this))
                 {
-                    return UZERO; 
+                    return UZERO;
                 }
                 if (divisor.GreaterThan(this.ShiftRightUnsigned(1))) // 15 >>> 1 = 7 ; with divisor = 8 ; true
                 {
@@ -520,8 +525,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Numeric
                 double log2 = Math.Ceiling(Math.Log(approx) / LN2);
                 double delta = (log2 <= 48) ? 1 : Math.Pow(2, log2 - 48);
 
-                  // Decrease the approximation until it is smaller than the remainder.  Note
-                  // that if it is too large, the product overflows and is negative.
+                // Decrease the approximation until it is smaller than the remainder.  Note
+                // that if it is too large, the product overflows and is negative.
                 Long approxRes = this.FromNumber(approx);
                 Long approxRem = approxRes.Multiply(divisor);
                 while (approxRem.IsNegative() || approxRem.GreaterThan(rem))
@@ -533,7 +538,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Numeric
 
                 // We know the answer can't be zero... and actually, zero would cause
                 // infinite recursion since we would make no progress.
-                    if (approxRes.IsZero())
+                if (approxRes.IsZero())
                 {
                     approxRes = ONE;
                 }

@@ -103,7 +103,8 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif
             Assert.Equal(expectedOutput, actualOutput);
         }
 
-        // The following set of unit tests, prefixed with "RollingHash_", are based on tests from https://github.com/github/codeql-action/blob/main/src/fingerprints.test.ts
+        // The following set of unit tests, prefixed with "RollingHash_", are based on tests from
+        // https://github.com/github/codeql-action/blob/main/src/fingerprints.test.ts
         [Fact]
         public void RollingHash_NewLineCombo1()
         {
@@ -116,7 +117,7 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif
                 { 3, "180aee12dab6264:1" },
                 { 4, "a23a3dc5e078b07b:1" }
             };
-            
+
             // Act
             Dictionary<int, string> actualOutput = HashUtilities.RollingHash(testFileText);
 
@@ -245,7 +246,7 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif
             string test = "Lorem ipsum dolor sit amet.\n";
             string testFileText = "";
 
-            for (int i=0; i<10; i++)
+            for (int i = 0; i < 10; i++)
             {
                 testFileText += test;
             }

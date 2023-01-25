@@ -9,6 +9,7 @@ using System.IO;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
+
 using Microsoft.CodeAnalysis.Sarif.Numeric;
 
 namespace Microsoft.CodeAnalysis.Sarif
@@ -337,7 +338,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             Long firstMod = new Long(1, 0, false);
 
-            for(int i=0; i<100; i++)
+            for (int i = 0; i < 100; i++)
             {
                 firstMod = firstMod.Multiply(MOD);
             }
