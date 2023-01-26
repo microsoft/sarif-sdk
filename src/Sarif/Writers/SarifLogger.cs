@@ -269,6 +269,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         public IDictionary<ReportingDescriptor, ReportingDescriptorReference> RuleToReportingDescriptorReferenceMap { get; }
 
         public IDictionary<ReportingDescriptor, int> RuleToIndexMap { get; }
+        
         public Dictionary<Guid, int> ExtensionGuidToIndexMap { get; }
 
         public bool ComputeFileHashes => _dataToInsert.HasFlag(OptionallyEmittedData.Hashes);
