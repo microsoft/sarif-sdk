@@ -168,7 +168,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                     Id = rule.Id,
                     Index = ruleIndex,
                     ToolComponent = extensionIndex != null
-                        ?  new ToolComponentReference
+                        ? new ToolComponentReference
                         {
                             Index = extensionIndex.Value,
                         }

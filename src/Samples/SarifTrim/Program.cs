@@ -58,7 +58,7 @@ namespace SarifTrim
                     foreach (Result result in run.Results)
                     {
                         consolidator.Trim(result);
-                        logger.Log(result.GetRule(run), result);
+                        logger.Log(result.GetRule(run), result, toolComponent: null);
                     }
                 }
 

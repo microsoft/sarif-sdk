@@ -78,7 +78,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
             Results ??= new Dictionary<ReportingDescriptor, IList<Tuple<Result, ToolComponent>>>();
 
-            if (!Results.TryGetValue(rule, out IList<Tuple<Result,ToolComponent>> results))
+            if (!Results.TryGetValue(rule, out IList<Tuple<Result, ToolComponent>> results))
             {
                 results = Results[rule] = new List<Tuple<Result, ToolComponent>>();
             }

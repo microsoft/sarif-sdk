@@ -333,11 +333,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         private static void LogCachingLogger(TContext rootContext, TContext context, bool clone = false)
         {
             var cachingLogger = (CachingLogger)context.Logger;
-            IDictionary<ReportingDescriptor, IList<Tuple<Result,ToolComponent>>> results = cachingLogger.Results;
+            IDictionary<ReportingDescriptor, IList<Tuple<Result, ToolComponent>>> results = cachingLogger.Results;
 
             if (results?.Count > 0)
             {
-                foreach (KeyValuePair<ReportingDescriptor, IList<Tuple<Result,ToolComponent>>> kv in results)
+                foreach (KeyValuePair<ReportingDescriptor, IList<Tuple<Result, ToolComponent>>> kv in results)
                 {
                     foreach (Tuple<Result, ToolComponent> tuple in kv.Value)
                     {
