@@ -396,21 +396,28 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 int index = toolComponent.Rules.Count;
                 toolComponent.Rules.Add(rule);
 
-                if (!ExtensionGuidToIndexMap.TryGetValue(toolComponent.Guid.Value, out int extensionIndex))
+
+                ToolComponentReference toolComponentReference = null;
+
+                if (toolComponent != _run.Tool.Driver &&
+                    !ExtensionGuidToIndexMap.TryGetValue(toolComponent.Guid.Value, out int extensionIndex))
                 {
+                    _run.Tool.Extensions ??= new List<ToolComponent>();
                     extensionIndex = _run.Tool.Extensions.Count;
                     ExtensionGuidToIndexMap[toolComponent.Guid.Value] = extensionIndex;
                     _run.Tool.Extensions.Add(toolComponent);
+
+                    toolComponentReference = new ToolComponentReference
+                    {
+                        Index = extensionIndex,
+                    };
                 }
 
                 reference = new ReportingDescriptorReference
                 {
                     Index = index,
                     Id = rule.Id,
-                    ToolComponent = new ToolComponentReference
-                    {
-                        Index = extensionIndex,
-                    }
+                    ToolComponent = toolComponentReference,
                 };
 
                 RuleToReportingDescriptorReferenceMap[rule] = reference;

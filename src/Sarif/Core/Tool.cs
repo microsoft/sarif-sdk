@@ -14,25 +14,28 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// </summary>
     public partial class Tool
     {
+        public static Assembly DefaultAssembly { get; set; }
+
         // This regex does not anchor to the end of the string ("$") because FileVersionInfo
         // can contain additional information, for example: "2.1.3.25 built by: MY-MACHINE".
         private const string DottedQuadFileVersionPattern = @"^\d+(\.\d+){3}";
 
         private static readonly Regex dottedQuadFileVersionRegex = new Regex(DottedQuadFileVersionPattern, RegexOptions.Compiled | RegexOptions.CultureInvariant);
 
-        public static Tool CreateFromAssemblyData(Assembly assembly = null, string prereleaseInfo = null)
+        public static Tool CreateFromAssemblyData(Assembly assembly = null,
+                                                  string prereleaseInfo = null)
         {
-            assembly = assembly ?? Assembly.GetEntryAssembly() ?? Assembly.GetExecutingAssembly();
+            assembly ??= DefaultAssembly ?? Assembly.GetEntryAssembly() ?? Assembly.GetExecutingAssembly();
             string name = Path.GetFileNameWithoutExtension(assembly.Location);
             Version version = assembly.GetName().Version;
 
             string dottedQuadFileVersion = null;
 
-            var fileVersion = FileVersionInfo.GetVersionInfo(assembly.Location);
+            FileVersionInfo fileVersion = FileVersionInfo.GetVersionInfo(assembly.Location);
             if (fileVersion.FileVersion != version.ToString())
             {
                 dottedQuadFileVersion = ParseFileVersion(version.ToString());
-            }
+            }        
 
             Tool tool = new Tool
             {
