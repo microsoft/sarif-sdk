@@ -62,7 +62,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                                                 dataToInsert,
                                                 convertOptions.PluginAssemblyPath);
 
-                if (convertOptions.NormalizeForGitHub)
+#pragma warning disable CS0618 // Type or member is obsolete
+                if (convertOptions.NormalizeForGhas || convertOptions.NormalizeForGitHub)
+#pragma warning restore CS0618 // Type or member is obsolete
                 {
                     SarifLog sarifLog;
 

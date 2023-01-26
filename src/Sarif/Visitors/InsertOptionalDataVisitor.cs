@@ -117,25 +117,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
             if (insertRegionSnippets || populateRegionProperties || insertContextCodeSnippets)
             {
-                Region expandedRegion;
-                ArtifactLocation artifactLocation = node.ArtifactLocation;
+                Uri resolvedUri = GetResolvedArtifactLocationUri(node.ArtifactLocation);
 
-                if (artifactLocation.Uri == null && artifactLocation.Index >= 0)
-                {
-                    // Uri is not stored at result level, but we have an index to go look in run.Artifacts
-                    // we must pick the ArtifactLocation details from run.artifacts array
-                    Artifact artifactFromRun = _run.Artifacts[artifactLocation.Index];
-                    artifactLocation = artifactFromRun.Location;
-                }
-
-                // If we can resolve a file location to a newly constructed
-                // absolute URI, we will prefer that
-                if (!artifactLocation.TryReconstructAbsoluteUri(_run.OriginalUriBaseIds, out Uri resolvedUri))
-                {
-                    resolvedUri = artifactLocation.Uri;
-                }
-
-                expandedRegion = _fileRegionsCache.PopulateTextRegionProperties(node.Region, resolvedUri, populateSnippet: insertRegionSnippets);
+                Region expandedRegion = _fileRegionsCache.PopulateTextRegionProperties(node.Region, resolvedUri, populateSnippet: insertRegionSnippets);
 
                 ArtifactContent originalSnippet = node.Region.Snippet;
 
@@ -253,35 +237,48 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 }
             }
 
+            if (_dataToInsert.HasFlag(OptionallyEmittedData.ContextRegionSnippetPartialFingerprints) &&
+                (node.PartialFingerprints == null ||
+                 !node.PartialFingerprints.ContainsKey(ContextRegionHash) ||
+                 _dataToInsert.HasFlag(OptionallyEmittedData.OverwriteExistingData)))
+            {
+                Location primaryLocation = node.Locations?.FirstOrDefault();
+                if (primaryLocation != null)
+                {
+                    PhysicalLocation physicalLocation = primaryLocation.PhysicalLocation;
+                    Uri resolvedUri = GetResolvedArtifactLocationUri(physicalLocation.ArtifactLocation);
+
+                    ArtifactContent contextRegionSnippet = physicalLocation.ContextRegion?.Snippet;
+
+                    if (contextRegionSnippet == null)
+                    {
+                        Region expandedRegion =
+                            _fileRegionsCache.PopulateTextRegionProperties(physicalLocation.Region, resolvedUri, false);
+                        contextRegionSnippet = _fileRegionsCache.ConstructMultilineContextSnippet(expandedRegion, resolvedUri)?.Snippet;
+                    }
+
+                    if (contextRegionSnippet?.Text != null)
+                    {
+                        string contextRegionHash = HashUtilities.ComputeStringSha256Hash(contextRegionSnippet.Text);
+
+                        node.PartialFingerprints ??= new Dictionary<string, string>();
+
+                        SarifUtilities.AddOrUpdateDictionaryEntry(node.PartialFingerprints, ContextRegionHash, contextRegionHash);
+                    }
+                }
+            }
+
             return node;
         }
 
-        public override Message VisitMessage(Message node)
+        public override Message VisitMessage(Message message)
         {
-            if ((node.Text == null || _dataToInsert.HasFlag(OptionallyEmittedData.OverwriteExistingData)) &&
+            if ((message.Text == null || _dataToInsert.HasFlag(OptionallyEmittedData.OverwriteExistingData)) &&
                 _dataToInsert.HasFlag(OptionallyEmittedData.FlattenedMessages))
             {
-                MultiformatMessageString formatString = null;
-                ReportingDescriptor rule = _ruleIndex != -1 ? _run.Tool.Driver.Rules[_ruleIndex] : null;
-
-                if (rule != null &&
-                    rule.MessageStrings != null &&
-                    rule.MessageStrings.TryGetValue(node.Id, out formatString))
-                {
-                    node.Text = node.Arguments?.Count > 0
-                        ? rule.Format(node.Id, node.Arguments)
-                        : formatString?.Text;
-                }
-
-                if (node.Text == null &&
-                    _run.Tool.Driver.GlobalMessageStrings?.TryGetValue(node.Id, out formatString) == true)
-                {
-                    node.Text = node.Arguments?.Count > 0
-                        ? string.Format(CultureInfo.CurrentCulture, formatString.Text, node.Arguments.ToArray())
-                        : formatString?.Text;
-                }
+                message.Flatten(_ruleIndex, _run);
             }
-            return base.VisitMessage(node);
+            return base.VisitMessage(message);
         }
 
         private List<VersionControlDetails> CreateVersionControlProvenance()
@@ -414,7 +411,28 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             return uri.IsAbsoluteUri && uri.IsFile ? uri.GetFilePath() : null;
         }
 
+        private Uri GetResolvedArtifactLocationUri(ArtifactLocation artifactLocation)
+        {
+            if (artifactLocation.Uri == null && artifactLocation.Index >= 0)
+            {
+                // Uri is not stored at result level, but we have an index to go look in run.Artifacts
+                // we must pick the ArtifactLocation details from run.artifacts array
+                Artifact artifactFromRun = _run.Artifacts[artifactLocation.Index];
+                artifactLocation = artifactFromRun.Location;
+            }
+
+            // If we can resolve a file location to a newly constructed
+            // absolute URI, we will prefer that
+            if (!artifactLocation.TryReconstructAbsoluteUri(_run.OriginalUriBaseIds, out Uri resolvedUri))
+            {
+                resolvedUri = artifactLocation.Uri;
+            }
+
+            return resolvedUri;
+        }
+
         private const string RepoRootUriBaseIdStem = "REPO_ROOT";
+        public const string ContextRegionHash = "contextRegionHash/v1";
 
         // When there is only one repo root (the usual case), the uriBaseId is "REPO_ROOT" (unless
         // that symbol is already in use in originalUriBaseIds. The second and subsequent uriBaseIds
