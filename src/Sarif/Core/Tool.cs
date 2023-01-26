@@ -28,10 +28,10 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             string dottedQuadFileVersion = null;
 
-            FileVersionInfo fileVersion = FileVersionInfo.GetVersionInfo(assembly.Location);
+            var fileVersion = FileVersionInfo.GetVersionInfo(assembly.Location);
             if (fileVersion.FileVersion != version.ToString())
             {
-                dottedQuadFileVersion = ParseFileVersion(fileVersion.FileVersion);
+                dottedQuadFileVersion = ParseFileVersion(version.ToString());
             }
 
             Tool tool = new Tool
@@ -40,9 +40,9 @@ namespace Microsoft.CodeAnalysis.Sarif
                 {
                     Name = name,
                     FullName = name + " " + version.ToString() + (prereleaseInfo ?? ""),
-                    Version = version.ToString(),
+                    Version = fileVersion.FileVersion,
                     DottedQuadFileVersion = dottedQuadFileVersion,
-                    SemanticVersion = version.Major.ToString() + "." + version.Minor.ToString() + "." + version.Build.ToString(),
+                    SemanticVersion = fileVersion.ProductVersion,
                     Organization = string.IsNullOrEmpty(fileVersion.CompanyName) ? null : fileVersion.CompanyName,
                     Product = string.IsNullOrEmpty(fileVersion.ProductName) ? null : fileVersion.ProductName,
                 }

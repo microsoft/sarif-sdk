@@ -53,11 +53,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             }
         }
 
-        public void Log(ReportingDescriptor rule, Result result)
+        public void Log(ReportingDescriptor rule, Result result, ToolComponent toolComponent)
         {
             foreach (IAnalysisLogger logger in Loggers)
             {
-                logger.Log(rule, result);
+                logger.Log(rule, result, toolComponent);
             }
         }
 
