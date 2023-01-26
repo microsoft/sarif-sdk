@@ -2,6 +2,7 @@
 
 ## **v3.2.0** (UNRELEASED)
 
+* FEATURE: Allow per-line rolling (partial) hash computation for a file. [#2605](https://github.com/microsoft/sarif-sdk/pull/2605)
 * BREAKING: Rename `--normalize-for-github` argument to `--normalize-for-ghas` for `convert` command and mark `--normalize-for-github` as obsolete. [#2581](https://github.com/microsoft/sarif-sdk/pull/2581)
 * BREAKING: Update `IAnalysisContext.LogToolNotification` method to add `ReportingDescriptor` parameter. This is required in order to populated `AssociatedRule` data in `Notification` instances. The new method has an option value of null for the `associatedRule` parameter to maximize build compatibility. [#2604](https://github.com/microsoft/sarif-sdk/pull/2604)
 * BREAKING: Correct casing of `LogMissingreportingConfiguration` helper to `LogMissingReportingConfiguration`. [#2599](https://github.com/microsoft/sarif-sdk/pull/2599)
