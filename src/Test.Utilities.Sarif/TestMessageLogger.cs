@@ -43,7 +43,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
         }
 
-        public void Log(ReportingDescriptor rule, Result result, ToolComponent toolComponent)
+        public void Log(ReportingDescriptor rule, Result result, int? extensionIndex)
         {
             NoteTestResult(result.Kind, result.Locations.First().PhysicalLocation.ArtifactLocation.Uri.LocalPath);
         }

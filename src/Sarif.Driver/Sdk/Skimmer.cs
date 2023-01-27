@@ -49,7 +49,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 : RuleUtilities.BuildDictionary(ResourceManager, MessageResourceNames, ruleId: Id);
         }
 
-        public ToolComponent Extension { get; set; }
+        public int ExtensionIndex { get; set; }
 
         public override string Id => throw new InvalidOperationException($"The {nameof(Id)} property must be overridden in the SkimmerBase-derived class.");
 

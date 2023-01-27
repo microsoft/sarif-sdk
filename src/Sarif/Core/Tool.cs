@@ -14,8 +14,6 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// </summary>
     public partial class Tool
     {
-        public static Assembly DefaultAssembly { get; set; }
-
         // This regex does not anchor to the end of the string ("$") because FileVersionInfo
         // can contain additional information, for example: "2.1.3.25 built by: MY-MACHINE".
         private const string DottedQuadFileVersionPattern = @"^\d+(\.\d+){3}";
@@ -23,29 +21,31 @@ namespace Microsoft.CodeAnalysis.Sarif
         private static readonly Regex dottedQuadFileVersionRegex = new Regex(DottedQuadFileVersionPattern, RegexOptions.Compiled | RegexOptions.CultureInvariant);
 
         public static Tool CreateFromAssemblyData(Assembly assembly = null,
-                                                  string prereleaseInfo = null)
+                                                  bool omitSemanticVersion = false,
+                                                  IFileSystem fileSystem = null)
         {
-            assembly ??= DefaultAssembly ?? Assembly.GetEntryAssembly() ?? Assembly.GetExecutingAssembly();
+            fileSystem ??= FileSystem.Instance;
+            assembly ??= Assembly.GetEntryAssembly() ?? Assembly.GetExecutingAssembly();
             string name = Path.GetFileNameWithoutExtension(assembly.Location);
             Version version = assembly.GetName().Version;
 
             string dottedQuadFileVersion = null;
 
-            FileVersionInfo fileVersion = FileVersionInfo.GetVersionInfo(assembly.Location);
+            FileVersionInfo fileVersion = fileSystem.FileVersionInfoGetVersionInfo(assembly.Location);
             if (fileVersion.FileVersion != version.ToString())
             {
                 dottedQuadFileVersion = ParseFileVersion(version.ToString());
-            }        
+            }
 
             Tool tool = new Tool
             {
                 Driver = new ToolComponent
                 {
                     Name = name,
-                    FullName = name + " " + version.ToString() + (prereleaseInfo ?? ""),
+                    FullName = name + " " + version.ToString(),
                     Version = fileVersion.FileVersion,
                     DottedQuadFileVersion = dottedQuadFileVersion,
-                    SemanticVersion = fileVersion.ProductVersion,
+                    SemanticVersion = omitSemanticVersion ? null : fileVersion.ProductVersion,
                     Organization = string.IsNullOrEmpty(fileVersion.CompanyName) ? null : fileVersion.CompanyName,
                     Product = string.IsNullOrEmpty(fileVersion.ProductName) ? null : fileVersion.ProductName,
                 }

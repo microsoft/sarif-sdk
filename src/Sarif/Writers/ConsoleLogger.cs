@@ -93,7 +93,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                         context.TargetUri.GetFileName()));
         }
 
-        public void Log(ReportingDescriptor rule, Result result, ToolComponent toolComponent = null)
+        public void Log(ReportingDescriptor rule, Result result, int? extensionIndex = null)
         {
             if (result == null)
             {

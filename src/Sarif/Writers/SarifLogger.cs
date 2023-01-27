@@ -126,7 +126,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                        defaultFileEncoding,
                        AnalysisTargetToHashDataMap);
 
-            tool = tool ?? Tool.CreateFromAssemblyData();
+            tool ??= Tool.CreateFromAssemblyData();
 
             _run.Tool = tool;
             _dataToInsert = dataToInsert;
@@ -269,7 +269,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         public IDictionary<ReportingDescriptor, ReportingDescriptorReference> RuleToReportingDescriptorReferenceMap { get; }
 
         public IDictionary<ReportingDescriptor, int> RuleToIndexMap { get; }
-        
+
         public Dictionary<Guid, int> ExtensionGuidToIndexMap { get; }
 
         public bool ComputeFileHashes => _dataToInsert.HasFlag(OptionallyEmittedData.Hashes);
@@ -329,7 +329,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             }
         }
 
-        public void Log(ReportingDescriptor rule, Result result, ToolComponent toolComponent)
+        public void Log(ReportingDescriptor rule, Result result, int? extensionIndex)
         {
             if (rule == null)
             {
@@ -356,13 +356,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 return;
             }
 
-            if (toolComponent == null)
+            if (extensionIndex == null)
             {
                 result.RuleIndex = LogRule(rule);
             }
             else
             {
-                result.Rule = LogRule(rule, toolComponent);
+                result.Rule = LogRule(rule, extensionIndex.Value);
             }
 
             CaptureFilesInResult(result);
@@ -388,39 +388,25 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             return ruleIndex;
         }
 
-        private ReportingDescriptorReference LogRule(ReportingDescriptor rule, ToolComponent toolComponent)
+        private ReportingDescriptorReference LogRule(ReportingDescriptor rule, int extensionIndex)
         {
+            ToolComponent toolComponent = _run.Tool.Extensions[extensionIndex];
+
             if (!RuleToReportingDescriptorReferenceMap.TryGetValue(rule, out ReportingDescriptorReference reference))
             {
                 toolComponent.Rules ??= new OrderSensitiveValueComparisonList<ReportingDescriptor>(ReportingDescriptor.ValueComparer);
-                int index = toolComponent.Rules.Count;
+                int ruleIndex = toolComponent.Rules.Count;
                 toolComponent.Rules.Add(rule);
 
-
-                ToolComponentReference toolComponentReference = null;
-
-                if (toolComponent != _run.Tool.Driver &&
-                    !ExtensionGuidToIndexMap.TryGetValue(toolComponent.Guid.Value, out int extensionIndex))
+                reference = RuleToReportingDescriptorReferenceMap[rule] = new ReportingDescriptorReference
                 {
-                    _run.Tool.Extensions ??= new List<ToolComponent>();
-                    extensionIndex = _run.Tool.Extensions.Count;
-                    ExtensionGuidToIndexMap[toolComponent.Guid.Value] = extensionIndex;
-                    _run.Tool.Extensions.Add(toolComponent);
-
-                    toolComponentReference = new ToolComponentReference
-                    {
-                        Index = extensionIndex,
-                    };
-                }
-
-                reference = new ReportingDescriptorReference
-                {
-                    Index = index,
                     Id = rule.Id,
-                    ToolComponent = toolComponentReference,
+                    Index = ruleIndex,
+                    ToolComponent = new ToolComponentReference
+                    {
+                        Index = extensionIndex
+                    },
                 };
-
-                RuleToReportingDescriptorReferenceMap[rule] = reference;
             }
 
             return reference;

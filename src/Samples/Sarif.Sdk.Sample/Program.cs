@@ -351,7 +351,7 @@ namespace Sarif.Sdk.Sample
                                                     region,
                                                     fixes[i]))
                         {
-                            sarifLogger.Log(rule, result, toolComponent: null);
+                            sarifLogger.Log(rule, result, extensionIndex: null);
                         }
                     }
                 }

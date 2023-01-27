@@ -21,7 +21,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         private string currentFileHash;
 
         public Dictionary<string, List<Notification>> HashToNotificationsMap { get; private set; }
-        public Dictionary<string, List<Tuple<ReportingDescriptor, Result, ToolComponent>>> HashToResultsMap { get; private set; }
+        public Dictionary<string, List<Tuple<ReportingDescriptor, Result, int?>>> HashToResultsMap { get; private set; }
 
         public CacheByFileHashLogger(IEnumerable<FailureLevel> levels, IEnumerable<ResultKind> kinds) : base(levels, kinds)
         {
@@ -30,7 +30,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         public void AnalysisStarted()
         {
             HashToNotificationsMap = new Dictionary<string, List<Notification>>();
-            HashToResultsMap = new Dictionary<string, List<Tuple<ReportingDescriptor, Result, ToolComponent>>>();
+            HashToResultsMap = new Dictionary<string, List<Tuple<ReportingDescriptor, Result, int?>>>();
         }
 
         public void AnalysisStopped(RuntimeConditions runtimeConditions)
@@ -52,11 +52,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             {
                 cacheLoggingData = true;
                 HashToNotificationsMap[currentFileHash] = new List<Notification>();
-                HashToResultsMap[currentFileHash] = new List<Tuple<ReportingDescriptor, Result, ToolComponent>>();
+                HashToResultsMap[currentFileHash] = new List<Tuple<ReportingDescriptor, Result, int?>>();
             }
         }
 
-        public void Log(ReportingDescriptor rule, Result result, ToolComponent toolComponent = null)
+        public void Log(ReportingDescriptor rule, Result result, int? extensionIndex = null)
         {
             if (!cacheLoggingData) { return; }
 
@@ -65,16 +65,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 return;
             }
 
-            CacheResult(rule, result, toolComponent);
+            CacheResult(rule, result, extensionIndex);
         }
 
-        private void CacheResult(ReportingDescriptor rule, Result result, ToolComponent toolComponent)
+        private void CacheResult(ReportingDescriptor rule, Result result, int? extensionIndex)
         {
-            if (!HashToResultsMap.TryGetValue(currentFileHash, out List<Tuple<ReportingDescriptor, Result, ToolComponent>> results))
+            if (!HashToResultsMap.TryGetValue(currentFileHash, out List<Tuple<ReportingDescriptor, Result, int?>> results))
             {
-                results = HashToResultsMap[currentFileHash] = new List<Tuple<ReportingDescriptor, Result, ToolComponent>>();
+                results = HashToResultsMap[currentFileHash] = new List<Tuple<ReportingDescriptor, Result, int?>>();
             }
-            results.Add(new Tuple<ReportingDescriptor, Result, ToolComponent>(rule, result, toolComponent));
+            results.Add(new Tuple<ReportingDescriptor, Result, int?>(rule, result, extensionIndex));
         }
 
         public void LogConfigurationNotification(Notification notification)
