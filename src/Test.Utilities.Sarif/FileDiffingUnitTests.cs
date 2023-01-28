@@ -263,6 +263,8 @@ namespace Microsoft.CodeAnalysis.Sarif
             string actualRootDirectory = null;
 
             bool firstKey = true;
+            StringBuilder sb = null;
+            string firstExample = null;
             foreach (string key in expectedOutputResourceNameDictionary.Keys)
             {
                 string expectedFilePath = GetOutputFilePath("ExpectedOutputs", expectedOutputResourceNameDictionary[key]);
@@ -280,10 +282,13 @@ namespace Microsoft.CodeAnalysis.Sarif
                 }
 
                 File.WriteAllText(expectedFilePath, expectedSarifTextDictionary[key]);
+
+                if (!passed && !string.IsNullOrEmpty(firstExample))
+                {
+                    firstExample = actualSarifTextDictionary[key];
+                }
                 File.WriteAllText(actualFilePath, actualSarifTextDictionary[key]);
             }
-
-            StringBuilder sb = null;
 
             if (!passed)
             {
@@ -298,7 +303,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                         string.Join(Environment.NewLine, filesWithErrors) +
                         Environment.NewLine + Environment.NewLine;
                 }
-
+                errorMessage += string.Join(firstExample, Environment.NewLine);
                 errorMessage += string.Format(@"there should be no unexpected diffs detected comparing actual results to '{0}'.", string.Join(", ", inputResourceNames));
                 sb = new StringBuilder(errorMessage);
 
