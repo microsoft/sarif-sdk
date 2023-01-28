@@ -281,12 +281,12 @@ namespace Microsoft.CodeAnalysis.Sarif
                     firstKey = false;
                 }
 
-                File.WriteAllText(expectedFilePath, expectedSarifTextDictionary[key]);
-
                 if (!passed && !string.IsNullOrEmpty(firstExample))
                 {
                     firstExample = actualSarifTextDictionary[key];
                 }
+
+                File.WriteAllText(expectedFilePath, expectedSarifTextDictionary[key]);
                 File.WriteAllText(actualFilePath, actualSarifTextDictionary[key]);
             }
 
@@ -303,7 +303,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                         string.Join(Environment.NewLine, filesWithErrors) +
                         Environment.NewLine + Environment.NewLine;
                 }
-                errorMessage += string.Join(firstExample, Environment.NewLine);
+                errorMessage += string.Join(">>>>>", firstExample, Environment.NewLine);
                 errorMessage += string.Format(@"there should be no unexpected diffs detected comparing actual results to '{0}'.", string.Join(", ", inputResourceNames));
                 sb = new StringBuilder(errorMessage);
 
