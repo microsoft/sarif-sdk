@@ -8,5 +8,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     public interface IArtifactProvider
     {
         IEnumerable<IEnumeratedArtifact> Artifacts { get; set; }
+
+        ICollection<IEnumeratedArtifact> Skipped { get; set; }
     }
 }

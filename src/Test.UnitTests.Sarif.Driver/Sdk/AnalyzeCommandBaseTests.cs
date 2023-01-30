@@ -2078,9 +2078,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
                 HashUtilities.FileSystem = testCase.FileSystem;
                 int result = command.Run(options);
-                result.Should().Be(expectedResultCode);
 
                 SarifLog sarifLog = JsonConvert.DeserializeObject<SarifLog>(File.ReadAllText(options.OutputFilePath));
+                sarifLog.Runs[0].Invocations?[0].ToolExecutionNotifications.Should().BeNull();
+                result.Should().Be(expectedResultCode);
                 sarifLog.Runs[0].Results.Count.Should().Be(expectedResultCount);
 
                 if (options.InsertProperties?.Where(p => p == "Hashes").Any() == true)

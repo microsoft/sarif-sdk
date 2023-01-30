@@ -29,8 +29,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         {
             get
             {
-                return Path.GetExtension(TargetUri.LocalPath).Equals(SarifConstants.SarifFileExtension, StringComparison.OrdinalIgnoreCase) ||
-                       Path.GetExtension(TargetUri.LocalPath).Equals(".json", StringComparison.OrdinalIgnoreCase);
+                return Path.GetExtension(CurrentTarget.Uri.LocalPath).Equals(SarifConstants.SarifFileExtension, StringComparison.OrdinalIgnoreCase) ||
+                       Path.GetExtension(CurrentTarget.Uri.LocalPath).Equals(".json", StringComparison.OrdinalIgnoreCase);
             }
             set
             {
@@ -57,26 +57,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         public override Exception TargetLoadException { get; set; }
 
         public bool UpdateInputsToCurrentSarif { get; set; }
-
-        private Uri _uri;
-
-        public override Uri TargetUri
-        {
-            get
-            {
-                return _uri;
-            }
-
-            set
-            {
-                if (_uri != null)
-                {
-                    throw new InvalidOperationException(MultitoolResources.ErrorIllegalContextReuse);
-                }
-
-                _uri = value;
-            }
-        }
 
         public string SchemaFilePath { get; internal set; }
 

@@ -3,7 +3,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Collections.Immutable;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
@@ -301,6 +300,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             var context = new TContext
             {
                 Logger = logger,
+                FileSystem = FileSystem,
                 RuntimeErrors = runtimeErrors,
                 Policy = policy ?? new PropertiesDictionary()
             };

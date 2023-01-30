@@ -127,19 +127,6 @@ namespace Microsoft.CodeAnalysis.Sarif
             context.Logger.LogConfigurationNotification(
                 new Notification
                 {
-                    Locations = new List<Location>
-                    {
-                        new Location
-                        {
-                            PhysicalLocation = new PhysicalLocation
-                            {
-                                ArtifactLocation = new ArtifactLocation
-                                {
-                                    Uri = context.CurrentTarget.Uri
-                                }
-                            }
-                        }
-                    },
                     Descriptor = new ReportingDescriptorReference
                     {
                         Id = Wrn998_UnsupportedPlatform

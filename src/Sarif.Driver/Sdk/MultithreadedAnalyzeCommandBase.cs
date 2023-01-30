@@ -36,7 +36,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         private bool _computeHashes;
         internal TContext _rootContext;
         private int _fileContextsCount;
-        private uint _ignoredFilesCount;
         private Channel<int> readyToHashChannel;
         private OptionallyEmittedData _dataToInsert;
         private Channel<int> _resultsWritingChannel;
@@ -420,14 +419,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 this._fileContextsCount = 0;
                 this._fileContexts = new ConcurrentDictionary<int, TContext>();
 
-                if (context.TargetsProvider != null)
-                {
-                    await EnumerateFilesFromArtifactsProvider(context);
-                }
-                else
-                {
-                    await EnumerateFilesOnDisk(context);
-                }
+                 await EnumerateFilesFromArtifactsProvider(context);
             }
             catch (OperationCanceledException)
             {
@@ -448,7 +440,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 readyToHashChannel.Writer.Complete();
             }
 
-            if (_ignoredFilesCount > 0)
+            if (context.TargetsProvider.Skipped?.Count > 0)
             {
                 Warnings.LogOneOrMoreFilesSkippedDueToSize(context);
             }
@@ -459,108 +451,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 ThrowExitApplicationException(context, ExitReason.NoValidAnalysisTargets);
             }
 
-            return true;
-        }
-
-        private async Task<bool> EnumerateFilesOnDisk(TContext context)
-        {
-            // INTERESTING BREAKPOINT: debug 'ERR997.NoValidAnalysisTargets : No valid analysis targets were specified.'
-            // Set a conditional breakpoint on 'matchExpression.Name' to filter by specific rules.
-            // Set a conditional breakpoint on 'searchText' to filter on specific target text patterns.
-            foreach (string specifier in context.TargetFileSpecifiers)
-            {
-                string normalizedSpecifier = Environment.ExpandEnvironmentVariables(specifier);
-
-                if (Uri.TryCreate(specifier, UriKind.RelativeOrAbsolute, out Uri uri))
-                {
-                    if (uri.IsAbsoluteUri && (uri.IsFile || uri.IsUnc))
-                    {
-                        normalizedSpecifier = uri.LocalPath;
-                    }
-                }
-
-                string filter = Path.GetFileName(normalizedSpecifier);
-                string directory = Path.GetDirectoryName(normalizedSpecifier);
-
-                if (directory.Length == 0)
-                {
-                    directory = $".{Path.DirectorySeparatorChar}";
-                }
-
-                directory = Path.GetFullPath(directory);
-                var directories = new Queue<string>();
-
-                if (!context.FileSystem.DirectoryExists(directory))
-                {
-                    continue;
-                }
-
-                if (context.Recurse)
-                {
-                    EnqueueAllDirectories(context, directories, directory);
-                }
-                else
-                {
-                    directories.Enqueue(directory);
-                }
-
-                var sortedFiles = new SortedSet<string>();
-
-                while (directories.Count > 0)
-                {
-                    sortedFiles.Clear();
-                    context.CancellationToken.ThrowIfCancellationRequested();
-
-                    directory = Path.GetFullPath(directories.Dequeue());
-
-#if NETFRAMEWORK
-                        // .NET Framework: Directory.Enumerate with empty filter returns NO files.
-                        // .NET Core: Directory.Enumerate with empty filter returns all files in directory.
-                        // We will standardize on the .NET Core behavior.
-                        if (string.IsNullOrEmpty(filter))
-                        {
-                            filter = "*";
-                        }
-#endif
-
-                    foreach (string file in FileSystem.DirectoryEnumerateFiles(directory, filter, SearchOption.TopDirectoryOnly))
-                    {
-                        context.CancellationToken.ThrowIfCancellationRequested();
-
-                        // Only include files that are below the max size limit.
-                        if (ShouldEnqueue(file, _rootContext))
-                        {
-                            sortedFiles.Add(file);
-                            continue;
-                        }
-
-                        if (!IsTargetWithinFileSizeLimit(file, _rootContext.MaxFileSizeInKilobytes, out long fileSizeInKb))
-                        {
-                            _ignoredFilesCount++;
-                        }
-                    }
-
-                    foreach (string file in sortedFiles)
-                    {
-                        TContext fileContext =
-                            CreateContext(options: null,
-                                          new CachingLogger(context.FailureLevels, context.ResultKinds),
-                                          context.RuntimeErrors,
-                                          context.Policy);
-
-                        fileContext.CurrentTarget = new EnumeratedArtifact
-                        {
-                            Uri = new Uri(file),
-                            FileSystem = context.FileSystem,
-                        };
-
-                        bool added = _fileContexts.TryAdd(_fileContextsCount, fileContext);
-                        Debug.Assert(added);
-                        
-                        await readyToHashChannel.Writer.WriteAsync(_fileContextsCount++);
-                    }
-                }
-            }
             return true;
         }
 
@@ -585,6 +475,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
                 await readyToHashChannel.Writer.WriteAsync(_fileContextsCount++);
             }
+
+            // TBD get all skipped artifacts.
+
             return true;
         }
 
@@ -770,7 +663,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
                 if (options.TargetFileSpecifiers != null)
                 {
-                    context.TargetFileSpecifiers = new StringSet(options.TargetFileSpecifiers);
+                    context.TargetsProvider = OrderedFileSpecifier.Create(options.TargetFileSpecifiers, FileSystem);
                 }
 
                 if (options.MaxFileSizeInKilobytes != -1)

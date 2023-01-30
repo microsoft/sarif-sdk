@@ -7,7 +7,7 @@ using System.IO;
 
 namespace Microsoft.CodeAnalysis.Sarif.Driver
 {
-    public class FileSpecifier
+    public class FileSpecifier : IArtifactProvider
     {
         private readonly IFileSystem _fileSystem;
 
@@ -31,6 +31,27 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         public IList<string> Directories
         {
             get { return _directories ?? BuildDirectories(); }
+        }
+
+        public IEnumerable<IEnumeratedArtifact> Artifacts        
+        { 
+            get
+            {
+                foreach (string file in Files)
+                {
+                    yield return new EnumeratedArtifact
+                    {
+                        Uri = new Uri(file)
+                    };
+                }
+            }
+            set => throw new InvalidOperationException();
+        }
+
+        public ICollection<IEnumeratedArtifact> Skipped
+        {
+            get => Array.Empty<IEnumeratedArtifact>();
+            set => throw new InvalidOperationException();
         }
 
         private List<string> BuildDirectories()
