@@ -631,7 +631,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
             if ((options.DataToInsert.ToFlags() & OptionallyEmittedData.Hashes) != 0)
             {
-                _cacheByFileHashLogger.HashToResultsMap.TryGetValue(context.Hashes.Sha256, out List<Tuple<ReportingDescriptor, Result>> cachedResultTuples);
+                _cacheByFileHashLogger.HashToResultsMap.TryGetValue(context.Hashes.Sha256, out List<Tuple<ReportingDescriptor, Result, int?>> cachedResultTuples);
                 _cacheByFileHashLogger.HashToNotificationsMap.TryGetValue(context.Hashes.Sha256, out List<Notification> cachedNotifications);
 
                 bool replayCachedData = (cachedResultTuples != null || cachedNotifications != null);
@@ -642,13 +642,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
                     if (cachedResultTuples != null)
                     {
-                        foreach (Tuple<ReportingDescriptor, Result> cachedResultTuple in cachedResultTuples)
+                        foreach (Tuple<ReportingDescriptor, Result, int?> cachedResultTuple in cachedResultTuples)
                         {
                             Result clonedResult = cachedResultTuple.Item2.DeepClone();
                             ReportingDescriptor cachedReportingDescriptor = cachedResultTuple.Item1;
 
                             UpdateLocationsAndMessageWithCurrentUri(clonedResult.Locations, clonedResult.Message, context.CurrentTarget.Uri);
-                            context.Logger.Log(cachedReportingDescriptor, clonedResult);
+                            context.Logger.Log(cachedReportingDescriptor, clonedResult, cachedResultTuple.Item3);
                         }
                     }
 

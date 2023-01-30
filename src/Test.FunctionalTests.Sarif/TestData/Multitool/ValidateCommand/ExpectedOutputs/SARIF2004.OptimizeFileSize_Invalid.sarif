@@ -146,29 +146,6 @@
           "ruleId": "SARIF2004",
           "ruleIndex": 0,
           "message": {
-            "id": "Warning_AvoidDuplicativeResultRuleInformation",
-            "arguments": [
-              "runs[0].results[3]"
-            ]
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "index": 0
-                },
-                "region": {
-                  "startLine": 81,
-                  "startColumn": 9
-                }
-              }
-            }
-          ]
-        },
-        {
-          "ruleId": "SARIF2004",
-          "ruleIndex": 0,
-          "message": {
             "id": "Warning_PreferRuleId",
             "arguments": [
               "runs[0].results[4]"
@@ -181,7 +158,7 @@
                   "index": 0
                 },
                 "region": {
-                  "startLine": 94,
+                  "startLine": 93,
                   "startColumn": 9
                 }
               }

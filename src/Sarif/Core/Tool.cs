@@ -20,18 +20,21 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         private static readonly Regex dottedQuadFileVersionRegex = new Regex(DottedQuadFileVersionPattern, RegexOptions.Compiled | RegexOptions.CultureInvariant);
 
-        public static Tool CreateFromAssemblyData(Assembly assembly = null, string prereleaseInfo = null)
+        public static Tool CreateFromAssemblyData(Assembly assembly = null,
+                                                  bool omitSemanticVersion = false,
+                                                  IFileSystem fileSystem = null)
         {
-            assembly = assembly ?? Assembly.GetEntryAssembly() ?? Assembly.GetExecutingAssembly();
+            fileSystem ??= FileSystem.Instance;
+            assembly ??= Assembly.GetEntryAssembly() ?? Assembly.GetExecutingAssembly();
             string name = Path.GetFileNameWithoutExtension(assembly.Location);
             Version version = assembly.GetName().Version;
 
             string dottedQuadFileVersion = null;
 
-            FileVersionInfo fileVersion = FileVersionInfo.GetVersionInfo(assembly.Location);
+            FileVersionInfo fileVersion = fileSystem.FileVersionInfoGetVersionInfo(assembly.Location);
             if (fileVersion.FileVersion != version.ToString())
             {
-                dottedQuadFileVersion = ParseFileVersion(fileVersion.FileVersion);
+                dottedQuadFileVersion = ParseFileVersion(version.ToString());
             }
 
             Tool tool = new Tool
@@ -39,10 +42,10 @@ namespace Microsoft.CodeAnalysis.Sarif
                 Driver = new ToolComponent
                 {
                     Name = name,
-                    FullName = name + " " + version.ToString() + (prereleaseInfo ?? ""),
-                    Version = version.ToString(),
+                    FullName = name + " " + version.ToString(),
+                    Version = fileVersion.FileVersion,
                     DottedQuadFileVersion = dottedQuadFileVersion,
-                    SemanticVersion = version.Major.ToString() + "." + version.Minor.ToString() + "." + version.Build.ToString(),
+                    SemanticVersion = omitSemanticVersion ? null : fileVersion.ProductVersion,
                     Organization = string.IsNullOrEmpty(fileVersion.CompanyName) ? null : fileVersion.CompanyName,
                     Product = string.IsNullOrEmpty(fileVersion.ProductName) ? null : fileVersion.ProductName,
                 }

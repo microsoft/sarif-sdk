@@ -7,13 +7,24 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Security.Cryptography;
+using System.Text;
 using System.Threading.Tasks;
+
+using Microsoft.CodeAnalysis.Sarif.Numeric;
 
 namespace Microsoft.CodeAnalysis.Sarif
 {
     public static class HashUtilities
     {
         static HashUtilities() => FileSystem = Sarif.FileSystem.Instance;
+
+        private static readonly int TAB = '\t';
+        private static readonly int SPACE = ' ';
+        private static readonly int LF = '\n';
+        private static readonly int CR = '\r';
+        private static readonly int EOF = 65535;
+        private static readonly int BLOCK_SIZE = 100;
+        private static readonly Long MOD = new Long(37, 0, false);
 
         private static IFileSystem _fileSystem;
         internal static IFileSystem FileSystem
@@ -150,6 +161,14 @@ namespace Microsoft.CodeAnalysis.Sarif
             return sha256Hash;
         }
 
+        public static string ComputeStringSha256Hash(string text)
+        {
+            using var sha = SHA256.Create();
+            byte[] byteHash = Encoding.UTF8.GetBytes(text);
+            byte[] checksum = sha.ComputeHash(byteHash);
+            return BitConverter.ToString(checksum).Replace("-", string.Empty);
+        }
+
         [SuppressMessage("Microsoft.Security.Cryptography", "CA5354:SHA1CannotBeUsed")]
         public static string ComputeSha1Hash(string fileName)
         {
@@ -196,6 +215,135 @@ namespace Microsoft.CodeAnalysis.Sarif
             catch (IOException) { }
             catch (UnauthorizedAccessException) { }
             return md5;
+        }
+
+        public static Dictionary<int, string> RollingHash(string fileText)
+        {
+            Dictionary<int, string> rollingHashes = new Dictionary<int, string>();
+
+            // A rolling view into the input
+            int[] window = new int[BLOCK_SIZE];
+
+            int[] lineNumbers = new int[BLOCK_SIZE];
+            for (int i = 0; i < lineNumbers.Length; i++)
+            {
+                lineNumbers[i] = -1;
+            }
+
+            Long hashRaw = new Long(0, 0, false);
+            Long firstMod = ComputeFirstMod();
+
+            // The current index in the window, will wrap around to zero when we reach BLOCK_SIZE
+            int index = 0;
+            // The line number of the character we are currently processing from the input
+            int lineNumber = 0;
+            // Is the next character to be read the start of a new line
+            bool lineStart = true;
+            // Was the previous character a CR (carriage return)
+            bool prevCR = false;
+
+            Dictionary<string, int> hashCounts = new Dictionary<string, int>();
+
+            // Output the current hash and line number to the cache
+            Action outputHash = () =>
+            {
+                string hashValue = hashRaw.ToUnsigned().ToString(16);
+
+                if (!hashCounts.ContainsKey(hashValue))
+                {
+                    hashCounts[hashValue] = 0;
+                }
+
+                hashCounts[hashValue]++;
+                rollingHashes[lineNumbers[index]] = $"{hashValue}:{hashCounts[hashValue]}";
+                lineNumbers[index] = -1;
+            };
+
+            // Update the current hash value and increment the index in the window
+            Action<int> updateHash = (current) =>
+            {
+                int begin = window[index];
+                window[index] = current;
+
+                hashRaw = MOD.Multiply(hashRaw)
+                            .Add(Long.FromInt(current))
+                            .Subtract(firstMod.Multiply(Long.FromInt(begin)));
+
+                index = (index + 1) % BLOCK_SIZE;
+            };
+
+            // First process every character in the input, updating the hash and lineNumbers
+            // as we go. Once we reach a point in the window again then we've processed
+            // BLOCK_SIZE characters and if the last character at this point in the window
+            // was the start of a line then we should output the hash for that line.
+            Action<int> processCharacter = (current) =>
+            {
+                // skip tabs, spaces, and line feeds that come directly after a carriage return
+                if (current == SPACE || current == TAB || (prevCR && current == LF))
+                {
+                    prevCR = false;
+                    return;
+                }
+                // replace CR with LF
+                if (current == CR)
+                {
+                    current = LF;
+                    prevCR = true;
+                }
+                else
+                {
+                    prevCR = false;
+                }
+                if (lineNumbers[index] != -1)
+                {
+                    outputHash();
+                }
+                if (lineStart)
+                {
+                    lineStart = false;
+                    lineNumber++;
+                    lineNumbers[index] = lineNumber;
+                }
+                if (current == LF)
+                {
+                    lineStart = true;
+                }
+                updateHash(current);
+            };
+
+            if (fileText != null)
+            {
+                for (int i = 0; i < fileText.Length; i++)
+                {
+                    processCharacter(fileText[i]);
+                }
+
+                processCharacter(EOF);
+
+                // Flush the remaining lines
+                for (int i = 0; i < BLOCK_SIZE; i++)
+                {
+                    if (lineNumbers[index] != -1)
+                    {
+                        outputHash();
+                    }
+                    updateHash(0);
+                }
+            }
+
+            return rollingHashes;
+        }
+
+        private static Long ComputeFirstMod()
+        {
+            Long firstMod = new Long(1, 0, false);
+
+            for (int i = 0; i < 100; i++)
+            {
+                firstMod = firstMod.Multiply(MOD);
+            }
+
+            return firstMod;
         }
     }
 }
