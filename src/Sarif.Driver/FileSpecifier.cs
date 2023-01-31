@@ -33,8 +33,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             get { return _directories ?? BuildDirectories(); }
         }
 
-        public IEnumerable<IEnumeratedArtifact> Artifacts        
-        { 
+        public IEnumerable<IEnumeratedArtifact> Artifacts
+        {
             get
             {
                 foreach (string file in Files)

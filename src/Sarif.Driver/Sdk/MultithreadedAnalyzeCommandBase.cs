@@ -403,7 +403,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
         protected virtual bool ShouldEnqueue(string file, TContext context)
         {
-            bool shouldEnqueue = IsTargetWithinFileSizeLimit(file, context.MaxFileSizeInKilobytes, out long fileSizeInKb);
+            bool shouldEnqueue = OrderedFileSpecifier.IsTargetWithinFileSizeLimit(file, context.MaxFileSizeInKilobytes, this.FileSystem, out long fileSizeInKb);
 
             if (!shouldEnqueue)
             {
@@ -425,13 +425,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 this._fileContextsCount = 0;
                 this._fileContexts = new ConcurrentDictionary<int, TContext>();
 
-                 await EnumerateFilesFromArtifactsProvider(context);
+                await EnumerateFilesFromArtifactsProvider(context);
             }
             catch (OperationCanceledException)
             {
                 Errors.LogAnalysisCanceled(context);
                 ThrowExitApplicationException(context, ExitReason.ExceptionWritingToLogFile);
-                
+
             }
             catch (Exception e)
             {
@@ -466,7 +466,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             {
                 context.CancellationToken.ThrowIfCancellationRequested();
 
-                TContext fileContext = 
+                TContext fileContext =
                     CreateContext(options: null,
                                   new CachingLogger(context.FailureLevels, context.ResultKinds),
                                   context.RuntimeErrors,
@@ -475,7 +475,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 // TBD: Push current target down into base?
                 fileContext.CurrentTarget = artifact;
                 fileContext.CancellationToken = context.CancellationToken;
-                
+
                 bool added = _fileContexts.TryAdd(_fileContextsCount, fileContext);
                 Debug.Assert(added);
 
@@ -667,14 +667,19 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                        new StringSet(options.Traces) :
                        new StringSet();
 
-                if (options.TargetFileSpecifiers != null)
-                {
-                    context.TargetsProvider = OrderedFileSpecifier.Create(options.TargetFileSpecifiers, FileSystem);
-                }
-
                 if (options.MaxFileSizeInKilobytes != -1)
                 {
-                    context.MaxFileSizeInKilobytes= options.MaxFileSizeInKilobytes;
+                    context.MaxFileSizeInKilobytes = options.MaxFileSizeInKilobytes;
+                }
+
+                if (options.TargetFileSpecifiers != null)
+                {
+                    context.TargetsProvider =
+                        OrderedFileSpecifier.Create(
+                            options.TargetFileSpecifiers,
+                            options.Recurse,
+                            context.MaxFileSizeInKilobytes,
+                            FileSystem);
                 }
 
                 context.ResultKinds = new HashSet<ResultKind>(options.Kind);

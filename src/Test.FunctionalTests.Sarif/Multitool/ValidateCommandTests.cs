@@ -513,6 +513,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
             var mockFileSystem = new Mock<IFileSystem>();
 
+            mockFileSystem.Setup(x => x.FileInfoLength(It.IsAny<string>())).Returns(1);
             mockFileSystem.Setup(x => x.DirectoryExists(inputLogDirectory)).Returns(true);
             mockFileSystem.Setup(x => x.DirectoryGetDirectories(It.IsAny<string>())).Returns(new string[0]);
             mockFileSystem.Setup(x => x.DirectoryGetFiles(inputLogDirectory, inputLogFileName)).Returns(new string[] { inputLogFilePath });

@@ -18,7 +18,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         IEnumeratedArtifact CurrentTarget { get; set; }
 
         ISet<string> TargetFileSpecifiers { get; set; }
-        
+
         ISet<FailureLevel> FailureLevels { get; set; }
 
         ISet<ResultKind> ResultKinds { get; set; }

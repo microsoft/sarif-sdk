@@ -343,7 +343,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
             if (result.RuleId != null && !result.RuleId.IsEqualToOrHierarchicalDescendantOf(rule.Id))
             {
-                //The rule id '{0}' specified by the result does not match the actual id of the rule '{1}'
+                // The rule id '{0}' specified by the result does not match the actual id of the rule '{1}'
                 string message = string.Format(CultureInfo.InvariantCulture, SdkResources.ResultRuleIdDoesNotMatchRule,
                     result.RuleId,
                     rule.Id);

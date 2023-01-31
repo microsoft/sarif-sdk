@@ -10,7 +10,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     public class EnumeratedArtifact : IEnumeratedArtifact
     {
         public EnumeratedArtifact() { }
-     
+
         private string contents;
 
         public Uri Uri { get; set; }

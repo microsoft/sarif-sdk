@@ -32,7 +32,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         public virtual string MimeType { get; set; }
         public virtual HashData Hashes { get; set; }
         public virtual Exception TargetLoadException { get; set; }
-        public virtual bool IsValidAnalysisTarget { get; set;  }
+        public virtual bool IsValidAnalysisTarget { get; set; }
         public virtual ReportingDescriptor Rule { get; set; }
         public PropertiesDictionary Policy { get; set; }
         public virtual IAnalysisLogger Logger { get; set; }
@@ -72,7 +72,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             get => this.Policy.GetProperty(ResultKindsProperty);
             set => this.Policy.SetProperty(ResultKindsProperty, value);
         }
-        
+
         public bool Recurse
         {
             get => this.Policy.GetProperty(RecurseProperty);
@@ -87,7 +87,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         public int Threads
         {
-            get => Math.Max(this.Policy.GetProperty(ThreadsProperty), 1); 
+            get => Math.Max(this.Policy.GetProperty(ThreadsProperty), 1);
             set => this.Policy.SetProperty(ThreadsProperty, value);
         }
 

@@ -811,6 +811,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             mockStream.Setup(m => m.ReadByte()).Returns('a');
 
             var mockFileSystem = new Mock<IFileSystem>();
+            mockFileSystem.Setup(x => x.FileInfoLength(It.IsAny<string>())).Returns(2048);
             mockFileSystem.Setup(x => x.DirectoryExists(It.IsAny<string>())).Returns(true);
             mockFileSystem.Setup(x => x.DirectoryGetFiles(It.IsAny<string>(), specifier)).Returns(files);
             mockFileSystem.Setup(x => x.FileExists(It.Is<string>(s => s.EndsWith(specifier)))).Returns(true);
@@ -848,62 +849,69 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         [Fact]
         public void MultithreadedAnalyzeCommandBase_TargetFileSizeTestCases()
         {
+            var sb = new StringBuilder();
+
             dynamic[] testCases = new[]
             {
                 new {
                     expectedExitReason = ExitReason.NoValidAnalysisTargets,
-                    fileSize = (long)1023,
-                    maxFileSize = (long)0
+                    fileSizeInBytes = (long)1023,
+                    maxFileSizeInKB = (long)0
                 },
                 new {
                     expectedExitReason = ExitReason.NoValidAnalysisTargets,
-                    fileSize = (long)0,
-                    maxFileSize = (long)0
+                    fileSizeInBytes =(long)0,
+                    maxFileSizeInKB = (long)0
                 },
                 new {
                     expectedExitReason = ExitReason.None,
-                    fileSize = (long)ulong.MinValue,
-                    maxFileSize = (long)1
+                    fileSizeInBytes = (long)ulong.MinValue + 1,
+                    maxFileSizeInKB = (long)1
                 },
                 new {
                     expectedExitReason = ExitReason.None,
-                    fileSize = (long)ulong.MinValue,
-                    maxFileSize = (long)2000
-                },
-                new {
-                    expectedExitReason = ExitReason.None,
-                    fileSize = (long)ulong.MinValue,
-                    maxFileSize = (long)1000
-                },
-                new {
-                    expectedExitReason = ExitReason.None,
-                    fileSize = (long)ulong.MinValue,
-                    maxFileSize = long.MaxValue
+                    fileSizeInBytes = (long)ulong.MinValue + 1,
+                    maxFileSizeInKB = (long)2000
                 },
                 new {
                     expectedExitReason = ExitReason.NoValidAnalysisTargets,
-                    fileSize = (long)20000,
-                    maxFileSize = (long)1
-                },
-                new {
-                    expectedExitReason = ExitReason.None,
-                    fileSize = (long)20000,
-                    maxFileSize = long.MaxValue
-                },
-                new {
-                    expectedExitReason = ExitReason.None,
-                    fileSize = (long)10,
-                    maxFileSize = (long)10
+                    fileSizeInBytes = (long)ulong.MinValue,
+                    maxFileSizeInKB = (long)1000
                 },
                 new {
                     expectedExitReason = ExitReason.NoValidAnalysisTargets,
-                    fileSize = long.MaxValue,
-                    maxFileSize = (long)0
+                    fileSizeInBytes = (long)ulong.MinValue,
+                    maxFileSizeInKB = long.MaxValue
+                },
+                new {
+                    expectedExitReason = ExitReason.NoValidAnalysisTargets,
+                    fileSizeInBytes = (long)(1024 * 2),
+                    maxFileSizeInKB = (long)1
                 },
                 new {
                     expectedExitReason = ExitReason.None,
-                    fileSize = long.MaxValue - 1,
-                    maxFileSize = long.MaxValue
+                    fileSizeInBytes = (long)(1024 * 2),
+                    maxFileSizeInKB = (long)3
+                },
+                new {
+                    expectedExitReason = ExitReason.None,
+                    fileSizeInBytes = (long)20000,
+                    maxFileSizeInKB = long.MaxValue
+                },
+                new {
+                    expectedExitReason = ExitReason.None,
+                    fileSizeInBytes = (long)1024,
+                    maxFileSizeInKB = (long)1
+                },
+                new {
+                    expectedExitReason = ExitReason.NoValidAnalysisTargets,
+                    fileSizeInBytes = long.MaxValue,
+                    maxFileSizeInKB = (long)0
+                },
+                new {
+                    expectedExitReason = ExitReason.None,
+                    fileSizeInBytes =long.MaxValue - 1,
+                    maxFileSizeInKB = long.MaxValue
                 },
             };
 
@@ -939,10 +947,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                                                                     It.IsAny<SearchOption>())).Returns(files);
                 mockFileSystem.Setup(x => x.FileOpenRead(It.IsAny<string>())).Returns(mockStream.Object);
                 mockFileSystem.Setup(x => x.FileExists(tempFile.Name)).Returns(true);
-                mockFileSystem.Setup(x => x.FileInfoLength(It.IsAny<string>())).Returns(testCase.fileSize);
+                mockFileSystem.Setup(x => x.FileInfoLength(It.IsAny<string>())).Returns(testCase.fileSizeInBytes);
 
-                bool expectedToBeWithinLimits = testCase.maxFileSize == -1 ||
-                    testCase.fileSize / 1024 < testCase.maxFileSize;
+                bool expectedToBeWithinLimits =
+                    testCase.fileSizeInBytes != 0 &&
+                    (testCase.maxFileSizeInKB == -1 ||
+                     (testCase.fileSizeInBytes + 1023) / 1024 < testCase.maxFileSizeInKB);
 
                 var options = new TestAnalyzeOptions
                 {
@@ -950,7 +960,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                     SarifOutputVersion = SarifVersion.Current,
                     TestRuleBehaviors = TestRuleBehaviors.LogError,
                     ConfigurationFilePath = tempFile.Name,
-                    MaxFileSizeInKilobytes = testCase.maxFileSize
+                    MaxFileSizeInKilobytes = testCase.maxFileSizeInKB
                 };
 
                 int expectedReturnCode = testCase.expectedExitReason == ExitReason.None ? 0 : 1;
@@ -987,6 +997,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             mockStream.Setup(m => m.Seek(It.IsAny<long>(), It.IsAny<SeekOrigin>())).Throws(new IOException());
 
             var mockFileSystem = new Mock<IFileSystem>();
+            mockFileSystem.Setup(x => x.FileInfoLength(It.IsAny<string>())).Returns(2048);
             mockFileSystem.Setup(x => x.DirectoryExists(It.IsAny<string>())).Returns(true);
             mockFileSystem.Setup(x => x.DirectoryGetFiles(It.IsAny<string>(), specifier)).Returns(files);
             mockFileSystem.Setup(x => x.FileExists(It.Is<string>(s => s.EndsWith(specifier)))).Returns(true);
@@ -1958,6 +1969,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             var mockFileSystem = new Mock<IFileSystem>();
 
             mockFileSystem.Setup(x => x.DirectoryExists(It.IsAny<string>())).Returns(true);
+            mockFileSystem.Setup(x => x.FileInfoLength(It.IsAny<string>())).Returns(2048);
             mockFileSystem.Setup(x => x.DirectoryEnumerateFiles(It.IsAny<string>())).Returns(new string[0]);
             mockFileSystem.Setup(x => x.DirectoryEnumerateFiles(It.IsAny<string>(), It.IsAny<string>(), SearchOption.TopDirectoryOnly)).Returns(files);
             mockFileSystem.Setup(x => x.DirectoryGetFiles(It.IsAny<string>(), It.IsAny<string>())).Returns(files);
@@ -2021,7 +2033,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             {
                 HashUtilities.FileSystem = fileSystem;
                 int result = command.Run(options);
-                
+
                 result.Should().Be(expectedReturnCode);
             }
             finally
@@ -2080,7 +2092,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 int result = command.Run(options);
 
                 SarifLog sarifLog = JsonConvert.DeserializeObject<SarifLog>(File.ReadAllText(options.OutputFilePath));
-                sarifLog.Runs[0].Invocations?[0].ToolExecutionNotifications.Should().BeNull();
                 result.Should().Be(expectedResultCode);
                 sarifLog.Runs[0].Results.Count.Should().Be(expectedResultCount);
 

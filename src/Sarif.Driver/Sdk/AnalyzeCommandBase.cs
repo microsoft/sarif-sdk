@@ -220,7 +220,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
         protected virtual bool ShouldEnqueue(string file, TContext context)
         {
-            bool shouldEnqueue = IsTargetWithinFileSizeLimit(file, context.MaxFileSizeInKilobytes, out long fileSizeInKb);
+            bool shouldEnqueue = OrderedFileSpecifier.IsTargetWithinFileSizeLimit(file, context.MaxFileSizeInKilobytes, this.FileSystem, out long fileSizeInKb);
 
             if (!shouldEnqueue)
             {
@@ -306,8 +306,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             };
 
             context.Traces =
-                options?.Traces.Any() == true?
-                    new StringSet(options.Traces):
+                options?.Traces.Any() == true ?
+                    new StringSet(options.Traces) :
                     new StringSet();
 
             context.MaxFileSizeInKilobytes =

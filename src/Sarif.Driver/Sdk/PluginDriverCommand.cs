@@ -50,14 +50,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             return assemblies;
         }
 
-        internal bool IsTargetWithinFileSizeLimit(string path, long maxFileSizeInKB, out long fileSizeInKb)
-        {
-            long size = Math.Max(FileSystem.FileInfoLength(path), 1024);
-            size = Math.Min(long.MaxValue - 1023, size);
-            fileSizeInKb = (size + 1023) / 1024;
-            return fileSizeInKb <= maxFileSizeInKB;
-        }
-
         internal static bool ValidateInvocationPropertiesToLog(IAnalysisContext context, IEnumerable<string> propertiesToLog)
         {
             bool succeeded = true;

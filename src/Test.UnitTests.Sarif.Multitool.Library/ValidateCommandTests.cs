@@ -42,6 +42,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             string logFilePath = Path.Combine(LogFileDirectoryWithSpace, LogFileName);
 
             var mockFileSystem = new Mock<IFileSystem>();
+            mockFileSystem.Setup(x => x.FileInfoLength(It.IsAny<string>())).Returns(1024);
             mockFileSystem.Setup(x => x.DirectoryExists(LogFileDirectoryWithSpace)).Returns(true);
             mockFileSystem.Setup(x => x.DirectoryEnumerateFiles(It.IsAny<string>())).Returns(new string[0]);
             mockFileSystem.Setup(x => x.DirectoryGetFiles(LogFileDirectoryWithSpace, LogFileName)).Returns(new string[] { logFilePath });
@@ -59,6 +60,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             };
 
             int returnCode = validateCommand.Run(options);
+            validateCommand.RuntimeErrors.Should().Be(RuntimeConditions.OneOrMoreWarningsFired);
             returnCode.Should().Be(0);
         }
 

@@ -6,7 +6,7 @@ using System;
 namespace Microsoft.CodeAnalysis.Sarif
 {
     public class TestAnalysisContext : AnalyzeContextBase
-    {        
+    {
         public bool Disposed { get; private set; }
         public TestAnalyzeOptions Options { get; internal set; }
 
