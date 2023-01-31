@@ -31,27 +31,27 @@ extends:
                   name: ${{ pool.name }}
                   os: ${{ pool.os }}
 
-              templateContext:
-                inputs:
-                  - input: checkout
-                    repository: self
-                    submodules: recursive
-                outputs:
-                  - output: pipelineArtifact
-                    artifactName: Publish msbuild.binlog
-                    artifact: 'MsbuildBinLog'
-                    targetPath: $(System.DefaultWorkingDirectory)/bld/bin
-
-              steps:
-                - task: PowerShell@2
-                  displayName: Build and Test
+                templateContext:
                   inputs:
-                    targetType: filePath
-                    filePath: $(System.DefaultWorkingDirectory)/scripts/BuildAndTest.ps1
+                    - input: checkout
+                      repository: self
+                      submodules: recursive
+                  outputs:
+                    - output: pipelineArtifact
+                      artifactName: Publish msbuild.binlog
+                      artifact: 'MsbuildBinLog'
+                      targetPath: $(System.DefaultWorkingDirectory)/bld/bin
 
-                # Build Multitool for npm
-                - task: PowerShell@2
-                  displayName: Build Multitool for npm
-                  inputs:
-                    targetType: filePath
-                    filePath: $(System.DefaultWorkingDirectory)/scripts/BuildMultitoolForNpm.ps1
+                steps:
+                  - task: PowerShell@2
+                    displayName: Build and Test
+                    inputs:
+                      targetType: filePath
+                      filePath: $(System.DefaultWorkingDirectory)/scripts/BuildAndTest.ps1
+
+                  # Build Multitool for npm
+                  - task: PowerShell@2
+                    displayName: Build Multitool for npm
+                    inputs:
+                      targetType: filePath
+                      filePath: $(System.DefaultWorkingDirectory)/scripts/BuildMultitoolForNpm.ps1
