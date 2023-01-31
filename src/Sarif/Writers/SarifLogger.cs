@@ -98,7 +98,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             _jsonTextWriter.CloseOutput = _closeWriterOnDispose;
 
             _issueLogJsonWriter = new ResultLogJsonWriter(_jsonTextWriter);
+            RuleToReportingDescriptorReferenceMap = new Dictionary<ReportingDescriptor, ReportingDescriptorReference>(ReportingDescriptor.ValueComparer);
             RuleToIndexMap = new Dictionary<ReportingDescriptor, int>(ReportingDescriptor.ValueComparer);
+            ExtensionGuidToIndexMap = new Dictionary<Guid, int>();
 
             if (dataToInsert.HasFlag(OptionallyEmittedData.Hashes))
             {
@@ -124,7 +126,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                        defaultFileEncoding,
                        AnalysisTargetToHashDataMap);
 
-            tool = tool ?? Tool.CreateFromAssemblyData();
+            tool ??= Tool.CreateFromAssemblyData();
 
             _run.Tool = tool;
             _dataToInsert = dataToInsert;
@@ -132,12 +134,46 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             _issueLogJsonWriter.Initialize(_run);
 
             // Map existing Rules to ensure duplicates aren't created
-            if (_run.Tool.Driver?.Rules != null)
+            if (_run.Tool.Extensions != null)
+            {
+                RecordRules(extensionIndex: null, _run.Tool.Driver);
+
+                for (int extensionIndex = 0; extensionIndex < _run.Tool.Extensions.Count; ++extensionIndex)
+                {
+                    ToolComponent extension = _run.Tool.Extensions[extensionIndex];
+                    ExtensionGuidToIndexMap[extension.Guid.Value] = extensionIndex;
+                    RecordRules(extensionIndex, extension);
+                }
+
+            }
+            else if (_run.Tool.Driver?.Rules != null)
             {
                 for (int i = 0; i < _run.Tool.Driver.Rules.Count; ++i)
                 {
                     RuleToIndexMap[_run.Tool.Driver.Rules[i]] = i;
                 }
+            }
+        }
+
+        private void RecordRules(int? extensionIndex, ToolComponent toolComponent)
+        {
+            if (toolComponent.Rules == null) { return; }
+
+            for (int ruleIndex = 0; ruleIndex < toolComponent.Rules.Count; ruleIndex++)
+            {
+                ReportingDescriptor rule = toolComponent.Rules[ruleIndex];
+                RuleToReportingDescriptorReferenceMap[rule] =
+                new ReportingDescriptorReference
+                {
+                    Id = rule.Id,
+                    Index = ruleIndex,
+                    ToolComponent = extensionIndex != null
+                        ? new ToolComponentReference
+                        {
+                            Index = extensionIndex.Value,
+                        }
+                        : null,
+                };
             }
         }
 
@@ -230,7 +266,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
         public IDictionary<string, HashData> AnalysisTargetToHashDataMap { get; }
 
+        public IDictionary<ReportingDescriptor, ReportingDescriptorReference> RuleToReportingDescriptorReferenceMap { get; }
+
         public IDictionary<ReportingDescriptor, int> RuleToIndexMap { get; }
+
+        public Dictionary<Guid, int> ExtensionGuidToIndexMap { get; }
 
         public bool ComputeFileHashes => _dataToInsert.HasFlag(OptionallyEmittedData.Hashes);
 
@@ -289,7 +329,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             }
         }
 
-        public void Log(ReportingDescriptor rule, Result result)
+        public void Log(ReportingDescriptor rule, Result result, int? extensionIndex)
         {
             if (rule == null)
             {
@@ -316,7 +356,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 return;
             }
 
-            result.RuleIndex = LogRule(rule);
+            if (extensionIndex == null)
+            {
+                result.RuleIndex = LogRule(rule);
+            }
+            else
+            {
+                result.Rule = LogRule(rule, extensionIndex.Value);
+            }
 
             CaptureFilesInResult(result);
 
@@ -339,6 +386,30 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             }
 
             return ruleIndex;
+        }
+
+        private ReportingDescriptorReference LogRule(ReportingDescriptor rule, int extensionIndex)
+        {
+            ToolComponent toolComponent = _run.Tool.Extensions[extensionIndex];
+
+            if (!RuleToReportingDescriptorReferenceMap.TryGetValue(rule, out ReportingDescriptorReference reference))
+            {
+                toolComponent.Rules ??= new OrderSensitiveValueComparisonList<ReportingDescriptor>(ReportingDescriptor.ValueComparer);
+                int ruleIndex = toolComponent.Rules.Count;
+                toolComponent.Rules.Add(rule);
+
+                reference = RuleToReportingDescriptorReferenceMap[rule] = new ReportingDescriptorReference
+                {
+                    Id = rule.Id,
+                    Index = ruleIndex,
+                    ToolComponent = new ToolComponentReference
+                    {
+                        Index = extensionIndex
+                    },
+                };
+            }
+
+            return reference;
         }
 
         private void CaptureFilesInResult(Result result)
@@ -462,7 +533,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         {
         }
 
-        public void LogToolNotification(Notification notification)
+        public void LogToolNotification(Notification notification, ReportingDescriptor associatedRule)
         {
             if (!ShouldLog(notification))
             {
@@ -479,6 +550,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             _run.Invocations[0].ExecutionSuccessful &= notification.Level != FailureLevel.Error;
 
             CaptureFilesInNotification(notification);
+
+            if (associatedRule != null)
+            {
+                int ruleIndex = LogRule(associatedRule);
+                notification.AssociatedRule = new ReportingDescriptorReference
+                {
+                    Index = ruleIndex,
+                    Id = associatedRule.Id,
+                };
+            }
         }
 
         public void LogConfigurationNotification(Notification notification)

@@ -93,7 +93,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                         context.TargetUri.GetFileName()));
         }
 
-        public void Log(ReportingDescriptor rule, Result result)
+        public void Log(ReportingDescriptor rule, Result result, int? extensionIndex = null)
         {
             if (result == null)
             {
@@ -178,7 +178,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             return (enquote ? "\"" : "") + message + (enquote ? "\"" : "");
         }
 
-        public void LogToolNotification(Notification notification)
+        public void LogToolNotification(Notification notification, ReportingDescriptor associatedRule)
         {
             if (!ShouldLog(notification))
             {

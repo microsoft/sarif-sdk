@@ -1,4 +1,4 @@
-{
+﻿{
   "$schema": "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0-rtm.6.json",
   "version": "2.1.0",
   "runs": [
@@ -42,7 +42,6 @@
           "toolExecutionNotifications": [
             {
               "message": {
-                "text": "A notification was raised. Notification kind was: 'tool notification'.",
                 "id": "NotificationMessage",
                 "arguments": [
                   "tool notification"
@@ -53,7 +52,6 @@
           "toolConfigurationNotifications": [
             {
               "message": {
-                "text": "A notification was raised. Notification kind was: 'configuration notification'.",
                 "id": "NotificationMessage",
                 "arguments": [
                   "configuration notification"
@@ -64,20 +62,9 @@
           "executionSuccessful": true
         }
       ],
-      "versionControlProvenance": [
-        {
-          "repositoryUri": "https://REMOTE_URI",
-          "mappedTo": {
-            "uri": "file:///REPLACED_AT_TEST_RUNTIME/"
-          }
-        }
-      ],
       "originalUriBaseIds": {
         "TESTROOT": {
           "uri": "file:///REPLACED_AT_TEST_RUNTIME/src/Test.UnitTests.Sarif/TestData/"
-        },
-        "REPO_ROOT": {
-          "uri": "file:///REPLACED_AT_TEST_RUNTIME/"
         }
       },
       "artifacts": [
@@ -85,14 +72,6 @@
           "location": {
             "uri": "InsertOptionalDataVisitor/InsertOptionalDataVisitor.txt",
             "uriBaseId": "TESTROOT"
-          },
-          "contents": {
-            "text": "Region_At_Start_Of_File (this isn't part of the region...)\r\nMore context.\r\n\r\nThis is a sample target file for\r\nsome SARIF testing. This file will\r\npotentially be embedded in SARIF logs\r\nand used in various IDE contexts to\r\nverify that various regions are \r\ncorrectly constructed, etc.\r\n\r\nHere are some special values that will be referenced in fabricated results:\r\n\r\nLeading context.\r\n  Region_One (this isn't part of the region...)\r\nTrailing context.\r\n\r\nAdditional context.\r\n         Multiline_Region_PartOne\r\nMultiline_Region_PartTwo\r\nAdditional context.\r\n\r\nAdditional context.\r\nRegion_At_End_Of_File"
-          },
-          "hashes": {
-            "md5": "7650327483BE2466ADC6599198B2989A",
-            "sha-1": "91655EA8262D81C262A8687E9667AEFF7432906A",
-            "sha-256": "1BDE85DC91168DAD541E776BB0437AC8A22D2959351A0640F2757D72AEE60C8A"
           }
         }
       ],
@@ -101,7 +80,6 @@
           "ruleId": "TEST2001",
           "ruleIndex": 0,
           "message": {
-            "text": "This result is at the beginning of the file and selects 'Region_At_Start_Of_File'.",
             "id": "MatchAtBeginningOfFile",
             "arguments": [
               "Region_At_Start_Of_File"
@@ -116,24 +94,7 @@
                 "region": {
                   "startLine": 1,
                   "startColumn": 1,
-                  "endLine": 1,
-                  "endColumn": 24,
-                  "charOffset": 0,
-                  "charLength": 23,
-                  "snippet": {
-                    "text": "Region_At_Start_Of_File"
-                  }
-                },
-                "contextRegion": {
-                  "startLine": 1,
-                  "startColumn": 1,
-                  "endLine": 2,
-                  "endColumn": 14,
-                  "charOffset": 0,
-                  "charLength": 73,
-                  "snippet": {
-                    "text": "Region_At_Start_Of_File (this isn't part of the region...)\r\nMore context."
-                  }
+                  "endColumn": 24
                 }
               }
             }
@@ -146,7 +107,6 @@
           "ruleId": "TEST2002",
           "ruleIndex": 1,
           "message": {
-            "text": "This result selects a single-line interior region of value 'Region_One'.",
             "id": "SingleLineInteriorMatch",
             "arguments": [
               "Region_One"
@@ -157,30 +117,12 @@
               "physicalLocation": {
                 "artifactLocation": {
                   "uri": "InsertOptionalDataVisitor/InsertOptionalDataVisitor.txt",
-                  "uriBaseId": "TESTROOT",
-                  "index": 0
+                  "uriBaseId": "TESTROOT"
                 },
                 "region": {
                   "startLine": 14,
                   "startColumn": 3,
-                  "endLine": 14,
-                  "endColumn": 13,
-                  "charOffset": 387,
-                  "charLength": 10,
-                  "snippet": {
-                    "text": "Region_One"
-                  }
-                },
-                "contextRegion": {
-                  "startLine": 13,
-                  "startColumn": 1,
-                  "endLine": 15,
-                  "endColumn": 18,
-                  "charOffset": 367,
-                  "charLength": 84,
-                  "snippet": {
-                    "text": "Leading context.\r\n  Region_One (this isn't part of the region...)\r\nTrailing context."
-                  }
+                  "endColumn": 13
                 }
               }
             }
@@ -199,30 +141,12 @@
               "physicalLocation": {
                 "artifactLocation": {
                   "uri": "InsertOptionalDataVisitor/InsertOptionalDataVisitor.txt",
-                  "uriBaseId": "TESTROOT",
-                  "index": 0
+                  "uriBaseId": "TESTROOT"
                 },
                 "region": {
                   "startLine": 18,
                   "startColumn": 10,
-                  "endLine": 19,
-                  "endColumn": 25,
-                  "charOffset": 485,
-                  "charLength": 50,
-                  "snippet": {
-                    "text": "Multiline_Region_PartOne\r\nMultiline_Region_PartTwo"
-                  }
-                },
-                "contextRegion": {
-                  "startLine": 17,
-                  "startColumn": 1,
-                  "endLine": 20,
-                  "endColumn": 20,
-                  "charOffset": 455,
-                  "charLength": 101,
-                  "snippet": {
-                    "text": "Additional context.\r\n         Multiline_Region_PartOne\r\nMultiline_Region_PartTwo\r\nAdditional context."
-                  }
+                  "endLine": 19
                 }
               }
             }
@@ -241,30 +165,11 @@
               "physicalLocation": {
                 "artifactLocation": {
                   "uri": "InsertOptionalDataVisitor/InsertOptionalDataVisitor.txt",
-                  "uriBaseId": "TESTROOT",
-                  "index": 0
+                  "uriBaseId": "TESTROOT"
                 },
                 "region": {
-                  "startLine": 23,
-                  "startColumn": 1,
-                  "endLine": 23,
-                  "endColumn": 22,
                   "charOffset": 581,
-                  "charLength": 21,
-                  "snippet": {
-                    "text": "Region_At_End_Of_File"
-                  }
-                },
-                "contextRegion": {
-                  "startLine": 22,
-                  "startColumn": 1,
-                  "endLine": 23,
-                  "endColumn": 22,
-                  "charOffset": 560,
-                  "charLength": 42,
-                  "snippet": {
-                    "text": "Additional context.\r\nRegion_At_End_Of_File"
-                  }
+                  "charLength": 21
                 }
               }
             }
@@ -276,7 +181,6 @@
         {
           "ruleId": "TEST2005",
           "message": {
-            "text": "A space between two words was detected.",
             "id": "GlobalMessage"
           },
           "locations": [
@@ -284,30 +188,12 @@
               "physicalLocation": {
                 "artifactLocation": {
                   "uri": "InsertOptionalDataVisitor/InsertOptionalDataVisitor.txt",
-                  "uriBaseId": "TESTROOT",
-                  "index": 0
+                  "uriBaseId": "TESTROOT"
                 },
                 "region": {
                   "startLine": 15,
                   "startColumn": 9,
-                  "endLine": 15,
-                  "endColumn": 10,
-                  "charOffset": 442,
-                  "charLength": 1,
-                  "snippet": {
-                    "text": " "
-                  }
-                },
-                "contextRegion": {
-                  "startLine": 14,
-                  "startColumn": 1,
-                  "endLine": 16,
-                  "endColumn": 1,
-                  "charOffset": 385,
-                  "charLength": 68,
-                  "snippet": {
-                    "text": "  Region_One (this isn't part of the region...)\r\nTrailing context.\r\n"
-                  }
+                  "endColumn": 10
                 }
               }
             }
@@ -326,27 +212,12 @@
               "physicalLocation": {
                 "artifactLocation": {
                   "uri": "InsertOptionalDataVisitor/InsertOptionalDataVisitor.txt",
-                  "uriBaseId": "TESTROOT",
-                  "index": 0
+                  "uriBaseId": "TESTROOT"
                 },
                 "region": {
                   "startLine": 15,
                   "startColumn": 9,
-                  "endLine": 15,
-                  "endColumn": 8,
-                  "charOffset": 442,
-                  "charLength": -1
-                },
-                "contextRegion": {
-                  "startLine": 14,
-                  "startColumn": 1,
-                  "endLine": 16,
-                  "endColumn": 1,
-                  "charOffset": 385,
-                  "charLength": 68,
-                  "snippet": {
-                    "text": "  Region_One (this isn't part of the region...)\r\nTrailing context.\r\n"
-                  }
+                  "endColumn": 8
                 }
               }
             }

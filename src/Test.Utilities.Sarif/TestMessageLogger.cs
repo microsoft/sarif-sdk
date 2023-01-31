@@ -43,7 +43,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
         }
 
-        public void Log(ReportingDescriptor rule, Result result)
+        public void Log(ReportingDescriptor rule, Result result, int? extensionIndex)
         {
             NoteTestResult(result.Kind, result.Locations.First().PhysicalLocation.ArtifactLocation.Uri.LocalPath);
         }
@@ -77,7 +77,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             }
         }
 
-        public void LogToolNotification(Notification notification)
+        public void LogToolNotification(Notification notification, ReportingDescriptor associatedRule)
         {
             ToolNotifications = ToolNotifications ?? new List<Notification>();
             ToolNotifications.Add(notification);
