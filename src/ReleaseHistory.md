@@ -1,6 +1,7 @@
 # SARIF Package Release History (SDK, Driver, Converters, and Multitool)
 
 ## **v3.2.0** (UNRELEASED)
+* BRK: `SarifLogger` no longer allows providing a `Tool` instance. Use the `run` parameter instead (and populate it with any custom `Tool` object). [#2661](https://github.com/microsoft/sarif-sdk/pull/2611)
 * BRK: `SarifLogger` updates version details differently. [#2661](https://github.com/microsoft/sarif-sdk/pull/2611)
 * BRK: Add `ToolComponent` argument to `IAnalysisLogger.Log(ReportingDescriptor, Result)` method. [#2661](https://github.com/microsoft/sarif-sdk/pull/2611)
 * BRK: Rename `--normalize-for-github` argument to `--normalize-for-ghas` for `convert` command and mark `--normalize-for-github` as obsolete. [#2581](https://github.com/microsoft/sarif-sdk/pull/2581)
