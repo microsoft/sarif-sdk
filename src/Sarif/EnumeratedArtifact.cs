@@ -9,7 +9,10 @@ namespace Microsoft.CodeAnalysis.Sarif
 {
     public class EnumeratedArtifact : IEnumeratedArtifact
     {
-        public EnumeratedArtifact() { }
+        public EnumeratedArtifact(IFileSystem fileSystem) 
+        {
+            FileSystem = fileSystem;
+        }
 
         private string contents;
 
@@ -35,6 +38,8 @@ namespace Microsoft.CodeAnalysis.Sarif
                 contents = Uri!.IsFile
                     ? FileSystem.FileReadAllText(Uri.LocalPath)
                     : null;
+                
+                this.sizeInBytes = (ulong?)this.contents?.Length;
 
                 return contents;
             }
@@ -47,6 +52,24 @@ namespace Microsoft.CodeAnalysis.Sarif
             return this.contents;
         }
 
-        public ulong Size { get; set; }
+        public ulong? sizeInBytes;
+
+        public ulong? SizeInBytes
+        {
+            get
+            {
+                if (sizeInBytes != null) { return sizeInBytes.Value; };
+
+                this.sizeInBytes = Uri!.IsFile
+                    ? (ulong)FileSystem.FileInfoLength(Uri.LocalPath)
+                    : (ulong?)null;
+
+                return this.sizeInBytes;
+            }
+            set
+            {
+                this.sizeInBytes = value;
+            }
+        }
     }
 }

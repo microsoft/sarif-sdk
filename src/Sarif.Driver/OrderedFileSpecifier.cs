@@ -15,21 +15,18 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                                     long maxFileSizeInKilobytes = long.MaxValue,
                                     CancellationToken cancellationToken = default,
                                     IFileSystem fileSystem = null)
-        {
+        {       
             this.recurse = recurse;
             this.specifier = specifier;
             this.maxFileSizeInKilobytes = maxFileSizeInKilobytes;
             this.cancellationToken = cancellationToken;
-            this.fileSystem = fileSystem ?? FileSystem.Instance;
+            FileSystem = fileSystem ?? Microsoft.CodeAnalysis.Sarif.FileSystem.Instance;
         }
 
         private readonly bool recurse;
         private readonly string specifier;
-        private readonly IFileSystem fileSystem;
         private readonly long maxFileSizeInKilobytes;
         private CancellationToken cancellationToken;
-
-        public IList<string> IgnoredFiles { get; set; }
 
         public IEnumerable<IEnumeratedArtifact> Artifacts
         {
@@ -38,6 +35,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         }
 
         public ICollection<IEnumeratedArtifact> Skipped { get; set; }
+
+        public IFileSystem FileSystem { get; set; }
 
         private IEnumerable<IEnumeratedArtifact> EnumeratedArtifacts()
         {
@@ -62,7 +61,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             directory = Path.GetFullPath(directory);
             var directories = new Queue<string>();
 
-            if (!this.fileSystem.DirectoryExists(directory))
+            if (!FileSystem.DirectoryExists(directory))
             {
                 yield break;
             }
@@ -95,14 +94,17 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 }
 #endif
 
-                foreach (string file in this.fileSystem.DirectoryEnumerateFiles(directory, filter, SearchOption.TopDirectoryOnly))
+                foreach (string file in FileSystem.DirectoryEnumerateFiles(directory, filter, SearchOption.TopDirectoryOnly))
                 {
                     this.cancellationToken.ThrowIfCancellationRequested();
 
-                    if (!IsTargetWithinFileSizeLimit(file, this.maxFileSizeInKilobytes, this.fileSystem, out long fileSizeInKb))
+                    if (!IsTargetWithinFileSizeLimit(file, this.maxFileSizeInKilobytes, FileSystem, out long fileSizeInKb))
                     {
-                        IgnoredFiles ??= new List<string>();
-                        IgnoredFiles.Add(file);
+                        Skipped ??= new List<IEnumeratedArtifact>();
+                        Skipped.Add(new EnumeratedArtifact(FileSystem)
+                        {
+                            Uri = new Uri(file),
+                        });
                     }
                     else
                     {
@@ -112,9 +114,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
                 foreach (string file in sortedFiles)
                 {
-                    yield return new EnumeratedArtifact
+                    yield return new EnumeratedArtifact(FileSystem)
                     {
-                        Uri = new Uri(file)
+                        Uri = new Uri(file),
                     };
                 }
             }
@@ -138,7 +140,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             var sortedDiskItems = new SortedSet<string>();
 
             queue.Enqueue(directory);
-            foreach (string childDirectory in this.fileSystem.DirectoryEnumerateDirectories(directory, "*", SearchOption.TopDirectoryOnly))
+            foreach (string childDirectory in FileSystem.DirectoryEnumerateDirectories(directory, "*", SearchOption.TopDirectoryOnly))
             {
                 sortedDiskItems.Add(childDirectory);
             }
@@ -149,7 +151,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             }
         }
 
-        internal static IArtifactProvider Create(IList<string> specifiers, bool recurse, long maxFileSizeInKilobytes, IFileSystem fileSystem = null)
+        internal static IArtifactProvider Create(IList<string> specifiers, bool recurse, long maxFileSizeInKilobytes, IFileSystem fileSystem)
         {
             var orderedFileSpecifiers = new List<OrderedFileSpecifier>();
 
@@ -158,7 +160,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 orderedFileSpecifiers.Add(new OrderedFileSpecifier(specifier, recurse, maxFileSizeInKilobytes, fileSystem: fileSystem));
             }
 
-            return new AggregatingArtifactsProvider
+            return new AggregatingArtifactsProvider(fileSystem)
             {
                 Providers = orderedFileSpecifiers
             };

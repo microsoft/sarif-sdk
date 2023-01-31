@@ -401,18 +401,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             }
         }
 
-        protected virtual bool ShouldEnqueue(string file, TContext context)
-        {
-            bool shouldEnqueue = OrderedFileSpecifier.IsTargetWithinFileSizeLimit(file, context.MaxFileSizeInKilobytes, this.FileSystem, out long fileSizeInKb);
-
-            if (!shouldEnqueue)
-            {
-                Warnings.LogFileSkippedDueToSize(context, file, fileSizeInKb);
-            }
-
-            return shouldEnqueue;
-        }
-
         protected virtual bool ShouldComputeHashes(string file, TContext context)
         {
             return true;
@@ -449,6 +437,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             if (context.TargetsProvider.Skipped?.Count > 0)
             {
                 Warnings.LogOneOrMoreFilesSkippedDueToSize(context);
+
+                foreach (IEnumeratedArtifact artifact in context.TargetsProvider.Skipped)
+                {
+                    Notes.LogFileSkippedDueToSize(context, artifact.Uri.GetFilePath(), (long)artifact.SizeInBytes);
+                }
             }
 
             if (_fileContextsCount == 0)

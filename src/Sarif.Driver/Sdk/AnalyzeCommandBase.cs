@@ -224,7 +224,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
             if (!shouldEnqueue)
             {
-                Warnings.LogFileSkippedDueToSize(context, file, fileSizeInKb);
+                Notes.LogFileSkippedDueToSize(context, file, fileSizeInKb);
             }
 
             return shouldEnqueue;
@@ -317,7 +317,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
             if (filePath != null)
             {
-                context.CurrentTarget = new EnumeratedArtifact() { Uri = new Uri(filePath), FileSystem = FileSystem };
+                context.CurrentTarget = new EnumeratedArtifact(FileSystem) { Uri = new Uri(filePath)};
 
                 if ((options.DataToInsert.ToFlags() & OptionallyEmittedData.Hashes) != 0)
                 {

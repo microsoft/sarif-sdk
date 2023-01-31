@@ -8,7 +8,10 @@ namespace Microsoft.CodeAnalysis.Sarif
 {
     public class AggregatingArtifactsProvider : IArtifactProvider
     {
-        public AggregatingArtifactsProvider() { }
+        public AggregatingArtifactsProvider(IFileSystem fileSystem) 
+        {
+            FileSystem = fileSystem;
+        }
 
         public IEnumerable<IArtifactProvider> Providers
         {
@@ -39,5 +42,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         }
 
         public ICollection<IEnumeratedArtifact> Skipped { get; set; }
+
+        public IFileSystem FileSystem { get; set; }
     }
 }

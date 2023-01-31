@@ -42,9 +42,9 @@ namespace Microsoft.CodeAnalysis.Sarif
                 Driver = new ToolComponent
                 {
                     Name = name,
-                    FullName = name + " " + version.ToString(),
-                    Version = fileVersion.FileVersion,
-                    DottedQuadFileVersion = dottedQuadFileVersion,
+                    FullName = name + " " + (omitSemanticVersion ? null : version.ToString()),
+                    Version = omitSemanticVersion ? null : fileVersion.FileVersion,
+                    DottedQuadFileVersion = omitSemanticVersion ? null : dottedQuadFileVersion,
                     SemanticVersion = omitSemanticVersion ? null : fileVersion.ProductVersion,
                     Organization = string.IsNullOrEmpty(fileVersion.CompanyName) ? null : fileVersion.CompanyName,
                     Product = string.IsNullOrEmpty(fileVersion.ProductName) ? null : fileVersion.ProductName,

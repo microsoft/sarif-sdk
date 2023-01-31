@@ -9,13 +9,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 {
     public class FileSpecifier : IArtifactProvider
     {
-        private readonly IFileSystem _fileSystem;
-
         public FileSpecifier(string specifier, bool recurse = false, IFileSystem fileSystem = null)
         {
             _specifier = specifier;
             _recurse = recurse;
-            _fileSystem = fileSystem ?? FileSystem.Instance;
+            FileSystem = fileSystem ?? Microsoft.CodeAnalysis.Sarif.FileSystem.Instance;
         }
 
         private readonly bool _recurse;
@@ -39,9 +37,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             {
                 foreach (string file in Files)
                 {
-                    yield return new EnumeratedArtifact
+                    yield return new EnumeratedArtifact(FileSystem)
                     {
-                        Uri = new Uri(file)
+                        Uri = new Uri(file),
                     };
                 }
             }
@@ -53,6 +51,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             get => Array.Empty<IEnumeratedArtifact>();
             set => throw new InvalidOperationException();
         }
+        public IFileSystem FileSystem { get; set; }
 
         private List<string> BuildDirectories()
         {
@@ -88,9 +87,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
         private void AddFilesFromDirectory(string dir, string filter)
         {
-            if (_fileSystem.DirectoryExists(dir))
+            if (FileSystem.DirectoryExists(dir))
             {
-                foreach (string file in _fileSystem.DirectoryGetFiles(dir, filter))
+                foreach (string file in FileSystem.DirectoryGetFiles(dir, filter))
                 {
                     AddFileToList(file);
                 }
@@ -99,7 +98,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 {
                     try
                     {
-                        foreach (string subdir in _fileSystem.DirectoryGetDirectories(dir))
+                        foreach (string subdir in FileSystem.DirectoryGetDirectories(dir))
                         {
                             AddFilesFromDirectory(subdir, filter);
                         }
