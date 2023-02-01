@@ -76,7 +76,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         // A set of threadFlows which together describe a pattern of code execution relevant
         // to detecting a result.
         CodeFlows = 0x800,
-        
+
         // Enrich SARIF log with git blame information
         GitBlameInformation = 0x1000,
 

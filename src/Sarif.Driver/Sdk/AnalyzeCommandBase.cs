@@ -412,7 +412,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                                 Id = analyzeOptions.AutomationId,
                                 Guid = analyzeOptions.AutomationGuid
                             },
-                            Tool = _tool,                            
+                            Tool = _tool,
                         };
 
                         if (analyzeOptions.SarifOutputVersion != SarifVersion.OneZeroZero)
