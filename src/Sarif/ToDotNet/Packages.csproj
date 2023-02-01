@@ -3,6 +3,6 @@
     <TargetFramework>net461</TargetFramework>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Microsoft.Json.Schema.ToDotNet" Version="2.2.0" />
+    <PackageReference Include="Microsoft.Json.Schema.ToDotNet" Version="2.1.0" />
   </ItemGroup>
 </Project>

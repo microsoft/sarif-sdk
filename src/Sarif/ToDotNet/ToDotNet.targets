@@ -9,7 +9,7 @@
   </PropertyGroup>
 
   <PropertyGroup Condition="$(OS) == 'Windows_NT'">
-    <JsonSchemaToDotNetPath>$(MSBuildProjectDirectory)\..\packages\Microsoft.Json.Schema.ToDotNet.2.1.0\tools\net461\Microsoft.Json.Schema.ToDotNet.Cli.exe</JsonSchemaToDotNetPath>
+    <JsonSchemaToDotNetPath>$(MSBuildProjectDirectory)\..\packages\Microsoft.Json.Schema.ToDotNet\2.1.0\tools\net461\Microsoft.Json.Schema.ToDotNet.Cli.exe</JsonSchemaToDotNetPath>
     <ExecCommand>dotnet restore &quot;$(MSBuildThisFileDirectory)Packages.csproj&quot; --packages &quot;$(MSBuildThisFileDirectory)\..\..\packages&quot; --configfile &quot;$(NuGetConfigPath)&quot; --verbosity quiet</ExecCommand>
   </PropertyGroup>
   <PropertyGroup Condition="$(OS) != 'Windows_NT'">
@@ -27,8 +27,6 @@
     </ItemGroup>
     <Exec Command="$(ExecCommand)" />
     <Message Importance="high" Text="Generating SARIF object model..." />
-    <Message Importance="high" Text="*** Executing command: ***" />
-    <Message Importance="high" Text="&quot;$(JsonSchemaToDotNetPath)&quot; --schema-name Sarif --schema-file-path &quot;%(JsonSchemaFile.FullPath)&quot; --output-directory &quot;$(_ObjectModelOutputDirectory)&quot; --force-overwrite --namespace-name %(JsonSchemaFile.Namespace) --root-class-name %(JsonSchemaFile.RootClassName) --copyright-file-path &quot;%(JsonSchemaFile.CopyrightFilePath)&quot; --hints-file-path &quot;%(JsonSchemaFile.HintsFilePath)&quot; --generate-cloning-code --protected-init-methods --virtual-members"/>
     <Exec Command="&quot;$(JsonSchemaToDotNetPath)&quot; --schema-name Sarif --schema-file-path &quot;%(JsonSchemaFile.FullPath)&quot; --output-directory &quot;$(_ObjectModelOutputDirectory)&quot; --force-overwrite --namespace-name %(JsonSchemaFile.Namespace) --root-class-name %(JsonSchemaFile.RootClassName) --copyright-file-path &quot;%(JsonSchemaFile.CopyrightFilePath)&quot; --hints-file-path &quot;%(JsonSchemaFile.HintsFilePath)&quot; --generate-cloning-code --protected-init-methods --virtual-members" Condition="$(OS) == 'Windows_NT'" />
     <Exec Command="dotnet &quot;$(JsonSchemaToDotNetPath)&quot; --schema-name Sarif --schema-file-path &quot;%(JsonSchemaFile.FullPath)&quot; --output-directory &quot;$(_ObjectModelOutputDirectory)&quot; --force-overwrite --namespace-name %(JsonSchemaFile.Namespace) --root-class-name %(JsonSchemaFile.RootClassName) --copyright-file-path &quot;%(JsonSchemaFile.CopyrightFilePath)&quot; --hints-file-path &quot;%(JsonSchemaFile.HintsFilePath)&quot; --generate-cloning-code --protected-init-methods --virtual-members" Condition="$(OS) != 'Windows_NT'" />
     <Message Text="Generated classes from @(JsonSchemaFile) -> $(_ObjectModelOutputDirectory)"/>
