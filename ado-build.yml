@@ -44,7 +44,7 @@ extends:
 
                 steps:
                   - task: UseDotNet@2
-                    condition: eq(${{ pool.os }}, 'linux')
+                    condition: eq('${{ pool.os }}', 'linux')
                     inputs:
                       version: 3.0.x
                   - task: PowerShell@2
