@@ -55,6 +55,11 @@ namespace Microsoft.CodeAnalysis.Sarif
             return rule;
         }
 
+        public bool ShouldSerializeGuid()
+        {
+            return this.Guid != default;
+        }
+
         public bool ShouldSerializeName()
         {
             return !string.IsNullOrWhiteSpace(this.Name);
