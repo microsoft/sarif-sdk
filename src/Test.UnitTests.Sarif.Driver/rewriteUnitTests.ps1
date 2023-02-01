@@ -5,6 +5,7 @@ param(
 )
 
 Write-Output "Rewrite Unit Tests with Coyote"
+Get-ChildItem -Recurse "../../packages/microsoft.coyote.test/"
 if ($ENV:OS) {
     dotnet ../../packages/microsoft.coyote.test/$CoyoteVersion/lib/$TargetFramework/coyote.dll rewrite rewrite.coyote.Windows.$Configuration.json
 } else {
