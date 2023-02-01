@@ -44,13 +44,12 @@ extends:
 
                 steps:
                   - task: UseDotNet@2
-                    condition: eq('${{ pool.os }}', 'linux')
                     displayName: Install .NET Core 3.1
                     inputs:
                       version: 3.1.x
                   - task: UseDotNet@2
                     condition: eq('${{ pool.os }}', 'linux')
-                    displayName: Install .NET Core 7.0
+                    displayName: Install .NET Core 7.0 [Linux only]
                     inputs:
                       version: 7.0.x
                   - task: PowerShell@2

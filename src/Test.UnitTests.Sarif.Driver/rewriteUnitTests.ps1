@@ -4,7 +4,7 @@ param(
   [Parameter(Mandatory=$true)][string]$TargetFramework
 )
 
-Write-Output "Rewrite Unit Tests with Coyote, target framework = $TargetFramework"
+Write-Output "Rewrite Unit Tests with Coyote"
 if ($ENV:OS) {
     dotnet ../../packages/microsoft.coyote.test/$CoyoteVersion/lib/$TargetFramework/coyote.dll rewrite rewrite.coyote.Windows.$Configuration.json
 } else {
