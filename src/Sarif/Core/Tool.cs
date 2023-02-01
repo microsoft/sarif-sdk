@@ -43,7 +43,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 {
                     Name = name,
                     FullName = name + " " + (omitSemanticVersion ? null : version.ToString()),
-                    Version = omitSemanticVersion ? null :fileVersion.FileVersion,
+                    Version = omitSemanticVersion ? null : fileVersion.FileVersion,
                     DottedQuadFileVersion = omitSemanticVersion ? null : dottedQuadFileVersion,
                     SemanticVersion = omitSemanticVersion ? null : fileVersion.ProductVersion,
                     Organization = string.IsNullOrEmpty(fileVersion.CompanyName) ? null : fileVersion.CompanyName,
