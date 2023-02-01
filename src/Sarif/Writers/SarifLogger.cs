@@ -259,6 +259,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             _run.Invocations.Add(invocation);
         }
 
+        public Func<Uri, HashData> ComputeHashData { get; set; }
+
         public IDictionary<string, HashData> AnalysisTargetToHashDataMap { get; }
 
         public IDictionary<ReportingDescriptor, ReportingDescriptorReference> RuleToReportingDescriptorReferenceMap { get; }
@@ -505,7 +507,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             }
 
             HashData hashData = null;
-            AnalysisTargetToHashDataMap?.TryGetValue(fileLocation.Uri.OriginalString, out hashData);
+            if (AnalysisTargetToHashDataMap == null ||
+                !AnalysisTargetToHashDataMap.TryGetValue(fileLocation.Uri.OriginalString, out hashData) &&
+                ComputeFileHashes &&
+                ComputeHashData != null)
+            {
+                hashData = ComputeHashData(fileLocation.Uri);
+            }
 
             // Ensure Artifact is in Run.Artifacts and ArtifactLocation.Index is set to point to it
             int index = _run.GetFileIndex(fileLocation,

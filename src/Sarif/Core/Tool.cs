@@ -64,7 +64,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         private static void SetDriverPropertiesFromFileVersionInfo(ToolComponent driver, FileVersionInfo fileVersion)
         {
-            if (!string.IsNullOrEmpty(fileVersion.Comments)) { driver.SetProperty("Comments", fileVersion.Comments); }
+            if (!string.IsNullOrEmpty(fileVersion.Comments)) { driver.SetProperty("comments", fileVersion.Comments); }
         }
 
         /// <summary>
