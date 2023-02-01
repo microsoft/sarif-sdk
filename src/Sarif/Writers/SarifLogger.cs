@@ -123,9 +123,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                        defaultFileEncoding,
                        AnalysisTargetToHashDataMap);
 
-            tool ??= Tool.CreateFromAssemblyData();
-
-            _run.Tool = tool;
+            _run.Tool ??= Tool.CreateFromAssemblyData();
             _dataToInsert = dataToInsert;
             _dataToRemove = dataToRemove;
             _issueLogJsonWriter.Initialize(_run);

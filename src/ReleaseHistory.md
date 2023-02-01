@@ -1,9 +1,9 @@
 # SARIF Package Release History (SDK, Driver, Converters, and Multitool)
 
 ## **v3.2.0** (UNRELEASED)
-* BRK: `SarifLogger` no longer allows providing a `Tool` instance. Use the `run` parameter instead (and populate it with any custom `Tool` object). [#2661](https://github.com/microsoft/sarif-sdk/pull/2611)
-* BRK: `SarifLogger` updates version details differently. [#2661](https://github.com/microsoft/sarif-sdk/pull/2611)
-* BRK: Add `ToolComponent` argument to `IAnalysisLogger.Log(ReportingDescriptor, Result)` method. [#2661](https://github.com/microsoft/sarif-sdk/pull/2611)
+* BRK: `SarifLogger` no longer allows providing a `Tool` instance. Use the `run` parameter instead (and populate it with any custom `Tool` object). [#2614](https://github.com/microsoft/sarif-sdk/pull/2614)
+* BRK: `SarifLogger` updates version details differently. [#2611](https://github.com/microsoft/sarif-sdk/pull/2611)
+* BRK: Add `ToolComponent` argument to `IAnalysisLogger.Log(ReportingDescriptor, Result)` method. [#2611](https://github.com/microsoft/sarif-sdk/pull/2611)
 * BRK: Rename `--normalize-for-github` argument to `--normalize-for-ghas` for `convert` command and mark `--normalize-for-github` as obsolete. [#2581](https://github.com/microsoft/sarif-sdk/pull/2581)
 * BRK: Update `IAnalysisContext.LogToolNotification` method to add `ReportingDescriptor` parameter. This is required in order to populated `AssociatedRule` data in `Notification` instances. The new method has an option value of null for the `associatedRule` parameter to maximize build compatibility. [#2604](https://github.com/microsoft/sarif-sdk/pull/2604)
 * BRK: Correct casing of `LogMissingreportingConfiguration` helper to `LogMissingReportingConfiguration`. [#2599](https://github.com/microsoft/sarif-sdk/pull/2599)
