@@ -507,10 +507,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             }
 
             HashData hashData = null;
-            if (AnalysisTargetToHashDataMap == null ||
-                !AnalysisTargetToHashDataMap.TryGetValue(fileLocation.Uri.OriginalString, out hashData) &&
-                ComputeFileHashes &&
-                ComputeHashData != null)
+            if ((AnalysisTargetToHashDataMap == null ||
+                !AnalysisTargetToHashDataMap.TryGetValue(fileLocation.Uri.OriginalString, out hashData)) &&
+                ComputeFileHashes && ComputeHashData != null)
             {
                 hashData = ComputeHashData(fileLocation.Uri);
             }
