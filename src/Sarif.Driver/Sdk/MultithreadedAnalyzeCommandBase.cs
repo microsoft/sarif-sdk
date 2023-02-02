@@ -28,15 +28,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         // ways depending on whether output is captured to a log file disk or not. In the latter case,
         // the captured output is useful to verify behavior.
         internal bool _captureConsoleOutput;
-
         internal ConsoleLogger _consoleLogger;
 
-        private Run _run;
-        private bool _computeHashes;
         internal TContext _rootContext;
         private int _fileContextsCount;
         private Channel<int> readyToHashChannel;
-        private OptionallyEmittedData _dataToInsert;
         private Channel<int> _resultsWritingChannel;
         private Channel<int> readyToScanChannel;
         private IDictionary<string, HashData> _pathToHashDataMap;
@@ -304,7 +300,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
                         while (context?.AnalysisComplete == true)
                         {
-                            LogCachingLogger(rootContext, context, clone: _computeHashes);
+                            bool clone = context.DataToInsert.HasFlag(OptionallyEmittedData.Hashes);
+                            LogCachingLogger(rootContext, context, clone);
 
                             _fileContexts.TryRemove(currentIndex, out _);
                             _fileContexts.TryGetValue(currentIndex + 1, out context);
@@ -503,6 +500,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             ChannelReader<int> reader = readyToHashChannel.Reader;
 
             Dictionary<string, CachingLogger> loggerCache = null;
+            bool computeHashes = globalContext.DataToInsert.HasFlag(OptionallyEmittedData.Hashes);
 
             try
             {
@@ -512,13 +510,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                     // Loop while there is work to do.
                     while (reader.TryRead(out int index))
                     {
-                        if (_computeHashes)
+                        if (computeHashes)
                         {
                             TContext context = _fileContexts[index];
 
                             context.CancellationToken.ThrowIfCancellationRequested();
 
-                            string localPath = context.CurrentTarget.Uri.LocalPath;
+                            string localPath = context.CurrentTarget.Uri.GetFilePath();
 
                             HashData hashData = ShouldComputeHashes(localPath, _rootContext)
                                 ? HashUtilities.ComputeHashes(localPath, FileSystem)
@@ -634,9 +632,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 logger.Loggers.Add(_consoleLogger);
             }
 
-            _dataToInsert = analyzeOptions.DataToInsert.ToFlags();
-            _computeHashes = (_dataToInsert & OptionallyEmittedData.Hashes) != 0;
-
             return logger;
         }
 
@@ -659,6 +654,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                     options.Traces.Any() == true ?
                        new StringSet(options.Traces) :
                        new StringSet();
+
+                context.DataToInsert = options.DataToInsert.ToFlags();
 
                 if (options.MaxFileSizeInKilobytes != -1)
                 {
@@ -749,12 +746,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                     {
                         LogFilePersistenceOptions logFilePersistenceOptions = analyzeOptions.ConvertToLogFilePersistenceOptions();
 
-                        OptionallyEmittedData dataToInsert = _dataToInsert;
+                        OptionallyEmittedData dataToInsert = context.DataToInsert;
                         OptionallyEmittedData dataToRemove = analyzeOptions.DataToRemove.ToFlags();
 
                         SarifLogger sarifLogger;
 
-                        _run = new Run()
+                        var run = new Run()
                         {
                             AutomationDetails = new RunAutomationDetails
                             {
@@ -770,7 +767,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                                                           logFilePersistenceOptions,
                                                           dataToInsert,
                                                           dataToRemove,
-                                                          run: _run,
+                                                          run,
                                                           analysisTargets: null,
                                                           quiet: analyzeOptions.Quiet,
                                                           invocationTokensToRedact: GenerateSensitiveTokensList(),
@@ -785,7 +782,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                                                                      logFilePersistenceOptions,
                                                                      dataToInsert,
                                                                      dataToRemove,
-                                                                     run: _run,
+                                                                     run,
                                                                      analysisTargets: null,
                                                                      invocationTokensToRedact: GenerateSensitiveTokensList(),
                                                                      invocationPropertiesToLog: analyzeOptions.InvocationPropertiesToLog,

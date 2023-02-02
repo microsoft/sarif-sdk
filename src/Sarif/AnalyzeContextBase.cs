@@ -18,10 +18,18 @@ namespace Microsoft.CodeAnalysis.Sarif
         // All of these properties are persisted to configuration XML and can be
         // passed using that mechanism. All command-line arguments are 
         // candidates to follow this pattern.
-        public IEnumerable<IOption> GetOptions()
+        public virtual IEnumerable<IOption> GetOptions()
         {
-            return new[]
+            return new IOption[]
             {
+                TracesProperty,
+                ThreadsProperty,
+                RecurseProperty,
+                ResultKindsProperty,
+                DataToInsertProperty,
+                FailureLevelsProperty,
+                TimeoutInMillisecondsProperty,
+                TargetFileSpecifiersProperty,
                 MaxFileSizeInKilobytesProperty
             };
         }
@@ -108,12 +116,12 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         public static PerLanguageOption<StringSet> TracesProperty { get; } =
                     new PerLanguageOption<StringSet>(
-                        "CoreSettings", nameof(Traces), defaultValue: () => new StringSet(),
+                        "CoreSettings", nameof(Traces), defaultValue: () => new StringSet(new[] { "None" }),
                         "A set of trace values. Zero, one or more of ScanTime, RuleScanTime.");
 
         public static PerLanguageOption<StringSet> TargetFileSpecifiersProperty { get; } =
                     new PerLanguageOption<StringSet>(
-                        "CoreSettings", nameof(TargetFileSpecifiers), defaultValue: () => null,
+                        "CoreSettings", nameof(TargetFileSpecifiers), defaultValue: () => new StringSet(),
                         "One or more file specifiers for locating scan targets.");
 
         public static PerLanguageOption<ISet<FailureLevel>> FailureLevelsProperty { get; } =
@@ -136,11 +144,12 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         public static PerLanguageOption<long> MaxFileSizeInKilobytesProperty { get; } =
             new PerLanguageOption<long>(
-                "CoreSettings", nameof(MaxFileSizeInKilobytes), defaultValue: () => 1024,
-                "Scan targets that fall below this size threshold (in kilobytes) will not be analyzed. " +
-                "It is legal to set this value to 0 (in order to potentially complete an analysis that " +
-                "records what scan targets would have been analyzed, given current configuration. " +
-                $"Negative values will be discarded in favor of the default of {MaxFileSizeInKilobytesProperty?.DefaultValue() ?? 1024} KB.");
+                $"CoreSettings", nameof(MaxFileSizeInKilobytes), defaultValue: () => 1024,
+                $"{Environment.NewLine}" +
+                $"    Scan targets that fall below this size threshold (in kilobytes) will not be analyzed.{Environment.NewLine}" +
+                $"    It is legal to set this value to 0 (in order to potentially complete an analysis that{Environment.NewLine}" +
+                $"    records what scan targets would have been analyzed, given current configuration.{Environment.NewLine}" +
+                $"    Negative values will be discarded in favor of the default of {MaxFileSizeInKilobytesProperty?.DefaultValue() ?? 1024} KB.");
 
         public static PerLanguageOption<int> TimeoutInMillisecondsProperty { get; } =
             new PerLanguageOption<int>(
@@ -150,7 +159,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         public static PerLanguageOption<int> ThreadsProperty { get; } =
             new PerLanguageOption<int>(
-                "SpCoreSettingsam", nameof(Threads), defaultValue: () => { return Debugger.IsAttached ? 1 : Environment.ProcessorCount; },
+                "CoreSettings", nameof(Threads), defaultValue: () => { return Debugger.IsAttached ? 1 : Environment.ProcessorCount; },
                 "Count of threads to use in any parallel execution context. Defaults to '1' when " +
                 "the debugger is attached, otherwise is set to the environment processor count. " +
                 "Negative values are interpreted as '1'.");
