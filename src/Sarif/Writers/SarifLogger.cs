@@ -34,7 +34,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                            LogFilePersistenceOptions logFilePersistenceOptions = DefaultLogFilePersistenceOptions,
                            OptionallyEmittedData dataToInsert = OptionallyEmittedData.None,
                            OptionallyEmittedData dataToRemove = OptionallyEmittedData.None,
-                           Tool tool = null,
                            Run run = null,
                            IEnumerable<string> analysisTargets = null,
                            IEnumerable<string> invocationTokensToRedact = null,
@@ -50,7 +49,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                                     logFilePersistenceOptions,
                                     dataToInsert,
                                     dataToRemove,
-                                    tool,
                                     run,
                                     analysisTargets,
                                     invocationTokensToRedact,
@@ -69,7 +67,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                            LogFilePersistenceOptions logFilePersistenceOptions = DefaultLogFilePersistenceOptions,
                            OptionallyEmittedData dataToInsert = OptionallyEmittedData.None,
                            OptionallyEmittedData dataToRemove = OptionallyEmittedData.None,
-                           Tool tool = null,
                            Run run = null,
                            IEnumerable<string> analysisTargets = null,
                            IEnumerable<string> invocationTokensToRedact = null,
@@ -126,9 +123,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                        defaultFileEncoding,
                        AnalysisTargetToHashDataMap);
 
-            tool ??= Tool.CreateFromAssemblyData();
-
-            _run.Tool = tool;
+            _run.Tool ??= Tool.CreateFromAssemblyData();
             _dataToInsert = dataToInsert;
             _dataToRemove = dataToRemove;
             _issueLogJsonWriter.Initialize(_run);
@@ -263,6 +258,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
             _run.Invocations.Add(invocation);
         }
+
+        public Func<Uri, HashData> ComputeHashData { get; set; }
 
         public IDictionary<string, HashData> AnalysisTargetToHashDataMap { get; }
 
@@ -510,7 +507,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             }
 
             HashData hashData = null;
-            AnalysisTargetToHashDataMap?.TryGetValue(fileLocation.Uri.OriginalString, out hashData);
+            if ((AnalysisTargetToHashDataMap == null ||
+                !AnalysisTargetToHashDataMap.TryGetValue(fileLocation.Uri.OriginalString, out hashData)) &&
+                ComputeFileHashes && ComputeHashData != null)
+            {
+                hashData = ComputeHashData(fileLocation.Uri);
+            }
 
             // Ensure Artifact is in Run.Artifacts and ArtifactLocation.Index is set to point to it
             int index = _run.GetFileIndex(fileLocation,

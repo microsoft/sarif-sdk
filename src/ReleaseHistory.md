@@ -1,8 +1,9 @@
 # SARIF Package Release History (SDK, Driver, Converters, and Multitool)
 
 ## **v3.2.0** (UNRELEASED)
-* BRK: `SarifLogger` updates version details differently. [#2661](https://github.com/microsoft/sarif-sdk/pull/2611)
-* BRK: Add `ToolComponent` argument to `IAnalysisLogger.Log(ReportingDescriptor, Result)` method. [#2661](https://github.com/microsoft/sarif-sdk/pull/2611)
+* BRK: `SarifLogger` no longer allows providing a `Tool` instance. Use the `run` parameter instead (and populate it with any custom `Tool` object). [#2614](https://github.com/microsoft/sarif-sdk/pull/2614)
+* BRK: `SarifLogger` updates version details differently. [#2611](https://github.com/microsoft/sarif-sdk/pull/2611)
+* BRK: Add `ToolComponent` argument to `IAnalysisLogger.Log(ReportingDescriptor, Result)` method. [#2611](https://github.com/microsoft/sarif-sdk/pull/2611)
 * BRK: Rename `--normalize-for-github` argument to `--normalize-for-ghas` for `convert` command and mark `--normalize-for-github` as obsolete. [#2581](https://github.com/microsoft/sarif-sdk/pull/2581)
 * BRK: Update `IAnalysisContext.LogToolNotification` method to add `ReportingDescriptor` parameter. This is required in order to populated `AssociatedRule` data in `Notification` instances. The new method has an option value of null for the `associatedRule` parameter to maximize build compatibility. [#2604](https://github.com/microsoft/sarif-sdk/pull/2604)
 * BRK: Correct casing of `LogMissingreportingConfiguration` helper to `LogMissingReportingConfiguration`. [#2599](https://github.com/microsoft/sarif-sdk/pull/2599)
@@ -33,6 +34,8 @@
 * NEW: Add `--normalize-for-ghas` argument to the `rewrite` command to ensure rewritten SARIF is compatible with GitHub Advanced Security (GHAS) ingestion requirements. [#2581](https://github.com/microsoft/sarif-sdk/pull/2581)
 * NEW: Allow per-line rolling (partial) hash computation for a file. [#2605](https://github.com/microsoft/sarif-sdk/pull/2605)
 * NEW: `SarifLogger` now supports extensions rules data when logging (by providing a `ToolComponent` instance to the result logging method). [#2661](https://github.com/microsoft/sarif-sdk/pull/2611)
+* NEW: `SarifLogger` provides a `ComputeHashData` callback to provide hash data for in-memory scan targets. [#2614](https://github.com/microsoft/sarif-sdk/pull/2614)
+* NEW: Provide	`HashUtilities.ComputeHashes(Stream)` and `ComputeHashesForText(string) helpers. [#2614](https://github.com/microsoft/sarif-sdk/pull/2614)
 
 ## **v3.1.0** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/3.1.0) | [Driver](https://www.nuget.org/packages/Sarif.Driver/3.1.0) | [Converters](https://www.nuget.org/packages/Sarif.Converters/3.1.0) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/3.1.0) | [Multitool Library](https://www.nuget.org/packages/Sarif.Multitool.Library/3.1.0)
 * BUG: Loosen `System.Collections.Immutable` minimum version requirement to 1.5.0. [#2504](https://github.com/microsoft/sarif-sdk/pull/2533)

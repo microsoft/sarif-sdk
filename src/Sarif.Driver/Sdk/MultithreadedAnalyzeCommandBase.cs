@@ -760,7 +760,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                             {
                                 Id = analyzeOptions.AutomationId,
                                 Guid = analyzeOptions.AutomationGuid
-                            }
+                            },
+                            Tool = Tool,
                         };
 
                         if (analyzeOptions.SarifOutputVersion != SarifVersion.OneZeroZero)
@@ -769,7 +770,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                                                           logFilePersistenceOptions,
                                                           dataToInsert,
                                                           dataToRemove,
-                                                          tool: Tool,
                                                           run: _run,
                                                           analysisTargets: null,
                                                           quiet: analyzeOptions.Quiet,
@@ -785,7 +785,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                                                                      logFilePersistenceOptions,
                                                                      dataToInsert,
                                                                      dataToRemove,
-                                                                     tool: Tool,
                                                                      run: _run,
                                                                      analysisTargets: null,
                                                                      invocationTokensToRedact: GenerateSensitiveTokensList(),
