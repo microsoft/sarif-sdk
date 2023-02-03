@@ -63,7 +63,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             base.ValidateOptions(context, options);
         }
 
-        protected override void ProcessBaseline(IAnalysisContext context, TestAnalyzeOptions options, IFileSystem fileSystem)
+        protected override void ProcessBaseline(IAnalysisContext context)
         {
             if (context.Policy.GetProperty(TestRule.Behaviors).HasFlag(TestRuleBehaviors.RaiseExceptionProcessingBaseline))
             {
@@ -71,7 +71,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 ThrowExitApplicationException((TestAnalysisContext)context, ExitReason.ExceptionProcessingBaseline);
             }
 
-            base.ProcessBaseline(context, options, fileSystem);
+            base.ProcessBaseline(context);
         }
 
         public override int Run(TestAnalyzeOptions options)

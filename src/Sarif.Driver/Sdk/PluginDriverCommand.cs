@@ -9,11 +9,14 @@ using System.Net.Http;
 using System.Reflection;
 using System.Security;
 using System.Threading.Tasks;
+using System.Web;
 
 using Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching;
 using Microsoft.CodeAnalysis.Sarif.Readers;
 using Microsoft.CodeAnalysis.Sarif.Visitors;
 using Microsoft.CodeAnalysis.Sarif.Writers;
+
+using Newtonsoft.Json;
 
 namespace Microsoft.CodeAnalysis.Sarif.Driver
 {
@@ -22,16 +25,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         // The plugin assemblies that contain IOptionProvider instances.
         public virtual IEnumerable<Assembly> DefaultPluginAssemblies
         {
-            get { return null; }
-            set { throw new InvalidOperationException(); }
+            get => null;
+            set => throw new InvalidOperationException();
         }
 
         // An additional IOptionsProvider instance, typically, the one
         // that exposes a client tool command-line interface.
         public virtual IOptionsProvider AdditionalOptionsProvider
         {
-            get { return null; }
-            set { throw new InvalidOperationException(); }
+            get => null;
+            set => throw new InvalidOperationException();
         }
 
         public IEnumerable<Assembly> RetrievePluginAssemblies(IEnumerable<Assembly> defaultPluginAssemblies, IEnumerable<string> pluginFilePaths)
@@ -131,25 +134,23 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             return succeeded;
         }
 
-        protected virtual void ProcessBaseline(IAnalysisContext context, T driverOptions, IFileSystem fileSystem)
+        protected virtual void ProcessBaseline(IAnalysisContext context)
         {
-            if (!(driverOptions is AnalyzeOptionsBase options))
+            string baselineFilePath = context.BaselineFilePath;
+            if (string.IsNullOrEmpty(baselineFilePath))
             {
                 return;
             }
 
-            if (string.IsNullOrEmpty(options.BaselineSarifFile) || string.IsNullOrEmpty(options.OutputFilePath))
+            bool inline = context.Inline;
+            string outputFilePath = context.OutputFilePath;
+            if (!inline && string.IsNullOrEmpty(outputFilePath))
             {
                 return;
             }
 
-            SarifLog baselineFile = PrereleaseCompatibilityTransformer.UpdateToCurrentVersion(fileSystem.FileReadAllText(options.BaselineSarifFile),
-                                                                                              options.Formatting,
-                                                                                              out string _);
-
-            SarifLog currentSarifLog = PrereleaseCompatibilityTransformer.UpdateToCurrentVersion(fileSystem.FileReadAllText(options.OutputFilePath),
-                                                                                                 options.Formatting,
-                                                                                                 out string _);
+            SarifLog baselineFile = JsonConvert.DeserializeObject<SarifLog>(context.FileSystem.FileReadAllText(baselineFilePath));
+            SarifLog currentSarifLog = JsonConvert.DeserializeObject<SarifLog>(context.FileSystem.FileReadAllText(context.BaselineFilePath));
 
             SarifLog baseline;
             try
@@ -167,19 +168,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
             try
             {
-                string targetFile = options.Inline ? options.BaselineSarifFile : options.OutputFilePath;
-
-                if (options.SarifOutputVersion == SarifVersion.OneZeroZero)
-                {
-                    var visitor = new SarifCurrentToVersionOneVisitor();
-                    visitor.VisitSarifLog(baseline);
-
-                    WriteSarifFile(fileSystem, visitor.SarifLogVersionOne, targetFile, options.Formatting, SarifContractResolverVersionOne.Instance);
-                }
-                else
-                {
-                    WriteSarifFile(fileSystem, baseline, targetFile, options.Formatting);
-                }
+                string targetFile = inline ? baselineFilePath : outputFilePath;
+                WriteSarifFile(context.FileSystem, baseline, targetFile, minify: !context.PrettyPrint);
             }
             catch (Exception ex)
             {

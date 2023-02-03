@@ -47,6 +47,30 @@ namespace Microsoft.CodeAnalysis.Sarif
         public virtual RuntimeConditions RuntimeErrors { get; set; }
         public virtual bool AnalysisComplete { get; set; }
 
+        public bool PrettyPrint
+        {
+            get => this.Policy.GetProperty(PrettyPrintProperty);
+            set => this.Policy.SetProperty(PrettyPrintProperty, value);
+        }
+
+        public bool Inline
+        {
+            get => this.Policy.GetProperty(InlineProperty);
+            set => this.Policy.SetProperty(InlineProperty, value);
+        }
+
+        public string BaselineFilePath
+        {
+            get => this.Policy.GetProperty(BaselineFilePathProperty);
+            set => this.Policy.SetProperty(BaselineFilePathProperty, value);
+        }
+
+        public string OutputFilePath
+        {
+            get => this.Policy.GetProperty(OutputFilePathProperty);
+            set => this.Policy.SetProperty(OutputFilePathProperty, value);
+        }
+
         /// <summary>
         /// Gets or sets flags that specify how log SARIF should be enriched,
         /// e.g., by including file hashes or comprehensive regions properties.
@@ -105,7 +129,22 @@ namespace Microsoft.CodeAnalysis.Sarif
             set => this.Policy.SetProperty(MaxFileSizeInKilobytesProperty, value >= 0 ? value : MaxFileSizeInKilobytesProperty.DefaultValue());
         }
 
-        abstract public void Dispose();
+        public virtual void Dispose()
+        {
+            var disposableLogger = this.Logger as IDisposable;
+            disposableLogger?.Dispose();
+            this.Logger = null;
+        }
+
+        public static PerLanguageOption<string> BaselineFilePathProperty { get; } =
+                    new PerLanguageOption<string>(
+                        "CoreSettings", nameof(BaselineFilePath), defaultValue: () => string.Empty,
+                        "The path to a SARIF baseline file.");
+
+        public static PerLanguageOption<string> OutputFilePathProperty { get; } =
+                            new PerLanguageOption<string>(
+                                "CoreSettings", nameof(OutputFilePath), defaultValue: () => string.Empty,
+                                "The path to write all SARIF log file results to.");
 
         public static PerLanguageOption<OptionallyEmittedData> DataToInsertProperty { get; } =
                     new PerLanguageOption<OptionallyEmittedData>(
@@ -135,6 +174,16 @@ namespace Microsoft.CodeAnalysis.Sarif
                         "CoreSettings", nameof(ResultKinds), defaultValue: () => new HashSet<ResultKind>(new[] { ResultKind.Fail }),
                         "One or more result kinds to persist to loggers. Valid values include None, NotApplicable, Pass, Fail, " +
                         "Review, Open, Informational. Defaults to 'Fail'.");
+
+        public static PerLanguageOption<bool> PrettyPrintProperty { get; } =
+                    new PerLanguageOption<bool>(
+                        "CoreSettings", nameof(PrettyPrint), defaultValue: () => false,
+                        "Specifies whether to pretty print or minify the output SARIF log file.");
+
+        public static PerLanguageOption<bool> InlineProperty { get; } =
+                    new PerLanguageOption<bool>(
+                        "CoreSettings", nameof(Inline), defaultValue: () => false,
+                        "Specifies whether to inline SARIF output to the configured baseline file.");
 
         public static PerLanguageOption<bool> RecurseProperty { get; } =
                     new PerLanguageOption<bool>(

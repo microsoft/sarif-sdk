@@ -7,8 +7,6 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Net.Mime;
-using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Threading.Channels;
 using System.Threading.Tasks;
@@ -30,7 +28,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         internal bool _captureConsoleOutput;
         internal ConsoleLogger _consoleLogger;
 
-        internal TContext _rootContext;
         private int _fileContextsCount;
         private Channel<int> readyToHashChannel;
         private Channel<int> _resultsWritingChannel;
@@ -64,49 +61,93 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
         public override int Run(TOptions options)
         {
+            return Run(options, out TContext globalContext);
+        }
+
+        public virtual int Run(TOptions options, out TContext globalContext, IAnalysisLogger logger = null)
+        {
+            bool succeeded = false;
+            globalContext = default;
+
+            logger ??= InitializeLogger(options);
+
             try
             {
-                // Initialize an common logger that drives all outputs. This
-                // object drives logging for console, statistics, etc.
-                using (AggregatingLogger logger = InitializeLogger(options))
+                try
                 {
-                    try
-                    {
-                        Analyze(options, logger);
-                    }
-                    catch (ExitApplicationException<ExitReason> ex)
-                    {
-                        // These exceptions have already been logged
-                        ExecutionException = ex;
-                        return FAILURE;
-                    }
-                    catch (Exception ex)
-                    {
-                        ex = ex.InnerException ?? ex;
+                    // 0. Log analysis initiation
+                    logger.AnalysisStarted();
 
-                        if (!(ex is ExitApplicationException<ExitReason>))
-                        {
-                            // These exceptions escaped our net and must be logged here
-                            _rootContext ??= new TContext { Logger = logger };
-                            Errors.LogUnhandledEngineException(_rootContext, ex);
-                        }
-                        ExecutionException = ex;
-                        return FAILURE;
-                    }
-                    finally
+                    // 1. Create context object to pass to skimmers. The logger
+                    //    and configuration objects are common to all context
+                    //    instances and will be passed on again for analysis.
+                    globalContext = CreateContext(options, logger, RuntimeErrors);
+
+                    // 2. Perform any command line argument validation beyond what
+                    //    the command line parser library is capable of.
+                    ValidateOptions(options, globalContext);
+
+                    // 5. Instantiate skimmers. We need to do this before initializing
+                    //    the output file so that we can preconstruct the tool 
+                    //    extensions data written to the SARIF file. Due to this ordering, 
+                    //    we won't emit any failures or notifications in this operation 
+                    //    to the log file itself: it will only appear in console output.
+                    ISet<Skimmer<TContext>> skimmers = CreateSkimmers(options, globalContext);
+
+                    // 6. Initialize report file, if configured.
+                    InitializeOutputFile(options, globalContext);
+
+                    // 7. Initialize configuration. This step must be done after initializing
+                    //    the skimmers, as rules define their specific context objects and
+                    //    so those assemblies must be loaded.
+                    InitializeConfiguration(options, globalContext);
+
+                    // 8. Initialize skimmers. Initialize occurs a single time only. This
+                    //    step needs to occurs after initializing configuration in order
+                    //    to allow command-line override of rule settings
+                    skimmers = InitializeSkimmers(skimmers, globalContext);
+
+                    // 9. Run all multi-threaded analysis operations.
+                    AnalyzeTargets(options, globalContext, skimmers);
+
+                    // 10. For test purposes, raise an unhandled exception if indicated
+                    if (RaiseUnhandledExceptionInDriverCode)
                     {
-                        RuntimeErrors |= _rootContext.RuntimeErrors;
-                        logger.AnalysisStopped(RuntimeErrors);
+                        throw new InvalidOperationException(GetType().Name);
                     }
                 }
+                catch (ExitApplicationException<ExitReason> ex)
+                {
+                    // These exceptions have already been logged
+                    ExecutionException = ex;
+                    return FAILURE;
+                }
+                catch (Exception ex)
+                {
+                    ex = ex.InnerException ?? ex;
 
-                bool succeeded = (RuntimeErrors & ~RuntimeConditions.Nonfatal) == RuntimeConditions.None;
+                    if (!(ex is ExitApplicationException<ExitReason>))
+                    {
+                        // These exceptions escaped our net and must be logged here
+                        globalContext ??= new TContext { Logger = logger };
+                        Errors.LogUnhandledEngineException(globalContext, ex);
+                    }
+                    ExecutionException = ex;
+                    return FAILURE;
+                }
+                finally
+                {
+                    RuntimeErrors |= globalContext.RuntimeErrors;
+                    logger.AnalysisStopped(RuntimeErrors);
+                }
+
+                succeeded = (RuntimeErrors & ~RuntimeConditions.Nonfatal) == RuntimeConditions.None;
 
                 if (succeeded)
                 {
                     try
                     {
-                        ProcessBaseline(_rootContext, options, FileSystem);
+                        ProcessBaseline(globalContext);
                     }
                     catch (Exception ex)
                     {
@@ -126,59 +167,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                         return FAILURE;
                     }
                 }
-
-                return options.RichReturnCode
-                    ? (int)RuntimeErrors
-                    : succeeded ? SUCCESS : FAILURE;
             }
             finally
             {
-                _rootContext?.Dispose();
+                globalContext?.Dispose();
             }
-        }
 
-        private void Analyze(TOptions analyzeOptions, AggregatingLogger logger)
-        {
-            // 0. Log analysis initiation
-            logger.AnalysisStarted();
-
-            // 1. Create context object to pass to skimmers. The logger
-            //    and configuration objects are common to all context
-            //    instances and will be passed on again for analysis.
-            _rootContext = CreateContext(analyzeOptions, logger, RuntimeErrors);
-
-            // 2. Perform any command line argument validation beyond what
-            //    the command line parser library is capable of.
-            ValidateOptions(analyzeOptions, _rootContext);
-
-            // 5. Instantiate skimmers. We need to do this before initializing
-            //    the output file so that we can preconstruct the tool 
-            //    extensions data written to the SARIF file. Due to this ordering, 
-            //    we won't emit any failures or notifications in this operation 
-            //    to the log file itself: it will only appear in console output.
-            ISet<Skimmer<TContext>> skimmers = CreateSkimmers(analyzeOptions, _rootContext);
-
-            // 6. Initialize report file, if configured.
-            InitializeOutputFile(analyzeOptions, _rootContext);
-
-            // 7. Initialize configuration. This step must be done after initializing
-            //    the skimmers, as rules define their specific context objects and
-            //    so those assemblies must be loaded.
-            InitializeConfiguration(analyzeOptions, _rootContext);
-
-            // 8. Initialize skimmers. Initialize occurs a single time only. This
-            //    step needs to occurs after initializing configuration in order
-            //    to allow command-line override of rule settings
-            skimmers = InitializeSkimmers(skimmers, _rootContext);
-
-            // 9. Run all multi-threaded analysis operations.
-            AnalyzeTargets(analyzeOptions, _rootContext, skimmers);
-
-            // 10. For test purposes, raise an unhandled exception if indicated
-            if (RaiseUnhandledExceptionInDriverCode)
-            {
-                throw new InvalidOperationException(GetType().Name);
-            }
+            return options.RichReturnCode
+                ? (int)RuntimeErrors
+                : succeeded ? SUCCESS : FAILURE;
         }
 
         private void MultithreadedAnalyzeTargets(TOptions options,
@@ -518,7 +515,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
                             string localPath = context.CurrentTarget.Uri.GetFilePath();
 
-                            HashData hashData = ShouldComputeHashes(localPath, _rootContext)
+                            HashData hashData = ShouldComputeHashes(localPath, globalContext)
                                 ? HashUtilities.ComputeHashes(localPath, FileSystem)
                                 : null;
 

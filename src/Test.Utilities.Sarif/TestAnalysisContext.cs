@@ -8,10 +8,12 @@ namespace Microsoft.CodeAnalysis.Sarif
     public class TestAnalysisContext : AnalyzeContextBase
     {
         public bool Disposed { get; private set; }
+
         public TestAnalyzeOptions Options { get; internal set; }
 
         public override void Dispose()
         {
+            base.Dispose();
             Disposed = true;
         }
     }

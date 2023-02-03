@@ -114,7 +114,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 {
                     try
                     {
-                        ProcessBaseline(_rootContext, options, FileSystem);
+                        ProcessBaseline(_rootContext);
                     }
                     catch (Exception ex)
                     {

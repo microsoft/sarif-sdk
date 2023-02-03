@@ -58,8 +58,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
         public int Run(AnalyzeOptionsBase options)
         {
-            int result = base.Run((TestAnalyzeOptions)options);
-            this._rootContext?.Disposed.Should().BeTrue();
+            int result = base.Run((TestAnalyzeOptions)options, out TestAnalysisContext context);
+            context.Should().NotBeNull();
+            context.Disposed.Should().BeTrue();
             return result;
         }
 
@@ -72,7 +73,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             return base.DetermineApplicabilityAndAnalyze(context, skimmers, disabledSkimmers);
         }
 
-        protected override void ProcessBaseline(IAnalysisContext context, TestAnalyzeOptions options, IFileSystem fileSystem)
+        protected override void ProcessBaseline(IAnalysisContext context)
         {
             if (context.Policy.GetProperty(TestRule.Behaviors).HasFlag(TestRuleBehaviors.RaiseExceptionProcessingBaseline))
             {
@@ -80,7 +81,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 ThrowExitApplicationException((TestAnalysisContext)context, ExitReason.ExceptionProcessingBaseline);
             }
 
-            base.ProcessBaseline(context, options, fileSystem);
+            base.ProcessBaseline(context);
         }
 
         public new void CheckIncompatibleRules(IEnumerable<Skimmer<TestAnalysisContext>> skimmers, TestAnalysisContext context, ISet<string> disabledSkimmers)

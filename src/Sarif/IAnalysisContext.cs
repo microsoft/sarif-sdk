@@ -9,6 +9,14 @@ namespace Microsoft.CodeAnalysis.Sarif
 {
     public interface IAnalysisContext : IDisposable
     {
+        string BaselineFilePath { get; set; }
+        
+        string OutputFilePath { get; set; }
+
+        bool Inline { get; set; }
+
+        bool PrettyPrint { get; set; }
+
         IFileSystem FileSystem { get; set; }
 
         CancellationToken CancellationToken { get; set; }
