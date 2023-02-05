@@ -78,7 +78,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
         public override void Dispose()
         {
-            // Nothing to dispose.
+            base.Dispose();
         }
     }
 }

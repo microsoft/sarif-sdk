@@ -515,12 +515,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
             mockFileSystem.Setup(x => x.FileInfoLength(It.IsAny<string>())).Returns(1);
             mockFileSystem.Setup(x => x.DirectoryExists(inputLogDirectory)).Returns(true);
-            mockFileSystem.Setup(x => x.DirectoryGetDirectories(It.IsAny<string>())).Returns(new string[0]);
-            mockFileSystem.Setup(x => x.DirectoryGetFiles(inputLogDirectory, inputLogFileName)).Returns(new string[] { inputLogFilePath });
+            mockFileSystem.Setup(x => x.DirectoryGetDirectories(It.IsAny<string>())).Returns(Array.Empty<string>());
+            mockFileSystem.Setup(x => x.DirectoryEnumerateFiles(inputLogDirectory, inputLogFileName, SearchOption.TopDirectoryOnly)).Returns(new string[] { inputLogFilePath });
             mockFileSystem.Setup(x => x.FileReadAllText(inputLogFilePath)).Returns(v2LogText);
             mockFileSystem.Setup(x => x.FileReadAllText(It.IsNotIn<string>(inputLogFilePath))).Returns<string>(path => File.ReadAllText(path));
-            mockFileSystem.Setup(x => x.FileWriteAllText(It.IsAny<string>(), It.IsAny<string>()));
-
+            
             // Some rules are disabled by default, so create a configuration file that explicitly
             // enables the rule under test.
             using (TempFile configFile = CreateTempConfigFile(ruleUnderTest, parameter))
@@ -530,13 +529,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
                 var validateCommand = new ValidateCommand(mockFileSystem.Object);
 
-                int returnCode = validateCommand.Run(validateOptions);
-
-                if (validateCommand.ExecutionException != null)
-                {
-                    Console.WriteLine(validateCommand.ExecutionException.ToString());
-                }
-
+                int returnCode = validateCommand.Run(validateOptions, out SarifValidationContext context);
+                context.TargetLoadException.Should().BeNull();
+                (context.RuntimeErrors & ~RuntimeConditions.Nonfatal).Should().Be(0);
                 returnCode.Should().Be(0);
             }
 

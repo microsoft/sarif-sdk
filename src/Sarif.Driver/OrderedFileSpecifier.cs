@@ -44,10 +44,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
             if (Uri.TryCreate(this.specifier, UriKind.RelativeOrAbsolute, out Uri uri))
             {
-                if (uri.IsAbsoluteUri && (uri.IsFile || uri.IsUnc))
-                {
-                    normalizedSpecifier = uri.LocalPath;
-                }
+                normalizedSpecifier = uri.GetFilePath();
             }
 
             string filter = Path.GetFileName(normalizedSpecifier);

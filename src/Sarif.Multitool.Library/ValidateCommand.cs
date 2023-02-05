@@ -46,8 +46,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                                                                 PropertiesDictionary policy = null)
         {
             SarifValidationContext context = base.CreateContext(options, logger, runtimeErrors, policy);
-            context.SchemaFilePath = options.SchemaFilePath;
-            context.UpdateInputsToCurrentSarif = options.UpdateInputsToCurrentSarif;
+
+            if (options != null)
+            {
+                context.SchemaFilePath = options.SchemaFilePath;
+                context.UpdateInputsToCurrentSarif = options.UpdateInputsToCurrentSarif;
+            }
+
             return context;
         }
 
