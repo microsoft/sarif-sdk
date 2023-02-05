@@ -384,7 +384,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                     exception: null,
                     persistExceptionStack: false,
                     messageFormat: null,
-                    context.CurrentTarget.Uri.LocalPath,
+                    context.CurrentTarget.Uri.GetFileName(),
                     region.FormatForVisualStudio(),
                     ERR1000_ParseError,
                     message));

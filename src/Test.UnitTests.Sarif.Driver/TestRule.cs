@@ -123,7 +123,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 return AnalysisApplicability.NotApplicableToSpecifiedTarget;
             }
 
-            string fileName = Path.GetFileName(context.CurrentTarget.Uri.LocalPath);
+            string fileName = Path.GetFileName(context.CurrentTarget.Uri.GetFileName());
 
             if (fileName.Contains("NotApplicable"))
             {
@@ -200,7 +200,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 }
             }
 
-            string fileName = Path.GetFileName(context.CurrentTarget.Uri.LocalPath);
+            string fileName = Path.GetFileName(context.CurrentTarget.Uri.GetFileName());
 
             if (fileName.Contains(nameof(FailureLevel.Error)))
             {

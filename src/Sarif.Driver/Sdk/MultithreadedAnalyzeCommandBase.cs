@@ -298,7 +298,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                         while (context?.AnalysisComplete == true)
                         {
                             bool clone = context.DataToInsert.HasFlag(OptionallyEmittedData.Hashes);
-                            LogCachingLogger(rootContext, context, clone);
+                            try
+                            {
+                                LogCachingLogger(rootContext, context, clone);
+                            }
+                            finally
+                            {
+                                context.Dispose();
+                            }
 
                             _fileContexts.TryRemove(currentIndex, out _);
                             _fileContexts.TryGetValue(currentIndex + 1, out context);
@@ -949,17 +956,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             if (context.TargetLoadException != null)
             {
                 Errors.LogExceptionLoadingTarget(context);
-                context.Dispose();
                 return context;
             }
             else if (!context.IsValidAnalysisTarget)
             {
                 Warnings.LogExceptionInvalidTarget(context);
-                context.Dispose();
                 return context;
             }
 
-            var logger = (CachingLogger)context.Logger;
+            var logger = (CachingLogger)(CachingLogger)context.Logger;
             logger.AnalyzingTarget(context);
 
             if (logger.CacheFinalized)
