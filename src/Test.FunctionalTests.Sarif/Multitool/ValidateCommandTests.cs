@@ -529,7 +529,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
                 var validateCommand = new ValidateCommand(mockFileSystem.Object);
 
-                int returnCode = validateCommand.Run(validateOptions, out SarifValidationContext context);
+                SarifValidationContext context = null;
+                int returnCode = validateCommand.Run(validateOptions, ref context);
                 context.TargetLoadException.Should().BeNull();
                 (context.RuntimeErrors & ~RuntimeConditions.Nonfatal).Should().Be(0);
                 returnCode.Should().Be(0);

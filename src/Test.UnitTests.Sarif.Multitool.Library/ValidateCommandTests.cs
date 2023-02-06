@@ -58,7 +58,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 Level = new List<FailureLevel> { FailureLevel.Warning, FailureLevel.Error }
             };
 
-            int returnCode = validateCommand.Run(options, out SarifValidationContext context);
+            SarifValidationContext context = null;
+            int returnCode = validateCommand.Run(options, ref context);
             context.RuntimeErrors.Should().Be(RuntimeConditions.OneOrMoreWarningsFired);
             returnCode.Should().Be(0);
         }
@@ -146,7 +147,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             };
 
             // Verify command returned success
-            int returnCode = new ValidateCommand().Run(options, out SarifValidationContext context);
+            SarifValidationContext context = null;
+            int returnCode = new ValidateCommand().Run(options, ref context);
             (context.RuntimeErrors & ~RuntimeConditions.Nonfatal).Should().Be(0);
             returnCode.Should().Be(0);
 

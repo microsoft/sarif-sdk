@@ -78,7 +78,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 //    instances and will be passed on again for analysis.
                 globalContext = CreateContext(options,
                                               globalContext.Logger,
-                                              globalContext.RuntimeErrors, 
+                                              globalContext.RuntimeErrors,
                                               globalContext.FileSystem);
 
                 // 2. Perform any command line argument validation beyond what

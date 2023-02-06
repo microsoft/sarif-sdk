@@ -135,7 +135,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             mockFileSystem.Setup(x => x.FileInfoLength(It.IsAny<string>())).Returns(100);
 
             var validateCommand = new ValidateCommand(mockFileSystem.Object);
-            int returnCode = validateCommand.Run(validateOptions, out SarifValidationContext context);
+            SarifValidationContext context = null;
+            int returnCode = validateCommand.Run(validateOptions, ref context);
             (context.RuntimeErrors & ~RuntimeConditions.Nonfatal).Should().Be(0);
 
             returnCode.Should().Be(0);
