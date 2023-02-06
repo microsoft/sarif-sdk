@@ -150,7 +150,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             }
 
             SarifLog baselineFile = JsonConvert.DeserializeObject<SarifLog>(context.FileSystem.FileReadAllText(baselineFilePath));
-            SarifLog currentSarifLog = JsonConvert.DeserializeObject<SarifLog>(context.FileSystem.FileReadAllText(context.BaselineFilePath));
+            SarifLog currentSarifLog = JsonConvert.DeserializeObject<SarifLog>(context.FileSystem.FileReadAllText(outputFilePath));
 
             SarifLog baseline;
             try

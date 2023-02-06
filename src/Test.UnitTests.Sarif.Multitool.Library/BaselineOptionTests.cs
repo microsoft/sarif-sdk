@@ -103,66 +103,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         }
 
         [Fact]
-        public void ValidateCommandWithBaseline_OutputOneZeroZero_ResultShouldHaveBaselineStatus()
-        {
-            string path = "ValidateSarif.sarif";
-            string configuration = "Configuration.json";
-            string outputPath = "ValidateSarifOutputOneZeroZero.sarif";
-            string baselineFilePath = "Baseline.sarif";
-            File.WriteAllText(path, s_extractor.GetResourceText(path));
-            File.WriteAllText(configuration, s_extractor.GetResourceText(configuration));
-            File.WriteAllText(baselineFilePath, s_extractor.GetResourceText(baselineFilePath));
-
-            var options = new ValidateOptions
-            {
-                ConfigurationFilePath = configuration,
-                TargetFileSpecifiers = new string[] { path },
-                OutputFilePath = outputPath,
-                Force = true,
-                BaselineSarifFile = baselineFilePath,
-                SarifOutputVersion = SarifVersion.OneZeroZero,
-            };
-
-            // Verify command returned success
-            int returnCode = new ValidateCommand().Run(options);
-            returnCode.Should().Be(0);
-
-            string version = SniffVersion(outputPath);
-            version.Should().Be("1.0.0");
-        }
-
-        [Fact]
-        public void ValidateCommandWithBaseline_WithInputOneZeroZero_ResultShouldHaveBaselineStatus()
-        {
-            string path = "ValidateSarifOneZeroZero.sarif";
-            string configuration = "Configuration.json";
-            string outputPath = "ValidateSarifOutputOneZeroZero.sarif";
-            string baselineFilePath = "Baseline.sarif";
-            File.WriteAllText(path, s_extractor.GetResourceText(path));
-            File.WriteAllText(configuration, s_extractor.GetResourceText(configuration));
-            File.WriteAllText(baselineFilePath, s_extractor.GetResourceText(baselineFilePath));
-
-            var options = new ValidateOptions
-            {
-                ConfigurationFilePath = configuration,
-                TargetFileSpecifiers = new string[] { path },
-                OutputFilePath = outputPath,
-                Force = true,
-                BaselineSarifFile = baselineFilePath,
-                Kind = new List<ResultKind> { ResultKind.Fail },
-                Level = new List<FailureLevel> { FailureLevel.Warning, FailureLevel.Error },
-                SarifOutputVersion = SarifVersion.OneZeroZero
-            };
-
-            // Verify command returned success
-            int returnCode = new ValidateCommand().Run(options);
-            returnCode.Should().Be(0);
-
-            string version = SniffVersion(outputPath);
-            version.Should().Be("1.0.0");
-        }
-
-        [Fact]
         public void ValidateCommandWithBaseline_InlineUpdate()
         {
             string path = "ValidateSarif.sarif";

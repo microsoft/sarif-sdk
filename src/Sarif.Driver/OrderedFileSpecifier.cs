@@ -95,17 +95,19 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 {
                     this.cancellationToken.ThrowIfCancellationRequested();
 
+                    string fullFilePath = Path.Combine(directory, file);
+
                     if (!IsTargetWithinFileSizeLimit(file, this.maxFileSizeInKilobytes, FileSystem, out long fileSizeInKb))
                     {
                         Skipped ??= new List<IEnumeratedArtifact>();
                         Skipped.Add(new EnumeratedArtifact(FileSystem)
                         {
-                            Uri = new Uri(file, UriKind.RelativeOrAbsolute),
+                            Uri = new Uri(fullFilePath, UriKind.RelativeOrAbsolute),
                         });
                     }
                     else
                     {
-                        sortedFiles.Add(file);
+                        sortedFiles.Add(fullFilePath);
                     }
                 }
 

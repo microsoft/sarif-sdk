@@ -94,13 +94,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 
             command.DefaultPluginAssemblies = plugInAssemblies;
 
-            int result = command.Run(analyzeOptions);
+            int result = command.Run(analyzeOptions, out TestAnalysisContext context);
 
             int expectedResult =
                 (runtimeConditions & ~RuntimeConditions.Nonfatal) == RuntimeConditions.None ?
                     TestMultithreadedAnalyzeCommand.SUCCESS : TestMultithreadedAnalyzeCommand.FAILURE;
 
-            command.RuntimeErrors.Should().Be(runtimeConditions);
+            context.RuntimeErrors.Should().Be(runtimeConditions);
             result.Should().Be(expectedResult);
 
             if (expectedExitReason != ExitReason.None)
@@ -619,11 +619,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
                 var command = new TestMultithreadedAnalyzeCommand();
                 command.DefaultPluginAssemblies = new Assembly[] { this.GetType().Assembly };
-                int result = command.Run(options);
+                int result = command.Run(options, out TestAnalysisContext context);
 
+                context.RuntimeErrors.Should().Be(runtimeConditions);
                 result.Should().Be(expectedReturnCode);
-
-                command.RuntimeErrors.Should().Be(runtimeConditions);
 
                 SarifLog log = JsonConvert.DeserializeObject<SarifLog>(File.ReadAllText(path));
                 Assert.NotNull(log);
@@ -1011,11 +1010,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
                 var command = new TestMultithreadedAnalyzeCommand();
                 command.DefaultPluginAssemblies = new Assembly[] { this.GetType().Assembly };
-                int returnValue = command.Run(options);
+                int returnValue = command.Run(options, out TestAnalysisContext context);
 
+                context.RuntimeErrors.Should().Be(RuntimeConditions.None);
                 returnValue.Should().Be(0);
-
-                command.RuntimeErrors.Should().Be(RuntimeConditions.None);
 
                 var settings = new JsonSerializerSettings()
                 {

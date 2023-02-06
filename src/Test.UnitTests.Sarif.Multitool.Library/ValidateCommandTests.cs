@@ -44,8 +44,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             var mockFileSystem = new Mock<IFileSystem>();
             mockFileSystem.Setup(x => x.FileInfoLength(It.IsAny<string>())).Returns(1024);
             mockFileSystem.Setup(x => x.DirectoryExists(LogFileDirectoryWithSpace)).Returns(true);
-            mockFileSystem.Setup(x => x.DirectoryEnumerateFiles(It.IsAny<string>())).Returns(new string[0]);
-            mockFileSystem.Setup(x => x.DirectoryGetFiles(LogFileDirectoryWithSpace, LogFileName)).Returns(new string[] { logFilePath });
+            mockFileSystem.Setup(x => x.DirectoryEnumerateFiles(LogFileDirectoryWithSpace, It.IsAny<string>(), SearchOption.TopDirectoryOnly)).Returns(new[] { LogFileName });
             mockFileSystem.Setup(x => x.FileReadAllText(logFilePath)).Returns(RewriteCommandTests.MinimalCurrentV2Text);
             mockFileSystem.Setup(x => x.FileReadAllText(SchemaFilePath)).Returns(SchemaFileContents);
 
@@ -59,8 +58,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 Level = new List<FailureLevel> { FailureLevel.Warning, FailureLevel.Error }
             };
 
-            int returnCode = validateCommand.Run(options);
-            validateCommand.RuntimeErrors.Should().Be(RuntimeConditions.OneOrMoreWarningsFired);
+            int returnCode = validateCommand.Run(options, out SarifValidationContext context);
+            context.RuntimeErrors.Should().Be(RuntimeConditions.OneOrMoreWarningsFired);
             returnCode.Should().Be(0);
         }
 
@@ -147,7 +146,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             };
 
             // Verify command returned success
-            int returnCode = new ValidateCommand().Run(options);
+            int returnCode = new ValidateCommand().Run(options, out SarifValidationContext context);
+            (context.RuntimeErrors & ~RuntimeConditions.Nonfatal).Should().Be(0);
             returnCode.Should().Be(0);
 
             return SarifLog.Load(outputPath);

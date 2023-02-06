@@ -37,8 +37,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
         public Exception ExecutionException { get; set; }
 
-        public RuntimeConditions RuntimeErrors { get; set; }
-
         public static bool RaiseUnhandledExceptionInDriverCode { get; set; }
 
         protected virtual Tool Tool { get; set; }
@@ -73,120 +71,109 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
             try
             {
-                try
+                // 0. Log analysis initiation
+                logger.AnalysisStarted();
+
+                // 1. Create context object to pass to skimmers. The logger
+                //    and configuration objects are common to all context
+                //    instances and will be passed on again for analysis.
+                globalContext = CreateContext(options, logger, 0);
+
+                // 2. Perform any command line argument validation beyond what
+                //    the command line parser library is capable of.
+                ValidateOptions(options, globalContext);
+
+                // 5. Instantiate skimmers. We need to do this before initializing
+                //    the output file so that we can preconstruct the tool 
+                //    extensions data written to the SARIF file. Due to this ordering, 
+                //    we won't emit any failures or notifications in this operation 
+                //    to the log file itself: it will only appear in console output.
+                ISet<Skimmer<TContext>> skimmers = CreateSkimmers(options, globalContext);
+
+                // 6. Initialize report file, if configured.
+                InitializeOutputFile(options, globalContext);
+
+                // 7. Initialize configuration. This step must be done after initializing
+                //    the skimmers, as rules define their specific context objects and
+                //    so those assemblies must be loaded.
+                InitializeConfiguration(options, globalContext);
+
+                // 8. Initialize skimmers. Initialize occurs a single time only. This
+                //    step needs to occurs after initializing configuration in order
+                //    to allow command-line override of rule settings
+                skimmers = InitializeSkimmers(skimmers, globalContext);
+
+                // 9. Run all multi-threaded analysis operations.
+                AnalyzeTargets(options, globalContext, skimmers);
+
+                // 10. For test purposes, raise an unhandled exception if indicated
+                if (RaiseUnhandledExceptionInDriverCode)
                 {
-                    // 0. Log analysis initiation
-                    logger.AnalysisStarted();
-
-                    // 1. Create context object to pass to skimmers. The logger
-                    //    and configuration objects are common to all context
-                    //    instances and will be passed on again for analysis.
-                    globalContext = CreateContext(options, logger, RuntimeErrors);
-
-                    // 2. Perform any command line argument validation beyond what
-                    //    the command line parser library is capable of.
-                    ValidateOptions(options, globalContext);
-
-                    // 5. Instantiate skimmers. We need to do this before initializing
-                    //    the output file so that we can preconstruct the tool 
-                    //    extensions data written to the SARIF file. Due to this ordering, 
-                    //    we won't emit any failures or notifications in this operation 
-                    //    to the log file itself: it will only appear in console output.
-                    ISet<Skimmer<TContext>> skimmers = CreateSkimmers(options, globalContext);
-
-                    // 6. Initialize report file, if configured.
-                    InitializeOutputFile(options, globalContext);
-
-                    // 7. Initialize configuration. This step must be done after initializing
-                    //    the skimmers, as rules define their specific context objects and
-                    //    so those assemblies must be loaded.
-                    InitializeConfiguration(options, globalContext);
-
-                    // 8. Initialize skimmers. Initialize occurs a single time only. This
-                    //    step needs to occurs after initializing configuration in order
-                    //    to allow command-line override of rule settings
-                    skimmers = InitializeSkimmers(skimmers, globalContext);
-
-                    // 9. Run all multi-threaded analysis operations.
-                    AnalyzeTargets(options, globalContext, skimmers);
-
-                    // 10. For test purposes, raise an unhandled exception if indicated
-                    if (RaiseUnhandledExceptionInDriverCode)
-                    {
-                        throw new InvalidOperationException(GetType().Name);
-                    }
+                    throw new InvalidOperationException(GetType().Name);
                 }
-                catch (ExitApplicationException<ExitReason> ex)
+            }
+            catch (ExitApplicationException<ExitReason> ex)
+            {
+                // These exceptions have already been logged
+                ExecutionException = ex;
+                return FAILURE;
+            }
+            catch (Exception ex)
+            {
+                ex = ex.InnerException ?? ex;
+
+                if (!(ex is ExitApplicationException<ExitReason>))
                 {
-                    // These exceptions have already been logged
-                    ExecutionException = ex;
-                    return FAILURE;
+                    // These exceptions escaped our net and must be logged here
+                    globalContext ??= new TContext { Logger = logger };
+                    Errors.LogUnhandledEngineException(globalContext, ex);
                 }
-                catch (Exception ex)
-                {
-                    ex = ex.InnerException ?? ex;
-
-                    if (!(ex is ExitApplicationException<ExitReason>))
-                    {
-                        // These exceptions escaped our net and must be logged here
-                        globalContext ??= new TContext { Logger = logger };
-                        Errors.LogUnhandledEngineException(globalContext, ex);
-                    }
-                    ExecutionException = ex;
-                    return FAILURE;
-                }
-                finally
-                {
-                    RuntimeErrors |= globalContext.RuntimeErrors;
-                    logger.AnalysisStopped(RuntimeErrors);
-                }
-
-                succeeded = (RuntimeErrors & ~RuntimeConditions.Nonfatal) == RuntimeConditions.None;
-
-                if (succeeded)
-                {
-                    try
-                    {
-                        ProcessBaseline(globalContext);
-                    }
-                    catch (Exception ex)
-                    {
-                        RuntimeErrors |= RuntimeConditions.ExceptionProcessingBaseline;
-                        ExecutionException = ex;
-                        return FAILURE;
-                    }
-
-                    try
-                    {
-                        PostLogFile(options.PostUri, options.OutputFilePath, FileSystem);
-                    }
-                    catch (Exception ex)
-                    {
-                        RuntimeErrors |= RuntimeConditions.ExceptionPostingLogFile;
-                        ExecutionException = ex;
-                        return FAILURE;
-                    }
-                }
+                ExecutionException = ex;
+                return FAILURE;
             }
             finally
             {
+                logger.AnalysisStopped(globalContext.RuntimeErrors);
                 globalContext?.Dispose();
             }
 
+            succeeded = (globalContext.RuntimeErrors & ~RuntimeConditions.Nonfatal) == RuntimeConditions.None;
+
+
+            // TBD we should have a better pattern for these post-processing operations.
+            if (succeeded)
+            {
+                try
+                {
+                    ProcessBaseline(globalContext);
+                }
+                catch (Exception ex)
+                {
+                    globalContext.RuntimeErrors |= RuntimeConditions.ExceptionProcessingBaseline;
+                    ExecutionException = ex;
+                    return FAILURE;
+                }
+
+                try
+                {
+                    PostLogFile(options.PostUri, options.OutputFilePath, FileSystem);
+                }
+                catch (Exception ex)
+                {
+                    globalContext.RuntimeErrors |= RuntimeConditions.ExceptionPostingLogFile;
+                    ExecutionException = ex;
+                    return FAILURE;
+                }
+            }
             return options.RichReturnCode
-                ? (int)RuntimeErrors
+                ? (int)globalContext?.RuntimeErrors
                 : succeeded ? SUCCESS : FAILURE;
         }
 
-        private void MultithreadedAnalyzeTargets(TOptions options,
-                                                 TContext context,
+        private void MultithreadedAnalyzeTargets(TContext context,
                                                  IEnumerable<Skimmer<TContext>> skimmers,
                                                  ISet<string> disabledSkimmers)
         {
-            options.Threads = options.Threads > 0
-                ? options.Threads
-                : (Debugger.IsAttached) ? 1 : Environment.ProcessorCount;
-
             var channelOptions = new BoundedChannelOptions(2000)
             {
                 SingleWriter = true,
@@ -222,8 +209,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             // 3: A dedicated set of threads pull scan targets and analyze them.
             //    On completing a scan, the thread writes the index of the 
             //    scanned item to a channel that drives logging.
-            var workers = new Task<bool>[options.Threads];
-            for (int i = 0; i < options.Threads; i++)
+            var workers = new Task<bool>[context.Threads];
+            for (int i = 0; i < context.Threads; i++)
             {
                 workers[i] = ScanTargetsAsync(context, skimmers, disabledSkimmers);
             }
@@ -271,7 +258,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             }
         }
 
-        private async Task<bool> LogScanResultsAsync(TContext rootContext)
+        private async Task<bool> LogScanResultsAsync(TContext globalContext)
         {
             int currentIndex = 0;
 
@@ -300,7 +287,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                             bool clone = context.DataToInsert.HasFlag(OptionallyEmittedData.Hashes);
                             try
                             {
-                                LogCachingLogger(rootContext, context, clone);
+                                LogCachingLogger(globalContext, context, clone);
                             }
                             finally
                             {
@@ -320,18 +307,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                     }
                     catch (Exception e)
                     {
-                        Errors.LogUnhandledEngineException(rootContext, e);
+                        Errors.LogUnhandledEngineException(globalContext, e);
                         ThrowExitApplicationException(context, ExitReason.ExceptionWritingToLogFile, e);
                     }
                     finally
                     {
                         if (context != null)
                         {
-                            RuntimeErrors |= context.RuntimeErrors;
+                            globalContext.RuntimeErrors |= context.RuntimeErrors;
                             context.Dispose();
                         }
-
-                        RuntimeErrors |= rootContext.RuntimeErrors;
                     }
                 }
             }
@@ -341,9 +326,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 // If we have abandoned context state, we must have halted analysis
                 // due to some catastrophic condition.
                 Debug.Assert(
-                    rootContext.RuntimeErrors.HasFlag(RuntimeConditions.AnalysisCanceled) ||
-                    rootContext.RuntimeErrors.HasFlag(RuntimeConditions.AnalysisTimedOut) ||
-                    rootContext.RuntimeErrors.HasFlag(RuntimeConditions.ExceptionInEngine));
+                    globalContext.RuntimeErrors.HasFlag(RuntimeConditions.AnalysisCanceled) ||
+                    globalContext.RuntimeErrors.HasFlag(RuntimeConditions.AnalysisTimedOut) ||
+                    globalContext.RuntimeErrors.HasFlag(RuntimeConditions.ExceptionInEngine));
             }
 
             return true;
@@ -659,8 +644,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                        new StringSet(options.Traces) :
                        new StringSet();
 
-                context.DataToInsert = options.DataToInsert.ToFlags();
-
                 if (options.MaxFileSizeInKilobytes != -1)
                 {
                     context.MaxFileSizeInKilobytes = options.MaxFileSizeInKilobytes;
@@ -676,6 +659,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                             FileSystem);
                 }
 
+                context.Inline = options.Inline;
+                context.OutputFilePath = options.OutputFilePath;
+                context.DataToInsert = options.DataToInsert.ToFlags();
+                context.BaselineFilePath = options.BaselineSarifFile;
                 context.ResultKinds = new HashSet<ResultKind>(options.Kind);
                 context.FailureLevels = new HashSet<FailureLevel>(options.Level);
             }
@@ -716,7 +703,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
             string extension = Path.GetExtension(configurationFileName);
 
-            PropertiesDictionary configuration = new PropertiesDictionary();
+            var configuration = new PropertiesDictionary();
             if (extension.Equals(".xml", StringComparison.OrdinalIgnoreCase))
             {
                 configuration.LoadFromXml(configurationFileName);
@@ -921,17 +908,27 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
                 RuleEnabledState ruleEnabled = context.Policy.GetProperty(ruleEnabledProperty);
 
+                FailureLevel failureLevel = (ruleEnabled == RuleEnabledState.Default || ruleEnabled == RuleEnabledState.Disabled)
+                    ? default
+                    : (FailureLevel)Enum.Parse(typeof(FailureLevel), ruleEnabled.ToString());
+
                 if (ruleEnabled == RuleEnabledState.Disabled)
                 {
                     disabledSkimmers.Add(skimmer.Id);
                     Warnings.LogRuleExplicitlyDisabled(context, skimmer.Id);
-                    RuntimeErrors |= RuntimeConditions.RuleWasExplicitlyDisabled;
+                    context.RuntimeErrors |= RuntimeConditions.RuleWasExplicitlyDisabled;
                 }
                 else if (!skimmer.DefaultConfiguration.Enabled && ruleEnabled == RuleEnabledState.Default)
                 {
                     // This skimmer is disabled by default, and the configuration file didn't mention it.
                     // So disable it, but don't complain that the rule was explicitly disabled.
                     disabledSkimmers.Add(skimmer.Id);
+                }
+                else if (skimmer.DefaultConfiguration.Level != failureLevel &&
+                         ruleEnabled != RuleEnabledState.Default &&
+                         ruleEnabled != RuleEnabledState.Disabled)
+                {
+                    skimmer.DefaultConfiguration.Level = failureLevel;
                 }
             }
 
@@ -943,13 +940,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
             this.CheckIncompatibleRules(skimmers, context, disabledSkimmers);
 
-            MultithreadedAnalyzeTargets(options, context, skimmers, disabledSkimmers);
+            MultithreadedAnalyzeTargets(context, skimmers, disabledSkimmers);
         }
 
-        protected virtual TContext DetermineApplicabilityAndAnalyze(
-            TContext context,
-            IEnumerable<Skimmer<TContext>> skimmers,
-            ISet<string> disabledSkimmers)
+        protected virtual TContext DetermineApplicabilityAndAnalyze(TContext context,
+                                                                    IEnumerable<Skimmer<TContext>> skimmers,
+                                                                    ISet<string> disabledSkimmers)
         {
             // insert results caching replay logic here
 
@@ -1106,12 +1102,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         IEnumerable<Skimmer<TContext>> skimmers,
         ISet<string> disabledSkimmers)
         {
-            skimmers = DetermineApplicabilityForTargetHelper(context, skimmers, disabledSkimmers);
-
-            // TODO single-threaded write?
-            RuntimeErrors |= context.RuntimeErrors;
-
-            return skimmers;
+            return DetermineApplicabilityForTargetHelper(context, skimmers, disabledSkimmers);
         }
 
         public static IEnumerable<Skimmer<TContext>> DetermineApplicabilityForTargetHelper(
@@ -1164,13 +1155,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             return candidateSkimmers;
         }
 
-        protected void ThrowExitApplicationException(TContext context, ExitReason exitReason, Exception innerException = null)
+        protected void ThrowExitApplicationException(TContext _, ExitReason exitReason, Exception innerException = null)
         {
-            if (context != null)
-            {
-                RuntimeErrors |= context.RuntimeErrors;
-            }
-
+            // TBD context is unused!
             throw new ExitApplicationException<ExitReason>(DriverResources.MSG_UnexpectedApplicationExit, innerException)
             {
                 ExitReason = exitReason
@@ -1224,7 +1211,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 }
                 catch (Exception ex)
                 {
-                    RuntimeErrors |= RuntimeConditions.ExceptionInSkimmerInitialize;
+                    context.RuntimeErrors |= RuntimeConditions.ExceptionInSkimmerInitialize;
                     Errors.LogUnhandledExceptionInitializingRule(context, ex);
                     disabledSkimmers.Add(skimmer);
                 }
