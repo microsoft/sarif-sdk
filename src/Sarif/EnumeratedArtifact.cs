@@ -9,7 +9,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 {
     public class EnumeratedArtifact : IEnumeratedArtifact
     {
-        public EnumeratedArtifact(IFileSystem fileSystem) 
+        public EnumeratedArtifact(IFileSystem fileSystem)
         {
             FileSystem = fileSystem;
         }
@@ -38,7 +38,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 contents = Uri!.IsFile
                     ? FileSystem.FileReadAllText(Uri.LocalPath)
                     : null;
-                
+
                 this.sizeInBytes = (ulong?)this.contents?.Length;
 
                 return contents;

@@ -10,7 +10,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     public interface IAnalysisContext : IDisposable
     {
         string BaselineFilePath { get; set; }
-        
+
         string OutputFilePath { get; set; }
 
         bool Inline { get; set; }

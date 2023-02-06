@@ -519,7 +519,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             mockFileSystem.Setup(x => x.DirectoryEnumerateFiles(inputLogDirectory, inputLogFileName, SearchOption.TopDirectoryOnly)).Returns(new string[] { inputLogFilePath });
             mockFileSystem.Setup(x => x.FileReadAllText(inputLogFilePath)).Returns(v2LogText);
             mockFileSystem.Setup(x => x.FileReadAllText(It.IsNotIn<string>(inputLogFilePath))).Returns<string>(path => File.ReadAllText(path));
-            
+
             // Some rules are disabled by default, so create a configuration file that explicitly
             // enables the rule under test.
             using (TempFile configFile = CreateTempConfigFile(ruleUnderTest, parameter))

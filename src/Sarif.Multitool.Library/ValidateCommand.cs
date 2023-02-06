@@ -66,7 +66,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             //
             // Validate will return an empty file if there are any JSON syntax errors. 
             // In that case there's no point in going on.
-            string sarifText = 
+            string sarifText =
                 Validate(context.CurrentTarget.Uri.GetFilePath(),
                          context.SchemaFilePath,
                          context.Logger,

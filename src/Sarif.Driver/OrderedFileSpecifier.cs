@@ -15,7 +15,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                                     long maxFileSizeInKilobytes = long.MaxValue,
                                     CancellationToken cancellationToken = default,
                                     IFileSystem fileSystem = null)
-        {       
+        {
             this.recurse = recurse;
             this.specifier = specifier;
             this.maxFileSizeInKilobytes = maxFileSizeInKilobytes;

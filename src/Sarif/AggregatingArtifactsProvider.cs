@@ -8,7 +8,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 {
     public class AggregatingArtifactsProvider : IArtifactProvider
     {
-        public AggregatingArtifactsProvider(IFileSystem fileSystem) 
+        public AggregatingArtifactsProvider(IFileSystem fileSystem)
         {
             FileSystem = fileSystem;
         }

@@ -91,7 +91,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             }
 
             var command = new TestMultithreadedAnalyzeCommand();
-                
+
             command.DefaultPluginAssemblies = plugInAssemblies;
 
             int result = command.Run(analyzeOptions, out TestAnalysisContext context);
