@@ -531,7 +531,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
                 SarifValidationContext context = null;
                 int returnCode = validateCommand.Run(validateOptions, ref context);
-                context.TargetLoadException.Should().BeNull();
+                context.RuntimeException.Should().BeNull();
                 (context.RuntimeErrors & ~RuntimeConditions.Nonfatal).Should().Be(0);
                 returnCode.Should().Be(0);
             }

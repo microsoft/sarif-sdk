@@ -116,14 +116,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             return succeeded;
         }
 
-        internal bool ValidateOutputFileCanBeCreated(IAnalysisContext context, string outputFilePath, bool force)
+        internal bool ValidateOutputFileCanBeCreated(IAnalysisContext context)
         {
             bool succeeded = true;
 
-            if (!string.IsNullOrWhiteSpace(outputFilePath) &&
-                !DriverUtilities.CanCreateOutputFile(outputFilePath, force, context.FileSystem))
+            if (!string.IsNullOrWhiteSpace(context.OutputFilePath) &&
+                !DriverUtilities.CanCreateOutputFile(context.OutputFilePath, context.Force, context.FileSystem))
             {
-                Errors.LogOutputFileAlreadyExists(context, outputFilePath);
+                Errors.LogOutputFileAlreadyExists(context);
                 succeeded = false;
             }
 

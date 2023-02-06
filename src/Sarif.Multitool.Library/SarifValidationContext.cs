@@ -54,7 +54,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
         public override RuntimeConditions RuntimeErrors { get; set; }
 
-        public override Exception TargetLoadException { get; set; }
+        public override Exception RuntimeException { get; set; }
 
         public bool UpdateInputsToCurrentSarif { get; set; }
 

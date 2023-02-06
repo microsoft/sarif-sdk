@@ -598,11 +598,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             succeeded &= ValidateFile(context, options.ConfigurationFilePath, DefaultPolicyName, shouldExist: true);
             succeeded &= ValidateFile(context, options.BaselineSarifFile, DefaultPolicyName, shouldExist: true);
             succeeded &= ValidateFiles(context, options.PluginFilePaths, DefaultPolicyName, shouldExist: true);
-            succeeded &= ValidateOutputFileCanBeCreated(context, options.OutputFilePath, options.Force);
             succeeded &= ValidateInvocationPropertiesToLog(context, options.InvocationPropertiesToLog);
             succeeded &= options.ValidateOutputOptions(context);
-
             succeeded &= context.MaxFileSizeInKilobytes >= 0;
+
+            succeeded &= ValidateOutputFileCanBeCreated(context);
 
             if (!succeeded)
             {
@@ -661,9 +661,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                             context.FileSystem);
                 }
 
+                context.Force = options.Force;
                 context.Inline = options.Inline;
                 context.OutputFilePath = options.OutputFilePath;
                 context.DataToInsert = options.DataToInsert.ToFlags();
+                context.DataToRemove = options.DataToRemove.ToFlags();
                 context.BaselineFilePath = options.BaselineSarifFile;
                 context.ResultKinds = new HashSet<ResultKind>(options.Kind);
                 context.FailureLevels = new HashSet<FailureLevel>(options.Level);
@@ -728,7 +730,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
         public virtual void InitializeOutputFile(TOptions analyzeOptions, TContext context)
         {
-            string filePath = analyzeOptions.OutputFilePath;
+            string filePath = context.OutputFilePath;
             var aggregatingLogger = (AggregatingLogger)context.Logger;
 
             if (!string.IsNullOrEmpty(filePath))
@@ -740,7 +742,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                         LogFilePersistenceOptions logFilePersistenceOptions = analyzeOptions.ConvertToLogFilePersistenceOptions();
 
                         OptionallyEmittedData dataToInsert = context.DataToInsert;
-                        OptionallyEmittedData dataToRemove = analyzeOptions.DataToRemove.ToFlags();
+                        OptionallyEmittedData dataToRemove = context.DataToRemove;
 
                         SarifLogger sarifLogger;
 
@@ -949,9 +951,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                                                                     IEnumerable<Skimmer<TContext>> skimmers,
                                                                     ISet<string> disabledSkimmers)
         {
-            // insert results caching replay logic here
-
-            if (context.TargetLoadException != null)
+            if (context.RuntimeException != null)
             {
                 Errors.LogExceptionLoadingTarget(context);
                 return context;
@@ -962,7 +962,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 return context;
             }
 
-            var logger = (CachingLogger)(CachingLogger)context.Logger;
+            var logger = (CachingLogger)context.Logger;
             logger.AnalyzingTarget(context);
 
             if (logger.CacheFinalized)

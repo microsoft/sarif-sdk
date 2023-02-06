@@ -17,6 +17,8 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         bool PrettyPrint { get; set; }
 
+        bool Force { get; set; }
+
         IFileSystem FileSystem { get; set; }
 
         CancellationToken CancellationToken { get; set; }
@@ -33,6 +35,8 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         OptionallyEmittedData DataToInsert { get; set; }
 
+        OptionallyEmittedData DataToRemove { get; set; }
+
         bool Recurse { get; set; }
 
         int Threads { get; set; }
@@ -41,7 +45,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         HashData Hashes { get; set; }
 
-        Exception TargetLoadException { get; set; }
+        Exception RuntimeException { get; set; }
 
         bool IsValidAnalysisTarget { get; }
 

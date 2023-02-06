@@ -39,7 +39,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         public virtual IEnumeratedArtifact CurrentTarget { get; set; }
         public virtual string MimeType { get; set; }
         public virtual HashData Hashes { get; set; }
-        public virtual Exception TargetLoadException { get; set; }
+        public virtual Exception RuntimeException { get; set; }
         public virtual bool IsValidAnalysisTarget { get; set; }
         public virtual ReportingDescriptor Rule { get; set; }
         public PropertiesDictionary Policy { get; set; }
@@ -57,6 +57,12 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             get => this.Policy.GetProperty(InlineProperty);
             set => this.Policy.SetProperty(InlineProperty, value);
+        }
+
+        public bool Force
+        {
+            get => this.Policy.GetProperty(ForceProperty);
+            set => this.Policy.SetProperty(ForceProperty, value);
         }
 
         public string BaselineFilePath
@@ -79,6 +85,16 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             get => this.Policy.GetProperty(DataToInsertProperty);
             set => this.Policy.SetProperty(DataToInsertProperty, value);
+        }
+
+        /// <summary>
+        /// Gets or sets flags that specify how log SARIF should be optimized,
+        /// e.g., by including file hashes or comprehensive regions properties.
+        /// </summary>
+        public OptionallyEmittedData DataToRemove
+        {
+            get => this.Policy.GetProperty(DataToRemoveProperty);
+            set => this.Policy.SetProperty(DataToRemoveProperty, value);
         }
 
         public ISet<string> Traces
@@ -153,6 +169,11 @@ namespace Microsoft.CodeAnalysis.Sarif
                         "Hashes, TextFiles, BinaryFiles, EnvironmentVariables, RegionSnippets, ContextRegionSnippets, " +
                         "Guids, VersionControlDetails, and NondeterministicProperties.");
 
+        public static PerLanguageOption<OptionallyEmittedData> DataToRemoveProperty { get; } =
+                    new PerLanguageOption<OptionallyEmittedData>(
+                        "CoreSettings", nameof(DataToRemove), defaultValue: () => 0,
+                        "Optionally present data that should be removed from log output, e.g., NondeterminsticProperties.");
+
         public static PerLanguageOption<StringSet> TracesProperty { get; } =
                     new PerLanguageOption<StringSet>(
                         "CoreSettings", nameof(Traces), defaultValue: () => new StringSet(new[] { "None" }),
@@ -174,6 +195,11 @@ namespace Microsoft.CodeAnalysis.Sarif
                         "CoreSettings", nameof(ResultKinds), defaultValue: () => new HashSet<ResultKind>(new[] { ResultKind.Fail }),
                         "One or more result kinds to persist to loggers. Valid values include None, NotApplicable, Pass, Fail, " +
                         "Review, Open, Informational. Defaults to 'Fail'.");
+
+        public static PerLanguageOption<bool> ForceProperty { get; } =
+                    new PerLanguageOption<bool>(
+                        "CoreSettings", nameof(Force), defaultValue: () => false,
+                        "Specifies whether to overwrite output files that already.");
 
         public static PerLanguageOption<bool> PrettyPrintProperty { get; } =
                     new PerLanguageOption<bool>(

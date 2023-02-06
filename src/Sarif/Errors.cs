@@ -48,8 +48,8 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             context.RuntimeErrors |= RuntimeConditions.ExceptionLoadingTargetFile;
 
-            string message = context.TargetLoadException.Message;
-            string exceptionType = context.TargetLoadException.GetType().Name;
+            string message = context.RuntimeException.Message;
+            string exceptionType = context.RuntimeException.GetType().Name;
 
             // Could not load analysis target '{0}' ({1} : '{2}').
             context.Logger.LogConfigurationNotification(
@@ -58,7 +58,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                     ERR997_ExceptionLoadingAnalysisTarget,
                     ruleId: null,
                     FailureLevel.Error,
-                    context.TargetLoadException,
+                    context.RuntimeException,
                     persistExceptionStack: true,
                     messageFormat: null,
                     context.CurrentTarget.Uri.GetFileName(),
@@ -344,7 +344,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                     pluginFilePath));
         }
 
-        public static void LogOutputFileAlreadyExists(IAnalysisContext context, string outputFilePath)
+        public static void LogOutputFileAlreadyExists(IAnalysisContext context)
         {
             if (context == null)
             {
@@ -362,7 +362,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                     exception: null,
                     persistExceptionStack: false,
                     messageFormat: null,
-                    outputFilePath));
+                    context.OutputFilePath));
         }
 
         public static void LogTargetParseError(IAnalysisContext context, Region region, string message)
