@@ -59,25 +59,27 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
         public override int Run(TOptions options)
         {
-            return Run(options, out TContext globalContext);
+            TContext globalContext = default;
+            return Run(options, ref globalContext);
         }
 
-        public virtual int Run(TOptions options, out TContext globalContext, IAnalysisLogger logger = null)
+        public virtual int Run(TOptions options, ref TContext globalContext)
         {
-            bool succeeded = false;
-            globalContext = default;
-
-            logger ??= InitializeLogger(options);
+            globalContext ??= new TContext();
+            globalContext.Logger ??= InitializeLogger(options);
 
             try
             {
                 // 0. Log analysis initiation
-                logger.AnalysisStarted();
+                globalContext.Logger.AnalysisStarted();
 
                 // 1. Create context object to pass to skimmers. The logger
                 //    and configuration objects are common to all context
                 //    instances and will be passed on again for analysis.
-                globalContext = CreateContext(options, logger, 0);
+                globalContext = CreateContext(options,
+                                              globalContext.Logger,
+                                              globalContext.RuntimeErrors, 
+                                              globalContext.FileSystem);
 
                 // 2. Perform any command line argument validation beyond what
                 //    the command line parser library is capable of.
@@ -125,7 +127,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 if (!(ex is ExitApplicationException<ExitReason>))
                 {
                     // These exceptions escaped our net and must be logged here
-                    globalContext ??= new TContext { Logger = logger };
                     Errors.LogUnhandledEngineException(globalContext, ex);
                 }
                 ExecutionException = ex;
@@ -133,12 +134,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             }
             finally
             {
-                logger.AnalysisStopped(globalContext.RuntimeErrors);
-                globalContext?.Dispose();
+                globalContext.Logger.AnalysisStopped(globalContext.RuntimeErrors);
+                globalContext.Dispose();
             }
 
-            succeeded = (globalContext.RuntimeErrors & ~RuntimeConditions.Nonfatal) == RuntimeConditions.None;
-
+            bool succeeded = (globalContext.RuntimeErrors & ~RuntimeConditions.Nonfatal) == RuntimeConditions.None;
 
             // TBD we should have a better pattern for these post-processing operations.
             if (succeeded)
@@ -449,6 +449,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                     CreateContext(options: null,
                                   new CachingLogger(context.FailureLevels, context.ResultKinds),
                                   context.RuntimeErrors,
+                                  context.FileSystem,
                                   context.Policy);
 
                 // TBD: Push current target down into base?
@@ -627,12 +628,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         protected virtual TContext CreateContext(TOptions options,
                                                  IAnalysisLogger logger,
                                                  RuntimeConditions runtimeErrors,
+                                                 IFileSystem fileSystem = null,
                                                  PropertiesDictionary policy = null)
         {
             var context = new TContext
             {
                 Logger = logger,
-                FileSystem = FileSystem,
+                FileSystem = fileSystem ?? this.FileSystem,
                 RuntimeErrors = runtimeErrors,
                 Policy = policy ?? new PropertiesDictionary(),
             };
@@ -656,7 +658,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                             options.TargetFileSpecifiers,
                             options.Recurse,
                             context.MaxFileSizeInKilobytes,
-                            FileSystem);
+                            context.FileSystem);
                 }
 
                 context.Inline = options.Inline;

@@ -18,14 +18,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 {
     public class SarifLogger : BaseLogger, IDisposable, IAnalysisLogger
     {
+        private TextWriter _textWriter;
+        private JsonTextWriter _jsonTextWriter;
+        private ResultLogJsonWriter _issueLogJsonWriter;
+
         private readonly Run _run;
-        private readonly TextWriter _textWriter;
         private readonly bool _closeWriterOnDispose;
         private readonly LogFilePersistenceOptions _logFilePersistenceOptions;
-        private readonly JsonTextWriter _jsonTextWriter;
         private readonly OptionallyEmittedData _dataToInsert;
         private readonly OptionallyEmittedData _dataToRemove;
-        private readonly ResultLogJsonWriter _issueLogJsonWriter;
         private readonly InsertOptionalDataVisitor _insertOptionalDataVisitor;
 
         protected const LogFilePersistenceOptions DefaultLogFilePersistenceOptions = LogFilePersistenceOptions.PrettyPrint;
@@ -299,12 +300,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
                 _issueLogJsonWriter.CompleteRun();
                 _issueLogJsonWriter.Dispose();
+                _issueLogJsonWriter = null;
             }
 
             if (_closeWriterOnDispose)
             {
                 if (_textWriter != null) { _textWriter.Dispose(); }
                 if (_jsonTextWriter != null) { _jsonTextWriter.Close(); }
+
+                _textWriter = null;
+                _jsonTextWriter = null;
             }
 
             GC.SuppressFinalize(this);

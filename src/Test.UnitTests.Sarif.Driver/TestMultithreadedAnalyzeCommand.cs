@@ -23,9 +23,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             TestAnalyzeOptions options,
             IAnalysisLogger logger,
             RuntimeConditions runtimeErrors,
+            IFileSystem fileSystem,
             PropertiesDictionary policy = null)
         {
-            TestAnalysisContext context = base.CreateContext(options, logger, runtimeErrors, policy);
+            TestAnalysisContext context = base.CreateContext(options, logger, runtimeErrors, fileSystem, policy);
 
             if (options != null)
             {
@@ -58,7 +59,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
         public int Run(AnalyzeOptionsBase options)
         {
-            int result = base.Run((TestAnalyzeOptions)options, out TestAnalysisContext context);
+            TestAnalysisContext context = null;
+            int result = base.Run((TestAnalyzeOptions)options, ref context);
             context.Should().NotBeNull();
             context.Disposed.Should().BeTrue();
             return result;

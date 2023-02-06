@@ -9,12 +9,8 @@ using System.Net.Http;
 using System.Reflection;
 using System.Security;
 using System.Threading.Tasks;
-using System.Web;
 
 using Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching;
-using Microsoft.CodeAnalysis.Sarif.Readers;
-using Microsoft.CodeAnalysis.Sarif.Visitors;
-using Microsoft.CodeAnalysis.Sarif.Writers;
 
 using Newtonsoft.Json;
 
@@ -85,7 +81,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
             try
             {
-                bool fileExists = FileSystem.FileExists(filePath);
+                bool fileExists = context.FileSystem.FileExists(filePath);
 
                 if (fileExists || shouldExist == null || !shouldExist.Value)
                 {
@@ -125,7 +121,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             bool succeeded = true;
 
             if (!string.IsNullOrWhiteSpace(outputFilePath) &&
-                !DriverUtilities.CanCreateOutputFile(outputFilePath, force, FileSystem))
+                !DriverUtilities.CanCreateOutputFile(outputFilePath, force, context.FileSystem))
             {
                 Errors.LogOutputFileAlreadyExists(context, outputFilePath);
                 succeeded = false;

@@ -48,8 +48,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         {
             var options = new TestAnalyzeOptions();
 
+            TestAnalysisContext context = null;
             var multithreadedAnalyzeCommand = new TestMultithreadedAnalyzeCommand();
-            int result = multithreadedAnalyzeCommand.Run(options, out TestAnalysisContext context);
+            int result = multithreadedAnalyzeCommand.Run(options, ref context);
             context.Disposed.Should().BeTrue();
         }
 
@@ -94,7 +95,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
             command.DefaultPluginAssemblies = plugInAssemblies;
 
-            int result = command.Run(analyzeOptions, out TestAnalysisContext context);
+            TestAnalysisContext context = null;
+            int result = command.Run(analyzeOptions, ref context);
 
             int expectedResult =
                 (runtimeConditions & ~RuntimeConditions.Nonfatal) == RuntimeConditions.None ?
@@ -619,7 +621,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
                 var command = new TestMultithreadedAnalyzeCommand();
                 command.DefaultPluginAssemblies = new Assembly[] { this.GetType().Assembly };
-                int result = command.Run(options, out TestAnalysisContext context);
+
+                TestAnalysisContext context = null;
+                int result = command.Run(options, ref context);
 
                 context.RuntimeErrors.Should().Be(runtimeConditions);
                 result.Should().Be(expectedReturnCode);
@@ -1010,7 +1014,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
                 var command = new TestMultithreadedAnalyzeCommand();
                 command.DefaultPluginAssemblies = new Assembly[] { this.GetType().Assembly };
-                int returnValue = command.Run(options, out TestAnalysisContext context);
+
+                TestAnalysisContext context = null;
+                int returnValue = command.Run(options, ref context);
 
                 context.RuntimeErrors.Should().Be(RuntimeConditions.None);
                 returnValue.Should().Be(0);
@@ -2081,11 +2087,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
             this.RunCheckIncompatibleRulesTests(skimmers, disabledSkimmers, context, consoleLogger, true,
                 ExitReason.IncompatibleRulesDetected, RuntimeConditions.OneOrMoreRulesAreIncompatible,
-                Errors.ERR997_IncompatibleRulesDetected, multipleThreadsCommand: false);
-
-            this.RunCheckIncompatibleRulesTests(skimmers, disabledSkimmers, context, consoleLogger, true,
-                ExitReason.IncompatibleRulesDetected, RuntimeConditions.OneOrMoreRulesAreIncompatible,
-                Errors.ERR997_IncompatibleRulesDetected, multipleThreadsCommand: true);
+                Errors.ERR997_IncompatibleRulesDetected);
         }
 
         [Fact]
@@ -2104,10 +2106,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             var context = new TestAnalysisContext();
 
             this.RunCheckIncompatibleRulesTests(skimmers, disabledSkimmers, context, consoleLogger,
-                false, ExitReason.None, RuntimeConditions.None, null, multipleThreadsCommand: false);
-
-            this.RunCheckIncompatibleRulesTests(skimmers, disabledSkimmers, context, consoleLogger,
-                false, ExitReason.None, RuntimeConditions.None, null, multipleThreadsCommand: false);
+                false, ExitReason.None, RuntimeConditions.None, expectedErrorCode: null);
         }
 
         [Fact]
@@ -2126,10 +2125,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             var context = new TestAnalysisContext();
 
             this.RunCheckIncompatibleRulesTests(skimmers, disabledSkimmers, context, consoleLogger,
-                false, ExitReason.None, RuntimeConditions.None, null, false);
-
-            this.RunCheckIncompatibleRulesTests(skimmers, disabledSkimmers, context, consoleLogger,
-                false, ExitReason.None, RuntimeConditions.None, null, true);
+                false, ExitReason.None, RuntimeConditions.None, expectedErrorCode: null);
         }
 
         [Fact]
@@ -2148,10 +2144,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             var context = new TestAnalysisContext();
 
             this.RunCheckIncompatibleRulesTests(skimmers, disabledSkimmers, context, consoleLogger,
-                false, ExitReason.None, RuntimeConditions.None, null, false);
-
-            this.RunCheckIncompatibleRulesTests(skimmers, disabledSkimmers, context, consoleLogger,
-                false, ExitReason.None, RuntimeConditions.None, null, true);
+                false, ExitReason.None, RuntimeConditions.None, expectedErrorCode: null);
         }
 
         [Fact]
@@ -2171,18 +2164,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
             this.RunCheckIncompatibleRulesTests(skimmers, disabledSkimmers, context, consoleLogger,
                 true, ExitReason.IncompatibleRulesDetected, RuntimeConditions.OneOrMoreRulesAreIncompatible,
-                Errors.ERR997_IncompatibleRulesDetected, false);
-
-            this.RunCheckIncompatibleRulesTests(skimmers, disabledSkimmers, context, consoleLogger,
-                true, ExitReason.IncompatibleRulesDetected, RuntimeConditions.OneOrMoreRulesAreIncompatible,
-                Errors.ERR997_IncompatibleRulesDetected, true);
+                Errors.ERR997_IncompatibleRulesDetected);
         }
 
         private void RunCheckIncompatibleRulesTests(IEnumerable<TestRule> skimmers, HashSet<string> disabledSkimmers,
             TestAnalysisContext context, ConsoleLogger consoleLogger, bool expectExpcetion, ExitReason expectedExitReason,
-            RuntimeConditions expectedRuntimeConditions, string expectedErrorCode, bool multipleThreadsCommand)
+            RuntimeConditions expectedRuntimeConditions, string expectedErrorCode)
         {
-            ITestAnalyzeCommand command = this.CreateTestCommand(context, consoleLogger, multipleThreadsCommand);
+            ITestAnalyzeCommand command = this.CreateTestCommand(context, consoleLogger);
 
             if (expectExpcetion)
             {
@@ -2204,7 +2193,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             }
         }
 
-        private ITestAnalyzeCommand CreateTestCommand(TestAnalysisContext context, ConsoleLogger consoleLogger, bool multiThreadsCommand = false)
+        private ITestAnalyzeCommand CreateTestCommand(TestAnalysisContext context, ConsoleLogger consoleLogger)
         {
             ITestAnalyzeCommand command = new TestMultithreadedAnalyzeCommand();
 

@@ -20,7 +20,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             this.specifier = specifier;
             this.maxFileSizeInKilobytes = maxFileSizeInKilobytes;
             this.cancellationToken = cancellationToken;
-            FileSystem = fileSystem ?? Microsoft.CodeAnalysis.Sarif.FileSystem.Instance;
+            FileSystem = fileSystem ?? Sarif.FileSystem.Instance;
         }
 
         private readonly bool recurse;
