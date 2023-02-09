@@ -132,7 +132,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             return false;
         }
 
-        internal static bool ValidateFiles(IAnalysisContext context, IEnumerable<string> filePaths, bool? shouldExist)
+        public static bool ValidateFiles(IAnalysisContext context, IEnumerable<string> filePaths, bool? shouldExist)
         {
             if (filePaths == null) { return true; }
 

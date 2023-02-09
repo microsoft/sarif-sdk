@@ -47,7 +47,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         MissingFile = 0x2000,
         ExceptionAccessingFile = 0x4000,
         ExceptionInstantiatingSkimmers = 0x8000,
-        OutputFileAlreadyExists = 0x10000,
+        FileAlreadyExists = 0x10000,
         ExceptionProcessingBaseline = 0x20000,
         ExceptionPostingLogFile = 0x40000,
         OneOrMoreRulesAreIncompatible = 0x80000,

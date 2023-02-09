@@ -380,7 +380,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentNullException(nameof(context));
             }
 
-            context.RuntimeErrors |= RuntimeConditions.OutputFileAlreadyExists;
+            context.RuntimeErrors |= RuntimeConditions.FileAlreadyExists;
 
             // The output file '{0}' already exists. Use --force to overwrite.
             context.Logger.LogConfigurationNotification(
