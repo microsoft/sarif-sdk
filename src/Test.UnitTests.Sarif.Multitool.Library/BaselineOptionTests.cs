@@ -59,7 +59,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             {
                 SchemaFilePath = SchemaFilePath,
                 TargetFileSpecifiers = new string[] { logFilePath },
-                BaselineSarifFile = baseLineFilePath,
+                BaselineFilePath = baseLineFilePath,
             };
 
             int returnCode = validateCommand.Run(options);
@@ -83,8 +83,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 ConfigurationFilePath = configuration,
                 TargetFileSpecifiers = new string[] { path },
                 OutputFilePath = outputPath,
-                Force = true,
-                BaselineSarifFile = baselineFilePath,
+                OutputFileOptions = new[] { FilePersistenceOptions.ForceOverwrite },
+                BaselineFilePath = baselineFilePath,
                 Kind = new List<ResultKind> { ResultKind.Fail },
                 Level = new List<FailureLevel> { FailureLevel.Warning, FailureLevel.Error },
                 MaxFileSizeInKilobytes = 1024,
@@ -118,9 +118,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 ConfigurationFilePath = configuration,
                 TargetFileSpecifiers = new string[] { path },
                 OutputFilePath = outputPath,
-                Inline = true,
-                Force = true,
-                BaselineSarifFile = baselineFilePath,
+                OutputFileOptions = new[] { FilePersistenceOptions.ForceOverwrite, FilePersistenceOptions.Inline },
+                BaselineFilePath = baselineFilePath,
                 Kind = new List<ResultKind> { ResultKind.Fail },
                 Level = new List<FailureLevel> { FailureLevel.Warning, FailureLevel.Error }
             };

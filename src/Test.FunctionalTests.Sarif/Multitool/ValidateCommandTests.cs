@@ -506,8 +506,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 OutputFilePath = actualLogFilePath,
                 Quiet = true,
                 UpdateInputsToCurrentSarif = updateInputsToCurrentSarif,
-                PrettyPrint = true,
-                Optimize = true,
+                OutputFileOptions = new[] { FilePersistenceOptions.PrettyPrint, FilePersistenceOptions.Optimize },
                 Level = new List<FailureLevel> { FailureLevel.Error, FailureLevel.Warning, FailureLevel.Note, FailureLevel.None },
             };
 
@@ -529,7 +528,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
                 var validateCommand = new ValidateCommand(mockFileSystem.Object);
 
-                SarifValidationContext context = null;
+                var context = new SarifValidationContext { FileSystem = mockFileSystem.Object };
                 int returnCode = validateCommand.Run(validateOptions, ref context);
                 context.RuntimeException.Should().BeNull();
                 (context.RuntimeErrors & ~RuntimeConditions.Nonfatal).Should().Be(0);

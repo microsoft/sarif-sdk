@@ -3,22 +3,26 @@
 
 using System;
 
-namespace Microsoft.CodeAnalysis.Sarif.Writers
+namespace Microsoft.CodeAnalysis.Sarif
 {
     [Flags]
-    public enum LogFilePersistenceOptions
+    public enum FilePersistenceOptions
     {
         None = 0,
 
         // Indent persisted JSON for easy file viewing.
         PrettyPrint = 0x1,
 
+        // Minimize persisted JSON for compactness.
+        Minify = 0x2,
+
         // Overwrite previous version of log file, if it exists.
-        OverwriteExistingOutputFile = 0x4,
+        ForceOverwrite = 0x4,
+
+        // Inline outputs to files where appropriate.
+        Inline = 0x8,
 
         // Omit redundant properties, producing a smaller but non-human-readable log.
-        Optimize = 0x8,
-
-        All = PrettyPrint | OverwriteExistingOutputFile | Optimize
+        Optimize = 0x10,
     }
 }

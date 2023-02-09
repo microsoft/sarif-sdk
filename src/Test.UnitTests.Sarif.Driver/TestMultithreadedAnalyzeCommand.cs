@@ -19,20 +19,26 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
         public override IEnumerable<Assembly> DefaultPluginAssemblies { get; set; }
 
-        protected override TestAnalysisContext CreateContext(
-            TestAnalyzeOptions options,
-            IAnalysisLogger logger,
-            RuntimeConditions runtimeErrors,
-            IFileSystem fileSystem,
-            PropertiesDictionary policy = null)
+        public override TestAnalysisContext InitializeContextFromOptions(TestAnalyzeOptions options, ref TestAnalysisContext context)
         {
-            TestAnalysisContext context = base.CreateContext(options, logger, runtimeErrors, fileSystem, policy);
+            context ??= new TestAnalysisContext();
+            context.Policy ??= new PropertiesDictionary();
+            context.Policy.SetProperty(TestRule.Behaviors, options.TestRuleBehaviors.AccessibleWithinContextOnly());
 
-            if (options != null)
+            context = base.InitializeContextFromOptions(options, ref context);
+
+            if (context.Policy.GetProperty(TestRule.Behaviors).HasFlag(TestRuleBehaviors.RegardOptionsAsInvalid))
             {
-                context.Policy.SetProperty(TestRule.Behaviors, options.TestRuleBehaviors.AccessibleWithinContextOnly());
+                context.RuntimeErrors |= RuntimeConditions.InvalidCommandLineOption;
+                ThrowExitApplicationException(context, ExitReason.InvalidCommandLineOption);
             }
 
+            return context;
+        }
+
+        protected override TestAnalysisContext CreateContext(TestAnalyzeOptions options, IAnalysisLogger logger, RuntimeConditions runtimeErrors, IFileSystem fileSystem = null, PropertiesDictionary policy = null)
+        {
+            TestAnalysisContext context = base.CreateContext(options, logger, runtimeErrors, fileSystem, policy);
             TestRuleBehaviors behaviors = context.Policy.GetProperty(TestRule.Behaviors);
             context.IsValidAnalysisTarget = !behaviors.HasFlag(TestRuleBehaviors.RegardAnalysisTargetAsInvalid);
 
@@ -40,8 +46,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 behaviors.HasFlag(TestRuleBehaviors.RegardAnalysisTargetAsCorrupted)
                ? new InvalidOperationException()
                : null;
-
-            context.Options = options;
 
             return context;
         }
@@ -57,9 +61,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             base.ValidateOptions(options, context);
         }
 
-        public int Run(AnalyzeOptionsBase options)
+        public int Run(AnalyzeOptionsBase options, ref TestAnalysisContext context)
         {
-            TestAnalysisContext context = null;
             int result = base.Run((TestAnalyzeOptions)options, ref context);
             context.Should().NotBeNull();
             context.Disposed.Should().BeTrue();

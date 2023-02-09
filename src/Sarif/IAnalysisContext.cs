@@ -3,21 +3,28 @@
 
 using System;
 using System.Collections.Generic;
+using System.Runtime.InteropServices;
 using System.Threading;
 
 namespace Microsoft.CodeAnalysis.Sarif
 {
     public interface IAnalysisContext : IDisposable
     {
+        string PostUri { get; set; }
+
         string BaselineFilePath { get; set; }
 
         string OutputFilePath { get; set; }
 
-        bool Inline { get; set; }
+        string ConfigurationFilePath { get; set; }
 
-        bool PrettyPrint { get; set; }
+        public bool Quiet { get; set; }
 
-        bool Force { get; set; }
+        public string AutomationId { get; set; }
+
+        public Guid? AutomationGuid { get; set; }
+
+        FilePersistenceOptions OutputFileOptions { get; set; }
 
         IFileSystem FileSystem { get; set; }
 
@@ -27,11 +34,17 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         IEnumeratedArtifact CurrentTarget { get; set; }
 
+        public ISet<string> InvocationPropertiesToLog { get; set; }
+
         ISet<string> TargetFileSpecifiers { get; set; }
+
+        ISet<string> PluginFilePaths { get; set; }
 
         ISet<FailureLevel> FailureLevels { get; set; }
 
         ISet<ResultKind> ResultKinds { get; set; }
+
+        public ISet<string> InsertProperties { get; set; }
 
         OptionallyEmittedData DataToInsert { get; set; }
 
@@ -40,8 +53,6 @@ namespace Microsoft.CodeAnalysis.Sarif
         bool Recurse { get; set; }
 
         int Threads { get; set; }
-
-        string MimeType { get; set; }
 
         HashData Hashes { get; set; }
 

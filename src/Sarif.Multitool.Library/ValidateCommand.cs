@@ -1,6 +1,7 @@
 ﻿// Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
@@ -19,6 +20,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 #pragma warning restore CS0618
     {
         private List<Assembly> _defaultPlugInAssemblies;
+
+        protected override IFileSystem FileSystem => throw new InvalidOperationException();
 
         public ValidateCommand(IFileSystem fileSystem = null) : base(fileSystem)
         {
@@ -71,6 +74,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 Validate(context.CurrentTarget.Uri.GetFilePath(),
                          context.SchemaFilePath,
                          context.Logger,
+                         context.FileSystem,
                          context.UpdateInputsToCurrentSarif);
 
             if (!string.IsNullOrEmpty(sarifText))
@@ -106,13 +110,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             string instanceFilePath,
             string schemaFilePath,
             IAnalysisLogger logger,
+            IFileSystem fileSystem,
             bool updateToCurrentSarifVersion = true)
         {
             string instanceText = null;
 
             try
             {
-                instanceText = FileSystem.FileReadAllText(instanceFilePath);
+                instanceText = fileSystem.FileReadAllText(instanceFilePath);
 
                 if (updateToCurrentSarifVersion)
                 {

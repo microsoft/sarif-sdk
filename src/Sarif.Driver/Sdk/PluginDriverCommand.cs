@@ -49,18 +49,36 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             return assemblies;
         }
 
-        internal static bool ValidateInvocationPropertiesToLog(IAnalysisContext context, IEnumerable<string> propertiesToLog)
+        internal static bool ValidateBaselineFile(IAnalysisContext context)
+        {
+            bool required = !string.IsNullOrEmpty(context.BaselineFilePath);
+            bool succeeded = ValidateFile(context,
+                                          context.BaselineFilePath,
+                                          shouldExist: required ? true : (bool?)null);
+
+            if (required && succeeded && string.IsNullOrEmpty(context.OutputFilePath))
+            {
+                succeeded = false;
+                Errors.LogMissingCommandlineArgument(context,
+                                                     "'--output' or '--log Inline'",
+                                                     "'--baseline'");
+            }
+
+            return succeeded;
+        }
+
+        internal static bool ValidateInvocationPropertiesToLog(IAnalysisContext context)
         {
             bool succeeded = true;
 
-            if (propertiesToLog != null)
+            if (context.InvocationPropertiesToLog?.Any() == true)
             {
                 var validPropertyNames = new HashSet<string>(
                     typeof(Invocation).GetProperties(BindingFlags.Public | BindingFlags.Instance)
                         .Select(propInfo => propInfo.Name),
                     StringComparer.OrdinalIgnoreCase);
 
-                foreach (string propertyName in propertiesToLog)
+                foreach (string propertyName in context.InvocationPropertiesToLog)
                 {
                     if (!validPropertyNames.Contains(propertyName))
                     {
@@ -73,9 +91,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             return succeeded;
         }
 
-        internal bool ValidateFile(IAnalysisContext context, string filePath, string policyName, bool? shouldExist)
+        internal static bool ValidateFile(IAnalysisContext context, string filePath, bool? shouldExist)
         {
-            if (filePath == null || filePath == policyName) { return true; }
+            if (filePath == null) { return true; }
 
             Exception exception = null;
 
@@ -83,12 +101,24 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             {
                 bool fileExists = context.FileSystem.FileExists(filePath);
 
-                if (fileExists || shouldExist == null || !shouldExist.Value)
+                if (fileExists)
                 {
-                    return true;
-                }
+                    if (shouldExist == null || shouldExist.Value)
+                    {
+                        return true;
+                    }
 
-                Errors.LogMissingFile(context, filePath);
+                    Errors.LogFileAlreadyExists(context, filePath);
+                }
+                else
+                {
+                    if (shouldExist == null || !shouldExist.Value)
+                    {
+                        return true;
+                    }
+
+                    Errors.LogMissingFile(context, filePath);
+                }
             }
             catch (IOException ex) { exception = ex; }
             catch (SecurityException ex) { exception = ex; }
@@ -102,7 +132,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             return false;
         }
 
-        internal bool ValidateFiles(IAnalysisContext context, IEnumerable<string> filePaths, string policyName, bool shouldExist)
+        internal static bool ValidateFiles(IAnalysisContext context, IEnumerable<string> filePaths, bool? shouldExist)
         {
             if (filePaths == null) { return true; }
 
@@ -110,20 +140,21 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
             foreach (string filePath in filePaths)
             {
-                succeeded &= ValidateFile(context, filePath, policyName, shouldExist);
+                succeeded &= ValidateFile(context, filePath, shouldExist);
             }
 
             return succeeded;
         }
 
-        internal bool ValidateOutputFileCanBeCreated(IAnalysisContext context)
+        internal static bool ValidateOutputFileCanBeCreated(IAnalysisContext context)
         {
             bool succeeded = true;
+            bool force = context.OutputFileOptions.HasFlag(FilePersistenceOptions.ForceOverwrite);
 
             if (!string.IsNullOrWhiteSpace(context.OutputFilePath) &&
-                !DriverUtilities.CanCreateOutputFile(context.OutputFilePath, context.Force, context.FileSystem))
+                !DriverUtilities.CanCreateOutputFile(context.OutputFilePath, force, context.FileSystem))
             {
-                Errors.LogOutputFileAlreadyExists(context);
+                Errors.LogFileAlreadyExists(context, context.OutputFilePath);
                 succeeded = false;
             }
 
@@ -138,8 +169,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 return;
             }
 
-            bool inline = context.Inline;
             string outputFilePath = context.OutputFilePath;
+            bool inline = context.OutputFileOptions.HasFlag(FilePersistenceOptions.Inline);
             if (!inline && string.IsNullOrEmpty(outputFilePath))
             {
                 return;
@@ -165,7 +196,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             try
             {
                 string targetFile = inline ? baselineFilePath : outputFilePath;
-                WriteSarifFile(context.FileSystem, baseline, targetFile, minify: !context.PrettyPrint);
+                WriteSarifFile(context.FileSystem, baseline, targetFile, minify: !context.OutputFileOptions.HasFlag(FilePersistenceOptions.PrettyPrint));
             }
             catch (Exception ex)
             {

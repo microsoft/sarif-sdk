@@ -74,7 +74,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                                                        TestAnalyzeOptions analyzeOptions)
         {
             TestRule.s_testRuleBehaviors = analyzeOptions.TestRuleBehaviors.AccessibleOutsideOfContextOnly();
-            Assembly[] plugInAssemblies = null;
+            Assembly[] plugInAssemblies;
 
             if (analyzeOptions.DefaultPlugInFilePaths != null)
             {
@@ -129,7 +129,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             var options = new TestAnalyzeOptions
             {
                 TestRuleBehaviors =
-                    TestRuleBehaviors.RaiseExceptionValidatingOptions |
                     TestRuleBehaviors.RegardOptionsAsInvalid
             };
 
@@ -383,7 +382,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                     {
                         TargetFileSpecifiers = new string[] { GetThisTestAssemblyFilePath() },
                         OutputFilePath = path,
-                        Force = true
+                        OutputFileOptions = new[] { FilePersistenceOptions.ForceOverwrite },
                     };
 
                     ExceptionTestHelper(
@@ -411,7 +410,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 {
                     TargetFileSpecifiers = new string[] { GetThisTestAssemblyFilePath() },
                     OutputFilePath = path,
-                    Force = true
+                    OutputFileOptions = new[] { FilePersistenceOptions.ForceOverwrite },
                 };
 
                 ExceptionTestHelper(
@@ -494,7 +493,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             {
                 TargetFileSpecifiers = new string[] { GetThisTestAssemblyFilePath() },
                 OutputFilePath = outputFilePath,
-                BaselineSarifFile = baselineFilePath
+                BaselineFilePath = baselineFilePath
             };
 
             ExceptionTestHelper(
@@ -515,7 +514,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                     TargetFileSpecifiers = new string[] { GetThisTestAssemblyFilePath() },
                     Quiet = true,
                     OutputFilePath = null,
-                    BaselineSarifFile = path
+                    BaselineFilePath = path
                 };
 
                 ExceptionTestHelper(
@@ -530,7 +529,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         {
             var options = new TestAnalyzeOptions()
             {
-                InvocationPropertiesToLog = new string[] { "CommandLine", "NoSuchProperty" }
+                InvocationPropertiesToLog = new string[] { "CommandLine", "NoSuchProperty" },
             };
 
             ExceptionTestHelper(
@@ -614,7 +613,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                     Recurse = true,
                     OutputFilePath = path,
                     SarifOutputVersion = SarifVersion.Current,
-                    Force = true,
+                    OutputFileOptions = new[] { FilePersistenceOptions.ForceOverwrite },
                     TestRuleBehaviors = behaviors,
                     PostUri = postUri,
                 };
@@ -760,6 +759,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         [Fact]
         public void AnalyzeCommandBase_EndToEndAnalysisWithPostUri()
         {
+            PostUriTestHelper(@"https://example.com", TestMultithreadedAnalyzeCommand.SUCCESS, RuntimeConditions.None);
             PostUriTestHelper(@"https://httpbin.org/post", TestMultithreadedAnalyzeCommand.SUCCESS, RuntimeConditions.None);
             PostUriTestHelper(@"https://httpbin.org/get", TestMultithreadedAnalyzeCommand.FAILURE, RuntimeConditions.ExceptionPostingLogFile);
             PostUriTestHelper(@"https://host.does.not.exist", TestMultithreadedAnalyzeCommand.FAILURE, RuntimeConditions.ExceptionPostingLogFile);
@@ -817,7 +817,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 var command = new TestMultithreadedAnalyzeCommand(mockFileSystem.Object);
                 command.DefaultPluginAssemblies = new Assembly[] { this.GetType().Assembly };
 
-                int result = command.Run(options);
+                var context = new TestAnalysisContext { FileSystem = mockFileSystem.Object };
+                int result = command.Run(options, ref context);
 
                 command.ExecutionException?.InnerException.Should().BeNull();
 
@@ -992,51 +993,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         }
 
         [Fact]
-        public void AnalyzeCommandBase_PersistsSarifOneZeroZero()
-        {
-            string fileName = GetThisTestAssemblyFilePath();
-            string path = Path.GetTempFileName();
-
-            try
-            {
-                var options = new TestAnalyzeOptions
-                {
-                    TargetFileSpecifiers = new string[] { fileName },
-                    Quiet = true,
-                    DataToInsert = new OptionallyEmittedData[] { OptionallyEmittedData.Hashes },
-                    ConfigurationFilePath = TestMultithreadedAnalyzeCommand.DefaultPolicyName,
-                    Recurse = true,
-                    OutputFilePath = path,
-                    PrettyPrint = true,
-                    Force = true,
-                    SarifOutputVersion = SarifVersion.OneZeroZero
-                };
-
-                var command = new TestMultithreadedAnalyzeCommand();
-                command.DefaultPluginAssemblies = new Assembly[] { this.GetType().Assembly };
-
-                TestAnalysisContext context = null;
-                int returnValue = command.Run(options, ref context);
-
-                context.RuntimeErrors.Should().Be(RuntimeConditions.None);
-                returnValue.Should().Be(0);
-
-                var settings = new JsonSerializerSettings()
-                {
-                    ContractResolver = SarifContractResolverVersionOne.Instance
-                };
-
-                SarifLogVersionOne log = JsonConvert.DeserializeObject<SarifLogVersionOne>(File.ReadAllText(path), settings);
-                log.Should().NotBeNull();
-                log.Runs.Count.Should().Be(1);
-            }
-            finally
-            {
-                File.Delete(path);
-            }
-        }
-
-        [Fact]
         public void AnalyzeCommandBase_RunDefaultRules()
         {
             string location = GetThisTestAssemblyFilePath();
@@ -1161,12 +1117,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         }
 
         [Theory]
-        [InlineData(null, false, null)]
-        [InlineData("", false, null)]
+        [InlineData(null, false, "")]
+        [InlineData("", false, "")]
         [InlineData(null, true, "default.configuration.xml")]
         [InlineData("", true, "default.configuration.xml")]
-        [InlineData("default", false, null)]
-        [InlineData("default", true, null)]
+        [InlineData("default", false, "")]
+        [InlineData("default", true, "")]
         [InlineData("test-newconfig.xml", false, "test-newconfig.xml")]
         [InlineData("test-newconfig.xml", true, "test-newconfig.xml")]
         public void AnalyzeCommandBase_LoadConfigurationFile(string configValue, bool defaultFileExists, string expectedFileName)
@@ -1186,15 +1142,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             mockFileSystem.Setup(x => x.FileExists(It.IsAny<string>())).Returns(defaultFileExists);
 
             var command = new TestMultithreadedAnalyzeCommand(mockFileSystem.Object);
+            var context = new TestAnalysisContext { FileSystem = mockFileSystem.Object };
+            context.ConfigurationFilePath = command.GetConfigurationFileName(configValue, context.FileSystem);
 
-            string fileName = command.GetConfigurationFileName(options);
             if (string.IsNullOrEmpty(expectedFileName))
             {
-                fileName.Should().BeNull();
+                context.ConfigurationFilePath.Should().Be(string.Empty);
             }
             else
             {
-                fileName.Should().EndWith(expectedFileName);
+                context.ConfigurationFilePath.Should().EndWith(expectedFileName);
             }
         }
 
@@ -1881,17 +1838,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             ITestAnalyzeCommand command = new TestMultithreadedAnalyzeCommand(fileSystem) { _captureConsoleOutput = captureConsoleOutput };
             command.DefaultPluginAssemblies = new Assembly[] { typeof(AnalyzeCommandBaseTests).Assembly };
 
-            try
-            {
-                HashUtilities.FileSystem = fileSystem;
-                int result = command.Run(options);
+            var context = new TestAnalysisContext { FileSystem = fileSystem };
+            int result = command.Run(options, ref context);
 
-                result.Should().Be(expectedReturnCode);
-            }
-            finally
-            {
-                HashUtilities.FileSystem = null;
-            }
+            result.Should().Be(expectedReturnCode);
 
             if (exitReason != ExitReason.None)
             {
@@ -1938,8 +1888,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                     DefaultPluginAssemblies = new Assembly[] { typeof(AnalyzeCommandBaseTests).Assembly }
                 };
 
-                HashUtilities.FileSystem = testCase.FileSystem;
-                int result = command.Run(options);
+                var context = new TestAnalysisContext { FileSystem = testCase.FileSystem };
+                int result = command.Run(options, ref context);
 
                 SarifLog sarifLog = JsonConvert.DeserializeObject<SarifLog>(File.ReadAllText(options.OutputFilePath));
                 result.Should().Be(expectedResultCode);

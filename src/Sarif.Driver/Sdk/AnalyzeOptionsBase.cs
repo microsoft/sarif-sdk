@@ -85,12 +85,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         public bool RichReturnCode { get; set; }
 
         [Option(
-            'z',
-            "optimize",
-            HelpText = "Omit redundant properties, producing a smaller but non-human-readable log.")]
-        public bool Optimize { get; set; }
-
-        [Option(
             "trace",
             Separator = ';',
             Default = new string[] { },
@@ -116,7 +110,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         [Option(
             "baseline",
             HelpText = "A SARIF file to be used as baseline.")]
-        public string BaselineSarifFile { get; set; }
+        public string BaselineFilePath { get; set; }
 
         [Option(
             "post-uri",

@@ -13,7 +13,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
         Exception ExecutionException { get; set; }
 
-        int Run(AnalyzeOptionsBase options);
+        int Run(AnalyzeOptionsBase options, ref TestAnalysisContext context);
 
         void CheckIncompatibleRules(IEnumerable<Skimmer<TestAnalysisContext>> skimmers, TestAnalysisContext context, ISet<string> disabledSkimmers);
     }

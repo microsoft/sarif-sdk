@@ -74,7 +74,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             valid &= options.ExpiryInDays >= 0;
             valid &= !string.IsNullOrWhiteSpace(options.Justification);
             valid &= (options.Status == SuppressionStatus.Accepted || options.Status == SuppressionStatus.UnderReview);
-            valid &= DriverUtilities.ReportWhetherOutputFileCanBeCreated(options.OutputFilePath, options.Force, FileSystem);
+            valid &= DriverUtilities.ReportWhetherOutputFileCanBeCreated(options.OutputFilePath, options.ForceOverwrite, FileSystem);
 
             return valid;
         }

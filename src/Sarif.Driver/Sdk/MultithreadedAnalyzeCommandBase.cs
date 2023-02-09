@@ -4,9 +4,11 @@
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Collections.Immutable;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Net.Http;
 using System.Runtime.InteropServices;
 using System.Threading.Channels;
 using System.Threading.Tasks;
@@ -63,52 +65,174 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             return Run(options, ref globalContext);
         }
 
-        public virtual int Run(TOptions options, ref TContext globalContext)
+        public virtual int Run(TOptions options, ref TContext context)
+        {
+            try
+            {
+                context = InitializeContextFromOptions(options, ref context);
+
+                context = ValidateContext(context);
+
+                // TBD move this into RunOld or inline RunOld here.
+                InitializeOutputFile(context);
+
+
+                // TBD GOAL get rid of options from this signature.
+                return RunOld(options, ref context);
+            }
+            catch (ExitApplicationException<ExitReason> ex)
+            {
+                // These exceptions have already been logged
+                ExecutionException = ex;
+                return FAILURE;
+            }
+            catch (Exception ex)
+            {
+                ex = ex.InnerException ?? ex;
+
+                if (!(ex is ExitApplicationException<ExitReason>))
+                {
+                    // These exceptions escaped our net and must be logged here
+                    Errors.LogUnhandledEngineException(context, ex);
+                }
+                ExecutionException = ex;
+                return FAILURE;
+            }
+            finally
+            {
+                context?.Dispose();
+            }
+        }
+
+        public virtual TContext InitializeContextFromOptions(TOptions options, ref TContext context)
+        {
+            context ??= new TContext();
+            context.FileSystem ??= Sarif.FileSystem.Instance;
+
+            // Our first action is to initialize an aggregating logger, which 
+            // includes a console logger (for general reporting of conditions
+            // that precede successfully creating an output log file).
+            context.Logger ??= InitializeLogger(options);
+
+            context.Quiet = options.Quiet;
+            context.Recurse = options.Recurse;
+            context.Threads = options.Threads;
+            context.PostUri = options.PostUri;
+            context.AutomationId = options.AutomationId;
+            context.OutputFilePath = options.OutputFilePath;
+            context.AutomationGuid = options.AutomationGuid;
+            context.BaselineFilePath = options.BaselineFilePath;
+            context.Traces = InitializeStringSet(options.Traces);
+            context.DataToInsert = options.DataToInsert.ToFlags();
+            context.DataToRemove = options.DataToRemove.ToFlags();
+            context.ResultKinds = options.Kind.ToImmutableHashSet();
+            context.FailureLevels = options.Level.ToImmutableHashSet();
+            context.OutputFileOptions = options.OutputFileOptions.ToFlags();
+            context.MaxFileSizeInKilobytes = options.MaxFileSizeInKilobytes;
+            context.PluginFilePaths = options.PluginFilePaths?.ToImmutableHashSet();
+            context.InsertProperties = InitializeStringSet(options.InsertProperties);
+            context.TargetFileSpecifiers = InitializeStringSet(options.TargetFileSpecifiers);
+            context.InvocationPropertiesToLog = InitializeStringSet(options.InvocationPropertiesToLog);
+
+            context.TargetsProvider =
+                OrderedFileSpecifier.Create(
+                    context.TargetFileSpecifiers,
+                    context.Recurse,
+                    context.MaxFileSizeInKilobytes,
+                    context.FileSystem);
+
+            context = InitializeConfiguration(options.ConfigurationFilePath, context);
+
+            return context;
+        }
+
+        public virtual TContext ValidateContext(TContext context)
+        {
+            bool succeeded = true;
+
+            bool force = context.OutputFileOptions.HasFlag(FilePersistenceOptions.ForceOverwrite);
+            succeeded &= ValidateFile(context,
+                                      context.OutputFilePath,
+                                      shouldExist: force ? (bool?)null : false);
+
+            succeeded &= ValidateBaselineFile(context);
+
+            bool required = !string.IsNullOrEmpty(context.BaselineFilePath);
+            succeeded &= ValidateFile(context,
+                                      context.BaselineFilePath,
+                                      shouldExist: required ? true : (bool?)null);
+
+            required = context.PluginFilePaths?.Any() == true;
+            succeeded &= ValidateFiles(context,
+                                       context.PluginFilePaths,
+                                      shouldExist: required ? true : (bool?)null);
+
+            if (!string.IsNullOrEmpty(context.PostUri))
+            {
+
+                try
+                {
+                    var httpClient = new HttpClientWrapper();
+                    HttpResponseMessage httpResponseMessage = httpClient.GetAsync(context.PostUri).GetAwaiter().GetResult();
+                    if (!httpResponseMessage.IsSuccessStatusCode)
+                    {
+                        context.PostUri = null;
+                    }
+                }
+                catch (Exception)
+                {
+                    context.PostUri = null;
+                    context.RuntimeErrors |= RuntimeConditions.ExceptionPostingLogFile;
+                }
+                finally
+                {
+                    // TBD if POST URI is null
+                }
+            }
+
+            succeeded &= ValidateInvocationPropertiesToLog(context);
+
+            if (!succeeded)
+            {
+                ThrowExitApplicationException(context, ExitReason.InvalidCommandLineOption);
+            }
+
+            return context;
+        }
+
+        private static ISet<string> InitializeStringSet(IEnumerable<string> strings)
+        {
+            return strings?.Any() == true ?
+                   new StringSet(strings) :
+                   new StringSet();
+        }
+
+        public virtual int RunOld(TOptions options, ref TContext globalContext)
         {
             globalContext ??= new TContext();
             globalContext.Logger ??= InitializeLogger(options);
 
             try
             {
-                // 0. Log analysis initiation
-                globalContext.Logger.AnalysisStarted();
-
-                // 1. Create context object to pass to skimmers. The logger
-                //    and configuration objects are common to all context
-                //    instances and will be passed on again for analysis.
-                globalContext = CreateContext(options,
-                                              globalContext.Logger,
-                                              globalContext.RuntimeErrors,
-                                              globalContext.FileSystem);
-
-                // 2. Perform any command line argument validation beyond what
-                //    the command line parser library is capable of.
-                ValidateOptions(options, globalContext);
-
-                // 5. Instantiate skimmers. We need to do this before initializing
+                // 1. Instantiate skimmers. We need to do this before initializing
                 //    the output file so that we can preconstruct the tool 
                 //    extensions data written to the SARIF file. Due to this ordering, 
                 //    we won't emit any failures or notifications in this operation 
                 //    to the log file itself: it will only appear in console output.
-                ISet<Skimmer<TContext>> skimmers = CreateSkimmers(options, globalContext);
+                ISet<Skimmer<TContext>> skimmers = CreateSkimmers(globalContext);
 
-                // 6. Initialize report file, if configured.
-                InitializeOutputFile(options, globalContext);
-
-                // 7. Initialize configuration. This step must be done after initializing
-                //    the skimmers, as rules define their specific context objects and
-                //    so those assemblies must be loaded.
-                InitializeConfiguration(options, globalContext);
-
-                // 8. Initialize skimmers. Initialize occurs a single time only. This
+                // 2. Initialize skimmers. Initialize occurs a single time only. This
                 //    step needs to occurs after initializing configuration in order
                 //    to allow command-line override of rule settings
                 skimmers = InitializeSkimmers(skimmers, globalContext);
 
-                // 9. Run all multi-threaded analysis operations.
+                // 3. Log analysis initiation
+                globalContext.Logger.AnalysisStarted();
+
+                // 4. Run all multi-threaded analysis operations.
                 AnalyzeTargets(options, globalContext, skimmers);
 
-                // 10. For test purposes, raise an unhandled exception if indicated
+                // 5. For test purposes, raise an unhandled exception if indicated
                 if (RaiseUnhandledExceptionInDriverCode)
                 {
                     throw new InvalidOperationException(GetType().Name);
@@ -156,7 +280,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
                 try
                 {
-                    PostLogFile(options.PostUri, options.OutputFilePath, FileSystem);
+                    PostLogFile(globalContext.PostUri, globalContext.OutputFilePath, globalContext.FileSystem);
                 }
                 catch (Exception ex)
                 {
@@ -594,11 +718,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         {
             bool succeeded = true;
 
-            succeeded &= ValidateFile(context, options.OutputFilePath, DefaultPolicyName, shouldExist: null);
-            succeeded &= ValidateFile(context, options.ConfigurationFilePath, DefaultPolicyName, shouldExist: true);
-            succeeded &= ValidateFile(context, options.BaselineSarifFile, DefaultPolicyName, shouldExist: true);
-            succeeded &= ValidateFiles(context, options.PluginFilePaths, DefaultPolicyName, shouldExist: true);
-            succeeded &= ValidateInvocationPropertiesToLog(context, options.InvocationPropertiesToLog);
+            // TBD get rid of me.
+
+            succeeded &= ValidateFile(context, options.OutputFilePath, shouldExist: null);
+            succeeded &= ValidateFile(context, options.ConfigurationFilePath, shouldExist: true);
+            succeeded &= ValidateFile(context, options.BaselineFilePath, shouldExist: true);
+            succeeded &= ValidateFiles(context, options.PluginFilePaths, shouldExist: true);
+            succeeded &= ValidateInvocationPropertiesToLog(context);
             succeeded &= options.ValidateOutputOptions(context);
             succeeded &= context.MaxFileSizeInKilobytes >= 0;
 
@@ -639,38 +765,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 Policy = policy ?? new PropertiesDictionary(),
             };
 
-            if (options != null)
-            {
-                context.Traces =
-                    options.Traces.Any() == true ?
-                       new StringSet(options.Traces) :
-                       new StringSet();
-
-                if (options.MaxFileSizeInKilobytes != -1)
-                {
-                    context.MaxFileSizeInKilobytes = options.MaxFileSizeInKilobytes;
-                }
-
-                if (options.TargetFileSpecifiers != null)
-                {
-                    context.TargetsProvider =
-                        OrderedFileSpecifier.Create(
-                            options.TargetFileSpecifiers,
-                            options.Recurse,
-                            context.MaxFileSizeInKilobytes,
-                            context.FileSystem);
-                }
-
-                context.Force = options.Force;
-                context.Inline = options.Inline;
-                context.OutputFilePath = options.OutputFilePath;
-                context.DataToInsert = options.DataToInsert.ToFlags();
-                context.DataToRemove = options.DataToRemove.ToFlags();
-                context.BaselineFilePath = options.BaselineSarifFile;
-                context.ResultKinds = new HashSet<ResultKind>(options.Kind);
-                context.FailureLevels = new HashSet<FailureLevel>(options.Level);
-            }
-
             return context;
         }
 
@@ -679,31 +773,44 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         /// </summary>
         /// <param name="options">Options</param>
         /// <returns>Configuration file path, or null if the built in configuration should be used.</returns>
-        internal string GetConfigurationFileName(TOptions options)
+        internal string GetConfigurationFileName(string configurationFilePath, IFileSystem fileSystem)
         {
-            if (options.ConfigurationFilePath == DefaultPolicyName)
+            // If the user passes our default file name, return null, indicating that no
+            // configuration should be loaded. As a result, we will pick up all runtime defaults.
+            if (configurationFilePath == DefaultPolicyName)
             {
                 return null;
             }
 
-            if (string.IsNullOrEmpty(options.ConfigurationFilePath))
+            if (string.IsNullOrEmpty(configurationFilePath))
             {
-                return !this.FileSystem.FileExists(this.DefaultConfigurationPath)
-                    ? null
-                    : this.DefaultConfigurationPath;
+                // If a configuration file is not explicitly specified but we see that 
+                // a default configuration file has been placed in the current working
+                // directory, we will load it. TBD: ensure this location is alongside
+                // the client executable?
+                return fileSystem.FileExists(this.DefaultConfigurationPath)
+                    ? this.DefaultConfigurationPath
+                    : null;
             }
-            return options.ConfigurationFilePath;
+
+            return configurationFilePath;
         }
 
-        protected virtual void InitializeConfiguration(TOptions options, TContext context)
+        protected virtual TContext InitializeConfiguration(string configurationFileName, TContext context)
         {
             context.Policy ??= new PropertiesDictionary();
+            configurationFileName = GetConfigurationFileName(configurationFileName, context.FileSystem);
+            context.ConfigurationFilePath = configurationFileName;
 
-            string configurationFileName = GetConfigurationFileName(options);
-            if (string.IsNullOrEmpty(configurationFileName))
+            if (!ValidateFile(context,
+                              configurationFileName,
+                              shouldExist: !string.IsNullOrEmpty(configurationFileName) ? true : (bool?)null))
             {
-                return;
+                // TBD exit reason update to invalid config?
+                ThrowExitApplicationException(context, ExitReason.InvalidCommandLineOption);
             }
+
+            if (string.IsNullOrEmpty(configurationFileName)) { return context; }
 
             string extension = Path.GetExtension(configurationFileName);
 
@@ -726,9 +833,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             }
             configuration.MergePreferFirst(context.Policy);
             context.Policy = configuration;
+            return context;
         }
 
-        public virtual void InitializeOutputFile(TOptions analyzeOptions, TContext context)
+        public virtual void InitializeOutputFile(TContext context)
         {
             string filePath = context.OutputFilePath;
             var aggregatingLogger = (AggregatingLogger)context.Logger;
@@ -739,7 +847,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 (
                     () =>
                     {
-                        LogFilePersistenceOptions logFilePersistenceOptions = analyzeOptions.ConvertToLogFilePersistenceOptions();
+                        FilePersistenceOptions logFilePersistenceOptions = context.OutputFileOptions;
 
                         OptionallyEmittedData dataToInsert = context.DataToInsert;
                         OptionallyEmittedData dataToRemove = context.DataToRemove;
@@ -750,43 +858,26 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                         {
                             AutomationDetails = new RunAutomationDetails
                             {
-                                Id = analyzeOptions.AutomationId,
-                                Guid = analyzeOptions.AutomationGuid
+                                Id = context.AutomationId,
+                                Guid = context.AutomationGuid
                             },
                             Tool = Tool,
                         };
 
-                        if (analyzeOptions.SarifOutputVersion != SarifVersion.OneZeroZero)
-                        {
-                            sarifLogger = new SarifLogger(analyzeOptions.OutputFilePath,
-                                                          logFilePersistenceOptions,
-                                                          dataToInsert,
-                                                          dataToRemove,
-                                                          run,
-                                                          analysisTargets: null,
-                                                          quiet: analyzeOptions.Quiet,
-                                                          invocationTokensToRedact: GenerateSensitiveTokensList(),
-                                                          invocationPropertiesToLog: analyzeOptions.InvocationPropertiesToLog,
-                                                          levels: analyzeOptions.Level,
-                                                          kinds: analyzeOptions.Kind,
-                                                          insertProperties: analyzeOptions.InsertProperties);
-                        }
-                        else
-                        {
-                            sarifLogger = new SarifOneZeroZeroLogger(analyzeOptions.OutputFilePath,
-                                                                     logFilePersistenceOptions,
-                                                                     dataToInsert,
-                                                                     dataToRemove,
-                                                                     run,
-                                                                     analysisTargets: null,
-                                                                     invocationTokensToRedact: GenerateSensitiveTokensList(),
-                                                                     invocationPropertiesToLog: analyzeOptions.InvocationPropertiesToLog,
-                                                                     levels: analyzeOptions.Level,
-                                                                     kinds: analyzeOptions.Kind,
-                                                                     insertProperties: analyzeOptions.InsertProperties);
-                        }
+                        sarifLogger = new SarifLogger(context.OutputFilePath,
+                                                      logFilePersistenceOptions,
+                                                      dataToInsert,
+                                                      dataToRemove,
+                                                      run,
+                                                      analysisTargets: null,
+                                                      quiet: context.Quiet,
+                                                      invocationTokensToRedact: GenerateSensitiveTokensList(),
+                                                      invocationPropertiesToLog: context.InvocationPropertiesToLog,
+                                                      levels: context.FailureLevels,
+                                                      kinds: context.ResultKinds,
+                                                      insertProperties: context.InsertProperties);
+
                         _pathToHashDataMap = sarifLogger.AnalysisTargetToHashDataMap;
-                        sarifLogger.AnalysisStarted();
                         aggregatingLogger.Loggers.Add(sarifLogger);
                     },
                     (ex) =>
@@ -832,14 +923,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             }
         }
 
-        protected virtual ISet<Skimmer<TContext>> CreateSkimmers(TOptions options, TContext context)
+        protected virtual ISet<Skimmer<TContext>> CreateSkimmers(TContext context)
         {
             IEnumerable<Skimmer<TContext>> skimmers;
             var result = new SortedSet<Skimmer<TContext>>(SkimmerIdComparer<TContext>.Instance);
 
             try
             {
-                skimmers = CompositionUtilities.GetExports<Skimmer<TContext>>(RetrievePluginAssemblies(DefaultPluginAssemblies, options.PluginFilePaths));
+                skimmers = CompositionUtilities.GetExports<Skimmer<TContext>>(RetrievePluginAssemblies(DefaultPluginAssemblies, context.PluginFilePaths));
 
                 SupportedPlatform currentOS = GetCurrentRunningOS();
                 foreach (Skimmer<TContext> skimmer in skimmers)

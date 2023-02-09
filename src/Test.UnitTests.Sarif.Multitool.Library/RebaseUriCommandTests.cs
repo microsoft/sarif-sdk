@@ -112,9 +112,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             {
                 BasePath = @"C:\vs\src\2\s\",
                 BasePathToken = "SRCROOT",
-                Inline = true,
                 SarifOutputVersion = SarifVersion.Current,
-                PrettyPrint = true
+                OutputFileOptions = new[] { FilePersistenceOptions.Inline, FilePersistenceOptions.PrettyPrint },
             };
         }
 

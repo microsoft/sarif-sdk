@@ -111,11 +111,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 SarifOutputVersion = SarifVersion.Current,
                 TargetFileSpecifiers = new[] { filePathToBeValidated },
                 OutputFilePath = outputLogFilePath,
-                BaselineSarifFile = baselineFilePath,
-                Inline = this.IsInline,
+                BaselineFilePath = baselineFilePath,
                 Quiet = true,
-                PrettyPrint = true,
-                Optimize = true,
+                OutputFileOptions = new[] { FilePersistenceOptions.PrettyPrint, FilePersistenceOptions.Optimize, this.IsInline ? FilePersistenceOptions.Inline : FilePersistenceOptions.None },
                 Level = new List<FailureLevel> { FailureLevel.Error, FailureLevel.Warning, FailureLevel.Note, FailureLevel.None },
             };
 
@@ -134,8 +132,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             mockFileSystem.Setup(x => x.FileCreate(baselineFilePath)).Returns((string path) => File.Create(path));
             mockFileSystem.Setup(x => x.FileInfoLength(It.IsAny<string>())).Returns(100);
 
-            var validateCommand = new ValidateCommand(mockFileSystem.Object);
-            SarifValidationContext context = null;
+            var validateCommand = new ValidateCommand();
+            var context = new SarifValidationContext { FileSystem = mockFileSystem.Object };
             int returnCode = validateCommand.Run(validateOptions, ref context);
             (context.RuntimeErrors & ~RuntimeConditions.Nonfatal).Should().Be(0);
 

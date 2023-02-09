@@ -150,7 +150,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             }
         }
 
-        internal static IArtifactProvider Create(IList<string> specifiers, bool recurse, long maxFileSizeInKilobytes, IFileSystem fileSystem)
+        internal static IArtifactProvider Create(IEnumerable<string> specifiers, bool recurse, long maxFileSizeInKilobytes, IFileSystem fileSystem)
         {
             var orderedFileSpecifiers = new List<OrderedFileSpecifier>();
 

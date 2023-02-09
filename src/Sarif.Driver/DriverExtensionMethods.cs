@@ -2,26 +2,14 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System;
+using System.Collections.Generic;
 using System.Globalization;
-
-using Microsoft.CodeAnalysis.Sarif.Writers;
+using System.Linq;
 
 namespace Microsoft.CodeAnalysis.Sarif.Driver
 {
     public static class DriverExtensionMethods
     {
-        public static LogFilePersistenceOptions ConvertToLogFilePersistenceOptions(this AnalyzeOptionsBase analyzeOptions)
-        {
-            LogFilePersistenceOptions logFilePersistenceOptions = LogFilePersistenceOptions.PrettyPrint;
-
-            if (analyzeOptions.Force) { logFilePersistenceOptions |= LogFilePersistenceOptions.OverwriteExistingOutputFile; }
-            if (analyzeOptions.Minify) { logFilePersistenceOptions ^= LogFilePersistenceOptions.PrettyPrint; }
-            if (analyzeOptions.Optimize) { logFilePersistenceOptions |= LogFilePersistenceOptions.Optimize; }
-            if (analyzeOptions.PrettyPrint) { logFilePersistenceOptions |= LogFilePersistenceOptions.PrettyPrint; }
-
-            return logFilePersistenceOptions;
-        }
-
         /// <summary>
         /// Ensures the consistency of the command line options related to the location and format
         /// of the output file, and adjusts the options for ease of use.
@@ -62,7 +50,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             {
                 if (options.OutputFilePath == null)
                 {
-                    options.Force = true;
+                    var fileOptions = new HashSet<FilePersistenceOptions>(options.OutputFileOptions)
+                    {
+                        FilePersistenceOptions.ForceOverwrite
+                    };
+                    options.OutputFileOptions = fileOptions.ToArray();
                     options.OutputFilePath = options.InputFilePath;
                 }
                 else
@@ -77,29 +69,33 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
         private static void ReportInvalidOutputOptions()
         {
-            string inlineOptionDescription = DriverUtilities.GetOptionDescription<SingleFileOptionsBase>(nameof(SingleFileOptionsBase.Inline));
+            string outputFileOptionDescription = DriverUtilities.GetOptionDescription<SingleFileOptionsBase>(nameof(SingleFileOptionsBase.OutputFileOptions));
             string outputFilePathOptionDescription = DriverUtilities.GetOptionDescription<SingleFileOptionsBase>(nameof(SingleFileOptionsBase.OutputFilePath));
 
             Console.Error.WriteLine(
                 string.Format(
                     CultureInfo.CurrentCulture,
                     DriverResources.ExactlyOneOfTwoOptionsIsRequired,
-                    inlineOptionDescription,
-                    outputFilePathOptionDescription));
+                    $"--{outputFileOptionDescription} {nameof(SingleFileOptionsBase.Inline)}",
+                    $"-{outputFilePathOptionDescription}"));
         }
 
         private static bool ValidateOutputFormatOptions(this SingleFileOptionsBase options)
         {
             bool valid = true;
 
-            if (options.PrettyPrint && options.Minify)
+            FilePersistenceOptions logFileOptions = options.OutputFileOptions.ToFlags();
+
+            bool minify = logFileOptions.HasFlag(FilePersistenceOptions.Minify);
+
+            if (options.PrettyPrint && minify)
             {
                 ReportInvalidOutputFormatOptions();
                 valid = false;
             }
-            else if (!options.PrettyPrint && !options.Minify)
+            else if (!options.PrettyPrint && !minify)
             {
-                options.PrettyPrint = true;
+                options.OutputFileOptions = new HashSet<FilePersistenceOptions>(options.OutputFileOptions) { FilePersistenceOptions.PrettyPrint }.ToArray();
             }
 
             return valid;
@@ -107,15 +103,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
         private static void ReportInvalidOutputFormatOptions()
         {
-            string prettyPrintOptionDescription = DriverUtilities.GetOptionDescription<CommonOptionsBase>(nameof(CommonOptionsBase.PrettyPrint));
-            string minifyOptionDescription = DriverUtilities.GetOptionDescription<CommonOptionsBase>(nameof(CommonOptionsBase.Minify));
+            string outputFileOptionDescription = DriverUtilities.GetOptionDescription<SingleFileOptionsBase>(nameof(SingleFileOptionsBase.OutputFileOptions));
 
             Console.Error.WriteLine(
                 string.Format(
                     CultureInfo.CurrentCulture,
                     DriverResources.OptionsAreMutuallyExclusive,
-                    prettyPrintOptionDescription,
-                    minifyOptionDescription));
+                    $"--{outputFileOptionDescription} {nameof(SingleFileOptionsBase.PrettyPrint)}",
+                    $"--{outputFileOptionDescription} {nameof(SingleFileOptionsBase.Minify)}"));
         }
 
         /// <summary>
@@ -154,7 +149,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             //  #2267 https://github.com/microsoft/sarif-sdk/issues/2267
             if (options.Inline)
             {
-                options.Force = true;
+                var fileOptions = new HashSet<FilePersistenceOptions>(options.OutputFileOptions)
+                    {
+                        FilePersistenceOptions.ForceOverwrite
+                    };
+                options.OutputFileOptions = fileOptions.ToArray();
             }
 
             return valid;
@@ -169,7 +168,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 valid = false;
             }
 
-            if (string.IsNullOrWhiteSpace(options.OutputFilePath) && !string.IsNullOrWhiteSpace(options.BaselineSarifFile))
+            if (string.IsNullOrWhiteSpace(options.OutputFilePath) && !string.IsNullOrWhiteSpace(options.BaselineFilePath))
             {
                 valid = false;
             }

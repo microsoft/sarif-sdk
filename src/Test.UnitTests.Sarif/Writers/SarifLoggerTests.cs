@@ -53,7 +53,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             var streamWriter = new StreamWriter(memoryStream);
 
             using (var logger = new SarifLogger(streamWriter,
-                                                logFilePersistenceOptions: LogFilePersistenceOptions.PrettyPrint,
+                                                logFilePersistenceOptions: FilePersistenceOptions.PrettyPrint,
                                                 dataToRemove: OptionallyEmittedData.NondeterministicProperties,
                                                 closeWriterOnDispose: closeWriterOnDispose,
                                                 levels: new List<FailureLevel> { FailureLevel.Warning, FailureLevel.Error },
@@ -169,7 +169,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
                 using (_ = new SarifLogger(textWriter,
                                            analysisTargets: null,
-                                           logFilePersistenceOptions: LogFilePersistenceOptions.None,
+                                           logFilePersistenceOptions: FilePersistenceOptions.None,
                                            invocationTokensToRedact: tokensToRedact,
                                            invocationPropertiesToLog: new List<string> { "CommandLine" },
                                            levels: new List<FailureLevel> { FailureLevel.Warning, FailureLevel.Error },
@@ -225,7 +225,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             {
                 using (var sarifLogger = new SarifLogger(textWriter,
                                                          analysisTargets: new string[] { @"example.cpp" },
-                                                         logFilePersistenceOptions: LogFilePersistenceOptions.None,
+                                                         logFilePersistenceOptions: FilePersistenceOptions.None,
                                                          invocationTokensToRedact: null,
                                                          invocationPropertiesToLog: null,
                                                          levels: new List<FailureLevel> { FailureLevel.Warning, FailureLevel.Error },
@@ -965,16 +965,16 @@ namespace Microsoft.CodeAnalysis.Sarif
         [Fact]
         public void SarifLogger_LoggingOptions()
         {
-            foreach (object loggingOptionsObject in Enum.GetValues(typeof(LogFilePersistenceOptions)))
+            foreach (object loggingOptionsObject in Enum.GetValues(typeof(FilePersistenceOptions)))
             {
-                TestForLoggingOption((LogFilePersistenceOptions)loggingOptionsObject);
+                TestForLoggingOption((FilePersistenceOptions)loggingOptionsObject);
             }
         }
 
         // This helper is intended to validate a single enum member only
         // and not arbitrary combinations of bits. One defined member,
         // All, contains all bits.
-        private void TestForLoggingOption(LogFilePersistenceOptions loggingOption)
+        private void TestForLoggingOption(FilePersistenceOptions loggingOption)
         {
             string fileName = Path.GetTempFileName();
 
@@ -1014,50 +1014,17 @@ namespace Microsoft.CodeAnalysis.Sarif
             }
         }
 
-        private void ValidateLoggerForExclusiveOption(SarifLogger logger, LogFilePersistenceOptions loggingOptions)
+        private void ValidateLoggerForExclusiveOption(SarifLogger logger, FilePersistenceOptions loggingOptions)
         {
-            switch (loggingOptions)
-            {
-                case LogFilePersistenceOptions.None:
-                {
-                    logger.OverwriteExistingOutputFile.Should().BeFalse();
-                    logger.PrettyPrint.Should().BeFalse();
-                    logger.Optimize.Should().BeFalse();
-                    break;
-                }
-                case LogFilePersistenceOptions.OverwriteExistingOutputFile:
-                {
-                    logger.OverwriteExistingOutputFile.Should().BeTrue();
-                    logger.PrettyPrint.Should().BeFalse();
-                    logger.Optimize.Should().BeFalse();
-                    break;
-                }
-                case LogFilePersistenceOptions.PrettyPrint:
-                {
-                    logger.OverwriteExistingOutputFile.Should().BeFalse();
-                    logger.PrettyPrint.Should().BeTrue();
-                    logger.Optimize.Should().BeFalse();
-                    break;
-                }
-                case LogFilePersistenceOptions.Optimize:
-                {
-                    logger.OverwriteExistingOutputFile.Should().BeFalse();
-                    logger.PrettyPrint.Should().BeFalse();
-                    logger.Optimize.Should().BeTrue();
-                    break;
-                }
-                case LogFilePersistenceOptions.All:
-                {
-                    logger.OverwriteExistingOutputFile.Should().BeTrue();
-                    logger.PrettyPrint.Should().BeTrue();
-                    logger.Optimize.Should().BeTrue();
-                    break;
-                }
-                default:
-                {
-                    throw new ArgumentException();
-                }
-            }
+
+            bool force = loggingOptions.HasFlag(FilePersistenceOptions.ForceOverwrite);
+            logger.OverwriteExistingOutputFile.Should().Be(force);
+
+            bool prettyPrint = loggingOptions.HasFlag(FilePersistenceOptions.PrettyPrint);
+            logger.PrettyPrint.Should().Be(prettyPrint);
+
+            bool optimize = loggingOptions.HasFlag(FilePersistenceOptions.Optimize);
+            logger.Optimize.Should().Be(optimize);
         }
 
         [Fact]

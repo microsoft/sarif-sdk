@@ -69,11 +69,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
             var options = new MergeOptions
             {
-                PrettyPrint = true,
                 OutputDirectoryPath = TestOutputDirectory,
                 TargetFileSpecifiers = new[] { targetFileSpecifier },
                 OutputFileName = outputFileName,
-                Force = true,
+                OutputFileOptions = new[] { FilePersistenceOptions.ForceOverwrite, FilePersistenceOptions.PrettyPrint },
             };
 
             var mergeCommand = new MergeCommand(fileSystem);

@@ -15,47 +15,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 {
     public class DriverExtensionMethodsTests
     {
-        [Fact]
-        public void ConvertingAnalyzeOptionsToLoggingOptions_ProducesExpectedLoggingOptions()
-        {
-            LogFilePersistenceOptions loggingOptions;
-
-            TestAnalyzeOptions analyzeOptions = new TestAnalyzeOptions()
-            {
-                Quiet = true
-            };
-
-            loggingOptions = analyzeOptions.ConvertToLogFilePersistenceOptions();
-            loggingOptions.Should().Be(LogFilePersistenceOptions.PrettyPrint);
-
-            analyzeOptions = new TestAnalyzeOptions()
-            {
-                Minify = true
-            };
-
-            loggingOptions = analyzeOptions.ConvertToLogFilePersistenceOptions();
-            loggingOptions.Should().Be(LogFilePersistenceOptions.None);
-
-            analyzeOptions = new TestAnalyzeOptions()
-            {
-                Minify = true,
-                PrettyPrint = true
-            };
-
-            loggingOptions = analyzeOptions.ConvertToLogFilePersistenceOptions();
-            loggingOptions.Should().Be(LogFilePersistenceOptions.PrettyPrint);
-
-            analyzeOptions = new TestAnalyzeOptions()
-            {
-                Force = true
-            };
-
-            loggingOptions = analyzeOptions.ConvertToLogFilePersistenceOptions();
-            loggingOptions.Should().Be(
-                LogFilePersistenceOptions.OverwriteExistingOutputFile |
-                LogFilePersistenceOptions.PrettyPrint);
-        }
-
         private class ValidateSingleFileOutputOptionsTestCase
         {
             public string Title;
@@ -77,9 +36,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                     Title = "--inline and not --force",
                     Options = new SingleFileOptionsBase
                     {
-                        Inline = true,
-                        Force = false,
-                        OutputFilePath = null
+                        OutputFilePath = null,
+                        OutputFileOptions = new[] { FilePersistenceOptions.Inline },
+
                     },
                     ExpectedResult = true,
                     ExpectedForce = true
@@ -90,8 +49,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                     Title = "--inline and superfluous --force",
                     Options = new SingleFileOptionsBase
                     {
-                        Inline = true,
-                        Force = true,
+                        OutputFileOptions = new[] { FilePersistenceOptions.ForceOverwrite, FilePersistenceOptions.Inline },
                         OutputFilePath = null
                     },
                     ExpectedResult = true,
@@ -103,8 +61,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                     Title = "Output path with --force",
                     Options = new SingleFileOptionsBase
                     {
-                        Inline = false,
-                        Force = true,
+                        OutputFileOptions = new[] { FilePersistenceOptions.ForceOverwrite },
                         OutputFilePath = "output.sarif"
                     },
                     ExpectedResult = true,
@@ -116,8 +73,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                     Title = "Output path without --force",
                     Options = new SingleFileOptionsBase
                     {
-                        Inline = false,
-                        Force = false,
+                        OutputFileOptions = new[] { FilePersistenceOptions.None },
                         OutputFilePath = "output.sarif"
                     },
                     ExpectedResult = true,
@@ -129,8 +85,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                     Title = "Neither --inline nor output path",
                     Options = new SingleFileOptionsBase
                     {
-                        Inline = false,
-                        Force = false,
+
+                        OutputFileOptions = new[] { FilePersistenceOptions.None },
                         OutputFilePath = null
                     },
                     ExpectedResult = true
@@ -141,8 +97,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                     Title = "Both --inline and output path",
                     Options = new SingleFileOptionsBase
                     {
-                        Inline = true,
-                        Force = false,
+                        OutputFileOptions = new[] { FilePersistenceOptions.Inline },
                         OutputFilePath = "output.sarif"
                     },
                     ExpectedResult = false
@@ -189,8 +144,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                     Title = "--force and not --inline",
                     Options = new MultipleFilesOptionsBase
                     {
-                        Inline = false,
-                        Force = true
+                        OutputFileOptions = new[] { FilePersistenceOptions.ForceOverwrite },
                     },
                     ExpectedResult = true,
                     ExpectedForce = true
@@ -201,8 +155,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                     Title = "--inline and not --force",
                     Options = new MultipleFilesOptionsBase
                     {
-                        Inline = true,
-                        Force = false
+                        OutputFileOptions = new[] { FilePersistenceOptions.Inline },
                     },
                     ExpectedResult = true,
                     ExpectedForce = true
@@ -213,8 +166,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                     Title = "--inline and superfluous --force",
                     Options = new MultipleFilesOptionsBase
                     {
-                        Inline = true,
-                        Force = true
+                        OutputFileOptions = new[] { FilePersistenceOptions.ForceOverwrite, FilePersistenceOptions.Inline },
                     },
                     ExpectedResult = true,
                     ExpectedForce = true
@@ -359,8 +311,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                     Title = "--pretty-print and not --minify",
                     Options = new SingleFileOptionsBase
                     {
-                        PrettyPrint = true,
-                        Minify = false
+                        OutputFileOptions = new[] { FilePersistenceOptions.PrettyPrint }
                     },
                     ExpectedResult = true,
                     ExpectedPrettyPrint = true
@@ -371,8 +322,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                     Title = "--minify and not --pretty-print",
                     Options = new SingleFileOptionsBase
                     {
-                        PrettyPrint = false,
-                        Minify = true
+                        OutputFileOptions = new[] { FilePersistenceOptions.Minify }
                     },
                     ExpectedResult = true,
                     ExpectedPrettyPrint = false
@@ -383,8 +333,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                     Title = "Neither --pretty-print nor --minify",
                     Options = new SingleFileOptionsBase
                     {
-                        PrettyPrint = false,
-                        Minify = false
+                        OutputFileOptions = new[] { FilePersistenceOptions.None }
                     },
                     ExpectedResult = true,
                     ExpectedPrettyPrint = true
@@ -392,13 +341,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
                 new ValidateOutputFormatOptionsTestCase
                 {
-                    Title = "Both --pretty-print and --minify",
+                    Title = "Both --pretty-print and --minify (succeeds and prefers pretty print)",
                     Options = new SingleFileOptionsBase
                     {
-                        PrettyPrint = true,
-                        Minify = true
+                        OutputFileOptions = new[] { FilePersistenceOptions.Minify, FilePersistenceOptions.PrettyPrint }
                     },
-                    ExpectedResult = false,
+                    ExpectedResult = true,
                     ExpectedPrettyPrint = true
                 }
             }.AsReadOnly();

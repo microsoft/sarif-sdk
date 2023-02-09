@@ -22,7 +22,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
         public SarifOneZeroZeroLogger(
             string outputFilePath,
-            LogFilePersistenceOptions logFilePersistenceOptions = SarifLogger.DefaultLogFilePersistenceOptions,
+            FilePersistenceOptions logFilePersistenceOptions = SarifLogger.DefaultLogFilePersistenceOptions,
             OptionallyEmittedData dataToInsert = OptionallyEmittedData.None,
             OptionallyEmittedData dataToRemove = OptionallyEmittedData.None,
             Run run = null,

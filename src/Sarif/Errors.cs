@@ -7,6 +7,7 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Runtime.InteropServices.ComTypes;
 
 namespace Microsoft.CodeAnalysis.Sarif
 {
@@ -14,6 +15,8 @@ namespace Microsoft.CodeAnalysis.Sarif
     {
         // Configuration errors:
         private const string ERR997_MissingFile = "ERR997.MissingFile";
+        private const string ERR997_MissingCommandlineArgument = "ERR997.MissingCommandlineArgument";
+
         private const string ERR997_NoRulesLoaded = "ERR997.NoRulesLoaded";
         internal const string ERR997_NoPluginsConfigured = "ERR997.NoPluginsConfigured";
         private const string ERR997_ExceptionLoadingPlugIn = "ERR997.ExceptionLoadingPlugIn";
@@ -25,7 +28,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         private const string ERR997_MissingReportingConfiguration = "ERR997.MissingReportingConfiguration";
         private const string ERR997_ExceptionLoadingAnalysisTarget = "ERR997.ExceptionLoadingAnalysisTarget";
         private const string ERR997_ExceptionInstantiatingSkimmers = "ERR997.ExceptionInstantiatingSkimmers";
-        private const string ERR997_OutputFileAlreadyExists = "ERR997.OutputFileAlreadyExists";
+        private const string ERR997_FileAlreadyExists = "ERR997.FileAlreadyExists";
         internal const string ERR997_IncompatibleRulesDetected = "ERR997.IncompatibleRulesDetected";
 
         // Rule disabling tool errors:
@@ -223,6 +226,32 @@ namespace Microsoft.CodeAnalysis.Sarif
                     fileName));
         }
 
+        public static void LogMissingCommandlineArgument(IAnalysisContext context, string missing, string required)
+        {
+            if (context == null)
+            {
+                throw new ArgumentNullException(nameof(context));
+            }
+
+            context.RuntimeErrors |= RuntimeConditions.InvalidCommandLineOption;
+
+            // The {0} argument(s) must be specified when using {1}.
+
+            // A required file specified on the command line could not be found: '{0}'. 
+            context.Logger.LogConfigurationNotification(
+                CreateNotification(
+                    uri: null,
+                    ERR997_MissingCommandlineArgument,
+                    ruleId: null,
+                    FailureLevel.Error,
+                    exception: null,
+                    persistExceptionStack: false,
+                    messageFormat: null,
+                    missing,
+                    required));
+
+        }
+
         public static void LogExceptionAccessingFile(IAnalysisContext context, string fileName, Exception exception)
         {
             if (context == null)
@@ -344,7 +373,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                     pluginFilePath));
         }
 
-        public static void LogOutputFileAlreadyExists(IAnalysisContext context)
+        public static void LogFileAlreadyExists(IAnalysisContext context, string filePath)
         {
             if (context == null)
             {
@@ -353,16 +382,17 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             context.RuntimeErrors |= RuntimeConditions.OutputFileAlreadyExists;
 
+            // The output file '{0}' already exists. Use --force to overwrite.
             context.Logger.LogConfigurationNotification(
                 CreateNotification(
                     uri: null,
-                    ERR997_OutputFileAlreadyExists,
+                    ERR997_FileAlreadyExists,
                     ruleId: null,
                     FailureLevel.Error,
                     exception: null,
                     persistExceptionStack: false,
                     messageFormat: null,
-                    context.OutputFilePath));
+                    filePath));
         }
 
         public static void LogTargetParseError(IAnalysisContext context, Region region, string message)

@@ -58,7 +58,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 Level = new List<FailureLevel> { FailureLevel.Warning, FailureLevel.Error }
             };
 
-            SarifValidationContext context = null;
+            var context = new SarifValidationContext { FileSystem = mockFileSystem.Object };
             int returnCode = validateCommand.Run(options, ref context);
             context.RuntimeErrors.Should().Be(RuntimeConditions.OneOrMoreWarningsFired);
             returnCode.Should().Be(0);
@@ -140,14 +140,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             {
                 TargetFileSpecifiers = new string[] { path },
                 OutputFilePath = outputPath,
-                Force = true,
+                OutputFileOptions = new[] { FilePersistenceOptions.ForceOverwrite },
                 ConfigurationFilePath = configuration,
                 Kind = new List<ResultKind> { ResultKind.Fail },
                 Level = new List<FailureLevel> { FailureLevel.Warning, FailureLevel.Error }
             };
 
             // Verify command returned success
-            SarifValidationContext context = null;
+            var context = new SarifValidationContext { FileSystem = FileSystem.Instance };
             int returnCode = new ValidateCommand().Run(options, ref context);
             (context.RuntimeErrors & ~RuntimeConditions.Nonfatal).Should().Be(0);
             returnCode.Should().Be(0);

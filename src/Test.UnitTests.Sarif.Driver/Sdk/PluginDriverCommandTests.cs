@@ -22,12 +22,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             var mockLogger = new Mock<IAnalysisLogger>();
 
             mockContext.SetupGet(context => context.Logger).Returns(mockLogger.Object);
-            bool current = PluginDriverCommand<string>.ValidateInvocationPropertiesToLog(mockContext.Object,
-                                                                                         null);
+            bool current = PluginDriverCommand<string>.ValidateInvocationPropertiesToLog(mockContext.Object);
             current.Should().BeTrue();
 
-            current = PluginDriverCommand<string>.ValidateInvocationPropertiesToLog(mockContext.Object,
-                                                                                    Array.Empty<string>());
+
+            mockContext.Object.InvocationPropertiesToLog = new StringSet(Array.Empty<string>());
+
+            current = PluginDriverCommand<string>.ValidateInvocationPropertiesToLog(mockContext.Object);
             current.Should().BeTrue();
         }
 
@@ -38,20 +39,24 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             var mockLogger = new Mock<IAnalysisLogger>();
 
             mockContext.SetupGet(context => context.Logger).Returns(mockLogger.Object);
-            bool current = PluginDriverCommand<string>.ValidateInvocationPropertiesToLog(mockContext.Object,
-                                                                                         new List<string> { "Account" });
+            mockContext.Object.InvocationPropertiesToLog = new StringSet(new[] { "Account" });
+
+            bool current = PluginDriverCommand<string>.ValidateInvocationPropertiesToLog(mockContext.Object);
             current.Should().BeTrue();
         }
 
         [Fact]
         public void PluginDriverCommand_ValidateInvocationPropertiesToLog_ShouldReturnFalseIfPropertyIsInvalid()
         {
-            var mockContext = new Mock<IAnalysisContext>();
             var mockLogger = new Mock<IAnalysisLogger>();
 
-            mockContext.SetupGet(context => context.Logger).Returns(mockLogger.Object);
-            bool current = PluginDriverCommand<string>.ValidateInvocationPropertiesToLog(mockContext.Object,
-                                                                                         new List<string> { "test" });
+            var context = new TestAnalysisContext
+            {
+                Logger = mockLogger.Object,
+                InvocationPropertiesToLog = new StringSet(new[] { "invalidname" })
+            };
+
+            bool current = PluginDriverCommand<string>.ValidateInvocationPropertiesToLog(context);
             current.Should().BeFalse();
         }
 
