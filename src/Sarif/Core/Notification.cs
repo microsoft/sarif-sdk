@@ -14,7 +14,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             var sb = new System.Text.StringBuilder();
 
-            if (this.TimeUtc != null) { sb.Append($"{this.TimeUtc}"); }
+            if (this.TimeUtc != default) { sb.Append($"{this.TimeUtc}"); }
 
             Uri uri = this.Locations?[0].PhysicalLocation?.ArtifactLocation?.Uri;
             if (uri != null) { sb.Append(uri); }
