@@ -20,6 +20,8 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         public bool Quiet { get; set; }
 
+        public bool RichReturnCode { get; set; }
+
         public string AutomationId { get; set; }
 
         public Guid? AutomationGuid { get; set; }

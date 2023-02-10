@@ -134,6 +134,12 @@ namespace Microsoft.CodeAnalysis.Sarif
             set => this.Policy.SetProperty(ResultKindsProperty, value);
         }
 
+        public virtual bool RichReturnCode
+        {
+            get => this.Policy.GetProperty(RichReturnCodeProperty);
+            set => this.Policy.SetProperty(RichReturnCodeProperty, value);
+        }
+
         public bool Recurse
         {
             get => this.Policy.GetProperty(RecurseProperty);
@@ -228,6 +234,11 @@ namespace Microsoft.CodeAnalysis.Sarif
                         "Inline, and Optimize. Pretty-printed output is the default. When Inline is specified, " +
                         "output will be written to relevant input files rather than generating a new log. Optimize " +
                         "indicates that all duplicative information in the log should be removed, minimizing size.");
+
+        public static PerLanguageOption<bool> RichReturnCodeProperty { get; } =
+                    new PerLanguageOption<bool>(
+                        "CoreSettings", nameof(RichReturnCode), defaultValue: () => false,
+                        "Emit a 'rich' return code consisting of a bitfield of conditions (as opposed to 0 or 1 indicating success or failure.");
 
         public static PerLanguageOption<bool> RecurseProperty { get; } =
                     new PerLanguageOption<bool>(

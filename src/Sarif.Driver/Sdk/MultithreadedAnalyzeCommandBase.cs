@@ -69,16 +69,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         {
             try
             {
+                context ??= new TContext();
                 context = InitializeContextFromOptions(options, ref context);
-
                 context = ValidateContext(context);
 
                 // TBD move this into RunOld or inline RunOld here.
                 InitializeOutputFile(context);
 
-
                 // TBD GOAL get rid of options from this signature.
-                return RunOld(options, ref context);
+                return RunOld(context);
             }
             catch (ExitApplicationException<ExitReason> ex)
             {
@@ -207,10 +206,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                    new StringSet();
         }
 
-        public virtual int RunOld(TOptions options, ref TContext globalContext)
+        public virtual int RunOld(TContext globalContext)
         {
-            globalContext ??= new TContext();
-            globalContext.Logger ??= InitializeLogger(options);
 
             try
             {
@@ -230,7 +227,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 globalContext.Logger.AnalysisStarted();
 
                 // 4. Run all multi-threaded analysis operations.
-                AnalyzeTargets(options, globalContext, skimmers);
+                AnalyzeTargets(globalContext, skimmers);
 
                 // 5. For test purposes, raise an unhandled exception if indicated
                 if (RaiseUnhandledExceptionInDriverCode)
@@ -289,9 +286,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                     return FAILURE;
                 }
             }
-            return options.RichReturnCode
-                ? (int)globalContext?.RuntimeErrors
-                : succeeded ? SUCCESS : FAILURE;
+            return 
+                globalContext.RichReturnCode
+                    ? (int)globalContext?.RuntimeErrors
+                    : succeeded ? SUCCESS : FAILURE;
         }
 
         private void MultithreadedAnalyzeTargets(TContext context,
@@ -984,8 +982,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 #endif
         }
 
-        protected virtual void AnalyzeTargets(TOptions options,
-                                              TContext context,
+        protected virtual void AnalyzeTargets(TContext context,
                                               IEnumerable<Skimmer<TContext>> skimmers)
         {
             if (skimmers == null)
