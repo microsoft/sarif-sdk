@@ -837,7 +837,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                     (ex) =>
                     {
                         Errors.LogExceptionCreatingLogFile(context, filePath, ex);
-                       ThrowExitApplicationException(ExitReason.ExceptionCreatingLogFile, ex);
+                        ThrowExitApplicationException(ExitReason.ExceptionCreatingLogFile, ex);
                     }
                 );
             }

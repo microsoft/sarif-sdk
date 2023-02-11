@@ -526,7 +526,9 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             if (context == null)
             {
-                throw new ArgumentNullException(nameof(context));
+                // TBD format using console logger?
+                Console.WriteLine(exception.ToString());
+                return;
             }
 
             context.RuntimeErrors |= RuntimeConditions.ExceptionInEngine;
