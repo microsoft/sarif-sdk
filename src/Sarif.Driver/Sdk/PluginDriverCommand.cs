@@ -163,57 +163,81 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
         protected virtual void ProcessBaseline(IAnalysisContext context)
         {
-            string baselineFilePath = context.BaselineFilePath;
-            if (string.IsNullOrEmpty(baselineFilePath))
-            {
-                return;
-            }
-
-            string outputFilePath = context.OutputFilePath;
-            bool inline = context.OutputFileOptions.HasFlag(FilePersistenceOptions.Inline);
-            if (!inline && string.IsNullOrEmpty(outputFilePath))
-            {
-                return;
-            }
-
-            SarifLog baselineFile = JsonConvert.DeserializeObject<SarifLog>(context.FileSystem.FileReadAllText(baselineFilePath));
-            SarifLog currentSarifLog = JsonConvert.DeserializeObject<SarifLog>(context.FileSystem.FileReadAllText(outputFilePath));
-
-            SarifLog baseline;
             try
             {
-                ISarifLogMatcher matcher = ResultMatchingBaselinerFactory.GetDefaultResultMatchingBaseliner();
-                baseline = matcher.Match(new SarifLog[] { baselineFile }, new SarifLog[] { currentSarifLog }).First();
+                string baselineFilePath = context.BaselineFilePath;
+                if (string.IsNullOrEmpty(baselineFilePath))
+                {
+                    return;
+                }
+
+                string outputFilePath = context.OutputFilePath;
+                bool inline = context.OutputFileOptions.HasFlag(FilePersistenceOptions.Inline);
+                if (!inline && string.IsNullOrEmpty(outputFilePath))
+                {
+                    return;
+                }
+
+                SarifLog baselineFile = JsonConvert.DeserializeObject<SarifLog>(context.FileSystem.FileReadAllText(baselineFilePath));
+                SarifLog currentSarifLog = JsonConvert.DeserializeObject<SarifLog>(context.FileSystem.FileReadAllText(outputFilePath));
+
+                SarifLog baseline;
+                try
+                {
+                    ISarifLogMatcher matcher = ResultMatchingBaselinerFactory.GetDefaultResultMatchingBaseliner();
+                    baseline = matcher.Match(new SarifLog[] { baselineFile }, new SarifLog[] { currentSarifLog }).First();
+                }
+                catch (Exception ex)
+                {
+                    throw new ExitApplicationException<ExitReason>(DriverResources.MSG_UnexpectedApplicationExit, ex)
+                    {
+                        ExitReason = ExitReason.ExceptionProcessingBaseline
+                    };
+                }
+
+                try
+                {
+                    string targetFile = inline ? baselineFilePath : outputFilePath;
+                    WriteSarifFile(context.FileSystem, baseline, targetFile, minify: !context.OutputFileOptions.HasFlag(FilePersistenceOptions.PrettyPrint));
+                }
+                catch (Exception ex)
+                {
+                    throw new ExitApplicationException<ExitReason>(DriverResources.MSG_UnexpectedApplicationExit, ex)
+                    {
+                        ExitReason = ExitReason.ExceptionWritingToLogFile
+                    };
+                }
             }
             catch (Exception ex)
             {
+                Console.WriteLine(ex.ToString());
+                context.RuntimeErrors |= RuntimeConditions.ExceptionProcessingBaseline;
                 throw new ExitApplicationException<ExitReason>(DriverResources.MSG_UnexpectedApplicationExit, ex)
                 {
                     ExitReason = ExitReason.ExceptionProcessingBaseline
                 };
             }
+        }
 
+        protected virtual void PostLogFile(IAnalysisContext context)
+        {
             try
             {
-                string targetFile = inline ? baselineFilePath : outputFilePath;
-                WriteSarifFile(context.FileSystem, baseline, targetFile, minify: !context.OutputFileOptions.HasFlag(FilePersistenceOptions.PrettyPrint));
+                using (var httpClient = new HttpClient())
+                {
+                    PostLogFile(context.PostUri, context.OutputFilePath, context.FileSystem, httpClient)
+                        .GetAwaiter()
+                        .GetResult();
+                }
             }
             catch (Exception ex)
             {
+                Console.WriteLine(ex.ToString());
+                context.RuntimeErrors |= RuntimeConditions.ExceptionPostingLogFile;
                 throw new ExitApplicationException<ExitReason>(DriverResources.MSG_UnexpectedApplicationExit, ex)
                 {
-                    ExitReason = ExitReason.ExceptionWritingToLogFile
+                    ExitReason = ExitReason.ExceptionPostingLogFile
                 };
-            }
-        }
-
-        protected virtual void PostLogFile(string postUri, string outputFilePath, IFileSystem fileSystem)
-        {
-            using (var httpClient = new HttpClient())
-            {
-                PostLogFile(postUri, outputFilePath, fileSystem, httpClient)
-                    .GetAwaiter()
-                    .GetResult();
             }
         }
 
@@ -224,17 +248,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 return;
             }
 
-            try
-            {
-                await SarifLog.Post(new Uri(postUri), outputFilePath, fileSystem, httpClient);
-            }
-            catch (Exception ex)
-            {
-                throw new ExitApplicationException<ExitReason>(DriverResources.MSG_UnexpectedApplicationExit, ex)
-                {
-                    ExitReason = ExitReason.ExceptionPostingLogFile
-                };
-            }
+            await SarifLog.Post(new Uri(postUri), outputFilePath, fileSystem, httpClient);
         }
     }
 }

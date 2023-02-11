@@ -78,7 +78,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                                                                           mockFileSystem.Object,
                                                                           httpClient: null);
             });
-            exception.Should().BeOfType(typeof(ExitApplicationException<ExitReason>));
+
+            // TBD change this to an end-to-end test that injects an unhandled exception in post method.
+            exception.Should().BeOfType(typeof(ArgumentNullException));
         }
     }
 }

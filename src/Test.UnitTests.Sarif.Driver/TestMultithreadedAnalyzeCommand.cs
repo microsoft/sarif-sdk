@@ -30,7 +30,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             if (context.Policy.GetProperty(TestRule.Behaviors).HasFlag(TestRuleBehaviors.RegardOptionsAsInvalid))
             {
                 context.RuntimeErrors |= RuntimeConditions.InvalidCommandLineOption;
-                ThrowExitApplicationException(context, ExitReason.InvalidCommandLineOption);
+                ThrowExitApplicationException(ExitReason.InvalidCommandLineOption);
             }
 
             return context;
@@ -55,7 +55,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             if (context.Policy.GetProperty(TestRule.Behaviors).HasFlag(TestRuleBehaviors.RegardOptionsAsInvalid))
             {
                 context.RuntimeErrors |= RuntimeConditions.InvalidCommandLineOption;
-                ThrowExitApplicationException(context, ExitReason.InvalidCommandLineOption);
+                ThrowExitApplicationException(ExitReason.InvalidCommandLineOption);
             }
 
             base.ValidateOptions(options, context);
@@ -83,7 +83,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             if (context.Policy.GetProperty(TestRule.Behaviors).HasFlag(TestRuleBehaviors.RaiseExceptionProcessingBaseline))
             {
                 context.RuntimeErrors |= RuntimeConditions.ExceptionProcessingBaseline;
-                ThrowExitApplicationException((TestAnalysisContext)context, ExitReason.ExceptionProcessingBaseline);
+                ThrowExitApplicationException(ExitReason.ExceptionProcessingBaseline);
             }
 
             base.ProcessBaseline(context);

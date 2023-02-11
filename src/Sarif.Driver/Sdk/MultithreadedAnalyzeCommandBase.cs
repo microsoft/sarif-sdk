@@ -61,29 +61,63 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
         public override int Run(TOptions options)
         {
-            TContext globalContext = default;
-            return Run(options, ref globalContext);
+            TContext context = default;
+            return Run(options, ref context);
         }
 
         public virtual int Run(TOptions options, ref TContext context)
         {
+            bool succeeded = false;
+
             try
             {
-                context ??= new TContext();
-                context = InitializeContextFromOptions(options, ref context);
-                context = ValidateContext(context);
+                if (options != null)
+                {
+                    context = InitializeContextFromOptions(options, ref context);
+                }
 
-                // TBD move this into RunOld or inline RunOld here.
+                context = ValidateContext(context);
                 InitializeOutputFile(context);
 
-                // TBD GOAL get rid of options from this signature.
-                return RunOld(context);
+                // 1. Instantiate skimmers. We need to do this before initializing
+                //    the output file so that we can preconstruct the tool 
+                //    extensions data written to the SARIF file. Due to this ordering, 
+                //    we won't emit any failures or notifications in this operation 
+                //    to the log file itself: it will only appear in console output.
+                ISet<Skimmer<TContext>> skimmers = CreateSkimmers(context);
+
+                // 2. Initialize skimmers. Initialize occurs a single time only. This
+                //    step needs to occurs after initializing configuration in order
+                //    to allow command-line override of rule settings
+                skimmers = InitializeSkimmers(skimmers, context);
+
+                // 3. Log analysis initiation
+                context.Logger.AnalysisStarted();
+
+                // 4. Run all multi-threaded analysis operations.
+                AnalyzeTargets(context, skimmers);
+
+                // 5. For test purposes, raise an unhandled exception if indicated
+                if (RaiseUnhandledExceptionInDriverCode)
+                {
+                    throw new InvalidOperationException(GetType().Name);
+                }
+
+                context?.Logger.AnalysisStopped(context.RuntimeErrors);
+                context?.Dispose();
+
+                if ((context.RuntimeErrors & ~RuntimeConditions.Nonfatal) == RuntimeConditions.None)
+                {
+                    ProcessBaseline(context);
+                    PostLogFile(context);
+                }
+
+                succeeded = (context.RuntimeErrors & ~RuntimeConditions.Nonfatal) == RuntimeConditions.None;
             }
             catch (ExitApplicationException<ExitReason> ex)
             {
                 // These exceptions have already been logged
                 ExecutionException = ex;
-                return FAILURE;
             }
             catch (Exception ex)
             {
@@ -95,12 +129,17 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                     Errors.LogUnhandledEngineException(context, ex);
                 }
                 ExecutionException = ex;
-                return FAILURE;
             }
             finally
             {
+                context?.Logger?.AnalysisStopped(context.RuntimeErrors);
                 context?.Dispose();
             }
+
+            return
+                context.RichReturnCode
+                    ? (int)context?.RuntimeErrors
+                    : succeeded ? SUCCESS : FAILURE;
         }
 
         public virtual TContext InitializeContextFromOptions(TOptions options, ref TContext context)
@@ -193,7 +232,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
             if (!succeeded)
             {
-                ThrowExitApplicationException(context, ExitReason.InvalidCommandLineOption);
+                ThrowExitApplicationException(ExitReason.InvalidCommandLineOption);
             }
 
             return context;
@@ -204,92 +243,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             return strings?.Any() == true ?
                    new StringSet(strings) :
                    new StringSet();
-        }
-
-        public virtual int RunOld(TContext globalContext)
-        {
-
-            try
-            {
-                // 1. Instantiate skimmers. We need to do this before initializing
-                //    the output file so that we can preconstruct the tool 
-                //    extensions data written to the SARIF file. Due to this ordering, 
-                //    we won't emit any failures or notifications in this operation 
-                //    to the log file itself: it will only appear in console output.
-                ISet<Skimmer<TContext>> skimmers = CreateSkimmers(globalContext);
-
-                // 2. Initialize skimmers. Initialize occurs a single time only. This
-                //    step needs to occurs after initializing configuration in order
-                //    to allow command-line override of rule settings
-                skimmers = InitializeSkimmers(skimmers, globalContext);
-
-                // 3. Log analysis initiation
-                globalContext.Logger.AnalysisStarted();
-
-                // 4. Run all multi-threaded analysis operations.
-                AnalyzeTargets(globalContext, skimmers);
-
-                // 5. For test purposes, raise an unhandled exception if indicated
-                if (RaiseUnhandledExceptionInDriverCode)
-                {
-                    throw new InvalidOperationException(GetType().Name);
-                }
-            }
-            catch (ExitApplicationException<ExitReason> ex)
-            {
-                // These exceptions have already been logged
-                ExecutionException = ex;
-                return FAILURE;
-            }
-            catch (Exception ex)
-            {
-                ex = ex.InnerException ?? ex;
-
-                if (!(ex is ExitApplicationException<ExitReason>))
-                {
-                    // These exceptions escaped our net and must be logged here
-                    Errors.LogUnhandledEngineException(globalContext, ex);
-                }
-                ExecutionException = ex;
-                return FAILURE;
-            }
-            finally
-            {
-                globalContext.Logger.AnalysisStopped(globalContext.RuntimeErrors);
-                globalContext.Dispose();
-            }
-
-            bool succeeded = (globalContext.RuntimeErrors & ~RuntimeConditions.Nonfatal) == RuntimeConditions.None;
-
-            // TBD we should have a better pattern for these post-processing operations.
-            if (succeeded)
-            {
-                try
-                {
-                    ProcessBaseline(globalContext);
-                }
-                catch (Exception ex)
-                {
-                    globalContext.RuntimeErrors |= RuntimeConditions.ExceptionProcessingBaseline;
-                    ExecutionException = ex;
-                    return FAILURE;
-                }
-
-                try
-                {
-                    PostLogFile(globalContext.PostUri, globalContext.OutputFilePath, globalContext.FileSystem);
-                }
-                catch (Exception ex)
-                {
-                    globalContext.RuntimeErrors |= RuntimeConditions.ExceptionPostingLogFile;
-                    ExecutionException = ex;
-                    return FAILURE;
-                }
-            }
-            return 
-                globalContext.RichReturnCode
-                    ? (int)globalContext?.RuntimeErrors
-                    : succeeded ? SUCCESS : FAILURE;
         }
 
         private void MultithreadedAnalyzeTargets(TContext context,
@@ -425,12 +378,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                     catch (OperationCanceledException)
                     {
                         Errors.LogAnalysisCanceled(context);
-                        ThrowExitApplicationException(context, ExitReason.ExceptionWritingToLogFile);
+                        ThrowExitApplicationException(ExitReason.ExceptionWritingToLogFile);
                     }
                     catch (Exception e)
                     {
                         Errors.LogUnhandledEngineException(globalContext, e);
-                        ThrowExitApplicationException(context, ExitReason.ExceptionWritingToLogFile, e);
+                        ThrowExitApplicationException(ExitReason.ExceptionWritingToLogFile, e);
                     }
                     finally
                     {
@@ -525,17 +478,21 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             }
             catch (OperationCanceledException)
             {
-                Errors.LogAnalysisCanceled(context);
-                ThrowExitApplicationException(context, ExitReason.ExceptionWritingToLogFile);
+                lock (context)
+                {
+                    Errors.LogAnalysisCanceled(context);
+                }
+                ThrowExitApplicationException(ExitReason.AnalysisCanceled);
 
             }
             catch (Exception e)
             {
+                // TBD is this lock required?
                 lock (context)
                 {
                     Errors.LogUnhandledEngineException(context, e);
                 }
-                ThrowExitApplicationException(context, ExitReason.UnhandledExceptionInEngine);
+                ThrowExitApplicationException(ExitReason.UnhandledExceptionInEngine);
             }
             finally
             {
@@ -555,7 +512,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             if (_fileContextsCount == 0)
             {
                 Errors.LogNoValidAnalysisTargets(context);
-                ThrowExitApplicationException(context, ExitReason.NoValidAnalysisTargets);
+                ThrowExitApplicationException(ExitReason.NoValidAnalysisTargets);
             }
 
             return true;
@@ -661,8 +618,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 {
                     Errors.LogUnhandledEngineException(globalContext, e);
                 }
-
-                ThrowExitApplicationException(globalContext, ExitReason.UnhandledExceptionInEngine);
+                ThrowExitApplicationException(ExitReason.UnhandledExceptionInEngine, e);
             }
             finally
             {
@@ -694,12 +650,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                     catch (OperationCanceledException)
                     {
                         Errors.LogAnalysisCanceled(globalContext);
-                        ThrowExitApplicationException(globalContext, ExitReason.AnalysisCanceled);
+                        ThrowExitApplicationException(ExitReason.AnalysisCanceled);
                     }
                     catch (Exception e)
                     {
                         Errors.LogUnhandledEngineException(globalContext, e);
-                        ThrowExitApplicationException(globalContext, ExitReason.UnhandledExceptionInEngine);
+                        ThrowExitApplicationException(ExitReason.UnhandledExceptionInEngine, e);
                     }
                     finally
                     {
@@ -730,7 +686,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
             if (!succeeded)
             {
-                ThrowExitApplicationException(context, ExitReason.InvalidCommandLineOption);
+                ThrowExitApplicationException(ExitReason.InvalidCommandLineOption);
             }
         }
 
@@ -805,7 +761,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                               shouldExist: !string.IsNullOrEmpty(configurationFileName) ? true : (bool?)null))
             {
                 // TBD exit reason update to invalid config?
-                ThrowExitApplicationException(context, ExitReason.InvalidCommandLineOption);
+                ThrowExitApplicationException(ExitReason.InvalidCommandLineOption);
             }
 
             if (string.IsNullOrEmpty(configurationFileName)) { return context; }
@@ -881,7 +837,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                     (ex) =>
                     {
                         Errors.LogExceptionCreatingLogFile(context, filePath, ex);
-                        ThrowExitApplicationException(context, ExitReason.ExceptionCreatingLogFile, ex);
+                       ThrowExitApplicationException(ExitReason.ExceptionCreatingLogFile, ex);
                     }
                 );
             }
@@ -946,13 +902,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             catch (Exception ex)
             {
                 Errors.LogExceptionInstantiatingSkimmers(context, DefaultPluginAssemblies, ex);
-                ThrowExitApplicationException(context, ExitReason.UnhandledExceptionInstantiatingSkimmers, ex);
+                ThrowExitApplicationException(ExitReason.UnhandledExceptionInstantiatingSkimmers, ex);
             }
 
             if (result.Count == 0)
             {
                 Errors.LogNoRulesLoaded(context);
-                ThrowExitApplicationException(context, ExitReason.NoRulesLoaded);
+                ThrowExitApplicationException(ExitReason.NoRulesLoaded);
             }
             return result;
         }
@@ -988,7 +944,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             if (skimmers == null)
             {
                 Errors.LogNoRulesLoaded(context);
-                ThrowExitApplicationException(context, ExitReason.NoRulesLoaded);
+                ThrowExitApplicationException(ExitReason.NoRulesLoaded);
             }
 
             var disabledSkimmers = new SortedSet<string>();
@@ -1027,7 +983,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             if (disabledSkimmers.Count == skimmers.Count())
             {
                 Errors.LogAllRulesExplicitlyDisabled(context);
-                ThrowExitApplicationException(context, ExitReason.NoRulesLoaded);
+                ThrowExitApplicationException(ExitReason.NoRulesLoaded);
             }
 
             this.CheckIncompatibleRules(skimmers, context, disabledSkimmers);
@@ -1245,14 +1201,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             return candidateSkimmers;
         }
 
-        protected void ThrowExitApplicationException(TContext _, ExitReason exitReason, Exception innerException = null)
+        protected void ThrowExitApplicationException(ExitReason exitReason, Exception innerException = null)
         {
-            // TBD context is unused!
             throw new ExitApplicationException<ExitReason>(DriverResources.MSG_UnexpectedApplicationExit, innerException)
             {
                 ExitReason = exitReason
             };
         }
+
 
         internal void CheckIncompatibleRules(IEnumerable<Skimmer<TContext>> skimmers, TContext context, ISet<string> disabledSkimmers)
         {
@@ -1280,7 +1236,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                     if (availableRules.ContainsKey(incompatibleRuleId))
                     {
                         Errors.LogIncompatibleRules(context, entry.Key, incompatibleRuleId);
-                        ThrowExitApplicationException(context, ExitReason.IncompatibleRulesDetected);
+                        ThrowExitApplicationException(ExitReason.IncompatibleRulesDetected);
                     }
                 }
             }
