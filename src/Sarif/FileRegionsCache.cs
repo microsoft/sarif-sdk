@@ -159,6 +159,8 @@ namespace Microsoft.CodeAnalysis.Sarif
                 return null;
             }
 
+            fileText ??= newLineIndex.Text;
+
             // Generating full inputRegion to prevent issues.
             Region originalRegion = this.PopulateTextRegionProperties(inputRegion, uri, populateSnippet: true, fileText);
 
