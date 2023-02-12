@@ -524,7 +524,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         public static void LogUnhandledEngineException(IAnalysisContext context, Exception exception)
         {
-            if (context == null)
+            if (context?.Logger == null)
             {
                 // TBD format using console logger?
                 Console.WriteLine(exception.ToString());
