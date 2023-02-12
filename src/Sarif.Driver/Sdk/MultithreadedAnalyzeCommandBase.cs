@@ -378,7 +378,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                     catch (OperationCanceledException)
                     {
                         Errors.LogAnalysisCanceled(context);
-                        ThrowExitApplicationException(ExitReason.ExceptionWritingToLogFile);
+                        ThrowExitApplicationException(ExitReason.AnalysisCanceled);
                     }
                     catch (Exception e)
                     {
