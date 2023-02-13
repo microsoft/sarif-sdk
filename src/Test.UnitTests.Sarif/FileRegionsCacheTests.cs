@@ -4,6 +4,7 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel.DataAnnotations;
 using System.Diagnostics;
 using System.Runtime.Intrinsics.X86;
 using System.Text;
@@ -722,8 +723,11 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests
 
             Region multilineRegion = fileRegionsCache.ConstructMultilineContextSnippet(region, uri);
 
-            // 114 (charoffset) + 600 (charlength) + left-side + remainder of file.
-            multilineRegion.CharLength.Should().Be(fileContent.Length);
+            // 114 (charoffset) + 600 (charlength) + (128 - prefixed length).
+
+            // The length of our prepended data;
+            int prefixed = Math.Max(multilineRegion.CharOffset - 128, 0);
+            multilineRegion.CharLength.Should().Be(prefixed + region.CharLength + (128 - prefixed));
         }
 
         [Fact]
