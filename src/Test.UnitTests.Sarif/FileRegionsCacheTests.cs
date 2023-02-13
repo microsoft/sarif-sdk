@@ -459,6 +459,8 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests
             int bsl = FileRegionsCache.BIGSNIPPETLENGTH;
             int ssl = FileRegionsCache.SMALLSNIPPETLENGTH;
 
+            var context = new StringBuilder();
+
             // Prepend a newline (or not!) in front of every sentinel region.
             foreach (string pr in new string[] { null, Environment.NewLine })
             {
@@ -501,7 +503,7 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests
                         $"{new string(padding,   0)}{pr}{sentinel}{po}{new string(padding,   0)}",
                     };
 
-                    var context = new StringBuilder();
+                    context.Clear();
                     int iteration = 0;
 
                     // DEBUGGING THESE TESTS: these tests do not accumulate all outputs and report 
