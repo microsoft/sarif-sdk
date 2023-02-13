@@ -714,14 +714,14 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests
                 CharOffset = 114,
                 CharLength = 600,
             };
-           
+
             var fileRegionsCache = new FileRegionsCache();
             region = fileRegionsCache.PopulateTextRegionProperties(region, uri, true, fileContent);
 
             Region multilineRegion = fileRegionsCache.ConstructMultilineContextSnippet(region, uri);
 
-            // 114 (charoffset) + 600 (charlength) + left-side + remainder of 128 chars.
-            multilineRegion.CharLength.Should().Be(114 + 600 + (128 - 114));
+            // 114 (charoffset) + 600 (charlength) + left-side + remainder of file.
+            multilineRegion.CharLength.Should().Be(fileContent.Length);
         }
 
         [Fact]
