@@ -520,7 +520,7 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests
                     foreach (string test in tests)
                     {
                         var cache = new FileRegionsCache();
-                        var uri = new Uri(@"c:\temp\DoesNotExist\" + Guid.NewGuid().ToString() + ".cpp");
+                        var uri = new Uri(@$"c:\temp\DoesNotExist\{Guid.NewGuid()}.cpp");
 
                         int index = test.IndexOf(sentinel);
 
