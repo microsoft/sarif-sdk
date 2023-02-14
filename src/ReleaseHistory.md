@@ -11,6 +11,8 @@
 * BRK: For `Guid` properties defined in SARIF spec, updated Json schema to use `uuid`, and updated C# object model to use `Guid?` instead of `string`. [#2555](https://github.com/microsoft/sarif-sdk/pull/2555)
 * BRK: Mark `AnalyzeCommandBase` as obsolete. This type will be removed in the next significant update.  [#2599](https://github.com/microsoft/sarif-sdk/pull/2599)
 * BRK: `LogUnhandledEngineException` no longer has a return value (and updates the `RuntimeErrors` context property directly as other helpers do).  [#2599](https://github.com/microsoft/sarif-sdk/pull/2599)
+* BUG: Populate missing context region data for small, single-line scan targets. [#2616](https://github.com/microsoft/sarif-sdk/pull/2616)
+* BUG: Increase parallelism in `MultithreadedAnalyzeCommandBase` by correcting task creation. []#2618](https://github.com/microsoft/sarif-sdk/pull/2618)
 * BUG: Resolve hangs due to unhandled exceptions during multithreaded analysis file enumeration phase.  [#2599](https://github.com/microsoft/sarif-sdk/pull/2599)
 * BUG: Resolve hangs due to unhandled exceptions during multithreaded analysis file hashing phase.  [#2600](https://github.com/microsoft/sarif-sdk/pull/2600)
 * BUG: Another attempt to resolve 'InvalidOperationException' with message `Collection was modified; enumeration operation may not execute` in `MultithreadedAnalyzeCommandBase`, raised when analyzing with the `--hashes` switch. [#2459](https://github.com/microsoft/sarif-sdk/pull/2549). There was a previous attempt to fix this in [#2447](https://github.com/microsoft/sarif-sdk/pull/2447).
