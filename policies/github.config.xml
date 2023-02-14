@@ -30,4 +30,7 @@
   <Properties Key='GH1006.ProvideCheckoutPath.Options'>
     <Property Key='RuleEnabled' Value='Error' />
   </Properties>
+  <Properties Key='GH1007.ProvideFullyFormattedMessageStrings.Options'>
+    <Property Key='RuleEnabled' Value='Error' />
+  </Properties>
 </Properties>

@@ -60,7 +60,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                                                 kinds: new List<ResultKind> { ResultKind.Fail }))
             {
                 logger.Log(new ReportingDescriptor { Id = "MyId" },
-                           new Result { Message = new Message { Text = "My text" }, RuleId = "MyId" });
+                           new Result { Message = new Message { Text = "My text" }, RuleId = "MyId" }, null);
             }
 
             // Important. Force streamwriter to commit everything.
@@ -455,7 +455,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                                                              levels: new List<FailureLevel> { FailureLevel.Warning, FailureLevel.Error },
                                                              kinds: new List<ResultKind> { ResultKind.Fail }))
                     {
-                        sarifLogger.Log(rule, result);
+                        sarifLogger.Log(rule, result, null);
                     }
 
                     // The logger should have populated the artifact contents.
@@ -624,7 +624,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                         }
                     };
 
-                    sarifLogger.Log(rule, result);
+                    sarifLogger.Log(rule, result, null);
                 }
             }
 
@@ -756,7 +756,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                     var rule = new ReportingDescriptor { Id = "RuleId" };
                     var result = new Result { RuleId = "RuleId/1" };
 
-                    Action action = () => sarifLogger.Log(rule, result);
+                    Action action = () => sarifLogger.Log(rule, result, null);
                     action.Should().NotThrow();
                 }
             }
@@ -870,7 +870,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         private void LogSimpleResult(SarifLogger sarifLogger)
         {
             ReportingDescriptor rule = new ReportingDescriptor { Id = "RuleId" };
-            sarifLogger.Log(rule, CreateSimpleResult(rule));
+            sarifLogger.Log(rule, CreateSimpleResult(rule), null);
         }
 
         private Result CreateSimpleResult(ReportingDescriptor rule)
@@ -927,7 +927,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             OptionallyEmittedData dataToInsert = OptionallyEmittedData.ComprehensiveRegionProperties | OptionallyEmittedData.ContextRegionSnippets;
             var sarifLogger = new SarifLogger(writer, fileRegionsCache: fileRegionsCache, dataToInsert: dataToInsert);
-            sarifLogger.Log(rule, result);
+            sarifLogger.Log(rule, result, null);
 
             region = new Region() { StartLine = 2 };
             Region expectedRegion = fileRegionsCache.PopulateTextRegionProperties(region, uri, populateSnippet: true, fileText);
@@ -958,7 +958,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                     Message = new Message { Text = "test message" }
                 };
 
-                Assert.Throws<ArgumentException>(() => sarifLogger.Log(rule, result));
+                Assert.Throws<ArgumentException>(() => sarifLogger.Log(rule, result, null));
             }
         }
 
@@ -1126,7 +1126,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 var emptyNotification = new Notification();
 
                 // Logging empty notification
-                sarifLogger.LogToolNotification(emptyNotification);
+                sarifLogger.LogToolNotification(emptyNotification, associatedRule: null);
                 sarifLogger.LogConfigurationNotification(emptyNotification);
 
                 var notificationWithLocation = new Notification
@@ -1146,7 +1146,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                     }
                 };
 
-                sarifLogger.LogToolNotification(notificationWithLocation);
+                sarifLogger.LogToolNotification(notificationWithLocation, associatedRule: null);
                 sarifLogger.LogConfigurationNotification(notificationWithLocation);
             }
 
@@ -1192,7 +1192,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 {
                     foreach (Result r in allKindLevelCombinations)
                     {
-                        sarifLogger.Log(rule, r);
+                        sarifLogger.Log(rule, r, null);
                     }
                 }
             }

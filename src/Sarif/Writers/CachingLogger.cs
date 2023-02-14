@@ -22,11 +22,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             _semaphore = new SemaphoreSlim(initialCount: 1, maxCount: 1);
         }
 
-        public IDictionary<ReportingDescriptor, IList<Result>> Results { get; set; }
+        public IDictionary<ReportingDescriptor, IList<Tuple<Result, int?>>> Results { get; set; }
 
         public IList<Notification> ConfigurationNotifications { get; set; }
 
-        public IList<Notification> ToolNotifications { get; set; }
+        public IList<Tuple<Notification, ReportingDescriptor>> ToolNotifications { get; set; }
 
         /// <summary>
         /// Gets or sets a boolean value that indicates whether the Results
@@ -49,7 +49,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             _semaphore.Wait();
         }
 
-        public void Log(ReportingDescriptor rule, Result result)
+        public void Log(ReportingDescriptor rule, Result result, int? extensionIndex)
         {
             if (rule == null)
             {
@@ -76,13 +76,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 throw new ArgumentException($"rule.Id is not equal to result.RuleId ({rule.Id} != {result.RuleId})");
             }
 
-            Results ??= new Dictionary<ReportingDescriptor, IList<Result>>();
+            Results ??= new Dictionary<ReportingDescriptor, IList<Tuple<Result, int?>>>();
 
-            if (!Results.TryGetValue(rule, out IList<Result> results))
+            if (!Results.TryGetValue(rule, out IList<Tuple<Result, int?>> results))
             {
-                results = Results[rule] = new List<Result>();
+                results = Results[rule] = new List<Tuple<Result, int?>>();
             }
-            results.Add(result);
+            results.Add(new Tuple<Result, int?>(result, extensionIndex));
         }
 
         public void LogConfigurationNotification(Notification notification)
@@ -96,15 +96,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             ConfigurationNotifications.Add(notification);
         }
 
-        public void LogToolNotification(Notification notification)
+        public void LogToolNotification(Notification notification, ReportingDescriptor associatedRule)
         {
             if (!ShouldLog(notification))
             {
                 return;
             }
 
-            ToolNotifications ??= new List<Notification>();
-            ToolNotifications.Add(notification);
+            ToolNotifications ??= new List<Tuple<Notification, ReportingDescriptor>>();
+            ToolNotifications.Add(new Tuple<Notification, ReportingDescriptor>(notification, associatedRule));
         }
 
         public void ReleaseLock()

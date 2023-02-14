@@ -149,7 +149,13 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests.Core
         public void SarifLog_SplitPerTarget_WithEmptyLocations()
         {
             Random random = RandomSarifLogGenerator.GenerateRandomAndLog(this.output);
-            SarifLog sarifLog = RandomSarifLogGenerator.GenerateSarifLogWithRuns(random, 1);
+            SarifLog sarifLog = null;
+
+            while (true)
+            {
+                sarifLog = RandomSarifLogGenerator.GenerateSarifLogWithRuns(random, 1);
+                if (sarifLog.Runs[0].Results.Count > 0) { break; }
+            }
 
             // set random result's location to empty
             IList<Result> results = sarifLog.Runs.First().Results;

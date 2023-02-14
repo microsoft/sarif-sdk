@@ -25,30 +25,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Remove="TestData\ClangTidyConverter\ExpectedOutputs\NoResults.sarif" />
-    <None Remove="TestData\ClangTidyConverter\ExpectedOutputs\ValidResults.sarif" />
-    <None Remove="TestData\ClangTidyConverter\ExpectedOutputs\ValidResultsWithLog.sarif" />
-    <None Remove="TestData\ClangTidyConverter\Inputs\Empty.yaml" />
-    <None Remove="TestData\ClangTidyConverter\Inputs\InvalidResult.yaml" />
-    <None Remove="TestData\ClangTidyConverter\Inputs\ValidResults.yaml" />
-    <None Remove="TestData\ClangTidyConverter\Inputs\ValidResultsWithLog.yaml" />
-    <None Remove="TestData\ClangTidyConverter\Inputs\ValidResultsWithLog.yaml.log" />
-    <None Remove="TestData\FlawFinderConverter\ExpectedOutputs\NoResults.sarif" />
-    <None Remove="TestData\FlawFinderConverter\ExpectedOutputs\ValidResults.sarif" />
-    <None Remove="TestData\FlawFinderConverter\Inputs\Empty.csv" />
-    <None Remove="TestData\FlawFinderConverter\Inputs\InvalidHeader.csv" />
-    <None Remove="TestData\FlawFinderConverter\Inputs\InvalidResult.csv" />
-    <None Remove="TestData\FlawFinderConverter\Inputs\OldVersionResult.csv" />
-    <None Remove="TestData\FlawFinderConverter\Inputs\OnlyHeaderLine.csv" />
-    <None Remove="TestData\FlawFinderConverter\Inputs\ValidResults.csv" />
-    <None Remove="TestData\HdfConverter\ExpectedOutputs\NoResults.sarif" />
-    <None Remove="TestData\HdfConverter\ExpectedOutputs\ValidResults.sarif" />
-    <None Remove="TestData\HdfConverter\Inputs\Empty.json" />
-    <None Remove="TestData\HdfConverter\Inputs\InvalidResult.json" />
-    <None Remove="TestData\HdfConverter\Inputs\ValidResults.json" />
-  </ItemGroup>
-
-  <ItemGroup>
     <EmbeddedResource Include="TestData\ClangTidyConverter\ExpectedOutputs\NoResults.sarif" />
     <EmbeddedResource Include="TestData\ClangTidyConverter\ExpectedOutputs\ValidResults.sarif" />
     <EmbeddedResource Include="TestData\ClangTidyConverter\ExpectedOutputs\ValidResultsWithLog.sarif" />
@@ -69,19 +45,24 @@
     <EmbeddedResource Include="TestData\HdfConverter\Inputs\Empty.json" />
     <EmbeddedResource Include="TestData\HdfConverter\Inputs\InvalidResult.json" />
     <EmbeddedResource Include="TestData\HdfConverter\Inputs\ValidResults.json" />
+    <EmbeddedResource Include="TestData\MSBuildConverter\ExpectedOutputs\NoResults.sarif" />
+    <EmbeddedResource Include="TestData\MSBuildConverter\ExpectedOutputs\ValidResults.sarif" />
+    <EmbeddedResource Include="TestData\MSBuildConverter\Inputs\Empty.ERR" />
+    <EmbeddedResource Include="TestData\MSBuildConverter\Inputs\InvalidResult.ERR" />
+    <EmbeddedResource Include="TestData\MSBuildConverter\Inputs\ValidResults.ERR" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="FluentAssertions" Version="5.10.2" />
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.4.0-preview-20220707-01" />
-    <PackageReference Include="Moq" Version="4.13.1" />
+    <PackageReference Include="FluentAssertions" Version="6.9.0" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.4.1" />
+    <PackageReference Include="Moq" Version="4.18.4" />
     <PackageReference Include="System.Composition" Version="5.0.0" />
-    <PackageReference Include="xunit" Version="2.4.1" />
-    <PackageReference Include="xunit.runner.console" Version="2.4.1">
+    <PackageReference Include="xunit" Version="2.4.2" />
+    <PackageReference Include="xunit.runner.console" Version="2.4.2">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="xunit.runner.visualstudio" Version="2.4.3">
+    <PackageReference Include="xunit.runner.visualstudio" Version="2.4.5">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>

@@ -328,7 +328,6 @@ namespace Sarif.Sdk.Sample
                         OptionallyEmittedData.TextFiles |       // Embed source file content directly in the log file -- great for portability of the log!
                         OptionallyEmittedData.Hashes |
                         OptionallyEmittedData.RegionSnippets,
-                    tool: null,
                     run: run,
                     kinds: new ResultKind[] { ResultKind.Fail, ResultKind.Pass },
                     levels: new FailureLevel[] { FailureLevel.Error, FailureLevel.Warning, FailureLevel.Note },
@@ -351,7 +350,7 @@ namespace Sarif.Sdk.Sample
                                                     region,
                                                     fixes[i]))
                         {
-                            sarifLogger.Log(rule, result);
+                            sarifLogger.Log(rule, result, extensionIndex: null);
                         }
                     }
                 }

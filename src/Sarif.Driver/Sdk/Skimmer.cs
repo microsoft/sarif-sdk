@@ -25,7 +25,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
         protected virtual IEnumerable<string> MessageResourceNames => throw new NotImplementedException();
 
-        virtual public bool EnabledByDefault => true;
+        public virtual bool EnabledByDefault => true;
+
+        public virtual ReportingDescriptorReference ReportingDescriptorReference { get; set; }
+
+        public virtual ISet<string> IncompatibleRuleIds { get; internal set; }
 
         public override IDictionary<string, MultiformatMessageString> MessageStrings
         {
@@ -44,6 +48,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             return (ResourceManager == null) ? null
                 : RuleUtilities.BuildDictionary(ResourceManager, MessageResourceNames, ruleId: Id);
         }
+
+        public int ExtensionIndex { get; set; }
 
         public override string Id => throw new InvalidOperationException($"The {nameof(Id)} property must be overridden in the SkimmerBase-derived class.");
 

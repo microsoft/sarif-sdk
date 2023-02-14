@@ -72,7 +72,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 {
                     HashData hashes = hashData ?? HashUtilities.ComputeHashes(filePath);
 
-                    // The hash utilities will return null data in some text contexts.
+                    // The hash utilities will return null data in some test contexts.
                     if (hashes != null)
                     {
                         artifact.Hashes = new Dictionary<string, string>

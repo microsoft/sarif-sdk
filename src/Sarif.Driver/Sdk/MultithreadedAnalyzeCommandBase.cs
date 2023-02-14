@@ -30,7 +30,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         internal ConsoleLogger _consoleLogger;
 
         private Run _run;
-        private Tool _tool;
         private bool _computeHashes;
         internal TContext _rootContext;
         private int _fileContextsCount;
@@ -48,7 +47,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
         public static bool RaiseUnhandledExceptionInDriverCode { get; set; }
 
-        public virtual FileFormat ConfigurationFormat { get { return FileFormat.Json; } }
+        protected virtual Tool Tool { get; set; }
+
+        public virtual FileFormat ConfigurationFormat => FileFormat.Json;
 
         protected MultithreadedAnalyzeCommandBase(IFileSystem fileSystem = null)
         {
@@ -89,13 +90,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                         if (!(ex is ExitApplicationException<ExitReason>))
                         {
                             // These exceptions escaped our net and must be logged here
-                            RuntimeErrors |= Errors.LogUnhandledEngineException(_rootContext, ex);
+                            _rootContext ??= new TContext { Logger = logger };
+                            Errors.LogUnhandledEngineException(_rootContext, ex);
                         }
                         ExecutionException = ex;
                         return FAILURE;
                     }
                     finally
                     {
+                        RuntimeErrors |= _rootContext.RuntimeErrors;
                         logger.AnalysisStopped(RuntimeErrors);
                     }
                 }
@@ -127,12 +130,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                     }
                 }
 
-                if (options.RichReturnCode)
-                {
-                    return (int)RuntimeErrors;
-                }
-
-                return succeeded ? SUCCESS : FAILURE;
+                return options.RichReturnCode
+                    ? (int)RuntimeErrors
+                    : succeeded ? SUCCESS : FAILURE;
             }
             finally
             {
@@ -154,11 +154,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             //    the command line parser library is capable of.
             ValidateOptions(analyzeOptions, _rootContext);
 
-            // 5. Initialize report file, if configured.
-            InitializeOutputFile(analyzeOptions, _rootContext);
-
-            // 6. Instantiate skimmers.
+            // 5. Instantiate skimmers. We need to do this before initializing
+            //    the output file so that we can preconstruct the tool 
+            //    extensions data written to the SARIF file. Due to this ordering, 
+            //    we won't emit any failures or notifications in this operation 
+            //    to the log file itself: it will only appear in console output.
             ISet<Skimmer<TContext>> skimmers = CreateSkimmers(analyzeOptions, _rootContext);
+
+            // 6. Initialize report file, if configured.
+            InitializeOutputFile(analyzeOptions, _rootContext);
 
             // 7. Initialize configuration. This step must be done after initializing
             //    the skimmers, as rules define their specific context objects and
@@ -214,7 +218,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
             // 1: First we initiate an asynchronous operation to locate disk files for
             // analysis, as specified in analysis configuration (file names, wildcards).
-            Task<bool> enumerateFilesOnDisk = Task.Run(() => EnumerateFilesOnDiskAsync(options, rootContext));
+            Task<bool> enumerateFilesOnDisk = Task.Run(() => EnumerateFilesOnDiskAsync(options));
 
             // 2: Files found on disk are put in a specific sort order, after which a 
             // reference to each scan target is put into a channel for hashing,
@@ -250,7 +254,17 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
             if (rootContext.Traces.HasFlag(DefaultTraces.ScanTime))
             {
-                Console.WriteLine($"Done. {_fileContextsCount:n0} files scanned in {sw.Elapsed}.");
+                string timing = $"Done. {_fileContextsCount:n0} files scanned, elapsed time {sw.Elapsed}.";
+
+                rootContext.Logger.LogToolNotification(
+                    new Notification
+                    {
+                        Level = FailureLevel.Note,
+                        Message = new Message
+                        {
+                            Text = timing,
+                        },
+                    });
             }
             else
             {
@@ -297,9 +311,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                     }
                     catch (Exception e)
                     {
-                        context?.Dispose();
+                        if (context != null)
+                        {
+                            RuntimeErrors |= context.RuntimeErrors;
+                            context?.Dispose();
+                        }
                         context = default;
-                        RuntimeErrors |= Errors.LogUnhandledEngineException(rootContext, e);
+                        Errors.LogUnhandledEngineException(rootContext, e);
+                        RuntimeErrors |= rootContext.RuntimeErrors;
                         ThrowExitApplicationException(context, ExitReason.ExceptionWritingToLogFile, e);
                     }
                 }
@@ -311,17 +330,18 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             return true;
         }
 
-        private void LogCachingLogger(TContext rootContext, TContext context, bool clone = false)
+        private static void LogCachingLogger(TContext rootContext, TContext context, bool clone = false)
         {
             var cachingLogger = (CachingLogger)context.Logger;
-            IDictionary<ReportingDescriptor, IList<Result>> results = cachingLogger.Results;
+            IDictionary<ReportingDescriptor, IList<Tuple<Result, int?>>> results = cachingLogger.Results;
 
             if (results?.Count > 0)
             {
-                foreach (KeyValuePair<ReportingDescriptor, IList<Result>> kv in results)
+                foreach (KeyValuePair<ReportingDescriptor, IList<Tuple<Result, int?>>> kv in results)
                 {
-                    foreach (Result result in kv.Value)
+                    foreach (Tuple<Result, int?> tuple in kv.Value)
                     {
+                        Result result = tuple.Item1;
                         Result currentResult = result;
                         if (clone)
                         {
@@ -332,16 +352,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                             currentResult = clonedResult;
                         }
 
-                        rootContext.Logger.Log(kv.Key, currentResult);
+                        rootContext.Logger.Log(kv.Key, currentResult, tuple.Item2);
                     }
                 }
             }
 
             if (cachingLogger.ToolNotifications != null)
             {
-                foreach (Notification notification in cachingLogger.ToolNotifications)
+                foreach (Tuple<Notification, ReportingDescriptor> tuple in cachingLogger.ToolNotifications)
                 {
-                    rootContext.Logger.LogToolNotification(notification);
+                    rootContext.Logger.LogToolNotification(tuple.Item1, tuple.Item2);
                 }
             }
 
@@ -363,107 +383,138 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             }
         }
 
-        private async Task<bool> EnumerateFilesOnDiskAsync(TOptions options, TContext rootContext)
+        protected virtual bool ShouldEnqueue(string file, TContext context)
         {
-            this._fileContextsCount = 0;
-            this._fileContexts = new ConcurrentDictionary<int, TContext>();
+            bool shouldEnqueue = IsTargetWithinFileSizeLimit(file, context.MaxFileSizeInKilobytes, out long fileSizeInKb);
 
-            // INTERESTING BREAKPOINT: debug 'ERR997.NoValidAnalysisTargets : No valid analysis targets were specified.'
-            // Set a conditional breakpoint on 'matchExpression.Name' to filter by specific rules.
-            // Set a conditional breakpoint on 'searchText' to filter on specific target text patterns.
-            foreach (string specifier in options.TargetFileSpecifiers)
+            if (!shouldEnqueue)
             {
-                string normalizedSpecifier = Environment.ExpandEnvironmentVariables(specifier);
+                Warnings.LogFileSkippedDueToSize(context, file, fileSizeInKb);
+            }
 
-                if (Uri.TryCreate(specifier, UriKind.RelativeOrAbsolute, out Uri uri))
+            return shouldEnqueue;
+        }
+
+        protected virtual bool ShouldComputeHashes(string file, TContext context)
+        {
+            return true;
+        }
+
+        private async Task<bool> EnumerateFilesOnDiskAsync(TOptions options)
+        {
+            try
+            {
+                this._fileContextsCount = 0;
+                this._fileContexts = new ConcurrentDictionary<int, TContext>();
+
+                // INTERESTING BREAKPOINT: debug 'ERR997.NoValidAnalysisTargets : No valid analysis targets were specified.'
+                // Set a conditional breakpoint on 'matchExpression.Name' to filter by specific rules.
+                // Set a conditional breakpoint on 'searchText' to filter on specific target text patterns.
+                foreach (string specifier in options.TargetFileSpecifiers)
                 {
-                    if (uri.IsAbsoluteUri && (uri.IsFile || uri.IsUnc))
+                    string normalizedSpecifier = Environment.ExpandEnvironmentVariables(specifier);
+
+                    if (Uri.TryCreate(specifier, UriKind.RelativeOrAbsolute, out Uri uri))
                     {
-                        normalizedSpecifier = uri.LocalPath;
+                        if (uri.IsAbsoluteUri && (uri.IsFile || uri.IsUnc))
+                        {
+                            normalizedSpecifier = uri.LocalPath;
+                        }
                     }
-                }
 
-                string filter = Path.GetFileName(normalizedSpecifier);
-                string directory = Path.GetDirectoryName(normalizedSpecifier);
+                    string filter = Path.GetFileName(normalizedSpecifier);
+                    string directory = Path.GetDirectoryName(normalizedSpecifier);
 
-                if (directory.Length == 0)
-                {
-                    directory = $".{Path.DirectorySeparatorChar}";
-                }
+                    if (directory.Length == 0)
+                    {
+                        directory = $".{Path.DirectorySeparatorChar}";
+                    }
 
-                directory = Path.GetFullPath(directory);
-                var directories = new Queue<string>();
+                    directory = Path.GetFullPath(directory);
+                    var directories = new Queue<string>();
 
-                if (!FileSystem.DirectoryExists(directory))
-                {
-                    continue;
-                }
+                    if (!FileSystem.DirectoryExists(directory))
+                    {
+                        continue;
+                    }
 
-                if (options.Recurse)
-                {
-                    EnqueueAllDirectories(directories, directory);
-                }
-                else
-                {
-                    directories.Enqueue(directory);
-                }
+                    if (options.Recurse)
+                    {
+                        EnqueueAllDirectories(directories, directory);
+                    }
+                    else
+                    {
+                        directories.Enqueue(directory);
+                    }
 
-                var sortedFiles = new SortedSet<string>();
+                    var sortedFiles = new SortedSet<string>();
 
-                while (directories.Count > 0)
-                {
-                    sortedFiles.Clear();
+                    while (directories.Count > 0)
+                    {
+                        sortedFiles.Clear();
 
-                    directory = Path.GetFullPath(directories.Dequeue());
+                        directory = Path.GetFullPath(directories.Dequeue());
 
 #if NETFRAMEWORK
-                    // .NET Framework: Directory.Enumerate with empty filter returns NO files.
-                    // .NET Core: Directory.Enumerate with empty filter returns all files in directory.
-                    // We will standardize on the .NET Core behavior.
-                    if (string.IsNullOrEmpty(filter))
-                    {
-                        filter = "*";
-                    }
+                        // .NET Framework: Directory.Enumerate with empty filter returns NO files.
+                        // .NET Core: Directory.Enumerate with empty filter returns all files in directory.
+                        // We will standardize on the .NET Core behavior.
+                        if (string.IsNullOrEmpty(filter))
+                        {
+                            filter = "*";
+                        }
 #endif
 
-                    foreach (string file in FileSystem.DirectoryEnumerateFiles(directory, filter, SearchOption.TopDirectoryOnly))
-                    {
-                        // Only include files that are below the max size limit.
-                        if (IsTargetWithinFileSizeLimit(file, _rootContext.MaxFileSizeInKilobytes))
+                        foreach (string file in FileSystem.DirectoryEnumerateFiles(directory, filter, SearchOption.TopDirectoryOnly))
                         {
-                            sortedFiles.Add(file);
-                            continue;
+                            // Only include files that are below the max size limit.
+                            if (ShouldEnqueue(file, _rootContext))
+                            {
+                                sortedFiles.Add(file);
+                                continue;
+                            }
+
+                            if (!IsTargetWithinFileSizeLimit(file, _rootContext.MaxFileSizeInKilobytes, out long fileSizeInKb))
+                            {
+                                _ignoredFilesCount++;
+                            }
                         }
-                        _ignoredFilesCount++;
-                    }
 
-                    foreach (string file in sortedFiles)
-                    {
-                        _fileContexts.TryAdd(
-                            _fileContextsCount,
-                            CreateContext(options,
-                                          new CachingLogger(options.Level, options.Kind),
-                                          rootContext.RuntimeErrors,
-                                          rootContext.Policy,
-                                          filePath: file)
-                        );
+                        foreach (string file in sortedFiles)
+                        {
+                            _fileContexts.TryAdd(
+                                _fileContextsCount,
+                                CreateContext(options,
+                                              new CachingLogger(options.Level, options.Kind),
+                                              _rootContext.RuntimeErrors,
+                                              _rootContext.Policy,
+                                              filePath: file)
+                            );
 
-                        await readyToHashChannel.Writer.WriteAsync(_fileContextsCount++);
+                            await readyToHashChannel.Writer.WriteAsync(_fileContextsCount++);
+                        }
                     }
                 }
             }
-
-            readyToHashChannel.Writer.Complete();
+            catch (Exception e)
+            {
+                Errors.LogUnhandledEngineException(_rootContext, e);
+                ThrowExitApplicationException(_rootContext, ExitReason.UnhandledExceptionInEngine);
+            }
+            finally
+            {
+                readyToHashChannel.Writer.Complete();
+            }
 
             if (_ignoredFilesCount > 0)
             {
-                Warnings.LogOneOrMoreFilesSkippedDueToSize(rootContext);
+                Warnings.LogOneOrMoreFilesSkippedDueToSize(_rootContext);
             }
 
             if (_fileContextsCount == 0)
             {
-                Errors.LogNoValidAnalysisTargets(rootContext);
-                ThrowExitApplicationException(rootContext, ExitReason.NoValidAnalysisTargets);
+                Errors.LogNoValidAnalysisTargets(_rootContext);
+                ThrowExitApplicationException(_rootContext, ExitReason.NoValidAnalysisTargets);
             }
 
             return true;
@@ -491,40 +542,53 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
             Dictionary<string, CachingLogger> loggerCache = null;
 
-            // Wait until there is work or the channel is closed.
-            while (await reader.WaitToReadAsync())
+            try
             {
-                // Loop while there is work to do.
-                while (reader.TryRead(out int index))
+                // Wait until there is work or the channel is closed.
+                while (await reader.WaitToReadAsync())
                 {
-                    if (_computeHashes)
+                    // Loop while there is work to do.
+                    while (reader.TryRead(out int index))
                     {
-                        TContext context = _fileContexts[index];
-                        string localPath = context.TargetUri.LocalPath;
-
-                        HashData hashData = HashUtilities.ComputeHashes(localPath, FileSystem);
-
-                        context.Hashes = hashData;
-
-                        if (_pathToHashDataMap != null && !_pathToHashDataMap.ContainsKey(localPath))
+                        if (_computeHashes)
                         {
-                            _pathToHashDataMap.Add(localPath, hashData);
+                            TContext context = _fileContexts[index];
+                            string localPath = context.TargetUri.LocalPath;
+
+                            HashData hashData = ShouldComputeHashes(localPath, _rootContext)
+                                ? HashUtilities.ComputeHashes(localPath, FileSystem)
+                                : null;
+
+                            context.Hashes = hashData;
+
+                            if (_pathToHashDataMap != null && !_pathToHashDataMap.ContainsKey(localPath))
+                            {
+                                _pathToHashDataMap.Add(localPath, hashData);
+                            }
+
+                            loggerCache ??= new Dictionary<string, CachingLogger>();
+
+                            if (hashData?.Sha256 != null)
+                            {
+                                context.Logger = loggerCache.TryGetValue(hashData.Sha256, out CachingLogger logger)
+                                    ? logger
+                                    : (loggerCache[hashData.Sha256] = (CachingLogger)context.Logger);
+                            }
                         }
 
-                        loggerCache ??= new Dictionary<string, CachingLogger>();
-
-                        if (!loggerCache.TryGetValue(hashData.Sha256, out CachingLogger logger))
-                        {
-                            logger = loggerCache[hashData.Sha256] = (CachingLogger)context.Logger;
-                        }
-                        context.Logger = logger;
+                        await readyToScanChannel.Writer.WriteAsync(index);
                     }
-
-                    await readyToScanChannel.Writer.WriteAsync(index);
                 }
             }
-
-            readyToScanChannel.Writer.Complete();
+            catch (Exception e)
+            {
+                Errors.LogUnhandledEngineException(_rootContext, e);
+                ThrowExitApplicationException(_rootContext, ExitReason.UnhandledExceptionInEngine);
+            }
+            finally
+            {
+                readyToScanChannel.Writer.Complete();
+            }
 
             return true;
         }
@@ -572,7 +636,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             succeeded &= ValidateOutputFileCanBeCreated(context, options.OutputFilePath, options.Force);
             succeeded &= ValidateInvocationPropertiesToLog(context, options.InvocationPropertiesToLog);
             succeeded &= options.ValidateOutputOptions(context);
-            succeeded &= options.MaxFileSizeInKilobytes > 0;
+
+            succeeded &= context.MaxFileSizeInKilobytes >= 0;
 
             if (!succeeded)
             {
@@ -582,13 +647,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
         internal AggregatingLogger InitializeLogger(AnalyzeOptionsBase analyzeOptions)
         {
-            _tool = Tool.CreateFromAssemblyData();
+            Tool ??= Tool.CreateFromAssemblyData();
 
             var logger = new AggregatingLogger();
 
             if (!analyzeOptions.Quiet)
             {
-                _consoleLogger = new ConsoleLogger(analyzeOptions.Quiet, _tool.Driver.Name, analyzeOptions.Level, analyzeOptions.Kind) { CaptureOutput = _captureConsoleOutput };
+                _consoleLogger = new ConsoleLogger(analyzeOptions.Quiet, Tool.Driver.Name, analyzeOptions.Level, analyzeOptions.Kind) { CaptureOutput = _captureConsoleOutput };
                 logger.Loggers.Add(_consoleLogger);
             }
 
@@ -606,12 +671,21 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         {
             var context = new TContext
             {
+                Policy = policy ?? new PropertiesDictionary(),
                 Logger = logger,
                 RuntimeErrors = runtimeErrors,
-                Policy = policy
             };
 
-            context.MaxFileSizeInKilobytes = options.MaxFileSizeInKilobytes;
+            context.Traces =
+                options.Traces.Any() ?
+                    (DefaultTraces)Enum.Parse(typeof(DefaultTraces), string.Join(",", options.Traces)) :
+                    DefaultTraces.None;
+
+            context.MaxFileSizeInKilobytes =
+                options.MaxFileSizeInKilobytes >= 0
+                    ? options.MaxFileSizeInKilobytes
+                    : AnalyzeContextBase.MaxFileSizeInKilobytesDefaultValue;
+
 
             if (filePath != null)
             {
@@ -672,10 +746,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             }
         }
 
-        private void InitializeOutputFile(TOptions analyzeOptions, TContext context)
+        public virtual void InitializeOutputFile(TOptions analyzeOptions, TContext context)
         {
             string filePath = analyzeOptions.OutputFilePath;
-            AggregatingLogger aggregatingLogger = (AggregatingLogger)context.Logger;
+            var aggregatingLogger = (AggregatingLogger)context.Logger;
 
             if (!string.IsNullOrEmpty(filePath))
             {
@@ -696,7 +770,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                             {
                                 Id = analyzeOptions.AutomationId,
                                 Guid = analyzeOptions.AutomationGuid
-                            }
+                            },
+                            Tool = Tool,
                         };
 
                         if (analyzeOptions.SarifOutputVersion != SarifVersion.OneZeroZero)
@@ -705,7 +780,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                                                           logFilePersistenceOptions,
                                                           dataToInsert,
                                                           dataToRemove,
-                                                          tool: _tool,
                                                           run: _run,
                                                           analysisTargets: null,
                                                           quiet: analyzeOptions.Quiet,
@@ -721,7 +795,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                                                                      logFilePersistenceOptions,
                                                                      dataToInsert,
                                                                      dataToRemove,
-                                                                     tool: _tool,
                                                                      run: _run,
                                                                      analysisTargets: null,
                                                                      invocationTokensToRedact: GenerateSensitiveTokensList(),
@@ -743,7 +816,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             }
         }
 
-        private IEnumerable<string> GenerateSensitiveTokensList()
+        private static IEnumerable<string> GenerateSensitiveTokensList()
         {
             var result = new List<string>
             {
@@ -813,7 +886,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             return result;
         }
 
-        private SupportedPlatform GetCurrentRunningOS()
+        private static SupportedPlatform GetCurrentRunningOS()
         {
             // RuntimeInformation is not present in NET452.
 #if NET452
@@ -839,9 +912,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         }
 
         protected virtual void AnalyzeTargets(TOptions options,
-                                              TContext rootContext,
+                                              TContext context,
                                               IEnumerable<Skimmer<TContext>> skimmers)
         {
+            if (skimmers == null)
+            {
+                Errors.LogNoRulesLoaded(context);
+                ThrowExitApplicationException(context, ExitReason.NoRulesLoaded);
+            }
+
             var disabledSkimmers = new SortedSet<string>();
 
             foreach (Skimmer<TContext> skimmer in skimmers)
@@ -849,12 +928,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 PerLanguageOption<RuleEnabledState> ruleEnabledProperty =
                     DefaultDriverOptions.CreateRuleSpecificOption(skimmer, DefaultDriverOptions.RuleEnabled);
 
-                RuleEnabledState ruleEnabled = rootContext.Policy.GetProperty(ruleEnabledProperty);
+                RuleEnabledState ruleEnabled = context.Policy.GetProperty(ruleEnabledProperty);
 
                 if (ruleEnabled == RuleEnabledState.Disabled)
                 {
                     disabledSkimmers.Add(skimmer.Id);
-                    Warnings.LogRuleExplicitlyDisabled(rootContext, skimmer.Id);
+                    Warnings.LogRuleExplicitlyDisabled(context, skimmer.Id);
                     RuntimeErrors |= RuntimeConditions.RuleWasExplicitlyDisabled;
                 }
                 else if (!skimmer.DefaultConfiguration.Enabled && ruleEnabled == RuleEnabledState.Default)
@@ -867,11 +946,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
             if (disabledSkimmers.Count == skimmers.Count())
             {
-                Errors.LogAllRulesExplicitlyDisabled(rootContext);
-                ThrowExitApplicationException(rootContext, ExitReason.NoRulesLoaded);
+                Errors.LogAllRulesExplicitlyDisabled(context);
+                ThrowExitApplicationException(context, ExitReason.NoRulesLoaded);
             }
 
-            MultithreadedAnalyzeTargets(options, rootContext, skimmers, disabledSkimmers);
+            this.CheckIncompatibleRules(skimmers, context, disabledSkimmers);
+
+            MultithreadedAnalyzeTargets(options, context, skimmers, disabledSkimmers);
         }
 
         protected virtual TContext DetermineApplicabilityAndAnalyze(
@@ -894,7 +975,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 return context;
             }
 
-            CachingLogger logger = (CachingLogger)context.Logger;
+            var logger = (CachingLogger)context.Logger;
             logger.AnalyzingTarget(context);
 
             if (logger.CacheFinalized)
@@ -986,7 +1067,31 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
                 try
                 {
+                    Stopwatch stopwatch = context.Traces.HasFlag(DefaultTraces.RuleScanTime)
+                        ? Stopwatch.StartNew()
+                        : null;
+
                     skimmer.Analyze(context);
+
+                    if (stopwatch != null && context.TargetUri.IsAbsoluteUri)
+                    {
+                        string file = context.TargetUri.LocalPath;
+                        string directory = Path.GetDirectoryName(file);
+                        file = Path.GetFileName(file);
+                        string timing = $"'{file}' : elapsed {stopwatch.Elapsed} : '{skimmer.Name}' : at '{directory}'";
+
+                        context.Logger.LogToolNotification(
+                            new Notification
+                            {
+                                Level = FailureLevel.Warning,
+                                Message = new Message
+                                {
+                                    Text = timing,
+                                },
+                            },
+                            skimmer);
+                    }
+
                 }
                 catch (Exception ex)
                 {
@@ -1071,9 +1176,41 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             };
         }
 
+        internal void CheckIncompatibleRules(IEnumerable<Skimmer<TContext>> skimmers, TContext context, ISet<string> disabledSkimmers)
+        {
+            var availableRules = new Dictionary<string, Skimmer<TContext>>();
+
+            foreach (Skimmer<TContext> skimmer in skimmers)
+            {
+                if (disabledSkimmers.Contains(skimmer.Id))
+                {
+                    continue;
+                }
+
+                availableRules[skimmer.Id] = skimmer;
+            }
+
+            foreach (KeyValuePair<string, Skimmer<TContext>> entry in availableRules)
+            {
+                if (entry.Value.IncompatibleRuleIds?.Any() != true)
+                {
+                    continue;
+                }
+
+                foreach (string incompatibleRuleId in entry.Value.IncompatibleRuleIds)
+                {
+                    if (availableRules.ContainsKey(incompatibleRuleId))
+                    {
+                        Errors.LogIncompatibleRules(context, entry.Key, incompatibleRuleId);
+                        ThrowExitApplicationException(context, ExitReason.IncompatibleRulesDetected);
+                    }
+                }
+            }
+        }
+
         protected virtual ISet<Skimmer<TContext>> InitializeSkimmers(ISet<Skimmer<TContext>> skimmers, TContext context)
         {
-            SortedSet<Skimmer<TContext>> disabledSkimmers = new SortedSet<Skimmer<TContext>>(SkimmerIdComparer<TContext>.Instance);
+            var disabledSkimmers = new SortedSet<Skimmer<TContext>>(SkimmerIdComparer<TContext>.Instance);
 
             // ONE-TIME initialization of skimmers. Do not call
             // Initialize more than once per skimmer instantiation

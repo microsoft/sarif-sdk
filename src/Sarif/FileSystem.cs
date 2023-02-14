@@ -3,6 +3,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Reflection;
 using System.Text;
@@ -397,6 +398,18 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             FileInfo fileInfo = new FileInfo(path);
             return fileInfo.Length;
+        }
+
+        /// <summary>
+        /// Returns a <see cref="FileVersionInfo"/> representing the version information associated with the specified file.
+        /// </summary>
+        /// <param name="path">The fully qualified path and name of the file to retrieve the version information for.</param>
+        /// <returns>A <see cref="FileVersionInfo"/> containing information about the file. If the file did not
+        /// contain version information, the FileVersionInfo contains only the name of the file requested.</returns>
+        public FileVersionInfo FileVersionInfoGetVersionInfo(string fileName)
+        {
+            FileVersionInfo fileVersionInfo = FileVersionInfo.GetVersionInfo(fileName);
+            return fileVersionInfo;
         }
     }
 }

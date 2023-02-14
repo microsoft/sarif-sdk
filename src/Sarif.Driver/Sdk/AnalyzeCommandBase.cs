@@ -3,6 +3,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Collections.Immutable;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
@@ -11,6 +12,7 @@ using Microsoft.CodeAnalysis.Sarif.Writers;
 
 namespace Microsoft.CodeAnalysis.Sarif.Driver
 {
+    [Obsolete("AnalyzeCommandBase will be deprecated entirely soon. Use MultithreadedAnalyzeCommandBase instead.")]
     public abstract class AnalyzeCommandBase<TContext, TOptions> : PluginDriverCommand<TOptions>
         where TContext : IAnalysisContext, new()
         where TOptions : AnalyzeOptionsBase
@@ -96,12 +98,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                     catch (Exception ex)
                     {
                         // These exceptions escaped our net and must be logged here
-                        RuntimeErrors |= Errors.LogUnhandledEngineException(_rootContext, ex);
+                        Errors.LogUnhandledEngineException(_rootContext, ex);
                         ExecutionException = ex;
                         return FAILURE;
                     }
                     finally
                     {
+                        RuntimeErrors |= _rootContext.RuntimeErrors;
                         logger.AnalysisStopped(RuntimeErrors);
                     }
                 }
@@ -206,7 +209,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             succeeded &= ValidateFile(context, analyzeOptions.OutputFilePath, DefaultPolicyName, shouldExist: null);
             succeeded &= ValidateInvocationPropertiesToLog(context, analyzeOptions.InvocationPropertiesToLog);
             succeeded &= analyzeOptions.ValidateOutputOptions(context);
-            succeeded &= analyzeOptions.MaxFileSizeInKilobytes > 0;
+            succeeded &= context.MaxFileSizeInKilobytes >= 0;
 
             if (!succeeded)
             {
@@ -214,6 +217,18 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 //  whenever something goes wrong. #2260 https://github.com/microsoft/sarif-sdk/issues/2260
                 ThrowExitApplicationException(context, ExitReason.InvalidCommandLineOption);
             }
+        }
+
+        protected virtual bool ShouldEnqueue(string file, TContext context)
+        {
+            bool shouldEnqueue = IsTargetWithinFileSizeLimit(file, context.MaxFileSizeInKilobytes, out long fileSizeInKb);
+
+            if (!shouldEnqueue)
+            {
+                Warnings.LogFileSkippedDueToSize(context, file, fileSizeInKb);
+            }
+
+            return shouldEnqueue;
         }
 
         internal AggregatingLogger InitializeLogger(AnalyzeOptionsBase analyzeOptions)
@@ -256,7 +271,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 foreach (string file in fileSpecifier.Files)
                 {
                     // Only include files that are below the max size limit.
-                    if (IsTargetWithinFileSizeLimit(file, _rootContext.MaxFileSizeInKilobytes))
+                    if (ShouldEnqueue(file, _rootContext))
                     {
                         targets.Add(file);
                     }
@@ -287,10 +302,18 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             {
                 Logger = logger,
                 RuntimeErrors = runtimeErrors,
-                Policy = policy
+                Policy = policy ?? new PropertiesDictionary()
             };
 
-            context.MaxFileSizeInKilobytes = options.MaxFileSizeInKilobytes;
+            context.Traces =
+                options.Traces.Any() ?
+                    (DefaultTraces)Enum.Parse(typeof(DefaultTraces), string.Join(",", options.Traces)) :
+                    DefaultTraces.None;
+
+            context.MaxFileSizeInKilobytes =
+                options.MaxFileSizeInKilobytes >= 0
+                ? options.MaxFileSizeInKilobytes
+                : AnalyzeContextBase.MaxFileSizeInKilobytesDefaultValue;
 
             if (filePath != null)
             {
@@ -388,7 +411,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                             {
                                 Id = analyzeOptions.AutomationId,
                                 Guid = analyzeOptions.AutomationGuid
-                            }
+                            },
+                            Tool = _tool,
                         };
 
                         if (analyzeOptions.SarifOutputVersion != SarifVersion.OneZeroZero)
@@ -398,7 +422,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                                     logFilePersistenceOptions,
                                     dataToInsert,
                                     dataToRemove,
-                                    tool: _tool,
                                     run: _run,
                                     analysisTargets: null,
                                     quiet: analyzeOptions.Quiet,
@@ -414,7 +437,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                                     logFilePersistenceOptions,
                                     dataToInsert,
                                     dataToRemove,
-                                    tool: _tool,
                                     run: _run,
                                     analysisTargets: null,
                                     invocationTokensToRedact: GenerateSensitiveTokensList(),
@@ -568,6 +590,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 }
             }
 
+            this.CheckIncompatibleRules(skimmers, rootContext, disabledSkimmers);
+
             if (disabledSkimmers.Count == skimmers.Count())
             {
                 Errors.LogAllRulesExplicitlyDisabled(rootContext);
@@ -606,7 +630,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
             if ((options.DataToInsert.ToFlags() & OptionallyEmittedData.Hashes) != 0)
             {
-                _cacheByFileHashLogger.HashToResultsMap.TryGetValue(context.Hashes.Sha256, out List<Tuple<ReportingDescriptor, Result>> cachedResultTuples);
+                _cacheByFileHashLogger.HashToResultsMap.TryGetValue(context.Hashes.Sha256, out List<Tuple<ReportingDescriptor, Result, int?>> cachedResultTuples);
                 _cacheByFileHashLogger.HashToNotificationsMap.TryGetValue(context.Hashes.Sha256, out List<Notification> cachedNotifications);
 
                 bool replayCachedData = (cachedResultTuples != null || cachedNotifications != null);
@@ -617,13 +641,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
                     if (cachedResultTuples != null)
                     {
-                        foreach (Tuple<ReportingDescriptor, Result> cachedResultTuple in cachedResultTuples)
+                        foreach (Tuple<ReportingDescriptor, Result, int?> cachedResultTuple in cachedResultTuples)
                         {
                             Result clonedResult = cachedResultTuple.Item2.DeepClone();
                             ReportingDescriptor cachedReportingDescriptor = cachedResultTuple.Item1;
 
                             UpdateLocationsAndMessageWithCurrentUri(clonedResult.Locations, clonedResult.Message, context.TargetUri);
-                            context.Logger.Log(cachedReportingDescriptor, clonedResult);
+                            context.Logger.Log(cachedReportingDescriptor, clonedResult, cachedResultTuple.Item3);
                         }
                     }
 
@@ -790,6 +814,38 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             {
                 ExitReason = exitReason
             };
+        }
+
+        internal void CheckIncompatibleRules(IEnumerable<Skimmer<TContext>> skimmers, TContext context, ISet<string> disabledSkimmers)
+        {
+            var availableRules = new Dictionary<string, Skimmer<TContext>>();
+
+            foreach (Skimmer<TContext> skimmer in skimmers)
+            {
+                if (disabledSkimmers.Contains(skimmer.Id))
+                {
+                    continue;
+                }
+
+                availableRules[skimmer.Id] = skimmer;
+            }
+
+            foreach (KeyValuePair<string, Skimmer<TContext>> entry in availableRules)
+            {
+                if (entry.Value.IncompatibleRuleIds?.Any() != true)
+                {
+                    continue;
+                }
+
+                foreach (string incompatibleRuleId in entry.Value.IncompatibleRuleIds)
+                {
+                    if (availableRules.ContainsKey(incompatibleRuleId))
+                    {
+                        Errors.LogIncompatibleRules(context, entry.Key, incompatibleRuleId);
+                        ThrowExitApplicationException(context, ExitReason.IncompatibleRulesDetected);
+                    }
+                }
+            }
         }
 
         protected virtual ISet<Skimmer<TContext>> InitializeSkimmers(ISet<Skimmer<TContext>> skimmers, TContext context)
