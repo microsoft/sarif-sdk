@@ -228,7 +228,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             _run.Invocations.Add(invocation);
         }
 
-        public IDictionary<string, HashData> AnalysisTargetToHashDataMap { get; }
+        public IDictionary<string, HashData> AnalysisTargetToHashDataMap { get; set; }
 
         public IDictionary<ReportingDescriptor, int> RuleToIndexMap { get; }
 
