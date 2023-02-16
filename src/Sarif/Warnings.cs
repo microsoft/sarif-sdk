@@ -47,15 +47,15 @@ namespace Microsoft.CodeAnalysis.Sarif
             context.RuntimeErrors |= RuntimeConditions.OneOrMoreFilesSkippedDueToSize;
         }
 
-        public static void LogOneOrMoreFilesSkippedDueToSize(IAnalysisContext context)
+        public static void LogOneOrMoreFilesSkippedDueToSize(IAnalysisContext context, uint skippedFilesCount)
         {
             if (context == null)
             {
                 throw new ArgumentNullException(nameof(context));
             }
 
-            // One or more files were skipped for analysis due to exceeding size limits
-            // (currently configured as {0} kilobytes). The 'max-file-size-in-kb'
+            // {0} file(s)s were skipped for analysis due to exceeding size limits
+            // (currently configured as {1} kilobytes). The 'max-file-size-in-kb'
             // command-line argument can be used to increase this threshold.
             context.Logger.LogConfigurationNotification(
                 Errors.CreateNotification(
@@ -66,6 +66,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                     exception: null,
                     persistExceptionStack: false,
                     messageFormat: null,
+                    skippedFilesCount.ToString(),
                     context.MaxFileSizeInKilobytes.ToString()));
 
             context.RuntimeErrors |= RuntimeConditions.OneOrMoreFilesSkippedDueToSize;

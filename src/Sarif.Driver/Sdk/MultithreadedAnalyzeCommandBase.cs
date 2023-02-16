@@ -38,7 +38,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         private OptionallyEmittedData _dataToInsert;
         private Channel<int> _resultsWritingChannel;
         private Channel<int> readyToScanChannel;
-        private IDictionary<string, HashData> _pathToHashDataMap;
         private ConcurrentDictionary<int, TContext> _fileContexts;
 
         public Exception ExecutionException { get; set; }
@@ -193,21 +192,21 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 ? options.Threads
                 : (Debugger.IsAttached) ? 1 : Environment.ProcessorCount;
 
-            var channelOptions = new BoundedChannelOptions(2000)
+            var channelOptions = new BoundedChannelOptions(25000)
             {
                 SingleWriter = true,
                 SingleReader = true,
             };
             readyToHashChannel = Channel.CreateBounded<int>(channelOptions);
 
-            channelOptions = new BoundedChannelOptions(2000)
+            channelOptions = new BoundedChannelOptions(25000)
             {
                 SingleWriter = true,
                 SingleReader = false,
             };
             readyToScanChannel = Channel.CreateBounded<int>(channelOptions);
 
-            channelOptions = new BoundedChannelOptions(2000)
+            channelOptions = new BoundedChannelOptions(25000)
             {
                 SingleWriter = false,
                 SingleReader = true,
@@ -220,10 +219,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             // analysis, as specified in analysis configuration (file names, wildcards).
             Task<bool> enumerateFilesOnDisk = Task.Run(() => EnumerateFilesOnDiskAsync(options));
 
-            // 2: Files found on disk are put in a specific sort order, after which a 
-            // reference to each scan target is put into a channel for hashing,
-            // if hashing is enabled.
-            Task<bool> hashFilesAndPutInAnalysisQueue = Task.Run(() => HashFilesAndPutInAnalysisQueueAsnc());
+            // 3: A dedicated set of threads pull scan targets and analyze them.
+            //    On completing a scan, the thread writes the index of the 
+            //    scanned item to a channel that drives logging.
+            var hashWorkers = new Task<bool>[options.Threads];
+            for (int i = 0; i < options.Threads; i++)
+            {
+                hashWorkers[i] = Task.Run(() => HashFilesAndPutInAnalysisQueueAsnc());
+            }
 
             // 3: A dedicated set of threads pull scan targets and analyze them.
             //    On completing a scan, the thread writes the index of the 
@@ -242,15 +245,40 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             //    to the previous output.
             Task<bool> logScanResults = Task.Run(() => LogScanResultsAsync(rootContext));
 
+            Task.WhenAll(hashWorkers)
+                .ContinueWith(_ => {
+                    _loggerCache?.Clear();
+                    Console.WriteLine("Done with hashing.");
+                    readyToScanChannel.Writer.Complete(); 
+                })
+                .Wait();
+
             Task.WhenAll(workers)
                 .ContinueWith(_ => _resultsWritingChannel.Writer.Complete())
                 .Wait();
 
             enumerateFilesOnDisk.Wait();
-            hashFilesAndPutInAnalysisQueue.Wait();
             logScanResults.Wait();
 
             Console.WriteLine();
+
+            if (rootContext.Traces.HasFlag(DefaultTraces.PeakWorkingSet))
+            {
+                using (var currentProcess = Process.GetCurrentProcess())
+                {
+                    string memoryUsage = $"Peak working set: {currentProcess.PeakWorkingSet64 / 1024 / 1024}MB.";
+
+                    rootContext.Logger.LogToolNotification(
+                    new Notification
+                    {
+                        Level = FailureLevel.Warning,
+                        Message = new Message
+                        {
+                            Text = memoryUsage,
+                        },
+                    });
+                }
+            }
 
             if (rootContext.Traces.HasFlag(DefaultTraces.ScanTime))
             {
@@ -259,7 +287,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 rootContext.Logger.LogToolNotification(
                     new Notification
                     {
-                        Level = FailureLevel.Note,
+                        Level = FailureLevel.Warning,
                         Message = new Message
                         {
                             Text = timing,
@@ -389,7 +417,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
             if (!shouldEnqueue)
             {
-                Warnings.LogFileSkippedDueToSize(context, file, fileSizeInKb);
+                //Warnings.LogFileSkippedDueToSize(context, file, fileSizeInKb);
             }
 
             return shouldEnqueue;
@@ -485,7 +513,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                             _fileContexts.TryAdd(
                                 _fileContextsCount,
                                 CreateContext(options,
-                                              new CachingLogger(options.Level, options.Kind),
+                                              new CachingLogger(options.FailureLevels, options.ResultKinds),
                                               _rootContext.RuntimeErrors,
                                               _rootContext.Policy,
                                               filePath: file)
@@ -508,7 +536,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
             if (_ignoredFilesCount > 0)
             {
-                Warnings.LogOneOrMoreFilesSkippedDueToSize(_rootContext);
+                Warnings.LogOneOrMoreFilesSkippedDueToSize(_rootContext, _ignoredFilesCount);
             }
 
             if (_fileContextsCount == 0)
@@ -536,11 +564,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             }
         }
 
+        private readonly ConcurrentDictionary<string, CachingLogger> _loggerCache = new ConcurrentDictionary<string, CachingLogger>();
+
         private async Task<bool> HashFilesAndPutInAnalysisQueueAsnc()
         {
             ChannelReader<int> reader = readyToHashChannel.Reader;
-
-            Dictionary<string, CachingLogger> loggerCache = null;
 
             try
             {
@@ -559,20 +587,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                                 ? HashUtilities.ComputeHashes(localPath, FileSystem)
                                 : null;
 
-                            context.Hashes = hashData;
-
-                            if (_pathToHashDataMap != null && !_pathToHashDataMap.ContainsKey(localPath))
-                            {
-                                _pathToHashDataMap.Add(localPath, hashData);
-                            }
-
-                            loggerCache ??= new Dictionary<string, CachingLogger>();
 
                             if (hashData?.Sha256 != null)
                             {
-                                context.Logger = loggerCache.TryGetValue(hashData.Sha256, out CachingLogger logger)
-                                    ? logger
-                                    : (loggerCache[hashData.Sha256] = (CachingLogger)context.Logger);
+                                if (!_loggerCache.TryAdd(hashData.Sha256, (CachingLogger)context.Logger))
+                                {
+                                    context.Logger = _loggerCache[hashData.Sha256];
+                                }
                             }
                         }
 
@@ -587,7 +608,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             }
             finally
             {
-                readyToScanChannel.Writer.Complete();
             }
 
             return true;
@@ -653,12 +673,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
             if (!analyzeOptions.Quiet)
             {
-                _consoleLogger = new ConsoleLogger(analyzeOptions.Quiet, Tool.Driver.Name, analyzeOptions.Level, analyzeOptions.Kind) { CaptureOutput = _captureConsoleOutput };
+                _consoleLogger = new ConsoleLogger(analyzeOptions.Quiet, Tool.Driver.Name, analyzeOptions.FailureLevels, analyzeOptions.ResultKinds) { CaptureOutput = _captureConsoleOutput };
                 logger.Loggers.Add(_consoleLogger);
             }
 
             _dataToInsert = analyzeOptions.DataToInsert.ToFlags();
             _computeHashes = (_dataToInsert & OptionallyEmittedData.Hashes) != 0;
+            _computeHashes = false;
 
             return logger;
         }
@@ -676,10 +697,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 RuntimeErrors = runtimeErrors,
             };
 
-            context.Traces =
-                options.Traces.Any() ?
-                    (DefaultTraces)Enum.Parse(typeof(DefaultTraces), string.Join(",", options.Traces)) :
-                    DefaultTraces.None;
+            context.Traces = options.Traces;
 
             context.MaxFileSizeInKilobytes =
                 options.MaxFileSizeInKilobytes >= 0
@@ -785,8 +803,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                                                           quiet: analyzeOptions.Quiet,
                                                           invocationTokensToRedact: GenerateSensitiveTokensList(),
                                                           invocationPropertiesToLog: analyzeOptions.InvocationPropertiesToLog,
-                                                          levels: analyzeOptions.Level,
-                                                          kinds: analyzeOptions.Kind,
+                                                          levels: analyzeOptions.FailureLevels,
+                                                          kinds: analyzeOptions.ResultKinds,
                                                           insertProperties: analyzeOptions.InsertProperties);
                         }
                         else
@@ -799,11 +817,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                                                                      analysisTargets: null,
                                                                      invocationTokensToRedact: GenerateSensitiveTokensList(),
                                                                      invocationPropertiesToLog: analyzeOptions.InvocationPropertiesToLog,
-                                                                     levels: analyzeOptions.Level,
-                                                                     kinds: analyzeOptions.Kind,
+                                                                     levels: analyzeOptions.FailureLevels,
+                                                                     kinds: analyzeOptions.ResultKinds,
                                                                      insertProperties: analyzeOptions.InsertProperties);
                         }
-                        _pathToHashDataMap = sarifLogger.AnalysisTargetToHashDataMap;
                         sarifLogger.AnalysisStarted();
                         aggregatingLogger.Loggers.Add(sarifLogger);
                     },

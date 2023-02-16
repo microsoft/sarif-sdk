@@ -549,7 +549,7 @@ namespace Microsoft.CodeAnalysis.Sarif {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to One or more files were skipped for analysis due to exceeding size limits (currently configured as {0} KB). The &apos;max-file-size-in-kb&apos; command-line argument can be used to increase this threshold..
+        ///   Looks up a localized string similar to {0} file(s) were skipped for analysis due to exceeding size limits (currently configured as {1} KB). The &apos;max-file-size-in-kb&apos; command-line argument can be used to increase this threshold..
         /// </summary>
         public static string WRN997_OneOrMoreFilesSkippedDueToSize {
             get {

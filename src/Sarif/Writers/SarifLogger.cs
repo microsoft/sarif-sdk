@@ -4,6 +4,7 @@
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Collections.Immutable;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -41,11 +42,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                            string defaultFileEncoding = null,
                            bool closeWriterOnDispose = true,
                            bool quiet = false,
-                           IEnumerable<FailureLevel> levels = null,
-                           IEnumerable<ResultKind> kinds = null,
+                           IImmutableSet<FailureLevel> levels = null,
+                           IImmutableSet<ResultKind> kinds = null,
                            IEnumerable<string> insertProperties = null,
                            FileRegionsCache fileRegionsCache = null)
-            : this(new StreamWriter(new FileStream(outputFilePath, FileMode.Create, FileAccess.Write, FileShare.None)),
+            : this(new StreamWriter(new FileStream(outputFilePath, FileMode.Create, FileAccess.Write, FileShare.Read)),
                                     logFilePersistenceOptions,
                                     dataToInsert,
                                     dataToRemove,
@@ -74,8 +75,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                            string defaultFileEncoding = null,
                            bool closeWriterOnDispose = true,
                            bool quiet = false,
-                           IEnumerable<FailureLevel> levels = null,
-                           IEnumerable<ResultKind> kinds = null,
+                           IImmutableSet<FailureLevel> levels = null,
+                           IImmutableSet<ResultKind> kinds = null,
                            IEnumerable<string> insertProperties = null,
                            FileRegionsCache fileRegionsCache = null) : base(failureLevels: levels, resultKinds: kinds)
         {

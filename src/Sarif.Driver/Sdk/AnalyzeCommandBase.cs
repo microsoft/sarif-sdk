@@ -239,13 +239,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
             if (!analyzeOptions.Quiet)
             {
-                _consoleLogger = new ConsoleLogger(analyzeOptions.Quiet, _tool.Driver.Name, analyzeOptions.Level, analyzeOptions.Kind) { CaptureOutput = _captureConsoleOutput };
+                _consoleLogger = new ConsoleLogger(analyzeOptions.Quiet, _tool.Driver.Name, analyzeOptions.FailureLevels, analyzeOptions.ResultKinds) { CaptureOutput = _captureConsoleOutput };
                 logger.Loggers.Add(_consoleLogger);
             }
 
             if ((analyzeOptions.DataToInsert.ToFlags() & OptionallyEmittedData.Hashes) != 0)
             {
-                _cacheByFileHashLogger = new CacheByFileHashLogger(analyzeOptions.Level, analyzeOptions.Kind);
+                _cacheByFileHashLogger = new CacheByFileHashLogger(analyzeOptions.FailureLevels, analyzeOptions.ResultKinds);
                 logger.Loggers.Add(_cacheByFileHashLogger);
             }
 
@@ -305,10 +305,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 Policy = policy ?? new PropertiesDictionary()
             };
 
-            context.Traces =
-                options.Traces.Any() ?
-                    (DefaultTraces)Enum.Parse(typeof(DefaultTraces), string.Join(",", options.Traces)) :
-                    DefaultTraces.None;
+            context.Traces = options.Traces;
 
             context.MaxFileSizeInKilobytes =
                 options.MaxFileSizeInKilobytes >= 0
@@ -427,8 +424,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                                     quiet: analyzeOptions.Quiet,
                                     invocationTokensToRedact: GenerateSensitiveTokensList(),
                                     invocationPropertiesToLog: analyzeOptions.InvocationPropertiesToLog,
-                                    levels: analyzeOptions.Level,
-                                    kinds: analyzeOptions.Kind);
+                                    levels: analyzeOptions.FailureLevels,
+                                    kinds: analyzeOptions.ResultKinds);
                         }
                         else
                         {
@@ -441,8 +438,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                                     analysisTargets: null,
                                     invocationTokensToRedact: GenerateSensitiveTokensList(),
                                     invocationPropertiesToLog: analyzeOptions.InvocationPropertiesToLog,
-                                    levels: analyzeOptions.Level,
-                                    kinds: analyzeOptions.Kind);
+                                    levels: analyzeOptions.FailureLevels,
+                                    kinds: analyzeOptions.ResultKinds);
                         }
                         _pathToHashDataMap = sarifLogger.AnalysisTargetToHashDataMap;
                         sarifLogger.AnalysisStarted();
