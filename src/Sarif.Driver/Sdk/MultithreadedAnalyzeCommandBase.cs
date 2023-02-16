@@ -218,12 +218,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
             // 1: First we initiate an asynchronous operation to locate disk files for
             // analysis, as specified in analysis configuration (file names, wildcards).
-            Task<bool> enumerateFilesOnDisk = EnumerateFilesOnDiskAsync(options);
+            Task<bool> enumerateFilesOnDisk = Task.Run(() => EnumerateFilesOnDiskAsync(options));
 
             // 2: Files found on disk are put in a specific sort order, after which a 
             // reference to each scan target is put into a channel for hashing,
             // if hashing is enabled.
-            Task<bool> hashFilesAndPutInAnalysisQueue = HashFilesAndPutInAnalysisQueueAsnc();
+            Task<bool> hashFilesAndPutInAnalysisQueue = Task.Run(() => HashFilesAndPutInAnalysisQueueAsnc());
 
             // 3: A dedicated set of threads pull scan targets and analyze them.
             //    On completing a scan, the thread writes the index of the 
@@ -231,7 +231,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             var workers = new Task<bool>[options.Threads];
             for (int i = 0; i < options.Threads; i++)
             {
-                workers[i] = ScanTargetsAsync(skimmers, disabledSkimmers);
+                workers[i] = Task.Run(() => ScanTargetsAsync(skimmers, disabledSkimmers));
             }
 
             // 4: A single-threaded consumer watches for completed scans
@@ -240,7 +240,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             //    scan of the same targets using the same production code
             //    should produce a log file that is byte-for-byte identical
             //    to the previous output.
-            Task<bool> logScanResults = LogScanResultsAsync(rootContext);
+            Task<bool> logScanResults = Task.Run(() => LogScanResultsAsync(rootContext));
 
             Task.WhenAll(workers)
                 .ContinueWith(_ => _resultsWritingChannel.Writer.Complete())

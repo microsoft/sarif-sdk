@@ -261,7 +261,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
         public Func<Uri, HashData> ComputeHashData { get; set; }
 
-        public IDictionary<string, HashData> AnalysisTargetToHashDataMap { get; }
+        public IDictionary<string, HashData> AnalysisTargetToHashDataMap { get; set; }
 
         public IDictionary<ReportingDescriptor, ReportingDescriptorReference> RuleToReportingDescriptorReferenceMap { get; }
 
