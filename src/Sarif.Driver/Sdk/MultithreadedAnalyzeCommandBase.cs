@@ -8,7 +8,6 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
-using System.Threading.Channels;
 using System.Threading.Tasks;
 
 using Microsoft.CodeAnalysis.Sarif.Writers;
@@ -34,10 +33,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         internal TContext _rootContext;
         private int _fileContextsCount;
         private uint _ignoredFilesCount;
-        private Channel<int> readyToHashChannel;
+        private bool _fileEnumerationComplete;
         private OptionallyEmittedData _dataToInsert;
-        private Channel<int> _resultsWritingChannel;
-        private Channel<int> readyToScanChannel;
         private ConcurrentDictionary<int, TContext> _fileContexts;
 
         public Exception ExecutionException { get; set; }
@@ -192,72 +189,24 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 ? options.Threads
                 : (Debugger.IsAttached) ? 1 : Environment.ProcessorCount;
 
-            var channelOptions = new BoundedChannelOptions(25000)
-            {
-                SingleWriter = true,
-                SingleReader = true,
-            };
-            readyToHashChannel = Channel.CreateBounded<int>(channelOptions);
-
-            channelOptions = new BoundedChannelOptions(25000)
-            {
-                SingleWriter = true,
-                SingleReader = false,
-            };
-            readyToScanChannel = Channel.CreateBounded<int>(channelOptions);
-
-            channelOptions = new BoundedChannelOptions(25000)
-            {
-                SingleWriter = false,
-                SingleReader = true,
-            };
-            _resultsWritingChannel = Channel.CreateBounded<int>(channelOptions);
-
             var sw = Stopwatch.StartNew();
 
-            // 1: First we initiate an asynchronous operation to locate disk files for
-            // analysis, as specified in analysis configuration (file names, wildcards).
-            Task<bool> enumerateFilesOnDisk = Task.Run(() => EnumerateFilesOnDiskAsync(options));
-
-            // 3: A dedicated set of threads pull scan targets and analyze them.
-            //    On completing a scan, the thread writes the index of the 
-            //    scanned item to a channel that drives logging.
-            var hashWorkers = new Task<bool>[options.Threads];
-            for (int i = 0; i < options.Threads; i++)
-            {
-                hashWorkers[i] = Task.Run(() => HashFilesAndPutInAnalysisQueueAsnc());
-            }
-
-            // 3: A dedicated set of threads pull scan targets and analyze them.
-            //    On completing a scan, the thread writes the index of the 
-            //    scanned item to a channel that drives logging.
-            var workers = new Task<bool>[options.Threads];
-            for (int i = 0; i < options.Threads; i++)
-            {
-                workers[i] = Task.Run(() => ScanTargetsAsync(skimmers, disabledSkimmers));
-            }
-
             // 4: A single-threaded consumer watches for completed scans
-            //    and logs results, if any. This operation is singlle-threaded
+            //    and logs results, if any. This operation is single-threaded
             //    in order to help ensure determinism in log output. i.e., any
             //    scan of the same targets using the same production code
             //    should produce a log file that is byte-for-byte identical
             //    to the previous output.
             Task<bool> logScanResults = Task.Run(() => LogScanResultsAsync(rootContext));
 
-            Task.WhenAll(hashWorkers)
-                .ContinueWith(_ => {
-                    _loggerCache?.Clear();
-                    Console.WriteLine("Done with hashing.");
-                    readyToScanChannel.Writer.Complete(); 
-                })
-                .Wait();
+            var parallelOptions = new ParallelOptions { MaxDegreeOfParallelism = options.Threads };
+            Parallel.ForEach(EnumerateFilesOnDisk(options), parallelOptions, (contextIndex) =>
+            {
+                ScanTargets(skimmers, disabledSkimmers, contextIndex);
+            });
 
-            Task.WhenAll(workers)
-                .ContinueWith(_ => _resultsWritingChannel.Writer.Complete())
-                .Wait();
+            _fileEnumerationComplete = true;
 
-            enumerateFilesOnDisk.Wait();
             logScanResults.Wait();
 
             Console.WriteLine();
@@ -304,57 +253,51 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         {
             int currentIndex = 0;
 
-            ChannelReader<int> reader = _resultsWritingChannel.Reader;
+            while (_fileContexts?.Count > 0 == false)
+            { 
+                Task.Delay(1).GetAwaiter().GetResult(); 
+            }
 
-            // Wait until there is work or the channel is closed.
-            while (await reader.WaitToReadAsync())
+            while (!_fileEnumerationComplete || !_fileContexts.IsEmpty)
             {
-                // Loop while there is work to do.
-                while (reader.TryRead(out int item))
+                TContext context = default;
+                try
                 {
-                    // This condition can occur if currentIndex moves
-                    // ahead in array processing due to operations
-                    // against it by other threads. For this case,
-                    // since the relevant file has already been
-                    // processed, we just ignore this notification.
-                    if (currentIndex > item) { break; }
+                    context = _fileContexts[currentIndex];
 
-                    TContext context = default;
-                    try
+                    while (!context?.AnalysisComplete == true)
                     {
-                        context = _fileContexts[currentIndex];
-
-                        while (context?.AnalysisComplete == true)
-                        {
-                            LogCachingLogger(rootContext, context, clone: _computeHashes);
-
-                            RuntimeErrors |= context.RuntimeErrors;
-
-                            context.Dispose();
-                            _fileContexts.TryRemove(currentIndex, out _);
-                            _fileContexts.TryGetValue(currentIndex + 1, out context);
-
-                            currentIndex++;
-                        }
+                        await Task.Delay(10);
                     }
-                    catch (Exception e)
+
+                    LogCachingLogger(rootContext, context, clone: _computeHashes);
+
+                    RuntimeErrors |= context.RuntimeErrors;
+
+                    context.Dispose();
+                    _fileContexts.TryRemove(currentIndex, out _);
+                    _fileContexts.TryGetValue(currentIndex + 1, out context);
+                }
+                catch (Exception e)
+                {
+                    if (context != null)
                     {
-                        if (context != null)
-                        {
-                            RuntimeErrors |= context.RuntimeErrors;
-                            context?.Dispose();
-                        }
-                        context = default;
-                        Errors.LogUnhandledEngineException(rootContext, e);
-                        RuntimeErrors |= rootContext.RuntimeErrors;
-                        ThrowExitApplicationException(context, ExitReason.ExceptionWritingToLogFile, e);
+                        RuntimeErrors |= context.RuntimeErrors;
+                        context?.Dispose();
                     }
+                    context = default;
+                    Errors.LogUnhandledEngineException(rootContext, e);
+                    RuntimeErrors |= rootContext.RuntimeErrors;
+                    ThrowExitApplicationException(context, ExitReason.ExceptionWritingToLogFile, e);
+                }
+                finally
+                {
+                    currentIndex++;
                 }
             }
 
             Debug.Assert(_fileContexts.IsEmpty);
             Debug.Assert(_fileContextsCount == currentIndex);
-
             return true;
         }
 
@@ -428,111 +371,100 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             return true;
         }
 
-        private async Task<bool> EnumerateFilesOnDiskAsync(TOptions options)
+        private IEnumerable<int> EnumerateFilesOnDisk(TOptions options)
         {
-            try
+            this._fileContextsCount = 0;
+            this._fileContexts = new ConcurrentDictionary<int, TContext>();
+
+            // INTERESTING BREAKPOINT: debug 'ERR997.NoValidAnalysisTargets : No valid analysis targets were specified.'
+            // Set a conditional breakpoint on 'matchExpression.Name' to filter by specific rules.
+            // Set a conditional breakpoint on 'searchText' to filter on specific target text patterns.
+            foreach (string specifier in options.TargetFileSpecifiers)
             {
-                this._fileContextsCount = 0;
-                this._fileContexts = new ConcurrentDictionary<int, TContext>();
+                string normalizedSpecifier = Environment.ExpandEnvironmentVariables(specifier);
 
-                // INTERESTING BREAKPOINT: debug 'ERR997.NoValidAnalysisTargets : No valid analysis targets were specified.'
-                // Set a conditional breakpoint on 'matchExpression.Name' to filter by specific rules.
-                // Set a conditional breakpoint on 'searchText' to filter on specific target text patterns.
-                foreach (string specifier in options.TargetFileSpecifiers)
+                if (Uri.TryCreate(specifier, UriKind.RelativeOrAbsolute, out Uri uri))
                 {
-                    string normalizedSpecifier = Environment.ExpandEnvironmentVariables(specifier);
-
-                    if (Uri.TryCreate(specifier, UriKind.RelativeOrAbsolute, out Uri uri))
+                    if (uri.IsAbsoluteUri && (uri.IsFile || uri.IsUnc))
                     {
-                        if (uri.IsAbsoluteUri && (uri.IsFile || uri.IsUnc))
-                        {
-                            normalizedSpecifier = uri.LocalPath;
-                        }
+                        normalizedSpecifier = uri.LocalPath;
                     }
+                }
 
-                    string filter = Path.GetFileName(normalizedSpecifier);
-                    string directory = Path.GetDirectoryName(normalizedSpecifier);
+                string filter = Path.GetFileName(normalizedSpecifier);
+                string directory = Path.GetDirectoryName(normalizedSpecifier);
 
-                    if (directory.Length == 0)
-                    {
-                        directory = $".{Path.DirectorySeparatorChar}";
-                    }
+                if (directory.Length == 0)
+                {
+                    directory = $".{Path.DirectorySeparatorChar}";
+                }
 
-                    directory = Path.GetFullPath(directory);
-                    var directories = new Queue<string>();
+                directory = Path.GetFullPath(directory);
+                var directories = new Queue<string>();
 
-                    if (!FileSystem.DirectoryExists(directory))
-                    {
-                        continue;
-                    }
+                if (!FileSystem.DirectoryExists(directory))
+                {
+                    continue;
+                }
 
-                    if (options.Recurse)
-                    {
-                        EnqueueAllDirectories(directories, directory);
-                    }
-                    else
-                    {
-                        directories.Enqueue(directory);
-                    }
+                if (options.Recurse)
+                {
+                    EnqueueAllDirectories(directories, directory);
+                }
+                else
+                {
+                    directories.Enqueue(directory);
+                }
 
-                    var sortedFiles = new SortedSet<string>();
+                var sortedFiles = new SortedSet<string>();
 
-                    while (directories.Count > 0)
-                    {
-                        sortedFiles.Clear();
+                while (directories.Count > 0)
+                {
+                    sortedFiles.Clear();
 
-                        directory = Path.GetFullPath(directories.Dequeue());
+                    directory = Path.GetFullPath(directories.Dequeue());
 
 #if NETFRAMEWORK
-                        // .NET Framework: Directory.Enumerate with empty filter returns NO files.
-                        // .NET Core: Directory.Enumerate with empty filter returns all files in directory.
-                        // We will standardize on the .NET Core behavior.
-                        if (string.IsNullOrEmpty(filter))
-                        {
-                            filter = "*";
-                        }
+                    // .NET Framework: Directory.Enumerate with empty filter returns NO files.
+                    // .NET Core: Directory.Enumerate with empty filter returns all files in directory.
+                    // We will standardize on the .NET Core behavior.
+                    if (string.IsNullOrEmpty(filter))
+                    {
+                        filter = "*";
+                    }
 #endif
 
-                        foreach (string file in FileSystem.DirectoryEnumerateFiles(directory, filter, SearchOption.TopDirectoryOnly))
+                    foreach (string file in FileSystem.DirectoryEnumerateFiles(directory, filter, SearchOption.TopDirectoryOnly))
+                    {
+                        // Only include files that are below the max size limit.
+                        if (ShouldEnqueue(file, _rootContext))
                         {
-                            // Only include files that are below the max size limit.
-                            if (ShouldEnqueue(file, _rootContext))
-                            {
-                                sortedFiles.Add(file);
-                                continue;
-                            }
-
-                            if (!IsTargetWithinFileSizeLimit(file, _rootContext.MaxFileSizeInKilobytes, out long fileSizeInKb))
-                            {
-                                _ignoredFilesCount++;
-                            }
+                            sortedFiles.Add(file);
+                            continue;
                         }
 
-                        foreach (string file in sortedFiles)
+                        if (!IsTargetWithinFileSizeLimit(file, _rootContext.MaxFileSizeInKilobytes, out long fileSizeInKb))
                         {
-                            _fileContexts.TryAdd(
-                                _fileContextsCount,
-                                CreateContext(options,
-                                              new CachingLogger(options.FailureLevels, options.ResultKinds),
-                                              _rootContext.RuntimeErrors,
-                                              _rootContext.Policy,
-                                              filePath: file)
-                            );
-
-                            await readyToHashChannel.Writer.WriteAsync(_fileContextsCount++);
+                            _ignoredFilesCount++;
                         }
+                    }
+
+                    foreach (string file in sortedFiles)
+                    {
+                        _fileContexts.TryAdd(
+                            this._fileContextsCount,
+                            CreateContext(options,
+                                          new CachingLogger(options.FailureLevels, options.ResultKinds),
+                                          _rootContext.RuntimeErrors,
+                                          _rootContext.Policy,
+                                          filePath: file)
+                        );
+
+                        yield return _fileContextsCount++;
                     }
                 }
             }
-            catch (Exception e)
-            {
-                Errors.LogUnhandledEngineException(_rootContext, e);
-                ThrowExitApplicationException(_rootContext, ExitReason.UnhandledExceptionInEngine);
-            }
-            finally
-            {
-                readyToHashChannel.Writer.Complete();
-            }
+
 
             if (_ignoredFilesCount > 0)
             {
@@ -544,8 +476,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 Errors.LogNoValidAnalysisTargets(_rootContext);
                 ThrowExitApplicationException(_rootContext, ExitReason.NoValidAnalysisTargets);
             }
-
-            return true;
         }
 
         private void EnqueueAllDirectories(Queue<string> queue, string directory)
@@ -566,83 +496,24 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
         private readonly ConcurrentDictionary<string, CachingLogger> _loggerCache = new ConcurrentDictionary<string, CachingLogger>();
 
-        private async Task<bool> HashFilesAndPutInAnalysisQueueAsnc()
+        private void ScanTargets(IEnumerable<Skimmer<TContext>> skimmers, ISet<string> disabledSkimmers, int contextIndex)
         {
-            ChannelReader<int> reader = readyToHashChannel.Reader;
+            TContext context = default;
 
             try
             {
-                // Wait until there is work or the channel is closed.
-                while (await reader.WaitToReadAsync())
-                {
-                    // Loop while there is work to do.
-                    while (reader.TryRead(out int index))
-                    {
-                        if (_computeHashes)
-                        {
-                            TContext context = _fileContexts[index];
-                            string localPath = context.TargetUri.LocalPath;
+                context = _fileContexts[contextIndex];
 
-                            HashData hashData = ShouldComputeHashes(localPath, _rootContext)
-                                ? HashUtilities.ComputeHashes(localPath, FileSystem)
-                                : null;
-
-
-                            if (hashData?.Sha256 != null)
-                            {
-                                if (!_loggerCache.TryAdd(hashData.Sha256, (CachingLogger)context.Logger))
-                                {
-                                    context.Logger = _loggerCache[hashData.Sha256];
-                                }
-                            }
-                        }
-
-                        await readyToScanChannel.Writer.WriteAsync(index);
-                    }
-                }
+                DetermineApplicabilityAndAnalyze(context, skimmers, disabledSkimmers);
             }
             catch (Exception e)
             {
-                Errors.LogUnhandledEngineException(_rootContext, e);
-                ThrowExitApplicationException(_rootContext, ExitReason.UnhandledExceptionInEngine);
+                Console.Error.WriteLine(e.Message);
             }
             finally
             {
+                if (context != null) { context.AnalysisComplete = true; }
             }
-
-            return true;
-        }
-
-        private async Task<bool> ScanTargetsAsync(IEnumerable<Skimmer<TContext>> skimmers, ISet<string> disabledSkimmers)
-        {
-            ChannelReader<int> reader = readyToScanChannel.Reader;
-
-            // Wait until there is work or the channel is closed.
-            while (await reader.WaitToReadAsync())
-            {
-                // Loop while there is work to do.
-                while (reader.TryRead(out int item))
-                {
-                    TContext context = default;
-
-                    try
-                    {
-                        context = _fileContexts[item];
-
-                        DetermineApplicabilityAndAnalyze(context, skimmers, disabledSkimmers);
-                    }
-                    catch (Exception e)
-                    {
-                        Console.Error.WriteLine(e.Message);
-                    }
-                    finally
-                    {
-                        if (context != null) { context.AnalysisComplete = true; }
-                        await _resultsWritingChannel.Writer.WriteAsync(item);
-                    }
-                }
-            }
-            return true;
         }
 
         protected virtual void ValidateOptions(TOptions options, TContext context)
