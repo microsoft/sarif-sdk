@@ -31,7 +31,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         internal ConsoleLogger _consoleLogger;
 
         private Run _run;
-        private bool _computeHashes;
         internal TContext _rootContext;
         private int _fileContextsCount;
         private uint _ignoredFilesCount;
@@ -343,7 +342,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         {
             // Today, the signal to generate hash data in log files is synonymous with a decision
             // to perform target file results-caching (where we only analyze a copy of a file, by
-            // hash, a single time. We need to separate configuring this mechanism. Some scan 
+            // hash, a single time). We need to separate configuring this mechanism. Some scan 
             // scenarios, such as binary analysis + crawl of PDB, greatly benefit from this mechanism,
             // other scan scenarios, such as lightweight linting of large #'s of source files, 
             // experience significant memory pressure from it. Disabling caching altogether for now.
