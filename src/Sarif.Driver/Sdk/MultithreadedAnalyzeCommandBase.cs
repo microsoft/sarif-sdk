@@ -307,7 +307,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
                         while (context?.AnalysisComplete == true)
                         {
-                            LogCachingLogger(rootContext, context, clone: _computeHashes);
+                            LogCachingLogger(rootContext, context, clone: false);
 
                             RuntimeErrors |= context.RuntimeErrors;
 
@@ -341,6 +341,18 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
         private static void LogCachingLogger(TContext rootContext, TContext context, bool clone = false)
         {
+            // Today, the signal to generate hash data in log files is synonymous with a decision
+            // to perform target file results-caching (where we only analyze a copy of a file, by
+            // hash, a single time. We need to separate configuring this mechanism. Some scan 
+            // scenarios, such as binary analysis + crawl of PDB, greatly benefit from this mechanism,
+            // other scan scenarios, such as lightweight linting of large #'s of source files, 
+            // experience significant memory pressure from it. Disabling caching altogether for now.
+            // 
+            // https://github.com/microsoft/sarif-sdk/issues/2620
+            //
+            // As a result of this gap, `clone` will always be false, because we have a per-file
+            // (and not per-file-by-hash) logger instance.
+
             var cachingLogger = (CachingLogger)context.Logger;
             IDictionary<ReportingDescriptor, IList<Tuple<Result, int?>>> results = cachingLogger.Results;
 
@@ -606,19 +618,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             }
 
             _dataToInsert = analyzeOptions.DataToInsert.ToFlags();
-            _computeHashes = (_dataToInsert & OptionallyEmittedData.Hashes) != 0;
-
-            // Today, the signal to generate hash data in log files is synonymous with a decision
-            // to perform target file results-caching (where we only analyze a copy of a file, by
-            // hash, a single time. We need to separate configuring this mechanism. Some scan 
-            // scenarios, such as binary analysis + crawl of PDB, greatly benefit from this mechanism,
-            // other scan scenarios, such as lightweight linting of large #'s of source files, 
-            // experience significant memory pressure from it. Disabling caching altogether for now.
-            // 
-            // https://github.com/microsoft/sarif-sdk/issues/2620
-            //
-            _computeHashes = false;
-
+            
             return logger;
         }
 
