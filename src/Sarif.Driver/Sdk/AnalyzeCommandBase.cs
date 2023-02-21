@@ -30,7 +30,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         private Run _run;
         private Tool _tool;
         internal TContext _rootContext;
-        private CacheByFileHashLogger _cacheByFileHashLogger;
         private IDictionary<string, HashData> _pathToHashDataMap;
 
         public Exception ExecutionException { get; set; }
@@ -225,7 +224,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
             if (!shouldEnqueue)
             {
-                Warnings.LogFileSkippedDueToSize(context, file, fileSizeInKb);
+                Notes.LogFileSkippedDueToSize(context, file, fileSizeInKb);
             }
 
             return shouldEnqueue;
@@ -241,12 +240,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             {
                 _consoleLogger = new ConsoleLogger(analyzeOptions.Quiet, _tool.Driver.Name, analyzeOptions.FailureLevels, analyzeOptions.ResultKinds) { CaptureOutput = _captureConsoleOutput };
                 logger.Loggers.Add(_consoleLogger);
-            }
-
-            if ((analyzeOptions.DataToInsert.ToFlags() & OptionallyEmittedData.Hashes) != 0)
-            {
-                _cacheByFileHashLogger = new CacheByFileHashLogger(analyzeOptions.FailureLevels, analyzeOptions.ResultKinds);
-                logger.Loggers.Add(_cacheByFileHashLogger);
             }
 
             return logger;
@@ -624,42 +617,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 rootContext.RuntimeErrors,
                 rootContext.Policy,
                 target);
-
-            if ((options.DataToInsert.ToFlags() & OptionallyEmittedData.Hashes) != 0)
-            {
-                _cacheByFileHashLogger.HashToResultsMap.TryGetValue(context.Hashes.Sha256, out List<Tuple<ReportingDescriptor, Result, int?>> cachedResultTuples);
-                _cacheByFileHashLogger.HashToNotificationsMap.TryGetValue(context.Hashes.Sha256, out List<Notification> cachedNotifications);
-
-                bool replayCachedData = (cachedResultTuples != null || cachedNotifications != null);
-
-                if (replayCachedData)
-                {
-                    context.Logger.AnalyzingTarget(context);
-
-                    if (cachedResultTuples != null)
-                    {
-                        foreach (Tuple<ReportingDescriptor, Result, int?> cachedResultTuple in cachedResultTuples)
-                        {
-                            Result clonedResult = cachedResultTuple.Item2.DeepClone();
-                            ReportingDescriptor cachedReportingDescriptor = cachedResultTuple.Item1;
-
-                            UpdateLocationsAndMessageWithCurrentUri(clonedResult.Locations, clonedResult.Message, context.TargetUri);
-                            context.Logger.Log(cachedReportingDescriptor, clonedResult, cachedResultTuple.Item3);
-                        }
-                    }
-
-                    if (cachedNotifications != null)
-                    {
-                        foreach (Notification cachedNotification in cachedNotifications)
-                        {
-                            Notification clonedNotification = cachedNotification.DeepClone();
-                            UpdateLocationsAndMessageWithCurrentUri(clonedNotification.Locations, cachedNotification.Message, context.TargetUri);
-                            context.Logger.LogConfigurationNotification(clonedNotification);
-                        }
-                    }
-                    return context;
-                }
-            }
 
             if (context.TargetLoadException != null)
             {

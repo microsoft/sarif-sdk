@@ -107,7 +107,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
             _run = run ?? new Run();
 
-            if (dataToInsert.HasFlag(OptionallyEmittedData.RegionSnippets) ||
+            if (dataToInsert.HasFlag(OptionallyEmittedData.Hashes) ||
+                dataToInsert.HasFlag(OptionallyEmittedData.RegionSnippets) ||
                 dataToInsert.HasFlag(OptionallyEmittedData.ContextRegionSnippets))
             {
                 _insertOptionalDataVisitor = new InsertOptionalDataVisitor(dataToInsert,

@@ -47,7 +47,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         public void AnalyzeCommandBase_RootContextIsDisposed()
         {
             var options = new TestAnalyzeOptions();
-            var singleThreadedCommand = new TestAnalyzeCommand();
+            var singleThreadedCommand = new TestAnalyzeCommand(FileSystem.Instance);
             int result = singleThreadedCommand.Run(options);
             singleThreadedCommand._rootContext.Disposed.Should().BeTrue();
 
@@ -103,7 +103,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
             ITestAnalyzeCommand command = multithreaded
                 ? new TestMultithreadedAnalyzeCommand()
-                : (ITestAnalyzeCommand)new TestAnalyzeCommand();
+                : (ITestAnalyzeCommand)new TestAnalyzeCommand(FileSystem.Instance);
 
             command.DefaultPluginAssemblies = plugInAssemblies;
 
@@ -641,7 +641,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                     PostUri = postUri,
                 };
 
-                var command = new TestAnalyzeCommand();
+                var command = new TestAnalyzeCommand(FileSystem.Instance);
                 command.DefaultPluginAssemblies = new Assembly[] { this.GetType().Assembly };
                 int result = command.Run(options);
 
@@ -674,7 +674,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 {
                     OutputFilePath = Guid.NewGuid().ToString(),
                     TargetFileSpecifiers = new string[] { Guid.NewGuid().ToString() },
-                    Traces = new[] { trace.ToString() },
+                    Trace = new[] { trace.ToString() },
                     Level = new[] { FailureLevel.Warning, FailureLevel.Note },
                 };
 
@@ -1031,7 +1031,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                     SarifOutputVersion = SarifVersion.OneZeroZero
                 };
 
-                var command = new TestAnalyzeCommand();
+                var command = new TestAnalyzeCommand(FileSystem.Instance);
                 command.DefaultPluginAssemblies = new Assembly[] { this.GetType().Assembly };
                 int returnValue = command.Run(options);
 
@@ -1758,32 +1758,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             }
         }
 
-        [Fact]
-        public void AnalyzeCommandBase_MultithreadedShouldUseCacheIfFilesAreTheSame()
-        {
-            // Generating 20 files with different names but same content.
-            // Generally, we expect the test analyzer to produce a result 
-            // based on the file name. Because every file is a duplicate 
-            // of every other in this case, though, we expect to see a 
-            // result for every file, because the first one analyzed 
-            // produces a result and therefore every identical file (by
-            // file hash, not by file name) will also produce that result.
-            RunMultithreadedAnalyzeCommand(ComprehensiveKindAndLevelsByFilePath,
-                                           generateDuplicateScanTargets: true,
-                                           expectedResultCode: 0,
-                                           expectedResultCount: 20);
-
-            // Generating 20 files with different names and content.
-            // For this case, our expected result count matches the default
-            // behavior of the test analyzer and our default analyzer settings.
-            // By default, our analysis produces output for errors and warnings
-            // and there happen to be 7 files that comprises these failure levels.
-            RunMultithreadedAnalyzeCommand(ComprehensiveKindAndLevelsByFilePath,
-                                           generateDuplicateScanTargets: false,
-                                           expectedResultCode: 0,
-                                           expectedResultCount: 7);
-        }
-
         private static readonly IList<string> ComprehensiveKindAndLevelsByFileName = new List<string>
         {
             // Every one of these files will be regarded as identical in content by level/kind. So every file
@@ -2016,16 +1990,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 command = new TestAnalyzeCommand(fileSystem) { _captureConsoleOutput = captureConsoleOutput };
             }
             command.DefaultPluginAssemblies = new Assembly[] { typeof(AnalyzeCommandBaseTests).Assembly };
-
-            try
-            {
-                HashUtilities.FileSystem = fileSystem;
-                command.Run(options).Should().Be(expectedReturnCode);
-            }
-            finally
-            {
-                HashUtilities.FileSystem = null;
-            }
+            command.Run(options).Should().Be(expectedReturnCode);
 
             if (exitReason != ExitReason.None)
             {
@@ -2074,7 +2039,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                     DefaultPluginAssemblies = new Assembly[] { typeof(AnalyzeCommandBaseTests).Assembly }
                 };
 
-                HashUtilities.FileSystem = testCase.FileSystem;
                 int result = command.Run(options);
                 result.Should().Be(expectedResultCode);
 
@@ -2350,7 +2314,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         {
             ITestAnalyzeCommand command = multiThreadsCommand ?
                 new TestMultithreadedAnalyzeCommand() :
-                (ITestAnalyzeCommand)new TestAnalyzeCommand();
+                (ITestAnalyzeCommand)new TestAnalyzeCommand(FileSystem.Instance);
 
             var logger = new AggregatingLogger();
             logger.Loggers.Add(consoleLogger);

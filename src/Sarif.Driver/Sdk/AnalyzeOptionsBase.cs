@@ -8,6 +8,8 @@ using System.Linq;
 
 using CommandLine;
 
+using Microsoft.CodeAnalysis.Sarif.Writers;
+
 namespace Microsoft.CodeAnalysis.Sarif.Driver
 {
     [Verb("analyze", HelpText = "Analyze one or more binary files for security and correctness issues.")]
@@ -18,8 +20,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             // TODO: these defaults need to be converted to the configuration
             // property pattern as followed by MaxFileSizeInKilobytes.
             Trace = new string[] { };
-            Kind = new List<ResultKind> { ResultKind.Fail };
-            Level = new List<FailureLevel> { FailureLevel.Warning, FailureLevel.Error };
+            Kind = BaseLogger.Fail;
+            Level = BaseLogger.ErrorWarning;
 
             MaxFileSizeInKilobytes = AnalyzeContextBase.MaxFileSizeInKilobytesDefaultValue;
         }
@@ -109,11 +111,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         {
             get
             {
-                defaultTraces ??= 
-                    this.Trace.Any()                    
+                defaultTraces ??=
+                    this.Trace.Any()
                         ? (DefaultTraces)Enum.Parse(typeof(DefaultTraces), string.Join(",", this.Trace))
                         : DefaultTraces.None;
-                
+
                 return this.defaultTraces.Value;
             }
         }
@@ -126,12 +128,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         public IEnumerable<FailureLevel> Level { get; set; }
 
         private IImmutableSet<FailureLevel> failureLevels;
-        public IImmutableSet<FailureLevel> FailureLevels 
-        { 
-            get 
+        public IImmutableSet<FailureLevel> FailureLevels
+        {
+            get
             {
                 this.failureLevels ??= new List<FailureLevel>(Level).ToImmutableHashSet();
-                return this.failureLevels; 
+                return this.failureLevels;
             }
         }
 

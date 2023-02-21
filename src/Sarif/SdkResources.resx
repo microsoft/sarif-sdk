@@ -284,7 +284,7 @@ You can also refer to properties in the result's property bag with 'properties.&
   <data name="WRN997_OneOrMoreFilesSkippedDueToSize" xml:space="preserve">
     <value>{0} file(s) were skipped for analysis due to exceeding size limits (currently configured as {1} KB). The 'max-file-size-in-kb' command-line argument can be used to increase this threshold.</value>
   </data>
-  <data name="WRN997.FileSkippedDueToSize" xml:space="preserve">
+  <data name="MSG002.FileSkippedDueToSize" xml:space="preserve">
     <value>'{0}' was not analyzed as its size ({1} kilobytes) exceeds the currently configured threshold ({2} kilobytes).</value>
   </data>
   <data name="ERR997_IncompatibleRulesDetected" xml:space="preserve">

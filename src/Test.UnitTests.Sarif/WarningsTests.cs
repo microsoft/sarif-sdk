@@ -53,7 +53,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             var binaryAnalysisContext = new TestAnalysisContext();
             binaryAnalysisContext.Logger = testLogger;
 
-            Warnings.LogOneOrMoreFilesSkippedDueToSize(binaryAnalysisContext);
+            Warnings.LogOneOrMoreFilesSkippedDueToSize(binaryAnalysisContext, 1);
 
             testLogger.Messages.Should().BeNull();
             testLogger.ToolNotifications.Should().BeNull();
