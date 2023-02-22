@@ -329,8 +329,8 @@ namespace Sarif.Sdk.Sample
                         OptionallyEmittedData.Hashes |
                         OptionallyEmittedData.RegionSnippets,
                     run: run,
-                    kinds: new ResultKind[] { ResultKind.Fail, ResultKind.Pass },
-                    levels: new FailureLevel[] { FailureLevel.Error, FailureLevel.Warning, FailureLevel.Note },
+                    kinds: BaseLogger.Fail,
+                    levels: BaseLogger.ErrorWarning,
                     analysisTargets: null,
                     invocationTokensToRedact: null,
                     invocationPropertiesToLog: null,

@@ -4,7 +4,9 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel.DataAnnotations;
 using System.Diagnostics;
+using System.Runtime.Intrinsics.X86;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -411,11 +413,8 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests
         [Fact]
         public void FileRegionsCache_PopulatesUsingProvidedText()
         {
-            var run = new Run();
             var fileRegionsCache = new FileRegionsCache();
-
             Uri uri = new Uri(@"c:\temp\DoesNotExist\" + Guid.NewGuid().ToString() + ".cpp");
-
             string fileText = "12345\n56790\n";
             int charOffset = 6;
             int charLength = 1;
@@ -446,6 +445,129 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests
             actual.Snippet = null;
             actual.ValueEquals(expected).Should().BeTrue();
         }
+
+        [Fact]
+        public void FileRegionsCache_PopulatesContextRegions()
+        {
+            string sentinel = "baz";
+            char padding = 'a';
+
+            // The context region populating API has two special values, 128 characters 
+            // (which are used to generate leading and trailing text in single-line
+            // text files) and a value of 512', which is intended to be a limit
+            // on the overall size of the snippet that's returned.
+
+            int bsl = FileRegionsCache.BIGSNIPPETLENGTH;
+            int ssl = FileRegionsCache.SMALLSNIPPETLENGTH;
+
+            var context = new StringBuilder();
+
+            // Prepend a newline (or not!) in front of every sentinel region.
+            foreach (string pr in new string[] { null, Environment.NewLine })
+            {
+                // Post-fix a newline (or not!) in front of every sentinel region.
+                foreach (string po in new string[] { null, Environment.NewLine })
+                {
+                    string[] tests =
+                    {
+                        $"{new string(padding,   0)}{pr}{sentinel}{po}{new string(padding,   0)}",
+                        $"{new string(padding,   0)}{pr}{sentinel}{po}{new string(padding,   3)}",
+                        $"{new string(padding,   3)}{pr}{sentinel}{po}{new string(padding,   0)}",
+                        $"{new string(padding,   3)}{pr}{sentinel}{po}{new string(padding,   3)}",
+                        $"{new string(padding, ssl)}{pr}{sentinel}{po}{new string(padding, ssl)}",
+                        $"{new string(padding,   1)}{pr}{sentinel}{po}{new string(padding, ssl)}",
+                        $"{new string(padding, ssl)}{pr}{sentinel}{po}{new string(padding,   1)}",
+                        $"{new string(padding, ssl)}{pr}{sentinel}{po}{new string(padding,   0)}",
+                        $"{new string(padding,   0)}{pr}{sentinel}{po}{new string(padding, ssl)}",
+                        $"{new string(padding,   0)}{pr}{sentinel}{po}{new string(padding,   0)}",
+                        $"{new string(padding, bsl)}{pr}{sentinel}{po}{new string(padding, bsl)}",
+                        $"{new string(padding,  10)}{pr}{sentinel}{po}{new string(padding, bsl)}",
+                        $"{new string(padding, bsl)}{pr}{sentinel}{po}{new string(padding,  10)}",
+                        $"{new string(padding, bsl)}{pr}{sentinel}{po}{new string(padding,   0)}",
+                        $"{new string(padding,   0)}{pr}{sentinel}{po}{new string(padding, bsl)}",
+                        $"{new string(padding,   0)}{pr}{sentinel}{po}{new string(padding,   0)}",
+                        $"{new string(padding,   0)}{pr}{sentinel}{po}{new string(padding,   0)}",
+                        $"{new string(padding,   0)}{pr}{sentinel}{po}{new string(padding,   3)}",
+                        $"{new string(padding,   3)}{pr}{sentinel}{po}{new string(padding,   0)}",
+                        $"{new string(padding,   3)}{pr}{sentinel}{po}{new string(padding,   3)}",
+                        $"{new string(padding, ssl)}{pr}{sentinel}{po}{new string(padding, ssl)}",
+                        $"{new string(padding,   1)}{pr}{sentinel}{po}{new string(padding, ssl)}",
+                        $"{new string(padding, ssl)}{pr}{sentinel}{po}{new string(padding,   1)}",
+                        $"{new string(padding, ssl)}{pr}{sentinel}{po}{new string(padding,   0)}",
+                        $"{new string(padding,   0)}{pr}{sentinel}{po}{new string(padding, ssl)}",
+                        $"{new string(padding,   0)}{pr}{sentinel}{po}{new string(padding,   0)}",
+                        $"{new string(padding, bsl)}{pr}{sentinel}{po}{new string(padding, bsl)}",
+                        $"{new string(padding,  10)}{pr}{sentinel}{po}{new string(padding, bsl)}",
+                        $"{new string(padding, bsl)}{pr}{sentinel}{po}{new string(padding,  10)}",
+                        $"{new string(padding, bsl)}{pr}{sentinel}{po}{new string(padding,   0)}",
+                        $"{new string(padding,   0)}{pr}{sentinel}{po}{new string(padding, bsl)}",
+                        $"{new string(padding,   0)}{pr}{sentinel}{po}{new string(padding,   0)}",
+                    };
+
+                    context.Clear();
+                    int iteration = 0;
+
+                    // DEBUGGING THESE TESTS: these tests do not accumulate all outputs and report 
+                    // them, instead they break on the first failure. A failure will report a 
+                    // message like so:
+                    //
+                    // Expected contextRegion.Snippet not to be <null> because 'baz' snippet exists
+                    // (iteration 12, while processing char-based region type for value 'abaza'). 
+                    //
+                    // Observe the iteration value (in this case 12). Set a conditional breakpoint
+                    // below when the iteration variable equals this value and you can debug the
+                    // relevant failure.
+
+                    foreach (string test in tests)
+                    {
+                        var cache = new FileRegionsCache();
+                        var uri = new Uri(@$"c:\temp\DoesNotExist\{Guid.NewGuid()}.cpp");
+
+                        int index = test.IndexOf(sentinel);
+
+                        // The FileRegions code takes two discrete code paths depending on whether
+                        // the input variable is char-offset based or uses the start line convention.
+                        var regions = new Region[]
+                        {
+                    new Region
+                    {
+                        CharOffset = index,
+                        CharLength = sentinel.Length,
+                    },
+                    new Region
+                    {
+                        StartLine = 1,
+                        StartColumn = index + 1,
+                        EndColumn = index + sentinel.Length + 1,
+                    }
+                        };
+
+                        string charBased = "char-based";
+                        string lineBased = "line-based";
+
+                        foreach (Region region in regions)
+                        {
+                            context.Clear();
+                            context.Append($"(iteration {iteration}, while processing {(region.StartLine == 1 ? lineBased : charBased)} region type for value '{test}')");
+
+                            // First, we populate the region and text snippet for the actual test finding.
+                            Region actual = cache.PopulateTextRegionProperties(region, uri, populateSnippet: true, test);
+
+                            actual.Snippet.Should().NotBeNull($"'{sentinel}' snippet exists {context}");
+                            actual.Snippet.Text?.Should().Be($"{sentinel}", $"region snippet did not match {context}");
+
+                            // Now, we attempt to produce a context region.
+                            Region contextRegion = cache.ConstructMultilineContextSnippet(actual, uri, test);
+                            contextRegion.Snippet.Should().NotBeNull($"'{sentinel}' snippet exists {context}");
+                            contextRegion.Snippet.Text.Contains(sentinel).Should().BeTrue($"context region should encapsulate finding {context}");
+                        }
+
+                        iteration++;
+                    }
+                }
+            }
+        }
+
 
         [Fact]
         public void FileRegionsCache_PopulatesSpecExampleRegions()
@@ -601,8 +723,11 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests
 
             Region multilineRegion = fileRegionsCache.ConstructMultilineContextSnippet(region, uri);
 
-            // 114 (charoffset) + 600 (charlength) + 128 (grabbing right content)
-            multilineRegion.CharLength.Should().Be(114 + 600 + 128);
+            // 114 (charoffset) + 600 (charlength) + (128 - prefixed length).
+
+            // The length of our prepended data;
+            int prefixed = Math.Max(multilineRegion.CharOffset - 128, 0);
+            multilineRegion.CharLength.Should().Be(prefixed + region.CharLength + (128 - prefixed));
         }
 
         [Fact]

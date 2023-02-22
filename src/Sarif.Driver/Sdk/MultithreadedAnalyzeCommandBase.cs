@@ -31,10 +31,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         internal ConsoleLogger _consoleLogger;
 
         private int _fileContextsCount;
+        private uint _ignoredFilesCount;
         private Channel<int> readyToHashChannel;
         private Channel<int> _resultsWritingChannel;
         private Channel<int> readyToScanChannel;
-        private IDictionary<string, HashData> _pathToHashDataMap;
+        private Channel<int> _resultsWritingChannel;
+        private OptionallyEmittedData _dataToInsert;
         private ConcurrentDictionary<int, TContext> _fileContexts;
 
         public Exception ExecutionException { get; set; }
@@ -249,21 +251,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                                                  IEnumerable<Skimmer<TContext>> skimmers,
                                                  ISet<string> disabledSkimmers)
         {
-            var channelOptions = new BoundedChannelOptions(2000)
-            {
-                SingleWriter = true,
-                SingleReader = true,
-            };
-            readyToHashChannel = Channel.CreateBounded<int>(channelOptions);
-
-            channelOptions = new BoundedChannelOptions(2000)
+            var channelOptions = new BoundedChannelOptions(25000)
             {
                 SingleWriter = true,
                 SingleReader = false,
             };
             readyToScanChannel = Channel.CreateBounded<int>(channelOptions);
 
-            channelOptions = new BoundedChannelOptions(2000)
+            channelOptions = new BoundedChannelOptions(25000)
             {
                 SingleWriter = false,
                 SingleReader = true,
@@ -274,41 +269,58 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
             // 1: First we initiate an asynchronous operation to locate disk files for
             // analysis, as specified in analysis configuration (file names, wildcards).
-            Task<bool> enumerateFilesOnDisk = EnumerateFilesOnDiskAsync(context);
+            Task<bool> enumerateFilesOnDisk = Task.Run(() => EnumerateFilesOnDiskAsync(context));
 
-            // 2: Files found on disk are put in a specific sort order, after which a 
-            // reference to each scan target is put into a channel for hashing,
-            // if hashing is enabled.
-            Task<bool> hashFilesAndPutInAnalysisQueue = HashFilesAndPutInAnalysisQueueAsnc(context);
-
-            // 3: A dedicated set of threads pull scan targets and analyze them.
+            // 2: A dedicated set of threads pull scan targets and analyze them.
             //    On completing a scan, the thread writes the index of the 
             //    scanned item to a channel that drives logging.
             var workers = new Task<bool>[context.Threads];
             for (int i = 0; i < context.Threads; i++)
             {
-                workers[i] = ScanTargetsAsync(context, skimmers, disabledSkimmers);
+                workers[i] = Task.Run(() => ScanTargetsAsync(skimmers, disabledSkimmers));
             }
 
-            // 4: A single-threaded consumer watches for completed scans
+            // 3: A single-threaded consumer watches for completed scans
             //    and logs results, if any. This operation is single-threaded
-            //    in order to help ensure determinism in log output. i.e., any
-            //    scan of the same targets using the same production code
-            //    should produce a log file that is byte-for-byte identical
-            //    to the previous output.
-            Task<bool> logScanResults = LogScanResultsAsync(context);
+            //    to nsure determinism in log output. i.e., any scan of the
+            //    same targets using the same production code should produce
+            //    a log file that is byte-for-byte identical to previous log.
+            Task<bool> logScanResults = Task.Run(() => LogScanResultsAsync(rootContext));
 
             Task.WhenAll(workers)
                 .ContinueWith(_ => _resultsWritingChannel.Writer.Complete())
                 .Wait();
 
             enumerateFilesOnDisk.Wait();
-            hashFilesAndPutInAnalysisQueue.Wait();
             logScanResults.Wait();
+
+
+            if (_ignoredFilesCount > 0)
+            {
+                Warnings.LogOneOrMoreFilesSkippedDueToSize(_rootContext, _ignoredFilesCount);
+            }
 
             Console.WriteLine();
 
-            if (context.Traces.Contains(nameof(DefaultTraces.ScanTime)))
+            if (rootContext.Traces.HasFlag(DefaultTraces.PeakWorkingSet))
+            {
+                using (var currentProcess = Process.GetCurrentProcess())
+                {
+                    string memoryUsage = $"Peak working set: {currentProcess.PeakWorkingSet64 / 1024 / 1024}MB.";
+
+                    rootContext.Logger.LogToolNotification(
+                    new Notification
+                    {
+                        Level = FailureLevel.Warning,
+                        Message = new Message
+                        {
+                            Text = memoryUsage,
+                        },
+                    });
+                }
+            }
+
+            if (rootContext.Traces.HasFlag(DefaultTraces.ScanTime))
             {
                 string timing = $"Done. {_fileContextsCount:n0} files scanned, elapsed time {sw.Elapsed}.";
 
@@ -359,16 +371,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
                         while (context?.AnalysisComplete == true)
                         {
-                            bool clone = context.DataToInsert.HasFlag(OptionallyEmittedData.Hashes);
-                            try
-                            {
-                                LogCachingLogger(globalContext, context, clone);
-                            }
-                            finally
-                            {
-                                context.Dispose();
-                            }
-
+                            LogCachingLogger(rootContext, context, clone: false);
                             _fileContexts.TryRemove(currentIndex, out _);
                             _fileContexts.TryGetValue(currentIndex + 1, out context);
 
@@ -411,6 +414,18 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
         private static void LogCachingLogger(TContext rootContext, TContext context, bool clone = false)
         {
+            // Today, the signal to generate hash data in log files is synonymous with a decision
+            // to perform target file results-caching (where we only analyze a copy of a file, by
+            // hash, a single time). We need to separate configuring this mechanism. Some scan 
+            // scenarios, such as binary analysis + crawl of PDB, greatly benefit from this mechanism,
+            // other scan scenarios, such as lightweight linting of large #'s of source files, 
+            // experience significant memory pressure from it. Disabling caching altogether for now.
+            // 
+            // https://github.com/microsoft/sarif-sdk/issues/2620
+            //
+            // As a result of this gap, `clone` will always be false, because we have a per-file
+            // (and not per-file-by-hash) logger instance.
+
             var cachingLogger = (CachingLogger)context.Logger;
             IDictionary<ReportingDescriptor, IList<Tuple<Result, int?>>> results = cachingLogger.Results;
 
@@ -460,6 +475,18 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                     rootContext.Logger.LogConfigurationNotification(currentNotification);
                 }
             }
+        }
+
+        protected virtual bool ShouldEnqueue(string file, TContext context)
+        {
+            bool shouldEnqueue = IsTargetWithinFileSizeLimit(file, context.MaxFileSizeInKilobytes, out long fileSizeInKb);
+
+            if (!shouldEnqueue)
+            {
+                Notes.LogFileSkippedDueToSize(context, file, fileSizeInKb);
+            }
+
+            return shouldEnqueue;
         }
 
         protected virtual bool ShouldComputeHashes(string file, TContext context)
@@ -564,69 +591,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             }
         }
 
-        private async Task<bool> HashFilesAndPutInAnalysisQueueAsnc(TContext globalContext)
-        {
-            ChannelReader<int> reader = readyToHashChannel.Reader;
-
-            Dictionary<string, CachingLogger> loggerCache = null;
-            bool computeHashes = globalContext.DataToInsert.HasFlag(OptionallyEmittedData.Hashes);
-
-            try
-            {
-                // Wait until there is work or the channel is closed.
-                while (await reader.WaitToReadAsync())
-                {
-                    // Loop while there is work to do.
-                    while (reader.TryRead(out int index))
-                    {
-                        if (computeHashes)
-                        {
-                            TContext context = _fileContexts[index];
-
-                            context.CancellationToken.ThrowIfCancellationRequested();
-
-                            string localPath = context.CurrentTarget.Uri.GetFilePath();
-
-                            HashData hashData = ShouldComputeHashes(localPath, globalContext)
-                                ? HashUtilities.ComputeHashes(localPath, FileSystem)
-                                : null;
-
-                            context.Hashes = hashData;
-
-                            if (_pathToHashDataMap != null && !_pathToHashDataMap.ContainsKey(localPath))
-                            {
-                                _pathToHashDataMap.Add(localPath, hashData);
-                            }
-
-                            loggerCache ??= new Dictionary<string, CachingLogger>();
-
-                            if (hashData?.Sha256 != null)
-                            {
-                                context.Logger = loggerCache.TryGetValue(hashData.Sha256, out CachingLogger logger)
-                                    ? logger
-                                    : (loggerCache[hashData.Sha256] = (CachingLogger)context.Logger);
-                            }
-                        }
-
-                        await readyToScanChannel.Writer.WriteAsync(index);
-                    }
-                }
-            }
-            catch (Exception e)
-            {
-                lock (globalContext)
-                {
-                    Errors.LogUnhandledEngineException(globalContext, e);
-                }
-                ThrowExitApplicationException(ExitReason.UnhandledExceptionInEngine, e);
-            }
-            finally
-            {
-                readyToScanChannel.Writer.Complete();
-            }
-
-            return true;
-        }
+        private readonly ConcurrentDictionary<string, CachingLogger> _loggerCache = new ConcurrentDictionary<string, CachingLogger>();
 
         private async Task<bool> ScanTargetsAsync(TContext globalContext, IEnumerable<Skimmer<TContext>> skimmers, ISet<string> disabledSkimmers)
         {
@@ -698,7 +663,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
             if (!analyzeOptions.Quiet)
             {
-                _consoleLogger = new ConsoleLogger(analyzeOptions.Quiet, Tool.Driver.Name, analyzeOptions.Level, analyzeOptions.Kind) { CaptureOutput = _captureConsoleOutput };
+                _consoleLogger = new ConsoleLogger(analyzeOptions.Quiet, Tool.Driver.Name, analyzeOptions.FailureLevels, analyzeOptions.ResultKinds) { CaptureOutput = _captureConsoleOutput };
                 logger.Loggers.Add(_consoleLogger);
             }
 

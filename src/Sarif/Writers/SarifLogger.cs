@@ -4,6 +4,7 @@
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Collections.Immutable;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -42,11 +43,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                            string defaultFileEncoding = null,
                            bool closeWriterOnDispose = true,
                            bool quiet = false,
-                           IEnumerable<FailureLevel> levels = null,
-                           IEnumerable<ResultKind> kinds = null,
+                           IImmutableSet<FailureLevel> levels = null,
+                           IImmutableSet<ResultKind> kinds = null,
                            IEnumerable<string> insertProperties = null,
                            FileRegionsCache fileRegionsCache = null)
-            : this(new StreamWriter(new FileStream(outputFilePath, FileMode.Create, FileAccess.Write, FileShare.None)),
+            : this(new StreamWriter(new FileStream(outputFilePath, FileMode.Create, FileAccess.Write, FileShare.Read)),
                                     logFilePersistenceOptions,
                                     dataToInsert,
                                     dataToRemove,
@@ -75,8 +76,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                            string defaultFileEncoding = null,
                            bool closeWriterOnDispose = true,
                            bool quiet = false,
-                           IEnumerable<FailureLevel> levels = null,
-                           IEnumerable<ResultKind> kinds = null,
+                           IImmutableSet<FailureLevel> levels = null,
+                           IImmutableSet<ResultKind> kinds = null,
                            IEnumerable<string> insertProperties = null,
                            FileRegionsCache fileRegionsCache = null) : base(failureLevels: levels, resultKinds: kinds)
         {
@@ -107,7 +108,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
             _run = run ?? new Run();
 
-            if (dataToInsert.HasFlag(OptionallyEmittedData.RegionSnippets) ||
+            if (dataToInsert.HasFlag(OptionallyEmittedData.Hashes) ||
+                dataToInsert.HasFlag(OptionallyEmittedData.RegionSnippets) ||
                 dataToInsert.HasFlag(OptionallyEmittedData.ContextRegionSnippets))
             {
                 _insertOptionalDataVisitor = new InsertOptionalDataVisitor(dataToInsert,
@@ -262,7 +264,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
         public Func<Uri, HashData> ComputeHashData { get; set; }
 
-        public IDictionary<string, HashData> AnalysisTargetToHashDataMap { get; }
+        public IDictionary<string, HashData> AnalysisTargetToHashDataMap { get; set; }
 
         public IDictionary<ReportingDescriptor, ReportingDescriptorReference> RuleToReportingDescriptorReferenceMap { get; }
 

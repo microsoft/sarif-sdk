@@ -3,8 +3,12 @@
 
 using System;
 using System.Collections.Generic;
+using System.Collections.Immutable;
+using System.Linq;
 
 using CommandLine;
+
+using Microsoft.CodeAnalysis.Sarif.Writers;
 
 namespace Microsoft.CodeAnalysis.Sarif.Driver
 {
@@ -91,7 +95,21 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             HelpText = "Execution traces, expressed as a semicolon-delimited list, that " +
                        "should be emitted to the console and log file (if appropriate). " +
                        "Valid values: ScanTime.")]
-        public virtual IEnumerable<string> Traces { get; set; }
+        public virtual IEnumerable<string> Trace { get; set; }
+
+        private DefaultTraces? defaultTraces;
+        public DefaultTraces Traces
+        {
+            get
+            {
+                defaultTraces ??=
+                    this.Trace.Any()
+                        ? (DefaultTraces)Enum.Parse(typeof(DefaultTraces), string.Join(",", this.Trace))
+                        : DefaultTraces.None;
+
+                return this.defaultTraces.Value;
+            }
+        }
 
         [Option(
             "level",
@@ -100,12 +118,32 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             HelpText = "A semicolon delimited list to filter output of scan results to one or more failure levels. Valid values: Error, Warning and Note.")]
         public IEnumerable<FailureLevel> Level { get; set; }
 
+        private IImmutableSet<FailureLevel> failureLevels;
+        public IImmutableSet<FailureLevel> FailureLevels
+        {
+            get
+            {
+                this.failureLevels ??= new List<FailureLevel>(Level).ToImmutableHashSet();
+                return this.failureLevels;
+            }
+        }
+
         [Option(
             "kind",
             Separator = ';',
             Default = new ResultKind[] { ResultKind.Fail },
             HelpText = "A semicolon delimited list to filter output to one or more result kinds. Valid values: Fail (for literal scan results), Pass, Review, Open, NotApplicable and Informational.")]
         public IEnumerable<ResultKind> Kind { get; set; }
+
+        private IImmutableSet<ResultKind> resultKinds;
+        public IImmutableSet<ResultKind> ResultKinds
+        {
+            get
+            {
+                this.resultKinds ??= new List<ResultKind>(Kind).ToImmutableHashSet();
+                return this.resultKinds;
+            }
+        }
 
         [Option(
             "baseline",

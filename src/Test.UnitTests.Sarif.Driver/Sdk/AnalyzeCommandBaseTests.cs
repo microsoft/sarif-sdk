@@ -91,7 +91,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 plugInAssemblies = new Assembly[] { typeof(TestRule).Assembly };
             }
 
-            var command = new TestMultithreadedAnalyzeCommand();
+            var command = new TestMultithreadedAnalyzeCommand(FileSystem.Instance);
 
             command.DefaultPluginAssemblies = plugInAssemblies;
 
@@ -618,7 +618,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                     PostUri = postUri,
                 };
 
-                var command = new TestMultithreadedAnalyzeCommand();
+                var command = new TestAnalyzeCommand(FileSystem.Instance);
                 command.DefaultPluginAssemblies = new Assembly[] { this.GetType().Assembly };
 
                 TestAnalysisContext context = null;
@@ -652,7 +652,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 {
                     OutputFilePath = Guid.NewGuid().ToString(),
                     TargetFileSpecifiers = new string[] { Guid.NewGuid().ToString() },
-                    Traces = new[] { trace.ToString() },
+                    Trace = new[] { trace.ToString() },
                     Level = new[] { FailureLevel.Warning, FailureLevel.Note },
                 };
 
@@ -2145,7 +2145,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
         private ITestAnalyzeCommand CreateTestCommand(TestAnalysisContext context, ConsoleLogger consoleLogger)
         {
-            ITestAnalyzeCommand command = new TestMultithreadedAnalyzeCommand();
+            ITestAnalyzeCommand command = new TestMultithreadedAnalyzeCommand(FileSystem.Instance);
 
             var logger = new AggregatingLogger();
             logger.Loggers.Add(consoleLogger);

@@ -3,10 +3,12 @@
 
 using System;
 using System.Collections.Generic;
+using System.Collections.Immutable;
 
 using FluentAssertions;
 
 using Microsoft.CodeAnalysis.Sarif;
+using Microsoft.CodeAnalysis.Sarif.Writers;
 
 using Xunit;
 
@@ -19,17 +21,17 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Writers
         {
             BaseLoggerTestConcrete baseLoggerTestConcrete = null;
 
-            Assert.Throws<ArgumentException>(() => new BaseLoggerTestConcrete(new List<FailureLevel> { FailureLevel.Error },
-                                                                    new List<ResultKind> { ResultKind.Informational }));
+            Assert.Throws<ArgumentException>(() => new BaseLoggerTestConcrete(new[] { FailureLevel.Error }.ToImmutableHashSet(),
+                                                                    new List<ResultKind> { ResultKind.Informational }.ToImmutableHashSet()));
             //  The rest are fine.
-            baseLoggerTestConcrete = new BaseLoggerTestConcrete(new List<FailureLevel> { FailureLevel.Error },
-                                                                new List<ResultKind> { ResultKind.Informational, ResultKind.Fail });
+            baseLoggerTestConcrete = new BaseLoggerTestConcrete(new[] { FailureLevel.Error }.ToImmutableHashSet(),
+                                                                new List<ResultKind> { ResultKind.Informational, ResultKind.Fail }.ToImmutableHashSet());
 
-            baseLoggerTestConcrete = new BaseLoggerTestConcrete(new List<FailureLevel> { FailureLevel.Note },
-                                                                new List<ResultKind> { ResultKind.Fail });
+            baseLoggerTestConcrete = new BaseLoggerTestConcrete(new[] { FailureLevel.Note }.ToImmutableHashSet(),
+                                                                BaseLogger.Fail);
 
-            baseLoggerTestConcrete = new BaseLoggerTestConcrete(new List<FailureLevel> { FailureLevel.None },
-                                                                new List<ResultKind> { ResultKind.Informational });
+            baseLoggerTestConcrete = new BaseLoggerTestConcrete(new[] { FailureLevel.None }.ToImmutableHashSet(),
+                                                                new List<ResultKind> { ResultKind.Informational }.ToImmutableHashSet());
 
             //  If there are no uncaught exceptions, the test passes.
         }

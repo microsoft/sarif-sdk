@@ -1,7 +1,10 @@
 # SARIF Package Release History (SDK, Driver, Converters, and Multitool)
-
-## **v3.2.0** (UNRELEASED)
+## **v4.1.0** UNRELEASED
 * BRK: `MultithreadedAnalyzeCommandBase` IDispose implementation manages logging dispose. Be sure to call `base.Dispose()` in any derived type implementations. [#2614](https://github.com/microsoft/sarif-sdk/pull/2614)
+* NEW: Add `PeakWorkingSet` to `--trace` command to report maximum working set value during analysis. [#2619](https://github.com/microsoft/sarif-sdk/pull/2619)
+
+
+## **v4.0.0** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/4.0.0) | [Driver](https://www.nuget.org/packages/Sarif.Driver/4.0.0) | [Converters](https://www.nuget.org/packages/Sarif.Converters/4.0.0) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/4.0.0) | [Multitool Library](https://www.nuget.org/packages/Sarif.Multitool.Library/4.0.0)
 * BRK: `SarifLogger` no longer allows providing a `Tool` instance. Use the `run` parameter instead (and populate it with any custom `Tool` object). [#2614](https://github.com/microsoft/sarif-sdk/pull/2614)
 * BRK: `SarifLogger` updates version details differently. [#2611](https://github.com/microsoft/sarif-sdk/pull/2611)
 * BRK: Add `ToolComponent` argument to `IAnalysisLogger.Log(ReportingDescriptor, Result)` method. [#2611](https://github.com/microsoft/sarif-sdk/pull/2611)
@@ -12,6 +15,8 @@
 * BRK: For `Guid` properties defined in SARIF spec, updated Json schema to use `uuid`, and updated C# object model to use `Guid?` instead of `string`. [#2555](https://github.com/microsoft/sarif-sdk/pull/2555)
 * BRK: Mark `AnalyzeCommandBase` as obsolete. This type will be removed in the next significant update.  [#2599](https://github.com/microsoft/sarif-sdk/pull/2599)
 * BRK: `LogUnhandledEngineException` no longer has a return value (and updates the `RuntimeErrors` context property directly as other helpers do).  [#2599](https://github.com/microsoft/sarif-sdk/pull/2599)
+* BUG: Populate missing context region data for small, single-line scan targets. [#2616](https://github.com/microsoft/sarif-sdk/pull/2616)
+* BUG: Increase parallelism in `MultithreadedAnalyzeCommandBase` by correcting task creation. []#2618](https://github.com/microsoft/sarif-sdk/pull/2618)
 * BUG: Resolve hangs due to unhandled exceptions during multithreaded analysis file enumeration phase.  [#2599](https://github.com/microsoft/sarif-sdk/pull/2599)
 * BUG: Resolve hangs due to unhandled exceptions during multithreaded analysis file hashing phase.  [#2600](https://github.com/microsoft/sarif-sdk/pull/2600)
 * BUG: Another attempt to resolve 'InvalidOperationException' with message `Collection was modified; enumeration operation may not execute` in `MultithreadedAnalyzeCommandBase`, raised when analyzing with the `--hashes` switch. [#2459](https://github.com/microsoft/sarif-sdk/pull/2549). There was a previous attempt to fix this in [#2447](https://github.com/microsoft/sarif-sdk/pull/2447).

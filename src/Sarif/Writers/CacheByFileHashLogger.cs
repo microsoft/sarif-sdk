@@ -3,6 +3,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Collections.Immutable;
 
 namespace Microsoft.CodeAnalysis.Sarif.Writers
 {
@@ -23,7 +24,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         public Dictionary<string, List<Notification>> HashToNotificationsMap { get; private set; }
         public Dictionary<string, List<Tuple<ReportingDescriptor, Result, int?>>> HashToResultsMap { get; private set; }
 
-        public CacheByFileHashLogger(IEnumerable<FailureLevel> levels, IEnumerable<ResultKind> kinds) : base(levels, kinds)
+        public CacheByFileHashLogger(IImmutableSet<FailureLevel> levels, IImmutableSet<ResultKind> kinds) : base(levels, kinds)
         {
         }
 
