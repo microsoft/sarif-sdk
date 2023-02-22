@@ -34,8 +34,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         internal TContext _rootContext;
         private int _fileContextsCount;
         private uint _ignoredFilesCount;
+        private bool _fileEnumerationComplete;
         private Channel<int> readyToScanChannel;
-        private Channel<int> _resultsWritingChannel;
         private OptionallyEmittedData _dataToInsert;
         private ConcurrentDictionary<int, TContext> _fileContexts;
 
@@ -196,22 +196,24 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 SingleWriter = true,
                 SingleReader = false,
             };
-            readyToScanChannel = Channel.CreateBounded<int>(channelOptions);
 
-            channelOptions = new BoundedChannelOptions(25000)
-            {
-                SingleWriter = false,
-                SingleReader = true,
-            };
-            _resultsWritingChannel = Channel.CreateBounded<int>(channelOptions);
+            readyToScanChannel = Channel.CreateBounded<int>(channelOptions);
 
             var sw = Stopwatch.StartNew();
 
-            // 1: First we initiate an asynchronous operation to locate disk files for
-            // analysis, as specified in analysis configuration (file names, wildcards).
+            // 1: A single-threaded consumer watches for completed scans
+            //    and logs results, if any. This operation is single-threaded
+            //    to ensure determinism in log output. i.e., any scan of the
+            //    same targets using the same production code should produce
+            //    a log file that is byte-for-byte identical to previous log.
+            Task<bool> logScanResults = Task.Run(() => LogScanResultsAsync(rootContext));
+
+
+            // 2: We enumerate files on a single thread. This thread creates state for
+            //    each scan target and throttles memory consumption by 
             Task<bool> enumerateFilesOnDisk = Task.Run(() => EnumerateFilesOnDiskAsync(options));
 
-            // 2: A dedicated set of threads pull scan targets and analyze them.
+            // 3: A dedicated set of threads pull scan targets and analyze them.
             //    On completing a scan, the thread writes the index of the 
             //    scanned item to a channel that drives logging.
             var workers = new Task<bool>[options.Threads];
@@ -220,20 +222,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 workers[i] = Task.Run(() => ScanTargetsAsync(skimmers, disabledSkimmers));
             }
 
-            // 3: A single-threaded consumer watches for completed scans
-            //    and logs results, if any. This operation is single-threaded
-            //    to nsure determinism in log output. i.e., any scan of the
-            //    same targets using the same production code should produce
-            //    a log file that is byte-for-byte identical to previous log.
-            Task<bool> logScanResults = Task.Run(() => LogScanResultsAsync(rootContext));
-
-            Task.WhenAll(workers)
-                .ContinueWith(_ => _resultsWritingChannel.Writer.Complete())
-                .Wait();
+            Task.WhenAll(workers).Wait();
 
             enumerateFilesOnDisk.Wait();
-            logScanResults.Wait();
+            _fileEnumerationComplete = true;
 
+            logScanResults.Wait();
 
             if (_ignoredFilesCount > 0)
             {
@@ -284,57 +278,51 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         {
             int currentIndex = 0;
 
-            ChannelReader<int> reader = _resultsWritingChannel.Reader;
-
-            // Wait until there is work or the channel is closed.
-            while (await reader.WaitToReadAsync())
+            while (_fileContexts?.Count > 0 == false)
             {
-                // Loop while there is work to do.
-                while (reader.TryRead(out int item))
+                Task.Delay(1).GetAwaiter().GetResult();
+            }
+
+            while (!_fileEnumerationComplete || !_fileContexts.IsEmpty)
+            {
+                TContext context = default;
+                try
                 {
-                    // This condition can occur if currentIndex moves
-                    // ahead in array processing due to operations
-                    // against it by other threads. For this case,
-                    // since the relevant file has already been
-                    // processed, we just ignore this notification.
-                    if (currentIndex > item) { break; }
+                    context = _fileContexts[currentIndex];
 
-                    TContext context = default;
-                    try
+                    while (!context?.AnalysisComplete == true)
                     {
-                        context = _fileContexts[currentIndex];
-
-                        while (context?.AnalysisComplete == true)
-                        {
-                            LogCachingLogger(rootContext, context, clone: false);
-
-                            RuntimeErrors |= context.RuntimeErrors;
-
-                            context.Dispose();
-                            _fileContexts.TryRemove(currentIndex, out _);
-                            _fileContexts.TryGetValue(currentIndex + 1, out context);
-
-                            currentIndex++;
-                        }
+                        await Task.Delay(10);
                     }
-                    catch (Exception e)
+
+                    LogCachingLogger(rootContext, context, clone: false);
+
+                    RuntimeErrors |= context.RuntimeErrors;
+
+                    context.Dispose();
+                    _fileContexts.TryRemove(currentIndex, out _);
+                    _fileContexts.TryGetValue(currentIndex + 1, out context);
+                }
+                catch (Exception e)
+                {
+                    if (context != null)
                     {
-                        if (context != null)
-                        {
-                            RuntimeErrors |= context.RuntimeErrors;
-                            context?.Dispose();
-                        }
-                        context = default;
-                        Errors.LogUnhandledEngineException(rootContext, e);
-                        RuntimeErrors |= rootContext.RuntimeErrors;
-                        ThrowExitApplicationException(context, ExitReason.ExceptionWritingToLogFile, e);
+                        RuntimeErrors |= context.RuntimeErrors;
+                        context?.Dispose();
                     }
+                    context = default;
+                    Errors.LogUnhandledEngineException(rootContext, e);
+                    RuntimeErrors |= rootContext.RuntimeErrors;
+                    ThrowExitApplicationException(context, ExitReason.ExceptionWritingToLogFile, e);
+                }
+                finally
+                {
+                    currentIndex++;
                 }
             }
 
             Debug.Assert(_fileContexts.IsEmpty);
             Debug.Assert(_fileContextsCount == currentIndex);
-
             return true;
         }
 
@@ -577,7 +565,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                     finally
                     {
                         if (context != null) { context.AnalysisComplete = true; }
-                        await _resultsWritingChannel.Writer.WriteAsync(item);
+
+                        while (!readyToScanChannel.Writer.TryWrite(item))
+                        {
+                            await Task.Delay(10);
+                        }
                     }
                 }
             }
