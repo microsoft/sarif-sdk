@@ -279,7 +279,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
             // 3: A single-threaded consumer watches for completed scans
             //    and logs results, if any. This operation is single-threaded
-            //    to nsure determinism in log output. i.e., any scan of the
+            //    to ensure determinism in log output. i.e., any scan of the
             //    same targets using the same production code should produce
             //    a log file that is byte-for-byte identical to previous log.
             Task<bool> logScanResults = Task.Run(() => LogScanResultsAsync(context));
@@ -368,7 +368,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
                         while (context?.AnalysisComplete == true)
                         {
-                            LogCachingLogger(context, context, clone: false);
+                            LogCachingLogger(globalContext, context.CurrentTarget.Uri, (CachingLogger)context.Logger, clone: false);
                             _fileContexts.TryRemove(currentIndex, out _);
                             _fileContexts.TryGetValue(currentIndex + 1, out context);
 
@@ -409,7 +409,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             return true;
         }
 
-        private static void LogCachingLogger(TContext rootContext, TContext context, bool clone = false)
+        private static void LogCachingLogger(TContext globalContext, Uri targetUri, CachingLogger cachingLogger, bool clone = false)
         {
             // Today, the signal to generate hash data in log files is synonymous with a decision
             // to perform target file results-caching (where we only analyze a copy of a file, by
@@ -423,7 +423,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             // As a result of this gap, `clone` will always be false, because we have a per-file
             // (and not per-file-by-hash) logger instance.
 
-            var cachingLogger = (CachingLogger)context.Logger;
             IDictionary<ReportingDescriptor, IList<Tuple<Result, int?>>> results = cachingLogger.Results;
 
             if (results?.Count > 0)
@@ -438,12 +437,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                         {
                             Result clonedResult = result.DeepClone();
 
-                            UpdateLocationsAndMessageWithCurrentUri(clonedResult.Locations, clonedResult.Message, context.CurrentTarget.Uri);
+                            UpdateLocationsAndMessageWithCurrentUri(clonedResult.Locations, clonedResult.Message, targetUri);
 
                             currentResult = clonedResult;
                         }
 
-                        rootContext.Logger.Log(kv.Key, currentResult, tuple.Item2);
+                        globalContext.Logger.Log(kv.Key, currentResult, tuple.Item2);
                     }
                 }
             }
@@ -452,7 +451,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             {
                 foreach (Tuple<Notification, ReportingDescriptor> tuple in cachingLogger.ToolNotifications)
                 {
-                    rootContext.Logger.LogToolNotification(tuple.Item1, tuple.Item2);
+                    globalContext.Logger.LogToolNotification(tuple.Item1, tuple.Item2);
                 }
             }
 
@@ -464,12 +463,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                     if (clone)
                     {
                         Notification clonedNotification = notification.DeepClone();
-                        UpdateLocationsAndMessageWithCurrentUri(clonedNotification.Locations, notification.Message, context.CurrentTarget.Uri);
+                        UpdateLocationsAndMessageWithCurrentUri(clonedNotification.Locations, notification.Message, targetUri);
 
                         currentNotification = clonedNotification;
                     }
 
-                    rootContext.Logger.LogConfigurationNotification(currentNotification);
+                    globalContext.Logger.LogConfigurationNotification(currentNotification);
                 }
             }
         }
