@@ -617,7 +617,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             }
 
             _dataToInsert = analyzeOptions.DataToInsert.ToFlags();
-            
+
             return logger;
         }
 
