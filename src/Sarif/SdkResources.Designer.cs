@@ -396,6 +396,15 @@ namespace Microsoft.CodeAnalysis.Sarif {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to &apos;{0}&apos; was not analyzed as its size ({1} kilobytes) exceeds the currently configured threshold ({2} kilobytes)..
+        /// </summary>
+        public static string MSG002_FileSkippedDueToSize {
+            get {
+                return ResourceManager.GetString("MSG002.FileSkippedDueToSize", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to &apos;{0}&apos; was not evaluated for check &apos;{1}&apos; because the analysis is not relevant for the following reason: {2}..
         /// </summary>
         public static string NotApplicable_InvalidMetadata {
@@ -504,15 +513,6 @@ namespace Microsoft.CodeAnalysis.Sarif {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &apos;{0}&apos; was not analyzed as its size ({1} kilobytes) exceeds the currently configured threshold ({2} kilobytes)..
-        /// </summary>
-        public static string WRN997_FileSkippedDueToSize {
-            get {
-                return ResourceManager.GetString("WRN997.FileSkippedDueToSize", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Option &apos;{0}&apos; is invalid for this command..
         /// </summary>
         public static string WRN997_InvalidOption {
@@ -549,7 +549,7 @@ namespace Microsoft.CodeAnalysis.Sarif {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to One or more files were skipped for analysis due to exceeding size limits (currently configured as {0} KB). The &apos;max-file-size-in-kb&apos; command-line argument can be used to increase this threshold..
+        ///   Looks up a localized string similar to {0} file(s) were skipped for analysis due to exceeding size limits (currently configured as {1} KB). The &apos;max-file-size-in-kb&apos; command-line argument can be used to increase this threshold..
         /// </summary>
         public static string WRN997_OneOrMoreFilesSkippedDueToSize {
             get {

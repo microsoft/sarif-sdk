@@ -13,7 +13,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
     public class TestAnalyzeCommand : AnalyzeCommandBase<TestAnalysisContext, TestAnalyzeOptions>, ITestAnalyzeCommand
 #pragma warning restore CS0618
     {
-        public TestAnalyzeCommand(IFileSystem fileSystem = null) : base(fileSystem)
+        public TestAnalyzeCommand(IFileSystem fileSystem) : base(fileSystem)
         {
         }
 

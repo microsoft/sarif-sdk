@@ -3,12 +3,14 @@
 
 using System;
 using System.Diagnostics;
+using System.Globalization;
 
 namespace Microsoft.CodeAnalysis.Sarif
 {
     public static class Notes
     {
         public const string Msg001AnalyzingTarget = "MSG001.AnalyzingTarget";
+        public const string Msg002_FileSkippedDueToSize = "MSG002.FileSkippedDueToSize";
 
         public static void LogNotApplicableToSpecifiedTarget(IAnalysisContext context, string reasonForNotAnalyzing)
         {
@@ -29,6 +31,30 @@ namespace Microsoft.CodeAnalysis.Sarif
                     reasonForNotAnalyzing));
 
             context.RuntimeErrors |= RuntimeConditions.RuleNotApplicableToTarget;
+        }
+
+        public static void LogFileSkippedDueToSize(IAnalysisContext context, string skippedFile, long fileSizeInKb)
+        {
+            if (context == null)
+            {
+                throw new ArgumentNullException(nameof(context));
+            }
+
+            // '{0}' was skipped as its size ({1} kilobytes) exceeds the currently configured threshold ({2} kilobytes).
+            context.Logger.LogConfigurationNotification(
+                Errors.CreateNotification(
+                    context.TargetUri,
+                    Msg002_FileSkippedDueToSize,
+                    ruleId: Msg002_FileSkippedDueToSize,
+                    FailureLevel.Note,
+                    exception: null,
+                    persistExceptionStack: false,
+                    messageFormat: null,
+                    skippedFile,
+                    fileSizeInKb.ToString(CultureInfo.CurrentCulture),
+                    context.MaxFileSizeInKilobytes.ToString()));
+
+            context.RuntimeErrors |= RuntimeConditions.OneOrMoreFilesSkippedDueToSize;
         }
     }
 }

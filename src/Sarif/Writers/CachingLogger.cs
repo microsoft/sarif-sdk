@@ -3,6 +3,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Collections.Immutable;
 using System.Threading;
 
 namespace Microsoft.CodeAnalysis.Sarif.Writers
@@ -15,7 +16,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
     /// </summary>
     public class CachingLogger : BaseLogger, IAnalysisLogger
     {
-        public CachingLogger(IEnumerable<FailureLevel> levels, IEnumerable<ResultKind> kinds) : base(levels, kinds)
+        public CachingLogger(IImmutableSet<FailureLevel> levels, IImmutableSet<ResultKind> kinds) : base(levels, kinds)
         {
             // This reader lock is used to ensure only a single writer until
             // logging is complete, after which all threads can read Results.
