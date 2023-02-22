@@ -369,10 +369,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                         while (context?.AnalysisComplete == true)
                         {
                             LogCachingLogger(globalContext, context.CurrentTarget.Uri, (CachingLogger)context.Logger, clone: false);
-                            _fileContexts.TryRemove(currentIndex, out _);
-                            _fileContexts.TryGetValue(currentIndex + 1, out context);
+                            context.Dispose();
 
-                            currentIndex++;
+                            _fileContexts.TryRemove(currentIndex, out _);
+                            _fileContexts.TryGetValue(++currentIndex, out context);
                         }
                     }
                     catch (OperationCanceledException)
@@ -390,7 +390,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                         if (context != null)
                         {
                             globalContext.RuntimeErrors |= context.RuntimeErrors;
-                            context.Dispose();
                         }
                     }
                 }
@@ -538,6 +537,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                                   context.Policy);
 
                 // TBD: Push current target down into base?
+                Debug.Assert(fileContext.Logger != null);
                 fileContext.CurrentTarget = artifact;
                 fileContext.CancellationToken = context.CancellationToken;
 

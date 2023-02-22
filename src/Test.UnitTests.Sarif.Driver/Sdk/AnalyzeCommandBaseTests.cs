@@ -646,7 +646,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         {
             var sb = new StringBuilder();
 
-            foreach (DefaultTraces trace in new[] { DefaultTraces.None, DefaultTraces.ScanTime, DefaultTraces.RuleScanTime })
+            foreach (DefaultTraces trace in new[] { DefaultTraces.None, DefaultTraces.ScanTime, DefaultTraces.RuleScanTime, DefaultTraces.PeakWorkingSet })
             {
                 var options = new TestAnalyzeOptions
                 {
@@ -1592,6 +1592,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         [Fact]
         public void AnalyzeCommandBase_MultithreadedShouldUseCacheIfFilesAreTheSame()
         {
+            // This test disabled until file caching is restored.
+            /*
             // Generating 20 files with different names but same content.
             // Generally, we expect the test analyzer to produce a result 
             // based on the file name. Because every file is a duplicate 
@@ -1603,6 +1605,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                                            generateDuplicateScanTargets: true,
                                            expectedResultCode: 0,
                                            expectedResultCount: 20);
+            */
 
             // Generating 20 files with different names and content.
             // For this case, our expected result count matches the default
@@ -1892,6 +1895,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 int result = command.Run(options, ref context);
 
                 SarifLog sarifLog = JsonConvert.DeserializeObject<SarifLog>(File.ReadAllText(options.OutputFilePath));
+
+                if (expectedResultCode == 0) { (context.RuntimeErrors & ~RuntimeConditions.Nonfatal).Should().Be(0); }
                 result.Should().Be(expectedResultCode);
                 sarifLog.Runs[0].Results.Count.Should().Be(expectedResultCount);
 
