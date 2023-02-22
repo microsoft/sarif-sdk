@@ -169,5 +169,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             HelpText = "The maximum file size (in kilobytes) that will be analyzed.",
             Default = -1)]
         public long MaxFileSizeInKilobytes { get; set; }
+
+        [Option(
+            "max-targets",
+            HelpText = "The maximum number of targets that will be prepared for analysis. Use this to limit memory usage.",
+            Default = 25000)]
+        public int MaxTargets { get; set; }
+
     }
 }

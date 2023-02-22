@@ -94,6 +94,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
         public override DefaultTraces Traces { get; set; }
 
+        public override int MaxConcurrentTargets { get; set; }
+
         public override void Dispose()
         {
             // Nothing to dispose.

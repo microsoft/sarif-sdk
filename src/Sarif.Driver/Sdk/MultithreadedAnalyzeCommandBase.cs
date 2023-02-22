@@ -191,7 +191,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 ? options.Threads
                 : (Debugger.IsAttached) ? 1 : Environment.ProcessorCount;
 
-            var channelOptions = new BoundedChannelOptions(25000)
+            var channelOptions = new BoundedChannelOptions(Math.Max(1, options.MaxTargets))
             {
                 SingleWriter = true,
                 SingleReader = false,
@@ -633,6 +633,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                     ? options.MaxFileSizeInKilobytes
                     : AnalyzeContextBase.MaxFileSizeInKilobytesDefaultValue;
 
+            context.MaxConcurrentTargets = Math.Max(1, options.MaxTargets);
 
             if (filePath != null)
             {

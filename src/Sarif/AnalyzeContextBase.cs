@@ -35,6 +35,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         public abstract RuntimeConditions RuntimeErrors { get; set; }
         public abstract bool AnalysisComplete { get; set; }
         public abstract DefaultTraces Traces { get; set; }
+        public abstract int MaxConcurrentTargets { get; set; }
 
         public long MaxFileSizeInKilobytes
         {
@@ -52,6 +53,5 @@ namespace Microsoft.CodeAnalysis.Sarif
                 "Scan targets that fall below this size threshold (in kilobytes) will not be analyzed. " +
                 "It is legal to set this value to 0 (in order to potentially complete an analysis that " +
                 "records what scan targets would have been analyzed, given current configuration. " +
-                $"Negative values will be discarded in favor of the default of {MaxFileSizeInKilobytesDefaultValue} KB.");
-    }
+                $"Negative values will be discarded in favor of the default of {MaxFileSizeInKilobytesDefaultValue} KB.");    }
 }

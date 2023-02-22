@@ -31,5 +31,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         DefaultTraces Traces { get; set; }
 
         long MaxFileSizeInKilobytes { get; set; }
+
+        int MaxConcurrentTargets { get; set; }
     }
 }
