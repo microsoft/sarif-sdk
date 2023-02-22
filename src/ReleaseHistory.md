@@ -1,6 +1,6 @@
 # SARIF Package Release History (SDK, Driver, Converters, and Multitool)
 
-## **v3.2.0** (UNRELEASED)
+## **v4.0.0** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/4.0.0) | [Driver](https://www.nuget.org/packages/Sarif.Driver/4.0.0) | [Converters](https://www.nuget.org/packages/Sarif.Converters/4.0.0) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/4.0.0) | [Multitool Library](https://www.nuget.org/packages/Sarif.Multitool.Library/4.0.0)
 * BRK: `SarifLogger` no longer allows providing a `Tool` instance. Use the `run` parameter instead (and populate it with any custom `Tool` object). [#2614](https://github.com/microsoft/sarif-sdk/pull/2614)
 * BRK: `SarifLogger` updates version details differently. [#2611](https://github.com/microsoft/sarif-sdk/pull/2611)
 * BRK: Add `ToolComponent` argument to `IAnalysisLogger.Log(ReportingDescriptor, Result)` method. [#2611](https://github.com/microsoft/sarif-sdk/pull/2611)
