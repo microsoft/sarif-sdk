@@ -17,7 +17,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
     {
         public AnalyzeOptionsBase()
         {
-            Traces = AnalyzeContextBase.TracesProperty.DefaultValue();
+            Trace = AnalyzeContextBase.TracesProperty.DefaultValue();
             Kind = AnalyzeContextBase.ResultKindsProperty.DefaultValue();
             Level = AnalyzeContextBase.FailureLevelsProperty.DefaultValue();
             MaxFileSizeInKilobytes = AnalyzeContextBase.MaxFileSizeInKilobytesProperty.DefaultValue();

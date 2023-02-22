@@ -30,14 +30,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         internal bool _captureConsoleOutput;
         internal ConsoleLogger _consoleLogger;
 
-        private int _fileContextsCount;
+        private uint _fileContextsCount;
         private uint _ignoredFilesCount;
-        private Channel<int> readyToHashChannel;
-        private Channel<int> _resultsWritingChannel;
-        private Channel<int> readyToScanChannel;
-        private Channel<int> _resultsWritingChannel;
-        private OptionallyEmittedData _dataToInsert;
-        private ConcurrentDictionary<int, TContext> _fileContexts;
+        private Channel<uint> _resultsWritingChannel;
+        private Channel<uint> readyToScanChannel;
+        private ConcurrentDictionary<uint, TContext> _fileContexts;
 
         public Exception ExecutionException { get; set; }
 
@@ -162,7 +159,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             context.OutputFilePath = options.OutputFilePath;
             context.AutomationGuid = options.AutomationGuid;
             context.BaselineFilePath = options.BaselineFilePath;
-            context.Traces = InitializeStringSet(options.Traces);
+            context.Traces = InitializeStringSet(options.Trace);
             context.DataToInsert = options.DataToInsert.ToFlags();
             context.DataToRemove = options.DataToRemove.ToFlags();
             context.ResultKinds = options.Kind.ToImmutableHashSet();
@@ -256,14 +253,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 SingleWriter = true,
                 SingleReader = false,
             };
-            readyToScanChannel = Channel.CreateBounded<int>(channelOptions);
+            readyToScanChannel = Channel.CreateBounded<uint>(channelOptions);
 
             channelOptions = new BoundedChannelOptions(25000)
             {
                 SingleWriter = false,
                 SingleReader = true,
             };
-            _resultsWritingChannel = Channel.CreateBounded<int>(channelOptions);
+            _resultsWritingChannel = Channel.CreateBounded<uint>(channelOptions);
 
             var sw = Stopwatch.StartNew();
 
@@ -277,7 +274,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             var workers = new Task<bool>[context.Threads];
             for (int i = 0; i < context.Threads; i++)
             {
-                workers[i] = Task.Run(() => ScanTargetsAsync(skimmers, disabledSkimmers));
+                workers[i] = Task.Run(() => ScanTargetsAsync(context, skimmers, disabledSkimmers));
             }
 
             // 3: A single-threaded consumer watches for completed scans
@@ -285,7 +282,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             //    to nsure determinism in log output. i.e., any scan of the
             //    same targets using the same production code should produce
             //    a log file that is byte-for-byte identical to previous log.
-            Task<bool> logScanResults = Task.Run(() => LogScanResultsAsync(rootContext));
+            Task<bool> logScanResults = Task.Run(() => LogScanResultsAsync(context));
 
             Task.WhenAll(workers)
                 .ContinueWith(_ => _resultsWritingChannel.Writer.Complete())
@@ -297,18 +294,18 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
             if (_ignoredFilesCount > 0)
             {
-                Warnings.LogOneOrMoreFilesSkippedDueToSize(_rootContext, _ignoredFilesCount);
+                Warnings.LogOneOrMoreFilesSkippedDueToSize(context, _ignoredFilesCount);
             }
 
             Console.WriteLine();
 
-            if (rootContext.Traces.HasFlag(DefaultTraces.PeakWorkingSet))
+            if (context.Traces.Contains(nameof(DefaultTraces.PeakWorkingSet)))
             {
                 using (var currentProcess = Process.GetCurrentProcess())
                 {
                     string memoryUsage = $"Peak working set: {currentProcess.PeakWorkingSet64 / 1024 / 1024}MB.";
 
-                    rootContext.Logger.LogToolNotification(
+                    context.Logger.LogToolNotification(
                     new Notification
                     {
                         Level = FailureLevel.Warning,
@@ -320,7 +317,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 }
             }
 
-            if (rootContext.Traces.HasFlag(DefaultTraces.ScanTime))
+            if (context.Traces.Contains(nameof(DefaultTraces.ScanTime)))
             {
                 string timing = $"Done. {_fileContextsCount:n0} files scanned, elapsed time {sw.Elapsed}.";
 
@@ -347,15 +344,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
         private async Task<bool> LogScanResultsAsync(TContext globalContext)
         {
-            int currentIndex = 0;
+            uint currentIndex = 0;
 
-            ChannelReader<int> reader = _resultsWritingChannel.Reader;
+            ChannelReader<uint> reader = _resultsWritingChannel.Reader;
 
             // Wait until there is work or the channel is closed.
             while (await reader.WaitToReadAsync())
             {
                 // Loop while there is work to do.
-                while (reader.TryRead(out int item))
+                while (reader.TryRead(out uint item))
                 {
                     // This condition can occur if currentIndex moves
                     // ahead in array processing due to operations
@@ -371,7 +368,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
                         while (context?.AnalysisComplete == true)
                         {
-                            LogCachingLogger(rootContext, context, clone: false);
+                            LogCachingLogger(context, context, clone: false);
                             _fileContexts.TryRemove(currentIndex, out _);
                             _fileContexts.TryGetValue(currentIndex + 1, out context);
 
@@ -477,29 +474,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             }
         }
 
-        protected virtual bool ShouldEnqueue(string file, TContext context)
-        {
-            bool shouldEnqueue = IsTargetWithinFileSizeLimit(file, context.MaxFileSizeInKilobytes, out long fileSizeInKb);
-
-            if (!shouldEnqueue)
-            {
-                Notes.LogFileSkippedDueToSize(context, file, fileSizeInKb);
-            }
-
-            return shouldEnqueue;
-        }
-
-        protected virtual bool ShouldComputeHashes(string file, TContext context)
-        {
-            return true;
-        }
-
         private async Task<bool> EnumerateFilesOnDiskAsync(TContext context)
         {
             try
             {
                 this._fileContextsCount = 0;
-                this._fileContexts = new ConcurrentDictionary<int, TContext>();
+                this._fileContexts = new ConcurrentDictionary<uint, TContext>();
 
                 await EnumerateFilesFromArtifactsProvider(context);
             }
@@ -523,17 +503,17 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             }
             finally
             {
-                readyToHashChannel.Writer.Complete();
+                readyToScanChannel.Writer.Complete();
             }
 
             if (context.TargetsProvider.Skipped?.Count > 0)
             {
-                Warnings.LogOneOrMoreFilesSkippedDueToSize(context);
-
                 foreach (IEnumeratedArtifact artifact in context.TargetsProvider.Skipped)
                 {
                     Notes.LogFileSkippedDueToSize(context, artifact.Uri.GetFilePath(), (long)artifact.SizeInBytes);
                 }
+                //TBD resolve type mismatch
+                _ignoredFilesCount += (uint)context.TargetsProvider.Skipped.Count;
             }
 
             if (_fileContextsCount == 0)
@@ -565,7 +545,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 bool added = _fileContexts.TryAdd(_fileContextsCount, fileContext);
                 Debug.Assert(added);
 
-                await readyToHashChannel.Writer.WriteAsync(_fileContextsCount++);
+                await readyToScanChannel.Writer.WriteAsync(_fileContextsCount++);
             }
 
             // TBD get all skipped artifacts.
@@ -595,13 +575,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
         private async Task<bool> ScanTargetsAsync(TContext globalContext, IEnumerable<Skimmer<TContext>> skimmers, ISet<string> disabledSkimmers)
         {
-            ChannelReader<int> reader = readyToScanChannel.Reader;
+            ChannelReader<uint> reader = readyToScanChannel.Reader;
 
             // Wait until there is work or the channel is closed.
             while (await reader.WaitToReadAsync())
             {
                 // Loop while there is work to do.
-                while (reader.TryRead(out int item))
+                while (reader.TryRead(out uint item))
                 {
                     TContext perFileContext = default;
 
@@ -796,7 +776,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                                                       kinds: context.ResultKinds,
                                                       insertProperties: context.InsertProperties);
 
-                        _pathToHashDataMap = sarifLogger.AnalysisTargetToHashDataMap;
                         aggregatingLogger.Loggers.Add(sarifLogger);
                     },
                     (ex) =>

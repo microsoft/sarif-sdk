@@ -618,7 +618,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                     PostUri = postUri,
                 };
 
-                var command = new TestAnalyzeCommand(FileSystem.Instance);
+                var command = new TestMultithreadedAnalyzeCommand(FileSystem.Instance);
                 command.DefaultPluginAssemblies = new Assembly[] { this.GetType().Assembly };
 
                 TestAnalysisContext context = null;

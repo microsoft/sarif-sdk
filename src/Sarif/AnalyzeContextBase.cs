@@ -3,6 +3,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Collections.Immutable;
 using System.Diagnostics;
 using System.Threading;
 
@@ -122,13 +123,13 @@ namespace Microsoft.CodeAnalysis.Sarif
             set => this.Policy.SetProperty(TargetFileSpecifiersProperty, value);
         }
 
-        public ISet<FailureLevel> FailureLevels
+        public IImmutableSet<FailureLevel> FailureLevels
         {
             get => this.Policy.GetProperty(FailureLevelsProperty);
             set => this.Policy.SetProperty(FailureLevelsProperty, value);
         }
 
-        public ISet<ResultKind> ResultKinds
+        public IImmutableSet<ResultKind> ResultKinds
         {
             get => this.Policy.GetProperty(ResultKindsProperty);
             set => this.Policy.SetProperty(ResultKindsProperty, value);
@@ -215,15 +216,15 @@ namespace Microsoft.CodeAnalysis.Sarif
                         "CoreSettings", nameof(TargetFileSpecifiers), defaultValue: () => new StringSet(),
                         "One or more file specifiers for locating scan targets.");
 
-        public static PerLanguageOption<ISet<FailureLevel>> FailureLevelsProperty { get; } =
-                    new PerLanguageOption<ISet<FailureLevel>>(
-                        "CoreSettings", nameof(FailureLevels), defaultValue: () => new HashSet<FailureLevel>(new[] { FailureLevel.Error, FailureLevel.Warning }),
+        public static PerLanguageOption<IImmutableSet<FailureLevel>> FailureLevelsProperty { get; } =
+                    new PerLanguageOption<IImmutableSet<FailureLevel>>(
+                        "CoreSettings", nameof(FailureLevels), defaultValue: () => new[] { FailureLevel.Error, FailureLevel.Warning }.ToImmutableHashSet(),
                         "One or more failure levels to persist to loggers. Valid values include Error, Warning, " +
                         "and Informational. Defaults to 'Error' and 'Warning'.");
 
-        public static PerLanguageOption<ISet<ResultKind>> ResultKindsProperty { get; } =
-                    new PerLanguageOption<ISet<ResultKind>>(
-                        "CoreSettings", nameof(ResultKinds), defaultValue: () => new HashSet<ResultKind>(new[] { ResultKind.Fail }),
+        public static PerLanguageOption<IImmutableSet<ResultKind>> ResultKindsProperty { get; } =
+                    new PerLanguageOption<IImmutableSet<ResultKind>>(
+                        "CoreSettings", nameof(ResultKinds), defaultValue: () => new[] { ResultKind.Fail }.ToImmutableHashSet(),
                         "One or more result kinds to persist to loggers. Valid values include None, NotApplicable, Pass, Fail, " +
                         "Review, Open, Informational. Defaults to 'Fail'.");
 

@@ -3,6 +3,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Collections.Immutable;
 using System.Runtime.InteropServices;
 using System.Threading;
 
@@ -42,9 +43,9 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         ISet<string> PluginFilePaths { get; set; }
 
-        ISet<FailureLevel> FailureLevels { get; set; }
+        IImmutableSet<FailureLevel> FailureLevels { get; set; }
 
-        ISet<ResultKind> ResultKinds { get; set; }
+        IImmutableSet<ResultKind> ResultKinds { get; set; }
 
         public ISet<string> InsertProperties { get; set; }
 
