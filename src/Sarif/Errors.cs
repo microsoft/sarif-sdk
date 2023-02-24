@@ -237,8 +237,6 @@ namespace Microsoft.CodeAnalysis.Sarif
             context.RuntimeErrors |= RuntimeConditions.InvalidCommandLineOption;
 
             // The {0} argument(s) must be specified when using {1}.
-
-            // A required file specified on the command line could not be found: '{0}'. 
             context.Logger.LogConfigurationNotification(
                 CreateNotification(
                     uri: null,
@@ -527,8 +525,8 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             if (context?.Logger == null)
             {
-                // TBD format using console logger?
-                Console.WriteLine(exception.ToString());
+                // TBD construct a notification and emit it directly to console.
+                Console.Error.WriteLine(exception.ToString());
                 return;
             }
 

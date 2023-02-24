@@ -19,6 +19,8 @@ namespace Microsoft.CodeAnalysis.Sarif
         // All of these properties are persisted to configuration XML and can be
         // passed using that mechanism. All command-line arguments are 
         // candidates to follow this pattern.
+        //
+        // TBD this list is not complete.
         public virtual IEnumerable<IOption> GetOptions()
         {
             return new IOption[]
@@ -35,6 +37,9 @@ namespace Microsoft.CodeAnalysis.Sarif
             };
         }
 
+        /// <summary>
+        ///  TBD these all need good comments.
+        /// </summary>
         public virtual string PostUri { get; set; }
         public virtual ISet<string> InvocationPropertiesToLog { get; set; }
         public virtual ISet<string> PluginFilePaths { get; set; }

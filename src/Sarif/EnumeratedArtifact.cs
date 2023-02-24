@@ -7,6 +7,8 @@ using System.Text;
 
 namespace Microsoft.CodeAnalysis.Sarif
 {
+    // TBD: this class should probably be a generic, with EnumeratedArtifact<string>
+    // being a commonly utilized thing.
     public class EnumeratedArtifact : IEnumeratedArtifact
     {
         public EnumeratedArtifact(IFileSystem fileSystem)
