@@ -29,8 +29,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         {
             get
             {
-                return Path.GetExtension(TargetUri.LocalPath).Equals(SarifConstants.SarifFileExtension, StringComparison.OrdinalIgnoreCase) ||
-                       Path.GetExtension(TargetUri.LocalPath).Equals(".json", StringComparison.OrdinalIgnoreCase);
+                return Path.GetExtension(CurrentTarget.Uri.GetFileName()).Equals(SarifConstants.SarifFileExtension, StringComparison.OrdinalIgnoreCase) ||
+                       Path.GetExtension(CurrentTarget.Uri.GetFileName()).Equals(".json", StringComparison.OrdinalIgnoreCase);
+            }
+            set
+            {
+                throw new InvalidOperationException();
             }
         }
 
@@ -50,29 +54,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
         public override RuntimeConditions RuntimeErrors { get; set; }
 
-        public override Exception TargetLoadException { get; set; }
+        public override Exception RuntimeException { get; set; }
 
         public bool UpdateInputsToCurrentSarif { get; set; }
-
-        private Uri _uri;
-
-        public override Uri TargetUri
-        {
-            get
-            {
-                return _uri;
-            }
-
-            set
-            {
-                if (_uri != null)
-                {
-                    throw new InvalidOperationException(MultitoolResources.ErrorIllegalContextReuse);
-                }
-
-                _uri = value;
-            }
-        }
 
         public string SchemaFilePath { get; internal set; }
 
@@ -92,11 +76,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
         public JToken InputLogToken { get; internal set; }
 
-        public override DefaultTraces Traces { get; set; }
-
         public override void Dispose()
         {
-            // Nothing to dispose.
+            base.Dispose();
         }
     }
 }

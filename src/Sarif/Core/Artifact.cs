@@ -128,5 +128,12 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             return fileContent;
         }
+
+#if DEBUG
+        public override string ToString()
+        {
+            return this.Location?.ToString() ?? base.ToString();
+        }
+#endif
     }
 }

@@ -17,18 +17,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
     {
         public AnalyzeOptionsBase()
         {
-            // TODO: these defaults need to be converted to the configuration
-            // property pattern as followed by MaxFileSizeInKilobytes.
-            Trace = new string[] { };
-            Kind = BaseLogger.Fail;
-            Level = BaseLogger.ErrorWarning;
-
-            MaxFileSizeInKilobytes = AnalyzeContextBase.MaxFileSizeInKilobytesDefaultValue;
+            Trace = AnalyzeContextBase.TracesProperty.DefaultValue();
+            Kind = AnalyzeContextBase.ResultKindsProperty.DefaultValue();
+            Level = AnalyzeContextBase.FailureLevelsProperty.DefaultValue();
+            MaxFileSizeInKilobytes = AnalyzeContextBase.MaxFileSizeInKilobytesProperty.DefaultValue();
         }
 
         [Value(0,
                HelpText = "One or more specifiers to a file, directory, or filter pattern that resolves to one or more binaries to analyze.")]
-        public IEnumerable<string> TargetFileSpecifiers { get; set; }
+        public IList<string> TargetFileSpecifiers { get; set; }
 
         [Option(
             'o',
@@ -52,7 +49,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             'q',
             "quiet",
             HelpText = "Suppress all console output (except for catastrophic tool runtime or configuration errors).")]
-        public bool Quiet { get; set; }
+        public bool? Quiet { get; set; }
 
         [Option(
             's',
@@ -92,12 +89,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         public bool RichReturnCode { get; set; }
 
         [Option(
-            'z',
-            "optimize",
-            HelpText = "Omit redundant properties, producing a smaller but non-human-readable log.")]
-        public bool Optimize { get; set; }
-
-        [Option(
             "trace",
             Separator = ';',
             Default = new string[] { },
@@ -127,12 +118,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             HelpText = "A semicolon delimited list to filter output of scan results to one or more failure levels. Valid values: Error, Warning and Note.")]
         public IEnumerable<FailureLevel> Level { get; set; }
 
-        private IImmutableSet<FailureLevel> failureLevels;
-        public IImmutableSet<FailureLevel> FailureLevels
+        private FailureLevelSet failureLevels;
+        public FailureLevelSet FailureLevels
         {
             get
             {
-                this.failureLevels ??= new List<FailureLevel>(Level).ToImmutableHashSet();
+                this.failureLevels ??= new FailureLevelSet(Level);
                 return this.failureLevels;
             }
         }
@@ -144,12 +135,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             HelpText = "A semicolon delimited list to filter output to one or more result kinds. Valid values: Fail (for literal scan results), Pass, Review, Open, NotApplicable and Informational.")]
         public IEnumerable<ResultKind> Kind { get; set; }
 
-        private IImmutableSet<ResultKind> resultKinds;
-        public IImmutableSet<ResultKind> ResultKinds
+        private ResultKindSet resultKinds;
+        public ResultKindSet ResultKinds
         {
             get
             {
-                this.resultKinds ??= new List<ResultKind>(Kind).ToImmutableHashSet();
+                this.resultKinds ??= new ResultKindSet(Kind);
                 return this.resultKinds;
             }
         }
@@ -157,7 +148,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         [Option(
             "baseline",
             HelpText = "A SARIF file to be used as baseline.")]
-        public string BaselineSarifFile { get; set; }
+        public string BaselineFilePath { get; set; }
 
         [Option(
             "post-uri",

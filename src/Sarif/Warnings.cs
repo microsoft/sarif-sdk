@@ -34,7 +34,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             // command-line argument can be used to increase this threshold.
             context.Logger.LogConfigurationNotification(
                 Errors.CreateNotification(
-                    context.TargetUri,
+                    context.CurrentTarget?.Uri,
                     Wrn997_OneOrMoreFilesSkippedDueToSize,
                     ruleId: null,
                     FailureLevel.Warning,
@@ -57,7 +57,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             string message = string.Format(CultureInfo.InvariantCulture,
                 SdkResources.WRN997_InvalidTarget,
-                context.TargetUri.GetFileName());
+                context.CurrentTarget.Uri.GetFileName());
 
             context.Logger.LogConfigurationNotification(
                 new Notification
@@ -70,7 +70,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                             {
                                 ArtifactLocation = new ArtifactLocation
                                 {
-                                    Uri = context.TargetUri
+                                    Uri = context.CurrentTarget.Uri
                                 }
                             }
                         }
@@ -103,19 +103,6 @@ namespace Microsoft.CodeAnalysis.Sarif
             context.Logger.LogConfigurationNotification(
                 new Notification
                 {
-                    Locations = new List<Location>
-                    {
-                        new Location
-                        {
-                            PhysicalLocation = new PhysicalLocation
-                            {
-                                ArtifactLocation = new ArtifactLocation
-                                {
-                                    Uri = context.TargetUri
-                                }
-                            }
-                        }
-                    },
                     Descriptor = new ReportingDescriptorReference
                     {
                         Id = Wrn998_UnsupportedPlatform

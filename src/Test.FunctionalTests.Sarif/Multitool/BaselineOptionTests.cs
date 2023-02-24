@@ -4,6 +4,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Net.Mime;
 
 using FluentAssertions;
 
@@ -110,11 +111,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 SarifOutputVersion = SarifVersion.Current,
                 TargetFileSpecifiers = new[] { filePathToBeValidated },
                 OutputFilePath = outputLogFilePath,
-                BaselineSarifFile = baselineFilePath,
-                Inline = this.IsInline,
+                BaselineFilePath = baselineFilePath,
                 Quiet = true,
-                PrettyPrint = true,
-                Optimize = true,
+                OutputFileOptions = new[] { FilePersistenceOptions.PrettyPrint, FilePersistenceOptions.Optimize, this.IsInline ? FilePersistenceOptions.Inline : FilePersistenceOptions.None },
                 Level = new List<FailureLevel> { FailureLevel.Error, FailureLevel.Warning, FailureLevel.Note, FailureLevel.None },
             };
 
@@ -125,7 +124,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             mockFileSystem.Setup(x => x.DirectoryGetFiles(inputLogDirectory, fileToBeValidated)).Returns(new string[] { filePathToBeValidated });
             mockFileSystem.Setup(x => x.FileReadAllText(filePathToBeValidated)).Returns(logText);
             mockFileSystem.Setup(x => x.FileExists(baselineFilePath)).Returns(true);
-            mockFileSystem.Setup(x => x.DirectoryGetFiles(inputLogDirectory, baselineFile)).Returns(new string[] { baselineFilePath });
+            mockFileSystem.Setup(x => x.DirectoryEnumerateFiles(It.IsAny<string>(), fileToBeValidated, SearchOption.TopDirectoryOnly)).Returns(new string[] { filePathToBeValidated });
             mockFileSystem.Setup(x => x.FileReadAllText(baselineFilePath)).Returns(baselineText);
             mockFileSystem.Setup(x => x.FileReadAllText(It.IsNotIn<string>(filePathToBeValidated))).Returns<string>(path => File.ReadAllText(path));
             mockFileSystem.Setup(x => x.FileWriteAllText(It.IsAny<string>(), It.IsAny<string>()));
@@ -133,12 +132,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             mockFileSystem.Setup(x => x.FileCreate(baselineFilePath)).Returns((string path) => File.Create(path));
             mockFileSystem.Setup(x => x.FileInfoLength(It.IsAny<string>())).Returns(100);
 
-            var validateCommand = new ValidateCommand(mockFileSystem.Object);
-            int returnCode = validateCommand.Run(validateOptions);
-            if (validateCommand.ExecutionException != null)
-            {
-                Console.WriteLine(validateCommand.ExecutionException.ToString());
-            }
+            var validateCommand = new ValidateCommand();
+            var context = new SarifValidationContext { FileSystem = mockFileSystem.Object };
+            int returnCode = validateCommand.Run(validateOptions, ref context);
+            (context.RuntimeErrors & ~RuntimeConditions.Nonfatal).Should().Be(0);
 
             returnCode.Should().Be(0);
 

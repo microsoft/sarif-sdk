@@ -9,8 +9,17 @@ namespace Microsoft.CodeAnalysis.Sarif
     public enum DefaultTraces
     {
         None,
+        /// <summary>
+        /// Enables a trace message that reports the elapsed time for the end-to-end scan.
+        /// </summary>
         ScanTime = 0x01,
-        RuleScanTime = 0x02,
+        /// <summary>
+        /// Enables a trace message that reports the elapsed time for every rule, per scan target.
+        /// </summary>
+        RuleScanTime = 0x2,
+        /// <summary>
+        /// Enables a trace message that reports peak working set during analysis.
+        /// </summary>
         PeakWorkingSet = 0x4,
     }
 }

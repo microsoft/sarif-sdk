@@ -15,7 +15,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <summary>
         /// A description of this specific option.
         /// </summary>
-        public string Description { get; }
+        public string Description { get; set; }
 
         /// <summary>
         /// Feature this option is associated with.
@@ -25,7 +25,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <summary>
         /// The name of the option.
         /// </summary>
-        public string Name { get; }
+        public string Name { get; set; }
 
         /// <summary>
         /// The type of the option value.
@@ -38,7 +38,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <summary>
         /// The default option value.
         /// </summary>
-        public Func<T> DefaultValue { get; }
+        public Func<T> DefaultValue { get; set; }
 
         public PerLanguageOption(string feature, string name, Func<T> defaultValue) :
             this(feature, name, defaultValue, description: null)

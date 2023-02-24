@@ -11,9 +11,8 @@ using System.Security;
 using System.Threading.Tasks;
 
 using Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching;
-using Microsoft.CodeAnalysis.Sarif.Readers;
-using Microsoft.CodeAnalysis.Sarif.Visitors;
-using Microsoft.CodeAnalysis.Sarif.Writers;
+
+using Newtonsoft.Json;
 
 namespace Microsoft.CodeAnalysis.Sarif.Driver
 {
@@ -22,16 +21,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         // The plugin assemblies that contain IOptionProvider instances.
         public virtual IEnumerable<Assembly> DefaultPluginAssemblies
         {
-            get { return null; }
-            set { throw new InvalidOperationException(); }
+            get => null;
+            set => throw new InvalidOperationException();
         }
 
         // An additional IOptionsProvider instance, typically, the one
         // that exposes a client tool command-line interface.
         public virtual IOptionsProvider AdditionalOptionsProvider
         {
-            get { return null; }
-            set { throw new InvalidOperationException(); }
+            get => null;
+            set => throw new InvalidOperationException();
         }
 
         public IEnumerable<Assembly> RetrievePluginAssemblies(IEnumerable<Assembly> defaultPluginAssemblies, IEnumerable<string> pluginFilePaths)
@@ -50,26 +49,36 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             return assemblies;
         }
 
-        internal bool IsTargetWithinFileSizeLimit(string path, long maxFileSizeInKB, out long fileSizeInKb)
+        internal static bool ValidateBaselineFile(IAnalysisContext context)
         {
-            long size = Math.Max(FileSystem.FileInfoLength(path), 1024);
-            size = Math.Min(long.MaxValue - 1023, size);
-            fileSizeInKb = (size + 1023) / 1024;
-            return fileSizeInKb <= maxFileSizeInKB;
+            bool required = !string.IsNullOrEmpty(context.BaselineFilePath);
+            bool succeeded = ValidateFile(context,
+                                          context.BaselineFilePath,
+                                          shouldExist: required ? true : (bool?)null);
+
+            if (required && succeeded && string.IsNullOrEmpty(context.OutputFilePath))
+            {
+                succeeded = false;
+                Errors.LogMissingCommandlineArgument(context,
+                                                     "'--output' or '--log Inline'",
+                                                     "'--baseline'");
+            }
+
+            return succeeded;
         }
 
-        internal static bool ValidateInvocationPropertiesToLog(IAnalysisContext context, IEnumerable<string> propertiesToLog)
+        internal static bool ValidateInvocationPropertiesToLog(IAnalysisContext context)
         {
             bool succeeded = true;
 
-            if (propertiesToLog != null)
+            if (context.InvocationPropertiesToLog?.Any() == true)
             {
                 var validPropertyNames = new HashSet<string>(
                     typeof(Invocation).GetProperties(BindingFlags.Public | BindingFlags.Instance)
                         .Select(propInfo => propInfo.Name),
                     StringComparer.OrdinalIgnoreCase);
 
-                foreach (string propertyName in propertiesToLog)
+                foreach (string propertyName in context.InvocationPropertiesToLog)
                 {
                     if (!validPropertyNames.Contains(propertyName))
                     {
@@ -82,22 +91,34 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             return succeeded;
         }
 
-        internal bool ValidateFile(IAnalysisContext context, string filePath, string policyName, bool? shouldExist)
+        internal static bool ValidateFile(IAnalysisContext context, string filePath, bool? shouldExist)
         {
-            if (filePath == null || filePath == policyName) { return true; }
+            if (filePath == null) { return true; }
 
             Exception exception = null;
 
             try
             {
-                bool fileExists = FileSystem.FileExists(filePath);
+                bool fileExists = context.FileSystem.FileExists(filePath);
 
-                if (fileExists || shouldExist == null || !shouldExist.Value)
+                if (fileExists)
                 {
-                    return true;
-                }
+                    if (shouldExist == null || shouldExist.Value)
+                    {
+                        return true;
+                    }
 
-                Errors.LogMissingFile(context, filePath);
+                    Errors.LogFileAlreadyExists(context, filePath);
+                }
+                else
+                {
+                    if (shouldExist == null || !shouldExist.Value)
+                    {
+                        return true;
+                    }
+
+                    Errors.LogMissingFile(context, filePath);
+                }
             }
             catch (IOException ex) { exception = ex; }
             catch (SecurityException ex) { exception = ex; }
@@ -111,7 +132,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             return false;
         }
 
-        internal bool ValidateFiles(IAnalysisContext context, IEnumerable<string> filePaths, string policyName, bool shouldExist)
+        public static bool ValidateFiles(IAnalysisContext context, IEnumerable<string> filePaths, bool? shouldExist)
         {
             if (filePaths == null) { return true; }
 
@@ -119,92 +140,104 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
             foreach (string filePath in filePaths)
             {
-                succeeded &= ValidateFile(context, filePath, policyName, shouldExist);
+                succeeded &= ValidateFile(context, filePath, shouldExist);
             }
 
             return succeeded;
         }
 
-        internal bool ValidateOutputFileCanBeCreated(IAnalysisContext context, string outputFilePath, bool force)
+        internal static bool ValidateOutputFileCanBeCreated(IAnalysisContext context)
         {
             bool succeeded = true;
+            bool force = context.OutputFileOptions.HasFlag(FilePersistenceOptions.ForceOverwrite);
 
-            if (!string.IsNullOrWhiteSpace(outputFilePath) &&
-                !DriverUtilities.CanCreateOutputFile(outputFilePath, force, FileSystem))
+            if (!string.IsNullOrWhiteSpace(context.OutputFilePath) &&
+                !DriverUtilities.CanCreateOutputFile(context.OutputFilePath, force, context.FileSystem))
             {
-                Errors.LogOutputFileAlreadyExists(context, outputFilePath);
+                Errors.LogFileAlreadyExists(context, context.OutputFilePath);
                 succeeded = false;
             }
 
             return succeeded;
         }
 
-        protected virtual void ProcessBaseline(IAnalysisContext context, T driverOptions, IFileSystem fileSystem)
+        protected virtual void ProcessBaseline(IAnalysisContext context)
         {
-            if (!(driverOptions is AnalyzeOptionsBase options))
-            {
-                return;
-            }
-
-            if (string.IsNullOrEmpty(options.BaselineSarifFile) || string.IsNullOrEmpty(options.OutputFilePath))
-            {
-                return;
-            }
-
-            SarifLog baselineFile = PrereleaseCompatibilityTransformer.UpdateToCurrentVersion(fileSystem.FileReadAllText(options.BaselineSarifFile),
-                                                                                              options.Formatting,
-                                                                                              out string _);
-
-            SarifLog currentSarifLog = PrereleaseCompatibilityTransformer.UpdateToCurrentVersion(fileSystem.FileReadAllText(options.OutputFilePath),
-                                                                                                 options.Formatting,
-                                                                                                 out string _);
-
-            SarifLog baseline;
             try
             {
-                ISarifLogMatcher matcher = ResultMatchingBaselinerFactory.GetDefaultResultMatchingBaseliner();
-                baseline = matcher.Match(new SarifLog[] { baselineFile }, new SarifLog[] { currentSarifLog }).First();
+                string baselineFilePath = context.BaselineFilePath;
+                if (string.IsNullOrEmpty(baselineFilePath))
+                {
+                    return;
+                }
+
+                string outputFilePath = context.OutputFilePath;
+                bool inline = context.OutputFileOptions.HasFlag(FilePersistenceOptions.Inline);
+                if (!inline && string.IsNullOrEmpty(outputFilePath))
+                {
+                    return;
+                }
+
+                SarifLog baselineFile = JsonConvert.DeserializeObject<SarifLog>(context.FileSystem.FileReadAllText(baselineFilePath));
+                SarifLog currentSarifLog = JsonConvert.DeserializeObject<SarifLog>(context.FileSystem.FileReadAllText(outputFilePath));
+
+                SarifLog baseline;
+                try
+                {
+                    ISarifLogMatcher matcher = ResultMatchingBaselinerFactory.GetDefaultResultMatchingBaseliner();
+                    baseline = matcher.Match(new SarifLog[] { baselineFile }, new SarifLog[] { currentSarifLog }).First();
+                }
+                catch (Exception ex)
+                {
+                    throw new ExitApplicationException<ExitReason>(DriverResources.MSG_UnexpectedApplicationExit, ex)
+                    {
+                        ExitReason = ExitReason.ExceptionProcessingBaseline
+                    };
+                }
+
+                try
+                {
+                    string targetFile = inline ? baselineFilePath : outputFilePath;
+                    WriteSarifFile(context.FileSystem, baseline, targetFile, minify: !context.OutputFileOptions.HasFlag(FilePersistenceOptions.PrettyPrint));
+                }
+                catch (Exception ex)
+                {
+                    throw new ExitApplicationException<ExitReason>(DriverResources.MSG_UnexpectedApplicationExit, ex)
+                    {
+                        ExitReason = ExitReason.ExceptionWritingToLogFile
+                    };
+                }
             }
             catch (Exception ex)
             {
+                Console.WriteLine(ex.ToString());
+                context.RuntimeErrors |= RuntimeConditions.ExceptionProcessingBaseline;
                 throw new ExitApplicationException<ExitReason>(DriverResources.MSG_UnexpectedApplicationExit, ex)
                 {
                     ExitReason = ExitReason.ExceptionProcessingBaseline
                 };
             }
+        }
 
+        protected virtual void PostLogFile(IAnalysisContext context)
+        {
             try
             {
-                string targetFile = options.Inline ? options.BaselineSarifFile : options.OutputFilePath;
-
-                if (options.SarifOutputVersion == SarifVersion.OneZeroZero)
+                using (var httpClient = new HttpClient())
                 {
-                    var visitor = new SarifCurrentToVersionOneVisitor();
-                    visitor.VisitSarifLog(baseline);
-
-                    WriteSarifFile(fileSystem, visitor.SarifLogVersionOne, targetFile, options.Formatting, SarifContractResolverVersionOne.Instance);
-                }
-                else
-                {
-                    WriteSarifFile(fileSystem, baseline, targetFile, options.Formatting);
+                    PostLogFile(context.PostUri, context.OutputFilePath, context.FileSystem, httpClient)
+                        .GetAwaiter()
+                        .GetResult();
                 }
             }
             catch (Exception ex)
             {
+                Console.WriteLine(ex.ToString());
+                context.RuntimeErrors |= RuntimeConditions.ExceptionPostingLogFile;
                 throw new ExitApplicationException<ExitReason>(DriverResources.MSG_UnexpectedApplicationExit, ex)
                 {
-                    ExitReason = ExitReason.ExceptionWritingToLogFile
+                    ExitReason = ExitReason.ExceptionPostingLogFile
                 };
-            }
-        }
-
-        protected virtual void PostLogFile(string postUri, string outputFilePath, IFileSystem fileSystem)
-        {
-            using (var httpClient = new HttpClient())
-            {
-                PostLogFile(postUri, outputFilePath, fileSystem, httpClient)
-                    .GetAwaiter()
-                    .GetResult();
             }
         }
 
@@ -215,17 +248,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 return;
             }
 
-            try
-            {
-                await SarifLog.Post(new Uri(postUri), outputFilePath, fileSystem, httpClient);
-            }
-            catch (Exception ex)
-            {
-                throw new ExitApplicationException<ExitReason>(DriverResources.MSG_UnexpectedApplicationExit, ex)
-                {
-                    ExitReason = ExitReason.ExceptionPostingLogFile
-                };
-            }
+            await SarifLog.Post(new Uri(postUri), outputFilePath, fileSystem, httpClient);
         }
     }
 }

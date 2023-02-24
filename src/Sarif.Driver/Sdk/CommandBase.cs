@@ -16,7 +16,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         public const int SUCCESS = 0;
         public const int FAILURE = 1;
 
-        protected IFileSystem FileSystem { get; set; }
+        // TBD delete this!
+        protected virtual IFileSystem FileSystem { get; set; }
 
         // TODO:  Removing this constructor broke the one of AbsoluteUriCommand entirely but all unit tests were passing
         // Add unit tests that will break when this constructor is deleted or malfunctioning.

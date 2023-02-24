@@ -178,6 +178,15 @@ namespace Microsoft.CodeAnalysis.Sarif {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The output file &apos;{0}&apos; already exists. Use --force to overwrite..
+        /// </summary>
+        public static string ERR997_FileAlreadyExists {
+            get {
+                return ResourceManager.GetString("ERR997_FileAlreadyExists", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The current configuration enables rules that are not compatible (&apos;{0}&apos; has declared that it is not compatible with &apos;{1}&apos;). You can selectively disable one of the rules using an updated XML configuration (passed by the --config argument)..
         /// </summary>
         public static string ERR997_IncompatibleRulesDetected {
@@ -192,6 +201,15 @@ namespace Microsoft.CodeAnalysis.Sarif {
         public static string ERR997_InvalidInvocationPropertyName {
             get {
                 return ResourceManager.GetString("ERR997_InvalidInvocationPropertyName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The {0} argument(s) must be specified when using {1}..
+        /// </summary>
+        public static string ERR997_MissingCommandlineArgument {
+            get {
+                return ResourceManager.GetString("ERR997_MissingCommandlineArgument", resourceCulture);
             }
         }
         
@@ -241,15 +259,6 @@ namespace Microsoft.CodeAnalysis.Sarif {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The output file &apos;{0}&apos; already exists. Use --force to overwrite..
-        /// </summary>
-        public static string ERR997_OutputFileAlreadyExists {
-            get {
-                return ResourceManager.GetString("ERR997_OutputFileAlreadyExists", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to An exception of type &apos;{0}&apos; was raised analyzing &apos;{1}&apos; for check &apos;{2}&apos; (which has been disabled). The exception may have resulted from a problem related to parsing the analysis target, and not specific to the rule, however..
         /// </summary>
         public static string ERR998_ExceptionInAnalyze {
@@ -273,6 +282,24 @@ namespace Microsoft.CodeAnalysis.Sarif {
         public static string ERR998_ExceptionInInitialize {
             get {
                 return ResourceManager.GetString("ERR998_ExceptionInInitialize", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Analysis was canceled..
+        /// </summary>
+        public static string ERR999_AnalysisCanceled {
+            get {
+                return ResourceManager.GetString("ERR999_AnalysisCanceled", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Analysis timed out. Timeout specified was {0})..
+        /// </summary>
+        public static string ERR999_AnalysisTimedOut {
+            get {
+                return ResourceManager.GetString("ERR999_AnalysisTimedOut", resourceCulture);
             }
         }
         

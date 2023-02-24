@@ -112,7 +112,7 @@
                   "index": 0
                 },
                 "region": {
-                  "startLine": 56,
+                  "startLine": 52,
                   "startColumn": 29
                 }
               }
@@ -135,7 +135,30 @@
                   "index": 0
                 },
                 "region": {
-                  "startLine": 69,
+                  "startLine": 63,
+                  "startColumn": 9
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "SARIF2004",
+          "ruleIndex": 0,
+          "message": {
+            "id": "Warning_AvoidDuplicativeResultRuleInformation",
+            "arguments": [
+              "runs[0].results[3]"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 73,
                   "startColumn": 9
                 }
               }
@@ -158,7 +181,7 @@
                   "index": 0
                 },
                 "region": {
-                  "startLine": 93,
+                  "startLine": 84,
                   "startColumn": 9
                 }
               }

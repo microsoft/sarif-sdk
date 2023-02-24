@@ -65,7 +65,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 Console.Error.WriteLine(
                     string.Format(
                         CultureInfo.CurrentCulture,
-                        SdkResources.ERR997_OutputFileAlreadyExists,
+                        SdkResources.ERR997_FileAlreadyExists,
                         outputFilePath));
             }
 
