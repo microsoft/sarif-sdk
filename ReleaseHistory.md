@@ -1,10 +1,13 @@
 # SARIF Package Release History (SDK, Driver, Converters, and Multitool)
 ## **v4.1.0** UNRELEASED
-* BRK: `MultithreadedAnalyzeCommandBase` IDispose implementation manages logging dispose. Be sure to call `base.Dispose()` in any derived type implementations. [#2614](https://github.com/microsoft/sarif-sdk/pull/2614)
+* BRK: `MultithreadedAnalyzeCommandBase` IDispose implementation now manages logging dispose. Be sure to call `base.Dispose()` in any derived type implementations. [#2614](https://github.com/microsoft/sarif-sdk/pull/2614)
 * BRK: Rename `LogFilePersistenceOptions` to `FilePersistenceOptions` (due to its general applicability in other file persistence contexts other than output logs).[#2625](https://github.com/microsoft/sarif-sdk/pull/2625)
-* BRK: many breaking changes in `IAnalysisContext` and `AnalyzeContextBase`. [#2625](https://github.com/microsoft/sarif-sdk/pull/2625)
+* BRK: Many breaking changes in `IAnalysisContext` and `AnalyzeContextBase`. [#2625](https://github.com/microsoft/sarif-sdk/pull/2625)
+* BUG: Eliminate per-context allocations contributing to unnecessary memory use. [#2625](https://github.com/microsoft/sarif-sdk/pull/2625)
+* NEW: Rewrite  `MultithreadedAnalyzeCommandBase` pipeline to allow for timeout, cancellation, and better API-driven use. [#2625](https://github.com/microsoft/sarif-sdk/pull/2625)
 * NEW: Move large amounts of scan data to the context object, to streamline pipeline and allow for XML-driven configuration. [#2625](https://github.com/microsoft/sarif-sdk/pull/2625)
 * NEW: Switch file processing to an `ArtifactProvider` model where enumerated artifacts consist of URI and optional content. [#2625](https://github.com/microsoft/sarif-sdk/pull/2625)
+* NEW: Add new `FailureLevelSet` and `ResultKindSet` types that are compatible with XML-based configuration. [#2625](https://github.com/microsoft/sarif-sdk/pull/2625)
 * NEW: Add `PeakWorkingSet` to `--trace` command to report maximum working set value during analysis. [#2619](https://github.com/microsoft/sarif-sdk/pull/2619)
 
 ## **v4.0.0** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/4.0.0) | [Driver](https://www.nuget.org/packages/Sarif.Driver/4.0.0) | [Converters](https://www.nuget.org/packages/Sarif.Converters/4.0.0) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/4.0.0) | [Multitool Library](https://www.nuget.org/packages/Sarif.Multitool.Library/4.0.0)
