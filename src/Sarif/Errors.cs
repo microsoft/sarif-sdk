@@ -7,7 +7,6 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using System.Runtime.InteropServices.ComTypes;
 
 namespace Microsoft.CodeAnalysis.Sarif
 {
@@ -18,25 +17,27 @@ namespace Microsoft.CodeAnalysis.Sarif
         private const string ERR997_MissingCommandlineArgument = "ERR997.MissingCommandlineArgument";
 
         private const string ERR997_NoRulesLoaded = "ERR997.NoRulesLoaded";
+        private const string ERR997_FileAlreadyExists = "ERR997.FileAlreadyExists";
         internal const string ERR997_NoPluginsConfigured = "ERR997.NoPluginsConfigured";
         private const string ERR997_ExceptionLoadingPlugIn = "ERR997.ExceptionLoadingPlugIn";
         private const string ERR997_NoValidAnalysisTargets = "ERR997.NoValidAnalysisTargets";
         private const string ERR997_ExceptionAccessingFile = "ERR997.ExceptionAccessingFile";
         private const string ERR997_ExceptionCreatingLogFile = "ERR997.ExceptionCreatingLogFile";
+        internal const string ERR997_IncompatibleRulesDetected = "ERR997.IncompatibleRulesDetected";
         internal const string ERR997_AllRulesExplicitlyDisabled = "ERR997.AllRulesExplicitlyDisabled";
         private const string ERR997_InvalidInvocationPropertyName = "ERR997.InvalidInvocationPropertyName";
         private const string ERR997_MissingReportingConfiguration = "ERR997.MissingReportingConfiguration";
         private const string ERR997_ExceptionLoadingAnalysisTarget = "ERR997.ExceptionLoadingAnalysisTarget";
         private const string ERR997_ExceptionInstantiatingSkimmers = "ERR997.ExceptionInstantiatingSkimmers";
-        private const string ERR997_FileAlreadyExists = "ERR997.FileAlreadyExists";
-        internal const string ERR997_IncompatibleRulesDetected = "ERR997.IncompatibleRulesDetected";
 
         // Rule disabling tool errors:
+        private const string ERR998_ExceptionInAnalyze = "ERR998.ExceptionInAnalyze";
         private const string ERR998_ExceptionInCanAnalyze = "ERR998.ExceptionInCanAnalyze";
         private const string ERR998_ExceptionInInitialize = "ERR998.ExceptionInInitialize";
-        private const string ERR998_ExceptionInAnalyze = "ERR998.ExceptionInAnalyze";
 
         // Analysis halting tool errors:
+        private const string ERR999_AnalysisCanceled = "ERR999.AnalysisCanceled";
+        private const string ERR999_AnalysisTimedOut = "ERR999.AnalysisTimedOut";
         private const string ERR999_UnhandledEngineException = "ERR999.UnhandledEngineException";
 
         // Parse errors:
@@ -647,26 +648,56 @@ namespace Microsoft.CodeAnalysis.Sarif
                             .GetValue(obj: null, index: null);
         }
 
-        internal static void LogAnalysisCanceled<TContext>(TContext globalContext) where TContext : IAnalysisContext, new()
+        internal static void LogAnalysisCanceled<TContext>(TContext context) where TContext : IAnalysisContext, new()
         {
-            if (globalContext.RuntimeErrors.HasFlag(RuntimeConditions.AnalysisCanceled))
+            if (context.RuntimeErrors.HasFlag(RuntimeConditions.AnalysisCanceled))
             {
                 return;
             }
 
-            lock (globalContext)
+            lock (context)
             {
-                if (!globalContext.RuntimeErrors.HasFlag(RuntimeConditions.AnalysisCanceled))
+                // If we've already emitted the canceled message, don't repeat it.
+                if (!context.RuntimeErrors.HasFlag(RuntimeConditions.AnalysisCanceled))
                 {
-                    // TBD emit the log message!
-                    globalContext.RuntimeErrors |= RuntimeConditions.AnalysisCanceled;
+                    // Analysis was canceled.
+                    context.Logger.LogConfigurationNotification(
+                    CreateNotification(
+                            uri: null,
+                            ERR999_AnalysisCanceled,
+                            ruleId: null,
+                            FailureLevel.Error,
+                            exception: null,
+                            persistExceptionStack: false,
+                            messageFormat: null));
+
+                    context.RuntimeErrors |= RuntimeConditions.AnalysisCanceled;
                 }
             }
         }
 
-        internal static void LogAnalysisTimedOut<TContext>(TContext context) where TContext : IAnalysisContext, new()
+        internal static void LogAnalysisTimedOut(IAnalysisContext context)
         {
+            if (context == null)
+            {
+                throw new ArgumentNullException(nameof(context));
+            }
+
             context.RuntimeErrors |= RuntimeConditions.AnalysisTimedOut;
+
+            string configuredTimeout = TimeSpan.FromMilliseconds(context.TimeoutInMilliseconds).ToString();
+
+            // Analysis timed out. Timeout specified was {0}).
+            context.Logger.LogConfigurationNotification(
+                CreateNotification(
+                    uri: null,
+                    ERR999_AnalysisTimedOut,
+                    ruleId: null,
+                    FailureLevel.Error,
+                    exception: null,
+                    persistExceptionStack: false,
+                    messageFormat: null,
+                    configuredTimeout));
         }
     }
 }

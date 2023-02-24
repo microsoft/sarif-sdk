@@ -118,12 +118,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             HelpText = "A semicolon delimited list to filter output of scan results to one or more failure levels. Valid values: Error, Warning and Note.")]
         public IEnumerable<FailureLevel> Level { get; set; }
 
-        private IImmutableSet<FailureLevel> failureLevels;
-        public IImmutableSet<FailureLevel> FailureLevels
+        private FailureLevelSet failureLevels;
+        public FailureLevelSet FailureLevels
         {
             get
             {
-                this.failureLevels ??= new List<FailureLevel>(Level).ToImmutableHashSet();
+                this.failureLevels ??= new FailureLevelSet(Level);
                 return this.failureLevels;
             }
         }
@@ -135,12 +135,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             HelpText = "A semicolon delimited list to filter output to one or more result kinds. Valid values: Fail (for literal scan results), Pass, Review, Open, NotApplicable and Informational.")]
         public IEnumerable<ResultKind> Kind { get; set; }
 
-        private IImmutableSet<ResultKind> resultKinds;
-        public IImmutableSet<ResultKind> ResultKinds
+        private ResultKindSet resultKinds;
+        public ResultKindSet ResultKinds
         {
             get
             {
-                this.resultKinds ??= new List<ResultKind>(Kind).ToImmutableHashSet();
+                this.resultKinds ??= new ResultKindSet(Kind);
                 return this.resultKinds;
             }
         }

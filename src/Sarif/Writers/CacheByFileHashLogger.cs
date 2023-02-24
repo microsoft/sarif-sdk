@@ -24,7 +24,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         public Dictionary<string, List<Notification>> HashToNotificationsMap { get; private set; }
         public Dictionary<string, List<Tuple<ReportingDescriptor, Result, int?>>> HashToResultsMap { get; private set; }
 
-        public CacheByFileHashLogger(IImmutableSet<FailureLevel> levels, IImmutableSet<ResultKind> kinds) : base(levels, kinds)
+        public CacheByFileHashLogger(FailureLevelSet levels, ResultKindSet kinds) : base(levels, kinds)
         {
         }
 

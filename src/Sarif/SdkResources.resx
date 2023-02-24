@@ -293,4 +293,10 @@ You can also refer to properties in the result's property bag with 'properties.&
   <data name="ERR997_MissingCommandlineArgument" xml:space="preserve">
     <value>The {0} argument(s) must be specified when using {1}.</value>
   </data>
+  <data name="ERR999_AnalysisCanceled" xml:space="preserve">
+    <value>Analysis was canceled.</value>
+  </data>
+  <data name="ERR999_AnalysisTimedOut" xml:space="preserve">
+    <value>Analysis timed out. Timeout specified was {0}).</value>
+  </data>
 </root>

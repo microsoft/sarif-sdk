@@ -43,9 +43,9 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         ISet<string> PluginFilePaths { get; set; }
 
-        IImmutableSet<FailureLevel> FailureLevels { get; set; }
+        FailureLevelSet FailureLevels { get; set; }
 
-        IImmutableSet<ResultKind> ResultKinds { get; set; }
+        ResultKindSet ResultKinds { get; set; }
 
         public ISet<string> InsertProperties { get; set; }
 
@@ -76,5 +76,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         ISet<string> Traces { get; set; }
 
         long MaxFileSizeInKilobytes { get; set; }
+
+        int TimeoutInMilliseconds { get; set; }
     }
 }

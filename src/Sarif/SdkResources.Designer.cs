@@ -286,6 +286,24 @@ namespace Microsoft.CodeAnalysis.Sarif {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Analysis was canceled..
+        /// </summary>
+        public static string ERR999_AnalysisCanceled {
+            get {
+                return ResourceManager.GetString("ERR999_AnalysisCanceled", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Analysis timed out. Timeout specified was {0})..
+        /// </summary>
+        public static string ERR999_AnalysisTimedOut {
+            get {
+                return ResourceManager.GetString("ERR999_AnalysisTimedOut", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0}.
         /// </summary>
         public static string ERR999_UnhandledEngineException {

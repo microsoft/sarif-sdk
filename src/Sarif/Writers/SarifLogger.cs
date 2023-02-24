@@ -43,8 +43,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                            string defaultFileEncoding = null,
                            bool closeWriterOnDispose = true,
                            bool quiet = false,
-                           IImmutableSet<FailureLevel> levels = null,
-                           IImmutableSet<ResultKind> kinds = null,
+                           FailureLevelSet levels = null,
+                           ResultKindSet kinds = null,
                            IEnumerable<string> insertProperties = null,
                            FileRegionsCache fileRegionsCache = null)
             : this(new StreamWriter(new FileStream(outputFilePath, FileMode.Create, FileAccess.Write, FileShare.Read)),
@@ -76,8 +76,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                            string defaultFileEncoding = null,
                            bool closeWriterOnDispose = true,
                            bool quiet = false,
-                           IImmutableSet<FailureLevel> levels = null,
-                           IImmutableSet<ResultKind> kinds = null,
+                           FailureLevelSet levels = null,
+                           ResultKindSet kinds = null,
                            IEnumerable<string> insertProperties = null,
                            FileRegionsCache fileRegionsCache = null) : base(failureLevels: levels, resultKinds: kinds)
         {

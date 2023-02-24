@@ -10,14 +10,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 {
     public abstract class BaseLogger
     {
-        public static IImmutableSet<FailureLevel> ErrorWarning = new List<FailureLevel>(new[] { FailureLevel.Error, FailureLevel.Warning }).ToImmutableHashSet();
+        public static FailureLevelSet ErrorWarning = new FailureLevelSet(new[] { FailureLevel.Error, FailureLevel.Warning });
 
-        public static IImmutableSet<ResultKind> Fail = new List<ResultKind>(new[] { ResultKind.Fail }).ToImmutableHashSet();
+        public static ResultKindSet Fail = new ResultKindSet(new List<ResultKind>(new[] { ResultKind.Fail }));
 
-        protected readonly IImmutableSet<FailureLevel> _failureLevels;
-        protected readonly IImmutableSet<ResultKind> _resultKinds;
+        protected readonly FailureLevelSet _failureLevels;
+        protected readonly ResultKindSet _resultKinds;
 
-        protected BaseLogger(IImmutableSet<FailureLevel> failureLevels, IImmutableSet<ResultKind> resultKinds)
+        protected BaseLogger(FailureLevelSet failureLevels, ResultKindSet resultKinds)
         {
             if (failureLevels == null && resultKinds == null)
             {

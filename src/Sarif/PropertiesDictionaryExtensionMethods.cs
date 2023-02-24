@@ -95,6 +95,20 @@ namespace Microsoft.CodeAnalysis.Sarif
                     continue;
                 }
 
+                FailureLevelSet failureLevelSet = property as FailureLevelSet;
+                if (failureLevelSet != null)
+                {
+                    SaveSet(writer, failureLevelSet, key);
+                    continue;
+                }
+
+                ResultKindSet resultKindSet = property as ResultKindSet;
+                if (resultKindSet != null)
+                {
+                    SaveSet(writer, resultKindSet, key);
+                    continue;
+                }
+
                 IDictionary pb = property as IDictionary;
                 if (pb != null)
                 {
@@ -218,7 +232,9 @@ namespace Microsoft.CodeAnalysis.Sarif
                     isEmpty = reader.IsEmptyElement;
 
                     if (typeName == STRING_SET_ID ||
-                        typeName == INTEGER_SET_ID)
+                        typeName == INTEGER_SET_ID ||
+                        typeName == RESULT_KIND_SET_ID ||
+                        typeName == FAILURE_LEVEL_SET_ID )
                     {
                         if (typeName == STRING_SET_ID)
                         {
@@ -226,9 +242,21 @@ namespace Microsoft.CodeAnalysis.Sarif
                             propertyBag[key] = set;
                             LoadSet(set, reader);
                         }
-                        else
+                        else if(typeName == INTEGER_SET_ID)
                         {
                             IntegerSet set = new IntegerSet();
+                            propertyBag[key] = set;
+                            LoadSet(set, reader);
+                        }
+                        else if (typeName == FAILURE_LEVEL_SET_ID)
+                        {
+                            FailureLevelSet set = new FailureLevelSet();
+                            propertyBag[key] = set;
+                            LoadSet(set, reader);
+                        }
+                        else
+                        {
+                            ResultKindSet set = new ResultKindSet();
                             propertyBag[key] = set;
                             LoadSet(set, reader);
                         }
@@ -326,14 +354,14 @@ namespace Microsoft.CodeAnalysis.Sarif
         #endregion
 
         private const string KEY_ID = "Key";
-        private const string SET_ID = "Set";
         private const string ITEM_ID = "Item";
         private const string TYPE_ID = "Type";
         private const string VALUE_ID = "Value";
         private const string PROPERTY_ID = "Property";
-        private const string ITEMTYPE_ID = "ItemType";
         private const string STRING_SET_ID = "StringSet";
         private const string INTEGER_SET_ID = "IntegerSet";
+        private const string RESULT_KIND_SET_ID = "ResultKindSet";
+        private const string FAILURE_LEVEL_SET_ID = "FailureLevelSet";
         internal const string PROPERTIES_ID = "Properties";
 
         private static readonly HybridDictionary s_typesCache = new HybridDictionary();

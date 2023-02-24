@@ -46,6 +46,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
         protected MultithreadedAnalyzeCommandBase(IFileSystem fileSystem = null)
         {
+            // TBD can we zap this?
             FileSystem = fileSystem ?? Sarif.FileSystem.Instance;
         }
 
@@ -66,8 +67,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
         public virtual int Run(TOptions options, ref TContext context)
         {
-            bool succeeded = false;
-
             try
             {
                 if (options != null)
@@ -75,6 +74,64 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                     context = InitializeContextFromOptions(options, ref context);
                 }
 
+                TContext localContext = context;
+
+                Task<int> analyzeTask = Task.Run(() =>
+                {
+                    int result = Run(localContext);
+                    return result;
+                }, context.CancellationToken);
+
+                int msDelay = context.TimeoutInMilliseconds;
+
+                if (Task.WhenAny(analyzeTask, Task.Delay(msDelay)).GetAwaiter().GetResult() == analyzeTask)
+                {
+                    bool succeeded = (context.RuntimeErrors & ~RuntimeConditions.Nonfatal) == RuntimeConditions.None;
+
+                    Debug.Assert(!(analyzeTask.IsFaulted && succeeded),
+                                "Task faulted without setting a fatal runtime condition flag.");
+
+                    return analyzeTask.Result;
+                }
+
+                Errors.LogAnalysisTimedOut(context);
+                return FAILURE;
+            }
+            catch (Exception ex)
+            {
+                if (!(ex is ExitApplicationException<ExitReason>))
+                {
+                    ex = ex.InnerException ?? ex;
+
+                    if (!(ex is ExitApplicationException<ExitReason>))
+                    {
+                        // These exceptions escaped our net and must be logged here
+                        context ??= new TContext();
+                        Errors.LogUnhandledEngineException(context, ex);
+                    }
+                }
+                ExecutionException = ex;
+            }
+            finally
+            {
+                context?.Logger?.AnalysisStopped(context.RuntimeErrors);
+                context?.Dispose();
+            }
+
+            return
+                context?.RichReturnCode == true
+                    ? (int)context.RuntimeErrors
+                    : FAILURE;
+        }
+
+
+        private int Run(TContext context)
+        {
+            bool succeeded = false;
+
+            try
+            {
+                context.FileSystem ??= FileSystem;
                 context = ValidateContext(context);
                 InitializeOutputFile(context);
 
@@ -113,26 +170,19 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
                 succeeded = (context.RuntimeErrors & ~RuntimeConditions.Nonfatal) == RuntimeConditions.None;
             }
-            catch (ExitApplicationException<ExitReason> ex)
-            {
-                // These exceptions have already been logged
-                ExecutionException = ex;
-            }
             catch (Exception ex)
             {
-                ex = ex.InnerException ?? ex;
-
                 if (!(ex is ExitApplicationException<ExitReason>))
                 {
-                    // These exceptions escaped our net and must be logged here
-                    Errors.LogUnhandledEngineException(context, ex);
+                    ex = ex.InnerException ?? ex;
+
+                    if (!(ex is ExitApplicationException<ExitReason>))
+                    {
+                        // These exceptions escaped our net and must be logged here
+                        Errors.LogUnhandledEngineException(context, ex);
+                    }
                 }
                 ExecutionException = ex;
-            }
-            finally
-            {
-                context?.Logger?.AnalysisStopped(context.RuntimeErrors);
-                context?.Dispose();
             }
 
             return
@@ -153,7 +203,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
             context.Quiet = options.Quiet;
             context.Recurse = options.Recurse;
-            context.Threads = options.Threads;
+            context.Threads = options.Threads > 0 ? options.Threads : Environment.ProcessorCount;
             context.PostUri = options.PostUri;
             context.AutomationId = options.AutomationId;
             context.OutputFilePath = options.OutputFilePath;
@@ -162,8 +212,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             context.Traces = InitializeStringSet(options.Trace);
             context.DataToInsert = options.DataToInsert.ToFlags();
             context.DataToRemove = options.DataToRemove.ToFlags();
-            context.ResultKinds = options.Kind.ToImmutableHashSet();
-            context.FailureLevels = options.Level.ToImmutableHashSet();
+            context.ResultKinds = options.ResultKinds;
+            context.FailureLevels = options.FailureLevels;
             context.OutputFileOptions = options.OutputFileOptions.ToFlags();
             context.MaxFileSizeInKilobytes = options.MaxFileSizeInKilobytes;
             context.PluginFilePaths = options.PluginFilePaths?.ToImmutableHashSet();
@@ -206,7 +256,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
             if (!string.IsNullOrEmpty(context.PostUri))
             {
-
                 try
                 {
                     var httpClient = new HttpClientWrapper();
@@ -263,6 +312,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             _resultsWritingChannel = Channel.CreateBounded<uint>(channelOptions);
 
             var sw = Stopwatch.StartNew();
+            Console.WriteLine($"THREADS: {context.Threads}");
 
             // 1: First we initiate an asynchronous operation to locate disk files for
             // analysis, as specified in analysis configuration (file names, wildcards).
@@ -299,42 +349,22 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
             Console.WriteLine();
 
+            string id;
             if (context.Traces.Contains(nameof(DefaultTraces.PeakWorkingSet)))
             {
                 using (var currentProcess = Process.GetCurrentProcess())
                 {
+                    id = $"TRC101.{nameof(DefaultTraces.PeakWorkingSet)}";
                     string memoryUsage = $"Peak working set: {currentProcess.PeakWorkingSet64 / 1024 / 1024}MB.";
-
-                    context.Logger.LogToolNotification(
-                    new Notification
-                    {
-                        Level = FailureLevel.Warning,
-                        Message = new Message
-                        {
-                            Text = memoryUsage,
-                        },
-                    });
+                    LogToolNotification(context.Logger, memoryUsage, id);
                 }
             }
 
             if (context.Traces.Contains(nameof(DefaultTraces.ScanTime)))
             {
+                id = $"TRC101.{nameof(DefaultTraces.ScanTime)}";
                 string timing = $"Done. {_fileContextsCount:n0} files scanned, elapsed time {sw.Elapsed}.";
-
-                context.Logger.LogToolNotification(
-                    new Notification
-                    {
-                        Level = FailureLevel.Warning,
-                        Descriptor = new ReportingDescriptorReference
-                        {
-                            Id = $"TRC101.{nameof(DefaultTraces.ScanTime)}"
-                        },
-                        Message = new Message
-                        {
-                            Text = timing,
-                        },
-                        TimeUtc = DateTime.UtcNow,
-                    });
+                LogToolNotification(context.Logger, timing, id);
             }
             else
             {
@@ -737,10 +767,17 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         public virtual void InitializeOutputFile(TContext context)
         {
             string filePath = context.OutputFilePath;
-            var aggregatingLogger = (AggregatingLogger)context.Logger;
 
             if (!string.IsNullOrEmpty(filePath))
             {
+                var aggregatingLogger = context.Logger as AggregatingLogger;
+                if (aggregatingLogger == null) 
+                { 
+                    aggregatingLogger = new AggregatingLogger();
+                    aggregatingLogger.Loggers.Add(context.Logger);
+                    context.Logger = aggregatingLogger;
+                }
+
                 InvokeCatchingRelevantIOExceptions
                 (
                     () =>
@@ -1059,25 +1096,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                         string file = uri.LocalPath;
                         string directory = Path.GetDirectoryName(file);
                         file = Path.GetFileName(file);
+
+                        string id = $"TRC101.{nameof(DefaultTraces.RuleScanTime)}";
                         string timing = $"'{file}' : elapsed {stopwatch.Elapsed} : '{skimmer.Name}' : at '{directory}'";
-
-                        context.Logger.LogToolNotification(
-                            new Notification
-                            {
-                                Level = FailureLevel.Note,
-                                Descriptor = new ReportingDescriptorReference
-                                {
-                                    Id = $"TRC101.{nameof(DefaultTraces.RuleScanTime)}"
-                                },
-                                Message = new Message
-                                {
-                                    Text = timing,
-                                },
-                                TimeUtc = DateTime.UtcNow,
-                            },
-                            skimmer);
+                        LogToolNotification(context.Logger, id, timing);
                     }
-
                 }
                 catch (Exception ex)
                 {
@@ -1214,11 +1237,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             return skimmers;
         }
 
-        protected static void LogToolNotification(
-            IAnalysisLogger logger,
-            string message,
-            FailureLevel level = FailureLevel.Note,
-            Exception ex = null)
+        protected static void LogToolNotification(IAnalysisLogger logger,
+                                                  string message,
+                                                  string id = null,
+                                                  FailureLevel level = FailureLevel.Note,
+                                                  Exception ex = null)
         {
             ExceptionData exceptionData = null;
             if (ex != null)
@@ -1237,8 +1260,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             logger.LogToolNotification(new Notification
             {
                 Level = level,
+                Descriptor = new ReportingDescriptorReference
+                { 
+                    Id = id
+                },
                 Message = new Message { Text = message },
-                Exception = exceptionData
+                Exception = exceptionData,
+                TimeUtc = DateTime.UtcNow
             });
         }
     }
