@@ -1063,18 +1063,18 @@ namespace Microsoft.CodeAnalysis.Sarif
                 }
             }
 
-            IImmutableSet<ResultKind> desiredResultKinds = BaseLogger.Fail;
-            IImmutableSet<FailureLevel> desiredFailureLevels = BaseLogger.ErrorWarning;
+            ResultKindSet desiredResultKinds = BaseLogger.Fail;
+            FailureLevelSet desiredFailureLevels = BaseLogger.ErrorWarning;
             SarifLog sarifLog = CreateSarifLog(allKindLevelCombinations, rule, desiredFailureLevels, desiredResultKinds);
             VerifySarifLogHonoredKindAndLevel(desiredFailureLevels, desiredResultKinds, sarifLog);
 
-            desiredResultKinds = new[] { ResultKind.NotApplicable }.ToImmutableHashSet();
-            desiredFailureLevels = new[] { FailureLevel.None }.ToImmutableHashSet();
+            desiredResultKinds = new ResultKindSet(new[] { ResultKind.NotApplicable });
+            desiredFailureLevels = new FailureLevelSet(new[] { FailureLevel.None });
             sarifLog = CreateSarifLog(allKindLevelCombinations, rule, desiredFailureLevels, desiredResultKinds);
             VerifySarifLogHonoredKindAndLevel(desiredFailureLevels, desiredResultKinds, sarifLog);
 
             desiredResultKinds = BaseLogger.Fail;
-            desiredFailureLevels = new[] { FailureLevel.Error }.ToImmutableHashSet();
+            desiredFailureLevels = new FailureLevelSet(new[] { FailureLevel.Error });
             sarifLog = CreateSarifLog(allKindLevelCombinations, rule, desiredFailureLevels, desiredResultKinds);
             VerifySarifLogHonoredKindAndLevel(desiredFailureLevels, desiredResultKinds, sarifLog);
         }
@@ -1131,7 +1131,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             invocation.ToolConfigurationNotifications.Where(notification => notification.Locations != null).Should().HaveCount(1);
         }
 
-        private static void VerifySarifLogHonoredKindAndLevel(IImmutableSet<FailureLevel> desiredFailureLevels, IImmutableSet<ResultKind> desiredResultKinds, SarifLog sarifLog)
+        private static void VerifySarifLogHonoredKindAndLevel(FailureLevelSet desiredFailureLevels, ResultKindSet desiredResultKinds, SarifLog sarifLog)
         {
             int expectedCount = desiredResultKinds.Count * desiredFailureLevels.Count;
 
@@ -1147,7 +1147,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             }
         }
 
-        private static SarifLog CreateSarifLog(List<Result> allKindLevelCombinations, ReportingDescriptor rule, IImmutableSet<FailureLevel> desiredFailureLevels, IImmutableSet<ResultKind> desiredResultKinds)
+        private static SarifLog CreateSarifLog(List<Result> allKindLevelCombinations, ReportingDescriptor rule, FailureLevelSet desiredFailureLevels, ResultKindSet desiredResultKinds)
         {
             StringBuilder stringBuilder = new StringBuilder();
 

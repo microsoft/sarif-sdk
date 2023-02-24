@@ -13,7 +13,7 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Writers
 {
     public class BaseLoggerTestConcrete : BaseLogger
     {
-        public BaseLoggerTestConcrete(IImmutableSet<FailureLevel> failureLevels,
-                                        IImmutableSet<ResultKind> resultKinds) : base(failureLevels, resultKinds) { }
+        public BaseLoggerTestConcrete(FailureLevelSet failureLevels,
+                                      ResultKindSet resultKinds) : base(failureLevels, resultKinds) { }
     }
 }

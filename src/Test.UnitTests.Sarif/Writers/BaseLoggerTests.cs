@@ -21,17 +21,17 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Writers
         {
             BaseLoggerTestConcrete baseLoggerTestConcrete = null;
 
-            Assert.Throws<ArgumentException>(() => new BaseLoggerTestConcrete(new[] { FailureLevel.Error }.ToImmutableHashSet(),
-                                                                    new List<ResultKind> { ResultKind.Informational }.ToImmutableHashSet()));
+            Assert.Throws<ArgumentException>(() => new BaseLoggerTestConcrete(new FailureLevelSet(new[] { FailureLevel.Error }),
+                                                                              new ResultKindSet(new[] { ResultKind.Informational })));
             //  The rest are fine.
-            baseLoggerTestConcrete = new BaseLoggerTestConcrete(new[] { FailureLevel.Error }.ToImmutableHashSet(),
-                                                                new List<ResultKind> { ResultKind.Informational, ResultKind.Fail }.ToImmutableHashSet());
+            baseLoggerTestConcrete = new BaseLoggerTestConcrete(new FailureLevelSet(new[] { FailureLevel.Error }),
+                                                                new ResultKindSet(new [] { ResultKind.Informational, ResultKind.Fail }));
 
-            baseLoggerTestConcrete = new BaseLoggerTestConcrete(new[] { FailureLevel.Note }.ToImmutableHashSet(),
+            baseLoggerTestConcrete = new BaseLoggerTestConcrete(new FailureLevelSet(new[] { FailureLevel.Note }),
                                                                 BaseLogger.Fail);
 
-            baseLoggerTestConcrete = new BaseLoggerTestConcrete(new[] { FailureLevel.None }.ToImmutableHashSet(),
-                                                                new List<ResultKind> { ResultKind.Informational }.ToImmutableHashSet());
+            baseLoggerTestConcrete = new BaseLoggerTestConcrete(new FailureLevelSet(new[] { FailureLevel.None }),
+                                                                new ResultKindSet(new[] { ResultKind.Informational }));
 
             //  If there are no uncaught exceptions, the test passes.
         }
