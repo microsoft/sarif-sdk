@@ -73,7 +73,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                                                        ExitReason expectedExitReason,
                                                        TestAnalyzeOptions analyzeOptions)
         {
-            TestRule.s_testRuleBehaviors = analyzeOptions.TestRuleBehaviors.AccessibleOutsideOfContextOnly();
+            TestRuleBehaviors? behaviors = analyzeOptions.TestRuleBehaviors;
+            TestRule.s_testRuleBehaviors = behaviors != null ? behaviors.Value : TestRule.s_testRuleBehaviors;
             Assembly[] plugInAssemblies;
 
             if (analyzeOptions.DefaultPlugInFilePaths != null)
@@ -558,8 +559,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         [Fact]
         public void AnalyzeCommandBase_ReportsWarningOnUnsupportedPlatformForRuleAndNoRulesLoaded()
         {
-            PropertiesDictionary allRulesDisabledConfiguration = ExportConfigurationCommandBaseTests.s_allRulesDisabledConfiguration;
             string path = Path.GetTempFileName() + ".xml";
+            PropertiesDictionary allRulesDisabledConfiguration = ExportConfigurationCommandBaseTests.s_allRulesDisabledConfiguration;
 
             try
             {
@@ -594,7 +595,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         }
 
         public Run AnalyzeFile(string fileName,
-                               TestRuleBehaviors behaviors = TestRuleBehaviors.None,
+                               TestRuleBehaviors? behaviors = null,
                                string configFileName = null,
                                RuntimeConditions runtimeConditions = RuntimeConditions.None,
                                int expectedReturnCode = TestMultithreadedAnalyzeCommand.SUCCESS,
@@ -1022,7 +1023,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         public void AnalyzeCommandBase_FireAllRules()
         {
             PropertiesDictionary configuration = ExportConfigurationCommandBaseTests.s_defaultConfiguration;
-
             string path = Path.GetTempFileName() + ".xml";
 
             configuration.SetProperty(TestRule.Behaviors, TestRuleBehaviors.LogError);
@@ -1061,8 +1061,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         [Fact]
         public void AnalyzeCommandBase_EndToEndAnalysisWithExplicitlyDisabledRules()
         {
-            PropertiesDictionary allRulesDisabledConfiguration = ExportConfigurationCommandBaseTests.s_allRulesDisabledConfiguration;
             string path = Path.GetTempFileName() + ".xml";
+            PropertiesDictionary allRulesDisabledConfiguration = ExportConfigurationCommandBaseTests.s_allRulesDisabledConfiguration;
 
             try
             {
@@ -1074,7 +1074,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                     location,
                     configFileName: path,
                     runtimeConditions: RuntimeConditions.RuleWasExplicitlyDisabled | RuntimeConditions.NoRulesLoaded,
-                    expectedReturnCode: TestMultithreadedAnalyzeCommand.FAILURE);
+                    expectedReturnCode: FAILURE);
 
                 int resultCount = 0;
                 int toolNotificationCount = 0;
@@ -1579,7 +1579,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                         DataToInsert = new OptionallyEmittedData[] { OptionallyEmittedData.Hashes },
                     };
 
-                    TestRule.s_testRuleBehaviors = resultsCachingTestCase.TestRuleBehaviors.AccessibleOutsideOfContextOnly();
+                    TestRule.s_testRuleBehaviors = resultsCachingTestCase.TestRuleBehaviors;
                     RunAnalyzeCommand(options,
                                       resultsCachingTestCase.FileSystem,
                                       resultsCachingTestCase.ExpectedReturnCode);
@@ -1817,7 +1817,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             SarifLog sarifLog;
             try
             {
-                TestRule.s_testRuleBehaviors = testCase.TestRuleBehaviors.AccessibleOutsideOfContextOnly();
+                TestRule.s_testRuleBehaviors = testCase.TestRuleBehaviors;
                 sarifLog = RunAnalyzeCommand(options, testCase.FileSystem, testCase.ExpectedReturnCode);
                 run = sarifLog.Runs[0];
 
@@ -1884,7 +1884,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
             try
             {
-                TestRule.s_testRuleBehaviors = testCase.TestRuleBehaviors.AccessibleOutsideOfContextOnly();
+                TestRule.s_testRuleBehaviors = testCase.TestRuleBehaviors;
 
                 var command = new TestMultithreadedAnalyzeCommand(testCase.FileSystem)
                 {

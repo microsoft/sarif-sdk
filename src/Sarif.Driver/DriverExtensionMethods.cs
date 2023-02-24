@@ -163,7 +163,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         {
             bool valid = true;
 
-            if (options.Quiet && string.IsNullOrWhiteSpace(options.OutputFilePath))
+            if (options.Quiet == true && string.IsNullOrWhiteSpace(options.OutputFilePath))
             {
                 valid = false;
             }

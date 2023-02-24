@@ -9,7 +9,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 {
     public class TestAnalyzeOptions : AnalyzeOptionsBase
     {
-        public TestRuleBehaviors TestRuleBehaviors { get; set; }
+        public TestRuleBehaviors? TestRuleBehaviors { get; set; }
 
         public bool DisableCheck { get; set; }
 

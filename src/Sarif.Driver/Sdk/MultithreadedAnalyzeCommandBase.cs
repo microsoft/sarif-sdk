@@ -201,7 +201,23 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             // that precede successfully creating an output log file).
             context.Logger ??= InitializeLogger(options);
 
-            context.Quiet = options.Quiet;
+            // Next, we initialize ourselves from disk-based configuration, 
+            // if specified. This allows users to operate against configuration
+            // XML but to override specific settings within it via options.
+            context = InitializeConfiguration(options.ConfigurationFilePath, context);
+
+            // TBD: observe that unless/until all options are nullable, that we
+            // will always clobber loaded context data when processing options.
+            // The 'Quiet' property shows the model, use of a nullable type.
+            // We need to convert all remaining options to nullable. Note that
+            // there's still a problem: we can't use the absence of a command-line
+            // boolean argument as positive evidence that a context representation
+            // should be overridden. i.e., say the context file specifies 'Quiet',
+            // there's no way that the options can override this because a value
+            // of false is implied by the absence of an explicit command-line arg.
+            // One solution is remove all boolean args, as we did with --force, 
+            // in preference of enum-driven settings.
+            context.Quiet = options.Quiet != null ? options.Quiet.Value : context.Quiet;
             context.Recurse = options.Recurse;
             context.Threads = options.Threads > 0 ? options.Threads : Environment.ProcessorCount;
             context.PostUri = options.PostUri;
@@ -227,8 +243,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                     context.Recurse,
                     context.MaxFileSizeInKilobytes,
                     context.FileSystem);
-
-            context = InitializeConfiguration(options.ConfigurationFilePath, context);
 
             return context;
         }
@@ -670,9 +684,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
             var logger = new AggregatingLogger();
 
-            if (!analyzeOptions.Quiet)
+            if (!(analyzeOptions.Quiet == true))
             {
-                _consoleLogger = new ConsoleLogger(analyzeOptions.Quiet, Tool.Driver.Name, analyzeOptions.FailureLevels, analyzeOptions.ResultKinds) { CaptureOutput = _captureConsoleOutput };
+                _consoleLogger = new ConsoleLogger(quietConsole: false, Tool.Driver.Name, analyzeOptions.FailureLevels, analyzeOptions.ResultKinds) { CaptureOutput = _captureConsoleOutput };
                 logger.Loggers.Add(_consoleLogger);
             }
 
@@ -771,8 +785,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             if (!string.IsNullOrEmpty(filePath))
             {
                 var aggregatingLogger = context.Logger as AggregatingLogger;
-                if (aggregatingLogger == null) 
-                { 
+                if (aggregatingLogger == null)
+                {
                     aggregatingLogger = new AggregatingLogger();
                     aggregatingLogger.Loggers.Add(context.Logger);
                     context.Logger = aggregatingLogger;
@@ -1099,7 +1113,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
                         string id = $"TRC101.{nameof(DefaultTraces.RuleScanTime)}";
                         string timing = $"'{file}' : elapsed {stopwatch.Elapsed} : '{skimmer.Name}' : at '{directory}'";
-                        LogToolNotification(context.Logger, id, timing);
+                        LogToolNotification(context.Logger, timing, id, context.Rule);
                     }
                 }
                 catch (Exception ex)
@@ -1240,6 +1254,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         protected static void LogToolNotification(IAnalysisLogger logger,
                                                   string message,
                                                   string id = null,
+                                                  ReportingDescriptor associatedRule = null,
                                                   FailureLevel level = FailureLevel.Note,
                                                   Exception ex = null)
         {
@@ -1261,13 +1276,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             {
                 Level = level,
                 Descriptor = new ReportingDescriptorReference
-                { 
+                {
                     Id = id
                 },
+                AssociatedRule = new ReportingDescriptorReference { Id = associatedRule?.Id },
                 Message = new Message { Text = message },
                 Exception = exceptionData,
                 TimeUtc = DateTime.UtcNow
-            });
+            },
+                associatedRule);
         }
     }
 }

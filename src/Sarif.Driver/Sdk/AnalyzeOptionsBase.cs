@@ -49,7 +49,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             'q',
             "quiet",
             HelpText = "Suppress all console output (except for catastrophic tool runtime or configuration errors).")]
-        public bool Quiet { get; set; }
+        public bool? Quiet { get; set; }
 
         [Option(
             's',

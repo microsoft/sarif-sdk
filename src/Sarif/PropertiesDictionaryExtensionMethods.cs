@@ -234,7 +234,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                     if (typeName == STRING_SET_ID ||
                         typeName == INTEGER_SET_ID ||
                         typeName == RESULT_KIND_SET_ID ||
-                        typeName == FAILURE_LEVEL_SET_ID )
+                        typeName == FAILURE_LEVEL_SET_ID)
                     {
                         if (typeName == STRING_SET_ID)
                         {
@@ -242,7 +242,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                             propertyBag[key] = set;
                             LoadSet(set, reader);
                         }
-                        else if(typeName == INTEGER_SET_ID)
+                        else if (typeName == INTEGER_SET_ID)
                         {
                             IntegerSet set = new IntegerSet();
                             propertyBag[key] = set;

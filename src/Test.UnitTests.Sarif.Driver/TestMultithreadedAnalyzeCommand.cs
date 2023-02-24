@@ -7,14 +7,13 @@ using System.Reflection;
 
 using FluentAssertions;
 
-using Microsoft.CodeAnalysis.Test.Utilities.Sarif;
-
 namespace Microsoft.CodeAnalysis.Sarif.Driver
 {
     public class TestMultithreadedAnalyzeCommand : MultithreadedAnalyzeCommandBase<TestAnalysisContext, TestAnalyzeOptions>, ITestAnalyzeCommand
     {
         public TestMultithreadedAnalyzeCommand(IFileSystem fileSystem = null) : base(fileSystem)
         {
+            TestRule.s_testRuleBehaviors = 0;
         }
 
         public override IEnumerable<Assembly> DefaultPluginAssemblies { get; set; }
@@ -23,9 +22,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         {
             context ??= new TestAnalysisContext();
             context.Policy ??= new PropertiesDictionary();
-            context.Policy.SetProperty(TestRule.Behaviors, options.TestRuleBehaviors.AccessibleWithinContextOnly());
 
             context = base.InitializeContextFromOptions(options, ref context);
+
+            if (options.TestRuleBehaviors != null)
+            {
+                context.Policy.SetProperty(TestRule.Behaviors, options.TestRuleBehaviors.Value);
+            }
 
             if (context.Policy.GetProperty(TestRule.Behaviors).HasFlag(TestRuleBehaviors.RegardOptionsAsInvalid))
             {
@@ -61,6 +64,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             base.ValidateOptions(options, context);
         }
 
+        protected override ISet<Skimmer<TestAnalysisContext>> CreateSkimmers(TestAnalysisContext context)
+        {
+            TestRule.s_testRuleBehaviors = context.Policy.GetProperty(TestRule.Behaviors);
+            return base.CreateSkimmers(context);
+        }
+
         public int Run(AnalyzeOptionsBase options, ref TestAnalysisContext context)
         {
             int result = base.Run((TestAnalyzeOptions)options, ref context);
@@ -73,7 +82,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         {
             TestRuleBehaviors behaviors = context.Policy.GetProperty(TestRule.Behaviors);
 
-            TestRule.s_testRuleBehaviors = behaviors.AccessibleOutsideOfContextOnly();
+            TestRule.s_testRuleBehaviors = behaviors;
 
             return base.DetermineApplicabilityAndAnalyze(context, skimmers, disabledSkimmers);
         }

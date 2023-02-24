@@ -25,7 +25,7 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Writers
                                                                               new ResultKindSet(new[] { ResultKind.Informational })));
             //  The rest are fine.
             baseLoggerTestConcrete = new BaseLoggerTestConcrete(new FailureLevelSet(new[] { FailureLevel.Error }),
-                                                                new ResultKindSet(new [] { ResultKind.Informational, ResultKind.Fail }));
+                                                                new ResultKindSet(new[] { ResultKind.Informational, ResultKind.Fail }));
 
             baseLoggerTestConcrete = new BaseLoggerTestConcrete(new FailureLevelSet(new[] { FailureLevel.Note }),
                                                                 BaseLogger.Fail);

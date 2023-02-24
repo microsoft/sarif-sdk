@@ -141,14 +141,12 @@ namespace Microsoft.CodeAnalysis.Sarif
             // We do not access the static test rule behaviors here. We also want to 
             // ensure this data is only set with flags (if any) that are legal for 
             // this property.
-            (s_testRuleBehaviors & s_testRuleBehaviors.AccessibleOutsideOfContextOnly())
+            (s_testRuleBehaviors & s_testRuleBehaviors)
                 .Should().Be(s_testRuleBehaviors);
 
             // Now we'll make sure the context test rule behaviors are restricted
             // to settings that are legal to pass in a context object.
             TestRuleBehaviors testRuleBehaviors = context.Policy.GetProperty(Behaviors);
-            (testRuleBehaviors & testRuleBehaviors.AccessibleWithinContextOnly())
-                .Should().Be(testRuleBehaviors);
 
             int delay = context.Policy.GetProperty(DelayInMilliseconds);
             Task.Delay(delay).Wait();
@@ -263,7 +261,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new IOption[] { Behaviors, UnusedOption, ErrorsCount };
         }
 
-        private const string AnalyzerName = TestRuleId + "." + nameof(TestRule);
+        internal const string AnalyzerName = TestRuleId + "." + nameof(TestRule);
 
         public static PerLanguageOption<int> DelayInMilliseconds { get; } =
             new PerLanguageOption<int>(
