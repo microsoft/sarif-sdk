@@ -3,7 +3,6 @@
 #pragma warning disable CS0618
 using System;
 using System.Collections.Generic;
-using System.Data.Common;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -13,13 +12,7 @@ using System.Text;
 using FluentAssertions;
 
 using Microsoft.CodeAnalysis.Sarif.Converters;
-using Microsoft.CodeAnalysis.Sarif.Readers;
-using Microsoft.CodeAnalysis.Sarif.VersionOne;
 using Microsoft.CodeAnalysis.Sarif.Writers;
-using Microsoft.CodeAnalysis.Test.Utilities.Sarif;
-
-using Microsoft.Coyote;
-using Microsoft.Coyote.SystematicTesting;
 
 using Moq;
 
@@ -829,6 +822,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         }
 
         [Fact]
+        [Trait(TestTraits.WindowsOnly, "true")]
         public void MultithreadedAnalyzeCommandBase_TargetFileSizeTestCases()
         {
             var sb = new StringBuilder();
@@ -1839,7 +1833,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             // If no log file is specified, we will convert the console output into a log file
             bool captureConsoleOutput = string.IsNullOrEmpty(options.OutputFilePath);
 
-            ITestAnalyzeCommand command = new TestMultithreadedAnalyzeCommand(fileSystem) { _captureConsoleOutput = captureConsoleOutput };
+            var command = new TestMultithreadedAnalyzeCommand(fileSystem) { _captureConsoleOutput = captureConsoleOutput };
             command.DefaultPluginAssemblies = new Assembly[] { typeof(AnalyzeCommandBaseTests).Assembly };
 
             var context = new TestAnalysisContext { FileSystem = fileSystem };
