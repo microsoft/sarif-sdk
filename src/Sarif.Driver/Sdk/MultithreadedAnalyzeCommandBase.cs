@@ -36,8 +36,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         private Channel<uint> readyToScanChannel;
         private ConcurrentDictionary<uint, TContext> _fileContexts;
 
-        public Exception ExecutionException { get; set; }
-
         public static bool RaiseUnhandledExceptionInDriverCode { get; set; }
 
         protected virtual Tool Tool { get; set; }
@@ -65,28 +63,31 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             return Run(options, ref context);
         }
 
-        public virtual int Run(TOptions options, ref TContext context)
+        public virtual int Run(TOptions options, ref TContext globalContext)
         {
             try
             {
+                globalContext ??= new TContext();
                 if (options != null)
                 {
-                    context = InitializeContextFromOptions(options, ref context);
+                    globalContext = InitializeContextFromOptions(options, ref globalContext);
                 }
 
-                TContext localContext = context;
+                // We must make a copy of the global context reference
+                // to utilize it in a separate thread.
+                TContext methodLocalContext = globalContext;
 
                 Task<int> analyzeTask = Task.Run(() =>
                 {
-                    int result = Run(localContext);
+                    int result = Run(methodLocalContext);
                     return result;
-                }, context.CancellationToken);
+                }, globalContext.CancellationToken);
 
-                int msDelay = context.TimeoutInMilliseconds;
+                int msDelay = globalContext.TimeoutInMilliseconds;
 
                 if (Task.WhenAny(analyzeTask, Task.Delay(msDelay)).GetAwaiter().GetResult() == analyzeTask)
                 {
-                    bool succeeded = (context.RuntimeErrors & ~RuntimeConditions.Nonfatal) == RuntimeConditions.None;
+                    bool succeeded = (globalContext.RuntimeErrors & ~RuntimeConditions.Nonfatal) == RuntimeConditions.None;
 
                     Debug.Assert(!(analyzeTask.IsFaulted && succeeded),
                                 "Task faulted without setting a fatal runtime condition flag.");
@@ -94,7 +95,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                     return analyzeTask.Result;
                 }
 
-                Errors.LogAnalysisTimedOut(context);
+                Errors.LogAnalysisTimedOut(globalContext);
                 return FAILURE;
             }
             catch (Exception ex)
@@ -106,52 +107,54 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                     if (!(ex is ExitApplicationException<ExitReason>))
                     {
                         // These exceptions escaped our net and must be logged here
-                        context ??= new TContext();
-                        Errors.LogUnhandledEngineException(context, ex);
+                        globalContext ??= new TContext();
+                        Errors.LogUnhandledEngineException(globalContext, ex);
                     }
                 }
-                ExecutionException = ex;
+                globalContext.RuntimeExceptions ??= new List<Exception>();
+                globalContext.RuntimeExceptions.Add(ex);
             }
             finally
             {
-                context?.Logger?.AnalysisStopped(context.RuntimeErrors);
-                context?.Dispose();
+                globalContext.Dispose();
             }
 
             return
-                context?.RichReturnCode == true
-                    ? (int)context.RuntimeErrors
+                globalContext.RichReturnCode == true
+                    ? (int)globalContext.RuntimeErrors
                     : FAILURE;
         }
 
 
-        private int Run(TContext context)
+        private int Run(TContext globalContext)
         {
             bool succeeded = false;
+            IDisposable disposableLogger = null;
 
             try
             {
-                context.FileSystem ??= FileSystem;
-                context = ValidateContext(context);
-                InitializeOutputFile(context);
+                globalContext.FileSystem ??= FileSystem;
+                globalContext = ValidateContext(globalContext);
+                disposableLogger = globalContext.Logger as IDisposable;
+                InitializeOutputFile(globalContext);
 
                 // 1. Instantiate skimmers. We need to do this before initializing
                 //    the output file so that we can preconstruct the tool 
                 //    extensions data written to the SARIF file. Due to this ordering, 
                 //    we won't emit any failures or notifications in this operation 
                 //    to the log file itself: it will only appear in console output.
-                ISet<Skimmer<TContext>> skimmers = CreateSkimmers(context);
+                ISet<Skimmer<TContext>> skimmers = CreateSkimmers(globalContext);
 
                 // 2. Initialize skimmers. Initialize occurs a single time only. This
                 //    step needs to occurs after initializing configuration in order
                 //    to allow command-line override of rule settings
-                skimmers = InitializeSkimmers(skimmers, context);
+                skimmers = InitializeSkimmers(skimmers, globalContext);
 
                 // 3. Log analysis initiation
-                context.Logger.AnalysisStarted();
+                globalContext.Logger.AnalysisStarted();
 
                 // 4. Run all multi-threaded analysis operations.
-                AnalyzeTargets(context, skimmers);
+                AnalyzeTargets(globalContext, skimmers);
 
                 // 5. For test purposes, raise an unhandled exception if indicated
                 if (RaiseUnhandledExceptionInDriverCode)
@@ -159,16 +162,20 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                     throw new InvalidOperationException(GetType().Name);
                 }
 
-                context?.Logger.AnalysisStopped(context.RuntimeErrors);
-                context?.Dispose();
+                // Analysis is complete. Generate our stopped event and also dispose
+                // of any disposable logs (which will flush and release locks on
+                // output files).
+                globalContext.Logger.AnalysisStopped(globalContext.RuntimeErrors);
+                disposableLogger?.Dispose();
+                disposableLogger = null;
 
-                if ((context.RuntimeErrors & ~RuntimeConditions.Nonfatal) == RuntimeConditions.None)
+                if ((globalContext.RuntimeErrors & ~RuntimeConditions.Nonfatal) == RuntimeConditions.None)
                 {
-                    ProcessBaseline(context);
-                    PostLogFile(context);
+                    ProcessBaseline(globalContext);
+                    PostLogFile(globalContext);
                 }
 
-                succeeded = (context.RuntimeErrors & ~RuntimeConditions.Nonfatal) == RuntimeConditions.None;
+                succeeded = (globalContext.RuntimeErrors & ~RuntimeConditions.Nonfatal) == RuntimeConditions.None;
             }
             catch (Exception ex)
             {
@@ -179,15 +186,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                     if (!(ex is ExitApplicationException<ExitReason>))
                     {
                         // These exceptions escaped our net and must be logged here
-                        Errors.LogUnhandledEngineException(context, ex);
+                        Errors.LogUnhandledEngineException(globalContext, ex);
                     }
                 }
-                ExecutionException = ex;
+                globalContext.RuntimeExceptions ??= new List<Exception>();
+                globalContext.RuntimeExceptions.Add(ex);
             }
 
             return
-                context.RichReturnCode
-                    ? (int)context?.RuntimeErrors
+                globalContext.RichReturnCode
+                    ? (int)globalContext?.RuntimeErrors
                     : succeeded ? SUCCESS : FAILURE;
         }
 
@@ -247,57 +255,59 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             return context;
         }
 
-        public virtual TContext ValidateContext(TContext context)
+        public virtual TContext ValidateContext(TContext globalContext)
         {
             bool succeeded = true;
 
-            bool force = context.OutputFileOptions.HasFlag(FilePersistenceOptions.ForceOverwrite);
-            succeeded &= ValidateFile(context,
-                                      context.OutputFilePath,
+            bool force = globalContext.OutputFileOptions.HasFlag(FilePersistenceOptions.ForceOverwrite);
+            succeeded &= ValidateFile(globalContext,
+                                      globalContext.OutputFilePath,
                                       shouldExist: force ? (bool?)null : false);
 
-            succeeded &= ValidateBaselineFile(context);
+            succeeded &= ValidateBaselineFile(globalContext);
 
-            bool required = !string.IsNullOrEmpty(context.BaselineFilePath);
-            succeeded &= ValidateFile(context,
-                                      context.BaselineFilePath,
+            bool required = !string.IsNullOrEmpty(globalContext.BaselineFilePath);
+            succeeded &= ValidateFile(globalContext,
+                                      globalContext.BaselineFilePath,
                                       shouldExist: required ? true : (bool?)null);
 
-            required = context.PluginFilePaths?.Any() == true;
-            succeeded &= ValidateFiles(context,
-                                       context.PluginFilePaths,
-                                      shouldExist: required ? true : (bool?)null);
+            required = globalContext.PluginFilePaths?.Any() == true;
+            succeeded &= ValidateFiles(globalContext,
+                                       globalContext.PluginFilePaths,
+                                       shouldExist: required ? true : (bool?)null);
 
-            if (!string.IsNullOrEmpty(context.PostUri))
+            if (!string.IsNullOrEmpty(globalContext.PostUri))
             {
                 try
                 {
                     var httpClient = new HttpClientWrapper();
-                    HttpResponseMessage httpResponseMessage = httpClient.GetAsync(context.PostUri).GetAwaiter().GetResult();
+                    HttpResponseMessage httpResponseMessage = httpClient.GetAsync(globalContext.PostUri).GetAwaiter().GetResult();
                     if (!httpResponseMessage.IsSuccessStatusCode)
                     {
-                        context.PostUri = null;
+                        globalContext.PostUri = null;
                     }
                 }
-                catch (Exception)
+                catch (Exception e)
                 {
-                    context.PostUri = null;
-                    context.RuntimeErrors |= RuntimeConditions.ExceptionPostingLogFile;
+                    globalContext.PostUri = null;
+                    globalContext.RuntimeErrors |= RuntimeConditions.ExceptionPostingLogFile;
+                    globalContext.RuntimeExceptions ??= new List<Exception>();
+                    globalContext.RuntimeExceptions.Add(e);
                 }
                 finally
                 {
-                    // TBD if POST URI is null
+                    // TBD add logging if POST URI is null.
                 }
             }
 
-            succeeded &= ValidateInvocationPropertiesToLog(context);
+            succeeded &= ValidateInvocationPropertiesToLog(globalContext);
 
             if (!succeeded)
             {
                 ThrowExitApplicationException(ExitReason.InvalidCommandLineOption);
             }
 
-            return context;
+            return globalContext;
         }
 
         private static ISet<string> InitializeStringSet(IEnumerable<string> strings)
@@ -352,9 +362,20 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 .ContinueWith(_ => _resultsWritingChannel.Writer.Complete())
                 .Wait();
 
+            for (int i = 0; i < context.Threads; i++)
+            {
+                if (workers[i].Exception?.InnerExceptions != null)
+                {
+                    foreach (Exception e in workers[i].Exception.InnerExceptions)
+                    {
+                        context.RuntimeExceptions ??= new List<Exception>();
+                        context.RuntimeExceptions.Add(e);
+                    }
+                }
+            }
+
             enumerateFilesOnDisk.Wait();
             logScanResults.Wait();
-
 
             if (_ignoredFilesCount > 0)
             {
@@ -406,35 +427,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                     if (currentIndex > item) { break; }
 
                     TContext context = default;
-                    try
-                    {
-                        context = _fileContexts[currentIndex];
+                    context = _fileContexts[currentIndex];
 
-                        while (context?.AnalysisComplete == true)
-                        {
-                            LogCachingLogger(globalContext, context.CurrentTarget.Uri, (CachingLogger)context.Logger, clone: false);
-                            context.Dispose();
+                    while (context?.AnalysisComplete == true)
+                    {
+                        LogCachingLogger(globalContext, context.CurrentTarget.Uri, (CachingLogger)context.Logger, clone: false);
+                        globalContext.RuntimeErrors |= context.RuntimeErrors;
+                        context.Dispose();
 
-                            _fileContexts.TryRemove(currentIndex, out _);
-                            _fileContexts.TryGetValue(++currentIndex, out context);
-                        }
-                    }
-                    catch (OperationCanceledException)
-                    {
-                        Errors.LogAnalysisCanceled(context);
-                        ThrowExitApplicationException(ExitReason.AnalysisCanceled);
-                    }
-                    catch (Exception e)
-                    {
-                        Errors.LogUnhandledEngineException(globalContext, e);
-                        ThrowExitApplicationException(ExitReason.ExceptionWritingToLogFile, e);
-                    }
-                    finally
-                    {
-                        if (context != null)
-                        {
-                            globalContext.RuntimeErrors |= context.RuntimeErrors;
-                        }
+                        _fileContexts.TryRemove(currentIndex, out _);
+                        _fileContexts.TryGetValue(++currentIndex, out context);
                     }
                 }
             }
@@ -525,24 +527,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
                 await EnumerateFilesFromArtifactsProvider(context);
             }
-            catch (OperationCanceledException)
-            {
-                lock (context)
-                {
-                    Errors.LogAnalysisCanceled(context);
-                }
-                ThrowExitApplicationException(ExitReason.AnalysisCanceled);
-
-            }
-            catch (Exception e)
-            {
-                // TBD is this lock required?
-                lock (context)
-                {
-                    Errors.LogUnhandledEngineException(context, e);
-                }
-                ThrowExitApplicationException(ExitReason.UnhandledExceptionInEngine);
-            }
             finally
             {
                 readyToScanChannel.Writer.Complete();
@@ -554,6 +538,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 {
                     Notes.LogFileSkippedDueToSize(context, artifact.Uri.GetFilePath(), (long)artifact.SizeInBytes);
                 }
+                
                 //TBD resolve type mismatch
                 _ignoredFilesCount += (uint)context.TargetsProvider.Skipped.Count;
             }
@@ -627,6 +612,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 while (reader.TryRead(out uint item))
                 {
                     TContext perFileContext = default;
+                    bool error = false;
 
                     try
                     {
@@ -635,20 +621,25 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                         DetermineApplicabilityAndAnalyze(perFileContext, skimmers, disabledSkimmers);
                         globalContext.RuntimeErrors |= perFileContext.RuntimeErrors;
                     }
-                    catch (OperationCanceledException)
+                    catch (OperationCanceledException e)
                     {
-                        Errors.LogAnalysisCanceled(globalContext);
-                        ThrowExitApplicationException(ExitReason.AnalysisCanceled);
+                        error = true;
+                        Errors.LogAnalysisCanceled(globalContext, e);
+                        ThrowExitApplicationException(ExitReason.AnalysisCanceled, e);
                     }
                     catch (Exception e)
                     {
+                        error = true;
                         Errors.LogUnhandledEngineException(globalContext, e);
                         ThrowExitApplicationException(ExitReason.UnhandledExceptionInEngine, e);
                     }
                     finally
                     {
-                        if (perFileContext != null) { perFileContext.AnalysisComplete = true; }
-                        await _resultsWritingChannel.Writer.WriteAsync(item);
+                        if (!error)
+                        {
+                            if (perFileContext != null) { perFileContext.AnalysisComplete = true; }
+                            await _resultsWritingChannel.Writer.WriteAsync(item);
+                        }
                     }
                 }
             }
@@ -778,28 +769,28 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             return context;
         }
 
-        public virtual void InitializeOutputFile(TContext context)
+        public virtual void InitializeOutputFile(TContext globalContext)
         {
-            string filePath = context.OutputFilePath;
+            string filePath = globalContext.OutputFilePath;
 
             if (!string.IsNullOrEmpty(filePath))
             {
-                var aggregatingLogger = context.Logger as AggregatingLogger;
+                var aggregatingLogger = globalContext.Logger as AggregatingLogger;
                 if (aggregatingLogger == null)
                 {
                     aggregatingLogger = new AggregatingLogger();
-                    aggregatingLogger.Loggers.Add(context.Logger);
-                    context.Logger = aggregatingLogger;
+                    aggregatingLogger.Loggers.Add(globalContext.Logger);
+                    globalContext.Logger = aggregatingLogger;
                 }
 
                 InvokeCatchingRelevantIOExceptions
                 (
                     () =>
                     {
-                        FilePersistenceOptions logFilePersistenceOptions = context.OutputFileOptions;
+                        FilePersistenceOptions logFilePersistenceOptions = globalContext.OutputFileOptions;
 
-                        OptionallyEmittedData dataToInsert = context.DataToInsert;
-                        OptionallyEmittedData dataToRemove = context.DataToRemove;
+                        OptionallyEmittedData dataToInsert = globalContext.DataToInsert;
+                        OptionallyEmittedData dataToRemove = globalContext.DataToRemove;
 
                         SarifLogger sarifLogger;
 
@@ -807,30 +798,30 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                         {
                             AutomationDetails = new RunAutomationDetails
                             {
-                                Id = context.AutomationId,
-                                Guid = context.AutomationGuid
+                                Id = globalContext.AutomationId,
+                                Guid = globalContext.AutomationGuid
                             },
                             Tool = Tool,
                         };
 
-                        sarifLogger = new SarifLogger(context.OutputFilePath,
+                        sarifLogger = new SarifLogger(globalContext.OutputFilePath,
                                                       logFilePersistenceOptions,
                                                       dataToInsert,
                                                       dataToRemove,
                                                       run,
                                                       analysisTargets: null,
-                                                      quiet: context.Quiet,
+                                                      quiet: globalContext.Quiet,
                                                       invocationTokensToRedact: GenerateSensitiveTokensList(),
-                                                      invocationPropertiesToLog: context.InvocationPropertiesToLog,
-                                                      levels: context.FailureLevels,
-                                                      kinds: context.ResultKinds,
-                                                      insertProperties: context.InsertProperties);
+                                                      invocationPropertiesToLog: globalContext.InvocationPropertiesToLog,
+                                                      levels: globalContext.FailureLevels,
+                                                      kinds: globalContext.ResultKinds,
+                                                      insertProperties: globalContext.InsertProperties);
 
                         aggregatingLogger.Loggers.Add(sarifLogger);
                     },
                     (ex) =>
                     {
-                        Errors.LogExceptionCreatingLogFile(context, filePath, ex);
+                        Errors.LogExceptionCreatingLogFile(globalContext, filePath, ex);
                         ThrowExitApplicationException(ExitReason.ExceptionCreatingLogFile, ex);
                     }
                 );
@@ -989,7 +980,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                                                                     IEnumerable<Skimmer<TContext>> skimmers,
                                                                     ISet<string> disabledSkimmers)
         {
-            if (context.RuntimeException != null)
+            if (context.RuntimeExceptions != null)
             {
                 Errors.LogExceptionLoadingTarget(context);
                 return context;
@@ -1148,7 +1139,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                     }
                 }
 
-                string reasonForNotAnalyzing = null;
+                string reasonForNotAnalyzing;
                 context.Rule = skimmer;
 
                 AnalysisApplicability applicability = AnalysisApplicability.Unknown;
@@ -1222,7 +1213,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             }
         }
 
-        protected virtual ISet<Skimmer<TContext>> InitializeSkimmers(ISet<Skimmer<TContext>> skimmers, TContext context)
+        protected virtual ISet<Skimmer<TContext>> InitializeSkimmers(ISet<Skimmer<TContext>> skimmers, TContext globalContext)
         {
             var disabledSkimmers = new SortedSet<Skimmer<TContext>>(SkimmerIdComparer<TContext>.Instance);
 
@@ -1232,13 +1223,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             {
                 try
                 {
-                    context.Rule = skimmer;
-                    skimmer.Initialize(context);
+                    globalContext.Rule = skimmer;
+                    skimmer.Initialize(globalContext);
                 }
                 catch (Exception ex)
                 {
-                    context.RuntimeErrors |= RuntimeConditions.ExceptionInSkimmerInitialize;
-                    Errors.LogUnhandledExceptionInitializingRule(context, ex);
+                    globalContext.RuntimeErrors |= RuntimeConditions.ExceptionInSkimmerInitialize;
+                    Errors.LogUnhandledExceptionInitializingRule(globalContext, ex);
                     disabledSkimmers.Add(skimmer);
                 }
             }

@@ -45,9 +45,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             TestRuleBehaviors behaviors = context.Policy.GetProperty(TestRule.Behaviors);
             context.IsValidAnalysisTarget = !behaviors.HasFlag(TestRuleBehaviors.RegardAnalysisTargetAsInvalid);
 
-            context.RuntimeException =
+            context.RuntimeExceptions =
                 behaviors.HasFlag(TestRuleBehaviors.RegardAnalysisTargetAsCorrupted)
-               ? new InvalidOperationException()
+               ? new List<Exception>(new[] { new InvalidOperationException() })
                : null;
 
             return context;

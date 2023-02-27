@@ -2,6 +2,7 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System;
+using System.Collections.Generic;
 using System.IO;
 
 using Newtonsoft.Json.Linq;
@@ -54,7 +55,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
         public override RuntimeConditions RuntimeErrors { get; set; }
 
-        public override Exception RuntimeException { get; set; }
+        public override IList<Exception> RuntimeExceptions { get; set; }
 
         public bool UpdateInputsToCurrentSarif { get; set; }
 

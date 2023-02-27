@@ -101,18 +101,18 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
             if (expectedExitReason != ExitReason.None)
             {
-                command.ExecutionException.Should().NotBeNull();
+                context.RuntimeExceptions.Should().NotBeEmpty();
 
                 if (expectedExitReason != ExitReason.UnhandledExceptionInEngine)
                 {
-                    var eax = command.ExecutionException as ExitApplicationException<ExitReason>;
+                    var eax = context.RuntimeExceptions[0] as ExitApplicationException<ExitReason>;
                     eax.Should().NotBeNull();
                     eax.ExitReason.Should().Be(expectedExitReason);
                 }
             }
             else
             {
-                command.ExecutionException.Should().BeNull();
+                context.RuntimeExceptions.Should().BeNull();
             }
             TestRule.s_testRuleBehaviors = TestRuleBehaviors.None;
         }
@@ -815,7 +815,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 var context = new TestAnalysisContext { FileSystem = mockFileSystem.Object };
                 int result = command.Run(options, ref context);
 
-                command.ExecutionException?.InnerException.Should().BeNull();
+                context.RuntimeExceptions?[0].InnerException.Should().BeNull();
 
                 result.Should().Be(CommandBase.SUCCESS, $"Iteration: {i}, Seed: {TestRule.s_seed}");
             }
@@ -1843,7 +1843,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
             if (exitReason != ExitReason.None)
             {
-                var exception = command.ExecutionException as ExitApplicationException<ExitReason>;
+                var exception = context.RuntimeExceptions[0] as ExitApplicationException<ExitReason>;
                 exception.Should().NotBeNull();
                 exception.ExitReason.Should().Be(exitReason);
             }
