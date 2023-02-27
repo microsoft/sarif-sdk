@@ -175,7 +175,6 @@ namespace Microsoft.CodeAnalysis.Sarif
             var disposableLogger = this.Logger as IDisposable;
             disposableLogger?.Dispose();
             GC.SuppressFinalize(this);
-            this.Logger = null;
         }
 
         public static PerLanguageOption<string> AutomationIdProperty { get; } =
