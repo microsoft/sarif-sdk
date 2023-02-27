@@ -13,8 +13,6 @@ using System.Runtime.InteropServices;
 using System.Threading.Channels;
 using System.Threading.Tasks;
 
-using CommandLine;
-
 using Microsoft.CodeAnalysis.Sarif.Writers;
 
 namespace Microsoft.CodeAnalysis.Sarif.Driver
@@ -133,10 +131,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 return;
             }
 
-            if (ex is TaskCanceledException tce)
+            if (ex is OperationCanceledException oce)
             {
-                Errors.LogAnalysisCanceled(globalContext, tce);
-                globalContext.RuntimeExceptions.Add(new ExitApplicationException<ExitReason>(SdkResources.ERR999_AnalysisCanceled, tce)
+                Errors.LogAnalysisCanceled(globalContext, oce);
+                globalContext.RuntimeExceptions.Add(new ExitApplicationException<ExitReason>(SdkResources.ERR999_AnalysisCanceled, oce)
                 {
                     ExitReason = ExitReason.AnalysisCanceled
                 });
