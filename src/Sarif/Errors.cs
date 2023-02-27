@@ -43,7 +43,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         // Parse errors:
         private const string ERR1000_ParseError = "ERR1000.ParseError";
 
-        public static void LogExceptionLoadingTarget(IAnalysisContext context)
+        public static void LogExceptionLoadingTarget(IAnalysisContext context, Exception exception)
         {
             if (context == null)
             {
@@ -52,8 +52,6 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             context.RuntimeErrors |= RuntimeConditions.ExceptionLoadingTargetFile;
 
-            // TBD: pass exception as an explicit arg?
-            Exception exception = context.RuntimeExceptions[0];
             string message = exception.Message;
             string exceptionType = exception.GetType().Name;
 

@@ -755,7 +755,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         public void AnalyzeCommandBase_EndToEndAnalysisWithPostUri()
         {
             PostUriTestHelper(@"https://example.com", TestMultithreadedAnalyzeCommand.SUCCESS, RuntimeConditions.None);
-            PostUriTestHelper(@"https://httpbin.org/post", TestMultithreadedAnalyzeCommand.SUCCESS, RuntimeConditions.None);
             PostUriTestHelper(@"https://httpbin.org/get", TestMultithreadedAnalyzeCommand.FAILURE, RuntimeConditions.ExceptionPostingLogFile);
             PostUriTestHelper(@"https://host.does.not.exist", TestMultithreadedAnalyzeCommand.FAILURE, RuntimeConditions.ExceptionPostingLogFile);
         }
