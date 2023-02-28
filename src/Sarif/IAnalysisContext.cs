@@ -57,7 +57,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         HashData Hashes { get; set; }
 
-        Exception RuntimeException { get; set; }
+        IList<Exception> RuntimeExceptions { get; set; }
 
         bool IsValidAnalysisTarget { get; }
 

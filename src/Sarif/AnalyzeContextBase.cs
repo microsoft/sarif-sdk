@@ -53,7 +53,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         public virtual IEnumeratedArtifact CurrentTarget { get; set; }
         public virtual string MimeType { get; set; }
         public virtual HashData Hashes { get; set; }
-        public virtual Exception RuntimeException { get; set; }
+        public virtual IList<Exception> RuntimeExceptions { get; set; }
         public virtual bool IsValidAnalysisTarget { get; set; }
         public virtual ReportingDescriptor Rule { get; set; }
         public PropertiesDictionary Policy { get; set; }

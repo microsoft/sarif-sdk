@@ -2,6 +2,7 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System.Collections.Generic;
+using System.ComponentModel.Design.Serialization;
 using System.IO;
 
 using FluentAssertions;
@@ -89,9 +90,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 Level = new List<FailureLevel> { FailureLevel.Warning, FailureLevel.Error }
             };
 
-            int returnCode = validateCommand.Run(options);
+            SarifValidationContext context = null;
+            int returnCode = validateCommand.Run(options, ref context);
             returnCode.Should().Be(1);
-            validateCommand.ExecutionException.Should().BeOfType<ExitApplicationException<ExitReason>>();
+            context.RuntimeExceptions[0].Should().BeOfType<ExitApplicationException<ExitReason>>();
         }
 
         [Fact]

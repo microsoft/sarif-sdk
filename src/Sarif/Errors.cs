@@ -43,7 +43,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         // Parse errors:
         private const string ERR1000_ParseError = "ERR1000.ParseError";
 
-        public static void LogExceptionLoadingTarget(IAnalysisContext context)
+        public static void LogExceptionLoadingTarget(IAnalysisContext context, Exception exception)
         {
             if (context == null)
             {
@@ -52,8 +52,8 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             context.RuntimeErrors |= RuntimeConditions.ExceptionLoadingTargetFile;
 
-            string message = context.RuntimeException.Message;
-            string exceptionType = context.RuntimeException.GetType().Name;
+            string message = exception.Message;
+            string exceptionType = exception.GetType().Name;
 
             // Could not load analysis target '{0}' ({1} : '{2}').
             context.Logger.LogConfigurationNotification(
@@ -62,7 +62,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                     ERR997_ExceptionLoadingAnalysisTarget,
                     ruleId: null,
                     FailureLevel.Error,
-                    context.RuntimeException,
+                    exception,
                     persistExceptionStack: true,
                     messageFormat: null,
                     context.CurrentTarget.Uri.GetFileName(),
@@ -646,7 +646,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                             .GetValue(obj: null, index: null);
         }
 
-        internal static void LogAnalysisCanceled<TContext>(TContext context) where TContext : IAnalysisContext, new()
+        internal static void LogAnalysisCanceled<TContext>(TContext context, OperationCanceledException ex) where TContext : IAnalysisContext, new()
         {
             if (context.RuntimeErrors.HasFlag(RuntimeConditions.AnalysisCanceled))
             {
@@ -665,7 +665,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                             ERR999_AnalysisCanceled,
                             ruleId: null,
                             FailureLevel.Error,
-                            exception: null,
+                            exception: ex,
                             persistExceptionStack: false,
                             messageFormat: null));
 
