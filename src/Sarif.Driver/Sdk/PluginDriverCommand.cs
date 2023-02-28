@@ -219,13 +219,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             }
         }
 
-        protected virtual void PostLogFile(IAnalysisContext context)
+        protected virtual void PostLogFile(IAnalysisContext globalContext)
         {
+            if (globalContext.PostUri == null) { return; }
+
             try
             {
                 using (var httpClient = new HttpClient())
                 {
-                    PostLogFile(context.PostUri, context.OutputFilePath, context.FileSystem, httpClient)
+                    PostLogFile(globalContext.PostUri, globalContext.OutputFilePath, globalContext.FileSystem, httpClient)
                         .GetAwaiter()
                         .GetResult();
                 }
@@ -233,7 +235,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             catch (Exception ex)
             {
                 Console.WriteLine(ex.ToString());
-                context.RuntimeErrors |= RuntimeConditions.ExceptionPostingLogFile;
+                globalContext.RuntimeErrors |= RuntimeConditions.ExceptionPostingLogFile;
                 throw new ExitApplicationException<ExitReason>(DriverResources.MSG_UnexpectedApplicationExit, ex)
                 {
                     ExitReason = ExitReason.ExceptionPostingLogFile
