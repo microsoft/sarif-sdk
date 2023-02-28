@@ -164,6 +164,11 @@ namespace Microsoft.CodeAnalysis.Sarif
             // Generating full inputRegion to prevent issues.
             Region originalRegion = this.PopulateTextRegionProperties(inputRegion, uri, populateSnippet: true, fileText);
 
+            if (originalRegion.CharLength >= BIGSNIPPETLENGTH)
+            {
+                return originalRegion.DeepClone();
+            }
+
             int maxLineNumber = newLineIndex.MaximumLineNumber;
 
             var region = new Region
@@ -188,9 +193,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             region.EndLine = 0;
             region.CharOffset = Math.Max(0, originalRegion.CharOffset - SMALLSNIPPETLENGTH);
 
-            region.CharLength =
-                Math.Min(originalRegion.CharLength + region.CharOffset + SMALLSNIPPETLENGTH,
-                         fileText.Length - region.CharOffset);
+            region.CharLength = Math.Min(BIGSNIPPETLENGTH, fileText.Length - region.CharOffset);
 
             // Generating multiline region with 128 characters to the left and right from the
             // originalRegion if possible.

@@ -722,12 +722,7 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests
             region = fileRegionsCache.PopulateTextRegionProperties(region, uri, true, fileContent);
 
             Region multilineRegion = fileRegionsCache.ConstructMultilineContextSnippet(region, uri);
-
-            // 114 (charoffset) + 600 (charlength) + (128 - prefixed length).
-
-            // The length of our prepended data;
-            int prefixed = Math.Max(multilineRegion.CharOffset - 128, 0);
-            multilineRegion.CharLength.Should().Be(prefixed + region.CharLength + (128 - prefixed));
+            multilineRegion.CharLength.Should().Be(region.CharLength);
         }
 
         [Fact]
@@ -745,8 +740,7 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests
             region = fileRegionsCache.PopulateTextRegionProperties(region, uri, true, content);
             Region multilineRegion = fileRegionsCache.ConstructMultilineContextSnippet(region, uri);
 
-            // CharLength + 128 to the right = 428 characters
-            multilineRegion.CharLength.Should().Be(300 + 128);
+            multilineRegion.CharLength.Should().Be(512);
             multilineRegion.Snippet.Text.Should().NotBeNullOrEmpty();
         }
 
