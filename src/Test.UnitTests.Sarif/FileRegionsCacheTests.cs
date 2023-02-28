@@ -740,7 +740,7 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests
             region = fileRegionsCache.PopulateTextRegionProperties(region, uri, true, content);
             Region multilineRegion = fileRegionsCache.ConstructMultilineContextSnippet(region, uri);
 
-            multilineRegion.CharLength.Should().Be(512);
+            multilineRegion.CharLength.Should().Be(FileRegionsCache.BIGSNIPPETLENGTH);
             multilineRegion.Snippet.Text.Should().NotBeNullOrEmpty();
         }
 
