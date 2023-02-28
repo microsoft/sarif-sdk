@@ -252,7 +252,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
             Console.WriteLine();
 
-            if (rootContext.Traces.HasFlag(DefaultTraces.ScanTime))
+            if (rootContext.Traces.Contains(nameof(DefaultTraces.ScanTime)))
             {
                 string timing = $"Done. {_fileContextsCount:n0} files scanned, elapsed time {sw.Elapsed}.";
 
@@ -676,10 +676,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 RuntimeErrors = runtimeErrors,
             };
 
-            context.Traces =
-                options.Traces.Any() ?
-                    (DefaultTraces)Enum.Parse(typeof(DefaultTraces), string.Join(",", options.Traces)) :
-                    DefaultTraces.None;
+            context.Traces = options.Traces;
 
             context.MaxFileSizeInKilobytes =
                 options.MaxFileSizeInKilobytes >= 0
@@ -1067,7 +1064,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
                 try
                 {
-                    Stopwatch stopwatch = context.Traces.HasFlag(DefaultTraces.RuleScanTime)
+                    Stopwatch stopwatch = context.Traces.Contains(nameof(DefaultTraces.RuleScanTime))
                         ? Stopwatch.StartNew()
                         : null;
 

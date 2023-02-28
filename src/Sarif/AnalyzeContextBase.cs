@@ -34,7 +34,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         public abstract IAnalysisLogger Logger { get; set; }
         public abstract RuntimeConditions RuntimeErrors { get; set; }
         public abstract bool AnalysisComplete { get; set; }
-        public abstract DefaultTraces Traces { get; set; }
+        public abstract IEnumerable<string> Traces { get; set; }
 
         public long MaxFileSizeInKilobytes
         {

@@ -754,6 +754,55 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         }
 
         [Fact]
+        public void AnalyzeCommand_Traces_ExternalValueShouldNotThrowException()
+        {
+            var sb = new StringBuilder();
+
+            foreach (string trace in new[] { "PdbLoad" })
+            {
+                var options = new TestAnalyzeOptions
+                {
+                    OutputFilePath = Guid.NewGuid().ToString(),
+                    TargetFileSpecifiers = new string[] { Guid.NewGuid().ToString() },
+                    Traces = new[] { trace },
+                    Level = new[] { FailureLevel.Warning, FailureLevel.Note },
+                };
+
+                Run run = RunMultithreadedAnalyzeCommand(ComprehensiveKindAndLevelsByFilePath,
+                                                         generateDuplicateScanTargets: false,
+                                                         expectedResultCode: SUCCESS,
+                                                         expectedResultCount: WARNING_COUNT + NOTE_COUNT,
+                                                         options);
+
+
+                int resultCount = 0;
+                int executionNotificationsCount = 0;
+                int configurationNotificationCount = 0;
+
+                SarifHelpers.ValidateRun(
+                    run,
+                    (issue) => { resultCount++; },
+                    (toolNotification) => { executionNotificationsCount++; },
+                    (configurationNotification) => { configurationNotificationCount++; });
+
+                IList<Notification> executionNotifications = run.Invocations[0].ToolExecutionNotifications;
+
+                switch (trace)
+                {
+                    case "PdbLoad":
+                    {
+                        if (executionNotificationsCount > 0 || configurationNotificationCount > 0)
+                        {
+                            sb.AppendLine($"\t{trace} : observed notifications when tracing was enabled.");
+                        }
+                        break;
+                    }
+                }
+            }
+            sb.Length.Should().Be(0, $"test cases failed : {Environment.NewLine}{sb}");
+        }
+
+        [Fact]
         public void AnalyzeCommandBase_DefaultEndToEndAnalysis()
         {
             string location = GetThisTestAssemblyFilePath();
