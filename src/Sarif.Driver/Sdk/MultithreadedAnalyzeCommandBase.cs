@@ -521,7 +521,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 {
                     Notes.LogFileSkippedDueToSize(context, artifact.Uri.GetFilePath(), (long)artifact.SizeInBytes);
                 }
-                
+
                 //TBD resolve type mismatch
                 _ignoredFilesCount += (uint)context.TargetsProvider.Skipped.Count;
             }
@@ -603,7 +603,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 }
             }
         }
-         
+
         protected virtual void ValidateOptions(TOptions options, TContext context)
         {
             bool succeeded = true;
