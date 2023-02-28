@@ -3,6 +3,7 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System;
+using System.Collections.Generic;
 
 namespace Microsoft.CodeAnalysis.Sarif.Multitool
 {
@@ -28,7 +29,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
         public override bool AnalysisComplete { get; set; }
 
-        public override DefaultTraces Traces { get; set; }
+        public override IEnumerable<string> Traces { get; set; }
 
         public override void Dispose() { }
     }

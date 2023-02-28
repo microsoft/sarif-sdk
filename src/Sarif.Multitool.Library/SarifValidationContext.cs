@@ -2,6 +2,7 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System;
+using System.Collections.Generic;
 using System.IO;
 
 using Newtonsoft.Json.Linq;
@@ -92,7 +93,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
         public JToken InputLogToken { get; internal set; }
 
-        public override DefaultTraces Traces { get; set; }
+        public override IEnumerable<string> Traces { get; set; }
 
         public override void Dispose()
         {
