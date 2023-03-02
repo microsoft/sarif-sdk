@@ -11,6 +11,7 @@
 * NEW: Switch file processing to an `ArtifactProvider` model where enumerated artifacts consist of URI and optional content. [#2625](https://github.com/microsoft/sarif-sdk/pull/2625)
 * NEW: Add new `FailureLevelSet` and `ResultKindSet` types that are compatible with XML-based configuration. [#2625](https://github.com/microsoft/sarif-sdk/pull/2625)
 * NEW: Add `PeakWorkingSet` to `--trace` command to report maximum working set value during analysis. [#2619](https://github.com/microsoft/sarif-sdk/pull/2619)
+* NEW: Add `ArtifactProvider` for simple artifact enumeration. Add single-threaded and thread-safe classes for enumerating zip archives. [#2630](hhttps://github.com/microsoft/sarif-sdk/pull/2630)
 
 ## **v4.0.0** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/4.0.0) | [Driver](https://www.nuget.org/packages/Sarif.Driver/4.0.0) | [Converters](https://www.nuget.org/packages/Sarif.Converters/4.0.0) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/4.0.0) | [Multitool Library](https://www.nuget.org/packages/Sarif.Multitool.Library/4.0.0)
 * BRK: `SarifLogger` no longer allows providing a `Tool` instance. Use the `run` parameter instead (and populate it with any custom `Tool` object). [#2614](https://github.com/microsoft/sarif-sdk/pull/2614)
