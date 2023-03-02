@@ -27,7 +27,7 @@ namespace Microsoft.CodeAnalysis.Sarif.PatternMatcher
 
         public IFileSystem FileSystem { get; set; }
     }
-    
+
     public class SinglethreadedZipArchiveArtifactProvider : ArtifactProvider
     {
         public SinglethreadedZipArchiveArtifactProvider(ZipArchive zipArchive, IFileSystem fileSystem) : base(fileSystem)
@@ -84,9 +84,10 @@ namespace Microsoft.CodeAnalysis.Sarif.PatternMatcher
 
         public Uri Uri => this.uri;
 
-        public Stream Stream { 
+        public Stream Stream
+        {
             get
-            { 
+            {
                 lock (this.archive)
                 {
                     return entry != null
@@ -94,7 +95,7 @@ namespace Microsoft.CodeAnalysis.Sarif.PatternMatcher
                         : null;
                 }
             }
-            set => throw new NotImplementedException(); 
+            set => throw new NotImplementedException();
         }
 
         public Encoding Encoding { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
@@ -114,8 +115,8 @@ namespace Microsoft.CodeAnalysis.Sarif.PatternMatcher
             set => throw new NotImplementedException();
         }
 
-        public ulong? SizeInBytes 
-        { 
+        public ulong? SizeInBytes
+        {
             get
             {
                 lock (this.archive)
@@ -127,7 +128,7 @@ namespace Microsoft.CodeAnalysis.Sarif.PatternMatcher
                     return (ulong)this.contents.Length;
                 }
             }
-            set => throw new NotImplementedException(); 
+            set => throw new NotImplementedException();
         }
     }
 }
