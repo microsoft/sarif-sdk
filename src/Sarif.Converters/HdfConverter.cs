@@ -126,7 +126,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                     RuleId = execJsonControl.Id,
                     Message = new Message
                     {
-                        Text = AppendPeriod(controlResult.CodeDesc),
+                        Text = AppendPeriod(string.IsNullOrWhiteSpace(controlResult.CodeDesc) ? execJsonControl.Desc : controlResult.CodeDesc),
                     },
                     Level = SarifLevelFromHdfImpact(execJsonControl.Impact),
                     Rank = SarifRankFromHdfImpact(execJsonControl.Impact),
