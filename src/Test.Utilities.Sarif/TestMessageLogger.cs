@@ -43,7 +43,6 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
         }
 
-
         public void AnalysisStopped(RuntimeConditions runtimeConditions)
         {
             RuntimeErrors = runtimeConditions;
