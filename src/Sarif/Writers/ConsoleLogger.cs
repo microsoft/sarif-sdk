@@ -86,7 +86,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         {
             if (context.Traces.Contains(nameof(DefaultTraces.TargetsScanned)))
             {
-                // Analyzing '{0}'...
+                // Analyzing '{0}'.
                 WriteLineToConsole(string.Format(CultureInfo.CurrentCulture,
                         SdkResources.MSG001_AnalyzingTarget,
                             context.CurrentTarget.Uri.GetFileName()));
@@ -97,7 +97,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         {
             if (context.Traces.Contains(nameof(DefaultTraces.TargetsScanned)))
             {
-                // Analysis complete: '{0}'.
+                // Completed: '{0}'.
                 WriteLineToConsole(string.Format(CultureInfo.CurrentCulture,
                         SdkResources.MSG001_TargetAnalyzed,
                             context.CurrentTarget.Uri.GetFileName()));

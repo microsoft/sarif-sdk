@@ -139,7 +139,7 @@
     <value>Line number supplied was out of range [1, numberOfLinesInFile + 1)</value>
   </data>
   <data name="MSG001_AnalyzingTarget" xml:space="preserve">
-    <value>Analyzing '{0}'...</value>
+    <value>Analyzing '{0}'.</value>
   </data>
   <data name="WRN997_InvalidTarget" xml:space="preserve">
     <value>'{0}' was not analyzed as it does not appear to be a valid file type for analysis.</value>
@@ -300,6 +300,6 @@ You can also refer to properties in the result's property bag with 'properties.&
     <value>Analysis timed out. Timeout specified was {0}).</value>
   </data>
   <data name="MSG001_TargetAnalyzed" xml:space="preserve">
-    <value>Analysis complete: '{0}'.</value>
+    <value>Completed '{0}'.</value>
   </data>
 </root>
