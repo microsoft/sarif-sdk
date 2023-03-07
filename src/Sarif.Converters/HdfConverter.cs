@@ -91,7 +91,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             {
                 Id = execJsonControl.Id,
                 Name = execJsonControl.Title,
-                ShortDescription = new MultiformatMessageString
+                FullDescription = new MultiformatMessageString
                 {
                     Text = AppendPeriod(execJsonControl.Desc),
                 },

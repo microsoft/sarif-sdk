@@ -1,10 +1,12 @@
 # SARIF Package Release History (SDK, Driver, Converters, and Multitool)
+<<<<<<< HEAD
 ## **v4.1.0** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/4.1.0) | [Driver](https://www.nuget.org/packages/Sarif.Driver/4.1.0) | [Converters](https://www.nuget.org/packages/Sarif.Converters/4.1.0) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/4.1.0) | [Multitool Library](https://www.nuget.org/packages/Sarif.Multitool.Library/4.1.0)
 * BRK: `MultithreadedAnalyzeCommandBase` IDispose implementation now manages logging dispose. Be sure to call `base.Dispose()` in any derived type implementations. [#2614](https://github.com/microsoft/sarif-sdk/pull/2614)
 * BRK: Eliminate `MulthreadedAnalyzeCommandBase.EngineException` and `IAnalysisContext.RuntimeException` properties in favor of `IAnalysisContext.RuntimeExceptions`. [#2627](https://github.com/microsoft/sarif-sdk/pull/2627)
 * BRK: Rename `LogFilePersistenceOptions` to `FilePersistenceOptions` (due to its general applicability in other file persistence contexts other than output logs).[#2625](https://github.com/microsoft/sarif-sdk/pull/2625)
 * BRK: Many breaking changes in `IAnalysisContext` and `AnalyzeContextBase`. [#2625](https://github.com/microsoft/sarif-sdk/pull/2625)
 * BUG: In `HDFConverter` if `code_desc` is empty, use `desc` as the SARIF `message`. [#2632](https://github.com/microsoft/sarif-sdk/pull/2632)
+* BUG: Store `HDFConverter` `desc` in SARIF's `FullDescription`, not `ShortDescription`. [#2634](https://github.com/microsoft/sarif-sdk/pull/2634)
 * BUG: Eliminate creation of extremely large context region snippets (now always restricted to 512 chars). https://github.com/microsoft/sarif-sdk/pull/2629
 * BUG: Eliminate per-context allocations contributing to unnecessary memory use. [#2625](https://github.com/microsoft/sarif-sdk/pull/2625)
 * NEW: Rewrite  `MultithreadedAnalyzeCommandBase` pipeline to allow for timeout, cancellation, and better API-driven use. [#2625](https://github.com/microsoft/sarif-sdk/pull/2625)
