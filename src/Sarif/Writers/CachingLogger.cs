@@ -50,7 +50,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             _semaphore.Wait();
         }
 
-        public void TargetAnalyzed(IAnalysisContext context) 
+        public void TargetAnalyzed(IAnalysisContext context)
         {
             CacheFinalized = true;
             _semaphore.Release();

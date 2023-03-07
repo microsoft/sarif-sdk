@@ -19,7 +19,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         {
             Trace = AnalyzeContextBase.TracesProperty.DefaultValue();
             Kind = AnalyzeContextBase.ResultKindsProperty.DefaultValue();
-            Level = AnalyzeContextBase.FailureLevelsProperty.DefaultValue();            
+            Level = AnalyzeContextBase.FailureLevelsProperty.DefaultValue();
         }
 
         [Value(0,

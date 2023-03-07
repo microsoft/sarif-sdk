@@ -39,7 +39,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         [Fact]
         public void AnalyzeCommandBase_PerTargetAnalyzeEventsAreReceived()
         {
-            int filesCount = Directory.GetFiles(Environment.CurrentDirectory, "*" ).Length;
+            int filesCount = Directory.GetFiles(Environment.CurrentDirectory, "*").Length;
 
             var options = new TestAnalyzeOptions()
             {
@@ -49,7 +49,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             var logger = new TestMessageLogger();
 
             var context = new TestAnalysisContext
-            { 
+            {
                 Logger = logger,
                 MaxFileSizeInKilobytes = long.MaxValue,
             };
