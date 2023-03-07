@@ -440,7 +440,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             }
         }
 
-        private static void LogCachingLogger(TContext context, CachingLogger cachingLogger, bool clone = false)
+        private static void LogCachingLogger(TContext globalContext, CachingLogger cachingLogger, bool clone = false)
         {
             // Today, the signal to generate hash data in log files is synonymous with a decision
             // to perform target file results-caching (where we only analyze a copy of a file, by
@@ -455,14 +455,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             // (and not per-file-by-hash) logger instance.
 
             IDictionary<ReportingDescriptor, IList<Tuple<Result, int?>>> results = cachingLogger.Results;
-            context.CancellationToken.ThrowIfCancellationRequested();
-            IEnumeratedArtifact artifact = context.CurrentTarget;
+            globalContext.CancellationToken.ThrowIfCancellationRequested();
+            IEnumeratedArtifact artifact = globalContext.CurrentTarget;
 
             if (results?.Count > 0)
             {
                 foreach (KeyValuePair<ReportingDescriptor, IList<Tuple<Result, int?>>> kv in results)
                 {
-                    context.CancellationToken.ThrowIfCancellationRequested();
+                    globalContext.CancellationToken.ThrowIfCancellationRequested();
                     foreach (Tuple<Result, int?> tuple in kv.Value)
                     {
                         Result result = tuple.Item1;
@@ -476,7 +476,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                             currentResult = clonedResult;
                         }
 
-                        context.Logger.Log(kv.Key, currentResult, tuple.Item2);
+                        globalContext.Logger.Log(kv.Key, currentResult, tuple.Item2);
                     }
                 }
             }
@@ -485,7 +485,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             {
                 foreach (Tuple<Notification, ReportingDescriptor> tuple in cachingLogger.ToolNotifications)
                 {
-                    context.Logger.LogToolNotification(tuple.Item1, tuple.Item2);
+                    globalContext.Logger.LogToolNotification(tuple.Item1, tuple.Item2);
                 }
             }
 
@@ -502,12 +502,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                         currentNotification = clonedNotification;
                     }
 
-                    context.Logger.LogConfigurationNotification(currentNotification);
+                    globalContext.Logger.LogConfigurationNotification(currentNotification);
                 }
 
             }
 
-            context.Logger.TargetAnalyzed(context);
+            globalContext.Logger.TargetAnalyzed(globalContext);
         }
 
         private async Task<bool> EnumerateFilesOnDiskAsync(TContext context)
