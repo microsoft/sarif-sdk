@@ -21,5 +21,9 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// Enables a trace message that reports peak working set during analysis.
         /// </summary>
         PeakWorkingSet = 0x4,
+        /// <summary>
+        /// Enables a trace message that reports progress against each scan target.
+        /// </summary>
+        TargetsScanned = 0x8,
     }
 }

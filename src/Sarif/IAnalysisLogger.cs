@@ -11,7 +11,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         void AnalyzingTarget(IAnalysisContext context);
 
-        void TargetAnalysisComplete(IAnalysisContext context);
+        void TargetAnalyzed(IAnalysisContext context);
 
         /// <summary>
         /// Log a diagnostic result

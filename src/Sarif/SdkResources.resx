@@ -299,4 +299,7 @@ You can also refer to properties in the result's property bag with 'properties.&
   <data name="ERR999_AnalysisTimedOut" xml:space="preserve">
     <value>Analysis timed out. Timeout specified was {0}).</value>
   </data>
+  <data name="MSG001_TargetAnalyzed" xml:space="preserve">
+    <value>Analysis complete: '{0}'.</value>
+  </data>
 </root>

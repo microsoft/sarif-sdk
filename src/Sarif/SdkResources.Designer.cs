@@ -423,6 +423,15 @@ namespace Microsoft.CodeAnalysis.Sarif {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Analysis complete: &apos;{0}&apos;..
+        /// </summary>
+        public static string MSG001_TargetAnalyzed {
+            get {
+                return ResourceManager.GetString("MSG001_TargetAnalyzed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to &apos;{0}&apos; was not analyzed as its size ({1} kilobytes) exceeds the currently configured threshold ({2} kilobytes)..
         /// </summary>
         public static string MSG002_FileSkippedDueToSize {

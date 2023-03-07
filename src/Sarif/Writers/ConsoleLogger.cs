@@ -84,14 +84,24 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
         public void AnalyzingTarget(IAnalysisContext context)
         {
-            if (context == null)
+            if (context.Traces.Contains(nameof(DefaultTraces.TargetsScanned)))
             {
-                throw new ArgumentNullException(nameof(context));
+                // Analyzing '{0}'...
+                WriteLineToConsole(string.Format(CultureInfo.CurrentCulture,
+                        SdkResources.MSG001_AnalyzingTarget,
+                            context.CurrentTarget.Uri.GetFileName()));
             }
+        }
 
-            WriteLineToConsole(string.Format(CultureInfo.CurrentCulture,
-                    SdkResources.MSG001_AnalyzingTarget,
-                        context.CurrentTarget.Uri.GetFileName()));
+        public void TargetAnalyzed(IAnalysisContext context)
+        {
+            if (context.Traces.Contains(nameof(DefaultTraces.TargetsScanned)))
+            {
+                // Analysis complete: '{0}'.
+                WriteLineToConsole(string.Format(CultureInfo.CurrentCulture,
+                        SdkResources.MSG001_AnalyzingTarget,
+                            context.CurrentTarget.Uri.GetFileName()));
+            }
         }
 
         public void Log(ReportingDescriptor rule, Result result, int? extensionIndex = null)

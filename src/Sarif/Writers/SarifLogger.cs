@@ -542,6 +542,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         {
         }
 
+        public void TargetAnalyzed(IAnalysisContext context)
+        {
+
+        }
+
         public void LogToolNotification(Notification notification, ReportingDescriptor associatedRule)
         {
             if (!ShouldLog(notification))

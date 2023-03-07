@@ -16,8 +16,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             TestRule.s_testRuleBehaviors = 0;
         }
 
-        public override IEnumerable<Assembly> DefaultPluginAssemblies { get; set; }
-
         public override TestAnalysisContext InitializeContextFromOptions(TestAnalyzeOptions options, ref TestAnalysisContext context)
         {
             context ??= new TestAnalysisContext();

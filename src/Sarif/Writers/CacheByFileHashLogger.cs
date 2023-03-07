@@ -57,6 +57,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             }
         }
 
+        public void TargetAnalyzed(IAnalysisContext _) { }
+
         public void Log(ReportingDescriptor rule, Result result, int? extensionIndex = null)
         {
             if (!cacheLoggingData) { return; }
