@@ -414,11 +414,20 @@ namespace Microsoft.CodeAnalysis.Sarif {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Analyzing &apos;{0}&apos;....
+        ///   Looks up a localized string similar to Analyzing &apos;{0}&apos;..
         /// </summary>
         public static string MSG001_AnalyzingTarget {
             get {
                 return ResourceManager.GetString("MSG001_AnalyzingTarget", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Completed &apos;{0}&apos;..
+        /// </summary>
+        public static string MSG001_TargetAnalyzed {
+            get {
+                return ResourceManager.GetString("MSG001_TargetAnalyzed", resourceCulture);
             }
         }
         

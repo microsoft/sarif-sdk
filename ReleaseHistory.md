@@ -1,5 +1,9 @@
 # SARIF Package Release History (SDK, Driver, Converters, and Multitool)
-<<<<<<< HEAD
+## **v4.2.0** UNRELEASED
+* BRK: Add `IAnalysisLogger.TargetAnalysisComplete` method. [#2637](https://github.com/microsoft/sarif-sdk/pull/2637)
+* BUG: Generate `IAnalysisLogger.AnalyzingTarget` callbacks from `MulthreadedAnalyzeCommandBase`. [#2637](https://github.com/microsoft/sarif-sdk/pull/2637)
+* NEW: Add `DefaultTraces.TargetsScanned` which is used by `ConsoleLogger` to emit target start and stop analysis messages. [#2637](https://github.com/microsoft/sarif-sdk/pull/2637)
+
 ## **v4.1.0** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/4.1.0) | [Driver](https://www.nuget.org/packages/Sarif.Driver/4.1.0) | [Converters](https://www.nuget.org/packages/Sarif.Converters/4.1.0) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/4.1.0) | [Multitool Library](https://www.nuget.org/packages/Sarif.Multitool.Library/4.1.0)
 * BRK: `MultithreadedAnalyzeCommandBase` IDispose implementation now manages logging dispose. Be sure to call `base.Dispose()` in any derived type implementations. [#2614](https://github.com/microsoft/sarif-sdk/pull/2614)
 * BRK: Eliminate `MulthreadedAnalyzeCommandBase.EngineException` and `IAnalysisContext.RuntimeException` properties in favor of `IAnalysisContext.RuntimeExceptions`. [#2627](https://github.com/microsoft/sarif-sdk/pull/2627)

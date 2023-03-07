@@ -50,6 +50,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             _semaphore.Wait();
         }
 
+        public void TargetAnalyzed(IAnalysisContext context)
+        {
+            CacheFinalized = true;
+            _semaphore.Release();
+        }
+
+
         public void Log(ReportingDescriptor rule, Result result, int? extensionIndex)
         {
             if (rule == null)
@@ -106,12 +113,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
             ToolNotifications ??= new List<Tuple<Notification, ReportingDescriptor>>();
             ToolNotifications.Add(new Tuple<Notification, ReportingDescriptor>(notification, associatedRule));
-        }
-
-        public void ReleaseLock()
-        {
-            CacheFinalized = true;
-            _semaphore.Release();
         }
     }
 }

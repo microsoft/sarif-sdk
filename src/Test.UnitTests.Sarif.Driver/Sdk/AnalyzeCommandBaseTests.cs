@@ -25,8 +25,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 {
     public class AnalyzeCommandBaseTests
     {
-        private const int FAILURE = MultithreadedAnalyzeCommandBase<TestAnalysisContext, AnalyzeOptionsBase>.FAILURE;
-        private const int SUCCESS = MultithreadedAnalyzeCommandBase<TestAnalysisContext, AnalyzeOptionsBase>.SUCCESS;
+        private const int FAILURE = CommandBase.FAILURE;
+        private const int SUCCESS = CommandBase.SUCCESS;
 
         private readonly ITestOutputHelper Output;
 
@@ -34,6 +34,31 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         {
             this.Output = output;
             Output.WriteLine($"The seed that will be used is: {TestRule.s_seed}");
+        }
+
+        [Fact]
+        public void AnalyzeCommandBase_PerTargetAnalyzeEventsAreReceived()
+        {
+            int filesCount = Directory.GetFiles(Environment.CurrentDirectory, "*").Length;
+
+            var options = new TestAnalyzeOptions()
+            {
+                TargetFileSpecifiers = new List<string>(new[] { "*" })
+            };
+
+            var logger = new TestMessageLogger();
+
+            var context = new TestAnalysisContext
+            {
+                Logger = logger,
+                MaxFileSizeInKilobytes = long.MaxValue,
+            };
+
+            var multithreadedAnalyzeCommand = new TestMultithreadedAnalyzeCommand();
+            int result = multithreadedAnalyzeCommand.Run(options, ref context);
+
+            logger.AnalyzingTargetCount.Should().Be(filesCount);
+            logger.TargetAnalyzedCount.Should().Be(filesCount);
         }
 
         [Fact]

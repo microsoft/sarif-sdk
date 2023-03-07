@@ -17,7 +17,13 @@ namespace Microsoft.CodeAnalysis.Sarif
             Results = new List<Tuple<ReportingDescriptor, Result>>();
         }
 
+        public int AnalyzingTargetCount { get; set; }
+
+        public int TargetAnalyzedCount { get; set; }
+
+
         public List<Tuple<ReportingDescriptor, Result>> Results { get; set; }
+
         public RuntimeConditions RuntimeErrors { get; set; }
 
         public HashSet<string> PassTargets { get; set; }
@@ -32,6 +38,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         public List<Notification> ConfigurationNotifications { get; set; }
 
+
         public void AnalysisStarted()
         {
         }
@@ -43,6 +50,12 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         public void AnalyzingTarget(IAnalysisContext context)
         {
+            AnalyzingTargetCount++;
+        }
+
+        public void TargetAnalyzed(IAnalysisContext context)
+        {
+            TargetAnalyzedCount++;
         }
 
         public void Log(ReportingDescriptor rule, Result result, int? extensionIndex)

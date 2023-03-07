@@ -20,7 +20,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             Trace = AnalyzeContextBase.TracesProperty.DefaultValue();
             Kind = AnalyzeContextBase.ResultKindsProperty.DefaultValue();
             Level = AnalyzeContextBase.FailureLevelsProperty.DefaultValue();
-            MaxFileSizeInKilobytes = AnalyzeContextBase.MaxFileSizeInKilobytesProperty.DefaultValue();
         }
 
         [Value(0,
@@ -157,8 +156,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
         [Option(
             "max-file-size-in-kb",
-            HelpText = "The maximum file size (in kilobytes) that will be analyzed.",
-            Default = -1)]
-        public long MaxFileSizeInKilobytes { get; set; }
+            HelpText = "The maximum file size (in kilobytes) that will be analyzed.")]
+        public long? MaxFileSizeInKilobytes { get; set; }
     }
 }

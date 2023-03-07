@@ -242,7 +242,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             context.ResultKinds = options.ResultKinds;
             context.FailureLevels = options.FailureLevels;
             context.OutputFileOptions = options.OutputFileOptions.ToFlags();
-            context.MaxFileSizeInKilobytes = options.MaxFileSizeInKilobytes;
+            context.MaxFileSizeInKilobytes = options.MaxFileSizeInKilobytes != null ? options.MaxFileSizeInKilobytes.Value : context.MaxFileSizeInKilobytes;
             context.PluginFilePaths = options.PluginFilePaths?.ToImmutableHashSet();
             context.InsertProperties = InitializeStringSet(options.InsertProperties);
             context.TargetFileSpecifiers = InitializeStringSet(options.TargetFileSpecifiers);
@@ -424,8 +424,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
                     while (context?.AnalysisComplete == true)
                     {
-                        LogCachingLogger(globalContext, context.CurrentTarget.Uri, (CachingLogger)context.Logger, clone: false);
-                        globalContext.RuntimeErrors |= context.RuntimeErrors;
+                        lock (globalContext)
+                        {
+                            globalContext.CurrentTarget = context.CurrentTarget;
+                            LogCachingLogger(globalContext, (CachingLogger)context.Logger, clone: false);
+                            globalContext.RuntimeErrors |= context.RuntimeErrors;
+                            globalContext.CurrentTarget = null;
+                        }
                         context.Dispose();
 
                         _fileContexts.TryRemove(currentIndex, out _);
@@ -435,7 +440,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             }
         }
 
-        private static void LogCachingLogger(TContext globalContext, Uri targetUri, CachingLogger cachingLogger, bool clone = false)
+        private static void LogCachingLogger(TContext globalContext, CachingLogger cachingLogger, bool clone = false)
         {
             // Today, the signal to generate hash data in log files is synonymous with a decision
             // to perform target file results-caching (where we only analyze a copy of a file, by
@@ -451,6 +456,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
             IDictionary<ReportingDescriptor, IList<Tuple<Result, int?>>> results = cachingLogger.Results;
             globalContext.CancellationToken.ThrowIfCancellationRequested();
+            IEnumeratedArtifact artifact = globalContext.CurrentTarget;
 
             if (results?.Count > 0)
             {
@@ -465,7 +471,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                         {
                             Result clonedResult = result.DeepClone();
 
-                            UpdateLocationsAndMessageWithCurrentUri(clonedResult.Locations, clonedResult.Message, targetUri);
+                            UpdateLocationsAndMessageWithCurrentUri(clonedResult.Locations, clonedResult.Message, artifact.Uri);
 
                             currentResult = clonedResult;
                         }
@@ -491,14 +497,17 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                     if (clone)
                     {
                         Notification clonedNotification = notification.DeepClone();
-                        UpdateLocationsAndMessageWithCurrentUri(clonedNotification.Locations, notification.Message, targetUri);
+                        UpdateLocationsAndMessageWithCurrentUri(clonedNotification.Locations, notification.Message, artifact.Uri);
 
                         currentNotification = clonedNotification;
                     }
 
                     globalContext.Logger.LogConfigurationNotification(currentNotification);
                 }
+
             }
+
+            globalContext.Logger.TargetAnalyzed(globalContext);
         }
 
         private async Task<bool> EnumerateFilesOnDiskAsync(TContext context)
@@ -535,22 +544,33 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             return true;
         }
 
-        private async Task<bool> EnumerateFilesFromArtifactsProvider(TContext context)
+        private async Task<bool> EnumerateFilesFromArtifactsProvider(TContext globalContext)
         {
-            foreach (IEnumeratedArtifact artifact in context.TargetsProvider.Artifacts)
+            foreach (IEnumeratedArtifact artifact in globalContext.TargetsProvider.Artifacts)
             {
-                context.CancellationToken.ThrowIfCancellationRequested();
+                globalContext.CancellationToken.ThrowIfCancellationRequested();
 
                 TContext fileContext =
                     CreateContext(options: null,
-                                  new CachingLogger(context.FailureLevels, context.ResultKinds),
-                                  context.RuntimeErrors,
-                                  context.FileSystem,
-                                  context.Policy);
+                                  new CachingLogger(globalContext.FailureLevels, globalContext.ResultKinds),
+                                  globalContext.RuntimeErrors,
+                                  globalContext.FileSystem,
+                                  globalContext.Policy);
 
                 Debug.Assert(fileContext.Logger != null);
                 fileContext.CurrentTarget = artifact;
-                fileContext.CancellationToken = context.CancellationToken;
+                fileContext.CancellationToken = globalContext.CancellationToken;
+
+                lock (globalContext)
+                {
+                    // We need to generate this event on the global logger, though as
+                    // a result this event means 'target enumerated for analysis'
+                    // rather than literally 'we are analyzing the target'.
+                    //
+                    // This call needs to be protected with a lock as the actual
+                    // logging occurs on a separated thread.
+                    globalContext.Logger.AnalyzingTarget(fileContext);
+                }
 
                 bool added = _fileContexts.TryAdd(_fileContextsCount, fileContext);
                 Debug.Assert(added);
@@ -955,7 +975,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             if (logger.CacheFinalized)
             {
                 context.Logger = logger;
-                logger.ReleaseLock();
+                logger.TargetAnalyzed(context);
                 return context;
             }
 
@@ -964,7 +984,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
             AnalyzeTarget(context, applicableSkimmers, disabledSkimmers);
 
-            logger.ReleaseLock();
+            logger.TargetAnalyzed(context);
             return context;
         }
 

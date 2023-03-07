@@ -18,11 +18,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 {
     public abstract class PluginDriverCommand<T> : DriverCommand<T>
     {
-        // The plugin assemblies that contain IOptionProvider instances.
+        // The plugin assemblies that contain IOptionProvider instan
+        private IEnumerable<Assembly> _defaultPluginAssemblies;
         public virtual IEnumerable<Assembly> DefaultPluginAssemblies
         {
-            get => null;
-            set => throw new InvalidOperationException();
+            get
+            {
+                return _defaultPluginAssemblies ?? new[] { this.GetType().Assembly };
+            }
+            set { _defaultPluginAssemblies = value; }
         }
 
         // An additional IOptionsProvider instance, typically, the one
