@@ -1,5 +1,6 @@
 # SARIF Package Release History (SDK, Driver, Converters, and Multitool)
 ## **v4.1.0** UNRELEASED
+* BUG: Store HDF `desc` in SARIF's `FullDescription`, not `ShortDescription`. [#2634](https://github.com/microsoft/sarif-sdk/pull/2634)
 * BRK: `MultithreadedAnalyzeCommandBase` IDispose implementation now manages logging dispose. Be sure to call `base.Dispose()` in any derived type implementations. [#2614](https://github.com/microsoft/sarif-sdk/pull/2614)
 * BRK: Eliminate `MulthreadedAnalyzeCommandBase.EngineException` and `IAnalysisContext.RuntimeException` properties in favor of `IAnalysisContext.RuntimeExceptions`. [#2627](https://github.com/microsoft/sarif-sdk/pull/2627)
 * BRK: Rename `LogFilePersistenceOptions` to `FilePersistenceOptions` (due to its general applicability in other file persistence contexts other than output logs).[#2625](https://github.com/microsoft/sarif-sdk/pull/2625)
