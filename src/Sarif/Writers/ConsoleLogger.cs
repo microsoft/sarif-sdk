@@ -99,7 +99,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             {
                 // Analysis complete: '{0}'.
                 WriteLineToConsole(string.Format(CultureInfo.CurrentCulture,
-                        SdkResources.MSG001_AnalyzingTarget,
+                        SdkResources.MSG001_TargetAnalyzed,
                             context.CurrentTarget.Uri.GetFileName()));
             }
         }
