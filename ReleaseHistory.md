@@ -5,6 +5,7 @@
 * BRK: Eliminate `MulthreadedAnalyzeCommandBase.EngineException` and `IAnalysisContext.RuntimeException` properties in favor of `IAnalysisContext.RuntimeExceptions`. [#2627](https://github.com/microsoft/sarif-sdk/pull/2627)
 * BRK: Rename `LogFilePersistenceOptions` to `FilePersistenceOptions` (due to its general applicability in other file persistence contexts other than output logs).[#2625](https://github.com/microsoft/sarif-sdk/pull/2625)
 * BRK: Many breaking changes in `IAnalysisContext` and `AnalyzeContextBase`. [#2625](https://github.com/microsoft/sarif-sdk/pull/2625)
+* BUG: In `HDFConverter` if `code_desc` is empty, use `desc` as the SARIF `message`. [#2632](https://github.com/microsoft/sarif-sdk/pull/2632)
 * BUG: Eliminate creation of extremely large context region snippets (now always restricted to 512 chars). https://github.com/microsoft/sarif-sdk/pull/2629
 * BUG: Eliminate per-context allocations contributing to unnecessary memory use. [#2625](https://github.com/microsoft/sarif-sdk/pull/2625)
 * NEW: Rewrite  `MultithreadedAnalyzeCommandBase` pipeline to allow for timeout, cancellation, and better API-driven use. [#2625](https://github.com/microsoft/sarif-sdk/pull/2625)
