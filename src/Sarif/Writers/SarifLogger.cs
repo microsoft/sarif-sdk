@@ -136,7 +136,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 }
 
             }
-            
+
             if (_run.Tool.Driver?.Rules != null)
             {
                 for (int i = 0; i < _run.Tool.Driver.Rules.Count; ++i)

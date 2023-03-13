@@ -431,11 +431,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                         {
                             globalContext.CurrentTarget = context.CurrentTarget;
                             LogCachingLogger(globalContext, (CachingLogger)context.Logger, clone: false);
-                            
+
                             globalContext.RuntimeErrors |= context.RuntimeErrors;
                             if (context.RuntimeExceptions != null)
                             {
-                                globalContext.RuntimeExceptions ??= new List<Exception>();                                
+                                globalContext.RuntimeExceptions ??= new List<Exception>();
                                 foreach (Exception exception in context.RuntimeExceptions)
                                 {
                                     globalContext.RuntimeExceptions.Add(exception);

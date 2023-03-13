@@ -696,8 +696,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                     var target = new EnumeratedArtifact(FileSystem.Instance) { Uri = uri, Contents = string.Empty };
 
                     var context = new TestAnalysisContext
-                    { 
-                        TargetsProvider = new ArtifactProvider(new[] { target }), 
+                    {
+                        TargetsProvider = new ArtifactProvider(new[] { target }),
                         FailureLevels = BaseLogger.ErrorWarningNote,
                         ResultKinds = BaseLogger.Fail,
                         Logger = logger,
@@ -1135,7 +1135,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
                 IList<Notification> toolConfigurationNotifications = run.Invocations?[0].ToolConfigurationNotifications;
                 toolConfigurationNotifications.Should().NotBeNull();
-                
+
                 // Three notifications. One for each disabled rule, i.e. SimpleTestRule
                 // and SimpleTestRule + an error notification that all rules have been disabled
                 toolConfigurationNotifications.Count.Should().Be(3);

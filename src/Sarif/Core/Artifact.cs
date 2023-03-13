@@ -88,7 +88,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             return artifact;
         }
-        
+
         private static ArtifactContent GetEncodedFileContents(IFileSystem fileSystem, string filePath, string mimeType, Encoding inputFileEncoding)
         {
             var fileContent = new ArtifactContent();
