@@ -56,11 +56,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
             string fileName = fileUri.GetFilePath();
 
-            if (fileUri.IsAbsoluteUri && fileUri.IsFile)
-            {
-                fileName = fileUri.LocalPath;
-            }
-
             return DetermineFromFileExtension(fileName);
         }
 
