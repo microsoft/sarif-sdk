@@ -54,7 +54,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 throw new ArgumentNullException(nameof(fileUri));
             }
 
-            string fileName = fileUri.GetFileName();
+            string fileName = fileUri.GetFilePath();
 
             if (fileUri.IsAbsoluteUri && fileUri.IsFile)
             {
