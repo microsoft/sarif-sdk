@@ -3,6 +3,8 @@
 using System;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
+using System.Security;
 
 namespace Microsoft.CodeAnalysis.Sarif
 {
@@ -17,7 +19,10 @@ namespace Microsoft.CodeAnalysis.Sarif
         public static readonly FileRegionsCache Instance = new FileRegionsCache();
         public const int DefaultCacheCapacity = 100;
         private readonly IFileSystem _fileSystem;
-        internal readonly Cache<string, Tuple<string, NewLineIndex>> _cache;
+
+        internal readonly Cache<string, string> _fileTextCache;
+        internal readonly Cache<string, HashData> _hashDataCache;
+        internal readonly Cache<string, NewLineIndex> _newLineIndexCache;
 
         /// <summary>
         /// Creates a new <see cref="FileRegionsCache"/> object.
@@ -32,8 +37,9 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             _fileSystem = fileSystem ?? FileSystem.Instance;
 
-            // Build a cache for this data, with the load method it should use to add new entries
-            _cache = new Cache<string, Tuple<string, NewLineIndex>>(BuildIndexForFile, capacity);
+            _fileTextCache = new Cache<string, string>(RetrieveTextForFile, capacity);
+            _hashDataCache = new Cache<string, HashData>(BuildHashDataForFile, capacity);
+            _newLineIndexCache = new Cache<string, NewLineIndex>(BuildIndexForFile, capacity);
         }
 
         /// <summary>
@@ -89,7 +95,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// </summary>
         public void ClearCache()
         {
-            this._cache.Clear();
+            this._newLineIndexCache.Clear();
         }
 
         private Region PopulateTextRegionProperties(NewLineIndex lineIndex, Region inputRegion, string fileText, bool populateSnippet)
@@ -355,57 +361,82 @@ namespace Microsoft.CodeAnalysis.Sarif
             Assert(region.CharLength == charLength);
         }
 
-        private NewLineIndex GetNewLineIndex(Uri uri, string fileText = null)
+        public HashData GetHashData(Uri uri, string fileText = null)
         {
             string path = uri.GetFilePath();
+            if (fileText != null)
+            {
+                _fileTextCache[path] = fileText;
+            }
+
+            fileText = _fileTextCache[path];
+
+            return HashUtilities.ComputeHashesForText(fileText);
+        }
+
+        public NewLineIndex GetNewLineIndex(Uri uri, string fileText = null)
+        {
+            string path = uri.GetFilePath();
+            if (fileText != null)
+            {
+                _fileTextCache[path] = fileText;
+            }
+            fileText = _fileTextCache[path];
 
             NewLineIndex newLineIndex;
-            if (!_cache.ContainsKey(path) && fileText != null)
+            if (!_newLineIndexCache.ContainsKey(path) && fileText != null)
             {
                 newLineIndex = new NewLineIndex(fileText);
 
-                _cache[path] = new Tuple<string, NewLineIndex>(item1: path,
-                                                               item2: newLineIndex);
+                _newLineIndexCache[path] = newLineIndex;
             }
             else
             {
-                newLineIndex = _cache[path].Item2;
+                newLineIndex = _newLineIndexCache[path];
             }
 
             return newLineIndex;
         }
 
-        /// <summary>
-        ///  Method to build cache entries which aren't already in the cache.
-        /// </summary>
-        /// <param name="localPath">Uri.LocalPath for the file to load</param>
-        /// <returns>Cache entry to add to cache with file contents and NewLineIndex</returns>
-        private Tuple<string, NewLineIndex> BuildIndexForFile(string localPath)
+        private string RetrieveTextForFile(string path)
         {
             string fileText = null;
-            NewLineIndex index = null;
 
             // We will expand this code later to construct all possible URLs from
             // the log file, bearing in mind things like uriBaseIds. Also, we could
             // consider downloading and caching web-hosted source files.
             try
             {
-                if (_fileSystem.FileExists(localPath))
+                if (_fileSystem.FileExists(path))
                 {
-                    fileText = _fileSystem.FileReadAllText(localPath);
+                    fileText = _fileSystem.FileReadAllText(path);
                 }
             }
             catch (IOException) { }
+            catch (SecurityException) { }
+            catch (UnauthorizedAccessException) { }
 
-            if (fileText != null)
-            {
-                index = new NewLineIndex(fileText);
-            }
-
-            return new Tuple<string, NewLineIndex>(fileText, index);
+            return fileText;
         }
 
-        private static void Assert(bool condition)
+        private HashData BuildHashDataForFile(string path)
+        {
+            string fileText = _fileTextCache[path];
+            return HashUtilities.ComputeHashesForText(fileText);
+        }
+
+        /// <summary>
+        ///  Method to build cache entries which aren't already in the cache.
+        /// </summary>
+        /// <param name="path">Uri.LocalPath for the file to load</param>
+        /// <returns>Cache entry to add to cache with file contents and NewLineIndex</returns>
+        private NewLineIndex BuildIndexForFile(string path)
+        {
+            string fileText = _fileTextCache[path];
+            return fileText != null ? new NewLineIndex(fileText) : null;
+        }
+
+        private static void Assert(bool _)
         {
             // Placeholder to report issues in a situationally appropriate way.
             //  We don't want Multitool rewrite to blow up.

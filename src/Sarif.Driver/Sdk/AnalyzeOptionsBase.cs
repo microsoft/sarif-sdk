@@ -18,8 +18,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         public AnalyzeOptionsBase()
         {
             Trace = AnalyzeContextBase.TracesProperty.DefaultValue();
-            Kind = AnalyzeContextBase.ResultKindsProperty.DefaultValue();
-            Level = AnalyzeContextBase.FailureLevelsProperty.DefaultValue();
         }
 
         [Value(0,
@@ -113,36 +111,18 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         [Option(
             "level",
             Separator = ';',
-            Default = new FailureLevel[] { FailureLevel.Error, FailureLevel.Warning },
             HelpText = "A semicolon delimited list to filter output of scan results to one or more failure levels. Valid values: Error, Warning and Note.")]
         public IEnumerable<FailureLevel> Level { get; set; }
 
-        private FailureLevelSet failureLevels;
-        public FailureLevelSet FailureLevels
-        {
-            get
-            {
-                this.failureLevels ??= new FailureLevelSet(Level);
-                return this.failureLevels;
-            }
-        }
+        public FailureLevelSet FailureLevels => Level != null ? new FailureLevelSet(Level) : BaseLogger.ErrorWarning;
 
         [Option(
             "kind",
             Separator = ';',
-            Default = new ResultKind[] { ResultKind.Fail },
             HelpText = "A semicolon delimited list to filter output to one or more result kinds. Valid values: Fail (for literal scan results), Pass, Review, Open, NotApplicable and Informational.")]
         public IEnumerable<ResultKind> Kind { get; set; }
 
-        private ResultKindSet resultKinds;
-        public ResultKindSet ResultKinds
-        {
-            get
-            {
-                this.resultKinds ??= new ResultKindSet(Kind);
-                return this.resultKinds;
-            }
-        }
+        public ResultKindSet ResultKinds => Kind != null ? new ResultKindSet(Kind) : BaseLogger.Fail;
 
         [Option(
             "baseline",

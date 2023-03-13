@@ -89,7 +89,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return artifact;
         }
 
-        private static IDictionary<string, string> CreateHashesDictionary(HashData hashData)
+        public static IDictionary<string, string> CreateHashesDictionary(HashData hashData)
         {
             var result = new Dictionary<string, string>();
 

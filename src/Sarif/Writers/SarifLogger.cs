@@ -2,9 +2,7 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System;
-using System.Collections.Concurrent;
 using System.Collections.Generic;
-using System.Collections.Immutable;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -25,9 +23,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
         private readonly Run _run;
         private readonly bool _closeWriterOnDispose;
-        private readonly FilePersistenceOptions _logFilePersistenceOptions;
+        private readonly FileRegionsCache _fileRegionsCache;
         private readonly OptionallyEmittedData _dataToInsert;
         private readonly OptionallyEmittedData _dataToRemove;
+        private readonly FilePersistenceOptions _logFilePersistenceOptions;
         private readonly InsertOptionalDataVisitor _insertOptionalDataVisitor;
 
         protected const FilePersistenceOptions DefaultLogFilePersistenceOptions = FilePersistenceOptions.PrettyPrint;
@@ -101,11 +100,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             RuleToIndexMap = new Dictionary<ReportingDescriptor, int>(ReportingDescriptor.ValueComparer);
             ExtensionGuidToIndexMap = new Dictionary<Guid, int>();
 
-            if (dataToInsert.HasFlag(OptionallyEmittedData.Hashes))
-            {
-                AnalysisTargetToHashDataMap = HashUtilities.MultithreadedComputeTargetFileHashes(analysisTargets, quiet) ?? new ConcurrentDictionary<string, HashData>();
-            }
-
             _run = run ?? new Run();
 
             if (dataToInsert.HasFlag(OptionallyEmittedData.Hashes) ||
@@ -118,13 +112,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                                                                            fileRegionsCache);
             }
 
+            _fileRegionsCache = fileRegionsCache ?? FileRegionsCache.Instance;
+
             EnhanceRun(analysisTargets,
                        dataToInsert,
                        dataToRemove,
                        invocationTokensToRedact,
                        invocationPropertiesToLog,
-                       defaultFileEncoding,
-                       AnalysisTargetToHashDataMap);
+                       defaultFileEncoding);
 
             _run.Tool ??= Tool.CreateFromAssemblyData();
             _dataToInsert = dataToInsert;
@@ -144,7 +139,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 }
 
             }
-            else if (_run.Tool.Driver?.Rules != null)
+            
+            if (_run.Tool.Driver?.Rules != null)
             {
                 for (int i = 0; i < _run.Tool.Driver.Rules.Count; ++i)
                 {
@@ -180,8 +176,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                                 OptionallyEmittedData dataToRemove,
                                 IEnumerable<string> invocationTokensToRedact,
                                 IEnumerable<string> invocationPropertiesToLog,
-                                string defaultFileEncoding = null,
-                                IDictionary<string, HashData> filePathToHashDataMap = null)
+                                string defaultFileEncoding = null)
         {
             _run.Invocations ??= new List<Invocation>();
             if (defaultFileEncoding != null)
@@ -197,12 +192,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
                 foreach (string target in analysisTargets)
                 {
-                    Uri uri = new Uri(UriHelper.MakeValidUri(target), UriKind.RelativeOrAbsolute);
+                    string uriText = UriHelper.MakeValidUri(target);
+                    var uri = new Uri(uriText, UriKind.RelativeOrAbsolute);
 
                     HashData hashData = null;
-                    if (dataToInsert.HasFlag(OptionallyEmittedData.Hashes))
+                    if (dataToInsert.HasFlag(OptionallyEmittedData.Hashes) && _fileRegionsCache != null)
                     {
-                        filePathToHashDataMap?.TryGetValue(target, out hashData);
+                        hashData = _fileRegionsCache.GetHashData(uri);
                     }
 
                     var artifact = Artifact.Create(
@@ -261,10 +257,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
             _run.Invocations.Add(invocation);
         }
-
-        public Func<Uri, HashData> ComputeHashData { get; set; }
-
-        public IDictionary<string, HashData> AnalysisTargetToHashDataMap { get; set; }
 
         public IDictionary<ReportingDescriptor, ReportingDescriptorReference> RuleToReportingDescriptorReferenceMap { get; }
 
@@ -514,11 +506,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             }
 
             HashData hashData = null;
-            if ((AnalysisTargetToHashDataMap == null ||
-                !AnalysisTargetToHashDataMap.TryGetValue(fileLocation.Uri.OriginalString, out hashData)) &&
-                ComputeFileHashes && ComputeHashData != null)
+            if (_dataToInsert.HasFlag(OptionallyEmittedData.Hashes) && _fileRegionsCache != null)
             {
-                hashData = ComputeHashData(fileLocation.Uri);
+                hashData = _fileRegionsCache.GetHashData(fileLocation.Uri);
             }
 
             // Ensure Artifact is in Run.Artifacts and ArtifactLocation.Index is set to point to it

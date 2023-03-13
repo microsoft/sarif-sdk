@@ -12,6 +12,7 @@ using System.Text;
 using FluentAssertions;
 
 using Microsoft.CodeAnalysis.Sarif.Converters;
+using Microsoft.CodeAnalysis.Sarif.PatternMatcher;
 using Microsoft.CodeAnalysis.Sarif.Writers;
 
 using Moq;
@@ -83,7 +84,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             };
 
             ExceptionTestHelperImplementation(
-                runtimeConditions, expectedExitReason,
+                runtimeConditions,
+                expectedExitReason,
                 analyzeOptions);
         }
 
@@ -199,8 +201,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
             ExceptionTestHelper(
                 RuntimeConditions.NoValidAnalysisTargets,
-                analyzeOptions: options,
-                expectedExitReason: ExitReason.NoValidAnalysisTargets);
+                expectedExitReason: ExitReason.NoValidAnalysisTargets,
+                analyzeOptions: options
+                );
         }
 
         [Fact]
@@ -214,6 +217,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
             ExceptionTestHelper(
                 RuntimeConditions.ExceptionLoadingTargetFile,
+                expectedExitReason: ExitReason.UnhandledExceptionInEngine,
                 analyzeOptions: options);
         }
 
@@ -331,6 +335,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
             ExceptionTestHelper(
                 RuntimeConditions.ExceptionInSkimmerAnalyze,
+                expectedExitReason: ExitReason.UnhandledExceptionInEngine,
                 analyzeOptions: options
             );
         }
@@ -660,6 +665,74 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             return run;
         }
 
+
+        [Fact]
+        [Trait(TestTraits.WindowsOnly, "true")]
+        public void AnalyzeCommand_TracesInMemory()
+        {
+            var testOutput = new StringBuilder();
+
+            foreach (DefaultTraces trace in new[] { DefaultTraces.None, DefaultTraces.ScanTime, DefaultTraces.RuleScanTime, DefaultTraces.PeakWorkingSet })
+            {
+                foreach (Uri uri in new[] { new Uri(@"c:\doesnotexist.txt"), new Uri(@"doesnotexist.txt", UriKind.Relative) })
+                {
+                    var command = new TestMultithreadedAnalyzeCommand();
+
+                    var options = new TestAnalyzeOptions
+                    {
+                        Trace = new[] { trace.ToString() },
+                    };
+
+                    var sarifOutput = new StringBuilder();
+                    using var writer = new StringWriter(sarifOutput);
+
+                    var logger = new SarifLogger(writer,
+                                                 run: new Run { Tool = command.Tool },
+                                                 levels: BaseLogger.ErrorWarningNote,
+                                                 kinds: BaseLogger.Fail);
+
+                    var target = new EnumeratedArtifact(FileSystem.Instance) { Uri = uri, Contents = string.Empty };
+
+                    var context = new TestAnalysisContext
+                    { 
+                        TargetsProvider = new ArtifactProvider(new[] { target }), 
+                        FailureLevels = BaseLogger.ErrorWarningNote,
+                        ResultKinds = BaseLogger.Fail,
+                        Logger = logger,
+                    };
+
+                    int result = command.Run(options, ref context);
+                    ValidateCommandExecution(context, result);
+
+                    SarifLog sarifLog = JsonConvert.DeserializeObject<SarifLog>(sarifOutput.ToString());
+
+                    int validTargetsCount = 1;
+                    Validate(sarifLog.Runs?[0], trace, validTargetsCount, testOutput);
+                }
+
+                testOutput.Length.Should().Be(0, $"test cases failed : {Environment.NewLine}{testOutput}");
+            }
+        }
+
+        private static void ValidateCommandExecution(TestAnalysisContext context, int result)
+        {
+            // This method provides validation of execution success for happy path runs, 
+            // i.e., where we don't expect to see anything unusual. The validation is
+            // specifically ordered to provide the most information in the test output 
+            // window. If we validate the success code, for example, we only know that
+            // we returned FAILURE (1) not SUCCESS. If we validate the exceptions data
+            // first, the test output window will show a meaningful message and stack.
+
+            // For application exist exceptions, e.g., an unhandled exception in a rule,
+            // the inner exception has the most useful details.
+            context.RuntimeExceptions?[0].InnerException.Should().BeNull();            
+            context.RuntimeExceptions?[0].Should().BeNull();
+
+            context.RuntimeErrors.Fatal().Should().Be(0);
+
+            result.Should().Be(CommandBase.SUCCESS);
+        }
+
         [Fact]
         [Trait(TestTraits.WindowsOnly, "true")]
         public void AnalyzeCommand_Traces()
@@ -682,73 +755,71 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                                                          expectedResultCount: WARNING_COUNT + NOTE_COUNT,
                                                          options);
 
+                int validTargetsCount = ALL_COUNT - NOT_APPLICABLE_COUNT;
+                Validate(run, trace, validTargetsCount, sb);
+            }
 
-                int resultCount = 0;
-                int executionNotificationsCount = 0;
-                int configurationNotificationCount = 0;
+            sb.Length.Should().Be(0, $"test cases failed : {Environment.NewLine}{sb}");
+        }
 
-                SarifHelpers.ValidateRun(
-                    run,
-                    (issue) => { resultCount++; },
-                    (toolNotification) => { executionNotificationsCount++; },
-                    (configurationNotification) => { configurationNotificationCount++; });
+        private static void Validate(Run run, DefaultTraces trace, int validTargetsCount, StringBuilder sb)
+        {
+            run.Should().NotBeNull();
 
-                IList<Notification> executionNotifications = run.Invocations[0].ToolExecutionNotifications;
+            IList<Notification> executionNotifications = run.Invocations[0].ToolExecutionNotifications;
+            IList<Notification> configurationNotifications = run.Invocations[0].ToolConfigurationNotifications;
 
-                switch (trace)
+            switch (trace)
+            {
+                case DefaultTraces.None:
                 {
-                    case DefaultTraces.None:
+                    if (executionNotifications?.Count > 0 || configurationNotifications?.Count > 0)
                     {
-                        if (executionNotificationsCount > 0 || configurationNotificationCount > 0)
-                        {
-                            sb.AppendLine($"\t{trace} : observed notifications when tracing was disabled.");
-                        }
-                        break;
+                        sb.AppendLine($"\t{trace} : observed notifications when tracing was disabled.");
                     }
-                    case DefaultTraces.ScanTime:
+                    break;
+                }
+                case DefaultTraces.ScanTime:
+                {
+                    // There is only one end-to-end scan time notification.
+                    if (executionNotifications?.Count != 1)
                     {
-                        // There is only one end-to-end scan time notification.
-                        if (executionNotifications?.Count != 1)
-                        {
-                            sb.AppendLine($"\t{trace} : expected 1 notification but saw {executionNotifications?.Count ?? 0}.");
-                            continue;
-                        }
-
-                        if (executionNotifications?.Where(t => t.Message.Text.Contains("elapsed")).Count() != 1)
-                        {
-                            sb.AppendLine($"\t{trace} : did not observe term 'elapsed' in scan timing notifications.");
-                        }
-                        break;
+                        sb.AppendLine($"\t{trace} : expected 1 notification but saw {executionNotifications?.Count ?? 0}.");
+                        return;
                     }
-                    case DefaultTraces.RuleScanTime:
+
+                    if (executionNotifications?.Where(t => t.Message.Text.Contains("elapsed")).Count() != 1)
                     {
-                        // We expect every rule to generate timing data for every applicable scan target.
-                        int rulesCount = run.Tool.Driver.Rules.Count;
-                        int validTargetsCount = ALL_COUNT - NOT_APPLICABLE_COUNT;
-                        int expectedNotificationsCount = rulesCount * validTargetsCount;
-
-                        // We expected timing data for every rule.
-                        if (executionNotificationsCount != expectedNotificationsCount)
-                        {
-                            sb.AppendLine($"\t{trace} : expected {expectedNotificationsCount} notifications but saw {executionNotificationsCount}.");
-                            continue;
-                        }
-
-                        if (executionNotifications?.Where(t => t.Message.Text.Contains("elapsed")).Count() != expectedNotificationsCount)
-                        {
-                            sb.AppendLine($"\t{trace} : did not observe term 'elapsed' in rule timing notifications.");
-                        }
-
-                        if (executionNotifications?.GroupBy(t => t.AssociatedRule.Id).Count() != rulesCount)
-                        {
-                            sb.AppendLine($"\t{trace} : did not observe timing notifications for every rule.");
-                        }
-
-                        break;
+                        sb.AppendLine($"\t{trace} : did not observe term 'elapsed' in scan timing notifications.");
                     }
+                    break;
+                }
+                case DefaultTraces.RuleScanTime:
+                {
+                    // We expect every rule to generate timing data for every applicable scan target.
+                    int rulesCount = run.Tool.Driver.Rules.Count;
+                    int expectedNotificationsCount = rulesCount * validTargetsCount;
+
+                    // We expected timing data for every rule.
+                    if (executionNotifications.Count != expectedNotificationsCount)
+                    {
+                        sb.AppendLine($"\t{trace} : expected {expectedNotificationsCount} notifications but saw {executionNotifications.Count}.");
+                        return;
+                    }
+
+                    if (executionNotifications?.Where(t => t.Message.Text.Contains("elapsed")).Count() != expectedNotificationsCount)
+                    {
+                        sb.AppendLine($"\t{trace} : did not observe term 'elapsed' in rule timing notifications.");
+                    }
+
+                    if (executionNotifications?.GroupBy(t => t.AssociatedRule.Id).Count() != rulesCount)
+                    {
+                        sb.AppendLine($"\t{trace} : did not observe timing notifications for every rule.");
+                    }
+
+                    break;
                 }
             }
-            sb.Length.Should().Be(0, $"test cases failed : {Environment.NewLine}{sb}");
         }
 
         [Fact]
@@ -757,23 +828,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             string location = GetThisTestAssemblyFilePath();
             Run run = AnalyzeFile(location, TestRuleBehaviors.LogError);
 
-            int resultCount = 0;
-            int toolNotificationCount = 0;
-            int configurationNotificationCount = 0;
-
-            SarifHelpers.ValidateRun(
-                run,
-                (issue) => { resultCount++; },
-                (toolNotification) => { toolNotificationCount++; },
-                (configurationNotification) => { configurationNotificationCount++; });
+            run.Invocations?[0].ToolExecutionNotifications.Should().BeNull();
+            run.Invocations?[0].ToolConfigurationNotifications.Should().BeNull();
 
             // As configured by injected TestRuleBehaviors, we should
             // see an error per scan target (one file in this case).
-            resultCount.Should().Be((int)TestRule.ErrorsCount.DefaultValue());
+            run.Results?.Count.Should().Be((int)TestRule.ErrorsCount.DefaultValue());
             run.Results[0].Kind.Should().Be(ResultKind.Fail);
-
-            toolNotificationCount.Should().Be(0);
-            configurationNotificationCount.Should().Be(0);
         }
 
         [Fact]
@@ -1019,23 +1080,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
             Run run = AnalyzeFile(location, TestRuleBehaviors.LogError);
 
-            int resultCount = 0;
-            int toolNotificationCount = 0;
-            int configurationNotificationCount = 0;
-
-            SarifHelpers.ValidateRun(
-                run,
-                (issue) => { resultCount++; },
-                (toolNotification) => { toolNotificationCount++; },
-                (configurationNotification) => { configurationNotificationCount++; });
+            run.Invocations?[0].ToolExecutionNotifications.Should().BeNull();
+            run.Invocations?[0].ToolConfigurationNotifications.Should().BeNull();
 
             // As configured by the inject TestRuleBehaviors value, we should see
             // an error for every scan target (of which there is one file in this test).
-            resultCount.Should().Be((int)TestRule.ErrorsCount.DefaultValue());
+            run.Results.Count.Should().Be((int)TestRule.ErrorsCount.DefaultValue());
             run.Results[0].Level.Should().Be(FailureLevel.Error);
-
-            toolNotificationCount.Should().Be(0);
-            configurationNotificationCount.Should().Be(0);
         }
 
         [Fact]
@@ -1054,22 +1105,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
                 Run run = AnalyzeFile(location, configFileName: path);
 
-                int resultCount = 0;
-                int toolNotificationCount = 0;
-                int configurationNotificationCount = 0;
+                run.Invocations?[0].ToolExecutionNotifications.Should().BeNull();
+                run.Invocations?[0].ToolConfigurationNotifications.Should().BeNull();
 
-                SarifHelpers.ValidateRun(
-                    run,
-                    (issue) => { resultCount++; },
-                    (toolNotification) => { toolNotificationCount++; },
-                    (configurationNotification) => { configurationNotificationCount++; });
-
-                // As configured by context, we should see a single error raised.
-                resultCount.Should().Be((int)TestRule.ErrorsCount.DefaultValue());
+                // As configured by injected TestRuleBehaviors, we should
+                // see an error per scan target (one file in this case).
+                run.Results?.Count.Should().Be((int)TestRule.ErrorsCount.DefaultValue());
                 run.Results.Count((result) => result.Level == FailureLevel.Error).Should().Be((int)TestRule.ErrorsCount.DefaultValue());
-
-                toolNotificationCount.Should().Be(0);
-                configurationNotificationCount.Should().Be(0);
             }
             finally
             {
@@ -1095,39 +1137,34 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                     runtimeConditions: RuntimeConditions.RuleWasExplicitlyDisabled | RuntimeConditions.NoRulesLoaded,
                     expectedReturnCode: FAILURE);
 
-                int resultCount = 0;
-                int toolNotificationCount = 0;
-                int configurationNotificationCount = 0;
-
-                SarifHelpers.ValidateRun(
-                    run,
-                    (issue) => { resultCount++; },
-                    (toolNotification) => { toolNotificationCount++; },
-                    (configurationNotification) => { configurationNotificationCount++; });
-
-                // When rules are disabled, we expect a configuration warning for each
-                // disabled check that documents it was turned off for the analysis.
-                resultCount.Should().Be(0);
-
-                // Three notifications. One for each disabled rule, i.e. SimpleTestRule
-                // and SimpleTestRule + an error notification that all rules have been disabled
-                configurationNotificationCount.Should().Be(3);
-
                 run.Invocations.Should().NotBeNull();
                 run.Invocations.Count.Should().Be(1);
-
-                // Error: all rules were disabled
-                run.Invocations[0].ToolConfigurationNotifications.Count((notification) => notification.Level == FailureLevel.Error).Should().Be(1);
-                run.Invocations[0].ToolConfigurationNotifications.Count((notification) => notification.Descriptor.Id == Errors.ERR997_AllRulesExplicitlyDisabled).Should().Be(1);
-
-                // Warnings: one per disabled rule.
-                run.Invocations[0].ToolConfigurationNotifications.Count((notification) => notification.Level == FailureLevel.Warning).Should().Be(2);
-                run.Invocations[0].ToolConfigurationNotifications.Where((notification) => notification.Descriptor.Id == Warnings.Wrn999_RuleExplicitlyDisabled).Count().Should().Be(2);
 
                 // We raised a notification error, which means the invocation failed.
                 run.Invocations[0].ExecutionSuccessful.Should().Be(false);
 
-                toolNotificationCount.Should().Be(0);
+                // When rules are disabled, we expect a configuration warning for each
+                // disabled check that documents it was turned off for the analysis.
+                run.Results.Count.Should().Be(0);
+
+                IList<Notification> toolExecutionNotifications = run.Invocations?[0].ToolExecutionNotifications;
+                toolExecutionNotifications.Should().BeNull();
+
+                IList<Notification> toolConfigurationNotifications = run.Invocations?[0].ToolConfigurationNotifications;
+                toolConfigurationNotifications.Should().NotBeNull();
+                
+                // Three notifications. One for each disabled rule, i.e. SimpleTestRule
+                // and SimpleTestRule + an error notification that all rules have been disabled
+                toolConfigurationNotifications.Count.Should().Be(3);
+
+
+                // Error: all rules were disabled
+                toolConfigurationNotifications.Count((notification) => notification.Level == FailureLevel.Error).Should().Be(1);
+                toolConfigurationNotifications.Count((notification) => notification.Descriptor.Id == Errors.ERR997_AllRulesExplicitlyDisabled).Should().Be(1);
+
+                // Warnings: one per disabled rule.
+                toolConfigurationNotifications.Count((notification) => notification.Level == FailureLevel.Warning).Should().Be(2);
+                toolConfigurationNotifications.Where((notification) => notification.Descriptor.Id == Warnings.Wrn999_RuleExplicitlyDisabled).Count().Should().Be(2);
             }
             finally
             {
@@ -1821,6 +1858,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                     ? Environment.CurrentDirectory + Path.DirectorySeparatorChar + files[i]
                     : files[i];
                 string fileNameWithoutExtension = Path.GetFileNameWithoutExtension(fullyQualifiedName);
+
+                mockFileSystem.Setup(x => x.FileExists(It.Is<string>(f => f == fullyQualifiedName))).Returns(true);
+
                 mockFileSystem.Setup(x => x.FileReadAllText(It.Is<string>(f => f == fullyQualifiedName))).Returns(logFileContents);
 
                 mockFileSystem.Setup(x => x.FileOpenRead(It.Is<string>(f => f == fullyQualifiedName)))
@@ -1912,6 +1952,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
                 var context = new TestAnalysisContext { FileSystem = testCase.FileSystem };
                 int result = command.Run(options, ref context);
+
+                if (expectedResultCode == CommandBase.SUCCESS)
+                {
+                    ValidateCommandExecution(context, result);
+                }
 
                 SarifLog sarifLog = JsonConvert.DeserializeObject<SarifLog>(File.ReadAllText(options.OutputFilePath));
 
@@ -2189,23 +2234,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 expectedReturnCode: expectedReturnCode,
                 runtimeConditions: runtimeConditions);
 
-            int resultCount = 0;
-            int toolNotificationCount = 0;
-            int configurationNotificationCount = 0;
-
-            SarifHelpers.ValidateRun(
-                run,
-                (issue) => { resultCount++; },
-                (toolNotification) => { toolNotificationCount++; },
-                (configurationNotification) => { configurationNotificationCount++; });
+            run.Invocations?[0].ToolExecutionNotifications.Should().BeNull();
+            run.Invocations?[0].ToolConfigurationNotifications.Should().BeNull();
 
             // As configured by injected TestRuleBehaviors, we should
             // see an error per scan target (one file in this case).
-            resultCount.Should().Be((int)TestRule.ErrorsCount.DefaultValue());
+            run.Results.Count.Should().Be((int)TestRule.ErrorsCount.DefaultValue());
             run.Results[0].Kind.Should().Be(ResultKind.Fail);
-
-            toolNotificationCount.Should().Be(0);
-            configurationNotificationCount.Should().Be(0);
         }
     }
 }
