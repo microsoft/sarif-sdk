@@ -30,7 +30,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         public void RebaseUriCommand_InjectsRegions()
         {
             string productDirectory = ProductRootDirectory;
-            string analysisFile = Path.Combine(productDirectory, "src", "ReleaseHistory.md");
+            string analysisFile = Path.Combine(productDirectory, "ReleaseHistory.md");
             File.Exists(analysisFile).Should().BeTrue();
 
             var sarifLog = new SarifLog
@@ -112,9 +112,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             {
                 BasePath = @"C:\vs\src\2\s\",
                 BasePathToken = "SRCROOT",
-                Inline = true,
                 SarifOutputVersion = SarifVersion.Current,
-                PrettyPrint = true
+                OutputFileOptions = new[] { FilePersistenceOptions.Inline, FilePersistenceOptions.PrettyPrint },
             };
         }
 

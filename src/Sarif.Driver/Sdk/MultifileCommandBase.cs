@@ -51,7 +51,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
             valid &= options.ValidateOutputOptions();
 
-            valid &= DriverUtilities.ReportWhetherOutputFilesCanBeCreated(filesData.Select(f => f.OutputFilePath), options.Force, FileSystem);
+            valid &= DriverUtilities.ReportWhetherOutputFilesCanBeCreated(filesData.Select(f => f.OutputFilePath), options.ForceOverwrite, FileSystem);
 
             if (!options.Inline)
             {

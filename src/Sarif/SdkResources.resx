@@ -139,7 +139,7 @@
     <value>Line number supplied was out of range [1, numberOfLinesInFile + 1)</value>
   </data>
   <data name="MSG001_AnalyzingTarget" xml:space="preserve">
-    <value>Analyzing '{0}'...</value>
+    <value>Analyzing '{0}'.</value>
   </data>
   <data name="WRN997_InvalidTarget" xml:space="preserve">
     <value>'{0}' was not analyzed as it does not appear to be a valid file type for analysis.</value>
@@ -243,7 +243,7 @@
   <data name="ERR997_AllRulesExplicitlyDisabled" xml:space="preserve">
     <value>All rules were explicitly disabled so there is no work to do.</value>
   </data>
-  <data name="ERR997_OutputFileAlreadyExists" xml:space="preserve">
+  <data name="ERR997_FileAlreadyExists" xml:space="preserve">
     <value>The output file '{0}' already exists. Use --force to overwrite.</value>
   </data>
   <data name="PartioningVisitHappensAtSarifLogLevel" xml:space="preserve">
@@ -282,12 +282,24 @@ You can also refer to properties in the result's property bag with 'properties.&
     <value>No plugins were configured or successfully located and so no rules were loaded.</value>
   </data>
   <data name="WRN997_OneOrMoreFilesSkippedDueToSize" xml:space="preserve">
-    <value>One or more files were skipped for analysis due to exceeding size limits (currently configured as {0} KB). The 'max-file-size-in-kb' command-line argument can be used to increase this threshold.</value>
+    <value>{0} file(s) were skipped for analysis due to exceeding size limits (currently configured as {1} KB). The 'max-file-size-in-kb' command-line argument can be used to increase this threshold.</value>
   </data>
-  <data name="WRN997.FileSkippedDueToSize" xml:space="preserve">
+  <data name="MSG002.FileSkippedDueToSize" xml:space="preserve">
     <value>'{0}' was not analyzed as its size ({1} kilobytes) exceeds the currently configured threshold ({2} kilobytes).</value>
   </data>
   <data name="ERR997_IncompatibleRulesDetected" xml:space="preserve">
     <value>The current configuration enables rules that are not compatible ('{0}' has declared that it is not compatible with '{1}'). You can selectively disable one of the rules using an updated XML configuration (passed by the --config argument).</value>
+  </data>
+  <data name="ERR997_MissingCommandlineArgument" xml:space="preserve">
+    <value>The {0} argument(s) must be specified when using {1}.</value>
+  </data>
+  <data name="ERR999_AnalysisCanceled" xml:space="preserve">
+    <value>Analysis was canceled.</value>
+  </data>
+  <data name="ERR999_AnalysisTimedOut" xml:space="preserve">
+    <value>Analysis timed out. Timeout specified was {0}).</value>
+  </data>
+  <data name="MSG001_TargetAnalyzed" xml:space="preserve">
+    <value>Completed '{0}'.</value>
   </data>
 </root>

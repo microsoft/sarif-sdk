@@ -142,6 +142,9 @@ namespace Microsoft.CodeAnalysis.Sarif
             return region;
         }
 
+        internal const int BIGSNIPPETLENGTH = 512;
+        internal const int SMALLSNIPPETLENGTH = 128;
+
         public Region ConstructMultilineContextSnippet(Region inputRegion, Uri uri, string fileText = null)
         {
             if (inputRegion?.IsBinaryRegion != false)
@@ -156,11 +159,15 @@ namespace Microsoft.CodeAnalysis.Sarif
                 return null;
             }
 
-            const int bigSnippetLength = 512;
-            const int smallSnippetLength = 128;
+            fileText ??= newLineIndex.Text;
 
             // Generating full inputRegion to prevent issues.
-            Region originalRegion = this.PopulateTextRegionProperties(inputRegion, uri, populateSnippet: true);
+            Region originalRegion = this.PopulateTextRegionProperties(inputRegion, uri, populateSnippet: true, fileText);
+
+            if (originalRegion.CharLength >= BIGSNIPPETLENGTH)
+            {
+                return originalRegion.DeepClone();
+            }
 
             int maxLineNumber = newLineIndex.MaximumLineNumber;
 
@@ -171,10 +178,10 @@ namespace Microsoft.CodeAnalysis.Sarif
             };
 
             // Generating multilineRegion with one line before and after.
-            Region multilineContextSnippet = this.PopulateTextRegionProperties(region, uri, populateSnippet: true);
+            Region multilineContextSnippet = this.PopulateTextRegionProperties(region, uri, populateSnippet: true, fileText);
 
             if (originalRegion.CharLength <= multilineContextSnippet.CharLength &&
-                multilineContextSnippet.CharLength <= bigSnippetLength)
+                multilineContextSnippet.CharLength <= BIGSNIPPETLENGTH)
             {
                 return multilineContextSnippet;
             }
@@ -184,17 +191,13 @@ namespace Microsoft.CodeAnalysis.Sarif
             region.EndColumn = 0;
             region.StartLine = 0;
             region.EndLine = 0;
-            region.CharOffset = originalRegion.CharOffset < smallSnippetLength
-                ? 0
-                : originalRegion.CharOffset - smallSnippetLength;
+            region.CharOffset = Math.Max(0, originalRegion.CharOffset - SMALLSNIPPETLENGTH);
 
-            region.CharLength = originalRegion.CharLength + region.CharOffset + smallSnippetLength < newLineIndex.Text.Length
-                ? originalRegion.CharLength + smallSnippetLength + Math.Abs(region.CharOffset - originalRegion.CharOffset)
-                : newLineIndex.Text.Length - region.CharOffset;
+            region.CharLength = Math.Min(BIGSNIPPETLENGTH, fileText.Length - region.CharOffset);
 
-            // Generating  multineRegion with 128 characters to the left and right from the
+            // Generating multiline region with 128 characters to the left and right from the
             // originalRegion if possible.
-            multilineContextSnippet = this.PopulateTextRegionProperties(region, uri, populateSnippet: true);
+            multilineContextSnippet = this.PopulateTextRegionProperties(region, uri, populateSnippet: true, fileText);
 
             // We can't generate a contextRegion which is smaller than the original region.
             Debug.Assert(originalRegion.CharLength <= multilineContextSnippet.CharLength);

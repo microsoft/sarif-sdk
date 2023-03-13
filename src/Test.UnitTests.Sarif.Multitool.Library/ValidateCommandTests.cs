@@ -2,6 +2,7 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System.Collections.Generic;
+using System.ComponentModel.Design.Serialization;
 using System.IO;
 
 using FluentAssertions;
@@ -42,9 +43,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             string logFilePath = Path.Combine(LogFileDirectoryWithSpace, LogFileName);
 
             var mockFileSystem = new Mock<IFileSystem>();
+            mockFileSystem.Setup(x => x.FileInfoLength(It.IsAny<string>())).Returns(1024);
             mockFileSystem.Setup(x => x.DirectoryExists(LogFileDirectoryWithSpace)).Returns(true);
-            mockFileSystem.Setup(x => x.DirectoryEnumerateFiles(It.IsAny<string>())).Returns(new string[0]);
-            mockFileSystem.Setup(x => x.DirectoryGetFiles(LogFileDirectoryWithSpace, LogFileName)).Returns(new string[] { logFilePath });
+            mockFileSystem.Setup(x => x.DirectoryEnumerateFiles(LogFileDirectoryWithSpace, It.IsAny<string>(), SearchOption.TopDirectoryOnly)).Returns(new[] { LogFileName });
             mockFileSystem.Setup(x => x.FileReadAllText(logFilePath)).Returns(RewriteCommandTests.MinimalCurrentV2Text);
             mockFileSystem.Setup(x => x.FileReadAllText(SchemaFilePath)).Returns(SchemaFileContents);
 
@@ -58,7 +59,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 Level = new List<FailureLevel> { FailureLevel.Warning, FailureLevel.Error }
             };
 
-            int returnCode = validateCommand.Run(options);
+            var context = new SarifValidationContext { FileSystem = mockFileSystem.Object };
+            int returnCode = validateCommand.Run(options, ref context);
+            context.RuntimeErrors.Should().Be(RuntimeConditions.OneOrMoreWarningsFired);
             returnCode.Should().Be(0);
         }
 
@@ -87,9 +90,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 Level = new List<FailureLevel> { FailureLevel.Warning, FailureLevel.Error }
             };
 
-            int returnCode = validateCommand.Run(options);
+            SarifValidationContext context = null;
+            int returnCode = validateCommand.Run(options, ref context);
             returnCode.Should().Be(1);
-            validateCommand.ExecutionException.Should().BeOfType<ExitApplicationException<ExitReason>>();
+            context.RuntimeExceptions[0].Should().BeOfType<ExitApplicationException<ExitReason>>();
         }
 
         [Fact]
@@ -138,14 +142,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             {
                 TargetFileSpecifiers = new string[] { path },
                 OutputFilePath = outputPath,
-                Force = true,
+                OutputFileOptions = new[] { FilePersistenceOptions.ForceOverwrite },
                 ConfigurationFilePath = configuration,
                 Kind = new List<ResultKind> { ResultKind.Fail },
                 Level = new List<FailureLevel> { FailureLevel.Warning, FailureLevel.Error }
             };
 
             // Verify command returned success
-            int returnCode = new ValidateCommand().Run(options);
+            var context = new SarifValidationContext { FileSystem = FileSystem.Instance };
+            int returnCode = new ValidateCommand().Run(options, ref context);
+            (context.RuntimeErrors & ~RuntimeConditions.Nonfatal).Should().Be(0);
             returnCode.Should().Be(0);
 
             return SarifLog.Load(outputPath);

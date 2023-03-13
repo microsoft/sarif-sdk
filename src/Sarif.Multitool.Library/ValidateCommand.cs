@@ -1,6 +1,7 @@
 ﻿// Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
@@ -15,10 +16,12 @@ using Newtonsoft.Json;
 namespace Microsoft.CodeAnalysis.Sarif.Multitool
 {
 #pragma warning disable CS0618
-    public class ValidateCommand : AnalyzeCommandBase<SarifValidationContext, ValidateOptions>
+    public class ValidateCommand : MultithreadedAnalyzeCommandBase<SarifValidationContext, ValidateOptions>
 #pragma warning restore CS0618
     {
         private List<Assembly> _defaultPlugInAssemblies;
+
+        protected override IFileSystem FileSystem => throw new InvalidOperationException();
 
         public ValidateCommand(IFileSystem fileSystem = null) : base(fileSystem)
         {
@@ -40,23 +43,26 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             }
         }
 
-        protected override SarifValidationContext CreateContext(
-            ValidateOptions options,
-            IAnalysisLogger logger,
-            RuntimeConditions runtimeErrors,
-            PropertiesDictionary policy = null,
-            string filePath = null)
+        protected override SarifValidationContext CreateContext(ValidateOptions options,
+                                                                IAnalysisLogger logger,
+                                                                RuntimeConditions runtimeErrors,
+                                                                IFileSystem fileSystem,
+                                                                PropertiesDictionary policy = null)
         {
-            SarifValidationContext context = base.CreateContext(options, logger, runtimeErrors, policy, filePath);
-            context.SchemaFilePath = options.SchemaFilePath;
-            context.UpdateInputsToCurrentSarif = options.UpdateInputsToCurrentSarif;
+            SarifValidationContext context = base.CreateContext(options, logger, runtimeErrors, fileSystem, policy);
+
+            if (options != null)
+            {
+                context.SchemaFilePath = options.SchemaFilePath;
+                context.UpdateInputsToCurrentSarif = options.UpdateInputsToCurrentSarif;
+            }
+
             return context;
         }
 
-        protected override void AnalyzeTarget(
-            IEnumerable<Skimmer<SarifValidationContext>> skimmers,
-            SarifValidationContext context,
-            ISet<string> disabledSkimmers)
+        protected override void AnalyzeTarget(SarifValidationContext context,
+                                              IEnumerable<Skimmer<SarifValidationContext>> skimmers,
+                                              ISet<string> disabledSkimmers)
         {
             // The base class knows how to invoke the skimmers that implement smart validation,
             // but it doesn't know how to invoke schema validation, which has its own set of rules,
@@ -64,7 +70,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             //
             // Validate will return an empty file if there are any JSON syntax errors. 
             // In that case there's no point in going on.
-            string sarifText = Validate(context.TargetUri.LocalPath, context.SchemaFilePath, context.Logger, context.UpdateInputsToCurrentSarif);
+            string sarifText =
+                Validate(context.CurrentTarget.Uri.GetFilePath(),
+                         context.SchemaFilePath,
+                         context.Logger,
+                         context.FileSystem,
+                         context.UpdateInputsToCurrentSarif);
 
             if (!string.IsNullOrEmpty(sarifText))
             {
@@ -74,7 +85,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 if (context.InputLog != null)
                 {
                     // Everything's ready, so run all the skimmers.
-                    base.AnalyzeTarget(skimmers, context, disabledSkimmers);
+                    base.AnalyzeTarget(context, skimmers, disabledSkimmers);
                 }
             }
         }
@@ -99,13 +110,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             string instanceFilePath,
             string schemaFilePath,
             IAnalysisLogger logger,
+            IFileSystem fileSystem,
             bool updateToCurrentSarifVersion = true)
         {
             string instanceText = null;
 
             try
             {
-                instanceText = FileSystem.FileReadAllText(instanceFilePath);
+                instanceText = fileSystem.FileReadAllText(instanceFilePath);
 
                 if (updateToCurrentSarifVersion)
                 {

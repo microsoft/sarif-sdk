@@ -14,32 +14,36 @@ namespace Microsoft.CodeAnalysis.Sarif
     {
         // Configuration errors:
         private const string ERR997_MissingFile = "ERR997.MissingFile";
+        private const string ERR997_MissingCommandlineArgument = "ERR997.MissingCommandlineArgument";
+
         private const string ERR997_NoRulesLoaded = "ERR997.NoRulesLoaded";
+        private const string ERR997_FileAlreadyExists = "ERR997.FileAlreadyExists";
         internal const string ERR997_NoPluginsConfigured = "ERR997.NoPluginsConfigured";
         private const string ERR997_ExceptionLoadingPlugIn = "ERR997.ExceptionLoadingPlugIn";
         private const string ERR997_NoValidAnalysisTargets = "ERR997.NoValidAnalysisTargets";
         private const string ERR997_ExceptionAccessingFile = "ERR997.ExceptionAccessingFile";
         private const string ERR997_ExceptionCreatingLogFile = "ERR997.ExceptionCreatingLogFile";
+        internal const string ERR997_IncompatibleRulesDetected = "ERR997.IncompatibleRulesDetected";
         internal const string ERR997_AllRulesExplicitlyDisabled = "ERR997.AllRulesExplicitlyDisabled";
         private const string ERR997_InvalidInvocationPropertyName = "ERR997.InvalidInvocationPropertyName";
         private const string ERR997_MissingReportingConfiguration = "ERR997.MissingReportingConfiguration";
         private const string ERR997_ExceptionLoadingAnalysisTarget = "ERR997.ExceptionLoadingAnalysisTarget";
         private const string ERR997_ExceptionInstantiatingSkimmers = "ERR997.ExceptionInstantiatingSkimmers";
-        private const string ERR997_OutputFileAlreadyExists = "ERR997.OutputFileAlreadyExists";
-        internal const string ERR997_IncompatibleRulesDetected = "ERR997.IncompatibleRulesDetected";
 
         // Rule disabling tool errors:
+        private const string ERR998_ExceptionInAnalyze = "ERR998.ExceptionInAnalyze";
         private const string ERR998_ExceptionInCanAnalyze = "ERR998.ExceptionInCanAnalyze";
         private const string ERR998_ExceptionInInitialize = "ERR998.ExceptionInInitialize";
-        private const string ERR998_ExceptionInAnalyze = "ERR998.ExceptionInAnalyze";
 
         // Analysis halting tool errors:
+        private const string ERR999_AnalysisCanceled = "ERR999.AnalysisCanceled";
+        private const string ERR999_AnalysisTimedOut = "ERR999.AnalysisTimedOut";
         private const string ERR999_UnhandledEngineException = "ERR999.UnhandledEngineException";
 
         // Parse errors:
         private const string ERR1000_ParseError = "ERR1000.ParseError";
 
-        public static void LogExceptionLoadingTarget(IAnalysisContext context)
+        public static void LogExceptionLoadingTarget(IAnalysisContext context, Exception exception)
         {
             if (context == null)
             {
@@ -48,20 +52,20 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             context.RuntimeErrors |= RuntimeConditions.ExceptionLoadingTargetFile;
 
-            string message = context.TargetLoadException.Message;
-            string exceptionType = context.TargetLoadException.GetType().Name;
+            string message = exception.Message;
+            string exceptionType = exception.GetType().Name;
 
             // Could not load analysis target '{0}' ({1} : '{2}').
             context.Logger.LogConfigurationNotification(
                 CreateNotification(
-                    context.TargetUri,
+                    context.CurrentTarget.Uri,
                     ERR997_ExceptionLoadingAnalysisTarget,
                     ruleId: null,
                     FailureLevel.Error,
-                    context.TargetLoadException,
+                    exception,
                     persistExceptionStack: true,
                     messageFormat: null,
-                    context.TargetUri.GetFileName(),
+                    context.CurrentTarget.Uri.GetFileName(),
                     exceptionType,
                     message));
         }
@@ -84,7 +88,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             // Could not instantiate skimmers from the following plugins: {0}
             context.Logger.LogConfigurationNotification(
                 CreateNotification(
-                    context.TargetUri,
+                    uri: null,
                     ERR997_ExceptionInstantiatingSkimmers,
                     ruleId: null,
                     FailureLevel.Error,
@@ -106,7 +110,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             // No analysis rules could be instantiated.
             context.Logger.LogConfigurationNotification(
                 CreateNotification(
-                    context.TargetUri,
+                    uri: null,
                     ERR997_NoRulesLoaded,
                     ruleId: null,
                     FailureLevel.Error,
@@ -127,7 +131,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             // All rules were explicitly disabled so there is no work to do.
             context.Logger.LogConfigurationNotification(
                 CreateNotification(
-                    context.TargetUri,
+                    uri: null,
                     ERR997_AllRulesExplicitlyDisabled,
                     ruleId: null,
                     FailureLevel.Error,
@@ -147,7 +151,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             // No analysis plugins were configured, therefore no rules loaded.
             context.Logger.LogConfigurationNotification(
                     Errors.CreateNotification(
-                        context.TargetUri,
+                        null,
                         ERR997_NoPluginsConfigured,
                         ruleId: null,
                         FailureLevel.Error,
@@ -169,7 +173,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             // No valid analysis targets were specified.
             context.Logger.LogConfigurationNotification(
                 CreateNotification(
-                    context.TargetUri,
+                    uri: null,
                     ERR997_NoValidAnalysisTargets,
                     ruleId: null,
                     FailureLevel.Error,
@@ -191,7 +195,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             // Could not create output file: '{0}'
             context.Logger.LogConfigurationNotification(
                 CreateNotification(
-                    context.TargetUri,
+                    uri: null,
                     ERR997_ExceptionCreatingLogFile,
                     ruleId: null,
                     FailureLevel.Error,
@@ -213,7 +217,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             // A required file specified on the command line could not be found: '{0}'. 
             context.Logger.LogConfigurationNotification(
                 CreateNotification(
-                    context.TargetUri,
+                    uri: null,
                     ERR997_MissingFile,
                     ruleId: null,
                     FailureLevel.Error,
@@ -221,6 +225,30 @@ namespace Microsoft.CodeAnalysis.Sarif
                     persistExceptionStack: false,
                     messageFormat: null,
                     fileName));
+        }
+
+        public static void LogMissingCommandlineArgument(IAnalysisContext context, string missing, string required)
+        {
+            if (context == null)
+            {
+                throw new ArgumentNullException(nameof(context));
+            }
+
+            context.RuntimeErrors |= RuntimeConditions.InvalidCommandLineOption;
+
+            // The {0} argument(s) must be specified when using {1}.
+            context.Logger.LogConfigurationNotification(
+                CreateNotification(
+                    uri: null,
+                    ERR997_MissingCommandlineArgument,
+                    ruleId: null,
+                    FailureLevel.Error,
+                    exception: null,
+                    persistExceptionStack: false,
+                    messageFormat: null,
+                    missing,
+                    required));
+
         }
 
         public static void LogExceptionAccessingFile(IAnalysisContext context, string fileName, Exception exception)
@@ -235,7 +263,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             // Could not access a file specified on the command-line: '{0}'.
             context.Logger.LogConfigurationNotification(
                 CreateNotification(
-                    context.TargetUri,
+                    uri: null,
                     ERR997_ExceptionAccessingFile,
                     ruleId: null,
                     FailureLevel.Error,
@@ -257,7 +285,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             // '{0}' is not a property of the Invocation object.
             context.Logger.LogConfigurationNotification(
                 CreateNotification(
-                    context.TargetUri,
+                    uri: null,
                     ERR997_InvalidInvocationPropertyName,
                     ruleId: null,
                     FailureLevel.Error,
@@ -289,7 +317,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             // necessary, and passed back into the tool.
             string message = string.Format(CultureInfo.InvariantCulture, SdkResources.ERR997_MissingReportingConfiguration,
                 context.Rule.Name,
-                context.TargetUri.GetFileName(),
+                context.CurrentTarget.Uri.GetFileName(),
                 reasonForNotAnalyzing,
                 exeName);
 
@@ -304,7 +332,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                             {
                                 ArtifactLocation = new ArtifactLocation
                                 {
-                                    Uri = context.TargetUri
+                                    Uri = context.CurrentTarget.Uri
                                 },
                             }
                         }
@@ -334,7 +362,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             // Could not load plug-in '{0}'.
             context.Logger.LogConfigurationNotification(
                 CreateNotification(
-                    context.TargetUri,
+                    uri: null,
                     ERR997_ExceptionLoadingPlugIn,
                     ruleId: null,
                     FailureLevel.Error,
@@ -344,25 +372,26 @@ namespace Microsoft.CodeAnalysis.Sarif
                     pluginFilePath));
         }
 
-        public static void LogOutputFileAlreadyExists(IAnalysisContext context, string outputFilePath)
+        public static void LogFileAlreadyExists(IAnalysisContext context, string filePath)
         {
             if (context == null)
             {
                 throw new ArgumentNullException(nameof(context));
             }
 
-            context.RuntimeErrors |= RuntimeConditions.OutputFileAlreadyExists;
+            context.RuntimeErrors |= RuntimeConditions.FileAlreadyExists;
 
+            // The output file '{0}' already exists. Use --force to overwrite.
             context.Logger.LogConfigurationNotification(
                 CreateNotification(
-                    context.TargetUri,
-                    ERR997_OutputFileAlreadyExists,
+                    uri: null,
+                    ERR997_FileAlreadyExists,
                     ruleId: null,
                     FailureLevel.Error,
                     exception: null,
                     persistExceptionStack: false,
                     messageFormat: null,
-                    outputFilePath));
+                    filePath));
         }
 
         public static void LogTargetParseError(IAnalysisContext context, Region region, string message)
@@ -377,14 +406,14 @@ namespace Microsoft.CodeAnalysis.Sarif
             // {0}({1}): error {2}: {3}
             context.Logger.LogConfigurationNotification(
                 CreateNotification(
-                    context.TargetUri,
+                    context.CurrentTarget.Uri,
                     ERR1000_ParseError,
                     ruleId: null,
                     FailureLevel.Error,
                     exception: null,
                     persistExceptionStack: false,
                     messageFormat: null,
-                    context.TargetUri.LocalPath,
+                    context.CurrentTarget.Uri.GetFileName(),
                     region.FormatForVisualStudio(),
                     ERR1000_ParseError,
                     message));
@@ -409,14 +438,14 @@ namespace Microsoft.CodeAnalysis.Sarif
             // the rule, however.
             context.Logger.LogToolNotification(
                 CreateNotification(
-                    context.TargetUri,
+                    context.CurrentTarget.Uri,
                     ERR998_ExceptionInCanAnalyze,
                     context.Rule.Id,
                     FailureLevel.Error,
                     exception,
                     persistExceptionStack: true,
                     messageFormat: null,
-                    context.TargetUri.GetFileName(),
+                    context.CurrentTarget.Uri.GetFileName(),
                     context.Rule.Name));
 
             if (disabledSkimmers != null)
@@ -441,7 +470,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             // has been disabled for the remainder of the analysis.
             context.Logger.LogToolNotification(
                 CreateNotification(
-                context.TargetUri,
+                uri: null,
                 ERR998_ExceptionInInitialize,
                 context.Rule.Id,
                 FailureLevel.Error,
@@ -471,7 +500,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             // specific to the rule, however.
             context.Logger.LogToolNotification(
                 CreateNotification(
-                    context.TargetUri,
+                    context.CurrentTarget.Uri,
                     ERR998_ExceptionInAnalyze,
                     context.Rule.Id,
                     FailureLevel.Error,
@@ -479,7 +508,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                     persistExceptionStack: true,
                     messageFormat: null,
                     exception.GetType().Name,
-                    context.TargetUri.GetFileName(),
+                    context.CurrentTarget.Uri.GetFileName(),
                     context.Rule.Name),
                     context.Rule);
 
@@ -494,9 +523,11 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         public static void LogUnhandledEngineException(IAnalysisContext context, Exception exception)
         {
-            if (context == null)
+            if (context?.Logger == null)
             {
-                throw new ArgumentNullException(nameof(context));
+                // TBD construct a notification and emit it directly to console.
+                Console.Error.WriteLine(exception.ToString());
+                return;
             }
 
             context.RuntimeErrors |= RuntimeConditions.ExceptionInEngine;
@@ -504,7 +535,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             // An unhandled exception was raised during analysis.
             context.Logger.LogToolNotification(
                 CreateNotification(
-                    context.TargetUri,
+                    context.CurrentTarget?.Uri,
                     ERR999_UnhandledEngineException,
                     ruleId: null,
                     FailureLevel.Error,
@@ -527,7 +558,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             // configuration (passed by the --config argument).
             context.Logger.LogConfigurationNotification(
                 CreateNotification(
-                    context.TargetUri,
+                    uri: null,
                     ERR997_IncompatibleRulesDetected,
                     ruleId: null,
                     FailureLevel.Error,
@@ -540,15 +571,14 @@ namespace Microsoft.CodeAnalysis.Sarif
             context.RuntimeErrors |= RuntimeConditions.OneOrMoreRulesAreIncompatible;
         }
 
-        public static Notification CreateNotification(
-            Uri uri,
-            string notificationId,
-            string ruleId,
-            FailureLevel level,
-            Exception exception,
-            bool persistExceptionStack,
-            string messageFormat,
-            params string[] args)
+        public static Notification CreateNotification(Uri uri,
+                                                      string notificationId,
+                                                      string ruleId,
+                                                      FailureLevel level,
+                                                      Exception exception,
+                                                      bool persistExceptionStack,
+                                                      string messageFormat,
+                                                      params string[] args)
         {
             messageFormat ??= GetMessageFormatResourceForNotification(notificationId);
 
@@ -583,8 +613,9 @@ namespace Microsoft.CodeAnalysis.Sarif
                     }
                 },
                 Level = level,
-                Message = new Message { Text = message },
+                //TimeUtc = DateTime.UtcNow,
                 Exception = exceptionData,
+                Message = new Message { Text = message },
             };
 
             if (!string.IsNullOrWhiteSpace(notificationId))
@@ -613,6 +644,58 @@ namespace Microsoft.CodeAnalysis.Sarif
             return (string)typeof(SdkResources)
                             .GetProperty(resourceName, BindingFlags.Public | BindingFlags.Static)
                             .GetValue(obj: null, index: null);
+        }
+
+        internal static void LogAnalysisCanceled<TContext>(TContext context, OperationCanceledException ex) where TContext : IAnalysisContext, new()
+        {
+            if (context.RuntimeErrors.HasFlag(RuntimeConditions.AnalysisCanceled))
+            {
+                return;
+            }
+
+            lock (context)
+            {
+                // If we've already emitted the canceled message, don't repeat it.
+                if (!context.RuntimeErrors.HasFlag(RuntimeConditions.AnalysisCanceled))
+                {
+                    // Analysis was canceled.
+                    context.Logger.LogConfigurationNotification(
+                    CreateNotification(
+                            uri: null,
+                            ERR999_AnalysisCanceled,
+                            ruleId: null,
+                            FailureLevel.Error,
+                            exception: ex,
+                            persistExceptionStack: false,
+                            messageFormat: null));
+
+                    context.RuntimeErrors |= RuntimeConditions.AnalysisCanceled;
+                }
+            }
+        }
+
+        internal static void LogAnalysisTimedOut(IAnalysisContext context)
+        {
+            if (context == null)
+            {
+                throw new ArgumentNullException(nameof(context));
+            }
+
+            context.RuntimeErrors |= RuntimeConditions.AnalysisTimedOut;
+
+            string configuredTimeout = TimeSpan.FromMilliseconds(context.TimeoutInMilliseconds).ToString();
+
+            // Analysis timed out. Timeout specified was {0}).
+            context.Logger.LogConfigurationNotification(
+                CreateNotification(
+                    uri: null,
+                    ERR999_AnalysisTimedOut,
+                    ruleId: null,
+                    FailureLevel.Error,
+                    exception: null,
+                    persistExceptionStack: false,
+                    messageFormat: null,
+                    configuredTimeout));
         }
     }
 }

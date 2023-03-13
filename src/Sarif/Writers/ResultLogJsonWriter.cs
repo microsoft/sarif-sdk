@@ -73,6 +73,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             _jsonWriter.WriteStartObject(); // Begin: run
 
             _writeConditions |= Conditions.RunInitialized;
+            _jsonWriter.Flush();
         }
 
         /// <summary>
@@ -102,6 +103,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             }
 
             _writeConditions |= Conditions.FilesWritten;
+            _jsonWriter.Flush();
+
         }
 
         /// <summary>
@@ -131,6 +134,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             }
 
             _writeConditions |= Conditions.LogicalLocationsWritten;
+            _jsonWriter.Flush();
         }
 
         public void WriteInvocations(IEnumerable<Invocation> invocations)
@@ -151,6 +155,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             }
 
             _writeConditions |= Conditions.InvocationsWritten;
+            _jsonWriter.Flush();
         }
 
         public void WriteTool(Tool tool)
@@ -167,6 +172,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             SerializeIfNotNull(tool, "tool");
 
             _writeConditions |= Conditions.ToolWritten;
+            _jsonWriter.Flush();
         }
 
         public void OpenResults()
@@ -178,6 +184,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             _jsonWriter.WritePropertyName("results");
             _jsonWriter.WriteStartArray(); // Begin: results
             _writeConditions |= Conditions.ResultsInitialized;
+            _jsonWriter.Flush();
         }
 
         /// <summary>
@@ -214,6 +221,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             }
 
             _serializer.Serialize(_jsonWriter, result);
+            _jsonWriter.Flush();
         }
 
         /// <summary>
@@ -258,6 +266,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                     OpenResults();
                 }
             }
+            _jsonWriter.Flush();
         }
 
         public void CloseResults()
@@ -274,6 +283,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
             _jsonWriter.WriteEndArray();
             _writeConditions |= Conditions.ResultsClosed;
+            _jsonWriter.Flush();
         }
 
         public void CompleteRun()
@@ -360,6 +370,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             _jsonWriter.WriteEndObject(); // End: sarifLog
 
             _writeConditions |= Conditions.RunCompleted;
+            _jsonWriter.Flush();
         }
 
         /// <summary>Writes the log footer and closes the underlying <see cref="JsonWriter"/>.</summary>

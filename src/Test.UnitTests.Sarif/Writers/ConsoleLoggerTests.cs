@@ -47,8 +47,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
             var logger = new ConsoleLogger(quietConsole: false,
                                             toolName: tool,
-                                            levels: new List<FailureLevel> { FailureLevel.Warning, FailureLevel.Error },
-                                            kinds: new List<ResultKind> { ResultKind.Fail })
+                                            levels: BaseLogger.ErrorWarning,
+                                            kinds: BaseLogger.Fail)
             {
                 CaptureOutput = true
             };

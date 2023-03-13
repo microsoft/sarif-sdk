@@ -156,7 +156,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             try
             {
-                this.converter.ConvertToStandardFormat(toolFormat, inputFileName, generatedFileName, LogFilePersistenceOptions.OverwriteExistingOutputFile | LogFilePersistenceOptions.PrettyPrint);
+                this.converter.ConvertToStandardFormat(toolFormat, inputFileName, generatedFileName, FilePersistenceOptions.ForceOverwrite | FilePersistenceOptions.PrettyPrint);
             }
             catch (Exception ex)
             {

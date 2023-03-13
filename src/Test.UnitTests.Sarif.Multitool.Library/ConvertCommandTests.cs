@@ -6,6 +6,7 @@ using System.IO;
 using FluentAssertions;
 
 using Microsoft.CodeAnalysis.Sarif.Converters;
+using Microsoft.CodeAnalysis.Sarif.Writers;
 
 using Moq;
 
@@ -30,7 +31,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 ToolFormat = ToolFormat.SemmleQL,
                 InputFilePath = sampleFilePath,
                 OutputFilePath = outputFilePath,
-                Force = true
+                OutputFileOptions = new[] { FilePersistenceOptions.ForceOverwrite },
             };
 
             // Verify command returned success
@@ -62,7 +63,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 ToolFormat = ToolFormat.FxCop,
                 InputFilePath = InputFilePath,
                 OutputFilePath = OutputFilePath,
-                Force = true
+                OutputFileOptions = new[] { FilePersistenceOptions.ForceOverwrite },
             };
 
             int returnCode = new ConvertCommand().Run(options, fileSystem);
@@ -94,7 +95,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         }
 
         [Fact]
-        public void Run_WhenOutputFormatOptionsAreInconsistent_Fails()
+        public void Run_WhenOutputFormatOptionsAreInconsistent_PrefersPrettyPrint()
         {
             // Run on the same sample file that succeeded in the test ConvertCommand_SemmleQlExample.
             // This time we expect it to fail because of the inconsistent output format options.
@@ -107,14 +108,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 ToolFormat = ToolFormat.SemmleQL,
                 InputFilePath = sampleFilePath,
                 OutputFilePath = outputFilePath,
-                Force = true,
-                PrettyPrint = true,
-                Minify = true
+                OutputFileOptions = new[] { FilePersistenceOptions.ForceOverwrite, FilePersistenceOptions.Minify, FilePersistenceOptions.PrettyPrint },
             };
 
-            int returnCode = new ConvertCommand().Run(options);
+            options.PrettyPrint.Should().BeTrue();
+            options.Minify.Should().BeFalse();
 
-            returnCode.Should().Be(1);
+            int returnCode = new ConvertCommand().Run(options);
+            returnCode.Should().Be(0);
         }
     }
 }
