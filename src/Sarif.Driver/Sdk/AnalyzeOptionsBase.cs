@@ -111,18 +111,20 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         [Option(
             "level",
             Separator = ';',
+            Default = null,
             HelpText = "A semicolon delimited list to filter output of scan results to one or more failure levels. Valid values: Error, Warning and Note.")]
         public IEnumerable<FailureLevel> Level { get; set; }
 
-        public FailureLevelSet FailureLevels => Level?.Any() == true ? new FailureLevelSet(Level) : BaseLogger.ErrorWarning;
+        public FailureLevelSet FailureLevels => Level != null ? new FailureLevelSet(Level) : BaseLogger.ErrorWarning;
 
         [Option(
             "kind",
             Separator = ';',
+            Default = null,
             HelpText = "A semicolon delimited list to filter output to one or more result kinds. Valid values: Fail (for literal scan results), Pass, Review, Open, NotApplicable and Informational.")]
         public IEnumerable<ResultKind> Kind { get; set; }
 
-        public ResultKindSet ResultKinds => Kind?.Any() == true ? new ResultKindSet(Kind) : BaseLogger.Fail;
+        public ResultKindSet ResultKinds => Kind != null ? new ResultKindSet(Kind) : BaseLogger.Fail;
 
         [Option(
             "baseline",
