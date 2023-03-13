@@ -519,7 +519,6 @@ namespace Microsoft.CodeAnalysis.Sarif
                     disabledSkimmers.Add(context.Rule.Id);
                 }
             }
-
         }
 
         public static void LogUnhandledEngineException(IAnalysisContext context, Exception exception)

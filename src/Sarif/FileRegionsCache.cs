@@ -95,7 +95,9 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// </summary>
         public void ClearCache()
         {
-            this._newLineIndexCache.Clear();
+            _fileTextCache.Clear();
+            _hashDataCache.Clear();
+            _newLineIndexCache.Clear();
         }
 
         private Region PopulateTextRegionProperties(NewLineIndex lineIndex, Region inputRegion, string fileText, bool populateSnippet)

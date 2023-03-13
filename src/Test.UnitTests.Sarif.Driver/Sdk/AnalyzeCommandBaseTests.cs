@@ -672,6 +672,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         {
             var testOutput = new StringBuilder();
 
+            var sarifOutput = new StringBuilder();
+
             foreach (DefaultTraces trace in new[] { DefaultTraces.None, DefaultTraces.ScanTime, DefaultTraces.RuleScanTime, DefaultTraces.PeakWorkingSet })
             {
                 foreach (Uri uri in new[] { new Uri(@"c:\doesnotexist.txt"), new Uri(@"doesnotexist.txt", UriKind.Relative) })
@@ -683,7 +685,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                         Trace = new[] { trace.ToString() },
                     };
 
-                    var sarifOutput = new StringBuilder();
+                    sarifOutput.Clear();
                     using var writer = new StringWriter(sarifOutput);
 
                     var logger = new SarifLogger(writer,
@@ -702,7 +704,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                     };
 
                     int result = command.Run(options, ref context);
-                    ValidateCommandExecution(context, result);
+                    context.ValidateCommandExecution(result);
 
                     SarifLog sarifLog = JsonConvert.DeserializeObject<SarifLog>(sarifOutput.ToString());
 
@@ -712,25 +714,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
                 testOutput.Length.Should().Be(0, $"test cases failed : {Environment.NewLine}{testOutput}");
             }
-        }
-
-        private static void ValidateCommandExecution(TestAnalysisContext context, int result)
-        {
-            // This method provides validation of execution success for happy path runs, 
-            // i.e., where we don't expect to see anything unusual. The validation is
-            // specifically ordered to provide the most information in the test output 
-            // window. If we validate the success code, for example, we only know that
-            // we returned FAILURE (1) not SUCCESS. If we validate the exceptions data
-            // first, the test output window will show a meaningful message and stack.
-
-            // For application exist exceptions, e.g., an unhandled exception in a rule,
-            // the inner exception has the most useful details.
-            context.RuntimeExceptions?[0].InnerException.Should().BeNull();            
-            context.RuntimeExceptions?[0].Should().BeNull();
-
-            context.RuntimeErrors.Fatal().Should().Be(0);
-
-            result.Should().Be(CommandBase.SUCCESS);
         }
 
         [Fact]
@@ -762,7 +745,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             sb.Length.Should().Be(0, $"test cases failed : {Environment.NewLine}{sb}");
         }
 
-        private static void Validate(Run run, DefaultTraces trace, int validTargetsCount, StringBuilder sb)
+        internal static void Validate(Run run, DefaultTraces trace, int validTargetsCount, StringBuilder sb)
         {
             run.Should().NotBeNull();
 
@@ -1955,7 +1938,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
                 if (expectedResultCode == CommandBase.SUCCESS)
                 {
-                    ValidateCommandExecution(context, result);
+                    context.ValidateCommandExecution(result);
                 }
 
                 SarifLog sarifLog = JsonConvert.DeserializeObject<SarifLog>(File.ReadAllText(options.OutputFilePath));

@@ -26,7 +26,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         private readonly FileRegionsCache _fileRegionsCache;
         private readonly OptionallyEmittedData _dataToInsert;
         private readonly OptionallyEmittedData _dataToRemove;
-        private readonly FilePersistenceOptions _logFilePersistenceOptions;
+        private readonly FilePersistenceOptions _filePersistenceOptions;
         private readonly InsertOptionalDataVisitor _insertOptionalDataVisitor;
 
         protected const FilePersistenceOptions DefaultLogFilePersistenceOptions = FilePersistenceOptions.PrettyPrint;
@@ -41,7 +41,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                            IEnumerable<string> invocationPropertiesToLog = null,
                            string defaultFileEncoding = null,
                            bool closeWriterOnDispose = true,
-                           bool quiet = false,
                            FailureLevelSet levels = null,
                            ResultKindSet kinds = null,
                            IEnumerable<string> insertProperties = null,
@@ -56,7 +55,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                                     invocationPropertiesToLog,
                                     defaultFileEncoding,
                                     closeWriterOnDispose,
-                                    quiet,
                                     levels,
                                     kinds,
                                     insertProperties,
@@ -74,7 +72,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                            IEnumerable<string> invocationPropertiesToLog = null,
                            string defaultFileEncoding = null,
                            bool closeWriterOnDispose = true,
-                           bool quiet = false,
                            FailureLevelSet levels = null,
                            ResultKindSet kinds = null,
                            IEnumerable<string> insertProperties = null,
@@ -84,7 +81,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             _closeWriterOnDispose = closeWriterOnDispose;
             _jsonTextWriter = new JsonTextWriter(_textWriter);
 
-            _logFilePersistenceOptions = logFilePersistenceOptions;
+            _filePersistenceOptions = logFilePersistenceOptions;
 
             if (PrettyPrint)
             {
@@ -272,11 +269,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
         public bool PersistEnvironment => _dataToInsert.HasFlag(OptionallyEmittedData.EnvironmentVariables);
 
-        public bool OverwriteExistingOutputFile => _logFilePersistenceOptions.HasFlag(FilePersistenceOptions.ForceOverwrite);
+        public bool OverwriteExistingOutputFile => _filePersistenceOptions.HasFlag(FilePersistenceOptions.ForceOverwrite);
 
-        public bool PrettyPrint => _logFilePersistenceOptions.HasFlag(FilePersistenceOptions.PrettyPrint);
+        public bool PrettyPrint => _filePersistenceOptions.HasFlag(FilePersistenceOptions.PrettyPrint);
 
-        public bool Optimize => _logFilePersistenceOptions.HasFlag(FilePersistenceOptions.Optimize);
+        public bool Optimize => _filePersistenceOptions.HasFlag(FilePersistenceOptions.Optimize);
 
         public virtual void Dispose()
         {

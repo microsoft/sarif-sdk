@@ -800,7 +800,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                                                       dataToRemove,
                                                       run,
                                                       analysisTargets: null,
-                                                      quiet: globalContext.Quiet,
                                                       fileRegionsCache: fileRegionsCache,
                                                       invocationTokensToRedact: GenerateSensitiveTokensList(),
                                                       invocationPropertiesToLog: globalContext.InvocationPropertiesToLog,

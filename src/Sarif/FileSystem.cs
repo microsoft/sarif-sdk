@@ -19,7 +19,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// </remarks>
     public class FileSystem : IFileSystem
     {
-        public static IFileSystem Instance = new FileSystem();
+        public static FileSystem Instance = new FileSystem();
 
         /// <summary>
         /// Loads an assembly given its file name or path.

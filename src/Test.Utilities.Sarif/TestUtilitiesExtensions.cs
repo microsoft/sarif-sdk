@@ -5,12 +5,33 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-using Microsoft.CodeAnalysis.Sarif;
+using FluentAssertions;
 
-namespace Microsoft.CodeAnalysis.Test.Utilities.Sarif
+using Microsoft.CodeAnalysis.Sarif.Driver;
+
+namespace Microsoft.CodeAnalysis.Sarif
 {
     public static class TestUtilitiesExtensions
     {
+        public static void ValidateCommandExecution(this TestAnalysisContext context, int result)
+        {
+            // This method provides validation of execution success for happy path runs, 
+            // i.e., where we don't expect to see anything unusual. The validation is
+            // specifically ordered to provide the most information in the test output 
+            // window. If we validate the success code, for example, we only know that
+            // we returned FAILURE (1) not SUCCESS. If we validate the exceptions data
+            // first, the test output window will show a meaningful message and stack.
+
+            // For application exist exceptions, e.g., an unhandled exception in a rule,
+            // the inner exception has the most useful details.
+            context.RuntimeExceptions?[0].InnerException.Should().BeNull();
+            context.RuntimeExceptions?[0].Should().BeNull();
+
+            context.RuntimeErrors.Fatal().Should().Be(0);
+
+            result.Should().Be(CommandBase.SUCCESS);
+        }
+
         public static IList<T> Shuffle<T>(this IList<T> list, Random random)
         {
             if (list == null)

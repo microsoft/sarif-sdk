@@ -95,7 +95,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
                 if (Uri.TryCreate(specifier, UriKind.RelativeOrAbsolute, out Uri uri))
                 {
-                    normalizedSpecifier = uri.GetFileName();
+                    normalizedSpecifier = uri.GetFilePath();
                 }
 
                 // Currently, we do not filter on any extensions.
