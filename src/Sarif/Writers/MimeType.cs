@@ -4,13 +4,44 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.Immutable;
-using System.IO;
 
 namespace Microsoft.CodeAnalysis.Sarif.Writers
 {
     /// <summary>A class containing utility functions for working with MIME types.</summary>
     public static class MimeType
     {
+        /// <summary>Guesses filePath appropriate MIME type given the extension from a file name.</summary>
+        /// <param name="path">File path from which MIME type shall be guessed.</param>
+        /// <returns>A string corresponding to the likely MIME type of <paramref name="path"/>
+        public static string DetermineFromFileExtension(string path)
+        {
+            if (path == null)
+            {
+                throw new ArgumentNullException(nameof(path));
+            }
+
+            foreach (ImmutableArray<ImmutableArray<string>> extensionsTable in GetExtensionsTables())
+            {
+                foreach (ImmutableArray<string> tableEntry in extensionsTable)
+                {
+                    // Each entry in the table is of the form [ mimeType, ext1, ext2, ... extN ]
+                    for (int idx = 1; idx < tableEntry.Length; ++idx)
+                    {
+                        if (HasExtension(path, tableEntry[idx]))
+                        {
+                            return tableEntry[0];
+                        }
+                    }
+                }
+            }
+
+            if (System.IO.Directory.Exists(path))
+            {
+                return MimeType.Directory;
+            }
+
+            return MimeType.Binary;
+        }
 
         /// <summary>Guesses an appropriate MIME type given the extension from a file name.</summary>
         /// <param name="fileName">File name from which MIME type shall be guessed.</param>
@@ -23,27 +54,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 throw new ArgumentNullException(nameof(fileUri));
             }
 
-            foreach (ImmutableArray<ImmutableArray<string>> extensionsTable in GetExtensionsTables())
+            string fileName = fileUri.ToString();
+
+            if (fileUri.IsAbsoluteUri && fileUri.IsFile)
             {
-                foreach (ImmutableArray<string> tableEntry in extensionsTable)
-                {
-                    // Each entry in the table is of the form [ mimeType, ext1, ext2, ... extN ]
-                    for (int idx = 1; idx < tableEntry.Length; ++idx)
-                    {
-                        if (HasExtension(fileUri.AbsolutePath, tableEntry[idx]))
-                        {
-                            return tableEntry[0];
-                        }
-                    }
-                }
+                fileName = fileUri.LocalPath;
             }
 
-            if(fileUri.IsAbsoluteUri && fileUri.IsFile && System.IO.Directory.Exists(fileUri.LocalPath))
-            {
-                return MimeType.Directory;
-            }
-
-            return MimeType.Binary;
+            return DetermineFromFileExtension(fileName);
         }
 
         public static bool IsTextualMimeType(string mimeType)

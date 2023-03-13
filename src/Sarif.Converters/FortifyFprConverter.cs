@@ -463,7 +463,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 var fileData = new Artifact
                 {
                     Encoding = encoding,
-                    MimeType = MimeType.DetermineFromFileExtension(uri),
+                    MimeType = MimeType.DetermineFromFileExtension(fileName),
                     Length = length,
                     Location = new ArtifactLocation
                     {
