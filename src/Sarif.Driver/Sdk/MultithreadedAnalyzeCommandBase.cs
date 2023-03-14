@@ -1087,7 +1087,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
                     if (stopwatch != null)
                     {
-                        string file = uri.GetFileName();
+                        string file = uri.GetFilePath();
                         string directory = Path.GetDirectoryName(file);
                         file = Path.GetFileName(file);
 

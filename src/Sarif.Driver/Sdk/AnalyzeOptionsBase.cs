@@ -15,11 +15,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
     [Verb("analyze", HelpText = "Analyze one or more binary files for security and correctness issues.")]
     public abstract class AnalyzeOptionsBase : CommonOptionsBase
     {
-        public AnalyzeOptionsBase()
-        {
-            Trace = AnalyzeContextBase.TracesProperty.DefaultValue();
-        }
-
         [Value(0,
                HelpText = "One or more specifiers to a file, directory, or filter pattern that resolves to one or more binaries to analyze.")]
         public IList<string> TargetFileSpecifiers { get; set; }
@@ -88,7 +83,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         [Option(
             "trace",
             Separator = ';',
-            Default = new string[] { },
+            Default = null,
             HelpText = "Execution traces, expressed as a semicolon-delimited list, that " +
                        "should be emitted to the console and log file (if appropriate). " +
                        "Valid values: ScanTime.")]
