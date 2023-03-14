@@ -80,7 +80,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             HelpText = "Emit a 'rich' return code consisting of a bitfield of conditions (as opposed to 0 or 1 indicating success or failure.")]
         public bool RichReturnCode { get; set; }
 
-
         private IEnumerable<string> trace;
         [Option(
             "trace",
