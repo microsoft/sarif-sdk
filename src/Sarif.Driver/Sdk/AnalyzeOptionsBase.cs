@@ -3,7 +3,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Collections.Immutable;
 using System.Linq;
 
 using CommandLine;
@@ -114,7 +113,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             Separator = ';',
             Default = null,
             HelpText = "A semicolon delimited list to filter output of scan results to one or more failure levels. Valid values: Error, Warning and Note.")]
-        public IEnumerable<FailureLevel> Level 
+        public IEnumerable<FailureLevel> Level
         {
             get => this.level;
             set => this.level = value?.Count() > 0 ? value : null;
