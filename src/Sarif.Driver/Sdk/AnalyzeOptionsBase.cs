@@ -80,6 +80,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             HelpText = "Emit a 'rich' return code consisting of a bitfield of conditions (as opposed to 0 or 1 indicating success or failure.")]
         public bool RichReturnCode { get; set; }
 
+
+        private IEnumerable<string> trace;
         [Option(
             "trace",
             Separator = ';',
@@ -87,7 +89,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             HelpText = "Execution traces, expressed as a semicolon-delimited list, that " +
                        "should be emitted to the console and log file (if appropriate). " +
                        "Valid values: ScanTime.")]
-        public virtual IEnumerable<string> Trace { get; set; }
+        public IEnumerable<string> Trace
+        {
+            get => this.trace;
+            set => this.trace = value?.Count() > 0 ? value : null;
+        }
 
         private DefaultTraces? defaultTraces;
         public DefaultTraces Traces
@@ -103,21 +109,32 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             }
         }
 
+        private IEnumerable<FailureLevel> level;
         [Option(
             "level",
             Separator = ';',
             Default = null,
             HelpText = "A semicolon delimited list to filter output of scan results to one or more failure levels. Valid values: Error, Warning and Note.")]
-        public IEnumerable<FailureLevel> Level { get; set; }
+        public IEnumerable<FailureLevel> Level 
+        {
+            get => this.level;
+            set => this.level = value?.Count() > 0 ? value : null;
+        }
 
         public FailureLevelSet FailureLevels => Level != null ? new FailureLevelSet(Level) : BaseLogger.ErrorWarning;
 
+        private IEnumerable<ResultKind> kind;
         [Option(
             "kind",
             Separator = ';',
             Default = null,
             HelpText = "A semicolon delimited list to filter output to one or more result kinds. Valid values: Fail (for literal scan results), Pass, Review, Open, NotApplicable and Informational.")]
-        public IEnumerable<ResultKind> Kind { get; set; }
+        public IEnumerable<ResultKind> Kind
+        {
+            get => this.kind;
+            set => this.kind = value?.Count() > 0 ? value : null;
+        }
+
 
         public ResultKindSet ResultKinds => Kind != null ? new ResultKindSet(Kind) : BaseLogger.Fail;
 
