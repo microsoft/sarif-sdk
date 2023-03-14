@@ -3,7 +3,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Collections.Immutable;
 using System.Linq;
 
 using CommandLine;
@@ -15,13 +14,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
     [Verb("analyze", HelpText = "Analyze one or more binary files for security and correctness issues.")]
     public abstract class AnalyzeOptionsBase : CommonOptionsBase
     {
-        public AnalyzeOptionsBase()
-        {
-            Trace = AnalyzeContextBase.TracesProperty.DefaultValue();
-            Kind = AnalyzeContextBase.ResultKindsProperty.DefaultValue();
-            Level = AnalyzeContextBase.FailureLevelsProperty.DefaultValue();
-        }
-
         [Value(0,
                HelpText = "One or more specifiers to a file, directory, or filter pattern that resolves to one or more binaries to analyze.")]
         public IList<string> TargetFileSpecifiers { get; set; }
@@ -87,14 +79,19 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             HelpText = "Emit a 'rich' return code consisting of a bitfield of conditions (as opposed to 0 or 1 indicating success or failure.")]
         public bool RichReturnCode { get; set; }
 
+        private IEnumerable<string> trace;
         [Option(
             "trace",
             Separator = ';',
-            Default = new string[] { },
+            Default = null,
             HelpText = "Execution traces, expressed as a semicolon-delimited list, that " +
                        "should be emitted to the console and log file (if appropriate). " +
                        "Valid values: ScanTime.")]
-        public virtual IEnumerable<string> Trace { get; set; }
+        public IEnumerable<string> Trace
+        {
+            get => this.trace;
+            set => this.trace = value?.Count() > 0 ? value : null;
+        }
 
         private DefaultTraces? defaultTraces;
         public DefaultTraces Traces
@@ -110,39 +107,34 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             }
         }
 
+        private IEnumerable<FailureLevel> level;
         [Option(
             "level",
             Separator = ';',
-            Default = new FailureLevel[] { FailureLevel.Error, FailureLevel.Warning },
+            Default = null,
             HelpText = "A semicolon delimited list to filter output of scan results to one or more failure levels. Valid values: Error, Warning and Note.")]
-        public IEnumerable<FailureLevel> Level { get; set; }
-
-        private FailureLevelSet failureLevels;
-        public FailureLevelSet FailureLevels
+        public IEnumerable<FailureLevel> Level
         {
-            get
-            {
-                this.failureLevels ??= new FailureLevelSet(Level);
-                return this.failureLevels;
-            }
+            get => this.level;
+            set => this.level = value?.Count() > 0 ? value : null;
         }
 
+        public FailureLevelSet FailureLevels => Level != null ? new FailureLevelSet(Level) : BaseLogger.ErrorWarning;
+
+        private IEnumerable<ResultKind> kind;
         [Option(
             "kind",
             Separator = ';',
-            Default = new ResultKind[] { ResultKind.Fail },
+            Default = null,
             HelpText = "A semicolon delimited list to filter output to one or more result kinds. Valid values: Fail (for literal scan results), Pass, Review, Open, NotApplicable and Informational.")]
-        public IEnumerable<ResultKind> Kind { get; set; }
-
-        private ResultKindSet resultKinds;
-        public ResultKindSet ResultKinds
+        public IEnumerable<ResultKind> Kind
         {
-            get
-            {
-                this.resultKinds ??= new ResultKindSet(Kind);
-                return this.resultKinds;
-            }
+            get => this.kind;
+            set => this.kind = value?.Count() > 0 ? value : null;
         }
+
+
+        public ResultKindSet ResultKinds => Kind != null ? new ResultKindSet(Kind) : BaseLogger.Fail;
 
         [Option(
             "baseline",

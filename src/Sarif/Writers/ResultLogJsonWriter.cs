@@ -391,7 +391,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         private void SerializeIfNotNull(object value, string propertyName)
         {
             // Don't serialize null objects or empty enumerables
-            if (value == null || ExtensionMethods.IsEmptyEnumerable(value)) { return; }
+            if (value == null || SarifExtensions.IsEmptyEnumerable(value)) { return; }
 
             Serialize(value, propertyName);
         }

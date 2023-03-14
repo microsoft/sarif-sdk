@@ -38,13 +38,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
         public static bool RaiseUnhandledExceptionInDriverCode { get; set; }
 
-        protected virtual Tool Tool { get; set; }
+        public virtual Tool Tool { get; set; }
 
         public virtual FileFormat ConfigurationFormat => FileFormat.Json;
 
         protected MultithreadedAnalyzeCommandBase(IFileSystem fileSystem = null)
         {
-            // TBD can we zap this?
+            Tool ??= Tool.CreateFromAssemblyData();
             FileSystem = fileSystem ?? Sarif.FileSystem.Instance;
         }
 
@@ -236,24 +236,27 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             context.OutputFilePath = options.OutputFilePath;
             context.AutomationGuid = options.AutomationGuid;
             context.BaselineFilePath = options.BaselineFilePath;
-            context.Traces = InitializeStringSet(options.Trace);
+            context.Traces = options.Trace != null ? InitializeStringSet(options.Trace) : context.Traces;
             context.DataToInsert = options.DataToInsert.ToFlags();
             context.DataToRemove = options.DataToRemove.ToFlags();
-            context.ResultKinds = options.ResultKinds;
-            context.FailureLevels = options.FailureLevels;
+            context.ResultKinds = options.Kind != null ? options.ResultKinds : context.ResultKinds;
+            context.FailureLevels = options.Level != null ? options.FailureLevels : context.FailureLevels;
             context.OutputFileOptions = options.OutputFileOptions.ToFlags();
             context.MaxFileSizeInKilobytes = options.MaxFileSizeInKilobytes != null ? options.MaxFileSizeInKilobytes.Value : context.MaxFileSizeInKilobytes;
             context.PluginFilePaths = options.PluginFilePaths?.ToImmutableHashSet();
             context.InsertProperties = InitializeStringSet(options.InsertProperties);
-            context.TargetFileSpecifiers = InitializeStringSet(options.TargetFileSpecifiers);
+            context.TargetFileSpecifiers = options.TargetFileSpecifiers != null ? InitializeStringSet(options.TargetFileSpecifiers) : context.TargetFileSpecifiers;
             context.InvocationPropertiesToLog = InitializeStringSet(options.InvocationPropertiesToLog);
 
-            context.TargetsProvider =
-                OrderedFileSpecifier.Create(
-                    context.TargetFileSpecifiers,
-                    context.Recurse,
-                    context.MaxFileSizeInKilobytes,
-                    context.FileSystem);
+            if (context.TargetsProvider == null)
+            {
+                context.TargetsProvider =
+                    OrderedFileSpecifier.Create(
+                        context.TargetFileSpecifiers,
+                        context.Recurse,
+                        context.MaxFileSizeInKilobytes,
+                        context.FileSystem);
+            }
 
             return context;
         }
@@ -428,7 +431,17 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                         {
                             globalContext.CurrentTarget = context.CurrentTarget;
                             LogCachingLogger(globalContext, (CachingLogger)context.Logger, clone: false);
+
                             globalContext.RuntimeErrors |= context.RuntimeErrors;
+                            if (context.RuntimeExceptions != null)
+                            {
+                                globalContext.RuntimeExceptions ??= new List<Exception>();
+                                foreach (Exception exception in context.RuntimeExceptions)
+                                {
+                                    globalContext.RuntimeExceptions.Add(exception);
+                                }
+                            }
+
                             globalContext.CurrentTarget = null;
                         }
                         context.Dispose();
@@ -552,10 +565,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
                 TContext fileContext =
                     CreateContext(options: null,
-                                  new CachingLogger(globalContext.FailureLevels, globalContext.ResultKinds),
-                                  globalContext.RuntimeErrors,
-                                  globalContext.FileSystem,
-                                  globalContext.Policy);
+                                  new CachingLogger(globalContext.FailureLevels,
+                                                    globalContext.ResultKinds),
+                                                    globalContext.RuntimeErrors,
+                                                    globalContext.FileSystem,
+                                                    globalContext.Policy);
 
                 Debug.Assert(fileContext.Logger != null);
                 fileContext.CurrentTarget = artifact;
@@ -648,8 +662,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
         internal AggregatingLogger InitializeLogger(AnalyzeOptionsBase analyzeOptions)
         {
-            Tool ??= Tool.CreateFromAssemblyData();
-
             var logger = new AggregatingLogger();
 
             if (!(analyzeOptions.Quiet == true))
@@ -781,13 +793,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                             Tool = Tool,
                         };
 
+                        var fileRegionsCache = new FileRegionsCache(fileSystem: globalContext.FileSystem);
                         sarifLogger = new SarifLogger(globalContext.OutputFilePath,
                                                       logFilePersistenceOptions,
                                                       dataToInsert,
                                                       dataToRemove,
                                                       run,
                                                       analysisTargets: null,
-                                                      quiet: globalContext.Quiet,
+                                                      fileRegionsCache: fileRegionsCache,
                                                       invocationTokensToRedact: GenerateSensitiveTokensList(),
                                                       invocationPropertiesToLog: globalContext.InvocationPropertiesToLog,
                                                       levels: globalContext.FailureLevels,
@@ -1070,13 +1083,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
                     skimmer.Analyze(context);
 
-                    Uri uri = context.CurrentTarget != null
-                        ? context.CurrentTarget.Uri
-                        : context.CurrentTarget.Uri;
+                    Uri uri = context.CurrentTarget.Uri;
 
-                    if (stopwatch != null && uri.IsAbsoluteUri)
+                    if (stopwatch != null)
                     {
-                        string file = uri.LocalPath;
+                        string file = uri.GetFilePath();
                         string directory = Path.GetDirectoryName(file);
                         file = Path.GetFileName(file);
 
@@ -1088,6 +1099,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 catch (Exception ex)
                 {
                     Errors.LogUnhandledRuleExceptionAnalyzingTarget(disabledSkimmers, context, ex);
+
+                    context.RuntimeExceptions ??= new List<Exception>();
+                    context.RuntimeExceptions.Add(ex);
                 }
             }
         }

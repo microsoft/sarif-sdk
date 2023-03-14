@@ -4,7 +4,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Dynamic;
+
 using System.Globalization;
 using System.Linq;
 using System.Text;
@@ -15,8 +15,18 @@ using Microsoft.CodeAnalysis.Sarif.Visitors;
 
 namespace Microsoft.CodeAnalysis.Sarif
 {
-    public static class ExtensionMethods
+    public static class SarifExtensions
     {
+        public static RuntimeConditions Fatal(this RuntimeConditions conditions)
+        {
+            return conditions & ~RuntimeConditions.Nonfatal;
+        }
+
+        public static RuntimeConditions Nonfatal(this RuntimeConditions conditions)
+        {
+            return conditions & RuntimeConditions.Nonfatal;
+        }
+
         public static string ToString(this IEnumerable<Result> results)
         {
             var sb = new StringBuilder();

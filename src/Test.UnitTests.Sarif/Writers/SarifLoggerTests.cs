@@ -511,7 +511,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             {
                 using (var sarifLogger = new SarifLogger(textWriter,
                                                          analysisTargets: null,
-                                                         dataToInsert: OptionallyEmittedData.Hashes,
+                                                         dataToInsert: OptionallyEmittedData.None,
                                                          invocationTokensToRedact: null,
                                                          invocationPropertiesToLog: null,
                                                          levels: BaseLogger.ErrorWarning,
@@ -524,7 +524,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                     {
                         RuleId = ruleId,
                         Message = new Message { Text = "Some testing occurred." },
-                        AnalysisTarget = new ArtifactLocation { Uri = new Uri(@"file:///file0.cpp") },
+                        AnalysisTarget = new ArtifactLocation { Uri = new Uri(@"file:///c:/file0.cpp") },
                         Locations = new[]
                         {
                             new Location
@@ -533,7 +533,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                                 {
                                     ArtifactLocation = new ArtifactLocation
                                     {
-                                        Uri = new Uri(@"file:///file1.cpp")
+                                        Uri = new Uri(@"file:///c:/file1.cpp")
                                     }
                                 }
                             },
@@ -548,7 +548,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                                    {
                                         ArtifactLocation = new ArtifactLocation
                                         {
-                                            Uri = new Uri(@"file:///file2.cpp")
+                                            Uri = new Uri(@"file:///c:/file2.cpp")
                                         },
                                         Replacements = new[]
                                         {
@@ -568,7 +568,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                                 {
                                     ArtifactLocation = new ArtifactLocation
                                     {
-                                        Uri = new Uri(@"file:///file3.cpp")
+                                        Uri = new Uri(@"file:///c:/file3.cpp")
                                     }
                                 }
                             }
@@ -587,7 +587,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                                             {
                                                 ArtifactLocation = new ArtifactLocation
                                                 {
-                                                    Uri = new Uri(@"file:///file4.cpp")
+                                                    Uri = new Uri(@"file:///c:/file4.cpp")
                                                 }
                                             }
                                         }
@@ -613,7 +613,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                                                     {
                                                         ArtifactLocation = new ArtifactLocation
                                                         {
-                                                            Uri = new Uri(@"file:///file5.cpp")
+                                                            Uri = new Uri(@"file:///c:/file5.cpp")
                                                         }
                                                     }
                                                 }
@@ -637,7 +637,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             for (int i = 0; i < fileCount; ++i)
             {
                 string fileName = @"file" + i + ".cpp";
-                string fileDataKey = "file:///" + fileName;
+                string fileDataKey = "file:///c:/" + fileName;
                 sarifLog.Runs[0].Artifacts.Where(f => f.Location.Uri.AbsoluteUri.ToString().Contains(fileDataKey)).Any().Should().BeTrue();
             }
 

@@ -29,7 +29,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             var artifact = new Artifact()
             {
                 Encoding = encoding?.WebName,
-                Hashes = hashData != null ? CreateHashesDictionary(hashData) : null,
+                Hashes = hashData?.ToDictionary(),
             };
 
             string mimeType = SarifWriters.MimeType.DetermineFromFileExtension(uri);
@@ -87,28 +87,6 @@ namespace Microsoft.CodeAnalysis.Sarif
             catch (Exception e) when (e is IOException || e is UnauthorizedAccessException) { }
 
             return artifact;
-        }
-
-        private static IDictionary<string, string> CreateHashesDictionary(HashData hashData)
-        {
-            var result = new Dictionary<string, string>();
-
-            if (!string.IsNullOrEmpty(hashData?.MD5))
-            {
-                result["md5"] = hashData?.MD5;
-            }
-
-            if (!string.IsNullOrEmpty(hashData?.Sha1))
-            {
-                result["sha-1"] = hashData?.Sha1;
-            }
-
-            if (!string.IsNullOrEmpty(hashData?.Sha256))
-            {
-                result["sha-256"] = hashData?.Sha256;
-            }
-
-            return result;
         }
 
         private static ArtifactContent GetEncodedFileContents(IFileSystem fileSystem, string filePath, string mimeType, Encoding inputFileEncoding)
