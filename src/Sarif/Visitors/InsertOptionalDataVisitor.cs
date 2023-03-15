@@ -33,9 +33,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         private const string CommitSha = nameof(CommitSha);
 
         public InsertOptionalDataVisitor(OptionallyEmittedData dataToInsert,
+                                         FileRegionsCache fileRegionsCache,
                                          Run run,
-                                         IEnumerable<string> insertProperties,
-                                         FileRegionsCache fileRegionsCache = null)
+                                         IEnumerable<string> insertProperties)
             : this(dataToInsert,
                    originalUriBaseIds: run?.OriginalUriBaseIds,
                    insertProperties: insertProperties,
@@ -46,11 +46,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
         public InsertOptionalDataVisitor(
             OptionallyEmittedData dataToInsert,
+            FileRegionsCache fileRegionsCache,
             IDictionary<string, ArtifactLocation> originalUriBaseIds = null,
             IFileSystem fileSystem = null,
             GitHelper.ProcessRunner processRunner = null,
-            IEnumerable<string> insertProperties = null,
-            FileRegionsCache fileRegionsCache = null)
+            IEnumerable<string> insertProperties = null)
         {
             _fileSystem = fileSystem ?? FileSystem.Instance;
             _processRunner = processRunner;
@@ -61,7 +61,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             _originalUriBaseIds = originalUriBaseIds;
             _insertProperties = insertProperties ?? new List<string>();
 
-            _fileRegionsCache = fileRegionsCache ?? FileRegionsCache.Instance;
+            _fileRegionsCache = fileRegionsCache;
         }
 
         public override Run VisitRun(Run node)
@@ -128,14 +128,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     node.Region = expandedRegion;
                 }
 
-                if (originalSnippet == null || overwriteExistingData)
-                {
-                    node.Region.Snippet = expandedRegion.Snippet;
-                }
-                else
-                {
-                    node.Region.Snippet = originalSnippet;
-                }
+                node.Region.Snippet = originalSnippet == null || overwriteExistingData
+                    ? expandedRegion.Snippet
+                    : originalSnippet;
 
                 if (insertContextCodeSnippets && (node.ContextRegion == null || overwriteExistingData))
                 {
@@ -367,10 +362,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             }
 
             // No, so add one.
-            if (_run.OriginalUriBaseIds == null)
-            {
-                _run.OriginalUriBaseIds = new Dictionary<string, ArtifactLocation>();
-            }
+            _run.OriginalUriBaseIds ??= new Dictionary<string, ArtifactLocation>();
 
             string uriBaseId = GetNextRepoRootUriBaseId();
             _run.OriginalUriBaseIds.Add(

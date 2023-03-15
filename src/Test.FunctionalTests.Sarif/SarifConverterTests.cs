@@ -134,7 +134,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 OptionallyEmittedData.ContextRegionSnippets |
                 OptionallyEmittedData.ComprehensiveRegionProperties;
 
-            SarifLog reformattedLog = new InsertOptionalDataVisitor(dataToInsert).VisitSarifLog(actualLog);
+            SarifLog reformattedLog = new InsertOptionalDataVisitor(dataToInsert, new FileRegionsCache()).VisitSarifLog(actualLog);
 
             File.WriteAllText(actualFilePath, JsonConvert.SerializeObject(reformattedLog, settings));
         }

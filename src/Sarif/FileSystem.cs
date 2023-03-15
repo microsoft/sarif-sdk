@@ -19,7 +19,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// </remarks>
     public class FileSystem : IFileSystem
     {
-        public static FileSystem Instance = new FileSystem();
+        public readonly static FileSystem Instance = new FileSystem();
 
         /// <summary>
         /// Loads an assembly given its file name or path.
@@ -396,7 +396,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// </returns>
         public long FileInfoLength(string path)
         {
-            FileInfo fileInfo = new FileInfo(path);
+            var fileInfo = new FileInfo(path);
             return fileInfo.Length;
         }
 
@@ -408,7 +408,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// contain version information, the FileVersionInfo contains only the name of the file requested.</returns>
         public FileVersionInfo FileVersionInfoGetVersionInfo(string fileName)
         {
-            FileVersionInfo fileVersionInfo = FileVersionInfo.GetVersionInfo(fileName);
+            var fileVersionInfo = FileVersionInfo.GetVersionInfo(fileName);
             return fileVersionInfo;
         }
     }
