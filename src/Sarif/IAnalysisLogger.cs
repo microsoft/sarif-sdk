@@ -5,6 +5,8 @@ namespace Microsoft.CodeAnalysis.Sarif
 {
     public interface IAnalysisLogger
     {
+        FileRegionsCache FileRegionsCache { get; set; }
+
         void AnalysisStarted();
 
         void AnalysisStopped(RuntimeConditions runtimeConditions);

@@ -488,7 +488,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
                             currentResult = clonedResult;
                         }
-
+                        globalContext.Logger.FileRegionsCache = cachingLogger.FileRegionsCache;
                         globalContext.Logger.Log(kv.Key, currentResult, tuple.Item2);
                     }
                 }
