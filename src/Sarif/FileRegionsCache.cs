@@ -16,7 +16,6 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// </summary>
     public class FileRegionsCache
     {
-        public static readonly FileRegionsCache Instance = new FileRegionsCache();
         public const int DefaultCacheCapacity = 100;
         private readonly IFileSystem _fileSystem;
 
