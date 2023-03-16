@@ -149,7 +149,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         public FileRegionsCache FileRegionsCache 
         {
             get => _fileRegionsCache;
-            set => _insertOptionalDataVisitor.FileRegionsCache = _fileRegionsCache = value;
+            set
+            {
+                _fileRegionsCache = value;
+                if (_insertOptionalDataVisitor != null)
+                {
+
+                    _insertOptionalDataVisitor.FileRegionsCache = _fileRegionsCache = value;
+                }
+            }
         }
 
         private void RecordRules(int? extensionIndex, ToolComponent toolComponent)
