@@ -155,7 +155,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
                         assemblyPath = Path.GetFullPath(Path.Combine(thisAssemblyDirectory, assemblyLocation));
                     }
 
-                    Assembly a = Assembly.LoadFrom(assemblyPath);
+                    var a = Assembly.LoadFrom(assemblyPath);
                     loadedAssemblies.Add(a.FullName, a);
                     this.AssemblyLocationMap.Add(a.FullName, Path.GetDirectoryName(Path.GetFullPath(a.Location)));
                 }
@@ -163,7 +163,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
                 StringSet assemblyAndTypeNames = this.GetProperty(PluginAssemblyQualifiedNames);
                 foreach (string assemblyAndTypeName in assemblyAndTypeNames)
                 {
-                    Type type = Type.GetType(assemblyAndTypeName);
+                    var type = Type.GetType(assemblyAndTypeName);
 
                     if (type == null)
                     {
@@ -174,7 +174,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
                         }
                     }
 
-                    SarifWorkItemModelTransformer workItemModelTransformer =
+                    var workItemModelTransformer =
                         (SarifWorkItemModelTransformer)Activator.CreateInstance(type);
 
                     workItemModelTransformers.Add(workItemModelTransformer);

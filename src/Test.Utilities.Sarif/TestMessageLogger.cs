@@ -38,6 +38,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         public List<Notification> ConfigurationNotifications { get; set; }
 
+        public FileRegionsCache FileRegionsCache { get; set; }
 
         public void AnalysisStarted()
         {

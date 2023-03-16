@@ -23,7 +23,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
         private readonly Run _run;
         private readonly bool _closeWriterOnDispose;
-        private readonly FileRegionsCache _fileRegionsCache;
         private readonly OptionallyEmittedData _dataToInsert;
         private readonly OptionallyEmittedData _dataToRemove;
         private readonly FilePersistenceOptions _filePersistenceOptions;
@@ -104,12 +103,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 dataToInsert.HasFlag(OptionallyEmittedData.ContextRegionSnippets))
             {
                 _insertOptionalDataVisitor = new InsertOptionalDataVisitor(dataToInsert,
+                                                                           fileRegionsCache,
                                                                            _run,
-                                                                           insertProperties,
-                                                                           fileRegionsCache);
+                                                                           insertProperties);
             }
 
-            _fileRegionsCache = fileRegionsCache ?? FileRegionsCache.Instance;
+            FileRegionsCache = fileRegionsCache ?? new FileRegionsCache();
 
             EnhanceRun(analysisTargets,
                        dataToInsert,
@@ -142,6 +141,21 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 for (int i = 0; i < _run.Tool.Driver.Rules.Count; ++i)
                 {
                     RuleToIndexMap[_run.Tool.Driver.Rules[i]] = i;
+                }
+            }
+        }
+
+        private FileRegionsCache _fileRegionsCache;
+        public FileRegionsCache FileRegionsCache
+        {
+            get => _fileRegionsCache;
+            set
+            {
+                _fileRegionsCache = value;
+                if (_insertOptionalDataVisitor != null)
+                {
+
+                    _insertOptionalDataVisitor.FileRegionsCache = _fileRegionsCache = value;
                 }
             }
         }
@@ -193,9 +207,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                     var uri = new Uri(uriText, UriKind.RelativeOrAbsolute);
 
                     HashData hashData = null;
-                    if (dataToInsert.HasFlag(OptionallyEmittedData.Hashes) && _fileRegionsCache != null)
+                    if (dataToInsert.HasFlag(OptionallyEmittedData.Hashes) && FileRegionsCache != null)
                     {
-                        hashData = _fileRegionsCache.GetHashData(uri);
+                        hashData = FileRegionsCache.GetHashData(uri);
                     }
 
                     var artifact = Artifact.Create(
@@ -296,8 +310,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
             if (_closeWriterOnDispose)
             {
-                if (_textWriter != null) { _textWriter.Dispose(); }
-                if (_jsonTextWriter != null) { _jsonTextWriter.Close(); }
+                _textWriter?.Dispose();
+                _jsonTextWriter?.Close();
 
                 _textWriter = null;
                 _jsonTextWriter = null;
@@ -360,10 +374,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
             CaptureFilesInResult(result);
 
-            if (_insertOptionalDataVisitor != null)
-            {
-                _insertOptionalDataVisitor.VisitResult(result);
-            }
+            _insertOptionalDataVisitor?.Visit(result);
 
             _issueLogJsonWriter.WriteResult(result);
         }
@@ -503,9 +514,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             }
 
             HashData hashData = null;
-            if (_dataToInsert.HasFlag(OptionallyEmittedData.Hashes) && _fileRegionsCache != null)
+            if (_dataToInsert.HasFlag(OptionallyEmittedData.Hashes) && FileRegionsCache != null)
             {
-                hashData = _fileRegionsCache.GetHashData(fileLocation.Uri);
+                hashData = FileRegionsCache.GetHashData(fileLocation.Uri);
             }
 
             // Ensure Artifact is in Run.Artifacts and ArtifactLocation.Index is set to point to it

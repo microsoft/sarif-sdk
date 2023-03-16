@@ -20,13 +20,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
     {
         private bool cacheLoggingData;
         private string currentFileHash;
-
-        public Dictionary<string, List<Notification>> HashToNotificationsMap { get; private set; }
-        public Dictionary<string, List<Tuple<ReportingDescriptor, Result, int?>>> HashToResultsMap { get; private set; }
-
         public CacheByFileHashLogger(FailureLevelSet levels, ResultKindSet kinds) : base(levels, kinds)
         {
         }
+
+        public Dictionary<string, List<Notification>> HashToNotificationsMap { get; private set; }
+
+        public Dictionary<string, List<Tuple<ReportingDescriptor, Result, int?>>> HashToResultsMap { get; private set; }
+
+        public FileRegionsCache FileRegionsCache { get; set; }
+
 
         public void AnalysisStarted()
         {

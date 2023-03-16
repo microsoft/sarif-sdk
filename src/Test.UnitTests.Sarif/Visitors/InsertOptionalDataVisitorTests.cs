@@ -57,7 +57,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
                 actualLog.Runs[0].OriginalUriBaseIds["TESTROOT"] = new ArtifactLocation { Uri = new Uri(uriString, UriKind.Absolute) };
 
-                var visitor = new InsertOptionalDataVisitor(_currentOptionallyEmittedData);
+                var visitor = new InsertOptionalDataVisitor(_currentOptionallyEmittedData, new FileRegionsCache());
                 visitor.Visit(actualLog.Runs[0]);
 
                 // Restore the remanufactured URI so that file diffing succeeds.
@@ -84,7 +84,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
                 actualLog.Runs[0].Artifacts[0].Location = new ArtifactLocation { Uri = new Uri(uriString, UriKind.Absolute) };
 
-                var visitor = new InsertOptionalDataVisitor(_currentOptionallyEmittedData);
+                var visitor = new InsertOptionalDataVisitor(_currentOptionallyEmittedData, new FileRegionsCache());
                 visitor.Visit(actualLog.Runs[0]);
 
                 // Restore the remanufactured URI so that file diffing matches
@@ -92,7 +92,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             }
             else
             {
-                var visitor = new InsertOptionalDataVisitor(_currentOptionallyEmittedData);
+                var visitor = new InsertOptionalDataVisitor(_currentOptionallyEmittedData, new FileRegionsCache());
                 visitor.Visit(actualLog.Runs[0]);
             }
 
@@ -349,6 +349,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
             var visitor = new InsertOptionalDataVisitor(
                 OptionallyEmittedData.VersionControlDetails,
+                new FileRegionsCache(),
                 originalUriBaseIds: null,
                 fileSystem: mockFileSystem.Object,
                 processRunner: mockProcessRunner.Object,
@@ -433,7 +434,7 @@ Three";
                     }
                 };
 
-                var visitor = new InsertOptionalDataVisitor(OptionallyEmittedData.RegionSnippets, run, insertProperties: null);
+                var visitor = new InsertOptionalDataVisitor(OptionallyEmittedData.RegionSnippets, new FileRegionsCache(), run, insertProperties: null);
 
                 visitor.VisitResult(run.Results[0]);
 
@@ -492,8 +493,12 @@ Three";
                 }
             };
 
-            var visitor = new InsertOptionalDataVisitor(OptionallyEmittedData.ContextRegionSnippetPartialFingerprints,
-                run, insertProperties: null);
+            var visitor =
+                new InsertOptionalDataVisitor(
+                    OptionallyEmittedData.ContextRegionSnippetPartialFingerprints,
+                    new FileRegionsCache(),
+                    run,
+                    insertProperties: null);
 
             visitor.VisitResult(run.Results[0]);
 
@@ -566,7 +571,11 @@ Three";
                 }
             };
 
-            var visitor = new InsertOptionalDataVisitor(dataToInsert, run, insertProperties: null);
+            var visitor =
+                new InsertOptionalDataVisitor(dataToInsert,
+                                              new FileRegionsCache(),
+                                              run,
+                                              insertProperties: null);
 
             visitor.VisitResult(run.Results[0]);
 
@@ -671,7 +680,7 @@ Three";
                     }
                 });
 
-            var visitor = new InsertOptionalDataVisitor(OptionallyEmittedData.FlattenedMessages);
+            var visitor = new InsertOptionalDataVisitor(OptionallyEmittedData.FlattenedMessages, new FileRegionsCache());
             visitor.Visit(run);
 
             run.Results[0].Message.Text.Should().Be(UniqueGlobalMessageValue);
@@ -737,7 +746,7 @@ Three";
                 });
             configurationNotifications.Add(toolNotifications[2]);
 
-            var visitor = new InsertOptionalDataVisitor(OptionallyEmittedData.FlattenedMessages);
+            var visitor = new InsertOptionalDataVisitor(OptionallyEmittedData.FlattenedMessages, new FileRegionsCache());
             visitor.Visit(run);
 
             toolNotifications[0].Message.Text.Should().Be(SharedKeyGlobalMessageValue);
@@ -809,7 +818,7 @@ Three";
                     }
                 });
 
-            var visitor = new InsertOptionalDataVisitor(OptionallyEmittedData.FlattenedMessages);
+            var visitor = new InsertOptionalDataVisitor(OptionallyEmittedData.FlattenedMessages, new FileRegionsCache());
             visitor.Visit(run);
 
             run.Results[0].Fixes[0].Description.Text.Should().Be(UniqueGlobalMessageValue);
@@ -859,14 +868,14 @@ Three";
                 }
             };
 
-            var visitor = new InsertOptionalDataVisitor(OptionallyEmittedData.TextFiles);
+            var visitor = new InsertOptionalDataVisitor(OptionallyEmittedData.TextFiles, new FileRegionsCache());
             visitor.VisitRun(run);
 
             run.OriginalUriBaseIds.Should().BeNull();
             run.Artifacts.Count.Should().Be(1);
             run.Artifacts[0].Contents.Should().BeNull();
 
-            visitor = new InsertOptionalDataVisitor(OptionallyEmittedData.TextFiles, originalUriBaseIds);
+            visitor = new InsertOptionalDataVisitor(OptionallyEmittedData.TextFiles, new FileRegionsCache(), originalUriBaseIds);
             visitor.VisitRun(run);
 
             run.OriginalUriBaseIds.Should().Equal(originalUriBaseIds);

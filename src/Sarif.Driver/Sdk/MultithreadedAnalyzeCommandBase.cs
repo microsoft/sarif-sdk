@@ -444,7 +444,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
                             globalContext.CurrentTarget = null;
                         }
-                        context.Dispose();
 
                         _fileContexts.TryRemove(currentIndex, out _);
                         _fileContexts.TryGetValue(++currentIndex, out context);
@@ -488,7 +487,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
                             currentResult = clonedResult;
                         }
-
+                        globalContext.Logger.FileRegionsCache = cachingLogger.FileRegionsCache;
                         globalContext.Logger.Log(kv.Key, currentResult, tuple.Item2);
                     }
                 }

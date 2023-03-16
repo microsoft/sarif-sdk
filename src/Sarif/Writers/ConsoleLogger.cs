@@ -44,6 +44,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             }
         }
 
+        public FileRegionsCache FileRegionsCache { get; set; }
+
         public void AnalysisStarted()
         {
             WriteLineToConsole(SdkResources.MSG_Analyzing);

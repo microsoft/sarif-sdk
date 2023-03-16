@@ -37,6 +37,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
         private readonly SemaphoreSlim _semaphore;
 
+        public FileRegionsCache FileRegionsCache { get; set; }
+
         public void AnalysisStarted()
         {
         }

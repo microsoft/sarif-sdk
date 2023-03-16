@@ -1,5 +1,8 @@
 # SARIF Package Release History (SDK, Driver, Converters, and Multitool)
 ## **v4.2.0** UNRELEASED
+* BRK: Add `IAnalysisContext.FileRegionsCache` property. Used for data sharing across analysis phases. [#2642](https://github.com/microsoft/sarif-sdk/pull/2642)
+* BRK: Remove `FileRegionsCache.Instance` singleton object. Analysis should always prefer context file region context instead. [#2642](https://github.com/microsoft/sarif-sdk/pull/2642)
+* BRK: `fileRegionsCache` parameter is now required for the `InsertOptionalDataVisitor`. [#2642](https://github.com/microsoft/sarif-sdk/pull/2642)
 * BRK: Add `IAnalysisLogger.TargetAnalysisComplete` method. [#2637](https://github.com/microsoft/sarif-sdk/pull/2637)
 * BRK: Remove unused `quiet` parameter from `SarifLogger`. [#2639]https://github.com/microsoft/sarif-sdk/pull/2639
 * BRK: Remove `CompuateHashData` and `AnalysisTargetToHashDataMap` properties from `SarifLogger` (in preference of new `fileRegionsCache` parameter. [#2639](https://github.com/microsoft/sarif-sdk/pull/2639)
@@ -7,6 +10,7 @@
 * BUG: Generate `IAnalysisLogger.AnalyzingTarget` callbacks from `MulthreadedAnalyzeCommandBase`. [#2637](https://github.com/microsoft/sarif-sdk/pull/2637)
 * BUG: Persist `fileRegionsCache` parameter in `SarifLogger` to support retrieving hash data. [#2639](https://github.com/microsoft/sarif-sdk/pull/2639)
 * BUG: Allow override of `FailureLevels` and `ResultKinds` in context objects. [#2639](https://github.com/microsoft/sarif-sdk/pull/2639)
+* NEW: `SarifLogger.FileRegionsCache` property added (to support sharing this instance with context and other classes). [#2642](https://github.com/microsoft/sarif-sdk/pull/2642)
 * NEW: `MultithreadedAnalyzeCommandBase.Tool` is now public to support in-memory analysis (and logging) of targets. [#2639](https://github.com/microsoft/sarif-sdk/pull/2639)
 * NEW: Add `DefaultTraces.TargetsScanned` which is used by `ConsoleLogger` to emit target start and stop analysis messages. [#2637](https://github.com/microsoft/sarif-sdk/pull/2637)
 * NEW: Update `FileRegionsCache` to retrieve cached newline indices and hash data via `GetNewLineIndex` and `GetHashData` methods. [#2639](https://github.com/microsoft/sarif-sdk/pull/2639)
