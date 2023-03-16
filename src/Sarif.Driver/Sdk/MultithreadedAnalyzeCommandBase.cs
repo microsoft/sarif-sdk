@@ -444,7 +444,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
                             globalContext.CurrentTarget = null;
                         }
-                        context.Dispose();
 
                         _fileContexts.TryRemove(currentIndex, out _);
                         _fileContexts.TryGetValue(++currentIndex, out context);

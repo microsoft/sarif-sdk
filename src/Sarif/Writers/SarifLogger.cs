@@ -23,7 +23,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
         private readonly Run _run;
         private readonly bool _closeWriterOnDispose;
-        public FileRegionsCache FileRegionsCache { get; set; }
         private readonly OptionallyEmittedData _dataToInsert;
         private readonly OptionallyEmittedData _dataToRemove;
         private readonly FilePersistenceOptions _filePersistenceOptions;
@@ -144,6 +143,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                     RuleToIndexMap[_run.Tool.Driver.Rules[i]] = i;
                 }
             }
+        }
+
+        private FileRegionsCache _fileRegionsCache;
+        public FileRegionsCache FileRegionsCache 
+        {
+            get => _fileRegionsCache;
+            set => _insertOptionalDataVisitor.FileRegionsCache = _fileRegionsCache = value;
         }
 
         private void RecordRules(int? extensionIndex, ToolComponent toolComponent)
