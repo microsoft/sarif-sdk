@@ -30,7 +30,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         private const string Name = nameof(Name);
         private const string Email = nameof(Email);
         private const string CommitSha = nameof(CommitSha);
-        
+
         public InsertOptionalDataVisitor(OptionallyEmittedData dataToInsert,
                                          FileRegionsCache fileRegionsCache,
                                          Run run,

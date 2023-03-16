@@ -146,7 +146,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         }
 
         private FileRegionsCache _fileRegionsCache;
-        public FileRegionsCache FileRegionsCache 
+        public FileRegionsCache FileRegionsCache
         {
             get => _fileRegionsCache;
             set
