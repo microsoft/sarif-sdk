@@ -24,7 +24,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
         public bool ForceOverwrite => OutputFileOptions.ToFlags().HasFlag(FilePersistenceOptions.ForceOverwrite);
 
-
         private HashSet<FilePersistenceOptions> _filePersistenceOptions;
 
         [Option(
@@ -46,10 +45,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 filePersistenceOptions.Remove(FilePersistenceOptions.Minify);
             }
 
-            if (!filePersistenceOptions.Contains(FilePersistenceOptions.Minify))
+            if (filePersistenceOptions.Count > 0 &&
+                !filePersistenceOptions.Contains(FilePersistenceOptions.Minify))
             {
                 filePersistenceOptions.Add(FilePersistenceOptions.PrettyPrint);
             }
+
             return filePersistenceOptions;
         }
 

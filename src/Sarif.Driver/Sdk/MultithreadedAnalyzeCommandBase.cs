@@ -156,7 +156,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             globalContext.FileSystem ??= FileSystem;
             globalContext = ValidateContext(globalContext);
             disposableLogger = globalContext.Logger as IDisposable;
-            InitializeOutputFile(globalContext);
+            InitializeOutputs(globalContext);
 
             // 1. Instantiate skimmers. We need to do this before initializing
             //    the output file so that we can preconstruct the tool 
@@ -188,6 +188,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             globalContext.Logger.AnalysisStopped(globalContext.RuntimeErrors);
             disposableLogger?.Dispose();
 
+            // Note that we don't clear the logger here. That is because the console
+            // logger and any other custom loggers can still be useful for these operations.
             if ((globalContext.RuntimeErrors & ~RuntimeConditions.Nonfatal) == RuntimeConditions.None)
             {
                 ProcessBaseline(globalContext);
@@ -217,36 +219,25 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             // XML but to override specific settings within it via options.
             context = InitializeConfiguration(options.ConfigurationFilePath, context);
 
-            // TBD: observe that unless/until all options are nullable, that we
-            // will always clobber loaded context data when processing options.
-            // The 'Quiet' property shows the model, use of a nullable type.
-            // We need to convert all remaining options to nullable. Note that
-            // there's still a problem: we can't use the absence of a command-line
-            // boolean argument as positive evidence that a context representation
-            // should be overridden. i.e., say the context file specifies 'Quiet',
-            // there's no way that the options can override this because a value
-            // of false is implied by the absence of an explicit command-line arg.
-            // One solution is remove all boolean args, as we did with --force, 
-            // in preference of enum-driven settings.
             context.Quiet = options.Quiet != null ? options.Quiet.Value : context.Quiet;
-            context.Recurse = options.Recurse;
-            context.Threads = options.Threads > 0 ? options.Threads : Environment.ProcessorCount;
-            context.PostUri = options.PostUri;
-            context.AutomationId = options.AutomationId;
-            context.OutputFilePath = options.OutputFilePath;
-            context.AutomationGuid = options.AutomationGuid;
-            context.BaselineFilePath = options.BaselineFilePath;
+            context.Recurse = options.Recurse != null ? options.Recurse.Value : context.Recurse;
+            context.Threads = options.Threads > 0 ? options.Threads : context.Threads;
+            context.PostUri = options.PostUri != null ? options.PostUri : context.PostUri;
+            context.AutomationId = options.AutomationId != null ? options.AutomationId : context.AutomationId;
+            context.OutputFilePath = options.OutputFilePath != null ? options.OutputFilePath : context.OutputFilePath;
+            context.AutomationGuid = options != default ? options.AutomationGuid : context.AutomationGuid;
+            context.BaselineFilePath = options.BaselineFilePath != null ? options.BaselineFilePath : context.BaselineFilePath;
             context.Traces = options.Trace != null ? InitializeStringSet(options.Trace) : context.Traces;
-            context.DataToInsert = options.DataToInsert.ToFlags();
-            context.DataToRemove = options.DataToRemove.ToFlags();
+            context.DataToInsert = options.DataToInsert?.Any() == true ? options.DataToInsert.ToFlags() : context.DataToInsert;
+            context.DataToRemove = options.DataToRemove?.Any() == true ? options.DataToRemove.ToFlags() : context.DataToRemove;
             context.ResultKinds = options.Kind != null ? options.ResultKinds : context.ResultKinds;
             context.FailureLevels = options.Level != null ? options.FailureLevels : context.FailureLevels;
-            context.OutputFileOptions = options.OutputFileOptions.ToFlags();
+            context.OutputFileOptions = options.OutputFileOptions?.Any() == true ? options.OutputFileOptions.ToFlags() : context.OutputFileOptions;
             context.MaxFileSizeInKilobytes = options.MaxFileSizeInKilobytes != null ? options.MaxFileSizeInKilobytes.Value : context.MaxFileSizeInKilobytes;
-            context.PluginFilePaths = options.PluginFilePaths?.ToImmutableHashSet();
-            context.InsertProperties = InitializeStringSet(options.InsertProperties);
-            context.TargetFileSpecifiers = options.TargetFileSpecifiers != null ? InitializeStringSet(options.TargetFileSpecifiers) : context.TargetFileSpecifiers;
-            context.InvocationPropertiesToLog = InitializeStringSet(options.InvocationPropertiesToLog);
+            context.PluginFilePaths = options.PluginFilePaths?.Any() == true ? options.PluginFilePaths?.ToImmutableHashSet() : context.PluginFilePaths;
+            context.InsertProperties = options.InsertProperties?.Any() == true ? InitializeStringSet(options.InsertProperties) : context.InsertProperties;
+            context.TargetFileSpecifiers = options.TargetFileSpecifiers?.Any() == true ? InitializeStringSet(options.TargetFileSpecifiers) : context.TargetFileSpecifiers;
+            context.InvocationPropertiesToLog = options.InvocationPropertiesToLog?.Any() == true ? InitializeStringSet(options.InvocationPropertiesToLog) : context.InvocationPropertiesToLog;
 
             if (context.TargetsProvider == null)
             {
@@ -348,15 +339,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
             // 1: First we initiate an asynchronous operation to locate disk files for
             // analysis, as specified in analysis configuration (file names, wildcards).
-            Task<bool> enumerateFilesOnDisk = Task.Run(() => EnumerateFilesOnDiskAsync(globalContext));
+            Task<bool> enumerateTargets = Task.Run(() => EnumerateTargetsAsync(globalContext));
 
             // 2: A dedicated set of threads pull scan targets and analyze them.
             //    On completing a scan, the thread writes the index of the 
             //    scanned item to a channel that drives logging.
-            var workers = new Task[globalContext.Threads];
+            var scanWorkers = new Task[globalContext.Threads];
             for (int i = 0; i < globalContext.Threads; i++)
             {
-                workers[i] = Task.Run(() => ScanTargetsAsync(globalContext, skimmers, disabledSkimmers));
+                scanWorkers[i] = Task.Run(() => ScanTargetsAsync(globalContext, skimmers, disabledSkimmers));
             }
 
             // 3: A single-threaded consumer watches for completed scans
@@ -364,14 +355,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             //    to ensure determinism in log output. i.e., any scan of the
             //    same targets using the same production code should produce
             //    a log file that is byte-for-byte identical to previous log.
-            Task logScanResults = Task.Run(() => LogScanResultsAsync(globalContext));
+            Task logResults = Task.Run(() => LogResultsAsync(globalContext));
 
-            Task.WhenAll(workers)
+            Task.WhenAll(scanWorkers)
                 .ContinueWith(_ => _resultsWritingChannel.Writer.Complete())
                 .Wait();
 
-            enumerateFilesOnDisk.Wait();
-            logScanResults.Wait();
+            enumerateTargets.Wait();
+            logResults.Wait();
 
             if (_ignoredFilesCount > 0)
             {
@@ -403,7 +394,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             }
         }
 
-        private async Task LogScanResultsAsync(TContext globalContext)
+        private async Task LogResultsAsync(TContext globalContext)
         {
             uint currentIndex = 0;
 
@@ -522,7 +513,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             globalContext.Logger.TargetAnalyzed(globalContext);
         }
 
-        private async Task<bool> EnumerateFilesOnDiskAsync(TContext context)
+        private async Task<bool> EnumerateTargetsAsync(TContext context)
         {
             try
             {
@@ -757,7 +748,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             return context;
         }
 
-        public virtual void InitializeOutputFile(TContext globalContext)
+        public virtual void InitializeOutputs(TContext globalContext)
         {
             string filePath = globalContext.OutputFilePath;
 
@@ -769,6 +760,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                     aggregatingLogger = new AggregatingLogger();
                     aggregatingLogger.Loggers.Add(globalContext.Logger);
                     globalContext.Logger = aggregatingLogger;
+                }
+
+                if (globalContext.Traces.Contains(nameof(DefaultTraces.ResultsSummary)))
+                {
+                    aggregatingLogger.Loggers.Add(new ResultsSummaryLogger());
                 }
 
                 InvokeCatchingRelevantIOExceptions
@@ -810,7 +806,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                     },
                     (ex) =>
                     {
-                        Errors.LogExceptionCreatingLogFile(globalContext, filePath, ex);
+                        Errors.LogExceptionCreatingOutputFile(globalContext, filePath, ex);
                         ThrowExitApplicationException(ExitReason.ExceptionCreatingLogFile, ex);
                     }
                 );

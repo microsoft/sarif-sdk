@@ -6,6 +6,7 @@ using System;
 using FluentAssertions;
 
 using Microsoft.CodeAnalysis.Sarif;
+using Microsoft.CodeAnalysis.Sarif.Driver;
 
 using Xunit;
 
@@ -24,26 +25,39 @@ namespace Test.UnitTests.Sarif.Driver.Sdk
                 Quiet = true
             };
 
+            var command = new TestMultithreadedAnalyzeCommand();
             loggingOptions = analyzeOptions.OutputFileOptions.ToFlags();
-            loggingOptions.Should().Be(FilePersistenceOptions.PrettyPrint);
-            analyzeOptions.ForceOverwrite.Should().Be(false);
-            analyzeOptions.PrettyPrint.Should().Be(true);
-            analyzeOptions.Optimize.Should().Be(false);
-            analyzeOptions.Minify.Should().Be(false);
-            analyzeOptions.Inline.Should().Be(false);
+
+            // We need logging options to evaluate as empty when not set,
+            // so that we always know when a user has or has not explicitly
+            // set this option. This allows is to be overridden in disk
+            // configuration.
+            loggingOptions.Should().Be(FilePersistenceOptions.None);
+
+            TestAnalysisContext context = null;
+            command.InitializeContextFromOptions(analyzeOptions, ref context);
+
+            context.ForceOverwrite.Should().Be(false);
+            context.PrettyPrint.Should().Be(true);
+            context.Optimize.Should().Be(false);
+            context.Minify.Should().Be(false);
+            context.Inline.Should().Be(false);
 
             analyzeOptions = new TestAnalyzeOptions()
             {
                 OutputFileOptions = new[] { FilePersistenceOptions.Minify }
             };
-
             loggingOptions = analyzeOptions.OutputFileOptions.ToFlags();
             loggingOptions.Should().Be(FilePersistenceOptions.Minify);
-            analyzeOptions.ForceOverwrite.Should().Be(false);
-            analyzeOptions.PrettyPrint.Should().Be(false);
-            analyzeOptions.Optimize.Should().Be(false);
-            analyzeOptions.Inline.Should().Be(false);
-            analyzeOptions.Minify.Should().Be(true);
+
+            context = null;
+            command.InitializeContextFromOptions(analyzeOptions, ref context);
+
+            context.ForceOverwrite.Should().Be(false);
+            context.PrettyPrint.Should().Be(false);
+            context.Optimize.Should().Be(false);
+            context.Inline.Should().Be(false);
+            context.Minify.Should().Be(true);
 
             // If both Minify and PrettyPrint are set, we prefer PrettyPrint, with no exception raised.
             analyzeOptions = new TestAnalyzeOptions()
@@ -53,11 +67,15 @@ namespace Test.UnitTests.Sarif.Driver.Sdk
 
             loggingOptions = analyzeOptions.OutputFileOptions.ToFlags();
             loggingOptions.Should().Be(FilePersistenceOptions.PrettyPrint);
-            analyzeOptions.ForceOverwrite.Should().Be(false);
-            analyzeOptions.PrettyPrint.Should().Be(true);
-            analyzeOptions.Optimize.Should().Be(false);
-            analyzeOptions.Minify.Should().Be(false);
-            analyzeOptions.Inline.Should().Be(false);
+
+            context = null;
+            command.InitializeContextFromOptions(analyzeOptions, ref context);
+
+            context.ForceOverwrite.Should().Be(false);
+            context.PrettyPrint.Should().Be(true);
+            context.Optimize.Should().Be(false);
+            context.Minify.Should().Be(false);
+            context.Inline.Should().Be(false);
 
             analyzeOptions = new TestAnalyzeOptions()
             {
@@ -68,11 +86,15 @@ namespace Test.UnitTests.Sarif.Driver.Sdk
             loggingOptions.Should().Be(
                 FilePersistenceOptions.ForceOverwrite |
                 FilePersistenceOptions.PrettyPrint);
-            analyzeOptions.ForceOverwrite.Should().Be(true);
-            analyzeOptions.PrettyPrint.Should().Be(true);
-            analyzeOptions.Optimize.Should().Be(false);
-            analyzeOptions.Minify.Should().Be(false);
-            analyzeOptions.Inline.Should().Be(false);
+
+            context = null;
+            command.InitializeContextFromOptions(analyzeOptions, ref context);
+
+            context.ForceOverwrite.Should().Be(true);
+            context.PrettyPrint.Should().Be(true);
+            context.Optimize.Should().Be(false);
+            context.Minify.Should().Be(false);
+            context.Inline.Should().Be(false);
 
             analyzeOptions = new TestAnalyzeOptions()
             {
@@ -83,11 +105,15 @@ namespace Test.UnitTests.Sarif.Driver.Sdk
             loggingOptions.Should().Be(
                 FilePersistenceOptions.Optimize |
                 FilePersistenceOptions.PrettyPrint);
-            analyzeOptions.ForceOverwrite.Should().Be(false);
-            analyzeOptions.PrettyPrint.Should().Be(true);
-            analyzeOptions.Optimize.Should().Be(true);
-            analyzeOptions.Minify.Should().Be(false);
-            analyzeOptions.Inline.Should().Be(false);
+
+            context = null;
+            command.InitializeContextFromOptions(analyzeOptions, ref context);
+
+            context.ForceOverwrite.Should().Be(false);
+            context.PrettyPrint.Should().Be(true);
+            context.Optimize.Should().Be(true);
+            context.Minify.Should().Be(false);
+            context.Inline.Should().Be(false);
 
             analyzeOptions = new TestAnalyzeOptions()
             {
@@ -98,11 +124,15 @@ namespace Test.UnitTests.Sarif.Driver.Sdk
             loggingOptions.Should().Be(
                 FilePersistenceOptions.Inline |
                 FilePersistenceOptions.Minify);
-            analyzeOptions.ForceOverwrite.Should().Be(false);
-            analyzeOptions.PrettyPrint.Should().Be(false);
-            analyzeOptions.Optimize.Should().Be(false);
-            analyzeOptions.Minify.Should().Be(true);
-            analyzeOptions.Inline.Should().Be(true);
+
+            context = null;
+            command.InitializeContextFromOptions(analyzeOptions, ref context);
+
+            context.ForceOverwrite.Should().Be(false);
+            context.PrettyPrint.Should().Be(false);
+            context.Optimize.Should().Be(false);
+            context.Minify.Should().Be(true);
+            context.Inline.Should().Be(true);
         }
     }
 }

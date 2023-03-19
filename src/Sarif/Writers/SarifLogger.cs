@@ -502,6 +502,17 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 return;
             }
 
+            // We only populate the artifacts table is there is some data
+            // in addition to the location URI. Otherwise, each results
+            // stores the URI and an artifact index that points to an
+            // entry that merely recapitulates the URI with no other data.
+            bool createArtifactEntries =
+                _dataToInsert.HasFlag(OptionallyEmittedData.Hashes) ||
+                _dataToInsert.HasFlag(OptionallyEmittedData.TextFiles) ||
+                _dataToInsert.HasFlag(OptionallyEmittedData.BinaryFiles) ||
+                !string.IsNullOrEmpty(fileLocation.UriBaseId) ||
+                this.Optimize;
+
             Encoding encoding = null;
 
             if (_run.DefaultEncoding != null)
@@ -521,7 +532,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
             // Ensure Artifact is in Run.Artifacts and ArtifactLocation.Index is set to point to it
             int index = _run.GetFileIndex(fileLocation,
-                                          addToFilesTableIfNotPresent: true,
+                                          addToFilesTableIfNotPresent: createArtifactEntries,
                                           _dataToInsert,
                                           encoding,
                                           hashData);
