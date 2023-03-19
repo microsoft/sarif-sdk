@@ -507,11 +507,18 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             var sb = new StringBuilder();
 
+            var fileRegionsCache = new FileRegionsCache();
+            for (int i = 0; i < 6; i++)
+            {
+                fileRegionsCache.GetHashData(new Uri(@$"file:///c:/file{i}.cpp"), Guid.NewGuid().ToString());
+            }
+
             using (var textWriter = new StringWriter(sb))
             {
                 using (var sarifLogger = new SarifLogger(textWriter,
                                                          analysisTargets: null,
-                                                         dataToInsert: OptionallyEmittedData.None,
+                                                         dataToInsert: OptionallyEmittedData.Hashes,
+                                                         fileRegionsCache: fileRegionsCache,
                                                          invocationTokensToRedact: null,
                                                          invocationPropertiesToLog: null,
                                                          levels: BaseLogger.ErrorWarning,
@@ -1083,13 +1090,15 @@ namespace Microsoft.CodeAnalysis.Sarif
         public void SarifLogger_ShouldWriteToArtifactsIfNotificationHasLocation()
         {
             const string filePath = @"C:\example\example.sarif";
+            var fileRegionsCache = new FileRegionsCache();
+            fileRegionsCache.GetHashData(new Uri(filePath), Guid.NewGuid().ToString());
 
             var sb = new StringBuilder();
 
             using (var writer = new StringWriter(sb))
             using (var sarifLogger = new SarifLogger(writer,
-                                                     levels: BaseLogger.ErrorWarning,
-                                                     kinds: BaseLogger.Fail))
+                                                     fileRegionsCache: fileRegionsCache,
+                                                     dataToInsert: OptionallyEmittedData.Hashes))
             {
                 var emptyNotification = new Notification();
 

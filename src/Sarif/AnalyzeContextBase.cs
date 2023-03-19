@@ -61,6 +61,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         public virtual RuntimeConditions RuntimeErrors { get; set; }
         public virtual bool AnalysisComplete { get; set; }
 
+        public bool Inline => OutputFileOptions.HasFlag(FilePersistenceOptions.Inline);
         public bool Minify => OutputFileOptions.HasFlag(FilePersistenceOptions.Minify);
         public bool Optimize => OutputFileOptions.HasFlag(FilePersistenceOptions.Optimize);
         public bool PrettyPrint => OutputFileOptions.HasFlag(FilePersistenceOptions.PrettyPrint);

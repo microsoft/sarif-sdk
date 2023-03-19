@@ -1,5 +1,7 @@
 # SARIF Package Release History (SDK, Driver, Converters, and Multitool)
 ## **v4.2.0** UNRELEASED
+[#2643](https://github.com/microsoft/sarif-sdk/pull/2643)
+* BRK: Rename `Errors.LogExceptionCreatingLogFile` to `Errors.LogExceptionCreatingOutputFile` to reflect its general purpose. [#2643](https://github.com/microsoft/sarif-sdk/pull/2643)
 * BRK: Add `IAnalysisContext.FileRegionsCache` property. Used for data sharing across analysis phases. [#2642](https://github.com/microsoft/sarif-sdk/pull/2642)
 * BRK: Remove `FileRegionsCache.Instance` singleton object. Analysis should always prefer context file region context instead. [#2642](https://github.com/microsoft/sarif-sdk/pull/2642)
 * BRK: `fileRegionsCache` parameter is now required for the `InsertOptionalDataVisitor`. [#2642](https://github.com/microsoft/sarif-sdk/pull/2642)
@@ -10,6 +12,8 @@
 * BUG: Generate `IAnalysisLogger.AnalyzingTarget` callbacks from `MulthreadedAnalyzeCommandBase`. [#2637](https://github.com/microsoft/sarif-sdk/pull/2637)
 * BUG: Persist `fileRegionsCache` parameter in `SarifLogger` to support retrieving hash data. [#2639](https://github.com/microsoft/sarif-sdk/pull/2639)
 * BUG: Allow override of `FailureLevels` and `ResultKinds` in context objects. [#2639](https://github.com/microsoft/sarif-sdk/pull/2639)
+* NEW: Add `DefaultTraces.ResultsSummary` property that drives naive results summary in console logger. [#2643](https://github.com/microsoft/sarif-sdk/pull/2643)
+* NEW: Prove `AnalyzeContextBase.Inline` helper. [#2643](https://github.com/microsoft/sarif-sdk/pull/2643)
 * NEW: `SarifLogger.FileRegionsCache` property added (to support sharing this instance with context and other classes). [#2642](https://github.com/microsoft/sarif-sdk/pull/2642)
 * NEW: `MultithreadedAnalyzeCommandBase.Tool` is now public to support in-memory analysis (and logging) of targets. [#2639](https://github.com/microsoft/sarif-sdk/pull/2639)
 * NEW: Add `DefaultTraces.TargetsScanned` which is used by `ConsoleLogger` to emit target start and stop analysis messages. [#2637](https://github.com/microsoft/sarif-sdk/pull/2637)

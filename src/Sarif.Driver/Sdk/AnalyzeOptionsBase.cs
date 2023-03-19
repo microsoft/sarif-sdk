@@ -28,7 +28,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             'r',
             "recurse",
             HelpText = "Recurse into subdirectories when evaluating file specifier arguments.")]
-        public bool Recurse { get; set; }
+        public bool? Recurse { get; set; }
 
         [Option(
             'c',
@@ -41,20 +41,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             "quiet",
             HelpText = "Suppress all console output (except for catastrophic tool runtime or configuration errors).")]
         public bool? Quiet { get; set; }
-
-        [Option(
-            's',
-            "statistics",
-            HelpText = "Generate timing and other statistics for analysis session.")]
-        [Obsolete()]
-        public bool Statistics { get; set; }
-
-        [Option(
-            'h',
-            "hashes",
-            HelpText = "Output MD5, SHA1, and SHA-256 hash of analysis targets when emitting SARIF reports.")]
-        [Obsolete("Use --insert instead, passing 'Hashes' along with any other references to data to be inserted.")]
-        public bool ComputeFileHashes { get; set; }
 
         [Option(
             'e',
@@ -132,7 +118,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             get => this.kind;
             set => this.kind = value?.Count() > 0 ? value : null;
         }
-
 
         public ResultKindSet ResultKinds => Kind != null ? new ResultKindSet(Kind) : BaseLogger.Fail;
 

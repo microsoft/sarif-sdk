@@ -15,16 +15,6 @@ namespace Microsoft.CodeAnalysis.Sarif
     {
         None = 0,
 
-        // Not used today but perhaps soon...
-        //CouldNotLoadCustomLoggerAssembly,
-        //CouldNotLoadCustomLoggerType,
-        //UnrecognizedDefaultLoggerExtension,
-        //MalformedCustomLoggersArgument,
-        //LoggerFailedInitialization,
-        //LoggerRaisedExceptionOnInitialization,
-        //LoggerRaisedExceptionOnWrite,
-        //LoggerRaisedExceptionOnClose,
-
         // Fatal conditions
         // InvalidCommandLineOption is a useful bit to
         // use as value 0x1. This allows for a consistent
@@ -35,7 +25,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         ExceptionInSkimmerInitialize = 0x2,
         ExceptionRaisedInSkimmerCanAnalyze = 0x4,
         ExceptionInSkimmerAnalyze = 0x8,
-        ExceptionCreatingLogFile = 0x10,
+        ExceptionCreatingOutputFile = 0x10,
         ExceptionLoadingPdb = 0x20,
         ExceptionInEngine = 0x40,
         ExceptionLoadingTargetFile = 0x80,

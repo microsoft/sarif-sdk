@@ -129,6 +129,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         public static HashData ComputeHashesForText(string text)
         {
+            if (text == null) { throw new ArgumentNullException(nameof(text)); }
             var stream = new MemoryStream(Encoding.UTF8.GetBytes(text));
             return ComputeHashes(stream);
         }

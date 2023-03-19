@@ -135,9 +135,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             var validateCommand = new ValidateCommand();
             var context = new SarifValidationContext { FileSystem = mockFileSystem.Object };
             int returnCode = validateCommand.Run(validateOptions, ref context);
-            (context.RuntimeErrors & ~RuntimeConditions.Nonfatal).Should().Be(0);
-
-            returnCode.Should().Be(0);
+            context.ValidateCommandExecution(returnCode);
 
             string actualLogFileContents = File.ReadAllText(this.IsInline ? baselineFilePath : outputLogFilePath);
             SarifLog actualLog = JsonConvert.DeserializeObject<SarifLog>(actualLogFileContents);

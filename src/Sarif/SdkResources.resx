@@ -159,7 +159,7 @@
   <data name="ERR997_ExceptionAccessingFile" xml:space="preserve">
     <value>Could not access a file specified on the command line: '{0}'.</value>
   </data>
-  <data name="ERR997_ExceptionCreatingLogFile" xml:space="preserve">
+  <data name="ERR997_ExceptionCreatingOutputFile" xml:space="preserve">
     <value>Could not create output file '{0}'.</value>
   </data>
   <data name="ERR998_ExceptionInAnalyze" xml:space="preserve">

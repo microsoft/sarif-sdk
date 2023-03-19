@@ -13,7 +13,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 {
     public static class TestUtilitiesExtensions
     {
-        public static void ValidateCommandExecution(this TestAnalysisContext context, int result)
+        public static void ValidateCommandExecution(this IAnalysisContext context, int result)
         {
             // This method provides validation of execution success for happy path runs, 
             // i.e., where we don't expect to see anything unusual. The validation is

@@ -22,9 +22,9 @@ namespace Microsoft.CodeAnalysis.Sarif
         private const string ERR997_ExceptionLoadingPlugIn = "ERR997.ExceptionLoadingPlugIn";
         private const string ERR997_NoValidAnalysisTargets = "ERR997.NoValidAnalysisTargets";
         private const string ERR997_ExceptionAccessingFile = "ERR997.ExceptionAccessingFile";
-        private const string ERR997_ExceptionCreatingLogFile = "ERR997.ExceptionCreatingLogFile";
         internal const string ERR997_IncompatibleRulesDetected = "ERR997.IncompatibleRulesDetected";
         internal const string ERR997_AllRulesExplicitlyDisabled = "ERR997.AllRulesExplicitlyDisabled";
+        private const string ERR997_ExceptionCreatingOutputFile = "ERR997.ExceptionCreatingOutputFile";
         private const string ERR997_InvalidInvocationPropertyName = "ERR997.InvalidInvocationPropertyName";
         private const string ERR997_MissingReportingConfiguration = "ERR997.MissingReportingConfiguration";
         private const string ERR997_ExceptionLoadingAnalysisTarget = "ERR997.ExceptionLoadingAnalysisTarget";
@@ -183,20 +183,20 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         }
 
-        public static void LogExceptionCreatingLogFile(IAnalysisContext context, string fileName, Exception exception)
+        public static void LogExceptionCreatingOutputFile(IAnalysisContext context, string fileName, Exception exception)
         {
             if (context == null)
             {
                 throw new ArgumentNullException(nameof(context));
             }
 
-            context.RuntimeErrors |= RuntimeConditions.ExceptionCreatingLogFile;
+            context.RuntimeErrors |= RuntimeConditions.ExceptionCreatingOutputFile;
 
             // Could not create output file: '{0}'
             context.Logger.LogConfigurationNotification(
                 CreateNotification(
                     uri: null,
-                    ERR997_ExceptionCreatingLogFile,
+                    ERR997_ExceptionCreatingOutputFile,
                     ruleId: null,
                     FailureLevel.Error,
                     exception: exception,

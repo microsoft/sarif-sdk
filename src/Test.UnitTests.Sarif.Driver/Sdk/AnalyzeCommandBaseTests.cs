@@ -410,7 +410,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                     };
 
                     ExceptionTestHelper(
-                        RuntimeConditions.ExceptionCreatingLogFile,
+                        RuntimeConditions.ExceptionCreatingOutputFile,
                         expectedExitReason: ExitReason.ExceptionCreatingLogFile,
                         analyzeOptions: options);
                 }
@@ -438,7 +438,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 };
 
                 ExceptionTestHelper(
-                    RuntimeConditions.ExceptionCreatingLogFile,
+                    RuntimeConditions.ExceptionCreatingOutputFile,
                     expectedExitReason: ExitReason.ExceptionCreatingLogFile,
                     analyzeOptions: options);
             }
@@ -1748,6 +1748,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             var options = new TestAnalyzeOptions
             {
                 TestRuleBehaviors = testCase.TestRuleBehaviors,
+                DataToInsert = new[] { OptionallyEmittedData.Hashes },
                 OutputFilePath = testCase.PersistLogFileToDisk ? Guid.NewGuid().ToString() : null,
                 TargetFileSpecifiers = new string[] { Guid.NewGuid().ToString() },
             };

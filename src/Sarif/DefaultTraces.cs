@@ -25,5 +25,9 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// Enables a trace message that reports progress against each scan target.
         /// </summary>
         TargetsScanned = 0x8,
+        /// <summary>
+        /// Enables a trace message that summarizes all results and notification by id and severity.
+        /// </summary>
+        ResultsSummary = 0x10,
     }
 }
