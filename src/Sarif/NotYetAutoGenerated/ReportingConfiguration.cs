@@ -17,7 +17,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// Information about a rule or notification that can be configured at runtime.
     /// </summary>
     [DataContract]
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "2.1.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "2.3.0.0")]
     public partial class ReportingConfiguration : PropertyBagHolder, ISarifNode
     {
         public static IEqualityComparer<ReportingConfiguration> ValueComparer => ReportingConfigurationEqualityComparer.Instance;
