@@ -210,10 +210,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             context ??= new TContext();
             context.FileSystem ??= Sarif.FileSystem.Instance;
 
-            // First, we initialize ourselves from disk-based configuration, 
-            // if specified. This allows users to operate against configuration
-            // XML but to override specific settings within it via options.
-            context = InitializeConfiguration(options.ConfigurationFilePath, context);
+            context.Quiet = options.Quiet != null ? options.Quiet.Value : context.Quiet;
+            context.ResultKinds = options.Kind != null ? options.ResultKinds : context.ResultKinds;
+            context.FailureLevels = options.Level != null ? options.FailureLevels : context.FailureLevels;
 
             // Next, we initialize data values that impact loggers, so that we can
             // pass accurate values to the console logger.
@@ -224,6 +223,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             // Now we initialize an aggregating logger, which includes a console logger (for general
             // reporting of conditions that precede successfully creating an output log file).
             context.Logger ??= InitializeLogger(context);
+
+            // First, we initialize ourselves from disk-based configuration, 
+            // if specified. This allows users to operate against configuration
+            // XML but to override specific settings within it via options.
+            context = InitializeConfiguration(options.ConfigurationFilePath, context);
 
             // Finally, handle the remaining options.
             context.Recurse = options.Recurse != null ? options.Recurse.Value : context.Recurse;
@@ -635,8 +639,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         protected virtual void ValidateOptions(TOptions options, TContext context)
         {
             bool succeeded = true;
-
-            // TBD get rid of me.
 
             succeeded &= ValidateFile(context, options.OutputFilePath, shouldExist: null);
             succeeded &= ValidateFile(context, options.ConfigurationFilePath, shouldExist: true);
