@@ -112,7 +112,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 TargetFileSpecifiers = new[] { filePathToBeValidated },
                 OutputFilePath = outputLogFilePath,
                 BaselineFilePath = baselineFilePath,
-                Quiet = true,
+                Quiet = Driver.BoolType.True,
                 OutputFileOptions = new[] { FilePersistenceOptions.PrettyPrint, FilePersistenceOptions.Optimize, this.IsInline ? FilePersistenceOptions.Inline : FilePersistenceOptions.None },
                 Level = new List<FailureLevel> { FailureLevel.Error, FailureLevel.Warning, FailureLevel.Note, FailureLevel.None },
             };

@@ -198,19 +198,27 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             var context = new TestAnalysisContext();
             var analyzeOptionsBase = new TestAnalyzeOptions();
 
-            analyzeOptionsBase.Quiet = false;
+            analyzeOptionsBase.Quiet = null;
             analyzeOptionsBase.OutputFilePath = null;
             Assert.True(analyzeOptionsBase.ValidateOutputOptions(context));
 
-            analyzeOptionsBase.Quiet = false;
+            analyzeOptionsBase.Quiet = null;
             analyzeOptionsBase.OutputFilePath = "SomeFile.txt";
             Assert.True(analyzeOptionsBase.ValidateOutputOptions(context));
 
-            analyzeOptionsBase.Quiet = true;
+            analyzeOptionsBase.Quiet = BoolType.False;
+            analyzeOptionsBase.OutputFilePath = null;
+            Assert.True(analyzeOptionsBase.ValidateOutputOptions(context));
+
+            analyzeOptionsBase.Quiet = BoolType.False;
+            analyzeOptionsBase.OutputFilePath = "SomeFile.txt";
+            Assert.True(analyzeOptionsBase.ValidateOutputOptions(context));
+
+            analyzeOptionsBase.Quiet = BoolType.True;
             analyzeOptionsBase.OutputFilePath = null;
             Assert.False(analyzeOptionsBase.ValidateOutputOptions(context));
 
-            analyzeOptionsBase.Quiet = true;
+            analyzeOptionsBase.Quiet = BoolType.True;
             analyzeOptionsBase.OutputFilePath = "SomeFile.txt";
             Assert.True(analyzeOptionsBase.ValidateOutputOptions(context));
 

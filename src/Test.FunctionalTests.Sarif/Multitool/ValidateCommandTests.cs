@@ -504,7 +504,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 SarifOutputVersion = SarifVersion.Current,
                 TargetFileSpecifiers = new[] { inputLogFilePath },
                 OutputFilePath = actualLogFilePath,
-                Quiet = true,
+                Quiet = BoolType.True,
                 UpdateInputsToCurrentSarif = updateInputsToCurrentSarif,
                 OutputFileOptions = new[] { FilePersistenceOptions.PrettyPrint, FilePersistenceOptions.Optimize },
                 Level = new List<FailureLevel> { FailureLevel.Error, FailureLevel.Warning, FailureLevel.Note, FailureLevel.None },

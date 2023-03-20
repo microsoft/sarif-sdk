@@ -536,7 +536,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 var options = new TestAnalyzeOptions()
                 {
                     TargetFileSpecifiers = new string[] { GetThisTestAssemblyFilePath() },
-                    Quiet = true,
+                    Quiet = BoolType.True,
                     OutputFilePath = null,
                     BaselineFilePath = path
                 };
@@ -632,9 +632,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 var options = new TestAnalyzeOptions
                 {
                     TargetFileSpecifiers = new string[] { fileName },
-                    Quiet = true,
+                    Quiet = BoolType.True,
                     ConfigurationFilePath = configFileName ?? TestMultithreadedAnalyzeCommand.DefaultPolicyName,
-                    Recurse = true,
+                    Recurse = BoolType.True,
                     OutputFilePath = path,
                     SarifOutputVersion = SarifVersion.Current,
                     OutputFileOptions = new[] { FilePersistenceOptions.ForceOverwrite },
@@ -1169,10 +1169,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             var options = new TestAnalyzeOptions
             {
                 TargetFileSpecifiers = new string[] { "" },
-                Quiet = true,
+                Quiet = BoolType.True,
                 DataToInsert = new OptionallyEmittedData[] { OptionallyEmittedData.Hashes },
                 ConfigurationFilePath = configValue,
-                Recurse = true,
+                Recurse = BoolType.True,
                 OutputFilePath = "",
             };
 

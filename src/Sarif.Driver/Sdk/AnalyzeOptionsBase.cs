@@ -11,6 +11,12 @@ using Microsoft.CodeAnalysis.Sarif.Writers;
 
 namespace Microsoft.CodeAnalysis.Sarif.Driver
 {
+    public enum BoolType
+    {
+        True,
+        False,
+    }
+
     [Verb("analyze", HelpText = "Analyze one or more binary files for security and correctness issues.")]
     public abstract class AnalyzeOptionsBase : CommonOptionsBase
     {
@@ -28,7 +34,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             'r',
             "recurse",
             HelpText = "Recurse into subdirectories when evaluating file specifier arguments.")]
-        public bool? Recurse { get; set; }
+        public BoolType? Recurse { get; set; }
 
         [Option(
             'c',
@@ -40,13 +46,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             'q',
             "quiet",
             HelpText = "Suppress all console output (except for catastrophic tool runtime or configuration errors).")]
-        public bool? Quiet { get; set; }
+        public BoolType? Quiet { get; set; }
 
         [Option(
             'e',
             "environment",
             HelpText = "Log machine environment details of run to output file. WARNING: This option records potentially sensitive information (such as all environment variable values) to any emitted log.")]
-        public bool LogEnvironment { get; set; }
+        public BoolType? LogEnvironment { get; set; }
 
         [Option(
             "plugin",
@@ -63,7 +69,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         [Option(
             "rich-return-code",
             HelpText = "Emit a 'rich' return code consisting of a bitfield of conditions (as opposed to 0 or 1 indicating success or failure.")]
-        public bool RichReturnCode { get; set; }
+        public BoolType? RichReturnCode { get; set; }
 
         private IEnumerable<string> trace;
         [Option(

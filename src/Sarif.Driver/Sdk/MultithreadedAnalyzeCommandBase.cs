@@ -210,13 +210,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             context ??= new TContext();
             context.FileSystem ??= Sarif.FileSystem.Instance;
 
-            context.Quiet = options.Quiet != null ? options.Quiet.Value : context.Quiet;
+            context.Quiet = options.Quiet != null ? bool.Parse($"{options.Quiet.Value}") : context.Quiet;
             context.ResultKinds = options.Kind != null ? options.ResultKinds : context.ResultKinds;
             context.FailureLevels = options.Level != null ? options.FailureLevels : context.FailureLevels;
 
             // First, we initialize data values that impact loggers, so that we can
             // pass accurate values to the console logger.
-            context.Quiet = options.Quiet != null ? options.Quiet.Value : context.Quiet;
+            context.Quiet = options.Quiet != null ? bool.Parse($"{options.Quiet.Value}") : context.Quiet;
             context.ResultKinds = options.Kind != null ? options.ResultKinds : context.ResultKinds;
             context.FailureLevels = options.Level != null ? options.FailureLevels : context.FailureLevels;
 
@@ -230,11 +230,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             context = InitializeConfiguration(options.ConfigurationFilePath, context);
 
             // Finally, handle the remaining options.
-            context.Recurse = options.Recurse != null ? options.Recurse.Value : context.Recurse;
+            context.Recurse = options.Recurse != null ? bool.Parse($"{options.Recurse.Value}") : context.Recurse;
             context.Threads = options.Threads > 0 ? options.Threads : context.Threads;
             context.PostUri = options.PostUri != null ? options.PostUri : context.PostUri;
-            context.AutomationId = options.AutomationId != null ? options.AutomationId : context.AutomationId;
-            context.OutputFilePath = options.OutputFilePath != null ? options.OutputFilePath : context.OutputFilePath;
+            context.AutomationId = options.AutomationId ?? context.AutomationId;
+            context.OutputFilePath = options.OutputFilePath ?? context.OutputFilePath;
             context.AutomationGuid = options != default ? options.AutomationGuid : context.AutomationGuid;
             context.BaselineFilePath = options.BaselineFilePath != null ? options.BaselineFilePath : context.BaselineFilePath;
             context.Traces = options.Trace != null ? InitializeStringSet(options.Trace) : context.Traces;
@@ -663,12 +663,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             if (!(globalContext.Quiet == true))
             {
                 _consoleLogger =
-                    new ConsoleLogger(quietConsole: false, 
-                                      Tool.Driver.Name, 
-                                      globalContext.FailureLevels, 
-                                      globalContext.ResultKinds) 
-                    { 
-                        CaptureOutput = _captureConsoleOutput 
+                    new ConsoleLogger(quietConsole: false,
+                                      Tool.Driver.Name,
+                                      globalContext.FailureLevels,
+                                      globalContext.ResultKinds)
+                    {
+                        CaptureOutput = _captureConsoleOutput
                     };
 
                 logger.Loggers.Add(_consoleLogger);
@@ -1272,17 +1272,17 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             }
 
             globalContext.Logger.LogToolNotification(new Notification
+            {
+                Level = level,
+                Descriptor = new ReportingDescriptorReference
                 {
-                    Level = level,
-                    Descriptor = new ReportingDescriptorReference
-                    {
-                        Id = id
-                    },
-                    AssociatedRule = new ReportingDescriptorReference { Id = associatedRule?.Id },
-                    Message = new Message { Text = message },
-                    Exception = exceptionData,
-                    TimeUtc = DateTime.UtcNow
+                    Id = id
                 },
+                AssociatedRule = new ReportingDescriptorReference { Id = associatedRule?.Id },
+                Message = new Message { Text = message },
+                Exception = exceptionData,
+                TimeUtc = DateTime.UtcNow
+            },
                 associatedRule);
         }
     }
