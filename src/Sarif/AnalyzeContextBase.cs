@@ -175,6 +175,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             var disposableLogger = this.Logger as IDisposable;
             disposableLogger?.Dispose();
+            this.Logger = null;
             GC.SuppressFinalize(this);
         }
 

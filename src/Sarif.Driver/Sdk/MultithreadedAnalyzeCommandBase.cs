@@ -196,6 +196,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 PostLogFile(globalContext);
             }
 
+            globalContext.Logger = null;
             succeeded = (globalContext.RuntimeErrors & ~RuntimeConditions.Nonfatal) == RuntimeConditions.None;
 
             return
@@ -209,17 +210,22 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             context ??= new TContext();
             context.FileSystem ??= Sarif.FileSystem.Instance;
 
-            // Our first action is to initialize an aggregating logger, which 
-            // includes a console logger (for general reporting of conditions
-            // that precede successfully creating an output log file).
-            context.Logger ??= InitializeLogger(options);
-
-            // Next, we initialize ourselves from disk-based configuration, 
+            // First, we initialize ourselves from disk-based configuration, 
             // if specified. This allows users to operate against configuration
             // XML but to override specific settings within it via options.
             context = InitializeConfiguration(options.ConfigurationFilePath, context);
 
+            // Next, we initialize data values that impact loggers, so that we can
+            // pass accurate values to the console logger.
             context.Quiet = options.Quiet != null ? options.Quiet.Value : context.Quiet;
+            context.ResultKinds = options.Kind != null ? options.ResultKinds : context.ResultKinds;
+            context.FailureLevels = options.Level != null ? options.FailureLevels : context.FailureLevels;
+
+            // Now we initialize an aggregating logger, which includes a console logger (for general
+            // reporting of conditions that precede successfully creating an output log file).
+            context.Logger ??= InitializeLogger(context);
+
+            // Finally, handle the remaining options.
             context.Recurse = options.Recurse != null ? options.Recurse.Value : context.Recurse;
             context.Threads = options.Threads > 0 ? options.Threads : context.Threads;
             context.PostUri = options.PostUri != null ? options.PostUri : context.PostUri;
@@ -230,8 +236,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             context.Traces = options.Trace != null ? InitializeStringSet(options.Trace) : context.Traces;
             context.DataToInsert = options.DataToInsert?.Any() == true ? options.DataToInsert.ToFlags() : context.DataToInsert;
             context.DataToRemove = options.DataToRemove?.Any() == true ? options.DataToRemove.ToFlags() : context.DataToRemove;
-            context.ResultKinds = options.Kind != null ? options.ResultKinds : context.ResultKinds;
-            context.FailureLevels = options.Level != null ? options.FailureLevels : context.FailureLevels;
             context.OutputFileOptions = options.OutputFileOptions?.Any() == true ? options.OutputFileOptions.ToFlags() : context.OutputFileOptions;
             context.MaxFileSizeInKilobytes = options.MaxFileSizeInKilobytes != null ? options.MaxFileSizeInKilobytes.Value : context.MaxFileSizeInKilobytes;
             context.PluginFilePaths = options.PluginFilePaths?.Any() == true ? options.PluginFilePaths?.ToImmutableHashSet() : context.PluginFilePaths;
@@ -378,7 +382,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 {
                     id = $"TRC101.{nameof(DefaultTraces.PeakWorkingSet)}";
                     string memoryUsage = $"Peak working set: {currentProcess.PeakWorkingSet64 / 1024 / 1024}MB.";
-                    LogToolNotification(globalContext.Logger, memoryUsage, id);
+                    LogTrace(globalContext, memoryUsage, id);
                 }
             }
 
@@ -386,7 +390,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             {
                 id = $"TRC101.{nameof(DefaultTraces.ScanTime)}";
                 string timing = $"Done. {_fileContextsCount:n0} files scanned, elapsed time {sw.Elapsed}.";
-                LogToolNotification(globalContext.Logger, timing, id);
+                LogTrace(globalContext, timing, id);
             }
             else
             {
@@ -650,13 +654,21 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             }
         }
 
-        internal AggregatingLogger InitializeLogger(AnalyzeOptionsBase analyzeOptions)
+        internal AggregatingLogger InitializeLogger(TContext globalContext)
         {
             var logger = new AggregatingLogger();
 
-            if (!(analyzeOptions.Quiet == true))
+            if (!(globalContext.Quiet == true))
             {
-                _consoleLogger = new ConsoleLogger(quietConsole: false, Tool.Driver.Name, analyzeOptions.FailureLevels, analyzeOptions.ResultKinds) { CaptureOutput = _captureConsoleOutput };
+                _consoleLogger =
+                    new ConsoleLogger(quietConsole: false, 
+                                      Tool.Driver.Name, 
+                                      globalContext.FailureLevels, 
+                                      globalContext.ResultKinds) 
+                    { 
+                        CaptureOutput = _captureConsoleOutput 
+                    };
+
                 logger.Loggers.Add(_consoleLogger);
             }
 
@@ -1088,7 +1100,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
                         string id = $"TRC101.{nameof(DefaultTraces.RuleScanTime)}";
                         string timing = $"'{file}' : elapsed {stopwatch.Elapsed} : '{skimmer.Name}' : at '{directory}'";
-                        LogToolNotification(context.Logger, timing, id, context.Rule);
+                        LogTrace(context, timing, id, context.Rule);
                     }
                 }
                 catch (Exception ex)
@@ -1229,7 +1241,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             return skimmers;
         }
 
-        protected static void LogToolNotification(IAnalysisLogger logger,
+        protected static void LogTrace(TContext globalContext,
                                                   string message,
                                                   string id = null,
                                                   ReportingDescriptor associatedRule = null,
@@ -1247,21 +1259,28 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 };
             }
 
-            TextWriter writer = level == FailureLevel.Error ? Console.Error : Console.Out;
-            writer.WriteLine(message);
-
-            logger.LogToolNotification(new Notification
+            if (!globalContext.FailureLevels.Contains(level))
             {
-                Level = level,
-                Descriptor = new ReportingDescriptorReference
+                // If our analysis run isn't configured to show the current failure level
+                // of this notification, we still write it out to the console, as it is
+                // a trace message that's explicitly enabled on the command-line.
+                TextWriter writer = level == FailureLevel.Error ? Console.Error : Console.Out;
+                writer.WriteLine(message);
+                return;
+            }
+
+            globalContext.Logger.LogToolNotification(new Notification
                 {
-                    Id = id
+                    Level = level,
+                    Descriptor = new ReportingDescriptorReference
+                    {
+                        Id = id
+                    },
+                    AssociatedRule = new ReportingDescriptorReference { Id = associatedRule?.Id },
+                    Message = new Message { Text = message },
+                    Exception = exceptionData,
+                    TimeUtc = DateTime.UtcNow
                 },
-                AssociatedRule = new ReportingDescriptorReference { Id = associatedRule?.Id },
-                Message = new Message { Text = message },
-                Exception = exceptionData,
-                TimeUtc = DateTime.UtcNow
-            },
                 associatedRule);
         }
     }
