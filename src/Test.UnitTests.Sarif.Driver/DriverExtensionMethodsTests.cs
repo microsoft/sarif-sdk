@@ -206,19 +206,19 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             analyzeOptionsBase.OutputFilePath = "SomeFile.txt";
             Assert.True(analyzeOptionsBase.ValidateOutputOptions(context));
 
-            analyzeOptionsBase.Quiet = BoolType.False;
+            analyzeOptionsBase.Quiet = false;
             analyzeOptionsBase.OutputFilePath = null;
             Assert.True(analyzeOptionsBase.ValidateOutputOptions(context));
 
-            analyzeOptionsBase.Quiet = BoolType.False;
+            analyzeOptionsBase.Quiet = false;
             analyzeOptionsBase.OutputFilePath = "SomeFile.txt";
             Assert.True(analyzeOptionsBase.ValidateOutputOptions(context));
 
-            analyzeOptionsBase.Quiet = BoolType.True;
+            analyzeOptionsBase.Quiet = true;
             analyzeOptionsBase.OutputFilePath = null;
             Assert.False(analyzeOptionsBase.ValidateOutputOptions(context));
 
-            analyzeOptionsBase.Quiet = BoolType.True;
+            analyzeOptionsBase.Quiet = true;
             analyzeOptionsBase.OutputFilePath = "SomeFile.txt";
             Assert.True(analyzeOptionsBase.ValidateOutputOptions(context));
 

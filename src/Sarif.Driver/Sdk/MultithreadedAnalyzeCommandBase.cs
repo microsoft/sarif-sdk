@@ -210,13 +210,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             context ??= new TContext();
             context.FileSystem ??= Sarif.FileSystem.Instance;
 
-            context.Quiet = options.Quiet != null ? bool.Parse($"{options.Quiet.Value}") : context.Quiet;
-            context.ResultKinds = options.Kind != null ? options.ResultKinds : context.ResultKinds;
-            context.FailureLevels = options.Level != null ? options.FailureLevels : context.FailureLevels;
-
             // First, we initialize data values that impact loggers, so that we can
             // pass accurate values to the console logger.
-            context.Quiet = options.Quiet != null ? bool.Parse($"{options.Quiet.Value}") : context.Quiet;
+            context.Quiet = options.Quiet != null ? options.Quiet.Value : context.Quiet;
             context.ResultKinds = options.Kind != null ? options.ResultKinds : context.ResultKinds;
             context.FailureLevels = options.Level != null ? options.FailureLevels : context.FailureLevels;
 
@@ -230,7 +226,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             context = InitializeConfiguration(options.ConfigurationFilePath, context);
 
             // Finally, handle the remaining options.
-            context.Recurse = options.Recurse != null ? bool.Parse($"{options.Recurse.Value}") : context.Recurse;
+            context.Recurse = options.Recurse != null ? options.Recurse.Value : context.Recurse;
             context.Threads = options.Threads > 0 ? options.Threads : context.Threads;
             context.PostUri = options.PostUri != null ? options.PostUri : context.PostUri;
             context.AutomationId = options.AutomationId ?? context.AutomationId;
