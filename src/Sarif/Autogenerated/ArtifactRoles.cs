@@ -10,7 +10,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// Values specifying the roles played by the file in the analysis.
     /// </summary>
     [Flags]
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "2.1.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "2.3.0.0")]
     public enum ArtifactRoles
     {
         None,

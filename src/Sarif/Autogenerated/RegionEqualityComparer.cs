@@ -10,7 +10,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// <summary>
     /// Defines methods to support the comparison of objects of type Region for equality.
     /// </summary>
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "2.1.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "2.3.0.0")]
     internal sealed class RegionEqualityComparer : IEqualityComparer<Region>
     {
         internal static readonly RegionEqualityComparer Instance = new RegionEqualityComparer();
@@ -117,14 +117,38 @@ namespace Microsoft.CodeAnalysis.Sarif
             int result = 17;
             unchecked
             {
-                result = (result * 31) + obj.StartLine.GetHashCode();
-                result = (result * 31) + obj.StartColumn.GetHashCode();
-                result = (result * 31) + obj.EndLine.GetHashCode();
-                result = (result * 31) + obj.EndColumn.GetHashCode();
+                if (obj.StartLine != null)
+                {
+                    result = (result * 31) + obj.StartLine.GetHashCode();
+                }
+
+                if (obj.StartColumn != null)
+                {
+                    result = (result * 31) + obj.StartColumn.GetHashCode();
+                }
+
+                if (obj.EndLine != null)
+                {
+                    result = (result * 31) + obj.EndLine.GetHashCode();
+                }
+
+                if (obj.EndColumn != null)
+                {
+                    result = (result * 31) + obj.EndColumn.GetHashCode();
+                }
+
                 result = (result * 31) + obj.CharOffset.GetHashCode();
-                result = (result * 31) + obj.CharLength.GetHashCode();
+                if (obj.CharLength != null)
+                {
+                    result = (result * 31) + obj.CharLength.GetHashCode();
+                }
+
                 result = (result * 31) + obj.ByteOffset.GetHashCode();
-                result = (result * 31) + obj.ByteLength.GetHashCode();
+                if (obj.ByteLength != null)
+                {
+                    result = (result * 31) + obj.ByteLength.GetHashCode();
+                }
+
                 if (obj.Snippet != null)
                 {
                     result = (result * 31) + obj.Snippet.ValueGetHashCode();

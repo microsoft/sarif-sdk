@@ -10,7 +10,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// <summary>
     /// Defines methods to support the comparison of objects of type EdgeTraversal for equality.
     /// </summary>
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "2.1.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "2.3.0.0")]
     internal sealed class EdgeTraversalEqualityComparer : IEqualityComparer<EdgeTraversal>
     {
         internal static readonly EdgeTraversalEqualityComparer Instance = new EdgeTraversalEqualityComparer();
@@ -125,7 +125,11 @@ namespace Microsoft.CodeAnalysis.Sarif
                     result = (result * 31) + xor_0;
                 }
 
-                result = (result * 31) + obj.StepOverEdgeCount.GetHashCode();
+                if (obj.StepOverEdgeCount != null)
+                {
+                    result = (result * 31) + obj.StepOverEdgeCount.GetHashCode();
+                }
+
                 if (obj.Properties != null)
                 {
                     // Use xor for dictionaries to be order-independent.

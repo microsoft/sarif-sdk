@@ -14,7 +14,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// A location visited by an analysis tool while simulating or monitoring the execution of a program.
     /// </summary>
     [DataContract]
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "2.1.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "2.3.0.0")]
     public partial class ThreadFlowLocation : PropertyBagHolder, ISarifNode
     {
         public static IEqualityComparer<ThreadFlowLocation> ValueComparer => ThreadFlowLocationEqualityComparer.Instance;
@@ -85,7 +85,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// An integer representing a containment hierarchy within the thread flow.
         /// </summary>
         [DataMember(Name = "nestingLevel", IsRequired = false, EmitDefaultValue = false)]
-        public virtual int NestingLevel { get; set; }
+        public virtual int? NestingLevel { get; set; }
 
         /// <summary>
         /// An integer representing the temporal order in which execution reached this location.
@@ -184,7 +184,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="properties">
         /// An initialization value for the <see cref="P:Properties" /> property.
         /// </param>
-        public ThreadFlowLocation(int index, Location location, Stack stack, IEnumerable<string> kinds, IEnumerable<ReportingDescriptorReference> taxa, string module, IDictionary<string, MultiformatMessageString> state, int nestingLevel, int executionOrder, DateTime executionTimeUtc, ThreadFlowLocationImportance importance, WebRequest webRequest, WebResponse webResponse, IDictionary<string, SerializedPropertyInfo> properties)
+        public ThreadFlowLocation(int index, Location location, Stack stack, IEnumerable<string> kinds, IEnumerable<ReportingDescriptorReference> taxa, string module, IDictionary<string, MultiformatMessageString> state, int? nestingLevel, int executionOrder, DateTime executionTimeUtc, ThreadFlowLocationImportance importance, WebRequest webRequest, WebResponse webResponse, IDictionary<string, SerializedPropertyInfo> properties)
         {
             Init(index, location, stack, kinds, taxa, module, state, nestingLevel, executionOrder, executionTimeUtc, importance, webRequest, webResponse, properties);
         }
@@ -226,7 +226,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new ThreadFlowLocation(this);
         }
 
-        protected virtual void Init(int index, Location location, Stack stack, IEnumerable<string> kinds, IEnumerable<ReportingDescriptorReference> taxa, string module, IDictionary<string, MultiformatMessageString> state, int nestingLevel, int executionOrder, DateTime executionTimeUtc, ThreadFlowLocationImportance importance, WebRequest webRequest, WebResponse webResponse, IDictionary<string, SerializedPropertyInfo> properties)
+        protected virtual void Init(int index, Location location, Stack stack, IEnumerable<string> kinds, IEnumerable<ReportingDescriptorReference> taxa, string module, IDictionary<string, MultiformatMessageString> state, int? nestingLevel, int executionOrder, DateTime executionTimeUtc, ThreadFlowLocationImportance importance, WebRequest webRequest, WebResponse webResponse, IDictionary<string, SerializedPropertyInfo> properties)
         {
             Index = index;
             if (location != null)

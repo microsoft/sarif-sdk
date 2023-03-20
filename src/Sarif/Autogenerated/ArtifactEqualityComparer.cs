@@ -10,7 +10,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// <summary>
     /// Defines methods to support the comparison of objects of type Artifact for equality.
     /// </summary>
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "2.1.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "2.3.0.0")]
     internal sealed class ArtifactEqualityComparer : IEqualityComparer<Artifact>
     {
         internal static readonly ArtifactEqualityComparer Instance = new ArtifactEqualityComparer();
@@ -150,7 +150,11 @@ namespace Microsoft.CodeAnalysis.Sarif
                 }
 
                 result = (result * 31) + obj.ParentIndex.GetHashCode();
-                result = (result * 31) + obj.Offset.GetHashCode();
+                if (obj.Offset != null)
+                {
+                    result = (result * 31) + obj.Offset.GetHashCode();
+                }
+
                 result = (result * 31) + obj.Length.GetHashCode();
                 result = (result * 31) + obj.Roles.GetHashCode();
                 if (obj.MimeType != null)

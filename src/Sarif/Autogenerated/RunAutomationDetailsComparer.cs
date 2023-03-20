@@ -10,7 +10,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// <summary>
     /// Defines methods to support the comparison of objects of type RunAutomationDetails for sorting.
     /// </summary>
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "2.1.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "2.3.0.0")]
     internal sealed class RunAutomationDetailsComparer : IComparer<RunAutomationDetails>
     {
         internal static readonly RunAutomationDetailsComparer Instance = new RunAutomationDetailsComparer();

@@ -10,7 +10,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// <summary>
     /// Defines methods to support the comparison of objects of type Invocation for equality.
     /// </summary>
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "2.1.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "2.3.0.0")]
     internal sealed class InvocationEqualityComparer : IEqualityComparer<Invocation>
     {
         internal static readonly InvocationEqualityComparer Instance = new InvocationEqualityComparer();
@@ -331,7 +331,11 @@ namespace Microsoft.CodeAnalysis.Sarif
 
                 result = (result * 31) + obj.StartTimeUtc.GetHashCode();
                 result = (result * 31) + obj.EndTimeUtc.GetHashCode();
-                result = (result * 31) + obj.ExitCode.GetHashCode();
+                if (obj.ExitCode != null)
+                {
+                    result = (result * 31) + obj.ExitCode.GetHashCode();
+                }
+
                 if (obj.RuleConfigurationOverrides != null)
                 {
                     foreach (var value_6 in obj.RuleConfigurationOverrides)
@@ -390,7 +394,11 @@ namespace Microsoft.CodeAnalysis.Sarif
                     result = (result * 31) + obj.ExitSignalName.GetHashCode();
                 }
 
-                result = (result * 31) + obj.ExitSignalNumber.GetHashCode();
+                if (obj.ExitSignalNumber != null)
+                {
+                    result = (result * 31) + obj.ExitSignalNumber.GetHashCode();
+                }
+
                 if (obj.ProcessStartFailureMessage != null)
                 {
                     result = (result * 31) + obj.ProcessStartFailureMessage.GetHashCode();
@@ -407,7 +415,11 @@ namespace Microsoft.CodeAnalysis.Sarif
                     result = (result * 31) + obj.Account.GetHashCode();
                 }
 
-                result = (result * 31) + obj.ProcessId.GetHashCode();
+                if (obj.ProcessId != null)
+                {
+                    result = (result * 31) + obj.ProcessId.GetHashCode();
+                }
+
                 if (obj.ExecutableLocation != null)
                 {
                     result = (result * 31) + obj.ExecutableLocation.ValueGetHashCode();
