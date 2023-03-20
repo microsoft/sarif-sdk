@@ -122,11 +122,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                     result = (result * 31) + obj.StartLine.GetHashCode();
                 }
 
-                if (obj.StartColumn != null)
-                {
-                    result = (result * 31) + obj.StartColumn.GetHashCode();
-                }
-
+                result = (result * 31) + obj.StartColumn.GetHashCode();
                 if (obj.EndLine != null)
                 {
                     result = (result * 31) + obj.EndLine.GetHashCode();
@@ -138,17 +134,9 @@ namespace Microsoft.CodeAnalysis.Sarif
                 }
 
                 result = (result * 31) + obj.CharOffset.GetHashCode();
-                if (obj.CharLength != null)
-                {
-                    result = (result * 31) + obj.CharLength.GetHashCode();
-                }
-
+                result = (result * 31) + obj.CharLength.GetHashCode();
                 result = (result * 31) + obj.ByteOffset.GetHashCode();
-                if (obj.ByteLength != null)
-                {
-                    result = (result * 31) + obj.ByteLength.GetHashCode();
-                }
-
+                result = (result * 31) + obj.ByteLength.GetHashCode();
                 if (obj.Snippet != null)
                 {
                     result = (result * 31) + obj.Snippet.ValueGetHashCode();

@@ -45,7 +45,9 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// The column number of the first character in the region.
         /// </summary>
         [DataMember(Name = "startColumn", IsRequired = false, EmitDefaultValue = false)]
-        public virtual int? StartColumn { get; set; }
+        [DefaultValue(1)]
+        [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
+        public virtual int StartColumn { get; set; }
 
         /// <summary>
         /// The line number of the last character in the region.
@@ -71,7 +73,9 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// The length of the region in characters.
         /// </summary>
         [DataMember(Name = "charLength", IsRequired = false, EmitDefaultValue = false)]
-        public virtual int? CharLength { get; set; }
+        [DefaultValue(0)]
+        [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
+        public virtual int CharLength { get; set; }
 
         /// <summary>
         /// The zero-based offset from the beginning of the artifact of the first byte in the region.
@@ -85,7 +89,9 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// The length of the region in bytes.
         /// </summary>
         [DataMember(Name = "byteLength", IsRequired = false, EmitDefaultValue = false)]
-        public virtual int? ByteLength { get; set; }
+        [DefaultValue(0)]
+        [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
+        public virtual int ByteLength { get; set; }
 
         /// <summary>
         /// The portion of the artifact contents within the specified region.
@@ -116,8 +122,11 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// </summary>
         public Region()
         {
+            StartColumn = 1;
             CharOffset = -1;
+            CharLength = 0;
             ByteOffset = -1;
+            ByteLength = 0;
         }
 
         /// <summary>
@@ -159,7 +168,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="properties">
         /// An initialization value for the <see cref="P:Properties" /> property.
         /// </param>
-        public Region(int? startLine, int? startColumn, int? endLine, int? endColumn, int charOffset, int? charLength, int byteOffset, int? byteLength, ArtifactContent snippet, Message message, string sourceLanguage, IDictionary<string, SerializedPropertyInfo> properties)
+        public Region(int? startLine, int startColumn, int? endLine, int? endColumn, int charOffset, int charLength, int byteOffset, int byteLength, ArtifactContent snippet, Message message, string sourceLanguage, IDictionary<string, SerializedPropertyInfo> properties)
         {
             Init(startLine, startColumn, endLine, endColumn, charOffset, charLength, byteOffset, byteLength, snippet, message, sourceLanguage, properties);
         }
@@ -201,7 +210,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new Region(this);
         }
 
-        protected virtual void Init(int? startLine, int? startColumn, int? endLine, int? endColumn, int charOffset, int? charLength, int byteOffset, int? byteLength, ArtifactContent snippet, Message message, string sourceLanguage, IDictionary<string, SerializedPropertyInfo> properties)
+        protected virtual void Init(int? startLine, int startColumn, int? endLine, int? endColumn, int charOffset, int charLength, int byteOffset, int byteLength, ArtifactContent snippet, Message message, string sourceLanguage, IDictionary<string, SerializedPropertyInfo> properties)
         {
             StartLine = startLine;
             StartColumn = startColumn;
