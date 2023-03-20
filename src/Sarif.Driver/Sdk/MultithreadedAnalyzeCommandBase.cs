@@ -214,17 +214,17 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             context.ResultKinds = options.Kind != null ? options.ResultKinds : context.ResultKinds;
             context.FailureLevels = options.Level != null ? options.FailureLevels : context.FailureLevels;
 
-            // Next, we initialize data values that impact loggers, so that we can
+            // First, we initialize data values that impact loggers, so that we can
             // pass accurate values to the console logger.
             context.Quiet = options.Quiet != null ? options.Quiet.Value : context.Quiet;
             context.ResultKinds = options.Kind != null ? options.ResultKinds : context.ResultKinds;
             context.FailureLevels = options.Level != null ? options.FailureLevels : context.FailureLevels;
 
-            // Now we initialize an aggregating logger, which includes a console logger (for general
+            // We initialize an aggregating logger, which includes a console logger (for general
             // reporting of conditions that precede successfully creating an output log file).
             context.Logger ??= InitializeLogger(context);
 
-            // First, we initialize ourselves from disk-based configuration, 
+            // Next, we initialize ourselves from disk-based configuration, 
             // if specified. This allows users to operate against configuration
             // XML but to override specific settings within it via options.
             context = InitializeConfiguration(options.ConfigurationFilePath, context);
