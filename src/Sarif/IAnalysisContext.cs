@@ -9,6 +9,8 @@ namespace Microsoft.CodeAnalysis.Sarif
 {
     public interface IAnalysisContext : IDisposable
     {
+        IList<VersionControlDetails> VersionControlProvenance { get; set; }
+
         string PostUri { get; set; }
 
         string BaselineFilePath { get; set; }

@@ -230,8 +230,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             context.Threads = options.Threads > 0 ? options.Threads : context.Threads;
             context.PostUri = options.PostUri != null ? options.PostUri : context.PostUri;
             context.AutomationId = options.AutomationId ?? context.AutomationId;
+            context.AutomationGuid = options.AutomationGuid ?? context.AutomationGuid;
             context.OutputFilePath = options.OutputFilePath ?? context.OutputFilePath;
-            context.AutomationGuid = options != default ? options.AutomationGuid : context.AutomationGuid;
             context.BaselineFilePath = options.BaselineFilePath != null ? options.BaselineFilePath : context.BaselineFilePath;
             context.Traces = options.Trace != null ? InitializeStringSet(options.Trace) : context.Traces;
             context.DataToInsert = options.DataToInsert?.Any() == true ? options.DataToInsert.ToFlags() : context.DataToInsert;
@@ -795,6 +795,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                                 Id = globalContext.AutomationId,
                                 Guid = globalContext.AutomationGuid
                             },
+                            VersionControlProvenance = globalContext.VersionControlProvenance,
                             Tool = Tool,
                         };
 
