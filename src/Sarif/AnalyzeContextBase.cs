@@ -189,13 +189,13 @@ namespace Microsoft.CodeAnalysis.Sarif
             new PerLanguageOption<Guid?>(
                 "CoreSettings", nameof(AutomationGuid), defaultValue: () => null,
                 "A guid that will be persisted to the 'Run.AutomationDetails.Guid' property. " +
-                "See section '3.17.3' of the SARIF specification for more information.");
+                "See section '3.17.4' of the SARIF specification for more information.");
 
         public static PerLanguageOption<string> AutomationIdProperty { get; } =
                     new PerLanguageOption<string>(
                         "CoreSettings", nameof(AutomationId), defaultValue: () => string.Empty,
                         "An id that will be persisted to the 'Run.AutomationDetails.Id' property. " +
-                        "See section '3.17.4' of the SARIF specification for more information.");
+                        "See section '3.17.3' of the SARIF specification for more information.");
 
         public static PerLanguageOption<string> BaselineFilePathProperty { get; } =
                     new PerLanguageOption<string>(
