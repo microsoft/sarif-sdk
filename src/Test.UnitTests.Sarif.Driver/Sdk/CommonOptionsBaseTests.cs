@@ -22,7 +22,7 @@ namespace Test.UnitTests.Sarif.Driver.Sdk
             // Any case in which PrettyPrint is not specified should default to PrettyPrint.
             TestAnalyzeOptions analyzeOptions = new TestAnalyzeOptions()
             {
-                Quiet = true
+                Quiet = true,
             };
 
             var command = new TestMultithreadedAnalyzeCommand();

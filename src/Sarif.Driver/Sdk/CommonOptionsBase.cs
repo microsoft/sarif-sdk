@@ -6,8 +6,6 @@ using System.Collections.Generic;
 
 using CommandLine;
 
-using Microsoft.CodeAnalysis.Sarif.Writers;
-
 using Newtonsoft.Json;
 
 namespace Microsoft.CodeAnalysis.Sarif.Driver

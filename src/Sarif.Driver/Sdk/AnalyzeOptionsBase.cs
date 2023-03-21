@@ -46,7 +46,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             'e',
             "environment",
             HelpText = "Log machine environment details of run to output file. WARNING: This option records potentially sensitive information (such as all environment variable values) to any emitted log.")]
-        public bool LogEnvironment { get; set; }
+        public bool? LogEnvironment { get; set; }
 
         [Option(
             "plugin",
@@ -63,7 +63,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         [Option(
             "rich-return-code",
             HelpText = "Emit a 'rich' return code consisting of a bitfield of conditions (as opposed to 0 or 1 indicating success or failure.")]
-        public bool RichReturnCode { get; set; }
+        public bool? RichReturnCode { get; set; }
 
         private IEnumerable<string> trace;
         [Option(
