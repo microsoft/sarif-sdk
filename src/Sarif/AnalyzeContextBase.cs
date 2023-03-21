@@ -40,12 +40,12 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <summary>
         ///  TBD these all need good comments.
         /// </summary>
+        public virtual IList<VersionControlDetails> VersionControlProvenance { get; set; }
         public virtual string PostUri { get; set; }
         public virtual ISet<string> InvocationPropertiesToLog { get; set; }
         public virtual ISet<string> PluginFilePaths { get; set; }
         public virtual ISet<string> PropertiesToLog { get; set; }
         public virtual ISet<string> InsertProperties { get; set; }
-        public virtual Guid? AutomationGuid { get; set; }
         public virtual bool Quiet { get; set; }
         public virtual IFileSystem FileSystem { get; set; }
         public virtual CancellationToken CancellationToken { get; set; }
@@ -66,6 +66,12 @@ namespace Microsoft.CodeAnalysis.Sarif
         public bool Optimize => OutputFileOptions.HasFlag(FilePersistenceOptions.Optimize);
         public bool PrettyPrint => OutputFileOptions.HasFlag(FilePersistenceOptions.PrettyPrint);
         public bool ForceOverwrite => OutputFileOptions.HasFlag(FilePersistenceOptions.ForceOverwrite);
+
+        public virtual Guid? AutomationGuid
+        {
+            get => this.Policy.GetProperty(AutomationGuidProperty);
+            set => this.Policy.SetProperty(AutomationGuidProperty, value);
+        }
 
         public virtual string AutomationId
         {
@@ -178,6 +184,12 @@ namespace Microsoft.CodeAnalysis.Sarif
             this.Logger = null;
             GC.SuppressFinalize(this);
         }
+
+        public static PerLanguageOption<Guid?> AutomationGuidProperty { get; } =
+            new PerLanguageOption<Guid?>(
+                "CoreSettings", nameof(AutomationGuid), defaultValue: () => null,
+                "A guid that will be persisted to the 'Run.AutomationDetails.Guid' property. " +
+                "See section '3.17.4' of the SARIF specification for more information.");
 
         public static PerLanguageOption<string> AutomationIdProperty { get; } =
                     new PerLanguageOption<string>(
