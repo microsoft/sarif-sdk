@@ -49,6 +49,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         public bool? LogEnvironment { get; set; }
 
         [Option(
+            'p',
             "plugin",
             Separator = ';',
             HelpText = "Path to plugin(s) that should drive analysis for all configured scan targets.")]
