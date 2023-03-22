@@ -234,6 +234,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                     PostLogFile(globalContext.PostUri, globalContext.OutputFilePath, globalContext.FileSystem, httpClient)
                         .GetAwaiter()
                         .GetResult();
+
+                    Console.WriteLine($"Posted log file successfully to: {globalContext.PostUri}");
                 }
             }
             catch (Exception ex)

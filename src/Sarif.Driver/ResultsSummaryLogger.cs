@@ -72,8 +72,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         {
             if (this.rulesSummary == null) { return; }
 
-            Console.WriteLine();
-
             var aggregatedCounts = new Dictionary<string, long>();
             foreach (string ruleIdAndName in this.rulesSummary.Keys)
             {
@@ -88,8 +86,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             {
                 Console.WriteLine(line.Key);
             }
-
-            Console.WriteLine();
         }
     }
 }

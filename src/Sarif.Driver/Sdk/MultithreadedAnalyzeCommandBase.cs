@@ -9,6 +9,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Net.Http;
+using System.Net.Mime;
 using System.Runtime.InteropServices;
 using System.Threading.Channels;
 using System.Threading.Tasks;
@@ -150,8 +151,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
         private int Run(TContext globalContext)
         {
-            bool succeeded = false;
-            IDisposable disposableLogger = null;
+            bool succeeded;
+            IDisposable disposableLogger;
 
             globalContext.FileSystem ??= FileSystem;
             globalContext = ValidateContext(globalContext);
@@ -216,14 +217,23 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             context.ResultKinds = options.Kind != null ? options.ResultKinds : context.ResultKinds;
             context.FailureLevels = options.Level != null ? options.FailureLevels : context.FailureLevels;
 
-            // We initialize an aggregating logger, which includes a console logger (for general
-            // reporting of conditions that precede successfully creating an output log file).
-            context.Logger ??= InitializeLogger(context);
+            // We initialize a temporary console logger that's used strictly to emit
+            // diagnostics output while we load/initialize various configurations settings.
+            IAnalysisLogger savedLogger = context.Logger;
+            context.Logger = new ConsoleLogger(quietConsole: true,
+                                               levels: BaseLogger.ErrorWarningNote,
+                                               kinds: BaseLogger.Fail,
+                                               toolName: Tool.Driver.Name);
 
             // Next, we initialize ourselves from disk-based configuration, 
             // if specified. This allows users to operate against configuration
             // XML but to override specific settings within it via options.
             context = InitializeConfiguration(options.ConfigurationFilePath, context);
+
+            // Now that our context if fully initialized, we can create
+            // the actual loggers used to complete analysis.
+            context.Logger = savedLogger;
+            context.Logger ??= InitializeLogger(context);
 
             // Finally, handle the remaining options.
             context.Recurse = options.Recurse != null ? options.Recurse.Value : context.Recurse;
@@ -282,8 +292,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 try
                 {
                     var httpClient = new HttpClientWrapper();
-                    HttpResponseMessage httpResponseMessage = httpClient.GetAsync(globalContext.PostUri).GetAwaiter().GetResult();
-                    if (!httpResponseMessage.IsSuccessStatusCode)
+                    var content = new StringContent(string.Empty);
+                    HttpResponseMessage httpResponseMessage = httpClient.PostAsync(globalContext.PostUri, content).GetAwaiter().GetResult();
+
+                    // Internal server error means we found our server but it didn't like our malformed payload.
+                    // That means we're all good! i.e., if we provide a good SARIF file we should succeed.
+                    if (httpResponseMessage.StatusCode != System.Net.HttpStatusCode.InternalServerError)
                     {
                         globalContext.PostUri = null;
                         succeeded = false;
