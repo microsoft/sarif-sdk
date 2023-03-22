@@ -1,5 +1,7 @@
 # SARIF Package Release History (SDK, Driver, Converters, and Multitool)
 ## **v4.2.0** UNRELEASED
+* BRK: Command-line argument `automationGuid` renamed to `automation-guid`. [#2647](https://github.com/microsoft/sarif-sdk/pull/2647)
+* BRK: Command-line argument `automationId` renamed to `automation-id`. [#2647](https://github.com/microsoft/sarif-sdk/pull/2647)
 * BRK: Update `AnalyzeOptionsBase` `Quiet`, `Recurse`, `LogEnvironment`, and `RichReturnCode` properties to bool? type. [#2644](https://github.com/microsoft/sarif-sdk/pull/2644)
 * BRK: Rename `Errors.LogExceptionCreatingLogFile` to `Errors.LogExceptionCreatingOutputFile` to reflect its general purpose. [#2643](https://github.com/microsoft/sarif-sdk/pull/2643)
 * BRK: Add `IAnalysisContext.FileRegionsCache` property. Used for data sharing across analysis phases. [#2642](https://github.com/microsoft/sarif-sdk/pull/2642)
