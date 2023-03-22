@@ -41,9 +41,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         ///  TBD these all need good comments.
         /// </summary>
         public virtual IList<VersionControlDetails> VersionControlProvenance { get; set; }
-        public virtual string PostUri { get; set; }
         public virtual ISet<string> InvocationPropertiesToLog { get; set; }
-        public virtual ISet<string> PluginFilePaths { get; set; }
         public virtual ISet<string> PropertiesToLog { get; set; }
         public virtual ISet<string> InsertProperties { get; set; }
         public virtual bool Quiet { get; set; }
@@ -67,12 +65,23 @@ namespace Microsoft.CodeAnalysis.Sarif
         public bool PrettyPrint => OutputFileOptions.HasFlag(FilePersistenceOptions.PrettyPrint);
         public bool ForceOverwrite => OutputFileOptions.HasFlag(FilePersistenceOptions.ForceOverwrite);
 
+        public virtual ISet<string> PluginFilePaths
+        {
+            get => this.Policy.GetProperty(PluginFilePathsProperty);
+            set => this.Policy.SetProperty(PluginFilePathsProperty, new StringSet(value));
+        }
+
+        public virtual string PostUri
+        {
+            get => this.Policy.GetProperty(PostUriProperty);
+            set => this.Policy.SetProperty(PostUriProperty, value);
+        }
+
         public virtual Guid? AutomationGuid
         {
             get => this.Policy.GetProperty(AutomationGuidProperty);
             set => this.Policy.SetProperty(AutomationGuidProperty, value);
         }
-
         public virtual string AutomationId
         {
             get => this.Policy.GetProperty(AutomationIdProperty);
@@ -207,6 +216,11 @@ namespace Microsoft.CodeAnalysis.Sarif
                                 "CoreSettings", nameof(OutputFilePath), defaultValue: () => string.Empty,
                                 "The path to write all SARIF log file results to.");
 
+        public static PerLanguageOption<string> PostUriProperty { get; } =
+                            new PerLanguageOption<string>(
+                                "CoreSettings", nameof(PostUri), defaultValue: () => string.Empty,
+                                "A SARIF-accepting endpoint to publish the output log to.");
+
         public static PerLanguageOption<string> ConfigurationFilePathProperty { get; } =
                             new PerLanguageOption<string>(
                                 "CoreSettings", nameof(ConfigurationFilePath), defaultValue: () => string.Empty,
@@ -228,6 +242,11 @@ namespace Microsoft.CodeAnalysis.Sarif
                     new PerLanguageOption<StringSet>(
                         "CoreSettings", nameof(Traces), defaultValue: () => new StringSet(new[] { "None" }),
                         "A set of trace values. Zero, one or more of ScanTime, RuleScanTime.");
+
+        public static PerLanguageOption<StringSet> PluginFilePathsProperty { get; } =
+                    new PerLanguageOption<StringSet>(
+                        "CoreSettings", nameof(PluginFilePaths), defaultValue: () => new StringSet(),
+                        "Path to plugin(s) that should drive analysis for all configured scan targets.");
 
         public static PerLanguageOption<StringSet> TargetFileSpecifiersProperty { get; } =
                     new PerLanguageOption<StringSet>(

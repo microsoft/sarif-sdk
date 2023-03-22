@@ -2,9 +2,7 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Collections.Specialized;
 using System.Linq;
 
 namespace Microsoft.CodeAnalysis.Sarif.Driver
@@ -72,8 +70,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         {
             if (this.rulesSummary == null) { return; }
 
-            Console.WriteLine();
-
             var aggregatedCounts = new Dictionary<string, long>();
             foreach (string ruleIdAndName in this.rulesSummary.Keys)
             {
@@ -88,8 +84,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             {
                 Console.WriteLine(line.Key);
             }
-
-            Console.WriteLine();
         }
     }
 }
