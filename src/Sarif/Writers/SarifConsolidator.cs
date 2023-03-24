@@ -262,13 +262,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 // Remove EndLine if the same as StartLine
                 if (region.EndLine == region.StartLine)
                 {
-                    region.EndLine = 0;
-                }
-
-                // Remove StartColumn if it's the default (1)
-                if (region.StartColumn == 1)
-                {
-                    region.StartColumn = 0;
+                    region.EndLine = null;
                 }
             }
 
@@ -276,10 +270,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             if (!this.RegionComponentsToKeep.HasFlag(RegionComponents.LineAndColumn)
                 && (region.CharOffset >= 0 || region.ByteOffset >= 0))
             {
-                region.StartLine = 0;
-                region.StartColumn = 0;
-                region.EndLine = 0;
-                region.EndColumn = 0;
+                region.StartLine = null;
+                region.StartColumn = 1;
+                region.EndLine = null;
+                region.EndColumn = null;
             }
 
             if (!this.RegionComponentsToKeep.HasFlag(RegionComponents.ByteOffsetAndLength)

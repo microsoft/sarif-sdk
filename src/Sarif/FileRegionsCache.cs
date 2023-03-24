@@ -121,7 +121,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             Region region = inputRegion.DeepClone();
 
-            if (region.StartLine == 0)
+            if (region.StartLine == null)
             {
                 // This means we have a region specified entirely via charOffset
                 PopulatePropertiesFromCharOffsetAndLength(lineIndex, region);
@@ -282,7 +282,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             // Populated at this point: StartLine
             Assert(region.StartLine > 0);
 
-            region.EndLine = region.EndLine == 0 ? region.StartLine : region.EndLine;
+            region.EndLine = region.EndLine == null ? region.StartLine : region.EndLine;
         }
 
         private static void PopulateStartColumn(Region region)
@@ -301,7 +301,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             Assert(region.StartColumn > 0);
             Assert(region.EndLine > 0);
 
-            if (region.EndColumn == 0)
+            if (region.EndColumn == null)
             {
                 // No explicit end column. Increment from end line through
                 // the end of the line, excluding new line characters
@@ -353,7 +353,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             LineInfo lineInfo = lineIndex.GetLineInfoForLine(region.EndLine);
             int charLength = lineInfo.StartOffset;
             charLength -= region.CharOffset;
-            charLength += region.EndColumn - 1;
+            charLength += (region.EndColumn ?? 0) - 1;
 
             if (region.CharLength == 0)
             {

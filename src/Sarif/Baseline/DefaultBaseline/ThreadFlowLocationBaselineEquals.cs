@@ -41,7 +41,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.DefaultBaseline
             {
                 int hs = 0;
 
-                return hs ^ obj.NestingLevel ^ LocationBaselineEquals.Instance.GetHashCode(obj.Location);
+                return obj.NestingLevel.HasValue
+                    ? hs ^ obj.NestingLevel.Value ^ LocationBaselineEquals.Instance.GetHashCode(obj.Location)
+                    : hs ^ LocationBaselineEquals.Instance.GetHashCode(obj.Location);
             }
         }
     }

@@ -79,18 +79,22 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             return value ?? new Dictionary<string, object>();
         }
 
-        private static int FindInt(IDictionary<string, object> dictionary, string key)
+        private static int? FindInt(IDictionary<string, object> dictionary, string key)
         {
             string value = null;
-            int returnValue = 0;
+            int? returnValue = null;
 
             if (dictionary.TryGetValue(key, out object getObject))
             {
                 value = getObject as string;
-                if (!int.TryParse(value, out returnValue))
+                int parsedValue;
+
+                if (!int.TryParse(value, out parsedValue))
                 {
                     throw new InvalidDataException("Expected an int value for " + key + " found : " + value);
                 }
+
+                returnValue = parsedValue;
             }
 
             return returnValue;
@@ -124,16 +128,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 string issueContext = FindString(issueData, "issue_context");
                 string issueHash = FindString(issueData, "issue_hash");
 
-                int issueLine = 0;
-                int issueColumn = 0;
+                int? issueLine = null;
+                int issueColumn = 1;
                 string fileName = null;
 
                 IDictionary<string, object> location = FindDictionary(issueData, "location");
                 if (location != null)
                 {
                     issueLine = FindInt(location, "line");
-                    issueColumn = FindInt(location, "col");
-                    int fileNumber = FindInt(location, "file");
+                    issueColumn = FindInt(location, "col") ?? 1;
+                    int fileNumber = FindInt(location, "file") ?? 0;
                     if (_files != null && fileNumber < _files.Count)
                     {
                         fileName = (string)_files[fileNumber];

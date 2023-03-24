@@ -182,6 +182,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
                     if (locationTokens[0].Equals("file", StringComparison.OrdinalIgnoreCase))
                     {
+                        int startLine = int.Parse(locationTokens[3]);
                         // Special case for file paths, e.g.:
                         // "IComparable"|"file://C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll:0:0:0:0"
                         physicalLocation = new PhysicalLocation
@@ -192,7 +193,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                             },
                             Region = new Region
                             {
-                                StartLine = int.Parse(locationTokens[3]),
+                                StartLine = startLine == 0 ? (int?)null : startLine,
                                 ByteOffset = int.Parse(locationTokens[4]),
                                 ByteLength = int.Parse(locationTokens[5])
                             }
@@ -200,6 +201,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                     }
                     else
                     {
+                        int startLine = int.Parse(locationTokens[2]);
                         physicalLocation = new PhysicalLocation
                         {
                             ArtifactLocation = new ArtifactLocation
@@ -209,7 +211,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                             },
                             Region = new Region
                             {
-                                StartLine = int.Parse(locationTokens[2]),
+                                StartLine = startLine == 0 ? (int?)null : startLine,
                                 ByteOffset = int.Parse(locationTokens[3]),
                                 ByteLength = int.Parse(locationTokens[4])
                             }
@@ -257,14 +259,18 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         /// </returns>
         private Region MakeRegion(List<string> fields)
         {
+            int startLine = GetInteger(fields, FieldIndex.StartLine);
+            int startColumn = GetInteger(fields, FieldIndex.StartColumn);
             Region region = new Region
             {
-                StartLine = GetInteger(fields, FieldIndex.StartLine),
-                StartColumn = GetInteger(fields, FieldIndex.StartColumn),
+                StartLine = startLine == 0 ? (int?)null : startLine,
+                StartColumn = startColumn == 0 ? 1 : startColumn,
             };
 
-            int endLine = GetInteger(fields, FieldIndex.EndLine);
-            int endColumn = GetInteger(fields, FieldIndex.EndColumn);
+            int? endLine = GetInteger(fields, FieldIndex.EndLine);
+            int? endColumn = GetInteger(fields, FieldIndex.EndColumn);
+            endLine = endLine == 0 ? null : endLine;
+            endColumn = endColumn == 0 ? null : endColumn;
             if (endLine != region.StartLine)
             {
                 region.EndLine = endLine;

@@ -1039,7 +1039,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             return new Region
             {
                 StartLine = startLine.Value,
-                EndLine = endLine != startLine.Value ? endLine : 0,
+                EndLine = endLine != startLine.Value ? endLine : (int?)null,
                 Snippet = new ArtifactContent { Text = sb.ToString() }
             };
         }

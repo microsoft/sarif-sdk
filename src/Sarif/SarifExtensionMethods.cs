@@ -260,16 +260,16 @@ namespace Microsoft.CodeAnalysis.Sarif
                     //  (startLine,startColumn,endLine,endColumn)
                     return
                         "(" +
-                        region.StartLine.ToString(CultureInfo.InvariantCulture) + "," +
+                        (region.StartLine ?? 0).ToString(CultureInfo.InvariantCulture) + "," +
                         (region.StartColumn > 0 ? region.StartColumn.ToString(CultureInfo.InvariantCulture) : "1") + "," +
-                        region.EndLine.ToString(CultureInfo.InvariantCulture) + "," +
-                        (region.EndColumn > 0 ? region.EndColumn.ToString(CultureInfo.InvariantCulture) : "1") +
+                        (region.EndLine ?? 0).ToString(CultureInfo.InvariantCulture) + "," +
+                        (region.EndColumn > 0 ? (region.EndColumn ?? 0).ToString(CultureInfo.InvariantCulture) : "1") +
                         ")";
                 }
                 //  (startLine-endLine)
                 return
                     "(" +
-                    region.StartLine.ToString(CultureInfo.InvariantCulture) + "-" + region.EndLine.ToString(CultureInfo.InvariantCulture) +
+                    (region.StartLine ?? 0).ToString(CultureInfo.InvariantCulture) + "-" + (region.EndLine ?? 0).ToString(CultureInfo.InvariantCulture) +
                     ")";
             }
 
@@ -278,9 +278,9 @@ namespace Microsoft.CodeAnalysis.Sarif
                 // (startLine,startColumn-endColumn)
                 return
                     "(" +
-                    region.StartLine.ToString(CultureInfo.InvariantCulture) + "," +
+                    (region.StartLine ?? 0).ToString(CultureInfo.InvariantCulture) + "," +
                     region.StartColumn.ToString(CultureInfo.InvariantCulture) + "-" +
-                    region.EndColumn.ToString(CultureInfo.InvariantCulture) +
+                    (region.EndColumn ?? 0).ToString(CultureInfo.InvariantCulture) +
                     ")";
             }
 
@@ -289,13 +289,13 @@ namespace Microsoft.CodeAnalysis.Sarif
                 // (startLine,startColumn)
                 return
                      "(" +
-                     region.StartLine.ToString(CultureInfo.InvariantCulture) + "," + region.StartColumn.ToString(CultureInfo.InvariantCulture) +
+                     (region.StartLine ?? 0).ToString(CultureInfo.InvariantCulture) + "," + region.StartColumn.ToString(CultureInfo.InvariantCulture) +
                      ")";
             }
             // (startLine)
             return
                  "(" +
-                 region.StartLine.ToString(CultureInfo.InvariantCulture) +
+                 (region.StartLine ?? 0).ToString(CultureInfo.InvariantCulture) +
                  ")";
         }
 

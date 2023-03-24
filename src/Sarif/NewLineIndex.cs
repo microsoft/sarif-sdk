@@ -69,19 +69,19 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// the file.</exception>
         /// <param name="lineNumber">The line number.</param>
         /// <returns>A <see cref="LineInfo"/> for <paramref name="lineNumber"/>.</returns>
-        public LineInfo GetLineInfoForLine(int lineNumber)
+        public LineInfo GetLineInfoForLine(int? lineNumber)
         {
-            if (lineNumber <= 0 || lineNumber > (this.MaximumLineNumber + 1))
+            if (lineNumber == null || lineNumber <= 0 || lineNumber > (this.MaximumLineNumber + 1))
             {
                 throw new ArgumentOutOfRangeException(nameof(lineNumber), lineNumber, SdkResources.LineNumberWasOutOfRange);
             }
 
             if (lineNumber == this.MaximumLineNumber + 1)
             {
-                return new LineInfo(Text.Length, lineNumber);
+                return new LineInfo(Text.Length, lineNumber.Value);
             }
 
-            return new LineInfo(_lineOffsetStarts[lineNumber - 1], lineNumber);
+            return new LineInfo(_lineOffsetStarts[lineNumber.Value - 1], lineNumber.Value);
         }
 
         /// <summary>Gets the maximum line number.</summary>

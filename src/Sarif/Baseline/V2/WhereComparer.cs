@@ -162,7 +162,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline
 
         private static int ResolvedEndLine(Region region)
         {
-            return region.EndLine == -1 ? region.StartLine : region.EndLine;
+            return region.EndLine == null ? (region.StartLine ?? 0) : (region.EndLine ?? 0);
         }
 
         public static int CompareTo(Uri left, Uri right)

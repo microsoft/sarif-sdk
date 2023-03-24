@@ -118,11 +118,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             // no level infomation in Clang-Tidy report
             result.Level = FailureLevel.Warning;
 
+            int startLine = entry.DiagnosticMessage.LineNumber;
+            int startColumn = entry.DiagnosticMessage.ColumnNumber;
+
             Region region = new Region()
             {
                 CharOffset = entry.DiagnosticMessage.FileOffset,
-                StartLine = entry.DiagnosticMessage.LineNumber,
-                StartColumn = entry.DiagnosticMessage.ColumnNumber,
+                StartLine = startLine == 0 ? (int?)null : startLine,
+                StartColumn = startColumn == 0 ? 1 : startColumn,
             };
 
             Uri analysisTargetUri = new Uri(entry.DiagnosticMessage.FilePath, UriKind.RelativeOrAbsolute);

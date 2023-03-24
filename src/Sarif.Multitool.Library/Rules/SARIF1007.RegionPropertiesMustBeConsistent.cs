@@ -67,8 +67,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                 LogResult(
                     endLinePointer,
                     nameof(RuleResources.SARIF1007_RegionPropertiesMustBeConsistent_Error_EndLineMustNotPrecedeStartLine_Text),
-                    region.EndLine.ToInvariantString(),
-                    region.StartLine.ToInvariantString());
+                    (region.EndLine ?? 0).ToInvariantString(),
+                    (region.StartLine ?? 0).ToInvariantString());
             }
 
             if (RegionIsOnOneLine(region, regionToken) &&
@@ -82,7 +82,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                 LogResult(
                     endColumnPointer,
                     nameof(RuleResources.SARIF1007_RegionPropertiesMustBeConsistent_Error_EndColumnMustNotPrecedeStartColumn_Text),
-                    region.EndColumn.ToInvariantString(),
+                    (region.EndColumn ?? 0).ToInvariantString(),
                     region.StartColumn.ToInvariantString());
             }
         }

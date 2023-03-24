@@ -63,9 +63,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                     break;
             };
 
+            int defectColumn = int.Parse(defect.Column);
+
             var region = new Region
             {
-                StartColumn = int.Parse(defect.Column),
+                StartColumn = defectColumn == 0 ? 1 : defectColumn,
                 StartLine = int.Parse(defect.Line)
             };
 

@@ -105,9 +105,9 @@ namespace Microsoft.CodeAnalysis.Sarif
                 string fileName = this.Location.PhysicalLocation.ArtifactLocation.Uri.LocalPath;
                 result += IN + fileName;
 
-                if (this.Location?.PhysicalLocation?.Region != null)
+                if (this.Location?.PhysicalLocation?.Region?.StartLine != null)
                 {
-                    string lineNumber = this.Location.PhysicalLocation.Region.StartLine.ToString(CultureInfo.InvariantCulture);
+                    string lineNumber = this.Location.PhysicalLocation.Region.StartLine.Value.ToString(CultureInfo.InvariantCulture);
                     result += LINE + " " + lineNumber;
                 }
             }

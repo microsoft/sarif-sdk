@@ -171,10 +171,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline
             if (firstRegion != null)
             {
                 rawMessage = rawMessage
-                    .Replace(firstRegion.StartLine.ToString(CultureInfo.InvariantCulture), "~SL~")
+                    .Replace((firstRegion.StartLine ?? 0).ToString(CultureInfo.InvariantCulture), "~SL~")
                     .Replace(firstRegion.StartColumn.ToString(CultureInfo.InvariantCulture), "~SC~")
-                    .Replace(firstRegion.EndLine.ToString(CultureInfo.InvariantCulture), "~EL~")
-                    .Replace(firstRegion.EndColumn.ToString(CultureInfo.InvariantCulture), "~EC~");
+                    .Replace((firstRegion.EndLine ?? 0).ToString(CultureInfo.InvariantCulture), "~EL~")
+                    .Replace((firstRegion.EndColumn ?? 0).ToString(CultureInfo.InvariantCulture), "~EC~");
             }
 
             return rawMessage;
