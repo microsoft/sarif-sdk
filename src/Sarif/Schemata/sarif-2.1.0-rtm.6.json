@@ -1709,25 +1709,28 @@
         "startLine": {
           "description": "The line number of the first character in the region.",
           "type": "integer",
+          "default": 0,
           "minimum": 1
         },
 
         "startColumn": {
           "description": "The column number of the first character in the region.",
           "type": "integer",
-          "default": 1,
+          "default": 0,
           "minimum": 1
         },
 
         "endLine": {
           "description": "The line number of the last character in the region.",
           "type": "integer",
+          "default": 0,
           "minimum": 1
         },
 
         "endColumn": {
           "description": "The column number of the character following the end of the region.",
           "type": "integer",
+          "default": 0,
           "minimum": 1
         },
 
