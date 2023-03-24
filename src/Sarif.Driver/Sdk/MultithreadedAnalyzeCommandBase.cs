@@ -150,8 +150,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
         private int Run(TContext globalContext)
         {
-            bool succeeded = false;
-            IDisposable disposableLogger = null;
+            bool succeeded;
+            IDisposable disposableLogger;
 
             globalContext.FileSystem ??= FileSystem;
             globalContext = ValidateContext(globalContext);
@@ -196,6 +196,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 PostLogFile(globalContext);
             }
 
+            globalContext.Logger = null;
             succeeded = (globalContext.RuntimeErrors & ~RuntimeConditions.Nonfatal) == RuntimeConditions.None;
 
             return
@@ -209,29 +210,41 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             context ??= new TContext();
             context.FileSystem ??= Sarif.FileSystem.Instance;
 
-            // Our first action is to initialize an aggregating logger, which 
-            // includes a console logger (for general reporting of conditions
-            // that precede successfully creating an output log file).
-            context.Logger ??= InitializeLogger(options);
+            // First, we initialize data values that impact loggers, so that we can
+            // pass accurate values to the console logger.
+            context.Quiet = options.Quiet != null ? options.Quiet.Value : context.Quiet;
+            context.ResultKinds = options.Kind != null ? options.ResultKinds : context.ResultKinds;
+            context.FailureLevels = options.Level != null ? options.FailureLevels : context.FailureLevels;
+
+            // We initialize a temporary console logger that's used strictly to emit
+            // diagnostics output while we load/initialize various configurations settings.
+            IAnalysisLogger savedLogger = context.Logger;
+            context.Logger = new ConsoleLogger(quietConsole: true,
+                                               levels: BaseLogger.ErrorWarningNote,
+                                               kinds: BaseLogger.Fail,
+                                               toolName: Tool.Driver.Name);
 
             // Next, we initialize ourselves from disk-based configuration, 
             // if specified. This allows users to operate against configuration
             // XML but to override specific settings within it via options.
             context = InitializeConfiguration(options.ConfigurationFilePath, context);
 
-            context.Quiet = options.Quiet != null ? options.Quiet.Value : context.Quiet;
+            // Now that our context if fully initialized, we can create
+            // the actual loggers used to complete analysis.
+            context.Logger = savedLogger;
+            context.Logger ??= InitializeLogger(context);
+
+            // Finally, handle the remaining options.
             context.Recurse = options.Recurse != null ? options.Recurse.Value : context.Recurse;
             context.Threads = options.Threads > 0 ? options.Threads : context.Threads;
             context.PostUri = options.PostUri != null ? options.PostUri : context.PostUri;
-            context.AutomationId = options.AutomationId != null ? options.AutomationId : context.AutomationId;
-            context.OutputFilePath = options.OutputFilePath != null ? options.OutputFilePath : context.OutputFilePath;
-            context.AutomationGuid = options != default ? options.AutomationGuid : context.AutomationGuid;
+            context.AutomationId = options.AutomationId ?? context.AutomationId;
+            context.AutomationGuid = options.AutomationGuid ?? context.AutomationGuid;
+            context.OutputFilePath = options.OutputFilePath ?? context.OutputFilePath;
             context.BaselineFilePath = options.BaselineFilePath != null ? options.BaselineFilePath : context.BaselineFilePath;
             context.Traces = options.Trace != null ? InitializeStringSet(options.Trace) : context.Traces;
             context.DataToInsert = options.DataToInsert?.Any() == true ? options.DataToInsert.ToFlags() : context.DataToInsert;
             context.DataToRemove = options.DataToRemove?.Any() == true ? options.DataToRemove.ToFlags() : context.DataToRemove;
-            context.ResultKinds = options.Kind != null ? options.ResultKinds : context.ResultKinds;
-            context.FailureLevels = options.Level != null ? options.FailureLevels : context.FailureLevels;
             context.OutputFileOptions = options.OutputFileOptions?.Any() == true ? options.OutputFileOptions.ToFlags() : context.OutputFileOptions;
             context.MaxFileSizeInKilobytes = options.MaxFileSizeInKilobytes != null ? options.MaxFileSizeInKilobytes.Value : context.MaxFileSizeInKilobytes;
             context.PluginFilePaths = options.PluginFilePaths?.Any() == true ? options.PluginFilePaths?.ToImmutableHashSet() : context.PluginFilePaths;
@@ -278,8 +291,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 try
                 {
                     var httpClient = new HttpClientWrapper();
-                    HttpResponseMessage httpResponseMessage = httpClient.GetAsync(globalContext.PostUri).GetAwaiter().GetResult();
-                    if (!httpResponseMessage.IsSuccessStatusCode)
+                    var content = new StringContent(string.Empty);
+                    HttpResponseMessage httpResponseMessage = httpClient.PostAsync(globalContext.PostUri, content).GetAwaiter().GetResult();
+
+                    // Internal server error means we found our server but it didn't like our malformed payload.
+                    // That means we're all good! i.e., if we provide a good SARIF file we should succeed.
+                    if (httpResponseMessage.StatusCode != System.Net.HttpStatusCode.InternalServerError)
                     {
                         globalContext.PostUri = null;
                         succeeded = false;
@@ -378,7 +395,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 {
                     id = $"TRC101.{nameof(DefaultTraces.PeakWorkingSet)}";
                     string memoryUsage = $"Peak working set: {currentProcess.PeakWorkingSet64 / 1024 / 1024}MB.";
-                    LogToolNotification(globalContext.Logger, memoryUsage, id);
+                    LogTrace(globalContext, memoryUsage, id);
                 }
             }
 
@@ -386,7 +403,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             {
                 id = $"TRC101.{nameof(DefaultTraces.ScanTime)}";
                 string timing = $"Done. {_fileContextsCount:n0} files scanned, elapsed time {sw.Elapsed}.";
-                LogToolNotification(globalContext.Logger, timing, id);
+                LogTrace(globalContext, timing, id);
             }
             else
             {
@@ -632,8 +649,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         {
             bool succeeded = true;
 
-            // TBD get rid of me.
-
             succeeded &= ValidateFile(context, options.OutputFilePath, shouldExist: null);
             succeeded &= ValidateFile(context, options.ConfigurationFilePath, shouldExist: true);
             succeeded &= ValidateFile(context, options.BaselineFilePath, shouldExist: true);
@@ -650,13 +665,21 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             }
         }
 
-        internal AggregatingLogger InitializeLogger(AnalyzeOptionsBase analyzeOptions)
+        internal AggregatingLogger InitializeLogger(TContext globalContext)
         {
             var logger = new AggregatingLogger();
 
-            if (!(analyzeOptions.Quiet == true))
+            if (!(globalContext.Quiet == true))
             {
-                _consoleLogger = new ConsoleLogger(quietConsole: false, Tool.Driver.Name, analyzeOptions.FailureLevels, analyzeOptions.ResultKinds) { CaptureOutput = _captureConsoleOutput };
+                _consoleLogger =
+                    new ConsoleLogger(quietConsole: false,
+                                      Tool.Driver.Name,
+                                      globalContext.FailureLevels,
+                                      globalContext.ResultKinds)
+                    {
+                        CaptureOutput = _captureConsoleOutput
+                    };
+
                 logger.Loggers.Add(_consoleLogger);
             }
 
@@ -785,6 +808,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                                 Id = globalContext.AutomationId,
                                 Guid = globalContext.AutomationGuid
                             },
+                            VersionControlProvenance = globalContext.VersionControlProvenance,
                             Tool = Tool,
                         };
 
@@ -1088,7 +1112,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
                         string id = $"TRC101.{nameof(DefaultTraces.RuleScanTime)}";
                         string timing = $"'{file}' : elapsed {stopwatch.Elapsed} : '{skimmer.Name}' : at '{directory}'";
-                        LogToolNotification(context.Logger, timing, id, context.Rule);
+                        LogTrace(context, timing, id, context.Rule);
                     }
                 }
                 catch (Exception ex)
@@ -1229,7 +1253,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             return skimmers;
         }
 
-        protected static void LogToolNotification(IAnalysisLogger logger,
+        protected static void LogTrace(TContext globalContext,
                                                   string message,
                                                   string id = null,
                                                   ReportingDescriptor associatedRule = null,
@@ -1247,10 +1271,17 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 };
             }
 
-            TextWriter writer = level == FailureLevel.Error ? Console.Error : Console.Out;
-            writer.WriteLine(message);
+            if (!globalContext.FailureLevels.Contains(level))
+            {
+                // If our analysis run isn't configured to show the current failure level
+                // of this notification, we still write it out to the console, as it is
+                // a trace message that's explicitly enabled on the command-line.
+                TextWriter writer = level == FailureLevel.Error ? Console.Error : Console.Out;
+                writer.WriteLine(message);
+                return;
+            }
 
-            logger.LogToolNotification(new Notification
+            globalContext.Logger.LogToolNotification(new Notification
             {
                 Level = level,
                 Descriptor = new ReportingDescriptorReference

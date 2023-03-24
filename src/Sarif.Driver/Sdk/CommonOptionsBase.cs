@@ -6,8 +6,6 @@ using System.Collections.Generic;
 
 using CommandLine;
 
-using Microsoft.CodeAnalysis.Sarif.Writers;
-
 using Newtonsoft.Json;
 
 namespace Microsoft.CodeAnalysis.Sarif.Driver
@@ -103,12 +101,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         public IEnumerable<string> InsertProperties { get; set; }
 
         [Option(
-            "automationId",
+            "automation-id",
             HelpText = "An id that will be persisted to the 'Run.AutomationDetails.Id' property. See section '3.17.3' of the SARIF specification for more information.")]
         public string AutomationId { get; set; }
 
         [Option(
-            "automationGuid",
+            "automation-guid",
             HelpText = "A guid that will be persisted to the 'Run.AutomationDetails.Guid' property. See section '3.17.4' of the SARIF specification for more information.")]
         public Guid? AutomationGuid { get; set; }
 
