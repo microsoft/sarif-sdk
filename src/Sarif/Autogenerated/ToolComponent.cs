@@ -111,12 +111,14 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// The absolute URI from which the tool component can be downloaded.
         /// </summary>
         [DataMember(Name = "downloadUri", IsRequired = false, EmitDefaultValue = false)]
+        [JsonConverter(typeof(Microsoft.CodeAnalysis.Sarif.Readers.UriConverter))]
         public virtual Uri DownloadUri { get; set; }
 
         /// <summary>
         /// The absolute URI at which information about this version of the tool component can be found.
         /// </summary>
         [DataMember(Name = "informationUri", IsRequired = false, EmitDefaultValue = false)]
+        [JsonConverter(typeof(Microsoft.CodeAnalysis.Sarif.Readers.UriConverter))]
         public virtual Uri InformationUri { get; set; }
 
         /// <summary>

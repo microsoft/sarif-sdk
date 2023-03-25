@@ -11,7 +11,7 @@
       },
       "originalUriBaseIds": {
         "TEST_ROOT": {
-          "uri": "file://c:/test/"
+          "uri": "file:///c:/test/"
         }
       },
       "artifacts": [

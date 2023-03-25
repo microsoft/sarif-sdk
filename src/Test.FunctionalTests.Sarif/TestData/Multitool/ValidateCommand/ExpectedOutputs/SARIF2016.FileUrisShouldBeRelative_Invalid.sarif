@@ -8,6 +8,21 @@
           "name": "SARIF Functional Testing",
           "rules": [
             {
+              "id": "JSON1024",
+              "name": "StringDoesNotMatchFormat",
+              "fullDescription": {
+                "text": "A string value has a format that is not permitted by the schema's 'format' property."
+              },
+              "messageStrings": {
+                "default": {
+                  "text": "{0}: The schema requires string value of the format '{1}', but a token value '{2}' was found."
+                }
+              },
+              "defaultConfiguration": {
+                "level": "error"
+              }
+            },
+            {
               "id": "SARIF2016",
               "name": "FileUrisShouldBeRelative",
               "fullDescription": {
@@ -46,6 +61,35 @@
         }
       ],
       "results": [
+        {
+          "ruleId": "JSON1024",
+          "ruleIndex": 0,
+          "level": "error",
+          "message": {
+            "id": "default",
+            "arguments": [
+              "runs[0].results[0].locations[2].physicalLocation.artifactLocation.uri",
+              "uri-reference",
+              "\\src\\test.c"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 42,
+                  "startColumn": 40
+                }
+              }
+            }
+          ],
+          "properties": {
+            "jsonPath": "runs[0].results[0].locations[2].physicalLocation.artifactLocation.uri"
+          }
+        },
         {
           "ruleId": "SARIF2016",
           "ruleIndex": 0,

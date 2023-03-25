@@ -106,7 +106,7 @@ namespace SarifToCsv
             writers["Kind"] = (c) => { c.Writer.Write(c.Result.Kind.ToString()); };
             writers["Level"] = (c) => { c.Writer.Write(c.Result.Level.ToString()); };
             writers["Message.Text"] = (c) => { c.Writer.Write(c.Result.Message?.Text ?? ""); };
-            writers["OccurrenceCount"] = (c) => { c.Writer.Write(c.Result.OccurrenceCount); };
+            writers["OccurrenceCount"] = (c) => { c.Writer.Write(c.Result.OccurrenceCount?.ToString()); };
             writers["PartialFingerprints"] = (c) => { c.Writer.Write(String.Join("; ", c.Result.PartialFingerprints?.Values ?? Array.Empty<string>())); };
             writers["Provenance"] = (c) => { c.Writer.Write(c.Result.Provenance?.ToString() ?? ""); };
             writers["Rank"] = (c) => { c.Writer.Write(c.Result.Rank.ToString()); };

@@ -204,7 +204,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     Hashes = CreateHashVersionOneListFromV2Hashes(v2FileData.Hashes),
                     Length = v2FileData.Length == -1 ? 0 : v2FileData.Length,
                     MimeType = v2FileData.MimeType,
-                    Offset = v2FileData.Offset,
+                    Offset = v2FileData.Offset ?? 0,
                     ParentKey = parentKey,
                     Properties = v2FileData.Properties,
                     Uri = v2FileData.Location?.Uri,
@@ -278,7 +278,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     EnvironmentVariables = v2Invocation.EnvironmentVariables,
                     FileName = v2Invocation.ExecutableLocation?.Uri?.OriginalString,
                     Machine = v2Invocation.Machine,
-                    ProcessId = v2Invocation.ProcessId,
+                    ProcessId = v2Invocation.ProcessId ?? 0,
                     Properties = v2Invocation.Properties,
                     ResponseFiles = CreateResponseFilesDictionary(v2Invocation.ResponseFiles),
                     StartTime = v2Invocation.StartTimeUtc,
@@ -374,7 +374,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     PhysicalLocation = CreatePhysicalLocationVersionOne(v2Notification.Locations?[0].PhysicalLocation),
                     Properties = v2Notification.Properties,
                     RuleId = v2Notification.AssociatedRule?.Id,
-                    ThreadId = v2Notification.ThreadId,
+                    ThreadId = v2Notification.ThreadId ?? 0,
                     Time = v2Notification.TimeUtc
                 };
             }
@@ -1163,7 +1163,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     // Offset = v2StackFrame.Location?.PhysicalLocation?.Address?.OffsetFromParent ?? 0,
                     Parameters = v2StackFrame.Parameters,
                     Properties = v2StackFrame.Properties,
-                    ThreadId = v2StackFrame.ThreadId
+                    ThreadId = v2StackFrame.ThreadId ?? 0
                 };
 
                 Location location = v2StackFrame.Location;

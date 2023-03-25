@@ -225,6 +225,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                     }
                 }
 
+                if (threadFlowLocation.NestingLevel == 0)
+                {
+                    threadFlowLocation.NestingLevel = null;
+                }
+
                 string separatorText = "^====Auto=====";
                 string state = tokens[STATE];
                 string[] stateTokens = state.Split(new string[] { separatorText }, StringSplitOptions.RemoveEmptyEntries);

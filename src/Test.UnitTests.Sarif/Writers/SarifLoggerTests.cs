@@ -680,7 +680,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             // Other properties should be empty.
             invocation.CommandLine.Should().BeNull();
             invocation.WorkingDirectory.Should().BeNull();
-            invocation.ProcessId.Should().Be(0);
+            invocation.ProcessId.Should().Be(null);
             invocation.ExecutableLocation.Should().BeNull();
         }
 

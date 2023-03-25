@@ -38,6 +38,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// The URI of the JSON schema corresponding to the version of the external property file format.
         /// </summary>
         [DataMember(Name = "schema", IsRequired = false, EmitDefaultValue = false)]
+        [JsonConverter(typeof(Microsoft.CodeAnalysis.Sarif.Readers.UriConverter))]
         public virtual Uri Schema { get; set; }
 
         /// <summary>
