@@ -1,6 +1,6 @@
 # SARIF Package Release History (SDK, Driver, Converters, and Multitool)
 ## **v4.2.0** UNRELEASED
-* BRK: Update `Invocation.ExitCode`, `Invocation.ExitSignalNumber`, `Invocation.ProcessId`, `Result.OccurrenceCount`, `EdgeTraversal.StepOverEdgeCount`, `Notification.ThreadId`, `StackFrame.ThreadId`, `ThreadFlowLocation.NestingLevel`, and `WebResponse.StatusCode` properties from `int` to `int?` type. [#2650](https://github.com/microsoft/sarif-sdk/pull/2650)
+* BRK: Update `Artifact.Offset`, `Invocation.ExitCode`, `Invocation.ExitSignalNumber`, `Invocation.ProcessId`, `Result.OccurrenceCount`, `EdgeTraversal.StepOverEdgeCount`, `Notification.ThreadId`, `StackFrame.ThreadId`, `ThreadFlowLocation.NestingLevel`, and `WebResponse.StatusCode` properties from `int` to `int?` type. [#2650](https://github.com/microsoft/sarif-sdk/pull/2650)
 * BRK: Command-line argument `automationGuid` renamed to `automation-guid`. [#2647](https://github.com/microsoft/sarif-sdk/pull/2647)
 * BRK: Command-line argument `automationId` renamed to `automation-id`. [#2647](https://github.com/microsoft/sarif-sdk/pull/2647)
 * BRK: Update `AnalyzeOptionsBase` `Quiet`, `Recurse`, `LogEnvironment`, and `RichReturnCode` properties to bool? type. [#2644](https://github.com/microsoft/sarif-sdk/pull/2644)
