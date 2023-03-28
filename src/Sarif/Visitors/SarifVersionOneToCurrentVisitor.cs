@@ -1182,7 +1182,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     Module = v1StackFrame.Module,
                     Parameters = v1StackFrame.Parameters,
                     Properties = v1StackFrame.Properties,
-                    ThreadId = v1StackFrame.ThreadId
+                    ThreadId = v1StackFrame.ThreadId == 0 ? (int?)null : v1StackFrame.ThreadId
                 };
             }
 
