@@ -15,7 +15,7 @@
 * BUG: Generate `IAnalysisLogger.AnalyzingTarget` callbacks from `MulthreadedAnalyzeCommandBase`. [#2637](https://github.com/microsoft/sarif-sdk/pull/2637)
 * BUG: Persist `fileRegionsCache` parameter in `SarifLogger` to support retrieving hash data. [#2639](https://github.com/microsoft/sarif-sdk/pull/2639)
 * BUG: Allow override of `FailureLevels` and `ResultKinds` in context objects. [#2639](https://github.com/microsoft/sarif-sdk/pull/2639)
-* NEW: Update `Microsoft.Json.Schema.*` pacakges from 2.1.0.0 to 2.3.0.0. [#2648](https://github.com/microsoft/sarif-sdk/pull/2648)
+* NEW: Update `Microsoft.Json.Schema.*` packages from 2.1.0.0 to 2.3.0.0. [#2648](https://github.com/microsoft/sarif-sdk/pull/2648)
 * NEW: Add `AnalyzeContext.VersionControlProvenance` property. [#2646](https://github.com/microsoft/sarif-sdk/pull/2646)
 * NEW: Add `DefaultTraces.ResultsSummary` property that drives naive results summary in console logger. [#2643](https://github.com/microsoft/sarif-sdk/pull/2643)
 * NEW: Prove `AnalyzeContextBase.Inline` helper. [#2643](https://github.com/microsoft/sarif-sdk/pull/2643)
