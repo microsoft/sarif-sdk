@@ -54,7 +54,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 case HttpStatusCode.OK: { return OKResponse; }
                 case HttpStatusCode.NotFound: { return NotFoundResponse; }
                 case HttpStatusCode.Forbidden: { return ForbiddenResponse; }
-                case HttpStatusCode.BadGateway: { return BadRequestResponse; }
+                case HttpStatusCode.BadGateway: { return BadGatewayResponse; }
                 case HttpStatusCode.BadRequest: { return BadRequestResponse; }
                 case HttpStatusCode.Unauthorized: { return UnauthorizedResponse; }
                 case HttpStatusCode.InternalServerError: { return InternalServerErrorResponse; }

@@ -3,28 +3,20 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 using CommandLine;
+
+using Microsoft.CodeAnalysis.Sarif.Writers;
 
 namespace Microsoft.CodeAnalysis.Sarif.Driver
 {
     [Verb("analyze", HelpText = "Analyze one or more binary files for security and correctness issues.")]
     public abstract class AnalyzeOptionsBase : CommonOptionsBase
     {
-        public AnalyzeOptionsBase()
-        {
-            // TODO: these defaults need to be converted to the configuration
-            // property pattern as followed by MaxFileSizeInKilobytes.
-            Traces = new string[] { };
-            Kind = new List<ResultKind> { ResultKind.Fail };
-            Level = new List<FailureLevel> { FailureLevel.Warning, FailureLevel.Error };
-
-            MaxFileSizeInKilobytes = AnalyzeContextBase.MaxFileSizeInKilobytesDefaultValue;
-        }
-
         [Value(0,
                HelpText = "One or more specifiers to a file, directory, or filter pattern that resolves to one or more binaries to analyze.")]
-        public IEnumerable<string> TargetFileSpecifiers { get; set; }
+        public IList<string> TargetFileSpecifiers { get; set; }
 
         [Option(
             'o',
@@ -36,7 +28,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             'r',
             "recurse",
             HelpText = "Recurse into subdirectories when evaluating file specifier arguments.")]
-        public bool Recurse { get; set; }
+        public bool? Recurse { get; set; }
 
         [Option(
             'c',
@@ -48,32 +40,19 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             'q',
             "quiet",
             HelpText = "Suppress all console output (except for catastrophic tool runtime or configuration errors).")]
-        public bool Quiet { get; set; }
-
-        [Option(
-            's',
-            "statistics",
-            HelpText = "Generate timing and other statistics for analysis session.")]
-        [Obsolete()]
-        public bool Statistics { get; set; }
-
-        [Option(
-            'h',
-            "hashes",
-            HelpText = "Output MD5, SHA1, and SHA-256 hash of analysis targets when emitting SARIF reports.")]
-        [Obsolete("Use --insert instead, passing 'Hashes' along with any other references to data to be inserted.")]
-        public bool ComputeFileHashes { get; set; }
+        public bool? Quiet { get; set; }
 
         [Option(
             'e',
             "environment",
             HelpText = "Log machine environment details of run to output file. WARNING: This option records potentially sensitive information (such as all environment variable values) to any emitted log.")]
-        public bool LogEnvironment { get; set; }
+        public bool? LogEnvironment { get; set; }
 
         [Option(
+            'p',
             "plugin",
             Separator = ';',
-            HelpText = "Path to plugin that will be invoked against all targets in the analysis set.")]
+            HelpText = "Path to plugin(s) that should drive analysis for all configured scan targets.")]
         public IEnumerable<string> PluginFilePaths { get; set; }
 
         [Option(
@@ -85,41 +64,68 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         [Option(
             "rich-return-code",
             HelpText = "Emit a 'rich' return code consisting of a bitfield of conditions (as opposed to 0 or 1 indicating success or failure.")]
-        public bool RichReturnCode { get; set; }
+        public bool? RichReturnCode { get; set; }
 
-        [Option(
-            'z',
-            "optimize",
-            HelpText = "Omit redundant properties, producing a smaller but non-human-readable log.")]
-        public bool Optimize { get; set; }
-
+        private IEnumerable<string> trace;
         [Option(
             "trace",
             Separator = ';',
-            Default = new string[] { },
+            Default = null,
             HelpText = "Execution traces, expressed as a semicolon-delimited list, that " +
                        "should be emitted to the console and log file (if appropriate). " +
                        "Valid values: ScanTime.")]
-        public virtual IEnumerable<string> Traces { get; set; }
+        public IEnumerable<string> Trace
+        {
+            get => this.trace;
+            set => this.trace = value?.Count() > 0 ? value : null;
+        }
 
+        private DefaultTraces? defaultTraces;
+        public DefaultTraces Traces
+        {
+            get
+            {
+                defaultTraces ??=
+                    this.Trace.Any()
+                        ? (DefaultTraces)Enum.Parse(typeof(DefaultTraces), string.Join(",", this.Trace))
+                        : DefaultTraces.None;
+
+                return this.defaultTraces.Value;
+            }
+        }
+
+        private IEnumerable<FailureLevel> level;
         [Option(
             "level",
             Separator = ';',
-            Default = new FailureLevel[] { FailureLevel.Error, FailureLevel.Warning },
+            Default = null,
             HelpText = "A semicolon delimited list to filter output of scan results to one or more failure levels. Valid values: Error, Warning and Note.")]
-        public IEnumerable<FailureLevel> Level { get; set; }
+        public IEnumerable<FailureLevel> Level
+        {
+            get => this.level;
+            set => this.level = value?.Count() > 0 ? value : null;
+        }
 
+        public FailureLevelSet FailureLevels => Level != null ? new FailureLevelSet(Level) : BaseLogger.ErrorWarning;
+
+        private IEnumerable<ResultKind> kind;
         [Option(
             "kind",
             Separator = ';',
-            Default = new ResultKind[] { ResultKind.Fail },
+            Default = null,
             HelpText = "A semicolon delimited list to filter output to one or more result kinds. Valid values: Fail (for literal scan results), Pass, Review, Open, NotApplicable and Informational.")]
-        public IEnumerable<ResultKind> Kind { get; set; }
+        public IEnumerable<ResultKind> Kind
+        {
+            get => this.kind;
+            set => this.kind = value?.Count() > 0 ? value : null;
+        }
+
+        public ResultKindSet ResultKinds => Kind != null ? new ResultKindSet(Kind) : BaseLogger.Fail;
 
         [Option(
             "baseline",
             HelpText = "A SARIF file to be used as baseline.")]
-        public string BaselineSarifFile { get; set; }
+        public string BaselineFilePath { get; set; }
 
         [Option(
             "post-uri",
@@ -128,8 +134,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
         [Option(
             "max-file-size-in-kb",
-            HelpText = "The maximum file size (in kilobytes) that will be analyzed.",
-            Default = -1)]
-        public long MaxFileSizeInKilobytes { get; set; }
+            HelpText = "The maximum file size (in kilobytes) that will be analyzed.")]
+        public long? MaxFileSizeInKilobytes { get; set; }
     }
 }

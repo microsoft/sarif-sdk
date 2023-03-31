@@ -11,7 +11,6 @@ namespace Microsoft.CodeAnalysis.Sarif
     {
         // Conditions that may indicate an issue with command-line configuration.
         public const string Wrn997_InvalidTarget = "WRN997.InvalidTarget";
-        public const string Wrn997_FileSkippedDueToSize = "WRN997.FileSkippedDueToSize";
         public const string Wrn997_OneOrMoreFilesSkippedDueToSize = "WRN997.OneOrMoreFilesSkippedDueToSize";
 
         public const string Wrn997_ObsoleteOption = "WRN997.ObsoleteOption";
@@ -23,49 +22,26 @@ namespace Microsoft.CodeAnalysis.Sarif
         // Warnings around dangerous
         public const string Wrn999_RuleExplicitlyDisabled = "WRN999.RuleExplicitlyDisabled";
 
-        public static void LogFileSkippedDueToSize(IAnalysisContext context, string skippedFile, long fileSizeInKb)
+        public static void LogOneOrMoreFilesSkippedDueToSize(IAnalysisContext context, uint skippedFilesCount)
         {
             if (context == null)
             {
                 throw new ArgumentNullException(nameof(context));
             }
 
-            // '{0}' was skipped as its size ({1} kilobytes) exceeds the currently configured threshold ({2} kilobytes).
-            context.Logger.LogConfigurationNotification(
-                Errors.CreateNotification(
-                    context.TargetUri,
-                    Wrn997_FileSkippedDueToSize,
-                    ruleId: null,
-                    FailureLevel.Warning,
-                    exception: null,
-                    persistExceptionStack: false,
-                    messageFormat: null,
-                    skippedFile,
-                    fileSizeInKb.ToString(CultureInfo.CurrentCulture),
-                    context.MaxFileSizeInKilobytes.ToString()));
-
-            context.RuntimeErrors |= RuntimeConditions.OneOrMoreFilesSkippedDueToSize;
-        }
-
-        public static void LogOneOrMoreFilesSkippedDueToSize(IAnalysisContext context)
-        {
-            if (context == null)
-            {
-                throw new ArgumentNullException(nameof(context));
-            }
-
-            // One or more files were skipped for analysis due to exceeding size limits
-            // (currently configured as {0} kilobytes). The 'max-file-size-in-kb'
+            // {0} file(s)s were skipped for analysis due to exceeding size limits
+            // (currently configured as {1} kilobytes). The 'max-file-size-in-kb'
             // command-line argument can be used to increase this threshold.
             context.Logger.LogConfigurationNotification(
                 Errors.CreateNotification(
-                    context.TargetUri,
+                    context.CurrentTarget?.Uri,
                     Wrn997_OneOrMoreFilesSkippedDueToSize,
                     ruleId: null,
                     FailureLevel.Warning,
                     exception: null,
                     persistExceptionStack: false,
                     messageFormat: null,
+                    skippedFilesCount.ToString(),
                     context.MaxFileSizeInKilobytes.ToString()));
 
             context.RuntimeErrors |= RuntimeConditions.OneOrMoreFilesSkippedDueToSize;
@@ -81,7 +57,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             string message = string.Format(CultureInfo.InvariantCulture,
                 SdkResources.WRN997_InvalidTarget,
-                context.TargetUri.GetFileName());
+                context.CurrentTarget.Uri.GetFileName());
 
             context.Logger.LogConfigurationNotification(
                 new Notification
@@ -94,7 +70,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                             {
                                 ArtifactLocation = new ArtifactLocation
                                 {
-                                    Uri = context.TargetUri
+                                    Uri = context.CurrentTarget.Uri
                                 }
                             }
                         }
@@ -127,19 +103,6 @@ namespace Microsoft.CodeAnalysis.Sarif
             context.Logger.LogConfigurationNotification(
                 new Notification
                 {
-                    Locations = new List<Location>
-                    {
-                        new Location
-                        {
-                            PhysicalLocation = new PhysicalLocation
-                            {
-                                ArtifactLocation = new ArtifactLocation
-                                {
-                                    Uri = context.TargetUri
-                                }
-                            }
-                        }
-                    },
                     Descriptor = new ReportingDescriptorReference
                     {
                         Id = Wrn998_UnsupportedPlatform

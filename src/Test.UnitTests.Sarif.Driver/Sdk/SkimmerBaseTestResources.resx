@@ -120,8 +120,14 @@
   <data name="NotApplicable_InvalidMetadata" xml:space="preserve">
     <value>'{0}' was not evaluated for check '{1}' as the analysis is not relevant based on observed metadata: {2}.</value>
   </data>
+  <data name="TEST1001_ErrorMessageFromTestBehavior" xml:space="preserve">
+    <value>"Error message from test behavior."</value>
+  </data>
   <data name="TEST1001_Failed" xml:space="preserve">
     <value>This test plainly failed for '{0}'.</value>
+  </data>
+  <data name="TEST1001_FoundAFooInTheFile" xml:space="preserve">
+    <value>Found a 'foo' in the file.</value>
   </data>
   <data name="TEST1001_Information" xml:space="preserve">
     <value>Here's a piece of information for you re: '{0}'.</value>

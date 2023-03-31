@@ -323,15 +323,14 @@ namespace Sarif.Sdk.Sample
             {
                 using (var sarifLogger = new SarifLogger(
                     textWriter,
-                    logFilePersistenceOptions: LogFilePersistenceOptions.PrettyPrint, // Use PrettyPrint to generate readable (multi-line, indented) JSON
+                    logFilePersistenceOptions: FilePersistenceOptions.PrettyPrint, // Use PrettyPrint to generate readable (multi-line, indented) JSON
                     dataToInsert:
                         OptionallyEmittedData.TextFiles |       // Embed source file content directly in the log file -- great for portability of the log!
                         OptionallyEmittedData.Hashes |
                         OptionallyEmittedData.RegionSnippets,
-                    tool: null,
                     run: run,
-                    kinds: new ResultKind[] { ResultKind.Fail, ResultKind.Pass },
-                    levels: new FailureLevel[] { FailureLevel.Error, FailureLevel.Warning, FailureLevel.Note },
+                    kinds: BaseLogger.Fail,
+                    levels: BaseLogger.ErrorWarning,
                     analysisTargets: null,
                     invocationTokensToRedact: null,
                     invocationPropertiesToLog: null,

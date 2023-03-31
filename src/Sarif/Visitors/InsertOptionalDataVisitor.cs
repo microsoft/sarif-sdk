@@ -23,7 +23,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         private GitHelper _gitHelper;
 
         private int _ruleIndex;
-        private readonly FileRegionsCache _fileRegionsCache;
         private readonly OptionallyEmittedData _dataToInsert;
         private readonly IDictionary<string, ArtifactLocation> _originalUriBaseIds;
         private readonly IEnumerable<string> _insertProperties;
@@ -33,9 +32,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         private const string CommitSha = nameof(CommitSha);
 
         public InsertOptionalDataVisitor(OptionallyEmittedData dataToInsert,
+                                         FileRegionsCache fileRegionsCache,
                                          Run run,
-                                         IEnumerable<string> insertProperties,
-                                         FileRegionsCache fileRegionsCache = null)
+                                         IEnumerable<string> insertProperties)
             : this(dataToInsert,
                    originalUriBaseIds: run?.OriginalUriBaseIds,
                    insertProperties: insertProperties,
@@ -46,11 +45,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
         public InsertOptionalDataVisitor(
             OptionallyEmittedData dataToInsert,
+            FileRegionsCache fileRegionsCache,
             IDictionary<string, ArtifactLocation> originalUriBaseIds = null,
             IFileSystem fileSystem = null,
             GitHelper.ProcessRunner processRunner = null,
-            IEnumerable<string> insertProperties = null,
-            FileRegionsCache fileRegionsCache = null)
+            IEnumerable<string> insertProperties = null)
         {
             _fileSystem = fileSystem ?? FileSystem.Instance;
             _processRunner = processRunner;
@@ -61,8 +60,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             _originalUriBaseIds = originalUriBaseIds;
             _insertProperties = insertProperties ?? new List<string>();
 
-            _fileRegionsCache = fileRegionsCache ?? FileRegionsCache.Instance;
+            FileRegionsCache = fileRegionsCache;
         }
+
+        public FileRegionsCache FileRegionsCache { get; set; }
 
         public override Run VisitRun(Run node)
         {
@@ -119,7 +120,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             {
                 Uri resolvedUri = GetResolvedArtifactLocationUri(node.ArtifactLocation);
 
-                Region expandedRegion = _fileRegionsCache.PopulateTextRegionProperties(node.Region, resolvedUri, populateSnippet: insertRegionSnippets);
+                Region expandedRegion = FileRegionsCache.PopulateTextRegionProperties(node.Region, resolvedUri, populateSnippet: insertRegionSnippets);
 
                 ArtifactContent originalSnippet = node.Region.Snippet;
 
@@ -128,18 +129,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     node.Region = expandedRegion;
                 }
 
-                if (originalSnippet == null || overwriteExistingData)
-                {
-                    node.Region.Snippet = expandedRegion.Snippet;
-                }
-                else
-                {
-                    node.Region.Snippet = originalSnippet;
-                }
+                node.Region.Snippet = originalSnippet == null || overwriteExistingData
+                    ? expandedRegion.Snippet
+                    : originalSnippet;
 
                 if (insertContextCodeSnippets && (node.ContextRegion == null || overwriteExistingData))
                 {
-                    node.ContextRegion = _fileRegionsCache.ConstructMultilineContextSnippet(expandedRegion, resolvedUri);
+                    node.ContextRegion = FileRegionsCache.ConstructMultilineContextSnippet(expandedRegion, resolvedUri);
                 }
             }
 
@@ -253,8 +249,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     if (contextRegionSnippet == null)
                     {
                         Region expandedRegion =
-                            _fileRegionsCache.PopulateTextRegionProperties(physicalLocation.Region, resolvedUri, false);
-                        contextRegionSnippet = _fileRegionsCache.ConstructMultilineContextSnippet(expandedRegion, resolvedUri)?.Snippet;
+                            FileRegionsCache.PopulateTextRegionProperties(physicalLocation.Region, resolvedUri, false);
+                        contextRegionSnippet = FileRegionsCache.ConstructMultilineContextSnippet(expandedRegion, resolvedUri)?.Snippet;
                     }
 
                     if (contextRegionSnippet?.Text != null)
@@ -367,10 +363,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             }
 
             // No, so add one.
-            if (_run.OriginalUriBaseIds == null)
-            {
-                _run.OriginalUriBaseIds = new Dictionary<string, ArtifactLocation>();
-            }
+            _run.OriginalUriBaseIds ??= new Dictionary<string, ArtifactLocation>();
 
             string uriBaseId = GetNextRepoRootUriBaseId();
             _run.OriginalUriBaseIds.Add(

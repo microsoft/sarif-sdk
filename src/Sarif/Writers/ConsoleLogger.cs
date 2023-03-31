@@ -3,6 +3,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Collections.Immutable;
 using System.Globalization;
 using System.Linq;
 using System.Text;
@@ -14,7 +15,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         //  TODO:  We directly instantiate this logger in two classes, creating 
         //  unamanged dependencies.  Fix this pattern with dependency injection or a factory.
         //  #2272 https://github.com/microsoft/sarif-sdk/issues/2272
-        public ConsoleLogger(bool quietConsole, string toolName, IEnumerable<FailureLevel> levels = null, IEnumerable<ResultKind> kinds = null) : base(levels, kinds)
+        public ConsoleLogger(bool quietConsole, string toolName, FailureLevelSet levels = null, ResultKindSet kinds = null) : base(levels, kinds)
         {
             _quietConsole = quietConsole;
             _toolName = toolName.ToUpperInvariant();
@@ -42,6 +43,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 }
             }
         }
+
+        public FileRegionsCache FileRegionsCache { get; set; }
 
         public void AnalysisStarted()
         {
@@ -83,14 +86,24 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
         public void AnalyzingTarget(IAnalysisContext context)
         {
-            if (context == null)
+            if (context.Traces.Contains(nameof(DefaultTraces.TargetsScanned)))
             {
-                throw new ArgumentNullException(nameof(context));
+                // Analyzing '{0}'.
+                WriteLineToConsole(string.Format(CultureInfo.CurrentCulture,
+                        SdkResources.MSG001_AnalyzingTarget,
+                            context.CurrentTarget.Uri.GetFileName()));
             }
+        }
 
-            WriteLineToConsole(string.Format(CultureInfo.CurrentCulture,
-                    SdkResources.MSG001_AnalyzingTarget,
-                        context.TargetUri.GetFileName()));
+        public void TargetAnalyzed(IAnalysisContext context)
+        {
+            if (context.Traces.Contains(nameof(DefaultTraces.TargetsScanned)))
+            {
+                // Completed: '{0}'.
+                WriteLineToConsole(string.Format(CultureInfo.CurrentCulture,
+                        SdkResources.MSG001_TargetAnalyzed,
+                            context.CurrentTarget.Uri.GetFileName()));
+            }
         }
 
         public void Log(ReportingDescriptor rule, Result result, int? extensionIndex = null)

@@ -42,9 +42,9 @@ namespace Microsoft.CodeAnalysis.Sarif
                 Driver = new ToolComponent
                 {
                     Name = name,
-                    FullName = name + " " + version.ToString(),
-                    Version = fileVersion.FileVersion,
-                    DottedQuadFileVersion = dottedQuadFileVersion,
+                    FullName = name + " " + (omitSemanticVersion ? null : version.ToString()),
+                    Version = omitSemanticVersion ? null : fileVersion.FileVersion,
+                    DottedQuadFileVersion = omitSemanticVersion ? null : dottedQuadFileVersion,
                     SemanticVersion = omitSemanticVersion ? null : fileVersion.ProductVersion,
                     Organization = string.IsNullOrEmpty(fileVersion.CompanyName) ? null : fileVersion.CompanyName,
                     Product = string.IsNullOrEmpty(fileVersion.ProductName) ? null : fileVersion.ProductName,
@@ -64,7 +64,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         private static void SetDriverPropertiesFromFileVersionInfo(ToolComponent driver, FileVersionInfo fileVersion)
         {
-            if (!string.IsNullOrEmpty(fileVersion.Comments)) { driver.SetProperty("Comments", fileVersion.Comments); }
+            if (!string.IsNullOrEmpty(fileVersion.Comments)) { driver.SetProperty("comments", fileVersion.Comments); }
         }
 
         /// <summary>
@@ -106,6 +106,11 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             // Neither specified? Driver.
             return this.Driver;
+        }
+
+        public bool ShouldSerializeExtensions()
+        {
+            return this.Extensions?.HasAtLeastOneNonNullValue() == true;
         }
     }
 }

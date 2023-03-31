@@ -3,27 +3,30 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace Microsoft.CodeAnalysis.Sarif.Writers
 {
     public abstract class BaseLogger
     {
-        protected readonly List<FailureLevel> _failureLevels;
-        protected readonly List<ResultKind> _resultKinds;
+        public readonly static FailureLevelSet ErrorWarningNote = new FailureLevelSet(new[] { FailureLevel.Error, FailureLevel.Warning, FailureLevel.Note });
+        public readonly static FailureLevelSet ErrorWarning = new FailureLevelSet(new[] { FailureLevel.Error, FailureLevel.Warning });
 
-        protected BaseLogger(IEnumerable<FailureLevel> failureLevels,
-            IEnumerable<ResultKind> resultKinds)
+        public readonly static ResultKindSet Fail = new ResultKindSet(new List<ResultKind>(new[] { ResultKind.Fail }));
+
+        protected readonly FailureLevelSet _failureLevels;
+        protected readonly ResultKindSet _resultKinds;
+
+        protected BaseLogger(FailureLevelSet failureLevels, ResultKindSet resultKinds)
         {
             if (failureLevels == null && resultKinds == null)
             {
-                _failureLevels = new List<FailureLevel>(new[] { FailureLevel.Error, FailureLevel.Warning });
-                _resultKinds = new List<ResultKind>(new[] { ResultKind.Fail });
+                _failureLevels = ErrorWarning;
+                _resultKinds = Fail;
             }
             else
             {
-                _failureLevels = failureLevels?.ToList() ?? new List<FailureLevel>(); ;
-                _resultKinds = resultKinds?.ToList() ?? new List<ResultKind>();
+                _failureLevels = failureLevels;
+                _resultKinds = resultKinds;
             }
 
             ValidateParameters();
@@ -31,14 +34,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
         private void ValidateParameters()
         {
-            if (_resultKinds.Count == 0 || (_resultKinds.Count == 1 && _resultKinds[0] == ResultKind.None))
+            if (_resultKinds.Count == 0 || (_resultKinds.Count == 1 && _resultKinds.Contains(ResultKind.None)))
             {
                 throw new ArgumentException("At least one kind is required");
             }
 
             bool failureLevelsEffectivelyEmpty = _failureLevels == null
                                                     || _failureLevels.Count == 0
-                                                    || (_failureLevels.Count == 1 && _failureLevels[0] == FailureLevel.None);
+                                                    || (_failureLevels.Count == 1 && _failureLevels.Contains(FailureLevel.None));
 
             if (_resultKinds.Contains(ResultKind.Fail))
             {

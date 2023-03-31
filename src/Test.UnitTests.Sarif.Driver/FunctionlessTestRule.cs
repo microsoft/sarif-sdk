@@ -35,7 +35,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         public override AnalysisApplicability CanAnalyze(TestAnalysisContext context, out string reasonIfNotApplicable)
         {
-            string fileName = context.TargetUri.ToString();
+            string fileName = context.CurrentTarget.Uri.ToString();
 
             if (fileName.Contains("NotApplicable"))
             {

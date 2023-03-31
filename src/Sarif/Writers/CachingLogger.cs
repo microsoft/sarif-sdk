@@ -3,6 +3,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Collections.Immutable;
 using System.Threading;
 
 namespace Microsoft.CodeAnalysis.Sarif.Writers
@@ -15,7 +16,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
     /// </summary>
     public class CachingLogger : BaseLogger, IAnalysisLogger
     {
-        public CachingLogger(IEnumerable<FailureLevel> levels, IEnumerable<ResultKind> kinds) : base(levels, kinds)
+        public CachingLogger(FailureLevelSet levels, ResultKindSet kinds) : base(levels, kinds)
         {
             // This reader lock is used to ensure only a single writer until
             // logging is complete, after which all threads can read Results.
@@ -36,6 +37,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
         private readonly SemaphoreSlim _semaphore;
 
+        public FileRegionsCache FileRegionsCache { get; set; }
+
         public void AnalysisStarted()
         {
         }
@@ -48,6 +51,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         {
             _semaphore.Wait();
         }
+
+        public void TargetAnalyzed(IAnalysisContext context)
+        {
+            CacheFinalized = true;
+            _semaphore.Release();
+        }
+
 
         public void Log(ReportingDescriptor rule, Result result, int? extensionIndex)
         {
@@ -105,12 +115,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
             ToolNotifications ??= new List<Tuple<Notification, ReportingDescriptor>>();
             ToolNotifications.Add(new Tuple<Notification, ReportingDescriptor>(notification, associatedRule));
-        }
-
-        public void ReleaseLock()
-        {
-            CacheFinalized = true;
-            _semaphore.Release();
         }
     }
 }

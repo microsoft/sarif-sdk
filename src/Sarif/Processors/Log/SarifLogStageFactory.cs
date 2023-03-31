@@ -23,7 +23,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Processors
                 {
                     return new GenericMappingAction<SarifLog>(log =>
                     {
-                        MakeUrisAbsoluteVisitor visitor = new MakeUrisAbsoluteVisitor();
+                        var visitor = new MakeUrisAbsoluteVisitor();
                         return visitor.VisitSarifLog(log);
                     });
                 }
@@ -37,7 +37,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Processors
 
                         if (optionalData != 0)
                         {
-                            var visitor = new InsertOptionalDataVisitor(optionalData);
+                            var visitor = new InsertOptionalDataVisitor(optionalData, new FileRegionsCache());
                             return visitor.VisitSarifLog(log);
                         }
                         return log;
@@ -66,10 +66,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Processors
                             return accumulator;
                         }
 
-                        if (accumulator.Runs == null)
-                        {
-                            accumulator.Runs = new List<Run>();
-                        }
+                        accumulator.Runs ??= new List<Run>();
 
                         foreach (Run run in nextLog.Runs)
                         {

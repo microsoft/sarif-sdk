@@ -57,7 +57,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 IDictionary<string, ArtifactLocation> originalUriBaseIds = options.ConstructUriBaseIdsDictionary();
 
                 SarifLog reformattedLog = new RemoveOptionalDataVisitor(dataToRemove).VisitSarifLog(actualLog);
-                reformattedLog = new InsertOptionalDataVisitor(dataToInsert, originalUriBaseIds, insertProperties: options.InsertProperties).VisitSarifLog(reformattedLog);
+
+                reformattedLog = new InsertOptionalDataVisitor(dataToInsert,
+                                                               new FileRegionsCache(),
+                                                               originalUriBaseIds,
+                                                               insertProperties: options.InsertProperties).VisitSarifLog(reformattedLog);
 
                 if (options.SortResults)
                 {
@@ -80,6 +84,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                     var visitor = new SarifCurrentToVersionOneVisitor();
                     visitor.VisitSarifLog(reformattedLog);
 
+                    bool minify = options.OutputFileOptions.ToFlags().HasFlag(FilePersistenceOptions.Minify);
                     WriteSarifFile(_fileSystem, visitor.SarifLogVersionOne, actualOutputPath, options.Minify, SarifContractResolverVersionOne.Instance);
                 }
                 else
@@ -109,7 +114,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             //  While this is returning true for inline cases, I think it's doing so for the wrong reasons.
             //  TODO: validate whether "actualOutputPath" can be created.
             //  #2270 https://github.com/microsoft/sarif-sdk/issues/2270
-            if (!DriverUtilities.ReportWhetherOutputFileCanBeCreated(rewriteOptions.OutputFilePath, rewriteOptions.Force, _fileSystem))
+            if (!DriverUtilities.ReportWhetherOutputFileCanBeCreated(rewriteOptions.OutputFilePath, rewriteOptions.ForceOverwrite, _fileSystem))
             {
                 return false;
             }

@@ -16,8 +16,6 @@ namespace Microsoft.CodeAnalysis.Sarif
 {
     public static class HashUtilities
     {
-        static HashUtilities() => FileSystem = Sarif.FileSystem.Instance;
-
         private static readonly int TAB = '\t';
         private static readonly int SPACE = ' ';
         private static readonly int LF = '\n';
@@ -25,20 +23,6 @@ namespace Microsoft.CodeAnalysis.Sarif
         private static readonly int EOF = 65535;
         private static readonly int BLOCK_SIZE = 100;
         private static readonly Long MOD = new Long(37, 0, false);
-
-        private static IFileSystem _fileSystem;
-        internal static IFileSystem FileSystem
-        {
-            get
-            {
-                _fileSystem ??= Sarif.FileSystem.Instance;
-                return _fileSystem;
-            }
-            set
-            {
-                _fileSystem = value;
-            }
-        }
 
         public static IDictionary<string, HashData> MultithreadedComputeTargetFileHashes(IEnumerable<string> analysisTargets, bool suppressConsoleOutput = false)
         {
@@ -82,7 +66,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         [SuppressMessage("Microsoft.Security.Cryptography", "CA5350:MD5CannotBeUsed")]
         public static HashData ComputeHashes(string fileName, IFileSystem fileSystem = null)
         {
-            fileSystem ??= FileSystem;
+            fileSystem ??= FileSystem.Instance;
 
             try
             {
@@ -100,37 +84,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                     // and record exception details.
                     if (stream == null) { return null; }
 
-                    using (var bufferedStream = new BufferedStream(stream, 1024 * 32))
-                    {
-                        string md5, sha1, sha256;
-                        byte[] checksum;
-
-                        using (var md5Cng = MD5.Create())
-                        {
-                            checksum = md5Cng.ComputeHash(bufferedStream);
-                            md5 = BitConverter.ToString(checksum).Replace("-", string.Empty);
-                        }
-
-                        stream.Seek(0, SeekOrigin.Begin);
-                        bufferedStream.Seek(0, SeekOrigin.Begin);
-
-                        using (var sha1Cng = SHA1.Create())
-                        {
-                            checksum = sha1Cng.ComputeHash(bufferedStream);
-                            sha1 = BitConverter.ToString(checksum).Replace("-", string.Empty);
-                        }
-
-                        stream.Seek(0, SeekOrigin.Begin);
-                        bufferedStream.Seek(0, SeekOrigin.Begin);
-
-                        using (var sha256Cng = SHA256.Create())
-                        {
-                            checksum = sha256Cng.ComputeHash(bufferedStream);
-                            sha256 = BitConverter.ToString(checksum).Replace("-", string.Empty);
-                        }
-
-                        return new HashData(md5, sha1, sha256);
-                    }
+                    return ComputeHashes(stream);
                 }
             }
             catch (IOException) { }
@@ -138,13 +92,57 @@ namespace Microsoft.CodeAnalysis.Sarif
             return null;
         }
 
-        public static string ComputeSha256Hash(string fileName)
+        public static HashData ComputeHashes(Stream stream)
         {
+            using (var bufferedStream = new BufferedStream(stream, 1024 * 32))
+            {
+                string md5, sha1, sha256;
+                byte[] checksum;
+
+                using (var md5Cng = MD5.Create())
+                {
+                    checksum = md5Cng.ComputeHash(bufferedStream);
+                    md5 = BitConverter.ToString(checksum).Replace("-", string.Empty);
+                }
+
+                stream.Seek(0, SeekOrigin.Begin);
+                bufferedStream.Seek(0, SeekOrigin.Begin);
+
+                using (var sha1Cng = SHA1.Create())
+                {
+                    checksum = sha1Cng.ComputeHash(bufferedStream);
+                    sha1 = BitConverter.ToString(checksum).Replace("-", string.Empty);
+                }
+
+                stream.Seek(0, SeekOrigin.Begin);
+                bufferedStream.Seek(0, SeekOrigin.Begin);
+
+                using (var sha256Cng = SHA256.Create())
+                {
+                    checksum = sha256Cng.ComputeHash(bufferedStream);
+                    sha256 = BitConverter.ToString(checksum).Replace("-", string.Empty);
+                }
+
+                return new HashData(md5, sha1, sha256);
+            }
+        }
+
+        public static HashData ComputeHashesForText(string text)
+        {
+            if (text == null) { throw new ArgumentNullException(nameof(text)); }
+            var stream = new MemoryStream(Encoding.UTF8.GetBytes(text));
+            return ComputeHashes(stream);
+        }
+
+        public static string ComputeSha256Hash(string fileName, IFileSystem fileSystem = null)
+        {
+            fileSystem ??= FileSystem.Instance;
+
             string sha256Hash = null;
 
             try
             {
-                using (Stream stream = FileSystem.FileOpenRead(fileName))
+                using (Stream stream = fileSystem.FileOpenRead(fileName))
                 {
                     using (var bufferedStream = new BufferedStream(stream, 1024 * 32))
                     {
@@ -170,13 +168,14 @@ namespace Microsoft.CodeAnalysis.Sarif
         }
 
         [SuppressMessage("Microsoft.Security.Cryptography", "CA5354:SHA1CannotBeUsed")]
-        public static string ComputeSha1Hash(string fileName)
+        public static string ComputeSha1Hash(string fileName, IFileSystem fileSystem = null)
         {
+            fileSystem ??= FileSystem.Instance;
             string sha1 = null;
 
             try
             {
-                using (Stream stream = FileSystem.FileOpenRead(fileName))
+                using (Stream stream = fileSystem.FileOpenRead(fileName))
                 {
                     using (var bufferedStream = new BufferedStream(stream, 1024 * 32))
                     {
@@ -194,13 +193,14 @@ namespace Microsoft.CodeAnalysis.Sarif
         }
 
         [SuppressMessage("Microsoft.Security.Cryptography", "CA5350:MD5CannotBeUsed")]
-        public static string ComputeMD5Hash(string fileName)
+        public static string ComputeMD5Hash(string fileName, IFileSystem fileSystem = null)
         {
+            fileSystem ??= FileSystem.Instance;
             string md5 = null;
 
             try
             {
-                using (Stream stream = FileSystem.FileOpenRead(fileName))
+                using (Stream stream = fileSystem.FileOpenRead(fileName))
                 {
                     using (var bufferedStream = new BufferedStream(stream, 1024 * 32))
                     {

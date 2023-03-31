@@ -53,7 +53,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
             valid &= applyPolicyOptions.Validate();
 
-            valid &= DriverUtilities.ReportWhetherOutputFileCanBeCreated(applyPolicyOptions.OutputFilePath, applyPolicyOptions.Force, _fileSystem);
+            valid &= DriverUtilities.ReportWhetherOutputFileCanBeCreated(applyPolicyOptions.OutputFilePath, applyPolicyOptions.ForceOverwrite, _fileSystem);
 
             return valid;
         }

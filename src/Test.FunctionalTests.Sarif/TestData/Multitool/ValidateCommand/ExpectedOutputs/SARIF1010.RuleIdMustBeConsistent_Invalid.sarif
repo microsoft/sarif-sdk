@@ -66,6 +66,32 @@
               }
             }
           ]
+        },
+        {
+          "ruleId": "SARIF1010",
+          "ruleIndex": 0,
+          "level": "error",
+          "message": {
+            "id": "Error_ResultRuleIdMustBeConsistent",
+            "arguments": [
+              "runs[0].results[1]",
+              "TST0001",
+              "TST0002"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 18,
+                  "startColumn": 9
+                }
+              }
+            }
+          ]
         }
       ],
       "columnKind": "utf16CodeUnits"

@@ -4,7 +4,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Dynamic;
+
 using System.Globalization;
 using System.Linq;
 using System.Text;
@@ -15,8 +15,18 @@ using Microsoft.CodeAnalysis.Sarif.Visitors;
 
 namespace Microsoft.CodeAnalysis.Sarif
 {
-    public static class ExtensionMethods
+    public static class SarifExtensions
     {
+        public static RuntimeConditions Fatal(this RuntimeConditions conditions)
+        {
+            return conditions & ~RuntimeConditions.Nonfatal;
+        }
+
+        public static RuntimeConditions Nonfatal(this RuntimeConditions conditions)
+        {
+            return conditions & RuntimeConditions.Nonfatal;
+        }
+
         public static string ToString(this IEnumerable<Result> results)
         {
             var sb = new StringBuilder();
@@ -190,15 +200,16 @@ namespace Microsoft.CodeAnalysis.Sarif
             }
         }
 
-        public static OptionallyEmittedData ToFlags(this IEnumerable<OptionallyEmittedData> optionallyEmittedData)
+        public static TFlags ToFlags<TFlags>(this IEnumerable<TFlags> enumeratedFlags) where TFlags : Enum, IConvertible
         {
-            OptionallyEmittedData convertedToFlags = OptionallyEmittedData.None;
-            if (optionallyEmittedData != null)
+            int convertedToFlags = default;
+
+            if (enumeratedFlags != null)
             {
-                Array.ForEach(optionallyEmittedData.ToArray(), data => convertedToFlags |= data);
+                Array.ForEach(enumeratedFlags.ToArray(), data => convertedToFlags |= data.ToInt32(provider: null));
             }
 
-            return convertedToFlags;
+            return (TFlags)Enum.ToObject(typeof(TFlags), convertedToFlags);
         }
 
         public static string GetFileName(this Uri uri)
@@ -302,12 +313,11 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             var messageLines = new List<string>();
 
-            var ruleMessage = string.Format(
+            string ruleMessage = string.Format(
                     CultureInfo.InvariantCulture, "{0} {1}: {2}",
                     result.Kind == ResultKind.Fail ? result.Level.FormatForVisualStudio() : result.Kind.FormatForVisualStudio(),
                     result.RuleId,
-                    result.GetMessageText(rule)
-                    );
+                    result.GetMessageText(rule));
 
             if (result.Locations != null)
             {
@@ -320,8 +330,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                         CultureInfo.InvariantCulture, "{0}{1}: {2}",
                         path,
                         location.PhysicalLocation.Region.FormatForVisualStudio(),
-                        ruleMessage
-                        );
+                        ruleMessage);
                 }
             }
 
@@ -411,7 +420,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                         }
                         else
                         {
-                            arguments = new string[0];
+                            arguments = Array.Empty<string>();
                         }
 
                         text = GetFormattedMessage(formatString.Text, arguments);
@@ -539,7 +548,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         }
 
         /// <summary>
-        /// Merge elements from another IEnumerable into current one, keep unqiue elements, remove duplicated ones.
+        /// Merge elements from another IEnumerable into current one, keep unique elements, remove duplicated ones.
         /// </summary>
         /// <typeparam name="T">The type of object in the list.</typeparam>
         /// <param name="list">The original list.</param>
