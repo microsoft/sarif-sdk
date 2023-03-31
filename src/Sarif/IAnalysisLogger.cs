@@ -5,11 +5,15 @@ namespace Microsoft.CodeAnalysis.Sarif
 {
     public interface IAnalysisLogger
     {
+        FileRegionsCache FileRegionsCache { get; set; }
+
         void AnalysisStarted();
 
         void AnalysisStopped(RuntimeConditions runtimeConditions);
 
         void AnalyzingTarget(IAnalysisContext context);
+
+        void TargetAnalyzed(IAnalysisContext context);
 
         /// <summary>
         /// Log a diagnostic result

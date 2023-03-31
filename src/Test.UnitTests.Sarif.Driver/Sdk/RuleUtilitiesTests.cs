@@ -19,9 +19,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             const string RuleId = "TST0001";
             string[] Arguments = new string[] { "42", "54" };
 
+            var target = new EnumeratedArtifact(FileSystem.Instance)
+            {
+                Uri = new System.Uri("file:///c:/src/file.c"),
+            };
+
             var context = new TestAnalysisContext
             {
-                TargetUri = new System.Uri("file:///c:/src/file.c"),
+                CurrentTarget = target,
                 Rule = new ReportingDescriptor
                 {
                     Id = RuleId,

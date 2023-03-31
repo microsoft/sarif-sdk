@@ -11,11 +11,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
     {
         IEnumerable<Assembly> DefaultPluginAssemblies { get; set; }
 
-        Exception ExecutionException { get; set; }
-
-        RuntimeConditions RuntimeErrors { get; set; }
-
-        int Run(AnalyzeOptionsBase options);
+        int Run(AnalyzeOptionsBase options, ref TestAnalysisContext context);
 
         void CheckIncompatibleRules(IEnumerable<Skimmer<TestAnalysisContext>> skimmers, TestAnalysisContext context, ISet<string> disabledSkimmers);
     }

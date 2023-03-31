@@ -29,6 +29,21 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             }
         }
 
+        private FileRegionsCache fileRegionsCache;
+
+        public FileRegionsCache FileRegionsCache
+        {
+            get => fileRegionsCache;
+            set
+            {
+                foreach (IAnalysisLogger logger in Loggers)
+                {
+                    logger.FileRegionsCache = value;
+                }
+                this.fileRegionsCache = value;
+            }
+        }
+
         public void AnalysisStarted()
         {
             foreach (IAnalysisLogger logger in Loggers)
@@ -50,6 +65,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             foreach (IAnalysisLogger logger in Loggers)
             {
                 logger.AnalyzingTarget(context);
+            }
+        }
+
+        public void TargetAnalyzed(IAnalysisContext context)
+        {
+            foreach (IAnalysisLogger logger in Loggers)
+            {
+                logger.TargetAnalyzed(context);
             }
         }
 

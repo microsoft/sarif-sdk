@@ -3,13 +3,17 @@
 
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Text;
 
 using FluentAssertions;
 
+using Kusto.Cloud.Platform.Utils;
+
 using Microsoft.CodeAnalysis.Sarif.Driver;
 using Microsoft.CodeAnalysis.Sarif.Readers;
 using Microsoft.CodeAnalysis.Sarif.VersionOne;
+using Microsoft.CodeAnalysis.Sarif.Writers;
 
 using Moq;
 
@@ -33,9 +37,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             {
                 BasePath = @"C:\vs\src\2\s\",
                 BasePathToken = "SRCROOT",
-                Inline = true,
+                OutputFileOptions = new[] { FilePersistenceOptions.Inline, FilePersistenceOptions.PrettyPrint },
                 SarifOutputVersion = SarifVersion.Current,
-                PrettyPrint = true,
                 NormalizeForGhas = true,
             };
         }
@@ -196,16 +199,18 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         }
 
         [Fact]
-        public void TransformCommand_WhenOutputFormatOptionsAreInconsistent_Fails()
+        public void TransformCommand_WhenOutputFormatOptionsAreInconsistent_PrefersPrettyPrint()
         {
             var options = new RewriteOptions
             {
-                PrettyPrint = true,
-                Minify = true
+                OutputFileOptions = new[] { FilePersistenceOptions.Minify, FilePersistenceOptions.PrettyPrint },
             };
 
+            options.PrettyPrint.Should().BeTrue();
+            options.Minify.Should().BeFalse();
+
             (string _, int returnCode) = RunTransformationCore(MinimalV1Text, SarifVersion.Current, options);
-            returnCode.Should().Be(1);
+            returnCode.Should().Be(0);
         }
 
         private static void RunTransformationToV2Test(string logFileContents)
@@ -248,7 +253,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
             options ??= new RewriteOptions
             {
-                Inline = true,
+                OutputFileOptions = new[] { FilePersistenceOptions.Inline },
                 SarifOutputVersion = targetVersion,
                 InputFilePath = LogFilePath
             };
@@ -260,7 +265,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
             if (options.InputFilePath == null)
             {
-                options.Inline = true;
+                options.OutputFileOptions = new HashSet<FilePersistenceOptions>(options.OutputFileOptions) { FilePersistenceOptions.Inline }.ToArray();
                 options.InputFilePath = LogFilePath;
             }
 

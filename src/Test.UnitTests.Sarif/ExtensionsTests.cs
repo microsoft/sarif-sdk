@@ -411,7 +411,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         [InlineData("In every result, at least one of the properties result.ruleId and result.rule.id must be present. If both are present, they must be equal.", "In every result, at least one of the properties result.ruleId and result.rule.id must be present.")]
         public void Extensions_ExtractsFirstSentenceProperly(string input, string expected)
         {
-            string actual = ExtensionMethods.GetFirstSentence(input);
+            string actual = SarifExtensions.GetFirstSentence(input);
             actual.Should().Be(expected);
         }
 

@@ -45,7 +45,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 command.DefaultPluginAssemblies = new Assembly[] { typeof(ExportConfigurationCommandBaseTests).Assembly };
                 int result = command.Run(options);
 
-                Assert.Equal(TestAnalyzeCommand.SUCCESS, result);
+                Assert.Equal(TestMultithreadedAnalyzeCommand.SUCCESS, result);
             }
             finally
             {

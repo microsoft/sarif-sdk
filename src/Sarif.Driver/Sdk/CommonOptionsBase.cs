@@ -10,40 +10,47 @@ using Newtonsoft.Json;
 
 namespace Microsoft.CodeAnalysis.Sarif.Driver
 {
-    public class CommonOptionsBase
+    public class CommonOptionsBase : PropertiesDictionary
     {
+        public bool Inline => OutputFileOptions.ToFlags().HasFlag(FilePersistenceOptions.Inline);
+
+        public bool Minify => OutputFileOptions.ToFlags().HasFlag(FilePersistenceOptions.Minify);
+
+        public bool Optimize => OutputFileOptions.ToFlags().HasFlag(FilePersistenceOptions.Optimize);
+
+        public bool PrettyPrint => OutputFileOptions.ToFlags().HasFlag(FilePersistenceOptions.PrettyPrint);
+
+        public bool ForceOverwrite => OutputFileOptions.ToFlags().HasFlag(FilePersistenceOptions.ForceOverwrite);
+
+        private HashSet<FilePersistenceOptions> _filePersistenceOptions;
+
         [Option(
-            'p',
-            "pretty-print",
-            Default = false,
+            "log",
+            Separator = ';',
             HelpText =
-            "Produce pretty-printed JSON output rather than compact output (all white space removed). If neither " +
-            "--pretty-print nor --minify is specified, --pretty-print is set to true. --pretty-print and --minify " +
-            "cannot be specified together.")]
-        public bool PrettyPrint { get; set; }
+            "One or more settings for governing output files. Valid values include Force, PrettyPrint, Minify or Optimize.")]
+        public IEnumerable<FilePersistenceOptions> OutputFileOptions
+        {
+            get => NormalizeFilePersistenceOptions(_filePersistenceOptions);
+            set => _filePersistenceOptions = new HashSet<FilePersistenceOptions>(value);
+        }
 
-        [Option(
-            'm',
-            "minify",
-            Default = false,
-            HelpText = "Produce compact JSON output (all white space removed) rather than pretty-printed output. " +
-            "If neither --pretty-print nor --minify is specified, --pretty-print is set to true. --pretty-print " +
-            "and --minify cannot be specified together.")]
-        public bool Minify { get; set; }
+        internal static IEnumerable<FilePersistenceOptions> NormalizeFilePersistenceOptions(HashSet<FilePersistenceOptions> filePersistenceOptions)
+        {
+            filePersistenceOptions ??= new HashSet<FilePersistenceOptions>();
+            if (filePersistenceOptions.Contains(FilePersistenceOptions.PrettyPrint))
+            {
+                filePersistenceOptions.Remove(FilePersistenceOptions.Minify);
+            }
 
-        [Option(
-            'f',
-            "force",
-            Default = false,
-            HelpText = "Force overwrite of output file if it exists.")]
-        public bool Force { get; set; }
+            if (filePersistenceOptions.Count > 0 &&
+                !filePersistenceOptions.Contains(FilePersistenceOptions.Minify))
+            {
+                filePersistenceOptions.Add(FilePersistenceOptions.PrettyPrint);
+            }
 
-        [Option(
-            'i',
-            "inline",
-            Default = false,
-            HelpText = "Overwrite each input file with the corresponding transformed file.")]
-        public bool Inline { get; set; }
+            return filePersistenceOptions;
+        }
 
         [Option(
             "insert",
@@ -94,12 +101,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         public IEnumerable<string> InsertProperties { get; set; }
 
         [Option(
-            "automationId",
+            "automation-id",
             HelpText = "An id that will be persisted to the 'Run.AutomationDetails.Id' property. See section '3.17.3' of the SARIF specification for more information.")]
         public string AutomationId { get; set; }
 
         [Option(
-            "automationGuid",
+            "automation-guid",
             HelpText = "A guid that will be persisted to the 'Run.AutomationDetails.Guid' property. See section '3.17.4' of the SARIF specification for more information.")]
         public Guid? AutomationGuid { get; set; }
 

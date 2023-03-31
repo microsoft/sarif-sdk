@@ -15,16 +15,6 @@ namespace Microsoft.CodeAnalysis.Sarif
     {
         None = 0,
 
-        // Not used today but perhaps soon...
-        //CouldNotLoadCustomLoggerAssembly,
-        //CouldNotLoadCustomLoggerType,
-        //UnrecognizedDefaultLoggerExtension,
-        //MalformedCustomLoggersArgument,
-        //LoggerFailedInitialization,
-        //LoggerRaisedExceptionOnInitialization,
-        //LoggerRaisedExceptionOnWrite,
-        //LoggerRaisedExceptionOnClose,
-
         // Fatal conditions
         // InvalidCommandLineOption is a useful bit to
         // use as value 0x1. This allows for a consistent
@@ -35,25 +25,28 @@ namespace Microsoft.CodeAnalysis.Sarif
         ExceptionInSkimmerInitialize = 0x2,
         ExceptionRaisedInSkimmerCanAnalyze = 0x4,
         ExceptionInSkimmerAnalyze = 0x8,
-        ExceptionCreatingLogFile = 0x10,
+        ExceptionCreatingOutputFile = 0x10,
         ExceptionLoadingPdb = 0x20,
         ExceptionInEngine = 0x40,
         ExceptionLoadingTargetFile = 0x80,
-        ExceptionLoadingAnalysisPlugin = 0x100,
-        NoRulesLoaded = 0x200,
-        NoValidAnalysisTargets = 0x400,
-        RuleMissingRequiredConfiguration = 0x800,
-        TargetParseError = 0x1000,
-        MissingFile = 0x2000,
-        ExceptionAccessingFile = 0x4000,
-        ExceptionInstantiatingSkimmers = 0x8000,
-        OutputFileAlreadyExists = 0x10000,
-        ExceptionProcessingBaseline = 0x20000,
-        ExceptionPostingLogFile = 0x40000,
-        OneOrMoreRulesAreIncompatible = 0x80000,
+        ExceptionProcessingCommandline = 0x100,
+        ExceptionLoadingAnalysisPlugin = 0x200,
+        NoRulesLoaded = 0x400,
+        NoValidAnalysisTargets = 0x800,
+        RuleMissingRequiredConfiguration = 0x1000,
+        TargetParseError = 0x2000,
+        MissingFile = 0x4000,
+        ExceptionAccessingFile = 0x8000,
+        ExceptionInstantiatingSkimmers = 0x10000,
+        FileAlreadyExists = 0x20000,
+        ExceptionProcessingBaseline = 0x40000,
+        ExceptionPostingLogFile = 0x80000,
+        OneOrMoreRulesAreIncompatible = 0x100000,
+        AnalysisCanceled = 0x200000,
+        AnalysisTimedOut = 0x400000,
 
         // Non-fatal conditions
-        UnassignedNonfatal = 0x00F00000,
+        UnassignedNonfatal = 0x00C00000,
         OneOrMoreFilesSkippedDueToSize = 0x01000000,
         RuleWasExplicitlyDisabled = 0x02000000,
         RuleCannotRunOnPlatform = 0x04000000,
@@ -63,6 +56,6 @@ namespace Microsoft.CodeAnalysis.Sarif
         OneOrMoreErrorsFired = 0x40000000,
         ObsoleteOption = 0x80000000,
 
-        Nonfatal = 0x7FF00000
+        Nonfatal = 0x7FC00000,
     }
 }

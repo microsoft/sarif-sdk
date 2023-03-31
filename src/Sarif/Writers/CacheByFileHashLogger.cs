@@ -3,6 +3,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Collections.Immutable;
 
 namespace Microsoft.CodeAnalysis.Sarif.Writers
 {
@@ -19,13 +20,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
     {
         private bool cacheLoggingData;
         private string currentFileHash;
-
-        public Dictionary<string, List<Notification>> HashToNotificationsMap { get; private set; }
-        public Dictionary<string, List<Tuple<ReportingDescriptor, Result, int?>>> HashToResultsMap { get; private set; }
-
-        public CacheByFileHashLogger(IEnumerable<FailureLevel> levels, IEnumerable<ResultKind> kinds) : base(levels, kinds)
+        public CacheByFileHashLogger(FailureLevelSet levels, ResultKindSet kinds) : base(levels, kinds)
         {
         }
+
+        public Dictionary<string, List<Notification>> HashToNotificationsMap { get; private set; }
+
+        public Dictionary<string, List<Tuple<ReportingDescriptor, Result, int?>>> HashToResultsMap { get; private set; }
+
+        public FileRegionsCache FileRegionsCache { get; set; }
+
 
         public void AnalysisStarted()
         {
@@ -55,6 +59,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 HashToResultsMap[currentFileHash] = new List<Tuple<ReportingDescriptor, Result, int?>>();
             }
         }
+
+        public void TargetAnalyzed(IAnalysisContext _) { }
 
         public void Log(ReportingDescriptor rule, Result result, int? extensionIndex = null)
         {

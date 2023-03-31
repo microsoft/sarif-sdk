@@ -40,19 +40,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
                 if (!ValidateOptions(convertOptions, fileSystem)) { return FAILURE; }
 
-                LogFilePersistenceOptions logFilePersistenceOptions = LogFilePersistenceOptions.None;
+                FilePersistenceOptions logFilePersistenceOptions = FilePersistenceOptions.None;
 
                 OptionallyEmittedData dataToInsert = convertOptions.DataToInsert.ToFlags();
-
-                if (convertOptions.PrettyPrint)
-                {
-                    logFilePersistenceOptions |= LogFilePersistenceOptions.PrettyPrint;
-                }
-
-                if (convertOptions.Force)
-                {
-                    logFilePersistenceOptions |= LogFilePersistenceOptions.OverwriteExistingOutputFile;
-                }
 
                 new ToolFormatConverter().ConvertToStandardFormat(
                                                 convertOptions.ToolFormat,
@@ -104,7 +94,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
             valid &= convertOptions.Validate();
 
-            valid &= DriverUtilities.ReportWhetherOutputFileCanBeCreated(convertOptions.OutputFilePath, convertOptions.Force, fileSystem);
+            valid &= DriverUtilities.ReportWhetherOutputFileCanBeCreated(convertOptions.OutputFilePath, convertOptions.ForceOverwrite, fileSystem);
 
             return valid;
         }

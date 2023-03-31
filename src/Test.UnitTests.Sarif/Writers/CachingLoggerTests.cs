@@ -28,7 +28,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
             TestAnalyzeOptions testAnalyzeOptions = new TestAnalyzeOptions();
 
-            var logger = new CachingLogger(testAnalyzeOptions.Level, testAnalyzeOptions.Kind);
+            var logger = new CachingLogger(testAnalyzeOptions.FailureLevels, testAnalyzeOptions.ResultKinds);
             logger.LogConfigurationNotification(notification);
             logger.ConfigurationNotifications.Should().HaveCount(1);
 
@@ -44,7 +44,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
             TestAnalyzeOptions testAnalyzeOptions = new TestAnalyzeOptions();
 
-            var logger = new CachingLogger(testAnalyzeOptions.Level, testAnalyzeOptions.Kind);
+            var logger = new CachingLogger(testAnalyzeOptions.FailureLevels, testAnalyzeOptions.ResultKinds);
 
             Assert.Throws<ArgumentNullException>(() => logger.Log(null, result01, null));
             Assert.Throws<ArgumentNullException>(() => logger.Log(rule01, null, null));
@@ -77,7 +77,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
             TestAnalyzeOptions testAnalyzeOptions = new TestAnalyzeOptions();
 
-            var logger = new CachingLogger(testAnalyzeOptions.Level, testAnalyzeOptions.Kind);
+            var logger = new CachingLogger(testAnalyzeOptions.FailureLevels, testAnalyzeOptions.ResultKinds);
 
             rule01.Id = "TEST0001";
             result01.RuleId = "TEST0001/001";

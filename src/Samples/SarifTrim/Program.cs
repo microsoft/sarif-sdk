@@ -53,7 +53,7 @@ namespace SarifTrim
                 consolidator.RemoveWebResponses = (removeParts.Contains("WebResponses"));
 
                 // Consolidate the SarifLog per settings
-                using (SarifLogger logger = new SarifLogger(outputFilePath, LogFilePersistenceOptions.OverwriteExistingOutputFile, tool: run.Tool, run: run))
+                using (SarifLogger logger = new SarifLogger(outputFilePath, FilePersistenceOptions.ForceOverwrite, run: run))
                 {
                     foreach (Result result in run.Results)
                     {

@@ -5,35 +5,31 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-using Microsoft.CodeAnalysis.Sarif;
+using FluentAssertions;
 
-namespace Microsoft.CodeAnalysis.Test.Utilities.Sarif
+using Microsoft.CodeAnalysis.Sarif.Driver;
+
+namespace Microsoft.CodeAnalysis.Sarif
 {
     public static class TestUtilitiesExtensions
     {
-        public static TestRuleBehaviors AccessibleOutsideOfContextOnly(this TestRuleBehaviors behaviors)
+        public static void ValidateCommandExecution(this IAnalysisContext context, int result)
         {
-            // These are the only test behavior flags that may need to be retrieved outside of
-            // a context object (because the data is accessed when a context object isn't at
-            // hand). For example, if a skimmer needs to raise an exception in its constructor,
-            // which isn't paramterized with a context object, the test rule behavior that 
-            // specifies this can be retrieved from a thread static property.
-            return behaviors &
-            (
-                TestRuleBehaviors.RaiseExceptionAccessingId |
-                TestRuleBehaviors.RaiseExceptionAccessingName |
-                TestRuleBehaviors.RaiseExceptionInvokingConstructor |
-                TestRuleBehaviors.TreatPlatformAsInvalid
-            );
-        }
+            // This method provides validation of execution success for happy path runs, 
+            // i.e., where we don't expect to see anything unusual. The validation is
+            // specifically ordered to provide the most information in the test output 
+            // window. If we validate the success code, for example, we only know that
+            // we returned FAILURE (1) not SUCCESS. If we validate the exceptions data
+            // first, the test output window will show a meaningful message and stack.
 
-        public static TestRuleBehaviors AccessibleWithinContextOnly(this TestRuleBehaviors behaviors)
-        {
-            // These are the only test behavior flags that *must* be retrieved via
-            // a context object. For example, if a skimmer needs to raise an exception
-            // when it is initialized, it should retrieve the test rule behavior that 
-            // specifies this from the context object that parameterizes the call.
-            return behaviors & ~behaviors.AccessibleOutsideOfContextOnly();
+            // For application exist exceptions, e.g., an unhandled exception in a rule,
+            // the inner exception has the most useful details.
+            context.RuntimeExceptions?[0].InnerException.Should().BeNull();
+            context.RuntimeExceptions?[0].Should().BeNull();
+
+            context.RuntimeErrors.Fatal().Should().Be(0);
+
+            result.Should().Be(CommandBase.SUCCESS);
         }
 
         public static IList<T> Shuffle<T>(this IList<T> list, Random random)
