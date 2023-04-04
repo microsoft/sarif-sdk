@@ -1791,7 +1791,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
                 if (string.IsNullOrWhiteSpace(options.AutomationId) && options.AutomationGuid == null)
                 {
-                    runWithCaching.AutomationDetails.Should().Be(null);
+                    runWithCaching.AutomationDetails.Should().BeNull();
                 }
 
                 if (!string.IsNullOrWhiteSpace(options.AutomationId))

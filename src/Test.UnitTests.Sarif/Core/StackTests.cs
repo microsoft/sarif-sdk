@@ -65,7 +65,7 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Core
                 IList<Stack> stacks = Stack.CreateStacks(containerException).ToList();
 
                 stacks.Count.Should().Be(2);
-                containerException.StackTrace.Should().Be(null);
+                containerException.StackTrace.Should().BeNull();
                 Assert.Equal("[No frames]", stacks[0].ToString());
                 stacks[1].ToString().Should().BeCrossPlatformEquivalentStrings(exception.StackTrace);
 
@@ -92,7 +92,7 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Core
                 IList<Stack> stacks = Stack.CreateStacks(aggregated).ToList();
 
                 stacks.Count.Should().Be(4);
-                aggregated.StackTrace.Should().Be(null);
+                aggregated.StackTrace.Should().BeNull();
 
                 Assert.Equal("[No frames]", stacks[0].ToString());
                 Assert.Equal("[No frames]", stacks[1].ToString());
