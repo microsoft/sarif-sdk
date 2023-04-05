@@ -13,7 +13,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// The top-level element of an external property file.
     /// </summary>
     [DataContract]
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "2.1.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "2.3.0.0")]
     public partial class ExternalProperties : PropertyBagHolder, ISarifNode
     {
         public static IEqualityComparer<ExternalProperties> ValueComparer => ExternalPropertiesEqualityComparer.Instance;
@@ -38,6 +38,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// The URI of the JSON schema corresponding to the version of the external property file format.
         /// </summary>
         [DataMember(Name = "schema", IsRequired = false, EmitDefaultValue = false)]
+        [JsonConverter(typeof(Microsoft.CodeAnalysis.Sarif.Readers.UriConverter))]
         public virtual Uri Schema { get; set; }
 
         /// <summary>

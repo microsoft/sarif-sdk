@@ -43,7 +43,7 @@
         },
         {
           "location": {
-            "uri": "file:/c:/src/file.c",
+            "uri": "file:///c:/src/file.c",
             "index": 2
           }
         }

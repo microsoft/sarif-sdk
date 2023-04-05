@@ -39,6 +39,7 @@
                           "text": "main"
                         }
                       },
+                      "nestingLevel": 0,
                       "importance": "unimportant",
                       "properties": {
                         "target": "main",

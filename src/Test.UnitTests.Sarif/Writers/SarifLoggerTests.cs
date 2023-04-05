@@ -680,7 +680,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             // Other properties should be empty.
             invocation.CommandLine.Should().BeNull();
             invocation.WorkingDirectory.Should().BeNull();
-            invocation.ProcessId.Should().Be(0);
+            invocation.ProcessId.Should().BeNull();
             invocation.ExecutableLocation.Should().BeNull();
         }
 
@@ -714,6 +714,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             // Specified properties should be logged.
             invocation.WorkingDirectory.Should().NotBeNull();
+            invocation.ProcessId.Should().NotBeNull();
             invocation.ProcessId.Should().NotBe(0);
 
             // Other properties should be empty.
@@ -747,6 +748,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             // Specified properties should be logged.
             invocation.WorkingDirectory.Should().NotBeNull();
+            invocation.ProcessId.Should().NotBeNull();
             invocation.ProcessId.Should().NotBe(0);
         }
 

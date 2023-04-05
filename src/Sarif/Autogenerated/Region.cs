@@ -14,7 +14,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// A region within an artifact where a result was detected.
     /// </summary>
     [DataContract]
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "2.1.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "2.3.0.0")]
     public partial class Region : PropertyBagHolder, ISarifNode
     {
         public static IEqualityComparer<Region> ValueComparer => RegionEqualityComparer.Instance;
@@ -39,24 +39,32 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// The line number of the first character in the region.
         /// </summary>
         [DataMember(Name = "startLine", IsRequired = false, EmitDefaultValue = false)]
+        [DefaultValue(0)]
+        [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
         public virtual int StartLine { get; set; }
 
         /// <summary>
         /// The column number of the first character in the region.
         /// </summary>
         [DataMember(Name = "startColumn", IsRequired = false, EmitDefaultValue = false)]
+        [DefaultValue(0)]
+        [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
         public virtual int StartColumn { get; set; }
 
         /// <summary>
         /// The line number of the last character in the region.
         /// </summary>
         [DataMember(Name = "endLine", IsRequired = false, EmitDefaultValue = false)]
+        [DefaultValue(0)]
+        [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
         public virtual int EndLine { get; set; }
 
         /// <summary>
         /// The column number of the character following the end of the region.
         /// </summary>
         [DataMember(Name = "endColumn", IsRequired = false, EmitDefaultValue = false)]
+        [DefaultValue(0)]
+        [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
         public virtual int EndColumn { get; set; }
 
         /// <summary>
@@ -71,6 +79,8 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// The length of the region in characters.
         /// </summary>
         [DataMember(Name = "charLength", IsRequired = false, EmitDefaultValue = false)]
+        [DefaultValue(0)]
+        [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
         public virtual int CharLength { get; set; }
 
         /// <summary>
@@ -85,6 +95,8 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// The length of the region in bytes.
         /// </summary>
         [DataMember(Name = "byteLength", IsRequired = false, EmitDefaultValue = false)]
+        [DefaultValue(0)]
+        [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
         public virtual int ByteLength { get; set; }
 
         /// <summary>
@@ -116,8 +128,14 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// </summary>
         public Region()
         {
+            StartLine = 0;
+            StartColumn = 0;
+            EndLine = 0;
+            EndColumn = 0;
             CharOffset = -1;
+            CharLength = 0;
             ByteOffset = -1;
+            ByteLength = 0;
         }
 
         /// <summary>

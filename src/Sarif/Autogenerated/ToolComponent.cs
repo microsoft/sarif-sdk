@@ -14,7 +14,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// A component, such as a plug-in or the driver, of the analysis tool that was run.
     /// </summary>
     [DataContract]
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "2.1.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "2.3.0.0")]
     public partial class ToolComponent : PropertyBagHolder, ISarifNode
     {
         public static IEqualityComparer<ToolComponent> ValueComparer => ToolComponentEqualityComparer.Instance;
@@ -111,12 +111,14 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// The absolute URI from which the tool component can be downloaded.
         /// </summary>
         [DataMember(Name = "downloadUri", IsRequired = false, EmitDefaultValue = false)]
+        [JsonConverter(typeof(Microsoft.CodeAnalysis.Sarif.Readers.UriConverter))]
         public virtual Uri DownloadUri { get; set; }
 
         /// <summary>
         /// The absolute URI at which information about this version of the tool component can be found.
         /// </summary>
         [DataMember(Name = "informationUri", IsRequired = false, EmitDefaultValue = false)]
+        [JsonConverter(typeof(Microsoft.CodeAnalysis.Sarif.Readers.UriConverter))]
         public virtual Uri InformationUri { get; set; }
 
         /// <summary>

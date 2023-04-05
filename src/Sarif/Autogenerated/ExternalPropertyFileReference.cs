@@ -14,7 +14,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// Contains information that enables a SARIF consumer to locate the external property file that contains the value of an externalized property associated with the run.
     /// </summary>
     [DataContract]
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "2.1.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "2.3.0.0")]
     public partial class ExternalPropertyFileReference : PropertyBagHolder, ISarifNode
     {
         public static IEqualityComparer<ExternalPropertyFileReference> ValueComparer => ExternalPropertyFileReferenceEqualityComparer.Instance;

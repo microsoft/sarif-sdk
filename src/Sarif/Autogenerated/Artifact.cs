@@ -14,7 +14,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// A single artifact. In some cases, this artifact might be nested within another artifact.
     /// </summary>
     [DataContract]
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "2.1.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "2.3.0.0")]
     public partial class Artifact : PropertyBagHolder, ISarifNode
     {
         public static IEqualityComparer<Artifact> ValueComparer => ArtifactEqualityComparer.Instance;
@@ -59,7 +59,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// The offset in bytes of the artifact within its containing artifact.
         /// </summary>
         [DataMember(Name = "offset", IsRequired = false, EmitDefaultValue = false)]
-        public virtual int Offset { get; set; }
+        public virtual int? Offset { get; set; }
 
         /// <summary>
         /// The length of the artifact in bytes.
@@ -171,7 +171,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="properties">
         /// An initialization value for the <see cref="P:Properties" /> property.
         /// </param>
-        public Artifact(Message description, ArtifactLocation location, int parentIndex, int offset, int length, ArtifactRoles roles, string mimeType, ArtifactContent contents, string encoding, string sourceLanguage, IDictionary<string, string> hashes, DateTime lastModifiedTimeUtc, IDictionary<string, SerializedPropertyInfo> properties)
+        public Artifact(Message description, ArtifactLocation location, int parentIndex, int? offset, int length, ArtifactRoles roles, string mimeType, ArtifactContent contents, string encoding, string sourceLanguage, IDictionary<string, string> hashes, DateTime lastModifiedTimeUtc, IDictionary<string, SerializedPropertyInfo> properties)
         {
             Init(description, location, parentIndex, offset, length, roles, mimeType, contents, encoding, sourceLanguage, hashes, lastModifiedTimeUtc, properties);
         }
@@ -213,7 +213,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new Artifact(this);
         }
 
-        protected virtual void Init(Message description, ArtifactLocation location, int parentIndex, int offset, int length, ArtifactRoles roles, string mimeType, ArtifactContent contents, string encoding, string sourceLanguage, IDictionary<string, string> hashes, DateTime lastModifiedTimeUtc, IDictionary<string, SerializedPropertyInfo> properties)
+        protected virtual void Init(Message description, ArtifactLocation location, int parentIndex, int? offset, int length, ArtifactRoles roles, string mimeType, ArtifactContent contents, string encoding, string sourceLanguage, IDictionary<string, string> hashes, DateTime lastModifiedTimeUtc, IDictionary<string, SerializedPropertyInfo> properties)
         {
             if (description != null)
             {

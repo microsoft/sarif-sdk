@@ -8,6 +8,21 @@
           "name": "SARIF Functional Testing",
           "rules": [
             {
+              "id": "JSON1024",
+              "name": "StringDoesNotMatchFormat",
+              "fullDescription": {
+                "text": "A string value has a format that is not permitted by the schema's 'format' property."
+              },
+              "messageStrings": {
+                "default": {
+                  "text": "{0}: The schema requires string value of the format '{1}', but a token value '{2}' was found."
+                }
+              },
+              "defaultConfiguration": {
+                "level": "error"
+              }
+            },
+            {
               "id": "SARIF1002",
               "name": "UrisMustBeValid",
               "fullDescription": {
@@ -43,6 +58,296 @@
         }
       ],
       "results": [
+        {
+          "ruleId": "JSON1024",
+          "ruleIndex": 0,
+          "level": "error",
+          "message": {
+            "id": "default",
+            "arguments": [
+              "$schema",
+              "uri",
+              "ht%tp://json.schemastore.org/sarif-2.0.0"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 2,
+                  "startColumn": 55
+                }
+              }
+            }
+          ],
+          "properties": {
+            "jsonPath": "$schema"
+          }
+        },
+        {
+          "ruleId": "JSON1024",
+          "ruleIndex": 0,
+          "level": "error",
+          "message": {
+            "id": "default",
+            "arguments": [
+              "runs[0].tool.driver.downloadUri",
+              "uri",
+              "ht%tp://www.example.com/tools/codescanner/download.html"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 10,
+                  "startColumn": 82
+                }
+              }
+            }
+          ],
+          "properties": {
+            "jsonPath": "runs[0].tool.driver.downloadUri"
+          }
+        },
+        {
+          "ruleId": "JSON1024",
+          "ruleIndex": 0,
+          "level": "error",
+          "message": {
+            "id": "default",
+            "arguments": [
+              "runs[0].tool.driver.notifications[0].helpUri",
+              "uri",
+              "ht%tp://www.example.com/rules/msg0001.html"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 14,
+                  "startColumn": 69
+                }
+              }
+            }
+          ],
+          "properties": {
+            "jsonPath": "runs[0].tool.driver.notifications[0].helpUri"
+          }
+        },
+        {
+          "ruleId": "JSON1024",
+          "ruleIndex": 0,
+          "level": "error",
+          "message": {
+            "id": "default",
+            "arguments": [
+              "runs[0].tool.driver.notifications[1].helpUri",
+              "uri",
+              "ht%tp://www.example.com/rules/msg0002.html"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 18,
+                  "startColumn": 69
+                }
+              }
+            }
+          ],
+          "properties": {
+            "jsonPath": "runs[0].tool.driver.notifications[1].helpUri"
+          }
+        },
+        {
+          "ruleId": "JSON1024",
+          "ruleIndex": 0,
+          "level": "error",
+          "message": {
+            "id": "default",
+            "arguments": [
+              "runs[0].tool.driver.rules[0].helpUri",
+              "uri",
+              "ht%tp://www.example.com/rules/tst0001.html"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 24,
+                  "startColumn": 69
+                }
+              }
+            }
+          ],
+          "properties": {
+            "jsonPath": "runs[0].tool.driver.rules[0].helpUri"
+          }
+        },
+        {
+          "ruleId": "JSON1024",
+          "ruleIndex": 0,
+          "level": "error",
+          "message": {
+            "id": "default",
+            "arguments": [
+              "runs[0].versionControlProvenance[0].repositoryUri",
+              "uri",
+              "ht%tps://example.com/my-project"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 31,
+                  "startColumn": 60
+                }
+              }
+            }
+          ],
+          "properties": {
+            "jsonPath": "runs[0].versionControlProvenance[0].repositoryUri"
+          }
+        },
+        {
+          "ruleId": "JSON1024",
+          "ruleIndex": 0,
+          "level": "error",
+          "message": {
+            "id": "default",
+            "arguments": [
+              "runs[0].originalUriBaseIds.SRCROOT.uri",
+              "uri-reference",
+              "fi%le:///c:/Code/sarif-sdk/src"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 36,
+                  "startColumn": 49
+                }
+              }
+            }
+          ],
+          "properties": {
+            "jsonPath": "runs[0].originalUriBaseIds.SRCROOT.uri"
+          }
+        },
+        {
+          "ruleId": "JSON1024",
+          "ruleIndex": 0,
+          "level": "error",
+          "message": {
+            "id": "default",
+            "arguments": [
+              "runs[0].artifacts[0].location.uri",
+              "uri-reference",
+              "fi%le:///c:/src/file.c"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 42,
+                  "startColumn": 43
+                }
+              }
+            }
+          ],
+          "properties": {
+            "jsonPath": "runs[0].artifacts[0].location.uri"
+          }
+        },
+        {
+          "ruleId": "JSON1024",
+          "ruleIndex": 0,
+          "level": "error",
+          "message": {
+            "id": "default",
+            "arguments": [
+              "runs[0].results[0].analysisTarget.uri",
+              "uri-reference",
+              "fi&le:///c:/src/file.c"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 55,
+                  "startColumn": 43
+                }
+              }
+            }
+          ],
+          "properties": {
+            "jsonPath": "runs[0].results[0].analysisTarget.uri"
+          }
+        },
+        {
+          "ruleId": "JSON1024",
+          "ruleIndex": 0,
+          "level": "error",
+          "message": {
+            "id": "default",
+            "arguments": [
+              "runs[0].results[0].workItemUris[0]",
+              "uri",
+              "ht&tp://example.com/my-project/issues/42"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 58,
+                  "startColumn": 54
+                }
+              }
+            }
+          ],
+          "properties": {
+            "jsonPath": "runs[0].results[0].workItemUris[0]"
+          }
+        },
         {
           "ruleId": "SARIF1002",
           "ruleIndex": 0,

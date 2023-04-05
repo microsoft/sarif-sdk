@@ -14,7 +14,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// Information about how to locate a relevant reporting descriptor.
     /// </summary>
     [DataContract]
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "2.1.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "2.3.0.0")]
     public partial class ReportingDescriptorReference : PropertyBagHolder, ISarifNode
     {
         public static IEqualityComparer<ReportingDescriptorReference> ValueComparer => ReportingDescriptorReferenceEqualityComparer.Instance;

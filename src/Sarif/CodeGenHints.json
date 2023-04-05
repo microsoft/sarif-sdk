@@ -221,6 +221,16 @@
       }
     }
   ],
+  "ExternalProperties.Schema": [
+    {
+      "kind": "AttributeHint",
+      "arguments": {
+        "namespaceName": "Newtonsoft.Json",
+        "typeName": "JsonConverter",
+        "arguments": [ "typeof(Microsoft.CodeAnalysis.Sarif.Readers.UriConverter)" ]
+      }
+    }
+  ],
   "ExternalProperties.Version": [
     {
       "kind": "EnumHint",
@@ -1010,7 +1020,17 @@
       }
     }
   ],
-  "Tool.DownloadUri": [
+  "toolComponent": [
+    {
+      "kind": "BaseTypeHint",
+      "arguments": {
+        "baseTypeNames": [
+          "PropertyBagHolder"
+        ]
+      }
+    }
+  ],
+  "ToolComponent.DownloadUri": [
     {
       "kind": "AttributeHint",
       "arguments": {
@@ -1020,13 +1040,13 @@
       }
     }
   ],
-  "toolComponent": [
+  "ToolComponent.InformationUri": [
     {
-      "kind": "BaseTypeHint",
+      "kind": "AttributeHint",
       "arguments": {
-        "baseTypeNames": [
-          "PropertyBagHolder"
-        ]
+        "namespaceName": "Newtonsoft.Json",
+        "typeName": "JsonConverter",
+        "arguments": [ "typeof(Microsoft.CodeAnalysis.Sarif.Readers.UriConverter)" ]
       }
     }
   ],
@@ -1072,6 +1092,26 @@
         "baseTypeNames": [
           "PropertyBagHolder"
         ]
+      }
+    }
+  ],
+  "TranslationMetadata.DownloadUri": [
+    {
+      "kind": "AttributeHint",
+      "arguments": {
+        "namespaceName": "Newtonsoft.Json",
+        "typeName": "JsonConverter",
+        "arguments": [ "typeof(Microsoft.CodeAnalysis.Sarif.Readers.UriConverter)" ]
+      }
+    }
+  ],
+  "TranslationMetadata.InformationUri": [
+    {
+      "kind": "AttributeHint",
+      "arguments": {
+        "namespaceName": "Newtonsoft.Json",
+        "typeName": "JsonConverter",
+        "arguments": [ "typeof(Microsoft.CodeAnalysis.Sarif.Readers.UriConverter)" ]
       }
     }
   ],

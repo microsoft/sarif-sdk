@@ -108,7 +108,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     Importance = Utilities.CreateThreadFlowLocationImportance(v1AnnotatedCodeLocation.Importance),
                     Location = CreateLocation(v1AnnotatedCodeLocation),
                     Module = v1AnnotatedCodeLocation.Module,
-                    NestingLevel = _threadFlowLocationNestingLevel,
+                    NestingLevel = _threadFlowLocationNestingLevel == 0 ? (int?)null : _threadFlowLocationNestingLevel,
                     Properties = v1AnnotatedCodeLocation.Properties,
                     State = v1AnnotatedCodeLocation.State.ConvertToMultiformatMessageStringsDictionary(),
                 };
@@ -178,7 +178,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     Hashes = v1FileData.Hashes?.Select(CreateHash).ToDictionary(p => p.Key, p => p.Value),
                     Length = v1FileData.Length == 0 ? -1 : v1FileData.Length,
                     MimeType = v1FileData.MimeType,
-                    Offset = v1FileData.Offset,
+                    Offset = v1FileData.Offset == 0 ? (int?)null : v1FileData.Offset,
                     ParentIndex = parentIndex,
                     Properties = v1FileData.Properties
                 };
@@ -301,7 +301,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     EndTimeUtc = v1Invocation.EndTime,
                     EnvironmentVariables = v1Invocation.EnvironmentVariables,
                     Machine = v1Invocation.Machine,
-                    ProcessId = v1Invocation.ProcessId,
+                    ProcessId = v1Invocation.ProcessId == 0 ? (int?)null : v1Invocation.ProcessId,
                     Properties = v1Invocation.Properties,
                     ResponseFiles = CreateResponseFilesList(v1Invocation.ResponseFiles),
                     StartTimeUtc = v1Invocation.StartTime,
@@ -583,7 +583,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     Message = CreateMessage(v1Notification.Message),
                     Locations = CreateLocations(v1Notification.PhysicalLocation),
                     Properties = v1Notification.Properties,
-                    ThreadId = v1Notification.ThreadId,
+                    ThreadId = v1Notification.ThreadId == 0 ? (int?)null : v1Notification.ThreadId,
                     TimeUtc = v1Notification.Time
                 };
 
@@ -1182,7 +1182,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     Module = v1StackFrame.Module,
                     Parameters = v1StackFrame.Parameters,
                     Properties = v1StackFrame.Properties,
-                    ThreadId = v1StackFrame.ThreadId
+                    ThreadId = v1StackFrame.ThreadId == 0 ? (int?)null : v1StackFrame.ThreadId
                 };
             }
 

@@ -5,6 +5,7 @@ using System;
 using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
+using Newtonsoft.Json;
 
 namespace Microsoft.CodeAnalysis.Sarif
 {
@@ -12,7 +13,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// Provides additional metadata related to translation.
     /// </summary>
     [DataContract]
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "2.1.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "2.3.0.0")]
     public partial class TranslationMetadata : PropertyBagHolder, ISarifNode
     {
         public static IEqualityComparer<TranslationMetadata> ValueComparer => TranslationMetadataEqualityComparer.Instance;
@@ -61,12 +62,14 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// The absolute URI from which the translation metadata can be downloaded.
         /// </summary>
         [DataMember(Name = "downloadUri", IsRequired = false, EmitDefaultValue = false)]
+        [JsonConverter(typeof(Microsoft.CodeAnalysis.Sarif.Readers.UriConverter))]
         public virtual Uri DownloadUri { get; set; }
 
         /// <summary>
         /// The absolute URI from which information related to the translation metadata can be downloaded.
         /// </summary>
         [DataMember(Name = "informationUri", IsRequired = false, EmitDefaultValue = false)]
+        [JsonConverter(typeof(Microsoft.CodeAnalysis.Sarif.Readers.UriConverter))]
         public virtual Uri InformationUri { get; set; }
 
         /// <summary>
