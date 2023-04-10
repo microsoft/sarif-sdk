@@ -28,7 +28,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             "log",
             Separator = ';',
             HelpText =
-            "One or more settings for governing output files. Valid values include Force, PrettyPrint, Minify or Optimize.")]
+            "One or more settings for governing output files. Valid values include ForceOverwrite, Inline, PrettyPrint, Minify or Optimize.")]
         public IEnumerable<FilePersistenceOptions> OutputFileOptions
         {
             get => NormalizeFilePersistenceOptions(_filePersistenceOptions);
