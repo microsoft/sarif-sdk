@@ -35,10 +35,10 @@ Sarif.Multitool @microsoft/sarif-multitool help
 Sarif.Multitool convert Current.fpr -tool FortifyFpr -output Current.sarif
 
 : Add file contents from analyzed files and snippets from result regions to SARIF
-Sarif.Multitool rewrite Current.sarif --insert "TextFiles,RegionSnippets" --inline
+Sarif.Multitool rewrite Current.sarif --insert TextFiles;RegionSnippets --log Inline
 
 : Remove codeFlows from results regions to SARIF
-Sarif.Multitool rewrite Current.sarif --remove "CodeFlows" --inline
+Sarif.Multitool rewrite Current.sarif --remove CodeFlows --log Inline
 
 : Transform to latest SARIF version (if older)
 Sarif.Multitool rewrite OlderFormat.sarif --output CurrentFormat.sarif --sarif-output-version Current
@@ -94,10 +94,12 @@ clang-tidy --checks=* --header-filter=.* --system-headers --export-fixes=report.
 ```
 This will generate an extra report.yml.log, leave in the same folder with the input report.yml file.
 
-## Common Arguments
+## Common parameter `--log` log file persistence  options
 
 | Name | Purpose |
 | ---- | ------- |
-| pretty-print | Produce pretty-printed JSON output rather than compact form. |
-| minify | Produce compact JSON output (all white space removed) rather than pretty-printed output. |
-| force | Force overwrite of output file if it exists. |
+| ForceOverwrite | Force overwrite of output file if it exists. |
+| Inline | Inline outputs to files where appropriate. |
+| PrettyPrint | Produce pretty-printed JSON output rather than compact form. |
+| Minify | Produce compact JSON output (all white space removed) rather than pretty-printed output. |
+| Optimize | Produce a smaller but non-human-readable log omitting redundant properties. |
