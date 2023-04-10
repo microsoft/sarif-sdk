@@ -35,7 +35,7 @@ Sarif.Multitool @microsoft/sarif-multitool help
 Sarif.Multitool convert Current.fpr -tool FortifyFpr -output Current.sarif
 
 : Add file contents from analyzed files and snippets from result regions to SARIF
-Sarif.Multitool rewrite Current.sarif --insert "TextFiles,RegionSnippets" --log "Inline"
+Sarif.Multitool rewrite Current.sarif --insert "TextFiles;RegionSnippets" --log "Inline"
 
 : Remove codeFlows from results regions to SARIF
 Sarif.Multitool rewrite Current.sarif --remove "CodeFlows" --log "Inline"
@@ -102,4 +102,4 @@ This will generate an extra report.yml.log, leave in the same folder with the in
 | Inline | Inline outputs to files where appropriate. |
 | PrettyPrint | Produce pretty-printed JSON output rather than compact form. |
 | Minify | Produce compact JSON output (all white space removed) rather than pretty-printed output. |
-| Optimize | Producing a smaller but non-human-readable log omitting redundant properties. |
+| Optimize | Produce a smaller but non-human-readable log omitting redundant properties. |
