@@ -35,10 +35,10 @@ Sarif.Multitool @microsoft/sarif-multitool help
 Sarif.Multitool convert Current.fpr -tool FortifyFpr -output Current.sarif
 
 : Add file contents from analyzed files and snippets from result regions to SARIF
-Sarif.Multitool rewrite Current.sarif --insert TextFiles;RegionSnippets --log "Inline"
+Sarif.Multitool rewrite Current.sarif --insert TextFiles;RegionSnippets --log Inline
 
 : Remove codeFlows from results regions to SARIF
-Sarif.Multitool rewrite Current.sarif --remove "CodeFlows" --log "Inline"
+Sarif.Multitool rewrite Current.sarif --remove CodeFlows --log Inline
 
 : Transform to latest SARIF version (if older)
 Sarif.Multitool rewrite OlderFormat.sarif --output CurrentFormat.sarif --sarif-output-version Current
