@@ -16,12 +16,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             TestRule.s_testRuleBehaviors = 0;
         }
 
-        public override TestAnalysisContext InitializeContextFromOptions(TestAnalyzeOptions options, ref TestAnalysisContext context)
+        public override TestAnalysisContext InitializeGlobalContextFromOptions(TestAnalyzeOptions options, ref TestAnalysisContext context)
         {
             context ??= new TestAnalysisContext();
             context.Policy ??= new PropertiesDictionary();
 
-            context = base.InitializeContextFromOptions(options, ref context);
+            context = base.InitializeGlobalContextFromOptions(options, ref context);
 
             if (options.TestRuleBehaviors != null)
             {
@@ -37,18 +37,18 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             return context;
         }
 
-        protected override TestAnalysisContext CreateContext(TestAnalyzeOptions options, IAnalysisLogger logger, RuntimeConditions runtimeErrors, IFileSystem fileSystem = null, PropertiesDictionary policy = null)
+        protected override TestAnalysisContext CreateScanTargetContext(TestAnalysisContext globalContext)
         {
-            TestAnalysisContext context = base.CreateContext(options, logger, runtimeErrors, fileSystem, policy);
-            TestRuleBehaviors behaviors = context.Policy.GetProperty(TestRule.Behaviors);
-            context.IsValidAnalysisTarget = !behaviors.HasFlag(TestRuleBehaviors.RegardAnalysisTargetAsInvalid);
+            globalContext = base.CreateScanTargetContext(globalContext);
+            TestRuleBehaviors behaviors = globalContext.Policy.GetProperty(TestRule.Behaviors);
+            globalContext.IsValidAnalysisTarget = !behaviors.HasFlag(TestRuleBehaviors.RegardAnalysisTargetAsInvalid);
 
-            context.RuntimeExceptions =
+            globalContext.RuntimeExceptions =
                 behaviors.HasFlag(TestRuleBehaviors.RegardAnalysisTargetAsCorrupted)
                ? new List<Exception>(new[] { new InvalidOperationException() })
                : null;
 
-            return context;
+            return globalContext;
         }
 
         protected override void ValidateOptions(TestAnalyzeOptions options, TestAnalysisContext context)

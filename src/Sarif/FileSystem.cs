@@ -198,7 +198,9 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// </returns>
         public string FileReadAllText(string path)
         {
-            return File.ReadAllText(path);
+            using var fileStream = new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
+            using var textReader = new StreamReader(fileStream);
+            return textReader.ReadToEnd();
         }
 
         /// <summary>

@@ -225,7 +225,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
         protected virtual void PostLogFile(IAnalysisContext globalContext)
         {
-            if (globalContext.PostUri == null) { return; }
+            if (string.IsNullOrEmpty(globalContext.PostUri)) { return; }
 
             try
             {

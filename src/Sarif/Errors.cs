@@ -224,7 +224,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                     exception: null,
                     persistExceptionStack: false,
                     messageFormat: null,
-                    fileName));
+                    Path.GetFullPath(fileName)));
         }
 
         public static void LogMissingCommandlineArgument(IAnalysisContext context, string missing, string required)
