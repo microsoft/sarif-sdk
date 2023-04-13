@@ -11,10 +11,13 @@
 * BRK: Remove unused `quiet` parameter from `SarifLogger`. [#2639]https://github.com/microsoft/sarif-sdk/pull/2639
 * BRK: Remove `CompuateHashData` and `AnalysisTargetToHashDataMap` properties from `SarifLogger` (in preference of new `fileRegionsCache` parameter. [#2639](https://github.com/microsoft/sarif-sdk/pull/2639)
 * BRK: Eliminate proactive hashing of artifacts in `SarifLogger` constructor when `OptionallyEmittedData.Hashes` is specified. [#2639](https://github.com/microsoft/sarif-sdk/pull/2639)
+* BUG: Eliminate erroneous `Posted log file successfully` message when context `PostUri` is non-null but empty. [#2655](https://github.com/microsoft/sarif-sdk/pull/2655)
+* BUG: Resolves `IOException` raised by calling `FileSystem.ReadAllText` on file locked for write (but not read). [#2655](https://github.com/microsoft/sarif-sdk/pull/2655)
 * BUG: Correct `toolComponent.language` regex in JSON schema. [#2653]https://github.com/microsoft/sarif-sdk/pull/2653
 * BUG: Generate `IAnalysisLogger.AnalyzingTarget` callbacks from `MulthreadedAnalyzeCommandBase`. [#2637](https://github.com/microsoft/sarif-sdk/pull/2637)
 * BUG: Persist `fileRegionsCache` parameter in `SarifLogger` to support retrieving hash data. [#2639](https://github.com/microsoft/sarif-sdk/pull/2639)
 * BUG: Allow override of `FailureLevels` and `ResultKinds` in context objects. [#2639](https://github.com/microsoft/sarif-sdk/pull/2639)
+* NEW: Add `MemoryStreamSarifLogger` (for in-memory SARIF generation). [#2655](https://github.com/microsoft/sarif-sdk/pull/2655)
 * NEW: Add `AnalyzeContext.VersionControlProvenance` property. [#2646](https://github.com/microsoft/sarif-sdk/pull/2646)
 * NEW: Add `DefaultTraces.ResultsSummary` property that drives naive results summary in console logger. [#2643](https://github.com/microsoft/sarif-sdk/pull/2643)
 * NEW: Prove `AnalyzeContextBase.Inline` helper. [#2643](https://github.com/microsoft/sarif-sdk/pull/2643)

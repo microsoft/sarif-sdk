@@ -35,7 +35,7 @@ namespace Test.UnitTests.Sarif.Driver.Sdk
             loggingOptions.Should().Be(FilePersistenceOptions.None);
 
             TestAnalysisContext context = null;
-            command.InitializeContextFromOptions(analyzeOptions, ref context);
+            command.InitializeGlobalContextFromOptions(analyzeOptions, ref context);
 
             context.ForceOverwrite.Should().Be(false);
             context.PrettyPrint.Should().Be(true);
@@ -51,7 +51,7 @@ namespace Test.UnitTests.Sarif.Driver.Sdk
             loggingOptions.Should().Be(FilePersistenceOptions.Minify);
 
             context = null;
-            command.InitializeContextFromOptions(analyzeOptions, ref context);
+            command.InitializeGlobalContextFromOptions(analyzeOptions, ref context);
 
             context.ForceOverwrite.Should().Be(false);
             context.PrettyPrint.Should().Be(false);
@@ -69,7 +69,7 @@ namespace Test.UnitTests.Sarif.Driver.Sdk
             loggingOptions.Should().Be(FilePersistenceOptions.PrettyPrint);
 
             context = null;
-            command.InitializeContextFromOptions(analyzeOptions, ref context);
+            command.InitializeGlobalContextFromOptions(analyzeOptions, ref context);
 
             context.ForceOverwrite.Should().Be(false);
             context.PrettyPrint.Should().Be(true);
@@ -88,7 +88,7 @@ namespace Test.UnitTests.Sarif.Driver.Sdk
                 FilePersistenceOptions.PrettyPrint);
 
             context = null;
-            command.InitializeContextFromOptions(analyzeOptions, ref context);
+            command.InitializeGlobalContextFromOptions(analyzeOptions, ref context);
 
             context.ForceOverwrite.Should().Be(true);
             context.PrettyPrint.Should().Be(true);
@@ -107,7 +107,7 @@ namespace Test.UnitTests.Sarif.Driver.Sdk
                 FilePersistenceOptions.PrettyPrint);
 
             context = null;
-            command.InitializeContextFromOptions(analyzeOptions, ref context);
+            command.InitializeGlobalContextFromOptions(analyzeOptions, ref context);
 
             context.ForceOverwrite.Should().Be(false);
             context.PrettyPrint.Should().Be(true);
@@ -126,7 +126,7 @@ namespace Test.UnitTests.Sarif.Driver.Sdk
                 FilePersistenceOptions.Minify);
 
             context = null;
-            command.InitializeContextFromOptions(analyzeOptions, ref context);
+            command.InitializeGlobalContextFromOptions(analyzeOptions, ref context);
 
             context.ForceOverwrite.Should().Be(false);
             context.PrettyPrint.Should().Be(false);

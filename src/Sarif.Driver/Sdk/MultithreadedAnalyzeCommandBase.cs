@@ -70,7 +70,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 globalContext ??= new TContext();
                 if (options != null)
                 {
-                    globalContext = InitializeContextFromOptions(options, ref globalContext);
+                    globalContext = InitializeGlobalContextFromOptions(options, ref globalContext);
                 }
 
                 // We must make a copy of the global context reference
@@ -205,7 +205,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                     : succeeded ? SUCCESS : FAILURE;
         }
 
-        public virtual TContext InitializeContextFromOptions(TOptions options, ref TContext context)
+        public virtual TContext InitializeGlobalContextFromOptions(TOptions options, ref TContext context)
         {
             context ??= new TContext();
             context.FileSystem ??= Sarif.FileSystem.Instance;
@@ -570,13 +570,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             {
                 globalContext.CancellationToken.ThrowIfCancellationRequested();
 
-                TContext fileContext =
-                    CreateContext(options: null,
-                                  new CachingLogger(globalContext.FailureLevels,
-                                                    globalContext.ResultKinds),
-                                                    globalContext.RuntimeErrors,
-                                                    globalContext.FileSystem,
-                                                    globalContext.Policy);
+                TContext fileContext = CreateScanTargetContext(globalContext);
+
+                fileContext.Logger =
+                    new CachingLogger(globalContext.FailureLevels,
+                                      globalContext.ResultKinds);
 
                 Debug.Assert(fileContext.Logger != null);
                 fileContext.CurrentTarget = artifact;
@@ -686,18 +684,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             return logger;
         }
 
-        protected virtual TContext CreateContext(TOptions options,
-                                                 IAnalysisLogger logger,
-                                                 RuntimeConditions runtimeErrors,
-                                                 IFileSystem fileSystem = null,
-                                                 PropertiesDictionary policy = null)
+        protected virtual TContext CreateScanTargetContext(TContext globalContext)
         {
             var context = new TContext
             {
-                Logger = logger,
-                FileSystem = fileSystem ?? this.FileSystem,
-                RuntimeErrors = runtimeErrors,
-                Policy = policy ?? new PropertiesDictionary(),
+                Logger = globalContext.Logger,
+                RuntimeErrors = globalContext.RuntimeErrors,
+                FileSystem = globalContext.FileSystem ?? this.FileSystem,
+                Policy = globalContext.Policy ?? new PropertiesDictionary(),
             };
 
             return context;
