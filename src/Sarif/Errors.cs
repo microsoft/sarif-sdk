@@ -381,7 +381,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             context.RuntimeErrors |= RuntimeConditions.FileAlreadyExists;
 
-            // The output file '{0}' already exists. Use --force to overwrite.
+            // The output file '{0}' already exists. Use --log ForceOverwrite to overwrite.
             context.Logger.LogConfigurationNotification(
                 CreateNotification(
                     uri: null,

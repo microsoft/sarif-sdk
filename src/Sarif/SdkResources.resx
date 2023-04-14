@@ -244,7 +244,7 @@
     <value>All rules were explicitly disabled so there is no work to do.</value>
   </data>
   <data name="ERR997_FileAlreadyExists" xml:space="preserve">
-    <value>The output file '{0}' already exists. Use --force to overwrite.</value>
+    <value>The output file '{0}' already exists. Use --log ForceOverwrite to overwrite.</value>
   </data>
   <data name="PartioningVisitHappensAtSarifLogLevel" xml:space="preserve">
     <value>Could not identify the log being partitioned. Call VisitSarifLog and provide the log to partition. This class is designed to create log files on a per-run basis (i.e., all partioned logs will contain a single run only).</value>
