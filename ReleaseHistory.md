@@ -10,7 +10,9 @@
 * BRK: Add `IAnalysisLogger.TargetAnalysisComplete` method. [#2637](https://github.com/microsoft/sarif-sdk/pull/2637)
 * BRK: Remove unused `quiet` parameter from `SarifLogger`. [#2639]https://github.com/microsoft/sarif-sdk/pull/2639
 * BRK: Remove `CompuateHashData` and `AnalysisTargetToHashDataMap` properties from `SarifLogger` (in preference of new `fileRegionsCache` parameter. [#2639](https://github.com/microsoft/sarif-sdk/pull/2639)
+* BRK: Update user messages and code comments that refer to `--force` (replaced by `--log ForceOverwrite`).
 * BRK: Eliminate proactive hashing of artifacts in `SarifLogger` constructor when `OptionallyEmittedData.Hashes` is specified. [#2639](https://github.com/microsoft/sarif-sdk/pull/2639)
+* BUG: Handle return code 422 `UnprocessableEntity` when validating that log file POST endpoint is available.
 * BUG: Eliminate erroneous `Posted log file successfully` message when context `PostUri` is non-null but empty. [#2655](https://github.com/microsoft/sarif-sdk/pull/2655)
 * BUG: Resolves `IOException` raised by calling `FileSystem.ReadAllText` on file locked for write (but not read). [#2655](https://github.com/microsoft/sarif-sdk/pull/2655)
 * BUG: Correct `toolComponent.language` regex in JSON schema. [#2653]https://github.com/microsoft/sarif-sdk/pull/2653
