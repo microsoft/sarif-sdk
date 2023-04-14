@@ -123,9 +123,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             using var streamContent = new StreamContent(stream);
             using HttpResponseMessage response = await httpClient
                 .PostAsync(postUri, streamContent);
-
-            Console.WriteLine(response.Content.ReadAsStringAsync().Result);
-
+            
             response.EnsureSuccessStatusCode();
         }
 
