@@ -21,7 +21,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         /// A list of the paths to the output files.
         /// </param>
         /// <param name="force">
-        /// true if the --force option was specified.
+        /// true if the --log ForceOverwrite option was specified.
         /// </param>
         /// <param name="fileSystem">
         /// An object that provides access to the file system.
@@ -49,7 +49,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         /// The path to the output file.
         /// </param>
         /// <param name="force">
-        /// true if the --force option was specified.
+        /// true if the --log ForceOverwrite option was specified.
         /// </param>
         /// <param name="fileSystem">
         /// An object that provides access to the file system.
@@ -79,7 +79,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         /// The path to the output file.
         /// </param>
         /// <param name="force">
-        /// true if the --force option was specified.
+        /// true if the --log ForceOverwrite option was specified.
         /// </param>
         /// <param name="fileSystem">
         /// An object that provides access to the file system.

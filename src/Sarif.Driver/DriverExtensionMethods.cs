@@ -130,14 +130,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         /// absent, because by default each transformed file is written to the path containing
         /// corresponding input file.
         ///
-        /// However, similarly to the case of SingleFileOptionsBase, we _do_ want to set --force
-        /// whenever --inline is true, because there's no reason to force the user to type
-        /// "--force" when they've already said that they want to overwrite the input file
+        /// However, similarly to the case of SingleFileOptionsBase, we _do_ want to set 
+        /// --log ForceOverwrite whenever --log Inline is true, because there's no reason
+        /// to force the user to type "--log ForceOverwrite;Inline" when they've said
+        /// that they want to overwrite the input file
         /// (see https://github.com/microsoft/sarif-sdk/issues/1642).
         ///
         /// So we introduce this method for three reasons:
         /// 1) For symmetry with the SingleFileOptionsBase,
-        /// 2) To DRY out the logic for making --inline and --force consistent, and
+        /// 2) To DRY out the logic for making --log Inline and --log ForceOverwrite consistent, and
         /// 3) To leave an obvious place to put output file option consistency logic if it's
         ///    needed in future.
         /// </remarks>
