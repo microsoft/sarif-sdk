@@ -30,8 +30,10 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "scripts", "scripts", "{9CEE4119-25C6-4331-8DB6-C53462DDEA47}"
 	ProjectSection(SolutionItems) = preProject
 		..\scripts\BuildAndTest.ps1 = ..\scripts\BuildAndTest.ps1
+		..\scripts\BuildMultitoolForNpm.ps1 = ..\scripts\BuildMultitoolForNpm.ps1
 		..\scripts\BuildPackagesFromSigningDirectory.ps1 = ..\scripts\BuildPackagesFromSigningDirectory.ps1
 		..\scripts\DelistCurrentPackages.ps1 = ..\scripts\DelistCurrentPackages.ps1
+		..\scripts\DotnetUtilities.psm1 = ..\scripts\DotnetUtilities.psm1
 		..\scripts\Get-VersionConstants.ps1 = ..\scripts\Get-VersionConstants.ps1
 		..\scripts\New-VersionConstantsFile.ps1 = ..\scripts\New-VersionConstantsFile.ps1
 		..\scripts\NuGetUtilities.psm1 = ..\scripts\NuGetUtilities.psm1
@@ -49,20 +51,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{90E0CA8D-0D6
 		CommonAssemblyInfo.cs = CommonAssemblyInfo.cs
 		..\NuGet.Config = ..\NuGet.Config
 		ReleaseHistory.md = ReleaseHistory.md
-	EndProjectSection
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ESLint.Formatter", "ESLint.Formatter", "{7D46D6BE-C3CD-424C-9A20-245DE63A9C10}"
-	ProjectSection(SolutionItems) = preProject
-		ESLint.Formatter\package-lock.json = ESLint.Formatter\package-lock.json
-		ESLint.Formatter\package.json = ESLint.Formatter\package.json
-		ESLint.Formatter\readme.MD = ESLint.Formatter\readme.MD
-		ESLint.Formatter\RunTests.cmd = ESLint.Formatter\RunTests.cmd
-		ESLint.Formatter\sarif.js = ESLint.Formatter\sarif.js
-	EndProjectSection
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{A2D43A0B-F2ED-42A5-A980-D6F4476FE455}"
-	ProjectSection(SolutionItems) = preProject
-		ESLint.Formatter\test\sarif.js = ESLint.Formatter\test\sarif.js
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Test.FunctionalTests.Sarif", "Test.FunctionalTests.Sarif\Test.FunctionalTests.Sarif.csproj", "{C1ADD5A7-20ED-4A46-8EFD-BBD483AB2D0B}"
@@ -353,7 +341,6 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{9CEE4119-25C6-4331-8DB6-C53462DDEA47} = {BBDE0751-B8A3-4EA6-A3DF-3CE7BA41EA0F}
 		{90E0CA8D-0D63-4576-8E77-D9FD4D0D28BA} = {BBDE0751-B8A3-4EA6-A3DF-3CE7BA41EA0F}
-		{A2D43A0B-F2ED-42A5-A980-D6F4476FE455} = {7D46D6BE-C3CD-424C-9A20-245DE63A9C10}
 		{6EEAC61E-A362-4C46-A9AD-00EDB74CFCF2} = {BBDE0751-B8A3-4EA6-A3DF-3CE7BA41EA0F}
 		{81910EAA-C010-4940-90E5-BF64DE64381C} = {6EEAC61E-A362-4C46-A9AD-00EDB74CFCF2}
 		{C2397737-B10C-42BF-B2AB-11A86817ACCD} = {BBDE0751-B8A3-4EA6-A3DF-3CE7BA41EA0F}

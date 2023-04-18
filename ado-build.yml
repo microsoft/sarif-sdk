@@ -1,43 +1,66 @@
 pr:
 - 'main'
+parameters:
+- name: pools
+  type: object
+  default:
+    - name: 1ES-Shared-Hosted-Pool_Linux-Mariner-2
+      os: linux
+    - name: 1ES-Shared-Hosted-Pool_Windows-Server-2022
+      os: windows
+resources:
+  repositories:
+    - repository: 1esPipelines
+      type: git
+      name: 1ESPipelineTemplates/1ESPipelineTemplates
+      ref: refs/tags/release
+extends:
+    template: v1/1ES.Unofficial.PipelineTemplate.yml@1esPipelines
 
-jobs:
-- job: NET_pipeline
-  strategy:
-    matrix:
-      linux:
-        imageName: 'ubuntu-20.04'
-      mac:
-        imageName: 'macOS-latest'
-      windows:
-        imageName: 'windows-latest'
-    maxParallel: 4
+    parameters:
+      sdl:
+        suppression:
+          suppressionFile: $(Build.SourcesDirectory)\guardian\SDL\.gdnsuppress
 
-  pool: 
-    vmImage: $(imageName)
+      stages:
+        - stage: Build
+          jobs:
+            - ${{ each pool in parameters.pools }}:
+              - job: ${{ pool.os }}_Build
+                pool:
+                  name: ${{ pool.name }}
+                  os: ${{ pool.os }}
 
-  steps:
-  # Build and test
-  - task: PowerShell@2
-    displayName: Build and Test
-    inputs:
-      targetType: filePath
-      filePath: ./scripts/BuildAndTest.ps1
-  
-  - task: PublishBuildArtifacts@1
-    inputs:
-      pathToPublish: 'msbuild.binlog'
-      artifactName: 'binlog'
+                templateContext:
+                  inputs:
+                    - input: checkout
+                      repository: self
+                      submodules: recursive
+                  outputs:
+                    - output: pipelineArtifact
+                      artifactName: Publish msbuild.binlog
+                      artifact: 'MsbuildBinLog'
+                      targetPath: $(System.DefaultWorkingDirectory)/bld/bin
 
-  - task: ComponentGovernanceComponentDetection@0
+                steps:
+                  - task: UseDotNet@2
+                    displayName: Install .NET Core 3.1
+                    inputs:
+                      version: 3.1.x
+                  - task: UseDotNet@2
+                    condition: eq('${{ pool.os }}', 'linux')
+                    displayName: Install .NET Core 7.0 [Linux only]
+                    inputs:
+                      version: 7.0.x
+                  - task: PowerShell@2
+                    displayName: Build and Test
+                    inputs:
+                      targetType: filePath
+                      filePath: $(System.DefaultWorkingDirectory)/scripts/BuildAndTest.ps1
 
-- job: npm_pipeline
-  pool:
-    vmImage: 'windows-latest'
-  steps:
-  # Build Multitool for npm
-  - task: PowerShell@2
-    displayName: Build Multitool for npm
-    inputs:
-      targetType: filePath
-      filePath: ./scripts/BuildMultitoolForNpm.ps1
+                  # Build Multitool for npm
+                  - task: PowerShell@2
+                    displayName: Build Multitool for npm
+                    inputs:
+                      targetType: filePath
+                      filePath: $(System.DefaultWorkingDirectory)/scripts/BuildMultitoolForNpm.ps1

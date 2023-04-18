@@ -33,7 +33,7 @@ Import-Module -Force $PSScriptRoot\Projects.psm1
 $project = "Sarif.Multitool"
 $projectBinDirectory = (Get-ProjectBinDirectory $project $Configuration)
 $npmSourceFolder = "$RepoRoot\npm"
-$npmBuildFolder = "$BuildRoot\Publish\npm"
+$npmBuildFolder = "$BinRoot\Publish\npm"
 
 if (-not $SkipBuild) {
     Write-Information "Building Sarif.Multitool for Windows, Linux, and MacOS..."
@@ -65,7 +65,7 @@ foreach ($package in (Get-ChildItem $npmBuildFolder).FullName) {
 #  Update the version numbers, if desired.
 #  npm publish --access public
 
-# After merging outputs, delete the other 250MB copies of the Multitool single file exes (saving only the bld\Publish\npm copy)
+# After merging outputs, delete the other 250MB copies of the Multitool single file exes (saving only the bld\bin\Publish\npm copy)
 if (-not $NoPostClean) {
     Remove-DirectorySafely $projectBinDirectory\netcoreapp3.1
     Remove-DirectorySafely $projectBinDirectory\Publish\netcoreapp3.1

@@ -84,6 +84,7 @@ $ErrorActionPreference = "Stop"
 $InformationPreference = "Continue"
 $NonWindowsOptions = @{}
 
+$LASTEXITCODE = 0
 $ScriptName = $([io.Path]::GetFileNameWithoutExtension($PSCommandPath))
 
 Import-Module -Force $PSScriptRoot\ScriptUtilities.psm1
@@ -193,7 +194,8 @@ Install-VersionConstantsFile
 
 if (-not $NoRestore) {
     Write-Information "Restoring NuGet packages for $SampleSolutionFile..."
-        & $NuGetExePath restore -ConfigFile $NuGetConfigFile -Verbosity $NuGetVerbosity -OutputDirectory $NuGetSamplesPackageRoot (Join-Path $SourceRoot $SampleSolutionFile)
+    #& dotnet nuget locals all --clear
+    & dotnet restore --configfile $NuGetConfigFile --verbosity $NuGetVerbosity --packages $NuGetSamplesPackageRoot (Join-Path $SourceRoot $SampleSolutionFile)
     if ($LASTEXITCODE -ne 0) {
         Exit-WithFailureMessage $ScriptName "NuGet restore failed for $SampleSolutionFile."
     }
