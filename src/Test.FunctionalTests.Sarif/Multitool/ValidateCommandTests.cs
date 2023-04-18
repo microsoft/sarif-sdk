@@ -530,7 +530,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
                 var context = new SarifValidationContext { FileSystem = mockFileSystem.Object };
                 int returnCode = validateCommand.Run(validateOptions, ref context);
-                context.RuntimeExceptions.Should().BeNull();
+                context.RuntimeExceptions?[0].ToString().Should().BeNull();
                 (context.RuntimeErrors & ~RuntimeConditions.Nonfatal).Should().Be(0);
                 returnCode.Should().Be(0);
             }
