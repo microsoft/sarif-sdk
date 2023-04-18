@@ -11,7 +11,7 @@
 * BRK: Remove unused `quiet` parameter from `SarifLogger`. [#2639]https://github.com/microsoft/sarif-sdk/pull/2639
 * BRK: Remove `CompuateHashData` and `AnalysisTargetToHashDataMap` properties from `SarifLogger` (in preference of new `fileRegionsCache` parameter. [#2639](https://github.com/microsoft/sarif-sdk/pull/2639)
 * BRK: Eliminate proactive hashing of artifacts in `SarifLogger` constructor when `OptionallyEmittedData.Hashes` is specified. [#2639](https://github.com/microsoft/sarif-sdk/pull/2639)
-* BUG: Eliminate `NullReferenceException` in `HashUtilities.ComputeHashesForText` when processing a tool notification in a scan target with no results previously fired.
+* BUG: Eliminate `NullReferenceException` in `HashUtilities.ComputeHashesForText` when processing a tool notification in a scan target with no results previously fired. [#2657](https://github.com/microsoft/sarif-sdk/pull/2657)
 * BUG: Eliminate erroneous `Posted log file successfully` message when context `PostUri` is non-null but empty. [#2655](https://github.com/microsoft/sarif-sdk/pull/2655)
 * BUG: Resolves `IOException` raised by calling `FileSystem.ReadAllText` on file locked for write (but not read). [#2655](https://github.com/microsoft/sarif-sdk/pull/2655)
 * BUG: Correct `toolComponent.language` regex in JSON schema. [#2653]https://github.com/microsoft/sarif-sdk/pull/2653
