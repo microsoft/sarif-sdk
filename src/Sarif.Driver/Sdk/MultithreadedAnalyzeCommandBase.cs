@@ -478,6 +478,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             globalContext.CancellationToken.ThrowIfCancellationRequested();
             IEnumeratedArtifact artifact = globalContext.CurrentTarget;
 
+            globalContext.Logger.FileRegionsCache = cachingLogger.FileRegionsCache ?? new FileRegionsCache();
+            globalContext.Logger.FileRegionsCache.SetTextForFile(globalContext.CurrentTarget.Uri,
+                                                                 globalContext.CurrentTarget.Contents);
+
             if (results?.Count > 0)
             {
                 foreach (KeyValuePair<ReportingDescriptor, IList<Tuple<Result, int?>>> kv in results)
@@ -495,7 +499,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
                             currentResult = clonedResult;
                         }
-                        globalContext.Logger.FileRegionsCache = cachingLogger.FileRegionsCache;
                         globalContext.Logger.Log(kv.Key, currentResult, tuple.Item2);
                     }
                 }
@@ -524,7 +527,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
                     globalContext.Logger.LogConfigurationNotification(currentNotification);
                 }
-
             }
 
             globalContext.Logger.TargetAnalyzed(globalContext);
