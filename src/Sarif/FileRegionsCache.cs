@@ -450,6 +450,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         internal void SetTextForFile(Uri uri, string contents)
         {
+            if (uri == null) { return; }
             string path = uri.GetFilePath();
             _fileTextCache[path] = contents;
         }

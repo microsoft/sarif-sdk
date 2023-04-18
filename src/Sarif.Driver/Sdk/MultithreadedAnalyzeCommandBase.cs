@@ -484,8 +484,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             IEnumeratedArtifact artifact = globalContext.CurrentTarget;
 
             globalContext.Logger.FileRegionsCache = cachingLogger.FileRegionsCache ?? new FileRegionsCache();
-            globalContext.Logger.FileRegionsCache.SetTextForFile(globalContext.CurrentTarget.Uri,
-                                                                 globalContext.CurrentTarget.Contents);
+            globalContext.Logger.FileRegionsCache.SetTextForFile(globalContext.CurrentTarget?.Uri,
+                                                                 globalContext.CurrentTarget?.Contents);
 
             if (results?.Count > 0)
             {
