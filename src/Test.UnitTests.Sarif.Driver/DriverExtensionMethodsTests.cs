@@ -33,7 +33,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             {
                 new ValidateSingleFileOutputOptionsTestCase
                 {
-                    Title = "--inline and not --force",
+                    Title = "--log Inline and not --log ForceOverwrite",
                     Options = new SingleFileOptionsBase
                     {
                         OutputFilePath = null,
@@ -46,7 +46,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
                 new ValidateSingleFileOutputOptionsTestCase
                 {
-                    Title = "--inline and superfluous --force",
+                    Title = "--log Inline and superfluous --log ForceOverwrite",
                     Options = new SingleFileOptionsBase
                     {
                         OutputFileOptions = new[] { FilePersistenceOptions.ForceOverwrite, FilePersistenceOptions.Inline },
@@ -58,7 +58,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
                 new ValidateSingleFileOutputOptionsTestCase
                 {
-                    Title = "Output path with --force",
+                    Title = "Output path with --log ForceOverwrite",
                     Options = new SingleFileOptionsBase
                     {
                         OutputFileOptions = new[] { FilePersistenceOptions.ForceOverwrite },
@@ -70,7 +70,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
                 new ValidateSingleFileOutputOptionsTestCase
                 {
-                    Title = "Output path without --force",
+                    Title = "Output path without --log ForceOverwrite",
                     Options = new SingleFileOptionsBase
                     {
                         OutputFileOptions = new[] { FilePersistenceOptions.None },
@@ -82,7 +82,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
                 new ValidateSingleFileOutputOptionsTestCase
                 {
-                    Title = "Neither --inline nor output path",
+                    Title = "Neither --log Inline nor output path",
                     Options = new SingleFileOptionsBase
                     {
 
@@ -94,7 +94,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
                 new ValidateSingleFileOutputOptionsTestCase
                 {
-                    Title = "Both --inline and output path",
+                    Title = "Both --log Inline and output path",
                     Options = new SingleFileOptionsBase
                     {
                         OutputFileOptions = new[] { FilePersistenceOptions.Inline },
@@ -141,7 +141,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             {
                 new ValidateMultipleFilesOutputOptionsTestCase
                 {
-                    Title = "--force and not --inline",
+                    Title = "--log ForceOverwrite and not --log Inline",
                     Options = new MultipleFilesOptionsBase
                     {
                         OutputFileOptions = new[] { FilePersistenceOptions.ForceOverwrite },
@@ -152,7 +152,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
                 new ValidateMultipleFilesOutputOptionsTestCase
                 {
-                    Title = "--inline and not --force",
+                    Title = "--log Inline and not --log ForceOverwrite",
                     Options = new MultipleFilesOptionsBase
                     {
                         OutputFileOptions = new[] { FilePersistenceOptions.Inline },
@@ -163,7 +163,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
                 new ValidateMultipleFilesOutputOptionsTestCase
                 {
-                    Title = "--inline and superfluous --force",
+                    Title = "--log Inline and superfluous --log ForceOverwrite",
                     Options = new MultipleFilesOptionsBase
                     {
                         OutputFileOptions = new[] { FilePersistenceOptions.ForceOverwrite, FilePersistenceOptions.Inline },

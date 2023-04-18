@@ -8,6 +8,7 @@ using System.Collections.Immutable;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Net.Http;
 using System.Runtime.InteropServices;
 using System.Threading.Channels;
@@ -286,6 +287,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                                        globalContext.PluginFilePaths,
                                        shouldExist: required ? true : (bool?)null);
 
+
             if (!string.IsNullOrEmpty(globalContext.PostUri))
             {
                 try
@@ -294,9 +296,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                     var content = new StringContent(string.Empty);
                     HttpResponseMessage httpResponseMessage = httpClient.PostAsync(globalContext.PostUri, content).GetAwaiter().GetResult();
 
-                    // Internal server error means we found our server but it didn't like our malformed payload.
-                    // That means we're all good! i.e., if we provide a good SARIF file we should succeed.
-                    if (httpResponseMessage.StatusCode != System.Net.HttpStatusCode.InternalServerError)
+                    // Internal server error means we found our server but it didn't like our malformed payload
+                    // (in first implementation). In a server update, this condition returns 422 (unprocessable
+                    // payload). We treat either return value as good, i.e. posting a valid SARIF file should work.
+                    if (httpResponseMessage.StatusCode != HttpStatusCode.InternalServerError &&
+                        httpResponseMessage.StatusCode != (HttpStatusCode)422)
                     {
                         globalContext.PostUri = null;
                         succeeded = false;
@@ -305,6 +309,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 catch (Exception e)
                 {
                     globalContext.PostUri = null;
+                    succeeded = false;
                     globalContext.RuntimeErrors |= RuntimeConditions.ExceptionPostingLogFile;
                     globalContext.RuntimeExceptions ??= new List<Exception>();
                     globalContext.RuntimeExceptions.Add(e);
