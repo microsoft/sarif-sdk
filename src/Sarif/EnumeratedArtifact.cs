@@ -37,7 +37,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             if (Stream == null && this.contents == null)
             {
                 // TBD we actually have no validation URI is non-null yet.
-                contents = Uri!.IsFile
+                contents = Uri.IsAbsoluteUri && Uri!.IsFile
                     ? FileSystem.FileReadAllText(Uri.LocalPath)
                     : null;
 
