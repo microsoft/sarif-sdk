@@ -483,12 +483,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             globalContext.CancellationToken.ThrowIfCancellationRequested();
             IEnumeratedArtifact artifact = globalContext.CurrentTarget;
 
-            globalContext.Logger.FileRegionsCache = cachingLogger.FileRegionsCache ?? new FileRegionsCache();
-            globalContext.Logger.FileRegionsCache.SetTextForFile(globalContext.CurrentTarget?.Uri,
-                                                                 globalContext.CurrentTarget?.Contents);
-
             if (results?.Count > 0)
             {
+                globalContext.Logger.FileRegionsCache = cachingLogger.FileRegionsCache ?? new FileRegionsCache();
+                globalContext.Logger.FileRegionsCache.SetTextForFile(globalContext.CurrentTarget?.Uri,
+                                                                     globalContext.CurrentTarget?.Contents);
+
                 foreach (KeyValuePair<ReportingDescriptor, IList<Tuple<Result, int?>>> kv in results)
                 {
                     globalContext.CancellationToken.ThrowIfCancellationRequested();
@@ -511,6 +511,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
             if (cachingLogger.ToolNotifications != null)
             {
+                globalContext.Logger.FileRegionsCache = cachingLogger.FileRegionsCache ?? new FileRegionsCache();
+                globalContext.Logger.FileRegionsCache.SetTextForFile(globalContext.CurrentTarget?.Uri,
+                                                                     globalContext.CurrentTarget?.Contents);
+
                 foreach (Tuple<Notification, ReportingDescriptor> tuple in cachingLogger.ToolNotifications)
                 {
                     globalContext.Logger.LogToolNotification(tuple.Item1, tuple.Item2);
@@ -519,6 +523,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
             if (cachingLogger.ConfigurationNotifications != null)
             {
+                globalContext.Logger.FileRegionsCache = cachingLogger.FileRegionsCache ?? new FileRegionsCache();
+                globalContext.Logger.FileRegionsCache.SetTextForFile(globalContext.CurrentTarget?.Uri,
+                                                                     globalContext.CurrentTarget?.Contents);
+
                 foreach (Notification notification in cachingLogger.ConfigurationNotifications)
                 {
                     Notification currentNotification = notification;
