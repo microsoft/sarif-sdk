@@ -1,5 +1,8 @@
 # SARIF Package Release History (SDK, Driver, Converters, and Multitool)
 ## **v4.2.0** UNRELEASED
+* BRK: `RuntimeConditions` now of type `long` to permit more flag values. Many literal values have changed for individual members. [#2660](https://github.com/microsoft/sarif-sdk/pull/2660)
+* BRK: `RuntimeConditions.OneOrMoreFilesSkippedDueToSize` renamed to `OneOrMoreFilesSkippedDueToExceedingSizeLimits`. [#2660](https://github.com/microsoft/sarif-sdk/pull/2660)
+* BRK: `Notes.LogFileSkippedDueToSize` renamed to `LogFileExceedingSizeLimitSkipped`. [#2660](https://github.com/microsoft/sarif-sdk/pull/2660)
 * BRK: Command-line argument `automationGuid` renamed to `automation-guid`. [#2647](https://github.com/microsoft/sarif-sdk/pull/2647)
 * BRK: Command-line argument `automationId` renamed to `automation-id`. [#2647](https://github.com/microsoft/sarif-sdk/pull/2647)
 * BRK: Update `AnalyzeOptionsBase` `Quiet`, `Recurse`, `LogEnvironment`, and `RichReturnCode` properties to bool? type. [#2644](https://github.com/microsoft/sarif-sdk/pull/2644)
@@ -11,6 +14,7 @@
 * BRK: Remove unused `quiet` parameter from `SarifLogger`. [#2639]https://github.com/microsoft/sarif-sdk/pull/2639
 * BRK: Remove `ComputeHashData` and `AnalysisTargetToHashDataMap` properties from `SarifLogger` (in preference of new `fileRegionsCache` parameter. [#2639](https://github.com/microsoft/sarif-sdk/pull/2639)
 * BRK: Eliminate proactive hashing of artifacts in `SarifLogger` constructor when `OptionallyEmittedData.Hashes` is specified. [#2639](https://github.com/microsoft/sarif-sdk/pull/2639)
+* BUG: Properly report skipping empty files (rather than reporting file was skipped due to exceeding size limits). [#2660](https://github.com/microsoft/sarif-sdk/pull/2660)
 * BUG: Update user messages and code comments that refer to `--force` (replaced by `--log ForceOverwrite`). [#2656](https://github.com/microsoft/sarif-sdk/pull/2656)
 * BUG: Handle return code 422 `UnprocessableEntity` when validating that log file POST endpoint is available. [#2656](https://github.com/microsoft/sarif-sdk/pull/2656)
 * BUG: Eliminate erroneous `Posted log file successfully` message when context `PostUri` is non-null but empty. [#2655](https://github.com/microsoft/sarif-sdk/pull/2655)
@@ -19,6 +23,8 @@
 * BUG: Generate `IAnalysisLogger.AnalyzingTarget` callbacks from `MulthreadedAnalyzeCommandBase`. [#2637](https://github.com/microsoft/sarif-sdk/pull/2637)
 * BUG: Persist `fileRegionsCache` parameter in `SarifLogger` to support retrieving hash data. [#2639](https://github.com/microsoft/sarif-sdk/pull/2639)
 * BUG: Allow override of `FailureLevels` and `ResultKinds` in context objects. [#2639](https://github.com/microsoft/sarif-sdk/pull/2639)
+* NEW: Provide convenience enumerator at the `SarifLog` level that iterates over all results in all runs in the log. [#2660](https://github.com/microsoft/sarif-sdk/pull/2660)
+* NEW: Provide `Notes.LogEmptyFileSkipped` helper for reporting zero-byte files skipped at scan time. [#2660](https://github.com/microsoft/sarif-sdk/pull/2660)
 * NEW: Add `MemoryStreamSarifLogger` (for in-memory SARIF generation). [#2655](https://github.com/microsoft/sarif-sdk/pull/2655)
 * NEW: Add `AnalyzeContext.VersionControlProvenance` property. [#2646](https://github.com/microsoft/sarif-sdk/pull/2646)
 * NEW: Add `DefaultTraces.ResultsSummary` property that drives naive results summary in console logger. [#2643](https://github.com/microsoft/sarif-sdk/pull/2643)
