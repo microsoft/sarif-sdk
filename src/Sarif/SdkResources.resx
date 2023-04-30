@@ -281,10 +281,10 @@ You can also refer to properties in the result's property bag with 'properties.&
   <data name="ERR997_NoPluginsConfigured" xml:space="preserve">
     <value>No plugins were configured or successfully located and so no rules were loaded.</value>
   </data>
-  <data name="WRN997_OneOrMoreFilesSkippedDueToSize" xml:space="preserve">
-    <value>{0} file(s) were skipped for analysis due to exceeding size limits (currently configured as {1} KB). The 'max-file-size-in-kb' command-line argument can be used to increase this threshold.</value>
+  <data name="WRN997_OneOrMoreFilesSkippedDueToExceedingSizeLimit" xml:space="preserve">
+    <value>{0} file(s) were skipped for analysis due to exceeding size limit (currently configured as {1} KB). The 'max-file-size-in-kb' command-line argument can be used to increase this threshold.</value>
   </data>
-  <data name="MSG002.FileSkippedDueToSize" xml:space="preserve">
+  <data name="MSG002.FileExceedingSizeLimitSkipped" xml:space="preserve">
     <value>'{0}' was not analyzed as its size ({1} kilobytes) exceeds the currently configured threshold ({2} kilobytes).</value>
   </data>
   <data name="ERR997_IncompatibleRulesDetected" xml:space="preserve">
@@ -301,5 +301,8 @@ You can also refer to properties in the result's property bag with 'properties.&
   </data>
   <data name="MSG001_TargetAnalyzed" xml:space="preserve">
     <value>Completed '{0}'.</value>
+  </data>
+  <data name="MSG002.EmptyFileSkipped" xml:space="preserve">
+    <value>'{0}' was skipped because it is empty (zero bytes in size).</value>
   </data>
 </root>

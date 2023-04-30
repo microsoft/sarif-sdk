@@ -38,7 +38,7 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Core
             {
                 File.Create(Path.GetInvalidFileNameChars()[0].ToString(), 0);
             }
-            catch (ArgumentException exception)
+            catch (IOException exception)
             {
                 IList<Stack> stacks = Stack.CreateStacks(exception).ToList();
 
@@ -58,7 +58,7 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Core
             {
                 File.Create(Path.GetInvalidFileNameChars()[0].ToString(), 0);
             }
-            catch (ArgumentException exception)
+            catch (IOException exception)
             {
                 Exception containerException = new InvalidOperationException("test exception", exception);
 
@@ -82,7 +82,7 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Core
             {
                 File.Create(Path.GetInvalidFileNameChars()[0].ToString(), 0);
             }
-            catch (ArgumentException exception)
+            catch (IOException exception)
             {
                 var innerException1 = new InvalidOperationException("Test exception 1.");
                 var innerException2 = new InvalidOperationException("Test exception 2.", exception);

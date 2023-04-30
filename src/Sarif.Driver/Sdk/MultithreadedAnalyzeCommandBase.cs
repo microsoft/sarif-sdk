@@ -32,7 +32,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         internal ConsoleLogger _consoleLogger;
 
         private uint _fileContextsCount;
-        private uint _ignoredFilesCount;
+        private long _filesExceedingSizeLimitCount;
         private Channel<uint> _resultsWritingChannel;
         private Channel<uint> readyToScanChannel;
         private ConcurrentDictionary<uint, TContext> _fileContexts;
@@ -386,9 +386,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             enumerateTargets.Wait();
             logResults.Wait();
 
-            if (_ignoredFilesCount > 0)
+            if (_filesExceedingSizeLimitCount > 0)
             {
-                Warnings.LogOneOrMoreFilesSkippedDueToSize(globalContext, _ignoredFilesCount);
+                Warnings.LogOneOrMoreFilesSkippedDueToExceedingSizeLimit(globalContext, _filesExceedingSizeLimitCount);
             }
 
             Console.WriteLine();
@@ -549,15 +549,19 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 readyToScanChannel.Writer.Complete();
             }
 
-            if (context.TargetsProvider.Skipped?.Count > 0)
+            if (context.TargetsProvider.Skipped != null)
             {
                 foreach (IEnumeratedArtifact artifact in context.TargetsProvider.Skipped)
                 {
-                    Notes.LogFileSkippedDueToSize(context, artifact.Uri.GetFilePath(), (long)artifact.SizeInBytes);
-                }
+                    if (artifact.SizeInBytes > 0)
+                    {
+                        _filesExceedingSizeLimitCount++;
+                        Notes.LogFileExceedingSizeLimitSkipped(context, artifact.Uri.GetFilePath(), (long)artifact.SizeInBytes);
+                        continue;
+                    }
 
-                //TBD resolve type mismatch
-                _ignoredFilesCount += (uint)context.TargetsProvider.Skipped.Count;
+                    Notes.LogEmptyFileSkipped(context, artifact.Uri.GetFilePath());
+                }
             }
 
             if (_fileContextsCount == 0)

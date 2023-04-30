@@ -20,6 +20,11 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new StringContent(AnyContentText);
         }
 
+        public static HttpResponseMessage CreateOKResponse()
+        {
+            return new HttpResponseMessage(HttpStatusCode.OK);
+        }
+
         public static readonly HttpResponseMessage OKResponse =
             new HttpResponseMessage(HttpStatusCode.OK);
 
