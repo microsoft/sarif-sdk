@@ -387,7 +387,7 @@ namespace Microsoft.CodeAnalysis.Sarif {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to One or more targets was skipped entirely as it was determined to be an invalid target for analysis. Pass --verbose on the command-line for more information..
+        ///   Looks up a localized string similar to One or more targets was skipped entirely as it was determined to be an invalid target for analysis. Include all supported values for both --kind and --level on the command-line for more information..
         /// </summary>
         public static string MSG_OneOrMoreInvalidTargets {
             get {
@@ -396,7 +396,7 @@ namespace Microsoft.CodeAnalysis.Sarif {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to One or more rules was disabled for an analysis target, as it was determined not to be applicable to it (this is a common condition). Pass --verbose on the command-line for more information..
+        ///   Looks up a localized string similar to One or more rules was disabled for an analysis target, as it was determined not to be applicable to it (this is a common condition). Include all supported values for both --kind and --level on the command-line for more information..
         /// </summary>
         public static string MSG_OneOrMoreNotApplicable {
             get {
