@@ -70,7 +70,7 @@
     </EmbeddedResource>
   </ItemGroup>
 
-  <Target Name="CoyoteRewriting" AfterTargets="AfterBuild">
+  <Target Name="CoyoteRewriting" AfterTargets="AfterBuild" Condition=" '$(OS)' == 'Windows_NT' ">
     <Exec Command="$(ExecCommand)" />
   </Target>
 </Project>

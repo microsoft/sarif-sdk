@@ -62,9 +62,14 @@ namespace Microsoft.CodeAnalysis.Sarif
             {
                 if (sizeInBytes != null) { return sizeInBytes.Value; };
 
-                this.sizeInBytes = Uri!.IsFile
-                    ? (ulong)FileSystem.FileInfoLength(Uri.LocalPath)
-                    : (ulong?)null;
+                if (!File.GetAttributes(Uri.GetFilePath()).HasFlag(FileAttributes.Directory))
+                {
+                    this.sizeInBytes = (ulong)FileSystem.FileInfoLength(Uri.GetFilePath());
+                }
+                else
+                { 
+                    this.sizeInBytes = (ulong?)null; 
+                }
 
                 return this.sizeInBytes;
             }
