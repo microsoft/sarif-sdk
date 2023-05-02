@@ -72,7 +72,7 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif
                 //  Do nothing, this is the desired behavior.
             }
 
-            //  Mimic the --quiet flag.  We should not use the console this time.
+            //  Mimic the '--quiet true'.  We should not use the console this time.
             try
             {
                 IDictionary<string, HashData> hashes = HashUtilities.MultithreadedComputeTargetFileHashes(filePaths, true);
