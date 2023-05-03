@@ -102,7 +102,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                         Skipped ??= new List<IEnumeratedArtifact>();
                         Skipped.Add(new EnumeratedArtifact(FileSystem)
                         {
-                            Uri = new Uri(fullFilePath, UriKind.RelativeOrAbsolute),
+                            Uri = new Uri(fullFilePath, UriKind.Absolute),
                         });
                     }
                     else
@@ -115,7 +115,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 {
                     yield return new EnumeratedArtifact(FileSystem)
                     {
-                        Uri = new Uri(file, UriKind.RelativeOrAbsolute),
+                        Uri = new Uri(file, UriKind.Absolute),
                     };
                 }
             }
