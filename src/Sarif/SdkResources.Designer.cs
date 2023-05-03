@@ -432,11 +432,20 @@ namespace Microsoft.CodeAnalysis.Sarif {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to &apos;{0}&apos; was skipped because it is empty (zero bytes in size)..
+        /// </summary>
+        public static string MSG002_EmptyFileSkipped {
+            get {
+                return ResourceManager.GetString("MSG002.EmptyFileSkipped", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to &apos;{0}&apos; was not analyzed as its size ({1} kilobytes) exceeds the currently configured threshold ({2} kilobytes)..
         /// </summary>
-        public static string MSG002_FileSkippedDueToSize {
+        public static string MSG002_FileExceedingSizeLimitSkipped {
             get {
-                return ResourceManager.GetString("MSG002.FileSkippedDueToSize", resourceCulture);
+                return ResourceManager.GetString("MSG002.FileExceedingSizeLimitSkipped", resourceCulture);
             }
         }
         
@@ -585,11 +594,11 @@ namespace Microsoft.CodeAnalysis.Sarif {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0} file(s) were skipped for analysis due to exceeding size limits (currently configured as {1} KB). The &apos;max-file-size-in-kb&apos; command-line argument can be used to increase this threshold..
+        ///   Looks up a localized string similar to {0} file(s) were skipped for analysis due to exceeding size limit (currently configured as {1} KB). The &apos;max-file-size-in-kb&apos; command-line argument can be used to increase this threshold..
         /// </summary>
-        public static string WRN997_OneOrMoreFilesSkippedDueToSize {
+        public static string WRN997_OneOrMoreFilesSkippedDueToExceedingSizeLimit {
             get {
-                return ResourceManager.GetString("WRN997_OneOrMoreFilesSkippedDueToSize", resourceCulture);
+                return ResourceManager.GetString("WRN997_OneOrMoreFilesSkippedDueToExceedingSizeLimit", resourceCulture);
             }
         }
         

@@ -120,6 +120,11 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentNullException(nameof(httpClient));
             }
 
+            if (stream.CanSeek)
+            {
+                stream.Seek(0, SeekOrigin.Begin);
+            }
+
             using var streamContent = new StreamContent(stream);
             using HttpResponseMessage response = await httpClient
                 .PostAsync(postUri, streamContent);
@@ -160,6 +165,26 @@ namespace Microsoft.CodeAnalysis.Sarif
             var writer = new JsonTextWriter(streamWriter);
             serializer.Serialize(writer, this);
             writer.Flush();
+        }
+
+        /// <summary>
+        /// Enumerate all results from all runs in the SARIF log.
+        /// </summary>
+        /// <returns>A Result enumerator for the SARIF log.</returns>
+        public IEnumerable<Result> Results()
+        {
+            if (this.Runs?.Count > 0 == false) { yield break; }
+
+            foreach (Run run in this.Runs)
+            {
+                if (run.Results?.Count > 0 == false) { continue; }
+
+                foreach (Result result in run.Results)
+                {
+                    result.Run = run;
+                    yield return result;
+                }
+            }
         }
 
         /// <summary>

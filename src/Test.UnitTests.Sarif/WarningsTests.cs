@@ -53,14 +53,14 @@ namespace Microsoft.CodeAnalysis.Sarif
             var binaryAnalysisContext = new TestAnalysisContext();
             binaryAnalysisContext.Logger = testLogger;
 
-            Warnings.LogOneOrMoreFilesSkippedDueToSize(binaryAnalysisContext, 1);
+            Warnings.LogOneOrMoreFilesSkippedDueToExceedingSizeLimit(binaryAnalysisContext, 1);
 
             testLogger.Messages.Should().BeNull();
             testLogger.ToolNotifications.Should().BeNull();
             testLogger.ConfigurationNotifications.Count.Should().Be(1);
-            testLogger.ConfigurationNotifications[0].Descriptor.Id.Should().BeEquivalentTo(Warnings.Wrn997_OneOrMoreFilesSkippedDueToSize);
+            testLogger.ConfigurationNotifications[0].Descriptor.Id.Should().BeEquivalentTo(Warnings.Wrn997_OneOrMoreFilesSkippedDueToExceedingSizeLimits);
 
-            binaryAnalysisContext.RuntimeErrors.Should().Be(RuntimeConditions.OneOrMoreFilesSkippedDueToSize);
+            binaryAnalysisContext.RuntimeErrors.Should().Be(RuntimeConditions.OneOrMoreFilesSkippedDueToExceedingSizeLimits);
         }
     }
 }

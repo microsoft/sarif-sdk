@@ -845,13 +845,13 @@ namespace Microsoft.CodeAnalysis.Sarif
         [Fact]
         public void SarifLogger_AcceptsOverrideOfDefaultEncoding()
         {
-            const string Utf8 = "UTF-8";
-            const string Utf7 = "UTF-7";
+            const string utf8 = "UTF-8";
+            const string ascii = "ASCII";
 
             // Start off with a run that specifies the default file encoding.
             var run = new Run
             {
-                DefaultEncoding = Utf8
+                DefaultEncoding = utf8
             };
 
             var sb = new StringBuilder();
@@ -861,7 +861,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 // Create a logger that uses that run but specifies a different encoding.
                 using (_ = new SarifLogger(textWriter,
                                            run: run,
-                                           defaultFileEncoding: Utf7,
+                                           defaultFileEncoding: ascii,
                                            levels: BaseLogger.ErrorWarning,
                                            kinds: BaseLogger.Fail))
                 {
@@ -872,7 +872,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             SarifLog sarifLog = JsonConvert.DeserializeObject<SarifLog>(logText);
 
             // The logger accepted the override for default file encoding.
-            sarifLog.Runs[0].DefaultEncoding.Should().Be(Utf7);
+            sarifLog.Runs[0].DefaultEncoding.Should().Be(ascii);
         }
 
         private void LogSimpleResult(SarifLogger sarifLogger)

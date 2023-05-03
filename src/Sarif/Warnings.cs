@@ -11,31 +11,31 @@ namespace Microsoft.CodeAnalysis.Sarif
     {
         // Conditions that may indicate an issue with command-line configuration.
         public const string Wrn997_InvalidTarget = "WRN997.InvalidTarget";
-        public const string Wrn997_OneOrMoreFilesSkippedDueToSize = "WRN997.OneOrMoreFilesSkippedDueToSize";
-
         public const string Wrn997_ObsoleteOption = "WRN997.ObsoleteOption";
         public const string Wrn997_ObsoleteOptionWithReplacement = "WRN997.ObsoleteOptionWithReplacement";
+        public const string Wrn997_OneOrMoreFilesSkippedDueToExceedingSizeLimits = "WRN997.OneOrMoreFilesSkippedDueToExceedingSizeLimit";
 
         // (Non-catastrophic) conditions that result in rules disabling themselves.
         public const string Wrn998_UnsupportedPlatform = "WRN998.UnsupportedPlatform";
 
-        // Warnings around dangerous
+        // Warnings around conditions of potential concern. An explicitly disabled rule,
+        // for example, might prevent an analysis run from meeting compliance goals.
         public const string Wrn999_RuleExplicitlyDisabled = "WRN999.RuleExplicitlyDisabled";
 
-        public static void LogOneOrMoreFilesSkippedDueToSize(IAnalysisContext context, uint skippedFilesCount)
+        public static void LogOneOrMoreFilesSkippedDueToExceedingSizeLimit(IAnalysisContext context, long skippedFilesCount)
         {
             if (context == null)
             {
                 throw new ArgumentNullException(nameof(context));
             }
 
-            // {0} file(s)s were skipped for analysis due to exceeding size limits
+            // {0} file(s)s were skipped for analysis due to exceeding size limit
             // (currently configured as {1} kilobytes). The 'max-file-size-in-kb'
             // command-line argument can be used to increase this threshold.
             context.Logger.LogConfigurationNotification(
                 Errors.CreateNotification(
                     context.CurrentTarget?.Uri,
-                    Wrn997_OneOrMoreFilesSkippedDueToSize,
+                    Wrn997_OneOrMoreFilesSkippedDueToExceedingSizeLimits,
                     ruleId: null,
                     FailureLevel.Warning,
                     exception: null,
@@ -44,7 +44,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                     skippedFilesCount.ToString(),
                     context.MaxFileSizeInKilobytes.ToString()));
 
-            context.RuntimeErrors |= RuntimeConditions.OneOrMoreFilesSkippedDueToSize;
+            context.RuntimeErrors |= RuntimeConditions.OneOrMoreFilesSkippedDueToExceedingSizeLimits;
         }
 
         public static void LogExceptionInvalidTarget(IAnalysisContext context)

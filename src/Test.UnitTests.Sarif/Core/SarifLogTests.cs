@@ -302,62 +302,69 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests.Core
         }
 
         [Fact]
-        public async Task SarifLog_Post_WithValidParameters_ShouldNotThrownAnExceptionWhenRequestIsValid()
+        public async Task SarifLog_Post_BadRequestResponse()
         {
-            var postUri = new Uri("https://github.com/microsoft/sarif-sdk");
-            var sarifLog = new SarifLog();
+            var postUri = new Uri("https://sarif-post/example.com");
             var httpMock = new HttpMockHelper();
-            var memoryStream = new MemoryStream();
-            sarifLog.Save(memoryStream);
-            memoryStream.Seek(0, SeekOrigin.Begin);
+
             httpMock.Mock(
-                new HttpRequestMessage(HttpMethod.Post, postUri) { Content = new StreamContent(memoryStream) },
+                new HttpRequestMessage(HttpMethod.Post, postUri) { Content = new StreamContent(CreateSarifLogStream()) },
                 HttpMockHelper.BadRequestResponse);
 
-            memoryStream.Seek(0, SeekOrigin.Begin);
             await Assert.ThrowsAsync<HttpRequestException>(async () =>
             {
                 await SarifLog.Post(postUri,
-                                    memoryStream,
+                                    CreateSarifLogStream(),
                                     new HttpClient(httpMock));
             });
-            httpMock.Clear();
+        }
 
-            memoryStream = new MemoryStream();
-            sarifLog.Save(memoryStream);
-            memoryStream.Seek(0, SeekOrigin.Begin);
+        [Fact]
+        public async Task SarifLog_Post_OkRequestResponseFromStream()
+        {
+            var postUri = new Uri("https://sarif-post/example.com");
+            var httpMock = new HttpMockHelper();
+
             httpMock.Mock(
-                new HttpRequestMessage(HttpMethod.Post, postUri) { Content = new StreamContent(memoryStream) },
-                HttpMockHelper.OKResponse);
+                new HttpRequestMessage(HttpMethod.Post, postUri)
+                {
+                    Content = new StreamContent(CreateSarifLogStream())
+                },
+                HttpMockHelper.CreateOKResponse());
 
-            memoryStream.Seek(0, SeekOrigin.Begin);
             try
             {
                 await SarifLog.Post(postUri,
-                                    memoryStream,
+                                    CreateSarifLogStream(),
                                     new HttpClient(httpMock));
             }
             catch (Exception ex)
             {
-                Assert.True(false, "Expected no exception, but got: " + ex.Message);
+                Assert.True(false, $"Unhandled exception: {ex}");
             }
-            httpMock.Clear();
+        }
+
+        [Fact]
+        public async Task SarifLog_Post_OkRequestResponseFromFilePath()
+        {
+            var postUri = new Uri("https://sarif-post/example.com");
+            var httpMock = new HttpMockHelper();
 
             string filePath = "SomeFile.txt";
             var fileSystem = new Mock<IFileSystem>();
-            memoryStream = new MemoryStream();
-            sarifLog.Save(memoryStream);
-
             fileSystem
                 .Setup(f => f.FileExists(It.IsAny<string>()))
                 .Returns(true);
 
             fileSystem
                 .Setup(f => f.FileOpenRead(It.IsAny<string>()))
-                .Returns(memoryStream);
+                .Returns(CreateSarifLogStream());
 
             httpMock.Mock(
-                new HttpRequestMessage(HttpMethod.Post, postUri) { Content = new StreamContent(memoryStream) },
+                new HttpRequestMessage(HttpMethod.Post, postUri)
+                {
+                    Content = new StreamContent(CreateSarifLogStream())
+                },
                 HttpMockHelper.OKResponse);
 
             try
@@ -369,9 +376,18 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests.Core
             }
             catch (Exception ex)
             {
-                Assert.True(false, "Expected no exception, but got: " + ex.Message);
+                Assert.True(false, $"Unhandled exception: {ex}");
             }
             httpMock.Clear();
+        }
+
+        private Stream CreateSarifLogStream()
+        {
+            var memoryStream = new MemoryStream();
+            new SarifLog().Save(memoryStream);
+            memoryStream.Position = 0;
+            //memoryStream.Seek(0, SeekOrigin.Begin);
+            return memoryStream;
         }
 
         private Run SerializeAndDeserialize(Run run)
