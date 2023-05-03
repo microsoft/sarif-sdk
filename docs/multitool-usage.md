@@ -56,7 +56,7 @@ Sarif.Multitool export-validation-config validation.xml
 Sarif.Multitool export-validation-rules ValidationRules.md
 
 : Merge multiple SARIF files into one
-Sarif.Multitool merge C:\Input\*.sarif --recurse --output-directory=C:\Output\ --output-file=MergeResult.sarif
+Sarif.Multitool merge C:\Input\*.sarif --recurse true --output-directory=C:\Output\ --output-file=MergeResult.sarif
 
 : Extract new Results only from New Baseline
 Sarif.Multitool query NewBaseline.sarif --expression "BaselineState == 'New'" --output Current.NewResults.sarif
