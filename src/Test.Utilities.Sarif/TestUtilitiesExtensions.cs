@@ -24,11 +24,9 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             // For application exist exceptions, e.g., an unhandled exception in a rule,
             // the inner exception has the most useful details.
-            context.RuntimeExceptions?[0].InnerException.Should().BeNull();
-            context.RuntimeExceptions?[0].Should().BeNull();
-
+            context.RuntimeExceptions?[0].InnerException?.ToString().Should().BeNull();
+            context.RuntimeExceptions?[0].ToString().Should().BeNull();
             context.RuntimeErrors.Fatal().Should().Be(0);
-
             result.Should().Be(CommandBase.SUCCESS);
         }
 

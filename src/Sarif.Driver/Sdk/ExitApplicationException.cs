@@ -12,5 +12,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         public ExitApplicationException(string message, Exception innerException) : base(message, innerException) { }
 
         public T ExitReason { get; set; }
+
+        public override string ToString()
+        {
+            return $"{ExitReason}: {base.ToString()}";
+        }
     }
 }

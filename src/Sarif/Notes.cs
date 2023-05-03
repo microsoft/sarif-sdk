@@ -10,9 +10,32 @@ namespace Microsoft.CodeAnalysis.Sarif
     public static class Notes
     {
         public const string Msg001AnalyzingTarget = "MSG001.AnalyzingTarget";
-        public const string Msg002_FileSkippedDueToSize = "MSG002.FileSkippedDueToSize";
+        public const string Msg002_EmptyFileSkipped = "MSG002.EmptyFileSkipped";
+        public const string Msg002_FileExceedingSizeLimitSkipped = "MSG002.FileExceedingSizeLimitSkipped";
 
-        public static void LogFileSkippedDueToSize(IAnalysisContext context, string skippedFile, long fileSizeInKb)
+        public static void LogEmptyFileSkipped(IAnalysisContext context, string skippedFile)
+        {
+            if (context == null)
+            {
+                throw new ArgumentNullException(nameof(context));
+            }
+
+            // '{0}' was skipped because it is empty (zero bytes in size).
+            context.Logger.LogConfigurationNotification(
+                Errors.CreateNotification(
+                    new Uri(skippedFile, UriKind.RelativeOrAbsolute),
+                    Msg002_EmptyFileSkipped,
+                    ruleId: null,
+                    FailureLevel.Note,
+                    exception: null,
+                    persistExceptionStack: false,
+                    messageFormat: null,
+                    skippedFile,
+                    context.MaxFileSizeInKilobytes.ToString()));
+
+            context.RuntimeErrors |= RuntimeConditions.OneOrMoreEmptyFilesSkipped;
+        }
+        public static void LogFileExceedingSizeLimitSkipped(IAnalysisContext context, string skippedFile, long fileSizeInKb)
         {
             if (context == null)
             {
@@ -23,7 +46,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             context.Logger.LogConfigurationNotification(
                 Errors.CreateNotification(
                     new Uri(skippedFile, UriKind.RelativeOrAbsolute),
-                    Msg002_FileSkippedDueToSize,
+                    Msg002_FileExceedingSizeLimitSkipped,
                     ruleId: null,
                     FailureLevel.Note,
                     exception: null,
@@ -33,7 +56,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                     fileSizeInKb.ToString(CultureInfo.CurrentCulture),
                     context.MaxFileSizeInKilobytes.ToString()));
 
-            context.RuntimeErrors |= RuntimeConditions.OneOrMoreFilesSkippedDueToSize;
+            context.RuntimeErrors |= RuntimeConditions.OneOrMoreFilesSkippedDueToExceedingSizeLimits;
         }
 
         public static void LogNotApplicableToSpecifiedTarget(IAnalysisContext context, string reasonForNotAnalyzing)
