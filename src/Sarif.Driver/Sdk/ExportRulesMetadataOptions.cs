@@ -19,7 +19,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         [Option(
             "plugin",
             Separator = ';',
-            HelpText = "Path to plugin that will be invoked to retrieve rule metadata.")]
+            HelpText = "Plugin paths, expressed as a semicolon-delimited list (escape semicolon with backslash in Unix-like OS), that " +
+                       "will be invoked to retrieve rule metadata.")]
         public IEnumerable<string> PluginFilePaths { get; set; }
     }
 }
