@@ -52,13 +52,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             'p',
             "plugin",
             Separator = ';',
-            HelpText = "Path to plugin(s) that should drive analysis for all configured scan targets.")]
+            HelpText = "Plugin paths, expressed as a semicolon-delimited list (escape semicolon with backslash in Unix-like OS), that " +
+                       "points to plugin(s) that should drive analysis for all configured scan targets.")]
         public IEnumerable<string> PluginFilePaths { get; set; }
 
         [Option(
             "invocation-properties",
             Separator = ';',
-            HelpText = "Properties of the Invocation object to log. NOTE: StartTime and EndTime are always logged.")]
+            HelpText = "Properties of the Invocation object to log, expressed as a semicolon-delimited list (escape semicolon with backslash in Unix-like OS). " +
+                       "NOTE: StartTime and EndTime are always logged.")]
         public IEnumerable<string> InvocationPropertiesToLog { get; set; }
 
         [Option(
@@ -71,7 +73,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             "trace",
             Separator = ';',
             Default = null,
-            HelpText = "Execution traces, expressed as a semicolon-delimited list, that " +
+            HelpText = "Execution traces, expressed as a semicolon-delimited list (escape semicolon with backslash in Unix-like OS), that " +
                        "should be emitted to the console and log file (if appropriate). " +
                        "Valid values: ScanTime.")]
         public IEnumerable<string> Trace
@@ -99,7 +101,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             "level",
             Separator = ';',
             Default = null,
-            HelpText = "A semicolon delimited list to filter output of scan results to one or more failure levels. Valid values: Error, Warning and Note.")]
+            HelpText = "Failure levels, expressed as a semicolon-delimited list (escape semicolon with backslash in Unix-like OS), that " +
+                       "is used to filter the scan results. Valid values: Error, Warning and Note.")]
         public IEnumerable<FailureLevel> Level
         {
             get => this.level;
@@ -113,7 +116,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             "kind",
             Separator = ';',
             Default = null,
-            HelpText = "A semicolon delimited list to filter output to one or more result kinds. Valid values: Fail (for literal scan results), Pass, Review, Open, NotApplicable and Informational.")]
+            HelpText = "Result kinds, expressed as a semicolon-delimited list (escape semicolon with backslash in Unix-like OS), that " +
+                       "is used to filter the scan results. Valid values: Fail (for literal scan results), Pass, Review, Open, NotApplicable and Informational.")]
         public IEnumerable<ResultKind> Kind
         {
             get => this.kind;

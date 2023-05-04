@@ -28,7 +28,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             "log",
             Separator = ';',
             HelpText =
-            "One or more semicolon-delimited settings for governing output files. Valid values include ForceOverwrite, Inline, PrettyPrint, Minify or Optimize.")]
+            "Optionally present data, expressed as a semicolon-delimited list (escape semicolon with backslash in Unix-like OS), " +
+            "for governing output files. Valid values include ForceOverwrite, Inline, PrettyPrint, Minify or Optimize.")]
         public IEnumerable<FilePersistenceOptions> OutputFileOptions
         {
             get => NormalizeFilePersistenceOptions(_filePersistenceOptions);
@@ -56,18 +57,18 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             "insert",
             Separator = ';',
             HelpText =
-            "Optionally present data, expressed as a semicolon-delimited list, that should be inserted into the log file. " +
-            "Valid values include Hashes, TextFiles, BinaryFiles, EnvironmentVariables, RegionSnippets, ContextRegionSnippets, " +
-            "ContextRegionSnippetPartialFingerprints, Guids, VersionControlDetails, and NondeterministicProperties.")]
+            "Optionally present data, expressed as a semicolon-delimited list (escape semicolon with backslash in Unix-like OS), " +
+            "that should be inserted into the log file. Valid values include Hashes, TextFiles, BinaryFiles, EnvironmentVariables, " +
+            "RegionSnippets, ContextRegionSnippets, ContextRegionSnippetPartialFingerprints, Guids, VersionControlDetails, and NondeterministicProperties.")]
         public IEnumerable<OptionallyEmittedData> DataToInsert { get; set; }
 
         [Option(
             "remove",
             Separator = ';',
             HelpText =
-            "Optionally present data, expressed as a semicolon-delimited list, that should be not be persisted to or which " +
-            "should be removed from the log file. Valid values include Hashes, TextFiles, BinaryFiles, EnvironmentVariables, " +
-            "RegionSnippets, ContextRegionSnippets, Guids, VersionControlDetails, and NondeterministicProperties.")]
+            "Optionally present data, expressed as a semicolon-delimited list (escape semicolon with backslash in Unix-like OS), " +
+            "that should be not be persisted to or which should be removed from the log file. Valid values include Hashes, TextFiles, " +
+            "BinaryFiles, EnvironmentVariables, RegionSnippets, ContextRegionSnippets, Guids, VersionControlDetails, and NondeterministicProperties.")]
         public IEnumerable<OptionallyEmittedData> DataToRemove { get; set; }
 
         [Option(
@@ -75,7 +76,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             "uriBaseIds",
             Separator = ';',
             HelpText =
-            @"A key + value pair that defines a uriBaseId and its corresponding local file path. E.g., SRC=c:\src;TEST=c:\test")]
+            @"Key + value pairs, expressed as a semicolon-delimited list (escape semicolon with backslash in Unix-like OS), " +
+            @"that defines a uriBaseId and its corresponding local file path. E.g., SRC=c:\src;TEST=c:\test")]
         public IEnumerable<string> UriBaseIds { get; set; }
 
         [Option(
@@ -95,9 +97,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             "insert-property",
             Separator = ';',
             HelpText =
-            "A semicolon-delimited list of JSON path + property values that should be inserted into the output log. Currently, " +
-            "only paths that point to a version control provenance property bag is supported, e.g., 'runs[0].invocations[1]." +
-            "versionControlProvenance.properties.myProperty=myValue'.")]
+            "JSON path + property values, expressed as a semicolon-delimited list (escape semicolon with backslash in Unix-like OS), that " +
+            "should be inserted into the output log. Currently, only paths that point to a version control provenance property bag " +
+            "is supported, e.g., 'runs[0].invocations[1].versionControlProvenance.properties.myProperty=myValue'.")]
         public IEnumerable<string> InsertProperties { get; set; }
 
         [Option(
