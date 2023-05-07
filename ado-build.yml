@@ -57,6 +57,7 @@ extends:
                     inputs:
                       targetType: filePath
                       filePath: $(System.DefaultWorkingDirectory)/scripts/BuildAndTest.ps1
+                      arguments: -nosamples
 
                   # Build Multitool for npm
                   - task: PowerShell@2
