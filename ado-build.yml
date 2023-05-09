@@ -19,6 +19,10 @@ extends:
 
     parameters:
       sdl:
+        sourceAnalysisPool:
+          name: pt-validation-ppe
+          image: pt-validation-ppe-windows2022
+          os: windows
         suppression:
           suppressionFile: $(Build.SourcesDirectory)\guardian\SDL\.gdnsuppress
 
