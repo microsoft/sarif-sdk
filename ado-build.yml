@@ -20,8 +20,8 @@ extends:
     parameters:
       sdl:
         sourceAnalysisPool:
-          name: pt-validation-ppe
-          image: pt-validation-ppe-windows2022
+          name: OneESPipelinesPoolPPE
+          image: OB-Windows-2019-BuildContainer
           os: windows
         suppression:
           suppressionFile: $(Build.SourcesDirectory)\guardian\SDL\.gdnsuppress
