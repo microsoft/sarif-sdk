@@ -20,8 +20,7 @@ extends:
     parameters:
       sdl:
         sourceAnalysisPool:
-          name: OneESPipelinesPoolPPE
-          image: OB-Windows-2019-BuildContainer
+          name: 1ES-Shared-Hosted-Pool_Windows-Server-2022
           os: windows
         suppression:
           suppressionFile: $(Build.SourcesDirectory)\guardian\SDL\.gdnsuppress
