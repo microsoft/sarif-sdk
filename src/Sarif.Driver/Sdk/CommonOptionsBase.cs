@@ -28,7 +28,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             "log",
             Separator = ';',
             HelpText =
-            "Optionally present data, expressed as a semicolon-delimited list (escape semicolon with backslash in Unix-like OS), " +
+            "Optionally present data, expressed as a semicolon-delimited list enclosed in double quotes, " +
             "for governing output files. Valid values include ForceOverwrite, Inline, PrettyPrint, Minify or Optimize.")]
         public IEnumerable<FilePersistenceOptions> OutputFileOptions
         {
@@ -57,7 +57,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             "insert",
             Separator = ';',
             HelpText =
-            "Optionally present data, expressed as a semicolon-delimited list (escape semicolon with backslash in Unix-like OS), " +
+            "Optionally present data, expressed as a semicolon-delimited list enclosed in double quotes, " +
             "that should be inserted into the log file. Valid values include Hashes, TextFiles, BinaryFiles, EnvironmentVariables, " +
             "RegionSnippets, ContextRegionSnippets, ContextRegionSnippetPartialFingerprints, Guids, VersionControlDetails, and NondeterministicProperties.")]
         public IEnumerable<OptionallyEmittedData> DataToInsert { get; set; }
@@ -66,7 +66,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             "remove",
             Separator = ';',
             HelpText =
-            "Optionally present data, expressed as a semicolon-delimited list (escape semicolon with backslash in Unix-like OS), " +
+            "Optionally present data, expressed as a semicolon-delimited list enclosed in double quotes, " +
             "that should be not be persisted to or which should be removed from the log file. Valid values include Hashes, TextFiles, " +
             "BinaryFiles, EnvironmentVariables, RegionSnippets, ContextRegionSnippets, Guids, VersionControlDetails, and NondeterministicProperties.")]
         public IEnumerable<OptionallyEmittedData> DataToRemove { get; set; }
@@ -76,7 +76,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             "uriBaseIds",
             Separator = ';',
             HelpText =
-            @"Key + value pairs, expressed as a semicolon-delimited list (escape semicolon with backslash in Unix-like OS), " +
+            @"Key + value pairs, expressed as a semicolon-delimited list enclosed in double quotes, " +
             @"that defines a uriBaseId and its corresponding local file path. E.g., SRC=c:\src;TEST=c:\test")]
         public IEnumerable<string> UriBaseIds { get; set; }
 
@@ -97,7 +97,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             "insert-property",
             Separator = ';',
             HelpText =
-            "JSON path + property values, expressed as a semicolon-delimited list (escape semicolon with backslash in Unix-like OS), that " +
+            "JSON path + property values, expressed as a semicolon-delimited list enclosed in double quotes, that " +
             "should be inserted into the output log. Currently, only paths that point to a version control provenance property bag " +
             "is supported, e.g., 'runs[0].invocations[1].versionControlProvenance.properties.myProperty=myValue'.")]
         public IEnumerable<string> InsertProperties { get; set; }

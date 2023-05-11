@@ -226,10 +226,10 @@
     <value>Unexpected fatal runtime condition(s) observed: </value>
   </data>
   <data name="MSG_OneOrMoreInvalidTargets" xml:space="preserve">
-    <value>One or more targets was skipped entirely as it was determined to be an invalid target for analysis. Include 'Note' on an explicit '--level ' command-line argument (e.g., '--level Error;Warning;Note') for more information.</value>
+    <value>One or more targets was skipped entirely as it was determined to be an invalid target for analysis. Include 'Note' on an explicit '--level ' command-line argument (e.g., '--level "Error;Warning;Note"') for more information.</value>
   </data>
   <data name="MSG_OneOrMoreNotApplicable" xml:space="preserve">
-    <value>One or more rules was disabled for an analysis target, as it was determined not to be applicable to it (this is a common condition). Include 'NotApplicable' on an explicit '--kind' command-line argument (e.g., '--kind Fail;NotApplicable') for more information.</value>
+    <value>One or more rules was disabled for an analysis target, as it was determined not to be applicable to it (this is a common condition). Include 'NotApplicable' on an explicit '--kind' command-line argument (e.g., '--kind "Fail;NotApplicable"') for more information.</value>
   </data>
   <data name="ERR997_InvalidInvocationPropertyName" xml:space="preserve">
     <value>'{0}' is not a property of the Invocation object.</value>
