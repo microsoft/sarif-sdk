@@ -7,8 +7,8 @@ using System.Text;
 
 namespace Microsoft.CodeAnalysis.Sarif
 {
-    // TBD: this class should probably be a generic, with EnumeratedArtifact<string>
-    // being a commonly utilized thing.
+    // TBD: this class should probably be a generic, with
+    // EnumeratedArtifact<string> being a commonly utilized thing.
     public class EnumeratedArtifact : IEnumeratedArtifact
     {
         public EnumeratedArtifact(IFileSystem fileSystem)
@@ -34,6 +34,10 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         private string GetContents()
         {
+            if (this.contents != null) { return this.contents; }
+
+            DriverEventSource.Log.GetTargetStart(this.Uri.GetFilePath());
+
             if (Stream == null && this.contents == null)
             {
                 // TBD we actually have no validation URI is non-null yet.
@@ -42,15 +46,16 @@ namespace Microsoft.CodeAnalysis.Sarif
                     : null;
 
                 this.sizeInBytes = (ulong?)this.contents?.Length;
-
-                return contents;
+            }
+            else 
+            {
+                if (Stream.CanSeek) { this.Stream.Seek(0, SeekOrigin.Begin); }
+                using var contentReader = new StreamReader(Stream);
+                this.contents = contentReader.ReadToEnd();
+                Stream = null;
             }
 
-            if (this.contents != null) { return this.contents; }
-            if (Stream.CanSeek) { this.Stream.Seek(0, SeekOrigin.Begin); }
-            using var contentReader = new StreamReader(Stream);
-            this.contents = contentReader.ReadToEnd();
-            Stream = null;
+            DriverEventSource.Log.GetTargetStop(this.Uri.GetFilePath());
             return this.contents;
         }
 
@@ -60,7 +65,15 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             get
             {
-                if (sizeInBytes != null) { return sizeInBytes.Value; };
+                if (this.sizeInBytes != null) 
+                { 
+                    return this.sizeInBytes.Value; 
+                };
+
+                if (this.Contents != null) 
+                {  
+                    return  (ulong?)this.Contents.Length; 
+                }
 
                 this.sizeInBytes = Uri!.IsFile
                     ? (ulong)FileSystem.FileInfoLength(Uri.LocalPath)

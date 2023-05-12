@@ -542,7 +542,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 this._fileContextsCount = 0;
                 this._fileContexts = new ConcurrentDictionary<uint, TContext>();
 
+                DriverEventSource.Log.EnumerateTargetsStart();
                 await EnumerateFilesFromArtifactsProvider(context);
+                DriverEventSource.Log.EnumerateTargetsStop();
             }
             finally
             {
@@ -560,7 +562,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                         continue;
                     }
 
-                    Notes.LogEmptyFileSkipped(context, artifact.Uri.GetFilePath());
+                    Notes.LogEmptyFileSkipped(context, artifact.Uri.GetFileName());
                 }
             }
 
@@ -597,6 +599,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                     //
                     // This call needs to be protected with a lock as the actual
                     // logging occurs on a separated thread.
+
+                    DriverEventSource.Log.ArtifactSizeInBytes(artifact.Uri.GetFilePath(), artifact.SizeInBytes.Value);
                     globalContext.Logger.AnalyzingTarget(fileContext);
                 }
 
@@ -1079,7 +1083,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
         protected virtual void AnalyzeTarget(TContext context, IEnumerable<Skimmer<TContext>> skimmers, ISet<string> disabledSkimmers)
         {
+            DriverEventSource.Log.ScanTargetStart(context.CurrentTarget.Uri.GetFilePath());
             AnalyzeTargetHelper(context, skimmers, disabledSkimmers);
+            DriverEventSource.Log.ScanTargetStop(context.CurrentTarget.Uri.GetFilePath());
         }
 
         public static void AnalyzeTargetHelper(TContext context, IEnumerable<Skimmer<TContext>> skimmers, ISet<string> disabledSkimmers)
@@ -1103,7 +1109,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                         ? Stopwatch.StartNew()
                         : null;
 
+                    DriverEventSource.Log.RuleStart(context.CurrentTarget.Uri.GetFilePath(), skimmer.Id, skimmer.Name);
                     skimmer.Analyze(context);
+                    DriverEventSource.Log.RuleStop(context.CurrentTarget.Uri.GetFilePath(), skimmer.Id, skimmer.Name);
 
                     Uri uri = context.CurrentTarget.Uri;
 
