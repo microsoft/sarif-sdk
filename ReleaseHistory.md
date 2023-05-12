@@ -24,7 +24,7 @@
 * BUG: Generate `IAnalysisLogger.AnalyzingTarget` callbacks from `MulthreadedAnalyzeCommandBase`. [#2637](https://github.com/microsoft/sarif-sdk/pull/2637)
 * BUG: Persist `fileRegionsCache` parameter in `SarifLogger` to support retrieving hash data. [#2639](https://github.com/microsoft/sarif-sdk/pull/2639)
 * BUG: Allow override of `FailureLevels` and `ResultKinds` in context objects. [#2639](https://github.com/microsoft/sarif-sdk/pull/2639)
-* NEW: Provide new ETW telemetry for runtime behavior, provider `SarifDriver`, guid `c84480b4-a77f-421f-8a11-48210c1724d4`.
+* NEW: Provide new ETW telemetry for runtime behavior, provider `SarifDriver`, guid `c84480b4-a77f-421f-8a11-48210c1724d4`. https://github.com/microsoft/sarif-sdk/pull/2668
 * NEW: Provide convenience enumerator at the `SarifLog` level that iterates over all results in all runs in the log. [#2660](https://github.com/microsoft/sarif-sdk/pull/2660)
 * NEW: Provide `Notes.LogEmptyFileSkipped` helper for reporting zero-byte files skipped at scan time. [#2660](https://github.com/microsoft/sarif-sdk/pull/2660)
 * NEW: Add `MemoryStreamSarifLogger` (for in-memory SARIF generation). [#2655](https://github.com/microsoft/sarif-sdk/pull/2655)
