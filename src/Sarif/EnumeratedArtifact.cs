@@ -47,7 +47,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
                 this.sizeInBytes = (ulong?)this.contents?.Length;
             }
-            else 
+            else
             {
                 if (Stream.CanSeek) { this.Stream.Seek(0, SeekOrigin.Begin); }
                 using var contentReader = new StreamReader(Stream);
@@ -65,14 +65,14 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             get
             {
-                if (this.sizeInBytes != null) 
-                { 
-                    return this.sizeInBytes.Value; 
+                if (this.sizeInBytes != null)
+                {
+                    return this.sizeInBytes.Value;
                 };
 
-                if (this.Contents != null) 
-                {  
-                    return  (ulong?)this.Contents.Length; 
+                if (this.Contents != null)
+                {
+                    return (ulong?)this.Contents.Length;
                 }
 
                 this.sizeInBytes = Uri!.IsFile

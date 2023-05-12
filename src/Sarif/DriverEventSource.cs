@@ -9,7 +9,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// <summary>
     ///  EventSource is an ETW EventSource for Microsoft.CodeAnalysis.Sarif.PatternMatcher events, allowing performance tracing.
     /// </summary>
-    [EventSource(Name = "SARIF", Guid = "c84480b4-a77f-421f-8a11-48210c1724d4")]
+    [EventSource(Name = "SarifDriver", Guid = "c84480b4-a77f-421f-8a11-48210c1724d4")]
     public class DriverEventSource : EventSource
     {
         public static DriverEventSource Log = new DriverEventSource();
@@ -89,7 +89,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         [Event((int)DriverEvent.TargetReservedStop, Message = "'{0}' stop: {1}")]
         public void TargetReservedStop(string eventId, string filePath)
         {
-             WriteEvent((int)DriverEvent.TargetReservedStop, eventId, filePath);
+            WriteEvent((int)DriverEvent.TargetReservedStop, eventId, filePath);
         }
 
         [Event((int)DriverEvent.RuleReservedStart, Message = "'{2}.{3}' '{0}' start: {1}")]
