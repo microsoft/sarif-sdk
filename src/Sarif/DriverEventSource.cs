@@ -101,7 +101,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         [Event((int)DriverEvent.RuleReservedStop, Message = "'{2}.{3}' '{0}' stop: {1}")]
         public void RuleReservedStop(string eventId, string filePath, string ruleId, string ruleName)
         {
-            //WriteEvent((int)DriverEvent.RuleReservedStop, eventId, filePath, ruleId, ruleName);
+            WriteEvent((int)DriverEvent.RuleReservedStop, eventId, filePath, ruleId, ruleName);
         }
 
     }
