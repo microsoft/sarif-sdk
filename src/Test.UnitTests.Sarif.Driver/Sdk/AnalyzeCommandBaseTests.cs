@@ -692,7 +692,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                                                  levels: BaseLogger.ErrorWarningNote,
                                                  kinds: BaseLogger.Fail);
 
-                    var target = new EnumeratedArtifact(FileSystem.Instance) { Uri = uri, Contents = "A", SizeInBytes = 1 };
+                    var target = new EnumeratedArtifact(FileSystem.Instance) { Uri = uri, Contents = "A" };
 
                     var context = new TestAnalysisContext
                     {

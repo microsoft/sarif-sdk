@@ -24,7 +24,6 @@ namespace Microsoft.CodeAnalysis.Sarif
             var oneCharacterFile = new EnumeratedArtifact(FileSystem.Instance)
             {
                 Uri = new Uri(@"c:\\nonemptyfile.txt"),
-                SizeInBytes = 1,
                 Contents = "A",
             };
 
