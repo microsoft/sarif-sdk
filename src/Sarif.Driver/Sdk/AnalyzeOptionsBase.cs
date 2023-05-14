@@ -131,6 +131,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             HelpText = "A SARIF file to be used as baseline.")]
         public string BaselineFilePath { get; set; }
 
+
+        [Option(
+            "etw",
+            HelpText = "A file path to which all ETW events for the session will be saved.")]
+        public string EventsFilePath { get; set; }
+
         [Option(
             "post-uri",
             HelpText = "A URI to which the SARIF log file will be posted.")]

@@ -11,9 +11,10 @@ namespace Microsoft.CodeAnalysis.Sarif
     // EnumeratedArtifact<string> being a commonly utilized thing.
     public class EnumeratedArtifact : IEnumeratedArtifact
     {
-        public EnumeratedArtifact(IFileSystem fileSystem)
+        public EnumeratedArtifact(IFileSystem fileSystem, DriverEventSource eventSource = null)
         {
             FileSystem = fileSystem;
+            EventSource = eventSource;
         }
 
         private string contents;
@@ -26,6 +27,8 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         internal IFileSystem FileSystem { get; set; }
 
+        internal DriverEventSource EventSource { get; set; }
+
         public string Contents
         {
             get => GetContents();
@@ -36,7 +39,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             if (this.contents != null) { return this.contents; }
 
-            DriverEventSource.Log.GetTargetStart(this.Uri.GetFilePath());
+            DriverEventSource.Log.ReadArtifactStart(this.Uri.GetFilePath());
 
             if (Stream == null && this.contents == null)
             {
@@ -55,7 +58,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 Stream = null;
             }
 
-            DriverEventSource.Log.GetTargetStop(this.Uri.GetFilePath());
+            DriverEventSource.Log.ReadArtifactStop(this.Uri.GetFilePath());
             return this.contents;
         }
 
