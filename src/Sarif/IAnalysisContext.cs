@@ -39,8 +39,6 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         IEnumeratedArtifact CurrentTarget { get; set; }
 
-        DriverEventSource EventSource { get; set; }
-
         public ISet<string> InvocationPropertiesToLog { get; set; }
 
         ISet<string> TargetFileSpecifiers { get; set; }

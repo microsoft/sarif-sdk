@@ -11,10 +11,9 @@ namespace Microsoft.CodeAnalysis.Sarif
     // EnumeratedArtifact<string> being a commonly utilized thing.
     public class EnumeratedArtifact : IEnumeratedArtifact
     {
-        public EnumeratedArtifact(IFileSystem fileSystem, DriverEventSource eventSource = null)
+        public EnumeratedArtifact(IFileSystem fileSystem)
         {
             FileSystem = fileSystem;
-            EventSource = eventSource;
         }
 
         private string contents;
@@ -26,8 +25,6 @@ namespace Microsoft.CodeAnalysis.Sarif
         public Encoding Encoding { get; set; }
 
         internal IFileSystem FileSystem { get; set; }
-
-        internal DriverEventSource EventSource { get; set; }
 
         public string Contents
         {

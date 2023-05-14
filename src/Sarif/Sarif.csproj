@@ -60,7 +60,7 @@
     <Content Include="..\..\ReleaseHistory.md" />
   </ItemGroup>
   <PropertyGroup>
-    <!--<EtwManifestForceAll>true</EtwManifestForceAll>-->
+    <EtwManifestForceAll>true</EtwManifestForceAll>
   </PropertyGroup>
   
   <ItemGroup>
