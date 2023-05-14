@@ -450,7 +450,7 @@ namespace Microsoft.CodeAnalysis.Sarif {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &apos;{1}&apos; was not evaluated for check &apos;{2}&apos; because the analysis is not relevant for the following reason: {3}..
+        ///   Looks up a localized string similar to &apos;{0}&apos; was not evaluated for check &apos;{1}&apos; because the analysis is not relevant for the following reason: {2}..
         /// </summary>
         public static string NotApplicable_InvalidMetadata {
             get {

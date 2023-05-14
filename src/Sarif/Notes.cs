@@ -76,7 +76,6 @@ namespace Microsoft.CodeAnalysis.Sarif
             context.Logger.Log(context.Rule,
                 RuleUtilities.BuildResult(ResultKind.NotApplicable, context, null,
                     nameof(SdkResources.NotApplicable_InvalidMetadata),
-                    context.CurrentTarget.Uri.GetFilePath(),
                     context.CurrentTarget.Uri.GetFileName(),
                     context.Rule.Name,
                     reasonForNotAnalyzing));
