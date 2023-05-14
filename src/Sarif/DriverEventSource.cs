@@ -10,7 +10,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     ///  EventSource is an ETW EventSource for Microsoft.CodeAnalysis.Sarif.PatternMatcher events, allowing performance tracing.
     ///  https://learn.microsoft.com/en-us/dotnet/core/diagnostics/eventsource-instrumentation
     /// </summary>
-    [EventSource(Name = "SarifDriver")]
+    [EventSource(Name = "Sarif-Default-Driver-Events-v0")]
     public sealed class DriverEventSource : EventSource
     {
         public static DriverEventSource Log = new DriverEventSource();
