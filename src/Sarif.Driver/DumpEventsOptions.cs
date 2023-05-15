@@ -15,5 +15,12 @@ namespace Microsoft.CodeAnalysis.Sarif
             HelpText = "A path to a driver ETL log that should be dumped to the console.",
             Required = true)]
         public string EventsFilePath { get; set; }
+
+
+        [Option(
+        "csv",
+        HelpText = "A file path to which all ETW events should be persisted as CSV.")]
+        public string CsvFilePath { get; set; }
+
     }
 }

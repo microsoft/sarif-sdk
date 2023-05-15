@@ -1,7 +1,6 @@
 ﻿// Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License.
 
-using System;
 using System.Diagnostics.Tracing;
 
 namespace Microsoft.CodeAnalysis.Sarif
@@ -23,7 +22,6 @@ namespace Microsoft.CodeAnalysis.Sarif
                 WriteEvent((int)DriverEvent.FirstArtifactQueued, filePath);
             }
         }
-
 
         [Event((int)DriverEvent.ReadArtifactStart, Message = "Get contents: {0}")]
         public void ReadArtifactStart(string filePath)
@@ -115,7 +113,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             }
         }
 
-        [Event((int)DriverEvent.LogResultsStart, Message = "Artifact enumeration started.")]
+        [Event((int)DriverEvent.LogResultsStart, Message = "Logging artifact results started.")]
         public void LogResultsStart()
         {
             if (this.IsEnabled())
@@ -124,7 +122,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             }
         }
 
-        [Event((int)DriverEvent.LogResultsStop, Message = "Artifact enumeration stopped.")]
+        [Event((int)DriverEvent.LogResultsStop, Message = "Logging artifact results stopped.")]
         public void LogResultsStop()
         {
             if (this.IsEnabled())
@@ -134,16 +132,16 @@ namespace Microsoft.CodeAnalysis.Sarif
             }
         }
 
-        [Event((int)DriverEvent.ArtifactReserved0, Message = "'{0}': {1}")]
-        public void ArtifactReserved0(string context, string filePath)
+        [Event((int)DriverEvent.ArtifactReserved0, Message = "{2}")]
+        public void ArtifactReserved0(string context, string filePath, string message)
         {
             if (this.IsEnabled())
             {
-                WriteEvent((int)DriverEvent.ArtifactReserved0, context, filePath);
+                WriteEvent((int)DriverEvent.ArtifactReserved0, context, filePath, message);
             }
         }
 
-        [Event((int)DriverEvent.ArtifactReserved1Start, Message = "'{0}' start: {1}")]
+        [Event((int)DriverEvent.ArtifactReserved1Start, Message = "{0} started: {1}")]
         public void ArtifactReserved1Start(string context, string filePath)
         {
             if (this.IsEnabled())
@@ -152,7 +150,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             }
         }
 
-        [Event((int)DriverEvent.ArtifactReserved1Stop, Message = "'{0}' stop: {1}")]
+        [Event((int)DriverEvent.ArtifactReserved1Stop, Message = "'{0}' stopped: {1}")]
         public void ArtifactReserved1Stop(string context, string filePath)
         {
             if (this.IsEnabled())
@@ -161,16 +159,16 @@ namespace Microsoft.CodeAnalysis.Sarif
             }
         }
 
-        [Event((int)DriverEvent.RuleReserved0, Message = "'{0}': {1}", Keywords = Keywords.Rules)]
-        public void RuleReserved0(string context, string filePath)
+        [Event((int)DriverEvent.RuleReserved0, Message = "{2}", Keywords = Keywords.Rules)]
+        public void RuleReserved0(string context, string filePath, string message)
         {
             if (this.IsEnabled())
             {
-                WriteEvent((int)DriverEvent.RuleReserved0, context, filePath);
+                WriteEvent((int)DriverEvent.RuleReserved0, context, filePath, message);
             }
         }
 
-        [Event((int)DriverEvent.RuleReserved1Start, Message = "'{2}.{3}' '{0}' start: {1}", Keywords = Keywords.Rules)]
+        [Event((int)DriverEvent.RuleReserved1Start, Message = "'{2}.{3}' '{0}' started: {1}", Keywords = Keywords.Rules)]
         public void RuleReserved1Start(string context, string filePath, string ruleId, string ruleName)
         {
             if (this.IsEnabled())
@@ -179,12 +177,21 @@ namespace Microsoft.CodeAnalysis.Sarif
             }
         }
 
-        [Event((int)DriverEvent.RuleReserved1Stop, Message = "'{2}.{3}' '{0}' stop: {1}", Keywords = Keywords.Rules)]
+        [Event((int)DriverEvent.RuleReserved1Stop, Message = "'{2}.{3}' '{0}' stopped: {1}", Keywords = Keywords.Rules)]
         public void RuleReserved1Stop(string context, string filePath, string ruleId, string ruleName)
         {
             if (this.IsEnabled())
             {
                 WriteEvent((int)DriverEvent.RuleReserved1Stop, context, filePath, ruleId, ruleName);
+            }
+        }
+
+        [Event((int)DriverEvent.SessionEnded, Message = "Session ended.")]
+        public void SessionEnded()
+        {
+            if (this.IsEnabled())
+            {
+                WriteEvent((int)DriverEvent.SessionEnded);
             }
         }
 

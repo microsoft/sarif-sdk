@@ -98,13 +98,18 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 }, globalContext.CancellationToken);
 
                 int msDelay = globalContext.TimeoutInMilliseconds;
+                int result = FAILURE;
 
                 if (Task.WhenAny(analyzeTask, Task.Delay(msDelay)).GetAwaiter().GetResult() == analyzeTask)
                 {
-                    return analyzeTask.Result;
+                    result = analyzeTask.Result;
+                }
+                else
+                {
+                    Errors.LogAnalysisTimedOut(globalContext);
                 }
 
-                Errors.LogAnalysisTimedOut(globalContext);
+                DriverEventSource.Log.SessionEnded();
                 return FAILURE;
             }
             catch (Exception ex)
@@ -461,6 +466,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                             DriverEventSource.Log.LogResultsStart();
                             globalContext.CurrentTarget = context.CurrentTarget;
                             LogCachingLogger(globalContext, (CachingLogger)context.Logger, clone: false);
+                            DriverEventSource.Log.LogResultsStop();
 
                             globalContext.RuntimeErrors |= context.RuntimeErrors;
                             if (context.RuntimeExceptions != null)
@@ -472,9 +478,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                                 }
                             }
 
-                            globalContext.CurrentTarget = null;
-                            DriverEventSource.Log.LogResultsStart();
-                        }
+                            globalContext.CurrentTarget = null;                        }
 
                         _fileContexts.TryRemove(currentIndex, out _);
                         _fileContexts.TryGetValue(++currentIndex, out context);
@@ -520,6 +524,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                         }
                         globalContext.Logger.FileRegionsCache = cachingLogger.FileRegionsCache;
                         globalContext.Logger.Log(kv.Key, currentResult, tuple.Item2);
+                        DriverEventSource.Log.RuleFired(currentResult.Level, artifact.Uri.GetFilePath(), kv.Key.Id, kv.Key.Name);
                     }
                 }
             }
@@ -547,7 +552,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
                     globalContext.Logger.LogConfigurationNotification(currentNotification);
                 }
-
             }
 
             globalContext.Logger.TargetAnalyzed(globalContext);

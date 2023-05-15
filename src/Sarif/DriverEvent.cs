@@ -24,5 +24,6 @@ namespace Microsoft.CodeAnalysis.Sarif
         ArtifactReserved0 = 17,
         ArtifactReserved1Start = 18,
         ArtifactReserved1Stop = 19,
+        SessionEnded = 20,
     }
 }
