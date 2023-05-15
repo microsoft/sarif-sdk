@@ -110,7 +110,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 }
 
                 DriverEventSource.Log.SessionEnded();
-                return FAILURE;
+                return result;
             }
             catch (Exception ex)
             {
@@ -478,7 +478,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                                 }
                             }
 
-                            globalContext.CurrentTarget = null;                        }
+                            globalContext.CurrentTarget = null;
+                        }
 
                         _fileContexts.TryRemove(currentIndex, out _);
                         _fileContexts.TryGetValue(++currentIndex, out context);

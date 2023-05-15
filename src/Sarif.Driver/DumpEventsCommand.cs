@@ -56,7 +56,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
                     Guid correlationGuid = default;
 
-                    if (traceEvent.Opcode == TraceEventOpcode.Start) 
+                    if (traceEvent.Opcode == TraceEventOpcode.Start)
                     {
                         correlationGuid = new Guid(traceEvent.ThreadID, 1, 5, 45, 23, 23, 3, 5, 5, 4, 5);
                         startStopKey = new StartStopKey(traceEvent.ProviderGuid, traceEvent.Task, correlationGuid);
@@ -282,14 +282,14 @@ namespace Microsoft.CodeAnalysis.Sarif
                 Console.WriteLine($@"Time elapsed until    : Artifact enumeration completed     : {timeSpentEnumeratingArtifacts}");
                 Console.WriteLine();
 
-                double ms = 
+                double ms =
                     timeSpentReadingArtifacts.TotalMilliseconds +
                     timeSpentScanningArtifacts.TotalMilliseconds +
                     timeSpentLoggingResults.TotalMilliseconds;
 
-                Console.WriteLine($@"Aggregated time spent : Reading artifacts  : {string.Format("{0,6:P}", timeSpentReadingArtifacts.TotalMilliseconds/ms)} : {timeSpentReadingArtifacts}");
-                Console.WriteLine($@"Aggregated time spent : Scanning artifacts : {string.Format("{0,6:P}", timeSpentScanningArtifacts.TotalMilliseconds/ms)} : {timeSpentScanningArtifacts}");
-                Console.WriteLine($@"Aggregated time spent : Logging results    : {string.Format("{0,6:P}", timeSpentLoggingResults.TotalMilliseconds/ms)} : {timeSpentLoggingResults}");
+                Console.WriteLine($@"Aggregated time spent : Reading artifacts  : {string.Format("{0,6:P}", timeSpentReadingArtifacts.TotalMilliseconds / ms)} : {timeSpentReadingArtifacts}");
+                Console.WriteLine($@"Aggregated time spent : Scanning artifacts : {string.Format("{0,6:P}", timeSpentScanningArtifacts.TotalMilliseconds / ms)} : {timeSpentScanningArtifacts}");
+                Console.WriteLine($@"Aggregated time spent : Logging results    : {string.Format("{0,6:P}", timeSpentLoggingResults.TotalMilliseconds / ms)} : {timeSpentLoggingResults}");
                 Console.WriteLine();
 
                 DumpCustomTimingData(artifactReservedTiming);
@@ -302,9 +302,9 @@ namespace Microsoft.CodeAnalysis.Sarif
             double totalMs = 0;
             int maxEventNameLength = 0;
 
-            foreach(string eventName in timingData.Keys) 
+            foreach (string eventName in timingData.Keys)
             {
-                maxEventNameLength = Math.Max(maxEventNameLength,eventName.Length);
+                maxEventNameLength = Math.Max(maxEventNameLength, eventName.Length);
                 totalMs += timingData[eventName];
             }
 
