@@ -4,6 +4,7 @@
 using System;
 using System.Diagnostics;
 using System.Globalization;
+using System.IO;
 
 namespace Microsoft.CodeAnalysis.Sarif
 {
@@ -20,7 +21,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentNullException(nameof(context));
             }
 
-            // '{0}' was skipped because it is empty (zero bytes in size).
+            // '{0}' was skipped because it is zero bytes in size.
             context.Logger.LogConfigurationNotification(
                 Errors.CreateNotification(
                     new Uri(skippedFile, UriKind.RelativeOrAbsolute),
@@ -31,6 +32,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                     persistExceptionStack: false,
                     messageFormat: null,
                     skippedFile,
+                    Path.GetFileName(skippedFile),
                     context.MaxFileSizeInKilobytes.ToString()));
 
             context.RuntimeErrors |= RuntimeConditions.OneOrMoreEmptyFilesSkipped;
@@ -53,6 +55,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                     persistExceptionStack: false,
                     messageFormat: null,
                     skippedFile,
+                    Path.GetFileName(skippedFile),
                     fileSizeInKb.ToString(CultureInfo.CurrentCulture),
                     context.MaxFileSizeInKilobytes.ToString()));
 

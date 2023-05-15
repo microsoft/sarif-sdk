@@ -534,9 +534,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 };
 
                 int returnCode = validateCommand.Run(validateOptions, ref context);
-                context.RuntimeExceptions.Should().BeNull();
-                (context.RuntimeErrors & ~RuntimeConditions.Nonfatal).Should().Be(0);
-                returnCode.Should().Be(0);
+                context.ValidateCommandExecution(returnCode);
             }
 
             string actualLogFileContents = File.ReadAllText(actualLogFilePath);

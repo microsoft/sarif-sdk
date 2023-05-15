@@ -13,9 +13,11 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         string PostUri { get; set; }
 
+        string OutputFilePath { get; set; }
+
         string BaselineFilePath { get; set; }
 
-        string OutputFilePath { get; set; }
+        string EventsFilePath { get; set; }
 
         string ConfigurationFilePath { get; set; }
 

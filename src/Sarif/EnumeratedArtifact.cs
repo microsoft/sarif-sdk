@@ -36,7 +36,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             if (this.contents != null) { return this.contents; }
 
-            DriverEventSource.Log.GetTargetStart(this.Uri.GetFilePath());
+            DriverEventSource.Log.ReadArtifactStart(this.Uri.GetFilePath());
 
             if (Stream == null && this.contents == null)
             {
@@ -55,7 +55,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 Stream = null;
             }
 
-            DriverEventSource.Log.GetTargetStop(this.Uri.GetFilePath());
+            DriverEventSource.Log.ReadArtifactStop(this.Uri.GetFilePath());
             return this.contents;
         }
 

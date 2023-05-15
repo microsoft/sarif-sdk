@@ -432,7 +432,7 @@ namespace Microsoft.CodeAnalysis.Sarif {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &apos;{0}&apos; was skipped because it is empty (zero bytes in size)..
+        ///   Looks up a localized string similar to &apos;{1}&apos; was skipped because it is zero bytes in size..
         /// </summary>
         public static string MSG002_EmptyFileSkipped {
             get {
@@ -441,7 +441,7 @@ namespace Microsoft.CodeAnalysis.Sarif {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &apos;{0}&apos; was not analyzed as its size ({1} kilobytes) exceeds the currently configured threshold ({2} kilobytes)..
+        ///   Looks up a localized string similar to &apos;{1}&apos; was not analyzed as its size ({2} kilobytes) exceeds the currently configured threshold ({3} kilobytes)..
         /// </summary>
         public static string MSG002_FileExceedingSizeLimitSkipped {
             get {

@@ -6,6 +6,7 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Diagnostics;
+using System.Diagnostics.Tracing;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -15,6 +16,7 @@ using System.Threading.Channels;
 using System.Threading.Tasks;
 
 using Microsoft.CodeAnalysis.Sarif.Writers;
+using Microsoft.Diagnostics.Tracing.Session;
 
 namespace Microsoft.CodeAnalysis.Sarif.Driver
 {
@@ -66,6 +68,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
         public virtual int Run(TOptions options, ref TContext globalContext)
         {
+            TraceEventSession traceEventSession = null;
+
             try
             {
                 globalContext ??= new TContext();
@@ -78,20 +82,35 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 // to utilize it in a separate thread.
                 TContext methodLocalContext = globalContext;
 
+                if (!string.IsNullOrEmpty(globalContext.EventsFilePath))
+                {
+                    traceEventSession = new TraceEventSession(
+                        $"Sarif-Driver-{Guid.NewGuid()}",
+                        globalContext.EventsFilePath);
+
+                    Guid guid = EventSource.GetGuid(typeof(DriverEventSource));
+                    traceEventSession.EnableProvider(guid);
+                }
+
                 Task<int> analyzeTask = Task.Run(() =>
                 {
                     return Run(methodLocalContext);
                 }, globalContext.CancellationToken);
 
                 int msDelay = globalContext.TimeoutInMilliseconds;
+                int result = FAILURE;
 
                 if (Task.WhenAny(analyzeTask, Task.Delay(msDelay)).GetAwaiter().GetResult() == analyzeTask)
                 {
-                    return analyzeTask.Result;
+                    result = analyzeTask.Result;
+                }
+                else
+                {
+                    Errors.LogAnalysisTimedOut(globalContext);
                 }
 
-                Errors.LogAnalysisTimedOut(globalContext);
-                return FAILURE;
+                DriverEventSource.Log.SessionEnded();
+                return result;
             }
             catch (Exception ex)
             {
@@ -100,6 +119,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             }
             finally
             {
+                traceEventSession?.Dispose();
                 globalContext.Dispose();
             }
 
@@ -242,6 +262,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             context.AutomationId = options.AutomationId ?? context.AutomationId;
             context.AutomationGuid = options.AutomationGuid ?? context.AutomationGuid;
             context.OutputFilePath = options.OutputFilePath ?? context.OutputFilePath;
+            context.EventsFilePath = options.EventsFilePath ?? context.EventsFilePath;
             context.BaselineFilePath = options.BaselineFilePath != null ? options.BaselineFilePath : context.BaselineFilePath;
             context.Traces = options.Trace != null ? InitializeStringSet(options.Trace) : context.Traces;
             context.DataToInsert = options.DataToInsert?.Any() == true ? options.DataToInsert.ToFlags() : context.DataToInsert;
@@ -442,8 +463,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                     {
                         lock (globalContext)
                         {
+                            DriverEventSource.Log.LogResultsStart();
                             globalContext.CurrentTarget = context.CurrentTarget;
                             LogCachingLogger(globalContext, (CachingLogger)context.Logger, clone: false);
+                            DriverEventSource.Log.LogResultsStop();
 
                             globalContext.RuntimeErrors |= context.RuntimeErrors;
                             if (context.RuntimeExceptions != null)
@@ -502,6 +525,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                         }
                         globalContext.Logger.FileRegionsCache = cachingLogger.FileRegionsCache;
                         globalContext.Logger.Log(kv.Key, currentResult, tuple.Item2);
+                        DriverEventSource.Log.RuleFired(currentResult.Level, artifact.Uri.GetFilePath(), kv.Key.Id, kv.Key.Name);
                     }
                 }
             }
@@ -529,7 +553,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
                     globalContext.Logger.LogConfigurationNotification(currentNotification);
                 }
-
             }
 
             globalContext.Logger.TargetAnalyzed(globalContext);
@@ -542,9 +565,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 this._fileContextsCount = 0;
                 this._fileContexts = new ConcurrentDictionary<uint, TContext>();
 
-                DriverEventSource.Log.EnumerateTargetsStart();
+                DriverEventSource.Log.EnumerateArtifactsStart();
                 await EnumerateFilesFromArtifactsProvider(context);
-                DriverEventSource.Log.EnumerateTargetsStop();
+                DriverEventSource.Log.EnumerateArtifactsStop();
             }
             finally
             {
@@ -562,7 +585,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                         continue;
                     }
 
-                    Notes.LogEmptyFileSkipped(context, artifact.Uri.GetFileName());
+                    Notes.LogEmptyFileSkipped(context, artifact.Uri.GetFilePath());
                 }
             }
 
@@ -600,12 +623,17 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                     // This call needs to be protected with a lock as the actual
                     // logging occurs on a separated thread.
 
-                    DriverEventSource.Log.ArtifactSizeInBytes(artifact.Uri.GetFilePath(), artifact.SizeInBytes.Value);
+                    DriverEventSource.Log.ArtifactSizeInBytes(artifact.SizeInBytes.Value, artifact.Uri.GetFilePath());
                     globalContext.Logger.AnalyzingTarget(fileContext);
                 }
 
                 bool added = _fileContexts.TryAdd(_fileContextsCount, fileContext);
                 Debug.Assert(added);
+
+                if (_fileContextsCount == 0)
+                {
+                    DriverEventSource.Log.FirstArtifactQueued(fileContext.CurrentTarget.Uri.GetFilePath());
+                }
 
                 await readyToScanChannel.Writer.WriteAsync(_fileContextsCount++);
             }
@@ -1083,9 +1111,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
         protected virtual void AnalyzeTarget(TContext context, IEnumerable<Skimmer<TContext>> skimmers, ISet<string> disabledSkimmers)
         {
-            DriverEventSource.Log.ScanTargetStart(context.CurrentTarget.Uri.GetFilePath());
+            DriverEventSource.Log.ScanArtifactStart(context.CurrentTarget.Uri.GetFilePath());
             AnalyzeTargetHelper(context, skimmers, disabledSkimmers);
-            DriverEventSource.Log.ScanTargetStop(context.CurrentTarget.Uri.GetFilePath());
+            DriverEventSource.Log.ScanArtifactStop(context.CurrentTarget.Uri.GetFilePath());
         }
 
         public static void AnalyzeTargetHelper(TContext context, IEnumerable<Skimmer<TContext>> skimmers, ISet<string> disabledSkimmers)

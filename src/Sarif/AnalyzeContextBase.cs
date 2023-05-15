@@ -19,21 +19,28 @@ namespace Microsoft.CodeAnalysis.Sarif
         // All of these properties are persisted to configuration XML and can be
         // passed using that mechanism. All command-line arguments are 
         // candidates to follow this pattern.
-        //
-        // TBD this list is not complete.
         public virtual IEnumerable<IOption> GetOptions()
         {
             return new IOption[]
             {
-                TracesProperty,
-                ThreadsProperty,
+                AutomationGuidProperty,
+                AutomationIdProperty,
+                BaselineFilePathProperty,
+                DataToInsertProperty,
+                DataToRemoveProperty,
+                FailureLevelsProperty,
+                MaxFileSizeInKilobytesProperty,
+                OutputFileOptionsProperty,
+                OutputFilePathProperty,
+                PluginFilePathsProperty,
+                PostUriProperty,
                 RecurseProperty,
                 ResultKindsProperty,
-                DataToInsertProperty,
-                FailureLevelsProperty,
-                TimeoutInMillisecondsProperty,
+                RichReturnCodeProperty,
                 TargetFileSpecifiersProperty,
-                MaxFileSizeInKilobytesProperty
+                ThreadsProperty,
+                TracesProperty,
+                TimeoutInMillisecondsProperty,
             };
         }
 
@@ -58,7 +65,6 @@ namespace Microsoft.CodeAnalysis.Sarif
         public virtual IAnalysisLogger Logger { get; set; }
         public virtual RuntimeConditions RuntimeErrors { get; set; }
         public virtual bool AnalysisComplete { get; set; }
-
         public bool Inline => OutputFileOptions.HasFlag(FilePersistenceOptions.Inline);
         public bool Minify => OutputFileOptions.HasFlag(FilePersistenceOptions.Minify);
         public bool Optimize => OutputFileOptions.HasFlag(FilePersistenceOptions.Optimize);
@@ -110,6 +116,12 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             get => this.Policy.GetProperty(ConfigurationFilePathProperty);
             set => this.Policy.SetProperty(ConfigurationFilePathProperty, value);
+        }
+
+        public string EventsFilePath
+        {
+            get => this.Policy.GetProperty(EventsFilePathProperty);
+            set => this.Policy.SetProperty(EventsFilePathProperty, value);
         }
 
         /// <summary>
@@ -215,6 +227,11 @@ namespace Microsoft.CodeAnalysis.Sarif
                             new PerLanguageOption<string>(
                                 "CoreSettings", nameof(OutputFilePath), defaultValue: () => string.Empty,
                                 "The path to write all SARIF log file results to.");
+
+        public static PerLanguageOption<string> EventsFilePathProperty { get; } =
+                    new PerLanguageOption<string>(
+                        "CoreSettings", nameof(EventsFilePath), defaultValue: () => string.Empty,
+                        "The path to which ETW events raised by analysis should be saved.");
 
         public static PerLanguageOption<string> PostUriProperty { get; } =
                             new PerLanguageOption<string>(

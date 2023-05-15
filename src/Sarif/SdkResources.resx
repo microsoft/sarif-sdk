@@ -285,7 +285,7 @@ You can also refer to properties in the result's property bag with 'properties.&
     <value>{0} file(s) were skipped for analysis due to exceeding size limit (currently configured as {1} KB). The 'max-file-size-in-kb' command-line argument can be used to increase this threshold.</value>
   </data>
   <data name="MSG002.FileExceedingSizeLimitSkipped" xml:space="preserve">
-    <value>'{0}' was not analyzed as its size ({1} kilobytes) exceeds the currently configured threshold ({2} kilobytes).</value>
+    <value>'{1}' was not analyzed as its size ({2} kilobytes) exceeds the currently configured threshold ({3} kilobytes).</value>
   </data>
   <data name="ERR997_IncompatibleRulesDetected" xml:space="preserve">
     <value>The current configuration enables rules that are not compatible ('{0}' has declared that it is not compatible with '{1}'). You can selectively disable one of the rules using an updated XML configuration (passed by the --config argument).</value>
@@ -303,6 +303,6 @@ You can also refer to properties in the result's property bag with 'properties.&
     <value>Completed '{0}'.</value>
   </data>
   <data name="MSG002.EmptyFileSkipped" xml:space="preserve">
-    <value>'{0}' was skipped because it is empty (zero bytes in size).</value>
+    <value>'{1}' was skipped because it is zero bytes in size.</value>
   </data>
 </root>

@@ -45,6 +45,7 @@
   </Choose>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.Diagnostics.Tracing.EventRegister" Version="1.1.28" Condition="$(OS) == 'Windows_NT'"/>
     <PackageReference Include="System.Collections.Immutable" Version="1.5.0" />
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All" />
   </ItemGroup>
@@ -58,7 +59,10 @@
     <!-- This item will be added to the NuGet package, however. -->
     <Content Include="..\..\ReleaseHistory.md" />
   </ItemGroup>
-
+  <PropertyGroup>
+    <EtwManifestForceAll>true</EtwManifestForceAll>
+  </PropertyGroup>
+  
   <ItemGroup>
     <JsonSchemaFile Include="$(MsBuildThisFileDirectory)Schemata\sarif-$(SchemaVersionAsPublishedToSchemaStoreOrg).json">
       <Namespace>$(RootNamespace)</Namespace>
