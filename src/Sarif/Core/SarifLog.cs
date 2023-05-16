@@ -103,7 +103,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="postUri"></param>
         /// <param name="stream"></param>
         /// <param name="httpClient"></param>
-        public static async Task Post(Uri postUri, Stream stream, HttpClient httpClient)
+        public static async Task<HttpResponseMessage> Post(Uri postUri, Stream stream, HttpClient httpClient)
         {
             if (postUri == null)
             {
@@ -126,10 +126,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             }
 
             using var streamContent = new StreamContent(stream);
-            using HttpResponseMessage response = await httpClient
-                .PostAsync(postUri, streamContent);
-
-            response.EnsureSuccessStatusCode();
+            return await httpClient.PostAsync(postUri, streamContent);
         }
 
         /// <summary>

@@ -311,11 +311,14 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests.Core
                 new HttpRequestMessage(HttpMethod.Post, postUri) { Content = new StreamContent(CreateSarifLogStream()) },
                 HttpMockHelper.BadRequestResponse);
 
-            await Assert.ThrowsAsync<HttpRequestException>(async () =>
-            {
+            HttpResponseMessage response =
                 await SarifLog.Post(postUri,
-                                    CreateSarifLogStream(),
-                                    new HttpClient(httpMock));
+                    CreateSarifLogStream(),
+                    new HttpClient(httpMock));
+
+            Assert.Throws<HttpRequestException>(() =>
+            {
+                response.EnsureSuccessStatusCode();
             });
         }
 

@@ -1,5 +1,6 @@
 # SARIF Package Release History (SDK, Driver, Converters, and Multitool)
 ## **v4.2.0** UNRELEASED
+* BRK: Update `SarifLog.Post(Uri, StreamWriter, HttpClient)` return value to `HttpResponseMessage` (to make returned correlation id and error messages available). [#2672](https://github.com/microsoft/sarif-sdk/pull/2672)
 * BRK: `RuntimeConditions` now of type `long` to permit more flag values. Many literal values have changed for individual members. [#2660](https://github.com/microsoft/sarif-sdk/pull/2660)
 * BRK: `RuntimeConditions.OneOrMoreFilesSkippedDueToSize` renamed to `OneOrMoreFilesSkippedDueToExceedingSizeLimits`. [#2660](https://github.com/microsoft/sarif-sdk/pull/2660)
 * BRK: `Notes.LogFileSkippedDueToSize` renamed to `LogFileExceedingSizeLimitSkipped`. [#2660](https://github.com/microsoft/sarif-sdk/pull/2660)

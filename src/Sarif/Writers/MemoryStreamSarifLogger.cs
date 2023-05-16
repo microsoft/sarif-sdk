@@ -7,7 +7,7 @@ using System.IO;
 
 namespace Microsoft.CodeAnalysis.Sarif.Writers
 {
-    internal class MemoryStreamSarifLogger : SarifLogger
+    public class MemoryStreamSarifLogger : SarifLogger
     {
         protected StreamWriter writer;
         protected bool disposed;
@@ -37,7 +37,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         {
         }
 
-        internal MemoryStreamSarifLogger(StreamWriter writer,
+        public MemoryStreamSarifLogger(StreamWriter writer,
                                          FilePersistenceOptions logFilePersistenceOptions = FilePersistenceOptions.PrettyPrint,
                                          OptionallyEmittedData dataToInsert = OptionallyEmittedData.None,
                                          OptionallyEmittedData dataToRemove = OptionallyEmittedData.None,
