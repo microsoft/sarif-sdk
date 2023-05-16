@@ -14,7 +14,6 @@
 * BRK: Remove unused `quiet` parameter from `SarifLogger`. [#2639]https://github.com/microsoft/sarif-sdk/pull/2639
 * BRK: Remove `ComputeHashData` and `AnalysisTargetToHashDataMap` properties from `SarifLogger` (in preference of new `fileRegionsCache` parameter. [#2639](https://github.com/microsoft/sarif-sdk/pull/2639)
 * BRK: Eliminate proactive hashing of artifacts in `SarifLogger` constructor when `OptionallyEmittedData.Hashes` is specified. [#2639](https://github.com/microsoft/sarif-sdk/pull/2639)
-* BUG: Fixed incorrect hashes being returned when `--insert hashes` is enabled. [#2667](https://github.com/microsoft/sarif-sdk/pull/2667)
 * BUG: Fixed `ERR999.UnhandledEngineException: System.InvalidOperationException: This operation is not supported for a relative URI` when running in Linux with files skipped due to zero byte size. [#2664](https://github.com/microsoft/sarif-sdk/pull/2664)
 * BUG: Properly report skipping empty files (rather than reporting file was skipped due to exceeding size limits). [#2660](https://github.com/microsoft/sarif-sdk/pull/2660)
 * BUG: Update user messages and code comments that refer to `--force` (replaced by `--log ForceOverwrite`). [#2656](https://github.com/microsoft/sarif-sdk/pull/2656)
