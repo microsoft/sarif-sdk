@@ -7,7 +7,7 @@ using System.IO;
 
 namespace Microsoft.CodeAnalysis.Sarif.Writers
 {
-    internal class MemoryStreamSarifLogger : SarifLogger
+    public class MemoryStreamSarifLogger : SarifLogger
     {
         protected StreamWriter writer;
         protected bool disposed;
