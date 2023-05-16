@@ -316,7 +316,7 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests.Core
                     CreateSarifLogStream(),
                     new HttpClient(httpMock));
 
-            await Assert.ThrowsAsync<HttpRequestException>(async () =>
+            Assert.Throws<HttpRequestException>(() =>
             {
                 response.EnsureSuccessStatusCode();
             });
