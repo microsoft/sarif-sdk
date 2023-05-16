@@ -365,21 +365,14 @@ namespace Microsoft.CodeAnalysis.Sarif
         public HashData GetHashData(Uri uri, string fileText = null)
         {
             string path = uri.GetFilePath();
-
             if (fileText != null)
             {
                 _fileTextCache[path] = fileText;
-                _hashDataCache[path] = HashUtilities.ComputeHashesForText(fileText);
-                return _hashDataCache[path];
             }
 
-            if (_hashDataCache.ContainsKey(path))
-            {
-                return _hashDataCache[path];
-            }
+            fileText = _fileTextCache[path];
 
-            _hashDataCache[path] = HashUtilities.ComputeHashes(path);
-            return _hashDataCache[path];
+            return HashUtilities.ComputeHashesForText(fileText);
         }
 
         public NewLineIndex GetNewLineIndex(Uri uri, string fileText = null)
@@ -429,13 +422,8 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         private HashData BuildHashDataForFile(string path)
         {
-            if (_hashDataCache.ContainsKey(path))
-            {
-                return _hashDataCache[path];
-            }
-
-            _hashDataCache[path] = HashUtilities.ComputeHashes(path);
-            return _hashDataCache[path];
+            string fileText = _fileTextCache[path];
+            return HashUtilities.ComputeHashesForText(fileText);
         }
 
         /// <summary>
