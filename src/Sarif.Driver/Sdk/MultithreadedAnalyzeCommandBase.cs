@@ -363,14 +363,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                                                  ISet<string> disabledSkimmers)
         {
             globalContext.CancellationToken.ThrowIfCancellationRequested();
-            var channelOptions = new BoundedChannelOptions(25000)
+            var channelOptions = new BoundedChannelOptions(50000)
             {
                 SingleWriter = true,
                 SingleReader = false,
             };
             readyToScanChannel = Channel.CreateBounded<uint>(channelOptions);
 
-            channelOptions = new BoundedChannelOptions(25000)
+            channelOptions = new BoundedChannelOptions(50000)
             {
                 SingleWriter = false,
                 SingleReader = true,
