@@ -5,6 +5,8 @@ using System;
 using System.Diagnostics.Tracing;
 using System.IO;
 
+using Microsoft.CodeAnalysis.Sarif.Driver;
+
 namespace Microsoft.CodeAnalysis.Sarif
 {
     public class ExportEventsCommand
