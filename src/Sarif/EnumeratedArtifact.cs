@@ -16,7 +16,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             FileSystem = fileSystem;
         }
 
-        private string contents;
+        internal string contents;
 
         public Uri Uri { get; set; }
 
@@ -67,15 +67,21 @@ namespace Microsoft.CodeAnalysis.Sarif
                     return this.sizeInBytes.Value;
                 };
 
-                if (Uri!.IsAbsoluteUri && Uri!.IsFile)
+                if (this.contents != null)
+                {
+                    this.sizeInBytes = (ulong)this.contents.Length;
+                }
+                else if (this.Stream != null)
+                {
+                    this.SizeInBytes = (ulong)this.Stream.Length;
+                }
+                else if (Uri!.IsAbsoluteUri && Uri!.IsFile)
                 {
                     this.sizeInBytes = (ulong)FileSystem.FileInfoLength(Uri.LocalPath);
-                    return this.sizeInBytes;
                 }
-
-                if (this.Contents != null)
+                else if (this.Contents != null)
                 {
-                    return (ulong?)this.Contents.Length;
+                    this.SizeInBytes = (ulong)this.Contents.Length;
                 }
 
                 return this.sizeInBytes;

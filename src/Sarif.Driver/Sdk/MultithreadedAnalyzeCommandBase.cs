@@ -581,7 +581,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                     if (artifact.SizeInBytes > 0)
                     {
                         _filesExceedingSizeLimitCount++;
-                        Notes.LogFileExceedingSizeLimitSkipped(context, artifact.Uri.GetFilePath(), (long)artifact.SizeInBytes/1000);
+                        Notes.LogFileExceedingSizeLimitSkipped(context, artifact.Uri.GetFilePath(), (long)artifact.SizeInBytes / 1000);
                         continue;
                     }
 
