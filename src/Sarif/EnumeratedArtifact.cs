@@ -16,7 +16,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             FileSystem = fileSystem;
         }
 
-        private string contents;
+        internal string contents;
 
         public Uri Uri { get; set; }
 
@@ -36,8 +36,6 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             if (this.contents != null) { return this.contents; }
 
-            DriverEventSource.Log.ReadArtifactStart(this.Uri.GetFilePath());
-
             if (Stream == null && this.contents == null)
             {
                 // TBD we actually have no validation URI is non-null yet.
@@ -55,7 +53,6 @@ namespace Microsoft.CodeAnalysis.Sarif
                 Stream = null;
             }
 
-            DriverEventSource.Log.ReadArtifactStop(this.Uri.GetFilePath());
             return this.contents;
         }
 
@@ -70,14 +67,22 @@ namespace Microsoft.CodeAnalysis.Sarif
                     return this.sizeInBytes.Value;
                 };
 
-                if (this.Contents != null)
+                if (this.contents != null)
                 {
-                    return (ulong?)this.Contents.Length;
+                    this.sizeInBytes = (ulong)this.contents.Length;
                 }
-
-                this.sizeInBytes = Uri!.IsFile
-                    ? (ulong)FileSystem.FileInfoLength(Uri.LocalPath)
-                    : (ulong?)null;
+                else if (this.Stream != null)
+                {
+                    this.SizeInBytes = (ulong)this.Stream.Length;
+                }
+                else if (Uri!.IsAbsoluteUri && Uri!.IsFile)
+                {
+                    this.sizeInBytes = (ulong)FileSystem.FileInfoLength(Uri.LocalPath);
+                }
+                else if (this.Contents != null)
+                {
+                    this.SizeInBytes = (ulong)this.Contents.Length;
+                }
 
                 return this.sizeInBytes;
             }

@@ -363,14 +363,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                                                  ISet<string> disabledSkimmers)
         {
             globalContext.CancellationToken.ThrowIfCancellationRequested();
-            var channelOptions = new BoundedChannelOptions(25000)
+            var channelOptions = new BoundedChannelOptions(50000)
             {
                 SingleWriter = true,
                 SingleReader = false,
             };
             readyToScanChannel = Channel.CreateBounded<uint>(channelOptions);
 
-            channelOptions = new BoundedChannelOptions(25000)
+            channelOptions = new BoundedChannelOptions(50000)
             {
                 SingleWriter = false,
                 SingleReader = true,
@@ -581,7 +581,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                     if (artifact.SizeInBytes > 0)
                     {
                         _filesExceedingSizeLimitCount++;
-                        Notes.LogFileExceedingSizeLimitSkipped(context, artifact.Uri.GetFilePath(), (long)artifact.SizeInBytes);
+                        Notes.LogFileExceedingSizeLimitSkipped(context, artifact.Uri.GetFilePath(), (long)artifact.SizeInBytes / 1000);
                         continue;
                     }
 
@@ -1111,9 +1111,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
         protected virtual void AnalyzeTarget(TContext context, IEnumerable<Skimmer<TContext>> skimmers, ISet<string> disabledSkimmers)
         {
-            DriverEventSource.Log.ScanArtifactStart(context.CurrentTarget.Uri.GetFilePath());
+            string filePath = context.CurrentTarget.Uri.GetFilePath();
+            ulong sizeInBytes = context.CurrentTarget.SizeInBytes.Value;
+
+            DriverEventSource.Log.ScanArtifactStart(filePath, sizeInBytes);
             AnalyzeTargetHelper(context, skimmers, disabledSkimmers);
-            DriverEventSource.Log.ScanArtifactStop(context.CurrentTarget.Uri.GetFilePath());
+            DriverEventSource.Log.ScanArtifactStop(filePath, sizeInBytes);
         }
 
         public static void AnalyzeTargetHelper(TContext context, IEnumerable<Skimmer<TContext>> skimmers, ISet<string> disabledSkimmers)

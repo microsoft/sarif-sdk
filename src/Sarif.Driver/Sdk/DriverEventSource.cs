@@ -3,7 +3,7 @@
 
 using System.Diagnostics.Tracing;
 
-namespace Microsoft.CodeAnalysis.Sarif
+namespace Microsoft.CodeAnalysis.Sarif.Driver
 {
     /// <summary>
     ///  EventSource is an ETW EventSource for Microsoft.CodeAnalysis.Sarif.PatternMatcher events, allowing performance tracing.
@@ -42,20 +42,20 @@ namespace Microsoft.CodeAnalysis.Sarif
         }
 
         [Event((int)DriverEvent.ScanArtifactStart, Message = "Scan start: {0}")]
-        public void ScanArtifactStart(string filePath)
+        public void ScanArtifactStart(string filePath, ulong sizeInBytes)
         {
             if (this.IsEnabled())
             {
-                WriteEvent((int)DriverEvent.ScanArtifactStart, filePath);
+                WriteEvent((int)DriverEvent.ScanArtifactStart, filePath, sizeInBytes);
             }
         }
 
         [Event((int)DriverEvent.ScanArtifactStop, Message = "Scan stop: {0}")]
-        public void ScanArtifactStop(string filePath)
+        public void ScanArtifactStop(string filePath, ulong sizeInBytes)
         {
             if (this.IsEnabled())
             {
-                WriteEvent((int)DriverEvent.ScanArtifactStop, filePath);
+                WriteEvent((int)DriverEvent.ScanArtifactStop, filePath, sizeInBytes);
             }
         }
 
