@@ -3,6 +3,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 using System.Threading;
 
 namespace Microsoft.CodeAnalysis.Sarif
@@ -32,6 +33,8 @@ namespace Microsoft.CodeAnalysis.Sarif
         FilePersistenceOptions OutputFileOptions { get; set; }
 
         IFileSystem FileSystem { get; set; }
+
+        Regex CompiledGlobalFileDenyRegex { get; }
 
         CancellationToken CancellationToken { get; set; }
 

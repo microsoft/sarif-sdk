@@ -42,7 +42,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         }
 
         [Event((int)DriverEvent.ScanArtifactStart, Message = "Scan start: {0}")]
-        public void ScanArtifactStart(string filePath, ulong sizeInBytes)
+        public void ScanArtifactStart(string filePath, long sizeInBytes)
         {
             if (this.IsEnabled())
             {
@@ -51,7 +51,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         }
 
         [Event((int)DriverEvent.ScanArtifactStop, Message = "Scan stop: {0}")]
-        public void ScanArtifactStop(string filePath, ulong sizeInBytes)
+        public void ScanArtifactStop(string filePath, long sizeInBytes)
         {
             if (this.IsEnabled())
             {
@@ -87,7 +87,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         }
 
         [Event((int)DriverEvent.ArtifactSizeInBytes, Message = "{0} : size {1} bytes.")]
-        public void ArtifactSizeInBytes(ulong sizeInBytes, string filePath)
+        public void ArtifactSizeInBytes(long sizeInBytes, string filePath)
         {
             if (this.IsEnabled())
             {

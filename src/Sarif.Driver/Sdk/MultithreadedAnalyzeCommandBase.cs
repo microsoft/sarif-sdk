@@ -12,6 +12,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Runtime.InteropServices;
+using System.Text.RegularExpressions;
 using System.Threading.Channels;
 using System.Threading.Tasks;
 
@@ -604,6 +605,20 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             {
                 globalContext.CancellationToken.ThrowIfCancellationRequested();
 
+                string filePath = artifact.Uri.GetFilePath();
+                if (globalContext.CompiledGlobalFileDenyRegex?.Match(filePath).Success == true)
+                {
+                    string reason = "its file path matched the global file deny regex.";
+                    Notes.LogFileSkipped(globalContext, filePath, reason);
+                    continue;
+                }
+
+                if (!IsTargetWithinFileSizeLimit(artifact.SizeInBytes.Value, globalContext.MaxFileSizeInKilobytes))
+                {
+                    Notes.LogFileExceedingSizeLimitSkipped(globalContext, artifact.Uri.GetFileName(), artifact.SizeInBytes.Value);
+                    continue;
+                }
+
                 TContext fileContext = CreateScanTargetContext(globalContext);
 
                 fileContext.Logger =
@@ -1112,7 +1127,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         protected virtual void AnalyzeTarget(TContext context, IEnumerable<Skimmer<TContext>> skimmers, ISet<string> disabledSkimmers)
         {
             string filePath = context.CurrentTarget.Uri.GetFilePath();
-            ulong sizeInBytes = context.CurrentTarget.SizeInBytes.Value;
+            long sizeInBytes = context.CurrentTarget.SizeInBytes.Value;
 
             DriverEventSource.Log.ScanArtifactStart(filePath, sizeInBytes);
             AnalyzeTargetHelper(context, skimmers, disabledSkimmers);
@@ -1336,6 +1351,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 TimeUtc = DateTime.UtcNow
             },
                 associatedRule);
+        }
+
+
+        internal static bool IsTargetWithinFileSizeLimit(long size, long maxFileSizeInKB)
+        {
+            if (size == 0) { return false; };
+            size = Math.Min(long.MaxValue - 1023, size);
+            long fileSizeInKb = (size + 1023) / 1024;
+            return fileSizeInKb <= maxFileSizeInKB;
         }
     }
 }

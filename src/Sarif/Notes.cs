@@ -11,8 +11,38 @@ namespace Microsoft.CodeAnalysis.Sarif
     public static class Notes
     {
         public const string Msg001AnalyzingTarget = "MSG001.AnalyzingTarget";
+        public const string Msg002_FileSkipped = "MSG002.FileSkipped";
         public const string Msg002_EmptyFileSkipped = "MSG002.EmptyFileSkipped";
         public const string Msg002_FileExceedingSizeLimitSkipped = "MSG002.FileExceedingSizeLimitSkipped";
+
+
+
+        public static void LogFileSkipped(IAnalysisContext context, string skippedFile, string reason)
+        {
+            if (context == null)
+            {
+                throw new ArgumentNullException(nameof(context));
+            }
+
+            Uri uri = context.CurrentTarget.Uri;
+
+
+            // '{1}' was skipped as {reason}.
+            context.Logger.LogConfigurationNotification(
+                Errors.CreateNotification(
+                    uri,
+                    Msg002_FileSkipped,
+                    ruleId: null,
+                    FailureLevel.Note,
+                    exception: null,
+                    persistExceptionStack: false,
+                    messageFormat: null,
+                    skippedFile,
+                    Path.GetFileName(skippedFile),
+                    reason));
+
+            context.RuntimeErrors |= RuntimeConditions.OneOrMoreFilesSkippedDueToExceedingSizeLimits;
+        }
 
         public static void LogEmptyFileSkipped(IAnalysisContext context, string skippedFile)
         {
@@ -21,7 +51,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentNullException(nameof(context));
             }
 
-            // '{0}' was skipped because it is zero bytes in size.
+            // '{0}' was skipped as it is zero bytes in size.
             context.Logger.LogConfigurationNotification(
                 Errors.CreateNotification(
                     new Uri(skippedFile, UriKind.RelativeOrAbsolute),
@@ -37,6 +67,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             context.RuntimeErrors |= RuntimeConditions.OneOrMoreEmptyFilesSkipped;
         }
+
         public static void LogFileExceedingSizeLimitSkipped(IAnalysisContext context, string skippedFile, long fileSizeInKb)
         {
             if (context == null)
