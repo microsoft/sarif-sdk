@@ -1161,7 +1161,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
             // Fault in target contents so that we can time this operation.
             DriverEventSource.Log.ReadArtifactStart(filePath);
-            context.CurrentTarget.Contents = context.CurrentTarget.Contents;
+            string contents = context.CurrentTarget.Contents;
             DriverEventSource.Log.ReadArtifactStop(filePath);
 
             foreach (Skimmer<TContext> skimmer in skimmers)

@@ -698,8 +698,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             sarifLog.Runs[0].Should().NotBeNull();
             sarifLog.Runs[0].Results[0].Should().NotBeNull();
             sarifLog.Runs[0].Results.Count.Should().Be(1);
-
-            sarifLog.Save(@"d:\repros\mysarif.sarif");
         }
 
         [Fact]
