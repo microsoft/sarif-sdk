@@ -23,8 +23,6 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         public virtual IEnumerable<IEnumeratedArtifact> Artifacts { get; set; }
 
-        public ICollection<IEnumeratedArtifact> Skipped { get; set; }
-
         public IFileSystem FileSystem { get; set; }
     }
 

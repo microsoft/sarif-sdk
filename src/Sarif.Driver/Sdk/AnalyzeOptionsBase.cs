@@ -146,5 +146,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             "max-file-size-in-kb",
             HelpText = "The maximum file size (in kilobytes) that will be analyzed.")]
         public long? MaxFileSizeInKilobytes { get; set; }
+
+        [Option(
+            "deny-regex",
+            HelpText = "A regular expression used to suppress scanning for any file or directory path that matches the regex.")]
+        public string GlobalFilePathDenyRegex { get; set; }
     }
 }

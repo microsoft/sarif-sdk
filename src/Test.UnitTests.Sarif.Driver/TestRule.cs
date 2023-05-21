@@ -184,7 +184,20 @@ namespace Microsoft.CodeAnalysis.Sarif
                             {
                                 RuleId = this.Id,
                                 Level = FailureLevel.Error,
-                                Message = new Message { Text = "Simple test rule message." }
+                                Message = new Message { Text = "Simple test rule message." },
+                                Locations = new[]
+                                {
+                                    new Location
+                                    {
+                                        PhysicalLocation = new PhysicalLocation
+                                        {
+                                            ArtifactLocation = new ArtifactLocation
+                                            {
+                                                Uri = context.CurrentTarget.Uri,
+                                            }
+                                        }
+                                    }
+                                }
                             });
 
                         Thread.Sleep(s_random.Next(0, 10));

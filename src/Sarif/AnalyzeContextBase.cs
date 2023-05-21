@@ -28,8 +28,9 @@ namespace Microsoft.CodeAnalysis.Sarif
                 BaselineFilePathProperty,
                 DataToInsertProperty,
                 DataToRemoveProperty,
+                EventsFilePathProperty,
                 FailureLevelsProperty,
-                GlobalFileDenyRegexProperty,
+                GlobalFilePathDenyRegexProperty,
                 MaxFileSizeInKilobytesProperty,
                 OutputFileOptionsProperty,
                 OutputFilePathProperty,
@@ -74,16 +75,16 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         public Regex CompiledGlobalFileDenyRegex { get; set; }
 
-        public string GlobalFileDenyRegex
+        public string GlobalFilePathDenyRegex
         {
-            get => this.Policy.GetProperty(GlobalFileDenyRegexProperty);
+            get => this.Policy.GetProperty(GlobalFilePathDenyRegexProperty);
             set
             {
                 CompiledGlobalFileDenyRegex = string.IsNullOrEmpty(value )
                     ? null
                     : new Regex(value, RegexOptions.IgnoreCase | RegexOptions.Compiled | RegexOptions.CultureInvariant | RegexOptions.ExplicitCapture);
 
-                this.Policy.SetProperty(GlobalFileDenyRegexProperty, value);
+                this.Policy.SetProperty(GlobalFilePathDenyRegexProperty, value);
             }
         }
 
@@ -340,10 +341,10 @@ namespace Microsoft.CodeAnalysis.Sarif
                 "the debugger is attached, otherwise is set to the environment processor count. " +
                 "Negative values are interpreted as '1'.");
 
-        public static PerLanguageOption<string> GlobalFileDenyRegexProperty { get; } =
+        public static PerLanguageOption<string> GlobalFilePathDenyRegexProperty { get; } =
                     new PerLanguageOption<string>(
-                        "CoreSettings", nameof(GlobalFileDenyRegex), defaultValue: () => string.Empty,
-                        "An optional regex that can be used to filter unwanted files or directories from analysis.");
-
+                        "CoreSettings", nameof(GlobalFilePathDenyRegex), defaultValue: () => string.Empty,
+                        "An optional regex that can be used to filter unwanted files or directories from analysis, " +
+                        "e.g.: (?i)\\.(?:bmp|dll|exe|gif|jpe?g|lock|pack|png|psd|tar\\.gz|tiff?|ttf|xcf|zip)$");
     }
 }

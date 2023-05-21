@@ -23,7 +23,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         // for example, might prevent an analysis run from meeting compliance goals.
         public const string Wrn999_RuleExplicitlyDisabled = "WRN999.RuleExplicitlyDisabled";
 
-        public static void LogOneOrMoreFilesSkippedDue(IAnalysisContext context, long skippedFilesCount, string reason)
+        public static void LogOneOrMoreFilesSkipped(IAnalysisContext context, long skippedFilesCount, string reason)
         {
             if (context == null)
             {
@@ -34,7 +34,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             context.Logger.LogConfigurationNotification(
                 Errors.CreateNotification(
                     context.CurrentTarget?.Uri,
-                    Wrn997_OneOrMoreFilesSkippedDueToExceedingSizeLimits,
+                    Wrn997_OneOrMoreFilesSkipped,
                     ruleId: null,
                     FailureLevel.Warning,
                     exception: null,

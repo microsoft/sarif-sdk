@@ -12,17 +12,17 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Runtime.InteropServices;
-using System.Text.RegularExpressions;
 using System.Threading.Channels;
 using System.Threading.Tasks;
 
+using Microsoft.CodeAnalysis.Sarif.Driver.Sdk;
 using Microsoft.CodeAnalysis.Sarif.Writers;
 using Microsoft.Diagnostics.Tracing.Session;
 
 namespace Microsoft.CodeAnalysis.Sarif.Driver
 {
     public abstract class MultithreadedAnalyzeCommandBase<TContext, TOptions> : PluginDriverCommand<TOptions>
-        where TContext : IAnalysisContext, new()
+        where TContext : AnalyzeContextBase, new()
         where TOptions : AnalyzeOptionsBase
     {
         public const string DefaultPolicyName = "default";
@@ -35,6 +35,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         internal ConsoleLogger _consoleLogger;
 
         private uint _fileContextsCount;
+        private long _filesMatchingGlobalFileDenyRegex;
         private long _filesExceedingSizeLimitCount;
         private Channel<uint> _resultsWritingChannel;
         private Channel<uint> readyToScanChannel;
@@ -85,9 +86,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
                 if (!string.IsNullOrEmpty(globalContext.EventsFilePath))
                 {
-                    traceEventSession = new TraceEventSession(
-                        $"Sarif-Driver-{Guid.NewGuid()}",
-                        globalContext.EventsFilePath);
+                    string etlFilePath = 
+                        Path.GetExtension(globalContext.EventsFilePath).Equals(".csv", StringComparison.OrdinalIgnoreCase)
+                            ? $"{Path.GetFileNameWithoutExtension(globalContext.EventsFilePath)}.etl"
+                            : globalContext.EventsFilePath;
+
+                    traceEventSession = new TraceEventSession($"Sarif-Driver-{Guid.NewGuid()}", etlFilePath);
 
                     Guid guid = EventSource.GetGuid(typeof(DriverEventSource));
                     traceEventSession.EnableProvider(guid);
@@ -210,6 +214,22 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             globalContext.Logger.AnalysisStopped(globalContext.RuntimeErrors);
             disposableLogger?.Dispose();
 
+            if (Path.GetExtension(globalContext.EventsFilePath).Equals(".csv", StringComparison.OrdinalIgnoreCase)) 
+            {
+                var dumpEventsCommand = new DumpEventsCommand();
+
+                var options = new DumpEventsOptions()
+                {
+                    EventsFilePath = $"{Path.GetFileNameWithoutExtension(globalContext.EventsFilePath)}.etl",
+                    CsvFilePath = globalContext.EventsFilePath,
+                };
+
+                Console.WriteLine(options);
+                Console.WriteLine("Dumping session events to CSV (this could take a while)...");
+                dumpEventsCommand.Run(options);
+                Console.WriteLine($"Events written to: {globalContext.EventsFilePath}");
+            }
+
             // Note that we don't clear the logger here. That is because the console
             // logger and any other custom loggers can still be useful for these operations.
             if ((globalContext.RuntimeErrors & ~RuntimeConditions.Nonfatal) == RuntimeConditions.None)
@@ -232,16 +252,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             context ??= new TContext();
             context.FileSystem ??= Sarif.FileSystem.Instance;
 
-            // First, we initialize data values that impact loggers, so that we can
-            // pass accurate values to the console logger.
             context.Quiet = options.Quiet != null ? options.Quiet.Value : context.Quiet;
-            context.ResultKinds = options.Kind != null ? options.ResultKinds : context.ResultKinds;
-            context.FailureLevels = options.Level != null ? options.FailureLevels : context.FailureLevels;
 
             // We initialize a temporary console logger that's used strictly to emit
             // diagnostics output while we load/initialize various configurations settings.
             IAnalysisLogger savedLogger = context.Logger;
-            context.Logger = new ConsoleLogger(quietConsole: true,
+            context.Logger = new ConsoleLogger(quietConsole: context.Quiet,
                                                levels: BaseLogger.ErrorWarningNote,
                                                kinds: BaseLogger.Fail,
                                                toolName: Tool.Driver.Name);
@@ -254,24 +270,28 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             // Now that our context if fully initialized, we can create
             // the actual loggers used to complete analysis.
             context.Logger = savedLogger;
+            context.ResultKinds = options.Kind != null ? options.ResultKinds : context.ResultKinds;
+            context.FailureLevels = options.Level != null ? options.FailureLevels : context.FailureLevels;
             context.Logger ??= InitializeLogger(context);
 
             // Finally, handle the remaining options.
-            context.Recurse = options.Recurse != null ? options.Recurse.Value : context.Recurse;
-            context.Threads = options.Threads > 0 ? options.Threads : context.Threads;
-            context.PostUri = options.PostUri != null ? options.PostUri : context.PostUri;
+
             context.AutomationId = options.AutomationId ?? context.AutomationId;
+            context.Threads = options.Threads > 0 ? options.Threads : context.Threads;
             context.AutomationGuid = options.AutomationGuid ?? context.AutomationGuid;
             context.OutputFilePath = options.OutputFilePath ?? context.OutputFilePath;
             context.EventsFilePath = options.EventsFilePath ?? context.EventsFilePath;
-            context.BaselineFilePath = options.BaselineFilePath != null ? options.BaselineFilePath : context.BaselineFilePath;
+            context.PostUri = options.PostUri != null ? options.PostUri : context.PostUri;
+            context.Recurse = options.Recurse != null ? options.Recurse.Value : context.Recurse;
             context.Traces = options.Trace != null ? InitializeStringSet(options.Trace) : context.Traces;
+            context.BaselineFilePath = options.BaselineFilePath != null ? options.BaselineFilePath : context.BaselineFilePath;
             context.DataToInsert = options.DataToInsert?.Any() == true ? options.DataToInsert.ToFlags() : context.DataToInsert;
             context.DataToRemove = options.DataToRemove?.Any() == true ? options.DataToRemove.ToFlags() : context.DataToRemove;
             context.OutputFileOptions = options.OutputFileOptions?.Any() == true ? options.OutputFileOptions.ToFlags() : context.OutputFileOptions;
-            context.MaxFileSizeInKilobytes = options.MaxFileSizeInKilobytes != null ? options.MaxFileSizeInKilobytes.Value : context.MaxFileSizeInKilobytes;
             context.PluginFilePaths = options.PluginFilePaths?.Any() == true ? options.PluginFilePaths?.ToImmutableHashSet() : context.PluginFilePaths;
             context.InsertProperties = options.InsertProperties?.Any() == true ? InitializeStringSet(options.InsertProperties) : context.InsertProperties;
+            context.GlobalFilePathDenyRegex = options.GlobalFilePathDenyRegex != null ? options.GlobalFilePathDenyRegex : context.GlobalFilePathDenyRegex;
+            context.MaxFileSizeInKilobytes = options.MaxFileSizeInKilobytes != null ? options.MaxFileSizeInKilobytes.Value : context.MaxFileSizeInKilobytes;
             context.TargetFileSpecifiers = options.TargetFileSpecifiers?.Any() == true ? InitializeStringSet(options.TargetFileSpecifiers) : context.TargetFileSpecifiers;
             context.InvocationPropertiesToLog = options.InvocationPropertiesToLog?.Any() == true ? InitializeStringSet(options.InvocationPropertiesToLog) : context.InvocationPropertiesToLog;
 
@@ -413,6 +433,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 Warnings.LogOneOrMoreFilesSkippedDueToExceedingSizeLimit(globalContext, _filesExceedingSizeLimitCount);
             }
 
+            if (_filesMatchingGlobalFileDenyRegex > 0)
+            {
+                string reason = "file path(s) matched the global file deny regex";
+                Warnings.LogOneOrMoreFilesSkipped(globalContext, _filesMatchingGlobalFileDenyRegex, reason);
+            }
+
             Console.WriteLine();
 
             string id;
@@ -526,7 +552,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                         }
                         globalContext.Logger.FileRegionsCache = cachingLogger.FileRegionsCache;
                         globalContext.Logger.Log(kv.Key, currentResult, tuple.Item2);
-                        DriverEventSource.Log.RuleFired(currentResult.Level, artifact.Uri.GetFilePath(), kv.Key.Id, kv.Key.Name);
                     }
                 }
             }
@@ -575,21 +600,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 readyToScanChannel.Writer.Complete();
             }
 
-            if (context.TargetsProvider.Skipped != null)
-            {
-                foreach (IEnumeratedArtifact artifact in context.TargetsProvider.Skipped)
-                {
-                    if (artifact.SizeInBytes > 0)
-                    {
-                        _filesExceedingSizeLimitCount++;
-                        Notes.LogFileExceedingSizeLimitSkipped(context, artifact.Uri.GetFilePath(), (long)artifact.SizeInBytes / 1000);
-                        continue;
-                    }
-
-                    Notes.LogEmptyFileSkipped(context, artifact.Uri.GetFilePath());
-                }
-            }
-
             if (_fileContextsCount == 0)
             {
                 Errors.LogNoValidAnalysisTargets(context);
@@ -606,16 +616,29 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 globalContext.CancellationToken.ThrowIfCancellationRequested();
 
                 string filePath = artifact.Uri.GetFilePath();
+
                 if (globalContext.CompiledGlobalFileDenyRegex?.Match(filePath).Success == true)
                 {
-                    string reason = "its file path matched the global file deny regex.";
+                    _filesMatchingGlobalFileDenyRegex++;
+                    DriverEventSource.Log.ArtifactNotScanned(filePath, DriverEventNames.FilePathDenied, artifact.SizeInBytes.Value, globalContext.GlobalFilePathDenyRegex);
+
+                    string reason = $"its file path matched the global file deny regex: {globalContext.GlobalFilePathDenyRegex}";
                     Notes.LogFileSkipped(globalContext, filePath, reason);
+                    continue;
+                }
+
+                if (artifact.SizeInBytes == 0)
+                {
+                    DriverEventSource.Log.ArtifactNotScanned(filePath, DriverEventNames.EmptyFile, 00, data2: null);
+                    Notes.LogEmptyFileSkipped(globalContext, filePath);
                     continue;
                 }
 
                 if (!IsTargetWithinFileSizeLimit(artifact.SizeInBytes.Value, globalContext.MaxFileSizeInKilobytes))
                 {
-                    Notes.LogFileExceedingSizeLimitSkipped(globalContext, artifact.Uri.GetFileName(), artifact.SizeInBytes.Value);
+                    _filesExceedingSizeLimitCount++;
+                    DriverEventSource.Log.ArtifactNotScanned(filePath, DriverEventNames.FileExceedsSizeLimits, artifact.SizeInBytes.Value , $"{globalContext.MaxFileSizeInKilobytes}");
+                    Notes.LogFileExceedingSizeLimitSkipped(globalContext, artifact.Uri.GetFilePath(), artifact.SizeInBytes.Value / 1000);
                     continue;
                 }
 
@@ -637,8 +660,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                     //
                     // This call needs to be protected with a lock as the actual
                     // logging occurs on a separated thread.
-
-                    DriverEventSource.Log.ArtifactSizeInBytes(artifact.SizeInBytes.Value, artifact.Uri.GetFilePath());
                     globalContext.Logger.AnalyzingTarget(fileContext);
                 }
 
@@ -1136,6 +1157,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
         public static void AnalyzeTargetHelper(TContext context, IEnumerable<Skimmer<TContext>> skimmers, ISet<string> disabledSkimmers)
         {
+            string filePath = context.CurrentTarget.Uri.GetFilePath();
+
+            // Fault in target contents so that we can time this operation.
+            DriverEventSource.Log.ReadArtifactStart(filePath);
+            context.CurrentTarget.Contents = context.CurrentTarget.Contents;
+            DriverEventSource.Log.ReadArtifactStop(filePath);
+
             foreach (Skimmer<TContext> skimmer in skimmers)
             {
                 context.CancellationToken.ThrowIfCancellationRequested();

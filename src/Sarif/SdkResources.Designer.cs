@@ -459,7 +459,7 @@ namespace Microsoft.CodeAnalysis.Sarif {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &apos;{1}&apos; was skipped as {2]..
+        ///   Looks up a localized string similar to &apos;{1}&apos; was skipped as {2}..
         /// </summary>
         public static string MSG002_FileSkipped {
             get {

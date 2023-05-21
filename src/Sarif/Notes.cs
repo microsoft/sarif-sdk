@@ -16,7 +16,6 @@ namespace Microsoft.CodeAnalysis.Sarif
         public const string Msg002_FileExceedingSizeLimitSkipped = "MSG002.FileExceedingSizeLimitSkipped";
 
 
-
         public static void LogFileSkipped(IAnalysisContext context, string skippedFile, string reason)
         {
             if (context == null)
@@ -24,13 +23,10 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentNullException(nameof(context));
             }
 
-            Uri uri = context.CurrentTarget.Uri;
-
-
             // '{1}' was skipped as {reason}.
             context.Logger.LogConfigurationNotification(
                 Errors.CreateNotification(
-                    uri,
+                    new Uri(skippedFile, UriKind.RelativeOrAbsolute),
                     Msg002_FileSkipped,
                     ruleId: null,
                     FailureLevel.Note,

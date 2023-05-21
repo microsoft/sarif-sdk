@@ -6,8 +6,8 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 
+using Microsoft.CodeAnalysis.Sarif.Driver.Sdk;
 using Microsoft.Diagnostics.Tracing;
-using Microsoft.Diagnostics.Tracing.Analysis;
 
 namespace Microsoft.CodeAnalysis.Sarif
 {
@@ -17,14 +17,15 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             string path = options.EventsFilePath;
 
-            Guid guid = Guid.NewGuid();
+            var guid = Guid.NewGuid();
             StreamWriter csvWriter = null;
 
+            Console.WriteLine($"Parsing events from {path} (this may take a while)...");
 
             if (!string.IsNullOrWhiteSpace(options.CsvFilePath))
             {
                 csvWriter = new StreamWriter(options.CsvFilePath);
-                csvWriter.WriteLine("SessionGuid,Timestamp,ThreadId,ProcessorId,EventName,TimeStampRelativeMSec,DurationMsec,FilePath,SizeInBytes,Level,RuleId,RuleName,Message");
+                csvWriter.WriteLine("SessionGuid,Timestamp,ThreadId,ProcessorId,EventName,TimeStampRelativeMSec,DurationMsec,FilePath,RuleId,RuleName,Data1,Data2,Message");
             }
 
             using (var source = new ETWTraceEventSource(path))
@@ -36,9 +37,9 @@ namespace Microsoft.CodeAnalysis.Sarif
                 TimeSpan timeSpentLoggingResults = default;
                 TimeSpan firstArtifactQueued = default;
 
-                ulong? sizeInBytes;
+                object data1, data2;
+
                 double? durationMsec;
-                FailureLevel? level;
                 string context, eventName, filePath, ruleId, ruleName;
 
                 var timingData = new Dictionary<StartStopKey, double>();
@@ -50,33 +51,30 @@ namespace Microsoft.CodeAnalysis.Sarif
                 {
                     eventName = traceEvent.EventName;
                     context = filePath = ruleId = ruleName = null;
-                    sizeInBytes = null;
-                    durationMsec = null;
-                    level = null;
-
-                    Guid correlationGuid = default;
+                    data2 = data1 = durationMsec = null;
 
                     if (traceEvent.Opcode == TraceEventOpcode.Start)
                     {
-                        correlationGuid = new Guid(traceEvent.ThreadID, 1, 5, 45, 23, 23, 3, 5, 5, 4, 5);
-                        startStopKey = new StartStopKey(traceEvent.ProviderGuid, traceEvent.Task, correlationGuid);
+                        string keyText = $"{traceEvent.PayloadByName(nameof(ruleId))}:{traceEvent.PayloadByName(nameof(ruleName))}:{traceEvent.ThreadID}";
+                        startStopKey = new StartStopKey(traceEvent.ProviderGuid, traceEvent.Task, keyText);
                         timingData.Add(startStopKey, traceEvent.TimeStampRelativeMSec);
                     }
 
                     if (traceEvent.Opcode == TraceEventOpcode.Stop)
                     {
-                        correlationGuid = new Guid(traceEvent.ThreadID, 1, 5, 45, 23, 23, 3, 5, 5, 4, 5);
-                        startStopKey = new StartStopKey(traceEvent.ProviderGuid, traceEvent.Task, correlationGuid);
+                        string keyText = $"{traceEvent.PayloadByName(nameof(ruleId))}:{traceEvent.PayloadByName(nameof(ruleName))}:{traceEvent.ThreadID}";
+                        startStopKey = new StartStopKey(traceEvent.ProviderGuid, traceEvent.Task, keyText);
                     }
 
-                    string formattedMessage = CsvEscape(traceEvent.FormattedMessage);
-
+                    string formattedMessage = traceEvent.FormattedMessage.CsvEscape();
+                    data1 = (string)traceEvent.PayloadByName(nameof(data1));
+                    data2 = (string)traceEvent.PayloadByName(nameof(data2));
                     switch (traceEvent.EventName)
                     {
-                        case "ArtifactSizeInBytes":
+                        case DriverEventNames.ArtifactNotScanned:
                         {
                             filePath = (string)traceEvent.PayloadByName(nameof(filePath));
-                            sizeInBytes = (ulong)traceEvent.PayloadByName(nameof(sizeInBytes));
+                            data1 = traceEvent.PayloadByName("sizeInBytes");
                             break;
                         }
 
@@ -146,13 +144,13 @@ namespace Microsoft.CodeAnalysis.Sarif
                             break;
                         }
 
-                        case "ReadArtifact/Start":
+                        case DriverEventNames.ReadArtifactStart:
                         {
                             filePath = (string)traceEvent.PayloadByName(nameof(filePath));
                             break;
                         }
 
-                        case "ReadArtifact/Stop":
+                        case DriverEventNames.ReadArtifactStop:
                         {
                             filePath = (string)traceEvent.PayloadByName(nameof(filePath));
 
@@ -164,7 +162,8 @@ namespace Microsoft.CodeAnalysis.Sarif
 
                         case "RuleFired":
                         {
-                            level = (FailureLevel)(uint)traceEvent.PayloadByName(nameof(level));
+                            data1 = (FailureLevel)(int)(uint)traceEvent.PayloadByName("level");
+                            data2 = traceEvent.PayloadByName("matchIdentifier");
                             ruleId = (string)traceEvent.PayloadByName(nameof(ruleId));
                             filePath = (string)traceEvent.PayloadByName(nameof(filePath));
                             ruleName = (string)traceEvent.PayloadByName(nameof(ruleName));
@@ -173,28 +172,31 @@ namespace Microsoft.CodeAnalysis.Sarif
 
                         case "RuleReserved0":
                         {
+                            eventName = (string)traceEvent.PayloadByName("context");
+
                             ruleId = (string)traceEvent.PayloadByName(nameof(ruleId));
                             filePath = (string)traceEvent.PayloadByName(nameof(filePath));
                             ruleName = (string)traceEvent.PayloadByName(nameof(ruleName));
-                            eventName = (string)traceEvent.PayloadByName("context");
                             break;
                         }
 
                         case "RuleReserved1/Start":
                         {
+                            eventName = $"{(string)traceEvent.PayloadByName("context")}/Start";
+
                             ruleId = (string)traceEvent.PayloadByName(nameof(ruleId));
                             filePath = (string)traceEvent.PayloadByName(nameof(filePath));
                             ruleName = (string)traceEvent.PayloadByName(nameof(ruleName));
-                            eventName = $"{(string)traceEvent.PayloadByName("context")}/Start";
                             break;
                         }
 
                         case "RuleReserved1/Stop":
                         {
+                            eventName = $"{(string)traceEvent.PayloadByName("context")}/Stop";
+
                             ruleId = (string)traceEvent.PayloadByName(nameof(ruleId));
                             filePath = (string)traceEvent.PayloadByName(nameof(filePath));
                             ruleName = (string)traceEvent.PayloadByName(nameof(ruleName));
-                            eventName = $"{(string)traceEvent.PayloadByName("context")}/Stop";
 
                             durationMsec = traceEvent.TimeStampRelativeMSec - timingData[startStopKey];
                             timingData.Remove(startStopKey);
@@ -267,11 +269,11 @@ namespace Microsoft.CodeAnalysis.Sarif
 
                     if (csvWriter != null)
                     {
-                        filePath = CsvEscape(filePath);
+                        filePath = filePath.CsvEscape();
                         csvWriter.WriteLine(
-                            $"{guid},{traceEvent.TimeStamp:MM/dd/yyyy hh:mm:ss.ffff}, {traceEvent.ThreadID},{traceEvent.ProcessorNumber}," +
-                            $"{eventName},{traceEvent.TimeStampRelativeMSec},{durationMsec}," +
-                            $"{filePath},{sizeInBytes},{level},{ruleId},{ruleName},{formattedMessage}");
+                            $"{guid},{traceEvent.TimeStamp:MM/dd/yyyy hh:mm:ss.ffff}, {traceEvent.ThreadID}," + 
+                            $"{traceEvent.ProcessorNumber},{eventName},{traceEvent.TimeStampRelativeMSec}," +
+                            $"{durationMsec},{filePath},{ruleId},{ruleName},{data1},{data2},{formattedMessage}");
                     }
                 };
 
@@ -294,6 +296,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
                 DumpCustomTimingData(artifactReservedTiming);
             }
+
             return 0;
         }
 
@@ -317,36 +320,54 @@ namespace Microsoft.CodeAnalysis.Sarif
             }
         }
 
-        private readonly static StringBuilder s_converted = new StringBuilder();
-        public static string CsvEscape(string value)
+        private static Guid GenerateGuidFromText(string name)
         {
-            if (string.IsNullOrEmpty(value)) { return string.Empty; }
-
-            s_converted.Clear();
-            s_converted.Append('"');
-
-            int copiedTo = 0;
-            while (true)
+            // The algorithm below is following the guidance of http://www.ietf.org/rfc/rfc4122.txt
+            // Create a blob containing a 16 byte number representing the namespace
+            // followed by the unicode bytes in the name.
+            byte[] bytes = new byte[name.Length * 2 + 16];
+            uint namespace1 = 0x482C2DB2;
+            uint namespace2 = 0xC39047c8;
+            uint namespace3 = 0x87F81A15;
+            uint namespace4 = 0xBFC130FB;
+            // Write the bytes most-significant byte first.
+            for (int i = 3; 0 <= i; --i)
             {
-                int nextQuote = value.IndexOf('"', copiedTo);
-                if (nextQuote == -1) { break; }
-
-                s_converted.Append(value, copiedTo, nextQuote - copiedTo + 1);
-                s_converted.Append('"');
-                copiedTo = nextQuote + 1;
+                bytes[i] = (byte)namespace1;
+                namespace1 >>= 8;
+                bytes[i + 4] = (byte)namespace2;
+                namespace2 >>= 8;
+                bytes[i + 8] = (byte)namespace3;
+                namespace3 >>= 8;
+                bytes[i + 12] = (byte)namespace4;
+                namespace4 >>= 8;
+            }
+            // Write out  the name, most significant byte first
+            for (int i = 0; i < name.Length; i++)
+            {
+                bytes[2 * i + 16 + 1] = (byte)name[i];
+                bytes[2 * i + 16] = (byte)(name[i] >> 8);
             }
 
-            if (copiedTo < value.Length) { s_converted.Append(value, copiedTo, value.Length - copiedTo); }
-            s_converted.Append('"');
+            // Compute the Sha1 hash
+            var sha1 = System.Security.Cryptography.SHA1.Create(); // lgtm [cs/weak-crypto]
+            byte[] hash = sha1.ComputeHash(bytes);
 
-            return s_converted.ToString();
+            // Create a GUID out of the first 16 bytes of the hash (SHA-1 create a 20 byte hash)
+            int a = (((((hash[3] << 8) + hash[2]) << 8) + hash[1]) << 8) + hash[0];
+            short b = (short)((hash[5] << 8) + hash[4]);
+            short c = (short)((hash[7] << 8) + hash[6]);
+
+            c = (short)((c & 0x0FFF) | 0x5000);   // Set high 4 bits of octet 7 to 5, as per RFC 4122
+            var guid = new Guid(a, b, c, hash[8], hash[9], hash[10], hash[11], hash[12], hash[13], hash[14], hash[15]);
+            return guid;
         }
 
         internal class StartStopKey : IEquatable<StartStopKey>
         {
-            public StartStopKey(Guid provider, TraceEventTask task, Guid activityID) { Provider = provider; this.task = task; ActivityId = activityID; }
+            public StartStopKey(Guid provider, TraceEventTask task, string activityID) { Provider = provider; this.task = task; ActivityId = activityID; }
             public Guid Provider;
-            public Guid ActivityId;
+            public string ActivityId;
             public TraceEventTask task;
 
             public override int GetHashCode()
