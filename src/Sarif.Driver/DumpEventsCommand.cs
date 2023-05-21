@@ -271,7 +271,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                     {
                         filePath = filePath.CsvEscape();
                         csvWriter.WriteLine(
-                            $"{guid},{traceEvent.TimeStamp:MM/dd/yyyy hh:mm:ss.ffff}, {traceEvent.ThreadID}," + 
+                            $"{guid},{traceEvent.TimeStamp:MM/dd/yyyy hh:mm:ss.ffff}, {traceEvent.ThreadID}," +
                             $"{traceEvent.ProcessorNumber},{eventName},{traceEvent.TimeStampRelativeMSec}," +
                             $"{durationMsec},{filePath},{ruleId},{ruleName},{data1},{data2},{formattedMessage}");
                     }

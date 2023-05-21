@@ -86,7 +86,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
                 if (!string.IsNullOrEmpty(globalContext.EventsFilePath))
                 {
-                    string etlFilePath = 
+                    string etlFilePath =
                         Path.GetExtension(globalContext.EventsFilePath).Equals(".csv", StringComparison.OrdinalIgnoreCase)
                             ? $"{Path.GetFileNameWithoutExtension(globalContext.EventsFilePath)}.etl"
                             : globalContext.EventsFilePath;
@@ -214,7 +214,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             globalContext.Logger.AnalysisStopped(globalContext.RuntimeErrors);
             disposableLogger?.Dispose();
 
-            if (Path.GetExtension(globalContext.EventsFilePath).Equals(".csv", StringComparison.OrdinalIgnoreCase)) 
+            if (Path.GetExtension(globalContext.EventsFilePath).Equals(".csv", StringComparison.OrdinalIgnoreCase))
             {
                 var dumpEventsCommand = new DumpEventsCommand();
 
@@ -637,7 +637,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 if (!IsTargetWithinFileSizeLimit(artifact.SizeInBytes.Value, globalContext.MaxFileSizeInKilobytes))
                 {
                     _filesExceedingSizeLimitCount++;
-                    DriverEventSource.Log.ArtifactNotScanned(filePath, DriverEventNames.FileExceedsSizeLimits, artifact.SizeInBytes.Value , $"{globalContext.MaxFileSizeInKilobytes}");
+                    DriverEventSource.Log.ArtifactNotScanned(filePath, DriverEventNames.FileExceedsSizeLimits, artifact.SizeInBytes.Value, $"{globalContext.MaxFileSizeInKilobytes}");
                     Notes.LogFileExceedingSizeLimitSkipped(globalContext, artifact.Uri.GetFilePath(), artifact.SizeInBytes.Value / 1000);
                     continue;
                 }

@@ -80,7 +80,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             get => this.Policy.GetProperty(GlobalFilePathDenyRegexProperty);
             set
             {
-                CompiledGlobalFileDenyRegex = string.IsNullOrEmpty(value )
+                CompiledGlobalFileDenyRegex = string.IsNullOrEmpty(value)
                     ? null
                     : new Regex(value, RegexOptions.IgnoreCase | RegexOptions.Compiled | RegexOptions.CultureInvariant | RegexOptions.ExplicitCapture);
 

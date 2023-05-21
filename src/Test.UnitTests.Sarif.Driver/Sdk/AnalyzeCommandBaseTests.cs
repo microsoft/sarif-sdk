@@ -45,7 +45,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             {
                 TargetFileSpecifiers = new List<string>(new[] { "*" })
             };
-        
+
             var testRule = new TestRule();
             var logger = new TestMessageLogger();
 
