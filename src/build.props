@@ -20,7 +20,9 @@
     <StableSarifVersion>2.1.0</StableSarifVersion>
 
     <AnalysisLevel>latest</AnalysisLevel>
-  </PropertyGroup>
+    <LangVersion>latest</LangVersion>
+
+    </PropertyGroup>
 
   <PropertyGroup Label="Build">
     <!--

@@ -17,6 +17,36 @@ namespace Microsoft.CodeAnalysis.Sarif
 {
     public static class SarifExtensions
     {
+        [ThreadStatic]
+        private static StringBuilder s_sb;
+
+        public static string CsvEscape(this string value)
+        {
+            if (string.IsNullOrEmpty(value)) { return string.Empty; }
+
+            s_sb ??= new StringBuilder();
+            s_sb.Clear();
+            s_sb.Append('"');
+
+            int copiedTo = 0;
+            while (true)
+            {
+                int nextQuote = value.IndexOf('"', copiedTo);
+                if (nextQuote == -1) { break; }
+
+                s_sb.Append(value, copiedTo, nextQuote - copiedTo + 1);
+                s_sb.Append('"');
+                copiedTo = nextQuote + 1;
+            }
+
+            if (copiedTo < value.Length) { s_sb.Append(value, copiedTo, value.Length - copiedTo); }
+            s_sb.Append('"');
+
+            string result = s_sb.ToString();
+            s_sb.Clear();
+            return result;
+        }
+
         public static RuntimeConditions Fatal(this RuntimeConditions conditions)
         {
             return conditions & ~RuntimeConditions.Nonfatal;

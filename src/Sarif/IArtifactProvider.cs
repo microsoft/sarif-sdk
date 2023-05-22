@@ -9,8 +9,6 @@ namespace Microsoft.CodeAnalysis.Sarif
     {
         IEnumerable<IEnumeratedArtifact> Artifacts { get; set; }
 
-        ICollection<IEnumeratedArtifact> Skipped { get; set; }
-
         IFileSystem FileSystem { get; set; }
     }
 }

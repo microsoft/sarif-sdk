@@ -43,7 +43,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                     ? FileSystem.FileReadAllText(Uri.LocalPath)
                     : null;
 
-                this.sizeInBytes = (ulong?)this.contents?.Length;
+                this.sizeInBytes = (long?)this.contents?.Length;
             }
             else
             {
@@ -56,9 +56,9 @@ namespace Microsoft.CodeAnalysis.Sarif
             return this.contents;
         }
 
-        public ulong? sizeInBytes;
+        public long? sizeInBytes;
 
-        public ulong? SizeInBytes
+        public long? SizeInBytes
         {
             get
             {
@@ -69,19 +69,19 @@ namespace Microsoft.CodeAnalysis.Sarif
 
                 if (this.contents != null)
                 {
-                    this.sizeInBytes = (ulong)this.contents.Length;
+                    this.sizeInBytes = (long)this.contents.Length;
                 }
                 else if (this.Stream != null)
                 {
-                    this.SizeInBytes = (ulong)this.Stream.Length;
+                    this.SizeInBytes = (long)this.Stream.Length;
                 }
                 else if (Uri!.IsAbsoluteUri && Uri!.IsFile)
                 {
-                    this.sizeInBytes = (ulong)FileSystem.FileInfoLength(Uri.LocalPath);
+                    this.sizeInBytes = (long)FileSystem.FileInfoLength(Uri.LocalPath);
                 }
                 else if (this.Contents != null)
                 {
-                    this.SizeInBytes = (ulong)this.Contents.Length;
+                    this.SizeInBytes = (long)this.Contents.Length;
                 }
 
                 return this.sizeInBytes;

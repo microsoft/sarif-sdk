@@ -13,6 +13,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         public const string Wrn997_InvalidTarget = "WRN997.InvalidTarget";
         public const string Wrn997_ObsoleteOption = "WRN997.ObsoleteOption";
         public const string Wrn997_ObsoleteOptionWithReplacement = "WRN997.ObsoleteOptionWithReplacement";
+        public const string Wrn997_OneOrMoreFilesSkipped = "WRN997.OneOrMoreFilesSkipped";
         public const string Wrn997_OneOrMoreFilesSkippedDueToExceedingSizeLimits = "WRN997.OneOrMoreFilesSkippedDueToExceedingSizeLimit";
 
         // (Non-catastrophic) conditions that result in rules disabling themselves.
@@ -21,6 +22,29 @@ namespace Microsoft.CodeAnalysis.Sarif
         // Warnings around conditions of potential concern. An explicitly disabled rule,
         // for example, might prevent an analysis run from meeting compliance goals.
         public const string Wrn999_RuleExplicitlyDisabled = "WRN999.RuleExplicitlyDisabled";
+
+        public static void LogOneOrMoreFilesSkipped(IAnalysisContext context, long skippedFilesCount, string reason)
+        {
+            if (context == null)
+            {
+                throw new ArgumentNullException(nameof(context));
+            }
+
+            // {0} file(s) were skipped for analysis as {1}.
+            context.Logger.LogConfigurationNotification(
+                Errors.CreateNotification(
+                    context.CurrentTarget?.Uri,
+                    Wrn997_OneOrMoreFilesSkipped,
+                    ruleId: null,
+                    FailureLevel.Warning,
+                    exception: null,
+                    persistExceptionStack: false,
+                    messageFormat: null,
+                    skippedFilesCount.ToString(),
+                    reason));
+
+            context.RuntimeErrors |= RuntimeConditions.OneOrMoreFilesSkipped;
+        }
 
         public static void LogOneOrMoreFilesSkippedDueToExceedingSizeLimit(IAnalysisContext context, long skippedFilesCount)
         {

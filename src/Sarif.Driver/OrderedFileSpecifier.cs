@@ -96,19 +96,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                     this.cancellationToken.ThrowIfCancellationRequested();
 
                     string fullFilePath = Path.Combine(directory, file);
-
-                    if (!IsTargetWithinFileSizeLimit(file, this.maxFileSizeInKilobytes, FileSystem, out long fileSizeInKb))
-                    {
-                        Skipped ??= new List<IEnumeratedArtifact>();
-                        Skipped.Add(new EnumeratedArtifact(FileSystem)
-                        {
-                            Uri = new Uri(fullFilePath, UriKind.Absolute),
-                        });
-                    }
-                    else
-                    {
-                        sortedFiles.Add(fullFilePath);
-                    }
+                    sortedFiles.Add(fullFilePath);
                 }
 
                 foreach (string file in sortedFiles)
@@ -119,17 +107,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                     };
                 }
             }
-        }
-
-        internal static bool IsTargetWithinFileSizeLimit(string path, long maxFileSizeInKB, IFileSystem fileSystem, out long fileSizeInKb)
-        {
-            fileSizeInKb = 0;
-            long size = fileSystem.FileInfoLength(path);
-            if (size == 0) { return false; };
-
-            size = Math.Min(long.MaxValue - 1023, size);
-            fileSizeInKb = (size + 1023) / 1024;
-            return fileSizeInKb <= maxFileSizeInKB;
         }
 
         private void EnqueueAllDirectories(Queue<string> queue, string directory)

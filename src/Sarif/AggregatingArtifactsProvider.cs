@@ -30,12 +30,6 @@ namespace Microsoft.CodeAnalysis.Sarif
                     {
                         yield return artifact;
                     }
-
-                    if (provider.Skipped != null)
-                    {
-                        Skipped ??= new List<IEnumeratedArtifact>();
-                        ((List<IEnumeratedArtifact>)Skipped).AddRange(provider.Skipped);
-                    }
                 }
             }
             set => throw new NotImplementedException();

@@ -46,6 +46,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 TargetFileSpecifiers = new List<string>(new[] { "*" })
             };
 
+            var testRule = new TestRule();
             var logger = new TestMessageLogger();
 
             var context = new TestAnalysisContext
@@ -664,6 +665,40 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             return run;
         }
 
+        [Fact]
+        [Trait(TestTraits.WindowsOnly, "true")]
+        public void AnalyzeCommand_EncodedPaths()
+        {
+            var logger = new MemoryStreamSarifLogger(dataToInsert: OptionallyEmittedData.Hashes);
+            var command = new TestMultithreadedAnalyzeCommand();
+            Uri uri = new Uri("/new folder/0%1%20%.txt", UriKind.Relative);
+
+            var target = new EnumeratedArtifact(FileSystem.Instance) { Uri = uri, Contents = "foo foo" };
+
+            var options = new TestAnalyzeOptions
+            {
+                PluginFilePaths = new[] { typeof(TestRule).Assembly.FullName },
+            };
+
+            var properties = new PropertiesDictionary();
+            properties.SetProperty(TestRule.Behaviors, TestRuleBehaviors.LogError);
+
+            var context = new TestAnalysisContext
+            {
+                TargetsProvider = new ArtifactProvider(new[] { target }),
+                DataToInsert = OptionallyEmittedData.Hashes,
+                Policy = properties,
+                Logger = logger,
+            };
+
+            int result = command.Run(options: null, ref context);
+            context.ValidateCommandExecution(result);
+
+            SarifLog sarifLog = logger.ToSarifLog();
+            sarifLog.Runs[0].Should().NotBeNull();
+            sarifLog.Runs[0].Results[0].Should().NotBeNull();
+            sarifLog.Runs[0].Results.Count.Should().Be(1);
+        }
 
         [Fact]
         [Trait(TestTraits.WindowsOnly, "true")]

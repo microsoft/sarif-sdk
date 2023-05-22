@@ -38,8 +38,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 Logger = logger,
                 TargetsProvider = new ArtifactProvider(FileSystem.Instance)
                 {
-                    Artifacts = new EnumeratedArtifact[] { oneCharacterFile },
-                    Skipped = new[] { emptyFile },
+                    Artifacts = new EnumeratedArtifact[] { oneCharacterFile, emptyFile },
                 },
                 FailureLevels = BaseLogger.ErrorWarningNote,
                 ResultKinds = BaseLogger.Fail,

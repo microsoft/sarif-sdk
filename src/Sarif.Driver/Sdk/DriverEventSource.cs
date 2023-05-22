@@ -1,6 +1,7 @@
 ﻿// Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License.
 
+using System;
 using System.Diagnostics.Tracing;
 
 namespace Microsoft.CodeAnalysis.Sarif.Driver
@@ -14,184 +15,195 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
     {
         public static DriverEventSource Log = new DriverEventSource();
 
-        [Event((int)DriverEvent.FirstArtifactQueued, Message = "The first artifact was put in the scan queue: {0}")]
+        public const string None = "[None]";
+
+        [Event((int)DriverEventId.FirstArtifactQueued, Message = "The first artifact was put in the scan queue: {0}")]
         public void FirstArtifactQueued(string filePath)
         {
             if (this.IsEnabled())
             {
-                WriteEvent((int)DriverEvent.FirstArtifactQueued, filePath);
+                WriteEvent((int)DriverEventId.FirstArtifactQueued, filePath);
             }
         }
 
-        [Event((int)DriverEvent.ReadArtifactStart, Message = "Get contents: {0}")]
+        [Event((int)DriverEventId.ArtifactNotScanned, Message = "Artifact was not scanned ({1}): {0}")]
+        public void ArtifactNotScanned(string filePath, string reason, long sizeInBytes, string data2)
+        {
+            if (this.IsEnabled())
+            {
+                WriteEvent((int)DriverEventId.ArtifactNotScanned, filePath, reason, sizeInBytes, data2 ?? None);
+            }
+        }
+
+        [Event((int)DriverEventId.ReadArtifactStart, Message = "Read artifact: {0}")]
         public void ReadArtifactStart(string filePath)
         {
             if (this.IsEnabled())
             {
-                WriteEvent((int)DriverEvent.ReadArtifactStart, filePath);
+                WriteEvent((int)DriverEventId.ReadArtifactStart, filePath);
             }
         }
 
-        [Event((int)DriverEvent.ReadArtifactStop, Message = "Contents retrieved: {0}")]
+        [Event((int)DriverEventId.ReadArtifactStop, Message = "Artifact retrieved: {0}")]
         public void ReadArtifactStop(string filePath)
         {
             if (this.IsEnabled())
             {
-                WriteEvent((int)DriverEvent.ReadArtifactStop, filePath);
+                WriteEvent((int)DriverEventId.ReadArtifactStop, filePath);
             }
         }
 
-        [Event((int)DriverEvent.ScanArtifactStart, Message = "Scan start: {0}")]
-        public void ScanArtifactStart(string filePath, ulong sizeInBytes)
+        [Event((int)DriverEventId.ScanArtifactStart, Message = "Scan start: {0}")]
+        public void ScanArtifactStart(string filePath, long sizeInBytes)
         {
             if (this.IsEnabled())
             {
-                WriteEvent((int)DriverEvent.ScanArtifactStart, filePath, sizeInBytes);
+                WriteEvent((int)DriverEventId.ScanArtifactStart, filePath, sizeInBytes);
             }
         }
 
-        [Event((int)DriverEvent.ScanArtifactStop, Message = "Scan stop: {0}")]
-        public void ScanArtifactStop(string filePath, ulong sizeInBytes)
+        [Event((int)DriverEventId.ScanArtifactStop, Message = "Scan stop: {0}")]
+        public void ScanArtifactStop(string filePath, long sizeInBytes)
         {
             if (this.IsEnabled())
             {
-                WriteEvent((int)DriverEvent.ScanArtifactStop, filePath, sizeInBytes);
+                WriteEvent((int)DriverEventId.ScanArtifactStop, filePath, sizeInBytes);
             }
         }
 
-        [Event((int)DriverEvent.RuleStart, Message = "'{1}.{2}' start: {0}", Keywords = Keywords.Rules, Level = EventLevel.Verbose)]
+        [Event((int)DriverEventId.RuleNotCalled, Message = "'{1}.{2}' not called for artifact ({1} : {2}): {0}")]
+        public void RuleNotCalled(string filePath, string ruleId, string ruleName, string data1, string data2)
+        {
+            if (this.IsEnabled())
+            {
+                WriteEvent((int)DriverEventId.RuleNotCalled, filePath, ruleId, ruleName, data1 ?? None, data2 ?? None);
+            }
+        }
+
+        [Event((int)DriverEventId.RuleStart, Message = "'{1}.{2}' start: {0}", Keywords = Keywords.Rules, Level = EventLevel.Verbose)]
         public void RuleStart(string filePath, string ruleId, string ruleName)
         {
             if (this.IsEnabled())
             {
-                WriteEvent((int)DriverEvent.RuleStart, filePath, ruleId, ruleName);
+                WriteEvent((int)DriverEventId.RuleStart, filePath, ruleId, ruleName);
             }
         }
 
-        [Event((int)DriverEvent.RuleStop, Message = "'{1}.{2}' stop: {0}", Keywords = Keywords.Rules)]
+        [Event((int)DriverEventId.RuleStop, Message = "'{1}.{2}' stop: {0}", Keywords = Keywords.Rules)]
         public void RuleStop(string filePath, string ruleId, string ruleName)
         {
             if (this.IsEnabled())
             {
-                WriteEvent((int)DriverEvent.RuleStop, filePath, ruleId, ruleName);
+                WriteEvent((int)DriverEventId.RuleStop, filePath, ruleId, ruleName);
             }
         }
 
-        [Event((int)DriverEvent.RuleFired, Message = "'{1}.{2}' fired with severity '{3}': {0}", Keywords = Keywords.Rules)]
-        public void RuleFired(FailureLevel level, string filePath, string ruleId, string ruleName)
+        [Event((int)DriverEventId.RuleFired, Message = "'{1}.{2}' fired with severity '{3}': {0}", Keywords = Keywords.Rules)]
+        public void RuleFired(string filePath, string ruleId, string ruleName, FailureLevel level, string matchIdentifier = null)
         {
             if (this.IsEnabled())
             {
-                WriteEvent((int)DriverEvent.RuleFired, level, filePath, ruleId, ruleName);
+                WriteEvent((int)DriverEventId.RuleFired, filePath, ruleId, ruleName, level, matchIdentifier);
             }
         }
 
-        [Event((int)DriverEvent.ArtifactSizeInBytes, Message = "{0} : size {1} bytes.")]
-        public void ArtifactSizeInBytes(ulong sizeInBytes, string filePath)
-        {
-            if (this.IsEnabled())
-            {
-                WriteEvent((int)DriverEvent.ArtifactSizeInBytes, sizeInBytes, filePath);
-            }
-        }
-
-        [Event((int)DriverEvent.EnumerateArtifactsStart, Message = "Artifact enumeration started.")]
+        [Event((int)DriverEventId.EnumerateArtifactsStart, Message = "Artifact enumeration started.")]
         public void EnumerateArtifactsStart()
         {
             if (this.IsEnabled())
             {
-                WriteEvent((int)DriverEvent.EnumerateArtifactsStart);
+                WriteEvent((int)DriverEventId.EnumerateArtifactsStart);
             }
         }
 
-        [Event((int)DriverEvent.EnumerateArtifactsStop, Message = "Artifact enumeration stopped.")]
+        [Event((int)DriverEventId.EnumerateArtifactsStop, Message = "Artifact enumeration stopped.")]
         public void EnumerateArtifactsStop()
         {
             if (this.IsEnabled())
             {
-                WriteEvent((int)DriverEvent.EnumerateArtifactsStop);
+                WriteEvent((int)DriverEventId.EnumerateArtifactsStop);
             }
         }
 
-        [Event((int)DriverEvent.LogResultsStart, Message = "Logging artifact results started.")]
+        [Event((int)DriverEventId.LogResultsStart, Message = "Logging artifact results started.")]
         public void LogResultsStart()
         {
             if (this.IsEnabled())
             {
-                WriteEvent((int)DriverEvent.LogResultsStart);
+                WriteEvent((int)DriverEventId.LogResultsStart);
             }
         }
 
-        [Event((int)DriverEvent.LogResultsStop, Message = "Logging artifact results stopped.")]
+        [Event((int)DriverEventId.LogResultsStop, Message = "Logging artifact results stopped.")]
         public void LogResultsStop()
         {
             if (this.IsEnabled())
             {
-                WriteEvent((int)DriverEvent.LogResultsStop);
+                WriteEvent((int)DriverEventId.LogResultsStop);
 
             }
         }
 
-        [Event((int)DriverEvent.ArtifactReserved0, Message = "{2}")]
-        public void ArtifactReserved0(string context, string filePath, string message)
+        [Event((int)DriverEventId.ArtifactReserved0, Message = "{2}: {1}")]
+        public void ArtifactReserved0(string context, string filePath, string data1, string data2)
         {
             if (this.IsEnabled())
             {
-                WriteEvent((int)DriverEvent.ArtifactReserved0, context, filePath, message);
+                WriteEvent((int)DriverEventId.ArtifactReserved0, context, filePath, data1 ?? None, data2 ?? None);
             }
         }
 
-        [Event((int)DriverEvent.ArtifactReserved1Start, Message = "{0} started: {1}")]
-        public void ArtifactReserved1Start(string context, string filePath)
+        [Event((int)DriverEventId.ArtifactReserved1Start, Message = "{0} started: {1}")]
+        public void ArtifactReserved1Start(string context, string filePath, string data1, string data2)
         {
             if (this.IsEnabled())
             {
-                WriteEvent((int)DriverEvent.ArtifactReserved1Start, context, filePath);
+                WriteEvent((int)DriverEventId.ArtifactReserved1Start, context, filePath, data1 ?? None, data2 ?? None);
             }
         }
 
-        [Event((int)DriverEvent.ArtifactReserved1Stop, Message = "'{0}' stopped: {1}")]
-        public void ArtifactReserved1Stop(string context, string filePath)
+        [Event((int)DriverEventId.ArtifactReserved1Stop, Message = "'{0}' stopped: {1}")]
+        public void ArtifactReserved1Stop(string context, string filePath, string data1, string data2)
         {
             if (this.IsEnabled())
             {
-                WriteEvent((int)DriverEvent.ArtifactReserved1Stop, context, filePath);
+                WriteEvent((int)DriverEventId.ArtifactReserved1Stop, context, filePath, data1 ?? None, data2 ?? None);
             }
         }
 
-        [Event((int)DriverEvent.RuleReserved0, Message = "{2}", Keywords = Keywords.Rules)]
-        public void RuleReserved0(string context, string filePath, string message)
+        [Event((int)DriverEventId.RuleReserved0, Message = "'{2}.{3}' '{0}' ({4} : {5}) started: {1}", Keywords = Keywords.Rules)]
+        public void RuleReserved0(string context, string filePath, string ruleId, string ruleName, string data1, string data2)
         {
             if (this.IsEnabled())
             {
-                WriteEvent((int)DriverEvent.RuleReserved0, context, filePath, message);
+                WriteEvent((int)DriverEventId.RuleReserved0, context, filePath, ruleId, ruleName, data1 ?? None, data2 ?? None);
             }
         }
 
-        [Event((int)DriverEvent.RuleReserved1Start, Message = "'{2}.{3}' '{0}' started: {1}", Keywords = Keywords.Rules)]
-        public void RuleReserved1Start(string context, string filePath, string ruleId, string ruleName)
+        [Event((int)DriverEventId.RuleReserved1Start, Message = "'{2}.{3}' '{0}' ({4} : {5}) started: {1}", Keywords = Keywords.Rules)]
+        public void RuleReserved1Start(string context, string filePath, string ruleId, string ruleName, string data1, string data2)
         {
             if (this.IsEnabled())
             {
-                WriteEvent((int)DriverEvent.RuleReserved1Start, context, filePath, ruleId, ruleName);
+                WriteEvent((int)DriverEventId.RuleReserved1Start, context, filePath, ruleId, ruleName, data1 ?? None, data2 ?? None);
             }
         }
 
-        [Event((int)DriverEvent.RuleReserved1Stop, Message = "'{2}.{3}' '{0}' stopped: {1}", Keywords = Keywords.Rules)]
-        public void RuleReserved1Stop(string context, string filePath, string ruleId, string ruleName)
+        [Event((int)DriverEventId.RuleReserved1Stop, Message = "'{2}.{3}' '{0}' ({4} : {5}) stopped: {1}", Keywords = Keywords.Rules)]
+        public void RuleReserved1Stop(string context, string filePath, string ruleId, string ruleName, string data1, string data2)
         {
             if (this.IsEnabled())
             {
-                WriteEvent((int)DriverEvent.RuleReserved1Stop, context, filePath, ruleId, ruleName);
+                WriteEvent((int)DriverEventId.RuleReserved1Stop, context, filePath, ruleId, ruleName, data1 ?? None, data2 ?? None);
             }
         }
 
-        [Event((int)DriverEvent.SessionEnded, Message = "Session ended.")]
+        [Event((int)DriverEventId.SessionEnded, Message = "Session ended.")]
         public void SessionEnded()
         {
             if (this.IsEnabled())
             {
-                WriteEvent((int)DriverEvent.SessionEnded);
+                WriteEvent((int)DriverEventId.SessionEnded);
             }
         }
 

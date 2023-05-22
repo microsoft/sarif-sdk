@@ -3,8 +3,8 @@
 
 using System;
 using System.Collections.Generic;
-using System.Collections.Immutable;
 using System.Diagnostics;
+using System.Text.RegularExpressions;
 using System.Threading;
 
 namespace Microsoft.CodeAnalysis.Sarif
@@ -28,7 +28,9 @@ namespace Microsoft.CodeAnalysis.Sarif
                 BaselineFilePathProperty,
                 DataToInsertProperty,
                 DataToRemoveProperty,
+                EventsFilePathProperty,
                 FailureLevelsProperty,
+                GlobalFilePathDenyRegexProperty,
                 MaxFileSizeInKilobytesProperty,
                 OutputFileOptionsProperty,
                 OutputFilePathProperty,
@@ -71,6 +73,21 @@ namespace Microsoft.CodeAnalysis.Sarif
         public bool PrettyPrint => OutputFileOptions.HasFlag(FilePersistenceOptions.PrettyPrint);
         public bool ForceOverwrite => OutputFileOptions.HasFlag(FilePersistenceOptions.ForceOverwrite);
 
+        public Regex CompiledGlobalFileDenyRegex { get; set; }
+
+        public string GlobalFilePathDenyRegex
+        {
+            get => this.Policy.GetProperty(GlobalFilePathDenyRegexProperty);
+            set
+            {
+                CompiledGlobalFileDenyRegex = string.IsNullOrEmpty(value)
+                    ? null
+                    : new Regex(value, RegexOptions.IgnoreCase | RegexOptions.Compiled | RegexOptions.CultureInvariant | RegexOptions.ExplicitCapture);
+
+                this.Policy.SetProperty(GlobalFilePathDenyRegexProperty, value);
+            }
+        }
+
         public virtual ISet<string> PluginFilePaths
         {
             get => this.Policy.GetProperty(PluginFilePathsProperty);
@@ -88,6 +105,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             get => this.Policy.GetProperty(AutomationGuidProperty);
             set => this.Policy.SetProperty(AutomationGuidProperty, value);
         }
+
         public virtual string AutomationId
         {
             get => this.Policy.GetProperty(AutomationIdProperty);
@@ -322,5 +340,11 @@ namespace Microsoft.CodeAnalysis.Sarif
                 "Count of threads to use in any parallel execution context. Defaults to '1' when " +
                 "the debugger is attached, otherwise is set to the environment processor count. " +
                 "Negative values are interpreted as '1'.");
+
+        public static PerLanguageOption<string> GlobalFilePathDenyRegexProperty { get; } =
+                    new PerLanguageOption<string>(
+                        "CoreSettings", nameof(GlobalFilePathDenyRegex), defaultValue: () => string.Empty,
+                        "An optional regex that can be used to filter unwanted files or directories from analysis, " +
+                        "e.g.: (?i)\\.(?:bmp|dll|exe|gif|jpe?g|lock|pack|png|psd|tar\\.gz|tiff?|ttf|xcf|zip)$");
     }
 }

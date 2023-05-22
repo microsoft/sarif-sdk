@@ -23,8 +23,6 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         public virtual IEnumerable<IEnumeratedArtifact> Artifacts { get; set; }
 
-        public ICollection<IEnumeratedArtifact> Skipped { get; set; }
-
         public IFileSystem FileSystem { get; set; }
     }
 
@@ -115,7 +113,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             set => throw new NotImplementedException();
         }
 
-        public ulong? SizeInBytes
+        public long? SizeInBytes
         {
             get
             {
@@ -123,9 +121,9 @@ namespace Microsoft.CodeAnalysis.Sarif
                 {
                     if (Stream != null)
                     {
-                        return (ulong)Stream.Length;
+                        return (long)Stream.Length;
                     }
-                    return (ulong)this.contents.Length;
+                    return (long)this.contents.Length;
                 }
             }
             set => throw new NotImplementedException();

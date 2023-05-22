@@ -441,11 +441,29 @@ namespace Microsoft.CodeAnalysis.Sarif {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to &apos;{1}&apos; was skipped as it is zero bytes in size..
+        /// </summary>
+        public static string MSG002_EmptyFileSkipped1 {
+            get {
+                return ResourceManager.GetString("MSG002.EmptyFileSkipped1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to &apos;{1}&apos; was not analyzed as its size ({2} kilobytes) exceeds the currently configured threshold ({3} kilobytes)..
         /// </summary>
         public static string MSG002_FileExceedingSizeLimitSkipped {
             get {
                 return ResourceManager.GetString("MSG002.FileExceedingSizeLimitSkipped", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &apos;{1}&apos; was skipped as {2}..
+        /// </summary>
+        public static string MSG002_FileSkipped {
+            get {
+                return ResourceManager.GetString("MSG002.FileSkipped", resourceCulture);
             }
         }
         
@@ -590,6 +608,15 @@ namespace Microsoft.CodeAnalysis.Sarif {
         public static string WRN997_ObsoleteOptionWithReplacement {
             get {
                 return ResourceManager.GetString("WRN997_ObsoleteOptionWithReplacement", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} file(s) were skipped for analysis as {1}..
+        /// </summary>
+        public static string WRN997_OneOrMoreFilesSkipped {
+            get {
+                return ResourceManager.GetString("WRN997_OneOrMoreFilesSkipped", resourceCulture);
             }
         }
         
