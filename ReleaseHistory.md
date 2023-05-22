@@ -1,5 +1,6 @@
 # SARIF Package Release History (SDK, Driver, Converters, and Multitool)
 ## **v4.2.0** UNRELEASED
+* BRK: Change `ArtifactProvicer.SizeInBytes` property type from `ulong` to `long`. [#2675](https://github.com/microsoft/sarif-sdk/pull/2675)
 * BRK: Update `SarifLog.Post(Uri, StreamWriter, HttpClient)` return value to `HttpResponseMessage` (to make returned correlation id and error messages available). [#2672](https://github.com/microsoft/sarif-sdk/pull/2672)
 * BRK: `RuntimeConditions` now of type `long` to permit more flag values. Many literal values have changed for individual members. [#2660](https://github.com/microsoft/sarif-sdk/pull/2660)
 * BRK: `RuntimeConditions.OneOrMoreFilesSkippedDueToSize` renamed to `OneOrMoreFilesSkippedDueToExceedingSizeLimits`. [#2660](https://github.com/microsoft/sarif-sdk/pull/2660)
@@ -26,6 +27,7 @@
 * BUG: Generate `IAnalysisLogger.AnalyzingTarget` callbacks from `MulthreadedAnalyzeCommandBase`. [#2637](https://github.com/microsoft/sarif-sdk/pull/2637)
 * BUG: Persist `fileRegionsCache` parameter in `SarifLogger` to support retrieving hash data. [#2639](https://github.com/microsoft/sarif-sdk/pull/2639)
 * BUG: Allow override of `FailureLevels` and `ResultKinds` in context objects. [#2639](https://github.com/microsoft/sarif-sdk/pull/2639)
+* NEW: Add general `Notes.LogFileSkipped` notification mechanism for any skipped files. [#2675](https://github.com/microsoft/sarif-sdk/pull/2675)
 * NEW: Add 50K files to analysis channel (rather than previous value of 25k). Smooths performance analyzing many small artifacts. [#2674](https://github.com/microsoft/sarif-sdk/pull/2674)
 * NEW: Provide new ETW telemetry for runtime behavior, provider `SarifDriver`, guid `c84480b4-a77f-421f-8a11-48210c1724d4`. https://github.com/microsoft/sarif-sdk/pull/2668
 * NEW: Provide convenience enumerator at the `SarifLog` level that iterates over all results in all runs in the log. [#2660](https://github.com/microsoft/sarif-sdk/pull/2660)
