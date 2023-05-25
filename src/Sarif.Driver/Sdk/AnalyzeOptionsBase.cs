@@ -68,7 +68,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             HelpText = "Emit a 'rich' return code consisting of a bitfield of conditions (as opposed to 0 or 1 indicating success or failure.")]
         public bool? RichReturnCode { get; set; }
 
-        private IEnumerable<string> trace;
         [Option(
             "trace",
             Separator = ';',
@@ -76,25 +75,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             HelpText = "Execution traces, expressed as a semicolon-delimited list enclosed in double quotes, that " +
                        "should be emitted to the console and log file (if appropriate). " +
                        "Valid values: ScanTime.")]
-        public IEnumerable<string> Trace
-        {
-            get => this.trace;
-            set => this.trace = value?.Count() > 0 ? value : null;
-        }
-
-        private DefaultTraces? defaultTraces;
-        public DefaultTraces Traces
-        {
-            get
-            {
-                defaultTraces ??=
-                    this.Trace.Any()
-                        ? (DefaultTraces)Enum.Parse(typeof(DefaultTraces), string.Join(",", this.Trace))
-                        : DefaultTraces.None;
-
-                return this.defaultTraces.Value;
-            }
-        }
+        public IEnumerable<string> Trace { get; set; } = Array.Empty<string>();
 
         private IEnumerable<FailureLevel> level;
         [Option(
