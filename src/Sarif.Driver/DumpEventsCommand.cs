@@ -4,8 +4,8 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Text;
 
+using Microsoft.CodeAnalysis.Sarif.Driver;
 using Microsoft.CodeAnalysis.Sarif.Driver.Sdk;
 using Microsoft.Diagnostics.Tracing;
 
@@ -34,7 +34,9 @@ namespace Microsoft.CodeAnalysis.Sarif
                 TimeSpan timeSpentEnumeratingArtifacts = default;
                 TimeSpan timeSpentReadingArtifacts = default;
                 TimeSpan timeSpentScanningArtifacts = default;
+                TimeSpan timeSpentRunningRules = default;
                 TimeSpan timeSpentLoggingResults = default;
+                TimeSpan overallSessionTime = default;
                 TimeSpan firstArtifactQueued = default;
 
                 object data1, data2;
@@ -45,7 +47,10 @@ namespace Microsoft.CodeAnalysis.Sarif
                 var timingData = new Dictionary<StartStopKey, double>();
                 StartStopKey startStopKey = default;
 
+                var ruleReservedTiming = new Dictionary<string, double>();
                 var artifactReservedTiming = new Dictionary<string, double>();
+
+                var skippedArtifacts = new Dictionary<string, Tuple<long, long, string>>();
 
                 source.Dynamic.All += delegate (TraceEvent traceEvent)
                 {
@@ -67,14 +72,23 @@ namespace Microsoft.CodeAnalysis.Sarif
                     }
 
                     string formattedMessage = traceEvent.FormattedMessage.CsvEscape();
+                    
                     data1 = (string)traceEvent.PayloadByName(nameof(data1));
                     data2 = (string)traceEvent.PayloadByName(nameof(data2));
+
                     switch (traceEvent.EventName)
                     {
                         case DriverEventNames.ArtifactNotScanned:
                         {
                             filePath = (string)traceEvent.PayloadByName(nameof(filePath));
+                            string reason = (string)traceEvent.PayloadByName("reason"); 
                             data1 = traceEvent.PayloadByName("sizeInBytes");
+
+                            skippedArtifacts.TryGetValue(reason, out Tuple<long, long, string> tuple);
+                            tuple ??= new Tuple<long, long, string>(0, 0, null);
+
+                            tuple = new Tuple<long, long, string>(tuple.Item1 + 1, tuple.Item2 + (long)data1, (string)data2);
+                            skippedArtifacts[reason] = tuple;
                             break;
                         }
 
@@ -97,7 +111,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                         {
                             context = (string)traceEvent.PayloadByName("context");
                             filePath = (string)traceEvent.PayloadByName(nameof(filePath));
-                            eventName = $"{context}/Start";
+                            eventName = $"{context}/Stop";
 
                             durationMsec = traceEvent.TimeStampRelativeMSec - timingData[startStopKey];
                             timingData.Remove(startStopKey);
@@ -107,13 +121,13 @@ namespace Microsoft.CodeAnalysis.Sarif
                             break;
                         }
 
-                        case "EnumerateArtifacts/Start":
+                        case DriverEventNames.EnumerateArtifactsStart:
                         {
                             enumerateArtifactsStartMSec = traceEvent.TimeStampRelativeMSec;
                             break;
                         }
 
-                        case "EnumerateArtifacts/Stop":
+                        case DriverEventNames.EnumerateArtifactsStop:
                         {
                             timeSpentEnumeratingArtifacts = TimeSpan.FromMilliseconds(
                                 traceEvent.TimeStampRelativeMSec - enumerateArtifactsStartMSec);
@@ -153,10 +167,18 @@ namespace Microsoft.CodeAnalysis.Sarif
                         case DriverEventNames.ReadArtifactStop:
                         {
                             filePath = (string)traceEvent.PayloadByName(nameof(filePath));
+                            data1 = traceEvent.PayloadByName("sizeInBytes");
 
                             durationMsec = traceEvent.TimeStampRelativeMSec - timingData[startStopKey];
                             timeSpentReadingArtifacts = TimeSpan.FromMilliseconds(timeSpentReadingArtifacts.TotalMilliseconds + durationMsec.Value);
                             timingData.Remove(startStopKey);
+
+                            skippedArtifacts.TryGetValue(DriverEventNames.Scanned, out Tuple<long, long, string> tuple);
+                            tuple ??= new Tuple<long, long, string>(0, 0, null);
+                            
+                            tuple = new Tuple<long, long, string>(tuple.Item1 + 1, tuple.Item2 + (long)data1, (string)data2);
+                            skippedArtifacts[DriverEventNames.Scanned] = tuple;
+
                             break;
                         }
 
@@ -192,7 +214,8 @@ namespace Microsoft.CodeAnalysis.Sarif
 
                         case "RuleReserved1/Stop":
                         {
-                            eventName = $"{(string)traceEvent.PayloadByName("context")}/Stop";
+                            context = $"{(string)traceEvent.PayloadByName("context")}";
+                            eventName = $"{context}/Stop";
 
                             ruleId = (string)traceEvent.PayloadByName(nameof(ruleId));
                             filePath = (string)traceEvent.PayloadByName(nameof(filePath));
@@ -200,6 +223,10 @@ namespace Microsoft.CodeAnalysis.Sarif
 
                             durationMsec = traceEvent.TimeStampRelativeMSec - timingData[startStopKey];
                             timingData.Remove(startStopKey);
+
+                            ruleReservedTiming.TryGetValue(context, out double timingValue);
+                            ruleReservedTiming[context] = timingValue + durationMsec.Value;
+
                             break;
                         }
 
@@ -218,19 +245,22 @@ namespace Microsoft.CodeAnalysis.Sarif
                             ruleName = (string)traceEvent.PayloadByName(nameof(ruleName));
 
                             durationMsec = traceEvent.TimeStampRelativeMSec - timingData[startStopKey];
+                            timeSpentRunningRules = TimeSpan.FromMilliseconds(timeSpentRunningRules.TotalMilliseconds + durationMsec.Value);
                             timingData.Remove(startStopKey);
                             break;
                         }
 
-                        case "ScanArtifact/Start":
+                        case DriverEventNames.ScanArtifactStart:
                         {
                             filePath = (string)traceEvent.PayloadByName(nameof(filePath));
+                            data1 = traceEvent.PayloadByName("sizeInBytes");
                             break;
                         }
 
-                        case "ScanArtifact/Stop":
+                        case DriverEventNames.ScanArtifactStop:
                         {
                             filePath = (string)traceEvent.PayloadByName(nameof(filePath));
+                            data1 = traceEvent.PayloadByName("sizeInBytes");
 
                             durationMsec = traceEvent.TimeStampRelativeMSec - timingData[startStopKey];
                             timeSpentScanningArtifacts = TimeSpan.FromMilliseconds(timeSpentScanningArtifacts.TotalMilliseconds + durationMsec.Value);
@@ -258,6 +288,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
                         case "SessionEnded":
                         {
+                            overallSessionTime = TimeSpan.FromMilliseconds(traceEvent.TimeStampRelativeMSec);
                             break;
                         }
 
@@ -280,8 +311,15 @@ namespace Microsoft.CodeAnalysis.Sarif
                 source.Process();
                 csvWriter?.Dispose();
 
+                Console.WriteLine($@"Overall time elapsed: {overallSessionTime}");
+                Console.WriteLine();
+
+                DumpSkippedArtifacts(skippedArtifacts);
+
                 Console.WriteLine($@"Time elapsed until    : First artifact queued for analysis : {firstArtifactQueued}");
                 Console.WriteLine($@"Time elapsed until    : Artifact enumeration completed     : {timeSpentEnumeratingArtifacts}");
+                Console.WriteLine($@"Time elapsed          : Session ended                      : {overallSessionTime}");
+
                 Console.WriteLine();
 
                 double ms =
@@ -294,10 +332,65 @@ namespace Microsoft.CodeAnalysis.Sarif
                 Console.WriteLine($@"Aggregated time spent : Logging results    : {string.Format("{0,6:P}", timeSpentLoggingResults.TotalMilliseconds / ms)} : {timeSpentLoggingResults}");
                 Console.WriteLine();
 
+
                 DumpCustomTimingData(artifactReservedTiming);
+                DumpCustomTimingData(ruleReservedTiming);
             }
 
             return 0;
+        }
+
+        private void DumpSkippedArtifacts(Dictionary<string, Tuple<long, long, string>> skippedArtifacts)
+        {
+            long totalFiles = 0;
+            long totalSize = 0;
+            int maxEventNameLength = 0;
+
+            foreach (string reason in new[] { DriverEventNames.Scanned, DriverEventNames.EmptyFile, DriverEventNames.FileExceedsSizeLimits, DriverEventNames.FilePathDenied, "ContentsSniffNoMatch" })
+            {
+                maxEventNameLength = Math.Max(maxEventNameLength, reason.Length + 1);
+                skippedArtifacts.TryGetValue(reason, out Tuple<long, long, string> tuple);
+                totalFiles += tuple?.Item1 ?? 0;
+                totalSize += tuple?.Item2 ?? 0;
+            }
+
+            skippedArtifacts.TryGetValue("ContentsSniffNoMatch", out Tuple<long, long, string> contentsSniffNoMatchTuple);
+            skippedArtifacts.TryGetValue(DriverEventNames.FileExceedsSizeLimits, out Tuple<long, long, string> fileExceedsSizeLimitsTuple);
+            skippedArtifacts.TryGetValue(DriverEventNames.FilePathDenied, out Tuple<long, long, string> filePathDeniedRegexTuple);
+
+            // Emit supplemental data for 
+            if (fileExceedsSizeLimitsTuple != default)
+            {
+                Console.WriteLine($@"{DriverEventNames.FileExceedsSizeLimits}  : Threshold size in KB was {fileExceedsSizeLimitsTuple.Item3}");
+            }
+
+            if (filePathDeniedRegexTuple != default)
+            {
+                Console.WriteLine($@"{DriverEventNames.FilePathDenied}         : Regex was {filePathDeniedRegexTuple.Item3}");
+            }
+
+            if (contentsSniffNoMatchTuple != default)
+            {
+                Console.WriteLine($@"ContentsSniffNoMatch                       : Regex was {contentsSniffNoMatchTuple.Item3}");
+            }
+
+            Console.WriteLine();
+
+            foreach (string reason in new[] { DriverEventNames.Scanned, DriverEventNames.EmptyFile, DriverEventNames.FileExceedsSizeLimits, DriverEventNames.FilePathDenied, "ContentsSniffNoMatch" })
+            {
+                skippedArtifacts.TryGetValue(reason, out Tuple<long, long, string> tuple);
+                string formatString = $"{{0,-{maxEventNameLength}:N0}}";
+                string formattedEventName = string.Format(formatString, reason);
+
+                Console.WriteLine(
+                    $@"{formattedEventName}: {string.Format("{0,12:N0}", tuple?.Item1 ?? 0)} file(s) - {string.Format("{0,7:P}", ((double)(tuple?.Item1 ?? 0))/ (double)totalFiles)} : " +
+                    @$"{string.Format("{0,14:N0}", (double)(tuple?.Item2 ?? 0) / (double)1000)} KB  - {string.Format("{0,7:P}", ((double)(tuple?.Item2 ?? 0)) / (double)totalSize)}");
+            }
+
+            if (skippedArtifacts.Keys.Count > 0)
+            {
+                Console.WriteLine();
+            }
         }
 
         private void DumpCustomTimingData(Dictionary<string, double> timingData)
@@ -316,7 +409,12 @@ namespace Microsoft.CodeAnalysis.Sarif
                 double eventTimeInMs = timingData[eventName];
                 string formatString = $"{{0,-{maxEventNameLength}}}";
                 string formattedEventName = string.Format(formatString, eventName);
-                Console.WriteLine($@"Aggregated time spent : {formattedEventName} : {string.Format("{0,6:P}", eventTimeInMs / totalMs)} : {eventTimeInMs}");
+                Console.WriteLine($@"Aggregated time spent : {formattedEventName} : {string.Format("{0,6:P}", eventTimeInMs / totalMs)} : {TimeSpan.FromMilliseconds(eventTimeInMs)}");
+            }
+
+            if (timingData.Keys.Count >0)
+            {
+                Console.WriteLine();
             }
         }
 

@@ -7,6 +7,8 @@ using System.Diagnostics;
 using System.Text.RegularExpressions;
 using System.Threading;
 
+using Microsoft.Diagnostics.Tracing.Session;
+
 namespace Microsoft.CodeAnalysis.Sarif
 {
     public abstract class AnalyzeContextBase : IAnalysisContext, IOptionsProvider
@@ -74,6 +76,8 @@ namespace Microsoft.CodeAnalysis.Sarif
         public bool ForceOverwrite => OutputFileOptions.HasFlag(FilePersistenceOptions.ForceOverwrite);
 
         public Regex CompiledGlobalFileDenyRegex { get; set; }
+
+        public TraceEventSession TraceEventSession { get; set; }
 
         public string GlobalFilePathDenyRegex
         {
@@ -221,6 +225,24 @@ namespace Microsoft.CodeAnalysis.Sarif
             var disposableLogger = this.Logger as IDisposable;
             disposableLogger?.Dispose();
             this.Logger = null;
+
+            if (TraceEventSession != null)
+            {
+                TraceEventSession?.Flush();
+
+                if (TraceEventSession?.EventsLost > 0)
+                {
+                    Console.WriteLine(($"{TraceEventSession.EventsLost} events were lost. ETL log is incomplete."));
+                }
+                else
+                {
+                    Console.WriteLine(($"No trace events were lost. ETL log is complete."));
+                }
+
+                TraceEventSession.Dispose();
+                TraceEventSession = null;
+            }
+
             GC.SuppressFinalize(this);
         }
 
