@@ -205,11 +205,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         }
 
         [Event((int)DriverEventId.SessionEnded, Message = "Session ended.")]
-        public void SessionEnded()
+        public void SessionEnded(int returnCode, RuntimeConditions runtimeConditions)
         {
             if (this.IsEnabled())
             {
-                WriteEvent((int)DriverEventId.SessionEnded);
+                WriteEvent((int)DriverEventId.SessionEnded, returnCode, runtimeConditions);
             }
         }
 

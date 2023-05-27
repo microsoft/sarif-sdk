@@ -113,7 +113,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                     Errors.LogAnalysisTimedOut(globalContext);
                 }
 
-                DriverEventSource.Log.SessionEnded();
+                DriverEventSource.Log.SessionEnded(result, globalContext.RuntimeErrors);
                 return result;
             }
             catch (Exception ex)

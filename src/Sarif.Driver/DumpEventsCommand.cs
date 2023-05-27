@@ -52,6 +52,9 @@ namespace Microsoft.CodeAnalysis.Sarif
 
                 var skippedArtifacts = new Dictionary<string, Tuple<long, long, string>>();
 
+                int returnCode= 0;
+                RuntimeConditions runtimeConditions = 0;
+
                 source.Dynamic.All += delegate (TraceEvent traceEvent)
                 {
                     eventName = traceEvent.EventName;
@@ -289,6 +292,8 @@ namespace Microsoft.CodeAnalysis.Sarif
                         case "SessionEnded":
                         {
                             overallSessionTime = TimeSpan.FromMilliseconds(traceEvent.TimeStampRelativeMSec);
+                            data1 = returnCode = (int)traceEvent.PayloadByName("returnCode");
+                            data2 = runtimeConditions = (RuntimeConditions)(long)(ulong)traceEvent.PayloadByName("runtimeConditions");
                             break;
                         }
 
@@ -335,6 +340,13 @@ namespace Microsoft.CodeAnalysis.Sarif
 
                 DumpCustomTimingData(artifactReservedTiming);
                 DumpCustomTimingData(ruleReservedTiming);
+
+
+                Console.WriteLine($@"Runtime conditions    : {runtimeConditions}");
+                if (returnCode != 0)
+                {
+                    Console.WriteLine($@"ERROR                 : Analysis did not succeed (return code: {returnCode})");
+                }
             }
 
             return 0;
