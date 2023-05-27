@@ -15,6 +15,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
     {
         public static DriverEventSource Log = new DriverEventSource();
 
+        public DriverEventSource() : base(throwOnEventWriteErrors: true)
+        {
+
+        }
+
+
         public const string None = "[None]";
 
         [Event((int)DriverEventId.FirstArtifactQueued, Message = "The first artifact was put in the scan queue: {0}")]
@@ -45,11 +51,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         }
 
         [Event((int)DriverEventId.ReadArtifactStop, Message = "Artifact retrieved: {0}")]
-        public void ReadArtifactStop(string filePath)
+        public void ReadArtifactStop(string filePath, long sizeInBytes)
         {
             if (this.IsEnabled())
             {
-                WriteEvent((int)DriverEventId.ReadArtifactStop, filePath);
+                WriteEvent((int)DriverEventId.ReadArtifactStop, filePath, sizeInBytes);
             }
         }
 
