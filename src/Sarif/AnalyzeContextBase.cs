@@ -228,9 +228,9 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             if (TraceEventSession != null)
             {
-                TraceEventSession?.Flush();
+                TraceEventSession.Flush();
 
-                if (TraceEventSession?.EventsLost > 0)
+                if (TraceEventSession.EventsLost > 0)
                 {
                     Console.WriteLine(($"{TraceEventSession.EventsLost} events were lost. ETL log is incomplete."));
                 }

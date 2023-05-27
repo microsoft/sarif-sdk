@@ -75,7 +75,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                     }
 
                     string formattedMessage = traceEvent.FormattedMessage.CsvEscape();
-                    
+
                     data1 = (string)traceEvent.PayloadByName(nameof(data1));
                     data2 = (string)traceEvent.PayloadByName(nameof(data2));
 
@@ -84,7 +84,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                         case DriverEventNames.ArtifactNotScanned:
                         {
                             filePath = (string)traceEvent.PayloadByName(nameof(filePath));
-                            string reason = (string)traceEvent.PayloadByName("reason"); 
+                            string reason = (string)traceEvent.PayloadByName("reason");
                             data1 = traceEvent.PayloadByName("sizeInBytes");
 
                             skippedArtifacts.TryGetValue(reason, out Tuple<long, long, string> tuple);
@@ -178,7 +178,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
                             skippedArtifacts.TryGetValue(DriverEventNames.Scanned, out Tuple<long, long, string> tuple);
                             tuple ??= new Tuple<long, long, string>(0, 0, null);
-                            
+
                             tuple = new Tuple<long, long, string>(tuple.Item1 + 1, tuple.Item2 + (long)data1, (string)data2);
                             skippedArtifacts[DriverEventNames.Scanned] = tuple;
 
@@ -351,6 +351,20 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             return 0;
         }
+
+        private void DumpSkippedArtifacts(Dictionary<string, Tuple<long, long, string>> skippedArtifacts)
+        {
+            long totalFiles = 0;
+            long totalSize = 0;
+            int maxEventNameLength = 0;
+
+            foreach (string reason in new[] { DriverEventNames.Scanned, DriverEventNames.EmptyFile, DriverEventNames.FileExceedsSizeLimits, DriverEventNames.FilePathDenied, "ContentsSniffNoMatch" })
+            {
+                maxEventNameLength = Math.Max(maxEventNameLength, reason.Length + 1);
+                skippedArtifacts.TryGetValue(reason, out Tuple<long, long, string> tuple);
+                totalFiles += tuple?.Item1 ?? 0;
+                totalSize += tuple?.Item2 ?? 0;
+            }
 
         private void DumpSkippedArtifacts(Dictionary<string, Tuple<long, long, string>> skippedArtifacts)
         {
