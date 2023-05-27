@@ -710,11 +710,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 {
                     TContext perFileContext = _fileContexts[item]; ;
                     perFileContext.CancellationToken.ThrowIfCancellationRequested();
-
                     string filePath = perFileContext.CurrentTarget.Uri.GetFilePath();
+
                     DriverEventSource.Log.ReadArtifactStart(filePath);
                     // Reading the length property faults in the file contents.
-                    DriverEventSource.Log.ReadArtifactStop(filePath, perFileContext.CurrentTarget.Contents.Length);
+                    long sizeInBytes = perFileContext.CurrentTarget.Contents.Length;
+                    DriverEventSource.Log.ReadArtifactStop(filePath, sizeInBytes);
 
                     DetermineApplicabilityAndAnalyze(perFileContext, skimmers, disabledSkimmers);
                     globalContext.RuntimeErrors |= perFileContext.RuntimeErrors;
@@ -1151,10 +1152,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             return Path.GetFileName(uri.OriginalString);
         }
 
+        private HashSet<string> seenFiles = new HashSet<string>();
+
         protected virtual void AnalyzeTarget(TContext context, IEnumerable<Skimmer<TContext>> skimmers, ISet<string> disabledSkimmers)
         {
             string filePath = context.CurrentTarget.Uri.GetFilePath();
             long sizeInBytes = context.CurrentTarget.SizeInBytes.Value;
+
+            if (seenFiles.Contains(filePath)) { throw new Exception(); }
+            seenFiles.Add(filePath);    
 
             DriverEventSource.Log.ScanArtifactStart(filePath, sizeInBytes);
             AnalyzeTargetHelper(context, skimmers, disabledSkimmers);
