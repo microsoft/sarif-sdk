@@ -72,7 +72,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                     }
 
                     string formattedMessage = traceEvent.FormattedMessage.CsvEscape();
-                    
+
                     data1 = (string)traceEvent.PayloadByName(nameof(data1));
                     data2 = (string)traceEvent.PayloadByName(nameof(data2));
 
@@ -81,7 +81,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                         case DriverEventNames.ArtifactNotScanned:
                         {
                             filePath = (string)traceEvent.PayloadByName(nameof(filePath));
-                            string reason = (string)traceEvent.PayloadByName("reason"); 
+                            string reason = (string)traceEvent.PayloadByName("reason");
                             data1 = traceEvent.PayloadByName("sizeInBytes");
 
                             skippedArtifacts.TryGetValue(reason, out Tuple<long, long, string> tuple);
@@ -175,7 +175,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
                             skippedArtifacts.TryGetValue(DriverEventNames.Scanned, out Tuple<long, long, string> tuple);
                             tuple ??= new Tuple<long, long, string>(0, 0, null);
-                            
+
                             tuple = new Tuple<long, long, string>(tuple.Item1 + 1, tuple.Item2 + (long)data1, (string)data2);
                             skippedArtifacts[DriverEventNames.Scanned] = tuple;
 
@@ -383,7 +383,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 string formattedEventName = string.Format(formatString, reason);
 
                 Console.WriteLine(
-                    $@"{formattedEventName}: {string.Format("{0,12:N0}", tuple?.Item1 ?? 0)} file(s) - {string.Format("{0,7:P}", ((double)(tuple?.Item1 ?? 0))/ (double)totalFiles)} : " +
+                    $@"{formattedEventName}: {string.Format("{0,12:N0}", tuple?.Item1 ?? 0)} file(s) - {string.Format("{0,7:P}", ((double)(tuple?.Item1 ?? 0)) / (double)totalFiles)} : " +
                     @$"{string.Format("{0,14:N0}", (double)(tuple?.Item2 ?? 0) / (double)1000)} KB  - {string.Format("{0,7:P}", ((double)(tuple?.Item2 ?? 0)) / (double)totalSize)}");
             }
 
@@ -412,7 +412,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 Console.WriteLine($@"Aggregated time spent : {formattedEventName} : {string.Format("{0,6:P}", eventTimeInMs / totalMs)} : {TimeSpan.FromMilliseconds(eventTimeInMs)}");
             }
 
-            if (timingData.Keys.Count >0)
+            if (timingData.Keys.Count > 0)
             {
                 Console.WriteLine();
             }

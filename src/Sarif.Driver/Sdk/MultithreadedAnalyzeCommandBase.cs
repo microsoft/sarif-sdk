@@ -1160,7 +1160,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             long sizeInBytes = context.CurrentTarget.SizeInBytes.Value;
 
             if (seenFiles.Contains(filePath)) { throw new Exception(); }
-            seenFiles.Add(filePath);    
+            seenFiles.Add(filePath);
 
             DriverEventSource.Log.ScanArtifactStart(filePath, sizeInBytes);
             AnalyzeTargetHelper(context, skimmers, disabledSkimmers);
