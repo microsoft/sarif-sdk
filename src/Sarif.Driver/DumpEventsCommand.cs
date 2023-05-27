@@ -52,7 +52,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
                 var skippedArtifacts = new Dictionary<string, Tuple<long, long, string>>();
 
-                int returnCode= 0;
+                int returnCode = 0;
                 RuntimeConditions runtimeConditions = 0;
 
                 source.Dynamic.All += delegate (TraceEvent traceEvent)
@@ -366,20 +366,6 @@ namespace Microsoft.CodeAnalysis.Sarif
                 totalSize += tuple?.Item2 ?? 0;
             }
 
-        private void DumpSkippedArtifacts(Dictionary<string, Tuple<long, long, string>> skippedArtifacts)
-        {
-            long totalFiles = 0;
-            long totalSize = 0;
-            int maxEventNameLength = 0;
-
-            foreach (string reason in new[] { DriverEventNames.Scanned, DriverEventNames.EmptyFile, DriverEventNames.FileExceedsSizeLimits, DriverEventNames.FilePathDenied, "ContentsSniffNoMatch" })
-            {
-                maxEventNameLength = Math.Max(maxEventNameLength, reason.Length + 1);
-                skippedArtifacts.TryGetValue(reason, out Tuple<long, long, string> tuple);
-                totalFiles += tuple?.Item1 ?? 0;
-                totalSize += tuple?.Item2 ?? 0;
-            }
-
             skippedArtifacts.TryGetValue("ContentsSniffNoMatch", out Tuple<long, long, string> contentsSniffNoMatchTuple);
             skippedArtifacts.TryGetValue(DriverEventNames.FileExceedsSizeLimits, out Tuple<long, long, string> fileExceedsSizeLimitsTuple);
             skippedArtifacts.TryGetValue(DriverEventNames.FilePathDenied, out Tuple<long, long, string> filePathDeniedRegexTuple);
@@ -409,7 +395,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 string formattedEventName = string.Format(formatString, reason);
 
                 Console.WriteLine(
-                    $@"{formattedEventName}: {string.Format("{0,12:N0}", tuple?.Item1 ?? 0)} file(s) - {string.Format("{0,7:P}", ((double)(tuple?.Item1 ?? 0))/ (double)totalFiles)} : " +
+                    $@"{formattedEventName}: {string.Format("{0,12:N0}", tuple?.Item1 ?? 0)} file(s) - {string.Format("{0,7:P}", ((double)(tuple?.Item1 ?? 0)) / (double)totalFiles)} : " +
                     @$"{string.Format("{0,14:N0}", (double)(tuple?.Item2 ?? 0) / (double)1000)} KB  - {string.Format("{0,7:P}", ((double)(tuple?.Item2 ?? 0)) / (double)totalSize)}");
             }
 
@@ -435,10 +421,10 @@ namespace Microsoft.CodeAnalysis.Sarif
                 double eventTimeInMs = timingData[eventName];
                 string formatString = $"{{0,-{maxEventNameLength}}}";
                 string formattedEventName = string.Format(formatString, eventName);
-                Console.WriteLine($@"Aggregated time spent : {formattedEventName} : {string.Format("{0,6:P}", eventTimeInMs / totalMs)} : {TimeSpan.FromMilliseconds(eventTimeInMs)}");
+                Console.WriteLine($@"Aggregated time spent : {formattedEventName} : {string.Format("{0,7:P}", eventTimeInMs / totalMs)} : {TimeSpan.FromMilliseconds(eventTimeInMs)}");
             }
 
-            if (timingData.Keys.Count >0)
+            if (timingData.Keys.Count > 0)
             {
                 Console.WriteLine();
             }

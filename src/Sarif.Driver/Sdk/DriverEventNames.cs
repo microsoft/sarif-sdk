@@ -26,12 +26,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
         public const string ScanArtifactStop = $"{ScanArtifact}/{Stop}";
         public const string ScanArtifactStart = $"{ScanArtifact}/{Start}";
 
-        public const string Scanned = nameof(Scanned);
-
-        public const string ScanArtifact = nameof(ScanArtifact);
-        public const string ScanArtifactStop = $"{ScanArtifact}/Stop";
-        public const string ScanArtifactStart = $"{ScanArtifact}/Start";
-
         // Reasons that an artifact might be skipped entirely.
         public const string EmptyFile = nameof(EmptyFile);
         public const string FilePathDenied = nameof(FilePathDenied);
