@@ -102,7 +102,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                                 traceEventSession.Dispose();
                             }
                         });
-                        traceEventSession.EnableProvider(guid); 
+                        traceEventSession.EnableProvider(guid);
                     }
                     else
                     {

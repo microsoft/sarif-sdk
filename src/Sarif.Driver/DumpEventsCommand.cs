@@ -377,14 +377,13 @@ namespace Microsoft.CodeAnalysis.Sarif
             var sortedRules = new SortedList<string, Dictionary<FailureLevel, int>>();
             int maxRuleNameLength = 0;
 
-            foreach(string ruleName in rulesFired.Keys) 
+            foreach (string ruleName in rulesFired.Keys) 
             { 
                 maxRuleNameLength = Math.Max(maxRuleNameLength, ruleName.Length);
                 sortedRules.Add(ruleName, rulesFired[ruleName]);
             }
 
             int lineLength = maxRuleNameLength + 34;
-            //int levelColumnWidth = 10;
             Console.WriteLine(new string('-', lineLength));
             int padding = ((maxRuleNameLength - "Rule Name".Length) / 2);
             Console.Write($"{new string(' ', padding)}Rule Name{new string(' ', padding + 1)}");
