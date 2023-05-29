@@ -21,7 +21,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         }
 
 
-        public const string None = "[None]";
+        public static readonly string None = string.Empty;
 
         [Event((int)DriverEventId.FirstArtifactQueued, Message = "The first artifact was put in the scan queue: {0}")]
         public void FirstArtifactQueued(string filePath)
@@ -105,7 +105,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         }
 
         [Event((int)DriverEventId.RuleFired, Message = "'{1}.{2}' fired with severity '{3}': {0}", Keywords = Keywords.Rules)]
-        public void RuleFired(string filePath, string ruleId, string ruleName, FailureLevel level, string matchIdentifier = null)
+        public void RuleFired(string filePath, string ruleId, string ruleName, FailureLevel level, string matchIdentifier = "")
         {
             if (this.IsEnabled())
             {
@@ -205,11 +205,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         }
 
         [Event((int)DriverEventId.SessionEnded, Message = "Session ended.")]
-        public void SessionEnded()
+        public void SessionEnded(int returnCode, RuntimeConditions runtimeConditions)
         {
             if (this.IsEnabled())
             {
-                WriteEvent((int)DriverEventId.SessionEnded);
+                WriteEvent((int)DriverEventId.SessionEnded, returnCode, runtimeConditions);
             }
         }
 

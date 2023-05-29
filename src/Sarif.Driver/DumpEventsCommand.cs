@@ -3,6 +3,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.IO;
 
 using Microsoft.CodeAnalysis.Sarif.Driver;
@@ -52,6 +53,11 @@ namespace Microsoft.CodeAnalysis.Sarif
 
                 var skippedArtifacts = new Dictionary<string, Tuple<long, long, string>>();
 
+                var rulesFired = new Dictionary<string, Dictionary<FailureLevel, int>>();
+
+                int returnCode = 0;
+                RuntimeConditions runtimeConditions = 0;
+
                 source.Dynamic.All += delegate (TraceEvent traceEvent)
                 {
                     eventName = traceEvent.EventName;
@@ -73,8 +79,8 @@ namespace Microsoft.CodeAnalysis.Sarif
 
                     string formattedMessage = traceEvent.FormattedMessage.CsvEscape();
 
-                    data1 = (string)traceEvent.PayloadByName(nameof(data1));
-                    data2 = (string)traceEvent.PayloadByName(nameof(data2));
+                    data1 = ((string)traceEvent.PayloadByName(nameof(data1))).CsvEscape();
+                    data2 = ((string)traceEvent.PayloadByName(nameof(data2))).CsvEscape(); ;
 
                     switch (traceEvent.EventName)
                     {
@@ -184,11 +190,22 @@ namespace Microsoft.CodeAnalysis.Sarif
 
                         case "RuleFired":
                         {
-                            data1 = (FailureLevel)(int)(uint)traceEvent.PayloadByName("level");
+                            FailureLevel level = (FailureLevel)(int)(uint)traceEvent.PayloadByName("level");
+                            data1 = level;
                             data2 = traceEvent.PayloadByName("matchIdentifier");
                             ruleId = (string)traceEvent.PayloadByName(nameof(ruleId));
                             filePath = (string)traceEvent.PayloadByName(nameof(filePath));
                             ruleName = (string)traceEvent.PayloadByName(nameof(ruleName));
+
+                            string ruleKey = $"{ruleId}.{ruleName}";
+                            if (!rulesFired.TryGetValue(ruleKey, out Dictionary<FailureLevel, int> ruleFired))
+                            {
+                                ruleFired = rulesFired[ruleKey] = new Dictionary<FailureLevel, int>();
+                            }
+
+                            ruleFired.TryGetValue(level, out int count);
+                            ruleFired[level] = ++count;
+
                             break;
                         }
 
@@ -289,6 +306,8 @@ namespace Microsoft.CodeAnalysis.Sarif
                         case "SessionEnded":
                         {
                             overallSessionTime = TimeSpan.FromMilliseconds(traceEvent.TimeStampRelativeMSec);
+                            data1 = returnCode = (int)traceEvent.PayloadByName("returnCode");
+                            data2 = runtimeConditions = (RuntimeConditions)(long)(ulong)traceEvent.PayloadByName("runtimeConditions");
                             break;
                         }
 
@@ -327,17 +346,64 @@ namespace Microsoft.CodeAnalysis.Sarif
                     timeSpentScanningArtifacts.TotalMilliseconds +
                     timeSpentLoggingResults.TotalMilliseconds;
 
-                Console.WriteLine($@"Aggregated time spent : Reading artifacts  : {string.Format("{0,6:P}", timeSpentReadingArtifacts.TotalMilliseconds / ms)} : {timeSpentReadingArtifacts}");
-                Console.WriteLine($@"Aggregated time spent : Scanning artifacts : {string.Format("{0,6:P}", timeSpentScanningArtifacts.TotalMilliseconds / ms)} : {timeSpentScanningArtifacts}");
-                Console.WriteLine($@"Aggregated time spent : Logging results    : {string.Format("{0,6:P}", timeSpentLoggingResults.TotalMilliseconds / ms)} : {timeSpentLoggingResults}");
+                Console.WriteLine($@"Aggregated time spent : Reading artifacts  : {string.Format("{0,7:P}", timeSpentReadingArtifacts.TotalMilliseconds / ms)} : {timeSpentReadingArtifacts}");
+                Console.WriteLine($@"Aggregated time spent : Scanning artifacts : {string.Format("{0,7:P}", timeSpentScanningArtifacts.TotalMilliseconds / ms)} : {timeSpentScanningArtifacts}");
+                Console.WriteLine($@"Aggregated time spent : Logging results    : {string.Format("{0,7:P}", timeSpentLoggingResults.TotalMilliseconds / ms)} : {timeSpentLoggingResults}");
                 Console.WriteLine();
 
 
                 DumpCustomTimingData(artifactReservedTiming);
                 DumpCustomTimingData(ruleReservedTiming);
+                DumpRulesFired(rulesFired);
+
+                Console.WriteLine($@"Runtime conditions    : {runtimeConditions}");
+                if (returnCode != 0)
+                {
+                    Console.WriteLine($@"ERROR                 : Analysis did not succeed (return code: {returnCode})");
+                }
+
+                if (csvWriter != null)
+                {
+                    Console.WriteLine();
+                    Console.WriteLine($"CSV written to: {options.CsvFilePath}");
+                }
             }
 
             return 0;
+        }
+
+        private void DumpRulesFired(Dictionary<string, Dictionary<FailureLevel, int>> rulesFired)
+        {
+            var sortedRules = new SortedList<string, Dictionary<FailureLevel, int>>();
+            int maxRuleNameLength = 0;
+
+            foreach (string ruleName in rulesFired.Keys)
+            {
+                maxRuleNameLength = Math.Max(maxRuleNameLength, ruleName.Length);
+                sortedRules.Add(ruleName, rulesFired[ruleName]);
+            }
+
+            int lineLength = maxRuleNameLength + 34;
+            Console.WriteLine(new string('-', lineLength));
+            int padding = ((maxRuleNameLength - "Rule Name".Length) / 2);
+            Console.Write($"{new string(' ', padding)}Rule Name{new string(' ', padding + 1)}");
+            Console.WriteLine($"|    Error |  Warning |     Note |");
+            Console.WriteLine(new string('-', lineLength));
+
+            foreach (string sortedRuleName in sortedRules.Keys)
+            {
+                Dictionary<FailureLevel, int> levelCounts = sortedRules[sortedRuleName];
+                padding = maxRuleNameLength - sortedRuleName.Length;
+                Console.Write($"{sortedRuleName}{new string(' ', padding)}");
+
+                foreach (FailureLevel level in new[] { FailureLevel.Error, FailureLevel.Warning, FailureLevel.Note })
+                {
+                    levelCounts.TryGetValue(level, out int count);
+                    Console.Write(string.Format("{0, 10}", count) + " ");
+                }
+                Console.WriteLine();
+            }
+            Console.WriteLine();
         }
 
         private void DumpSkippedArtifacts(Dictionary<string, Tuple<long, long, string>> skippedArtifacts)
@@ -409,7 +475,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 double eventTimeInMs = timingData[eventName];
                 string formatString = $"{{0,-{maxEventNameLength}}}";
                 string formattedEventName = string.Format(formatString, eventName);
-                Console.WriteLine($@"Aggregated time spent : {formattedEventName} : {string.Format("{0,6:P}", eventTimeInMs / totalMs)} : {TimeSpan.FromMilliseconds(eventTimeInMs)}");
+                Console.WriteLine($@"Aggregated time spent : {formattedEventName} : {string.Format("{0,7:P}", eventTimeInMs / totalMs)} : {TimeSpan.FromMilliseconds(eventTimeInMs)}");
             }
 
             if (timingData.Keys.Count > 0)

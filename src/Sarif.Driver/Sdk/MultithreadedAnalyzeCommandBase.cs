@@ -17,6 +17,7 @@ using System.Threading.Tasks;
 
 using Microsoft.CodeAnalysis.Sarif.Driver.Sdk;
 using Microsoft.CodeAnalysis.Sarif.Writers;
+using Microsoft.Diagnostics.Tracing;
 using Microsoft.Diagnostics.Tracing.Session;
 
 namespace Microsoft.CodeAnalysis.Sarif.Driver
@@ -84,16 +85,36 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
                 if (!string.IsNullOrEmpty(globalContext.EventsFilePath))
                 {
-                    string etlFilePath =
+                    Guid guid = EventSource.GetGuid(typeof(DriverEventSource));
+
+                    if (globalContext.EventsFilePath.Equals("console", StringComparison.OrdinalIgnoreCase))
+                    {
+                        globalContext.TraceEventSession = new TraceEventSession($"Sarif-Driver-{Guid.NewGuid()}");
+                        globalContext.TraceEventSession.BufferSizeMB = 512;
+                        TraceEventSession traceEventSession = globalContext.TraceEventSession;
+                        globalContext.TraceEventSession.Source.Dynamic.All += (e =>
+                        {
+                            Console.WriteLine($"{e.TimeStamp:MM/dd/yyyy hh:mm:ss.ffff},{e.ThreadID}," +
+                            $"{e.ProcessorNumber},{e.EventName},{e.TimeStampRelativeMSec},{e.FormattedMessage}");
+
+                            if (e.EventName.Equals("SessionEnded"))
+                            {
+                                traceEventSession.Dispose();
+                            }
+                        });
+                        traceEventSession.EnableProvider(guid);
+                    }
+                    else
+                    {
+                        string etlFilePath =
                         Path.GetExtension(globalContext.EventsFilePath).Equals(".csv", StringComparison.OrdinalIgnoreCase)
                             ? $"{Path.GetFileNameWithoutExtension(globalContext.EventsFilePath)}.etl"
                             : globalContext.EventsFilePath;
 
-                    globalContext.TraceEventSession = new TraceEventSession($"Sarif-Driver-{Guid.NewGuid()}", etlFilePath);
-                    globalContext.TraceEventSession.BufferSizeMB = 512;
-
-                    Guid guid = EventSource.GetGuid(typeof(DriverEventSource));
-                    globalContext.TraceEventSession.EnableProvider(guid);
+                        globalContext.TraceEventSession = new TraceEventSession($"Sarif-Driver-{Guid.NewGuid()}", etlFilePath);
+                        globalContext.TraceEventSession.BufferSizeMB = 512;
+                        globalContext.TraceEventSession.EnableProvider(guid);
+                    }
                 }
 
                 Task<int> analyzeTask = Task.Run(() =>
@@ -113,7 +134,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                     Errors.LogAnalysisTimedOut(globalContext);
                 }
 
-                DriverEventSource.Log.SessionEnded();
+                DriverEventSource.Log.SessionEnded(result, globalContext.RuntimeErrors);
                 return result;
             }
             catch (Exception ex)
@@ -278,7 +299,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             context.Threads = options.Threads > 0 ? options.Threads : context.Threads;
             context.AutomationGuid = options.AutomationGuid ?? context.AutomationGuid;
             context.OutputFilePath = options.OutputFilePath ?? context.OutputFilePath;
-            context.EventsFilePath = options.EventsFilePath ?? context.EventsFilePath;
+            context.EventsFilePath = Environment.GetEnvironmentVariable("SPMI_ETW") ?? options.EventsFilePath ?? context.EventsFilePath;
             context.PostUri = options.PostUri != null ? options.PostUri : context.PostUri;
             context.Recurse = options.Recurse != null ? options.Recurse.Value : context.Recurse;
             context.Traces = options.Trace != null ? InitializeStringSet(options.Trace) : context.Traces;
@@ -1152,15 +1173,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             return Path.GetFileName(uri.OriginalString);
         }
 
-        private HashSet<string> seenFiles = new HashSet<string>();
-
         protected virtual void AnalyzeTarget(TContext context, IEnumerable<Skimmer<TContext>> skimmers, ISet<string> disabledSkimmers)
         {
             string filePath = context.CurrentTarget.Uri.GetFilePath();
             long sizeInBytes = context.CurrentTarget.SizeInBytes.Value;
-
-            if (seenFiles.Contains(filePath)) { throw new Exception(); }
-            seenFiles.Add(filePath);
 
             DriverEventSource.Log.ScanArtifactStart(filePath, sizeInBytes);
             AnalyzeTargetHelper(context, skimmers, disabledSkimmers);

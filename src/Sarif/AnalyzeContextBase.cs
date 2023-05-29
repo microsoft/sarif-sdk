@@ -228,18 +228,25 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             if (TraceEventSession != null)
             {
-                TraceEventSession.Flush();
-
-                if (TraceEventSession.EventsLost > 0)
+                if (EventsFilePath.Equals("console", StringComparison.OrdinalIgnoreCase))
                 {
-                    Console.WriteLine(($"{TraceEventSession.EventsLost} events were lost. ETL log is incomplete."));
+                    TraceEventSession.Source.Process();
+
                 }
                 else
                 {
-                    Console.WriteLine(($"No trace events were lost. ETL log is complete."));
-                }
+                    TraceEventSession.Flush();
+                    if (TraceEventSession.EventsLost > 0)
+                    {
+                        Console.WriteLine(($"{TraceEventSession.EventsLost} events were lost. ETL log is incomplete."));
+                    }
+                    else
+                    {
+                        Console.WriteLine(($"No trace events were lost. ETL log is complete."));
+                    }
 
-                TraceEventSession.Dispose();
+                    TraceEventSession.Dispose();
+                }
                 TraceEventSession = null;
             }
 
