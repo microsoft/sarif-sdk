@@ -21,7 +21,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         }
 
 
-        public const string None = "[None]";
+        public static readonly string None = string.Empty;
 
         [Event((int)DriverEventId.FirstArtifactQueued, Message = "The first artifact was put in the scan queue: {0}")]
         public void FirstArtifactQueued(string filePath)

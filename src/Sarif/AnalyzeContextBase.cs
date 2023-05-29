@@ -228,6 +228,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             if (TraceEventSession != null)
             {
+                TraceEventSession.Source.Process();
                 TraceEventSession.Flush();
 
                 if (TraceEventSession.EventsLost > 0)
@@ -239,7 +240,10 @@ namespace Microsoft.CodeAnalysis.Sarif
                     Console.WriteLine(($"No trace events were lost. ETL log is complete."));
                 }
 
-                TraceEventSession.Dispose();
+                if (!EventsFilePath.Equals("console", StringComparison.OrdinalIgnoreCase))
+                {
+                    TraceEventSession.Dispose();
+                }
                 TraceEventSession = null;
             }
 
