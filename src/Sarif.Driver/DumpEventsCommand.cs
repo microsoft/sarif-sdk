@@ -377,8 +377,8 @@ namespace Microsoft.CodeAnalysis.Sarif
             var sortedRules = new SortedList<string, Dictionary<FailureLevel, int>>();
             int maxRuleNameLength = 0;
 
-            foreach (string ruleName in rulesFired.Keys) 
-            { 
+            foreach (string ruleName in rulesFired.Keys)
+            {
                 maxRuleNameLength = Math.Max(maxRuleNameLength, ruleName.Length);
                 sortedRules.Add(ruleName, rulesFired[ruleName]);
             }
@@ -396,7 +396,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 padding = maxRuleNameLength - sortedRuleName.Length;
                 Console.Write($"{sortedRuleName}{new string(' ', padding)}");
 
-                foreach (FailureLevel level in new[] {FailureLevel.Error, FailureLevel.Warning, FailureLevel.Note})
+                foreach (FailureLevel level in new[] { FailureLevel.Error, FailureLevel.Warning, FailureLevel.Note })
                 {
                     levelCounts.TryGetValue(level, out int count);
                     Console.Write(string.Format("{0, 10}", count) + " ");
