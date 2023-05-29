@@ -105,7 +105,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         }
 
         [Event((int)DriverEventId.RuleFired, Message = "'{1}.{2}' fired with severity '{3}': {0}", Keywords = Keywords.Rules)]
-        public void RuleFired(string filePath, string ruleId, string ruleName, FailureLevel level, string matchIdentifier = null)
+        public void RuleFired(string filePath, string ruleId, string ruleName, FailureLevel level, string matchIdentifier = "")
         {
             if (this.IsEnabled())
             {
