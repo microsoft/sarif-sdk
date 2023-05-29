@@ -231,17 +231,17 @@ namespace Microsoft.CodeAnalysis.Sarif
                 TraceEventSession.Source.Process();
                 TraceEventSession.Flush();
 
-                if (TraceEventSession.EventsLost > 0)
-                {
-                    Console.WriteLine(($"{TraceEventSession.EventsLost} events were lost. ETL log is incomplete."));
-                }
-                else
-                {
-                    Console.WriteLine(($"No trace events were lost. ETL log is complete."));
-                }
-
                 if (!EventsFilePath.Equals("console", StringComparison.OrdinalIgnoreCase))
                 {
+                    if (TraceEventSession.EventsLost > 0)
+                    {
+                        Console.WriteLine(($"{TraceEventSession.EventsLost} events were lost. ETL log is incomplete."));
+                    }
+                    else
+                    {
+                        Console.WriteLine(($"No trace events were lost. ETL log is complete."));
+                    }
+
                     TraceEventSession.Dispose();
                 }
                 TraceEventSession = null;
