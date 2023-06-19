@@ -3,6 +3,7 @@
 
 using System;
 using System.IO;
+using System.Linq;
 
 using FluentAssertions;
 
@@ -178,7 +179,8 @@ namespace Microsoft.CodeAnalysis.Sarif
         [Fact]
         public void GetTopLevel_WhenRepoPathIsToAFile()
         {
-            string pathToFile = Path.Combine(Environment.CurrentDirectory, "UnusedFileName.txt");
+            string file = Directory.GetFiles(Environment.CurrentDirectory, "*").First();
+            string pathToFile = Path.Combine(Environment.CurrentDirectory, file);
             string repoRootPath = GitHelper.Default.GetTopLevel(pathToFile);
             repoRootPath.Should().NotBeNull();
             pathToFile.StartsWith(repoRootPath, StringComparison.InvariantCultureIgnoreCase).Should().BeTrue();
