@@ -178,7 +178,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         [Fact]
         public void GetTopLevel_WhenRepoPathIsToAFile()
         {
-            string pathToFile = Environment.CurrentDirectory;
+            string pathToFile = Path.Combine(Environment.CurrentDirectory, "UnusedFileName.txt");
             string repoRootPath = GitHelper.Default.GetTopLevel(pathToFile);
             repoRootPath.Should().NotBeNull();
             pathToFile.StartsWith(repoRootPath, StringComparison.InvariantCultureIgnoreCase).Should().BeTrue();
