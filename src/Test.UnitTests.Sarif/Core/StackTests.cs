@@ -38,13 +38,13 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Core
             {
                 File.Create(Path.GetInvalidFileNameChars()[0].ToString(), 0);
             }
-            catch (Exception exception)
+            catch (Exception ex) when (ex is ArgumentException || ex is IOException)
             {
                 // This code path catches ArgumentException in .NET 4.8 and IOException in later versions.
-                IList<Stack> stacks = Stack.CreateStacks(exception).ToList();
+                IList<Stack> stacks = Stack.CreateStacks(ex).ToList();
 
                 stacks.Count.Should().Be(1);
-                stacks[0].ToString().Should().BeCrossPlatformEquivalentStrings(exception.StackTrace);
+                stacks[0].ToString().Should().BeCrossPlatformEquivalentStrings(ex.StackTrace);
 
                 caughtException = true;
             }
@@ -59,17 +59,17 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Core
             {
                 File.Create(Path.GetInvalidFileNameChars()[0].ToString(), 0);
             }
-            catch (Exception exception)
+            catch (Exception ex) when (ex is ArgumentException || ex is IOException)
             {
                 // This code path catches ArgumentException in .NET 4.8 and IOException in later versions.
-                Exception containerException = new InvalidOperationException("test exception", exception);
+                Exception containerException = new InvalidOperationException("test exception", ex);
 
                 IList<Stack> stacks = Stack.CreateStacks(containerException).ToList();
 
                 stacks.Count.Should().Be(2);
                 containerException.StackTrace.Should().Be(null);
                 Assert.Equal("[No frames]", stacks[0].ToString());
-                stacks[1].ToString().Should().BeCrossPlatformEquivalentStrings(exception.StackTrace);
+                stacks[1].ToString().Should().BeCrossPlatformEquivalentStrings(ex.StackTrace);
 
                 caughtException = true;
             }
@@ -84,11 +84,11 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Core
             {
                 File.Create(Path.GetInvalidFileNameChars()[0].ToString(), 0);
             }
-            catch (Exception exception)
+            catch (Exception ex) when (ex is ArgumentException || ex is IOException)
             {
                 // This code path catches ArgumentException in .NET 4.8 and IOException in later versions.
                 var innerException1 = new InvalidOperationException("Test exception 1.");
-                var innerException2 = new InvalidOperationException("Test exception 2.", exception);
+                var innerException2 = new InvalidOperationException("Test exception 2.", ex);
 
                 var aggregated = new AggregateException(innerException1, innerException2);
 
@@ -100,12 +100,12 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Core
                 Assert.Equal("[No frames]", stacks[0].ToString());
                 Assert.Equal("[No frames]", stacks[1].ToString());
                 Assert.Equal("[No frames]", stacks[2].ToString());
-                stacks[3].ToString().Should().BeCrossPlatformEquivalentStrings(exception.StackTrace);
+                stacks[3].ToString().Should().BeCrossPlatformEquivalentStrings(ex.StackTrace);
 
                 Assert.Equal(aggregated.FormatMessage(), stacks[0].Message.Text);
                 Assert.Equal(innerException1.FormatMessage(), stacks[1].Message.Text);
                 Assert.Equal(innerException2.FormatMessage(), stacks[2].Message.Text);
-                Assert.Equal(exception.FormatMessage(), stacks[3].Message.Text);
+                Assert.Equal(ex.FormatMessage(), stacks[3].Message.Text);
 
                 caughtException = true;
             }

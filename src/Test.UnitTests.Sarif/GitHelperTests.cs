@@ -225,5 +225,13 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             gitHelper.GetTopLevel(@"C:\dev\sarif-sdk\src\Sarif").Should().BeNull();
         }
+
+        [Fact]
+        public void GitHelper_GetBlame()
+        {
+            var gitHelper = new GitHelper();
+            string repoDirectory = gitHelper.GetRepositoryRoot(this.GetType().Assembly.Location);
+
+        }
     }
 }
