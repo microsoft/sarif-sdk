@@ -1,5 +1,5 @@
 # SARIF Package Release History (SDK, Driver, Converters, and Multitool)
-## **v4.2.0** UNRELEASED
+## **v4.2.0** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/4.2.0) | [Driver](https://www.nuget.org/packages/Sarif.Driver/4.2.0) | [Converters](https://www.nuget.org/packages/Sarif.Converters/4.2.0) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/4.2.0) | [Multitool Library](https://www.nuget.org/packages/Sarif.Multitool.Library/4.2.0)
 * BRK: Change `ArtifactProvicer.SizeInBytes` property type from `ulong` to `long`. [#2675](https://github.com/microsoft/sarif-sdk/pull/2675)
 * BRK: Update `SarifLog.Post(Uri, StreamWriter, HttpClient)` return value to `HttpResponseMessage` (to make returned correlation id and error messages available). [#2672](https://github.com/microsoft/sarif-sdk/pull/2672)
 * BRK: `RuntimeConditions` now of type `long` to permit more flag values. Many literal values have changed for individual members. [#2660](https://github.com/microsoft/sarif-sdk/pull/2660)
