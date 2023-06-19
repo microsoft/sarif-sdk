@@ -227,6 +227,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         }
 
         [Fact]
+        [Trait(TestTraits.WindowsOnly, "true")]
         public void GitHelper_GetBlame()
         {
             var gitHelper = new GitHelper();
