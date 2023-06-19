@@ -233,7 +233,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         public void GitHelper_GetBlame()
         {
             var gitHelper = new GitHelper();
-            string repoDirectory = gitHelper.GetRepositoryRoot(this.GetType().Assembly.Location);
+            string repoDirectory = gitHelper.GetRepositoryRoot(Environment.CurrentDirectory);
             string readMePath = Path.Combine(repoDirectory, "README.md");
             string blame = gitHelper.GetBlame(readMePath);
 
