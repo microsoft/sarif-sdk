@@ -115,7 +115,7 @@ csharp_style_unused_value_assignment_preference = discard_variable:silent
 csharp_style_unused_value_expression_statement_preference = discard_variable:silent
 
 # 'using' directive preferences
-csharp_using_directive_placement = outside_namespace:silent
+csharp_using_directive_placement = outside_namespace:error
 
 #### C# Formatting Rules ####
 
@@ -294,6 +294,7 @@ csharp_style_prefer_null_check_over_type_check = true:suggestion
 csharp_style_prefer_local_over_anonymous_function = true:suggestion
 dotnet_diagnostic.SA1602.severity = suggestion
 dotnet_diagnostic.SA1307.severity = silent
+csharp_style_implicit_object_creation_when_type_is_apparent = true:suggestion
 
 [*Tests.cs]
 
