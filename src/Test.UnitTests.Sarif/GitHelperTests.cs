@@ -231,7 +231,11 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             var gitHelper = new GitHelper();
             string repoDirectory = gitHelper.GetRepositoryRoot(this.GetType().Assembly.Location);
+            string readMePath = Path.Combine(repoDirectory, "README.md");
+            string blame = gitHelper.GetBlame(readMePath);
 
+            // The original commit for our repo readme file.
+            blame.Contains("3e9d5d8d9c8d00dfe534e9fa3108d594d54bfcb6").Should().BeTrue();
         }
     }
 }
