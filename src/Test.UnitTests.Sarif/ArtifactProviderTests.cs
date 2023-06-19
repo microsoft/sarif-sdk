@@ -17,20 +17,15 @@ namespace Test.UnitTests.Sarif
     {
 
         [Fact]
-        public void Test1()
+        public void MultithreadedZipArchiveArtifactProvider_RetrieveSizeInBytes()
         {
-            ZipArchive zip = CreateZipArchive("test.zip", "test");
+            string entryContents = "test";
+            ZipArchive zip = CreateZipArchive("test.zip", entryContents);
             var artifactProvider = new MultithreadedZipArchiveArtifactProvider(zip, FileSystem.Instance);
             foreach (IEnumeratedArtifact artifact in artifactProvider.Artifacts)
             {
-                try
-                {
-                    long? size = artifact.SizeInBytes;
-                }
-                catch (System.Exception e)
-                {
-                    Assert.True(false, e.ToString());
-                }
+                long? size = artifact.SizeInBytes;
+                artifact.SizeInBytes.Should().Be(entryContents.Length);
             }
         }
 
@@ -38,7 +33,7 @@ namespace Test.UnitTests.Sarif
         public void MultithreadedZipArchiveArtifactProvider_SizeInBytesAndContentsAreAvailable()
         {
             string entryContents = "test";
-            ZipArchive zip = CreateZipArchive("test.zip", "test");
+            ZipArchive zip = CreateZipArchive("test.zip", entryContents);
             var artifactProvider = new MultithreadedZipArchiveArtifactProvider(zip, FileSystem.Instance);
             foreach (IEnumeratedArtifact artifact in artifactProvider.Artifacts)
             {
