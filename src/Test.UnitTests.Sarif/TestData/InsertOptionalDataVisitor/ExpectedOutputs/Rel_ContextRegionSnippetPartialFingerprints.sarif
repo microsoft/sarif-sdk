@@ -1,0 +1,233 @@
+﻿{
+  "$schema": "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0-rtm.6.json",
+  "version": "2.1.0",
+  "runs": [
+    {
+      "tool": {
+        "driver": {
+          "name": "Sarif.UnitTests",
+          "fullName": "Sarif.UnitTests.1.3.3.0-beta",
+          "version": "1.3.3.0",
+          "semanticVersion": "1.3.3",
+          "globalMessageStrings": {
+            "NotificationMessage": {
+              "text": "A notification was raised. Notification kind was: '{0}'."
+            },
+            "GlobalMessage": {
+              "text": "A space between two words was detected."
+            }
+          },
+          "rules": [
+            {
+              "id": "TEST2001",
+              "messageStrings": {
+                "MatchAtBeginningOfFile": {
+                  "text": "This result is at the beginning of the file and selects '{0}'."
+                }
+              }
+            },
+            {
+              "id": "TEST2002",
+              "messageStrings": {
+                "SingleLineInteriorMatch": {
+                  "text": "This result selects a single-line interior region of value '{0}'."
+                }
+              }
+            }
+          ]
+        }
+      },
+      "invocations": [
+        {
+          "toolExecutionNotifications": [
+            {
+              "message": {
+                "id": "NotificationMessage",
+                "arguments": [
+                  "tool notification"
+                ]
+              }
+            }
+          ],
+          "toolConfigurationNotifications": [
+            {
+              "message": {
+                "id": "NotificationMessage",
+                "arguments": [
+                  "configuration notification"
+                ]
+              }
+            }
+          ],
+          "executionSuccessful": true
+        }
+      ],
+      "originalUriBaseIds": {
+        "TESTROOT": {
+          "uri": "file:///REPLACED_AT_TEST_RUNTIME/src/Test.UnitTests.Sarif/TestData/"
+        }
+      },
+      "artifacts": [
+        {
+          "location": {
+            "uri": "InsertOptionalDataVisitor/InsertOptionalDataVisitor.txt",
+            "uriBaseId": "TESTROOT"
+          }
+        }
+      ],
+      "results": [
+        {
+          "ruleId": "TEST2001",
+          "ruleIndex": 0,
+          "message": {
+            "id": "MatchAtBeginningOfFile",
+            "arguments": [
+              "Region_At_Start_Of_File"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endColumn": 24
+                }
+              }
+            }
+          ],
+          "partialFingerprints": {
+            "contextRegionHash/v1": "8956EFCA4BE53438F6CAD34883A30D94B0F26894EA45CDFEAB81734B1C0E5893"
+          }
+        },
+        {
+          "ruleId": "TEST2002",
+          "ruleIndex": 1,
+          "message": {
+            "id": "SingleLineInteriorMatch",
+            "arguments": [
+              "Region_One"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "InsertOptionalDataVisitor/InsertOptionalDataVisitor.txt",
+                  "uriBaseId": "TESTROOT"
+                },
+                "region": {
+                  "startLine": 14,
+                  "startColumn": 3,
+                  "endColumn": 13
+                }
+              }
+            }
+          ],
+          "partialFingerprints": {
+            "contextRegionHash/v1": "A8E6D8E400AC11495E5D308D4A068A88E65CCC4005CD3206AFD03A90C3073A5D"
+          }
+        },
+        {
+          "ruleId": "TEST2003",
+          "message": {
+            "text": "This results selects a region that crosses multiple lines starting with 'Multiline_Region_Part_one'."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "InsertOptionalDataVisitor/InsertOptionalDataVisitor.txt",
+                  "uriBaseId": "TESTROOT"
+                },
+                "region": {
+                  "startLine": 18,
+                  "startColumn": 10,
+                  "endLine": 19
+                }
+              }
+            }
+          ],
+          "partialFingerprints": {
+            "contextRegionHash/v1": "FFDE893205ED0070645CCF4D03D931C33B8485C92890A33513A2630F21532C92"
+          }
+        },
+        {
+          "ruleId": "TEST2004",
+          "message": {
+            "text": "This result is at the end of the file and selects 'Region_At_End_Of_File'."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "InsertOptionalDataVisitor/InsertOptionalDataVisitor.txt",
+                  "uriBaseId": "TESTROOT"
+                },
+                "region": {
+                  "charOffset": 581,
+                  "charLength": 21
+                }
+              }
+            }
+          ],
+          "partialFingerprints": {
+            "contextRegionHash/v1": "15A9C33CD387C7D92177BECD3D6CC5B19DE6994A82D3EF1F0D8A3C081FF164F5"
+          }
+        },
+        {
+          "ruleId": "TEST2005",
+          "message": {
+            "id": "GlobalMessage"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "InsertOptionalDataVisitor/InsertOptionalDataVisitor.txt",
+                  "uriBaseId": "TESTROOT"
+                },
+                "region": {
+                  "startLine": 15,
+                  "startColumn": 9,
+                  "endColumn": 10
+                }
+              }
+            }
+          ],
+          "partialFingerprints": {
+            "contextRegionHash/v1": "0FE7124E860F0D9903C4CAC12DC3D4190457E9C02E4F9AECABB69B9C27798415"
+          }
+        },
+        {
+          "ruleId": "TEST2006",
+          "message": {
+            "text": "This result has an out of range region, which should not be populated."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "InsertOptionalDataVisitor/InsertOptionalDataVisitor.txt",
+                  "uriBaseId": "TESTROOT"
+                },
+                "region": {
+                  "startLine": 15,
+                  "startColumn": 9,
+                  "endColumn": 8
+                }
+              }
+            }
+          ],
+          "partialFingerprints": {
+            "contextRegionHash/v1": "0FE7124E860F0D9903C4CAC12DC3D4190457E9C02E4F9AECABB69B9C27798415"
+          }
+        }
+      ],
+      "columnKind": "utf16CodeUnits"
+    }
+  ]
+}
