@@ -48,6 +48,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             // to the expected output.
             string enlistmentRoot = GitHelper.Default.GetRepositoryRoot(Environment.CurrentDirectory, useCache: false);
 
+            // Unfortunately, we require a test file name of this extreme brevity
+            // to avoid provoking file path length issues running tests under .NET 4.8.
             if (inputResourceName == "Rel.sarif")
             {
                 Uri originalUri = actualLog.Runs[0].OriginalUriBaseIds["TESTROOT"].Uri;
