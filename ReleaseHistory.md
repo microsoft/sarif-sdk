@@ -1,5 +1,5 @@
 # SARIF Package Release History (SDK, Driver, Converters, and Multitool)
-## **v4.2.1** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/4.2.1) | [Driver](https://www.nuget.org/packages/Sarif.Driver/4.2.1) | [Converters](https://www.nuget.org/packages/Sarif.Converters/4.2.1) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/4.2.1) | [Multitool Library](https://www.nuget.org/packages/Sarif.Multitool.Library/4.2.0)
+## **v4.2.1** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/4.2.1) | [Driver](https://www.nuget.org/packages/Sarif.Driver/4.2.1) | [Converters](https://www.nuget.org/packages/Sarif.Converters/4.2.1) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/4.2.1) | [Multitool Library](https://www.nuget.org/packages/Sarif.Multitool.Library/4.2.1)
 * BUG: Resolve `NotSupportedException` thrown on accessing `DeflateStream.Length` from `MultithreadedZipArchiveArtifactProvider.SizeInBytes` property. 
 
 ## **v4.2.0** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/4.2.0) | [Driver](https://www.nuget.org/packages/Sarif.Driver/4.2.0) | [Converters](https://www.nuget.org/packages/Sarif.Converters/4.2.0) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/4.2.0) | [Multitool Library](https://www.nuget.org/packages/Sarif.Multitool.Library/4.2.0)
