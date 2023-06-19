@@ -179,12 +179,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         [Trait(TestTraits.WindowsOnly, "true")]
         public void InsertOptionalDataVisitor_PersistsRegionSnippets()
         {
+            // Unfortunately, we require a test file name of this extreme brevity
+            // to avoid provoking file path length issues running tests under .NET 4.8.
             RunTest("Rel.sarif", OptionallyEmittedData.RegionSnippets);
         }
 
         [Fact]
         public void InsertOptionalDataVisitor_PersistsFlattenedMessages()
         {
+            // Unfortunately, we require a test file name of this extreme brevity
+            // to avoid provoking file path length issues running tests under .NET 4.8.
             RunTest("Rel.sarif", OptionallyEmittedData.FlattenedMessages);
         }
 
@@ -192,6 +196,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         [Trait(TestTraits.WindowsOnly, "true")]
         public void InsertOptionalDataVisitor_PersistsContextRegionSnippets()
         {
+            // Unfortunately, we require a test file name of this extreme brevity
+            // to avoid provoking file path length issues running tests under .NET 4.8.
             RunTest("Rel.sarif", OptionallyEmittedData.ContextRegionSnippets);
         }
 
@@ -199,6 +205,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         [Trait(TestTraits.WindowsOnly, "true")]
         public void InsertOptionalDataVisitor_PersistsComprehensiveRegionProperties()
         {
+            // Unfortunately, we require a test file name of this extreme brevity
+            // to avoid provoking file path length issues running tests under .NET 4.8.
             RunTest("Rel.sarif", OptionallyEmittedData.ComprehensiveRegionProperties);
         }
 
@@ -206,6 +214,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         public void InsertOptionalDataVisitor_PersistsGuids()
         {
             // NOTE: Test adding Guids, but validation is in test code, not diff, as Guids vary with each run.
+            // Unfortunately, we require a test file name of this extreme brevity
+            // to avoid provoking file path length issues running tests under .NET 4.8.
             RunTest("Rel.sarif", OptionallyEmittedData.Guids);
         }
 
@@ -213,12 +223,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         [Trait(TestTraits.WindowsOnly, "true")]
         public void InsertOptionalDataVisitor_PersistsVersionControlInformation()
         {
+            // Unfortunately, we require a test file name of this extreme brevity
+            // to avoid provoking file path length issues running tests under .NET 4.8.
             RunTest("Rel.sarif", OptionallyEmittedData.VersionControlDetails);
         }
 
         [Fact]
         public void InsertOptionalDataVisitor_PersistsNone()
         {
+            // Unfortunately, we require a test file name of this extreme brevity
+            // to avoid provoking file path length issues running tests under .NET 4.8.
             RunTest("Rel.sarif");
         }
 
@@ -226,6 +240,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         [Trait(TestTraits.WindowsOnly, "true")]
         public void InsertOptionalDataVisitor_PersistsHashesAndTextFiles()
         {
+            // Unfortunately, we require a test file name of this extreme brevity
+            // to avoid provoking file path length issues running tests under .NET 4.8.
             RunTest("Rel.sarif",
                 OptionallyEmittedData.TextFiles |
                 OptionallyEmittedData.Hashes);
@@ -235,6 +251,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         [Trait(TestTraits.WindowsOnly, "true")]
         public void InsertOptionalDataVisitor_PersistsContextRegionSnippetPartialFingerprints()
         {
+            // Unfortunately, we require a test file name of this extreme brevity
+            // to avoid provoking file path length issues running tests under .NET 4.8.
             RunTest("Rel.sarif", OptionallyEmittedData.ContextRegionSnippetPartialFingerprints);
         }
 
@@ -242,6 +260,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         [Trait(TestTraits.WindowsOnly, "true")]
         public void InsertOptionalDataVisitor_PersistsAll()
         {
+            // Unfortunately, we require a test file name of this extreme brevity
+            // to avoid provoking file path length issues running tests under .NET 4.8.
             RunTest("Rel.sarif",
                 OptionallyEmittedData.All);
         }
