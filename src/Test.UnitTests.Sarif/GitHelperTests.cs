@@ -178,7 +178,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         [Fact]
         public void GetTopLevel_WhenRepoPathIsToAFile()
         {
-            string pathToFile = typeof(GitHelperTests).Assembly.Location;
+            string pathToFile = Environment.CurrentDirectory;
             string repoRootPath = GitHelper.Default.GetTopLevel(pathToFile);
             repoRootPath.Should().NotBeNull();
             pathToFile.StartsWith(repoRootPath, StringComparison.InvariantCultureIgnoreCase).Should().BeTrue();
@@ -187,7 +187,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         [Fact]
         public void GetTopLevel_WhenRepoPathIsToADirectory()
         {
-            string pathToDirectory = Path.GetDirectoryName(typeof(GitHelperTests).Assembly.Location);
+            string pathToDirectory = Environment.CurrentDirectory;
             string repoRootPath = GitHelper.Default.GetTopLevel(pathToDirectory);
             repoRootPath.Should().NotBeNull();
             pathToDirectory.StartsWith(repoRootPath, StringComparison.InvariantCultureIgnoreCase).Should().BeTrue();

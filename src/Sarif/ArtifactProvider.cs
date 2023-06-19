@@ -117,14 +117,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             get
             {
-                lock (this.archive)
-                {
-                    if (Stream != null)
-                    {
-                        return (long)Stream.Length;
-                    }
-                    return (long)this.contents.Length;
-                }
+                return this.entry.Length;
             }
             set => throw new NotImplementedException();
         }

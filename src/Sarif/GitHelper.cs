@@ -87,7 +87,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         public string GetBlame(string filePath)
         {
             return GetSimpleGitCommandOutput(
-                Path.GetDirectoryName(filePath),
+                GetTopLevel(filePath),
                 args: $"blame -f --porcelain {Path.GetFileName(filePath)}",
                 trimLines: false);
         }

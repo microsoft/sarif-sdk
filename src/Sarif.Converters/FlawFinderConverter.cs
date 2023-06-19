@@ -9,8 +9,6 @@ using System.Linq;
 
 using CsvHelper;
 
-using Microsoft.CodeAnalysis.Sarif.Visitors;
-
 namespace Microsoft.CodeAnalysis.Sarif.Converters
 {
     public class FlawFinderConverter : ToolFileConverterBase

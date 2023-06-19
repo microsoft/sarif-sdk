@@ -5,8 +5,6 @@ using System;
 using System.IO;
 using System.Reflection;
 
-using Microsoft.CodeAnalysis.Test.Utilities.Sarif;
-
 namespace Microsoft.CodeAnalysis.Sarif
 {
     /// <summary>

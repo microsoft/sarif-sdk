@@ -17,7 +17,6 @@ using System.Threading.Tasks;
 
 using Microsoft.CodeAnalysis.Sarif.Driver.Sdk;
 using Microsoft.CodeAnalysis.Sarif.Writers;
-using Microsoft.Diagnostics.Tracing;
 using Microsoft.Diagnostics.Tracing.Session;
 
 namespace Microsoft.CodeAnalysis.Sarif.Driver

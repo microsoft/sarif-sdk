@@ -38,8 +38,9 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Core
             {
                 File.Create(Path.GetInvalidFileNameChars()[0].ToString(), 0);
             }
-            catch (IOException exception)
+            catch (Exception exception)
             {
+                // This code path catches ArgumentException in .NET 4.8 and IOException in later versions.
                 IList<Stack> stacks = Stack.CreateStacks(exception).ToList();
 
                 stacks.Count.Should().Be(1);
@@ -58,8 +59,9 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Core
             {
                 File.Create(Path.GetInvalidFileNameChars()[0].ToString(), 0);
             }
-            catch (IOException exception)
+            catch (Exception exception)
             {
+                // This code path catches ArgumentException in .NET 4.8 and IOException in later versions.
                 Exception containerException = new InvalidOperationException("test exception", exception);
 
                 IList<Stack> stacks = Stack.CreateStacks(containerException).ToList();
@@ -82,8 +84,9 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Core
             {
                 File.Create(Path.GetInvalidFileNameChars()[0].ToString(), 0);
             }
-            catch (IOException exception)
+            catch (Exception exception)
             {
+                // This code path catches ArgumentException in .NET 4.8 and IOException in later versions.
                 var innerException1 = new InvalidOperationException("Test exception 1.");
                 var innerException2 = new InvalidOperationException("Test exception 2.", exception);
 
