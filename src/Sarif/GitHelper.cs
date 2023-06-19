@@ -86,6 +86,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         public string GetBlame(string filePath)
         {
+            filePath = Path.GetFullPath(filePath);
             return GetSimpleGitCommandOutput(
                 GetTopLevel(filePath),
                 args: $"blame -f --porcelain {filePath}",
