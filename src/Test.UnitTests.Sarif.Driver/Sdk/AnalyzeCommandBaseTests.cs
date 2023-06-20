@@ -1025,7 +1025,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                                                                     It.IsAny<SearchOption>())).Returns(files);
                 mockFileSystem.Setup(x => x.FileOpenRead(It.IsAny<string>())).Returns(mockStream.Object);
                 mockFileSystem.Setup(x => x.FileExists(tempFile.Name)).Returns(true);
-                mockFileSystem.Setup(x => x.FileInfoLength(It.IsAny<string>())).Returns(testCase.fileSizeInBytes);
+                mockFileSystem.Setup(x => x.FileInfoLength(It.IsAny<string>())).Returns((long)testCase.fileSizeInBytes);
 
                 bool expectedToBeWithinLimits =
                     testCase.fileSizeInBytes != 0 &&
