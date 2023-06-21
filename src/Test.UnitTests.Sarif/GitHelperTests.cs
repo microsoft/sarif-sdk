@@ -3,6 +3,7 @@
 
 using System;
 using System.IO;
+using System.Linq;
 
 using FluentAssertions;
 
@@ -178,7 +179,8 @@ namespace Microsoft.CodeAnalysis.Sarif
         [Fact]
         public void GetTopLevel_WhenRepoPathIsToAFile()
         {
-            string pathToFile = typeof(GitHelperTests).Assembly.Location;
+            string file = Directory.GetFiles(Environment.CurrentDirectory, "*").First();
+            string pathToFile = Path.Combine(Environment.CurrentDirectory, file);
             string repoRootPath = GitHelper.Default.GetTopLevel(pathToFile);
             repoRootPath.Should().NotBeNull();
             pathToFile.StartsWith(repoRootPath, StringComparison.InvariantCultureIgnoreCase).Should().BeTrue();
@@ -187,7 +189,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         [Fact]
         public void GetTopLevel_WhenRepoPathIsToADirectory()
         {
-            string pathToDirectory = Path.GetDirectoryName(typeof(GitHelperTests).Assembly.Location);
+            string pathToDirectory = Environment.CurrentDirectory;
             string repoRootPath = GitHelper.Default.GetTopLevel(pathToDirectory);
             repoRootPath.Should().NotBeNull();
             pathToDirectory.StartsWith(repoRootPath, StringComparison.InvariantCultureIgnoreCase).Should().BeTrue();
@@ -224,6 +226,19 @@ namespace Microsoft.CodeAnalysis.Sarif
             var gitHelper = new GitHelper(mockFileSystem.Object);
 
             gitHelper.GetTopLevel(@"C:\dev\sarif-sdk\src\Sarif").Should().BeNull();
+        }
+
+        [Fact]
+        [Trait(TestTraits.WindowsOnly, "true")]
+        public void GitHelper_GetBlame()
+        {
+            var gitHelper = new GitHelper();
+            string repoDirectory = gitHelper.GetRepositoryRoot(Environment.CurrentDirectory);
+            string readMePath = Path.Combine(repoDirectory, "README.md");
+            string blame = gitHelper.GetBlame(readMePath);
+
+            // The original commit for our repo readme file.
+            blame.Contains("3e9d5d8d9c8d00dfe534e9fa3108d594d54bfcb6").Should().BeTrue();
         }
     }
 }

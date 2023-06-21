@@ -16,7 +16,7 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Core
 {
     public class LocationTests
     {
-        private const string Id = "\"Id\"";
+        private const string Id = "\"id\"";
         private static readonly TestAssetResourceExtractor s_extractor = new TestAssetResourceExtractor(typeof(LocationTests));
 
         [Fact]
@@ -226,14 +226,14 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Core
         {
             location.ShouldSerializeId().Should().Be(shouldSerialize);
             string jsonLocation = JsonConvert.SerializeObject(location);
-            jsonLocation.Contains(Id, StringComparison.InvariantCultureIgnoreCase).Should().Be(shouldSerialize);
+            jsonLocation.Contains(Id).Should().Be(shouldSerialize);
 
             Location reconstructedLocation = JsonConvert.DeserializeObject<Location>(jsonLocation);
             reconstructedLocation.Id.Should().Be(reconstructedLocationId);
 
             reconstructedLocation.ShouldSerializeId().Should().Be(shouldSerialize);
             string reconstructedJsonLocation = JsonConvert.SerializeObject(reconstructedLocation);
-            reconstructedJsonLocation.Contains(Id, StringComparison.InvariantCultureIgnoreCase).Should().Be(shouldSerialize);
+            reconstructedJsonLocation.Contains(Id).Should().Be(shouldSerialize);
         }
 
         private void VerifyIdRoundTripFromJsonHelper(string jsonLocation, BigInteger deserializedId, bool shouldSerialize, BigInteger reconstructedLocationId)
@@ -243,7 +243,7 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Core
 
             location.ShouldSerializeId().Should().Be(shouldSerialize);
             string reconstructedJsonLocation = JsonConvert.SerializeObject(location);
-            reconstructedJsonLocation.Contains(Id, StringComparison.InvariantCultureIgnoreCase).Should().Be(shouldSerialize);
+            reconstructedJsonLocation.Contains(Id).Should().Be(shouldSerialize);
 
             Location reconstructedLocation = JsonConvert.DeserializeObject<Location>(reconstructedJsonLocation);
             reconstructedLocation.Id.Should().Be(reconstructedLocationId);

@@ -48,7 +48,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             // to the expected output.
             string enlistmentRoot = GitHelper.Default.GetRepositoryRoot(Environment.CurrentDirectory, useCache: false);
 
-            if (inputResourceName == "CoreTests-Relative.sarif")
+            // Unfortunately, we require a test file name of this extreme brevity
+            // to avoid provoking file path length issues running tests under .NET 4.8.
+            if (inputResourceName == "Rel.sarif")
             {
                 Uri originalUri = actualLog.Runs[0].OriginalUriBaseIds["TESTROOT"].Uri;
                 string uriString = originalUri.ToString();
@@ -75,7 +77,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     actualLog.Runs[0].OriginalUriBaseIds[repoRootUriBaseId] = new ArtifactLocation { Uri = new Uri(repoRootString, UriKind.Absolute) };
                 }
             }
-            else if (inputResourceName == "CoreTests-Absolute.sarif")
+            else if (inputResourceName == "Absolute.sarif")
             {
                 Uri originalUri = actualLog.Runs[0].Artifacts[0].Location.Uri;
                 string uriString = originalUri.ToString();
@@ -158,75 +160,91 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         [Trait(TestTraits.WindowsOnly, "true")]
         public void InsertOptionalDataVisitor_PersistsHashes()
         {
-            RunTest("CoreTests-Relative.sarif", OptionallyEmittedData.Hashes);
+            RunTest("Rel.sarif", OptionallyEmittedData.Hashes);
         }
 
         [Fact]
         [Trait(TestTraits.WindowsOnly, "true")]
         public void InsertOptionalDataVisitor_PersistsTextFilesWithRelativeUris()
         {
-            RunTest("CoreTests-Relative.sarif", OptionallyEmittedData.TextFiles);
+            RunTest("Rel.sarif", OptionallyEmittedData.TextFiles);
         }
 
         [Fact]
         [Trait(TestTraits.WindowsOnly, "true")]
         public void InsertOptionalDataVisitor_PersistsTextFilesWithAbsoluteUris()
         {
-            RunTest("CoreTests-Absolute.sarif", OptionallyEmittedData.TextFiles);
+            RunTest("Absolute.sarif", OptionallyEmittedData.TextFiles);
         }
 
         [Fact]
         [Trait(TestTraits.WindowsOnly, "true")]
         public void InsertOptionalDataVisitor_PersistsRegionSnippets()
         {
-            RunTest("CoreTests-Relative.sarif", OptionallyEmittedData.RegionSnippets);
+            // Unfortunately, we require a test file name of this extreme brevity
+            // to avoid provoking file path length issues running tests under .NET 4.8.
+            RunTest("Rel.sarif", OptionallyEmittedData.RegionSnippets);
         }
 
         [Fact]
         public void InsertOptionalDataVisitor_PersistsFlattenedMessages()
         {
-            RunTest("CoreTests-Relative.sarif", OptionallyEmittedData.FlattenedMessages);
+            // Unfortunately, we require a test file name of this extreme brevity
+            // to avoid provoking file path length issues running tests under .NET 4.8.
+            RunTest("Rel.sarif", OptionallyEmittedData.FlattenedMessages);
         }
 
         [Fact]
         [Trait(TestTraits.WindowsOnly, "true")]
         public void InsertOptionalDataVisitor_PersistsContextRegionSnippets()
         {
-            RunTest("CoreTests-Relative.sarif", OptionallyEmittedData.ContextRegionSnippets);
+            // Unfortunately, we require a test file name of this extreme brevity
+            // to avoid provoking file path length issues running tests under .NET 4.8.
+            RunTest("Rel.sarif", OptionallyEmittedData.ContextRegionSnippets);
         }
 
         [Fact]
         [Trait(TestTraits.WindowsOnly, "true")]
         public void InsertOptionalDataVisitor_PersistsComprehensiveRegionProperties()
         {
-            RunTest("CoreTests-Relative.sarif", OptionallyEmittedData.ComprehensiveRegionProperties);
+            // Unfortunately, we require a test file name of this extreme brevity
+            // to avoid provoking file path length issues running tests under .NET 4.8.
+            RunTest("Rel.sarif", OptionallyEmittedData.ComprehensiveRegionProperties);
         }
 
         [Fact]
         public void InsertOptionalDataVisitor_PersistsGuids()
         {
             // NOTE: Test adding Guids, but validation is in test code, not diff, as Guids vary with each run.
-            RunTest("CoreTests-Relative.sarif", OptionallyEmittedData.Guids);
+            // Unfortunately, we require a test file name of this extreme brevity
+            // to avoid provoking file path length issues running tests under .NET 4.8.
+            RunTest("Rel.sarif", OptionallyEmittedData.Guids);
         }
 
         [Fact]
         [Trait(TestTraits.WindowsOnly, "true")]
         public void InsertOptionalDataVisitor_PersistsVersionControlInformation()
         {
-            RunTest("CoreTests-Relative.sarif", OptionallyEmittedData.VersionControlDetails);
+            // Unfortunately, we require a test file name of this extreme brevity
+            // to avoid provoking file path length issues running tests under .NET 4.8.
+            RunTest("Rel.sarif", OptionallyEmittedData.VersionControlDetails);
         }
 
         [Fact]
         public void InsertOptionalDataVisitor_PersistsNone()
         {
-            RunTest("CoreTests-Relative.sarif");
+            // Unfortunately, we require a test file name of this extreme brevity
+            // to avoid provoking file path length issues running tests under .NET 4.8.
+            RunTest("Rel.sarif");
         }
 
         [Fact]
         [Trait(TestTraits.WindowsOnly, "true")]
         public void InsertOptionalDataVisitor_PersistsHashesAndTextFiles()
         {
-            RunTest("CoreTests-Relative.sarif",
+            // Unfortunately, we require a test file name of this extreme brevity
+            // to avoid provoking file path length issues running tests under .NET 4.8.
+            RunTest("Rel.sarif",
                 OptionallyEmittedData.TextFiles |
                 OptionallyEmittedData.Hashes);
         }
@@ -235,21 +253,25 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         [Trait(TestTraits.WindowsOnly, "true")]
         public void InsertOptionalDataVisitor_PersistsContextRegionSnippetPartialFingerprints()
         {
-            RunTest("CoreTests-Relative.sarif", OptionallyEmittedData.ContextRegionSnippetPartialFingerprints);
+            // Unfortunately, we require a test file name of this extreme brevity
+            // to avoid provoking file path length issues running tests under .NET 4.8.
+            RunTest("Rel.sarif", OptionallyEmittedData.ContextRegionSnippetPartialFingerprints);
         }
 
         [Fact]
         [Trait(TestTraits.WindowsOnly, "true")]
         public void InsertOptionalDataVisitor_PersistsAll()
         {
-            RunTest("CoreTests-Relative.sarif",
+            // Unfortunately, we require a test file name of this extreme brevity
+            // to avoid provoking file path length issues running tests under .NET 4.8.
+            RunTest("Rel.sarif",
                 OptionallyEmittedData.All);
         }
 
         [Fact]
         public void InsertOptionalDataVisitor_ContextRegionSnippets_DoesNotFail_TopLevelOriginalUriBaseIdUriMissing()
         {
-            RunTest("TopLevelOriginalUriBaseIdUriMissing.sarif",
+            RunTest("UriMissing.sarif",
                 OptionallyEmittedData.ContextRegionSnippets);
         }
 
