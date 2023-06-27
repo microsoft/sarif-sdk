@@ -62,7 +62,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                     Console.WriteLine();
                     Console.WriteLine(StdErr.Text);
                     Console.WriteLine();
-                    throw new InvalidOperationException();
+                    throw new InvalidOperationException(StdErr.Text);
                 }
             }
         }

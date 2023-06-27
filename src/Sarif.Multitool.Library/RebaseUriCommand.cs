@@ -10,8 +10,6 @@ using Microsoft.CodeAnalysis.Sarif.Driver;
 using Microsoft.CodeAnalysis.Sarif.Processors;
 using Microsoft.CodeAnalysis.Sarif.Visitors;
 
-using Newtonsoft.Json;
-
 namespace Microsoft.CodeAnalysis.Sarif.Multitool
 {
     public class RebaseUriCommand : CommandBase
