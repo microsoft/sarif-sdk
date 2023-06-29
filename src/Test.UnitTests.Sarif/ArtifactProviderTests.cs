@@ -30,6 +30,20 @@ namespace Test.UnitTests.Sarif
         }
 
         [Fact]
+        public void MultithreadedZipArchiveArtifactProvider_RetrieveSizeInBytesAfterRetrievingContent()
+        {
+            string entryContents = "test";
+            ZipArchive zip = CreateZipArchive("test.zip", entryContents);
+            var artifactProvider = new MultithreadedZipArchiveArtifactProvider(zip, FileSystem.Instance);
+            foreach (IEnumeratedArtifact artifact in artifactProvider.Artifacts)
+            {
+                string content = artifact.Contents;
+                long? size = artifact.SizeInBytes;
+                artifact.SizeInBytes.Should().Be(entryContents.Length);
+            }
+        }
+
+        [Fact]
         public void MultithreadedZipArchiveArtifactProvider_SizeInBytesAndContentsAreAvailable()
         {
             string entryContents = "test";
