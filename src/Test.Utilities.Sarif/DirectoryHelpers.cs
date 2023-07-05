@@ -18,7 +18,11 @@ namespace Microsoft.CodeAnalysis.Test.Utilities.Sarif
         /// <returns></returns>
         public static string GetEnlistmentRoot()
         {
+#if NETSTANDARD2_0_OR_GREATER
+            string path = typeof(DirectoryHelpers).Assembly.Location;
+#else
             string path = Environment.CurrentDirectory;
+#endif
             return GitHelper.Default.GetTopLevel(path);
         }
 
@@ -29,7 +33,11 @@ namespace Microsoft.CodeAnalysis.Test.Utilities.Sarif
         /// <returns></returns>
         public static string GetEnlistmentSrcDirectory()
         {
+#if NETSTANDARD2_0_OR_GREATER
+            string path = typeof(DirectoryHelpers).Assembly.Location;
+#else
             string path = Environment.CurrentDirectory;
+#endif
             path = GitHelper.Default.GetTopLevel(path);
             return Path.Combine(GetEnlistmentRoot(), @"src\");
         }
