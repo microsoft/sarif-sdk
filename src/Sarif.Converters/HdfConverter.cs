@@ -110,6 +110,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 DefaultConfiguration = new ReportingConfiguration
                 {
                     Level = SarifLevelFromHdfImpact(execJsonControl.Impact),
+                    Enabled = !execJsonControl.Results.All(r => r.Status == ControlResultStatus.Skipped),
                 },
                 Help = execJsonControl.Descriptions.Any() ? new MultiformatMessageString
                 {
