@@ -121,6 +121,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             var results = new List<Result>(execJsonControl.Results.Count);
             foreach (ControlResult controlResult in execJsonControl.Results)
             {
+                ResultKind kind = controlResult.Status switch
+                {
+                    ControlResultStatus.Passed => ResultKind.Pass,
+                    ControlResultStatus.Failed => ResultKind.Fail,
+                    ControlResultStatus.Error => ResultKind.Review,
+                    ControlResultStatus.Skipped => ResultKind.NotApplicable,
+                    _ => ResultKind.Fail,
+                };
+                FailureLevel level = (kind == ResultKind.Fail) ? SarifLevelFromHdfImpact(execJsonControl.Impact) : FailureLevel.None;
+                double rank = (kind == ResultKind.Fail) ? SarifRankFromHdfImpact(execJsonControl.Impact) : -1.0;
                 var result = new Result
                 {
                     RuleId = execJsonControl.Id,
@@ -128,8 +138,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                     {
                         Text = AppendPeriod(string.IsNullOrWhiteSpace(controlResult.CodeDesc) ? execJsonControl.Desc : controlResult.CodeDesc),
                     },
-                    Level = SarifLevelFromHdfImpact(execJsonControl.Impact),
-                    Rank = SarifRankFromHdfImpact(execJsonControl.Impact),
+                    Kind = kind,
+                    Level = level,
+                    Rank = rank,
                 };
                 results.Add(result);
             }
