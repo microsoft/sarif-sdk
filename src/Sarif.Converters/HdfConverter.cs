@@ -107,6 +107,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 {
                     Level = SarifLevelFromHdfImpact(execJsonControl.Impact),
                 },
+                Help = execJsonControl.Descriptions.Any() ? new MultiformatMessageString
+                {
+                    Text = string.Join("\n", execJsonControl.Descriptions.Select(d => d.Label + ":\n" + d.Data))
+                } : null,
                 HelpUri = null,
                 Relationships = new List<ReportingDescriptorRelationship>(
                     ((JArray)execJsonControl.Tags["nist"])
