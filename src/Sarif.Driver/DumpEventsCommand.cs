@@ -64,14 +64,14 @@ namespace Microsoft.CodeAnalysis.Sarif
 
                     if (traceEvent.Opcode == TraceEventOpcode.Start)
                     {
-                        string keyText = $"{traceEvent.PayloadByName(nameof(ruleId))}:{traceEvent.PayloadByName(nameof(ruleName))}:{traceEvent.ThreadID}";
+                        string keyText = $"{traceEvent.PayloadByName(nameof(filePath))}:{traceEvent.PayloadByName(nameof(ruleId))}:{traceEvent.PayloadByName(nameof(ruleName))}:{traceEvent.PayloadByName(nameof(context))}:{traceEvent.ThreadID}";
                         startStopKey = new StartStopKey(traceEvent.ProviderGuid, traceEvent.Task, keyText);
                         timingData.Add(startStopKey, traceEvent.TimeStampRelativeMSec);
                     }
 
                     if (traceEvent.Opcode == TraceEventOpcode.Stop)
                     {
-                        string keyText = $"{traceEvent.PayloadByName(nameof(ruleId))}:{traceEvent.PayloadByName(nameof(ruleName))}:{traceEvent.ThreadID}";
+                        string keyText = $"{traceEvent.PayloadByName(nameof(filePath))}:{traceEvent.PayloadByName(nameof(ruleId))}:{traceEvent.PayloadByName(nameof(ruleName))}:{traceEvent.PayloadByName(nameof(context))}:{traceEvent.ThreadID}";
                         startStopKey = new StartStopKey(traceEvent.ProviderGuid, traceEvent.Task, keyText);
                     }
 

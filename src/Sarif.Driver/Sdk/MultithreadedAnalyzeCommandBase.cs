@@ -89,7 +89,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                     if (globalContext.EventsFilePath.Equals("console", StringComparison.OrdinalIgnoreCase))
                     {
                         globalContext.TraceEventSession = new TraceEventSession($"Sarif-Driver-{Guid.NewGuid()}");
-                        globalContext.TraceEventSession.BufferSizeMB = 512;
+                        globalContext.TraceEventSession.BufferSizeMB = 2096;
                         TraceEventSession traceEventSession = globalContext.TraceEventSession;
                         globalContext.TraceEventSession.Source.Dynamic.All += (e =>
                         {
@@ -111,7 +111,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                             : globalContext.EventsFilePath;
 
                         globalContext.TraceEventSession = new TraceEventSession($"Sarif-Driver-{Guid.NewGuid()}", etlFilePath);
-                        globalContext.TraceEventSession.BufferSizeMB = 512;
+                        globalContext.TraceEventSession.BufferSizeMB = 2096;
                         globalContext.TraceEventSession.EnableProvider(guid);
                     }
                 }
@@ -301,7 +301,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             context.EventsFilePath = Environment.GetEnvironmentVariable("SPMI_ETW") ?? options.EventsFilePath ?? context.EventsFilePath;
             context.PostUri = options.PostUri != null ? options.PostUri : context.PostUri;
             context.Recurse = options.Recurse != null ? options.Recurse.Value : context.Recurse;
-            context.Traces = options.Trace != null ? InitializeStringSet(options.Trace) : context.Traces;
+            context.Traces = options.Trace.Any() ? InitializeStringSet(options.Trace) : context.Traces;
             context.BaselineFilePath = options.BaselineFilePath != null ? options.BaselineFilePath : context.BaselineFilePath;
             context.DataToInsert = options.DataToInsert?.Any() == true ? options.DataToInsert.ToFlags() : context.DataToInsert;
             context.DataToRemove = options.DataToRemove?.Any() == true ? options.DataToRemove.ToFlags() : context.DataToRemove;
