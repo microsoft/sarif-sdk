@@ -3,10 +3,8 @@
 
 using System;
 using System.Collections.Generic;
-using System.Data;
 using System.IO;
 
-using Microsoft.CodeAnalysis.Sarif.Driver;
 using Microsoft.CodeAnalysis.Sarif.Driver.Sdk;
 using Microsoft.Diagnostics.Tracing;
 
