@@ -4040,7 +4040,7 @@
           "rules": [
             {
               "id": "10104",
-              "name": "User Agent Fuzzer",
+              "name": "UserAgentFuzzer",
               "fullDescription": {
                 "text": "Check for differences in response based on fuzzed User Agent (eg. mobile sites, access as a Search Engine Crawler). Compares the response statuscode and the hashcode of the response body with the original response."
               },
@@ -4076,7 +4076,7 @@
             },
             {
               "id": "10016",
-              "name": "Web Browser XSS Protection Not Enabled",
+              "name": "WebBrowserXSSProtectionNotEnabled",
               "fullDescription": {
                 "text": "Web Browser XSS Protection is not enabled, or is disabled by the configuration of the 'X-XSS-Protection' HTTP response header on the web server."
               },
@@ -4112,7 +4112,7 @@
             },
             {
               "id": "90027.1",
-              "name": "Cookie Slack Detector",
+              "name": "CookieSlackDetector",
               "fullDescription": {
                 "text": "Repeated GET requests: drop a different cookie each time, followed by normal request with all cookies to stabilize session, compare responses against original baseline GET. This can reveal areas where cookie based authentication/attributes are not actually enforced."
               },
@@ -4148,7 +4148,7 @@
             },
             {
               "id": "90027.2",
-              "name": "Cookie Slack Detector",
+              "name": "CookieSlackDetector",
               "fullDescription": {
                 "text": "Repeated GET requests: drop a different cookie each time, followed by normal request with all cookies to stabilize session, compare responses against original baseline GET. This can reveal areas where cookie based authentication/attributes are not actually enforced."
               },
@@ -4184,7 +4184,7 @@
             },
             {
               "id": "40025.1",
-              "name": "Proxy Disclosure",
+              "name": "ProxyDisclosure",
               "fullDescription": {
                 "text": "1 proxy server(s) were detected or fingerprinted. This information helps a potential attacker to determine  - A list of targets for an attack against the application. - Potential vulnerabilities on the proxy servers that service the application. - The presence or absence of any proxy-based components that might cause attacks against the application to be detected, prevented, or mitigated. ."
               },
@@ -4223,7 +4223,7 @@
             },
             {
               "id": "10021",
-              "name": "X-Content-Type-Options Header Missing",
+              "name": "X-Content-Type-OptionsHeaderMissing",
               "fullDescription": {
                 "text": "The Anti-MIME-Sniffing header X-Content-Type-Options was not set to 'nosniff'. This allows older versions of Internet Explorer and Chrome to perform MIME-sniffing on the response body, potentially causing the response body to be interpreted and displayed as a content type other than the declared content type. Current (early 2014) and legacy versions of Firefox will use the declared content type (if one is set), rather than performing MIME-sniffing."
               },
@@ -4259,7 +4259,7 @@
             },
             {
               "id": "40024",
-              "name": "SQL Injection - SQLite",
+              "name": "SQLInjection-SQLite",
               "fullDescription": {
                 "text": "SQL injection may be possible."
               },
@@ -4298,7 +4298,7 @@
             },
             {
               "id": "10020",
-              "name": "X-Frame-Options Header Not Set",
+              "name": "X-Frame-OptionsHeaderNotSet",
               "fullDescription": {
                 "text": "X-Frame-Options header is not included in the HTTP response to protect against 'ClickJacking' attacks."
               },
@@ -4334,7 +4334,7 @@
             },
             {
               "id": "40025.2",
-              "name": "Proxy Disclosure",
+              "name": "ProxyDisclosure",
               "fullDescription": {
                 "text": "1 proxy server(s) were detected or fingerprinted. This information helps a potential attacker to determine  - A list of targets for an attack against the application. - Potential vulnerabilities on the proxy servers that service the application. - The presence or absence of any proxy-based components that might cause attacks against the application to be detected, prevented, or mitigated. ."
               },
@@ -4370,7 +4370,7 @@
             },
             {
               "id": "40027",
-              "name": "SQL Injection - MsSQL",
+              "name": "SQLInjection-MsSQL",
               "fullDescription": {
                 "text": "SQL injection may be possible."
               },
@@ -4409,7 +4409,7 @@
             },
             {
               "id": "6",
-              "name": "Path Traversal",
+              "name": "PathTraversal",
               "fullDescription": {
                 "text": "The Path Traversal attack technique allows an attacker access to files, directories, and commands that potentially reside outside the web document root directory. An attacker may manipulate a URL in such a way that the web site will execute or reveal the contents of arbitrary files anywhere on the web server. Any device that exposes an HTTP-based interface is potentially vulnerable to Path Traversal.Most web sites restrict user access to a specific portion of the file-system, typically called the \"web document root\" or \"CGI root\" directory. These directories contain the files intended for user access and the executable necessary to drive web application functionality. To access files or execute commands anywhere on the file-system, Path Traversal attacks will utilize the ability of special-characters sequences.The most basic Path Traversal attack uses the \"../\" special-character sequence to alter the resource location requested in the URL. Although most popular web servers will prevent this technique from escaping the web document root, alternate encodings of the \"../\" sequence may help bypass the security filters. These method variations include valid and invalid Unicode-encoding (\"..%u2216\" or \"..%c0%af\") of the forward slash character, backslash characters (\"..\\\") on Windows-based servers, URL encoded characters \"%2e%2e%2f\"), and double URL encoding (\"..%255c\") of the backslash character.Even if the web server properly restricts Path Traversal attempts in the URL path, a web application itself may still be vulnerable due to improper handling of user-supplied input. This is a common problem of web applications that use template mechanisms or load static text from files. In variations of the attack, the original URL parameter value is substituted with the file name of one of the web application's dynamic scripts. Consequently, the results can reveal source code because the file is interpreted as text instead of an executable script. These techniques often employ additional special characters such as the dot (\".\") to reveal the listing of the current working directory, or \"%00\" NULL characters in order to bypass rudimentary file extension checks."
               },
@@ -4448,7 +4448,7 @@
             },
             {
               "id": "7",
-              "name": "Remote File Inclusion",
+              "name": "RemoteFileInclusion",
               "fullDescription": {
                 "text": "Remote File Include (RFI) is an attack technique used to exploit \"dynamic file include\" mechanisms in web applications. When web applications take user input (URL, parameter value, etc.) and pass them into file include commands, the web application might be tricked into including remote files with malicious code.Almost all web application frameworks support file inclusion. File inclusion is mainly used for packaging common code into separate files that are later referenced by main application modules. When a web application references an include file, the code in this file may be executed implicitly or explicitly by calling specific procedures. If the choice of module to load is based on elements from the HTTP request, the web application might be vulnerable to RFI.An attacker can use RFI for:    * Running malicious code on the server: any code in the included malicious files will be run by the server. If the file include is not executed using some wrapper, code in include files is executed in the context of the server user. This could lead to a complete system compromise.    * Running malicious code on clients: the attacker's malicious code can manipulate the content of the response sent to the client. The attacker can embed malicious code in the response that will be run by the client (for example, Javascript to steal the client session cookies).PHP is particularly vulnerable to RFI attacks due to the extensive use of \"file includes\" in PHP programming and due to default server configurations that increase susceptibility to an RFI attack."
               },
@@ -4487,7 +4487,7 @@
             },
             {
               "id": "30002",
-              "name": "Format String Error",
+              "name": "FormatStringError",
               "fullDescription": {
                 "text": "A Format String error occurs when the submitted data of an input string is evaluated as a command by the application. ."
               },

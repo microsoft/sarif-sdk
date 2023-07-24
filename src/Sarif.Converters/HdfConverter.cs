@@ -98,7 +98,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             var reportingDescriptor = new ReportingDescriptor
             {
                 Id = execJsonControl.Id,
-                Name = execJsonControl.Title,
+                Name = string.Join("", execJsonControl.Title.Split(' ').Select(s => char.ToUpper(s[0]) + s.Substring(1))),
                 ShortDescription = new MultiformatMessageString
                 {
                     Text = AppendPeriod(execJsonControl.Title),
