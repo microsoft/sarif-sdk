@@ -17,6 +17,11 @@
           ]
         }
       },
+      "originalUriBaseIds": {
+        "ROOTPATH": {
+          "uri": "file:///"
+        }
+      },
       "artifacts": [
         {
           "location": {

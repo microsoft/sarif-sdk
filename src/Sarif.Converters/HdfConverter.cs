@@ -44,6 +44,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                         SupportedTaxonomies = new List<ToolComponentReference>() { new ToolComponentReference() { Name = "NIST SP800-53 v5", Guid = Guid.Parse("AAFBAB93-5201-419E-8443-D4925C542398") } }
                     }
                 },
+                OriginalUriBaseIds = new Dictionary<string, ArtifactLocation>()
+                {
+                    {
+                        "ROOTPATH",  new ArtifactLocation {
+                            Uri = new Uri("file:///")
+                        }
+                    }
+                },
                 ExternalPropertyFileReferences = new ExternalPropertyFileReferences()
                 {
                     Taxonomies = new List<ExternalPropertyFileReference>()
@@ -141,6 +149,26 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                     Kind = kind,
                     Level = level,
                     Rank = rank,
+                    Locations = new List<Location>
+                    {
+                        new Location {
+                            PhysicalLocation = new PhysicalLocation
+                            {
+                                ArtifactLocation = new ArtifactLocation
+                                {
+                                   Uri =  new Uri(".", UriKind.Relative),
+                                   UriBaseId = "ROOTPATH",
+                                },
+                                Region = new Region
+                                {
+                                    StartLine = 1,
+                                    StartColumn = 1,
+                                    EndLine = 1,
+                                    EndColumn = 1,
+                                }
+                            }
+                        }
+                    }
                 };
                 results.Add(result);
             }
