@@ -268,7 +268,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         public virtual TContext InitializeGlobalContextFromOptions(TOptions options, ref TContext context)
         {
             context ??= new TContext();
-            context.FileSystem ??= Sarif.FileSystem.Instance;
+            context.FileSystem ??= this.FileSystem ?? Sarif.FileSystem.Instance;
 
             context.Quiet = options.Quiet != null ? options.Quiet.Value : context.Quiet;
 
