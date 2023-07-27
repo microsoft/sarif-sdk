@@ -21,8 +21,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
     {
         private List<Assembly> _defaultPlugInAssemblies;
 
-        protected override IFileSystem FileSystem => throw new InvalidOperationException();
-
         public ValidateCommand(IFileSystem fileSystem = null) : base(fileSystem)
         {
         }
