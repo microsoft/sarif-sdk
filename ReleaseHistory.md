@@ -2,6 +2,8 @@
 ## **v4.2.2** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/4.2.2) | [Driver](https://www.nuget.org/packages/Sarif.Driver/4.2.2) | [Converters](https://www.nuget.org/packages/Sarif.Converters/4.2.2) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/4.2.2) | [Multitool Library](https://www.nuget.org/packages/Sarif.Multitool.Library/4.2.2)
 * BUG: Resolve `NullReferenceException` retrieving `MultithreadedZipArchiveArtifactProvider.SizeInBytes` after content have been faulted in.
 
+* BUG: Improve HDF->SARIF conversion to properly map various properties (e.g., `kind`, `level`, `rank`) and generally prepare the converted SARIF for ingestion to [GitHub Advanced Security](https://docs.github.com/en/code-security/code-scanning/integrating-with-code-scanning/sarif-support-for-code-scanning).
+
 ## **v4.2.1** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/4.2.1) | [Driver](https://www.nuget.org/packages/Sarif.Driver/4.2.1) | [Converters](https://www.nuget.org/packages/Sarif.Converters/4.2.1) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/4.2.1) | [Multitool Library](https://www.nuget.org/packages/Sarif.Multitool.Library/4.2.1)
 * BUG: Resolve `NotSupportedException` thrown (on .NET 4.8 and earlier) on accessing `DeflateStream.Length` from `MultithreadedZipArchiveArtifactProvider.SizeInBytes` property. 
 
