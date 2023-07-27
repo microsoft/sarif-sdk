@@ -1,5 +1,5 @@
 # SARIF Package Release History (SDK, Driver, Converters, and Multitool)
-## **v4.2.2** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/4.2.2) | [Driver](https://www.nuget.org/packages/Sarif.Driver/4.2.2) | [Converters](https://www.nuget.org/packages/Sarif.Converters/4.2.2) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/4.2.2) | [Multitool Library](https://www.nuget.org/packages/Sarif.Multitool.Library/4.2.2)
+## **v4.3.0** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/v4.3.0) | [Driver](https://www.nuget.org/packages/Sarif.Driver/v4.3.0) | [Converters](https://www.nuget.org/packages/Sarif.Converters/v4.3.0) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/v4.3.0) | [Multitool Library](https://www.nuget.org/packages/Sarif.Multitool.Library/v4.3.0)
 * BUG: Resolve `NullReferenceException` retrieving `MultithreadedZipArchiveArtifactProvider.SizeInBytes` after content have been faulted in.
 
 * BUG: Improve HDF->SARIF conversion to properly map various properties (e.g., `kind`, `level`, `rank`) and generally prepare the converted SARIF for ingestion to [GitHub Advanced Security](https://docs.github.com/en/code-security/code-scanning/integrating-with-code-scanning/sarif-support-for-code-scanning).
