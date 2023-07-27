@@ -44,6 +44,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                         SupportedTaxonomies = new List<ToolComponentReference>() { new ToolComponentReference() { Name = "NIST SP800-53 v5", Guid = Guid.Parse("AAFBAB93-5201-419E-8443-D4925C542398") } }
                     }
                 },
+                OriginalUriBaseIds = new Dictionary<string, ArtifactLocation>()
+                {
+                    {
+                        "ROOTPATH",  new ArtifactLocation {
+                            Uri = new Uri("file:///")
+                        }
+                    }
+                },
                 ExternalPropertyFileReferences = new ExternalPropertyFileReferences()
                 {
                     Taxonomies = new List<ExternalPropertyFileReference>()
@@ -90,7 +98,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             var reportingDescriptor = new ReportingDescriptor
             {
                 Id = execJsonControl.Id,
-                Name = execJsonControl.Title,
+                Name = string.Join("", execJsonControl.Title.Split(' ').Select(s => char.ToUpper(s[0]) + s.Substring(1))),
+                ShortDescription = new MultiformatMessageString
+                {
+                    Text = AppendPeriod(execJsonControl.Title),
+                },
                 FullDescription = new MultiformatMessageString
                 {
                     Text = AppendPeriod(execJsonControl.Desc),
@@ -98,7 +110,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 DefaultConfiguration = new ReportingConfiguration
                 {
                     Level = SarifLevelFromHdfImpact(execJsonControl.Impact),
+                    Enabled = !execJsonControl.Results.All(r => r.Status == ControlResultStatus.Skipped),
                 },
+                Help = execJsonControl.Descriptions.Any() ? new MultiformatMessageString
+                {
+                    Text = string.Join("\n", execJsonControl.Descriptions.Select(d => d.Label + ":\n" + d.Data))
+                } : null,
                 HelpUri = null,
                 Relationships = new List<ReportingDescriptorRelationship>(
                     ((JArray)execJsonControl.Tags["nist"])
@@ -141,6 +158,26 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                     Kind = kind,
                     Level = level,
                     Rank = rank,
+                    Locations = new List<Location>
+                    {
+                        new Location {
+                            PhysicalLocation = new PhysicalLocation
+                            {
+                                ArtifactLocation = new ArtifactLocation
+                                {
+                                   Uri =  new Uri(".", UriKind.Relative),
+                                   UriBaseId = "ROOTPATH",
+                                },
+                                Region = new Region
+                                {
+                                    StartLine = 1,
+                                    StartColumn = 1,
+                                    EndLine = 1,
+                                    EndColumn = 1,
+                                }
+                            }
+                        }
+                    }
                 };
                 results.Add(result);
             }
