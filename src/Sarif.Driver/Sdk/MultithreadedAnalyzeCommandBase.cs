@@ -89,7 +89,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                     if (globalContext.EventsFilePath.Equals("console", StringComparison.OrdinalIgnoreCase))
                     {
                         globalContext.TraceEventSession = new TraceEventSession($"Sarif-Driver-{Guid.NewGuid()}");
-                        globalContext.TraceEventSession.BufferSizeMB = 2096;
+                        globalContext.TraceEventSession.BufferSizeMB = globalContext.EventsBufferSizeInMegabytes;
                         TraceEventSession traceEventSession = globalContext.TraceEventSession;
                         globalContext.TraceEventSession.Source.Dynamic.All += (e =>
                         {
@@ -111,7 +111,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                             : globalContext.EventsFilePath;
 
                         globalContext.TraceEventSession = new TraceEventSession($"Sarif-Driver-{Guid.NewGuid()}", etlFilePath);
-                        globalContext.TraceEventSession.BufferSizeMB = 2096;
+                        globalContext.TraceEventSession.BufferSizeMB = globalContext.EventsBufferSizeInMegabytes;
                         globalContext.TraceEventSession.EnableProvider(guid);
                     }
                 }
@@ -268,7 +268,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         public virtual TContext InitializeGlobalContextFromOptions(TOptions options, ref TContext context)
         {
             context ??= new TContext();
-            context.FileSystem ??= Sarif.FileSystem.Instance;
+            context.FileSystem ??= this.FileSystem ?? Sarif.FileSystem.Instance;
 
             context.Quiet = options.Quiet != null ? options.Quiet.Value : context.Quiet;
 
@@ -402,14 +402,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                                                  ISet<string> disabledSkimmers)
         {
             globalContext.CancellationToken.ThrowIfCancellationRequested();
-            var channelOptions = new BoundedChannelOptions(50000)
+            var channelOptions = new BoundedChannelOptions(globalContext.ChannelSize)
             {
                 SingleWriter = true,
                 SingleReader = false,
             };
             readyToScanChannel = Channel.CreateBounded<uint>(channelOptions);
 
-            channelOptions = new BoundedChannelOptions(50000)
+            channelOptions = new BoundedChannelOptions(globalContext.ChannelSize)
             {
                 SingleWriter = false,
                 SingleReader = true,

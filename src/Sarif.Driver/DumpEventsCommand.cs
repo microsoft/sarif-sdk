@@ -373,7 +373,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         private void DumpRulesFired(Dictionary<string, Dictionary<FailureLevel, int>> rulesFired)
         {
             var sortedRules = new SortedList<string, Dictionary<FailureLevel, int>>();
-            int maxRuleNameLength = 0;
+            int maxRuleNameLength = 20;
 
             foreach (string ruleName in rulesFired.Keys)
             {

@@ -28,12 +28,14 @@ namespace Microsoft.CodeAnalysis.Sarif
                 AutomationGuidProperty,
                 AutomationIdProperty,
                 BaselineFilePathProperty,
+                ChannelSizeProperty,
                 DataToInsertProperty,
                 DataToRemoveProperty,
                 EventsFilePathProperty,
                 FailureLevelsProperty,
                 GlobalFilePathDenyRegexProperty,
                 MaxFileSizeInKilobytesProperty,
+                EventsBufferSizeInMegabytesProperty,
                 OutputFileOptionsProperty,
                 OutputFilePathProperty,
                 PluginFilePathsProperty,
@@ -102,6 +104,12 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             get => this.Policy.GetProperty(PostUriProperty);
             set => this.Policy.SetProperty(PostUriProperty, value);
+        }
+
+        public virtual int ChannelSize
+        {
+            get => this.Policy.GetProperty(ChannelSizeProperty);
+            set => this.Policy.SetProperty(ChannelSizeProperty, value);
         }
 
         public virtual Guid? AutomationGuid
@@ -220,6 +228,12 @@ namespace Microsoft.CodeAnalysis.Sarif
             set => this.Policy.SetProperty(MaxFileSizeInKilobytesProperty, value >= 0 ? value : MaxFileSizeInKilobytesProperty.DefaultValue());
         }
 
+        public int EventsBufferSizeInMegabytes
+        {
+            get => this.Policy.GetProperty(EventsBufferSizeInMegabytesProperty);
+            set => this.Policy.SetProperty(EventsBufferSizeInMegabytesProperty, value >= 0 ? value : EventsBufferSizeInMegabytesProperty.DefaultValue());
+        }
+
         public virtual void Dispose()
         {
             var disposableLogger = this.Logger as IDisposable;
@@ -252,6 +266,11 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             GC.SuppressFinalize(this);
         }
+
+        public static PerLanguageOption<int> ChannelSizeProperty { get; } =
+            new PerLanguageOption<int>(
+                "CoreSettings", nameof(ChannelSize), defaultValue: () => 50000,
+                "The capacity of the channels for analyzing scan targets and logging results.");
 
         public static PerLanguageOption<Guid?> AutomationGuidProperty { get; } =
             new PerLanguageOption<Guid?>(
@@ -356,6 +375,13 @@ namespace Microsoft.CodeAnalysis.Sarif
                 $"    It is legal to set this value to 0 (in order to potentially complete an analysis that{Environment.NewLine}" +
                 $"    records what scan targets would have been analyzed, given current configuration.{Environment.NewLine}" +
                 $"    Negative values will be discarded in favor of the default of {MaxFileSizeInKilobytesProperty?.DefaultValue() ?? 1024} KB.");
+
+
+        public static PerLanguageOption<int> EventsBufferSizeInMegabytesProperty { get; } =
+            new PerLanguageOption<int>(
+                $"CoreSettings", nameof(EventsBufferSizeInMegabytes), defaultValue: () => 512,
+                $"{Environment.NewLine}" +
+                $"    A buffer size, in megabytes, passed to the events trace session instance when '--etw is enabled.");
 
         public static PerLanguageOption<int> TimeoutInMillisecondsProperty { get; } =
             new PerLanguageOption<int>(
