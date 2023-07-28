@@ -10,13 +10,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters.HdfModel
         /// <summary>
         /// The line at which this statement is located in the file
         /// </summary>
-        [JsonProperty("line", Required = Required.Default)]
-        public double Line { get; set; }
+        [JsonProperty("line", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
+        public int? Line { get; set; }
 
         /// <summary>
         /// Path to the file that this statement originates from
         /// </summary>
-        [JsonProperty("ref", Required = Required.Default)]
+        [JsonProperty("ref", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
         public string Ref { get; set; }
     }
 }
