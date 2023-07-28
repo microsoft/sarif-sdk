@@ -173,14 +173,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                             {
                                 ArtifactLocation = new ArtifactLocation
                                 {
-                                   Uri =  new Uri(".", UriKind.Relative),
+                                   Uri =  new Uri(execJsonControl.SourceLocation.Ref ?? "", UriKind.Relative),
                                    UriBaseId = "ROOTPATH",
                                 },
                                 Region = new Region
                                 {
-                                    StartLine = 1,
+                                    StartLine = execJsonControl.SourceLocation.Line ?? 1,
                                     StartColumn = 1,
-                                    EndLine = 1,
+                                    EndLine = execJsonControl.SourceLocation.Line ?? 1,
                                     EndColumn = 1,
                                 }
                             }
