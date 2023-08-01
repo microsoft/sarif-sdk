@@ -1823,7 +1823,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             {
                 runWithCaching.Artifacts.Should().NotBeEmpty();
 
-                if (string.IsNullOrWhiteSpace(options.AutomationId) && options.AutomationGuid == null)
+                if (string.IsNullOrWhiteSpace(options.AutomationId) && options.AutomationGuid == default)
                 {
                     runWithCaching.AutomationDetails.Should().Be(null);
                 }
