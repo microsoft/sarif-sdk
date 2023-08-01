@@ -825,12 +825,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                     : null;
             }
 
-            if (!File.Exists(configurationFilePath)) 
-            { 
+            if (!File.Exists(configurationFilePath))
+            {
                 string fileName = Path.GetFileNameWithoutExtension(configurationFilePath);
                 string spamDirectory = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
                 fileName = Path.Combine(spamDirectory, $"{fileName}.xml");
-                
+
                 if (fileSystem.FileExists(fileName))
                 {
                     return fileName;

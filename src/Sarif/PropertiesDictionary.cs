@@ -201,7 +201,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             this.Clear();
 
-            if (stream.CanSeek) 
+            if (stream.CanSeek)
             {
                 stream.Seek(0, SeekOrigin.Begin);
             }
