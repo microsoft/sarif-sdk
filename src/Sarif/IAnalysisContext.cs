@@ -27,7 +27,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         public string AutomationId { get; set; }
 
-        public Guid? AutomationGuid { get; set; }
+        public Guid AutomationGuid { get; set; }
 
         FilePersistenceOptions OutputFileOptions { get; set; }
 

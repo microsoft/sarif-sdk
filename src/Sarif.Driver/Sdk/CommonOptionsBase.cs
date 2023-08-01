@@ -110,7 +110,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         [Option(
             "automation-guid",
             HelpText = "A guid that will be persisted to the 'Run.AutomationDetails.Guid' property. See section '3.17.4' of the SARIF specification for more information.")]
-        public Guid? AutomationGuid { get; set; }
+        public Guid AutomationGuid { get; set; }
 
         public Formatting Formatting => this.PrettyPrint || (!this.PrettyPrint && !this.Minify)
             ? Formatting.Indented

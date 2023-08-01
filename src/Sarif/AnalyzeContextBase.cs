@@ -29,6 +29,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 AutomationIdProperty,
                 BaselineFilePathProperty,
                 ChannelSizeProperty,
+                OutputConfigurationFilePathProperty,
                 DataToInsertProperty,
                 DataToRemoveProperty,
                 EventsFilePathProperty,
@@ -112,7 +113,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             set => this.Policy.SetProperty(ChannelSizeProperty, value);
         }
 
-        public virtual Guid? AutomationGuid
+        public virtual Guid AutomationGuid
         {
             get => this.Policy.GetProperty(AutomationGuidProperty);
             set => this.Policy.SetProperty(AutomationGuidProperty, value);
@@ -142,10 +143,12 @@ namespace Microsoft.CodeAnalysis.Sarif
             set => this.Policy.SetProperty(OutputFilePathProperty, value);
         }
 
-        public string ConfigurationFilePath
+        public string ConfigurationFilePath { get; set; }
+
+        public string OutputConfigurationFilePath
         {
-            get => this.Policy.GetProperty(ConfigurationFilePathProperty);
-            set => this.Policy.SetProperty(ConfigurationFilePathProperty, value);
+            get => this.Policy.GetProperty(OutputConfigurationFilePathProperty);
+            set => this.Policy.SetProperty(OutputConfigurationFilePathProperty, value);
         }
 
         public string EventsFilePath
@@ -272,9 +275,9 @@ namespace Microsoft.CodeAnalysis.Sarif
                 "CoreSettings", nameof(ChannelSize), defaultValue: () => 50000,
                 "The capacity of the channels for analyzing scan targets and logging results.");
 
-        public static PerLanguageOption<Guid?> AutomationGuidProperty { get; } =
-            new PerLanguageOption<Guid?>(
-                "CoreSettings", nameof(AutomationGuid), defaultValue: () => null,
+        public static PerLanguageOption<Guid> AutomationGuidProperty { get; } =
+            new PerLanguageOption<Guid>(
+                "CoreSettings", nameof(AutomationGuid), defaultValue: () => default,
                 "A guid that will be persisted to the 'Run.AutomationDetails.Guid' property. " +
                 "See section '3.17.4' of the SARIF specification for more information.");
 
@@ -304,10 +307,10 @@ namespace Microsoft.CodeAnalysis.Sarif
                                 "CoreSettings", nameof(PostUri), defaultValue: () => string.Empty,
                                 "A SARIF-accepting endpoint to publish the output log to.");
 
-        public static PerLanguageOption<string> ConfigurationFilePathProperty { get; } =
+        public static PerLanguageOption<string> OutputConfigurationFilePathProperty { get; } =
                             new PerLanguageOption<string>(
-                                "CoreSettings", nameof(ConfigurationFilePath), defaultValue: () => string.Empty,
-                                "The path to write all SARIF log file results to.");
+                                "CoreSettings", nameof(OutputConfigurationFilePath), defaultValue: () => string.Empty,
+                                "The path to write all resolved configuration (by current command-line) to.");
 
         public static PerLanguageOption<OptionallyEmittedData> DataToInsertProperty { get; } =
                     new PerLanguageOption<OptionallyEmittedData>(
