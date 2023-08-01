@@ -1190,12 +1190,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         }
 
         [Theory]
-        [InlineData(null, false, "")]
-        [InlineData("", false, "")]
+        [InlineData(null, false, null)]
+        [InlineData("", false, null)]
         [InlineData(null, true, "default.configuration.xml")]
         [InlineData("", true, "default.configuration.xml")]
-        [InlineData("default", false, "")]
-        [InlineData("default", true, "")]
+        [InlineData("default", false, null)]
+        [InlineData("default", true, null)]
         [InlineData("test-newconfig.xml", false, "test-newconfig.xml")]
         [InlineData("test-newconfig.xml", true, "test-newconfig.xml")]
         public void AnalyzeCommandBase_LoadConfigurationFile(string configValue, bool defaultFileExists, string expectedFileName)
@@ -1220,7 +1220,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
             if (string.IsNullOrEmpty(expectedFileName))
             {
-                context.ConfigurationFilePath.Should().Be(string.Empty);
+                context.ConfigurationFilePath.Should().Be(null);
             }
             else
             {
@@ -1520,7 +1520,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 new TestAnalyzeOptions
                 {
                     AutomationId = string.Empty,
-                    AutomationGuid = null
+                    AutomationGuid = default
                 },
                 new TestAnalyzeOptions
                 {
@@ -1530,7 +1530,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 new TestAnalyzeOptions
                 {
                     AutomationId = null,
-                    AutomationGuid = null
+                    AutomationGuid = default
                 },
                 new TestAnalyzeOptions
                 {
@@ -1540,7 +1540,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 new TestAnalyzeOptions
                 {
                     AutomationId = string.Empty,
-                    AutomationGuid = null
+                    AutomationGuid = default
                 },
                 new TestAnalyzeOptions
                 {
@@ -1823,7 +1823,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             {
                 runWithCaching.Artifacts.Should().NotBeEmpty();
 
-                if (string.IsNullOrWhiteSpace(options.AutomationId) && options.AutomationGuid == null)
+                if (string.IsNullOrWhiteSpace(options.AutomationId) && options.AutomationGuid == default)
                 {
                     runWithCaching.AutomationDetails.Should().Be(null);
                 }
@@ -1833,7 +1833,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                     runWithCaching.AutomationDetails.Id.Should().Be(options.AutomationId);
                 }
 
-                if (options.AutomationGuid != null)
+                if (options.AutomationGuid != default)
                 {
                     runWithCaching.AutomationDetails.Guid.Should().Be(options.AutomationGuid);
                 }
@@ -1852,7 +1852,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         private static void EnhanceOptions(TestAnalyzeOptions current, TestAnalyzeOptions enhancement)
         {
             current.AutomationId ??= enhancement?.AutomationId;
-            current.AutomationGuid ??= enhancement?.AutomationGuid;
+            current.AutomationGuid = enhancement == null ? default : enhancement.AutomationGuid;
         }
 
         private static IFileSystem CreateDefaultFileSystemForResultsCaching(IList<string> files, bool generateSameInput = false)

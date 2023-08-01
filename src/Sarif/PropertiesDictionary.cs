@@ -201,6 +201,11 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             this.Clear();
 
+            if (stream.CanSeek)
+            {
+                stream.Seek(0, SeekOrigin.Begin);
+            }
+
             var settings = new XmlReaderSettings
             {
                 DtdProcessing = DtdProcessing.Ignore,

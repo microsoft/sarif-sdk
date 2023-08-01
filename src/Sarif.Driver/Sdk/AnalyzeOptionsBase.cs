@@ -37,6 +37,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         public string ConfigurationFilePath { get; set; }
 
         [Option(
+            "output-config",
+            HelpText = "Path to a policy file to which all analysis settings from the current run will be saved.")]
+        public string OutputConfigurationFilePath { get; set; }
+
+        [Option(
             'q',
             "quiet",
             HelpText = "Suppress all console output (except for catastrophic tool runtime or configuration errors).")]

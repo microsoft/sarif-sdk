@@ -11,6 +11,7 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Threading.Channels;
 using System.Threading.Tasks;
@@ -293,22 +294,22 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             context.Logger ??= InitializeLogger(context);
 
             // Finally, handle the remaining options.
-
+            context.PostUri = options.PostUri ?? context.PostUri;
             context.AutomationId = options.AutomationId ?? context.AutomationId;
             context.Threads = options.Threads > 0 ? options.Threads : context.Threads;
-            context.AutomationGuid = options.AutomationGuid ?? context.AutomationGuid;
+            context.AutomationGuid = options.AutomationGuid != default ? options.AutomationGuid : context.AutomationGuid;
             context.OutputFilePath = options.OutputFilePath ?? context.OutputFilePath;
-            context.EventsFilePath = Environment.GetEnvironmentVariable("SPMI_ETW") ?? options.EventsFilePath ?? context.EventsFilePath;
-            context.PostUri = options.PostUri != null ? options.PostUri : context.PostUri;
+            context.BaselineFilePath = options.BaselineFilePath ?? context.BaselineFilePath;
             context.Recurse = options.Recurse != null ? options.Recurse.Value : context.Recurse;
             context.Traces = options.Trace.Any() ? InitializeStringSet(options.Trace) : context.Traces;
-            context.BaselineFilePath = options.BaselineFilePath != null ? options.BaselineFilePath : context.BaselineFilePath;
+            context.GlobalFilePathDenyRegex = options.GlobalFilePathDenyRegex ?? context.GlobalFilePathDenyRegex;
+            context.OutputConfigurationFilePath = options.OutputConfigurationFilePath ?? context.OutputConfigurationFilePath;
             context.DataToInsert = options.DataToInsert?.Any() == true ? options.DataToInsert.ToFlags() : context.DataToInsert;
             context.DataToRemove = options.DataToRemove?.Any() == true ? options.DataToRemove.ToFlags() : context.DataToRemove;
+            context.EventsFilePath = Environment.GetEnvironmentVariable("SPMI_ETW") ?? options.EventsFilePath ?? context.EventsFilePath;
             context.OutputFileOptions = options.OutputFileOptions?.Any() == true ? options.OutputFileOptions.ToFlags() : context.OutputFileOptions;
             context.PluginFilePaths = options.PluginFilePaths?.Any() == true ? options.PluginFilePaths?.ToImmutableHashSet() : context.PluginFilePaths;
             context.InsertProperties = options.InsertProperties?.Any() == true ? InitializeStringSet(options.InsertProperties) : context.InsertProperties;
-            context.GlobalFilePathDenyRegex = options.GlobalFilePathDenyRegex != null ? options.GlobalFilePathDenyRegex : context.GlobalFilePathDenyRegex;
             context.MaxFileSizeInKilobytes = options.MaxFileSizeInKilobytes != null ? options.MaxFileSizeInKilobytes.Value : context.MaxFileSizeInKilobytes;
             context.TargetFileSpecifiers = options.TargetFileSpecifiers?.Any() == true ? InitializeStringSet(options.TargetFileSpecifiers) : context.TargetFileSpecifiers;
             context.InvocationPropertiesToLog = options.InvocationPropertiesToLog?.Any() == true ? InitializeStringSet(options.InvocationPropertiesToLog) : context.InvocationPropertiesToLog;
@@ -824,12 +825,25 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                     : null;
             }
 
+            if (!File.Exists(configurationFilePath))
+            {
+                string fileName = Path.GetFileNameWithoutExtension(configurationFilePath);
+                string spamDirectory = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+                fileName = Path.Combine(spamDirectory, $"{fileName}.xml");
+
+                if (fileSystem.FileExists(fileName))
+                {
+                    return fileName;
+                }
+            }
+
             return configurationFilePath;
         }
 
         protected virtual TContext InitializeConfiguration(string configurationFileName, TContext context)
         {
             context.Policy ??= new PropertiesDictionary();
+
             configurationFileName = GetConfigurationFileName(configurationFileName, context.FileSystem);
             context.ConfigurationFilePath = configurationFileName;
 
