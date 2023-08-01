@@ -45,7 +45,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             propertyBagType = propertyBag.GetType();
             propertyBagTypeName = propertyBagType.Name;
 
-            if (propertyBagTypeName != "PropertyBag")
+            if (propertyBagTypeName != "PropertiesDictionary")
             {
                 propertyBagTypeName = NormalizeTypeName(propertyBag.GetType().FullName);
             }
@@ -56,7 +56,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 writer.WriteAttributeString(KEY_ID, name);
             }
 
-            if (propertyBagTypeName != "PropertyBag")
+            if (propertyBagTypeName != "PropertiesDictionary")
             {
                 writer.WriteAttributeString(TYPE_ID, propertyBagTypeName);
             }

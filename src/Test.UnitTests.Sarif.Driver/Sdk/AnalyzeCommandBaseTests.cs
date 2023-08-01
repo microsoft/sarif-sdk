@@ -1520,7 +1520,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 new TestAnalyzeOptions
                 {
                     AutomationId = string.Empty,
-                    AutomationGuid = null
+                    AutomationGuid = default
                 },
                 new TestAnalyzeOptions
                 {
@@ -1530,7 +1530,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 new TestAnalyzeOptions
                 {
                     AutomationId = null,
-                    AutomationGuid = null
+                    AutomationGuid = default
                 },
                 new TestAnalyzeOptions
                 {
@@ -1540,7 +1540,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 new TestAnalyzeOptions
                 {
                     AutomationId = string.Empty,
-                    AutomationGuid = null
+                    AutomationGuid = default
                 },
                 new TestAnalyzeOptions
                 {
@@ -1852,7 +1852,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         private static void EnhanceOptions(TestAnalyzeOptions current, TestAnalyzeOptions enhancement)
         {
             current.AutomationId ??= enhancement?.AutomationId;
-            current.AutomationGuid ??= enhancement?.AutomationGuid;
+            current.AutomationGuid = enhancement.AutomationGuid;
         }
 
         private static IFileSystem CreateDefaultFileSystemForResultsCaching(IList<string> files, bool generateSameInput = false)
