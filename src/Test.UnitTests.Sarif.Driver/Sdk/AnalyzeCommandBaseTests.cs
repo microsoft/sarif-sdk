@@ -14,6 +14,8 @@ using FluentAssertions;
 using Microsoft.CodeAnalysis.Sarif.Converters;
 using Microsoft.CodeAnalysis.Sarif.Writers;
 
+using Mono.Cecil.Cil;
+
 using Moq;
 
 using Newtonsoft.Json;
@@ -34,6 +36,60 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         {
             this.Output = output;
             Output.WriteLine($"The seed that will be used is: {TestRule.s_seed}");
+        }
+
+        [Fact]
+        public void AnalyzeCommandBase_OptionsSettingsOverrideContextSettings()
+        {
+            // For every configuration knob, we choose an explicit, 
+            // non-default value that differs between options and configuration.
+            // This allows us to be sure that the explicit options setting
+            // is honored.
+
+            ResultKind optionsKind = ResultKind.Review;
+            ResultKind contextKind = ResultKind.Open;
+
+            FailureLevel optionsLevel = FailureLevel.Note;
+            FailureLevel contextLevel = FailureLevel.Error;
+
+            var options = new TestAnalyzeOptions
+            {
+                Kind = new[] { optionsKind, ResultKind.Fail },
+                Level = new[] { optionsLevel },
+            };
+
+            var context = new TestAnalysisContext()
+            {
+                ResultKinds = new ResultKindSet(new[] { contextKind, ResultKind.Fail }),
+                FailureLevels = new FailureLevelSet(new[] { contextLevel }),
+            };
+
+            var multithreadedAnalyzeCommand = new TestMultithreadedAnalyzeCommand();
+            multithreadedAnalyzeCommand.InitializeGlobalContextFromOptions(options, ref context);
+
+            context.ResultKinds.Should().BeEquivalentTo(new ResultKindSet(new[] { optionsKind, ResultKind.Fail }));
+            context.FailureLevels.Should().BeEquivalentTo(new FailureLevelSet(new[] { optionsLevel }));
+        }
+
+        [Fact]
+        public void AnalyzeCommandBase_EmptyOptionsSettingsDoNotOverrideContextSettings()
+        {
+            var options = new TestAnalyzeOptions
+            {
+            };
+
+            FailureLevel contextLevel = FailureLevel.Error;
+            var failureLevels = new FailureLevelSet(new[] { contextLevel });
+
+            var context = new TestAnalysisContext()
+            {
+                FailureLevels = failureLevels
+            };
+
+            var multithreadedAnalyzeCommand = new TestMultithreadedAnalyzeCommand();
+            multithreadedAnalyzeCommand.InitializeGlobalContextFromOptions(options, ref context);
+
+            context.FailureLevels.Should().BeEquivalentTo(failureLevels);
         }
 
         [Fact]
