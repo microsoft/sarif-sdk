@@ -1,5 +1,6 @@
 # SARIF Package Release History (SDK, Driver, Converters, and Multitool)
 ## **v4.3.1** UNRELEASED
+* BUG: Correct multitool query OR logic [#2709](https://github.com/microsoft/sarif-sdk/issues/2709)
 * BUG: Improve `HdfConverter` ensure uri data is populated and to provide location and region data property from `SourceLocation`. [#2704](https://github.com/microsoft/sarif-sdk/pull/2704)
 * BUG: Correct `run.language` regex in JSON schema. [#2708]https://github.com/microsoft/sarif-sdk/pull/2708
 
