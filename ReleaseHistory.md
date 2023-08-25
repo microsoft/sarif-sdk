@@ -2,6 +2,7 @@
 ## **v4.3.1** UNRELEASED
 * BUG: Improve `HdfConverter` ensure uri data is populated and to provide location and region data property from `SourceLocation`. [#2704](https://github.com/microsoft/sarif-sdk/pull/2704)
 * BUG: Correct `run.language` regex in JSON schema. [#2708]https://github.com/microsoft/sarif-sdk/pull/2708
+* BUG: Improve `HdfConverter` to set `precision` and `tags` as recommended by GitHub. [#2712](https://github.com/microsoft/sarif-sdk/pull/2712)
 
 ## **v4.3.0** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/v4.3.0) | [Driver](https://www.nuget.org/packages/Sarif.Driver/v4.3.0) | [Converters](https://www.nuget.org/packages/Sarif.Converters/v4.3.0) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/v4.3.0) | [Multitool Library](https://www.nuget.org/packages/Sarif.Multitool.Library/v4.3.0)
 * BUG: Resolve `NullReferenceException` retrieving `MultithreadedZipArchiveArtifactProvider.SizeInBytes` after content have been faulted in.

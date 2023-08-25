@@ -135,6 +135,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                     }))
             };
             reportingDescriptor.SetProperty("security-severity", SarifSecuritySeverityFromHdfImpact(execJsonControl.Impact).ToString());
+            reportingDescriptor.SetProperty("precision", "very-high");
+            reportingDescriptor.SetProperty("tags", new List<string>() { "security" });
 
             var results = new List<Result>(execJsonControl.Results.Count);
             foreach (ControlResult controlResult in execJsonControl.Results)
