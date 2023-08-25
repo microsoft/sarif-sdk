@@ -4048,7 +4048,9 @@
                 "text": "User Agent Fuzzer."
               },
               "properties": {
-                "security-severity": "3"
+                "security-severity": "3",
+                "precision": "very-high",
+                "tags": ["security"]
               },
               "relationships": [
                 {
@@ -4087,7 +4089,9 @@
                 "text": "Web Browser XSS Protection Not Enabled."
               },
               "properties": {
-                "security-severity": "3"
+                "security-severity": "3",
+                "precision": "very-high",
+                "tags": ["security"]
               },
               "relationships": [
                 {
@@ -4126,7 +4130,9 @@
                 "text": "Cookie Slack Detector."
               },
               "properties": {
-                "security-severity": "3"
+                "security-severity": "3",
+                "precision": "very-high",
+                "tags": ["security"]
               },
               "relationships": [
                 {
@@ -4165,7 +4171,9 @@
                 "text": "Cookie Slack Detector."
               },
               "properties": {
-                "security-severity": "3"
+                "security-severity": "3",
+                "precision": "very-high",
+                "tags": ["security"]
               },
               "relationships": [
                 {
@@ -4207,7 +4215,9 @@
                 "level": "error"
               },
               "properties": {
-                "security-severity": "7"
+                "security-severity": "7",
+                "precision": "very-high",
+                "tags": ["security"]
               },
               "relationships": [
                 {
@@ -4246,7 +4256,9 @@
                 "text": "X-Content-Type-Options Header Missing."
               },
               "properties": {
-                "security-severity": "3"
+                "security-severity": "3",
+                "precision": "very-high",
+                "tags": ["security"]
               },
               "relationships": [
                 {
@@ -4288,7 +4300,9 @@
                 "level": "error"
               },
               "properties": {
-                "security-severity": "7"
+                "security-severity": "7",
+                "precision": "very-high",
+                "tags": ["security"]
               },
               "relationships": [
                 {
@@ -4327,7 +4341,9 @@
                 "text": "X-Frame-Options Header Not Set."
               },
               "properties": {
-                "security-severity": "5"
+                "security-severity": "5",
+                "precision": "very-high",
+                "tags": ["security"]
               },
               "relationships": [
                 {
@@ -4366,7 +4382,9 @@
                 "text": "Proxy Disclosure."
               },
               "properties": {
-                "security-severity": "5"
+                "security-severity": "5",
+                "precision": "very-high",
+                "tags": ["security"]
               },
               "relationships": [
                 {
@@ -4408,7 +4426,9 @@
                 "level": "error"
               },
               "properties": {
-                "security-severity": "7"
+                "security-severity": "7",
+                "precision": "very-high",
+                "tags": ["security"]
               },
               "relationships": [
                 {
@@ -4450,7 +4470,9 @@
                 "level": "error"
               },
               "properties": {
-                "security-severity": "7"
+                "security-severity": "7",
+                "precision": "very-high",
+                "tags": ["security"]
               },
               "relationships": [
                 {
@@ -4492,7 +4514,9 @@
                 "level": "error"
               },
               "properties": {
-                "security-severity": "7"
+                "security-severity": "7",
+                "precision": "very-high",
+                "tags": ["security"]
               },
               "relationships": [
                 {
@@ -4531,7 +4555,9 @@
                 "text": "Format String Error."
               },
               "properties": {
-                "security-severity": "5"
+                "security-severity": "5",
+                "precision": "very-high",
+                "tags": ["security"]
               },
               "relationships": [
                 {
