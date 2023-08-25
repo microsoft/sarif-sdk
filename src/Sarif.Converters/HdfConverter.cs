@@ -134,6 +134,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                         Kinds = new List<string>() { "relevant" },
                     }))
             };
+            reportingDescriptor.SetProperty("security-severity", SarifSecuritySeverityFromHdfImpact(execJsonControl.Impact).ToString());
 
             var results = new List<Result>(execJsonControl.Results.Count);
             foreach (ControlResult controlResult in execJsonControl.Results)
@@ -220,7 +221,18 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             }
         }
 
+        private static double SarifSecuritySeverityFromHdfImpact(double impact) =>
+            /*
+            security-descriptor     Hdf Impact
+            >=9.0 (critical)         >=0.9 (critical)
+            >=7.0 (high)             >=0.7 (high)
+            >=4.0 (medium)           >=0.5 (medium)
+            <4.0 (low)               >=0.3 (low)
+            */
+            // security severity is exactly 10x impact
+            impact * 10.0;
         private static double SarifRankFromHdfImpact(double impact) =>
+            // https://docs.github.com/en/code-security/code-scanning/integrating-with-code-scanning/sarif-support-for-code-scanning#reportingdescriptor-object
             /*
             SARIF rank  Hdf Level   SARIF level Default Viewer Action
             0.0         0           note        Does not display by default
