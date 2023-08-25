@@ -4047,6 +4047,9 @@
               "shortDescription": {
                 "text": "User Agent Fuzzer."
               },
+              "properties": {
+                "security-severity": "3"
+              },
               "relationships": [
                 {
                   "target": {
@@ -4082,6 +4085,9 @@
               },
               "shortDescription": {
                 "text": "Web Browser XSS Protection Not Enabled."
+              },
+              "properties": {
+                "security-severity": "3"
               },
               "relationships": [
                 {
@@ -4119,6 +4125,9 @@
               "shortDescription": {
                 "text": "Cookie Slack Detector."
               },
+              "properties": {
+                "security-severity": "3"
+              },
               "relationships": [
                 {
                   "target": {
@@ -4154,6 +4163,9 @@
               },
               "shortDescription": {
                 "text": "Cookie Slack Detector."
+              },
+              "properties": {
+                "security-severity": "3"
               },
               "relationships": [
                 {
@@ -4194,6 +4206,9 @@
               "defaultConfiguration": {
                 "level": "error"
               },
+              "properties": {
+                "security-severity": "7"
+              },
               "relationships": [
                 {
                   "target": {
@@ -4229,6 +4244,9 @@
               },
               "shortDescription": {
                 "text": "X-Content-Type-Options Header Missing."
+              },
+              "properties": {
+                "security-severity": "3"
               },
               "relationships": [
                 {
@@ -4269,6 +4287,9 @@
               "defaultConfiguration": {
                 "level": "error"
               },
+              "properties": {
+                "security-severity": "7"
+              },
               "relationships": [
                 {
                   "target": {
@@ -4305,6 +4326,9 @@
               "shortDescription": {
                 "text": "X-Frame-Options Header Not Set."
               },
+              "properties": {
+                "security-severity": "5"
+              },
               "relationships": [
                 {
                   "target": {
@@ -4340,6 +4364,9 @@
               },
               "shortDescription": {
                 "text": "Proxy Disclosure."
+              },
+              "properties": {
+                "security-severity": "5"
               },
               "relationships": [
                 {
@@ -4380,6 +4407,9 @@
               "defaultConfiguration": {
                 "level": "error"
               },
+              "properties": {
+                "security-severity": "7"
+              },
               "relationships": [
                 {
                   "target": {
@@ -4418,6 +4448,9 @@
               },
               "defaultConfiguration": {
                 "level": "error"
+              },
+              "properties": {
+                "security-severity": "7"
               },
               "relationships": [
                 {
@@ -4458,6 +4491,9 @@
               "defaultConfiguration": {
                 "level": "error"
               },
+              "properties": {
+                "security-severity": "7"
+              },
               "relationships": [
                 {
                   "target": {
@@ -4493,6 +4529,9 @@
               },
               "shortDescription": {
                 "text": "Format String Error."
+              },
+              "properties": {
+                "security-severity": "5"
               },
               "relationships": [
                 {
