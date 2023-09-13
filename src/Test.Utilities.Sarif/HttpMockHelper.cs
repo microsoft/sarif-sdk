@@ -3,6 +3,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
@@ -14,6 +15,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     public class HttpMockHelper : DelegatingHandler
     {
         public const string AnyContentText = "29f8354b-8b0d-4d21-91ac-bd04c47b85fb";
+        public static string[] IgnoredHeaders = new string[] { "x-goog-date", "Authorization" };
 
         public static StringContent AnyContent()
         {
@@ -97,6 +99,12 @@ namespace Microsoft.CodeAnalysis.Sarif
             foreach (KeyValuePair<string, IEnumerable<string>> header in headers1)
             {
                 string headerName = header.Key;
+
+                if (IgnoredHeaders.Contains(headerName, StringComparer.OrdinalIgnoreCase))
+                {
+                    continue;
+                }
+
                 if (!headers2.TryGetValues(headerName, out IEnumerable<string> values))
                 {
                     return false;
