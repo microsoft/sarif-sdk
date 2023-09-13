@@ -116,6 +116,13 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         protected override Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
         {
+            // In most cases, we set up one request and response pair.
+            // The matching mechanism is only used for those situations where we need more than one pair.
+            if (this.mockedResponses.Count == 1 && mockedResponses[0].Item1.RequestUri != null)
+            {
+                return Task.FromResult(mockedResponses[0].Item3);
+            }
+
             Tuple<HttpRequestMessage, string, HttpResponseMessage> fakeResponse;
 
             string content = request.Content?.ReadAsStringAsync().GetAwaiter().GetResult() ?? string.Empty;
