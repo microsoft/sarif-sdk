@@ -118,10 +118,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Query.Evaluators
 
         public void Evaluate(ICollection<T> list, BitArray matches)
         {
+            BitArray termMatches = new BitArray(list.Count);
+
             foreach (IExpressionEvaluator<T> term in _terms)
             {
-                // Add each term's matches to the same set
-                term.Evaluate(list, matches);
+                // Get matches for the term
+                termMatches.SetAll(false);
+                term.Evaluate(list, termMatches);
+
+                // Union with matches so far
+                matches.Or(termMatches);
 
                 // Stop if everything has already matched
                 if (matches.TrueCount() == list.Count) { break; }
