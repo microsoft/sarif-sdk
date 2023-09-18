@@ -25,9 +25,6 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new HttpResponseMessage(HttpStatusCode.OK);
         }
 
-        public static readonly HttpResponseMessage OKResponse =
-            new HttpResponseMessage(HttpStatusCode.OK);
-
         public static readonly HttpResponseMessage NotFoundResponse =
             new HttpResponseMessage(HttpStatusCode.NotFound);
 
@@ -56,7 +53,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             switch (statusCode)
             {
-                case HttpStatusCode.OK: { return OKResponse; }
+                case HttpStatusCode.OK: { return CreateOKResponse(); }
                 case HttpStatusCode.NotFound: { return NotFoundResponse; }
                 case HttpStatusCode.Forbidden: { return ForbiddenResponse; }
                 case HttpStatusCode.BadGateway: { return BadGatewayResponse; }
