@@ -1,5 +1,9 @@
 # SARIF Package Release History (SDK, Driver, Converters, and Multitool)
-## **v4.3.1** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/v4.3.1) | [Driver](https://www.nuget.org/packages/Sarif.Driver/v4.3.1) | [Converters](https://www.nuget.org/packages/Sarif.Converters/v4.3.1) | * BUG: Improve `HdfConverter` to ensure uri data is populated and to provide location and region data property from `SourceLocation`. [#2704](https://github.com/microsoft/sarif-sdk/pull/2704)
+## **v4.3.2** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/v4.3.2) | [Driver](https://www.nuget.org/packages/Sarif.Driver/v4.3.2) | [Converters](https://www.nuget.org/packages/Sarif.Converters/v4.3.2)  | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/v4.3.2) | [Multitool Library](https://www.nuget.org/packages/Sarif.Multitool.Library/v4.3.2)
+* BUG: Correct multitool query OR logic [#2709](https://github.com/microsoft/sarif-sdk/issues/2709)
+
+## **v4.3.1** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/v4.3.1) | [Driver](https://www.nuget.org/packages/Sarif.Driver/v4.3.1) | [Converters](https://www.nuget.org/packages/Sarif.Converters/v4.3.1)  | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/v4.3.1) | [Multitool Library](https://www.nuget.org/packages/Sarif.Multitool.Library/v4.3.2)
+* BUG: Improve `HdfConverter` to ensure uri data is populated and to provide location and region data property from `SourceLocation`. [#2704](https://github.com/microsoft/sarif-sdk/pull/2704)
 * BUG: Correct `run.language` regex in JSON schema. [#2708]https://github.com/microsoft/sarif-sdk/pull/2708
 * BUG: Improve `HdfConverter` to set `precision` and `tags` as recommended by GitHub. [#2712](https://github.com/microsoft/sarif-sdk/pull/2712)
 
