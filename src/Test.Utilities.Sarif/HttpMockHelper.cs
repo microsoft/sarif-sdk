@@ -25,26 +25,40 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new HttpResponseMessage(HttpStatusCode.OK);
         }
 
-        public static readonly HttpResponseMessage NotFoundResponse =
-            new HttpResponseMessage(HttpStatusCode.NotFound);
+        public static HttpResponseMessage CreateNotFoundResponse()
+        {
+            return new HttpResponseMessage(HttpStatusCode.NotFound);
+        }
 
-        public static readonly HttpResponseMessage ForbiddenResponse =
-            new HttpResponseMessage(HttpStatusCode.Forbidden);
+        public static HttpResponseMessage CreateForbiddenResponse()
+        {
+            return new HttpResponseMessage(HttpStatusCode.Forbidden);
+        }
 
-        public static readonly HttpResponseMessage BadGatewayResponse =
-            new HttpResponseMessage(HttpStatusCode.BadGateway);
+        public static HttpResponseMessage CreateBadGatewayResponse()
+        {
+            return new HttpResponseMessage(HttpStatusCode.BadGateway);
+        }
 
-        public static readonly HttpResponseMessage BadRequestResponse =
-            new HttpResponseMessage(HttpStatusCode.BadRequest);
+        public static HttpResponseMessage CreateBadRequestResponse()
+        {
+            return new HttpResponseMessage(HttpStatusCode.BadRequest);
+        }
 
-        public static readonly HttpResponseMessage UnauthorizedResponse =
-            new HttpResponseMessage(HttpStatusCode.Unauthorized);
+        public static HttpResponseMessage CreateUnauthorizedResponse()
+        {
+            return new HttpResponseMessage(HttpStatusCode.Unauthorized);
+        }
 
-        public static readonly HttpResponseMessage InternalServerErrorResponse =
-            new HttpResponseMessage(HttpStatusCode.InternalServerError);
+        public static HttpResponseMessage CreateInternalServerErrorResponse()
+        {
+            return new HttpResponseMessage(HttpStatusCode.InternalServerError);
+        }
 
-        public static readonly HttpResponseMessage NonAuthoritativeInformationResponse =
-            new HttpResponseMessage(HttpStatusCode.NonAuthoritativeInformation);
+        public static HttpResponseMessage CreateNonAuthoritativeInformationResponse()
+        {
+            return new HttpResponseMessage(HttpStatusCode.NonAuthoritativeInformation);
+        }
 
         private readonly List<Tuple<HttpRequestMessage, string, HttpResponseMessage>> mockedResponses =
             new List<Tuple<HttpRequestMessage, string, HttpResponseMessage>>();
@@ -54,13 +68,13 @@ namespace Microsoft.CodeAnalysis.Sarif
             switch (statusCode)
             {
                 case HttpStatusCode.OK: { return CreateOKResponse(); }
-                case HttpStatusCode.NotFound: { return NotFoundResponse; }
-                case HttpStatusCode.Forbidden: { return ForbiddenResponse; }
-                case HttpStatusCode.BadGateway: { return BadGatewayResponse; }
-                case HttpStatusCode.BadRequest: { return BadRequestResponse; }
-                case HttpStatusCode.Unauthorized: { return UnauthorizedResponse; }
-                case HttpStatusCode.InternalServerError: { return InternalServerErrorResponse; }
-                case HttpStatusCode.NonAuthoritativeInformation: { return NonAuthoritativeInformationResponse; }
+                case HttpStatusCode.NotFound: { return CreateNotFoundResponse(); }
+                case HttpStatusCode.Forbidden: { return CreateForbiddenResponse(); }
+                case HttpStatusCode.BadGateway: { return CreateBadGatewayResponse(); }
+                case HttpStatusCode.BadRequest: { return CreateBadRequestResponse(); }
+                case HttpStatusCode.Unauthorized: { return CreateUnauthorizedResponse(); }
+                case HttpStatusCode.InternalServerError: { return CreateInternalServerErrorResponse(); }
+                case HttpStatusCode.NonAuthoritativeInformation: { return CreateNonAuthoritativeInformationResponse(); }
             }
 
             throw new NotImplementedException();

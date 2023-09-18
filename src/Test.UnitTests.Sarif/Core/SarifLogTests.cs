@@ -6,7 +6,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net.Http;
-using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -309,7 +308,7 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests.Core
 
             httpMock.Mock(
                 new HttpRequestMessage(HttpMethod.Post, postUri) { Content = new StreamContent(CreateSarifLogStream()) },
-                HttpMockHelper.BadRequestResponse);
+                HttpMockHelper.CreateBadRequestResponse());
 
             HttpResponseMessage response =
                 await SarifLog.Post(postUri,
@@ -368,7 +367,7 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests.Core
                 {
                     Content = new StreamContent(CreateSarifLogStream())
                 },
-                HttpMockHelper.OKResponse);
+                HttpMockHelper.CreateOKResponse());
 
             try
             {
