@@ -60,8 +60,8 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new HttpResponseMessage(HttpStatusCode.NonAuthoritativeInformation);
         }
 
-        private readonly List<Tuple<HttpRequestMessage, string, HttpResponseMessage>> mockedResponses =
-            new List<Tuple<HttpRequestMessage, string, HttpResponseMessage>>();
+        private readonly Queue<HttpResponseMessage> mockedResponses =
+            new Queue<HttpResponseMessage>();
 
         public static HttpResponseMessage GetResponseForStatusCode(HttpStatusCode statusCode)
         {
@@ -82,20 +82,13 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         public void Mock(HttpRequestMessage httpRequestMessage, HttpStatusCode httpStatusCode, HttpContent responseContent)
         {
-            string requestContent = httpRequestMessage?.Content?.ReadAsStringAsync().GetAwaiter().GetResult();
-            this.mockedResponses.Add(new Tuple<HttpRequestMessage, string, HttpResponseMessage>(
-                httpRequestMessage,
-                requestContent ?? string.Empty,
-                new HttpResponseMessage(httpStatusCode) { RequestMessage = httpRequestMessage, Content = responseContent }));
+            this.mockedResponses.Enqueue(
+                new HttpResponseMessage(httpStatusCode) { RequestMessage = httpRequestMessage, Content = responseContent });
         }
 
-        public void Mock(HttpRequestMessage httpRequestMessage, HttpResponseMessage httpResponseMessage)
+        public void Mock(HttpResponseMessage httpResponseMessage)
         {
-            string requestContent = httpRequestMessage?.Content?.ReadAsStringAsync().GetAwaiter().GetResult();
-            this.mockedResponses.Add(new Tuple<HttpRequestMessage, string, HttpResponseMessage>(
-                httpRequestMessage,
-                requestContent ?? string.Empty,
-                httpResponseMessage));
+            this.mockedResponses.Enqueue(httpResponseMessage);
         }
 
         public void Clear()
@@ -127,33 +120,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         protected override Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
         {
-            // In most cases, we set up one request and response pair.
-            // The matching mechanism is only used for those situations where we need more than one pair.
-            if (this.mockedResponses.Count == 1 && mockedResponses[0].Item1.RequestUri != null)
-            {
-                return Task.FromResult(mockedResponses[0].Item3);
-            }
-
-            Tuple<HttpRequestMessage, string, HttpResponseMessage> fakeResponse;
-
-            string content = request.Content?.ReadAsStringAsync().GetAwaiter().GetResult() ?? string.Empty;
-
-            if (request.Headers.IsEmptyEnumerable())
-            {
-                fakeResponse = this.mockedResponses.Find(fr =>
-                    fr.Item1.RequestUri == request.RequestUri &&
-                    fr.Item1.Headers.IsEmptyEnumerable()
-                    && (fr.Item2 == content || fr.Item2 == AnyContentText));
-            }
-            else
-            {
-                fakeResponse = this.mockedResponses.Find(fr =>
-                    fr.Item1.RequestUri == request.RequestUri
-                    && CompareHeaders(request.Headers, fr.Item1.Headers)
-                    && (fr.Item2 == content || fr.Item2 == AnyContentText));
-            }
-
-            return Task.FromResult(fakeResponse.Item3);
+            return Task.FromResult(mockedResponses.Dequeue());
         }
     }
 }
