@@ -2,10 +2,9 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System;
-using System.Collections.Generic;
+using System.Collections.Concurrent;
 using System.Net;
 using System.Net.Http;
-using System.Net.Http.Headers;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -14,8 +13,6 @@ namespace Microsoft.CodeAnalysis.Sarif
     public class HttpMockHelper : DelegatingHandler
     {
         public const string AnyContentText = "29f8354b-8b0d-4d21-91ac-bd04c47b85fb";
-
-        private int callCount = 0;
 
         public static StringContent AnyContent()
         {
@@ -62,8 +59,8 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new HttpResponseMessage(HttpStatusCode.NonAuthoritativeInformation);
         }
 
-        private readonly List<HttpResponseMessage> mockedResponses =
-            new List<HttpResponseMessage>();
+        private readonly ConcurrentQueue<HttpResponseMessage> mockedResponses =
+            new ConcurrentQueue<HttpResponseMessage>();
 
         public static HttpResponseMessage GetResponseForStatusCode(HttpStatusCode statusCode)
         {
@@ -84,55 +81,28 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         public void Mock(HttpRequestMessage httpRequestMessage, HttpStatusCode httpStatusCode, HttpContent responseContent)
         {
-            callCount++;
-            this.mockedResponses.Add(
+            this.mockedResponses.Enqueue(
                 new HttpResponseMessage(httpStatusCode) { RequestMessage = httpRequestMessage, Content = responseContent });
         }
 
         public void Mock(HttpResponseMessage httpResponseMessage)
         {
-            callCount++;
-            this.mockedResponses.Add(httpResponseMessage);
+            this.mockedResponses.Enqueue(httpResponseMessage);
         }
 
         public void Clear()
         {
-            callCount = 0;
-            this.mockedResponses.Clear();
-        }
-
-        private static bool CompareHeaders(HttpRequestHeaders headers1, HttpRequestHeaders headers2)
-        {
-            foreach (KeyValuePair<string, IEnumerable<string>> header in headers1)
+            while (!this.mockedResponses.IsEmpty)
             {
-                string headerName = header.Key;
-                if (!headers2.TryGetValues(headerName, out IEnumerable<string> values))
-                {
-                    return false;
-                }
-
-                string headerContent1 = string.Join(",", header.Value);
-                string headerContent2 = string.Join(",", values);
-
-                if (headerContent1 != headerContent2)
-                {
-                    return false;
-                }
+                this.mockedResponses.TryDequeue(out _);
             }
-
-            return true;
         }
 
         protected override Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
         {
-            if (this.mockedResponses.Count >= callCount && this.mockedResponses[callCount - 1].RequestMessage != null)
-            {
-                return Task.FromResult(this.mockedResponses[callCount - 1]);
-            }
-            else
-            {
-                return Task.FromResult(this.mockedResponses[callCount - 1]);
-            }
+            this.mockedResponses.TryDequeue(out HttpResponseMessage message);
+            HttpRequestMessage _ = message.RequestMessage;
+            return Task.FromResult(message);
         }
     }
 }
