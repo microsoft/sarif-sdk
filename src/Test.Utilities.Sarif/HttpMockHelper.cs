@@ -15,6 +15,8 @@ namespace Microsoft.CodeAnalysis.Sarif
     {
         public const string AnyContentText = "29f8354b-8b0d-4d21-91ac-bd04c47b85fb";
 
+        private int callCount = 0;
+
         public static StringContent AnyContent()
         {
             return new StringContent(AnyContentText);
@@ -60,8 +62,8 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new HttpResponseMessage(HttpStatusCode.NonAuthoritativeInformation);
         }
 
-        private readonly Queue<HttpResponseMessage> mockedResponses =
-            new Queue<HttpResponseMessage>();
+        private readonly List<HttpResponseMessage> mockedResponses =
+            new List<HttpResponseMessage>();
 
         public static HttpResponseMessage GetResponseForStatusCode(HttpStatusCode statusCode)
         {
@@ -82,17 +84,20 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         public void Mock(HttpRequestMessage httpRequestMessage, HttpStatusCode httpStatusCode, HttpContent responseContent)
         {
-            this.mockedResponses.Enqueue(
+            callCount++;
+            this.mockedResponses.Add(
                 new HttpResponseMessage(httpStatusCode) { RequestMessage = httpRequestMessage, Content = responseContent });
         }
 
         public void Mock(HttpResponseMessage httpResponseMessage)
         {
-            this.mockedResponses.Enqueue(httpResponseMessage);
+            callCount++;
+            this.mockedResponses.Add(httpResponseMessage);
         }
 
         public void Clear()
         {
+            callCount = 0;
             this.mockedResponses.Clear();
         }
 
@@ -120,7 +125,14 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         protected override Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
         {
-            return Task.FromResult(mockedResponses.Dequeue());
+            if (this.mockedResponses.Count >= callCount && this.mockedResponses[callCount - 1].RequestMessage != null)
+            {
+                return Task.FromResult(this.mockedResponses[callCount - 1]);
+            }
+            else
+            {
+                return Task.FromResult(this.mockedResponses[callCount - 1]);
+            }
         }
     }
 }
