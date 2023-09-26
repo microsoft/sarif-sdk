@@ -299,7 +299,15 @@ namespace Microsoft.CodeAnalysis.Sarif
                             return;
 
                         }
+
                         case "EventTrace/PartitionInfoExtensionV2":
+                        {
+                            eventName = "SessionStarted";
+                            formattedMessage = "Session started.";
+                            break;
+                        }
+
+                        case "EventTrace/PartitionInfoExtension":
                         {
                             eventName = "SessionStarted";
                             formattedMessage = "Session started.";
