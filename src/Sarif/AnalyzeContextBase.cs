@@ -382,7 +382,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         public static PerLanguageOption<int> EventsBufferSizeInMegabytesProperty { get; } =
             new PerLanguageOption<int>(
-                $"CoreSettings", nameof(EventsBufferSizeInMegabytes), defaultValue: () => 512,
+                $"CoreSettings", nameof(EventsBufferSizeInMegabytes), defaultValue: () => 1024,
                 $"{Environment.NewLine}" +
                 $"    A buffer size, in megabytes, passed to the events trace session instance when '--etw is enabled.");
 

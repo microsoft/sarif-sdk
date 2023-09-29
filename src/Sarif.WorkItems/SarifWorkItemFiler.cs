@@ -336,7 +336,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
 
                     if (string.IsNullOrWhiteSpace(sarifWorkItemModel.Title) || string.IsNullOrWhiteSpace(sarifWorkItemModel.BodyOrDescription))
                     {
-                        this.Logger.LogWarning("Attempt to call work item client with invalid work item values.", logId);
+                        this.Logger.LogWarning("Attempt to call work item client with invalid work item values.");
                         this.LogMetricsForProcessedModel(sarifLog, sarifWorkItemModel, FilingResult.Canceled);
                         return null;
                     }
