@@ -199,7 +199,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
                         case "RuleFired":
                         {
-                            FailureLevel level = (FailureLevel)(int)(uint)traceEvent.PayloadByName("level");
+                            var level = (FailureLevel)(int)(uint)traceEvent.PayloadByName("level");
                             data1 = level;
                             data2 = traceEvent.PayloadByName("matchIdentifier");
                             ruleId = (string)traceEvent.PayloadByName(nameof(ruleId));
@@ -297,17 +297,10 @@ namespace Microsoft.CodeAnalysis.Sarif
                         case "ManifestData":
                         {
                             return;
-
-                        }
-
-                        case "EventTrace/PartitionInfoExtensionV2":
-                        {
-                            eventName = "SessionStarted";
-                            formattedMessage = "Session started.";
-                            break;
                         }
 
                         case "EventTrace/PartitionInfoExtension":
+                        case "EventTrace/PartitionInfoExtensionV2":
                         {
                             eventName = "SessionStarted";
                             formattedMessage = "Session started.";
