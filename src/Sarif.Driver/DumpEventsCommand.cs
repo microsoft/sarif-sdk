@@ -62,16 +62,27 @@ namespace Microsoft.CodeAnalysis.Sarif
                     context = filePath = ruleId = ruleName = null;
                     data2 = data1 = durationMsec = null;
 
+                    // It appears that in a long running operation the literal thread associated with
+                    // our single task that enumerates files my change. And so we'll provide a hard-coded
+                    // identifier for this start/stop pair. We may need to do something similar with the 
+                    // logging task, which is similarly a single-threaded but long-lived task. All this 
+                    // suggests the possibility that the thread id may be inconsistent for single-threaded
+                    // analysis of individual scan targets (which we haven't yet observed AFAIK). If that
+                    // holds true, we should be able to use the unique path of the scan target as a stable id.
+                    string threadId = traceEvent.EventName.StartsWith(DriverEventNames.EnumerateArtifacts)
+                        ? nameof(DriverEventNames.EnumerateArtifacts)
+                        : $"{traceEvent.ThreadID}";
+
                     if (traceEvent.Opcode == TraceEventOpcode.Start)
                     {
-                        string keyText = $"{traceEvent.PayloadByName(nameof(filePath))}:{traceEvent.PayloadByName(nameof(ruleId))}:{traceEvent.PayloadByName(nameof(ruleName))}:{traceEvent.PayloadByName(nameof(context))}:{traceEvent.ThreadID}";
+                        string keyText = $"{traceEvent.PayloadByName(nameof(filePath))}:{traceEvent.PayloadByName(nameof(ruleId))}:{traceEvent.PayloadByName(nameof(ruleName))}:{traceEvent.PayloadByName(nameof(context))}:{threadId}";
                         startStopKey = new StartStopKey(traceEvent.ProviderGuid, traceEvent.Task, keyText);
                         timingData.Add(startStopKey, traceEvent.TimeStampRelativeMSec);
                     }
 
                     if (traceEvent.Opcode == TraceEventOpcode.Stop)
                     {
-                        string keyText = $"{traceEvent.PayloadByName(nameof(filePath))}:{traceEvent.PayloadByName(nameof(ruleId))}:{traceEvent.PayloadByName(nameof(ruleName))}:{traceEvent.PayloadByName(nameof(context))}:{traceEvent.ThreadID}";
+                        string keyText = $"{traceEvent.PayloadByName(nameof(filePath))}:{traceEvent.PayloadByName(nameof(ruleId))}:{traceEvent.PayloadByName(nameof(ruleName))}:{traceEvent.PayloadByName(nameof(context))}:{threadId}";
                         startStopKey = new StartStopKey(traceEvent.ProviderGuid, traceEvent.Task, keyText);
                     }
 
@@ -188,7 +199,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
                         case "RuleFired":
                         {
-                            FailureLevel level = (FailureLevel)(int)(uint)traceEvent.PayloadByName("level");
+                            var level = (FailureLevel)(int)(uint)traceEvent.PayloadByName("level");
                             data1 = level;
                             data2 = traceEvent.PayloadByName("matchIdentifier");
                             ruleId = (string)traceEvent.PayloadByName(nameof(ruleId));
@@ -286,8 +297,9 @@ namespace Microsoft.CodeAnalysis.Sarif
                         case "ManifestData":
                         {
                             return;
-
                         }
+
+                        case "EventTrace/PartitionInfoExtension":
                         case "EventTrace/PartitionInfoExtensionV2":
                         {
                             eventName = "SessionStarted";
