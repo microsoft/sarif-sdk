@@ -6,7 +6,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net.Http;
-using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -307,9 +306,7 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests.Core
             var postUri = new Uri("https://sarif-post/example.com");
             var httpMock = new HttpMockHelper();
 
-            httpMock.Mock(
-                new HttpRequestMessage(HttpMethod.Post, postUri) { Content = new StreamContent(CreateSarifLogStream()) },
-                HttpMockHelper.BadRequestResponse);
+            httpMock.Mock(HttpMockHelper.CreateBadRequestResponse());
 
             HttpResponseMessage response =
                 await SarifLog.Post(postUri,
@@ -328,12 +325,7 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests.Core
             var postUri = new Uri("https://sarif-post/example.com");
             var httpMock = new HttpMockHelper();
 
-            httpMock.Mock(
-                new HttpRequestMessage(HttpMethod.Post, postUri)
-                {
-                    Content = new StreamContent(CreateSarifLogStream())
-                },
-                HttpMockHelper.CreateOKResponse());
+            httpMock.Mock(HttpMockHelper.CreateOKResponse());
 
             try
             {
@@ -363,12 +355,7 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests.Core
                 .Setup(f => f.FileOpenRead(It.IsAny<string>()))
                 .Returns(CreateSarifLogStream());
 
-            httpMock.Mock(
-                new HttpRequestMessage(HttpMethod.Post, postUri)
-                {
-                    Content = new StreamContent(CreateSarifLogStream())
-                },
-                HttpMockHelper.OKResponse);
+            httpMock.Mock(HttpMockHelper.CreateOKResponse());
 
             try
             {
