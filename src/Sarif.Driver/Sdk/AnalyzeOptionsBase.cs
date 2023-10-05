@@ -12,7 +12,7 @@ using Microsoft.CodeAnalysis.Sarif.Writers;
 namespace Microsoft.CodeAnalysis.Sarif.Driver
 {
     [Verb("analyze", HelpText = "Analyze one or more binary files for security and correctness issues.")]
-    public abstract class AnalyzeOptionsBase : CommonOptionsBase
+    public class AnalyzeOptionsBase : CommonOptionsBase
     {
         [Value(0,
                HelpText = "One or more specifiers to a file, directory, or filter pattern that resolves to one or more binaries to analyze.")]
