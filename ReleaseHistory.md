@@ -1,4 +1,7 @@
 # SARIF Package Release History (SDK, Driver, Converters, and Multitool)
+## **v4.3.4** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/v4.3.4) | [Driver](https://www.nuget.org/packages/Sarif.Driver/v4.3.4) | [Converters](https://www.nuget.org/packages/Sarif.Converters/v4.3.4)  | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/v4.3.4) | [Multitool Library](https://www.nuget.org/packages/Sarif.Multitool.Library/v4.3.4)
+* BUG: Disable certain console outputs (such as reporting of threads count) when `AnalyzeContextBase.Quiet` is set.
+
 ## **v4.3.3** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/v4.3.3) | [Driver](https://www.nuget.org/packages/Sarif.Driver/v4.3.3) | [Converters](https://www.nuget.org/packages/Sarif.Converters/v4.3.3)  | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/v4.3.3) | [Multitool Library](https://www.nuget.org/packages/Sarif.Multitool.Library/v4.3.3)
 * BUG: Update `dump-events` command to be resilient in cases where the thread id changes between artifact enumeration start/stop event pairs.
 * BUG: Resolve trace parsing `InvalidOperationException` by updating `dump-events` command to process `PartitionInfoExtension` session event as we do `PartitionInfoExtensionV2`.
