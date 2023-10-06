@@ -14,8 +14,6 @@ using FluentAssertions;
 using Microsoft.CodeAnalysis.Sarif.Converters;
 using Microsoft.CodeAnalysis.Sarif.Writers;
 
-using Mono.Cecil.Cil;
-
 using Moq;
 
 using Newtonsoft.Json;
@@ -709,7 +707,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
                 SarifLog log = JsonConvert.DeserializeObject<SarifLog>(File.ReadAllText(path));
                 Assert.NotNull(log);
-                Assert.Equal<int>(1, log.Runs.Count);
+                Assert.Single<Run>(log.Runs);
 
                 run = log.Runs.First();
             }

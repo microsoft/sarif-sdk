@@ -24,7 +24,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 {
     public abstract class MultithreadedAnalyzeCommandBase<TContext, TOptions> : PluginDriverCommand<TOptions>
         where TContext : AnalyzeContextBase, new()
-        where TOptions : AnalyzeOptionsBase
+        where TOptions : AnalyzeOptionsBase, new()
     {
         public const string DefaultPolicyName = "default";
 
@@ -74,10 +74,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             try
             {
                 globalContext ??= new TContext();
-                if (options != null)
-                {
-                    globalContext = InitializeGlobalContextFromOptions(options, ref globalContext);
-                }
+                options ??= new TOptions();
+                globalContext = InitializeGlobalContextFromOptions(options, ref globalContext);
 
                 // We must make a copy of the global context reference
                 // to utilize it in a separate thread.
@@ -418,7 +416,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             _resultsWritingChannel = Channel.CreateBounded<uint>(channelOptions);
 
             var sw = Stopwatch.StartNew();
-            Console.WriteLine($"THREADS: {globalContext.Threads}");
+
+            if (!globalContext.Quiet)
+            {
+                Console.WriteLine($"THREADS: {globalContext.Threads}");
+            }
 
             // 1: First we initiate an asynchronous operation to locate disk files for
             // analysis, as specified in analysis configuration (file names, wildcards).
@@ -458,7 +460,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 Warnings.LogOneOrMoreFilesSkipped(globalContext, _filesMatchingGlobalFileDenyRegex, reason);
             }
 
-            Console.WriteLine();
+            if (!globalContext.Quiet) { Console.WriteLine(); }
 
             string id;
             if (globalContext.Traces.Contains(nameof(DefaultTraces.PeakWorkingSet)))
@@ -477,7 +479,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 string timing = $"Done. {_fileContextsCount:n0} files scanned, elapsed time {sw.Elapsed}.";
                 LogTrace(globalContext, timing, id);
             }
-            else
+            else if (!globalContext.Quiet)
             {
                 Console.WriteLine($"Done. {_fileContextsCount:n0} files scanned.");
             }
@@ -945,6 +947,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                     }
                 );
             }
+
+            globalContext.Logger ??= new ConsoleLogger(quietConsole: false, "SPMI");
         }
 
         private static IEnumerable<string> GenerateSensitiveTokensList()
