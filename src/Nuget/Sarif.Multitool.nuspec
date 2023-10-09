@@ -29,6 +29,8 @@
           exclude="bld\bin\$platform$_$configuration$\Sarif.Multitool\Publish\net462\Sarif*;bld\bin\$platform$_$configuration$\Sarif.Multitool\Publish\net462\WorkItems.dll;" />
     <file src="bld\bin\Signing\net462\**"
           target="tools\net462" />
+    <file src="bld\bin\Signing\net461\**"
+          target="tools\net462" />
 
     <!-- netcoreapp3.1 packs to tools\TargetFramework\any\* for compatibility with dotnet tool install -->
     <file src="bld\bin\$platform$_$configuration$\Sarif.Multitool\Publish\netcoreapp3.1\**"
