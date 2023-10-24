@@ -19,7 +19,7 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif
         {
             int numberOfTestFiles = 10;
 
-            List<string> filePaths = new List<string>(numberOfTestFiles);
+            var filePaths = new List<string>(numberOfTestFiles);
 
             for (int i = 0; i < numberOfTestFiles; i++)
             {
@@ -50,7 +50,7 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif
 
             //  An custom textwriter.S
             //  Using it should throw an InvalidOperationException when writing a string
-            TestTextWriter testTextWriter = new TestTextWriter();
+            var testTextWriter = new TestTextWriter();
             TextWriter defaultOut = Console.Out;
             Console.SetOut(testTextWriter);
 
@@ -95,8 +95,8 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif
         [Fact]
         public void RollingHash_EmptyString()
         {
-            string testFileText = "";
-            Dictionary<int, string> expectedOutput = new Dictionary<int, string>();
+            string testFileText = string.Empty;
+            var expectedOutput = new Dictionary<int, string>();
             expectedOutput.Add(1, "c129715d7a2bc9a3:1");
 
             Dictionary<int, string> actualOutput = HashUtilities.RollingHash(testFileText);
@@ -110,7 +110,7 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif
         {
             // Assume
             string testFileText = " a\nb\n  \t\tc\n d";
-            Dictionary<int, string> expectedOutput = new Dictionary<int, string>()
+            var expectedOutput = new Dictionary<int, string>()
             {
                 { 1, "271789c17abda88f:1" },
                 { 2, "54703d4cd895b18:1" },
@@ -130,7 +130,7 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif
         {
             // Assume
             string testFileText = " hello; \t\nworld!!!\n\n\n  \t\tGreetings\n End";
-            Dictionary<int, string> expectedOutput = new Dictionary<int, string>()
+            var expectedOutput = new Dictionary<int, string>()
             {
                 {1, "8b7cf3e952e7aeb2:1" },
                 {2, "b1ae1287ec4718d9:1" },
@@ -152,7 +152,7 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif
         {
             // Assume
             string testFileText = " hello; \t\nworld!!!\n\n\n  \t\tGreetings\n End\n";
-            Dictionary<int, string> expectedOutput = new Dictionary<int, string>()
+            var expectedOutput = new Dictionary<int, string>()
             {
                 {1, "e9496ae3ebfced30:1" },
                 {2, "fb7c023a8b9ccb3f:1" },
@@ -175,7 +175,7 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif
         {
             // Assume
             string testFileText = "hello; \t\nworld!!!\r\r\r  \t\tGreetings\r End\r";
-            Dictionary<int, string> expectedOutput = new Dictionary<int, string>()
+            var expectedOutput = new Dictionary<int, string>()
             {
                 {1, "e9496ae3ebfced30:1" },
                 {2, "fb7c023a8b9ccb3f:1" },
@@ -198,7 +198,7 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif
         {
             // Assume
             string testFileText = " hello; \t\r\nworld!!!\r\n\r\n\r\n  \t\tGreetings\r\n End\r\n";
-            Dictionary<int, string> expectedOutput = new Dictionary<int, string>()
+            var expectedOutput = new Dictionary<int, string>()
             {
                 {1, "e9496ae3ebfced30:1" },
                 {2, "fb7c023a8b9ccb3f:1" },
@@ -221,7 +221,7 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif
         {
             // Assume
             string testFileText = " hello; \t\nworld!!!\r\n\n\r  \t\tGreetings\r End\r\n";
-            Dictionary<int, string> expectedOutput = new Dictionary<int, string>()
+            var expectedOutput = new Dictionary<int, string>()
             {
                 {1, "e9496ae3ebfced30:1" },
                 {2, "fb7c023a8b9ccb3f:1" },
@@ -251,7 +251,7 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif
                 testFileText += test;
             }
 
-            Dictionary<int, string> expectedOutput = new Dictionary<int, string>()
+            var expectedOutput = new Dictionary<int, string>()
             {
                 {1, "a7f2ff13bc495cf2:1" },
                 {2, "a7f2ff13bc495cf2:2" },
@@ -279,7 +279,7 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif
             // Assume
             string testFileText = "x = 2\nx = 1\nprint(x)\nx = 3\nprint(x)\nx = 4\nprint(x)\n";
 
-            Dictionary<int, string> expectedOutput = new Dictionary<int, string>()
+            var expectedOutput = new Dictionary<int, string>()
             {
                 {1, "e54938cc54b302f1:1" },
                 {2, "bb609acbe9138d60:1" },
@@ -289,6 +289,26 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif
                 {6, "2c644846cb18d53e:1" },
                 {7, "f1b89f20de0d133:1" },
                 {8, "c129715d7a2bc9a3:1" }
+            };
+
+            // Act
+            Dictionary<int, string> actualOutput = HashUtilities.RollingHash(testFileText);
+
+            // Assert
+            Assert.Equal(expectedOutput, actualOutput);
+        }
+
+        [Fact]
+        public void RollingHash_UnicodeSeparators()
+        {
+            // Assume
+            string testFileText = "x = 2\u2028x=1\u2029print(x)";
+
+            var expectedOutput = new Dictionary<int, string>()
+            {
+                {1, "8f6ec10ad8d7ec2a:1" },
+                {2, "18717025bc88f409:1" },
+                {3, "28b4d4d726d7c4d:1" }
             };
 
             // Act
