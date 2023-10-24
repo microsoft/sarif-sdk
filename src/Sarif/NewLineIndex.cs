@@ -19,7 +19,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         // which is the line in the file at index n.
         private readonly ImmutableArray<int> _lineOffsetStarts;
 
-        // Realistically, no IDE creates start line that honor
+        // Realistically, no IDE create line locations based on the
         // the unicode separators, so we will ignore them.
         internal static char[] s_newLineChars =
         {
