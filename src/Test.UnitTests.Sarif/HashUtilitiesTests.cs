@@ -299,16 +299,14 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif
         }
 
         [Fact]
-        public void RollingHash_UnicodeSeparators()
+        public void RollingHash_UnicodeSeparatorsAreIgnored()
         {
             // Assume
             string testFileText = "x = 2\u2028x=1\u2029print(x)";
 
             var expectedOutput = new Dictionary<int, string>()
             {
-                {1, "8f6ec10ad8d7ec2a:1" },
-                {2, "18717025bc88f409:1" },
-                {3, "28b4d4d726d7c4d:1" }
+                {1, "f0a8eee29e998ed7:1" },
             };
 
             // Act
