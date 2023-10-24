@@ -20,8 +20,6 @@ namespace Microsoft.CodeAnalysis.Sarif
         private static readonly int SPACE = ' ';
         private static readonly int LF = '\n';
         private static readonly int CR = '\r';
-        private static readonly int Unicode_LS = '\u2028';
-        private static readonly int Unicode_PS = '\u2029';
         private static readonly int EOF = 65535;
         private static readonly int BLOCK_SIZE = 100;
         private static readonly Long MOD = new Long(37, 0, false);
@@ -280,14 +278,16 @@ namespace Microsoft.CodeAnalysis.Sarif
             // was the start of a line then we should output the hash for that line.
             Action<int> processCharacter = (current) =>
             {
-                // skip tabs, spaces, and line feeds that come directly after a carriage return
+                // Skip tabs, spaces, and line feeds that come directly after a carriage return.
                 if (current == SPACE || current == TAB || (prevCR && current == LF))
                 {
                     prevCR = false;
                     return;
                 }
-                // replace CR, Unicode line separator and Unicode paragraph separator with LF
-                if (current == CR || current == Unicode_LS || current == Unicode_PS)
+                // Replace CR with LF.
+                // Note that we do not handle /u2028 (Unicode linefeed)
+                // or /u2029 (Unicode paragraph feed) characters.
+                if (current == CR)
                 {
                     current = LF;
                     prevCR = true;
