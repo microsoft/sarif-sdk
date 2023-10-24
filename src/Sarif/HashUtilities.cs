@@ -20,6 +20,8 @@ namespace Microsoft.CodeAnalysis.Sarif
         private static readonly int SPACE = ' ';
         private static readonly int LF = '\n';
         private static readonly int CR = '\r';
+        private static readonly int Unicode_LS = '\u2028';
+        private static readonly int Unicode_PS = '\u2029';
         private static readonly int EOF = 65535;
         private static readonly int BLOCK_SIZE = 100;
         private static readonly Long MOD = new Long(37, 0, false);
@@ -219,7 +221,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         public static Dictionary<int, string> RollingHash(string fileText)
         {
-            Dictionary<int, string> rollingHashes = new Dictionary<int, string>();
+            var rollingHashes = new Dictionary<int, string>();
 
             // A rolling view into the input
             int[] window = new int[BLOCK_SIZE];
@@ -230,7 +232,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 lineNumbers[i] = -1;
             }
 
-            Long hashRaw = new Long(0, 0, false);
+            var hashRaw = new Long(0, 0, false);
             Long firstMod = ComputeFirstMod();
 
             // The current index in the window, will wrap around to zero when we reach BLOCK_SIZE
@@ -242,7 +244,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             // Was the previous character a CR (carriage return)
             bool prevCR = false;
 
-            Dictionary<string, int> hashCounts = new Dictionary<string, int>();
+            var hashCounts = new Dictionary<string, int>();
 
             // Output the current hash and line number to the cache
             Action outputHash = () =>
@@ -284,8 +286,8 @@ namespace Microsoft.CodeAnalysis.Sarif
                     prevCR = false;
                     return;
                 }
-                // replace CR with LF
-                if (current == CR)
+                // replace CR, Unicode line separator and Unicode paragraph separator with LF
+                if (current == CR || current == Unicode_LS || current == Unicode_PS)
                 {
                     current = LF;
                     prevCR = true;
