@@ -16,8 +16,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                                     CancellationToken cancellationToken = default,
                                     IFileSystem fileSystem = null)
         {
-            this.recurse = recurse;
             this.specifier = specifier;
+            this.recurse = recurse;
             this.maxFileSizeInKilobytes = maxFileSizeInKilobytes;
             this.cancellationToken = cancellationToken;
             FileSystem = fileSystem ?? Sarif.FileSystem.Instance;
@@ -56,66 +56,52 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             }
 
             directory = Path.GetFullPath(directory);
-            var directories = new Queue<string>();
 
             if (!FileSystem.DirectoryExists(directory))
             {
                 yield break;
             }
 
+#if NETFRAMEWORK
+            // .NET Framework: Directory.Enumerate with empty filter returns NO files.
+            // .NET Core: Directory.Enumerate with empty filter returns all files in directory.
+            // We will standardize on the .NET Core behavior.
+            if (string.IsNullOrEmpty(filter))
+            {
+                filter = "*";
+            }
+#endif
+
+            // allocating this here is a minor memory optimization.
+            var sortedFilesBuffer = new SortedSet<string>();
+
             if (this.recurse)
             {
-                EnqueueAllDirectories(directories, directory);
+                foreach (IEnumeratedArtifact result in VisitAllSubdirectories(directory, filter, sortedFilesBuffer))
+                {
+                    yield return result;
+                }
             }
             else
             {
-                directories.Enqueue(directory);
-            }
-
-            var sortedFiles = new SortedSet<string>();
-
-            while (directories.Count > 0)
-            {
-                sortedFiles.Clear();
-                this.cancellationToken.ThrowIfCancellationRequested();
-
-                directory = Path.GetFullPath(directories.Dequeue());
-
-#if NETFRAMEWORK
-                // .NET Framework: Directory.Enumerate with empty filter returns NO files.
-                // .NET Core: Directory.Enumerate with empty filter returns all files in directory.
-                // We will standardize on the .NET Core behavior.
-                if (string.IsNullOrEmpty(filter))
+                foreach (IEnumeratedArtifact result in VisitDirectory(directory, filter, sortedFilesBuffer))
                 {
-                    filter = "*";
-                }
-#endif
-
-                foreach (string file in FileSystem.DirectoryEnumerateFiles(directory, filter, SearchOption.TopDirectoryOnly))
-                {
-                    this.cancellationToken.ThrowIfCancellationRequested();
-
-                    string fullFilePath = Path.Combine(directory, file);
-                    sortedFiles.Add(fullFilePath);
-                }
-
-                foreach (string file in sortedFiles)
-                {
-                    yield return new EnumeratedArtifact(FileSystem)
-                    {
-                        Uri = new Uri(file, UriKind.Absolute),
-                    };
+                    yield return result;
                 }
             }
         }
 
-        private void EnqueueAllDirectories(Queue<string> queue, string directory)
+        private IEnumerable<IEnumeratedArtifact> VisitAllSubdirectories(string directory, string filter, SortedSet<string> sortedFilesBuffer)
         {
             this.cancellationToken.ThrowIfCancellationRequested();
 
             var sortedDiskItems = new SortedSet<string>();
 
-            queue.Enqueue(directory);
+            foreach (IEnumeratedArtifact result in VisitDirectory(directory, filter, sortedFilesBuffer))
+            {
+                yield return result;
+            }
+
             foreach (string childDirectory in FileSystem.DirectoryEnumerateDirectories(directory, "*", SearchOption.TopDirectoryOnly))
             {
                 sortedDiskItems.Add(childDirectory);
@@ -123,7 +109,37 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
             foreach (string childDirectory in sortedDiskItems)
             {
-                EnqueueAllDirectories(queue, childDirectory);
+                VisitAllSubdirectories(childDirectory, filter, sortedFilesBuffer);
+            }
+        }
+
+        private IEnumerable<IEnumeratedArtifact> VisitDirectory(string targetDirectory, string filter, SortedSet<string> sortedFilesBuffer)
+        {
+            this.cancellationToken.ThrowIfCancellationRequested();
+            sortedFilesBuffer.Clear();
+#if NETFRAMEWORK
+// .NET Framework: Directory.Enumerate with empty filter returns NO files.
+            // .NET Core: Directory.Enumerate with empty filter returns all files in directory.
+            // We will standardize on the .NET Core behavior.
+            if (string.IsNullOrEmpty(filter))
+            {
+                filter = "*";
+            }
+#endif
+            foreach (string file in FileSystem.DirectoryEnumerateFiles(targetDirectory, filter, SearchOption.TopDirectoryOnly))
+            {
+                this.cancellationToken.ThrowIfCancellationRequested();
+
+                string fullFilePath = Path.Combine(targetDirectory, file);
+                sortedFilesBuffer.Add(fullFilePath);
+            }
+
+            foreach (string file in sortedFilesBuffer)
+            {
+                yield return new EnumeratedArtifact(FileSystem)
+                {
+                    Uri = new Uri(file, UriKind.Absolute),
+                };
             }
         }
 
