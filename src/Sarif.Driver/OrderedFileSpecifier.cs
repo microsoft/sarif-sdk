@@ -89,15 +89,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             else
             {
                 var sortedDiskItems = new SortedSet<string>();
-                foreach (string file in FileSystem.DirectoryEnumerateFiles(directory, filter, SearchOption.TopDirectoryOnly))
-                {
-                    sortedDiskItems.Add(Path.Combine(directory, file));
-                }
-
-                foreach (string file in sortedDiskItems)
-                {
-                    filesToProcessChannel.Writer.TryWrite(file);
-                }
+                WriteFilesInDirectoryToChannel(directory, filesToProcessChannel, filter, sortedDiskItems);
 
                 filesToProcessChannel.Writer.Complete();
                 directoryEnumerationTask = Task.CompletedTask;
@@ -155,25 +147,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             }
 
             var sortedDiskItems = new SortedSet<string>();
-            foreach (string childFile in FileSystem.DirectoryEnumerateFiles(directory, filter, SearchOption.TopDirectoryOnly))
+            WriteFilesInDirectoryToChannel(directory, fileChannelWriter, filter, sortedDiskItems);
+            if (CheckFaulted())
             {
-                if (CheckFaulted())
-                {
-                    return;
-                }
-
-                string fullFilePath = Path.Combine(directory, childFile);
-                sortedDiskItems.Add(fullFilePath);
-            }
-
-            foreach (string childFile in sortedDiskItems)
-            {
-                if (CheckFaulted())
-                {
-                    return;
-                }
-
-                fileChannelWriter.WriteAsync(childFile).AsTask().Wait();
+                return;
             }
 
             sortedDiskItems.Clear();
@@ -195,6 +172,20 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 }
 
                 EnqueueAllDirectories(childDirectory, fileChannelWriter, filter);
+            }
+        }
+
+        private void WriteFilesInDirectoryToChannel(string directory, ChannelWriter<string> fileChannelWriter, string filter, SortedSet<string> sortedDiskItems)
+        {
+            foreach (string childFile in FileSystem.DirectoryEnumerateFiles(directory, filter, SearchOption.TopDirectoryOnly))
+            {
+                string fullFilePath = Path.Combine(directory, childFile);
+                sortedDiskItems.Add(fullFilePath);
+            }
+
+            foreach (string childFile in sortedDiskItems)
+            {
+                fileChannelWriter.WriteAsync(childFile).AsTask().Wait();
             }
         }
 
