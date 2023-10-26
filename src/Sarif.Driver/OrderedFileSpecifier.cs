@@ -76,11 +76,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 #endif
 
             var filesToProcessChannel = Channel.CreateUnbounded<string>(new UnboundedChannelOptions { AllowSynchronousContinuations = true, SingleReader = true, SingleWriter = true });
-   //       var filesToProcessChannel = Channel.CreateBounded<string>(new BoundedChannelOptions (1024)
-   //       {
-   //           AllowSynchronousContinuations = true, FullMode = BoundedChannelFullMode.Wait, SingleReader = true, SingleWriter = true 
-   //       } );
-
 
             Task directoryEnumerationTask;
             if (this.recurse)
