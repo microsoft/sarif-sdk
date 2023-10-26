@@ -4,6 +4,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Threading;
 using System.Threading.Channels;
 using System.Threading.Tasks;
@@ -25,6 +26,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             FileSystem = fileSystem ?? Sarif.FileSystem.Instance;
         }
 
+        private const int ChannelCapacity = 10 * 1024; // max ~2.5 MB memory given 256 char max path length.
         private readonly bool recurse;
         private readonly string specifier;
         private readonly long maxFileSizeInKilobytes;
@@ -75,85 +77,91 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             }
 #endif
 
-            var filesToProcessChannel = Channel.CreateUnbounded<string>(new UnboundedChannelOptions { AllowSynchronousContinuations = true, SingleReader = true, SingleWriter = true });
+            var filesToProcessChannel = Channel.CreateBounded<string>(new BoundedChannelOptions(ChannelCapacity)
+            {
+                AllowSynchronousContinuations = true,
+                SingleReader = true,
+                SingleWriter = true,
+                FullMode = BoundedChannelFullMode.Wait
+            });
 
             Task directoryEnumerationTask;
+
             if (this.recurse)
             {
                 directoryEnumerationTask = Task.Run(() =>
                 {
-                    EnqueueAllDirectories(directory, filesToProcessChannel.Writer, filter);
+                    EnqueueAllFilesUnderDirectory(directory, filesToProcessChannel.Writer, filter, new SortedSet<string>(StringComparer.Ordinal));
                     filesToProcessChannel.Writer.Complete();
                 });
             }
             else
             {
-                var sortedDiskItems = new SortedSet<string>();
-                WriteFilesInDirectoryToChannel(directory, filesToProcessChannel, filter, sortedDiskItems);
+                WriteFilesInDirectoryToChannel(directory, filesToProcessChannel, filter, new SortedSet<string>(StringComparer.Ordinal));
 
                 filesToProcessChannel.Writer.Complete();
                 directoryEnumerationTask = Task.CompletedTask;
             }
 
-            bool didEnumerationFinishWithoutFaults = false;
-            try
+            ChannelReader<string> reader = filesToProcessChannel.Reader;
+            while (!reader.Completion.IsCompleted)
             {
-                ChannelReader<string> reader = filesToProcessChannel.Reader;
-                while (!reader.Completion.IsCompleted)
+                string currentFileToProcess;
+                bool didTryReadFail;
+                try
                 {
                     reader.WaitToReadAsync(this.cancellationToken);
 
-                    string currentFileToProcess;
-                    if (!reader.TryRead(out currentFileToProcess))
+                    didTryReadFail = !reader.TryRead(out currentFileToProcess);
+                }
+                catch (Exception ex)
+                {
+                    this.isEnumerationEnded = true;
+
+                    // WhenAll() waits on the task without triggering rethrow of any exceptions.
+                    Task.WhenAll(directoryEnumerationTask); 
+                    if (directoryEnumerationTask.IsFaulted)
                     {
-                        // WaitToReadAsync can complete before TryRead can see the item.
-                        continue;
+                        throw new AggregateException(ex, directoryEnumerationTask.Exception);
                     }
-
-                    yield return new EnumeratedArtifact(FileSystem)
+                    else
                     {
-                        Uri = new Uri(currentFileToProcess, UriKind.Absolute),
-                    };
+                        throw;
+                    }
                 }
 
-                didEnumerationFinishWithoutFaults = true;
-            }
-            finally
-            {
-                // We can't catch exceptions thrown from a block that yields, but we can run a defensive finally block.
-                // Start by setting a flag that lets the worker thread know to shut down.
-                this.isEnumerationEnded = true;
+                if (didTryReadFail)
+                {
+                    // WaitToReadAsync can complete before TryRead can see the item.
+                    // To work around, we loop back and try again.
+                    continue;
+                }
 
-                if (didEnumerationFinishWithoutFaults)
+                yield return new EnumeratedArtifact(FileSystem)
                 {
-                    // We are not executing a finally block that is running due to an Exception.
-                    // If any exceptions were triggered on the worker thread, we want to see them.  This will allow them to bubble out.
-                    directoryEnumerationTask.Wait();
-                }
-                else
-                {
-                    // The loop didn't complete, so we're running in an Exception context.  Wait for the worker to complete,
-                    // but don't trigger rethrowing of any Exceptions on this thread.
-                    Task.WhenAll(directoryEnumerationTask).Wait();
-                }
+                    Uri = new Uri(currentFileToProcess, UriKind.Absolute),
+                };
             }
+
+            // If we finished enumeration because the worker thread died (and couldn't produce more files),
+            // we will bubble out that Exception here:
+            directoryEnumerationTask.Wait();
         }
 
-        private void EnqueueAllDirectories(string directory, ChannelWriter<string> fileChannelWriter, string filter)
+        private void EnqueueAllFilesUnderDirectory(string directory, ChannelWriter<string> fileChannelWriter, string fileFilter, SortedSet<string> sortedDiskItemsBuffer)
         {
             if (CheckFaulted())
             {
                 return;
             }
 
-            var sortedDiskItems = new SortedSet<string>();
-            WriteFilesInDirectoryToChannel(directory, fileChannelWriter, filter, sortedDiskItems);
+            WriteFilesInDirectoryToChannel(directory, fileChannelWriter, fileFilter, sortedDiskItemsBuffer);
             if (CheckFaulted())
             {
                 return;
             }
 
-            sortedDiskItems.Clear();
+            sortedDiskItemsBuffer.Clear();
             foreach (string childDirectory in FileSystem.DirectoryEnumerateDirectories(directory, "*", SearchOption.TopDirectoryOnly))
             {
                 if (CheckFaulted())
@@ -161,29 +169,30 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                     return;
                 }
 
-                sortedDiskItems.Add(childDirectory);
+                sortedDiskItemsBuffer.Add(childDirectory);
             }
 
-            foreach (string childDirectory in sortedDiskItems)
+            foreach (string childDirectory in sortedDiskItemsBuffer.ToArray())
             {
                 if (CheckFaulted())
                 {
                     return;
                 }
 
-                EnqueueAllDirectories(childDirectory, fileChannelWriter, filter);
+                EnqueueAllFilesUnderDirectory(childDirectory, fileChannelWriter, fileFilter, sortedDiskItemsBuffer);
             }
         }
 
-        private void WriteFilesInDirectoryToChannel(string directory, ChannelWriter<string> fileChannelWriter, string filter, SortedSet<string> sortedDiskItems)
+        private void WriteFilesInDirectoryToChannel(string directory, ChannelWriter<string> fileChannelWriter, string filter, SortedSet<string> sortedDiskItemsBuffer)
         {
+            sortedDiskItemsBuffer.Clear();
             foreach (string childFile in FileSystem.DirectoryEnumerateFiles(directory, filter, SearchOption.TopDirectoryOnly))
             {
                 string fullFilePath = Path.Combine(directory, childFile);
-                sortedDiskItems.Add(fullFilePath);
+                sortedDiskItemsBuffer.Add(fullFilePath);
             }
 
-            foreach (string childFile in sortedDiskItems)
+            foreach (string childFile in sortedDiskItemsBuffer)
             {
                 fileChannelWriter.WriteAsync(childFile).AsTask().Wait();
             }
