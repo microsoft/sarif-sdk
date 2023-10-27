@@ -91,8 +91,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             {
                 directoryEnumerationTask = Task.Run(() =>
                 {
-                    EnqueueAllFilesUnderDirectory(directory, filesToProcessChannel.Writer, filter, new SortedSet<string>(StringComparer.Ordinal));
-                    filesToProcessChannel.Writer.Complete();
+                    try
+                    {
+                        EnqueueAllFilesUnderDirectory(directory, filesToProcessChannel.Writer, filter, new SortedSet<string>(StringComparer.Ordinal));
+                    }
+                    finally 
+                    { 
+                        filesToProcessChannel.Writer.Complete(); 
+                    }
                 });
             }
             else
