@@ -13,17 +13,21 @@ namespace Microsoft.CodeAnalysis.Sarif
 {
     public static class TestUtilitiesExtensions
     {
+        /// <summary>
+        /// This method provides validation of execution success for happy path runs, 
+        /// i.e., where we don't expect to see anything unusual. The validation is
+        /// specifically ordered to provide the most information in the test output 
+        /// window. If we validate the success code, for example, we only know that
+        /// we returned FAILURE (1) not SUCCESS. If we validate the exceptions data
+        /// first, the test output window will show a meaningful message and stack.
+        /// 
+        /// For application exist exceptions, e.g., an unhandled exception in a rule,
+        /// the inner exception has the most useful details.
+        /// </summary>
+        /// <param name="context">The analysis context which needs to be examined for unhandled exceptions.</param>
+        /// <param name="result">The result code returned by the analysis command that should indicate success.</param>
         public static void ValidateCommandExecution(this IAnalysisContext context, int result)
         {
-            // This method provides validation of execution success for happy path runs, 
-            // i.e., where we don't expect to see anything unusual. The validation is
-            // specifically ordered to provide the most information in the test output 
-            // window. If we validate the success code, for example, we only know that
-            // we returned FAILURE (1) not SUCCESS. If we validate the exceptions data
-            // first, the test output window will show a meaningful message and stack.
-
-            // For application exist exceptions, e.g., an unhandled exception in a rule,
-            // the inner exception has the most useful details.
             context.RuntimeExceptions?[0].InnerException?.ToString().Should().BeNull();
             context.RuntimeExceptions?[0].ToString().Should().BeNull();
             context.RuntimeErrors.Fatal().Should().Be(0);
