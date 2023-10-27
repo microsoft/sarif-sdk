@@ -95,9 +95,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                     {
                         EnqueueAllFilesUnderDirectory(directory, filesToProcessChannel.Writer, filter, new SortedSet<string>(StringComparer.Ordinal));
                     }
-                    finally 
-                    { 
-                        filesToProcessChannel.Writer.Complete(); 
+                    finally
+                    {
+                        filesToProcessChannel.Writer.Complete();
                     }
                 });
             }
@@ -125,7 +125,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                     this.isEnumerationEnded = true;
 
                     // WhenAll() waits on the task without triggering rethrow of any exceptions.
-                    Task.WhenAll(directoryEnumerationTask); 
+                    Task.WhenAll(directoryEnumerationTask);
                     if (directoryEnumerationTask.IsFaulted)
                     {
                         throw new AggregateException(ex, directoryEnumerationTask.Exception);
