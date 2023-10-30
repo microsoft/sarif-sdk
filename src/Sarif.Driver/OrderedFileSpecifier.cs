@@ -116,6 +116,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 bool didTryReadFail;
                 try
                 {
+                    this.cancellationToken.ThrowIfCancellationRequested();
+
                     reader.WaitToReadAsync(this.cancellationToken);
 
                     didTryReadFail = !reader.TryRead(out currentFileToProcess);
@@ -152,6 +154,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             // If we finished enumeration because the worker thread died (and couldn't produce more files),
             // we will bubble out that Exception here:
             directoryEnumerationTask.Wait();
+
+            // In event of cancellation worker thread returns out early w/o Exception.  On this thread that
+            // could look like completing the directory traversal, so we check it again to be sure
+            // before completing the enumeration.
+            this.cancellationToken.ThrowIfCancellationRequested();
         }
 
         private void EnqueueAllFilesUnderDirectory(string directory, ChannelWriter<string> fileChannelWriter, string fileFilter, SortedSet<string> sortedDiskItemsBuffer)
