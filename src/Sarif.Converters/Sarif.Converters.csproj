@@ -52,7 +52,7 @@
       <ItemGroup>
         <!-- We have to ship pre-patch versions of NewtonSoft for VisualStudio SDK. 
              We mitigate risk by limiting nesting depth. -->
-        <PackageReference Include="Newtonsoft.Json" Version="8.0.1" NoWarn="NU1903" />
+        <PackageReference Include="Newtonsoft.Json" Version="8.0.3" NoWarn="NU1903" />
       </ItemGroup>
     </Otherwise>
   </Choose>
