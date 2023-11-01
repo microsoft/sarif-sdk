@@ -18,29 +18,11 @@ In addition to the object model, the SARIF SDK provides a set of helper classes 
 ## Building the SDK
 
 If you want to build the SDK from source, rather than consuming the NuGet package,
-proceed as follows:
+please refer to [Devbox Setup](docs/devbox-setup.md) for help setting up a compilation
+environment.  
 
-1. Install .NET Core SDK 2.1 and 3.1 from https://dotnet.microsoft.com/download
-
-2. Ensure that Visual Studio 2019 is installed on your machine.
-
-    You can build in VS 2017 as well.
-
-3. Ensure that your Visual Studio installation includes the components that support
-    - C# development
-
-4. Open a Visual Studio 2019 Developer Command Prompt Window.
-
-5. From the root directory of your local repo, run the command `BuildAndTest.cmd`.
-    This restores all necessary NuGet packages, builds the SDK, and runs all the tests.
-
-    All build output appears in the `bld\` subdirectory of the repo root directory.
-
-    NOTE: You must run `BuildAndTest.cmd` once _before_ attempting to build in
-    Visual Studio, to ensure that all required NuGet packages are available.
-
-6. After you have run `BuildAndTest.cmd` once, you can open any of the solution files
-in the `src\` directory in Visual Studio 2017, and build them by running **Rebuild Solution**.
+Then you should be able to build in Visual Studio or on the Command Line using 
+`BuildAndTest.cmd`.
 
 
 ## Accomplishing common tasks
