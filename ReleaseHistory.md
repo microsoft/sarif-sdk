@@ -1,4 +1,7 @@
 # SARIF Package Release History (SDK, Driver, Converters, and Multitool)
+## **Unreleased**
+* BUG: Logging improved when work item client is called with invalid work item values.
+
 ## **v4.3.5** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/v4.3.5) | [Driver](https://www.nuget.org/packages/Sarif.Driver/v4.3.5) | [Converters](https://www.nuget.org/packages/Sarif.Converters/v4.3.5)  | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/v4.3.5) | [Multitool Library](https://www.nuget.org/packages/Sarif.Multitool.Library/v4.3.)
 * BRK: Remove processing of `/u2028` (Unicode line separator) and `/u2029` (Unicode paragraph separator) from `NewLineIndex`.
 * BUG: Resolve `KeyNotFoundException: The given key was not present` exception when scanning content that contains Unicode line and paragraph separators (`/u2028` and `/u2029`) when enabling `OptionallyEmittedData.RollingHashPartialFingerprints`. 
