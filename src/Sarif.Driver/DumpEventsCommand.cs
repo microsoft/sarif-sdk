@@ -276,6 +276,12 @@ namespace Microsoft.CodeAnalysis.Sarif
                             break;
                         }
 
+                        case DriverEventNames.RuleNotCalled:
+                        {
+                            filePath = (string)traceEvent.PayloadByName("filePath");
+                            break;
+                        }
+
                         case DriverEventNames.ScanArtifactStart:
                         {
                             filePath = (string)traceEvent.PayloadByName(nameof(filePath));
