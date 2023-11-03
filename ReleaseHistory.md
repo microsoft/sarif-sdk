@@ -1,5 +1,5 @@
 # SARIF Package Release History (SDK, Driver, Converters, and Multitool)
-## **Unreleased**
+## **v4.3.6** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/v4.3.6) | [Driver](https://www.nuget.org/packages/Sarif.Driver/v4.3.6) | [Converters](https://www.nuget.org/packages/Sarif.Converters/v4.3.6)  | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/v4.3.6) | [Multitool Library](https://www.nuget.org/packages/Sarif.Multitool.Library/v4.3.)
 * DEP: Updated NewtonSoft.JSON to 8.0.3 in Sarif.Converters for .NET targets later than `netstandard2.0`.
 * BUG: Logging improved when work item client is called with invalid work item values.
 * BUG: Resolve `InvalidOperationException` processing `RuleNotCalled` events.
