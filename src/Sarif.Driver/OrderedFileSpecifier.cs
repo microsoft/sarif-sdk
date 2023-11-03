@@ -4,7 +4,10 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Threading;
+using System.Threading.Channels;
+using System.Threading.Tasks;
 
 namespace Microsoft.CodeAnalysis.Sarif.Driver
 {
@@ -23,10 +26,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             FileSystem = fileSystem ?? Sarif.FileSystem.Instance;
         }
 
+        private const int ChannelCapacity = 10 * 1024; // max ~2.5 MB memory given 256 char max path length.
         private readonly bool recurse;
         private readonly string specifier;
         private readonly long maxFileSizeInKilobytes;
         private CancellationToken cancellationToken;
+        private volatile bool isEnumerationEnded = false;
 
         public IEnumerable<IEnumeratedArtifact> Artifacts
         {
@@ -56,75 +61,159 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             }
 
             directory = Path.GetFullPath(directory);
-            var directories = new Queue<string>();
 
             if (!FileSystem.DirectoryExists(directory))
             {
                 yield break;
             }
 
+#if NETFRAMEWORK
+            // .NET Framework: Directory.Enumerate with empty filter returns NO files.
+            // .NET Core: Directory.Enumerate with empty filter returns all files in directory.
+            // We will standardize on the .NET Core behavior.
+            if (string.IsNullOrEmpty(filter))
+            {
+                filter = "*";
+            }
+#endif
+
+            var filesToProcessChannel = Channel.CreateBounded<string>(new BoundedChannelOptions(ChannelCapacity)
+            {
+                AllowSynchronousContinuations = true,
+                SingleReader = true,
+                SingleWriter = true,
+                FullMode = BoundedChannelFullMode.Wait
+            });
+
+            Task directoryEnumerationTask;
+
             if (this.recurse)
             {
-                EnqueueAllDirectories(directories, directory);
+                directoryEnumerationTask = Task.Run(() =>
+                {
+                    try
+                    {
+                        EnqueueAllFilesUnderDirectory(directory, filesToProcessChannel.Writer, filter, new SortedSet<string>(StringComparer.Ordinal));
+                    }
+                    finally
+                    {
+                        filesToProcessChannel.Writer.Complete();
+                    }
+                });
             }
             else
             {
-                directories.Enqueue(directory);
+                WriteFilesInDirectoryToChannel(directory, filesToProcessChannel, filter, new SortedSet<string>(StringComparer.Ordinal));
+
+                filesToProcessChannel.Writer.Complete();
+                directoryEnumerationTask = Task.CompletedTask;
             }
 
-            var sortedFiles = new SortedSet<string>();
-
-            while (directories.Count > 0)
+            ChannelReader<string> reader = filesToProcessChannel.Reader;
+            while (!reader.Completion.IsCompleted)
             {
-                sortedFiles.Clear();
-                this.cancellationToken.ThrowIfCancellationRequested();
-
-                directory = Path.GetFullPath(directories.Dequeue());
-
-#if NETFRAMEWORK
-                // .NET Framework: Directory.Enumerate with empty filter returns NO files.
-                // .NET Core: Directory.Enumerate with empty filter returns all files in directory.
-                // We will standardize on the .NET Core behavior.
-                if (string.IsNullOrEmpty(filter))
-                {
-                    filter = "*";
-                }
-#endif
-
-                foreach (string file in FileSystem.DirectoryEnumerateFiles(directory, filter, SearchOption.TopDirectoryOnly))
+                string currentFileToProcess;
+                bool didTryReadFail;
+                try
                 {
                     this.cancellationToken.ThrowIfCancellationRequested();
 
-                    string fullFilePath = Path.Combine(directory, file);
-                    sortedFiles.Add(fullFilePath);
+                    reader.WaitToReadAsync(this.cancellationToken);
+
+                    didTryReadFail = !reader.TryRead(out currentFileToProcess);
+                }
+                catch (Exception ex)
+                {
+                    this.isEnumerationEnded = true;
+
+                    // WhenAll() waits on the task without triggering rethrow of any exceptions.
+                    Task.WhenAll(directoryEnumerationTask);
+                    if (directoryEnumerationTask.IsFaulted)
+                    {
+                        throw new AggregateException(ex, directoryEnumerationTask.Exception);
+                    }
+                    else
+                    {
+                        throw;
+                    }
                 }
 
-                foreach (string file in sortedFiles)
+                if (didTryReadFail)
                 {
-                    yield return new EnumeratedArtifact(FileSystem)
-                    {
-                        Uri = new Uri(file, UriKind.Absolute),
-                    };
+                    // WaitToReadAsync can complete before TryRead can see the item.
+                    // To work around, we loop back and try again.
+                    continue;
                 }
+
+                yield return new EnumeratedArtifact(FileSystem)
+                {
+                    Uri = new Uri(currentFileToProcess, UriKind.Absolute),
+                };
+            }
+
+            // If we finished enumeration because the worker thread died (and couldn't produce more files),
+            // we will bubble out that Exception here:
+            directoryEnumerationTask.Wait();
+
+            // In event of cancellation worker thread returns out early w/o Exception.  On this thread that
+            // could look like completing the directory traversal, so we check it again to be sure
+            // before completing the enumeration.
+            this.cancellationToken.ThrowIfCancellationRequested();
+        }
+
+        private void EnqueueAllFilesUnderDirectory(string directory, ChannelWriter<string> fileChannelWriter, string fileFilter, SortedSet<string> sortedDiskItemsBuffer)
+        {
+            if (CheckFaulted())
+            {
+                return;
+            }
+
+            WriteFilesInDirectoryToChannel(directory, fileChannelWriter, fileFilter, sortedDiskItemsBuffer);
+            if (CheckFaulted())
+            {
+                return;
+            }
+
+            sortedDiskItemsBuffer.Clear();
+            foreach (string childDirectory in FileSystem.DirectoryEnumerateDirectories(directory, "*", SearchOption.TopDirectoryOnly))
+            {
+                if (CheckFaulted())
+                {
+                    return;
+                }
+
+                sortedDiskItemsBuffer.Add(childDirectory);
+            }
+
+            foreach (string childDirectory in sortedDiskItemsBuffer.ToArray())
+            {
+                if (CheckFaulted())
+                {
+                    return;
+                }
+
+                EnqueueAllFilesUnderDirectory(childDirectory, fileChannelWriter, fileFilter, sortedDiskItemsBuffer);
             }
         }
 
-        private void EnqueueAllDirectories(Queue<string> queue, string directory)
+        private void WriteFilesInDirectoryToChannel(string directory, ChannelWriter<string> fileChannelWriter, string filter, SortedSet<string> sortedDiskItemsBuffer)
         {
-            this.cancellationToken.ThrowIfCancellationRequested();
-
-            var sortedDiskItems = new SortedSet<string>();
-
-            queue.Enqueue(directory);
-            foreach (string childDirectory in FileSystem.DirectoryEnumerateDirectories(directory, "*", SearchOption.TopDirectoryOnly))
+            sortedDiskItemsBuffer.Clear();
+            foreach (string childFile in FileSystem.DirectoryEnumerateFiles(directory, filter, SearchOption.TopDirectoryOnly))
             {
-                sortedDiskItems.Add(childDirectory);
+                string fullFilePath = Path.Combine(directory, childFile);
+                sortedDiskItemsBuffer.Add(fullFilePath);
             }
 
-            foreach (string childDirectory in sortedDiskItems)
+            foreach (string childFile in sortedDiskItemsBuffer)
             {
-                EnqueueAllDirectories(queue, childDirectory);
+                fileChannelWriter.WriteAsync(childFile).AsTask().Wait();
             }
+        }
+
+        private bool CheckFaulted()
+        {
+            return this.cancellationToken.IsCancellationRequested || this.isEnumerationEnded;
         }
 
         internal static IArtifactProvider Create(IEnumerable<string> specifiers, bool recurse, long maxFileSizeInKilobytes, IFileSystem fileSystem)

@@ -4,6 +4,7 @@
 * BUG: Logging improved when work item client is called with invalid work item values.
 * BUG: Resolve `InvalidOperationException` processing `RuleNotCalled` events.
 * BUG: Emit optional data arguments for `RuleNotCalled` events in auto-formatted messages. 
+* PRF: Switch file system traversal to pre-order with producer-consumer to accelerate time to scan first artifact.
 
 ## **v4.3.5** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/v4.3.5) | [Driver](https://www.nuget.org/packages/Sarif.Driver/v4.3.5) | [Converters](https://www.nuget.org/packages/Sarif.Converters/v4.3.5)  | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/v4.3.5) | [Multitool Library](https://www.nuget.org/packages/Sarif.Multitool.Library/v4.3.)
 * BRK: Remove processing of `/u2028` (Unicode line separator) and `/u2029` (Unicode paragraph separator) from `NewLineIndex`.
