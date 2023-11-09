@@ -115,7 +115,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                     }
                 }
 
-                Task<int> analyzeTask = Task.Run(() =>
+                var analyzeTask = Task.Run(() =>
                 {
                     return Run(methodLocalContext);
                 }, globalContext.CancellationToken);
@@ -424,7 +424,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
             // 1: First we initiate an asynchronous operation to locate disk files for
             // analysis, as specified in analysis configuration (file names, wildcards).
-            Task<bool> enumerateTargets = Task.Run(() => EnumerateTargetsAsync(globalContext));
+            var enumerateTargets = Task.Run(() => EnumerateTargetsAsync(globalContext));
 
             // 2: A dedicated set of threads pull scan targets and analyze them.
             //    On completing a scan, the thread writes the index of the 
@@ -440,7 +440,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             //    to ensure determinism in log output. i.e., any scan of the
             //    same targets using the same production code should produce
             //    a log file that is byte-for-byte identical to previous log.
-            Task logResults = Task.Run(() => LogResultsAsync(globalContext));
+            var logResults = Task.Run(() => LogResultsAsync(globalContext));
 
             Task.WhenAll(scanWorkers)
                 .ContinueWith(_ => _resultsWritingChannel.Writer.Complete())

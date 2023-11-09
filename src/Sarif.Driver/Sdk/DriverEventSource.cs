@@ -76,7 +76,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             }
         }
 
-        [Event((int)DriverEventId.RuleNotCalled, Message = "'{1}.{2}' not called for artifact ({1} : {2}): {0}")]
+        [Event((int)DriverEventId.RuleNotCalled, Message = "'{1}.{2}' not called for artifact ({3} : {4}): {0}")]
         public void RuleNotCalled(string filePath, string ruleId, string ruleName, string data1, string data2)
         {
             if (this.IsEnabled())

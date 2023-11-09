@@ -725,7 +725,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         {
             var logger = new MemoryStreamSarifLogger(dataToInsert: OptionallyEmittedData.Hashes);
             var command = new TestMultithreadedAnalyzeCommand();
-            Uri uri = new Uri("/new folder/0%1%20%.txt", UriKind.Relative);
+            var uri = new Uri("/new folder/0%1%20%.txt", UriKind.Relative);
 
             var target = new EnumeratedArtifact(FileSystem.Instance) { Uri = uri, Contents = "foo foo" };
 
@@ -748,7 +748,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             int result = command.Run(options: null, ref context);
             context.ValidateCommandExecution(result);
 
-            SarifLog sarifLog = logger.ToSarifLog();
+            var sarifLog = logger.ToSarifLog();
             sarifLog.Runs[0].Should().NotBeNull();
             sarifLog.Runs[0].Results[0].Should().NotBeNull();
             sarifLog.Runs[0].Results.Count.Should().Be(1);
