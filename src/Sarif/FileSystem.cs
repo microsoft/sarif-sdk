@@ -424,8 +424,8 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// Directory information for path, or null if path denotes a root directory or is null. Returns <see cref="string.Empty"/> if path does not contain directory information.
         /// </returns>
         public string PathGetDirectoryName(string path)
-        { 
-            return Path.GetDirectoryName(path); 
+        {
+            return Path.GetDirectoryName(path);
         }
 
         /// <summary>
@@ -451,7 +451,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <returns>
         /// The string returned by <see cref = "Path.GetFileName(string)"/>, minus the last period (.) and all characters following it.
         /// </returns>
-        public string PathGetFileNameWithoutExtension(string path) 
+        public string PathGetFileNameWithoutExtension(string path)
         {
             return Path.GetFileNameWithoutExtension(path);
         }
