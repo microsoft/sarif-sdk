@@ -407,7 +407,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// An array of parts of the path.
         /// </param>
         /// <returns>
-        /// The combined paths.
+        /// The combined path.
         /// </returns>
         public string PathCombine(params string[] paths)
         {
