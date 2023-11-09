@@ -135,20 +135,6 @@ namespace Microsoft.CodeAnalysis.Sarif
         }
 
         /// <summary>
-        /// Returns the absolute path for the specified path string.
-        /// </summary>
-        /// <param name="path">
-        /// The file or directory for which to obtain absolute path information.
-        /// </param>
-        /// <returns>
-        /// The fully qualified location of <paramref name="path"/>, such as "C:\MyFile.txt".
-        /// </returns>
-        public string PathGetFullPath(string path)
-        {
-            return Path.GetFullPath(path);
-        }
-
-        /// <summary>
         /// Returns the date and time the specified file or directory was last written to.
         /// </summary>
         /// <param name="path">The file or directory for which to obtain write date and time information.</param>
@@ -412,6 +398,62 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             var fileVersionInfo = FileVersionInfo.GetVersionInfo(fileName);
             return fileVersionInfo;
+        }
+
+        /// <summary>
+        /// Combines an array of strings into a path.
+        /// </summary>
+        /// <param name="paths">
+        /// An array of parts of the path.
+        /// </param>
+        /// <returns>
+        /// The combined path.
+        /// </returns>
+        public string PathCombine(params string[] paths)
+        {
+            return Path.Combine(paths);
+        }
+
+        /// <summary>
+        /// Returns the directory information for the specified path.
+        /// </summary>
+        /// <param name="path">
+        /// The path of a file or directory.
+        /// </param>
+        /// <returns>
+        /// Directory information for path, or null if path denotes a root directory or is null. Returns <see cref="string.Empty"/> if path does not contain directory information.
+        /// </returns>
+        public string PathGetDirectoryName(string path)
+        {
+            return Path.GetDirectoryName(path);
+        }
+
+        /// <summary>
+        /// Returns the absolute path for the specified path.
+        /// </summary>
+        /// <param name="path">
+        /// The path of a file or directory.
+        /// </param>
+        /// <returns>
+        /// The fully qualified location of <paramref name="path"/>, such as "C:\MyFile.txt".
+        /// </returns>
+        public string PathGetFullPath(string path)
+        {
+            return Path.GetFullPath(path);
+        }
+
+        /// <summary>
+        /// Returns the file name of the specified path string without the extension.
+        /// </summary>
+        /// <param name="path">
+        /// The path of the file.
+        /// </param>
+        /// <returns>
+        /// The string returned by <see cref = "Path.GetFileName(string)"/>, minus the last period (.) and all characters following it.
+        /// </returns>
+        public string PathGetFileNameWithoutExtension(string path)
+        {
+            return Path.GetFileNameWithoutExtension(path);
         }
     }
 }
