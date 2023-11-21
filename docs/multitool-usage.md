@@ -32,7 +32,7 @@ npx @microsoft/sarif-multitool <args>
 Sarif.Multitool @microsoft/sarif-multitool help
 
 : Convert a Fortify file to SARIF
-Sarif.Multitool convert Current.fpr -tool FortifyFpr -output Current.sarif
+Sarif.Multitool convert Current.fpr --tool FortifyFpr --output Current.sarif
 
 : Add file contents from analyzed files and snippets from result regions to SARIF
 Sarif.Multitool rewrite Current.sarif --insert TextFiles;RegionSnippets --log Inline
