@@ -19,44 +19,84 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new StringContent(AnyContentText);
         }
 
-        public static HttpResponseMessage CreateOKResponse()
+        public static HttpResponseMessage CreateOKResponse(HttpContent content = null)
         {
-            return new HttpResponseMessage(HttpStatusCode.OK);
+            var response = new HttpResponseMessage(HttpStatusCode.OK);
+            if (content != null)
+            {
+                response.Content = content;
+            }
+            return response;
         }
 
-        public static HttpResponseMessage CreateNotFoundResponse()
+        public static HttpResponseMessage CreateNotFoundResponse(HttpContent content = null)
         {
-            return new HttpResponseMessage(HttpStatusCode.NotFound);
+            var response = new HttpResponseMessage(HttpStatusCode.NotFound);
+            if (content != null)
+            {
+                response.Content = content;
+            }
+            return response;
         }
 
-        public static HttpResponseMessage CreateForbiddenResponse()
+        public static HttpResponseMessage CreateForbiddenResponse(HttpContent content = null)
         {
-            return new HttpResponseMessage(HttpStatusCode.Forbidden);
+            var response = new HttpResponseMessage(HttpStatusCode.Forbidden);
+            if (content != null)
+            {
+                response.Content = content;
+            }
+            return response;
         }
 
-        public static HttpResponseMessage CreateBadGatewayResponse()
+        public static HttpResponseMessage CreateBadGatewayResponse(HttpContent content = null)
         {
-            return new HttpResponseMessage(HttpStatusCode.BadGateway);
+            var response = new HttpResponseMessage(HttpStatusCode.BadGateway);
+            if (content != null)
+            {
+                response.Content = content;
+            }
+            return response;
         }
 
-        public static HttpResponseMessage CreateBadRequestResponse()
+        public static HttpResponseMessage CreateBadRequestResponse(HttpContent content = null)
         {
-            return new HttpResponseMessage(HttpStatusCode.BadRequest);
+            var response = new HttpResponseMessage(HttpStatusCode.BadRequest);
+            if (content != null)
+            {
+                response.Content = content;
+            }
+            return response;
         }
 
-        public static HttpResponseMessage CreateUnauthorizedResponse()
+        public static HttpResponseMessage CreateUnauthorizedResponse(HttpContent content = null)
         {
-            return new HttpResponseMessage(HttpStatusCode.Unauthorized);
+            var response = new HttpResponseMessage(HttpStatusCode.Unauthorized);
+            if (content != null)
+            {
+                response.Content = content;
+            }
+            return response;
         }
 
-        public static HttpResponseMessage CreateInternalServerErrorResponse()
+        public static HttpResponseMessage CreateInternalServerErrorResponse(HttpContent content = null)
         {
-            return new HttpResponseMessage(HttpStatusCode.InternalServerError);
+            var response = new HttpResponseMessage(HttpStatusCode.InternalServerError);
+            if (content != null)
+            {
+                response.Content = content;
+            }
+            return response;
         }
 
-        public static HttpResponseMessage CreateNonAuthoritativeInformationResponse()
+        public static HttpResponseMessage CreateNonAuthoritativeInformationResponse(HttpContent content = null)
         {
-            return new HttpResponseMessage(HttpStatusCode.NonAuthoritativeInformation);
+            var response = new HttpResponseMessage(HttpStatusCode.NonAuthoritativeInformation);
+            if (content != null)
+            {
+                response.Content = content;
+            }
+            return response;
         }
 
         private readonly ConcurrentQueue<HttpResponseMessage> mockedResponses =
