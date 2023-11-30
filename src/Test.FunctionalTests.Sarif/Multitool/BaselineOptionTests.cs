@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Net.Mime;
+using System.Text;
 
 using FluentAssertions;
 
@@ -123,10 +124,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             mockFileSystem.Setup(x => x.DirectoryGetDirectories(It.IsAny<string>())).Returns(Array.Empty<string>());
             mockFileSystem.Setup(x => x.DirectoryGetFiles(inputLogDirectory, fileToBeValidated)).Returns(new string[] { filePathToBeValidated });
             mockFileSystem.Setup(x => x.FileReadAllText(filePathToBeValidated)).Returns(logText);
+            mockFileSystem.Setup(x => x.FileOpenRead(filePathToBeValidated)).Returns(new MemoryStream(Encoding.UTF8.GetBytes(filePathToBeValidated)));
             mockFileSystem.Setup(x => x.FileExists(baselineFilePath)).Returns(true);
             mockFileSystem.Setup(x => x.DirectoryEnumerateFiles(It.IsAny<string>(), fileToBeValidated, SearchOption.TopDirectoryOnly)).Returns(new string[] { filePathToBeValidated });
             mockFileSystem.Setup(x => x.FileReadAllText(baselineFilePath)).Returns(baselineText);
             mockFileSystem.Setup(x => x.FileReadAllText(It.IsNotIn<string>(filePathToBeValidated))).Returns<string>(path => File.ReadAllText(path));
+            mockFileSystem.Setup(x => x.FileOpenRead(baselineFilePath)).Returns(new MemoryStream(Encoding.UTF8.GetBytes(baselineText)));
             mockFileSystem.Setup(x => x.FileWriteAllText(It.IsAny<string>(), It.IsAny<string>()));
             mockFileSystem.Setup(x => x.FileCreate(outputLogFilePath)).Returns((string path) => File.Create(path));
             mockFileSystem.Setup(x => x.FileCreate(baselineFilePath)).Returns((string path) => File.Create(path));
@@ -141,8 +144,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             SarifLog actualLog = JsonConvert.DeserializeObject<SarifLog>(actualLogFileContents);
             Run run = actualLog.Runs[0];
 
-            // guid/correlation guid/provenance detection time changes every time 
-            // remove them to not failuring the comparing
+            // Guid/correlation guid/provenance detection time change for every analysis run.
+            // Remove them to not fail the comparison checks.
             foreach (Result result in run.Results)
             {
                 result.Guid = null;
