@@ -22,6 +22,14 @@ namespace Test.UnitTests.Sarif
         [Fact]
         public void EnumeratedArtifact_TextFileEncodingsAreProperlyDetected()
         {
+            // This test is just a placeholder. We do not have logic below
+            // that reliably produces disk files with appropriate BOMs/file
+            // formats to properly test the encoding detection from the new
+            // helpers we have added. This test passes but is very incomplete.
+            // If/when we have additional demands to support esoteric encodings
+            // in analysis, we can build this out. Currently, things are not
+            // guaranteed to work reliably except in ASCII, UTF8, Unicode.
+
             string guid = Guid.NewGuid().ToString();
 
 #pragma warning disable SYSLIB0001 // Type or member is obsolete
