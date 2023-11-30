@@ -158,7 +158,37 @@ namespace Test.UnitTests.Sarif
         [Fact]
         public void EnumeratedArtifact_BinaryFile_NonSeekableStream()
         {
+            string filePath = this.GetType().Assembly.Location;
+            using FileStream reader = File.OpenRead(filePath);
 
+            int headerSize = 1024;
+            byte[] data = new byte[headerSize];
+            reader.Read(data, 0, data.Length);
+
+            ZipArchive archive = CreateZipArchive("MyBinaryFile.dll", data);
+
+            foreach (ZipArchiveEntry entry in archive.Entries)
+            {
+                var artifact = new EnumeratedArtifact(FileSystem.Instance)
+                {
+                    Uri = new Uri(entry.FullName, UriKind.RelativeOrAbsolute),
+                    SupportNonSeekableStreams = true,
+                    Stream = entry.Open(),
+                };
+
+                ValidateBinaryArtifact(artifact, headerSize);
+            }
+        }
+
+        [Fact]
+        public void EnumeratedArtifact_TextFile_SizeInBytesWithNoUriReturnsNull()
+        {
+            var artifact = new EnumeratedArtifact(new FileSystem())
+            {
+                Contents = $"{Guid.NewGuid}",
+            };
+
+            artifact.SizeInBytes.Should().BeNull();
         }
 
         [Fact]
@@ -171,7 +201,6 @@ namespace Test.UnitTests.Sarif
             {
                 var artifact = new EnumeratedArtifact(FileSystem.Instance)
                 {
-                    Uri = new Uri(entry.FullName, UriKind.RelativeOrAbsolute),
                     Stream = entry.Open(),
                 };
 

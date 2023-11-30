@@ -103,65 +103,75 @@ namespace Microsoft.CodeAnalysis.Sarif
                 }
 
                 // This is our client-side, disk-based file retrieval case.
-
                 Stream = FileSystem.FileOpenRead(Uri.LocalPath);
             }
 
-            bool isText = false;
-
             if (Stream.CanSeek)
             {
-                // Reset to beginning of stream in case caller neglected to do so.
-                this.Stream.Seek(0, SeekOrigin.Begin);
-
-                byte[] header = new byte[4096];
-                int length = this.Stream.Read(header, 0, header.Length);
-                isText = FileEncoding.CheckForTextualData(header, 0, length, out this.encoding);
-
-                if (isText)
-                {
-                    // If we have textual data and the encoding was null, we are UTF8
-                    // (which will be a perfectly valid encoding for ASCII as well).
-                    this.encoding ??= Encoding.UTF8;
-                }
-
-                this.Stream.Seek(0, SeekOrigin.Begin);
-
-                if (isText)
-                {
-                    using var contentReader = new StreamReader(Stream);
-                    this.contents = contentReader.ReadToEnd();
-                }
-                else
-                {
-                    this.bytes = new byte[Stream.Length];
-                    this.Stream.Read(this.bytes, 0, bytes.Length);
-                }
+                RetrieveDataFromSeekableStream();
             }
             else
             {
-                if (!SupportNonSeekableStreams)
-                {
-                    throw new InvalidOperationException("Stream is not seekable. Provide a seekable stream or set the 'SupportNonSeekableStreams' property.");
-                }
-
-                this.bytes = new byte[Stream.Length];
-                int length = this.Stream.Read(this.bytes, 0, this.bytes.Length);
-                isText = FileEncoding.CheckForTextualData(this.bytes, 0, length, out this.encoding);
-
-                if (isText)
-                {
-                    // If we have textual data and the encoding was null, we are UTF8
-                    // (which will be a perfectly valid encoding for ASCII as well).
-                    this.encoding ??= Encoding.UTF8;
-                    this.contents = encoding.GetString(this.bytes);
-                    this.bytes = null;
-                }
+                RetrieveDataFromNonSeekableStream();
             }
 
             Stream = null;
 
             return (this.contents, this.bytes);
+        }
+
+        private void RetrieveDataFromNonSeekableStream()
+        {
+            bool isText;
+            if (!SupportNonSeekableStreams)
+            {
+                throw new InvalidOperationException("Stream is not seekable. Provide a seekable stream or set the 'SupportNonSeekableStreams' property.");
+            }
+
+            this.bytes = new byte[Stream.Length];
+            int length = this.Stream.Read(this.bytes, 0, this.bytes.Length);
+            isText = FileEncoding.CheckForTextualData(this.bytes, 0, length, out this.encoding);
+
+            if (isText)
+            {
+                // If we have textual data and the encoding was null, we are UTF8
+                // (which will be a perfectly valid encoding for ASCII as well).
+                this.encoding ??= Encoding.UTF8;
+                this.contents = encoding.GetString(this.bytes);
+                this.bytes = null;
+            }
+        }
+
+        private void RetrieveDataFromSeekableStream()
+        {
+            bool isText;
+
+            // Reset to beginning of stream in case caller neglected to do so.
+            this.Stream.Seek(0, SeekOrigin.Begin);
+
+            byte[] header = new byte[4096];
+            int length = this.Stream.Read(header, 0, header.Length);
+            isText = FileEncoding.CheckForTextualData(header, 0, length, out this.encoding);
+
+            if (isText)
+            {
+                // If we have textual data and the encoding was null, we are UTF8
+                // (which will be a perfectly valid encoding for ASCII as well).
+                this.encoding ??= Encoding.UTF8;
+            }
+
+            this.Stream.Seek(0, SeekOrigin.Begin);
+
+            if (isText)
+            {
+                using var contentReader = new StreamReader(Stream);
+                this.contents = contentReader.ReadToEnd();
+            }
+            else
+            {
+                this.bytes = new byte[Stream.Length];
+                this.Stream.Read(this.bytes, 0, bytes.Length);
+            }
         }
 
         public long? sizeInBytes;
@@ -187,7 +197,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 {
                     this.SizeInBytes = (long)this.Stream.Length;
                 }
-                else if (Uri.IsAbsoluteUri && Uri.IsFile)
+                else if (Uri != null && Uri?.IsAbsoluteUri && Uri.IsFile)
                 {
                     this.sizeInBytes = (long)FileSystem.FileInfoLength(Uri.LocalPath);
                 }

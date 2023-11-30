@@ -59,7 +59,7 @@ namespace Test.UnitTests.Sarif
             using FileStream reader = File.OpenRead(filePath);
 
             int headerSize = 1024;
-            byte[] data = new byte[1024];
+            byte[] data = new byte[headerSize];
             reader.Read(data, 0, data.Length);
 
             ZipArchive zip = CreateZipArchiveWithBinaryContents("test.dll", data);
