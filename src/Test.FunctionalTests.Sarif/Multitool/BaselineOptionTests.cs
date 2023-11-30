@@ -144,8 +144,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             SarifLog actualLog = JsonConvert.DeserializeObject<SarifLog>(actualLogFileContents);
             Run run = actualLog.Runs[0];
 
-            // Guid/correlation guid/provenance detection time change for every analysis run.
-            // Remove them to not fail the comparison checks.
+            // Guid/correlation guid/provenance detection times change for every analysis run.
+            // Remove these in order not to fail the comparison checks.
             foreach (Result result in run.Results)
             {
                 result.Guid = null;
