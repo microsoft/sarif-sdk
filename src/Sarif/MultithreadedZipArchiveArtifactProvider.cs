@@ -10,41 +10,56 @@ namespace Microsoft.CodeAnalysis.Sarif
     public class MultithreadedZipArchiveArtifactProvider : ArtifactProvider
     {
         private readonly ZipArchive zipArchive;
+        private ISet<string> binaryExtensions;
+
+        public ISet<string> BinaryExtensions 
+        { 
+            get
+            {
+                this.binaryExtensions ??= CreateDefaultBinaryExtensionsSet();
+                return this.binaryExtensions;
+            }
+
+            set { this.binaryExtensions = value; }
+        }
 
         public MultithreadedZipArchiveArtifactProvider(ZipArchive zipArchive, IFileSystem fileSystem) : base(fileSystem)
         {
             this.zipArchive = zipArchive;
-
-            this.binaryExtensions = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
-
-
-            this.binaryExtensions.Add(".bmp");
-            this.binaryExtensions.Add(".cab");
-            this.binaryExtensions.Add(".cer");
-            this.binaryExtensions.Add(".der");
-            this.binaryExtensions.Add(".dll");
-            this.binaryExtensions.Add(".exe");
-            this.binaryExtensions.Add(".gif");
-            this.binaryExtensions.Add(".gz");
-            this.binaryExtensions.Add(".iso");
-            this.binaryExtensions.Add(".jpe");
-            this.binaryExtensions.Add(".jpeg");
-            this.binaryExtensions.Add(".lock");
-            this.binaryExtensions.Add(".p12");
-            this.binaryExtensions.Add(".pack");
-            this.binaryExtensions.Add(".pfx");
-            this.binaryExtensions.Add(".pkcs12");
-            this.binaryExtensions.Add(".png");
-            this.binaryExtensions.Add(".psd");
-            this.binaryExtensions.Add(".rar");
-            this.binaryExtensions.Add(".tar");
-            this.binaryExtensions.Add(".tif");
-            this.binaryExtensions.Add(".tiff");
-            this.binaryExtensions.Add(".xcf");
-            this.binaryExtensions.Add(".zip");
         }
 
-        private readonly HashSet<string> binaryExtensions;
+        public ISet<string> CreateDefaultBinaryExtensionsSet()
+        {
+
+            ISet<string> result = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+
+            result.Add(".bmp");
+            result.Add(".cab");
+            result.Add(".cer");
+            result.Add(".der");
+            result.Add(".dll");
+            result.Add(".exe");
+            result.Add(".gif");
+            result.Add(".gz");
+            result.Add(".iso");
+            result.Add(".jpe");
+            result.Add(".jpeg");
+            result.Add(".lock");
+            result.Add(".p12");
+            result.Add(".pack");
+            result.Add(".pfx");
+            result.Add(".pkcs12");
+            result.Add(".png");
+            result.Add(".psd");
+            result.Add(".rar");
+            result.Add(".tar");
+            result.Add(".tif");
+            result.Add(".tiff");
+            result.Add(".xcf");
+            result.Add(".zip");
+
+            return result;
+        }
 
         public override IEnumerable<IEnumeratedArtifact> Artifacts
         {

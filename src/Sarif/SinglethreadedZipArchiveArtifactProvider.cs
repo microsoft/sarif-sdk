@@ -3,7 +3,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.IO.Compression;
 
 namespace Microsoft.CodeAnalysis.Sarif
@@ -16,11 +15,18 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             foreach (ZipArchiveEntry entry in zipArchive.Entries)
             {
-                artifacts.Add(new EnumeratedArtifact(Sarif.FileSystem.Instance)
+                var artifact = new EnumeratedArtifact(Sarif.FileSystem.Instance)
                 {
                     Uri = new Uri(entry.FullName, UriKind.RelativeOrAbsolute),
-                    Contents = new StreamReader(entry.Open()).ReadToEnd()
-                });
+                    Stream = entry.Open(),
+                    SupportNonSeekableStreams = true,
+                };
+
+                // This step will fault in all artifact contents, whether textual
+                // or binary, and clear the zip stream, which is the point.
+                artifact.Contents = artifact.Contents;
+
+                artifacts.Add(artifact);
             }
 
             Artifacts = artifacts;

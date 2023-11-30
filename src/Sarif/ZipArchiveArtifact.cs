@@ -12,14 +12,14 @@ namespace Microsoft.CodeAnalysis.Sarif
 
     public class ZipArchiveArtifact : IEnumeratedArtifact
     {
-        private readonly HashSet<string> binaryExtensions;
+        private readonly ISet<string> binaryExtensions;
         private readonly ZipArchive archive;
         private ZipArchiveEntry entry;
         private readonly Uri uri;
         private string contents;
         private byte[] bytes;
 
-        public ZipArchiveArtifact(ZipArchive archive, ZipArchiveEntry entry, HashSet<string> binaryExtensions)
+        public ZipArchiveArtifact(ZipArchive archive, ZipArchiveEntry entry, ISet<string> binaryExtensions)
         {
             this.entry = entry;
             this.archive = archive;
