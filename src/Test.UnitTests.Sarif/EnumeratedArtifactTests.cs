@@ -189,14 +189,14 @@ namespace Test.UnitTests.Sarif
         }
 
         [Fact]
-        public void EnumeratedArtifact_TextFile_SizeInBytesWithNoUriReturnsNull()
+        public void EnumeratedArtifact_TextFile_SizeInBytesWithRelativeUriReturnsNull()
         {
             var artifact = new EnumeratedArtifact(new FileSystem())
             {
-                Contents = $"{Guid.NewGuid}",
+                Uri = new Uri("/test.txt", UriKind.Relative)
             };
 
-            artifact.SizeInBytes.Should().BeNull();
+            Assert.Throws<InvalidOperationException>(() => artifact.SizeInBytes);
         }
 
         [Fact]

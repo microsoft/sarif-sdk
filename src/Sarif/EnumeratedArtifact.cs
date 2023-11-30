@@ -97,9 +97,11 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             if (Stream == null && this.contents == null && this.bytes == null)
             {
-                if (Uri == null || (Uri.IsAbsoluteUri && !Uri.IsFile))
+                if (Uri == null ||
+                    !Uri.IsAbsoluteUri ||
+                    (Uri.IsAbsoluteUri && !Uri.IsFile))
                 {
-                    throw new InvalidOperationException();
+                    throw new InvalidOperationException("An absolute URI pointing to a file location was not available.");
                 }
 
                 // This is our client-side, disk-based file retrieval case.

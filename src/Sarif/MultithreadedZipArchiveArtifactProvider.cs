@@ -67,7 +67,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             {
                 foreach (ZipArchiveEntry entry in this.zipArchive.Entries)
                 {
-                    yield return new ZipArchiveArtifact(this.zipArchive, entry, this.binaryExtensions);
+                    yield return new ZipArchiveArtifact(this.zipArchive, entry, BinaryExtensions);
                 }
             }
         }
