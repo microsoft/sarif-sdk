@@ -3,8 +3,8 @@
 
 using System;
 using System.Collections.Generic;
-using System.IO.Compression;
 using System.IO;
+using System.IO.Compression;
 using System.Text;
 
 namespace Microsoft.CodeAnalysis.Sarif
@@ -94,7 +94,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                         return this.entry.Length;
                     }
 
-                    return this.contents != null 
+                    return this.contents != null
                         ? this.contents.Length
                         : this.bytes.Length;
                 }

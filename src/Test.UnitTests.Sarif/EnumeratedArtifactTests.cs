@@ -25,7 +25,7 @@ namespace Test.UnitTests.Sarif
             string guid = Guid.NewGuid().ToString();
 
 #pragma warning disable SYSLIB0001 // Type or member is obsolete
-            foreach (Encoding encoding in new[] { Encoding.UTF8 } ) 
+            foreach (Encoding encoding in new[] { Encoding.UTF8 })
             {
                 byte[] bytes = encoding.GetBytes(guid);
 
@@ -257,7 +257,7 @@ namespace Test.UnitTests.Sarif
             using (var populateArchive = new ZipArchive(stream, ZipArchiveMode.Create, leaveOpen: true))
             {
                 ZipArchiveEntry entry = populateArchive.CreateEntry(fileName, CompressionLevel.NoCompression);
-                entry.Open().Write(content, 0, content.Length);                
+                entry.Open().Write(content, 0, content.Length);
             }
             stream.Flush();
             stream.Position = 0;

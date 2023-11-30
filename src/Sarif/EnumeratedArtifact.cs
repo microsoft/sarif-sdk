@@ -24,8 +24,8 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         public Uri Uri { get; set; }
 
-        public bool IsBinary 
-        { 
+        public bool IsBinary
+        {
             get
             {
                 return this.isBinary ?? IsArtifactBinary();
@@ -34,7 +34,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         internal bool IsArtifactBinary()
         {
-            if (isBinary.HasValue) 
+            if (isBinary.HasValue)
             {
                 return isBinary.Value;
             }
@@ -86,18 +86,18 @@ namespace Microsoft.CodeAnalysis.Sarif
         private (string text, byte[] bytes) GetArtifactData()
         {
             if (this.contents != null)
-            { 
-                return (this.contents, bytes: null); 
+            {
+                return (this.contents, bytes: null);
             }
 
-            if (this.bytes != null) 
+            if (this.bytes != null)
             {
                 return (text: null, this.bytes);
             }
 
             if (Stream == null && this.contents == null && this.bytes == null)
             {
-                if (Uri == null || (Uri.IsAbsoluteUri && !Uri.IsFile)) 
+                if (Uri == null || (Uri.IsAbsoluteUri && !Uri.IsFile))
                 {
                     throw new InvalidOperationException();
                 }
@@ -109,8 +109,8 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             bool isText = false;
 
-            if (Stream.CanSeek) 
-            { 
+            if (Stream.CanSeek)
+            {
                 // Reset to beginning of stream in case caller neglected to do so.
                 this.Stream.Seek(0, SeekOrigin.Begin);
 
@@ -118,8 +118,8 @@ namespace Microsoft.CodeAnalysis.Sarif
                 int length = this.Stream.Read(header, 0, header.Length);
                 isText = FileEncoding.CheckForTextualData(header, 0, length, out this.encoding);
 
-                if (isText) 
-                { 
+                if (isText)
+                {
                     // If we have textual data and the encoding was null, we are UTF8
                     // (which will be a perfectly valid encoding for ASCII as well).
                     this.encoding ??= Encoding.UTF8;
@@ -140,7 +140,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             }
             else
             {
-                if (!SupportNonSeekableStreams) 
+                if (!SupportNonSeekableStreams)
                 {
                     throw new InvalidOperationException("Stream is not seekable. Provide a seekable stream or set the 'SupportNonSeekableStreams' property.");
                 }

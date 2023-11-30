@@ -1,5 +1,11 @@
 # SARIF Package Release History (SDK, Driver, Converters, and Multitool)
 
+## **v4.4.0 UNRELEASED
+* BRK: `EnumeratedArtifact` now sniffs artifacts to distinguish between textual and binary data. The `Contents` property will be null for binary files (use `Bytes` instead).
+* BRK: `EnumeratedArtifact` raises `InvalidOperationException` for non-seekable streams (unless the `SupportNonSeekableStreams` property is set). Non-seekable streams result in performance inefficiencies when expanding.
+* BRK: `MultithreadedZipArchiveArtifactProvider` now distinguishes binary vs. textual data using a hard-coded binary files extensions list. This data will be made configurable in a future change.
+* NEW: `EnumeratedArtifact` now automatically detects and populates a `Bytes` property for binary files such as executables and certificates.
+
 ## **v4.3.7** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/v4.3.7) | [Driver](https://www.nuget.org/packages/Sarif.Driver/v4.3.7) | [Converters](https://www.nuget.org/packages/Sarif.Converters/v4.3.7)  | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/v4.3.7) | [Multitool Library](https://www.nuget.org/packages/Sarif.Multitool.Library/v4.3.)
 * DEP: Updated NewtonSoft.JSON to 8.0.3 in Sarif.Converters for .NET targets later than `netstandard2.0`.
 * BUG: Logging improved when work item client is called with invalid work item values.

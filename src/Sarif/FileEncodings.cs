@@ -31,15 +31,15 @@
 #endregion
 
 using System;
-using System.IO;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 
 namespace Microsoft.CodeAnalysis.Sarif
 {
     public class FileEncoding
-    {        
+    {
         /// <summary>
         /// Detects if contains textual data.
         /// </summary>
