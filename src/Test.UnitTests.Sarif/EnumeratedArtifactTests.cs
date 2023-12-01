@@ -221,6 +221,7 @@ namespace Test.UnitTests.Sarif
             artifact.Bytes.Should().NotBeNull();
             artifact.Bytes.Length.Should().Be(sizeInBytes);
             artifact.SizeInBytes.Should().Be(sizeInBytes);
+            artifact.IsBinary.Should().BeTrue();
 
             artifact.Contents.Should().BeNull();
         }
@@ -230,6 +231,7 @@ namespace Test.UnitTests.Sarif
             artifact.Contents.Should().NotBeNull();
             artifact.Contents.Length.Should().Be(sizeInBytes);
             artifact.SizeInBytes.Should().Be(sizeInBytes);
+            artifact.IsBinary.Should().BeFalse();
 
             artifact.Bytes.Should().BeNull();
         }

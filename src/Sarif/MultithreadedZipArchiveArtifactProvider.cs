@@ -12,8 +12,8 @@ namespace Microsoft.CodeAnalysis.Sarif
         private readonly ZipArchive zipArchive;
         private ISet<string> binaryExtensions;
 
-        public ISet<string> BinaryExtensions 
-        { 
+        public ISet<string> BinaryExtensions
+        {
             get
             {
                 this.binaryExtensions ??= CreateDefaultBinaryExtensionsSet();

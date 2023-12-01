@@ -19,7 +19,6 @@ namespace Microsoft.CodeAnalysis.Sarif
         internal byte[] bytes;
         internal string contents;
 
-        private bool? isBinary;
         private Encoding encoding;
 
         public Uri Uri { get; set; }
@@ -28,20 +27,9 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             get
             {
-                return this.isBinary ?? IsArtifactBinary();
+                GetArtifactData();
+                return this.contents == null;
             }
-        }
-
-        internal bool IsArtifactBinary()
-        {
-            if (isBinary.HasValue)
-            {
-                return isBinary.Value;
-            }
-
-            GetArtifactData();
-            this.isBinary = this.contents == null;
-            return this.isBinary.Value;
         }
 
         public Stream Stream { get; set; }
@@ -151,7 +139,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             // Reset to beginning of stream in case caller neglected to do so.
             this.Stream.Seek(0, SeekOrigin.Begin);
 
-            byte[] header = new byte[4096];
+            byte[] header = new byte[1024];
             int length = this.Stream.Read(header, 0, header.Length);
             isText = FileEncoding.CheckForTextualData(header, 0, length, out this.encoding);
 
