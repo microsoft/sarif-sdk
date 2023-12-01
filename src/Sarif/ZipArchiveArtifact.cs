@@ -56,10 +56,10 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// range of text encodings.
 
         /// </summary>
-        public Encoding Encoding 
-        { 
-            get => throw new NotImplementedException(); 
-            set => throw new NotImplementedException(); 
+        public Encoding Encoding
+        {
+            get => throw new NotImplementedException();
+            set => throw new NotImplementedException();
         }
 
         public string Contents
