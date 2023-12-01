@@ -50,15 +50,6 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         internal IFileSystem FileSystem { get; set; }
 
-        /// <summary>
-        /// Gets or sets a property that determines whether the enumerated artifact
-        /// can obtain data from a non-seekable stream. This operation will be
-        /// less performant in any case where an artifact is a textual file (as
-        /// the file will first be converted to a byte array to determine
-        /// whether it is textual and subsequently turned into a string if it is).
-        /// </summary>
-        public bool SupportNonSeekableStreams { get; set; }
-
         public string Contents
         {
             get => GetArtifactData().text;
@@ -113,10 +104,6 @@ namespace Microsoft.CodeAnalysis.Sarif
         private void RetrieveDataFromNonSeekableStream()
         {
             bool isText;
-            if (!SupportNonSeekableStreams)
-            {
-                throw new InvalidOperationException("Stream is not seekable. Provide a seekable stream or set the 'SupportNonSeekableStreams' property.");
-            }
 
             this.bytes = new byte[Stream.Length];
             int length = this.Stream.Read(this.bytes, 0, this.bytes.Length);

@@ -155,7 +155,6 @@ namespace Test.UnitTests.Sarif
                 var artifact = new EnumeratedArtifact(FileSystem.Instance)
                 {
                     Uri = new Uri(entry.FullName, UriKind.RelativeOrAbsolute),
-                    SupportNonSeekableStreams = true,
                     Stream = entry.Open(),
                 };
 
@@ -180,7 +179,6 @@ namespace Test.UnitTests.Sarif
                 var artifact = new EnumeratedArtifact(FileSystem.Instance)
                 {
                     Uri = new Uri(entry.FullName, UriKind.RelativeOrAbsolute),
-                    SupportNonSeekableStreams = true,
                     Stream = entry.Open(),
                 };
 
@@ -197,23 +195,6 @@ namespace Test.UnitTests.Sarif
             };
 
             Assert.Throws<InvalidOperationException>(() => artifact.SizeInBytes);
-        }
-
-        [Fact]
-        public void EnumeratedArtifact_TextFile_NonSeekableStreamRaiseExceptions()
-        {
-            string guid = $"{Guid.NewGuid()}";
-            ZipArchive archive = CreateZipArchive("MyTextualFile.txt", Encoding.UTF8.GetBytes(guid));
-
-            foreach (ZipArchiveEntry entry in archive.Entries)
-            {
-                var artifact = new EnumeratedArtifact(FileSystem.Instance)
-                {
-                    Stream = entry.Open(),
-                };
-
-                Assert.Throws<InvalidOperationException>(() => ValidateTextArtifact(artifact, guid.Length));
-            }
         }
 
         private void ValidateBinaryArtifact(EnumeratedArtifact artifact, int sizeInBytes)
@@ -290,7 +271,7 @@ namespace Test.UnitTests.Sarif
             enumeratedArtifact.Contents.Should().Be(contents);
         }
 
-        private static ZipArchive CreateZipArchive(string fileName, byte[] content)
+        internal static ZipArchive CreateZipArchive(string fileName, byte[] content)
         {
             var stream = new MemoryStream();
             using (var populateArchive = new ZipArchive(stream, ZipArchiveMode.Create, leaveOpen: true))

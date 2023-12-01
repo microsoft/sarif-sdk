@@ -19,12 +19,12 @@ namespace Microsoft.CodeAnalysis.Sarif
         private string contents;
         private byte[] bytes;
 
-        public ZipArchiveArtifact(ZipArchive archive, ZipArchiveEntry entry, ISet<string> binaryExtensions)
+        public ZipArchiveArtifact(ZipArchive archive, ZipArchiveEntry entry, ISet<string> binaryExtensions = null)
         {
             this.entry = entry ?? throw new ArgumentNullException(nameof(entry));
             this.archive = archive ?? throw new ArgumentNullException(nameof(archive));
 
-            this.binaryExtensions = binaryExtensions;
+            this.binaryExtensions = binaryExtensions ?? new HashSet<string>();
             this.uri = new Uri(entry.FullName, UriKind.RelativeOrAbsolute);
         }
 
@@ -34,6 +34,11 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             get
             {
+                if (this.entry == null)
+                {
+                    return null;
+                }
+
                 lock (this.archive)
                 {
                     return entry.Open();
@@ -42,18 +47,31 @@ namespace Microsoft.CodeAnalysis.Sarif
             set => throw new NotImplementedException();
         }
 
-        public Encoding Encoding { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        /// <summary>
+        /// Raises NotImplementedException as we can't retrieve or set encoding
+        /// currently. Assessing this data requires decompressing the archive
+        /// stream. Currently, our encoding detection isn't highly developed.
+        /// In the future, we should consider eliminating the Encoding property
+        /// entirely from IEnumeratedArtifact or do the work of handling the
+        /// range of text encodings.
+
+        /// </summary>
+        public Encoding Encoding 
+        { 
+            get => throw new NotImplementedException(); 
+            set => throw new NotImplementedException(); 
+        }
 
         public string Contents
         {
             get => GetArtifactData().text;
-            set => this.contents = value;
+            set => throw new NotImplementedException();
         }
 
         public byte[] Bytes
         {
             get => GetArtifactData().bytes;
-            set => this.bytes = value;
+            set => throw new NotImplementedException();
         }
 
         private (string text, byte[] bytes) GetArtifactData()

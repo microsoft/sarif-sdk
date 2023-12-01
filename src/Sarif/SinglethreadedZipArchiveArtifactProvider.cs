@@ -19,7 +19,6 @@ namespace Microsoft.CodeAnalysis.Sarif
                 {
                     Uri = new Uri(entry.FullName, UriKind.RelativeOrAbsolute),
                     Stream = entry.Open(),
-                    SupportNonSeekableStreams = true,
                 };
 
                 // This step will fault in all artifact contents, whether textual
