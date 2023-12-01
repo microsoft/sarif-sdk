@@ -737,7 +737,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
                     DriverEventSource.Log.ReadArtifactStart(filePath);
                     // Reading the length property faults in the file contents.
-                    long sizeInBytes = perFileContext.CurrentTarget.Contents.Length;
+                    long sizeInBytes = perFileContext.CurrentTarget.SizeInBytes.Value;
                     DriverEventSource.Log.ReadArtifactStop(filePath, sizeInBytes);
 
                     DetermineApplicabilityAndAnalyze(perFileContext, skimmers, disabledSkimmers);
