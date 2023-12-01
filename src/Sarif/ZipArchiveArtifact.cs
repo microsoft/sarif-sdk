@@ -21,8 +21,9 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         public ZipArchiveArtifact(ZipArchive archive, ZipArchiveEntry entry, ISet<string> binaryExtensions)
         {
-            this.entry = entry;
-            this.archive = archive;
+            this.entry = entry ?? throw new ArgumentNullException(nameof(entry));
+            this.archive = archive ?? throw new ArgumentNullException(nameof(archive));
+
             this.binaryExtensions = binaryExtensions;
             this.uri = new Uri(entry.FullName, UriKind.RelativeOrAbsolute);
         }
@@ -35,9 +36,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             {
                 lock (this.archive)
                 {
-                    return entry != null
-                        ? entry.Open()
-                        : null;
+                    return entry.Open();
                 }
             }
             set => throw new NotImplementedException();

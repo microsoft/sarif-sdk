@@ -93,7 +93,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 }
 
                 // This is our client-side, disk-based file retrieval case.
-                Stream = FileSystem.FileOpenRead(Uri.LocalPath);
+                this.Stream = FileSystem.FileOpenRead(Uri.LocalPath);
             }
 
             if (Stream.CanSeek)
@@ -105,7 +105,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 RetrieveDataFromNonSeekableStream();
             }
 
-            Stream = null;
+            this.Stream = null;
 
             return (this.contents, this.bytes);
         }
