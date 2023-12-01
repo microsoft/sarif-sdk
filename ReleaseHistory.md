@@ -1,5 +1,10 @@
 # SARIF Package Release History (SDK, Driver, Converters, and Multitool)
 
+## **Unreleased**
+* DEP: Explicitly add `Azure.Identity` 1.10.2 in `Sarif.Multitool.Library` and `WorkItems` to avoid the vulnerable 1.3.0 package via `Microsoft.Azure.Kusto.Data` 10.0.3 per compliance requirements.
+* DEP: Explicitly add `Microsoft.Data.SqlClient` 2.1.2 in `Sarif.Multitool.Library` and `WorkItems` to avoid the vulnerable 2.1.1 package via `Microsoft.Azure.Kusto.Data` 10.0.3 per compliance requirements.
+* DEP: Explicitly add `System.Data.SqlClient` 4.8.5 in `WorkItems` to avoid the vulnerable 4.2.2 package via `Microsoft.TeamFoundationServer.Client` 16.170.0 per compliance requirements.
+
 ## **v4.3.7** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/v4.3.7) | [Driver](https://www.nuget.org/packages/Sarif.Driver/v4.3.7) | [Converters](https://www.nuget.org/packages/Sarif.Converters/v4.3.7)  | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/v4.3.7) | [Multitool Library](https://www.nuget.org/packages/Sarif.Multitool.Library/v4.3.)
 * DEP: Updated NewtonSoft.JSON to 8.0.3 in Sarif.Converters for .NET targets later than `netstandard2.0`.
 * BUG: Logging improved when work item client is called with invalid work item values.
