@@ -32,7 +32,6 @@ namespace Test.UnitTests.Sarif
 
             string guid = Guid.NewGuid().ToString();
 
-#pragma warning disable SYSLIB0001 // Type or member is obsolete
             foreach (Encoding encoding in new[] { Encoding.UTF8 })
             {
                 byte[] bytes = encoding.GetBytes(guid);
@@ -59,7 +58,6 @@ namespace Test.UnitTests.Sarif
 
                 artifact.Encoding.Should().Be(encoding);
             }
-#pragma warning restore SYSLIB0001 // Type or member is obsolete
         }
 
         [Fact]
