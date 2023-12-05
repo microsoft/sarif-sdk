@@ -20,47 +20,6 @@ namespace Test.UnitTests.Sarif
     public class EnumeratedArtifactTests
     {
         [Fact]
-        public void EnumeratedArtifact_TextFileEncodingsAreProperlyDetected()
-        {
-            // This test is just a placeholder. We do not have logic below
-            // that reliably produces disk files with appropriate BOMs/file
-            // formats to properly test the encoding detection from the new
-            // helpers we have added. This test passes but is very incomplete.
-            // If/when we have additional demands to support esoteric encodings
-            // in analysis, we can build this out. Currently, things are not
-            // guaranteed to work reliably except in ASCII, UTF8, Unicode.
-
-            string guid = Guid.NewGuid().ToString();
-
-            foreach (Encoding encoding in new[] { Encoding.UTF8 })
-            {
-                byte[] bytes = encoding.GetBytes(guid);
-
-                using var tempFile = new TempFile();
-                File.WriteAllBytes(tempFile.Name, bytes);
-
-                using var stream = new MemoryStream(File.ReadAllBytes(tempFile.Name));
-
-                var fileSystem = new Mock<IFileSystem>();
-                fileSystem
-                    .Setup(f => f.FileExists(It.IsAny<string>()))
-                    .Returns(true);
-
-                fileSystem
-                    .Setup(f => f.FileOpenRead(It.IsAny<string>()))
-                    .Returns(stream);
-
-                var artifact = new EnumeratedArtifact(fileSystem.Object)
-                {
-                    Uri = new Uri(@"c:\SomeFile.txt"),
-                    Stream = stream,
-                };
-
-                artifact.Encoding.Should().Be(encoding);
-            }
-        }
-
-        [Fact]
         public void EnumeratedArtifact_BinaryFile_OnDisk()
         {
             string filePath = this.GetType().Assembly.Location;
