@@ -48,6 +48,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 reader.BaseStream.Position = start;
 
                 bool isTextual = true;
+                bool continueProcessing = true;
 
                 for (int i = start; i < count; i++)
                 {
@@ -58,18 +59,35 @@ namespace Microsoft.CodeAnalysis.Sarif
                         break;
                     }
 
+                    if (reader.BaseStream.Position > 1 && ch == '\0')
+                    {
+                        // This condition indicates binary data in all cases, when encountered for 
+                        // all encodings
+                        isTextual = false;
+                        continueProcessing = false;
+                        break;
+                    }
+
                     // Unicode REPLACEMENT CHARACTER (U+FFFD)
-                    if (ch == 65533 || (reader.BaseStream.Position > 1 && ch == '\0'))
+                    if (ch == 65533)
                     {
                         isTextual = false;
                         break;
                     }
                 }
 
+                if (!continueProcessing) 
+                {
+                    return isTextual;
+                }
+
                 if (isTextual)
                 {
                     return true;
                 }
+
+                // In this code path, a single encoding determined that the data was *not* textual,
+                // but we think we should continue to examine other text encodings to see the result.
             }
 
             return false;
