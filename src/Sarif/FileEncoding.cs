@@ -47,8 +47,13 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             foreach (Encoding encoding in new[] { Encoding.UTF8, Windows1252, Encoding.UTF32 })
             {
-                var span = new ReadOnlySpan<byte>(bytes, start, count);
-                using var reader = new StreamReader(new MemoryStream(MemoryMarshal.Read<byte>(span)), encoding, detectEncodingFromByteOrderMarks: true);
+                if (count < bytes.Length)
+                {
+                    var span = new ReadOnlySpan<byte>(bytes, start, count);
+                    bytes = span.ToArray();
+                }
+
+                using var reader = new StreamReader(new MemoryStream(bytes), encoding, detectEncodingFromByteOrderMarks: true);
                 reader.BaseStream.Seek(start, SeekOrigin.Begin);
 
                 bool isTextual = true;
