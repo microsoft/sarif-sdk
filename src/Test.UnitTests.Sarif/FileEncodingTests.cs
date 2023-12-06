@@ -36,7 +36,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         public void FileEncoding_CountThatExceedsBufferLengthRaisesException()
         {
             Encoding.RegisterProvider(System.Text.CodePagesEncodingProvider.Instance);
-            Assert.Throws<ArgumentOutOfRangeException>(()=>FileEncoding.IsTextualData(new byte[1], 0, 1024).Should().BeTrue());
+            Assert.Throws<ArgumentOutOfRangeException>(() => FileEncoding.IsTextualData(new byte[1], 0, 1024).Should().BeTrue());
         }
 
         [Fact]
@@ -125,7 +125,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 byte[] input = encoding.GetBytes(new[] { ch });
                 if (!FileEncoding.IsTextualData(input))
                 {
-                    string unicodeText = "\\u" + ((int)ch).ToString("d4");                    
+                    string unicodeText = "\\u" + ((int)ch).ToString("d4");
                     sb.AppendLine($"\t{encodingName} character '{unicodeText}' ({encoding.GetString(input)}) was classified as binary data.");
                 }
             }

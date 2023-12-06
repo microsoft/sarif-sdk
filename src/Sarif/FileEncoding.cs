@@ -36,7 +36,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             Windows1252 = Windows1252 ?? Encoding.GetEncoding(1252);
             bytes = bytes ?? throw new ArgumentNullException(nameof(bytes));
-            
+
             if (start >= bytes.Length)
             {
                 throw new ArgumentOutOfRangeException(nameof(start), $"Buffer size ({bytes.Length}) not valid for start ({start}) argument.");
@@ -81,7 +81,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                     }
                 }
 
-                if (!continueProcessing) 
+                if (!continueProcessing)
                 {
                     return isTextual;
                 }
