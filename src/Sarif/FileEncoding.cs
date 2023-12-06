@@ -39,7 +39,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             
             if (start >= bytes.Length)
             {
-                throw new ArgumentException($"Buffer size ({bytes.Length}) not valid for start ({start}) argument.");
+                throw new ArgumentOutOfRangeException(nameof(start), $"Buffer size ({bytes.Length}) not valid for start ({start}) argument.");
             }
 
             foreach (Encoding encoding in new[] { Encoding.UTF8, Windows1252, Encoding.UTF32 })

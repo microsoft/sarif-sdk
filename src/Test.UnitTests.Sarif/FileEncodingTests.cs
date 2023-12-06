@@ -29,14 +29,14 @@ namespace Microsoft.CodeAnalysis.Sarif
         public void FileEncoding_StartExceedsBufferLength()
         {
             // Start argument exceeds buffer size.
-            Assert.Throws<ArgumentException>(() => FileEncoding.IsTextualData(new byte[1], 1, 1));
+            Assert.Throws<ArgumentOutOfRangeException>(() => FileEncoding.IsTextualData(new byte[1], 1, 1));
         }
 
         [Fact]
-        public void FileEncoding_AllowCountToExceedBufferLength()
+        public void FileEncoding_CountThatExceedsBufferLengthRaisesException()
         {
             Encoding.RegisterProvider(System.Text.CodePagesEncodingProvider.Instance);
-            FileEncoding.IsTextualData(new byte[1], 0, 1024).Should().BeTrue();
+            Assert.Throws<ArgumentOutOfRangeException>(()=>FileEncoding.IsTextualData(new byte[1], 0, 1024).Should().BeTrue());
         }
 
         [Fact]
@@ -96,7 +96,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 }
             }
 
-            sb.Length.Should().Be(0, because: $"all unicode strings should be classified as textual:{Environment.NewLine}{sb}");
+            sb.Length.Should().Be(0, because: $"all binary files should be classified as binary:{Environment.NewLine}{sb}");
         }
 
         [Fact]
