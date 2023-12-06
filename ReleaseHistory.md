@@ -2,6 +2,7 @@
 
 ## **v4.4.0 UNRELEASED
 * DEP: Add reference to `System.Text.Encoding.CodePages` v8.0.0 (to support Windows 1252 code pages in binary vs. text classification).
+* DEP: Update `Newtonsoft.Json` reference from 8.0.3 to v9.0.1 to provide `net462` compatibility.
 * DEP: Update target framework from `net461` to `net462` in `Sarif` `Sarif.Converters` projects (to allow for use of `System.Text.Encoding.CodePages`).
 * DEP: Explicitly add `Azure.Identity` 1.10.2 in `Sarif.Multitool.Library` and `WorkItems` to avoid the vulnerable 1.3.0 package via `Microsoft.Azure.Kusto.Data` 10.0.3 per compliance requirements.
 * DEP: Explicitly add `Microsoft.Data.SqlClient` 2.1.2 in `Sarif.Multitool.Library` and `WorkItems` to avoid the vulnerable 2.1.1 package via `Microsoft.Azure.Kusto.Data` 10.0.3 per compliance requirements.
