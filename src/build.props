@@ -52,7 +52,7 @@
   <!-- Configuration specific properties -->
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' "
                  Label="Debug build">
-    <DebugType>full</DebugType>
+    <DebugType>portable</DebugType>
     <Optimize>false</Optimize>
     <DefineConstants>DEBUG;TRACE;CODE_ANALYSIS</DefineConstants>
   </PropertyGroup>
