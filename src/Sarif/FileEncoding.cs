@@ -60,7 +60,10 @@ namespace Microsoft.CodeAnalysis.Sarif
                         break;
                     }
 
-                    if (reader.BaseStream.Position > 1 && ch == '\0')
+                    // Because we enable 'detectEncodingFromByteOrderMarks' we will skip past any NUL
+                    // characters in the file that might result from being BOM-prefixed. So any
+                    // evidence of this character is an indicator of binary data.
+                    if (ch == '\0')
                     {
                         // This condition indicates binary data in all cases, when encountered for 
                         // all encodings
