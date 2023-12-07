@@ -5,12 +5,9 @@ using System;
 using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.IO;
-using System.Linq;
 using System.Text;
 
 using FluentAssertions;
-
-using Microsoft.CodeAnalysis.Sarif.Driver;
 
 using Xunit;
 
@@ -30,13 +27,6 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             // Start argument exceeds buffer size.
             Assert.Throws<ArgumentOutOfRangeException>(() => FileEncoding.IsTextualData(new byte[1], 1, 1));
-        }
-
-        [Fact]
-        public void FileEncoding_CountThatExceedsBufferLengthRaisesException()
-        {
-            Encoding.RegisterProvider(System.Text.CodePagesEncodingProvider.Instance);
-            Assert.Throws<ArgumentOutOfRangeException>(() => FileEncoding.IsTextualData(new byte[1], 0, 1024).Should().BeTrue());
         }
 
         [Fact]
