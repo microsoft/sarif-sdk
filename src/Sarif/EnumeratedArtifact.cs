@@ -107,7 +107,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             this.bytes = new byte[Stream.Length];
             int length = this.Stream.Read(this.bytes, 0, this.bytes.Length);
-            isText = FileEncoding.CheckForTextualData(this.bytes, 0, length, out this.encoding);
+            isText = FileEncoding.IsTextualData(this.bytes, 0, length);
 
             if (isText)
             {
@@ -128,14 +128,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             byte[] header = new byte[1024];
             int length = this.Stream.Read(header, 0, header.Length);
-            isText = FileEncoding.CheckForTextualData(header, 0, length, out this.encoding);
-
-            if (isText)
-            {
-                // If we have textual data and the encoding was null, we are UTF8
-                // (which will be a perfectly valid encoding for ASCII as well).
-                this.encoding ??= Encoding.UTF8;
-            }
+            isText = FileEncoding.IsTextualData(header, 0, length);
 
             this.Stream.Seek(0, SeekOrigin.Begin);
 
