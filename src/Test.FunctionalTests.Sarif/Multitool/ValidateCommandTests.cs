@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Text;
 
 using FluentAssertions;
 
@@ -517,6 +518,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             mockFileSystem.Setup(x => x.DirectoryGetDirectories(It.IsAny<string>())).Returns(Array.Empty<string>());
             mockFileSystem.Setup(x => x.DirectoryEnumerateFiles(inputLogDirectory, inputLogFileName, SearchOption.TopDirectoryOnly)).Returns(new string[] { inputLogFilePath });
             mockFileSystem.Setup(x => x.FileReadAllText(inputLogFilePath)).Returns(v2LogText);
+            mockFileSystem.Setup(x => x.FileOpenRead(inputLogFilePath)).Returns(new MemoryStream(Encoding.UTF8.GetBytes(v2LogText)));
             mockFileSystem.Setup(x => x.FileReadAllText(It.IsNotIn<string>(inputLogFilePath))).Returns<string>(path => File.ReadAllText(path));
 
             // Some rules are disabled by default, so create a configuration file that explicitly

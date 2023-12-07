@@ -17,6 +17,8 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         string Contents { get; set; }
 
+        byte[] Bytes { get; set; }
+
         long? SizeInBytes { get; set; }
     }
 }
