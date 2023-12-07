@@ -605,7 +605,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             globalContext.Logger.TargetAnalyzed(globalContext);
         }
 
-        private async Task<bool> EnumerateTargetsAsync(TContext context)
+        private async Task<bool> EnumerateTargetsAsync(TContext globalContext)
         {
             try
             {
@@ -613,7 +613,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 this._fileContexts = new ConcurrentDictionary<uint, TContext>();
 
                 DriverEventSource.Log.EnumerateArtifactsStart();
-                await EnumerateFilesFromArtifactsProvider(context);
+                await EnumerateFilesFromArtifactsProvider(globalContext);
                 DriverEventSource.Log.EnumerateArtifactsStop();
             }
             finally
@@ -623,7 +623,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
             if (_fileContextsCount == 0)
             {
-                Errors.LogNoValidAnalysisTargets(context);
+                Errors.LogNoValidAnalysisTargets(globalContext);
+
+                if (_filesExceedingSizeLimitCount > 0)
+                {
+                    Warnings.LogOneOrMoreFilesSkippedDueToExceedingSizeLimit(globalContext, _filesExceedingSizeLimitCount);
+                }
+
                 ThrowExitApplicationException(ExitReason.NoValidAnalysisTargets);
             }
 
