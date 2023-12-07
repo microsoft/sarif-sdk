@@ -2735,7 +2735,7 @@
         },
 
         "expiryDateUtc": {
-          "description": "The Coordinated Universal Time (UTC) date and time at which TODO (author this)",
+          "description": "The Coordinated Universal Time (UTC) date (and optionally, the time) at which the suppression ceases to be valid.",
           "type": "string",
           "format": "date-time"
         },
