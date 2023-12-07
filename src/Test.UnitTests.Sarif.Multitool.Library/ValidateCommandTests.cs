@@ -4,6 +4,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.Design.Serialization;
 using System.IO;
+using System.Text;
 
 using FluentAssertions;
 
@@ -47,6 +48,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             mockFileSystem.Setup(x => x.DirectoryExists(LogFileDirectoryWithSpace)).Returns(true);
             mockFileSystem.Setup(x => x.DirectoryEnumerateFiles(LogFileDirectoryWithSpace, It.IsAny<string>(), SearchOption.TopDirectoryOnly)).Returns(new[] { LogFileName });
             mockFileSystem.Setup(x => x.FileReadAllText(logFilePath)).Returns(RewriteCommandTests.MinimalCurrentV2Text);
+            mockFileSystem.Setup(x => x.FileOpenRead(logFilePath)).Returns(new MemoryStream(Encoding.UTF8.GetBytes(RewriteCommandTests.MinimalCurrentV2Text)));
             mockFileSystem.Setup(x => x.FileReadAllText(SchemaFilePath)).Returns(SchemaFileContents);
 
             var validateCommand = new ValidateCommand(mockFileSystem.Object);

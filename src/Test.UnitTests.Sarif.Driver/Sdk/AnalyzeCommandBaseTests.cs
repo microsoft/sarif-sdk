@@ -1326,6 +1326,20 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             return filePath;
         }
 
+        private static string GetSampleFileToTest()
+        {
+            string filePath = typeof(AnalyzeCommandBaseTests).Assembly.Location;
+            filePath = Path.GetDirectoryName(filePath);
+            filePath = Path.Combine(filePath, "SampleTestFile.txt");
+
+            if (!File.Exists(filePath))
+            {
+                File.WriteAllText(filePath, $"{Guid.NewGuid()}");
+            }
+
+            return filePath;
+        }
+
         [Fact]
         public void AnalyzeCommandBase_UpdateLocationsAndMessageWithCurrentUri()
         {

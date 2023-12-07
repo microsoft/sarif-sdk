@@ -1,6 +1,18 @@
 # SARIF Package Release History (SDK, Driver, Converters, and Multitool)
 
-## **v4.3.7** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/v4.3.7) | [Driver](https://www.nuget.org/packages/Sarif.Driver/v4.3.7) | [Converters](https://www.nuget.org/packages/Sarif.Converters/v4.3.7)  | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/v4.3.7) | [Multitool Library](https://www.nuget.org/packages/Sarif.Multitool.Library/v4.3.)
+## **v4.4.0 [Sdk](https://www.nuget.org/packages/Sarif.Sdk/v4.4.0) | [Driver](https://www.nuget.org/packages/Sarif.Driver/v4.4.0) | [Converters](https://www.nuget.org/packages/Sarif.Converters/v4.4.0)  | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/v4.4.0) | [Multitool Library](https://www.nuget.org/packages/Sarif.Multitool.Library/v4.4.0)
+* DEP: Add reference to `System.Text.Encoding.CodePages` v8.0.0 (to support Windows 1252 code pages in binary vs. text classification).
+* DEP: Update `Newtonsoft.Json` reference from 8.0.3 to v9.0.1 to provide `net462` compatibility.
+* DEP: Update target framework from `net461` to `net462` in `Sarif` `Sarif.Converters` projects (to allow for use of `System.Text.Encoding.CodePages`).
+* DEP: Explicitly add `Azure.Identity` 1.10.2 in `Sarif.Multitool.Library` and `WorkItems` to avoid the vulnerable 1.3.0 package via `Microsoft.Azure.Kusto.Data` 10.0.3 per compliance requirements.
+* DEP: Explicitly add `Microsoft.Data.SqlClient` 2.1.2 in `Sarif.Multitool.Library` and `WorkItems` to avoid the vulnerable 2.1.1 package via `Microsoft.Azure.Kusto.Data` 10.0.3 per compliance requirements.
+* DEP: Explicitly add `System.Data.SqlClient` 4.8.5 in `WorkItems` to avoid the vulnerable 4.2.2 package via `Microsoft.TeamFoundationServer.Client` 16.170.0 per compliance requirements.
+* BRK: `EnumeratedArtifact` now sniffs artifacts to distinguish between textual and binary data. The `Contents` property will be null for binary files (use `Bytes` instead).
+* BRK: `MultithreadedZipArchiveArtifactProvider` now distinguishes binary vs. textual data using a hard-coded binary files extensions list. This data will be made configurable in a future change. Current extensions include `.bmp`, `.cer`, `.der`, `.dll`, `.exe`, `.gif`, `.gz`, `.iso`, `.jpe`, `.jpeg`, `.lock`, `.p12`, `.pack`, `.pfx`, `.pkcs12`, `.png`, `.psd`, `.rar`, `.tar`, `.tif`, `.tiff`, `.xcf`, `.zip`.
+* NEW: `EnumeratedArtifact` now automatically detects and populates a `Bytes` property for binary files such as executables and certificates.
+* NEW: `FileEncoding.IsTextualData` utility can effectively distinguish between binary and textual data.
+
+## **v4.3.7** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/v4.3.7) | [Driver](https://www.nuget.org/packages/Sarif.Driver/v4.3.7) | [Converters](https://www.nuget.org/packages/Sarif.Converters/v4.3.7)  | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/v4.3.7) | [Multitool Library](https://www.nuget.org/packages/Sarif.Multitool.Library/v4.3.7)
 * DEP: Updated NewtonSoft.JSON to 8.0.3 in Sarif.Converters for .NET targets later than `netstandard2.0`.
 * BUG: Logging improved when work item client is called with invalid work item values.
 * NEW: Add `Path.Combine`, `Path.GetDirectoryName` and `Path.GetFileNameWithoutExtension` to `IFileSystem`.
