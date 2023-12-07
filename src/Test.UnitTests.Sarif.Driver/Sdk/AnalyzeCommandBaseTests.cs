@@ -37,6 +37,44 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         }
 
         [Fact]
+        public void AnalyzeCommandBase_ScanWithNoValidTargetsAndOneOrMoreSkippedFilesEmitsSkippedFilesWarning()
+        {
+            var logger = new TestMessageLogger();
+
+            var artifact = new EnumeratedArtifact(new FileSystem())
+            { 
+                Uri = new Uri(@"c:\testfile.txt"),
+                Contents = new string('x', 1025), // Just exceeds 1k.
+            };
+
+            var context = new TestAnalysisContext
+            {
+                TargetsProvider = new ArtifactProvider(new[] { artifact }),
+                MaxFileSizeInKilobytes = 1,
+                Logger = logger,
+            };
+
+            int result = new TestMultithreadedAnalyzeCommand().Run(options: null, ref context);
+
+            RuntimeConditions conditions = RuntimeConditions.NoValidAnalysisTargets |
+                                           RuntimeConditions.OneOrMoreFilesSkippedDueToExceedingSizeLimits;
+
+            context.RuntimeErrors.Should().Be(conditions);
+
+            logger.ConfigurationNotifications.Where(n => n.Level == FailureLevel.Note).Count().Should().Be(1);
+            Notification note = logger.ConfigurationNotifications.Where(n => n.Level == FailureLevel.Note).First();
+            note.Descriptor.Id.Should().Be(Notes.Msg002_FileExceedingSizeLimitSkipped);
+
+            logger.ConfigurationNotifications.Where(n => n.Level == FailureLevel.Warning).Count().Should().Be(1);
+            Notification warning = logger.ConfigurationNotifications.Where(n => n.Level == FailureLevel.Warning).First();
+            warning.Descriptor.Id.Should().Be(Warnings.Wrn997_OneOrMoreFilesSkippedDueToExceedingSizeLimits);
+
+            logger.ConfigurationNotifications.Where(n => n.Level == FailureLevel.Note).Count().Should().Be(1);
+            Notification error = logger.ConfigurationNotifications.Where(n => n.Level == FailureLevel.Error).First();
+            error.Descriptor.Id.Should().Be(Errors.ERR997_NoValidAnalysisTargets);
+        }
+
+        [Fact]
         public void AnalyzeCommandBase_OptionsSettingsOverrideContextSettings()
         {
             // For every configuration knob, we choose an explicit, 
