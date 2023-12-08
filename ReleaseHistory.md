@@ -1,5 +1,8 @@
 # SARIF Package Release History (SDK, Driver, Converters, and Multitool)
 
+## **v4.4.1 UNRELEASED
+* BUG: Emit `WRN997.OneOrMoreFilesSkippedDueToExceedingSizeLimit` when no valid analysis targets are detected (due to exceeding size limits).
+
 ## **v4.4.0 [Sdk](https://www.nuget.org/packages/Sarif.Sdk/v4.4.0) | [Driver](https://www.nuget.org/packages/Sarif.Driver/v4.4.0) | [Converters](https://www.nuget.org/packages/Sarif.Converters/v4.4.0)  | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/v4.4.0) | [Multitool Library](https://www.nuget.org/packages/Sarif.Multitool.Library/v4.4.0)
 * DEP: Add reference to `System.Text.Encoding.CodePages` v8.0.0 (to support Windows 1252 code pages in binary vs. text classification).
 * DEP: Update `Newtonsoft.Json` reference from 8.0.3 to v9.0.1 to provide `net462` compatibility.

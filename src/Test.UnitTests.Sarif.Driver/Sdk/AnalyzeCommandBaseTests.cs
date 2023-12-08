@@ -10,6 +10,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 
 using FluentAssertions;
+using FluentAssertions.Execution;
 
 using Microsoft.CodeAnalysis.Sarif.Converters;
 using Microsoft.CodeAnalysis.Sarif.Writers;
@@ -34,6 +35,99 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         {
             this.Output = output;
             Output.WriteLine($"The seed that will be used is: {TestRule.s_seed}");
+        }
+
+
+        [Fact]
+        public void AnalyzeCommandBase_ScanWithFilesThatExceedSizeLimitEmitsSkippedFilesWarning()
+        {
+            var logger = new TestMessageLogger();
+
+            var artifact = new EnumeratedArtifact(new FileSystem())
+            {
+                Uri = new Uri(@"c:\testfile1.txt"),
+                Contents = new string('x', 1024), // Withing threshold.
+            };
+
+            var anotherArtifact = new EnumeratedArtifact(new FileSystem())
+            {
+                Uri = new Uri(@"c:\testfile2.txt"),
+                Contents = new string('x', 1025), // Just exceeds 1k.
+            };
+
+
+            var context = new TestAnalysisContext
+            {
+                TargetsProvider = new ArtifactProvider(new[] { artifact, anotherArtifact }),
+                MaxFileSizeInKilobytes = 1,
+                Logger = logger,
+            };
+
+            int result = new TestMultithreadedAnalyzeCommand().Run(options: null, ref context);
+
+            RuntimeConditions conditions = RuntimeConditions.OneOrMoreFilesSkippedDueToExceedingSizeLimits;
+
+            using (new AssertionScope())
+            {
+                context.RuntimeErrors.Should().Be(conditions);
+
+                logger.ConfigurationNotifications.Where(n => n.Level == FailureLevel.Note).Count().Should().Be(1);
+                Notification note = logger.ConfigurationNotifications.Where(n => n.Level == FailureLevel.Note).First();
+                note.Descriptor.Id.Should().Be(Notes.Msg002_FileExceedingSizeLimitSkipped);
+
+                logger.ConfigurationNotifications.Where(n => n.Level == FailureLevel.Warning).Count().Should().Be(1);
+                Notification warning = logger.ConfigurationNotifications.Where(n => n.Level == FailureLevel.Warning).First();
+                warning.Descriptor.Id.Should().Be(Warnings.Wrn997_OneOrMoreFilesSkippedDueToExceedingSizeLimits);
+            }
+        }
+
+        [Fact]
+        public void AnalyzeCommandBase_ScanWithOnlyFilesThatExceedSizeLimitEmitsSkippedFilesWarning()
+        {
+            var logger = new TestMessageLogger();
+
+            var artifact = new EnumeratedArtifact(new FileSystem())
+            {
+                Uri = new Uri(@"c:\testfile1.txt"),
+                Contents = new string('x', 1025), // Just exceeds 1k.
+            };
+
+            var anotherArtifact = new EnumeratedArtifact(new FileSystem())
+            {
+                Uri = new Uri(@"c:\testfile2.txt"),
+                Contents = new string('x', 1025), // Just exceeds 1k.
+            };
+
+            EnumeratedArtifact[] allArtifacts = new[] { artifact, anotherArtifact };
+
+            var context = new TestAnalysisContext
+            {
+                TargetsProvider = new ArtifactProvider(allArtifacts),
+                MaxFileSizeInKilobytes = 1,
+                Logger = logger,
+            };
+
+            int result = new TestMultithreadedAnalyzeCommand().Run(options: null, ref context);
+
+            RuntimeConditions conditions = RuntimeConditions.NoValidAnalysisTargets |
+                                           RuntimeConditions.OneOrMoreFilesSkippedDueToExceedingSizeLimits;
+
+            using (new AssertionScope())
+            {
+                context.RuntimeErrors.Should().Be(conditions);
+
+                logger.ConfigurationNotifications.Where(n => n.Level == FailureLevel.Note).Count().Should().Be(allArtifacts.Length);
+                Notification note = logger.ConfigurationNotifications.Where(n => n.Level == FailureLevel.Note).First();
+                note.Descriptor.Id.Should().Be(Notes.Msg002_FileExceedingSizeLimitSkipped);
+
+                logger.ConfigurationNotifications.Where(n => n.Level == FailureLevel.Warning).Count().Should().Be(1);
+                Notification warning = logger.ConfigurationNotifications.Where(n => n.Level == FailureLevel.Warning).First();
+                warning.Descriptor.Id.Should().Be(Warnings.Wrn997_OneOrMoreFilesSkippedDueToExceedingSizeLimits);
+
+                logger.ConfigurationNotifications.Where(n => n.Level == FailureLevel.Error).Count().Should().Be(1);
+                Notification error = logger.ConfigurationNotifications.Where(n => n.Level == FailureLevel.Error).First();
+                error.Descriptor.Id.Should().Be(Errors.ERR997_NoValidAnalysisTargets);
+            }
         }
 
         [Fact]
