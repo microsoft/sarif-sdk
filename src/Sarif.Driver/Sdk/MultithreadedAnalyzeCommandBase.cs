@@ -449,11 +449,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             enumerateTargets.Wait();
             logResults.Wait();
 
-            if (_filesExceedingSizeLimitCount > 0)
-            {
-                Warnings.LogOneOrMoreFilesSkippedDueToExceedingSizeLimit(globalContext, _filesExceedingSizeLimitCount);
-            }
-
             if (_filesMatchingGlobalFileDenyRegex > 0)
             {
                 string reason = "file path(s) matched the global file deny regex";
@@ -621,14 +616,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 readyToScanChannel.Writer.Complete();
             }
 
+            if (_filesExceedingSizeLimitCount > 0)
+            {
+                Warnings.LogOneOrMoreFilesSkippedDueToExceedingSizeLimit(globalContext, _filesExceedingSizeLimitCount);
+            }
+
             if (_fileContextsCount == 0)
             {
                 Errors.LogNoValidAnalysisTargets(globalContext);
-
-                if (_filesExceedingSizeLimitCount > 0)
-                {
-                    Warnings.LogOneOrMoreFilesSkippedDueToExceedingSizeLimit(globalContext, _filesExceedingSizeLimitCount);
-                }
 
                 ThrowExitApplicationException(ExitReason.NoValidAnalysisTargets);
             }
