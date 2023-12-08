@@ -11,6 +11,7 @@
     <TargetFrameworks>netstandard2.0;</TargetFrameworks>
     <TargetFrameworks Condition="$(OS) == 'Windows_NT'">$(TargetFrameworks);net461</TargetFrameworks>
     <RootNamespace>Microsoft.CodeAnalysis.Sarif.Multitool</RootNamespace>
+    <SuppressTfmSupportBuildWarnings>true</SuppressTfmSupportBuildWarnings>
   </PropertyGroup>
 
   <ItemGroup>
