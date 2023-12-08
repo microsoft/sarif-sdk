@@ -42,7 +42,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             var logger = new TestMessageLogger();
 
             var artifact = new EnumeratedArtifact(new FileSystem())
-            { 
+            {
                 Uri = new Uri(@"c:\testfile.txt"),
                 Contents = new string('x', 1025), // Just exceeds 1k.
             };
