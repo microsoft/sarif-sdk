@@ -112,7 +112,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             RuntimeConditions conditions = RuntimeConditions.NoValidAnalysisTargets |
                                            RuntimeConditions.OneOrMoreFilesSkippedDueToExceedingSizeLimits;
 
-            using (new AssertionScope()) 
+            using (new AssertionScope())
             {
                 context.RuntimeErrors.Should().Be(conditions);
 
