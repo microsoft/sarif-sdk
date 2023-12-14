@@ -17,7 +17,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         private ZipArchiveEntry entry;
         private readonly Uri uri;
         private string contents;
-        private byte[] bytes;
+        private Lazy<byte[]> bytes;
 
         public ZipArchiveArtifact(ZipArchive archive, ZipArchiveEntry entry, ISet<string> binaryExtensions = null)
         {
@@ -68,13 +68,13 @@ namespace Microsoft.CodeAnalysis.Sarif
             set => throw new NotImplementedException();
         }
 
-        public byte[] Bytes
+        public Lazy<byte[]> Bytes
         {
             get => GetArtifactData().bytes;
             set => throw new NotImplementedException();
         }
 
-        private (string text, byte[] bytes) GetArtifactData()
+        private (string text, Lazy<byte[]> bytes) GetArtifactData()
         {
             if (this.contents == null && this.bytes == null)
             {
@@ -85,8 +85,9 @@ namespace Microsoft.CodeAnalysis.Sarif
                         string extension = Path.GetExtension(Uri.ToString());
                         if (this.binaryExtensions.Contains(extension))
                         {
-                            this.bytes = new byte[Stream.Length];
-                            Stream.Read(this.bytes, 0, this.bytes.Length);
+                            byte[] buffer = new byte[Stream.Length];
+                            Stream.Read(buffer, 0, buffer.Length);
+                            this.bytes = new Lazy<byte[]>(() => buffer);
                         }
                         else
                         {
@@ -113,7 +114,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
                     return this.contents != null
                         ? this.contents.Length
-                        : this.bytes.Length;
+                        : this.bytes.Value.Length;
                 }
             }
             set => throw new NotImplementedException();

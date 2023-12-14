@@ -16,7 +16,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             FileSystem = fileSystem;
         }
 
-        internal byte[] bytes;
+        internal Lazy<byte[]> bytes;
         internal string contents;
 
         private Encoding encoding;
@@ -56,13 +56,13 @@ namespace Microsoft.CodeAnalysis.Sarif
             set => this.contents = value;
         }
 
-        public byte[] Bytes
+        public Lazy<byte[]> Bytes
         {
             get => GetArtifactData().bytes;
             set => this.bytes = value;
         }
 
-        private (string text, byte[] bytes) GetArtifactData()
+        private (string text, Lazy<byte[]> bytes) GetArtifactData()
         {
             if (this.contents != null)
             {
@@ -105,17 +105,22 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             bool isText;
 
-            this.bytes = new byte[Stream.Length];
-            int length = this.Stream.Read(this.bytes, 0, this.bytes.Length);
-            isText = FileEncoding.IsTextualData(this.bytes, 0, length);
+            byte[] buffer = new byte[Stream.Length];
+            int length = this.Stream.Read(buffer, 0, buffer.Length);
+            isText = FileEncoding.IsTextualData(buffer, 0, length);
 
             if (isText)
             {
                 // If we have textual data and the encoding was null, we are UTF8
                 // (which will be a perfectly valid encoding for ASCII as well).
                 this.encoding ??= Encoding.UTF8;
-                this.contents = encoding.GetString(this.bytes);
-                this.bytes = null;
+                this.contents = encoding.GetString(buffer);
+            }
+            else
+            {
+                // This wasn't very lazy, but for seekable streams we can't resett the stream so we needed to
+                // read and retain the whole thing in the case of a byte[] return value.
+                this.bytes = new Lazy<byte[]>(() => buffer);
             }
         }
 
@@ -139,8 +144,12 @@ namespace Microsoft.CodeAnalysis.Sarif
             }
             else
             {
-                this.bytes = new byte[Stream.Length];
-                this.Stream.Read(this.bytes, 0, bytes.Length);
+                this.bytes = new Lazy<byte[]>(() =>
+                {
+                    byte[] result = new byte[Stream.Length];
+                    this.Stream.Read(result, 0, result.Length);
+                    return result;
+                });
             }
         }
 
@@ -159,9 +168,9 @@ namespace Microsoft.CodeAnalysis.Sarif
                 {
                     this.sizeInBytes = (long)this.contents.Length;
                 }
-                else if (this.bytes != null)
+                else if (this.bytes != null && this.bytes.IsValueCreated)
                 {
-                    this.sizeInBytes = (int)this.bytes.Length;
+                    this.sizeInBytes = (int)this.bytes.Value.Length;
                 }
                 else if (this.Stream != null)
                 {
@@ -174,6 +183,10 @@ namespace Microsoft.CodeAnalysis.Sarif
                 else if (this.Contents != null)
                 {
                     this.SizeInBytes = (long)this.Contents.Length;
+                }
+                else if (this.bytes != null)
+                {
+                    this.sizeInBytes = (int)this.bytes.Value.Length;
                 }
 
                 return this.sizeInBytes;

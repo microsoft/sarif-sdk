@@ -2,12 +2,9 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System;
-using System.IO;
 using System.IO.Compression;
 using System.Linq;
 using System.Text;
-
-using FluentAssertions;
 
 using Microsoft.CodeAnalysis.Sarif;
 
@@ -24,7 +21,7 @@ namespace Test.UnitTests.Sarif
             var zipArchiveArtifact = new ZipArchiveArtifact(testData.archive, testData.entry);
 
             Assert.Throws<NotImplementedException>(() => zipArchiveArtifact.Contents = string.Empty);
-            Assert.Throws<NotImplementedException>(() => zipArchiveArtifact.Bytes = new byte[] { });
+            Assert.Throws<NotImplementedException>(() => zipArchiveArtifact.Bytes = new Lazy<byte[]>(() => new byte[] { }));
         }
 
         [Fact]
