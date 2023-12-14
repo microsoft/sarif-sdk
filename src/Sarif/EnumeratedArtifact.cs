@@ -58,11 +58,11 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         public byte[] Bytes
         {
-            get => GetArtifactData().bytes;
+            get => GetArtifactData(populateBytes: true).bytes;
             set => this.bytes = value;
         }
 
-        private (string text, byte[] bytes) GetArtifactData()
+        private (string text, byte[] bytes) GetArtifactData(bool populateBytes = false)
         {
             if (this.contents != null)
             {
@@ -89,7 +89,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             if (Stream.CanSeek)
             {
-                RetrieveDataFromSeekableStream();
+                RetrieveDataFromSeekableStream(populateBytes);
             }
             else
             {
@@ -119,7 +119,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             }
         }
 
-        private void RetrieveDataFromSeekableStream()
+        private void RetrieveDataFromSeekableStream(bool populateBytes = false )
         {
             bool isText;
 
@@ -132,12 +132,12 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             this.Stream.Seek(0, SeekOrigin.Begin);
 
-            if (isText)
+            if (isText && !populateBytes)
             {
                 using var contentReader = new StreamReader(Stream);
                 this.contents = contentReader.ReadToEnd();
             }
-            else
+            else if (!isText && populateBytes)
             {
                 this.bytes = new byte[Stream.Length];
                 this.Stream.Read(this.bytes, 0, bytes.Length);

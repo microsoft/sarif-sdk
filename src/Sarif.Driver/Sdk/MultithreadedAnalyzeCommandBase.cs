@@ -741,7 +741,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
                     DetermineApplicabilityAndAnalyze(perFileContext, skimmers, disabledSkimmers);
                     globalContext.RuntimeErrors |= perFileContext.RuntimeErrors;
-                    if (perFileContext != null) { perFileContext.AnalysisComplete = true; }
+
+                    if (perFileContext != null)
+                    {
+                        perFileContext.CurrentTarget.Bytes = null;
+                        perFileContext.CurrentTarget.Contents = null;
+                        perFileContext.AnalysisComplete = true; 
+                    }
                     await _resultsWritingChannel.Writer.WriteAsync(item);
                 }
             }
