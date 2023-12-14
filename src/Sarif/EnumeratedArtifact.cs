@@ -57,16 +57,17 @@ namespace Microsoft.CodeAnalysis.Sarif
             {
                 GetArtifactData();
 
-                if (!this.isBinary && this.bytes != null)
+                if (!this.isBinary && this.bytes?.Value != null)
                 {
                     // If we have textual data and the encoding was null, we are UTF8
                     // (which will be a perfectly valid encoding for ASCII as well).
                     this.encoding ??= Encoding.UTF8;
-                    this.contents = new Lazy<string>(()=> { return encoding.GetString(this.bytes.Value); });
+                    string contents = encoding.GetString(this.bytes.Value);
+                    this.contents = new Lazy<string>(()=> { return contents; });
                     this.bytes = null;
                 }
 
-                return this.contents.Value;
+                return this.contents?.Value;
             }
 
             set
@@ -78,22 +79,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         public byte[] Bytes
         {
-            get
-            {
-                GetArtifactData();
-
-                if (!this.isBinary && this.bytes.Value != null)
-                {
-                    // If we have textual data and the encoding was null, we are UTF8
-                    // (which will be a perfectly valid encoding for ASCII as well).
-                    this.encoding ??= Encoding.UTF8;
-                    this.contents = new Lazy<string>(() => { return encoding.GetString(this.bytes.Value); });
-                    this.bytes = null;
-                    return null;
-                }
-
-                return this.bytes.Value;
-            }
+            get => GetArtifactData().bytes?.Value;
             set
             {
                 this.bytes = new Lazy<byte[]>(() => value);
@@ -135,8 +121,6 @@ namespace Microsoft.CodeAnalysis.Sarif
                 RetrieveDataFromNonSeekableStream();
             }
 
-            this.Stream = null;
-
             return (this.contents, this.bytes);
         }
 
@@ -147,6 +131,18 @@ namespace Microsoft.CodeAnalysis.Sarif
                 byte[] bytes = new byte[Stream.Length];
                 int length = this.Stream.Read(bytes, 0, bytes.Length);
                 this.isBinary = !FileEncoding.IsTextualData(bytes, 0, length);
+                this.Stream = null;
+
+                if (!this.isBinary)
+                {
+                    // If we have textual data and the encoding was null, we are UTF8
+                    this.encoding ??= Encoding.UTF8;
+                    string contents = encoding.GetString(bytes);
+                    this.contents = new Lazy<string>(() => { return encoding.GetString(bytes); });
+                    this.bytes = null;
+                    return null;
+                }
+
                 return bytes;
             });
         }
@@ -160,19 +156,26 @@ namespace Microsoft.CodeAnalysis.Sarif
             int length = this.Stream.Read(header, 0, header.Length);
             this.isBinary = !FileEncoding.IsTextualData(header, 0, length);
 
-            this.Stream.Seek(0, SeekOrigin.Begin);
 
             if (!this.isBinary)
             {
-                using var contentReader = new StreamReader(Stream);
-                this.contents = new Lazy<string>(()=> contentReader.ReadToEnd());
+                this.contents = new Lazy<string>(()=>
+                {
+                    this.Stream.Seek(0, SeekOrigin.Begin);
+                    using var contentsReader = new StreamReader(Stream);
+                    string contents = contentsReader.ReadToEnd();
+                    Stream = null;
+                    return contents;
+                });
             }
             else
             {
                 this.bytes = new Lazy<byte[]>(() => 
                 {
+                    this.Stream.Seek(0, SeekOrigin.Begin);
                     byte[] bytes = new byte[Stream.Length];
                     this.Stream.Read(bytes, 0, bytes.Length);
+                    this.Stream = null;
                     return bytes;
                 });
             }

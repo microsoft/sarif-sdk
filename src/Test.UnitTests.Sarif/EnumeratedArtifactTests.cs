@@ -203,7 +203,9 @@ namespace Test.UnitTests.Sarif
                 Contents = contents,
             };
 
-            enumeratedArtifact.contents.Should().Be(contents);
+            enumeratedArtifact.contents.Should().NotBeNull();
+            enumeratedArtifact.contents.Value.Should().Be(contents);
+            enumeratedArtifact.Contents.Should().Be(contents);
             enumeratedArtifact.SizeInBytes.Should().Be((long)contents.Length);
         }
 
