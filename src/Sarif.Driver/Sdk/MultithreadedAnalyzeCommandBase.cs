@@ -449,6 +449,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             enumerateTargets.Wait();
             logResults.Wait();
 
+            if (_filesExceedingSizeLimitCount > 0)
+            {
+                Warnings.LogOneOrMoreFilesSkippedDueToExceedingSizeLimit(globalContext, _filesExceedingSizeLimitCount);
+            }
+
             if (_filesMatchingGlobalFileDenyRegex > 0)
             {
                 string reason = "file path(s) matched the global file deny regex";
@@ -600,7 +605,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             globalContext.Logger.TargetAnalyzed(globalContext);
         }
 
-        private async Task<bool> EnumerateTargetsAsync(TContext globalContext)
+        private async Task<bool> EnumerateTargetsAsync(TContext context)
         {
             try
             {
@@ -608,7 +613,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 this._fileContexts = new ConcurrentDictionary<uint, TContext>();
 
                 DriverEventSource.Log.EnumerateArtifactsStart();
-                await EnumerateFilesFromArtifactsProvider(globalContext);
+                await EnumerateFilesFromArtifactsProvider(context);
                 DriverEventSource.Log.EnumerateArtifactsStop();
             }
             finally
@@ -616,15 +621,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 readyToScanChannel.Writer.Complete();
             }
 
-            if (_filesExceedingSizeLimitCount > 0)
-            {
-                Warnings.LogOneOrMoreFilesSkippedDueToExceedingSizeLimit(globalContext, _filesExceedingSizeLimitCount);
-            }
-
             if (_fileContextsCount == 0)
             {
-                Errors.LogNoValidAnalysisTargets(globalContext);
-
+                Errors.LogNoValidAnalysisTargets(context);
                 ThrowExitApplicationException(ExitReason.NoValidAnalysisTargets);
             }
 
@@ -718,6 +717,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 EnqueueAllDirectories(context, queue, childDirectory);
             }
         }
+
+        private readonly ConcurrentDictionary<string, CachingLogger> _loggerCache = new ConcurrentDictionary<string, CachingLogger>();
 
         private async Task ScanTargetsAsync(TContext globalContext, IEnumerable<Skimmer<TContext>> skimmers, ISet<string> disabledSkimmers)
         {
