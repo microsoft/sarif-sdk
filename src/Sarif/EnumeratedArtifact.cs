@@ -16,8 +16,9 @@ namespace Microsoft.CodeAnalysis.Sarif
             FileSystem = fileSystem;
         }
 
-        internal byte[] bytes;
-        internal string contents;
+        private bool isBinary;
+        internal Lazy<byte[]> bytes;
+        internal Lazy<string> contents;
 
         private Encoding encoding;
 
@@ -28,7 +29,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             get
             {
                 GetArtifactData();
-                return this.contents == null;
+                return this.isBinary;
             }
         }
 
@@ -52,17 +53,55 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         public string Contents
         {
-            get => GetArtifactData().text;
-            set => this.contents = value;
+            get
+            {
+                GetArtifactData();
+
+                if (!this.isBinary && this.bytes != null)
+                {
+                    // If we have textual data and the encoding was null, we are UTF8
+                    // (which will be a perfectly valid encoding for ASCII as well).
+                    this.encoding ??= Encoding.UTF8;
+                    this.contents = new Lazy<string>(()=> { return encoding.GetString(this.bytes.Value); });
+                    this.bytes = null;
+                }
+
+                return this.contents.Value;
+            }
+
+            set
+            {
+                this.contents = new Lazy<string>(() => value);
+                _ = this.contents.Value;
+            }
         }
 
         public byte[] Bytes
         {
-            get => GetArtifactData().bytes;
-            set => this.bytes = value;
+            get
+            {
+                GetArtifactData();
+
+                if (!this.isBinary && this.bytes.Value != null)
+                {
+                    // If we have textual data and the encoding was null, we are UTF8
+                    // (which will be a perfectly valid encoding for ASCII as well).
+                    this.encoding ??= Encoding.UTF8;
+                    this.contents = new Lazy<string>(() => { return encoding.GetString(this.bytes.Value); });
+                    this.bytes = null;
+                    return null;
+                }
+
+                return this.bytes.Value;
+            }
+            set
+            {
+                this.bytes = new Lazy<byte[]>(() => value);
+                _ = this.bytes.Value;
+            }
         }
 
-        private (string text, byte[] bytes) GetArtifactData()
+        private (Lazy<string> text, Lazy<byte[]> bytes) GetArtifactData()
         {
             if (this.contents != null)
             {
@@ -103,44 +142,39 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         private void RetrieveDataFromNonSeekableStream()
         {
-            bool isText;
-
-            this.bytes = new byte[Stream.Length];
-            int length = this.Stream.Read(this.bytes, 0, this.bytes.Length);
-            isText = FileEncoding.IsTextualData(this.bytes, 0, length);
-
-            if (isText)
+            this.bytes = new Lazy<byte[]>(() =>
             {
-                // If we have textual data and the encoding was null, we are UTF8
-                // (which will be a perfectly valid encoding for ASCII as well).
-                this.encoding ??= Encoding.UTF8;
-                this.contents = encoding.GetString(this.bytes);
-                this.bytes = null;
-            }
+                byte[] bytes = new byte[Stream.Length];
+                int length = this.Stream.Read(bytes, 0, bytes.Length);
+                this.isBinary = !FileEncoding.IsTextualData(bytes, 0, length);
+                return bytes;
+            });
         }
 
         private void RetrieveDataFromSeekableStream()
         {
-            bool isText;
-
             // Reset to beginning of stream in case caller neglected to do so.
             this.Stream.Seek(0, SeekOrigin.Begin);
 
             byte[] header = new byte[1024];
             int length = this.Stream.Read(header, 0, header.Length);
-            isText = FileEncoding.IsTextualData(header, 0, length);
+            this.isBinary = !FileEncoding.IsTextualData(header, 0, length);
 
             this.Stream.Seek(0, SeekOrigin.Begin);
 
-            if (isText)
+            if (!this.isBinary)
             {
                 using var contentReader = new StreamReader(Stream);
-                this.contents = contentReader.ReadToEnd();
+                this.contents = new Lazy<string>(()=> contentReader.ReadToEnd());
             }
             else
             {
-                this.bytes = new byte[Stream.Length];
-                this.Stream.Read(this.bytes, 0, bytes.Length);
+                this.bytes = new Lazy<byte[]>(() => 
+                {
+                    byte[] bytes = new byte[Stream.Length];
+                    this.Stream.Read(bytes, 0, bytes.Length);
+                    return bytes;
+                });
             }
         }
 
@@ -155,13 +189,13 @@ namespace Microsoft.CodeAnalysis.Sarif
                     return this.sizeInBytes.Value;
                 };
 
-                if (this.contents != null)
+                if (this.contents?.IsValueCreated == true && this.contents.Value != null)
                 {
-                    this.sizeInBytes = (long)this.contents.Length;
+                    this.sizeInBytes = (long)this.contents.Value.Length;
                 }
-                else if (this.bytes != null)
+                else if (this.bytes?.IsValueCreated == true && this.bytes.Value != null)
                 {
-                    this.sizeInBytes = (int)this.bytes.Length;
+                    this.sizeInBytes = (int)this.bytes.Value.Length;
                 }
                 else if (this.Stream != null)
                 {
