@@ -157,7 +157,8 @@ namespace Test.UnitTests.Sarif
         private void ValidateBinaryArtifact(EnumeratedArtifact artifact, int sizeInBytes)
         {
             artifact.Bytes.Should().NotBeNull();
-            artifact.Bytes.Length.Should().Be(sizeInBytes);
+            artifact.Bytes.Value.Should().NotBeNull();
+            artifact.Bytes.Value.Length.Should().Be(sizeInBytes);
             artifact.SizeInBytes.Should().Be(sizeInBytes);
             artifact.IsBinary.Should().BeTrue();
 

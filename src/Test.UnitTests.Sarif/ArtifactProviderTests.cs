@@ -67,7 +67,7 @@ namespace Test.UnitTests.Sarif
             foreach (IEnumeratedArtifact artifact in artifactProvider.Artifacts)
             {
                 artifact.Bytes.Should().NotBeNull();
-                artifact.Bytes.Length.Should().Be(headerSize);
+                artifact.Bytes.Value.Length.Should().Be(headerSize);
                 artifact.SizeInBytes.Should().Be(headerSize);
 
                 artifact.Contents.Should().BeNull();
