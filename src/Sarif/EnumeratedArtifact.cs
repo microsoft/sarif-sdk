@@ -16,132 +16,56 @@ namespace Microsoft.CodeAnalysis.Sarif
             FileSystem = fileSystem;
         }
 
-        internal byte[] bytes;
         internal string contents;
-
-        private Encoding encoding;
 
         public Uri Uri { get; set; }
 
-        public bool IsBinary
-        {
-            get
-            {
-                GetArtifactData();
-                return this.contents == null;
-            }
-        }
-
         public Stream Stream { get; set; }
 
-        public Encoding Encoding
-        {
-            get
-            {
-                if (encoding == null)
-                {
-                    GetArtifactData();
-                }
-                return this.encoding;
-            }
-
-            set => this.encoding = value;
-        }
+        public Encoding Encoding { get; set; }
 
         internal IFileSystem FileSystem { get; set; }
 
+        public bool IsBinary { get; set; }
+
         public string Contents
         {
-            get => GetArtifactData().text;
+            get => GetContents();
             set => this.contents = value;
         }
 
         public byte[] Bytes
         {
-            get => GetArtifactData().bytes;
-            set => this.bytes = value;
+            get
+            {
+                GetContents();
+                return Encoding.UTF8.GetBytes(this.contents);
+            }
+            set => this.contents = Encoding.UTF8.GetString(value);
         }
 
-        private (string text, byte[] bytes) GetArtifactData()
+        private string GetContents()
         {
-            if (this.contents != null)
-            {
-                return (this.contents, bytes: null);
-            }
+            if (this.contents != null) { return this.contents; }
 
-            if (this.bytes != null)
+            if (Stream == null && this.contents == null)
             {
-                return (text: null, this.bytes);
-            }
+                // TBD we actually have no validation URI is non-null yet.
+                contents = Uri!.IsFile
+                    ? FileSystem.FileReadAllText(Uri.LocalPath)
+                    : null;
 
-            if (Stream == null && this.contents == null && this.bytes == null)
-            {
-                if (Uri == null ||
-                    !Uri.IsAbsoluteUri ||
-                    (Uri.IsAbsoluteUri && !Uri.IsFile))
-                {
-                    throw new InvalidOperationException("An absolute URI pointing to a file location was not available.");
-                }
-
-                // This is our client-side, disk-based file retrieval case.
-                this.Stream = FileSystem.FileOpenRead(Uri.LocalPath);
-            }
-
-            if (Stream.CanSeek)
-            {
-                RetrieveDataFromSeekableStream();
+                this.sizeInBytes = (long?)this.contents?.Length;
             }
             else
             {
-                RetrieveDataFromNonSeekableStream();
-            }
-
-            this.Stream = null;
-
-            return (this.contents, this.bytes);
-        }
-
-        private void RetrieveDataFromNonSeekableStream()
-        {
-            bool isText;
-
-            this.bytes = new byte[Stream.Length];
-            int length = this.Stream.Read(this.bytes, 0, this.bytes.Length);
-            isText = FileEncoding.IsTextualData(this.bytes, 0, length);
-
-            if (isText)
-            {
-                // If we have textual data and the encoding was null, we are UTF8
-                // (which will be a perfectly valid encoding for ASCII as well).
-                this.encoding ??= Encoding.UTF8;
-                this.contents = encoding.GetString(this.bytes);
-                this.bytes = null;
-            }
-        }
-
-        private void RetrieveDataFromSeekableStream()
-        {
-            bool isText;
-
-            // Reset to beginning of stream in case caller neglected to do so.
-            this.Stream.Seek(0, SeekOrigin.Begin);
-
-            byte[] header = new byte[1024];
-            int length = this.Stream.Read(header, 0, header.Length);
-            isText = FileEncoding.IsTextualData(header, 0, length);
-
-            this.Stream.Seek(0, SeekOrigin.Begin);
-
-            if (isText)
-            {
+                if (Stream.CanSeek) { this.Stream.Seek(0, SeekOrigin.Begin); }
                 using var contentReader = new StreamReader(Stream);
                 this.contents = contentReader.ReadToEnd();
+                Stream = null;
             }
-            else
-            {
-                this.bytes = new byte[Stream.Length];
-                this.Stream.Read(this.bytes, 0, bytes.Length);
-            }
+
+            return this.contents;
         }
 
         public long? sizeInBytes;
@@ -159,15 +83,11 @@ namespace Microsoft.CodeAnalysis.Sarif
                 {
                     this.sizeInBytes = (long)this.contents.Length;
                 }
-                else if (this.bytes != null)
-                {
-                    this.sizeInBytes = (int)this.bytes.Length;
-                }
                 else if (this.Stream != null)
                 {
                     this.SizeInBytes = (long)this.Stream.Length;
                 }
-                else if (Uri != null && Uri.IsAbsoluteUri && Uri.IsFile)
+                else if (Uri!.IsAbsoluteUri && Uri!.IsFile)
                 {
                     this.sizeInBytes = (long)FileSystem.FileInfoLength(Uri.LocalPath);
                 }
