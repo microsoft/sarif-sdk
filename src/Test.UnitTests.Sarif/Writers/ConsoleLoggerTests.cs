@@ -19,7 +19,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             // The console logger will emit the tool name in cases 
             // where a scan target URI is not available (as uppercase).
             string tool = Guid.NewGuid().ToString().ToUpperInvariant();
-            
+
             string message = Guid.NewGuid().ToString();
 
             var result = new Result
