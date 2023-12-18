@@ -24,6 +24,8 @@
   <PropertyGroup Label="AssemblyAttributes">
     <AssemblyTitle>SARIF Multitool</AssemblyTitle>
     <Description>Command line tool to manipulate SARIF files.</Description>
+	<SuppressTfmSupportBuildWarnings>true</SuppressTfmSupportBuildWarnings>
+    <CheckEolTargetFramework>false</CheckEolTargetFramework>
   </PropertyGroup>
 
   <Import Project="$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildThisFileDirectory), build.props))\build.props" />
