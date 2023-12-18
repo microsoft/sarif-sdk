@@ -125,7 +125,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             WriteLineToConsole(GetMessageText(_toolName, physicalLocation?.ArtifactLocation?.Uri, physicalLocation?.Region, result.RuleId, message, result.Kind, result.Level));
         }
 
-        private static string GetMessageText(
+        public static string GetMessageText(
             string toolName,
             Uri uri,
             Region region,
@@ -155,7 +155,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 case FailureLevel.None:
                     issueType = kind.ToString().ToLowerInvariant();
                     // Shorten to 'info' for compatibility with previous behavior.
-                    if (issueType == "informational") { issueType = "info"; }
+                    if (issueType == "informational" || issueType == "fail") { issueType = "info"; }
                     break;
 
                 default:
