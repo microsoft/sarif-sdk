@@ -2,10 +2,6 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System;
-using System.Collections.Generic;
-using System.Collections.Immutable;
-
-using FluentAssertions;
 
 using Microsoft.CodeAnalysis.Sarif;
 using Microsoft.CodeAnalysis.Sarif.Writers;
@@ -31,7 +27,10 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Writers
                                                                 BaseLogger.Fail);
 
             baseLoggerTestConcrete = new BaseLoggerTestConcrete(new FailureLevelSet(new[] { FailureLevel.None }),
-                                                                new ResultKindSet(new[] { ResultKind.Informational }));
+                                                                new ResultKindSet(new[] { ResultKind.Informational, ResultKind.Fail }));
+
+            baseLoggerTestConcrete = new BaseLoggerTestConcrete(new FailureLevelSet(new[] { FailureLevel.None }),
+                                                                new ResultKindSet(new[] { ResultKind.Fail }));
 
             //  If there are no uncaught exceptions, the test passes.
         }
