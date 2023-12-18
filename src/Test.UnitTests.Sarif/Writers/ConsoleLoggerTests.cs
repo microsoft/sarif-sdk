@@ -2,7 +2,6 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System;
-using System.Collections.Generic;
 
 using FluentAssertions;
 
@@ -12,6 +11,40 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 {
     public class ConsoleLoggerTests
     {
+
+        [Fact]
+        public void ConsoleLogger_EmitsFailureNoneMessagesProperly()
+        {
+            // A failure level of none indicates a debug message.
+            // The console logger will emit the tool name in cases 
+            // where a scan target URI is not available (as uppercase).
+            string tool = Guid.NewGuid().ToString().ToUpperInvariant();
+            
+            string message = Guid.NewGuid().ToString();
+
+            var result = new Result
+            {
+                Level = FailureLevel.None,
+                Message = new Message { Text = message },
+            };
+
+
+            var levels = new FailureLevelSet(new[] { FailureLevel.None });
+
+            var logger = new ConsoleLogger(quietConsole: false,
+                                           toolName: tool,
+                                           levels: levels,
+                                           kinds: BaseLogger.Fail)
+            {
+                CaptureOutput = true
+            };
+
+            logger.Log(null, result);
+
+            string expected = $"{tool}: info {message}{Environment.NewLine}";
+            logger.CapturedOutput.Should().Be(expected);
+        }
+
         [Fact]
         public void ConsoleLogger_EmitsMessageWithCharOffsetRegion()
         {
@@ -19,7 +52,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             string message = Guid.NewGuid().ToString();
             string uriText = Guid.NewGuid().ToString();
 
-            Uri uri = new Uri(uriText, UriKind.RelativeOrAbsolute);
+            var uri = new Uri(uriText, UriKind.RelativeOrAbsolute);
 
             var result = new Result
             {
@@ -68,7 +101,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             string exceptionMessage = "Exception message";
             string toolName = Guid.NewGuid().ToString();
             string uriGuid = Guid.NewGuid().ToString();
-            Uri uri = new Uri(uriGuid, UriKind.RelativeOrAbsolute);
+            var uri = new Uri(uriGuid, UriKind.RelativeOrAbsolute);
 
             var notification = new Notification
             {
