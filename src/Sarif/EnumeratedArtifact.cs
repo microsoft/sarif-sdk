@@ -16,6 +16,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             FileSystem = fileSystem;
         }
 
+        internal byte[] bytes;
         internal string contents;
 
         public Uri Uri { get; set; }
@@ -30,18 +31,14 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         public string Contents
         {
-            get => GetContents();
+            get => !IsBinary? GetContents() : throw new InvalidOperationException();
             set => this.contents = value;
         }
 
         public byte[] Bytes
         {
-            get
-            {
-                GetContents();
-                return Encoding.UTF8.GetBytes(this.contents);
-            }
-            set => this.contents = Encoding.UTF8.GetString(value);
+            get => IsBinary ? GetBytes() : throw new InvalidOperationException();
+            set => this.bytes = value;
         }
 
         private string GetContents()
@@ -62,11 +59,37 @@ namespace Microsoft.CodeAnalysis.Sarif
                 if (Stream.CanSeek) { this.Stream.Seek(0, SeekOrigin.Begin); }
                 using var contentReader = new StreamReader(Stream);
                 this.contents = contentReader.ReadToEnd();
+                Stream.Close();
                 Stream = null;
             }
 
             return this.contents;
         }
+
+        private byte[] GetBytes()
+        {
+            if (this.bytes != null) { return this.bytes; }
+
+            if (Stream == null && this.bytes == null)
+            {
+                bytes = Uri!.IsFile
+                    ? FileSystem.FileReadAllBytes(Uri.LocalPath)
+                    : null;
+
+                this.sizeInBytes = (long?)this.bytes?.Length;
+            }
+            else
+            {
+                if (Stream.CanSeek) { this.Stream.Seek(0, SeekOrigin.Begin); }
+                this.bytes = new byte[Stream.Length];
+                this.sizeInBytes = Stream.Read(this.bytes, 0, this.bytes.Length);
+                Stream.Close();
+                Stream = null;
+            }
+
+            return this.bytes;
+        }
+
 
         public long? sizeInBytes;
 
