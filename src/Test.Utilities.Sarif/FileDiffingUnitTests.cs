@@ -8,6 +8,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
+using System.Text.RegularExpressions;
 
 using FluentAssertions;
 
@@ -238,7 +239,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 SarifLog actualSarifLog = JsonConvert.DeserializeObject<SarifLog>(actualSarifText);
                 if (actualSarifLog.Runs?[0].TryGetProperty("consoleOut", out string userFacingText) == true)
                 {
-                    userFacingTexts[key] = userFacingText;
+                    userFacingTexts[key] = userFacingText != null ? Regex.Unescape(userFacingText) : null;
                     actualSarifLog.Runs[0].RemoveProperty("consoleOut");
                     actualSarifText = JsonConvert.SerializeObject(actualSarifLog, Formatting.Indented);
                     actualSarifTextDictionary[key] = actualSarifText;
