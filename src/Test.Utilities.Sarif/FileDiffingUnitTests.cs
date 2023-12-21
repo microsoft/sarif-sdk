@@ -8,6 +8,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
+using System.Text.RegularExpressions;
 
 using FluentAssertions;
 
@@ -21,6 +22,8 @@ using Newtonsoft.Json.Linq;
 using Newtonsoft.Json.Serialization;
 
 using Xunit.Abstractions;
+
+using YamlDotNet.Core.Tokens;
 
 namespace Microsoft.CodeAnalysis.Sarif
 {
@@ -228,15 +231,27 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             // Reify the list of keys because we're going to modify the dictionary in place.
             List<string> keys = expectedSarifTextDictionary.Keys.ToList();
+            var userFacingTexts = new Dictionary<string, string>();
 
             foreach (string key in keys)
             {
+                string actualSarifText = actualSarifTextDictionary[key];
+                SarifLog actualSarifLog = JsonConvert.DeserializeObject<SarifLog>(actualSarifText);
+                if (actualSarifLog.Runs?[0].TryGetProperty("consoleOut", out string userFacingText) == true)
+                {
+                    userFacingTexts[key] = userFacingText != null ? Regex.Unescape(userFacingText) : null;
+                    actualSarifLog.Runs[0].RemoveProperty("consoleOut");
+                    actualSarifText = JsonConvert.SerializeObject(actualSarifLog, Formatting.Indented);
+                    actualSarifTextDictionary[key] = actualSarifText;
+                }
+
                 if (_testProducesSarifCurrentVersion)
                 {
                     PrereleaseCompatibilityTransformer.UpdateToCurrentVersion(expectedSarifTextDictionary[key], Formatting.Indented, out string transformedSarifText);
+                   
                     expectedSarifTextDictionary[key] = transformedSarifText;
 
-                    passed &= AreEquivalent<SarifLog>(actualSarifTextDictionary[key],
+                    passed &= AreEquivalent<SarifLog>(actualSarifText,
                                                       expectedSarifTextDictionary[key],
                                                       out SarifLog actual);
 
@@ -252,7 +267,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 else
                 {
                     passed &= AreEquivalent<SarifLogVersionOne>(
-                        actualSarifTextDictionary[key],
+                        actualSarifText,
                         expectedSarifTextDictionary[key],
                         out SarifLogVersionOne actual,
                         SarifContractResolverVersionOne.Instance);
@@ -280,7 +295,12 @@ namespace Microsoft.CodeAnalysis.Sarif
                 }
 
                 File.WriteAllText(expectedFilePath, expectedSarifTextDictionary[key]);
-                File.WriteAllText(actualFilePath, actualSarifTextDictionary[key]);
+                File.WriteAllText(actualFilePath, actualSarifTextDictionary[key]);    
+                
+                if (userFacingTexts.ContainsKey(key)) 
+                {
+                    File.WriteAllText(Path.Combine(actualRootDirectory, Path.GetFileNameWithoutExtension(key) + ".txt"), userFacingTexts[key]);
+                }
             }
 
             StringBuilder sb = null;
