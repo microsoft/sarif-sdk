@@ -23,8 +23,6 @@ using Newtonsoft.Json.Serialization;
 
 using Xunit.Abstractions;
 
-using YamlDotNet.Core.Tokens;
-
 namespace Microsoft.CodeAnalysis.Sarif
 {
     public abstract class FileDiffingUnitTests
