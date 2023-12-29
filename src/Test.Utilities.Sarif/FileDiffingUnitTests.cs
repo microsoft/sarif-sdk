@@ -8,7 +8,6 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
-using System.Text.RegularExpressions;
 
 using FluentAssertions;
 
@@ -300,21 +299,15 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             if (filesWithErrors.Count > 0)
             {
-                sb.AppendLine(Environment.NewLine +
-                              "one or more files contain an unexpected notification (which likely " +
-                              "indicates that an unhandled exception was encountered at analysis time): " +
-                              Environment.NewLine +
-                              string.Join(Environment.NewLine, filesWithErrors.Select(s => $" - {s}")) +
-                              Environment.NewLine);
+                sb.AppendLine(Environment.NewLine)
+                  .AppendLine("one or more files contain an unexpected notification (which likely indicates that an unhandled exception was encountered at analysis time): ")
+                  .AppendLine(string.Join(Environment.NewLine, filesWithErrors.Select(s => $" - {s}")));
             }
 
             if (filesResultNotMatch.Count > 0)
             {
-                sb.AppendLine(Environment.NewLine +
-                              "there are unexpected diffs detected comparing actual results to expected results for following test files:" +
-                              Environment.NewLine +
-                              string.Join(Environment.NewLine, filesResultNotMatch.Select(s => $" - {s}")) +
-                              Environment.NewLine);
+                sb.AppendLine("there are unexpected diffs detected comparing actual results to expected results for following test files:")
+                  .AppendLine(string.Join(Environment.NewLine, filesResultNotMatch.Select(s => $" - {s}")));
 
                 sb.AppendLine("To compare all difference for this test suite:");
                 sb.AppendLine(GenerateDiffCommand(TypeUnderTest, expectedRootDirectory, actualRootDirectory) + Environment.NewLine);
