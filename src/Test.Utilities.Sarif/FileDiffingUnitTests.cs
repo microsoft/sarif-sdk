@@ -289,7 +289,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 File.WriteAllText(expectedFilePath, expectedSarifTextDictionary[key]);
                 File.WriteAllText(actualFilePath, actualSarifTextDictionary[key]);
 
-                if (userFacingTexts.ContainsKey(key)) 
+                if (userFacingTexts.ContainsKey(key))
                 {
                     File.WriteAllText(Path.Combine(actualRootDirectory, Path.GetFileNameWithoutExtension(key) + ".txt"), userFacingTexts[key]);
                 }
