@@ -2,8 +2,11 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using FluentAssertions;
+
 using Microsoft.CodeAnalysis.Sarif;
+
 using Newtonsoft.Json;
+
 using Xunit;
 
 namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Core
@@ -29,7 +32,7 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Core
             };
 
             string actual = JsonConvert.SerializeObject(dr);
-            
+
             actual.Should().StartWith(@"{""ruleId"":""RuleId"",""rule"":{""id"":""RuleId""}");
         }
     }
