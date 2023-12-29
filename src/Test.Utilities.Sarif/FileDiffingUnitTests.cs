@@ -236,7 +236,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 if (_testProducesSarifCurrentVersion)
                 {
                     PrereleaseCompatibilityTransformer.UpdateToCurrentVersion(expectedSarifTextDictionary[key], Formatting.Indented, out string transformedSarifText);
-                   
+
                     expectedSarifTextDictionary[key] = transformedSarifText;
 
                     passed = AreEquivalent<SarifLog>(actualSarifTextDictionary[key],
@@ -287,8 +287,8 @@ namespace Microsoft.CodeAnalysis.Sarif
                 }
 
                 File.WriteAllText(expectedFilePath, expectedSarifTextDictionary[key]);
-                File.WriteAllText(actualFilePath, actualSarifTextDictionary[key]);    
-                
+                File.WriteAllText(actualFilePath, actualSarifTextDictionary[key]);
+
                 if (userFacingTexts.ContainsKey(key)) 
                 {
                     File.WriteAllText(Path.Combine(actualRootDirectory, Path.GetFileNameWithoutExtension(key) + ".txt"), userFacingTexts[key]);
