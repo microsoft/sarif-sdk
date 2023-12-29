@@ -234,23 +234,13 @@ namespace Microsoft.CodeAnalysis.Sarif
             foreach (string key in keys)
             {
                 bool passed;
-                string actualSarifText = actualSarifTextDictionary[key];
-                SarifLog actualSarifLog = JsonConvert.DeserializeObject<SarifLog>(actualSarifText);
-                if (actualSarifLog.Runs?[0].TryGetProperty("consoleOut", out string userFacingText) == true)
-                {
-                    userFacingTexts[key] = userFacingText != null ? Regex.Unescape(userFacingText) : null;
-                    actualSarifLog.Runs[0].RemoveProperty("consoleOut");
-                    actualSarifText = JsonConvert.SerializeObject(actualSarifLog, Formatting.Indented);
-                    actualSarifTextDictionary[key] = actualSarifText;
-                }
-
                 if (_testProducesSarifCurrentVersion)
                 {
                     PrereleaseCompatibilityTransformer.UpdateToCurrentVersion(expectedSarifTextDictionary[key], Formatting.Indented, out string transformedSarifText);
                    
                     expectedSarifTextDictionary[key] = transformedSarifText;
 
-                    passed = AreEquivalent<SarifLog>(actualSarifText,
+                    passed = AreEquivalent<SarifLog>(actualSarifTextDictionary[key],
                                                      expectedSarifTextDictionary[key],
                                                      out SarifLog actual);
 
@@ -259,14 +249,13 @@ namespace Microsoft.CodeAnalysis.Sarif
                         (actual.Runs[0].Invocations?[0].ToolExecutionNotifications != null ||
                          actual.Runs[0].Invocations?[0].ToolConfigurationNotifications != null))
                     {
-
                         filesWithErrors.Add(key);
                     }
                 }
                 else
                 {
                     passed = AreEquivalent<SarifLogVersionOne>(
-                        actualSarifText,
+                        actualSarifTextDictionary[key],
                         expectedSarifTextDictionary[key],
                         out SarifLogVersionOne actual,
                         SarifContractResolverVersionOne.Instance);
