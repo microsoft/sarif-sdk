@@ -456,4 +456,37 @@ Semantics: Assuming the reader of the log file (an end user or another tool) has
   <data name="GH1007_ProvideFullyFormattedMessageStrings_FullDescription_Text" xml:space="preserve">
     <value>GitHub Advanced Security code scanning will reject a SARIF file that express result messages with 'message.id' and 'message.arguments' but without the 'message.text' property since the arugmented message format is not supported yet. Please provide fully formatted text in 'message.text' property.</value>
   </data>
+  <data name="ADO1002_ProvideAutomationDetails_Note_Default_Text" xml:space="preserve">
+    <value>{0}: This 'run' object does not provide an 'automationDetails' property. This property is required by the Azure DevOps Advanced Security service.</value>
+  </data>
+  <data name="ADO1003_ProvideFullName_Note_Default_Text" xml:space="preserve">
+    <value>{0}: This 'tool' object does not provide a 'fullName' property. This property is required by the Azure DevOps Advanced Security service.</value>
+  </data>
+  <data name="ADO2010_ProvideAutomationDetailsId_Note_Default_Text" xml:space="preserve">
+    <value>{0}: This 'automationDetails' object does not provide an 'id' property. This property is required by the Azure DevOps Advanced Security service.</value>
+  </data>
+  <data name="Base1002_ProvideResultsArray_Note_Default_Text" xml:space="preserve">
+    <value>{0}: This 'run' object does not provide a 'results' property. This property is required by the {1} service.</value>
+  </data>
+  <data name="Base1003_ProvideDriver_Note_Default_Text" xml:space="preserve">
+    <value>{0}: This 'tool' object does not provide a 'driver' property. This property is required by the {1} service.</value>
+  </data>
+  <data name="Base1003_ProvideName_Note_Default_Text" xml:space="preserve">
+    <value>{0}: This 'tool' object does not provide a 'name' property. This property is required by the {1} service.</value>
+  </data>
+  <data name="Base1003_ProvideRules_Note_Default_Text" xml:space="preserve">
+    <value>{0}: This 'tool' object does not provide a 'rules' property. This property is required by the {1} service.</value>
+  </data>
+  <data name="Base1003_ProvideTool_Note_Default_Text" xml:space="preserve">
+    <value>{0}: This 'run' object does not provide a 'tool' property. This property is required by the {1} service.</value>
+  </data>
+  <data name="ServiceName_ADO" xml:space="preserve">
+    <value>Azure DevOps Advanced Security</value>
+  </data>
+  <data name="ServiceName_Base" xml:space="preserve">
+    <value>Base Validation Rule</value>
+  </data>
+  <data name="ServiceName_GHAS" xml:space="preserve">
+    <value>GitHub Advanced Security</value>
+  </data>
 </root>

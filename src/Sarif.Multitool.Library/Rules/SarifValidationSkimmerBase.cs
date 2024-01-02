@@ -15,6 +15,16 @@ using Newtonsoft.Json.Linq;
 
 namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 {
+    [Flags]
+    public enum RuleKinds
+    {
+        None = 0,
+        GhasRequired = 1,
+        GhasOptional = 2,
+        AdoRequired = 3,
+        AdoOptional = 4,
+    }
+
     public abstract class SarifValidationSkimmerBase : Skimmer<SarifValidationContext>
     {
         // OASIS defines this URI to always point to the latest revision (draft or approved) of the specified version
@@ -28,6 +38,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 
         public override MultiformatMessageString Help => null;
 
+        public RuleKinds Kinds { get; set; }
+
+        public FailureLevel Level { get; set; } = FailureLevel.Warning;
+
         protected SarifValidationContext Context { get; private set; }
 
         protected override sealed ResourceManager ResourceManager => RuleResources.ResourceManager;
@@ -35,6 +49,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         private readonly string[] _emptyMessageResourceNames = Array.Empty<string>();
 
         protected override IEnumerable<string> MessageResourceNames => _emptyMessageResourceNames;
+
+        protected abstract string ServiceName { get; }
 
         public override sealed void Analyze(SarifValidationContext context)
         {
@@ -86,6 +102,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         protected virtual void Analyze(CodeFlow codeFlow, string codeFlowPointer)
         {
         }
+
         protected virtual void Analyze(ConfigurationOverride configurationOverride, string configurationOverridePointer)
         {
         }
@@ -113,6 +130,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         protected virtual void Analyze(Invocation invocation, string invocationPointer)
         {
         }
+
         protected virtual void Analyze(LogicalLocation logicalLocation, string logicalLocationPointer)
         {
         }
@@ -1240,7 +1258,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 
         private Region GetRegionFromJPointer(string jPointer)
         {
-            JsonPointer jsonPointer = new JsonPointer(jPointer);
+            var jsonPointer = new JsonPointer(jPointer);
             JToken jToken = jsonPointer.Evaluate(Context.InputLogToken);
             IJsonLineInfo lineInfo = jToken;
 

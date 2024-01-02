@@ -11,10 +11,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         public const string AnalysisToolLogFiles = "analysisToolLogFiles";
         public const string AssociatedComponent = "associatedComponent";
         public const string AssociatedRule = "associatedRule";
+        public const string ArtifactChanges = "artifactChanges";
         public const string ArtifactLocation = "artifactLocation";
         public const string Artifacts = "artifacts";
         public const string Attachments = "attachments";
-        public const string ArtifactChanges = "artifactChanges";
+        public const string AutomationDetails = "automationDetails";
         public const string CodeFlows = "codeFlows";
         public const string Configuration = "configuration";
         public const string ContextRegion = "contextRegion";

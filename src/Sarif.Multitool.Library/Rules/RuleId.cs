@@ -49,6 +49,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         public const string ProvideCheckoutPath = "GH1006";
         public const string ProvideFullyFormattedMessageStrings = "GH1007";
 
+        // Rules for GHAS and ADO Advanced Security
+        public const string ADOProvideRunProperties = "ADO1002";
+        public const string GHASProvideToolDriverProperties = "GHAS1003";
+        public const string ADOProvideToolDriverProperties = "ADO1003";
+
         // TEMPLATE:
         // public const string RuleFriendlyName = "SARIFnnnn";
     }

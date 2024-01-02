@@ -61,6 +61,78 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0}: This &apos;run&apos; object does not provide an &apos;automationDetails&apos; property. This property is required by the Azure DevOps Advanced Security service..
+        /// </summary>
+        internal static string ADO1002_ProvideAutomationDetails_Note_Default_Text {
+            get {
+                return ResourceManager.GetString("ADO1002_ProvideAutomationDetails_Note_Default_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0}: This &apos;tool&apos; object does not provide a &apos;fullName&apos; property. This property is required by the Azure DevOps Advanced Security service..
+        /// </summary>
+        internal static string ADO1003_ProvideFullName_Note_Default_Text {
+            get {
+                return ResourceManager.GetString("ADO1003_ProvideFullName_Note_Default_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0}: This &apos;automationDetails&apos; object does not provide an &apos;id&apos; property. This property is required by the Azure DevOps Advanced Security service..
+        /// </summary>
+        internal static string ADO2010_ProvideAutomationDetailsId_Note_Default_Text {
+            get {
+                return ResourceManager.GetString("ADO2010_ProvideAutomationDetailsId_Note_Default_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0}: This &apos;run&apos; object does not provide a &apos;results&apos; property. This property is required by the {1} service..
+        /// </summary>
+        internal static string Base1002_ProvideResultsArray_Note_Default_Text {
+            get {
+                return ResourceManager.GetString("Base1002_ProvideResultsArray_Note_Default_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0}: This &apos;tool&apos; object does not provide a &apos;driver&apos; property. This property is required by the {1} service..
+        /// </summary>
+        internal static string Base1003_ProvideDriver_Note_Default_Text {
+            get {
+                return ResourceManager.GetString("Base1003_ProvideDriver_Note_Default_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0}: This &apos;tool&apos; object does not provide a &apos;name&apos; property. This property is required by the {1} service..
+        /// </summary>
+        internal static string Base1003_ProvideName_Note_Default_Text {
+            get {
+                return ResourceManager.GetString("Base1003_ProvideName_Note_Default_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0}: This &apos;tool&apos; object does not provide a &apos;rules&apos; property. This property is required by the {1} service..
+        /// </summary>
+        internal static string Base1003_ProvideRules_Note_Default_Text {
+            get {
+                return ResourceManager.GetString("Base1003_ProvideRules_Note_Default_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0}: This &apos;run&apos; object does not provide a &apos;tool&apos; property. This property is required by the {1} service..
+        /// </summary>
+        internal static string Base1003_ProvideTool_Note_Default_Text {
+            get {
+                return ResourceManager.GetString("Base1003_ProvideTool_Note_Default_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0}: The &apos;locations&apos; array is empty. GitHub Advanced Security code scanning will not display a result unless it provides a location that specifies the URI of the artifact that contains the result..
         /// </summary>
         internal static string GH1001_ProvideRequiredLocationProperties_Error_EmptyLocationsArray_Text {
@@ -976,6 +1048,33 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         internal static string SARIF2016_FileUrisShouldBeRelative_Note_ShouldNotStartWithSlash_Text {
             get {
                 return ResourceManager.GetString("SARIF2016_FileUrisShouldBeRelative_Note_ShouldNotStartWithSlash_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Azure DevOps Advanced Security.
+        /// </summary>
+        internal static string ServiceName_ADO {
+            get {
+                return ResourceManager.GetString("ServiceName_ADO", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Base Validation Rule.
+        /// </summary>
+        internal static string ServiceName_Base {
+            get {
+                return ResourceManager.GetString("ServiceName_Base", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to GitHub Advanced Security.
+        /// </summary>
+        internal static string ServiceName_GHAS {
+            get {
+                return ResourceManager.GetString("ServiceName_GHAS", resourceCulture);
             }
         }
     }
