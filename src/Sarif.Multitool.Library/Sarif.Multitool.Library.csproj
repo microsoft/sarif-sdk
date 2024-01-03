@@ -60,9 +60,9 @@
     <None Include="default.configuration.xml" Pack="true" PackagePath="lib/netstandard2.0;lib/net461" CopyToOutputDirectory="PreserveNewest" />
     <None Include="..\..\policies\*" Pack="true" PackagePath="policies" />
     <None Include="**\*.cs" Pack="true" PackagePath="src" />
-    <Compile Remove="Rules\ADO1003ToolComponent.cs" />
-    <Compile Remove="Rules\Base1003ToolComponent.cs" />
-    <Compile Remove="Rules\GHAS1003ToolComponent.cs" />
+    <Compile Remove="Rules\ADO1003ProvideToolDriver.cs" />
+    <Compile Remove="Rules\Base1003ProvideToolDriver.cs" />
+    <Compile Remove="Rules\GHAS1003ProvideToolDriver.cs" />
     <None Include="..\..\ReleaseHistory.md" Pack="true" PackagePath="/" />
   </ItemGroup>
 

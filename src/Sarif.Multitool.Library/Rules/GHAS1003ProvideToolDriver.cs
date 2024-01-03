@@ -3,7 +3,7 @@
 
 namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 {
-    public class GHAS1003ToolComponent : Base1003ToolComponent
+    public class GHAS1003ProvideToolDriver : Base1003ProvideToolDriver
     {
         /// <summary>
         /// GHAS1003

@@ -54,36 +54,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                     toolComponentPointer,
                     nameof(RuleResources.Base1003_ProvideRules_Note_Default_Text));
             }
-
-            //bool hasVersion = false;
-            //if (!string.IsNullOrEmpty(toolComponent.Version))
-            //{
-            //    string firstChar = toolComponent.Version.Substring(0, 1);
-            //    if (int.TryParse(firstChar, out int _))
-            //    {
-            //        hasVersion = true;
-            //    }
-            //    else
-            //    {
-            //        // {0}: The 'toolComponent' object in this run does provide a Version value which does not begin with a number.
-            //        LogResult(
-            //            toolComponentPointer,
-            //            "Need a resources string");//nameof(RuleResources.SARIF2010_ProvideCodeSnippets_Note_Default_Text));
-            //    }
-            //}
-
-            //if (!hasVersion && !string.IsNullOrEmpty(toolComponent.SemanticVersion))
-            //{
-            //    hasVersion = true;
-            //}
-
-            //if (!hasVersion)
-            //{
-            //    // {0}: The 'toolComponent' object in this run does not provide a Version nor SemanticVersion value.
-            //    LogResult(
-            //        toolComponentPointer,
-            //        "Need a resources string");//nameof(RuleResources.SARIF2010_ProvideCodeSnippets_Note_Default_Text));
-            //}
         }
     }
 }

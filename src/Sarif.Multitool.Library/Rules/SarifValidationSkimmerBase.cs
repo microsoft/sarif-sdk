@@ -50,7 +50,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 
         protected override IEnumerable<string> MessageResourceNames => _emptyMessageResourceNames;
 
-        protected abstract string ServiceName { get; }
+        protected virtual string ServiceName { get; }
 
         public override sealed void Analyze(SarifValidationContext context)
         {
@@ -65,10 +65,17 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         {
             Region region = GetRegionFromJPointer(jPointer);
 
+            int diff = 1 + (string.IsNullOrWhiteSpace(this.ServiceName) ? 0 : 1);
+
             // All messages start with "{jPointer}: ...". Prepend the jPointer to the args.
-            string[] argsWithPointer = new string[args.Length + 1];
-            Array.Copy(args, 0, argsWithPointer, 1, args.Length);
+            string[] argsWithPointer = new string[args.Length + diff];
+            Array.Copy(args, 0, argsWithPointer, diff, args.Length);
             argsWithPointer[0] = JsonPointerToJavaScript(jPointer);
+
+            if (diff == 2)
+            {
+                argsWithPointer[1] = this.ServiceName;
+            }
 
             Context.Logger.Log(this,
                 RuleUtilities.BuildResult(

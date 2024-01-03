@@ -3,7 +3,7 @@
 
 namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 {
-    public class ADOValidateToolComponent : Base1003ToolComponent
+    public class ADO1003ProvideToolDriver : Base1003ProvideToolDriver
     {
         /// <summary>
         /// ADO1003
