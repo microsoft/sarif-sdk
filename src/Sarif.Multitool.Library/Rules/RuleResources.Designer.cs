@@ -70,7 +70,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}: This &apos;tool&apos; object does not provide a &apos;fullName&apos; property. This property is required by the Azure DevOps Advanced Security service..
+        ///   Looks up a localized string similar to {0}: This &apos;driver&apos; object does not provide a &apos;fullName&apos; property. This property is required by the Azure DevOps Advanced Security service..
         /// </summary>
         internal static string ADO1003_ProvideFullName_Note_Default_Text {
             get {
@@ -106,11 +106,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}: This &apos;tool&apos; object does not provide a &apos;name&apos; property. This property is required by the {1} service..
+        ///   Looks up a localized string similar to {0}: This &apos;driver&apos; object does not provide a &apos;fullName&apos; property. This property is required by the {1} service..
         /// </summary>
-        internal static string Base1003_ProvideName_Note_Default_Text {
+        internal static string Base1003_ProvideFullName_Note_Default_Text {
             get {
-                return ResourceManager.GetString("Base1003_ProvideName_Note_Default_Text", resourceCulture);
+                return ResourceManager.GetString("Base1003_ProvideFullName_Note_Default_Text", resourceCulture);
             }
         }
         

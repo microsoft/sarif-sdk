@@ -5,8 +5,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 {
     public class Base1002ProvideRun : SarifValidationSkimmerBase
     {
-        protected override string ServiceName => RuleResources.ServiceName_Base;
-
         protected override void Analyze(Run run, string runPointer)
         {
             if (run.Results == null)

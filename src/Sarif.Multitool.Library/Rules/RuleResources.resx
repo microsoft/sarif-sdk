@@ -460,7 +460,7 @@ Semantics: Assuming the reader of the log file (an end user or another tool) has
     <value>{0}: This 'run' object does not provide an 'automationDetails' property. This property is required by the Azure DevOps Advanced Security service.</value>
   </data>
   <data name="ADO1003_ProvideFullName_Note_Default_Text" xml:space="preserve">
-    <value>{0}: This 'tool' object does not provide a 'fullName' property. This property is required by the Azure DevOps Advanced Security service.</value>
+    <value>{0}: This 'driver' object does not provide a 'fullName' property. This property is required by the Azure DevOps Advanced Security service.</value>
   </data>
   <data name="ADO2010_ProvideAutomationDetailsId_Note_Default_Text" xml:space="preserve">
     <value>{0}: This 'automationDetails' object does not provide an 'id' property. This property is required by the Azure DevOps Advanced Security service.</value>
@@ -471,8 +471,8 @@ Semantics: Assuming the reader of the log file (an end user or another tool) has
   <data name="Base1003_ProvideDriver_Note_Default_Text" xml:space="preserve">
     <value>{0}: This 'tool' object does not provide a 'driver' property. This property is required by the {1} service.</value>
   </data>
-  <data name="Base1003_ProvideName_Note_Default_Text" xml:space="preserve">
-    <value>{0}: This 'tool' object does not provide a 'name' property. This property is required by the {1} service.</value>
+  <data name="Base1003_ProvideFullName_Note_Default_Text" xml:space="preserve">
+    <value>{0}: This 'driver' object does not provide a 'fullName' property. This property is required by the {1} service.</value>
   </data>
   <data name="Base1003_ProvideRules_Note_Default_Text" xml:space="preserve">
     <value>{0}: This 'tool' object does not provide a 'rules' property. This property is required by the {1} service.</value>

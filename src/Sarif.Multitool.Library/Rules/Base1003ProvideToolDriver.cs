@@ -1,6 +1,8 @@
 ﻿// Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
+using Microsoft.Json.Pointer;
+
 namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 {
     public class Base1003ProvideToolDriver : SarifValidationSkimmerBase
@@ -43,15 +45,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             {
                 // {0}: The 'tool' object in this run does not provide a 'name' value.
                 LogResult(
-                    toolComponentPointer,
-                    nameof(RuleResources.Base1003_ProvideName_Note_Default_Text));
+                    toolDriverPointer,
+                    nameof(RuleResources.Base1003_ProvideFullName_Note_Default_Text));
             }
 
             if (toolComponent.Rules == null)
             {
                 // {0}: The 'tool' object in this run does not provide a 'rules' value.
                 LogResult(
-                    toolComponentPointer,
+                    toolDriverPointer,
                     nameof(RuleResources.Base1003_ProvideRules_Note_Default_Text));
             }
         }

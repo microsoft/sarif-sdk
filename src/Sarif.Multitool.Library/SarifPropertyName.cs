@@ -36,6 +36,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         public const string Fixes = "fixes";
         public const string Frames = "frames";
         public const string FullDescription = "fullDescription";
+        public const string FullName = "fullName";
         public const string Graphs = "graphs";
         public const string GraphTraversals = "graphTraversals";
         public const string Hashes = "hashes";

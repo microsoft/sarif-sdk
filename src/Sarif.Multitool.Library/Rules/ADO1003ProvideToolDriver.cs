@@ -1,6 +1,8 @@
 ﻿// Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
+using Microsoft.Json.Pointer;
+
 namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 {
     public class ADO1003ProvideToolDriver : Base1003ProvideToolDriver
@@ -19,8 +21,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 
             if (run.Tool != null)
             {
-                AnalyzeFullName(run.Tool.FullName, runPointer
+                AnalyzeFullName(run.Tool.Driver, runPointer
                     .AtProperty(SarifPropertyName.Tool)
+                    .AtProperty(SarifPropertyName.Driver)
                     .AtProperty(SarifPropertyName.FullName));
             }
         }
@@ -31,7 +34,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             {
                 // {0}: The 'tool' object in this run does not provide a 'fullName' value.
                 LogResult(
-                    toolComponentPointer,
+                    toolFullNamePointer,
                     nameof(RuleResources.ADO1003_ProvideFullName_Note_Default_Text));
             }
         }
