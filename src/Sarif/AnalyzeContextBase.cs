@@ -370,7 +370,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                         "Specifies whether to recurse into child directories when enumerating scan targets. " +
                         "Defaults to 'False'.");
 
-        private const int DefaultMaxFileSizeInKilobytes = 10 * 1000;
+        private const int DefaultMaxFileSizeInKilobytes = 10 * 1000; // 10 MB
         public static PerLanguageOption<long> MaxFileSizeInKilobytesProperty { get; } =
             new PerLanguageOption<long>(
                 $"CoreSettings", nameof(MaxFileSizeInKilobytes), defaultValue: () => DefaultMaxFileSizeInKilobytes,
