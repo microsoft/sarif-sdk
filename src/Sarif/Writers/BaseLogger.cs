@@ -39,9 +39,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 throw new ArgumentException("At least one kind is required");
             }
 
-            bool failureLevelsEffectivelyEmpty = _failureLevels == null
-                                                    || _failureLevels.Count == 0
-                                                    || (_failureLevels.Count == 1 && _failureLevels.Contains(FailureLevel.None));
+            bool failureLevelsEffectivelyEmpty = _failureLevels == null || _failureLevels.Count == 0;
 
             if (_resultKinds.Contains(ResultKind.Fail))
             {

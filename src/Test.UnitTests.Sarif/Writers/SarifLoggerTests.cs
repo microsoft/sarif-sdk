@@ -1039,7 +1039,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         public void SarifLogger_HonorsKindAndLevel()
         {
             IEnumerable<ResultKind> nonEmptyResultKinds = Enum.GetValues(typeof(ResultKind)).Cast<ResultKind>().Where(rk => rk != ResultKind.None).ToList();
-            IEnumerable<FailureLevel> nonEmptyFailureLevels = Enum.GetValues(typeof(FailureLevel)).Cast<FailureLevel>().Where(fl => fl != FailureLevel.None).ToList();
+            IEnumerable<FailureLevel> nonEmptyFailureLevels = Enum.GetValues(typeof(FailureLevel)).Cast<FailureLevel>().ToList();
 
             var allKindLevelCombinations = new List<Result>();
             var rule = new ReportingDescriptor { Id = "RuleId" };
@@ -1075,7 +1075,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             SarifLog sarifLog = CreateSarifLog(allKindLevelCombinations, rule, desiredFailureLevels, desiredResultKinds);
             VerifySarifLogHonoredKindAndLevel(desiredFailureLevels, desiredResultKinds, sarifLog);
 
-            desiredResultKinds = new ResultKindSet(new[] { ResultKind.NotApplicable });
+            desiredResultKinds = BaseLogger.Fail;
             desiredFailureLevels = new FailureLevelSet(new[] { FailureLevel.None });
             sarifLog = CreateSarifLog(allKindLevelCombinations, rule, desiredFailureLevels, desiredResultKinds);
             VerifySarifLogHonoredKindAndLevel(desiredFailureLevels, desiredResultKinds, sarifLog);

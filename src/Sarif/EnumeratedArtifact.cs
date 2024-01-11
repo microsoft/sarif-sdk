@@ -11,6 +11,8 @@ namespace Microsoft.CodeAnalysis.Sarif
     // EnumeratedArtifact<string> being a commonly utilized thing.
     public class EnumeratedArtifact : IEnumeratedArtifact
     {
+        private const int BinarySniffingHeaderSizeBytes = 1024;
+
         public EnumeratedArtifact(IFileSystem fileSystem)
         {
             FileSystem = fileSystem;
@@ -112,56 +114,29 @@ namespace Microsoft.CodeAnalysis.Sarif
                 this.Stream = FileSystem.FileOpenRead(Uri.LocalPath);
             }
 
-            if (Stream.CanSeek)
-            {
-                RetrieveDataFromSeekableStream();
-            }
-            else
-            {
-                RetrieveDataFromNonSeekableStream();
-            }
+            RetrieveDataFromStream();
 
             return (this.contents, this.bytes);
         }
 
-        private void RetrieveDataFromNonSeekableStream()
+        private void RetrieveDataFromStream()
         {
-            this.bytes = new Lazy<byte[]>(() =>
+            if (!this.Stream.CanSeek)
             {
-                byte[] bytes = new byte[Stream.Length];
-                int length = this.Stream.Read(bytes, 0, bytes.Length);
-                this.isBinary = !FileEncoding.IsTextualData(bytes, 0, length);
-                this.Stream = null;
+                this.Stream = new PeekableStream(this.Stream, BinarySniffingHeaderSizeBytes);
+            }
 
-                if (!this.isBinary)
-                {
-                    // If we have textual data and the encoding was null, we are UTF8
-                    this.encoding ??= Encoding.UTF8;
-                    string contents = encoding.GetString(bytes);
-                    this.contents = new Lazy<string>(() => { return encoding.GetString(bytes); });
-                    this.bytes = null;
-                    return null;
-                }
-
-                return bytes;
-            });
-        }
-
-        private void RetrieveDataFromSeekableStream()
-        {
-            // Reset to beginning of stream in case caller neglected to do so.
-            this.Stream.Seek(0, SeekOrigin.Begin);
-
-            byte[] header = new byte[1024];
+            byte[] header = new byte[BinarySniffingHeaderSizeBytes];
             int length = this.Stream.Read(header, 0, header.Length);
-            this.isBinary = !FileEncoding.IsTextualData(header, 0, length);
+            bool isText = FileEncoding.IsTextualData(header, 0, length);
 
+            TryRewindStream();
 
-            if (!this.isBinary)
+            if (isText)
             {
+                this.isBinary = false;
                 this.contents = new Lazy<string>(()=>
                 {
-                    this.Stream.Seek(0, SeekOrigin.Begin);
                     using var contentsReader = new StreamReader(Stream);
                     string contents = contentsReader.ReadToEnd();
                     Stream = null;
@@ -170,14 +145,31 @@ namespace Microsoft.CodeAnalysis.Sarif
             }
             else
             {
+                this.isBinary = true;
                 this.bytes = new Lazy<byte[]>(() => 
                 {
-                    this.Stream.Seek(0, SeekOrigin.Begin);
                     byte[] bytes = new byte[Stream.Length];
-                    this.Stream.Read(bytes, 0, bytes.Length);
+                    var memoryStream = new MemoryStream(bytes);
+                    this.Stream.CopyTo(memoryStream);
                     this.Stream = null;
                     return bytes;
                 });
+            }
+        }
+
+        private void TryRewindStream()
+        {
+            if (this.Stream.CanSeek)
+            {
+                this.Stream.Seek(0, SeekOrigin.Begin);
+            }
+            else
+            {
+                var peekable = this.Stream as PeekableStream;
+                if (peekable != null)
+                {
+                    peekable.Rewind();
+                }
             }
         }
 
