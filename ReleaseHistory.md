@@ -3,6 +3,7 @@
 * DEP: Remove explicit versioning for `System.Memory` and `System.Runtime.CompilerServices.Unsafe`.
 * DEP: Remove spurious references to `System.Collections.Immutable`.
 * PRF: Change default `max-file-size-in-kb` parameter to 10 megabytes.
+* PRF: Add support for efficiently peeking into non-seekable streams for binary/text categorization.
 
 ## **v4.4.1 UNRELEASED
 * BUG: Emit `WRN997.OneOrMoreFilesSkippedDueToExceedingSizeLimit` when no valid analysis targets are detected (due to exceeding size limits).
