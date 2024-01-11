@@ -51,7 +51,7 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Core
             Assert.True(caughtException);
         }
 
-        [Fact(Skip ="")]
+        [Fact(Skip = "")]
         public void Stack_CreateFromExceptionWithInnerException()
         {
             bool caughtException = false;

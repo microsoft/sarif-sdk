@@ -65,7 +65,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                     // (which will be a perfectly valid encoding for ASCII as well).
                     this.encoding ??= Encoding.UTF8;
                     string contents = encoding.GetString(this.bytes.Value);
-                    this.contents = new Lazy<string>(()=> { return contents; });
+                    this.contents = new Lazy<string>(() => { return contents; });
                     this.bytes = null;
                 }
 
@@ -135,7 +135,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             if (isText)
             {
                 this.isBinary = false;
-                this.contents = new Lazy<string>(()=>
+                this.contents = new Lazy<string>(() =>
                 {
                     using var contentsReader = new StreamReader(Stream);
                     string contents = contentsReader.ReadToEnd();
@@ -146,7 +146,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             else
             {
                 this.isBinary = true;
-                this.bytes = new Lazy<byte[]>(() => 
+                this.bytes = new Lazy<byte[]>(() =>
                 {
                     byte[] bytes = new byte[Stream.Length];
                     var memoryStream = new MemoryStream(bytes);
