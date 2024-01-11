@@ -8,7 +8,6 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
-using System.Text.RegularExpressions;
 
 using FluentAssertions;
 
@@ -22,8 +21,6 @@ using Newtonsoft.Json.Linq;
 using Newtonsoft.Json.Serialization;
 
 using Xunit.Abstractions;
-
-using YamlDotNet.Core.Tokens;
 
 namespace Microsoft.CodeAnalysis.Sarif
 {
@@ -226,51 +223,46 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentException($"The number of actual output files ({actualSarifTextDictionary.Count}) does not match the number of expected output files {expectedSarifTextDictionary.Count}");
             }
 
-            bool passed = true;
             var filesWithErrors = new List<string>();
+            var filesResultNotMatch = new List<string>();
 
             // Reify the list of keys because we're going to modify the dictionary in place.
-            List<string> keys = expectedSarifTextDictionary.Keys.ToList();
+            var keys = expectedSarifTextDictionary.Keys.ToList();
             var userFacingTexts = new Dictionary<string, string>();
 
             foreach (string key in keys)
             {
-                string actualSarifText = actualSarifTextDictionary[key];
-                SarifLog actualSarifLog = JsonConvert.DeserializeObject<SarifLog>(actualSarifText);
-                if (actualSarifLog.Runs?[0].TryGetProperty("consoleOut", out string userFacingText) == true)
-                {
-                    userFacingTexts[key] = userFacingText != null ? Regex.Unescape(userFacingText) : null;
-                    actualSarifLog.Runs[0].RemoveProperty("consoleOut");
-                    actualSarifText = JsonConvert.SerializeObject(actualSarifLog, Formatting.Indented);
-                    actualSarifTextDictionary[key] = actualSarifText;
-                }
-
+                bool passed;
                 if (_testProducesSarifCurrentVersion)
                 {
                     PrereleaseCompatibilityTransformer.UpdateToCurrentVersion(expectedSarifTextDictionary[key], Formatting.Indented, out string transformedSarifText);
-                   
+
                     expectedSarifTextDictionary[key] = transformedSarifText;
 
-                    passed &= AreEquivalent<SarifLog>(actualSarifText,
-                                                      expectedSarifTextDictionary[key],
-                                                      out SarifLog actual);
+                    passed = AreEquivalent<SarifLog>(actualSarifTextDictionary[key],
+                                                     expectedSarifTextDictionary[key],
+                                                     out SarifLog actual);
 
                     if (enforceNotificationsFree &&
                         actual != null &&
                         (actual.Runs[0].Invocations?[0].ToolExecutionNotifications != null ||
                          actual.Runs[0].Invocations?[0].ToolConfigurationNotifications != null))
                     {
-                        passed = false;
                         filesWithErrors.Add(key);
                     }
                 }
                 else
                 {
-                    passed &= AreEquivalent<SarifLogVersionOne>(
-                        actualSarifText,
+                    passed = AreEquivalent<SarifLogVersionOne>(
+                        actualSarifTextDictionary[key],
                         expectedSarifTextDictionary[key],
                         out SarifLogVersionOne actual,
                         SarifContractResolverVersionOne.Instance);
+                }
+
+                if (!passed)
+                {
+                    filesResultNotMatch.Add(key);
                 }
             }
 
@@ -295,41 +287,34 @@ namespace Microsoft.CodeAnalysis.Sarif
                 }
 
                 File.WriteAllText(expectedFilePath, expectedSarifTextDictionary[key]);
-                File.WriteAllText(actualFilePath, actualSarifTextDictionary[key]);    
-                
-                if (userFacingTexts.ContainsKey(key)) 
+                File.WriteAllText(actualFilePath, actualSarifTextDictionary[key]);
+
+                if (userFacingTexts.ContainsKey(key))
                 {
                     File.WriteAllText(Path.Combine(actualRootDirectory, Path.GetFileNameWithoutExtension(key) + ".txt"), userFacingTexts[key]);
                 }
             }
 
-            StringBuilder sb = null;
+            var sb = new StringBuilder();
 
-            if (!passed)
+            if (filesWithErrors.Count > 0)
             {
-                string errorMessage = string.Empty;
+                sb.AppendLine(Environment.NewLine)
+                  .AppendLine("one or more files contain an unexpected notification (which likely indicates that an unhandled exception was encountered at analysis time): ")
+                  .AppendLine(string.Join(Environment.NewLine, filesWithErrors.Select(s => $" - {s}")));
+            }
 
-                if (filesWithErrors.Count > 0)
-                {
-                    errorMessage =
-                        "one or more files contain an unexpected notification (which likely " +
-                        "indicates that an unhandled exception was encountered at analysis time): " +
-                        Environment.NewLine +
-                        string.Join(Environment.NewLine, filesWithErrors) +
-                        Environment.NewLine + Environment.NewLine;
-                }
-
-                errorMessage += string.Format(@"there should be no unexpected diffs detected comparing actual results to '{0}'.", string.Join(", ", inputResourceNames));
-                sb = new StringBuilder(errorMessage);
+            if (filesResultNotMatch.Count > 0)
+            {
+                sb.AppendLine("there are unexpected diffs detected comparing actual results to expected results for following test files:")
+                  .AppendLine(string.Join(Environment.NewLine, filesResultNotMatch.Select(s => $" - {s}")));
 
                 sb.AppendLine("To compare all difference for this test suite:");
                 sb.AppendLine(GenerateDiffCommand(TypeUnderTest, expectedRootDirectory, actualRootDirectory) + Environment.NewLine);
 
-                sb.AppendLine(
-                    "To rebaseline with current behavior:");
-
+                sb.AppendLine("To rebaseline with current behavior:");
                 string testDirectory = Path.Combine(TestBinaryTestDataDirectory, TypeUnderTest, "ExpectedOutputs");
-                sb.AppendLine(GenerateRebaselineCommand(TypeUnderTest, testDirectory, actualRootDirectory));
+                sb.AppendLine(GenerateRebaselineCommand(TypeUnderTest, testDirectory, actualRootDirectory) + Environment.NewLine);
             }
 
             ValidateResults(sb?.ToString());

@@ -2,10 +2,13 @@
 ## UNRELEASED
 * DEP: Remove explicit versioning for `System.Memory` and `System.Runtime.CompilerServices.Unsafe`.
 * DEP: Remove spurious references to `System.Collections.Immutable`.
+* PRF: Change default `max-file-size-in-kb` parameter to 10 megabytes.
+* PRF: Add support for efficiently peeking into non-seekable streams for binary/text categorization.
 
 ## **v4.4.1 UNRELEASED
 * DEP: Update reference to `System.Collections.Immutable` 5.0.0 for `Sarif` and `Sarif.Converters`.
 * BUG: Emit `WRN997.OneOrMoreFilesSkippedDueToExceedingSizeLimit` when no valid analysis targets are detected (due to exceeding size limits).
+* BUG: Emit `FailureLevel.Note` messages with label `info` (rather than `fail`) in `ConsoleLogger`.
 
 ## **v4.4.0 [Sdk](https://www.nuget.org/packages/Sarif.Sdk/v4.4.0) | [Driver](https://www.nuget.org/packages/Sarif.Driver/v4.4.0) | [Converters](https://www.nuget.org/packages/Sarif.Converters/v4.4.0)  | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/v4.4.0) | [Multitool Library](https://www.nuget.org/packages/Sarif.Multitool.Library/v4.4.0)
 * DEP: Add reference to `System.Text.Encoding.CodePages` 8.0.0 (to support Windows 1252 code pages in binary vs. text classification).
