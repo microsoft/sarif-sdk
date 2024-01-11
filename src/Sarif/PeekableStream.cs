@@ -33,7 +33,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         public override long Length => underlyingStream.Length;
 
-        public override long Position 
+        public override long Position
         {
             get => Math.Min(underlyingStream.Position, cursor);
             set => throw new NotImplementedException();
