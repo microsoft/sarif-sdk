@@ -46,21 +46,28 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         public override int Read(byte[] buffer, int offset, int count)
         {
-            // This code relies upon delivering partial reads for correctness.  Let's say the caller knows the stream length is 1 MB,
-            // and we have a 1 KB peekability window/buffer.  If they do a read with count=1000000, this will return a 1 KB read.
-            // Afterwords, cursor will be exactly equal to buffer.Length.  A subsequent Read() would detect that, and transition
-            // into a non-rewindable state.
-            // 
-            // This looks like an API feature, but it's not.  The caller knows the peekability window, and can stay within it.  It's
-            // to avoid having to compose multiple underlying reads and/or buffer copies into the same Read() operation.  Instead
-            // of us knowing how to deal with complex heterogenous reads, a correct caller just naturally invokes us twice:
-            // once for the 1KB peekability window (from buffer), and again for the rest of the 1MB file (from stream.)
+            // Common case: we're past the "peekability window" and are now just a thin wrapper around the underlying Stream.
             if (this.rewindBuffer == null)
             {
-                // Common case: we're past the "peekability window" and are now just a thin wrapper around the underlying Stream.
                 return underlyingStream.Read(buffer, offset, count);
             }
-            else if (this.cursor == this.underlyingStream.Position)
+
+
+            // This code relies upon delivering partial reads for correctness.  Let's say the caller knows the stream length is 1 MB,
+            // and we have a 1 KB peekability window/buffer.  If they do a read with count=1000000, we will return a 1 KB read.
+            // Afterwards, cursor will be exactly equal to buffer.Length.  A second count=1MB Read() would detect that, transition
+            // into a non-rewindable state, and then deliver all of its bytes from the underlying stream.
+            // 
+            // This is to avoid having to compose multiple underlying reads and/or buffer copies into the same Read() operation.
+            // That's how this code deals with all boundary conditions.  Instead of dealing with complex heterogenous reads, we do a
+            // partial up to the bounary.  A correct caller just naturally invokes us on either side of the boundary because they
+            // have to support handling partial reads anyway.
+            //
+            // Another case like this is after a Rewind(), when Stream.Position might be between zero and the end of the rewind
+            // buffer.  In that case, we'll read from the buffer, but no farther than up to Stream.Position (we don't have bytes
+            // in the buffer past that point because they haven't been read from the Stream yet.)  That leaves us in a
+            // state where a followup call will need to go back to reading from the underlying Stream.
+            if (this.cursor == this.underlyingStream.Position)
             {
                 // Buffer cursor is "caught up" to stream position, so we are not in a "rewound" state.
                 if (this.cursor != this.rewindBuffer.Length)
