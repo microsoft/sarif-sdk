@@ -46,6 +46,15 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         public override int Read(byte[] buffer, int offset, int count)
         {
+            // This code relies upon delivering partial reads for correctness.  Let's say the caller knows the stream length is 1 MB,
+            // and we have a 1 KB peekability window/buffer.  If they do a read with count=1000000, this will return a 1 KB read.
+            // Afterwords, cursor will be exactly equal to buffer.Length.  A subsequent Read() would detect that, and transition
+            // into a non-rewindable state.
+            // 
+            // This looks like an API feature, but it's not.  The caller knows the peekability window, and can stay within it.  It's
+            // to avoid having to compose multiple underlying reads and/or buffer copies into the same Read() operation.  Instead
+            // of us knowing how to deal with complex heterogenous reads, a correct caller just naturally invokes us twice:
+            // once for the 1KB peekability window (from buffer), and again for the rest of the 1MB file (from stream.)
             if (this.rewindBuffer == null)
             {
                 // Common case: we're past the "peekability window" and are now just a thin wrapper around the underlying Stream.
@@ -54,26 +63,27 @@ namespace Microsoft.CodeAnalysis.Sarif
             else if (this.cursor == this.underlyingStream.Position)
             {
                 // Buffer cursor is "caught up" to stream position, so we are not in a "rewound" state.
-                if (this.cursor == this.rewindBuffer.Length)
+                if (this.cursor != this.rewindBuffer.Length)
                 {
-                    // A previous read has brought us to the brink of exceeding the "peekability window", and we are
-                    // now reading more.  So we abandon the buffer, and serve the read as a thin wrapper.
-                    this.rewindBuffer = null;
-                    this.cursor = int.MaxValue;
-                    return underlyingStream.Read(buffer, offset, count);
+                    // Since we're still rewindable (rewindBuffer != null) and our curor is aligned with 
+                    // Stream.Position, and there is room left in the buffer --we must still be reading into our
+                    // rewindable buffer.  So do that, and then serve the Read() out of the buffer.
+                    int aspirationalReadCount = Math.Min(count, (int)(this.rewindBuffer.Length - cursor));
+                    int actualReadCount = underlyingStream.Read(this.rewindBuffer, cursor, aspirationalReadCount);
+                    Array.Copy(this.rewindBuffer, cursor, buffer, offset, actualReadCount);
+
+                    cursor += actualReadCount;
+
+                    return actualReadCount;
                 }
 
-                // Read into our rewind buffer for "backup" and then copy into caller buffer.
-                // Buffer position is behind Stream position.  Service read out of the buffer.
-                int aspirationalReadCount = Math.Min(count, (int)(this.rewindBuffer.Length - cursor));
-                int actualReadCount = underlyingStream.Read(this.rewindBuffer, cursor, aspirationalReadCount);
-                Array.Copy(this.rewindBuffer, cursor, buffer, offset, actualReadCount);
-
-                cursor += actualReadCount;
-
-                return actualReadCount;
+                // A previous read has brought us to the brink of exceeding the "peekability window", and we are
+                // now reading more.  So we abandon the buffer, and serve the read as a thin wrapper.
+                this.rewindBuffer = null;
+                this.cursor = int.MaxValue;
+                return underlyingStream.Read(buffer, offset, count);
             }
-            else if (this.cursor <= this.underlyingStream.Position)
+            else if (this.cursor < this.underlyingStream.Position)
             {
                 // We are rewound.  Service the read out of the rewind buffer.
                 int safeReadCount = Math.Min(count, this.rewindBuffer.Length - cursor);
