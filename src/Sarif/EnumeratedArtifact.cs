@@ -5,8 +5,6 @@ using System;
 using System.IO;
 using System.Text;
 
-using Microsoft.CodeAnalysis.Sarif.Readers;
-
 namespace Microsoft.CodeAnalysis.Sarif
 {
     // TBD: this class should probably be a generic, with
@@ -100,9 +98,6 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         private void RetrieveDataFromStream()
         {
-            // Reset to beginning of stream in case caller neglected to do so.
-            TryRewindStream();
-
             if (!this.Stream.CanSeek)
             {
                 this.Stream = new PeekableStream(this.Stream, BinarySniffingHeaderSizeBytes);

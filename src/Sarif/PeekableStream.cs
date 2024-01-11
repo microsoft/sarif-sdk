@@ -4,18 +4,19 @@
 using System;
 using System.IO;
 
-namespace Microsoft.CodeAnalysis.Sarif.Readers
+namespace Microsoft.CodeAnalysis.Sarif
 {
     /// <summary>
-    /// This stream provides a very limited Seekability for Streams which would benefit from an ersatz Seek(Origin)
-    /// capability, but which only need it at the beginning of a Stream.  Ie: to categorize binary versus textual 
-    /// data.
+    /// This stream provides a very limited seekability for Streams which would benefit from an ersatz Seek(Origin)
+    /// capability, but which only need it at the beginning of a Stream.  Example use is: to categorize binary versus textual 
+    /// data based on the beginning of a non-seekable Stream.
     /// </summary>
     internal class PeekableStream : Stream
     {
         private readonly Stream underlyingStream;
         private byte[] rewindBuffer;
         private int cursor;
+
         public PeekableStream(Stream underlyingStream, int initialPeekWindow)
         {
             this.underlyingStream = underlyingStream;
@@ -35,7 +36,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
         public override long Position 
         {
             get => Math.Min(underlyingStream.Position, cursor);
-            set => throw new System.NotImplementedException();
+            set => throw new NotImplementedException();
         }
 
         public override void Flush()
@@ -61,18 +62,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
                     this.cursor = int.MaxValue;
                     return underlyingStream.Read(buffer, offset, count);
                 }
-                else
-                {
-                    // Read into our rewind buffer for "backup" and then copy into caller buffer.
-                    // Buffer position is behind Stream position.  Service read out of the buffer.
-                    int aspirationalReadCount = Math.Min(count, (int)(this.rewindBuffer.Length - cursor));
-                    int actualReadCount = underlyingStream.Read(this.rewindBuffer, cursor, aspirationalReadCount);
-                    Array.Copy(this.rewindBuffer, cursor, buffer, offset, actualReadCount);
 
-                    cursor += actualReadCount;
+                // Read into our rewind buffer for "backup" and then copy into caller buffer.
+                // Buffer position is behind Stream position.  Service read out of the buffer.
+                int aspirationalReadCount = Math.Min(count, (int)(this.rewindBuffer.Length - cursor));
+                int actualReadCount = underlyingStream.Read(this.rewindBuffer, cursor, aspirationalReadCount);
+                Array.Copy(this.rewindBuffer, cursor, buffer, offset, actualReadCount);
 
-                    return actualReadCount;
-                }
+                cursor += actualReadCount;
+
+                return actualReadCount;
             }
             else if (this.cursor <= this.underlyingStream.Position)
             {
@@ -84,27 +83,23 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
                 cursor += safeReadCount;
                 return safeReadCount;
             }
-            else
-            {
-                    throw new InvalidOperationException($"Peekable stream in invalid state: cursor '{cursor}' pointing past stream position '{underlyingStream.Position}'.");
-            }
 
-            // Unreachable.
+            throw new InvalidOperationException($"Peekable stream in invalid state: cursor '{cursor}' pointing past stream position '{underlyingStream.Position}'.");
         }
 
         public override long Seek(long offset, SeekOrigin origin)
         {
-            throw new System.NotImplementedException();
+            throw new NotImplementedException();
         }
 
         public override void SetLength(long value)
         {
-            throw new System.NotImplementedException();
+            throw new NotImplementedException();
         }
 
         public override void Write(byte[] buffer, int offset, int count)
         {
-            throw new System.NotImplementedException();
+            throw new NotImplementedException();
         }
 
         public void Rewind()
