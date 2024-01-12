@@ -141,7 +141,12 @@ namespace Microsoft.CodeAnalysis.Sarif
         protected override Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
         {
             this.mockedResponses.TryDequeue(out HttpResponseMessage message);
-            HttpRequestMessage _ = message.RequestMessage;
+            HttpRequestMessage requestInResponse = message.RequestMessage;
+            if (requestInResponse != null && requestInResponse.RequestUri != null && requestInResponse.RequestUri.Equals("https://UnknownHost.com"))
+            {
+                throw new HttpRequestException("No such host is known");
+            }
+
             return Task.FromResult(message);
         }
     }
