@@ -88,6 +88,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0}: This &apos;sarifLog&apos; object&apos;s &apos;runs&apos; array contains {1} elements, which exceeds the limit of {2} imposed by GitHub Advanced Security and Azure DevOps Advanced Security..
+        /// </summary>
+        internal static string Base1001_MaximumRunsCount_Note_Default_Text {
+            get {
+                return ResourceManager.GetString("Base1001_MaximumRunsCount_Note_Default_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0}: This &apos;run&apos; object does not provide a &apos;results&apos; property. This property is required by the {1} service..
         /// </summary>
         internal static string Base1002_ProvideResultsArray_Note_Default_Text {

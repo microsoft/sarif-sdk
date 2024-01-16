@@ -50,6 +50,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         public const string ProvideFullyFormattedMessageStrings = "GH1007";
 
         // Rules for GHAS and ADO Advanced Security
+        public const string ADOMaximumRunsCount = "ADO1001";
+        public const string GHASMaximumRunsCount = "GHAS1001";
         public const string ADOProvideRunProperties = "ADO1002";
         public const string GHASProvideToolDriverProperties = "GHAS1003";
         public const string ADOProvideToolDriverProperties = "ADO1003";

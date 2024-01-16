@@ -489,4 +489,7 @@ Semantics: Assuming the reader of the log file (an end user or another tool) has
   <data name="ServiceName_GHAS" xml:space="preserve">
     <value>GitHub Advanced Security</value>
   </data>
+  <data name="Base1001_MaximumRunsCount_Note_Default_Text" xml:space="preserve">
+    <value>{0}: This 'sarifLog' object's 'runs' array contains {1} elements, which exceeds the limit of {2} imposed by GitHub Advanced Security and Azure DevOps Advanced Security.</value>
+  </data>
 </root>
