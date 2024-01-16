@@ -10,6 +10,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         /// </summary>
         public override string Id => RuleId.GHASProvideToolDriverProperties;
 
+        public override RuleKinds Kinds => RuleKinds.Ado;
+
         protected override string ServiceName => RuleResources.ServiceName_GHAS;
 
         protected override void Analyze(Run run, string runPointer)

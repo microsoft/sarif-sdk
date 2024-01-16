@@ -12,6 +12,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         /// </summary>
         public override string Id => RuleId.ADOProvideToolDriverProperties;
 
+        public override RuleKinds Kinds => RuleKinds.Ado;
+
         protected override string ServiceName => RuleResources.ServiceName_ADO;
 
         protected override void Analyze(Run run, string runPointer)

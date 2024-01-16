@@ -5,6 +5,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 {
     public class Base1002ProvideRun : SarifValidationSkimmerBase
     {
+        public override string Id => string.Empty;
+
+        public override MultiformatMessageString FullDescription => new MultiformatMessageString();
+
         protected override void Analyze(Run run, string runPointer)
         {
             if (run.Results == null)

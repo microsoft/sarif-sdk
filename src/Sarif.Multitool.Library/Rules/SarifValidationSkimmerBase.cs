@@ -19,10 +19,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
     public enum RuleKinds
     {
         None = 0,
-        GhasRequired = 1,
-        GhasOptional = 2,
-        AdoRequired = 3,
-        AdoOptional = 4,
+        Ghas = 1,
+        Ado = 2,
     }
 
     public abstract class SarifValidationSkimmerBase : Skimmer<SarifValidationContext>
@@ -38,7 +36,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 
         public override MultiformatMessageString Help => null;
 
-        public RuleKinds Kinds { get; set; }
+        public virtual RuleKinds Kinds { get; set; }
 
         public FailureLevel Level { get; set; } = FailureLevel.Warning;
 
