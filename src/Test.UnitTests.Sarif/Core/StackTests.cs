@@ -121,25 +121,34 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Core
    at System.IO.Strategies.FileStreamHelpers.ChooseStrategyCore(String path, FileMode mode, FileAccess access, FileShare share, FileOptions options, Int64 preallocationSize)
    at System.IO.Strategies.FileStreamHelpers.ChooseStrategy(FileStream fileStream, String path, FileMode mode, FileAccess access, FileShare share, Int32 bufferSize, FileOptions options, Int64 preallocationSize)
    at System.IO.File.Create(String path, Int32 bufferSize)
-   at Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Core.StackTests.Stack_CreateFromExceptionWithInnerException() in {0}:line {1}";
+   at Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Core.StackTests.Stack_CreateFromExceptionWithInnerException()";
 
             int relativePathLineNumber = 60;
             string relativeFilePath = "/_/src/Test.UnitTests.Sarif/Core/StackTests.cs";
-            var sarifStackWithRelativeFileLocation = Stack.Create(string.Format(stackTraceTemplate, relativeFilePath, relativePathLineNumber));
+            var sarifStackWithRelativeFileLocation = Stack.Create(stackTraceTemplate + $" in {relativeFilePath}:line {relativePathLineNumber}");
 
             sarifStackWithRelativeFileLocation.Frames.Count.Should().Be(7);
             CodeAnalysis.Sarif.StackFrame lastFrame = sarifStackWithRelativeFileLocation.Frames.Last();
             lastFrame.Location.PhysicalLocation.ArtifactLocation.Uri.OriginalString.Should().Be(relativeFilePath);
             lastFrame.Location.PhysicalLocation.Region.StartLine.Should().Be(relativePathLineNumber);
+            lastFrame.ToString().Should().EndWith($" in {relativeFilePath}:line {relativePathLineNumber}");
 
             int absolutePathLineNumber = 33;
             string absoluteFilePath = @"C:\repo\src\Test.UnitTests.Sarif\Core\StackTests.cs";
-            var sarifStackWithAbsoluteFileLocation = Stack.Create(string.Format(stackTraceTemplate, absoluteFilePath, absolutePathLineNumber));
+            var sarifStackWithAbsoluteFileLocation = Stack.Create(stackTraceTemplate + $" in {absoluteFilePath}:line {absolutePathLineNumber}");
 
             sarifStackWithAbsoluteFileLocation.Frames.Count.Should().Be(7);
             lastFrame = sarifStackWithAbsoluteFileLocation.Frames.Last();
             lastFrame.Location.PhysicalLocation.ArtifactLocation.Uri.OriginalString.Should().Be(absoluteFilePath);
             lastFrame.Location.PhysicalLocation.Region.StartLine.Should().Be(absolutePathLineNumber);
+            lastFrame.ToString().Should().EndWith($" in {absoluteFilePath}:line {absolutePathLineNumber}");
+
+            var sarifStackWithoutFileLocation = Stack.Create(stackTraceTemplate);
+
+            sarifStackWithoutFileLocation.Frames.Count.Should().Be(7);
+            lastFrame = sarifStackWithoutFileLocation.Frames.Last();
+            lastFrame.Location.PhysicalLocation.Should().BeNull();
+            lastFrame.ToString().Should().EndWith("Stack_CreateFromExceptionWithInnerException()");
         }
     }
 }
