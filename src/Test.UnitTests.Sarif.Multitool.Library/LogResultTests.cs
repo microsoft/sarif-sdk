@@ -18,7 +18,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         private const string SchemaFilePath = @"c:\schemas\SimpleSchemaForTest.json";
         private const string LogFileDirectory = @"C:\Users\John\logs";
         private const string LogFileName = "example.sarif";
-        private const string OutputFilePath = @"C:\Users\John\output\example-validation.sarif";
+        private const string OutputFilePath = "example-validation.sarif";
 
         [Fact]
         public void LogResult_ADO1003()
