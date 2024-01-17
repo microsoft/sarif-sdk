@@ -1,8 +1,6 @@
 ﻿// Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-using Microsoft.Json.Pointer;
-
 namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 {
     public class ADO1003ProvideToolDriver : Base1003ProvideToolDriver
@@ -23,21 +21,25 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 
             if (run.Tool != null)
             {
-                AnalyzeFullName(run.Tool.Driver, runPointer
-                    .AtProperty(SarifPropertyName.Tool)
-                    .AtProperty(SarifPropertyName.Driver)
-                    .AtProperty(SarifPropertyName.FullName));
-            }
-        }
+                if (run.Tool.Driver == null)
+                {
+                    string toolPointer = $"{runPointer}/{SarifPropertyName.Tool}";
+                    // {0}: The 'tool' object in this run does not provide a 'driver' value.
+                    LogResult(
+                        toolPointer,
+                        nameof(RuleResources.ADO1003_ProvideDriver_Note_Default_Text),
+                        this.ServiceName);
+                }
+                else if (string.IsNullOrWhiteSpace(run.Tool.Driver.FullName))
+                {
+                    string driverPointer = $"{runPointer}/{SarifPropertyName.Tool}/{SarifPropertyName.Driver}";
 
-        private void AnalyzeFullName(ToolComponent toolComponent, string toolFullNamePointer)
-        {
-            if (string.IsNullOrEmpty(toolComponent.FullName))
-            {
-                // {0}: The 'tool' object in this run does not provide a 'fullName' value.
-                LogResult(
-                    toolFullNamePointer,
-                    nameof(RuleResources.ADO1003_ProvideFullName_Note_Default_Text));
+                    // {0}: The 'driver' object in this 'tool' does not provide a 'fullName' value.
+                    LogResult(
+                        driverPointer,
+                        nameof(RuleResources.ADO1003_ProvideFullName_Note_Default_Text),
+                        this.ServiceName);
+                }
             }
         }
     }

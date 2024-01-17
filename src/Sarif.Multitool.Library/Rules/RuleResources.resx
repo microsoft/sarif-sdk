@@ -457,13 +457,13 @@ Semantics: Assuming the reader of the log file (an end user or another tool) has
     <value>GitHub Advanced Security code scanning will reject a SARIF file that express result messages with 'message.id' and 'message.arguments' but without the 'message.text' property since the arugmented message format is not supported yet. Please provide fully formatted text in 'message.text' property.</value>
   </data>
   <data name="ADO1002_ProvideAutomationDetails_Note_Default_Text" xml:space="preserve">
-    <value>{0}: This 'run' object does not provide an 'automationDetails' property. This property is required by the Azure DevOps Advanced Security service.</value>
+    <value>{0}: This 'run' object does not provide an 'automationDetails' property. This property is required by the {1} service.</value>
   </data>
   <data name="ADO1003_ProvideFullName_Note_Default_Text" xml:space="preserve">
-    <value>{0}: This 'driver' object does not provide a 'fullName' property. This property is required by the Azure DevOps Advanced Security service.</value>
+    <value>{0}: This 'driver' object does not provide a 'fullName' property. This property is required by the {1} service.</value>
   </data>
   <data name="ADO2010_ProvideAutomationDetailsId_Note_Default_Text" xml:space="preserve">
-    <value>{0}: This 'automationDetails' object does not provide an 'id' property. This property is required by the Azure DevOps Advanced Security service.</value>
+    <value>{0}: This 'automationDetails' object does not provide an 'id' property. This property is required by the {1} service.</value>
   </data>
   <data name="Base1002_ProvideResultsArray_Note_Default_Text" xml:space="preserve">
     <value>{0}: This 'run' object does not provide a 'results' property. This property is required by the {1} service.</value>
@@ -490,6 +490,9 @@ Semantics: Assuming the reader of the log file (an end user or another tool) has
     <value>GitHub Advanced Security</value>
   </data>
   <data name="Base1001_MaximumRunsCount_Note_Default_Text" xml:space="preserve">
-    <value>{0}: This 'sarifLog' object's 'runs' array contains {1} elements, which exceeds the limit of {2} imposed by GitHub Advanced Security and Azure DevOps Advanced Security.</value>
+    <value>{0}: This 'sarifLog' object's 'runs' array contains {1} elements, which exceeds the limit of {2} imposed by {3}.</value>
+  </data>
+  <data name="ADO1003_ProvideDriver_Note_Default_Text" xml:space="preserve">
+    <value>{0}: This 'tool' object in this run does not provide a 'driver' property. This property is required by the Azure DevOps Advanced Security service.</value>
   </data>
 </root>

@@ -12,6 +12,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 
         protected override string ServiceName => RuleResources.ServiceName_GHAS;
 
+        public override int MaximumRuns => 20;
+
         protected override void Analyze(SarifLog sarifLog, string runPointer)
         {
             base.Analyze(sarifLog, runPointer);

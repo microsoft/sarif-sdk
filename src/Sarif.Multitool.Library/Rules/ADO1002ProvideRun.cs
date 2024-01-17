@@ -1,8 +1,6 @@
 ﻿// Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-using Microsoft.Json.Pointer;
-
 namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 {
     public class ADO1002ProvideRun : Base1002ProvideRun
@@ -19,24 +17,24 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             /// run.results is chcked by the base class.
             base.Analyze(run, runPointer);
 
-            AnalyzeAutomationDetails(run.AutomationDetails, runPointer.AtProperty(SarifPropertyName.AutomationDetails));
-        }
-
-        private void AnalyzeAutomationDetails(RunAutomationDetails automationDetails, string automationDetailsPointer)
-        {
-            if (automationDetails == null)
+            if (run != null)
             {
-                // {0}: The 'automationDetails' object in this run does not provide a value.
-                LogResult(
-                    automationDetailsPointer,
-                    nameof(RuleResources.ADO1002_ProvideAutomationDetails_Note_Default_Text));
-            }
-            else if (string.IsNullOrWhiteSpace(automationDetails.Id))
-            {
-                // {0}: The 'id' property in this automationDetails object does not provide a value.
-                LogResult(
-                    automationDetailsPointer,
-                    nameof(RuleResources.ADO2010_ProvideAutomationDetailsId_Note_Default_Text));
+                if (run.AutomationDetails == null)
+                {
+                    // {0}: The 'automationDetails' object in this run does not provide a value.
+                    LogResult(
+                        runPointer,
+                        nameof(RuleResources.ADO1002_ProvideAutomationDetails_Note_Default_Text),
+                        this.ServiceName);
+                }
+                else if (string.IsNullOrWhiteSpace(run.AutomationDetails?.Id))
+                {
+                    // {0}: The 'id' property in this automationDetails object does not provide a value.
+                    LogResult(
+                        runPointer,
+                        nameof(RuleResources.ADO2010_ProvideAutomationDetailsId_Note_Default_Text),
+                        this.ServiceName);
+                }
             }
         }
     }

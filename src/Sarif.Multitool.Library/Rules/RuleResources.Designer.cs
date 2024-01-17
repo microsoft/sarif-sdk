@@ -61,7 +61,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}: This &apos;run&apos; object does not provide an &apos;automationDetails&apos; property. This property is required by the Azure DevOps Advanced Security service..
+        ///   Looks up a localized string similar to {0}: This &apos;run&apos; object does not provide an &apos;automationDetails&apos; property. This property is required by the {1} service..
         /// </summary>
         internal static string ADO1002_ProvideAutomationDetails_Note_Default_Text {
             get {
@@ -70,7 +70,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}: This &apos;driver&apos; object does not provide a &apos;fullName&apos; property. This property is required by the Azure DevOps Advanced Security service..
+        ///   Looks up a localized string similar to {0}: This &apos;tool&apos; object in this run does not provide a &apos;driver&apos; property. This property is required by the Azure DevOps Advanced Security service..
+        /// </summary>
+        internal static string ADO1003_ProvideDriver_Note_Default_Text {
+            get {
+                return ResourceManager.GetString("ADO1003_ProvideDriver_Note_Default_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0}: This &apos;driver&apos; object does not provide a &apos;fullName&apos; property. This property is required by the {1} service..
         /// </summary>
         internal static string ADO1003_ProvideFullName_Note_Default_Text {
             get {
@@ -79,7 +88,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}: This &apos;automationDetails&apos; object does not provide an &apos;id&apos; property. This property is required by the Azure DevOps Advanced Security service..
+        ///   Looks up a localized string similar to {0}: This &apos;automationDetails&apos; object does not provide an &apos;id&apos; property. This property is required by the {1} service..
         /// </summary>
         internal static string ADO2010_ProvideAutomationDetailsId_Note_Default_Text {
             get {
@@ -88,7 +97,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}: This &apos;sarifLog&apos; object&apos;s &apos;runs&apos; array contains {1} elements, which exceeds the limit of {2} imposed by GitHub Advanced Security and Azure DevOps Advanced Security..
+        ///   Looks up a localized string similar to {0}: This &apos;sarifLog&apos; object&apos;s &apos;runs&apos; array contains {1} elements, which exceeds the limit of {2} imposed by {3}..
         /// </summary>
         internal static string Base1001_MaximumRunsCount_Note_Default_Text {
             get {

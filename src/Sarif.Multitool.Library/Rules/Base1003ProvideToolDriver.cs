@@ -18,7 +18,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                 // {0}: The 'tool' object in this run does not provide a value.
                 LogResult(
                     runPointer,
-                    nameof(RuleResources.Base1003_ProvideTool_Note_Default_Text));
+                    nameof(RuleResources.Base1003_ProvideTool_Note_Default_Text),
+                    this.ServiceName);
             }
             else
             {
@@ -35,7 +36,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                 // {0}: The 'tool' object in this run does not provide a 'driver' value.
                 LogResult(
                     toolComponentPointer,
-                    nameof(RuleResources.Base1003_ProvideDriver_Note_Default_Text));
+                    nameof(RuleResources.Base1003_ProvideDriver_Note_Default_Text),
+                    this.ServiceName);
             }
             else
             {
@@ -45,12 +47,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 
         private void AnalyzeToolDriver(ToolComponent toolComponent, string toolDriverPointer)
         {
-            if (string.IsNullOrEmpty(toolComponent.Name))
+            if (string.IsNullOrEmpty(toolComponent.FullName))
             {
-                // {0}: The 'tool' object in this run does not provide a 'name' value.
+                // {0}: The 'tool' object in this run does not provide a 'fullName' value.
                 LogResult(
                     toolDriverPointer,
-                    nameof(RuleResources.Base1003_ProvideFullName_Note_Default_Text));
+                    nameof(RuleResources.Base1003_ProvideFullName_Note_Default_Text),
+                    this.ServiceName);
             }
 
             if (toolComponent.Rules == null)
@@ -58,7 +61,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                 // {0}: The 'tool' object in this run does not provide a 'rules' value.
                 LogResult(
                     toolDriverPointer,
-                    nameof(RuleResources.Base1003_ProvideRules_Note_Default_Text));
+                    nameof(RuleResources.Base1003_ProvideRules_Note_Default_Text),
+                    this.ServiceName);
             }
         }
     }

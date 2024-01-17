@@ -16,7 +16,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                 // {0}: The 'results' list in this run does not provide a value.
                 LogResult(
                     runPointer,
-                    nameof(RuleResources.Base1002_ProvideResultsArray_Note_Default_Text));
+                    nameof(RuleResources.Base1002_ProvideResultsArray_Note_Default_Text),
+                    this.ServiceName);
             }
         }
     }
