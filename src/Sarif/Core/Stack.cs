@@ -130,7 +130,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                         {
                             ArtifactLocation = new ArtifactLocation
                             {
-                                Uri = new Uri(fileName)
+                                Uri = new Uri(fileName, UriKind.RelativeOrAbsolute)
                             },
                             Region = new Region
                             {
