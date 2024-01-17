@@ -40,6 +40,16 @@
               "helpUri": "http://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html"
             },
             {
+              "id": "ADO1003",
+              "name": "ADO1003ProvideToolDriver",
+              "helpUri": "http://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html"
+            },
+            {
+              "id": "GHAS1003",
+              "name": "GHAS1003ProvideToolDriver",
+              "helpUri": "http://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html"
+            },
+            {
               "id": "SARIF2005",
               "name": "ProvideToolProperties",
               "fullDescription": {
@@ -130,7 +140,7 @@
               }
             }
           ],
-          "baselineState": "unchanged",
+          "baselineState": "new",
           "properties": {
             "ResultMatching": {}
           }
@@ -158,7 +168,7 @@
               }
             }
           ],
-          "baselineState": "unchanged",
+          "baselineState": "new",
           "properties": {
             "ResultMatching": {}
           }
@@ -186,7 +196,7 @@
               }
             }
           ],
-          "baselineState": "unchanged",
+          "baselineState": "new",
           "properties": {
             "ResultMatching": {}
           }
@@ -214,14 +224,180 @@
               }
             }
           ],
-          "baselineState": "unchanged",
+          "baselineState": "new",
+          "properties": {
+            "ResultMatching": {}
+          }
+        },
+        {
+          "ruleId": "",
+          "ruleIndex": 0,
+          "message": {
+            "id": "Note_Default",
+            "arguments": [
+              "runs[0].tool.driver"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 27,
+                  "startColumn": 19
+                }
+              }
+            }
+          ],
+          "baselineState": "new",
+          "properties": {
+            "ResultMatching": {}
+          }
+        },
+        {
+          "ruleId": "",
+          "ruleIndex": 0,
+          "message": {
+            "id": "Note_Default",
+            "arguments": [
+              "runs[0].tool.driver"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 27,
+                  "startColumn": 19
+                }
+              }
+            }
+          ],
+          "baselineState": "new",
+          "properties": {
+            "ResultMatching": {}
+          }
+        },
+        {
+          "ruleId": "ADO1003",
+          "ruleIndex": 2,
+          "message": {
+            "id": "Note_Default",
+            "arguments": [
+              "runs[0].tool.driver",
+              "Azure DevOps Advanced Security"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 27,
+                  "startColumn": 19
+                }
+              }
+            }
+          ],
+          "baselineState": "new",
+          "properties": {
+            "ResultMatching": {}
+          }
+        },
+        {
+          "ruleId": "ADO1003",
+          "ruleIndex": 2,
+          "message": {
+            "id": "Note_Default",
+            "arguments": [
+              "runs[0].tool.driver",
+              "Azure DevOps Advanced Security"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 27,
+                  "startColumn": 19
+                }
+              }
+            }
+          ],
+          "baselineState": "new",
+          "properties": {
+            "ResultMatching": {}
+          }
+        },
+        {
+          "ruleId": "GHAS1003",
+          "ruleIndex": 3,
+          "message": {
+            "id": "Note_Default",
+            "arguments": [
+              "runs[0].tool.driver",
+              "GitHub Advanced Security"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 27,
+                  "startColumn": 19
+                }
+              }
+            }
+          ],
+          "baselineState": "new",
+          "properties": {
+            "ResultMatching": {}
+          }
+        },
+        {
+          "ruleId": "GHAS1003",
+          "ruleIndex": 3,
+          "message": {
+            "id": "Note_Default",
+            "arguments": [
+              "runs[0].tool.driver",
+              "GitHub Advanced Security"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 27,
+                  "startColumn": 19
+                }
+              }
+            }
+          ],
+          "baselineState": "new",
           "properties": {
             "ResultMatching": {}
           }
         },
         {
           "ruleId": "SARIF2005",
-          "ruleIndex": 2,
+          "ruleIndex": 4,
           "message": {
             "id": "Warning_ProvideToolnformationUri",
             "arguments": [
@@ -242,14 +418,14 @@
               }
             }
           ],
-          "baselineState": "unchanged",
+          "baselineState": "new",
           "properties": {
             "ResultMatching": {}
           }
         },
         {
           "ruleId": "SARIF2005",
-          "ruleIndex": 2,
+          "ruleIndex": 4,
           "message": {
             "id": "Warning_ProvideToolVersion",
             "arguments": [
@@ -271,14 +447,14 @@
               }
             }
           ],
-          "baselineState": "unchanged",
+          "baselineState": "new",
           "properties": {
             "ResultMatching": {}
           }
         },
         {
           "ruleId": "SARIF2012",
-          "ruleIndex": 3,
+          "ruleIndex": 5,
           "level": "note",
           "message": {
             "id": "Note_ProvideMetadataForAllViolatedRules",
@@ -299,7 +475,7 @@
               }
             }
           ],
-          "baselineState": "unchanged",
+          "baselineState": "new",
           "properties": {
             "ResultMatching": {}
           }
