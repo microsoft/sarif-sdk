@@ -2,8 +2,9 @@
 ## UNRELEASED
 * DEP: Remove explicit versioning for `System.Memory` and `System.Runtime.CompilerServices.Unsafe`.
 * DEP: Remove spurious references to `System.Collections.Immutable`.
-* DEP: Update `Microsoft.Data.SqlClient` reference from 2.1.2 to 2.1.7 in `WorkItems` and `Sarif.Multitool.Library` to avoid [CVE-2024-0056](https://github.com/advisories/GHSA-98g6-xh36-x2p7) vulnerability.
-* DEP: Update `System.Data.SqlClient` reference from 4.8.5 to 4.8.6 in `WorkItems` to avoid [CVE-2024-0056](https://github.com/advisories/GHSA-98g6-xh36-x2p7) vulnerability.
+* DEP: Update `Microsoft.Data.SqlClient` reference from 2.1.2 to 2.1.7 in `WorkItems` and `Sarif.Multitool.Library` to resolve [CVE-2024-0056](https://github.com/advisories/GHSA-98g6-xh36-x2p7).
+* DEP: Update `System.Data.SqlClient` reference from 4.8.5 to 4.8.6 in `WorkItems` to resolve [CVE-2024-0056](https://github.com/advisories/GHSA-98g6-xh36-x2p7).
+* BUG: Fix the issue `Stack` object doesn't create corresponding `PhysicalLocation` from stack trace if it contains relative file path.
 * PRF: Change default `max-file-size-in-kb` parameter to 10 megabytes.
 * PRF: Add support for efficiently peeking into non-seekable streams for binary/text categorization.
 
