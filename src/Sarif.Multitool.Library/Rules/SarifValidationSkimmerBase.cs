@@ -38,8 +38,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 
         public virtual RuleKinds Kinds { get; set; }
 
-        public FailureLevel Level { get; set; } = FailureLevel.Warning;
-
         protected SarifValidationContext Context { get; private set; }
 
         protected override sealed ResourceManager ResourceManager => RuleResources.ResourceManager;

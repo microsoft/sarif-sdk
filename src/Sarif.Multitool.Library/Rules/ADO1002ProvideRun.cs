@@ -3,7 +3,8 @@
 
 namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 {
-    public class ADO1002ProvideRun : Base1002ProvideRun
+    public class ADO1002ProvideRun
+        : Base1002ProvideRun
     {
         /// <summary>
         /// ADO1002

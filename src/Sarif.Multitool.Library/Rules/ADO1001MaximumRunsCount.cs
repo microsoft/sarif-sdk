@@ -3,7 +3,8 @@
 
 namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 {
-    public class ADO1001MaximumRunsCount : Base1001MaximumRunsCount
+    public class ADO1001MaximumRunsCount
+        : Base1001MaximumRunsCount
     {
         /// <summary>
         /// ADO1001

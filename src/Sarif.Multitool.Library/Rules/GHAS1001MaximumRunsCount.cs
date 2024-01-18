@@ -3,7 +3,8 @@
 
 namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 {
-    public class GHAS1001MaximumRunsCount : Base1001MaximumRunsCount
+    public class GHAS1001MaximumRunsCount
+        : Base1001MaximumRunsCount
     {
         /// <summary>
         /// GHAS1001
