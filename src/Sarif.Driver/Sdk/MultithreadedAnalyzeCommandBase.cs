@@ -719,8 +719,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             }
         }
 
-        private readonly ConcurrentDictionary<string, CachingLogger> _loggerCache = new ConcurrentDictionary<string, CachingLogger>();
-
         private async Task ScanTargetsAsync(TContext globalContext, IEnumerable<Skimmer<TContext>> skimmers, ISet<string> disabledSkimmers)
         {
             ChannelReader<uint> reader = readyToScanChannel.Reader;

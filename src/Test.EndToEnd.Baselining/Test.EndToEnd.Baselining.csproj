@@ -15,5 +15,7 @@
     <TargetFrameworks>netcoreapp3.1</TargetFrameworks>
     <IsPackable>false</IsPackable>
     <RootNamespace>Test.EndToEnd.Baselining</RootNamespace>
+    <SuppressTfmSupportBuildWarnings>true</SuppressTfmSupportBuildWarnings>
+    <CheckEolTargetFramework>false</CheckEolTargetFramework>
   </PropertyGroup>
 </Project>

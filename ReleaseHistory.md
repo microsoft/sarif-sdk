@@ -1,11 +1,21 @@
 # SARIF Package Release History (SDK, Driver, Converters, and Multitool)
+## UNRELEASED
+* DEP: Remove explicit versioning for `System.Memory` and `System.Runtime.CompilerServices.Unsafe`.
+* DEP: Remove spurious references to `System.Collections.Immutable`.
+* DEP: Update `Microsoft.Data.SqlClient` reference from 2.1.2 to 2.1.7 in `WorkItems` and `Sarif.Multitool.Library` to resolve [CVE-2024-0056](https://github.com/advisories/GHSA-98g6-xh36-x2p7).
+* DEP: Update `System.Data.SqlClient` reference from 4.8.5 to 4.8.6 in `WorkItems` to resolve [CVE-2024-0056](https://github.com/advisories/GHSA-98g6-xh36-x2p7).
+* BUG: Update `Stack.Create` method to populate missing `PhysicalLocation` instances when stack frames reference relative file paths.
+* PRF: Change default `max-file-size-in-kb` parameter to 10 megabytes.
+* PRF: Add support for efficiently peeking into non-seekable streams for binary/text categorization.
 
 ## **v4.4.1 UNRELEASED
+* DEP: Update reference to `System.Collections.Immutable` 5.0.0 for `Sarif` and `Sarif.Converters`.
 * BUG: Emit `WRN997.OneOrMoreFilesSkippedDueToExceedingSizeLimit` when no valid analysis targets are detected (due to exceeding size limits).
+* BUG: Emit `FailureLevel.Note` messages with label `info` (rather than `fail`) in `ConsoleLogger`.
 
 ## **v4.4.0 [Sdk](https://www.nuget.org/packages/Sarif.Sdk/v4.4.0) | [Driver](https://www.nuget.org/packages/Sarif.Driver/v4.4.0) | [Converters](https://www.nuget.org/packages/Sarif.Converters/v4.4.0)  | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/v4.4.0) | [Multitool Library](https://www.nuget.org/packages/Sarif.Multitool.Library/v4.4.0)
-* DEP: Add reference to `System.Text.Encoding.CodePages` v8.0.0 (to support Windows 1252 code pages in binary vs. text classification).
-* DEP: Update `Newtonsoft.Json` reference from 8.0.3 to v9.0.1 to provide `net462` compatibility.
+* DEP: Add reference to `System.Text.Encoding.CodePages` 8.0.0 (to support Windows 1252 code pages in binary vs. text classification).
+* DEP: Update `Newtonsoft.Json` reference from 8.0.3 to 9.0.1 to provide `net462` compatibility.
 * DEP: Update target framework from `net461` to `net462` in `Sarif` `Sarif.Converters` projects (to allow for use of `System.Text.Encoding.CodePages`).
 * DEP: Explicitly add `Azure.Identity` 1.10.2 in `Sarif.Multitool.Library` and `WorkItems` to avoid the vulnerable 1.3.0 package via `Microsoft.Azure.Kusto.Data` 10.0.3 per compliance requirements.
 * DEP: Explicitly add `Microsoft.Data.SqlClient` 2.1.2 in `Sarif.Multitool.Library` and `WorkItems` to avoid the vulnerable 2.1.1 package via `Microsoft.Azure.Kusto.Data` 10.0.3 per compliance requirements.

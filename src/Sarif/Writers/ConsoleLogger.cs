@@ -10,9 +10,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 {
     public class ConsoleLogger : BaseLogger, IAnalysisLogger
     {
-        //  TODO:  We directly instantiate this logger in two classes, creating 
-        //  unamanged dependencies.  Fix this pattern with dependency injection or a factory.
-        //  #2272 https://github.com/microsoft/sarif-sdk/issues/2272
         public ConsoleLogger(bool quietConsole, string toolName, FailureLevelSet levels = null, ResultKindSet kinds = null) : base(levels, kinds)
         {
             _quietConsole = quietConsole;
@@ -125,7 +122,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             WriteLineToConsole(GetMessageText(_toolName, physicalLocation?.ArtifactLocation?.Uri, physicalLocation?.Region, result.RuleId, message, result.Kind, result.Level));
         }
 
-        private static string GetMessageText(
+        public static string GetMessageText(
             string toolName,
             Uri uri,
             Region region,
@@ -155,7 +152,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 case FailureLevel.None:
                     issueType = kind.ToString().ToLowerInvariant();
                     // Shorten to 'info' for compatibility with previous behavior.
-                    if (issueType == "informational") { issueType = "info"; }
+                    if (issueType == "informational" || issueType == "fail") { issueType = "info"; }
                     break;
 
                 default:
