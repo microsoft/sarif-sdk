@@ -3,8 +3,8 @@
 
 namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 {
-    public class GHAS1003ProvideToolDriver
-        : Base1003ProvideToolDriver
+    public class GhasProvideToolDriver
+        : BaseProvideToolDriver
     {
         /// <summary>
         /// GHAS1003
@@ -14,6 +14,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         public override RuleKinds Kinds => RuleKinds.Ado;
 
         protected override string ServiceName => RuleResources.ServiceName_GHAS;
+
+        public GhasProvideToolDriver()
+        {
+            this.DefaultConfiguration.Level = FailureLevel.Error;
+        }
 
         protected override void Analyze(Run run, string runPointer)
         {

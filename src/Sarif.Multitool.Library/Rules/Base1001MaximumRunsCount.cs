@@ -3,7 +3,7 @@
 
 namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 {
-    public class Base1001MaximumRunsCount
+    public class BaseMaximumRunsCount
         : SarifValidationSkimmerBase
     {
         public override string Id => string.Empty;

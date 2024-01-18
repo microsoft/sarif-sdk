@@ -3,8 +3,8 @@
 
 namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 {
-    public class ADO1001MaximumRunsCount
-        : Base1001MaximumRunsCount
+    public class AdoMaximumRunsCount
+        : BaseMaximumRunsCount
     {
         /// <summary>
         /// ADO1001
@@ -14,6 +14,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         protected override string ServiceName => RuleResources.ServiceName_ADO;
 
         public override int MaximumRuns => 20;
+
+        public AdoMaximumRunsCount()
+        {
+            this.DefaultConfiguration.Level = FailureLevel.Error;
+        }
 
         protected override void Analyze(SarifLog sarifLog, string runPointer)
         {

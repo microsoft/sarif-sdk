@@ -3,8 +3,8 @@
 
 namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 {
-    public class ADO1003ProvideToolDriver
-        : Base1003ProvideToolDriver
+    public class AdoProvideToolDriver
+        : BaseProvideToolDriver
     {
         /// <summary>
         /// ADO1003
@@ -14,6 +14,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         public override RuleKinds Kinds => RuleKinds.Ado;
 
         protected override string ServiceName => RuleResources.ServiceName_ADO;
+
+        public AdoProvideToolDriver()
+        {
+            this.DefaultConfiguration.Level = FailureLevel.Error;
+        }
 
         protected override void Analyze(Run run, string runPointer)
         {

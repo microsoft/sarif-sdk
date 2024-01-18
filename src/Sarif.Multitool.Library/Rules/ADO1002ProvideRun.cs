@@ -3,8 +3,8 @@
 
 namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 {
-    public class ADO1002ProvideRun
-        : Base1002ProvideRun
+    public class AdoProvideRun
+        : BaseProvideRun
     {
         /// <summary>
         /// ADO1002
@@ -12,6 +12,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         public override string Id => RuleId.ADOProvideRunProperties;
 
         protected override string ServiceName => RuleResources.ServiceName_ADO;
+
+        public AdoProvideRun()
+        {
+            this.DefaultConfiguration.Level = FailureLevel.Error;
+        }
 
         protected override void Analyze(Run run, string runPointer)
         {

@@ -5,7 +5,7 @@ using Microsoft.Json.Pointer;
 
 namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 {
-    public class Base1003ProvideToolDriver
+    public class BaseProvideToolDriver
         : SarifValidationSkimmerBase
     {
         public override string Id => string.Empty;

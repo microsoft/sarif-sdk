@@ -3,7 +3,7 @@
 
 namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 {
-    public class Base1002ProvideRun
+    public class BaseProvideRun
         : SarifValidationSkimmerBase
     {
         public override string Id => string.Empty;
