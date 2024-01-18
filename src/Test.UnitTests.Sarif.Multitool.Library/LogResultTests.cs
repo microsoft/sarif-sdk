@@ -23,7 +23,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         [Fact]
         public void LogResult_ADO1003()
         {
-            var rule = new Microsoft.CodeAnalysis.Sarif.Multitool.Rules.ADO1003ProvideToolDriver();
+            var rule = new Rules.AdoProvideToolDriver();
             //// Here's the space:
             //string LogFileDirectoryWithSpace =
             //    Path.Combine(Directory.GetCurrentDirectory(), "directory name with space", "sub directory name with space");
