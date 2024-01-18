@@ -16,7 +16,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 
         protected override void Analyze(Run run, string runPointer)
         {
-            /// run.tool is chcked by the base class.
+            // run.tool is chcked by the base class.
             base.Analyze(run, runPointer);
         }
     }

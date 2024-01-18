@@ -47,7 +47,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 
         private void AnalyzeToolDriver(ToolComponent toolComponent, string toolDriverPointer)
         {
-            if (string.IsNullOrEmpty(toolComponent.FullName))
+            if (string.IsNullOrWhiteSpace(toolComponent.FullName))
             {
                 // {0}: The 'tool' object in this run does not provide a 'fullName' value.
                 LogResult(
