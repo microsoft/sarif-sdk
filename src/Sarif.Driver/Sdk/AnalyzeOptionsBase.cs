@@ -134,6 +134,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         public long? MaxFileSizeInKilobytes { get; set; }
 
         [Option(
+            "timeout-in-millisecond",
+            HelpText = "A timeout value expressed in milliseconds.")]
+        public int? TimeoutInMilliseconds { get; set; }
+
+        [Option(
             "deny-regex",
             HelpText = "A regular expression used to suppress scanning for any file or directory path that matches the regex.")]
         public string GlobalFilePathDenyRegex { get; set; }
