@@ -97,10 +97,12 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             if (!ShouldSendLog(sarifLog))
             {
+                Console.WriteLine($"Posting of the log file to {postUri} was skipped because the result is empty.");
                 return false;
             }
 
             await Post(postUri, new MemoryStream(fileBytes), httpClient);
+            Console.WriteLine($"Posted log file successfully to: {postUri}");
             return true;
         }
 

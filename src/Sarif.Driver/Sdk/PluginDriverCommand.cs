@@ -236,18 +236,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             {
                 using (var httpClient = new HttpClient())
                 {
-                    bool logFilePosted = PostLogFile(globalContext.PostUri, globalContext.OutputFilePath, globalContext.FileSystem, httpClient)
+                    PostLogFile(globalContext.PostUri, globalContext.OutputFilePath, globalContext.FileSystem, httpClient)
                         .GetAwaiter()
                         .GetResult();
-
-                    if (logFilePosted)
-                    {
-                        Console.WriteLine($"Posted log file successfully to: {globalContext.PostUri}");
-                    }
-                    else
-                    {
-                        Console.WriteLine($"Posting of the log file to {globalContext.PostUri} was skipped because the result is empty.");
-                    }
                 }
             }
             catch (Exception ex)
@@ -261,14 +252,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             }
         }
 
-        internal static async Task<bool> PostLogFile(string postUri, string outputFilePath, IFileSystem fileSystem, HttpClient httpClient)
+        internal static async Task PostLogFile(string postUri, string outputFilePath, IFileSystem fileSystem, HttpClient httpClient)
         {
             if (string.IsNullOrWhiteSpace(postUri))
             {
-                return false;
+                return;
             }
 
-            return await SarifLog.Post(new Uri(postUri), outputFilePath, fileSystem, httpClient);
+            await SarifLog.Post(new Uri(postUri), outputFilePath, fileSystem, httpClient);
         }
     }
 }
