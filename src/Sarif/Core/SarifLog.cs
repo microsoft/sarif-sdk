@@ -76,7 +76,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="filePath"></param>
         /// <param name="fileSystem"></param>
         /// <param name="httpClient"></param>
-        /// <returns>If the SarifLog has been posted</returns>
+        /// <returns>If the SarifLog has been posted.</returns>
         public static async Task<bool> Post(Uri postUri,
                                       string filePath,
                                       IFileSystem fileSystem,

@@ -373,7 +373,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                     Errors.LogErrorPostingLogFile(globalContext, globalContext.PostUri);
                     globalContext.PostUri = null;
                     succeeded = false;
-                    globalContext.RuntimeErrors |= RuntimeConditions.ExceptionPostingLogFile;
                     globalContext.RuntimeExceptions ??= new List<Exception>();
                     globalContext.RuntimeExceptions.Add(e);
                 }
