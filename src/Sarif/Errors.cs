@@ -709,7 +709,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             context.RuntimeErrors |= RuntimeConditions.ExceptionPostingLogFile;
 
             // Could not post to the URI specified on the command line: '{0}'.
-            context.Logger.LogConfigurationNotification(
+            context.Logger.LogToolNotification(
                 CreateNotification(
                     uri: null,
                     ERR997_ErrorPostingLogFile,
