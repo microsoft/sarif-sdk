@@ -93,15 +93,14 @@ namespace Microsoft.CodeAnalysis.Sarif
             }
 
             byte[] fileBytes = fileSystem.FileReadAllBytes(filePath);
-            using var memoryStream = new MemoryStream(fileBytes);
-            SarifLog sarifLog = Load(memoryStream);
+            SarifLog sarifLog = Load(new MemoryStream(fileBytes));
 
             if (!ShouldSendLog(sarifLog))
             {
                 return false;
             }
 
-            await Post(postUri, memoryStream, httpClient);
+            await Post(postUri, new MemoryStream(fileBytes), httpClient);
             return true;
         }
 

@@ -252,8 +252,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             if ((globalContext.RuntimeErrors & ~RuntimeConditions.Nonfatal) == RuntimeConditions.None)
             {
                 ProcessBaseline(globalContext);
-                PostLogFile(globalContext);
             }
+
+            // Even if there are fatal errors, if the log file is generated, we can upload it with the ToolExecutionNotifications.
+            PostLogFile(globalContext);
 
             globalContext.Logger = null;
             succeeded = (globalContext.RuntimeErrors & ~RuntimeConditions.Nonfatal) == RuntimeConditions.None;
