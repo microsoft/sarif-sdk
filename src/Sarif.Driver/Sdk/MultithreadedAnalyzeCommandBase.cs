@@ -361,12 +361,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                     if (httpResponseMessage.StatusCode != HttpStatusCode.InternalServerError &&
                         httpResponseMessage.StatusCode != (HttpStatusCode)422)
                     {
+                        Errors.LogErrorPostingLogFile(globalContext, globalContext.PostUri);
                         globalContext.PostUri = null;
                         succeeded = false;
                     }
                 }
                 catch (Exception e)
                 {
+                    Errors.LogErrorPostingLogFile(globalContext, globalContext.PostUri);
                     globalContext.PostUri = null;
                     succeeded = false;
                     globalContext.RuntimeErrors |= RuntimeConditions.ExceptionPostingLogFile;

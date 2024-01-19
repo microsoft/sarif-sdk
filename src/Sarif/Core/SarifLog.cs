@@ -76,7 +76,8 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="filePath"></param>
         /// <param name="fileSystem"></param>
         /// <param name="httpClient"></param>
-        public static async Task Post(Uri postUri,
+        /// <returns>If the SarifLog has been posted</returns>
+        public static async Task<bool> Post(Uri postUri,
                                       string filePath,
                                       IFileSystem fileSystem,
                                       HttpClient httpClient)
@@ -91,8 +92,17 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentException($"File path does not exist: '{filePath}'", nameof(filePath));
             }
 
-            using Stream fileStream = fileSystem.FileOpenRead(filePath);
-            await Post(postUri, fileStream, httpClient);
+            byte[] fileBytes = fileSystem.FileReadAllBytes(filePath);
+            using var memoryStream = new MemoryStream(fileBytes);
+            SarifLog sarifLog = Load(memoryStream);
+
+            if (!ShouldSendLog(sarifLog))
+            {
+                return false;
+            }
+
+            await Post(postUri, memoryStream, httpClient);
+            return true;
         }
 
         /// <summary>
@@ -236,6 +246,50 @@ namespace Microsoft.CodeAnalysis.Sarif
                     localCache[rule.Id] = rule.DefaultConfiguration.Level;
                 }
             }
+        }
+
+        internal static bool ShouldSendLog(SarifLog sarifLog)
+        {
+            if (sarifLog?.Runs?.Count > 0)
+            {
+                foreach (Run run in sarifLog.Runs)
+                {
+                    if (run.Results?.Count > 0)
+                    {
+                        return true;
+                    }
+
+                    if (run.Invocations?.Count > 0)
+                    {
+                        foreach (Invocation invocation in run.Invocations)
+                        {
+                            if (invocation.ToolConfigurationNotifications?.Count > 0)
+                            {
+                                foreach (Notification notification in invocation.ToolConfigurationNotifications)
+                                {
+                                    if (notification.Level == FailureLevel.Error)
+                                    {
+                                        return true;
+                                    }
+                                }
+                            }
+
+                            if (invocation.ToolExecutionNotifications?.Count > 0)
+                            {
+                                foreach (Notification notification in invocation.ToolExecutionNotifications)
+                                {
+                                    if (notification.Level == FailureLevel.Error)
+                                    {
+                                        return true;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            return false;
         }
     }
 }
