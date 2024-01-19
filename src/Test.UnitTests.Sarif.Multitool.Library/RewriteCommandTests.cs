@@ -117,7 +117,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                         Driver = new ToolComponent
                         {
                             FullName = "TestTool-1.0.0",
-                            Name = "TestTool"
+                            Name = "TestTool",
+                            Rules = new List<ReportingDescriptor>() { new ReportingDescriptor() { Id = "JS1001" } }
                         }
                     },
                     Results = new List<Result>(),

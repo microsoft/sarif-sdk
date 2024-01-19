@@ -10,7 +10,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 
         public override MultiformatMessageString FullDescription => new MultiformatMessageString();
 
-        public virtual int MaximumRuns { get; set; }
+        public virtual int MaximumRuns { get; set; } = int.MaxValue;
 
         protected override void Analyze(SarifLog sarifLog, string runPointer)
         {

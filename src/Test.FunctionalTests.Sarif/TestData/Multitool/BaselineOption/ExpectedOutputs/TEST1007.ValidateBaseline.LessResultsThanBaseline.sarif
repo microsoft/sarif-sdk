@@ -69,12 +69,18 @@
             },
             {
               "id": "ADO1003",
-              "name": "ADO1003ProvideToolDriver",
+              "name": "AdoProvideToolDriver",
+              "defaultConfiguration": {
+                "level": "error"
+              },
               "helpUri": "http://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html"
             },
             {
               "id": "GHAS1003",
-              "name": "GHAS1003ProvideToolDriver",
+              "name": "GhasProvideToolDriver",
+              "defaultConfiguration": {
+                "level": "error"
+              },
               "helpUri": "http://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html"
             },
             {
@@ -270,7 +276,8 @@
           "message": {
             "id": "Note_Default",
             "arguments": [
-              "runs[0].tool.driver"
+              "runs[0].tool.driver",
+              null
             ]
           },
           "locations": [
@@ -297,7 +304,8 @@
           "message": {
             "id": "Note_Default",
             "arguments": [
-              "runs[0].tool.driver"
+              "runs[0].tool.driver",
+              null
             ]
           },
           "locations": [
@@ -321,10 +329,12 @@
         {
           "ruleId": "ADO1003",
           "ruleIndex": 3,
+          "level": "error",
           "message": {
             "id": "Note_Default",
             "arguments": [
               "runs[0].tool.driver",
+              "Azure DevOps Advanced Security",
               "Azure DevOps Advanced Security"
             ]
           },
@@ -349,10 +359,12 @@
         {
           "ruleId": "ADO1003",
           "ruleIndex": 3,
+          "level": "error",
           "message": {
             "id": "Note_Default",
             "arguments": [
               "runs[0].tool.driver",
+              "Azure DevOps Advanced Security",
               "Azure DevOps Advanced Security"
             ]
           },
@@ -377,10 +389,12 @@
         {
           "ruleId": "GHAS1003",
           "ruleIndex": 4,
+          "level": "error",
           "message": {
             "id": "Note_Default",
             "arguments": [
               "runs[0].tool.driver",
+              "GitHub Advanced Security",
               "GitHub Advanced Security"
             ]
           },
@@ -405,10 +419,12 @@
         {
           "ruleId": "GHAS1003",
           "ruleIndex": 4,
+          "level": "error",
           "message": {
             "id": "Note_Default",
             "arguments": [
               "runs[0].tool.driver",
+              "GitHub Advanced Security",
               "GitHub Advanced Security"
             ]
           },
