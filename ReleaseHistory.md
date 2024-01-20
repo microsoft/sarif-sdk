@@ -1,5 +1,6 @@
 # SARIF Package Release History (SDK, Driver, Converters, and Multitool)
 ## UNRELEASED
+* DEP: Downgrade `System.Text.Encoding.CodePages` from 8.0.0 to 4.3.0 in `Sarif`.
 * DEP: Remove explicit versioning for `System.Memory` and `System.Runtime.CompilerServices.Unsafe`.
 * DEP: Remove spurious references to `System.Collections.Immutable`.
 * DEP: Update `Microsoft.Data.SqlClient` reference from 2.1.2 to 2.1.7 in `WorkItems` and `Sarif.Multitool.Library` to resolve [CVE-2024-0056](https://github.com/advisories/GHSA-98g6-xh36-x2p7).
