@@ -309,7 +309,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             context.PluginFilePaths = options.PluginFilePaths?.Any() == true ? options.PluginFilePaths?.ToImmutableHashSet() : context.PluginFilePaths;
             context.InsertProperties = options.InsertProperties?.Any() == true ? InitializeStringSet(options.InsertProperties) : context.InsertProperties;
             context.MaxFileSizeInKilobytes = options.MaxFileSizeInKilobytes != null ? options.MaxFileSizeInKilobytes.Value : context.MaxFileSizeInKilobytes;
-            context.TimeoutInMilliseconds = options.TimeoutInMilliseconds != null ? Math.Max(options.TimeoutInMilliseconds.Value, 0) : context.TimeoutInMilliseconds;
+            context.TimeoutInMilliseconds = options.TimeoutInSeconds != null ? Math.Max(options.TimeoutInSeconds.Value * 1000, 0) : context.TimeoutInMilliseconds;
             context.TargetFileSpecifiers = options.TargetFileSpecifiers?.Any() == true ? InitializeStringSet(options.TargetFileSpecifiers) : context.TargetFileSpecifiers;
             context.InvocationPropertiesToLog = options.InvocationPropertiesToLog?.Any() == true ? InitializeStringSet(options.InvocationPropertiesToLog) : context.InvocationPropertiesToLog;
 

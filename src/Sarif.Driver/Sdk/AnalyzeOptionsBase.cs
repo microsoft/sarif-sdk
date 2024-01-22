@@ -134,9 +134,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         public long? MaxFileSizeInKilobytes { get; set; }
 
         [Option(
-            "timeout-in-millisecond",
-            HelpText = "A timeout value expressed in milliseconds.")]
-        public int? TimeoutInMilliseconds { get; set; }
+            "timeout-in-seconds",
+            HelpText = "A timeout value expressed in seconds.")]
+        public int? TimeoutInSeconds { get; set; }
 
         [Option(
             "deny-regex",

@@ -148,7 +148,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             {
                 Kind = new[] { optionsKind, ResultKind.Fail },
                 Level = new[] { optionsLevel },
-                TimeoutInMilliseconds = 60000,
+                TimeoutInSeconds = 60,
             };
 
             var context = new TestAnalysisContext()
