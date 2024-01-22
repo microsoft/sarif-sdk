@@ -297,29 +297,6 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests.Core
                                     httpClient: new HttpClient(httpMock));
             logPosted.Should().BeTrue("with results");
 
-            steam = (MemoryStream)CreateSarifLogStreamWithToolConfigurationNotifications(FailureLevel.Error);
-            fileSystem
-                .Setup(f => f.FileReadAllBytes(It.IsAny<string>()))
-                .Returns(steam.ToArray());
-            httpMock.Mock(HttpMockHelper.CreateOKResponse());
-            logPosted = await SarifLog.Post(postUri: postUri,
-                                    filePath,
-                                    fileSystem.Object,
-                                    httpClient: new HttpClient(httpMock));
-            logPosted.Should().BeTrue("with error level ToolConfigurationNotifications");
-
-            steam = (MemoryStream)CreateSarifLogStreamWithToolConfigurationNotifications(FailureLevel.Warning);
-            fileSystem
-                .Setup(f => f.FileReadAllBytes(It.IsAny<string>()))
-                .Returns(steam.ToArray());
-            httpMock.Mock(HttpMockHelper.CreateOKResponse());
-            logPosted = await SarifLog.Post(postUri: postUri,
-                                    filePath,
-                                    fileSystem.Object,
-                                    httpClient: new HttpClient(httpMock));
-            logPosted.Should().BeFalse("with warning level ToolConfigurationNotifications");
-
-
             steam = (MemoryStream)CreateSarifLogStreamWithToolExecutionNotifications(FailureLevel.Error);
             fileSystem
                 .Setup(f => f.FileReadAllBytes(It.IsAny<string>()))
@@ -331,7 +308,7 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests.Core
                                     httpClient: new HttpClient(httpMock));
             logPosted.Should().BeTrue("with error level ToolExecutionNotifications");
 
-            steam = (MemoryStream)CreateSarifLogStreamWithToolExecutionNotifications(FailureLevel.Note);
+            steam = (MemoryStream)CreateSarifLogStreamWithToolExecutionNotifications(FailureLevel.Warning);
             fileSystem
                 .Setup(f => f.FileReadAllBytes(It.IsAny<string>()))
                 .Returns(steam.ToArray());
@@ -340,7 +317,7 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests.Core
                                     filePath,
                                     fileSystem.Object,
                                     httpClient: new HttpClient(httpMock));
-            logPosted.Should().BeFalse("with note level ToolExecutionNotifications");
+            logPosted.Should().BeFalse("with warning level ToolExecutionNotifications");
         }
 
         [Fact]
@@ -357,7 +334,6 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests.Core
 
             newSarifLog.Should().BeEquivalentTo(sarifLog);
         }
-
 
         [Fact]
         public void SarifLog_SaveToStreamWriterRoundtrips()

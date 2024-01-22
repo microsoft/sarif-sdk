@@ -8,7 +8,7 @@
 * BUG: Update `Stack.Create` method to populate missing `PhysicalLocation` instances when stack frames reference relative file paths.
 * PRF: Change default `max-file-size-in-kb` parameter to 10 megabytes.
 * PRF: Add support for efficiently peeking into non-seekable streams for binary/text categorization.
-* NEW: Command-line argument `--post-uri` will now skip file posting step if the result is empty.
+* NEW: `--post-uri` will skip sending the SARIF log to the configured endpoint if the file contains no results or fatal execution errors.
 
 ## **v4.4.1 UNRELEASED
 * DEP: Update reference to `System.Collections.Immutable` 5.0.0 for `Sarif` and `Sarif.Converters`.

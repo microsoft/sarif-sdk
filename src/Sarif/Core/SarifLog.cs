@@ -97,7 +97,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             if (!ShouldSendLog(sarifLog))
             {
-                Console.WriteLine($"Posting of the log file to {postUri} was skipped because the result is empty.");
+                Console.WriteLine($"Post of log file to {postUri} was skipped because the log contains no results.");
                 return false;
             }
 
@@ -264,17 +264,6 @@ namespace Microsoft.CodeAnalysis.Sarif
                     {
                         foreach (Invocation invocation in run.Invocations)
                         {
-                            if (invocation.ToolConfigurationNotifications?.Count > 0)
-                            {
-                                foreach (Notification notification in invocation.ToolConfigurationNotifications)
-                                {
-                                    if (notification.Level == FailureLevel.Error)
-                                    {
-                                        return true;
-                                    }
-                                }
-                            }
-
                             if (invocation.ToolExecutionNotifications?.Count > 0)
                             {
                                 foreach (Notification notification in invocation.ToolExecutionNotifications)
