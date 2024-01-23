@@ -18,6 +18,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         private readonly Uri uri;
         private string contents;
         private byte[] bytes;
+        private Stream stream;
 
         public ZipArchiveArtifact(ZipArchive archive, ZipArchiveEntry entry, ISet<string> binaryExtensions = null)
         {
@@ -50,10 +51,16 @@ namespace Microsoft.CodeAnalysis.Sarif
 
                 lock (this.archive)
                 {
-                    return entry.Open();
+                    this.stream = entry.Open();
                 }
+
+                return this.Stream;
             }
-            set => throw new NotImplementedException();
+
+            set
+            {
+                this.Stream = value;
+            }
         }
 
         /// <summary>
