@@ -89,48 +89,65 @@ namespace Microsoft.CodeAnalysis.Sarif
                 this.Stream = FileSystem.FileOpenRead(Uri.LocalPath);
             }
 
-            RetrieveDataFromStream();
+            RetrieveDataFromStream(this);
 
             this.Stream = null;
 
             return (this.contents, this.bytes);
         }
 
-        private void RetrieveDataFromStream()
+        internal static void RetrieveDataFromStream(IEnumeratedArtifact artifact)
         {
-            if (!this.Stream.CanSeek)
+            if (!artifact.Stream.CanSeek)
             {
-                this.Stream = new PeekableStream(this.Stream, BinarySniffingHeaderSizeBytes);
+                artifact.Stream = new PeekableStream(artifact.Stream, BinarySniffingHeaderSizeBytes);
             }
 
             byte[] header = new byte[BinarySniffingHeaderSizeBytes];
-            int length = this.Stream.Read(header, 0, header.Length);
+            int length = artifact.Stream.Read(header, 0, header.Length);
             bool isText = FileEncoding.IsTextualData(header, 0, length);
 
-            TryRewindStream();
+            TryRewindStream(artifact);
 
             if (isText)
             {
-                using var contentReader = new StreamReader(Stream);
-                this.contents = contentReader.ReadToEnd();
+                using var contentReader = new StreamReader(artifact.Stream);
+                artifact.Contents = contentReader.ReadToEnd();
             }
             else
             {
-                this.bytes = new byte[Stream.Length];
-                var memoryStream = new MemoryStream(this.bytes);
-                this.Stream.CopyTo(memoryStream);
+                long? artifactSizeHint = artifact.SizeInBytes.Value;
+                byte[] buffer = new byte[artifactSizeHint ?? 2 * 1024];
+
+                var memoryStream = new MemoryStream(buffer);
+                artifact.Stream.CopyTo(memoryStream);
+
+                byte[] memStreamBuffer = memoryStream.GetBuffer();
+                if (memStreamBuffer.Length == memoryStream.Length)
+                {
+                    // The goal with the hint is to get a memory stream whose underlying buffer is sized exactly correctly.
+                    artifact.Bytes = memStreamBuffer;
+                }
+                else
+                {
+                    // If the hint failed us, we have to take a copy to align the buffer.
+                    byte[] newBuffer = new byte[memoryStream.Length];
+                    memoryStream.Seek(0, SeekOrigin.Begin);
+                    memoryStream.Read(newBuffer, 0, (int)(memoryStream.Length));
+                    artifact.Bytes = newBuffer;
+                }
             }
         }
 
-        private void TryRewindStream()
+        private static void TryRewindStream(IEnumeratedArtifact artifact)
         {
-            if (this.Stream.CanSeek)
+            if (artifact.Stream.CanSeek)
             {
-                this.Stream.Seek(0, SeekOrigin.Begin);
+                artifact.Stream.Seek(0, SeekOrigin.Begin);
             }
             else
             {
-                var peekable = this.Stream as PeekableStream;
+                var peekable = artifact.Stream as PeekableStream;
                 if (peekable != null)
                 {
                     peekable.Rewind();

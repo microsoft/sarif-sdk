@@ -74,13 +74,13 @@ namespace Microsoft.CodeAnalysis.Sarif
         public string Contents
         {
             get => GetArtifactData().text;
-            set => throw new NotImplementedException();
+            set => this.contents = value;
         }
 
         public byte[] Bytes
         {
             get => GetArtifactData().bytes;
-            set => throw new NotImplementedException();
+            set => this.bytes = value;
         }
 
         private (string text, byte[] bytes) GetArtifactData()
@@ -91,35 +91,11 @@ namespace Microsoft.CodeAnalysis.Sarif
                 {
                     if (this.contents == null && this.bytes == null)
                     {
-                        string extension = Path.GetExtension(Uri.ToString());
-                        if (this.binaryExtensions.Contains(extension))
-                        {
-                            // The underlying System.IO.Compression.DeflateStream throws on reads to get_Length.
-                            using var ms = new MemoryStream((int)SizeInBytes.Value);
-                            this.Stream.CopyTo(ms);
-
-                            byte[] memStreamBuffer = ms.GetBuffer();
-                            if (memStreamBuffer.Length == ms.Position)
-                            {
-                                // We might have succeeded in exactly sizing the MemoryStream.  In that case, we can just use it.
-                                this.bytes = memStreamBuffer;
-                            }
-                            else
-                            {
-                                // No luck.  Have to take a copy to align the buffers.
-                                ms.Position = 0;
-                                this.bytes = new byte[ms.Length];
-
-                                ms.Read(this.bytes, 0, this.bytes.Length);
-                            }
-                        }
-                        else
-                        {
-                            this.contents = new StreamReader(Stream).ReadToEnd();
-                        }
+                        EnumeratedArtifact.RetrieveDataFromStream(this);
                     }
+
+                    this.entry = null;
                 }
-                this.entry = null;
             }
 
             return (this.contents, this.bytes);
