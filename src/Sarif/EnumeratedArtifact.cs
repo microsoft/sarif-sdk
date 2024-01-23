@@ -117,9 +117,8 @@ namespace Microsoft.CodeAnalysis.Sarif
             else
             {
                 long? artifactSizeHint = artifact.SizeInBytes.Value;
-                byte[] buffer = new byte[artifactSizeHint ?? 2 * 1024];
 
-                var memoryStream = new MemoryStream(buffer);
+                var memoryStream = new MemoryStream(artifactSizeHint == null ? 2 * 1024 : (int)artifactSizeHint.Value);
                 artifact.Stream.CopyTo(memoryStream);
 
                 byte[] memStreamBuffer = memoryStream.GetBuffer();
