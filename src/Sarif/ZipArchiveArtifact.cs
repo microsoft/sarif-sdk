@@ -30,6 +30,15 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         public Uri Uri => this.uri;
 
+        public bool IsBinary
+        {
+            get
+            {
+                string extension = Path.GetExtension(Uri.ToString());
+                return this.binaryExtensions.Contains(extension);
+            }
+        }
+
         public Stream Stream
         {
             get
