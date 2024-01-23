@@ -52,7 +52,6 @@ namespace Microsoft.CodeAnalysis.Sarif
                 return underlyingStream.Read(buffer, offset, count);
             }
 
-
             // This code relies upon delivering partial reads for correctness.  Let's say the caller knows the stream length is 1 MB,
             // and we have a 1 KB peekability window/buffer.  If they do a read with count=1000000, we will return a 1 KB read.
             // Afterwards, cursor will be exactly equal to buffer.Length.  A second count=1MB Read() would detect that, transition
