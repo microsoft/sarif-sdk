@@ -34,8 +34,8 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             get
             {
-                string extension = Path.GetExtension(Uri.ToString());
-                return this.binaryExtensions.Contains(extension);
+                GetArtifactData();
+                return this.bytes != null;
             }
         }
 
@@ -91,8 +91,20 @@ namespace Microsoft.CodeAnalysis.Sarif
                 {
                     if (this.contents == null && this.bytes == null)
                     {
-                        string extension = Path.GetExtension(Uri.ToString());
-                        if (this.binaryExtensions.Contains(extension))
+                        const int PeekWindowBytes = 1024;
+                        var peekable = new PeekableStream(this.Stream, PeekWindowBytes);
+
+                        byte[] header = new byte[PeekWindowBytes];
+                        int length = this.Stream.Read(header, 0, header.Length);
+                        bool isText = FileEncoding.IsTextualData(header, 0, length);
+
+                        peekable.Rewind();
+
+                        if (isText)
+                        {
+                            this.contents = new StreamReader(Stream).ReadToEnd();
+                        }
+                        else
                         {
                             // The underlying System.IO.Compression.DeflateStream throws on reads to get_Length.
                             using var ms = new MemoryStream((int)SizeInBytes.Value);
@@ -113,12 +125,9 @@ namespace Microsoft.CodeAnalysis.Sarif
                                 ms.Read(this.bytes, 0, this.bytes.Length);
                             }
                         }
-                        else
-                        {
-                            this.contents = new StreamReader(Stream).ReadToEnd();
-                        }
                     }
                 }
+
                 this.entry = null;
             }
 
