@@ -94,8 +94,24 @@ namespace Microsoft.CodeAnalysis.Sarif
                         string extension = Path.GetExtension(Uri.ToString());
                         if (this.binaryExtensions.Contains(extension))
                         {
-                            this.bytes = new byte[Stream.Length];
-                            Stream.Read(this.bytes, 0, this.bytes.Length);
+                            // The underlying System.IO.Compression.DeflateStream throws on reads to get_Length.
+                            using var ms = new MemoryStream((int)SizeInBytes.Value);
+                            this.Stream.CopyTo(ms);
+
+                            byte[] memStreamBuffer = ms.GetBuffer();
+                            if (memStreamBuffer.Length == ms.Position)
+                            {
+                                // We might have succeeded in exactly sizing the MemoryStream.  In that case, we can just use it.
+                                this.bytes = memStreamBuffer;
+                            }
+                            else
+                            {
+                                // No luck.  Have to take a copy to align the buffers.
+                                ms.Position = 0;
+                                this.bytes = new byte[ms.Length];
+
+                                ms.Read(this.bytes, 0, this.bytes.Length);
+                            }
                         }
                         else
                         {
@@ -113,18 +129,27 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             get
             {
+                if (this.contents != null)
+                {
+                    return this.contents.Length;
+                }
+
+                if (this.bytes != null)
+                {
+                    return this.bytes.Length;
+                }
+
                 lock (this.archive)
                 {
                     if (this.entry != null)
                     {
                         return this.entry.Length;
                     }
-
-                    return this.contents != null
-                        ? this.contents.Length
-                        : this.bytes.Length;
                 }
+
+                return null;
             }
+
             set => throw new NotImplementedException();
         }
     }
