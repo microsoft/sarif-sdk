@@ -148,6 +148,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             {
                 Kind = new[] { optionsKind, ResultKind.Fail },
                 Level = new[] { optionsLevel },
+                TimeoutInSeconds = 60,
             };
 
             var context = new TestAnalysisContext()
@@ -161,6 +162,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
             context.ResultKinds.Should().BeEquivalentTo(new ResultKindSet(new[] { optionsKind, ResultKind.Fail }));
             context.FailureLevels.Should().BeEquivalentTo(new FailureLevelSet(new[] { optionsLevel }));
+            context.TimeoutInMilliseconds.Should().Be(60000);
         }
 
         [Fact]
@@ -182,6 +184,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             multithreadedAnalyzeCommand.InitializeGlobalContextFromOptions(options, ref context);
 
             context.FailureLevels.Should().BeEquivalentTo(failureLevels);
+            context.TimeoutInMilliseconds.Should().Be(int.MaxValue);
         }
 
         [Fact]
