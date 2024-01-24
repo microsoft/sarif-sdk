@@ -252,8 +252,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             if ((globalContext.RuntimeErrors & ~RuntimeConditions.Nonfatal) == RuntimeConditions.None)
             {
                 ProcessBaseline(globalContext);
-                PostLogFile(globalContext);
             }
+
+            // Even if there are fatal errors, if the log file is generated, we can upload it with the ToolExecutionNotifications.
+            PostLogFile(globalContext);
 
             globalContext.Logger = null;
             succeeded = (globalContext.RuntimeErrors & ~RuntimeConditions.Nonfatal) == RuntimeConditions.None;
@@ -362,15 +364,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                     if (httpResponseMessage.StatusCode != HttpStatusCode.InternalServerError &&
                         httpResponseMessage.StatusCode != (HttpStatusCode)422)
                     {
+                        Errors.LogErrorPostingLogFile(globalContext, globalContext.PostUri);
                         globalContext.PostUri = null;
                         succeeded = false;
                     }
                 }
                 catch (Exception e)
                 {
+                    Errors.LogErrorPostingLogFile(globalContext, globalContext.PostUri);
                     globalContext.PostUri = null;
                     succeeded = false;
-                    globalContext.RuntimeErrors |= RuntimeConditions.ExceptionPostingLogFile;
                     globalContext.RuntimeExceptions ??= new List<Exception>();
                     globalContext.RuntimeExceptions.Add(e);
                 }
