@@ -10,6 +10,7 @@
 * NEW: Add `IsBinary` property to `IEnumeratedArtifact` and implement the property in `ZipArchiveArtifact`.
 * PRF: Change default `max-file-size-in-kb` parameter to 10 megabytes.
 * PRF: Add support for efficiently peeking into non-seekable streams for binary/text categorization.
+* NEW: `--post-uri` will skip sending the SARIF log to the configured endpoint if the file contains no results or fatal execution errors.
 
 ## **v4.4.1 UNRELEASED
 * DEP: Update reference to `System.Collections.Immutable` 5.0.0 for `Sarif` and `Sarif.Converters`.

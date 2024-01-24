@@ -225,7 +225,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
         protected virtual void PostLogFile(IAnalysisContext globalContext)
         {
-            if (string.IsNullOrEmpty(globalContext.PostUri)) { return; }
+            if (string.IsNullOrWhiteSpace(globalContext.PostUri) ||
+                string.IsNullOrWhiteSpace(globalContext.OutputFilePath) ||
+                !globalContext.FileSystem.FileExists(globalContext.OutputFilePath))
+            {
+                return;
+            }
 
             try
             {
@@ -234,8 +239,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                     PostLogFile(globalContext.PostUri, globalContext.OutputFilePath, globalContext.FileSystem, httpClient)
                         .GetAwaiter()
                         .GetResult();
-
-                    Console.WriteLine($"Posted log file successfully to: {globalContext.PostUri}");
                 }
             }
             catch (Exception ex)
