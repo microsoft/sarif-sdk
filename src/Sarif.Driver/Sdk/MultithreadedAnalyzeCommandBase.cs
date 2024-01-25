@@ -146,7 +146,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             }
 
             return
-                options.RichReturnCode == true
+                globalContext.RichReturnCode == true
                     ? (int)globalContext.RuntimeErrors
                     : FAILURE;
         }
@@ -276,45 +276,56 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             // We initialize a temporary console logger that's used strictly to emit
             // diagnostics output while we load/initialize various configurations settings.
             IAnalysisLogger savedLogger = context.Logger;
-            context.Logger = new ConsoleLogger(quietConsole: context.Quiet,
-                                               levels: BaseLogger.ErrorWarningNote,
-                                               kinds: BaseLogger.Fail,
-                                               toolName: Tool.Driver.Name);
 
-            // Next, we initialize ourselves from disk-based configuration, 
-            // if specified. This allows users to operate against configuration
-            // XML but to override specific settings within it via options.
-            context = InitializeConfiguration(options.ConfigurationFilePath, context);
+            try
+            {
+                context.Logger = new ConsoleLogger(quietConsole: context.Quiet,
+                                                   levels: BaseLogger.ErrorWarningNote,
+                                                   kinds: BaseLogger.Fail,
+                                                   toolName: Tool.Driver.Name);
 
-            // Now that our context if fully initialized, we can create
-            // the actual loggers used to complete analysis.
-            context.Logger = savedLogger;
-            context.ResultKinds = options.Kind != null ? options.ResultKinds : context.ResultKinds;
-            context.FailureLevels = options.Level != null ? options.FailureLevels : context.FailureLevels;
-            context.Logger ??= InitializeLogger(context);
+                // Next, we initialize ourselves from disk-based configuration, 
+                // if specified. This allows users to operate against configuration
+                // XML but to override specific settings within it via options.
+                context = InitializeConfiguration(options.ConfigurationFilePath, context);
 
-            // Finally, handle the remaining options.
-            context.PostUri = options.PostUri ?? context.PostUri;
-            context.AutomationId = options.AutomationId ?? context.AutomationId;
-            context.Threads = options.Threads > 0 ? options.Threads : context.Threads;
-            context.OutputFilePath = options.OutputFilePath ?? context.OutputFilePath;
-            context.RichReturnCode = options.RichReturnCode ?? context.RichReturnCode;
-            context.BaselineFilePath = options.BaselineFilePath ?? context.BaselineFilePath;
-            context.Recurse = options.Recurse != null ? options.Recurse.Value : context.Recurse;
-            context.Traces = options.Trace.Any() ? InitializeStringSet(options.Trace) : context.Traces;
-            context.GlobalFilePathDenyRegex = options.GlobalFilePathDenyRegex ?? context.GlobalFilePathDenyRegex;
-            context.AutomationGuid = options.AutomationGuid != default ? options.AutomationGuid : context.AutomationGuid;
-            context.OutputConfigurationFilePath = options.OutputConfigurationFilePath ?? context.OutputConfigurationFilePath;
+                // Now that our context if fully initialized, we can create
+                // the actual loggers used to complete analysis.
+                context.Logger = savedLogger;
+                context.ResultKinds = options.Kind != null ? options.ResultKinds : context.ResultKinds;
+                context.FailureLevels = options.Level != null ? options.FailureLevels : context.FailureLevels;
+                context.Logger ??= InitializeLogger(context);
+            }
+            finally
+            {
+                // Handle the remaining options.  This is in a finally block so even if the logger initialization throws
+                // (possible), we still have a reasonably well-constructed globalContext for controlling any still-relevant
+                // behaviors (ie: return code behavior.)  As a precaution, we handle trivial (clearly non-throwing)
+                // initialization first.
+                context.RichReturnCode = options.RichReturnCode ?? context.RichReturnCode;
+                context.PostUri = options.PostUri ?? context.PostUri;
+                context.AutomationId = options.AutomationId ?? context.AutomationId;
+                context.Threads = options.Threads > 0 ? options.Threads : context.Threads;
+                context.OutputFilePath = options.OutputFilePath ?? context.OutputFilePath;
+                context.BaselineFilePath = options.BaselineFilePath ?? context.BaselineFilePath;
+                context.Recurse = options.Recurse != null ? options.Recurse.Value : context.Recurse;
+                context.GlobalFilePathDenyRegex = options.GlobalFilePathDenyRegex ?? context.GlobalFilePathDenyRegex;
+                context.AutomationGuid = options.AutomationGuid != default ? options.AutomationGuid : context.AutomationGuid;
+                context.OutputConfigurationFilePath = options.OutputConfigurationFilePath ?? context.OutputConfigurationFilePath;
+                context.MaxFileSizeInKilobytes = options.MaxFileSizeInKilobytes != null ? options.MaxFileSizeInKilobytes.Value : context.MaxFileSizeInKilobytes;
+                context.PluginFilePaths = options.PluginFilePaths?.Any() == true ? options.PluginFilePaths?.ToImmutableHashSet() : context.PluginFilePaths;
+                context.TimeoutInMilliseconds = options.TimeoutInSeconds != null ? Math.Max(options.TimeoutInSeconds.Value * 1000, 0) : context.TimeoutInMilliseconds;
+                context.InsertProperties = options.InsertProperties?.Any() == true ? InitializeStringSet(options.InsertProperties) : context.InsertProperties;
+                context.TargetFileSpecifiers = options.TargetFileSpecifiers?.Any() == true ? InitializeStringSet(options.TargetFileSpecifiers) : context.TargetFileSpecifiers;
+                context.InvocationPropertiesToLog = options.InvocationPropertiesToLog?.Any() == true ? InitializeStringSet(options.InvocationPropertiesToLog) : context.InvocationPropertiesToLog;
+                context.Traces = options.Trace.Any() ? InitializeStringSet(options.Trace) : context.Traces;
+            }
+
+            // Less-obviously throw-safe. We don't do these in the finally block because we'd prefer not to mask an earlier Exception during logger initialization. 
             context.DataToInsert = options.DataToInsert?.Any() == true ? options.DataToInsert.ToFlags() : context.DataToInsert;
             context.DataToRemove = options.DataToRemove?.Any() == true ? options.DataToRemove.ToFlags() : context.DataToRemove;
-            context.EventsFilePath = Environment.GetEnvironmentVariable("SPMI_ETW") ?? options.EventsFilePath ?? context.EventsFilePath;
             context.OutputFileOptions = options.OutputFileOptions?.Any() == true ? options.OutputFileOptions.ToFlags() : context.OutputFileOptions;
-            context.PluginFilePaths = options.PluginFilePaths?.Any() == true ? options.PluginFilePaths?.ToImmutableHashSet() : context.PluginFilePaths;
-            context.InsertProperties = options.InsertProperties?.Any() == true ? InitializeStringSet(options.InsertProperties) : context.InsertProperties;
-            context.MaxFileSizeInKilobytes = options.MaxFileSizeInKilobytes != null ? options.MaxFileSizeInKilobytes.Value : context.MaxFileSizeInKilobytes;
-            context.TimeoutInMilliseconds = options.TimeoutInSeconds != null ? Math.Max(options.TimeoutInSeconds.Value * 1000, 0) : context.TimeoutInMilliseconds;
-            context.TargetFileSpecifiers = options.TargetFileSpecifiers?.Any() == true ? InitializeStringSet(options.TargetFileSpecifiers) : context.TargetFileSpecifiers;
-            context.InvocationPropertiesToLog = options.InvocationPropertiesToLog?.Any() == true ? InitializeStringSet(options.InvocationPropertiesToLog) : context.InvocationPropertiesToLog;
+            context.EventsFilePath = Environment.GetEnvironmentVariable("SPMI_ETW") ?? options.EventsFilePath ?? context.EventsFilePath;
 
             if (context.TargetsProvider == null)
             {
