@@ -231,9 +231,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         {
             analyzeOptions ??= new TestAnalyzeOptions()
             {
-                TargetFileSpecifiers = Array.Empty<string>()
+                TargetFileSpecifiers = Array.Empty<string>(),
             };
 
+            analyzeOptions.RichReturnCode = false;
+            ExceptionTestHelperImplementation(
+                runtimeConditions,
+                expectedExitReason,
+                analyzeOptions);
+
+            analyzeOptions.RichReturnCode = true;
             ExceptionTestHelperImplementation(
                 runtimeConditions,
                 expectedExitReason,
@@ -275,7 +282,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                     TestMultithreadedAnalyzeCommand.SUCCESS : TestMultithreadedAnalyzeCommand.FAILURE;
 
             context.RuntimeErrors.Should().Be(runtimeConditions);
-            result.Should().Be(expectedResult);
+            if (analyzeOptions.RichReturnCode == true)
+            {
+                result.Should().Be((int)runtimeConditions);
+            }
+            else
+            {
+                result.Should().Be(expectedResult);
+            }
 
             if (expectedExitReason != ExitReason.None)
             {
