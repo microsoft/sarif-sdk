@@ -146,7 +146,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             }
 
             return
-                globalContext.RichReturnCode == true
+                options.RichReturnCode == true
                     ? (int)globalContext.RuntimeErrors
                     : FAILURE;
         }
@@ -297,12 +297,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             context.PostUri = options.PostUri ?? context.PostUri;
             context.AutomationId = options.AutomationId ?? context.AutomationId;
             context.Threads = options.Threads > 0 ? options.Threads : context.Threads;
-            context.AutomationGuid = options.AutomationGuid != default ? options.AutomationGuid : context.AutomationGuid;
             context.OutputFilePath = options.OutputFilePath ?? context.OutputFilePath;
+            context.RichReturnCode = options.RichReturnCode ?? context.RichReturnCode;
             context.BaselineFilePath = options.BaselineFilePath ?? context.BaselineFilePath;
             context.Recurse = options.Recurse != null ? options.Recurse.Value : context.Recurse;
             context.Traces = options.Trace.Any() ? InitializeStringSet(options.Trace) : context.Traces;
             context.GlobalFilePathDenyRegex = options.GlobalFilePathDenyRegex ?? context.GlobalFilePathDenyRegex;
+            context.AutomationGuid = options.AutomationGuid != default ? options.AutomationGuid : context.AutomationGuid;
             context.OutputConfigurationFilePath = options.OutputConfigurationFilePath ?? context.OutputConfigurationFilePath;
             context.DataToInsert = options.DataToInsert?.Any() == true ? options.DataToInsert.ToFlags() : context.DataToInsert;
             context.DataToRemove = options.DataToRemove?.Any() == true ? options.DataToRemove.ToFlags() : context.DataToRemove;

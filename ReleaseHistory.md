@@ -7,6 +7,7 @@
 * DEP: Update `System.Data.SqlClient` reference from 4.8.5 to 4.8.6 in `WorkItems` to resolve [CVE-2024-0056](https://github.com/advisories/GHSA-98g6-xh36-x2p7).
 * BUG: Update `Stack.Create` method to populate missing `PhysicalLocation` instances when stack frames reference relative file paths.
 * BUG: Fix `UnsupportedOperationException` in `ZipArchiveArtifact`.
+* BUG: Fix issue the `MultithreadedAnalyzeCommandBase` does not return rich return code with the `--rich-return-code` option.
 * NEW: Add `IsBinary` property to `IEnumeratedArtifact` and implement the property in `ZipArchiveArtifact`.
 * PRF: Change default `max-file-size-in-kb` parameter to 10 megabytes.
 * PRF: Add support for efficiently peeking into non-seekable streams for binary/text categorization.
