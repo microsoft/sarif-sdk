@@ -102,19 +102,15 @@ namespace Microsoft.CodeAnalysis.Sarif
             }
 
             HttpResponseMessage response = await Post(postUri, new MemoryStream(fileBytes), httpClient);
-            string responseText = response.Content.ReadAsStringAsync().Result;
+            string responseText = await response.Content.ReadAsStringAsync();
 
-            try
+            if (!response.IsSuccessStatusCode)
             {
-                response.EnsureSuccessStatusCode();
-            }
-            catch (Exception)
-            {
-                Console.WriteLine($"Error Posting log file to: {postUri}. Endpoint provided message: {responseText}");
+                Console.WriteLine($"Error Posting log file to: {postUri}. Endpoint provided status code {response.StatusCode} and message: {responseText}");
                 return false;
             }
 
-            Console.WriteLine($"Posted log file successfully to: {postUri}. Endpoint provided message: {responseText}");
+            Console.WriteLine($"Posted log file successfully to: {postUri}. Endpoint provided status code {response.StatusCode} and message: {responseText}");
             return true;
         }
 
