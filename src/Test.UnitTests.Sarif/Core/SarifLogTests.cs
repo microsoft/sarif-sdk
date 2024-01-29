@@ -263,7 +263,7 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests.Core
         }
 
         [Fact]
-        public async Task SarifLog_PostFile_ShouldPostTests()
+        public async Task SarifLog_PostFile_PostTests()
         {
             using var assertionScope = new AssertionScope();
 
@@ -318,6 +318,17 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests.Core
                                     fileSystem.Object,
                                     httpClient: new HttpClient(httpMock));
             logPosted.Should().BeFalse("with warning level ToolExecutionNotifications");
+
+            steam = (MemoryStream)CreateSarifLogStreamWithToolExecutionNotifications(FailureLevel.Error);
+            fileSystem
+                .Setup(f => f.FileReadAllBytes(It.IsAny<string>()))
+                .Returns(steam.ToArray());
+            httpMock.Mock(HttpMockHelper.CreateBadRequestResponse());
+            logPosted = await SarifLog.Post(postUri: postUri,
+                                    filePath,
+                                    fileSystem.Object,
+                                    httpClient: new HttpClient(httpMock));
+            logPosted.Should().BeTrue("with error level ToolExecutionNotifications, but the server returns BadRequest");
         }
 
         [Fact]
