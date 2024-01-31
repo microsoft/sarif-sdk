@@ -2,6 +2,7 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System;
+using System.Net.Http;
 using System.Threading.Tasks;
 
 using FluentAssertions;
@@ -60,26 +61,93 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         }
 
         [Fact]
-        public async Task PluginDriverCommand_ShouldThrowExitApplicationExceptionIfUnhandledExceptionOccurs()
+        public void PluginDriverCommand_NoExceptionIfLogFileDoesNotExist()
         {
             string postUri = "https://github.com/microsoft/sarif-sdk";
-            string outputFilePath = string.Empty;
+            string outputFilePath = $"{Guid.NewGuid()}.txt";
+            using var httpClient = new HttpClient();
+
             var mockFileSystem = new Mock<IFileSystem>();
+            mockFileSystem
+                .Setup(f => f.FileExists(It.IsAny<string>()))
+                .Returns(false);
 
-            Exception exception = await Record.ExceptionAsync(async () =>
+            var context = new TestAnalysisContext
             {
-                mockFileSystem
-                    .Setup(f => f.FileExists(It.IsAny<string>()))
-                    .Throws(new NullReferenceException());
+                PostUri = postUri,
+                OutputFilePath = outputFilePath,
+                FileSystem = mockFileSystem.Object
+            };
 
-                await PluginDriverCommand<AnalyzeOptionsBase>.PostLogFile(postUri,
-                                                                          outputFilePath,
-                                                                          mockFileSystem.Object,
-                                                                          httpClient: null);
-            });
+            PluginDriverCommand<AnalyzeOptionsBase>.SarifPost(context, httpClient);
+        }
 
-            // TBD change this to an end-to-end test that injects an unhandled exception in post method.
-            exception.Should().BeOfType(typeof(ArgumentNullException));
+        [Fact]
+        public void PluginDriverCommand_NoExceptionIfOutputPathIsNull()
+        {
+            string postUri = "https://github.com/microsoft/sarif-sdk";
+            string outputFilePath = $"{Guid.NewGuid()}.txt";
+            using var httpClient = new HttpClient();
+
+            var mockFileSystem = new Mock<IFileSystem>();
+            mockFileSystem
+                .Setup(f => f.FileExists(It.IsAny<string>()))
+                .Returns(true);
+
+            var context = new TestAnalysisContext
+            {
+                PostUri = postUri,
+                OutputFilePath = null,
+                FileSystem = mockFileSystem.Object
+            };
+
+            PluginDriverCommand<AnalyzeOptionsBase>.SarifPost(context, httpClient);
+        }
+
+        [Fact]
+        public void PluginDriverCommand_NoExceptionIfPostUriNotPresent()
+        {
+            string outputFilePath = $"{Guid.NewGuid()}.txt";
+            using var httpClient = new HttpClient();
+
+            var mockFileSystem = new Mock<IFileSystem>();
+            mockFileSystem
+                .Setup(f => f.FileExists(It.IsAny<string>()))
+                .Returns(true);
+
+            var context = new TestAnalysisContext
+            {
+                PostUri = null,
+                OutputFilePath = outputFilePath,
+                FileSystem = mockFileSystem.Object
+            };
+
+            PluginDriverCommand<AnalyzeOptionsBase>.SarifPost(context, httpClient);
+        }
+
+        [Fact]
+        public void PluginDriverCommand_ThrowsExitApplicationExceptionOnUnhandledException()
+        {
+            string postUri = "https://github.com/microsoft/sarif-sdk";
+            string outputFilePath = $"{Guid.NewGuid()}.txt";
+           
+            var mockHttpClient = new Mock<HttpClient>();
+
+            mockHttpClient
+                .Setup(c => c.PostAsync(It.IsAny<string>(), It.IsAny<HttpContent>()))
+                .Throws(new InvalidOperationException());
+
+            var context = new TestAnalysisContext
+            {
+                PostUri = postUri,
+                OutputFilePath = outputFilePath,
+            };
+
+            Exception exception = Record.Exception(() =>
+                    PluginDriverCommand<AnalyzeOptionsBase>.SarifPost(context,
+                                                                      mockHttpClient.Object));
+
+            exception.Should().BeOfType(typeof(InvalidOperationException));
         }
     }
 }

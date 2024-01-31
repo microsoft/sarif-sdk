@@ -77,15 +77,19 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="fileSystem"></param>
         /// <param name="httpClient"></param>
         /// <returns>If the SarifLog has been posted successfully.</returns>
-        public static async Task<bool> Post(Uri postUri,
-                                      string filePath,
-                                      IFileSystem fileSystem,
-                                      HttpClient httpClient)
+        public static async Task<(bool, string)> Post(Uri postUri,
+                                                      string filePath,
+                                                      IFileSystem fileSystem,
+                                                      HttpClient httpClient)
         {
+            string postMessage = null;
+
             if (string.IsNullOrWhiteSpace(filePath))
             {
                 throw new ArgumentNullException(nameof(filePath));
             }
+
+            fileSystem ??= FileSystem.Instance;
 
             if (!fileSystem.FileExists(filePath))
             {
@@ -97,8 +101,8 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             if (!ShouldSendLog(sarifLog))
             {
-                Console.WriteLine($"Post of log file to {postUri} was skipped because the log contains no results.");
-                return false;
+                postMessage = $"Post of log file to {postUri} was skipped because the log contains no results or fatal errors to report.";
+                return (false, postMessage);
             }
 
             HttpResponseMessage response = await Post(postUri, new MemoryStream(fileBytes), httpClient);
@@ -106,12 +110,12 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             if (!response.IsSuccessStatusCode)
             {
-                Console.WriteLine($"Error Posting log file to: {postUri}. Endpoint provided status code {response.StatusCode} and message: {responseText}");
-                return false;
+                postMessage = $"Error posting log file to: {postUri}. Endpoint provided status code '{response.StatusCode}' and message: '{responseText}'";
+                return (false, postMessage);
             }
 
-            Console.WriteLine($"Posted log file successfully to: {postUri}. Endpoint provided status code {response.StatusCode} and message: {responseText}");
-            return true;
+            postMessage = $"Posted log file successfully to: {postUri}. Endpoint provided status code '{response.StatusCode}' and message: '{responseText}'";
+            return (true, postMessage);
         }
 
         /// <summary>
