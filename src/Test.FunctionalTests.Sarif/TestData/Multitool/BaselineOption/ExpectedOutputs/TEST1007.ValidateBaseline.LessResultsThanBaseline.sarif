@@ -68,15 +68,15 @@
               "helpUri": "http://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html"
             },
             {
-              "id": "ADO1003",
-              "name": "AdoProvideToolDriver",
+              "id": "ADO1018",
+              "name": "AdoProvideRequiredToolProperties",
               "defaultConfiguration": {
                 "level": "error"
               },
               "helpUri": "http://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html"
             },
             {
-              "id": "GHAS1003",
+              "id": "GH1018",
               "name": "GhasProvideToolDriver",
               "defaultConfiguration": {
                 "level": "error"
@@ -274,7 +274,7 @@
           "ruleId": "",
           "ruleIndex": 0,
           "message": {
-            "id": "Note_Default",
+            "id": "Error_MissingDriverRules",
             "arguments": [
               "runs[0].tool.driver",
               null
@@ -299,39 +299,11 @@
           }
         },
         {
-          "ruleId": "",
-          "ruleIndex": 0,
-          "message": {
-            "id": "Note_Default",
-            "arguments": [
-              "runs[0].tool.driver",
-              null
-            ]
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "index": 1
-                },
-                "region": {
-                  "startLine": 27,
-                  "startColumn": 19
-                }
-              }
-            }
-          ],
-          "baselineState": "new",
-          "properties": {
-            "ResultMatching": {}
-          }
-        },
-        {
-          "ruleId": "ADO1003",
+          "ruleId": "ADO1018",
           "ruleIndex": 3,
           "level": "error",
           "message": {
-            "id": "Note_Default",
+            "id": "Error_MissingDriverRules",
             "arguments": [
               "runs[0].tool.driver",
               "Azure DevOps Advanced Security",
@@ -357,11 +329,11 @@
           }
         },
         {
-          "ruleId": "ADO1003",
+          "ruleId": "ADO1018",
           "ruleIndex": 3,
           "level": "error",
           "message": {
-            "id": "Note_Default",
+            "id": "Error_MissingDriverRules",
             "arguments": [
               "runs[0].tool.driver",
               "Azure DevOps Advanced Security",
@@ -387,41 +359,11 @@
           }
         },
         {
-          "ruleId": "GHAS1003",
+          "ruleId": "GH1018",
           "ruleIndex": 4,
           "level": "error",
           "message": {
-            "id": "Note_Default",
-            "arguments": [
-              "runs[0].tool.driver",
-              "GitHub Advanced Security",
-              "GitHub Advanced Security"
-            ]
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "index": 1
-                },
-                "region": {
-                  "startLine": 27,
-                  "startColumn": 19
-                }
-              }
-            }
-          ],
-          "baselineState": "new",
-          "properties": {
-            "ResultMatching": {}
-          }
-        },
-        {
-          "ruleId": "GHAS1003",
-          "ruleIndex": 4,
-          "level": "error",
-          "message": {
-            "id": "Note_Default",
+            "id": "Error_MissingDriverRules",
             "arguments": [
               "runs[0].tool.driver",
               "GitHub Advanced Security",

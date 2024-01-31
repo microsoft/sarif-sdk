@@ -1,8 +1,6 @@
 ﻿// Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-using Microsoft.Json.Pointer;
-
 namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 {
     public class BaseProvideRequiredRunProperties
@@ -18,7 +16,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             {
                 // {0}: This 'run' object does not provide a 'results' array property. This property is required by the {1} service.
                 LogResult(
-                    runPointer.AtProperty(SarifPropertyName.Results),
+                    runPointer,
                     nameof(RuleResources.Base1014_ProvideRequiredRunProperties_Error_MissingResultsArray_Text),
                     this.ServiceName);
             }
@@ -27,7 +25,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             {
                 // {0}: This 'run' object does not provide a 'tool' object. This property is required by the {1} service.
                 LogResult(
-                    runPointer.AtProperty(SarifPropertyName.Tool),
+                    runPointer,
                     nameof(RuleResources.Base1014_ProvideRequiredRunProperties_Error_MissingTool_Text),
                     this.ServiceName);
             }

@@ -39,8 +39,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                     // {0}: The 'driver' object in this tool does not provide a 'rules' array. This property is required by the {1} service.
                     LogResult(
                         toolPointer
-                            .AtProperty(SarifPropertyName.Driver)
-                            .AtProperty(SarifPropertyName.Rules),
+                            .AtProperty(SarifPropertyName.Driver),
                         nameof(RuleResources.Base1018_ProvideRequiredToolProperties_Error_MissingDriverRules_Text),
                         this.ServiceName);
                 }
