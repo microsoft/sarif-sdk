@@ -10,6 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 using FluentAssertions;
+using FluentAssertions.Execution;
 
 using Moq;
 
@@ -262,6 +263,75 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests.Core
         }
 
         [Fact]
+        public async Task SarifLog_PostFile_PostTests()
+        {
+            using var assertionScope = new AssertionScope();
+
+            var postUri = new Uri("https://sarif-post/example.com");
+            var httpMock = new HttpMockHelper();
+            string filePath = "SomeFile.sarif";
+            var fileSystem = new Mock<IFileSystem>();
+            fileSystem
+                .Setup(f => f.FileExists(It.IsAny<string>()))
+                .Returns(true);
+
+            // This method creates a bare-bones SARIF file with no results and notifications.
+            var steam = (MemoryStream)CreateSarifLogStream();
+            fileSystem
+                .Setup(f => f.FileReadAllBytes(It.IsAny<string>()))
+                .Returns(steam.ToArray());
+            bool logPosted = await SarifLog.Post(postUri: null,
+                                    filePath,
+                                    fileSystem.Object,
+                                    httpClient: null);
+            logPosted.Should().BeFalse("with no results or notifications");
+
+            steam = (MemoryStream)CreateSarifLogStreamWithResult();
+            fileSystem
+                .Setup(f => f.FileReadAllBytes(It.IsAny<string>()))
+                .Returns(steam.ToArray());
+            httpMock.Mock(HttpMockHelper.CreateOKResponse());
+            logPosted = await SarifLog.Post(postUri: postUri,
+                                    filePath,
+                                    fileSystem.Object,
+                                    httpClient: new HttpClient(httpMock));
+            logPosted.Should().BeTrue("with results");
+
+            steam = (MemoryStream)CreateSarifLogStreamWithToolExecutionNotifications(FailureLevel.Error);
+            fileSystem
+                .Setup(f => f.FileReadAllBytes(It.IsAny<string>()))
+                .Returns(steam.ToArray());
+            httpMock.Mock(HttpMockHelper.CreateOKResponse());
+            logPosted = await SarifLog.Post(postUri: postUri,
+                                    filePath,
+                                    fileSystem.Object,
+                                    httpClient: new HttpClient(httpMock));
+            logPosted.Should().BeTrue("with error level ToolExecutionNotifications");
+
+            steam = (MemoryStream)CreateSarifLogStreamWithToolExecutionNotifications(FailureLevel.Warning);
+            fileSystem
+                .Setup(f => f.FileReadAllBytes(It.IsAny<string>()))
+                .Returns(steam.ToArray());
+            httpMock.Mock(HttpMockHelper.CreateOKResponse());
+            logPosted = await SarifLog.Post(postUri: postUri,
+                                    filePath,
+                                    fileSystem.Object,
+                                    httpClient: new HttpClient(httpMock));
+            logPosted.Should().BeFalse("with warning level ToolExecutionNotifications");
+
+            steam = (MemoryStream)CreateSarifLogStreamWithToolExecutionNotifications(FailureLevel.Error);
+            fileSystem
+                .Setup(f => f.FileReadAllBytes(It.IsAny<string>()))
+                .Returns(steam.ToArray());
+            httpMock.Mock(HttpMockHelper.CreateBadRequestResponse());
+            logPosted = await SarifLog.Post(postUri: postUri,
+                                    filePath,
+                                    fileSystem.Object,
+                                    httpClient: new HttpClient(httpMock));
+            logPosted.Should().BeTrue("with error level ToolExecutionNotifications, but the server returns BadRequest");
+        }
+
+        [Fact]
         public void SarifLog_SaveToMemoryStreamRoundtrips()
         {
             SarifLog sarifLog = GetSarifLogWithMinimalUniqueData();
@@ -275,7 +345,6 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests.Core
 
             newSarifLog.Should().BeEquivalentTo(sarifLog);
         }
-
 
         [Fact]
         public void SarifLog_SaveToStreamWriterRoundtrips()
@@ -376,7 +445,45 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests.Core
             var memoryStream = new MemoryStream();
             new SarifLog().Save(memoryStream);
             memoryStream.Position = 0;
-            //memoryStream.Seek(0, SeekOrigin.Begin);
+            return memoryStream;
+        }
+
+        private Stream CreateSarifLogStreamWithResult()
+        {
+            var memoryStream = new MemoryStream();
+            var sarifLog = new SarifLog();
+            var result = new Result() { Message = new Message() { Text = "A sample result message." } };
+            var run = new Run();
+            run.Results = new Result[] { result };
+            sarifLog.Runs = new Run[] { run };
+            sarifLog.Save(memoryStream);
+            memoryStream.Position = 0;
+            return memoryStream;
+        }
+
+        private Stream CreateSarifLogStreamWithToolConfigurationNotifications(FailureLevel level)
+        {
+            var memoryStream = new MemoryStream();
+            var sarifLog = new SarifLog();
+            var run = new Run();
+            run.Invocations = new Invocation[] { new Invocation()
+            { ToolConfigurationNotifications = new Notification[] { new Notification() { Level = level } } } };
+            sarifLog.Runs = new Run[] { run };
+            sarifLog.Save(memoryStream);
+            memoryStream.Position = 0;
+            return memoryStream;
+        }
+
+        private Stream CreateSarifLogStreamWithToolExecutionNotifications(FailureLevel level)
+        {
+            var memoryStream = new MemoryStream();
+            var sarifLog = new SarifLog();
+            var run = new Run();
+            run.Invocations = new Invocation[] { new Invocation()
+            { ToolExecutionNotifications = new Notification[] { new Notification() { Level = level } } } };
+            sarifLog.Runs = new Run[] { run };
+            sarifLog.Save(memoryStream);
+            memoryStream.Position = 0;
             return memoryStream;
         }
 
