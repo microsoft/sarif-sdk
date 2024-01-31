@@ -61,19 +61,6 @@
     <None Include="default.configuration.xml" Pack="true" PackagePath="lib/netstandard2.0;lib/net461" CopyToOutputDirectory="PreserveNewest" />
     <None Include="..\..\policies\*" Pack="true" PackagePath="policies" />
     <None Include="**\*.cs" Pack="true" PackagePath="src" />
-    <Compile Remove="Rules\ADO1011.ReferenceFinalSchema.cs" />
-    <Compile Remove="Rules\ADO1015.ProvideRequiredResultProperties.cs" />
-    <Compile Remove="Rules\ADO1016.ProvideRequiredLocationProperties.cs" />
-    <Compile Remove="Rules\ADO2008.ProvideRequiredSarifLogProperties.cs" />
-    <Compile Remove="Rules\ADO2012.ProvideRequiredReportingDescriptorProperties.cs" />
-    <Compile Remove="Rules\Base1015.ProvideRequiredResultProperties.cs" />
-    <Compile Remove="Rules\Base1016.ProvideRequiredLocationProperties.cs" />
-    <Compile Remove="Rules\Base1017.ProvideRequiredPhysicalLocationProperties.cs" />
-    <Compile Remove="Rules\Base2008.ProvideSchema.cs" />
-    <Compile Remove="Rules\Base2012.ProvideRequiredReportingDescriptorProperties.cs" />
-    <Compile Remove="Rules\GHAS1015.ProvideRequiredResultPropertties.cs" />
-    <Compile Remove="Rules\GHAS1016.ProvideRequiredLocationProperties.cs" />
-    <Compile Remove="Rules\GHAS2012.ProvideRequiredReportingDescriptorProperties.cs" />
     <None Include="..\..\ReleaseHistory.md" Pack="true" PackagePath="/" />
   </ItemGroup>
 
