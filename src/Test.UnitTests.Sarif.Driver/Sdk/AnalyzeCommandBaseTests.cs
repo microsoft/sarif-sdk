@@ -148,6 +148,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             {
                 Kind = new[] { optionsKind, ResultKind.Fail },
                 Level = new[] { optionsLevel },
+                TimeoutInSeconds = 60,
             };
 
             var context = new TestAnalysisContext()
@@ -161,6 +162,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
             context.ResultKinds.Should().BeEquivalentTo(new ResultKindSet(new[] { optionsKind, ResultKind.Fail }));
             context.FailureLevels.Should().BeEquivalentTo(new FailureLevelSet(new[] { optionsLevel }));
+            context.TimeoutInMilliseconds.Should().Be(60000);
         }
 
         [Fact]
@@ -182,6 +184,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             multithreadedAnalyzeCommand.InitializeGlobalContextFromOptions(options, ref context);
 
             context.FailureLevels.Should().BeEquivalentTo(failureLevels);
+            context.TimeoutInMilliseconds.Should().Be(int.MaxValue);
         }
 
         [Fact]
@@ -228,9 +231,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         {
             analyzeOptions ??= new TestAnalyzeOptions()
             {
-                TargetFileSpecifiers = Array.Empty<string>()
+                TargetFileSpecifiers = Array.Empty<string>(),
             };
 
+            analyzeOptions.RichReturnCode = false;
+            ExceptionTestHelperImplementation(
+                runtimeConditions,
+                expectedExitReason,
+                analyzeOptions);
+
+            analyzeOptions.RichReturnCode = true;
             ExceptionTestHelperImplementation(
                 runtimeConditions,
                 expectedExitReason,
@@ -272,7 +282,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                     TestMultithreadedAnalyzeCommand.SUCCESS : TestMultithreadedAnalyzeCommand.FAILURE;
 
             context.RuntimeErrors.Should().Be(runtimeConditions);
-            result.Should().Be(expectedResult);
+            if (analyzeOptions.RichReturnCode == true)
+            {
+                result.Should().Be((int)runtimeConditions);
+            }
+            else
+            {
+                result.Should().Be(expectedResult);
+            }
 
             if (expectedExitReason != ExitReason.None)
             {

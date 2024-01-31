@@ -133,6 +133,15 @@ namespace Microsoft.CodeAnalysis.Sarif {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Could not post to the URI specified on the command line: &apos;{0}&apos;..
+        /// </summary>
+        public static string ERR997_ErrorPostingLogFile {
+            get {
+                return ResourceManager.GetString("ERR997_ErrorPostingLogFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Could not access a file specified on the command line: &apos;{0}&apos;..
         /// </summary>
         public static string ERR997_ExceptionAccessingFile {
