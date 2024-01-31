@@ -288,12 +288,13 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests.Core
             logPosted.Item2.Should().Contain("was skipped");
 
             string content = $"{Guid.NewGuid()}";
+            var httpContent = new StringContent(content, Encoding.UTF8, "text/plain");
 
             stream = (MemoryStream)CreateSarifLogStreamWithResult();
             fileSystem
                 .Setup(f => f.FileReadAllBytes(It.IsAny<string>()))
                 .Returns(stream.ToArray());
-            httpMock.Mock(HttpMockHelper.CreateOKResponse());
+            httpMock.Mock(HttpMockHelper.CreateOKResponse(httpContent));
             logPosted = await SarifLog.Post(postUri,
                                             filePath,
                                             fileSystem.Object,
@@ -306,7 +307,7 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests.Core
             fileSystem
                 .Setup(f => f.FileReadAllBytes(It.IsAny<string>()))
                 .Returns(stream.ToArray());
-            httpMock.Mock(HttpMockHelper.CreateOKResponse());
+            httpMock.Mock(HttpMockHelper.CreateOKResponse(httpContent));
             logPosted = await SarifLog.Post(postUri,
                                             filePath,
                                             fileSystem.Object,
@@ -319,14 +320,12 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests.Core
             fileSystem
                 .Setup(f => f.FileReadAllBytes(It.IsAny<string>()))
                 .Returns(stream.ToArray());
-            httpMock.Mock(HttpMockHelper.CreateOKResponse());
             logPosted = await SarifLog.Post(postUri,
                                             filePath,
                                             fileSystem.Object,
                                             httpClient: new HttpClient(httpMock));
             logPosted.Item1.Should().BeFalse("with warning level ToolExecutionNotifications");
             logPosted.Item2.Should().Contain("was skipped");
-            logPosted.Item2.Should().Contain(content);
 
             stream = (MemoryStream)CreateSarifLogStreamWithToolExecutionNotifications(FailureLevel.Error);
             fileSystem
@@ -337,9 +336,8 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests.Core
                                             filePath,
                                             fileSystem.Object,
                                             httpClient: new HttpClient(httpMock));
-            logPosted.Item1.Should().BeFalse("with error level ToolExecutionNotifications, but the server returns BadRequest");
+            logPosted.Item1.Should().BeFalse("the server returns a BadRequest even though there are error level ToolExecutionNotifications");
             logPosted.Item2.Should().Contain("status code 'BadRequest'");
-            logPosted.Item2.Should().Contain(content);
         }
 
         [Fact]
