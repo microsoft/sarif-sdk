@@ -3,21 +3,21 @@
 
 namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 {
-    public class BaseProvideRun
+    public class BaseProvideRequiredLocationProperties
         : SarifValidationSkimmerBase
     {
         public override string Id => string.Empty;
 
         public override MultiformatMessageString FullDescription => new MultiformatMessageString();
 
-        protected override void Analyze(Run run, string runPointer)
+        protected override void Analyze(Location location, string locationPointer)
         {
-            if (run.Results == null)
+            if (location.physicalLocation == null)
             {
-                // {0}: The 'results' list in this run does not provide a value.
+                // {0}: This 'location' object does not provide a 'physicalLocation' object. This property is required by the {1} service.
                 LogResult(
-                    runPointer,
-                    nameof(RuleResources.Base1002_ProvideResultsArray_Note_Default_Text),
+                    locationPointer,
+                    nameof(RuleResources.Base1016_ProvideRequiredLocationProperties_Error_MissingPhysicalLocation_Text),
                     this.ServiceName);
             }
         }

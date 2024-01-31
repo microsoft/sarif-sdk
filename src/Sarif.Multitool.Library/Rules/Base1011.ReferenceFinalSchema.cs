@@ -8,17 +8,9 @@ using Microsoft.Json.Pointer;
 
 namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 {
-    public class ReferenceFinalSchema : SarifValidationSkimmerBase
+    public class BaseReferenceFinalSchema : SarifValidationSkimmerBase
     {
-        public ReferenceFinalSchema()
-        {
-            this.DefaultConfiguration.Level = FailureLevel.Error;
-        }
-
-        /// <summary>
-        /// SARIF1011
-        /// </summary>
-        public override string Id => RuleId.ReferenceFinalSchema;
+        public override string Id => string.Empty;
 
         /// <summary>
         /// The '$schema' property must refer to the final version of the SARIF 2.1.0 schema. This
@@ -43,7 +35,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         {
             if (schemaUri == null)
             {
-                // If SchemaUri is not present, it will be caught by SARIF2008 rule.
+                // If SchemaUri is not present, it will be caught by Base2008 rule.
                 return;
             }
 

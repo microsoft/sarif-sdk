@@ -19,8 +19,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
     public enum RuleKinds
     {
         None = 0,
-        Ghas = 1,
-        Ado = 2,
+        Sarif = 1,
+        Ghas = 2,
+        Ado = 4,
     }
 
     public abstract class SarifValidationSkimmerBase : Skimmer<SarifValidationContext>
@@ -57,7 +58,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             Visit(Context.InputLog, logPointer: string.Empty);
         }
 
-        protected void LogResult(string jPointer, string formatId, params string[] args)
+        protected Result GetResult(string jPointer, string formatId, params string[] args)
         {
             Region region = GetRegionFromJPointer(jPointer);
 
@@ -73,13 +74,23 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                 argsWithPointer[1] = this.ServiceName;
             }
 
-            Context.Logger.Log(this,
-                RuleUtilities.BuildResult(
-                    DefaultConfiguration.Level,
-                    Context,
-                    region,
-                    formatId,
-                    argsWithPointer));
+            return RuleUtilities.BuildResult(
+                DefaultConfiguration.Level,
+                Context,
+                region,
+                formatId,
+                argsWithPointer);
+        }
+
+        protected void LogResult(string jPointer, string formatId, params string[] args)
+        {
+            Result result = this.GetResult(jPointer, formatId, args);
+            Context.Logger.Log(this, result);
+        }
+
+        protected void LogResult(Result result)
+        {
+            Context.Logger.Log(this, result);
         }
 
         protected virtual void Analyze(Address address, string addressPointer)

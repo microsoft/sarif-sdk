@@ -3,19 +3,19 @@
 
 namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 {
-    public class AdoMaximumRunsCount
-        : BaseMaximumRunsCount
+    public class GhProvideRequiredSarifLogProperties
+        : BaseProvideRequiredSarifLogProperties
     {
         /// <summary>
-        /// ADO1001
+        /// GH1013
         /// </summary>
-        public override string Id => RuleId.ADOMaximumRunsCount;
+        public override string Id => RuleId.GHProvideRequiredSarifLogProperties;
 
-        protected override string ServiceName => RuleResources.ServiceName_ADO;
+        protected override string ServiceName => RuleResources.ServiceName_GHAS;
 
         public override int MaximumRuns => 20;
 
-        public AdoMaximumRunsCount()
+        public GhProvideRequiredSarifLogProperties()
         {
             this.DefaultConfiguration.Level = FailureLevel.Error;
         }

@@ -3,26 +3,24 @@
 
 namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 {
-    public class GhasMaximumRunsCount
-        : BaseMaximumRunsCount
+    public class GhasProvideRequiredResultPropertties
+        : BaseProvideRequiredResultProperties
     {
         /// <summary>
-        /// GHAS1001
+        /// GHAS1015
         /// </summary>
-        public override string Id => RuleId.GHASMaximumRunsCount;
+        public override string Id => RuleId.GHASProvideRequiredResultProperties;
 
         protected override string ServiceName => RuleResources.ServiceName_GHAS;
 
-        public override int MaximumRuns => 20;
-
-        public GhasMaximumRunsCount()
+        public AdoProvideRequiredRunPropertties()
         {
             this.DefaultConfiguration.Level = FailureLevel.Error;
         }
 
-        protected override void Analyze(SarifLog sarifLog, string runPointer)
+        protected override void Analyze(Result result, string resultPointer)
         {
-            base.Analyze(sarifLog, runPointer);
+            base.Analyze(result, resultPointer);
         }
     }
 }

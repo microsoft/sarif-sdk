@@ -4,12 +4,12 @@
 namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 {
     public class GhasProvideToolDriver
-        : BaseProvideToolDriver
+        : BaseProvideRequiredToolProperties
     {
         /// <summary>
-        /// GHAS1003
+        /// GHAS1018
         /// </summary>
-        public override string Id => RuleId.GHASProvideToolDriverProperties;
+        public override string Id => RuleId.GHProvideRequiredToolProperties;
 
         public override RuleKinds Kinds => RuleKinds.Ado;
 

@@ -61,16 +61,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}: This &apos;run&apos; object does not provide an &apos;automationDetails&apos; property. This property is required by the {1} service..
-        /// </summary>
-        internal static string ADO1002_ProvideAutomationDetails_Note_Default_Text {
-            get {
-                return ResourceManager.GetString("ADO1002_ProvideAutomationDetails_Note_Default_Text", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to {0}: This &apos;tool&apos; object in this run does not provide a &apos;driver&apos; property. This property is required by the Azure DevOps Advanced Security service..
+        ///   Looks up a localized string similar to {0}: This &apos;tool&apos; object in this run does not provide a &apos;driver&apos; property. This property is required by the {1} service..
         /// </summary>
         internal static string ADO1003_ProvideDriver_Note_Default_Text {
             get {
@@ -79,11 +70,67 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}: This &apos;driver&apos; object does not provide a &apos;fullName&apos; property. This property is required by the {1} service..
+        ///   Looks up a localized string similar to {0}: This &apos;driver&apos; object does not provide a &apos;name&apos; property. This property is required by the {1} service..
         /// </summary>
-        internal static string ADO1003_ProvideFullName_Note_Default_Text {
+        internal static string ADO1003_ProvideName_Note_Default_Text {
             get {
-                return ResourceManager.GetString("ADO1003_ProvideFullName_Note_Default_Text", resourceCulture);
+                return ResourceManager.GetString("ADO1003_ProvideName_Note_Default_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0}: This &apos;run&apos; object does not provide an &apos;automationDetails&apos; property. This property is required by the {1} service..
+        /// </summary>
+        internal static string ADO1014_AdoProvideRequiredRunPropertties_Error_MissingAutomationDetails_Error_Text {
+            get {
+                return ResourceManager.GetString("ADO1014_AdoProvideRequiredRunPropertties_Error_MissingAutomationDetails_Error_Tex" +
+                        "t", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0}: This &apos;run&apos; object&apos;s &apos;automationDetails&apos; object does not provide an &apos;id&apos; value. This property is required by the {1} service..
+        /// </summary>
+        internal static string ADO1014_AdoProvideRequiredRunPropertties_Error_MissingAutomationDetailsId_Error_Text {
+            get {
+                return ResourceManager.GetString("ADO1014_AdoProvideRequiredRunPropertties_Error_MissingAutomationDetailsId_Error_T" +
+                        "ext", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0}: This &apos;run&apos; object does not provide a &apos;tool&apos; property. This property is required by the {1} service..
+        /// </summary>
+        internal static string ADO1014_AdoProvideRequiredRunPropertties_Error_MissingTool_Error_Text {
+            get {
+                return ResourceManager.GetString("ADO1014_AdoProvideRequiredRunPropertties_Error_MissingTool_Error_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0}: This &apos;run&apos; object&apos;s &apos;tool&apos; object does not provide a &apos;driver&apos; object. This property is required by the {1} service..
+        /// </summary>
+        internal static string ADO1014_AdoProvideRequiredRunPropertties_Error_MissingToolDriver_Error_Text {
+            get {
+                return ResourceManager.GetString("ADO1014_AdoProvideRequiredRunPropertties_Error_MissingToolDriver_Error_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0}: This &apos;result&apos; object does not provide a &apos;ruleId&apos; value. This property is required by the {1} service..
+        /// </summary>
+        internal static string ADO1015_ProvideRequiredResultProperties_Error_MissingRuleId_Text {
+            get {
+                return ResourceManager.GetString("ADO1015_ProvideRequiredResultProperties_Error_MissingRuleId_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0}: This &apos;driver&apos; object does not provide a &apos;fullName&apos; value. This property is required by the {1} service..
+        /// </summary>
+        internal static string ADO1018_ProvideRequiredToolProperties_Error_MissingDriverFullName_Text {
+            get {
+                return ResourceManager.GetString("ADO1018_ProvideRequiredToolProperties_Error_MissingDriverFullName_Text", resourceCulture);
             }
         }
         
@@ -97,20 +144,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}: This &apos;sarifLog&apos; object&apos;s &apos;runs&apos; array contains {1} elements, which exceeds the limit of {2} imposed by {3}..
+        ///   Looks up a localized string similar to {0}: This &apos;reportingDescriptor&apos; object does not provide a &apos;name&apos; value. This property is required by the {1} service..
         /// </summary>
-        internal static string Base1001_MaximumRunsCount_Note_Default_Text {
+        internal static string ADO2012_ProvideRequiredResultProperties_Error_MissingName {
             get {
-                return ResourceManager.GetString("Base1001_MaximumRunsCount_Note_Default_Text", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to {0}: This &apos;run&apos; object does not provide a &apos;results&apos; property. This property is required by the {1} service..
-        /// </summary>
-        internal static string Base1002_ProvideResultsArray_Note_Default_Text {
-            get {
-                return ResourceManager.GetString("Base1002_ProvideResultsArray_Note_Default_Text", resourceCulture);
+                return ResourceManager.GetString("ADO2012_ProvideRequiredResultProperties_Error_MissingName", resourceCulture);
             }
         }
         
@@ -147,6 +185,190 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         internal static string Base1003_ProvideTool_Note_Default_Text {
             get {
                 return ResourceManager.GetString("Base1003_ProvideTool_Note_Default_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0}: This &apos;sarifLog&apos; object&apos;s &apos;runs&apos; array contains {1} element(s), which exceeds the limit of {2} imposed by the {3} service..
+        /// </summary>
+        internal static string Base1013_MaximumRunsCount_Note_Default_Text {
+            get {
+                return ResourceManager.GetString("Base1013_MaximumRunsCount_Note_Default_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0}: The SARIF log file does not contain a &apos;$schema&apos; property. Add a &apos;$schema&apos; property that refers to the final OASIS standard version of the SARIF 2.1.0 schema. This enables IDEs to provide Intellisense for SARIF log files..
+        /// </summary>
+        internal static string Base1013_ProvideSchema_Warning_Default_Text {
+            get {
+                return ResourceManager.GetString("Base1013_ProvideSchema_Warning_Default_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0}: The SARIF log file does not specify &apos;version&apos; property that refers to the final, OASIS standard version of the SARIF 2.1.0 schema. This enables IDEs to provide Intellisense for SARIF log files..
+        /// </summary>
+        internal static string Base1013_ProvideSchemaVersion_Warning_Default_Text {
+            get {
+                return ResourceManager.GetString("Base1013_ProvideSchemaVersion_Warning_Default_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0}: The &apos;$schema&apos; property value &apos;{1}&apos; does not refer to the final version of the SARIF 2.1.0 schema. If you are using an earlier version of the SARIF format, consider upgrading your analysis tool to produce the final version. If this file does in fact conform to the final version of the schema, upgrade the tool to populate the &apos;$schema&apos; property with a URL that refers to the final version of the schema..
+        /// </summary>
+        internal static string Base1013_ReferenceFinalSchema_Error_Default_Text {
+            get {
+                return ResourceManager.GetString("Base1013_ReferenceFinalSchema_Error_Default_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The &apos;$schema&apos; property must refer to the final version of the SARIF 2.1.0 schema. This enables IDEs to provide Intellisense for SARIF log files.
+        ///
+        ///The SARIF standard was developed over several years, and many intermediate versions of the schema were produced. Now that the standard is final, only the OASIS standard version of the schema is valid..
+        /// </summary>
+        internal static string Base1013_ReferenceFinalSchema_FullDescription_Text {
+            get {
+                return ResourceManager.GetString("Base1013_ReferenceFinalSchema_FullDescription_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0}: This &apos;sarifLog&apos; object does not provide a &apos;runs&apos; array, which is required by the {1} service..
+        /// </summary>
+        internal static string Base1013_SarifLogRunsArray_Note_Default_Text {
+            get {
+                return ResourceManager.GetString("Base1013_SarifLogRunsArray_Note_Default_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0}: This &apos;run&apos; object does not provide a &apos;results&apos; array property. This property is required by the {1} service..
+        /// </summary>
+        internal static string Base1014_ProvideRequiredRunProperties_Error_MissingResultsArray_Text {
+            get {
+                return ResourceManager.GetString("Base1014_ProvideRequiredRunProperties_Error_MissingResultsArray_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0}: This &apos;run&apos; object does not provide a &apos;tool&apos; object. This property is required by the {1} service..
+        /// </summary>
+        internal static string Base1014_ProvideRequiredRunProperties_Error_MissingTool_Text {
+            get {
+                return ResourceManager.GetString("Base1014_ProvideRequiredRunProperties_Error_MissingTool_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0}: The &apos;locations&apos; array on this &apos;result&apos; object is empty. This property is required by the {1} service..
+        /// </summary>
+        internal static string Base1015_ProvideRequiredResultProperties_Error_EmptyLocationsArray_Text {
+            get {
+                return ResourceManager.GetString("Base1015_ProvideRequiredResultProperties_Error_EmptyLocationsArray_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0}: This &apos;result&apos; object does not provide a &apos;locations&apos; array. This property is required by the {1} service..
+        /// </summary>
+        internal static string Base1015_ProvideRequiredResultProperties_Error_MissingLocationsArray_Text {
+            get {
+                return ResourceManager.GetString("Base1015_ProvideRequiredResultProperties_Error_MissingLocationsArray_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0}: This &apos;result&apos; object does not provide a &apos;message&apos; object. This property is required by the {1} service..
+        /// </summary>
+        internal static string Base1015_ProvideRequiredResultProperties_Error_MissingMessage_Text {
+            get {
+                return ResourceManager.GetString("Base1015_ProvideRequiredResultProperties_Error_MissingMessage_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0}: The &apos;message&apos; object on this &apos;result&apos; object does not provide a &apos;text&apos; property. This property is required by the {1} service..
+        /// </summary>
+        internal static string Base1015_ProvideRequiredResultProperties_Error_MissingMessageText_Text {
+            get {
+                return ResourceManager.GetString("Base1015_ProvideRequiredResultProperties_Error_MissingMessageText_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0}: This &apos;result&apos; object does not provide a &apos;partialFingerprints&apos; dictionary. This property is required by the {1} service..
+        /// </summary>
+        internal static string Base1015_ProvideRequiredResultProperties_Error_MissingPartialFingerprints_Text {
+            get {
+                return ResourceManager.GetString("Base1015_ProvideRequiredResultProperties_Error_MissingPartialFingerprints_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0}: This &apos;location&apos; object does not provide a &apos;physicalLocation&apos; object. This property is required by the {1} service..
+        /// </summary>
+        internal static string Base1016_LocationPhysicalLocation_Error_Default_Text {
+            get {
+                return ResourceManager.GetString("Base1016_LocationPhysicalLocation_Error_Default_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0}: This &apos;location&apos; object does not provide a &apos;physicalLocation&apos; object. This property is required by the {1} service..
+        /// </summary>
+        internal static string Base1016_ProvideRequiredLocationProperties_Error_MissingPhysicalLocation_Text {
+            get {
+                return ResourceManager.GetString("Base1016_ProvideRequiredLocationProperties_Error_MissingPhysicalLocation_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0}: The &apos;physicalLocation&apos; object on this &apos;location&apos; object does not provide a &apos;region&apos; object. This property is required by the {1} service..
+        /// </summary>
+        internal static string Base1016_ProvideRequiredLocationProperties_Error_MissingPhysicalLocationRegion_Text {
+            get {
+                return ResourceManager.GetString("Base1016_ProvideRequiredLocationProperties_Error_MissingPhysicalLocationRegion_Te" +
+                        "xt", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0}: This &apos;tool&apos; object does not provide a &apos;driver&apos; object. This property is required by the {1} service..
+        /// </summary>
+        internal static string Base1018_ProvideRequiredToolProperties_Error_MissingDriver_Text {
+            get {
+                return ResourceManager.GetString("Base1018_ProvideRequiredToolProperties_Error_MissingDriver_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0}: The &apos;driver&apos; object in this tool does not provide a &apos;name&apos; value. This property is required by the {1} service..
+        /// </summary>
+        internal static string Base1018_ProvideRequiredToolProperties_Error_MissingDriverName_Text {
+            get {
+                return ResourceManager.GetString("Base1018_ProvideRequiredToolProperties_Error_MissingDriverName_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0}: The &apos;driver&apos; object in this tool does not provide a &apos;rules&apos; array. This property is required by the {1} service..
+        /// </summary>
+        internal static string Base1018_ProvideRequiredToolProperties_Error_MissingDriverRules_Text {
+            get {
+                return ResourceManager.GetString("Base1018_ProvideRequiredToolProperties_Error_MissingDriverRules_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0}: This &apos;reportingDescriptor&apos; object does not provide an &apos;id&apos; value. This property is required by the {1} service..
+        /// </summary>
+        internal static string Base2012_ProvideRequiredReportingDescriptorProperties_Error_MissingIdProperty_Text {
+            get {
+                return ResourceManager.GetString("Base2012_ProvideRequiredReportingDescriptorProperties_Error_MissingIdProperty_Tex" +
+                        "t", resourceCulture);
             }
         }
         
@@ -304,6 +526,43 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         internal static string GH1007_ProvideFullyFormattedMessageStrings_FullDescription_Text {
             get {
                 return ResourceManager.GetString("GH1007_ProvideFullyFormattedMessageStrings_FullDescription_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0}: This &apos;reportingDescriptor&apos; object does not provide a &apos;fullDescription&apos; value. This property is required by the {1} service..
+        /// </summary>
+        internal static string GH2012_ProvideRequiredReportingDescriptorProperties_Error_MissingFullDescription {
+            get {
+                return ResourceManager.GetString("GH2012_ProvideRequiredReportingDescriptorProperties_Error_MissingFullDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0}: This &apos;reportingDescriptor&apos; object does not provide a &apos;help&apos; object. This property is required by the {1} service..
+        /// </summary>
+        internal static string GH2012_ProvideRequiredReportingDescriptorProperties_Error_MissingHelp {
+            get {
+                return ResourceManager.GetString("GH2012_ProvideRequiredReportingDescriptorProperties_Error_MissingHelp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0}: This &apos;help&apos; object does not provide a &apos;text&apos; value. This property is required by the {1} service..
+        /// </summary>
+        internal static string GH2012_ProvideRequiredReportingDescriptorProperties_Error_MissingHelpText {
+            get {
+                return ResourceManager.GetString("GH2012_ProvideRequiredReportingDescriptorProperties_Error_MissingHelpText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0}: This &apos;reportingDescriptor&apos; object does not provide a &apos;shortDescription&apos; value. This property is required by the {1} service..
+        /// </summary>
+        internal static string GH2012_ProvideRequiredReportingDescriptorProperties_Error_MissingShortDescription {
+            get {
+                return ResourceManager.GetString("GH2012_ProvideRequiredReportingDescriptorProperties_Error_MissingShortDescription" +
+                        "", resourceCulture);
             }
         }
         

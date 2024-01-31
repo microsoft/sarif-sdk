@@ -1,6 +1,10 @@
 // Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
+using FluentAssertions;
+
+using Microsoft.CodeAnalysis.Sarif.Multitool.Rules;
+
 using Xunit;
 
 namespace Microsoft.CodeAnalysis.Sarif.Multitool
@@ -20,10 +24,41 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         private const string LogFileName = "example.sarif";
         private const string OutputFilePath = "example-validation.sarif";
 
-        [Fact]
-        public void LogResult_ADO1003()
+        [Fact(Skip = "Incomplete test")]
+        public void LogResult_TestRule()
         {
-            var rule = new Rules.AdoProvideToolDriver();
+            var run = new Run()
+            {
+                Tool = new Tool
+                {
+                    Driver = new ToolComponent
+                    {
+                        FullName = "TestTool-2.4.0",
+                        Name = "TestTool"
+                    }
+                },
+                Results = new[]
+                {
+                    new Result
+                    {
+                        RuleId = "TST0001",
+                        Level = FailureLevel.Error,
+                        Message = new Message { Text = "This is a test message." }
+                    },
+                    new Result
+                    {
+                        RuleId = "TST0001",
+                        Level = FailureLevel.Error,
+                        Message = new Message { Text = "This is a test message." }
+                    }
+                }
+            };
+            var rule = new LogResultTestRule();
+            Result result = rule.TestAnalyze(run, "/runs/0/tool/driver");
+
+            string expected = string.Format(TestResources.LogResultTest_Message, "runs/0", run.Tool.Driver.FullName, run.Results.Count.ToString());
+            result.Message.Text.Should().Be(expected);
+
             //// Here's the space:
             //string LogFileDirectoryWithSpace =
             //    Path.Combine(Directory.GetCurrentDirectory(), "directory name with space", "sub directory name with space");
@@ -52,6 +87,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             //int returnCode = validateCommand.Run(options, ref context);
             //context.RuntimeErrors.Should().Be(RuntimeConditions.OneOrMoreWarningsFired);
             //returnCode.Should().Be(0);
+        }
+    }
+
+    public class LogResultTestRule : SarifValidationSkimmerBase
+    {
+        public override string Id => "RULE1234";
+
+        public Result TestAnalyze(Run run, string runPointer)
+        {
+            return this.GetResult(runPointer, nameof(TestResources.LogResultTest_Message), run.Tool.Driver.FullName, run.Results.Count.ToString());
         }
     }
 }

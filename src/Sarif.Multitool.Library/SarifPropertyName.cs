@@ -9,11 +9,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         public const string Addresses = "addresses";
         public const string AnalysisTarget = "analysisTarget";
         public const string AnalysisToolLogFiles = "analysisToolLogFiles";
-        public const string AssociatedComponent = "associatedComponent";
-        public const string AssociatedRule = "associatedRule";
         public const string ArtifactChanges = "artifactChanges";
         public const string ArtifactLocation = "artifactLocation";
         public const string Artifacts = "artifacts";
+        public const string AssociatedComponent = "associatedComponent";
+        public const string AssociatedRule = "associatedRule";
         public const string Attachments = "attachments";
         public const string AutomationDetails = "automationDetails";
         public const string CodeFlows = "codeFlows";
@@ -40,6 +40,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         public const string Graphs = "graphs";
         public const string GraphTraversals = "graphTraversals";
         public const string Hashes = "hashes";
+        public const string Help = "help";
         public const string HelpUri = "helpUri";
         public const string Id = "id";
         public const string Importance = "importance";

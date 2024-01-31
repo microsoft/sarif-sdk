@@ -50,13 +50,20 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         public const string ProvideFullyFormattedMessageStrings = "GH1007";
 
         // Rules for ADO Advanced Security.
-        public const string ADOMaximumRunsCount = "ADO1001";
-        public const string ADOProvideRunProperties = "ADO1002";
-        public const string ADOProvideToolDriverProperties = "ADO1003";
+        public const string ADOReferenceFinalSchema = "ADO1011";
+        public const string ADOProvideRequiredSarifLogProperties = "ADO1013";
+        public const string ADOProvideRequiredRunProperties = "ADO1014";
+        public const string ADOProvideRequiredResultProperties = "ADO1015";
+        public const string ADOProvideRequiredLocationProperties = "ADO1016";
+        public const string ADOProvideRequiredPhysicalLocationProperties = "ADO1017";
+        public const string ADOProvideToolDriverProperties = "ADO1018";
+        public const string ADOProvideRequiredReportingDescriptorProperties = "ADO2012";
 
         // Rules for GHAS.
-        public const string GHASMaximumRunsCount = "GHAS1001";
-        public const string GHASProvideToolDriverProperties = "GHAS1003";
+        public const string GHProvideRequiredSarifLogProperties = "GH1013";
+        public const string GHProvideRequiredResultProperties = "GH1015";
+        public const string GHProvideRequiredToolProperties = "GH1018";
+        public const string GHProvideRequiredReportingDescriptorProperties = "GH2012";
 
         // TEMPLATE:
         // public const string RuleFriendlyName = "SARIFnnnn";
