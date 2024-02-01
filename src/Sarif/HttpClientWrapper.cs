@@ -22,10 +22,18 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <summary>
         /// Allow HttpClient to be injected, can accepted httpclient with mocked HttpMessageHandler for easier unit testing
         /// </summary>
-        /// <param name="httpClient"></param>
-        public HttpClientWrapper(HttpClient httpClient = null)
+        public HttpClientWrapper()
         {
-            this.httpClient = httpClient ?? new HttpClient();
+            this.httpClient = new HttpClient();
+        }
+
+        /// <summary>
+        /// Allow HttpClient to be injected, can accepted httpclient with mocked HttpMessageHandler for easier unit testing
+        /// </summary>
+        /// <param name="httpClient"></param>
+        public HttpClientWrapper(HttpClient httpClient)
+        {
+            this.httpClient = httpClient;
         }
 
         /// <summary>
@@ -55,17 +63,6 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="content">The HTTP request content sent to the server.</param>
         /// <returns>The task object representing the asynchronous operation</returns>
         public virtual Task<HttpResponseMessage> PostAsync(string requestUri, HttpContent content)
-        {
-            return httpClient.PostAsync(requestUri, content);
-        }
-
-        /// <summary>
-        /// Send a POST request to the specified Uri as an asynchronous operation.
-        /// </summary>
-        /// <param name="requestUri">The Uri the request is sent to.</param>
-        /// <param name="content">The HTTP request content sent to the server.</param>
-        /// <returns>The task object representing the asynchronous operation</returns>
-        public virtual Task<HttpResponseMessage> PostAsync(Uri requestUri, HttpContent content)
         {
             return httpClient.PostAsync(requestUri, content);
         }

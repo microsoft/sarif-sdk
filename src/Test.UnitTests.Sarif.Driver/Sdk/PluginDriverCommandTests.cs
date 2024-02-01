@@ -2,9 +2,11 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System;
+using System.IO;
 using System.Net.Http;
 
 using FluentAssertions;
+using FluentAssertions.Execution;
 
 using Moq;
 
@@ -127,6 +129,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         [Fact]
         public void PluginDriverCommand_ThrowsExitApplicationExceptionOnUnhandledException()
         {
+            using var assertionScope = new AssertionScope();
+
             string postUri = "https://github.com/microsoft/sarif-sdk";
             string outputFilePath = $"{Guid.NewGuid()}.txt";
 
@@ -136,17 +140,47 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 .Setup(c => c.PostAsync(It.IsAny<string>(), It.IsAny<HttpContent>()))
                 .Throws(new InvalidOperationException());
 
+            var mockFileSystem = new Mock<IFileSystem>();
+            mockFileSystem
+                .Setup(f => f.FileExists(It.IsAny<string>()))
+                .Returns(true);
+
+            var stream = (MemoryStream)CreateSarifLogStreamWithToolExecutionNotifications(FailureLevel.Error);
+            mockFileSystem
+                .Setup(f => f.FileReadAllBytes(It.IsAny<string>()))
+                .Returns(stream.ToArray());
+
             var context = new TestAnalysisContext
             {
                 PostUri = postUri,
                 OutputFilePath = outputFilePath,
+                FileSystem = mockFileSystem.Object
             };
+
+            var logger = new TestMessageLogger();
+            context.Logger = logger;
 
             Exception exception = Record.Exception(() =>
                     PluginDriverCommand<AnalyzeOptionsBase>.SarifPost(context,
                                                                       mockHttpClient.Object));
 
-            exception.Should().BeOfType(typeof(ArgumentException));
+            exception.Should().BeOfType(typeof(ExitApplicationException<ExitReason>));
+            ((ExitApplicationException<ExitReason>)exception).ExitReason.Should().Be(ExitReason.ExceptionPostingLogFile);
+            context.RuntimeErrors.Should().Be(RuntimeConditions.ExceptionPostingLogFile);
+            context.RuntimeExceptions.Should().Contain(ex => ex is InvalidOperationException);
+        }
+
+        private Stream CreateSarifLogStreamWithToolExecutionNotifications(FailureLevel level)
+        {
+            var memoryStream = new MemoryStream();
+            var sarifLog = new SarifLog();
+            var run = new Run();
+            run.Invocations = new Invocation[] { new Invocation()
+            { ToolExecutionNotifications = new Notification[] { new Notification() { Level = level } } } };
+            sarifLog.Runs = new Run[] { run };
+            sarifLog.Save(memoryStream);
+            memoryStream.Position = 0;
+            return memoryStream;
         }
     }
 }

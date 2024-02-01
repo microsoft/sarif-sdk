@@ -149,7 +149,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             }
 
             using var streamContent = new StreamContent(stream);
-            return await httpClient.PostAsync(postUri, streamContent);
+            return await httpClient.PostAsync(postUri.ToString(), streamContent);
         }
 
         /// <summary>

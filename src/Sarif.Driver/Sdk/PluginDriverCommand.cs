@@ -256,7 +256,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             catch (Exception ex)
             {
                 Console.WriteLine(ex.ToString());
-                globalContext.RuntimeErrors |= RuntimeConditions.ExceptionPostingLogFile;
+                Errors.LogErrorPostingLogFile(globalContext, globalContext.PostUri);
+                globalContext.RuntimeExceptions ??= new List<Exception>();
+                globalContext.RuntimeExceptions.Add(ex);
                 throw new ExitApplicationException<ExitReason>(DriverResources.MSG_UnexpectedApplicationExit, ex)
                 {
                     ExitReason = ExitReason.ExceptionPostingLogFile
