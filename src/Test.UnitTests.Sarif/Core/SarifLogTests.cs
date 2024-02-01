@@ -336,7 +336,7 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests.Core
                                             filePath,
                                             fileSystem.Object,
                                             httpClient: new HttpClientWrapper(httpMock));
-            logPosted.Item1.Should().BeFalse("the server returns a BadRequest even though there are error level ToolExecutionNotifications");
+            logPosted.Item1.Should().BeFalse("a status code of 'BadRequest' should fail the call even though we posted error-level 'ToolExcecutionNotifications'");
             logPosted.Item2.Should().Contain("status code 'BadRequest'");
         }
 
