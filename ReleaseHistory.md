@@ -8,6 +8,7 @@
 * BUG: Update `Stack.Create` method to populate missing `PhysicalLocation` instances when stack frames reference relative file paths.
 * BUG: Fix `UnsupportedOperationException` in `ZipArchiveArtifact`.
 * NEW: Add `IsBinary` property to `IEnumeratedArtifact` and implement the property in `ZipArchiveArtifact`.
+* NEW: Switch to content-based `IsBinary` categorization for `ZipArchiveArtifact`s.
 * PRF: Change default `max-file-size-in-kb` parameter to 10 megabytes.
 * PRF: Add support for efficiently peeking into non-seekable streams for binary/text categorization.
 * NEW: Add a new `--timeout-in-seconds` parameter to `AnalyzeOptionsBase`, which will override the `TimeoutInMilliseconds` property in `AnalyzeContextBase`.
