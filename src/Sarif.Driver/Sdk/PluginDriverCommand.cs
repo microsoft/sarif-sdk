@@ -253,6 +253,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 {
                     Console.WriteLine(result.Item2);
                 }
+
+                if (result.Item1 == false && !result.Item2.Contains("skipped"))
+                {
+                    globalContext.RuntimeErrors |= RuntimeConditions.ExceptionPostingLogFile;
+                }
             }
             catch (Exception ex)
             {

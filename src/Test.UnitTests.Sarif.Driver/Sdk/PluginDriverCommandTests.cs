@@ -4,6 +4,7 @@
 using System;
 using System.IO;
 using System.Net.Http;
+using System.Threading.Tasks;
 
 using FluentAssertions;
 using FluentAssertions.Execution;
@@ -127,7 +128,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         }
 
         [Fact]
-        public void PluginDriverCommand_ThrowsExitApplicationExceptionOnUnhandledException()
+        public void PluginDriverCommand_PostFileTests()
         {
             using var assertionScope = new AssertionScope();
 
@@ -160,14 +161,40 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             var logger = new TestMessageLogger();
             context.Logger = logger;
 
+            // Case when there are unhandled exceptions.
             Exception exception = Record.Exception(() =>
                     PluginDriverCommand<AnalyzeOptionsBase>.SarifPost(context,
                                                                       mockHttpClient.Object));
-
             exception.Should().BeOfType(typeof(ExitApplicationException<ExitReason>));
             ((ExitApplicationException<ExitReason>)exception).ExitReason.Should().Be(ExitReason.ExceptionPostingLogFile);
             context.RuntimeErrors.Should().Be(RuntimeConditions.ExceptionPostingLogFile);
             context.RuntimeExceptions.Should().Contain(ex => ex is InvalidOperationException);
+
+            // Case when there are no unhandled exceptions, but the server returns status code other than OK.
+            context.RuntimeErrors = RuntimeConditions.None;
+            context.RuntimeExceptions = null;
+            mockHttpClient
+                .Setup(c => c.PostAsync(It.IsAny<string>(), It.IsAny<HttpContent>()))
+                .Returns(Task.FromResult(HttpMockHelper.CreateInternalServerErrorResponse()));
+            exception = Record.Exception(() =>
+                    PluginDriverCommand<AnalyzeOptionsBase>.SarifPost(context,
+                                                                      mockHttpClient.Object));
+            exception.Should().BeNull();
+            context.RuntimeErrors.Should().Be(RuntimeConditions.ExceptionPostingLogFile);
+            context.RuntimeExceptions.Should().BeNull();
+
+            // Case when there are no unhandled exceptions, and the server returns status code OK.
+            context.RuntimeErrors = RuntimeConditions.None;
+            context.RuntimeExceptions = null;
+            mockHttpClient
+                .Setup(c => c.PostAsync(It.IsAny<string>(), It.IsAny<HttpContent>()))
+                .Returns(Task.FromResult(HttpMockHelper.CreateOKResponse()));
+            exception = Record.Exception(() =>
+                    PluginDriverCommand<AnalyzeOptionsBase>.SarifPost(context,
+                                                                      mockHttpClient.Object));
+            exception.Should().BeNull();
+            context.RuntimeErrors.Should().Be(RuntimeConditions.None);
+            context.RuntimeExceptions.Should().BeNull();
         }
 
         private Stream CreateSarifLogStreamWithToolExecutionNotifications(FailureLevel level)
