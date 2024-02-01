@@ -216,14 +216,14 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests.Core
             {
                 await SarifLog.Post(postUri: null,
                                     new MemoryStream(),
-                                    new HttpClient());
+                                    new HttpClientWrapper());
             });
 
             await Assert.ThrowsAsync<ArgumentNullException>(async () =>
             {
                 await SarifLog.Post(new Uri("https://github.com/microsoft/sarif-sdk"),
                                     null,
-                                    new HttpClient());
+                                    new HttpClientWrapper());
             });
 
             await Assert.ThrowsAsync<ArgumentNullException>(async () =>
@@ -298,7 +298,7 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests.Core
             logPosted = await SarifLog.Post(postUri,
                                             filePath,
                                             fileSystem.Object,
-                                            httpClient: new HttpClient(httpMock));
+                                            httpClient: new HttpClientWrapper(httpMock));
             logPosted.Item1.Should().BeTrue("with results");
             logPosted.Item2.Should().Contain("status code 'OK'");
             logPosted.Item2.Should().Contain(content);
@@ -311,7 +311,7 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests.Core
             logPosted = await SarifLog.Post(postUri,
                                             filePath,
                                             fileSystem.Object,
-                                            httpClient: new HttpClient(httpMock));
+                                            httpClient: new HttpClientWrapper(httpMock));
             logPosted.Item1.Should().BeTrue("with error level ToolExecutionNotifications");
             logPosted.Item2.Should().Contain("status code 'OK'");
             logPosted.Item2.Should().Contain(content);
@@ -323,7 +323,7 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests.Core
             logPosted = await SarifLog.Post(postUri,
                                             filePath,
                                             fileSystem.Object,
-                                            httpClient: new HttpClient(httpMock));
+                                            httpClient: new HttpClientWrapper(httpMock));
             logPosted.Item1.Should().BeFalse("with warning level ToolExecutionNotifications");
             logPosted.Item2.Should().Contain("was skipped");
 
@@ -335,7 +335,7 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests.Core
             logPosted = await SarifLog.Post(postUri,
                                             filePath,
                                             fileSystem.Object,
-                                            httpClient: new HttpClient(httpMock));
+                                            httpClient: new HttpClientWrapper(httpMock));
             logPosted.Item1.Should().BeFalse("the server returns a BadRequest even though there are error level ToolExecutionNotifications");
             logPosted.Item2.Should().Contain("status code 'BadRequest'");
         }
@@ -389,7 +389,7 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests.Core
             HttpResponseMessage response =
                 await SarifLog.Post(postUri,
                     CreateSarifLogStream(),
-                    new HttpClient(httpMock));
+                    new HttpClientWrapper(httpMock));
 
             Assert.Throws<HttpRequestException>(() =>
             {
@@ -409,7 +409,7 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests.Core
             {
                 await SarifLog.Post(postUri,
                                     CreateSarifLogStream(),
-                                    new HttpClient(httpMock));
+                                    new HttpClientWrapper(httpMock));
             }
             catch (Exception ex)
             {
@@ -440,7 +440,7 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests.Core
                 await SarifLog.Post(postUri,
                                     filePath,
                                     fileSystem.Object,
-                                    new HttpClient(httpMock));
+                                    new HttpClientWrapper(httpMock));
             }
             catch (Exception ex)
             {

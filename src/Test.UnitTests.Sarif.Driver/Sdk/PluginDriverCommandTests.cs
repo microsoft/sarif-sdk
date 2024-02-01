@@ -3,7 +3,6 @@
 
 using System;
 using System.Net.Http;
-using System.Threading.Tasks;
 
 using FluentAssertions;
 
@@ -65,7 +64,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         {
             string postUri = "https://github.com/microsoft/sarif-sdk";
             string outputFilePath = $"{Guid.NewGuid()}.txt";
-            using var httpClient = new HttpClient();
+            using var httpClient = new HttpClientWrapper();
 
             var mockFileSystem = new Mock<IFileSystem>();
             mockFileSystem
@@ -87,7 +86,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         {
             string postUri = "https://github.com/microsoft/sarif-sdk";
             string outputFilePath = $"{Guid.NewGuid()}.txt";
-            using var httpClient = new HttpClient();
+            using var httpClient = new HttpClientWrapper();
 
             var mockFileSystem = new Mock<IFileSystem>();
             mockFileSystem
@@ -108,7 +107,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         public void PluginDriverCommand_NoExceptionIfPostUriNotPresent()
         {
             string outputFilePath = $"{Guid.NewGuid()}.txt";
-            using var httpClient = new HttpClient();
+            using var httpClient = new HttpClientWrapper();
 
             var mockFileSystem = new Mock<IFileSystem>();
             mockFileSystem
@@ -130,8 +129,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         {
             string postUri = "https://github.com/microsoft/sarif-sdk";
             string outputFilePath = $"{Guid.NewGuid()}.txt";
-           
-            var mockHttpClient = new Mock<HttpClient>();
+
+            var mockHttpClient = new Mock<HttpClientWrapper>();
 
             mockHttpClient
                 .Setup(c => c.PostAsync(It.IsAny<string>(), It.IsAny<HttpContent>()))
@@ -147,7 +146,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                     PluginDriverCommand<AnalyzeOptionsBase>.SarifPost(context,
                                                                       mockHttpClient.Object));
 
-            exception.Should().BeOfType(typeof(InvalidOperationException));
+            exception.Should().BeOfType(typeof(ArgumentException));
         }
     }
 }

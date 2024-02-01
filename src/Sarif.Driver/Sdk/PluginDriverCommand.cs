@@ -5,7 +5,6 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Net.Http;
 using System.Reflection;
 using System.Security;
 
@@ -223,11 +222,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         }
         protected virtual void PostLogFile(IAnalysisContext globalContext)
         {
-            using var httpClient = new HttpClient();
+            using var httpClient = new HttpClientWrapper();
             SarifPost(globalContext, httpClient);
         }
 
-        internal static void SarifPost(IAnalysisContext globalContext, HttpClient httpClient)
+        internal static void SarifPost(IAnalysisContext globalContext, HttpClientWrapper httpClient)
         {
             if (string.IsNullOrWhiteSpace(globalContext.PostUri) ||
                 string.IsNullOrWhiteSpace(globalContext.OutputFilePath) ||

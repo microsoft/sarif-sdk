@@ -80,7 +80,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         public static async Task<(bool, string)> Post(Uri postUri,
                                                       string filePath,
                                                       IFileSystem fileSystem,
-                                                      HttpClient httpClient)
+                                                      HttpClientWrapper httpClient)
         {
             string postMessage = null;
 
@@ -126,7 +126,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="postUri"></param>
         /// <param name="stream"></param>
         /// <param name="httpClient"></param>
-        public static async Task<HttpResponseMessage> Post(Uri postUri, Stream stream, HttpClient httpClient)
+        public static async Task<HttpResponseMessage> Post(Uri postUri, Stream stream, HttpClientWrapper httpClient)
         {
             if (postUri == null)
             {
