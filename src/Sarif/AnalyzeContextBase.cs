@@ -370,14 +370,15 @@ namespace Microsoft.CodeAnalysis.Sarif
                         "Specifies whether to recurse into child directories when enumerating scan targets. " +
                         "Defaults to 'False'.");
 
+        private const int DefaultMaxFileSizeInKilobytes = 10 * 1000; // 10 MB
         public static PerLanguageOption<long> MaxFileSizeInKilobytesProperty { get; } =
             new PerLanguageOption<long>(
-                $"CoreSettings", nameof(MaxFileSizeInKilobytes), defaultValue: () => 1024,
+                $"CoreSettings", nameof(MaxFileSizeInKilobytes), defaultValue: () => DefaultMaxFileSizeInKilobytes,
                 $"{Environment.NewLine}" +
                 $"    Scan targets that fall below this size threshold (in kilobytes) will not be analyzed.{Environment.NewLine}" +
                 $"    It is legal to set this value to 0 (in order to potentially complete an analysis that{Environment.NewLine}" +
                 $"    records what scan targets would have been analyzed, given current configuration.{Environment.NewLine}" +
-                $"    Negative values will be discarded in favor of the default of {MaxFileSizeInKilobytesProperty?.DefaultValue() ?? 1024} KB.");
+                $"    Negative values will be discarded in favor of the default of {MaxFileSizeInKilobytesProperty?.DefaultValue() ?? DefaultMaxFileSizeInKilobytes} KB.");
 
 
         public static PerLanguageOption<int> EventsBufferSizeInMegabytesProperty { get; } =

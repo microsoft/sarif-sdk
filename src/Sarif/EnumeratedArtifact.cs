@@ -11,6 +11,8 @@ namespace Microsoft.CodeAnalysis.Sarif
     // EnumeratedArtifact<string> being a commonly utilized thing.
     public class EnumeratedArtifact : IEnumeratedArtifact
     {
+        private const int BinarySniffingHeaderSizeBytes = 1024;
+
         public EnumeratedArtifact(IFileSystem fileSystem)
         {
             FileSystem = fileSystem;
@@ -87,50 +89,25 @@ namespace Microsoft.CodeAnalysis.Sarif
                 this.Stream = FileSystem.FileOpenRead(Uri.LocalPath);
             }
 
-            if (Stream.CanSeek)
-            {
-                RetrieveDataFromSeekableStream();
-            }
-            else
-            {
-                RetrieveDataFromNonSeekableStream();
-            }
+            RetrieveDataFromStream();
 
             this.Stream = null;
 
             return (this.contents, this.bytes);
         }
 
-        private void RetrieveDataFromNonSeekableStream()
+        private void RetrieveDataFromStream()
         {
-            bool isText;
-
-            this.bytes = new byte[Stream.Length];
-            int length = this.Stream.Read(this.bytes, 0, this.bytes.Length);
-            isText = FileEncoding.IsTextualData(this.bytes, 0, length);
-
-            if (isText)
+            if (!this.Stream.CanSeek)
             {
-                // If we have textual data and the encoding was null, we are UTF8
-                // (which will be a perfectly valid encoding for ASCII as well).
-                this.encoding ??= Encoding.UTF8;
-                this.contents = encoding.GetString(this.bytes);
-                this.bytes = null;
+                this.Stream = new PeekableStream(this.Stream, BinarySniffingHeaderSizeBytes);
             }
-        }
 
-        private void RetrieveDataFromSeekableStream()
-        {
-            bool isText;
-
-            // Reset to beginning of stream in case caller neglected to do so.
-            this.Stream.Seek(0, SeekOrigin.Begin);
-
-            byte[] header = new byte[1024];
+            byte[] header = new byte[BinarySniffingHeaderSizeBytes];
             int length = this.Stream.Read(header, 0, header.Length);
-            isText = FileEncoding.IsTextualData(header, 0, length);
+            bool isText = FileEncoding.IsTextualData(header, 0, length);
 
-            this.Stream.Seek(0, SeekOrigin.Begin);
+            TryRewindStream();
 
             if (isText)
             {
@@ -140,7 +117,24 @@ namespace Microsoft.CodeAnalysis.Sarif
             else
             {
                 this.bytes = new byte[Stream.Length];
-                this.Stream.Read(this.bytes, 0, bytes.Length);
+                var memoryStream = new MemoryStream(this.bytes);
+                this.Stream.CopyTo(memoryStream);
+            }
+        }
+
+        private void TryRewindStream()
+        {
+            if (this.Stream.CanSeek)
+            {
+                this.Stream.Seek(0, SeekOrigin.Begin);
+            }
+            else
+            {
+                var peekable = this.Stream as PeekableStream;
+                if (peekable != null)
+                {
+                    peekable.Rewind();
+                }
             }
         }
 
