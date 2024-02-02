@@ -57,13 +57,19 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         public const string ADOProvideRequiredLocationProperties = "ADO1016";
         public const string ADOProvideRequiredPhysicalLocationProperties = "ADO1017";
         public const string ADOProvideToolDriverProperties = "ADO1018";
+        public const string ADOProvideSchema = "ADO2008";
         public const string ADOProvideRequiredReportingDescriptorProperties = "ADO2012";
 
         // Rules for GHAS.
-        public const string GHProvideRequiredSarifLogProperties = "GH1013";
-        public const string GHProvideRequiredResultProperties = "GH1015";
-        public const string GHProvideRequiredToolProperties = "GH1018";
-        public const string GHProvideRequiredReportingDescriptorProperties = "GH2012";
+        public const string GHASReferenceFinalSchema = "GHAS1011";
+        public const string GHASProvideRequiredSarifLogProperties = "GHAS1013";
+        public const string GHASProvideRequiredRunProperties = "GHAS1014";
+        public const string GHASProvideRequiredResultProperties = "GHAS1015";
+        public const string GHASProvideRequiredLocationProperties = "GHAS1016";
+        public const string GHASProvideRequiredPhysicalLocationProperties = "GHAS1017";
+        public const string GHASProvideRequiredToolProperties = "GHAS1018";
+        public const string GHASProvideSchema = "GHAS2008";
+        public const string GHASProvideRequiredReportingDescriptorProperties = "GHAS2012";
 
         // TEMPLATE:
         // public const string RuleFriendlyName = "SARIFnnnn";

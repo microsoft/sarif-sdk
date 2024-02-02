@@ -61,6 +61,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         public const string Notifications = "notifications";
         public const string OriginalUriBaseIds = "originalUriBaseIds";
         public const string ParentIndex = "parentIndex";
+        public const string PartialFingerprints = "partialFingerprints";
         public const string PhysicalLocation = "physicalLocation";
         public const string Provenance = "provenance";
         public const string Rectangles = "rectangles";

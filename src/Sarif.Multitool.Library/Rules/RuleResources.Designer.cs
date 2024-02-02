@@ -336,6 +336,25 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0}: This &apos;physicalLocation&apos; object does not provide an &apos;artifactLocation&apos; object. This property is required by the {1} service..
+        /// </summary>
+        internal static string Base1017_ProvideRequiredPhysicalLocationProperties_Error_MissingArtifactLocation_Text {
+            get {
+                return ResourceManager.GetString("Base1017_ProvideRequiredPhysicalLocationProperties_Error_MissingArtifactLocation_" +
+                        "Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0}: The &apos;physicalLocation&apos; object does not provide a &apos;region&apos; object. This property is required by the {1} service..
+        /// </summary>
+        internal static string Base1017_ProvideRequiredPhysicalLocationProperties_Error_MissingRegion_Text {
+            get {
+                return ResourceManager.GetString("Base1017_ProvideRequiredPhysicalLocationProperties_Error_MissingRegion_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0}: This &apos;tool&apos; object does not provide a &apos;driver&apos; object. This property is required by the {1} service..
         /// </summary>
         internal static string Base1018_ProvideRequiredToolProperties_Error_MissingDriver_Text {
@@ -563,6 +582,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
             get {
                 return ResourceManager.GetString("GH2012_ProvideRequiredReportingDescriptorProperties_Error_MissingShortDescription" +
                         "", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0}: The &apos;artifactLocation&apos; object on this &apos;physicalLocation&apos; object does not provide a &apos;uri&apos; object. This property is required by the {1} service..
+        /// </summary>
+        internal static string GHAS1017_ProvideRequiredPhysicalLocationProperties_Error_MissingArtifactLocationUri_Text {
+            get {
+                return ResourceManager.GetString("GHAS1017_ProvideRequiredPhysicalLocationProperties_Error_MissingArtifactLocationU" +
+                        "ri_Text", resourceCulture);
             }
         }
         

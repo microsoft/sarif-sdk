@@ -3,7 +3,7 @@
 
 namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 {
-    public class AdoProvideRequiredRunPropertties
+    public class AdoProvideRequiredResultPropertties
         : BaseProvideRequiredResultProperties
     {
         /// <summary>
@@ -11,9 +11,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         /// </summary>
         public override string Id => RuleId.ADOProvideRequiredResultProperties;
 
+        protected override RuleKinds Kinds => RuleKinds.Ado;
+
         protected override string ServiceName => RuleResources.ServiceName_ADO;
 
-        public AdoProvideRequiredRunPropertties()
+        public AdoProvideRequiredResultPropertties()
         {
             this.DefaultConfiguration.Level = FailureLevel.Error;
         }

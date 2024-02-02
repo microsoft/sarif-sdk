@@ -21,6 +21,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         /// </summary>
         public override string Id => RuleId.ProvideCheckoutPath;
 
+        protected override RuleKinds Kinds => RuleKinds.Ghas;
+
         // GitHub Advanced Security code scanning will reject a SARIF file that expresses
         // result locations as absolute 'file' scheme URIs unless GitHub can determine the URI
         // of the repository root (which GitHub refers to as the "checkout path"). There are

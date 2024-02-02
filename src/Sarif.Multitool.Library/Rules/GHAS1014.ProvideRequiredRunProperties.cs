@@ -3,26 +3,24 @@
 
 namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 {
-    public class GhasProvideToolDriver
-        : BaseProvideRequiredToolProperties
+    public class GhasProvideRequiredRunPropertties
+        : BaseProvideRequiredRunProperties
     {
         /// <summary>
-        /// GHAS1018
+        /// GHAS1014
         /// </summary>
-        public override string Id => RuleId.GHASProvideRequiredToolProperties;
+        public override string Id => RuleId.GHASProvideRequiredRunProperties;
 
-        protected override RuleKinds Kinds => RuleKinds.Ghas;
+        protected override string ServiceName => RuleResources.ServiceName_ADO;
 
-        protected override string ServiceName => RuleResources.ServiceName_GHAS;
-
-        public GhasProvideToolDriver()
+        public GhasProvideRequiredRunPropertties()
         {
             this.DefaultConfiguration.Level = FailureLevel.Error;
         }
 
         protected override void Analyze(Run run, string runPointer)
         {
-            // run.tool is chcked by the base class.
+            // run.results is chcked by the base class.
             base.Analyze(run, runPointer);
         }
     }

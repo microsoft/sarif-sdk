@@ -7,9 +7,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         : BaseProvideRequiredRunProperties
     {
         /// <summary>
-        /// ADO1002
+        /// ADO1014
         /// </summary>
         public override string Id => RuleId.ADOProvideRequiredRunProperties;
+
+        protected override RuleKinds Kinds => RuleKinds.Ado;
 
         protected override string ServiceName => RuleResources.ServiceName_ADO;
 
@@ -25,15 +27,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 
             if (run != null)
             {
-                if (run.Tool == null)
-                {
-                    // {0}: This 'run' object does not provide a 'tool' property. This property is required by the {1} service.
-                    LogResult(
-                        runPointer,
-                        nameof(RuleResources.ADO1014_AdoProvideRequiredRunPropertties_Error_MissingTool_Error_Text),
-                        this.ServiceName);
-                }
-
                 if (run.AutomationDetails == null)
                 {
                     // {0}: This 'run' object does not provide an 'automationDetails' property. This property is required by the {1} service.

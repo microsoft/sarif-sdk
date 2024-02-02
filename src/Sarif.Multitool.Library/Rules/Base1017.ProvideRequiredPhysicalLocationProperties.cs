@@ -1,7 +1,9 @@
 ﻿// Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-using System.Runtime.Remoting.Contexts;
+using Microsoft.Json.Pointer;
+
+using Newtonsoft.Json.Linq;
 
 namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 {
@@ -14,18 +16,20 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 
         protected override void Analyze(PhysicalLocation physicalLocation, string physicalLocationPointer)
         {
-            if (location.physicalLocation.region == null)
+            if (physicalLocation.Region == null)
             {
                 // {0}: The 'physicalLocation' object does not provide a 'region' object. This property is required by the {1} service.
                 LogResult(
-                    locationPointer.AtProperty(SarifPropertyName.Region),
+                    physicalLocationPointer,
                     nameof(RuleResources.Base1017_ProvideRequiredPhysicalLocationProperties_Error_MissingRegion_Text),
                     this.ServiceName);
             }
             else
             {
+                string regionPointer = physicalLocationPointer.AtProperty(SarifPropertyName.Region);
                 var jsonPointer = new JsonPointer(regionPointer);
                 JToken regionToken = jsonPointer.Evaluate(Context.InputLogToken);
+                Region region = physicalLocation.Region;
 
                 if (!region.IsBinaryRegion &&
                     !region.IsLineColumnBasedTextRegion &&
@@ -70,21 +74,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                 }
             }
 
-            if (physicalLocation.artifactLocation == null)
+            if (physicalLocation.ArtifactLocation == null)
             {
                 // {0}: This 'physicalLocation' object does not provide an 'artifactLocation' object. This property is required by the {1} service.
                 LogResult(
-                    physicalLocationPointer.AtProperty(SarifPropertyName.ArtifactLocation,
+                    physicalLocationPointer,
                     nameof(RuleResources.Base1017_ProvideRequiredPhysicalLocationProperties_Error_MissingArtifactLocation_Text),
-                    this.ServiceName);
-            }
-
-            if (physicalLocation.uri == null)
-            {
-                // {0}: The 'artifactLocation' object on this 'physicalLocation' object does not provide a 'uri' object. This property is required by the {1} service.
-                LogResult(
-                    physicalLocationPointer.AtProperty(SarifPropertyName.Uri),
-                    nameof(RuleResources.Base1017_ProvideRequiredPhysicalLocationProperties_Error_MissingUri_Text),
                     this.ServiceName);
             }
         }

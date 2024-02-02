@@ -12,7 +12,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 
         protected override void Analyze(Location location, string locationPointer)
         {
-            if (location.physicalLocation == null)
+            if (location.PhysicalLocation == null)
             {
                 // {0}: This 'location' object does not provide a 'physicalLocation' object. This property is required by the {1} service.
                 LogResult(

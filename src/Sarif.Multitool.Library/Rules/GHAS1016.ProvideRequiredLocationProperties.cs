@@ -8,6 +8,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
     {
         public override string Id => RuleId.GHASProvideRequiredLocationProperties;
 
+        protected override RuleKinds Kinds => RuleKinds.Ghas;
+
         public override MultiformatMessageString FullDescription => new MultiformatMessageString();
 
         public GHASProvideRequiredLocationProperties()

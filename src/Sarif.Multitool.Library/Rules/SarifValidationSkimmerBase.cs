@@ -15,15 +15,6 @@ using Newtonsoft.Json.Linq;
 
 namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 {
-    [Flags]
-    public enum RuleKinds
-    {
-        None = 0,
-        Sarif = 1,
-        Ghas = 2,
-        Ado = 4,
-    }
-
     public abstract class SarifValidationSkimmerBase : Skimmer<SarifValidationContext>
     {
         // OASIS defines this URI to always point to the latest revision (draft or approved) of the specified version
@@ -37,7 +28,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 
         public override MultiformatMessageString Help => null;
 
-        public virtual RuleKinds Kinds { get; set; }
+        protected virtual RuleKinds Kinds => RuleKinds.Sarif;
 
         protected SarifValidationContext Context { get; private set; }
 
@@ -142,6 +133,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         }
 
         protected virtual void Analyze(Invocation invocation, string invocationPointer)
+        {
+        }
+
+        protected virtual void Analyze(Location Location, string locationPointer)
         {
         }
 

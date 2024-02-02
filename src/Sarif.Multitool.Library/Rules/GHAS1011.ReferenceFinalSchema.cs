@@ -3,28 +3,26 @@
 
 namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 {
-    public class GhProvideRequiredSarifLogProperties
-        : BaseProvideRequiredSarifLogProperties
+    public class GhasReferenceFinalSchema
+        : BaseReferenceFinalSchema
     {
         /// <summary>
-        /// GH1013
+        /// GHAS1011
         /// </summary>
-        public override string Id => RuleId.GHASProvideRequiredSarifLogProperties;
+        public override string Id => RuleId.GHASReferenceFinalSchema;
 
         protected override RuleKinds Kinds => RuleKinds.Ghas;
 
         protected override string ServiceName => RuleResources.ServiceName_GHAS;
 
-        public override int MaximumRuns => 20;
-
-        public GhProvideRequiredSarifLogProperties()
+        public GhasReferenceFinalSchema()
         {
             this.DefaultConfiguration.Level = FailureLevel.Error;
         }
 
-        protected override void Analyze(SarifLog sarifLog, string runPointer)
+        protected override void Analyze(SarifLog log, string logPointer)
         {
-            base.Analyze(sarifLog, runPointer);
+            base.Analyze(log, logPointer);
         }
     }
 }

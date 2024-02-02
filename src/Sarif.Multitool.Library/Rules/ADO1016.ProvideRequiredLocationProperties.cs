@@ -8,6 +8,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
     {
         public override string Id => RuleId.ADOProvideRequiredLocationProperties;
 
+        protected override RuleKinds Kinds => RuleKinds.Ado;
+
         public override MultiformatMessageString FullDescription => new MultiformatMessageString();
 
         public ADOProvideRequiredLocationProperties()

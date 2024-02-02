@@ -1,6 +1,8 @@
 ﻿// Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
+using Microsoft.Json.Pointer;
+
 namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 {
     public class BaseProvideRequiredResultProperties
@@ -16,7 +18,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             {
                 // {0}: This 'result' object does not provide a 'message' object. This property is required by the {1} service.
                 LogResult(
-                    resultPointer.AtProperty(SarifPropertyName.Message),
+                    resultPointer,
                     nameof(RuleResources.Base1015_ProvideRequiredResultProperties_Error_MissingMessage_Text),
                     this.ServiceName);
             }
@@ -24,12 +26,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             {
                 // {0}: The 'message' object on this 'result' object does not provide a 'text' property. This property is required by the {1} service.
                 LogResult(
-                    resultPointer.AtProperty(SarifPropertyName.Text),
+                    resultPointer.AtProperty(SarifPropertyName.Message),
                     nameof(RuleResources.Base1015_ProvideRequiredResultProperties_Error_MissingMessageText_Text),
                     this.ServiceName);
             }
 
-            if (result.locations == null)
+            if (result.Locations == null)
             {
                 // {0}: This 'result' object does not provide a 'locations' array. This property is required by the {1} service.
                 LogResult(
@@ -37,11 +39,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                     nameof(RuleResources.Base1015_ProvideRequiredResultProperties_Error_MissingLocationsArray_Text),
                     this.ServiceName);
             }
-            else if (result.locations.Count == 0)
+            else if (result.Locations.Count == 0)
             {
                 // {0}: The 'locations' array on this 'result' object is empty. This property is required by the {1} service.
                 LogResult(
-                    resultPointer.AtProperty(SarifPropertyName.Locations),
+                    resultPointer,
                     nameof(RuleResources.Base1015_ProvideRequiredResultProperties_Error_EmptyLocationsArray_Text),
                     this.ServiceName);
             }
@@ -76,11 +78,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             //    }
             //}
 
-            if (result.partialFingerprints == null)
+            if (result.PartialFingerprints == null)
             {
                 // {0}: This 'result' object does not provide a 'partialFingerprints' dictionary. This property is required by the {1} service.
                 LogResult(
-                    resultPointer.AtProperty(SarifPropertyName.PartialFingerprints),
+                    resultPointer,
                     nameof(RuleResources.Base1015_ProvideRequiredResultProperties_Error_MissingPartialFingerprints_Text),
                     this.ServiceName);
             }

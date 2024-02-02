@@ -3,28 +3,26 @@
 
 namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 {
-    public class AdoProvideRequiredSarifLogProperties
-        : BaseProvideRequiredSarifLogProperties
+    public class AdoProvideRequiredPhysicalLocationProperties
+        : BaseProvideRequiredResultProperties
     {
         /// <summary>
-        /// ADO1013
+        /// ADO1017
         /// </summary>
-        public override string Id => RuleId.ADOProvideRequiredSarifLogProperties;
+        public override string Id => RuleId.ADOProvideRequiredPhysicalLocationProperties;
 
         protected override RuleKinds Kinds => RuleKinds.Ado;
 
         protected override string ServiceName => RuleResources.ServiceName_ADO;
 
-        public override int MaximumRuns => 20;
-
-        public AdoProvideRequiredSarifLogProperties()
+        public AdoProvideRequiredPhysicalLocationProperties()
         {
             this.DefaultConfiguration.Level = FailureLevel.Error;
         }
 
-        protected override void Analyze(SarifLog sarifLog, string runPointer)
+        protected override void Analyze(PhysicalLocation physicalLocation, string physicalLocationPointer)
         {
-            base.Analyze(sarifLog, runPointer);
+            base.Analyze(physicalLocation, physicalLocationPointer);
         }
     }
 }

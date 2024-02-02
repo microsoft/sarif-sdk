@@ -52,6 +52,38 @@
               "helpUri": "http://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html"
             },
             {
+              "id": "ADO1015",
+              "name": "AdoProvideRequiredResultPropertties",
+              "defaultConfiguration": {
+                "level": "error"
+              },
+              "helpUri": "http://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html"
+            },
+            {
+              "id": "ADO2012",
+              "name": "ADOProvideRequiredReportingDescriptorProperties",
+              "defaultConfiguration": {
+                "level": "error"
+              },
+              "helpUri": "http://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html"
+            },
+            {
+              "id": "GH1015",
+              "name": "GhasProvideRequiredResultPropertties",
+              "defaultConfiguration": {
+                "level": "error"
+              },
+              "helpUri": "http://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html"
+            },
+            {
+              "id": "GH2012",
+              "name": "GhasProvideRequiredReportingDescriptorProperties",
+              "defaultConfiguration": {
+                "level": "error"
+              },
+              "helpUri": "http://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html"
+            },
+            {
               "id": "SARIF2002",
               "name": "ProvideMessageArguments",
               "fullDescription": {
@@ -187,8 +219,304 @@
           }
         },
         {
-          "ruleId": "SARIF2002",
+          "ruleId": "",
+          "ruleIndex": 0,
+          "message": {
+            "id": "Error_MissingLocationsArray",
+            "arguments": [
+              "runs[0].results[0]",
+              null
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": 1
+                },
+                "region": {
+                  "startLine": 7,
+                  "startColumn": 9
+                }
+              }
+            }
+          ],
+          "baselineState": "new",
+          "properties": {
+            "ResultMatching": {}
+          }
+        },
+        {
+          "ruleId": "",
+          "ruleIndex": 0,
+          "message": {
+            "id": "Error_MissingPartialFingerprints",
+            "arguments": [
+              "runs[0].results[0]",
+              null
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": 1
+                },
+                "region": {
+                  "startLine": 7,
+                  "startColumn": 9
+                }
+              }
+            }
+          ],
+          "baselineState": "new",
+          "properties": {
+            "ResultMatching": {}
+          }
+        },
+        {
+          "ruleId": "ADO1015",
           "ruleIndex": 2,
+          "level": "error",
+          "message": {
+            "id": "Error_MissingLocationsArray",
+            "arguments": [
+              "runs[0].results[0]",
+              "Azure DevOps Advanced Security",
+              "Azure DevOps Advanced Security"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": 1
+                },
+                "region": {
+                  "startLine": 7,
+                  "startColumn": 9
+                }
+              }
+            }
+          ],
+          "baselineState": "new",
+          "properties": {
+            "ResultMatching": {}
+          }
+        },
+        {
+          "ruleId": "ADO1015",
+          "ruleIndex": 2,
+          "level": "error",
+          "message": {
+            "id": "Error_MissingPartialFingerprints",
+            "arguments": [
+              "runs[0].results[0]",
+              "Azure DevOps Advanced Security",
+              "Azure DevOps Advanced Security"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": 1
+                },
+                "region": {
+                  "startLine": 7,
+                  "startColumn": 9
+                }
+              }
+            }
+          ],
+          "baselineState": "new",
+          "properties": {
+            "ResultMatching": {}
+          }
+        },
+        {
+          "ruleId": "ADO2012",
+          "ruleIndex": 3,
+          "level": "error",
+          "message": {
+            "id": "Error_MissingPartialFingerprints",
+            "arguments": [
+              "runs[0].results[0]",
+              "Azure DevOps Advanced Security",
+              "Azure DevOps Advanced Security"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": 1
+                },
+                "region": {
+                  "startLine": 7,
+                  "startColumn": 9
+                }
+              }
+            }
+          ],
+          "baselineState": "new",
+          "properties": {
+            "ResultMatching": {}
+          }
+        },
+        {
+          "ruleId": "ADO2012",
+          "ruleIndex": 3,
+          "level": "error",
+          "message": {
+            "id": "Error_MissingLocationsArray",
+            "arguments": [
+              "runs[0].results[0]",
+              "Azure DevOps Advanced Security",
+              "Azure DevOps Advanced Security"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": 1
+                },
+                "region": {
+                  "startLine": 7,
+                  "startColumn": 9
+                }
+              }
+            }
+          ],
+          "baselineState": "new",
+          "properties": {
+            "ResultMatching": {}
+          }
+        },
+        {
+          "ruleId": "GH1015",
+          "ruleIndex": 4,
+          "level": "error",
+          "message": {
+            "id": "Error_MissingPartialFingerprints",
+            "arguments": [
+              "runs[0].results[0]",
+              "GitHub Advanced Security",
+              "GitHub Advanced Security"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": 1
+                },
+                "region": {
+                  "startLine": 7,
+                  "startColumn": 9
+                }
+              }
+            }
+          ],
+          "baselineState": "new",
+          "properties": {
+            "ResultMatching": {}
+          }
+        },
+        {
+          "ruleId": "GH1015",
+          "ruleIndex": 4,
+          "level": "error",
+          "message": {
+            "id": "Error_MissingLocationsArray",
+            "arguments": [
+              "runs[0].results[0]",
+              "GitHub Advanced Security",
+              "GitHub Advanced Security"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": 1
+                },
+                "region": {
+                  "startLine": 7,
+                  "startColumn": 9
+                }
+              }
+            }
+          ],
+          "baselineState": "new",
+          "properties": {
+            "ResultMatching": {}
+          }
+        },
+        {
+          "ruleId": "GH2012",
+          "ruleIndex": 5,
+          "level": "error",
+          "message": {
+            "id": "Error_MissingPartialFingerprints",
+            "arguments": [
+              "runs[0].results[0]",
+              "Azure DevOps Advanced Security",
+              "Azure DevOps Advanced Security"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": 1
+                },
+                "region": {
+                  "startLine": 7,
+                  "startColumn": 9
+                }
+              }
+            }
+          ],
+          "baselineState": "new",
+          "properties": {
+            "ResultMatching": {}
+          }
+        },
+        {
+          "ruleId": "GH2012",
+          "ruleIndex": 5,
+          "level": "error",
+          "message": {
+            "id": "Error_MissingLocationsArray",
+            "arguments": [
+              "runs[0].results[0]",
+              "Azure DevOps Advanced Security",
+              "Azure DevOps Advanced Security"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": 1
+                },
+                "region": {
+                  "startLine": 7,
+                  "startColumn": 9
+                }
+              }
+            }
+          ],
+          "baselineState": "new",
+          "properties": {
+            "ResultMatching": {}
+          }
+        },
+        {
+          "ruleId": "SARIF2002",
+          "ruleIndex": 6,
           "level": "note",
           "message": {
             "id": "Note_Default",
@@ -215,8 +543,304 @@
           }
         },
         {
-          "ruleId": "SARIF2002",
+          "ruleId": "",
+          "ruleIndex": 0,
+          "message": {
+            "id": "Error_MissingPartialFingerprints",
+            "arguments": [
+              "runs[0].results[1]",
+              null
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": 1
+                },
+                "region": {
+                  "startLine": 13,
+                  "startColumn": 9
+                }
+              }
+            }
+          ],
+          "baselineState": "new",
+          "properties": {
+            "ResultMatching": {}
+          }
+        },
+        {
+          "ruleId": "",
+          "ruleIndex": 0,
+          "message": {
+            "id": "Error_MissingLocationsArray",
+            "arguments": [
+              "runs[0].results[1]",
+              null
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": 1
+                },
+                "region": {
+                  "startLine": 13,
+                  "startColumn": 9
+                }
+              }
+            }
+          ],
+          "baselineState": "new",
+          "properties": {
+            "ResultMatching": {}
+          }
+        },
+        {
+          "ruleId": "ADO1015",
           "ruleIndex": 2,
+          "level": "error",
+          "message": {
+            "id": "Error_MissingLocationsArray",
+            "arguments": [
+              "runs[0].results[1]",
+              "Azure DevOps Advanced Security",
+              "Azure DevOps Advanced Security"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": 1
+                },
+                "region": {
+                  "startLine": 13,
+                  "startColumn": 9
+                }
+              }
+            }
+          ],
+          "baselineState": "new",
+          "properties": {
+            "ResultMatching": {}
+          }
+        },
+        {
+          "ruleId": "ADO1015",
+          "ruleIndex": 2,
+          "level": "error",
+          "message": {
+            "id": "Error_MissingPartialFingerprints",
+            "arguments": [
+              "runs[0].results[1]",
+              "Azure DevOps Advanced Security",
+              "Azure DevOps Advanced Security"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": 1
+                },
+                "region": {
+                  "startLine": 13,
+                  "startColumn": 9
+                }
+              }
+            }
+          ],
+          "baselineState": "new",
+          "properties": {
+            "ResultMatching": {}
+          }
+        },
+        {
+          "ruleId": "ADO2012",
+          "ruleIndex": 3,
+          "level": "error",
+          "message": {
+            "id": "Error_MissingLocationsArray",
+            "arguments": [
+              "runs[0].results[1]",
+              "Azure DevOps Advanced Security",
+              "Azure DevOps Advanced Security"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": 1
+                },
+                "region": {
+                  "startLine": 13,
+                  "startColumn": 9
+                }
+              }
+            }
+          ],
+          "baselineState": "new",
+          "properties": {
+            "ResultMatching": {}
+          }
+        },
+        {
+          "ruleId": "ADO2012",
+          "ruleIndex": 3,
+          "level": "error",
+          "message": {
+            "id": "Error_MissingPartialFingerprints",
+            "arguments": [
+              "runs[0].results[1]",
+              "Azure DevOps Advanced Security",
+              "Azure DevOps Advanced Security"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": 1
+                },
+                "region": {
+                  "startLine": 13,
+                  "startColumn": 9
+                }
+              }
+            }
+          ],
+          "baselineState": "new",
+          "properties": {
+            "ResultMatching": {}
+          }
+        },
+        {
+          "ruleId": "GH1015",
+          "ruleIndex": 4,
+          "level": "error",
+          "message": {
+            "id": "Error_MissingLocationsArray",
+            "arguments": [
+              "runs[0].results[1]",
+              "GitHub Advanced Security",
+              "GitHub Advanced Security"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": 1
+                },
+                "region": {
+                  "startLine": 13,
+                  "startColumn": 9
+                }
+              }
+            }
+          ],
+          "baselineState": "new",
+          "properties": {
+            "ResultMatching": {}
+          }
+        },
+        {
+          "ruleId": "GH1015",
+          "ruleIndex": 4,
+          "level": "error",
+          "message": {
+            "id": "Error_MissingPartialFingerprints",
+            "arguments": [
+              "runs[0].results[1]",
+              "GitHub Advanced Security",
+              "GitHub Advanced Security"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": 1
+                },
+                "region": {
+                  "startLine": 13,
+                  "startColumn": 9
+                }
+              }
+            }
+          ],
+          "baselineState": "new",
+          "properties": {
+            "ResultMatching": {}
+          }
+        },
+        {
+          "ruleId": "GH2012",
+          "ruleIndex": 5,
+          "level": "error",
+          "message": {
+            "id": "Error_MissingPartialFingerprints",
+            "arguments": [
+              "runs[0].results[1]",
+              "Azure DevOps Advanced Security",
+              "Azure DevOps Advanced Security"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": 1
+                },
+                "region": {
+                  "startLine": 13,
+                  "startColumn": 9
+                }
+              }
+            }
+          ],
+          "baselineState": "new",
+          "properties": {
+            "ResultMatching": {}
+          }
+        },
+        {
+          "ruleId": "GH2012",
+          "ruleIndex": 5,
+          "level": "error",
+          "message": {
+            "id": "Error_MissingLocationsArray",
+            "arguments": [
+              "runs[0].results[1]",
+              "Azure DevOps Advanced Security",
+              "Azure DevOps Advanced Security"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": 1
+                },
+                "region": {
+                  "startLine": 13,
+                  "startColumn": 9
+                }
+              }
+            }
+          ],
+          "baselineState": "new",
+          "properties": {
+            "ResultMatching": {}
+          }
+        },
+        {
+          "ruleId": "SARIF2002",
+          "ruleIndex": 6,
           "level": "note",
           "message": {
             "id": "Note_Default",
@@ -243,8 +867,304 @@
           }
         },
         {
-          "ruleId": "SARIF2002",
+          "ruleId": "",
+          "ruleIndex": 0,
+          "message": {
+            "id": "Error_MissingPartialFingerprints",
+            "arguments": [
+              "runs[0].results[2]",
+              null
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": 1
+                },
+                "region": {
+                  "startLine": 19,
+                  "startColumn": 9
+                }
+              }
+            }
+          ],
+          "baselineState": "new",
+          "properties": {
+            "ResultMatching": {}
+          }
+        },
+        {
+          "ruleId": "",
+          "ruleIndex": 0,
+          "message": {
+            "id": "Error_MissingLocationsArray",
+            "arguments": [
+              "runs[0].results[2]",
+              null
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": 1
+                },
+                "region": {
+                  "startLine": 19,
+                  "startColumn": 9
+                }
+              }
+            }
+          ],
+          "baselineState": "new",
+          "properties": {
+            "ResultMatching": {}
+          }
+        },
+        {
+          "ruleId": "ADO1015",
           "ruleIndex": 2,
+          "level": "error",
+          "message": {
+            "id": "Error_MissingLocationsArray",
+            "arguments": [
+              "runs[0].results[2]",
+              "Azure DevOps Advanced Security",
+              "Azure DevOps Advanced Security"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": 1
+                },
+                "region": {
+                  "startLine": 19,
+                  "startColumn": 9
+                }
+              }
+            }
+          ],
+          "baselineState": "new",
+          "properties": {
+            "ResultMatching": {}
+          }
+        },
+        {
+          "ruleId": "ADO1015",
+          "ruleIndex": 2,
+          "level": "error",
+          "message": {
+            "id": "Error_MissingPartialFingerprints",
+            "arguments": [
+              "runs[0].results[2]",
+              "Azure DevOps Advanced Security",
+              "Azure DevOps Advanced Security"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": 1
+                },
+                "region": {
+                  "startLine": 19,
+                  "startColumn": 9
+                }
+              }
+            }
+          ],
+          "baselineState": "new",
+          "properties": {
+            "ResultMatching": {}
+          }
+        },
+        {
+          "ruleId": "ADO2012",
+          "ruleIndex": 3,
+          "level": "error",
+          "message": {
+            "id": "Error_MissingPartialFingerprints",
+            "arguments": [
+              "runs[0].results[2]",
+              "Azure DevOps Advanced Security",
+              "Azure DevOps Advanced Security"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": 1
+                },
+                "region": {
+                  "startLine": 19,
+                  "startColumn": 9
+                }
+              }
+            }
+          ],
+          "baselineState": "new",
+          "properties": {
+            "ResultMatching": {}
+          }
+        },
+        {
+          "ruleId": "ADO2012",
+          "ruleIndex": 3,
+          "level": "error",
+          "message": {
+            "id": "Error_MissingLocationsArray",
+            "arguments": [
+              "runs[0].results[2]",
+              "Azure DevOps Advanced Security",
+              "Azure DevOps Advanced Security"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": 1
+                },
+                "region": {
+                  "startLine": 19,
+                  "startColumn": 9
+                }
+              }
+            }
+          ],
+          "baselineState": "new",
+          "properties": {
+            "ResultMatching": {}
+          }
+        },
+        {
+          "ruleId": "GH1015",
+          "ruleIndex": 4,
+          "level": "error",
+          "message": {
+            "id": "Error_MissingPartialFingerprints",
+            "arguments": [
+              "runs[0].results[2]",
+              "GitHub Advanced Security",
+              "GitHub Advanced Security"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": 1
+                },
+                "region": {
+                  "startLine": 19,
+                  "startColumn": 9
+                }
+              }
+            }
+          ],
+          "baselineState": "new",
+          "properties": {
+            "ResultMatching": {}
+          }
+        },
+        {
+          "ruleId": "GH1015",
+          "ruleIndex": 4,
+          "level": "error",
+          "message": {
+            "id": "Error_MissingLocationsArray",
+            "arguments": [
+              "runs[0].results[2]",
+              "GitHub Advanced Security",
+              "GitHub Advanced Security"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": 1
+                },
+                "region": {
+                  "startLine": 19,
+                  "startColumn": 9
+                }
+              }
+            }
+          ],
+          "baselineState": "new",
+          "properties": {
+            "ResultMatching": {}
+          }
+        },
+        {
+          "ruleId": "GH2012",
+          "ruleIndex": 5,
+          "level": "error",
+          "message": {
+            "id": "Error_MissingLocationsArray",
+            "arguments": [
+              "runs[0].results[2]",
+              "Azure DevOps Advanced Security",
+              "Azure DevOps Advanced Security"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": 1
+                },
+                "region": {
+                  "startLine": 19,
+                  "startColumn": 9
+                }
+              }
+            }
+          ],
+          "baselineState": "new",
+          "properties": {
+            "ResultMatching": {}
+          }
+        },
+        {
+          "ruleId": "GH2012",
+          "ruleIndex": 5,
+          "level": "error",
+          "message": {
+            "id": "Error_MissingPartialFingerprints",
+            "arguments": [
+              "runs[0].results[2]",
+              "Azure DevOps Advanced Security",
+              "Azure DevOps Advanced Security"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": 1
+                },
+                "region": {
+                  "startLine": 19,
+                  "startColumn": 9
+                }
+              }
+            }
+          ],
+          "baselineState": "new",
+          "properties": {
+            "ResultMatching": {}
+          }
+        },
+        {
+          "ruleId": "SARIF2002",
+          "ruleIndex": 6,
           "level": "note",
           "message": {
             "id": "Note_Default",
@@ -272,7 +1192,7 @@
         },
         {
           "ruleId": "",
-          "ruleIndex": 0,
+          "ruleIndex": 1,
           "message": {
             "id": "Error_MissingDriverRules",
             "arguments": [
@@ -300,7 +1220,7 @@
         },
         {
           "ruleId": "ADO1018",
-          "ruleIndex": 3,
+          "ruleIndex": 7,
           "level": "error",
           "message": {
             "id": "Error_MissingDriverRules",
@@ -330,7 +1250,7 @@
         },
         {
           "ruleId": "ADO1018",
-          "ruleIndex": 3,
+          "ruleIndex": 7,
           "level": "error",
           "message": {
             "id": "Error_MissingDriverRules",
@@ -360,7 +1280,7 @@
         },
         {
           "ruleId": "GH1018",
-          "ruleIndex": 4,
+          "ruleIndex": 8,
           "level": "error",
           "message": {
             "id": "Error_MissingDriverRules",
@@ -390,12 +1310,13 @@
         },
         {
           "ruleId": "SARIF2005",
-          "ruleIndex": 5,
+          "ruleIndex": 9,
           "message": {
-            "id": "Warning_ProvideToolnformationUri",
+            "id": "Warning_ProvideToolVersion",
             "arguments": [
               "runs[0].tool.driver",
-              "TestScanner"
+              "TestScanner",
+              "'version', 'semanticVersion', 'dottedQuadFileVersion'"
             ]
           },
           "locations": [
@@ -418,13 +1339,12 @@
         },
         {
           "ruleId": "SARIF2005",
-          "ruleIndex": 5,
+          "ruleIndex": 9,
           "message": {
-            "id": "Warning_ProvideToolVersion",
+            "id": "Warning_ProvideToolnformationUri",
             "arguments": [
               "runs[0].tool.driver",
-              "TestScanner",
-              "'version', 'semanticVersion', 'dottedQuadFileVersion'"
+              "TestScanner"
             ]
           },
           "locations": [

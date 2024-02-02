@@ -11,9 +11,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         /// </summary>
         public override string Id => RuleId.GHASProvideRequiredResultProperties;
 
+        protected override RuleKinds Kinds => RuleKinds.Ghas;
+
         protected override string ServiceName => RuleResources.ServiceName_GHAS;
 
-        public AdoProvideRequiredRunPropertties()
+        public GhasProvideRequiredResultPropertties()
         {
             this.DefaultConfiguration.Level = FailureLevel.Error;
         }

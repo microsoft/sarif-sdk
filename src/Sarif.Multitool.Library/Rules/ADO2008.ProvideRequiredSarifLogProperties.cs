@@ -5,9 +5,12 @@ using System.Collections.Generic;
 
 namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 {
-    public class ADOProvideSchem : BaseProvideRun
+    public class ADOProvideSchem
+        : BaseProvideSchema
     {
         public override string Id => RuleId.ADOProvideSchema;
+
+        protected override RuleKinds Kinds => RuleKinds.Ado;
 
         protected override string ServiceName => RuleResources.ServiceName_ADO;
 

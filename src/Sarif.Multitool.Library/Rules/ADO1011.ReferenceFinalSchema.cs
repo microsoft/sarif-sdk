@@ -11,18 +11,18 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         /// </summary>
         public override string Id => RuleId.ADOReferenceFinalSchema;
 
-        public override RuleKinds Kinds => RuleKinds.Ado;
+        protected override RuleKinds Kinds => RuleKinds.Ado;
 
         protected override string ServiceName => RuleResources.ServiceName_ADO;
 
-        public AdoProvideToolDriver()
+        public AdoReferenceFinalSchema()
         {
             this.DefaultConfiguration.Level = FailureLevel.Error;
         }
 
         protected override void Analyze(SarifLog log, string logPointer)
         {
-            base.Analyze(log., logPointer);
+            base.Analyze(log, logPointer);
         }
     }
 }

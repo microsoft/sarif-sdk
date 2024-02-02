@@ -581,4 +581,13 @@ The SARIF standard was developed over several years, and many intermediate versi
   <data name="GH2012_ProvideRequiredReportingDescriptorProperties_Error_MissingShortDescription" xml:space="preserve">
     <value>{0}: This 'reportingDescriptor' object does not provide a 'shortDescription' value. This property is required by the {1} service.</value>
   </data>
+  <data name="Base1017_ProvideRequiredPhysicalLocationProperties_Error_MissingArtifactLocation_Text" xml:space="preserve">
+    <value>{0}: This 'physicalLocation' object does not provide an 'artifactLocation' object. This property is required by the {1} service.</value>
+  </data>
+  <data name="Base1017_ProvideRequiredPhysicalLocationProperties_Error_MissingRegion_Text" xml:space="preserve">
+    <value>{0}: The 'physicalLocation' object does not provide a 'region' object. This property is required by the {1} service.</value>
+  </data>
+  <data name="GHAS1017_ProvideRequiredPhysicalLocationProperties_Error_MissingArtifactLocationUri_Text" xml:space="preserve">
+    <value>{0}: The 'artifactLocation' object on this 'physicalLocation' object does not provide a 'uri' object. This property is required by the {1} service.</value>
+  </data>
 </root>
