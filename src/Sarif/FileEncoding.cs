@@ -3,18 +3,13 @@
 
 using System;
 using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices;
 using System.Text;
 
-using FastSerialization;
 
 namespace Microsoft.CodeAnalysis.Sarif
 {
     public class FileEncoding
     {
-        private static Encoding Windows1252;
-
         static FileEncoding()
         {
             Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
@@ -37,73 +32,103 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="count">The maximal count of characters to decode.</param>
         public static bool IsTextualData(byte[] bytes, int start, int count)
         {
-            Windows1252 = Windows1252 ?? Encoding.GetEncoding(1252);
-            bytes = bytes ?? throw new ArgumentNullException(nameof(bytes));
 
-            if (start >= bytes.Length)
+            if (count < bytes.Length)
             {
-                throw new ArgumentOutOfRangeException(nameof(start), $"Buffer size ({bytes.Length}) not valid for start ({start}) argument.");
+                var span = new ReadOnlySpan<byte>(bytes, start, count);
+                bytes = span.ToArray();
             }
 
-            foreach (Encoding encoding in new[] { Encoding.UTF8, Windows1252, Encoding.UTF32 })
+            return IsUtf8Text(bytes);
+        }
+
+        /// <summary>
+        /// Detects whether the provided byte array contains only UTF8 textual characters.
+        /// </summary>
+        internal static bool IsUtf8Text(byte[] bytes)
+        {
+            for (int i = 0; i < bytes.Length; i++)
             {
-                if (count < bytes.Length)
+                int b = bytes[i];
+
+                // Control characters
+                if (b < 0x20)
                 {
-                    var span = new ReadOnlySpan<byte>(bytes, start, count);
-                    bytes = span.ToArray();
+                    return false;
                 }
 
-                using var reader = new StreamReader(new MemoryStream(bytes), encoding, detectEncodingFromByteOrderMarks: true);
-                reader.BaseStream.Seek(start, SeekOrigin.Begin);
-
-                bool isTextual = true;
-                bool continueProcessing = true;
-
-                for (int i = start; i < count; i++)
+                // Multi-byte sequence
+                if ((b & 0b11100000) == 0b11000000)
                 {
-                    int ch = reader.Read();
-
-                    if (ch == -1)
+                    if (i + 1 >= bytes.Length)
                     {
-                        break;
+                        return false;
                     }
 
-                    // Because we enable 'detectEncodingFromByteOrderMarks' we will skip past any NUL
-                    // characters in the file that might result from being BOM-prefixed. So any
-                    // evidence of this character is an indicator of binary data.
-                    if (encoding != Encoding.UTF8 && ch == '\0')
+                    int b2 = bytes[i + 1];
+                    if ((b2 & 0b11000000) != 0b10000000)
                     {
-                        // This condition indicates binary data in all cases, when encountered for 
-                        // Windows 1252 or UTF32. For UTF8, we determine data is binary by observing
-                        // that a character has been dropped in favor of the Unicode replacement char.
-                        isTextual = false;
-                        continueProcessing = false;
-                        break;
+                        return false;
                     }
 
-                    // Unicode REPLACEMENT CHARACTER (U+FFFD)
-                    if (encoding == Encoding.UTF8 && ch == 65533)
+                    i++;
+                    continue;
+                }
+
+                if ((b & 0b11110000) == 0b11100000)
+                {
+                    if (i + 2 >= bytes.Length)
                     {
-                        isTextual = false;
-                        break;
+                        return false;
                     }
+
+                    int b2 = bytes[i + 1];
+                    if ((b2 & 0b11000000) != 0b10000000)
+                    {
+                        return false;
+                    }
+
+                    int b3 = bytes[i + 2];
+                    if ((b3 & 0b11000000) != 0b10000000)
+                    {
+                        return false;
+                    }
+
+                    i += 2;
+                    continue;
                 }
 
-                if (!continueProcessing)
+                if ((b & 0b11111000) == 0b11110000)
                 {
-                    return isTextual;
-                }
+                    if (i + 3 >= bytes.Length)
+                    {
+                        return false;
+                    }
 
-                if (isTextual)
-                {
-                    return true;
-                }
+                    int b2 = bytes[i + 1];
+                    if ((b2 & 0b11000000) != 0b10000000)
+                    {
+                        return false;
+                    }
 
-                // In this code path, a single encoding determined that the data was *not* textual,
-                // but we think we should continue to examine other text encodings to see the result.
+                    int b3 = bytes[i + 2];
+                    if ((b3 & 0b11000000) != 0b10000000)
+                    {
+                        return false;
+                    }
+
+                    int b4 = bytes[i + 3];
+                    if ((b4 & 0b11000000) != 0b10000000)
+                    {
+                        return false;
+                    }
+
+                    i += 3;
+                    continue;
+                }
             }
 
-            return false;
+            return true;
         }
     }
 }

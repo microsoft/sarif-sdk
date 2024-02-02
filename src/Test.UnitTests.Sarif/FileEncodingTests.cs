@@ -2,12 +2,11 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System;
-using System.Collections.Generic;
-using System.Collections.Immutable;
 using System.IO;
 using System.Text;
 
 using FluentAssertions;
+using FluentAssertions.Execution;
 
 using Xunit;
 
@@ -16,6 +15,22 @@ namespace Microsoft.CodeAnalysis.Sarif
 
     public class FileEncodingTests
     {
+        [Fact]
+        public void FileEncoding_UnicodeReplacementCharacterIndicatesBinaryData()
+        {
+            using var assertionScope = new AssertionScope();
+
+            // This is half of a Unicode surrogate pair. It should be
+            // resolved by UTF8 with the unicode replacement character.
+            byte[] test = Encoding.Unicode.GetBytes("\ud83d");
+            FileEncoding.IsTextualData(test).Should().BeFalse("half of a Unicode surrogate pair should evaluate as binary data");
+
+            // Here's the full surrogate pair. This should be interpreted as textual data.
+            test = Encoding.Unicode.GetBytes("🐂");
+            FileEncoding.IsTextualData(test).Should().BeTrue(because: "a Unicode surrogate pair should evaluate as textual data");
+
+        }
+
         [Fact]
         public void FileEncoding_NullBytesRaisesException()
         {
@@ -113,6 +128,12 @@ namespace Microsoft.CodeAnalysis.Sarif
             {
                 char ch = (char)current;
                 byte[] input = encoding.GetBytes(new[] { ch });
+
+                if ((int)ch < 20)
+                {
+                    continue;
+                }
+
                 if (!FileEncoding.IsTextualData(input))
                 {
                     string unicodeText = "\\u" + ((int)ch).ToString("d4");
