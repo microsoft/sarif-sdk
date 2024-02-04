@@ -62,7 +62,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             bool atLeastOneEncodingSucceeded = false;
 
             foreach (Encoding encoding in new[] { Encoding.UTF32, Encoding.Unicode })
-            { 
+            {
                 bool encodingSucceeded = true;
                 foreach (char c in encoding.GetChars(bytes, start, count))
                 {
