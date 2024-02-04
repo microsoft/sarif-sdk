@@ -2,12 +2,11 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System;
-using System.Collections.Generic;
-using System.Collections.Immutable;
 using System.IO;
 using System.Text;
 
 using FluentAssertions;
+using FluentAssertions.Execution;
 
 using Xunit;
 
@@ -38,36 +37,38 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         private void ValidateIsBinary(string fileName)
         {
+            if (!File.Exists(fileName))
+            {
+                fileName = Path.Combine(Environment.CurrentDirectory, fileName);
+            }
+
             fileName = Path.Combine(Environment.CurrentDirectory, fileName);
             using FileStream reader = File.OpenRead(fileName);
             int bufferSize = 1024;
             byte[] bytes = new byte[bufferSize];
             reader.Read(bytes, 0, bufferSize);
-            FileEncoding.IsTextualData(bytes).Should().BeFalse();
+            FileEncoding.IsTextualData(bytes).Should().BeFalse(because: $"{fileName} is a binary file");
         }
 
         [Fact]
         public void FileEncoding_UnicodeDataIsTextual()
         {
+            using var assertionScope = new AssertionScope();
+
             var sb = new StringBuilder();
             string unicodeText = "американец";
 
             foreach (Encoding encoding in new[] { Encoding.Unicode, Encoding.UTF8, Encoding.BigEndianUnicode, Encoding.UTF32 })
             {
                 byte[] input = encoding.GetBytes(unicodeText);
-                if (!FileEncoding.IsTextualData(input))
-                {
-                    sb.AppendLine($"\tThe '{encoding.EncodingName}' encoding classified unicode text '{unicodeText}' as binary data.");
-                }
+                FileEncoding.IsTextualData(input).Should().BeTrue(because: $"'{unicodeText}' encoded as '{encoding.EncodingName}' should not be classified as binary data");
             }
-
-            sb.Length.Should().Be(0, because: $"all unicode strings should be classified as textual:{Environment.NewLine}{sb}");
         }
 
         [Fact]
         public void FileEncoding_BinaryDataIsBinary()
         {
-            var sb = new StringBuilder();
+            using var assertionScope = new AssertionScope();
 
             foreach (string binaryName in new[] { "Certificate.cer", "Certificate.der", "PasswordProtected.pfx" })
             {
@@ -80,13 +81,8 @@ namespace Microsoft.CodeAnalysis.Sarif
                     Stream = resource,
                 };
 
-                if (artifact.Bytes == null)
-                {
-                    sb.AppendLine($"\tBinary file '{binaryName}' was classified as textual data.");
-                }
+                artifact.Bytes.Should().NotBeNull(because: $"'{binaryName}' should be classified as binary data.");
             }
-
-            sb.Length.Should().Be(0, because: $"all binary files should be classified as binary:{Environment.NewLine}{sb}");
         }
 
         [Fact]
@@ -104,7 +100,8 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         private static void ValidateEncoding(string encodingName, Encoding encoding)
         {
-            var sb = new StringBuilder(65536 * 100);
+            using var assertionScope = new AssertionScope();
+
             Stream resource = typeof(FileEncodingTests).Assembly.GetManifestResourceStream($"Test.UnitTests.Sarif.TestData.FileEncoding.{encodingName}.txt");
             using var reader = new StreamReader(resource, Encoding.UTF8);
 
@@ -113,14 +110,12 @@ namespace Microsoft.CodeAnalysis.Sarif
             {
                 char ch = (char)current;
                 byte[] input = encoding.GetBytes(new[] { ch });
-                if (!FileEncoding.IsTextualData(input))
-                {
-                    string unicodeText = "\\u" + ((int)ch).ToString("d4");
-                    sb.AppendLine($"\t{encodingName} character '{unicodeText}' ({encoding.GetString(input)}) was classified as binary data.");
-                }
-            }
 
-            sb.Length.Should().Be(0, because: $"all {encodingName} encodable character should be classified as textual:{Environment.NewLine}{sb}");
+                if (ch < 0x20) { continue; }
+
+                string unicodeText = "\\u" + ((int)ch).ToString("d4");
+                FileEncoding.IsTextualData(input).Should().BeTrue(because: $"{encodingName} character '{unicodeText}' ({encoding.GetString(input)}) should not classify as binary data.");
+            }
         }
     }
 }
