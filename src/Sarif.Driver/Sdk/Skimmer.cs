@@ -61,6 +61,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
         public IDictionary<string, string> Options { get; }
 
+        public virtual HashSet<RuleKind> RuleKinds => new HashSet<RuleKind>([RuleKind.Sarif]);
+
         public virtual void Initialize(TContext context) { }
 
         public virtual SupportedPlatform SupportedPlatforms => SupportedPlatform.All;

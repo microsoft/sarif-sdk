@@ -142,5 +142,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             "deny-regex",
             HelpText = "A regular expression used to suppress scanning for any file or directory path that matches the regex.")]
         public string GlobalFilePathDenyRegex { get; set; }
+
+        [Option(
+            "rule-kinds",
+            HelpText =
+            @"Specify the kind(s) of rules that should be run.")]
+        public HashSet<RuleKind> RuleKinds { get; set; } = [RuleKind.Sarif];
     }
 }

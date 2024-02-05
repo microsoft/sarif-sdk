@@ -5,12 +5,12 @@ using System.Collections.Generic;
 
 namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 {
-    public class ADOProvideSchem
+    public class AdoProvideSchem
         : BaseProvideSchema
     {
         public override string Id => RuleId.ADOProvideSchema;
 
-        protected override RuleKinds Kinds => RuleKinds.Ado;
+        public override HashSet<RuleKind> RuleKinds => new HashSet<RuleKind>([RuleKind.Ado]);
 
         protected override string ServiceName => RuleResources.ServiceName_ADO;
 
@@ -18,7 +18,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             nameof(RuleResources.SARIF2008_ProvideSchema_Warning_Default_Text)
         };
 
-        public ADOProvideSchem()
+        public AdoProvideSchem()
         {
             this.DefaultConfiguration.Level = FailureLevel.Error;
         }

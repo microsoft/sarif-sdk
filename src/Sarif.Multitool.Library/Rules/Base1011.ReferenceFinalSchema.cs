@@ -12,6 +12,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
     {
         public override string Id => string.Empty;
 
+        public override HashSet<RuleKind> RuleKinds => new HashSet<RuleKind>();
+
         /// <summary>
         /// The '$schema' property must refer to the final version of the SARIF 2.1.0 schema. This
         /// enables IDEs to provide Intellisense for SARIF log files.

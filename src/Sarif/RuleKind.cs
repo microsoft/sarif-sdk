@@ -1,12 +1,9 @@
 ﻿// Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-using System;
-
 namespace Microsoft.CodeAnalysis.Sarif
 {
-    [Flags]
-    public enum RuleKinds
+    public enum RuleKind
     {
         None = 0,
         Sarif = 1,

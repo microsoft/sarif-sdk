@@ -1,6 +1,8 @@
 ﻿// Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
+using System.Collections.Generic;
+
 namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 {
     public class AdoReferenceFinalSchema
@@ -11,7 +13,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         /// </summary>
         public override string Id => RuleId.ADOReferenceFinalSchema;
 
-        protected override RuleKinds Kinds => RuleKinds.Ado;
+        public override HashSet<RuleKind> RuleKinds => new HashSet<RuleKind>([RuleKind.Ado]);
 
         protected override string ServiceName => RuleResources.ServiceName_ADO;
 
