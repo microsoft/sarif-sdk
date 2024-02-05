@@ -9,6 +9,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 {
     public class FileEncoding
     {
+        private static Encoding Windows1252;
 
         static FileEncoding()
         {
@@ -40,14 +41,10 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentOutOfRangeException(nameof(start), $"Buffer size ({bytes.Length}) not valid for start ({start}) argument.");
             }
 
+
+            Windows1252 = Windows1252 ?? Encoding.GetEncoding(1252);
+
             bool containsControlCharacters = false;
-
-            if (count < bytes.Length)
-            {
-                var span = new ReadOnlySpan<byte>(bytes, start, count);
-                bytes = span.ToArray();
-            }
-
 
             for (int i = 0; i < bytes.Length; i++)
             {
@@ -59,11 +56,10 @@ namespace Microsoft.CodeAnalysis.Sarif
                 return true;
             }
 
-            bool atLeastOneEncodingSucceeded = false;
-
             foreach (Encoding encoding in new[] { Encoding.UTF32, Encoding.Unicode })
             {
                 bool encodingSucceeded = true;
+
                 foreach (char c in encoding.GetChars(bytes, start, count))
                 {
                     if (c == 0xfffd)
@@ -73,10 +69,13 @@ namespace Microsoft.CodeAnalysis.Sarif
                     }
                 }
 
-                atLeastOneEncodingSucceeded |= encodingSucceeded;
+                if (encodingSucceeded)
+                {
+                    return true;
+                }
             }
 
-            return atLeastOneEncodingSucceeded;
+            return false;
         }
     }
 }
