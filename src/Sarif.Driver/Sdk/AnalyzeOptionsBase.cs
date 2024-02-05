@@ -143,10 +143,21 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             HelpText = "A regular expression used to suppress scanning for any file or directory path that matches the regex.")]
         public string GlobalFilePathDenyRegex { get; set; }
 
+        private IEnumerable<RuleKind> ruleKindOption;
         [Option(
-            "rule-kinds",
+            "rule-kind",
+            Separator = ';',
+            Default = null,
             HelpText =
             @"Specify the kind(s) of rules that should be run.")]
-        public HashSet<RuleKind> RuleKinds { get; set; } = [RuleKind.Sarif];
+        public IEnumerable<RuleKind> RuleKindOption
+        {
+            get => this.ruleKindOption;
+            set => this.ruleKindOption = value?.Count() > 0 ? value : null;
+        }
+
+        public HashSet<RuleKind> RuleKinds => RuleKindOption != null ?
+            new HashSet<RuleKind>(RuleKindOption) :
+            new HashSet<RuleKind>(new[] { RuleKind.Sarif });
     }
 }
