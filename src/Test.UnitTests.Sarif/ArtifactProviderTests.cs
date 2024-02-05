@@ -6,7 +6,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.IO.Compression;
 using System.Linq;
-using System.Text;
 
 using FluentAssertions;
 
@@ -32,14 +31,19 @@ namespace Test.UnitTests.Sarif
         [Fact]
         public void MultithreadedZipArchiveArtifactProvider_RetrieveSizeInBytesBeforeRetrievingBytes()
         {
-            string entryContents = $"{Guid.NewGuid()}";
+            string filePath = this.GetType().Assembly.Location;
+            using FileStream reader = File.OpenRead(filePath);
 
-            // Note that even thought we populate an archive with text contents, the extension
-            // of the archive entry indicates a binary file. So we expect binary data on expansion.
-            ZipArchive zip = CreateZipArchiveWithTextContents("test.exe", entryContents);
+            int headerSize = 1024;
+            byte[] data = new byte[headerSize];
+            reader.Read(data, 0, data.Length);
+
+            // Note that even thought we populate an archive with binary contents, the extension
+            // of the archive entry indicates a text file. We still expect binary data on expansion.
+            ZipArchive zip = CreateZipArchiveWithBinaryContents("test.txt", data);
             var artifactProvider = new MultithreadedZipArchiveArtifactProvider(zip, FileSystem.Instance);
 
-            ValidateBinaryContents(artifactProvider.Artifacts, Encoding.UTF8.GetBytes(entryContents));
+            ValidateBinaryContents(artifactProvider.Artifacts, data);
         }
 
         [Fact]
