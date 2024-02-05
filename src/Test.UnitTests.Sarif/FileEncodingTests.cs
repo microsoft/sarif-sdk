@@ -2,11 +2,14 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Text;
 
 using FluentAssertions;
 using FluentAssertions.Execution;
+
+using Microsoft.CodeAnalysis.Sarif.Driver;
 
 using Xunit;
 
@@ -31,8 +34,38 @@ namespace Microsoft.CodeAnalysis.Sarif
         [Fact]
         public void FileEncoding_FileEncoding_IsBinary()
         {
-            ValidateIsBinary("Sarif.dll");
-            ValidateIsBinary("Sarif.pdb");
+            var assertionScope = new AssertionScope();
+
+            var binaryExtensions = new HashSet<string>(StringComparer.OrdinalIgnoreCase)
+            {
+                ".cer",
+                ".der",
+                ".pfx",
+                ".dll",
+                ".exe",
+            };
+
+            var observedExtensions = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+
+            var fileSpecifier = new FileSpecifier("*", recurse: false);
+
+            foreach (string fileName in fileSpecifier.Files) 
+            { 
+                string extension = Path.GetExtension(fileName);
+                if (observedExtensions.Contains(extension)) { continue; }
+                observedExtensions.Add(extension);
+
+                using FileStream reader = File.OpenRead(fileName);
+                int bufferSize = 1024;
+                byte[] bytes = new byte[bufferSize];
+                reader.Read(bytes, 0, bufferSize);
+                bool isTextual = FileEncoding.IsTextualData(bytes);
+
+                if (!isTextual)
+                {
+                    binaryExtensions.Should().Contain(extension, because: $"'{fileName}' was classified as a binary file");
+                }
+            }
         }
 
         private void ValidateIsBinary(string fileName)
