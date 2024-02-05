@@ -19,6 +19,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         private const string ERR997_NoRulesLoaded = "ERR997.NoRulesLoaded";
         private const string ERR997_FileAlreadyExists = "ERR997.FileAlreadyExists";
         internal const string ERR997_NoPluginsConfigured = "ERR997.NoPluginsConfigured";
+        private const string ERR997_ErrorPostingLogFile = "ERR997.ErrorPostingLogFile";
         private const string ERR997_ExceptionLoadingPlugIn = "ERR997.ExceptionLoadingPlugIn";
         internal const string ERR997_NoValidAnalysisTargets = "ERR997.NoValidAnalysisTargets";
         private const string ERR997_ExceptionAccessingFile = "ERR997.ExceptionAccessingFile";
@@ -696,6 +697,28 @@ namespace Microsoft.CodeAnalysis.Sarif
                     persistExceptionStack: false,
                     messageFormat: null,
                     configuredTimeout));
+        }
+
+        public static void LogErrorPostingLogFile(IAnalysisContext context, string postUri)
+        {
+            if (context == null)
+            {
+                throw new ArgumentNullException(nameof(context));
+            }
+
+            context.RuntimeErrors |= RuntimeConditions.ExceptionPostingLogFile;
+
+            // Could not post to the URI specified on the command line: '{0}'.
+            context.Logger.LogToolNotification(
+                CreateNotification(
+                    uri: null,
+                    ERR997_ErrorPostingLogFile,
+                    ruleId: null,
+                    FailureLevel.Error,
+                    exception: null,
+                    persistExceptionStack: false,
+                    messageFormat: null,
+                    postUri));
         }
     }
 }

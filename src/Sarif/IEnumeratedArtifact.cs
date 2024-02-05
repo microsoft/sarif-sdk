@@ -11,6 +11,8 @@ namespace Microsoft.CodeAnalysis.Sarif
     {
         Uri Uri { get; }
 
+        bool IsBinary { get; }
+
         Stream Stream { get; set; }
 
         Encoding Encoding { get; set; }
