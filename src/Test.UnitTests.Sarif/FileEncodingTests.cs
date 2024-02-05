@@ -49,8 +49,8 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             var fileSpecifier = new FileSpecifier("*", recurse: false);
 
-            foreach (string fileName in fileSpecifier.Files) 
-            { 
+            foreach (string fileName in fileSpecifier.Files)
+            {
                 string extension = Path.GetExtension(fileName);
                 if (observedExtensions.Contains(extension)) { continue; }
                 observedExtensions.Add(extension);
