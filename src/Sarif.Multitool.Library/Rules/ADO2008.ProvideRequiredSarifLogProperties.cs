@@ -10,7 +10,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
     {
         public override string Id => RuleId.ADOProvideSchema;
 
-        public override HashSet<RuleKind> RuleKinds => new HashSet<RuleKind>([RuleKind.Ado]);
+        public override HashSet<RuleKind> RuleKinds => new HashSet<RuleKind>(new[] { RuleKind.Ado });
 
         protected override string ServiceName => RuleResources.ServiceName_ADO;
 
