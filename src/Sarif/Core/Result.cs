@@ -17,7 +17,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// </remarks>
         public Run Run { get; set; }
 
-        public bool ShouldSerializeRuleId()
+        public virtual bool ShouldSerializeRuleId()
         {
             return
                 this.Rule == null || string.IsNullOrEmpty(this.Rule.Id);
