@@ -76,7 +76,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="filePath"></param>
         /// <param name="fileSystem"></param>
         /// <param name="httpClient"></param>
-        /// <returns>If the SarifLog has been posted.</returns>
+        /// <returns>If the SarifLog has been posted successfully.</returns>
         public static async Task<bool> Post(Uri postUri,
                                       string filePath,
                                       IFileSystem fileSystem,
@@ -101,8 +101,16 @@ namespace Microsoft.CodeAnalysis.Sarif
                 return false;
             }
 
-            await Post(postUri, new MemoryStream(fileBytes), httpClient);
-            Console.WriteLine($"Posted log file successfully to: {postUri}");
+            HttpResponseMessage response = await Post(postUri, new MemoryStream(fileBytes), httpClient);
+            string responseText = await response.Content.ReadAsStringAsync();
+
+            if (!response.IsSuccessStatusCode)
+            {
+                Console.WriteLine($"Error Posting log file to: {postUri}. Endpoint provided status code {response.StatusCode} and message: {responseText}");
+                return false;
+            }
+
+            Console.WriteLine($"Posted log file successfully to: {postUri}. Endpoint provided status code {response.StatusCode} and message: {responseText}");
             return true;
         }
 
