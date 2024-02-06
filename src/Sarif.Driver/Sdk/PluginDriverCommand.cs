@@ -5,10 +5,8 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Net.Http;
 using System.Reflection;
 using System.Security;
-using System.Threading.Tasks;
 
 using Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching;
 
@@ -225,6 +223,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
         protected virtual void PostLogFile(IAnalysisContext globalContext)
         {
+            using var httpClient = new HttpClientWrapper();
+            SarifPost(globalContext, httpClient);
+        }
+
+        internal static void SarifPost(IAnalysisContext globalContext, HttpClientWrapper httpClient)
+        {
             if (string.IsNullOrWhiteSpace(globalContext.PostUri) ||
                 string.IsNullOrWhiteSpace(globalContext.OutputFilePath) ||
                 !globalContext.FileSystem.FileExists(globalContext.OutputFilePath))
@@ -234,32 +238,38 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
             try
             {
-                using (var httpClient = new HttpClient())
+                var postUri = new Uri(globalContext.PostUri);
+                string outputFilePath = globalContext.OutputFilePath;
+                IFileSystem fileSystem = globalContext.FileSystem;
+
+                (bool, string) result = SarifLog.Post(postUri, outputFilePath, fileSystem, httpClient)
+                    .GetAwaiter()
+                    .GetResult();
+
+                // This reporting isn't sent through the 'globalContext.Loggers' property
+                // because the post operation occurs after the backing SARIF log has 
+                // already been finalized.
+                if (!globalContext.Quiet || result.Item1 == false)
                 {
-                    PostLogFile(globalContext.PostUri, globalContext.OutputFilePath, globalContext.FileSystem, httpClient)
-                        .GetAwaiter()
-                        .GetResult();
+                    Console.WriteLine(result.Item2);
+                }
+
+                if (result.Item1 == false && !result.Item2.Contains("skipped"))
+                {
+                    globalContext.RuntimeErrors |= RuntimeConditions.ExceptionPostingLogFile;
                 }
             }
             catch (Exception ex)
             {
                 Console.WriteLine(ex.ToString());
                 globalContext.RuntimeErrors |= RuntimeConditions.ExceptionPostingLogFile;
+                globalContext.RuntimeExceptions ??= new List<Exception>();
+                globalContext.RuntimeExceptions.Add(ex);
                 throw new ExitApplicationException<ExitReason>(DriverResources.MSG_UnexpectedApplicationExit, ex)
                 {
                     ExitReason = ExitReason.ExceptionPostingLogFile
                 };
             }
-        }
-
-        internal static async Task PostLogFile(string postUri, string outputFilePath, IFileSystem fileSystem, HttpClient httpClient)
-        {
-            if (string.IsNullOrWhiteSpace(postUri))
-            {
-                return;
-            }
-
-            await SarifLog.Post(new Uri(postUri), outputFilePath, fileSystem, httpClient);
         }
     }
 }
