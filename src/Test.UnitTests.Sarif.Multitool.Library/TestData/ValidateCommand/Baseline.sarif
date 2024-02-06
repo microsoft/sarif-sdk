@@ -72,6 +72,9 @@
           }
         }
       ],
+      "automationDetails": {
+        "id": "automation-id"
+      },
       "columnKind": "utf16CodeUnits"
     }
   ]

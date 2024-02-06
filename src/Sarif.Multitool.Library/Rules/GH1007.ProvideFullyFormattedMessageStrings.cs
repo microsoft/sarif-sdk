@@ -20,6 +20,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         /// </summary>
         public override string Id => RuleId.ProvideFullyFormattedMessageStrings;
 
+        public override HashSet<RuleKind> RuleKinds => new HashSet<RuleKind>(new[] { RuleKind.Ghas });
+
         public override MultiformatMessageString FullDescription => new MultiformatMessageString { Text = RuleResources.GH1007_ProvideFullyFormattedMessageStrings_FullDescription_Text };
 
         protected override IEnumerable<string> MessageResourceNames => new string[] {

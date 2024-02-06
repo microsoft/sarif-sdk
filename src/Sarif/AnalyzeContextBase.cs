@@ -68,6 +68,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         public virtual IList<Exception> RuntimeExceptions { get; set; }
         public virtual bool IsValidAnalysisTarget { get; set; }
         public virtual ReportingDescriptor Rule { get; set; }
+        public HashSet<RuleKind> RuleKinds { get; set; } = new HashSet<RuleKind>();
         public PropertiesDictionary Policy { get; set; }
         public virtual IAnalysisLogger Logger { get; set; }
         public virtual RuntimeConditions RuntimeErrors { get; set; }

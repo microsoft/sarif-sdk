@@ -36,6 +36,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 
         protected override IEnumerable<string> MessageResourceNames => _emptyMessageResourceNames;
 
+        protected virtual string ServiceName { get; }
+
         public override sealed void Analyze(SarifValidationContext context)
         {
             Context = context;
@@ -45,22 +47,39 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             Visit(Context.InputLog, logPointer: string.Empty);
         }
 
-        protected void LogResult(string jPointer, string formatId, params string[] args)
+        protected Result GetResult(string jPointer, string formatId, params string[] args)
         {
             Region region = GetRegionFromJPointer(jPointer);
 
+            int diff = 1 + (string.IsNullOrWhiteSpace(this.ServiceName) ? 0 : 1);
+
             // All messages start with "{jPointer}: ...". Prepend the jPointer to the args.
-            string[] argsWithPointer = new string[args.Length + 1];
-            Array.Copy(args, 0, argsWithPointer, 1, args.Length);
+            string[] argsWithPointer = new string[args.Length + diff];
+            Array.Copy(args, 0, argsWithPointer, diff, args.Length);
             argsWithPointer[0] = JsonPointerToJavaScript(jPointer);
 
-            Context.Logger.Log(this,
-                RuleUtilities.BuildResult(
-                    DefaultConfiguration.Level,
-                    Context,
-                    region,
-                    formatId,
-                    argsWithPointer));
+            if (diff == 2)
+            {
+                argsWithPointer[1] = this.ServiceName;
+            }
+
+            return RuleUtilities.BuildResult(
+                DefaultConfiguration.Level,
+                Context,
+                region,
+                formatId,
+                argsWithPointer);
+        }
+
+        protected void LogResult(string jPointer, string formatId, params string[] args)
+        {
+            Result result = this.GetResult(jPointer, formatId, args);
+            Context.Logger.Log(this, result);
+        }
+
+        protected void LogResult(Result result)
+        {
+            Context.Logger.Log(this, result);
         }
 
         protected virtual void Analyze(Address address, string addressPointer)
@@ -86,6 +105,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         protected virtual void Analyze(CodeFlow codeFlow, string codeFlowPointer)
         {
         }
+
         protected virtual void Analyze(ConfigurationOverride configurationOverride, string configurationOverridePointer)
         {
         }
@@ -113,6 +133,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         protected virtual void Analyze(Invocation invocation, string invocationPointer)
         {
         }
+
+        protected virtual void Analyze(Location Location, string locationPointer)
+        {
+        }
+
         protected virtual void Analyze(LogicalLocation logicalLocation, string logicalLocationPointer)
         {
         }
@@ -1240,7 +1265,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 
         private Region GetRegionFromJPointer(string jPointer)
         {
-            JsonPointer jsonPointer = new JsonPointer(jPointer);
+            var jsonPointer = new JsonPointer(jPointer);
             JToken jToken = jsonPointer.Evaluate(Context.InputLogToken);
             IJsonLineInfo lineInfo = jToken;
 

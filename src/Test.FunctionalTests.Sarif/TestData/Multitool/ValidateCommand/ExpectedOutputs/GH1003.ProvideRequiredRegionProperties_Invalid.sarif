@@ -5,29 +5,7 @@
     {
       "tool": {
         "driver": {
-          "name": "SARIF Functional Testing",
-          "rules": [
-            {
-              "id": "GH1003",
-              "name": "ProvideRequiredRegionProperties",
-              "fullDescription": {
-                "text": "Every result must provide a 'region' that specifies its location with line and optional column information. GitHub Advanced Security code scanning can display the correct location only for results that provide this information. At minimum, 'region.startLine' is required. 'region' can also provide 'startColumn', 'endLine', and 'endColumn', although all of those have reasonable defaults."
-              },
-              "messageStrings": {
-                "Error_MissingRegion": {
-                  "text": "{0}: The 'region' property is absent. GitHub Advanced Security code scanning can display the correct location only for results that provide a 'region' object with line and optional column information. At minimum, 'region.startLine' is required. 'region' can also provide 'startColumn', 'endLine', and 'endColumn', although all of those have reasonable defaults."
-                },
-                "Error_MissingRegionProperty": {
-                  "text": "{0}: The 'startLine' property is absent. GitHub Advanced Security code scanning can display the correct location only for results that provide a 'region' object with line and optional column information. At minimum, 'region.startLine' is required. 'region' can also provide 'startColumn', 'endLine', and 'endColumn', although all of those have reasonable defaults."
-                }
-              },
-              "defaultConfiguration": {
-                "enabled": false,
-                "level": "error"
-              },
-              "helpUri": "http://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html"
-            }
-          ]
+          "name": "SARIF Functional Testing"
         }
       },
       "invocations": [
@@ -43,80 +21,7 @@
           }
         }
       ],
-      "results": [
-        {
-          "ruleId": "GH1003",
-          "ruleIndex": 0,
-          "level": "error",
-          "message": {
-            "id": "Error_MissingRegion",
-            "arguments": [
-              "runs[0].results[0].locations[0].physicalLocation"
-            ]
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "index": 0
-                },
-                "region": {
-                  "startLine": 20,
-                  "startColumn": 35
-                }
-              }
-            }
-          ]
-        },
-        {
-          "ruleId": "GH1003",
-          "ruleIndex": 0,
-          "level": "error",
-          "message": {
-            "id": "Error_MissingRegionProperty",
-            "arguments": [
-              "runs[0].results[0].locations[1].physicalLocation.region"
-            ]
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "index": 0
-                },
-                "region": {
-                  "startLine": 34,
-                  "startColumn": 27
-                }
-              }
-            }
-          ]
-        },
-        {
-          "ruleId": "GH1003",
-          "ruleIndex": 0,
-          "level": "error",
-          "message": {
-            "id": "Error_MissingRegionProperty",
-            "arguments": [
-              "runs[0].results[0].locations[2].physicalLocation.region"
-            ]
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "index": 0
-                },
-                "region": {
-                  "startLine": 48,
-                  "startColumn": 27
-                }
-              }
-            }
-          ]
-        }
-      ],
+      "results": [],
       "columnKind": "utf16CodeUnits"
     }
   ]

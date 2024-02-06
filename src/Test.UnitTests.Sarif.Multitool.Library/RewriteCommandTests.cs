@@ -10,10 +10,8 @@ using FluentAssertions;
 
 using Kusto.Cloud.Platform.Utils;
 
-using Microsoft.CodeAnalysis.Sarif.Driver;
 using Microsoft.CodeAnalysis.Sarif.Readers;
 using Microsoft.CodeAnalysis.Sarif.VersionOne;
-using Microsoft.CodeAnalysis.Sarif.Writers;
 
 using Moq;
 
@@ -99,8 +97,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
   ""runs"": [
     {
       ""tool"": {
+        ""fullName"": ""TestTool 1.0.0"",
         ""name"": ""TestTool""
       },
+      ""automationDetails"": { },
       ""results"": []
     }
   ]
@@ -116,10 +116,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                     {
                         Driver = new ToolComponent
                         {
-                            Name = "TestTool"
+                            FullName = "TestTool-1.0.0",
+                            Name = "TestTool",
+                            Rules = new List<ReportingDescriptor>() { new ReportingDescriptor() { Id = "JS1001" } }
                         }
                     },
-                    Results = new List<Result>()
+                    Results = new List<Result>(),
+                    AutomationDetails = new RunAutomationDetails() { Id = "automation-id" }
                 }
             }
         };
@@ -136,8 +139,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
   ""runs"": [
     {
       ""tool"": {
+        ""fullName"": ""TestTool 1.0.0"",
         ""name"": ""TestTool""
       },
+      ""automationDetails"": { },
       ""results"": [{ ""ruleId"" : ""JS1001"", ""message"" : ""My rule message."" } ]
     }
   ]
