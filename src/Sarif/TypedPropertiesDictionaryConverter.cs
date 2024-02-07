@@ -53,6 +53,11 @@ namespace Microsoft.CodeAnalysis.Sarif
                 ja = JArray.Load(reader);
                 return new IntegerSet(ja.Values().Select(token => int.Parse(token.ToString())));
             }
+            else if (objectType == typeof(RuleKindSet))
+            {
+                ja = JArray.Load(reader);
+                return new IntegerSet(ja.Values().Select(token => int.Parse(token.ToString())));
+            }
             else if (objectType == typeof(Version))
             {
                 return JsonConvert.DeserializeObject<Version>(reader.ReadAsString(), _versionConverter);
@@ -129,6 +134,11 @@ namespace Microsoft.CodeAnalysis.Sarif
             else if (value is ResultKindSet resultKindSet)
             {
                 ja = new JArray(resultKindSet.Select(i => new JValue(i)));
+                ja.WriteTo(writer);
+            }
+            else if (value is RuleKindSet ruleKindSet)
+            {
+                ja = new JArray(ruleKindSet.Select(i => new JValue(i)));
                 ja.WriteTo(writer);
             }
             else

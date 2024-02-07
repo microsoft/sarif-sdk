@@ -80,35 +80,42 @@ namespace Microsoft.CodeAnalysis.Sarif
                     }
                 }
 
-                StringSet stringSet = property as StringSet;
+                var stringSet = property as StringSet;
                 if (stringSet != null)
                 {
                     SaveSet(writer, stringSet, key);
                     continue;
                 }
 
-                IntegerSet integerSet = property as IntegerSet;
+                var integerSet = property as IntegerSet;
                 if (integerSet != null)
                 {
                     SaveSet(writer, integerSet, key);
                     continue;
                 }
 
-                FailureLevelSet failureLevelSet = property as FailureLevelSet;
+                var failureLevelSet = property as FailureLevelSet;
                 if (failureLevelSet != null)
                 {
                     SaveSet(writer, failureLevelSet, key);
                     continue;
                 }
 
-                ResultKindSet resultKindSet = property as ResultKindSet;
+                var resultKindSet = property as ResultKindSet;
                 if (resultKindSet != null)
                 {
                     SaveSet(writer, resultKindSet, key);
                     continue;
                 }
 
-                IDictionary pb = property as IDictionary;
+                var ruleKindSet = property as RuleKindSet;
+                if (ruleKindSet != null)
+                {
+                    SaveSet(writer, ruleKindSet, key);
+                    continue;
+                }
+
+                var pb = property as IDictionary;
                 if (pb != null)
                 {
                     pb.SavePropertiesToXmlStream(writer, settings, key, settingNameToDescriptionMap);
@@ -158,7 +165,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             writer.WriteAttributeString(KEY_ID, key);
             writer.WriteAttributeString(TYPE_ID, items.GetType().Name);
 
-            T[] sorted = new T[items.Count];
+            var sorted = new T[items.Count];
             items.CopyTo(sorted, 0);
             Array.Sort(sorted);
 
@@ -233,29 +240,36 @@ namespace Microsoft.CodeAnalysis.Sarif
                     if (typeName == STRING_SET_ID ||
                         typeName == INTEGER_SET_ID ||
                         typeName == RESULT_KIND_SET_ID ||
+                        typeName == RULE_KIND_SET_ID ||
                         typeName == FAILURE_LEVEL_SET_ID)
                     {
                         if (typeName == STRING_SET_ID)
                         {
-                            StringSet set = new StringSet();
+                            var set = new StringSet();
                             propertyBag[key] = set;
                             LoadSet(set, reader);
                         }
                         else if (typeName == INTEGER_SET_ID)
                         {
-                            IntegerSet set = new IntegerSet();
+                            var set = new IntegerSet();
                             propertyBag[key] = set;
                             LoadSet(set, reader);
                         }
                         else if (typeName == FAILURE_LEVEL_SET_ID)
                         {
-                            FailureLevelSet set = new FailureLevelSet();
+                            var set = new FailureLevelSet();
+                            propertyBag[key] = set;
+                            LoadSet(set, reader);
+                        }
+                        else if (typeName == RESULT_KIND_SET_ID)
+                        {
+                            var set = new ResultKindSet();
                             propertyBag[key] = set;
                             LoadSet(set, reader);
                         }
                         else
                         {
-                            ResultKindSet set = new ResultKindSet();
+                            var set = new RuleKindSet();
                             propertyBag[key] = set;
                             LoadSet(set, reader);
                         }
@@ -359,6 +373,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         private const string PROPERTY_ID = "Property";
         private const string STRING_SET_ID = "StringSet";
         private const string INTEGER_SET_ID = "IntegerSet";
+        private const string RULE_KIND_SET_ID = "RuleKindSet";
         private const string RESULT_KIND_SET_ID = "ResultKindSet";
         private const string FAILURE_LEVEL_SET_ID = "FailureLevelSet";
         internal const string PROPERTIES_ID = "Properties";

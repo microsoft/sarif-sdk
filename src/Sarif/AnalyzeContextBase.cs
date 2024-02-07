@@ -43,6 +43,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 PostUriProperty,
                 RecurseProperty,
                 ResultKindsProperty,
+                RuleKindsProperty,
                 RichReturnCodeProperty,
                 TargetFileSpecifiersProperty,
                 ThreadsProperty,
@@ -68,7 +69,6 @@ namespace Microsoft.CodeAnalysis.Sarif
         public virtual IList<Exception> RuntimeExceptions { get; set; }
         public virtual bool IsValidAnalysisTarget { get; set; }
         public virtual ReportingDescriptor Rule { get; set; }
-        public HashSet<RuleKind> RuleKinds { get; set; } = new HashSet<RuleKind>();
         public PropertiesDictionary Policy { get; set; }
         public virtual IAnalysisLogger Logger { get; set; }
         public virtual RuntimeConditions RuntimeErrors { get; set; }
@@ -200,6 +200,12 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             get => this.Policy.GetProperty(ResultKindsProperty);
             set => this.Policy.SetProperty(ResultKindsProperty, value);
+        }
+
+        public RuleKindSet RuleKinds
+        {
+            get => this.Policy.GetProperty(RuleKindsProperty);
+            set => this.Policy.SetProperty(RuleKindsProperty, value);
         }
 
         public virtual bool RichReturnCode
@@ -351,6 +357,12 @@ namespace Microsoft.CodeAnalysis.Sarif
                         "CoreSettings", nameof(ResultKinds), defaultValue: () => new ResultKindSet(new[] { ResultKind.Fail }),
                         "One or more result kinds to persist to loggers. Valid values include None, NotApplicable, Pass, Fail, " +
                         "Review, Open, Informational. Defaults to 'Fail'.");
+
+        public static PerLanguageOption<RuleKindSet> RuleKindsProperty { get; } =
+                    new PerLanguageOption<RuleKindSet>(
+                        "CoreSettings", nameof(RuleKinds), defaultValue: () => new RuleKindSet(new[] { RuleKind.Sarif }),
+                        "One or more rule kinds that should be run. Valid values include Sarif, Ado, Ghas. " +
+                        "Defaults to 'Sarif'.");
 
         public static PerLanguageOption<FilePersistenceOptions> OutputFileOptionsProperty { get; } =
                     new PerLanguageOption<FilePersistenceOptions>(
