@@ -319,7 +319,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 context.TargetFileSpecifiers = options.TargetFileSpecifiers?.Any() == true ? InitializeStringSet(options.TargetFileSpecifiers) : context.TargetFileSpecifiers;
                 context.InvocationPropertiesToLog = options.InvocationPropertiesToLog?.Any() == true ? InitializeStringSet(options.InvocationPropertiesToLog) : context.InvocationPropertiesToLog;
                 context.Traces = options.Trace.Any() ? InitializeStringSet(options.Trace) : context.Traces;
-                context.RuleKinds = options.RuleKinds;
+                context.RuleKinds = options.RuleKindOption != null ? options.RuleKinds : context.RuleKinds;
             }
 
             // Less-obviously throw-safe. We don't do these in the finally block because we'd prefer not to mask an earlier Exception during logger initialization. 

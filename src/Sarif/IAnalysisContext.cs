@@ -49,6 +49,8 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         ResultKindSet ResultKinds { get; set; }
 
+        RuleKindSet RuleKinds { get; set; }
+
         public ISet<string> InsertProperties { get; set; }
 
         OptionallyEmittedData DataToInsert { get; set; }

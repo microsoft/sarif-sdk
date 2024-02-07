@@ -156,8 +156,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             set => this.ruleKindOption = value?.Count() > 0 ? value : null;
         }
 
-        public HashSet<RuleKind> RuleKinds => RuleKindOption != null ?
-            new HashSet<RuleKind>(RuleKindOption) :
-            new HashSet<RuleKind>(new[] { RuleKind.Sarif });
+        public RuleKindSet RuleKinds => RuleKindOption != null ?
+            new RuleKindSet(RuleKindOption) :
+            new RuleKindSet(new List<RuleKind>(new[] { RuleKind.Sarif }));
     }
 }
