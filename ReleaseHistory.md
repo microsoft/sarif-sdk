@@ -10,7 +10,6 @@
 * BUG: Fix `UnsupportedOperationException` in `ZipArchiveArtifact`.
 * BUG: Fix `MultithreadedAnalyzeCommandBase` to return rich return code with the `--rich-return-code` option.
 * NEW: Add `IsBinary` property to `IEnumeratedArtifact` and implement the property in `ZipArchiveArtifact`.
-* NEW: Switch to content-based `IsBinary` categorization for `ZipArchiveArtifact`s.
 * PRF: Change default `max-file-size-in-kb` parameter to 10 megabytes.
 * PRF: Add support for efficiently peeking into non-seekable streams for binary/text categorization.
 * NEW: Add a new `--timeout-in-seconds` parameter to `AnalyzeOptionsBase`, which will override the `TimeoutInMilliseconds` property in `AnalyzeContextBase`.
