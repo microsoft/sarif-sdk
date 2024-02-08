@@ -55,36 +55,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                     resultPointer,
                     nameof(RuleResources.Base1015_ProvideRequiredResultProperties_Error_EmptyLocationsArray_Text));
             }
-            //else
-            //{
-            //    for (int i = 0; i < result.locations.Count; ++i)
-            //    {
-            //        Location location = result.locations[i];
-            //        string locationPointer = resultPointer.AtProperty(SarifPropertyName.Locations, i);
-
-            //        if (location.physicalLocation == null)
-            //        {
-            //            // {0}: This 'location' object does not provide a 'physicalLocation' object. This property is required by the {1} service.
-            //            LogResult(
-            //                                           locationPointer,
-            //                                                                      nameof(RuleResources.Base1015_ProvideRequiredResultProperties_Error_MissingPhysicalLocation_Text),
-            //                                                                                                 this.ServiceName);
-            //        }
-            //        else if (location.physicalLocation.region == null)
-            //        {
-            //            // {0}: The 'physicalLocation' object on this 'location' object does not provide a 'region' object. This property is required by the {1} service.
-            //            LogResult(
-            //                                           locationPointer.AtProperty(SarifPropertyName.Region),
-            //                                                                      nameof(RuleResources.Base1015_ProvideRequiredResultProperties_Error_MissingPhysicalLocationRegion_Text),
-            //                                                                                                 this.ServiceName);
-            //        }
-            //        else
-            //        {
-            //            Region region = location.physicalLocation.region;
-            //            string
-            //        }
-            //    }
-            //}
 
             if (result.PartialFingerprints == null)
             {

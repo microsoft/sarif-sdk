@@ -16,8 +16,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         protected override IEnumerable<string> MessageResourceNames => new string[] {
             nameof(RuleResources.ADO1014_AdoProvideRequiredRunPropertties_Error_MissingAutomationDetails_Text),
             nameof(RuleResources.ADO1014_AdoProvideRequiredRunPropertties_Error_MissingAutomationDetailsId_Text),
-            nameof(RuleResources.ADO1014_AdoProvideRequiredRunPropertties_Error_MissingToolDriver_Text),
-            nameof(RuleResources.ADO1014_AdoProvideRequiredRunPropertties_Error_MissingTool_Text),
             nameof(RuleResources.Base1014_ProvideRequiredRunProperties_Error_MissingResultsArray_Text),
             nameof(RuleResources.Base1014_ProvideRequiredRunProperties_Error_MissingTool_Text)
         };

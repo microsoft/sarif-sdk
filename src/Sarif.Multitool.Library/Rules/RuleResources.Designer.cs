@@ -97,24 +97,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}: This &apos;run&apos; object does not provide a &apos;tool&apos; property. This property is required by the {1} service..
-        /// </summary>
-        internal static string ADO1014_AdoProvideRequiredRunPropertties_Error_MissingTool_Text {
-            get {
-                return ResourceManager.GetString("ADO1014_AdoProvideRequiredRunPropertties_Error_MissingTool_Text", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to {0}: This &apos;run&apos; object&apos;s &apos;tool&apos; object does not provide a &apos;driver&apos; object. This property is required by the {1} service..
-        /// </summary>
-        internal static string ADO1014_AdoProvideRequiredRunPropertties_Error_MissingToolDriver_Text {
-            get {
-                return ResourceManager.GetString("ADO1014_AdoProvideRequiredRunPropertties_Error_MissingToolDriver_Text", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to {0}: This &apos;result&apos; object does not provide a &apos;ruleId&apos; value. This property is required by the {1} service..
         /// </summary>
         internal static string ADO1015_ProvideRequiredResultProperties_Error_MissingRuleId_Text {
