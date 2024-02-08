@@ -15,6 +15,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         /// </summary>
         public override string Id => RuleId.GHASProvideRequiredPhysicalLocationProperties;
 
+        protected override IEnumerable<string> MessageResourceNames => new string[] {
+            nameof(RuleResources.GHAS1017_ProvideRequiredPhysicalLocationProperties_Error_MissingArtifactLocationUri_Text),
+            nameof(RuleResources.Base1015_ProvideRequiredResultProperties_Error_EmptyLocationsArray_Text),
+            nameof(RuleResources.Base1015_ProvideRequiredResultProperties_Error_MissingLocationsArray_Text),
+            nameof(RuleResources.Base1015_ProvideRequiredResultProperties_Error_MissingMessageText_Text),
+            nameof(RuleResources.Base1015_ProvideRequiredResultProperties_Error_MissingMessage_Text),
+            nameof(RuleResources.Base1015_ProvideRequiredResultProperties_Error_MissingPartialFingerprints_Text)
+        };
+
         public override HashSet<RuleKind> RuleKinds => new HashSet<RuleKind>(new[] { RuleKind.Ghas });
 
         protected override string ServiceName => RuleResources.ServiceName_GHAS;
@@ -33,8 +42,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                 // {0}: The 'artifactLocation' object on this 'physicalLocation' object does not provide a 'uri' object. This property is required by the {1} service.
                 LogResult(
                     physicalLocationPointer.AtProperty(SarifPropertyName.ArtifactLocation),
-                    nameof(RuleResources.GHAS1017_ProvideRequiredPhysicalLocationProperties_Error_MissingArtifactLocationUri_Text),
-                    this.ServiceName);
+                    nameof(RuleResources.GHAS1017_ProvideRequiredPhysicalLocationProperties_Error_MissingArtifactLocationUri_Text));
             }
         }
     }

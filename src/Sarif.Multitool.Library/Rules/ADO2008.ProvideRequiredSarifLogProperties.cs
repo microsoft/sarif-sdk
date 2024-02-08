@@ -14,10 +14,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 
         protected override string ServiceName => RuleResources.ServiceName_ADO;
 
-        protected override IEnumerable<string> MessageResourceNames => new string[] {
-            nameof(RuleResources.SARIF2008_ProvideSchema_Warning_Default_Text)
-        };
-
         public AdoProvideSchem()
         {
             this.DefaultConfiguration.Level = FailureLevel.Error;
