@@ -41,10 +41,6 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentOutOfRangeException(nameof(start), $"Buffer size ({bytes.Length}) not valid for start ({start}) argument.");
             }
 
-            // Ensure count % 4 == 0 to guarantee we do not attempt a misaligned decoding
-            // at the end of the buffer, under all tested encodings.
-            count = (count / 4) * 4;
-
             Windows1252 = Windows1252 ?? Encoding.GetEncoding(1252);
 
             bool containsControlCharacters = false;
@@ -58,6 +54,10 @@ namespace Microsoft.CodeAnalysis.Sarif
             {
                 return true;
             }
+
+            // Ensure count % 4 == 0 to guarantee we do not attempt a misaligned decoding
+            // at the end of the buffer, under all tested encodings.
+            count = (count / 4) * 4;
 
             foreach (Encoding encoding in new[] { Encoding.UTF32, Encoding.Unicode })
             {
