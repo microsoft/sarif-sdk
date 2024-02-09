@@ -15,6 +15,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         /// </summary>
         public override string Id => RuleId.ADOProvideToolDriverProperties;
 
+        protected override IEnumerable<string> MessageResourceNames => new string[] {
+            nameof(RuleResources.ADO1018_ProvideRequiredToolProperties_Error_MissingDriverFullName_Text),
+            nameof(RuleResources.Base1018_ProvideRequiredToolProperties_Error_MissingDriverName_Text),
+            nameof(RuleResources.Base1018_ProvideRequiredToolProperties_Error_MissingDriverRules_Text),
+            nameof(RuleResources.Base1018_ProvideRequiredToolProperties_Error_MissingDriver_Text),
+        };
+
         public override HashSet<RuleKind> RuleKinds => new HashSet<RuleKind>(new[] { RuleKind.Ado });
 
         protected override string ServiceName => RuleResources.ServiceName_ADO;
@@ -37,8 +44,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                         runPointer
                             .AtProperty(SarifPropertyName.Tool)
                             .AtProperty(SarifPropertyName.Driver),
-                        nameof(RuleResources.ADO1018_ProvideRequiredToolProperties_Error_MissingDriverFullName_Text),
-                        this.ServiceName);
+                        nameof(RuleResources.ADO1018_ProvideRequiredToolProperties_Error_MissingDriverFullName_Text));
                 }
             }
         }

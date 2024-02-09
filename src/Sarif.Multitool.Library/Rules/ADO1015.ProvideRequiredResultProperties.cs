@@ -13,6 +13,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         /// </summary>
         public override string Id => RuleId.ADOProvideRequiredResultProperties;
 
+        protected override IEnumerable<string> MessageResourceNames => new string[] {
+            nameof(RuleResources.ADO1015_ProvideRequiredResultProperties_Error_MissingRuleId_Text),
+            nameof(RuleResources.Base1015_ProvideRequiredResultProperties_Error_EmptyLocationsArray_Text),
+            nameof(RuleResources.Base1015_ProvideRequiredResultProperties_Error_MissingLocationsArray_Text),
+            nameof(RuleResources.Base1015_ProvideRequiredResultProperties_Error_MissingMessageText_Text),
+            nameof(RuleResources.Base1015_ProvideRequiredResultProperties_Error_MissingMessage_Text),
+            nameof(RuleResources.Base1015_ProvideRequiredResultProperties_Error_MissingPartialFingerprints_Text)
+        };
+
         public override HashSet<RuleKind> RuleKinds => new HashSet<RuleKind>(new[] { RuleKind.Ado });
 
         protected override string ServiceName => RuleResources.ServiceName_ADO;
@@ -31,8 +40,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                 // {0}: This 'result' object does not provide a 'ruleId' value. This property is required by the {1} service.
                 LogResult(
                     resultPointer,
-                    nameof(RuleResources.ADO1015_ProvideRequiredResultProperties_Error_MissingRuleId_Text),
-                    this.ServiceName);
+                    nameof(RuleResources.ADO1015_ProvideRequiredResultProperties_Error_MissingRuleId_Text));
             }
         }
     }
