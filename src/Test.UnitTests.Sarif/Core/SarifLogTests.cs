@@ -230,7 +230,7 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests.Core
             {
                 await SarifLog.Post(new Uri("https://github.com/microsoft/sarif-sdk"),
                                     new MemoryStream(),
-                                    null);
+                                    (HttpClientWrapper)null);
             });
         }
 
@@ -245,7 +245,7 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests.Core
                 await SarifLog.Post(postUri: null,
                                     filePath,
                                     fileSystem.Object,
-                                    httpClient: null);
+                                    httpClient: (HttpClientWrapper)null);
             });
 
             filePath = "SomeFile.txt";
@@ -258,7 +258,7 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests.Core
                 await SarifLog.Post(postUri: null,
                                     filePath,
                                     fileSystem.Object,
-                                    httpClient: null);
+                                    httpClient: (HttpClientWrapper)null);
             });
         }
 
@@ -283,7 +283,7 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests.Core
             (bool, string) logPosted = await SarifLog.Post(postUri,
                                                            filePath,
                                                            fileSystem.Object,
-                                                           httpClient: null);
+                                                           httpClient: (HttpClientWrapper)null);
             logPosted.Item1.Should().BeFalse("with no results or notifications");
             logPosted.Item2.Should().Contain("was skipped");
 
