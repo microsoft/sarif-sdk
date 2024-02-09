@@ -5,26 +5,28 @@ using System.Collections.Generic;
 
 namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 {
-    public class GhasReferenceFinalSchema
-        : BaseReferenceFinalSchema
+    public class GHASProvideRequiredLocationProperties
+        : SarifValidationSkimmerBase
     {
         /// <summary>
-        /// GHAS1011
+        /// GH1016
         /// </summary>
-        public override string Id => RuleId.GHASReferenceFinalSchema;
+        public override string Id => RuleId.GHASProvideRequiredLocationProperties;
 
         public override HashSet<RuleKind> RuleKinds => new HashSet<RuleKind>(new[] { RuleKind.Ghas });
 
         protected override string ServiceName => RuleResources.ServiceName_GHAS;
 
-        public GhasReferenceFinalSchema()
+        public override MultiformatMessageString FullDescription => new MultiformatMessageString();
+
+        public GHASProvideRequiredLocationProperties()
         {
             this.DefaultConfiguration.Level = FailureLevel.Error;
         }
 
-        protected override void Analyze(SarifLog log, string logPointer)
+        protected override void Analyze(Location location, string locationPointer)
         {
-            base.Analyze(log, logPointer);
+            base.Analyze(location, locationPointer);
         }
     }
 }
