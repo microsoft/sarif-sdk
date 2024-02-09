@@ -89,12 +89,19 @@ namespace Microsoft.CodeAnalysis.Sarif
             using var assertionScope = new AssertionScope();
 
             var sb = new StringBuilder();
-            string unicodeText = "американец";
-
-            foreach (Encoding encoding in new[] { Encoding.Unicode, Encoding.UTF8, Encoding.BigEndianUnicode, Encoding.UTF32 })
+            string[] unicodeTexts = new[]
             {
-                byte[] input = encoding.GetBytes(unicodeText);
-                FileEncoding.IsTextualData(input).Should().BeTrue(because: $"'{unicodeText}' encoded as '{encoding.EncodingName}' should not be classified as binary data");
+                "американец",
+                "Generates a warning and an error for each of :  foo  foo \r\n" // Challenging for the classifer; found by accident.
+            };
+
+            foreach (string unicodeText in unicodeTexts)
+            {
+                foreach (Encoding encoding in new[] { Encoding.Unicode, Encoding.UTF8, Encoding.BigEndianUnicode, Encoding.UTF32 })
+                {
+                    byte[] input = encoding.GetBytes(unicodeText);
+                    FileEncoding.IsTextualData(input).Should().BeTrue(because: $"'{unicodeText}' encoded as '{encoding.EncodingName}' should not be classified as binary data");
+                }
             }
         }
 

@@ -31,7 +31,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// </summary>
         /// <param name="bytes">The raw data expressed as bytes.</param>
         /// <param name="start">The starting position to being classification.</param>
-        /// <param name="count">The maximal count of characters to decode.</param>
+        /// <param name="count">The maximal count of bytes to decode.</param>
         public static bool IsTextualData(byte[] bytes, int start, int count)
         {
             bytes = bytes ?? throw new ArgumentNullException(nameof(bytes));
@@ -41,12 +41,11 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentOutOfRangeException(nameof(start), $"Buffer size ({bytes.Length}) not valid for start ({start}) argument.");
             }
 
-
             Windows1252 = Windows1252 ?? Encoding.GetEncoding(1252);
 
             bool containsControlCharacters = false;
 
-            for (int i = 0; i < bytes.Length; i++)
+            for (int i = 0; i < count; i++)
             {
                 containsControlCharacters |= bytes[i] < 0x20;
             }
@@ -56,11 +55,16 @@ namespace Microsoft.CodeAnalysis.Sarif
                 return true;
             }
 
+            // Ensure count % 4 == 0 to guarantee we do not attempt a misaligned decoding
+            // at the end of the buffer, under all tested encodings.
+            count = (count / 4) * 4;
+
             foreach (Encoding encoding in new[] { Encoding.UTF32, Encoding.Unicode })
             {
                 bool encodingSucceeded = true;
 
-                foreach (char c in encoding.GetChars(bytes, start, count))
+                char[] chars = encoding.GetChars(bytes, start, count);
+                foreach (char c in chars)
                 {
                     if (c == 0xfffd)
                     {
