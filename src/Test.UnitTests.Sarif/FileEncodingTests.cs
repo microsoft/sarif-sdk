@@ -21,14 +21,14 @@ namespace Microsoft.CodeAnalysis.Sarif
         [Fact]
         public void FileEncoding_NullBytesRaisesException()
         {
-            Assert.Throws<ArgumentNullException>(() => FileEncoding.IsTextualData(null, 1, 1));
+            Assert.Throws<ArgumentNullException>(() => FileEncoding.IsTextualData(null, 1, 1, 1));
         }
 
         [Fact]
         public void FileEncoding_StartExceedsBufferLength()
         {
             // Start argument exceeds buffer size.
-            Assert.Throws<ArgumentOutOfRangeException>(() => FileEncoding.IsTextualData(new byte[1], 1, 1));
+            Assert.Throws<ArgumentOutOfRangeException>(() => FileEncoding.IsTextualData(new byte[1], 1, 1, 1));
         }
 
         [Fact]

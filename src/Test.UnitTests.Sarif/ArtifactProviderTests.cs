@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.IO.Compression;
 using System.Linq;
+using System.Text;
 
 using FluentAssertions;
 
@@ -73,6 +74,25 @@ namespace Test.UnitTests.Sarif
                 artifact.Bytes.Should().NotBeNull();
                 artifact.Bytes.Length.Should().Be(headerSize);
                 artifact.SizeInBytes.Should().Be(headerSize);
+
+                artifact.Contents.Should().BeNull();
+            }
+        }
+
+        [Fact]
+        public void MultithreadedZipArchiveArtifactProvider_SmallTextFile()
+        {
+            byte[] data = new byte[4];
+            Encoding.UTF32.GetBytes("a", data);
+
+            // Use the binary zip creator because it lets us write raw bytes that we've encoded.
+            ZipArchive zip = CreateZipArchiveWithBinaryContents("test.dll", data);
+            var artifactProvider = new MultithreadedZipArchiveArtifactProvider(zip, FileSystem.Instance);
+            foreach (IEnumeratedArtifact artifact in artifactProvider.Artifacts)
+            {
+                artifact.Bytes.Should().NotBeNull();
+                artifact.Bytes.Length.Should().Be(data.Length);
+                artifact.SizeInBytes.Should().Be(data.Length);
 
                 artifact.Contents.Should().BeNull();
             }
