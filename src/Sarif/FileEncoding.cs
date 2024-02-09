@@ -19,7 +19,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <summary>
         public static bool IsTextualData(byte[] bytes)
         {
-            return IsTextualData(bytes, 0, bytes.Length);
+            return IsTextualData(bytes, 0, bytes.Length / 4, bytes.Length);
         }
 
         /// <summary>
@@ -31,8 +31,9 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// </summary>
         /// <param name="bytes">The raw data expressed as bytes.</param>
         /// <param name="start">The starting position to being classification.</param>
-        /// <param name="count">The maximal count of characters to decode.</param>
-        public static bool IsTextualData(byte[] bytes, int start, int count)
+        /// <param name="charCount">The maximal count of characters to decode.</param>
+        /// <param name="arrayFillSize">The amount of the bytes buffer which contains data.</param>
+        public static bool IsTextualData(byte[] bytes, int start, int charCount, int arrayFillSize)
         {
             bytes = bytes ?? throw new ArgumentNullException(nameof(bytes));
 
@@ -46,7 +47,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             bool containsControlCharacters = false;
 
-            for (int i = 0; i < bytes.Length; i++)
+            for (int i = 0; i < Math.Min(bytes.Length, arrayFillSize); i++)
             {
                 containsControlCharacters |= bytes[i] < 0x20;
             }
@@ -60,7 +61,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             {
                 bool encodingSucceeded = true;
 
-                foreach (char c in encoding.GetChars(bytes, start, count))
+                foreach (char c in encoding.GetChars(bytes, start, charCount))
                 {
                     if (c == 0xfffd)
                     {
