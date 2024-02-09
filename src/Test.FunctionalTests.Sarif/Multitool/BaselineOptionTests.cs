@@ -113,6 +113,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 Quiet = true,
                 OutputFileOptions = new[] { FilePersistenceOptions.PrettyPrint, FilePersistenceOptions.Optimize, this.IsInline ? FilePersistenceOptions.Inline : FilePersistenceOptions.None },
                 Level = new List<FailureLevel> { FailureLevel.Error, FailureLevel.Warning, FailureLevel.Note, FailureLevel.None },
+                RuleKindOption = AllRuleKinds
             };
 
             var mockFileSystem = new Mock<IFileSystem>();

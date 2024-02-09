@@ -12,6 +12,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
     {
         public override string Id => string.Empty;
 
+        protected override IEnumerable<string> MessageResourceNames => new string[] {
+            nameof(RuleResources.Base1015_ProvideRequiredResultProperties_Error_EmptyLocationsArray_Text),
+            nameof(RuleResources.Base1015_ProvideRequiredResultProperties_Error_MissingLocationsArray_Text),
+            nameof(RuleResources.Base1015_ProvideRequiredResultProperties_Error_MissingMessageText_Text),
+            nameof(RuleResources.Base1015_ProvideRequiredResultProperties_Error_MissingMessage_Text),
+            nameof(RuleResources.Base1015_ProvideRequiredResultProperties_Error_MissingPartialFingerprints_Text)
+        };
+
         public override HashSet<RuleKind> RuleKinds => new HashSet<RuleKind>();
 
         public override MultiformatMessageString FullDescription => new MultiformatMessageString();
@@ -23,16 +31,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                 // {0}: This 'result' object does not provide a 'message' object. This property is required by the {1} service.
                 LogResult(
                     resultPointer,
-                    nameof(RuleResources.Base1015_ProvideRequiredResultProperties_Error_MissingMessage_Text),
-                    this.ServiceName);
+                    nameof(RuleResources.Base1015_ProvideRequiredResultProperties_Error_MissingMessage_Text));
             }
             else if (string.IsNullOrWhiteSpace(result.Message.Text))
             {
                 // {0}: The 'message' object on this 'result' object does not provide a 'text' property. This property is required by the {1} service.
                 LogResult(
                     resultPointer.AtProperty(SarifPropertyName.Message),
-                    nameof(RuleResources.Base1015_ProvideRequiredResultProperties_Error_MissingMessageText_Text),
-                    this.ServiceName);
+                    nameof(RuleResources.Base1015_ProvideRequiredResultProperties_Error_MissingMessageText_Text));
             }
 
             if (result.Locations == null)
@@ -40,55 +46,22 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                 // {0}: This 'result' object does not provide a 'locations' array. This property is required by the {1} service.
                 LogResult(
                     resultPointer,
-                    nameof(RuleResources.Base1015_ProvideRequiredResultProperties_Error_MissingLocationsArray_Text),
-                    this.ServiceName);
+                    nameof(RuleResources.Base1015_ProvideRequiredResultProperties_Error_MissingLocationsArray_Text));
             }
             else if (result.Locations.Count == 0)
             {
                 // {0}: The 'locations' array on this 'result' object is empty. This property is required by the {1} service.
                 LogResult(
                     resultPointer,
-                    nameof(RuleResources.Base1015_ProvideRequiredResultProperties_Error_EmptyLocationsArray_Text),
-                    this.ServiceName);
+                    nameof(RuleResources.Base1015_ProvideRequiredResultProperties_Error_EmptyLocationsArray_Text));
             }
-            //else
-            //{
-            //    for (int i = 0; i < result.locations.Count; ++i)
-            //    {
-            //        Location location = result.locations[i];
-            //        string locationPointer = resultPointer.AtProperty(SarifPropertyName.Locations, i);
-
-            //        if (location.physicalLocation == null)
-            //        {
-            //            // {0}: This 'location' object does not provide a 'physicalLocation' object. This property is required by the {1} service.
-            //            LogResult(
-            //                                           locationPointer,
-            //                                                                      nameof(RuleResources.Base1015_ProvideRequiredResultProperties_Error_MissingPhysicalLocation_Text),
-            //                                                                                                 this.ServiceName);
-            //        }
-            //        else if (location.physicalLocation.region == null)
-            //        {
-            //            // {0}: The 'physicalLocation' object on this 'location' object does not provide a 'region' object. This property is required by the {1} service.
-            //            LogResult(
-            //                                           locationPointer.AtProperty(SarifPropertyName.Region),
-            //                                                                      nameof(RuleResources.Base1015_ProvideRequiredResultProperties_Error_MissingPhysicalLocationRegion_Text),
-            //                                                                                                 this.ServiceName);
-            //        }
-            //        else
-            //        {
-            //            Region region = location.physicalLocation.region;
-            //            string
-            //        }
-            //    }
-            //}
 
             if (result.PartialFingerprints == null)
             {
                 // {0}: This 'result' object does not provide a 'partialFingerprints' dictionary. This property is required by the {1} service.
                 LogResult(
                     resultPointer,
-                    nameof(RuleResources.Base1015_ProvideRequiredResultProperties_Error_MissingPartialFingerprints_Text),
-                    this.ServiceName);
+                    nameof(RuleResources.Base1015_ProvideRequiredResultProperties_Error_MissingPartialFingerprints_Text));
             }
         }
     }

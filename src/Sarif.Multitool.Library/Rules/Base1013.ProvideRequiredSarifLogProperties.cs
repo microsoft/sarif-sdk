@@ -12,7 +12,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 
         public override HashSet<RuleKind> RuleKinds => new HashSet<RuleKind>();
 
-        public override MultiformatMessageString FullDescription => new MultiformatMessageString { Text = RuleResources.SARIF2008_ProvideSchema_FullDescription_Text };
+        public override MultiformatMessageString FullDescription => new MultiformatMessageString { Text = RuleResources.Base1013_ReferenceFinalSchema_FullDescription_Text };
+
+        protected override IEnumerable<string> MessageResourceNames => new string[] {
+            nameof(RuleResources.Base1013_MaximumRunsCount_Note_Default_Text),
+            nameof(RuleResources.Base1013_ProvideSchemaVersion_Warning_Default_Text),
+            nameof(RuleResources.Base1013_ProvideSchema_Warning_Default_Text),
+            nameof(RuleResources.Base1013_ReferenceFinalSchema_Error_Default_Text),
+            nameof(RuleResources.Base1013_SarifLogRunsArray_Note_Default_Text)
+        };
 
         public virtual int MaximumRuns { get; set; } = int.MaxValue;
 
@@ -23,8 +31,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                 // {0}: This 'sarifLog' object does not provide a 'runs' array, which is required by the {1} service.
                 LogResult(
                     logPointer,
-                    nameof(RuleResources.Base1013_SarifLogRunsArray_Note_Default_Text),
-                    this.ServiceName);
+                    nameof(RuleResources.Base1013_SarifLogRunsArray_Note_Default_Text));
             }
             else
             {
@@ -55,8 +62,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                         logPointer,
                         nameof(RuleResources.Base1013_MaximumRunsCount_Note_Default_Text),
                         sarifLog.Runs.Count.ToString(),
-                        this.MaximumRuns.ToString(),
-                        this.ServiceName);
+                        this.MaximumRuns.ToString());
                 }
             }
         }

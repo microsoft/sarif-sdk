@@ -14,6 +14,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
     {
         public override string Id => string.Empty;
 
+        protected override IEnumerable<string> MessageResourceNames => new string[] {
+            nameof(RuleResources.Base1017_ProvideRequiredPhysicalLocationProperties_Error_MissingArtifactLocation_Text),
+            nameof(RuleResources.Base1017_ProvideRequiredPhysicalLocationProperties_Error_MissingRegion_Text),
+            nameof(RuleResources.SARIF1007_RegionPropertiesMustBeConsistent_Error_EndColumnMustNotPrecedeStartColumn_Text),
+            nameof(RuleResources.SARIF1007_RegionPropertiesMustBeConsistent_Error_EndLineMustNotPrecedeStartLine_Text),
+            nameof(RuleResources.SARIF1007_RegionPropertiesMustBeConsistent_Error_RegionStartPropertyMustBePresent_Text)
+        };
+
         public override HashSet<RuleKind> RuleKinds => new HashSet<RuleKind>();
 
         public override MultiformatMessageString FullDescription => new MultiformatMessageString();
@@ -25,8 +33,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                 // {0}: The 'physicalLocation' object does not provide a 'region' object. This property is required by the {1} service.
                 LogResult(
                     physicalLocationPointer,
-                    nameof(RuleResources.Base1017_ProvideRequiredPhysicalLocationProperties_Error_MissingRegion_Text),
-                    this.ServiceName);
+                    nameof(RuleResources.Base1017_ProvideRequiredPhysicalLocationProperties_Error_MissingRegion_Text));
             }
             else
             {
@@ -44,8 +51,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                     // a line/column text region, a character offset/length text region, or a binary region.
                     LogResult(
                         regionPointer,
-                        nameof(RuleResources.SARIF1007_RegionPropertiesMustBeConsistent_Error_RegionStartPropertyMustBePresent_Text),
-                        this.ServiceName);
+                        nameof(RuleResources.SARIF1007_RegionPropertiesMustBeConsistent_Error_RegionStartPropertyMustBePresent_Text));
                 }
 
                 if (regionToken.HasProperty(SarifPropertyName.EndLine) &&
@@ -83,8 +89,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                 // {0}: This 'physicalLocation' object does not provide an 'artifactLocation' object. This property is required by the {1} service.
                 LogResult(
                     physicalLocationPointer,
-                    nameof(RuleResources.Base1017_ProvideRequiredPhysicalLocationProperties_Error_MissingArtifactLocation_Text),
-                    this.ServiceName);
+                    nameof(RuleResources.Base1017_ProvideRequiredPhysicalLocationProperties_Error_MissingArtifactLocation_Text));
             }
         }
 
