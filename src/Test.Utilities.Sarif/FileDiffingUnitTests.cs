@@ -31,7 +31,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         private readonly bool _testProducesSarifCurrentVersion;
         private readonly TestAssetResourceExtractor _extractor;
 
-        protected readonly List<RuleKind> AllRuleKinds = new List<RuleKind>(new[] { RuleKind.Sarif, RuleKind.Ado, RuleKind.Ghas});
+        protected readonly List<RuleKind> AllRuleKinds = new List<RuleKind>(new[] { RuleKind.Sarif, RuleKind.Ado, RuleKind.Ghas });
 
         public FileDiffingUnitTests(ITestOutputHelper outputHelper, bool testProducesSarifCurrentVersion = true)
         {
