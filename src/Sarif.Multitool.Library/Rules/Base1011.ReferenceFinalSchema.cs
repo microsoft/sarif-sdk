@@ -38,6 +38,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             if (schemaUri == null)
             {
                 // If SchemaUri is not present, it will be caught by Base2008 rule.
+                // ToDo: Base2008 rule is deleted.
                 return;
             }
 

@@ -57,7 +57,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         public const string GHASProvideRequiredLocationProperties = "GH1016";
         public const string GHASProvideRequiredPhysicalLocationProperties = "GH1017";
         public const string GHASProvideRequiredToolProperties = "GH1018";
-        public const string GHASProvideSchema = "GH2008";
         public const string GHASProvideRequiredReportingDescriptorProperties = "GH2012";
 
         // Rules for ADO Advanced Security.
@@ -68,7 +67,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         public const string ADOProvideRequiredLocationProperties = "ADO1016";
         public const string ADOProvideRequiredPhysicalLocationProperties = "ADO1017";
         public const string ADOProvideToolDriverProperties = "ADO1018";
-        public const string ADOProvideSchema = "ADO2008";
         public const string ADOProvideRequiredReportingDescriptorProperties = "ADO2012";
 
         // TEMPLATE:

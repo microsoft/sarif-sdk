@@ -23,7 +23,6 @@
   `ADO1016.ProvideRequiredLocationProperties`,  
   `ADO1017.ProvideRequiredPhysicalLocationProperties`,  
   `ADO1018.ProvideRequiredToolProperties`,  
-  `ADO2008.ProvideRequiredSarifLogProperties`,  
   `ADO2012.ProvideRequiredReportingDescriptorProperties`,  
   `GH1011.ReferenceFinalSchema`,  
   `GH1013.ProvideRequiredSarifLogProperties`,  
