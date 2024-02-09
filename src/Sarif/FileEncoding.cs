@@ -41,6 +41,9 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentOutOfRangeException(nameof(start), $"Buffer size ({bytes.Length}) not valid for start ({start}) argument.");
             }
 
+            // Ensure count % 4 == 0 to guarantee we do not attempt a misaligned decoding
+            // at the end of the buffer, under all tested encodings.
+            count = (count / 4) * 4;
 
             Windows1252 = Windows1252 ?? Encoding.GetEncoding(1252);
 
@@ -60,7 +63,8 @@ namespace Microsoft.CodeAnalysis.Sarif
             {
                 bool encodingSucceeded = true;
 
-                foreach (char c in encoding.GetChars(bytes, start, count))
+                char[] chars = encoding.GetChars(bytes, start, count);
+                foreach (char c in chars)
                 {
                     if (c == 0xfffd)
                     {
