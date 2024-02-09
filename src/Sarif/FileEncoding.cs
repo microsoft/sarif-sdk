@@ -41,12 +41,11 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentOutOfRangeException(nameof(start), $"Buffer size ({bytes.Length}) not valid for start ({start}) argument.");
             }
 
-
             Windows1252 = Windows1252 ?? Encoding.GetEncoding(1252);
 
             bool containsControlCharacters = false;
 
-            for (int i = 0; i < bytes.Length; i++)
+            for (int i = 0; i < count; i++)
             {
                 containsControlCharacters |= bytes[i] < 0x20;
             }
@@ -56,7 +55,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 return true;
             }
 
-            foreach (Encoding encoding in new[] { Encoding.UTF32, Encoding.Unicode })
+            foreach (Encoding encoding in new[] { Encoding.UTF8, Encoding.UTF32, Encoding.Unicode })
             {
                 bool encodingSucceeded = true;
 
