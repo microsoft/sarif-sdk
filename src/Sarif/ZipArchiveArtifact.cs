@@ -99,7 +99,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
                         // Classifier tries decoding characters as UTF32, so it can only attempt to work on a quarter of the sample.
                         int charsToCheck = Math.Min(length, header.Length) / 4;
-                        bool isText = FileEncoding.IsTextualData(header, 0, charsToCheck, length);
+                        bool isText = FileEncoding.IsTextualData(header, 0, length);
 
                         peekable.Rewind();
 

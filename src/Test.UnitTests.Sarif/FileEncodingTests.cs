@@ -21,14 +21,14 @@ namespace Microsoft.CodeAnalysis.Sarif
         [Fact]
         public void FileEncoding_NullBytesRaisesException()
         {
-            Assert.Throws<ArgumentNullException>(() => FileEncoding.IsTextualData(null, 1, 1, 1));
+            Assert.Throws<ArgumentNullException>(() => FileEncoding.IsTextualData(null, 1, 1));
         }
 
         [Fact]
         public void FileEncoding_StartExceedsBufferLength()
         {
             // Start argument exceeds buffer size.
-            Assert.Throws<ArgumentOutOfRangeException>(() => FileEncoding.IsTextualData(new byte[1], 1, 1, 1));
+            Assert.Throws<ArgumentOutOfRangeException>(() => FileEncoding.IsTextualData(new byte[1], 1, 1));
         }
 
         [Fact]
@@ -91,7 +91,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             var sb = new StringBuilder();
             string unicodeText = "американец";
 
-            foreach (Encoding encoding in new[] { Encoding.Unicode, Encoding.UTF8, Encoding.BigEndianUnicode, Encoding.UTF32 })
+            foreach (Encoding encoding in new[] { Encoding.BigEndianUnicode, Encoding.Unicode, Encoding.UTF8, Encoding.UTF32 })
             {
                 byte[] input = encoding.GetBytes(unicodeText);
                 FileEncoding.IsTextualData(input).Should().BeTrue(because: $"'{unicodeText}' encoded as '{encoding.EncodingName}' should not be classified as binary data");
