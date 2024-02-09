@@ -216,6 +216,7 @@ namespace Test.UnitTests.Sarif
 
             var stream = new MemoryStream();
             stream.Write(contentBytes, 0, contentBytes.Length);
+            stream.Position = 0;
 
             var enumeratedArtifact = new EnumeratedArtifact(FileSystem.Instance)
             {

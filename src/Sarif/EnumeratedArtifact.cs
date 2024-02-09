@@ -104,8 +104,16 @@ namespace Microsoft.CodeAnalysis.Sarif
             }
 
             byte[] header = new byte[BinarySniffingHeaderSizeBytes];
-            int length = this.Stream.Read(header, 0, header.Length);
-            bool isText = FileEncoding.IsTextualData(header, 0, length);
+            int readLength = this.Stream.Read(header, 0, header.Length);
+
+            if (readLength < header.Length)
+            {
+                byte[] newHeader = new byte[readLength];
+                Array.Copy(header, newHeader, readLength);
+                header = newHeader;
+            }
+
+            bool isText = FileEncoding.IsTextualData(header, 0, readLength);
 
             TryRewindStream();
 
