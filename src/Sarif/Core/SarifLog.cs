@@ -135,7 +135,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="stream"></param>
         /// <param name="httpClient"></param>
         public static async Task<HttpResponseMessage> Post(Uri postUri, Stream stream, HttpClient httpClient)
-        { 
+        {
             return await Post(postUri, stream, new HttpClientWrapper(httpClient));
         }
 
