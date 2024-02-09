@@ -24,6 +24,177 @@
               "helpUri": "http://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html"
             },
             {
+              "id": "ADO1015",
+              "name": "AdoProvideRequiredResultPropertties",
+              "messageStrings": {
+                "Error_MissingRuleId": {
+                  "text": "{0}: This 'result' object does not provide a 'ruleId' value. This property is required by the {1} service."
+                },
+                "Error_EmptyLocationsArray": {
+                  "text": "{0}: The 'locations' array on this 'result' object is empty. This property is required by the {1} service."
+                },
+                "Error_MissingLocationsArray": {
+                  "text": "{0}: This 'result' object does not provide a 'locations' array. This property is required by the {1} service."
+                },
+                "Error_MissingMessageText": {
+                  "text": "{0}: The 'message' object on this 'result' object does not provide a 'text' property. This property is required by the {1} service."
+                },
+                "Error_MissingMessage": {
+                  "text": "{0}: This 'result' object does not provide a 'message' object. This property is required by the {1} service."
+                },
+                "Error_MissingPartialFingerprints": {
+                  "text": "{0}: This 'result' object does not provide a 'partialFingerprints' dictionary. This property is required by the {1} service."
+                }
+              },
+              "defaultConfiguration": {
+                "level": "error"
+              },
+              "helpUri": "http://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html"
+            },
+            {
+              "id": "ADO1017",
+              "name": "AdoProvideRequiredPhysicalLocationProperties",
+              "messageStrings": {
+                "Error_EmptyLocationsArray": {
+                  "text": "{0}: The 'locations' array on this 'result' object is empty. This property is required by the {1} service."
+                },
+                "Error_MissingLocationsArray": {
+                  "text": "{0}: This 'result' object does not provide a 'locations' array. This property is required by the {1} service."
+                },
+                "Error_MissingMessageText": {
+                  "text": "{0}: The 'message' object on this 'result' object does not provide a 'text' property. This property is required by the {1} service."
+                },
+                "Error_MissingMessage": {
+                  "text": "{0}: This 'result' object does not provide a 'message' object. This property is required by the {1} service."
+                },
+                "Error_MissingPartialFingerprints": {
+                  "text": "{0}: This 'result' object does not provide a 'partialFingerprints' dictionary. This property is required by the {1} service."
+                }
+              },
+              "defaultConfiguration": {
+                "level": "error"
+              },
+              "helpUri": "http://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html"
+            },
+            {
+              "id": "ADO2012",
+              "name": "AdoProvideRequiredReportingDescriptorProperties",
+              "messageStrings": {
+                "Error_MissingName": {
+                  "text": "{0}: This 'reportingDescriptor' object does not provide a 'name' value. This property is required by the {1} service."
+                },
+                "Error_EmptyLocationsArray": {
+                  "text": "{0}: The 'locations' array on this 'result' object is empty. This property is required by the {1} service."
+                },
+                "Error_MissingLocationsArray": {
+                  "text": "{0}: This 'result' object does not provide a 'locations' array. This property is required by the {1} service."
+                },
+                "Error_MissingMessageText": {
+                  "text": "{0}: The 'message' object on this 'result' object does not provide a 'text' property. This property is required by the {1} service."
+                },
+                "Error_MissingMessage": {
+                  "text": "{0}: This 'result' object does not provide a 'message' object. This property is required by the {1} service."
+                },
+                "Error_MissingPartialFingerprints": {
+                  "text": "{0}: This 'result' object does not provide a 'partialFingerprints' dictionary. This property is required by the {1} service."
+                }
+              },
+              "defaultConfiguration": {
+                "level": "error"
+              },
+              "helpUri": "http://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html"
+            },
+            {
+              "id": "GHAS1015",
+              "name": "GhasProvideRequiredResultPropertties",
+              "messageStrings": {
+                "Error_EmptyLocationsArray": {
+                  "text": "{0}: The 'locations' array on this 'result' object is empty. This property is required by the {1} service."
+                },
+                "Error_MissingLocationsArray": {
+                  "text": "{0}: This 'result' object does not provide a 'locations' array. This property is required by the {1} service."
+                },
+                "Error_MissingMessageText": {
+                  "text": "{0}: The 'message' object on this 'result' object does not provide a 'text' property. This property is required by the {1} service."
+                },
+                "Error_MissingMessage": {
+                  "text": "{0}: This 'result' object does not provide a 'message' object. This property is required by the {1} service."
+                },
+                "Error_MissingPartialFingerprints": {
+                  "text": "{0}: This 'result' object does not provide a 'partialFingerprints' dictionary. This property is required by the {1} service."
+                }
+              },
+              "defaultConfiguration": {
+                "level": "error"
+              },
+              "helpUri": "http://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html"
+            },
+            {
+              "id": "GHAS1017",
+              "name": "GhasProvideRequiredPhysicalLocationProperties",
+              "messageStrings": {
+                "Error_MissingArtifactLocationUri": {
+                  "text": "{0}: The 'artifactLocation' object on this 'physicalLocation' object does not provide a 'uri' object. This property is required by the {1} service."
+                },
+                "Error_EmptyLocationsArray": {
+                  "text": "{0}: The 'locations' array on this 'result' object is empty. This property is required by the {1} service."
+                },
+                "Error_MissingLocationsArray": {
+                  "text": "{0}: This 'result' object does not provide a 'locations' array. This property is required by the {1} service."
+                },
+                "Error_MissingMessageText": {
+                  "text": "{0}: The 'message' object on this 'result' object does not provide a 'text' property. This property is required by the {1} service."
+                },
+                "Error_MissingMessage": {
+                  "text": "{0}: This 'result' object does not provide a 'message' object. This property is required by the {1} service."
+                },
+                "Error_MissingPartialFingerprints": {
+                  "text": "{0}: This 'result' object does not provide a 'partialFingerprints' dictionary. This property is required by the {1} service."
+                }
+              },
+              "defaultConfiguration": {
+                "level": "error"
+              },
+              "helpUri": "http://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html"
+            },
+            {
+              "id": "GHAS2012",
+              "name": "GhasProvideRequiredReportingDescriptorProperties",
+              "messageStrings": {
+                "Error_MissingFullDescription": {
+                  "text": "{0}: This 'reportingDescriptor' object does not provide a 'fullDescription' value. This property is required by the {1} service."
+                },
+                "Error_MissingHelpText": {
+                  "text": "{0}: This 'help' object does not provide a 'text' value. This property is required by the {1} service."
+                },
+                "Error_MissingHelp": {
+                  "text": "{0}: This 'reportingDescriptor' object does not provide a 'help' object. This property is required by the {1} service."
+                },
+                "Error_MissingShortDescription": {
+                  "text": "{0}: This 'reportingDescriptor' object does not provide a 'shortDescription' value. This property is required by the {1} service."
+                },
+                "Error_EmptyLocationsArray": {
+                  "text": "{0}: The 'locations' array on this 'result' object is empty. This property is required by the {1} service."
+                },
+                "Error_MissingLocationsArray": {
+                  "text": "{0}: This 'result' object does not provide a 'locations' array. This property is required by the {1} service."
+                },
+                "Error_MissingMessageText": {
+                  "text": "{0}: The 'message' object on this 'result' object does not provide a 'text' property. This property is required by the {1} service."
+                },
+                "Error_MissingMessage": {
+                  "text": "{0}: This 'result' object does not provide a 'message' object. This property is required by the {1} service."
+                },
+                "Error_MissingPartialFingerprints": {
+                  "text": "{0}: This 'result' object does not provide a 'partialFingerprints' dictionary. This property is required by the {1} service."
+                }
+              },
+              "defaultConfiguration": {
+                "level": "error"
+              },
+              "helpUri": "http://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html"
+            },
+            {
               "id": "SARIF2002",
               "name": "ProvideMessageArguments",
               "fullDescription": {
@@ -36,6 +207,47 @@
               },
               "defaultConfiguration": {
                 "level": "note"
+              },
+              "helpUri": "http://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html"
+            },
+            {
+              "id": "ADO1018",
+              "name": "AdoProvideRequiredToolProperties",
+              "messageStrings": {
+                "Error_MissingDriverFullName": {
+                  "text": "{0}: This 'driver' object does not provide a 'fullName' value. This property is required by the {1} service."
+                },
+                "Error_MissingDriverName": {
+                  "text": "{0}: The 'driver' object in this tool does not provide a 'name' value. This property is required by the {1} service."
+                },
+                "Error_MissingDriverRules": {
+                  "text": "{0}: The 'driver' object in this tool does not provide a 'rules' array. This property is required by the {1} service."
+                },
+                "Error_MissingDriver": {
+                  "text": "{0}: This 'tool' object does not provide a 'driver' object. This property is required by the {1} service."
+                }
+              },
+              "defaultConfiguration": {
+                "level": "error"
+              },
+              "helpUri": "http://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html"
+            },
+            {
+              "id": "GHAS1018",
+              "name": "GhasProvideToolDriver",
+              "messageStrings": {
+                "Error_MissingDriverName": {
+                  "text": "{0}: The 'driver' object in this tool does not provide a 'name' value. This property is required by the {1} service."
+                },
+                "Error_MissingDriverRules": {
+                  "text": "{0}: The 'driver' object in this tool does not provide a 'rules' array. This property is required by the {1} service."
+                },
+                "Error_MissingDriver": {
+                  "text": "{0}: This 'tool' object does not provide a 'driver' object. This property is required by the {1} service."
+                }
+              },
+              "defaultConfiguration": {
+                "level": "error"
               },
               "helpUri": "http://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html"
             },
@@ -136,8 +348,356 @@
           }
         },
         {
-          "ruleId": "SARIF2002",
+          "ruleId": "ADO1015",
           "ruleIndex": 1,
+          "level": "error",
+          "message": {
+            "id": "Error_MissingLocationsArray",
+            "arguments": [
+              "runs[0].results[0]",
+              "Azure DevOps Advanced Security"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 7,
+                  "startColumn": 9
+                }
+              }
+            }
+          ],
+          "baselineState": "new",
+          "properties": {
+            "ResultMatching": {}
+          }
+        },
+        {
+          "ruleId": "ADO1015",
+          "ruleIndex": 1,
+          "level": "error",
+          "message": {
+            "id": "Error_MissingPartialFingerprints",
+            "arguments": [
+              "runs[0].results[0]",
+              "Azure DevOps Advanced Security"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 7,
+                  "startColumn": 9
+                }
+              }
+            }
+          ],
+          "baselineState": "new",
+          "properties": {
+            "ResultMatching": {}
+          }
+        },
+        {
+          "ruleId": "ADO1017",
+          "ruleIndex": 2,
+          "level": "error",
+          "message": {
+            "id": "Error_MissingLocationsArray",
+            "arguments": [
+              "runs[0].results[0]",
+              "Azure DevOps Advanced Security"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 7,
+                  "startColumn": 9
+                }
+              }
+            }
+          ],
+          "baselineState": "new",
+          "properties": {
+            "ResultMatching": {}
+          }
+        },
+        {
+          "ruleId": "ADO1017",
+          "ruleIndex": 2,
+          "level": "error",
+          "message": {
+            "id": "Error_MissingPartialFingerprints",
+            "arguments": [
+              "runs[0].results[0]",
+              "Azure DevOps Advanced Security"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 7,
+                  "startColumn": 9
+                }
+              }
+            }
+          ],
+          "baselineState": "new",
+          "properties": {
+            "ResultMatching": {}
+          }
+        },
+        {
+          "ruleId": "ADO2012",
+          "ruleIndex": 3,
+          "level": "error",
+          "message": {
+            "id": "Error_MissingPartialFingerprints",
+            "arguments": [
+              "runs[0].results[0]",
+              "Azure DevOps Advanced Security"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 7,
+                  "startColumn": 9
+                }
+              }
+            }
+          ],
+          "baselineState": "new",
+          "properties": {
+            "ResultMatching": {}
+          }
+        },
+        {
+          "ruleId": "ADO2012",
+          "ruleIndex": 3,
+          "level": "error",
+          "message": {
+            "id": "Error_MissingLocationsArray",
+            "arguments": [
+              "runs[0].results[0]",
+              "Azure DevOps Advanced Security"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 7,
+                  "startColumn": 9
+                }
+              }
+            }
+          ],
+          "baselineState": "new",
+          "properties": {
+            "ResultMatching": {}
+          }
+        },
+        {
+          "ruleId": "GHAS1015",
+          "ruleIndex": 4,
+          "level": "error",
+          "message": {
+            "id": "Error_MissingPartialFingerprints",
+            "arguments": [
+              "runs[0].results[0]",
+              "GitHub Advanced Security"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 7,
+                  "startColumn": 9
+                }
+              }
+            }
+          ],
+          "baselineState": "new",
+          "properties": {
+            "ResultMatching": {}
+          }
+        },
+        {
+          "ruleId": "GHAS1015",
+          "ruleIndex": 4,
+          "level": "error",
+          "message": {
+            "id": "Error_MissingLocationsArray",
+            "arguments": [
+              "runs[0].results[0]",
+              "GitHub Advanced Security"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 7,
+                  "startColumn": 9
+                }
+              }
+            }
+          ],
+          "baselineState": "new",
+          "properties": {
+            "ResultMatching": {}
+          }
+        },
+        {
+          "ruleId": "GHAS1017",
+          "ruleIndex": 5,
+          "level": "error",
+          "message": {
+            "id": "Error_MissingPartialFingerprints",
+            "arguments": [
+              "runs[0].results[0]",
+              "GitHub Advanced Security"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 7,
+                  "startColumn": 9
+                }
+              }
+            }
+          ],
+          "baselineState": "new",
+          "properties": {
+            "ResultMatching": {}
+          }
+        },
+        {
+          "ruleId": "GHAS1017",
+          "ruleIndex": 5,
+          "level": "error",
+          "message": {
+            "id": "Error_MissingLocationsArray",
+            "arguments": [
+              "runs[0].results[0]",
+              "GitHub Advanced Security"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 7,
+                  "startColumn": 9
+                }
+              }
+            }
+          ],
+          "baselineState": "new",
+          "properties": {
+            "ResultMatching": {}
+          }
+        },
+        {
+          "ruleId": "GHAS2012",
+          "ruleIndex": 6,
+          "level": "error",
+          "message": {
+            "id": "Error_MissingLocationsArray",
+            "arguments": [
+              "runs[0].results[0]",
+              "GitHub Advanced Security"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 7,
+                  "startColumn": 9
+                }
+              }
+            }
+          ],
+          "baselineState": "new",
+          "properties": {
+            "ResultMatching": {}
+          }
+        },
+        {
+          "ruleId": "GHAS2012",
+          "ruleIndex": 6,
+          "level": "error",
+          "message": {
+            "id": "Error_MissingPartialFingerprints",
+            "arguments": [
+              "runs[0].results[0]",
+              "GitHub Advanced Security"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 7,
+                  "startColumn": 9
+                }
+              }
+            }
+          ],
+          "baselineState": "new",
+          "properties": {
+            "ResultMatching": {}
+          }
+        },
+        {
+          "ruleId": "SARIF2002",
+          "ruleIndex": 7,
           "level": "note",
           "message": {
             "id": "Note_Default",
@@ -164,8 +724,356 @@
           }
         },
         {
-          "ruleId": "SARIF2002",
+          "ruleId": "ADO1015",
           "ruleIndex": 1,
+          "level": "error",
+          "message": {
+            "id": "Error_MissingPartialFingerprints",
+            "arguments": [
+              "runs[0].results[1]",
+              "Azure DevOps Advanced Security"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 13,
+                  "startColumn": 9
+                }
+              }
+            }
+          ],
+          "baselineState": "new",
+          "properties": {
+            "ResultMatching": {}
+          }
+        },
+        {
+          "ruleId": "ADO1015",
+          "ruleIndex": 1,
+          "level": "error",
+          "message": {
+            "id": "Error_MissingLocationsArray",
+            "arguments": [
+              "runs[0].results[1]",
+              "Azure DevOps Advanced Security"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 13,
+                  "startColumn": 9
+                }
+              }
+            }
+          ],
+          "baselineState": "new",
+          "properties": {
+            "ResultMatching": {}
+          }
+        },
+        {
+          "ruleId": "ADO1017",
+          "ruleIndex": 2,
+          "level": "error",
+          "message": {
+            "id": "Error_MissingPartialFingerprints",
+            "arguments": [
+              "runs[0].results[1]",
+              "Azure DevOps Advanced Security"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 13,
+                  "startColumn": 9
+                }
+              }
+            }
+          ],
+          "baselineState": "new",
+          "properties": {
+            "ResultMatching": {}
+          }
+        },
+        {
+          "ruleId": "ADO1017",
+          "ruleIndex": 2,
+          "level": "error",
+          "message": {
+            "id": "Error_MissingLocationsArray",
+            "arguments": [
+              "runs[0].results[1]",
+              "Azure DevOps Advanced Security"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 13,
+                  "startColumn": 9
+                }
+              }
+            }
+          ],
+          "baselineState": "new",
+          "properties": {
+            "ResultMatching": {}
+          }
+        },
+        {
+          "ruleId": "ADO2012",
+          "ruleIndex": 3,
+          "level": "error",
+          "message": {
+            "id": "Error_MissingLocationsArray",
+            "arguments": [
+              "runs[0].results[1]",
+              "Azure DevOps Advanced Security"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 13,
+                  "startColumn": 9
+                }
+              }
+            }
+          ],
+          "baselineState": "new",
+          "properties": {
+            "ResultMatching": {}
+          }
+        },
+        {
+          "ruleId": "ADO2012",
+          "ruleIndex": 3,
+          "level": "error",
+          "message": {
+            "id": "Error_MissingPartialFingerprints",
+            "arguments": [
+              "runs[0].results[1]",
+              "Azure DevOps Advanced Security"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 13,
+                  "startColumn": 9
+                }
+              }
+            }
+          ],
+          "baselineState": "new",
+          "properties": {
+            "ResultMatching": {}
+          }
+        },
+        {
+          "ruleId": "GHAS1015",
+          "ruleIndex": 4,
+          "level": "error",
+          "message": {
+            "id": "Error_MissingPartialFingerprints",
+            "arguments": [
+              "runs[0].results[1]",
+              "GitHub Advanced Security"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 13,
+                  "startColumn": 9
+                }
+              }
+            }
+          ],
+          "baselineState": "new",
+          "properties": {
+            "ResultMatching": {}
+          }
+        },
+        {
+          "ruleId": "GHAS1015",
+          "ruleIndex": 4,
+          "level": "error",
+          "message": {
+            "id": "Error_MissingLocationsArray",
+            "arguments": [
+              "runs[0].results[1]",
+              "GitHub Advanced Security"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 13,
+                  "startColumn": 9
+                }
+              }
+            }
+          ],
+          "baselineState": "new",
+          "properties": {
+            "ResultMatching": {}
+          }
+        },
+        {
+          "ruleId": "GHAS1017",
+          "ruleIndex": 5,
+          "level": "error",
+          "message": {
+            "id": "Error_MissingLocationsArray",
+            "arguments": [
+              "runs[0].results[1]",
+              "GitHub Advanced Security"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 13,
+                  "startColumn": 9
+                }
+              }
+            }
+          ],
+          "baselineState": "new",
+          "properties": {
+            "ResultMatching": {}
+          }
+        },
+        {
+          "ruleId": "GHAS1017",
+          "ruleIndex": 5,
+          "level": "error",
+          "message": {
+            "id": "Error_MissingPartialFingerprints",
+            "arguments": [
+              "runs[0].results[1]",
+              "GitHub Advanced Security"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 13,
+                  "startColumn": 9
+                }
+              }
+            }
+          ],
+          "baselineState": "new",
+          "properties": {
+            "ResultMatching": {}
+          }
+        },
+        {
+          "ruleId": "GHAS2012",
+          "ruleIndex": 6,
+          "level": "error",
+          "message": {
+            "id": "Error_MissingPartialFingerprints",
+            "arguments": [
+              "runs[0].results[1]",
+              "GitHub Advanced Security"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 13,
+                  "startColumn": 9
+                }
+              }
+            }
+          ],
+          "baselineState": "new",
+          "properties": {
+            "ResultMatching": {}
+          }
+        },
+        {
+          "ruleId": "GHAS2012",
+          "ruleIndex": 6,
+          "level": "error",
+          "message": {
+            "id": "Error_MissingLocationsArray",
+            "arguments": [
+              "runs[0].results[1]",
+              "GitHub Advanced Security"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 13,
+                  "startColumn": 9
+                }
+              }
+            }
+          ],
+          "baselineState": "new",
+          "properties": {
+            "ResultMatching": {}
+          }
+        },
+        {
+          "ruleId": "SARIF2002",
+          "ruleIndex": 7,
           "level": "note",
           "message": {
             "id": "Note_Default",
@@ -192,8 +1100,356 @@
           }
         },
         {
-          "ruleId": "SARIF2002",
+          "ruleId": "ADO1015",
           "ruleIndex": 1,
+          "level": "error",
+          "message": {
+            "id": "Error_MissingLocationsArray",
+            "arguments": [
+              "runs[0].results[2]",
+              "Azure DevOps Advanced Security"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 19,
+                  "startColumn": 9
+                }
+              }
+            }
+          ],
+          "baselineState": "new",
+          "properties": {
+            "ResultMatching": {}
+          }
+        },
+        {
+          "ruleId": "ADO1015",
+          "ruleIndex": 1,
+          "level": "error",
+          "message": {
+            "id": "Error_MissingPartialFingerprints",
+            "arguments": [
+              "runs[0].results[2]",
+              "Azure DevOps Advanced Security"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 19,
+                  "startColumn": 9
+                }
+              }
+            }
+          ],
+          "baselineState": "new",
+          "properties": {
+            "ResultMatching": {}
+          }
+        },
+        {
+          "ruleId": "ADO1017",
+          "ruleIndex": 2,
+          "level": "error",
+          "message": {
+            "id": "Error_MissingLocationsArray",
+            "arguments": [
+              "runs[0].results[2]",
+              "Azure DevOps Advanced Security"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 19,
+                  "startColumn": 9
+                }
+              }
+            }
+          ],
+          "baselineState": "new",
+          "properties": {
+            "ResultMatching": {}
+          }
+        },
+        {
+          "ruleId": "ADO1017",
+          "ruleIndex": 2,
+          "level": "error",
+          "message": {
+            "id": "Error_MissingPartialFingerprints",
+            "arguments": [
+              "runs[0].results[2]",
+              "Azure DevOps Advanced Security"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 19,
+                  "startColumn": 9
+                }
+              }
+            }
+          ],
+          "baselineState": "new",
+          "properties": {
+            "ResultMatching": {}
+          }
+        },
+        {
+          "ruleId": "ADO2012",
+          "ruleIndex": 3,
+          "level": "error",
+          "message": {
+            "id": "Error_MissingPartialFingerprints",
+            "arguments": [
+              "runs[0].results[2]",
+              "Azure DevOps Advanced Security"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 19,
+                  "startColumn": 9
+                }
+              }
+            }
+          ],
+          "baselineState": "new",
+          "properties": {
+            "ResultMatching": {}
+          }
+        },
+        {
+          "ruleId": "ADO2012",
+          "ruleIndex": 3,
+          "level": "error",
+          "message": {
+            "id": "Error_MissingLocationsArray",
+            "arguments": [
+              "runs[0].results[2]",
+              "Azure DevOps Advanced Security"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 19,
+                  "startColumn": 9
+                }
+              }
+            }
+          ],
+          "baselineState": "new",
+          "properties": {
+            "ResultMatching": {}
+          }
+        },
+        {
+          "ruleId": "GHAS1015",
+          "ruleIndex": 4,
+          "level": "error",
+          "message": {
+            "id": "Error_MissingPartialFingerprints",
+            "arguments": [
+              "runs[0].results[2]",
+              "GitHub Advanced Security"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 19,
+                  "startColumn": 9
+                }
+              }
+            }
+          ],
+          "baselineState": "new",
+          "properties": {
+            "ResultMatching": {}
+          }
+        },
+        {
+          "ruleId": "GHAS1015",
+          "ruleIndex": 4,
+          "level": "error",
+          "message": {
+            "id": "Error_MissingLocationsArray",
+            "arguments": [
+              "runs[0].results[2]",
+              "GitHub Advanced Security"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 19,
+                  "startColumn": 9
+                }
+              }
+            }
+          ],
+          "baselineState": "new",
+          "properties": {
+            "ResultMatching": {}
+          }
+        },
+        {
+          "ruleId": "GHAS1017",
+          "ruleIndex": 5,
+          "level": "error",
+          "message": {
+            "id": "Error_MissingPartialFingerprints",
+            "arguments": [
+              "runs[0].results[2]",
+              "GitHub Advanced Security"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 19,
+                  "startColumn": 9
+                }
+              }
+            }
+          ],
+          "baselineState": "new",
+          "properties": {
+            "ResultMatching": {}
+          }
+        },
+        {
+          "ruleId": "GHAS1017",
+          "ruleIndex": 5,
+          "level": "error",
+          "message": {
+            "id": "Error_MissingLocationsArray",
+            "arguments": [
+              "runs[0].results[2]",
+              "GitHub Advanced Security"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 19,
+                  "startColumn": 9
+                }
+              }
+            }
+          ],
+          "baselineState": "new",
+          "properties": {
+            "ResultMatching": {}
+          }
+        },
+        {
+          "ruleId": "GHAS2012",
+          "ruleIndex": 6,
+          "level": "error",
+          "message": {
+            "id": "Error_MissingLocationsArray",
+            "arguments": [
+              "runs[0].results[2]",
+              "GitHub Advanced Security"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 19,
+                  "startColumn": 9
+                }
+              }
+            }
+          ],
+          "baselineState": "new",
+          "properties": {
+            "ResultMatching": {}
+          }
+        },
+        {
+          "ruleId": "GHAS2012",
+          "ruleIndex": 6,
+          "level": "error",
+          "message": {
+            "id": "Error_MissingPartialFingerprints",
+            "arguments": [
+              "runs[0].results[2]",
+              "GitHub Advanced Security"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 19,
+                  "startColumn": 9
+                }
+              }
+            }
+          ],
+          "baselineState": "new",
+          "properties": {
+            "ResultMatching": {}
+          }
+        },
+        {
+          "ruleId": "SARIF2002",
+          "ruleIndex": 7,
           "level": "note",
           "message": {
             "id": "Note_Default",
@@ -220,13 +1476,72 @@
           }
         },
         {
-          "ruleId": "SARIF2005",
-          "ruleIndex": 2,
+          "ruleId": "ADO1018",
+          "ruleIndex": 8,
+          "level": "error",
           "message": {
-            "id": "Warning_ProvideToolnformationUri",
+            "id": "Error_MissingDriverRules",
             "arguments": [
               "runs[0].tool.driver",
-              "TestScanner"
+              "Azure DevOps Advanced Security"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 27,
+                  "startColumn": 19
+                }
+              }
+            }
+          ],
+          "baselineState": "new",
+          "properties": {
+            "ResultMatching": {}
+          }
+        },
+        {
+          "ruleId": "ADO1018",
+          "ruleIndex": 8,
+          "level": "error",
+          "message": {
+            "id": "Error_MissingDriverRules",
+            "arguments": [
+              "runs[0].tool.driver",
+              "Azure DevOps Advanced Security"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 27,
+                  "startColumn": 19
+                }
+              }
+            }
+          ],
+          "baselineState": "new",
+          "properties": {
+            "ResultMatching": {}
+          }
+        },
+        {
+          "ruleId": "GHAS1018",
+          "ruleIndex": 9,
+          "level": "error",
+          "message": {
+            "id": "Error_MissingDriverRules",
+            "arguments": [
+              "runs[0].tool.driver",
+              "GitHub Advanced Security"
             ]
           },
           "locations": [
@@ -249,7 +1564,7 @@
         },
         {
           "ruleId": "SARIF2005",
-          "ruleIndex": 2,
+          "ruleIndex": 10,
           "message": {
             "id": "Warning_ProvideToolVersion",
             "arguments": [
@@ -277,8 +1592,36 @@
           }
         },
         {
+          "ruleId": "SARIF2005",
+          "ruleIndex": 10,
+          "message": {
+            "id": "Warning_ProvideToolnformationUri",
+            "arguments": [
+              "runs[0].tool.driver",
+              "TestScanner"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 27,
+                  "startColumn": 19
+                }
+              }
+            }
+          ],
+          "baselineState": "new",
+          "properties": {
+            "ResultMatching": {}
+          }
+        },
+        {
           "ruleId": "SARIF2012",
-          "ruleIndex": 3,
+          "ruleIndex": 11,
           "level": "note",
           "message": {
             "id": "Note_ProvideMetadataForAllViolatedRules",
