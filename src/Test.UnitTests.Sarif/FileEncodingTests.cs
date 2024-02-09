@@ -89,10 +89,10 @@ namespace Microsoft.CodeAnalysis.Sarif
             using var assertionScope = new AssertionScope();
 
             var sb = new StringBuilder();
-            string[] unicodeTexts = new[] 
+            string[] unicodeTexts = new[]
             {
                 "американец",
-                "Generates a warning and an error for each of :  foo  foo " // Challenging for the classifer; found by accident.
+                "Generates a warning and an error for each of :  foo  foo \r\n" // Challenging for the classifer; found by accident.
             };
 
             foreach (string unicodeText in unicodeTexts)
