@@ -95,8 +95,9 @@ namespace Microsoft.CodeAnalysis.Sarif
                         var peekable = new PeekableStream(this.Stream, PeekWindowBytes);
 
                         byte[] header = new byte[PeekWindowBytes];
-                        int length = this.Stream.Read(header, 0, header.Length);
-                        bool isText = FileEncoding.IsTextualData(header, 0, length);
+                        int readLength = this.Stream.Read(header, 0, header.Length);
+
+                        bool isText = FileEncoding.IsTextualData(header, 0, readLength);
 
                         peekable.Rewind();
 
