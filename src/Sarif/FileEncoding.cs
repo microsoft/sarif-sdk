@@ -31,7 +31,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// </summary>
         /// <param name="bytes">The raw data expressed as bytes.</param>
         /// <param name="start">The starting position to being classification.</param>
-        /// <param name="count">The maximal count of characters to decode.</param>
+        /// <param name="count">The maximal count of bytes to decode.</param>
         public static bool IsTextualData(byte[] bytes, int start, int count)
         {
             bytes = bytes ?? throw new ArgumentNullException(nameof(bytes));
@@ -49,7 +49,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             bool containsControlCharacters = false;
 
-            for (int i = 0; i < bytes.Length; i++)
+            for (int i = 0; i < count; i++)
             {
                 containsControlCharacters |= bytes[i] < 0x20;
             }
