@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 {
-    public class AdoProvideRequiredResultPropertties
+    public class AdoProvideRequiredResultProperties
         : BaseProvideRequiredResultProperties
     {
         /// <summary>
@@ -26,7 +26,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 
         protected override string ServiceName => RuleResources.ServiceName_ADO;
 
-        public AdoProvideRequiredResultPropertties()
+        public AdoProvideRequiredResultProperties()
         {
             this.DefaultConfiguration.Level = FailureLevel.Error;
         }

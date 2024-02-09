@@ -53,7 +53,7 @@
             },
             {
               "id": "ADO1015",
-              "name": "AdoProvideRequiredResultPropertties",
+              "name": "AdoProvideRequiredResultProperties",
               "messageStrings": {
                 "Error_MissingRuleId": {
                   "text": "{0}: This 'result' object does not provide a 'ruleId' value. This property is required by the {1} service."
@@ -134,7 +134,7 @@
             },
             {
               "id": "GH1015",
-              "name": "GhasProvideRequiredResultPropertties",
+              "name": "GhasProvideRequiredResultProperties",
               "messageStrings": {
                 "Error_EmptyLocationsArray": {
                   "text": "{0}: The 'locations' array on this 'result' object is empty. This property is required by the {1} service."

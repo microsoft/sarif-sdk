@@ -15,7 +15,7 @@
 * PRF: Add support for efficiently peeking into non-seekable streams for binary/text categorization.
 * NEW: Add a new `--timeout-in-seconds` parameter to `AnalyzeOptionsBase`, which will override the `TimeoutInMilliseconds` property in `AnalyzeContextBase`.
 * NEW: `--post-uri` will skip sending the SARIF log to the configured endpoint if the file contains no results or fatal execution errors.
-* NEW: Add below rules: 
+* NEW: Add the following rules:  
   `ADO1011.ReferenceFinalSchema`,  
   `ADO1013.ProvideRequiredSarifLogProperties`,  
   `ADO1014.ProvideRequiredRunProperties`,  
@@ -28,7 +28,7 @@
   `GH1011.ReferenceFinalSchema`,  
   `GH1013.ProvideRequiredSarifLogProperties`,  
   `GH1014.ProvideRequiredRunProperties`,  
-  `GH1015.ProvideRequiredResultPropertties`,  
+  `GH1015.ProvideRequiredResultProperties`,  
   `GH1016.ProvideRequiredLocationProperties`,  
   `GH1017.ProvideRequiredPhysicalLocationProperties`,  
   `GH1018.ProvideRequiredToolProperties`,  

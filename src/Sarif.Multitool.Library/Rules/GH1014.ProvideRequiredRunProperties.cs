@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 {
-    public class GhasProvideRequiredRunPropertties
+    public class GhasProvideRequiredRunProperties
         : BaseProvideRequiredRunProperties
     {
         /// <summary>
@@ -17,7 +17,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 
         protected override string ServiceName => RuleResources.ServiceName_GHAS;
 
-        public GhasProvideRequiredRunPropertties()
+        public GhasProvideRequiredRunProperties()
         {
             this.DefaultConfiguration.Level = FailureLevel.Error;
         }
