@@ -5,27 +5,26 @@ using System.Collections.Generic;
 
 namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 {
-    public class GhasProvideToolDriver
-        : BaseProvideRequiredToolProperties
+    public class GhasProvideRequiredResultProperties
+        : BaseProvideRequiredResultProperties
     {
         /// <summary>
-        /// GHAS1018
+        /// GH1015
         /// </summary>
-        public override string Id => RuleId.GHASProvideRequiredToolProperties;
+        public override string Id => RuleId.GHASProvideRequiredResultProperties;
 
         public override HashSet<RuleKind> RuleKinds => new HashSet<RuleKind>(new[] { RuleKind.Ghas });
 
         protected override string ServiceName => RuleResources.ServiceName_GHAS;
 
-        public GhasProvideToolDriver()
+        public GhasProvideRequiredResultProperties()
         {
             this.DefaultConfiguration.Level = FailureLevel.Error;
         }
 
-        protected override void Analyze(Run run, string runPointer)
+        protected override void Analyze(Result result, string resultPointer)
         {
-            // run.tool is chcked by the base class.
-            base.Analyze(run, runPointer);
+            base.Analyze(result, resultPointer);
         }
     }
 }

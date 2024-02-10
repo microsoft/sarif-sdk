@@ -25,7 +25,7 @@
             },
             {
               "id": "ADO1015",
-              "name": "AdoProvideRequiredResultPropertties",
+              "name": "AdoProvideRequiredResultProperties",
               "messageStrings": {
                 "Error_MissingRuleId": {
                   "text": "{0}: This 'result' object does not provide a 'ruleId' value. This property is required by the {1} service."
@@ -105,8 +105,8 @@
               "helpUri": "http://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html"
             },
             {
-              "id": "GHAS1015",
-              "name": "GhasProvideRequiredResultPropertties",
+              "id": "GH1015",
+              "name": "GhasProvideRequiredResultProperties",
               "messageStrings": {
                 "Error_EmptyLocationsArray": {
                   "text": "{0}: The 'locations' array on this 'result' object is empty. This property is required by the {1} service."
@@ -130,7 +130,7 @@
               "helpUri": "http://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html"
             },
             {
-              "id": "GHAS1017",
+              "id": "GH1017",
               "name": "GhasProvideRequiredPhysicalLocationProperties",
               "messageStrings": {
                 "Error_MissingArtifactLocationUri": {
@@ -158,7 +158,7 @@
               "helpUri": "http://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html"
             },
             {
-              "id": "GHAS2012",
+              "id": "GH2012",
               "name": "GhasProvideRequiredReportingDescriptorProperties",
               "messageStrings": {
                 "Error_MissingFullDescription": {
@@ -233,7 +233,7 @@
               "helpUri": "http://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html"
             },
             {
-              "id": "GHAS1018",
+              "id": "GH1018",
               "name": "GhasProvideToolDriver",
               "messageStrings": {
                 "Error_MissingDriverName": {
@@ -522,7 +522,7 @@
           }
         },
         {
-          "ruleId": "GHAS1015",
+          "ruleId": "GH1015",
           "ruleIndex": 4,
           "level": "error",
           "message": {
@@ -551,7 +551,7 @@
           }
         },
         {
-          "ruleId": "GHAS1015",
+          "ruleId": "GH1015",
           "ruleIndex": 4,
           "level": "error",
           "message": {
@@ -580,7 +580,7 @@
           }
         },
         {
-          "ruleId": "GHAS1017",
+          "ruleId": "GH1017",
           "ruleIndex": 5,
           "level": "error",
           "message": {
@@ -609,7 +609,7 @@
           }
         },
         {
-          "ruleId": "GHAS1017",
+          "ruleId": "GH1017",
           "ruleIndex": 5,
           "level": "error",
           "message": {
@@ -638,7 +638,7 @@
           }
         },
         {
-          "ruleId": "GHAS2012",
+          "ruleId": "GH2012",
           "ruleIndex": 6,
           "level": "error",
           "message": {
@@ -667,7 +667,7 @@
           }
         },
         {
-          "ruleId": "GHAS2012",
+          "ruleId": "GH2012",
           "ruleIndex": 6,
           "level": "error",
           "message": {
@@ -898,7 +898,7 @@
           }
         },
         {
-          "ruleId": "GHAS1015",
+          "ruleId": "GH1015",
           "ruleIndex": 4,
           "level": "error",
           "message": {
@@ -927,7 +927,7 @@
           }
         },
         {
-          "ruleId": "GHAS1015",
+          "ruleId": "GH1015",
           "ruleIndex": 4,
           "level": "error",
           "message": {
@@ -956,7 +956,7 @@
           }
         },
         {
-          "ruleId": "GHAS1017",
+          "ruleId": "GH1017",
           "ruleIndex": 5,
           "level": "error",
           "message": {
@@ -985,7 +985,7 @@
           }
         },
         {
-          "ruleId": "GHAS1017",
+          "ruleId": "GH1017",
           "ruleIndex": 5,
           "level": "error",
           "message": {
@@ -1014,7 +1014,7 @@
           }
         },
         {
-          "ruleId": "GHAS2012",
+          "ruleId": "GH2012",
           "ruleIndex": 6,
           "level": "error",
           "message": {
@@ -1043,7 +1043,7 @@
           }
         },
         {
-          "ruleId": "GHAS2012",
+          "ruleId": "GH2012",
           "ruleIndex": 6,
           "level": "error",
           "message": {
@@ -1274,7 +1274,7 @@
           }
         },
         {
-          "ruleId": "GHAS1015",
+          "ruleId": "GH1015",
           "ruleIndex": 4,
           "level": "error",
           "message": {
@@ -1303,7 +1303,7 @@
           }
         },
         {
-          "ruleId": "GHAS1015",
+          "ruleId": "GH1015",
           "ruleIndex": 4,
           "level": "error",
           "message": {
@@ -1332,7 +1332,7 @@
           }
         },
         {
-          "ruleId": "GHAS1017",
+          "ruleId": "GH1017",
           "ruleIndex": 5,
           "level": "error",
           "message": {
@@ -1361,7 +1361,7 @@
           }
         },
         {
-          "ruleId": "GHAS1017",
+          "ruleId": "GH1017",
           "ruleIndex": 5,
           "level": "error",
           "message": {
@@ -1390,7 +1390,7 @@
           }
         },
         {
-          "ruleId": "GHAS2012",
+          "ruleId": "GH2012",
           "ruleIndex": 6,
           "level": "error",
           "message": {
@@ -1419,7 +1419,7 @@
           }
         },
         {
-          "ruleId": "GHAS2012",
+          "ruleId": "GH2012",
           "ruleIndex": 6,
           "level": "error",
           "message": {
@@ -1534,7 +1534,7 @@
           }
         },
         {
-          "ruleId": "GHAS1018",
+          "ruleId": "GH1018",
           "ruleIndex": 9,
           "level": "error",
           "message": {

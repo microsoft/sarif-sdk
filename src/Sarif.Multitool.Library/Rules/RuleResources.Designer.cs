@@ -81,18 +81,18 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         /// <summary>
         ///   Looks up a localized string similar to {0}: This &apos;run&apos; object does not provide an &apos;automationDetails&apos; property. This property is required by the {1} service..
         /// </summary>
-        internal static string ADO1014_AdoProvideRequiredRunPropertties_Error_MissingAutomationDetails_Text {
+        internal static string ADO1014_AdoProvideRequiredRunProperties_Error_MissingAutomationDetails_Text {
             get {
-                return ResourceManager.GetString("ADO1014_AdoProvideRequiredRunPropertties_Error_MissingAutomationDetails_Text", resourceCulture);
+                return ResourceManager.GetString("ADO1014_AdoProvideRequiredRunProperties_Error_MissingAutomationDetails_Text", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to {0}: This &apos;run&apos; object&apos;s &apos;automationDetails&apos; object does not provide an &apos;id&apos; value. This property is required by the {1} service..
         /// </summary>
-        internal static string ADO1014_AdoProvideRequiredRunPropertties_Error_MissingAutomationDetailsId_Text {
+        internal static string ADO1014_AdoProvideRequiredRunProperties_Error_MissingAutomationDetailsId_Text {
             get {
-                return ResourceManager.GetString("ADO1014_AdoProvideRequiredRunPropertties_Error_MissingAutomationDetailsId_Text", resourceCulture);
+                return ResourceManager.GetString("ADO1014_AdoProvideRequiredRunProperties_Error_MissingAutomationDetailsId_Text", resourceCulture);
             }
         }
         
@@ -529,6 +529,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0}: The &apos;artifactLocation&apos; object on this &apos;physicalLocation&apos; object does not provide a &apos;uri&apos; object. This property is required by the {1} service..
+        /// </summary>
+        internal static string GH1017_ProvideRequiredPhysicalLocationProperties_Error_MissingArtifactLocationUri_Text {
+            get {
+                return ResourceManager.GetString("GH1017_ProvideRequiredPhysicalLocationProperties_Error_MissingArtifactLocationUri" +
+                        "_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0}: This &apos;reportingDescriptor&apos; object does not provide a &apos;fullDescription&apos; value. This property is required by the {1} service..
         /// </summary>
         internal static string GH2012_ProvideRequiredReportingDescriptorProperties_Error_MissingFullDescription_Text {
@@ -563,16 +573,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
             get {
                 return ResourceManager.GetString("GH2012_ProvideRequiredReportingDescriptorProperties_Error_MissingShortDescription" +
                         "_Text", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to {0}: The &apos;artifactLocation&apos; object on this &apos;physicalLocation&apos; object does not provide a &apos;uri&apos; object. This property is required by the {1} service..
-        /// </summary>
-        internal static string GHAS1017_ProvideRequiredPhysicalLocationProperties_Error_MissingArtifactLocationUri_Text {
-            get {
-                return ResourceManager.GetString("GHAS1017_ProvideRequiredPhysicalLocationProperties_Error_MissingArtifactLocationU" +
-                        "ri_Text", resourceCulture);
             }
         }
         

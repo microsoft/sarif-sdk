@@ -5,25 +5,27 @@ using System.Collections.Generic;
 
 namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 {
-    public class GHASProvideRequiredLocationProperties
-        : SarifValidationSkimmerBase
+    public class GhasProvideToolDriver
+        : BaseProvideRequiredToolProperties
     {
-        public override string Id => RuleId.GHASProvideRequiredLocationProperties;
+        /// <summary>
+        /// GH1018
+        /// </summary>
+        public override string Id => RuleId.GHASProvideRequiredToolProperties;
 
         public override HashSet<RuleKind> RuleKinds => new HashSet<RuleKind>(new[] { RuleKind.Ghas });
 
         protected override string ServiceName => RuleResources.ServiceName_GHAS;
 
-        public override MultiformatMessageString FullDescription => new MultiformatMessageString();
-
-        public GHASProvideRequiredLocationProperties()
+        public GhasProvideToolDriver()
         {
             this.DefaultConfiguration.Level = FailureLevel.Error;
         }
 
-        protected override void Analyze(Location location, string locationPointer)
+        protected override void Analyze(Run run, string runPointer)
         {
-            base.Analyze(location, locationPointer);
+            // run.tool is chcked by the base class.
+            base.Analyze(run, runPointer);
         }
     }
 }
