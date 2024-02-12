@@ -34,10 +34,10 @@ namespace Test.UnitTests.Sarif.Driver
         [Fact]
         public void ContainsInvalidPathChar_test()
         {
-            string validPath = "C:\\test.md";
+            string validPath = "test.md";
             validPath.ContainsInvalidPathChar().Should().BeFalse();
 
-            string invalidPath = "C:\\test|.md";
+            string invalidPath = "test|.md";
             invalidPath.ContainsInvalidPathChar().Should().BeTrue();
         }
 
