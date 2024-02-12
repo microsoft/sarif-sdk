@@ -37,7 +37,7 @@ namespace Test.UnitTests.Sarif.Driver
             string validPath = "test.md";
             validPath.ContainsInvalidPathChar().Should().BeFalse();
 
-            string invalidPath = "test|.md";
+            string invalidPath = "test\t.md";
             invalidPath.ContainsInvalidPathChar().Should().BeTrue();
         }
 
