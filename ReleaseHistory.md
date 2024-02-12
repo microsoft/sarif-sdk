@@ -1,4 +1,7 @@
 # SARIF Package Release History (SDK, Driver, Converters, and Multitool)
+## **v4.5.1 UNRELEASED
+* BUG: Report `WRN997_InvalidTarget` if the path of the scan target contains invalid character or encoded character.
+
 ## **v4.5.0 [Sdk](https://www.nuget.org/packages/Sarif.Sdk/v4.5.0) | [Driver](https://www.nuget.org/packages/Sarif.Driver/v4.5.0) | [Converters](https://www.nuget.org/packages/Sarif.Converters/v4.5.0)  | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/v4.5.0) | [Multitool Library](https://www.nuget.org/packages/Sarif.Multitool.Library/v4.5.0)
 * DEP: Downgrade `System.Text.Encoding.CodePages` from 8.0.0 to 4.3.0 in `Sarif`.
 * DEP: Remove explicit versioning for `System.Memory` and `System.Runtime.CompilerServices.Unsafe`.
@@ -9,7 +12,6 @@
 * BUG: Update `Stack.Create` method to populate missing `PhysicalLocation` instances when stack frames reference relative file paths.
 * BUG: Fix `UnsupportedOperationException` in `ZipArchiveArtifact`.
 * BUG: Fix `MultithreadedAnalyzeCommandBase` to return rich return code with the `--rich-return-code` option.
-* BUG: Report `WRN997_InvalidTarget` if the path of the scan target contains invalid character or encoded character.
 * NEW: Add `IsBinary` property to `IEnumeratedArtifact` and implement the property in `ZipArchiveArtifact`.
 * NEW: Switch to content-based `IsBinary` categorization for `ZipArchiveArtifact`s.
 * PRF: Change default `max-file-size-in-kb` parameter to 10 megabytes.
