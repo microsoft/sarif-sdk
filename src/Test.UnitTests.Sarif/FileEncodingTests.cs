@@ -3,11 +3,13 @@
 
 using System;
 using System.Collections.Generic;
-using System.Collections.Immutable;
 using System.IO;
 using System.Text;
 
 using FluentAssertions;
+using FluentAssertions.Execution;
+
+using Microsoft.CodeAnalysis.Sarif.Driver;
 
 using Xunit;
 
@@ -32,42 +34,81 @@ namespace Microsoft.CodeAnalysis.Sarif
         [Fact]
         public void FileEncoding_FileEncoding_IsBinary()
         {
-            ValidateIsBinary("Sarif.dll");
-            ValidateIsBinary("Sarif.pdb");
+            var assertionScope = new AssertionScope();
+
+            var binaryExtensions = new HashSet<string>(StringComparer.OrdinalIgnoreCase)
+            {
+                ".cer",
+                ".der",
+                ".pfx",
+                ".dll",
+                ".exe",
+            };
+
+            var observedExtensions = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+
+            var fileSpecifier = new FileSpecifier("*", recurse: false);
+
+            foreach (string fileName in fileSpecifier.Files)
+            {
+                string extension = Path.GetExtension(fileName);
+                if (observedExtensions.Contains(extension)) { continue; }
+                observedExtensions.Add(extension);
+
+                using FileStream reader = File.OpenRead(fileName);
+                int bufferSize = 1024;
+                byte[] bytes = new byte[bufferSize];
+                reader.Read(bytes, 0, bufferSize);
+                bool isTextual = FileEncoding.IsTextualData(bytes);
+
+                if (!isTextual)
+                {
+                    binaryExtensions.Should().Contain(extension, because: $"'{fileName}' was classified as a binary file");
+                }
+            }
         }
 
         private void ValidateIsBinary(string fileName)
         {
+            if (!File.Exists(fileName))
+            {
+                fileName = Path.Combine(Environment.CurrentDirectory, fileName);
+            }
+
             fileName = Path.Combine(Environment.CurrentDirectory, fileName);
             using FileStream reader = File.OpenRead(fileName);
             int bufferSize = 1024;
             byte[] bytes = new byte[bufferSize];
             reader.Read(bytes, 0, bufferSize);
-            FileEncoding.IsTextualData(bytes).Should().BeFalse();
+            FileEncoding.IsTextualData(bytes).Should().BeFalse(because: $"{fileName} is a binary file");
         }
 
         [Fact]
         public void FileEncoding_UnicodeDataIsTextual()
         {
-            var sb = new StringBuilder();
-            string unicodeText = "американец";
+            using var assertionScope = new AssertionScope();
 
-            foreach (Encoding encoding in new[] { Encoding.Unicode, Encoding.UTF8, Encoding.BigEndianUnicode, Encoding.UTF32 })
+            var sb = new StringBuilder();
+            string[] unicodeTexts = new[]
             {
-                byte[] input = encoding.GetBytes(unicodeText);
-                if (!FileEncoding.IsTextualData(input))
+                "американец",
+                "Generates a warning and an error for each of :  foo  foo \r\n" // Challenging for the classifer; found by accident.
+            };
+
+            foreach (string unicodeText in unicodeTexts)
+            {
+                foreach (Encoding encoding in new[] { Encoding.Unicode, Encoding.UTF8, Encoding.BigEndianUnicode, Encoding.UTF32 })
                 {
-                    sb.AppendLine($"\tThe '{encoding.EncodingName}' encoding classified unicode text '{unicodeText}' as binary data.");
+                    byte[] input = encoding.GetBytes(unicodeText);
+                    FileEncoding.IsTextualData(input).Should().BeTrue(because: $"'{unicodeText}' encoded as '{encoding.EncodingName}' should not be classified as binary data");
                 }
             }
-
-            sb.Length.Should().Be(0, because: $"all unicode strings should be classified as textual:{Environment.NewLine}{sb}");
         }
 
         [Fact]
         public void FileEncoding_BinaryDataIsBinary()
         {
-            var sb = new StringBuilder();
+            using var assertionScope = new AssertionScope();
 
             foreach (string binaryName in new[] { "Certificate.cer", "Certificate.der", "PasswordProtected.pfx" })
             {
@@ -80,13 +121,8 @@ namespace Microsoft.CodeAnalysis.Sarif
                     Stream = resource,
                 };
 
-                if (artifact.Bytes == null)
-                {
-                    sb.AppendLine($"\tBinary file '{binaryName}' was classified as textual data.");
-                }
+                artifact.Bytes.Should().NotBeNull(because: $"'{binaryName}' should be classified as binary data.");
             }
-
-            sb.Length.Should().Be(0, because: $"all binary files should be classified as binary:{Environment.NewLine}{sb}");
         }
 
         [Fact]
@@ -104,7 +140,8 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         private static void ValidateEncoding(string encodingName, Encoding encoding)
         {
-            var sb = new StringBuilder(65536 * 100);
+            using var assertionScope = new AssertionScope();
+
             Stream resource = typeof(FileEncodingTests).Assembly.GetManifestResourceStream($"Test.UnitTests.Sarif.TestData.FileEncoding.{encodingName}.txt");
             using var reader = new StreamReader(resource, Encoding.UTF8);
 
@@ -113,14 +150,12 @@ namespace Microsoft.CodeAnalysis.Sarif
             {
                 char ch = (char)current;
                 byte[] input = encoding.GetBytes(new[] { ch });
-                if (!FileEncoding.IsTextualData(input))
-                {
-                    string unicodeText = "\\u" + ((int)ch).ToString("d4");
-                    sb.AppendLine($"\t{encodingName} character '{unicodeText}' ({encoding.GetString(input)}) was classified as binary data.");
-                }
-            }
 
-            sb.Length.Should().Be(0, because: $"all {encodingName} encodable character should be classified as textual:{Environment.NewLine}{sb}");
+                if (ch < 0x20) { continue; }
+
+                string unicodeText = "\\u" + ((int)ch).ToString("d4");
+                FileEncoding.IsTextualData(input).Should().BeTrue(because: $"{encodingName} character '{unicodeText}' ({encoding.GetString(input)}) should not classify as binary data.");
+            }
         }
     }
 }

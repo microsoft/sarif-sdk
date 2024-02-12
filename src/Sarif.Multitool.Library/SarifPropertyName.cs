@@ -9,12 +9,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         public const string Addresses = "addresses";
         public const string AnalysisTarget = "analysisTarget";
         public const string AnalysisToolLogFiles = "analysisToolLogFiles";
-        public const string AssociatedComponent = "associatedComponent";
-        public const string AssociatedRule = "associatedRule";
+        public const string ArtifactChanges = "artifactChanges";
         public const string ArtifactLocation = "artifactLocation";
         public const string Artifacts = "artifacts";
+        public const string AssociatedComponent = "associatedComponent";
+        public const string AssociatedRule = "associatedRule";
         public const string Attachments = "attachments";
-        public const string ArtifactChanges = "artifactChanges";
+        public const string AutomationDetails = "automationDetails";
         public const string CodeFlows = "codeFlows";
         public const string Configuration = "configuration";
         public const string ContextRegion = "contextRegion";
@@ -35,9 +36,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         public const string Fixes = "fixes";
         public const string Frames = "frames";
         public const string FullDescription = "fullDescription";
+        public const string FullName = "fullName";
         public const string Graphs = "graphs";
         public const string GraphTraversals = "graphTraversals";
         public const string Hashes = "hashes";
+        public const string Help = "help";
         public const string HelpUri = "helpUri";
         public const string Id = "id";
         public const string Importance = "importance";
@@ -58,6 +61,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         public const string Notifications = "notifications";
         public const string OriginalUriBaseIds = "originalUriBaseIds";
         public const string ParentIndex = "parentIndex";
+        public const string PartialFingerprints = "partialFingerprints";
         public const string PhysicalLocation = "physicalLocation";
         public const string Provenance = "provenance";
         public const string Rectangles = "rectangles";

@@ -19,6 +19,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         /// </summary>
         public override string Id => RuleId.InlineThreadFlowLocations;
 
+        public override HashSet<RuleKind> RuleKinds => new HashSet<RuleKind>(new[] { RuleKind.Ghas });
+
         /// <summary>
         /// Results that include codeFlows must specify each threadFlowLocation directly within
         /// the codeFlow, rather than relying on threadFlowLocation.index to refer to an element

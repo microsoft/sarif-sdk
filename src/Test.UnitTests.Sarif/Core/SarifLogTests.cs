@@ -216,21 +216,21 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests.Core
             {
                 await SarifLog.Post(postUri: null,
                                     new MemoryStream(),
-                                    new HttpClient());
+                                    new HttpClientWrapper());
             });
 
             await Assert.ThrowsAsync<ArgumentNullException>(async () =>
             {
                 await SarifLog.Post(new Uri("https://github.com/microsoft/sarif-sdk"),
                                     null,
-                                    new HttpClient());
+                                    new HttpClientWrapper());
             });
 
             await Assert.ThrowsAsync<ArgumentNullException>(async () =>
             {
                 await SarifLog.Post(new Uri("https://github.com/microsoft/sarif-sdk"),
                                     new MemoryStream(),
-                                    null);
+                                    (HttpClientWrapper)null);
             });
         }
 
@@ -245,7 +245,7 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests.Core
                 await SarifLog.Post(postUri: null,
                                     filePath,
                                     fileSystem.Object,
-                                    httpClient: null);
+                                    httpClient: (HttpClientWrapper)null);
             });
 
             filePath = "SomeFile.txt";
@@ -258,7 +258,7 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests.Core
                 await SarifLog.Post(postUri: null,
                                     filePath,
                                     fileSystem.Object,
-                                    httpClient: null);
+                                    httpClient: (HttpClientWrapper)null);
             });
         }
 
@@ -276,59 +276,68 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests.Core
                 .Returns(true);
 
             // This method creates a bare-bones SARIF file with no results and notifications.
-            var steam = (MemoryStream)CreateSarifLogStream();
+            var stream = (MemoryStream)CreateSarifLogStream();
             fileSystem
                 .Setup(f => f.FileReadAllBytes(It.IsAny<string>()))
-                .Returns(steam.ToArray());
-            bool logPosted = await SarifLog.Post(postUri: null,
-                                    filePath,
-                                    fileSystem.Object,
-                                    httpClient: null);
-            logPosted.Should().BeFalse("with no results or notifications");
+                .Returns(stream.ToArray());
+            (bool, string) logPosted = await SarifLog.Post(postUri,
+                                                           filePath,
+                                                           fileSystem.Object,
+                                                           httpClient: (HttpClientWrapper)null);
+            logPosted.Item1.Should().BeFalse("with no results or notifications");
+            logPosted.Item2.Should().Contain("was skipped");
 
-            steam = (MemoryStream)CreateSarifLogStreamWithResult();
-            fileSystem
-                .Setup(f => f.FileReadAllBytes(It.IsAny<string>()))
-                .Returns(steam.ToArray());
-            httpMock.Mock(HttpMockHelper.CreateOKResponse());
-            logPosted = await SarifLog.Post(postUri: postUri,
-                                    filePath,
-                                    fileSystem.Object,
-                                    httpClient: new HttpClient(httpMock));
-            logPosted.Should().BeTrue("with results");
+            string content = $"{Guid.NewGuid()}";
+            var httpContent = new StringContent(content, Encoding.UTF8, "text/plain");
 
-            steam = (MemoryStream)CreateSarifLogStreamWithToolExecutionNotifications(FailureLevel.Error);
+            stream = (MemoryStream)CreateSarifLogStreamWithResult();
             fileSystem
                 .Setup(f => f.FileReadAllBytes(It.IsAny<string>()))
-                .Returns(steam.ToArray());
-            httpMock.Mock(HttpMockHelper.CreateOKResponse());
-            logPosted = await SarifLog.Post(postUri: postUri,
-                                    filePath,
-                                    fileSystem.Object,
-                                    httpClient: new HttpClient(httpMock));
-            logPosted.Should().BeTrue("with error level ToolExecutionNotifications");
+                .Returns(stream.ToArray());
+            httpMock.Mock(HttpMockHelper.CreateOKResponse(httpContent));
+            logPosted = await SarifLog.Post(postUri,
+                                            filePath,
+                                            fileSystem.Object,
+                                            httpClient: new HttpClientWrapper(httpMock));
+            logPosted.Item1.Should().BeTrue("with results");
+            logPosted.Item2.Should().Contain("status code 'OK'");
+            logPosted.Item2.Should().Contain(content);
 
-            steam = (MemoryStream)CreateSarifLogStreamWithToolExecutionNotifications(FailureLevel.Warning);
+            stream = (MemoryStream)CreateSarifLogStreamWithToolExecutionNotifications(FailureLevel.Error);
             fileSystem
                 .Setup(f => f.FileReadAllBytes(It.IsAny<string>()))
-                .Returns(steam.ToArray());
-            httpMock.Mock(HttpMockHelper.CreateOKResponse());
-            logPosted = await SarifLog.Post(postUri: postUri,
-                                    filePath,
-                                    fileSystem.Object,
-                                    httpClient: new HttpClient(httpMock));
-            logPosted.Should().BeFalse("with warning level ToolExecutionNotifications");
+                .Returns(stream.ToArray());
+            httpMock.Mock(HttpMockHelper.CreateOKResponse(httpContent));
+            logPosted = await SarifLog.Post(postUri,
+                                            filePath,
+                                            fileSystem.Object,
+                                            httpClient: new HttpClientWrapper(httpMock));
+            logPosted.Item1.Should().BeTrue("with error level ToolExecutionNotifications");
+            logPosted.Item2.Should().Contain("status code 'OK'");
+            logPosted.Item2.Should().Contain(content);
 
-            steam = (MemoryStream)CreateSarifLogStreamWithToolExecutionNotifications(FailureLevel.Error);
+            stream = (MemoryStream)CreateSarifLogStreamWithToolExecutionNotifications(FailureLevel.Warning);
             fileSystem
                 .Setup(f => f.FileReadAllBytes(It.IsAny<string>()))
-                .Returns(steam.ToArray());
+                .Returns(stream.ToArray());
+            logPosted = await SarifLog.Post(postUri,
+                                            filePath,
+                                            fileSystem.Object,
+                                            httpClient: new HttpClientWrapper(httpMock));
+            logPosted.Item1.Should().BeFalse("with warning level ToolExecutionNotifications");
+            logPosted.Item2.Should().Contain("was skipped");
+
+            stream = (MemoryStream)CreateSarifLogStreamWithToolExecutionNotifications(FailureLevel.Error);
+            fileSystem
+                .Setup(f => f.FileReadAllBytes(It.IsAny<string>()))
+                .Returns(stream.ToArray());
             httpMock.Mock(HttpMockHelper.CreateBadRequestResponse());
-            logPosted = await SarifLog.Post(postUri: postUri,
-                                    filePath,
-                                    fileSystem.Object,
-                                    httpClient: new HttpClient(httpMock));
-            logPosted.Should().BeTrue("with error level ToolExecutionNotifications, but the server returns BadRequest");
+            logPosted = await SarifLog.Post(postUri,
+                                            filePath,
+                                            fileSystem.Object,
+                                            httpClient: new HttpClientWrapper(httpMock));
+            logPosted.Item1.Should().BeFalse("a status code of 'BadRequest' should fail the call even though we posted error-level 'ToolExcecutionNotifications'");
+            logPosted.Item2.Should().Contain("status code 'BadRequest'");
         }
 
         [Fact]
@@ -380,7 +389,7 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests.Core
             HttpResponseMessage response =
                 await SarifLog.Post(postUri,
                     CreateSarifLogStream(),
-                    new HttpClient(httpMock));
+                    new HttpClientWrapper(httpMock));
 
             Assert.Throws<HttpRequestException>(() =>
             {
@@ -400,7 +409,7 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests.Core
             {
                 await SarifLog.Post(postUri,
                                     CreateSarifLogStream(),
-                                    new HttpClient(httpMock));
+                                    new HttpClientWrapper(httpMock));
             }
             catch (Exception ex)
             {
@@ -431,7 +440,7 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests.Core
                 await SarifLog.Post(postUri,
                                     filePath,
                                     fileSystem.Object,
-                                    new HttpClient(httpMock));
+                                    new HttpClientWrapper(httpMock));
             }
             catch (Exception ex)
             {

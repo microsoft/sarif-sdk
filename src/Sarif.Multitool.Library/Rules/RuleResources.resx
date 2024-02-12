@@ -456,4 +456,132 @@ Semantics: Assuming the reader of the log file (an end user or another tool) has
   <data name="GH1007_ProvideFullyFormattedMessageStrings_FullDescription_Text" xml:space="preserve">
     <value>GitHub Advanced Security code scanning will reject a SARIF file that express result messages with 'message.id' and 'message.arguments' but without the 'message.text' property since the arugmented message format is not supported yet. Please provide fully formatted text in 'message.text' property.</value>
   </data>
+  <data name="ADO1014_AdoProvideRequiredRunProperties_Error_MissingAutomationDetails_Text" xml:space="preserve">
+    <value>{0}: This 'run' object does not provide an 'automationDetails' property. This property is required by the {1} service.</value>
+  </data>
+  <data name="ADO1018_ProvideRequiredToolProperties_Error_MissingDriverFullName_Text" xml:space="preserve">
+    <value>{0}: This 'driver' object does not provide a 'fullName' value. This property is required by the {1} service.</value>
+  </data>
+  <data name="ADO2010_ProvideAutomationDetailsId_Note_Default_Text" xml:space="preserve">
+    <value>{0}: This 'automationDetails' object does not provide an 'id' property. This property is required by the {1} service.</value>
+  </data>
+  <data name="Base1014_ProvideRequiredRunProperties_Error_MissingResultsArray_Text" xml:space="preserve">
+    <value>{0}: This 'run' object does not provide a 'results' array property. This property is required by the {1} service.</value>
+  </data>
+  <data name="Base1003_ProvideDriver_Note_Default_Text" xml:space="preserve">
+    <value>{0}: This 'tool' object does not provide a 'driver' property. This property is required by the {1} service.</value>
+  </data>
+  <data name="Base1003_ProvideFullName_Note_Default_Text" xml:space="preserve">
+    <value>{0}: This 'driver' object does not provide a 'fullName' property. This property is required by the {1} service.</value>
+  </data>
+  <data name="Base1003_ProvideRules_Note_Default_Text" xml:space="preserve">
+    <value>{0}: This 'tool' object does not provide a 'rules' property. This property is required by the {1} service.</value>
+  </data>
+  <data name="Base1003_ProvideTool_Note_Default_Text" xml:space="preserve">
+    <value>{0}: This 'run' object does not provide a 'tool' property. This property is required by the {1} service.</value>
+  </data>
+  <data name="ServiceName_ADO" xml:space="preserve">
+    <value>Azure DevOps Advanced Security</value>
+  </data>
+  <data name="ServiceName_Base" xml:space="preserve">
+    <value>Base Validation Rule</value>
+  </data>
+  <data name="ServiceName_GHAS" xml:space="preserve">
+    <value>GitHub Advanced Security</value>
+  </data>
+  <data name="Base1013_MaximumRunsCount_Note_Default_Text" xml:space="preserve">
+    <value>{0}: This 'sarifLog' object's 'runs' array contains {1} element(s), which exceeds the limit of {2} imposed by the {3} service.</value>
+  </data>
+  <data name="ADO1003_ProvideDriver_Note_Default_Text" xml:space="preserve">
+    <value>{0}: This 'tool' object in this run does not provide a 'driver' property. This property is required by the {1} service.</value>
+  </data>
+  <data name="ADO1003_ProvideName_Note_Default_Text" xml:space="preserve">
+    <value>{0}: This 'driver' object does not provide a 'name' property. This property is required by the {1} service.</value>
+  </data>
+  <data name="Base1013_ProvideSchemaVersion_Warning_Default_Text" xml:space="preserve">
+    <value>{0}: The SARIF log file does not specify 'version' property that refers to the final, OASIS standard version of the SARIF 2.1.0 schema. This enables IDEs to provide Intellisense for SARIF log files.</value>
+  </data>
+  <data name="Base1013_ProvideSchema_Warning_Default_Text" xml:space="preserve">
+    <value>{0}: The SARIF log file does not contain a '$schema' property. Add a '$schema' property that refers to the final OASIS standard version of the SARIF 2.1.0 schema. This enables IDEs to provide Intellisense for SARIF log files.</value>
+  </data>
+  <data name="Base1013_ReferenceFinalSchema_Error_Default_Text" xml:space="preserve">
+    <value>{0}: The '$schema' property value '{1}' does not refer to the final version of the SARIF 2.1.0 schema. If you are using an earlier version of the SARIF format, consider upgrading your analysis tool to produce the final version. If this file does in fact conform to the final version of the schema, upgrade the tool to populate the '$schema' property with a URL that refers to the final version of the schema.</value>
+  </data>
+  <data name="Base1013_ReferenceFinalSchema_FullDescription_Text" xml:space="preserve">
+    <value>The '$schema' property must refer to the final version of the SARIF 2.1.0 schema. This enables IDEs to provide Intellisense for SARIF log files.
+
+The SARIF standard was developed over several years, and many intermediate versions of the schema were produced. Now that the standard is final, only the OASIS standard version of the schema is valid.</value>
+  </data>
+  <data name="Base1013_SarifLogRunsArray_Note_Default_Text" xml:space="preserve">
+    <value>{0}: This 'sarifLog' object does not provide a 'runs' array, which is required by the {1} service.</value>
+  </data>
+  <data name="Base1016_LocationPhysicalLocation_Error_Default_Text" xml:space="preserve">
+    <value>{0}: This 'location' object does not provide a 'physicalLocation' object. This property is required by the {1} service.</value>
+  </data>
+  <data name="Base1015_ProvideRequiredResultProperties_Error_MissingMessage_Text" xml:space="preserve">
+    <value>{0}: This 'result' object does not provide a 'message' object. This property is required by the {1} service.</value>
+  </data>
+  <data name="ADO1014_AdoProvideRequiredRunProperties_Error_MissingAutomationDetailsId_Text" xml:space="preserve">
+    <value>{0}: This 'run' object's 'automationDetails' object does not provide an 'id' value. This property is required by the {1} service.</value>
+  </data>
+  <data name="Base1016_ProvideRequiredLocationProperties_Error_MissingPhysicalLocationRegion_Text" xml:space="preserve">
+    <value>{0}: The 'physicalLocation' object on this 'location' object does not provide a 'region' object. This property is required by the {1} service.</value>
+  </data>
+  <data name="Base1016_ProvideRequiredLocationProperties_Error_MissingPhysicalLocation_Text" xml:space="preserve">
+    <value>{0}: This 'location' object does not provide a 'physicalLocation' object. This property is required by the {1} service.</value>
+  </data>
+  <data name="ADO1015_ProvideRequiredResultProperties_Error_MissingRuleId_Text" xml:space="preserve">
+    <value>{0}: This 'result' object does not provide a 'ruleId' value. This property is required by the {1} service.</value>
+  </data>
+  <data name="ADO2012_ProvideRequiredResultProperties_Error_MissingName_Text" xml:space="preserve">
+    <value>{0}: This 'reportingDescriptor' object does not provide a 'name' value. This property is required by the {1} service.</value>
+  </data>
+  <data name="Base1014_ProvideRequiredRunProperties_Error_MissingTool_Text" xml:space="preserve">
+    <value>{0}: This 'run' object does not provide a 'tool' object. This property is required by the {1} service.</value>
+  </data>
+  <data name="Base1015_ProvideRequiredResultProperties_Error_EmptyLocationsArray_Text" xml:space="preserve">
+    <value>{0}: The 'locations' array on this 'result' object is empty. This property is required by the {1} service.</value>
+  </data>
+  <data name="Base1015_ProvideRequiredResultProperties_Error_MissingLocationsArray_Text" xml:space="preserve">
+    <value>{0}: This 'result' object does not provide a 'locations' array. This property is required by the {1} service.</value>
+  </data>
+  <data name="Base1015_ProvideRequiredResultProperties_Error_MissingMessageText_Text" xml:space="preserve">
+    <value>{0}: The 'message' object on this 'result' object does not provide a 'text' property. This property is required by the {1} service.</value>
+  </data>
+  <data name="Base1015_ProvideRequiredResultProperties_Error_MissingPartialFingerprints_Text" xml:space="preserve">
+    <value>{0}: This 'result' object does not provide a 'partialFingerprints' dictionary. This property is required by the {1} service.</value>
+  </data>
+  <data name="Base1018_ProvideRequiredToolProperties_Error_MissingDriverName_Text" xml:space="preserve">
+    <value>{0}: The 'driver' object in this tool does not provide a 'name' value. This property is required by the {1} service.</value>
+  </data>
+  <data name="Base1018_ProvideRequiredToolProperties_Error_MissingDriverRules_Text" xml:space="preserve">
+    <value>{0}: The 'driver' object in this tool does not provide a 'rules' array. This property is required by the {1} service.</value>
+  </data>
+  <data name="Base1018_ProvideRequiredToolProperties_Error_MissingDriver_Text" xml:space="preserve">
+    <value>{0}: This 'tool' object does not provide a 'driver' object. This property is required by the {1} service.</value>
+  </data>
+  <data name="Base2012_ProvideRequiredReportingDescriptorProperties_Error_MissingIdProperty_Text" xml:space="preserve">
+    <value>{0}: This 'reportingDescriptor' object does not provide an 'id' value. This property is required by the {1} service.</value>
+  </data>
+  <data name="GH2012_ProvideRequiredReportingDescriptorProperties_Error_MissingFullDescription_Text" xml:space="preserve">
+    <value>{0}: This 'reportingDescriptor' object does not provide a 'fullDescription' value. This property is required by the {1} service.</value>
+  </data>
+  <data name="GH2012_ProvideRequiredReportingDescriptorProperties_Error_MissingHelp_Text" xml:space="preserve">
+    <value>{0}: This 'reportingDescriptor' object does not provide a 'help' object. This property is required by the {1} service.</value>
+  </data>
+  <data name="GH2012_ProvideRequiredReportingDescriptorProperties_Error_MissingHelpText_Text" xml:space="preserve">
+    <value>{0}: This 'help' object does not provide a 'text' value. This property is required by the {1} service.</value>
+  </data>
+  <data name="GH2012_ProvideRequiredReportingDescriptorProperties_Error_MissingShortDescription_Text" xml:space="preserve">
+    <value>{0}: This 'reportingDescriptor' object does not provide a 'shortDescription' value. This property is required by the {1} service.</value>
+  </data>
+  <data name="Base1017_ProvideRequiredPhysicalLocationProperties_Error_MissingArtifactLocation_Text" xml:space="preserve">
+    <value>{0}: This 'physicalLocation' object does not provide an 'artifactLocation' object. This property is required by the {1} service.</value>
+  </data>
+  <data name="Base1017_ProvideRequiredPhysicalLocationProperties_Error_MissingRegion_Text" xml:space="preserve">
+    <value>{0}: The 'physicalLocation' object does not provide a 'region' object. This property is required by the {1} service.</value>
+  </data>
+  <data name="GH1017_ProvideRequiredPhysicalLocationProperties_Error_MissingArtifactLocationUri_Text" xml:space="preserve">
+    <value>{0}: The 'artifactLocation' object on this 'physicalLocation' object does not provide a 'uri' object. This property is required by the {1} service.</value>
+  </data>
 </root>

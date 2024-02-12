@@ -210,7 +210,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             ISet<Skimmer<TContext>> skimmers = CreateSkimmers(globalContext);
 
             // 2. Initialize skimmers. Initialize occurs a single time only. This
-            //    step needs to occurs after initializing configuration in order
+            //    step needs to occur after initializing configuration in order
             //    to allow command-line override of rule settings
             skimmers = InitializeSkimmers(skimmers, globalContext);
 
@@ -320,6 +320,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 context.TargetFileSpecifiers = options.TargetFileSpecifiers?.Any() == true ? InitializeStringSet(options.TargetFileSpecifiers) : context.TargetFileSpecifiers;
                 context.InvocationPropertiesToLog = options.InvocationPropertiesToLog?.Any() == true ? InitializeStringSet(options.InvocationPropertiesToLog) : context.InvocationPropertiesToLog;
                 context.Traces = options.Trace.Any() ? InitializeStringSet(options.Trace) : context.Traces;
+                context.RuleKinds = options.RuleKindOption != null ? options.RuleKinds : context.RuleKinds;
             }
 
             // Less-obviously throw-safe. We don't do these in the finally block because we'd prefer not to mask an earlier Exception during logger initialization. 
@@ -1013,7 +1014,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 SupportedPlatform currentOS = GetCurrentRunningOS();
                 foreach (Skimmer<TContext> skimmer in skimmers)
                 {
-                    if (skimmer.SupportedPlatforms.HasFlag(currentOS))
+                    if (!context.RuleKinds.Any(r => skimmer.RuleKinds.Contains(r)))
+                    {
+                        continue;
+                    }
+                    else if (skimmer.SupportedPlatforms.HasFlag(currentOS))
                     {
                         result.Add(skimmer);
                     }
@@ -1340,7 +1345,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             };
         }
 
-
         internal void CheckIncompatibleRules(IEnumerable<Skimmer<TContext>> skimmers, TContext context, ISet<string> disabledSkimmers)
         {
             var availableRules = new Dictionary<string, Skimmer<TContext>>();
@@ -1402,12 +1406,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             return skimmers;
         }
 
-        protected static void LogTrace(TContext globalContext,
-                                                  string message,
-                                                  string id = null,
-                                                  ReportingDescriptor associatedRule = null,
-                                                  FailureLevel level = FailureLevel.Note,
-                                                  Exception ex = null)
+        protected static void LogTrace(
+            TContext globalContext,
+            string message,
+            string id = null,
+            ReportingDescriptor associatedRule = null,
+            FailureLevel level = FailureLevel.Note,
+            Exception ex = null)
         {
             ExceptionData exceptionData = null;
             if (ex != null)
@@ -1444,7 +1449,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             },
                 associatedRule);
         }
-
 
         internal static bool IsTargetWithinFileSizeLimit(long size, long maxFileSizeInKB)
         {

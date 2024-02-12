@@ -5,8 +5,24 @@
     {
       "tool": {
         "driver": {
-          "name": "testhost",
+          "name": "SARIF Functional Testing",
           "rules": [
+            {
+              "id": "SARIF2003",
+              "name": "ProvideVersionControlProvenance",
+              "fullDescription": {
+                "text": "Provide 'versionControlProvenance' to record which version of the code was analyzed, and to enable paths to be expressed relative to the root of the repository."
+              },
+              "messageStrings": {
+                "Note_Default": {
+                  "text": "{0}: This run does not provide 'versionControlProvenance'. As a result, it is not possible to determine which version of code was analyzed, nor to map relative paths to their locations within the repository."
+                }
+              },
+              "defaultConfiguration": {
+                "level": "note"
+              },
+              "helpUri": "http://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html"
+            },
             {
               "id": "SARIF2002",
               "name": "ProvideMessageArguments",
@@ -24,19 +40,13 @@
               "helpUri": "http://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html"
             },
             {
-              "id": "SARIF2003",
-              "name": "ProvideVersionControlProvenance",
-              "fullDescription": {
-                "text": "Provide 'versionControlProvenance' to record which version of the code was analyzed, and to enable paths to be expressed relative to the root of the repository."
-              },
-              "messageStrings": {
-                "Note_Default": {
-                  "text": "{0}: This run does not provide 'versionControlProvenance'. As a result, it is not possible to determine which version of code was analyzed, nor to map relative paths to their locations within the repository."
-                }
-              },
-              "defaultConfiguration": {
-                "level": "note"
-              },
+              "id": "ADO1003",
+              "name": "ADO1003ProvideToolDriver",
+              "helpUri": "http://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html"
+            },
+            {
+              "id": "GHAS1003",
+              "name": "GHAS1003ProvideToolDriver",
               "helpUri": "http://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html"
             },
             {
@@ -101,86 +111,15 @@
         {
           "location": {
             "uri": "FunctionalTestOutput.BaselineOption/ToBeValidated.sarif",
-            "uriBaseId": "TEST_DIR"
+            "uriBaseId": "TEST_DIR",
+            "index": 0
           }
         }
       ],
       "results": [
         {
-          "ruleId": "SARIF2002",
-          "ruleIndex": 0,
-          "level": "note",
-          "message": {
-            "id": "Note_Default",
-            "arguments": [
-              "runs[0].results[0].message"
-            ]
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "index": 0
-                },
-                "region": {
-                  "startLine": 9,
-                  "startColumn": 22
-                }
-              }
-            }
-          ]
-        },
-        {
-          "ruleId": "SARIF2002",
-          "ruleIndex": 0,
-          "level": "note",
-          "message": {
-            "id": "Note_Default",
-            "arguments": [
-              "runs[0].results[1].message"
-            ]
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "index": 0
-                },
-                "region": {
-                  "startLine": 15,
-                  "startColumn": 22
-                }
-              }
-            }
-          ]
-        },
-        {
-          "ruleId": "SARIF2002",
-          "ruleIndex": 0,
-          "level": "note",
-          "message": {
-            "id": "Note_Default",
-            "arguments": [
-              "runs[0].results[2].message"
-            ]
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "index": 0
-                },
-                "region": {
-                  "startLine": 21,
-                  "startColumn": 22
-                }
-              }
-            }
-          ]
-        },
-        {
           "ruleId": "SARIF2003",
-          "ruleIndex": 1,
+          "ruleIndex": 0,
           "level": "note",
           "message": {
             "id": "Note_Default",
@@ -200,11 +139,265 @@
                 }
               }
             }
-          ]
+          ],
+          "baselineState": "new",
+          "properties": {
+            "ResultMatching": {}
+          }
+        },
+        {
+          "ruleId": "SARIF2002",
+          "ruleIndex": 1,
+          "level": "note",
+          "message": {
+            "id": "Note_Default",
+            "arguments": [
+              "runs[0].results[0].message"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 9,
+                  "startColumn": 22
+                }
+              }
+            }
+          ],
+          "baselineState": "new",
+          "properties": {
+            "ResultMatching": {}
+          }
+        },
+        {
+          "ruleId": "SARIF2002",
+          "ruleIndex": 1,
+          "level": "note",
+          "message": {
+            "id": "Note_Default",
+            "arguments": [
+              "runs[0].results[1].message"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 15,
+                  "startColumn": 22
+                }
+              }
+            }
+          ],
+          "baselineState": "new",
+          "properties": {
+            "ResultMatching": {}
+          }
+        },
+        {
+          "ruleId": "SARIF2002",
+          "ruleIndex": 1,
+          "level": "note",
+          "message": {
+            "id": "Note_Default",
+            "arguments": [
+              "runs[0].results[2].message"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 21,
+                  "startColumn": 22
+                }
+              }
+            }
+          ],
+          "baselineState": "new",
+          "properties": {
+            "ResultMatching": {}
+          }
+        },
+        {
+          "ruleId": "",
+          "ruleIndex": 0,
+          "message": {
+            "id": "Note_Default",
+            "arguments": [
+              "runs[0].tool.driver"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 27,
+                  "startColumn": 19
+                }
+              }
+            }
+          ],
+          "baselineState": "new",
+          "properties": {
+            "ResultMatching": {}
+          }
+        },
+        {
+          "ruleId": "",
+          "ruleIndex": 0,
+          "message": {
+            "id": "Note_Default",
+            "arguments": [
+              "runs[0].tool.driver"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 27,
+                  "startColumn": 19
+                }
+              }
+            }
+          ],
+          "baselineState": "new",
+          "properties": {
+            "ResultMatching": {}
+          }
+        },
+        {
+          "ruleId": "ADO1003",
+          "ruleIndex": 2,
+          "message": {
+            "id": "Note_Default",
+            "arguments": [
+              "runs[0].tool.driver",
+              "Azure DevOps Advanced Security"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 27,
+                  "startColumn": 19
+                }
+              }
+            }
+          ],
+          "baselineState": "new",
+          "properties": {
+            "ResultMatching": {}
+          }
+        },
+        {
+          "ruleId": "ADO1003",
+          "ruleIndex": 2,
+          "message": {
+            "id": "Note_Default",
+            "arguments": [
+              "runs[0].tool.driver",
+              "Azure DevOps Advanced Security"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 27,
+                  "startColumn": 19
+                }
+              }
+            }
+          ],
+          "baselineState": "new",
+          "properties": {
+            "ResultMatching": {}
+          }
+        },
+        {
+          "ruleId": "GHAS1003",
+          "ruleIndex": 3,
+          "message": {
+            "id": "Note_Default",
+            "arguments": [
+              "runs[0].tool.driver",
+              "GitHub Advanced Security"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 27,
+                  "startColumn": 19
+                }
+              }
+            }
+          ],
+          "baselineState": "new",
+          "properties": {
+            "ResultMatching": {}
+          }
+        },
+        {
+          "ruleId": "GHAS1003",
+          "ruleIndex": 3,
+          "message": {
+            "id": "Note_Default",
+            "arguments": [
+              "runs[0].tool.driver",
+              "GitHub Advanced Security"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 27,
+                  "startColumn": 19
+                }
+              }
+            }
+          ],
+          "baselineState": "new",
+          "properties": {
+            "ResultMatching": {}
+          }
         },
         {
           "ruleId": "SARIF2005",
-          "ruleIndex": 2,
+          "ruleIndex": 4,
           "message": {
             "id": "Warning_ProvideToolnformationUri",
             "arguments": [
@@ -224,11 +417,15 @@
                 }
               }
             }
-          ]
+          ],
+          "baselineState": "new",
+          "properties": {
+            "ResultMatching": {}
+          }
         },
         {
           "ruleId": "SARIF2005",
-          "ruleIndex": 2,
+          "ruleIndex": 4,
           "message": {
             "id": "Warning_ProvideToolVersion",
             "arguments": [
@@ -249,11 +446,15 @@
                 }
               }
             }
-          ]
+          ],
+          "baselineState": "new",
+          "properties": {
+            "ResultMatching": {}
+          }
         },
         {
           "ruleId": "SARIF2012",
-          "ruleIndex": 3,
+          "ruleIndex": 5,
           "level": "note",
           "message": {
             "id": "Note_ProvideMetadataForAllViolatedRules",
@@ -273,7 +474,11 @@
                 }
               }
             }
-          ]
+          ],
+          "baselineState": "new",
+          "properties": {
+            "ResultMatching": {}
+          }
         }
       ],
       "columnKind": "utf16CodeUnits"

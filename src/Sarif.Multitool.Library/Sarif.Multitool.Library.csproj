@@ -26,7 +26,7 @@
 
     <!-- We have to ship pre-patch versions of NewtonSoft for VisualStudio SDK. 
          We mitigate risk by limiting nesting depth. -->
-    <PackageReference Include="Newtonsoft.Json" Version="12.0.3"  NoWarn="NU1903" />
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" NoWarn="NU1903" />
   </ItemGroup>
 
   <ItemGroup>

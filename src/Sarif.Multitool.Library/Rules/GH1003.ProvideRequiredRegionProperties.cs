@@ -20,6 +20,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         /// </summary>
         public override string Id => RuleId.ProvideRequiredRegionProperties;
 
+        public override HashSet<RuleKind> RuleKinds => new HashSet<RuleKind>(new[] { RuleKind.Ghas });
+
         // Every result must provide a 'region' that specifies its location with line and optional
         // column information. GitHub Advanced Security code scanning can display the correct
         // location only for results that provide this information. At minimum, 'region.startLine'

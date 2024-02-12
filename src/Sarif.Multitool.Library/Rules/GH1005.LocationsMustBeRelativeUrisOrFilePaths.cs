@@ -21,6 +21,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         /// </summary>
         public override string Id => RuleId.LocationsMustBeRelativeUrisOrFilePaths;
 
+        public override HashSet<RuleKind> RuleKinds => new HashSet<RuleKind>(new[] { RuleKind.Ghas });
+
         // GitHub Advanced Security code scanning only displays results whose locations are specified
         // by file paths, either as relative URIs or as absolute URIs that use the 'file' scheme.
         public override MultiformatMessageString FullDescription => new MultiformatMessageString { Text = RuleResources.GH1005_LocationsMustBeRelativeUrisOrFilePaths_FullDescription_Text };
