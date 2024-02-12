@@ -32,6 +32,16 @@ namespace Test.UnitTests.Sarif.Driver
         }
 
         [Fact]
+        public void ContainsInvalidPathChar_test()
+        {
+            string validPath = "C:\\test.md";
+            validPath.ContainsInvalidPathChar().Should().BeFalse();
+
+            string invalidPath = "C:\\test|.md";
+            invalidPath.ContainsInvalidPathChar().Should().BeTrue();
+        }
+
+        [Fact]
         [Trait(TestTraits.WindowsOnly, "true")]
         public void ReplaceInvalidCharInFileName_ShouldCorrectFilePath()
         {

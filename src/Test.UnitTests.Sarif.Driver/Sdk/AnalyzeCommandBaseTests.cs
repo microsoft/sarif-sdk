@@ -858,11 +858,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
             int result = command.Run(options: null, ref context);
             context.ValidateCommandExecution(result);
+            context.RuntimeErrors.Should().Be(RuntimeConditions.TargetNotValidToAnalyze);
 
             var sarifLog = logger.ToSarifLog();
             sarifLog.Runs[0].Should().NotBeNull();
-            sarifLog.Runs[0].Results[0].Should().NotBeNull();
-            sarifLog.Runs[0].Results.Count.Should().Be(1);
+            sarifLog.Runs[0].Results.Count.Should().Be(0);
         }
 
         [Fact]

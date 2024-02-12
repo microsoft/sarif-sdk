@@ -13,6 +13,7 @@ using System.Net;
 using System.Net.Http;
 using System.Reflection;
 using System.Runtime.InteropServices;
+using System.Text.RegularExpressions;
 using System.Threading.Channels;
 using System.Threading.Tasks;
 
@@ -1217,6 +1218,18 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
         public static void AnalyzeTargetHelper(TContext context, IEnumerable<Skimmer<TContext>> skimmers, ISet<string> disabledSkimmers)
         {
+            // This might the public API invoked by other tools
+            Uri uri = context.CurrentTarget.Uri;
+            string originalStr = uri.OriginalString;
+            string filePath = uri.GetFilePath();
+            var URLPercentEncodingRegex = new Regex(@"%[0-9][0-9A-Fa-f]", RegexOptions.Compiled | RegexOptions.CultureInvariant);
+
+            if (URLPercentEncodingRegex.IsMatch(originalStr) || filePath.ContainsInvalidPathChar())
+            {
+                Warnings.LogExceptionInvalidTarget(context);
+                return;
+            }
+
             foreach (Skimmer<TContext> skimmer in skimmers)
             {
                 context.CancellationToken.ThrowIfCancellationRequested();
@@ -1239,8 +1252,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                     DriverEventSource.Log.RuleStart(context.CurrentTarget.Uri.GetFilePath(), skimmer.Id, skimmer.Name);
                     skimmer.Analyze(context);
                     DriverEventSource.Log.RuleStop(context.CurrentTarget.Uri.GetFilePath(), skimmer.Id, skimmer.Name);
-
-                    Uri uri = context.CurrentTarget.Uri;
 
                     if (stopwatch != null)
                     {

@@ -160,6 +160,26 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         }
 
         /// <summary>
+        /// Determines whether the input string contains any invalid Path character.
+        /// </summary>
+        /// <param name="path">The input string.</param>
+        /// <returns>true if the input string contains invalid Path character; otherwise, false.</returns>
+        public static bool ContainsInvalidPathChar(this string path)
+        {
+            char[] invalidPathChars = Path.GetInvalidPathChars();
+
+            foreach (char c in path)
+            {
+                if (invalidPathChars.Contains(c))
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        /// <summary>
         /// Replace invalid file name characters in given file name with specified valid character.
         /// </summary>
         /// <param name="fileName">The file name to check if contains invalid file name characters.</param>
