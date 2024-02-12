@@ -32,6 +32,7 @@ namespace Test.UnitTests.Sarif.Driver
         }
 
         [Fact]
+        [Trait(TestTraits.WindowsOnly, "true")]
         public void ContainsInvalidPathChar_test()
         {
             string validPath = "test.md";
