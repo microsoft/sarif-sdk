@@ -38,11 +38,11 @@ namespace Test.UnitTests.Sarif.Driver
             validPath.ContainsInvalidPathChar().Should().BeFalse();
 
             char[] invalidPathChars = Path.GetInvalidPathChars();
-            if( invalidPathChars.Length != 0 ) 
+            if (invalidPathChars.Length > 0)
             {
                 string invalidPath = "test" + invalidPathChars[0] + ".md";
+                this._outputHelper.WriteLine($"The invalid path is: {invalidPath}.");
                 invalidPath.ContainsInvalidPathChar().Should().BeTrue();
-                this._outputHelper.WriteLine($"file: {invalidPath} contains invalid character.");
             }
         }
 

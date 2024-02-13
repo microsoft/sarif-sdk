@@ -42,6 +42,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         private Channel<uint> _resultsWritingChannel;
         private Channel<uint> readyToScanChannel;
         private ConcurrentDictionary<uint, TContext> _fileContexts;
+        private readonly static string URLPercentEncodingPattern = @"%[0-9][0-9A-Fa-f]";
 
         public static bool RaiseUnhandledExceptionInDriverCode { get; set; }
 
@@ -1227,9 +1228,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             Uri uri = context.CurrentTarget.Uri;
             string originalStr = uri.OriginalString;
             string filePath = uri.GetFilePath();
-            var URLPercentEncodingRegex = new Regex(@"%[0-9][0-9A-Fa-f]", RegexOptions.Compiled | RegexOptions.CultureInvariant);
 
-            if (URLPercentEncodingRegex.IsMatch(originalStr) || filePath.ContainsInvalidPathChar())
+            if (Regex.IsMatch(originalStr, URLPercentEncodingPattern) || filePath.ContainsInvalidPathChar())
             {
                 Warnings.LogExceptionInvalidTarget(context);
                 return;
