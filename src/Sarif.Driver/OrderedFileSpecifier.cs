@@ -47,7 +47,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         {
             string normalizedSpecifier = Environment.ExpandEnvironmentVariables(this.specifier);
 
-            // 'normalizedSpecifier' might be changed if it contains URL Percent-encoding characters.
+            // 'normalizedSpecifier' should not be changed even if it contains URL Percent-encoding characters.
             if (Uri.TryCreate(this.specifier, UriKind.RelativeOrAbsolute, out Uri uri))
             {
                 normalizedSpecifier = uri.GetFilePath();

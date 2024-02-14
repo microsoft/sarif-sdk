@@ -6,6 +6,7 @@ using System.Collections;
 using System.Collections.Generic;
 
 using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -258,7 +259,19 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         public static string GetFilePath(this Uri uri)
         {
-            return uri.IsAbsoluteUri ? uri.LocalPath : uri.OriginalString;
+            if (!uri.IsAbsoluteUri)
+            { 
+                return uri.OriginalString;
+            }
+
+            if (Path.GetFileName(uri.OriginalString) != Path.GetFileName(uri.LocalPath))
+            {
+                return uri.OriginalString;
+            }
+            else
+            {
+                return uri.LocalPath;
+            }
         }
 
         public static string FormatForVisualStudio(this Region region)

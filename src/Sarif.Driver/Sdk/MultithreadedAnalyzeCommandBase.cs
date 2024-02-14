@@ -13,7 +13,6 @@ using System.Net;
 using System.Net.Http;
 using System.Reflection;
 using System.Runtime.InteropServices;
-using System.Text.RegularExpressions;
 using System.Threading.Channels;
 using System.Threading.Tasks;
 
@@ -42,7 +41,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         private Channel<uint> _resultsWritingChannel;
         private Channel<uint> readyToScanChannel;
         private ConcurrentDictionary<uint, TContext> _fileContexts;
-        private readonly static string URLPercentEncodingPattern = @"%[0-9][0-9A-Fa-f]";
 
         public static bool RaiseUnhandledExceptionInDriverCode { get; set; }
 
@@ -1226,10 +1224,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         {
             // This might the public API invoked by other tools
             Uri uri = context.CurrentTarget.Uri;
-            string originalStr = uri.OriginalString;
             string filePath = uri.GetFilePath();
 
-            if (Regex.IsMatch(originalStr, URLPercentEncodingPattern) || filePath.ContainsInvalidPathChar())
+            if (filePath.ContainsInvalidPathChar())
             {
                 Warnings.LogExceptionInvalidTarget(context);
                 return;

@@ -858,6 +858,36 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
             int result = command.Run(options: null, ref context);
             context.ValidateCommandExecution(result);
+
+            var sarifLog = logger.ToSarifLog();
+            sarifLog.Runs[0].Should().NotBeNull();
+            sarifLog.Runs[0].Results[0].Should().NotBeNull();
+            sarifLog.Runs[0].Results.Count.Should().Be(1);
+        }
+
+        [Fact]
+        public void AnalyzeCommand_InvalidPaths()
+        {
+            var logger = new MemoryStreamSarifLogger(dataToInsert: OptionallyEmittedData.Hashes);
+            var command = new TestMultithreadedAnalyzeCommand();
+            var uri = new Uri("test" + Path.GetInvalidPathChars()[0] + ".md", UriKind.Relative);
+
+            var target = new EnumeratedArtifact(FileSystem.Instance) { Uri = uri, Contents = "foo foo" };
+
+            var options = new TestAnalyzeOptions
+            {
+                PluginFilePaths = new[] { typeof(TestRule).Assembly.FullName },
+            };
+
+            var context = new TestAnalysisContext
+            {
+                TargetsProvider = new ArtifactProvider(new[] { target }),
+                DataToInsert = OptionallyEmittedData.Hashes,
+                Logger = logger,
+            };
+
+            int result = command.Run(options: null, ref context);
+            context.ValidateCommandExecution(result);
             context.RuntimeErrors.Should().Be(RuntimeConditions.TargetNotValidToAnalyze);
 
             var sarifLog = logger.ToSarifLog();
