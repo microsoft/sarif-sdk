@@ -260,7 +260,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         public static string GetFilePath(this Uri uri)
         {
             if (!uri.IsAbsoluteUri)
-            { 
+            {
                 return uri.OriginalString;
             }
 
