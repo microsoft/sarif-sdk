@@ -47,6 +47,34 @@ namespace Test.UnitTests.Sarif.Driver
         }
 
         [Fact]
+        public void UriGetFilePath_ShouldNotChangeFileName()
+        {
+            string orignalString = "test%2D.md";
+            string filePath = string.Empty;
+
+            if (Uri.TryCreate(orignalString, UriKind.RelativeOrAbsolute, out Uri uri1))
+            {
+                filePath = uri1.GetFilePath();
+            }
+
+            filePath.Should().Be(orignalString);
+
+            orignalString = "C:\\test%2D.md";
+            if (Uri.TryCreate(orignalString, UriKind.RelativeOrAbsolute, out Uri uri2))
+            {
+                filePath = uri2.GetFilePath();
+            }
+
+            filePath.Should().Be(orignalString);
+        }
+
+
+        //    // 'normalizedSpecifier' should not be changed even if it contains URL Percent-encoding characters.
+        //    if (Uri.TryCreate(this.specifier, UriKind.RelativeOrAbsolute, out Uri uri))
+        //    {
+        //    normalizedSpecifier = uri.GetFilePath();
+
+        [Fact]
         [Trait(TestTraits.WindowsOnly, "true")]
         public void ReplaceInvalidCharInFileName_ShouldCorrectFilePath()
         {

@@ -1222,7 +1222,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
         public static void AnalyzeTargetHelper(TContext context, IEnumerable<Skimmer<TContext>> skimmers, ISet<string> disabledSkimmers)
         {
-            // This might the public API invoked by other tools
             Uri uri = context.CurrentTarget.Uri;
             string filePath = uri.GetFilePath();
 
@@ -1251,15 +1250,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                         ? Stopwatch.StartNew()
                         : null;
 
-                    DriverEventSource.Log.RuleStart(context.CurrentTarget.Uri.GetFilePath(), skimmer.Id, skimmer.Name);
+                    DriverEventSource.Log.RuleStart(filePath, skimmer.Id, skimmer.Name);
                     skimmer.Analyze(context);
-                    DriverEventSource.Log.RuleStop(context.CurrentTarget.Uri.GetFilePath(), skimmer.Id, skimmer.Name);
+                    DriverEventSource.Log.RuleStop(filePath, skimmer.Id, skimmer.Name);
 
                     if (stopwatch != null)
                     {
-                        string file = uri.GetFilePath();
-                        string directory = Path.GetDirectoryName(file);
-                        file = Path.GetFileName(file);
+                        string directory = Path.GetDirectoryName(filePath);
+                        string file = Path.GetFileName(filePath);
 
                         string id = $"TRC101.{nameof(DefaultTraces.RuleScanTime)}";
                         string timing = $"'{file}' : elapsed {stopwatch.Elapsed} : '{skimmer.Name}' : at '{directory}'";
