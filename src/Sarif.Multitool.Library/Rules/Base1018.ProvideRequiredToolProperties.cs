@@ -31,7 +31,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                     // {0}: This 'tool' object does not provide a 'driver' object. This property is required by the {1} service.
                     LogResult(
                         toolPointer,
-                        nameof(RuleResources.Base1018_ProvideRequiredToolProperties_Error_MissingDriver_Text));
+                        nameof(RuleResources.Base1018_ProvideRequiredToolProperties_Error_MissingDriver_Text),
+                        this.ServiceName);
                 }
                 else if (string.IsNullOrWhiteSpace(tool.Driver.Name))
                 {
@@ -39,7 +40,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                     LogResult(
                         toolPointer
                             .AtProperty(SarifPropertyName.Driver),
-                        nameof(RuleResources.Base1018_ProvideRequiredToolProperties_Error_MissingDriverName_Text));
+                        nameof(RuleResources.Base1018_ProvideRequiredToolProperties_Error_MissingDriverName_Text),
+                        this.ServiceName);
                 }
 
                 if (tool.Driver.Rules == null)
@@ -48,7 +50,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                     LogResult(
                         toolPointer
                             .AtProperty(SarifPropertyName.Driver),
-                        nameof(RuleResources.Base1018_ProvideRequiredToolProperties_Error_MissingDriverRules_Text));
+                        nameof(RuleResources.Base1018_ProvideRequiredToolProperties_Error_MissingDriverRules_Text),
+                        this.ServiceName);
                 }
             }
         }

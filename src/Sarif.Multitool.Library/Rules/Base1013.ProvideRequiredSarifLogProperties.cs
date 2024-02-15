@@ -62,7 +62,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                         logPointer,
                         nameof(RuleResources.Base1013_MaximumRunsCount_Note_Default_Text),
                         sarifLog.Runs.Count.ToString(),
-                        this.MaximumRuns.ToString());
+                        this.MaximumRuns.ToString(),
+                        this.ServiceName);
                 }
             }
         }
