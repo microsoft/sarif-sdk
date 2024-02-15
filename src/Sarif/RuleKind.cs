@@ -8,7 +8,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         None = 0,
         Sarif = 1,
         Gh = 2,
-        Ghas = 4,
-        Ado = 8,
+        Ado = 4,
+        Ghas = 8,
     }
 }
