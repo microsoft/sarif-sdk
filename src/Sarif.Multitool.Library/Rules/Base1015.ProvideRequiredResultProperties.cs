@@ -12,17 +12,17 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
     {
         public override string Id => string.Empty;
 
-        protected override IEnumerable<string> MessageResourceNames => new string[] {
+        protected override IEnumerable<string> MessageResourceNames => [
             nameof(RuleResources.Base1015_ProvideRequiredResultProperties_Error_EmptyLocationsArray_Text),
             nameof(RuleResources.Base1015_ProvideRequiredResultProperties_Error_MissingLocationsArray_Text),
             nameof(RuleResources.Base1015_ProvideRequiredResultProperties_Error_MissingMessageText_Text),
             nameof(RuleResources.Base1015_ProvideRequiredResultProperties_Error_MissingMessage_Text),
             nameof(RuleResources.Base1015_ProvideRequiredResultProperties_Error_MissingPartialFingerprints_Text)
-        };
+        ];
 
-        public override HashSet<RuleKind> RuleKinds => new HashSet<RuleKind>();
+        public override HashSet<RuleKind> RuleKinds => new();
 
-        public override MultiformatMessageString FullDescription => new MultiformatMessageString();
+        public override MultiformatMessageString FullDescription => new();
 
         protected override void Analyze(Result result, string resultPointer)
         {

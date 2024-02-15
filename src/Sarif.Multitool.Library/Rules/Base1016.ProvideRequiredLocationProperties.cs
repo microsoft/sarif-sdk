@@ -10,13 +10,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
     {
         public override string Id => string.Empty;
 
-        protected override IEnumerable<string> MessageResourceNames => new string[] {
-            nameof(RuleResources.Base1016_LocationPhysicalLocation_Error_Default_Text),
-            nameof(RuleResources.Base1016_ProvideRequiredLocationProperties_Error_MissingPhysicalLocationRegion_Text),
+        protected override IEnumerable<string> MessageResourceNames => [
             nameof(RuleResources.Base1016_ProvideRequiredLocationProperties_Error_MissingPhysicalLocation_Text)
-        };
+        ];
 
-        public override HashSet<RuleKind> RuleKinds => new HashSet<RuleKind>();
+        public override HashSet<RuleKind> RuleKinds => new();
 
         public override MultiformatMessageString FullDescription => new MultiformatMessageString();
 

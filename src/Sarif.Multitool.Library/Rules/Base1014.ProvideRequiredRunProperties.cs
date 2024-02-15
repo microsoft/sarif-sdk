@@ -10,14 +10,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
     {
         public override string Id => string.Empty;
 
-        protected override IEnumerable<string> MessageResourceNames => new string[] {
+        protected override IEnumerable<string> MessageResourceNames => [
             nameof(RuleResources.Base1014_ProvideRequiredRunProperties_Error_MissingResultsArray_Text),
             nameof(RuleResources.Base1014_ProvideRequiredRunProperties_Error_MissingTool_Text)
-        };
+        ];
 
-        public override HashSet<RuleKind> RuleKinds => new HashSet<RuleKind>();
+        public override HashSet<RuleKind> RuleKinds => new();
 
-        public override MultiformatMessageString FullDescription => new MultiformatMessageString();
+        public override MultiformatMessageString FullDescription => new();
 
         protected override void Analyze(Run run, string runPointer)
         {

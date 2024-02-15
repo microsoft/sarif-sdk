@@ -13,14 +13,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         /// </summary>
         public override string Id => RuleId.ADOProvideRequiredRunProperties;
 
-        protected override IEnumerable<string> MessageResourceNames => new string[] {
+        protected override IEnumerable<string> MessageResourceNames => [
             nameof(RuleResources.ADO1014_AdoProvideRequiredRunProperties_Error_MissingAutomationDetails_Text),
-            nameof(RuleResources.ADO1014_AdoProvideRequiredRunProperties_Error_MissingAutomationDetailsId_Text),
-            nameof(RuleResources.Base1014_ProvideRequiredRunProperties_Error_MissingResultsArray_Text),
-            nameof(RuleResources.Base1014_ProvideRequiredRunProperties_Error_MissingTool_Text)
-        };
+            nameof(RuleResources.ADO1014_AdoProvideRequiredRunProperties_Error_MissingAutomationDetailsId_Text)
+        ];
 
-        public override HashSet<RuleKind> RuleKinds => new HashSet<RuleKind>(new[] { RuleKind.Ado });
+        public override MultiformatMessageString FullDescription => new() { Text = RuleResources.ADO1014_ProvideRequiredRunProperties_FullDescription_Text };
+
+        public override HashSet<RuleKind> RuleKinds => new([RuleKind.Ado]);
 
         protected override string ServiceName => RuleResources.ServiceName_ADO;
 
@@ -41,14 +41,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                     // {0}: This 'run' object does not provide an 'automationDetails' property. This property is required by the {1} service.
                     LogResult(
                         runPointer,
-                        nameof(RuleResources.ADO1014_AdoProvideRequiredRunProperties_Error_MissingAutomationDetails_Text));
+                        nameof(RuleResources.ADO1014_AdoProvideRequiredRunProperties_Error_MissingAutomationDetails_Text),
+                        this.ServiceName);
                 }
                 else if (string.IsNullOrWhiteSpace(run.AutomationDetails.Id))
                 {
                     // {0}: This 'run' object's 'automationDetails' object does not provide an 'id' value. This property is required by the {1} service.
                     LogResult(
                         runPointer,
-                        nameof(RuleResources.ADO1014_AdoProvideRequiredRunProperties_Error_MissingAutomationDetailsId_Text));
+                        nameof(RuleResources.ADO1014_AdoProvideRequiredRunProperties_Error_MissingAutomationDetailsId_Text),
+                        this.ServiceName);
                 }
             }
         }

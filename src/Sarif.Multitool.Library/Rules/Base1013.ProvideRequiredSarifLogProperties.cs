@@ -10,17 +10,17 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
     {
         public override string Id => string.Empty;
 
-        public override HashSet<RuleKind> RuleKinds => new HashSet<RuleKind>();
+        public override HashSet<RuleKind> RuleKinds => new();
 
-        public override MultiformatMessageString FullDescription => new MultiformatMessageString { Text = RuleResources.Base1013_ReferenceFinalSchema_FullDescription_Text };
+        public override MultiformatMessageString FullDescription => new();
 
-        protected override IEnumerable<string> MessageResourceNames => new string[] {
+        protected override IEnumerable<string> MessageResourceNames => [
             nameof(RuleResources.Base1013_MaximumRunsCount_Note_Default_Text),
             nameof(RuleResources.Base1013_ProvideSchemaVersion_Warning_Default_Text),
             nameof(RuleResources.Base1013_ProvideSchema_Warning_Default_Text),
             nameof(RuleResources.Base1013_ReferenceFinalSchema_Error_Default_Text),
             nameof(RuleResources.Base1013_SarifLogRunsArray_Note_Default_Text)
-        };
+        ];
 
         public virtual int MaximumRuns { get; set; } = int.MaxValue;
 

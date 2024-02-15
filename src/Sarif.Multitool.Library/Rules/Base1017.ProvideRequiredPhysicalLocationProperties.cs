@@ -14,17 +14,17 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
     {
         public override string Id => string.Empty;
 
-        protected override IEnumerable<string> MessageResourceNames => new string[] {
+        protected override IEnumerable<string> MessageResourceNames => [
             nameof(RuleResources.Base1017_ProvideRequiredPhysicalLocationProperties_Error_MissingArtifactLocation_Text),
             nameof(RuleResources.Base1017_ProvideRequiredPhysicalLocationProperties_Error_MissingRegion_Text),
             nameof(RuleResources.SARIF1007_RegionPropertiesMustBeConsistent_Error_EndColumnMustNotPrecedeStartColumn_Text),
             nameof(RuleResources.SARIF1007_RegionPropertiesMustBeConsistent_Error_EndLineMustNotPrecedeStartLine_Text),
             nameof(RuleResources.SARIF1007_RegionPropertiesMustBeConsistent_Error_RegionStartPropertyMustBePresent_Text)
-        };
+        ];
 
-        public override HashSet<RuleKind> RuleKinds => new HashSet<RuleKind>();
+        public override HashSet<RuleKind> RuleKinds => new();
 
-        public override MultiformatMessageString FullDescription => new MultiformatMessageString();
+        public override MultiformatMessageString FullDescription => new();
 
         protected override void Analyze(PhysicalLocation physicalLocation, string physicalLocationPointer)
         {

@@ -20,7 +20,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         /// </summary>
         public override string Id => RuleId.ProvideRequiredLocationProperties;
 
-        public override HashSet<RuleKind> RuleKinds => new HashSet<RuleKind>(new[] { RuleKind.Ghas });
+        public override HashSet<RuleKind> RuleKinds => new([RuleKind.Ghas]);
 
         /// <summary>
         /// Each result location must provide the property 'physicalLocation.artifactLocation.uri'.

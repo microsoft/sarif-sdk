@@ -13,16 +13,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         /// </summary>
         public override string Id => RuleId.ADOProvideRequiredReportingDescriptorProperties;
 
-        protected override IEnumerable<string> MessageResourceNames => new string[] {
-            nameof(RuleResources.ADO2012_ProvideRequiredResultProperties_Error_MissingName_Text),
-            nameof(RuleResources.Base1015_ProvideRequiredResultProperties_Error_EmptyLocationsArray_Text),
-            nameof(RuleResources.Base1015_ProvideRequiredResultProperties_Error_MissingLocationsArray_Text),
-            nameof(RuleResources.Base1015_ProvideRequiredResultProperties_Error_MissingMessageText_Text),
-            nameof(RuleResources.Base1015_ProvideRequiredResultProperties_Error_MissingMessage_Text),
-            nameof(RuleResources.Base1015_ProvideRequiredResultProperties_Error_MissingPartialFingerprints_Text)
-        };
+        protected override IEnumerable<string> MessageResourceNames => [
+            nameof(RuleResources.ADO2012_ProvideRequiredResultProperties_Error_MissingName_Text)
+        ];
 
-        public override HashSet<RuleKind> RuleKinds => new HashSet<RuleKind>(new[] { RuleKind.Ado });
+        public override MultiformatMessageString FullDescription => new MultiformatMessageString { Text = RuleResources.ADO2012_ProvideRequiredReportingDescriptorProperties_FullDescription_Text };
+
+        public override HashSet<RuleKind> RuleKinds => new([RuleKind.Ado]);
 
         protected override string ServiceName => RuleResources.ServiceName_ADO;
 
@@ -40,7 +37,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                 // {0}: This 'reportingDescriptor' object does not provide a 'name' value. This property is required by the {1} service.
                 LogResult(
                     reportingDescriptorPointer,
-                    nameof(RuleResources.ADO2012_ProvideRequiredResultProperties_Error_MissingName_Text));
+                    nameof(RuleResources.ADO2012_ProvideRequiredResultProperties_Error_MissingName_Text),
+                    this.ServiceName);
             }
         }
     }

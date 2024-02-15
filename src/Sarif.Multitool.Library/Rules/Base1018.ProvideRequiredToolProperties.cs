@@ -12,15 +12,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
     {
         public override string Id => string.Empty;
 
-        protected override IEnumerable<string> MessageResourceNames => new string[] {
+        protected override IEnumerable<string> MessageResourceNames => [
             nameof(RuleResources.Base1018_ProvideRequiredToolProperties_Error_MissingDriverName_Text),
             nameof(RuleResources.Base1018_ProvideRequiredToolProperties_Error_MissingDriverRules_Text),
             nameof(RuleResources.Base1018_ProvideRequiredToolProperties_Error_MissingDriver_Text),
-        };
+        ];
 
-        public override HashSet<RuleKind> RuleKinds => new HashSet<RuleKind>();
+        public override HashSet<RuleKind> RuleKinds => new();
 
-        public override MultiformatMessageString FullDescription => new MultiformatMessageString();
+        public override MultiformatMessageString FullDescription => new();
 
         protected override void Analyze(Tool tool, string toolPointer)
         {
