@@ -14,7 +14,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             nameof(RuleResources.Base1016_ProvideRequiredLocationProperties_Error_MissingPhysicalLocation_Text)
         };
 
-        public override HashSet<RuleKind> RuleKinds => new();
+        public override HashSet<RuleKind> RuleKinds => new HashSet<RuleKind>();
 
         public override MultiformatMessageString FullDescription => new MultiformatMessageString();
 

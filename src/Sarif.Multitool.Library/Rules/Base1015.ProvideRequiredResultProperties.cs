@@ -20,7 +20,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             nameof(RuleResources.Base1015_ProvideRequiredResultProperties_Error_MissingPartialFingerprints_Text)
         };
 
-        public override HashSet<RuleKind> RuleKinds => new();
+        public override HashSet<RuleKind> RuleKinds => new HashSet<RuleKind>();
 
         public override MultiformatMessageString FullDescription => new MultiformatMessageString();
 

@@ -18,7 +18,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             nameof(RuleResources.Base1018_ProvideRequiredToolProperties_Error_MissingDriver_Text),
         };
 
-        public override HashSet<RuleKind> RuleKinds => new();
+        public override HashSet<RuleKind> RuleKinds => new HashSet<RuleKind>();
 
         public override MultiformatMessageString FullDescription => new MultiformatMessageString();
 

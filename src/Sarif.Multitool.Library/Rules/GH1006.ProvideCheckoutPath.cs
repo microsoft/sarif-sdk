@@ -21,7 +21,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         /// </summary>
         public override string Id => RuleId.ProvideCheckoutPath;
 
-        public override HashSet<RuleKind> RuleKinds => new([RuleKind.Ghas]);
+        public override HashSet<RuleKind> RuleKinds => new HashSet<RuleKind>(new[] { RuleKind.Ghas });
 
         // GitHub Advanced Security code scanning will reject a SARIF file that expresses
         // result locations as absolute 'file' scheme URIs unless GitHub can determine the URI

@@ -14,7 +14,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             nameof(RuleResources.Base2012_ProvideRequiredReportingDescriptorProperties_Error_MissingIdProperty_Text)
         };
 
-        public override HashSet<RuleKind> RuleKinds => new();
+        public override HashSet<RuleKind> RuleKinds => new HashSet<RuleKind>();
 
         public override MultiformatMessageString FullDescription => new MultiformatMessageString();
 

@@ -15,7 +15,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 
         public override MultiformatMessageString FullDescription => new MultiformatMessageString() { Text = RuleResources.GH1015_ProvideRequiredResultProperties_FullDescription_Text };
 
-        public override HashSet<RuleKind> RuleKinds => new([RuleKind.Ghas]);
+        public override HashSet<RuleKind> RuleKinds => new HashSet<RuleKind>(new[] { RuleKind.Ghas });
 
         protected override string ServiceName => RuleResources.ServiceName_GHAS;
 
