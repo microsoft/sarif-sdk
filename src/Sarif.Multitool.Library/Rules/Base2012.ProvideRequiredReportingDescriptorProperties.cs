@@ -10,13 +10,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
     {
         public override string Id => string.Empty;
 
-        protected override IEnumerable<string> MessageResourceNames => [
+        protected override IEnumerable<string> MessageResourceNames => new string[] {
             nameof(RuleResources.Base2012_ProvideRequiredReportingDescriptorProperties_Error_MissingIdProperty_Text)
-        ];
+        };
 
         public override HashSet<RuleKind> RuleKinds => new();
 
-        public override MultiformatMessageString FullDescription => new();
+        public override MultiformatMessageString FullDescription => new MultiformatMessageString();
 
         protected override void Analyze(ReportingDescriptor reportingDescriptor, string reportingDescriptorPointer)
         {

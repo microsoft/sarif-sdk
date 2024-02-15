@@ -22,11 +22,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         /// the schema were produced. Now that the standard is final, only the OASIS standard version
         /// of the schema is valid.
         /// </summary>
-        public override MultiformatMessageString FullDescription => new();
+        public override MultiformatMessageString FullDescription => new MultiformatMessageString();
 
-        protected override IEnumerable<string> MessageResourceNames => [
+        protected override IEnumerable<string> MessageResourceNames => new string[] {
             nameof(RuleResources.Base1011_ReferenceFinalSchema_Error_Default_Text)
-        ];
+        };
 
         protected override void Analyze(SarifLog log, string logPointer)
         {

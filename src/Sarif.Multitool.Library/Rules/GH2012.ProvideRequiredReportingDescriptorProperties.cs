@@ -15,14 +15,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         /// </summary>
         public override string Id => RuleId.GHASProvideRequiredReportingDescriptorProperties;
 
-        protected override IEnumerable<string> MessageResourceNames => [
+        protected override IEnumerable<string> MessageResourceNames => new string[] {
             nameof(RuleResources.GH2012_ProvideRequiredReportingDescriptorProperties_Error_MissingFullDescription_Text),
             nameof(RuleResources.GH2012_ProvideRequiredReportingDescriptorProperties_Error_MissingHelpText_Text),
             nameof(RuleResources.GH2012_ProvideRequiredReportingDescriptorProperties_Error_MissingHelp_Text),
             nameof(RuleResources.GH2012_ProvideRequiredReportingDescriptorProperties_Error_MissingShortDescription_Text)
-        ];
+        };
 
-        public override MultiformatMessageString FullDescription => new() { Text = RuleResources.GH2012_ProvideRequiredReportingDescriptorProperties_FullDescription_Text };
+        public override MultiformatMessageString FullDescription => new MultiformatMessageString() { Text = RuleResources.GH2012_ProvideRequiredReportingDescriptorProperties_FullDescription_Text };
 
         public override HashSet<RuleKind> RuleKinds => new([RuleKind.Ghas]);
 

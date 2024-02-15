@@ -10,7 +10,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
     {
         public override string Id => RuleId.ADOProvideRequiredLocationProperties;
 
-        public override MultiformatMessageString FullDescription => new() { Text = RuleResources.ADO1016_ProvideRequiredLocationProperties_FullDescription_Text };
+        public override MultiformatMessageString FullDescription => new MultiformatMessageString() { Text = RuleResources.ADO1016_ProvideRequiredLocationProperties_FullDescription_Text };
 
         public override HashSet<RuleKind> RuleKinds => new([RuleKind.Ado]);
 

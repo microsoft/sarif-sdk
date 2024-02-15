@@ -13,9 +13,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         /// </summary>
         public override string Id => RuleId.ADOProvideRequiredReportingDescriptorProperties;
 
-        protected override IEnumerable<string> MessageResourceNames => [
+        protected override IEnumerable<string> MessageResourceNames => new string[] {
             nameof(RuleResources.ADO2012_ProvideRequiredResultProperties_Error_MissingName_Text)
-        ];
+        };
 
         public override MultiformatMessageString FullDescription => new MultiformatMessageString { Text = RuleResources.ADO2012_ProvideRequiredReportingDescriptorProperties_FullDescription_Text };
 

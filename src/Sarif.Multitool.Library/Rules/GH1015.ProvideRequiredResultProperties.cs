@@ -13,7 +13,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         /// </summary>
         public override string Id => RuleId.GHASProvideRequiredResultProperties;
 
-        public override MultiformatMessageString FullDescription => new() { Text = RuleResources.GH1015_ProvideRequiredResultProperties_FullDescription_Text };
+        public override MultiformatMessageString FullDescription => new MultiformatMessageString() { Text = RuleResources.GH1015_ProvideRequiredResultProperties_FullDescription_Text };
 
         public override HashSet<RuleKind> RuleKinds => new([RuleKind.Ghas]);
 

@@ -13,11 +13,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         /// </summary>
         public override string Id => RuleId.ADOProvideRequiredResultProperties;
 
-        public override MultiformatMessageString FullDescription => new() { Text = RuleResources.ADO1015_ProvideRequiredResultProperties_FullDescription_Text };
+        public override MultiformatMessageString FullDescription => new MultiformatMessageString() { Text = RuleResources.ADO1015_ProvideRequiredResultProperties_FullDescription_Text };
 
-        protected override IEnumerable<string> MessageResourceNames => [
+        protected override IEnumerable<string> MessageResourceNames => new string[] {
             nameof(RuleResources.ADO1015_ProvideRequiredResultProperties_Error_MissingRuleId_Text)
-        ];
+        };
 
         public override HashSet<RuleKind> RuleKinds => new(new[] { RuleKind.Ado });
 

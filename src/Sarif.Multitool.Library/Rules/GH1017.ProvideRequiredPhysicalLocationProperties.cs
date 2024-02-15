@@ -15,11 +15,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         /// </summary>
         public override string Id => RuleId.GHASProvideRequiredPhysicalLocationProperties;
 
-        protected override IEnumerable<string> MessageResourceNames => [
+        protected override IEnumerable<string> MessageResourceNames => new string[] {
             nameof(RuleResources.GH1017_ProvideRequiredPhysicalLocationProperties_Error_MissingArtifactLocationUri_Text)
-        ];
+        };
 
-        public override MultiformatMessageString FullDescription => new() { Text = RuleResources.GH1017_ProvideRequiredPhysicalLocationProperties_FullDescription_Text };
+        public override MultiformatMessageString FullDescription => new MultiformatMessageString() { Text = RuleResources.GH1017_ProvideRequiredPhysicalLocationProperties_FullDescription_Text };
 
         public override HashSet<RuleKind> RuleKinds => new([RuleKind.Ghas]);
 
