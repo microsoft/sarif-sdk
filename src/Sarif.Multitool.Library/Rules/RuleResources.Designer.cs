@@ -81,11 +81,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         /// <summary>
         ///   Looks up a localized string similar to The &apos;$schema&apos; property must refer to the final version of the SARIF 2.1.0 schema. This enables IDEs to provide Intellisense for SARIF log files.
         ///
-        ///The SARIF standard was developed over several years, and many intermediate versions of the schema were produced. Now that the standard is final, only the OASIS standard version of the schema is valid..
+        ///The SARIF standard was developed over several years and many intermediate versions of the schema were produced. Now that the standard is final, only the OASIS standard version of the schema is valid..
         /// </summary>
-        internal static string ADO1011_ReferenceFinalSchema {
+        internal static string ADO1011_ReferenceFinalSchema_FullDescription_Text {
             get {
-                return ResourceManager.GetString("ADO1011_ReferenceFinalSchema", resourceCulture);
+                return ResourceManager.GetString("ADO1011_ReferenceFinalSchema_FullDescription_Text", resourceCulture);
             }
         }
         
@@ -274,7 +274,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}: The &apos;$schema&apos; property value &apos;{1}&apos; does not refer to the final version of the SARIF 2.1.0 schema. If you are using an earlier version of the SARIF format, consider upgrading your analysis tool to produce the final version. If this file does in fact conform to the final version of the schema, upgrade the tool to populate the &apos;$schema&apos; property with a URL that refers to the final version of the schema..
+        ///   Looks up a localized string similar to {0}: The &apos;$schema&apos; property value &apos;{1}&apos; does not refer to the final version of the SARIF 2.1.0 schema. If you are using an earlier version of the SARIF format, consider upgrading your analysis tool to produce the final version. If this file does, in fact, conform to the final version of the schema, upgrade the tool to populate the &apos;$schema&apos; property with a URL that refers to the final version of the schema..
         /// </summary>
         internal static string Base1011_ReferenceFinalSchema_Error_Default_Text {
             get {
@@ -645,7 +645,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         /// <summary>
         ///   Looks up a localized string similar to The &apos;$schema&apos; property must refer to the final version of the SARIF 2.1.0 schema. This enables IDEs to provide Intellisense for SARIF log files.
         ///
-        ///The SARIF standard was developed over several years, and many intermediate versions of the schema were produced. Now that the standard is final, only the OASIS standard version of the schema is valid..
+        ///The SARIF standard was developed over several years and many intermediate versions of the schema were produced. Now that the standard is final, only the OASIS standard version of the schema is valid..
         /// </summary>
         internal static string GH1011_ReferenceFinalSchema {
             get {
@@ -786,7 +786,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         ///
         ///Provide the &apos;shortDescription&apos; and &apos;fullDescription&apos; properties.
         ///
-        ///Provide the &apos;help&apos; property, and populate the &apos;text&apos; property with information about the rule..
+        ///Provide the &apos;help&apos; property and populate the &apos;text&apos; property with information about the rule..
         /// </summary>
         internal static string GH2012_ProvideRequiredReportingDescriptorProperties_FullDescription_Text {
             get {

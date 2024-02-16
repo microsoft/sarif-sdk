@@ -584,10 +584,10 @@ The SARIF standard was developed over several years, and many intermediate versi
   <data name="GH1017_ProvideRequiredPhysicalLocationProperties_Error_MissingArtifactLocationUri_Text" xml:space="preserve">
     <value>{0}: The 'artifactLocation' object on this 'physicalLocation' object does not provide a 'uri' object. This property is required by the {1} service.</value>
   </data>
-  <data name="ADO1011_ReferenceFinalSchema" xml:space="preserve">
+  <data name="ADO1011_ReferenceFinalSchema_FullDescription_Text" xml:space="preserve">
     <value>The '$schema' property must refer to the final version of the SARIF 2.1.0 schema. This enables IDEs to provide Intellisense for SARIF log files.
 
-The SARIF standard was developed over several years, and many intermediate versions of the schema were produced. Now that the standard is final, only the OASIS standard version of the schema is valid.</value>
+The SARIF standard was developed over several years and many intermediate versions of the schema were produced. Now that the standard is final, only the OASIS standard version of the schema is valid.</value>
   </data>
   <data name="ADO1013_ProvideRequiredSarifLogProperties_FullDescription_Text" xml:space="preserve">
     <value>The root element of a SARIF log file is a SarifLog object. The properties of this element provide information about the log's schema version as well as an array of analysis runs. These properties are required by the ADO Advanced Security service.
@@ -596,7 +596,7 @@ Provide the '$schema' property, which must refer to the final version of the SAR
 
 Provide the 'version' property, which must refer to the the final, OASIS standard version of the SARIF 2.1.0 schema. This enables IDEs to provide Intellisense for SARIF log files.
 
-Provide the 'runs' array, even if it is empty. The ADO Advanced Security service specifies a maxzimum of 20 runs.</value>
+Provide the 'runs' array, even if it is empty. The ADO Advanced Security service specifies a maximum of 20 runs.</value>
   </data>
   <data name="ADO1014_ProvideRequiredRunProperties_FullDescription_Text" xml:space="preserve">
     <value>The Run object represents a single execution of the specified analysis tool.
@@ -648,7 +648,7 @@ Provide the 'name' property, which contains a "friendly name" that helps users s
   <data name="GH1011_ReferenceFinalSchema" xml:space="preserve">
     <value>The '$schema' property must refer to the final version of the SARIF 2.1.0 schema. This enables IDEs to provide Intellisense for SARIF log files.
 
-The SARIF standard was developed over several years, and many intermediate versions of the schema were produced. Now that the standard is final, only the OASIS standard version of the schema is valid.</value>
+The SARIF standard was developed over several years and many intermediate versions of the schema were produced. Now that the standard is final, only the OASIS standard version of the schema is valid.</value>
   </data>
   <data name="GH1013_ProvideRequiredSarifLogProperties_FullDescription_Text" xml:space="preserve">
     <value>The root element of a SARIF log file is a SarifLog object. The properties of this element provide information about the log's schema version as well as an array of analysis runs. These properties are required by the ADO Advanced Security service.
@@ -657,7 +657,7 @@ Provide the '$schema' property, which must refer to the final version of the SAR
 
 Provide the 'version' property, which must refer to the the final, OASIS standard version of the SARIF 2.1.0 schema. This enables IDEs to provide Intellisense for SARIF log files.
 
-Provide the 'runs' array, even if it is empty. The GitHub Advanced Security service specifies a maxzimum of 20 runs.</value>
+Provide the 'runs' array, even if it is empty. The GitHub Advanced Security service specifies a maximum of 20 runs.</value>
   </data>
   <data name="GH1014_ProvideRequiredRunProperties_FullDescription_Text" xml:space="preserve">
     <value>The Run object represents a single execution of the specified analysis tool.
@@ -701,9 +701,9 @@ Provide the 'id' property whose value is a stable identifier for the rule.
 
 Provide the 'shortDescription' and 'fullDescription' properties.
 
-Provide the 'help' property, and populate the 'text' property with information about the rule.</value>
+Provide the 'help' property and populate the 'text' property with information about the rule.</value>
   </data>
   <data name="Base1011_ReferenceFinalSchema_Error_Default_Text" xml:space="preserve">
-    <value>{0}: The '$schema' property value '{1}' does not refer to the final version of the SARIF 2.1.0 schema. If you are using an earlier version of the SARIF format, consider upgrading your analysis tool to produce the final version. If this file does in fact conform to the final version of the schema, upgrade the tool to populate the '$schema' property with a URL that refers to the final version of the schema.</value>
+    <value>{0}: The '$schema' property value '{1}' does not refer to the final version of the SARIF 2.1.0 schema. If you are using an earlier version of the SARIF format, consider upgrading your analysis tool to produce the final version. If this file does, in fact, conform to the final version of the schema, upgrade the tool to populate the '$schema' property with a URL that refers to the final version of the schema.</value>
   </data>
 </root>
