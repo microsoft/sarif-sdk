@@ -131,7 +131,7 @@
               "id": "GH2012",
               "name": "GhasProvideRequiredReportingDescriptorProperties",
               "fullDescription": {
-                "text": "Rule metadata should provide information that makes it easy to understand and fix the problem.\r\n\r\nProvide the 'id' property whose value is a stable identifier for the rule.\r\n\r\nProvide the 'shortDescription' and 'fullDescription' properties.\r\n\r\nProvide the 'help' property, and populate the 'text' property with information about the rule."
+                "text": "Rule metadata should provide information that makes it easy to understand and fix the problem.\r\n\r\nProvide the 'id' property whose value is a stable identifier for the rule.\r\n\r\nProvide the 'shortDescription' and 'fullDescription' properties.\r\n\r\nProvide the 'help' property and populate the 'text' property with information about the rule."
               },
               "messageStrings": {
                 "Error_MissingFullDescription": {
