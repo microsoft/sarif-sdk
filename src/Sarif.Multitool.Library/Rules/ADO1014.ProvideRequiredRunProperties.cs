@@ -41,16 +41,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                     // {0}: This 'run' object does not provide an 'automationDetails' property. This property is required by the {1} service.
                     LogResult(
                         runPointer,
-                        nameof(RuleResources.ADO1014_AdoProvideRequiredRunProperties_Error_MissingAutomationDetails_Text),
-                        this.ServiceName);
+                        nameof(RuleResources.ADO1014_AdoProvideRequiredRunProperties_Error_MissingAutomationDetails_Text));
                 }
                 else if (string.IsNullOrWhiteSpace(run.AutomationDetails.Id))
                 {
                     // {0}: This 'run' object's 'automationDetails' object does not provide an 'id' value. This property is required by the {1} service.
                     LogResult(
                         runPointer,
-                        nameof(RuleResources.ADO1014_AdoProvideRequiredRunProperties_Error_MissingAutomationDetailsId_Text),
-                        this.ServiceName);
+                        nameof(RuleResources.ADO1014_AdoProvideRequiredRunProperties_Error_MissingAutomationDetailsId_Text));
                 }
             }
         }

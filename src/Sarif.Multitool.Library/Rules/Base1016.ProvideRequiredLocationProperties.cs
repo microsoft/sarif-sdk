@@ -25,8 +25,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                 // {0}: This 'location' object does not provide a 'physicalLocation' object. This property is required by the {1} service.
                 LogResult(
                     locationPointer,
-                    nameof(RuleResources.Base1016_ProvideRequiredLocationProperties_Error_MissingPhysicalLocation_Text),
-                    this.ServiceName);
+                    nameof(RuleResources.Base1016_ProvideRequiredLocationProperties_Error_MissingPhysicalLocation_Text));
             }
         }
     }

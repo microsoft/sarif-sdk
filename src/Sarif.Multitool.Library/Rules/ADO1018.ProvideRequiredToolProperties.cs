@@ -41,8 +41,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                     runPointer
                         .AtProperty(SarifPropertyName.Tool)
                         .AtProperty(SarifPropertyName.Driver),
-                    nameof(RuleResources.ADO1018_ProvideRequiredToolProperties_Error_MissingDriverFullName_Text),
-                    this.ServiceName);
+                    nameof(RuleResources.ADO1018_ProvideRequiredToolProperties_Error_MissingDriverFullName_Text));
             }
         }
     }

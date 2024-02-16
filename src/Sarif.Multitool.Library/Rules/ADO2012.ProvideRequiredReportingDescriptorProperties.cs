@@ -37,8 +37,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                 // {0}: This 'reportingDescriptor' object does not provide a 'name' value. This property is required by the {1} service.
                 LogResult(
                     reportingDescriptorPointer,
-                    nameof(RuleResources.ADO2012_ProvideRequiredResultProperties_Error_MissingName_Text),
-                    this.ServiceName);
+                    nameof(RuleResources.ADO2012_ProvideRequiredResultProperties_Error_MissingName_Text));
             }
         }
     }

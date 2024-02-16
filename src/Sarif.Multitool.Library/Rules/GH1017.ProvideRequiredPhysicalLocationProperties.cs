@@ -39,8 +39,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                 // {0}: The 'artifactLocation' object on this 'physicalLocation' object does not provide a 'uri' object. This property is required by the {1} service.
                 LogResult(
                     physicalLocationPointer.AtProperty(SarifPropertyName.ArtifactLocation),
-                    nameof(RuleResources.GH1017_ProvideRequiredPhysicalLocationProperties_Error_MissingArtifactLocationUri_Text),
-                    this.ServiceName);
+                    nameof(RuleResources.GH1017_ProvideRequiredPhysicalLocationProperties_Error_MissingArtifactLocationUri_Text));
             }
         }
     }

@@ -44,8 +44,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                     // {0}: This 'reportingDescriptor' object does not provide a 'shortDescription' value. This property is required by the {1} service.
                     LogResult(
                         reportingDescriptorPointer,
-                        nameof(RuleResources.GH2012_ProvideRequiredReportingDescriptorProperties_Error_MissingShortDescription_Text),
-                        this.ServiceName);
+                        nameof(RuleResources.GH2012_ProvideRequiredReportingDescriptorProperties_Error_MissingShortDescription_Text));
                 }
 
                 if (string.IsNullOrWhiteSpace(reportingDescriptor.FullDescription?.Text))
@@ -53,8 +52,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                     // {0}: This 'reportingDescriptor' object does not provide a 'fullDescription' value. This property is required by the {1} service.
                     LogResult(
                         reportingDescriptorPointer,
-                        nameof(RuleResources.GH2012_ProvideRequiredReportingDescriptorProperties_Error_MissingFullDescription_Text),
-                        this.ServiceName);
+                        nameof(RuleResources.GH2012_ProvideRequiredReportingDescriptorProperties_Error_MissingFullDescription_Text));
                 }
 
                 if (reportingDescriptor.Help == null)
@@ -62,16 +60,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                     // {0}: This 'reportingDescriptor' object does not provide a 'help' object. This property is required by the {1} service.
                     LogResult(
                         reportingDescriptorPointer,
-                        nameof(RuleResources.GH2012_ProvideRequiredReportingDescriptorProperties_Error_MissingHelp_Text),
-                        this.ServiceName);
+                        nameof(RuleResources.GH2012_ProvideRequiredReportingDescriptorProperties_Error_MissingHelp_Text));
                 }
                 else if (string.IsNullOrWhiteSpace(reportingDescriptor.Help.Text))
                 {
                     // {0}: This 'help' object does not provide a 'text' value. This property is required by the {1} service.
                     LogResult(
                         reportingDescriptorPointer.AtProperty(SarifPropertyName.Help),
-                        nameof(RuleResources.GH2012_ProvideRequiredReportingDescriptorProperties_Error_MissingHelpText_Text),
-                        this.ServiceName);
+                        nameof(RuleResources.GH2012_ProvideRequiredReportingDescriptorProperties_Error_MissingHelpText_Text));
                 }
             }
         }

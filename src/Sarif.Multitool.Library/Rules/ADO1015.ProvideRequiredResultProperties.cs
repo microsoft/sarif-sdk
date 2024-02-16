@@ -37,8 +37,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                 // {0}: This 'result' object does not provide a 'ruleId' value. This property is required by the {1} service.
                 LogResult(
                     resultPointer,
-                    nameof(RuleResources.ADO1015_ProvideRequiredResultProperties_Error_MissingRuleId_Text),
-                    this.ServiceName);
+                    nameof(RuleResources.ADO1015_ProvideRequiredResultProperties_Error_MissingRuleId_Text));
             }
         }
     }

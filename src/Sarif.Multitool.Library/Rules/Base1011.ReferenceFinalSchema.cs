@@ -54,8 +54,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                 // that refers to the final version of the schema.
                 LogResult(
                     schema,
-                    nameof(RuleResources.Base1011_ReferenceFinalSchema_Error_Default_Text),
-                    schemaUri.OriginalString);
+                    nameof(RuleResources.Base1011_ReferenceFinalSchema_Error_Default_Text));
             }
         }
     }
