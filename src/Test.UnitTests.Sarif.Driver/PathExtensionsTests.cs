@@ -49,30 +49,45 @@ namespace Test.UnitTests.Sarif.Driver
         [Fact]
         public void UriGetFilePath_ShouldNotChangeFileName()
         {
-            string orignalString = "test%2D.md";
+            var tuples = new List<Tuple<string, string>>
+            {
+                // Test cases of relative URI
+                new Tuple<string, string>("test%2D.md","test%2D.md"),
+                new Tuple<string, string>("\\test%2D.md", "\\test%2D.md"),
+                new Tuple<string, string>("/test%2D.md", "/test%2D.md"),
+                new Tuple<string, string>("/test%2D.md?some-query-string", "/test%2D.md"),
+                new Tuple<string, string>("/test.md", "/test.md"),
+                new Tuple<string, string>("/test.md?some-query-string", "/test.md"),
+
+                // Test cases of absolute URI
+                new Tuple<string, string>("C:\\test%2D.md", "C:\\test%2D.md"),
+                new Tuple<string, string>("C:\\Local%20DFile\\test%2D.md", "C:\\Local%20DFile\\test%2D.md"),
+                new Tuple<string, string>("C:\\Local%20DFile\\test%2D.md?some-query-string", "C:\\Local%20DFile\\test%2D.md"),
+                new Tuple<string, string>("C:\\Local%20DFile\\test.md?some-query-string", "C:\\Local%20DFile\\test.md"),
+
+                new Tuple<string, string>("https://github.com/microsoft/sarif-sdk/test%2D.md", "https://github.com/microsoft/sarif-sdk/test%2D.md"),
+                new Tuple<string, string>("https://github.com/microsoft/sarif-sdk/test%2D.md?some-query-string", "https://github.com/microsoft/sarif-sdk/test%2D.md"),
+                new Tuple<string, string>("https://github.com/microsoft/sarif-sdk/test.md", "/microsoft/sarif-sdk/test.md"),
+                new Tuple<string, string>("https://github.com/microsoft/sarif-sdk/test.md?some-query-string", "/microsoft/sarif-sdk/test.md"),
+            };
+
+            var sb = new StringBuilder();
             string filePath = string.Empty;
-
-            if (Uri.TryCreate(orignalString, UriKind.RelativeOrAbsolute, out Uri uri1))
+            foreach (Tuple<string, string> tuple in tuples)
             {
-                filePath = uri1.GetFilePath();
+                if (Uri.TryCreate(tuple.Item1, UriKind.RelativeOrAbsolute, out Uri uri))
+                {
+                    filePath = uri.GetFilePath();
+                }
+
+                if (!filePath.Equals(tuple.Item2))
+                {
+                    sb.Append($"'{filePath}' should be '{tuple.Item2}';");
+                }
             }
 
-            filePath.Should().Be(orignalString);
-
-            orignalString = "C:\\test%2D.md";
-            if (Uri.TryCreate(orignalString, UriKind.RelativeOrAbsolute, out Uri uri2))
-            {
-                filePath = uri2.GetFilePath();
-            }
-
-            filePath.Should().Be(orignalString);
+            sb.Length.Should().Be(0);
         }
-
-
-        //    // 'normalizedSpecifier' should not be changed even if it contains URL Percent-encoding characters.
-        //    if (Uri.TryCreate(this.specifier, UriKind.RelativeOrAbsolute, out Uri uri))
-        //    {
-        //    normalizedSpecifier = uri.GetFilePath();
 
         [Fact]
         [Trait(TestTraits.WindowsOnly, "true")]

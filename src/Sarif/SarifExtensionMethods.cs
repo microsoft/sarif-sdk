@@ -6,7 +6,6 @@ using System.Collections;
 using System.Collections.Generic;
 
 using System.Globalization;
-using System.IO;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -20,6 +19,8 @@ namespace Microsoft.CodeAnalysis.Sarif
     {
         [ThreadStatic]
         private static StringBuilder s_sb;
+
+        private readonly static string URLPercentEncodingPattern = @"%[0-9][0-9A-Fa-f]";
 
         public static string CsvEscape(this string value)
         {
@@ -259,14 +260,20 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         public static string GetFilePath(this Uri uri)
         {
+            string originalString = uri.OriginalString;
+            string originalStringWithoutQuery = originalString.Split('?')[0];
+
+            // 'uri.LocalPath' is not supported for RelativeUri.
             if (!uri.IsAbsoluteUri)
             {
-                return uri.OriginalString;
+                return originalStringWithoutQuery;
             }
 
-            if (Path.GetFileName(uri.OriginalString) != Path.GetFileName(uri.LocalPath))
+            if (Regex.IsMatch(originalString, URLPercentEncodingPattern))
             {
-                return uri.OriginalString;
+                // If the 'originalString' contains URL percent-encoding characters,
+                // 'uri.LocalPath' will decode them thus changing the path unexpectedly.
+                return originalStringWithoutQuery;
             }
             else
             {

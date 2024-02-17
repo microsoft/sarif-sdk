@@ -836,7 +836,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         {
             var logger = new MemoryStreamSarifLogger(dataToInsert: OptionallyEmittedData.Hashes);
             var command = new TestMultithreadedAnalyzeCommand();
-            var uri = new Uri("/new folder/0%1%20%.txt", UriKind.Relative);
+            var uri = new Uri("/new%20folder/0%1%20%.txt", UriKind.Relative);
 
             var target = new EnumeratedArtifact(FileSystem.Instance) { Uri = uri, Contents = "foo foo" };
 
