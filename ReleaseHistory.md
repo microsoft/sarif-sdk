@@ -1,5 +1,5 @@
 # SARIF Package Release History (SDK, Driver, Converters, and Multitool)
-## UNRELEASED
+## **v4.5.1 [Sdk](https://www.nuget.org/packages/Sarif.Sdk/v4.5.1) | [Driver](https://www.nuget.org/packages/Sarif.Driver/v4.5.1) | [Converters](https://www.nuget.org/packages/Sarif.Converters/v4.5.1)  | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/v4.5.1) | [Multitool Library](https://www.nuget.org/packages/Sarif.Multitool.Library/v4.5.1)
 * DEP: Add explicit package references to `Sarif` and `Sarif.Driver` to resolve version conflict build error.
   `System.Diagnostics.Debug` 4.3.0,
   `System.IO.FileSystem.Primitives` 4.3.0,
