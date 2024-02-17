@@ -16,13 +16,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         public override string Id => RuleId.GHASProvideRequiredPhysicalLocationProperties;
 
         protected override IEnumerable<string> MessageResourceNames => new string[] {
-            nameof(RuleResources.GH1017_ProvideRequiredPhysicalLocationProperties_Error_MissingArtifactLocationUri_Text),
-            nameof(RuleResources.Base1015_ProvideRequiredResultProperties_Error_EmptyLocationsArray_Text),
-            nameof(RuleResources.Base1015_ProvideRequiredResultProperties_Error_MissingLocationsArray_Text),
-            nameof(RuleResources.Base1015_ProvideRequiredResultProperties_Error_MissingMessageText_Text),
-            nameof(RuleResources.Base1015_ProvideRequiredResultProperties_Error_MissingMessage_Text),
-            nameof(RuleResources.Base1015_ProvideRequiredResultProperties_Error_MissingPartialFingerprints_Text)
+            nameof(RuleResources.GH1017_ProvideRequiredPhysicalLocationProperties_Error_MissingArtifactLocationUri_Text)
         };
+
+        public override MultiformatMessageString FullDescription => new MultiformatMessageString() { Text = RuleResources.GH1017_ProvideRequiredPhysicalLocationProperties_FullDescription_Text };
 
         public override HashSet<RuleKind> RuleKinds => new HashSet<RuleKind>(new[] { RuleKind.Ghas });
 

@@ -79,6 +79,30 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The &apos;$schema&apos; property must refer to the final version of the SARIF 2.1.0 schema. This enables IDEs to provide Intellisense for SARIF log files.
+        ///
+        ///The SARIF standard was developed over several years and many intermediate versions of the schema were produced. Now that the standard is final, only the OASIS standard version of the schema is valid..
+        /// </summary>
+        internal static string ADO1011_ReferenceFinalSchema_FullDescription_Text {
+            get {
+                return ResourceManager.GetString("ADO1011_ReferenceFinalSchema_FullDescription_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The root element of a SARIF log file is a SarifLog object. The properties of this element provide information about the log&apos;s schema version as well as an array of analysis runs. These properties are required by the ADO Advanced Security service.
+        ///
+        ///Provide the &apos;$schema&apos; property, which must refer to the final version of the SARIF 2.1.0 schema. This enables IDEs to provide Intellisense for SARIF log files.
+        ///
+        ///Provide the &apos;version&apos; property, which must refer to the the final, OASIS standard version of the SA [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string ADO1013_ProvideRequiredSarifLogProperties_FullDescription_Text {
+            get {
+                return ResourceManager.GetString("ADO1013_ProvideRequiredSarifLogProperties_FullDescription_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0}: This &apos;run&apos; object does not provide an &apos;automationDetails&apos; property. This property is required by the {1} service..
         /// </summary>
         internal static string ADO1014_AdoProvideRequiredRunProperties_Error_MissingAutomationDetails_Text {
@@ -97,11 +121,63 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The Run object represents a single execution of the specified analysis tool.
+        ///
+        ///Provide the &apos;tool&apos; property, which contains metadata about the software that generated the static analysis results.
+        ///
+        ///Provide the &apos;results&apos; array, even if it is empty.
+        ///
+        ///Provide the &apos;automationDetails&apos; property. The automationDetails&apos;s &apos;id&apos; property is required by the ADO Advanced Security service..
+        /// </summary>
+        internal static string ADO1014_ProvideRequiredRunProperties_FullDescription_Text {
+            get {
+                return ResourceManager.GetString("ADO1014_ProvideRequiredRunProperties_FullDescription_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0}: This &apos;result&apos; object does not provide a &apos;ruleId&apos; value. This property is required by the {1} service..
         /// </summary>
         internal static string ADO1015_ProvideRequiredResultProperties_Error_MissingRuleId_Text {
             get {
                 return ResourceManager.GetString("ADO1015_ProvideRequiredResultProperties_Error_MissingRuleId_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The Result object represents an analysis finding and should provide details describing the nature of the problem along with its location in the scan target.
+        ///
+        ///Provide the &apos;ruleId&apos; property, which is the unique identifier of the analysis rule that was violated. This property is required by the ADO Advanced Security service.
+        ///
+        ///Provide the &apos;message&apos; property, which is a user-facing explanation of the result occurrence. The message&apos;s &apos;text&apos; property is required by the ADO Advanced Security service.
+        ///
+        ///Provide [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string ADO1015_ProvideRequiredResultProperties_FullDescription_Text {
+            get {
+                return ResourceManager.GetString("ADO1015_ProvideRequiredResultProperties_FullDescription_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The Location object is important for providing consumers with the location where the result occurred.
+        ///
+        ///Provide the &apos;physicalLocation&apos; property. This property is required by the ADO Advanced Security service..
+        /// </summary>
+        internal static string ADO1016_ProvideRequiredLocationProperties_FullDescription_Text {
+            get {
+                return ResourceManager.GetString("ADO1016_ProvideRequiredLocationProperties_FullDescription_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Provide the &apos;region&apos; property, along with the appropriate region properties. This property is required by the ADO Advanced Security service.
+        ///
+        ///Provide the &apos;artifactLocation&apos; property. This property is required by the ADO Advanced Security service..
+        /// </summary>
+        internal static string ADO1017_ProvideRequiredPhysicalLocationProperties_FullDescription_Text {
+            get {
+                return ResourceManager.GetString("ADO1017_ProvideRequiredPhysicalLocationProperties_FullDescription_Text", resourceCulture);
             }
         }
         
@@ -115,11 +191,40 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Provide information that makes it easy to identify the name and version of your tool.
+        ///
+        ///Provide the &apos;driver&apos; property. This property is required by the ADO Advanced Security service.
+        ///
+        ///Provide the driver&apos;s &apos;name&apos; and &apos;fullName&apos; properties.
+        ///
+        ///Provide the driver&apos;s &apos;rules&apos; array..
+        /// </summary>
+        internal static string ADO1018_ProvideRequiredToolProperties_FullDescription_Text {
+            get {
+                return ResourceManager.GetString("ADO1018_ProvideRequiredToolProperties_FullDescription_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0}: This &apos;automationDetails&apos; object does not provide an &apos;id&apos; property. This property is required by the {1} service..
         /// </summary>
         internal static string ADO2010_ProvideAutomationDetailsId_Note_Default_Text {
             get {
                 return ResourceManager.GetString("ADO2010_ProvideAutomationDetailsId_Note_Default_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Rule metadata should provide information that makes it easy to understand and fix the problem.
+        ///rule.id
+        ///
+        ///Provide the &apos;id&apos; property whose value is a stable identifier for the rule.
+        ///
+        ///Provide the &apos;name&apos; property, which contains a &quot;friendly name&quot; that helps users see at a glance the purpose of the rule. For uniformity of experience across all tools that produce SARIF, the friendly name should be a single Pascal-case identifier, for example, &apos;ProvideRuleFriendlyName&apos;..
+        /// </summary>
+        internal static string ADO2012_ProvideRequiredReportingDescriptorProperties_FullDescription_Text {
+            get {
+                return ResourceManager.GetString("ADO2012_ProvideRequiredReportingDescriptorProperties_FullDescription_Text", resourceCulture);
             }
         }
         
@@ -165,6 +270,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         internal static string Base1003_ProvideTool_Note_Default_Text {
             get {
                 return ResourceManager.GetString("Base1003_ProvideTool_Note_Default_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0}: The &apos;$schema&apos; property value &apos;{1}&apos; does not refer to the final version of the SARIF 2.1.0 schema. If you are using an earlier version of the SARIF format, consider upgrading your analysis tool to produce the final version. If this file does, in fact, conform to the final version of the schema, upgrade the tool to populate the &apos;$schema&apos; property with a URL that refers to the final version of the schema..
+        /// </summary>
+        internal static string Base1011_ReferenceFinalSchema_Error_Default_Text {
+            get {
+                return ResourceManager.GetString("Base1011_ReferenceFinalSchema_Error_Default_Text", resourceCulture);
             }
         }
         
@@ -362,7 +476,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}: This &apos;reportingDescriptor&apos; object does not provide an &apos;id&apos; value. This property is required by the {1} service..
+        ///   Looks up a localized string similar to {0}: This &apos;reportingDescriptor&apos; object does not provide an &apos;Id&apos; value. This property is required by the {1} service..
         /// </summary>
         internal static string Base2012_ProvideRequiredReportingDescriptorProperties_Error_MissingIdProperty_Text {
             get {
@@ -529,12 +643,101 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The &apos;$schema&apos; property must refer to the final version of the SARIF 2.1.0 schema. This enables IDEs to provide Intellisense for SARIF log files.
+        ///
+        ///The SARIF standard was developed over several years and many intermediate versions of the schema were produced. Now that the standard is final, only the OASIS standard version of the schema is valid..
+        /// </summary>
+        internal static string GH1011_ReferenceFinalSchema {
+            get {
+                return ResourceManager.GetString("GH1011_ReferenceFinalSchema", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The root element of a SARIF log file is a SarifLog object. The properties of this element provide information about the log&apos;s schema version as well as an array of analysis runs. These properties are required by the ADO Advanced Security service.
+        ///
+        ///Provide the &apos;$schema&apos; property, which must refer to the final version of the SARIF 2.1.0 schema. This enables IDEs to provide Intellisense for SARIF log files.
+        ///
+        ///Provide the &apos;version&apos; property, which must refer to the the final, OASIS standard version of the SA [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string GH1013_ProvideRequiredSarifLogProperties_FullDescription_Text {
+            get {
+                return ResourceManager.GetString("GH1013_ProvideRequiredSarifLogProperties_FullDescription_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The Run object represents a single execution of the specified analysis tool.
+        ///
+        ///Provide the &apos;tool&apos; property, which contains metadata about the software that generated the static analysis results.
+        ///
+        ///Provide the &apos;results&apos; array, even if it is empty..
+        /// </summary>
+        internal static string GH1014_ProvideRequiredRunProperties_FullDescription_Text {
+            get {
+                return ResourceManager.GetString("GH1014_ProvideRequiredRunProperties_FullDescription_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The Result object represents an analysis finding and should provide details describing the nature of the problem along with its location in the scan target.
+        ///
+        ///Provide the &apos;message&apos; property, which is a user-facing explanation of the result occurrence. The message&apos;s &apos;text&apos; property is required by the GitHub Advanced Security service.
+        ///
+        ///Provide the &apos;locations&apos; array, which must contain at least one location object.
+        ///
+        ///Provide the &apos;partialFingerprints&apos; dictionary. This property is required by the GitHub Adva [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string GH1015_ProvideRequiredResultProperties_FullDescription_Text {
+            get {
+                return ResourceManager.GetString("GH1015_ProvideRequiredResultProperties_FullDescription_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The Location object is important for providing consumers with the location where the result occurred.
+        ///
+        ///Provide the &apos;physicalLocation&apos; property. This property is required by the GitHub Advanced Security service..
+        /// </summary>
+        internal static string GH1016_ProvideRequiredLocationProperties_FullDescription_Text {
+            get {
+                return ResourceManager.GetString("GH1016_ProvideRequiredLocationProperties_FullDescription_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0}: The &apos;artifactLocation&apos; object on this &apos;physicalLocation&apos; object does not provide a &apos;uri&apos; object. This property is required by the {1} service..
         /// </summary>
         internal static string GH1017_ProvideRequiredPhysicalLocationProperties_Error_MissingArtifactLocationUri_Text {
             get {
                 return ResourceManager.GetString("GH1017_ProvideRequiredPhysicalLocationProperties_Error_MissingArtifactLocationUri" +
                         "_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Provide the &apos;region&apos; property, along with the appropriate region properties. This property is required by the GitHub Advanced Security service.
+        ///
+        ///Provide the &apos;artifactLocation&apos; property. This property is required by the GitHub Advanced Security service..
+        /// </summary>
+        internal static string GH1017_ProvideRequiredPhysicalLocationProperties_FullDescription_Text {
+            get {
+                return ResourceManager.GetString("GH1017_ProvideRequiredPhysicalLocationProperties_FullDescription_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Provide information that makes it easy to identify the name and version of your tool.
+        ///
+        ///Provide the &apos;driver&apos; property. This property is required by the GitHub Advanced Security service.
+        ///
+        ///Provide the driver&apos;s &apos;name&apos; property.
+        ///
+        ///Provide the driver&apos;s &apos;rules&apos; array..
+        /// </summary>
+        internal static string GH1018_ProvideRequiredToolProperties_FullDescription_Text {
+            get {
+                return ResourceManager.GetString("GH1018_ProvideRequiredToolProperties_FullDescription_Text", resourceCulture);
             }
         }
         
@@ -573,6 +776,21 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
             get {
                 return ResourceManager.GetString("GH2012_ProvideRequiredReportingDescriptorProperties_Error_MissingShortDescription" +
                         "_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Rule metadata should provide information that makes it easy to understand and fix the problem.
+        ///
+        ///Provide the &apos;id&apos; property whose value is a stable identifier for the rule.
+        ///
+        ///Provide the &apos;shortDescription&apos; and &apos;fullDescription&apos; properties.
+        ///
+        ///Provide the &apos;help&apos; property and populate the &apos;text&apos; property with information about the rule..
+        /// </summary>
+        internal static string GH2012_ProvideRequiredReportingDescriptorProperties_FullDescription_Text {
+            get {
+                return ResourceManager.GetString("GH2012_ProvideRequiredReportingDescriptorProperties_FullDescription_Text", resourceCulture);
             }
         }
         

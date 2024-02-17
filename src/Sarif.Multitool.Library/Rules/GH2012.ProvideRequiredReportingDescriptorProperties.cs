@@ -19,13 +19,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             nameof(RuleResources.GH2012_ProvideRequiredReportingDescriptorProperties_Error_MissingFullDescription_Text),
             nameof(RuleResources.GH2012_ProvideRequiredReportingDescriptorProperties_Error_MissingHelpText_Text),
             nameof(RuleResources.GH2012_ProvideRequiredReportingDescriptorProperties_Error_MissingHelp_Text),
-            nameof(RuleResources.GH2012_ProvideRequiredReportingDescriptorProperties_Error_MissingShortDescription_Text),
-            nameof(RuleResources.Base1015_ProvideRequiredResultProperties_Error_EmptyLocationsArray_Text),
-            nameof(RuleResources.Base1015_ProvideRequiredResultProperties_Error_MissingLocationsArray_Text),
-            nameof(RuleResources.Base1015_ProvideRequiredResultProperties_Error_MissingMessageText_Text),
-            nameof(RuleResources.Base1015_ProvideRequiredResultProperties_Error_MissingMessage_Text),
-            nameof(RuleResources.Base1015_ProvideRequiredResultProperties_Error_MissingPartialFingerprints_Text)
+            nameof(RuleResources.GH2012_ProvideRequiredReportingDescriptorProperties_Error_MissingShortDescription_Text)
         };
+
+        public override MultiformatMessageString FullDescription => new MultiformatMessageString() { Text = RuleResources.GH2012_ProvideRequiredReportingDescriptorProperties_FullDescription_Text };
 
         public override HashSet<RuleKind> RuleKinds => new HashSet<RuleKind>(new[] { RuleKind.Ghas });
 

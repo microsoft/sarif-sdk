@@ -561,7 +561,7 @@ The SARIF standard was developed over several years, and many intermediate versi
     <value>{0}: This 'tool' object does not provide a 'driver' object. This property is required by the {1} service.</value>
   </data>
   <data name="Base2012_ProvideRequiredReportingDescriptorProperties_Error_MissingIdProperty_Text" xml:space="preserve">
-    <value>{0}: This 'reportingDescriptor' object does not provide an 'id' value. This property is required by the {1} service.</value>
+    <value>{0}: This 'reportingDescriptor' object does not provide an 'Id' value. This property is required by the {1} service.</value>
   </data>
   <data name="GH2012_ProvideRequiredReportingDescriptorProperties_Error_MissingFullDescription_Text" xml:space="preserve">
     <value>{0}: This 'reportingDescriptor' object does not provide a 'fullDescription' value. This property is required by the {1} service.</value>
@@ -583,5 +583,127 @@ The SARIF standard was developed over several years, and many intermediate versi
   </data>
   <data name="GH1017_ProvideRequiredPhysicalLocationProperties_Error_MissingArtifactLocationUri_Text" xml:space="preserve">
     <value>{0}: The 'artifactLocation' object on this 'physicalLocation' object does not provide a 'uri' object. This property is required by the {1} service.</value>
+  </data>
+  <data name="ADO1011_ReferenceFinalSchema_FullDescription_Text" xml:space="preserve">
+    <value>The '$schema' property must refer to the final version of the SARIF 2.1.0 schema. This enables IDEs to provide Intellisense for SARIF log files.
+
+The SARIF standard was developed over several years and many intermediate versions of the schema were produced. Now that the standard is final, only the OASIS standard version of the schema is valid.</value>
+  </data>
+  <data name="ADO1013_ProvideRequiredSarifLogProperties_FullDescription_Text" xml:space="preserve">
+    <value>The root element of a SARIF log file is a SarifLog object. The properties of this element provide information about the log's schema version as well as an array of analysis runs. These properties are required by the ADO Advanced Security service.
+
+Provide the '$schema' property, which must refer to the final version of the SARIF 2.1.0 schema. This enables IDEs to provide Intellisense for SARIF log files.
+
+Provide the 'version' property, which must refer to the the final, OASIS standard version of the SARIF 2.1.0 schema. This enables IDEs to provide Intellisense for SARIF log files.
+
+Provide the 'runs' array, even if it is empty. The ADO Advanced Security service specifies a maximum of 20 runs.</value>
+  </data>
+  <data name="ADO1014_ProvideRequiredRunProperties_FullDescription_Text" xml:space="preserve">
+    <value>The Run object represents a single execution of the specified analysis tool.
+
+Provide the 'tool' property, which contains metadata about the software that generated the static analysis results.
+
+Provide the 'results' array, even if it is empty.
+
+Provide the 'automationDetails' property. The automationDetails's 'id' property is required by the ADO Advanced Security service.</value>
+  </data>
+  <data name="ADO1015_ProvideRequiredResultProperties_FullDescription_Text" xml:space="preserve">
+    <value>The Result object represents an analysis finding and should provide details describing the nature of the problem along with its location in the scan target.
+
+Provide the 'ruleId' property, which is the unique identifier of the analysis rule that was violated. This property is required by the ADO Advanced Security service.
+
+Provide the 'message' property, which is a user-facing explanation of the result occurrence. The message's 'text' property is required by the ADO Advanced Security service.
+
+Provide the 'locations' array, which must contain at least one location object.
+
+Provide the 'partialFingerprints' dictionary. This property is required by the ADO Advanced Security service.</value>
+  </data>
+  <data name="ADO1016_ProvideRequiredLocationProperties_FullDescription_Text" xml:space="preserve">
+    <value>The Location object is important for providing consumers with the location where the result occurred.
+
+Provide the 'physicalLocation' property. This property is required by the ADO Advanced Security service.</value>
+  </data>
+  <data name="ADO1017_ProvideRequiredPhysicalLocationProperties_FullDescription_Text" xml:space="preserve">
+    <value>Provide the 'region' property, along with the appropriate region properties. This property is required by the ADO Advanced Security service.
+
+Provide the 'artifactLocation' property. This property is required by the ADO Advanced Security service.</value>
+  </data>
+  <data name="ADO1018_ProvideRequiredToolProperties_FullDescription_Text" xml:space="preserve">
+    <value>Provide information that makes it easy to identify the name and version of your tool.
+
+Provide the 'driver' property. This property is required by the ADO Advanced Security service.
+
+Provide the driver's 'name' and 'fullName' properties.
+
+Provide the driver's 'rules' array.</value>
+  </data>
+  <data name="ADO2012_ProvideRequiredReportingDescriptorProperties_FullDescription_Text" xml:space="preserve">
+    <value>Rule metadata should provide information that makes it easy to understand and fix the problem.
+rule.id
+
+Provide the 'id' property whose value is a stable identifier for the rule.
+
+Provide the 'name' property, which contains a "friendly name" that helps users see at a glance the purpose of the rule. For uniformity of experience across all tools that produce SARIF, the friendly name should be a single Pascal-case identifier, for example, 'ProvideRuleFriendlyName'.</value>
+  </data>
+  <data name="GH1011_ReferenceFinalSchema" xml:space="preserve">
+    <value>The '$schema' property must refer to the final version of the SARIF 2.1.0 schema. This enables IDEs to provide Intellisense for SARIF log files.
+
+The SARIF standard was developed over several years and many intermediate versions of the schema were produced. Now that the standard is final, only the OASIS standard version of the schema is valid.</value>
+  </data>
+  <data name="GH1013_ProvideRequiredSarifLogProperties_FullDescription_Text" xml:space="preserve">
+    <value>The root element of a SARIF log file is a SarifLog object. The properties of this element provide information about the log's schema version as well as an array of analysis runs. These properties are required by the ADO Advanced Security service.
+
+Provide the '$schema' property, which must refer to the final version of the SARIF 2.1.0 schema. This enables IDEs to provide Intellisense for SARIF log files.
+
+Provide the 'version' property, which must refer to the the final, OASIS standard version of the SARIF 2.1.0 schema. This enables IDEs to provide Intellisense for SARIF log files.
+
+Provide the 'runs' array, even if it is empty. The GitHub Advanced Security service specifies a maximum of 20 runs.</value>
+  </data>
+  <data name="GH1014_ProvideRequiredRunProperties_FullDescription_Text" xml:space="preserve">
+    <value>The Run object represents a single execution of the specified analysis tool.
+
+Provide the 'tool' property, which contains metadata about the software that generated the static analysis results.
+
+Provide the 'results' array, even if it is empty.</value>
+  </data>
+  <data name="GH1015_ProvideRequiredResultProperties_FullDescription_Text" xml:space="preserve">
+    <value>The Result object represents an analysis finding and should provide details describing the nature of the problem along with its location in the scan target.
+
+Provide the 'message' property, which is a user-facing explanation of the result occurrence. The message's 'text' property is required by the GitHub Advanced Security service.
+
+Provide the 'locations' array, which must contain at least one location object.
+
+Provide the 'partialFingerprints' dictionary. This property is required by the GitHub Advanced Security service.</value>
+  </data>
+  <data name="GH1016_ProvideRequiredLocationProperties_FullDescription_Text" xml:space="preserve">
+    <value>The Location object is important for providing consumers with the location where the result occurred.
+
+Provide the 'physicalLocation' property. This property is required by the GitHub Advanced Security service.</value>
+  </data>
+  <data name="GH1017_ProvideRequiredPhysicalLocationProperties_FullDescription_Text" xml:space="preserve">
+    <value>Provide the 'region' property, along with the appropriate region properties. This property is required by the GitHub Advanced Security service.
+
+Provide the 'artifactLocation' property. This property is required by the GitHub Advanced Security service.</value>
+  </data>
+  <data name="GH1018_ProvideRequiredToolProperties_FullDescription_Text" xml:space="preserve">
+    <value>Provide information that makes it easy to identify the name and version of your tool.
+
+Provide the 'driver' property. This property is required by the GitHub Advanced Security service.
+
+Provide the driver's 'name' property.
+
+Provide the driver's 'rules' array.</value>
+  </data>
+  <data name="GH2012_ProvideRequiredReportingDescriptorProperties_FullDescription_Text" xml:space="preserve">
+    <value>Rule metadata should provide information that makes it easy to understand and fix the problem.
+
+Provide the 'id' property whose value is a stable identifier for the rule.
+
+Provide the 'shortDescription' and 'fullDescription' properties.
+
+Provide the 'help' property and populate the 'text' property with information about the rule.</value>
+  </data>
+  <data name="Base1011_ReferenceFinalSchema_Error_Default_Text" xml:space="preserve">
+    <value>{0}: The '$schema' property value '{1}' does not refer to the final version of the SARIF 2.1.0 schema. If you are using an earlier version of the SARIF format, consider upgrading your analysis tool to produce the final version. If this file does, in fact, conform to the final version of the schema, upgrade the tool to populate the '$schema' property with a URL that refers to the final version of the schema.</value>
   </data>
 </root>

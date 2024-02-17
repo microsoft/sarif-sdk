@@ -16,11 +16,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         public override string Id => RuleId.ADOProvideToolDriverProperties;
 
         protected override IEnumerable<string> MessageResourceNames => new string[] {
-            nameof(RuleResources.ADO1018_ProvideRequiredToolProperties_Error_MissingDriverFullName_Text),
-            nameof(RuleResources.Base1018_ProvideRequiredToolProperties_Error_MissingDriverName_Text),
-            nameof(RuleResources.Base1018_ProvideRequiredToolProperties_Error_MissingDriverRules_Text),
-            nameof(RuleResources.Base1018_ProvideRequiredToolProperties_Error_MissingDriver_Text),
+            nameof(RuleResources.ADO1018_ProvideRequiredToolProperties_Error_MissingDriverFullName_Text)
         };
+
+        public override MultiformatMessageString FullDescription => new MultiformatMessageString() { Text = RuleResources.ADO1018_ProvideRequiredToolProperties_FullDescription_Text };
 
         public override HashSet<RuleKind> RuleKinds => new HashSet<RuleKind>(new[] { RuleKind.Ado });
 
@@ -35,17 +34,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         {
             base.Analyze(run.Tool, runPointer.AtProperty(SarifPropertyName.Tool));
 
-            if (run.Tool?.Driver != null)
+            if (run.Tool?.Driver != null && string.IsNullOrWhiteSpace(run.Tool.Driver.FullName))
             {
-                if (string.IsNullOrWhiteSpace(run.Tool.Driver.FullName))
-                {
-                    // {0}: This 'driver' object does not provide a 'fullName' value. This property is required by the {1} service.
-                    LogResult(
-                        runPointer
-                            .AtProperty(SarifPropertyName.Tool)
-                            .AtProperty(SarifPropertyName.Driver),
-                        nameof(RuleResources.ADO1018_ProvideRequiredToolProperties_Error_MissingDriverFullName_Text));
-                }
+                // {0}: This 'driver' object does not provide a 'fullName' value. This property is required by the {1} service.
+                LogResult(
+                    runPointer
+                        .AtProperty(SarifPropertyName.Tool)
+                        .AtProperty(SarifPropertyName.Driver),
+                    nameof(RuleResources.ADO1018_ProvideRequiredToolProperties_Error_MissingDriverFullName_Text));
             }
         }
     }

@@ -13,16 +13,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         /// </summary>
         public override string Id => RuleId.ADOProvideRequiredResultProperties;
 
+        public override MultiformatMessageString FullDescription => new MultiformatMessageString() { Text = RuleResources.ADO1015_ProvideRequiredResultProperties_FullDescription_Text };
+
         protected override IEnumerable<string> MessageResourceNames => new string[] {
-            nameof(RuleResources.ADO1015_ProvideRequiredResultProperties_Error_MissingRuleId_Text),
-            nameof(RuleResources.Base1015_ProvideRequiredResultProperties_Error_EmptyLocationsArray_Text),
-            nameof(RuleResources.Base1015_ProvideRequiredResultProperties_Error_MissingLocationsArray_Text),
-            nameof(RuleResources.Base1015_ProvideRequiredResultProperties_Error_MissingMessageText_Text),
-            nameof(RuleResources.Base1015_ProvideRequiredResultProperties_Error_MissingMessage_Text),
-            nameof(RuleResources.Base1015_ProvideRequiredResultProperties_Error_MissingPartialFingerprints_Text)
+            nameof(RuleResources.ADO1015_ProvideRequiredResultProperties_Error_MissingRuleId_Text)
         };
 
-        public override HashSet<RuleKind> RuleKinds => new HashSet<RuleKind>(new[] { RuleKind.Ado });
+        public override HashSet<RuleKind> RuleKinds => new(new[] { RuleKind.Ado });
 
         protected override string ServiceName => RuleResources.ServiceName_ADO;
 

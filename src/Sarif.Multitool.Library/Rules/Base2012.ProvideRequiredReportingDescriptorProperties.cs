@@ -22,7 +22,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         {
             if (reportingDescriptor != null && string.IsNullOrWhiteSpace(reportingDescriptor.Id))
             {
-                // {0}: This 'reportingDescriptor' object does not provide an 'id' value. This property is required by the {1} service.
+                // {0}: This 'reportingDescriptor' object does not provide an 'Id' value. This property is required by the {1} service.
                 LogResult(
                     reportingDescriptorPointer,
                     nameof(RuleResources.Base2012_ProvideRequiredReportingDescriptorProperties_Error_MissingIdProperty_Text));
