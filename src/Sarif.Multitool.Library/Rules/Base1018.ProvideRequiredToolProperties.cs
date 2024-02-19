@@ -33,22 +33,25 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                         toolPointer,
                         nameof(RuleResources.Base1018_ProvideRequiredToolProperties_Error_MissingDriver_Text));
                 }
-                else if (string.IsNullOrWhiteSpace(tool.Driver.Name))
+                else
                 {
-                    // {0}: The 'driver' object in this tool does not provide a 'name' value. This property is required by the {1} service.
-                    LogResult(
-                        toolPointer
-                            .AtProperty(SarifPropertyName.Driver),
-                        nameof(RuleResources.Base1018_ProvideRequiredToolProperties_Error_MissingDriverName_Text));
-                }
+                    if (string.IsNullOrWhiteSpace(tool.Driver.Name))
+                    {
+                        // {0}: The 'driver' object in this tool does not provide a 'name' value. This property is required by the {1} service.
+                        LogResult(
+                            toolPointer
+                                .AtProperty(SarifPropertyName.Driver),
+                            nameof(RuleResources.Base1018_ProvideRequiredToolProperties_Error_MissingDriverName_Text));
+                    }
 
-                if (tool.Driver.Rules == null)
-                {
-                    // {0}: The 'driver' object in this tool does not provide a 'rules' array. This property is required by the {1} service.
-                    LogResult(
-                        toolPointer
-                            .AtProperty(SarifPropertyName.Driver),
-                        nameof(RuleResources.Base1018_ProvideRequiredToolProperties_Error_MissingDriverRules_Text));
+                    if (tool.Driver.Rules == null)
+                    {
+                        // {0}: The 'driver' object in this tool does not provide a 'rules' array. This property is required by the {1} service.
+                        LogResult(
+                            toolPointer
+                                .AtProperty(SarifPropertyName.Driver),
+                            nameof(RuleResources.Base1018_ProvideRequiredToolProperties_Error_MissingDriverRules_Text));
+                    }
                 }
             }
         }
