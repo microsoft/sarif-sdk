@@ -1075,7 +1075,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 ThrowExitApplicationException(ExitReason.NoRulesLoaded);
             }
 
-            SortedSet<string> disabledSkimmers = BuildDisabledSkimmersSet(context, skimmers);
+            ISet<string> disabledSkimmers = BuildDisabledSkimmersSet(context, skimmers);
 
             if (disabledSkimmers.Count == skimmers.Count())
             {
