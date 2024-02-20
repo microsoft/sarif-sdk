@@ -61,24 +61,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}: This &apos;tool&apos; object in this run does not provide a &apos;driver&apos; property. This property is required by the {1} service..
-        /// </summary>
-        internal static string ADO1003_ProvideDriver_Note_Default_Text {
-            get {
-                return ResourceManager.GetString("ADO1003_ProvideDriver_Note_Default_Text", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to {0}: This &apos;driver&apos; object does not provide a &apos;name&apos; property. This property is required by the {1} service..
-        /// </summary>
-        internal static string ADO1003_ProvideName_Note_Default_Text {
-            get {
-                return ResourceManager.GetString("ADO1003_ProvideName_Note_Default_Text", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to The &apos;$schema&apos; property must refer to the final version of the SARIF 2.1.0 schema. This enables IDEs to provide Intellisense for SARIF log files.
         ///
         ///The SARIF standard was developed over several years and many intermediate versions of the schema were produced. Now that the standard is final, only the OASIS standard version of the schema is valid..
@@ -206,15 +188,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}: This &apos;automationDetails&apos; object does not provide an &apos;id&apos; property. This property is required by the {1} service..
-        /// </summary>
-        internal static string ADO2010_ProvideAutomationDetailsId_Note_Default_Text {
-            get {
-                return ResourceManager.GetString("ADO2010_ProvideAutomationDetailsId_Note_Default_Text", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Rule metadata should provide information that makes it easy to understand and fix the problem.
         ///rule.id
         ///
@@ -238,43 +211,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}: This &apos;tool&apos; object does not provide a &apos;driver&apos; property. This property is required by the {1} service..
-        /// </summary>
-        internal static string Base1003_ProvideDriver_Note_Default_Text {
-            get {
-                return ResourceManager.GetString("Base1003_ProvideDriver_Note_Default_Text", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to {0}: This &apos;driver&apos; object does not provide a &apos;fullName&apos; property. This property is required by the {1} service..
-        /// </summary>
-        internal static string Base1003_ProvideFullName_Note_Default_Text {
-            get {
-                return ResourceManager.GetString("Base1003_ProvideFullName_Note_Default_Text", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to {0}: This &apos;tool&apos; object does not provide a &apos;rules&apos; property. This property is required by the {1} service..
-        /// </summary>
-        internal static string Base1003_ProvideRules_Note_Default_Text {
-            get {
-                return ResourceManager.GetString("Base1003_ProvideRules_Note_Default_Text", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to {0}: This &apos;run&apos; object does not provide a &apos;tool&apos; property. This property is required by the {1} service..
-        /// </summary>
-        internal static string Base1003_ProvideTool_Note_Default_Text {
-            get {
-                return ResourceManager.GetString("Base1003_ProvideTool_Note_Default_Text", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to {0}: The &apos;$schema&apos; property value &apos;{1}&apos; does not refer to the final version of the SARIF 2.1.0 schema. If you are using an earlier version of the SARIF format, consider upgrading your analysis tool to produce the final version. If this file does, in fact, conform to the final version of the schema, upgrade the tool to populate the &apos;$schema&apos; property with a URL that refers to the final version of the schema..
+        ///   Looks up a localized string similar to {0}: The &apos;$schema&apos; property value &apos;{2}&apos; does not refer to the final version of the SARIF 2.1.0 schema. If you are using an earlier version of the SARIF format, consider upgrading your analysis tool to produce the final version. If this file does, in fact, conform to the final version of the schema, upgrade the tool to populate the &apos;$schema&apos; property with a URL that refers to the final version of the schema..
         /// </summary>
         internal static string Base1011_ReferenceFinalSchema_Error_Default_Text {
             get {
@@ -283,7 +220,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}: This &apos;sarifLog&apos; object&apos;s &apos;runs&apos; array contains {1} element(s), which exceeds the limit of {2} imposed by the {3} service..
+        ///   Looks up a localized string similar to {0}: This &apos;sarifLog&apos; object&apos;s &apos;runs&apos; array contains {2} element(s), which exceeds the limit of {3} imposed by the {1} service..
         /// </summary>
         internal static string Base1013_MaximumRunsCount_Note_Default_Text {
             get {
@@ -310,22 +247,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}: The &apos;$schema&apos; property value &apos;{1}&apos; does not refer to the final version of the SARIF 2.1.0 schema. If you are using an earlier version of the SARIF format, consider upgrading your analysis tool to produce the final version. If this file does in fact conform to the final version of the schema, upgrade the tool to populate the &apos;$schema&apos; property with a URL that refers to the final version of the schema..
+        ///   Looks up a localized string similar to {0}: The &apos;$schema&apos; property value &apos;{2}&apos; does not refer to the final version of the SARIF 2.1.0 schema. If you are using an earlier version of the SARIF format, consider upgrading your analysis tool to produce the final version. If this file does in fact conform to the final version of the schema, upgrade the tool to populate the &apos;$schema&apos; property with a URL that refers to the final version of the schema..
         /// </summary>
         internal static string Base1013_ReferenceFinalSchema_Error_Default_Text {
             get {
                 return ResourceManager.GetString("Base1013_ReferenceFinalSchema_Error_Default_Text", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to The &apos;$schema&apos; property must refer to the final version of the SARIF 2.1.0 schema. This enables IDEs to provide Intellisense for SARIF log files.
-        ///
-        ///The SARIF standard was developed over several years, and many intermediate versions of the schema were produced. Now that the standard is final, only the OASIS standard version of the schema is valid..
-        /// </summary>
-        internal static string Base1013_ReferenceFinalSchema_FullDescription_Text {
-            get {
-                return ResourceManager.GetString("Base1013_ReferenceFinalSchema_FullDescription_Text", resourceCulture);
             }
         }
         
@@ -404,28 +330,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         /// <summary>
         ///   Looks up a localized string similar to {0}: This &apos;location&apos; object does not provide a &apos;physicalLocation&apos; object. This property is required by the {1} service..
         /// </summary>
-        internal static string Base1016_LocationPhysicalLocation_Error_Default_Text {
-            get {
-                return ResourceManager.GetString("Base1016_LocationPhysicalLocation_Error_Default_Text", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to {0}: This &apos;location&apos; object does not provide a &apos;physicalLocation&apos; object. This property is required by the {1} service..
-        /// </summary>
         internal static string Base1016_ProvideRequiredLocationProperties_Error_MissingPhysicalLocation_Text {
             get {
                 return ResourceManager.GetString("Base1016_ProvideRequiredLocationProperties_Error_MissingPhysicalLocation_Text", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to {0}: The &apos;physicalLocation&apos; object on this &apos;location&apos; object does not provide a &apos;region&apos; object. This property is required by the {1} service..
-        /// </summary>
-        internal static string Base1016_ProvideRequiredLocationProperties_Error_MissingPhysicalLocationRegion_Text {
-            get {
-                return ResourceManager.GetString("Base1016_ProvideRequiredLocationProperties_Error_MissingPhysicalLocationRegion_Te" +
-                        "xt", resourceCulture);
             }
         }
         
@@ -495,7 +402,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}: &apos;{1}&apos; is absent. GitHub Advanced Security code scanning will not display a result location that does not provide the URI of the artifact that contains the result..
+        ///   Looks up a localized string similar to {0}: &apos;{2}&apos; is absent. GitHub Advanced Security code scanning will not display a result location that does not provide the URI of the artifact that contains the result..
         /// </summary>
         internal static string GH1001_ProvideRequiredLocationProperties_Error_MissingLocationProperty_Text {
             get {
@@ -1562,15 +1469,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         internal static string ServiceName_ADO {
             get {
                 return ResourceManager.GetString("ServiceName_ADO", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Base Validation Rule.
-        /// </summary>
-        internal static string ServiceName_Base {
-            get {
-                return ResourceManager.GetString("ServiceName_Base", resourceCulture);
             }
         }
         

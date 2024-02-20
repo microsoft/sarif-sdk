@@ -44,6 +44,9 @@
                 },
                 "Error_MissingPartialFingerprints": {
                   "text": "{0}: This 'result' object does not provide a 'partialFingerprints' dictionary. This property is required by the {1} service."
+                },
+                "Error_MissingRuleId": {
+                  "text": "{0}: This 'result' object does not provide a 'ruleId' value. This property is required by the {1} service."
                 }
               },
               "defaultConfiguration": {
@@ -100,6 +103,9 @@
                 },
                 "Error_MissingPartialFingerprints": {
                   "text": "{0}: This 'result' object does not provide a 'partialFingerprints' dictionary. This property is required by the {1} service."
+                },
+                "Error_MissingName": {
+                  "text": "{0}: This 'reportingDescriptor' object does not provide a 'name' value. This property is required by the {1} service."
                 }
               },
               "defaultConfiguration": {
@@ -156,6 +162,9 @@
                 },
                 "Error_MissingPartialFingerprints": {
                   "text": "{0}: This 'result' object does not provide a 'partialFingerprints' dictionary. This property is required by the {1} service."
+                },
+                "Error_MissingArtifactLocationUri": {
+                  "text": "{0}: The 'artifactLocation' object on this 'physicalLocation' object does not provide a 'uri' object. This property is required by the {1} service."
                 }
               },
               "defaultConfiguration": {
@@ -184,6 +193,18 @@
                 },
                 "Error_MissingPartialFingerprints": {
                   "text": "{0}: This 'result' object does not provide a 'partialFingerprints' dictionary. This property is required by the {1} service."
+                },
+                "Error_MissingFullDescription": {
+                  "text": "{0}: This 'reportingDescriptor' object does not provide a 'fullDescription' value. This property is required by the {1} service."
+                },
+                "Error_MissingHelpText": {
+                  "text": "{0}: This 'help' object does not provide a 'text' value. This property is required by the {1} service."
+                },
+                "Error_MissingHelp": {
+                  "text": "{0}: This 'reportingDescriptor' object does not provide a 'help' object. This property is required by the {1} service."
+                },
+                "Error_MissingShortDescription": {
+                  "text": "{0}: This 'reportingDescriptor' object does not provide a 'shortDescription' value. This property is required by the {1} service."
                 }
               },
               "defaultConfiguration": {
@@ -222,6 +243,9 @@
                 },
                 "Error_MissingDriver": {
                   "text": "{0}: This 'tool' object does not provide a 'driver' object. This property is required by the {1} service."
+                },
+                "Error_MissingDriverFullName": {
+                  "text": "{0}: This 'driver' object does not provide a 'fullName' value. This property is required by the {1} service."
                 }
               },
               "defaultConfiguration": {
