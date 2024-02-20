@@ -29,7 +29,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         // although all of those have reasonable defaults.
         public override MultiformatMessageString FullDescription => new MultiformatMessageString { Text = RuleResources.GH1003_ProvideRequiredRegionProperties_FullDescription_Text };
 
-        protected override IEnumerable<string> MessageResourceNames => new string[] {
+        protected override ICollection<string> MessageResourceNames => new List<string> {
             nameof(RuleResources.GH1003_ProvideRequiredRegionProperties_Error_MissingRegion_Text),
             nameof(RuleResources.GH1003_ProvideRequiredRegionProperties_Error_MissingRegionProperty_Text)
         };

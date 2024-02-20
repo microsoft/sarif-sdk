@@ -15,10 +15,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 
         public override MultiformatMessageString FullDescription => new MultiformatMessageString() { Text = RuleResources.ADO1015_ProvideRequiredResultProperties_FullDescription_Text };
 
-        protected override IEnumerable<string> MessageResourceNames => new string[] {
-            nameof(RuleResources.ADO1015_ProvideRequiredResultProperties_Error_MissingRuleId_Text)
-        };
-
         public override HashSet<RuleKind> RuleKinds => new(new[] { RuleKind.Ado });
 
         protected override string ServiceName => RuleResources.ServiceName_ADO;
@@ -26,6 +22,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         public AdoProvideRequiredResultProperties()
         {
             this.DefaultConfiguration.Level = FailureLevel.Error;
+            this.MessageResourceNames.Add(nameof(RuleResources.ADO1015_ProvideRequiredResultProperties_Error_MissingRuleId_Text));
         }
 
         protected override void Analyze(Result result, string resultPointer)

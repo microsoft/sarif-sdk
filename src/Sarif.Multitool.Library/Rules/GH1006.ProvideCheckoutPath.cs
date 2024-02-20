@@ -40,7 +40,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         // requires the analysis tool always to be invoked from that same directory.
         public override MultiformatMessageString FullDescription => new MultiformatMessageString { Text = RuleResources.GH1006_ProvideCheckoutPath_FullDescription_Text };
 
-        protected override IEnumerable<string> MessageResourceNames => new string[] {
+        protected override ICollection<string> MessageResourceNames => new List<string> {
             nameof(RuleResources.GH1006_ProvideCheckoutPath_Error_Default_Text)
         };
 

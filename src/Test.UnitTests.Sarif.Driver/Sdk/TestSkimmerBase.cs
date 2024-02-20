@@ -25,7 +25,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
         protected override ResourceManager ResourceManager => throw new NotImplementedException();
 
-        protected override IEnumerable<string> MessageResourceNames => throw new NotImplementedException();
+        protected override IList<string> MessageResourceNames => throw new NotImplementedException();
 
         // Most of the members of this class throw NotImplementedException so that,
         // if you write a test that requires that member, you will be reminded to
