@@ -1088,7 +1088,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             MultithreadedAnalyzeTargets(context, skimmers, disabledSkimmers);
         }
 
-        public static SortedSet<string> BuildDisabledSkimmersSet(TContext context, IEnumerable<Skimmer<TContext>> skimmers)
+        public static ISet<string> BuildDisabledSkimmersSet(TContext context, IEnumerable<Skimmer<TContext>> skimmers)
         {
             var disabledSkimmers = new SortedSet<string>();
 
