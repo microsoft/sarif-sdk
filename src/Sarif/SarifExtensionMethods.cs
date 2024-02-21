@@ -20,8 +20,6 @@ namespace Microsoft.CodeAnalysis.Sarif
         [ThreadStatic]
         private static StringBuilder s_sb;
 
-        private readonly static Regex URLPercentEncodingRegex = new Regex(@"%[0-9][0-9A-Fa-f]", RegexOptions.Compiled | RegexOptions.CultureInvariant);
-
         public static string CsvEscape(this string value)
         {
             if (string.IsNullOrEmpty(value)) { return string.Empty; }
@@ -260,23 +258,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         public static string GetFilePath(this Uri uri)
         {
-            string originalString = uri.OriginalString;
-            string originalStringWithoutQuery = originalString.Split('?')[0];
-
-            // 'uri.LocalPath' is not supported for RelativeUri.
-            if (!uri.IsAbsoluteUri)
-            {
-                return originalStringWithoutQuery;
-            }
-
-            if (URLPercentEncodingRegex.IsMatch(originalString))
-            {
-                // If the 'originalString' contains URL percent-encoding characters,
-                // 'uri.LocalPath' will decode them thus changing the path unexpectedly.
-                return originalStringWithoutQuery;
-            }
-
-            return uri.LocalPath;
+            return uri.IsAbsoluteUri ? uri.LocalPath : uri.OriginalString;
         }
 
         public static string FormatForVisualStudio(this Region region)

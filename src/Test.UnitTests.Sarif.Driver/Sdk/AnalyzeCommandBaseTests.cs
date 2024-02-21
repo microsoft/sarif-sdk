@@ -836,12 +836,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         {
             var logger = new MemoryStreamSarifLogger(dataToInsert: OptionallyEmittedData.Hashes);
             var command = new TestMultithreadedAnalyzeCommand();
+            var uri = new Uri("/new folder/0%1%20%.txt", UriKind.Relative);
 
-            var relativeUriWithEncodedFileName = new Uri("/new folder/0%1%20%.txt", UriKind.Relative);
-            var target1 = new EnumeratedArtifact(FileSystem.Instance) { Uri = relativeUriWithEncodedFileName, Contents = "foo foo" };
-
-            var absoluteUriWithEncodedFileName = new Uri("C:\\Local%20DFile\\test%2D.md", UriKind.Absolute);
-            var target2 = new EnumeratedArtifact(FileSystem.Instance) { Uri = absoluteUriWithEncodedFileName, Contents = "foo foo" };
+            var target = new EnumeratedArtifact(FileSystem.Instance) { Uri = uri, Contents = "foo foo" };
 
             var options = new TestAnalyzeOptions
             {
@@ -853,7 +850,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
             var context = new TestAnalysisContext
             {
-                TargetsProvider = new ArtifactProvider(new[] { target1, target2 }),
+                TargetsProvider = new ArtifactProvider(new[] { target }),
                 DataToInsert = OptionallyEmittedData.Hashes,
                 Policy = properties,
                 Logger = logger,
@@ -865,7 +862,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             var sarifLog = logger.ToSarifLog();
             sarifLog.Runs[0].Should().NotBeNull();
             sarifLog.Runs[0].Results[0].Should().NotBeNull();
-            sarifLog.Runs[0].Results.Count.Should().Be(2);
+            sarifLog.Runs[0].Results.Count.Should().Be(1);
         }
 
         [Fact]

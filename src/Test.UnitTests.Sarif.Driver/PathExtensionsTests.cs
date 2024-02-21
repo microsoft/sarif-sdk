@@ -47,49 +47,6 @@ namespace Test.UnitTests.Sarif.Driver
         }
 
         [Fact]
-        public void UriGetFilePath_ShouldNotChangeFileName()
-        {
-            var tuples = new List<Tuple<string, string>>
-            {
-                // Test cases of relative URI
-                new Tuple<string, string>("test%2D.md","test%2D.md"),
-                new Tuple<string, string>("\\test%2D.md", "\\test%2D.md"),
-                new Tuple<string, string>("/test%2D.md", "/test%2D.md"),
-                new Tuple<string, string>("/test%2D.md?some-query-string", "/test%2D.md"),
-                new Tuple<string, string>("/test.md", "/test.md"),
-                new Tuple<string, string>("/test.md?some-query-string", "/test.md"),
-
-                // Test cases of absolute URI
-                new Tuple<string, string>("C:\\test%2D.md", "C:\\test%2D.md"),
-                new Tuple<string, string>("C:\\Local%20DFile\\test%2D.md", "C:\\Local%20DFile\\test%2D.md"),
-                new Tuple<string, string>("C:\\Local%20DFile\\test%2D.md?some-query-string", "C:\\Local%20DFile\\test%2D.md"),
-                new Tuple<string, string>("C:\\Local%20DFile\\test.md?some-query-string", "C:\\Local%20DFile\\test.md"),
-
-                new Tuple<string, string>("https://github.com/microsoft/sarif-sdk/test%2D.md", "https://github.com/microsoft/sarif-sdk/test%2D.md"),
-                new Tuple<string, string>("https://github.com/microsoft/sarif-sdk/test%2D.md?some-query-string", "https://github.com/microsoft/sarif-sdk/test%2D.md"),
-                new Tuple<string, string>("https://github.com/microsoft/sarif-sdk/test.md", "/microsoft/sarif-sdk/test.md"),
-                new Tuple<string, string>("https://github.com/microsoft/sarif-sdk/test.md?some-query-string", "/microsoft/sarif-sdk/test.md"),
-            };
-
-            var sb = new StringBuilder();
-            string filePath = string.Empty;
-            foreach (Tuple<string, string> tuple in tuples)
-            {
-                if (Uri.TryCreate(tuple.Item1, UriKind.RelativeOrAbsolute, out Uri uri))
-                {
-                    filePath = uri.GetFilePath();
-                }
-
-                if (!filePath.Equals(tuple.Item2))
-                {
-                    sb.Append($"'{filePath}' should be '{tuple.Item2}';");
-                }
-            }
-
-            sb.Length.Should().Be(0);
-        }
-
-        [Fact]
         [Trait(TestTraits.WindowsOnly, "true")]
         public void ReplaceInvalidCharInFileName_ShouldCorrectFilePath()
         {

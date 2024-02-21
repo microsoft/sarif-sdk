@@ -164,7 +164,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 }
                 else if (Uri != null && Uri.IsAbsoluteUri && Uri.IsFile)
                 {
-                    this.sizeInBytes = (long)FileSystem.FileInfoLength(Uri.GetFilePath());
+                    this.sizeInBytes = (long)FileSystem.FileInfoLength(Uri.OriginalString);
                 }
                 else if (this.Contents != null)
                 {

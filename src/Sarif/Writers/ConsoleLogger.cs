@@ -291,10 +291,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
             if (uri != null)
             {
-                // If a path refers to a URI of form file://blah, we will convert to the local path.
+                // If a path refers to a URI of form file://blah,
+                // we will use the 'uri.OriginalString' in case the file name contains URL percent-encoding characters.
                 if (uri.IsAbsoluteUri && uri.Scheme == Uri.UriSchemeFile)
                 {
-                    path = uri.GetFilePath();
+                    path = uri.OriginalString;
                 }
                 else
                 {
