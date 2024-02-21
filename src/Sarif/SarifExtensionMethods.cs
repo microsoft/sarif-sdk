@@ -20,7 +20,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         [ThreadStatic]
         private static StringBuilder s_sb;
 
-        private readonly static string URLPercentEncodingPattern = @"%[0-9][0-9A-Fa-f]";
+        private readonly static Regex URLPercentEncodingRegex = new Regex(@"%[0-9][0-9A-Fa-f]", RegexOptions.Compiled | RegexOptions.CultureInvariant);
 
         public static string CsvEscape(this string value)
         {
@@ -269,16 +269,14 @@ namespace Microsoft.CodeAnalysis.Sarif
                 return originalStringWithoutQuery;
             }
 
-            if (Regex.IsMatch(originalString, URLPercentEncodingPattern))
+            if (URLPercentEncodingRegex.IsMatch(originalString))
             {
                 // If the 'originalString' contains URL percent-encoding characters,
                 // 'uri.LocalPath' will decode them thus changing the path unexpectedly.
                 return originalStringWithoutQuery;
             }
-            else
-            {
-                return uri.LocalPath;
-            }
+
+            return uri.LocalPath;
         }
 
         public static string FormatForVisualStudio(this Region region)

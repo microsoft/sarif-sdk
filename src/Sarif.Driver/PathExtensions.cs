@@ -160,10 +160,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         }
 
         /// <summary>
-        /// Determines whether the input string contains any invalid Path character.
+        /// Determines whether the input string contains any invalid path character.
         /// </summary>
         /// <param name="path">The input string.</param>
-        /// <returns>true if the input string contains invalid Path character; otherwise, false.</returns>
+        /// <returns>true if the input string contains invalid path character; otherwise, false.</returns>
         public static bool ContainsInvalidPathChar(this string path)
         {
             char[] invalidPathChars = Path.GetInvalidPathChars();

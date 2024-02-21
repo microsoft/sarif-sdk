@@ -1,7 +1,7 @@
 # SARIF Package Release History (SDK, Driver, Converters, and Multitool)
 ## **v4.5.1 UNRELEASED
-* BUG: Report `WRN997_InvalidTarget` if the path of the scan target contains invalid characters.
-* BUG: When the path of the scan target contains URL Percent-encoding characters, `uri.GetFilePath` should return the original string.
+* BUG: When the path of the scan target contains invalid characters, report `WRN997_InvalidTarget` before analyzing it against any rule, otherwise `ArgumentException: Illegal characters in path` will be thrown.
+* BUG: When the path of the scan target contains URL Percent-encoding characters, it should proceed with analyzing without throwing `System.IO.FileNotFoundException`.
 
 ## **v4.5.0 [Sdk](https://www.nuget.org/packages/Sarif.Sdk/v4.5.0) | [Driver](https://www.nuget.org/packages/Sarif.Driver/v4.5.0) | [Converters](https://www.nuget.org/packages/Sarif.Converters/v4.5.0)  | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/v4.5.0) | [Multitool Library](https://www.nuget.org/packages/Sarif.Multitool.Library/v4.5.0)
 * DEP: Downgrade `System.Text.Encoding.CodePages` from 8.0.0 to 4.3.0 in `Sarif`.
