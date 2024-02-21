@@ -12,11 +12,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
     {
         public override string Id => string.Empty;
 
-        protected override IEnumerable<string> MessageResourceNames => new string[] {
+        private readonly List<string> _messageResourceNames = new List<string>
+        {
             nameof(RuleResources.Base1018_ProvideRequiredToolProperties_Error_MissingDriverName_Text),
             nameof(RuleResources.Base1018_ProvideRequiredToolProperties_Error_MissingDriverRules_Text),
             nameof(RuleResources.Base1018_ProvideRequiredToolProperties_Error_MissingDriver_Text),
         };
+
+        protected override ICollection<string> MessageResourceNames => _messageResourceNames;
 
         public override HashSet<RuleKind> RuleKinds => new HashSet<RuleKind>();
 
@@ -33,22 +36,25 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                         toolPointer,
                         nameof(RuleResources.Base1018_ProvideRequiredToolProperties_Error_MissingDriver_Text));
                 }
-                else if (string.IsNullOrWhiteSpace(tool.Driver.Name))
+                else
                 {
-                    // {0}: The 'driver' object in this tool does not provide a 'name' value. This property is required by the {1} service.
-                    LogResult(
-                        toolPointer
-                            .AtProperty(SarifPropertyName.Driver),
-                        nameof(RuleResources.Base1018_ProvideRequiredToolProperties_Error_MissingDriverName_Text));
-                }
+                    if (string.IsNullOrWhiteSpace(tool.Driver.Name))
+                    {
+                        // {0}: The 'driver' object in this tool does not provide a 'name' value. This property is required by the {1} service.
+                        LogResult(
+                            toolPointer
+                                .AtProperty(SarifPropertyName.Driver),
+                            nameof(RuleResources.Base1018_ProvideRequiredToolProperties_Error_MissingDriverName_Text));
+                    }
 
-                if (tool.Driver.Rules == null)
-                {
-                    // {0}: The 'driver' object in this tool does not provide a 'rules' array. This property is required by the {1} service.
-                    LogResult(
-                        toolPointer
-                            .AtProperty(SarifPropertyName.Driver),
-                        nameof(RuleResources.Base1018_ProvideRequiredToolProperties_Error_MissingDriverRules_Text));
+                    if (tool.Driver.Rules == null)
+                    {
+                        // {0}: The 'driver' object in this tool does not provide a 'rules' array. This property is required by the {1} service.
+                        LogResult(
+                            toolPointer
+                                .AtProperty(SarifPropertyName.Driver),
+                            nameof(RuleResources.Base1018_ProvideRequiredToolProperties_Error_MissingDriverRules_Text));
+                    }
                 }
             }
         }

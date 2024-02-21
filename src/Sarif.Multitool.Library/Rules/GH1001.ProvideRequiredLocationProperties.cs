@@ -29,7 +29,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         /// </summary>
         public override MultiformatMessageString FullDescription => new MultiformatMessageString { Text = RuleResources.GH1001_ProvideRequiredLocationProperties_FullDescription_Text };
 
-        protected override IEnumerable<string> MessageResourceNames => new string[] {
+        protected override ICollection<string> MessageResourceNames => new List<string> {
             nameof(RuleResources.GH1001_ProvideRequiredLocationProperties_Error_NoLocationsArray_Text),
             nameof(RuleResources.GH1001_ProvideRequiredLocationProperties_Error_EmptyLocationsArray_Text),
             nameof(RuleResources.GH1001_ProvideRequiredLocationProperties_Error_MissingLocationProperty_Text)

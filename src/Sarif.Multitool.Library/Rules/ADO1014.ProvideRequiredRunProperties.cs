@@ -13,11 +13,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         /// </summary>
         public override string Id => RuleId.ADOProvideRequiredRunProperties;
 
-        protected override IEnumerable<string> MessageResourceNames => new string[] {
-            nameof(RuleResources.ADO1014_AdoProvideRequiredRunProperties_Error_MissingAutomationDetails_Text),
-            nameof(RuleResources.ADO1014_AdoProvideRequiredRunProperties_Error_MissingAutomationDetailsId_Text)
-        };
-
         public override MultiformatMessageString FullDescription => new MultiformatMessageString() { Text = RuleResources.ADO1014_ProvideRequiredRunProperties_FullDescription_Text };
 
         public override HashSet<RuleKind> RuleKinds => new HashSet<RuleKind>(new[] { RuleKind.Ado });
@@ -27,6 +22,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         public AdoProvideRequiredRunProperties()
         {
             this.DefaultConfiguration.Level = FailureLevel.Error;
+            this.MessageResourceNames.Add(nameof(RuleResources.ADO1014_AdoProvideRequiredRunProperties_Error_MissingAutomationDetails_Text));
+            this.MessageResourceNames.Add(nameof(RuleResources.ADO1014_AdoProvideRequiredRunProperties_Error_MissingAutomationDetailsId_Text));
         }
 
         protected override void Analyze(Run run, string runPointer)
