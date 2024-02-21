@@ -7,6 +7,7 @@ using System.IO;
 using System.IO.Compression;
 using System.Linq;
 using System.Text;
+using System.Web;
 
 using FluentAssertions;
 
@@ -18,6 +19,20 @@ namespace Test.UnitTests.Sarif
 {
     public class ZipArchiveArtifactTests
     {
+        [Fact]
+        public void ZipArchiveArtifact_IllegalFileAndPathCharacters()
+        {
+            string text = $"{Guid.NewGuid()}";
+            byte[] contents = Encoding.UTF8.GetBytes(text);
+            string filePath = $"{Path.GetInvalidPathChars()[0]}{Path.GetInvalidFileNameChars()[1]}MyZippedFile.txt";
+            filePath = HttpUtility.UrlPathEncode(filePath);
+            ZipArchive archive = EnumeratedArtifactTests.CreateZipArchive(filePath, contents);
+
+            foreach (IEnumeratedArtifact entry in new MultithreadedZipArchiveArtifactProvider(archive, new FileSystem()).Artifacts)
+            {
+                entry.Contents.Should().BeEquivalentTo(text);
+            }
+        }
         [Fact]
         public void ZipArchiveArtifact_BytesAndContentsCannotBeSet()
         {
@@ -66,7 +81,7 @@ namespace Test.UnitTests.Sarif
         }
 
         [Fact]
-        public void ZipArchiveArtifact_MixedTxtAndBinaryZipEntry()
+        public void ZipArchiveArtifact_MixedTextAndBinaryZipEntry()
         {
             string textData = Guid.NewGuid().ToString();
 

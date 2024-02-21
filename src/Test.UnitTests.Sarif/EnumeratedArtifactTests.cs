@@ -40,7 +40,7 @@ namespace Test.UnitTests.Sarif
             using var tempFile = new TempFile();
             string filePath = tempFile.Name;
 
-            File.WriteAllText(filePath, $"{Guid.NewGuid}");
+            File.WriteAllText(filePath, $"{Guid.NewGuid()}");
 
             var artifact = new EnumeratedArtifact(new FileSystem())
             {
@@ -83,7 +83,7 @@ namespace Test.UnitTests.Sarif
             using var tempFile = new TempFile();
             string filePath = tempFile.Name;
 
-            File.WriteAllText(filePath, $"{Guid.NewGuid}");
+            File.WriteAllText(filePath, $"{Guid.NewGuid()}");
 
             var artifact = new EnumeratedArtifact(new FileSystem())
             {

@@ -22,7 +22,7 @@ namespace Test.UnitTests.Sarif
         [Fact]
         public void MultithreadedZipArchiveArtifactProvider_RetrieveSizeInBytesBeforeRetrievingContents()
         {
-            string entryContents = $"{Guid.NewGuid}";
+            string entryContents = $"{Guid.NewGuid()}";
             ZipArchive zip = CreateZipArchiveWithTextContents("test.txt", entryContents);
             var artifactProvider = new MultithreadedZipArchiveArtifactProvider(zip, FileSystem.Instance);
 
@@ -125,7 +125,7 @@ namespace Test.UnitTests.Sarif
             using (var populateArchive = new ZipArchive(stream, ZipArchiveMode.Create, leaveOpen: true))
             {
                 ZipArchiveEntry entry = populateArchive.CreateEntry(fileName, CompressionLevel.NoCompression);
-                entry.Open().Write(bytes);
+                entry.Open().Write(bytes, 0, bytes.Length);
             }
             stream.Flush();
             stream.Position = 0;

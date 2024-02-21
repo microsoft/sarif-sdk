@@ -9,7 +9,6 @@ using System.Text;
 
 namespace Microsoft.CodeAnalysis.Sarif
 {
-
     public class ZipArchiveArtifact : IEnumeratedArtifact
     {
         private readonly ISet<string> binaryExtensions;

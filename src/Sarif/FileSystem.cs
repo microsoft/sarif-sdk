@@ -4,6 +4,7 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Diagnostics.Contracts;
 using System.IO;
 using System.Reflection;
 using System.Text;
@@ -454,6 +455,42 @@ namespace Microsoft.CodeAnalysis.Sarif
         public string PathGetFileNameWithoutExtension(string path)
         {
             return Path.GetFileNameWithoutExtension(path);
+        }
+
+        // Returns the extension of the given path. The returned value includes the
+        // period (".") character of the extension except when you have a terminal period when you get String.Empty, such as ".exe" or
+        // ".cpp". The returned value is null if the given path is
+        // null or if the given path does not include an extension.
+        //
+        public static string SafePathGetExtension(string path)
+        {
+            // https://referencesource.microsoft.com/#mscorlib/system/io/path.cs,f424e433705aeb09
+            if (path == null)
+            {
+                return null;
+            }
+
+            int length = path.Length;
+            for (int i = length; --i >= 0;)
+            {
+                char ch = path[i];
+                if (ch == '.')
+                {
+                    if (i != length - 1)
+                    {
+                        return path.Substring(i, length - i);
+                    }
+                    else
+                    {
+                        return string.Empty;
+                    }
+                }
+                if (ch == Path.DirectorySeparatorChar || ch == Path.AltDirectorySeparatorChar || ch == Path.VolumeSeparatorChar)
+                {
+                    break;
+                }
+            }
+            return string.Empty;
         }
     }
 }

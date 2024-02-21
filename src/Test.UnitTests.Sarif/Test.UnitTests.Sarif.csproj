@@ -8,7 +8,7 @@
   <Import Project="$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildThisFileDirectory), build.props))\build.props" />
 
   <PropertyGroup>
-    <TargetFrameworks>net6.0;</TargetFrameworks>
+    <TargetFrameworks>net472;</TargetFrameworks>
     <IsPackable>false</IsPackable>
     <IsTestProject>true</IsTestProject>
     <RootNamespace>Test.UnitTests.Sarif</RootNamespace>
@@ -355,5 +355,11 @@
 
   <ItemGroup>
     <EmbeddedResource Include="TestData\FileEncoding\Utf8.txt" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="System.Web">
+      <HintPath>C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.6.2\System.Web.dll</HintPath>
+    </Reference>
   </ItemGroup>
 </Project>
