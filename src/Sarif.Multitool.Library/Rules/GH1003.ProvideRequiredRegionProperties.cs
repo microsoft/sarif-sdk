@@ -20,7 +20,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         /// </summary>
         public override string Id => RuleId.ProvideRequiredRegionProperties;
 
-        public override HashSet<RuleKind> RuleKinds => new HashSet<RuleKind>(new[] { RuleKind.Ghas });
+        public override HashSet<RuleKind> RuleKinds => new HashSet<RuleKind>(new[] { RuleKind.Gh });
 
         // Every result must provide a 'region' that specifies its location with line and optional
         // column information. GitHub Advanced Security code scanning can display the correct
@@ -29,7 +29,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         // although all of those have reasonable defaults.
         public override MultiformatMessageString FullDescription => new MultiformatMessageString { Text = RuleResources.GH1003_ProvideRequiredRegionProperties_FullDescription_Text };
 
-        protected override IEnumerable<string> MessageResourceNames => new string[] {
+        protected override ICollection<string> MessageResourceNames => new List<string> {
             nameof(RuleResources.GH1003_ProvideRequiredRegionProperties_Error_MissingRegion_Text),
             nameof(RuleResources.GH1003_ProvideRequiredRegionProperties_Error_MissingRegionProperty_Text)
         };

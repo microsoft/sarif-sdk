@@ -13,6 +13,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         /// </summary>
         public override string Id => RuleId.ADOProvideRequiredSarifLogProperties;
 
+        public override MultiformatMessageString FullDescription => new MultiformatMessageString() { Text = RuleResources.ADO1013_ProvideRequiredSarifLogProperties_FullDescription_Text };
+
         public override HashSet<RuleKind> RuleKinds => new HashSet<RuleKind>(new[] { RuleKind.Ado });
 
         protected override string ServiceName => RuleResources.ServiceName_ADO;

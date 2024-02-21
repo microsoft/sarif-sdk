@@ -23,7 +23,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
         protected virtual ResourceManager ResourceManager => null;
 
-        protected virtual IEnumerable<string> MessageResourceNames => throw new NotImplementedException();
+        protected virtual ICollection<string> MessageResourceNames => throw new NotImplementedException();
 
         public virtual bool EnabledByDefault => true;
 

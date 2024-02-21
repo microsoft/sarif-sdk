@@ -24,7 +24,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         /// </summary>
         public override string Id => RuleId.ReviewArraysThatExceedConfigurableDefaults;
 
-        public override HashSet<RuleKind> RuleKinds => new HashSet<RuleKind>(new[] { RuleKind.Ghas });
+        public override HashSet<RuleKind> RuleKinds => new HashSet<RuleKind>(new[] { RuleKind.Gh });
 
         // GitHub Advanced Security code scanning limits the amount of information it displays. There
         // are limits on the number of runs per log file, rules per run, results per run, locations
@@ -32,7 +32,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         // file at the root of your repository to specify higher limits.
         public override MultiformatMessageString FullDescription => new MultiformatMessageString { Text = RuleResources.GH1004_ReviewArraysThatExceedConfigurableDefaults_FullDescription_Text };
 
-        protected override IEnumerable<string> MessageResourceNames => new string[] {
+        protected override ICollection<string> MessageResourceNames => new List<string> {
             nameof(RuleResources.GH1004_ReviewArraysThatExceedConfigurableDefaults_Error_Default_Text)
         };
 

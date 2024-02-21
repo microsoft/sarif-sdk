@@ -12,9 +12,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 
         public override HashSet<RuleKind> RuleKinds => new HashSet<RuleKind>();
 
-        public override MultiformatMessageString FullDescription => new MultiformatMessageString { Text = RuleResources.Base1013_ReferenceFinalSchema_FullDescription_Text };
+        public override MultiformatMessageString FullDescription => new MultiformatMessageString();
 
-        protected override IEnumerable<string> MessageResourceNames => new string[] {
+        protected override ICollection<string> MessageResourceNames => new List<string> {
             nameof(RuleResources.Base1013_MaximumRunsCount_Note_Default_Text),
             nameof(RuleResources.Base1013_ProvideSchemaVersion_Warning_Default_Text),
             nameof(RuleResources.Base1013_ProvideSchema_Warning_Default_Text),

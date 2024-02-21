@@ -26,10 +26,10 @@
             {
               "id": "ADO1015",
               "name": "AdoProvideRequiredResultProperties",
+              "fullDescription": {
+                "text": "The Result object represents an analysis finding and should provide details describing the nature of the problem along with its location in the scan target.\r\n\r\nProvide the 'ruleId' property, which is the unique identifier of the analysis rule that was violated. This property is required by the ADO Advanced Security service.\r\n\r\nProvide the 'message' property, which is a user-facing explanation of the result occurrence. The message's 'text' property is required by the ADO Advanced Security service.\r\n\r\nProvide the 'locations' array, which must contain at least one location object.\r\n\r\nProvide the 'partialFingerprints' dictionary. This property is required by the ADO Advanced Security service."
+              },
               "messageStrings": {
-                "Error_MissingRuleId": {
-                  "text": "{0}: This 'result' object does not provide a 'ruleId' value. This property is required by the {1} service."
-                },
                 "Error_EmptyLocationsArray": {
                   "text": "{0}: The 'locations' array on this 'result' object is empty. This property is required by the {1} service."
                 },
@@ -44,6 +44,9 @@
                 },
                 "Error_MissingPartialFingerprints": {
                   "text": "{0}: This 'result' object does not provide a 'partialFingerprints' dictionary. This property is required by the {1} service."
+                },
+                "Error_MissingRuleId": {
+                  "text": "{0}: This 'result' object does not provide a 'ruleId' value. This property is required by the {1} service."
                 }
               },
               "defaultConfiguration": {
@@ -54,6 +57,9 @@
             {
               "id": "ADO1017",
               "name": "AdoProvideRequiredPhysicalLocationProperties",
+              "fullDescription": {
+                "text": "Provide the 'region' property, along with the appropriate region properties. This property is required by the ADO Advanced Security service.\r\n\r\nProvide the 'artifactLocation' property. This property is required by the ADO Advanced Security service."
+              },
               "messageStrings": {
                 "Error_EmptyLocationsArray": {
                   "text": "{0}: The 'locations' array on this 'result' object is empty. This property is required by the {1} service."
@@ -79,10 +85,10 @@
             {
               "id": "ADO2012",
               "name": "AdoProvideRequiredReportingDescriptorProperties",
+              "fullDescription": {
+                "text": "Rule metadata should provide information that makes it easy to understand and fix the problem.\r\nrule.id\r\n\r\nProvide the 'id' property whose value is a stable identifier for the rule.\r\n\r\nProvide the 'name' property, which contains a \"friendly name\" that helps users see at a glance the purpose of the rule. For uniformity of experience across all tools that produce SARIF, the friendly name should be a single Pascal-case identifier, for example, 'ProvideRuleFriendlyName'."
+              },
               "messageStrings": {
-                "Error_MissingName": {
-                  "text": "{0}: This 'reportingDescriptor' object does not provide a 'name' value. This property is required by the {1} service."
-                },
                 "Error_EmptyLocationsArray": {
                   "text": "{0}: The 'locations' array on this 'result' object is empty. This property is required by the {1} service."
                 },
@@ -97,6 +103,9 @@
                 },
                 "Error_MissingPartialFingerprints": {
                   "text": "{0}: This 'result' object does not provide a 'partialFingerprints' dictionary. This property is required by the {1} service."
+                },
+                "Error_MissingName": {
+                  "text": "{0}: This 'reportingDescriptor' object does not provide a 'name' value. This property is required by the {1} service."
                 }
               },
               "defaultConfiguration": {
@@ -107,6 +116,9 @@
             {
               "id": "GH1015",
               "name": "GhasProvideRequiredResultProperties",
+              "fullDescription": {
+                "text": "The Result object represents an analysis finding and should provide details describing the nature of the problem along with its location in the scan target.\r\n\r\nProvide the 'message' property, which is a user-facing explanation of the result occurrence. The message's 'text' property is required by the GitHub Advanced Security service.\r\n\r\nProvide the 'locations' array, which must contain at least one location object.\r\n\r\nProvide the 'partialFingerprints' dictionary. This property is required by the GitHub Advanced Security service."
+              },
               "messageStrings": {
                 "Error_EmptyLocationsArray": {
                   "text": "{0}: The 'locations' array on this 'result' object is empty. This property is required by the {1} service."
@@ -132,10 +144,10 @@
             {
               "id": "GH1017",
               "name": "GhasProvideRequiredPhysicalLocationProperties",
+              "fullDescription": {
+                "text": "Provide the 'region' property, along with the appropriate region properties. This property is required by the GitHub Advanced Security service.\r\n\r\nProvide the 'artifactLocation' property. This property is required by the GitHub Advanced Security service."
+              },
               "messageStrings": {
-                "Error_MissingArtifactLocationUri": {
-                  "text": "{0}: The 'artifactLocation' object on this 'physicalLocation' object does not provide a 'uri' object. This property is required by the {1} service."
-                },
                 "Error_EmptyLocationsArray": {
                   "text": "{0}: The 'locations' array on this 'result' object is empty. This property is required by the {1} service."
                 },
@@ -150,6 +162,9 @@
                 },
                 "Error_MissingPartialFingerprints": {
                   "text": "{0}: This 'result' object does not provide a 'partialFingerprints' dictionary. This property is required by the {1} service."
+                },
+                "Error_MissingArtifactLocationUri": {
+                  "text": "{0}: The 'artifactLocation' object on this 'physicalLocation' object does not provide a 'uri' object. This property is required by the {1} service."
                 }
               },
               "defaultConfiguration": {
@@ -160,7 +175,25 @@
             {
               "id": "GH2012",
               "name": "GhasProvideRequiredReportingDescriptorProperties",
+              "fullDescription": {
+                "text": "Rule metadata should provide information that makes it easy to understand and fix the problem.\r\n\r\nProvide the 'id' property whose value is a stable identifier for the rule.\r\n\r\nProvide the 'shortDescription' and 'fullDescription' properties.\r\n\r\nProvide the 'help' property and populate the 'text' property with information about the rule."
+              },
               "messageStrings": {
+                "Error_EmptyLocationsArray": {
+                  "text": "{0}: The 'locations' array on this 'result' object is empty. This property is required by the {1} service."
+                },
+                "Error_MissingLocationsArray": {
+                  "text": "{0}: This 'result' object does not provide a 'locations' array. This property is required by the {1} service."
+                },
+                "Error_MissingMessageText": {
+                  "text": "{0}: The 'message' object on this 'result' object does not provide a 'text' property. This property is required by the {1} service."
+                },
+                "Error_MissingMessage": {
+                  "text": "{0}: This 'result' object does not provide a 'message' object. This property is required by the {1} service."
+                },
+                "Error_MissingPartialFingerprints": {
+                  "text": "{0}: This 'result' object does not provide a 'partialFingerprints' dictionary. This property is required by the {1} service."
+                },
                 "Error_MissingFullDescription": {
                   "text": "{0}: This 'reportingDescriptor' object does not provide a 'fullDescription' value. This property is required by the {1} service."
                 },
@@ -172,21 +205,6 @@
                 },
                 "Error_MissingShortDescription": {
                   "text": "{0}: This 'reportingDescriptor' object does not provide a 'shortDescription' value. This property is required by the {1} service."
-                },
-                "Error_EmptyLocationsArray": {
-                  "text": "{0}: The 'locations' array on this 'result' object is empty. This property is required by the {1} service."
-                },
-                "Error_MissingLocationsArray": {
-                  "text": "{0}: This 'result' object does not provide a 'locations' array. This property is required by the {1} service."
-                },
-                "Error_MissingMessageText": {
-                  "text": "{0}: The 'message' object on this 'result' object does not provide a 'text' property. This property is required by the {1} service."
-                },
-                "Error_MissingMessage": {
-                  "text": "{0}: This 'result' object does not provide a 'message' object. This property is required by the {1} service."
-                },
-                "Error_MissingPartialFingerprints": {
-                  "text": "{0}: This 'result' object does not provide a 'partialFingerprints' dictionary. This property is required by the {1} service."
                 }
               },
               "defaultConfiguration": {
@@ -213,10 +231,10 @@
             {
               "id": "ADO1018",
               "name": "AdoProvideRequiredToolProperties",
+              "fullDescription": {
+                "text": "Provide information that makes it easy to identify the name and version of your tool.\r\n\r\nProvide the 'driver' property. This property is required by the ADO Advanced Security service.\r\n\r\nProvide the driver's 'name' and 'fullName' properties.\r\n\r\nProvide the driver's 'rules' array."
+              },
               "messageStrings": {
-                "Error_MissingDriverFullName": {
-                  "text": "{0}: This 'driver' object does not provide a 'fullName' value. This property is required by the {1} service."
-                },
                 "Error_MissingDriverName": {
                   "text": "{0}: The 'driver' object in this tool does not provide a 'name' value. This property is required by the {1} service."
                 },
@@ -225,6 +243,9 @@
                 },
                 "Error_MissingDriver": {
                   "text": "{0}: This 'tool' object does not provide a 'driver' object. This property is required by the {1} service."
+                },
+                "Error_MissingDriverFullName": {
+                  "text": "{0}: This 'driver' object does not provide a 'fullName' value. This property is required by the {1} service."
                 }
               },
               "defaultConfiguration": {
@@ -235,6 +256,9 @@
             {
               "id": "GH1018",
               "name": "GhasProvideToolDriver",
+              "fullDescription": {
+                "text": "Provide information that makes it easy to identify the name and version of your tool.\r\n\r\nProvide the 'driver' property. This property is required by the GitHub Advanced Security service.\r\n\r\nProvide the driver's 'name' property.\r\n\r\nProvide the driver's 'rules' array."
+              },
               "messageStrings": {
                 "Error_MissingDriverName": {
                   "text": "{0}: The 'driver' object in this tool does not provide a 'name' value. This property is required by the {1} service."

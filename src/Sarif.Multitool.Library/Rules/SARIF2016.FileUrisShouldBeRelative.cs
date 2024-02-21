@@ -40,7 +40,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         /// </summary>
         public override MultiformatMessageString FullDescription => new MultiformatMessageString { Text = RuleResources.SARIF2016_FileUrisShouldBeRelative_FullDescription_Text };
 
-        protected override IEnumerable<string> MessageResourceNames => new string[] {
+        protected override ICollection<string> MessageResourceNames => new List<string> {
             nameof(RuleResources.SARIF2016_FileUrisShouldBeRelative_Note_Default_Text),
             nameof(RuleResources.SARIF2016_FileUrisShouldBeRelative_Note_ShouldNotContainBackSlash_Text),
             nameof(RuleResources.SARIF2016_FileUrisShouldBeRelative_Note_ShouldNotStartWithSlash_Text)

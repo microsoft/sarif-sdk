@@ -13,14 +13,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         /// </summary>
         public override string Id => RuleId.ADOProvideRequiredReportingDescriptorProperties;
 
-        protected override IEnumerable<string> MessageResourceNames => new string[] {
-            nameof(RuleResources.ADO2012_ProvideRequiredResultProperties_Error_MissingName_Text),
-            nameof(RuleResources.Base1015_ProvideRequiredResultProperties_Error_EmptyLocationsArray_Text),
-            nameof(RuleResources.Base1015_ProvideRequiredResultProperties_Error_MissingLocationsArray_Text),
-            nameof(RuleResources.Base1015_ProvideRequiredResultProperties_Error_MissingMessageText_Text),
-            nameof(RuleResources.Base1015_ProvideRequiredResultProperties_Error_MissingMessage_Text),
-            nameof(RuleResources.Base1015_ProvideRequiredResultProperties_Error_MissingPartialFingerprints_Text)
-        };
+        public override MultiformatMessageString FullDescription => new MultiformatMessageString { Text = RuleResources.ADO2012_ProvideRequiredReportingDescriptorProperties_FullDescription_Text };
 
         public override HashSet<RuleKind> RuleKinds => new HashSet<RuleKind>(new[] { RuleKind.Ado });
 
@@ -29,6 +22,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         public AdoProvideRequiredReportingDescriptorProperties()
         {
             this.DefaultConfiguration.Level = FailureLevel.Error;
+            this.MessageResourceNames.Add(nameof(RuleResources.ADO2012_ProvideRequiredResultProperties_Error_MissingName_Text));
         }
 
         protected override void Analyze(ReportingDescriptor reportingDescriptor, string reportingDescriptorPointer)

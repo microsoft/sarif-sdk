@@ -1,7 +1,19 @@
 # SARIF Package Release History (SDK, Driver, Converters, and Multitool)
-## **v4.5.1 UNRELEASED
+## **v4.5.3 UNRELEASED
 * BUG: When the path of the scan target contains invalid characters, report `WRN997_InvalidTarget` before analyzing it against any rule, otherwise `ArgumentException: Illegal characters in path` will be thrown.
 * BUG: When the path of the scan target contains URL percent-encoding characters, it should proceed with analyzing without throwing `System.IO.FileNotFoundException`.
+
+## **v4.5.2 [Sdk](https://www.nuget.org/packages/Sarif.Sdk/v4.5.2) | [Driver](https://www.nuget.org/packages/Sarif.Driver/v4.5.2) | [Converters](https://www.nuget.org/packages/Sarif.Converters/v4.5.2)  | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/v4.5.2) | [Multitool Library](https://www.nuget.org/packages/Sarif.Multitool.Library/v4.5.2)
+* BUG: Update Skimmer stack in Multitool.Library to support shared MessageResourceNames collections between base rules and their derivatives.
+* BUG: Fix message strings to always assume {1} is reserved for the rule's service name.
+* BUG: Clean up unused resource strings in Multitool.Library.Rules.RuleResources.resx.
+
+# SARIF Package Release History (SDK, Driver, Converters, and Multitool)
+## **v4.5.1 [Sdk](https://www.nuget.org/packages/Sarif.Sdk/v4.5.1) | [Driver](https://www.nuget.org/packages/Sarif.Driver/v4.5.1) | [Converters](https://www.nuget.org/packages/Sarif.Converters/v4.5.1)  | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/v4.5.1) | [Multitool Library](https://www.nuget.org/packages/Sarif.Multitool.Library/v4.5.1)
+* DEP: Add explicit package references to `Sarif` and `Sarif.Driver` to resolve version conflict build error.
+  `System.Diagnostics.Debug` 4.3.0,
+  `System.IO.FileSystem.Primitives` 4.3.0,
+  `System.Text.Encoding.Extensions` 4.3.0.
 
 ## **v4.5.0 [Sdk](https://www.nuget.org/packages/Sarif.Sdk/v4.5.0) | [Driver](https://www.nuget.org/packages/Sarif.Driver/v4.5.0) | [Converters](https://www.nuget.org/packages/Sarif.Converters/v4.5.0)  | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/v4.5.0) | [Multitool Library](https://www.nuget.org/packages/Sarif.Multitool.Library/v4.5.0)
 * DEP: Downgrade `System.Text.Encoding.CodePages` from 8.0.0 to 4.3.0 in `Sarif`.

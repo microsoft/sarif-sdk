@@ -41,7 +41,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         protected override ResourceManager ResourceManager => SkimmerBaseTestResources.ResourceManager;
 
-        protected override IEnumerable<string> MessageResourceNames => new List<string>
+        protected override IList<string> MessageResourceNames => new List<string>
         {
             nameof(SkimmerBaseTestResources.TEST1001_Failed),
             nameof(SkimmerBaseTestResources.TEST1001_Pass),

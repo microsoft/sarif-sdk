@@ -13,11 +13,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         /// </summary>
         public override string Id => RuleId.GHASProvideRequiredLocationProperties;
 
+        public override MultiformatMessageString FullDescription => new MultiformatMessageString() { Text = RuleResources.GH1016_ProvideRequiredLocationProperties_FullDescription_Text };
+
         public override HashSet<RuleKind> RuleKinds => new HashSet<RuleKind>(new[] { RuleKind.Ghas });
 
         protected override string ServiceName => RuleResources.ServiceName_GHAS;
-
-        public override MultiformatMessageString FullDescription => new MultiformatMessageString();
 
         public GHASProvideRequiredLocationProperties()
         {

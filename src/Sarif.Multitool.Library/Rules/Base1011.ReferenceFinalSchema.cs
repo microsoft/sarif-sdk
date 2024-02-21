@@ -22,11 +22,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         /// the schema were produced. Now that the standard is final, only the OASIS standard version
         /// of the schema is valid.
         /// </summary>
-        public override MultiformatMessageString FullDescription => new MultiformatMessageString { Text = RuleResources.SARIF1011_ReferenceFinalSchema_FullDescription_Text };
+        public override MultiformatMessageString FullDescription => new MultiformatMessageString();
 
-        protected override IEnumerable<string> MessageResourceNames => new string[] {
-            nameof(RuleResources.SARIF1011_ReferenceFinalSchema_Error_Default_Text)
+        private readonly List<string> _messageResourceNames = new List<string>
+        {
+            nameof(RuleResources.Base1011_ReferenceFinalSchema_Error_Default_Text)
         };
+
+        protected override ICollection<string> MessageResourceNames => _messageResourceNames;
 
         protected override void Analyze(SarifLog log, string logPointer)
         {
@@ -54,7 +57,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                 // that refers to the final version of the schema.
                 LogResult(
                     schema,
-                    nameof(RuleResources.SARIF1011_ReferenceFinalSchema_Error_Default_Text),
+                    nameof(RuleResources.Base1011_ReferenceFinalSchema_Error_Default_Text),
                     schemaUri.OriginalString);
             }
         }
