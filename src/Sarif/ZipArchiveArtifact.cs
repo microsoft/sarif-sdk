@@ -90,7 +90,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 {
                     if (this.contents == null && this.bytes == null)
                     {
-                        string extension = Path.GetExtension(Uri.ToString());
+                        string extension = FileSystem.SafePathGetExtension(Uri.ToString());
                         if (this.binaryExtensions.Contains(extension))
                         {
                             // The underlying System.IO.Compression.DeflateStream throws on reads to get_Length.
