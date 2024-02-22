@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.IO.Compression;
 using System.Linq;
+using System.Text;
 
 using FluentAssertions;
 
@@ -86,6 +87,21 @@ namespace Test.UnitTests.Sarif
             var artifactProvider = new MultithreadedZipArchiveArtifactProvider(zip, FileSystem.Instance);
 
             ValidateTextContents(artifactProvider.Artifacts, entryContents);
+        }
+
+        [Fact]
+        public void MultithreadedZipArchiveArtifact_IllegalFileAndPathCharacters()
+        {
+            string text = $"{Guid.NewGuid()}";
+            byte[] contents = Encoding.UTF8.GetBytes(text);
+            string filePath = $"{Path.GetInvalidPathChars()[0]}{Path.GetInvalidFileNameChars()[1]}MyZippedFile.txt";
+            ZipArchive zip = EnumeratedArtifactTests.CreateZipArchive(filePath, contents);
+
+            foreach (IEnumeratedArtifact entry in new MultithreadedZipArchiveArtifactProvider(zip, new FileSystem()).Artifacts)
+            {
+                entry.IsBinary.Should().BeFalse();
+                entry.Contents.Should().BeEquivalentTo(text);
+            }
         }
 
         private void ValidateTextContents(IEnumerable<IEnumeratedArtifact> artifacts, string entryContents)
