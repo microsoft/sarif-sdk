@@ -2,6 +2,7 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 {
@@ -15,6 +16,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 
         public override MultiformatMessageString FullDescription => new MultiformatMessageString() { Text = RuleResources.ADO1014_ProvideRequiredRunProperties_FullDescription_Text };
 
+        private readonly List<string> _messageResourceNames = new List<string>()
+        {
+            nameof(RuleResources.ADO1014_AdoProvideRequiredRunProperties_Error_MissingAutomationDetails_Text),
+            nameof(RuleResources.ADO1014_AdoProvideRequiredRunProperties_Error_MissingAutomationDetailsId_Text)
+        };
+
+        protected override ICollection<string> MessageResourceNames => _messageResourceNames.Concat(BaseMessageResourceNames).ToList();
+
         public override HashSet<RuleKind> RuleKinds => new HashSet<RuleKind>(new[] { RuleKind.Ado });
 
         protected override string ServiceName => RuleResources.ServiceName_ADO;
@@ -22,8 +31,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         public AdoProvideRequiredRunProperties()
         {
             this.DefaultConfiguration.Level = FailureLevel.Error;
-            this.MessageResourceNames.Add(nameof(RuleResources.ADO1014_AdoProvideRequiredRunProperties_Error_MissingAutomationDetails_Text));
-            this.MessageResourceNames.Add(nameof(RuleResources.ADO1014_AdoProvideRequiredRunProperties_Error_MissingAutomationDetailsId_Text));
         }
 
         protected override void Analyze(Run run, string runPointer)

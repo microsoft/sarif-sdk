@@ -14,7 +14,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
     {
         public override string Id => string.Empty;
 
-        private readonly List<string> _messageResourceNames = new List<string>
+        private readonly List<string> _baseMessageResourceNames = new List<string>
         {
             nameof(RuleResources.Base1017_ProvideRequiredPhysicalLocationProperties_Error_MissingArtifactLocation_Text),
             nameof(RuleResources.Base1017_ProvideRequiredPhysicalLocationProperties_Error_MissingRegion_Text),
@@ -23,7 +23,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             nameof(RuleResources.SARIF1007_RegionPropertiesMustBeConsistent_Error_RegionStartPropertyMustBePresent_Text)
         };
 
-        protected override ICollection<string> MessageResourceNames => _messageResourceNames;
+        private ICollection<string> BaseMessageResourceNames => _baseMessageResourceNames;
 
         public override HashSet<RuleKind> RuleKinds => new HashSet<RuleKind>();
 
