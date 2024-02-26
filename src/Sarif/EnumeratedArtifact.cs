@@ -4,6 +4,7 @@
 using System;
 using System.IO;
 using System.Text;
+using System.Text.RegularExpressions;
 
 namespace Microsoft.CodeAnalysis.Sarif
 {
@@ -20,6 +21,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         internal byte[] bytes;
         internal string contents;
+        internal string cleanPath = string.Empty;
 
         private Encoding encoding;
 
@@ -64,6 +66,39 @@ namespace Microsoft.CodeAnalysis.Sarif
             set => this.bytes = value;
         }
 
+        public string CleanPath
+        {
+            get => GetCleanFilePath(Uri.OriginalString);
+            set => this.cleanPath = value;
+        }
+
+        private readonly static Regex AbsoluteFilePathWithFileSchemeRegex = new Regex(@"file:(?:\/{3}|\/{2}\w+\/|\/{1})?(.+)", RegexOptions.Compiled | RegexOptions.CultureInvariant);
+
+        private string GetCleanFilePath(string originalString)
+        {
+            if (this.cleanPath != string.Empty) 
+            {
+                return this.cleanPath;
+            }
+
+            if (originalString.StartsWith("file:"))
+            {
+                Match match = AbsoluteFilePathWithFileSchemeRegex.Match(originalString);
+                if (match.Success)
+                {
+                    string separator = Path.DirectorySeparatorChar.ToString();
+                    this.cleanPath = match.Groups[1].Value.Replace("/", separator);
+                    return this.cleanPath;
+                }
+
+                throw new IOException("Invalid file path format.");
+            }
+            else
+            {
+                return originalString;
+            }
+        }
+
         private (string text, byte[] bytes) GetArtifactData()
         {
             if (this.contents != null)
@@ -86,7 +121,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 }
 
                 // This is our client-side, disk-based file retrieval case.
-                this.Stream = FileSystem.FileOpenRead(Uri.LocalPath);
+                this.Stream = FileSystem.FileOpenRead(CleanPath);
             }
 
             RetrieveDataFromStream();
@@ -164,7 +199,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 }
                 else if (Uri != null && Uri.IsAbsoluteUri && Uri.IsFile)
                 {
-                    this.sizeInBytes = (long)FileSystem.FileInfoLength(Uri.LocalPath);
+                    this.sizeInBytes = (long)FileSystem.FileInfoLength(CleanPath);
                 }
                 else if (this.Contents != null)
                 {

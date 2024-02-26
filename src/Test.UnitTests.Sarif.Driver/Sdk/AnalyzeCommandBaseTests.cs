@@ -37,6 +37,94 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             Output.WriteLine($"The seed that will be used is: {TestRule.s_seed}");
         }
 
+        [Fact]
+        public void AnalyzeCommand_AbsoluteFileURIWithPathsContainsIllegalCharacters()
+        {
+            var logger = new TestMessageLogger();
+            var command = new TestMultithreadedAnalyzeCommand();
+
+            // No content is set for the following uri, so when its length or content is retrieved,
+            // the file path format will be evaluated.
+            var uri = new Uri("C:\\test" + Path.GetInvalidPathChars()[0] + "ABC.md", UriKind.Absolute);
+
+            var target = new EnumeratedArtifact(FileSystem.Instance) { Uri = uri };
+
+            var options = new TestAnalyzeOptions
+            {
+                PluginFilePaths = new[] { typeof(TestRule).Assembly.FullName },
+            };
+
+            var context = new TestAnalysisContext
+            {
+                TargetsProvider = new ArtifactProvider(new[] { target }),
+                Logger = logger,
+            };
+
+            int result = command.Run(options: null, ref context);
+            result.Should().Be(CommandBase.FAILURE);
+            context.RuntimeErrors.Should().Be(RuntimeConditions.OneOrMoreFilesSkipped | RuntimeConditions.NoValidAnalysisTargets);
+        }
+
+
+        [Fact]
+        public void AnalyzeCommand_AbsoluteFileURIWithEncodedPaths()
+        {
+            var logger = new TestMessageLogger();
+            var command = new TestMultithreadedAnalyzeCommand();
+
+            // No content is set for the following uri, so when its length or content is retrieved,
+            // the file path format will be evaluated.
+            string filePath = Path.Combine(Path.GetTempPath(), "New%2DYapeAzureCertificateForWinRMOverHttpsInKeyVault.md");
+            var uri = new Uri(filePath, UriKind.Absolute);
+
+            var target = new EnumeratedArtifact(FileSystem.Instance) { Uri = uri };
+
+            var options = new TestAnalyzeOptions
+            {
+                PluginFilePaths = new[] { typeof(TestRule).Assembly.FullName },
+            };
+
+            var context = new TestAnalysisContext
+            {
+                TargetsProvider = new ArtifactProvider(new[] { target }),
+                Logger = logger,
+            };
+
+            int result = command.Run(options: null, ref context);
+            context.ValidateCommandExecution(result);
+        }
+
+        [Fact]
+        public void AnalyzeCommand_AbsoluteFileURIWithEncodedPathsAndFileSchemePrefix()
+        {
+            var logger = new TestMessageLogger();
+            var command = new TestMultithreadedAnalyzeCommand();
+
+            // No content is set for the following uri, so when its length or content is retrieved,
+            // the file path format will be evaluated.
+            string directoryPath = Path.GetTempPath();
+
+            // The following 'directoryPathWithFileScheme' with start with "file:/"
+            string directoryPathWithFileScheme = new Uri(directoryPath).ToString();
+
+            var uri = new Uri(directoryPathWithFileScheme + "New%2DYapeAzureCertificateForWinRMOverHttpsInKeyVault.md", UriKind.Absolute);
+
+            var target = new EnumeratedArtifact(FileSystem.Instance) { Uri = uri };
+
+            var options = new TestAnalyzeOptions
+            {
+                PluginFilePaths = new[] { typeof(TestRule).Assembly.FullName },
+            };
+
+            var context = new TestAnalysisContext
+            {
+                TargetsProvider = new ArtifactProvider(new[] { target }),
+                Logger = logger,
+            };
+
+            int result = command.Run(options: null, ref context);
+            context.ValidateCommandExecution(result);
+        }
 
         [Fact]
         public void AnalyzeCommandBase_ScanWithFilesThatExceedSizeLimitEmitsSkippedFilesWarning()

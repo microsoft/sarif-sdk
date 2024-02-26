@@ -35,6 +35,42 @@ namespace Test.UnitTests.Sarif
         }
 
         [Fact]
+        public void EnumeratedArtifact_FilePath_IllegalChars()
+        {
+            string originalString = "C:\\test" + Path.GetInvalidPathChars()[0] + "ABC.md";
+            var uri = new Uri(originalString, UriKind.Absolute);
+
+            var artifact = new EnumeratedArtifact(FileSystem.Instance) { Uri = uri };
+            
+            artifact.CleanPath.Should().Be(originalString);
+        }
+
+
+        [Fact]
+        public void EnumeratedArtifact_FilePath_EncodedChars()
+        {
+            string originalString = "C:\\Users\\%28test%29\\Downloads\\New%2DYapeAzureCertificateForWinRMOverHttpsInKeyVault.md";
+            var uri = new Uri(originalString, UriKind.Absolute);
+
+            var artifact = new EnumeratedArtifact(FileSystem.Instance) { Uri = uri };
+
+            artifact.CleanPath.Should().Be(originalString);
+        }
+
+        [Fact]
+        public void EnumeratedArtifact_FilePath_EncodedCharsAndFileSchemePrefix()
+        {
+            string originalString = "file:///C:/Users/%28test%29/Downloads/New%2DYapeAzureCertificateForWinRMOverHttpsInKeyVault.md";
+            string expectedString = "C:\\Users\\%28test%29\\Downloads\\New%2DYapeAzureCertificateForWinRMOverHttpsInKeyVault.md";
+
+            var uri = new Uri(originalString, UriKind.Absolute);
+
+            var artifact = new EnumeratedArtifact(FileSystem.Instance) { Uri = uri };
+
+            artifact.CleanPath.Should().Be(expectedString);
+        }
+
+        [Fact]
         public void EnumeratedArtifact_TextFile_OnDisk()
         {
             using var tempFile = new TempFile();
