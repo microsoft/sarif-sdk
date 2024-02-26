@@ -24,9 +24,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         /// </summary>
         public override MultiformatMessageString FullDescription => new MultiformatMessageString();
 
-        protected override IEnumerable<string> MessageResourceNames => new string[] {
+        private readonly List<string> _messageResourceNames = new List<string>
+        {
             nameof(RuleResources.Base1011_ReferenceFinalSchema_Error_Default_Text)
         };
+
+        protected override ICollection<string> MessageResourceNames => _messageResourceNames;
 
         protected override void Analyze(SarifLog log, string logPointer)
         {
@@ -54,7 +57,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                 // that refers to the final version of the schema.
                 LogResult(
                     schema,
-                    nameof(RuleResources.Base1011_ReferenceFinalSchema_Error_Default_Text));
+                    nameof(RuleResources.Base1011_ReferenceFinalSchema_Error_Default_Text),
+                    schemaUri.OriginalString);
             }
         }
     }

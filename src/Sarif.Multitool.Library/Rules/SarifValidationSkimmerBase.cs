@@ -32,9 +32,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 
         protected override sealed ResourceManager ResourceManager => RuleResources.ResourceManager;
 
-        private readonly string[] _emptyMessageResourceNames = Array.Empty<string>();
+        private readonly List<string> _emptyMessageResourceNames = new List<string>();
 
-        protected override IEnumerable<string> MessageResourceNames => _emptyMessageResourceNames;
+        protected override ICollection<string> MessageResourceNames => _emptyMessageResourceNames;
 
         protected virtual string ServiceName { get; }
 

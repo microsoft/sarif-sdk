@@ -23,7 +23,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         /// </summary>
         public override MultiformatMessageString FullDescription => new MultiformatMessageString { Text = RuleResources.SARIF2003_ProvideVersionControlProvenance_FullDescription_Text };
 
-        protected override IEnumerable<string> MessageResourceNames => new string[] {
+        protected override ICollection<string> MessageResourceNames => new List<string> {
             nameof(RuleResources.SARIF2003_ProvideVersionControlProvenance_Note_Default_Text)
         };
         protected override void Analyze(Run run, string runPointer)

@@ -14,13 +14,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
     {
         public override string Id => string.Empty;
 
-        protected override IEnumerable<string> MessageResourceNames => new string[] {
+        private readonly List<string> _messageResourceNames = new List<string>
+        {
             nameof(RuleResources.Base1017_ProvideRequiredPhysicalLocationProperties_Error_MissingArtifactLocation_Text),
             nameof(RuleResources.Base1017_ProvideRequiredPhysicalLocationProperties_Error_MissingRegion_Text),
             nameof(RuleResources.SARIF1007_RegionPropertiesMustBeConsistent_Error_EndColumnMustNotPrecedeStartColumn_Text),
             nameof(RuleResources.SARIF1007_RegionPropertiesMustBeConsistent_Error_EndLineMustNotPrecedeStartLine_Text),
             nameof(RuleResources.SARIF1007_RegionPropertiesMustBeConsistent_Error_RegionStartPropertyMustBePresent_Text)
         };
+
+        protected override ICollection<string> MessageResourceNames => _messageResourceNames;
 
         public override HashSet<RuleKind> RuleKinds => new HashSet<RuleKind>();
 

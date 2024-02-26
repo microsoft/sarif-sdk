@@ -32,7 +32,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         // file at the root of your repository to specify higher limits.
         public override MultiformatMessageString FullDescription => new MultiformatMessageString { Text = RuleResources.GH1004_ReviewArraysThatExceedConfigurableDefaults_FullDescription_Text };
 
-        protected override IEnumerable<string> MessageResourceNames => new string[] {
+        protected override ICollection<string> MessageResourceNames => new List<string> {
             nameof(RuleResources.GH1004_ReviewArraysThatExceedConfigurableDefaults_Error_Default_Text)
         };
 
