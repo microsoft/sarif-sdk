@@ -666,30 +666,18 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                     continue;
                 }
 
-                long artifactSize = 0;
-                try
-                {
-                    artifactSize = artifact.SizeInBytes.Value;
-                }
-                catch (Exception e) when (e is IOException || e is ArgumentException)
-                {
-                    DriverEventSource.Log.ArtifactNotScanned(filePath, DriverEventNames.FilePathNotAllowed, 00, data2: null);
-                    Notes.LogFileSkipped(globalContext, filePath, e.Message);
-                    continue;
-                }
-
-                if (artifactSize == 0)
+                if (artifact.SizeInBytes == 0)
                 {
                     DriverEventSource.Log.ArtifactNotScanned(filePath, DriverEventNames.EmptyFile, 00, data2: null);
                     Notes.LogEmptyFileSkipped(globalContext, filePath);
                     continue;
                 }
 
-                if (!IsTargetWithinFileSizeLimit(artifactSize, globalContext.MaxFileSizeInKilobytes))
+                if (!IsTargetWithinFileSizeLimit(artifact.SizeInBytes.Value, globalContext.MaxFileSizeInKilobytes))
                 {
                     _filesExceedingSizeLimitCount++;
-                    DriverEventSource.Log.ArtifactNotScanned(filePath, DriverEventNames.FileExceedsSizeLimits, artifactSize, $"{globalContext.MaxFileSizeInKilobytes}");
-                    Notes.LogFileExceedingSizeLimitSkipped(globalContext, filePath, artifactSize / 1000);
+                    DriverEventSource.Log.ArtifactNotScanned(filePath, DriverEventNames.FileExceedsSizeLimits, artifact.SizeInBytes.Value, $"{globalContext.MaxFileSizeInKilobytes}");
+                    Notes.LogFileExceedingSizeLimitSkipped(globalContext, artifact.Uri.GetFilePath(), artifact.SizeInBytes.Value / 1000);
                     continue;
                 }
 
