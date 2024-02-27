@@ -98,6 +98,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         }
 
         [Fact]
+        [Trait(TestTraits.WindowsOnly, "true")]
         public void AnalyzeCommand_AbsoluteFileURIWithEncodedPathsAndFileSchemePrefix()
         {
             var logger = new TestMessageLogger();
