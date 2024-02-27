@@ -75,7 +75,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             var logger = new TestMessageLogger();
             var command = new TestMultithreadedAnalyzeCommand();
 
-            string filePath = Path.Combine(Path.GetTempPath(), "New%2DYapeAzureCertificateForWinRMOverHttpsInKeyVault.md");
+            string filePath = Path.Combine(Path.GetTempPath(), "New%2DYear.md");
             File.WriteAllText(filePath, $"{Guid.NewGuid}");
 
             var uri = new Uri(filePath, UriKind.Absolute);
@@ -105,12 +105,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             var command = new TestMultithreadedAnalyzeCommand();
 
             string directoryPath = Path.GetTempPath();
-            string filePath = directoryPath + "New%2DYapeAzureCertificateForWinRMOverHttpsInKeyVault.md";
+            string filePath = directoryPath + "New%2DYear.md";
             File.WriteAllText(filePath, $"{Guid.NewGuid}");
 
             // The following 'directoryPathWithFileScheme' with start with "file:/"
             string directoryPathWithFileScheme = new Uri(directoryPath).ToString();
-            string filePathWithFileScheme = directoryPathWithFileScheme + "New%2DYapeAzureCertificateForWinRMOverHttpsInKeyVault.md";
+            string filePathWithFileScheme = directoryPathWithFileScheme + "New%2DYear.md";
 
             var uri = new Uri(filePathWithFileScheme, UriKind.Absolute);
 
