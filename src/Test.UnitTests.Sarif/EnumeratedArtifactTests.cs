@@ -41,7 +41,7 @@ namespace Test.UnitTests.Sarif
             var uri = new Uri(originalString, UriKind.Absolute);
 
             var artifact = new EnumeratedArtifact(FileSystem.Instance) { Uri = uri };
-            
+
             artifact.CleanPath.Should().Be(originalString);
         }
 
@@ -60,8 +60,9 @@ namespace Test.UnitTests.Sarif
         [Fact]
         public void EnumeratedArtifact_FilePath_EncodedCharsAndFileSchemePrefix()
         {
-            string originalString = "file:///C:/Users/%28test%29/Downloads/New%2DYapeAzureCertificateForWinRMOverHttpsInKeyVault.md";
-            string expectedString = "C:\\Users\\%28test%29\\Downloads\\New%2DYapeAzureCertificateForWinRMOverHttpsInKeyVault.md";
+            string originalString = "file:///C:/%28test%29/New%2DYapeAzureCertificateForWinRMOverHttpsInKeyVault.md";
+            string separator = Path.DirectorySeparatorChar.ToString();
+            string expectedString = "C:" + separator + "%28test%29" + separator + "New%2DYapeAzureCertificateForWinRMOverHttpsInKeyVault.md";
 
             var uri = new Uri(originalString, UriKind.Absolute);
 

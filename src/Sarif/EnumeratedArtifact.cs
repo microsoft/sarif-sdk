@@ -76,7 +76,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         private string GetCleanFilePath(string originalString)
         {
-            if (this.cleanPath != string.Empty) 
+            if (this.cleanPath != string.Empty)
             {
                 return this.cleanPath;
             }
