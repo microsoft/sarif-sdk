@@ -23,7 +23,13 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         private Encoding encoding;
 
+        // If the Uri provided is to a local file, the original string used to specify it must
+        // be path resolveable in its unencoded form.
         public Uri Uri { get; set; }
+
+        // If the EnumeratedArtifact is not backed by a local file, then Stream must be explicitly set by the caller.
+        // Otherwise, the file may be specified via a Uri with a path-resolvable local string.
+        public Stream Stream { get; set; }
 
         public bool IsBinary
         {
@@ -33,8 +39,6 @@ namespace Microsoft.CodeAnalysis.Sarif
                 return this.contents == null;
             }
         }
-
-        public Stream Stream { get; set; }
 
         public Encoding Encoding
         {
@@ -78,11 +82,10 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             if (Stream == null && this.contents == null && this.bytes == null)
             {
-                if (Uri == null ||
-                    !Uri.IsAbsoluteUri ||
-                    (Uri.IsAbsoluteUri && !Uri.IsFile))
+                if (Uri == null || !FileSystem.FileExists(Uri.OriginalString))
                 {
-                    throw new InvalidOperationException("An absolute URI pointing to a file location was not available.");
+                    string detail = Uri == null ? "'Uri' was null" : $"Uri '{Uri.OriginalString}' not found";
+                    throw new InvalidOperationException($"An absolute URI pointing to a file location was not available because {detail}.");
                 }
 
                 // This is our client-side, disk-based file retrieval case.
@@ -160,15 +163,15 @@ namespace Microsoft.CodeAnalysis.Sarif
                 }
                 else if (this.Stream != null)
                 {
-                    this.SizeInBytes = (long)this.Stream.Length;
+                    this.sizeInBytes = (long)this.Stream.Length;
                 }
                 else if (Uri != null && Uri.IsAbsoluteUri && Uri.IsFile)
                 {
-                    this.sizeInBytes = (long)FileSystem.FileInfoLength(Uri.LocalPath);
+                    this.sizeInBytes = (long)FileSystem.FileInfoLength(Uri.OriginalString);
                 }
                 else if (this.Contents != null)
                 {
-                    this.SizeInBytes = (long)this.Contents.Length;
+                    this.sizeInBytes = (long)this.Contents.Length;
                 }
 
                 return this.sizeInBytes;

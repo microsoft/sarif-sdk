@@ -35,43 +35,6 @@ namespace Test.UnitTests.Sarif
         }
 
         [Fact]
-        public void EnumeratedArtifact_FilePath_IllegalChars()
-        {
-            string originalString = "C:\\test" + Path.GetInvalidPathChars()[0] + "ABC.md";
-            var uri = new Uri(originalString, UriKind.Absolute);
-
-            var artifact = new EnumeratedArtifact(FileSystem.Instance) { Uri = uri };
-
-            artifact.CleanPath.Should().Be(originalString);
-        }
-
-
-        [Fact]
-        public void EnumeratedArtifact_FilePath_EncodedChars()
-        {
-            string originalString = "C:\\Users\\%28test%29\\Downloads\\New%2DYear.md";
-            var uri = new Uri(originalString, UriKind.Absolute);
-
-            var artifact = new EnumeratedArtifact(FileSystem.Instance) { Uri = uri };
-
-            artifact.CleanPath.Should().Be(originalString);
-        }
-
-        [Fact]
-        public void EnumeratedArtifact_FilePath_EncodedCharsAndFileSchemePrefix()
-        {
-            string originalString = "file:///C:/%28test%29/New%2DYear.md";
-            string separator = Path.DirectorySeparatorChar.ToString();
-            string expectedString = "C:" + separator + "%28test%29" + separator + "New%2DYear.md";
-
-            var uri = new Uri(originalString, UriKind.Absolute);
-
-            var artifact = new EnumeratedArtifact(FileSystem.Instance) { Uri = uri };
-
-            artifact.CleanPath.Should().Be(expectedString);
-        }
-
-        [Fact]
         public void EnumeratedArtifact_TextFile_OnDisk()
         {
             using var tempFile = new TempFile();

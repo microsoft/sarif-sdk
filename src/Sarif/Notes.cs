@@ -37,7 +37,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                     Path.GetFileName(skippedFile),
                     reason));
 
-            context.RuntimeErrors |= RuntimeConditions.OneOrMoreFilesSkippedDueToExceedingSizeLimits;
+            context.RuntimeErrors |= RuntimeConditions.OneOrMoreFilesSkipped;
         }
 
         public static void LogEmptyFileSkipped(IAnalysisContext context, string skippedFile)

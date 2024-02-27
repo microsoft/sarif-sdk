@@ -656,6 +656,20 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
                 string filePath = artifact.Uri.GetFilePath();
 
+                long artifactSizeInBytes = -1;
+                try
+                {
+                    artifactSizeInBytes = artifact.SizeInBytes.Value;
+                }
+                catch (Exception e) when (e is ArgumentException || (e is IOException && e.Message.IndexOf("The filename, directory name, or volume label syntax is incorrect.") != -1))
+                {
+                    // These exceptions can come out of the FileSystem when we're passing in invalid characters.  We need to catch and
+                    // log to avoid losing the scan.
+                    DriverEventSource.Log.ArtifactNotScanned(filePath, DriverEventNames.FilePathNotAllowed, 00, data2: null);
+                    Notes.LogFileSkipped(globalContext, filePath, e.Message);
+                    continue;
+                }
+
                 if (globalContext.CompiledGlobalFileDenyRegex?.Match(filePath).Success == true)
                 {
                     _filesMatchingGlobalFileDenyRegex++;
@@ -666,7 +680,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                     continue;
                 }
 
-                if (artifact.SizeInBytes == 0)
+                if (artifactSizeInBytes == 0)
                 {
                     DriverEventSource.Log.ArtifactNotScanned(filePath, DriverEventNames.EmptyFile, 00, data2: null);
                     Notes.LogEmptyFileSkipped(globalContext, filePath);

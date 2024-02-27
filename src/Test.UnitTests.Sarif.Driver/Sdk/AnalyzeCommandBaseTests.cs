@@ -68,9 +68,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             context.RuntimeErrors.Should().Be(RuntimeConditions.OneOrMoreFilesSkipped);
         }
 
-
         [Fact]
-        public void AnalyzeCommand_AbsoluteFileURIWithEncodedPaths()
+        public void AnalyzeCommand_AbsoluteFileURIWithPercentInFile()
         {
             var logger = new TestMessageLogger();
             var command = new TestMultithreadedAnalyzeCommand();
@@ -98,21 +97,21 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         }
 
         [Fact]
-        [Trait(TestTraits.WindowsOnly, "true")]
-        public void AnalyzeCommand_AbsoluteFileURIWithEncodedPathsAndFileSchemePrefix()
+        public void AnalyzeCommand_AbsoluteFileURIWithPercentInDirectory()
         {
             var logger = new TestMessageLogger();
             var command = new TestMultithreadedAnalyzeCommand();
 
-            string directoryPath = Path.GetTempPath();
-            string filePath = directoryPath + "New%2DYear.md";
+            string dirPath = Path.Combine(Path.GetTempPath(), "New%2DYearDir");
+            if (!Directory.Exists(dirPath))
+            { 
+                Directory.CreateDirectory(dirPath);
+            }
+
+            string filePath = Path.Combine(dirPath, "File.md");
             File.WriteAllText(filePath, $"{Guid.NewGuid}");
 
-            // The following 'directoryPathWithFileScheme' with start with "file:/"
-            string directoryPathWithFileScheme = new Uri(directoryPath).ToString();
-            string filePathWithFileScheme = directoryPathWithFileScheme + "New%2DYear.md";
-
-            var uri = new Uri(filePathWithFileScheme, UriKind.Absolute);
+            var uri = new Uri(filePath, UriKind.Absolute);
 
             var target = new EnumeratedArtifact(FileSystem.Instance) { Uri = uri };
 
@@ -130,6 +129,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             int result = command.Run(options: null, ref context);
             context.ValidateCommandExecution(result);
         }
+
 
         [Fact]
         public void AnalyzeCommandBase_ScanWithFilesThatExceedSizeLimitEmitsSkippedFilesWarning()
