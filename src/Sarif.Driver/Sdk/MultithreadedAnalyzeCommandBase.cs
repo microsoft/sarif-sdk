@@ -671,7 +671,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 {
                     artifactSize = artifact.SizeInBytes.Value;
                 }
-                catch (IOException e)
+                catch (Exception e) when (e is IOException || e is ArgumentException)
                 {
                     DriverEventSource.Log.ArtifactNotScanned(filePath, DriverEventNames.FilePathNotAllowed, 00, data2: null);
                     Notes.LogFileSkipped(globalContext, filePath, e.Message);
