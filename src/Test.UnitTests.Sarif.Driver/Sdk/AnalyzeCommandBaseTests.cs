@@ -45,9 +45,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
             // No content is set for the following uri, so when its length or content is retrieved,
             // the file path format will be evaluated.
-            var uri = new Uri("C:\\test" + Path.GetInvalidPathChars()[0] + "ABC.md", UriKind.Absolute);
+            var uri1 = new Uri("C:\\test" + Path.GetInvalidPathChars()[0] + "ABC.md", UriKind.Absolute);
+            var target1 = new EnumeratedArtifact(FileSystem.Instance) { Uri = uri1 };
 
-            var target = new EnumeratedArtifact(FileSystem.Instance) { Uri = uri };
+            // A normal scan target.
+            var uri2 = new Uri("C:\\testABC.md", UriKind.Absolute);
+            var target2 = new EnumeratedArtifact(FileSystem.Instance) { Uri = uri2, Contents = "foo foo" };
 
             var options = new TestAnalyzeOptions
             {
@@ -56,13 +59,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
             var context = new TestAnalysisContext
             {
-                TargetsProvider = new ArtifactProvider(new[] { target }),
+                TargetsProvider = new ArtifactProvider(new[] { target1, target2 }),
                 Logger = logger,
             };
 
             int result = command.Run(options: null, ref context);
-            result.Should().Be(CommandBase.FAILURE);
-            context.RuntimeErrors.Should().Be(RuntimeConditions.OneOrMoreFilesSkipped | RuntimeConditions.NoValidAnalysisTargets);
+            context.ValidateCommandExecution(result);
+            context.RuntimeErrors.Should().Be(RuntimeConditions.OneOrMoreFilesSkipped);
         }
 
 
@@ -72,9 +75,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             var logger = new TestMessageLogger();
             var command = new TestMultithreadedAnalyzeCommand();
 
-            // No content is set for the following uri, so when its length or content is retrieved,
-            // the file path format will be evaluated.
             string filePath = Path.Combine(Path.GetTempPath(), "New%2DYapeAzureCertificateForWinRMOverHttpsInKeyVault.md");
+            File.WriteAllText(filePath, $"{Guid.NewGuid}");
+
             var uri = new Uri(filePath, UriKind.Absolute);
 
             var target = new EnumeratedArtifact(FileSystem.Instance) { Uri = uri };
@@ -100,14 +103,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             var logger = new TestMessageLogger();
             var command = new TestMultithreadedAnalyzeCommand();
 
-            // No content is set for the following uri, so when its length or content is retrieved,
-            // the file path format will be evaluated.
             string directoryPath = Path.GetTempPath();
+            string filePath = directoryPath + "New%2DYapeAzureCertificateForWinRMOverHttpsInKeyVault.md";
+            File.WriteAllText(filePath, $"{Guid.NewGuid}");
 
             // The following 'directoryPathWithFileScheme' with start with "file:/"
             string directoryPathWithFileScheme = new Uri(directoryPath).ToString();
+            string filePathWithFileScheme = directoryPathWithFileScheme + "New%2DYapeAzureCertificateForWinRMOverHttpsInKeyVault.md";
 
-            var uri = new Uri(directoryPathWithFileScheme + "New%2DYapeAzureCertificateForWinRMOverHttpsInKeyVault.md", UriKind.Absolute);
+            var uri = new Uri(filePathWithFileScheme, UriKind.Absolute);
 
             var target = new EnumeratedArtifact(FileSystem.Instance) { Uri = uri };
 
