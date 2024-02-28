@@ -10,12 +10,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
     {
         public override string Id => string.Empty;
 
-        private readonly List<string> _messageResourceNames = new List<string>
+        private readonly List<string> _baseMessageResourceNames = new List<string>
         {
             nameof(RuleResources.Base2012_ProvideRequiredReportingDescriptorProperties_Error_MissingIdProperty_Text)
         };
 
-        protected override ICollection<string> MessageResourceNames => _messageResourceNames;
+        private ICollection<string> BaseMessageResourceNames => _baseMessageResourceNames;
 
         public override HashSet<RuleKind> RuleKinds => new HashSet<RuleKind>();
 
