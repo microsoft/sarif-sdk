@@ -60,10 +60,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             // Validate will return an empty file if there are any JSON syntax errors. 
             // In that case there's no point in going on.
             string sarifText =
-                Validate(context.CurrentTarget.Uri.GetFilePath(),
+                Validate(context.CurrentTarget,
                          context.SchemaFilePath,
                          context.Logger,
-                         context.FileSystem,
                          context.UpdateInputsToCurrentSarif);
 
             if (!string.IsNullOrEmpty(sarifText))
@@ -96,24 +95,23 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         }
 
         private string Validate(
-            string instanceFilePath,
+            IEnumeratedArtifact target,
             string schemaFilePath,
             IAnalysisLogger logger,
-            IFileSystem fileSystem,
             bool updateToCurrentSarifVersion = true)
         {
             string instanceText = null;
 
             try
             {
-                instanceText = fileSystem.FileReadAllText(instanceFilePath);
+                instanceText = target.Contents;
 
                 if (updateToCurrentSarifVersion)
                 {
                     PrereleaseCompatibilityTransformer.UpdateToCurrentVersion(instanceText, formatting: Formatting.Indented, out instanceText);
                 }
 
-                PerformSchemaValidation(instanceText, instanceFilePath, schemaFilePath, logger);
+                PerformSchemaValidation(instanceText, target.Uri.GetFilePath(), schemaFilePath, logger);
             }
             catch (JsonSyntaxException ex)
             {
