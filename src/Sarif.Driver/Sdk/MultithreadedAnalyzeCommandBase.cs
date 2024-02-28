@@ -761,7 +761,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 // Loop while there is work to do.
                 while (reader.TryRead(out uint item))
                 {
-                    TContext perFileContext = _fileContexts[item]; ;
+                    TContext perFileContext = _fileContexts[item];
                     perFileContext.CancellationToken.ThrowIfCancellationRequested();
                     string filePath = perFileContext.CurrentTarget.Uri.GetFilePath();
 
@@ -1137,8 +1137,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                                                                     IEnumerable<Skimmer<TContext>> skimmers,
                                                                     ISet<string> disabledSkimmers)
         {
-            string filePath = context.CurrentTarget.Uri.GetFilePath();
-
             if (context.RuntimeExceptions != null)
             {
                 Debug.Assert(context.RuntimeExceptions.Count == 1);

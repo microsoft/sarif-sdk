@@ -256,6 +256,9 @@ namespace Microsoft.CodeAnalysis.Sarif
             return uri.AbsolutePath.Split('/').Last();
         }
 
+        // Maintenance note: this API should not be relied upon to produce paths that
+        // are functionally compatible with .NET IO APIs.  Use it only for generating
+        // strings for output.
         public static string GetFilePath(this Uri uri)
         {
             return uri.IsAbsoluteUri ? uri.LocalPath : uri.OriginalString;
