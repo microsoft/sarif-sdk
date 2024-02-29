@@ -1,4 +1,7 @@
 # SARIF Package Release History (SDK, Driver, Converters, and Multitool)
+## **v4.5.4 [Sdk](https://www.nuget.org/packages/Sarif.Sdk/v4.5.4) | [Driver](https://www.nuget.org/packages/Sarif.Driver/v4.5.4) | [Converters](https://www.nuget.org/packages/Sarif.Converters/v4.5.4)  | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/v4.5.4) | [Multitool Library](https://www.nuget.org/packages/Sarif.Multitool.Library/v4.5.4)
+* BUG: Fix incorrect base class in rule ADO2012.
+
 ## **v4.5.3 [Sdk](https://www.nuget.org/packages/Sarif.Sdk/v4.5.3) | [Driver](https://www.nuget.org/packages/Sarif.Driver/v4.5.3) | [Converters](https://www.nuget.org/packages/Sarif.Converters/v4.5.3)  | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/v4.5.3) | [Multitool Library](https://www.nuget.org/packages/Sarif.Multitool.Library/v4.5.3)
 * BUG: Restructure shared MessageResourceNames collections to ensure return of correct error messages.
 
