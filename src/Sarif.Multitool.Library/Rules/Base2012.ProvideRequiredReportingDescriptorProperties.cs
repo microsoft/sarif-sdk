@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 {
-    public class Base2012ProvideRequiredReportingDescriptorProperties
+    public class BaseProvideRequiredReportingDescriptorProperties
         : SarifValidationSkimmerBase
     {
         public override string Id => string.Empty;
@@ -15,7 +15,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             nameof(RuleResources.Base2012_ProvideRequiredReportingDescriptorProperties_Error_MissingIdProperty_Text)
         };
 
-        private ICollection<string> BaseMessageResourceNames => _baseMessageResourceNames;
+        protected ICollection<string> BaseMessageResourceNames => _baseMessageResourceNames;
 
         public override HashSet<RuleKind> RuleKinds => new HashSet<RuleKind>();
 

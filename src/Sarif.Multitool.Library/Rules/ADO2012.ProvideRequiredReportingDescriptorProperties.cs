@@ -7,7 +7,7 @@ using System.Linq;
 namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 {
     public class AdoProvideRequiredReportingDescriptorProperties
-        : BaseProvideRequiredResultProperties
+        : BaseProvideRequiredReportingDescriptorProperties
     {
         /// <summary>
         /// ADO2012
