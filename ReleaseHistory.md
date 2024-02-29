@@ -1,4 +1,7 @@
 # SARIF Package Release History (SDK, Driver, Converters, and Multitool)
+## **v4.5.4 [Sdk](https://www.nuget.org/packages/Sarif.Sdk/v4.5.4) | [Driver](https://www.nuget.org/packages/Sarif.Driver/v4.5.4) | [Converters](https://www.nuget.org/packages/Sarif.Converters/v4.5.4)  | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/v4.5.4) | [Multitool Library](https://www.nuget.org/packages/Sarif.Multitool.Library/v4.5.4)
+* BUG: Fix incorrect base class in rule ADO2012.
+
 ## **v4.5.3 [Sdk](https://www.nuget.org/packages/Sarif.Sdk/v4.5.3) | [Driver](https://www.nuget.org/packages/Sarif.Driver/v4.5.3) | [Converters](https://www.nuget.org/packages/Sarif.Converters/v4.5.3)  | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/v4.5.3) | [Multitool Library](https://www.nuget.org/packages/Sarif.Multitool.Library/v4.5.3)
 * BUG: Restructure shared MessageResourceNames collections to ensure return of correct error messages.
 
@@ -7,7 +10,6 @@
 * BUG: Fix message strings to always assume {1} is reserved for the rule's service name.
 * BUG: Clean up unused resource strings in Multitool.Library.Rules.RuleResources.resx.
 
-# SARIF Package Release History (SDK, Driver, Converters, and Multitool)
 ## **v4.5.1 [Sdk](https://www.nuget.org/packages/Sarif.Sdk/v4.5.1) | [Driver](https://www.nuget.org/packages/Sarif.Driver/v4.5.1) | [Converters](https://www.nuget.org/packages/Sarif.Converters/v4.5.1)  | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/v4.5.1) | [Multitool Library](https://www.nuget.org/packages/Sarif.Multitool.Library/v4.5.1)
 * DEP: Add explicit package references to `Sarif` and `Sarif.Driver` to resolve version conflict build error.
   `System.Diagnostics.Debug` 4.3.0,
