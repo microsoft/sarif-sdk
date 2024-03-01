@@ -14,13 +14,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 
         public override MultiformatMessageString FullDescription => new MultiformatMessageString();
 
-        protected override ICollection<string> MessageResourceNames => new List<string> {
+        private readonly List<string> _baseMessageResourceNames = new List<string>
+        {
             nameof(RuleResources.Base1013_MaximumRunsCount_Note_Default_Text),
             nameof(RuleResources.Base1013_ProvideSchemaVersion_Warning_Default_Text),
             nameof(RuleResources.Base1013_ProvideSchema_Warning_Default_Text),
             nameof(RuleResources.Base1013_ReferenceFinalSchema_Error_Default_Text),
             nameof(RuleResources.Base1013_SarifLogRunsArray_Note_Default_Text)
         };
+        protected ICollection<string> BaseMessageResourceNames => _baseMessageResourceNames;
 
         public virtual int MaximumRuns { get; set; } = int.MaxValue;
 

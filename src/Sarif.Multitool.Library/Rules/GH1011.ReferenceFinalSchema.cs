@@ -2,6 +2,7 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 {
@@ -14,6 +15,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         public override string Id => RuleId.GHASReferenceFinalSchema;
 
         public override MultiformatMessageString FullDescription => new MultiformatMessageString() { Text = RuleResources.GH1011_ReferenceFinalSchema };
+
+        private readonly List<string> _messageResourceNames = new List<string>();
+
+        protected override ICollection<string> MessageResourceNames => _messageResourceNames.Concat(BaseMessageResourceNames).ToList();
 
         public override HashSet<RuleKind> RuleKinds => new HashSet<RuleKind>(new[] { RuleKind.Ghas });
 

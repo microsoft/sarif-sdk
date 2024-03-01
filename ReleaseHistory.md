@@ -1,14 +1,20 @@
 # SARIF Package Release History (SDK, Driver, Converters, and Multitool)
-## **v4.5.3 UNRELEASED
+
+## **v4.5.5 UNRELEASED
 * BUG: When the path of the `EnumeratedArtifact` contains invalid characters, skip it as scan target to avoid `System.IO.IOException: The filename, directory name, or volume label syntax is incorrect`.
 * BUG: When the path of the `EnumeratedArtifact` contains URL percent-encoding characters, it should proceed with analyzing without throwing `System.IO.FileNotFoundException`.
+
+## **v4.5.4 [Sdk](https://www.nuget.org/packages/Sarif.Sdk/v4.5.4) | [Driver](https://www.nuget.org/packages/Sarif.Driver/v4.5.4) | [Converters](https://www.nuget.org/packages/Sarif.Converters/v4.5.4)  | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/v4.5.4) | [Multitool Library](https://www.nuget.org/packages/Sarif.Multitool.Library/v4.5.4)
+* BUG: Fix incorrect base class in rule ADO2012.
+
+## **v4.5.3 [Sdk](https://www.nuget.org/packages/Sarif.Sdk/v4.5.3) | [Driver](https://www.nuget.org/packages/Sarif.Driver/v4.5.3) | [Converters](https://www.nuget.org/packages/Sarif.Converters/v4.5.3)  | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/v4.5.3) | [Multitool Library](https://www.nuget.org/packages/Sarif.Multitool.Library/v4.5.3)
+* BUG: Restructure shared MessageResourceNames collections to ensure return of correct error messages.
 
 ## **v4.5.2 [Sdk](https://www.nuget.org/packages/Sarif.Sdk/v4.5.2) | [Driver](https://www.nuget.org/packages/Sarif.Driver/v4.5.2) | [Converters](https://www.nuget.org/packages/Sarif.Converters/v4.5.2)  | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/v4.5.2) | [Multitool Library](https://www.nuget.org/packages/Sarif.Multitool.Library/v4.5.2)
 * BUG: Update Skimmer stack in Multitool.Library to support shared MessageResourceNames collections between base rules and their derivatives.
 * BUG: Fix message strings to always assume {1} is reserved for the rule's service name.
 * BUG: Clean up unused resource strings in Multitool.Library.Rules.RuleResources.resx.
 
-# SARIF Package Release History (SDK, Driver, Converters, and Multitool)
 ## **v4.5.1 [Sdk](https://www.nuget.org/packages/Sarif.Sdk/v4.5.1) | [Driver](https://www.nuget.org/packages/Sarif.Driver/v4.5.1) | [Converters](https://www.nuget.org/packages/Sarif.Converters/v4.5.1)  | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/v4.5.1) | [Multitool Library](https://www.nuget.org/packages/Sarif.Multitool.Library/v4.5.1)
 * DEP: Add explicit package references to `Sarif` and `Sarif.Driver` to resolve version conflict build error.
   `System.Diagnostics.Debug` 4.3.0,
