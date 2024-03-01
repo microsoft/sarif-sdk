@@ -104,7 +104,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
             string dirPath = Path.Combine(Path.GetTempPath(), "New%2DYearDir");
             if (!Directory.Exists(dirPath))
-            { 
+            {
                 Directory.CreateDirectory(dirPath);
             }
 
@@ -539,11 +539,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         [Fact]
         public void FileUri()
         {
-            var uri = new Uri(this.GetType().Assembly.Location);
-
             var options = new TestAnalyzeOptions()
             {
-                TargetFileSpecifiers = new string[] { uri.ToString() },
+                TargetFileSpecifiers = new string[] { this.GetType().Assembly.Location },
             };
 
             ExceptionTestHelper(
