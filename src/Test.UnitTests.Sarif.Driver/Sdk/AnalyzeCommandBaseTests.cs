@@ -69,67 +69,51 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         }
 
         [Fact]
-        public void AnalyzeCommand_AbsoluteFileURIWithPercentInFile()
+        public void AnalyzeCommand_AbsoluteFileURIWithPercentInPath()
         {
-            var logger = new TestMessageLogger();
-            var command = new TestMultithreadedAnalyzeCommand();
-
-            string filePath = Path.Combine(Path.GetTempPath(), "New%2DYear.md");
-            File.WriteAllText(filePath, $"{Guid.NewGuid}");
-
-            var uri = new Uri(filePath, UriKind.Absolute);
-
-            var target = new EnumeratedArtifact(FileSystem.Instance) { Uri = uri };
-
-            var options = new TestAnalyzeOptions
+            string tempPath = Path.GetTempPath();
+            string tempSubDirWithPercentPath = Path.Combine(Path.GetTempPath(), "New%2DYearDir");
+            if (!Directory.Exists(tempSubDirWithPercentPath))
             {
-                PluginFilePaths = new[] { typeof(TestRule).Assembly.FullName },
-            };
-
-            var context = new TestAnalysisContext
-            {
-                TargetsProvider = new ArtifactProvider(new[] { target }),
-                Logger = logger,
-            };
-
-            int result = command.Run(options: null, ref context);
-            context.ValidateCommandExecution(result);
-        }
-
-        [Fact]
-        public void AnalyzeCommand_AbsoluteFileURIWithPercentInDirectory()
-        {
-            var logger = new TestMessageLogger();
-            var command = new TestMultithreadedAnalyzeCommand();
-
-            string dirPath = Path.Combine(Path.GetTempPath(), "New%2DYearDir");
-            if (!Directory.Exists(dirPath))
-            {
-                Directory.CreateDirectory(dirPath);
+                Directory.CreateDirectory(tempSubDirWithPercentPath);
             }
 
-            string filePath = Path.Combine(dirPath, "File.md");
-            File.WriteAllText(filePath, $"{Guid.NewGuid}");
-
-            var uri = new Uri(filePath, UriKind.Absolute);
-
-            var target = new EnumeratedArtifact(FileSystem.Instance) { Uri = uri };
-
-            var options = new TestAnalyzeOptions
+            string[] testCases = new string[]
             {
-                PluginFilePaths = new[] { typeof(TestRule).Assembly.FullName },
+                   Path.Combine(tempPath, "New%2DYear.md"),
+                   Path.Combine(tempSubDirWithPercentPath, "File.md")
             };
 
-            var context = new TestAnalysisContext
+            using (new AssertionScope())
             {
-                TargetsProvider = new ArtifactProvider(new[] { target }),
-                Logger = logger,
-            };
+                foreach (string filePath in testCases)
+                {
 
-            int result = command.Run(options: null, ref context);
-            context.ValidateCommandExecution(result);
+                    var logger = new TestMessageLogger();
+                    var command = new TestMultithreadedAnalyzeCommand();
+
+                    File.WriteAllText(filePath, $"{Guid.NewGuid}");
+
+                    var uri = new Uri(filePath, UriKind.Absolute);
+
+                    var target = new EnumeratedArtifact(FileSystem.Instance) { Uri = uri };
+
+                    var options = new TestAnalyzeOptions
+                    {
+                        PluginFilePaths = new[] { typeof(TestRule).Assembly.FullName },
+                    };
+
+                    var context = new TestAnalysisContext
+                    {
+                        TargetsProvider = new ArtifactProvider(new[] { target }),
+                        Logger = logger,
+                    };
+
+                    int result = command.Run(options: null, ref context);
+                    context.ValidateCommandExecution(result);
+                }
+            }
         }
-
 
         [Fact]
         public void AnalyzeCommandBase_ScanWithFilesThatExceedSizeLimitEmitsSkippedFilesWarning()

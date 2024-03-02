@@ -89,7 +89,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 }
 
                 // This is our client-side, disk-based file retrieval case.
-                this.Stream = FileSystem.FileOpenRead(Uri.LocalPath);
+                this.Stream = FileSystem.FileOpenRead(Uri.OriginalString);
             }
 
             RetrieveDataFromStream();

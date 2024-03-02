@@ -673,7 +673,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 if (globalContext.CompiledGlobalFileDenyRegex?.Match(filePath).Success == true)
                 {
                     _filesMatchingGlobalFileDenyRegex++;
-                    DriverEventSource.Log.ArtifactNotScanned(filePath, DriverEventNames.FilePathDenied, artifact.SizeInBytes.Value, globalContext.GlobalFilePathDenyRegex);
+                    DriverEventSource.Log.ArtifactNotScanned(filePath, DriverEventNames.FilePathDenied, artifactSizeInBytes, globalContext.GlobalFilePathDenyRegex);
 
                     string reason = $"its file path matched the global file deny regex: {globalContext.GlobalFilePathDenyRegex}";
                     Notes.LogFileSkipped(globalContext, filePath, reason);
@@ -687,11 +687,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                     continue;
                 }
 
-                if (!IsTargetWithinFileSizeLimit(artifact.SizeInBytes.Value, globalContext.MaxFileSizeInKilobytes))
+                if (!IsTargetWithinFileSizeLimit(artifactSizeInBytes, globalContext.MaxFileSizeInKilobytes))
                 {
                     _filesExceedingSizeLimitCount++;
-                    DriverEventSource.Log.ArtifactNotScanned(filePath, DriverEventNames.FileExceedsSizeLimits, artifact.SizeInBytes.Value, $"{globalContext.MaxFileSizeInKilobytes}");
-                    Notes.LogFileExceedingSizeLimitSkipped(globalContext, artifact.Uri.GetFilePath(), artifact.SizeInBytes.Value / 1000);
+                    DriverEventSource.Log.ArtifactNotScanned(filePath, DriverEventNames.FileExceedsSizeLimits, artifactSizeInBytes, $"{globalContext.MaxFileSizeInKilobytes}");
+                    Notes.LogFileExceedingSizeLimitSkipped(globalContext, artifact.Uri.GetFilePath(), artifactSizeInBytes / 1000);
                     continue;
                 }
 
