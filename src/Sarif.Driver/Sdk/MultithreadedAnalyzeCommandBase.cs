@@ -648,6 +648,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             return true;
         }
 
+        private const string FileAccessErrorMessage = "The filename, directory name, or volume label syntax is incorrect.";
+
         private async Task<bool> EnumerateFilesFromArtifactsProvider(TContext globalContext)
         {
             foreach (IEnumeratedArtifact artifact in globalContext.TargetsProvider.Artifacts)
@@ -656,28 +658,43 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
                 string filePath = artifact.Uri.GetFilePath();
 
+                long artifactSizeInBytes = -1;
+                try
+                {
+                    artifactSizeInBytes = artifact.SizeInBytes.Value;
+                }
+                catch (Exception e) 
+                    when (e is ArgumentException || (e is IOException && e.Message.IndexOf(FileAccessErrorMessage) != -1))
+                {
+                    // These exceptions can come out of the FileSystem when we're passing in invalid characters.
+                    // We need to catch and log to avoid losing the scan.
+                    DriverEventSource.Log.ArtifactNotScanned(filePath, DriverEventNames.FilePathNotAllowed, 00, data2: null);
+                    Notes.LogFileSkipped(globalContext, filePath, e.Message);
+                    continue;
+                }
+
                 if (globalContext.CompiledGlobalFileDenyRegex?.Match(filePath).Success == true)
                 {
                     _filesMatchingGlobalFileDenyRegex++;
-                    DriverEventSource.Log.ArtifactNotScanned(filePath, DriverEventNames.FilePathDenied, artifact.SizeInBytes.Value, globalContext.GlobalFilePathDenyRegex);
+                    DriverEventSource.Log.ArtifactNotScanned(filePath, DriverEventNames.FilePathDenied, artifactSizeInBytes, globalContext.GlobalFilePathDenyRegex);
 
                     string reason = $"its file path matched the global file deny regex: {globalContext.GlobalFilePathDenyRegex}";
                     Notes.LogFileSkipped(globalContext, filePath, reason);
                     continue;
                 }
 
-                if (artifact.SizeInBytes == 0)
+                if (artifactSizeInBytes == 0)
                 {
                     DriverEventSource.Log.ArtifactNotScanned(filePath, DriverEventNames.EmptyFile, 00, data2: null);
                     Notes.LogEmptyFileSkipped(globalContext, filePath);
                     continue;
                 }
 
-                if (!IsTargetWithinFileSizeLimit(artifact.SizeInBytes.Value, globalContext.MaxFileSizeInKilobytes))
+                if (!IsTargetWithinFileSizeLimit(artifactSizeInBytes, globalContext.MaxFileSizeInKilobytes))
                 {
                     _filesExceedingSizeLimitCount++;
-                    DriverEventSource.Log.ArtifactNotScanned(filePath, DriverEventNames.FileExceedsSizeLimits, artifact.SizeInBytes.Value, $"{globalContext.MaxFileSizeInKilobytes}");
-                    Notes.LogFileExceedingSizeLimitSkipped(globalContext, artifact.Uri.GetFilePath(), artifact.SizeInBytes.Value / 1000);
+                    DriverEventSource.Log.ArtifactNotScanned(filePath, DriverEventNames.FileExceedsSizeLimits, artifactSizeInBytes, $"{globalContext.MaxFileSizeInKilobytes}");
+                    Notes.LogFileExceedingSizeLimitSkipped(globalContext, artifact.Uri.GetFilePath(), artifactSizeInBytes / 1000);
                     continue;
                 }
 

@@ -1,4 +1,9 @@
 # SARIF Package Release History (SDK, Driver, Converters, and Multitool)
+
+## **v4.5.5 UNRELEASED
+* BUG: When the path of the `EnumeratedArtifact` contains invalid characters, skip it as scan target to avoid `System.IO.IOException: The filename, directory name, or volume label syntax is incorrect`.
+* BUG: When the path of the `EnumeratedArtifact` contains URL percent-encoding characters, it should proceed with analyzing without throwing `System.IO.FileNotFoundException`.
+
 ## **v4.5.4 [Sdk](https://www.nuget.org/packages/Sarif.Sdk/v4.5.4) | [Driver](https://www.nuget.org/packages/Sarif.Driver/v4.5.4) | [Converters](https://www.nuget.org/packages/Sarif.Converters/v4.5.4)  | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/v4.5.4) | [Multitool Library](https://www.nuget.org/packages/Sarif.Multitool.Library/v4.5.4)
 * BUG: Fix incorrect base class in rule ADO2012.
 

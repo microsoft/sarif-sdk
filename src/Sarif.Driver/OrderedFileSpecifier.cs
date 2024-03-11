@@ -47,11 +47,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         {
             string normalizedSpecifier = Environment.ExpandEnvironmentVariables(this.specifier);
 
-            if (Uri.TryCreate(this.specifier, UriKind.RelativeOrAbsolute, out Uri uri))
-            {
-                normalizedSpecifier = uri.GetFilePath();
-            }
-
             string filter = Path.GetFileName(normalizedSpecifier);
             string directory = Path.GetDirectoryName(normalizedSpecifier);
 

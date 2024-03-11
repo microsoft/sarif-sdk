@@ -37,6 +37,85 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             Output.WriteLine($"The seed that will be used is: {TestRule.s_seed}");
         }
 
+        [Fact]
+        public void AnalyzeCommand_AbsoluteFileURIWithPathsContainsIllegalCharacters()
+        {
+            var logger = new TestMessageLogger();
+            var command = new TestMultithreadedAnalyzeCommand();
+
+            // No content is set for the following uri, so when its length or content is retrieved,
+            // the file path format will be evaluated.
+            var uri1 = new Uri("C:\\test" + Path.GetInvalidPathChars()[0] + "ABC.md", UriKind.Absolute);
+            var target1 = new EnumeratedArtifact(FileSystem.Instance) { Uri = uri1 };
+
+            // A normal scan target.
+            var uri2 = new Uri("C:\\testABC.md", UriKind.Absolute);
+            var target2 = new EnumeratedArtifact(FileSystem.Instance) { Uri = uri2, Contents = "foo foo" };
+
+            var options = new TestAnalyzeOptions
+            {
+                PluginFilePaths = new[] { typeof(TestRule).Assembly.FullName },
+            };
+
+            var context = new TestAnalysisContext
+            {
+                TargetsProvider = new ArtifactProvider(new[] { target1, target2 }),
+                Logger = logger,
+            };
+
+            int result = command.Run(options: null, ref context);
+            context.ValidateCommandExecution(result);
+            context.RuntimeErrors.Should().Be(RuntimeConditions.OneOrMoreFilesSkipped);
+        }
+
+        // Note to future maintainers.  If this UT fails, you might need to use Uri.OriginalPath in a
+        // call that opens or uses a filef.
+        [Fact]
+        public void AnalyzeCommand_AbsoluteFileURIWithPercentInPath()
+        {
+            string tempPath = Path.GetTempPath();
+            string tempSubDirWithPercentPath = Path.Combine(Path.GetTempPath(), "New%2DYearDir");
+            if (!Directory.Exists(tempSubDirWithPercentPath))
+            {
+                Directory.CreateDirectory(tempSubDirWithPercentPath);
+            }
+
+            string[] testCases = new string[]
+            {
+                   Path.Combine(tempPath, "New%2DYear.md"),
+                   Path.Combine(tempSubDirWithPercentPath, "File.md")
+            };
+
+            using (new AssertionScope())
+            {
+                foreach (string filePath in testCases)
+                {
+
+                    var logger = new TestMessageLogger();
+                    var command = new TestMultithreadedAnalyzeCommand();
+
+                    File.WriteAllText(filePath, $"{Guid.NewGuid}");
+
+                    var uri = new Uri(filePath, UriKind.Absolute);
+
+                    var target = new EnumeratedArtifact(FileSystem.Instance) { Uri = uri };
+
+                    var options = new TestAnalyzeOptions
+                    {
+                        PluginFilePaths = new[] { typeof(TestRule).Assembly.FullName },
+                    };
+
+                    var context = new TestAnalysisContext
+                    {
+                        TargetsProvider = new ArtifactProvider(new[] { target }),
+                        Logger = logger,
+                    };
+
+                    int result = command.Run(options: null, ref context);
+                    context.ValidateCommandExecution(result);
+                }
+            }
+        }
 
         [Fact]
         public void AnalyzeCommandBase_ScanWithFilesThatExceedSizeLimitEmitsSkippedFilesWarning()
@@ -446,11 +525,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         [Fact]
         public void FileUri()
         {
-            var uri = new Uri(this.GetType().Assembly.Location);
-
             var options = new TestAnalyzeOptions()
             {
-                TargetFileSpecifiers = new string[] { uri.ToString() },
+                TargetFileSpecifiers = new string[] { this.GetType().Assembly.Location },
             };
 
             ExceptionTestHelper(
