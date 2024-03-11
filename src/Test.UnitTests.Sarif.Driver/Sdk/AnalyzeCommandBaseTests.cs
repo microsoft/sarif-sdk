@@ -69,7 +69,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         }
 
         // Note to future maintainers.  If this UT fails, you might need to use Uri.OriginalPath in a
-        // call that opens or uses a file.
+        // call that opens or uses a filef.
         [Fact]
         public void AnalyzeCommand_AbsoluteFileURIWithPercentInPath()
         {

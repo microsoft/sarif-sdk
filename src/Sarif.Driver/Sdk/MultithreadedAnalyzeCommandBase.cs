@@ -648,6 +648,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             return true;
         }
 
+        private const string FileAccessErrorMessage = "The filename, directory name, or volume label syntax is incorrect.";
+
         private async Task<bool> EnumerateFilesFromArtifactsProvider(TContext globalContext)
         {
             foreach (IEnumeratedArtifact artifact in globalContext.TargetsProvider.Artifacts)
@@ -661,10 +663,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 {
                     artifactSizeInBytes = artifact.SizeInBytes.Value;
                 }
-                catch (Exception e) when (e is ArgumentException || (e is IOException && e.Message.IndexOf("The filename, directory name, or volume label syntax is incorrect.") != -1))
+                catch (Exception e) 
+                    when (e is ArgumentException || (e is IOException && e.Message.IndexOf(FileAccessErrorMessage) != -1))
                 {
-                    // These exceptions can come out of the FileSystem when we're passing in invalid characters.  We need to catch and
-                    // log to avoid losing the scan.
+                    // These exceptions can come out of the FileSystem when we're passing in invalid characters.
+                    // We need to catch and log to avoid losing the scan.
                     DriverEventSource.Log.ArtifactNotScanned(filePath, DriverEventNames.FilePathNotAllowed, 00, data2: null);
                     Notes.LogFileSkipped(globalContext, filePath, e.Message);
                     continue;
