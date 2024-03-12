@@ -103,10 +103,18 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             }
             else
             {
-                WriteFilesInDirectoryToChannel(directory, filesToProcessChannel, filter, new SortedSet<string>(StringComparer.Ordinal));
-
-                filesToProcessChannel.Writer.Complete();
-                directoryEnumerationTask = Task.CompletedTask;
+                directoryEnumerationTask = Task.Run(() =>
+                {
+                    try
+                    {
+                        WriteFilesInDirectoryToChannel(directory, filesToProcessChannel, filter, new SortedSet<string>(StringComparer.Ordinal));
+                    }
+                    finally
+                    {
+                        filesToProcessChannel.Writer.Complete();
+                        directoryEnumerationTask = Task.CompletedTask;
+                    }
+                });
             }
 
             ChannelReader<string> reader = filesToProcessChannel.Reader;

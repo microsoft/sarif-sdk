@@ -1,4 +1,8 @@
 # SARIF Package Release History (SDK, Driver, Converters, and Multitool)
+
+## UNRELEASED
+* BUG: Resolve hangs when file path is provided with wildchar but without `-r` (recurse) flag during multithreaded analysis file enumeration phase.
+
 ## **v4.5.4 [Sdk](https://www.nuget.org/packages/Sarif.Sdk/v4.5.4) | [Driver](https://www.nuget.org/packages/Sarif.Driver/v4.5.4) | [Converters](https://www.nuget.org/packages/Sarif.Converters/v4.5.4)  | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/v4.5.4) | [Multitool Library](https://www.nuget.org/packages/Sarif.Multitool.Library/v4.5.4)
 * BUG: Fix incorrect base class in rule ADO2012.
 
