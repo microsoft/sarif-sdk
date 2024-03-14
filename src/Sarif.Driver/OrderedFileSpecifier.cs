@@ -87,35 +87,24 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
             Task directoryEnumerationTask;
 
-            if (this.recurse)
+            directoryEnumerationTask = Task.Run(() =>
             {
-                directoryEnumerationTask = Task.Run(() =>
+                try
                 {
-                    try
+                    if (this.recurse)
                     {
                         EnqueueAllFilesUnderDirectory(directory, filesToProcessChannel.Writer, filter, new SortedSet<string>(StringComparer.Ordinal));
                     }
-                    finally
-                    {
-                        filesToProcessChannel.Writer.Complete();
-                    }
-                });
-            }
-            else
-            {
-                directoryEnumerationTask = Task.Run(() =>
-                {
-                    try
+                    else
                     {
                         WriteFilesInDirectoryToChannel(directory, filesToProcessChannel, filter, new SortedSet<string>(StringComparer.Ordinal));
                     }
-                    finally
-                    {
-                        filesToProcessChannel.Writer.Complete();
-                        directoryEnumerationTask = Task.CompletedTask;
-                    }
-                });
-            }
+                }
+                finally
+                {
+                    filesToProcessChannel.Writer.Complete();
+                }
+            });
 
             ChannelReader<string> reader = filesToProcessChannel.Reader;
             while (!reader.Completion.IsCompleted)
