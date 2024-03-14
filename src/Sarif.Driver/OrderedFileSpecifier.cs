@@ -26,7 +26,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             FileSystem = fileSystem ?? Sarif.FileSystem.Instance;
         }
 
-        private const int ChannelCapacity = 10 * 1024; // max ~2.5 MB memory given 256 char max path length.
+        internal const int ChannelCapacity = 10 * 1024; // max ~2.5 MB memory given 256 char max path length.
         private readonly bool recurse;
         private readonly string specifier;
         private readonly long maxFileSizeInKilobytes;

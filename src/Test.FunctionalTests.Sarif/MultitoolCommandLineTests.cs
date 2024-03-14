@@ -7,6 +7,8 @@ using System.IO;
 using FluentAssertions;
 using FluentAssertions.Execution;
 
+using Microsoft.CodeAnalysis.Sarif.Driver;
+
 using Xunit;
 
 namespace Microsoft.CodeAnalysis.Sarif.Multitool
@@ -40,15 +42,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 #if DEBUG
         [Fact]
         [Trait(TestTraits.WindowsOnly, "true")]
-        public void Multitool_LaunchesAndRunsSuccessfully_With12kFiles()
+        public void Multitool_LaunchesAndRunsSuccessfully_WithNumberOfFilesExceedingChannelCapacity()
         {
             using var assertionScope = new AssertionScope();
 
             string multitoolPath = Path.GetFullPath(Path.Combine(Directory.GetCurrentDirectory(),
                 @"..\..\Sarif.Multitool\netcoreapp3.1\Sarif.Multitool.exe"));
 
-            string directoryPath = Path.Combine(Path.GetTempPath(), "SarifMultitool12kTestFiles");
-             
+            string directoryPath = Path.Combine(Path.GetTempPath(), "SarifMultitoolTestFilesWithNumberOfFilesExceedingChannelCapacity");
+
             if (Directory.Exists(directoryPath))
             {
                 Directory.Delete(directoryPath, true);
@@ -56,7 +58,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
             Directory.CreateDirectory(directoryPath);
 
-            for (int i = 1; i <= 12000; i++)
+            int fileCount = OrderedFileSpecifier.ChannelCapacity + 1;
+
+            for (int i = 1; i <= fileCount; i++)
             {
                 string filename = $"file_{i}.txt";
                 string filepath = Path.Combine(directoryPath, filename);
@@ -87,8 +91,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 timer.Stop();
                 process.ExitCode.Should().Be(0);
                 output.Should().Contain(
-                    "Done. 12,000 files scanned.",
-                    "analyzing 12,000 small files should not result in freezing and should finish within 30 seconds, " +
+                    $"Done. {fileCount:n0} files scanned.",
+                    $"analyzing {fileCount:n0} small files should not result in freezing and should finish within 30 seconds, " +
                     "typically completing in just 5 seconds");
             }
 
