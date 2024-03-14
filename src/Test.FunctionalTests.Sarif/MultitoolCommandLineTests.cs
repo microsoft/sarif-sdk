@@ -5,6 +5,7 @@ using System.Diagnostics;
 using System.IO;
 
 using FluentAssertions;
+using FluentAssertions.Execution;
 
 using Xunit;
 
@@ -34,6 +35,63 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
                 process.ExitCode.Should().Be(0);
             }
+        }
+
+        [Fact]
+        [Trait(TestTraits.WindowsOnly, "true")]
+        public void Multitool_LaunchesAndRunsSuccessfully_With12kFiles()
+        {
+            using var assertionScope = new AssertionScope();
+
+            string multitoolPath = Path.GetFullPath(Path.Combine(Directory.GetCurrentDirectory(),
+                @"..\..\Sarif.Multitool\netcoreapp3.1\Sarif.Multitool.exe"));
+
+            string directoryPath = Path.Combine(Path.GetTempPath(), "SarifMultitool12kTestFiles");
+
+            if (Directory.Exists(directoryPath))
+            {
+                Directory.Delete(directoryPath, true);
+            }
+
+            Directory.CreateDirectory(directoryPath);
+
+            for (int i = 1; i <= 12000; i++)
+            {
+                string filename = $"file_{i}.txt";
+                string filepath = Path.Combine(directoryPath, filename);
+                File.WriteAllText(filepath, " ");
+            }
+
+            var startInfo = new ProcessStartInfo(multitoolPath, $@"analyze-test {directoryPath}\*")
+            {
+                WindowStyle = ProcessWindowStyle.Hidden,
+                CreateNoWindow = true,
+                RedirectStandardOutput = true,
+                UseShellExecute = false
+            };
+
+            using (var process = Process.Start(startInfo))
+            {
+                var timer = new System.Timers.Timer(30000); // 30 seconds.
+                timer.Elapsed += (sender, e) =>
+                {
+                    if (!process.HasExited)
+                    {
+                        process.Kill();
+                    }
+                };
+                timer.Start();
+                string output = process.StandardOutput.ReadToEnd();
+                process.WaitForExit();
+                timer.Stop();
+                process.ExitCode.Should().Be(0);
+                output.Should().Contain(
+                    "Done. 12,000 files scanned.",
+                    "analyzing 12,000 small files should not result in freezing and should finish within 30 seconds, " +
+                    "typically completing in just 5 seconds");
+            }
+
+            Directory.Delete(directoryPath, true);
         }
     }
 }
