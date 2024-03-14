@@ -37,6 +37,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             }
         }
 
+#if DEBUG
         [Fact]
         [Trait(TestTraits.WindowsOnly, "true")]
         public void Multitool_LaunchesAndRunsSuccessfully_With12kFiles()
@@ -47,7 +48,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 @"..\..\Sarif.Multitool\netcoreapp3.1\Sarif.Multitool.exe"));
 
             string directoryPath = Path.Combine(Path.GetTempPath(), "SarifMultitool12kTestFiles");
-
+             
             if (Directory.Exists(directoryPath))
             {
                 Directory.Delete(directoryPath, true);
@@ -93,5 +94,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
             Directory.Delete(directoryPath, true);
         }
+#endif
     }
 }
