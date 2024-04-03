@@ -1099,62 +1099,100 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 new {
                     expectedExitReason = ExitReason.NoValidAnalysisTargets,
                     fileSizeInBytes = (long)1023,
-                    maxFileSizeInKB = (long)0
+                    maxFileSizeInKB = (long)0,
+                    isSymbolicLink = false,
+                    actualFileContent = (string)null
                 },
                 new {
                     expectedExitReason = ExitReason.NoValidAnalysisTargets,
                     fileSizeInBytes =(long)0,
-                    maxFileSizeInKB = (long)0
+                    maxFileSizeInKB = (long)0,
+                    isSymbolicLink = false,
+                    actualFileContent = (string)null
                 },
                 new {
                     expectedExitReason = ExitReason.None,
                     fileSizeInBytes = (long)ulong.MinValue + 1,
-                    maxFileSizeInKB = (long)1
+                    maxFileSizeInKB = (long)1,
+                    isSymbolicLink = false,
+                    actualFileContent = (string)null
                 },
                 new {
                     expectedExitReason = ExitReason.None,
                     fileSizeInBytes = (long)ulong.MinValue + 1,
-                    maxFileSizeInKB = (long)2000
+                    maxFileSizeInKB = (long)2000,
+                    isSymbolicLink = false,
+                    actualFileContent = (string)null
                 },
                 new {
                     expectedExitReason = ExitReason.NoValidAnalysisTargets,
                     fileSizeInBytes = (long)ulong.MinValue,
-                    maxFileSizeInKB = (long)1000
+                    maxFileSizeInKB = (long)1000,
+                    isSymbolicLink = false,
+                    actualFileContent = (string)null
                 },
                 new {
                     expectedExitReason = ExitReason.NoValidAnalysisTargets,
                     fileSizeInBytes = (long)ulong.MinValue,
-                    maxFileSizeInKB = long.MaxValue
+                    maxFileSizeInKB = long.MaxValue,
+                    isSymbolicLink = false,
+                    actualFileContent = (string)null
+                },
+                new {
+                    expectedExitReason = ExitReason.None,
+                    fileSizeInBytes = (long)ulong.MinValue,
+                    maxFileSizeInKB = long.MaxValue,
+                    isSymbolicLink = true,
+                    actualFileContent = "ABC123"
+                },
+                new {
+                    expectedExitReason = ExitReason.NoValidAnalysisTargets,
+                    fileSizeInBytes = (long)ulong.MinValue,
+                    maxFileSizeInKB = long.MaxValue,
+                    isSymbolicLink = true,
+                    actualFileContent = ""
                 },
                 new {
                     expectedExitReason = ExitReason.NoValidAnalysisTargets,
                     fileSizeInBytes = (long)(1024 * 2),
-                    maxFileSizeInKB = (long)1
+                    maxFileSizeInKB = (long)1,
+                    isSymbolicLink = false,
+                    actualFileContent = (string)null
                 },
                 new {
                     expectedExitReason = ExitReason.None,
                     fileSizeInBytes = (long)(1024 * 2),
-                    maxFileSizeInKB = (long)3
+                    maxFileSizeInKB = (long)3,
+                    isSymbolicLink = false,
+                    actualFileContent = (string)null
                 },
                 new {
                     expectedExitReason = ExitReason.None,
                     fileSizeInBytes = (long)20000,
-                    maxFileSizeInKB = long.MaxValue
+                    maxFileSizeInKB = long.MaxValue,
+                    isSymbolicLink = false,
+                    actualFileContent = (string)null
                 },
                 new {
                     expectedExitReason = ExitReason.None,
                     fileSizeInBytes = (long)1024,
-                    maxFileSizeInKB = (long)1
+                    maxFileSizeInKB = (long)1,
+                    isSymbolicLink = false,
+                    actualFileContent = (string)null
                 },
                 new {
                     expectedExitReason = ExitReason.NoValidAnalysisTargets,
                     fileSizeInBytes = long.MaxValue,
-                    maxFileSizeInKB = (long)0
+                    maxFileSizeInKB = (long)0,
+                    isSymbolicLink = false,
+                    actualFileContent = (string)null
                 },
                 new {
                     expectedExitReason = ExitReason.None,
                     fileSizeInBytes =long.MaxValue - 1,
-                    maxFileSizeInKB = long.MaxValue
+                    maxFileSizeInKB = long.MaxValue,
+                    isSymbolicLink = false,
+                    actualFileContent = (string)null
                 },
             };
 
@@ -1181,6 +1219,36 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 mockStream.Setup(m => m.CanSeek).Returns(true);
                 mockStream.Setup(m => m.ReadByte()).Returns('a');
 
+                if (testCase.actualFileContent != null)
+                {
+                    byte[] dataBytes = Encoding.UTF8.GetBytes(testCase.actualFileContent);
+                    mockStream.Setup(m => m.Length).Returns(dataBytes.Length);
+                    int invocationCount = 0;
+
+                    mockStream.Setup(stream => stream.Seek(0, SeekOrigin.Begin))
+                        .Callback(() =>
+                        {
+                            invocationCount = 0;
+                        });
+
+                    mockStream.Setup(stream => stream.Read(It.IsAny<byte[]>(), It.IsAny<int>(), It.IsAny<int>()))
+                             .Returns((byte[] buffer, int offset, int count) =>
+                             {
+                                 if (invocationCount < dataBytes.Length)
+                                 {
+                                     Array.Copy(dataBytes, invocationCount, buffer, offset, Math.Min(count, dataBytes.Length - invocationCount));
+                                     int bytesRead = Math.Min(count, dataBytes.Length - invocationCount);
+                                     invocationCount += bytesRead;
+                                     return bytesRead;
+                                 }
+                                 else
+                                 {
+                                     invocationCount = 0;
+                                     return 0;
+                                 }
+                             });
+                }
+
                 var mockFileSystem = new Mock<IFileSystem>();
                 mockFileSystem.Setup(x => x.DirectoryExists(It.IsAny<string>())).Returns(true);
                 mockFileSystem.Setup(x => x.DirectoryGetFiles(It.IsAny<string>(), specifier)).Returns(files);
@@ -1191,6 +1259,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 mockFileSystem.Setup(x => x.FileOpenRead(It.IsAny<string>())).Returns(mockStream.Object);
                 mockFileSystem.Setup(x => x.FileExists(tempFile.Name)).Returns(true);
                 mockFileSystem.Setup(x => x.FileInfoLength(It.IsAny<string>())).Returns((long)testCase.fileSizeInBytes);
+                mockFileSystem.Setup(x => x.IsSymbolicLink(It.IsAny<string>())).Returns((bool)testCase.isSymbolicLink);
 
                 bool expectedToBeWithinLimits =
                     testCase.fileSizeInBytes != 0 &&

@@ -114,12 +114,14 @@ namespace Microsoft.CodeAnalysis.Sarif
             {
                 using var contentReader = new StreamReader(Stream);
                 this.contents = contentReader.ReadToEnd();
+                this.sizeInBytes = Encoding.Default.GetByteCount(this.contents);
             }
             else
             {
                 this.bytes = new byte[Stream.Length];
                 var memoryStream = new MemoryStream(this.bytes);
                 this.Stream.CopyTo(memoryStream);
+                this.sizeInBytes = this.bytes.Length;
             }
         }
 
@@ -166,7 +168,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 {
                     if (FileSystem.IsSymbolicLink(Uri.LocalPath))
                     {
-                        this.sizeInBytes = this.Bytes.Length;
+                        GetArtifactData();
                     }
                     else
                     {
