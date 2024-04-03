@@ -1,5 +1,6 @@
 # sarif-sdk
 [![Build Status](https://dev.azure.com/mseng/1ES/_apis/build/status/microsoft.sarif-sdk?branchName=master)](https://dev.azure.com/mseng/1ES/_build/latest?definitionId=9978&branchName=main)
+[![Nuget](https://img.shields.io/nuget/v/Sarif.Sdk)](https://nuget.org/packages/Sarif.Sdk)
 
 The SARIF SDK contains .NET code and supporting files for working with the Static Analysis Results Interchange Format (SARIF). For more information about SARIF, see the [SARIF Home Page](http://sarifweb.azurewebsites.net). You can read the [SARIF specification](https://rawgit.com/sarif-standard/sarif-spec/master/Static%20Analysis%20Results%20Interchange%20Format%20(SARIF).html), or file [issues](https://github.com/sarif-standard/sarif-spec/issues) in the [SARIF GitHub repo](https://github.com/sarif-standard/sarif-spec).
 
