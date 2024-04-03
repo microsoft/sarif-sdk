@@ -313,6 +313,17 @@ namespace Microsoft.CodeAnalysis.Sarif
         long FileInfoLength(string path);
 
         /// <summary>
+        /// Uses <see cref="FileInfo"/> to determine whether a file is a symbolic link.
+        /// </summary>
+        /// <param name="path">
+        /// The fully qualified name or relative path of the file.
+        /// </param>
+        /// <returns>
+        /// A boolean value indicating whether the file is a symbolic link.
+        /// </returns>
+        bool IsSymbolicLink(string path);
+
+        /// <summary>
         /// Returns a <see cref="FileVersionInfo"/> representing the version information associated with the specified file.
         /// </summary>
         /// <param name="path">The fully qualified path and name of the file to retrieve the version information for.</param>
