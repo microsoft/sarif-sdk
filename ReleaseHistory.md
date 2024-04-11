@@ -2,6 +2,7 @@
 
 ## UNRELEASED
 * BUG: Resolve process hangs when a file path is provided with a wildcard, but without a `-r` (recurse) flag during the multi-threaded analysis file enumeration phase.
+* DEP: Update `Azure.Identity` from `1.10.2` to `1.11.0`.
 
 ## **v4.5.4 [Sdk](https://www.nuget.org/packages/Sarif.Sdk/v4.5.4) | [Driver](https://www.nuget.org/packages/Sarif.Driver/v4.5.4) | [Converters](https://www.nuget.org/packages/Sarif.Converters/v4.5.4)  | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/v4.5.4) | [Multitool Library](https://www.nuget.org/packages/Sarif.Multitool.Library/v4.5.4)
 * BUG: Fix incorrect base class in rule ADO2012.
