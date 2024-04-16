@@ -399,6 +399,9 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// </returns>
         public bool IsSymbolicLink(string path)
         {
+            // https://learn.microsoft.com/en-us/dotnet/api/system.io.fileattributes
+            // While symbolic links will have the ReparsePoint flag set, not all reparse points represent symbolic links.
+            // This is a basic implementation.
             var fileInfo = new FileInfo(path);
             return (fileInfo.Attributes & FileAttributes.ReparsePoint) == FileAttributes.ReparsePoint;
         }
