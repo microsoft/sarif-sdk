@@ -28,7 +28,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             string fileTarget = Path.Combine(tempFolder, "symbolicLinkFileTarget.txt");
             string fileSource = Path.Combine(tempFolder, "symbolicLinkFileSource.txt");
 
-            CleanupDirectoryOrFile([folderTarget, folderSource, fileTarget, fileSource]);
+            CleanupDirectoryOrFile(new string[] { folderTarget, folderSource, fileTarget, fileSource });
 
             Directory.CreateDirectory(folderTarget);
             File.WriteAllText(fileTarget, "This is the target file.");
@@ -41,7 +41,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             mockFileSystem.IsSymbolicLink(fileSource).Should().BeTrue();
             mockFileSystem.IsSymbolicLink(fileTarget).Should().BeFalse();
 
-            CleanupDirectoryOrFile([folderTarget, folderSource, fileTarget, fileSource]);
+            CleanupDirectoryOrFile(new string[] { folderTarget, folderSource, fileTarget, fileSource });
         }
 
         private void CreateSymbolicLink(string linkPath, string targetPath, bool isDirectory)
