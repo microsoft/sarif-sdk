@@ -190,6 +190,21 @@ namespace Microsoft.CodeAnalysis.Sarif
         }
 
         /// <summary>
+        /// Uses <see cref="FileStream"/> to get the size of a file in bytes.
+        /// </summary>
+        /// <param name="path">
+        /// The fully qualified name or relative name of the file.
+        /// </param>
+        /// <returns>
+        /// A long representing the size of the file in bytes.
+        /// </returns>
+        public long FileStreamLength(string path)
+        {
+            using var fileStream = new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
+            return fileStream.Length;
+        }
+
+        /// <summary>
         /// Opens a text file, reads all text in the file as a single string using the specified
         /// encoding, and then closes the file.
         /// </summary>

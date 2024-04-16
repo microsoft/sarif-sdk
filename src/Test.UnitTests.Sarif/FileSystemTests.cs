@@ -20,20 +20,28 @@ namespace Microsoft.CodeAnalysis.Sarif
             var mockFileSystem = new FileSystem();
 
             mockFileSystem.IsSymbolicLink(Environment.SystemDirectory).Should().BeFalse();
+            mockFileSystem.IsSymbolicLink(Path.Combine(Environment.SystemDirectory, "notepad.exe")).Should().BeFalse();
 
             string tempFolder = Path.GetTempPath();
             string folderTarget = Path.Combine(tempFolder, "symbolicLinkFolderTarget");
             string folderSource = Path.Combine(tempFolder, "symbolicLinkFolderSource");
+            string fileTarget = Path.Combine(tempFolder, "symbolicLinkFileTarget.txt");
+            string fileSource = Path.Combine(tempFolder, "symbolicLinkFileSource.txt");
 
-            CleanupDirectory(folderTarget);
-            CleanupDirectory(folderSource);
+            CleanupDirectoryOrFile([folderTarget, folderSource, fileTarget, fileSource]);
 
             Directory.CreateDirectory(folderTarget);
+            File.WriteAllText(fileTarget, "This is the target file.");
 
-            CreateSymbolicLink(folderSource, folderTarget, true);
+            CreateSymbolicLink(folderSource, folderTarget, isDirectory: true);
+            CreateSymbolicLink(fileSource, fileTarget, isDirectory: false);
 
             mockFileSystem.IsSymbolicLink(folderSource).Should().BeTrue();
             mockFileSystem.IsSymbolicLink(folderTarget).Should().BeFalse();
+            mockFileSystem.IsSymbolicLink(fileSource).Should().BeTrue();
+            mockFileSystem.IsSymbolicLink(fileTarget).Should().BeFalse();
+
+            CleanupDirectoryOrFile([folderTarget, folderSource, fileTarget, fileSource]);
         }
 
         private void CreateSymbolicLink(string linkPath, string targetPath, bool isDirectory)
@@ -52,15 +60,18 @@ namespace Microsoft.CodeAnalysis.Sarif
             }
         }
 
-        private void CleanupDirectory(string path)
+        private void CleanupDirectoryOrFile(string[] paths)
         {
-            if (Directory.Exists(path))
+            foreach (string path in paths)
             {
-                Directory.Delete(path, true);
-            }
-            else if (File.Exists(path))
-            {
-                File.Delete(path);
+                if (Directory.Exists(path))
+                {
+                    Directory.Delete(path, true);
+                }
+                else if (File.Exists(path))
+                {
+                    File.Delete(path);
+                }
             }
         }
     }

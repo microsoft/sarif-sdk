@@ -1219,10 +1219,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 mockStream.Setup(m => m.CanSeek).Returns(true);
                 mockStream.Setup(m => m.ReadByte()).Returns('a');
 
+                var mockFileSystem = new Mock<IFileSystem>();
+
                 if (testCase.actualFileContent != null)
                 {
                     byte[] dataBytes = Encoding.UTF8.GetBytes(testCase.actualFileContent);
                     mockStream.Setup(m => m.Length).Returns(dataBytes.Length);
+                    mockFileSystem.Setup(x => x.FileStreamLength(It.IsAny<string>())).Returns(dataBytes.Length);
                     int invocationCount = 0;
 
                     mockStream.Setup(stream => stream.Seek(0, SeekOrigin.Begin))
@@ -1249,7 +1252,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                              });
                 }
 
-                var mockFileSystem = new Mock<IFileSystem>();
                 mockFileSystem.Setup(x => x.DirectoryExists(It.IsAny<string>())).Returns(true);
                 mockFileSystem.Setup(x => x.DirectoryGetFiles(It.IsAny<string>(), specifier)).Returns(files);
                 mockFileSystem.Setup(x => x.FileExists(It.Is<string>(s => s.EndsWith(specifier)))).Returns(true);
