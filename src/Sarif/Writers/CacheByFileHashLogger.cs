@@ -19,7 +19,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
     {
         private bool cacheLoggingData;
         private string currentFileHash;
-        public CacheByFileHashLogger(FailureLevelSet levels, ResultKindSet kinds) : base(levels, kinds)
+        public CacheByFileHashLogger(FailureLevelSet levels, ResultKindSet kinds, int resultsLimitPerRuleTarget) : base(levels, kinds, resultsLimitPerRuleTarget)
         {
         }
 

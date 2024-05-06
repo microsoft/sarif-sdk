@@ -15,7 +15,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
     /// </summary>
     public class CachingLogger : BaseLogger, IAnalysisLogger
     {
-        public CachingLogger(FailureLevelSet levels, ResultKindSet kinds) : base(levels, kinds)
+        public CachingLogger(FailureLevelSet levels, ResultKindSet kinds, int resultsLimitPerRuleTarget) : base(levels, kinds, resultsLimitPerRuleTarget)
         {
             // This reader lock is used to ensure only a single writer until
             // logging is complete, after which all threads can read Results.

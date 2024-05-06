@@ -29,7 +29,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return random;
         }
 
-        public static SarifLog GenerateSarifLogWithRuns(Random randomGen, int runCount, int? resultCount = null, RandomDataFields dataFields = RandomDataFields.None)
+        public static SarifLog GenerateSarifLogWithRuns(Random randomGen, int runCount, int? resultCount = null, RandomDataFields dataFields = RandomDataFields.None, int? fileCount = null)
         {
             SarifLog log = new SarifLog();
 
@@ -40,16 +40,16 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             for (int i = 0; i < runCount; i++)
             {
-                log.Runs.Add(GenerateRandomRun(randomGen, resultCount, dataFields));
+                log.Runs.Add(GenerateRandomRun(randomGen, resultCount, dataFields, fileCount));
             }
 
             return log;
         }
 
-        public static Run GenerateRandomRun(Random random, int? resultCount = null, RandomDataFields dataFields = RandomDataFields.None)
+        public static Run GenerateRandomRun(Random random, int? resultCount = null, RandomDataFields dataFields = RandomDataFields.None, int? fileCount = null)
         {
             List<string> ruleIds = new List<string>() { "TEST001", "TEST002", "TEST003", "TEST004", "TEST005" };
-            List<Uri> filePaths = GenerateFakeFiles(GeneratorBaseUri, random.Next(20) + 1).Select(a => new Uri(a)).ToList();
+            List<Uri> filePaths = GenerateFakeFiles(GeneratorBaseUri, fileCount ?? random.Next(20) + 1).Select(a => new Uri(a)).ToList();
             int results = resultCount == null ? random.Next(100) : (int)resultCount;
 
             return new Run()

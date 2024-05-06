@@ -10,7 +10,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 {
     public class ConsoleLogger : BaseLogger, IAnalysisLogger
     {
-        public ConsoleLogger(bool quietConsole, string toolName, FailureLevelSet levels = null, ResultKindSet kinds = null) : base(levels, kinds)
+        public ConsoleLogger(bool quietConsole, string toolName, FailureLevelSet levels = null, ResultKindSet kinds = null, int resultsLimitPerRuleTarget = 0) : base(levels, kinds, resultsLimitPerRuleTarget)
         {
             _quietConsole = quietConsole;
             _toolName = toolName.ToUpperInvariant();

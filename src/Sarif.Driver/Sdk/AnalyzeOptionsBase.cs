@@ -159,5 +159,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         public RuleKindSet RuleKinds => RuleKindOption != null ?
             new RuleKindSet(RuleKindOption) :
             new RuleKindSet(new List<RuleKind>(new[] { RuleKind.Sarif }));
+
+        [Option(
+            "per-file-rule-result-limit",
+            HelpText = "The maximum number of results that will be found for a single rule in each scan target")]
+        public int? ResultsLimitPerRuleTarget { get; set; }
     }
 }

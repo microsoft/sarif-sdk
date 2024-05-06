@@ -273,6 +273,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
             context.Quiet = options.Quiet != null ? options.Quiet.Value : context.Quiet;
 
+            context.ResultsLimitPerRuleTarget = options.ResultsLimitPerRuleTarget ?? context.ResultsLimitPerRuleTarget;
+
             // We initialize a temporary console logger that's used strictly to emit
             // diagnostics output while we load/initialize various configurations settings.
             IAnalysisLogger savedLogger = context.Logger;
@@ -282,9 +284,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 context.Logger = new ConsoleLogger(quietConsole: context.Quiet,
                                                    levels: BaseLogger.ErrorWarningNote,
                                                    kinds: BaseLogger.Fail,
-                                                   toolName: Tool.Driver.Name);
+                                                   toolName: Tool.Driver.Name,
+                                                   resultsLimitPerRuleTarget: context.ResultsLimitPerRuleTarget);
 
-                // Next, we initialize ourselves from disk-based configuration, 
+                // Next, we initialize ourselves from disk-based configuration,
                 // if specified. This allows users to operate against configuration
                 // XML but to override specific settings within it via options.
                 context = InitializeConfiguration(options.ConfigurationFilePath, context);
@@ -685,7 +688,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
                 fileContext.Logger =
                     new CachingLogger(globalContext.FailureLevels,
-                                      globalContext.ResultKinds);
+                                      globalContext.ResultKinds,
+                                      globalContext.ResultsLimitPerRuleTarget);
 
                 Debug.Assert(fileContext.Logger != null);
                 fileContext.CurrentTarget = artifact;
@@ -794,7 +798,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                     new ConsoleLogger(quietConsole: false,
                                       Tool.Driver.Name,
                                       globalContext.FailureLevels,
-                                      globalContext.ResultKinds)
+                                      globalContext.ResultKinds,
+                                      globalContext.ResultsLimitPerRuleTarget)
                     {
                         CaptureOutput = _captureConsoleOutput
                     };
@@ -952,7 +957,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                                                       invocationPropertiesToLog: globalContext.InvocationPropertiesToLog,
                                                       levels: globalContext.FailureLevels,
                                                       kinds: globalContext.ResultKinds,
-                                                      insertProperties: globalContext.InsertProperties);
+                                                      insertProperties: globalContext.InsertProperties,
+                                                      resultsLimitPerRuleTarget: globalContext.ResultsLimitPerRuleTarget);
 
                         aggregatingLogger.Loggers.Add(sarifLogger);
                     },
@@ -964,7 +970,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 );
             }
 
-            globalContext.Logger ??= new ConsoleLogger(quietConsole: false, "SPMI");
+            globalContext.Logger ??= new ConsoleLogger(quietConsole: false, "SPMI", resultsLimitPerRuleTarget: globalContext.ResultsLimitPerRuleTarget);
         }
 
         private static IEnumerable<string> GenerateSensitiveTokensList()
@@ -1075,21 +1081,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 ThrowExitApplicationException(ExitReason.NoRulesLoaded);
             }
 
-            ISet<string> disabledSkimmers = BuildDisabledSkimmersSet(context, skimmers);
-
-            if (disabledSkimmers.Count == skimmers.Count())
-            {
-                Errors.LogAllRulesExplicitlyDisabled(context);
-                ThrowExitApplicationException(ExitReason.NoRulesLoaded);
-            }
-
-            this.CheckIncompatibleRules(skimmers, context, disabledSkimmers);
-
-            MultithreadedAnalyzeTargets(context, skimmers, disabledSkimmers);
-        }
-
-        public static ISet<string> BuildDisabledSkimmersSet(TContext context, IEnumerable<Skimmer<TContext>> skimmers)
-        {
             var disabledSkimmers = new SortedSet<string>();
 
             foreach (Skimmer<TContext> skimmer in skimmers)
@@ -1123,7 +1114,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 }
             }
 
-            return disabledSkimmers;
+            if (disabledSkimmers.Count == skimmers.Count())
+            {
+                Errors.LogAllRulesExplicitlyDisabled(context);
+                ThrowExitApplicationException(ExitReason.NoRulesLoaded);
+            }
+
+            this.CheckIncompatibleRules(skimmers, context, disabledSkimmers);
+
+            MultithreadedAnalyzeTargets(context, skimmers, disabledSkimmers);
         }
 
         protected virtual TContext DetermineApplicabilityAndAnalyze(TContext context,

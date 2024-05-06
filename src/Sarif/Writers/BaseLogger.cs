@@ -3,6 +3,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Microsoft.CodeAnalysis.Sarif.Writers
 {
@@ -16,7 +17,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         protected readonly FailureLevelSet _failureLevels;
         protected readonly ResultKindSet _resultKinds;
 
-        protected BaseLogger(FailureLevelSet failureLevels, ResultKindSet resultKinds)
+        private readonly int _resultsLimitPerRuleTarget;
+        private readonly Dictionary<Tuple<string, Uri>, int> _resultsCount;
+        protected int _resultsLimited = 0;
+
+        protected BaseLogger(FailureLevelSet failureLevels, ResultKindSet resultKinds, int resultsLimitPerRuleTarget)
         {
             if (failureLevels == null && resultKinds == null)
             {
@@ -27,6 +32,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             {
                 _failureLevels = failureLevels;
                 _resultKinds = resultKinds;
+            }
+
+            _resultsLimitPerRuleTarget = resultsLimitPerRuleTarget;
+            if (_resultsLimitPerRuleTarget > 0)
+            {
+                _resultsCount = new Dictionary<Tuple<string, Uri>, int>();
             }
 
             ValidateParameters();
@@ -64,6 +75,33 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
         public bool ShouldLog(Result result)
         {
+            if (_resultsCount != null)
+            {
+                Location firstLocation = result.Locations.First();
+                if (firstLocation.PhysicalLocation == null ||
+                    result.Run?.OriginalUriBaseIds == null ||
+                    !firstLocation.PhysicalLocation.ArtifactLocation.TryReconstructAbsoluteUri(result.Run.OriginalUriBaseIds, out Uri locationUri))
+                {
+                    locationUri = firstLocation.PhysicalLocation.ArtifactLocation.Uri;
+                }
+                var resultKey = new Tuple<string, Uri>(result.RuleId, locationUri);
+
+                if (_resultsCount.TryGetValue(resultKey, out int currentCount))
+                {
+                    if (currentCount >= _resultsLimitPerRuleTarget)
+                    {
+                        ++_resultsLimited;
+                        return false;
+                    }
+
+                    _resultsCount[resultKey] = currentCount + 1;
+                }
+                else
+                {
+                    _resultsCount.Add(resultKey, 1);
+                }
+            }
+
             if (_resultKinds.Contains(result.Kind))
             {
                 if (result.Kind == ResultKind.Fail)
