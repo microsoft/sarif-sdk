@@ -112,7 +112,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
             //2 runs x 5 rules
             logger.Results.Count.Should().BeLessThanOrEqualTo(10);
-            foreach (KeyValuePair< ReportingDescriptor, IList < Tuple<Result, int?> >> resultSet in logger.Results)
+            foreach (KeyValuePair<ReportingDescriptor, IList<Tuple<Result, int?>>> resultSet in logger.Results)
             {
                 //4 files x 2 instances
                 resultSet.Value.Count.Should().BeLessThanOrEqualTo(8);

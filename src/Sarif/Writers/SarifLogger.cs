@@ -45,7 +45,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                            IEnumerable<string> insertProperties = null,
                            FileRegionsCache fileRegionsCache = null,
                            int resultsLimitPerRuleTarget = 0)
-            : this (new StreamWriter(new FileStream(outputFilePath, FileMode.Create, FileAccess.Write, FileShare.Read)),
+            : this(new StreamWriter(new FileStream(outputFilePath, FileMode.Create, FileAccess.Write, FileShare.Read)),
                                     logFilePersistenceOptions,
                                     dataToInsert,
                                     dataToRemove,
