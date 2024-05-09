@@ -60,9 +60,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             // Validate will return an empty file if there are any JSON syntax errors. 
             // In that case there's no point in going on.
             string sarifText =
-                Validate(context.CurrentTarget.Uri.GetFilePath(),
+                Validate(context,
+                         context.CurrentTarget.Uri.GetFilePath(),
                          context.SchemaFilePath,
-                         context.Logger,
                          context.FileSystem,
                          context.UpdateInputsToCurrentSarif);
 
@@ -96,9 +96,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         }
 
         private string Validate(
+            IAnalysisContext context,
             string instanceFilePath,
             string schemaFilePath,
-            IAnalysisLogger logger,
             IFileSystem fileSystem,
             bool updateToCurrentSarifVersion = true)
         {
@@ -113,12 +113,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                     PrereleaseCompatibilityTransformer.UpdateToCurrentVersion(instanceText, formatting: Formatting.Indented, out instanceText);
                 }
 
-                PerformSchemaValidation(instanceText, instanceFilePath, schemaFilePath, logger);
+                PerformSchemaValidation(context, instanceText, instanceFilePath, schemaFilePath);
             }
             catch (JsonSyntaxException ex)
             {
                 Result result = ex.ToSarifResult();
-                ReportResult(result, logger);
+                ReportResult(context, result);
 
                 // If the file isn't syntactically valid JSON, we won't be able to run
                 // the skimmers, because they rely on being able to deserialized the file
@@ -127,7 +127,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             }
             catch (SchemaValidationException ex)
             {
-                ReportInvalidSchemaErrors(ex, schemaFilePath, logger);
+                ReportInvalidSchemaErrors(context, ex, schemaFilePath);
             }
             // The framework will catch all other, unexpected exceptions, and it will
             // cause the tool to exit with a non-0 exit code.
@@ -136,10 +136,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         }
 
         private void PerformSchemaValidation(
+            IAnalysisContext context,
             string instanceText,
             string instanceFilePath,
-            string schemaFilePath,
-            IAnalysisLogger logger)
+            string schemaFilePath)
         {
             string schemaText = null;
 
@@ -163,13 +163,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             var validator = new Validator(schema);
             Result[] results = validator.Validate(instanceText, instanceFilePath);
 
-            ReportResults(results, logger);
+            ReportResults(context, results);
         }
 
         private static void ReportInvalidSchemaErrors(
+            IAnalysisContext context,
             SchemaValidationException ex,
-            string schemaFile,
-            IAnalysisLogger logger)
+            string schemaFile)
         {
             foreach (SchemaValidationException schemaValidationException in ex.WrappedExceptions)
             {
@@ -179,26 +179,26 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                     schemaValidationException.Args);
 
                 result.SetResultFile(schemaFile);
-                ReportResult(result, logger);
+                ReportResult(context, result);
             }
         }
 
         private static void ReportResults(
-            Result[] results,
-            IAnalysisLogger logger)
+            IAnalysisContext context,
+            Result[] results)
         {
             foreach (Result result in results)
             {
-                ReportResult(result, logger);
+                ReportResult(context, result);
             }
         }
 
         private static void ReportResult(
-            Result result,
-            IAnalysisLogger logger)
+            IAnalysisContext context,
+            Result result)
         {
             ReportingDescriptor rule = RuleFactory.GetRuleFromRuleId(result.RuleId);
-            logger.Log(rule, result);
+            context.Logger.Log(context, rule, result);
         }
     }
 }

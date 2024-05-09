@@ -58,7 +58,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         }
 
 
-        public void Log(ReportingDescriptor rule, Result result, int? extensionIndex)
+        public void Log(IAnalysisContext context, ReportingDescriptor rule, Result result, int? extensionIndex)
         {
             if (rule == null)
             {
@@ -70,8 +70,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 throw new ArgumentNullException(nameof(result));
             }
 
-            if (!ShouldLog(result))
+            if (!ShouldLog(context, result, out Notification shouldNotLogNotification))
             {
+                if (shouldNotLogNotification != null)
+                {
+                    LogToolNotification(shouldNotLogNotification, result.Run != null ? result.GetRule() : null);
+                }
                 return;
             }
 

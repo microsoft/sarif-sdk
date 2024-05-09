@@ -25,7 +25,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
         private Dictionary<string, Tuple<int, int, int>> rulesSummary;
 
-        public void Log(ReportingDescriptor rule, Result result, int? extensionIndex = null)
+        public void Log(IAnalysisContext context, ReportingDescriptor rule, Result result, int? extensionIndex = null)
         {
             string key = $"{rule.Id}.{rule.Name}";
             rulesSummary ??= new Dictionary<string, Tuple<int, int, int>>();

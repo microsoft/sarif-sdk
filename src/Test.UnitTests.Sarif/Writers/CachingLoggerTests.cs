@@ -47,24 +47,24 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
             var logger = new CachingLogger(testAnalyzeOptions.FailureLevels, testAnalyzeOptions.ResultKinds, 0);
 
-            Assert.Throws<ArgumentNullException>(() => logger.Log(null, result01, null));
-            Assert.Throws<ArgumentNullException>(() => logger.Log(rule01, null, null));
+            Assert.Throws<ArgumentNullException>(() => logger.Log(null, null, result01, null));
+            Assert.Throws<ArgumentNullException>(() => logger.Log(null, rule01, null, null));
 
             rule01.Id = "TEST0001";
             result01.RuleId = "TEST0002";
 
-            Assert.Throws<ArgumentException>(() => logger.Log(rule01, result01, null));
+            Assert.Throws<ArgumentException>(() => logger.Log(null, rule01, result01, null));
 
             rule01.Id = "TEST0001";
             result01.RuleId = "TEST0001";
 
             // Validate simple insert
-            logger.Log(rule01, result01, null);
+            logger.Log(null, rule01, result01, null);
             logger.Results.Should().HaveCount(1);
             logger.Results.Should().ContainKey(rule01);
 
             // Updating value from a specific key
-            logger.Log(rule01, result01, null);
+            logger.Log(null, rule01, result01, null);
             logger.Results.Should().HaveCount(1);
             logger.Results.Should().ContainKey(rule01);
             logger.Results[rule01].Should().HaveCount(2);
@@ -84,12 +84,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             result01.RuleId = "TEST0001/001";
 
             // Validate simple insert
-            logger.Log(rule01, result01, null);
+            logger.Log(null, rule01, result01, null);
             logger.Results.Should().HaveCount(1);
             logger.Results.Should().ContainKey(rule01);
 
             // Updating value from a specific key
-            logger.Log(rule01, result01, null);
+            logger.Log(null, rule01, result01, null);
             logger.Results.Should().HaveCount(1);
             logger.Results.Should().ContainKey(rule01);
             logger.Results[rule01].Should().HaveCount(2);
@@ -100,13 +100,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         {
             SarifLog sarifLog = RandomSarifLogGenerator.GenerateSarifLogWithRuns(Random, 2, 500, RandomDataFields.None, 4);
 
-            var logger = new CachingLogger(BaseLogger.ErrorWarning, BaseLogger.Fail, 2);
+            var logger = new CachingLogger(BaseLogger.ErrorWarningNote, BaseLogger.Fail, 2);
 
             foreach (Run run in sarifLog.Runs)
             {
                 foreach (Result result in run.Results)
                 {
-                    logger.Log(result.GetRule(run), result, null);
+                    logger.Log(null, result.GetRule(run), result, null);
                 }
             }
 
@@ -117,6 +117,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 //4 files x 2 instances
                 resultSet.Value.Count.Should().BeLessThanOrEqualTo(8);
             }
+
+            //2 runs x 5 rules x 4 files
+            logger.ToolNotifications.Count.Should().BeLessThanOrEqualTo(40);
         }
 
         private static ReportingDescriptor GenerateRule()

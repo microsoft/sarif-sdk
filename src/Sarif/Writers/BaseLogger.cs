@@ -73,8 +73,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             return _failureLevels.Contains(notification.Level);
         }
 
-        public bool ShouldLog(Result result)
+        public bool ShouldLog(IAnalysisContext context, Result result, out Notification shouldNotLogNotification)
         {
+            shouldNotLogNotification = null;
+
             if (_resultsCount != null)
             {
                 Location firstLocation = result.Locations.First();
@@ -88,13 +90,18 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
                 if (_resultsCount.TryGetValue(resultKey, out int currentCount))
                 {
+                    _resultsCount[resultKey] = currentCount + 1;
+
+                    if (currentCount == _resultsLimitPerRuleTarget)
+                    {
+                        shouldNotLogNotification = Notes.CreateLimitReachedNotification(context, locationUri, result.RuleId, _resultsLimitPerRuleTarget);
+                    }
+
                     if (currentCount >= _resultsLimitPerRuleTarget)
                     {
                         ++_resultsLimited;
                         return false;
                     }
-
-                    _resultsCount[resultKey] = currentCount + 1;
                 }
                 else
                 {

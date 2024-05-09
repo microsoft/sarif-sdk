@@ -61,12 +61,17 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
         public void TargetAnalyzed(IAnalysisContext _) { }
 
-        public void Log(ReportingDescriptor rule, Result result, int? extensionIndex = null)
+        public void Log(IAnalysisContext context, ReportingDescriptor rule, Result result, int? extensionIndex = null)
         {
             if (!cacheLoggingData) { return; }
 
-            if (!ShouldLog(result))
+            if (!ShouldLog(context, result, out Notification shouldNotLogNotification))
             {
+                if (shouldNotLogNotification != null)
+                {
+                    LogToolNotification(shouldNotLogNotification, result.Run != null ? result.GetRule() : null);
+                }
+
                 return;
             }
 

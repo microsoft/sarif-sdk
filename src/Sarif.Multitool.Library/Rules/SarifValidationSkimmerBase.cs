@@ -74,12 +74,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         protected void LogResult(string jPointer, string formatId, params string[] args)
         {
             Result result = this.GetResult(jPointer, formatId, args);
-            Context.Logger.Log(this, result);
+            Context.Logger.Log(Context, this, result);
         }
 
         protected void LogResult(Result result)
         {
-            Context.Logger.Log(this, result);
+            Context.Logger.Log(Context, this, result);
         }
 
         protected virtual void Analyze(Address address, string addressPointer)
