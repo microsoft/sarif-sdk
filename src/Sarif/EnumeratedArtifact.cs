@@ -18,8 +18,9 @@ namespace Microsoft.CodeAnalysis.Sarif
             FileSystem = fileSystem;
         }
 
-        internal byte[] bytes;
-        internal string contents;
+        private bool isBinary;
+        internal Lazy<byte[]> bytes;
+        internal Lazy<string> contents;
 
         private Encoding encoding;
 
@@ -30,7 +31,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             get
             {
                 GetArtifactData();
-                return this.contents == null;
+                return this.isBinary;
             }
         }
 
@@ -54,17 +55,41 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         public string Contents
         {
-            get => GetArtifactData().text;
-            set => this.contents = value;
+            get
+            {
+                GetArtifactData();
+
+                if (!this.isBinary && this.bytes?.Value != null)
+                {
+                    // If we have textual data and the encoding was null, we are UTF8
+                    // (which will be a perfectly valid encoding for ASCII as well).
+                    this.encoding ??= Encoding.UTF8;
+                    string contents = encoding.GetString(this.bytes.Value);
+                    this.contents = new Lazy<string>(() => { return contents; });
+                    this.bytes = null;
+                }
+
+                return this.contents?.Value;
+            }
+
+            set
+            {
+                this.contents = new Lazy<string>(() => value);
+                _ = this.contents.Value;
+            }
         }
 
         public byte[] Bytes
         {
-            get => GetArtifactData().bytes;
-            set => this.bytes = value;
+            get => GetArtifactData().bytes?.Value;
+            set
+            {
+                this.bytes = new Lazy<byte[]>(() => value);
+                _ = this.bytes.Value;
+            }
         }
 
-        private (string text, byte[] bytes) GetArtifactData()
+        private (Lazy<string> text, Lazy<byte[]> bytes) GetArtifactData()
         {
             if (this.contents != null)
             {
@@ -91,8 +116,6 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             RetrieveDataFromStream();
 
-            this.Stream = null;
-
             return (this.contents, this.bytes);
         }
 
@@ -112,14 +135,26 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             if (isText)
             {
-                using var contentReader = new StreamReader(Stream);
-                this.contents = contentReader.ReadToEnd();
+                this.isBinary = false;
+                this.contents = new Lazy<string>(() =>
+                {
+                    using var contentsReader = new StreamReader(Stream);
+                    string contents = contentsReader.ReadToEnd();
+                    Stream = null;
+                    return contents;
+                });
             }
             else
             {
-                this.bytes = new byte[Stream.Length];
-                var memoryStream = new MemoryStream(this.bytes);
-                this.Stream.CopyTo(memoryStream);
+                this.isBinary = true;
+                this.bytes = new Lazy<byte[]>(() =>
+                {
+                    byte[] bytes = new byte[Stream.Length];
+                    var memoryStream = new MemoryStream(bytes);
+                    this.Stream.CopyTo(memoryStream);
+                    this.Stream = null;
+                    return bytes;
+                });
             }
         }
 
@@ -150,13 +185,13 @@ namespace Microsoft.CodeAnalysis.Sarif
                     return this.sizeInBytes.Value;
                 };
 
-                if (this.contents != null)
+                if (this.contents?.IsValueCreated == true && this.contents.Value != null)
                 {
-                    this.sizeInBytes = (long)this.contents.Length;
+                    this.sizeInBytes = (long)this.contents.Value.Length;
                 }
-                else if (this.bytes != null)
+                else if (this.bytes?.IsValueCreated == true && this.bytes.Value != null)
                 {
-                    this.sizeInBytes = (int)this.bytes.Length;
+                    this.sizeInBytes = (int)this.bytes.Value.Length;
                 }
                 else if (this.Stream != null)
                 {
