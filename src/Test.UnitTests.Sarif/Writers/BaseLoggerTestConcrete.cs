@@ -14,6 +14,7 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Writers
     public class BaseLoggerTestConcrete : BaseLogger
     {
         public BaseLoggerTestConcrete(FailureLevelSet failureLevels,
-                                      ResultKindSet resultKinds) : base(failureLevels, resultKinds) { }
+                                      ResultKindSet resultKinds,
+                                      int resultsLimitPerRuleTarget) : base(failureLevels, resultKinds, resultsLimitPerRuleTarget) { }
     }
 }

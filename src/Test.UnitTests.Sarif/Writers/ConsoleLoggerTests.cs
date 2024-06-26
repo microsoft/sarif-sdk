@@ -39,7 +39,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 CaptureOutput = true
             };
 
-            logger.Log(null, result);
+            logger.Log(null, null, result);
 
             string expected = $"{tool}: info {message}{Environment.NewLine}";
             logger.CapturedOutput.Should().Be(expected);
@@ -86,7 +86,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 CaptureOutput = true
             };
 
-            logger.Log(null, result);
+            logger.Log(null, null, result);
 
             // TODO: we need to get rid of the (0) literal that indicates we
             // couldn't generate a location

@@ -10,7 +10,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 {
     public class ConsoleLogger : BaseLogger, IAnalysisLogger
     {
-        public ConsoleLogger(bool quietConsole, string toolName, FailureLevelSet levels = null, ResultKindSet kinds = null) : base(levels, kinds)
+        public ConsoleLogger(bool quietConsole, string toolName, FailureLevelSet levels = null, ResultKindSet kinds = null, int resultsLimitPerRuleTarget = 0) : base(levels, kinds, resultsLimitPerRuleTarget)
         {
             _quietConsole = quietConsole;
             _toolName = toolName.ToUpperInvariant();
@@ -101,15 +101,19 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             }
         }
 
-        public void Log(ReportingDescriptor rule, Result result, int? extensionIndex = null)
+        public void Log(IAnalysisContext context, ReportingDescriptor rule, Result result, int? extensionIndex = null)
         {
             if (result == null)
             {
                 throw new ArgumentNullException(nameof(result));
             }
 
-            if (!ShouldLog(result) || _quietConsole)
+            if (!ShouldLog(context, result, out Notification shouldNotLogNotification) || _quietConsole)
             {
+                if (shouldNotLogNotification != null)
+                {
+                    LogToolNotification(shouldNotLogNotification, result.Run != null ? result.GetRule() : null);
+                }
                 return;
             }
 

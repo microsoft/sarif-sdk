@@ -60,7 +60,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                                                 levels: BaseLogger.ErrorWarning,
                                                 kinds: BaseLogger.Fail))
             {
-                logger.Log(new ReportingDescriptor { Id = "MyId" },
+                logger.Log(null, new ReportingDescriptor { Id = "MyId" },
                            new Result { Message = new Message { Text = "My text" }, RuleId = "MyId" }, null);
             }
 
@@ -456,7 +456,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                                                              levels: BaseLogger.ErrorWarning,
                                                              kinds: BaseLogger.Fail))
                     {
-                        sarifLogger.Log(rule, result, null);
+                        sarifLogger.Log(null, rule, result, null);
                     }
 
                     // The logger should have populated the artifact contents.
@@ -632,7 +632,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                         }
                     };
 
-                    sarifLogger.Log(rule, result, null);
+                    sarifLogger.Log(null, rule, result, null);
                 }
             }
 
@@ -764,7 +764,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                     var rule = new ReportingDescriptor { Id = "RuleId" };
                     var result = new Result { RuleId = "RuleId/1" };
 
-                    Action action = () => sarifLogger.Log(rule, result, null);
+                    Action action = () => sarifLogger.Log(null, rule, result, null);
                     action.Should().NotThrow();
                 }
             }
@@ -878,7 +878,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         private void LogSimpleResult(SarifLogger sarifLogger)
         {
             ReportingDescriptor rule = new ReportingDescriptor { Id = "RuleId" };
-            sarifLogger.Log(rule, CreateSimpleResult(rule), null);
+            sarifLogger.Log(null, rule, CreateSimpleResult(rule), null);
         }
 
         private Result CreateSimpleResult(ReportingDescriptor rule)
@@ -935,7 +935,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             OptionallyEmittedData dataToInsert = OptionallyEmittedData.ComprehensiveRegionProperties | OptionallyEmittedData.ContextRegionSnippets;
             var sarifLogger = new SarifLogger(writer, fileRegionsCache: fileRegionsCache, dataToInsert: dataToInsert);
-            sarifLogger.Log(rule, result, null);
+            sarifLogger.Log(null, rule, result, null);
 
             region = new Region() { StartLine = 2 };
             Region expectedRegion = fileRegionsCache.PopulateTextRegionProperties(region, uri, populateSnippet: true, fileText);
@@ -966,7 +966,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                     Message = new Message { Text = "test message" }
                 };
 
-                Assert.Throws<ArgumentException>(() => sarifLogger.Log(rule, result, null));
+                Assert.Throws<ArgumentException>(() => sarifLogger.Log(null, rule, result, null));
             }
         }
 
@@ -1169,7 +1169,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 {
                     foreach (Result r in allKindLevelCombinations)
                     {
-                        sarifLogger.Log(rule, r, null);
+                        sarifLogger.Log(null, rule, r, null);
                     }
                 }
             }

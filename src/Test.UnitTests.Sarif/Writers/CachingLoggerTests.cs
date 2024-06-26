@@ -2,6 +2,7 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System;
+using System.Collections.Generic;
 
 using FluentAssertions;
 
@@ -28,7 +29,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
             TestAnalyzeOptions testAnalyzeOptions = new TestAnalyzeOptions();
 
-            var logger = new CachingLogger(testAnalyzeOptions.FailureLevels, testAnalyzeOptions.ResultKinds);
+            var logger = new CachingLogger(testAnalyzeOptions.FailureLevels, testAnalyzeOptions.ResultKinds, 0);
             logger.LogConfigurationNotification(notification);
             logger.ConfigurationNotifications.Should().HaveCount(1);
 
@@ -44,26 +45,26 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
             TestAnalyzeOptions testAnalyzeOptions = new TestAnalyzeOptions();
 
-            var logger = new CachingLogger(testAnalyzeOptions.FailureLevels, testAnalyzeOptions.ResultKinds);
+            var logger = new CachingLogger(testAnalyzeOptions.FailureLevels, testAnalyzeOptions.ResultKinds, 0);
 
-            Assert.Throws<ArgumentNullException>(() => logger.Log(null, result01, null));
-            Assert.Throws<ArgumentNullException>(() => logger.Log(rule01, null, null));
+            Assert.Throws<ArgumentNullException>(() => logger.Log(null, null, result01, null));
+            Assert.Throws<ArgumentNullException>(() => logger.Log(null, rule01, null, null));
 
             rule01.Id = "TEST0001";
             result01.RuleId = "TEST0002";
 
-            Assert.Throws<ArgumentException>(() => logger.Log(rule01, result01, null));
+            Assert.Throws<ArgumentException>(() => logger.Log(null, rule01, result01, null));
 
             rule01.Id = "TEST0001";
             result01.RuleId = "TEST0001";
 
             // Validate simple insert
-            logger.Log(rule01, result01, null);
+            logger.Log(null, rule01, result01, null);
             logger.Results.Should().HaveCount(1);
             logger.Results.Should().ContainKey(rule01);
 
             // Updating value from a specific key
-            logger.Log(rule01, result01, null);
+            logger.Log(null, rule01, result01, null);
             logger.Results.Should().HaveCount(1);
             logger.Results.Should().ContainKey(rule01);
             logger.Results[rule01].Should().HaveCount(2);
@@ -77,21 +78,48 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
             TestAnalyzeOptions testAnalyzeOptions = new TestAnalyzeOptions();
 
-            var logger = new CachingLogger(testAnalyzeOptions.FailureLevels, testAnalyzeOptions.ResultKinds);
+            var logger = new CachingLogger(testAnalyzeOptions.FailureLevels, testAnalyzeOptions.ResultKinds, 0);
 
             rule01.Id = "TEST0001";
             result01.RuleId = "TEST0001/001";
 
             // Validate simple insert
-            logger.Log(rule01, result01, null);
+            logger.Log(null, rule01, result01, null);
             logger.Results.Should().HaveCount(1);
             logger.Results.Should().ContainKey(rule01);
 
             // Updating value from a specific key
-            logger.Log(rule01, result01, null);
+            logger.Log(null, rule01, result01, null);
             logger.Results.Should().HaveCount(1);
             logger.Results.Should().ContainKey(rule01);
             logger.Results[rule01].Should().HaveCount(2);
+        }
+
+        [Fact]
+        public void SarifLogger_LimitResults()
+        {
+            SarifLog sarifLog = RandomSarifLogGenerator.GenerateSarifLogWithRuns(Random, 2, 500, RandomDataFields.None, 4);
+
+            var logger = new CachingLogger(BaseLogger.ErrorWarningNote, BaseLogger.Fail, 2);
+
+            foreach (Run run in sarifLog.Runs)
+            {
+                foreach (Result result in run.Results)
+                {
+                    logger.Log(null, result.GetRule(run), result, null);
+                }
+            }
+
+            //2 runs x 5 rules
+            logger.Results.Count.Should().BeLessThanOrEqualTo(10);
+            foreach (KeyValuePair<ReportingDescriptor, IList<Tuple<Result, int?>>> resultSet in logger.Results)
+            {
+                //4 files x 2 instances
+                resultSet.Value.Count.Should().BeLessThanOrEqualTo(8);
+            }
+
+            //2 runs x 5 rules x 4 files
+            logger.ToolNotifications.Count.Should().BeLessThanOrEqualTo(40);
         }
 
         private static ReportingDescriptor GenerateRule()

@@ -15,7 +15,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
     /// </summary>
     public class CachingLogger : BaseLogger, IAnalysisLogger
     {
-        public CachingLogger(FailureLevelSet levels, ResultKindSet kinds) : base(levels, kinds)
+        public CachingLogger(FailureLevelSet levels, ResultKindSet kinds, int resultsLimitPerRuleTarget) : base(levels, kinds, resultsLimitPerRuleTarget)
         {
             // This reader lock is used to ensure only a single writer until
             // logging is complete, after which all threads can read Results.
@@ -58,7 +58,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         }
 
 
-        public void Log(ReportingDescriptor rule, Result result, int? extensionIndex)
+        public void Log(IAnalysisContext context, ReportingDescriptor rule, Result result, int? extensionIndex)
         {
             if (rule == null)
             {
@@ -70,8 +70,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 throw new ArgumentNullException(nameof(result));
             }
 
-            if (!ShouldLog(result))
+            if (!ShouldLog(context, result, out Notification shouldNotLogNotification))
             {
+                if (shouldNotLogNotification != null)
+                {
+                    LogToolNotification(shouldNotLogNotification, result.Run != null ? result.GetRule() : null);
+                }
                 return;
             }
 

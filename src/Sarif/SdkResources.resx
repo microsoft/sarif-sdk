@@ -287,6 +287,9 @@ You can also refer to properties in the result's property bag with 'properties.&
   <data name="MSG002.FileExceedingSizeLimitSkipped" xml:space="preserve">
     <value>'{1}' was not analyzed as its size ({2} kilobytes) exceeds the currently configured threshold ({3} kilobytes).</value>
   </data>
+  <data name="MSG002.ResultCountLimitReached" xml:space="preserve">
+      <value>More than {0} viloations of {1} was found in {2}</value>
+  </data>
   <data name="ERR997_IncompatibleRulesDetected" xml:space="preserve">
     <value>The current configuration enables rules that are not compatible ('{0}' has declared that it is not compatible with '{1}'). You can selectively disable one of the rules using an updated XML configuration (passed by the --config argument).</value>
   </data>

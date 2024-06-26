@@ -43,7 +43,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                            FailureLevelSet levels = null,
                            ResultKindSet kinds = null,
                            IEnumerable<string> insertProperties = null,
-                           FileRegionsCache fileRegionsCache = null)
+                           FileRegionsCache fileRegionsCache = null,
+                           int resultsLimitPerRuleTarget = 0)
             : this(new StreamWriter(new FileStream(outputFilePath, FileMode.Create, FileAccess.Write, FileShare.Read)),
                                     logFilePersistenceOptions,
                                     dataToInsert,
@@ -57,7 +58,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                                     levels,
                                     kinds,
                                     insertProperties,
-                                    fileRegionsCache)
+                                    fileRegionsCache,
+                                    resultsLimitPerRuleTarget)
         {
         }
 
@@ -74,7 +76,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                            FailureLevelSet levels = null,
                            ResultKindSet kinds = null,
                            IEnumerable<string> insertProperties = null,
-                           FileRegionsCache fileRegionsCache = null) : base(failureLevels: levels, resultKinds: kinds)
+                           FileRegionsCache fileRegionsCache = null,
+                           int resultsLimitPerRuleTarget = 0) : base(failureLevels: levels, resultKinds: kinds, resultsLimitPerRuleTarget: resultsLimitPerRuleTarget)
         {
             _textWriter = textWriter;
             _closeWriterOnDispose = closeWriterOnDispose;
@@ -336,7 +339,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             }
         }
 
-        public void Log(ReportingDescriptor rule, Result result, int? extensionIndex)
+        public void Log(IAnalysisContext context, ReportingDescriptor rule, Result result, int? extensionIndex)
         {
             if (rule == null)
             {
@@ -358,8 +361,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 throw new ArgumentException(message);
             }
 
-            if (!ShouldLog(result))
+            if (!ShouldLog(context, result, out Notification shouldNotLogNotification))
             {
+                if (shouldNotLogNotification != null)
+                {
+                    LogToolNotification(shouldNotLogNotification, result.Run != null ? result.GetRule() : null);
+                }
                 return;
             }
 

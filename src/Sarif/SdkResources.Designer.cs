@@ -477,6 +477,15 @@ namespace Microsoft.CodeAnalysis.Sarif {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to More than {0} viloations of {1} was found in {2}.
+        /// </summary>
+        public static string MSG002_ResultCountLimitReached {
+            get {
+                return ResourceManager.GetString("MSG002.ResultCountLimitReached", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to &apos;{0}&apos; was not evaluated for check &apos;{1}&apos; because the analysis is not relevant for the following reason: {2}..
         /// </summary>
         public static string NotApplicable_InvalidMetadata {

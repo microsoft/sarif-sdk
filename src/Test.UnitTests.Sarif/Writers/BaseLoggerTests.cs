@@ -18,19 +18,24 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Writers
             BaseLoggerTestConcrete baseLoggerTestConcrete = null;
 
             Assert.Throws<ArgumentException>(() => new BaseLoggerTestConcrete(new FailureLevelSet(new[] { FailureLevel.Error }),
-                                                                              new ResultKindSet(new[] { ResultKind.Informational })));
+                                                                              new ResultKindSet(new[] { ResultKind.Informational }),
+                                                                              0));
             //  The rest are fine.
             baseLoggerTestConcrete = new BaseLoggerTestConcrete(new FailureLevelSet(new[] { FailureLevel.Error }),
-                                                                new ResultKindSet(new[] { ResultKind.Informational, ResultKind.Fail }));
+                                                                new ResultKindSet(new[] { ResultKind.Informational, ResultKind.Fail }),
+                                                                1);
 
             baseLoggerTestConcrete = new BaseLoggerTestConcrete(new FailureLevelSet(new[] { FailureLevel.Note }),
-                                                                BaseLogger.Fail);
+                                                                BaseLogger.Fail,
+                                                                -1);
 
             baseLoggerTestConcrete = new BaseLoggerTestConcrete(new FailureLevelSet(new[] { FailureLevel.None }),
-                                                                new ResultKindSet(new[] { ResultKind.Informational, ResultKind.Fail }));
+                                                                new ResultKindSet(new[] { ResultKind.Informational, ResultKind.Fail }),
+                                                                10);
 
             baseLoggerTestConcrete = new BaseLoggerTestConcrete(new FailureLevelSet(new[] { FailureLevel.None }),
-                                                                new ResultKindSet(new[] { ResultKind.Fail }));
+                                                                new ResultKindSet(new[] { ResultKind.Fail }),
+                                                                0);
 
             //  If there are no uncaught exceptions, the test passes.
         }

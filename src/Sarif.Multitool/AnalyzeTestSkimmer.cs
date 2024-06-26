@@ -31,7 +31,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
         public override void Analyze(AnalyzeTestContext context)
         {
-            context.Logger.Log(context.Rule, RuleUtilities.BuildResult(FailureLevel.Error, context, null,
+            context.Logger.Log(context, context.Rule, RuleUtilities.BuildResult(FailureLevel.Error, context, null,
                 nameof(MultitoolResources.AT1001_Error_FiredAnError),
                 context.CurrentTarget.Uri.GetFileName()));
         }

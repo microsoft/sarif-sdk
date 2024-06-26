@@ -14,6 +14,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         public const string Msg002_FileSkipped = "MSG002.FileSkipped";
         public const string Msg002_EmptyFileSkipped = "MSG002.EmptyFileSkipped";
         public const string Msg002_FileExceedingSizeLimitSkipped = "MSG002.FileExceedingSizeLimitSkipped";
+        public const string Msg002_ResultCountLimitReached = "MSG002.ResultCountLimitReached";
 
 
         public static void LogFileSkipped(IAnalysisContext context, string skippedFile, string reason)
@@ -89,6 +90,27 @@ namespace Microsoft.CodeAnalysis.Sarif
             context.RuntimeErrors |= RuntimeConditions.OneOrMoreFilesSkippedDueToExceedingSizeLimits;
         }
 
+        public static Notification CreateLimitReachedNotification(IAnalysisContext context, Uri location, string rule, int resultLimit)
+        {
+            if (context != null)
+            {
+                context.RuntimeErrors |= RuntimeConditions.OneOrMoreFilesSkippedDueToResultLimit;
+            }
+
+            return Errors.CreateNotification(
+                location,
+                Msg002_ResultCountLimitReached,
+                ruleId: rule,
+                FailureLevel.Note,
+                exception: null,
+                persistExceptionStack: false,
+                messageFormat: null,
+                resultLimit.ToString(),
+                rule,
+                location.ToString()
+                );
+        }
+
         public static void LogNotApplicableToSpecifiedTarget(IAnalysisContext context, string reasonForNotAnalyzing)
         {
             if (context == null)
@@ -100,7 +122,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             // '{0}' was not evaluated for check '{1}' because the analysis
             // is not relevant for the following reason: {2}.
-            context.Logger.Log(context.Rule,
+            context.Logger.Log(context, context.Rule,
                 RuleUtilities.BuildResult(ResultKind.NotApplicable, context, null,
                     nameof(SdkResources.NotApplicable_InvalidMetadata),
                     context.CurrentTarget.Uri.GetFileName(),
