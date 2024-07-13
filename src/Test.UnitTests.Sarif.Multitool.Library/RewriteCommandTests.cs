@@ -8,8 +8,6 @@ using System.Text;
 
 using FluentAssertions;
 
-using Kusto.Cloud.Platform.Utils;
-
 using Microsoft.CodeAnalysis.Sarif.Readers;
 using Microsoft.CodeAnalysis.Sarif.VersionOne;
 
