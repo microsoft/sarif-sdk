@@ -16,7 +16,6 @@
 
   <ItemGroup>
     <PackageReference Include="Azure.Identity" Version="1.11.0" />
-    <PackageReference Include="Microsoft.Azure.Kusto.Data" Version="10.0.3" />
     <PackageReference Include="Microsoft.Data.SqlClient" Version="2.1.7" />
     <PackageReference Include="Microsoft.Json.Pointer" Version="2.1.0" />
     <PackageReference Include="Microsoft.Json.Schema" Version="2.1.0" />
