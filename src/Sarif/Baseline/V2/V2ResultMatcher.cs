@@ -12,7 +12,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline
     {
         public IList<MatchedResults> Match(IList<ExtractedResult> before, IList<ExtractedResult> after)
         {
-            StatefulResultMatcher state = new StatefulResultMatcher(before, after);
+            var state = new StatefulResultMatcher(before, after);
             return state.Match();
         }
     }
@@ -94,10 +94,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline
         private void BuildMaps()
         {
             // Identify all locations used in each log
-            HashSet<string> beforeLocationIdentifiers = new HashSet<string>();
+            var beforeLocationIdentifiers = new HashSet<string>();
             _before.ForEach((result) => WhereComparer.AddLocationIdentifiers(result, beforeLocationIdentifiers));
 
-            HashSet<string> afterLocationIdentifiers = new HashSet<string>();
+            var afterLocationIdentifiers = new HashSet<string>();
             _after.ForEach((result) => WhereComparer.AddLocationIdentifiers(result, afterLocationIdentifiers));
 
             // Populate WhatMap and TrustMap to guide subsequent matching
@@ -247,7 +247,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline
 
         private IList<MatchedResults> BuildMatchList()
         {
-            List<MatchedResults> matches = new List<MatchedResults>();
+            var matches = new List<MatchedResults>();
 
             // 1. Add all Removed Results.
             for (int beforeIndex = 0; beforeIndex < _before.Count; ++beforeIndex)

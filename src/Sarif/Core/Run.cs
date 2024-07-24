@@ -158,7 +158,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             if (this.Results != null)
             {
-                DeferredList<Result> deferredResults = this.Results as DeferredList<Result>;
+                var deferredResults = this.Results as DeferredList<Result>;
 
                 if (deferredResults != null)
                 {
@@ -245,7 +245,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         internal static Dictionary<string, FailureLevel> ComputePolicies(IEnumerable<ToolComponent> policies)
         {
-            Dictionary<string, FailureLevel> localCache = new Dictionary<string, FailureLevel>();
+            var localCache = new Dictionary<string, FailureLevel>();
 
             // checking if we have have policies
             if (policies == null || !policies.Any())

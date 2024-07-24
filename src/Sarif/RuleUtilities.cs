@@ -46,7 +46,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             ruleMessageId = NormalizeRuleMessageId(ruleMessageId, context.Rule.Id);
 
-            Result result = new Result
+            var result = new Result
             {
                 RuleId = context.Rule.Id,
 

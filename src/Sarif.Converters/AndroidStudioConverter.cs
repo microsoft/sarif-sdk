@@ -50,7 +50,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             LogicalLocations.Clear();
 
-            XmlReaderSettings settings = new XmlReaderSettings
+            var settings = new XmlReaderSettings
             {
                 IgnoreWhitespace = true,
                 IgnoreComments = true,
@@ -61,7 +61,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             };
 
             IList<Result> results;
-            using (XmlReader xmlReader = XmlReader.Create(input, settings))
+            using (var xmlReader = XmlReader.Create(input, settings))
             {
                 results = ProcessAndroidStudioLog(xmlReader);
             }
@@ -244,7 +244,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
         private static string GenerateFullMessage(string description, ImmutableArray<string> hints)
         {
-            StringBuilder sb = new StringBuilder();
+            var sb = new StringBuilder();
             sb.Append(description);
             foreach (string hint in hints)
             {

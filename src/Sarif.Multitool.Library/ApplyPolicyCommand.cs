@@ -22,7 +22,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             try
             {
                 Console.WriteLine($"Applying policy '{options.InputFilePath}' => '{options.OutputFilePath}'...");
-                Stopwatch w = Stopwatch.StartNew();
+                var w = Stopwatch.StartNew();
 
                 bool valid = ValidateOptions(options);
                 if (!valid) { return FAILURE; }

@@ -18,7 +18,7 @@ namespace Test.UnitTests.Sarif.Driver.Sdk
             FilePersistenceOptions loggingOptions;
 
             // Any case in which PrettyPrint is not specified should default to PrettyPrint.
-            TestAnalyzeOptions analyzeOptions = new TestAnalyzeOptions()
+            var analyzeOptions = new TestAnalyzeOptions()
             {
                 Quiet = true,
             };

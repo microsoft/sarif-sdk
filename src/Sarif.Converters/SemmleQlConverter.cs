@@ -257,7 +257,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         /// </returns>
         private Region MakeRegion(List<string> fields)
         {
-            Region region = new Region
+            var region = new Region
             {
                 StartLine = GetInteger(fields, FieldIndex.StartLine),
                 StartColumn = GetInteger(fields, FieldIndex.StartColumn),

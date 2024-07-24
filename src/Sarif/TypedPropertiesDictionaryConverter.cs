@@ -63,7 +63,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 return JsonConvert.DeserializeObject<Version>(reader.ReadAsString(), _versionConverter);
             }
 
-            JObject jo = JObject.Load(reader);
+            var jo = JObject.Load(reader);
             var result = new PropertiesDictionary();
 
             foreach (JProperty property in jo.Properties())

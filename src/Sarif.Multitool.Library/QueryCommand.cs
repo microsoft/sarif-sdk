@@ -41,7 +41,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             bool valid = DriverUtilities.ReportWhetherOutputFileCanBeCreated(options.OutputFilePath, options.Force, _fileSystem);
             if (!valid) { return FAILURE; }
 
-            Stopwatch w = Stopwatch.StartNew();
+            var w = Stopwatch.StartNew();
             int originalTotal = 0;
             int matchCount = 0;
 
@@ -60,7 +60,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 originalTotal += run.Results.Count;
 
                 // Find matches for Results in the Run
-                BitArray matches = new BitArray(run.Results.Count);
+                var matches = new BitArray(run.Results.Count);
                 evaluator.Evaluate(run.Results, matches);
 
                 // Count the new matches
