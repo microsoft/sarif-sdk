@@ -31,16 +31,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         [InlineData("SRCROOT", @"C:\blddir\out\test.dll", @"C:\blddir\src\", null)]
         public void RebaseUriVisitor_VisitPhysicalLocation_RebasesUri_WhenAppropriate(string rootName, string locationUriStr, string baseUriStr, string expectedDifference)
         {
-            Uri locationUri = new Uri(locationUriStr);
-            Uri baseUri = new Uri(baseUriStr);
-            PhysicalLocation location = new PhysicalLocation
+            var locationUri = new Uri(locationUriStr);
+            var baseUri = new Uri(baseUriStr);
+            var location = new PhysicalLocation
             {
                 ArtifactLocation = new ArtifactLocation
                 {
                     Uri = locationUri
                 }
             };
-            RebaseUriVisitor visitor = new RebaseUriVisitor(rootName, baseUri);
+            var visitor = new RebaseUriVisitor(rootName, baseUri);
             PhysicalLocation newLocation = visitor.VisitPhysicalLocation(location);
 
             if (!string.IsNullOrEmpty(expectedDifference))
@@ -58,7 +58,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         [Fact]
         public void RebaseUriVisitor_VisitPhysicalLocation_DoesNotRebaseAlreadyRebasedUri()
         {
-            PhysicalLocation location = new PhysicalLocation
+            var location = new PhysicalLocation
             {
                 ArtifactLocation = new ArtifactLocation
                 {
@@ -66,7 +66,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     UriBaseId = "BLDROOT"
                 }
             };
-            RebaseUriVisitor rebaseUriVisitor = new RebaseUriVisitor("SRCROOT", new Uri(@"C:\bld\src\"));
+            var rebaseUriVisitor = new RebaseUriVisitor("SRCROOT", new Uri(@"C:\bld\src\"));
 
             rebaseUriVisitor.VisitPhysicalLocation(location).Should().BeEquivalentTo(location, because: "we should not rebase a URI multiple times.");
         }
@@ -74,14 +74,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         [Fact]
         public void RebaseUriVisitor_VisitPhysicalLocation_DoesNothingIfIndexReferenceToRunArtifacts()
         {
-            PhysicalLocation location = new PhysicalLocation
+            var location = new PhysicalLocation
             {
                 ArtifactLocation = new ArtifactLocation
                 {
                     Index = 23
                 }
             };
-            RebaseUriVisitor rebaseUriVisitor = new RebaseUriVisitor("SRCROOT", new Uri(@"C:\bld\src\"));
+            var rebaseUriVisitor = new RebaseUriVisitor("SRCROOT", new Uri(@"C:\bld\src\"));
 
             rebaseUriVisitor.VisitPhysicalLocation(location).Should().BeEquivalentTo(location, because: "artifact location does not need to be rebased.");
         }
@@ -93,7 +93,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
             Run oldRun = RandomSarifLogGenerator.GenerateRandomRun(random);
 
-            RebaseUriVisitor rebaseUriVisitor = new RebaseUriVisitor("SRCROOT", new Uri(@"C:\src\root"));
+            var rebaseUriVisitor = new RebaseUriVisitor("SRCROOT", new Uri(@"C:\src\root"));
 
             Run newRun = rebaseUriVisitor.VisitRun(oldRun);
 
@@ -107,15 +107,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         public void RebaseUriVisitor_VisitRun_UpdatesBaseUriDictionaryWhenPresent()
         {
             const string srcRoot = "SRCROOT";
-            Uri srcRootUri = new Uri(@"C:\src\root");
+            var srcRootUri = new Uri(@"C:\src\root");
 
             const string bldRoot = "BLDROOT";
-            Uri bldRootUri = new Uri(@"C:\bld\root");
+            var bldRootUri = new Uri(@"C:\bld\root");
 
             Random random = RandomSarifLogGenerator.GenerateRandomAndLog(this.output);
 
             Run oldRun = RandomSarifLogGenerator.GenerateRandomRun(random);
-            RebaseUriVisitor rebaseUriVisitor = new RebaseUriVisitor(srcRoot, srcRootUri);
+            var rebaseUriVisitor = new RebaseUriVisitor(srcRoot, srcRootUri);
 
             var oldDictionary = new Dictionary<string, ArtifactLocation>() { { bldRoot, new ArtifactLocation { Uri = bldRootUri } } };
             oldRun.OriginalUriBaseIds = oldDictionary;
@@ -137,7 +137,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
             Run oldRun = RandomSarifLogGenerator.GenerateRandomRun(random);
 
-            RebaseUriVisitor rebaseUriVisitor = new RebaseUriVisitor("SRCROOT", new Uri(@"C:\src\"));
+            var rebaseUriVisitor = new RebaseUriVisitor("SRCROOT", new Uri(@"C:\src\"));
 
             Run newRun = rebaseUriVisitor.VisitRun(oldRun);
 
@@ -153,7 +153,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
             Run oldRun = RandomSarifLogGenerator.GenerateRandomRun(random);
 
-            RebaseUriVisitor rebaseUriVisitor = new RebaseUriVisitor("SRCROOT", new Uri(@"C:\bld\"));
+            var rebaseUriVisitor = new RebaseUriVisitor("SRCROOT", new Uri(@"C:\bld\"));
 
             Run newRun = rebaseUriVisitor.VisitRun(oldRun);
 
@@ -166,12 +166,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         [Fact]
         public void RebaseUriVisitor_VisitFileData_PatchesParentUri()
         {
-            Uri rootfileUri = new Uri("file://C:/src/root/blah.zip");
-            Uri childFileUri = new Uri("/stuff.doc", UriKind.RelativeOrAbsolute);
+            var rootfileUri = new Uri("file://C:/src/root/blah.zip");
+            var childFileUri = new Uri("/stuff.doc", UriKind.RelativeOrAbsolute);
 
-            Artifact rootFileData = new Artifact() { Location = new ArtifactLocation { Uri = rootfileUri }, ParentIndex = -1 };
-            Artifact childFileData = new Artifact() { Location = new ArtifactLocation { Uri = childFileUri }, ParentIndex = 0 };
-            Run run = new Run
+            var rootFileData = new Artifact() { Location = new ArtifactLocation { Uri = rootfileUri }, ParentIndex = -1 };
+            var childFileData = new Artifact() { Location = new ArtifactLocation { Uri = childFileUri }, ParentIndex = 0 };
+            var run = new Run
             {
                 Artifacts = new List<Artifact>
                 {
@@ -183,8 +183,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             };
 
             string srcroot = "SRCROOT";
-            Uri rootUriBaseId = new Uri(@"C:\src\root\");
-            RebaseUriVisitor rebaseUriVisitor = new RebaseUriVisitor(srcroot, rootUriBaseId);
+            var rootUriBaseId = new Uri(@"C:\src\root\");
+            var rebaseUriVisitor = new RebaseUriVisitor(srcroot, rootUriBaseId);
 
             run = rebaseUriVisitor.VisitRun(run);
 

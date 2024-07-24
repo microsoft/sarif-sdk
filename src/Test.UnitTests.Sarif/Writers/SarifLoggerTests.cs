@@ -3,7 +3,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Collections.Immutable;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -50,7 +49,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             string expectedText = s_extractor.GetResourceText("SimpleExample.sarif");
 
-            MemoryStream memoryStream = new MemoryStream();
+            var memoryStream = new MemoryStream();
             var streamWriter = new StreamWriter(memoryStream);
 
             using (var logger = new SarifLogger(streamWriter,
@@ -256,10 +255,10 @@ namespace Microsoft.CodeAnalysis.Sarif
             var versionControlUri = new Uri("https://www.github.com/contoso/contoso");
             var versionControlDetails = new VersionControlDetails() { RepositoryUri = versionControlUri, AsOfTimeUtc = DateTime.UtcNow };
             string originalUriBaseIdKey = "testBase";
-            Uri originalUriBaseIdValue = new Uri("https://sourceserver.contoso.com");
+            var originalUriBaseIdValue = new Uri("https://sourceserver.contoso.com");
             var originalUriBaseIds = new Dictionary<string, ArtifactLocation>() { { originalUriBaseIdKey, new ArtifactLocation { Uri = originalUriBaseIdValue } } };
             string defaultEncoding = "UTF7";
-            List<string> redactionTokens = new List<string> { "[MY_REDACTION_TOKEN]" };
+            var redactionTokens = new List<string> { "[MY_REDACTION_TOKEN]" };
 
             var sb = new StringBuilder();
 
@@ -877,7 +876,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         private void LogSimpleResult(SarifLogger sarifLogger)
         {
-            ReportingDescriptor rule = new ReportingDescriptor { Id = "RuleId" };
+            var rule = new ReportingDescriptor { Id = "RuleId" };
             sarifLogger.Log(rule, CreateSimpleResult(rule), null);
         }
 
@@ -1158,7 +1157,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         private static SarifLog CreateSarifLog(List<Result> allKindLevelCombinations, ReportingDescriptor rule, FailureLevelSet desiredFailureLevels, ResultKindSet desiredResultKinds)
         {
-            StringBuilder stringBuilder = new StringBuilder();
+            var stringBuilder = new StringBuilder();
 
             using (var stringWriter = new StringWriter(stringBuilder))
             {

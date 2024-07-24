@@ -94,7 +94,7 @@ function Invoke-DotNetBuild($solutionFileRelativePath) {
     Write-Information "Building $solutionFileRelativePath..."
 
     $solutionFilePath = Join-Path $SourceRoot $solutionFileRelativePath
-    & dotnet build $solutionFilePath --configuration $Configuration --verbosity $BuildVerbosity --no-incremental -bl -p:WarningsAsErrors="MSB3277"
+    & dotnet build $solutionFilePath --configuration $Configuration --verbosity $BuildVerbosity --no-incremental -bl -p:WarningsAsErrors="MSB3277" /p:EnforceCodeStyleInBuild=true
     
     if ($LASTEXITCODE -ne 0) {
         Exit-WithFailureMessage $ScriptName "Build of $solutionFilePath failed."
@@ -199,13 +199,16 @@ if (-not $NoRestore) {
     }
 }
 
-if (-not $NoObjectModel) {
-    # Generate the SARIF object model classes from the SARIF JSON schema.
-    dotnet msbuild /verbosity:minimal /target:BuildAndInjectObjectModel $SourceRoot\Sarif\Sarif.csproj /fileloggerparameters:Verbosity=detailed`;LogFile=CodeGen.log
-    if ($LASTEXITCODE -ne 0) {
-        Exit-WithFailureMessage $ScriptName "SARIF object model generation failed."
-    }
-}
+# The SARIF object model is stable. We disable autogenerating it to allow
+# for strict control enforcing style guidelines from command-line builds.
+#if (-not $NoObjectModel) {
+#    # Generate the SARIF object model classes from the SARIF JSON schema.
+#    dotnet msbuild /verbosity:minimal /target:BuildAndInjectObjectModel $SourceRoot\Sarif\Sarif.csproj /fileloggerparameters:Verbosity=detailed`;LogFile=CodeGen.log
+#    if ($LASTEXITCODE -ne 0) {
+#        Exit-WithFailureMessage $ScriptName "SARIF object model generation failed."
+#    }
+#}
+
 
 if (-not $?) {
     Exit-WithFailureMessage $ScriptName "BeforeBuild failed."

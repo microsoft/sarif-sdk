@@ -26,7 +26,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 }
             };
 
-            TestAnalyzeOptions testAnalyzeOptions = new TestAnalyzeOptions();
+            var testAnalyzeOptions = new TestAnalyzeOptions();
 
             var logger = new CachingLogger(testAnalyzeOptions.FailureLevels, testAnalyzeOptions.ResultKinds);
             logger.LogConfigurationNotification(notification);
@@ -42,7 +42,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             Result result01 = GenerateResult();
             ReportingDescriptor rule01 = GenerateRule();
 
-            TestAnalyzeOptions testAnalyzeOptions = new TestAnalyzeOptions();
+            var testAnalyzeOptions = new TestAnalyzeOptions();
 
             var logger = new CachingLogger(testAnalyzeOptions.FailureLevels, testAnalyzeOptions.ResultKinds);
 
@@ -75,7 +75,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             Result result01 = GenerateResult();
             ReportingDescriptor rule01 = GenerateRule();
 
-            TestAnalyzeOptions testAnalyzeOptions = new TestAnalyzeOptions();
+            var testAnalyzeOptions = new TestAnalyzeOptions();
 
             var logger = new CachingLogger(testAnalyzeOptions.FailureLevels, testAnalyzeOptions.ResultKinds);
 
@@ -104,7 +104,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             string message = Guid.NewGuid().ToString();
             string uriText = Guid.NewGuid().ToString();
 
-            Uri uri = new Uri(uriText, UriKind.RelativeOrAbsolute);
+            var uri = new Uri(uriText, UriKind.RelativeOrAbsolute);
 
             return new Result
             {

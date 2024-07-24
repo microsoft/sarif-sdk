@@ -393,7 +393,7 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Baseline
 
         private void SetResultRuleIndexOnly(Run run)
         {
-            Dictionary<string, int> ruleIndexByRuleId = new Dictionary<string, int>();
+            var ruleIndexByRuleId = new Dictionary<string, int>();
 
             for (int i = 0; i < run.Tool.Driver.Rules.Count; ++i)
             {
@@ -415,9 +415,9 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Baseline
         [Fact]
         public void ResultMatchingBaseliner_WhenThereIsOnlyOneCurrentRun_CopiesSelectedRunData()
         {
-            DateTime firstDetectionTime = new DateTime(2019, 10, 7, 12, 13, 14);
+            var firstDetectionTime = new DateTime(2019, 10, 7, 12, 13, 14);
 
-            Run originalRun = new Run
+            var originalRun = new Run
             {
                 Tool = new Tool
                 {

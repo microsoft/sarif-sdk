@@ -199,7 +199,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
         {
             Random random = RandomSarifLogGenerator.GenerateRandomAndLog(this.output);
             SarifLog baselineLog = RandomSarifLogGenerator.GenerateSarifLogWithRuns(random, 1);
-            SarifLog currentLog = new SarifLog();
+            var currentLog = new SarifLog();
             currentLog.Runs = new Run[] { new Run() };
             baselineLog.Runs[0].AutomationDetails = new RunAutomationDetails { Guid = Guid.NewGuid() };
 
@@ -302,7 +302,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
         [Fact]
         public void SarifLogResultMatcher_MultipleLogsDuplicateData_WorksAsExpected()
         {
-            SarifLog current1 = new SarifLog()
+            var current1 = new SarifLog()
             {
                 Runs = new Run[]
                 {

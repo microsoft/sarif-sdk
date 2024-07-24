@@ -15,9 +15,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Processors
     {
         private List<int> GenerateRandomIntList()
         {
-            Random r = new Random();
+            var r = new Random();
             int size = r.Next(1, 100);
-            List<int> list = new List<int>(size);
+            var list = new List<int>(size);
             for (int i = 0; i < size; i++)
             {
                 list.Add(r.Next());
@@ -30,7 +30,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Processors
         {
             List<int> list = GenerateRandomIntList();
 
-            TestMappingProcessor testMapper = new TestMappingProcessor();
+            var testMapper = new TestMappingProcessor();
 
             IEnumerable<int> mappedList = testMapper.Map(list.AsEnumerable());
 
@@ -42,7 +42,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Processors
         {
             List<int> list = GenerateRandomIntList();
 
-            TestFoldProcessor testFold = new TestFoldProcessor();
+            var testFold = new TestFoldProcessor();
 
             int result = testFold.Fold(list.AsEnumerable());
 
@@ -54,7 +54,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Processors
         {
             List<int> list = GenerateRandomIntList();
 
-            GenericActionPipeline<int> actionPipeline = new GenericActionPipeline<int>(new List<IActionWrapper<int>> { new TestMappingProcessor(), new TestFoldProcessor(), new TestMappingProcessor() });
+            var actionPipeline = new GenericActionPipeline<int>(new List<IActionWrapper<int>> { new TestMappingProcessor(), new TestFoldProcessor(), new TestMappingProcessor() });
 
             IEnumerable<int> result = actionPipeline.Act(list);
 

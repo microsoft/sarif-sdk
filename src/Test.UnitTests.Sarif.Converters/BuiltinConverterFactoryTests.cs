@@ -16,7 +16,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         [Fact]
         public void BuiltInConverterFactory_HasConverterForEveryBuiltInToolFormat()
         {
-            List<string> toolFormats = Utilities.GetToolFormats()
+            var toolFormats = Utilities.GetToolFormats()
                 .ToList();
 
             string factoryName = nameof(BuiltInConverterFactory);

@@ -297,8 +297,8 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Core
 
     internal static class ExtensionsForPropertyBagHolderTests
     {
-        const string PropertyName = "prop";
-        const string Input = "{\"properties\":{\"" + PropertyName + "\":12}}";
+        private const string PropertyName = "prop";
+        private const string Input = "{\"properties\":{\"" + PropertyName + "\":12}}";
 
         internal static void ShouldSerializeAs<T>(this T value, string serializedValue)
         {

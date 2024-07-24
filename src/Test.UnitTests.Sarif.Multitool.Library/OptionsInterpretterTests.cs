@@ -2,20 +2,11 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Text;
 
 using FluentAssertions;
 
-using Microsoft.CodeAnalysis.Sarif.Driver;
-using Microsoft.CodeAnalysis.Sarif.Readers;
-using Microsoft.CodeAnalysis.Sarif.VersionOne;
-
 using Moq;
-
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 
 using Xunit;
 
@@ -29,9 +20,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             var mockEnvironmentVariableGetter = new Mock<IEnvironmentVariableGetter>();
             //  Don't setup any responses so they always return null
 
-            OptionsInterpretter optionsInterpretter = new OptionsInterpretter(mockEnvironmentVariableGetter.Object);
+            var optionsInterpretter = new OptionsInterpretter(mockEnvironmentVariableGetter.Object);
 
-            List<ValidateOptions> beforeAndAfter = new List<ValidateOptions>(2);
+            var beforeAndAfter = new List<ValidateOptions>(2);
 
             for (int i = 0; i < beforeAndAfter.Capacity; i++)
             {
@@ -63,9 +54,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             //  Deliberately more delimeters than needed
             mockEnvironmentVariableGetter.Setup(x => x.GetEnvironmentVariable("SARIF_LEVEL_ADDITION")).Returns("Note");
 
-            OptionsInterpretter optionsInterpretter = new OptionsInterpretter(mockEnvironmentVariableGetter.Object);
+            var optionsInterpretter = new OptionsInterpretter(mockEnvironmentVariableGetter.Object);
 
-            ValidateOptions analyzeOptionsBase = new ValidateOptions
+            var analyzeOptionsBase = new ValidateOptions
             {
                 DataToInsert = new List<OptionallyEmittedData> { OptionallyEmittedData.Hashes, OptionallyEmittedData.EnvironmentVariables },
                 DataToRemove = new List<OptionallyEmittedData> { OptionallyEmittedData.VersionControlDetails },

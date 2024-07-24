@@ -60,7 +60,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Core
         [Fact]
         public void Tool_ParseFileVersion_ExtractsDottedQuadFileVersion()
         {
-            StringBuilder sb = new StringBuilder();
+            var sb = new StringBuilder();
 
             foreach (DottedQuadFileVersionTestCase testCase in s_dottedQuadFileVersionTestCases)
             {

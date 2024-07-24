@@ -5,11 +5,11 @@ using System;
 
 namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
 {
-    static class ResultMatchingTestHelpers
+    internal static class ResultMatchingTestHelpers
     {
         public static Result CreateMatchingResult(string target, string location, string regionContent, string contextRegionContent = null)
         {
-            Result result = new Result()
+            var result = new Result()
             {
                 RuleId = "TEST001",
                 Level = FailureLevel.Error,

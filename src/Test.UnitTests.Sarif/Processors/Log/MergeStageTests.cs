@@ -20,7 +20,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Processors
             output = outputHelper;
         }
 
-        readonly GenericFoldAction<SarifLog> Merge = (GenericFoldAction<SarifLog>)SarifLogProcessorFactory.GetActionStage(SarifLogAction.Merge);
+        private readonly GenericFoldAction<SarifLog> Merge = (GenericFoldAction<SarifLog>)SarifLogProcessorFactory.GetActionStage(SarifLogAction.Merge);
 
         [Theory]
         [InlineData(0)]
@@ -46,7 +46,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Processors
         {
             Random random = RandomSarifLogGenerator.GenerateRandomAndLog(this.output);
 
-            List<SarifLog> logs = new List<SarifLog>();
+            var logs = new List<SarifLog>();
             for (int i = 0; i < fileCount; i++)
             {
                 logs.Add(RandomSarifLogGenerator.GenerateSarifLogWithRuns(random, random.Next(5)));

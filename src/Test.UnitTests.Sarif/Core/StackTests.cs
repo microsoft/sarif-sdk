@@ -22,7 +22,7 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Core
         public void Stack_CreateFromStackTrace()
         {
             var dotNetStack = new StackTrace();
-            Stack stack = new Stack(dotNetStack);
+            var stack = new Stack(dotNetStack);
 
             // The .NET StackTrace.ToString() override must preserve a trailing NewLine
             // for compatibility reasons. We do not retain this behavior in ToString()
