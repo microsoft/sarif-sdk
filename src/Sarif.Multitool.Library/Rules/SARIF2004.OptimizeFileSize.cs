@@ -7,8 +7,6 @@ using System.Linq;
 
 using Microsoft.Json.Pointer;
 
-using Newtonsoft.Json.Linq;
-
 namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 {
     public class OptimizeFileSize : SarifValidationSkimmerBase

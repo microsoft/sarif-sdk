@@ -1,4 +1,4 @@
-// Copyright (c) Microsoft.  All Rights Reserved.
+// Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System;
@@ -6,6 +6,7 @@ using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.Serialization;
+
 using Newtonsoft.Json;
 
 namespace Microsoft.CodeAnalysis.Sarif
@@ -387,7 +388,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             if (globalMessageStrings != null)
             {
                 GlobalMessageStrings = new Dictionary<string, MultiformatMessageString>();
-                foreach (var value_0 in globalMessageStrings)
+                foreach (KeyValuePair<string, MultiformatMessageString> value_0 in globalMessageStrings)
                 {
                     GlobalMessageStrings.Add(value_0.Key, new MultiformatMessageString(value_0.Value));
                 }
@@ -396,7 +397,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             if (notifications != null)
             {
                 var destination_0 = new List<ReportingDescriptor>();
-                foreach (var value_1 in notifications)
+                foreach (ReportingDescriptor value_1 in notifications)
                 {
                     if (value_1 == null)
                     {
@@ -414,7 +415,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             if (rules != null)
             {
                 var destination_1 = new List<ReportingDescriptor>();
-                foreach (var value_2 in rules)
+                foreach (ReportingDescriptor value_2 in rules)
                 {
                     if (value_2 == null)
                     {
@@ -432,7 +433,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             if (taxa != null)
             {
                 var destination_2 = new List<ReportingDescriptor>();
-                foreach (var value_3 in taxa)
+                foreach (ReportingDescriptor value_3 in taxa)
                 {
                     if (value_3 == null)
                     {
@@ -450,7 +451,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             if (locations != null)
             {
                 var destination_3 = new List<ArtifactLocation>();
-                foreach (var value_4 in locations)
+                foreach (ArtifactLocation value_4 in locations)
                 {
                     if (value_4 == null)
                     {
@@ -483,7 +484,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             if (supportedTaxonomies != null)
             {
                 var destination_4 = new List<ToolComponentReference>();
-                foreach (var value_5 in supportedTaxonomies)
+                foreach (ToolComponentReference value_5 in supportedTaxonomies)
                 {
                     if (value_5 == null)
                     {

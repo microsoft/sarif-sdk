@@ -1,4 +1,4 @@
-// Copyright (c) Microsoft.  All Rights Reserved.
+// Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System;
@@ -6,6 +6,7 @@ using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.Serialization;
+
 using Newtonsoft.Json;
 
 namespace Microsoft.CodeAnalysis.Sarif
@@ -242,7 +243,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             if (kinds != null)
             {
                 var destination_0 = new List<string>();
-                foreach (var value_0 in kinds)
+                foreach (string value_0 in kinds)
                 {
                     destination_0.Add(value_0);
                 }
@@ -253,7 +254,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             if (taxa != null)
             {
                 var destination_1 = new List<ReportingDescriptorReference>();
-                foreach (var value_1 in taxa)
+                foreach (ReportingDescriptorReference value_1 in taxa)
                 {
                     if (value_1 == null)
                     {
@@ -272,7 +273,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             if (state != null)
             {
                 State = new Dictionary<string, MultiformatMessageString>();
-                foreach (var value_2 in state)
+                foreach (KeyValuePair<string, MultiformatMessageString> value_2 in state)
                 {
                     State.Add(value_2.Key, new MultiformatMessageString(value_2.Value));
                 }
