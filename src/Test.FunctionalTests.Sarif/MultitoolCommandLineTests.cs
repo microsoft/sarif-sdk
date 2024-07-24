@@ -5,9 +5,11 @@ using System.Diagnostics;
 using System.IO;
 
 using FluentAssertions;
-using FluentAssertions.Execution;
 
+#if DEBUG
+using FluentAssertions.Execution;
 using Microsoft.CodeAnalysis.Sarif.Driver;
+#endif
 
 using Xunit;
 
