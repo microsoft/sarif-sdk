@@ -100,7 +100,12 @@
       <DependentUpon>SdkResources.resx</DependentUpon>
     </Compile>
   </ItemGroup>
-
-  <Import Project="ToDotNet\ToDotNet.targets" />
+<!-- Disabling the automatic code generation. This code emit is generating
+     style guideline breaks. It is also extremely stable at this point. 
+     Moving forward, we could update JSchema to generate code that strictly
+     meets our style guidelines. We can also temporarily enable this targets
+     file again (and reapply style changes) if necessary.
+  <Import Project="ToDotNet\ToDotNet.targets" />  
+-->
 
 </Project>
