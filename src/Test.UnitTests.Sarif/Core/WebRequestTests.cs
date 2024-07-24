@@ -26,7 +26,7 @@ Accept-Language: en, mi
 
 ";
 
-            WebRequest webRequest = WebRequest.Parse(RequestString);
+            var webRequest = WebRequest.Parse(RequestString);
 
             webRequest.Method.Should().Be("GET");
             webRequest.Target.Should().Be("/hello.txt");
@@ -54,7 +54,7 @@ This is the body.
 Line 2.
 ";
 
-            WebRequest webRequest = WebRequest.Parse(RequestString);
+            var webRequest = WebRequest.Parse(RequestString);
 
             webRequest.Method.Should().Be("GET");
             webRequest.Target.Should().Be("/hello.txt");
@@ -78,7 +78,7 @@ User-Agent: my-agent
 
 ";
 
-            WebRequest webRequest = WebRequest.Parse(RequestString);
+            var webRequest = WebRequest.Parse(RequestString);
 
             webRequest.Method.Should().Be("GET");
             webRequest.Target.Should().Be("/hello.txt?verbose=true&debug=false");
@@ -104,7 +104,7 @@ User-Agent: my-agent
 
 ";
 
-            WebRequest webRequest = WebRequest.Parse(RequestString);
+            var webRequest = WebRequest.Parse(RequestString);
 
             webRequest.Method.Should().Be("GET");
             webRequest.Target.Should().Be("/hello.txt?this-query-is-a-parameter-without-value");

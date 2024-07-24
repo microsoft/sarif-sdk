@@ -16,7 +16,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         [Fact]
         public void Extensions_Validate_RefersToDriver()
         {
-            StringBuilder sb = new StringBuilder();
+            var sb = new StringBuilder();
 
             foreach (ToolComponentReferenceTestCase item in s_toolComponentReferenceTestCases)
             {

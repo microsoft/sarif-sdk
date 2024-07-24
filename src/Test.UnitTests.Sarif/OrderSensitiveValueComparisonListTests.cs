@@ -103,7 +103,7 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests
             var fileChangeTwo = new ArtifactChange();
 
             var fileChangeThree = new ArtifactChange();
-            Guid differentiatingProperty = Guid.NewGuid();
+            var differentiatingProperty = Guid.NewGuid();
             fileChangeThree.SetProperty(DIFFERENTIATING_PROPERTY_NAME, differentiatingProperty);
 
             var list = new OrderSensitiveValueComparisonList<ArtifactChange>(equalityComparer);

@@ -7,8 +7,6 @@ using System.Linq;
 
 using Microsoft.Json.Pointer;
 
-using Newtonsoft.Json.Linq;
-
 namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 {
     public class OptimizeFileSize : SarifValidationSkimmerBase
@@ -186,7 +184,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 
         private bool HasResultLocationsWithUriAndIndex(string resultPointer)
         {
-            JToken resultToken = resultPointer.ToJToken(Context.InputLogToken);
+            var resultToken = resultPointer.ToJToken(Context.InputLogToken);
             return
                 resultToken.HasProperty(SarifPropertyName.Uri) &&
                 resultToken.HasProperty(SarifPropertyName.Index);
@@ -194,7 +192,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 
         private bool HasLocationOnlyArtifacts(string artifactPointer)
         {
-            JToken artifactToken = artifactPointer.ToJToken(Context.InputLogToken);
+            var artifactToken = artifactPointer.ToJToken(Context.InputLogToken);
             return
                 artifactToken.HasProperty(SarifPropertyName.Location) &&
                 artifactToken.Children().Count() == 1;
@@ -236,7 +234,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 
         private bool HasIdOnlyRules(string rulePointer)
         {
-            JToken ruleToken = rulePointer.ToJToken(Context.InputLogToken);
+            var ruleToken = rulePointer.ToJToken(Context.InputLogToken);
             return
                 ruleToken.HasProperty(SarifPropertyName.Id) &&
                 ruleToken.Children().Count() == 1;

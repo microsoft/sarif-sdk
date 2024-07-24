@@ -338,7 +338,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         private static Long ComputeFirstMod()
         {
-            Long firstMod = new Long(1, 0, false);
+            var firstMod = new Long(1, 0, false);
 
             for (int i = 0; i < 100; i++)
             {

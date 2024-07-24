@@ -1011,7 +1011,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                         _v1LogicalLocationKeyToDecoratedNameMap = visitor.LogicalLocationKeyToDecoratedNameMap;
 
                         run.LogicalLocations = new List<LogicalLocation>();
-                        HashSet<string> populatedKeys = new HashSet<string>();
+                        var populatedKeys = new HashSet<string>();
 
                         foreach (KeyValuePair<string, LogicalLocationVersionOne> pair in v1Run.LogicalLocations)
                         {

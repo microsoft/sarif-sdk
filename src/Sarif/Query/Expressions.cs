@@ -36,7 +36,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Query
 
         public override string ToString()
         {
-            StringBuilder result = new StringBuilder();
+            var result = new StringBuilder();
 
             foreach (IExpression part in Terms)
             {

@@ -17,7 +17,7 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Baseline
         [Fact]
         public void WhatComparer_MatchesCategory()
         {
-            Run run = new Run()
+            var run = new Run()
             {
                 Tool = new Tool()
                 {

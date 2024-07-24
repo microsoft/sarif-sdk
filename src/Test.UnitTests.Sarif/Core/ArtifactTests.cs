@@ -33,12 +33,12 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Core
         {
             string filePath = Path.GetTempFileName();
             string fileContents = Guid.NewGuid().ToString();
-            Uri uri = new Uri(filePath);
+            var uri = new Uri(filePath);
 
             try
             {
                 File.WriteAllText(filePath, fileContents);
-                Artifact fileData = Artifact.Create(uri, OptionallyEmittedData.Hashes);
+                var fileData = Artifact.Create(uri, OptionallyEmittedData.Hashes);
                 fileData.Location.Should().Be(null);
                 HashData hashes = HashUtilities.ComputeHashes(filePath);
                 fileData.Contents.Should().BeNull();
@@ -82,12 +82,12 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Core
         {
             string filePath = Path.GetTempFileName() + fileExtension;
             string fileContents = Guid.NewGuid().ToString();
-            Uri uri = new Uri(filePath);
+            var uri = new Uri(filePath);
 
             try
             {
                 File.WriteAllText(filePath, fileContents);
-                Artifact fileData = Artifact.Create(uri, dataToInsert);
+                var fileData = Artifact.Create(uri, dataToInsert);
                 fileData.Location.Should().BeNull();
 
                 if (dataToInsert.HasFlag(OptionallyEmittedData.Hashes))
@@ -134,12 +134,12 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Core
             string textValue = "अचम्भा";
             byte[] fileContents = encoding.GetBytes(textValue);
 
-            Uri uri = new Uri(filePath);
+            var uri = new Uri(filePath);
 
             try
             {
                 File.WriteAllBytes(filePath, fileContents);
-                Artifact fileData = Artifact.Create(uri, OptionallyEmittedData.TextFiles, encoding: encoding);
+                var fileData = Artifact.Create(uri, OptionallyEmittedData.TextFiles, encoding: encoding);
                 fileData.Location.Should().Be(null);
                 fileData.Hashes.Should().BeNull();
 
@@ -158,8 +158,8 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Core
             // If a file does not exist, and we request file contents
             // persistence, the logger will not raise an exception
             string filePath = Path.GetTempFileName();
-            Uri uri = new Uri(filePath);
-            Artifact fileData = Artifact.Create(uri, OptionallyEmittedData.TextFiles);
+            var uri = new Uri(filePath);
+            var fileData = Artifact.Create(uri, OptionallyEmittedData.TextFiles);
             fileData.Location.Should().Be(null);
             fileData.Hashes.Should().BeNull();
             fileData.Contents.Should().BeNull();
@@ -169,7 +169,7 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Core
         public void Artifact_FileIsLocked()
         {
             string filePath = Path.GetTempFileName();
-            Uri uri = new Uri(filePath);
+            var uri = new Uri(filePath);
 
             try
             {
@@ -177,7 +177,7 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Core
                 // This raises an IOException, which is swallowed by FileData.Create
                 using (FileStream exclusiveAccessReader = File.Open(filePath, FileMode.Open, FileAccess.Read, FileShare.None))
                 {
-                    Artifact fileData = Artifact.Create(uri, OptionallyEmittedData.TextFiles);
+                    var fileData = Artifact.Create(uri, OptionallyEmittedData.TextFiles);
                     fileData.Location.Should().Be(null);
                     fileData.Hashes.Should().BeNull();
                     fileData.Contents.Should().BeNull();
@@ -204,7 +204,7 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Core
         [Fact]
         public void Artifact_SerializeSingleFileRole()
         {
-            Artifact fileData = Artifact.Create(new Uri("file:///example.cs"), OptionallyEmittedData.None);
+            var fileData = Artifact.Create(new Uri("file:///example.cs"), OptionallyEmittedData.None);
             fileData.Roles = ArtifactRoles.AnalysisTarget;
 
             string result = JsonConvert.SerializeObject(fileData);
@@ -215,7 +215,7 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Core
         [Fact]
         public void Artifact_SerializeMultipleFileRoles()
         {
-            Artifact fileData = Artifact.Create(new Uri("file:///example.cs"), OptionallyEmittedData.None);
+            var fileData = Artifact.Create(new Uri("file:///example.cs"), OptionallyEmittedData.None);
             fileData.Roles = ArtifactRoles.ResponseFile | ArtifactRoles.ResultFile;
 
             string actual = JsonConvert.SerializeObject(fileData);
@@ -226,14 +226,14 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Core
         [Fact]
         public void Artifact_DeserializeSingleFileRole()
         {
-            Artifact actual = JsonConvert.DeserializeObject("{\"roles\":[\"analysisTarget\"]}", typeof(Artifact)) as Artifact;
+            var actual = JsonConvert.DeserializeObject("{\"roles\":[\"analysisTarget\"]}", typeof(Artifact)) as Artifact;
             actual.Roles.Should().Be(ArtifactRoles.AnalysisTarget);
         }
 
         [Fact]
         public void Artifact_DeserializeMultipleFileRoles()
         {
-            Artifact actual = JsonConvert.DeserializeObject("{\"roles\":[\"responseFile\",\"resultFile\"]}", typeof(Artifact)) as Artifact;
+            var actual = JsonConvert.DeserializeObject("{\"roles\":[\"responseFile\",\"resultFile\"]}", typeof(Artifact)) as Artifact;
             actual.Roles.Should().Be(ArtifactRoles.ResponseFile | ArtifactRoles.ResultFile);
         }
 
@@ -241,11 +241,11 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Core
         {
             string extension = isTextFile ? ".cs" : ".dll";
             string filePath = Path.GetFullPath(Guid.NewGuid().ToString()) + extension;
-            Uri uri = new Uri(filePath);
+            var uri = new Uri(filePath);
 
             IFileSystem fileSystem = SetUnauthorizedAccessExceptionMock();
 
-            Artifact fileData = Artifact.Create(
+            var fileData = Artifact.Create(
                 uri,
                 OptionallyEmittedData.TextFiles,
                 encoding: null,

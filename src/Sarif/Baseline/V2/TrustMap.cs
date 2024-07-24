@@ -61,7 +61,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline
         /// <param name="component">WhatComponent for a Result attribute used in baselining</param>
         public void Add(WhatComponent component)
         {
-            TrustKey key = new TrustKey(component);
+            var key = new TrustKey(component);
 
             TrustValue value = null;
             if (!_map.TryGetValue(key, out value))

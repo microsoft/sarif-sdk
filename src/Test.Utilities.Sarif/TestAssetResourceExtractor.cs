@@ -67,7 +67,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             ValidateStream(resourcePath, fallbackResourcePath, stream);
 
-            using StreamReader reader = new StreamReader(stream);
+            using var reader = new StreamReader(stream);
             return reader.ReadToEnd();
         }
 
@@ -108,7 +108,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         private byte[] GetBytesFromStream(Stream stream)
         {
-            using MemoryStream memoryStream = new MemoryStream();
+            using var memoryStream = new MemoryStream();
             stream.CopyTo(memoryStream);
             return memoryStream.ToArray();
         }

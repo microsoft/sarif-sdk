@@ -365,7 +365,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     var partitionArtifactIndexRemappingDictionary = new Dictionary<int, int>();
                     artifactIndexRemappingDictionaries.Add(partitionArtifactIndexRemappingDictionary);
 
-                    List<int> allPartitionArtifactIndicesList = allPartitionArtifactIndices
+                    var allPartitionArtifactIndicesList = allPartitionArtifactIndices
                         .OrderBy(index => index)
                         .ToList();
 

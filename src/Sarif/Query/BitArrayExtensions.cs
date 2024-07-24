@@ -34,7 +34,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Query
         /// <returns>List of items from set which were included in BitArray</returns>
         public static List<T> MatchingSubset<T>(this BitArray matches, IList<T> set)
         {
-            List<T> subset = new List<T>();
+            var subset = new List<T>();
 
             for (int i = 0; i < set.Count; ++i)
             {

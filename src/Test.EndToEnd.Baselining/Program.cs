@@ -85,7 +85,7 @@ namespace Test.EndToEnd.Baselining
         {
             try
             {
-                Program program = new Program();
+                var program = new Program();
 
                 return Parser.Default.ParseArguments<RunOptions, DebugOptions, RebuildDebugLogsOptions>(args).MapResult(
                     (RunOptions options) => Program.Run(options),
@@ -102,7 +102,7 @@ namespace Test.EndToEnd.Baselining
 
         private static int Run(RunOptions options)
         {
-            BaseliningTester tester = new BaseliningTester();
+            var tester = new BaseliningTester();
             BaseliningSummary overallSummary = tester.RunAll(options.TestRootPath);
 
             return 0;
@@ -110,7 +110,7 @@ namespace Test.EndToEnd.Baselining
 
         private static int Debug(DebugOptions options)
         {
-            BaseliningTester tester = new BaseliningTester();
+            var tester = new BaseliningTester();
             tester.RunSeries(Path.Combine(options.TestRootPath, BaseliningTester.InputFolderName, options.DebugSeriesPath), options.DebugSeriesPath, options.DebugLogIndex, options.DebugResultIndex);
 
             return 0;
@@ -118,7 +118,7 @@ namespace Test.EndToEnd.Baselining
 
         private static int CreateDebugLogs(RebuildDebugLogsOptions options)
         {
-            BaseliningTester tester = new BaseliningTester();
+            var tester = new BaseliningTester();
             tester.EnrichUnder(Path.Combine(options.TestRootPath, BaseliningTester.InputFolderName));
 
             return 0;

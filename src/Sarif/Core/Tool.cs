@@ -37,7 +37,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 dottedQuadFileVersion = ParseFileVersion(version.ToString());
             }
 
-            Tool tool = new Tool
+            var tool = new Tool
             {
                 Driver = new ToolComponent
                 {

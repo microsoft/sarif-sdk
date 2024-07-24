@@ -95,7 +95,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 Kind = LogicalLocationKind.Package
             };
 
-            Location location3 = new Location
+            var location3 = new Location
             {
                 LogicalLocation = new LogicalLocation
                 {

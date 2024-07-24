@@ -60,7 +60,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             var transformer = new SarifCurrentToVersionOneVisitor();
             transformer.VisitSarifLog(v2Log);
 
-            JsonSerializerSettings v1Settings = new JsonSerializerSettings()
+            var v1Settings = new JsonSerializerSettings()
             {
                 ContractResolver = SarifContractResolverVersionOne.Instance,
                 Formatting = PrettyPrint ? Formatting.Indented : Formatting.None

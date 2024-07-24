@@ -107,7 +107,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         private JsonMapNode LoadOrRebuildMap(PageOptions options)
         {
             JsonMapNode root;
-            Stopwatch w = Stopwatch.StartNew();
+            var w = Stopwatch.StartNew();
 
             string mapPath = Path.ChangeExtension(options.InputFilePath, ".map.json");
 
@@ -139,7 +139,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
         private void ExtractPage(PageOptions options, JsonMapNode root)
         {
-            Stopwatch w = Stopwatch.StartNew();
+            var w = Stopwatch.StartNew();
             Console.WriteLine($"Extracting {options.Count:n0} results from index {options.Index:n0}\r\n  from \"{options.InputFilePath}\"\r\n  into \"{options.OutputFilePath}\"...");
 
             JsonMapNode runs, run, results;

@@ -158,7 +158,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
             // A naïve Knuth Fischer Yates shuffle.
             T swapTemp;
-            List<T> values = sequence.ToList();
+            var values = sequence.ToList();
             int currentlySelecting = values.Count;
             while (currentlySelecting > 1)
             {

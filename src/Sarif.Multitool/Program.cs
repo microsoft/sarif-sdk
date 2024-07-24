@@ -17,7 +17,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         /// <returns>0 on success; nonzero on failure.</returns>
         public static int Main(string[] args)
         {
-            OptionsInterpretter optionsInterpretter = new OptionsInterpretter();
+            var optionsInterpretter = new OptionsInterpretter();
 
             return Parser.Default.ParseArguments<
                 // Keep this in alphabetical order

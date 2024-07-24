@@ -30,7 +30,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
         public static PropertiesDictionary CreateDefaultConfiguration()
         {
-            PropertiesDictionary configuration = new PropertiesDictionary();
+            var configuration = new PropertiesDictionary();
             string path = Path.GetTempFileName() + ".xml";
 
             try

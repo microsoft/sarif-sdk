@@ -202,7 +202,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             }
 
             // Run the normal Page command
-            PageCommand command = new PageCommand(fileSystem);
+            var command = new PageCommand(fileSystem);
             command.RunWithoutCatch(options);
 
             // Rewrite indented
@@ -235,7 +235,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             string actualUnindentedPath = Path.ChangeExtension(sourceFilePath, ".Paged.Actual.Unformatted.sarif");
 
             // Page with the Command
-            PageCommand command = new PageCommand();
+            var command = new PageCommand();
             command.RunWithoutCatch(new PageOptions() { InputFilePath = sourceFilePath, OutputFilePath = actualUnindentedPath, Index = index, Count = count });
 
             // Indent the Paged output
@@ -255,8 +255,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
         private static void Indent(string sourceFilePath, string outputPath)
         {
-            using (JsonTextReader reader = new JsonTextReader(new StreamReader(sourceFilePath)))
-            using (JsonTextWriter writer = new JsonTextWriter(File.CreateText(outputPath)))
+            using (var reader = new JsonTextReader(new StreamReader(sourceFilePath)))
+            using (var writer = new JsonTextWriter(File.CreateText(outputPath)))
             {
                 writer.Formatting = Newtonsoft.Json.Formatting.Indented;
                 reader.Read();
@@ -266,8 +266,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
         private static void PageManual(string sourceFilePath, string outputPath, int index, int count)
         {
-            using (JsonTextReader reader = new JsonTextReader(new StreamReader(sourceFilePath)))
-            using (JsonTextWriter writer = new JsonTextWriter(File.CreateText(outputPath)))
+            using (var reader = new JsonTextReader(new StreamReader(sourceFilePath)))
+            using (var writer = new JsonTextWriter(File.CreateText(outputPath)))
             {
                 writer.Formatting = Newtonsoft.Json.Formatting.Indented;
 

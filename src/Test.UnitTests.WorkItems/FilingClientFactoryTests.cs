@@ -23,7 +23,7 @@ namespace Microsoft.WorkItems
         [Fact]
         public void CreateFilingTarget_ThrowsIfUriPatternIsNotRecognized()
         {
-            Uri hostUri = new Uri("https://www.example.com/myOrg/myProject");
+            var hostUri = new Uri("https://www.example.com/myOrg/myProject");
 
             Action action = () => FilingClientFactory.Create(hostUri);
 
@@ -33,7 +33,7 @@ namespace Microsoft.WorkItems
         [Fact]
         public void CreateFilingTarget_ThrowsIfUriIncludesAdditionalPathSegments()
         {
-            Uri hostUri = new Uri("https://github.com/myOrg/myProject/issues");
+            var hostUri = new Uri("https://github.com/myOrg/myProject/issues");
 
             Action action = () => FilingClientFactory.Create(hostUri);
 
@@ -43,7 +43,7 @@ namespace Microsoft.WorkItems
         [Fact]
         public void CreateFilingTarget_CreatesGitHubFilingTarget()
         {
-            Uri hostUri = new Uri("https://github.com/myOrg/myProject");
+            var hostUri = new Uri("https://github.com/myOrg/myProject");
 
             FilingClient filingTarget = FilingClientFactory.Create(hostUri);
 
@@ -55,7 +55,7 @@ namespace Microsoft.WorkItems
         [Fact]
         public void CreateFilingTarget_CreatesAzureDevOpsFilingTarget()
         {
-            Uri hostUri = new Uri("https://dev.azure.com/myOrg/myProject");
+            var hostUri = new Uri("https://dev.azure.com/myOrg/myProject");
 
             FilingClient filingTarget = FilingClientFactory.Create(hostUri);
 
@@ -67,7 +67,7 @@ namespace Microsoft.WorkItems
         [Fact]
         public void CreateFilingTarget_CreatesLegacyAzureDevOpsFilingTarget()
         {
-            Uri hostUri = new Uri("https://myorg.visualstudio.com/myProject");
+            var hostUri = new Uri("https://myorg.visualstudio.com/myProject");
 
             FilingClient filingTarget = FilingClientFactory.Create(hostUri);
 

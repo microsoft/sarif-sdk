@@ -594,7 +594,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 if (KeyIsReservedPropertyName(key)) { continue; }
 
                 string jsonValue = properties[key];
-                JObject root = JObject.Parse(jsonValue);
+                var root = JObject.Parse(jsonValue);
                 string snippet = root["html"].Value<string>();
 
                 int snippetLength = snippet.Length;
@@ -1429,7 +1429,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
         private void ReadFinding(SparseReader reader, object parent)
         {
-            Context context = (Context)parent;
+            var context = (Context)parent;
 
             string ruleId = reader.ReadAttributeString(SchemaStrings.AttributeRuleId);
 
@@ -1443,7 +1443,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
         private static void ReadRequest(SparseReader reader, object parent)
         {
-            Context context = (Context)parent;
+            var context = (Context)parent;
             context.ClearRequest();
 
             string protocol = reader.ReadAttributeString(SchemaStrings.AttributeProtocol);
@@ -1458,13 +1458,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
         private static void ReadBody(SparseReader reader, object parent)
         {
-            Context context = (Context)parent;
+            var context = (Context)parent;
             context.RequestBody = reader.ReadElementContentAsString();
         }
 
         private static void ReadHeaders(SparseReader reader, object parent)
         {
-            Context context = (Context)parent;
+            var context = (Context)parent;
             context.ClearHeaders();
 
             reader.ReadChildren(SchemaStrings.ElementHeaders, parent);
@@ -1475,7 +1475,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             string name = reader.ReadAttributeString(SchemaStrings.AttributeName);
             string value = reader.ReadAttributeString(SchemaStrings.AttributeValue);
 
-            Context context = (Context)parent;
+            var context = (Context)parent;
             context.AddHeader(name, value);
 
             reader.ReadChildren(SchemaStrings.ElementH, parent);
@@ -1483,7 +1483,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
         private static void ReadParameters(SparseReader reader, object parent)
         {
-            Context context = (Context)parent;
+            var context = (Context)parent;
             context.ClearParameters();
 
             reader.ReadChildren(SchemaStrings.ElementParameters, parent);
@@ -1491,7 +1491,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
         private static void ReadEvents(SparseReader reader, object parent)
         {
-            Context context = (Context)parent;
+            var context = (Context)parent;
             context.Signature = null;
             context.MethodEvent = null;
             context.PropagationEvents = null;
@@ -1505,7 +1505,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         {
             reader.ReadChildren(SchemaStrings.ElementPropagationEvent, parent);
 
-            Context context = (Context)parent;
+            var context = (Context)parent;
             context.PropagationEvents = context.PropagationEvents ?? new List<ThreadFlowLocation>();
             context.PropagationEvents.Add(context.CurrentThreadFlowLocation);
             context.CurrentThreadFlowLocation = null;
@@ -1514,7 +1514,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
         private static void ReadSignature(SparseReader reader, object parent)
         {
-            Context context = (Context)parent;
+            var context = (Context)parent;
             string signature = reader.ReadElementContentAsString();
             context.Signature = CreateStackFrameFromSignature(signature);
         }
@@ -1566,7 +1566,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
         private void ReadProperties(SparseReader reader, object parent)
         {
-            Context context = (Context)parent;
+            var context = (Context)parent;
 
             if (!_readingProps)
             {
@@ -1608,7 +1608,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             {
                 string value = reader.ReadAttributeString(SchemaStrings.AttributeValue);
 
-                Context context = (Context)parent;
+                var context = (Context)parent;
                 context.AddParameter(name, value);
             }
 
@@ -1622,7 +1622,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
         private static void ReadStack(SparseReader reader, object parent)
         {
-            Context context = (Context)parent;
+            var context = (Context)parent;
             Debug.Assert(context.CurrentThreadFlowLocation == null);
             context.CurrentThreadFlowLocation = new ThreadFlowLocation
             {
@@ -1644,14 +1644,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
         private static void ReadEvidence(SparseReader reader, object parent)
         {
-            Context context = (Context)parent;
+            var context = (Context)parent;
             string evidence = reader.ReadElementContentAsString();
             context.RefineEvidence(evidence);
         }
 
         private static void ReadSource(SparseReader reader, object parent)
         {
-            Context context = (Context)parent;
+            var context = (Context)parent;
             string type = reader.ReadAttributeString(SchemaStrings.AttributeType);
             string name = reader.ReadAttributeString(SchemaStrings.AttributeName);
             context.Sources = context.Sources ?? new HashSet<Tuple<string, string>>();
@@ -1661,7 +1661,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
         private static void ReadFrame(SparseReader reader, object parent)
         {
-            Context context = (Context)parent;
+            var context = (Context)parent;
             string frame = reader.ReadElementContentAsString();
             context.CurrentThreadFlowLocation.Stack.Frames.Add(CreateStackFrameFromSignature(frame));
         }
@@ -1670,7 +1670,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         {
             reader.ReadChildren(SchemaStrings.ElementMethodEvent, parent);
 
-            Context context = (Context)parent;
+            var context = (Context)parent;
             context.MethodEvent = context.CurrentThreadFlowLocation;
             context.CurrentThreadFlowLocation = null;
             context.Signature = null;

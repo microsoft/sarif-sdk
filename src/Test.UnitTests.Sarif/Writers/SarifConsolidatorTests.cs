@@ -74,7 +74,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         [Fact]
         public void SarifConsolidator_Nulls()
         {
-            SarifConsolidator consolidator = new SarifConsolidator(new Run());
+            var consolidator = new SarifConsolidator(new Run());
 
             // Null objects handled gracefully (so callers can pass properties which may or may not be set)
             consolidator.Trim((Region)null);
@@ -90,11 +90,11 @@ namespace Microsoft.CodeAnalysis.Sarif
         [Fact]
         public void SarifConsolidator_Region()
         {
-            SarifConsolidator consolidator = new SarifConsolidator(new Run());
+            var consolidator = new SarifConsolidator(new Run());
 
             // If line information, offsets removed. If EndLine == StartLine, EndLine removed
-            Region r = new Region(SampleRegion);
-            Region rExpected = new Region(SampleRegionTrimmed);
+            var r = new Region(SampleRegion);
+            var rExpected = new Region(SampleRegionTrimmed);
 
             consolidator.Trim(r);
             Assert.True(Region.ValueComparer.Equals(SampleRegionTrimmed, r));
@@ -118,7 +118,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             Assert.Equal(1024, r.ByteOffset);
             Assert.True(Region.ValueComparer.Equals(rExpected, r));
 
-            Region everythingRegion = new Region() { StartLine = 10, StartColumn = 12, EndLine = 13, EndColumn = 15, ByteOffset = 100, ByteLength = 10, CharOffset = 100, CharLength = 10 };
+            var everythingRegion = new Region() { StartLine = 10, StartColumn = 12, EndLine = 13, EndColumn = 15, ByteOffset = 100, ByteLength = 10, CharOffset = 100, CharLength = 10 };
 
             // Trim to ByteOffset only
             r = new Region(everythingRegion);
@@ -146,11 +146,11 @@ namespace Microsoft.CodeAnalysis.Sarif
         [Fact]
         public void SarifConsolidator_ArtifactLocation()
         {
-            SarifConsolidator consolidator = new SarifConsolidator(new Run());
+            var consolidator = new SarifConsolidator(new Run());
 
             // If Index set, remove Uri and UriBaseId 
-            ArtifactLocation a = new ArtifactLocation(SampleArtifactLocation);
-            ArtifactLocation aExpected = new ArtifactLocation(SampleArtifactLocationTrimmed);
+            var a = new ArtifactLocation(SampleArtifactLocation);
+            var aExpected = new ArtifactLocation(SampleArtifactLocationTrimmed);
 
             consolidator.Trim(a);
             Assert.Null(a.Uri);
@@ -168,11 +168,11 @@ namespace Microsoft.CodeAnalysis.Sarif
         [Fact]
         public void SarifConsolidator_Location()
         {
-            SarifConsolidator consolidator = new SarifConsolidator(new Run());
+            var consolidator = new SarifConsolidator(new Run());
 
             // Id removed, inner components trimmed
-            Location loc = new Location(SampleLocation);
-            Location locExpected = new Location(SampleLocationTrimmed);
+            var loc = new Location(SampleLocation);
+            var locExpected = new Location(SampleLocationTrimmed);
 
             consolidator.Trim(loc);
             Assert.True(Location.ValueComparer.Equals(locExpected, loc));
@@ -181,10 +181,10 @@ namespace Microsoft.CodeAnalysis.Sarif
         [Fact]
         public void SarifConsolidator_Locations()
         {
-            SarifConsolidator consolidator = new SarifConsolidator(new Run());
+            var consolidator = new SarifConsolidator(new Run());
 
             // Duplicate locations removed, inner Locations trimmed
-            List<Location> locations = new List<Location>()
+            var locations = new List<Location>()
             {
                 new Location(SampleLocation),
                 new Location(SampleLocation)
@@ -199,10 +199,10 @@ namespace Microsoft.CodeAnalysis.Sarif
         [Fact]
         public void SarifConsolidator_LogicalLocations()
         {
-            SarifConsolidator consolidator = new SarifConsolidator(new Run());
+            var consolidator = new SarifConsolidator(new Run());
 
             // Duplicate locations removed, inner Locations trimmed
-            List<LogicalLocation> locations = new List<LogicalLocation>()
+            var locations = new List<LogicalLocation>()
             {
                 new LogicalLocation(SampleLogicalLocation),
                 new LogicalLocation(SampleLogicalLocation)
@@ -216,10 +216,10 @@ namespace Microsoft.CodeAnalysis.Sarif
         [Fact]
         public void SarifConsolidator_ThreadFlow()
         {
-            ThreadFlowLocation tfl = new ThreadFlowLocation() { ExecutionOrder = 3, Module = "Loader" };
+            var tfl = new ThreadFlowLocation() { ExecutionOrder = 3, Module = "Loader" };
 
             // Pre-add a ThreadFlowLocation to the Run, to ensure it is considered for re-use
-            Run run = new Run()
+            var run = new Run()
             {
                 ThreadFlowLocations = new List<ThreadFlowLocation>()
                 {
@@ -227,10 +227,10 @@ namespace Microsoft.CodeAnalysis.Sarif
                 }
             };
 
-            SarifConsolidator consolidator = new SarifConsolidator(run);
+            var consolidator = new SarifConsolidator(run);
 
             // ThreadFlow: Unique Locations added to run; only indices on ThreadFlow
-            ThreadFlow flow = new ThreadFlow()
+            var flow = new ThreadFlow()
             {
                 Locations = new List<ThreadFlowLocation>()
                 {
@@ -253,10 +253,10 @@ namespace Microsoft.CodeAnalysis.Sarif
         [Fact]
         public void SarifConsolidator_Result()
         {
-            Run run = new Run();
-            SarifConsolidator consolidator = new SarifConsolidator(run);
+            var run = new Run();
+            var consolidator = new SarifConsolidator(run);
 
-            Result result = new Result()
+            var result = new Result()
             {
                 Message = new Message() { Text = new string('Z', 500) },
                 Locations = new List<Location>()
@@ -277,7 +277,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 WebResponse = new WebResponse()
             };
 
-            Result expected = new Result(result)
+            var expected = new Result(result)
             {
                 Locations = new List<Location>()
                 {

@@ -20,7 +20,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         [Fact]
         public void TSLintLogReader_ReadLog_WhenInputIsNull_ThrowsArgumentNullException()
         {
-            TSLintLogReader logReader = new TSLintLogReader();
+            var logReader = new TSLintLogReader();
 
             Action action = () => logReader.ReadLog(default(Stream));
             action.Should().Throw<ArgumentNullException>();
@@ -57,7 +57,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 }
             ]";
 
-            TSLintLog expectedLog = new TSLintLog
+            var expectedLog = new TSLintLog
             {
                 new TSLintLogEntry
                 {
@@ -89,7 +89,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 }
             };
 
-            TSLintLogReader logReader = new TSLintLogReader();
+            var logReader = new TSLintLogReader();
 
             TSLintLog actualLog = logReader.ReadLog(Input);
 
@@ -155,10 +155,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 }
             ]";
 
-            JToken expectedToken = JToken.Parse(ExpectedOutput);
+            var expectedToken = JToken.Parse(ExpectedOutput);
 
-            JToken inputToken = JToken.Parse(Input);
-            TSLintLogReader logReader = new TSLintLogReader();
+            var inputToken = JToken.Parse(Input);
+            var logReader = new TSLintLogReader();
             JToken actualToken = logReader.NormalizeLog(inputToken);
 
             JToken.DeepEquals(expectedToken, actualToken).Should().BeTrue();
@@ -222,10 +222,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 },
             ]";
 
-            JToken expectedToken = JToken.Parse(ExpectedOutput);
+            var expectedToken = JToken.Parse(ExpectedOutput);
 
-            JToken inputToken = JToken.Parse(Input);
-            TSLintLogReader logReader = new TSLintLogReader();
+            var inputToken = JToken.Parse(Input);
+            var logReader = new TSLintLogReader();
             JToken actualToken = logReader.NormalizeLog(inputToken);
 
             JToken.DeepEquals(expectedToken, actualToken).Should().BeTrue();
