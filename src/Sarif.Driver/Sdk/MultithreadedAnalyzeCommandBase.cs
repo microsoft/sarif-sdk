@@ -654,7 +654,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             {
                 globalContext.CancellationToken.ThrowIfCancellationRequested();
 
-                string filePath = artifact.Uri.OriginalString;
+                string filePath = artifact.Uri.GetFilePath();
 
                 if (globalContext.CompiledGlobalFileDenyRegex?.Match(filePath).Success == true)
                 {
