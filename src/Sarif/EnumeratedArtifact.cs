@@ -86,7 +86,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 }
 
                 // This is our client-side, disk-based file retrieval case.
-                this.Stream = FileSystem.FileOpenRead(Uri.LocalPath);
+                this.Stream = FileSystem.FileOpenRead(Uri.OriginalString);
             }
 
             RetrieveDataFromStream();
@@ -164,9 +164,9 @@ namespace Microsoft.CodeAnalysis.Sarif
                 }
                 else if (Uri != null && Uri.IsAbsoluteUri && Uri.IsFile)
                 {
-                    this.sizeInBytes = FileSystem.IsSymbolicLink(Uri.LocalPath)
-                        ? (long)FileSystem.FileStreamLength(Uri.LocalPath)
-                        : (long)FileSystem.FileInfoLength(Uri.LocalPath);
+                    this.sizeInBytes = FileSystem.IsSymbolicLink(Uri.OriginalString)
+                        ? (long)FileSystem.FileStreamLength(Uri.OriginalString)
+                        : (long)FileSystem.FileInfoLength(Uri.OriginalString);
                 }
                 else if (this.Contents != null)
                 {
