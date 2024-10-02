@@ -98,10 +98,12 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         private void RetrieveDataFromStream()
         {
+            /*
             if (!this.Stream.CanSeek)
             {
                 this.Stream = new PeekableStream(this.Stream, BinarySniffingHeaderSizeBytes);
             }
+            */
 
             byte[] header = new byte[BinarySniffingHeaderSizeBytes];
             int readLength = this.Stream.Read(header, 0, header.Length);

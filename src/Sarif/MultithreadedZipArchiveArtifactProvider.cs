@@ -11,6 +11,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     {
         private readonly ZipArchive zipArchive;
         private ISet<string> binaryExtensions;
+        private readonly Uri uri;
 
         public ISet<string> BinaryExtensions
         {
@@ -23,9 +24,10 @@ namespace Microsoft.CodeAnalysis.Sarif
             set { this.binaryExtensions = value; }
         }
 
-        public MultithreadedZipArchiveArtifactProvider(ZipArchive zipArchive, IFileSystem fileSystem) : base(fileSystem)
+        public MultithreadedZipArchiveArtifactProvider(Uri uri, ZipArchive zipArchive, IFileSystem fileSystem) : base(fileSystem)
         {
             this.zipArchive = zipArchive;
+            this.uri = uri;
         }
 
         public ISet<string> CreateDefaultBinaryExtensionsSet()
@@ -67,7 +69,8 @@ namespace Microsoft.CodeAnalysis.Sarif
             {
                 foreach (ZipArchiveEntry entry in this.zipArchive.Entries)
                 {
-                    yield return new ZipArchiveArtifact(this.zipArchive, entry, BinaryExtensions);
+                    if (entry.FullName.EndsWith("/")) { continue; }
+                    yield return new ZipArchiveArtifact(this.uri, this.zipArchive, entry, BinaryExtensions);
                 }
             }
         }
