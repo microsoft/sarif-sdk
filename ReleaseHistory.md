@@ -4,6 +4,7 @@
 * BRK: Remove defunct and unsupported `kusto` command in `Sarif.Multitool`.
 * DEP: Remove dependency on `Microsoft.Azure.Kusto.Data`.
 * DEP: Update `Azure.Identity` reference from 1.10.2 to 1.12.1 in `WorkItems` and `Sarif.Multitool.Library` to resolve [CVE-2024-29992](https://github.com/advisories/GHSA-wvxc-855f-jvrv) and other CVEs.
+* DEP: Update `Azure.Core` from 1.35.0 to 1.41.0 to satisfy minimum requirement of `Azure.Identity` 1.12.1 that also has no vulnerabilities.
 * BUG: Resolve process hangs when a file path is provided with a wildcard, but without a `-r` (recurse) flag during the multi-threaded analysis file enumeration phase.
 * BUG: Fix error `ERR997.NoValidAnalysisTargets` when scanning symbolic link files.
 * BUG: Fix `ERR999.UnhandledEngineException: System.IO.FileNotFoundException: Could not find file` when a file name or directory path contains URL-encoded characters.
