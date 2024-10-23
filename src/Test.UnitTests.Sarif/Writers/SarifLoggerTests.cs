@@ -164,7 +164,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 }
                 else
                 {
-                    Assert.False(true, pathToExe + " " + commandLine);
+                    Assert.Fail(pathToExe + " " + commandLine);
                 }
 
                 using (_ = new SarifLogger(textWriter,
@@ -1013,7 +1013,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             }
             catch (Exception e)
             {
-                Assert.True(false, e.ToString());
+                Assert.Fail(e.ToString());
             }
             finally
             {
