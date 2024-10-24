@@ -86,7 +86,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                     }
                 }, Location.ValueComparer).Should().BeTrue();
 
-            Assert.Equal(1, result.CodeFlows.Count);
+            Assert.Single(result.CodeFlows);
             result.CodeFlows.First().ThreadFlows.First().Locations.SequenceEqual(new[]
                 {
                     new ThreadFlowLocation {

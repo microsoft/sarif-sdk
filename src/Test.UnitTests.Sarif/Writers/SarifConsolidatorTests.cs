@@ -191,7 +191,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             };
 
             IList<Location> result = consolidator.Trim(locations);
-            Assert.Equal(1, result.Count);
+            Assert.Single(result);
             Assert.Null(result[0].PhysicalLocation.ArtifactLocation.UriBaseId);
             Assert.Equal(-1, result[0].PhysicalLocation.Region.CharOffset);
         }
@@ -209,7 +209,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             };
 
             IList<LogicalLocation> result = consolidator.Trim(locations);
-            Assert.Equal(1, result.Count);
+            Assert.Single(result);
             Assert.Null(result[0].Name);
         }
 

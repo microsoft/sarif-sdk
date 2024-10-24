@@ -413,7 +413,7 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests.Core
             }
             catch (Exception ex)
             {
-                Assert.True(false, $"Unhandled exception: {ex}");
+                Assert.Fail($"Unhandled exception: {ex}");
             }
         }
 
@@ -444,7 +444,7 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests.Core
             }
             catch (Exception ex)
             {
-                Assert.True(false, $"Unhandled exception: {ex}");
+                Assert.Fail($"Unhandled exception: {ex}");
             }
             httpMock.Clear();
         }

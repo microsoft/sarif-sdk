@@ -45,7 +45,7 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif
                     if (File.Exists(filePath)) { File.Delete(filePath); }
                 }
 
-                Assert.True(false, e.Message);
+                Assert.Fail(e.Message);
             }
 
             //  An custom textwriter.S
@@ -65,7 +65,7 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif
                 }
                 Console.SetOut(defaultOut);
 
-                Assert.True(false, "Exception was expected but not thrown");
+                Assert.Fail("Exception was expected but not thrown");
             }
             catch (InvalidOperationException)
             {
@@ -79,7 +79,7 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif
             }
             catch
             {
-                Assert.True(false, "Unexpected exception.");
+                Assert.Fail("Unexpected exception.");
             }
             finally
             {

@@ -42,27 +42,27 @@
       <ItemGroup>
         <!-- We have to ship pre-patch versions of NewtonSoft for VisualStudio SDK. 
              We mitigate risk by limiting nesting depth. -->
-        <PackageReference Include="Newtonsoft.Json" Version="9.0.1" NoWarn="NU1903" />
+        <PackageReference Include="Newtonsoft.Json" VersionOverride="9.0.1" NoWarn="NU1903" />
 
-        <PackageReference Include="System.IO.FileSystem.Primitives" Version="4.3.0" />
-        <PackageReference Include="System.Text.Encoding.Extensions" Version="4.3.0" />
+        <PackageReference Include="System.IO.FileSystem.Primitives" />
+        <PackageReference Include="System.Text.Encoding.Extensions" />
       </ItemGroup>
     </When>
     <Otherwise>
       <ItemGroup>
         <!-- We have to ship pre-patch versions of NewtonSoft for VisualStudio SDK. 
              We mitigate risk by limiting nesting depth. -->
-        <PackageReference Include="Newtonsoft.Json" Version="9.0.1" NoWarn="NU1903" />
+        <PackageReference Include="Newtonsoft.Json" VersionOverride="9.0.1" NoWarn="NU1903" />
       </ItemGroup>
     </Otherwise>
   </Choose>
 
   <ItemGroup>
-    <PackageReference Include="CsvHelper" Version="15.0.5" />
-    <PackageReference Include="System.Collections.Immutable" Version="5.0.0" />
-    <PackageReference Include="System.IO.Compression" Version="4.3.0" />
-    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All" />
-    <PackageReference Include="YamlDotNet" Version="11.2.0" />
+    <PackageReference Include="CsvHelper" />
+    <PackageReference Include="System.Collections.Immutable" />
+    <PackageReference Include="System.IO.Compression" />
+    <PackageReference Include="Microsoft.SourceLink.GitHub" PrivateAssets="All" />
+    <PackageReference Include="YamlDotNet" />
   </ItemGroup>
 
   <ItemGroup>

@@ -158,7 +158,9 @@ namespace Microsoft.CodeAnalysis.Sarif
                     properties.GetProperty(GenerateStringSetProperty(i))));
                 }
 
+#pragma warning disable xUnit1031 // Do not use blocking task operations in test method
                 Task.WaitAll(taskList.ToArray());
+#pragma warning restore xUnit1031
             });
             Assert.Null(exception);
         }
