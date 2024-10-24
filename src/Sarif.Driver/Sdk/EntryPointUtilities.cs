@@ -14,7 +14,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             IFileSystem fileSystem,
             IEnvironmentVariables environmentVariables)
         {
-            List<string> expandedArguments = new List<string>();
+            var expandedArguments = new List<string>();
 
             foreach (string argument in args)
             {

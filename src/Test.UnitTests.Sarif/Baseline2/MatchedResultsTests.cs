@@ -314,7 +314,7 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Baseline2
                 ExtractedResult currentExtracted = testCase.CurrentResult != null
                     ? new ExtractedResult(testCase.CurrentResult, testCase.CurrentRun)
                     : null;
-                MatchedResults matchedResults = new MatchedResults(previousExtracted, currentExtracted);
+                var matchedResults = new MatchedResults(previousExtracted, currentExtracted);
 
                 Result result = matchedResults.CalculateBasedlinedResult(DictionaryMergeBehavior.InitializeFromMostRecent /* arbitrary */);
 

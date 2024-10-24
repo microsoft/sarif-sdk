@@ -2,7 +2,6 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System;
-using System.Collections.Generic;
 using System.Linq;
 
 using Microsoft.CodeAnalysis.Sarif.Converters;
@@ -16,7 +15,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         [Fact]
         public void BuiltInConverterFactory_HasConverterForEveryBuiltInToolFormat()
         {
-            List<string> toolFormats = Utilities.GetToolFormats()
+            var toolFormats = Utilities.GetToolFormats()
                 .ToList();
 
             string factoryName = nameof(BuiltInConverterFactory);

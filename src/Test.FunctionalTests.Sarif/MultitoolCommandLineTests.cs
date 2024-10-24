@@ -5,9 +5,11 @@ using System.Diagnostics;
 using System.IO;
 
 using FluentAssertions;
-using FluentAssertions.Execution;
 
+#if DEBUG
+using FluentAssertions.Execution;
 using Microsoft.CodeAnalysis.Sarif.Driver;
+#endif
 
 using Xunit;
 
@@ -25,13 +27,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                     Directory.GetCurrentDirectory(),
                     @"..\..\Sarif.Multitool\netcoreapp3.1\Sarif.Multitool.exe"));
 
-            ProcessStartInfo startInfo = new ProcessStartInfo(multitoolPath, @"validate v2\ConverterTestData\ContrastSecurity\WebGoat.xml.sarif")
+            var startInfo = new ProcessStartInfo(multitoolPath, @"validate v2\ConverterTestData\ContrastSecurity\WebGoat.xml.sarif")
             {
                 WindowStyle = ProcessWindowStyle.Hidden,
                 CreateNoWindow = true
             };
 
-            using (Process process = Process.Start(startInfo))
+            using (var process = Process.Start(startInfo))
             {
                 process.WaitForExit();
 

@@ -34,7 +34,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         {
             SarifLog log = _sampleLog.DeepClone();
 
-            RemoveOptionalDataVisitor v = new RemoveOptionalDataVisitor(OptionallyEmittedData.None);
+            var v = new RemoveOptionalDataVisitor(OptionallyEmittedData.None);
             v.Visit(log);
             log.Runs[0].Results[0].Guid.Should().NotBeNull();
 

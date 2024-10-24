@@ -1,4 +1,4 @@
-// Copyright (c) Microsoft.  All Rights Reserved.
+// Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System;
@@ -149,7 +149,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             if (runs != null)
             {
                 var destination_0 = new List<Run>();
-                foreach (var value_0 in runs)
+                foreach (Run value_0 in runs)
                 {
                     if (value_0 == null)
                     {
@@ -167,7 +167,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             if (inlineExternalProperties != null)
             {
                 var destination_1 = new List<ExternalProperties>();
-                foreach (var value_1 in inlineExternalProperties)
+                foreach (ExternalProperties value_1 in inlineExternalProperties)
                 {
                     if (value_1 == null)
                     {

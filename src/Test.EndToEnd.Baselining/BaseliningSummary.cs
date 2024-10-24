@@ -73,7 +73,7 @@ namespace Test.EndToEnd.Baselining
 
         public void Add(SarifLog newBaselineLog, SarifLog baselineLog, SarifLog currentLog)
         {
-            Dictionary<string, ResultCounts> newAndRemovedPerUri = new Dictionary<string, ResultCounts>();
+            var newAndRemovedPerUri = new Dictionary<string, ResultCounts>();
 
             foreach (Result result in newBaselineLog.EnumerateResults())
             {

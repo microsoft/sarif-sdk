@@ -81,7 +81,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Query.Evaluators
 
         public void Evaluate(ICollection<T> list, BitArray matches)
         {
-            BitArray termMatches = new BitArray(list.Count);
+            var termMatches = new BitArray(list.Count);
 
             for (int i = 0; i < _terms.Count; ++i)
             {
@@ -118,7 +118,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Query.Evaluators
 
         public void Evaluate(ICollection<T> list, BitArray matches)
         {
-            BitArray termMatches = new BitArray(list.Count);
+            var termMatches = new BitArray(list.Count);
 
             foreach (IExpressionEvaluator<T> term in _terms)
             {

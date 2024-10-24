@@ -53,7 +53,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         {
             var serializer = new JsonSerializer() { ContractResolver = contractResolver };
 
-            using (JsonTextReader reader = new JsonTextReader(new StreamReader(fileSystem.FileOpenRead(filePath))))
+            using (var reader = new JsonTextReader(new StreamReader(fileSystem.FileOpenRead(filePath))))
             {
                 return serializer.Deserialize<T>(reader);
             }
@@ -88,7 +88,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
         public static HashSet<string> CreateTargetsSet(IEnumerable<string> targetSpecifiers, bool recurse, IFileSystem fileSystem)
         {
-            HashSet<string> targets = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+            var targets = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
             foreach (string specifier in targetSpecifiers)
             {
                 string normalizedSpecifier = specifier;

@@ -41,7 +41,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 throw new ArgumentNullException(nameof(output));
             }
 
-            XmlReaderSettings settings = new XmlReaderSettings
+            var settings = new XmlReaderSettings
             {
                 IgnoreWhitespace = true,
                 DtdProcessing = DtdProcessing.Ignore,
@@ -49,7 +49,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 XmlResolver = null
             };
 
-            using (XmlReader xmlReader = XmlReader.Create(input, settings))
+            using (var xmlReader = XmlReader.Create(input, settings))
             {
                 ProcessCppCheckLog(xmlReader, output, dataToInsert);
             }

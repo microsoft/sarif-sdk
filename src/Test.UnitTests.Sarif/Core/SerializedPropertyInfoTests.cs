@@ -18,7 +18,7 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Core
         [Fact]
         public void SerializedPropertyInfo_ComparerTests()
         {
-            Guid testGuid = Guid.NewGuid();
+            var testGuid = Guid.NewGuid();
             DateTime now = DateTime.UtcNow;
 
             var testCases = new[]

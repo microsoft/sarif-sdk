@@ -11,7 +11,6 @@
     <TargetFrameworks>net6.0</TargetFrameworks>
     <IsPackable>false</IsPackable>
     <IsTestProject>true</IsTestProject>
-    <CoyoteVersion>1.7.3</CoyoteVersion>
     <PowershellExecutable Condition="'$(OS)'=='Windows_NT'">powershell</PowershellExecutable>
     <PowershellExecutable Condition="'$(PowershellExecutable)'==''">pwsh</PowershellExecutable>
     <PathSeparator Condition="'$(OS)'=='Windows_NT'">\</PathSeparator>
@@ -20,7 +19,7 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    <ExecCommand>$(PowershellExecutable) -executionpolicy bypass -command ".$(PathSeparator)rewriteUnitTests.ps1 -Configuration $(Configuration) -CoyoteVersion $(CoyoteVersion) -TargetFramework $(TargetFramework)"</ExecCommand>
+    <ExecCommand>$(PowershellExecutable) -executionpolicy bypass -command ".$(PathSeparator)rewriteUnitTests.ps1 -Configuration $(Configuration) -TargetFramework $(TargetFramework)"</ExecCommand>
   </PropertyGroup>
 
   <Target Name="CopyFunctionalTestData" AfterTargets="Build">
@@ -32,8 +31,6 @@
 
   <ItemGroup>
     <PackageReference Include="FluentAssertions" Version="6.12.0" />
-    <PackageReference Include="Microsoft.Coyote" Version="$(CoyoteVersion)" />
-    <PackageReference Include="Microsoft.Coyote.Test" Version="$(CoyoteVersion)" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.4.1" />
     <PackageReference Include="Moq" Version="4.18.4" />
     <PackageReference Include="System.Composition" Version="5.0.0" />
@@ -69,8 +66,4 @@
       <CustomToolNamespace>Microsoft.CodeAnalysis.Sarif.Driver.Sdk</CustomToolNamespace>
     </EmbeddedResource>
   </ItemGroup>
-
-  <Target Name="CoyoteRewriting" AfterTargets="AfterBuild" Condition=" '$(OS)'=='Windows_NT' ">
-    <Exec Command="$(ExecCommand)" />
-  </Target>
 </Project>

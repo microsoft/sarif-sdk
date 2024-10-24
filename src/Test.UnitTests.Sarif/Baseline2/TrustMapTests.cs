@@ -24,8 +24,8 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Baseline
         public void TrustMap_Basics()
         {
             // Create a TrustMap for both of the Runs being compared
-            TrustMap beforeMap = new TrustMap();
-            TrustMap afterMap = new TrustMap();
+            var beforeMap = new TrustMap();
+            var afterMap = new TrustMap();
 
             // All properties are unknown to start
             beforeMap.Trust(Set, NameGreat).Should().Be(TrustMap.DefaultTrust);

@@ -1,7 +1,9 @@
 ﻿// Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
+#if DEBUG
 using System;
+#endif
 
 namespace Microsoft.CodeAnalysis.Sarif
 {
@@ -18,10 +20,10 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             Uri uri = this.Locations?[0].PhysicalLocation?.ArtifactLocation?.Uri;
             if (uri != null) { sb.Append(uri); }
-            
+
             if (this.Descriptor != null) { sb.Append(" : ").Append(this.Descriptor?.Id); }
             if (this.AssociatedRule != null) { sb.Append(" : ").Append(this.AssociatedRule?.Id); }
-            
+
             sb.Append($" : {this.Level}");
 
             if (!string.IsNullOrEmpty(this.Message?.Text))
@@ -38,7 +40,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 sb.Length = sb.Length - 1;
                 sb.Append('}');
             }
-            
+
             if (this.Exception != null)
             {
                 sb.Append($" : {this.Exception.ToString().Replace(Environment.NewLine, string.Empty)}");

@@ -100,7 +100,7 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif
             // Framework Bug: Uris with certain escaped unreserved characters are doubled by Uri.TryCreate
             // https://github.com/dotnet/runtime/issues/36288
 
-            StringBuilder errors = new StringBuilder();
+            var errors = new StringBuilder();
 
             SarifUriRoundTrip("http://github.com/Microsoft/sarif-sdk", errors);
             SarifUriRoundTrip("src/Program.cs", errors);
@@ -141,7 +141,7 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif
         private void SarifUriRoundTrip(string value, StringBuilder errors)
         {
             // Put in a class with a Uri using the Sarif 'UriConverter'
-            SingleUri sample = new SingleUri();
+            var sample = new SingleUri();
             sample.Uri = new Uri(value, UriKind.RelativeOrAbsolute);
 
             // Serialize and Deserialize
@@ -155,9 +155,9 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif
         {
             // .NET can return the string used to construct.
             // This seems like the safest way to roundtrip reliably
-            Uri original = new Uri(value, UriKind.RelativeOrAbsolute);
+            var original = new Uri(value, UriKind.RelativeOrAbsolute);
             string serialized = original.OriginalString;
-            Uri result = new Uri(serialized, UriKind.RelativeOrAbsolute);
+            var result = new Uri(serialized, UriKind.RelativeOrAbsolute);
 
             if (!result.Equals(original)) { errors.AppendLine(value); }
         }

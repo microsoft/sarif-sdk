@@ -29,7 +29,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             using var textReader = new StreamReader(input);
             ClangTidyReport report = deserializer.Deserialize<ClangTidyReport>(textReader);
 
-            List<ClangTidyConsoleDiagnostic> logs = new List<ClangTidyConsoleDiagnostic>();
+            var logs = new List<ClangTidyConsoleDiagnostic>();
             if (report != null)
             {
                 string reportPath = (input as FileStream)?.Name;
@@ -78,7 +78,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
         private List<ClangTidyConsoleDiagnostic> LoadLogFile(string logFilePath)
         {
-            List<ClangTidyConsoleDiagnostic> returnValue = new List<ClangTidyConsoleDiagnostic>();
+            var returnValue = new List<ClangTidyConsoleDiagnostic>();
 
             var logLines = File.ReadAllLines(logFilePath).ToList();
             foreach (string line in logLines)
@@ -91,7 +91,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                     int columnNumber;
                     if (int.TryParse(match.Groups[2].Value, out lineNumber) && int.TryParse(match.Groups[3].Value, out columnNumber))
                     {
-                        ClangTidyConsoleDiagnostic consoleDiagnostic = new ClangTidyConsoleDiagnostic()
+                        var consoleDiagnostic = new ClangTidyConsoleDiagnostic()
                         {
                             LineNumber = lineNumber,
                             ColumnNumber = columnNumber
@@ -108,7 +108,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         {
             entry = entry ?? throw new ArgumentNullException(nameof(entry));
 
-            Result result = new Result()
+            var result = new Result()
             {
                 RuleId = entry.DiagnosticName,
                 Message = new Message { Text = entry.DiagnosticMessage.Message },
@@ -118,14 +118,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             // no level infomation in Clang-Tidy report
             result.Level = FailureLevel.Warning;
 
-            Region region = new Region()
+            var region = new Region()
             {
                 CharOffset = entry.DiagnosticMessage.FileOffset,
                 StartLine = entry.DiagnosticMessage.LineNumber,
                 StartColumn = entry.DiagnosticMessage.ColumnNumber,
             };
 
-            Uri analysisTargetUri = new Uri(entry.DiagnosticMessage.FilePath, UriKind.RelativeOrAbsolute);
+            var analysisTargetUri = new Uri(entry.DiagnosticMessage.FilePath, UriKind.RelativeOrAbsolute);
 
             var physicalLocation = new PhysicalLocation
             {
@@ -136,7 +136,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 Region = region
             };
 
-            Location location = new Location()
+            var location = new Location()
             {
                 PhysicalLocation = physicalLocation
             };
@@ -152,7 +152,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
                 foreach (ClangTidyReplacement fix in entry.DiagnosticMessage.Replacements)
                 {
-                    Replacement replacement = new Replacement();
+                    var replacement = new Replacement();
 
                     replacement.DeletedRegion = new Region
                     {
@@ -180,7 +180,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                     Replacements = replacements
                 };
 
-                Fix sarifFix = new Fix(description: null, artifactChanges: new List<ArtifactChange>() { sarifFileChange }, properties: null);
+                var sarifFix = new Fix(description: null, artifactChanges: new List<ArtifactChange>() { sarifFileChange }, properties: null);
                 result.Fixes = new List<Fix> { sarifFix };
             }
 

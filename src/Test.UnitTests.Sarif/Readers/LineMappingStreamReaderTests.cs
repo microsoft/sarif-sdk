@@ -25,7 +25,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
 
             // Read it all and find all newline indices
             byte[] content = File.ReadAllBytes(path);
-            List<long> newlines = new List<long>();
+            var newlines = new List<long>();
             newlines.Add(-1);
             newlines.Add(-1);
 
@@ -40,7 +40,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
             char[] buffer = new char[1024];
             int nextLine = 1;
             long bytesRead = 0;
-            using (LineMappingStreamReader reader = new LineMappingStreamReader(File.OpenRead(path)))
+            using (var reader = new LineMappingStreamReader(File.OpenRead(path)))
             {
                 while (true)
                 {
@@ -71,14 +71,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
         {
             LogModelSampleBuilder.EnsureSamplesBuilt();
             string filePath = LogModelSampleBuilder.SampleLogPath;
-            JsonSerializer serializer = new JsonSerializer();
+            var serializer = new JsonSerializer();
 
             // Open a stream to read objects individually
             using (Stream seekingStream = File.OpenRead(filePath))
             {
                 // Read the Json with a LineMappingStreamReader
-                using (LineMappingStreamReader streamReader = new LineMappingStreamReader(File.OpenRead(filePath)))
-                using (JsonTextReader jsonReader = new JsonTextReader(streamReader))
+                using (var streamReader = new LineMappingStreamReader(File.OpenRead(filePath)))
+                using (var jsonReader = new JsonTextReader(streamReader))
                 {
                     // Get into the top object
                     jsonReader.Read();
@@ -91,7 +91,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
                             long position = streamReader.LineAndCharToOffset(jsonReader.LineNumber, jsonReader.LinePosition);
 
                             // Create an object from the original stream
-                            JObject expected = (JObject)serializer.Deserialize(jsonReader);
+                            var expected = (JObject)serializer.Deserialize(jsonReader);
 
                             // Compare to one we get by seeking to the calculated byte offset
                             JObject actual = ReadAtPosition(serializer, seekingStream, position);
@@ -107,7 +107,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
         private static JObject ReadAtPosition(JsonSerializer serializer, Stream stream, long position)
         {
             stream.Seek(position, SeekOrigin.Begin);
-            using (JsonTextReader jsonReader = new JsonTextReader(new StreamReader(stream)))
+            using (var jsonReader = new JsonTextReader(new StreamReader(stream)))
             {
                 jsonReader.CloseInput = false;
                 return (JObject)serializer.Deserialize(jsonReader);
@@ -121,8 +121,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
             File.WriteAllBytes(sampleFilePath, s_extractor.GetResourceBytes("elfie-arriba-utf8-bom.sarif"));
 
             // Read the Json with a LineMappingStreamReader
-            using (LineMappingStreamReader streamReader = new LineMappingStreamReader(File.OpenRead(sampleFilePath)))
-            using (JsonTextReader jsonReader = new JsonTextReader(streamReader))
+            using (var streamReader = new LineMappingStreamReader(File.OpenRead(sampleFilePath)))
+            using (var jsonReader = new JsonTextReader(streamReader))
             {
                 // Get into the top object
                 jsonReader.Read();

@@ -81,7 +81,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
             this.writer.BaseStream.Position = 0;
 
-            SarifLog log = SarifLog.Load(this.writer.BaseStream);
+            var log = SarifLog.Load(this.writer.BaseStream);
             return log;
         }
 

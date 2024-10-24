@@ -32,7 +32,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             Assembly assembly = methodBase?.DeclaringType.Assembly;
             string fullyQualifiedName = CreateFullyQualifiedName(methodBase);
 
-            StackFrame stackFrame = new StackFrame
+            var stackFrame = new StackFrame
             {
                 Module = assembly?.GetName().Name,
                 Location = new Location()

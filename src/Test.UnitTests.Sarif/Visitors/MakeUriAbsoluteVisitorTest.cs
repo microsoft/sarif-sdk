@@ -43,10 +43,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             };
 
             // Initializes visitor with run in order to retrieve uri base id mappings
-            MakeUrisAbsoluteVisitor visitor = new MakeUrisAbsoluteVisitor();
+            var visitor = new MakeUrisAbsoluteVisitor();
             visitor.VisitRun(run);
 
-            PhysicalLocation location = new PhysicalLocation() { ArtifactLocation = new ArtifactLocation { UriBaseId = "%TEST%", Uri = new Uri("src/file.cs", UriKind.Relative) } };
+            var location = new PhysicalLocation() { ArtifactLocation = new ArtifactLocation { UriBaseId = "%TEST%", Uri = new Uri("src/file.cs", UriKind.Relative) } };
 
             PhysicalLocation newLocation = visitor.VisitPhysicalLocation(location);
             newLocation.ArtifactLocation.UriBaseId.Should().BeNull();
@@ -65,10 +65,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             };
 
             // Initializes visitor with run in order to retrieve uri base id mappings
-            MakeUrisAbsoluteVisitor visitor = new MakeUrisAbsoluteVisitor();
+            var visitor = new MakeUrisAbsoluteVisitor();
             visitor.VisitRun(run);
 
-            PhysicalLocation location = new PhysicalLocation() { ArtifactLocation = new ArtifactLocation { UriBaseId = "%TEST2%", Uri = new Uri("src/file.cs", UriKind.Relative) } };
+            var location = new PhysicalLocation() { ArtifactLocation = new ArtifactLocation { UriBaseId = "%TEST2%", Uri = new Uri("src/file.cs", UriKind.Relative) } };
 
             PhysicalLocation newLocation = visitor.VisitPhysicalLocation(location);
             newLocation.ArtifactLocation.UriBaseId.Should().NotBeNull();
@@ -87,10 +87,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             };
 
             // Initializes visitor with run in order to retrieve uri base id mappings
-            MakeUrisAbsoluteVisitor visitor = new MakeUrisAbsoluteVisitor();
+            var visitor = new MakeUrisAbsoluteVisitor();
             visitor.VisitRun(run);
 
-            PhysicalLocation location = new PhysicalLocation() { ArtifactLocation = new ArtifactLocation { UriBaseId = null, Uri = new Uri("src/file.cs", UriKind.Relative) } };
+            var location = new PhysicalLocation() { ArtifactLocation = new ArtifactLocation { UriBaseId = null, Uri = new Uri("src/file.cs", UriKind.Relative) } };
 
             PhysicalLocation newLocation = visitor.VisitPhysicalLocation(location);
             newLocation.ArtifactLocation.UriBaseId.Should().BeNull();
@@ -106,7 +106,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 ["%TEST2%"] = new ArtifactLocation { Uri = new Uri(@"D:\bld\out\") }
             });
 
-            MakeUrisAbsoluteVisitor visitor = new MakeUrisAbsoluteVisitor();
+            var visitor = new MakeUrisAbsoluteVisitor();
 
             Run newRun = visitor.VisitRun(run);
 
@@ -125,7 +125,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         [Fact]
         public void MakeUriAbsoluteVisitor_VisitRun_DoesNotSetAbsoluteUriIfNotApplicable()
         {
-            Dictionary<string, ArtifactLocation> uriMapping = new Dictionary<string, ArtifactLocation>()
+            var uriMapping = new Dictionary<string, ArtifactLocation>()
             {
                 ["%TEST3%"] = new ArtifactLocation { Uri = new Uri(@"C:\srcroot\") },
                 ["%TEST4%"] = new ArtifactLocation { Uri = new Uri(@"D:\bld\out\") }
@@ -134,7 +134,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             Run expectedRun = GenerateRunForTest(uriMapping);
             Run actualRun = expectedRun.DeepClone();
 
-            MakeUrisAbsoluteVisitor visitor = new MakeUrisAbsoluteVisitor();
+            var visitor = new MakeUrisAbsoluteVisitor();
             Run newRun = visitor.VisitRun(actualRun);
 
             expectedRun.ValueEquals(actualRun).Should().BeTrue();
@@ -153,9 +153,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 ["%TEST1%"] = new ArtifactLocation { Uri = new Uri(@"C:\src\abc\") },
                 ["%TEST2%"] = new ArtifactLocation { Uri = new Uri(@"D:\bld\123\") }
             });
-            MakeUrisAbsoluteVisitor visitor = new MakeUrisAbsoluteVisitor();
+            var visitor = new MakeUrisAbsoluteVisitor();
 
-            SarifLog log = new SarifLog() { Runs = new Run[] { runA, runB } };
+            var log = new SarifLog() { Runs = new Run[] { runA, runB } };
             SarifLog newLog = visitor.VisitSarifLog(log);
 
             // Validate
@@ -184,8 +184,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         [Fact]
         public void MakeUriAbsoluteVisitor_CombineUriValidatesArgumentsProperly()
         {
-            Uri absoluteUri = new Uri("https://absolute.example.com", UriKind.Absolute);
-            Uri relativeUri = new Uri("relative/someResource", UriKind.Relative);
+            var absoluteUri = new Uri("https://absolute.example.com", UriKind.Absolute);
+            var relativeUri = new Uri("relative/someResource", UriKind.Relative);
 
             // First, ensure that our test data succeeds when used properly
             MakeUrisAbsoluteVisitor.CombineUris(

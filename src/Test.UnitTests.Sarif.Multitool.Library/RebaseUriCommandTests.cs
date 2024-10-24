@@ -7,9 +7,6 @@ using System.Text;
 
 using FluentAssertions;
 
-using Microsoft.CodeAnalysis.Test.Utilities.Sarif;
-using Microsoft.Extensions.Options;
-
 using Moq;
 
 using Newtonsoft.Json;
@@ -55,7 +52,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             string inputSarifLog = JsonConvert.SerializeObject(sarifLog);
 
             string logFilePath = Path.Combine(Directory.GetCurrentDirectory(), "mylog.sarif");
-            StringBuilder transformedContents = new StringBuilder();
+            var transformedContents = new StringBuilder();
 
             RebaseUriOptions options = CreateDefaultOptions();
 
@@ -127,7 +124,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             string inputSarifLog = GetInputSarifTextFromResource(testFilePath);
 
             string logFilePath = Path.Combine(Directory.GetCurrentDirectory(), "mylog.sarif");
-            StringBuilder transformedContents = new StringBuilder();
+            var transformedContents = new StringBuilder();
 
             options.TargetFileSpecifiers = new string[] { logFilePath };
 

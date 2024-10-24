@@ -30,7 +30,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             try
             {
                 Console.WriteLine($"Rewriting '{options.InputFilePath}' => '{options.OutputFilePath}'...");
-                Stopwatch w = Stopwatch.StartNew();
+                var w = Stopwatch.StartNew();
 
                 bool valid = ValidateOptions(options);
                 if (!valid)
@@ -126,7 +126,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         //  #2271 https://github.com/microsoft/sarif-sdk/issues/2271
         private string SniffVersion(string sarifPath)
         {
-            using (JsonTextReader reader = new JsonTextReader(new StreamReader(_fileSystem.FileOpenRead(sarifPath))))
+            using (var reader = new JsonTextReader(new StreamReader(_fileSystem.FileOpenRead(sarifPath))))
             {
                 while (reader.Read())
                 {

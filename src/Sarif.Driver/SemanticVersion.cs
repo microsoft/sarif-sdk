@@ -293,9 +293,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         internal static SemanticVersion MakeLegalVersion(string version)
         {
             // split off first NonNumeric or dot character
-            Regex regex = new Regex(@"[^0-9\\.]");
+            var regex = new Regex(@"[^0-9\\.]");
             Match match = regex.Match(version);
-            StringBuilder sb = new StringBuilder();
+            var sb = new StringBuilder();
             string tempVersion = string.Empty;
             string versionPart2 = string.Empty;
 

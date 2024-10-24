@@ -10,7 +10,6 @@ using System.Threading.Tasks;
 
 using FluentAssertions;
 
-using Microsoft.CodeAnalysis.Sarif.VersionOne;
 using Microsoft.CodeAnalysis.Test.Utilities.Sarif;
 using Microsoft.CodeAnalysis.WorkItems;
 using Microsoft.TeamFoundation.WorkItemTracking.WebApi.Models;
@@ -325,10 +324,10 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
         [Fact]
         public void WorkItemFiler_FileWorkItems_RelativeSarifLogPath()
         {
-            Uri uri = new Uri("path/to/sarif/log.sarif", UriKind.Relative);
+            var uri = new Uri("path/to/sarif/log.sarif", UriKind.Relative);
             SarifWorkItemContext context = CreateAzureDevOpsTestContext();
 
-            SarifWorkItemFiler filer = new SarifWorkItemFiler(context.HostUri, context);
+            var filer = new SarifWorkItemFiler(context.HostUri, context);
             Assert.Throws<ArgumentException>(() => filer.FileWorkItems(uri));
         }
 
@@ -352,8 +351,8 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
             string bugUriText = "https://example.com/" + Guid.NewGuid().ToString();
             string bugHtmlUriText = "https://example.com/" + Guid.NewGuid().ToString();
 
-            Uri bugUri = new Uri(bugUriText, UriKind.RelativeOrAbsolute);
-            Uri bugHtmlUri = new Uri(bugHtmlUriText, UriKind.RelativeOrAbsolute);
+            var bugUri = new Uri(bugUriText, UriKind.RelativeOrAbsolute);
+            var bugHtmlUri = new Uri(bugHtmlUriText, UriKind.RelativeOrAbsolute);
 
             workItem.Url = bugUriText;
             workItem.Links.AddLink("html", bugHtmlUriText);
@@ -513,7 +512,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
         private static FilingClient CreateGitHubMocksAndFilingClient(string bugUriText, string bugHtmlUriText, SarifWorkItemFiler filer)
         {
             FilingClient filingClient;
-            Issue testGithubIssue = new Issue(bugUriText, bugHtmlUriText, bugUriText + "comments", bugUriText + "events",
+            var testGithubIssue = new Issue(bugUriText, bugHtmlUriText, bugUriText + "comments", bugUriText + "events",
                                               111111, ItemState.Open, "TestTitle", "TestBody", new User(), new User(), null, new User(), null, new Milestone(1), 0, new PullRequest(), null,
                                               new DateTimeOffset(DateTime.Now), null, 111111, null, false, null, null);
 

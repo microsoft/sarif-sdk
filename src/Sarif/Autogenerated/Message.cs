@@ -1,10 +1,11 @@
-// Copyright (c) Microsoft.  All Rights Reserved.
+// Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System;
 using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
+
 using Newtonsoft.Json;
 
 namespace Microsoft.CodeAnalysis.Sarif
@@ -140,7 +141,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             if (arguments != null)
             {
                 var destination_0 = new List<string>();
-                foreach (var value_0 in arguments)
+                foreach (string value_0 in arguments)
                 {
                     destination_0.Add(value_0);
                 }

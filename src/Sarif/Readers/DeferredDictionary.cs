@@ -64,7 +64,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
         private void BuildPositions()
         {
             using (Stream stream = _streamProvider())
-            using (JsonPositionedTextReader reader = new JsonPositionedTextReader(() => stream))
+            using (var reader = new JsonPositionedTextReader(() => stream))
             {
                 stream.Seek(_start, SeekOrigin.Begin);
                 reader.Read();
@@ -194,7 +194,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
             {
                 _stream.Seek(keyPosition, SeekOrigin.Begin);
 
-                using (JsonInnerTextReader reader = new JsonInnerTextReader(new JsonObjectMemberStreamReader(_stream)))
+                using (var reader = new JsonInnerTextReader(new JsonObjectMemberStreamReader(_stream)))
                 {
                     reader.CloseInput = false;
 

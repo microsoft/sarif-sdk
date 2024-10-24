@@ -76,7 +76,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching.HeuristicMatchers
             int unmodifiedKey = Comparer.GetHashCode(currentResult);
             if (resultDictionary.ContainsKey(unmodifiedKey))
             {
-                List<ExtractedResult> matchingBaselineResult = resultDictionary[unmodifiedKey].Where(b => Comparer.Equals(b, currentResult)).ToList();
+                var matchingBaselineResult = resultDictionary[unmodifiedKey].Where(b => Comparer.Equals(b, currentResult)).ToList();
                 if (matchingBaselineResult.Count == 1)
                 {
                     result = new MatchedResults(matchingBaselineResult[0], currentResult);

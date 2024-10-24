@@ -35,7 +35,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Map
 
             reader.Read();
 
-            List<long> list = new List<long>();
+            var list = new List<long>();
             long current = 0;
 
             // Convert the array values from relative to absolute
@@ -65,7 +65,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Map
                 return;
             }
 
-            List<long> list = (List<long>)value;
+            var list = (List<long>)value;
 
             writer.WriteStartArray();
 

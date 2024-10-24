@@ -8,8 +8,6 @@ using System.Text;
 
 using FluentAssertions;
 
-using Kusto.Cloud.Platform.Utils;
-
 using Microsoft.CodeAnalysis.Sarif.Readers;
 using Microsoft.CodeAnalysis.Sarif.VersionOne;
 
@@ -61,7 +59,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             string inputSarifLog = GetInputSarifTextFromResource(testFilePath);
 
             string logFilePath = Path.Combine(Directory.GetCurrentDirectory(), "mylog.sarif");
-            StringBuilder transformedContents = new StringBuilder();
+            var transformedContents = new StringBuilder();
 
             this.options.InputFilePath = logFilePath;
             this.options.OutputFilePath = null;
@@ -231,7 +229,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
         private void PrereleaseSarifLogVersionDiffersFromCurrent(string prereleaseV2Text)
         {
-            JObject sarifLog = JObject.Parse(prereleaseV2Text);
+            var sarifLog = JObject.Parse(prereleaseV2Text);
 
             ((string)sarifLog["$schema"]).Should().NotBe(SarifUtilities.SarifSchemaUri);
             ((string)sarifLog["version"]).Should().NotBe(SarifUtilities.StableSarifVersion);

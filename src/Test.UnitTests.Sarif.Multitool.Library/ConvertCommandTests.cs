@@ -6,7 +6,6 @@ using System.IO;
 using FluentAssertions;
 
 using Microsoft.CodeAnalysis.Sarif.Converters;
-using Microsoft.CodeAnalysis.Sarif.Writers;
 
 using Moq;
 
@@ -42,7 +41,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             File.Exists(outputFilePath).Should().BeTrue();
 
             // Verify log loads, has correct Result count, and spot check a Result
-            SarifLog log = SarifLog.Load(outputFilePath);
+            var log = SarifLog.Load(outputFilePath);
             log.Runs[0].Results.Count.Should().Be(8);
             log.Runs[0].Results[7].Locations[0].PhysicalLocation.Region.StartLine.Should().Be(40);
             log.Runs[0].Results[7].Locations[0].PhysicalLocation.Region.StartColumn.Should().Be(43);

@@ -24,7 +24,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             acceptableReturnCodes = acceptableReturnCodes ?? new int[] { 0 };
 
-            ProcessStartInfo psi = new ProcessStartInfo();
+            var psi = new ProcessStartInfo();
 
             psi.FileName = exePath;
             psi.Arguments = arguments;
@@ -39,7 +39,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             psi.StandardOutputEncoding = System.Text.Encoding.UTF8;
             psi.WindowStyle = ProcessWindowStyle.Hidden;
 
-            using (Process process = Process.Start(psi))
+            using (var process = Process.Start(psi))
             {
                 StdErr = new ConsoleStreamCapture();
                 StdOut = stdOut ?? new ConsoleStreamCapture();

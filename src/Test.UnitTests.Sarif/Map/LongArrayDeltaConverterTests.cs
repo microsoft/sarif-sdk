@@ -37,7 +37,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Map
 
         private static void RoundTrip(long[] values)
         {
-            Container before = new Container();
+            var before = new Container();
             if (values != null)
             {
                 before.Values = new List<long>(values);
@@ -45,7 +45,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Map
 
             string serialized = JsonConvert.SerializeObject(before);
 
-            Container after = (Container)JsonConvert.DeserializeObject(serialized, typeof(Container));
+            var after = (Container)JsonConvert.DeserializeObject(serialized, typeof(Container));
             Assert.Equal(values, after.Values);
         }
     }

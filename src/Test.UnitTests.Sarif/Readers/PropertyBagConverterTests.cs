@@ -94,7 +94,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
 
             PerformRoundTrip();
 
-            Guid expectedGuid = new Guid("{12345678-90ab-cdef-1234-567890abcdef}");
+            var expectedGuid = new Guid("{12345678-90ab-cdef-1234-567890abcdef}");
 
             _inputObject.GetProperty<Guid>("g").Should().Be(expectedGuid);
             _roundTrippedObject.GetProperty<Guid>("g").Should().Be(expectedGuid);
@@ -107,7 +107,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
 
             PerformRoundTrip();
 
-            Guid expectedGuid = new Guid("{12345678-90ab-cdef-1234-567890abcdef}");
+            var expectedGuid = new Guid("{12345678-90ab-cdef-1234-567890abcdef}");
 
             _inputObject.GetProperty<Guid>("g").Should().Be(expectedGuid);
             _roundTrippedObject.GetProperty<Guid>("g").Should().Be(expectedGuid);

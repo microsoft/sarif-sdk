@@ -1,9 +1,8 @@
-// Copyright (c) Microsoft.  All Rights Reserved.
+// Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System;
 using System.CodeDom.Compiler;
-using System.Collections.Generic;
 using System.Linq;
 
 namespace Microsoft.CodeAnalysis.Sarif

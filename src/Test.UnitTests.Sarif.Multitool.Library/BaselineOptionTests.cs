@@ -95,7 +95,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             int returnCode = new ValidateCommand().Run(options);
             returnCode.Should().Be(0);
 
-            SarifLog sarifLog = SarifLog.Load(outputPath);
+            var sarifLog = SarifLog.Load(outputPath);
             sarifLog.Runs.Count.Should().Be(1);
             sarifLog.Runs[0].Results.Count.Should().Be(1);
 
@@ -129,7 +129,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             int returnCode = new ValidateCommand().Run(options);
             returnCode.Should().Be(0);
 
-            SarifLog sarifLog = SarifLog.Load(baselineFilePath);
+            var sarifLog = SarifLog.Load(baselineFilePath);
             sarifLog.Runs.Count.Should().Be(1);
             sarifLog.Runs[0].Results.Count.Should().Be(1);
 

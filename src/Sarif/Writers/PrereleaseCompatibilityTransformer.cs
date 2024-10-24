@@ -32,7 +32,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
             if (string.IsNullOrEmpty(prereleaseSarifLog)) { return null; }
 
-            JObject logObject = JObject.Parse(prereleaseSarifLog);
+            var logObject = JObject.Parse(prereleaseSarifLog);
 
             string version = (string)logObject["version"];
             if (version == SarifUtilities.V1_0_0)
@@ -487,7 +487,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         {
             if (run["redactionToken"] is JToken redactionToken)
             {
-                JArray redactionTokens = new JArray
+                var redactionTokens = new JArray
                 {
                     redactionToken
                 };
@@ -730,7 +730,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
         private static void MoveToolLanguageToRun(JObject run)
         {
-            JObject tool = (JObject)run["tool"];
+            var tool = (JObject)run["tool"];
             if (tool["language"] is JToken language)
             {
                 tool.Remove("language");
@@ -1502,11 +1502,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
             // 1. Retrieve run.tool object, which will serve as the basis of the
             //    new run.tool.driver object and zap sarifLoggerVersion from it.
-            JObject driver = (JObject)run["tool"];
+            var driver = (JObject)run["tool"];
             driver.Remove("sarifLoggerVersion");
 
             // 2. Create a new tool object, preserving only the language property
-            JObject tool = new JObject(new JProperty("language", driver["language"] ?? "en-US"));
+            var tool = new JObject(new JProperty("language", driver["language"] ?? "en-US"));
             driver.Remove("language");
 
             // https://github.com/oasis-tcs/sarif-spec/issues/319
@@ -1591,7 +1591,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
         private static JObject CreateMultiformatMessageStringFromPlaintext(string plaintext)
         {
-            JProperty textProperty = new JProperty("text", plaintext);
+            var textProperty = new JProperty("text", plaintext);
             return new JObject(textProperty);
         }
 
@@ -1604,7 +1604,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 return;
             }
 
-            JObject tool = (JObject)run["tool"];
+            var tool = (JObject)run["tool"];
 
             // 1. 'run.resources.messageStrings' moves to 'run.tool.globalMessageStrings'
             if (resources["messageStrings"] is JObject messageStrings)
@@ -1799,7 +1799,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                         {
                             // result.message SHALL be present constraint should be added to schema
                             // https://github.com/oasis-tcs/sarif-spec/issues/262
-                            JObject message = (JObject)result["message"];
+                            var message = (JObject)result["message"];
 
                             if (message == null)
                             {
@@ -1823,7 +1823,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                     // 
                     // We will also explicitly apply the default tool.language value of "en-US".
 
-                    JObject tool = (JObject)run["tool"];
+                    var tool = (JObject)run["tool"];
                     modifiedLog |= RenameProperty(tool, previousName: "fileVersion", newName: "dottedQuadFileVersion");
                     PopulatePropertyIfAbsent(tool, "language", "en-US", ref modifiedLog);
 
@@ -1849,7 +1849,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         {
             if (rules == null) { return null; }
 
-            Dictionary<JObject, int> jObjectToIndexMap = new Dictionary<JObject, int>();
+            var jObjectToIndexMap = new Dictionary<JObject, int>();
 
             foreach (JProperty ruleEntry in rules.Properties())
             {
@@ -1910,7 +1910,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         {
             if (files == null) { return null; }
 
-            Dictionary<JObject, int> jObjectToIndexMap = new Dictionary<JObject, int>();
+            var jObjectToIndexMap = new Dictionary<JObject, int>();
 
             foreach (JProperty fileEntry in files.Properties())
             {
@@ -1975,7 +1975,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
             var fileLocationKey = ArtifactLocation.CreateFromFilesDictionaryKey(key, parentKey);
 
-            JObject fileLocationObject = new JObject();
+            var fileLocationObject = new JObject();
             file["fileLocation"] = fileLocationObject;
             fileLocationObject["uri"] = fileLocationKey.Uri;
             fileLocationObject["uriBaseId"] = fileLocationKey.UriBaseId;
@@ -2002,7 +2002,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
             if (logicalLocations == null) { return null; }
 
-            Dictionary<JObject, int> jObjectToIndexMap = new Dictionary<JObject, int>();
+            var jObjectToIndexMap = new Dictionary<JObject, int>();
             logicalLocationToIndexMap = new Dictionary<LogicalLocation, int>(LogicalLocation.ValueComparer);
 
             fullyQualifiedLogicalNameToIndexMap = new Dictionary<string, int>();
@@ -2297,7 +2297,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         {
             bool modifiedRun = false;
 
-            JArray results = (JArray)run["results"];
+            var results = (JArray)run["results"];
             if (results == null) { return modifiedRun; }
 
             foreach (JObject result in results)
@@ -2332,12 +2332,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
             foreach (JObject codeFlow in codeFlows)
             {
-                JArray threadFlows = (JArray)codeFlow["threadFlows"];
+                var threadFlows = (JArray)codeFlow["threadFlows"];
                 if (threadFlows == null) { continue; }
 
                 foreach (JObject threadFlow in threadFlows)
                 {
-                    JArray threadFlowLocations = (JArray)threadFlow["locations"];
+                    var threadFlowLocations = (JArray)threadFlow["locations"];
                     if (threadFlowLocations == null) { continue; }
 
                     foreach (JObject threadFlowLocation in threadFlowLocations)
@@ -2517,7 +2517,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             JToken hashes = file["hashes"];
             if (hashes == null || hashes.Type != JTokenType.Array) { return modifiedRun; }
 
-            JObject rewrittenHashes = new JObject();
+            var rewrittenHashes = new JObject();
 
             foreach (JObject hash in hashes)
             {

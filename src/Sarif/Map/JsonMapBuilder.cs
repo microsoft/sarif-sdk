@@ -52,7 +52,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Map
             }
 
             // Parse file using JsonPositionedTextReader so map can get byte locations of elements
-            using (JsonPositionedTextReader reader = new JsonPositionedTextReader(streamProvider))
+            using (var reader = new JsonPositionedTextReader(streamProvider))
             {
                 if (!reader.Read()) { return null; }
                 return Build(reader, runSettings, startPosition: 0, out long _);
@@ -91,7 +91,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Map
             }
 
             // For objects and arrays, capture the exact position, then build a node and look inside...
-            JsonMapNode node = new JsonMapNode();
+            var node = new JsonMapNode();
             node.Start = reader.TokenPosition;
             node.Count = 0;
 
@@ -206,7 +206,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Map
                 if (every > 1)
                 {
                     int newCount = node.Count / every;
-                    List<long> newStarts = new List<long>(newCount);
+                    var newStarts = new List<long>(newCount);
 
                     for (int i = 0; i * every < node.Count; ++i)
                     {
