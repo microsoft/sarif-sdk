@@ -6,7 +6,7 @@ on:
 
 jobs:
   build:
-    name: Build and Test
+    name: Run
     runs-on: windows-latest
     steps:
     - uses: actions/checkout@v4
