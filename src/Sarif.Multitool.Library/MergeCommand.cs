@@ -40,7 +40,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
         public int Run(MergeOptions mergeOptions)
         {
-            Stopwatch w = Stopwatch.StartNew();
+            var w = Stopwatch.StartNew();
             try
             {
                 _options = mergeOptions;

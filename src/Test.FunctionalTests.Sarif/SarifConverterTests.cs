@@ -119,7 +119,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
         private static void EnrichSarifLog(string actualFilePath)
         {
-            JsonSerializerSettings settings = new JsonSerializerSettings()
+            var settings = new JsonSerializerSettings()
             {
                 Formatting = Formatting.Indented,
             };

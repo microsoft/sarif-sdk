@@ -26,7 +26,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             FileSystem = fileSystem ?? Sarif.FileSystem.Instance;
         }
 
-        private const int ChannelCapacity = 10 * 1024; // max ~2.5 MB memory given 256 char max path length.
+        internal const int ChannelCapacity = 10 * 1024; // max ~2.5 MB memory given 256 char max path length.
         private readonly bool recurse;
         private readonly string specifier;
         private readonly long maxFileSizeInKilobytes;
@@ -87,27 +87,24 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
             Task directoryEnumerationTask;
 
-            if (this.recurse)
+            directoryEnumerationTask = Task.Run(() =>
             {
-                directoryEnumerationTask = Task.Run(() =>
+                try
                 {
-                    try
+                    if (this.recurse)
                     {
                         EnqueueAllFilesUnderDirectory(directory, filesToProcessChannel.Writer, filter, new SortedSet<string>(StringComparer.Ordinal));
                     }
-                    finally
+                    else
                     {
-                        filesToProcessChannel.Writer.Complete();
+                        WriteFilesInDirectoryToChannel(directory, filesToProcessChannel, filter, new SortedSet<string>(StringComparer.Ordinal));
                     }
-                });
-            }
-            else
-            {
-                WriteFilesInDirectoryToChannel(directory, filesToProcessChannel, filter, new SortedSet<string>(StringComparer.Ordinal));
-
-                filesToProcessChannel.Writer.Complete();
-                directoryEnumerationTask = Task.CompletedTask;
-            }
+                }
+                finally
+                {
+                    filesToProcessChannel.Writer.Complete();
+                }
+            });
 
             ChannelReader<string> reader = filesToProcessChannel.Reader;
             while (!reader.Completion.IsCompleted)

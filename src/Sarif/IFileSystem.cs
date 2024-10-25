@@ -238,6 +238,17 @@ namespace Microsoft.CodeAnalysis.Sarif
         string FileReadAllText(string path);
 
         /// <summary>
+        /// Uses <see cref="FileStream"/> to get the size of a file in bytes.
+        /// </summary>
+        /// <param name="path">
+        /// The fully qualified name or relative name of the file.
+        /// </param>
+        /// <returns>
+        /// A long representing the size of the file in bytes.
+        /// </returns>
+        long FileStreamLength(string path);
+
+        /// <summary>
         /// Opens a text file, reads all text in the file as a single string using the specified
         /// encoding, and then closes the file.
         /// </summary>
@@ -311,6 +322,17 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// A long representing the size of the file in bytes.
         /// </returns>
         long FileInfoLength(string path);
+
+        /// <summary>
+        /// Uses <see cref="FileInfo"/> to determine whether a file is a symbolic link.
+        /// </summary>
+        /// <param name="path">
+        /// The fully qualified name or relative path of the file.
+        /// </param>
+        /// <returns>
+        /// A boolean value indicating whether the file is a symbolic link.
+        /// </returns>
+        bool IsSymbolicLink(string path);
 
         /// <summary>
         /// Returns a <see cref="FileVersionInfo"/> representing the version information associated with the specified file.

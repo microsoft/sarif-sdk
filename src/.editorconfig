@@ -297,6 +297,7 @@ csharp_style_prefer_local_over_anonymous_function = true:suggestion
 dotnet_diagnostic.SA1602.severity = suggestion
 dotnet_diagnostic.SA1307.severity = silent
 csharp_style_implicit_object_creation_when_type_is_apparent = true:suggestion
+csharp_style_prefer_primary_constructors = true:suggestion
 
 [*Tests.cs]
 
@@ -324,3 +325,4 @@ dotnet_style_prefer_compound_assignment = true:suggestion
 dotnet_style_prefer_simplified_interpolation = true:suggestion
 dotnet_style_namespace_match_folder = true:suggestion
 dotnet_code_quality_unused_parameters = all:error
+dotnet_style_prefer_collection_expression = when_types_loosely_match:suggestion

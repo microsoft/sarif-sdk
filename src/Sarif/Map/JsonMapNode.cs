@@ -134,7 +134,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Map
                 // Make it a valid array prefix (it must start with '[', which will look like the root of the Json document
                 buffer[0] = (byte)'[';
 
-                using (JsonPositionedTextReader reader = new JsonPositionedTextReader(() => new MemoryStream(buffer)))
+                using (var reader = new JsonPositionedTextReader(() => new MemoryStream(buffer)))
                 {
                     // Find the desired array item index in the buffer
                     long relativePosition = reader.ReadToArrayIndex(index - startIndex);

@@ -1087,6 +1087,21 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 ThrowExitApplicationException(ExitReason.NoRulesLoaded);
             }
 
+            ISet<string> disabledSkimmers = BuildDisabledSkimmersSet(context, skimmers);
+
+            if (disabledSkimmers.Count == skimmers.Count())
+            {
+                Errors.LogAllRulesExplicitlyDisabled(context);
+                ThrowExitApplicationException(ExitReason.NoRulesLoaded);
+            }
+
+            this.CheckIncompatibleRules(skimmers, context, disabledSkimmers);
+
+            MultithreadedAnalyzeTargets(context, skimmers, disabledSkimmers);
+        }
+
+        public static ISet<string> BuildDisabledSkimmersSet(TContext context, IEnumerable<Skimmer<TContext>> skimmers)
+        {
             var disabledSkimmers = new SortedSet<string>();
 
             foreach (Skimmer<TContext> skimmer in skimmers)
@@ -1120,15 +1135,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 }
             }
 
-            if (disabledSkimmers.Count == skimmers.Count())
-            {
-                Errors.LogAllRulesExplicitlyDisabled(context);
-                ThrowExitApplicationException(ExitReason.NoRulesLoaded);
-            }
-
-            this.CheckIncompatibleRules(skimmers, context, disabledSkimmers);
-
-            MultithreadedAnalyzeTargets(context, skimmers, disabledSkimmers);
+            return disabledSkimmers;
         }
 
         protected virtual TContext DetermineApplicabilityAndAnalyze(TContext context,

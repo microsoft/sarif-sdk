@@ -136,7 +136,7 @@ namespace Microsoft.CodeAnalysis.Sarif.VersionOne
 
             // We need the concrete class because the IPropertyBagHolderVersionOne interface
             // doesn't expose the raw Properties array.
-            PropertyBagHolderVersionOne otherHolder = other as PropertyBagHolderVersionOne;
+            var otherHolder = other as PropertyBagHolderVersionOne;
             Debug.Assert(otherHolder != null);
 
             Properties = other.PropertyNames.Count > 0 ? new Dictionary<string, SerializedPropertyInfo>() : null;

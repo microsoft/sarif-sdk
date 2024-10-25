@@ -183,7 +183,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         public void SaveToXml(Stream stream)
         {
             var settings = new XmlWriterSettings { Indent = true };
-            using (XmlWriter writer = XmlWriter.Create(stream, settings))
+            using (var writer = XmlWriter.Create(stream, settings))
             {
                 this.SavePropertiesToXmlStream(writer, settings, null, SettingNameToDescriptionsMap);
             }
@@ -212,7 +212,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 XmlResolver = null
             };
 
-            using (XmlReader reader = XmlReader.Create(stream, settings))
+            using (var reader = XmlReader.Create(stream, settings))
             {
                 if (reader.IsStartElement(PropertiesDictionaryExtensionMethods.PROPERTIES_ID))
                 {

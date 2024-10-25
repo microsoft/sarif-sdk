@@ -1,0 +1,24 @@
+name: Build and Test
+
+on:
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    name: Run
+    runs-on: windows-latest
+    steps:
+    - uses: actions/checkout@v4
+      with:
+        # GitHelper unit test requires full clone, not the shallow default of GitHub Actions
+        fetch-depth: 0
+    - name: Setup dotnet
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: '3.1.x'
+    - name: Show dotnet info
+      run: dotnet --info
+    - name: Build and Test
+      # NoFormat because there is a separate format check action
+      run: ./BuildAndTest.cmd -NoFormat

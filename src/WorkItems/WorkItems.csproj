@@ -13,6 +13,7 @@
     <Description>Classes for filing work items in either GitHub or AzureDevOps.</Description>
     <AssemblyName>WorkItems</AssemblyName>
     <RootNamespace>Microsoft.WorkItems</RootNamespace>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
   </PropertyGroup>
 
   <Import Project="$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildThisFileDirectory), build.props))\build.props" />
@@ -24,8 +25,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Azure.Identity" Version="1.10.2" />
-    <PackageReference Include="Microsoft.Azure.Kusto.Data" Version="10.0.3" />
+    <PackageReference Include="Azure.Identity" Version="1.12.1" />
+    <PackageReference Include="Azure.Core" Version="1.41.0" />
     <PackageReference Include="Microsoft.Data.SqlClient" Version="2.1.7" />
     <PackageReference Include="Microsoft.Extensions.Configuration.EnvironmentVariables" Version="3.1.2" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="3.1.2" />

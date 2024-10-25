@@ -202,7 +202,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline
 
             // Otherwise, return empty, so that all Results without matching locations
             // are put in the same "bucket" for matching. (File Rename handling)
-            return String.Empty;
+            return string.Empty;
         }
 
         // Add all Uris and FullyQualifiedLocations in the Result to a set

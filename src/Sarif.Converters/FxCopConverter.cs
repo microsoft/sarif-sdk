@@ -88,7 +88,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
         internal Result CreateResult(FxCopLogReader.Context context)
         {
-            Result result = new Result();
+            var result = new Result();
 
             string uniqueId = context.GetUniqueId();
 
@@ -726,7 +726,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
         public void Read(Context context, Stream input)
         {
-            XmlSchemaSet schemaSet = new XmlSchemaSet();
+            var schemaSet = new XmlSchemaSet();
             Assembly assembly = typeof(FxCopLogReader).Assembly;
             var settings = new XmlReaderSettings
             {
@@ -737,7 +737,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             using (Stream stream = assembly.GetManifestResourceStream(FxCopLogReader.FxCopReportSchema))
             using (var reader = XmlReader.Create(stream, settings))
             {
-                XmlSchema schema = XmlSchema.Read(reader, new ValidationEventHandler(ReportError));
+                var schema = XmlSchema.Read(reader, new ValidationEventHandler(ReportError));
                 schemaSet.Add(schema);
             }
 
@@ -779,7 +779,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
         private static void ReadFxCopReport(SparseReader reader, object parent)
         {
-            Context context = (Context)parent;
+            var context = (Context)parent;
 
             context.RefineReport(reader.ReadAttributeString(SchemaStrings.AttributeVersion));
             reader.ReadChildren(SchemaStrings.ElementFxCopReport, parent);
@@ -793,7 +793,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
         private void ReadException(SparseReader reader, object parent)
         {
-            Context context = (Context)parent;
+            var context = (Context)parent;
 
             string ruleId = reader.ReadAttributeString(SchemaStrings.AttributeKeyword);
             string kind = reader.ReadAttributeString(SchemaStrings.AttributeKind);
@@ -818,7 +818,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
         private static void ReadExceptionType(SparseReader reader, object parent)
         {
-            Context context = (Context)parent;
+            var context = (Context)parent;
 
             if (context.Exception)
             {
@@ -828,35 +828,35 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
         private static void ReadExceptionMessage(SparseReader reader, object parent)
         {
-            Context context = (Context)parent;
+            var context = (Context)parent;
 
             context.RefineExceptionMessage(reader.ReadElementContentAsString());
         }
 
         private static void ReadStackTrace(SparseReader reader, object parent)
         {
-            Context context = (Context)parent;
+            var context = (Context)parent;
 
             context.RefineStackTrace(reader.ReadElementContentAsString());
         }
 
         private void ReadInnerExceptionType(SparseReader reader, object parent)
         {
-            Context context = (Context)parent;
+            var context = (Context)parent;
 
             context.RefineInnerExceptionType(reader.ReadElementContentAsString());
         }
 
         private static void ReadInnerExceptionMessage(SparseReader reader, object parent)
         {
-            Context context = (Context)parent;
+            var context = (Context)parent;
 
             context.RefineInnerExceptionMessage(reader.ReadElementContentAsString());
         }
 
         private static void ReadInnerStackTrace(SparseReader reader, object parent)
         {
-            Context context = (Context)parent;
+            var context = (Context)parent;
 
             context.RefineInnerStackTrace(reader.ReadElementContentAsString());
         }
@@ -868,7 +868,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
         private static void ReadResource(SparseReader reader, object parent)
         {
-            Context context = (Context)parent;
+            var context = (Context)parent;
 
             context.RefineResource(reader.ReadAttributeString(SchemaStrings.AttributeName));
             reader.ReadChildren(SchemaStrings.ElementResource, parent);
@@ -882,7 +882,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
         private void ReadRule(SparseReader reader, object parent)
         {
-            Context context = (Context)parent;
+            var context = (Context)parent;
 
             context.RefineRule(
                 typeName: reader.ReadAttributeString(SchemaStrings.AttributeTypeName),
@@ -901,7 +901,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
         private static void ReadResolution(SparseReader reader, object parent)
         {
-            Context context = (Context)parent;
+            var context = (Context)parent;
 
             context.RefineResolution(
                 name: reader.ReadAttributeString(SchemaStrings.AttributeName),
@@ -915,7 +915,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
         private static void ReadTarget(SparseReader reader, object parent)
         {
-            Context context = (Context)parent;
+            var context = (Context)parent;
 
             context.RefineTarget(reader.ReadAttributeString(SchemaStrings.AttributeName));
             reader.ReadChildren(SchemaStrings.ElementTarget, parent);
@@ -929,7 +929,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
         private void ReadModule(SparseReader reader, object parent)
         {
-            Context context = (Context)parent;
+            var context = (Context)parent;
 
             context.RefineModule(reader.ReadAttributeString(SchemaStrings.AttributeName));
             reader.ReadChildren(SchemaStrings.ElementModule, parent);
@@ -943,7 +943,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
         private void ReadNamespace(SparseReader reader, object parent)
         {
-            Context context = (Context)parent;
+            var context = (Context)parent;
 
             context.RefineNamespace(reader.ReadAttributeString(SchemaStrings.AttributeName));
             reader.ReadChildren(SchemaStrings.ElementNamespace, parent);
@@ -957,7 +957,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
         private static void ReadType(SparseReader reader, object parent)
         {
-            Context context = (Context)parent;
+            var context = (Context)parent;
 
             if (context.Exception)
             {
@@ -978,7 +978,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
         private static void ReadMember(SparseReader reader, object parent)
         {
-            Context context = (Context)parent;
+            var context = (Context)parent;
 
             context.RefineMember(reader.ReadAttributeString(SchemaStrings.AttributeName));
             reader.ReadChildren(SchemaStrings.ElementMember, parent);
@@ -992,7 +992,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
         private void ReadMessage(SparseReader reader, object parent)
         {
-            Context context = (Context)parent;
+            var context = (Context)parent;
 
             string messageId = reader.ReadAttributeString(SchemaStrings.AttributeId);
             string typename = reader.ReadAttributeString(SchemaStrings.AttributeTypeName);
@@ -1022,7 +1022,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
         private void ReadIssue(SparseReader reader, object parent)
         {
-            Context context = (Context)parent;
+            var context = (Context)parent;
 
             string resolutionName = reader.ReadAttributeString(SchemaStrings.AttributeName);
             string certainty = reader.ReadAttributeString(SchemaStrings.AttributeCertainty);
@@ -1059,7 +1059,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
         private void ReadItem(SparseReader reader, object parent)
         {
-            Context context = (Context)parent;
+            var context = (Context)parent;
             context.Items = context.Items ?? new List<string>();
             context.Items.Add(reader.ReadElementContentAsString());
         }

@@ -399,9 +399,9 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests
             var run = new Run();
             var fileRegionsCache = new FileRegionsCache();
 
-            Uri uri = new Uri(@"c:\temp\DoesNotExist\" + Guid.NewGuid().ToString() + ".cpp");
+            var uri = new Uri(@"c:\temp\DoesNotExist\" + Guid.NewGuid().ToString() + ".cpp");
 
-            Region region = new Region() { CharOffset = 17 };
+            var region = new Region() { CharOffset = 17 };
 
             // Region should not be touched in any way if the file it references is missing
             fileRegionsCache.PopulateTextRegionProperties(region, uri, populateSnippet: false).ValueEquals(region).Should().BeTrue();
@@ -412,15 +412,15 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests
         public void FileRegionsCache_PopulatesUsingProvidedText()
         {
             var fileRegionsCache = new FileRegionsCache();
-            Uri uri = new Uri(@"c:\temp\DoesNotExist\" + Guid.NewGuid().ToString() + ".cpp");
+            var uri = new Uri(@"c:\temp\DoesNotExist\" + Guid.NewGuid().ToString() + ".cpp");
             string fileText = "12345\n56790\n";
             int charOffset = 6;
             int charLength = 1;
 
             // Region should grab the second line of text in 'fileText'.
-            Region region = new Region() { CharOffset = charOffset, CharLength = charLength };
+            var region = new Region() { CharOffset = charOffset, CharLength = charLength };
 
-            Region expected = new Region()
+            var expected = new Region()
             {
                 CharOffset = charOffset,
                 CharLength = charLength,
@@ -591,7 +591,7 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests
             Exception exception = Record.Exception(() =>
             {
                 var fileRegionsCache = new FileRegionsCache();
-                List<Task> taskList = new List<Task>();
+                var taskList = new List<Task>();
 
                 for (int i = 0; i < 1_000; i++)
                 {
@@ -606,7 +606,7 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests
 
         private static void ExecuteTests(string fileText, ReadOnlyCollection<TestCaseData> testCases)
         {
-            Uri uri = new Uri(@"c:\temp\myFile.cpp");
+            var uri = new Uri(@"c:\temp\myFile.cpp");
 
             var run = new Run();
             IFileSystem mockFileSystem = MockFactory.MakeMockFileSystem(uri.LocalPath, fileText);
@@ -653,19 +653,19 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests
         [Fact(Skip = "Flaky test. Results vary depending on environment.")]
         public void FileRegionsCache_ProperlyCaches()
         {
-            Uri uri = new Uri(@"C:\Code\Program.cs");
+            var uri = new Uri(@"C:\Code\Program.cs");
 
-            StringBuilder fileContents = new StringBuilder();
+            var fileContents = new StringBuilder();
             for (int i = 0; i < 1000; ++i)
             {
                 fileContents.AppendLine("0123456789");
             }
 
-            Run run = new Run();
+            var run = new Run();
             IFileSystem mockFileSystem = MockFactory.MakeMockFileSystem(uri.LocalPath, fileContents.ToString());
-            FileRegionsCache fileRegionsCache = new FileRegionsCache(fileSystem: mockFileSystem);
+            var fileRegionsCache = new FileRegionsCache(fileSystem: mockFileSystem);
 
-            Region region = new Region()
+            var region = new Region()
             {
                 StartLine = 2,
                 StartColumn = 1,
@@ -673,7 +673,7 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests
                 EndColumn = 10,
             };
 
-            Stopwatch w = Stopwatch.StartNew();
+            var w = Stopwatch.StartNew();
 
             for (int i = 0; i < 1000; ++i)
             {
@@ -691,7 +691,7 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests
         [Fact]
         public void FileRegionsCache_PopulatesNullRegion()
         {
-            Uri uri = new Uri(@"c:\temp\myFile.cpp");
+            var uri = new Uri(@"c:\temp\myFile.cpp");
 
             var run = new Run();
             IFileSystem mockFileSystem = MockFactory.MakeMockFileSystem(uri.LocalPath, SPEC_EXAMPLE);
@@ -707,7 +707,7 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests
         [Fact]
         public void FileRegionsCache_IncreasingToLeftAndRight()
         {
-            Uri uri = new Uri(@"c:\temp\myFile.cpp");
+            var uri = new Uri(@"c:\temp\myFile.cpp");
             string fileContent = $"{new string('a', 200)}{new string('b', 800)}";
 
             var region = new Region

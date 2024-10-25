@@ -31,7 +31,7 @@ Content-Type: text/plain
 Hello World!My payload includes a trailing NewLine.
 ";
 
-            WebResponse webResponse = WebResponse.Parse(ResponseString);
+            var webResponse = WebResponse.Parse(ResponseString);
 
             webResponse.Protocol.Should().Be("HTTP");
             webResponse.Version.Should().Be("1.1");
@@ -60,7 +60,7 @@ Last-Modified: Wed, 22 Jul 2009 19:15:56 GMT
 
 ";
 
-            WebResponse webResponse = WebResponse.Parse(ResponseString);
+            var webResponse = WebResponse.Parse(ResponseString);
 
             webResponse.Protocol.Should().Be("HTTP");
             webResponse.Version.Should().Be("1.1");

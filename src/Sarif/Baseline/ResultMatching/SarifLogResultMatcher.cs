@@ -115,7 +115,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
             List<ExtractedResult> currentResults =
                 current == null ? new List<ExtractedResult>() : ExtractResultsFromRuns(current);
 
-            List<MatchedResults> matchedResults = new List<MatchedResults>();
+            var matchedResults = new List<MatchedResults>();
 
             // Calculate exact mappings using exactResultMatchers.
             CalculateMatches(ExactResultMatchers, baselineResults, currentResults, matchedResults);
@@ -163,7 +163,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
 
         private List<ExtractedResult> ExtractResultsFromRuns(IEnumerable<Run> sarifRuns)
         {
-            List<ExtractedResult> results = new List<ExtractedResult>();
+            var results = new List<ExtractedResult>();
             foreach (Run run in sarifRuns)
             {
                 if (run.Results != null)

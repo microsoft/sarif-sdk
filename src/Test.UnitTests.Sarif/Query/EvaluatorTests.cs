@@ -50,10 +50,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Query
         [Fact]
         public void ComplexEvaluator_Basics()
         {
-            List<SampleItem> set = new List<SampleItem>();
+            var set = new List<SampleItem>();
             for (int i = 0; i < 100; ++i)
             {
-                SampleItem item = new SampleItem();
+                var item = new SampleItem();
                 item.ID = i;
                 item.State = (State)(i % 4);
                 item.Uri = i.ToString();
@@ -145,7 +145,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Query
             IExpressionEvaluator<T> evaluator = expression.ToEvaluator<T>(converter);
 
             // Ask for matches from the array
-            BitArray matches = new BitArray(values.Count);
+            var matches = new BitArray(values.Count);
             evaluator.Evaluate(values, matches);
 
             // Verify the match count is correct

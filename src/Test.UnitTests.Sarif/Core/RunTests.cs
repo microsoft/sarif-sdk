@@ -496,8 +496,8 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Core
         public void Run_ShouldSerializeAutomationDetails_WhenAnyPropertyIsValid()
         {
             const string id = "automation-id";
-            Guid guid = Guid.Parse("8b02f0b8-6df5-40b2-9e93-5404e56676e2");
-            Guid correlationGuid = Guid.Parse("3d468dd8-3c62-45ed-b86a-a4fe9da93dd9");
+            var guid = Guid.Parse("8b02f0b8-6df5-40b2-9e93-5404e56676e2");
+            var correlationGuid = Guid.Parse("3d468dd8-3c62-45ed-b86a-a4fe9da93dd9");
 
             var sarifLog = new SarifLog
             {
@@ -693,7 +693,7 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Core
 
         private ToolComponent CreateToolComponent(string name, int rulesCount, FailureLevel failureLevel)
         {
-            ToolComponent toolComponent = new ToolComponent();
+            var toolComponent = new ToolComponent();
             toolComponent.Name = name;
             toolComponent.Rules = new ReportingDescriptor[rulesCount];
             for (int i = 0; i < rulesCount; i++)

@@ -247,7 +247,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         [Fact]
         public void FortifyIssue_Parse_IgnoresNonCweTypeExternalCategories()
         {
-            XElement xml = XElement.Parse(s_fullIssueXml);
+            var xml = XElement.Parse(s_fullIssueXml);
             xml.Element("ExternalCategory").Attribute("type").Value = "a_differnt_type";
             FortifyIssue result = Parse(xml);
             result.CweIds.Should().BeEmpty();
@@ -256,7 +256,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         [Fact]
         public void FortifyIssue_Parse_RequiresElementsInOrder()
         {
-            XElement xml = XElement.Parse(s_fullIssueXml);
+            var xml = XElement.Parse(s_fullIssueXml);
             // Move the primary node to the end
             XElement primary = xml.Element("Primary");
             primary.Remove();
@@ -267,7 +267,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         [Fact]
         public void FortifyIssue_Parse_RequiresCategory()
         {
-            XElement xml = XElement.Parse(s_minimalIssueXml);
+            var xml = XElement.Parse(s_minimalIssueXml);
             xml.Element("Category").Remove();
             Assert.Throws<XmlException>(() => Parse(xml));
         }
@@ -275,7 +275,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         [Fact]
         public void FortifyIssue_Parse_RequiresFolder()
         {
-            XElement xml = XElement.Parse(s_minimalIssueXml);
+            var xml = XElement.Parse(s_minimalIssueXml);
             xml.Element("Folder").Remove();
             Assert.Throws<XmlException>(() => Parse(xml));
         }
@@ -283,7 +283,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         [Fact]
         public void FortifyIssue_Parse_RequiresKingdom()
         {
-            XElement xml = XElement.Parse(s_minimalIssueXml);
+            var xml = XElement.Parse(s_minimalIssueXml);
             xml.Element("Kingdom").Remove();
             Assert.Throws<XmlException>(() => Parse(xml));
         }
@@ -291,7 +291,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         [Fact]
         public void FortifyIssue_Parse_RequiresPrimary()
         {
-            XElement xml = XElement.Parse(s_minimalIssueXml);
+            var xml = XElement.Parse(s_minimalIssueXml);
             xml.Element("Primary").Remove();
             Assert.Throws<XmlException>(() => Parse(xml));
         }

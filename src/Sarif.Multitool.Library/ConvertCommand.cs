@@ -57,12 +57,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 {
                     SarifLog sarifLog;
 
-                    JsonSerializer serializer = new JsonSerializer()
+                    var serializer = new JsonSerializer()
                     {
                         Formatting = convertOptions.PrettyPrint ? Formatting.Indented : 0,
                     };
 
-                    using (JsonTextReader reader = new JsonTextReader(new StreamReader(convertOptions.OutputFilePath)))
+                    using (var reader = new JsonTextReader(new StreamReader(convertOptions.OutputFilePath)))
                     {
                         sarifLog = serializer.Deserialize<SarifLog>(reader);
                     }
@@ -71,8 +71,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                     visitor.VisitSarifLog(sarifLog);
 
                     using (FileStream stream = File.Create(convertOptions.OutputFilePath))
-                    using (StreamWriter streamWriter = new StreamWriter(stream))
-                    using (JsonTextWriter writer = new JsonTextWriter(streamWriter))
+                    using (var streamWriter = new StreamWriter(stream))
+                    using (var writer = new JsonTextWriter(streamWriter))
                     {
                         serializer.Serialize(writer, sarifLog);
                     }

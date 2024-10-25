@@ -17,7 +17,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         /// <returns>0 on success; nonzero on failure.</returns>
         public static int Main(string[] args)
         {
-            OptionsInterpretter optionsInterpretter = new OptionsInterpretter();
+            var optionsInterpretter = new OptionsInterpretter();
 
             return Parser.Default.ParseArguments<
                 // Keep this in alphabetical order
@@ -30,7 +30,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 ExportValidationConfigurationOptions,
                 ExportValidationRulesMetadataOptions,
                 FileWorkItemsOptions,
-                KustoOptions,
                 ResultMatchingOptions,
                 MergeOptions,
                 PageOptions,
@@ -66,7 +65,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 (ExportValidationConfigurationOptions options) => new ExportValidationConfigurationCommand().Run(options),
                 (ExportValidationRulesMetadataOptions options) => new ExportValidationRulesMetadataCommand().Run(options),
                 (FileWorkItemsOptions fileWorkItemsOptions) => new FileWorkItemsCommand().Run(fileWorkItemsOptions),
-                (KustoOptions options) => new KustoCommand().Run(options),
                 (ResultMatchingOptions baselineOptions) => new ResultMatchingCommand().Run(baselineOptions),
                 (MergeOptions mergeOptions) => new MergeCommand().Run(mergeOptions),
                 (PageOptions pageOptions) => new PageCommand().Run(pageOptions),

@@ -303,7 +303,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                         _currentRun.ToolNotifications = new List<NotificationVersionOne>();
                     }
 
-                    List<NotificationVersionOne> notifications = v2Invocation.ToolExecutionNotifications.Select(CreateNotificationVersionOne).ToList();
+                    var notifications = v2Invocation.ToolExecutionNotifications.Select(CreateNotificationVersionOne).ToList();
                     _currentRun.ToolNotifications = _currentRun.ToolNotifications.Union(notifications).ToList();
                 }
             }

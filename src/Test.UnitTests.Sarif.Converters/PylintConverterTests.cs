@@ -96,7 +96,7 @@ namespace Sarif.Converters.UnitTests
         public void PylintConverter_Convert_WhenInputIsValid_Passes()
         {
             byte[] data = Encoding.UTF8.GetBytes(InputJson);
-            MemoryStream stream = new MemoryStream(data);
+            var stream = new MemoryStream(data);
 
             var mockWriter = new Mock<IResultLogWriter>();
             mockWriter.Setup(writer => writer.Initialize(It.IsAny<Run>()));

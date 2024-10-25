@@ -2,11 +2,12 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 {
     public class AdoProvideRequiredReportingDescriptorProperties
-        : BaseProvideRequiredResultProperties
+        : BaseProvideRequiredReportingDescriptorProperties
     {
         /// <summary>
         /// ADO2012
@@ -15,6 +16,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 
         public override MultiformatMessageString FullDescription => new MultiformatMessageString { Text = RuleResources.ADO2012_ProvideRequiredReportingDescriptorProperties_FullDescription_Text };
 
+        private readonly List<string> _messageResourceNames = new List<string>()
+        {
+            nameof(RuleResources.ADO2012_ProvideRequiredResultProperties_Error_MissingName_Text)
+        };
+
+        protected override ICollection<string> MessageResourceNames => _messageResourceNames.Concat(BaseMessageResourceNames).ToList();
+
         public override HashSet<RuleKind> RuleKinds => new HashSet<RuleKind>(new[] { RuleKind.Ado });
 
         protected override string ServiceName => RuleResources.ServiceName_ADO;
@@ -22,7 +30,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         public AdoProvideRequiredReportingDescriptorProperties()
         {
             this.DefaultConfiguration.Level = FailureLevel.Error;
-            this.MessageResourceNames.Add(nameof(RuleResources.ADO2012_ProvideRequiredResultProperties_Error_MissingName_Text));
         }
 
         protected override void Analyze(ReportingDescriptor reportingDescriptor, string reportingDescriptorPointer)

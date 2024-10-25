@@ -75,7 +75,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             const string TAB = "   ";
             var sb = new StringBuilder();
 
-            SortedDictionary<int, ReportingDescriptor> sortedRuleContexts = new SortedDictionary<int, ReportingDescriptor>();
+            var sortedRuleContexts = new SortedDictionary<int, ReportingDescriptor>();
 
             foreach (ReportingDescriptor rule in skimmers)
             {
@@ -128,7 +128,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
             log.Runs.Add(run);
 
-            SortedDictionary<int, ReportingDescriptor> sortedRules = new SortedDictionary<int, ReportingDescriptor>();
+            var sortedRules = new SortedDictionary<int, ReportingDescriptor>();
 
             foreach (ReportingDescriptor rule in skimmers)
             {
