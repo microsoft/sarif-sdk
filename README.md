@@ -1,3 +1,4 @@
+
 # sarif-sdk
 [![Build Status](https://dev.azure.com/mseng/1ES/_apis/build/status/microsoft.sarif-sdk?branchName=master)](https://dev.azure.com/mseng/1ES/_build/latest?definitionId=9978&branchName=main)
 [![Nuget](https://img.shields.io/nuget/v/Sarif.Sdk)](https://nuget.org/packages/Sarif.Sdk)
