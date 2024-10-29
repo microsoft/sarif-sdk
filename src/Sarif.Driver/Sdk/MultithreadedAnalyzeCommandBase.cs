@@ -8,6 +8,7 @@ using System.Collections.Immutable;
 using System.Diagnostics;
 using System.Diagnostics.Tracing;
 using System.IO;
+using System.IO.Compression;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -663,6 +664,32 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
                     string reason = $"its file path matched the global file deny regex: {globalContext.GlobalFilePathDenyRegex}";
                     Notes.LogFileSkipped(globalContext, filePath, reason);
+                    continue;
+                }
+
+                if (Path.GetExtension(filePath).IsArchiveByFileExtension())
+                {
+                    Stream stream = artifact.Stream;
+                    stream ??= new FileStream(filePath, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
+                    ZipArchive archive;
+
+                    try
+                    {
+                        archive = new ZipArchive(stream, ZipArchiveMode.Read, leaveOpen: true);
+                    }
+                    catch(InvalidDataException)
+                    {
+                        // TBD log corrupt zip file.
+                        continue;
+                    }
+
+                    var archiveArtifactProvider = new MultithreadedZipArchiveArtifactProvider(archive, 
+                                                                                              globalContext.FileSystem,
+                                                                                              artifact.Uri);
+
+                    TContext archiveContext = CreateScanTargetContext(globalContext);
+                    archiveContext.TargetsProvider = archiveArtifactProvider;
+                    await EnumerateFilesFromArtifactsProvider(archiveContext);
                     continue;
                 }
 

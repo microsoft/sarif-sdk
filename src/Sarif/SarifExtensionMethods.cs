@@ -253,12 +253,20 @@ namespace Microsoft.CodeAnalysis.Sarif
                 return newAbsoluteUri.AbsolutePath.Split('/').Last();
             }
 
+            if (uri.Query != null)
+            {
+                return uri.Query;
+            }
+
             return uri.AbsolutePath.Split('/').Last();
         }
 
         public static string GetFilePath(this Uri uri)
         {
-            return uri.IsAbsoluteUri ? uri.LocalPath : uri.OriginalString;
+            return uri.IsAbsoluteUri 
+                ? uri.Query != string.Empty ? $"/{uri.Query.Substring(1)}"
+                    : uri.IsFile ? uri.OriginalString : uri.AbsolutePath
+                : uri.OriginalString;
         }
 
         public static string FormatForVisualStudio(this Region region)

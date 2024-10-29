@@ -300,6 +300,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 {
                     path = uri.ToString();
                 }
+
+                if (uri.IsAbsoluteUri && uri.Query != string.Empty)
+                {
+                    path = $"[{path}]/{uri.Query.Substring(1)}";
+                }
             }
 
             return path;

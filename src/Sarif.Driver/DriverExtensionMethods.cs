@@ -10,7 +10,39 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 {
     public static class DriverExtensionMethods
     {
-        /// <summary>
+
+        public static bool IsArchiveByFileExtension(this string extension)
+        {
+            if (string.IsNullOrWhiteSpace(extension))
+            {
+                return false;
+            }
+
+            /* 
+             *  Open Packaging Conventions (OPC) files, which are essentially ZIP files with a specific structure.
+             *  
+             * .zip: Standard ZIP archive files.
+             * .jar: Java Archive files.
+             * .nupkg: NuGet package files, which are ZIP files containing .NET libraries and metadata.
+             * .docx: Microsoft Word documents (Office Open XML format).
+             * .xlsx: Microsoft Excel spreadsheets (Office Open XML format).
+             * .pptx: Microsoft PowerPoint presentations (Office Open XML format).
+             * .appx: Windows application packages.
+             * .vsix: Visual Studio extension packages
+             * 
+             */
+
+            return (extension == ".zip" ||
+                    extension == ".jar" ||
+                    extension == ".nupkg" ||
+                    extension == ".docx" ||
+                    extension == ".xlsx" ||
+                    extension == ".pptx" ||
+                    extension == ".appx" ||
+                    extension == ".vsix");            
+        }
+        
+        // <summary>
         /// Ensures the consistency of the command line options related to the location and format
         /// of the output file, and adjusts the options for ease of use.
         /// </summary>

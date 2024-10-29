@@ -3,6 +3,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.IO.Compression;
 
 namespace Microsoft.CodeAnalysis.Sarif
@@ -10,67 +11,42 @@ namespace Microsoft.CodeAnalysis.Sarif
     public class MultithreadedZipArchiveArtifactProvider : ArtifactProvider
     {
         private readonly ZipArchive zipArchive;
-        private ISet<string> binaryExtensions;
 
-        public ISet<string> BinaryExtensions
-        {
-            get
-            {
-                this.binaryExtensions ??= CreateDefaultBinaryExtensionsSet();
-                return this.binaryExtensions;
-            }
 
-            set { this.binaryExtensions = value; }
-        }
-
-        public MultithreadedZipArchiveArtifactProvider(ZipArchive zipArchive, IFileSystem fileSystem) : base(fileSystem)
+        public MultithreadedZipArchiveArtifactProvider(ZipArchive zipArchive, IFileSystem fileSystem, Uri uri = null) : base(fileSystem, uri)
         {
             this.zipArchive = zipArchive;
-        }
-
-        public ISet<string> CreateDefaultBinaryExtensionsSet()
-        {
-
-            ISet<string> result = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
-
-            result.Add(".bmp");
-            result.Add(".cab");
-            result.Add(".cer");
-            result.Add(".der");
-            result.Add(".dll");
-            result.Add(".exe");
-            result.Add(".gif");
-            result.Add(".gz");
-            result.Add(".iso");
-            result.Add(".jpe");
-            result.Add(".jpeg");
-            result.Add(".lock");
-            result.Add(".p12");
-            result.Add(".pack");
-            result.Add(".pfx");
-            result.Add(".pkcs12");
-            result.Add(".png");
-            result.Add(".psd");
-            result.Add(".rar");
-            result.Add(".tar");
-            result.Add(".tif");
-            result.Add(".tiff");
-            result.Add(".xcf");
-            result.Add(".zip");
-
-            return result;
         }
 
         public override IEnumerable<IEnumeratedArtifact> Artifacts
         {
             get
             {
-                foreach (ZipArchiveEntry entry in this.zipArchive.Entries)
+                System.Collections.ObjectModel.ReadOnlyCollection<ZipArchiveEntry> entries = null;
+                try
                 {
-                    yield return new ZipArchiveArtifact(this.zipArchive, entry, BinaryExtensions);
+                    entries = this.zipArchive.Entries;
+                }
+                catch (InvalidDataException ex)
+                {
+                    UnhandledException = ex;
+                }
+
+                if (entries == null) { yield break; }
+
+                foreach (ZipArchiveEntry entry in entries)
+                {
+                    if (entry.FullName.EndsWith("/") && entry.CompressedLength == 0)
+                    {
+                        // We have a directory entry. We don't want to return these,
+                        // as they can't be analyzed and will simply generate 
+                        // 'zero-byte file encountered' warnings.
+                        continue;
+                    }
+
+                    yield return new ZipArchiveArtifact(this.zipArchive, entry, ExtensionsDenyList, this.Uri);
                 }
             }
         }
     }
-
 }
