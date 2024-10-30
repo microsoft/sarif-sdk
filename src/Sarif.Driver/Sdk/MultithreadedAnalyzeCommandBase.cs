@@ -670,20 +670,20 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 if (Path.GetExtension(filePath).IsArchiveByFileExtension())
                 {
                     Stream stream = artifact.Stream;
-                    stream ??= new FileStream(filePath, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
+                    stream ??= FileSystem.FileOpenRead(filePath);
                     ZipArchive archive;
 
                     try
                     {
                         archive = new ZipArchive(stream, ZipArchiveMode.Read, leaveOpen: true);
                     }
-                    catch(InvalidDataException)
+                    catch (InvalidDataException)
                     {
                         // TBD log corrupt zip file.
                         continue;
                     }
 
-                    var archiveArtifactProvider = new ThreadsafeZipArtifactProvider(archive, 
+                    var archiveArtifactProvider = new ThreadsafeZipArtifactProvider(archive,
                                                                                               globalContext.FileSystem,
                                                                                               artifact.Uri);
 

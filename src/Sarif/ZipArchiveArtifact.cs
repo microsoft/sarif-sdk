@@ -26,7 +26,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             this.BaseUri = archiveUri;
             this.Uri = new Uri(entry.FullName, UriKind.RelativeOrAbsolute);
-         }
+        }
 
         public Uri BaseUri { get; set; }
 

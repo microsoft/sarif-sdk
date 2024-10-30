@@ -39,9 +39,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                     extension == ".xlsx" ||
                     extension == ".pptx" ||
                     extension == ".appx" ||
-                    extension == ".vsix");            
+                    extension == ".vsix");
         }
-        
+
         // <summary>
         /// Ensures the consistency of the command line options related to the location and format
         /// of the output file, and adjusts the options for ease of use.

@@ -4,6 +4,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.IO.Compression;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.InteropServices;
@@ -2143,11 +2144,27 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 mockFileSystem.Setup(x => x.FileReadAllText(It.Is<string>(f => f == fullyQualifiedName))).Returns(logFileContents);
 
                 mockFileSystem.Setup(x => x.FileOpenRead(It.Is<string>(f => f == fullyQualifiedName)))
-                    .Returns(new NonDisposingDelegatingStream(new MemoryStream(Encoding.UTF8.GetBytes(generateSameInput ? logFileContents : fileNameWithoutExtension))));
+                    .Returns(Path.GetExtension(fullyQualifiedName).IsArchiveByFileExtension()
+                        ? OpenTestZipArchiveStream(fileNameWithoutExtension, generateSameInput ? logFileContents : fileNameWithoutExtension)
+                        : new NonDisposingDelegatingStream(new MemoryStream(Encoding.UTF8.GetBytes(generateSameInput ? logFileContents : fileNameWithoutExtension))));
             }
             return mockFileSystem.Object;
         }
 
+        private static Stream OpenTestZipArchiveStream(string fileNameWithoutExtension, string logFileContents)
+        {
+            var stream = new MemoryStream();
+            using var populateArchive = new ZipArchive(stream, ZipArchiveMode.Create, leaveOpen: true);
+
+            ZipArchiveEntry entry = populateArchive.CreateEntry(fileNameWithoutExtension, CompressionLevel.NoCompression);
+            using (var errorWriter = new StreamWriter(entry.Open()))
+            {
+                errorWriter.WriteLine(logFileContents);
+            }
+
+            stream.Position = 0;
+            return stream;
+        }
         private static Run RunAnalyzeCommand(TestAnalyzeOptions options,
                                              ResultsCachingTestCase testCase)
         {

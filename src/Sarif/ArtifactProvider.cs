@@ -22,7 +22,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         }
 
         public Uri Uri => this.uri;
-       
+
         public virtual IEnumerable<IEnumeratedArtifact> Artifacts { get; set; }
 
         public IFileSystem FileSystem { get; set; }

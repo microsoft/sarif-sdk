@@ -87,7 +87,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
          */
         public override string Id => RuleId.RULEFRIENDLYNAME;
 
-        protected override IEnumerable<string> MessageResourceNames => new string[]
+        protected override IEnumerable<string> MessageResourceNames => new string []
         {
             /*
             * INSTRUCTIONS:
