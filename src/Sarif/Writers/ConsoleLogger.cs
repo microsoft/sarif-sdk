@@ -301,6 +301,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                     path = uri.ToString();
                 }
 
+                // We create a URI that uses the query string component to store
+                // the relative path for each archive element. See more expnded
+                // comment in ZipArchiveArtifact for thoughts on how to improve
+                // the situation.
                 if (uri.IsAbsoluteUri && uri.Query != string.Empty)
                 {
                     path = $"[{path}]/{uri.Query.Substring(1)}";

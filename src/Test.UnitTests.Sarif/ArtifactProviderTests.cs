@@ -24,7 +24,7 @@ namespace Test.UnitTests.Sarif
         {
             string entryContents = $"{Guid.NewGuid}";
             ZipArchive zip = CreateZipArchiveWithTextContents("test.txt", entryContents);
-            var artifactProvider = new MultithreadedZipArchiveArtifactProvider(zip, FileSystem.Instance);
+            var artifactProvider = new ThreadsafeZipArtifactProvider(zip, FileSystem.Instance);
 
             ValidateTextContents(artifactProvider.Artifacts, entryContents);
         }
@@ -42,7 +42,7 @@ namespace Test.UnitTests.Sarif
             // Note that even thought we populate an archive with binary contents, the extension
             // of the archive entry indicates a text file. We still expect binary data on expansion.
             ZipArchive zip = CreateZipArchiveWithBinaryContents("test.txt", data);
-            var artifactProvider = new MultithreadedZipArchiveArtifactProvider(zip, FileSystem.Instance);
+            var artifactProvider = new ThreadsafeZipArtifactProvider(zip, FileSystem.Instance);
 
             ValidateBinaryContents(artifactProvider.Artifacts, data);
         }
@@ -52,7 +52,7 @@ namespace Test.UnitTests.Sarif
         {
             string entryContents = $"{Guid.NewGuid()}";
             ZipArchive zip = CreateZipArchiveWithTextContents("test.txt", entryContents);
-            var artifactProvider = new MultithreadedZipArchiveArtifactProvider(zip, FileSystem.Instance);
+            var artifactProvider = new ThreadsafeZipArtifactProvider(zip, FileSystem.Instance);
 
             ValidateTextContents(artifactProvider.Artifacts, entryContents);
         }
@@ -68,7 +68,7 @@ namespace Test.UnitTests.Sarif
             reader.Read(data, 0, data.Length);
 
             ZipArchive zip = CreateZipArchiveWithBinaryContents("test.dll", data);
-            var artifactProvider = new MultithreadedZipArchiveArtifactProvider(zip, FileSystem.Instance);
+            var artifactProvider = new ThreadsafeZipArtifactProvider(zip, FileSystem.Instance);
             foreach (IEnumeratedArtifact artifact in artifactProvider.Artifacts)
             {
                 artifact.Bytes.Should().NotBeNull();
@@ -84,7 +84,7 @@ namespace Test.UnitTests.Sarif
         {
             string entryContents = $"{Guid.NewGuid()}";
             ZipArchive zip = CreateZipArchiveWithTextContents("test.csv", entryContents);
-            var artifactProvider = new MultithreadedZipArchiveArtifactProvider(zip, FileSystem.Instance);
+            var artifactProvider = new ThreadsafeZipArtifactProvider(zip, FileSystem.Instance);
 
             ValidateTextContents(artifactProvider.Artifacts, entryContents);
         }
@@ -97,7 +97,7 @@ namespace Test.UnitTests.Sarif
             string filePath = $"{Path.GetInvalidPathChars()[0]}{Path.GetInvalidFileNameChars()[1]}MyZippedFile.txt";
             ZipArchive zip = EnumeratedArtifactTests.CreateZipArchive(filePath, contents);
 
-            foreach (IEnumeratedArtifact entry in new MultithreadedZipArchiveArtifactProvider(zip, new FileSystem()).Artifacts)
+            foreach (IEnumeratedArtifact entry in new ThreadsafeZipArtifactProvider(zip, new FileSystem()).Artifacts)
             {
                 entry.IsBinary.Should().BeFalse();
                 entry.Contents.Should().BeEquivalentTo(text);

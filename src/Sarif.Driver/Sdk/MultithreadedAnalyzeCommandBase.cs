@@ -683,7 +683,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                         continue;
                     }
 
-                    var archiveArtifactProvider = new MultithreadedZipArchiveArtifactProvider(archive, 
+                    var archiveArtifactProvider = new ThreadsafeZipArtifactProvider(archive, 
                                                                                               globalContext.FileSystem,
                                                                                               artifact.Uri);
 

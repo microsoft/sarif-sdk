@@ -9,29 +9,28 @@ using System.Text;
 
 namespace Microsoft.CodeAnalysis.Sarif
 {
-
     public class ZipArchiveArtifact : IEnumeratedArtifact
     {
         private readonly ISet<string> binaryExtensions;
         private readonly ZipArchive archive;
         private ZipArchiveEntry entry;
-        private readonly Uri uri;
         private string contents;
         private byte[] bytes;
 
-        public ZipArchiveArtifact(ZipArchive archive, ZipArchiveEntry entry, ISet<string> binaryExtensions = null, Uri baseUri = null)
+        public ZipArchiveArtifact(ZipArchive archive, ZipArchiveEntry entry, ISet<string> binaryExtensions = null, Uri archiveUri = null)
         {
             this.entry = entry ?? throw new ArgumentNullException(nameof(entry));
             this.archive = archive ?? throw new ArgumentNullException(nameof(archive));
 
             this.binaryExtensions = binaryExtensions ?? new HashSet<string>();
 
-            this.uri = baseUri != null
-                ? new Uri($"{baseUri}?{entry.FullName}")
-                : new Uri(entry.FullName, UriKind.RelativeOrAbsolute);
+            this.BaseUri = archiveUri;
+            this.Uri = new Uri(entry.FullName, UriKind.RelativeOrAbsolute);
          }
 
-        public Uri Uri => this.uri;
+        public Uri BaseUri { get; set; }
+
+        public Uri Uri { get; set; }
 
         public bool IsBinary
         {

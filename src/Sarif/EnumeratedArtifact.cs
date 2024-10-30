@@ -23,6 +23,8 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         private Encoding encoding;
 
+        public Uri BaseUri { get; set; }
+
         public Uri Uri { get; set; }
 
         public bool IsBinary
