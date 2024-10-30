@@ -111,11 +111,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             ConsumeEnvVarsAndInterpretOptions((ExportRulesMetadataOptions)exportValidationRulesMetadataOptions);
         }
 
-        public void ConsumeEnvVarsAndInterpretOptions(FileWorkItemsOptions fileWorkItemsOptions)
-        {
-            ConsumeEnvVarsAndInterpretOptions((SingleFileOptionsBase)fileWorkItemsOptions);
-        }
-
         public void ConsumeEnvVarsAndInterpretOptions(ResultMatchingOptions resultMatchingOptions)
         {
             ConsumeEnvVarsAndInterpretOptions((CommonOptionsBase)resultMatchingOptions);

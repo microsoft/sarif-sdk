@@ -15,7 +15,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Sarif\Sarif.csproj" />
-    <ProjectReference Include="..\WorkItems\WorkItems.csproj" />
   </ItemGroup>
 
   <ItemGroup>

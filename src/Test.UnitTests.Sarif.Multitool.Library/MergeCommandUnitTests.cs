@@ -8,8 +8,6 @@ using System.Text;
 
 using FluentAssertions;
 
-using Microsoft.VisualStudio.Services.Common;
-
 using Moq;
 
 using Newtonsoft.Json;
@@ -288,8 +286,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             for (int i = 1; i <= numberOfResult; i++)
             {
                 string ruleId = createSubRule ? $"TESTRULE/00{i}" : $"TESTRULE00{i}";
-                run.Results.AddRange(
-                    RandomSarifLogGenerator.GenerateFakeResults(this.random, new List<string> { ruleId }, new List<Uri> { artifactUri }, 1));
+                foreach (Result fakeResult in RandomSarifLogGenerator.GenerateFakeResults(this.random, new List<string> { ruleId }, new List<Uri> { artifactUri }, 1))
+                {
+                    run.Results.Add(fakeResult);
+                }
             }
 
             return run;

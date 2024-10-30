@@ -13,9 +13,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Sarif.WorkItems\Sarif.WorkItems.csproj" />
     <ProjectReference Include="..\Sarif\Sarif.csproj" />
-    <ProjectReference Include="..\WorkItems\WorkItems.csproj" />
   </ItemGroup>
 
 </Project>

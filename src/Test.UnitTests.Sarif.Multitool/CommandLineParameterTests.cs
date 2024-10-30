@@ -54,7 +54,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 ConvertOptions,
                 ExportValidationConfigurationOptions,
                 ExportValidationRulesMetadataOptions,
-                FileWorkItemsOptions,
                 ResultMatchingOptions,
                 MergeOptions,
                 PageOptions,

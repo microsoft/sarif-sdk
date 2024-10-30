@@ -29,7 +29,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 ConvertOptions,
                 ExportValidationConfigurationOptions,
                 ExportValidationRulesMetadataOptions,
-                FileWorkItemsOptions,
                 ResultMatchingOptions,
                 MergeOptions,
                 PageOptions,
@@ -46,7 +45,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 .WithParsed<ConvertOptions>(x => { optionsInterpretter.ConsumeEnvVarsAndInterpretOptions(x); })
                 .WithParsed<ExportValidationConfigurationOptions>(x => { optionsInterpretter.ConsumeEnvVarsAndInterpretOptions(x); })
                 .WithParsed<ExportValidationRulesMetadataOptions>(x => { optionsInterpretter.ConsumeEnvVarsAndInterpretOptions(x); })
-                .WithParsed<FileWorkItemsOptions>(x => { optionsInterpretter.ConsumeEnvVarsAndInterpretOptions(x); })
                 .WithParsed<ResultMatchingOptions>(x => { optionsInterpretter.ConsumeEnvVarsAndInterpretOptions(x); })
                 .WithParsed<MergeOptions>(x => { optionsInterpretter.ConsumeEnvVarsAndInterpretOptions(x); })
                 .WithParsed<PageOptions>(x => { optionsInterpretter.ConsumeEnvVarsAndInterpretOptions(x); })
@@ -64,7 +62,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 (ConvertOptions convertOptions) => new ConvertCommand().Run(convertOptions),
                 (ExportValidationConfigurationOptions options) => new ExportValidationConfigurationCommand().Run(options),
                 (ExportValidationRulesMetadataOptions options) => new ExportValidationRulesMetadataCommand().Run(options),
-                (FileWorkItemsOptions fileWorkItemsOptions) => new FileWorkItemsCommand().Run(fileWorkItemsOptions),
                 (ResultMatchingOptions baselineOptions) => new ResultMatchingCommand().Run(baselineOptions),
                 (MergeOptions mergeOptions) => new MergeCommand().Run(mergeOptions),
                 (PageOptions pageOptions) => new PageCommand().Run(pageOptions),
