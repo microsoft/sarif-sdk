@@ -584,6 +584,23 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
                             currentResult = clonedResult;
                         }
+
+                        if (globalContext.CurrentTarget.BaseUri != null)
+                        {
+                            currentResult.Locations[0].LogicalLocations = new[] {
+                                new LogicalLocation
+                                {
+                                    FullyQualifiedName = globalContext.CurrentTarget.BaseUri.OriginalString,
+                                    Kind = LogicalLocationKind.Package,
+                                },
+                                new LogicalLocation
+                                {
+                                    FullyQualifiedName = globalContext.CurrentTarget.Uri.OriginalString,
+                                    ParentIndex = 0,
+                                },
+                            };
+                        }
+
                         globalContext.Logger.FileRegionsCache = cachingLogger.FileRegionsCache;
                         globalContext.Logger.Log(kv.Key, currentResult, tuple.Item2);
                     }

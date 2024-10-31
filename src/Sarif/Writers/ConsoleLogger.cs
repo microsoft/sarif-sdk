@@ -2,6 +2,7 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Text;
@@ -117,22 +118,40 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
             // TODO we need better retrieval for locations than these defaults.
             // Note that we can potentially emit many messages from a single result.
-            PhysicalLocation physicalLocation = result.Locations?.First().PhysicalLocation;
+            Location location = result.Locations?.First();
+            PhysicalLocation physicalLocation = location?.PhysicalLocation;
 
-            WriteLineToConsole(GetMessageText(_toolName, physicalLocation?.ArtifactLocation?.Uri, physicalLocation?.Region, result.RuleId, message, result.Kind, result.Level));
+            string path = location.LogicalLocations == null
+                ? ConstructPathFromUri(physicalLocation?.ArtifactLocation?.Uri)
+                : ConstructPackagePath(location.LogicalLocations);
+
+            message = GetMessageText(_toolName,
+                                     path,
+                                     physicalLocation?.Region,
+                                     result.RuleId,
+                                     message,
+                                     result.Kind,
+                                     result.Level);
+
+            WriteLineToConsole(message);
         }
 
-        public static string GetMessageText(
-            string toolName,
-            Uri uri,
-            Region region,
-            string ruleId,
-            string message,
-            ResultKind kind,
-            FailureLevel level)
+        private string ConstructPackagePath(IList<LogicalLocation> logicalLocations)
         {
-            string path = ConstructPathFromUri(uri);
+            string packageUri = logicalLocations[0].FullyQualifiedName;
+            string entryUri = logicalLocations[1].FullyQualifiedName;
 
+            return $"[{packageUri}] {entryUri}";
+        }
+
+        public static string GetMessageText(string toolName,
+                                            string path,
+                                            Region region,
+                                            string ruleId,
+                                            string message,
+                                            ResultKind kind,
+                                            FailureLevel level)
+        {            
             string issueType = null;
 
             switch (level)
