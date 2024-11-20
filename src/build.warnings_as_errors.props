@@ -1,0 +1,27 @@
+﻿<Project>
+  <!-- 
+    NOTE: We only turn on warnings-as-errors in Release because it hurts
+    iteration time in the IDE to error out while the code is still
+    work-in-progress.
+   -->
+  <PropertyGroup Label="WarningsAsErrors" Condition="'$(Configuration)' == 'Release'">
+    <!-- Treat compiler warnings as errors. -->
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+
+    <!-- Treat all build warnings as errors -->
+    <MSBuildTreatWarningsAsErrors>$(TreatWarningsAsErrors)</MSBuildTreatWarningsAsErrors> 
+
+    <!--
+      NU190X are security vulnerability warnings and can trigger without code
+      changes. Don't let them break the build.
+     -->
+    <WarningsNotAsErrors>$(WarningsNotAsErrors);NU1901;NU1902;NU1903;NU1904</WarningsNotAsErrors>
+    <MSBuildWarningsNotAsErrors>$(WarningsNotAsErrors)</MSBuildWarningsNotAsErrors>
+
+    <!--
+      We are not yet clean on new analysis introduced with .NET 9 SDK so lower
+      the analysis level when treating warnings as errors in Release.
+    -->
+    <AnalysisLevel>8</AnalysisLevel>
+  </PropertyGroup>
+</Project>

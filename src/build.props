@@ -2,7 +2,10 @@
 <Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 
   <PropertyGroup>
-    <LangVersion>8.0</LangVersion>
+    <LangVersion>latest</LangVersion>
+    <AnalysisMode>Default</AnalysisMode>
+    <AnalysisLevel>latest</AnalysisLevel>
+    <EnableNETAnalyzers>true</EnableNETAnalyzers>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
   </PropertyGroup>
 
@@ -18,10 +21,6 @@
 
     <!-- The stable version of the SARIF specification. -->
     <StableSarifVersion>2.1.0</StableSarifVersion>
-
-    <AnalysisLevel>latest</AnalysisLevel>
-    <LangVersion>latest</LangVersion>
-
     </PropertyGroup>
 
   <PropertyGroup Label="Build">
@@ -40,10 +39,6 @@
     <PackageOutputPath>$(MsBuildThisFileDirectory)..\bld\Publish\Nuget\$(Configuration)\</PackageOutputPath>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
-
-    <!-- These can change externally, breaking our build. -->
-    <WarningsNotAsErrors>NU1901;NU1902;NU1903;NU1904</WarningsNotAsErrors> 
     <HighEntropyVA>true</HighEntropyVA>
     <!-- The line causes the assemblies in a project's referenced NuGet packages to be
          copied to the output directory. If we omit it from a test project, the tests
@@ -118,9 +113,5 @@
     <SourceRoot Include="$(MSBuildThisFileDirectory)/" />
   </ItemGroup>
 
-  <PropertyGroup>
-    <EnableNETAnalyzers>True</EnableNETAnalyzers>
-    <AnalysisMode>Default</AnalysisMode>
-    <AnalysisLevel>latest</AnalysisLevel>
-  </PropertyGroup>
+  <Import Project="./build.warnings_as_errors.props" />
 </Project>
