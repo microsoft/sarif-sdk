@@ -122,14 +122,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             WriteLineToConsole(GetMessageText(_toolName, physicalLocation?.ArtifactLocation?.Uri, physicalLocation?.Region, result.RuleId, message, result.Kind, result.Level));
         }
 
-        public static string GetMessageText(
-            string toolName,
-            Uri uri,
-            Region region,
-            string ruleId,
-            string message,
-            ResultKind kind,
-            FailureLevel level)
+        public static string GetMessageText(string toolName,
+                                            Uri uri,
+                                            Region region,
+                                            string ruleId,
+                                            string message,
+                                            ResultKind kind,
+                                            FailureLevel level)
         {
             string path = ConstructPathFromUri(uri);
 
@@ -302,7 +301,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 }
             }
 
-            return path;
+            return $"{path}{uri?.Query}";
         }
     }
 }

@@ -8,6 +8,7 @@ using System.Collections.Immutable;
 using System.Diagnostics;
 using System.Diagnostics.Tracing;
 using System.IO;
+using System.IO.Compression;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -648,72 +649,106 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             return true;
         }
 
+        private async Task<bool> EnumerateArtifact(IEnumeratedArtifact artifact, TContext globalContext)
+        {
+            globalContext.CancellationToken.ThrowIfCancellationRequested();
+
+            string filePath = artifact.Uri.GetFilePath();
+
+            if (globalContext.CompiledGlobalFileDenyRegex?.Match(filePath).Success == true)
+            {
+                _filesMatchingGlobalFileDenyRegex++;
+                DriverEventSource.Log.ArtifactNotScanned(filePath, DriverEventNames.FilePathDenied, artifact.SizeInBytes.Value, globalContext.GlobalFilePathDenyRegex);
+
+                string reason = $"its file path matched the global file deny regex: {globalContext.GlobalFilePathDenyRegex}";
+                Notes.LogFileSkipped(globalContext, filePath, reason);
+                return false;
+            }
+
+            string extension = Path.GetExtension(filePath);
+            if (string.IsNullOrEmpty(artifact.Uri.Query) &&
+                extension.Equals(".zip", StringComparison.OrdinalIgnoreCase))
+            {
+                var context = new TContext();
+                context.Policy = globalContext.Policy;
+                context.Logger = globalContext.Logger;
+
+                var uri = new Uri(filePath, UriKind.RelativeOrAbsolute);
+                ZipArchive archive = null;
+
+                try
+                {
+                    archive = ZipFile.OpenRead(filePath);
+                }
+                catch(InvalidDataException)
+                {
+                    // TBD log exception 
+                    return false;
+                }
+
+                var artifactProvider = new MultithreadedZipArchiveArtifactProvider(uri, archive, globalContext.FileSystem);
+                context.TargetsProvider = artifactProvider;
+
+                await EnumerateFilesFromArtifactsProvider(context);
+                return true;
+            }
+
+            filePath = $"{filePath}{artifact.Uri.Query}";
+
+            if (artifact.SizeInBytes == 0)
+            {
+                DriverEventSource.Log.ArtifactNotScanned(filePath, DriverEventNames.EmptyFile, 00, data2: null);
+                Notes.LogEmptyFileSkipped(globalContext, filePath);
+                return true;
+            }
+
+            if (!IsTargetWithinFileSizeLimit(artifact.SizeInBytes.Value, globalContext.MaxFileSizeInKilobytes))
+            {
+                _filesExceedingSizeLimitCount++;
+                DriverEventSource.Log.ArtifactNotScanned(filePath, DriverEventNames.FileExceedsSizeLimits, artifact.SizeInBytes.Value, $"{globalContext.MaxFileSizeInKilobytes}");
+                Notes.LogFileExceedingSizeLimitSkipped(globalContext, filePath, artifact.SizeInBytes.Value / 1000);
+                return false;
+            }
+
+            TContext fileContext = CreateScanTargetContext(globalContext);
+
+            fileContext.Logger = new CachingLogger(globalContext.FailureLevels,
+                                                   globalContext.ResultKinds);
+
+            Debug.Assert(fileContext.Logger != null);
+            fileContext.CurrentTarget = artifact;
+            fileContext.CancellationToken = globalContext.CancellationToken;
+
+            lock (globalContext)
+            {
+                // We need to generate this event on the global logger, though as
+                // a result this event means 'target enumerated for analysis'
+                // rather than literally 'we are analyzing the target'.
+                //
+                // This call needs to be protected with a lock as the actual
+                // logging occurs on a separated thread.
+                globalContext.Logger.AnalyzingTarget(fileContext);
+            }
+
+            bool added = _fileContexts.TryAdd(_fileContextsCount, fileContext);
+            Debug.Assert(added);
+
+            if (_fileContextsCount == 0)
+            {
+                DriverEventSource.Log.FirstArtifactQueued(fileContext.CurrentTarget.Uri.GetFilePath());
+            }
+
+            await readyToScanChannel.Writer.WriteAsync(_fileContextsCount++);
+
+            return true;
+        }
+
         private async Task<bool> EnumerateFilesFromArtifactsProvider(TContext globalContext)
         {
             foreach (IEnumeratedArtifact artifact in globalContext.TargetsProvider.Artifacts)
             {
-                globalContext.CancellationToken.ThrowIfCancellationRequested();
-
-                string filePath = artifact.Uri.GetFilePath();
-
-                if (globalContext.CompiledGlobalFileDenyRegex?.Match(filePath).Success == true)
-                {
-                    _filesMatchingGlobalFileDenyRegex++;
-                    DriverEventSource.Log.ArtifactNotScanned(filePath, DriverEventNames.FilePathDenied, artifact.SizeInBytes.Value, globalContext.GlobalFilePathDenyRegex);
-
-                    string reason = $"its file path matched the global file deny regex: {globalContext.GlobalFilePathDenyRegex}";
-                    Notes.LogFileSkipped(globalContext, filePath, reason);
-                    continue;
-                }
-
-                if (artifact.SizeInBytes == 0)
-                {
-                    DriverEventSource.Log.ArtifactNotScanned(filePath, DriverEventNames.EmptyFile, 00, data2: null);
-                    Notes.LogEmptyFileSkipped(globalContext, filePath);
-                    continue;
-                }
-
-                if (!IsTargetWithinFileSizeLimit(artifact.SizeInBytes.Value, globalContext.MaxFileSizeInKilobytes))
-                {
-                    _filesExceedingSizeLimitCount++;
-                    DriverEventSource.Log.ArtifactNotScanned(filePath, DriverEventNames.FileExceedsSizeLimits, artifact.SizeInBytes.Value, $"{globalContext.MaxFileSizeInKilobytes}");
-                    Notes.LogFileExceedingSizeLimitSkipped(globalContext, artifact.Uri.GetFilePath(), artifact.SizeInBytes.Value / 1000);
-                    continue;
-                }
-
-                TContext fileContext = CreateScanTargetContext(globalContext);
-
-                fileContext.Logger =
-                    new CachingLogger(globalContext.FailureLevels,
-                                      globalContext.ResultKinds);
-
-                Debug.Assert(fileContext.Logger != null);
-                fileContext.CurrentTarget = artifact;
-                fileContext.CancellationToken = globalContext.CancellationToken;
-
-                lock (globalContext)
-                {
-                    // We need to generate this event on the global logger, though as
-                    // a result this event means 'target enumerated for analysis'
-                    // rather than literally 'we are analyzing the target'.
-                    //
-                    // This call needs to be protected with a lock as the actual
-                    // logging occurs on a separated thread.
-                    globalContext.Logger.AnalyzingTarget(fileContext);
-                }
-
-                bool added = _fileContexts.TryAdd(_fileContextsCount, fileContext);
-                Debug.Assert(added);
-
-                if (_fileContextsCount == 0)
-                {
-                    DriverEventSource.Log.FirstArtifactQueued(fileContext.CurrentTarget.Uri.GetFilePath());
-                }
-
-                await readyToScanChannel.Writer.WriteAsync(_fileContextsCount++);
+                await EnumerateArtifact(artifact, globalContext);
             }
-
-            // TBD get all skipped artifacts.
 
             return true;
         }
