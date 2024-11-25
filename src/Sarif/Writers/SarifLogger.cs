@@ -120,7 +120,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             _run.Tool ??= Tool.CreateFromAssemblyData();
             _dataToInsert = dataToInsert;
             _dataToRemove = dataToRemove;
-            _issueLogJsonWriter.Initialize(_run);
+
+
+            if (_issueLogJsonWriter != null)
+            {
+                lock (_issueLogJsonWriter)
+                {
+                    _issueLogJsonWriter?.Initialize(_run);
+                }
+            }
 
             // Map existing Rules to ensure duplicates aren't created
             if (_run.Tool.Extensions != null)
@@ -295,17 +303,23 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             // still needs to be disposed or closed to write the results
             if (_issueLogJsonWriter != null)
             {
-                _issueLogJsonWriter.CloseResults();
-
-                if (_run?.Invocations?.Count > 0 && _run.Invocations[0].StartTimeUtc != new DateTime() &&
-                    !_dataToRemove.HasFlag(OptionallyEmittedData.NondeterministicProperties))
+                lock (_issueLogJsonWriter)
                 {
-                    _run.Invocations[0].EndTimeUtc = DateTime.UtcNow;
-                }
+                    if (_issueLogJsonWriter != null)
+                    {
+                        _issueLogJsonWriter.CloseResults();
 
-                _issueLogJsonWriter.CompleteRun();
-                _issueLogJsonWriter.Dispose();
-                _issueLogJsonWriter = null;
+                        if (_run?.Invocations?.Count > 0 && _run.Invocations[0].StartTimeUtc != new DateTime() &&
+                            !_dataToRemove.HasFlag(OptionallyEmittedData.NondeterministicProperties))
+                        {
+                            _run.Invocations[0].EndTimeUtc = DateTime.UtcNow;
+                        }
+
+                        _issueLogJsonWriter.CompleteRun();
+                        _issueLogJsonWriter.Dispose();
+                        _issueLogJsonWriter = null;
+                    }
+                }
             }
 
             if (_closeWriterOnDispose)
@@ -322,7 +336,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
         public void AnalysisStarted()
         {
-            _issueLogJsonWriter.OpenResults();
+            if (_issueLogJsonWriter != null)
+            {
+                lock (_issueLogJsonWriter)
+                {
+                    _issueLogJsonWriter?.OpenResults();
+                }
+            }
         }
 
         public void AnalysisStopped(RuntimeConditions runtimeConditions)
@@ -376,7 +396,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
             _insertOptionalDataVisitor?.Visit(result);
 
-            _issueLogJsonWriter.WriteResult(result);
+            if (_issueLogJsonWriter != null)
+            {
+                lock (_issueLogJsonWriter)
+                {
+                    _issueLogJsonWriter?.WriteResult(result);
+                }
+            }
         }
 
         private int LogRule(ReportingDescriptor rule)

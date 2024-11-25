@@ -9,26 +9,28 @@ using System.Text;
 
 namespace Microsoft.CodeAnalysis.Sarif
 {
-
     public class ZipArchiveArtifact : IEnumeratedArtifact
     {
         private readonly ISet<string> binaryExtensions;
         private readonly ZipArchive archive;
         private ZipArchiveEntry entry;
-        private readonly Uri uri;
         private string contents;
         private byte[] bytes;
 
-        public ZipArchiveArtifact(ZipArchive archive, ZipArchiveEntry entry, ISet<string> binaryExtensions = null)
+        public ZipArchiveArtifact(ZipArchive archive, ZipArchiveEntry entry, ISet<string> binaryExtensions = null, Uri archiveUri = null)
         {
             this.entry = entry ?? throw new ArgumentNullException(nameof(entry));
             this.archive = archive ?? throw new ArgumentNullException(nameof(archive));
 
             this.binaryExtensions = binaryExtensions ?? new HashSet<string>();
-            this.uri = new Uri(entry.FullName, UriKind.RelativeOrAbsolute);
+
+            this.BaseUri = archiveUri;
+            this.Uri = new Uri(entry.FullName, UriKind.RelativeOrAbsolute);
         }
 
-        public Uri Uri => this.uri;
+        public Uri BaseUri { get; set; }
+
+        public Uri Uri { get; set; }
 
         public bool IsBinary
         {
@@ -50,7 +52,14 @@ namespace Microsoft.CodeAnalysis.Sarif
 
                 lock (this.archive)
                 {
-                    return entry.Open();
+                    try
+                    {
+                        return entry.Open();
+                    }
+                    catch (InvalidDataException)
+                    {
+                        return new MemoryStream();
+                    }
                 }
             }
             set => throw new NotImplementedException();
@@ -95,7 +104,16 @@ namespace Microsoft.CodeAnalysis.Sarif
                         var peekable = new PeekableStream(this.Stream, PeekWindowBytes);
 
                         byte[] header = new byte[PeekWindowBytes];
-                        int readLength = this.Stream.Read(header, 0, header.Length);
+                        int readLength = 0;
+
+                        try
+                        {
+                            readLength = this.Stream.Read(header, 0, header.Length);
+                        }
+                        catch (InvalidDataException)
+                        {
+                            return (string.Empty, Array.Empty<byte>());
+                        }
 
                         bool isText = FileEncoding.IsTextualData(header, 0, readLength);
 
