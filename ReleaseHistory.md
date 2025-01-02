@@ -3,9 +3,11 @@
 ## UNRELEASED
 * BRK: Remove defunct and unsupported `kusto` command in `Sarif.Multitool`.
 * DEP: Remove dependency on `Microsoft.Azure.Kusto.Data`.
-* DEP: Update `Azure.Identity` reference from 1.10.2 to 1.11.0 in `WorkItems` and `Sarif.Multitool.Library` to resolve [CVE-2024-29992](https://github.com/advisories/GHSA-wvxc-855f-jvrv).
+* DEP: Update `Azure.Identity` reference from 1.10.2 to 1.12.1 in `WorkItems` and `Sarif.Multitool.Library` to resolve [CVE-2024-29992](https://github.com/advisories/GHSA-wvxc-855f-jvrv) and other CVEs.
+* DEP: Update `Azure.Core` from 1.35.0 to 1.41.0 to satisfy minimum requirement of `Azure.Identity` 1.12.1 that also has no vulnerabilities.
 * BUG: Resolve process hangs when a file path is provided with a wildcard, but without a `-r` (recurse) flag during the multi-threaded analysis file enumeration phase.
 * BUG: Fix error `ERR997.NoValidAnalysisTargets` when scanning symbolic link files.
+* BUG: Fix `ERR999.UnhandledEngineException: System.IO.FileNotFoundException: Could not find file` when a file name or directory path contains URL-encoded characters.
 
 ## **v4.5.4 [Sdk](https://www.nuget.org/packages/Sarif.Sdk/v4.5.4) | [Driver](https://www.nuget.org/packages/Sarif.Driver/v4.5.4) | [Converters](https://www.nuget.org/packages/Sarif.Converters/v4.5.4)  | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/v4.5.4) | [Multitool Library](https://www.nuget.org/packages/Sarif.Multitool.Library/v4.5.4)
 * BUG: Fix incorrect base class in rule ADO2012.

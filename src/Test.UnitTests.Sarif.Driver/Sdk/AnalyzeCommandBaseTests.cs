@@ -831,14 +831,25 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         }
 
         [Fact]
-        [Trait(TestTraits.WindowsOnly, "true")]
         public void AnalyzeCommand_EncodedPaths()
         {
             var logger = new MemoryStreamSarifLogger(dataToInsert: OptionallyEmittedData.Hashes);
             var command = new TestMultithreadedAnalyzeCommand();
-            var uri = new Uri("/new folder/0%1%20%.txt", UriKind.Relative);
+            string path = @"C:\new folder\repro%2DCopy2.txt";
+            var uri = new Uri(path, UriKind.Absolute);
 
-            var target = new EnumeratedArtifact(FileSystem.Instance) { Uri = uri, Contents = "foo foo" };
+            string content = "foo foo";
+            var mockFileSystem = new Mock<IFileSystem>();
+            mockFileSystem.Setup(x => x.IsSymbolicLink(path)).Returns(false);
+            mockFileSystem.Setup(x => x.FileStreamLength(path)).Returns(content.Length);
+            mockFileSystem.Setup(x => x.FileInfoLength(path)).Returns(content.Length);
+            mockFileSystem.Setup(x => x.FileReadAllText(path)).Returns(content);
+            mockFileSystem.Setup(x => x.FileOpenRead(path)).Returns(new MemoryStream(Encoding.UTF8.GetBytes(content)));
+
+            var target = new EnumeratedArtifact(mockFileSystem.Object)
+            {
+                Uri = uri
+            };
 
             var options = new TestAnalyzeOptions
             {

@@ -82,6 +82,7 @@ param(
 Set-StrictMode -Version Latest
 $ErrorActionPreference = "Stop"
 $InformationPreference = "Continue"
+$OnWindows = $Env:OS -eq 'Windows_NT'
 $NonWindowsOptions = @{}
 
 $ScriptName = $([io.Path]::GetFileNameWithoutExtension($PSCommandPath))
@@ -94,7 +95,7 @@ function Invoke-DotNetBuild($solutionFileRelativePath) {
     Write-Information "Building $solutionFileRelativePath..."
 
     $solutionFilePath = Join-Path $SourceRoot $solutionFileRelativePath
-    & dotnet build $solutionFilePath --configuration $Configuration --verbosity $BuildVerbosity --no-incremental -bl -p:WarningsAsErrors="MSB3277" /p:EnforceCodeStyleInBuild=true
+    & dotnet build $solutionFilePath --configuration $Configuration --verbosity $BuildVerbosity --no-incremental -bl /p:EnforceCodeStyleInBuild=true
     
     if ($LASTEXITCODE -ne 0) {
         Exit-WithFailureMessage $ScriptName "Build of $solutionFilePath failed."
@@ -106,6 +107,9 @@ function Invoke-DotNetBuild($solutionFileRelativePath) {
 function Publish-Application($project, $framework) {
     Write-Information "Publishing $project for $framework ..."
     dotnet publish $SourceRoot\$project\$project.csproj --no-build --configuration $Configuration --framework $framework
+    if ($LASTEXITCODE -ne 0) {
+        Exit-WithFailureMessage $ScriptName "Publish failed."
+    }
 }
 
 # Create a directory populated with the binaries that need to be signed.
@@ -216,13 +220,13 @@ if (-not $?) {
 
 if (-not $NoBuild) {
     Invoke-DotNetBuild $SolutionFile
-    if ($ENV:OS) {
+    if ($OnWindows) {
         Invoke-DotNetBuild $sampleSolutionFile
     }
 }
 
 if (-not $NoTest) {
-    if (-not $ENV:OS) {
+    if (-not $OnWindows) {
         $NonWindowsOptions = @{ "-filter" = "WindowsOnly!=true" }
     }
     & dotnet test $SourceRoot\$SolutionFile --no-build --configuration $Configuration @NonWindowsOptions
@@ -231,7 +235,7 @@ if (-not $NoTest) {
     }
 }
 
-if (-not $NoPublish) {
+if (-not $NoPublish -and $OnWindows) {  # Can't publish on non-windows due to not building net4x assets
     foreach ($project in $Projects.Applications) {
         foreach ($framework in $Frameworks.Application) {
             Publish-Application $project $framework
@@ -243,9 +247,9 @@ if (-not $NoSigningDirectory) {
     New-SigningDirectory
 }
 
-if (-not $NoPackage) {
+if (-not $NoPackage -and $OnWindows) { # Can't package on non-windows due to not building net4x assets
     & dotnet pack $SourceRoot\$SolutionFile --no-build --configuration $Configuration
-    if ($ENV:OS -and $LASTEXITCODE -ne 0) {
+    if ($LASTEXITCODE -ne 0) {
         Exit-WithFailureMessage $ScriptName "Package failed."
     }
 }

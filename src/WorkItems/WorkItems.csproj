@@ -25,23 +25,24 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Azure.Identity" Version="1.11.0" />
-    <PackageReference Include="Microsoft.Data.SqlClient" Version="2.1.7" />
-    <PackageReference Include="Microsoft.Extensions.Configuration.EnvironmentVariables" Version="3.1.2" />
-    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="3.1.2" />
-    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="3.1.2" />
-    <PackageReference Include="Microsoft.Extensions.Logging.ApplicationInsights" Version="2.20.0" />
-    <PackageReference Include="Microsoft.Extensions.Logging.Console" Version="3.1.2" />
-    <PackageReference Include="Microsoft.Json.Schema" Version="2.1.0" />
-    <PackageReference Include="Microsoft.Json.Schema.Validation" Version="2.1.0" />
-    <PackageReference Include="Microsoft.TeamFoundationServer.Client" Version="16.170.0" />
-    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All" />
-    <PackageReference Include="System.Data.SqlClient" Version="4.8.6" />
-    <PackageReference Include="System.Text.Encodings.Web" Version="5.0.1" />
+    <PackageReference Include="Azure.Identity" />
+    <PackageReference Include="Azure.Core" />
+    <PackageReference Include="Microsoft.Data.SqlClient" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.EnvironmentVariables"  />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Json" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" />
+    <PackageReference Include="Microsoft.Extensions.Logging.ApplicationInsights"  />
+    <PackageReference Include="Microsoft.Extensions.Logging.Console" />
+    <PackageReference Include="Microsoft.Json.Schema" />
+    <PackageReference Include="Microsoft.Json.Schema.Validation" />
+    <PackageReference Include="Microsoft.TeamFoundationServer.Client" />
+    <PackageReference Include="Microsoft.SourceLink.GitHub" PrivateAssets="All" />
+    <PackageReference Include="System.Data.SqlClient" />
+    <PackageReference Include="System.Text.Encodings.Web" />
 
     <!-- We have to ship pre-patch versions of NewtonSoft for VisualStudio SDK. 
          We mitigate risk by limiting nesting depth. -->
-    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" NoWarn="NU1903" />
+    <PackageReference Include="Newtonsoft.Json" VersionOverride="12.0.3" NoWarn="NU1903" />
   </ItemGroup>
 
   <ItemGroup>

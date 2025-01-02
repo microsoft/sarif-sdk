@@ -15,17 +15,18 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Azure.Identity" Version="1.11.0" />
-    <PackageReference Include="Microsoft.Data.SqlClient" Version="2.1.7" />
-    <PackageReference Include="Microsoft.Json.Pointer" Version="2.1.0" />
-    <PackageReference Include="Microsoft.Json.Schema" Version="2.1.0" />
-    <PackageReference Include="Microsoft.Json.Schema.Validation" Version="2.1.0" />
-    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All" />
-    <PackageReference Include="System.Threading.Channels" Version="5.0.0" />
+    <PackageReference Include="Azure.Identity" />
+    <PackageReference Include="Azure.Core" />
+    <PackageReference Include="Microsoft.Data.SqlClient" />
+    <PackageReference Include="Microsoft.Json.Pointer" />
+    <PackageReference Include="Microsoft.Json.Schema" />
+    <PackageReference Include="Microsoft.Json.Schema.Validation" />
+    <PackageReference Include="Microsoft.SourceLink.GitHub" PrivateAssets="All" />
+    <PackageReference Include="System.Threading.Channels" />
 
     <!-- We have to ship pre-patch versions of NewtonSoft for VisualStudio SDK. 
          We mitigate risk by limiting nesting depth. -->
-    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" NoWarn="NU1903" />
+    <PackageReference Include="Newtonsoft.Json" VersionOverride="12.0.3" NoWarn="NU1903" />
   </ItemGroup>
 
   <ItemGroup>
