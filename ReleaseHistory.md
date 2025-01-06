@@ -1,10 +1,11 @@
 # SARIF Package Release History (SDK, Driver, Converters, and Multitool)
 
-## UNRELEASED
+## 4.6.0 UNRELEASED
 * BRK: Remove defunct and unsupported `kusto` command in `Sarif.Multitool`.
 * DEP: Remove dependency on `Microsoft.Azure.Kusto.Data`.
-* DEP: Update `Azure.Identity` reference from 1.10.2 to 1.12.1 in `WorkItems` and `Sarif.Multitool.Library` to resolve [CVE-2024-29992](https://github.com/advisories/GHSA-wvxc-855f-jvrv) and other CVEs.
-* DEP: Update `Azure.Core` from 1.35.0 to 1.41.0 to satisfy minimum requirement of `Azure.Identity` 1.12.1 that also has no vulnerabilities.
+* DEP: Update `Azure.Identity` reference from 1.10.2 to 1.13.1 in `WorkItems` and `Sarif.Multitool.Library` to resolve [CVE-2024-29992](https://github.com/advisories/GHSA-wvxc-855f-jvrv) and other CVEs.
+* DEP: Update `Azure.Core` from 1.35.0 to 1.41.1 to satisfy minimum requirement of `Azure.Identity` 1.12.1 (that has no known vulnerabilities).
+* DEP: Update all `Newtonsoft.Json` references from 12.0.3 to 13.0.3 to resolve [CVE-2024-21907](https://nvd.nist.gov/vuln/detail/CVE-2024-21907).
 * BUG: Resolve process hangs when a file path is provided with a wildcard, but without a `-r` (recurse) flag during the multi-threaded analysis file enumeration phase.
 * BUG: Fix error `ERR997.NoValidAnalysisTargets` when scanning symbolic link files.
 * BUG: Fix `ERR999.UnhandledEngineException: System.IO.FileNotFoundException: Could not find file` when a file name or directory path contains URL-encoded characters.
@@ -13,10 +14,10 @@
 * BUG: Fix incorrect base class in rule ADO2012.
 
 ## **v4.5.3 [Sdk](https://www.nuget.org/packages/Sarif.Sdk/v4.5.3) | [Driver](https://www.nuget.org/packages/Sarif.Driver/v4.5.3) | [Converters](https://www.nuget.org/packages/Sarif.Converters/v4.5.3)  | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/v4.5.3) | [Multitool Library](https://www.nuget.org/packages/Sarif.Multitool.Library/v4.5.3)
-* BUG: Restructure shared MessageResourceNames collections to ensure return of correct error messages.
+* BUG: Restructure shared `MessageResourceNames` collections to ensure return of correct error messages.
 
 ## **v4.5.2 [Sdk](https://www.nuget.org/packages/Sarif.Sdk/v4.5.2) | [Driver](https://www.nuget.org/packages/Sarif.Driver/v4.5.2) | [Converters](https://www.nuget.org/packages/Sarif.Converters/v4.5.2)  | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/v4.5.2) | [Multitool Library](https://www.nuget.org/packages/Sarif.Multitool.Library/v4.5.2)
-* BUG: Update Skimmer stack in Multitool.Library to support shared MessageResourceNames collections between base rules and their derivatives.
+* BUG: Update `Skimmer` stack in `Multitool.Library` to support shared `MessageResourceNames` collections between base rules and their derivatives.
 * BUG: Fix message strings to always assume {1} is reserved for the rule's service name.
 * BUG: Clean up unused resource strings in Multitool.Library.Rules.RuleResources.resx.
 
