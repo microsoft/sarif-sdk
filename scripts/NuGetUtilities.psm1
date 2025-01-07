@@ -13,7 +13,7 @@ $InformationPreference = "Continue"
 Import-Module $PSScriptRoot\ScriptUtilities.psm1
 Import-Module $PSScriptRoot\Projects.psm1
 
-$NugetExePath = "dotnet nuget"
+$NugetExePath = "nuget"
 if ($ENV:OS) {
     $NugetExePath = "$RepoRoot\.nuget\NuGet.exe"
 }
@@ -70,9 +70,9 @@ function New-NuGetPackageFromNuSpecFile($configuration, $project, $version, $suf
         $arguments += "-Suffix", $Suffix
     }
 
-    Write-CommandLine $NuGetExePath $arguments
+    Write-CommandLine dotnet nuget $arguments
 
-    & $NuGetExePath $arguments
+    & dotnet nuget $arguments
     if ($LASTEXITCODE -ne 0) {
         Exit-WithFailureMessage $ScriptName "$project NuGet package creation failed."
     }
@@ -123,9 +123,9 @@ function Set-NuGetApiKey {
     $apiKey = Get-NuGetApiKey
 
     $arguments = "SetApiKey", $apiKey, "-Source", $PackageSource, "-Verbosity", "quiet"
-    Write-CommandLine $NuGetExePath $arguments
+    Write-CommandLine dotnet nuget $arguments
 
-    & $NugetExePath $arguments
+    & dotnet nuget $arguments
     if ($LASTEXITCODE -ne 0) {
         Exit-WithFailureMessage $ScriptName "Could not set NuGet API key."
     }
@@ -133,9 +133,9 @@ function Set-NuGetApiKey {
 
 function Hide-NuGetPackage($project, $version) {
     $arguments = "delete", $project, $version, "-Source", $PackageSource
-    Write-CommandLine $NuGetExePath $arguments
+    Write-CommandLine dotnet nuget $arguments
 
-    & $NugetExePath $arguments
+    & dotnet nuget $arguments
     if ($LASTEXITCODE -ne 0) {
         Exit-WithFailureMessage $ScriptName "Could not delist NuGet package $project $version."
     }

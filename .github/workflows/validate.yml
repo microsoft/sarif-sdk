@@ -7,12 +7,6 @@ on:
 
 jobs:
   #########################################################################
-  prep:
-      runs-on: ubuntu-latest
-      steps:
-        - name: Setup mono
-          uses: mono/mono-tools
-
   build-and-test:
     strategy:
       matrix:
