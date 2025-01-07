@@ -39,10 +39,7 @@
     <PackageReference Include="Microsoft.SourceLink.GitHub" PrivateAssets="All" />
     <PackageReference Include="System.Data.SqlClient" />
     <PackageReference Include="System.Text.Encodings.Web" />
-
-    <!-- We have to ship pre-patch versions of NewtonSoft for VisualStudio SDK. 
-         We mitigate risk by limiting nesting depth. -->
-    <PackageReference Include="Newtonsoft.Json" VersionOverride="12.0.3" NoWarn="NU1903" />
+    <PackageReference Include="Newtonsoft.Json" />
   </ItemGroup>
 
   <ItemGroup>
