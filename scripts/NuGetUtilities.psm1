@@ -13,7 +13,7 @@ $InformationPreference = "Continue"
 Import-Module $PSScriptRoot\ScriptUtilities.psm1
 Import-Module $PSScriptRoot\Projects.psm1
 
-$NugetExePath = "nuget"
+$NugetExePath = "dotnet nuget"
 if ($ENV:OS) {
     $NugetExePath = "$RepoRoot\.nuget\NuGet.exe"
 }
