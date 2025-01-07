@@ -26,6 +26,9 @@ jobs:
           3.1.x
           6.0.x
 
+    - name: Setup nuget
+      uses: nuget/setup-nuget@v2
+
     - name: Show dotnet info
       run: dotnet --info
 
