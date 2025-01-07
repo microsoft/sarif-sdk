@@ -5,6 +5,7 @@
 * DEP: Remove dependency on `Microsoft.Azure.Kusto.Data`.
 * DEP: Update `Azure.Identity` reference from 1.10.2 to 1.13.1 in `WorkItems` and `Sarif.Multitool.Library` to resolve [CVE-2024-29992](https://github.com/advisories/GHSA-wvxc-855f-jvrv) and other CVEs.
 * DEP: Update `Azure.Core` from 1.35.0 to 1.41.1 to satisfy minimum requirement of `Azure.Identity` 1.12.1 (that has no known vulnerabilities).
+* DEP: Update `System.Text.Encodings.Web` from 5.0.1 to 6.0.0 (required by transitive closure of dependency requirements from other updates).
 * DEP: Update all `Newtonsoft.Json` references from 12.0.3 to 13.0.3 to resolve [CVE-2024-21907](https://nvd.nist.gov/vuln/detail/CVE-2024-21907).
 * BUG: Resolve process hangs when a file path is provided with a wildcard, but without a `-r` (recurse) flag during the multi-threaded analysis file enumeration phase.
 * BUG: Fix error `ERR997.NoValidAnalysisTargets` when scanning symbolic link files.
