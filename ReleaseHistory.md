@@ -7,7 +7,7 @@
 * DEP: Update `Azure.Core` from 1.35.0 to 1.41.1 to satisfy minimum requirement of `Azure.Identity` 1.12.1 (that has no known vulnerabilities).
 * DEP: Update `System.Text.Encodings.Web` from 5.0.1 to 6.0.0 (required by transitive closure of dependency requirements from other updates).
 * DEP: Update all `Newtonsoft.Json` references from 12.0.3 to 13.0.3 to resolve [CVE-2024-21907](https://nvd.nist.gov/vuln/detail/CVE-2024-21907).
-* DEP: Update `Microsoft.Data.SqlClient` from 2.1.7 to 5.2.2 so its dependencies `Microsoft.IdentityModel.JsonWebTokens` and `System.IdentityModel.Tokens.Jwt` upgrade to non-vulnerable version 6.35.0.
+* DEP: Update `Microsoft.Data.SqlClient` from 2.1.7 to 5.2.2 so its dependencies `Microsoft.IdentityModel.JsonWebTokens` and `System.IdentityModel.Tokens.Jwt` upgrade to non-vulnerable version 6.35.0 (https://github.com/dotnet/aspnetcore/security/advisories/GHSA-59j7-ghrg-fj52).
 * BUG: Resolve process hangs when a file path is provided with a wildcard, but without a `-r` (recurse) flag during the multi-threaded analysis file enumeration phase.
 * BUG: Fix error `ERR997.NoValidAnalysisTargets` when scanning symbolic link files.
 * BUG: Fix `ERR999.UnhandledEngineException: System.IO.FileNotFoundException: Could not find file` when a file name or directory path contains URL-encoded characters.
