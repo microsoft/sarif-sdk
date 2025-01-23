@@ -9,6 +9,8 @@ namespace Microsoft.CodeAnalysis.Sarif
 {
     public interface IEnumeratedArtifact
     {
+        Uri BaseUri { get; }
+
         Uri Uri { get; }
 
         bool IsBinary { get; }
