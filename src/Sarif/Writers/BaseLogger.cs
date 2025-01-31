@@ -8,10 +8,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 {
     public abstract class BaseLogger
     {
-        public readonly static FailureLevelSet ErrorWarningNote = new FailureLevelSet(new[] { FailureLevel.Error, FailureLevel.Warning, FailureLevel.Note });
-        public readonly static FailureLevelSet ErrorWarning = new FailureLevelSet(new[] { FailureLevel.Error, FailureLevel.Warning });
+        public readonly static FailureLevelSet ErrorWarningNote = new FailureLevelSet([FailureLevel.Error, FailureLevel.Warning, FailureLevel.Note]);
+        public readonly static FailureLevelSet ErrorWarning = new FailureLevelSet([FailureLevel.Error, FailureLevel.Warning]);
 
-        public readonly static ResultKindSet Fail = new ResultKindSet(new List<ResultKind>(new[] { ResultKind.Fail }));
+        public readonly static ResultKindSet Fail = new ResultKindSet(new List<ResultKind>([ResultKind.Fail]));
 
         protected readonly FailureLevelSet _failureLevels;
         protected readonly ResultKindSet _resultKinds;

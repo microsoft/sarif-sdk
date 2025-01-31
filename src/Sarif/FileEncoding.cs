@@ -41,7 +41,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentOutOfRangeException(nameof(start), $"Buffer size ({bytes.Length}) not valid for start ({start}) argument.");
             }
 
-            Windows1252 = Windows1252 ?? Encoding.GetEncoding(1252);
+            Windows1252 ??= Encoding.GetEncoding(1252);
 
             bool containsControlCharacters = false;
 

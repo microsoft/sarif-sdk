@@ -129,7 +129,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Map
 
                 // Read the array slice
                 source.Seek(readFromPosition, SeekOrigin.Begin);
-                source.Read(buffer, 1, lengthToRead);
+                int read = source.Read(buffer, 1, lengthToRead);
 
                 // Make it a valid array prefix (it must start with '[', which will look like the root of the Json document
                 buffer[0] = (byte)'[';

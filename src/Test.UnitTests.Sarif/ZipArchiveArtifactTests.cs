@@ -21,18 +21,20 @@ namespace Test.UnitTests.Sarif
         [Fact]
         public void ZipArchiveArtifact_BytesAndContentsCannotBeSet()
         {
-            (ZipArchive archive, ZipArchiveEntry entry) testData = GetTextArchiveData();
-            var zipArchiveArtifact = new ZipArchiveArtifact(testData.archive, testData.entry);
+            var doesNotExist = new Uri("file://does-not-exist.zip");
+            (ZipArchive archive, ZipArchiveEntry entry) testData = GetTextualArchiveData();
+            var zipArchiveArtifact = new ZipArchiveArtifact(doesNotExist, testData.archive, testData.entry);
 
             Assert.Throws<NotImplementedException>(() => zipArchiveArtifact.Contents = string.Empty);
-            Assert.Throws<NotImplementedException>(() => zipArchiveArtifact.Bytes = new byte[] { });
+            Assert.Throws<NotImplementedException>(() => zipArchiveArtifact.Bytes = []);
         }
 
         [Fact]
         public void ZipArchiveArtifact_EncodingNotImplemented()
         {
-            (ZipArchive archive, ZipArchiveEntry entry) testData = GetTextArchiveData();
-            var zipArchiveArtifact = new ZipArchiveArtifact(testData.archive, testData.entry);
+            var doesNotExist = new Uri("file://does-not-exist.zip");
+            (ZipArchive archive, ZipArchiveEntry entry) testData = GetTextualArchiveData();
+            var zipArchiveArtifact = new ZipArchiveArtifact(doesNotExist, testData.archive, testData.entry);
 
             Assert.Throws<NotImplementedException>(() => zipArchiveArtifact.Encoding);
             Assert.Throws<NotImplementedException>(() => zipArchiveArtifact.Encoding = Encoding.UTF8);
@@ -41,8 +43,9 @@ namespace Test.UnitTests.Sarif
         [Fact]
         public void ZipArchiveArtifact_SettingStreamNotImplemented()
         {
-            (ZipArchive archive, ZipArchiveEntry entry) testData = GetTextArchiveData();
-            var zipArchiveArtifact = new ZipArchiveArtifact(testData.archive, testData.entry);
+            var doesNotExist = new Uri("file://does-not-exist.zip");
+            (ZipArchive archive, ZipArchiveEntry entry) testData = GetTextualArchiveData();
+            var zipArchiveArtifact = new ZipArchiveArtifact(doesNotExist, testData.archive, testData.entry);
 
             Assert.Throws<NotImplementedException>(() => zipArchiveArtifact.Stream = null);
         }
@@ -50,8 +53,9 @@ namespace Test.UnitTests.Sarif
         [Fact]
         public void ZipArchiveArtifact_SettingSizeInBytesNotImplemented()
         {
-            (ZipArchive archive, ZipArchiveEntry entry) testData = GetTextArchiveData();
-            var zipArchiveArtifact = new ZipArchiveArtifact(testData.archive, testData.entry);
+            var doesNotExist = new Uri("file://does-not-exist.zip");
+            (ZipArchive archive, ZipArchiveEntry entry) testData = GetTextualArchiveData();
+            var zipArchiveArtifact = new ZipArchiveArtifact(doesNotExist, testData.archive, testData.entry);
 
             Assert.Throws<NotImplementedException>(() => zipArchiveArtifact.SizeInBytes = null);
         }
@@ -59,40 +63,41 @@ namespace Test.UnitTests.Sarif
         [Fact]
         public void ZipArchiveArtifact_NonNullArchiveAndEntryAreRequired()
         {
-            (ZipArchive archive, ZipArchiveEntry entry) testData = GetTextArchiveData();
+            var doesNotExist = new Uri("file://does-not-exist.zip");
+            (ZipArchive archive, ZipArchiveEntry entry) testData = GetTextualArchiveData();
 
-            Assert.Throws<ArgumentNullException>(() => new ZipArchiveArtifact(archive: null, testData.entry));
-            Assert.Throws<ArgumentNullException>(() => new ZipArchiveArtifact(testData.archive, entry: null));
+            Assert.Throws<ArgumentNullException>(() => new ZipArchiveArtifact(uri: doesNotExist, archive: null, testData.entry));
+            Assert.Throws<ArgumentNullException>(() => new ZipArchiveArtifact(uri: null, testData.archive, entry: null));
         }
 
         [Fact]
-        public void ZipArchiveArtifact_MixedTxtAndBinaryZipEntry()
+        public void ZipArchiveArtifact_MixedTextAndBinaryZipEntry()
         {
             string textData = Guid.NewGuid().ToString();
 
             string filePath = this.GetType().Assembly.Location;
             using FileStream reader = File.OpenRead(filePath);
             byte[] binaryData = new byte[1024];
-            reader.Read(binaryData, 0, binaryData.Length);
+            int read = reader.Read(binaryData, 0, binaryData.Length);
 
             var binaryExtensions = new HashSet<string> { ".dll", ".exe" };
             ZipArchive archive = CreateMixedZipArchive(textData, binaryData);
 
-            var zipArchiveArtifact = new ZipArchiveArtifact(archive, archive.Entries.First(), binaryExtensions);
+            var doesNotExist = new Uri("file://does-not-exist.zip");
+            var zipArchiveArtifact = new ZipArchiveArtifact(doesNotExist, archive, archive.Entries.First(), binaryExtensions);
             zipArchiveArtifact.IsBinary.Should().BeFalse();
             zipArchiveArtifact.Contents.Should().NotBeNull();
             zipArchiveArtifact.Contents.Should().Be(textData);
             zipArchiveArtifact.Bytes.Should().BeNull();
 
-            zipArchiveArtifact = new ZipArchiveArtifact(archive, archive.Entries.Last(), binaryExtensions);
+            zipArchiveArtifact = new ZipArchiveArtifact(doesNotExist, archive, archive.Entries.Last(), binaryExtensions);
             zipArchiveArtifact.IsBinary.Should().BeTrue();
             zipArchiveArtifact.Contents.Should().BeNull();
             zipArchiveArtifact.Bytes.Should().NotBeNull();
             zipArchiveArtifact.Bytes.Should().BeEquivalentTo(binaryData);
         }
 
-
-        private (ZipArchive archive, ZipArchiveEntry entry) GetTextArchiveData()
+        private (ZipArchive archive, ZipArchiveEntry entry) GetTextualArchiveData()
         {
             byte[] contents = Encoding.UTF8.GetBytes($"{Guid.NewGuid()}");
             ZipArchive archive = EnumeratedArtifactTests.CreateZipArchive("MyZippedFile.txt", contents);
