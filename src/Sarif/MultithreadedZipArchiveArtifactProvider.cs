@@ -24,15 +24,25 @@ namespace Microsoft.CodeAnalysis.Sarif
             set { this.binaryExtensions = value; }
         }
 
-        public MultithreadedZipArchiveArtifactProvider(Uri uri, ZipArchive zipArchive, IFileSystem fileSystem) : base(fileSystem)
+        public ISet<string> ArchiveExtensions
         {
-            this.zipArchive = zipArchive;
-            this.uri = uri;
+            get
+            {
+                this.binaryExtensions ??= CreateDefaultArchiveExtensionsSet();
+                return this.binaryExtensions;
+            }
+
+            set { this.binaryExtensions = value; }
         }
 
-        public ISet<string> CreateDefaultBinaryExtensionsSet()
+        public MultithreadedZipArchiveArtifactProvider(Uri uri, ZipArchive zipArchive, IFileSystem fileSystem) : base(fileSystem)
         {
+            this.uri = uri ?? throw new ArgumentNullException(nameof(uri));
+            this.zipArchive = zipArchive ?? throw new ArgumentNullException(nameof(zipArchive));
+        }
 
+        public static ISet<string> CreateDefaultBinaryExtensionsSet()
+        {
             ISet<string> result = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
 
             result.Add(".bmp");
@@ -58,6 +68,17 @@ namespace Microsoft.CodeAnalysis.Sarif
             result.Add(".tif");
             result.Add(".tiff");
             result.Add(".xcf");
+            result.Add(".zip");
+
+            return result;
+        }
+
+        public static ISet<string> CreateDefaultArchiveExtensionsSet()
+        {
+
+            ISet<string> result = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+
+            result.Add(".docx");
             result.Add(".zip");
 
             return result;

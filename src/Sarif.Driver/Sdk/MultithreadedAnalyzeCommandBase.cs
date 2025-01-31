@@ -649,6 +649,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             return true;
         }
 
+        private static readonly ISet<string> s_archiveExtensions = MultithreadedZipArchiveArtifactProvider.CreateDefaultArchiveExtensionsSet();
+
         private async Task<bool> EnumerateArtifact(IEnumeratedArtifact artifact, TContext globalContext)
         {
             globalContext.CancellationToken.ThrowIfCancellationRequested();
@@ -666,34 +668,48 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             }
 
             string extension = Path.GetExtension(filePath);
-            if (string.IsNullOrEmpty(artifact.Uri.Query) &&
-                extension.Equals(".zip", StringComparison.OrdinalIgnoreCase))
+            if (artifact.Uri.IsAbsoluteUri &&
+                string.IsNullOrEmpty(artifact.Uri.Query) &&
+                s_archiveExtensions.Contains(extension))
             {
                 var context = new TContext();
                 context.Policy = globalContext.Policy;
                 context.Logger = globalContext.Logger;
+                context.CurrentTarget = new EnumeratedArtifact(globalContext.FileSystem)
+                {
+                    Uri = new Uri(filePath, UriKind.RelativeOrAbsolute)
+                };
 
-                var uri = new Uri(filePath, UriKind.RelativeOrAbsolute);
                 ZipArchive archive = null;
 
                 try
                 {
                     archive = ZipFile.OpenRead(filePath);
                 }
-                catch(InvalidDataException)
+                catch (InvalidDataException ex)
                 {
-                    // TBD log exception 
+                    string message = "An exception was raised attempting to open a zip archive or Open Packaging Conventions (OPC) document.";
+                    bool possiblyProtectedDocument = ex.Message == "End of Central Directory record could not be found.";
+                    message = possiblyProtectedDocument
+                        ? $"{message} This may indicate the the file has been marked as sensitive or otherwise protected."
+                        : message;
+                    Errors.LogTargetParseError(context, region: null, message, ex);
+                    globalContext.RuntimeErrors |= context.RuntimeErrors;
                     return false;
                 }
 
-                var artifactProvider = new MultithreadedZipArchiveArtifactProvider(uri, archive, globalContext.FileSystem);
+                var artifactProvider = new MultithreadedZipArchiveArtifactProvider(context.CurrentTarget.Uri,
+                                                                                   archive,
+                                                                                   globalContext.FileSystem);
                 context.TargetsProvider = artifactProvider;
+                context.CurrentTarget = null;
 
                 await EnumerateFilesFromArtifactsProvider(context);
                 return true;
             }
 
-            filePath = $"{filePath}{artifact.Uri.Query}";
+            string suffix = artifact.Uri.IsAbsoluteUri ? artifact.Uri.Query : string.Empty;
+            filePath = $"{filePath}{suffix}";
 
             if (artifact.SizeInBytes == 0)
             {

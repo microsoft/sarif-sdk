@@ -24,29 +24,57 @@ using Xunit.Abstractions;
 
 namespace Microsoft.CodeAnalysis.Sarif.Driver
 {
-    public class AnalyzeCommandBaseTests
+    public class MultithreadedAnalyzeCommandBaseTests
     {
         private const int FAILURE = CommandBase.FAILURE;
         private const int SUCCESS = CommandBase.SUCCESS;
 
         private readonly ITestOutputHelper Output;
 
-        public AnalyzeCommandBaseTests(ITestOutputHelper output)
+        public MultithreadedAnalyzeCommandBaseTests(ITestOutputHelper output)
         {
             this.Output = output;
             Output.WriteLine($"The seed that will be used is: {TestRule.s_seed}");
         }
 
+        [Fact]
+        public void MultithreadedAnalyzeCommandBase_InvalidZipArchive()
+        {
+            var logger = new TestMessageLogger();
+
+
+            // Create an empty/invalid zip file that will provoke a
+            // System.IO.InvalidDataException: 'Central Directory corrupt.'
+            // exception on attempting to initialize the ZipArchive.
+            using var tempFile = new TempFile(requestedExtension: ".zip");
+            File.WriteAllBytes(tempFile.Name, new byte[] { });
+
+            var artifact = new EnumeratedArtifact(new FileSystem())
+            {
+                Uri = new Uri(@"d:\repros\protected.docx"),
+            };
+
+            var context = new TestAnalysisContext
+            {
+                TargetsProvider = new ArtifactProvider(new[] { artifact }),
+                MaxFileSizeInKilobytes = 1,
+                Logger = logger,
+            };
+
+            int result = new TestMultithreadedAnalyzeCommand().Run(options: null, ref context);
+            result.Should().Be(FAILURE);
+            context.RuntimeErrors.Should().Be(RuntimeConditions.NoValidAnalysisTargets | RuntimeConditions.TargetParseError);
+        }
 
         [Fact]
-        public void AnalyzeCommandBase_ScanWithFilesThatExceedSizeLimitEmitsSkippedFilesWarning()
+        public void MultithreadedAnalyzeCommandBase_ScanWithFilesThatExceedSizeLimitEmitsSkippedFilesWarning()
         {
             var logger = new TestMessageLogger();
 
             var artifact = new EnumeratedArtifact(new FileSystem())
             {
                 Uri = new Uri(@"c:\testfile1.txt"),
-                Contents = new string('x', 1024), // Withing threshold.
+                Contents = new string('x', 1024), // Within threshold.
             };
 
             var anotherArtifact = new EnumeratedArtifact(new FileSystem())
@@ -54,7 +82,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 Uri = new Uri(@"c:\testfile2.txt"),
                 Contents = new string('x', 1025), // Just exceeds 1k.
             };
-
 
             var context = new TestAnalysisContext
             {
@@ -82,7 +109,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         }
 
         [Fact]
-        public void AnalyzeCommandBase_ScanWithOnlyFilesThatExceedSizeLimitEmitsSkippedFilesWarning()
+        public void MultithreadedAnalyzeCommandBase_ScanWithOnlyFilesThatExceedSizeLimitEmitsSkippedFilesWarning()
         {
             var logger = new TestMessageLogger();
 
@@ -131,7 +158,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         }
 
         [Fact]
-        public void AnalyzeCommandBase_OptionsSettingsOverrideContextSettings()
+        public void MultithreadedAnalyzeCommandBase_OptionsSettingsOverrideContextSettings()
         {
             // For every configuration knob, we choose an explicit, 
             // non-default value that differs between options and configuration.
@@ -166,7 +193,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         }
 
         [Fact]
-        public void AnalyzeCommandBase_EmptyOptionsSettingsDoNotOverrideContextSettings()
+        public void MultithreadedAnalyzeCommandBase_EmptyOptionsSettingsDoNotOverrideContextSettings()
         {
             var options = new TestAnalyzeOptions
             {
@@ -188,7 +215,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         }
 
         [Fact]
-        public void AnalyzeCommandBase_PerTargetAnalyzeEventsAreReceived()
+        public void MultithreadedAnalyzeCommandBase_PerTargetAnalyzeEventsAreReceived()
         {
             int filesCount = Directory.GetFiles(Environment.CurrentDirectory, "*").Length;
 
@@ -214,7 +241,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         }
 
         [Fact]
-        public void AnalyzeCommandBase_RootContextIsDisposed()
+        public void MultithreadedAnalyzeCommandBase_RootContextIsDisposed()
         {
             var options = new TestAnalyzeOptions();
 
@@ -714,7 +741,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         }
 
         [Fact]
-        public void AnalyzeCommandBase_ReportsErrorOnInvalidInvocationPropertyName()
+        public void MultithreadedAnalyzeCommandBase_ReportsErrorOnInvalidInvocationPropertyName()
         {
             var options = new TestAnalyzeOptions()
             {
@@ -728,7 +755,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         }
 
         [Fact]
-        public void AnalyzeCommandBase_ReportsWarningOnUnsupportedPlatformForRule()
+        public void MultithreadedAnalyzeCommandBase_ReportsWarningOnUnsupportedPlatformForRule()
         {
             var options = new TestAnalyzeOptions()
             {
@@ -745,7 +772,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         }
 
         [Fact]
-        public void AnalyzeCommandBase_ReportsWarningOnUnsupportedPlatformForRuleAndNoRulesLoaded()
+        public void MultithreadedAnalyzeCommandBase_ReportsWarningOnUnsupportedPlatformForRuleAndNoRulesLoaded()
         {
             string path = Path.GetTempFileName() + ".xml";
             PropertiesDictionary allRulesDisabledConfiguration = ExportConfigurationCommandBaseTests.s_allRulesDisabledConfiguration;
@@ -1016,7 +1043,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         }
 
         [Fact]
-        public void AnalyzeCommandBase_DefaultEndToEndAnalysis()
+        public void MultithreadedAnalyzeCommandBase_DefaultEndToEndAnalysis()
         {
             string location = GetThisTestAssemblyFilePath();
             Run run = AnalyzeFile(location, TestRuleBehaviors.LogError);
@@ -1031,7 +1058,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         }
 
         [Fact(Skip = "This test is failing on Mac OS. Need to investigate.")]
-        public void AnalyzeCommandBase_EndToEndAnalysisWithPostUri()
+        public void MultithreadedAnalyzeCommandBase_EndToEndAnalysisWithPostUri()
         {
             PostUriTestHelper(@"https://example.com", TestMultithreadedAnalyzeCommand.SUCCESS, RuntimeConditions.None);
             PostUriTestHelper(@"https://httpbin.org/get", TestMultithreadedAnalyzeCommand.FAILURE, RuntimeConditions.ExceptionPostingLogFile);
@@ -1039,7 +1066,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         }
 
         [Fact]
-        public void MultithreadedAnalyzeCommandBase_EndToEndMultithreadedAnalysis()
+        public void MultithreadedMultithreadedAnalyzeCommandBase_EndToEndMultithreadedAnalysis()
         {
             string specifier = "*.xyz";
 
@@ -1101,7 +1128,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
         [Fact]
         [Trait(TestTraits.WindowsOnly, "true")]
-        public void MultithreadedAnalyzeCommandBase_TargetFileSizeTestCases()
+        public void MultithreadedMultithreadedAnalyzeCommandBase_TargetFileSizeTestCases()
         {
             var sb = new StringBuilder();
 
@@ -1299,7 +1326,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         }
 
         [Fact]
-        public void MultithreadedAnalyzeCommandBase_ErrorWhenHashing()
+        public void MultithreadedMultithreadedAnalyzeCommandBase_ErrorWhenHashing()
         {
             string specifier = "*.xyz";
             var files = new List<string>
@@ -1338,7 +1365,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         }
 
         [Fact]
-        public void AnalyzeCommandBase_RunDefaultRules()
+        public void MultithreadedAnalyzeCommandBase_RunDefaultRules()
         {
             string location = GetThisTestAssemblyFilePath();
 
@@ -1354,7 +1381,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         }
 
         [Fact]
-        public void AnalyzeCommandBase_FireAllRules()
+        public void MultithreadedAnalyzeCommandBase_FireAllRules()
         {
             PropertiesDictionary configuration = ExportConfigurationCommandBaseTests.s_defaultConfiguration;
             string path = Path.GetTempFileName() + ".xml";
@@ -1384,7 +1411,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         }
 
         [Fact]
-        public void AnalyzeCommandBase_EndToEndAnalysisWithExplicitlyDisabledRules()
+        public void MultithreadedAnalyzeCommandBase_EndToEndAnalysisWithExplicitlyDisabledRules()
         {
             string path = Path.GetTempFileName() + ".xml";
             PropertiesDictionary allRulesDisabledConfiguration = ExportConfigurationCommandBaseTests.s_allRulesDisabledConfiguration;
@@ -1445,7 +1472,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         [InlineData("default", true, null)]
         [InlineData("test-newconfig.xml", false, "test-newconfig.xml")]
         [InlineData("test-newconfig.xml", true, "test-newconfig.xml")]
-        public void AnalyzeCommandBase_LoadConfigurationFile(string configValue, bool defaultFileExists, string expectedFileName)
+        public void MultithreadedAnalyzeCommandBase_LoadConfigurationFile(string configValue, bool defaultFileExists, string expectedFileName)
         {
             var options = new TestAnalyzeOptions
             {
@@ -1477,13 +1504,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
         private static string GetThisTestAssemblyFilePath()
         {
-            string filePath = typeof(AnalyzeCommandBaseTests).Assembly.Location;
+            string filePath = typeof(MultithreadedAnalyzeCommandBaseTests).Assembly.Location;
             return filePath;
         }
 
         private static string GetSampleFileToTest()
         {
-            string filePath = typeof(AnalyzeCommandBaseTests).Assembly.Location;
+            string filePath = typeof(MultithreadedAnalyzeCommandBaseTests).Assembly.Location;
             filePath = Path.GetDirectoryName(filePath);
             filePath = Path.Combine(filePath, "SampleTestFile.txt");
 
@@ -1496,7 +1523,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         }
 
         [Fact]
-        public void AnalyzeCommandBase_UpdateLocationsAndMessageWithCurrentUri()
+        public void MultithreadedAnalyzeCommandBase_UpdateLocationsAndMessageWithCurrentUri()
         {
             var uri = new Uri(@"c:\directory\test.txt", UriKind.RelativeOrAbsolute);
             Notification actualNotification = BuildTestNotification(uri);
@@ -1538,7 +1565,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         }
 
         [Fact]
-        public void AnalyzeCommandBase_GetFileNameFromUriWorks()
+        public void MultithreadedAnalyzeCommandBase_GetFileNameFromUriWorks()
         {
             const string expectedResult = "file.ext";
 
@@ -1625,7 +1652,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         #region ResultsCachingTestsAndHelpers
 
         [Fact]
-        public void AnalyzeCommandBase_CachesErrors()
+        public void MultithreadedAnalyzeCommandBase_CachesErrors()
         {
             // Produce two errors results
             var testCase = new ResultsCachingTestCase()
@@ -1647,7 +1674,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         }
 
         [Fact]
-        public void AnalyzeCommandBase_CachesNotes()
+        public void MultithreadedAnalyzeCommandBase_CachesNotes()
         {
             // Produce three results in verbose runs only
             var testCase = new ResultsCachingTestCase()
@@ -1670,7 +1697,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         }
 
         [Fact]
-        public void AnalyzeCommandBase_CachesNotificationsWithoutPersistingToLogFile()
+        public void MultithreadedAnalyzeCommandBase_CachesNotificationsWithoutPersistingToLogFile()
         {
             var testCase = new ResultsCachingTestCase
             {
@@ -1693,7 +1720,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         }
 
         [Fact]
-        public void AnalyzeCommandBase_CachesNotificationsWhenPersistingToLogFile()
+        public void MultithreadedAnalyzeCommandBase_CachesNotificationsWhenPersistingToLogFile()
         {
             var testCase = new ResultsCachingTestCase
             {
@@ -1710,7 +1737,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         }
 
         [Fact]
-        public void AnalyzeCommandBase_CachesResultsWithoutPersistingToLogFile()
+        public void MultithreadedAnalyzeCommandBase_CachesResultsWithoutPersistingToLogFile()
         {
             var testCase = new ResultsCachingTestCase
             {
@@ -1732,7 +1759,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         }
 
         [Fact]
-        public void AnalyzeCommandBase_CachesResultsWhenPersistingToLogFile()
+        public void MultithreadedAnalyzeCommandBase_CachesResultsWhenPersistingToLogFile()
         {
             var testCase = new ResultsCachingTestCase
             {
@@ -1754,7 +1781,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         }
 
         [Fact]
-        public void AnalyzeCommandBase_AutomationDetailsTests()
+        public void MultithreadedAnalyzeCommandBase_AutomationDetailsTests()
         {
             const string whiteSpace = " ";
             const string automationId = "automation-id";
@@ -1839,7 +1866,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         }
 
         [Fact]
-        public void AnalyzeCommandBase_ShouldOnlyLogArtifactsWhenResultsAreFound()
+        public void MultithreadedAnalyzeCommandBase_ShouldOnlyLogArtifactsWhenResultsAreFound()
         {
             const int expectedNumberOfArtifacts = 2;
             const int expectedNumberOfResultsWithErrors = 1;
@@ -1885,7 +1912,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         }
 
         [Fact]
-        public void AnalyzeCommandBase_ShouldNotThrowException_WhenAnalyzingSameFileBasedOnTwoTargetFileSpecifiers()
+        public void MultithreadedAnalyzeCommandBase_ShouldNotThrowException_WhenAnalyzingSameFileBasedOnTwoTargetFileSpecifiers()
         {
             var files = new List<string>
             {
@@ -1924,7 +1951,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         }
 
         [Fact]
-        public void AnalyzeCommandBase_MultithreadedShouldUseCacheIfFilesAreTheSame()
+        public void MultithreadedAnalyzeCommandBase_MultithreadedShouldUseCacheIfFilesAreTheSame()
         {
             // This test disabled until file caching is restored.
             /*
@@ -2177,7 +2204,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             bool captureConsoleOutput = string.IsNullOrEmpty(options.OutputFilePath);
 
             var command = new TestMultithreadedAnalyzeCommand(fileSystem) { _captureConsoleOutput = captureConsoleOutput };
-            command.DefaultPluginAssemblies = new Assembly[] { typeof(AnalyzeCommandBaseTests).Assembly };
+            command.DefaultPluginAssemblies = new Assembly[] { typeof(MultithreadedAnalyzeCommandBaseTests).Assembly };
 
             var context = new TestAnalysisContext { FileSystem = fileSystem };
             int result = command.Run(options, ref context);
@@ -2226,7 +2253,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
                 var command = new TestMultithreadedAnalyzeCommand(testCase.FileSystem)
                 {
-                    DefaultPluginAssemblies = new Assembly[] { typeof(AnalyzeCommandBaseTests).Assembly }
+                    DefaultPluginAssemblies = new Assembly[] { typeof(MultithreadedAnalyzeCommandBaseTests).Assembly }
                 };
 
                 var context = new TestAnalysisContext { FileSystem = testCase.FileSystem };

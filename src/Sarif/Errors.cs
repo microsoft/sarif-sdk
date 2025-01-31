@@ -71,10 +71,9 @@ namespace Microsoft.CodeAnalysis.Sarif
                     message));
         }
 
-        public static void LogExceptionInstantiatingSkimmers(
-            IAnalysisContext context,
-            IEnumerable<Assembly> skimmerAssemblies,
-            Exception exception)
+        public static void LogExceptionInstantiatingSkimmers(IAnalysisContext context,
+                                                             IEnumerable<Assembly> skimmerAssemblies,
+                                                             Exception exception)
         {
             if (context == null)
             {
@@ -395,7 +394,10 @@ namespace Microsoft.CodeAnalysis.Sarif
                     filePath));
         }
 
-        public static void LogTargetParseError(IAnalysisContext context, Region region, string message)
+        public static void LogTargetParseError(IAnalysisContext context,
+                                               Region region,
+                                               string message,
+                                               Exception exception = null)
         {
             if (context == null)
             {
@@ -411,7 +413,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                     ERR1000_ParseError,
                     ruleId: null,
                     FailureLevel.Error,
-                    exception: null,
+                    exception,
                     persistExceptionStack: false,
                     messageFormat: null,
                     context.CurrentTarget.Uri.GetFileName(),
@@ -420,10 +422,9 @@ namespace Microsoft.CodeAnalysis.Sarif
                     message));
         }
 
-        public static void LogUnhandledRuleExceptionAssessingTargetApplicability(
-            ISet<string> disabledSkimmers,
-            IAnalysisContext context,
-            Exception exception)
+        public static void LogUnhandledRuleExceptionAssessingTargetApplicability(ISet<string> disabledSkimmers,
+                                                                                 IAnalysisContext context,
+                                                                                 Exception exception)
         {
             if (context == null)
             {
@@ -482,10 +483,9 @@ namespace Microsoft.CodeAnalysis.Sarif
                 context.Rule);
         }
 
-        public static void LogUnhandledRuleExceptionAnalyzingTarget(
-            ISet<string> disabledSkimmers,
-            IAnalysisContext context,
-            Exception exception)
+        public static void LogUnhandledRuleExceptionAnalyzingTarget(ISet<string> disabledSkimmers,
+                                                                    IAnalysisContext context,
+                                                                    Exception exception)
         {
             if (context == null)
             {

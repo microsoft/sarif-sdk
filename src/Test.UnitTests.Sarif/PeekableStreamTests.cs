@@ -33,7 +33,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 var testStream = new PeekableStream(new MemoryStream(ascendingData), rewindPoint);
 
                 byte[] peekBuffer = new byte[rewindPoint];
-                testStream.Read(peekBuffer, 0, peekBuffer.Length);
+                int read = testStream.Read(peekBuffer, 0, peekBuffer.Length);
                 for (int i = 0; i < peekBuffer.Length; i++)
                 {
                     if (ascendingData[i] != peekBuffer[i])

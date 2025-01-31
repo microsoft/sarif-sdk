@@ -16,15 +16,16 @@ using Xunit;
 
 namespace Test.UnitTests.Sarif
 {
-    public class ArtifactProviderTests
+    public class MultithreadedZipArchiveArtifactProviderTests
     {
 
         [Fact]
         public void MultithreadedZipArchiveArtifactProvider_RetrieveSizeInBytesBeforeRetrievingContents()
         {
             string entryContents = $"{Guid.NewGuid}";
-            ZipArchive zip = CreateZipArchiveWithTextContents("test.txt", entryContents);
-            var artifactProvider = new MultithreadedZipArchiveArtifactProvider(zip, FileSystem.Instance);
+            ZipArchive zip = CreateZipArchiveWithTextualContents("test.txt", entryContents);
+            var doesNotExist = new Uri("file://does-not-exist.zip");
+            var artifactProvider = new MultithreadedZipArchiveArtifactProvider(doesNotExist, zip, FileSystem.Instance);
 
             ValidateTextContents(artifactProvider.Artifacts, entryContents);
         }
@@ -37,12 +38,13 @@ namespace Test.UnitTests.Sarif
 
             int headerSize = 1024;
             byte[] data = new byte[headerSize];
-            reader.Read(data, 0, data.Length);
+            int read = reader.Read(data, 0, data.Length);
 
             // Note that even thought we populate an archive with binary contents, the extension
             // of the archive entry indicates a text file. We still expect binary data on expansion.
             ZipArchive zip = CreateZipArchiveWithBinaryContents("test.txt", data);
-            var artifactProvider = new MultithreadedZipArchiveArtifactProvider(zip, FileSystem.Instance);
+            var doesNotExist = new Uri("file://does-not-exist.zip");
+            var artifactProvider = new MultithreadedZipArchiveArtifactProvider(doesNotExist, zip, FileSystem.Instance);
 
             ValidateBinaryContents(artifactProvider.Artifacts, data);
         }
@@ -51,8 +53,9 @@ namespace Test.UnitTests.Sarif
         public void MultithreadedZipArchiveArtifactProvider_RetrieveSizeInBytesAfterRetrievingContents()
         {
             string entryContents = $"{Guid.NewGuid()}";
-            ZipArchive zip = CreateZipArchiveWithTextContents("test.txt", entryContents);
-            var artifactProvider = new MultithreadedZipArchiveArtifactProvider(zip, FileSystem.Instance);
+            ZipArchive zip = CreateZipArchiveWithTextualContents("test.txt", entryContents);
+            var doesNotExist = new Uri("file://does-not-exist.zip");
+            var artifactProvider = new MultithreadedZipArchiveArtifactProvider(doesNotExist, zip, FileSystem.Instance);
 
             ValidateTextContents(artifactProvider.Artifacts, entryContents);
         }
@@ -65,10 +68,11 @@ namespace Test.UnitTests.Sarif
 
             int headerSize = 1024;
             byte[] data = new byte[headerSize];
-            reader.Read(data, 0, data.Length);
+            int read = reader.Read(data, 0, data.Length);
 
             ZipArchive zip = CreateZipArchiveWithBinaryContents("test.dll", data);
-            var artifactProvider = new MultithreadedZipArchiveArtifactProvider(zip, FileSystem.Instance);
+            var doesNotExist = new Uri("file://does-not-exist.zip");
+            var artifactProvider = new MultithreadedZipArchiveArtifactProvider(doesNotExist, zip, FileSystem.Instance);
             foreach (IEnumeratedArtifact artifact in artifactProvider.Artifacts)
             {
                 artifact.Bytes.Should().NotBeNull();
@@ -83,10 +87,22 @@ namespace Test.UnitTests.Sarif
         public void MultithreadedZipArchiveArtifactProvider_SizeInBytesAndContentsAreAvailable()
         {
             string entryContents = $"{Guid.NewGuid()}";
-            ZipArchive zip = CreateZipArchiveWithTextContents("test.csv", entryContents);
-            var artifactProvider = new MultithreadedZipArchiveArtifactProvider(zip, FileSystem.Instance);
+            ZipArchive zip = CreateZipArchiveWithTextualContents("test.csv", entryContents);
+            var doesNotExist = new Uri("file://does-not-exist.zip");
+            var artifactProvider = new MultithreadedZipArchiveArtifactProvider(doesNotExist, zip, FileSystem.Instance);
 
             ValidateTextContents(artifactProvider.Artifacts, entryContents);
+        }
+
+        [Fact]
+        public void MultithreadedZipArchiveArtifact_NonNullUriAndZipArchiveAreRequired()
+        {
+            string entryContents = $"{Guid.NewGuid()}";
+            ZipArchive zip = CreateZipArchiveWithTextualContents("test.csv", entryContents);
+            var doesNotExist = new Uri("file://does-not-exist.zip");
+
+            Assert.Throws<ArgumentNullException>(() => new MultithreadedZipArchiveArtifactProvider(uri: null, zip, FileSystem.Instance));
+            Assert.Throws<ArgumentNullException>(() => new MultithreadedZipArchiveArtifactProvider(doesNotExist, null, FileSystem.Instance));
         }
 
         [Fact]
@@ -97,7 +113,8 @@ namespace Test.UnitTests.Sarif
             string filePath = $"{Path.GetInvalidPathChars()[0]}{Path.GetInvalidFileNameChars()[1]}MyZippedFile.txt";
             ZipArchive zip = EnumeratedArtifactTests.CreateZipArchive(filePath, contents);
 
-            foreach (IEnumeratedArtifact entry in new MultithreadedZipArchiveArtifactProvider(zip, new FileSystem()).Artifacts)
+            var doesNotExist = new Uri("file://does-not-exist.zip");
+            foreach (IEnumeratedArtifact entry in new MultithreadedZipArchiveArtifactProvider(doesNotExist, zip, new FileSystem()).Artifacts)
             {
                 entry.IsBinary.Should().BeFalse();
                 entry.Contents.Should().BeEquivalentTo(text);
@@ -122,7 +139,7 @@ namespace Test.UnitTests.Sarif
             artifact.Contents.Should().BeNull();
         }
 
-        private static ZipArchive CreateZipArchiveWithTextContents(string fileName, string contents)
+        private static ZipArchive CreateZipArchiveWithTextualContents(string fileName, string contents)
         {
             var stream = new MemoryStream();
             using (var populateArchive = new ZipArchive(stream, ZipArchiveMode.Create, leaveOpen: true))
