@@ -6,8 +6,11 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Reflection.Metadata;
 using System.Runtime.InteropServices;
 using System.Text;
+
+using CommandLine;
 
 using FluentAssertions;
 using FluentAssertions.Execution;
@@ -51,7 +54,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
             var artifact = new EnumeratedArtifact(new FileSystem())
             {
-                Uri = new Uri(@"d:\repros\protected.docx"),
+                Uri = new Uri(tempFile.Name),
             };
 
             var context = new TestAnalysisContext
@@ -63,6 +66,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
             int result = new TestMultithreadedAnalyzeCommand().Run(options: null, ref context);
             result.Should().Be(FAILURE);
+
+            logger.ConfigurationNotifications.Count.Should().Be(2);
+            logger.ConfigurationNotifications[0].Level.Should().Be(FailureLevel.Error);
+
+            string expected = $"{Path.GetFileName(tempFile.Name)}: error ERR1000.ParseError: An exception was raised attempting to open a zip archive or Open Packaging Conventions (OPC) document.";
+            logger.ConfigurationNotifications[0].Message.Text.Should().Be(expected);
+
             context.RuntimeErrors.Should().Be(RuntimeConditions.NoValidAnalysisTargets | RuntimeConditions.TargetParseError);
         }
 
