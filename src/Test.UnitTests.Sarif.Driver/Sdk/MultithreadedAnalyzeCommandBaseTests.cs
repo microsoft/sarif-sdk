@@ -6,11 +6,8 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using System.Reflection.Metadata;
 using System.Runtime.InteropServices;
 using System.Text;
-
-using CommandLine;
 
 using FluentAssertions;
 using FluentAssertions.Execution;
