@@ -992,7 +992,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
                 sb.Length.Should().Be(0, $"test cases failed : {Environment.NewLine}{sb}");
             }
-            finally 
+            finally
             {
                 MultithreadedZipArchiveArtifactProvider.ArchiveExtensions = null;
             }
@@ -2224,6 +2224,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             command.DefaultPluginAssemblies = new Assembly[] { typeof(MultithreadedAnalyzeCommandBaseTests).Assembly };
 
             var context = new TestAnalysisContext { FileSystem = fileSystem };
+            context.OpcFileExtensions = new StringSet();
             int result = command.Run(options, ref context);
 
             result.Should().Be(expectedReturnCode);
