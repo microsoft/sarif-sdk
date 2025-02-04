@@ -28,6 +28,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 AutomationGuidProperty,
                 AutomationIdProperty,
                 BaselineFilePathProperty,
+                BinaryFileExtensionsProperty,
                 ChannelSizeProperty,
                 OutputConfigurationFilePathProperty,
                 DataToInsertProperty,
@@ -37,6 +38,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 GlobalFilePathDenyRegexProperty,
                 MaxFileSizeInKilobytesProperty,
                 EventsBufferSizeInMegabytesProperty,
+                OpcFileExtensionsProperty,
                 OutputFileOptionsProperty,
                 OutputFilePathProperty,
                 PluginFilePathsProperty,
@@ -181,13 +183,25 @@ namespace Microsoft.CodeAnalysis.Sarif
         public ISet<string> Traces
         {
             get => this.Policy.GetProperty(TracesProperty);
-            set => this.Policy.SetProperty(TracesProperty, value);
+            set => this.Policy.SetProperty(TracesProperty, new StringSet(value));
         }
 
         public ISet<string> TargetFileSpecifiers
         {
             get => this.Policy.GetProperty(TargetFileSpecifiersProperty);
-            set => this.Policy.SetProperty(TargetFileSpecifiersProperty, value);
+            set => this.Policy.SetProperty(TargetFileSpecifiersProperty, new StringSet(value));
+        }
+
+        public ISet<string> BinaryFileExtensions
+        {
+            get => this.Policy.GetProperty(BinaryFileExtensionsProperty);
+            set => this.Policy.SetProperty(BinaryFileExtensionsProperty, new StringSet(value));
+        }
+
+        public ISet<string> OpcFileExtensions
+        {
+            get => this.Policy.GetProperty(OpcFileExtensionsProperty);
+            set => this.Policy.SetProperty(OpcFileExtensionsProperty, new StringSet(value));
         }
 
         public FailureLevelSet FailureLevels
@@ -345,6 +359,22 @@ namespace Microsoft.CodeAnalysis.Sarif
                     new PerLanguageOption<StringSet>(
                         "CoreSettings", nameof(TargetFileSpecifiers), defaultValue: () => new StringSet(),
                         "One or more file specifiers for locating scan targets.");
+
+        public static PerLanguageOption<StringSet> BinaryFileExtensionsProperty { get; } =
+                    new PerLanguageOption<StringSet>(
+                        "CoreSettings", nameof(BinaryFileExtensions),
+                        defaultValue: () => new StringSet([".bmp", ".cab", ".cer", ".der", ".dll", ".exe", ".gif", ".gz", ".iso", ".jpe",
+                                                           ".jpeg", ".lock", ".p12", ".pack", ".pfx", ".pkcs12", ".png", ".psd", ".rar",
+                                                           ".tar", ".tif", ".tiff", ".xcf", ".zip" ]),
+                        "One or more file extensions that should be forcibly treated as binary not textual data.");
+
+        public static PerLanguageOption<StringSet> OpcFileExtensionsProperty { get; } =
+                     new PerLanguageOption<StringSet>(
+                         "CoreSettings", nameof(OpcFileExtensions),
+                        defaultValue: () => new StringSet([".apk", ".appx", ".appxbundle", ".docx", ".epub", ".jar", ".msix", ".msixbundle",
+                                                           ".odp", ".ods", ".odt", ".onepkg", ".oxps", ".pkg", ".pptx", ".unitypackage",
+                                                           ".vsdx", ".xps", ".xlsx", ".zip" ]),
+                        "One or more file extensions that should be expanded as Open Packaging Convention (OPC) files.");
 
         public static PerLanguageOption<FailureLevelSet> FailureLevelsProperty { get; } =
                     new PerLanguageOption<FailureLevelSet>(

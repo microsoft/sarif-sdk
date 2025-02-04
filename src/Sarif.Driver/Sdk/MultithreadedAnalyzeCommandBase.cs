@@ -130,7 +130,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 }
                 else
                 {
-                    Errors.LogAnalysisTimedOut(globalContext);
+                    lock (globalContext)
+                    {
+                        Errors.LogAnalysisTimedOut(globalContext);
+                    }
                 }
 
                 DriverEventSource.Log.SessionEnded(result, globalContext.RuntimeErrors);
@@ -177,6 +180,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
             if (ex is OperationCanceledException oce)
             {
+                lock (globalContext)
+                {
+                    globalContext.RuntimeExceptions.Add(oce);
+                }
+
                 Errors.LogAnalysisCanceled(globalContext, oce);
                 globalContext.RuntimeExceptions.Add(new ExitApplicationException<ExitReason>(SdkResources.ERR999_AnalysisCanceled, oce)
                 {
@@ -185,7 +193,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 return;
             }
 
-            Errors.LogUnhandledEngineException(globalContext, ex);
+            lock (globalContext)
+            {
+                Errors.LogUnhandledEngineException(globalContext, ex);
+            }
+
             globalContext.RuntimeExceptions.Add(new ExitApplicationException<ExitReason>(DriverResources.MSG_UnexpectedApplicationExit, ex)
             {
                 ExitReason = ExitReason.UnhandledExceptionInEngine
@@ -649,8 +661,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             return true;
         }
 
-        private static readonly ISet<string> s_archiveExtensions = MultithreadedZipArchiveArtifactProvider.CreateDefaultArchiveExtensionsSet();
-
         private async Task<bool> EnumerateArtifact(IEnumeratedArtifact artifact, TContext globalContext)
         {
             globalContext.CancellationToken.ThrowIfCancellationRequested();
@@ -670,7 +680,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             string extension = Path.GetExtension(filePath);
             if (artifact.Uri.IsAbsoluteUri &&
                 string.IsNullOrEmpty(artifact.Uri.Query) &&
-                s_archiveExtensions.Contains(extension))
+                globalContext.OpcFileExtensions.Contains(extension))
             {
                 var context = new TContext();
                 context.Policy = globalContext.Policy;
@@ -686,14 +696,19 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 {
                     archive = ZipFile.OpenRead(filePath);
                 }
-                catch (InvalidDataException ex)
+                catch (Exception ex)
                 {
                     string message = "An exception was raised attempting to open a zip archive or Open Packaging Conventions (OPC) document.";
                     bool possiblyProtectedDocument = ex.Message == "End of Central Directory record could not be found.";
                     message = possiblyProtectedDocument
                         ? $"{message} This may indicate the the file has been marked as sensitive or otherwise protected."
                         : message;
-                    Errors.LogTargetParseError(context, region: null, message, ex);
+
+                    lock (globalContext)
+                    {
+                        Errors.LogTargetParseError(context, region: null, message, ex);
+                    }
+
                     globalContext.RuntimeErrors |= context.RuntimeErrors;
                     return false;
                 }

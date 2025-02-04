@@ -47,7 +47,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             // System.IO.InvalidDataException: 'Central Directory corrupt.'
             // exception on attempting to initialize the ZipArchive.
             using var tempFile = new TempFile(requestedExtension: ".zip");
-            File.WriteAllBytes(tempFile.Name, new byte[] { });
+            File.WriteAllBytes(tempFile.Name, new byte[] { 0 });
 
             var artifact = new EnumeratedArtifact(new FileSystem())
             {
@@ -966,28 +966,38 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         {
             var sb = new StringBuilder();
 
-            foreach (DefaultTraces trace in new[] { DefaultTraces.None, DefaultTraces.ScanTime, DefaultTraces.RuleScanTime, DefaultTraces.PeakWorkingSet })
+            try
             {
-                var options = new TestAnalyzeOptions
+                MultithreadedZipArchiveArtifactProvider.ArchiveExtensions = new HashSet<string>();
+
+                foreach (DefaultTraces trace in new[] { DefaultTraces.None, DefaultTraces.ScanTime, DefaultTraces.RuleScanTime, DefaultTraces.PeakWorkingSet })
                 {
-                    OutputFilePath = Guid.NewGuid().ToString(),
-                    TargetFileSpecifiers = new string[] { Guid.NewGuid().ToString() },
-                    Trace = new[] { trace.ToString() },
-                    Level = new[] { FailureLevel.Warning, FailureLevel.Note },
-                };
+                    var options = new TestAnalyzeOptions
+                    {
+                        OutputFilePath = Guid.NewGuid().ToString(),
+                        TargetFileSpecifiers = new string[] { Guid.NewGuid().ToString() },
+                        Trace = new[] { trace.ToString() },
+                        Level = new[] { FailureLevel.Warning, FailureLevel.Note },
+                    };
 
-                Run run = RunMultithreadedAnalyzeCommand(ComprehensiveKindAndLevelsByFilePath,
-                                                         generateDuplicateScanTargets: false,
-                                                         expectedResultCode: SUCCESS,
-                                                         expectedResultCount: WARNING_COUNT + NOTE_COUNT,
-                                                         options);
+                    Run run = RunMultithreadedAnalyzeCommand(ComprehensiveKindAndLevelsByFilePath,
+                                                             generateDuplicateScanTargets: false,
+                                                             expectedResultCode: SUCCESS,
+                                                             expectedResultCount: WARNING_COUNT + NOTE_COUNT,
+                                                             options);
 
-                int validTargetsCount = ALL_COUNT - NOT_APPLICABLE_COUNT;
-                Validate(run, trace, validTargetsCount, sb);
+                    int validTargetsCount = ALL_COUNT - NOT_APPLICABLE_COUNT;
+                    Validate(run, trace, validTargetsCount, sb);
+                }
+
+                sb.Length.Should().Be(0, $"test cases failed : {Environment.NewLine}{sb}");
             }
-
-            sb.Length.Should().Be(0, $"test cases failed : {Environment.NewLine}{sb}");
+            finally 
+            {
+                MultithreadedZipArchiveArtifactProvider.ArchiveExtensions = null;
+            }
         }
+
 
         internal static void Validate(Run run, DefaultTraces trace, int validTargetsCount, StringBuilder sb)
         {
@@ -2264,6 +2274,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 };
 
                 var context = new TestAnalysisContext { FileSystem = testCase.FileSystem };
+
+                context.Policy.SetProperty(AnalyzeContextBase.OpcFileExtensionsProperty, new StringSet());
+                context.Policy.SetProperty(AnalyzeContextBase.BinaryFileExtensionsProperty, new StringSet());
+
                 int result = command.Run(options, ref context);
 
                 if (expectedResultCode == CommandBase.SUCCESS)
