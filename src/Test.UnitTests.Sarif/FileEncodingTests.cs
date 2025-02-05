@@ -15,7 +15,6 @@ using Xunit;
 
 namespace Microsoft.CodeAnalysis.Sarif
 {
-
     public class FileEncodingTests
     {
         [Fact]
@@ -58,7 +57,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 using FileStream reader = File.OpenRead(fileName);
                 int bufferSize = 1024;
                 byte[] bytes = new byte[bufferSize];
-                reader.Read(bytes, 0, bufferSize);
+                int read = reader.Read(bytes, 0, bufferSize);
                 bool isTextual = FileEncoding.IsTextualData(bytes);
 
                 if (!isTextual)
@@ -79,7 +78,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             using FileStream reader = File.OpenRead(fileName);
             int bufferSize = 1024;
             byte[] bytes = new byte[bufferSize];
-            reader.Read(bytes, 0, bufferSize);
+            int read = reader.Read(bytes, 0, bufferSize);
             FileEncoding.IsTextualData(bytes).Should().BeFalse(because: $"{fileName} is a binary file");
         }
 
@@ -89,11 +88,11 @@ namespace Microsoft.CodeAnalysis.Sarif
             using var assertionScope = new AssertionScope();
 
             var sb = new StringBuilder();
-            string[] unicodeTexts = new[]
-            {
+            string[] unicodeTexts =
+            [
                 "американец",
                 "Generates a warning and an error for each of :  foo  foo \r\n" // Challenging for the classifer; found by accident.
-            };
+            ];
 
             foreach (string unicodeText in unicodeTexts)
             {
@@ -149,7 +148,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             while ((current = reader.Read()) != -1)
             {
                 char ch = (char)current;
-                byte[] input = encoding.GetBytes(new[] { ch });
+                byte[] input = encoding.GetBytes((char[])[ch]);
 
                 if (ch < 0x20) { continue; }
 

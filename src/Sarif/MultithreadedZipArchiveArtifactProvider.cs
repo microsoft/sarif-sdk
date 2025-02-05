@@ -3,62 +3,50 @@
 
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.IO.Compression;
 
 namespace Microsoft.CodeAnalysis.Sarif
 {
     public class MultithreadedZipArchiveArtifactProvider : ArtifactProvider
     {
+        private static readonly byte[] ZipSignature = { 0x50, 0x4B, 0x03, 0x04 };
         private readonly ZipArchive zipArchive;
-        private ISet<string> binaryExtensions;
+        private readonly Uri uri;
 
-        public ISet<string> BinaryExtensions
+        public ISet<string> BinaryFileExtensions { get; set; } = new StringSet();
+
+        public ISet<string> OpcFileExtensions { get; set; } = new StringSet();
+
+
+        public MultithreadedZipArchiveArtifactProvider(Uri uri, ZipArchive zipArchive, IFileSystem fileSystem) : base(fileSystem)
         {
-            get
+            this.uri = uri ?? throw new ArgumentNullException(nameof(uri));
+            this.zipArchive = zipArchive ?? throw new ArgumentNullException(nameof(zipArchive));
+        }
+
+        internal static bool IsOpenPackagingConventionsFile(string filePath)
+        {
+            using (FileStream fileStream = File.OpenRead(filePath))
             {
-                this.binaryExtensions ??= CreateDefaultBinaryExtensionsSet();
-                return this.binaryExtensions;
+                byte[] buffer = new byte[ZipSignature.Length];
+                int bytesRead = fileStream.Read(buffer, 0, buffer.Length);
+
+                if (bytesRead < ZipSignature.Length)
+                {
+                    return false;
+                }
+
+                for (int i = 0; i < ZipSignature.Length; i++)
+                {
+                    if (buffer[i] != ZipSignature[i])
+                    {
+                        return false;
+                    }
+                }
             }
 
-            set { this.binaryExtensions = value; }
-        }
-
-        public MultithreadedZipArchiveArtifactProvider(ZipArchive zipArchive, IFileSystem fileSystem) : base(fileSystem)
-        {
-            this.zipArchive = zipArchive;
-        }
-
-        public ISet<string> CreateDefaultBinaryExtensionsSet()
-        {
-
-            ISet<string> result = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
-
-            result.Add(".bmp");
-            result.Add(".cab");
-            result.Add(".cer");
-            result.Add(".der");
-            result.Add(".dll");
-            result.Add(".exe");
-            result.Add(".gif");
-            result.Add(".gz");
-            result.Add(".iso");
-            result.Add(".jpe");
-            result.Add(".jpeg");
-            result.Add(".lock");
-            result.Add(".p12");
-            result.Add(".pack");
-            result.Add(".pfx");
-            result.Add(".pkcs12");
-            result.Add(".png");
-            result.Add(".psd");
-            result.Add(".rar");
-            result.Add(".tar");
-            result.Add(".tif");
-            result.Add(".tiff");
-            result.Add(".xcf");
-            result.Add(".zip");
-
-            return result;
+            return true;
         }
 
         public override IEnumerable<IEnumeratedArtifact> Artifacts
@@ -67,7 +55,8 @@ namespace Microsoft.CodeAnalysis.Sarif
             {
                 foreach (ZipArchiveEntry entry in this.zipArchive.Entries)
                 {
-                    yield return new ZipArchiveArtifact(this.zipArchive, entry, BinaryExtensions);
+                    if (entry.FullName.EndsWith("/")) { continue; }
+                    yield return new ZipArchiveArtifact(this.uri, this.zipArchive, entry, BinaryFileExtensions);
                 }
             }
         }

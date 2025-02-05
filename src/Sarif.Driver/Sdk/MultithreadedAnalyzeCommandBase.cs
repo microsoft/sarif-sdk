@@ -8,6 +8,7 @@ using System.Collections.Immutable;
 using System.Diagnostics;
 using System.Diagnostics.Tracing;
 using System.IO;
+using System.IO.Compression;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -129,7 +130,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 }
                 else
                 {
-                    Errors.LogAnalysisTimedOut(globalContext);
+                    lock (globalContext)
+                    {
+                        Errors.LogAnalysisTimedOut(globalContext);
+                    }
                 }
 
                 DriverEventSource.Log.SessionEnded(result, globalContext.RuntimeErrors);
@@ -176,6 +180,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
             if (ex is OperationCanceledException oce)
             {
+                lock (globalContext)
+                {
+                    globalContext.RuntimeExceptions.Add(oce);
+                }
+
                 Errors.LogAnalysisCanceled(globalContext, oce);
                 globalContext.RuntimeExceptions.Add(new ExitApplicationException<ExitReason>(SdkResources.ERR999_AnalysisCanceled, oce)
                 {
@@ -184,7 +193,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 return;
             }
 
-            Errors.LogUnhandledEngineException(globalContext, ex);
+            lock (globalContext)
+            {
+                Errors.LogUnhandledEngineException(globalContext, ex);
+            }
+
             globalContext.RuntimeExceptions.Add(new ExitApplicationException<ExitReason>(DriverResources.MSG_UnexpectedApplicationExit, ex)
             {
                 ExitReason = ExitReason.UnhandledExceptionInEngine
@@ -648,72 +661,124 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             return true;
         }
 
+        private async Task<bool> EnumerateArtifact(IEnumeratedArtifact artifact, TContext globalContext)
+        {
+            globalContext.CancellationToken.ThrowIfCancellationRequested();
+
+            string filePath = artifact.Uri.GetFilePath();
+            string suffix = artifact.Uri.IsAbsoluteUri ? artifact.Uri.Query : string.Empty;
+            filePath = $"{filePath}{suffix}";
+
+            if (globalContext.CompiledGlobalFileDenyRegex?.Match(filePath).Success == true)
+            {
+                _filesMatchingGlobalFileDenyRegex++;
+                DriverEventSource.Log.ArtifactNotScanned(filePath, DriverEventNames.FilePathDenied, artifact.SizeInBytes.Value, globalContext.GlobalFilePathDenyRegex);
+
+                string reason = $"its file path matched the global file deny regex: {globalContext.GlobalFilePathDenyRegex}";
+                Notes.LogFileSkipped(globalContext, filePath, reason);
+                return false;
+            }
+
+            string extension = Path.GetExtension(filePath);
+            if (artifact.Uri.IsAbsoluteUri &&
+                string.IsNullOrEmpty(artifact.Uri.Query) &&
+                globalContext.OpcFileExtensions.Contains(extension))
+            {
+                var context = new TContext();
+                context.Policy = globalContext.Policy;
+                context.Logger = globalContext.Logger;
+                context.CurrentTarget = new EnumeratedArtifact(globalContext.FileSystem)
+                {
+                    Uri = new Uri(filePath, UriKind.RelativeOrAbsolute)
+                };
+
+                ZipArchive archive = null;
+
+                try
+                {
+                    archive = ZipFile.OpenRead(filePath);
+                }
+                catch (Exception ex)
+                {
+                    string message = "An exception was raised attempting to open a zip archive or Open Packaging Conventions (OPC) document.";
+                    bool possiblyProtectedDocument = ex.Message == "End of Central Directory record could not be found.";
+                    message = possiblyProtectedDocument
+                        ? $"{message} This may indicate the the file has been marked as sensitive or otherwise protected."
+                        : message;
+
+                    lock (globalContext)
+                    {
+                        Errors.LogTargetParseError(context, region: null, message, ex);
+                    }
+
+                    globalContext.RuntimeErrors |= context.RuntimeErrors;
+                    return false;
+                }
+
+                var artifactProvider = new MultithreadedZipArchiveArtifactProvider(context.CurrentTarget.Uri,
+                                                                                   archive,
+                                                                                   globalContext.FileSystem);
+                context.TargetsProvider = artifactProvider;
+                context.CurrentTarget = null;
+
+                await EnumerateFilesFromArtifactsProvider(context);
+                return true;
+            }
+
+            if (artifact.SizeInBytes == 0)
+            {
+                DriverEventSource.Log.ArtifactNotScanned(filePath, DriverEventNames.EmptyFile, 00, data2: null);
+                Notes.LogEmptyFileSkipped(globalContext, filePath);
+                return true;
+            }
+
+            if (!IsTargetWithinFileSizeLimit(artifact.SizeInBytes.Value, globalContext.MaxFileSizeInKilobytes))
+            {
+                _filesExceedingSizeLimitCount++;
+                DriverEventSource.Log.ArtifactNotScanned(filePath, DriverEventNames.FileExceedsSizeLimits, artifact.SizeInBytes.Value, $"{globalContext.MaxFileSizeInKilobytes}");
+                Notes.LogFileExceedingSizeLimitSkipped(globalContext, filePath, artifact.SizeInBytes.Value / 1000);
+                return false;
+            }
+
+            TContext fileContext = CreateScanTargetContext(globalContext);
+
+            fileContext.Logger = new CachingLogger(globalContext.FailureLevels,
+                                                   globalContext.ResultKinds);
+
+            Debug.Assert(fileContext.Logger != null);
+            fileContext.CurrentTarget = artifact;
+            fileContext.CancellationToken = globalContext.CancellationToken;
+
+            lock (globalContext)
+            {
+                // We need to generate this event on the global logger, though as
+                // a result this event means 'target enumerated for analysis'
+                // rather than literally 'we are analyzing the target'.
+                //
+                // This call needs to be protected with a lock as the actual
+                // logging occurs on a separated thread.
+                globalContext.Logger.AnalyzingTarget(fileContext);
+            }
+
+            bool added = _fileContexts.TryAdd(_fileContextsCount, fileContext);
+            Debug.Assert(added);
+
+            if (_fileContextsCount == 0)
+            {
+                DriverEventSource.Log.FirstArtifactQueued(fileContext.CurrentTarget.Uri.GetFilePath());
+            }
+
+            await readyToScanChannel.Writer.WriteAsync(_fileContextsCount++);
+
+            return true;
+        }
+
         private async Task<bool> EnumerateFilesFromArtifactsProvider(TContext globalContext)
         {
             foreach (IEnumeratedArtifact artifact in globalContext.TargetsProvider.Artifacts)
             {
-                globalContext.CancellationToken.ThrowIfCancellationRequested();
-
-                string filePath = artifact.Uri.GetFilePath();
-
-                if (globalContext.CompiledGlobalFileDenyRegex?.Match(filePath).Success == true)
-                {
-                    _filesMatchingGlobalFileDenyRegex++;
-                    DriverEventSource.Log.ArtifactNotScanned(filePath, DriverEventNames.FilePathDenied, artifact.SizeInBytes.Value, globalContext.GlobalFilePathDenyRegex);
-
-                    string reason = $"its file path matched the global file deny regex: {globalContext.GlobalFilePathDenyRegex}";
-                    Notes.LogFileSkipped(globalContext, filePath, reason);
-                    continue;
-                }
-
-                if (artifact.SizeInBytes == 0)
-                {
-                    DriverEventSource.Log.ArtifactNotScanned(filePath, DriverEventNames.EmptyFile, 00, data2: null);
-                    Notes.LogEmptyFileSkipped(globalContext, filePath);
-                    continue;
-                }
-
-                if (!IsTargetWithinFileSizeLimit(artifact.SizeInBytes.Value, globalContext.MaxFileSizeInKilobytes))
-                {
-                    _filesExceedingSizeLimitCount++;
-                    DriverEventSource.Log.ArtifactNotScanned(filePath, DriverEventNames.FileExceedsSizeLimits, artifact.SizeInBytes.Value, $"{globalContext.MaxFileSizeInKilobytes}");
-                    Notes.LogFileExceedingSizeLimitSkipped(globalContext, artifact.Uri.GetFilePath(), artifact.SizeInBytes.Value / 1000);
-                    continue;
-                }
-
-                TContext fileContext = CreateScanTargetContext(globalContext);
-
-                fileContext.Logger =
-                    new CachingLogger(globalContext.FailureLevels,
-                                      globalContext.ResultKinds);
-
-                Debug.Assert(fileContext.Logger != null);
-                fileContext.CurrentTarget = artifact;
-                fileContext.CancellationToken = globalContext.CancellationToken;
-
-                lock (globalContext)
-                {
-                    // We need to generate this event on the global logger, though as
-                    // a result this event means 'target enumerated for analysis'
-                    // rather than literally 'we are analyzing the target'.
-                    //
-                    // This call needs to be protected with a lock as the actual
-                    // logging occurs on a separated thread.
-                    globalContext.Logger.AnalyzingTarget(fileContext);
-                }
-
-                bool added = _fileContexts.TryAdd(_fileContextsCount, fileContext);
-                Debug.Assert(added);
-
-                if (_fileContextsCount == 0)
-                {
-                    DriverEventSource.Log.FirstArtifactQueued(fileContext.CurrentTarget.Uri.GetFilePath());
-                }
-
-                await readyToScanChannel.Writer.WriteAsync(_fileContextsCount++);
+                await EnumerateArtifact(artifact, globalContext);
             }
-
-            // TBD get all skipped artifacts.
 
             return true;
         }

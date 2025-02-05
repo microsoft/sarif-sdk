@@ -127,7 +127,7 @@ namespace Test.UnitTests.Sarif
 
             int headerSize = 1024;
             byte[] data = new byte[headerSize];
-            reader.Read(data, 0, data.Length);
+            int read = reader.Read(data, 0, data.Length);
 
             ZipArchive archive = CreateZipArchive("MyBinaryFile.dll", data);
 
