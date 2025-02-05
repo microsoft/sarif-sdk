@@ -12,7 +12,6 @@
 * BUG: Fix error `ERR997.NoValidAnalysisTargets` when scanning symbolic link files.
 * BUG: Fix `ERR999.UnhandledEngineException: System.IO.FileNotFoundException: Could not find file` when a file name or directory path contains URL-encoded characters.
 * NEW: Allow null archive uri in `MultithreadedZipArchiveArtifactProvider` (which indicates that enumerated artifact paths should not include the base archive).
-* NEW: Add `AnalyzeContext.Skimmers` property to contain all initialized search skimmers.
 * NEW: Update `LogTargetParseError(IAnalysisContext, Region, string, Exception)` to include optional exception argument to denote code location where parse error occurred.
 * NEW: `MultithreadedAnalyzeCommandBase.EnumerateArtifact` now supports scanning into compressed (OPC) files. Initial support file extensions are: `.apk`, `.appx`, `.appxbundle`, `.docx`, `.epub`, `.jar`, `.msix`, `.msixbundle`, `.odp`, `.ods`, `.odt`, `.onepkg`, `.oxps`, `.pkg`, `.pptx`, `.unitypackage`, `.vsdx`, `.xps`, `.xlsx`, `.zip`.
 
