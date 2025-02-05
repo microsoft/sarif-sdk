@@ -21,7 +21,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         public MultithreadedZipArchiveArtifactProvider(Uri uri, ZipArchive zipArchive, IFileSystem fileSystem) : base(fileSystem)
         {
-            this.uri = uri ?? throw new ArgumentNullException(nameof(uri));
+            this.uri = uri;
             this.zipArchive = zipArchive ?? throw new ArgumentNullException(nameof(zipArchive));
         }
 

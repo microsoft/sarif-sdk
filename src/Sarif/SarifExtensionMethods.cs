@@ -258,7 +258,14 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         public static string GetFilePath(this Uri uri)
         {
-            return uri.IsAbsoluteUri ? uri.LocalPath : uri.OriginalString;
+            return uri.IsAbsoluteUri ? AppendQueryToLocalPath(uri) : uri.OriginalString;
+        }
+
+        private static string AppendQueryToLocalPath(Uri uri)
+        {
+            return
+                uri.LocalPath +
+                (string.IsNullOrEmpty(uri.Query) ? string.Empty : $"?{uri.Query}");
         }
 
         public static string FormatForVisualStudio(this Region region)
