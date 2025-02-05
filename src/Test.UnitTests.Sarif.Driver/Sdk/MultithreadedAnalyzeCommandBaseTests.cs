@@ -966,38 +966,28 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         {
             var sb = new StringBuilder();
 
-            try
+            foreach (DefaultTraces trace in new[] { DefaultTraces.None, DefaultTraces.ScanTime, DefaultTraces.RuleScanTime, DefaultTraces.PeakWorkingSet })
             {
-                MultithreadedZipArchiveArtifactProvider.ArchiveExtensions = new HashSet<string>();
-
-                foreach (DefaultTraces trace in new[] { DefaultTraces.None, DefaultTraces.ScanTime, DefaultTraces.RuleScanTime, DefaultTraces.PeakWorkingSet })
+                var options = new TestAnalyzeOptions
                 {
-                    var options = new TestAnalyzeOptions
-                    {
-                        OutputFilePath = Guid.NewGuid().ToString(),
-                        TargetFileSpecifiers = new string[] { Guid.NewGuid().ToString() },
-                        Trace = new[] { trace.ToString() },
-                        Level = new[] { FailureLevel.Warning, FailureLevel.Note },
-                    };
+                    OutputFilePath = Guid.NewGuid().ToString(),
+                    TargetFileSpecifiers = new string[] { Guid.NewGuid().ToString() },
+                    Trace = new[] { trace.ToString() },
+                    Level = new[] { FailureLevel.Warning, FailureLevel.Note },
+                };
 
-                    Run run = RunMultithreadedAnalyzeCommand(ComprehensiveKindAndLevelsByFilePath,
-                                                             generateDuplicateScanTargets: false,
-                                                             expectedResultCode: SUCCESS,
-                                                             expectedResultCount: WARNING_COUNT + NOTE_COUNT,
-                                                             options);
+                Run run = RunMultithreadedAnalyzeCommand(ComprehensiveKindAndLevelsByFilePath,
+                                                         generateDuplicateScanTargets: false,
+                                                         expectedResultCode: SUCCESS,
+                                                         expectedResultCount: WARNING_COUNT + NOTE_COUNT,
+                                                         options);
 
-                    int validTargetsCount = ALL_COUNT - NOT_APPLICABLE_COUNT;
-                    Validate(run, trace, validTargetsCount, sb);
-                }
-
-                sb.Length.Should().Be(0, $"test cases failed : {Environment.NewLine}{sb}");
+                int validTargetsCount = ALL_COUNT - NOT_APPLICABLE_COUNT;
+                Validate(run, trace, validTargetsCount, sb);
             }
-            finally
-            {
-                MultithreadedZipArchiveArtifactProvider.ArchiveExtensions = null;
-            }
+
+            sb.Length.Should().Be(0, $"test cases failed : {Environment.NewLine}{sb}");
         }
-
 
         internal static void Validate(Run run, DefaultTraces trace, int validTargetsCount, StringBuilder sb)
         {

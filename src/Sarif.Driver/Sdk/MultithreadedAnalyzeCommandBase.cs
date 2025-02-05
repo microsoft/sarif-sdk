@@ -666,6 +666,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             globalContext.CancellationToken.ThrowIfCancellationRequested();
 
             string filePath = artifact.Uri.GetFilePath();
+            string suffix = artifact.Uri.IsAbsoluteUri ? artifact.Uri.Query : string.Empty;
+            filePath = $"{filePath}{suffix}";
 
             if (globalContext.CompiledGlobalFileDenyRegex?.Match(filePath).Success == true)
             {
@@ -722,9 +724,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 await EnumerateFilesFromArtifactsProvider(context);
                 return true;
             }
-
-            string suffix = artifact.Uri.IsAbsoluteUri ? artifact.Uri.Query : string.Empty;
-            filePath = $"{filePath}{suffix}";
 
             if (artifact.SizeInBytes == 0)
             {
