@@ -95,14 +95,37 @@ namespace Test.UnitTests.Sarif
         }
 
         [Fact]
-        public void MultithreadedZipArchiveArtifact_NonNullUriAndZipArchiveAreRequired()
+        public void MultithreadedZipArchiveArtifact_NonNullZipArchiveIsRequired()
         {
             string entryContents = $"{Guid.NewGuid()}";
             ZipArchive zip = CreateZipArchiveWithTextualContents("test.csv", entryContents);
             var doesNotExist = new Uri("file://does-not-exist.zip");
 
-            Assert.Throws<ArgumentNullException>(() => new MultithreadedZipArchiveArtifactProvider(uri: null, zip, FileSystem.Instance));
+            new MultithreadedZipArchiveArtifactProvider(uri: null, zip, FileSystem.Instance);
             Assert.Throws<ArgumentNullException>(() => new MultithreadedZipArchiveArtifactProvider(doesNotExist, null, FileSystem.Instance));
+        }
+
+        [Fact]
+        public void MultithreadedZipArchiveArtifact_NullUriReturnsRelativeZipPaths()
+        {
+            string entryContents = $"{Guid.NewGuid()}";
+            ZipArchive zip = CreateZipArchiveWithTextualContents("directory/test.csv", entryContents);
+
+            var provider = new MultithreadedZipArchiveArtifactProvider(uri: null, zip, FileSystem.Instance);
+            provider.Artifacts?.Count().Should().Be(1);
+            provider.Artifacts.First().Uri.ToString().Should().Be("directory/test.csv");
+        }
+
+        [Fact]
+        public void MultithreadedZipArchiveArtifact_NonNullUriReturnsZipPathsAsArchiveQueryString()
+        {
+            string entryContents = $"{Guid.NewGuid()}";
+            ZipArchive zip = CreateZipArchiveWithTextualContents("directory/test.csv", entryContents);
+            var uri = new Uri("c:\\does-not-exist.zip");
+
+            var provider = new MultithreadedZipArchiveArtifactProvider(uri, zip, FileSystem.Instance);
+            provider.Artifacts?.Count().Should().Be(1);
+            provider.Artifacts.First().Uri.ToString().Should().Be("file:///c:/does-not-exist.zip?path=directory/test.csv");
         }
 
         [Fact]

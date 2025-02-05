@@ -23,12 +23,13 @@ namespace Microsoft.CodeAnalysis.Sarif
                                   ZipArchiveEntry entry,
                                   ISet<string> binaryExtensions = null)
         {
-            this.uri = uri ?? throw new ArgumentNullException(nameof(uri));
             this.entry = entry ?? throw new ArgumentNullException(nameof(entry));
             this.archive = archive ?? throw new ArgumentNullException(nameof(archive));
 
             this.binaryExtensions = binaryExtensions ?? new HashSet<string>();
-            this.uri = new Uri($"{uri}?path={entry.FullName}");
+            this.uri = uri != null
+                ? new Uri($"{uri}?path={entry.FullName}")
+                : new Uri(entry.FullName, UriKind.RelativeOrAbsolute);
         }
 
         public Uri Uri => this.uri;
@@ -66,7 +67,6 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// In the future, we should consider eliminating the Encoding property
         /// entirely from IEnumeratedArtifact or do the work of handling the
         /// range of text encodings.
-
         /// </summary>
         public Encoding Encoding
         {
