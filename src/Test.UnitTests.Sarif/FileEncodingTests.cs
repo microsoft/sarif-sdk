@@ -148,7 +148,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             while ((current = reader.Read()) != -1)
             {
                 char ch = (char)current;
-                byte[] input = encoding.GetBytes([ch]);
+                byte[] input = encoding.GetBytes((char[])[ch]);
 
                 if (ch < 0x20) { continue; }
 
