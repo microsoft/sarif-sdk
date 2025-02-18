@@ -52,8 +52,20 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 normalizedSpecifier = uri.GetFilePath();
             }
 
-            string filter = Path.GetFileName(normalizedSpecifier);
-            string directory = Path.GetDirectoryName(normalizedSpecifier);
+            string directory = string.Empty;
+            string filter = string.Empty;
+
+            if (FileSystem.DirectoryExists(normalizedSpecifier))
+            {
+                // Check if the specifier itself is a directory
+                directory = normalizedSpecifier;
+                filter = "*";
+            }
+            else
+            {
+                filter = Path.GetFileName(normalizedSpecifier);
+                directory = Path.GetDirectoryName(normalizedSpecifier);
+            }
 
             if (directory.Length == 0)
             {

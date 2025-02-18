@@ -847,6 +847,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 TestAnalysisContext context = null;
                 int result = command.Run(options, ref context);
 
+                if (runtimeConditions == RuntimeConditions.None || (runtimeConditions & RuntimeConditions.Nonfatal) == 0)
+                {
+                   command._fileContextsCount.Should().NotBe(0);
+                }
+
                 context.RuntimeErrors.Should().Be(runtimeConditions);
                 result.Should().Be(expectedReturnCode);
 
@@ -1569,6 +1574,23 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                     Text = string.Format("Found an issue in {0} (full path is {1}", filePath, fileName)
                 }
             };
+        }
+
+        [Fact]
+        public void MultithreadedAnalyzeCommandBase_DirectoriesAreEnumerated()
+        {
+            string assemblyFilePath = GetThisTestAssemblyFilePath();
+            var testCases = new List<string>
+
+            {
+                assemblyFilePath, // well-formed
+                Path.GetDirectoryName(assemblyFilePath) //malformed
+            };
+
+            foreach (string testCase in testCases)
+            {
+                AnalyzeFile(testCase);
+            }
         }
 
         [Fact]
