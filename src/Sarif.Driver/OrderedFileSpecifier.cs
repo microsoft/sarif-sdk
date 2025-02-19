@@ -52,20 +52,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 normalizedSpecifier = uri.GetFilePath();
             }
 
-            string directory = string.Empty;
-            string filter = string.Empty;
-
-            if (FileSystem.DirectoryExists(normalizedSpecifier))
-            {
-                // Check if the specifier itself is a directory
-                directory = normalizedSpecifier;
-                filter = "*";
-            }
-            else
-            {
-                filter = Path.GetFileName(normalizedSpecifier);
-                directory = Path.GetDirectoryName(normalizedSpecifier);
-            }
+            string filter = Path.GetFileName(normalizedSpecifier);
+            string directory = Path.GetDirectoryName(normalizedSpecifier);
 
             if (directory.Length == 0)
             {
@@ -98,25 +86,49 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             });
 
             Task directoryEnumerationTask;
+            bool retry = false;
 
-            directoryEnumerationTask = Task.Run(() =>
+            do
             {
-                try
+                retry = false;
+                directoryEnumerationTask = Task.Run(() =>
                 {
-                    if (this.recurse)
+                    try
                     {
-                        EnqueueAllFilesUnderDirectory(directory, filesToProcessChannel.Writer, filter, new SortedSet<string>(StringComparer.Ordinal));
+                        if (this.recurse)
+                        {
+                            retry = !EnqueueAllFilesUnderDirectory(directory, filesToProcessChannel.Writer, filter, new SortedSet<string>(StringComparer.Ordinal));
+                        }
+                        else
+                        {
+                            retry = !WriteFilesInDirectoryToChannel(directory, filesToProcessChannel, filter, new SortedSet<string>(StringComparer.Ordinal));
+                        }
                     }
-                    else
+                    finally
                     {
-                        WriteFilesInDirectoryToChannel(directory, filesToProcessChannel, filter, new SortedSet<string>(StringComparer.Ordinal));
+                        if (retry)
+                        {
+                            normalizedSpecifier = uri.IsAbsoluteUri
+                                ? normalizedSpecifier
+                                : Path.Combine(directory, normalizedSpecifier);
+
+                            if (Directory.Exists(normalizedSpecifier))
+                            {
+                                directory = normalizedSpecifier;
+                                filter = "*";
+                            }
+                        }
+                        else
+                        {
+                            filesToProcessChannel.Writer.Complete();
+                        }
                     }
-                }
-                finally
-                {
-                    filesToProcessChannel.Writer.Complete();
-                }
-            });
+                });
+
+                // Wait for the task to complete
+                directoryEnumerationTask.Wait();
+
+            } while (retry);
 
             ChannelReader<string> reader = filesToProcessChannel.Reader;
             while (!reader.Completion.IsCompleted)
@@ -170,17 +182,17 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             this.cancellationToken.ThrowIfCancellationRequested();
         }
 
-        private void EnqueueAllFilesUnderDirectory(string directory, ChannelWriter<string> fileChannelWriter, string fileFilter, SortedSet<string> sortedDiskItemsBuffer)
+        private bool EnqueueAllFilesUnderDirectory(string directory, ChannelWriter<string> fileChannelWriter, string fileFilter, SortedSet<string> sortedDiskItemsBuffer)
         {
             if (CheckFaulted())
             {
-                return;
+                return false;
             }
 
-            WriteFilesInDirectoryToChannel(directory, fileChannelWriter, fileFilter, sortedDiskItemsBuffer);
-            if (CheckFaulted())
+            bool retry = WriteFilesInDirectoryToChannel(directory, fileChannelWriter, fileFilter, sortedDiskItemsBuffer);
+            if (!retry || CheckFaulted())
             {
-                return;
+                return false;
             }
 
             sortedDiskItemsBuffer.Clear();
@@ -188,7 +200,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             {
                 if (CheckFaulted())
                 {
-                    return;
+                    return false;
                 }
 
                 sortedDiskItemsBuffer.Add(childDirectory);
@@ -198,17 +210,26 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             {
                 if (CheckFaulted())
                 {
-                    return;
+                    return false;
                 }
 
                 EnqueueAllFilesUnderDirectory(childDirectory, fileChannelWriter, fileFilter, sortedDiskItemsBuffer);
             }
+
+            return true;
         }
 
-        private void WriteFilesInDirectoryToChannel(string directory, ChannelWriter<string> fileChannelWriter, string filter, SortedSet<string> sortedDiskItemsBuffer)
+        private bool WriteFilesInDirectoryToChannel(string directory, ChannelWriter<string> fileChannelWriter, string filter, SortedSet<string> sortedDiskItemsBuffer)
         {
             sortedDiskItemsBuffer.Clear();
-            foreach (string childFile in FileSystem.DirectoryEnumerateFiles(directory, filter, SearchOption.TopDirectoryOnly))
+            IEnumerable<string> enumeratedFiles = FileSystem.DirectoryEnumerateFiles(directory, filter, SearchOption.TopDirectoryOnly);
+
+            if (!enumeratedFiles.Any())
+            {
+                return false;
+            }
+
+            foreach (string childFile in enumeratedFiles)
             {
                 string fullFilePath = Path.Combine(directory, childFile);
                 sortedDiskItemsBuffer.Add(fullFilePath);
@@ -218,6 +239,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             {
                 fileChannelWriter.WriteAsync(childFile).AsTask().Wait();
             }
+
+            return true;
         }
 
         private bool CheckFaulted()
