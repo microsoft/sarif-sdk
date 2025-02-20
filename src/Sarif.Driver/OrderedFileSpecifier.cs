@@ -55,6 +55,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             string filter = Path.GetFileName(normalizedSpecifier);
             string directory = Path.GetDirectoryName(normalizedSpecifier);
 
+            if (filter != "*" && filter != "" && !FileSystem.FileExists(normalizedSpecifier))
+            {
+                directory = $"{normalizedSpecifier}{Path.DirectorySeparatorChar}";
+                filter = "*";
+            }
+
             if (directory.Length == 0)
             {
                 directory = $".{Path.DirectorySeparatorChar}";
@@ -86,49 +92,25 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             });
 
             Task directoryEnumerationTask;
-            bool retry = false;
 
-            do
+            directoryEnumerationTask = Task.Run(() =>
             {
-                retry = false;
-                directoryEnumerationTask = Task.Run(() =>
+                try
                 {
-                    try
+                    if (this.recurse)
                     {
-                        if (this.recurse)
-                        {
-                            retry = !EnqueueAllFilesUnderDirectory(directory, filesToProcessChannel.Writer, filter, new SortedSet<string>(StringComparer.Ordinal));
-                        }
-                        else
-                        {
-                            retry = !WriteFilesInDirectoryToChannel(directory, filesToProcessChannel, filter, new SortedSet<string>(StringComparer.Ordinal));
-                        }
+                        EnqueueAllFilesUnderDirectory(directory, filesToProcessChannel.Writer, filter, new SortedSet<string>(StringComparer.Ordinal));
                     }
-                    finally
+                    else
                     {
-                        if (retry)
-                        {
-                            normalizedSpecifier = uri.IsAbsoluteUri
-                                ? normalizedSpecifier
-                                : Path.Combine(directory, normalizedSpecifier);
-
-                            if (Directory.Exists(normalizedSpecifier))
-                            {
-                                directory = normalizedSpecifier;
-                                filter = "*";
-                            }
-                        }
-                        else
-                        {
-                            filesToProcessChannel.Writer.Complete();
-                        }
+                        WriteFilesInDirectoryToChannel(directory, filesToProcessChannel, filter, new SortedSet<string>(StringComparer.Ordinal));
                     }
-                });
-
-                // Wait for the task to complete
-                directoryEnumerationTask.Wait();
-
-            } while (retry);
+                }
+                finally
+                {
+                    filesToProcessChannel.Writer.Complete();
+                }
+            });
 
             ChannelReader<string> reader = filesToProcessChannel.Reader;
             while (!reader.Completion.IsCompleted)
@@ -182,17 +164,17 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             this.cancellationToken.ThrowIfCancellationRequested();
         }
 
-        private bool EnqueueAllFilesUnderDirectory(string directory, ChannelWriter<string> fileChannelWriter, string fileFilter, SortedSet<string> sortedDiskItemsBuffer)
+        private void EnqueueAllFilesUnderDirectory(string directory, ChannelWriter<string> fileChannelWriter, string fileFilter, SortedSet<string> sortedDiskItemsBuffer)
         {
             if (CheckFaulted())
             {
-                return false;
+                return;
             }
 
-            bool retry = WriteFilesInDirectoryToChannel(directory, fileChannelWriter, fileFilter, sortedDiskItemsBuffer);
-            if (!retry || CheckFaulted())
+            WriteFilesInDirectoryToChannel(directory, fileChannelWriter, fileFilter, sortedDiskItemsBuffer);
+            if (CheckFaulted())
             {
-                return false;
+                return;
             }
 
             sortedDiskItemsBuffer.Clear();
@@ -200,7 +182,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             {
                 if (CheckFaulted())
                 {
-                    return false;
+                    return;
                 }
 
                 sortedDiskItemsBuffer.Add(childDirectory);
@@ -210,26 +192,17 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             {
                 if (CheckFaulted())
                 {
-                    return false;
+                    return;
                 }
 
                 EnqueueAllFilesUnderDirectory(childDirectory, fileChannelWriter, fileFilter, sortedDiskItemsBuffer);
             }
-
-            return true;
         }
 
-        private bool WriteFilesInDirectoryToChannel(string directory, ChannelWriter<string> fileChannelWriter, string filter, SortedSet<string> sortedDiskItemsBuffer)
+        private void WriteFilesInDirectoryToChannel(string directory, ChannelWriter<string> fileChannelWriter, string filter, SortedSet<string> sortedDiskItemsBuffer)
         {
             sortedDiskItemsBuffer.Clear();
-            IEnumerable<string> enumeratedFiles = FileSystem.DirectoryEnumerateFiles(directory, filter, SearchOption.TopDirectoryOnly);
-
-            if (!enumeratedFiles.Any())
-            {
-                return false;
-            }
-
-            foreach (string childFile in enumeratedFiles)
+            foreach (string childFile in FileSystem.DirectoryEnumerateFiles(directory, filter, SearchOption.TopDirectoryOnly))
             {
                 string fullFilePath = Path.Combine(directory, childFile);
                 sortedDiskItemsBuffer.Add(fullFilePath);
@@ -239,8 +212,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             {
                 fileChannelWriter.WriteAsync(childFile).AsTask().Wait();
             }
-
-            return true;
         }
 
         private bool CheckFaulted()
