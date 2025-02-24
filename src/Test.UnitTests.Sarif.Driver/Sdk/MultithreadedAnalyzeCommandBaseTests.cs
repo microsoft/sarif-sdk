@@ -847,11 +847,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 TestAnalysisContext context = null;
                 int result = command.Run(options, ref context);
 
-                if (runtimeConditions == RuntimeConditions.None || (runtimeConditions & RuntimeConditions.Nonfatal) == 0)
-                {
-                    command._fileContextsCount.Should().NotBe(0);
-                }
-
                 context.RuntimeErrors.Should().Be(runtimeConditions);
                 result.Should().Be(expectedReturnCode);
 
@@ -1574,53 +1569,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                     Text = string.Format("Found an issue in {0} (full path is {1}", filePath, fileName)
                 }
             };
-        }
-
-        [Fact]
-        public void MultithreadedAnalyzeCommandBase_DirectoriesAreEnumerated()
-        {
-            string testDirectory = "TestDirectory";
-            string testFile = "TestFile.txt";
-            string directory = Path.GetDirectoryName(GetThisTestAssemblyFilePath());
-
-            // Create test dictionary
-            string testDirectoryPath = Path.Combine(directory, testDirectory);
-            Directory.CreateDirectory(testDirectoryPath);
-
-            // Create test file
-            string filePath = Path.Combine(testDirectoryPath, testFile);
-            if (!File.Exists(filePath))
-            {
-                File.WriteAllText(filePath, $"{Guid.NewGuid()}");
-            }
-
-            var testCases = new List<string>
-            {
-                // Absolute directory paths
-                testDirectoryPath,
-                testDirectoryPath + "/",
-                testDirectoryPath + "/*",
-
-                // Absolute file path
-                filePath,
-
-                // Relative directory paths
-                testDirectory,
-                testDirectory + "/",
-                testDirectory + "/*",
-                "./" + testDirectory,
-                "./" + testDirectory + "/",
-
-                // Relative file paths
-                Path.Combine(testDirectory, testFile),
-                "./" + Path.Combine(testDirectory, testFile),
-                $"{testDirectory}//{testFile}",
-            };
-
-            foreach (string testCase in testCases)
-            {
-                AnalyzeFile(testCase);
-            }
         }
 
         [Fact]

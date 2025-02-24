@@ -36,7 +36,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         internal bool _captureConsoleOutput;
         internal ConsoleLogger _consoleLogger;
 
-        internal uint _fileContextsCount;
+        private uint _fileContextsCount;
         private long _filesMatchingGlobalFileDenyRegex;
         private long _filesExceedingSizeLimitCount;
         private Channel<uint> _resultsWritingChannel;
