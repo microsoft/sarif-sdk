@@ -99,9 +99,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 // Relative file paths.
                 (_fixture.RootDirectoryRelativePath + "/TestDirectory0/" + "TestFile0.txt", 1),
                 ("./" + _fixture.RootDirectoryRelativePath + "/TestDirectory0/" + "TestFile0.txt", 1),
-
-                // Symbolic links.
-
             };
 
             var testCasesWindowsOnly = new List<(string, int)>
@@ -149,8 +146,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             string tempPath = Path.GetTempPath();
             var symbolicTestCases = new List<(string, string, int)>
             {
-                //(Path.Combine(tempPath, "TestDirectorySymbolic0"), "/d", 5),
-                //(Path.Combine(tempPath, "TestDirectorySymbolic1"), "/j", 5),
+                (Path.Combine(tempPath, "TestDirectorySymbolic0"), "/d", 5),
+                (Path.Combine(tempPath, "TestDirectorySymbolic1"), "/j", 5),
                 (Path.Combine(tempPath, "TestFileSymbolic.txt"), "", 1)
             };
 
