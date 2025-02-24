@@ -140,6 +140,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         /// to their target locations and that the expected number of artifacts are enumerated.
         /// </summary>
         [Fact]
+        [Trait(TestTraits.WindowsOnly, "true")]
         public void ResolveSymbolicLinks()
         {
             string tempPath = Path.GetTempPath();
@@ -175,7 +176,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                     {
                         Directory.Delete(testCase.Item1, true);
                     }
-                    if (File.Exists(testCase.Item1))
+                    else if (File.Exists(testCase.Item1))
                     {
                         File.Delete(testCase.Item1);
                     }
