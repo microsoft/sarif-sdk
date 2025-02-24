@@ -140,7 +140,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         /// to their target locations and that the expected number of artifacts are enumerated.
         /// </summary>
         [Fact]
-
         public void ResolveSymbolicLinks()
         {
             string tempPath = Path.GetTempPath();
