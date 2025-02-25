@@ -11,7 +11,7 @@
 * BUG: Resolve process hangs when a file path is provided with a wildcard, but without a `-r` (recurse) flag during the multi-threaded analysis file enumeration phase.
 * BUG: Fix error `ERR997.NoValidAnalysisTargets` when scanning symbolic link files.
 * BUG: Fix `ERR999.UnhandledEngineException: System.IO.FileNotFoundException: Could not find file` when a file name or directory path contains URL-encoded characters.
-* BUG: Fix error `ERR997.NoValidAnalysisTargets` when there are ambiguous file/directory references.
+* BUG: Fix error `ERR997.NoValidAnalysisTargets` when ambiguous file/directory references are provided to `OrderedFileSpecifier`. Previously, the code required an explicit directory separator to be added to the end of a directory path. Now, the code inspects the file system and assumes that a reference to an existing directory was intended by the user (even without a trailing separator).
 * NEW: Allow null archive uri in `MultithreadedZipArchiveArtifactProvider` (which indicates that enumerated artifact paths should not include the base archive).
 * NEW: Update `LogTargetParseError(IAnalysisContext, Region, string, Exception)` to include optional exception argument to denote code location where parse error occurred.
 * NEW: `MultithreadedAnalyzeCommandBase.EnumerateArtifact` now supports scanning into compressed (OPC) files. Initial support file extensions are: `.apk`, `.appx`, `.appxbundle`, `.docx`, `.epub`, `.jar`, `.msix`, `.msixbundle`, `.odp`, `.ods`, `.odt`, `.onepkg`, `.oxps`, `.pkg`, `.pptx`, `.unitypackage`, `.vsdx`, `.xps`, `.xlsx`, `.zip`.
