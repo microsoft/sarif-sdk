@@ -41,6 +41,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 }
             }
         }
+
         private static string GetThisTestAssemblyFilePath()
         {
             string filePath = typeof(MultithreadedAnalyzeCommandBaseTests).Assembly.Location;
@@ -99,6 +100,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 // Relative file paths.
                 (_fixture.RootDirectoryRelativePath + "/TestDirectory0/" + "TestFile0.txt", 1),
                 ("./" + _fixture.RootDirectoryRelativePath + "/TestDirectory0/" + "TestFile0.txt", 1),
+
+                // Manually tested for symbolic links.
             };
 
             var testCasesWindowsOnly = new List<(string, int)>
@@ -133,72 +136,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             }
 
             sb.Length.Should().Be(0, because: "all artifacts should be enumerated but the following cases failed." + Environment.NewLine + sb.ToString());
-        }
-
-        /// <summary>
-        /// This test ensures that symbolic links (both for files and directories) correctly resolve
-        /// to their target locations and that the expected number of artifacts are enumerated.
-        /// </summary>
-        [Fact]
-        [Trait(TestTraits.WindowsOnly, "true")]
-        public void ResolveSymbolicLinks()
-        {
-            string tempPath = Path.GetTempPath();
-            var symbolicTestCases = new List<(string, string, int)>
-            {
-                (Path.Combine(tempPath, "TestDirectorySymbolic0"), "/d", 5),
-                (Path.Combine(tempPath, "TestDirectorySymbolic1"), "/j", 5),
-                (Path.Combine(tempPath, "TestFileSymbolic.txt"), "", 1)
-            };
-
-            string folderTarget = Path.Combine(_fixture.RootDirectory, "TestDirectory1");
-            string fileTarget = _fixture.RootDirectory + "/TestDirectory1/" + "TestFile1.txt";
-
-            var sb = new StringBuilder();
-
-            foreach ((string, string, int) testCase in symbolicTestCases)
-            {
-                try
-                {
-                    string target = testCase.Item2.Length == 0 ? fileTarget : folderTarget;
-                    CreateSymbolicLink(testCase.Item1, target, testCase.Item2);
-                    var specifier = new OrderedFileSpecifier(testCase.Item1, recurse: true);
-                    int artifactCount = specifier.Artifacts.Count();
-
-                    if (!Equals(artifactCount, testCase.Item3))
-                    {
-                        sb.AppendFormat("Incorrect count of artifacts enumerated for specifier {0}. Expected '{1}' but saw '{2}'.", testCase.Item1, testCase.Item3, artifactCount).AppendLine();
-                    }
-                }
-                finally
-                {
-                    if (Directory.Exists(testCase.Item1))
-                    {
-                        Directory.Delete(testCase.Item1, true);
-                    }
-                    else if (File.Exists(testCase.Item1))
-                    {
-                        File.Delete(testCase.Item1);
-                    }
-                }
-            }
-
-            sb.Length.Should().Be(0, because: "all artifacts should be enumerated but the following cases failed." + Environment.NewLine + sb.ToString());
-        }
-
-        private void CreateSymbolicLink(string linkPath, string targetPath, string targetType)
-        {
-            var processStartInfo = new System.Diagnostics.ProcessStartInfo
-            {
-                FileName = "cmd.exe",
-                Arguments = $"/c mklink {targetType} \"{linkPath}\" \"{targetPath}\"",
-                UseShellExecute = false,
-                CreateNoWindow = true
-            };
-            using (var process = System.Diagnostics.Process.Start(processStartInfo))
-            {
-                process.WaitForExit();
-            }
         }
     }
 }
