@@ -124,6 +124,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             mockFileSystem.Setup(x => x.FileReadAllText(filePathToBeValidated)).Returns(logText);
             mockFileSystem.Setup(x => x.FileOpenRead(filePathToBeValidated)).Returns(new MemoryStream(Encoding.UTF8.GetBytes(filePathToBeValidated)));
             mockFileSystem.Setup(x => x.FileExists(baselineFilePath)).Returns(true);
+            mockFileSystem.Setup(x => x.FileExists(filePathToBeValidated)).Returns(true);
             mockFileSystem.Setup(x => x.DirectoryEnumerateFiles(It.IsAny<string>(), fileToBeValidated, SearchOption.TopDirectoryOnly)).Returns(new string[] { filePathToBeValidated });
             mockFileSystem.Setup(x => x.FileReadAllText(baselineFilePath)).Returns(baselineText);
             mockFileSystem.Setup(x => x.FileReadAllText(It.IsNotIn<string>(filePathToBeValidated))).Returns<string>(path => File.ReadAllText(path));
