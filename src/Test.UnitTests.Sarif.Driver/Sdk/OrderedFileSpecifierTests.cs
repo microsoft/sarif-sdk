@@ -24,7 +24,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         public OrderedFileSpecifierTestsFixture()
         {
             RootDirectoryRelativePath = Guid.NewGuid().ToString();
-            RootDirectory = Path.Combine(GetThisTestAssemblyFilePath(), RootDirectoryRelativePath);
+            RootDirectory = Path.Combine(Path.GetTempPath(), RootDirectoryRelativePath);
 
             Directory.CreateDirectory(RootDirectory);
 
@@ -40,12 +40,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                     File.WriteAllText(file, "12345");
                 }
             }
-        }
-
-        internal string GetThisTestAssemblyFilePath()
-        {
-            string filePath = typeof(MultithreadedAnalyzeCommandBaseTests).Assembly.Location;
-            return Path.GetDirectoryName(filePath);
         }
 
         public string RootDirectory { get; set; }
@@ -131,7 +125,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 {
                     // Set current directory to the parent of _fixture.RootDirectory, that is, the assembly directory
                     // to avoid non-deterministic resolution of relative paths when the current working directory changes.
-                    Environment.CurrentDirectory = _fixture.GetThisTestAssemblyFilePath();
+                    Environment.CurrentDirectory = Path.GetTempPath();
 
                     var specifier = new OrderedFileSpecifier(testCase.Item1, recurse: true);
                     int artifactCount = specifier.Artifacts.Count();
