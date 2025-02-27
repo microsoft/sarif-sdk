@@ -132,7 +132,8 @@ namespace Microsoft.CodeAnalysis.Sarif
         protected virtual void RunTest(string inputResourceName,
                                        string expectedOutputResourceName = null,
                                        object parameter = null,
-                                       bool enforceNotificationsFree = false)
+                                       bool enforceNotificationsFree = false,
+                                       ISet<string> expectedResultFingerprintKeys = null)
         {
             // In the simple case of one input file and one output file, the output resource name
             // can be inferred from the input resource name. In the case of arbitrary numbers of
@@ -176,13 +177,15 @@ namespace Microsoft.CodeAnalysis.Sarif
                                     expectedOutputResourceNameDictionary,
                                     expectedSarifTexts,
                                     actualSarifTexts,
-                                    enforceNotificationsFree);
+                                    enforceNotificationsFree,
+                                    expectedResultFingerprintKeys);
         }
 
         protected virtual void RunTest(IList<string> inputResourceNames,
                                        IDictionary<string, string> expectedOutputResourceNames,
                                        object parameter = null,
-                                       bool enforceNotificationsFree = false)
+                                       bool enforceNotificationsFree = false,
+                                       ISet<string> expectedResultFingerprintKeys = null)
         {
             var expectedSarifTexts = expectedOutputResourceNames.ToDictionary(
                 pair => pair.Key,
@@ -196,7 +199,8 @@ namespace Microsoft.CodeAnalysis.Sarif
                                     expectedOutputResourceNames,
                                     expectedSarifTexts,
                                     actualSarifTexts,
-                                    enforceNotificationsFree);
+                                    enforceNotificationsFree,
+                                    expectedResultFingerprintKeys);
         }
 
         private void CompareActualToExpected(
@@ -204,7 +208,8 @@ namespace Microsoft.CodeAnalysis.Sarif
             IDictionary<string, string> expectedOutputResourceNameDictionary,
             IDictionary<string, string> expectedSarifTextDictionary,
             IDictionary<string, string> actualSarifTextDictionary,
-            bool enforceNotificationsFree)
+            bool enforceNotificationsFree,
+            ISet<string> expectedResultFingerprintKeys)
         {
             if (inputResourceNames.Count == 0)
             {
@@ -228,6 +233,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             var filesWithErrors = new List<string>();
             var filesResultNotMatch = new List<string>();
+            var filesMissingFingerprints = new List<string>();
 
             // Reify the list of keys because we're going to modify the dictionary in place.
             var keys = expectedSarifTextDictionary.Keys.ToList();
@@ -255,6 +261,26 @@ namespace Microsoft.CodeAnalysis.Sarif
                     passed = AreEquivalent<SarifLog>(actualSarifTextDictionary[key],
                                                      expectedSarifTextDictionary[key],
                                                      out SarifLog actual);
+
+                    if (expectedResultFingerprintKeys != null &&
+                        actual?.Runs?[0]?.Results != null)
+                    {
+                        List<string> missingFingerprints = null;
+
+                        foreach (string expectedFingerprintKey in expectedResultFingerprintKeys)
+                        {
+                            if (actual.Runs[0].Results.Any(r => r.Fingerprints.ContainsKey(expectedFingerprintKey) == false))
+                            {
+                                missingFingerprints ??= new List<string>();
+                                missingFingerprints.Add(expectedFingerprintKey);
+                            }
+                        }
+
+                        if (missingFingerprints?.Count > 0)
+                        {
+                            filesMissingFingerprints.Add($"'{key}' analysis result is missing required fingerprints: {string.Join(", ", missingFingerprints)}");
+                        }
+                    }
 
                     if (enforceNotificationsFree &&
                         actual != null &&
@@ -309,6 +335,13 @@ namespace Microsoft.CodeAnalysis.Sarif
             }
 
             var sb = new StringBuilder();
+
+            if (filesMissingFingerprints.Count > 0)
+            {
+                sb.AppendLine(Environment.NewLine)
+                  .AppendLine("one or more files contain results missing required fingerprints: ")
+                  .AppendLine(string.Join(Environment.NewLine, filesMissingFingerprints.Select(s => $" - {s}")));
+            }
 
             if (filesWithErrors.Count > 0)
             {
