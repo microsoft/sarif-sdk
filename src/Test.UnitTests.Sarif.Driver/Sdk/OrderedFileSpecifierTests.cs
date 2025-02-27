@@ -30,7 +30,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
             for (int i = 0; i < 5; i++)
             {
-                string childDirectory = Path.Combine(RootDirectory, "TestDirectory" + i.ToString());
+                string childDirectory = Path.Combine(RootDirectory, "OrderedFileSpecifierTestDirectory" + i.ToString());
 
                 Directory.CreateDirectory(childDirectory);
 
@@ -42,7 +42,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             }
         }
 
-        private static string GetThisTestAssemblyFilePath()
+        internal string GetThisTestAssemblyFilePath()
         {
             string filePath = typeof(MultithreadedAnalyzeCommandBaseTests).Assembly.Location;
             return Path.GetDirectoryName(filePath);
@@ -83,7 +83,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 (_fixture.RootDirectory, 25),
                 (_fixture.RootDirectory + "/", 25),
                 (_fixture.RootDirectory + "/*", 25),
-                (Path.Combine(_fixture.RootDirectory, "TestDirectory0"), 5),
+                (Path.Combine(_fixture.RootDirectory, "OrderedFileSpecifierTestDirectory0"), 5),
 
                 // Relative directory paths.
                 (_fixture.RootDirectoryRelativePath, 25),
@@ -91,15 +91,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 (_fixture.RootDirectoryRelativePath + "/*", 25),
                 ("./" + _fixture.RootDirectoryRelativePath, 25),
                 ("./" + _fixture.RootDirectoryRelativePath + "/", 25),
-                (Path.Combine(_fixture.RootDirectoryRelativePath, "TestDirectory0"), 5),
+                (Path.Combine(_fixture.RootDirectoryRelativePath, "OrderedFileSpecifierTestDirectory0"), 5),
 
-                // Absolute file paths.
-                (_fixture.RootDirectory + "/TestDirectory0/" + "TestFile0.txt", 1),
-                (_fixture.RootDirectory + "/TestDirectory1/" + "TestFile1.txt", 1),
+                 // Absolute file paths.
+                (_fixture.RootDirectory + "/OrderedFileSpecifierTestDirectory0/" + "TestFile0.txt", 1),
+                (_fixture.RootDirectory + "/OrderedFileSpecifierTestDirectory1/" + "TestFile1.txt", 1),
 
-                // Relative file paths.
-                (_fixture.RootDirectoryRelativePath + "/TestDirectory0/" + "TestFile0.txt", 1),
-                ("./" + _fixture.RootDirectoryRelativePath + "/TestDirectory0/" + "TestFile0.txt", 1),
+                 // Relative file paths.
+                (_fixture.RootDirectoryRelativePath + "/OrderedFileSpecifierTestDirectory0/" + "TestFile0.txt", 1),
+                ("./" + _fixture.RootDirectoryRelativePath + "/OrderedFileSpecifierTestDirectory0/" + "TestFile0.txt", 1),
 
                 // Manually tested for symbolic links.
             };
@@ -112,9 +112,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 (_fixture.RootDirectoryRelativePath + "\\*", 25),
                 (".\\" + _fixture.RootDirectoryRelativePath, 25),
                 (".\\" + _fixture.RootDirectoryRelativePath + "\\", 25),
-                (_fixture.RootDirectory + "\\TestDirectory0\\" + "TestFile0.txt", 1),
-                (_fixture.RootDirectoryRelativePath + "\\TestDirectory0\\" + "TestFile0.txt", 1),
-                ("./" + _fixture.RootDirectoryRelativePath + "\\TestDirectory0\\" + "TestFile0.txt", 1)
+                (_fixture.RootDirectory + "\\OrderedFileSpecifierTestDirectory0\\" + "TestFile0.txt", 1),
+                (_fixture.RootDirectoryRelativePath + "\\OrderedFileSpecifierTestDirectory0\\" + "TestFile0.txt", 1),
+                ("./" + _fixture.RootDirectoryRelativePath + "\\OrderedFileSpecifierTestDirectory0\\" + "TestFile0.txt", 1)
             };
 
             if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
@@ -126,12 +126,24 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
             foreach ((string, int) testCase in testCases)
             {
-                var specifier = new OrderedFileSpecifier(testCase.Item1, recurse: true);
-                int artifactCount = specifier.Artifacts.Count();
-
-                if (!Equals(artifactCount, testCase.Item2))
+                string currentWorkingDirectory = Environment.CurrentDirectory;
+                try
                 {
-                    sb.AppendFormat("Incorrect count of artifacts enumerated for specifier {0}. Expected '{1}' but saw '{2}'.", testCase.Item1, testCase.Item2, artifactCount).AppendLine();
+                    // Set current directory to the parent of _fixture.RootDirectory, that is, the assembly directory
+                    // to avoid non-deterministic resolution of relative paths when the current working directory changes.
+                    Environment.CurrentDirectory = _fixture.GetThisTestAssemblyFilePath();
+
+                    var specifier = new OrderedFileSpecifier(testCase.Item1, recurse: true);
+                    int artifactCount = specifier.Artifacts.Count();
+
+                    if (!Equals(artifactCount, testCase.Item2))
+                    {
+                        sb.AppendFormat("Incorrect count of artifacts enumerated for specifier {0}. Expected '{1}' but saw '{2}'.", testCase.Item1, testCase.Item2, artifactCount).AppendLine();
+                    }
+                }
+                finally
+                {
+                    Environment.CurrentDirectory = currentWorkingDirectory;
                 }
             }
 
