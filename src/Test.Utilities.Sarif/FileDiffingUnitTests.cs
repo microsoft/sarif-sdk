@@ -233,6 +233,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             var filesWithErrors = new List<string>();
             var filesResultNotMatch = new List<string>();
+            var filesMissingFingerprints = new List<string>();
 
             // Reify the list of keys because we're going to modify the dictionary in place.
             var keys = expectedSarifTextDictionary.Keys.ToList();
@@ -269,7 +270,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                         {
                             if (actual.Runs[0].Results.Any(r => r.Fingerprints.ContainsKey(expectedFingerprintKey) == false))
                             {
-                                filesWithErrors.Add(key);
+                                filesMissingFingerprints.Add(key);
                                 break;
                             }
                         }
@@ -328,6 +329,13 @@ namespace Microsoft.CodeAnalysis.Sarif
             }
 
             var sb = new StringBuilder();
+
+            if (filesMissingFingerprints.Count > 0)
+            {
+                sb.AppendLine(Environment.NewLine)
+                  .AppendLine("one or more files contain results missing required fingerprints: ")
+                  .AppendLine(string.Join(Environment.NewLine, filesMissingFingerprints.Select(s => $" - {s}")));
+            }
 
             if (filesWithErrors.Count > 0)
             {
