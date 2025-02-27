@@ -23,9 +23,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         /// </summary>
         public OrderedFileSpecifierTestsFixture()
         {
-            string tempPath = Path.GetTempPath();
+            TempPath = Path.GetTempPath();
             RootDirectoryRelativePath = Guid.NewGuid().ToString();
-            RootDirectory = Path.Combine(tempPath, RootDirectoryRelativePath);
+            RootDirectory = Path.Combine(TempPath, RootDirectoryRelativePath);
 
             Directory.CreateDirectory(RootDirectory);
 
@@ -46,6 +46,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         public string RootDirectory { get; set; }
 
         public string RootDirectoryRelativePath { get; set; }
+
+        public string TempPath {  get; set; }
 
         public void Dispose()
         {
@@ -127,7 +129,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 {
                     // Set current directory to the parent of _fixture.RootDirectory, that is, the assembly directory
                     // to avoid non-deterministic resolution of relative paths when the current working directory changes.
-                    Environment.CurrentDirectory = Path.GetTempPath();
+                    Environment.CurrentDirectory = _fixture.TempPath;
 
                     var specifier = new OrderedFileSpecifier(testCase.Item1, recurse: true);
                     int artifactCount = specifier.Artifacts.Count();
