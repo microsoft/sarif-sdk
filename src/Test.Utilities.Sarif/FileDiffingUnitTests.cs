@@ -263,16 +263,22 @@ namespace Microsoft.CodeAnalysis.Sarif
                                                      out SarifLog actual);
 
                     if (expectedResultFingerprintKeys != null &&
-                        actual != null &&
-                        actual.Runs[0].Results != null)
+                        actual?.Runs?[0]?.Results != null)
                     {
+                        List<string> missingFingerprints = null;
+
                         foreach (string expectedFingerprintKey in expectedResultFingerprintKeys)
                         {
                             if (actual.Runs[0].Results.Any(r => r.Fingerprints.ContainsKey(expectedFingerprintKey) == false))
                             {
-                                filesMissingFingerprints.Add(key);
-                                break;
+                                missingFingerprints ??= new List<string>();
+                                missingFingerprints.Add(expectedFingerprintKey);
                             }
+                        }
+
+                        if (missingFingerprints?.Count > 0)
+                        {
+                            filesMissingFingerprints.Add($"'{key}' analysis result is missing required fingerprints: {string.Join(", ", missingFingerprints)}");
                         }
                     }
 
