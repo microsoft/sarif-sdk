@@ -23,8 +23,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         /// </summary>
         public OrderedFileSpecifierTestsFixture()
         {
+            string tempPath = Path.GetTempPath();
             RootDirectoryRelativePath = Guid.NewGuid().ToString();
-            RootDirectory = Path.Combine(Path.GetTempPath(), RootDirectoryRelativePath);
+            RootDirectory = Path.Combine(tempPath, RootDirectoryRelativePath);
 
             Directory.CreateDirectory(RootDirectory);
 
@@ -55,6 +56,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         }
     }
 
+    [Collection("TestsUsingCurrentDirectory")]
     public class OrderedFileSpecifierTests : IClassFixture<OrderedFileSpecifierTestsFixture>
     {
         private readonly OrderedFileSpecifierTestsFixture _fixture;
