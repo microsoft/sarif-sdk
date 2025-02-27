@@ -132,7 +132,8 @@ namespace Microsoft.CodeAnalysis.Sarif
         protected virtual void RunTest(string inputResourceName,
                                        string expectedOutputResourceName = null,
                                        object parameter = null,
-                                       bool enforceNotificationsFree = false)
+                                       bool enforceNotificationsFree = false,
+                                       ISet<string> expectedResultFingerprintKeys = null)
         {
             // In the simple case of one input file and one output file, the output resource name
             // can be inferred from the input resource name. In the case of arbitrary numbers of
@@ -176,13 +177,15 @@ namespace Microsoft.CodeAnalysis.Sarif
                                     expectedOutputResourceNameDictionary,
                                     expectedSarifTexts,
                                     actualSarifTexts,
-                                    enforceNotificationsFree);
+                                    enforceNotificationsFree,
+                                    expectedResultFingerprintKeys);
         }
 
         protected virtual void RunTest(IList<string> inputResourceNames,
                                        IDictionary<string, string> expectedOutputResourceNames,
                                        object parameter = null,
-                                       bool enforceNotificationsFree = false)
+                                       bool enforceNotificationsFree = false,
+                                       ISet<string> expectedResultFingerprintKeys = null)
         {
             var expectedSarifTexts = expectedOutputResourceNames.ToDictionary(
                 pair => pair.Key,
@@ -196,7 +199,8 @@ namespace Microsoft.CodeAnalysis.Sarif
                                     expectedOutputResourceNames,
                                     expectedSarifTexts,
                                     actualSarifTexts,
-                                    enforceNotificationsFree);
+                                    enforceNotificationsFree,
+                                    expectedResultFingerprintKeys);
         }
 
         private void CompareActualToExpected(
@@ -204,7 +208,8 @@ namespace Microsoft.CodeAnalysis.Sarif
             IDictionary<string, string> expectedOutputResourceNameDictionary,
             IDictionary<string, string> expectedSarifTextDictionary,
             IDictionary<string, string> actualSarifTextDictionary,
-            bool enforceNotificationsFree)
+            bool enforceNotificationsFree,
+            ISet<string> expectedResultFingerprintKeys)
         {
             if (inputResourceNames.Count == 0)
             {
@@ -255,6 +260,20 @@ namespace Microsoft.CodeAnalysis.Sarif
                     passed = AreEquivalent<SarifLog>(actualSarifTextDictionary[key],
                                                      expectedSarifTextDictionary[key],
                                                      out SarifLog actual);
+
+                    if (expectedResultFingerprintKeys != null &&
+                        actual != null &&
+                        actual.Runs[0].Results != null)
+                    {
+                        foreach (string expectedFingerprintKey in expectedResultFingerprintKeys)
+                        {
+                            if (actual.Runs[0].Results.Any(r => r.Fingerprints.ContainsKey(expectedFingerprintKey) == false))
+                            {
+                                filesWithErrors.Add(key);
+                                break;
+                            }
+                        }
+                    }
 
                     if (enforceNotificationsFree &&
                         actual != null &&
