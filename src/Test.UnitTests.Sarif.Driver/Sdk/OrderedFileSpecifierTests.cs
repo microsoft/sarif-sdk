@@ -47,7 +47,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
         public string RootDirectoryRelativePath { get; set; }
 
-        public string TempPath {  get; set; }
+        public string TempPath { get; set; }
 
         public void Dispose()
         {
