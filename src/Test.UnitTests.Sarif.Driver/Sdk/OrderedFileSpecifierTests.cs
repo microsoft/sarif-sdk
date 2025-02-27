@@ -23,8 +23,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         /// </summary>
         public OrderedFileSpecifierTestsFixture()
         {
+            TempPath = Path.GetTempPath();
             RootDirectoryRelativePath = Guid.NewGuid().ToString();
-            RootDirectory = Path.Combine(GetThisTestAssemblyFilePath(), RootDirectoryRelativePath);
+            RootDirectory = Path.Combine(TempPath, RootDirectoryRelativePath);
 
             Directory.CreateDirectory(RootDirectory);
 
@@ -42,15 +43,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             }
         }
 
-        internal string GetThisTestAssemblyFilePath()
-        {
-            string filePath = typeof(MultithreadedAnalyzeCommandBaseTests).Assembly.Location;
-            return Path.GetDirectoryName(filePath);
-        }
-
         public string RootDirectory { get; set; }
 
         public string RootDirectoryRelativePath { get; set; }
+
+        public string TempPath { get; set; }
 
         public void Dispose()
         {
@@ -61,6 +58,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         }
     }
 
+    [Collection("TestsUsingCurrentDirectory")]
     public class OrderedFileSpecifierTests : IClassFixture<OrderedFileSpecifierTestsFixture>
     {
         private readonly OrderedFileSpecifierTestsFixture _fixture;
@@ -131,7 +129,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 {
                     // Set current directory to the parent of _fixture.RootDirectory, that is, the assembly directory
                     // to avoid non-deterministic resolution of relative paths when the current working directory changes.
-                    Environment.CurrentDirectory = _fixture.GetThisTestAssemblyFilePath();
+                    Environment.CurrentDirectory = _fixture.TempPath;
 
                     var specifier = new OrderedFileSpecifier(testCase.Item1, recurse: true);
                     int artifactCount = specifier.Artifacts.Count();

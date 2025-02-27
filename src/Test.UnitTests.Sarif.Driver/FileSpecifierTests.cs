@@ -46,6 +46,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         }
     }
 
+    [Collection("TestsUsingCurrentDirectory")]
     public class FileSpecifierTests : IClassFixture<FileSpecifierTestsFixture>
     {
         private readonly FileSpecifierTestsFixture _fixture;
