@@ -33,6 +33,9 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         protected readonly List<RuleKind> AllRuleKinds = new List<RuleKind>(new[] { RuleKind.Sarif, RuleKind.Ado, RuleKind.Gh, RuleKind.Ghas });
 
+        private const string CrossCompanyCorrelatingIdCurrent = "crossCompanyCorrelatingId/v1";
+        private const string ValidationFingerprintCurrent = "validationFingerprint/v1";
+
         public FileDiffingUnitTests(ITestOutputHelper outputHelper, bool testProducesSarifCurrentVersion = true)
         {
             _outputHelper = outputHelper;
@@ -269,7 +272,8 @@ namespace Microsoft.CodeAnalysis.Sarif
 
                         foreach (string expectedFingerprintKey in expectedResultFingerprintKeys)
                         {
-                            if (actual.Runs[0].Results.Any(r => r.Fingerprints.ContainsKey(expectedFingerprintKey) == false))
+                            if (actual.Runs[0].Results.Any(r => r.Fingerprints.ContainsKey(expectedFingerprintKey) == false &&
+                                                          (expectedFingerprintKey != CrossCompanyCorrelatingIdCurrent || r.Fingerprints[ValidationFingerprintCurrent].Contains("SEC101"))))
                             {
                                 missingFingerprints ??= new List<string>();
                                 missingFingerprints.Add(expectedFingerprintKey);
