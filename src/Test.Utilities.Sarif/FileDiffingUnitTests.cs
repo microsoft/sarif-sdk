@@ -274,7 +274,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                         {
                             if (actual.Runs[0].Results.Any(r => r.Fingerprints.ContainsKey(expectedFingerprintKey) == false &&
                                                           (expectedFingerprintKey != CrossCompanyCorrelatingIdCurrent || r.Fingerprints[ValidationFingerprintCurrent].Contains("SEC101"))))
-                            { 
+                            {
                                 missingFingerprints ??= new List<string>();
                                 missingFingerprints.Add(expectedFingerprintKey);
                             }
