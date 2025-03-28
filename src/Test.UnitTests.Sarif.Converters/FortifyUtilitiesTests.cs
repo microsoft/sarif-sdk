@@ -20,6 +20,11 @@ The relation is specified by the `Einstein field equations`, a system of `partia
 And here's a garbage
 
 double line break!";
+            // We need to normalize the line endings in the multiline string above,
+            // because otherwise this test passes or fails depending on the value
+            // of core.autocrlf in git.
+            expected = expected.Replace("\r", "");
+            expected = expected.Replace("\n", Environment.NewLine);
             string actual = FortifyUtilities.ParseFormattedContentText(content);
             Assert.Equal(expected, actual);
         }
