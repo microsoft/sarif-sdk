@@ -91,7 +91,15 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif
                 DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate
             };
 
-            JsonConvert.SerializeObject(testObject, settings).Should().Be(s_testFileText);
+            // The resource file text value depends on the value of core.autocrlf
+            // in git when the repo was checked out, but the json serializer does
+            // its serialization using Environment.NewLine. We need to change one
+            // of the two to get the test to pass consistently.
+            var expected = s_testFileText;
+            expected = expected.Replace("\r", "");
+            expected = expected.Replace("\n", Environment.NewLine);
+
+            JsonConvert.SerializeObject(testObject, settings).Should().Be(expected);
         }
 
         [Fact]

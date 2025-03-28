@@ -49,6 +49,13 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             string expectedText = s_extractor.GetResourceText("SimpleExample.sarif");
 
+            // The resource file text value depends on the value of core.autocrlf
+            // in git when the repo was checked out, but the json serializer does
+            // its serialization using Environment.NewLine. We need to change one
+            // of the two to get the test to pass consistently.
+            expectedText = expectedText.Replace("\r", "");
+            expectedText = expectedText.Replace("\n", Environment.NewLine);
+
             var memoryStream = new MemoryStream();
             var streamWriter = new StreamWriter(memoryStream);
 

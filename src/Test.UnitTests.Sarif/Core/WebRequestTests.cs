@@ -44,7 +44,7 @@ Accept-Language: en, mi
         public void WebRequest_Parse_ExtractsBody()
         {
             // Example from RFC 7230.
-            const string RequestString =
+            string RequestString =
 @"GET /hello.txt HTTP/1.1
 User-Agent: curl/7.16.3 libcurl/7.16.3 OpenSSL/0.9.7l zlib/1.2.3
 Host: www.example.com
@@ -53,6 +53,12 @@ Accept-Language: en, mi
 This is the body.
 Line 2.
 ";
+
+            // We need to normalize the line endings in the multiline string above,
+            // because otherwise this test passes or fails depending on the value
+            // of core.autocrlf in git.
+            RequestString = RequestString.Replace("\r", "");
+            RequestString = RequestString.Replace("\n", Environment.NewLine);
 
             var webRequest = WebRequest.Parse(RequestString);
 

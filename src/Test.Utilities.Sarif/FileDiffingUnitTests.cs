@@ -149,6 +149,13 @@ namespace Microsoft.CodeAnalysis.Sarif
             expectedOutputResourceName = Path.GetFileNameWithoutExtension(expectedOutputResourceName) + SarifConstants.SarifFileExtension;
             string expectedSarifText = GetExpectedOutputFileFromResource(expectedOutputResourceName);
 
+            // Our expected output files have line endings based on the value of git's core.autocrlf
+            // config setting, but our actual output files use Environment.NewLine. In order for the
+            // tests to consistently pass regardless of git settings and host OS, we need to correct
+            // for the desired behavior here.
+            expectedSarifText = expectedSarifText.Replace("\r", "");
+            expectedSarifText = expectedSarifText.Replace("\n", Environment.NewLine);
+
             string actualSarifText = ConstructTestOutputFromInputResource(inputResourceName, parameter);
 
             // The comparison code is shared between this one-input-to-one-output method and the
