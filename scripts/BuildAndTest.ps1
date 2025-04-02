@@ -195,13 +195,6 @@ if (-not $NoClean) {
 
 Install-VersionConstantsFile
 
-if (-not $NoRestore) {
-    Write-Information "Restoring NuGet packages for $SampleSolutionFile..."
-        & $NuGetExePath restore -ConfigFile $NuGetConfigFile -Verbosity $NuGetVerbosity -OutputDirectory $NuGetSamplesPackageRoot (Join-Path $SourceRoot $SampleSolutionFile)
-    if ($LASTEXITCODE -ne 0) {
-        Exit-WithFailureMessage $ScriptName "NuGet restore failed for $SampleSolutionFile."
-    }
-}
 
 # The SARIF object model is stable. We disable autogenerating it to allow
 # for strict control enforcing style guidelines from command-line builds.
@@ -218,12 +211,6 @@ if (-not $?) {
     Exit-WithFailureMessage $ScriptName "BeforeBuild failed."
 }
 
-if (-not $NoBuild) {
-    Invoke-DotNetBuild $SolutionFile
-    if ($OnWindows) {
-        Invoke-DotNetBuild $sampleSolutionFile
-    }
-}
 
 if (-not $NoTest) {
     if (-not $OnWindows) {

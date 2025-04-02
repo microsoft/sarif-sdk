@@ -2267,7 +2267,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 var context = new TestAnalysisContext { FileSystem = testCase.FileSystem };
 
                 context.Policy.SetProperty(AnalyzeContextBase.OpcFileExtensionsProperty, new StringSet());
-                context.Policy.SetProperty(AnalyzeContextBase.BinaryFileExtensionsProperty, new StringSet());
 
                 int result = command.Run(options, ref context);
 

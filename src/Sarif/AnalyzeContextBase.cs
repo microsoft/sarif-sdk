@@ -28,7 +28,6 @@ namespace Microsoft.CodeAnalysis.Sarif
                 AutomationGuidProperty,
                 AutomationIdProperty,
                 BaselineFilePathProperty,
-                BinaryFileExtensionsProperty,
                 ChannelSizeProperty,
                 OutputConfigurationFilePathProperty,
                 DataToInsertProperty,
@@ -192,12 +191,6 @@ namespace Microsoft.CodeAnalysis.Sarif
             set => this.Policy.SetProperty(TargetFileSpecifiersProperty, new StringSet(value));
         }
 
-        public ISet<string> BinaryFileExtensions
-        {
-            get => this.Policy.GetProperty(BinaryFileExtensionsProperty);
-            set => this.Policy.SetProperty(BinaryFileExtensionsProperty, new StringSet(value));
-        }
-
         public ISet<string> OpcFileExtensions
         {
             get => this.Policy.GetProperty(OpcFileExtensionsProperty);
@@ -359,14 +352,6 @@ namespace Microsoft.CodeAnalysis.Sarif
                     new PerLanguageOption<StringSet>(
                         "CoreSettings", nameof(TargetFileSpecifiers), defaultValue: () => new StringSet(),
                         "One or more file specifiers for locating scan targets.");
-
-        public static PerLanguageOption<StringSet> BinaryFileExtensionsProperty { get; } =
-                    new PerLanguageOption<StringSet>(
-                        "CoreSettings", nameof(BinaryFileExtensions),
-                        defaultValue: () => new StringSet([".bmp", ".cab", ".cer", ".der", ".dll", ".exe", ".gif", ".gz", ".iso", ".jpe",
-                                                           ".jpeg", ".lock", ".p12", ".pack", ".pfx", ".pkcs12", ".png", ".psd", ".rar",
-                                                           ".tar", ".tif", ".tiff", ".xcf", ".zip"]),
-                        "One or more file extensions that should be forcibly treated as binary not textual data.");
 
         public static PerLanguageOption<StringSet> OpcFileExtensionsProperty { get; } =
                      new PerLanguageOption<StringSet>(
