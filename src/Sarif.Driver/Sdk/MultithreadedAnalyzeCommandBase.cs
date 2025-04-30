@@ -680,14 +680,23 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             }
 
             string extension;
-            try
+            int lastDotIndex = filePath.LastIndexOf('.');
+
+            if (lastDotIndex < 0)
             {
-                extension = Path.GetExtension(filePath);
+                extension = string.Empty;
             }
-            catch (ArgumentException)
+            else
             {
-                string cleanPath = Path.GetInvalidFileNameChars().Aggregate(filePath, (previous, current) => previous.Replace(current.ToString(), string.Empty));
-                extension = Path.GetExtension(cleanPath);
+                int lastSeparatorIndex = filePath.LastIndexOf(Path.PathSeparator);
+                if (lastSeparatorIndex > lastDotIndex)
+                {
+                    extension = string.Empty;
+                }
+                else
+                {
+                    extension = filePath.Substring(lastDotIndex);
+                }
             }
 
             if (artifact.Uri.IsAbsoluteUri &&
