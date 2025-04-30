@@ -679,7 +679,17 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 return false;
             }
 
-            string extension = Path.GetExtension(filePath);
+            string extension;
+            try
+            {
+                extension = Path.GetExtension(filePath);
+            }
+            catch (ArgumentException)
+            {
+                string cleanPath = Path.GetInvalidFileNameChars().Aggregate(filePath, (previous, current) => previous.Replace(current.ToString(), string.Empty));
+                extension = Path.GetExtension(cleanPath);
+            }
+
             if (artifact.Uri.IsAbsoluteUri &&
                 string.IsNullOrEmpty(artifact.Uri.Query) &&
                 globalContext.OpcFileExtensions.Contains(extension))

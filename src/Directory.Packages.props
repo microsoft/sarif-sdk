@@ -21,10 +21,11 @@
     <PackageVersion Include="Microsoft.Json.Pointer" Version="2.1.0" />
     <PackageVersion Include="Microsoft.Json.Schema" Version="2.1.0" />
     <PackageVersion Include="Microsoft.Json.Schema.Validation" Version="2.1.0" />
-    <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="17.4.1" />
+    <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="17.13.0" />
     <PackageVersion Include="Microsoft.SourceLink.GitHub" Version="1.1.1" />
     <PackageVersion Include="Microsoft.TeamFoundationServer.Client" Version="16.170.0" />
     <PackageVersion Include="Moq" Version="4.18.4" />
+    <PackageVersion Include="MSTest" Version="3.8.3" />
     <PackageVersion Include="Newtonsoft.Json" Version="13.0.3" />
     <PackageVersion Include="System.Collections.Immutable" Version="5.0.0" />
     <PackageVersion Include="System.Composition" Version="5.0.0" />
