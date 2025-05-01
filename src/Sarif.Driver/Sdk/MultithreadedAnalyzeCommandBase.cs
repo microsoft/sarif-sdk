@@ -679,25 +679,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 return false;
             }
 
-            string extension;
-            int lastDotIndex = filePath.LastIndexOf('.');
-
-            if (lastDotIndex < 0)
-            {
-                extension = string.Empty;
-            }
-            else
-            {
-                int lastSeparatorIndex = filePath.LastIndexOf(Path.PathSeparator);
-                if (lastSeparatorIndex > lastDotIndex)
-                {
-                    extension = string.Empty;
-                }
-                else
-                {
-                    extension = filePath.Substring(lastDotIndex);
-                }
-            }
+            string extension = filePath.GetFileExtension();
 
             if (artifact.Uri.IsAbsoluteUri &&
                 string.IsNullOrEmpty(artifact.Uri.Query) &&
