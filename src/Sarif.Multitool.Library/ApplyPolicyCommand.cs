@@ -31,7 +31,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
                 actualLog.ApplyPolicies();
 
-                string fileName = CommandUtilities.GetTransformedOutputFileName(options);
+                string fileName = CommandUtilities.GetTransformedOutputFileName(FileSystem, options);
 
                 WriteSarifFile(_fileSystem, actualLog, fileName, options.Minify);
 

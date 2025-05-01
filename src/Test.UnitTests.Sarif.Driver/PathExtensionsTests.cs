@@ -180,19 +180,5 @@ namespace Test.UnitTests.Sarif.Driver
                 }
             }
         }
-
-        [Fact]
-        public void GetFileExtension_ShouldExtractExtension()
-        {
-            "test.txt".GetFileExtension().Should().Be(".txt");
-            "C:\\test.abcde".GetFileExtension().Should().Be(".abcde");
-            "C:\\some_dir\\test.yft".GetFileExtension().Should().Be(".yft");
-            "http://example.com/some.file.ext".GetFileExtension().Should().Be(".ext");
-            "some.other.dir/extensionless".GetFileExtension().Should().Be(string.Empty);
-            "yet<another>dir\\with|pipes|file.a".GetFileExtension().Should().Be(".a");
-            "yet<another>dir\\with|pipes|file.a.".GetFileExtension().Should().Be(string.Empty);
-            "yet<another>dir\\with.pipes|file".GetFileExtension().Should().Be(".pipes|file");
-        }
-
     }
 }

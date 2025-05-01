@@ -74,5 +74,19 @@ namespace Microsoft.CodeAnalysis.Sarif
                 }
             }
         }
+
+        [Fact]
+        public void PathGetExtension_ShouldExtractExtension()
+        {
+            FileSystem.Instance.PathGetExtension("test.txt").Should().Be(".txt");
+            FileSystem.Instance.PathGetExtension("C:\\test.abcde").Should().Be(".abcde");
+            FileSystem.Instance.PathGetExtension("C:\\some_dir\\test.yft").Should().Be(".yft");
+            FileSystem.Instance.PathGetExtension("http://example.com/some.file.ext").Should().Be(".ext");
+            FileSystem.Instance.PathGetExtension("some.other.dir/extensionless").Should().Be(string.Empty);
+            FileSystem.Instance.PathGetExtension("yet<another>dir\\with|pipes|file.a").Should().Be(".a");
+            FileSystem.Instance.PathGetExtension("yet<another>dir\\with|pipes|file.a.").Should().Be(string.Empty);
+            FileSystem.Instance.PathGetExtension("yet<another>dir\\with.pipes|file").Should().Be(".pipes|file");
+        }
+
     }
 }
