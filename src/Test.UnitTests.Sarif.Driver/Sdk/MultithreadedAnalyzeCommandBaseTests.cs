@@ -879,6 +879,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             mockFileSystem.Setup(x => x.FileInfoLength(path)).Returns(content.Length);
             mockFileSystem.Setup(x => x.FileReadAllText(path)).Returns(content);
             mockFileSystem.Setup(x => x.FileOpenRead(path)).Returns(new MemoryStream(Encoding.UTF8.GetBytes(content)));
+            mockFileSystem.Setup(x => x.PathGetExtension(It.IsAny<string>())).Returns((string path) => Path.GetExtension(path));
 
             var target = new EnumeratedArtifact(mockFileSystem.Object)
             {
@@ -1131,6 +1132,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                                                                 It.IsAny<SearchOption>())).Returns(files);
             mockFileSystem.Setup(x => x.FileOpenRead(It.IsAny<string>())).Returns(mockStream.Object);
             mockFileSystem.Setup(x => x.FileExists(tempFile.Name)).Returns(true);
+            mockFileSystem.Setup(x => x.PathGetExtension(It.IsAny<string>())).Returns((string path) => Path.GetExtension(path));
 
             Output.WriteLine($"The seed that will be used is: {TestRule.s_seed}");
 
@@ -1332,6 +1334,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 mockFileSystem.Setup(x => x.FileExists(tempFile.Name)).Returns(true);
                 mockFileSystem.Setup(x => x.FileInfoLength(It.IsAny<string>())).Returns((long)testCase.fileSizeInBytes);
                 mockFileSystem.Setup(x => x.IsSymbolicLink(It.IsAny<string>())).Returns((bool)testCase.isSymbolicLink);
+                mockFileSystem.Setup(x => x.PathGetExtension(It.IsAny<string>())).Returns((string path) => Path.GetExtension(path));
 
                 bool expectedToBeWithinLimits =
                     testCase.fileSizeInBytes != 0 &&
@@ -1381,6 +1384,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                                                                 It.IsAny<string>(),
                                                                 It.IsAny<SearchOption>())).Returns(files);
             mockFileSystem.Setup(x => x.FileOpenRead(It.IsAny<string>())).Returns(mockStream.Object);
+            mockFileSystem.Setup(x => x.PathGetExtension(It.IsAny<string>())).Returns((string path) => Path.GetExtension(path));
 
             var options = new TestAnalyzeOptions
             {
@@ -2189,6 +2193,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             mockFileSystem.Setup(x => x.DirectoryEnumerateFiles(It.IsAny<string>())).Returns(new string[0]);
             mockFileSystem.Setup(x => x.DirectoryEnumerateFiles(It.IsAny<string>(), It.IsAny<string>(), SearchOption.TopDirectoryOnly)).Returns(files);
             mockFileSystem.Setup(x => x.DirectoryGetFiles(It.IsAny<string>(), It.IsAny<string>())).Returns(files);
+            mockFileSystem.Setup(x => x.PathGetExtension(It.IsAny<string>())).Returns((string path) => Path.GetExtension(path));
 
             for (int i = 0; i < files.Count; i++)
             {

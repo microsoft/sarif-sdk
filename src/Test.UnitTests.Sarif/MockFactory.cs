@@ -2,6 +2,7 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System;
+using System.IO;
 
 using Moq;
 
@@ -16,6 +17,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             mock.Setup(fs => fs.PathGetFullPath(It.IsAny<string>())).Returns((string path) => path);
             mock.Setup(fs => fs.FileReadAllText(fileName)).Returns(fileText ?? string.Join(Environment.NewLine, fileLines));
             mock.Setup(fs => fs.FileReadAllLines(fileName)).Returns(fileLines ?? fileText.Split(new[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries));
+            mock.Setup(x => x.PathGetExtension(It.IsAny<string>())).Returns((string path) => Path.GetExtension(path));
             return mock.Object;
         }
     }

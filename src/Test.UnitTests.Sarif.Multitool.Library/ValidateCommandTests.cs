@@ -50,6 +50,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             mockFileSystem.Setup(x => x.FileOpenRead(logFilePath)).Returns(new MemoryStream(Encoding.UTF8.GetBytes(RewriteCommandTests.MinimalCurrentV2Text)));
             mockFileSystem.Setup(x => x.FileReadAllText(SchemaFilePath)).Returns(SchemaFileContents);
             mockFileSystem.Setup(x => x.FileExists(logFilePath)).Returns(true);
+            mockFileSystem.Setup(x => x.PathGetExtension(It.IsAny<string>())).Returns((string path) => Path.GetExtension(path));
 
             var validateCommand = new ValidateCommand(mockFileSystem.Object);
 
