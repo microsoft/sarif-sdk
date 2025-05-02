@@ -4,6 +4,7 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Resources;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -210,5 +211,52 @@ namespace Microsoft.CodeAnalysis.Sarif
                 return null;
             }
         }
+
+        /// <summary>
+        /// Returns the extension of the given path. The returned value includes the period (".") character of the extension
+        /// except when you have a terminal period when you get String.Empty, such as ".exe" or ".cpp".
+        ///
+        /// While the latest version of Path.GetExtension will not throw if the path contains any illegal characters, older
+        /// versions of .NET, some of which are still in use, will.  This method acts like the newer version and will not throw.
+        /// </summary>
+        /// <param name="path">The path to extract the extension from</param>
+        /// <returns>The file extension or null if the given path is null or if the given path does not include an extension.</returns>
+        internal static string PathGetExtension(string path)
+        {
+            if (path == null)
+            {
+                return null;
+            }
+
+            // This function was copied from https://referencesource.microsoft.com/#mscorlib/system/io/path.cs,f424e433705aeb09
+            // with one change.  The following line was commented out so that this method will not throw on
+            // illegal characters
+            // CheckInvalidPathChars(path);
+
+            int length = path.Length;
+            for (int i = length; --i >= 0;)
+            {
+                char ch = path[i];
+                if (ch == '.')
+                {
+                    if (i != length - 1)
+                    {
+                        return path.Substring(i, length - i);
+                    }
+                    else
+                    {
+                        return string.Empty;
+                    }
+                }
+
+                if (ch == Path.DirectorySeparatorChar || ch == Path.AltDirectorySeparatorChar || ch == Path.VolumeSeparatorChar)
+                {
+                    break;
+                }
+            }
+
+            return string.Empty;
+        }
+
     }
 }

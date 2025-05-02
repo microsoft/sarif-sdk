@@ -500,40 +500,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <returns>The file extension or null if the given path is null or if the given path does not include an extension.</returns>
         public string PathGetExtension(string path)
         {
-            if (path == null)
-            {
-                return null;
-            }
-
-            // This function was copied from https://referencesource.microsoft.com/#mscorlib/system/io/path.cs,f424e433705aeb09
-            // with one change.  The following line was commented out so that this method will not throw on
-            // illegal characters
-            // CheckInvalidPathChars(path);
-
-            int length = path.Length;
-            for (int i = length; --i >= 0;)
-            {
-                char ch = path[i];
-                if (ch == '.')
-                {
-                    if (i != length - 1)
-                    {
-                        return path.Substring(i, length - i);
-                    }
-                    else
-                    {
-                        return string.Empty;
-                    }
-                }
-
-                if (ch == Path.DirectorySeparatorChar || ch == Path.AltDirectorySeparatorChar || ch == Path.VolumeSeparatorChar)
-                {
-                    break;
-                }
-            }
-
-            return string.Empty;
+            return SarifUtilities.PathGetExtension(path);
         }
-
     }
 }

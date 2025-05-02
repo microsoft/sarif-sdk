@@ -27,7 +27,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
                 string format = "";
                 string outputFilePath = exportOptions.OutputFilePath;
-                string extension = Path.GetExtension(outputFilePath);
+                string extension = FileSystem.PathGetExtension(outputFilePath);
 
                 switch (extension)
                 {
