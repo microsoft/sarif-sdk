@@ -82,18 +82,22 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 (_fixture.RootDirectory + "/", 25),
                 (_fixture.RootDirectory + "/*", 25),
                 (_fixture.RootDirectory + "/*.txt", 25),
+                (_fixture.RootDirectory + "/Test*.txt", 25),
                 (Path.Combine(_fixture.RootDirectory, "OrderedFileSpecifierTestDirectory0"), 5),
                 (Path.Combine(_fixture.RootDirectory, "OrderedFileSpecifierTestDirectory0/*.txt"), 5),
+                (Path.Combine(_fixture.RootDirectory, "OrderedFileSpecifierTestDirectory0/Test*.txt"), 5),
 
                 // Relative directory paths.
                 (_fixture.RootDirectoryRelativePath, 25),
                 (_fixture.RootDirectoryRelativePath + "/", 25),
                 (_fixture.RootDirectoryRelativePath + "/*", 25),
                 (_fixture.RootDirectoryRelativePath + "/*.txt", 25),
+                (_fixture.RootDirectoryRelativePath + "/Test*.txt", 25),
                 ("./" + _fixture.RootDirectoryRelativePath, 25),
                 ("./" + _fixture.RootDirectoryRelativePath + "/", 25),
                 (Path.Combine(_fixture.RootDirectoryRelativePath, "OrderedFileSpecifierTestDirectory0"), 5),
                 (Path.Combine(_fixture.RootDirectoryRelativePath, "OrderedFileSpecifierTestDirectory0/*.txt"), 5),
+                (Path.Combine(_fixture.RootDirectoryRelativePath, "OrderedFileSpecifierTestDirectory0/Test*.txt"), 5),
 
                  // Absolute file paths.
                 (_fixture.RootDirectory + "/OrderedFileSpecifierTestDirectory0/" + "TestFile0.txt", 1),
