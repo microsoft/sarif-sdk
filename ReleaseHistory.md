@@ -10,6 +10,7 @@
 * DEP: Update `Microsoft.Data.SqlClient` from 2.1.7 to 5.2.2 so its dependencies `Microsoft.IdentityModel.JsonWebTokens` and `System.IdentityModel.Tokens.Jwt` upgrade to non-vulnerable version 6.35.0 (https://github.com/dotnet/aspnetcore/security/advisories/GHSA-59j7-ghrg-fj52).
 * BUG: Resolve process hangs when a file path is provided with a wildcard, but without a `-r` (recurse) flag during the multi-threaded analysis file enumeration phase.
 * BUG: Fix error `ERR997.NoValidAnalysisTargets` when scanning symbolic link files.
+* BUG: Fix error `ERR997.NoValidAnalysisTargets` when passing wildcard patterns (e.g., *.txt) to `OrderedFileSpecifier`. A recent change limited our wildcard support strictly to use of * only.
 * BUG: Fix `ERR999.UnhandledEngineException: System.IO.FileNotFoundException: Could not find file` when a file name or directory path contains URL-encoded characters.
 * BUG: Fix error `ERR997.NoValidAnalysisTargets` when ambiguous file/directory references are provided to `OrderedFileSpecifier`. Previously, the code required an explicit directory separator to be added to the end of a directory path. Now, the code inspects the file system and assumes that a reference to an existing directory was intended by the user (even without a trailing separator).
 * NEW: Allow null archive uri in `MultithreadedZipArchiveArtifactProvider` (which indicates that enumerated artifact paths should not include the base archive).

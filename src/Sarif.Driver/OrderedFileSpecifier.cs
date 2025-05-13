@@ -55,7 +55,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             string filter = Path.GetFileName(normalizedSpecifier);
             string directory = Path.GetDirectoryName(normalizedSpecifier);
 
-            if (filter != "*" && filter.Length != 0 && !FileSystem.FileExists(normalizedSpecifier))
+            if (!filter.Contains("*") && filter.Length != 0 && !FileSystem.FileExists(normalizedSpecifier))
             {
                 directory = $"{normalizedSpecifier}{Path.DirectorySeparatorChar}";
                 filter = "*";
