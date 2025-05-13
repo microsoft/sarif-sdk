@@ -11,9 +11,10 @@
          VisualStudio SDK, and mitigate risk by limiting nesting depth. -->
     <PackageReference Include="Newtonsoft.Json" VersionOverride="12.0.3" NoWarn="NU1903" />
 
+    <PackageReference Include="FluentAssertions" />
+    <PackageReference Include="Moq" />
     <PackageReference Include="System.Composition" />
     <PackageReference Include="xunit" />
-    <PackageReference Include="FluentAssertions" />
   </ItemGroup>
 
   <Import Project="$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildThisFileDirectory), build.props))\build.props" />

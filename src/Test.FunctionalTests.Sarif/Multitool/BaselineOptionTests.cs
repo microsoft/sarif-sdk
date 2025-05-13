@@ -116,7 +116,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 RuleKindOption = AllRuleKinds// new List<RuleKind>() { RuleKind.Sarif },
             };
 
-            var mockFileSystem = new Mock<IFileSystem>();
+            Mock<IFileSystem> mockFileSystem = MockFactory.MakeMockFileSystem();
 
             mockFileSystem.Setup(x => x.DirectoryExists(inputLogDirectory)).Returns(true);
             mockFileSystem.Setup(x => x.DirectoryGetDirectories(It.IsAny<string>())).Returns(Array.Empty<string>());
@@ -133,7 +133,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             mockFileSystem.Setup(x => x.FileCreate(outputLogFilePath)).Returns((string path) => File.Create(path));
             mockFileSystem.Setup(x => x.FileCreate(baselineFilePath)).Returns((string path) => File.Create(path));
             mockFileSystem.Setup(x => x.FileInfoLength(It.IsAny<string>())).Returns(100);
-            mockFileSystem.Setup(x => x.PathGetExtension(It.IsAny<string>())).Returns((string path) => SarifUtilities.PathGetExtension(path));
 
             var validateCommand = new ValidateCommand();
             var context = new SarifValidationContext { FileSystem = mockFileSystem.Object };

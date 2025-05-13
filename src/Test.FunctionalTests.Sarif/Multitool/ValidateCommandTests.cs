@@ -513,7 +513,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 RuleKindOption = new List<RuleKind>() { RuleKind.Gh, RuleKind.Sarif },
             };
 
-            var mockFileSystem = new Mock<IFileSystem>();
+            Mock<IFileSystem> mockFileSystem = MockFactory.MakeMockFileSystem();
 
             mockFileSystem.Setup(x => x.FileInfoLength(It.IsAny<string>())).Returns(1);
             mockFileSystem.Setup(x => x.DirectoryExists(inputLogDirectory)).Returns(true);
@@ -523,7 +523,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             mockFileSystem.Setup(x => x.FileOpenRead(inputLogFilePath)).Returns(new MemoryStream(Encoding.UTF8.GetBytes(v2LogText)));
             mockFileSystem.Setup(x => x.FileReadAllText(It.IsNotIn<string>(inputLogFilePath))).Returns<string>(path => File.ReadAllText(path));
             mockFileSystem.Setup(x => x.FileExists(inputLogFilePath)).Returns(true);
-            mockFileSystem.Setup(x => x.PathGetExtension(It.IsAny<string>())).Returns((string path) => SarifUtilities.PathGetExtension(path));
 
             // Some rules are disabled by default, so create a configuration file that explicitly
             // enables the rule under test.

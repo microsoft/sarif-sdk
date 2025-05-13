@@ -257,6 +257,5 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             return string.Empty;
         }
-
     }
 }

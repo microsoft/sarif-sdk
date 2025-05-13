@@ -42,7 +42,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
             string logFilePath = Path.Combine(LogFileDirectoryWithSpace, LogFileName);
 
-            var mockFileSystem = new Mock<IFileSystem>();
+            Mock<IFileSystem> mockFileSystem = MockFactory.MakeMockFileSystem();
             mockFileSystem.Setup(x => x.FileInfoLength(It.IsAny<string>())).Returns(1024);
             mockFileSystem.Setup(x => x.DirectoryExists(LogFileDirectoryWithSpace)).Returns(true);
             mockFileSystem.Setup(x => x.DirectoryEnumerateFiles(LogFileDirectoryWithSpace, It.IsAny<string>(), SearchOption.TopDirectoryOnly)).Returns(new[] { LogFileName });
@@ -50,7 +50,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             mockFileSystem.Setup(x => x.FileOpenRead(logFilePath)).Returns(new MemoryStream(Encoding.UTF8.GetBytes(RewriteCommandTests.MinimalCurrentV2Text)));
             mockFileSystem.Setup(x => x.FileReadAllText(SchemaFilePath)).Returns(SchemaFileContents);
             mockFileSystem.Setup(x => x.FileExists(logFilePath)).Returns(true);
-            mockFileSystem.Setup(x => x.PathGetExtension(It.IsAny<string>())).Returns((string path) => SarifUtilities.PathGetExtension(path));
 
             var validateCommand = new ValidateCommand(mockFileSystem.Object);
 

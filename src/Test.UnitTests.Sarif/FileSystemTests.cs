@@ -86,7 +86,21 @@ namespace Microsoft.CodeAnalysis.Sarif
             FileSystem.Instance.PathGetExtension("yet<another>dir\\with|pipes|file.a").Should().Be(".a");
             FileSystem.Instance.PathGetExtension("yet<another>dir\\with|pipes|file.a.").Should().Be(string.Empty);
             FileSystem.Instance.PathGetExtension("yet<another>dir\\with.pipes|file").Should().Be(".pipes|file");
-        }
+            FileSystem.Instance.PathGetExtension("yet<another>dir\\with.pipes.file").Should().Be(".file");
+            FileSystem.Instance.PathGetExtension("yet.another.dir\\with.pipes|file").Should().Be(".pipes|file");
+            FileSystem.Instance.PathGetExtension("yet.another.dir\\with|pipes|file").Should().Be(string.Empty);
 
+            const string libTest1 = "call_library_version.txt";
+            const string libTest2 = "C:\\test.library_version";
+            const string libTest3 = "library_version\\test.file";
+            const string libTest4 = "libarary.version\\test.file";
+            const string libTest5 = "library.version\\test";
+
+            FileSystem.Instance.PathGetExtension(libTest1).Should().Be(Path.GetExtension(libTest1));
+            FileSystem.Instance.PathGetExtension(libTest2).Should().Be(Path.GetExtension(libTest2));
+            FileSystem.Instance.PathGetExtension(libTest3).Should().Be(Path.GetExtension(libTest3));
+            FileSystem.Instance.PathGetExtension(libTest4).Should().Be(Path.GetExtension(libTest4));
+            FileSystem.Instance.PathGetExtension(libTest5).Should().Be(Path.GetExtension(libTest5));
+        }
     }
 }
