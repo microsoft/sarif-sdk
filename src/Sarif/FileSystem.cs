@@ -488,5 +488,19 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             return Path.GetFileNameWithoutExtension(path);
         }
+
+        /// <summary>
+        /// Returns the extension of the given path. The returned value includes the period (".") character of the extension
+        /// except when you have a terminal period when you get String.Empty, such as ".exe" or ".cpp".
+        ///
+        /// While the latest version of Path.GetExtension will not throw if the path contains any illegal characters, older
+        /// versions of .NET, some of which are still in use, will.  This method acts like the newer version and will not throw.
+        /// </summary>
+        /// <param name="path">The path to extract the extension from</param>
+        /// <returns>The file extension or null if the given path is null or if the given path does not include an extension.</returns>
+        public string PathGetExtension(string path)
+        {
+            return SarifUtilities.PathGetExtension(path);
+        }
     }
 }

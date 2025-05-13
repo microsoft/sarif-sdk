@@ -3,22 +3,53 @@
 
 using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Text;
 using System.Text.RegularExpressions;
+
+using Microsoft.CodeAnalysis.Sarif.Driver;
 
 using Moq;
 
 using Match = System.Text.RegularExpressions.Match; // Avoid ambiguity with Moq.Match;
 
-namespace Microsoft.CodeAnalysis.Sarif.Driver
+namespace Microsoft.CodeAnalysis.Sarif
 {
     internal static class MockFactory
     {
+        public static Mock<IFileSystem> MakeMockFileSystem(bool strict = false)
+        {
+            var mock = new Mock<IFileSystem>(strict ? MockBehavior.Strict : MockBehavior.Default);
+
+            mock.Setup(fs => fs.PathGetFullPath(It.IsAny<string>())).Returns((string path) => path);
+            mock.Setup(fs => fs.PathGetExtension(It.IsAny<string>())).Returns((string path) => SarifUtilities.PathGetExtension(path));
+
+            return mock;
+        }
+
         public static IFileSystem MakeMockFileSystem(string fileName, string[] fileContents)
         {
-            var mock = new Mock<IFileSystem>(MockBehavior.Strict);
+            Mock<IFileSystem> mock = MakeMockFileSystem(true);
+
             mock.Setup(fs => fs.FileExists(It.IsAny<string>())).Returns((string s) => s.Equals(fileName, StringComparison.OrdinalIgnoreCase));
             mock.Setup(fs => fs.PathGetFullPath(It.IsAny<string>())).Returns((string path) => path);
             mock.Setup(fs => fs.FileReadAllLines(fileName)).Returns(fileContents);
+
+            return mock.Object;
+        }
+
+        public static IFileSystem MakeMockFileSystem(string fileName, string fileText)
+        {
+            Mock<IFileSystem> mock = MakeMockFileSystem(true);
+
+            mock.Setup(fs => fs.FileExists(It.IsAny<string>())).Returns((string s) => s.Equals(fileName, StringComparison.OrdinalIgnoreCase));
+            mock.Setup(fs => fs.FileInfoLength(fileName)).Returns(fileText.Length);
+            mock.Setup(fs => fs.FileReadAllText(fileName)).Returns(fileText);
+            mock.Setup(fs => fs.FileReadAllLines(fileName)).Returns(fileText.Split(new[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries));
+            mock.Setup(fs => fs.FileStreamLength(fileName)).Returns(fileText.Length);
+            mock.Setup(fs => fs.IsSymbolicLink(fileName)).Returns(false);
+            mock.Setup(fs => fs.FileOpenRead(fileName)).Returns(new MemoryStream(Encoding.UTF8.GetBytes(fileText)));
+
             return mock.Object;
         }
 
