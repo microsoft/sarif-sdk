@@ -41,7 +41,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                                                               options.ExpiryInDays,
                                                               options.Status).VisitSarifLog(currentSarifLog);
 
-                string actualOutputPath = CommandUtilities.GetTransformedOutputFileName(options);
+                string actualOutputPath = CommandUtilities.GetTransformedOutputFileName(FileSystem, options);
                 if (options.SarifOutputVersion == SarifVersion.OneZeroZero)
                 {
                     var visitor = new SarifCurrentToVersionOneVisitor();

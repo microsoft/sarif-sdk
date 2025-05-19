@@ -10,7 +10,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 {
     internal static class CommandUtilities
     {
-        internal static string GetTransformedOutputFileName(SingleFileOptionsBase options)
+        internal static string GetTransformedOutputFileName(IFileSystem fileSystem, SingleFileOptionsBase options)
         {
             string filePath = Path.GetFullPath(options.InputFilePath);
 
@@ -25,7 +25,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             }
 
             const string TransformedExtension = ".transformed.sarif";
-            string extension = Path.GetExtension(filePath);
+            string extension = fileSystem.PathGetExtension(filePath);
 
             // For an input file named MyFile.sarif, returns MyFile.transformed.sarif.
             if (extension.Equals(SarifConstants.SarifFileExtension, StringComparison.OrdinalIgnoreCase))

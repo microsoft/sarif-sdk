@@ -873,21 +873,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             var uri = new Uri(path, UriKind.Absolute);
 
             string content = "foo foo";
-            var mockFileSystem = new Mock<IFileSystem>();
-            mockFileSystem.Setup(x => x.IsSymbolicLink(path)).Returns(false);
-            mockFileSystem.Setup(x => x.FileStreamLength(path)).Returns(content.Length);
-            mockFileSystem.Setup(x => x.FileInfoLength(path)).Returns(content.Length);
-            mockFileSystem.Setup(x => x.FileReadAllText(path)).Returns(content);
-            mockFileSystem.Setup(x => x.FileOpenRead(path)).Returns(new MemoryStream(Encoding.UTF8.GetBytes(content)));
+            IFileSystem mockFileSystem = MockFactory.MakeMockFileSystem(path, content);
 
-            var target = new EnumeratedArtifact(mockFileSystem.Object)
+            var target = new EnumeratedArtifact(mockFileSystem)
             {
                 Uri = uri
-            };
-
-            var options = new TestAnalyzeOptions
-            {
-                PluginFilePaths = new[] { typeof(TestRule).Assembly.FullName },
             };
 
             var properties = new PropertiesDictionary();
@@ -908,6 +898,31 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             sarifLog.Runs[0].Should().NotBeNull();
             sarifLog.Runs[0].Results[0].Should().NotBeNull();
             sarifLog.Runs[0].Results.Count.Should().Be(1);
+        }
+
+        [Fact]
+        public void AnalyzeCommand_IllegalPathCharInURL()
+        {
+            var sarifOutput = new StringBuilder();
+            var command = new TestMultithreadedAnalyzeCommand();
+            using var writer = new StringWriter(sarifOutput);
+            var logger = new SarifLogger(writer,
+                                            run: new Run { Tool = command.Tool },
+                                            levels: BaseLogger.ErrorWarningNote,
+                                            kinds: BaseLogger.Fail);
+
+            var target = new EnumeratedArtifact(FileSystem.Instance) { Uri = new Uri("http://example.com/some<character>test/bad\"characters\"path.txt"), Contents = "fake content" };
+
+            var context = new TestAnalysisContext
+            {
+                TargetsProvider = new ArtifactProvider(new[] { target }),
+                FailureLevels = BaseLogger.ErrorWarningNote,
+                ResultKinds = BaseLogger.Fail,
+                Logger = logger,
+            };
+
+            int result = command.Run(options: null, ref context);
+            result.Should().Be(0);
         }
 
         [Fact]
@@ -1096,7 +1111,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             mockStream.Setup(m => m.CanSeek).Returns(true);
             mockStream.Setup(m => m.ReadByte()).Returns('a');
 
-            var mockFileSystem = new Mock<IFileSystem>();
+            Mock<IFileSystem> mockFileSystem = MockFactory.MakeMockFileSystem();
             mockFileSystem.Setup(x => x.FileInfoLength(It.IsAny<string>())).Returns(2048);
             mockFileSystem.Setup(x => x.DirectoryExists(It.IsAny<string>())).Returns(true);
             mockFileSystem.Setup(x => x.DirectoryGetFiles(It.IsAny<string>(), specifier)).Returns(files);
@@ -1264,7 +1279,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 mockStream.Setup(m => m.CanSeek).Returns(true);
                 mockStream.Setup(m => m.ReadByte()).Returns('a');
 
-                var mockFileSystem = new Mock<IFileSystem>();
+                Mock<IFileSystem> mockFileSystem = MockFactory.MakeMockFileSystem();
 
                 if (testCase.actualFileContent != null)
                 {
@@ -1347,7 +1362,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             mockStream.Setup(m => m.ReadByte()).Returns('a');
             mockStream.Setup(m => m.Seek(It.IsAny<long>(), It.IsAny<SeekOrigin>())).Throws(new IOException());
 
-            var mockFileSystem = new Mock<IFileSystem>();
+            Mock<IFileSystem> mockFileSystem = MockFactory.MakeMockFileSystem();
             mockFileSystem.Setup(x => x.FileInfoLength(It.IsAny<string>())).Returns(2048);
             mockFileSystem.Setup(x => x.DirectoryExists(It.IsAny<string>())).Returns(true);
             mockFileSystem.Setup(x => x.DirectoryGetFiles(It.IsAny<string>(), specifier)).Returns(files);
@@ -1491,8 +1506,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 OutputFilePath = "",
             };
 
-            var mockFileSystem = new Mock<IFileSystem>();
-
+            Mock<IFileSystem> mockFileSystem = MockFactory.MakeMockFileSystem();
             mockFileSystem.Setup(x => x.FileExists(It.IsAny<string>())).Returns(defaultFileExists);
 
             var command = new TestMultithreadedAnalyzeCommand(mockFileSystem.Object);
@@ -2157,8 +2171,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
             string logFileContents = Guid.NewGuid().ToString();
 
-            var mockFileSystem = new Mock<IFileSystem>();
-
+            Mock<IFileSystem> mockFileSystem = MockFactory.MakeMockFileSystem();
             mockFileSystem.Setup(x => x.DirectoryExists(It.IsAny<string>())).Returns(true);
             mockFileSystem.Setup(x => x.FileInfoLength(It.IsAny<string>())).Returns(2048);
             mockFileSystem.Setup(x => x.DirectoryEnumerateFiles(It.IsAny<string>())).Returns(new string[0]);

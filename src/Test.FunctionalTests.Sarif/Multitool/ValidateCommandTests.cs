@@ -513,7 +513,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 RuleKindOption = new List<RuleKind>() { RuleKind.Gh, RuleKind.Sarif },
             };
 
-            var mockFileSystem = new Mock<IFileSystem>();
+            Mock<IFileSystem> mockFileSystem = MockFactory.MakeMockFileSystem();
 
             mockFileSystem.Setup(x => x.FileInfoLength(It.IsAny<string>())).Returns(1);
             mockFileSystem.Setup(x => x.DirectoryExists(inputLogDirectory)).Returns(true);
