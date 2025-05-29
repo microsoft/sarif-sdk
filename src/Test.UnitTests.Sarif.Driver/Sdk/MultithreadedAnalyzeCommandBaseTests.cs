@@ -4,6 +4,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.IO.Compression;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.InteropServices;
@@ -71,6 +72,41 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             logger.ConfigurationNotifications[0].Message.Text.Should().Be(expected);
 
             context.RuntimeErrors.Should().Be(RuntimeConditions.NoValidAnalysisTargets | RuntimeConditions.TargetParseError);
+        }
+
+        [Fact]
+        public void MultithreadedAnalyzeCommandBase_ValidZipArchive()
+        {
+            var logger = new TestMessageLogger();
+
+            // Create a valid zip file on disk
+            using var tempFile = new TempFile(requestedExtension: ".zip");
+            using (ZipArchive zip = System.IO.Compression.ZipFile.Open(tempFile.Name, System.IO.Compression.ZipArchiveMode.Create))
+            {
+                ZipArchiveEntry entry = zip.CreateEntry("test.txt");
+                using Stream entryStream = entry.Open();
+                using var writer = new StreamWriter(entryStream);
+                writer.Write("Hello, world!");
+            }
+
+            var dummyUri = new Uri("https://example.com/valid.zip");
+            byte[] zipBytes = File.ReadAllBytes(tempFile.Name);
+            var artifactFromBytes = new EnumeratedArtifact(new FileSystem())
+            {
+                Uri = dummyUri,
+                Bytes = zipBytes
+            };
+
+            var contextFromBytes = new TestAnalysisContext
+            {
+                TargetsProvider = new ArtifactProvider(new[] { artifactFromBytes }),
+                MaxFileSizeInKilobytes = 1,
+                Logger = logger,
+            };
+
+            int resultFromBytes = new TestMultithreadedAnalyzeCommand().Run(options: null, ref contextFromBytes);
+            resultFromBytes.Should().Be(SUCCESS);
+            contextFromBytes.RuntimeErrors.Should().Be(RuntimeConditions.None);
         }
 
         [Fact]

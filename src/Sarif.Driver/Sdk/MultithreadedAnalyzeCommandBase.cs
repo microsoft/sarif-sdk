@@ -687,16 +687,32 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 var context = new TContext();
                 context.Policy = globalContext.Policy;
                 context.Logger = globalContext.Logger;
-                context.CurrentTarget = new EnumeratedArtifact(globalContext.FileSystem)
+
+                // If artifact.Bytes is set, use the original artifact as CurrentTarget
+                if (artifact.Bytes != null)
                 {
-                    Uri = new Uri(filePath, UriKind.RelativeOrAbsolute)
-                };
+                    context.CurrentTarget = artifact;
+                }
+                else
+                {
+                    context.CurrentTarget = new EnumeratedArtifact(globalContext.FileSystem)
+                    {
+                        Uri = new Uri(filePath, UriKind.RelativeOrAbsolute)
+                    };
+                }
 
                 ZipArchive archive = null;
 
                 try
                 {
-                    archive = ZipFile.OpenRead(filePath);
+                    if (artifact.Bytes != null)
+                    {
+                        archive = new ZipArchive(new MemoryStream(artifact.Bytes), ZipArchiveMode.Read, leaveOpen: false);
+                    }
+                    else
+                    {
+                        archive = ZipFile.OpenRead(filePath);
+                    }
                 }
                 catch (Exception ex)
                 {
