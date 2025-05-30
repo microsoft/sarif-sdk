@@ -102,9 +102,9 @@ namespace Microsoft.CodeAnalysis.Sarif
             // If this signature is detected, treat the stream as binary (not
             // text) to avoid corrupting ZIP contents.
             return header[0] == (byte)'P' &&
-                   header[1] == (byte)'K' &&
-                   header[2] == 0x03 &&
-                   header[3] == 0x04;
+                    header[1] == (byte)'K' &&
+                    header[2] == 0x03 &&
+                    header[3] == 0x04;
         }
 
         private void RetrieveDataFromStream()
