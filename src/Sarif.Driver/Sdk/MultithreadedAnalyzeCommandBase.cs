@@ -679,27 +679,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 return false;
             }
 
-            string extension = Path.GetExtension(filePath);
-            if (artifact.Uri.IsAbsoluteUri &&
-                string.IsNullOrEmpty(artifact.Uri.Query) &&
-                globalContext.OpcFileExtensions.Contains(extension))
+            if (IsOpcArtifact(artifact, filePath, globalContext))
             {
                 var context = new TContext();
                 context.Policy = globalContext.Policy;
                 context.Logger = globalContext.Logger;
-
-                // If artifact.Bytes is set, use the original artifact as CurrentTarget
-                if (artifact.Bytes != null)
-                {
-                    context.CurrentTarget = artifact;
-                }
-                else
-                {
-                    context.CurrentTarget = new EnumeratedArtifact(globalContext.FileSystem)
-                    {
-                        Uri = new Uri(filePath, UriKind.RelativeOrAbsolute)
-                    };
-                }
 
                 ZipArchive archive = null;
 
@@ -707,10 +691,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 {
                     if (artifact.Bytes != null)
                     {
+                        context.CurrentTarget = artifact;
                         archive = new ZipArchive(new MemoryStream(artifact.Bytes), ZipArchiveMode.Read, leaveOpen: false);
                     }
                     else
                     {
+                        context.CurrentTarget = new EnumeratedArtifact(globalContext.FileSystem)
+                        {
+                            Uri = new Uri(filePath, UriKind.RelativeOrAbsolute)
+                        };
                         archive = ZipFile.OpenRead(filePath);
                     }
                 }
@@ -787,6 +776,25 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             await readyToScanChannel.Writer.WriteAsync(_fileContextsCount++);
 
             return true;
+        }
+
+        private static bool IsOpcArtifact(IEnumeratedArtifact artifact, string filePath, TContext globalContext)
+        {
+            // If the file extension is recognized as an OPC type, it qualifies.
+            string extension = Path.GetExtension(filePath);
+            if (!globalContext.OpcFileExtensions.Contains(extension))
+            {
+                return false;
+            }
+
+            // If we have bytes (e.g., stream-supplied ZIP), it qualifies.
+            if (artifact.Bytes != null)
+            {
+                return true;
+            }
+
+            // Otherwise, it must be a URI-based artifact with no query string.
+            return artifact.Uri.IsAbsoluteUri && string.IsNullOrEmpty(artifact.Uri.Query);
         }
 
         private async Task<bool> EnumerateFilesFromArtifactsProvider(TContext globalContext)

@@ -43,7 +43,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         {
             var logger = new TestMessageLogger();
 
-
             // Create an empty/invalid zip file that will provoke a
             // System.IO.InvalidDataException: 'Central Directory corrupt.'
             // exception on attempting to initialize the ZipArchive.
@@ -75,13 +74,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         }
 
         [Fact]
-        public void MultithreadedAnalyzeCommandBase_ValidZipArchive()
+        public void MultithreadedAnalyzeCommandBase_ShouldHandle_EnumeratedArtifactWithOrWithoutStream()
         {
             var logger = new TestMessageLogger();
 
             // Create a valid zip file on disk
             using var tempFile = new TempFile(requestedExtension: ".zip");
-            using (ZipArchive zip = System.IO.Compression.ZipFile.Open(tempFile.Name, System.IO.Compression.ZipArchiveMode.Create))
+            using (ZipArchive zip = ZipFile.Open(tempFile.Name, ZipArchiveMode.Create))
             {
                 ZipArchiveEntry entry = zip.CreateEntry("test.txt");
                 using Stream entryStream = entry.Open();
@@ -90,23 +89,63 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             }
 
             var dummyUri = new Uri("https://example.com/valid.zip");
-            byte[] zipBytes = File.ReadAllBytes(tempFile.Name);
-            var artifactFromBytes = new EnumeratedArtifact(new FileSystem())
+            var validUri = new Uri(tempFile.Name);
+            var streamContent = new MemoryStream(File.ReadAllBytes(tempFile.Name));
+
+            var testArtifacts = new List<EnumeratedArtifact>
             {
-                Uri = dummyUri,
-                Bytes = zipBytes
+                // 1. Only Valid Uri
+                new EnumeratedArtifact(new FileSystem())
+                {
+                    Uri = validUri
+                },
+
+                // 2. Only Dummy Uri 
+                new EnumeratedArtifact(new FileSystem())
+                {
+                    Uri = dummyUri,
+                },
+
+                // 3. Valid Uri + Stream
+                new EnumeratedArtifact(new FileSystem())
+                {
+                    Uri = validUri,
+                    Stream = streamContent
+                },
+
+                 // 4. Dummy Uri + Stream
+                new EnumeratedArtifact(new FileSystem())
+                {
+                    Uri = dummyUri,
+                    Stream = streamContent
+                },
             };
 
-            var contextFromBytes = new TestAnalysisContext
+            for (int i = 0; i < testArtifacts.Count; i++)
             {
-                TargetsProvider = new ArtifactProvider(new[] { artifactFromBytes }),
-                MaxFileSizeInKilobytes = 1,
-                Logger = logger,
-            };
+                streamContent.Position = 0;
+                EnumeratedArtifact artifact = testArtifacts[i];
 
-            int resultFromBytes = new TestMultithreadedAnalyzeCommand().Run(options: null, ref contextFromBytes);
-            resultFromBytes.Should().Be(SUCCESS);
-            contextFromBytes.RuntimeErrors.Should().Be(RuntimeConditions.None);
+                var contextFromBytes = new TestAnalysisContext
+                {
+                    TargetsProvider = new ArtifactProvider(new[] { artifact }),
+                    MaxFileSizeInKilobytes = 1,
+                    Logger = logger,
+                };
+
+                int resultFromBytes = new TestMultithreadedAnalyzeCommand().Run(options: null, ref contextFromBytes);
+
+                if (i == 1) // 2. Only Dummy Uri
+                {
+                    resultFromBytes.Should().Be(FAILURE);
+                    contextFromBytes.RuntimeErrors.Should().Be(RuntimeConditions.ExceptionInEngine);
+                }
+                else
+                {
+                    resultFromBytes.Should().Be(SUCCESS);
+                    contextFromBytes.RuntimeErrors.Should().Be(RuntimeConditions.None);
+                }
+            }
         }
 
         [Fact]
