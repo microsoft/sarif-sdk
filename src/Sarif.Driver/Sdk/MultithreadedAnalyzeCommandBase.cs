@@ -116,7 +116,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                     }
                 }
 
-                var analyzeTask = Task.Run(() =>
+                Task<int> analyzeTask = Task.Run(() =>
                 {
                     return Run(methodLocalContext);
                 }, globalContext.CancellationToken);
@@ -454,7 +454,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
             // 1: First we initiate an asynchronous operation to locate disk files for
             // analysis, as specified in analysis configuration (file names, wildcards).
-            var enumerateTargets = Task.Run(() => EnumerateTargetsAsync(globalContext));
+            Task<bool> enumerateTargets = Task.Run(() => EnumerateTargetsAsync(globalContext));
 
             // 2: A dedicated set of threads pull scan targets and analyze them.
             //    On completing a scan, the thread writes the index of the 
@@ -1537,7 +1537,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
         internal static bool IsTargetWithinFileSizeLimit(long size, long maxFileSizeInKB)
         {
-            if (size == 0) { return false; };
+            if (size == 0) { return false; }
+            ;
             size = Math.Min(long.MaxValue - 1023, size);
             long fileSizeInKb = (size + 1023) / 1024;
             return fileSizeInKb <= maxFileSizeInKB;
