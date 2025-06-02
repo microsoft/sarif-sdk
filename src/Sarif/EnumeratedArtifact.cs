@@ -11,7 +11,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     // EnumeratedArtifact<string> being a commonly utilized thing.
     public class EnumeratedArtifact(IFileSystem fileSystem) : IEnumeratedArtifact
     {
-        private const int BinarySniffingHeaderSizeBytes = 1024;
+    private const int BinarySniffingHeaderSizeBytes = 1024;
     internal byte[] bytes;
     internal string contents;
 
@@ -90,6 +90,23 @@ namespace Microsoft.CodeAnalysis.Sarif
         return (this.contents, this.bytes);
     }
 
+    private bool IsZipHeader(byte[] header, int length)
+    {
+        if (length < 4)
+        {
+            return false;
+        }
+
+        // ZIP files always begin with the 4-byte signature 'PK\x03\x04'
+        // (0x50 0x4B 0x03 0x04) marking the start of a local file header.
+        // If this signature is detected, treat the stream as binary (not
+        // text) to avoid corrupting ZIP contents.
+        return header[0] == (byte)'P' &&
+                header[1] == (byte)'K' &&
+                header[2] == 0x03 &&
+                header[3] == 0x04;
+    }
+
     private void RetrieveDataFromStream()
     {
         if (!this.Stream.CanSeek)
@@ -100,7 +117,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         byte[] header = new byte[BinarySniffingHeaderSizeBytes];
         int readLength = this.Stream.Read(header, 0, header.Length);
 
-        bool isText = FileEncoding.IsTextualData(header, 0, readLength);
+        bool isText = !IsZipHeader(header, readLength) && FileEncoding.IsTextualData(header, 0, readLength);
 
         TryRewindStream();
 
@@ -141,7 +158,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             if (this.sizeInBytes != null)
             {
                 return this.sizeInBytes.Value;
-            };
+            }
 
             if (this.contents != null)
             {

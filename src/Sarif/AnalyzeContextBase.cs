@@ -372,7 +372,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                      new PerLanguageOption<StringSet>(
                          "CoreSettings", nameof(OpcFileExtensions),
                         defaultValue: () => new StringSet([".apk", ".appx", ".appxbundle", ".docx", ".epub", ".jar", ".msix", ".msixbundle",
-                                                           ".odp", ".ods", ".odt", ".onepkg", ".oxps", ".pkg", ".pptx", ".unitypackage",
+                                                           ".odp", ".ods", ".odt", ".onepkg", ".oxps", ".pkg", ".pptx", ".unitypackage", "vsix",
                                                            ".vsdx", ".xps", ".xlsx", ".zip"]),
                         "One or more file extensions that should be expanded as Open Packaging Convention (OPC) files.");
 

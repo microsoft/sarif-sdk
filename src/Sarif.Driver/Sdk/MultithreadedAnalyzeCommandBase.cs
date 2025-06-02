@@ -116,7 +116,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                     }
                 }
 
-                var analyzeTask = Task.Run(() =>
+                Task<int> analyzeTask = Task.Run(() =>
                 {
                     return Run(methodLocalContext);
                 }, globalContext.CancellationToken);
@@ -454,7 +454,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
             // 1: First we initiate an asynchronous operation to locate disk files for
             // analysis, as specified in analysis configuration (file names, wildcards).
-            var enumerateTargets = Task.Run(() => EnumerateTargetsAsync(globalContext));
+            Task<bool> enumerateTargets = Task.Run(() => EnumerateTargetsAsync(globalContext));
 
             // 2: A dedicated set of threads pull scan targets and analyze them.
             //    On completing a scan, the thread writes the index of the 
@@ -679,24 +679,29 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 return false;
             }
 
-            string extension = Path.GetExtension(filePath);
-            if (artifact.Uri.IsAbsoluteUri &&
-                string.IsNullOrEmpty(artifact.Uri.Query) &&
-                globalContext.OpcFileExtensions.Contains(extension))
+            if (IsOpcArtifact(artifact, filePath, globalContext))
             {
                 var context = new TContext();
                 context.Policy = globalContext.Policy;
                 context.Logger = globalContext.Logger;
-                context.CurrentTarget = new EnumeratedArtifact(globalContext.FileSystem)
-                {
-                    Uri = new Uri(filePath, UriKind.RelativeOrAbsolute)
-                };
 
                 ZipArchive archive = null;
 
                 try
                 {
-                    archive = ZipFile.OpenRead(filePath);
+                    if (artifact.Bytes != null)
+                    {
+                        context.CurrentTarget = artifact;
+                        archive = new ZipArchive(new MemoryStream(artifact.Bytes), ZipArchiveMode.Read, leaveOpen: false);
+                    }
+                    else
+                    {
+                        context.CurrentTarget = new EnumeratedArtifact(globalContext.FileSystem)
+                        {
+                            Uri = new Uri(filePath, UriKind.RelativeOrAbsolute)
+                        };
+                        archive = ZipFile.OpenRead(filePath);
+                    }
                 }
                 catch (Exception ex)
                 {
@@ -771,6 +776,25 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             await readyToScanChannel.Writer.WriteAsync(_fileContextsCount++);
 
             return true;
+        }
+
+        private static bool IsOpcArtifact(IEnumeratedArtifact artifact, string filePath, TContext globalContext)
+        {
+            // If the file extension is recognized as an OPC type, it qualifies.
+            string extension = Path.GetExtension(filePath);
+            if (!globalContext.OpcFileExtensions.Contains(extension))
+            {
+                return false;
+            }
+
+            // If we have bytes (e.g., stream-supplied ZIP), it qualifies.
+            if (artifact.Bytes != null)
+            {
+                return true;
+            }
+
+            // Otherwise, it must be a URI-based artifact with no query string.
+            return artifact.Uri.IsAbsoluteUri && string.IsNullOrEmpty(artifact.Uri.Query);
         }
 
         private async Task<bool> EnumerateFilesFromArtifactsProvider(TContext globalContext)
