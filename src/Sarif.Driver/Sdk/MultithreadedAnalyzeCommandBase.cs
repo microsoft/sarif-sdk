@@ -1537,8 +1537,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
         internal static bool IsTargetWithinFileSizeLimit(long size, long maxFileSizeInKB)
         {
-            if (size == 0) { return false; }
-            ;
+            if (size == 0) { return false; };
             size = Math.Min(long.MaxValue - 1023, size);
             long fileSizeInKb = (size + 1023) / 1024;
             return fileSizeInKb <= maxFileSizeInKB;
