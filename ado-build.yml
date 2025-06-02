@@ -6,7 +6,7 @@ jobs:
     strategy:
       matrix:
         linux:
-          imageName: "ubuntu-24.04"
+          imageName: "ubuntu-20.04"
         mac:
           imageName: "macOS-latest"
         windows:
