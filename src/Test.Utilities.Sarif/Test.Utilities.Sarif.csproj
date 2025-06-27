@@ -5,12 +5,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <!-- * We consume this version of Newtonsoft.Json arbitrarily,
-         to demonstrate we can bind to it and run successfuly.
-         * We have to ship pre-patch versions of NewtonSoft for 
-         VisualStudio SDK, and mitigate risk by limiting nesting depth. -->
-    <PackageReference Include="Newtonsoft.Json" VersionOverride="12.0.3" NoWarn="NU1903" />
-
+    <PackageReference Include="Newtonsoft.Json"  />
     <PackageReference Include="System.Composition" />
     <PackageReference Include="xunit" />
     <PackageReference Include="FluentAssertions" />

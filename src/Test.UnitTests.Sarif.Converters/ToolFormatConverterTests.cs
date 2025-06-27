@@ -377,8 +377,8 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         private static string GetCurrentAssemblyPath()
         {
-            string codeBase = Assembly.GetExecutingAssembly().CodeBase;
-            var uriBuilder = new UriBuilder(new Uri(codeBase));
+            string location = Assembly.GetExecutingAssembly().Location;
+            var uriBuilder = new UriBuilder(new Uri(location));
             string path = Uri.UnescapeDataString(uriBuilder.Path);
 
             // The returned path has forward slashes, since it comes from a URI.

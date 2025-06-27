@@ -4,9 +4,9 @@
     <OutputType>Exe</OutputType>
 
     <!-- To Publish single-file exes, run:
-      dotnet publish Sarif.Multitool.csproj -c Release -f netcoreapp3.1 -r win-x64
-      dotnet publish Sarif.Multitool.csproj -c Release -f netcoreapp3.1 -r linux-x64
-      dotnet publish Sarif.Multitool.csproj -c Release -f netcoreapp3.1 -r osx-x64
+      dotnet publish Sarif.Multitool.csproj -c Release -f net8.0 -r win-x64
+      dotnet publish Sarif.Multitool.csproj -c Release -f net8.0 -r linux-x64
+      dotnet publish Sarif.Multitool.csproj -c Release -f net8.0 -r osx-x64
 
       We use [Condition="'$(RuntimeIdentifier)' != ''"] to identify settings used only for these builds.
     -->
@@ -31,7 +31,7 @@
   <Import Project="$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildThisFileDirectory), build.props))\build.props" />
 
   <PropertyGroup>
-    <TargetFrameworks>netcoreapp3.1</TargetFrameworks>
+    <TargetFrameworks>net8.0</TargetFrameworks>
     <!-- net462 is the current minimal supported .NET framework. -->
     <TargetFrameworks Condition="$(OS) == 'Windows_NT'">$(TargetFrameworks);net462</TargetFrameworks>
   </PropertyGroup>

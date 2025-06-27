@@ -14,8 +14,6 @@
     or detailed. Default=quiet
 .PARAMETER NoClean
     Do not remove the outputs from the previous build.
-.PARAMETER NoRestore
-    Do not restore NuGet packages.
 .PARAMETER NoObjectModel
     Do not rebuild the SARIF object model from the schema.
 .PARAMETER NoBuild
@@ -50,9 +48,6 @@ param(
 
     [switch]
     $NoClean,
-
-    [switch]
-    $NoRestore,
 
     [switch]
     $NoObjectModel,
@@ -195,13 +190,6 @@ if (-not $NoClean) {
 
 Install-VersionConstantsFile
 
-if (-not $NoRestore) {
-    Write-Information "Restoring NuGet packages for $SampleSolutionFile..."
-        & $NuGetExePath restore -ConfigFile $NuGetConfigFile -Verbosity $NuGetVerbosity -OutputDirectory $NuGetSamplesPackageRoot (Join-Path $SourceRoot $SampleSolutionFile)
-    if ($LASTEXITCODE -ne 0) {
-        Exit-WithFailureMessage $ScriptName "NuGet restore failed for $SampleSolutionFile."
-    }
-}
 
 # The SARIF object model is stable. We disable autogenerating it to allow
 # for strict control enforcing style guidelines from command-line builds.
