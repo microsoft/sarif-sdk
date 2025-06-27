@@ -15,6 +15,7 @@
 * BUG: Fix `ERR999.UnhandledEngineException: System.IO.FileNotFoundException: Could not find file` when a file name or directory path contains URL-encoded characters.
 * BUG: Fix error `ERR997.NoValidAnalysisTargets` when ambiguous file/directory references are provided to `OrderedFileSpecifier`. Previously, the code required an explicit directory separator to be added to the end of a directory path. Now, the code inspects the file system and assumes that a reference to an existing directory was intended by the user (even without a trailing separator).
 * BUG: Fixed error `ERR997.NoValidAnalysisTargets | TargetParseError` when processing OPC files by correctly handling programmatic usage and skipping redundant file access when a stream is provided via `EnumeratedArtifact`.
+* BUG: Fix `UriFormatException` when creating a `ZipArchiveArtifact` with a relative URI.
 * NEW: Allow null archive uri in `MultithreadedZipArchiveArtifactProvider` (which indicates that enumerated artifact paths should not include the base archive).
 * NEW: Update `LogTargetParseError(IAnalysisContext, Region, string, Exception)` to include optional exception argument to denote code location where parse error occurred.
 * NEW: `MultithreadedAnalyzeCommandBase.EnumerateArtifact` now supports scanning into compressed (OPC) files. Initial support file extensions are: `.apk`, `.appx`, `.appxbundle`, `.docx`, `.epub`, `.jar`, `.msix`, `.msixbundle`, `.odp`, `.ods`, `.odt`, `.onepkg`, `.oxps`, `.pkg`, `.pptx`, `.unitypackage`, `.vsix`, `.vsdx`, `.xps`, `.xlsx`, `.zip`.

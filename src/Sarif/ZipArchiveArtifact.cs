@@ -28,7 +28,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             this.binaryExtensions = binaryExtensions ?? new HashSet<string>();
             this.uri = uri != null
-                ? new Uri($"{uri}?path={entry.FullName}")
+                ? new Uri($"{uri}?path={entry.FullName}", UriKind.RelativeOrAbsolute)
                 : new Uri(entry.FullName, UriKind.RelativeOrAbsolute);
         }
 
