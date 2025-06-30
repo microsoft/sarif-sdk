@@ -77,7 +77,6 @@
             "text": "Region_At_Start_Of_File (this isn't part of the region...)\r\nMore context.\r\n\r\nThis is a sample target file for\r\nsome SARIF testing. This file will\r\npotentially be embedded in SARIF logs\r\nand used in various IDE contexts to\r\nverify that various regions are \r\ncorrectly constructed, etc.\r\n\r\nHere are some special values that will be referenced in fabricated results:\r\n\r\nLeading context.\r\n  Region_One (this isn't part of the region...)\r\nTrailing context.\r\n\r\nAdditional context.\r\n         Multiline_Region_PartOne\r\nMultiline_Region_PartTwo\r\nAdditional context.\r\n\r\nAdditional context.\r\nRegion_At_End_Of_File"
           },
           "hashes": {
-            "md5": "7650327483BE2466ADC6599198B2989A",
             "sha-1": "91655EA8262D81C262A8687E9667AEFF7432906A",
             "sha-256": "1BDE85DC91168DAD541E776BB0437AC8A22D2959351A0640F2757D72AEE60C8A"
           }
