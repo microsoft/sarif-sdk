@@ -2,7 +2,7 @@
 
 ## 4.6.0 UNRELEASED
 * BRK: Remove defunct and unsupported `kusto` command in `Sarif.Multitool`.
-* BRK: Remove support for .NET Core 3.1 and .NET 6.0. Use a supported version of .NET: https://dotnet.microsoft.com/en-us/platform/support/policy/dotnet-core
+* BRK: Remove support for .NET Core 3.1 and .NET 6.0 in preference of a [supported version of .NET](https://dotnet.microsoft.com/en-us/platform/support/policy/dotnet-core), `net8.0`.
 * DEP: Remove dependency on `Microsoft.Azure.Kusto.Data`.
 * DEP: Update `Azure.Identity` reference from 1.10.2 to 1.13.1 in `WorkItems` and `Sarif.Multitool.Library` to resolve [CVE-2024-29992](https://github.com/advisories/GHSA-wvxc-855f-jvrv) and other CVEs.
 * DEP: Update `Azure.Core` from 1.35.0 to 1.41.1 to satisfy minimum requirement of `Azure.Identity` 1.12.1 (that has no known vulnerabilities).
