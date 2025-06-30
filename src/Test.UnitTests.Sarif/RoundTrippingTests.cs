@@ -53,6 +53,13 @@ namespace Microsoft.CodeAnalysis.Sarif
             string testFileName = "PropertyBagComprehensiveValueTypes.sarif";
             string sarifLogText = GetInputSarifTextFromResource(testFileName);
 
+            // The resource file text value depends on the value of core.autocrlf
+            // in git when the repo was checked out, but the json serializer does
+            // its serialization using Environment.NewLine. We need to change one
+            // of the two to get the test to pass consistently.
+            sarifLogText = sarifLogText.Replace("\r", "");
+            sarifLogText = sarifLogText.Replace("\n", Environment.NewLine);
+
             SarifLog log = JsonConvert.DeserializeObject<SarifLog>(sarifLogText);
 
             PropertyBagHolder holder = log.Runs[0].Results[0];
