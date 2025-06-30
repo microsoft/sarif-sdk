@@ -77,7 +77,6 @@ namespace Microsoft.CodeAnalysis.Sarif
                     {
                         artifact.Hashes = new Dictionary<string, string>
                         {
-                            { "md5", hashes.MD5 },
                             { "sha-1", hashes.Sha1 },
                             { "sha-256", hashes.Sha256 },
                         };

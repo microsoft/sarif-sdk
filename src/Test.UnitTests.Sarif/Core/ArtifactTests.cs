@@ -42,13 +42,11 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Core
                 fileData.Location.Should().Be(null);
                 HashData hashes = HashUtilities.ComputeHashes(filePath);
                 fileData.Contents.Should().BeNull();
-                fileData.Hashes.Count.Should().Be(3);
 
                 foreach (string algorithm in fileData.Hashes.Keys)
                 {
                     switch (algorithm)
                     {
-                        case "md5": { fileData.Hashes[algorithm].Should().Be(hashes.MD5); break; }
                         case "sha-1": { fileData.Hashes[algorithm].Should().Be(hashes.Sha1); break; }
                         case "sha-256": { fileData.Hashes[algorithm].Should().Be(hashes.Sha256); break; }
                         default: { true.Should().BeFalse(); break; /* unexpected algorithm kind */ }

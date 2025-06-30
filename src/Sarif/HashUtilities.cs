@@ -96,17 +96,8 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             using (var bufferedStream = new BufferedStream(stream, 1024 * 32))
             {
-                string md5, sha1, sha256;
+                string sha1, sha256;
                 byte[] checksum;
-
-                using (var md5Cng = MD5.Create())
-                {
-                    checksum = md5Cng.ComputeHash(bufferedStream);
-                    md5 = BitConverter.ToString(checksum).Replace("-", string.Empty);
-                }
-
-                stream.Seek(0, SeekOrigin.Begin);
-                bufferedStream.Seek(0, SeekOrigin.Begin);
 
                 using (var sha1Cng = SHA1.Create())
                 {
@@ -123,7 +114,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                     sha256 = BitConverter.ToString(checksum).Replace("-", string.Empty);
                 }
 
-                return new HashData(md5, sha1, sha256);
+                return new HashData(sha1, sha256);
             }
         }
 
@@ -190,31 +181,6 @@ namespace Microsoft.CodeAnalysis.Sarif
             catch (IOException) { }
             catch (UnauthorizedAccessException) { }
             return sha1;
-        }
-
-        [SuppressMessage("Microsoft.Security.Cryptography", "CA5350:MD5CannotBeUsed")]
-        public static string ComputeMD5Hash(string fileName, IFileSystem fileSystem = null)
-        {
-            fileSystem ??= FileSystem.Instance;
-            string md5 = null;
-
-            try
-            {
-                using (Stream stream = fileSystem.FileOpenRead(fileName))
-                {
-                    using (var bufferedStream = new BufferedStream(stream, 1024 * 32))
-                    {
-                        using (var sha = MD5.Create())
-                        {
-                            byte[] checksum = sha.ComputeHash(bufferedStream);
-                            md5 = BitConverter.ToString(checksum).Replace("-", string.Empty);
-                        }
-                    }
-                }
-            }
-            catch (IOException) { }
-            catch (UnauthorizedAccessException) { }
-            return md5;
         }
 
         public static Dictionary<int, string> RollingHash(string fileText)

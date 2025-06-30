@@ -333,8 +333,6 @@ namespace Microsoft.CodeAnalysis.Sarif
             string logText = sb.ToString();
 
             SarifLog sarifLog = JsonConvert.DeserializeObject<SarifLog>(logText);
-            sarifLog.Runs[0].Artifacts[0].Hashes.Keys.Count.Should().Be(3);
-            sarifLog.Runs[0].Artifacts[0].Hashes["md5"].Should().Be("4B9DC12934390387862CC4AB5E4A2159");
             sarifLog.Runs[0].Artifacts[0].Hashes["sha-1"].Should().Be("9B59B1C1E3F5F7013B10F6C6B7436293685BAACE");
             sarifLog.Runs[0].Artifacts[0].Hashes["sha-256"].Should().Be("0953D7B3ADA7FED683680D2107EE517A9DBEC2D0AF7594A91F058D104B7A2AEB");
         }

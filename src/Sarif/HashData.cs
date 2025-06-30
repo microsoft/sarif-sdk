@@ -7,14 +7,11 @@ namespace Microsoft.CodeAnalysis.Sarif
 {
     public class HashData
     {
-        public HashData(string md5, string sha1, string sha256)
+        public HashData(string sha1, string sha256)
         {
-            MD5 = md5;
             Sha1 = sha1;
             Sha256 = sha256;
         }
-
-        public string MD5 { get; }
 
         public string Sha1 { get; }
 
@@ -23,11 +20,6 @@ namespace Microsoft.CodeAnalysis.Sarif
         public IDictionary<string, string> ToDictionary()
         {
             var result = new Dictionary<string, string>();
-
-            if (!string.IsNullOrEmpty(this?.MD5))
-            {
-                result["md5"] = this?.MD5;
-            }
 
             if (!string.IsNullOrEmpty(this?.Sha1))
             {
