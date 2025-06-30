@@ -52,7 +52,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         /// <summary>
         /// A specific unit test output directory, to store baseline ('expected') files and actual, etc., e.g.:
-        /// D:\src\sarif-sdk\bld\bin\AnyCPU_Debug\Test.UnitTests.Sarif.Multitool.Library\netcoreapp3.1\UnitTestOutput.MergeCommand
+        /// D:\src\sarif-sdk\bld\bin\AnyCPU_Debug\Test.UnitTests.Sarif.Multitool.Library\net8.0\UnitTestOutput.MergeCommand
         /// </summary>
         protected virtual string TestOutputDirectory => Path.Combine(GetBuildPath(), "UnitTestOutput." + TypeUnderTest);
 

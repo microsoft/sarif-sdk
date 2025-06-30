@@ -41,7 +41,7 @@ goto :Exit
 xcopy /Y %LayoutForSigningDirectory%\net452\%1 %BinaryOutputDirectory%\net452\
 
 :: For .NET core, .exes are renamed to .dlls due to packaging conventions
-xcopy /Y %LayoutForSigningDirectory%\netcoreapp3.1\%~n1.dll %BinaryOutputDirectory%\netcoreapp3.1\
+xcopy /Y %LayoutForSigningDirectory%\net8.0\%~n1.dll %BinaryOutputDirectory%\net8.0\
 xcopy /Y %LayoutForSigningDirectory%\netstandard2.0\%~n1.dll %BinaryOutputDirectory%\netstandard2.0\
 
 if "%ERRORLEVEL%" NEQ "0" (echo %1 assembly copy failed.)

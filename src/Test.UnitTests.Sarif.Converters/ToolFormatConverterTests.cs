@@ -377,15 +377,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         private static string GetCurrentAssemblyPath()
         {
-            string codeBase = Assembly.GetExecutingAssembly().CodeBase;
-            var uriBuilder = new UriBuilder(new Uri(codeBase));
-            string path = Uri.UnescapeDataString(uriBuilder.Path);
-
-            // The returned path has forward slashes, since it comes from a URI.
-            // Calling Path.GetDirectoryName changes them to backslashes.
-            string fileName = Path.GetFileName(path);
-            string directory = Path.GetDirectoryName(path);
-            return Path.Combine(directory, fileName);
+            return Assembly.GetExecutingAssembly().Location;
         }
     }
 

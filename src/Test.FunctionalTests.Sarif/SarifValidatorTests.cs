@@ -197,7 +197,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             Path.Combine("v2", "ConverterTestData"),
             Path.Combine("v2", "SpecExamples"),
             Path.Combine("v2", "ObsoleteFormats"),
-            Path.Combine("..", "..", "Test.UnitTests.Sarif", "net6.0", "TestData")
+            Path.Combine("..", "..", "Test.UnitTests.Sarif", "net8.0", "TestData")
         };
 
         private static IEnumerable<string> s_testCases;

@@ -25,7 +25,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             string multitoolPath = Path.GetFullPath(
                 Path.Combine(
                     Directory.GetCurrentDirectory(),
-                    @"..\..\Sarif.Multitool\netcoreapp3.1\Sarif.Multitool.exe"));
+                    @"..\..\Sarif.Multitool\net8.0\Sarif.Multitool.exe"));
 
             var startInfo = new ProcessStartInfo(multitoolPath, @"validate v2\ConverterTestData\ContrastSecurity\WebGoat.xml.sarif")
             {
@@ -49,7 +49,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             using var assertionScope = new AssertionScope();
 
             string multitoolPath = Path.GetFullPath(Path.Combine(Directory.GetCurrentDirectory(),
-                @"..\..\Sarif.Multitool\netcoreapp3.1\Sarif.Multitool.exe"));
+                @"..\..\Sarif.Multitool\net8.0\Sarif.Multitool.exe"));
 
             string directoryPath = Path.Combine(Path.GetTempPath(), "SarifMultitoolTestFilesWithNumberOfFilesExceedingChannelCapacity");
 
