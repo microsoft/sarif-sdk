@@ -66,8 +66,8 @@ namespace Test.UnitTests.Sarif
             var doesNotExist = new Uri("file://does-not-exist.zip");
             (ZipArchive archive, ZipArchiveEntry entry) testData = GetTextualArchiveData();
 
-            Assert.Throws<ArgumentNullException>(() => new ZipArchiveArtifact(uri: doesNotExist, archive: null, testData.entry));
-            Assert.Throws<ArgumentNullException>(() => new ZipArchiveArtifact(uri: null, testData.archive, entry: null));
+            Assert.Throws<ArgumentNullException>(() => new ZipArchiveArtifact(archiveUri: doesNotExist, archive: null, testData.entry));
+            Assert.Throws<ArgumentNullException>(() => new ZipArchiveArtifact(archiveUri: null, testData.archive, entry: null));
         }
 
         [Fact]

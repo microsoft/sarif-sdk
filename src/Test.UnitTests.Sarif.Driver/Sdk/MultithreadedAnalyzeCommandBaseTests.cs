@@ -88,22 +88,29 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 writer.Write("Hello, world!");
             }
 
-            var dummyUri = new Uri("https://example.com/valid.zip");
+            var dummyAbsoluteUri = new Uri("https://example.com/valid.zip", UriKind.Absolute);
+            var dummyRelativeUri = new Uri("test/valid.zip", UriKind.Relative);
             var validUri = new Uri(tempFile.Name);
             var streamContent = new MemoryStream(File.ReadAllBytes(tempFile.Name));
 
             var testArtifacts = new List<EnumeratedArtifact>
             {
-                // 1. Only Valid Uri
+                // 0. Only Dummy Absolute Uri (negative test case)
+                new EnumeratedArtifact(new FileSystem())
+                {
+                    Uri = dummyAbsoluteUri,
+                },
+                
+                // 1. Only Dummy Relative Uri (negative test case)
+                new EnumeratedArtifact(new FileSystem())
+                {
+                    Uri = dummyRelativeUri,
+                },
+
+                // 2. Only Valid Uri
                 new EnumeratedArtifact(new FileSystem())
                 {
                     Uri = validUri
-                },
-
-                // 2. Only Dummy Uri 
-                new EnumeratedArtifact(new FileSystem())
-                {
-                    Uri = dummyUri,
                 },
 
                 // 3. Valid Uri + Stream
@@ -113,12 +120,19 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                     Stream = streamContent
                 },
 
-                 // 4. Dummy Uri + Stream
+                // 4. Dummy Absolute Uri + Stream
                 new EnumeratedArtifact(new FileSystem())
                 {
-                    Uri = dummyUri,
+                    Uri = dummyAbsoluteUri,
                     Stream = streamContent
                 },
+
+                // 5. Dummy Relative Uri + Stream
+                new EnumeratedArtifact(new FileSystem())
+                {
+                    Uri = dummyRelativeUri,
+                    Stream = streamContent,
+                }
             };
 
             for (int i = 0; i < testArtifacts.Count; i++)
@@ -135,7 +149,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
                 int resultFromBytes = new TestMultithreadedAnalyzeCommand().Run(options: null, ref contextFromBytes);
 
-                if (i == 1) // 2. Only Dummy Uri
+                if (i <= 1)
                 {
                     resultFromBytes.Should().Be(FAILURE);
                     contextFromBytes.RuntimeErrors.Should().Be(RuntimeConditions.ExceptionInEngine);

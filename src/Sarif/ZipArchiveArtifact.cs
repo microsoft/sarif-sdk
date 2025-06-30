@@ -18,7 +18,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         private string contents;
         private byte[] bytes;
 
-        public ZipArchiveArtifact(Uri uri,
+        public ZipArchiveArtifact(Uri archiveUri,
                                   ZipArchive archive,
                                   ZipArchiveEntry entry,
                                   ISet<string> binaryExtensions = null)
@@ -27,9 +27,9 @@ namespace Microsoft.CodeAnalysis.Sarif
             this.archive = archive ?? throw new ArgumentNullException(nameof(archive));
 
             this.binaryExtensions = binaryExtensions ?? new HashSet<string>();
-            this.uri = uri != null
-                ? new Uri($"{uri}?path={entry.FullName}")
-                : new Uri(entry.FullName, UriKind.RelativeOrAbsolute);
+            this.uri = archiveUri != null
+                ? new Uri($"{archiveUri}?path={entry.FullName}", UriKind.RelativeOrAbsolute)
+                : new Uri(entry.FullName, UriKind.Relative);
         }
 
         public Uri Uri => this.uri;
