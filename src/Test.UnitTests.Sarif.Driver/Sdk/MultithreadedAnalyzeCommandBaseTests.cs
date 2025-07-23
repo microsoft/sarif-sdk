@@ -163,6 +163,84 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         }
 
         [Fact]
+        public void MultithreadedAnalyzeCommandBase_SkipsOversizedOpcFilesBeforeOpening()
+        {
+            var logger = new TestMessageLogger();
+            var mockFileSystem = new Mock<IFileSystem>();
+
+            string opcFilePath = Path.Combine(Environment.CurrentDirectory, "oversized.pkg");
+            mockFileSystem.Setup(x => x.FileExists(opcFilePath)).Returns(true);
+            mockFileSystem.Setup(x => x.FileInfoLength(opcFilePath)).Returns(2048); // 2KB
+            mockFileSystem.Setup(x => x.DirectoryExists(It.IsAny<string>())).Returns(true);
+            mockFileSystem.Setup(x => x.DirectoryEnumerateFiles(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<SearchOption>()))
+                .Returns(new[] { opcFilePath });
+
+            var context = new TestAnalysisContext
+            {
+                TargetsProvider = null,
+                MaxFileSizeInKilobytes = 1,
+                Logger = logger,
+                FileSystem = mockFileSystem.Object,
+                TargetFileSpecifiers = new StringSet(new[] { "*.pkg" })
+            };
+
+            context.Policy.SetProperty(AnalyzeContextBase.OpcFileExtensionsProperty, new StringSet(new[] { ".pkg" }));
+
+            var command = new TestMultithreadedAnalyzeCommand(mockFileSystem.Object);
+
+            int result = command.Run(options: null, ref context);
+
+            result.Should().Be(FAILURE);
+            context.RuntimeErrors.Should().Be(RuntimeConditions.NoValidAnalysisTargets | RuntimeConditions.OneOrMoreFilesSkippedDueToExceedingSizeLimits);
+
+            // Verify the OPC file was never opened (no file open attempt should have been made)
+            mockFileSystem.Verify(x => x.FileOpenRead(It.IsAny<string>()), Times.Never);
+
+            // Verify size limit warning was logged
+            logger.ConfigurationNotifications.Should().Contain(n =>
+                n.Descriptor.Id == Warnings.Wrn997_OneOrMoreFilesSkippedDueToExceedingSizeLimits);
+        }
+
+        [Fact]
+        public void MultithreadedAnalyzeCommandBase_SkipsEmptyOpcFilesBeforeOpening()
+        {
+            var logger = new TestMessageLogger();
+            var mockFileSystem = new Mock<IFileSystem>();
+
+            string opcFilePath = Path.Combine(Environment.CurrentDirectory, "empty.pkg");
+            mockFileSystem.Setup(x => x.FileExists(opcFilePath)).Returns(true);
+            mockFileSystem.Setup(x => x.FileInfoLength(opcFilePath)).Returns(0); // Empty file
+            mockFileSystem.Setup(x => x.DirectoryExists(It.IsAny<string>())).Returns(true);
+            mockFileSystem.Setup(x => x.DirectoryEnumerateFiles(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<SearchOption>()))
+                .Returns(new[] { opcFilePath });
+
+            var context = new TestAnalysisContext
+            {
+                TargetsProvider = null,
+                MaxFileSizeInKilobytes = 1000,
+                Logger = logger,
+                FileSystem = mockFileSystem.Object,
+                TargetFileSpecifiers = new StringSet(new[] { "*.pkg" })
+            };
+
+            context.Policy.SetProperty(AnalyzeContextBase.OpcFileExtensionsProperty, new StringSet(new[] { ".pkg" }));
+
+            var command = new TestMultithreadedAnalyzeCommand(mockFileSystem.Object);
+
+            int result = command.Run(options: null, ref context);
+
+            result.Should().Be(FAILURE);
+            context.RuntimeErrors.Should().Be(RuntimeConditions.NoValidAnalysisTargets | RuntimeConditions.OneOrMoreEmptyFilesSkipped);
+
+            // Verify the OPC file was never opened
+            mockFileSystem.Verify(x => x.FileOpenRead(It.IsAny<string>()), Times.Never);
+
+            // Verify empty file note was logged
+            logger.ConfigurationNotifications.Should().Contain(n =>
+                n.Descriptor.Id == Notes.Msg002_EmptyFileSkipped);
+        }
+
+        [Fact]
         public void MultithreadedAnalyzeCommandBase_ScanWithFilesThatExceedSizeLimitEmitsSkippedFilesWarning()
         {
             var logger = new TestMessageLogger();
