@@ -1,6 +1,7 @@
 // Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
+using System;
 using System.IO;
 
 using Microsoft.CodeAnalysis.Sarif.Query;
@@ -50,6 +51,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             RunAndVerifyCount(1, new QueryOptions() { Expression = "RuleId = 'CSCAN0020/0'", InputFilePath = filePath, OutputFilePath = outputFilePath, Minify = false, Force = true });
 
             string expected = s_extractor.GetResourceText("elfie-arriba.CSCAN0020.sarif");
+            // We need to normalize the line endings in the multiline string above,
+            // because otherwise this test passes or fails depending on the value
+            // of core.autocrlf in git.
+            expected = expected.Replace("\r", "");
+            expected = expected.Replace("\n", Environment.NewLine);
+
             string actual = File.ReadAllText(outputFilePath);
             Assert.Equal(expected, actual);
         }
