@@ -679,6 +679,21 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 return false;
             }
 
+            if (artifact.SizeInBytes == 0)
+            {
+                DriverEventSource.Log.ArtifactNotScanned(filePath, DriverEventNames.EmptyFile, 00, data2: null);
+                Notes.LogEmptyFileSkipped(globalContext, filePath);
+                return true;
+            }
+
+            if (!IsTargetWithinFileSizeLimit(artifact.SizeInBytes.Value, globalContext.MaxFileSizeInKilobytes))
+            {
+                _filesExceedingSizeLimitCount++;
+                DriverEventSource.Log.ArtifactNotScanned(filePath, DriverEventNames.FileExceedsSizeLimits, artifact.SizeInBytes.Value, $"{globalContext.MaxFileSizeInKilobytes}");
+                Notes.LogFileExceedingSizeLimitSkipped(globalContext, filePath, artifact.SizeInBytes.Value / 1000);
+                return false;
+            }
+
             if (IsOpcArtifact(artifact, filePath, globalContext))
             {
                 var context = new TContext();
@@ -728,21 +743,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
                 await EnumerateFilesFromArtifactsProvider(context);
                 return true;
-            }
-
-            if (artifact.SizeInBytes == 0)
-            {
-                DriverEventSource.Log.ArtifactNotScanned(filePath, DriverEventNames.EmptyFile, 00, data2: null);
-                Notes.LogEmptyFileSkipped(globalContext, filePath);
-                return true;
-            }
-
-            if (!IsTargetWithinFileSizeLimit(artifact.SizeInBytes.Value, globalContext.MaxFileSizeInKilobytes))
-            {
-                _filesExceedingSizeLimitCount++;
-                DriverEventSource.Log.ArtifactNotScanned(filePath, DriverEventNames.FileExceedsSizeLimits, artifact.SizeInBytes.Value, $"{globalContext.MaxFileSizeInKilobytes}");
-                Notes.LogFileExceedingSizeLimitSkipped(globalContext, filePath, artifact.SizeInBytes.Value / 1000);
-                return false;
             }
 
             TContext fileContext = CreateScanTargetContext(globalContext);
