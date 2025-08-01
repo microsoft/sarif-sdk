@@ -123,9 +123,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             var uut = new AndroidStudioProblem(builder);
             Result result = new AndroidStudioConverter().ConvertProblemToSarifResult(uut);
-            Assert.Equal(@"hungry EVIL zombies
+            string expected = @"hungry EVIL zombies
 Possible resolution: comment
-Possible resolution: delete", result.Message.Text);
+Possible resolution: delete";
+
+            // We need to normalize the line endings in the multiline string above,
+            // because otherwise this test passes or fails depending on the value
+            // of core.autocrlf in git.
+            expected = expected.Replace("\r", "");
+            expected = expected.Replace("\n", Environment.NewLine);
+            Assert.Equal(expected, result.Message.Text);
         }
 
         [Fact]

@@ -3,6 +3,10 @@
 ###############################################################################
 * text=auto
 
+# If we don't pin down the line ending here, the tests that use this depend on
+# the value of core.autocrlf.
+src/Test.UnitTests.Sarif/TestData/InsertOptionalDataVisitor/InsertOptionalDataVisitor.txt text eol=crlf
+
 ###############################################################################
 # Set default behavior for command prompt diff.
 #

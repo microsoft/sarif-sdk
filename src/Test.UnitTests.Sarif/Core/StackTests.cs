@@ -123,6 +123,12 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Core
    at System.IO.File.Create(String path, Int32 bufferSize)
    at Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Core.StackTests.Stack_CreateFromExceptionWithInnerException()";
 
+            // We need to normalize the line endings in the multiline string above,
+            // because otherwise this test passes or fails depending on the value
+            // of core.autocrlf in git.
+            stackTraceTemplate = stackTraceTemplate.Replace("\r", "");
+            stackTraceTemplate = stackTraceTemplate.Replace("\n", Environment.NewLine);
+
             int relativePathLineNumber = 60;
             string relativeFilePath = "/_/src/Test.UnitTests.Sarif/Core/StackTests.cs";
             var sarifStackWithRelativeFileLocation = Stack.Create(stackTraceTemplate + $" in {relativeFilePath}:line {relativePathLineNumber}");
