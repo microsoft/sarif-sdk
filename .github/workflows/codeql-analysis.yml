@@ -22,6 +22,10 @@ jobs:
   analyze:
     name: Analyze
     runs-on: windows-latest
+    permissions:
+      actions: read
+      contents: read
+      security-events: write
 
     steps:
     - name: Checkout repository
@@ -32,7 +36,7 @@ jobs:
    
    # Initializes the CodeQL tools for scanning.
     - name: Initialize CodeQL
-      uses: github/codeql-action/init@v2
+      uses: github/codeql-action/init@v3
       with:
         queries: security-and-quality
         languages: csharp
@@ -41,4 +45,4 @@ jobs:
         .\BuildAndTest.cmd -NoFormat -NoTest -NoPackage
 
     - name: Perform CodeQL Analysis
-      uses: github/codeql-action/analyze@v2
+      uses: github/codeql-action/analyze@v3
