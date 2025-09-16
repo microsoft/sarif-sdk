@@ -25,6 +25,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         {
             var result = new Dictionary<string, Lazy<ToolFileConverterBase>>();
             CreateConverterRecord<AndroidStudioConverter>(result, ToolFormat.AndroidStudio);
+            CreateConverterRecord<CisCatConverter>(result, ToolFormat.CisCat);
             CreateConverterRecord<CppCheckConverter>(result, ToolFormat.CppCheck);
             CreateConverterRecord<ClangAnalyzerConverter>(result, ToolFormat.ClangAnalyzer);
             CreateConverterRecord<ClangTidyConverter>(result, ToolFormat.ClangTidy);
@@ -34,6 +35,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             CreateConverterRecord<FxCopConverter>(result, ToolFormat.FxCop);
             CreateConverterRecord<FlawFinderConverter>(result, ToolFormat.FlawFinder);
             CreateConverterRecord<HdfConverter>(result, ToolFormat.Hdf);
+            CreateConverterRecord<NessusConverter>(result, ToolFormat.Nessus);
             CreateConverterRecord<PREfastConverter>(result, ToolFormat.PREfast);
             CreateConverterRecord<PylintConverter>(result, ToolFormat.Pylint);
             CreateConverterRecord<SemmleQLConverter>(result, ToolFormat.SemmleQL);

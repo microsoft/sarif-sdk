@@ -12,6 +12,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         /// <summary>Android Studio's file format.</summary>
         public const string AndroidStudio = nameof(AndroidStudio);
 
+        /// <summary>CIS CAT file format.</summary>
+        public const string CisCat = nameof(CisCat);
+
         /// <summary>Clang analyzer's file format.</summary>
         public const string ClangAnalyzer = nameof(ClangAnalyzer);
 
@@ -38,6 +41,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
         /// <summary>Heimdall Tools's file format.</summary>
         public const string Hdf = nameof(Hdf);
+
+        /// <summary>Tenable Nessus XML file format.</summary>
+        public const string Nessus = nameof(Nessus);
 
         /// <summary>PREfast's file format.</summary>
         public const string PREfast = nameof(PREfast);

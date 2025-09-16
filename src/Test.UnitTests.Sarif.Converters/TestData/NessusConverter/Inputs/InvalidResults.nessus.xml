@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<NessusClientData_v2>
+    <InvalidPolicy>
+        <name>InvalidNessusConverterTest</name>
+    </InvalidPolicy>
+    <InvalidReport name="NessusReport" xmlns:cm="http://www.nessus.org/cm">
+        <NoHost nname="10.0.0.1"></NoHost>
+    </InvalidReport>
+</NessusClientData_v2>

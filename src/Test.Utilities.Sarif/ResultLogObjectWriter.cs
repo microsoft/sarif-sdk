@@ -65,5 +65,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         {
             throw new NotImplementedException();
         }
+
+        public void WriteLog(SarifLog log)
+        {
+
+        }
     }
 }

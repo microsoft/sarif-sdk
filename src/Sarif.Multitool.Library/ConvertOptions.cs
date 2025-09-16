@@ -15,7 +15,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         [Option(
             't',
             "tool",
-            HelpText = "The tool format of the input file. Must be one of: AndroidStudio, ClangAnalyzer, ClangTidy, CppCheck, ContrastSecurity, FlawFinder, Fortify, FortifyFpr, FxCop, Hdf, PREfast, Pylint, SemmleQL, StaticDriverVerifier, TSLint, or a tool format for which a plugin assembly provides the converter.",
+            HelpText = "The tool format of the input file. Must be one of: AndroidStudio, CisCat, ClangAnalyzer, ClangTidy, CppCheck, ContrastSecurity, FlawFinder, Fortify, FortifyFpr, FxCop, Hdf, Nessus, PREfast, Pylint, SemmleQL, StaticDriverVerifier, TSLint, or a tool format for which a plugin assembly provides the converter.",
             Required = true)]
         public string ToolFormat { get; set; }
 

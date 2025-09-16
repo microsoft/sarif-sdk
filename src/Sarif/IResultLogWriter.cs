@@ -116,5 +116,13 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// The invocations to write.
         /// </param>
         void WriteInvocations(IEnumerable<Invocation> invocations);
+
+        /// <summary>
+        /// Write a full SARIF log object to the output stream.
+        /// </summary>
+        /// <param name="log">
+        /// The SarifLog to write.
+        /// </param>
+        void WriteLog(SarifLog log);
     }
 }
