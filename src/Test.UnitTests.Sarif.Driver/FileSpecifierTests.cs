@@ -8,6 +8,8 @@ using System.IO;
 
 using FluentAssertions;
 
+using Moq;
+
 using Xunit;
 
 namespace Microsoft.CodeAnalysis.Sarif.Driver
@@ -94,6 +96,42 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             {
                 Environment.CurrentDirectory = currentWorkingDirectory;
             }
+        }
+
+        [Fact]
+        public void FileSpecifier_SkipsSymbolicLinkDirectoriesDuringRecursion()
+        {
+            var mockFileSystem = new Mock<IFileSystem>();
+
+            string baseDir = @"C:\test";
+            string targetDir = Path.Combine(baseDir, "target");
+            string symlinkDir = Path.Combine(baseDir, "symlink");
+            string targetFile = Path.Combine(targetDir, "test.txt");
+
+            mockFileSystem.Setup(fs => fs.DirectoryExists(baseDir)).Returns(true);
+            mockFileSystem.Setup(fs => fs.DirectoryExists(targetDir)).Returns(true);
+            mockFileSystem.Setup(fs => fs.DirectoryExists(symlinkDir)).Returns(true);
+
+            mockFileSystem.Setup(fs => fs.DirectoryGetDirectories(baseDir))
+                          .Returns(new[] { targetDir, symlinkDir });
+
+            mockFileSystem.Setup(fs => fs.DirectoryGetFiles(targetDir, "*.txt"))
+                          .Returns(new[] { targetFile });
+            mockFileSystem.Setup(fs => fs.DirectoryGetFiles(symlinkDir, "*.txt"))
+                          .Returns(new[] { Path.Combine(symlinkDir, "test.txt") });
+
+            mockFileSystem.Setup(fs => fs.IsSymbolicLink(targetDir)).Returns(false);
+            mockFileSystem.Setup(fs => fs.IsSymbolicLink(symlinkDir)).Returns(true);
+
+            var specifier = new FileSpecifier(Path.Combine(baseDir, "*.txt"), recurse: true, fileSystem: mockFileSystem.Object);
+            IList<string> files = specifier.Files;
+
+            files.Count.Should().Be(1);
+            files[0].Should().Be(Path.GetFullPath(targetFile));
+            files[0].Should().Contain("target");
+            files[0].Should().NotContain("symlink");
+
+            mockFileSystem.Verify(fs => fs.IsSymbolicLink(symlinkDir), Times.Once);
         }
 
         private class ResolveFilesTestData : IEnumerable<object[]>

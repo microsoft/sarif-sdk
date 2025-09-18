@@ -417,8 +417,26 @@ namespace Microsoft.CodeAnalysis.Sarif
             // https://learn.microsoft.com/en-us/dotnet/api/system.io.fileattributes
             // While symbolic links will have the ReparsePoint flag set, not all reparse points represent symbolic links.
             // This is a basic implementation.
-            var fileInfo = new FileInfo(path);
-            return (fileInfo.Attributes & FileAttributes.ReparsePoint) == FileAttributes.ReparsePoint;
+            try
+            {
+                if (File.Exists(path))
+                {
+                    var fileInfo = new FileInfo(path);
+                    return (fileInfo.Attributes & FileAttributes.ReparsePoint) == FileAttributes.ReparsePoint;
+                }
+                else if (Directory.Exists(path))
+                {
+                    var directoryInfo = new DirectoryInfo(path);
+                    return (directoryInfo.Attributes & FileAttributes.ReparsePoint) == FileAttributes.ReparsePoint;
+                }
+
+                return false;
+            }
+            catch
+            {
+                // In case of any exception (permissions, etc.), assume it's not a symbolic link
+                return false;
+            }
         }
 
         /// <summary>

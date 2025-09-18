@@ -100,7 +100,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                     {
                         foreach (string subdir in FileSystem.DirectoryGetDirectories(dir))
                         {
-                            AddFilesFromDirectory(subdir, filter);
+                            // Skip subdirectories that are symbolic links to prevent infinite loops
+                            // and avoid unintentionally following symbolic links during recursion
+                            if (!FileSystem.IsSymbolicLink(subdir))
+                            {
+                                AddFilesFromDirectory(subdir, filter);
+                            }
                         }
                     }
                     catch (UnauthorizedAccessException)
