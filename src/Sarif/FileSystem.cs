@@ -404,21 +404,31 @@ namespace Microsoft.CodeAnalysis.Sarif
         }
 
         /// <summary>
-        /// Uses <see cref="FileInfo"/> to determine whether a file is a symbolic link.
+        /// Uses <see cref="FileInfo"/> or <see cref="DirectoryInfo"/> to determine whether a file or directory is a symbolic link.
         /// </summary>
         /// <param name="path">
-        /// The fully qualified name or relative path of the file.
+        /// The fully qualified name or relative path of the file or directory.
         /// </param>
         /// <returns>
-        /// A boolean value indicating whether the file is a symbolic link.
+        /// A boolean value indicating whether the file or directory is a symbolic link.
         /// </returns>
         public bool IsSymbolicLink(string path)
         {
             // https://learn.microsoft.com/en-us/dotnet/api/system.io.fileattributes
             // While symbolic links will have the ReparsePoint flag set, not all reparse points represent symbolic links.
             // This is a basic implementation.
-            var fileInfo = new FileInfo(path);
-            return (fileInfo.Attributes & FileAttributes.ReparsePoint) == FileAttributes.ReparsePoint;
+            if (FileExists(path))
+            {
+                var fileInfo = new FileInfo(path);
+                return (fileInfo.Attributes & FileAttributes.ReparsePoint) == FileAttributes.ReparsePoint;
+            }
+            else if (DirectoryExists(path))
+            {
+                var directoryInfo = new DirectoryInfo(path);
+                return (directoryInfo.Attributes & FileAttributes.ReparsePoint) == FileAttributes.ReparsePoint;
+            }
+
+            return false;
         }
 
         /// <summary>

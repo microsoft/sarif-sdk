@@ -195,7 +195,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                     return;
                 }
 
-                EnqueueAllFilesUnderDirectory(childDirectory, fileChannelWriter, fileFilter, sortedDiskItemsBuffer);
+                // Skip subdirectories that are symbolic links to prevent infinite loops
+                // and avoid unintentionally following symbolic links during recursion
+                if (!FileSystem.IsSymbolicLink(childDirectory))
+                {
+                    EnqueueAllFilesUnderDirectory(childDirectory, fileChannelWriter, fileFilter, sortedDiskItemsBuffer);
+                }
             }
         }
 
