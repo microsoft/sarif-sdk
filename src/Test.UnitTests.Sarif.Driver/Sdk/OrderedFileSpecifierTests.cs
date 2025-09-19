@@ -223,11 +223,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 var artifacts = specifier.Artifacts.ToList();
 
                 artifacts.Count.Should().Be(2);
-                
+
                 var filePaths = artifacts.Select(a => a.Uri.LocalPath).ToList();
                 filePaths.Should().Contain(targetFile1);
                 filePaths.Should().Contain(targetFile2);
-                
                 filePaths.Should().NotContain(path => path.Contains("realSymlink"));
                 filePaths.Should().AllSatisfy(path => path.Should().Contain("realTarget"));
             }
@@ -262,7 +261,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 var artifacts = specifier.Artifacts.ToList();
 
                 artifacts.Count.Should().Be(2);
-                
+
                 var filePaths = artifacts.Select(a => a.Uri.LocalPath).ToList();
                 filePaths.Should().Contain(targetFile);
                 filePaths.Should().Contain(symlinkFile);
@@ -309,11 +308,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 var artifacts = specifier.Artifacts.ToList();
 
                 artifacts.Count.Should().Be(2);
-                
+
                 var filePaths = artifacts.Select(a => a.Uri.LocalPath).ToList();
                 filePaths.Should().Contain(testFile1);
                 filePaths.Should().Contain(testFile2);
-                
+
                 filePaths.Should().NotContain(path => path.Contains("linkToParent"));
                 filePaths.Should().NotContain(path => path.Contains("linkToSibling"));
             }
