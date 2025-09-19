@@ -195,6 +195,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         }
 
         [Fact]
+        [Trait(TestTraits.WindowsOnly, "true")]
         public void OrderedFileSpecifier_SkipsRealSymbolicLinkDirectoriesDuringRecursion()
         {
             string tempFolder = Path.GetTempPath();
@@ -238,6 +239,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         }
 
         [Fact]
+        [Trait(TestTraits.WindowsOnly, "true")]
         public void OrderedFileSpecifier_HandlesSymbolicLinkFiles()
         {
             string tempFolder = Path.GetTempPath();
