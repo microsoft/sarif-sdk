@@ -103,7 +103,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         {
             var mockFileSystem = new Mock<IFileSystem>();
 
-            string baseDir = @"C:\test";
+            string baseDir = Path.Combine(Path.GetTempPath(), "test");
             string targetDir = Path.Combine(baseDir, "target");
             string symlinkDir = Path.Combine(baseDir, "symlink");
             string targetFile = Path.Combine(targetDir, "test.txt");

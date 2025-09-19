@@ -163,7 +163,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         {
             var mockFileSystem = new Mock<IFileSystem>();
 
-            string baseDir = @"C:\test";
+            string baseDir = Path.Combine(Path.GetTempPath(), "test");
             string targetDir = Path.Combine(baseDir, "target");
             string symlinkDir = Path.Combine(baseDir, "symlink");
             string targetFile = Path.Combine(targetDir, "test.txt");
@@ -195,7 +195,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         }
 
         [Fact]
-        [Trait(TestTraits.WindowsOnly, "true")]
         public void OrderedFileSpecifier_SkipsRealSymbolicLinkDirectoriesDuringRecursion()
         {
             string tempFolder = Path.GetTempPath();
@@ -239,7 +238,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         }
 
         [Fact]
-        [Trait(TestTraits.WindowsOnly, "true")]
         public void OrderedFileSpecifier_HandlesSymbolicLinkFiles()
         {
             string tempFolder = Path.GetTempPath();
