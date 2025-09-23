@@ -995,7 +995,6 @@ namespace Microsoft.CodeAnalysis.Sarif
                 {
                     ValidateLoggerForExclusiveOption(logger, loggingOption);
                 }
-                ;
 
                 // Validates overload that accepts any 
                 // TextWriter (for example, one instantiated over a
@@ -1009,7 +1008,6 @@ namespace Microsoft.CodeAnalysis.Sarif
                 {
                     ValidateLoggerForExclusiveOption(logger, loggingOption);
                 }
-                ;
             }
             catch (Exception e)
             {
