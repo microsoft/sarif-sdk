@@ -1234,17 +1234,5 @@ namespace Microsoft.CodeAnalysis.Sarif
             string logText = stringBuilder.ToString();
             return JsonConvert.DeserializeObject<SarifLog>(logText);
         }
-
-
-        internal static readonly ResultKindSet s_kinds = [ResultKind.Fail];
-        internal static readonly FilePersistenceOptions s_logFilePersistenceOptions = FilePersistenceOptions.None;
-
-        public FailureLevelSet FailureLevels => [FailureLevel.Error, FailureLevel.Warning, FailureLevel.Note];
-        public OptionallyEmittedData DataToInsert => OptionallyEmittedData.ComprehensiveRegionProperties
-                                                                        | OptionallyEmittedData.ContextRegionSnippets
-                                                                        | OptionallyEmittedData.Guids
-                                                                        | OptionallyEmittedData.Hashes
-                                                                        | OptionallyEmittedData.RegionSnippets
-                                                                        | OptionallyEmittedData.RollingHashPartialFingerprints;
     }
 }
