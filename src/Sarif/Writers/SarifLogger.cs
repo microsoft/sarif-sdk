@@ -78,7 +78,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         {
             _textWriter = textWriter;
             _closeWriterOnDispose = closeWriterOnDispose;
-            _jsonTextWriter = new JsonTextWriter(_textWriter);
+            _jsonTextWriter = new JsonTextWriter(_textWriter)
+            {
+                StringEscapeHandling = StringEscapeHandling.EscapeNonAscii
+            };
 
             _filePersistenceOptions = logFilePersistenceOptions;
 

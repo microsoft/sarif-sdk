@@ -994,7 +994,8 @@ namespace Microsoft.CodeAnalysis.Sarif
                                                 kinds: BaseLogger.Fail))
                 {
                     ValidateLoggerForExclusiveOption(logger, loggingOption);
-                };
+                }
+                ;
 
                 // Validates overload that accepts any 
                 // TextWriter (for example, one instantiated over a
@@ -1007,7 +1008,8 @@ namespace Microsoft.CodeAnalysis.Sarif
                                                 kinds: BaseLogger.Fail))
                 {
                     ValidateLoggerForExclusiveOption(logger, loggingOption);
-                };
+                }
+                ;
             }
             catch (Exception e)
             {
@@ -1137,6 +1139,66 @@ namespace Microsoft.CodeAnalysis.Sarif
             invocation.ToolConfigurationNotifications.Where(notification => notification.Locations != null).Should().HaveCount(1);
         }
 
+        [Fact]
+        public void SarifLogger_ShouldNotThrowWhenWritingInvalidSequences()
+        {
+            var sb = new StringBuilder();
+
+            // Basic Latin
+            sb.Append("ASCII: Hello!");
+
+            // Accented Latin (still single UTF-16 code units in BMP)
+            sb.Append(" Café Español München");
+
+            // Greek
+            sb.Append(" Ελληνικά");
+
+            // Cyrillic
+            sb.Append(" Кириллица");
+
+            // CJK
+            sb.Append(" 漢字かなカナ");
+
+            // Music symbol (U+1D11E) -> surrogate pair
+            sb.Append(" MusicalSymbol: ").Append(char.ConvertFromUtf32(0x1D11E));
+
+            // Rocket emoji (U+1F680) -> surrogate pair
+            sb.Append(" Rocket: ").Append(char.ConvertFromUtf32(0x1F680));
+
+            // Explicit escape for a single BMP code unit (snowman U+2603)
+            sb.Append(" Snowman: \u2603");
+
+            // Explicit surrogate pair via UTF-32 for U+1F600 (grinning face)
+            int grinningFace = 0x1F600;
+            sb.Append(" Grin: ").Append(char.ConvertFromUtf32(grinningFace));
+
+            // Add some edge cases: lone high/low surrogate replaced with U+FFFD if sanitized
+            // (Normally you should AVOID constructing invalid sequences; shown only for testing.)
+            sb.Append('\uD800').Append('\uDC00'); // Valid pair for U+10000
+            sb.Append('\uD800'); // Lone high surrogate (invalid)
+            sb.Append('\uDC00'); // Lone low surrogate (invalid)
+            sb.Append('\uD83D');
+
+            string content = sb.ToString();
+            string serializedSarif = string.Empty;
+
+            using (var sarifLogger = new MemoryStreamSarifLogger())
+            {
+                var result = new Result
+                {
+                    Message = new Message
+                    {
+                        Text = content
+                    }
+                };
+
+                sarifLogger.Log(new ReportingDescriptor(), result, null);
+                serializedSarif = JsonConvert.SerializeObject(sarifLogger.ToSarifLog());
+            }
+
+            serializedSarif.Should().NotBeNull();
+        }
+
         private static void VerifySarifLogHonoredKindAndLevel(FailureLevelSet desiredFailureLevels, ResultKindSet desiredResultKinds, SarifLog sarifLog)
         {
             int expectedCount = desiredResultKinds.Count * desiredFailureLevels.Count;
@@ -1174,5 +1236,17 @@ namespace Microsoft.CodeAnalysis.Sarif
             string logText = stringBuilder.ToString();
             return JsonConvert.DeserializeObject<SarifLog>(logText);
         }
+
+
+        internal static readonly ResultKindSet s_kinds = [ResultKind.Fail];
+        internal static readonly FilePersistenceOptions s_logFilePersistenceOptions = FilePersistenceOptions.None;
+
+        public FailureLevelSet FailureLevels => [FailureLevel.Error, FailureLevel.Warning, FailureLevel.Note];
+        public OptionallyEmittedData DataToInsert => OptionallyEmittedData.ComprehensiveRegionProperties
+                                                                        | OptionallyEmittedData.ContextRegionSnippets
+                                                                        | OptionallyEmittedData.Guids
+                                                                        | OptionallyEmittedData.Hashes
+                                                                        | OptionallyEmittedData.RegionSnippets
+                                                                        | OptionallyEmittedData.RollingHashPartialFingerprints;
     }
 }
