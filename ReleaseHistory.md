@@ -1,8 +1,6 @@
 # SARIF Package Release History (SDK, Driver, Converters, and Multitool)
 
-## UNRELEASED
-
-## 4.6.0 [Sdk](https://www.nuget.org/packages/Sarif.Sdk/v4.6.0) | [Driver](https://www.nuget.org/packages/Sarif.Driver/v4.6.0) | [Converters](https://www.nuget.org/packages/Sarif.Converters/v4.6.0)  | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/v4.6.0) | [Multitool Library](https://www.nuget.org/packages/Sarif.Multitool.Library/v4.6.0)
+## **v4.6.0** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/v4.6.0) | [Driver](https://www.nuget.org/packages/Sarif.Driver/v4.6.0) | [Converters](https://www.nuget.org/packages/Sarif.Converters/v4.6.0)  | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/v4.6.0) | [Multitool Library](https://www.nuget.org/packages/Sarif.Multitool.Library/v4.6.0)
 * BRK: Remove defunct and unsupported `kusto` command in `Sarif.Multitool`.
 * BRK: Remove support for .NET Core 3.1 and .NET 6.0 in preference of a [supported version of .NET](https://dotnet.microsoft.com/en-us/platform/support/policy/dotnet-core), `net8.0`.
 * BRK: Remove `HashData.MD5`, `HashUtilities.ComputeMD5Hash` due to the inherent insecurity of this algorithm.
@@ -25,25 +23,25 @@
 * NEW: Update `LogTargetParseError(IAnalysisContext, Region, string, Exception)` to include optional exception argument to denote code location where parse error occurred.
 * NEW: `MultithreadedAnalyzeCommandBase.EnumerateArtifact` now supports scanning into compressed (OPC) files. Initial support file extensions are: `.apk`, `.appx`, `.appxbundle`, `.docx`, `.epub`, `.jar`, `.msix`, `.msixbundle`, `.odp`, `.ods`, `.odt`, `.onepkg`, `.oxps`, `.pkg`, `.pptx`, `.unitypackage`, `.vsix`, `.vsdx`, `.xps`, `.xlsx`, `.zip`.
 
-## **v4.5.4 [Sdk](https://www.nuget.org/packages/Sarif.Sdk/v4.5.4) | [Driver](https://www.nuget.org/packages/Sarif.Driver/v4.5.4) | [Converters](https://www.nuget.org/packages/Sarif.Converters/v4.5.4)  | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/v4.5.4) | [Multitool Library](https://www.nuget.org/packages/Sarif.Multitool.Library/v4.5.4)
+## **v4.5.4** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/v4.5.4) | [Driver](https://www.nuget.org/packages/Sarif.Driver/v4.5.4) | [Converters](https://www.nuget.org/packages/Sarif.Converters/v4.5.4)  | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/v4.5.4) | [Multitool Library](https://www.nuget.org/packages/Sarif.Multitool.Library/v4.5.4)
 * BUG: Fix incorrect base class in rule ADO2012.
 
-## **v4.5.3 [Sdk](https://www.nuget.org/packages/Sarif.Sdk/v4.5.3) | [Driver](https://www.nuget.org/packages/Sarif.Driver/v4.5.3) | [Converters](https://www.nuget.org/packages/Sarif.Converters/v4.5.3)  | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/v4.5.3) | [Multitool Library](https://www.nuget.org/packages/Sarif.Multitool.Library/v4.5.3)
+## **v4.5.3** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/v4.5.3) | [Driver](https://www.nuget.org/packages/Sarif.Driver/v4.5.3) | [Converters](https://www.nuget.org/packages/Sarif.Converters/v4.5.3)  | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/v4.5.3) | [Multitool Library](https://www.nuget.org/packages/Sarif.Multitool.Library/v4.5.3)
 * BUG: Restructure shared `MessageResourceNames` collections to ensure return of correct error messages.
 
-## **v4.5.2 [Sdk](https://www.nuget.org/packages/Sarif.Sdk/v4.5.2) | [Driver](https://www.nuget.org/packages/Sarif.Driver/v4.5.2) | [Converters](https://www.nuget.org/packages/Sarif.Converters/v4.5.2)  | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/v4.5.2) | [Multitool Library](https://www.nuget.org/packages/Sarif.Multitool.Library/v4.5.2)
+## **v4.5.2** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/v4.5.2) | [Driver](https://www.nuget.org/packages/Sarif.Driver/v4.5.2) | [Converters](https://www.nuget.org/packages/Sarif.Converters/v4.5.2)  | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/v4.5.2) | [Multitool Library](https://www.nuget.org/packages/Sarif.Multitool.Library/v4.5.2)
 * BUG: Update `Skimmer` stack in `Multitool.Library` to support shared `MessageResourceNames` collections between base rules and their derivatives.
 * BUG: Fix message strings to always assume {1} is reserved for the rule's service name.
 * BUG: Clean up unused resource strings in Multitool.Library.Rules.RuleResources.resx.
 
-## **v4.5.1 [Sdk](https://www.nuget.org/packages/Sarif.Sdk/v4.5.1) | [Driver](https://www.nuget.org/packages/Sarif.Driver/v4.5.1) | [Converters](https://www.nuget.org/packages/Sarif.Converters/v4.5.1)  | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/v4.5.1) | [Multitool Library](https://www.nuget.org/packages/Sarif.Multitool.Library/v4.5.1)
+## **v4.5.1** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/v4.5.1) | [Driver](https://www.nuget.org/packages/Sarif.Driver/v4.5.1) | [Converters](https://www.nuget.org/packages/Sarif.Converters/v4.5.1)  | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/v4.5.1) | [Multitool Library](https://www.nuget.org/packages/Sarif.Multitool.Library/v4.5.1)
 * DEP: Add explicit package references to `Sarif` and `Sarif.Driver` to resolve version conflict build error.
   `System.Diagnostics.Debug` 4.3.0,
   `System.IO.FileSystem.Primitives` 4.3.0,
   `System.Text.Encoding.Extensions` 4.3.0.
 * NEW: Expose `MultithreadedAnalyzeCommandBase.BuildDisabledSkimmersSet`, a utility function which extracts a disabled skimmer set from a `TContext`.
 
-## **v4.5.0 [Sdk](https://www.nuget.org/packages/Sarif.Sdk/v4.5.0) | [Driver](https://www.nuget.org/packages/Sarif.Driver/v4.5.0) | [Converters](https://www.nuget.org/packages/Sarif.Converters/v4.5.0)  | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/v4.5.0) | [Multitool Library](https://www.nuget.org/packages/Sarif.Multitool.Library/v4.5.0)
+## **v4.5.0** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/v4.5.0) | [Driver](https://www.nuget.org/packages/Sarif.Driver/v4.5.0) | [Converters](https://www.nuget.org/packages/Sarif.Converters/v4.5.0)  | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/v4.5.0) | [Multitool Library](https://www.nuget.org/packages/Sarif.Multitool.Library/v4.5.0)
 * DEP: Downgrade `System.Text.Encoding.CodePages` from 8.0.0 to 4.3.0 in `Sarif`.
 * DEP: Remove explicit versioning for `System.Memory` and `System.Runtime.CompilerServices.Unsafe`.
 * DEP: Remove spurious references to `System.Collections.Immutable`.
@@ -78,12 +76,12 @@
   `GH2012.ProvideRequiredReportingDescriptorProperties`.
 * NEW: Add a new `--rule-kind` parameter to `AnalyzeOptionsBase`, which specifies rule kinds to run (`Sarif`, `Ghas`, `Ado`). Example: `--rule-kind Ado;Sarif`.
 
-## **v4.4.1 UNRELEASED
+## **v4.4.1** UNRELEASED
 * DEP: Update reference to `System.Collections.Immutable` 5.0.0 for `Sarif` and `Sarif.Converters`.
 * BUG: Emit `WRN997.OneOrMoreFilesSkippedDueToExceedingSizeLimit` when no valid analysis targets are detected (due to exceeding size limits).
 * BUG: Emit `FailureLevel.Note` messages with label `info` (rather than `fail`) in `ConsoleLogger`.
 
-## **v4.4.0 [Sdk](https://www.nuget.org/packages/Sarif.Sdk/v4.4.0) | [Driver](https://www.nuget.org/packages/Sarif.Driver/v4.4.0) | [Converters](https://www.nuget.org/packages/Sarif.Converters/v4.4.0)  | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/v4.4.0) | [Multitool Library](https://www.nuget.org/packages/Sarif.Multitool.Library/v4.4.0)
+## **v4.4.0** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/v4.4.0) | [Driver](https://www.nuget.org/packages/Sarif.Driver/v4.4.0) | [Converters](https://www.nuget.org/packages/Sarif.Converters/v4.4.0)  | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/v4.4.0) | [Multitool Library](https://www.nuget.org/packages/Sarif.Multitool.Library/v4.4.0)
 * DEP: Add reference to `System.Text.Encoding.CodePages` 8.0.0 (to support Windows 1252 code pages in binary vs. text classification).
 * DEP: Update `Newtonsoft.Json` reference from 8.0.3 to 9.0.1 to provide `net462` compatibility.
 * DEP: Update target framework from `net461` to `net462` in `Sarif` `Sarif.Converters` projects (to allow for use of `System.Text.Encoding.CodePages`).
