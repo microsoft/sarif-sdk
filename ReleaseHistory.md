@@ -1,6 +1,8 @@
 # SARIF Package Release History (SDK, Driver, Converters, and Multitool)
 
-## 4.6.0 UNRELEASED
+## UNRELEASED
+
+## 4.6.0 [Sdk](https://www.nuget.org/packages/Sarif.Sdk/v4.6.0) | [Driver](https://www.nuget.org/packages/Sarif.Driver/v4.6.0) | [Converters](https://www.nuget.org/packages/Sarif.Converters/v4.6.0)  | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/v4.6.0) | [Multitool Library](https://www.nuget.org/packages/Sarif.Multitool.Library/v4.6.0)
 * BRK: Remove defunct and unsupported `kusto` command in `Sarif.Multitool`.
 * BRK: Remove support for .NET Core 3.1 and .NET 6.0 in preference of a [supported version of .NET](https://dotnet.microsoft.com/en-us/platform/support/policy/dotnet-core), `net8.0`.
 * BRK: Remove `HashData.MD5`, `HashUtilities.ComputeMD5Hash` due to the inherent insecurity of this algorithm.

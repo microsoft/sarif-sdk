@@ -13,8 +13,8 @@
     <Company Condition=" '$(Company)' == '' ">Microsoft</Company>
     <Product Condition=" '$(Product)' == '' ">Microsoft SARIF SDK</Product>
     <Copyright Condition=" '$(Copyright)' == '' ">© Microsoft Corporation. All rights reserved.</Copyright>
-    <VersionPrefix>4.5.4</VersionPrefix>
-    <PreviousVersionPrefix>4.5.3</PreviousVersionPrefix>
+    <VersionPrefix>4.6.0</VersionPrefix>
+    <PreviousVersionPrefix>4.5.4</PreviousVersionPrefix>
 
     <!-- SchemaVersionAsPublishedToSchemaStoreOrg identifies the current published version on json schema store at https://schemastore.azurewebsites.net/schemas/json/ -->
     <SchemaVersionAsPublishedToSchemaStoreOrg>2.1.0-rtm.6</SchemaVersionAsPublishedToSchemaStoreOrg>
