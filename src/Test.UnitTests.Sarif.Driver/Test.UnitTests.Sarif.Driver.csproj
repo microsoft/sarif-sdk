@@ -30,7 +30,7 @@
   </Target>
 
   <ItemGroup>
-    <Content Include="Sdk\TestData\r.zip">
+    <Content Include="Sdk\TestData\recursive_self_reference_zipbomb.zip">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

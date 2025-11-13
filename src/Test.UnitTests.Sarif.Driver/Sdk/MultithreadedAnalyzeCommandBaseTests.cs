@@ -2734,7 +2734,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             var logger = new TestMessageLogger();
 
             string testDataPath = Path.Combine(Path.GetDirectoryName(GetThisTestAssemblyFilePath()), "Sdk", "TestData");
-            string zipPath = Path.Combine(testDataPath, "r.zip");
+            string zipPath = Path.Combine(testDataPath, "recursive_self_reference_zipbomb.zip");
 
             var fileInfo = new FileInfo(zipPath);
             fileInfo.Exists.Should().BeTrue("the test data zip file should exist");
