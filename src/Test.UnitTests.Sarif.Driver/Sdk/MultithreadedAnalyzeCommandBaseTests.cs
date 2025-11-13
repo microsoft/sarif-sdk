@@ -2762,7 +2762,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             var depthLimitNotifications = logger.ConfigurationNotifications
                 .Where(n => n.Message.Text.Contains("archive nesting exceeded maximum depth"))
                 .ToList();
-            
+
             depthLimitNotifications.Should().NotBeEmpty(
                 "the zip bomb should have triggered depth limit warnings");
         }
