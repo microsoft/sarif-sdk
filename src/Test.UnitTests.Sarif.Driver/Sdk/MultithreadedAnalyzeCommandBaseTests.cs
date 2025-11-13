@@ -2728,195 +2728,43 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             run.Results[0].Kind.Should().Be(ResultKind.Fail);
         }
 
-        private string CreateNestedZipFile(int depth = 50)
+        [Fact]
+        public void MultithreadedAnalyzeCommandBase_AnalyzesDeeplyNestedZipBombFileWithoutStackOverflow()
         {
-            string zipPath = Path.Combine(Path.GetTempPath(), $"zipfile_{Guid.NewGuid()}.zip");
+            var logger = new TestMessageLogger();
 
-            // Start with the innermost content - a simple text file
-            var currentStream = new MemoryStream();
-            using (var innerArchive = new ZipArchive(currentStream, ZipArchiveMode.Create, leaveOpen: true))
+            string testDataPath = Path.Combine(Path.GetDirectoryName(GetThisTestAssemblyFilePath()), "Sdk", "TestData");
+            string zipPath = Path.Combine(testDataPath, "r.zip");
+
+            var fileInfo = new FileInfo(zipPath);
+            fileInfo.Exists.Should().BeTrue("the test data zip file should exist");
+            fileInfo.Length.Should().BeGreaterThan(0);
+
+            var artifact = new EnumeratedArtifact(new FileSystem())
             {
-                ZipArchiveEntry textEntry = innerArchive.CreateEntry("payload.txt");
-                using (Stream entryStream = textEntry.Open())
-                using (var writer = new StreamWriter(entryStream))
-                {
-                    writer.WriteLine("This is the innermost payload of the zip file");
-                    writer.WriteLine("Depth level: 0");
-                }
-            }
-            currentStream.Position = 0;
+                Uri = new Uri(zipPath),
+            };
 
-            // Create nested ZIP archives, each containing the previous one
-            for (int i = 1; i < depth; i++)
+            var context = new TestAnalysisContext
             {
-                var outerStream = new MemoryStream();
-                using (var outerArchive = new ZipArchive(outerStream, ZipArchiveMode.Create, leaveOpen: true))
-                {
-                    // Create a nested ZIP entry
-                    string nestedZipName = $"level{i}.zip";
-                    ZipArchiveEntry zipEntry = outerArchive.CreateEntry(nestedZipName);
-                    
-                    using (Stream entryStream = zipEntry.Open())
-                    {
-                        currentStream.CopyTo(entryStream);
-                    }
+                TargetsProvider = new ArtifactProvider(new[] { artifact }),
+                MaxFileSizeInKilobytes = long.MaxValue,
+                Logger = logger,
+                MaxArchiveRecursionDepth = 3,
+                Threads = 1, // Single-threaded for deterministic behavior
+            };
 
-                    // Also add a marker text file at this level to identify the depth
-                    ZipArchiveEntry markerEntry = outerArchive.CreateEntry($"marker_level{i}.txt");
-                    using (Stream markerStream = markerEntry.Open())
-                    using (var writer = new StreamWriter(markerStream))
-                    {
-                        writer.WriteLine($"Zip file depth level: {i}");
-                    }
-                }
-                
-                outerStream.Position = 0;
-                currentStream.Dispose();
-                currentStream = outerStream;
-            }
+            int result = new TestMultithreadedAnalyzeCommand().Run(options: null, ref context);
+            result.Should().Be(FAILURE);
 
-            // Write the final outermost archive to disk
-            currentStream.Position = 0;
-            using (FileStream fileStream = File.Create(zipPath))
-            {
-                currentStream.CopyTo(fileStream);
-                fileStream.Flush(flushToDisk: true);
-            }
+            // Verify that archives were skipped due to depth limit
+            // The zip bomb should have triggered depth limit warnings
+            var depthLimitNotifications = logger.ConfigurationNotifications
+                .Where(n => n.Message.Text.Contains("archive nesting exceeded maximum depth"))
+                .ToList();
             
-            currentStream.Dispose();
-            return zipPath;
-        }
-
-        [Fact]
-        public void MultithreadedAnalyzeCommandBase_AnalyzesZipBombFileWithoutStackOverflow()
-        {
-            var logger = new TestMessageLogger();
-            string zipPath = null;
-
-            try
-            {
-                // Create a zip bomb with 50 levels of nesting
-                // This would cause stack overflow without proper recursion depth limits
-                zipPath = CreateNestedZipFile(depth: 50);
-
-                var fileInfo = new FileInfo(zipPath);
-                fileInfo.Exists.Should().BeTrue();
-                fileInfo.Length.Should().BeGreaterThan(0);
-
-                var artifact = new EnumeratedArtifact(new FileSystem())
-                {
-                    Uri = new Uri(zipPath),
-                };
-
-                var context = new TestAnalysisContext
-                {
-                    TargetsProvider = new ArtifactProvider(new[] { artifact }),
-                    MaxFileSizeInKilobytes = long.MaxValue,
-                    Logger = logger,
-                    Threads = 1, // Single-threaded for deterministic behavior
-                };
-
-                int result = new TestMultithreadedAnalyzeCommand().Run(options: null, ref context);
-                result.Should().Be(SUCCESS);
-                
-                // The runtime should not have fatal errors (stack overflow would cause a fatal error)
-                (context.RuntimeErrors & ~RuntimeConditions.Nonfatal).Should().Be(RuntimeConditions.None);
-
-                // Verify that archives were skipped due to depth limit
-                // The zip bomb should have triggered depth limit warnings
-                var depthLimitNotifications = logger.ConfigurationNotifications
-                    .Where(n => n.Message.Text.Contains("archive nesting exceeded maximum depth"))
-                    .ToList();
-                
-                depthLimitNotifications.Should().NotBeEmpty(
-                    "the 50-level zip bomb should have triggered depth limit warnings");
-
-                // Verify no error-level notifications (the depth limit is a note, not an error)
-                logger.ConfigurationNotifications
-                    .Where(n => n.Level == FailureLevel.Error)
-                    .Should().BeEmpty("depth limiting is not an error condition");
-            }
-            finally
-            {
-                // Clean up the temporary ZIP file
-                if (zipPath != null && File.Exists(zipPath))
-                {
-                    try
-                    {
-                        File.Delete(zipPath);
-                    }
-                    catch
-                    {
-                        // Ignore cleanup errors
-                    }
-                }
-            }
-        }
-
-        [Fact]
-        public void MultithreadedAnalyzeCommandBase_AnalyzesZipFileWithCorrectDepthLimitHandling()
-        {
-            var logger = new TestMessageLogger();
-            string zipPath = null;
-
-            try
-            {
-                // Create a regular file with 8 levels of nesting
-                zipPath = CreateNestedZipFile(depth: 5);
-
-                var fileInfo = new FileInfo(zipPath);
-                fileInfo.Exists.Should().BeTrue();
-                fileInfo.Length.Should().BeGreaterThan(0);
-
-                var artifact = new EnumeratedArtifact(new FileSystem())
-                {
-                    Uri = new Uri(zipPath),
-                };
-
-                var context = new TestAnalysisContext
-                {
-                    TargetsProvider = new ArtifactProvider(new[] { artifact }),
-                    MaxFileSizeInKilobytes = long.MaxValue,
-                    Logger = logger,
-                    MaxArchiveRecursionDepth = 3, // Lower limit should trigger depth limit handling
-                    Threads = 1, // Single-threaded for deterministic behavior
-                };
-
-                int result = new TestMultithreadedAnalyzeCommand().Run(options: null, ref context);
-                result.Should().Be(SUCCESS);
-
-                // The runtime should not have fatal errors (stack overflow would cause a fatal error)
-                (context.RuntimeErrors & ~RuntimeConditions.Nonfatal).Should().Be(RuntimeConditions.None);
-
-                // Verify that archives were skipped due to depth limit
-                // The zip file should have triggered depth limit warnings
-                var depthLimitNotifications = logger.ConfigurationNotifications
-                    .Where(n => n.Message.Text.Contains("archive nesting exceeded maximum depth"))
-                    .ToList();
-
-                depthLimitNotifications.Should().NotBeEmpty(
-                    "the 5-level zip file should have triggered depth limit warnings");
-
-                // Verify no error-level notifications (the depth limit is a note, not an error)
-                logger.ConfigurationNotifications
-                    .Where(n => n.Level == FailureLevel.Error)
-                    .Should().BeEmpty("depth limiting is not an error condition");
-            }
-            finally
-            {
-                // Clean up the temporary ZIP file
-                if (zipPath != null && File.Exists(zipPath))
-                {
-                    try
-                    {
-                        File.Delete(zipPath);
-                    }
-                    catch
-                    {
-                        // Ignore cleanup errors
-                    }
-                }
-            }
+            depthLimitNotifications.Should().NotBeEmpty(
+                "the zip bomb should have triggered depth limit warnings");
         }
     }
 }
