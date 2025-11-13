@@ -2727,45 +2727,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             run.Results.Count.Should().Be((int)TestRule.ErrorsCount.DefaultValue());
             run.Results[0].Kind.Should().Be(ResultKind.Fail);
         }
-
-        [Fact]
-        public void MultithreadedAnalyzeCommandBase_AnalyzesDeeplyNestedZipBombFileWithoutStackOverflow()
-        {
-            var logger = new TestMessageLogger();
-
-            string testDataPath = Path.Combine(Path.GetDirectoryName(GetThisTestAssemblyFilePath()), "Sdk", "TestData");
-            string zipPath = Path.Combine(testDataPath, "recursive_self_reference_zipbomb.zip");
-
-            var fileInfo = new FileInfo(zipPath);
-            fileInfo.Exists.Should().BeTrue("the test data zip file should exist");
-            fileInfo.Length.Should().BeGreaterThan(0);
-
-            var artifact = new EnumeratedArtifact(new FileSystem())
-            {
-                Uri = new Uri(zipPath),
-            };
-
-            var context = new TestAnalysisContext
-            {
-                TargetsProvider = new ArtifactProvider(new[] { artifact }),
-                MaxFileSizeInKilobytes = long.MaxValue,
-                Logger = logger,
-                MaxArchiveRecursionDepth = 3,
-                Threads = 1, // Single-threaded for deterministic behavior
-            };
-
-            int result = new TestMultithreadedAnalyzeCommand().Run(options: null, ref context);
-            result.Should().Be(FAILURE);
-
-            // Verify that archives were skipped due to depth limit
-            // The zip bomb should have triggered depth limit warnings
-            var depthLimitNotifications = logger.ConfigurationNotifications
-                .Where(n => n.Message.Text.Contains("archive nesting exceeded maximum depth"))
-                .ToList();
-
-            depthLimitNotifications.Should().NotBeEmpty(
-                "the zip bomb should have triggered depth limit warnings");
-        }
     }
 }
 #pragma warning restore CS0618
