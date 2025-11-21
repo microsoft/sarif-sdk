@@ -437,7 +437,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 $"{Environment.NewLine}" +
                 $"    Maximum depth for recursively analyzing nested archives (ZIP files, OPC packages, etc.).{Environment.NewLine}" +
                 $"    This prevents stack overflow when processing deeply nested or circular archive structures.{Environment.NewLine}" +
-                $"    Negative values will be discarded in favor of the default of {MaxArchiveRecursionDepthProperty?.DefaultValue() ?? DefaultMaxArchiveRecursionDepth}.");
+                $"    Negative values will be discarded in favor of the default of {DefaultMaxArchiveRecursionDepth}.");
 
 
         public static PerLanguageOption<int> EventsBufferSizeInMegabytesProperty { get; } =

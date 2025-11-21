@@ -696,7 +696,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
             if (IsOpcArtifact(artifact, filePath, globalContext))
             {
-                // Check recursion depth to prevent stack overflow
                 if (recursionDepth >= globalContext.MaxArchiveRecursionDepth)
                 {
                     string reason = $"archive nesting exceeded maximum depth of {globalContext.MaxArchiveRecursionDepth}";
