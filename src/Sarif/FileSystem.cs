@@ -498,5 +498,20 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             return Path.GetFileNameWithoutExtension(path);
         }
+
+        /// <summary>
+        /// Gets the extension of the specified path string without validating for invalid path characters.
+        /// This is useful when processing file paths from external systems that may contain characters
+        /// that are invalid on Windows but valid on the host system.
+        /// </summary>
+        /// <param name="path">The path string from which to get the extension.</param>
+        /// <returns>
+        /// The extension of the specified path (including the period "."), or String.Empty if path
+        /// does not have extension information, or null if path is null.
+        /// </returns>
+        public string PathGetExtension(string path)
+        {
+            return SarifUtilities.PathGetExtension(path);
+        }
     }
 }

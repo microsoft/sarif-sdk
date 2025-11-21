@@ -14,6 +14,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             var mock = new Mock<IFileSystem>(MockBehavior.Strict);
             mock.Setup(fs => fs.FileExists(It.IsAny<string>())).Returns((string s) => s.Equals(fileName, StringComparison.OrdinalIgnoreCase));
             mock.Setup(fs => fs.PathGetFullPath(It.IsAny<string>())).Returns((string path) => path);
+            mock.Setup(fs => fs.PathGetExtension(It.IsAny<string>())).Returns((string path) => SarifUtilities.PathGetExtension(path));
             mock.Setup(fs => fs.FileReadAllText(fileName)).Returns(fileText ?? string.Join(Environment.NewLine, fileLines));
             mock.Setup(fs => fs.FileReadAllLines(fileName)).Returns(fileLines ?? fileText.Split(new[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries));
             return mock.Object;

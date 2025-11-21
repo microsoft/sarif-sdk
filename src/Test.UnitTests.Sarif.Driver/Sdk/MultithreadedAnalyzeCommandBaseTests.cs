@@ -39,6 +39,31 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         }
 
         [Fact]
+        public void AnalyzeCommand_IllegalPathCharInURL()
+        {
+            var sarifOutput = new StringBuilder();
+            var command = new TestMultithreadedAnalyzeCommand();
+            using var writer = new StringWriter(sarifOutput);
+            var logger = new SarifLogger(writer,
+                                            run: new Run { Tool = command.Tool },
+                                            levels: BaseLogger.ErrorWarningNote,
+                                            kinds: BaseLogger.Fail);
+
+            var target = new EnumeratedArtifact(FileSystem.Instance) { Uri = new Uri("http://example.com/some<character>test/bad\"characters\"path.txt"), Contents = "fake content" };
+
+            var context = new TestAnalysisContext
+            {
+                TargetsProvider = new ArtifactProvider(new[] { target }),
+                FailureLevels = BaseLogger.ErrorWarningNote,
+                ResultKinds = BaseLogger.Fail,
+                Logger = logger,
+            };
+
+            int result = command.Run(options: null, ref context);
+            result.Should().Be(0);
+        }
+
+        [Fact]
         public void MultithreadedAnalyzeCommandBase_InvalidZipArchive()
         {
             var logger = new TestMessageLogger();
@@ -1273,6 +1298,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                                                                 It.IsAny<SearchOption>())).Returns(files);
             mockFileSystem.Setup(x => x.FileOpenRead(It.IsAny<string>())).Returns(mockStream.Object);
             mockFileSystem.Setup(x => x.FileExists(tempFile.Name)).Returns(true);
+            mockFileSystem.Setup(x => x.PathGetExtension(It.IsAny<string>())).Returns((string path) => SarifUtilities.PathGetExtension(path));
 
             Output.WriteLine($"The seed that will be used is: {TestRule.s_seed}");
 
@@ -1474,6 +1500,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 mockFileSystem.Setup(x => x.FileExists(tempFile.Name)).Returns(true);
                 mockFileSystem.Setup(x => x.FileInfoLength(It.IsAny<string>())).Returns((long)testCase.fileSizeInBytes);
                 mockFileSystem.Setup(x => x.IsSymbolicLink(It.IsAny<string>())).Returns((bool)testCase.isSymbolicLink);
+                mockFileSystem.Setup(x => x.PathGetExtension(It.IsAny<string>())).Returns((string path) => SarifUtilities.PathGetExtension(path));
 
                 bool expectedToBeWithinLimits =
                     testCase.fileSizeInBytes != 0 &&
@@ -1523,6 +1550,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                                                                 It.IsAny<string>(),
                                                                 It.IsAny<SearchOption>())).Returns(files);
             mockFileSystem.Setup(x => x.FileOpenRead(It.IsAny<string>())).Returns(mockStream.Object);
+            mockFileSystem.Setup(x => x.PathGetExtension(It.IsAny<string>())).Returns((string path) => SarifUtilities.PathGetExtension(path));
 
             var options = new TestAnalyzeOptions
             {
@@ -2331,6 +2359,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             mockFileSystem.Setup(x => x.DirectoryEnumerateFiles(It.IsAny<string>())).Returns(new string[0]);
             mockFileSystem.Setup(x => x.DirectoryEnumerateFiles(It.IsAny<string>(), It.IsAny<string>(), SearchOption.TopDirectoryOnly)).Returns(files);
             mockFileSystem.Setup(x => x.DirectoryGetFiles(It.IsAny<string>(), It.IsAny<string>())).Returns(files);
+            mockFileSystem.Setup(x => x.PathGetExtension(It.IsAny<string>())).Returns((string path) => SarifUtilities.PathGetExtension(path));
 
             for (int i = 0; i < files.Count; i++)
             {

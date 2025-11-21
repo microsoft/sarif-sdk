@@ -300,12 +300,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             mockFileSystem.Setup(x => x.DirectoryExists(Path.GetDirectoryName(sariflogFilePath))).Returns(true);
             mockFileSystem.Setup(x => x.FileExists(sariflogFilePath)).Returns(true);
             mockFileSystem.Setup(x => x.FileReadAllText(sariflogFilePath)).Returns(sarifLogJson);
+            mockFileSystem.Setup(x => x.PathGetExtension(It.IsAny<string>())).Returns((string path) => SarifUtilities.PathGetExtension(path));
         }
 
         private static void ArrangeMockFileSystemCreate(Mock<IFileSystem> mockFileSystem, string sariflogFilePath, StringBuilder outputStream)
         {
             mockFileSystem.Setup(x => x.FileExists(sariflogFilePath)).Returns(false);
             mockFileSystem.Setup(x => x.FileCreate(sariflogFilePath)).Returns(() => new MemoryStreamToStringBuilder(outputStream));
+            mockFileSystem.Setup(x => x.PathGetExtension(It.IsAny<string>())).Returns((string path) => SarifUtilities.PathGetExtension(path));
         }
 
         private static void ArrangeMockFileSystemEnumerate(Mock<IFileSystem> mockFileSystem, string targetDirectory, IEnumerable<string> files)

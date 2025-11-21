@@ -38,7 +38,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                     return FAILURE;
                 }
 
-                string actualOutputPath = CommandUtilities.GetTransformedOutputFileName(options);
+                string actualOutputPath = CommandUtilities.GetTransformedOutputFileName(_fileSystem, options);
 
                 SarifLog actualLog = null;
 

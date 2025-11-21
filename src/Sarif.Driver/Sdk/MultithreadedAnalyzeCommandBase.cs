@@ -106,8 +106,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                     else
                     {
                         string etlFilePath =
-                        Path.GetExtension(globalContext.EventsFilePath).Equals(".csv", StringComparison.OrdinalIgnoreCase)
-                            ? $"{Path.GetFileNameWithoutExtension(globalContext.EventsFilePath)}.etl"
+                        FileSystem.PathGetExtension(globalContext.EventsFilePath).Equals(".csv", StringComparison.OrdinalIgnoreCase)
+                            ? $"{FileSystem.PathGetFileNameWithoutExtension(globalContext.EventsFilePath)}.etl"
                             : globalContext.EventsFilePath;
 
                         globalContext.TraceEventSession = new TraceEventSession($"Sarif-Driver-{Guid.NewGuid()}", etlFilePath);
@@ -244,13 +244,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             globalContext.Logger.AnalysisStopped(globalContext.RuntimeErrors);
             disposableLogger?.Dispose();
 
-            if (Path.GetExtension(globalContext.EventsFilePath).Equals(".csv", StringComparison.OrdinalIgnoreCase))
+            if (FileSystem.PathGetExtension(globalContext.EventsFilePath).Equals(".csv", StringComparison.OrdinalIgnoreCase))
             {
                 var dumpEventsCommand = new DumpEventsCommand();
 
                 var options = new DumpEventsOptions()
                 {
-                    EventsFilePath = $"{Path.GetFileNameWithoutExtension(globalContext.EventsFilePath)}.etl",
+                    EventsFilePath = $"{FileSystem.PathGetFileNameWithoutExtension(globalContext.EventsFilePath)}.etl",
                     CsvFilePath = globalContext.EventsFilePath,
                 };
 
@@ -785,10 +785,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             return true;
         }
 
-        private static bool IsOpcArtifact(IEnumeratedArtifact artifact, string filePath, TContext globalContext)
+        private bool IsOpcArtifact(IEnumeratedArtifact artifact, string filePath, TContext globalContext)
         {
             // If the file extension is recognized as an OPC type, it qualifies.
-            string extension = Path.GetExtension(filePath);
+            string extension = FileSystem.PathGetExtension(filePath);
             if (!globalContext.OpcFileExtensions.Contains(extension))
             {
                 return false;
@@ -971,7 +971,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
             if (string.IsNullOrEmpty(configurationFileName)) { return context; }
 
-            string extension = Path.GetExtension(configurationFileName);
+            string extension = FileSystem.PathGetExtension(configurationFileName);
 
             var configuration = new PropertiesDictionary();
             if (extension.Equals(".xml", StringComparison.OrdinalIgnoreCase))

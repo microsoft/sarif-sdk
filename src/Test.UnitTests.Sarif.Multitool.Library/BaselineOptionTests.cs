@@ -52,6 +52,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             mockFileSystem.Setup(x => x.FileReadAllText(logFilePath)).Returns(RewriteCommandTests.MinimalCurrentV2Text);
             mockFileSystem.Setup(x => x.FileReadAllText(baseLineFilePath)).Returns(RewriteCommandTests.MinimalCurrentV2Text);
             mockFileSystem.Setup(x => x.FileReadAllText(SchemaFilePath)).Returns(SchemaFileContents);
+            mockFileSystem.Setup(x => x.PathGetExtension(It.IsAny<string>())).Returns((string path) => SarifUtilities.PathGetExtension(path));
 
             var validateCommand = new ValidateCommand(mockFileSystem.Object);
 

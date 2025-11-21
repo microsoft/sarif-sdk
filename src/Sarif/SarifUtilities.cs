@@ -210,5 +210,36 @@ namespace Microsoft.CodeAnalysis.Sarif
                 return null;
             }
         }
+
+        internal static string PathGetExtension(string path)
+        {
+            if (path == null)
+            {
+                return null;
+            }
+
+            int length = path.Length;
+            for (int i = length - 1; i >= 0; i--)
+            {
+                char ch = path[i];
+                if (ch == '.')
+                {
+                    if (i != length - 1)
+                    {
+                        return path.Substring(i, length - i);
+                    }
+                    else
+                    {
+                        return string.Empty;
+                    }
+                }
+                // Stop at directory separators (both Windows and Unix style)
+                if (ch == '\\' || ch == '/' || ch == ':')
+                {
+                    break;
+                }
+            }
+            return string.Empty;
+        }
     }
 }
