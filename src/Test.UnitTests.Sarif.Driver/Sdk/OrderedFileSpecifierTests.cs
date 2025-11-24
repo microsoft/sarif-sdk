@@ -12,6 +12,8 @@ using FluentAssertions;
 
 using Moq;
 
+using Test.UnitTests.Sarif.Driver;
+
 using Xunit;
 
 namespace Microsoft.CodeAnalysis.Sarif.Driver
@@ -194,7 +196,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             mockFileSystem.Verify(fs => fs.IsSymbolicLink(symlinkDir), Times.Once);
         }
 
-        [Fact]
+        [ConditionalFact(skipOnFrameworks: ["net48"], "Symbolic link creation not supported on .NET Framework 4.8.")]
         public void OrderedFileSpecifier_SkipsRealSymbolicLinkDirectoriesDuringRecursion()
         {
             string tempFolder = Path.GetTempPath();
@@ -236,7 +238,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             }
         }
 
-        [Fact]
+        [ConditionalFact(skipOnFrameworks: ["net48"], "Symbolic link creation not supported on .NET Framework 4.8.")]
         public void OrderedFileSpecifier_HandlesSymbolicLinkFiles()
         {
             string tempFolder = Path.GetTempPath();
@@ -272,7 +274,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             }
         }
 
-        [Fact]
+        [ConditionalFact(skipOnFrameworks: ["net48"], "Symbolic link creation not supported on .NET Framework 4.8.")]
         public void OrderedFileSpecifier_PreventsInfiniteLoopsWithCircularSymlinks()
         {
             string tempFolder = Path.GetTempPath();
@@ -330,6 +332,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         {
             try
             {
+#if NET8_0_OR_GREATER
                 if (isDirectory)
                 {
                     Directory.CreateSymbolicLink(linkPath, targetPath);
@@ -339,6 +342,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                     File.CreateSymbolicLink(linkPath, targetPath);
                 }
                 return true;
+#else
+                // Symbolic link creation not supported in this framework version
+                return false;
+#endif
             }
             catch
             {
