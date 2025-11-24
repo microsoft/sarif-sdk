@@ -2671,6 +2671,31 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 Errors.ERR997_IncompatibleRulesDetected);
         }
 
+        [Fact]
+        public void AnalyzeCommand_IllegalPathCharInURL()
+        {
+            var sarifOutput = new StringBuilder();
+            var command = new TestMultithreadedAnalyzeCommand();
+            using var writer = new StringWriter(sarifOutput);
+            var logger = new SarifLogger(writer,
+                                            run: new Run { Tool = command.Tool },
+                                            levels: BaseLogger.ErrorWarningNote,
+                                            kinds: BaseLogger.Fail);
+
+            var target = new EnumeratedArtifact(FileSystem.Instance) { Uri = new Uri("http://example.com/some<character>test/bad\"characters\"path.txt"), Contents = "fake content" };
+
+            var context = new TestAnalysisContext
+            {
+                TargetsProvider = new ArtifactProvider(new[] { target }),
+                FailureLevels = BaseLogger.ErrorWarningNote,
+                ResultKinds = BaseLogger.Fail,
+                Logger = logger,
+            };
+
+            int result = command.Run(options: null, ref context);
+            result.Should().Be(0);
+        }
+
         private void RunCheckIncompatibleRulesTests(IEnumerable<TestRule> skimmers, HashSet<string> disabledSkimmers,
             TestAnalysisContext context, ConsoleLogger consoleLogger, bool expectExpcetion, ExitReason expectedExitReason,
             RuntimeConditions expectedRuntimeConditions, string expectedErrorCode)
