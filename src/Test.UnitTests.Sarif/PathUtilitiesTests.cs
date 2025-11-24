@@ -16,7 +16,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         [InlineData("file.tar.gz", ".gz")]
         [InlineData("file", "")]
         [InlineData("file.", "")]
-        [InlineData(".file", "")]
+        [InlineData(".file", ".file")]
         [InlineData("path/file.txt", ".txt")]
         [InlineData("path\\file.txt", ".txt")]
         [InlineData("C:\\path\\file.txt", ".txt")]
