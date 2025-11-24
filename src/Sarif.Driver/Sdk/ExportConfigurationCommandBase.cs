@@ -61,7 +61,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                     }
                 }
 
-                string extension = Path.GetExtension(exportOptions.OutputFilePath);
+                string extension = PathUtilities.GetExtension(exportOptions.OutputFilePath);
 
                 if (extension.Equals(".xml", StringComparison.OrdinalIgnoreCase))
                 {
