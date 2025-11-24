@@ -3,8 +3,9 @@
 
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
+
+using Microsoft.CodeAnalysis.Sarif;
 
 namespace SarifBaseline.Extensions
 {
@@ -41,7 +42,7 @@ namespace SarifBaseline.Extensions
         {
             fileExtension = "." + fileExtension.TrimStart('.');
 
-            return set.Where(path => Path.GetExtension(path).Equals(fileExtension, StringComparison.OrdinalIgnoreCase));
+            return set.Where(path => PathUtilities.GetExtension(path).Equals(fileExtension, StringComparison.OrdinalIgnoreCase));
         }
     }
 }

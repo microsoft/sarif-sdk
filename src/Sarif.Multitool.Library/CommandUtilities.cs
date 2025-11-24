@@ -25,7 +25,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             }
 
             const string TransformedExtension = ".transformed.sarif";
-            string extension = Path.GetExtension(filePath);
+            string extension = PathUtilities.GetExtension(filePath);
 
             // For an input file named MyFile.sarif, returns MyFile.transformed.sarif.
             if (extension.Equals(SarifConstants.SarifFileExtension, StringComparison.OrdinalIgnoreCase))

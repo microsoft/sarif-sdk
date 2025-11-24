@@ -50,7 +50,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             foreach (string fileName in fileSpecifier.Files)
             {
-                string extension = Path.GetExtension(fileName);
+                string extension = PathUtilities.GetExtension(fileName);
                 if (observedExtensions.Contains(extension)) { continue; }
                 observedExtensions.Add(extension);
 
