@@ -9,7 +9,7 @@
 
   <PropertyGroup>
     <TargetFrameworks>net8.0</TargetFrameworks>
-	  <TargetFrameworks Condition="$(OS) == 'Windows_NT'">$(TargetFrameworks);net48</TargetFrameworks>
+    <TargetFrameworks Condition="$(OS) == 'Windows_NT'">$(TargetFrameworks);net48</TargetFrameworks>
     <IsTestProject>true</IsTestProject>
     <PowershellExecutable Condition="'$(OS)'=='Windows_NT'">powershell</PowershellExecutable>
     <PowershellExecutable Condition="'$(PowershellExecutable)'==''">pwsh</PowershellExecutable>
