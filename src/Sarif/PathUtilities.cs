@@ -26,7 +26,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// The behavior is identical to Path.GetExtension in .NET Core 3.1+ where invalid
         /// path characters no longer throw exceptions.
         /// </remarks>
-        public static string GetExtension(string? path)
+        public static string GetExtension(string path)
         {
             if (path == null)
             {
