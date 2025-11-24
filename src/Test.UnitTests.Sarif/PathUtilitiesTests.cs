@@ -36,9 +36,9 @@ namespace Microsoft.CodeAnalysis.Sarif
             // This is the key test - Path.GetExtension would throw ArgumentException on .NET Framework 4.8
             // but our implementation should handle it gracefully
             string pathWithIllegalChars = "http://example.com/some<character>test/bad\"characters\"path.txt";
-            
+
             string extension = PathUtilities.GetExtension(pathWithIllegalChars);
-            
+
             extension.Should().Be(".txt");
         }
     }

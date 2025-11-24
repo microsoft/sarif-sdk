@@ -43,18 +43,18 @@ namespace Microsoft.CodeAnalysis.Sarif
                     {
                         return path.Substring(i, length - i);
                     }
-                    
+
                     return string.Empty;
                 }
-                
-                if (ch == System.IO.Path.DirectorySeparatorChar || 
-                    ch == System.IO.Path.AltDirectorySeparatorChar || 
+
+                if (ch == System.IO.Path.DirectorySeparatorChar ||
+                    ch == System.IO.Path.AltDirectorySeparatorChar ||
                     ch == System.IO.Path.VolumeSeparatorChar)
                 {
                     break;
                 }
             }
-            
+
             return string.Empty;
         }
     }

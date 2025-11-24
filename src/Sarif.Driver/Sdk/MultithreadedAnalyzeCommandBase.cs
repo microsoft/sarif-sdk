@@ -105,10 +105,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                     }
                     else
                     {
-                    string etlFilePath =
-                        PathUtilities.GetExtension(globalContext.EventsFilePath).Equals(".csv", StringComparison.OrdinalIgnoreCase)
-                            ? $"{Path.GetFileNameWithoutExtension(globalContext.EventsFilePath)}.etl"
-                            : globalContext.EventsFilePath;
+                        string etlFilePath =
+                            PathUtilities.GetExtension(globalContext.EventsFilePath).Equals(".csv", StringComparison.OrdinalIgnoreCase)
+                                ? $"{Path.GetFileNameWithoutExtension(globalContext.EventsFilePath)}.etl"
+                                : globalContext.EventsFilePath;
 
                         globalContext.TraceEventSession = new TraceEventSession($"Sarif-Driver-{Guid.NewGuid()}", etlFilePath);
                         globalContext.TraceEventSession.BufferSizeMB = globalContext.EventsBufferSizeInMegabytes;
