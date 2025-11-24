@@ -175,7 +175,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             context.RuntimeExceptions = null;
             mockHttpClient
                 .Setup(c => c.PostAsync(It.IsAny<string>(), It.IsAny<HttpContent>()))
-                .Returns(Task.FromResult(HttpMockHelper.CreateInternalServerErrorResponse()));
+                .Returns(Task.FromResult(HttpMockHelper.CreateInternalServerErrorResponse(HttpMockHelper.AnyContent())));
             exception = Record.Exception(() =>
                     PluginDriverCommand<AnalyzeOptionsBase>.SarifPost(context,
                                                                       mockHttpClient.Object));
@@ -188,7 +188,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             context.RuntimeExceptions = null;
             mockHttpClient
                 .Setup(c => c.PostAsync(It.IsAny<string>(), It.IsAny<HttpContent>()))
-                .Returns(Task.FromResult(HttpMockHelper.CreateOKResponse()));
+                .Returns(Task.FromResult(HttpMockHelper.CreateOKResponse(HttpMockHelper.AnyContent())));
             exception = Record.Exception(() =>
                     PluginDriverCommand<AnalyzeOptionsBase>.SarifPost(context,
                                                                       mockHttpClient.Object));
