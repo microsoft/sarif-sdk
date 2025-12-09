@@ -6,6 +6,8 @@ using System.Collections.Generic;
 using System.IO;
 using System.IO.Compression;
 using System.Linq;
+using System.Net;
+using System.Net.Http;
 using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Text;
@@ -988,7 +990,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                                string configFileName = null,
                                RuntimeConditions runtimeConditions = RuntimeConditions.None,
                                int expectedReturnCode = TestMultithreadedAnalyzeCommand.SUCCESS,
-                               string postUri = null)
+                               string postUri = null,
+                               HttpClientWrapper httpClientWrapper = null)
         {
             string path = Path.GetTempFileName();
             Run run = null;
@@ -1008,7 +1011,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                     PostUri = postUri,
                 };
 
-                var command = new TestMultithreadedAnalyzeCommand(FileSystem.Instance);
+                var command = new TestMultithreadedAnalyzeCommand(FileSystem.Instance, httpClientWrapper);
                 command.DefaultPluginAssemblies = new Assembly[] { this.GetType().Assembly };
 
                 TestAnalysisContext context = null;
@@ -1231,7 +1234,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             run.Results[0].Kind.Should().Be(ResultKind.Fail);
         }
 
-        [Fact(Skip = "This test is failing on Mac OS. Need to investigate.")]
+        [Fact]
         public void MultithreadedAnalyzeCommandBase_EndToEndAnalysisWithPostUri()
         {
             PostUriTestHelper(@"https://example.com", TestMultithreadedAnalyzeCommand.SUCCESS, RuntimeConditions.None);
@@ -2710,6 +2713,36 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
         private void PostUriTestHelper(string postUri, int expectedReturnCode, RuntimeConditions runtimeConditions)
         {
+            var mockHttpClient = new Mock<HttpClientWrapper>();
+            mockHttpClient.Setup(client => client
+                .PostAsync(It.IsAny<string>(), It.IsAny<HttpContent>()))
+                .ReturnsAsync((string uriString, HttpContent content) =>
+                {
+                    var uri = new Uri(uriString);
+
+                    // health check request (with query parameter)
+                    string query = uri.Query;
+                    if (query.Contains("healthcheck=true"))
+                    {
+                        return new HttpResponseMessage(HttpStatusCode.Accepted);
+                    }
+
+                    // health check request (without content)
+                    string contentString = content?.ReadAsStringAsync().Result;
+                    if (string.IsNullOrEmpty(contentString))
+                    {
+                        return new HttpResponseMessage(HttpStatusCode.UnprocessableEntity);
+                    }
+
+                    // anything other than example.com should fail
+                    if (!uri.Host.Equals("example.com", StringComparison.OrdinalIgnoreCase))
+                    {
+                        return new HttpResponseMessage(HttpStatusCode.NotFound);
+                    }
+
+                    return new HttpResponseMessage(HttpStatusCode.OK);
+                });
+
             string location = GetThisTestAssemblyFilePath();
 
             Run run = AnalyzeFile(
@@ -2717,7 +2750,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 TestRuleBehaviors.LogError,
                 postUri: postUri,
                 expectedReturnCode: expectedReturnCode,
-                runtimeConditions: runtimeConditions);
+                runtimeConditions: runtimeConditions,
+                httpClientWrapper: mockHttpClient.Object);
 
             run.Invocations?[0].ToolExecutionNotifications.Should().BeNull();
             run.Invocations?[0].ToolConfigurationNotifications.Should().BeNull();
