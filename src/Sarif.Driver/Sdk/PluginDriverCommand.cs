@@ -223,8 +223,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
         protected virtual void PostLogFile(IAnalysisContext globalContext)
         {
-            using var httpClient = new HttpClientWrapper();
+            using HttpClientWrapper httpClient = GetHttpClientWrapper();
             SarifPost(globalContext, httpClient);
+        }
+
+        protected virtual HttpClientWrapper GetHttpClientWrapper()
+        {
+            return new HttpClientWrapper();
         }
 
         internal static void SarifPost(IAnalysisContext globalContext, HttpClientWrapper httpClient)

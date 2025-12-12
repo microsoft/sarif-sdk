@@ -10,8 +10,17 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 {
     public class TestMultithreadedAnalyzeCommand : MultithreadedAnalyzeCommandBase<TestAnalysisContext, TestAnalyzeOptions>, ITestAnalyzeCommand
     {
+        private readonly HttpClientWrapper _httpClientWrapper;
+
         public TestMultithreadedAnalyzeCommand(IFileSystem fileSystem = null) : base(fileSystem)
         {
+            TestRule.s_testRuleBehaviors = 0;
+        }
+
+        public TestMultithreadedAnalyzeCommand(IFileSystem fileSystem, HttpClientWrapper httpClientWrapper)
+            : base(fileSystem)
+        {
+            _httpClientWrapper = httpClientWrapper;
             TestRule.s_testRuleBehaviors = 0;
         }
 
@@ -98,6 +107,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         public new void CheckIncompatibleRules(IEnumerable<Skimmer<TestAnalysisContext>> skimmers, TestAnalysisContext context, ISet<string> disabledSkimmers)
         {
             base.CheckIncompatibleRules(skimmers, context, disabledSkimmers);
+        }
+
+        protected override HttpClientWrapper GetHttpClientWrapper()
+        {
+            return _httpClientWrapper ?? base.GetHttpClientWrapper();
         }
     }
 }

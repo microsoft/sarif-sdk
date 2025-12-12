@@ -380,14 +380,17 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             {
                 try
                 {
-                    var httpClient = new HttpClientWrapper();
-                    var content = new StringContent(string.Empty);
-                    HttpResponseMessage httpResponseMessage = httpClient.PostAsync(globalContext.PostUri, content).GetAwaiter().GetResult();
+                    using HttpClientWrapper httpClient = GetHttpClientWrapper();
+                    string separator = globalContext.PostUri.Contains("?") ? "&" : "?";
+                    string uri = $"{globalContext.PostUri}{separator}healthcheck=true";
 
-                    // Internal server error means we found our server but it didn't like our malformed payload
-                    // (in first implementation). In a server update, this condition returns 422 (unprocessable
-                    // payload). We treat either return value as good, i.e. posting a valid SARIF file should work.
-                    if (httpResponseMessage.StatusCode != HttpStatusCode.InternalServerError &&
+                    var content = new StringContent(string.Empty);
+                    HttpResponseMessage httpResponseMessage = httpClient.PostAsync(uri, content).GetAwaiter().GetResult();
+
+                    // For health check with query parameter, we expect a 202 (Accepted) response.
+                    // We also maintain backwards compatibility with 422 (unprocessable payload) for servers
+                    // that don't support the healthcheck parameter but will accept valid SARIF files.
+                    if (httpResponseMessage.StatusCode != HttpStatusCode.Accepted &&
                         httpResponseMessage.StatusCode != (HttpStatusCode)422)
                     {
                         Errors.LogErrorPostingLogFile(globalContext, globalContext.PostUri);
