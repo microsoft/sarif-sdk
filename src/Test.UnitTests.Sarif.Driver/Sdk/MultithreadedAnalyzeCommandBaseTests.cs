@@ -2756,7 +2756,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                     string contentString = content?.ReadAsStringAsync().Result;
                     if (string.IsNullOrEmpty(contentString))
                     {
-                        return new HttpResponseMessage(HttpStatusCode.UnprocessableEntity);
+                        return new HttpResponseMessage((HttpStatusCode)422);
                     }
 
                     // anything other than example.com should fail
@@ -2765,7 +2765,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                         return new HttpResponseMessage(HttpStatusCode.NotFound);
                     }
 
-                    return new HttpResponseMessage(HttpStatusCode.OK);
+                    return new HttpResponseMessage(HttpStatusCode.OK)
+                    {
+                        Content = new StringContent("SARIF log posted successfully", Encoding.UTF8, "text/plain")
+                    };
                 });
 
             string location = GetThisTestAssemblyFilePath();
