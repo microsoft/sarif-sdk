@@ -162,8 +162,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
         [Option(
             "thread-safe-logging",
-            Default = true,
-            HelpText = "Enable thread-safe logging to prevent concurrent access issues during analysis. Set to false to disable if causing issues.")]
-        public bool ThreadSafeLogging { get; set; } = true;
+            Default = false,
+            HelpText = "Enable thread-safe logging to prevent concurrent access issues during analysis.")]
+        public bool ThreadSafeLogging { get; set; } = false;
     }
 }
