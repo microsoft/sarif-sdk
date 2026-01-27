@@ -76,7 +76,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         public virtual IAnalysisLogger Logger { get; set; }
         public virtual RuntimeConditions RuntimeErrors { get; set; }
         public virtual bool AnalysisComplete { get; set; }
-        public virtual bool ThreadSafeLogging { get; set; } = true;
+        public virtual bool ThreadSafeLogging { get; set; } = false;
         public bool Inline => OutputFileOptions.HasFlag(FilePersistenceOptions.Inline);
         public bool Minify => OutputFileOptions.HasFlag(FilePersistenceOptions.Minify);
         public bool Optimize => OutputFileOptions.HasFlag(FilePersistenceOptions.Optimize);
