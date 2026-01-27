@@ -34,7 +34,7 @@ public static class SarifLoggerConcurrencyTests
         Console.WriteLine(">>> PHASE 1: Testing WITHOUT fix (threadSafeLoggingEnabled: false)");
         Console.WriteLine("    Expected: Tests should FAIL with 'Collection was modified' errors");
         Console.WriteLine();
-        
+
         await RunRealWorldStressTestAsync(nameof(StressTest_ConcurrentLogAndDispose), () => StressTest_ConcurrentLogAndDispose(threadSafe: false), iterations: 20, expectFailure: true);
         await RunRealWorldStressTestAsync(nameof(StressTest_ManyThreadsLogThenDispose), () => StressTest_ManyThreadsLogThenDispose(threadSafe: false), iterations: 10, expectFailure: true);
 
@@ -43,7 +43,7 @@ public static class SarifLoggerConcurrencyTests
         Console.WriteLine(">>> PHASE 2: Testing WITH fix (threadSafeLoggingEnabled: true)");
         Console.WriteLine("    Expected: Tests should PASS");
         Console.WriteLine();
-        
+
         await RunRealWorldStressTestAsync(nameof(StressTest_ConcurrentLogAndDispose), () => StressTest_ConcurrentLogAndDispose(threadSafe: true), iterations: 100, expectFailure: false);
         await RunRealWorldStressTestAsync(nameof(StressTest_ManyThreadsLogThenDispose), () => StressTest_ManyThreadsLogThenDispose(threadSafe: true), iterations: 50, expectFailure: false);
         await RunRealWorldStressTestAsync(nameof(StressTest_DisposeDuringActiveLogs), () => StressTest_DisposeDuringActiveLogs(threadSafe: true), iterations: 100, expectFailure: false);
@@ -56,7 +56,7 @@ public static class SarifLoggerConcurrencyTests
     private static async Task RunRealWorldStressTestAsync(string testName, Func<Task> test, int iterations, bool expectFailure = false)
     {
         Console.WriteLine($"\n--- Running: {testName} ({iterations} iterations) ---");
-        
+
         int failures = 0;
         string? lastError = null;
 
@@ -178,7 +178,7 @@ public static class SarifLoggerConcurrencyTests
         var run = new Run { Tool = Tool.CreateFromAssemblyData() };
         using var memStream = new MemoryStream();
         using var streamWriter = new StreamWriter(memStream, leaveOpen: true);
-        
+
         var logger = new SarifLogger(
             streamWriter,
             run: run,
@@ -201,7 +201,7 @@ public static class SarifLoggerConcurrencyTests
             {
                 countdown.Signal();
                 countdown.Wait(); // All threads start together
-                
+
                 for (int i = 0; i < 50; i++)
                 {
                     // Each creates a unique rule - this modifies Tool.Driver.Rules
@@ -219,7 +219,7 @@ public static class SarifLoggerConcurrencyTests
         }
 
         await Task.WhenAll(logTasks);
-        
+
         logger.AnalysisStopped(RuntimeConditions.None);
         logger.Dispose();
 
@@ -227,7 +227,7 @@ public static class SarifLoggerConcurrencyTests
         streamWriter.Flush();
         memStream.Position = 0;
         var sarifLog = SarifLog.Load(memStream);
-        
+
         if (sarifLog.Runs[0].Results?.Count != totalLogs)
         {
             throw new Exception($"Expected {totalLogs} results, got {sarifLog.Runs[0].Results?.Count}");
