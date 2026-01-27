@@ -22,20 +22,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         private JsonTextWriter _jsonTextWriter;
         private ResultLogJsonWriter _issueLogJsonWriter;
 
-        // Thread-safety: tracks in-flight operations and dispose state
         private int _operationsInFlight;
         private int _state; // 0 = Active, 1 = Disposing, 2 = Disposed
         private const int StateActive = 0;
         private const int StateDisposing = 1;
         private const int StateDisposed = 2;
-        private readonly object _writeLock = new object(); // Serializes Log() and Dispose() writes
-
-        /// <summary>
-        /// Gets whether thread-safe logging mechanisms are enabled for this logger instance.
-        /// When true (default), Log() and Dispose() are protected against concurrent access.
-        /// Set to false via constructor to disable thread-safety for debugging or if it causes issues.
-        /// </summary>
-        public bool ThreadSafeLoggingEnabled { get; }
+        private readonly object _writeLock = new object();
+        private readonly bool _threadSafeLoggingEnabled;
 
         private readonly Run _run;
         private readonly bool _closeWriterOnDispose;
@@ -60,7 +53,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                            ResultKindSet kinds = null,
                            IEnumerable<string> insertProperties = null,
                            FileRegionsCache fileRegionsCache = null,
-                           bool threadSafeLoggingEnabled = true)
+                           bool threadSafeLoggingEnabled = false)
             : this(new StreamWriter(new FileStream(outputFilePath, FileMode.Create, FileAccess.Write, FileShare.Read)),
                                     logFilePersistenceOptions,
                                     dataToInsert,
@@ -93,9 +86,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                            ResultKindSet kinds = null,
                            IEnumerable<string> insertProperties = null,
                            FileRegionsCache fileRegionsCache = null,
-                           bool threadSafeLoggingEnabled = true) : base(failureLevels: levels, resultKinds: kinds)
+                           bool threadSafeLoggingEnabled = false) : base(failureLevels: levels, resultKinds: kinds)
         {
-            ThreadSafeLoggingEnabled = threadSafeLoggingEnabled;
+            _threadSafeLoggingEnabled = threadSafeLoggingEnabled;
             _textWriter = textWriter;
             _closeWriterOnDispose = closeWriterOnDispose;
             _jsonTextWriter = new JsonTextWriter(_textWriter)
@@ -346,7 +339,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
         public virtual void Dispose()
         {
-            if (ThreadSafeLoggingEnabled)
+            if (_threadSafeLoggingEnabled)
             {
                 DisposeThreadSafe();
             }
@@ -455,7 +448,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 return;
             }
 
-            if (ThreadSafeLoggingEnabled)
+            if (_threadSafeLoggingEnabled)
             {
                 if (!TryEnterOperation())
                 {
