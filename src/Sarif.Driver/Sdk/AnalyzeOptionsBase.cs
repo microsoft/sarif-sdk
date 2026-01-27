@@ -159,5 +159,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         public RuleKindSet RuleKinds => RuleKindOption != null ?
             new RuleKindSet(RuleKindOption) :
             new RuleKindSet(new List<RuleKind>(new[] { RuleKind.Sarif }));
+
+        [Option(
+            "thread-safe-logging",
+            Default = true,
+            HelpText = "Enable thread-safe logging to prevent concurrent access issues during analysis. Set to false to disable if causing issues.")]
+        public bool ThreadSafeLogging { get; set; } = true;
     }
 }

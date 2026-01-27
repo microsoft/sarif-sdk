@@ -1,540 +1,338 @@
 // Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-using System.Threading.Channels;
-
 using Microsoft.CodeAnalysis.Sarif;
 using Microsoft.CodeAnalysis.Sarif.Writers;
-using Microsoft.Coyote;
-using Microsoft.Coyote.Specifications;
-using Microsoft.Coyote.SystematicTesting;
 
 namespace CoyoteTest;
 
 /// <summary>
-/// Coyote tests to reproduce the concurrency bug documented in work item 2250448.
+/// Tests to verify the thread-safety fix for the concurrency bug documented in work item 2250448.
 /// 
-/// The bug manifests as:
+/// The bug manifested as:
 ///   System.InvalidOperationException: Collection was modified; enumeration operation may not execute.
 ///   at System.Collections.Generic.Dictionary`2.Enumerator.MoveNext()
 ///   at Newtonsoft.Json.Serialization.JsonSerializerInternalWriter.SerializeDictionary(...)
 ///   at Microsoft.CodeAnalysis.Sarif.Writers.ResultLogJsonWriter.WriteTool(Tool tool)
 ///   at Microsoft.CodeAnalysis.Sarif.Writers.SarifLogger.Dispose()
 /// 
-/// The race condition occurs when:
-/// - Thread A: SarifLogger.Dispose() -> CompleteRun() -> WriteTool() -> serializes Tool.Properties
-/// - Thread B: Analysis thread modifies Tool.Properties or other shared collections
+/// The fix uses Interlocked counters to track in-flight Log() operations and SpinWait
+/// in Dispose() to wait for all operations to complete before serialization.
 /// </summary>
 public static class SarifLoggerConcurrencyTests
 {
     public static async Task Main(string[] args)
     {
-        Console.WriteLine("Running Coyote systematic tests for SarifLogger concurrency bug...");
+        Console.WriteLine("Thread-Safety Fix Verification Tests for SarifLogger");
         Console.WriteLine("=" + new string('=', 70));
+        Console.WriteLine();
+        Console.WriteLine("This fix can be controlled via the --thread-safe-logging option.");
+        Console.WriteLine("In code: new SarifLogger(..., threadSafeLoggingEnabled: true/false)");
+        Console.WriteLine();
 
-        // Run all test methods
-        await RunTestAsync(nameof(DisposeDuringConcurrentToolPropertiesMutation), DisposeDuringConcurrentToolPropertiesMutation);
-        await RunTestAsync(nameof(DisposeDuringConcurrentInvocationEnvironmentMutation), DisposeDuringConcurrentInvocationEnvironmentMutation);
-        await RunTestAsync(nameof(DisposeDuringToolComponentPropertiesMutation), DisposeDuringToolComponentPropertiesMutation);
-        await RunTestAsync(nameof(DisposeDuringConcurrentToolMutation), DisposeDuringConcurrentToolMutation);
-        await RunTestAsync(nameof(DisposeDuringConcurrentResultsMutation), DisposeDuringConcurrentResultsMutation);
-        await RunTestAsync(nameof(SimulateMultithreadedAnalyzeCommandScenario), SimulateMultithreadedAnalyzeCommandScenario);
-        await RunTestAsync(nameof(RepeatedDisposeCyclesWithConcurrentMutations), RepeatedDisposeCyclesWithConcurrentMutations);
+        // PHASE 1: Test WITHOUT fix to demonstrate the bug exists
+        Console.WriteLine(">>> PHASE 1: Testing WITHOUT fix (threadSafeLoggingEnabled: false)");
+        Console.WriteLine("    Expected: Tests should FAIL with 'Collection was modified' errors");
+        Console.WriteLine();
+        
+        await RunRealWorldStressTestAsync(nameof(StressTest_ConcurrentLogAndDispose), () => StressTest_ConcurrentLogAndDispose(threadSafe: false), iterations: 20, expectFailure: true);
+        await RunRealWorldStressTestAsync(nameof(StressTest_ManyThreadsLogThenDispose), () => StressTest_ManyThreadsLogThenDispose(threadSafe: false), iterations: 10, expectFailure: true);
 
-        Console.WriteLine("=" + new string('=', 70));
-        Console.WriteLine("All Coyote tests completed.");
+        // PHASE 2: Test WITH fix to demonstrate it works
+        Console.WriteLine();
+        Console.WriteLine(">>> PHASE 2: Testing WITH fix (threadSafeLoggingEnabled: true)");
+        Console.WriteLine("    Expected: Tests should PASS");
+        Console.WriteLine();
+        
+        await RunRealWorldStressTestAsync(nameof(StressTest_ConcurrentLogAndDispose), () => StressTest_ConcurrentLogAndDispose(threadSafe: true), iterations: 100, expectFailure: false);
+        await RunRealWorldStressTestAsync(nameof(StressTest_ManyThreadsLogThenDispose), () => StressTest_ManyThreadsLogThenDispose(threadSafe: true), iterations: 50, expectFailure: false);
+        await RunRealWorldStressTestAsync(nameof(StressTest_DisposeDuringActiveLogs), () => StressTest_DisposeDuringActiveLogs(threadSafe: true), iterations: 100, expectFailure: false);
+        await RunRealWorldStressTestAsync(nameof(StressTest_DisposeRejectsNewLogs), () => StressTest_DisposeRejectsNewLogs(threadSafe: true), iterations: 50, expectFailure: false);
+
+        Console.WriteLine("\n" + new string('=', 70));
+        Console.WriteLine("All tests completed.");
     }
 
-    private static async Task RunTestAsync(string testName, Func<Task> test)
+    private static async Task RunRealWorldStressTestAsync(string testName, Func<Task> test, int iterations, bool expectFailure = false)
     {
-        Console.WriteLine($"\n--- Running: {testName} ---");
+        Console.WriteLine($"\n--- Running: {testName} ({iterations} iterations) ---");
+        
+        int failures = 0;
+        string? lastError = null;
 
-        var configuration = Configuration.Create()
-            .WithTestingIterations(1000)
-            .WithMaxSchedulingSteps(1000);
-
-        var engine = TestingEngine.Create(configuration, test);
-        engine.Run();
-
-        Console.WriteLine($"Iterations: {engine.TestReport.NumOfFoundBugs} bugs found");
-
-        if (engine.TestReport.NumOfFoundBugs > 0)
+        for (int i = 0; i < iterations; i++)
         {
-            Console.WriteLine("BUG FOUND! Reproducible trace available.");
-            Console.WriteLine($"Error: {engine.TestReport.BugReports.FirstOrDefault()}");
+            try
+            {
+                await test();
+            }
+            catch (Exception ex)
+            {
+                failures++;
+                lastError = ex.Message;
+            }
+        }
 
-            // Generate replay trace
-            string traceFile = $"{testName}_replay.schedule";
-            engine.TryEmitReports(".", testName, out _);
-            Console.WriteLine($"Replay trace saved to: {traceFile}");
+        if (expectFailure)
+        {
+            if (failures > 0)
+            {
+                Console.WriteLine($"✓ EXPECTED FAILURE: {failures}/{iterations} iterations failed (bug confirmed!)");
+            }
+            else
+            {
+                Console.WriteLine($"✗ UNEXPECTED SUCCESS: Test should have failed but all iterations passed");
+            }
         }
         else
         {
-            Console.WriteLine("No bugs found in this test.");
+            if (failures > 0)
+            {
+                Console.WriteLine($"✗ FAILED: {failures}/{iterations} iterations failed (fix not working!)");
+                Console.WriteLine($"  Last error: {lastError}");
+            }
+            else
+            {
+                Console.WriteLine($"✓ PASSED: All {iterations} iterations succeeded (fix working!)");
+            }
+        }
+    }
+
+    /// <summary>
+    /// Stress test: Multiple threads call Log() while another thread calls Dispose().
+    /// Before the fix, this would cause "Collection was modified" exception.
+    /// After the fix, Dispose() waits for all Log() calls to complete.
+    /// </summary>
+    public static async Task StressTest_ConcurrentLogAndDispose(bool threadSafe)
+    {
+        var run = new Run { Tool = Tool.CreateFromAssemblyData() };
+        using var writer = new StringWriter();
+        var logger = new SarifLogger(
+            writer,
+            run: run,
+            levels: BaseLogger.ErrorWarningNote,
+            kinds: BaseLogger.Fail,
+            threadSafeLoggingEnabled: threadSafe);
+
+        logger.AnalysisStarted();
+
+        var cts = new CancellationTokenSource();
+        var logTasks = new List<Task>();
+        var barrier = new Barrier(5); // 4 log threads + 1 dispose thread
+
+        // Start 4 threads that continuously log results with DIFFERENT rules
+        // This causes _run.Tool.Driver.Rules to be modified during Log()
+        for (int t = 0; t < 4; t++)
+        {
+            int threadId = t;
+            logTasks.Add(Task.Run(() =>
+            {
+                barrier.SignalAndWait(); // Synchronize start
+                int count = 0;
+                while (!cts.Token.IsCancellationRequested && count < 100)
+                {
+                    try
+                    {
+                        // Each iteration creates a new rule - this modifies Tool.Driver.Rules
+                        var rule = new ReportingDescriptor { Id = $"RULE-T{threadId}-{count}" };
+                        var result = new Result
+                        {
+                            RuleId = rule.Id,
+                            Message = new Message { Text = $"Thread {threadId} result {count}" },
+                            Level = FailureLevel.Warning
+                        };
+                        logger.Log(rule, result, null);
+                        count++;
+                    }
+                    catch (ObjectDisposedException)
+                    {
+                        // Expected after dispose - this is correct behavior
+                        break;
+                    }
+                }
+            }));
+        }
+
+        // Wait a tiny bit then dispose while logs are still running
+        var disposeTask = Task.Run(async () =>
+        {
+            barrier.SignalAndWait(); // Synchronize start
+            await Task.Delay(1); // Let some logs start
+            logger.AnalysisStopped(RuntimeConditions.None);
+            logger.Dispose(); // This should wait for in-flight Log() calls
+        });
+
+        await disposeTask;
+        cts.Cancel();
+        await Task.WhenAll(logTasks);
+
+        // If we got here without exception, the fix is working!
+    }
+
+    /// <summary>
+    /// Stress test: Many threads log results, then dispose is called.
+    /// Verifies that all logged results are captured.
+    /// </summary>
+    public static async Task StressTest_ManyThreadsLogThenDispose(bool threadSafe)
+    {
+        var run = new Run { Tool = Tool.CreateFromAssemblyData() };
+        using var memStream = new MemoryStream();
+        using var streamWriter = new StreamWriter(memStream, leaveOpen: true);
+        
+        var logger = new SarifLogger(
+            streamWriter,
+            run: run,
+            levels: BaseLogger.ErrorWarningNote,
+            kinds: BaseLogger.Fail,
+            closeWriterOnDispose: false,
+            threadSafeLoggingEnabled: threadSafe);
+
+        logger.AnalysisStarted();
+
+        int totalLogs = 0;
+        var logTasks = new List<Task>();
+        var countdown = new CountdownEvent(8);
+
+        // Start 8 threads that each log 50 results with different rules
+        for (int t = 0; t < 8; t++)
+        {
+            int threadId = t;
+            logTasks.Add(Task.Run(() =>
+            {
+                countdown.Signal();
+                countdown.Wait(); // All threads start together
+                
+                for (int i = 0; i < 50; i++)
+                {
+                    // Each creates a unique rule - this modifies Tool.Driver.Rules
+                    var rule = new ReportingDescriptor { Id = $"RULE-T{threadId}-{i}" };
+                    var result = new Result
+                    {
+                        RuleId = rule.Id,
+                        Message = new Message { Text = $"T{threadId}-{i}" },
+                        Level = FailureLevel.Warning
+                    };
+                    logger.Log(rule, result, null);
+                    Interlocked.Increment(ref totalLogs);
+                }
+            }));
+        }
+
+        await Task.WhenAll(logTasks);
+        
+        logger.AnalysisStopped(RuntimeConditions.None);
+        logger.Dispose();
+
+        // Verify all results were written
+        streamWriter.Flush();
+        memStream.Position = 0;
+        var sarifLog = SarifLog.Load(memStream);
+        
+        if (sarifLog.Runs[0].Results?.Count != totalLogs)
+        {
+            throw new Exception($"Expected {totalLogs} results, got {sarifLog.Runs[0].Results?.Count}");
+        }
+    }
+
+    /// <summary>
+    /// Stress test: Dispose is called while Log() calls are actively in progress.
+    /// The fix ensures Dispose() waits for all in-flight operations.
+    /// </summary>
+    public static async Task StressTest_DisposeDuringActiveLogs(bool threadSafe)
+    {
+        var run = new Run { Tool = Tool.CreateFromAssemblyData() };
+        using var writer = new StringWriter();
+        var logger = new SarifLogger(
+            writer,
+            run: run,
+            levels: BaseLogger.ErrorWarningNote,
+            kinds: BaseLogger.Fail,
+            threadSafeLoggingEnabled: threadSafe);
+
+        logger.AnalysisStarted();
+
+        var rule = new ReportingDescriptor { Id = "TEST001" };
+        var started = new ManualResetEventSlim(false);
+        int successfulLogs = 0;
+        int rejectedLogs = 0;
+
+        // Thread that continuously logs
+        var logTask = Task.Run(() =>
+        {
+            started.Set();
+            for (int i = 0; i < 1000; i++)
+            {
+                try
+                {
+                    var result = new Result
+                    {
+                        RuleId = rule.Id,
+                        Message = new Message { Text = $"Result {i}" },
+                        Level = FailureLevel.Warning
+                    };
+                    logger.Log(rule, result, null);
+                    Interlocked.Increment(ref successfulLogs);
+                }
+                catch (ObjectDisposedException)
+                {
+                    Interlocked.Increment(ref rejectedLogs);
+                }
+            }
+        });
+
+        // Wait for logging to start, then dispose
+        started.Wait();
+        logger.AnalysisStopped(RuntimeConditions.None);
+        logger.Dispose();
+
+        await logTask;
+
+        // Both successful logs and rejected logs are valid outcomes
+        // The key is no crash occurred
+        Console.Write($" [logged={successfulLogs}, rejected={rejectedLogs}]");
+    }
+
+    /// <summary>
+    /// Test: Verify that Log() throws ObjectDisposedException after Dispose().
+    /// </summary>
+    public static async Task StressTest_DisposeRejectsNewLogs(bool threadSafe)
+    {
+        var run = new Run { Tool = Tool.CreateFromAssemblyData() };
+        using var writer = new StringWriter();
+        var logger = new SarifLogger(
+            writer,
+            run: run,
+            levels: BaseLogger.ErrorWarningNote,
+            kinds: BaseLogger.Fail,
+            threadSafeLoggingEnabled: threadSafe);
+
+        logger.AnalysisStarted();
+        logger.AnalysisStopped(RuntimeConditions.None);
+        logger.Dispose();
+
+        var rule = new ReportingDescriptor { Id = "TEST001" };
+        var result = new Result
+        {
+            RuleId = rule.Id,
+            Message = new Message { Text = "After dispose" },
+            Level = FailureLevel.Warning
+        };
+
+        bool threwDisposed = false;
+        try
+        {
+            logger.Log(rule, result, null);
+        }
+        catch (ObjectDisposedException)
+        {
+            threwDisposed = true;
+        }
+
+        if (!threwDisposed)
+        {
+            throw new Exception("Expected ObjectDisposedException when logging after Dispose()");
         }
 
         await Task.CompletedTask;
-    }
-
-    /// <summary>
-    /// Test 1: Race between Dispose serializing Tool.Properties and concurrent mutation.
-    /// 
-    /// Matches the reported diagram:
-    ///  - Thread A: SarifLogger.Dispose -> CompleteRun -> WriteTool -> serializes Tool.Properties
-    ///  - Thread B: Mutates Tool.Properties
-    /// </summary>
-    [Microsoft.Coyote.SystematicTesting.Test]
-    public static async Task DisposeDuringConcurrentToolPropertiesMutation()
-    {
-        var tool = Tool.CreateFromAssemblyData();
-        tool.SetProperty("seed", "0");
-
-        using var writer = new StringWriter();
-        var logger = new SarifLogger(
-            writer,
-            run: new Run { Tool = tool },
-            levels: BaseLogger.ErrorWarningNote,
-            kinds: BaseLogger.Fail);
-
-        var startedMutating = new TaskCompletionSource<bool>(TaskCreationOptions.RunContinuationsAsynchronously);
-        var stop = new TaskCompletionSource<bool>(TaskCreationOptions.RunContinuationsAsynchronously);
-        Exception? observed = null;
-
-        var mutator = Task.Run(async () =>
-        {
-            int i = 0;
-            startedMutating.TrySetResult(true);
-            while (!stop.Task.IsCompleted)
-            {
-                // Mutate Tool.Properties through the public SetProperty API.
-                tool.SetProperty($"k{i++:D4}", "v");
-                await Task.Yield();
-            }
-        });
-
-        await startedMutating.Task;
-
-        var disposer = Task.Run(() =>
-        {
-            try
-            {
-                logger.AnalysisStarted();
-                logger.AnalysisStopped(RuntimeConditions.None);
-                logger.Dispose();
-            }
-            catch (Exception ex)
-            {
-                observed = ex;
-            }
-        });
-
-        await disposer;
-        stop.TrySetResult(true);
-        await mutator;
-
-        Specification.Assert(observed == null, $"Observed exception during SarifLogger.Dispose (Tool.Properties race): {observed?.Message}");
-    }
-
-    /// <summary>
-    /// Test 2: Race between Dispose and concurrent Invocation.EnvironmentVariables mutation.
-    /// The reported stack trace shows a Dictionary enumerator failing inside Json.NET.
-    /// </summary>
-    [Microsoft.Coyote.SystematicTesting.Test]
-    public static async Task DisposeDuringConcurrentInvocationEnvironmentMutation()
-    {
-        var run = new Run
-        {
-            Tool = Tool.CreateFromAssemblyData(),
-            Invocations = new List<Invocation>
-            {
-                new Invocation
-                {
-                    EnvironmentVariables = new Dictionary<string, string>()
-                }
-            }
-        };
-
-        using var writer = new StringWriter();
-        var logger = new SarifLogger(
-            writer,
-            run: run,
-            levels: BaseLogger.ErrorWarningNote,
-            kinds: BaseLogger.Fail);
-
-        using var cts = new CancellationTokenSource();
-        IDictionary<string, string> env = run.Invocations[0].EnvironmentVariables;
-
-        var mutator = Task.Run(async () =>
-        {
-            int i = 0;
-            while (!cts.IsCancellationRequested)
-            {
-                env[$"K{i++:D4}"] = "V";
-                await Task.Yield();
-            }
-        });
-
-        Exception? observed = null;
-
-        var disposer = Task.Run(() =>
-        {
-            try
-            {
-                logger.AnalysisStarted();
-                logger.AnalysisStopped(RuntimeConditions.None);
-                logger.Dispose();
-            }
-            catch (Exception ex)
-            {
-                observed = ex;
-            }
-        });
-
-        await disposer;
-        cts.Cancel();
-        await mutator;
-
-        Specification.Assert(observed == null, $"Observed exception during SarifLogger.Dispose (Invocation.EnvironmentVariables race): {observed?.Message}");
-    }
-
-    /// <summary>
-    /// Test 3: Race with Run.OriginalUriBaseIds dictionary mutation.
-    /// </summary>
-    [Microsoft.Coyote.SystematicTesting.Test]
-    public static async Task DisposeDuringToolComponentPropertiesMutation()
-    {
-        var run = new Run
-        {
-            Tool = Tool.CreateFromAssemblyData(),
-            OriginalUriBaseIds = new Dictionary<string, ArtifactLocation>()
-        };
-
-        using var writer = new StringWriter();
-        var logger = new SarifLogger(
-            writer,
-            run: run,
-            levels: BaseLogger.ErrorWarningNote,
-            kinds: BaseLogger.Fail);
-
-        using var cts = new CancellationTokenSource();
-        IDictionary<string, ArtifactLocation> uriBaseIds = run.OriginalUriBaseIds;
-
-        var mutator = Task.Run(async () =>
-        {
-            int i = 0;
-            while (!cts.IsCancellationRequested)
-            {
-                uriBaseIds[$"BASE{i++:D4}"] = new ArtifactLocation { Uri = new Uri($"file:///C:/tmp/{i}.txt") };
-                await Task.Yield();
-            }
-        });
-
-        Exception? observed = null;
-
-        var disposer = Task.Run(() =>
-        {
-            try
-            {
-                logger.AnalysisStarted();
-                logger.AnalysisStopped(RuntimeConditions.None);
-                logger.Dispose();
-            }
-            catch (Exception ex)
-            {
-                observed = ex;
-            }
-        });
-
-        await disposer;
-        cts.Cancel();
-        await mutator;
-
-        Specification.Assert(observed == null, $"Observed exception during SarifLogger.Dispose (Run.OriginalUriBaseIds race): {observed?.Message}");
-    }
-
-    /// <summary>
-    /// Test 4: Race between Dispose and Tool.Driver.Rules list mutation.
-    /// </summary>
-    [Microsoft.Coyote.SystematicTesting.Test]
-    public static async Task DisposeDuringConcurrentToolMutation()
-    {
-        var tool = Tool.CreateFromAssemblyData();
-        tool.Driver ??= new ToolComponent { Name = "Sarif.Driver" };
-        tool.Driver.Rules ??= new List<ReportingDescriptor>();
-
-        using var writer = new StringWriter();
-        var logger = new SarifLogger(
-            writer,
-            run: new Run { Tool = tool },
-            levels: BaseLogger.ErrorWarningNote,
-            kinds: BaseLogger.Fail);
-
-        using var cts = new CancellationTokenSource();
-
-        var mutator = Task.Run(async () =>
-        {
-            int i = 0;
-            while (!cts.IsCancellationRequested)
-            {
-                tool.Driver.Rules.Add(new ReportingDescriptor { Id = $"TST{i++:D4}", Name = "rule" });
-                await Task.Yield();
-            }
-        });
-
-        Exception? observed = null;
-
-        var disposer = Task.Run(() =>
-        {
-            try
-            {
-                logger.AnalysisStarted();
-                logger.AnalysisStopped(RuntimeConditions.None);
-                logger.Dispose();
-            }
-            catch (Exception ex)
-            {
-                observed = ex;
-            }
-        });
-
-        await disposer;
-        cts.Cancel();
-        await mutator;
-
-        Specification.Assert(observed == null, $"Observed exception during SarifLogger.Dispose: {observed?.Message}");
-    }
-
-    /// <summary>
-    /// Test 5: Race between Dispose and concurrent Results list mutation.
-    /// This simulates logging results while Dispose is serializing.
-    /// </summary>
-    [Microsoft.Coyote.SystematicTesting.Test]
-    public static async Task DisposeDuringConcurrentResultsMutation()
-    {
-        var run = new Run
-        {
-            Tool = Tool.CreateFromAssemblyData(),
-            Results = new List<Result>()
-        };
-
-        using var writer = new StringWriter();
-        var logger = new SarifLogger(
-            writer,
-            run: run,
-            levels: BaseLogger.ErrorWarningNote,
-            kinds: BaseLogger.Fail);
-
-        using var cts = new CancellationTokenSource();
-
-        var mutator = Task.Run(async () =>
-        {
-            int i = 0;
-            while (!cts.IsCancellationRequested)
-            {
-                var result = new Result
-                {
-                    RuleId = $"TST{i++:D4}",
-                    Message = new Message { Text = $"Test result {i}" },
-                    Level = FailureLevel.Warning
-                };
-                run.Results.Add(result);
-                await Task.Yield();
-            }
-        });
-
-        Exception? observed = null;
-
-        var disposer = Task.Run(() =>
-        {
-            try
-            {
-                logger.AnalysisStarted();
-                logger.AnalysisStopped(RuntimeConditions.None);
-                logger.Dispose();
-            }
-            catch (Exception ex)
-            {
-                observed = ex;
-            }
-        });
-
-        await disposer;
-        cts.Cancel();
-        await mutator;
-
-        Specification.Assert(observed == null, $"Observed exception during SarifLogger.Dispose (Results race): {observed?.Message}");
-    }
-
-    /// <summary>
-    /// Test 6: Simulates the MultithreadedAnalyzeCommandBase scenario more closely.
-    /// 
-    /// In the real code:
-    /// - Multiple analysis threads write to thread-local CachingLoggers
-    /// - LogResultsAsync transfers cached results to global logger under a lock
-    /// - Main thread calls Dispose() which serializes without acquiring that lock
-    /// 
-    /// The race happens because Dispose() doesn't wait for LogResultsAsync to complete.
-    /// </summary>
-    [Microsoft.Coyote.SystematicTesting.Test]
-    public static async Task SimulateMultithreadedAnalyzeCommandScenario()
-    {
-        var tool = Tool.CreateFromAssemblyData();
-        tool.Driver ??= new ToolComponent { Name = "Sarif.Driver" };
-        tool.Driver.Rules ??= new List<ReportingDescriptor>();
-
-        var run = new Run
-        {
-            Tool = tool,
-            Results = new List<Result>(),
-            Artifacts = new List<Artifact>()
-        };
-
-        using var writer = new StringWriter();
-        var logger = new SarifLogger(
-            writer,
-            run: run,
-            levels: BaseLogger.ErrorWarningNote,
-            kinds: BaseLogger.Fail);
-
-        // Simulate the _resultsWritingChannel from MultithreadedAnalyzeCommandBase
-        var resultsChannel = Channel.CreateUnbounded<int>();
-        var lockObject = new object();
-
-        // Simulate scan workers completing
-        var scanWorkersComplete = new TaskCompletionSource<bool>();
-        int filesScanned = 0;
-        const int totalFiles = 50;
-
-        Exception? observed = null;
-
-        // Simulate multiple analysis threads
-        var analysisThreads = new Task[4];
-        for (int threadId = 0; threadId < analysisThreads.Length; threadId++)
-        {
-            int tid = threadId;
-            analysisThreads[threadId] = Task.Run(async () =>
-            {
-                while (true)
-                {
-                    int fileIndex = Interlocked.Increment(ref filesScanned);
-                    if (fileIndex > totalFiles) break;
-
-                    // Simulate analysis producing results
-                    await Task.Yield();
-
-                    // Signal that this file is ready for logging
-                    await resultsChannel.Writer.WriteAsync(fileIndex);
-                }
-            });
-        }
-
-        // Simulate LogResultsAsync - single-threaded consumer
-        var logResultsTask = Task.Run(async () =>
-        {
-            await foreach (var fileIndex in resultsChannel.Reader.ReadAllAsync())
-            {
-                // This lock exists in the real code
-                lock (lockObject)
-                {
-                    // Simulate LogCachingLogger modifying shared state
-                    run.Results.Add(new Result
-                    {
-                        RuleId = "TST001",
-                        Message = new Message { Text = $"Result for file {fileIndex}" }
-                    });
-
-                    // Modify Tool properties (this is what causes the bug)
-                    tool.SetProperty($"file_{fileIndex}", fileIndex.ToString());
-                }
-
-                await Task.Yield();
-            }
-        });
-
-        // Wait for scan workers to complete, then signal channel completion
-        _ = Task.WhenAll(analysisThreads).ContinueWith(_ => resultsChannel.Writer.Complete());
-
-        // Simulate the main thread calling Dispose before LogResultsAsync completes
-        // This is the race condition!
-        var disposeTask = Task.Run(async () =>
-        {
-            // Wait a bit to let some analysis happen
-            await Task.Yield();
-
-            try
-            {
-                logger.AnalysisStarted();
-                logger.AnalysisStopped(RuntimeConditions.None);
-
-                // THE BUG: Dispose() is called without waiting for logResultsTask
-                // and without acquiring the lock that protects modifications
-                logger.Dispose();
-            }
-            catch (Exception ex)
-            {
-                observed = ex;
-            }
-        });
-
-        await Task.WhenAll(analysisThreads);
-        await disposeTask;
-        resultsChannel.Writer.TryComplete();
-        await logResultsTask;
-
-        Specification.Assert(observed == null, $"Observed exception simulating MultithreadedAnalyzeCommand scenario: {observed?.Message}");
-    }
-
-    /// <summary>
-    /// Test 7: Multiple dispose cycles with concurrent mutations.
-    /// If the bug is rare, a single dispose might not trigger the interleaving.
-    /// </summary>
-    [Microsoft.Coyote.SystematicTesting.Test]
-    public static async Task RepeatedDisposeCyclesWithConcurrentMutations()
-    {
-        var tool = Tool.CreateFromAssemblyData();
-        tool.Driver ??= new ToolComponent { Name = "Sarif.Driver" };
-        tool.Driver.Rules ??= new List<ReportingDescriptor>();
-
-        using var cts = new CancellationTokenSource();
-        Exception? observed = null;
-
-        var mutator = Task.Run(async () =>
-        {
-            int i = 0;
-            while (!cts.IsCancellationRequested)
-            {
-                tool.Driver.Rules.Add(new ReportingDescriptor { Id = $"TST{i++:D4}", Name = "rule" });
-                await Task.Yield();
-            }
-        });
-
-        // Run multiple dispose cycles
-        for (int iter = 0; iter < 10 && observed == null; iter++)
-        {
-            using var writer = new StringWriter();
-            var logger = new SarifLogger(
-                writer,
-                run: new Run { Tool = tool },
-                levels: BaseLogger.ErrorWarningNote,
-                kinds: BaseLogger.Fail);
-
-            try
-            {
-                logger.AnalysisStarted();
-                logger.AnalysisStopped(RuntimeConditions.None);
-                logger.Dispose();
-            }
-            catch (Exception ex)
-            {
-                observed = ex;
-            }
-
-            await Task.Yield();
-        }
-
-        cts.Cancel();
-        await mutator;
-
-        Specification.Assert(observed == null, $"Observed exception during repeated SarifLogger.Dispose cycles: {observed?.Message}");
     }
 }

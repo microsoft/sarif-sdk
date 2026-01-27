@@ -333,6 +333,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 context.InvocationPropertiesToLog = options.InvocationPropertiesToLog?.Any() == true ? InitializeStringSet(options.InvocationPropertiesToLog) : context.InvocationPropertiesToLog;
                 context.Traces = options.Trace.Any() ? InitializeStringSet(options.Trace) : context.Traces;
                 context.RuleKinds = options.RuleKindOption != null ? options.RuleKinds : context.RuleKinds;
+                context.ThreadSafeLogging = options.ThreadSafeLogging;
             }
 
             // Less-obviously throw-safe. We don't do these in the finally block because we'd prefer not to mask an earlier Exception during logger initialization. 
@@ -1051,7 +1052,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                                                       invocationPropertiesToLog: globalContext.InvocationPropertiesToLog,
                                                       levels: globalContext.FailureLevels,
                                                       kinds: globalContext.ResultKinds,
-                                                      insertProperties: globalContext.InsertProperties);
+                                                      insertProperties: globalContext.InsertProperties,
+                                                      threadSafeLoggingEnabled: globalContext.ThreadSafeLogging);
 
                         aggregatingLogger.Loggers.Add(sarifLogger);
                     },

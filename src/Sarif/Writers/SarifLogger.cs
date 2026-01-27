@@ -7,6 +7,7 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 
 using Microsoft.CodeAnalysis.Sarif.Readers;
 using Microsoft.CodeAnalysis.Sarif.Visitors;
@@ -20,6 +21,21 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         private TextWriter _textWriter;
         private JsonTextWriter _jsonTextWriter;
         private ResultLogJsonWriter _issueLogJsonWriter;
+
+        // Thread-safety: tracks in-flight operations and dispose state
+        private int _operationsInFlight;
+        private int _state; // 0 = Active, 1 = Disposing, 2 = Disposed
+        private const int StateActive = 0;
+        private const int StateDisposing = 1;
+        private const int StateDisposed = 2;
+        private readonly object _writeLock = new object(); // Serializes Log() and Dispose() writes
+
+        /// <summary>
+        /// Gets whether thread-safe logging mechanisms are enabled for this logger instance.
+        /// When true (default), Log() and Dispose() are protected against concurrent access.
+        /// Set to false via constructor to disable thread-safety for debugging or if it causes issues.
+        /// </summary>
+        public bool ThreadSafeLoggingEnabled { get; }
 
         private readonly Run _run;
         private readonly bool _closeWriterOnDispose;
@@ -43,7 +59,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                            FailureLevelSet levels = null,
                            ResultKindSet kinds = null,
                            IEnumerable<string> insertProperties = null,
-                           FileRegionsCache fileRegionsCache = null)
+                           FileRegionsCache fileRegionsCache = null,
+                           bool threadSafeLoggingEnabled = true)
             : this(new StreamWriter(new FileStream(outputFilePath, FileMode.Create, FileAccess.Write, FileShare.Read)),
                                     logFilePersistenceOptions,
                                     dataToInsert,
@@ -57,7 +74,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                                     levels,
                                     kinds,
                                     insertProperties,
-                                    fileRegionsCache)
+                                    fileRegionsCache,
+                                    threadSafeLoggingEnabled)
         {
         }
 
@@ -74,8 +92,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                            FailureLevelSet levels = null,
                            ResultKindSet kinds = null,
                            IEnumerable<string> insertProperties = null,
-                           FileRegionsCache fileRegionsCache = null) : base(failureLevels: levels, resultKinds: kinds)
+                           FileRegionsCache fileRegionsCache = null,
+                           bool threadSafeLoggingEnabled = true) : base(failureLevels: levels, resultKinds: kinds)
         {
+            ThreadSafeLoggingEnabled = threadSafeLoggingEnabled;
             _textWriter = textWriter;
             _closeWriterOnDispose = closeWriterOnDispose;
             _jsonTextWriter = new JsonTextWriter(_textWriter)
@@ -292,7 +312,76 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
         public bool Optimize => _filePersistenceOptions.HasFlag(FilePersistenceOptions.Optimize);
 
+        /// <summary>
+        /// Attempts to enter a logging operation. Returns false if the logger is disposing or disposed.
+        /// Must be paired with <see cref="ExitOperation"/> in a try/finally block.
+        /// </summary>
+        protected bool TryEnterOperation()
+        {
+            // Quick check before incrementing
+            if (Volatile.Read(ref _state) != StateActive)
+            {
+                return false;
+            }
+
+            Interlocked.Increment(ref _operationsInFlight);
+
+            // Double-check after increment - if dispose started, back out
+            if (Volatile.Read(ref _state) != StateActive)
+            {
+                Interlocked.Decrement(ref _operationsInFlight);
+                return false;
+            }
+
+            return true;
+        }
+
+        /// <summary>
+        /// Exits a logging operation. Must be called after <see cref="TryEnterOperation"/> returns true.
+        /// </summary>
+        protected void ExitOperation()
+        {
+            Interlocked.Decrement(ref _operationsInFlight);
+        }
+
         public virtual void Dispose()
+        {
+            if (ThreadSafeLoggingEnabled)
+            {
+                DisposeThreadSafe();
+            }
+            else
+            {
+                DisposeInternal();
+            }
+        }
+
+        private void DisposeThreadSafe()
+        {
+            // Transition from Active to Disposing - if already disposing/disposed, return
+            if (Interlocked.CompareExchange(ref _state, StateDisposing, StateActive) != StateActive)
+            {
+                return;
+            }
+
+            // Wait for all in-flight operations to complete
+            var spin = new SpinWait();
+            while (Volatile.Read(ref _operationsInFlight) > 0)
+            {
+                spin.SpinOnce();
+            }
+
+            // Acquire lock to ensure no Log() is in the middle of writing
+            lock (_writeLock)
+            {
+                DisposeInternal();
+            }
+
+            Volatile.Write(ref _state, StateDisposed);
+            GC.SuppressFinalize(this);
+        }
+
+        private void DisposeInternal()
         {
             // Disposing the json writer closes the stream but the textwriter
             // still needs to be disposed or closed to write the results
@@ -366,6 +455,33 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 return;
             }
 
+            if (ThreadSafeLoggingEnabled)
+            {
+                if (!TryEnterOperation())
+                {
+                    throw new ObjectDisposedException(nameof(SarifLogger), "Cannot log results after the logger has been disposed.");
+                }
+
+                try
+                {
+                    lock (_writeLock)
+                    {
+                        LogInternal(rule, result, extensionIndex);
+                    }
+                }
+                finally
+                {
+                    ExitOperation();
+                }
+            }
+            else
+            {
+                LogInternal(rule, result, extensionIndex);
+            }
+        }
+
+        private void LogInternal(ReportingDescriptor rule, Result result, int? extensionIndex)
+        {
             if (extensionIndex == null)
             {
                 result.RuleIndex = LogRule(rule);
