@@ -1234,5 +1234,175 @@ namespace Microsoft.CodeAnalysis.Sarif
             string logText = stringBuilder.ToString();
             return JsonConvert.DeserializeObject<SarifLog>(logText);
         }
+
+        [Fact]
+        public void SarifLogger_AnalyzingTarget_PersistsArtifactWithAnalysisTargetRole()
+        {
+            var sb = new StringBuilder();
+
+            using (var textWriter = new StringWriter(sb))
+            {
+                using (var sarifLogger = new SarifLogger(textWriter,
+                                                         dataToInsert: OptionallyEmittedData.AnalysisTargets,
+                                                         levels: BaseLogger.ErrorWarning,
+                                                         kinds: BaseLogger.Fail))
+                {
+                    var context = new TestAnalysisContext
+                    {
+                        CurrentTarget = new EnumeratedArtifact(FileSystem.Instance)
+                        {
+                            Uri = new Uri("file:///c:/src/target.cpp")
+                        }
+                    };
+
+                    sarifLogger.AnalyzingTarget(context);
+                }
+            }
+
+            string logText = sb.ToString();
+            SarifLog sarifLog = JsonConvert.DeserializeObject<SarifLog>(logText);
+
+            IList<Artifact> artifacts = sarifLog.Runs[0].Artifacts;
+            artifacts.Should().NotBeNull();
+            artifacts.Count.Should().Be(1);
+            artifacts[0].Roles.Should().HaveFlag(ArtifactRoles.AnalysisTarget);
+        }
+
+        [Fact]
+        public void SarifLogger_AnalyzingTarget_DoesNotPersistWhenFlagNotSet()
+        {
+            var sb = new StringBuilder();
+
+            using (var textWriter = new StringWriter(sb))
+            {
+                using (var sarifLogger = new SarifLogger(textWriter,
+                                                         dataToInsert: OptionallyEmittedData.None,
+                                                         levels: BaseLogger.ErrorWarning,
+                                                         kinds: BaseLogger.Fail))
+                {
+                    var context = new TestAnalysisContext
+                    {
+                        CurrentTarget = new EnumeratedArtifact(FileSystem.Instance)
+                        {
+                            Uri = new Uri("file:///c:/src/target.cpp")
+                        }
+                    };
+
+                    sarifLogger.AnalyzingTarget(context);
+                }
+            }
+
+            string logText = sb.ToString();
+            SarifLog sarifLog = JsonConvert.DeserializeObject<SarifLog>(logText);
+
+            sarifLog.Runs[0].Artifacts.Should().BeNullOrEmpty();
+        }
+
+        [Fact]
+        public void SarifLogger_AnalyzingTarget_DeduplicatesWhenResultFiresForSameTarget()
+        {
+            var sb = new StringBuilder();
+
+            using (var textWriter = new StringWriter(sb))
+            {
+                using (var sarifLogger = new SarifLogger(textWriter,
+                                                         dataToInsert: OptionallyEmittedData.AnalysisTargets,
+                                                         levels: BaseLogger.ErrorWarning,
+                                                         kinds: BaseLogger.Fail))
+                {
+                    var targetUri = new Uri("file:///c:/src/target.cpp");
+
+                    var context = new TestAnalysisContext
+                    {
+                        CurrentTarget = new EnumeratedArtifact(FileSystem.Instance)
+                        {
+                            Uri = targetUri
+                        }
+                    };
+
+                    // First, the logger records the analysis target.
+                    sarifLogger.AnalyzingTarget(context);
+
+                    // Then a result fires that references the same file.
+                    string ruleId = "TEST001";
+                    var rule = new ReportingDescriptor { Id = ruleId };
+                    var result = new Result
+                    {
+                        RuleId = ruleId,
+                        Message = new Message { Text = "A finding." },
+                        AnalysisTarget = new ArtifactLocation { Uri = targetUri },
+                        Locations = new[]
+                        {
+                            new Location
+                            {
+                                PhysicalLocation = new PhysicalLocation
+                                {
+                                    ArtifactLocation = new ArtifactLocation { Uri = targetUri }
+                                }
+                            }
+                        }
+                    };
+
+                    sarifLogger.Log(rule, result, null);
+                }
+            }
+
+            string logText = sb.ToString();
+            SarifLog sarifLog = JsonConvert.DeserializeObject<SarifLog>(logText);
+
+            // Despite the target being referenced by both AnalyzingTarget and the result,
+            // only one artifact entry should exist (deduplication).
+            IList<Artifact> artifacts = sarifLog.Runs[0].Artifacts;
+            artifacts.Should().NotBeNull();
+            artifacts.Count.Should().Be(1);
+            artifacts[0].Roles.Should().HaveFlag(ArtifactRoles.AnalysisTarget);
+        }
+
+        [Fact]
+        public void SarifLogger_AnalyzingTarget_PersistsMultipleTargets()
+        {
+            var sb = new StringBuilder();
+
+            using (var textWriter = new StringWriter(sb))
+            {
+                using (var sarifLogger = new SarifLogger(textWriter,
+                                                         dataToInsert: OptionallyEmittedData.AnalysisTargets,
+                                                         levels: BaseLogger.ErrorWarning,
+                                                         kinds: BaseLogger.Fail))
+                {
+                    var targets = new[]
+                    {
+                        new Uri("file:///c:/src/file1.cpp"),
+                        new Uri("file:///c:/src/file2.cpp"),
+                        new Uri("file:///c:/src/file3.cpp"),
+                    };
+
+                    foreach (Uri targetUri in targets)
+                    {
+                        var context = new TestAnalysisContext
+                        {
+                            CurrentTarget = new EnumeratedArtifact(FileSystem.Instance)
+                            {
+                                Uri = targetUri
+                            }
+                        };
+
+                        sarifLogger.AnalyzingTarget(context);
+                    }
+                }
+            }
+
+            string logText = sb.ToString();
+            SarifLog sarifLog = JsonConvert.DeserializeObject<SarifLog>(logText);
+
+            IList<Artifact> artifacts = sarifLog.Runs[0].Artifacts;
+            artifacts.Should().NotBeNull();
+            artifacts.Count.Should().Be(3);
+
+            foreach (Artifact artifact in artifacts)
+            {
+                artifact.Roles.Should().HaveFlag(ArtifactRoles.AnalysisTarget);
+            }
+        }
     }
 }
