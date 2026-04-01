@@ -292,6 +292,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
         public bool Optimize => _filePersistenceOptions.HasFlag(FilePersistenceOptions.Optimize);
 
+        public bool PersistAnalysisTargets => _dataToInsert.HasFlag(OptionallyEmittedData.AnalysisTargets);
+
         public virtual void Dispose()
         {
             // Disposing the json writer closes the stream but the textwriter
@@ -552,6 +554,45 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
         public void AnalyzingTarget(IAnalysisContext context)
         {
+            if (PersistAnalysisTargets && context?.CurrentTarget?.Uri != null)
+            {
+                Uri targetUri = context.CurrentTarget.Uri;
+
+                Encoding encoding = null;
+                if (_run.DefaultEncoding != null)
+                {
+                    try
+                    {
+                        encoding = Encoding.GetEncoding(_run.DefaultEncoding);
+                    }
+                    catch (ArgumentException) { } // Unrecognized encoding name
+                }
+
+                HashData hashData = null;
+                if (_dataToInsert.HasFlag(OptionallyEmittedData.Hashes) && FileRegionsCache != null)
+                {
+                    hashData = FileRegionsCache.GetHashData(targetUri);
+                }
+
+                var fileLocation = new ArtifactLocation
+                {
+                    Uri = new Uri(UriHelper.MakeValidUri(targetUri.OriginalString), UriKind.RelativeOrAbsolute)
+                };
+
+                // GetFileIndex will deduplicate: if the artifact is already present,
+                // it returns the existing index rather than creating a new entry.
+                int index = _run.GetFileIndex(
+                    fileLocation,
+                    addToFilesTableIfNotPresent: true,
+                    dataToInsert: _dataToInsert,
+                    encoding: encoding,
+                    hashData: hashData);
+
+                if (index > -1)
+                {
+                    _run.Artifacts[index].Roles |= ArtifactRoles.AnalysisTarget;
+                }
+            }
         }
 
         public void TargetAnalyzed(IAnalysisContext context)

@@ -86,6 +86,10 @@ namespace Microsoft.CodeAnalysis.Sarif
         // Enrich SARIF log with partial fingerprint based on the CodeQL rolling hash algorithm.
         RollingHashPartialFingerprints = 0x4000,
 
+        // Persist an entry in the artifacts table for every analysis target, with the
+        // AnalysisTarget role, even if no result is reported for that target.
+        AnalysisTargets = 0x8000,
+
         // A special enum value that indicates that insertion should overwrite any existing
         // information in the SARIF log file. In the absence of this setting, any existing
         // data that would otherwise have been overwritten by the insert operation will
