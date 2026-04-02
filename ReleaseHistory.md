@@ -1,6 +1,10 @@
 # SARIF Package Release History (SDK, Driver, Converters, and Multitool)
 
 ## **v4.6.1 UNRELEASED**
+
+* NEW: Add `PathUtilities.GetExtension` method that safely handles URIs containing characters that are illegal in file system paths but valid in URIs (e.g., `<`, `>`, `|`, `"`). This method does not throw `ArgumentException` on .NET Framework 4.8 when processing such URIs, unlike `Path.GetExtension`.
+* BUG: Replace all internal usages of `Path.GetExtension` with `PathUtilities.GetExtension` to prevent `ArgumentException` when analyzing files with URIs containing illegal path characters on .NET Framework 4.8.
+* NEW: Add `ConditionalFactAttribute` test attribute that allows tests to be conditionally skipped based on target framework (e.g., skip tests on .NET Framework 4.8 that require .NET 8.0+ APIs like symbolic link creation).
 * NEW: Add health check query parameter support for `--post-uri` validation. The driver now appends `?healthcheck=true` to POST URIs during validation and accepts HTTP 202 (Accepted), or 422 (Unprocessable Entity) as valid responses. This provides better support for endpoints that implement health check functionality while maintaining backwards compatibility with servers that return 422 for empty payloads.
 * NEW: `SarifLogger.AnalyzingTarget` now optionally emits an explicit artifacts table entry (with `AnalysisTarget` role) for every scan target when `OptionallyEmittedData.AnalysisTargets` is set via `--insert`.
 

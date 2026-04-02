@@ -3,7 +3,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.IO;
 
 using Newtonsoft.Json.Linq;
 
@@ -30,8 +29,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         {
             get
             {
-                return Path.GetExtension(CurrentTarget.Uri.GetFileName()).Equals(SarifConstants.SarifFileExtension, StringComparison.OrdinalIgnoreCase) ||
-                       Path.GetExtension(CurrentTarget.Uri.GetFileName()).Equals(".json", StringComparison.OrdinalIgnoreCase);
+                return PathUtilities.GetExtension(CurrentTarget.Uri.GetFileName()).Equals(SarifConstants.SarifFileExtension, StringComparison.OrdinalIgnoreCase) ||
+                       PathUtilities.GetExtension(CurrentTarget.Uri.GetFileName()).Equals(".json", StringComparison.OrdinalIgnoreCase);
             }
             set
             {

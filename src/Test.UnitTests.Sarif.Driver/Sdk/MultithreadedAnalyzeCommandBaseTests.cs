@@ -2674,6 +2674,31 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 Errors.ERR997_IncompatibleRulesDetected);
         }
 
+        [Fact]
+        public void AnalyzeCommand_IllegalPathCharInURL()
+        {
+            var sarifOutput = new StringBuilder();
+            var command = new TestMultithreadedAnalyzeCommand();
+            using var writer = new StringWriter(sarifOutput);
+            var logger = new SarifLogger(writer,
+                                            run: new Run { Tool = command.Tool },
+                                            levels: BaseLogger.ErrorWarningNote,
+                                            kinds: BaseLogger.Fail);
+
+            var target = new EnumeratedArtifact(FileSystem.Instance) { Uri = new Uri("http://example.com/some<character>test/bad\"characters\"path.txt"), Contents = "fake content" };
+
+            var context = new TestAnalysisContext
+            {
+                TargetsProvider = new ArtifactProvider(new[] { target }),
+                FailureLevels = BaseLogger.ErrorWarningNote,
+                ResultKinds = BaseLogger.Fail,
+                Logger = logger,
+            };
+
+            int result = command.Run(options: null, ref context);
+            result.Should().Be(0);
+        }
+
         private void RunCheckIncompatibleRulesTests(IEnumerable<TestRule> skimmers, HashSet<string> disabledSkimmers,
             TestAnalysisContext context, ConsoleLogger consoleLogger, bool expectExpcetion, ExitReason expectedExitReason,
             RuntimeConditions expectedRuntimeConditions, string expectedErrorCode)
@@ -2731,7 +2756,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                     string contentString = content?.ReadAsStringAsync().Result;
                     if (string.IsNullOrEmpty(contentString))
                     {
-                        return new HttpResponseMessage(HttpStatusCode.UnprocessableEntity);
+                        return new HttpResponseMessage((HttpStatusCode)422);
                     }
 
                     // anything other than example.com should fail
@@ -2740,7 +2765,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                         return new HttpResponseMessage(HttpStatusCode.NotFound);
                     }
 
-                    return new HttpResponseMessage(HttpStatusCode.OK);
+                    return new HttpResponseMessage(HttpStatusCode.OK)
+                    {
+                        Content = new StringContent("SARIF log posted successfully", Encoding.UTF8, "text/plain")
+                    };
                 });
 
             string location = GetThisTestAssemblyFilePath();

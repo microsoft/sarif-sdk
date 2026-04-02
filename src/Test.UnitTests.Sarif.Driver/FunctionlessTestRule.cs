@@ -22,7 +22,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         protected override ResourceManager ResourceManager => SkimmerBaseTestResources.ResourceManager;
 
-        protected override IList<string> MessageResourceNames => new List<string>
+        protected override ICollection<string> MessageResourceNames => new List<string>
         {
             nameof(SkimmerBaseTestResources.NotApplicable_InvalidMetadata)
         };
