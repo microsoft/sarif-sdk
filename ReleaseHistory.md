@@ -1,6 +1,6 @@
 # SARIF Package Release History (SDK, Driver, Converters, and Multitool)
 
-## **v4.6.1 UNRELEASED**
+## **v4.6.1** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/v4.6.1) | [Driver](https://www.nuget.org/packages/Sarif.Driver/v4.6.1) | [Converters](https://www.nuget.org/packages/Sarif.Converters/v4.6.1)  | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/v4.6.1) | [Multitool Library](https://www.nuget.org/packages/Sarif.Multitool.Library/v4.6.1)
 * NEW: Add health check query parameter support for `--post-uri` validation. The driver now appends `?healthcheck=true` to POST URIs during validation and accepts HTTP 202 (Accepted), or 422 (Unprocessable Entity) as valid responses. This provides better support for endpoints that implement health check functionality while maintaining backwards compatibility with servers that return 422 for empty payloads.
 * NEW: `SarifLogger.AnalyzingTarget` now optionally emits an explicit artifacts table entry (with `AnalysisTarget` role) for every scan target when `OptionallyEmittedData.AnalysisTargets` is set via `--insert`.
 
