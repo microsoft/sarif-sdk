@@ -1616,6 +1616,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
             }
         }
         
+        internal static string AI1007_ProvideExploitability_Warning_Inconsistent_Text {
+            get {
+                return ResourceManager.GetString("AI1007_ProvideExploitability_Warning_Inconsistent_Text", resourceCulture);
+            }
+        }
+        
         internal static string AI2010_ProvideResultRank_FullDescription_Text {
             get {
                 return ResourceManager.GetString("AI2010_ProvideResultRank_FullDescription_Text", resourceCulture);

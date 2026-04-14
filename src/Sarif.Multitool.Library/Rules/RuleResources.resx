@@ -726,13 +726,16 @@ Provide the 'help' property and populate the 'text' property with information ab
     <value>{0}: This result does not provide 'message.markdown'. AI-generated findings must provide rich markdown with structured analysis including evidence, reproduction steps, and fix suggestions.</value>
   </data>
   <data name="AI1007_ProvideExploitability_FullDescription_Text" xml:space="preserve">
-    <value>AI-generated results should declare 'ai/exploitability' in 'result.properties' with a value of 'demonstrated', 'poc', or 'theoretical'. This signal enables consumers to triage findings by the strength of exploitation evidence and to prioritize remediation accordingly.</value>
+    <value>AI-generated results should declare 'ai/exploitability' in 'result.properties' with a value of 'demonstrated', 'poc', or 'theoretical'. This signal enables consumers to triage findings by the strength of exploitation evidence. Following the suppressions pattern (SARIF spec §3.27.23), exploitability SHALL be either present on all results in the run or absent from all results — mixed presence is a data quality error.</value>
   </data>
   <data name="AI1007_ProvideExploitability_Warning_Missing_Text" xml:space="preserve">
     <value>{0}: This result does not declare 'ai/exploitability' in 'result.properties'. AI-generated findings should declare their exploitability ('demonstrated', 'poc', or 'theoretical') to enable evidence-based triage.</value>
   </data>
   <data name="AI1007_ProvideExploitability_Warning_InvalidValue_Text" xml:space="preserve">
     <value>{0}: The 'ai/exploitability' value '{1}' is not a recognized exploitability level. Valid values are: 'demonstrated', 'poc', 'theoretical'.</value>
+  </data>
+  <data name="AI1007_ProvideExploitability_Warning_Inconsistent_Text" xml:space="preserve">
+    <value>{0}: The run contains a mixture of results with and without 'ai/exploitability' ({1} with, {2} without). Following the suppressions pattern (SARIF spec §3.27.23), exploitability should be present on all results or absent from all results.</value>
   </data>
   <data name="AI2010_ProvideResultRank_FullDescription_Text" xml:space="preserve">
     <value>AI-generated results should provide a 'rank' value (0.0 to 100.0) expressing the confidence of the finding. This is the spec-native mechanism (§3.27.25) for numeric confidence, enabling priority-based triage and filtering without relying on property bag conventions.</value>

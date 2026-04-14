@@ -250,6 +250,44 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             results[0].Level.Should().Be(FailureLevel.Warning);
         }
 
+        [Fact]
+        public void AI1007_WhenMixedPresence_ReportsInconsistency()
+        {
+            SarifLog log = CreateValidAISarifLog();
+            SetAIOrigin(log, "generated");
+            SetExploitability(log, "demonstrated");
+
+            // Add a second result WITHOUT exploitability
+            log.Runs[0].Results = new List<Result>(log.Runs[0].Results);
+            var secondResult = new Result
+            {
+                RuleId = "TEST002",
+                Level = FailureLevel.Warning,
+                Message = new Message
+                {
+                    Text = "Second finding.",
+                    Markdown = "**Second finding.**"
+                },
+                Locations = new List<Location>(log.Runs[0].Results[0].Locations),
+                Rank = 75.0
+            };
+            log.Runs[0].Results.Add(secondResult);
+
+            SarifLog output = RunAIValidation(log);
+            List<Result> results = GetResultsForRule(output, "AI1007");
+
+            // Should get: 1 inconsistency warning (run-level) + 1 missing warning (per-result on secondResult)
+            results.Should().HaveCountGreaterOrEqualTo(2,
+                "AI1007 should fire both run-level inconsistency and per-result missing warnings");
+
+            // Verify the run-level result points at the results array, not an individual result
+            results.Should().Contain(r =>
+                r.Locations != null && r.Locations.Count > 0 &&
+                r.Locations[0].PhysicalLocation.ArtifactLocation != null &&
+                r.Message.Arguments != null && r.Message.Arguments.Count >= 2,
+                "run-level inconsistency warning should include with/without counts as arguments");
+        }
+
         #endregion
 
         #region AI2006 — ProvideMessageMarkdown (promoted to error)

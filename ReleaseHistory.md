@@ -3,7 +3,7 @@
 ## **v4.6.1 UNRELEASED**
 * NEW: Add health check query parameter support for `--post-uri` validation. The driver now appends `?healthcheck=true` to POST URIs during validation and accepts HTTP 202 (Accepted), or 422 (Unprocessable Entity) as valid responses. This provides better support for endpoints that implement health check functionality while maintaining backwards compatibility with servers that return 422 for empty payloads.
 * NEW: `SarifLogger.AnalyzingTarget` now optionally emits an explicit artifacts table entry (with `AnalysisTarget` role) for every scan target when `OptionallyEmittedData.AnalysisTargets` is set via `--insert`.
-* NEW: Add `AI1007.ProvideExploitability` validation rule — warns when `result.properties["ai/exploitability"]` is missing or contains an unrecognized value (valid: `demonstrated`, `poc`, `theoretical`).
+* NEW: Add `AI1007.ProvideExploitability` validation rule — warns when `result.properties["ai/exploitability"]` is missing or contains an unrecognized value (valid: `demonstrated`, `poc`, `theoretical`). Follows the suppressions pattern (§3.27.23): exploitability must be present on all results or absent from all results; mixed presence is flagged as a data quality error.
 * NEW: Promote `AI2006.ProvideMessageMarkdown` from warning to error — AI-generated findings must include `message.markdown`.
 * NEW: Add `SARIF2017.ProvideRequiredRegionProperties` validation rule — warns when result locations lack a `region` or `startLine`. Fires in standard profile only (`--rule-kind Sarif`).
 * NEW: Add `AI1003.ProvideRequiredRegionProperties` validation rule — error when result locations lack a `region` or required region properties. Mirrors SARIF2017 at error level for AI profile.
