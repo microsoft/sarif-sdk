@@ -33,6 +33,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         public const string Essential = "essential";
         public const string ExecutableLocation = "executableLocation";
         public const string Extensions = "extensions";
+        public const string Fingerprints = "fingerprints";
         public const string Fixes = "fixes";
         public const string Frames = "frames";
         public const string FullDescription = "fullDescription";
@@ -63,7 +64,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         public const string ParentIndex = "parentIndex";
         public const string PartialFingerprints = "partialFingerprints";
         public const string PhysicalLocation = "physicalLocation";
+        public const string Properties = "properties";
         public const string Provenance = "provenance";
+        public const string Rank = "rank";
         public const string Rectangles = "rectangles";
         public const string Region = "region";
         public const string Regions = "regions";

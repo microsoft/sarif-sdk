@@ -671,4 +671,49 @@ Provide the 'help' property and populate the 'text' property with information ab
   <data name="Base1011_ReferenceFinalSchema_Error_Default_Text" xml:space="preserve">
     <value>{0}: The '$schema' property value '{2}' does not refer to the final version of the SARIF 2.1.0 schema. If you are using an earlier version of the SARIF format, consider upgrading your analysis tool to produce the final version. If this file does, in fact, conform to the final version of the schema, upgrade the tool to populate the '$schema' property with a URL that refers to the final version of the schema.</value>
   </data>
+  <data name="AI1006_ProvideAIOrigin_FullDescription_Text" xml:space="preserve">
+    <value>AI-involved SARIF runs must declare 'ai/origin' in 'run.properties' with a value of 'generated', 'annotated', or 'synthesized'. This signal enables consumers to calibrate trust levels, review workflows, and ingestion policies without heuristic inspection of tool names or metadata.</value>
+  </data>
+  <data name="AI1006_ProvideAIOrigin_Error_Missing_Text" xml:space="preserve">
+    <value>{0}: This run does not declare 'ai/origin' in 'run.properties'. AI-involved SARIF runs must declare their origin ('generated', 'annotated', or 'synthesized') to enable consumers to calibrate trust and workflow routing.</value>
+  </data>
+  <data name="AI1006_ProvideAIOrigin_Error_InvalidValue_Text" xml:space="preserve">
+    <value>{0}: The 'ai/origin' value '{1}' is not a recognized origin. Valid values are: 'generated', 'annotated', 'synthesized'.</value>
+  </data>
+  <data name="AI2003_ProvideSemanticVersion_FullDescription_Text" xml:space="preserve">
+    <value>The tool driver should provide a 'semanticVersion' property with a semver-compliant version string (e.g., '1.2.3'). A semantic version enables sortable version comparison and is required by some ingestion systems such as GitHub Advanced Security and Azure DevOps Advanced Security.</value>
+  </data>
+  <data name="AI2003_ProvideSemanticVersion_Warning_Default_Text" xml:space="preserve">
+    <value>{0}: The tool driver '{1}' does not provide a 'semanticVersion'. A semver-compliant version string enables sortable versioning and is required by some ingestion systems.</value>
+  </data>
+  <data name="AI2005_ProvideAutomationDetails_FullDescription_Text" xml:space="preserve">
+    <value>AI scans should include 'automationDetails' with a 'guid' and optionally a 'correlationGuid'. A unique run identifier enables deduplication, tracking across scan campaigns, and correlation of runs that belong to the same logical analysis effort.</value>
+  </data>
+  <data name="AI2005_ProvideAutomationDetails_Warning_Missing_Text" xml:space="preserve">
+    <value>{0}: This run does not provide 'automationDetails'. AI scans should include automation details with 'guid' and 'correlationGuid' to enable run identification and campaign-level aggregation.</value>
+  </data>
+  <data name="AI2005_ProvideAutomationDetails_Warning_MissingGuid_Text" xml:space="preserve">
+    <value>{0}: The 'automationDetails' object does not provide a 'guid'. A stable run identifier enables deduplication and tracking across scan campaigns.</value>
+  </data>
+  <data name="AI2006_ProvideMessageMarkdown_FullDescription_Text" xml:space="preserve">
+    <value>AI-generated results must provide rich 'message.markdown' content. Markdown messages enable structured analysis including evidence, reproduction steps, and fix suggestions. The plain-text 'message.text' property alone does not provide sufficient richness for actionable remediation of AI-generated findings.</value>
+  </data>
+  <data name="AI2006_ProvideMessageMarkdown_Error_Default_Text" xml:space="preserve">
+    <value>{0}: This result does not provide 'message.markdown'. AI-generated findings must provide rich markdown with structured analysis including evidence, reproduction steps, and fix suggestions.</value>
+  </data>
+  <data name="AI1007_ProvideExploitability_FullDescription_Text" xml:space="preserve">
+    <value>AI-generated results should declare 'ai/exploitability' in 'result.properties' with a value of 'Demonstrated', 'PoC', or 'Theoretical'. This signal enables consumers to triage findings by the strength of exploitation evidence and to prioritize remediation accordingly.</value>
+  </data>
+  <data name="AI1007_ProvideExploitability_Warning_Missing_Text" xml:space="preserve">
+    <value>{0}: This result does not declare 'ai/exploitability' in 'result.properties'. AI-generated findings should declare their exploitability ('Demonstrated', 'PoC', or 'Theoretical') to enable evidence-based triage.</value>
+  </data>
+  <data name="AI1007_ProvideExploitability_Warning_InvalidValue_Text" xml:space="preserve">
+    <value>{0}: The 'ai/exploitability' value '{1}' is not a recognized exploitability level. Valid values are: 'Demonstrated', 'PoC', 'Theoretical'.</value>
+  </data>
+  <data name="AI2010_ProvideResultRank_FullDescription_Text" xml:space="preserve">
+    <value>AI-generated results should provide a 'rank' value (0.0 to 100.0) expressing the confidence of the finding. This is the spec-native mechanism (§3.27.25) for numeric confidence, enabling priority-based triage and filtering without relying on property bag conventions.</value>
+  </data>
+  <data name="AI2010_ProvideResultRank_Note_Default_Text" xml:space="preserve">
+    <value>{0}: This result does not provide a 'rank' value. AI-generated findings should express confidence as a numeric rank (0.0 to 100.0) to enable priority-based triage.</value>
+  </data>
 </root>

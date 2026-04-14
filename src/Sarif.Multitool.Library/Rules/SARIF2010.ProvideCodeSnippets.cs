@@ -22,6 +22,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         /// </summary>
         public override string Id => RuleId.ProvideCodeSnippets;
 
+        public override HashSet<RuleKind> RuleKinds => new HashSet<RuleKind>(new[] { RuleKind.Sarif, RuleKind.AI });
+
         /// <summary>
         /// Provide code snippets to enable users to see the code that triggered each result,
         /// even if they are not enlisted in the code.

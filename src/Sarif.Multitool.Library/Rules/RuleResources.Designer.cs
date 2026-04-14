@@ -1480,5 +1480,95 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
                 return ResourceManager.GetString("ServiceName_GHAS", resourceCulture);
             }
         }
+        
+        internal static string AI1006_ProvideAIOrigin_FullDescription_Text {
+            get {
+                return ResourceManager.GetString("AI1006_ProvideAIOrigin_FullDescription_Text", resourceCulture);
+            }
+        }
+        
+        internal static string AI1006_ProvideAIOrigin_Error_Missing_Text {
+            get {
+                return ResourceManager.GetString("AI1006_ProvideAIOrigin_Error_Missing_Text", resourceCulture);
+            }
+        }
+        
+        internal static string AI1006_ProvideAIOrigin_Error_InvalidValue_Text {
+            get {
+                return ResourceManager.GetString("AI1006_ProvideAIOrigin_Error_InvalidValue_Text", resourceCulture);
+            }
+        }
+        
+        internal static string AI2003_ProvideSemanticVersion_FullDescription_Text {
+            get {
+                return ResourceManager.GetString("AI2003_ProvideSemanticVersion_FullDescription_Text", resourceCulture);
+            }
+        }
+        
+        internal static string AI2003_ProvideSemanticVersion_Warning_Default_Text {
+            get {
+                return ResourceManager.GetString("AI2003_ProvideSemanticVersion_Warning_Default_Text", resourceCulture);
+            }
+        }
+        
+        internal static string AI2005_ProvideAutomationDetails_FullDescription_Text {
+            get {
+                return ResourceManager.GetString("AI2005_ProvideAutomationDetails_FullDescription_Text", resourceCulture);
+            }
+        }
+        
+        internal static string AI2005_ProvideAutomationDetails_Warning_Missing_Text {
+            get {
+                return ResourceManager.GetString("AI2005_ProvideAutomationDetails_Warning_Missing_Text", resourceCulture);
+            }
+        }
+        
+        internal static string AI2005_ProvideAutomationDetails_Warning_MissingGuid_Text {
+            get {
+                return ResourceManager.GetString("AI2005_ProvideAutomationDetails_Warning_MissingGuid_Text", resourceCulture);
+            }
+        }
+        
+        internal static string AI2006_ProvideMessageMarkdown_FullDescription_Text {
+            get {
+                return ResourceManager.GetString("AI2006_ProvideMessageMarkdown_FullDescription_Text", resourceCulture);
+            }
+        }
+        
+        internal static string AI2006_ProvideMessageMarkdown_Error_Default_Text {
+            get {
+                return ResourceManager.GetString("AI2006_ProvideMessageMarkdown_Error_Default_Text", resourceCulture);
+            }
+        }
+        
+        internal static string AI1007_ProvideExploitability_FullDescription_Text {
+            get {
+                return ResourceManager.GetString("AI1007_ProvideExploitability_FullDescription_Text", resourceCulture);
+            }
+        }
+        
+        internal static string AI1007_ProvideExploitability_Warning_Missing_Text {
+            get {
+                return ResourceManager.GetString("AI1007_ProvideExploitability_Warning_Missing_Text", resourceCulture);
+            }
+        }
+        
+        internal static string AI1007_ProvideExploitability_Warning_InvalidValue_Text {
+            get {
+                return ResourceManager.GetString("AI1007_ProvideExploitability_Warning_InvalidValue_Text", resourceCulture);
+            }
+        }
+        
+        internal static string AI2010_ProvideResultRank_FullDescription_Text {
+            get {
+                return ResourceManager.GetString("AI2010_ProvideResultRank_FullDescription_Text", resourceCulture);
+            }
+        }
+        
+        internal static string AI2010_ProvideResultRank_Note_Default_Text {
+            get {
+                return ResourceManager.GetString("AI2010_ProvideResultRank_Note_Default_Text", resourceCulture);
+            }
+        }
     }
 }

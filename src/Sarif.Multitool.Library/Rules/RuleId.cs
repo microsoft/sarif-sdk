@@ -71,5 +71,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 
         // TEMPLATE:
         // public const string RuleFriendlyName = "SARIFnnnn";
+
+        // Rules for AI-generated SARIF findings.
+        // These rules are disabled by default. They can be enabled by running the Multitool
+        // with --rule-kind AI.
+        public const string AIProvideAIOrigin = "AI1006";
+        public const string AIProvideExploitability = "AI1007";
+        public const string AIProvideMessageMarkdown = "AI2006";
+        public const string AIProvideSemanticVersion = "AI2003";
+        public const string AIProvideAutomationDetails = "AI2005";
+        public const string AIProvideResultRank = "AI2010";
     }
 }

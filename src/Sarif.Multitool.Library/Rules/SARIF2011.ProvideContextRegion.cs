@@ -19,6 +19,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         /// </summary>
         public override string Id => RuleId.ProvideContextRegion;
 
+        public override HashSet<RuleKind> RuleKinds => new HashSet<RuleKind>(new[] { RuleKind.Sarif, RuleKind.AI });
+
         /// <summary>
         /// Provide context regions to enable users to see a portion of the code that surrounds
         /// each result, even if they are not enlisted in the code.
