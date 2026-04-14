@@ -743,4 +743,16 @@ Provide the 'help' property and populate the 'text' property with information ab
   <data name="AI2010_ProvideResultRank_Note_Default_Text" xml:space="preserve">
     <value>{0}: This result does not provide a 'rank' value. AI-generated findings should express confidence as a numeric rank (0.0 to 100.0) to enable priority-based triage.</value>
   </data>
+  <data name="AI2011_DoNotPersistFingerprints_FullDescription_Text" xml:space="preserve">
+    <value>AI producers should not populate 'result.fingerprints' or 'result.partialFingerprints'. Persisted fingerprints decay under file renames, deletes, and rule logic updates. Cross-run result identity is owned by the result-management system, which may compute and inject its own fingerprints at ingestion. For intra-remediation relocation, the remediation agent computes a transient content-anchored fingerprint on the fly from 'ruleId', 'logicalLocations', and 'contextRegion.snippet', and discards it when the fix lands.</value>
+  </data>
+  <data name="AI2011_DoNotPersistFingerprints_Note_Default_Text" xml:space="preserve">
+    <value>{0}: This result populates '{1}'. AI producers should not persist fingerprints. Cross-run baselining is owned by the result-management system; intra-remediation relocation uses a transient fingerprint computed from 'ruleId', 'logicalLocations', and 'contextRegion.snippet'.</value>
+  </data>
+  <data name="AI2012_ProvideAiHandoff_FullDescription_Text" xml:space="preserve">
+    <value>AI-generated runs should provide 'ai/handoff' in 'run.properties': a freeform markdown forward-note from the producing agent to downstream remediation agents. It carries repo-wide observations (build/test/format commands that worked, auth pattern, where tests live, ladder depth reached) that have no structural SARIF home. Per-finding notes go in 'result.properties.ai/handoff'; durable repo facts go in the repository's '.ai-context/' directory.</value>
+  </data>
+  <data name="AI2012_ProvideAiHandoff_Note_Default_Text" xml:space="preserve">
+    <value>{0}: This run does not provide 'ai/handoff' in 'run.properties'. AI producers should record repo-wide observations for downstream remediation agents — at minimum, the analysis depth reached and why it stopped.</value>
+  </data>
 </root>

@@ -84,5 +84,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         public const string AIProvideSemanticVersion = "AI2003";
         public const string AIProvideAutomationDetails = "AI2005";
         public const string AIProvideResultRank = "AI2010";
+        public const string AIDoNotPersistFingerprints = "AI2011";
+        public const string AIProvideAiHandoff = "AI2012";
     }
 }

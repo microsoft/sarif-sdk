@@ -1633,5 +1633,29 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
                 return ResourceManager.GetString("AI2010_ProvideResultRank_Note_Default_Text", resourceCulture);
             }
         }
+
+        internal static string AI2011_DoNotPersistFingerprints_FullDescription_Text {
+            get {
+                return ResourceManager.GetString("AI2011_DoNotPersistFingerprints_FullDescription_Text", resourceCulture);
+            }
+        }
+
+        internal static string AI2011_DoNotPersistFingerprints_Note_Default_Text {
+            get {
+                return ResourceManager.GetString("AI2011_DoNotPersistFingerprints_Note_Default_Text", resourceCulture);
+            }
+        }
+
+        internal static string AI2012_ProvideAiHandoff_FullDescription_Text {
+            get {
+                return ResourceManager.GetString("AI2012_ProvideAiHandoff_FullDescription_Text", resourceCulture);
+            }
+        }
+
+        internal static string AI2012_ProvideAiHandoff_Note_Default_Text {
+            get {
+                return ResourceManager.GetString("AI2012_ProvideAiHandoff_Note_Default_Text", resourceCulture);
+            }
+        }
     }
 }

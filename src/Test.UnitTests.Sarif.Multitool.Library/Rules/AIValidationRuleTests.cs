@@ -105,6 +105,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             log.Runs[0].SetProperty("ai/origin", value);
         }
 
+        private static void SetAiHandoff(SarifLog log, string value)
+        {
+            log.Runs[0].SetProperty("ai/handoff", value);
+        }
+
         private static void SetExploitability(SarifLog log, string value)
         {
             log.Runs[0].Results[0].SetProperty("ai/exploitability", value);
@@ -501,6 +506,109 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
         #endregion
 
+        #region AI2011 — DoNotPersistFingerprints
+
+        [Fact]
+        public void AI2011_WhenPartialFingerprintsPresent_ReportsNote()
+        {
+            SarifLog log = CreateValidAISarifLog();
+            SetAIOrigin(log, "generated");
+            SetExploitability(log, "demonstrated");
+            SetAiHandoff(log, "tier 2 reached");
+            log.Runs[0].Results[0].PartialFingerprints = new Dictionary<string, string>
+            {
+                { "primaryLocationLineHash", "abc123" }
+            };
+
+            SarifLog output = RunAIValidation(log);
+            List<Result> results = GetResultsForRule(output, "AI2011");
+
+            results.Should().NotBeEmpty();
+            results[0].Level.Should().Be(FailureLevel.Note);
+        }
+
+        [Fact]
+        public void AI2011_WhenFingerprintsPresent_ReportsNote()
+        {
+            SarifLog log = CreateValidAISarifLog();
+            SetAIOrigin(log, "generated");
+            SetExploitability(log, "demonstrated");
+            SetAiHandoff(log, "tier 2 reached");
+            log.Runs[0].Results[0].Fingerprints = new Dictionary<string, string>
+            {
+                { "stable/v1", "deadbeef" }
+            };
+
+            SarifLog output = RunAIValidation(log);
+            List<Result> results = GetResultsForRule(output, "AI2011");
+
+            results.Should().NotBeEmpty();
+            results[0].Level.Should().Be(FailureLevel.Note);
+        }
+
+        [Fact]
+        public void AI2011_WhenNoFingerprints_NoResult()
+        {
+            SarifLog log = CreateValidAISarifLog();
+            SetAIOrigin(log, "generated");
+            SetExploitability(log, "demonstrated");
+            SetAiHandoff(log, "tier 2 reached");
+
+            SarifLog output = RunAIValidation(log);
+            List<Result> results = GetResultsForRule(output, "AI2011");
+
+            results.Should().BeEmpty();
+        }
+
+        #endregion
+
+        #region AI2012 — ProvideAiHandoff
+
+        [Fact]
+        public void AI2012_WhenHandoffMissing_ReportsNote()
+        {
+            SarifLog log = CreateValidAISarifLog();
+            SetAIOrigin(log, "generated");
+            SetExploitability(log, "demonstrated");
+            // no ai/handoff
+
+            SarifLog output = RunAIValidation(log);
+            List<Result> results = GetResultsForRule(output, "AI2012");
+
+            results.Should().NotBeEmpty();
+            results[0].Level.Should().Be(FailureLevel.Note);
+        }
+
+        [Fact]
+        public void AI2012_WhenHandoffEmpty_ReportsNote()
+        {
+            SarifLog log = CreateValidAISarifLog();
+            SetAIOrigin(log, "generated");
+            SetExploitability(log, "demonstrated");
+            SetAiHandoff(log, "   ");
+
+            SarifLog output = RunAIValidation(log);
+            List<Result> results = GetResultsForRule(output, "AI2012");
+
+            results.Should().NotBeEmpty();
+        }
+
+        [Fact]
+        public void AI2012_WhenHandoffPresent_NoResult()
+        {
+            SarifLog log = CreateValidAISarifLog();
+            SetAIOrigin(log, "generated");
+            SetExploitability(log, "demonstrated");
+            SetAiHandoff(log, "Reached tier 3 (tests). Formatter: black --line-length 100.");
+
+            SarifLog output = RunAIValidation(log);
+            List<Result> results = GetResultsForRule(output, "AI2012");
+
+            results.Should().BeEmpty();
+        }
+
+        #endregion
+
         #region Full valid AI SARIF — zero violations
 
         [Fact]
@@ -509,6 +617,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             SarifLog log = CreateValidAISarifLog();
             SetAIOrigin(log, "generated");
             SetExploitability(log, "demonstrated");
+            SetAiHandoff(log, "Reached tier 3 (tests). Formatter: black --line-length 100.");
 
             SarifLog output = RunAIValidation(log);
 
@@ -538,12 +647,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 RuleId.AIProvideAutomationDetails, // AI2005
                 RuleId.AIProvideMessageMarkdown,   // AI2006
                 RuleId.AIProvideResultRank,         // AI2010
+                RuleId.AIDoNotPersistFingerprints,  // AI2011
+                RuleId.AIProvideAiHandoff,          // AI2012
             };
 
-            ruleIds.Should().HaveCount(8);
+            ruleIds.Should().HaveCount(10);
             ruleIds.Should().Contain("AI1003");
             ruleIds.Should().Contain("AI1004");
             ruleIds.Should().Contain("AI1007");
+            ruleIds.Should().Contain("AI2011");
+            ruleIds.Should().Contain("AI2012");
             ruleIds.Should().NotContain("AI2009");
         }
 
