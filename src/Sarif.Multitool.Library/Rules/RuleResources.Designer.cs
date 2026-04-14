@@ -1464,6 +1464,33 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Results should provide a &apos;region&apos; property with at least &apos;startLine&apos;....
+        /// </summary>
+        internal static string SARIF2017_ProvideRequiredRegionProperties_FullDescription_Text {
+            get {
+                return ResourceManager.GetString("SARIF2017_ProvideRequiredRegionProperties_FullDescription_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0}: The &apos;region&apos; property is absent....
+        /// </summary>
+        internal static string SARIF2017_ProvideRequiredRegionProperties_Warning_MissingRegion_Text {
+            get {
+                return ResourceManager.GetString("SARIF2017_ProvideRequiredRegionProperties_Warning_MissingRegion_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0}: The &apos;startLine&apos; property is absent....
+        /// </summary>
+        internal static string SARIF2017_ProvideRequiredRegionProperties_Warning_MissingRegionProperty_Text {
+            get {
+                return ResourceManager.GetString("SARIF2017_ProvideRequiredRegionProperties_Warning_MissingRegionProperty_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Azure DevOps Advanced Security.
         /// </summary>
         internal static string ServiceName_ADO {

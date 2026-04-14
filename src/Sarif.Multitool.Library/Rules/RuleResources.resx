@@ -450,6 +450,15 @@ Semantics: Assuming the reader of the log file (an end user or another tool) has
   <data name="SARIF2016_FileUrisShouldBeRelative_Note_ShouldNotContainBackSlash_Text" xml:space="preserve">
     <value>{0}: The relative file URL '{1}' contains one or more backslashes, which will be preserved when concatenating to an absolute URL. This can result in inconsistent representations, compared to URLs created from an absolute file path, which may be regarded as not equivalent. Replace all backslashes with forward slashes.</value>
   </data>
+  <data name="SARIF2017_ProvideRequiredRegionProperties_FullDescription_Text" xml:space="preserve">
+    <value>Results should provide a 'region' property with at least 'startLine' in each physical location. This enables consumers to navigate precisely to the finding. Providing 'startColumn', 'endLine', and 'endColumn' further improves precision, especially for minified or generated code.</value>
+  </data>
+  <data name="SARIF2017_ProvideRequiredRegionProperties_Warning_MissingRegion_Text" xml:space="preserve">
+    <value>{0}: The 'region' property is absent. Results should provide a 'region' object with at least 'startLine' so that consumers can navigate to the precise location of the finding.</value>
+  </data>
+  <data name="SARIF2017_ProvideRequiredRegionProperties_Warning_MissingRegionProperty_Text" xml:space="preserve">
+    <value>{0}: The 'startLine' property is absent. The 'region' object should contain at least 'startLine'. Providing 'startColumn', 'endLine', and 'endColumn' further improves precision.</value>
+  </data>
   <data name="GH1007_ProvideFullyFormattedMessageStrings_Error_Default_Text" xml:space="preserve">
     <value>{0}: The 'text' property of this result message is absent. GitHub Advanced Security code scanning will reject this file because it does not support the argumented message now. Try to provide fully formatted text in 'message.text' property.</value>
   </data>
@@ -702,13 +711,13 @@ Provide the 'help' property and populate the 'text' property with information ab
     <value>{0}: This result does not provide 'message.markdown'. AI-generated findings must provide rich markdown with structured analysis including evidence, reproduction steps, and fix suggestions.</value>
   </data>
   <data name="AI1007_ProvideExploitability_FullDescription_Text" xml:space="preserve">
-    <value>AI-generated results should declare 'ai/exploitability' in 'result.properties' with a value of 'Demonstrated', 'PoC', or 'Theoretical'. This signal enables consumers to triage findings by the strength of exploitation evidence and to prioritize remediation accordingly.</value>
+    <value>AI-generated results should declare 'ai/exploitability' in 'result.properties' with a value of 'demonstrated', 'poc', or 'theoretical'. This signal enables consumers to triage findings by the strength of exploitation evidence and to prioritize remediation accordingly.</value>
   </data>
   <data name="AI1007_ProvideExploitability_Warning_Missing_Text" xml:space="preserve">
-    <value>{0}: This result does not declare 'ai/exploitability' in 'result.properties'. AI-generated findings should declare their exploitability ('Demonstrated', 'PoC', or 'Theoretical') to enable evidence-based triage.</value>
+    <value>{0}: This result does not declare 'ai/exploitability' in 'result.properties'. AI-generated findings should declare their exploitability ('demonstrated', 'poc', or 'theoretical') to enable evidence-based triage.</value>
   </data>
   <data name="AI1007_ProvideExploitability_Warning_InvalidValue_Text" xml:space="preserve">
-    <value>{0}: The 'ai/exploitability' value '{1}' is not a recognized exploitability level. Valid values are: 'Demonstrated', 'PoC', 'Theoretical'.</value>
+    <value>{0}: The 'ai/exploitability' value '{1}' is not a recognized exploitability level. Valid values are: 'demonstrated', 'poc', 'theoretical'.</value>
   </data>
   <data name="AI2010_ProvideResultRank_FullDescription_Text" xml:space="preserve">
     <value>AI-generated results should provide a 'rank' value (0.0 to 100.0) expressing the confidence of the finding. This is the spec-native mechanism (§3.27.25) for numeric confidence, enabling priority-based triage and filtering without relying on property bag conventions.</value>

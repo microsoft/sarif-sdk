@@ -153,7 +153,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         {
             SarifLog log = CreateValidAISarifLog();
             // Don't set ai/origin
-            SetExploitability(log, "Demonstrated");
+            SetExploitability(log, "demonstrated");
 
             SarifLog output = RunAIValidation(log);
             List<Result> results = GetResultsForRule(output, "AI1006");
@@ -167,7 +167,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         {
             SarifLog log = CreateValidAISarifLog();
             SetAIOrigin(log, "generated");
-            SetExploitability(log, "Demonstrated");
+            SetExploitability(log, "demonstrated");
 
             SarifLog output = RunAIValidation(log);
             List<Result> results = GetResultsForRule(output, "AI1006");
@@ -180,7 +180,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         {
             SarifLog log = CreateValidAISarifLog();
             SetAIOrigin(log, "invented");
-            SetExploitability(log, "Demonstrated");
+            SetExploitability(log, "demonstrated");
 
             SarifLog output = RunAIValidation(log);
             List<Result> results = GetResultsForRule(output, "AI1006");
@@ -208,9 +208,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         }
 
         [Theory]
-        [InlineData("Demonstrated")]
-        [InlineData("PoC")]
-        [InlineData("Theoretical")]
+        [InlineData("demonstrated")]
+        [InlineData("poc")]
+        [InlineData("theoretical")]
         public void AI1007_WhenExploitabilityValid_NoResult(string value)
         {
             SarifLog log = CreateValidAISarifLog();
@@ -224,7 +224,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         }
 
         [Theory]
-        [InlineData("demonstrated")]  // wrong casing
+        [InlineData("Demonstrated")]  // wrong casing (PascalCase)
         [InlineData("POC")]           // wrong casing
         [InlineData("confirmed")]     // invalid value
         [InlineData("")]              // empty string
@@ -250,7 +250,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         {
             SarifLog log = CreateValidAISarifLog();
             SetAIOrigin(log, "generated");
-            SetExploitability(log, "Demonstrated");
+            SetExploitability(log, "demonstrated");
             log.Runs[0].Results[0].Message = new Message { Text = "No markdown provided." };
 
             SarifLog output = RunAIValidation(log);
@@ -265,7 +265,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         {
             SarifLog log = CreateValidAISarifLog();
             SetAIOrigin(log, "generated");
-            SetExploitability(log, "Demonstrated");
+            SetExploitability(log, "demonstrated");
 
             SarifLog output = RunAIValidation(log);
             List<Result> results = GetResultsForRule(output, "AI2006");
@@ -282,7 +282,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         {
             SarifLog log = CreateValidAISarifLog();
             SetAIOrigin(log, "generated");
-            SetExploitability(log, "Demonstrated");
+            SetExploitability(log, "demonstrated");
             log.Runs[0].Results[0].Fingerprints = new Dictionary<string, string>
             {
                 { "v1", "abc123" }
@@ -303,7 +303,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         {
             SarifLog log = CreateValidAISarifLog();
             SetAIOrigin(log, "generated");
-            SetExploitability(log, "Demonstrated");
+            SetExploitability(log, "demonstrated");
             log.Runs[0].Results[0].Rank = -1.0; // default = unknown
 
             SarifLog output = RunAIValidation(log);
@@ -322,7 +322,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         {
             SarifLog log = CreateValidAISarifLog();
             SetAIOrigin(log, "generated");
-            SetExploitability(log, "Demonstrated");
+            SetExploitability(log, "demonstrated");
 
             // Remove snippet from region
             log.Runs[0].Results[0].Locations[0].PhysicalLocation.Region.Snippet = null;
@@ -338,7 +338,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         {
             SarifLog log = CreateValidAISarifLog();
             SetAIOrigin(log, "generated");
-            SetExploitability(log, "Demonstrated");
+            SetExploitability(log, "demonstrated");
 
             // Remove context region
             log.Runs[0].Results[0].Locations[0].PhysicalLocation.ContextRegion = null;
@@ -351,40 +351,54 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
         #endregion
 
-        #region GH1003 — Enabled via AI config
+        #region SARIF2017 — ProvideRequiredRegionProperties (fires in AI profile)
 
         [Fact]
-        public void GH1003_WhenEnabledViaAIConfig_FiresForMissingRegion()
+        public void SARIF2017_WhenRegionMissing_ReportsWarning()
         {
-            // Write the AI config file to a temp path
-            string configPath = Path.GetTempFileName() + ".xml";
-            try
-            {
-                string configContent = @"<?xml version=""1.0"" encoding=""utf-8""?>
-<Properties>
-  <Properties Key='GH1003.ProvideRequiredRegionProperties.Options'>
-    <Property Key='RuleEnabled' Value='Error' />
-  </Properties>
-</Properties>";
-                File.WriteAllText(configPath, configContent);
+            SarifLog log = CreateValidAISarifLog();
+            SetAIOrigin(log, "generated");
+            SetExploitability(log, "demonstrated");
 
-                SarifLog log = CreateValidAISarifLog();
-                SetAIOrigin(log, "generated");
-                SetExploitability(log, "Demonstrated");
+            // Remove region entirely
+            log.Runs[0].Results[0].Locations[0].PhysicalLocation.Region = null;
 
-                // Remove region entirely
-                log.Runs[0].Results[0].Locations[0].PhysicalLocation.Region = null;
+            SarifLog output = RunAIValidation(log);
+            List<Result> results = GetResultsForRule(output, "SARIF2017");
 
-                SarifLog output = RunAIValidation(log, configPath);
-                List<Result> results = GetResultsForRule(output, "GH1003");
+            results.Should().NotBeEmpty("SARIF2017 should fire in AI profile when region is missing");
+            results[0].Level.Should().Be(FailureLevel.Warning);
+        }
 
-                results.Should().NotBeEmpty("GH1003 should fire when enabled via AI config");
-                results[0].Level.Should().Be(FailureLevel.Error);
-            }
-            finally
-            {
-                if (File.Exists(configPath)) File.Delete(configPath);
-            }
+        [Fact]
+        public void SARIF2017_WhenStartLineMissing_ReportsWarning()
+        {
+            SarifLog log = CreateValidAISarifLog();
+            SetAIOrigin(log, "generated");
+            SetExploitability(log, "demonstrated");
+
+            // Set region without startLine (startLine defaults to 0)
+            log.Runs[0].Results[0].Locations[0].PhysicalLocation.Region = new Region();
+
+            SarifLog output = RunAIValidation(log);
+            List<Result> results = GetResultsForRule(output, "SARIF2017");
+
+            results.Should().NotBeEmpty("SARIF2017 should fire when startLine is absent");
+            results[0].Level.Should().Be(FailureLevel.Warning);
+        }
+
+        [Fact]
+        public void SARIF2017_WhenRegionComplete_NoResult()
+        {
+            SarifLog log = CreateValidAISarifLog();
+            SetAIOrigin(log, "generated");
+            SetExploitability(log, "demonstrated");
+
+            // Region is already complete in the default log
+            SarifLog output = RunAIValidation(log);
+            List<Result> results = GetResultsForRule(output, "SARIF2017");
+
+            results.Should().BeEmpty("fully populated region should not trigger SARIF2017");
         }
 
         #endregion
@@ -396,7 +410,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         {
             SarifLog log = CreateValidAISarifLog();
             SetAIOrigin(log, "generated");
-            SetExploitability(log, "Demonstrated");
+            SetExploitability(log, "demonstrated");
 
             SarifLog output = RunAIValidation(log);
 

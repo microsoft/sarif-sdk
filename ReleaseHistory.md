@@ -3,10 +3,11 @@
 ## **v4.6.1 UNRELEASED**
 * NEW: Add health check query parameter support for `--post-uri` validation. The driver now appends `?healthcheck=true` to POST URIs during validation and accepts HTTP 202 (Accepted), or 422 (Unprocessable Entity) as valid responses. This provides better support for endpoints that implement health check functionality while maintaining backwards compatibility with servers that return 422 for empty payloads.
 * NEW: `SarifLogger.AnalyzingTarget` now optionally emits an explicit artifacts table entry (with `AnalysisTarget` role) for every scan target when `OptionallyEmittedData.AnalysisTargets` is set via `--insert`.
-* NEW: Add `AI1007.ProvideExploitability` validation rule — warns when `result.properties["ai/exploitability"]` is missing or contains an unrecognized value (valid: `Demonstrated`, `PoC`, `Theoretical`).
+* NEW: Add `AI1007.ProvideExploitability` validation rule — warns when `result.properties["ai/exploitability"]` is missing or contains an unrecognized value (valid: `demonstrated`, `poc`, `theoretical`).
 * NEW: Promote `AI2006.ProvideMessageMarkdown` from warning to error — AI-generated findings must include `message.markdown`.
-* NEW: Add `RuleKind.AI` to `SARIF2010.ProvideCodeSnippets`, `SARIF2011.ProvideContextRegion`, and `GH1003.ProvideRequiredRegionProperties` so these rules fire under `--rule-kind AI`.
-* NEW: Add `policies/ai.config.xml` configuration file that enables `GH1003` at error level and elevates `SARIF2010`/`SARIF2011` severity for AI validation profiles. Usage: `sarif validate --rule-kind AI --configuration policies/ai.config.xml`.
+* NEW: Add `SARIF2017.ProvideRequiredRegionProperties` validation rule — warns when result locations lack a `region` or `startLine`. Fires in both standard (`--rule-kind Sarif`) and AI (`--rule-kind AI`) profiles. This replaces the previous approach of enabling `GH1003` via configuration file for AI validation.
+* NEW: Add `RuleKind.AI` to `SARIF2010.ProvideCodeSnippets` and `SARIF2011.ProvideContextRegion` so these rules fire under `--rule-kind AI` with no configuration file needed.
+* DEL: Remove `policies/ai.config.xml` — AI validation now works zero-config via `--rule-kind AI`.
 
 ## **v4.6.0** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/v4.6.0) | [Driver](https://www.nuget.org/packages/Sarif.Driver/v4.6.0) | [Converters](https://www.nuget.org/packages/Sarif.Converters/v4.6.0)  | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/v4.6.0) | [Multitool Library](https://www.nuget.org/packages/Sarif.Multitool.Library/v4.6.0)
 * BRK: Remove defunct and unsupported `kusto` command in `Sarif.Multitool`.
