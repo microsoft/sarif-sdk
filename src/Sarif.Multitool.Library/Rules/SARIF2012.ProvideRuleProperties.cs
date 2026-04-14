@@ -66,7 +66,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 
             foreach (Result result in run.Results)
             {
-                if (currentRules.Count != 0 && !currentRules.Contains(result.ResolvedRuleId(currentRun)))
+                if (currentRules.Count != 0 && !HasRuleMetadata(result))
                 {
                     uniqueIssues.Add(result.ResolvedRuleId(currentRun));
                 }
@@ -112,6 +112,47 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                     reportingDescriptor.Name);
                 return;
             }
+        }
+
+        /// <summary>
+        /// Determines whether the result's rule has metadata in the driver's rules array.
+        /// Handles hierarchical rule IDs per §3.52.4: a result's ruleId may equal
+        /// theDescriptor.id plus at most one additional hierarchical component.
+        /// </summary>
+        private bool HasRuleMetadata(Result result)
+        {
+            // If the result has a valid ruleIndex pointing to a driver rule, metadata exists.
+            if (result.RuleIndex >= 0)
+            {
+                IList<ReportingDescriptor> driverRules = currentRun?.Tool?.Driver?.Rules;
+                if (driverRules != null && result.RuleIndex < driverRules.Count)
+                {
+                    return true;
+                }
+            }
+
+            string resolvedId = result.ResolvedRuleId(currentRun);
+            if (string.IsNullOrEmpty(resolvedId))
+            {
+                return false;
+            }
+
+            // Exact match against known rule descriptor IDs
+            if (currentRules.Contains(resolvedId))
+            {
+                return true;
+            }
+
+            // §3.52.4: The result ruleId may equal a descriptor's id plus at most one
+            // additional hierarchical component separated by '/'.
+            int lastSlash = resolvedId.LastIndexOf('/');
+            if (lastSlash > 0)
+            {
+                string baseId = resolvedId.Substring(0, lastSlash);
+                return currentRules.Contains(baseId);
+            }
+
+            return false;
         }
 
         private void AnalyzeTool(Tool tool, string toolPointer)

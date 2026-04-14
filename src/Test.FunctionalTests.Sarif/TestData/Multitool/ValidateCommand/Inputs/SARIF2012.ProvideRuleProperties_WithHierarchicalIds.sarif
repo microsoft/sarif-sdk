@@ -1,0 +1,49 @@
+{
+  "$schema": "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0-rtm.6.json",
+  "version": "2.1.0",
+  "runs": [
+    {
+      "tool": {
+        "driver": {
+          "name": "SARIF Functional Testing",
+          "version": "1.0.0",
+          "rules": [
+            {
+              "id": "TEST0001",
+              "name": "TestRule",
+              "helpUri": "http://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html"
+            },
+            {
+              "id": "TEST0002/SubCategory",
+              "name": "TestRuleWithHierarchicalId",
+              "helpUri": "http://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html"
+            }
+          ]
+        }
+      },
+      "versionControlProvenance": [
+        {
+          "repositoryUri": "https://github.com/microsoft/sarif-sdk"
+        }
+      ],
+      "results": [
+        {
+          "ruleId": "TEST0001/variant-a",
+          "ruleIndex": 0,
+          "message": { "text": "Hierarchical sub-ID with one additional component." }
+        },
+        {
+          "ruleId": "TEST0001/variant-b",
+          "ruleIndex": 0,
+          "message": { "text": "Another hierarchical sub-ID for the same base rule." }
+        },
+        {
+          "ruleId": "TEST0002/SubCategory/variant-c",
+          "ruleIndex": 1,
+          "message": { "text": "Hierarchical sub-ID on a rule whose id is itself hierarchical." }
+        }
+      ],
+      "columnKind": "utf16CodeUnits"
+    }
+  ]
+}

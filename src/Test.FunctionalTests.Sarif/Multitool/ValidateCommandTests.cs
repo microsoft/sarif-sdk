@@ -325,6 +325,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
         [Fact]
         [Trait(TestTraits.WindowsOnly, "true")]
+        public void SARIF2012_ProvideRuleProperties_WithHierarchicalIds()
+            => RunTest("SARIF2012.ProvideRuleProperties_WithHierarchicalIds.sarif");
+
+        [Fact]
+        [Trait(TestTraits.WindowsOnly, "true")]
         public void SARIF2012_ProvideRuleProperties_WithoutRules()
             => RunTest("SARIF2012.ProvideRuleProperties_WithoutRules.sarif");
 
