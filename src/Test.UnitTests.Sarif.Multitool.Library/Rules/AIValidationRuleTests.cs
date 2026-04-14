@@ -47,6 +47,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                         {
                             Guid = System.Guid.Parse("d4e7f8a0-1234-5678-abcd-ef0123456789")
                         },
+                        VersionControlProvenance = new[]
+                        {
+                            new VersionControlDetails
+                            {
+                                RepositoryUri = new System.Uri("https://github.com/example/project"),
+                                RevisionId = "abc123def456",
+                                Branch = "main"
+                            }
+                        },
                         Results = new[]
                         {
                             new Result
@@ -351,10 +360,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
         #endregion
 
-        #region SARIF2017 — ProvideRequiredRegionProperties (fires in AI profile)
+        #region AI1003 — ProvideRequiredRegionProperties (error in AI profile)
 
         [Fact]
-        public void SARIF2017_WhenRegionMissing_ReportsWarning()
+        public void AI1003_WhenRegionMissing_ReportsError()
         {
             SarifLog log = CreateValidAISarifLog();
             SetAIOrigin(log, "generated");
@@ -364,14 +373,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             log.Runs[0].Results[0].Locations[0].PhysicalLocation.Region = null;
 
             SarifLog output = RunAIValidation(log);
-            List<Result> results = GetResultsForRule(output, "SARIF2017");
+            List<Result> results = GetResultsForRule(output, "AI1003");
 
-            results.Should().NotBeEmpty("SARIF2017 should fire in AI profile when region is missing");
-            results[0].Level.Should().Be(FailureLevel.Warning);
+            results.Should().NotBeEmpty("AI1003 should fire when region is missing");
+            results[0].Level.Should().Be(FailureLevel.Error);
         }
 
         [Fact]
-        public void SARIF2017_WhenStartLineMissing_ReportsWarning()
+        public void AI1003_WhenStartLineMissing_ReportsError()
         {
             SarifLog log = CreateValidAISarifLog();
             SetAIOrigin(log, "generated");
@@ -381,24 +390,75 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             log.Runs[0].Results[0].Locations[0].PhysicalLocation.Region = new Region();
 
             SarifLog output = RunAIValidation(log);
-            List<Result> results = GetResultsForRule(output, "SARIF2017");
+            List<Result> results = GetResultsForRule(output, "AI1003");
 
-            results.Should().NotBeEmpty("SARIF2017 should fire when startLine is absent");
-            results[0].Level.Should().Be(FailureLevel.Warning);
+            results.Should().NotBeEmpty("AI1003 should fire when startLine is absent");
+            results[0].Level.Should().Be(FailureLevel.Error);
         }
 
         [Fact]
-        public void SARIF2017_WhenRegionComplete_NoResult()
+        public void AI1003_WhenRegionComplete_NoResult()
         {
             SarifLog log = CreateValidAISarifLog();
             SetAIOrigin(log, "generated");
             SetExploitability(log, "demonstrated");
 
-            // Region is already complete in the default log
+            SarifLog output = RunAIValidation(log);
+            List<Result> results = GetResultsForRule(output, "AI1003");
+
+            results.Should().BeEmpty("fully populated region should not trigger AI1003");
+        }
+
+        #endregion
+
+        #region AI1004 — ProvideVersionControlProvenance (error in AI profile)
+
+        [Fact]
+        public void AI1004_WhenVCPMissing_ReportsError()
+        {
+            SarifLog log = CreateValidAISarifLog();
+            SetAIOrigin(log, "generated");
+            SetExploitability(log, "demonstrated");
+            log.Runs[0].VersionControlProvenance = null;
+
+            SarifLog output = RunAIValidation(log);
+            List<Result> results = GetResultsForRule(output, "AI1004");
+
+            results.Should().NotBeEmpty("AI1004 should fire when versionControlProvenance is missing");
+            results[0].Level.Should().Be(FailureLevel.Error);
+        }
+
+        [Fact]
+        public void AI1004_WhenVCPPresent_NoResult()
+        {
+            SarifLog log = CreateValidAISarifLog();
+            SetAIOrigin(log, "generated");
+            SetExploitability(log, "demonstrated");
+
+            SarifLog output = RunAIValidation(log);
+            List<Result> results = GetResultsForRule(output, "AI1004");
+
+            results.Should().BeEmpty("VCP is present in the valid log");
+        }
+
+        #endregion
+
+        #region SARIF2017 — does NOT fire in AI-only profile
+
+        [Fact]
+        public void SARIF2017_DoesNotFireInAIProfile()
+        {
+            SarifLog log = CreateValidAISarifLog();
+            SetAIOrigin(log, "generated");
+            SetExploitability(log, "demonstrated");
+
+            // Remove region — AI1003 should fire, but not SARIF2017
+            log.Runs[0].Results[0].Locations[0].PhysicalLocation.Region = null;
+
             SarifLog output = RunAIValidation(log);
             List<Result> results = GetResultsForRule(output, "SARIF2017");
 
-            results.Should().BeEmpty("fully populated region should not trigger SARIF2017");
+            results.Should().BeEmpty("SARIF2017 is Sarif-only, should not fire under --rule-kind AI");
         }
 
         #endregion
@@ -432,6 +492,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             // Verify the expected rules exist and AI2009 is gone
             var ruleIds = new[]
             {
+                RuleId.AIProvideRequiredRegionProperties, // AI1003
+                RuleId.AIProvideVersionControlProvenance, // AI1004
                 RuleId.AIProvideAIOrigin,         // AI1006
                 RuleId.AIProvideExploitability,    // AI1007
                 RuleId.AIProvideSemanticVersion,   // AI2003
@@ -440,7 +502,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 RuleId.AIProvideResultRank,         // AI2010
             };
 
-            ruleIds.Should().HaveCount(6);
+            ruleIds.Should().HaveCount(8);
+            ruleIds.Should().Contain("AI1003");
+            ruleIds.Should().Contain("AI1004");
             ruleIds.Should().Contain("AI1007");
             ruleIds.Should().NotContain("AI2009");
         }

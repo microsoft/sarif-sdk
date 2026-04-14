@@ -76,6 +76,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         // Rules for AI-generated SARIF findings.
         // These rules are disabled by default. They can be enabled by running the Multitool
         // with --rule-kind AI.
+        public const string AIProvideRequiredRegionProperties = "AI1003";
+        public const string AIProvideVersionControlProvenance = "AI1004";
         public const string AIProvideAIOrigin = "AI1006";
         public const string AIProvideExploitability = "AI1007";
         public const string AIProvideMessageMarkdown = "AI2006";

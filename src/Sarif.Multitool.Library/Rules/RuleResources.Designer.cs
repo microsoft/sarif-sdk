@@ -1508,6 +1508,36 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
             }
         }
         
+        internal static string AI1003_ProvideRequiredRegionProperties_FullDescription_Text {
+            get {
+                return ResourceManager.GetString("AI1003_ProvideRequiredRegionProperties_FullDescription_Text", resourceCulture);
+            }
+        }
+        
+        internal static string AI1003_ProvideRequiredRegionProperties_Error_MissingRegion_Text {
+            get {
+                return ResourceManager.GetString("AI1003_ProvideRequiredRegionProperties_Error_MissingRegion_Text", resourceCulture);
+            }
+        }
+        
+        internal static string AI1003_ProvideRequiredRegionProperties_Error_MissingRegionProperty_Text {
+            get {
+                return ResourceManager.GetString("AI1003_ProvideRequiredRegionProperties_Error_MissingRegionProperty_Text", resourceCulture);
+            }
+        }
+        
+        internal static string AI1004_ProvideVersionControlProvenance_FullDescription_Text {
+            get {
+                return ResourceManager.GetString("AI1004_ProvideVersionControlProvenance_FullDescription_Text", resourceCulture);
+            }
+        }
+        
+        internal static string AI1004_ProvideVersionControlProvenance_Error_Default_Text {
+            get {
+                return ResourceManager.GetString("AI1004_ProvideVersionControlProvenance_Error_Default_Text", resourceCulture);
+            }
+        }
+        
         internal static string AI1006_ProvideAIOrigin_FullDescription_Text {
             get {
                 return ResourceManager.GetString("AI1006_ProvideAIOrigin_FullDescription_Text", resourceCulture);

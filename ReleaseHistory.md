@@ -5,7 +5,9 @@
 * NEW: `SarifLogger.AnalyzingTarget` now optionally emits an explicit artifacts table entry (with `AnalysisTarget` role) for every scan target when `OptionallyEmittedData.AnalysisTargets` is set via `--insert`.
 * NEW: Add `AI1007.ProvideExploitability` validation rule — warns when `result.properties["ai/exploitability"]` is missing or contains an unrecognized value (valid: `demonstrated`, `poc`, `theoretical`).
 * NEW: Promote `AI2006.ProvideMessageMarkdown` from warning to error — AI-generated findings must include `message.markdown`.
-* NEW: Add `SARIF2017.ProvideRequiredRegionProperties` validation rule — warns when result locations lack a `region` or `startLine`. Fires in both standard (`--rule-kind Sarif`) and AI (`--rule-kind AI`) profiles. This replaces the previous approach of enabling `GH1003` via configuration file for AI validation.
+* NEW: Add `SARIF2017.ProvideRequiredRegionProperties` validation rule — warns when result locations lack a `region` or `startLine`. Fires in standard profile only (`--rule-kind Sarif`).
+* NEW: Add `AI1003.ProvideRequiredRegionProperties` validation rule — error when result locations lack a `region` or required region properties. Mirrors SARIF2017 at error level for AI profile.
+* NEW: Add `AI1004.ProvideVersionControlProvenance` validation rule — error when `run.versionControlProvenance` is missing or empty. Ensures AI findings are traceable to source control.
 * NEW: Add `RuleKind.AI` to `SARIF2010.ProvideCodeSnippets` and `SARIF2011.ProvideContextRegion` so these rules fire under `--rule-kind AI` with no configuration file needed.
 * DEL: Remove `policies/ai.config.xml` — AI validation now works zero-config via `--rule-kind AI`.
 
