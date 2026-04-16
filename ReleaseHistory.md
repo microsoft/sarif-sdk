@@ -1,15 +1,19 @@
 # SARIF Package Release History (SDK, Driver, Converters, and Multitool)
 
+UNRELEASED
+* NEW: Add `AI1003.ProvideRequiredRegionProperties` validation rule — error when result locations lack a `region` or required region properties. Mirrors SARIF2017 at error level for AI profile.
+* NEW: Add `AI1004.ProvideVersionControlProvenance` validation rule — error when `run.versionControlProvenance` is missing or empty. Ensures AI findings are traceable to source control.
+* NEW: Add `AI2006.ProvideMessageMarkdown` validation rule — error when AI-generated findings do not include `message.markdown`.
+* NEW: Add `AI1007.ProvideExploitability` validation rule — warns when `result.properties["ai/exploitability"]` is missing or contains an unrecognized value (valid: `demonstrated`, `poc`, `theoretical`). Follows the suppressions pattern (§3.27.23): exploitability must be present on all results or absent from all results; mixed presence is flagged as a data quality error.
+* NEW: Add `AI1012.ProvideAIHandoff` validation rule — notes when `run.properties["ai/handoff"]` is missing or empty. This property is intended to provide human-readable handoff instructions for triaging and acting on AI-generated findings.
+* NEW: Add `SARIF2017.ProvideRequiredRegionProperties` validation rule — warns when result locations lack a `region` or `startLine`. Fires in standard profile only (`--rule-kind Sarif`).
+* NEW: Add `RuleKind.AI` to `SARIF2010.ProvideCodeSnippets` and `SARIF2011.ProvideContextRegion` so these rules fire under `--rule-kind AI` with no configuration file needed.
+* DEL: Remove `policies/ai.config.xml` — AI validation now works zero-config via `--rule-kind AI`.
+
+
 ## **v4.6.1** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/v4.6.1) | [Driver](https://www.nuget.org/packages/Sarif.Driver/v4.6.1) | [Converters](https://www.nuget.org/packages/Sarif.Converters/v4.6.1)  | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/v4.6.1) | [Multitool Library](https://www.nuget.org/packages/Sarif.Multitool.Library/v4.6.1)
 * NEW: Add health check query parameter support for `--post-uri` validation. The driver now appends `?healthcheck=true` to POST URIs during validation and accepts HTTP 202 (Accepted), or 422 (Unprocessable Entity) as valid responses. This provides better support for endpoints that implement health check functionality while maintaining backwards compatibility with servers that return 422 for empty payloads.
 * NEW: `SarifLogger.AnalyzingTarget` now optionally emits an explicit artifacts table entry (with `AnalysisTarget` role) for every scan target when `OptionallyEmittedData.AnalysisTargets` is set via `--insert`.
-* NEW: Add `AI1007.ProvideExploitability` validation rule — warns when `result.properties["ai/exploitability"]` is missing or contains an unrecognized value (valid: `demonstrated`, `poc`, `theoretical`). Follows the suppressions pattern (§3.27.23): exploitability must be present on all results or absent from all results; mixed presence is flagged as a data quality error.
-* NEW: Promote `AI2006.ProvideMessageMarkdown` from warning to error — AI-generated findings must include `message.markdown`.
-* NEW: Add `SARIF2017.ProvideRequiredRegionProperties` validation rule — warns when result locations lack a `region` or `startLine`. Fires in standard profile only (`--rule-kind Sarif`).
-* NEW: Add `AI1003.ProvideRequiredRegionProperties` validation rule — error when result locations lack a `region` or required region properties. Mirrors SARIF2017 at error level for AI profile.
-* NEW: Add `AI1004.ProvideVersionControlProvenance` validation rule — error when `run.versionControlProvenance` is missing or empty. Ensures AI findings are traceable to source control.
-* NEW: Add `RuleKind.AI` to `SARIF2010.ProvideCodeSnippets` and `SARIF2011.ProvideContextRegion` so these rules fire under `--rule-kind AI` with no configuration file needed.
-* DEL: Remove `policies/ai.config.xml` — AI validation now works zero-config via `--rule-kind AI`.
 
 ## **v4.6.0** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/v4.6.0) | [Driver](https://www.nuget.org/packages/Sarif.Driver/v4.6.0) | [Converters](https://www.nuget.org/packages/Sarif.Converters/v4.6.0)  | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/v4.6.0) | [Multitool Library](https://www.nuget.org/packages/Sarif.Multitool.Library/v4.6.0)
 * BRK: Remove defunct and unsupported `kusto` command in `Sarif.Multitool`.
