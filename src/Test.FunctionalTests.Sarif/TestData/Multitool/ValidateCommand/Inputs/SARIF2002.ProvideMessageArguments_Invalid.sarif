@@ -6,7 +6,17 @@
       "tool": {
         "driver": {
           "name": "SARIF Functional Testing",
-          "version": "1.2.3"
+          "version": "1.2.3",
+          "rules": [
+            {
+              "id": "TEST1001",
+              "messageStrings": {
+                "default": {
+                  "text": "'{0}'."
+                }
+              }
+            }
+          ]
         }
       },
       "results": [

@@ -39,6 +39,35 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         // cache stores all visited Uris
         private static readonly ConcurrentDictionary<string, bool> s_checkedUris = new ConcurrentDictionary<string, bool>();
 
+        // RFC 2606 / RFC 6761 reserved TLDs and second-level names. Hosts under these are
+        // documentation/testing names by definition; probing them is meaningless (and arbitrary
+        // subdomains of example.com/net/org do not resolve).
+        private static readonly string[] s_reservedHostSuffixes = new[]
+        {
+            ".example", ".test", ".invalid", ".localhost",
+            ".example.com", ".example.net", ".example.org",
+        };
+
+        private static bool IsReservedDocumentationHost(Uri uri)
+        {
+            if (!uri.IsAbsoluteUri || string.IsNullOrEmpty(uri.Host)) { return false; }
+
+            string host = uri.DnsSafeHost.ToLowerInvariant();
+
+            if (host == "example.com" || host == "example.net" || host == "example.org" ||
+                host == "example" || host == "test" || host == "invalid" || host == "localhost")
+            {
+                return true;
+            }
+
+            foreach (string suffix in s_reservedHostSuffixes)
+            {
+                if (host.EndsWith(suffix, StringComparison.Ordinal)) { return true; }
+            }
+
+            return false;
+        }
+
         protected override void Analyze(SarifLog log, string logPointer)
         {
             AnalyzeUri(log.SchemaUri, logPointer.AtProperty(SarifPropertyName.Schema));
@@ -91,6 +120,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             {
                 // Ok, it's a well-formed absolute URI. If it's not reachable, _now_ we can report it.
                 var uri = new Uri(uriString, UriKind.Absolute);
+
+                // Skip RFC 2606/6761 reserved documentation/testing hosts entirely — they are
+                // fictitious by definition, so neither "reachable" nor "unreachable" is meaningful.
+                if (IsReservedDocumentationHost(uri))
+                {
+                    return;
+                }
+
                 if (uri.AbsoluteUri != "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0-rtm.6.json" &&
                     // TODO: Shaopeng to remove after finalized and published.
                     !IsUriReachable(uri.AbsoluteUri))
@@ -111,10 +148,26 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                 return value;
             }
 
-            // http wrapper handles the cache all Uris has been accessed
-            HttpResponseMessage httpResponseMessage = httpProvider.GetAsync(uriString).GetAwaiter().GetResult();
-            s_checkedUris.TryAdd(uriString, httpResponseMessage.IsSuccessStatusCode);
-            return httpResponseMessage.IsSuccessStatusCode;
+            bool reachable;
+            try
+            {
+                HttpResponseMessage httpResponseMessage = httpProvider.GetAsync(uriString).GetAwaiter().GetResult();
+                reachable = httpResponseMessage.IsSuccessStatusCode;
+            }
+            catch (HttpRequestException)
+            {
+                // DNS failure, connection refused, TLS error, etc. — treat as unreachable and
+                // let the rule emit its note rather than aborting the whole validation run.
+                reachable = false;
+            }
+            catch (System.Threading.Tasks.TaskCanceledException)
+            {
+                // Timeout.
+                reachable = false;
+            }
+
+            s_checkedUris.TryAdd(uriString, reachable);
+            return reachable;
         }
     }
 }

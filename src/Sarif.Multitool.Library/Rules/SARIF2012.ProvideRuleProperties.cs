@@ -49,13 +49,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         };
 
         private static readonly Regex s_pascalCaseRegex = new Regex(@"^(\p{Lu}[\p{Ll}\p{Nd}]+)*$", RegexOptions.Compiled | RegexOptions.CultureInvariant);
-        private HashSet<string> currentRules;
-        private Run currentRun;
 
         protected override void Analyze(Run run, string runPointer)
         {
-            currentRun = run;
-            AnalyzeTool(run.Tool, runPointer.AtProperty(SarifPropertyName.Tool));
+            HashSet<string> ruleIds = AnalyzeTool(run.Tool, runPointer.AtProperty(SarifPropertyName.Tool));
 
             var uniqueIssues = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
 
@@ -66,9 +63,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 
             foreach (Result result in run.Results)
             {
-                if (currentRules.Count != 0 && !currentRules.Contains(result.ResolvedRuleId(currentRun)))
+                if (ruleIds.Count != 0 && !HasRuleMetadata(result, run, ruleIds))
                 {
-                    uniqueIssues.Add(result.ResolvedRuleId(currentRun));
+                    uniqueIssues.Add(result.ResolvedRuleId(run));
                 }
             }
 
@@ -114,9 +111,50 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             }
         }
 
-        private void AnalyzeTool(Tool tool, string toolPointer)
+        /// <summary>
+        /// Determines whether the result's rule has metadata in the driver's rules array.
+        /// Handles hierarchical rule IDs per §3.52.4: a result's ruleId may equal
+        /// theDescriptor.id plus at most one additional hierarchical component.
+        /// </summary>
+        private bool HasRuleMetadata(Result result, Run run, HashSet<string> ruleIds)
         {
-            currentRules = AnalyzeToolDriver(tool.Driver, toolPointer.AtProperty(SarifPropertyName.Driver));
+            // If the result has a valid ruleIndex pointing to a driver rule, metadata exists.
+            if (result.RuleIndex >= 0)
+            {
+                IList<ReportingDescriptor> driverRules = run?.Tool?.Driver?.Rules;
+                if (driverRules != null && result.RuleIndex < driverRules.Count)
+                {
+                    return true;
+                }
+            }
+
+            string resolvedId = result.ResolvedRuleId(run);
+            if (string.IsNullOrEmpty(resolvedId))
+            {
+                return false;
+            }
+
+            // Exact match against known rule descriptor IDs
+            if (ruleIds.Contains(resolvedId))
+            {
+                return true;
+            }
+
+            // §3.52.4: The result ruleId may equal a descriptor's id plus at most one
+            // additional hierarchical component separated by '/'.
+            int lastSlash = resolvedId.LastIndexOf('/');
+            if (lastSlash > 0)
+            {
+                string baseId = resolvedId.Substring(0, lastSlash);
+                return ruleIds.Contains(baseId);
+            }
+
+            return false;
+        }
+
+        private HashSet<string> AnalyzeTool(Tool tool, string toolPointer)
+        {
+            return AnalyzeToolDriver(tool.Driver, toolPointer.AtProperty(SarifPropertyName.Driver));
         }
 
         private HashSet<string> AnalyzeToolDriver(ToolComponent toolComponent, string toolDriverPointer)

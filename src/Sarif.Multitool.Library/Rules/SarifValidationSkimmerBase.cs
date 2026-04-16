@@ -28,7 +28,17 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 
         public override MultiformatMessageString Help => null;
 
-        protected SarifValidationContext Context { get; private set; }
+        // Thread-static so that each worker thread in the multithreaded analysis
+        // pipeline gets its own context reference, preventing races when the same
+        // skimmer instance is invoked concurrently on different targets.
+        [ThreadStatic]
+        private static SarifValidationContext s_context;
+
+        protected SarifValidationContext Context
+        {
+            get => s_context;
+            private set => s_context = value;
+        }
 
         protected override sealed ResourceManager ResourceManager => RuleResources.ResourceManager;
 

@@ -16,6 +16,9 @@
               "messageStrings": {
                 "Note_UseConventionalRuleIds": {
                   "text": "{0}: The 'id' property of the rule '{1}' does not follow the recommended format: a short string identifying the tool concatenated with a numeric rule number, for example, 'CS2001'. Using a conventional format for the rule id provides a more uniform experience across tools."
+                },
+                "Note_HierarchicalIdOnDescriptor": {
+                  "text": "{0}: The 'id' property of the rule '{1}' contains a '/' separator. This appears to be a hierarchical rule id. Per SARIF spec §3.49.3 NOTE 2, sub-rules carry no separate metadata: put the base id (e.g. '{2}') on the 'reportingDescriptor' and append the sub-component on 'result.ruleId' instead."
                 }
               },
               "defaultConfiguration": {
@@ -48,7 +51,7 @@
             "id": "Note_UseConventionalRuleIds",
             "arguments": [
               "runs[0].tool.driver.rules[0].id",
-              "WRONG00001"
+              "wrong-rule-id"
             ]
           },
           "locations": [
@@ -59,7 +62,33 @@
                 },
                 "region": {
                   "startLine": 13,
-                  "startColumn": 32
+                  "startColumn": 35
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "SARIF2009",
+          "ruleIndex": 0,
+          "level": "note",
+          "message": {
+            "id": "Note_HierarchicalIdOnDescriptor",
+            "arguments": [
+              "runs[0].tool.driver.rules[1].id",
+              "CWE-78/api-handler",
+              "CWE-78"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 18,
+                  "startColumn": 40
                 }
               }
             }

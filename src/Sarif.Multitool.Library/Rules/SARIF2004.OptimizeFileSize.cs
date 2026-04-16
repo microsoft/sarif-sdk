@@ -1,7 +1,6 @@
 ﻿// Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -63,14 +62,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             nameof(RuleResources.SARIF2004_OptimizeFileSize_Warning_PreferRuleId_Text)
         };
 
-        private Guid? driverGuid;
-
         protected override void Analyze(Run run, string runPointer)
         {
             AnalyzeLocationOnlyArtifacts(run, runPointer);
             AnalyzeIdOnlyRules(run, runPointer);
-
-            this.driverGuid = run.Tool.Driver?.Guid;
         }
 
         protected override void Analyze(Result result, string resultPointer)
@@ -85,7 +80,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             {
                 if (result.Rule.ToolComponent != null)
                 {
-                    if (result.Rule.ToolComponent.RefersToDriver(this.driverGuid))
+                    if (result.Rule.ToolComponent.RefersToDriver(Context.CurrentRun.Tool.Driver?.Guid))
                     {
                         // The result at '{0}' uses the 'rule' property to specify
                         // the violated rule, but this is not necessary because the rule

@@ -37,6 +37,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         public const string ProvideDynamicMessageContent = "SARIF2014";
         public const string EnquoteDynamicMessageContent = "SARIF2015";
         public const string FileUrisShouldBeRelative = "SARIF2016";
+        public const string SARIFProvideRequiredRegionProperties = "SARIF2017";
 
         // Rules required to upload SARIF files to GitHub Advanced Security code scanning.
         // These rules are disabled by default. The can be enabled by running the Multitool
@@ -71,5 +72,20 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 
         // TEMPLATE:
         // public const string RuleFriendlyName = "SARIFnnnn";
+
+        // Rules for AI-generated SARIF findings.
+        // These rules are disabled by default. They can be enabled by running the Multitool
+        // with --rule-kind AI.
+        public const string AIProvideRequiredRegionProperties = "AI1003";
+        public const string AIProvideVersionControlProvenance = "AI1004";
+        public const string AIProvideAIOrigin = "AI1006";
+        public const string AIProvideExploitability = "AI1007";
+        public const string AIProvideRuleSubId = "AI1012";
+        public const string AIProvideMessageMarkdown = "AI2006";
+        public const string AIProvideSemanticVersion = "AI2003";
+        public const string AIProvideAutomationDetails = "AI2005";
+        public const string AIProvideResultRank = "AI2010";
+        public const string AIDoNotPersistFingerprints = "AI2011";
+        public const string AIProvideAiHandoff = "AI2012";
     }
 }
