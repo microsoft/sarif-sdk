@@ -2,7 +2,6 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System.Collections.Generic;
-using System.Linq;
 
 using Microsoft.Json.Pointer;
 
@@ -32,12 +31,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             nameof(RuleResources.SARIF2007_ExpressPathsRelativeToRepoRoot_Warning_ProvideUriBaseIdForMappedTo_Text)
         };
 
-        private HashSet<string> uriBaseIds;
-
         protected override void Analyze(Run run, string runPointer)
         {
-            this.uriBaseIds = new HashSet<string>();
-
             if (run.VersionControlProvenance != null)
             {
                 string versionControlProvenancePointer = runPointer.AtProperty(SarifPropertyName.VersionControlProvenance);
@@ -57,48 +52,65 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                             nameof(RuleResources.SARIF2007_ExpressPathsRelativeToRepoRoot_Warning_ProvideUriBaseIdForMappedTo_Text),
                             run.VersionControlProvenance[i].RepositoryUri.OriginalString);
                     }
-                    else
-                    {
-                        string validUriBaseId = run.VersionControlProvenance[i].MappedTo.UriBaseId;
-                        this.uriBaseIds.Add(validUriBaseId);
-
-                        if (run.OriginalUriBaseIds != null)
-                        {
-                            foreach (KeyValuePair<string, ArtifactLocation> uriBaseId in run.OriginalUriBaseIds)
-                            {
-                                if (uriBaseId.Value?.UriBaseId == validUriBaseId)
-                                {
-                                    this.uriBaseIds.Add(uriBaseId.Key);
-                                }
-                            }
-                        }
-                    }
                 }
             }
         }
 
         protected override void Analyze(Result result, string resultPointer)
         {
-            if (result.Locations != null && this.uriBaseIds.Any())
+            HashSet<string> uriBaseIds = GetRepoUriBaseIds(Context.CurrentRun);
+
+            if (result.Locations != null && uriBaseIds.Count > 0)
             {
                 string locationsPointer = resultPointer.AtProperty(SarifPropertyName.Locations);
                 for (int i = 0; i < result.Locations.Count; i++)
                 {
-                    AnalyzeLocation(result.Locations[i], locationsPointer.AtIndex(i));
+                    AnalyzeLocation(result.Locations[i], locationsPointer.AtIndex(i), uriBaseIds);
                 }
             }
         }
 
-        private void AnalyzeLocation(Location location, string locationPointer)
+        private static HashSet<string> GetRepoUriBaseIds(Run run)
         {
-            if (this.uriBaseIds.Any() && location.PhysicalLocation != null)
+            var ids = new HashSet<string>();
+            if (run?.VersionControlProvenance == null)
+            {
+                return ids;
+            }
+
+            foreach (VersionControlDetails vcd in run.VersionControlProvenance)
+            {
+                if (vcd.MappedTo != null && !string.IsNullOrWhiteSpace(vcd.MappedTo.UriBaseId))
+                {
+                    string validUriBaseId = vcd.MappedTo.UriBaseId;
+                    ids.Add(validUriBaseId);
+
+                    if (run.OriginalUriBaseIds != null)
+                    {
+                        foreach (KeyValuePair<string, ArtifactLocation> uriBaseId in run.OriginalUriBaseIds)
+                        {
+                            if (uriBaseId.Value?.UriBaseId == validUriBaseId)
+                            {
+                                ids.Add(uriBaseId.Key);
+                            }
+                        }
+                    }
+                }
+            }
+
+            return ids;
+        }
+
+        private void AnalyzeLocation(Location location, string locationPointer, HashSet<string> uriBaseIds)
+        {
+            if (uriBaseIds.Count > 0 && location.PhysicalLocation != null)
             {
                 string physicalLocation = locationPointer.AtProperty(SarifPropertyName.PhysicalLocation);
                 if (location.PhysicalLocation.ArtifactLocation != null)
                 {
                     string artifactLocation = physicalLocation.AtProperty(SarifPropertyName.ArtifactLocation);
                     if (string.IsNullOrWhiteSpace(location.PhysicalLocation.ArtifactLocation.UriBaseId) ||
-                        !this.uriBaseIds.Contains(location.PhysicalLocation.ArtifactLocation.UriBaseId))
+                        !uriBaseIds.Contains(location.PhysicalLocation.ArtifactLocation.UriBaseId))
                     {
                         // {0}: This result location does not provide any of the 'uriBaseId' values
                         // that specify repository locations: {1}. As a result, it will not be possible
@@ -107,7 +119,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                         LogResult(
                             artifactLocation,
                             nameof(RuleResources.SARIF2007_ExpressPathsRelativeToRepoRoot_Warning_ExpressResultLocationsRelativeToMappedTo_Text),
-                            string.Join(", ", this.uriBaseIds));
+                            string.Join(", ", uriBaseIds));
                     }
                 }
             }

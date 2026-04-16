@@ -34,15 +34,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             nameof(RuleResources.SARIF2010_ProvideCodeSnippets_Note_Default_Text)
         };
 
-        private IList<Artifact> artifacts;
-        private IDictionary<string, ArtifactLocation> originalUriBaseIds;
-
-        protected override void Analyze(Run run, string runPointer)
-        {
-            this.artifacts = run.Artifacts;
-            this.originalUriBaseIds = run.OriginalUriBaseIds;
-        }
-
         protected override void Analyze(Result result, string resultPointer)
         {
             if (result.Locations != null)
@@ -89,7 +80,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         private bool AnalyzeArtifactLocation(ArtifactLocation artifactLocation)
         {
             // No artifactLocation / no artifacts, so we should look for the snippet.
-            if (artifactLocation == null || this.artifacts == null)
+            if (artifactLocation == null || Context.CurrentRun.Artifacts == null)
             {
                 return true;
             }
@@ -97,9 +88,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             // Checking if we can reconstruct uri from artifactLocation
             // If we can't, we still need to validate, since neither originalUriBaseIds
             // nor artifactLocation.UriBaseId is required.
-            artifactLocation.TryReconstructAbsoluteUri(this.originalUriBaseIds, out Uri resolvedUri);
+            artifactLocation.TryReconstructAbsoluteUri(Context.CurrentRun.OriginalUriBaseIds, out Uri resolvedUri);
 
-            foreach (Artifact artifact in this.artifacts)
+            foreach (Artifact artifact in Context.CurrentRun.Artifacts)
             {
                 // Content/text doesn't exist, continue to next
                 if (string.IsNullOrEmpty(artifact.Contents?.Text))
@@ -116,7 +107,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                 // Checking if we can reconstruct uri from artifact
                 // If we can't, we still need to validate, since originalUriBaseIds aren't
                 // required nether artifactLocation.UriBaseId.
-                artifact.Location.TryReconstructAbsoluteUri(this.originalUriBaseIds, out Uri artifactUri);
+                artifact.Location.TryReconstructAbsoluteUri(Context.CurrentRun.OriginalUriBaseIds, out Uri artifactUri);
 
                 if (resolvedUri != null && artifactUri != null)
                 {
@@ -128,7 +119,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                 else
                 {
                     // Couldn't generate the absoluteUris, so let's compare everything.
-                    if (this.artifacts.Any(a => a.Location?.Uri.OriginalString == artifactLocation.Uri.OriginalString
+                    if (Context.CurrentRun.Artifacts.Any(a => a.Location?.Uri.OriginalString == artifactLocation.Uri.OriginalString
                         && a.Location?.UriBaseId == artifactLocation.UriBaseId))
                     {
                         return false;

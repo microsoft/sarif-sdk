@@ -46,13 +46,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 
         public override bool EnabledByDefault => false;
 
-        private List<string> checkoutPaths;
-
-        protected override void Analyze(Run run, string runPointer)
-        {
-            this.checkoutPaths = GetCheckoutPaths(run);
-        }
-
         protected override void Analyze(Result result, string resultPointer)
         {
             if (result.Locations?.Any() == true)
@@ -72,29 +65,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                     ValidateLocation(result.RelatedLocations[i], relatedLocationsPointer.AtIndex(i));
                 }
             }
-        }
-
-        private List<string> GetCheckoutPaths(Run run)
-        {
-            var checkoutPaths = new List<string>();
-
-            if (run.Invocations?.Any() == true)
-            {
-                foreach (Invocation invocation in run.Invocations)
-                {
-                    // We are assuming that GitHub only looks at the URI and doesn't try to resolve
-                    // if through their (hypothetical) equivalent of the SDK's TryReconstructAbsoluteUri.
-                    // We'll need to determine that experimentally.
-                    if (invocation.WorkingDirectory?.Uri?.IsAbsoluteUri == true)
-                    {
-                        string absoluteUri = invocation.WorkingDirectory.Uri.AbsoluteUri;
-                        absoluteUri = EnsureTrailingSlash(absoluteUri);
-                        checkoutPaths.Add(absoluteUri);
-                    }
-                }
-            }
-
-            return checkoutPaths;
         }
 
         private string EnsureTrailingSlash(string uri)
@@ -125,6 +95,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         }
 
         private bool IsKnownCheckoutPath(string absoluteUri)
-            => this.checkoutPaths.Any(cp => absoluteUri.StartsWith(cp));
+        {
+            Run run = Context.CurrentRun;
+            if (run.Invocations?.Any() != true)
+            {
+                return false;
+            }
+
+            return run.Invocations.Any(invocation =>
+                invocation.WorkingDirectory?.Uri?.IsAbsoluteUri == true &&
+                absoluteUri.StartsWith(EnsureTrailingSlash(invocation.WorkingDirectory.Uri.AbsoluteUri)));
+        }
     }
 }

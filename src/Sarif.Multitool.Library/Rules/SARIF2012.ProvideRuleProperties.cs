@@ -49,13 +49,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         };
 
         private static readonly Regex s_pascalCaseRegex = new Regex(@"^(\p{Lu}[\p{Ll}\p{Nd}]+)*$", RegexOptions.Compiled | RegexOptions.CultureInvariant);
-        private HashSet<string> currentRules;
-        private Run currentRun;
 
         protected override void Analyze(Run run, string runPointer)
         {
-            currentRun = run;
-            AnalyzeTool(run.Tool, runPointer.AtProperty(SarifPropertyName.Tool));
+            HashSet<string> ruleIds = AnalyzeTool(run.Tool, runPointer.AtProperty(SarifPropertyName.Tool));
 
             var uniqueIssues = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
 
@@ -66,9 +63,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 
             foreach (Result result in run.Results)
             {
-                if (currentRules.Count != 0 && !HasRuleMetadata(result))
+                if (ruleIds.Count != 0 && !HasRuleMetadata(result, run, ruleIds))
                 {
-                    uniqueIssues.Add(result.ResolvedRuleId(currentRun));
+                    uniqueIssues.Add(result.ResolvedRuleId(run));
                 }
             }
 
@@ -119,26 +116,26 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         /// Handles hierarchical rule IDs per §3.52.4: a result's ruleId may equal
         /// theDescriptor.id plus at most one additional hierarchical component.
         /// </summary>
-        private bool HasRuleMetadata(Result result)
+        private bool HasRuleMetadata(Result result, Run run, HashSet<string> ruleIds)
         {
             // If the result has a valid ruleIndex pointing to a driver rule, metadata exists.
             if (result.RuleIndex >= 0)
             {
-                IList<ReportingDescriptor> driverRules = currentRun?.Tool?.Driver?.Rules;
+                IList<ReportingDescriptor> driverRules = run?.Tool?.Driver?.Rules;
                 if (driverRules != null && result.RuleIndex < driverRules.Count)
                 {
                     return true;
                 }
             }
 
-            string resolvedId = result.ResolvedRuleId(currentRun);
+            string resolvedId = result.ResolvedRuleId(run);
             if (string.IsNullOrEmpty(resolvedId))
             {
                 return false;
             }
 
             // Exact match against known rule descriptor IDs
-            if (currentRules.Contains(resolvedId))
+            if (ruleIds.Contains(resolvedId))
             {
                 return true;
             }
@@ -149,15 +146,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             if (lastSlash > 0)
             {
                 string baseId = resolvedId.Substring(0, lastSlash);
-                return currentRules.Contains(baseId);
+                return ruleIds.Contains(baseId);
             }
 
             return false;
         }
 
-        private void AnalyzeTool(Tool tool, string toolPointer)
+        private HashSet<string> AnalyzeTool(Tool tool, string toolPointer)
         {
-            currentRules = AnalyzeToolDriver(tool.Driver, toolPointer.AtProperty(SarifPropertyName.Driver));
+            return AnalyzeToolDriver(tool.Driver, toolPointer.AtProperty(SarifPropertyName.Driver));
         }
 
         private HashSet<string> AnalyzeToolDriver(ToolComponent toolComponent, string toolDriverPointer)

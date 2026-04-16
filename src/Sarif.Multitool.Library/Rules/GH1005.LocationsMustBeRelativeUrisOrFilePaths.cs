@@ -33,14 +33,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 
         public override bool EnabledByDefault => false;
 
-        private List<Uri> workingDirectoryUris;
-
-        protected override void Analyze(Run run, string runPointer)
-        {
-            this.workingDirectoryUris = new List<Uri>();
-            GetWorkingDirectoryUris(run);
-        }
-
         protected override void Analyze(Result result, string resultPointer)
         {
             if (!(result.Locations?.Any() == true))
@@ -78,9 +70,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 
             if (uri.IsAbsoluteUri && uri.Scheme != "file")
             {
-                if (this.workingDirectoryUris.Any(workingDirectoryUri => uri
-                    .OriginalString
-                    .StartsWith(workingDirectoryUri.OriginalString, StringComparison.OrdinalIgnoreCase)))
+                if (Context.CurrentRun.Invocations?.Any(invocation =>
+                    invocation.WorkingDirectory?.Uri != null &&
+                    uri.OriginalString.StartsWith(
+                        invocation.WorkingDirectory.Uri.OriginalString,
+                        StringComparison.OrdinalIgnoreCase)) == true)
                 {
                     // We have a workingDirectoryUri and that is the beginnig of the current URI
                     // And that is OK.
@@ -102,18 +96,5 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             }
         }
 
-        private void GetWorkingDirectoryUris(Run run)
-        {
-            if (run.Invocations?.Any() == true)
-            {
-                foreach (Invocation invocation in run.Invocations)
-                {
-                    if (invocation.WorkingDirectory?.Uri != null)
-                    {
-                        this.workingDirectoryUris.Add(invocation.WorkingDirectory?.Uri);
-                    }
-                }
-            }
-        }
     }
 }

@@ -30,16 +30,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             nameof(RuleResources.AI1012_ProvideRuleSubId_Warning_Missing_Text)
         };
 
-        private Run run;
-
-        protected override void Analyze(Run run, string runPointer)
-        {
-            this.run = run;
-        }
-
         protected override void Analyze(Result result, string resultPointer)
         {
-            string ruleId = result.ResolvedRuleId(this.run);
+            Run run = Context.CurrentRun;
+            string ruleId = result.ResolvedRuleId(run);
             if (string.IsNullOrEmpty(ruleId))
             {
                 // SARIF1010 / other rules cover the missing-ruleId case.
@@ -50,16 +44,17 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             // tool, bad ruleIndex). A validation skimmer must never throw on malformed
             // input — those shapes are other rules' job to flag.
             ReportingDescriptor rule = null;
-            try { rule = result.GetRule(this.run); } catch { /* fall through with rule == null */ }
+            try { rule = result.GetRule(run); } catch { /* fall through with rule == null */ }
             string descriptorId = rule?.Id;
 
             // The sub-ID requirement: result.ruleId must have at least one hierarchical component
             // beyond the descriptor's base id. If we can't resolve a descriptor, fall back to
             // checking for any '/' at all.
             bool hasSubId = !string.IsNullOrEmpty(descriptorId)
-                ? ruleId.Length > descriptorId.Length
-                  && ruleId.StartsWith(descriptorId, System.StringComparison.Ordinal)
-                  && ruleId[descriptorId.Length] == '/'
+                ? descriptorId.IndexOf('/') >= 0
+                  || (ruleId.Length > descriptorId.Length
+                      && ruleId.StartsWith(descriptorId, System.StringComparison.Ordinal)
+                      && ruleId[descriptorId.Length] == '/')
                 : ruleId.IndexOf('/') >= 0;
 
             if (hasSubId)

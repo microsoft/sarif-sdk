@@ -35,29 +35,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             nameof(RuleResources.SARIF2002_ProvideMessageArguments_Note_Default_Text)
         };
 
-        private Run run;
-
-        protected override void Analyze(Run run, string runPointer)
-        {
-            this.run = run;
-        }
-
         protected override void Analyze(Result result, string resultPointer)
         {
-            // Applicability: this note suggests replacing message.text with message.id + arguments.
-            // That advice only makes sense if the result's rule actually defines messageStrings to
-            // reference. Tools that emit bespoke per-result prose (no messageStrings catalog) have
-            // nothing for 'id' to point at — skip rather than emit an unactionable note.
-            //
-            // GetRule can NRE on degenerate logs (tool.driver absent, bad ruleIndex, etc.). Those
-            // shapes are other rules' job to flag; treat as no-descriptor here.
-            ReportingDescriptor rule = null;
-            try { rule = result.GetRule(this.run); } catch { /* fall through with rule == null */ }
-            if (rule?.MessageStrings == null || rule.MessageStrings.Count == 0)
-            {
-                return;
-            }
-
             if (string.IsNullOrEmpty(result.Message.Id))
             {
                 // {0}: The 'message' property of this result contains a 'text' property. Consider replacing

@@ -15,6 +15,10 @@
             {
               "id": "NOVEL",
               "name": "CapabilityTrustBypass"
+            },
+            {
+              "id": "CWE-78/api-handler",
+              "name": "ApiHandlerCommandInjection"
             }
           ]
         }
@@ -29,6 +33,11 @@
           "ruleId": "NOVEL/capability-trust-bypass",
           "ruleIndex": 1,
           "message": { "text": "Reserved NOVEL descriptor with concept-identity sub-id." }
+        },
+        {
+          "ruleId": "CWE-78/api-handler",
+          "ruleIndex": 2,
+          "message": { "text": "Descriptor id is already hierarchical; sub-ID baked in." }
         }
       ],
       "columnKind": "utf16CodeUnits"
