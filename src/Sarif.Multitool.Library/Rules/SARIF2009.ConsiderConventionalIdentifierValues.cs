@@ -31,10 +31,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         public override MultiformatMessageString FullDescription => new MultiformatMessageString { Text = RuleResources.SARIF2009_ConsiderConventionalIdentifierValues_FullDescription_Text };
 
         protected override ICollection<string> MessageResourceNames => new List<string> {
-            nameof(RuleResources.SARIF2009_ConsiderConventionalIdentifierValues_Note_UseConventionalRuleIds_Text)
+            nameof(RuleResources.SARIF2009_ConsiderConventionalIdentifierValues_Note_UseConventionalRuleIds_Text),
+            nameof(RuleResources.SARIF2009_ConsiderConventionalIdentifierValues_Note_HierarchicalIdOnDescriptor_Text)
         };
 
-        private static readonly Regex s_conventionalIdRegex = new Regex(@"^[A-Z]{1,5}[0-9]{1,4}$", RegexOptions.Compiled | RegexOptions.CultureInvariant);
+        private static readonly Regex s_conventionalIdRegex = new Regex(@"^[A-Z]{1,8}(?:-?[0-9]{1,6}){0,3}$", RegexOptions.Compiled | RegexOptions.CultureInvariant);
 
         protected override void Analyze(Run run, string runPointer)
         {
@@ -62,6 +63,20 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         {
             if (string.IsNullOrWhiteSpace(reportingDescriptor.Id))
             {
+                return;
+            }
+
+            int slash = reportingDescriptor.Id.IndexOf('/');
+            if (slash >= 0)
+            {
+                // {0}: The 'id' property of the rule '{1}' contains a '/' separator. This appears
+                // to be a hierarchical rule id. Per §3.49.3 NOTE 2, put the base id (e.g. '{2}')
+                // on the descriptor and append the sub-component on 'result.ruleId' instead.
+                LogResult(
+                    reportingDescriptorPointer.AtProperty(SarifPropertyName.Id),
+                    nameof(RuleResources.SARIF2009_ConsiderConventionalIdentifierValues_Note_HierarchicalIdOnDescriptor_Text),
+                    reportingDescriptor.Id,
+                    reportingDescriptor.Id.Substring(0, slash));
                 return;
             }
 

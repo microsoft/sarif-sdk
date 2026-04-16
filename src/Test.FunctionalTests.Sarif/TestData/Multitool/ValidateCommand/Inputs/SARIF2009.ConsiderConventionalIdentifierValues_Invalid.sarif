@@ -10,9 +10,14 @@
           "downloadUri": "http://www.example.com/tools/codescanner/download.html",
           "rules": [
             {
-              "id": "WRONG00001",
+              "id": "wrong-rule-id",
               "name": "Wrong Rule 00001",
               "helpUri": "http://www.example.com/rules/tst0001.html"
+            },
+            {
+              "id": "CWE-78/api-handler",
+              "name": "HierarchicalIdOnDescriptor",
+              "helpUri": "http://www.example.com/rules/tst0002.html"
             }
           ]
         }

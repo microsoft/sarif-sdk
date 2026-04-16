@@ -80,6 +80,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         public const string AIProvideVersionControlProvenance = "AI1004";
         public const string AIProvideAIOrigin = "AI1006";
         public const string AIProvideExploitability = "AI1007";
+        public const string AIProvideRuleSubId = "AI1012";
         public const string AIProvideMessageMarkdown = "AI2006";
         public const string AIProvideSemanticVersion = "AI2003";
         public const string AIProvideAutomationDetails = "AI2005";

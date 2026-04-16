@@ -290,6 +290,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             => RunInvalidTestForRule(RuleId.ConsiderConventionalIdentifierValues);
 
         [Fact]
+        public void AI1012_ProvideRuleSubId_Valid()
+            => RunValidTestForRule(RuleId.AIProvideRuleSubId);
+
+        [Fact]
+        public void AI1012_ProvideRuleSubId_Invalid()
+            => RunInvalidTestForRule(RuleId.AIProvideRuleSubId);
+
+        [Fact]
         public void SARIF2010_ProvideCodeSnippets_Valid()
             => RunValidTestForRule(RuleId.ProvideCodeSnippets);
 
@@ -515,7 +523,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 OutputFileOptions = new[] { FilePersistenceOptions.PrettyPrint, FilePersistenceOptions.Optimize },
                 Level = new List<FailureLevel> { FailureLevel.Error, FailureLevel.Warning, FailureLevel.Note, FailureLevel.None },
                 //RuleKindOption = AllRuleKinds
-                RuleKindOption = new List<RuleKind>() { RuleKind.Gh, RuleKind.Sarif },
+                RuleKindOption = new List<RuleKind>() { RuleKind.Gh, RuleKind.Sarif, RuleKind.AI },
             };
 
             var mockFileSystem = new Mock<IFileSystem>();

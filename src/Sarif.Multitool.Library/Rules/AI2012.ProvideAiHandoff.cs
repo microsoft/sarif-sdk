@@ -5,9 +5,9 @@ using System.Collections.Generic;
 
 namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 {
-    public class ProvideAiHandoff : SarifValidationSkimmerBase
+    public class ProvideAIHandoff : SarifValidationSkimmerBase
     {
-        public ProvideAiHandoff()
+        public ProvideAIHandoff()
         {
             this.DefaultConfiguration.Level = FailureLevel.Note;
         }

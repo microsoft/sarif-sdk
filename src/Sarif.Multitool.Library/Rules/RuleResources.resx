@@ -244,6 +244,9 @@ If 'version' is used, facilitate comparison between versions by specifying a ver
   <data name="SARIF2009_ConsiderConventionalIdentifierValues_Note_UseConventionalRuleIds_Text" xml:space="preserve">
     <value>{0}: The 'id' property of the rule '{1}' does not follow the recommended format: a short string identifying the tool concatenated with a numeric rule number, for example, 'CS2001'. Using a conventional format for the rule id provides a more uniform experience across tools.</value>
   </data>
+  <data name="SARIF2009_ConsiderConventionalIdentifierValues_Note_HierarchicalIdOnDescriptor_Text" xml:space="preserve">
+    <value>{0}: The 'id' property of the rule '{1}' contains a '/' separator. This appears to be a hierarchical rule id. Per SARIF spec §3.49.3 NOTE 2, sub-rules carry no separate metadata: put the base id (e.g. '{2}') on the 'reportingDescriptor' and append the sub-component on 'result.ruleId' instead.</value>
+  </data>
   <data name="SARIF1007_RegionPropertiesMustBeConsistent_Error_RegionStartPropertyMustBePresent_Text" xml:space="preserve">
     <value>{0}: This 'region' object does not specify 'startLine', 'charOffset', or 'byteOffset'. As a result, it is impossible to determine whether this 'region' object describes a line/column text region, a character offset/length text region, or a binary region.</value>
   </data>
@@ -736,6 +739,12 @@ Provide the 'help' property and populate the 'text' property with information ab
   </data>
   <data name="AI1007_ProvideExploitability_Warning_Inconsistent_Text" xml:space="preserve">
     <value>{0}: The run contains a mixture of results with and without 'ai/exploitability' ({1} with, {2} without). Following the suppressions pattern (SARIF spec §3.27.23), exploitability should be present on all results or absent from all results.</value>
+  </data>
+  <data name="AI1012_ProvideRuleSubId_FullDescription_Text" xml:space="preserve">
+    <value>AI-generated results must carry a hierarchical sub-component on 'result.ruleId' beyond the base 'reportingDescriptor.id'. SARIF has no 'result.name'; the hierarchical 'ruleId' is the one slot where a per-finding readable handle survives minimal SARIF, and it is the suppression and baseline grouping key (SARIF spec §3.27.5). Choose a true sub-classification of the base rule when one applies (e.g. 'CWE-78/api-handler'); otherwise kebab-case the rule's friendly 'name'. Choose granularity deliberately: results that should be dispositioned as a bundle share a sub-ID; distinct issues under one base rule get distinct sub-IDs.</value>
+  </data>
+  <data name="AI1012_ProvideRuleSubId_Warning_Missing_Text" xml:space="preserve">
+    <value>{0}: 'result.ruleId' is '{1}' with no sub-component beyond the descriptor id. Append a hierarchical sub-ID: a true sub-classification of '{1}' if one applies, otherwise the kebab-cased rule name (e.g. '{1}/{2}'). SARIF has no 'result.name'; this sub-ID is that name and the bulk-disposition key (§3.27.5).</value>
   </data>
   <data name="AI2010_ProvideResultRank_FullDescription_Text" xml:space="preserve">
     <value>AI-generated results should provide a 'rank' value (0.0 to 100.0) expressing the confidence of the finding. This is the spec-native mechanism (§3.27.25) for numeric confidence, enabling priority-based triage and filtering without relying on property bag conventions.</value>

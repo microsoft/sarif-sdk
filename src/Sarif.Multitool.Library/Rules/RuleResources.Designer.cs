@@ -1621,7 +1621,25 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
                 return ResourceManager.GetString("AI1007_ProvideExploitability_Warning_Inconsistent_Text", resourceCulture);
             }
         }
-        
+
+        internal static string AI1012_ProvideRuleSubId_FullDescription_Text {
+            get {
+                return ResourceManager.GetString("AI1012_ProvideRuleSubId_FullDescription_Text", resourceCulture);
+            }
+        }
+
+        internal static string AI1012_ProvideRuleSubId_Warning_Missing_Text {
+            get {
+                return ResourceManager.GetString("AI1012_ProvideRuleSubId_Warning_Missing_Text", resourceCulture);
+            }
+        }
+
+        internal static string SARIF2009_ConsiderConventionalIdentifierValues_Note_HierarchicalIdOnDescriptor_Text {
+            get {
+                return ResourceManager.GetString("SARIF2009_ConsiderConventionalIdentifierValues_Note_HierarchicalIdOnDescriptor_Text", resourceCulture);
+            }
+        }
+
         internal static string AI2010_ProvideResultRank_FullDescription_Text {
             get {
                 return ResourceManager.GetString("AI2010_ProvideResultRank_FullDescription_Text", resourceCulture);

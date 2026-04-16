@@ -1,0 +1,37 @@
+{
+  "$schema": "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0-rtm.6.json",
+  "version": "2.1.0",
+  "runs": [
+    {
+      "tool": {
+        "driver": {
+          "name": "SARIF Functional Testing",
+          "version": "1.2.3",
+          "rules": [
+            {
+              "id": "CWE-862",
+              "name": "PlanEventMissingAuthorization"
+            },
+            {
+              "id": "NOVEL",
+              "name": "CapabilityTrustBypass"
+            }
+          ]
+        }
+      },
+      "results": [
+        {
+          "ruleId": "CWE-862/plan-event-missing-authorization",
+          "ruleIndex": 0,
+          "message": { "text": "Has a true sub-classification slug." }
+        },
+        {
+          "ruleId": "NOVEL/capability-trust-bypass",
+          "ruleIndex": 1,
+          "message": { "text": "Reserved NOVEL descriptor with concept-identity sub-id." }
+        }
+      ],
+      "columnKind": "utf16CodeUnits"
+    }
+  ]
+}

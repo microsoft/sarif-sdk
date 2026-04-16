@@ -7,18 +7,18 @@
         "driver": {
           "name": "CodeScanner",
           "version": "1.0",
-          "downloadUri": "http://www.example.com/tools/codescanner/download.html",
+          "downloadUri": "https://github.com/microsoft/sarif-sdk/nonexistent/tools/codescanner/download.html",
           "rules": [
             {
               "id": "TST0001",
-              "helpUri": "http://www.example.com/rules/tst0001.html"
+              "helpUri": "https://github.com/microsoft/sarif-sdk/nonexistent/rules/tst0001.html"
             }
           ]
         }
       },
       "versionControlProvenance": [
         {
-          "repositoryUri": "https://example.com/my-project"
+          "repositoryUri": "https://github.com/microsoft/sarif-sdk-nonexistent-project"
         }
       ],
       "results": [
@@ -30,7 +30,7 @@
             "text": "Some testing occurred."
           },
           "workItemUris": [
-            "https://example.com/my-project/issues/42"
+            "https://github.com/microsoft/sarif-sdk/nonexistent/issues/42"
           ]
         }
       ],

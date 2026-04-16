@@ -3,8 +3,6 @@
 
 using System.Collections.Generic;
 
-using Microsoft.Json.Pointer;
-
 namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 {
     public class ProvideResultRank : SarifValidationSkimmerBase
