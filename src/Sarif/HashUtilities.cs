@@ -313,5 +313,15 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             return firstMod;
         }
+
+
+        public static string ComputeSha256HashValue(string value)
+        {
+            using (var sha = SHA256.Create())
+            {
+                byte[] hashBytes = sha.ComputeHash(Encoding.UTF8.GetBytes(value));
+                return BitConverter.ToString(hashBytes).Replace("-", string.Empty);
+            }
+        }
     }
 }

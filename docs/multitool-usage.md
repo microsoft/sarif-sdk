@@ -69,9 +69,11 @@ Sarif.Multitool validate Other.sarif
 ```
 
 ## Supported Converters
+
 Run ```Sarif.Multitool convert --help``` for the current list.
 
 - AndroidStudio
+- CisCat
 - ClangAnalyzer
 - ClangTidy
 - CppCheck
@@ -79,6 +81,7 @@ Run ```Sarif.Multitool convert --help``` for the current list.
 - Fortify
 - FortifyFpr
 - FxCop
+- Nessus
 - PREfast
 - Pylint
 - SemmleQL

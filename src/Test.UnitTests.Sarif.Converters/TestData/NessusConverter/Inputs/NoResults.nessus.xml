@@ -1,0 +1,58 @@
+<?xml version="1.0"?>
+<NessusClientData_v2>
+    <Policy>
+        <policyName>NessusConverterTest</policyName>
+        <policyComments>policy comments text</policyComments>
+        <Preferences>
+            <ServerPreferences>
+                <preference>
+                    <name>TARGET</name>
+                    <value>10.0.0.1,10.0.0.2</value>
+                </preference>
+                <preference>
+                    <name>preference1</name>
+                    <value>value1</value>
+                </preference>
+            </ServerPreferences>
+            <PluginsPreferences>
+                <item>
+                    <pluginName>PluginName1</pluginName>
+                    <pluginId>12345</pluginId>
+                    <fullName>Plugin Full Name 12345</fullName>
+                    <preferenceName>Plugin Name 12345 Short Hame</preferenceName>
+                    <preferenceType>radio</preferenceType>
+                    <preferenceValues>None</preferenceValues>
+                    <selectedValue>None</selectedValue>
+                </item>
+            </PluginsPreferences>
+        </Preferences>
+        <FamilySelection>
+            <FamilyItem>
+                <FamilyName>Family Name</FamilyName>
+                <Status>enabled</Status>
+            </FamilyItem>
+        </FamilySelection>
+        <IndividualPluginSelection>
+            <PluginItem>
+                <PluginId>12345</PluginId>
+                <PluginName>Selected Plugin 1</PluginName>
+                <Family>Family Name</Family>
+                <Status>enabled</Status>
+            </PluginItem>
+        </IndividualPluginSelection>
+    </Policy>
+    <Report name="NessusReport" xmlns:cm="http://www.nessus.org/cm">
+        <ReportHost name="10.0.0.1">
+            <HostProperties>
+                <tag name="tag1">value1</tag>
+                <tag name="tag2">10.0.0.1</tag>
+            </HostProperties>
+        </ReportHost>
+        <ReportHost name="10.0.0.2">
+            <HostProperties>
+                <tag name="tag1">value1</tag>
+                <tag name="tag2">10.0.0.1</tag>
+            </HostProperties>
+        </ReportHost>
+    </Report>
+</NessusClientData_v2>

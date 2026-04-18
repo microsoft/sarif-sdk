@@ -438,5 +438,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 throw new InvalidOperationException(SdkResources.ResultsSerializationNotComplete);
             }
         }
+
+        public void WriteLog(SarifLog log)
+        {
+            _serializer.Serialize(_jsonWriter, log);
+            _writeConditions |= Conditions.RunCompleted;
+        }
     }
 }
