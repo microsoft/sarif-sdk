@@ -17,7 +17,7 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Core
         public void WebResponse_Parse_CreatesExpectedWebResponseObject()
         {
             // Example from RFC 7230.
-            const string ResponseString =
+            string ResponseString =
 @"HTTP/1.1 200 OK
 Date: Mon, 27 Jul 2009 12:28:53 GMT
 Server: Apache
@@ -30,6 +30,11 @@ Content-Type: text/plain
 
 Hello World!My payload includes a trailing NewLine.
 ";
+            // We need to normalize the line endings in the multiline string above,
+            // because otherwise this test passes or fails depending on the value
+            // of core.autocrlf in git.
+            ResponseString = ResponseString.Replace("\r", "");
+            ResponseString = ResponseString.Replace("\n", Environment.NewLine);
 
             var webResponse = WebResponse.Parse(ResponseString);
 

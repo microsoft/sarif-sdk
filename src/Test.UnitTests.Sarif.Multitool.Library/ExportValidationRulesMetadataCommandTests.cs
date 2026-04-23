@@ -1,6 +1,7 @@
 ﻿// Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -35,6 +36,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 command.BuildRule(test.Value, sb);
 
                 string expectedMarkdown = resourceExtractor.GetResourceExpectedOutputsText(test.Key);
+
+                // We need to normalize the line endings in the multiline string above,
+                // because otherwise this test passes or fails depending on the value
+                // of core.autocrlf in git.
+                expectedMarkdown = expectedMarkdown.Replace("\r", "");
+                expectedMarkdown = expectedMarkdown.Replace("\n", Environment.NewLine);
                 sb.ToString().Should().Be(expectedMarkdown);
             }
         }
