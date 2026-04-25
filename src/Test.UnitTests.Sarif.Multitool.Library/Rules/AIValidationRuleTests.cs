@@ -115,6 +115,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             log.Runs[0].Results[0].SetProperty("ai/exploitability", value);
         }
 
+        private static void SetAttackerPosition(SarifLog log, string value)
+        {
+            log.Runs[0].Results[0].SetProperty("ai/attackerPosition", value);
+        }
+
         #endregion
 
         #region Helper
@@ -617,6 +622,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             SarifLog log = CreateValidAISarifLog();
             SetAIOrigin(log, "generated");
             SetExploitability(log, "demonstrated");
+            SetAttackerPosition(log, "network");
             SetAiHandoff(log, "Reached tier 3 (tests). Formatter: black --line-length 100.");
 
             SarifLog output = RunAIValidation(log);
@@ -643,21 +649,233 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 RuleId.AIProvideVersionControlProvenance, // AI1004
                 RuleId.AIProvideAIOrigin,         // AI1006
                 RuleId.AIProvideExploitability,    // AI1007
+                RuleId.AIProvideAttackerPosition,  // AI1008
+                RuleId.AIProvideEvidenceBacking,   // AI1009
+                RuleId.AIProvideEvidenceBackingUri, // AI1010
+                RuleId.AIProvideRuleSubId,         // AI1012
                 RuleId.AIProvideSemanticVersion,   // AI2003
                 RuleId.AIProvideAutomationDetails, // AI2005
                 RuleId.AIProvideMessageMarkdown,   // AI2006
                 RuleId.AIProvideResultRank,         // AI2010
                 RuleId.AIDoNotPersistFingerprints,  // AI2011
                 RuleId.AIProvideAiHandoff,          // AI2012
+                RuleId.AIRedactedRunMarker,         // AI2013
+                RuleId.AIProvideNotificationDescriptor,    // AI3001
+                RuleId.AIProvideNotificationAssociatedRule, // AI3002
+                RuleId.AIExecutionNotificationPlacement,   // AI3003
+                RuleId.AIProvideALASSignalArtifact,        // AI3004
+                RuleId.AIProvideNotificationTimestamp,      // AI3005
             };
 
-            ruleIds.Should().HaveCount(10);
+            ruleIds.Should().HaveCount(20);
             ruleIds.Should().Contain("AI1003");
             ruleIds.Should().Contain("AI1004");
             ruleIds.Should().Contain("AI1007");
+            ruleIds.Should().Contain("AI1008");
+            ruleIds.Should().Contain("AI1009");
+            ruleIds.Should().Contain("AI1010");
             ruleIds.Should().Contain("AI2011");
             ruleIds.Should().Contain("AI2012");
+            ruleIds.Should().Contain("AI2013");
+            ruleIds.Should().Contain("AI3001");
+            ruleIds.Should().Contain("AI3003");
+            ruleIds.Should().Contain("AI3005");
             ruleIds.Should().NotContain("AI2009");
+        }
+
+        #endregion
+
+        #region AI1008 — ProvideAttackerPosition
+
+        [Fact]
+        public void AI1008_WhenAttackerPositionMissing_ReportsWarning()
+        {
+            SarifLog log = CreateValidAISarifLog();
+            SetAIOrigin(log, "generated");
+            SetExploitability(log, "demonstrated");
+
+            SarifLog output = RunAIValidation(log);
+            List<Result> results = GetResultsForRule(output, "AI1008");
+
+            results.Should().NotBeEmpty();
+            results[0].Level.Should().Be(FailureLevel.Warning);
+        }
+
+        [Fact]
+        public void AI1008_WhenAttackerPositionPresent_NoResult()
+        {
+            SarifLog log = CreateValidAISarifLog();
+            SetAIOrigin(log, "generated");
+            SetExploitability(log, "demonstrated");
+            SetAttackerPosition(log, "network");
+
+            SarifLog output = RunAIValidation(log);
+            List<Result> results = GetResultsForRule(output, "AI1008");
+
+            results.Should().BeEmpty();
+        }
+
+        #endregion
+
+        #region AI2013 — RedactedRunMarker
+
+        [Fact]
+        public void AI2013_WhenRedactedIsFalse_ReportsWarning()
+        {
+            SarifLog log = CreateValidAISarifLog();
+            SetAIOrigin(log, "generated");
+            SetExploitability(log, "demonstrated");
+            SetAttackerPosition(log, "network");
+            log.Runs[0].SetProperty("ai/redacted", "false");
+
+            SarifLog output = RunAIValidation(log);
+            List<Result> results = GetResultsForRule(output, "AI2013");
+
+            results.Should().NotBeEmpty();
+        }
+
+        [Fact]
+        public void AI2013_WhenRedactedAbsent_NoResult()
+        {
+            SarifLog log = CreateValidAISarifLog();
+            SetAIOrigin(log, "generated");
+            SetExploitability(log, "demonstrated");
+            SetAttackerPosition(log, "network");
+
+            SarifLog output = RunAIValidation(log);
+            List<Result> results = GetResultsForRule(output, "AI2013");
+
+            results.Should().BeEmpty();
+        }
+
+        #endregion
+
+        #region AI3003 — ExecutionNotificationPlacement
+
+        [Fact]
+        public void AI3003_WhenCfgDescriptorInExecNotifications_ReportsWarning()
+        {
+            SarifLog log = CreateValidAISarifLog();
+            SetAIOrigin(log, "generated");
+            SetExploitability(log, "demonstrated");
+            SetAttackerPosition(log, "network");
+            log.Runs[0].Invocations = new[]
+            {
+                new Invocation
+                {
+                    ExecutionSuccessful = true,
+                    ToolExecutionNotifications = new[]
+                    {
+                        new Notification
+                        {
+                            Descriptor = new ReportingDescriptorReference { Id = "AI/CFG/TOOL-UNAVAILABLE" },
+                            Message = new Message { Text = "CodeQL not installed." },
+                            Level = FailureLevel.Warning
+                        }
+                    }
+                }
+            };
+
+            SarifLog output = RunAIValidation(log);
+            List<Result> results = GetResultsForRule(output, "AI3003");
+
+            results.Should().NotBeEmpty();
+        }
+
+        [Fact]
+        public void AI3003_WhenExecDescriptorInExecNotifications_NoResult()
+        {
+            SarifLog log = CreateValidAISarifLog();
+            SetAIOrigin(log, "generated");
+            SetExploitability(log, "demonstrated");
+            SetAttackerPosition(log, "network");
+            log.Runs[0].Invocations = new[]
+            {
+                new Invocation
+                {
+                    ExecutionSuccessful = true,
+                    ToolExecutionNotifications = new[]
+                    {
+                        new Notification
+                        {
+                            Descriptor = new ReportingDescriptorReference { Id = "AI/EXEC/DECISION" },
+                            Message = new Message { Text = "Pivoted to deep triage." },
+                            Level = FailureLevel.Note
+                        }
+                    }
+                }
+            };
+
+            SarifLog output = RunAIValidation(log);
+            List<Result> results = GetResultsForRule(output, "AI3003");
+
+            results.Should().BeEmpty();
+        }
+
+        #endregion
+
+        #region AI3005 — ProvideNotificationTimestamp
+
+        [Fact]
+        public void AI3005_WhenTimestampMissing_ReportsNote()
+        {
+            SarifLog log = CreateValidAISarifLog();
+            SetAIOrigin(log, "generated");
+            SetExploitability(log, "demonstrated");
+            SetAttackerPosition(log, "network");
+            log.Runs[0].Invocations = new[]
+            {
+                new Invocation
+                {
+                    ExecutionSuccessful = true,
+                    ToolExecutionNotifications = new[]
+                    {
+                        new Notification
+                        {
+                            Descriptor = new ReportingDescriptorReference { Id = "AI/EXEC/DECISION" },
+                            Message = new Message { Text = "Analysis started." },
+                            Level = FailureLevel.Note
+                        }
+                    }
+                }
+            };
+
+            SarifLog output = RunAIValidation(log);
+            List<Result> results = GetResultsForRule(output, "AI3005");
+
+            results.Should().NotBeEmpty();
+            results[0].Level.Should().Be(FailureLevel.Note);
+        }
+
+        [Fact]
+        public void AI3005_WhenTimestampPresent_NoResult()
+        {
+            SarifLog log = CreateValidAISarifLog();
+            SetAIOrigin(log, "generated");
+            SetExploitability(log, "demonstrated");
+            SetAttackerPosition(log, "network");
+            log.Runs[0].Invocations = new[]
+            {
+                new Invocation
+                {
+                    ExecutionSuccessful = true,
+                    ToolExecutionNotifications = new[]
+                    {
+                        new Notification
+                        {
+                            Descriptor = new ReportingDescriptorReference { Id = "AI/EXEC/DECISION" },
+                            Message = new Message { Text = "Analysis started." },
+                            Level = FailureLevel.Note,
+                            TimeUtc = System.DateTime.UtcNow
+                        }
+                    }
+                }
+            };
+
+            SarifLog output = RunAIValidation(log);
+            List<Result> results = GetResultsForRule(output, "AI3005");
+
+            results.Should().BeEmpty();
         }
 
         #endregion

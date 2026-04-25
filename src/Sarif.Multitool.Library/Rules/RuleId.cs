@@ -87,5 +87,18 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         public const string AIProvideResultRank = "AI2010";
         public const string AIDoNotPersistFingerprints = "AI2011";
         public const string AIProvideAiHandoff = "AI2012";
+        public const string AIRedactedRunMarker = "AI2013";
+
+        // Result-level AI rules (documented in sarif-ai-generated-findings.md).
+        public const string AIProvideAttackerPosition = "AI1008";
+        public const string AIProvideEvidenceBacking = "AI1009";
+        public const string AIProvideEvidenceBackingUri = "AI1010";
+
+        // AI notification rules (AI3xxx series).
+        public const string AIProvideNotificationDescriptor = "AI3001";
+        public const string AIProvideNotificationAssociatedRule = "AI3002";
+        public const string AIExecutionNotificationPlacement = "AI3003";
+        public const string AIProvideALASSignalArtifact = "AI3004";
+        public const string AIProvideNotificationTimestamp = "AI3005";
     }
 }
