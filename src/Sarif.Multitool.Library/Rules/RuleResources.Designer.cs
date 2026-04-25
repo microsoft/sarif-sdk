@@ -1622,6 +1622,54 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
             }
         }
 
+        internal static string AI1008_ProvideAttackerPosition_FullDescription_Text {
+            get {
+                return ResourceManager.GetString("AI1008_ProvideAttackerPosition_FullDescription_Text", resourceCulture);
+            }
+        }
+        
+        internal static string AI1008_ProvideAttackerPosition_Warning_Missing_Text {
+            get {
+                return ResourceManager.GetString("AI1008_ProvideAttackerPosition_Warning_Missing_Text", resourceCulture);
+            }
+        }
+        
+        internal static string AI1008_ProvideAttackerPosition_Warning_Inconsistent_Text {
+            get {
+                return ResourceManager.GetString("AI1008_ProvideAttackerPosition_Warning_Inconsistent_Text", resourceCulture);
+            }
+        }
+
+        internal static string AI1009_ProvideEvidenceBacking_FullDescription_Text {
+            get {
+                return ResourceManager.GetString("AI1009_ProvideEvidenceBacking_FullDescription_Text", resourceCulture);
+            }
+        }
+        
+        internal static string AI1009_ProvideEvidenceBacking_Warning_MissingBacking_Text {
+            get {
+                return ResourceManager.GetString("AI1009_ProvideEvidenceBacking_Warning_MissingBacking_Text", resourceCulture);
+            }
+        }
+        
+        internal static string AI1009_ProvideEvidenceBacking_Warning_Inconsistent_Text {
+            get {
+                return ResourceManager.GetString("AI1009_ProvideEvidenceBacking_Warning_Inconsistent_Text", resourceCulture);
+            }
+        }
+
+        internal static string AI1010_ProvideEvidenceBackingUri_FullDescription_Text {
+            get {
+                return ResourceManager.GetString("AI1010_ProvideEvidenceBackingUri_FullDescription_Text", resourceCulture);
+            }
+        }
+        
+        internal static string AI1010_ProvideEvidenceBackingUri_Warning_Default_Text {
+            get {
+                return ResourceManager.GetString("AI1010_ProvideEvidenceBackingUri_Warning_Default_Text", resourceCulture);
+            }
+        }
+
         internal static string AI1012_ProvideRuleSubId_FullDescription_Text {
             get {
                 return ResourceManager.GetString("AI1012_ProvideRuleSubId_FullDescription_Text", resourceCulture);
@@ -1673,6 +1721,108 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         internal static string AI2012_ProvideAiHandoff_Note_Default_Text {
             get {
                 return ResourceManager.GetString("AI2012_ProvideAiHandoff_Note_Default_Text", resourceCulture);
+            }
+        }
+
+        internal static string AI2013_RedactedRunMarker_FullDescription_Text {
+            get {
+                return ResourceManager.GetString("AI2013_RedactedRunMarker_FullDescription_Text", resourceCulture);
+            }
+        }
+
+        internal static string AI2013_RedactedRunMarker_Warning_FalseValue_Text {
+            get {
+                return ResourceManager.GetString("AI2013_RedactedRunMarker_Warning_FalseValue_Text", resourceCulture);
+            }
+        }
+
+        internal static string AI2013_RedactedRunMarker_Warning_MissingRedactionTokens_Text {
+            get {
+                return ResourceManager.GetString("AI2013_RedactedRunMarker_Warning_MissingRedactionTokens_Text", resourceCulture);
+            }
+        }
+
+        internal static string AI2013_RedactedRunMarker_Warning_FullLogWithoutRedaction_Text {
+            get {
+                return ResourceManager.GetString("AI2013_RedactedRunMarker_Warning_FullLogWithoutRedaction_Text", resourceCulture);
+            }
+        }
+
+        internal static string AI3001_ProvideNotificationDescriptor_FullDescription_Text {
+            get {
+                return ResourceManager.GetString("AI3001_ProvideNotificationDescriptor_FullDescription_Text", resourceCulture);
+            }
+        }
+
+        internal static string AI3001_ProvideNotificationDescriptor_Warning_Missing_Text {
+            get {
+                return ResourceManager.GetString("AI3001_ProvideNotificationDescriptor_Warning_Missing_Text", resourceCulture);
+            }
+        }
+
+        internal static string AI3001_ProvideNotificationDescriptor_Warning_Unresolvable_Text {
+            get {
+                return ResourceManager.GetString("AI3001_ProvideNotificationDescriptor_Warning_Unresolvable_Text", resourceCulture);
+            }
+        }
+
+        internal static string AI3002_ProvideNotificationAssociatedRule_FullDescription_Text {
+            get {
+                return ResourceManager.GetString("AI3002_ProvideNotificationAssociatedRule_FullDescription_Text", resourceCulture);
+            }
+        }
+
+        internal static string AI3002_ProvideNotificationAssociatedRule_Warning_Default_Text {
+            get {
+                return ResourceManager.GetString("AI3002_ProvideNotificationAssociatedRule_Warning_Default_Text", resourceCulture);
+            }
+        }
+
+        internal static string AI3003_ExecutionNotificationPlacement_FullDescription_Text {
+            get {
+                return ResourceManager.GetString("AI3003_ExecutionNotificationPlacement_FullDescription_Text", resourceCulture);
+            }
+        }
+
+        internal static string AI3003_ExecutionNotificationPlacement_Warning_ExecInConfig_Text {
+            get {
+                return ResourceManager.GetString("AI3003_ExecutionNotificationPlacement_Warning_ExecInConfig_Text", resourceCulture);
+            }
+        }
+
+        internal static string AI3003_ExecutionNotificationPlacement_Warning_CfgInExec_Text {
+            get {
+                return ResourceManager.GetString("AI3003_ExecutionNotificationPlacement_Warning_CfgInExec_Text", resourceCulture);
+            }
+        }
+
+        internal static string AI3004_ProvideALASSignalArtifact_FullDescription_Text {
+            get {
+                return ResourceManager.GetString("AI3004_ProvideALASSignalArtifact_FullDescription_Text", resourceCulture);
+            }
+        }
+
+        internal static string AI3004_ProvideALASSignalArtifact_Note_MissingLocation_Text {
+            get {
+                return ResourceManager.GetString("AI3004_ProvideALASSignalArtifact_Note_MissingLocation_Text", resourceCulture);
+            }
+        }
+
+        internal static string AI3004_ProvideALASSignalArtifact_Note_UnresolvableArtifact_Text {
+            get {
+                return ResourceManager.GetString("AI3004_ProvideALASSignalArtifact_Note_UnresolvableArtifact_Text", resourceCulture);
+            }
+        }
+
+        internal static string AI3005_ProvideNotificationTimestamp_FullDescription_Text {
+            get {
+                return ResourceManager.GetString("AI3005_ProvideNotificationTimestamp_FullDescription_Text", resourceCulture);
+            }
+        }
+
+        internal static string AI3005_ProvideNotificationTimestamp_Note_Default_Text {
+            get {
+                return ResourceManager.GetString("AI3005_ProvideNotificationTimestamp_Note_Default_Text", resourceCulture);
             }
         }
     }
