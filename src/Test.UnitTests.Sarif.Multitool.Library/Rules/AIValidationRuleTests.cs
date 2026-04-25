@@ -663,7 +663,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 RuleId.AIProvideNotificationDescriptor,    // AI2017
                 RuleId.AIProvideNotificationAssociatedRule, // AI1013
                 RuleId.AIExecutionNotificationPlacement,   // AI1014
-                RuleId.AIProvideALASSignalArtifact,        // AI2018
+                RuleId.AIProvideExecutionSignalArtifact,        // AI2018
                 RuleId.AIProvideNotificationTimestamp,      // AI2019
             };
 

@@ -11,7 +11,7 @@
 * NEW: Add `AI2015.ProvideAttackerPosition` (warning) — each result SHOULD declare `ai/attackerPosition`. Follows the all-or-nothing pattern.
 * NEW: Add `AI2016.EvidenceBackingConsistency` (warning) — an `ai/evidence[]` entry with `strength: "demonstrated"` SHOULD carry non-empty `backing`.
 * NEW: Add `AI2017.ProvideNotificationDescriptor` (warning) — every notification SHOULD have a `descriptor` that resolves to a `reportingDescriptor` in `tool.driver.notifications[]`.
-* NEW: Add `AI2018.ProvideALASSignalArtifact` (note) — `AI/EXEC/ALAS-SIGNAL` notifications SHOULD include a `locations[]` entry referencing a valid artifact with `roles` containing `"attachment"`.
+* NEW: Add `AI2018.ProvideExecutionSignalArtifact` (note) — `AI/EXEC/ALAS-SIGNAL` notifications SHOULD include a `locations[]` entry referencing a valid artifact with `roles` containing `"attachment"`.
 * NEW: Add `AI2019.ProvideNotificationTimestamp` (note) — notifications SHOULD include `timeUtc` for execution timeline reconstruction.
 
 ## **v4.6.2** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/v4.6.2) | [Driver](https://www.nuget.org/packages/Sarif.Driver/v4.6.2) | [Converters](https://www.nuget.org/packages/Sarif.Converters/v4.6.2)  | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/v4.6.2 | [Multitool Library](https://www.nuget.org/packages/Sarif.Multitool.Library/v4.6.2)

@@ -1796,21 +1796,21 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
             }
         }
 
-        internal static string AI2018_ProvideALASSignalArtifact_FullDescription_Text {
+        internal static string AI2018_ProvideExecutionSignalArtifact_FullDescription_Text {
             get {
-                return ResourceManager.GetString("AI2018_ProvideALASSignalArtifact_FullDescription_Text", resourceCulture);
+                return ResourceManager.GetString("AI2018_ProvideExecutionSignalArtifact_FullDescription_Text", resourceCulture);
             }
         }
 
-        internal static string AI2018_ProvideALASSignalArtifact_Note_MissingLocation_Text {
+        internal static string AI2018_ProvideExecutionSignalArtifact_Note_MissingLocation_Text {
             get {
-                return ResourceManager.GetString("AI2018_ProvideALASSignalArtifact_Note_MissingLocation_Text", resourceCulture);
+                return ResourceManager.GetString("AI2018_ProvideExecutionSignalArtifact_Note_MissingLocation_Text", resourceCulture);
             }
         }
 
-        internal static string AI2018_ProvideALASSignalArtifact_Note_UnresolvableArtifact_Text {
+        internal static string AI2018_ProvideExecutionSignalArtifact_Note_UnresolvableArtifact_Text {
             get {
-                return ResourceManager.GetString("AI2018_ProvideALASSignalArtifact_Note_UnresolvableArtifact_Text", resourceCulture);
+                return ResourceManager.GetString("AI2018_ProvideExecutionSignalArtifact_Note_UnresolvableArtifact_Text", resourceCulture);
             }
         }
 

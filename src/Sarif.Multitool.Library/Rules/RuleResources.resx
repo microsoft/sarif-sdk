@@ -824,13 +824,13 @@ Provide the 'help' property and populate the 'text' property with information ab
   <data name="AI1014_ExecutionNotificationPlacement_Error_CfgInExec_Text" xml:space="preserve">
     <value>{0}: A notification with descriptor id '{1}' (an 'AI/CFG/*' descriptor) appears in 'toolExecutionNotifications'. Configuration notifications should appear only in 'toolConfigurationNotifications'.</value>
   </data>
-  <data name="AI2018_ProvideALASSignalArtifact_FullDescription_Text" xml:space="preserve">
+  <data name="AI2018_ProvideExecutionSignalArtifact_FullDescription_Text" xml:space="preserve">
     <value>A notification with descriptor id 'AI/EXEC/ALAS-SIGNAL' should include a 'locations' entry whose 'physicalLocation.artifactLocation.index' resolves to a valid artifact in 'run.artifacts' with 'roles' containing 'attachment'.</value>
   </data>
-  <data name="AI2018_ProvideALASSignalArtifact_Note_MissingLocation_Text" xml:space="preserve">
+  <data name="AI2018_ProvideExecutionSignalArtifact_Note_MissingLocation_Text" xml:space="preserve">
     <value>{0}: This 'AI/EXEC/ALAS-SIGNAL' notification does not include a 'locations' entry. The ALAS signal artifact should be referenced via 'physicalLocation.artifactLocation.index' so the learning system can locate it structurally.</value>
   </data>
-  <data name="AI2018_ProvideALASSignalArtifact_Note_UnresolvableArtifact_Text" xml:space="preserve">
+  <data name="AI2018_ProvideExecutionSignalArtifact_Note_UnresolvableArtifact_Text" xml:space="preserve">
     <value>{0}: This 'AI/EXEC/ALAS-SIGNAL' notification references artifact index {1}, but the artifact either does not exist in 'run.artifacts' or does not have 'roles' containing 'attachment'.</value>
   </data>
   <data name="AI2019_ProvideNotificationTimestamp_FullDescription_Text" xml:space="preserve">
