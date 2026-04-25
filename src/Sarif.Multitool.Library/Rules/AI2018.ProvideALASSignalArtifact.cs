@@ -15,7 +15,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         }
 
         /// <summary>
-        /// AI3004
+        /// AI2018
         /// </summary>
         public override string Id => RuleId.AIProvideALASSignalArtifact;
 
@@ -23,13 +23,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 
         public override MultiformatMessageString FullDescription => new MultiformatMessageString
         {
-            Text = RuleResources.AI3004_ProvideALASSignalArtifact_FullDescription_Text
+            Text = RuleResources.AI2018_ProvideALASSignalArtifact_FullDescription_Text
         };
 
         protected override ICollection<string> MessageResourceNames => new List<string>
         {
-            nameof(RuleResources.AI3004_ProvideALASSignalArtifact_Note_MissingLocation_Text),
-            nameof(RuleResources.AI3004_ProvideALASSignalArtifact_Note_UnresolvableArtifact_Text)
+            nameof(RuleResources.AI2018_ProvideALASSignalArtifact_Note_MissingLocation_Text),
+            nameof(RuleResources.AI2018_ProvideALASSignalArtifact_Note_UnresolvableArtifact_Text)
         };
 
         protected override void Analyze(Run run, string runPointer)
@@ -70,7 +70,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                         // referencing the signal artifact.
                         LogResult(
                             notificationPointer,
-                            nameof(RuleResources.AI3004_ProvideALASSignalArtifact_Note_MissingLocation_Text));
+                            nameof(RuleResources.AI2018_ProvideALASSignalArtifact_Note_MissingLocation_Text));
                         continue;
                     }
 
@@ -85,7 +85,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                         // be resolved or does not have the 'attachment' role.
                         LogResult(
                             notificationPointer,
-                            nameof(RuleResources.AI3004_ProvideALASSignalArtifact_Note_UnresolvableArtifact_Text),
+                            nameof(RuleResources.AI2018_ProvideALASSignalArtifact_Note_UnresolvableArtifact_Text),
                             artifactIndex.ToString());
                     }
                 }

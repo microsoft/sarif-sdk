@@ -15,7 +15,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         }
 
         /// <summary>
-        /// AI1008
+        /// AI2015
         /// </summary>
         public override string Id => RuleId.AIProvideAttackerPosition;
 
@@ -23,13 +23,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 
         public override MultiformatMessageString FullDescription => new MultiformatMessageString
         {
-            Text = RuleResources.AI1008_ProvideAttackerPosition_FullDescription_Text
+            Text = RuleResources.AI2015_ProvideAttackerPosition_FullDescription_Text
         };
 
         protected override ICollection<string> MessageResourceNames => new List<string>
         {
-            nameof(RuleResources.AI1008_ProvideAttackerPosition_Warning_Missing_Text),
-            nameof(RuleResources.AI1008_ProvideAttackerPosition_Warning_Inconsistent_Text)
+            nameof(RuleResources.AI2015_ProvideAttackerPosition_Warning_Missing_Text),
+            nameof(RuleResources.AI2015_ProvideAttackerPosition_Warning_Inconsistent_Text)
         };
 
         // All-or-nothing check: if any result has ai/attackerPosition, all must.
@@ -60,7 +60,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                 string resultsPointer = runPointer.AtProperty(SarifPropertyName.Results);
                 LogResult(
                     resultsPointer,
-                    nameof(RuleResources.AI1008_ProvideAttackerPosition_Warning_Inconsistent_Text),
+                    nameof(RuleResources.AI2015_ProvideAttackerPosition_Warning_Inconsistent_Text),
                     withAttackerPosition.ToString(),
                     withoutAttackerPosition.ToString());
             }
@@ -72,7 +72,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             {
                 LogResult(
                     resultPointer,
-                    nameof(RuleResources.AI1008_ProvideAttackerPosition_Warning_Missing_Text));
+                    nameof(RuleResources.AI2015_ProvideAttackerPosition_Warning_Missing_Text));
             }
         }
     }

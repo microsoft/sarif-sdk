@@ -722,28 +722,28 @@ Provide the 'help' property and populate the 'text' property with information ab
   <data name="AI2005_ProvideAutomationDetails_Warning_MissingGuid_Text" xml:space="preserve">
     <value>{0}: The 'automationDetails' object does not provide a 'guid'. A stable run identifier enables deduplication and tracking across scan campaigns.</value>
   </data>
-  <data name="AI2006_ProvideMessageMarkdown_FullDescription_Text" xml:space="preserve">
+  <data name="AI1005_ProvideMessageMarkdown_FullDescription_Text" xml:space="preserve">
     <value>AI-generated results must provide rich 'message.markdown' content. Markdown messages enable structured analysis including evidence, reproduction steps, and fix suggestions. The plain-text 'message.text' property alone does not provide sufficient richness for actionable remediation of AI-generated findings.</value>
   </data>
-  <data name="AI2006_ProvideMessageMarkdown_Error_Default_Text" xml:space="preserve">
+  <data name="AI1005_ProvideMessageMarkdown_Error_Default_Text" xml:space="preserve">
     <value>{0}: This result does not provide 'message.markdown'. AI-generated findings must provide rich markdown with structured analysis including evidence, reproduction steps, and fix suggestions.</value>
   </data>
-  <data name="AI1007_ProvideExploitability_FullDescription_Text" xml:space="preserve">
+  <data name="AI2014_ProvideExploitability_FullDescription_Text" xml:space="preserve">
     <value>AI-generated results should declare 'ai/exploitability' in 'result.properties' with a value of 'demonstrated', 'poc', or 'theoretical'. This signal enables consumers to triage findings by the strength of exploitation evidence. Following the suppressions pattern (SARIF spec §3.27.23), exploitability SHALL be either present on all results in the run or absent from all results — mixed presence is a data quality error.</value>
   </data>
-  <data name="AI1007_ProvideExploitability_Warning_Missing_Text" xml:space="preserve">
+  <data name="AI2014_ProvideExploitability_Warning_Missing_Text" xml:space="preserve">
     <value>{0}: This result does not declare 'ai/exploitability' in 'result.properties'. AI-generated findings should declare their exploitability ('demonstrated', 'poc', or 'theoretical') to enable evidence-based triage.</value>
   </data>
-  <data name="AI1007_ProvideExploitability_Warning_InvalidValue_Text" xml:space="preserve">
+  <data name="AI2014_ProvideExploitability_Warning_InvalidValue_Text" xml:space="preserve">
     <value>{0}: The 'ai/exploitability' value '{1}' is not a recognized exploitability level. Valid values are: 'demonstrated', 'poc', 'theoretical'.</value>
   </data>
-  <data name="AI1007_ProvideExploitability_Warning_Inconsistent_Text" xml:space="preserve">
+  <data name="AI2014_ProvideExploitability_Warning_Inconsistent_Text" xml:space="preserve">
     <value>{0}: The run contains a mixture of results with and without 'ai/exploitability' ({1} with, {2} without). Following the suppressions pattern (SARIF spec §3.27.23), exploitability should be present on all results or absent from all results.</value>
   </data>
   <data name="AI1012_ProvideRuleSubId_FullDescription_Text" xml:space="preserve">
     <value>AI-generated results must carry a hierarchical sub-component on 'result.ruleId' beyond the base 'reportingDescriptor.id'. SARIF has no 'result.name'; the hierarchical 'ruleId' is the one slot where a per-finding readable handle survives minimal SARIF, and it is the suppression and baseline grouping key (SARIF spec §3.27.5). Choose a true sub-classification of the base rule when one applies (e.g. 'CWE-78/api-handler'); otherwise kebab-case the rule's friendly 'name'. Choose granularity deliberately: results that should be dispositioned as a bundle share a sub-ID; distinct issues under one base rule get distinct sub-IDs.</value>
   </data>
-  <data name="AI1012_ProvideRuleSubId_Warning_Missing_Text" xml:space="preserve">
+  <data name="AI1012_ProvideRuleSubId_Error_Missing_Text" xml:space="preserve">
     <value>{0}: 'result.ruleId' is '{1}' with no sub-component beyond the descriptor id. Append a hierarchical sub-ID: a true sub-classification of '{1}' if one applies, otherwise the kebab-cased rule name (e.g. '{1}/{2}'). SARIF has no 'result.name'; this sub-ID is that name and the bulk-disposition key (§3.27.5).</value>
   </data>
   <data name="AI2010_ProvideResultRank_FullDescription_Text" xml:space="preserve">
@@ -764,79 +764,79 @@ Provide the 'help' property and populate the 'text' property with information ab
   <data name="AI2012_ProvideAiHandoff_Note_Default_Text" xml:space="preserve">
     <value>{0}: This run does not provide 'ai/handoff' in 'run.properties'. AI producers should record repo-wide observations for downstream remediation agents — at minimum, the analysis depth reached and why it stopped.</value>
   </data>
-  <data name="AI1008_ProvideAttackerPosition_FullDescription_Text" xml:space="preserve">
+  <data name="AI2015_ProvideAttackerPosition_FullDescription_Text" xml:space="preserve">
     <value>Each result should declare 'ai/attackerPosition' in 'result.properties' to indicate the attacker's position relative to the vulnerable component. Follows the all-or-nothing pattern: if any result declares attacker position, all results must.</value>
   </data>
-  <data name="AI1008_ProvideAttackerPosition_Warning_Missing_Text" xml:space="preserve">
+  <data name="AI2015_ProvideAttackerPosition_Warning_Missing_Text" xml:space="preserve">
     <value>{0}: This result does not declare 'ai/attackerPosition' in 'result.properties'. AI producers should indicate the attacker's access requirements for each finding.</value>
   </data>
-  <data name="AI1008_ProvideAttackerPosition_Warning_Inconsistent_Text" xml:space="preserve">
+  <data name="AI2015_ProvideAttackerPosition_Warning_Inconsistent_Text" xml:space="preserve">
     <value>{0}: {1} result(s) declare 'ai/attackerPosition' but {2} do not. This property follows the all-or-nothing pattern — if any result declares it, all must.</value>
   </data>
-  <data name="AI1009_ProvideEvidenceBacking_FullDescription_Text" xml:space="preserve">
+  <data name="AI2016_ProvideEvidenceBacking_FullDescription_Text" xml:space="preserve">
     <value>An 'ai/evidence' array entry with 'strength' of 'demonstrated' should carry non-empty 'backing'. If 'ai/exploitability' is 'demonstrated', at least one evidence entry should also be 'demonstrated' with non-empty backing.</value>
   </data>
-  <data name="AI1009_ProvideEvidenceBacking_Warning_MissingBacking_Text" xml:space="preserve">
+  <data name="AI2016_ProvideEvidenceBacking_Warning_MissingBacking_Text" xml:space="preserve">
     <value>{0}: The 'ai/evidence' entry at index {1} has 'strength' of 'demonstrated' but 'backing' is missing or empty. Demonstrated evidence should include concrete backing (e.g., a SARIF URI pointing to a code flow, artifact, or test).</value>
   </data>
-  <data name="AI1009_ProvideEvidenceBacking_Warning_Inconsistent_Text" xml:space="preserve">
+  <data name="AI2016_ProvideEvidenceBacking_Warning_Inconsistent_Text" xml:space="preserve">
     <value>{0}: This result declares 'ai/exploitability' as 'demonstrated' but no 'ai/evidence' entry has 'strength' of 'demonstrated' with non-empty 'backing'. The headline exploitability should be consistent with the evidence array.</value>
   </data>
   <data name="AI1010_ProvideEvidenceBackingUri_FullDescription_Text" xml:space="preserve">
-    <value>Every 'sarif:' URI in 'ai/evidence[].backing' should resolve to an element within the containing log file per SARIF spec §3.10.3.</value>
+    <value>Every 'sarif:' URI in 'ai/evidence[].backing' SHALL resolve to an element within the containing log file per SARIF spec §3.10.3.</value>
   </data>
-  <data name="AI1010_ProvideEvidenceBackingUri_Warning_Default_Text" xml:space="preserve">
+  <data name="AI1010_ProvideEvidenceBackingUri_Error_Default_Text" xml:space="preserve">
     <value>{0}: The 'ai/evidence' entry at index {1} has a 'backing' value of '{2}' which uses the 'sarif:' URI scheme but does not resolve to a valid element in the log file.</value>
   </data>
-  <data name="AI2013_RedactedRunMarker_FullDescription_Text" xml:space="preserve">
-    <value>The 'ai/redacted' property in 'run.properties' should be 'true' or absent — never 'false'. When 'true', 'run.redactionTokens' should be non-empty. 'ai/fullLogLocation' should not appear unless 'ai/redacted' is 'true'.</value>
+  <data name="AI1011_RedactedRunMarker_FullDescription_Text" xml:space="preserve">
+    <value>The 'ai/redacted' property in 'run.properties' SHALL be 'true' or absent — never 'false'. When 'true', 'run.redactionTokens' should be non-empty. 'ai/fullLogLocation' should not appear unless 'ai/redacted' is 'true'.</value>
   </data>
-  <data name="AI2013_RedactedRunMarker_Warning_FalseValue_Text" xml:space="preserve">
-    <value>{0}: 'ai/redacted' is 'false'. This property should be 'true' (when the run is redacted) or absent (when the run is not redacted) — never 'false'.</value>
+  <data name="AI1011_RedactedRunMarker_Error_FalseValue_Text" xml:space="preserve">
+    <value>{0}: 'ai/redacted' is 'false'. This property SHALL be 'true' (when the run is redacted) or absent (when the run is not redacted) — never 'false'.</value>
   </data>
-  <data name="AI2013_RedactedRunMarker_Warning_MissingRedactionTokens_Text" xml:space="preserve">
+  <data name="AI1011_RedactedRunMarker_Error_MissingRedactionTokens_Text" xml:space="preserve">
     <value>{0}: 'ai/redacted' is 'true' but 'run.redactionTokens' is missing or empty. When a run is redacted, the redaction tokens should be provided so consumers can identify redacted content.</value>
   </data>
-  <data name="AI2013_RedactedRunMarker_Warning_FullLogWithoutRedaction_Text" xml:space="preserve">
-    <value>{0}: 'ai/fullLogLocation' is present but 'ai/redacted' is not 'true'. The full log location should only appear when the run is redacted.</value>
+  <data name="AI1011_RedactedRunMarker_Error_FullLogWithoutRedaction_Text" xml:space="preserve">
+    <value>{0}: 'ai/fullLogLocation' is present but 'ai/redacted' is not 'true'. The full log location SHALL only appear when the run is redacted.</value>
   </data>
-  <data name="AI3001_ProvideNotificationDescriptor_FullDescription_Text" xml:space="preserve">
+  <data name="AI2017_ProvideNotificationDescriptor_FullDescription_Text" xml:space="preserve">
     <value>Every notification in 'toolExecutionNotifications' or 'toolConfigurationNotifications' should have a 'descriptor' that resolves to a 'reportingDescriptor' in 'tool.driver.notifications' or an extension's 'notifications' array. If 'descriptor.id' is present, it must match the resolved descriptor's 'id'.</value>
   </data>
-  <data name="AI3001_ProvideNotificationDescriptor_Warning_Missing_Text" xml:space="preserve">
+  <data name="AI2017_ProvideNotificationDescriptor_Warning_Missing_Text" xml:space="preserve">
     <value>{0}: This notification does not have a 'descriptor' property. AI tool notifications should reference a declared notification descriptor so consumers can programmatically identify the notification type.</value>
   </data>
-  <data name="AI3001_ProvideNotificationDescriptor_Warning_Unresolvable_Text" xml:space="preserve">
+  <data name="AI2017_ProvideNotificationDescriptor_Warning_Unresolvable_Text" xml:space="preserve">
     <value>{0}: The notification descriptor with id '{1}' does not resolve to a 'reportingDescriptor' in 'tool.driver.notifications' or any extension's 'notifications' array.</value>
   </data>
-  <data name="AI3002_ProvideNotificationAssociatedRule_FullDescription_Text" xml:space="preserve">
-    <value>If a notification's 'associatedRule' is present, it should resolve to a valid rule in 'tool.driver.rules' or an extension's 'rules' array via 'index' or 'guid'.</value>
+  <data name="AI1013_ProvideNotificationAssociatedRule_FullDescription_Text" xml:space="preserve">
+    <value>If a notification's 'associatedRule' is present, it SHALL resolve to a valid rule in 'tool.driver.rules' or an extension's 'rules' array via 'index' or 'guid'.</value>
   </data>
-  <data name="AI3002_ProvideNotificationAssociatedRule_Warning_Default_Text" xml:space="preserve">
+  <data name="AI1013_ProvideNotificationAssociatedRule_Error_Default_Text" xml:space="preserve">
     <value>{0}: The notification's 'associatedRule' with id '{1}' does not resolve to a valid rule in 'tool.driver.rules' or any extension's 'rules' array.</value>
   </data>
-  <data name="AI3003_ExecutionNotificationPlacement_FullDescription_Text" xml:space="preserve">
-    <value>'AI/EXEC/*' notification descriptors should appear only in 'toolExecutionNotifications'. 'AI/CFG/*' notification descriptors should appear only in 'toolConfigurationNotifications'. This ensures consumers can reliably find execution narrative vs. configuration feedback in the expected location.</value>
+  <data name="AI1014_ExecutionNotificationPlacement_FullDescription_Text" xml:space="preserve">
+    <value>'AI/EXEC/*' notification descriptors SHALL appear only in 'toolExecutionNotifications'. 'AI/CFG/*' notification descriptors SHALL appear only in 'toolConfigurationNotifications'. This ensures consumers can reliably find execution narrative vs. configuration feedback in the expected location.</value>
   </data>
-  <data name="AI3003_ExecutionNotificationPlacement_Warning_ExecInConfig_Text" xml:space="preserve">
+  <data name="AI1014_ExecutionNotificationPlacement_Error_ExecInConfig_Text" xml:space="preserve">
     <value>{0}: A notification with descriptor id '{1}' (an 'AI/EXEC/*' descriptor) appears in 'toolConfigurationNotifications'. Execution notifications should appear only in 'toolExecutionNotifications'.</value>
   </data>
-  <data name="AI3003_ExecutionNotificationPlacement_Warning_CfgInExec_Text" xml:space="preserve">
+  <data name="AI1014_ExecutionNotificationPlacement_Error_CfgInExec_Text" xml:space="preserve">
     <value>{0}: A notification with descriptor id '{1}' (an 'AI/CFG/*' descriptor) appears in 'toolExecutionNotifications'. Configuration notifications should appear only in 'toolConfigurationNotifications'.</value>
   </data>
-  <data name="AI3004_ProvideALASSignalArtifact_FullDescription_Text" xml:space="preserve">
+  <data name="AI2018_ProvideALASSignalArtifact_FullDescription_Text" xml:space="preserve">
     <value>A notification with descriptor id 'AI/EXEC/ALAS-SIGNAL' should include a 'locations' entry whose 'physicalLocation.artifactLocation.index' resolves to a valid artifact in 'run.artifacts' with 'roles' containing 'attachment'.</value>
   </data>
-  <data name="AI3004_ProvideALASSignalArtifact_Note_MissingLocation_Text" xml:space="preserve">
+  <data name="AI2018_ProvideALASSignalArtifact_Note_MissingLocation_Text" xml:space="preserve">
     <value>{0}: This 'AI/EXEC/ALAS-SIGNAL' notification does not include a 'locations' entry. The ALAS signal artifact should be referenced via 'physicalLocation.artifactLocation.index' so the learning system can locate it structurally.</value>
   </data>
-  <data name="AI3004_ProvideALASSignalArtifact_Note_UnresolvableArtifact_Text" xml:space="preserve">
+  <data name="AI2018_ProvideALASSignalArtifact_Note_UnresolvableArtifact_Text" xml:space="preserve">
     <value>{0}: This 'AI/EXEC/ALAS-SIGNAL' notification references artifact index {1}, but the artifact either does not exist in 'run.artifacts' or does not have 'roles' containing 'attachment'.</value>
   </data>
-  <data name="AI3005_ProvideNotificationTimestamp_FullDescription_Text" xml:space="preserve">
+  <data name="AI2019_ProvideNotificationTimestamp_FullDescription_Text" xml:space="preserve">
     <value>Notifications should include 'timeUtc' to enable execution timeline reconstruction. Note: timestamps break deterministic run-over-run comparison but are essential for AI execution analysis.</value>
   </data>
-  <data name="AI3005_ProvideNotificationTimestamp_Note_Default_Text" xml:space="preserve">
+  <data name="AI2019_ProvideNotificationTimestamp_Note_Default_Text" xml:space="preserve">
     <value>{0}: This notification does not include 'timeUtc'. AI tool notifications should include timestamps to enable execution timeline reconstruction and performance analysis.</value>
   </data>
 </root>

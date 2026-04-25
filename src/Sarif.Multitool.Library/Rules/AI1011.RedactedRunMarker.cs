@@ -11,11 +11,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
     {
         public RedactedRunMarker()
         {
-            this.DefaultConfiguration.Level = FailureLevel.Warning;
+            this.DefaultConfiguration.Level = FailureLevel.Error;
         }
 
         /// <summary>
-        /// AI2013
+        /// AI1011
         /// </summary>
         public override string Id => RuleId.AIRedactedRunMarker;
 
@@ -23,14 +23,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 
         public override MultiformatMessageString FullDescription => new MultiformatMessageString
         {
-            Text = RuleResources.AI2013_RedactedRunMarker_FullDescription_Text
+            Text = RuleResources.AI1011_RedactedRunMarker_FullDescription_Text
         };
 
         protected override ICollection<string> MessageResourceNames => new List<string>
         {
-            nameof(RuleResources.AI2013_RedactedRunMarker_Warning_FalseValue_Text),
-            nameof(RuleResources.AI2013_RedactedRunMarker_Warning_MissingRedactionTokens_Text),
-            nameof(RuleResources.AI2013_RedactedRunMarker_Warning_FullLogWithoutRedaction_Text)
+            nameof(RuleResources.AI1011_RedactedRunMarker_Error_FalseValue_Text),
+            nameof(RuleResources.AI1011_RedactedRunMarker_Error_MissingRedactionTokens_Text),
+            nameof(RuleResources.AI1011_RedactedRunMarker_Error_FullLogWithoutRedaction_Text)
         };
 
         protected override void Analyze(Run run, string runPointer)
@@ -43,7 +43,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                 // ai/redacted should be true or absent, never false.
                 LogResult(
                     runPointer.AtProperty(SarifPropertyName.Properties),
-                    nameof(RuleResources.AI2013_RedactedRunMarker_Warning_FalseValue_Text));
+                    nameof(RuleResources.AI1011_RedactedRunMarker_Error_FalseValue_Text));
             }
 
             if (isRedactedTrue && (run.RedactionTokens == null || run.RedactionTokens.Count == 0))
@@ -51,7 +51,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                 // ai/redacted is true but no redaction tokens are defined.
                 LogResult(
                     runPointer,
-                    nameof(RuleResources.AI2013_RedactedRunMarker_Warning_MissingRedactionTokens_Text));
+                    nameof(RuleResources.AI1011_RedactedRunMarker_Error_MissingRedactionTokens_Text));
             }
 
             if (run.TryGetProperty("ai/fullLogLocation", out string _) && !isRedactedTrue)
@@ -59,7 +59,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                 // ai/fullLogLocation is present but ai/redacted is not true.
                 LogResult(
                     runPointer.AtProperty(SarifPropertyName.Properties),
-                    nameof(RuleResources.AI2013_RedactedRunMarker_Warning_FullLogWithoutRedaction_Text));
+                    nameof(RuleResources.AI1011_RedactedRunMarker_Error_FullLogWithoutRedaction_Text));
             }
         }
     }

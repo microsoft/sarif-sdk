@@ -16,7 +16,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         }
 
         /// <summary>
-        /// AI3001
+        /// AI2017
         /// </summary>
         public override string Id => RuleId.AIProvideNotificationDescriptor;
 
@@ -24,13 +24,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 
         public override MultiformatMessageString FullDescription => new MultiformatMessageString
         {
-            Text = RuleResources.AI3001_ProvideNotificationDescriptor_FullDescription_Text
+            Text = RuleResources.AI2017_ProvideNotificationDescriptor_FullDescription_Text
         };
 
         protected override ICollection<string> MessageResourceNames => new List<string>
         {
-            nameof(RuleResources.AI3001_ProvideNotificationDescriptor_Warning_Missing_Text),
-            nameof(RuleResources.AI3001_ProvideNotificationDescriptor_Warning_Unresolvable_Text)
+            nameof(RuleResources.AI2017_ProvideNotificationDescriptor_Warning_Missing_Text),
+            nameof(RuleResources.AI2017_ProvideNotificationDescriptor_Warning_Unresolvable_Text)
         };
 
         protected override void Analyze(Run run, string runPointer)
@@ -68,7 +68,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                 {
                     LogResult(
                         notificationPointer,
-                        nameof(RuleResources.AI3001_ProvideNotificationDescriptor_Warning_Missing_Text));
+                        nameof(RuleResources.AI2017_ProvideNotificationDescriptor_Warning_Missing_Text));
                     continue;
                 }
 
@@ -77,7 +77,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                 {
                     LogResult(
                         notificationPointer.AtProperty(SarifPropertyName.Descriptor),
-                        nameof(RuleResources.AI3001_ProvideNotificationDescriptor_Warning_Unresolvable_Text),
+                        nameof(RuleResources.AI2017_ProvideNotificationDescriptor_Warning_Unresolvable_Text),
                         descriptorId);
                 }
             }

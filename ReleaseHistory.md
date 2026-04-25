@@ -1,22 +1,43 @@
 # SARIF Package Release History (SDK, Driver, Converters, and Multitool)
 
 ## **UNRELEASED**
-* NEW: Add `AI1008.ProvideAttackerPosition` validation rule — warns when `result.properties["ai/attackerPosition"]` is missing. Flags inconsistency when some results provide attacker position and others do not.
-* NEW: Add `AI1009.ProvideEvidenceBacking` validation rule — warns when `ai/evidence` entries with `strength: "demonstrated"` lack a `backing` value. Flags inconsistency when `ai/exploitability` is `demonstrated` but no evidence entry has demonstrated backing.
-* NEW: Add `AI1010.ProvideEvidenceBackingUri` validation rule — warns when `ai/evidence` entries use `sarif:` backing URIs (JSON pointers) that cannot be resolved within the SARIF log.
-* NEW: Add `AI2013.RedactedRunMarker` validation rule — warns when a redacted SARIF run (containing `ai/redacted` property) lacks `ai/redacted/originalResultCount`, which is required to detect silent result-dropping during redaction.
-* NEW: Add `AI3001.ProvideNotificationDescriptor` validation rule — warns when `toolExecutionNotifications` or `toolConfigurationNotifications` lack an associated `descriptor` with a valid rule index or ID.
-* NEW: Add `AI3002.ProvideNotificationAssociatedRule` validation rule — warns when execution notifications (`AI/EXEC/*`) lack an `associatedRule` linking back to the finding rule that triggered the notification.
-* NEW: Add `AI3003.ExecutionNotificationPlacement` validation rule — warns when `AI/EXEC/*` notifications appear in `toolConfigurationNotifications` (should be in `toolExecutionNotifications`) or vice versa for `AI/CFG/*`.
-* NEW: Add `AI3004.ProvideALASSignalArtifact` validation rule — notes when ALAS execution signals (`AI/EXEC/ALAS-*`) are present but no ALAS signal artifact is referenced in `run.artifacts`.
-* NEW: Add `AI3005.ProvideNotificationTimestamp` validation rule — notes when notifications lack a `timeUtc` timestamp, which is required for execution-signal traceability.
+
+### AI rule renumbering (breaking change)
+
+AI validation rules are renumbered to follow the SARIF SDK convention:
+`AI1xxx` = MUST/SHALL constraints (Error level); `AI2xxx` = SHOULD constraints (Warning/Note level).
+The `AI3xxx` series is eliminated. Rules previously released under different IDs are listed below.
+
+| Old ID | New ID | Rule | Reason |
+|--------|--------|------|--------|
+| AI2006 | AI1005 | ProvideMessageMarkdown | MUST → 1xxx |
+| AI1007 | AI2014 | ProvideExploitability | SHOULD → 2xxx |
+| AI2013 | AI1011 | RedactedRunMarker | SHALL → 1xxx |
+
+### New rules
+
+* NEW: Add `AI1010.ProvideEvidenceBackingUri` (error) — every `sarif:` URI in `ai/evidence[].backing` SHALL resolve to an element within the log file (§3.10.3).
+* NEW: Add `AI1011.RedactedRunMarker` (error) — `ai/redacted` SHALL be `true` or absent (never `false`); when `true`, `run.redactionTokens` SHALL be non-empty; `ai/fullLogLocation` SHALL NOT appear unless `ai/redacted` is `true`.
+* NEW: Add `AI1012.ProvideRuleSubId` (error) — AI-generated results MUST carry a hierarchical sub-component on `result.ruleId` beyond the base `reportingDescriptor.id`.
+* NEW: Add `AI1013.ProvideNotificationAssociatedRule` (error) — if `notification.associatedRule` is present, it SHALL resolve to a valid rule in `tool.driver.rules[]` or an extension's `rules[]`.
+* NEW: Add `AI1014.ExecutionNotificationPlacement` (error) — `AI/EXEC/*` descriptors SHALL appear only in `toolExecutionNotifications`; `AI/CFG/*` descriptors SHALL appear only in `toolConfigurationNotifications`.
+* NEW: Add `AI2015.ProvideAttackerPosition` (warning) — each result SHOULD declare `ai/attackerPosition`. Follows the all-or-nothing pattern.
+* NEW: Add `AI2016.ProvideEvidenceBacking` (warning) — an `ai/evidence[]` entry with `strength: "demonstrated"` SHOULD carry non-empty `backing`.
+* NEW: Add `AI2017.ProvideNotificationDescriptor` (warning) — every notification SHOULD have a `descriptor` that resolves to a `reportingDescriptor` in `tool.driver.notifications[]`.
+* NEW: Add `AI2018.ProvideALASSignalArtifact` (note) — `AI/EXEC/ALAS-SIGNAL` notifications SHOULD include a `locations[]` entry referencing a valid artifact with `roles` containing `"attachment"`.
+* NEW: Add `AI2019.ProvideNotificationTimestamp` (note) — notifications SHOULD include `timeUtc` for execution timeline reconstruction.
+
+### Level changes
+
+* BRK: `AI1010.ProvideEvidenceBackingUri` level changed from warning to error (backing URIs SHALL resolve).
+* BRK: `AI1012.ProvideRuleSubId` level changed from warning to error (results MUST carry sub-IDs).
 
 ## **v4.6.2**[Sdk](https://www.nuget.org/packages/Sarif.Sdk/v4.6.2) | [Driver](https://www.nuget.org/packages/Sarif.Driver/v4.6.2) | [Converters](https://www.nuget.org/packages/Sarif.Converters/v4.6.2)  | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/v4.6.2 | [Multitool Library](https://www.nuget.org/packages/Sarif.Multitool.Library/v4.6.2)
 * NEW: Add `AI1003.ProvideRequiredRegionProperties` validation rule — error when result locations lack a `region` or required region properties. Mirrors SARIF2017 at error level for AI profile.
 * NEW: Add `AI1004.ProvideVersionControlProvenance` validation rule — error when `run.versionControlProvenance` is missing or empty. Ensures AI findings are traceable to source control.
-* NEW: Add `AI2006.ProvideMessageMarkdown` validation rule — error when AI-generated findings do not include `message.markdown`.
-* NEW: Add `AI1007.ProvideExploitability` validation rule — warns when `result.properties["ai/exploitability"]` is missing or contains an unrecognized value (valid: `demonstrated`, `poc`, `theoretical`). Follows the suppressions pattern (§3.27.23): exploitability must be present on all results or absent from all results; mixed presence is flagged as a data quality error.
-* NEW: Add `AI1012.ProvideAIHandoff` validation rule — notes when `run.properties["ai/handoff"]` is missing or empty. This property is intended to provide human-readable handoff instructions for triaging and acting on AI-generated findings.
+* NEW: Add `AI1005.ProvideMessageMarkdown` validation rule (was AI2006) — error when AI-generated findings do not include `message.markdown`.
+* NEW: Add `AI2014.ProvideExploitability` validation rule (was AI1007) — warns when `result.properties["ai/exploitability"]` is missing or contains an unrecognized value. Follows the suppressions pattern (§3.27.23).
+* NEW: Add `AI2012.ProvideAiHandoff` validation rule — notes when `run.properties["ai/handoff"]` is missing or empty.
 * NEW: Add `SARIF2017.ProvideRequiredRegionProperties` validation rule — warns when result locations lack a `region` or `startLine`. Fires in standard profile only (`--rule-kind Sarif`).
 * NEW: Add `RuleKind.AI` to `SARIF2010.ProvideCodeSnippets` and `SARIF2011.ProvideContextRegion` so these rules fire under `--rule-kind AI` with no configuration file needed.
 * DEL: Remove `policies/ai.config.xml` — AI validation now works zero-config via `--rule-kind AI`.

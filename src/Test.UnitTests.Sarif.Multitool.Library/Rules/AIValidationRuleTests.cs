@@ -210,17 +210,17 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
         #endregion
 
-        #region AI1007 — ProvideExploitability
+        #region AI2014 — ProvideExploitability
 
         [Fact]
-        public void AI1007_WhenExploitabilityMissing_ReportsWarning()
+        public void AI2014_WhenExploitabilityMissing_ReportsWarning()
         {
             SarifLog log = CreateValidAISarifLog();
             SetAIOrigin(log, "generated");
             // Don't set ai/exploitability
 
             SarifLog output = RunAIValidation(log);
-            List<Result> results = GetResultsForRule(output, "AI1007");
+            List<Result> results = GetResultsForRule(output, "AI2014");
 
             results.Should().NotBeEmpty();
             results[0].Level.Should().Be(FailureLevel.Warning);
@@ -230,14 +230,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         [InlineData("demonstrated")]
         [InlineData("poc")]
         [InlineData("theoretical")]
-        public void AI1007_WhenExploitabilityValid_NoResult(string value)
+        public void AI2014_WhenExploitabilityValid_NoResult(string value)
         {
             SarifLog log = CreateValidAISarifLog();
             SetAIOrigin(log, "generated");
             SetExploitability(log, value);
 
             SarifLog output = RunAIValidation(log);
-            List<Result> results = GetResultsForRule(output, "AI1007");
+            List<Result> results = GetResultsForRule(output, "AI2014");
 
             results.Should().BeEmpty();
         }
@@ -247,21 +247,21 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         [InlineData("POC")]           // wrong casing
         [InlineData("confirmed")]     // invalid value
         [InlineData("")]              // empty string
-        public void AI1007_WhenExploitabilityInvalid_ReportsWarning(string value)
+        public void AI2014_WhenExploitabilityInvalid_ReportsWarning(string value)
         {
             SarifLog log = CreateValidAISarifLog();
             SetAIOrigin(log, "generated");
             SetExploitability(log, value);
 
             SarifLog output = RunAIValidation(log);
-            List<Result> results = GetResultsForRule(output, "AI1007");
+            List<Result> results = GetResultsForRule(output, "AI2014");
 
             results.Should().NotBeEmpty();
             results[0].Level.Should().Be(FailureLevel.Warning);
         }
 
         [Fact]
-        public void AI1007_WhenMixedPresence_ReportsInconsistency()
+        public void AI2014_WhenMixedPresence_ReportsInconsistency()
         {
             SarifLog log = CreateValidAISarifLog();
             SetAIOrigin(log, "generated");
@@ -284,11 +284,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             log.Runs[0].Results.Add(secondResult);
 
             SarifLog output = RunAIValidation(log);
-            List<Result> results = GetResultsForRule(output, "AI1007");
+            List<Result> results = GetResultsForRule(output, "AI2014");
 
             // Should get: 1 inconsistency warning (run-level) + 1 missing warning (per-result on secondResult)
             results.Should().HaveCountGreaterOrEqualTo(2,
-                "AI1007 should fire both run-level inconsistency and per-result missing warnings");
+                "AI2014 should fire both run-level inconsistency and per-result missing warnings");
 
             // Verify the run-level result points at the results array, not an individual result
             results.Should().Contain(r =>
@@ -300,10 +300,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
         #endregion
 
-        #region AI2006 — ProvideMessageMarkdown (promoted to error)
+        #region AI1005 — ProvideMessageMarkdown (promoted to error)
 
         [Fact]
-        public void AI2006_WhenMarkdownMissing_ReportsError()
+        public void AI1005_WhenMarkdownMissing_ReportsError()
         {
             SarifLog log = CreateValidAISarifLog();
             SetAIOrigin(log, "generated");
@@ -311,21 +311,21 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             log.Runs[0].Results[0].Message = new Message { Text = "No markdown provided." };
 
             SarifLog output = RunAIValidation(log);
-            List<Result> results = GetResultsForRule(output, "AI2006");
+            List<Result> results = GetResultsForRule(output, "AI1005");
 
             results.Should().NotBeEmpty();
             results[0].Level.Should().Be(FailureLevel.Error);
         }
 
         [Fact]
-        public void AI2006_WhenMarkdownPresent_NoResult()
+        public void AI1005_WhenMarkdownPresent_NoResult()
         {
             SarifLog log = CreateValidAISarifLog();
             SetAIOrigin(log, "generated");
             SetExploitability(log, "demonstrated");
 
             SarifLog output = RunAIValidation(log);
-            List<Result> results = GetResultsForRule(output, "AI2006");
+            List<Result> results = GetResultsForRule(output, "AI1005");
 
             results.Should().BeEmpty();
         }
@@ -648,61 +648,61 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 RuleId.AIProvideRequiredRegionProperties, // AI1003
                 RuleId.AIProvideVersionControlProvenance, // AI1004
                 RuleId.AIProvideAIOrigin,         // AI1006
-                RuleId.AIProvideExploitability,    // AI1007
-                RuleId.AIProvideAttackerPosition,  // AI1008
-                RuleId.AIProvideEvidenceBacking,   // AI1009
+                RuleId.AIProvideExploitability,    // AI2014
+                RuleId.AIProvideAttackerPosition,  // AI2015
+                RuleId.AIProvideEvidenceBacking,   // AI2016
                 RuleId.AIProvideEvidenceBackingUri, // AI1010
                 RuleId.AIProvideRuleSubId,         // AI1012
                 RuleId.AIProvideSemanticVersion,   // AI2003
                 RuleId.AIProvideAutomationDetails, // AI2005
-                RuleId.AIProvideMessageMarkdown,   // AI2006
+                RuleId.AIProvideMessageMarkdown,   // AI1005
                 RuleId.AIProvideResultRank,         // AI2010
                 RuleId.AIDoNotPersistFingerprints,  // AI2011
                 RuleId.AIProvideAiHandoff,          // AI2012
-                RuleId.AIRedactedRunMarker,         // AI2013
-                RuleId.AIProvideNotificationDescriptor,    // AI3001
-                RuleId.AIProvideNotificationAssociatedRule, // AI3002
-                RuleId.AIExecutionNotificationPlacement,   // AI3003
-                RuleId.AIProvideALASSignalArtifact,        // AI3004
-                RuleId.AIProvideNotificationTimestamp,      // AI3005
+                RuleId.AIRedactedRunMarker,         // AI1011
+                RuleId.AIProvideNotificationDescriptor,    // AI2017
+                RuleId.AIProvideNotificationAssociatedRule, // AI1013
+                RuleId.AIExecutionNotificationPlacement,   // AI1014
+                RuleId.AIProvideALASSignalArtifact,        // AI2018
+                RuleId.AIProvideNotificationTimestamp,      // AI2019
             };
 
             ruleIds.Should().HaveCount(20);
             ruleIds.Should().Contain("AI1003");
             ruleIds.Should().Contain("AI1004");
-            ruleIds.Should().Contain("AI1007");
-            ruleIds.Should().Contain("AI1008");
-            ruleIds.Should().Contain("AI1009");
+            ruleIds.Should().Contain("AI2014");
+            ruleIds.Should().Contain("AI2015");
+            ruleIds.Should().Contain("AI2016");
             ruleIds.Should().Contain("AI1010");
             ruleIds.Should().Contain("AI2011");
             ruleIds.Should().Contain("AI2012");
-            ruleIds.Should().Contain("AI2013");
-            ruleIds.Should().Contain("AI3001");
-            ruleIds.Should().Contain("AI3003");
-            ruleIds.Should().Contain("AI3005");
+            ruleIds.Should().Contain("AI1011");
+            ruleIds.Should().Contain("AI2017");
+            ruleIds.Should().Contain("AI1014");
+            ruleIds.Should().Contain("AI2019");
             ruleIds.Should().NotContain("AI2009");
         }
 
         #endregion
 
-        #region AI1008 — ProvideAttackerPosition
+        #region AI2015 — ProvideAttackerPosition
 
         [Fact]
-        public void AI1008_WhenAttackerPositionMissing_ReportsWarning()
+        public void AI2015_WhenAttackerPositionMissing_ReportsWarning()
         {
             SarifLog log = CreateValidAISarifLog();
             SetAIOrigin(log, "generated");
             SetExploitability(log, "demonstrated");
 
             SarifLog output = RunAIValidation(log);
-            List<Result> results = GetResultsForRule(output, "AI1008");
+            List<Result> results = GetResultsForRule(output, "AI2015");
 
             results.Should().NotBeEmpty();
             results[0].Level.Should().Be(FailureLevel.Warning);
         }
 
         [Fact]
-        public void AI1008_WhenAttackerPositionPresent_NoResult()
+        public void AI2015_WhenAttackerPositionPresent_NoResult()
         {
             SarifLog log = CreateValidAISarifLog();
             SetAIOrigin(log, "generated");
@@ -710,17 +710,17 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             SetAttackerPosition(log, "network");
 
             SarifLog output = RunAIValidation(log);
-            List<Result> results = GetResultsForRule(output, "AI1008");
+            List<Result> results = GetResultsForRule(output, "AI2015");
 
             results.Should().BeEmpty();
         }
 
         #endregion
 
-        #region AI2013 — RedactedRunMarker
+        #region AI1011 — RedactedRunMarker
 
         [Fact]
-        public void AI2013_WhenRedactedIsFalse_ReportsWarning()
+        public void AI1011_WhenRedactedIsFalse_ReportsWarning()
         {
             SarifLog log = CreateValidAISarifLog();
             SetAIOrigin(log, "generated");
@@ -729,13 +729,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             log.Runs[0].SetProperty("ai/redacted", "false");
 
             SarifLog output = RunAIValidation(log);
-            List<Result> results = GetResultsForRule(output, "AI2013");
+            List<Result> results = GetResultsForRule(output, "AI1011");
 
             results.Should().NotBeEmpty();
         }
 
         [Fact]
-        public void AI2013_WhenRedactedAbsent_NoResult()
+        public void AI1011_WhenRedactedAbsent_NoResult()
         {
             SarifLog log = CreateValidAISarifLog();
             SetAIOrigin(log, "generated");
@@ -743,17 +743,17 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             SetAttackerPosition(log, "network");
 
             SarifLog output = RunAIValidation(log);
-            List<Result> results = GetResultsForRule(output, "AI2013");
+            List<Result> results = GetResultsForRule(output, "AI1011");
 
             results.Should().BeEmpty();
         }
 
         #endregion
 
-        #region AI3003 — ExecutionNotificationPlacement
+        #region AI1014 — ExecutionNotificationPlacement
 
         [Fact]
-        public void AI3003_WhenCfgDescriptorInExecNotifications_ReportsWarning()
+        public void AI1014_WhenCfgDescriptorInExecNotifications_ReportsWarning()
         {
             SarifLog log = CreateValidAISarifLog();
             SetAIOrigin(log, "generated");
@@ -777,13 +777,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             };
 
             SarifLog output = RunAIValidation(log);
-            List<Result> results = GetResultsForRule(output, "AI3003");
+            List<Result> results = GetResultsForRule(output, "AI1014");
 
             results.Should().NotBeEmpty();
         }
 
         [Fact]
-        public void AI3003_WhenExecDescriptorInExecNotifications_NoResult()
+        public void AI1014_WhenExecDescriptorInExecNotifications_NoResult()
         {
             SarifLog log = CreateValidAISarifLog();
             SetAIOrigin(log, "generated");
@@ -807,17 +807,17 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             };
 
             SarifLog output = RunAIValidation(log);
-            List<Result> results = GetResultsForRule(output, "AI3003");
+            List<Result> results = GetResultsForRule(output, "AI1014");
 
             results.Should().BeEmpty();
         }
 
         #endregion
 
-        #region AI3005 — ProvideNotificationTimestamp
+        #region AI2019 — ProvideNotificationTimestamp
 
         [Fact]
-        public void AI3005_WhenTimestampMissing_ReportsNote()
+        public void AI2019_WhenTimestampMissing_ReportsNote()
         {
             SarifLog log = CreateValidAISarifLog();
             SetAIOrigin(log, "generated");
@@ -841,14 +841,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             };
 
             SarifLog output = RunAIValidation(log);
-            List<Result> results = GetResultsForRule(output, "AI3005");
+            List<Result> results = GetResultsForRule(output, "AI2019");
 
             results.Should().NotBeEmpty();
             results[0].Level.Should().Be(FailureLevel.Note);
         }
 
         [Fact]
-        public void AI3005_WhenTimestampPresent_NoResult()
+        public void AI2019_WhenTimestampPresent_NoResult()
         {
             SarifLog log = CreateValidAISarifLog();
             SetAIOrigin(log, "generated");
@@ -873,7 +873,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             };
 
             SarifLog output = RunAIValidation(log);
-            List<Result> results = GetResultsForRule(output, "AI3005");
+            List<Result> results = GetResultsForRule(output, "AI2019");
 
             results.Should().BeEmpty();
         }

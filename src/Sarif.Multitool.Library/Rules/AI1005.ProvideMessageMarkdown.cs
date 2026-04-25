@@ -15,7 +15,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         }
 
         /// <summary>
-        /// AI2006
+        /// AI1005
         /// </summary>
         public override string Id => RuleId.AIProvideMessageMarkdown;
 
@@ -23,12 +23,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 
         public override MultiformatMessageString FullDescription => new MultiformatMessageString
         {
-            Text = RuleResources.AI2006_ProvideMessageMarkdown_FullDescription_Text
+            Text = RuleResources.AI1005_ProvideMessageMarkdown_FullDescription_Text
         };
 
         protected override ICollection<string> MessageResourceNames => new List<string>
         {
-            nameof(RuleResources.AI2006_ProvideMessageMarkdown_Error_Default_Text)
+            nameof(RuleResources.AI1005_ProvideMessageMarkdown_Error_Default_Text)
         };
 
         protected override void Analyze(Result result, string resultPointer)
@@ -38,7 +38,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             {
                 LogResult(
                     resultPointer.AtProperty(SarifPropertyName.Message),
-                    nameof(RuleResources.AI2006_ProvideMessageMarkdown_Error_Default_Text));
+                    nameof(RuleResources.AI1005_ProvideMessageMarkdown_Error_Default_Text));
             }
         }
     }

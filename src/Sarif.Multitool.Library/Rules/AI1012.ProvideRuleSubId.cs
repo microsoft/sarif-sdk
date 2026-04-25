@@ -10,7 +10,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
     {
         public ProvideRuleSubId()
         {
-            this.DefaultConfiguration.Level = FailureLevel.Warning;
+            this.DefaultConfiguration.Level = FailureLevel.Error;
         }
 
         /// <summary>
@@ -27,7 +27,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 
         protected override ICollection<string> MessageResourceNames => new List<string>
         {
-            nameof(RuleResources.AI1012_ProvideRuleSubId_Warning_Missing_Text)
+            nameof(RuleResources.AI1012_ProvideRuleSubId_Error_Missing_Text)
         };
 
         protected override void Analyze(Result result, string resultPointer)
@@ -67,7 +67,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             // otherwise the kebab-cased rule name (e.g. '{1}/{2}').
             LogResult(
                 resultPointer,
-                nameof(RuleResources.AI1012_ProvideRuleSubId_Warning_Missing_Text),
+                nameof(RuleResources.AI1012_ProvideRuleSubId_Error_Missing_Text),
                 ruleId,
                 ToKebabCase(rule?.Name) ?? "readable-slug");
         }

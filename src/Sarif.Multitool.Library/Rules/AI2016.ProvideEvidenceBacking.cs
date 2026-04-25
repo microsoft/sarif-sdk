@@ -15,7 +15,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         }
 
         /// <summary>
-        /// AI1009
+        /// AI2016
         /// </summary>
         public override string Id => RuleId.AIProvideEvidenceBacking;
 
@@ -23,13 +23,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 
         public override MultiformatMessageString FullDescription => new MultiformatMessageString
         {
-            Text = RuleResources.AI1009_ProvideEvidenceBacking_FullDescription_Text
+            Text = RuleResources.AI2016_ProvideEvidenceBacking_FullDescription_Text
         };
 
         protected override ICollection<string> MessageResourceNames => new List<string>
         {
-            nameof(RuleResources.AI1009_ProvideEvidenceBacking_Warning_MissingBacking_Text),
-            nameof(RuleResources.AI1009_ProvideEvidenceBacking_Warning_Inconsistent_Text)
+            nameof(RuleResources.AI2016_ProvideEvidenceBacking_Warning_MissingBacking_Text),
+            nameof(RuleResources.AI2016_ProvideEvidenceBacking_Warning_Inconsistent_Text)
         };
 
         protected override void Analyze(Result result, string resultPointer)
@@ -67,7 +67,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                     {
                         LogResult(
                             resultPointer,
-                            nameof(RuleResources.AI1009_ProvideEvidenceBacking_Warning_MissingBacking_Text),
+                            nameof(RuleResources.AI2016_ProvideEvidenceBacking_Warning_MissingBacking_Text),
                             i.ToString());
                     }
                     else
@@ -83,7 +83,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             {
                 LogResult(
                     resultPointer,
-                    nameof(RuleResources.AI1009_ProvideEvidenceBacking_Warning_Inconsistent_Text));
+                    nameof(RuleResources.AI2016_ProvideEvidenceBacking_Warning_Inconsistent_Text));
             }
         }
     }

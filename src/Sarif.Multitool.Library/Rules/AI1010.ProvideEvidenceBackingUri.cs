@@ -14,7 +14,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
     {
         public ProvideEvidenceBackingUri()
         {
-            this.DefaultConfiguration.Level = FailureLevel.Warning;
+            this.DefaultConfiguration.Level = FailureLevel.Error;
         }
 
         /// <summary>
@@ -31,7 +31,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 
         protected override ICollection<string> MessageResourceNames => new List<string>
         {
-            nameof(RuleResources.AI1010_ProvideEvidenceBackingUri_Warning_Default_Text)
+            nameof(RuleResources.AI1010_ProvideEvidenceBackingUri_Error_Default_Text)
         };
 
         protected override void Analyze(Result result, string resultPointer)
@@ -74,7 +74,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                     {
                         LogResult(
                             resultPointer,
-                            nameof(RuleResources.AI1010_ProvideEvidenceBackingUri_Warning_Default_Text),
+                            nameof(RuleResources.AI1010_ProvideEvidenceBackingUri_Error_Default_Text),
                             i.ToString(),
                             backing);
                     }
@@ -83,7 +83,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                 {
                     LogResult(
                         resultPointer,
-                        nameof(RuleResources.AI1010_ProvideEvidenceBackingUri_Warning_Default_Text),
+                        nameof(RuleResources.AI1010_ProvideEvidenceBackingUri_Error_Default_Text),
                         i.ToString(),
                         backing);
                 }

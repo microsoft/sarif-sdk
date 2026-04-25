@@ -76,29 +76,29 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         // Rules for AI-generated SARIF findings.
         // These rules are disabled by default. They can be enabled by running the Multitool
         // with --rule-kind AI.
+        //
+        // AI1xxx: MUST/SHALL constraints (Error level).
+        // AI2xxx: SHOULD constraints (Warning or Note level).
         public const string AIProvideRequiredRegionProperties = "AI1003";
         public const string AIProvideVersionControlProvenance = "AI1004";
+        public const string AIProvideMessageMarkdown = "AI1005";
         public const string AIProvideAIOrigin = "AI1006";
-        public const string AIProvideExploitability = "AI1007";
+        public const string AIProvideEvidenceBackingUri = "AI1010";
+        public const string AIRedactedRunMarker = "AI1011";
         public const string AIProvideRuleSubId = "AI1012";
-        public const string AIProvideMessageMarkdown = "AI2006";
+        public const string AIProvideNotificationAssociatedRule = "AI1013";
+        public const string AIExecutionNotificationPlacement = "AI1014";
+
         public const string AIProvideSemanticVersion = "AI2003";
         public const string AIProvideAutomationDetails = "AI2005";
         public const string AIProvideResultRank = "AI2010";
         public const string AIDoNotPersistFingerprints = "AI2011";
         public const string AIProvideAiHandoff = "AI2012";
-        public const string AIRedactedRunMarker = "AI2013";
-
-        // Result-level AI rules (documented in sarif-ai-generated-findings.md).
-        public const string AIProvideAttackerPosition = "AI1008";
-        public const string AIProvideEvidenceBacking = "AI1009";
-        public const string AIProvideEvidenceBackingUri = "AI1010";
-
-        // AI notification rules (AI3xxx series).
-        public const string AIProvideNotificationDescriptor = "AI3001";
-        public const string AIProvideNotificationAssociatedRule = "AI3002";
-        public const string AIExecutionNotificationPlacement = "AI3003";
-        public const string AIProvideALASSignalArtifact = "AI3004";
-        public const string AIProvideNotificationTimestamp = "AI3005";
+        public const string AIProvideExploitability = "AI2014";
+        public const string AIProvideAttackerPosition = "AI2015";
+        public const string AIProvideEvidenceBacking = "AI2016";
+        public const string AIProvideNotificationDescriptor = "AI2017";
+        public const string AIProvideALASSignalArtifact = "AI2018";
+        public const string AIProvideNotificationTimestamp = "AI2019";
     }
 }

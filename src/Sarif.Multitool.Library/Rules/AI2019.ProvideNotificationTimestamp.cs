@@ -1,35 +1,35 @@
 // Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
+using System;
 using System.Collections.Generic;
 
 using Microsoft.Json.Pointer;
 
 namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 {
-    public class ExecutionNotificationPlacement : SarifValidationSkimmerBase
+    public class ProvideNotificationTimestamp : SarifValidationSkimmerBase
     {
-        public ExecutionNotificationPlacement()
+        public ProvideNotificationTimestamp()
         {
-            this.DefaultConfiguration.Level = FailureLevel.Warning;
+            this.DefaultConfiguration.Level = FailureLevel.Note;
         }
 
         /// <summary>
-        /// AI3003
+        /// AI2019
         /// </summary>
-        public override string Id => RuleId.AIExecutionNotificationPlacement;
+        public override string Id => RuleId.AIProvideNotificationTimestamp;
 
         public override HashSet<RuleKind> RuleKinds => new HashSet<RuleKind>(new[] { RuleKind.AI });
 
         public override MultiformatMessageString FullDescription => new MultiformatMessageString
         {
-            Text = RuleResources.AI3003_ExecutionNotificationPlacement_FullDescription_Text
+            Text = RuleResources.AI2019_ProvideNotificationTimestamp_FullDescription_Text
         };
 
         protected override ICollection<string> MessageResourceNames => new List<string>
         {
-            nameof(RuleResources.AI3003_ExecutionNotificationPlacement_Warning_ExecInConfig_Text),
-            nameof(RuleResources.AI3003_ExecutionNotificationPlacement_Warning_CfgInExec_Text)
+            nameof(RuleResources.AI2019_ProvideNotificationTimestamp_Note_Default_Text)
         };
 
         protected override void Analyze(Run run, string runPointer)
@@ -52,18 +52,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 
                     for (int iNotification = 0; iNotification < invocation.ToolExecutionNotifications.Count; iNotification++)
                     {
-                        Notification notification = invocation.ToolExecutionNotifications[iNotification];
-
-                        if (notification.Descriptor?.Id != null &&
-                            notification.Descriptor.Id.StartsWith("AI/CFG/"))
+                        if (invocation.ToolExecutionNotifications[iNotification].TimeUtc == default(DateTime))
                         {
-                            // {0}: Notification descriptor '{1}' uses the 'AI/CFG/' prefix but
-                            // appears in 'toolExecutionNotifications'. It should be placed in
-                            // 'toolConfigurationNotifications'.
                             LogResult(
                                 notificationsPointer.AtIndex(iNotification),
-                                nameof(RuleResources.AI3003_ExecutionNotificationPlacement_Warning_CfgInExec_Text),
-                                notification.Descriptor.Id);
+                                nameof(RuleResources.AI2019_ProvideNotificationTimestamp_Note_Default_Text));
                         }
                     }
                 }
@@ -74,18 +67,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 
                     for (int iNotification = 0; iNotification < invocation.ToolConfigurationNotifications.Count; iNotification++)
                     {
-                        Notification notification = invocation.ToolConfigurationNotifications[iNotification];
-
-                        if (notification.Descriptor?.Id != null &&
-                            notification.Descriptor.Id.StartsWith("AI/EXEC/"))
+                        if (invocation.ToolConfigurationNotifications[iNotification].TimeUtc == default(DateTime))
                         {
-                            // {0}: Notification descriptor '{1}' uses the 'AI/EXEC/' prefix but
-                            // appears in 'toolConfigurationNotifications'. It should be placed in
-                            // 'toolExecutionNotifications'.
                             LogResult(
                                 notificationsPointer.AtIndex(iNotification),
-                                nameof(RuleResources.AI3003_ExecutionNotificationPlacement_Warning_ExecInConfig_Text),
-                                notification.Descriptor.Id);
+                                nameof(RuleResources.AI2019_ProvideNotificationTimestamp_Note_Default_Text));
                         }
                     }
                 }

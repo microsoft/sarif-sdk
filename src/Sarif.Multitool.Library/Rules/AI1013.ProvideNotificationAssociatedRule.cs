@@ -12,11 +12,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
     {
         public ProvideNotificationAssociatedRule()
         {
-            this.DefaultConfiguration.Level = FailureLevel.Warning;
+            this.DefaultConfiguration.Level = FailureLevel.Error;
         }
 
         /// <summary>
-        /// AI3002
+        /// AI1013
         /// </summary>
         public override string Id => RuleId.AIProvideNotificationAssociatedRule;
 
@@ -24,12 +24,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 
         public override MultiformatMessageString FullDescription => new MultiformatMessageString
         {
-            Text = RuleResources.AI3002_ProvideNotificationAssociatedRule_FullDescription_Text
+            Text = RuleResources.AI1013_ProvideNotificationAssociatedRule_FullDescription_Text
         };
 
         protected override ICollection<string> MessageResourceNames => new List<string>
         {
-            nameof(RuleResources.AI3002_ProvideNotificationAssociatedRule_Warning_Default_Text)
+            nameof(RuleResources.AI1013_ProvideNotificationAssociatedRule_Error_Default_Text)
         };
 
         protected override void Analyze(Run run, string runPointer)
@@ -73,7 +73,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                 {
                     LogResult(
                         notificationPointer.AtProperty(SarifPropertyName.AssociatedRule),
-                        nameof(RuleResources.AI3002_ProvideNotificationAssociatedRule_Warning_Default_Text),
+                        nameof(RuleResources.AI1013_ProvideNotificationAssociatedRule_Error_Default_Text),
                         ruleId);
                 }
             }
