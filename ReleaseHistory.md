@@ -1,6 +1,17 @@
 # SARIF Package Release History (SDK, Driver, Converters, and Multitool)
 
-## **v4.6.2** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/v4.6.2) | [Driver](https://www.nuget.org/packages/Sarif.Driver/v4.6.2) | [Converters](https://www.nuget.org/packages/Sarif.Converters/v4.6.2)  | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/v4.6.2 | [Multitool Library](https://www.nuget.org/packages/Sarif.Multitool.Library/v4.6.2)
+## **UNRELEASED**
+* NEW: Add `AI1008.ProvideAttackerPosition` validation rule — warns when `result.properties["ai/attackerPosition"]` is missing. Flags inconsistency when some results provide attacker position and others do not.
+* NEW: Add `AI1009.ProvideEvidenceBacking` validation rule — warns when `ai/evidence` entries with `strength: "demonstrated"` lack a `backing` value. Flags inconsistency when `ai/exploitability` is `demonstrated` but no evidence entry has demonstrated backing.
+* NEW: Add `AI1010.ProvideEvidenceBackingUri` validation rule — warns when `ai/evidence` entries use `sarif:` backing URIs (JSON pointers) that cannot be resolved within the SARIF log.
+* NEW: Add `AI2013.RedactedRunMarker` validation rule — warns when a redacted SARIF run (containing `ai/redacted` property) lacks `ai/redacted/originalResultCount`, which is required to detect silent result-dropping during redaction.
+* NEW: Add `AI3001.ProvideNotificationDescriptor` validation rule — warns when `toolExecutionNotifications` or `toolConfigurationNotifications` lack an associated `descriptor` with a valid rule index or ID.
+* NEW: Add `AI3002.ProvideNotificationAssociatedRule` validation rule — warns when execution notifications (`AI/EXEC/*`) lack an `associatedRule` linking back to the finding rule that triggered the notification.
+* NEW: Add `AI3003.ExecutionNotificationPlacement` validation rule — warns when `AI/EXEC/*` notifications appear in `toolConfigurationNotifications` (should be in `toolExecutionNotifications`) or vice versa for `AI/CFG/*`.
+* NEW: Add `AI3004.ProvideALASSignalArtifact` validation rule — notes when ALAS execution signals (`AI/EXEC/ALAS-*`) are present but no ALAS signal artifact is referenced in `run.artifacts`.
+* NEW: Add `AI3005.ProvideNotificationTimestamp` validation rule — notes when notifications lack a `timeUtc` timestamp, which is required for execution-signal traceability.
+
+## **v4.6.2**[Sdk](https://www.nuget.org/packages/Sarif.Sdk/v4.6.2) | [Driver](https://www.nuget.org/packages/Sarif.Driver/v4.6.2) | [Converters](https://www.nuget.org/packages/Sarif.Converters/v4.6.2)  | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/v4.6.2 | [Multitool Library](https://www.nuget.org/packages/Sarif.Multitool.Library/v4.6.2)
 * NEW: Add `AI1003.ProvideRequiredRegionProperties` validation rule — error when result locations lack a `region` or required region properties. Mirrors SARIF2017 at error level for AI profile.
 * NEW: Add `AI1004.ProvideVersionControlProvenance` validation rule — error when `run.versionControlProvenance` is missing or empty. Ensures AI findings are traceable to source control.
 * NEW: Add `AI2006.ProvideMessageMarkdown` validation rule — error when AI-generated findings do not include `message.markdown`.
