@@ -14,9 +14,12 @@
                 "text": "AI-generated results must carry a hierarchical sub-component on 'result.ruleId' beyond the base 'reportingDescriptor.id'. SARIF has no 'result.name'; the hierarchical 'ruleId' is the one slot where a per-finding readable handle survives minimal SARIF, and it is the suppression and baseline grouping key (SARIF spec §3.27.5). Choose a true sub-classification of the base rule when one applies (e.g. 'CWE-78/api-handler'); otherwise kebab-case the rule's friendly 'name'. Choose granularity deliberately: results that should be dispositioned as a bundle share a sub-ID; distinct issues under one base rule get distinct sub-IDs."
               },
               "messageStrings": {
-                "Warning_Missing": {
+                "Error_Missing": {
                   "text": "{0}: 'result.ruleId' is '{1}' with no sub-component beyond the descriptor id. Append a hierarchical sub-ID: a true sub-classification of '{1}' if one applies, otherwise the kebab-cased rule name (e.g. '{1}/{2}'). SARIF has no 'result.name'; this sub-ID is that name and the bulk-disposition key (§3.27.5)."
                 }
+              },
+              "defaultConfiguration": {
+                "level": "error"
               },
               "helpUri": "http://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html"
             }
@@ -40,8 +43,9 @@
         {
           "ruleId": "AI1012",
           "ruleIndex": 0,
+          "level": "error",
           "message": {
-            "id": "Warning_Missing",
+            "id": "Error_Missing",
             "arguments": [
               "runs[0].results[0]",
               "CWE-862",
@@ -65,8 +69,9 @@
         {
           "ruleId": "AI1012",
           "ruleIndex": 0,
+          "level": "error",
           "message": {
-            "id": "Warning_Missing",
+            "id": "Error_Missing",
             "arguments": [
               "runs[0].results[1]",
               "TST0002",
@@ -90,8 +95,9 @@
         {
           "ruleId": "AI1012",
           "ruleIndex": 0,
+          "level": "error",
           "message": {
-            "id": "Warning_Missing",
+            "id": "Error_Missing",
             "arguments": [
               "runs[0].results[2]",
               "TST0003",
