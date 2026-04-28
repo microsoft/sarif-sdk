@@ -1,7 +1,6 @@
 # SARIF Package Release History (SDK, Driver, Converters, and Multitool)
 
-## **UNRELEASED**
-
+## **v4.6.3** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/v4.6.3) | [Driver](https://www.nuget.org/packages/Sarif.Driver/v4.6.3) | [Converters](https://www.nuget.org/packages/Sarif.Converters/v4.6.3)  | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/v4.6.3) | [Multitool Library](https://www.nuget.org/packages/Sarif.Multitool.Library/v4.6.3)
 * BRK: Renumber AI validation rules for RFC 2119 compliance (`AI1xxx` = MUST/SHALL error; `AI2xxx` = SHOULD warning/note). `AI2006` → `AI1005`, `AI1007` → `AI2014`. The `AI3xxx` series is eliminated.
 * NEW: Add `AI1010.EvidenceBackingResolvable` (error) — every `sarif:` URI in `ai/evidence[].backing` SHALL resolve to an element within the log file (§3.10.3).
 * NEW: Add `AI1011.RedactedRunMarker` (error) — `ai/redacted` SHALL be `true` or absent (never `false`); when `true`, `run.redactionTokens` SHALL be non-empty; `ai/fullLogLocation` SHALL NOT appear unless `ai/redacted` is `true`.
@@ -14,7 +13,7 @@
 * NEW: Add `AI2018.ProvideExecutionSignalArtifact` (note) — `AI/EXEC/ALAS-SIGNAL` notifications SHOULD include a `locations[]` entry referencing a valid artifact with `roles` containing `"attachment"`.
 * NEW: Add `AI2019.ProvideNotificationTimestamp` (note) — notifications SHOULD include `timeUtc` for execution timeline reconstruction.
 
-## **v4.6.2** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/v4.6.2) | [Driver](https://www.nuget.org/packages/Sarif.Driver/v4.6.2) | [Converters](https://www.nuget.org/packages/Sarif.Converters/v4.6.2)  | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/v4.6.2 | [Multitool Library](https://www.nuget.org/packages/Sarif.Multitool.Library/v4.6.2)
+## **v4.6.2** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/v4.6.2) | [Driver](https://www.nuget.org/packages/Sarif.Driver/v4.6.2) | [Converters](https://www.nuget.org/packages/Sarif.Converters/v4.6.2)  | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/v4.6.2) | [Multitool Library](https://www.nuget.org/packages/Sarif.Multitool.Library/v4.6.2)
 * NEW: Add `AI1003.ProvideRequiredRegionProperties` validation rule — error when result locations lack a `region` or required region properties. Mirrors SARIF2017 at error level for AI profile.
 * NEW: Add `AI1004.ProvideVersionControlProvenance` validation rule — error when `run.versionControlProvenance` is missing or empty. Ensures AI findings are traceable to source control.
 * NEW: Add `AI2006.ProvideMessageMarkdown` validation rule — error when AI-generated findings do not include `message.markdown`.
