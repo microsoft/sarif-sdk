@@ -1,5 +1,10 @@
 # SARIF Package Release History (SDK, Driver, Converters, and Multitool)
 
+## **UNRELEASED**
+* NEW: Add `partition` multitool verb that splits one SARIF log into many by strategy (`PerRule` (default), `PerRunPerRule`, `PerRun`, `PerResult`, `PerRunPerTarget`, `PerRunPerTargetPerRule`, `PerIndexList`). Wraps `SarifPartitioner.Partition`, so each output gets its `tool.driver.rules` and `run.artifacts` pruned to only what the partition references.
+* NEW: Add `SplittingStrategy.PerIndexList` plus the `--indices` mini-language for explicit per-result bucket assignment: `<runId>:<r1>,<r2>;<runId>:...|<bucket>...`, with bare-int shorthand for run 0 and SARIF URL fallback (`sarif:/runs/X/results/Y`, §3.10.3). Optional `--spillover-bucket NAME` captures uncovered results; `--strict-coverage` errors on uncovered results. Duplicate or out-of-range addresses error.
+* NEW: Add public SDK helper `Microsoft.CodeAnalysis.Sarif.Writers.PartitionFunctions` (`ForStrategy`, `ForIndexList`, `ParseIndexSpec`, `ResultAddress`) to centralize partition-key derivation across SDK consumers.
+
 ## **v4.6.3** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/v4.6.3) | [Driver](https://www.nuget.org/packages/Sarif.Driver/v4.6.3) | [Converters](https://www.nuget.org/packages/Sarif.Converters/v4.6.3)  | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/v4.6.3) | [Multitool Library](https://www.nuget.org/packages/Sarif.Multitool.Library/v4.6.3)
 * BRK: Renumber AI validation rules for RFC 2119 compliance (`AI1xxx` = MUST/SHALL error; `AI2xxx` = SHOULD warning/note). `AI2006` → `AI1005`, `AI1007` → `AI2014`. The `AI3xxx` series is eliminated.
 * NEW: Add `AI1010.EvidenceBackingResolvable` (error) — every `sarif:` URI in `ai/evidence[].backing` SHALL resolve to an element within the log file (§3.10.3).
