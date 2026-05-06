@@ -145,6 +145,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             ConsumeEnvVarsAndInterpretOptions((MultipleFilesOptionsBase)rebaseUriOptions);
         }
 
+        public void ConsumeEnvVarsAndInterpretOptions(PartitionOptions partitionOptions)
+        {
+            ConsumeEnvVarsAndInterpretOptions((SingleFileOptionsBase)partitionOptions);
+        }
+
         public void ConsumeEnvVarsAndInterpretOptions(RewriteOptions rewriteOptions)
         {
             ConsumeEnvVarsAndInterpretOptions((SingleFileOptionsBase)rewriteOptions);

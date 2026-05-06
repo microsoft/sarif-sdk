@@ -33,6 +33,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 ResultMatchingOptions,
                 MergeOptions,
                 PageOptions,
+                PartitionOptions,
                 QueryOptions,
                 RebaseUriOptions,
                 RewriteOptions,
@@ -50,6 +51,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 .WithParsed<ResultMatchingOptions>(x => { optionsInterpretter.ConsumeEnvVarsAndInterpretOptions(x); })
                 .WithParsed<MergeOptions>(x => { optionsInterpretter.ConsumeEnvVarsAndInterpretOptions(x); })
                 .WithParsed<PageOptions>(x => { optionsInterpretter.ConsumeEnvVarsAndInterpretOptions(x); })
+                .WithParsed<PartitionOptions>(x => { optionsInterpretter.ConsumeEnvVarsAndInterpretOptions(x); })
                 .WithParsed<QueryOptions>(x => { optionsInterpretter.ConsumeEnvVarsAndInterpretOptions(x); })
                 .WithParsed<RebaseUriOptions>(x => { optionsInterpretter.ConsumeEnvVarsAndInterpretOptions(x); })
                 .WithParsed<RewriteOptions>(x => { optionsInterpretter.ConsumeEnvVarsAndInterpretOptions(x); })
@@ -68,6 +70,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 (ResultMatchingOptions baselineOptions) => new ResultMatchingCommand().Run(baselineOptions),
                 (MergeOptions mergeOptions) => new MergeCommand().Run(mergeOptions),
                 (PageOptions pageOptions) => new PageCommand().Run(pageOptions),
+                (PartitionOptions partitionOptions) => new PartitionCommand().Run(partitionOptions),
                 (QueryOptions queryOptions) => new QueryCommand().Run(queryOptions),
                 (RebaseUriOptions rebaseOptions) => new RebaseUriCommand().Run(rebaseOptions),
                 (RewriteOptions rewriteOptions) => new RewriteCommand().Run(rewriteOptions),
