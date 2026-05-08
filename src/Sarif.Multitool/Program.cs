@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft. All rights reserved.
+// Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System;
@@ -17,7 +17,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         /// <returns>0 on success; nonzero on failure.</returns>
         public static int Main(string[] args)
         {
-            var optionsInterpretter = new OptionsInterpretter();
+            var optionsInterpreter = new OptionsInterpreter();
 
             return Parser.Default.ParseArguments<
                 // Keep this in alphabetical order
@@ -39,24 +39,24 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 RewriteOptions,
                 SuppressOptions,
                 ValidateOptions>(args)
-                .WithParsed<AbsoluteUriOptions>(x => { optionsInterpretter.ConsumeEnvVarsAndInterpretOptions(x); })
+                .WithParsed<AbsoluteUriOptions>(x => { optionsInterpreter.ConsumeEnvVarsAndInterpretOptions(x); })
 #if DEBUG
-                .WithParsed<AnalyzeTestOptions>(x => { optionsInterpretter.ConsumeEnvVarsAndInterpretOptions(x); })
+                .WithParsed<AnalyzeTestOptions>(x => { optionsInterpreter.ConsumeEnvVarsAndInterpretOptions(x); })
 #endif
-                .WithParsed<ApplyPolicyOptions>(x => { optionsInterpretter.ConsumeEnvVarsAndInterpretOptions(x); })
-                .WithParsed<ConvertOptions>(x => { optionsInterpretter.ConsumeEnvVarsAndInterpretOptions(x); })
-                .WithParsed<ExportValidationConfigurationOptions>(x => { optionsInterpretter.ConsumeEnvVarsAndInterpretOptions(x); })
-                .WithParsed<ExportValidationRulesMetadataOptions>(x => { optionsInterpretter.ConsumeEnvVarsAndInterpretOptions(x); })
-                .WithParsed<FileWorkItemsOptions>(x => { optionsInterpretter.ConsumeEnvVarsAndInterpretOptions(x); })
-                .WithParsed<ResultMatchingOptions>(x => { optionsInterpretter.ConsumeEnvVarsAndInterpretOptions(x); })
-                .WithParsed<MergeOptions>(x => { optionsInterpretter.ConsumeEnvVarsAndInterpretOptions(x); })
-                .WithParsed<PageOptions>(x => { optionsInterpretter.ConsumeEnvVarsAndInterpretOptions(x); })
-                .WithParsed<PartitionOptions>(x => { optionsInterpretter.ConsumeEnvVarsAndInterpretOptions(x); })
-                .WithParsed<QueryOptions>(x => { optionsInterpretter.ConsumeEnvVarsAndInterpretOptions(x); })
-                .WithParsed<RebaseUriOptions>(x => { optionsInterpretter.ConsumeEnvVarsAndInterpretOptions(x); })
-                .WithParsed<RewriteOptions>(x => { optionsInterpretter.ConsumeEnvVarsAndInterpretOptions(x); })
-                .WithParsed<SuppressOptions>(x => { optionsInterpretter.ConsumeEnvVarsAndInterpretOptions(x); })
-                .WithParsed<ValidateOptions>(x => { optionsInterpretter.ConsumeEnvVarsAndInterpretOptions(x); })
+                .WithParsed<ApplyPolicyOptions>(x => { optionsInterpreter.ConsumeEnvVarsAndInterpretOptions(x); })
+                .WithParsed<ConvertOptions>(x => { optionsInterpreter.ConsumeEnvVarsAndInterpretOptions(x); })
+                .WithParsed<ExportValidationConfigurationOptions>(x => { optionsInterpreter.ConsumeEnvVarsAndInterpretOptions(x); })
+                .WithParsed<ExportValidationRulesMetadataOptions>(x => { optionsInterpreter.ConsumeEnvVarsAndInterpretOptions(x); })
+                .WithParsed<FileWorkItemsOptions>(x => { optionsInterpreter.ConsumeEnvVarsAndInterpretOptions(x); })
+                .WithParsed<ResultMatchingOptions>(x => { optionsInterpreter.ConsumeEnvVarsAndInterpretOptions(x); })
+                .WithParsed<MergeOptions>(x => { optionsInterpreter.ConsumeEnvVarsAndInterpretOptions(x); })
+                .WithParsed<PageOptions>(x => { optionsInterpreter.ConsumeEnvVarsAndInterpretOptions(x); })
+                .WithParsed<PartitionOptions>(x => { optionsInterpreter.ConsumeEnvVarsAndInterpretOptions(x); })
+                .WithParsed<QueryOptions>(x => { optionsInterpreter.ConsumeEnvVarsAndInterpretOptions(x); })
+                .WithParsed<RebaseUriOptions>(x => { optionsInterpreter.ConsumeEnvVarsAndInterpretOptions(x); })
+                .WithParsed<RewriteOptions>(x => { optionsInterpreter.ConsumeEnvVarsAndInterpretOptions(x); })
+                .WithParsed<SuppressOptions>(x => { optionsInterpreter.ConsumeEnvVarsAndInterpretOptions(x); })
+                .WithParsed<ValidateOptions>(x => { optionsInterpreter.ConsumeEnvVarsAndInterpretOptions(x); })
                 .MapResult(
                 (AbsoluteUriOptions absoluteUriOptions) => new AbsoluteUriCommand().Run(absoluteUriOptions),
 #if DEBUG
