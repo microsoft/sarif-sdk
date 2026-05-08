@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft. All rights reserved.
+// Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System.Collections.Generic;
@@ -12,15 +12,15 @@ using Xunit;
 
 namespace Microsoft.CodeAnalysis.Sarif.Multitool
 {
-    public class OptionsInterpretterTests
+    public class OptionsInterpreterTests
     {
         [Fact]
-        public void OptionsInterpretter_ChangesNothingWhenEnvVarsEmpty()
+        public void OptionsInterpreter_ChangesNothingWhenEnvVarsEmpty()
         {
             var mockEnvironmentVariableGetter = new Mock<IEnvironmentVariableGetter>();
             //  Don't setup any responses so they always return null
 
-            var optionsInterpretter = new OptionsInterpretter(mockEnvironmentVariableGetter.Object);
+            var optionsInterpreter = new OptionsInterpreter(mockEnvironmentVariableGetter.Object);
 
             var beforeAndAfter = new List<ValidateOptions>(2);
 
@@ -35,7 +35,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 });
             }
 
-            optionsInterpretter.ConsumeEnvVarsAndInterpretOptions(beforeAndAfter[1]);
+            optionsInterpreter.ConsumeEnvVarsAndInterpretOptions(beforeAndAfter[1]);
 
             Assert.True(beforeAndAfter[0].DataToInsert.SequenceEqual(beforeAndAfter[1].DataToInsert));
             Assert.True(beforeAndAfter[0].DataToRemove.SequenceEqual(beforeAndAfter[1].DataToRemove));
@@ -44,7 +44,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         }
 
         [Fact]
-        public void OptionsInterpretter_CorrectlyAddsAdditiveEnvVars()
+        public void OptionsInterpreter_CorrectlyAddsAdditiveEnvVars()
         {
             var mockEnvironmentVariableGetter = new Mock<IEnvironmentVariableGetter>();
             mockEnvironmentVariableGetter.Setup(x => x.GetEnvironmentVariable("SARIF_DATATOINSERT_ADDITION")).Returns("TextFiles;BinaryFiles;");
@@ -54,7 +54,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             //  Deliberately more delimeters than needed
             mockEnvironmentVariableGetter.Setup(x => x.GetEnvironmentVariable("SARIF_LEVEL_ADDITION")).Returns("Note");
 
-            var optionsInterpretter = new OptionsInterpretter(mockEnvironmentVariableGetter.Object);
+            var optionsInterpreter = new OptionsInterpreter(mockEnvironmentVariableGetter.Object);
 
             var analyzeOptionsBase = new ValidateOptions
             {
@@ -64,7 +64,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 Level = new List<FailureLevel> { FailureLevel.Error, FailureLevel.Warning }
             };
 
-            optionsInterpretter.ConsumeEnvVarsAndInterpretOptions(analyzeOptionsBase);
+            optionsInterpreter.ConsumeEnvVarsAndInterpretOptions(analyzeOptionsBase);
 
             analyzeOptionsBase.DataToInsert.Should().Contain(OptionallyEmittedData.TextFiles);
             analyzeOptionsBase.DataToInsert.Should().Contain(OptionallyEmittedData.BinaryFiles);

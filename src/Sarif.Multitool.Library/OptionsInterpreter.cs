@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft. All rights reserved.
+// Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System;
@@ -9,14 +9,14 @@ using Microsoft.CodeAnalysis.Sarif.Driver;
 
 namespace Microsoft.CodeAnalysis.Sarif.Multitool
 {
-    public class OptionsInterpretter
+    public class OptionsInterpreter
     {
         //  Poor man's dependency injection
-        public OptionsInterpretter() : this(new EnvironmentVariableGetter())
+        public OptionsInterpreter() : this(new EnvironmentVariableGetter())
         {
         }
 
-        public OptionsInterpretter(IEnvironmentVariableGetter environmentVariableGetter)
+        public OptionsInterpreter(IEnvironmentVariableGetter environmentVariableGetter)
         {
             _environmentVariableGetter = environmentVariableGetter ?? throw new ArgumentNullException(nameof(environmentVariableGetter));
         }
@@ -143,6 +143,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         public void ConsumeEnvVarsAndInterpretOptions(RebaseUriOptions rebaseUriOptions)
         {
             ConsumeEnvVarsAndInterpretOptions((MultipleFilesOptionsBase)rebaseUriOptions);
+        }
+
+        public void ConsumeEnvVarsAndInterpretOptions(PartitionOptions partitionOptions)
+        {
+            ConsumeEnvVarsAndInterpretOptions((SingleFileOptionsBase)partitionOptions);
         }
 
         public void ConsumeEnvVarsAndInterpretOptions(RewriteOptions rewriteOptions)
