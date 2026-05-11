@@ -1,6 +1,7 @@
 # SARIF Package Release History (SDK, Driver, Converters, and Multitool)
 
 ## **UNRELEASED**
+* BUG: Fix `AccessViolationException` in `EnumeratedArtifact.RetrieveDataFromStream` when the caller-provided stream's `Seek` re-enters native code (e.g. ASP.NET WebAPI's `SeekableBufferedRequestStream` over IIS's `HttpBufferlessInputStream`). Always rewind via `PeekableStream` instead of trusting `Stream.CanSeek`.
 * BRK: Rename `Microsoft.CodeAnalysis.Sarif.Multitool.OptionsInterpretter` (and its test class `OptionsInterpretterTests`) to `OptionsInterpreter` / `OptionsInterpreterTests` (single `t`). External callers of `Sarif.Multitool.Library` constructing `new OptionsInterpretter(...)` must update to `new OptionsInterpreter(...)`.
 * NEW: Add `partition` multitool verb that splits one SARIF log into many by strategy (`PerRule` (default), `PerRunPerRule`, `PerRun`, `PerResult`, `PerRunPerTarget`, `PerRunPerTargetPerRule`, `PerIndexList`). Wraps `SarifPartitioner.Partition`, so each output gets its `tool.driver.rules` and `run.artifacts` pruned to only what the partition references.
 * NEW: Add `SplittingStrategy.PerIndexList` plus the `--indices` mini-language for explicit per-result bucket assignment: `<runId>:<r1>,<r2>;<runId>:...|<bucket>...`, with bare-int shorthand for run 0 and SARIF URL fallback (`sarif:/runs/X/results/Y`, §3.10.3). Optional `--spillover-bucket NAME` captures uncovered results; `--strict-coverage` errors on uncovered results. Duplicate or out-of-range addresses error.
