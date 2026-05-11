@@ -109,17 +109,17 @@ namespace Microsoft.CodeAnalysis.Sarif
 
     private void RetrieveDataFromStream()
     {
-        if (!this.Stream.CanSeek)
-        {
-            this.Stream = new PeekableStream(this.Stream, BinarySniffingHeaderSizeBytes);
-        }
+        // Always rewind via PeekableStream; CanSeek can lie (e.g. WebAPI's SeekableBufferedRequestStream over IIS).
+        var peekable = this.Stream as PeekableStream
+                       ?? new PeekableStream(this.Stream, BinarySniffingHeaderSizeBytes);
+        this.Stream = peekable;
 
         byte[] header = new byte[BinarySniffingHeaderSizeBytes];
         int readLength = this.Stream.Read(header, 0, header.Length);
 
         bool isText = !IsZipHeader(header, readLength) && FileEncoding.IsTextualData(header, 0, readLength);
 
-        TryRewindStream();
+        peekable.Rewind();
 
         if (isText)
         {
@@ -131,21 +131,6 @@ namespace Microsoft.CodeAnalysis.Sarif
             this.bytes = new byte[Stream.Length];
             var memoryStream = new MemoryStream(this.bytes);
             this.Stream.CopyTo(memoryStream);
-        }
-    }
-
-    private void TryRewindStream()
-    {
-        if (this.Stream.CanSeek)
-        {
-            this.Stream.Seek(0, SeekOrigin.Begin);
-        }
-        else
-        {
-            if (this.Stream is PeekableStream peekable)
-            {
-                peekable.Rewind();
-            }
         }
     }
 
