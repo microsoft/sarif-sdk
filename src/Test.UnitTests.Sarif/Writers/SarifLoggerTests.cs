@@ -8,6 +8,8 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
 
 using FluentAssertions;
 
@@ -1370,7 +1372,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                                                          levels: BaseLogger.ErrorWarning,
                                                          kinds: BaseLogger.Fail))
                 {
-                    var targets = new[]
+                    Uri[] targets = new[]
                     {
                         new Uri("file:///c:/src/file1.cpp"),
                         new Uri("file:///c:/src/file2.cpp"),
@@ -1403,6 +1405,225 @@ namespace Microsoft.CodeAnalysis.Sarif
             {
                 artifact.Roles.Should().HaveFlag(ArtifactRoles.AnalysisTarget);
             }
+        }
+
+        // Regression test for a Dispose-time race where SarifRewritingVisitor
+        // mutated ReportingDescriptor.MessageStrings in place while another
+        // SarifLogger was serializing the same rule via WriteTool, producing
+        // 'InvalidOperationException: Collection was modified' inside
+        // JsonSerializerInternalWriter.SerializeDictionary on .NET Framework.
+        [Fact]
+        public void SarifLogger_DisposeIsThreadSafeWhenSarifRewritingVisitorRunsConcurrently()
+        {
+            const int iterations = 50;
+            const int ruleCount = 64;
+            const int messageKeysPerRule = 64;
+            const int mutatorThreadCount = 4;
+
+            var caughtExceptions = new List<Exception>();
+
+            for (int iter = 0; iter < iterations; iter++)
+            {
+                ReportingDescriptor[] rules = BuildRulesWithManyMessageStrings(ruleCount, messageKeysPerRule);
+
+                var sb = new StringBuilder();
+                var underlying = new StringWriter(sb);
+                var yieldingWriter = new YieldingTextWriter(underlying);
+                var sarifLogger = new SarifLogger(
+                    yieldingWriter,
+                    levels: BaseLogger.ErrorWarningNote,
+                    kinds: BaseLogger.Fail);
+
+                for (int i = 0; i < rules.Length; i++)
+                {
+                    ReportingDescriptor rule = rules[i];
+                    var result = new Result
+                    {
+                        RuleId = rule.Id,
+                        Level = FailureLevel.Warning,
+                        Kind = ResultKind.Fail,
+                        Message = new Message { Id = "Default", Arguments = new[] { "seed" } }
+                    };
+                    sarifLogger.Log(rule, result, extensionIndex: null);
+                }
+
+                using var stop = new CancellationTokenSource();
+                using var allReady = new CountdownEvent(mutatorThreadCount);
+                using var goSignal = new ManualResetEventSlim(initialState: false);
+
+                var mutatorTasks = new Task[mutatorThreadCount];
+                for (int m = 0; m < mutatorThreadCount; m++)
+                {
+                    int threadId = m;
+                    mutatorTasks[m] = Task.Run(() =>
+                    {
+                        var visitor = new NoOpRewritingVisitor();
+                        allReady.Signal();
+                        goSignal.Wait();
+                        while (!stop.IsCancellationRequested)
+                        {
+                            for (int r = threadId; r < rules.Length; r += mutatorThreadCount)
+                            {
+                                try
+                                {
+                                    visitor.VisitReportingDescriptor(rules[r]);
+                                }
+                                catch
+                                {
+                                    // Two visitor threads can still collide on the same rule;
+                                    // that is a writer-vs-writer race outside the scope of this
+                                    // test, which asserts that the writer does not race with
+                                    // the SarifLogger.Dispose-time reader.
+                                }
+                            }
+                        }
+                    });
+                }
+
+                allReady.Wait();
+                goSignal.Set();
+
+                try
+                {
+                    sarifLogger.Dispose();
+                }
+                catch (Exception ex)
+                {
+                    caughtExceptions.Add(ex);
+                    output.WriteLine($"Race observed on iteration {iter}: {ex.GetType().Name}: {ex.Message}");
+                    output.WriteLine(ex.ToString());
+                }
+
+                stop.Cancel();
+                Task.WaitAll(mutatorTasks);
+                yieldingWriter.Dispose();
+
+                if (caughtExceptions.Count > 0) { break; }
+
+                SarifLog parsed = JsonConvert.DeserializeObject<SarifLog>(sb.ToString());
+                parsed.Should().NotBeNull("Dispose must produce parseable SARIF even with a concurrent SarifRewritingVisitor");
+                parsed.Runs[0].Tool.Driver.Rules.Count.Should().Be(ruleCount,
+                    "all rules logged before Dispose must be present in the serialized output");
+                foreach (ReportingDescriptor emitted in parsed.Runs[0].Tool.Driver.Rules)
+                {
+                    emitted.MessageStrings.Should().NotBeNull();
+                    emitted.MessageStrings.Count.Should().Be(messageKeysPerRule,
+                        "MessageStrings must be fully serialized with no entries lost to the visitor/serializer race");
+                }
+            }
+
+            caughtExceptions.Should().BeEmpty(
+                "SarifRewritingVisitor.VisitReportingDescriptor must replace MessageStrings atomically (build a new dictionary and swap the reference) so that a concurrent Newtonsoft.Json enumeration during SarifLogger.Dispose cannot observe a Dictionary being mid-modification");
+        }
+
+        private sealed class NoOpRewritingVisitor : SarifRewritingVisitor
+        {
+        }
+
+        // Pass-through TextWriter that yields between writes to widen the race window.
+        private sealed class YieldingTextWriter : TextWriter
+        {
+            private readonly TextWriter _inner;
+
+            public YieldingTextWriter(TextWriter inner)
+            {
+                _inner = inner;
+            }
+
+            public override System.Text.Encoding Encoding => _inner.Encoding;
+
+            public override void Write(char value)
+            {
+                _inner.Write(value);
+                Thread.SpinWait(1);
+            }
+
+            public override void Write(string value)
+            {
+                _inner.Write(value);
+                Thread.SpinWait(1);
+            }
+
+            public override void Write(char[] buffer, int index, int count)
+            {
+                _inner.Write(buffer, index, count);
+                Thread.SpinWait(1);
+            }
+
+            public override void Flush() => _inner.Flush();
+
+            protected override void Dispose(bool disposing)
+            {
+                if (disposing) { _inner.Dispose(); }
+                base.Dispose(disposing);
+            }
+        }
+
+        private static ReportingDescriptor[] BuildRulesWithManyMessageStrings(int ruleCount, int messageKeysPerRule)
+        {
+            var rules = new ReportingDescriptor[ruleCount];
+            for (int i = 0; i < ruleCount; i++)
+            {
+                var messageStrings = new Dictionary<string, MultiformatMessageString>();
+                for (int k = 0; k < messageKeysPerRule; k++)
+                {
+                    messageStrings[$"Key{k:D2}"] = new MultiformatMessageString { Text = $"initial-rule{i}-key{k}" };
+                }
+
+                rules[i] = new ReportingDescriptor
+                {
+                    Id = $"RULE{i:D4}",
+                    Name = $"Rule{i}",
+                    ShortDescription = new MultiformatMessageString { Text = $"Short description for rule {i}" },
+                    FullDescription = new MultiformatMessageString { Text = $"Full description for rule {i}" },
+                    MessageStrings = new VersionBumpingDictionary(messageStrings),
+                };
+            }
+            return rules;
+        }
+
+        // Forces the inner Dictionary's _version to bump on every indexer-set by
+        // routing through Remove + Add. .NET Framework's Dictionary<,>.Insert
+        // bumps _version on overwrite-existing-key; .NET Core 3+ / .NET 5+ skip
+        // that bump. Wrapping MessageStrings in this dictionary makes the
+        // customer's race reproducible on any runtime, so the test fails
+        // against the unfixed in-place mutation pattern and passes against the
+        // fixed atomic-swap pattern.
+        private sealed class VersionBumpingDictionary : IDictionary<string, MultiformatMessageString>
+        {
+            private readonly Dictionary<string, MultiformatMessageString> _inner;
+
+            public VersionBumpingDictionary(IDictionary<string, MultiformatMessageString> source)
+            {
+                _inner = new Dictionary<string, MultiformatMessageString>(source);
+            }
+
+            public MultiformatMessageString this[string key]
+            {
+                get => _inner[key];
+                set
+                {
+                    _inner.Remove(key);
+                    _inner.Add(key, value);
+                }
+            }
+
+            public ICollection<string> Keys => _inner.Keys;
+            public ICollection<MultiformatMessageString> Values => _inner.Values;
+            public int Count => _inner.Count;
+            public bool IsReadOnly => false;
+
+            public void Add(string key, MultiformatMessageString value) => _inner.Add(key, value);
+            public void Add(KeyValuePair<string, MultiformatMessageString> item) => _inner.Add(item.Key, item.Value);
+            public void Clear() => _inner.Clear();
+            public bool Contains(KeyValuePair<string, MultiformatMessageString> item) => ((ICollection<KeyValuePair<string, MultiformatMessageString>>)_inner).Contains(item);
+            public bool ContainsKey(string key) => _inner.ContainsKey(key);
+            public void CopyTo(KeyValuePair<string, MultiformatMessageString>[] array, int arrayIndex) => ((ICollection<KeyValuePair<string, MultiformatMessageString>>)_inner).CopyTo(array, arrayIndex);
+            public IEnumerator<KeyValuePair<string, MultiformatMessageString>> GetEnumerator() => _inner.GetEnumerator();
+            public bool Remove(string key) => _inner.Remove(key);
+            public bool Remove(KeyValuePair<string, MultiformatMessageString> item) => ((ICollection<KeyValuePair<string, MultiformatMessageString>>)_inner).Remove(item);
+            public bool TryGetValue(string key, out MultiformatMessageString value) => _inner.TryGetValue(key, out value);
+            System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator() => _inner.GetEnumerator();
         }
     }
 }

@@ -3,6 +3,7 @@
 
 using System;
 using System.CodeDom.Compiler;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Microsoft.CodeAnalysis.Sarif
@@ -893,15 +894,12 @@ namespace Microsoft.CodeAnalysis.Sarif
                 node.FullDescription = VisitNullChecked(node.FullDescription);
                 if (node.MessageStrings != null)
                 {
-                    var keys = node.MessageStrings.Keys.ToArray();
-                    foreach (var key in keys)
+                    var newMessageStrings = new Dictionary<string, MultiformatMessageString>(node.MessageStrings.Count);
+                    foreach (var entry in node.MessageStrings)
                     {
-                        var value = node.MessageStrings[key];
-                        if (value != null)
-                        {
-                            node.MessageStrings[key] = VisitNullChecked(value);
-                        }
+                        newMessageStrings[entry.Key] = entry.Value != null ? VisitNullChecked(entry.Value) : entry.Value;
                     }
+                    node.MessageStrings = newMessageStrings;
                 }
 
                 node.DefaultConfiguration = VisitNullChecked(node.DefaultConfiguration);
