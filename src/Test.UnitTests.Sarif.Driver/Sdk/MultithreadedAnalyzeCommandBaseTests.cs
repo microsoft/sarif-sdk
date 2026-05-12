@@ -165,6 +165,40 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         }
 
         [Fact]
+        public void MultithreadedAnalyzeCommandBase_HandlesArtifactPathsWithIllegalCharacters()
+        {
+            var artifactWithQueryString = new EnumeratedArtifact(new FileSystem())
+            {
+                Uri = new Uri("https://example.com/file.pkg?token=abc"),
+                Contents = "not a real package",
+            };
+
+            var artifactWithPipeChar = new EnumeratedArtifact(new FileSystem())
+            {
+                Uri = new Uri("dir/|foo|.pkg", UriKind.Relative),
+                Contents = "not a real package",
+            };
+
+            foreach (EnumeratedArtifact artifact in new[] { artifactWithQueryString, artifactWithPipeChar })
+            {
+                var context = new TestAnalysisContext
+                {
+                    TargetsProvider = new ArtifactProvider(new[] { artifact }),
+                    MaxFileSizeInKilobytes = 1000,
+                    Logger = new TestMessageLogger(),
+                };
+                context.Policy.SetProperty(AnalyzeContextBase.OpcFileExtensionsProperty, new StringSet(new[] { ".pkg" }));
+
+                int result = new TestMultithreadedAnalyzeCommand().Run(options: null, ref context);
+
+                IList<Exception> exceptions = context.RuntimeExceptions ?? new List<Exception>();
+                exceptions.Should().NotContain(
+                    e => e is ArgumentException && e.Message.IndexOf("Illegal characters", StringComparison.OrdinalIgnoreCase) >= 0,
+                    because: "IsOpcArtifact must sanitize illegal path characters before calling Path.GetExtension");
+            }
+        }
+
+        [Fact]
         public void MultithreadedAnalyzeCommandBase_SkipsOversizedOpcFilesBeforeOpening()
         {
             var logger = new TestMessageLogger();
