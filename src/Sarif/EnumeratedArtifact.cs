@@ -109,7 +109,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
     private void RetrieveDataFromStream()
     {
-        // Always rewind via PeekableStream; CanSeek can lie (e.g. WebAPI's SeekableBufferedRequestStream over IIS).
+        // Always rewind via PeekableStream; CanSeek can be inaccurate (e.g. WebAPI's SeekableBufferedRequestStream over IIS).
         var peekable = this.Stream as PeekableStream
                        ?? new PeekableStream(this.Stream, BinarySniffingHeaderSizeBytes);
         this.Stream = peekable;
