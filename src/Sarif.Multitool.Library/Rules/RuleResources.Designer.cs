@@ -319,15 +319,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}: This &apos;result&apos; object does not provide a &apos;partialFingerprints&apos; dictionary. This property is required by the {1} service..
-        /// </summary>
-        internal static string Base1015_ProvideRequiredResultProperties_Error_MissingPartialFingerprints_Text {
-            get {
-                return ResourceManager.GetString("Base1015_ProvideRequiredResultProperties_Error_MissingPartialFingerprints_Text", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to {0}: This &apos;location&apos; object does not provide a &apos;physicalLocation&apos; object. This property is required by the {1} service..
         /// </summary>
         internal static string Base1016_ProvideRequiredLocationProperties_Error_MissingPhysicalLocation_Text {
