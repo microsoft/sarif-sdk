@@ -525,9 +525,6 @@ Semantics: Assuming the reader of the log file (an end user or another tool) has
   <data name="Base1015_ProvideRequiredResultProperties_Error_MissingMessageText_Text" xml:space="preserve">
     <value>{0}: The 'message' object on this 'result' object does not provide a 'text' property. This property is required by the {1} service.</value>
   </data>
-  <data name="Base1015_ProvideRequiredResultProperties_Error_MissingPartialFingerprints_Text" xml:space="preserve">
-    <value>{0}: This 'result' object does not provide a 'partialFingerprints' dictionary. This property is required by the {1} service.</value>
-  </data>
   <data name="Base1018_ProvideRequiredToolProperties_Error_MissingDriverName_Text" xml:space="preserve">
     <value>{0}: The 'driver' object in this tool does not provide a 'name' value. This property is required by the {1} service.</value>
   </data>
@@ -591,9 +588,7 @@ Provide the 'ruleId' property, which is the unique identifier of the analysis ru
 
 Provide the 'message' property, which is a user-facing explanation of the result occurrence. The message's 'text' property is required by the ADO Advanced Security service.
 
-Provide the 'locations' array, which must contain at least one location object.
-
-Provide the 'partialFingerprints' dictionary. This property is required by the ADO Advanced Security service.</value>
+Provide the 'locations' array, which must contain at least one location object.</value>
   </data>
   <data name="ADO1016_ProvideRequiredLocationProperties_FullDescription_Text" xml:space="preserve">
     <value>The Location object is important for providing consumers with the location where the result occurred.
@@ -648,9 +643,7 @@ Provide the 'results' array, even if it is empty.</value>
 
 Provide the 'message' property, which is a user-facing explanation of the result occurrence. The message's 'text' property is required by the GitHub Advanced Security service.
 
-Provide the 'locations' array, which must contain at least one location object.
-
-Provide the 'partialFingerprints' dictionary. This property is required by the GitHub Advanced Security service.</value>
+Provide the 'locations' array, which must contain at least one location object.</value>
   </data>
   <data name="GH1016_ProvideRequiredLocationProperties_FullDescription_Text" xml:space="preserve">
     <value>The Location object is important for providing consumers with the location where the result occurred.

@@ -17,8 +17,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             nameof(RuleResources.Base1015_ProvideRequiredResultProperties_Error_EmptyLocationsArray_Text),
             nameof(RuleResources.Base1015_ProvideRequiredResultProperties_Error_MissingLocationsArray_Text),
             nameof(RuleResources.Base1015_ProvideRequiredResultProperties_Error_MissingMessageText_Text),
-            nameof(RuleResources.Base1015_ProvideRequiredResultProperties_Error_MissingMessage_Text),
-            nameof(RuleResources.Base1015_ProvideRequiredResultProperties_Error_MissingPartialFingerprints_Text)
+            nameof(RuleResources.Base1015_ProvideRequiredResultProperties_Error_MissingMessage_Text)
         };
 
         protected ICollection<string> BaseMessageResourceNames => _baseMessageResourceNames;
@@ -59,13 +58,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                     nameof(RuleResources.Base1015_ProvideRequiredResultProperties_Error_EmptyLocationsArray_Text));
             }
 
-            if (result.PartialFingerprints == null)
-            {
-                // {0}: This 'result' object does not provide a 'partialFingerprints' dictionary. This property is required by the {1} service.
-                LogResult(
-                    resultPointer,
-                    nameof(RuleResources.Base1015_ProvideRequiredResultProperties_Error_MissingPartialFingerprints_Text));
-            }
+            // Note: missing 'partialFingerprints' is intentionally not flagged. Both consumers covered
+            // by the ADO and GH rule kinds (Advanced Security for Azure DevOps, GitHub code scanning)
+            // compute partialFingerprints automatically when the producer omits them. See:
+            //   * https://learn.microsoft.com/azure/devops/repos/security/github-advanced-security-code-scanning-third-party
+            //   * https://docs.github.com/code-security/code-scanning/integrating-with-code-scanning/sarif-support-for-code-scanning#fingerprint-generation
+            // AI producers should also avoid persisting fingerprints (see AI2011).
         }
     }
 }

@@ -790,8 +790,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
         private static bool IsOpcArtifact(IEnumeratedArtifact artifact, string filePath, TContext globalContext)
         {
-            // If the file extension is recognized as an OPC type, it qualifies.
-            string extension = Path.GetExtension(filePath);
+            string extension = Path.GetExtension(filePath.ReplaceInvalidCharInFileName(string.Empty));
             if (!globalContext.OpcFileExtensions.Contains(extension))
             {
                 return false;
