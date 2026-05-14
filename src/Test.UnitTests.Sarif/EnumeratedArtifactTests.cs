@@ -242,5 +242,83 @@ namespace Test.UnitTests.Sarif
 
             return new ZipArchive(stream, ZipArchiveMode.Read);
         }
+
+        // Regression: EnumeratedArtifact must never call Seek on a caller-provided stream.
+        // Some "seekable" wrappers (e.g. WebAPI's SeekableBufferedRequestStream over IIS) AV on Seek.
+
+        [Fact]
+        public void EnumeratedArtifact_TextStream_DoesNotCallSeekOnCallerStream()
+        {
+            string payload = new string('a', 4096);
+            var hostile = new HostileSeekStream(new MemoryStream(Encoding.UTF8.GetBytes(payload)));
+
+            var artifact = new EnumeratedArtifact(FileSystem.Instance)
+            {
+                Uri = new Uri("test://textual-artifact", UriKind.Absolute),
+                Stream = hostile,
+            };
+
+            artifact.Contents.Should().Be(payload);
+            hostile.SeekCallCount.Should().Be(0);
+        }
+
+        [Fact]
+        public void EnumeratedArtifact_BinaryStream_DoesNotCallSeekOnCallerStream()
+        {
+            byte[] payload = new byte[4096];
+            payload[0] = (byte)'P'; payload[1] = (byte)'K'; payload[2] = 0x03; payload[3] = 0x04;
+            for (int i = 4; i < payload.Length; i++) { payload[i] = (byte)(i & 0xFF); }
+
+            var hostile = new HostileSeekStream(new MemoryStream(payload));
+
+            var artifact = new EnumeratedArtifact(FileSystem.Instance)
+            {
+                Uri = new Uri("test://binary-artifact", UriKind.Absolute),
+                Stream = hostile,
+            };
+
+            artifact.Bytes.Should().Equal(payload);
+            hostile.SeekCallCount.Should().Be(0);
+        }
+
+        // CanSeek lies (like WebAPI's SeekableBufferedRequestStream); Seek throws to mirror the production AV.
+        private sealed class HostileSeekStream : Stream
+        {
+            private readonly Stream inner;
+
+            public HostileSeekStream(Stream inner) => this.inner = inner;
+
+            public int SeekCallCount { get; private set; }
+
+            public override bool CanRead => true;
+            public override bool CanSeek => true;
+            public override bool CanWrite => false;
+            public override long Length => this.inner.Length;
+
+            public override long Position
+            {
+                get => this.inner.Position;
+                set { this.SeekCallCount++; throw new AccessViolationException(); }
+            }
+
+            public override int Read(byte[] buffer, int offset, int count) =>
+                this.inner.Read(buffer, offset, count);
+
+            public override long Seek(long offset, SeekOrigin origin)
+            {
+                this.SeekCallCount++;
+                throw new AccessViolationException();
+            }
+
+            public override void Flush() { }
+            public override void SetLength(long value) => throw new NotSupportedException();
+            public override void Write(byte[] buffer, int offset, int count) => throw new NotSupportedException();
+
+            protected override void Dispose(bool disposing)
+            {
+                if (disposing) { this.inner.Dispose(); }
+                base.Dispose(disposing);
+            }
+        }
     }
 }
