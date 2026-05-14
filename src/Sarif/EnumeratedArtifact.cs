@@ -109,17 +109,29 @@ namespace Microsoft.CodeAnalysis.Sarif
 
     private void RetrieveDataFromStream()
     {
-        // Always rewind via PeekableStream; CanSeek can be inaccurate (e.g. WebAPI's SeekableBufferedRequestStream over IIS).
-        var peekable = this.Stream as PeekableStream
-                       ?? new PeekableStream(this.Stream, BinarySniffingHeaderSizeBytes);
-        this.Stream = peekable;
+        // Some streams report CanSeek == true but their Seek re-enters native code that may have
+        // released its context (e.g. WebAPI's SeekableBufferedRequestStream over IIS), causing an
+        // AccessViolationException. Wrap unknown stream types in PeekableStream so we never call
+        // Seek on the caller's stream; rewind from the in-memory buffer instead.
+        if (!IsSafeToSeek(this.Stream))
+        {
+            this.Stream = this.Stream as PeekableStream
+                          ?? new PeekableStream(this.Stream, BinarySniffingHeaderSizeBytes);
+        }
 
         byte[] header = new byte[BinarySniffingHeaderSizeBytes];
         int readLength = this.Stream.Read(header, 0, header.Length);
 
         bool isText = !IsZipHeader(header, readLength) && FileEncoding.IsTextualData(header, 0, readLength);
 
-        peekable.Rewind();
+        if (this.Stream is PeekableStream peekable)
+        {
+            peekable.Rewind();
+        }
+        else
+        {
+            this.Stream.Seek(0, SeekOrigin.Begin);
+        }
 
         if (isText)
         {
@@ -132,6 +144,16 @@ namespace Microsoft.CodeAnalysis.Sarif
             var memoryStream = new MemoryStream(this.bytes);
             this.Stream.CopyTo(memoryStream);
         }
+    }
+
+    // Allowlist of stream types whose Seek touches only managed in-process state.
+    // Anything else is wrapped in PeekableStream to avoid the AV described in RetrieveDataFromStream.
+    private static bool IsSafeToSeek(Stream stream)
+    {
+        return stream.CanSeek
+            && (stream is MemoryStream
+                || stream is FileStream
+                || stream is UnmanagedMemoryStream);
     }
 
     public long? sizeInBytes;
