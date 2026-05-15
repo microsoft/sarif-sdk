@@ -1,6 +1,6 @@
 # SARIF Package Release History (SDK, Driver, Converters, and Multitool)
 
-## **UNRELEASED**
+## **v4.6.5** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/v4.6.5) | [Driver](https://www.nuget.org/packages/Sarif.Driver/v4.6.5) | [Converters](https://www.nuget.org/packages/Sarif.Converters/v4.6.5)  | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/v4.6.5) | [Multitool Library](https://www.nuget.org/packages/Sarif.Multitool.Library/v4.6.5)
 * BUG: Fix `AccessViolationException` in `EnumeratedArtifact.RetrieveDataFromStream` when the caller-provided stream's `Seek` re-enters native code (e.g. ASP.NET WebAPI's `SeekableBufferedRequestStream` over IIS's `HttpBufferlessInputStream`). Always rewind via `PeekableStream` instead of trusting `Stream.CanSeek`.
 
 ## **v4.6.4** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/v4.6.4) | [Driver](https://www.nuget.org/packages/Sarif.Driver/v4.6.4) | [Converters](https://www.nuget.org/packages/Sarif.Converters/v4.6.4)  | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/v4.6.4) | [Multitool Library](https://www.nuget.org/packages/Sarif.Multitool.Library/v4.6.4)
