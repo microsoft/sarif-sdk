@@ -1,5 +1,129 @@
 # SARIF Package Release History (SDK, Driver, Converters, and Multitool)
 
+## **UNRELEASED**
+
+### SDK-A — Eliminate redacted-SARIF paired-log pattern (AI1011)
+
+* BRK: Remove `AI1011.RedactedRunMarker` validation rule. The redacted-SARIF paired-log
+  pattern (the `ai/redacted` / `ai/fullLogLocation` run-property pair) is no longer part
+  of the AI profile — redaction is a punted concern that, when needed, will be implemented
+  against `run.redactionTokens` (SARIF §3.14.28). `run.redactionTokens` itself is unchanged.
+  Mirrors aip0 PR 91. Public surface impact: the rule, its three resx messages
+  (`AI1011_RedactedRunMarker_*_Text`), and `RuleId.AIRedactedRunMarker` are removed; the
+  `AI*` rule count drops from 20 to 19.
+
+### SDK-B — AI1012 enforces descriptor-stability invariant
+
+* BUG: `AI1012.ProvideRuleSubId` previously accepted **either** shape — sub-component
+  on `result.ruleId` OR sub-component on `reportingDescriptor.id` — silently passing
+  the anti-pattern where the descriptor carries the hierarchical sub-id
+  (`tool.driver.rules[].id = "CWE-78/api-handler"`). Per SARIF §3.27.5 / §3.49.3 NOTE 2 /
+  §3.52.4, the sub-component must live on `result.ruleId` only; the descriptor id must
+  be the stable base identifier (`"CWE-78"`). Tightened the existing
+  `AI1012_ProvideRuleSubId_Error_Missing_Text` check to require the result-side sub-id
+  unconditionally, and added a sibling
+  `AI1012_ProvideRuleSubId_Error_DescriptorIdContainsSlash_Text` for the descriptor-side
+  anti-pattern.
+
+### SDK-C — Validator region/contextRegion coverage
+
+* BUG: `AI1003.ProvideRequiredRegionProperties`, `SARIF2017.ProvideRequiredRegionProperties`,
+  `GH1003.ProvideRequiredRegionProperties`, and `SARIF2011.ProvideContextRegion` overrode
+  `Analyze(Result, ...)` and hand-walked `result.Locations[]` only, silently missing
+  regions/physicalLocations under `relatedLocations`, `codeFlows.threadFlows.locations`,
+  `fixes.artifactChanges.replacements.deletedRegion`, `attachments.regions`,
+  `notification.locations`, and `physicalLocation.contextRegion`. Refactored each to use
+  the framework's `Analyze(Region, ...)` / `Analyze(PhysicalLocation, ...)` visitors so
+  every Region/PhysicalLocation in the SARIF tree is covered automatically.
+  `Region.IsBinaryRegion` instances (a valid SARIF §3.30 alternative representation) are
+  now correctly skipped; previously they could be incorrectly flagged for "missing
+  startLine."
+* BUG: Extend `SarifValidationSkimmerBase.Visit(PhysicalLocation, ...)` to walk
+  `physicalLocation.ContextRegion` in addition to `physicalLocation.Region`. Both are
+  Region instances per §3.30; walking only the primary region left contextRegions
+  invisible to every Region-level rule (SARIF1007 benefits; SARIF1008's superset check
+  is on PhysicalLocation so was unaffected; AI1003 / SARIF2017 / GH1003 after SDK-C all
+  benefit).
+
+### SDK-D — `FileRegionsCache.ConstructMultilineContextSnippet` proper-superset semantics
+
+* BUG: When the input region's `CharLength` was at or above `BIGSNIPPETLENGTH` (512), the
+  function returned `originalRegion.DeepClone()` as the "context" — emitting a SARIF log
+  where `contextRegion` *equals* `region`. SARIF §3.30 requires `contextRegion` to be a
+  PROPER superset of `region` (strictly larger), and `SARIF1008.PhysicalLocationProperties-
+  MustBeConsistent`'s own message text says "if region and contextRegion are identical,
+  the tool must omit contextRegion." The function now returns `null` in that branch so
+  the caller skips assigning `ContextRegion`. The Debug.Assert at the end of the
+  char-offset fallback path is also tightened from `<=` (which accepted equality) to `<`,
+  and equal-size results in that path now return `null` for the same reason.
+
+### SDK-E — Typed `RegionOutOfRangeException` from `InsertOptionalDataVisitor`
+
+* NEW: Introduce `Microsoft.CodeAnalysis.Sarif.RegionOutOfRangeException`. When a region
+  references content past the bounds of the underlying artifact (submodule drift, partial
+  clone, post-edit replay, etc.), `InsertOptionalDataVisitor.VisitPhysicalLocation` now
+  throws `RegionOutOfRangeException` carrying the offending `Region` and `ArtifactUri`,
+  with an informative message that includes the line/column or char-offset coordinates.
+  Previously the underlying `ArgumentOutOfRangeException` propagated raw, leaking
+  framework internals and making the failure neither catchable selectively nor easy to
+  translate into a SARIF `toolExecutionNotifications` entry.
+* BUG: `InsertOptionalDataVisitor` no longer assigns `ContextRegion = null` when
+  `ConstructMultilineContextSnippet` legitimately declines to synthesize a superset (see
+  SDK-D); it now leaves `ContextRegion` unset so consumers don't see a serialized
+  `"contextRegion": null` or — historically — an invalid equal-size pair.
+
+### SDK-F — `SarifVersionConverter` strict-throw on non-string version
+
+* BUG: `SarifVersionConverter.ReadJson` performed a direct `(string)reader.Value` cast,
+  so a SARIF log that ships `version` as a number, bool, or `null` (any non-conformant
+  shape — SARIF §3.13.2 requires `version` to be a string) crashed with a cryptic
+  `InvalidCastException` ("Unable to cast Double to String"). The converter now inspects
+  `reader.TokenType` and throws `JsonSerializationException` with a message that cites
+  §3.13.2 and identifies the offending token kind.
+
+### SDK-G — `SarifLog.Load` contract: throw on null deserialization
+
+* BRK: `SarifLog.Load(string)` and `SarifLog.Load(Stream, bool)` (including the deferred-
+  loading variants) now throw `JsonReaderException` when deserialization yields a null
+  `SarifLog` (e.g. the JSON literal `null`, empty stream, or structurally invalid input).
+  Historically they returned `null` for these cases, leaving callers to defend against
+  NREs throughout the SDK. Callers can now rely on Load returning a non-null `SarifLog`
+  or throwing. The thrown exception cites SARIF §3.13.
+
+### SDK-H — `SarifUtilities.SarifSchemaUri` points at OASIS errata01
+
+* BRK: `SarifUtilities.SarifSchemaUri` now resolves to
+  `https://docs.oasis-open.org/sarif/sarif/v2.1.0/errata01/os/schemas/sarif-schema-2.1.0.json`
+  (the OASIS-published final v2.1.0 schema), replacing the previous
+  `https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0-rtm.6.json` variant
+  that the SARIF Multitool validator does **not** accept as final.
+  `SarifUtilities.ConvertToSchemaUri(SarifVersion.Current)` returns the same OASIS URL;
+  v1.0.0 continues to resolve under the legacy `SarifSchemaUriBase`. Producers/consumers
+  that compared `$schema` string-for-string against the old value will need to update;
+  the change makes the SDK's own validator accept logs that use the SDK's own published
+  constant, which it previously rejected.
+* NEW: Add `SarifUtilities.OasisFinalV210SchemaUri` constant for callers that want the
+  errata01 URL by name (independent of `SarifVersion.Current` semantics).
+
+### SDK-I — `OrderedFileSpecifier` rejects Win32 short-name false-positives
+
+* BUG: A specifier like `*.sarif` could enumerate files such as `foo.sarif.to-delete` or
+  `foo.sarif.bak` because Win32 `FindFirstFile`/`Directory.EnumerateFiles` honors short
+  (8.3) names when matching wildcards. Added a long-name post-filter
+  (`OrderedFileSpecifier.FilterMatchesFileName`) that runs after the OS enumeration and
+  rejects entries that don't match the documented glob semantics. Pure `*` and `*.*`
+  filters are unchanged.
+
+### SDK-J — `GitHelper` normalizes path separators
+
+* BUG: `GitHelper.GetRepositoryRoot` and `GitHelper.GetTopLevel` returned paths with
+  POSIX-style forward slashes on Windows (because `git` always emits forward slashes
+  regardless of host OS), breaking downstream code that combined the result with
+  `Path.Combine`, performed `IFileSystem.FileExists` checks, or compared as dictionary
+  keys against `DirectoryInfo.FullName`-shaped paths. Both helpers now route results
+  through `GitHelper.NormalizeDirectorySeparators` so callers always see paths whose
+  separators match `Path.DirectorySeparatorChar`.
+
 ## **v4.6.5** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/v4.6.5) | [Driver](https://www.nuget.org/packages/Sarif.Driver/v4.6.5) | [Converters](https://www.nuget.org/packages/Sarif.Converters/v4.6.5)  | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/v4.6.5) | [Multitool Library](https://www.nuget.org/packages/Sarif.Multitool.Library/v4.6.5)
 * BUG: Fix `AccessViolationException` in `EnumeratedArtifact.RetrieveDataFromStream` when the caller-provided stream's `Seek` re-enters native code (e.g. ASP.NET WebAPI's `SeekableBufferedRequestStream` over IIS's `HttpBufferlessInputStream`). Always rewind via `PeekableStream` instead of trusting `Stream.CanSeek`.
 

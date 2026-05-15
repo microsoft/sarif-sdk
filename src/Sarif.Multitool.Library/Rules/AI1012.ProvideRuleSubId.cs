@@ -4,6 +4,8 @@
 using System.Collections.Generic;
 using System.Text;
 
+using Microsoft.Json.Pointer;
+
 namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 {
     public class ProvideRuleSubId : SarifValidationSkimmerBase
@@ -27,8 +29,35 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 
         protected override ICollection<string> MessageResourceNames => new List<string>
         {
-            nameof(RuleResources.AI1012_ProvideRuleSubId_Error_Missing_Text)
+            nameof(RuleResources.AI1012_ProvideRuleSubId_Error_Missing_Text),
+            nameof(RuleResources.AI1012_ProvideRuleSubId_Error_DescriptorIdContainsSlash_Text)
         };
+
+        // Walk the descriptors *first* (Skimmer's tree walk doesn't guarantee descriptor-before-
+        // result, and we want the descriptor-level violation reported even when no result references
+        // that descriptor). The descriptor-id-contains-slash anti-pattern is detected here; the
+        // result-must-have-sub-id check happens in Analyze(Result, ...).
+        protected override void Analyze(ReportingDescriptor reportingDescriptor, string reportingDescriptorPointer)
+        {
+            if (string.IsNullOrEmpty(reportingDescriptor?.Id))
+            {
+                // Other rules cover missing descriptor IDs; not our concern.
+                return;
+            }
+
+            if (reportingDescriptor.Id.IndexOf('/') >= 0)
+            {
+                // Anti-pattern: the descriptor's stable identifier carries a hierarchical
+                // sub-component (e.g. 'CWE-78/api-handler'). Per SARIF §3.49.3 NOTE 2 / §3.52.4 the
+                // sub-component belongs on result.ruleId only — descriptor.id must be the base ID
+                // ('CWE-78') so that descriptor identity is stable across results and the
+                // tool.driver.rules array doesn't explode with one entry per result.
+                LogResult(
+                    reportingDescriptorPointer.AtProperty(SarifPropertyName.Id),
+                    nameof(RuleResources.AI1012_ProvideRuleSubId_Error_DescriptorIdContainsSlash_Text),
+                    reportingDescriptor.Id);
+            }
+        }
 
         protected override void Analyze(Result result, string resultPointer)
         {
@@ -47,17 +76,18 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             try { rule = result.GetRule(run); } catch { /* fall through with rule == null */ }
             string descriptorId = rule?.Id;
 
-            // The sub-ID requirement: result.ruleId must have at least one hierarchical component
-            // beyond the descriptor's base id. If we can't resolve a descriptor, fall back to
-            // checking for any '/' at all.
-            bool hasSubId = !string.IsNullOrEmpty(descriptorId)
-                ? descriptorId.IndexOf('/') >= 0
-                  || (ruleId.Length > descriptorId.Length
-                      && ruleId.StartsWith(descriptorId, System.StringComparison.Ordinal)
-                      && ruleId[descriptorId.Length] == '/')
+            // SARIF §3.27.5 / §3.49.3 NOTE 2 / §3.52.4: the AI profile requires every result to
+            // carry a hierarchical sub-component on result.ruleId BEYOND the descriptor's base id.
+            // We do NOT accept "descriptor.id already contains a slash" — that anti-pattern is
+            // flagged separately by the descriptor-side Analyze override above. The valid shape
+            // is descriptor.id="CWE-78", result.ruleId="CWE-78/api-handler".
+            bool hasSubIdOnResult = !string.IsNullOrEmpty(descriptorId)
+                ? ruleId.Length > descriptorId.Length
+                    && ruleId.StartsWith(descriptorId, System.StringComparison.Ordinal)
+                    && ruleId[descriptorId.Length] == '/'
                 : ruleId.IndexOf('/') >= 0;
 
-            if (hasSubId)
+            if (hasSubIdOnResult)
             {
                 return;
             }

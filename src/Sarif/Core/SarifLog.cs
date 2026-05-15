@@ -22,13 +22,19 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// </summary>
         /// <param name="sarifFilePath">File Path to Sarif file to load</param>
         /// <returns>SarifLog instance for file</returns>
+        /// <exception cref="JsonReaderException">
+        /// Thrown when the input cannot be deserialized into a non-null <see cref="SarifLog"/>
+        /// (e.g. file contains the JSON literal <c>null</c>, is empty, or is structurally invalid).
+        /// </exception>
         public static SarifLog LoadDeferred(string sarifFilePath)
         {
             var serializer = new JsonSerializer();
             serializer.ContractResolver = new SarifDeferredContractResolver();
 
             using var jsonPositionedTextReader = new JsonPositionedTextReader(sarifFilePath);
-            return serializer.Deserialize<SarifLog>(jsonPositionedTextReader);
+            return RequireNonNullDeserialization(
+                serializer.Deserialize<SarifLog>(jsonPositionedTextReader),
+                sourceDescription: sarifFilePath);
         }
 
         /// <summary>
@@ -37,10 +43,13 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// </summary>
         /// <param name="sarifFilePath">File Path to Sarif file to load</param>
         /// <returns>SarifLog instance for file</returns>
+        /// <exception cref="JsonReaderException">
+        /// Thrown when the input cannot be deserialized into a non-null <see cref="SarifLog"/>.
+        /// </exception>
         public static SarifLog Load(string sarifFilePath)
         {
             using Stream stream = File.OpenRead(sarifFilePath);
-            return Load(stream);
+            return Load(stream, deferred: false, sourceDescription: sarifFilePath);
         }
 
         /// <summary>
@@ -48,8 +57,19 @@ namespace Microsoft.CodeAnalysis.Sarif
         ///  [File is fully loaded; more RAM but faster]
         /// </summary>
         /// <param name="source">Stream with SARIF to load</param>
+        /// <param name="deferred">Use deferred loading; trades CPU for working set.</param>
         /// <returns>SarifLog instance for file</returns>
+        /// <exception cref="JsonReaderException">
+        /// Thrown when the input cannot be deserialized into a non-null <see cref="SarifLog"/>
+        /// (e.g. stream contains the JSON literal <c>null</c>, is empty, or is structurally invalid).
+        /// Callers can rely on Load never returning null.
+        /// </exception>
         public static SarifLog Load(Stream source, bool deferred = false)
+        {
+            return Load(source, deferred, sourceDescription: null);
+        }
+
+        private static SarifLog Load(Stream source, bool deferred, string sourceDescription)
         {
             var serializer = new JsonSerializer();
 
@@ -57,13 +77,38 @@ namespace Microsoft.CodeAnalysis.Sarif
             {
                 serializer.ContractResolver = new SarifDeferredContractResolver();
                 var jsonPositionedTextReader = JsonPositionedTextReader.FromStream(Stream.Synchronized(source));
-                return serializer.Deserialize<SarifLog>(jsonPositionedTextReader);
+                return RequireNonNullDeserialization(
+                    serializer.Deserialize<SarifLog>(jsonPositionedTextReader),
+                    sourceDescription);
             }
 
             using var streamReader = new StreamReader(source);
             using var jsonTextReader = new JsonTextReader(streamReader);
             // NOTE: Load with JsonSerializer.Deserialize, not JsonConvert.DeserializeObject, to avoid a string of the whole file in memory.
-            return serializer.Deserialize<SarifLog>(jsonTextReader);
+            return RequireNonNullDeserialization(
+                serializer.Deserialize<SarifLog>(jsonTextReader),
+                sourceDescription);
+        }
+
+        // SARIF §3.13: a SARIF file is structurally a 'sarifLog' object. A null deserialization
+        // result indicates the input was not a SARIF log (typical causes: the JSON literal `null`,
+        // an empty stream, or a deserialization failure that the contract resolver silently swallowed).
+        // Historically Load returned null in these cases, leaving callers to defend against NREs;
+        // we now throw a typed diagnostic so the contract is "Load returns a non-null SarifLog or throws".
+        private static SarifLog RequireNonNullDeserialization(SarifLog log, string sourceDescription)
+        {
+            if (log != null)
+            {
+                return log;
+            }
+
+            string description = string.IsNullOrEmpty(sourceDescription)
+                ? "the input stream"
+                : $"'{sourceDescription}'";
+
+            throw new JsonReaderException(
+                $"Could not deserialize {description} into a SARIF log. " +
+                "The content is empty, the JSON literal 'null', or otherwise not a valid 'sarifLog' object (SARIF §3.13).");
         }
 
         /// <summary>

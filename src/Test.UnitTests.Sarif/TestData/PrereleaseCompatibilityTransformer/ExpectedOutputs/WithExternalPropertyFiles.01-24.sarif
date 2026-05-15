@@ -1,5 +1,5 @@
 {
-  "$schema": "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0-rtm.6.json",
+  "$schema": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/errata01/os/schemas/sarif-schema-2.1.0.json",
   "version": "2.1.0",
   "runs": [
     {
@@ -17,14 +17,14 @@
             "uri": "externalized/conversion.sarif-external-properties",
             "uriBaseId": "TESTROOT"
           },
-          "guid": "B10DFE7E-2088-48EB-8CE6-F0679A2365F8"
+          "guid": "b10dfe7e-2088-48eb-8ce6-f0679a2365f8"
         },
         "externalizedProperties": {
           "location": {
             "uri": "externalized/externalizedProperties.sarif-external-properties",
             "uriBaseId": "TESTROOT"
           },
-          "guid": "B10DFE7E-2088-48EB-8CE6-F0679A231111"
+          "guid": "b10dfe7e-2088-48eb-8ce6-f0679a231111"
         },
         "artifacts": [
           {
@@ -32,7 +32,7 @@
               "uri": "externalized/artifacts1.sarif-external-properties",
               "uriBaseId": "TESTROOT"
             },
-            "guid": "B10DFE7E-2088-48EB-8CE6-F0679A230001",
+            "guid": "b10dfe7e-2088-48eb-8ce6-f0679a230001",
             "itemCount": 2
           },
           {
@@ -40,7 +40,7 @@
               "uri": "externalized/artifacts2.sarif-external-properties",
               "uriBaseId": "TESTROOT"
             },
-            "guid": "B10DFE7E-2088-48EB-8CE6-F0679A230002",
+            "guid": "b10dfe7e-2088-48eb-8ce6-f0679a230002",
             "itemCount": 2
           }
         ],
@@ -50,7 +50,7 @@
               "uri": "externalized/invocations1.sarif-external-properties",
               "uriBaseId": "TESTROOT"
             },
-            "guid": "B10DFE7E-2088-48EB-8CE6-F0679A234444",
+            "guid": "b10dfe7e-2088-48eb-8ce6-f0679a234444",
             "itemCount": 2
           },
           {
@@ -58,7 +58,7 @@
               "uri": "externalized/artifacts2.sarif-external-properties",
               "uriBaseId": "TESTROOT"
             },
-            "guid": "B10DFE7E-2088-48EB-8CE6-F0679A235555",
+            "guid": "b10dfe7e-2088-48eb-8ce6-f0679a235555",
             "itemCount": 2
           }
         ],
@@ -68,7 +68,7 @@
               "uri": "externalized/logicalLocations1.sarif-external-properties",
               "uriBaseId": "TESTROOT"
             },
-            "guid": "B10DFE7E-2088-48EB-8CE6-F0679A234566",
+            "guid": "b10dfe7e-2088-48eb-8ce6-f0679a234566",
             "itemCount": 2
           },
           {
@@ -76,7 +76,7 @@
               "uri": "externalized/logicalLocations2.sarif-external-properties",
               "uriBaseId": "TESTROOT"
             },
-            "guid": "B10DFE7E-2088-48EB-8CE6-F0679A236666",
+            "guid": "b10dfe7e-2088-48eb-8ce6-f0679a236666",
             "itemCount": 2
           }
         ],
@@ -86,7 +86,7 @@
               "uri": "externalized/results1.sarif-external-properties",
               "uriBaseId": "TESTROOT"
             },
-            "guid": "B10DFE7E-2088-48EB-8CE6-F0679A237777",
+            "guid": "b10dfe7e-2088-48eb-8ce6-f0679a237777",
             "itemCount": 2
           },
           {
@@ -94,7 +94,7 @@
               "uri": "externalized/results2.sarif-external-properties",
               "uriBaseId": "TESTROOT"
             },
-            "guid": "B10DFE7E-2088-48EB-8CE6-F0679A238888",
+            "guid": "b10dfe7e-2088-48eb-8ce6-f0679a238888",
             "itemCount": 2
           }
         ],
@@ -103,7 +103,7 @@
             "uri": "externalized/tool.sarif-external-properties",
             "uriBaseId": "TESTROOT"
           },
-          "guid": "B10DFE7E-2088-48EB-8CE6-F0679A230003"
+          "guid": "b10dfe7e-2088-48eb-8ce6-f0679a230003"
         }
       }
     }

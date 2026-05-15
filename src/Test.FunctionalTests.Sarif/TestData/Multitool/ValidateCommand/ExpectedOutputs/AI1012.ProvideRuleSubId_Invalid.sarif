@@ -1,5 +1,5 @@
 {
-  "$schema": "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0-rtm.6.json",
+  "$schema": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/errata01/os/schemas/sarif-schema-2.1.0.json",
   "version": "2.1.0",
   "runs": [
     {
@@ -16,6 +16,9 @@
               "messageStrings": {
                 "Error_Missing": {
                   "text": "{0}: 'result.ruleId' is '{1}' with no sub-component beyond the descriptor id. Append a hierarchical sub-ID: a true sub-classification of '{1}' if one applies, otherwise the kebab-cased rule name (e.g. '{1}/{2}'). SARIF has no 'result.name'; this sub-ID is that name and the bulk-disposition key (§3.27.5)."
+                },
+                "Error_DescriptorIdContainsSlash": {
+                  "text": "{0}: 'reportingDescriptor.id' is '{1}' and contains a '/' sub-component. Descriptor identifiers must be the base ID ('CWE-78', not 'CWE-78/api-handler') so that the rule entry in 'tool.driver.rules' is stable across results; SARIF §3.49.3 NOTE 2 / §3.52.4 reserve the hierarchical sub-component for 'result.ruleId'. Move the sub-component off the descriptor and onto each result that needs it."
                 }
               },
               "defaultConfiguration": {

@@ -101,7 +101,21 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         {
             Uri resolvedUri = GetResolvedArtifactLocationUri(node.ArtifactLocation);
 
-            Region expandedRegion = FileRegionsCache.PopulateTextRegionProperties(node.Region, resolvedUri, populateSnippet: insertRegionSnippets);
+            Region expandedRegion;
+            try
+            {
+                expandedRegion = FileRegionsCache.PopulateTextRegionProperties(node.Region, resolvedUri, populateSnippet: insertRegionSnippets);
+            }
+            catch (ArgumentOutOfRangeException aoore)
+            {
+                // The region references content past the end of the artifact (typical when the
+                // SARIF log was produced against a different revision than the one we're populating
+                // against — submodule drift, partial clone, post-edit replay). Surface as a typed
+                // SARIF diagnostic instead of leaking a raw indexing exception to callers, which
+                // historically made these failures hard to diagnose and impossible to catch
+                // selectively.
+                throw new RegionOutOfRangeException(node.Region, resolvedUri, aoore);
+            }
 
             ArtifactContent originalSnippet = node.Region.Snippet;
 
@@ -116,7 +130,23 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
             if (insertContextCodeSnippets && (node.ContextRegion == null || overwriteExistingData))
             {
-                node.ContextRegion = FileRegionsCache.ConstructMultilineContextSnippet(expandedRegion, resolvedUri);
+                Region contextRegion;
+                try
+                {
+                    contextRegion = FileRegionsCache.ConstructMultilineContextSnippet(expandedRegion, resolvedUri);
+                }
+                catch (ArgumentOutOfRangeException aoore)
+                {
+                    throw new RegionOutOfRangeException(expandedRegion, resolvedUri, aoore);
+                }
+
+                // ConstructMultilineContextSnippet returns null when it cannot synthesize a
+                // PROPER-superset context region (see SARIF §3.30). In that case we leave
+                // ContextRegion unset rather than assign an invalid value.
+                if (contextRegion != null)
+                {
+                    node.ContextRegion = contextRegion;
+                }
             }
         }
 
