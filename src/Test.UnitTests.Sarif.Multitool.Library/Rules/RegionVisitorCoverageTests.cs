@@ -7,10 +7,6 @@ using System.Linq;
 
 using FluentAssertions;
 
-using Microsoft.CodeAnalysis.Sarif.Driver.Sdk;
-using Microsoft.CodeAnalysis.Sarif.Multitool.Rules;
-using Microsoft.CodeAnalysis.Sarif.Writers;
-
 using Xunit;
 
 namespace Microsoft.CodeAnalysis.Sarif.Multitool
