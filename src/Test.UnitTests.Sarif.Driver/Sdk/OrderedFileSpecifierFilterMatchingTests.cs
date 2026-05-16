@@ -31,12 +31,20 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests.Driver
             return (bool)m.Invoke(null, new object[] { fileName, filter });
         }
 
+        // The helper's contract is platform-independent and case-insensitive everywhere. In
+        // production it runs AFTER the OS-layer DirectoryEnumerateFiles pre-filter — Windows
+        // already accepts case-insensitively, and POSIX already excludes case mismatches — so
+        // the helper's casing choice is only observable in isolated unit tests. We pick
+        // OrdinalIgnoreCase for a single cross-platform contract that mirrors Win32 semantics
+        // and matches user intuition that '*.sarif' is the same filter as '*.SARIF'.
         [Theory]
         // The canonical SDK-I bug: '*.sarif' must NOT match files with additional trailing chars.
         [InlineData("foo.sarif", "*.sarif", true)]
         [InlineData("foo.sarif.to-delete", "*.sarif", false)]
         [InlineData("foo.sarif.bak", "*.sarif", false)]
-        [InlineData("foo.SARIF", "*.sarif", true)]              // case-insensitive on Windows
+        [InlineData("foo.SARIF", "*.sarif", true)]              // case-insensitive
+        [InlineData("FOO.txt", "foo.txt", true)]                // case-insensitive exact match
+        [InlineData("XFooBar.txt", "*foo*", true)]              // case-insensitive contains
         // Prefix glob 'foo*'
         [InlineData("foobar.txt", "foo*", true)]
         [InlineData("xfoobar.txt", "foo*", false)]

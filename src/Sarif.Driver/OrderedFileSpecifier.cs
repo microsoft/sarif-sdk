@@ -236,12 +236,25 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         /// shouldn't include (e.g. <c>*.sarif</c> matching <c>foo.sarif.to-delete</c>); this
         /// post-filter rejects those false positives.
         /// </summary>
+        /// <remarks>
+        /// Matching is case-insensitive regardless of host OS. The helper runs after the
+        /// OS-layer enumerator (<c>IFileSystem.DirectoryEnumerateFiles</c>) has already done
+        /// the pre-filter, so the only host-dependent casing variation in production is
+        /// already resolved before we get here (Windows pre-filters case-insensitively; POSIX
+        /// pre-filters case-sensitively, so we never see mixed-case mismatches on POSIX).
+        /// Choosing <see cref="StringComparison.OrdinalIgnoreCase"/> here is the safer default:
+        /// it accepts everything the Windows OS-layer pre-filter accepted, never narrows the
+        /// POSIX result set (because POSIX already excluded mismatches upstream), and gives the
+        /// helper a single platform-independent contract that's easier to test in isolation.
+        /// </remarks>
         internal static bool FilterMatchesFileName(string fileName, string filter)
         {
             if (string.IsNullOrEmpty(filter) || filter == "*" || filter == "*.*")
             {
                 return true;
             }
+
+            const StringComparison Comparison = StringComparison.OrdinalIgnoreCase;
 
             // Anchored glob: '*foo'  → suffix; 'foo*' → prefix; '*foo*' → contains.
             // Multiple wildcards are uncommon enough that the simple form above covers the
@@ -254,28 +267,28 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
                 if (firstStar < 0)
                 {
-                    // No wildcards: exact match (case-insensitive on Windows, sensitive elsewhere).
-                    return string.Equals(fileName, filter, GetFileNameComparison());
+                    // No wildcards: exact match.
+                    return string.Equals(fileName, filter, Comparison);
                 }
 
                 if (firstStar == 0 && lastStar == filter.Length - 1 && firstStar != lastStar)
                 {
                     // '*foo*' → contains
                     string middle = filter.Substring(1, filter.Length - 2);
-                    return fileName.IndexOf(middle, GetFileNameComparison()) >= 0;
+                    return fileName.IndexOf(middle, Comparison) >= 0;
                 }
 
                 if (firstStar == 0 && lastStar == firstStar)
                 {
                     // '*foo' → ends-with (the most common case for extension filters; this is the
                     // case that rejects 'log.sarif.to-delete' against '*.sarif').
-                    return fileName.EndsWith(filter.Substring(1), GetFileNameComparison());
+                    return fileName.EndsWith(filter.Substring(1), Comparison);
                 }
 
                 if (firstStar == filter.Length - 1 && lastStar == firstStar)
                 {
                     // 'foo*' → starts-with
-                    return fileName.StartsWith(filter.Substring(0, filter.Length - 1), GetFileNameComparison());
+                    return fileName.StartsWith(filter.Substring(0, filter.Length - 1), Comparison);
                 }
             }
 
@@ -284,11 +297,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 .Replace(@"\*", ".*")
                 .Replace(@"\?", ".") + "$";
 
-            System.Text.RegularExpressions.RegexOptions options = GetFileNameComparison() == StringComparison.OrdinalIgnoreCase
-                ? System.Text.RegularExpressions.RegexOptions.IgnoreCase | System.Text.RegularExpressions.RegexOptions.CultureInvariant
-                : System.Text.RegularExpressions.RegexOptions.CultureInvariant;
-
-            return System.Text.RegularExpressions.Regex.IsMatch(fileName, pattern, options);
+            return System.Text.RegularExpressions.Regex.IsMatch(
+                fileName,
+                pattern,
+                System.Text.RegularExpressions.RegexOptions.IgnoreCase | System.Text.RegularExpressions.RegexOptions.CultureInvariant);
         }
 
         private static int CountOccurrences(string value, char ch)
@@ -299,13 +311,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 if (value[i] == ch) { count++; }
             }
             return count;
-        }
-
-        private static StringComparison GetFileNameComparison()
-        {
-            return System.Runtime.InteropServices.RuntimeInformation.IsOSPlatform(System.Runtime.InteropServices.OSPlatform.Windows)
-                ? StringComparison.OrdinalIgnoreCase
-                : StringComparison.Ordinal;
         }
 
         private bool CheckFaulted()
