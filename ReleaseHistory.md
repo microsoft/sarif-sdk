@@ -90,20 +90,23 @@
   NREs throughout the SDK. Callers can now rely on Load returning a non-null `SarifLog`
   or throwing. The thrown exception cites SARIF §3.13.
 
-### SDK-H — `SarifUtilities.SarifSchemaUri` points at OASIS errata01
+### SDK-H — `SarifUtilities.SarifSchemaUri` points at the final schemastore URL
 
 * BRK: `SarifUtilities.SarifSchemaUri` now resolves to
-  `https://docs.oasis-open.org/sarif/sarif/v2.1.0/errata01/os/schemas/sarif-schema-2.1.0.json`
-  (the OASIS-published final v2.1.0 schema), replacing the previous
-  `https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0-rtm.6.json` variant
-  that the SARIF Multitool validator does **not** accept as final.
-  `SarifUtilities.ConvertToSchemaUri(SarifVersion.Current)` returns the same OASIS URL;
-  v1.0.0 continues to resolve under the legacy `SarifSchemaUriBase`. Producers/consumers
-  that compared `$schema` string-for-string against the old value will need to update;
-  the change makes the SDK's own validator accept logs that use the SDK's own published
-  constant, which it previously rejected.
-* NEW: Add `SarifUtilities.OasisFinalV210SchemaUri` constant for callers that want the
-  errata01 URL by name (independent of `SarifVersion.Current` semantics).
+  `https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0.json` — the final v2.1.0
+  schema URL on the canonical Microsoft-emitted host with no `-rtm` prerelease suffix.
+  Previously this constant pointed at
+  `https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0-rtm.6.json`, a rolling
+  prerelease alias whose presence in produced SARIF logs the SARIF Multitool validator
+  flags as non-final. The `schemastore.azurewebsites.net` host is the Microsoft-emitted
+  convention used by MSVC `/analyze` output, `microsoft/sarif-tutorials` sample logs, and
+  `microsoft/sarif-vscode-extension` demo logs; it 301-redirects to `www.schemastore.org`,
+  the public JSON Schema Store catalog, so the change preserves the historical
+  host-and-path shape downstream consumers pattern-match on while dropping the prerelease
+  suffix. Producers/consumers that compared `$schema` string-for-string against the old
+  value will need to update.
+* NEW: Add `SarifUtilities.FinalV210SchemaUri` constant for callers that want the final
+  v2.1.0 URL by name (independent of `SarifVersion.Current` semantics).
 
 ### SDK-I — `OrderedFileSpecifier` rejects Win32 short-name false-positives
 

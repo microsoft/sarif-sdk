@@ -22,20 +22,21 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         public const string V1_0_0 = "1.0.0";
 
-        // Legacy base for the schemastore.azurewebsites.net variant. Retained for back-compat
-        // because it's part of the public API surface and was the basis for v1.0.0 schema URIs.
-        // The Sarif.Multitool validator does NOT accept the rtm.6 schemastore variant as the
-        // final published v2.1.0 schema, so SarifSchemaUri now points at the OASIS errata01
-        // URL (below) for SARIF v2.1.0. See SDK-H in the v4.6.6 release notes.
+        // The 'schemastore.azurewebsites.net' host is the canonical Microsoft-emitted
+        // schema-store alias for SARIF: MSVC '/analyze' output, microsoft/sarif-tutorials
+        // sample logs, and microsoft/sarif-vscode-extension demos all reference this host.
+        // The host 301-redirects to https://www.schemastore.org/... — the redirect target is
+        // the same content the public JSON Schema Store catalog publishes.
         public const string SarifSchemaUriBase = "https://schemastore.azurewebsites.net/schemas/json/sarif-";
 
-        // OASIS-published, final v2.1.0 schema (errata01). This is what the SARIF Multitool
-        // validator accepts as "$schema" for a v2.1.0 log.
-        // https://docs.oasis-open.org/sarif/sarif/v2.1.0/errata01/os/schemas/sarif-schema-2.1.0.json
-        public const string OasisFinalV210SchemaUri =
-            "https://docs.oasis-open.org/sarif/sarif/v2.1.0/errata01/os/schemas/sarif-schema-2.1.0.json";
+        // The final v2.1.0 schema URL — no '-rtm' prerelease suffix. The path '/schemas/json/'
+        // matches the pattern Microsoft's tooling has emitted for years (currently with the
+        // older '-rtm.5' suffix in many samples), so this URL minimizes friction for downstream
+        // consumers that pattern-match on the historical host + path shape.
+        public const string FinalV210SchemaUri =
+            "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0.json";
 
-        public static readonly string SarifSchemaUri = OasisFinalV210SchemaUri;
+        public static readonly string SarifSchemaUri = FinalV210SchemaUri;
 
         /// <summary>
         /// Returns an ISO 8601 compatible universal date time format string with
@@ -84,11 +85,13 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         public static Uri ConvertToSchemaUri(this SarifVersion sarifVersion)
         {
-            // v1.0.0 is unchanged — it continues to resolve under the legacy schemastore base.
-            // Current (v2.1.0) resolves to the OASIS errata01 final schema URL (see SarifSchemaUri).
+            // v1.0.0 continues to resolve under the legacy schemastore base path
+            // ('/schemas/json/sarif-1.0.0.json'). v2.1.0 (Current) resolves to the FINAL
+            // schema URL — the same host + path family as v1.0.0 but with the prerelease
+            // '-rtm' suffix dropped (see SarifSchemaUri).
             if (sarifVersion == SarifVersion.Current)
             {
-                return new Uri(OasisFinalV210SchemaUri, UriKind.Absolute);
+                return new Uri(FinalV210SchemaUri, UriKind.Absolute);
             }
 
             return new Uri(

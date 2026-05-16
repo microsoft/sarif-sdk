@@ -9,30 +9,32 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests
 {
     /// <summary>
     /// Tests covering SDK-H: <see cref="SarifUtilities.SarifSchemaUri"/> now points at the
-    /// OASIS-published v2.1.0 errata01 final schema URL. The previous schemastore.azurewebsites.net
-    /// /sarif-2.1.0-rtm.6.json variant was a rolling-prerelease alias that the SARIF Multitool
-    /// validator does NOT accept as final.
+    /// final v2.1.0 schema URL on the <c>schemastore.azurewebsites.net</c> host with no
+    /// <c>-rtm</c> prerelease suffix. The host is the canonical Microsoft-emitted alias
+    /// (MSVC <c>/analyze</c>, microsoft/sarif-tutorials, microsoft/sarif-vscode-extension all
+    /// reference it); it 301-redirects to <c>www.schemastore.org</c>, which is the public
+    /// JSON Schema Store catalog. Both routes serve the same content.
     /// </summary>
     public class SarifSchemaUriTests
     {
         private const string ExpectedFinalSchemaUri =
-            "https://docs.oasis-open.org/sarif/sarif/v2.1.0/errata01/os/schemas/sarif-schema-2.1.0.json";
+            "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0.json";
 
         [Fact]
-        public void SarifSchemaUri_IsOasisFinal()
+        public void SarifSchemaUri_IsFinalSchemastoreUrl()
         {
             SarifUtilities.SarifSchemaUri.Should().Be(ExpectedFinalSchemaUri);
         }
 
         [Fact]
-        public void SarifSchemaUri_DoesNotPointAtSchemastoreVariant()
+        public void SarifSchemaUri_DoesNotPointAtPrereleaseAlias()
         {
-            SarifUtilities.SarifSchemaUri.Should().NotContain("schemastore.azurewebsites.net");
-            SarifUtilities.SarifSchemaUri.Should().NotContain("rtm.");
+            SarifUtilities.SarifSchemaUri.Should().NotContain("rtm.",
+                "the final v2.1.0 URL must not carry a '-rtm' prerelease suffix");
         }
 
         [Fact]
-        public void ConvertToSchemaUri_Current_ReturnsOasisFinal()
+        public void ConvertToSchemaUri_Current_ReturnsFinalSchemastoreUrl()
         {
             SarifVersion.Current.ConvertToSchemaUri().OriginalString.Should().Be(ExpectedFinalSchemaUri);
         }
