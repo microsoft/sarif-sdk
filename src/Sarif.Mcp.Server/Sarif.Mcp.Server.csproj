@@ -17,8 +17,18 @@
     <TargetFrameworks>net8.0</TargetFrameworks>
   </PropertyGroup>
 
+  <PropertyGroup>
+    <Nullable>enable</Nullable>
+    <RootNamespace>Microsoft.CodeAnalysis.Sarif.Mcp.Server</RootNamespace>
+  </PropertyGroup>
+
   <ItemGroup>
     <EmbeddedResource Include=".\DotnetToolSettings.xml" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="ModelContextProtocol" />
+    <PackageReference Include="Microsoft.Extensions.Hosting" />
   </ItemGroup>
 
   <ItemGroup>
