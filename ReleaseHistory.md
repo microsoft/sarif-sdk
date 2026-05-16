@@ -62,16 +62,19 @@
   char-offset fallback path is also tightened from `<=` (which accepted equality) to `<`,
   and equal-size results in that path now return `null` for the same reason.
 
-### SDK-E — Typed `RegionOutOfRangeException` from `InsertOptionalDataVisitor`
+### SDK-E — Informative `ArgumentOutOfRangeException` from `InsertOptionalDataVisitor`
 
-* NEW: Introduce `Microsoft.CodeAnalysis.Sarif.RegionOutOfRangeException`. When a region
-  references content past the bounds of the underlying artifact (submodule drift, partial
-  clone, post-edit replay, etc.), `InsertOptionalDataVisitor.VisitPhysicalLocation` now
-  throws `RegionOutOfRangeException` carrying the offending `Region` and `ArtifactUri`,
-  with an informative message that includes the line/column or char-offset coordinates.
-  Previously the underlying `ArgumentOutOfRangeException` propagated raw, leaking
-  framework internals and making the failure neither catchable selectively nor easy to
-  translate into a SARIF `toolExecutionNotifications` entry.
+* BUG: When a region references content past the end of the underlying artifact (submodule
+  drift, partial clone, post-edit replay, etc.),
+  `InsertOptionalDataVisitor.VisitPhysicalLocation` previously propagated the raw
+  `ArgumentOutOfRangeException` from the indexing math in `FileRegionsCache`, with the
+  framework's bare "Index was out of range" message and no SARIF-domain context. Now the
+  same `ArgumentOutOfRangeException` is re-thrown with a message that names the offending
+  artifact URI and the region's line/column or char-offset coordinates, plus the underlying
+  exception preserved as `InnerException`. The CLR exception type is unchanged (the failure
+  IS literally an argument out of range) — only the message and `paramName` improve, so
+  existing `catch (ArgumentOutOfRangeException)` and `catch (Exception)` handlers continue
+  to work without any API surface change.
 * BUG: `InsertOptionalDataVisitor` no longer assigns `ContextRegion = null` when
   `ConstructMultilineContextSnippet` legitimately declines to synthesize a superset (see
   SDK-D); it now leaves `ContextRegion` unset so consumers don't see a serialized
