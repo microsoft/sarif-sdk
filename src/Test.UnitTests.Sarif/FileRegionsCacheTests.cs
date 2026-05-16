@@ -556,8 +556,22 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests
 
                             // Now, we attempt to produce a context region.
                             Region contextRegion = cache.ConstructMultilineContextSnippet(actual, uri, test);
+
+                            // Per SARIF §3.30 / SARIF1008, contextRegion must be a PROPER superset of region.
+                            // When the file is too small to provide any surrounding context (e.g., the region
+                            // already spans the entire artifact), ConstructMultilineContextSnippet returns null
+                            // rather than emit an invalid contextRegion that equals or is smaller than region.
+                            // This is the contract the rule and the validator rely on; assert it accordingly.
+                            if (contextRegion == null)
+                            {
+                                // No expansion possible — region already covers the whole file.
+                                test.Should().Be(sentinel, $"contextRegion is null only when the region IS the entire file {context}");
+                                continue;
+                            }
+
                             contextRegion.Snippet.Should().NotBeNull($"'{sentinel}' snippet exists {context}");
                             contextRegion.Snippet.Text.Contains(sentinel).Should().BeTrue($"context region should encapsulate finding {context}");
+                            contextRegion.CharLength.Should().BeGreaterThan(actual.CharLength, $"contextRegion must be a PROPER superset of region per SARIF §3.30 {context}");
                         }
 
                         iteration++;
@@ -719,8 +733,14 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests
             var fileRegionsCache = new FileRegionsCache();
             region = fileRegionsCache.PopulateTextRegionProperties(region, uri, true, fileContent);
 
+            // The input region is 600 chars — at or above BIGSNIPPETLENGTH (512). Any context
+            // snippet that contains it would either equal it (violating SARIF §3.30 /
+            // SARIF1008's proper-superset requirement) or exceed our size budget. The function
+            // must return null so callers omit contextRegion entirely. Historically this method
+            // returned a DeepClone of the region as the "context", which caused producers to
+            // emit invalid SARIF where contextRegion == region.
             Region multilineRegion = fileRegionsCache.ConstructMultilineContextSnippet(region, uri);
-            multilineRegion.CharLength.Should().Be(region.CharLength);
+            multilineRegion.Should().BeNull("contextRegion cannot be a proper superset when the region is already >= BIGSNIPPETLENGTH");
         }
 
         [Fact]

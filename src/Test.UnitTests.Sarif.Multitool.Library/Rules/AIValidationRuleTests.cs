@@ -36,7 +36,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                                 {
                                     new ReportingDescriptor
                                     {
-                                        Id = "CWE-78/api-handler",
+                                        Id = "CWE-78",
                                         Name = "CommandInjection",
                                         ShortDescription = new MultiformatMessageString { Text = "Command injection via unsanitized parameter" }
                                     }
@@ -61,6 +61,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                             new Result
                             {
                                 RuleId = "CWE-78/api-handler",
+                                RuleIndex = 0,
                                 Kind = ResultKind.Fail,
                                 Level = FailureLevel.Error,
                                 Rank = 92.5,
@@ -659,7 +660,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 RuleId.AIProvideResultRank,         // AI2010
                 RuleId.AIDoNotPersistFingerprints,  // AI2011
                 RuleId.AIProvideAiHandoff,          // AI2012
-                RuleId.AIRedactedRunMarker,         // AI1011
                 RuleId.AIProvideNotificationDescriptor,    // AI2017
                 RuleId.AIProvideNotificationAssociatedRule, // AI1013
                 RuleId.AIExecutionNotificationPlacement,   // AI1014
@@ -667,7 +667,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 RuleId.AIProvideNotificationTimestamp,      // AI2019
             };
 
-            ruleIds.Should().HaveCount(20);
+            ruleIds.Should().HaveCount(19);
             ruleIds.Should().Contain("AI1003");
             ruleIds.Should().Contain("AI1004");
             ruleIds.Should().Contain("AI2014");
@@ -676,7 +676,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             ruleIds.Should().Contain("AI1010");
             ruleIds.Should().Contain("AI2011");
             ruleIds.Should().Contain("AI2012");
-            ruleIds.Should().Contain("AI1011");
             ruleIds.Should().Contain("AI2017");
             ruleIds.Should().Contain("AI1014");
             ruleIds.Should().Contain("AI2019");
@@ -717,33 +716,67 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
         #endregion
 
-        #region AI1011 — RedactedRunMarker
+        #region AI1012 — ProvideRuleSubId (anti-pattern: descriptor.id contains '/')
+
+        // SARIF §3.27.5 / §3.49.3 NOTE 2 / §3.52.4: the hierarchical sub-component lives on
+        // result.ruleId only. descriptor.id must be the base identifier so the descriptor
+        // entry in tool.driver.rules is stable across results. These tests pin the corrected
+        // SDK-B behavior: the rule must reject descriptor.id containing '/' AND demand a
+        // result-side sub-id beyond the descriptor's base id.
 
         [Fact]
-        public void AI1011_WhenRedactedIsFalse_ReportsWarning()
+        public void AI1012_WhenDescriptorIdContainsSlash_ReportsError()
         {
             SarifLog log = CreateValidAISarifLog();
             SetAIOrigin(log, "generated");
             SetExploitability(log, "demonstrated");
             SetAttackerPosition(log, "network");
-            log.Runs[0].SetProperty("ai/redacted", "false");
+
+            // Anti-pattern: sub-component baked into the descriptor.
+            log.Runs[0].Tool.Driver.Rules[0].Id = "CWE-78/api-handler";
+            log.Runs[0].Results[0].RuleId = "CWE-78/api-handler";
 
             SarifLog output = RunAIValidation(log);
-            List<Result> results = GetResultsForRule(output, "AI1011");
+            List<Result> results = GetResultsForRule(output, "AI1012");
 
-            results.Should().NotBeEmpty();
+            results.Should().NotBeEmpty("descriptor.id with '/' is the anti-pattern AI1012 must flag");
+            results.Should().Contain(r => r.Message.Id == "Error_DescriptorIdContainsSlash");
         }
 
         [Fact]
-        public void AI1011_WhenRedactedAbsent_NoResult()
+        public void AI1012_WhenResultLacksSubId_ReportsError()
         {
             SarifLog log = CreateValidAISarifLog();
             SetAIOrigin(log, "generated");
             SetExploitability(log, "demonstrated");
             SetAttackerPosition(log, "network");
 
+            // Descriptor id is base ("CWE-78"); result.ruleId fails to extend it with a sub-component.
+            log.Runs[0].Results[0].RuleId = "CWE-78";
+
             SarifLog output = RunAIValidation(log);
-            List<Result> results = GetResultsForRule(output, "AI1011");
+            List<Result> results = GetResultsForRule(output, "AI1012");
+
+            results.Should().NotBeEmpty("result.ruleId must extend descriptor.id with a sub-component");
+            results.Should().Contain(r => r.Message.Id == "Error_Missing");
+        }
+
+        [Fact]
+        public void AI1012_WhenResultHasSubIdBeyondBaseDescriptorId_NoResult()
+        {
+            SarifLog log = CreateValidAISarifLog();
+            SetAIOrigin(log, "generated");
+            SetExploitability(log, "demonstrated");
+            SetAttackerPosition(log, "network");
+
+            // The canonical correct shape: descriptor.id = "CWE-78", result.ruleId = "CWE-78/api-handler".
+            // (This is what CreateValidAISarifLog already produces — pinning it here in a
+            // dedicated test so any future fixture drift surfaces immediately.)
+            log.Runs[0].Tool.Driver.Rules[0].Id.Should().Be("CWE-78");
+            log.Runs[0].Results[0].RuleId.Should().Be("CWE-78/api-handler");
+
+            SarifLog output = RunAIValidation(log);
+            List<Result> results = GetResultsForRule(output, "AI1012");
 
             results.Should().BeEmpty();
         }

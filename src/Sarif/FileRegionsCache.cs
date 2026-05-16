@@ -172,7 +172,13 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             if (originalRegion.CharLength >= BIGSNIPPETLENGTH)
             {
-                return originalRegion.DeepClone();
+                // The region itself is already at-or-larger than BIGSNIPPETLENGTH. Any context we
+                // could synthesize that *contains* the region would either equal it or exceed our
+                // size budget. SARIF §3.30 / SARIF1008 require contextRegion to be a PROPER superset
+                // of region — returning a clone here (the historical behavior) caused producers to
+                // emit contextRegion == region, which validators reject. Return null and let the
+                // caller skip the contextRegion assignment.
+                return null;
             }
 
             int maxLineNumber = newLineIndex.MaximumLineNumber;
@@ -186,7 +192,11 @@ namespace Microsoft.CodeAnalysis.Sarif
             // Generating multilineRegion with one line before and after.
             Region multilineContextSnippet = this.PopulateTextRegionProperties(region, uri, populateSnippet: true, fileText);
 
-            if (originalRegion.CharLength <= multilineContextSnippet.CharLength &&
+            // Proper-superset check: contextRegion must be STRICTLY larger than originalRegion
+            // (just covering it is not enough — §3.30). If our +/- one-line expansion happened to
+            // land on the same boundaries (file with no leading/trailing whitespace, region already
+            // spanning the full file, etc.), fall through to the char-offset expansion below.
+            if (originalRegion.CharLength < multilineContextSnippet.CharLength &&
                 multilineContextSnippet.CharLength <= BIGSNIPPETLENGTH)
             {
                 return multilineContextSnippet;
@@ -205,8 +215,15 @@ namespace Microsoft.CodeAnalysis.Sarif
             // originalRegion if possible.
             multilineContextSnippet = this.PopulateTextRegionProperties(region, uri, populateSnippet: true, fileText);
 
-            // We can't generate a contextRegion which is smaller than the original region.
-            Debug.Assert(originalRegion.CharLength <= multilineContextSnippet.CharLength);
+            // SARIF §3.30: contextRegion must be a PROPER superset (strictly larger). If our
+            // char-offset expansion failed to enlarge the region — possible when the original
+            // region already abuts the start of file and is already large — return null so the
+            // caller omits contextRegion entirely, rather than emit an invalid equal-size pair.
+            if (originalRegion.CharLength >= multilineContextSnippet.CharLength)
+            {
+                return null;
+            }
+
             return multilineContextSnippet;
         }
 

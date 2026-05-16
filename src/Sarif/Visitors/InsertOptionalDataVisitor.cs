@@ -101,7 +101,20 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         {
             Uri resolvedUri = GetResolvedArtifactLocationUri(node.ArtifactLocation);
 
-            Region expandedRegion = FileRegionsCache.PopulateTextRegionProperties(node.Region, resolvedUri, populateSnippet: insertRegionSnippets);
+            Region expandedRegion;
+            try
+            {
+                expandedRegion = FileRegionsCache.PopulateTextRegionProperties(node.Region, resolvedUri, populateSnippet: insertRegionSnippets);
+            }
+            catch (ArgumentOutOfRangeException aoore)
+            {
+                // The region references content past the end of the artifact (typical when the
+                // SARIF log was produced against a different revision than the one we're
+                // populating against — submodule drift, partial clone, post-edit replay). Re-throw
+                // with a SARIF-domain message that names the offending region and artifact, so
+                // callers don't have to defeat the SDK's raw "Index was out of range" leak.
+                throw NewRegionOutOfRangeException(node.Region, resolvedUri, aoore);
+            }
 
             ArtifactContent originalSnippet = node.Region.Snippet;
 
@@ -116,12 +129,55 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
             if (insertContextCodeSnippets && (node.ContextRegion == null || overwriteExistingData))
             {
-                node.ContextRegion = FileRegionsCache.ConstructMultilineContextSnippet(expandedRegion, resolvedUri);
+                Region contextRegion;
+                try
+                {
+                    contextRegion = FileRegionsCache.ConstructMultilineContextSnippet(expandedRegion, resolvedUri);
+                }
+                catch (ArgumentOutOfRangeException aoore)
+                {
+                    throw NewRegionOutOfRangeException(expandedRegion, resolvedUri, aoore);
+                }
+
+                // ConstructMultilineContextSnippet returns null when it cannot synthesize a
+                // PROPER-superset context region (see SARIF §3.30). In that case we leave
+                // ContextRegion unset rather than assign an invalid value.
+                if (contextRegion != null)
+                {
+                    node.ContextRegion = contextRegion;
+                }
             }
         }
 
     Exit:
         return base.VisitPhysicalLocation(node);
+    }
+
+    // SARIF-domain message wrapper around ArgumentOutOfRangeException for the
+    // region-references-content-past-EOF case. Keeps the CLR exception type (the failure IS
+    // literally an argument out of range — line/offset is outside the artifact's extent), but
+    // replaces the framework's "Index was out of range" message with one that names the
+    // artifact URI and the offending region coordinates so producers can act on it. The
+    // underlying exception is preserved as InnerException so debuggers retain the SDK
+    // indexing stack.
+    private static ArgumentOutOfRangeException NewRegionOutOfRangeException(Region region, Uri artifactUri, ArgumentOutOfRangeException inner)
+    {
+        string uriText = artifactUri?.OriginalString ?? "<unknown artifact>";
+        string coordinates = region == null
+            ? "(region is null)"
+            : region.StartLine > 0
+                ? $"startLine={region.StartLine}, endLine={region.EndLine}"
+                : $"charOffset={region.CharOffset}, charLength={region.CharLength}";
+
+        // ArgumentOutOfRangeException has no (paramName, message, innerException) overload;
+        // the (message, innerException) overload preserves the inner stack but doesn't
+        // surface paramName separately. The paramName ("region") is folded into the message
+        // text so it remains observable without changing exception shape.
+        return new ArgumentOutOfRangeException(
+            $"region: A SARIF region ({coordinates}) references content outside the bounds of artifact '{uriText}'. " +
+            "This typically indicates the SARIF log was produced against a different revision of the artifact " +
+            "(submodule drift, partial clone, or post-edit replay).",
+            inner);
     }
 
     public override Artifact VisitArtifact(Artifact node)

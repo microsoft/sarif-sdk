@@ -739,6 +739,9 @@ Provide the 'help' property and populate the 'text' property with information ab
   <data name="AI1012_ProvideRuleSubId_Error_Missing_Text" xml:space="preserve">
     <value>{0}: 'result.ruleId' is '{1}' with no sub-component beyond the descriptor id. Append a hierarchical sub-ID: a true sub-classification of '{1}' if one applies, otherwise the kebab-cased rule name (e.g. '{1}/{2}'). SARIF has no 'result.name'; this sub-ID is that name and the bulk-disposition key (§3.27.5).</value>
   </data>
+  <data name="AI1012_ProvideRuleSubId_Error_DescriptorIdContainsSlash_Text" xml:space="preserve">
+    <value>{0}: 'reportingDescriptor.id' is '{1}' and contains a '/' sub-component. The SARIF specification permits descriptor identifiers to be opaque strings (§3.49.3 — descriptor.id is declared as "a string", not a hierarchical string), but the AI profile additionally requires descriptor identifiers to be slash-free base IDs ('CWE-78', not 'CWE-78/api-handler') so that every AI-generated result can reliably extend the base via 'result.ruleId' with its own sub-component (§3.27.5, §3.52.4 — one additional hierarchical component beyond descriptor.id). This keeps the rule entry in 'tool.driver.rules' stable across results and reserves the hierarchical sub-component slot for the per-finding handle. Move the sub-component off the descriptor and onto each result that needs it.</value>
+  </data>
   <data name="AI2010_ProvideResultRank_FullDescription_Text" xml:space="preserve">
     <value>AI-generated results should provide a 'rank' value (0.0 to 100.0) expressing the confidence of the finding. This is the spec-native mechanism (§3.27.25) for numeric confidence, enabling priority-based triage and filtering without relying on property bag conventions.</value>
   </data>
@@ -780,18 +783,6 @@ Provide the 'help' property and populate the 'text' property with information ab
   </data>
   <data name="AI1010_ProvideEvidenceBackingUri_Error_Default_Text" xml:space="preserve">
     <value>{0}: The 'ai/evidence' entry at index {1} has a 'backing' value of '{2}' which uses the 'sarif:' URI scheme but does not resolve to a valid element in the log file.</value>
-  </data>
-  <data name="AI1011_RedactedRunMarker_FullDescription_Text" xml:space="preserve">
-    <value>The 'ai/redacted' property in 'run.properties' SHALL be 'true' or absent — never 'false'. When 'true', 'run.redactionTokens' should be non-empty. 'ai/fullLogLocation' should not appear unless 'ai/redacted' is 'true'.</value>
-  </data>
-  <data name="AI1011_RedactedRunMarker_Error_FalseValue_Text" xml:space="preserve">
-    <value>{0}: 'ai/redacted' is 'false'. This property SHALL be 'true' (when the run is redacted) or absent (when the run is not redacted) — never 'false'.</value>
-  </data>
-  <data name="AI1011_RedactedRunMarker_Error_MissingRedactionTokens_Text" xml:space="preserve">
-    <value>{0}: 'ai/redacted' is 'true' but 'run.redactionTokens' is missing or empty. When a run is redacted, the redaction tokens should be provided so consumers can identify redacted content.</value>
-  </data>
-  <data name="AI1011_RedactedRunMarker_Error_FullLogWithoutRedaction_Text" xml:space="preserve">
-    <value>{0}: 'ai/fullLogLocation' is present but 'ai/redacted' is not 'true'. The full log location SHALL only appear when the run is redacted.</value>
   </data>
   <data name="AI2017_ProvideNotificationDescriptor_FullDescription_Text" xml:space="preserve">
     <value>Every notification in 'toolExecutionNotifications' or 'toolConfigurationNotifications' should have a 'descriptor' that resolves to a 'reportingDescriptor' in 'tool.driver.notifications' or an extension's 'notifications' array. If 'descriptor.id' is present, it must match the resolved descriptor's 'id'.</value>

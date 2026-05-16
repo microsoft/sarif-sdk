@@ -2,9 +2,6 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System.Collections.Generic;
-using System.Linq;
-
-using Microsoft.Json.Pointer;
 
 namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 {
@@ -33,45 +30,40 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             nameof(RuleResources.AI1003_ProvideRequiredRegionProperties_Error_MissingRegionProperty_Text)
         };
 
-        protected override void Analyze(Result result, string resultPointer)
+        // Walk every physical-location-and-region pair the framework visits — relatedLocations,
+        // code flows, fixes, attachments, notification locations, and contextRegions all live
+        // under PhysicalLocation, not just result.locations[]. The Result-level hand-walk that
+        // this rule used historically silently passed those shapes.
+        protected override void Analyze(PhysicalLocation physicalLocation, string physicalLocationPointer)
         {
-            if (!(result.Locations?.Any() == true))
+            if (physicalLocation == null)
             {
                 return;
             }
 
-            for (int i = 0; i < result.Locations.Count; i++)
+            if (physicalLocation.Region == null)
             {
-                Location location = result.Locations[i];
-                PhysicalLocation physicalLocation = location.PhysicalLocation;
-                if (physicalLocation == null)
-                {
-                    continue;
-                }
+                LogResult(
+                    physicalLocationPointer,
+                    nameof(RuleResources.AI1003_ProvideRequiredRegionProperties_Error_MissingRegion_Text));
+            }
+        }
 
-                if (physicalLocation.Region == null)
-                {
-                    string physicalLocationPointer = resultPointer
-                        .AtProperty(SarifPropertyName.Locations)
-                        .AtIndex(i)
-                        .AtProperty(SarifPropertyName.PhysicalLocation);
+        // Region-level visitor catches every Region in the tree (including contextRegions and
+        // regions nested inside artifactChanges/attachments/codeFlows/threadFlows). A region
+        // without startLine is invalid in the AI profile regardless of where it's anchored.
+        protected override void Analyze(Region region, string regionPointer)
+        {
+            if (region == null || region.IsBinaryRegion)
+            {
+                return;
+            }
 
-                    LogResult(
-                        physicalLocationPointer,
-                        nameof(RuleResources.AI1003_ProvideRequiredRegionProperties_Error_MissingRegion_Text));
-                }
-                else if (physicalLocation.Region.StartLine == 0)
-                {
-                    string regionPointer = resultPointer
-                        .AtProperty(SarifPropertyName.Locations)
-                        .AtIndex(i)
-                        .AtProperty(SarifPropertyName.PhysicalLocation)
-                        .AtProperty(SarifPropertyName.Region);
-
-                    LogResult(
-                        regionPointer,
-                        nameof(RuleResources.AI1003_ProvideRequiredRegionProperties_Error_MissingRegionProperty_Text));
-                }
+            if (region.StartLine == 0)
+            {
+                LogResult(
+                    regionPointer,
+                    nameof(RuleResources.AI1003_ProvideRequiredRegionProperties_Error_MissingRegionProperty_Text));
             }
         }
     }

@@ -1285,7 +1285,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             var files = new List<string>();
             for (int i = 0; i < filesCount; i++)
             {
-                files.Add(Path.GetFullPath($@".{Path.DirectorySeparatorChar}File{i}.txt"));
+                // File names must match `specifier` so OrderedFileSpecifier's post-filter (which
+                // now rejects Win32 short-name false-positives — see SDK-I in the v4.6.6 release
+                // notes) accepts them. Historically the test enumerated *.txt files against a
+                // *.xyz specifier and relied on the buggy prefix-match to let them through.
+                files.Add(Path.GetFullPath($@".{Path.DirectorySeparatorChar}File{i}.xyz"));
             }
 
             var propertiesDictionary = new PropertiesDictionary();
@@ -1453,7 +1457,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 var files = new List<string>();
                 for (int i = 0; i < filesCount; i++)
                 {
-                    files.Add(Path.GetFullPath($@".{Path.DirectorySeparatorChar}File{i}.txt"));
+                    // Specifier-matching: see SDK-I comment in EndToEnd test above.
+                    files.Add(Path.GetFullPath($@".{Path.DirectorySeparatorChar}File{i}.xyz"));
                 }
 
                 var propertiesDictionary = new PropertiesDictionary();
@@ -1542,7 +1547,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             string specifier = "*.xyz";
             var files = new List<string>
             {
-                Path.GetFullPath($@".{Path.DirectorySeparatorChar}File1.txt")
+                // Specifier-matching: see SDK-I comment in the EndToEnd test above.
+                Path.GetFullPath($@".{Path.DirectorySeparatorChar}File1.xyz")
             };
 
             var mockStream = new Mock<Stream>();

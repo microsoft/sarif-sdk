@@ -149,7 +149,10 @@ namespace Microsoft.CodeAnalysis.Sarif
                     exePath: gitPath,
                     arguments: args);
 
-                // Normalize directory separator as backslash.
+                // git always emits POSIX-style forward slashes regardless of host OS, but callers
+                // on Windows expect platform-native separators (Path.Combine, file existence
+                // checks, etc. round-trip cleanly only against the native separator). Normalize
+                // by piping through DirectoryInfo.FullName.
                 return stdOut != null ?
                     new DirectoryInfo(TrimNewlines(stdOut)).FullName :
                     null;
@@ -164,7 +167,12 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             string currentDirectory = this.fileSystem.EnvironmentCurrentDirectory;
 
-            repoPath = repoPath.Replace("/", @"\");
+            // Accept either separator from callers — git itself, on every platform, emits forward
+            // slashes — but normalize for the file-system operations below.
+            if (repoPath != null)
+            {
+                repoPath = NormalizeDirectorySeparators(repoPath);
+            }
 
             try
             {
@@ -195,6 +203,31 @@ namespace Microsoft.CodeAnalysis.Sarif
         private static string TrimNewlines(string text) => text
                 .Replace("\r", string.Empty)
                 .Replace("\n", string.Empty);
+
+        /// <summary>
+        /// Normalizes a path so that all directory-separator characters match
+        /// <see cref="Path.DirectorySeparatorChar"/>. <c>git</c> always emits POSIX-style forward
+        /// slashes regardless of host OS, but downstream code on Windows
+        /// (<c>Path.Combine</c>, <see cref="IFileSystem.FileExists"/>, dictionary key comparisons
+        /// against earlier outputs of <see cref="System.IO.DirectoryInfo.FullName"/>) only
+        /// round-trips cleanly against the platform-native separator. Without this normalization,
+        /// paths returned by <see cref="GetRepositoryRoot"/> and other path-returning helpers
+        /// carry forward-slash segments through to callers, which silently break later path
+        /// arithmetic on Windows.
+        /// </summary>
+        internal static string NormalizeDirectorySeparators(string path)
+        {
+            if (string.IsNullOrEmpty(path)) { return path; }
+
+            if (Path.DirectorySeparatorChar == '/')
+            {
+                // POSIX: forward slashes are native; just collapse any stray backslashes.
+                return path.Replace('\\', '/');
+            }
+
+            // Windows: collapse forward slashes to backslashes.
+            return path.Replace('/', '\\');
+        }
 
         public string GetRepositoryRoot(string path, bool useCache = true)
         {
@@ -229,9 +262,10 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             string topLevelPath = GetTopLevel(path);
 
-            // Normalize directory separator to backslash
+            // Normalize directory separators to match Path.DirectorySeparatorChar so callers on
+            // Windows can reliably compare/combine the returned path with other native paths.
             repoRootPath = topLevelPath != null ?
-                new DirectoryInfo(GetTopLevel(path)).FullName :
+                NormalizeDirectorySeparators(new DirectoryInfo(GetTopLevel(path)).FullName) :
                 null;
 
             if (useCache)

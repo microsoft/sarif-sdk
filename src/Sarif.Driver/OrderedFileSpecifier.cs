@@ -209,6 +209,17 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             sortedDiskItemsBuffer.Clear();
             foreach (string childFile in FileSystem.DirectoryEnumerateFiles(directory, filter, SearchOption.TopDirectoryOnly))
             {
+                // FindFirstFile on Windows honors short (8.3) names when matching wildcards, so a
+                // filter like '*.sarif' can also return files such as 'log.sarif.to-delete'
+                // because that file has an 8.3 short name ending in '.sar'. Likewise, '*.txt' can
+                // match 'foo.txt.bak' on systems where short names are enabled. Filter the results
+                // again against the *long* name so the documented suffix-glob semantics hold
+                // regardless of OS / file-system / short-name configuration.
+                if (!FilterMatchesFileName(Path.GetFileName(childFile), filter))
+                {
+                    continue;
+                }
+
                 string fullFilePath = Path.Combine(directory, childFile);
                 sortedDiskItemsBuffer.Add(fullFilePath);
             }
@@ -217,6 +228,89 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             {
                 fileChannelWriter.WriteAsync(childFile).AsTask().Wait();
             }
+        }
+
+        /// <summary>
+        /// Performs a long-name verification of a Win32 wildcard filter against a candidate file
+        /// name. Win32 <c>FindFirstFile</c> can match short (8.3) names that the documented glob
+        /// shouldn't include (e.g. <c>*.sarif</c> matching <c>foo.sarif.to-delete</c>); this
+        /// post-filter rejects those false positives.
+        /// </summary>
+        /// <remarks>
+        /// Matching is case-insensitive regardless of host OS. The helper runs after the
+        /// OS-layer enumerator (<c>IFileSystem.DirectoryEnumerateFiles</c>) has already done
+        /// the pre-filter, so the only host-dependent casing variation in production is
+        /// already resolved before we get here (Windows pre-filters case-insensitively; POSIX
+        /// pre-filters case-sensitively, so we never see mixed-case mismatches on POSIX).
+        /// Choosing <see cref="StringComparison.OrdinalIgnoreCase"/> here is the safer default:
+        /// it accepts everything the Windows OS-layer pre-filter accepted, never narrows the
+        /// POSIX result set (because POSIX already excluded mismatches upstream), and gives the
+        /// helper a single platform-independent contract that's easier to test in isolation.
+        /// </remarks>
+        internal static bool FilterMatchesFileName(string fileName, string filter)
+        {
+            if (string.IsNullOrEmpty(filter) || filter == "*" || filter == "*.*")
+            {
+                return true;
+            }
+
+            const StringComparison Comparison = StringComparison.OrdinalIgnoreCase;
+
+            // Anchored glob: '*foo'  → suffix; 'foo*' → prefix; '*foo*' → contains.
+            // Multiple wildcards are uncommon enough that the simple form above covers the
+            // overwhelming majority of real usage; for anything more exotic we fall back to a
+            // regex translation of '*' (any chars) and '?' (any single char).
+            if (filter.IndexOf('?') < 0 && CountOccurrences(filter, '*') <= 2)
+            {
+                int firstStar = filter.IndexOf('*');
+                int lastStar = filter.LastIndexOf('*');
+
+                if (firstStar < 0)
+                {
+                    // No wildcards: exact match.
+                    return string.Equals(fileName, filter, Comparison);
+                }
+
+                if (firstStar == 0 && lastStar == filter.Length - 1 && firstStar != lastStar)
+                {
+                    // '*foo*' → contains
+                    string middle = filter.Substring(1, filter.Length - 2);
+                    return fileName.IndexOf(middle, Comparison) >= 0;
+                }
+
+                if (firstStar == 0 && lastStar == firstStar)
+                {
+                    // '*foo' → ends-with (the most common case for extension filters; this is the
+                    // case that rejects 'log.sarif.to-delete' against '*.sarif').
+                    return fileName.EndsWith(filter.Substring(1), Comparison);
+                }
+
+                if (firstStar == filter.Length - 1 && lastStar == firstStar)
+                {
+                    // 'foo*' → starts-with
+                    return fileName.StartsWith(filter.Substring(0, filter.Length - 1), Comparison);
+                }
+            }
+
+            // Fallback: regex translation of the wildcard.
+            string pattern = "^" + System.Text.RegularExpressions.Regex.Escape(filter)
+                .Replace(@"\*", ".*")
+                .Replace(@"\?", ".") + "$";
+
+            return System.Text.RegularExpressions.Regex.IsMatch(
+                fileName,
+                pattern,
+                System.Text.RegularExpressions.RegexOptions.IgnoreCase | System.Text.RegularExpressions.RegexOptions.CultureInvariant);
+        }
+
+        private static int CountOccurrences(string value, char ch)
+        {
+            int count = 0;
+            for (int i = 0; i < value.Length; i++)
+            {
+                if (value[i] == ch) { count++; }
+            }
+            return count;
         }
 
         private bool CheckFaulted()
