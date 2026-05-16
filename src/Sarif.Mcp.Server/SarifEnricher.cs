@@ -184,14 +184,17 @@ namespace Microsoft.CodeAnalysis.Sarif.Mcp.Server
             }
 
             // --- Build result ---
-            // result.ruleId carries the full sub-id (e.g., "CWE-502/binaryformatter").
-            // result.rule references the descriptor by base id + index.
+            // result.rule references the descriptor by descriptor.id ("CWE-78")
+            // plus one optional hierarchical component (per SARIF \u00a73.52.4), so
+            // we put the FULL hierarchical id ("CWE-78/api-handler") on
+            // rule.Id. The redundant Result.RuleId is omitted by the SDK
+            // serializer when Result.Rule.Id is set (Result.ShouldSerializeRuleId
+            // returns false in that case), so emitting it here would be lost.
             var result = new Result
             {
-                RuleId = request.RuleId,
                 Rule = new ReportingDescriptorReference
                 {
-                    Id = baseRuleId,
+                    Id = request.RuleId,
                     Index = ruleIndex
                 },
                 Level = ParseLevel(request.Level),
