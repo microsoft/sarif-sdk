@@ -107,6 +107,18 @@
   value will need to update.
 * NEW: Add `SarifUtilities.FinalV210SchemaUri` constant for callers that want the final
   v2.1.0 URL by name (independent of `SarifVersion.Current` semantics).
+* BUG: Extend `PrereleaseCompatibilityTransformer` to accept the new
+  `sarif-2.1.0.json` URL (and its `www.schemastore.org` mirror alias) as "current schema
+  version, no work to do." The transformer's case statement otherwise hit the default
+  fallthrough for logs that referenced the post-SDK-H URL, breaking round-trip-shaped
+  tests that ran fixtures through the transformer before comparing against expected output.
+* NOTE: `SARIF1011.ReferenceFinalSchema` (the validator rule that flags non-final `$schema`
+  values) is unchanged in this release. Its existing suffix-match accepts both the old
+  rtm.6 URL and the new final URL, so existing producer outputs continue to validate. The
+  rule's narrower accept list (which still flags Microsoft's own `-rtm.5`-emitting samples
+  at Error level) is a separate concern — see `microsoft/sarif-tutorials`,
+  `microsoft/sarif-vscode-extension`, MSVC `/analyze` output, and other repos for stale
+  emissions worth filing follow-up issues against.
 
 ### SDK-I — `OrderedFileSpecifier` rejects Win32 short-name false-positives
 
