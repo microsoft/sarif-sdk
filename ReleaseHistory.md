@@ -12,18 +12,23 @@
   (`AI1011_RedactedRunMarker_*_Text`), and `RuleId.AIRedactedRunMarker` are removed; the
   `AI*` rule count drops from 20 to 19.
 
-### SDK-B — AI1012 enforces descriptor-stability invariant
+### SDK-B — AI1012 enforces AI-profile descriptor-stability convention
 
 * BUG: `AI1012.ProvideRuleSubId` previously accepted **either** shape — sub-component
   on `result.ruleId` OR sub-component on `reportingDescriptor.id` — silently passing
   the anti-pattern where the descriptor carries the hierarchical sub-id
-  (`tool.driver.rules[].id = "CWE-78/api-handler"`). Per SARIF §3.27.5 / §3.49.3 NOTE 2 /
-  §3.52.4, the sub-component must live on `result.ruleId` only; the descriptor id must
-  be the stable base identifier (`"CWE-78"`). Tightened the existing
-  `AI1012_ProvideRuleSubId_Error_Missing_Text` check to require the result-side sub-id
-  unconditionally, and added a sibling
+  (`tool.driver.rules[].id = "CWE-78/api-handler"`). General SARIF semantics permit this
+  (per §3.49.3, descriptor.id is declared as "a string" — opaque, no syntactic restriction
+  on slashes), but the AI profile is stricter: the descriptor id must be the slash-free
+  base identifier (`"CWE-78"`), and every result must extend that base with a sub-component
+  on `result.ruleId` (`"CWE-78/api-handler"`) per §3.27.5 / §3.52.4 (one additional
+  hierarchical component beyond the descriptor id). This invariant keeps the rule entry
+  in `tool.driver.rules` stable across results and reserves the per-finding handle slot.
+  Tightened the existing `AI1012_ProvideRuleSubId_Error_Missing_Text` check to require the
+  result-side sub-id unconditionally under the AI profile, and added a sibling
   `AI1012_ProvideRuleSubId_Error_DescriptorIdContainsSlash_Text` for the descriptor-side
-  anti-pattern.
+  anti-pattern. The rule remains scoped to `RuleKind.AI` only — general SARIF validation
+  (`--rule-kind Sarif`) is unchanged.
 
 ### SDK-C — Validator region/contextRegion coverage
 

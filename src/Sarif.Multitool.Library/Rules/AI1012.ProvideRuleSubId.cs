@@ -37,6 +37,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         // result, and we want the descriptor-level violation reported even when no result references
         // that descriptor). The descriptor-id-contains-slash anti-pattern is detected here; the
         // result-must-have-sub-id check happens in Analyze(Result, ...).
+        //
+        // Scope: this rule is AI-profile-only (RuleKinds = { RuleKind.AI }). General SARIF
+        // semantics permit slashes in descriptor.id — §3.49.3 declares it as "a string", not a
+        // hierarchical string, with no syntactic prohibition on slashes. The AI profile is the
+        // additional constraint that reserves the hierarchical sub-component slot for
+        // result.ruleId (per §3.27.5 / §3.52.4 — "descriptor.id plus one additional hierarchical
+        // component").
         protected override void Analyze(ReportingDescriptor reportingDescriptor, string reportingDescriptorPointer)
         {
             if (string.IsNullOrEmpty(reportingDescriptor?.Id))
@@ -47,11 +54,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 
             if (reportingDescriptor.Id.IndexOf('/') >= 0)
             {
-                // Anti-pattern: the descriptor's stable identifier carries a hierarchical
-                // sub-component (e.g. 'CWE-78/api-handler'). Per SARIF §3.49.3 NOTE 2 / §3.52.4 the
-                // sub-component belongs on result.ruleId only — descriptor.id must be the base ID
-                // ('CWE-78') so that descriptor identity is stable across results and the
-                // tool.driver.rules array doesn't explode with one entry per result.
+                // Anti-pattern under the AI profile only. General SARIF (§3.49.3) declares
+                // descriptor.id as "a string" with no syntactic restriction on slashes, so a
+                // producer in the default profile MAY emit 'CWE-78/api-handler' as a descriptor
+                // id — it just won't be treated as hierarchical. The AI profile reserves the
+                // hierarchical sub-component slot for result.ruleId per §3.27.5 / §3.52.4
+                // ("descriptor.id plus one additional hierarchical component"), so any slash on
+                // the descriptor side eats the slot that every AI-generated result is required
+                // to occupy.
                 LogResult(
                     reportingDescriptorPointer.AtProperty(SarifPropertyName.Id),
                     nameof(RuleResources.AI1012_ProvideRuleSubId_Error_DescriptorIdContainsSlash_Text),
@@ -76,11 +86,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             try { rule = result.GetRule(run); } catch { /* fall through with rule == null */ }
             string descriptorId = rule?.Id;
 
-            // SARIF §3.27.5 / §3.49.3 NOTE 2 / §3.52.4: the AI profile requires every result to
-            // carry a hierarchical sub-component on result.ruleId BEYOND the descriptor's base id.
-            // We do NOT accept "descriptor.id already contains a slash" — that anti-pattern is
-            // flagged separately by the descriptor-side Analyze override above. The valid shape
-            // is descriptor.id="CWE-78", result.ruleId="CWE-78/api-handler".
+            // SARIF §3.27.5 / §3.52.4: result.ruleId is a hierarchical string that "either equals
+            // theDescriptor.id or equals theDescriptor.id plus one additional hierarchical
+            // component." General SARIF allows the equals-descriptor case (no sub-id). The AI
+            // profile additionally requires every result to extend the base with a sub-component,
+            // so we reject the bare-equal case here. We do NOT accept "descriptor.id already
+            // contains a slash" as a valid sub-id — that anti-pattern is flagged separately by
+            // the descriptor-side Analyze override above. The valid AI-profile shape is
+            // descriptor.id="CWE-78", result.ruleId="CWE-78/api-handler".
             bool hasSubIdOnResult = !string.IsNullOrEmpty(descriptorId)
                 ? ruleId.Length > descriptorId.Length
                     && ruleId.StartsWith(descriptorId, System.StringComparison.Ordinal)
