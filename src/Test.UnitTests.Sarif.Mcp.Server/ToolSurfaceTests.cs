@@ -36,8 +36,7 @@ namespace Test.UnitTests.Sarif.Mcp.Server
             "sarif_end_invocation",
             "sarif_add_result",
             "sarif_add_notification",
-            "sarif_finalize",
-            "sarif_merge"
+            "sarif_finalize"
         };
 
         [Fact]
