@@ -1,0 +1,136 @@
+{
+  "$schema": "https://www.schemastore.org/schemas/json/sarif-2.1.0.json",
+  "version": "2.1.0",
+  "runs": [
+    {
+      "tool": {
+        "driver": {
+          "name": "AI Security Analyzer",
+          "organization": "Contoso",
+          "semanticVersion": "1.2.0",
+          "informationUri": "https://example.com/ai-security-analyzer",
+          "rules": [
+            {
+              "id": "CWE-78",
+              "name": "CommandInjectionApiHandler",
+              "shortDescription": { "text": "OS command injection through unsanitized API parameter" },
+              "fullDescription": { "text": "An API handler passes user-supplied input directly to a system command executor without validation, enabling arbitrary command execution." },
+              "helpUri": "https://cwe.mitre.org/data/definitions/78.html",
+              "defaultConfiguration": { "level": "error" },
+              "properties": {
+                "tags": ["security", "injection", "CWE-78"]
+              }
+            }
+          ]
+        },
+        "extensions": [
+          {
+            "name": "GPT-4o",
+            "version": "2024-11-20"
+          },
+          {
+            "name": "command-injection-skill",
+            "semanticVersion": "1.0.0"
+          }
+        ]
+      },
+      "automationDetails": {
+        "id": "ai-security-analyzer/contoso/example/webapp/",
+        "guid": "b1c2d3e4-f5a6-4b8c-9d0e-1f2a3b4c5d6e"
+      },
+      "properties": {
+        "ai/origin": "generated"
+      },
+      "versionControlProvenance": [
+        {
+          "repositoryUri": "https://github.com/example/webapp",
+          "revisionId": "a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2",
+          "branch": "main",
+          "mappedTo": {
+            "uriBaseId": "SRCROOT"
+          }
+        }
+      ],
+      "invocations": [
+        {
+          "executionSuccessful": true,
+          "startTimeUtc": "2025-01-10T14:30:00Z",
+          "endTimeUtc": "2025-01-10T14:35:22Z"
+        }
+      ],
+      "artifacts": [
+        {
+          "location": {
+            "uri": "src/handler.py",
+            "uriBaseId": "SRCROOT"
+          },
+          "sourceLanguage": "python",
+          "hashes": {
+            "sha-256": "3b4c5d6e7f8a9b0c1d2e3f4a5b6c7d8e9f0a1b2c3d4e5f6a7b8c9d0e1f2a3b4"
+          }
+        }
+      ],
+      "results": [
+        {
+          "ruleId": "CWE-78/api-handler",
+          "ruleIndex": 0,
+          "kind": "fail",
+          "level": "error",
+          "rank": 92.5,
+          "message": {
+            "text": "The 'command' parameter flows unsanitized from the 'execute_job' API handler to subprocess.run(shell=True), enabling arbitrary command execution.",
+            "markdown": "## Command Injection via API Handler Parameter\n\n**Rule:** `CWE-78/api-handler` · **Severity:** Error · **Rank:** 92.5\n\n### What's Wrong\n\nThe `command` parameter at `src/handler.py:38` is passed directly to `subprocess.run()` with `shell=True` at line 42, with no validation.\n\n### Evidence\n```python\ndef execute_job(request):\n    command = request.json['command']  # untrusted input\n    result = subprocess.run(command, shell=True, capture_output=True)  # injection sink\n```\n\n### Reproduction Steps\n\n1. Start the server: `python src/server.py`\n2. Run: `curl -X POST http://localhost:8080/execute -H 'Content-Type: application/json' -d '{\"command\": \"id\"}'`\n3. Observe: server executes injected command and returns output.\n\n### Recommended Fix\n```python\nALLOWED_COMMANDS = {'status', 'health', 'version'}\ncommand = request.json.get('command', '')\nif command not in ALLOWED_COMMANDS:\n    abort(400, 'Invalid command')\nresult = subprocess.run(['/usr/bin/mytool', command], shell=False, capture_output=True)\n```\n\n### References\n- [CWE-78](https://cwe.mitre.org/data/definitions/78.html)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/handler.py",
+                  "uriBaseId": "SRCROOT",
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 42,
+                  "startColumn": 5,
+                  "endLine": 42,
+                  "endColumn": 86,
+                  "snippet": {
+                    "text": "    result = subprocess.run(command, shell=True, capture_output=True, timeout=timeout)"
+                  }
+                }
+              },
+              "logicalLocations": [
+                {
+                  "name": "execute_job",
+                  "fullyQualifiedName": "handler::execute_job",
+                  "kind": "function"
+                }
+              ]
+            }
+          ],
+          "fixes": [
+            {
+              "description": { "text": "Allowlist valid commands and disable shell=True" },
+              "artifactChanges": [
+                {
+                  "artifactLocation": { "uri": "src/handler.py", "uriBaseId": "SRCROOT" },
+                  "replacements": [
+                    {
+                      "deletedRegion": { "startLine": 38, "endLine": 43 },
+                      "insertedContent": {
+                        "text": "    ALLOWED_COMMANDS = {'status', 'health', 'version'}\n    command = request.json.get('command', '')\n    if command not in ALLOWED_COMMANDS:\n        abort(400, 'Invalid command')\n    result = subprocess.run(['/usr/bin/mytool', command], shell=False, capture_output=True)\n"
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "ai/exploitability": "demonstrated"
+          }
+        }
+      ]
+    }
+  ]
+}
