@@ -23,10 +23,14 @@
     <PackageReference Include="xunit.runner.visualstudio" PrivateAssets="All" />
     <PackageReference Include="coverlet.collector" PrivateAssets="All" />
     <PackageReference Include="ModelContextProtocol" />
+    <PackageReference Include="Microsoft.Json.Schema" />
+    <PackageReference Include="Microsoft.Json.Schema.Validation" />
   </ItemGroup>
 
   <ItemGroup>
     <Content Include="sample-ai-generated-basic.sarif" CopyToOutputDirectory="PreserveNewest" />
+    <Content Include="TestFiles\**\*" CopyToOutputDirectory="PreserveNewest" />
+    <None Include="..\Sarif\Schemata\sarif-$(SchemaVersionAsPublishedToSchemaStoreOrg).json" CopyToOutputDirectory="PreserveNewest" />
   </ItemGroup>
 
   <ItemGroup>
