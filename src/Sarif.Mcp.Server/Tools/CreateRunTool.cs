@@ -45,7 +45,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Mcp.Server.Tools
             [Description("Tool information URI")] string? toolInformationUri = null,
             [Description("Git branch name (omit for detached HEAD)")] string? branch = null,
             [Description("Scan scenario identifier")] string? scenario = null,
-            [Description("Campaign correlation GUID for cross-run grouping")] string? campaignGuid = null)
+            [Description("Campaign correlation GUID for cross-run grouping")] string? campaignGuid = null,
+            [Description("Whether sarif_finalize may overwrite an existing file at outputPath. When false (default), create-run fails fast if the target already exists, preventing accidental scan-result clobbering.")] bool allowOverwrite = false)
         {
             ValidateAiOrigin(aiOrigin);
 
@@ -98,6 +99,18 @@ namespace Microsoft.CodeAnalysis.Sarif.Mcp.Server.Tools
 
             string runGuidStr = runGuid.ToString();
             string resolvedOutput = ResolveOutputPath(outputPath);
+
+            // Reliability guard: fail fast if the target file already exists
+            // unless the caller has opted in via allowOverwrite. Prevents an
+            // accidental second run from clobbering a prior scan's results
+            // while leaving in-memory state cleanly unwound (we have not yet
+            // registered the run with the store).
+            if (!allowOverwrite && File.Exists(resolvedOutput))
+            {
+                throw new InvalidOperationException(
+                    $"Output file '{resolvedOutput}' already exists. " +
+                    "Pass allowOverwrite=true to replace it, or choose a different outputPath.");
+            }
 
             var ctx = new SarifRunContext(run, resolvedOutput, sourceRoot)
             {
