@@ -58,7 +58,7 @@ namespace Test.UnitTests.Sarif.Mcp.Server
             string outputPath = ScratchPath("post-finalize.sarif");
 
             var store = new SarifRunStore();
-            using var cweResolver = new CweNameResolver();
+            var cweResolver = new CweNameResolver();
             IOptions<SarifMcpOptions> options = Options.Create(new SarifMcpOptions());
             var create = new CreateRunTool(store, cweResolver, options);
             var addResult = new AddResultTool(store);
@@ -109,7 +109,7 @@ namespace Test.UnitTests.Sarif.Mcp.Server
         private (string RunGuid, AddResultTool AddResult) OpenRunAndGetAddResult()
         {
             var store = new SarifRunStore();
-            using var cweResolver = new CweNameResolver();
+            var cweResolver = new CweNameResolver();
             IOptions<SarifMcpOptions> options = Options.Create(new SarifMcpOptions());
             var create = new CreateRunTool(store, cweResolver, options);
             var addResult = new AddResultTool(store);
@@ -134,3 +134,4 @@ namespace Test.UnitTests.Sarif.Mcp.Server
         }
     }
 }
+

@@ -24,6 +24,7 @@
 
   <ItemGroup>
     <EmbeddedResource Include=".\DotnetToolSettings.xml" CopyToOutputDirectory="PreserveNewest" />
+    <EmbeddedResource Include="..\Sarif\Taxonomies\CWE.sarif" LogicalName="Microsoft.CodeAnalysis.Sarif.Mcp.Server.Taxonomies.CWE.sarif" />
   </ItemGroup>
 
   <ItemGroup>

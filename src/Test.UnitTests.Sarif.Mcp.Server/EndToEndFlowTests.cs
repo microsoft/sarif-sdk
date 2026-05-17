@@ -55,7 +55,7 @@ namespace Test.UnitTests.Sarif.Mcp.Server
         public void CreateAddFinalize_ProducesSarifThatRoundTripsThroughSdkLoader()
         {
             var store = new SarifRunStore();
-            using var cweResolver = new CweNameResolver();
+            var cweResolver = new CweNameResolver();
             IOptions<SarifMcpOptions> options = Options.Create(new SarifMcpOptions());
 
             var create = new CreateRunTool(store, cweResolver, options);
