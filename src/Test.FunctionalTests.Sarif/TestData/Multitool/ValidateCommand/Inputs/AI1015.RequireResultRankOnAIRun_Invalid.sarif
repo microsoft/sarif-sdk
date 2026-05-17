@@ -1,0 +1,37 @@
+{
+  "$schema": "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0-rtm.6.json",
+  "version": "2.1.0",
+  "runs": [
+    {
+      "tool": {
+        "driver": {
+          "name": "SARIF Functional Testing",
+          "version": "1.2.3",
+          "rules": [
+            {
+              "id": "CWE-78",
+              "name": "OsCommandInjection"
+            }
+          ]
+        }
+      },
+      "properties": {
+        "ai/origin": "generated"
+      },
+      "results": [
+        {
+          "ruleId": "CWE-78/api-handler",
+          "ruleIndex": 0,
+          "rank": 92.5,
+          "message": { "text": "Has rank \u2014 should not fire." }
+        },
+        {
+          "ruleId": "CWE-78/timeout-not-validated",
+          "ruleIndex": 0,
+          "message": { "text": "Missing rank on an AI-origin run \u2014 AI1015 should fire here." }
+        }
+      ],
+      "columnKind": "utf16CodeUnits"
+    }
+  ]
+}

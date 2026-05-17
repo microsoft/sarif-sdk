@@ -1769,6 +1769,18 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
             }
         }
 
+        internal static string AI1015_RequireResultRankOnAIRun_FullDescription_Text {
+            get {
+                return ResourceManager.GetString("AI1015_RequireResultRankOnAIRun_FullDescription_Text", resourceCulture);
+            }
+        }
+
+        internal static string AI1015_RequireResultRankOnAIRun_Error_Default_Text {
+            get {
+                return ResourceManager.GetString("AI1015_RequireResultRankOnAIRun_Error_Default_Text", resourceCulture);
+            }
+        }
+
         internal static string AI2018_ProvideExecutionSignalArtifact_FullDescription_Text {
             get {
                 return ResourceManager.GetString("AI2018_ProvideExecutionSignalArtifact_FullDescription_Text", resourceCulture);

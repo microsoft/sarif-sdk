@@ -808,6 +808,12 @@ Provide the 'help' property and populate the 'text' property with information ab
   <data name="AI1014_ExecutionNotificationPlacement_Error_CfgInExec_Text" xml:space="preserve">
     <value>{0}: A notification with descriptor id '{1}' (an 'AI/CFG/*' descriptor) appears in 'toolExecutionNotifications'. Configuration notifications should appear only in 'toolConfigurationNotifications'.</value>
   </data>
+  <data name="AI1015_RequireResultRankOnAIRun_FullDescription_Text" xml:space="preserve">
+    <value>When a run declares 'ai/origin' on 'run.properties' (i.e., this is an AI-emitted run), every 'result' MUST carry 'result.rank'. Confidence is first-class on AI findings: it drives triage priority and downstream filtering. Without 'rank' the consumer has no signal of how strongly the producer believes in the result. This rule does not fire on non-AI runs; the SARIF-general recommendation in AI2010 covers those at note severity.</value>
+  </data>
+  <data name="AI1015_RequireResultRankOnAIRun_Error_Default_Text" xml:space="preserve">
+    <value>{0}: This result is missing 'rank'. The run declares 'ai/origin', so every result MUST express confidence as a numeric rank (0.0 to 100.0) per the AI profile.</value>
+  </data>
   <data name="AI2018_ProvideExecutionSignalArtifact_FullDescription_Text" xml:space="preserve">
     <value>A notification with descriptor id 'AI/EXEC/ALAS-SIGNAL' should include a 'locations' entry whose 'physicalLocation.artifactLocation.index' resolves to a valid artifact in 'run.artifacts' with 'roles' containing 'attachment'.</value>
   </data>
