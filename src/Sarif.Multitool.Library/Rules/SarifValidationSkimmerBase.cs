@@ -727,15 +727,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             {
                 Visit(physicalLocation.Region, physicalLocationPointer.AtProperty(SarifPropertyName.Region));
             }
-
-            // SARIF §3.30: contextRegion is itself a Region. Walking only physicalLocation.region
-            // historically left contextRegions invisible to all Region-level rules (SARIF1007,
-            // AI1003/SARIF2017/GH1003 after SDK-C). Visit it here so every Region visitor
-            // automatically covers both region and contextRegion.
-            if (physicalLocation.ContextRegion != null)
-            {
-                Visit(physicalLocation.ContextRegion, physicalLocationPointer.AtProperty(SarifPropertyName.ContextRegion));
-            }
         }
 
         private void Visit(Rectangle rectangle, string rectanglePointer)

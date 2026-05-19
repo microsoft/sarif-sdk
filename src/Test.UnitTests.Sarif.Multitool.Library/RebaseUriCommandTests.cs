@@ -38,12 +38,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                         new Result { Locations = new [] {
                                new Location {
                                     PhysicalLocation = new PhysicalLocation {
-                                         // Bound the region so PopulateTextRegionProperties produces a
-                                         // sub-BIGSNIPPETLENGTH (512-char) region: the SARIF1008-compliant
-                                         // proper-superset rule means ConstructMultilineContextSnippet
-                                         // returns null for any region already >= 512 chars, which would
-                                         // skip the ContextRegion assignment we assert below.
-                                         Region = new Region { StartLine = 1, EndColumn = 50 },
+                                         Region = new Region { StartLine = 7 },
                                          ArtifactLocation = new ArtifactLocation
                                          {
                                              Uri = new Uri(analysisFile)
