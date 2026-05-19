@@ -45,7 +45,6 @@ $Projects.Libraries = @(
 )
 
 $Projects.Applications = @(
-    "Sarif.Mcp.Server",
     "Sarif.Multitool"
     )
 
@@ -57,7 +56,6 @@ $Projects.Tests = @(
     "Test.UnitTests.Sarif",
     "Test.UnitTests.Sarif.Converters",
     "Test.UnitTests.Sarif.Driver",
-    "Test.UnitTests.Sarif.Mcp.Server",
     "Test.UnitTests.Sarif.Multitool",
     "Test.UnitTests.Sarif.Multitool.Library",
     "Test.UnitTests.Sarif.WorkItems",

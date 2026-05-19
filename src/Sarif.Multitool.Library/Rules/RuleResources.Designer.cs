@@ -1673,12 +1673,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
             }
         }
 
-        internal static string AI1012_ProvideRuleSubId_Error_DescriptorIdContainsSlash_Text {
-            get {
-                return ResourceManager.GetString("AI1012_ProvideRuleSubId_Error_DescriptorIdContainsSlash_Text", resourceCulture);
-            }
-        }
-
         internal static string SARIF2009_ConsiderConventionalIdentifierValues_Note_HierarchicalIdOnDescriptor_Text {
             get {
                 return ResourceManager.GetString("SARIF2009_ConsiderConventionalIdentifierValues_Note_HierarchicalIdOnDescriptor_Text", resourceCulture);
@@ -1718,6 +1712,30 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         internal static string AI2012_ProvideAiHandoff_Note_Default_Text {
             get {
                 return ResourceManager.GetString("AI2012_ProvideAiHandoff_Note_Default_Text", resourceCulture);
+            }
+        }
+
+        internal static string AI1011_RedactedRunMarker_FullDescription_Text {
+            get {
+                return ResourceManager.GetString("AI1011_RedactedRunMarker_FullDescription_Text", resourceCulture);
+            }
+        }
+
+        internal static string AI1011_RedactedRunMarker_Error_FalseValue_Text {
+            get {
+                return ResourceManager.GetString("AI1011_RedactedRunMarker_Error_FalseValue_Text", resourceCulture);
+            }
+        }
+
+        internal static string AI1011_RedactedRunMarker_Error_MissingRedactionTokens_Text {
+            get {
+                return ResourceManager.GetString("AI1011_RedactedRunMarker_Error_MissingRedactionTokens_Text", resourceCulture);
+            }
+        }
+
+        internal static string AI1011_RedactedRunMarker_Error_FullLogWithoutRedaction_Text {
+            get {
+                return ResourceManager.GetString("AI1011_RedactedRunMarker_Error_FullLogWithoutRedaction_Text", resourceCulture);
             }
         }
 

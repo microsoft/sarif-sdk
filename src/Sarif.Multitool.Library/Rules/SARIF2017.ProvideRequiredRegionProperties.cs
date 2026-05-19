@@ -2,6 +2,9 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System.Collections.Generic;
+using System.Linq;
+
+using Microsoft.Json.Pointer;
 
 namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 {
@@ -30,37 +33,51 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             nameof(RuleResources.SARIF2017_ProvideRequiredRegionProperties_Warning_MissingRegionProperty_Text)
         };
 
-        // See AI1003.ProvideRequiredRegionProperties for visitor rationale: the framework's
-        // PhysicalLocation / Region visitors auto-walk every nesting level (relatedLocations,
-        // codeFlows, fixes, attachments, contextRegions, notification locations), so we no
-        // longer hand-walk only result.Locations[].
-        protected override void Analyze(PhysicalLocation physicalLocation, string physicalLocationPointer)
+        protected override void Analyze(Result result, string resultPointer)
         {
-            if (physicalLocation == null)
+            if (!(result.Locations?.Any() == true))
             {
                 return;
             }
 
-            if (physicalLocation.Region == null)
+            for (int i = 0; i < result.Locations.Count; i++)
             {
-                LogResult(
-                    physicalLocationPointer,
-                    nameof(RuleResources.SARIF2017_ProvideRequiredRegionProperties_Warning_MissingRegion_Text));
-            }
-        }
+                Location location = result.Locations[i];
+                PhysicalLocation physicalLocation = location.PhysicalLocation;
+                if (physicalLocation == null)
+                {
+                    continue;
+                }
 
-        protected override void Analyze(Region region, string regionPointer)
-        {
-            if (region == null || region.IsBinaryRegion)
-            {
-                return;
-            }
+                if (physicalLocation.Region == null)
+                {
+                    string physicalLocationPointer = resultPointer
+                        .AtProperty(SarifPropertyName.Locations)
+                        .AtIndex(i)
+                        .AtProperty(SarifPropertyName.PhysicalLocation);
 
-            if (region.StartLine == 0)
-            {
-                LogResult(
-                    regionPointer,
-                    nameof(RuleResources.SARIF2017_ProvideRequiredRegionProperties_Warning_MissingRegionProperty_Text));
+                    // {0}: The 'region' property is absent. Results should provide a 'region'
+                    // object with line and column information so that consumers can display
+                    // the precise location. At minimum, 'region.startLine' is required.
+                    LogResult(
+                        physicalLocationPointer,
+                        nameof(RuleResources.SARIF2017_ProvideRequiredRegionProperties_Warning_MissingRegion_Text));
+                }
+                else if (physicalLocation.Region.StartLine == 0)
+                {
+                    string regionPointer = resultPointer
+                        .AtProperty(SarifPropertyName.Locations)
+                        .AtIndex(i)
+                        .AtProperty(SarifPropertyName.PhysicalLocation)
+                        .AtProperty(SarifPropertyName.Region);
+
+                    // {0}: The 'startLine' property is absent. Results should provide a 'region'
+                    // object with at least 'startLine'. Providing 'startColumn', 'endLine', and
+                    // 'endColumn' further improves precision, especially for minified code.
+                    LogResult(
+                        regionPointer,
+                        nameof(RuleResources.SARIF2017_ProvideRequiredRegionProperties_Warning_MissingRegionProperty_Text));
+                }
             }
         }
     }

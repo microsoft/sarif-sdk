@@ -3,6 +3,8 @@
 
 using System.Collections.Generic;
 
+using Microsoft.Json.Pointer;
+
 namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 {
     public class ProvideContextRegion : SarifValidationSkimmerBase
@@ -29,26 +31,33 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             nameof(RuleResources.SARIF2011_ProvideContextRegion_Note_Default_Text)
         };
 
-        // PhysicalLocation visitor catches every PhysicalLocation in the SARIF tree (locations,
-        // relatedLocations, codeFlows.threadFlows.locations, fixes.artifactChanges.replacements
-        // (via deletedRegion), attachments, notification locations) instead of only walking
-        // result.locations[] — which was the historical hand-walk that silently passed broken
-        // physical locations under other parents.
-        protected override void Analyze(PhysicalLocation physicalLocation, string physicalLocationPointer)
+        protected override void Analyze(Result result, string resultPointer)
         {
-            if (physicalLocation?.Region == null)
+            if (result.Locations != null)
             {
-                return;
+                string locationsPointer = resultPointer.AtProperty(SarifPropertyName.Locations);
+                for (int i = 0; i < result.Locations.Count; i++)
+                {
+                    AnalyzeLocation(result.Locations[i], locationsPointer.AtIndex(i));
+                }
             }
+        }
 
-            if (physicalLocation.ContextRegion == null)
+        private void AnalyzeLocation(Location location, string locationPointer)
+        {
+            if (location.PhysicalLocation?.Region != null)
             {
-                // {0}: This result location does not provide a 'contextRegion' property. Providing
-                // a context region enables users to see a portion of the code that surrounds the
-                // result, even if they are not enlisted in the code.
-                LogResult(
-                    physicalLocationPointer,
-                    nameof(RuleResources.SARIF2011_ProvideContextRegion_Note_Default_Text));
+                if (location.PhysicalLocation?.ContextRegion == null)
+                {
+                    string physicalLocationPointer = locationPointer.AtProperty(SarifPropertyName.PhysicalLocation);
+
+                    // {0}: This result location does not provide a 'contextRegion' property. Providing
+                    // a context region enables users to see a portion of the code that surrounds the
+                    // result, even if they are not enlisted in the code.
+                    LogResult(
+                        physicalLocationPointer,
+                        nameof(RuleResources.SARIF2011_ProvideContextRegion_Note_Default_Text));
+                }
             }
         }
     }

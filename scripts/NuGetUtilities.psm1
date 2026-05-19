@@ -21,10 +21,11 @@ $NuGetPackageRoot = Join-Path (Join-Path $RepoRoot "bld") "packages"
 $NuGetSamplesPackageRoot = Join-Path (Join-Path $SourceRoot "samples") "packages"
 $NuGetConfigFile = Join-Path $RepoRoot "NuGet.Config"
 
+$PackageSource = "https://nuget.org"
 $PackageOutputDirectoryRoot = Join-Path (Join-Path $BuildRoot "Publish") "NuGet"
 
-function Get-PackageVersion() {
-    $versionPrefix, $schemaVersion, $stableSarifVersion = & $PSScriptRoot\Get-VersionConstants.ps1
+function Get-PackageVersion([switch]$previous) {
+    $versionPrefix, $schemaVersion, $stableSarifVersion = & $PSScriptRoot\Get-VersionConstants.ps1 -Previous:$previous
     $versionPrefix
 }
 
@@ -96,7 +97,61 @@ function New-NuGetPackages($configuration, $projects) {
     }
 }
 
+function Get-NuGetApiKey {
+    # We temporarily implement this function by parsing the key from the file
+    # SetNuGetSarifApiKey.cmd, which is expected to exist in the parent
+    # directory of the developer's sarif-sdk enlistment.
+    # In future, we should get this key from the Azure Key Vault.
+    $apiKeyPath = Join-Path $PSScriptRoot ..\..\SetNuGetSarifApiKey.cmd
+    if (-not (Test-Path $apiKeyPath)) {
+        Exit-WithFailureMessage NuGetUtilties "API key file $apiKeyPath does not exist."
+    }
+
+    # Everything that isn't a double quote, followed by a double quote, followed
+    # by the key (everything up to the next double quote).
+    $pattern = '^[^"]*"(?<key>[^"]*)'
+
+    $firstLine = [IO.File]::ReadAllLines($apiKeyPath)[0]
+    if ($firstLine -match $pattern) {
+        $matches["key"]
+    } else {
+        Exit-WithFailureMessage NuGetUtilties "API key file $apiKeyPath does not contain a key."
+    }
+}
+
+function Set-NuGetApiKey {
+    $apiKey = Get-NuGetApiKey
+
+    $arguments = "SetApiKey", $apiKey, "-Source", $PackageSource, "-Verbosity", "quiet"
+    Write-CommandLine $NuGetExePath $arguments
+
+    & $NugetExePath $arguments
+    if ($LASTEXITCODE -ne 0) {
+        Exit-WithFailureMessage $ScriptName "Could not set NuGet API key."
+    }
+}
+
+function Hide-NuGetPackage($project, $version) {
+    $arguments = "delete", $project, $version, "-Source", $PackageSource
+    Write-CommandLine $NuGetExePath $arguments
+
+    & $NugetExePath $arguments
+    if ($LASTEXITCODE -ne 0) {
+        Exit-WithFailureMessage $ScriptName "Could not delist NuGet package $project $version."
+    }
+}
+
+function Hide-NuGetPackages {
+    Set-NuGetApiKey
+
+    $version = Get-PackageVersion -Previous
+    foreach ($project in $Projects.Products) {
+        Hide-NuGetPackage $project $version
+    }
+}
+
 Export-ModuleMember -Function `
+    Hide-NuGetPackages, `
     New-NuGetPackages, `
     Get-PackageVersion
 

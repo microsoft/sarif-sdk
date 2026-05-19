@@ -100,22 +100,8 @@ function Invoke-DotNetBuild($solutionFileRelativePath) {
 # Create a directory containing all files necessary to execute an application.
 # This operation is called "publish" because it is performed by "dotnet publish".
 function Publish-Application($project, $framework) {
-    $projectFilePath = "$SourceRoot\$project\$project.csproj"
-
-    # Only publish for frameworks the project actually targets, so projects with
-    # a narrower TargetFrameworks list (e.g. net8.0 only) don't fail the build.
-    $projectXml = [xml](Get-Content -Raw -Path $projectFilePath)
-    $declaredFrameworks = @()
-    foreach ($node in $projectXml.SelectNodes("//TargetFrameworks") + $projectXml.SelectNodes("//TargetFramework")) {
-        $declaredFrameworks += $node.InnerText -split ';' | Where-Object { $_ -ne '' }
-    }
-    if (-not ($declaredFrameworks -contains $framework)) {
-        Write-Information "Skipping publish of $project for $framework (not in TargetFrameworks)."
-        return
-    }
-
     Write-Information "Publishing $project for $framework ..."
-    dotnet publish $projectFilePath --no-build --configuration $Configuration --framework $framework
+    dotnet publish $SourceRoot\$project\$project.csproj --no-build --configuration $Configuration --framework $framework
     if ($LASTEXITCODE -ne 0) {
         Exit-WithFailureMessage $ScriptName "Publish failed."
     }

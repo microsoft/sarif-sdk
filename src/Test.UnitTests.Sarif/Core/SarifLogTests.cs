@@ -433,22 +433,6 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests.Core
                 .Setup(f => f.FileOpenRead(It.IsAny<string>()))
                 .Returns(CreateSarifLogStream());
 
-            // SarifLog.Post reads via FileReadAllBytes, not FileOpenRead. Stage the same
-            // SARIF content under that mock so SarifLog.Load can deserialize it; the
-            // SDK-G change (Load now throws on null/empty deserialization rather than
-            // returning null) made the empty-byte-array default visible as a typed error.
-            fileSystem
-                .Setup(f => f.FileReadAllBytes(It.IsAny<string>()))
-                .Returns(() =>
-                {
-                    using var ms = new MemoryStream();
-                    using (Stream sarifStream = CreateSarifLogStream())
-                    {
-                        sarifStream.CopyTo(ms);
-                    }
-                    return ms.ToArray();
-                });
-
             httpMock.Mock(HttpMockHelper.CreateOKResponse());
 
             try

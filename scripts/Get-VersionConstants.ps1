@@ -1,10 +1,16 @@
 <#
 .SYNOPSIS
 Extract the version number from build.props.
+
+.PARAMETER Previous
+Extract the previous version number rather than the current version number.
 #>
 
 [CmdletBinding()]
-param()
+param(
+    [switch]
+    $Previous
+)
 
 Set-StrictMode -Version Latest
 $ErrorActionPreference = "Stop"
@@ -22,7 +28,12 @@ function Get-VersionComponent($componentName) {
     $xml.Node.InnerText
 }
 
-$versionPrefix = Get-VersionComponent VersionPrefix
+$PreviousNamePrefix = ""
+if ($Previous) {
+    $PreviousNamePrefix = "Previous"
+}
+
+$versionPrefix = Get-VersionComponent "${PreviousNamePrefix}VersionPrefix"
 $schemaVersionAsPublishedToSchemaStoreOrg = Get-VersionComponent SchemaVersionAsPublishedToSchemaStoreOrg
 $stableSarifVersion = Get-VersionComponent StableSarifVersion
 
