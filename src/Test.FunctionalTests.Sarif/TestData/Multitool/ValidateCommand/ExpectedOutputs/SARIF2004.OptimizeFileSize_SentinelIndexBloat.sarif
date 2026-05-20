@@ -46,7 +46,7 @@
       "artifacts": [
         {
           "location": {
-            "uri": "FunctionalTestOutput.ValidateCommand/SARIF2004.OptimizeFileSize_Invalid.sarif",
+            "uri": "FunctionalTestOutput.ValidateCommand/SARIF2004.OptimizeFileSize_SentinelIndexBloat.sarif",
             "uriBaseId": "TEST_DIR"
           }
         }
@@ -56,9 +56,10 @@
           "ruleId": "SARIF2004",
           "ruleIndex": 0,
           "message": {
-            "id": "Warning_EliminateLocationOnlyArtifacts",
+            "id": "Warning_OmitSentinelIndex",
             "arguments": [
-              "runs[0].artifacts"
+              "runs[0].results[0].ruleIndex",
+              "ruleIndex"
             ]
           },
           "locations": [
@@ -68,8 +69,8 @@
                   "index": 0
                 },
                 "region": {
-                  "startLine": 18,
-                  "startColumn": 20
+                  "startLine": 27,
+                  "startColumn": 25
                 }
               }
             }
@@ -79,9 +80,10 @@
           "ruleId": "SARIF2004",
           "ruleIndex": 0,
           "message": {
-            "id": "Warning_EliminateIdOnlyRules",
+            "id": "Warning_OmitSentinelIndex",
             "arguments": [
-              "runs[0].tool.driver.rules"
+              "runs[0].results[0].locations[0].physicalLocation.artifactLocation.index",
+              "index"
             ]
           },
           "locations": [
@@ -91,31 +93,7 @@
                   "index": 0
                 },
                 "region": {
-                  "startLine": 11,
-                  "startColumn": 20
-                }
-              }
-            }
-          ]
-        },
-        {
-          "ruleId": "SARIF2004",
-          "ruleIndex": 0,
-          "message": {
-            "id": "Warning_AvoidDuplicativeAnalysisTarget",
-            "arguments": [
-              "runs[0].results[1].analysisTarget",
-              "local/test/code/src/file1.c"
-            ]
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "index": 0
-                },
-                "region": {
-                  "startLine": 52,
+                  "startLine": 34,
                   "startColumn": 29
                 }
               }
@@ -126,9 +104,10 @@
           "ruleId": "SARIF2004",
           "ruleIndex": 0,
           "message": {
-            "id": "Warning_PreferRuleId",
+            "id": "Warning_OmitSentinelIndex",
             "arguments": [
-              "runs[0].results[2]"
+              "runs[0].artifacts[0].parentIndex",
+              "parentIndex"
             ]
           },
           "locations": [
@@ -138,54 +117,8 @@
                   "index": 0
                 },
                 "region": {
-                  "startLine": 63,
-                  "startColumn": 9
-                }
-              }
-            }
-          ]
-        },
-        {
-          "ruleId": "SARIF2004",
-          "ruleIndex": 0,
-          "message": {
-            "id": "Warning_AvoidDuplicativeResultRuleInformation",
-            "arguments": [
-              "runs[0].results[3]"
-            ]
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "index": 0
-                },
-                "region": {
-                  "startLine": 73,
-                  "startColumn": 9
-                }
-              }
-            }
-          ]
-        },
-        {
-          "ruleId": "SARIF2004",
-          "ruleIndex": 0,
-          "message": {
-            "id": "Warning_PreferRuleId",
-            "arguments": [
-              "runs[0].results[4]"
-            ]
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "index": 0
-                },
-                "region": {
-                  "startLine": 84,
-                  "startColumn": 9
+                  "startLine": 21,
+                  "startColumn": 27
                 }
               }
             }
