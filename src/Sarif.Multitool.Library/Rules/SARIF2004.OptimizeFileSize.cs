@@ -6,6 +6,8 @@ using System.Linq;
 
 using Microsoft.Json.Pointer;
 
+using Newtonsoft.Json.Linq;
+
 namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 {
     public class OptimizeFileSize : SarifValidationSkimmerBase
@@ -59,7 +61,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             nameof(RuleResources.SARIF2004_OptimizeFileSize_Warning_AvoidDuplicativeResultRuleInformation_Text),
             nameof(RuleResources.SARIF2004_OptimizeFileSize_Warning_EliminateLocationOnlyArtifacts_Text),
             nameof(RuleResources.SARIF2004_OptimizeFileSize_Warning_EliminateIdOnlyRules_Text),
-            nameof(RuleResources.SARIF2004_OptimizeFileSize_Warning_PreferRuleId_Text)
+            nameof(RuleResources.SARIF2004_OptimizeFileSize_Warning_PreferRuleId_Text),
+            nameof(RuleResources.SARIF2004_OptimizeFileSize_Warning_OmitSentinelIndex_Text)
         };
 
         protected override void Analyze(Run run, string runPointer)
@@ -68,10 +71,70 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             AnalyzeIdOnlyRules(run, runPointer);
         }
 
+        protected override void Analyze(ArtifactLocation artifactLocation, string artifactLocationPointer)
+        {
+            CheckSentinelIndex(artifactLocation.Index, artifactLocationPointer, SarifPropertyName.Index);
+        }
+
+        protected override void Analyze(ReportingDescriptorReference reference, string referencePointer)
+        {
+            CheckSentinelIndex(reference.Index, referencePointer, SarifPropertyName.Index);
+        }
+
+        protected override void Analyze(ThreadFlowLocation threadFlowLocation, string threadFlowLocationPointer)
+        {
+            CheckSentinelIndex(threadFlowLocation.Index, threadFlowLocationPointer, SarifPropertyName.Index);
+        }
+
+        protected override void Analyze(LogicalLocation logicalLocation, string logicalLocationPointer)
+        {
+            CheckSentinelIndex(logicalLocation.Index, logicalLocationPointer, SarifPropertyName.Index);
+            CheckSentinelIndex(logicalLocation.ParentIndex, logicalLocationPointer, SarifPropertyName.ParentIndex);
+        }
+
+        protected override void Analyze(Address address, string addressPointer)
+        {
+            CheckSentinelIndex(address.Index, addressPointer, SarifPropertyName.Index);
+            CheckSentinelIndex(address.ParentIndex, addressPointer, SarifPropertyName.ParentIndex);
+        }
+
+        protected override void Analyze(Artifact artifact, string artifactPointer)
+        {
+            CheckSentinelIndex(artifact.ParentIndex, artifactPointer, SarifPropertyName.ParentIndex);
+        }
+
+        /// <summary>
+        /// Flag an explicit emission of the SARIF <c>-1</c> "unset index" sentinel
+        /// (\u00a73.4) when the JSON contains the property literally. The sentinel is
+        /// semantically equivalent to omitting the property; emitting it bloats the
+        /// log without changing meaning.
+        /// </summary>
+        private void CheckSentinelIndex(int actualValue, string objectPointer, string propertyName)
+        {
+            if (actualValue != -1)
+            {
+                return;
+            }
+
+            // Distinguish "the producer omitted the property" (Index defaulted to -1
+            // on deserialization) from "the producer literally wrote 'index: -1' in
+            // the JSON" (the bloat case we want to flag). We only fire when the
+            // property is physically present in the input log token.
+            JToken objectToken = objectPointer.ToJToken(Context.InputLogToken);
+            if (objectToken is JObject obj && obj.ContainsKey(propertyName))
+            {
+                LogResult(
+                    objectPointer.AtProperty(propertyName),
+                    nameof(RuleResources.SARIF2004_OptimizeFileSize_Warning_OmitSentinelIndex_Text),
+                    propertyName);
+            }
+        }
+
         protected override void Analyze(Result result, string resultPointer)
         {
             ReportUnnecessaryAnalysisTarget(result, resultPointer);
             ReportRuleDuplication(result, resultPointer);
+            CheckSentinelIndex(result.RuleIndex, resultPointer, SarifPropertyName.RuleIndex);
         }
 
         private void ReportRuleDuplication(Result result, string resultPointer)
