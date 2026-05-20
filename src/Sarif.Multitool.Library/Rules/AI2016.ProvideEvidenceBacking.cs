@@ -58,12 +58,17 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                     continue;
                 }
 
-                string strength = entry.Value<string>("strength");
-                string backing = entry.Value<string>("backing");
+                // Defensive reads. 'strength' is expected to be a string per the
+                // AI profile; 'backing' is emitted in the wild as either a single
+                // string or an array of strings. JObject.Value<string>() throws
+                // InvalidCastException on a JArray and disables the rule mid-run
+                // (issue #2908).
+                string strength = EvidenceJsonReader.ReadString(entry, "strength");
+                IReadOnlyList<string> backings = EvidenceJsonReader.ReadStrings(entry, "backing");
 
                 if (strength == "demonstrated")
                 {
-                    if (string.IsNullOrEmpty(backing))
+                    if (backings.Count == 0)
                     {
                         LogResult(
                             resultPointer,

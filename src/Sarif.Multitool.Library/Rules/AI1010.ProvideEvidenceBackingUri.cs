@@ -58,19 +58,36 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                     continue;
                 }
 
-                string backing = entry.Value<string>("backing");
-                if (string.IsNullOrEmpty(backing) || !backing.StartsWith("sarif:", StringComparison.Ordinal))
-                {
-                    continue;
-                }
+                // SARIF-AI producers in the wild emit 'backing' as either a single
+                // string or a JSON array of strings (multi-source evidence). Read
+                // defensively rather than calling JObject.Value<string>(), which
+                // throws InvalidCastException on a JArray and disables the rule
+                // mid-run (issue #2908).
+                IReadOnlyList<string> backings = EvidenceJsonReader.ReadStrings(entry, "backing");
 
-                string jsonPointerString = backing.Substring("sarif:".Length);
-
-                try
+                foreach (string backing in backings)
                 {
-                    var jsonPointer = new JsonPointer(jsonPointerString);
-                    JToken resolved = jsonPointer.Evaluate(Context.InputLogToken);
-                    if (resolved == null)
+                    if (string.IsNullOrEmpty(backing) || !backing.StartsWith("sarif:", StringComparison.Ordinal))
+                    {
+                        continue;
+                    }
+
+                    string jsonPointerString = backing.Substring("sarif:".Length);
+
+                    try
+                    {
+                        var jsonPointer = new JsonPointer(jsonPointerString);
+                        JToken resolved = jsonPointer.Evaluate(Context.InputLogToken);
+                        if (resolved == null)
+                        {
+                            LogResult(
+                                resultPointer,
+                                nameof(RuleResources.AI1010_ProvideEvidenceBackingUri_Error_Default_Text),
+                                i.ToString(),
+                                backing);
+                        }
+                    }
+                    catch
                     {
                         LogResult(
                             resultPointer,
@@ -78,14 +95,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                             i.ToString(),
                             backing);
                     }
-                }
-                catch
-                {
-                    LogResult(
-                        resultPointer,
-                        nameof(RuleResources.AI1010_ProvideEvidenceBackingUri_Error_Default_Text),
-                        i.ToString(),
-                        backing);
                 }
             }
         }

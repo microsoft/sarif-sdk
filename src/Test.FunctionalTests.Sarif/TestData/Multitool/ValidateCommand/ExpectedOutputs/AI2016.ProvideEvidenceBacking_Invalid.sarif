@@ -1,0 +1,118 @@
+{
+  "$schema": "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0-rtm.6.json",
+  "version": "2.1.0",
+  "runs": [
+    {
+      "tool": {
+        "driver": {
+          "name": "SARIF Functional Testing",
+          "rules": [
+            {
+              "id": "AI2016",
+              "name": "ProvideEvidenceBacking",
+              "fullDescription": {
+                "text": "An 'ai/evidence' array entry with 'strength' of 'demonstrated' should carry non-empty 'backing'. If 'ai/exploitability' is 'demonstrated', at least one evidence entry should also be 'demonstrated' with non-empty backing."
+              },
+              "messageStrings": {
+                "Warning_MissingBacking": {
+                  "text": "{0}: The 'ai/evidence' entry at index {1} has 'strength' of 'demonstrated' but 'backing' is missing or empty. Demonstrated evidence should include concrete backing (e.g., a SARIF URI pointing to a code flow, artifact, or test)."
+                },
+                "Warning_Inconsistent": {
+                  "text": "{0}: This result declares 'ai/exploitability' as 'demonstrated' but no 'ai/evidence' entry has 'strength' of 'demonstrated' with non-empty 'backing'. The headline exploitability should be consistent with the evidence array."
+                }
+              },
+              "helpUri": "http://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html"
+            }
+          ]
+        }
+      },
+      "invocations": [
+        {
+          "executionSuccessful": true
+        }
+      ],
+      "artifacts": [
+        {
+          "location": {
+            "uri": "FunctionalTestOutput.ValidateCommand/AI2016.ProvideEvidenceBacking_Invalid.sarif",
+            "uriBaseId": "TEST_DIR"
+          }
+        }
+      ],
+      "results": [
+        {
+          "ruleId": "AI2016",
+          "ruleIndex": 0,
+          "message": {
+            "id": "Warning_MissingBacking",
+            "arguments": [
+              "runs[0].results[0]",
+              "0"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 16,
+                  "startColumn": 9
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "AI2016",
+          "ruleIndex": 0,
+          "message": {
+            "id": "Warning_MissingBacking",
+            "arguments": [
+              "runs[0].results[0]",
+              "1"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 16,
+                  "startColumn": 9
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "AI2016",
+          "ruleIndex": 0,
+          "message": {
+            "id": "Warning_Inconsistent",
+            "arguments": [
+              "runs[0].results[0]"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 16,
+                  "startColumn": 9
+                }
+              }
+            }
+          ]
+        }
+      ],
+      "columnKind": "utf16CodeUnits"
+    }
+  ]
+}

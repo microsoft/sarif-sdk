@@ -310,6 +310,22 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             => RunInvalidTestForRule(RuleId.SARIFProvideRequiredRegionProperties);
 
         [Fact]
+        public void AI1010_ProvideEvidenceBackingUri_Valid()
+            => RunValidTestForRule(RuleId.AIProvideEvidenceBackingUri);
+
+        [Fact]
+        public void AI1010_ProvideEvidenceBackingUri_Invalid()
+            => RunInvalidTestForRule(RuleId.AIProvideEvidenceBackingUri);
+
+        [Fact]
+        public void AI2016_ProvideEvidenceBacking_Valid()
+            => RunValidTestForRule(RuleId.AIProvideEvidenceBacking);
+
+        [Fact]
+        public void AI2016_ProvideEvidenceBacking_Invalid()
+            => RunInvalidTestForRule(RuleId.AIProvideEvidenceBacking);
+
+        [Fact]
         public void SARIF2010_ProvideCodeSnippets_Valid()
             => RunValidTestForRule(RuleId.ProvideCodeSnippets);
 
