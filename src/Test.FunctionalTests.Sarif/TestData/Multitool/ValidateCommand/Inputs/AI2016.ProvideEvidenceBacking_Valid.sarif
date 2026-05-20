@@ -1,0 +1,51 @@
+{
+  "$schema": "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0-rtm.6.json",
+  "version": "2.1.0",
+  "runs": [
+    {
+      "tool": {
+        "driver": {
+          "name": "SARIF Functional Testing",
+          "version": "1.2.3",
+          "rules": [
+            { "id": "CWE-78", "name": "OsCommandInjection" }
+          ]
+        }
+      },
+      "results": [
+        {
+          "ruleId": "CWE-78/api-handler",
+          "ruleIndex": 0,
+          "message": { "text": "Demonstrated evidence with non-empty backing in both string and array forms; AI2016 should not fire." },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": { "uri": "src/foo.cs" },
+                "region": { "startLine": 1 }
+              }
+            }
+          ],
+          "properties": {
+            "ai/exploitability": "demonstrated",
+            "ai/evidence": [
+              {
+                "summary": "String-form backing.",
+                "strength": "demonstrated",
+                "backing": "https://example.com/repro.md"
+              },
+              {
+                "summary": "Array-form backing (the form the prior code crashed on).",
+                "strength": "demonstrated",
+                "backing": [
+                  "https://example.com/a.md",
+                  "external/b.md"
+                ]
+              }
+            ]
+          }
+        }
+      ],
+      "columnKind": "utf16CodeUnits"
+    }
+  ]
+}
