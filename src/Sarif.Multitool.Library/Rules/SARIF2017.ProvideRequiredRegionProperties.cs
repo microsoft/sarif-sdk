@@ -81,8 +81,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                     // region in one of the three SARIF \u00a73.30 forms: line/column (startLine,
                     // optional startColumn/endLine/endColumn); character offset (charOffset,
                     // optional charLength); or byte offset (byteOffset, optional byteLength).
-                    // For a finding that applies to the whole artifact, prefer a binary region
-                    // (Region.ForEntireArtifact).
                     LogResult(
                         regionPointer,
                         nameof(RuleResources.SARIF2017_ProvideRequiredRegionProperties_Warning_MissingRegionProperty_Text));

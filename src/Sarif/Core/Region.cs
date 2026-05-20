@@ -1,8 +1,5 @@
-// Copyright (c) Microsoft. All rights reserved.
+﻿// Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
-
-using System;
-using System.IO;
 
 namespace Microsoft.CodeAnalysis.Sarif
 {
@@ -13,55 +10,6 @@ namespace Microsoft.CodeAnalysis.Sarif
         public bool IsLineColumnBasedTextRegion => this.StartLine >= 1;
 
         public bool IsOffsetBasedTextRegion => this.CharOffset >= 0;
-
-        /// <summary>
-        /// Returns a binary <see cref="Region"/> that covers the entirety of
-        /// the artifact at <paramref name="artifactPath"/>:
-        /// <c>byteOffset = 0</c>, <c>byteLength = artifact size</c>.
-        /// </summary>
-        /// <remarks>
-        /// <para>
-        /// This is the spec-blessed (SARIF \u00a73.30) shape for "this finding
-        /// applies to the whole artifact" — preferable to the common
-        /// workaround of synthesising <c>{ startLine: 1 }</c>, which collides
-        /// on deduplication when many whole-file findings land on the same
-        /// nominal line. A binary region uniquely identifies "the whole file"
-        /// without misrepresenting it as line-localized.
-        /// </para>
-        /// <para>
-        /// Files larger than <see cref="int.MaxValue"/> bytes (~2 GiB) are
-        /// clamped — SARIF <c>byteLength</c> is an <c>int</c>; representing
-        /// a larger region requires a different SARIF construct.
-        /// </para>
-        /// </remarks>
-        /// <param name="artifactPath">Filesystem path to the artifact.</param>
-        public static Region ForEntireArtifact(string artifactPath)
-        {
-            if (string.IsNullOrEmpty(artifactPath))
-            {
-                throw new ArgumentException("Artifact path must be non-empty.", nameof(artifactPath));
-            }
-
-            long length = new FileInfo(artifactPath).Length;
-            return ForEntireArtifact(length);
-        }
-
-        /// <summary>
-        /// Returns a binary <see cref="Region"/> that covers
-        /// <paramref name="byteLength"/> bytes starting at offset 0 — i.e., the
-        /// whole artifact, when the caller already knows its size in bytes.
-        /// Files larger than <see cref="int.MaxValue"/> bytes are clamped.
-        /// </summary>
-        public static Region ForEntireArtifact(long byteLength)
-        {
-            if (byteLength < 0)
-            {
-                throw new ArgumentOutOfRangeException(nameof(byteLength), "Byte length must be non-negative.");
-            }
-
-            int length = byteLength > int.MaxValue ? int.MaxValue : (int)byteLength;
-            return new Region { ByteOffset = 0, ByteLength = length };
-        }
 
         public override string ToString()
         {
@@ -231,4 +179,3 @@ namespace Microsoft.CodeAnalysis.Sarif
         }
     }
 }
-
