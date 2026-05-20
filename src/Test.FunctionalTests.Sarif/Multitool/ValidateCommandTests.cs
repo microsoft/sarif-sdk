@@ -173,6 +173,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             => RunInvalidTestForRule(RuleId.OptimizeFileSize);
 
         [Fact]
+        public void SARIF2004_OptimizeFileSize_SentinelIndexBloat()
+            => RunTest("SARIF2004.OptimizeFileSize_SentinelIndexBloat.sarif");
+
+        [Fact]
         public void SARIF2005_ProvideToolProperties_Valid()
             => RunValidTestForRule(RuleId.ProvideToolProperties);
 

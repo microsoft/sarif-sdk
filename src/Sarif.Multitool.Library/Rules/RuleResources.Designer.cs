@@ -1125,6 +1125,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
                 return ResourceManager.GetString("SARIF2004_OptimizeFileSize_Warning_PreferRuleId_Text", resourceCulture);
             }
         }
+
+        internal static string SARIF2004_OptimizeFileSize_Warning_OmitSentinelIndex_Text {
+            get {
+                return ResourceManager.GetString("SARIF2004_OptimizeFileSize_Warning_OmitSentinelIndex_Text", resourceCulture);
+            }
+        }
         
         /// <summary>
         ///   Looks up a localized string similar to Provide information that makes it easy to identify the name and version of your tool.

@@ -362,6 +362,9 @@ Provide the 'helpUri' property, which contains a URI where users can find detail
   <data name="SARIF2004_OptimizeFileSize_Warning_PreferRuleId_Text" xml:space="preserve">
     <value>The result at '{0}' uses the 'rule' property to specify the violated rule, but this is not necessary because the rule is defined by 'tool.driver'. Use the 'ruleId' and 'ruleIndex' instead, because they are shorter and just as clear.</value>
   </data>
+  <data name="SARIF2004_OptimizeFileSize_Warning_OmitSentinelIndex_Text" xml:space="preserve">
+    <value>{0}: The '{1}' property is set to the value -1, which SARIF §3.4 defines as the "unset index" sentinel. Emitting it literally is semantically equivalent to omitting the property entirely and only inflates the log size. Remove the '{1}' property.</value>
+  </data>
   <data name="SARIF2016_FileUrisShouldBeRelative_FullDescription_Text" xml:space="preserve">
     <value>When an artifact location refers to a file on the local file system, specify a relative reference for the uri property and provide a uriBaseId property, rather than specifying an absolute URI.
 
