@@ -298,6 +298,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             => RunInvalidTestForRule(RuleId.AIProvideRuleSubId);
 
         [Fact]
+        public void SARIF2017_ProvideRequiredRegionProperties_Valid()
+            => RunValidTestForRule(RuleId.SARIFProvideRequiredRegionProperties);
+
+        [Fact]
+        public void SARIF2017_ProvideRequiredRegionProperties_Invalid()
+            => RunInvalidTestForRule(RuleId.SARIFProvideRequiredRegionProperties);
+
+        [Fact]
         public void SARIF2010_ProvideCodeSnippets_Valid()
             => RunValidTestForRule(RuleId.ProvideCodeSnippets);
 

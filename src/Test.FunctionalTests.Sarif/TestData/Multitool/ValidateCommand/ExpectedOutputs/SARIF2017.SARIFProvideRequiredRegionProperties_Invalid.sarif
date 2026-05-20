@@ -1,0 +1,93 @@
+{
+  "$schema": "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0-rtm.6.json",
+  "version": "2.1.0",
+  "runs": [
+    {
+      "tool": {
+        "driver": {
+          "name": "SARIF Functional Testing",
+          "rules": [
+            {
+              "id": "SARIF2017",
+              "name": "SARIFProvideRequiredRegionProperties",
+              "fullDescription": {
+                "text": "Results should localize their physical locations with a non-empty 'region' object. SARIF §3.30 defines three valid region representations: line/column-based ('startLine' [+ optional 'startColumn'/'endLine'/'endColumn']); character-offset-based ('charOffset' [+ optional 'charLength']); or byte-offset-based ('byteOffset' [+ optional 'byteLength']). Any one of these forms localizes the finding for consumers. For findings that apply to a whole artifact (whole-file checks like missing-header, license, etc.), prefer a binary region ('byteOffset: 0', 'byteLength: file-size') over a synthesized 'startLine: 1' — the byte-region form uniquely identifies \"the whole artifact\" without misrepresenting it as line-1-localized (which collides on deduplication when many whole-file findings land at the same nominal line). The 'Region.ForEntireArtifact(string)' SDK helper constructs the canonical whole-file region."
+              },
+              "messageStrings": {
+                "Warning_MissingRegion": {
+                  "text": "{0}: The 'region' property is absent. Express the location of the finding via a 'region' object in one of the SARIF §3.30 forms: line/column ('startLine' [+ optional 'startColumn'/'endLine'/'endColumn']); char-offset ('charOffset' [+ optional 'charLength']); or byte-offset ('byteOffset' [+ optional 'byteLength']). For whole-artifact findings, use 'Region.ForEntireArtifact'."
+                },
+                "Warning_MissingRegionProperty": {
+                  "text": "{0}: The 'region' object carries no positional information. Populate one of the three SARIF §3.30 forms: line/column ('startLine' [+ optional 'startColumn'/'endLine'/'endColumn']); char-offset ('charOffset' [+ optional 'charLength']); or byte-offset ('byteOffset' [+ optional 'byteLength']). For whole-artifact findings, use 'Region.ForEntireArtifact'."
+                }
+              },
+              "helpUri": "http://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html"
+            }
+          ]
+        }
+      },
+      "invocations": [
+        {
+          "executionSuccessful": true
+        }
+      ],
+      "artifacts": [
+        {
+          "location": {
+            "uri": "FunctionalTestOutput.ValidateCommand/SARIF2017.SARIFProvideRequiredRegionProperties_Invalid.sarif",
+            "uriBaseId": "TEST_DIR"
+          }
+        }
+      ],
+      "results": [
+        {
+          "ruleId": "SARIF2017",
+          "ruleIndex": 0,
+          "message": {
+            "id": "Warning_MissingRegion",
+            "arguments": [
+              "runs[0].results[0].locations[0].physicalLocation"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 22,
+                  "startColumn": 35
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "SARIF2017",
+          "ruleIndex": 0,
+          "message": {
+            "id": "Warning_MissingRegionProperty",
+            "arguments": [
+              "runs[0].results[1].locations[0].physicalLocation.region"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 36,
+                  "startColumn": 27
+                }
+              }
+            }
+          ]
+        }
+      ],
+      "columnKind": "utf16CodeUnits"
+    }
+  ]
+}

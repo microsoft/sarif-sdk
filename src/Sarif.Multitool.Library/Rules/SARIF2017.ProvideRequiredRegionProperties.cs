@@ -58,22 +58,31 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 
                     // {0}: The 'region' property is absent. Results should provide a 'region'
                     // object with line and column information so that consumers can display
-                    // the precise location. At minimum, 'region.startLine' is required.
+                    // the precise location.
                     LogResult(
                         physicalLocationPointer,
                         nameof(RuleResources.SARIF2017_ProvideRequiredRegionProperties_Warning_MissingRegion_Text));
                 }
-                else if (physicalLocation.Region.StartLine == 0)
+                else if (!physicalLocation.Region.IsLineColumnBasedTextRegion
+                      && !physicalLocation.Region.IsOffsetBasedTextRegion
+                      && !physicalLocation.Region.IsBinaryRegion)
                 {
+                    // Region is present but carries no positional information at all
+                    // (no startLine, no charOffset, no byteOffset). Per SARIF \u00a73.30 a
+                    // region is identified by *one of* line/column, char-offset, or
+                    // byte-offset; an entirely-empty region object is meaningless.
                     string regionPointer = resultPointer
                         .AtProperty(SarifPropertyName.Locations)
                         .AtIndex(i)
                         .AtProperty(SarifPropertyName.PhysicalLocation)
                         .AtProperty(SarifPropertyName.Region);
 
-                    // {0}: The 'startLine' property is absent. Results should provide a 'region'
-                    // object with at least 'startLine'. Providing 'startColumn', 'endLine', and
-                    // 'endColumn' further improves precision, especially for minified code.
+                    // {0}: The 'region' object carries no positional information. Express the
+                    // region in one of the three SARIF \u00a73.30 forms: line/column (startLine,
+                    // optional startColumn/endLine/endColumn); character offset (charOffset,
+                    // optional charLength); or byte offset (byteOffset, optional byteLength).
+                    // For a finding that applies to the whole artifact, prefer a binary region
+                    // (Region.ForEntireArtifact).
                     LogResult(
                         regionPointer,
                         nameof(RuleResources.SARIF2017_ProvideRequiredRegionProperties_Warning_MissingRegionProperty_Text));
