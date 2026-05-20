@@ -7,7 +7,6 @@ using FluentAssertions;
 
 using Microsoft.CodeAnalysis.Sarif.Emit;
 
-using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
 using Xunit;
@@ -150,7 +149,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Test.UnitTests.Emit
             {
                 Kind = kind,
                 Version = SarifEventKinds.CurrentSchemaVersion,
-                Payload = JToken.Parse(JsonConvert.SerializeObject(payload)),
+                Payload = JToken.FromObject(payload),
             };
     }
 }

@@ -2,6 +2,7 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 using CommandLine;
@@ -19,32 +20,41 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         {
             var optionsInterpreter = new OptionsInterpreter();
 
-            return Parser.Default.ParseArguments<
-                // Keep this in alphabetical order
-                AbsoluteUriOptions,
+            // Use the non-generic ParseArguments overload to side-step the 16-type-parameter
+            // ceiling on the strongly-typed overloads — the verb roster has outgrown it.
+            // Keep the verb list in alphabetical order.
+            var verbTypes = new List<Type>
+            {
+                typeof(AbsoluteUriOptions),
 #if DEBUG
-                AnalyzeTestOptions,
+                typeof(AnalyzeTestOptions),
 #endif
-                ApplyPolicyOptions,
-                ConvertOptions,
-                ExportValidationConfigurationOptions,
-                ExportValidationRulesMetadataOptions,
-                FileWorkItemsOptions,
-                ResultMatchingOptions,
-                MergeOptions,
-                PageOptions,
-                PartitionOptions,
-                QueryOptions,
-                RebaseUriOptions,
-                RewriteOptions,
-                SuppressOptions,
-                ValidateOptions>(args)
+                typeof(ApplyPolicyOptions),
+                typeof(ConvertOptions),
+                typeof(EmitFinalizeOptions),
+                typeof(EmitInitOptions),
+                typeof(ExportValidationConfigurationOptions),
+                typeof(ExportValidationRulesMetadataOptions),
+                typeof(FileWorkItemsOptions),
+                typeof(ResultMatchingOptions),
+                typeof(MergeOptions),
+                typeof(PageOptions),
+                typeof(PartitionOptions),
+                typeof(QueryOptions),
+                typeof(RebaseUriOptions),
+                typeof(RewriteOptions),
+                typeof(SuppressOptions),
+                typeof(ValidateOptions),
+            };
+
+            return Parser.Default.ParseArguments(args, verbTypes.ToArray())
                 .WithParsed<AbsoluteUriOptions>(x => { optionsInterpreter.ConsumeEnvVarsAndInterpretOptions(x); })
 #if DEBUG
                 .WithParsed<AnalyzeTestOptions>(x => { optionsInterpreter.ConsumeEnvVarsAndInterpretOptions(x); })
 #endif
                 .WithParsed<ApplyPolicyOptions>(x => { optionsInterpreter.ConsumeEnvVarsAndInterpretOptions(x); })
                 .WithParsed<ConvertOptions>(x => { optionsInterpreter.ConsumeEnvVarsAndInterpretOptions(x); })
+                // emit-* verbs carry no environment-variable plumbing.
                 .WithParsed<ExportValidationConfigurationOptions>(x => { optionsInterpreter.ConsumeEnvVarsAndInterpretOptions(x); })
                 .WithParsed<ExportValidationRulesMetadataOptions>(x => { optionsInterpreter.ConsumeEnvVarsAndInterpretOptions(x); })
                 .WithParsed<FileWorkItemsOptions>(x => { optionsInterpreter.ConsumeEnvVarsAndInterpretOptions(x); })
@@ -58,25 +68,36 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 .WithParsed<SuppressOptions>(x => { optionsInterpreter.ConsumeEnvVarsAndInterpretOptions(x); })
                 .WithParsed<ValidateOptions>(x => { optionsInterpreter.ConsumeEnvVarsAndInterpretOptions(x); })
                 .MapResult(
-                (AbsoluteUriOptions absoluteUriOptions) => new AbsoluteUriCommand().Run(absoluteUriOptions),
+                    Dispatch,
+                    errors => HandleParseError(args));
+        }
+
+        private static int Dispatch(object options)
+        {
+            return options switch
+            {
+                AbsoluteUriOptions o => new AbsoluteUriCommand().Run(o),
 #if DEBUG
-                (AnalyzeTestOptions fileWorkItemsOptions) => new AnalyzeTestCommand().Run(fileWorkItemsOptions),
+                AnalyzeTestOptions o => new AnalyzeTestCommand().Run(o),
 #endif
-                (ApplyPolicyOptions options) => new ApplyPolicyCommand().Run(options),
-                (ConvertOptions convertOptions) => new ConvertCommand().Run(convertOptions),
-                (ExportValidationConfigurationOptions options) => new ExportValidationConfigurationCommand().Run(options),
-                (ExportValidationRulesMetadataOptions options) => new ExportValidationRulesMetadataCommand().Run(options),
-                (FileWorkItemsOptions fileWorkItemsOptions) => new FileWorkItemsCommand().Run(fileWorkItemsOptions),
-                (ResultMatchingOptions baselineOptions) => new ResultMatchingCommand().Run(baselineOptions),
-                (MergeOptions mergeOptions) => new MergeCommand().Run(mergeOptions),
-                (PageOptions pageOptions) => new PageCommand().Run(pageOptions),
-                (PartitionOptions partitionOptions) => new PartitionCommand().Run(partitionOptions),
-                (QueryOptions queryOptions) => new QueryCommand().Run(queryOptions),
-                (RebaseUriOptions rebaseOptions) => new RebaseUriCommand().Run(rebaseOptions),
-                (RewriteOptions rewriteOptions) => new RewriteCommand().Run(rewriteOptions),
-                (SuppressOptions options) => new SuppressCommand().Run(options),
-                (ValidateOptions validateOptions) => new ValidateCommand().Run(validateOptions),
-                 _ => HandleParseError(args));
+                ApplyPolicyOptions o => new ApplyPolicyCommand().Run(o),
+                ConvertOptions o => new ConvertCommand().Run(o),
+                EmitFinalizeOptions o => new EmitFinalizeCommand().Run(o),
+                EmitInitOptions o => new EmitInitCommand().Run(o),
+                ExportValidationConfigurationOptions o => new ExportValidationConfigurationCommand().Run(o),
+                ExportValidationRulesMetadataOptions o => new ExportValidationRulesMetadataCommand().Run(o),
+                FileWorkItemsOptions o => new FileWorkItemsCommand().Run(o),
+                ResultMatchingOptions o => new ResultMatchingCommand().Run(o),
+                MergeOptions o => new MergeCommand().Run(o),
+                PageOptions o => new PageCommand().Run(o),
+                PartitionOptions o => new PartitionCommand().Run(o),
+                QueryOptions o => new QueryCommand().Run(o),
+                RebaseUriOptions o => new RebaseUriCommand().Run(o),
+                RewriteOptions o => new RewriteCommand().Run(o),
+                SuppressOptions o => new SuppressCommand().Run(o),
+                ValidateOptions o => new ValidateCommand().Run(o),
+                _ => CommandBase.FAILURE,
+            };
         }
 
         private static int HandleParseError(string[] args)

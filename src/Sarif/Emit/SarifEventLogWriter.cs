@@ -97,20 +97,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Emit
             }
             else
             {
-                // Route through text-based serialization so converters that call
-                // JsonWriter.WriteRawValue (e.g. the SDK's EnumConverter) behave
-                // correctly. Writing raw into a JTokenWriter would embed literal
-                // quote characters inside JValue strings and break round-trip.
-                string json;
-                var sb = new StringBuilder(256);
-                using (var sw = new StringWriter(sb, CultureInfo.InvariantCulture))
-                using (var jw = new JsonTextWriter(sw) { Formatting = Newtonsoft.Json.Formatting.None })
-                {
-                    _serializer.Serialize(jw, payload);
-                    json = sb.ToString();
-                }
-
-                token = JToken.Parse(json);
+                token = JToken.FromObject(payload, _serializer);
             }
 
             Append(kind, token);
