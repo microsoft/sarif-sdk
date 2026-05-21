@@ -63,7 +63,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
             }
 
             string formattedDate = ((DateTime)value).ToString(DateTimeFormat, CultureInfo.InvariantCulture);
-            writer.WriteRawValue(@"""" + formattedDate + @"""");
+
+            writer.WriteValue(formattedDate);
         }
     }
 }

@@ -57,12 +57,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
 
             string[] tokens = flagsEnumValue.Split(',');
 
+            writer.WriteStartArray();
             for (int i = 0; i < tokens.Length; i++)
             {
-                tokens[i] = EnumConverter.ConvertToCamelCase(tokens[i].Trim());
+                writer.WriteValue(EnumConverter.ConvertToCamelCase(tokens[i].Trim()));
             }
-
-            writer.WriteRawValue("[\"" + string.Join("\",\"", tokens) + "\"]");
+            writer.WriteEndArray();
         }
     }
 }

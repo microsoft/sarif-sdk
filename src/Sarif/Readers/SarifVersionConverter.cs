@@ -35,7 +35,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
             }
 
             string sarifVersionText = ((SarifVersion)value).ConvertToText();
-            writer.WriteRawValue(@"""" + sarifVersionText + @"""");
+
+            writer.WriteValue(sarifVersionText);
         }
     }
 }
