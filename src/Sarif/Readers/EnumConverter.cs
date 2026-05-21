@@ -44,7 +44,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
 
             resultLevelString = ConvertToCamelCase(resultLevelString);
 
-            writer.WriteRawValue("\"" + resultLevelString + "\"");
+            writer.WriteValue(resultLevelString);
         }
 
         internal static string ConvertToCamelCase(string upperCaseName)
