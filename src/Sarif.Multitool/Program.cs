@@ -29,6 +29,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 #if DEBUG
                 typeof(AnalyzeTestOptions),
 #endif
+                typeof(AddNotificationOptions),
+                typeof(AddResultOptions),
                 typeof(ApplyPolicyOptions),
                 typeof(ConvertOptions),
                 typeof(EmitFinalizeOptions),
@@ -80,6 +82,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 #if DEBUG
                 AnalyzeTestOptions o => new AnalyzeTestCommand().Run(o),
 #endif
+                AddNotificationOptions o => new AddNotificationCommand().Run(o),
+                AddResultOptions o => new AddResultCommand().Run(o),
                 ApplyPolicyOptions o => new ApplyPolicyCommand().Run(o),
                 ConvertOptions o => new ConvertCommand().Run(o),
                 EmitFinalizeOptions o => new EmitFinalizeCommand().Run(o),

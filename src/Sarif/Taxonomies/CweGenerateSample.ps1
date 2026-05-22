@@ -17,10 +17,10 @@
 
       1. Locates the locally built Sarif.Multitool.dll under bld/bin/.
       2. Runs emit-init-run to open a fresh SARIF log.
-      3. Appends a handful of CWE-shaped Result and Notification events
-         to the .wip.jsonl as raw JSONL (no SDK in the data path) to
-         demonstrate that the on-disk envelope is a publicly authorable
-         contract.
+      3. Pipes a handful of CWE-shaped Result JSON objects (and one
+         Notification) into the multitool's add-result / add-notification
+         verbs over stdin. The verbs validate ruleId conformance to the
+         AI ruleId convention at receipt and append to the .wip.jsonl.
       4. Runs emit-finalize. CweTaxonomyEnricher hydrates every CWE-*
          ruleId into a full reportingDescriptor (name, shortDescription,
          fullDescription, helpUri, MITRE markdown).
@@ -105,7 +105,7 @@ $events = @(
     @{ kind = 'result'; cwe = 'NOVEL-prompt-injection-via-system-message'; level = 'error'; status = '(novel)';   msg = 'Untrusted content reaches a system-role prompt at runtime, letting an attacker override tool-use policy. No CWE entry fits — emitted under the NOVEL- escape hatch.'; startLine = 44; endLine = 44 }
 )
 
-Write-Host "[2/4] Appending $($events.Count) Result events + 1 Notification as raw JSONL"
+Write-Host "[2/4] Appending $($events.Count) Result events + 1 Notification via add-result / add-notification"
 
 # Read the source file once and trim the region.startColumn to the first
 # non-whitespace column of each finding's start line. The region then points
@@ -138,12 +138,18 @@ foreach ($e in $events) {
             }
         })
     }
-    $line = (@{ v = 1; kind = $e.kind; payload = $payload } | ConvertTo-Json -Compress -Depth 12)
-    [System.IO.File]::AppendAllText($wipPath, $line + "`n")
+    # Pipe the result JSON to add-result over stdin. The verb validates the
+    # ruleId against the AI ruleId convention (taxonomy sub-id or NOVEL-
+    # prefix) before appending — a bad ruleId fails clean WITHOUT polluting
+    # the event log, and prints an AI-consumable error envelope to stderr.
+    $payloadJson = $payload | ConvertTo-Json -Compress -Depth 12
+    $payloadJson | & dotnet $multitool add-result $outPath | Out-Host
+    if ($LASTEXITCODE -ne 0) { throw "add-result failed for ruleId '$($e.cwe)' (exit $LASTEXITCODE)." }
 }
 
-$notif = @{ v = 1; kind = 'notification'; payload = @{ level = 'note'; message = @{ text = "Analyzed $($events.Count) findings across 1 file." } } } | ConvertTo-Json -Compress -Depth 8
-[System.IO.File]::AppendAllText($wipPath, $notif + "`n")
+$notifJson = @{ level = 'note'; message = @{ text = "Analyzed $($events.Count) findings across 1 file." } } | ConvertTo-Json -Compress -Depth 8
+$notifJson | & dotnet $multitool add-notification $outPath | Out-Host
+if ($LASTEXITCODE -ne 0) { throw "add-notification failed (exit $LASTEXITCODE)." }
 
 Write-Host "[3/4] Finalizing"
 & dotnet $multitool emit-finalize $outPath | Out-Host
