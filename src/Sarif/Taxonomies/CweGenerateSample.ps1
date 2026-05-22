@@ -132,22 +132,60 @@ $run = $log.runs[0]
 $driver = $run.tool.driver
 $rules = $driver.rules
 
+function Get-OptionalProperty {
+    param($obj, [string]$name)
+    if ($null -eq $obj) { return $null }
+    $prop = $obj.PSObject.Properties[$name]
+    if ($null -eq $prop) { return $null }
+    return $prop.Value
+}
+
+$toolName    = Get-OptionalProperty $driver 'name'
+$toolVersion = Get-OptionalProperty $driver 'version'
+$toolInfoUri = Get-OptionalProperty $driver 'informationUri'
+$artifacts   = Get-OptionalProperty $run 'artifacts'
+
 Write-Host ""
 Write-Host "Sample SARIF: $outPath"
-Write-Host "Tool:         $($driver.name) $($driver.version)"
-Write-Host "Info URI:     $($driver.informationUri)"
+$toolLine = if ([string]::IsNullOrEmpty($toolName)) { '(missing - is your multitool DLL current?)' } else { $toolName }
+if (-not [string]::IsNullOrEmpty($toolVersion)) { $toolLine = "$toolLine $toolVersion" }
+Write-Host "Tool:         $toolLine"
+Write-Host "Info URI:     $toolInfoUri"
 Write-Host "Results:      $($run.results.Count)"
 Write-Host "Rules:        $($rules.Count) (auto-registered from result.ruleId)"
+if ($null -ne $artifacts) {
+    $hashedCount = @($artifacts | Where-Object { $null -ne (Get-OptionalProperty $_ 'hashes') }).Count
+    Write-Host "Artifacts:    $($artifacts.Count) ($hashedCount with sha-256 hash)"
+}
+
+# Probe the first result to confirm InsertOptionalDataVisitor enrichment took.
+# A correctly enriched region has snippet text; the contextRegion has surrounding
+# lines. Their presence is the smoke test for the always-on enrichment pass.
+$firstResult = $run.results | Select-Object -First 1
+if ($null -ne $firstResult) {
+    $region        = Get-OptionalProperty $firstResult.locations[0].physicalLocation 'region'
+    $contextRegion = Get-OptionalProperty $firstResult.locations[0].physicalLocation 'contextRegion'
+    $regionSnippet        = if ($null -ne $region)        { Get-OptionalProperty $region        'snippet' } else { $null }
+    $contextRegionSnippet = if ($null -ne $contextRegion) { Get-OptionalProperty $contextRegion 'snippet' } else { $null }
+    $regionMark        = if ($null -ne $regionSnippet)        { '[OK]' } else { '[!!]' }
+    $contextRegionMark = if ($null -ne $contextRegionSnippet) { '[OK]' } else { '[!!]' }
+    Write-Host "Region snippet:        $regionMark"
+    Write-Host "Context region snippet: $contextRegionMark"
+}
 Write-Host ""
 $rules | ForEach-Object {
-    $hasName    = -not [string]::IsNullOrEmpty($_.name)
-    $hasHelpUri = $_.PSObject.Properties.Match('helpUri').Count -gt 0 -and -not [string]::IsNullOrEmpty($_.helpUri)
+    $name       = Get-OptionalProperty $_ 'name'
+    $helpUri    = Get-OptionalProperty $_ 'helpUri'
+    $hasName    = -not [string]::IsNullOrEmpty($name)
+    $hasHelpUri = -not [string]::IsNullOrEmpty($helpUri)
     $marker     = if ($hasName -and $hasHelpUri) { '[OK]' } else { '[!!]' }
-    $name       = if ($hasName) { $_.name } else { '(not enriched)' }
-    "{0} {1,-10} {2}" -f $marker, $_.id, $name
+    $shown      = if ($hasName) { $name } else { '(not enriched)' }
+    "{0} {1,-10} {2}" -f $marker, $_.id, $shown
 } | ForEach-Object { Write-Host $_ }
 
-$unenriched = @($rules | Where-Object { [string]::IsNullOrEmpty($_.name) })
+$unenriched = @($rules | Where-Object {
+    [string]::IsNullOrEmpty((Get-OptionalProperty $_ 'name'))
+})
 if ($unenriched.Count -gt 0) {
     Write-Warning "$($unenriched.Count) rule(s) were not enriched. Expected the CweTaxonomyEnricher to populate every CWE-* ruleId. Investigate."
     exit 1

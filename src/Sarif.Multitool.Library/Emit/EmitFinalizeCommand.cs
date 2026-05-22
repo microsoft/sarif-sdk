@@ -10,6 +10,7 @@ using System.Text;
 using Microsoft.CodeAnalysis.Sarif.Driver;
 using Microsoft.CodeAnalysis.Sarif.Emit;
 using Microsoft.CodeAnalysis.Sarif.Taxonomies;
+using Microsoft.CodeAnalysis.Sarif.Visitors;
 
 using Newtonsoft.Json;
 
@@ -54,6 +55,43 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                     foreach (Run run in log.Runs)
                     {
                         CweTaxonomyEnricher.Enrich(run);
+                    }
+                }
+
+                // Always populate the artifact and region surface that downstream
+                // consumers (AI evidence pipelines, code-flow viewers, fingerprint
+                // matchers) need to reason about a result without having to re-open
+                // the source file themselves:
+                //
+                //   * Hashes                       — sha-256 on every artifact so a
+                //                                    consumer can assert the analyzed
+                //                                    content matches what they have.
+                //   * RegionSnippets               — the literal source span the
+                //                                    finding identifies.
+                //   * ContextRegionSnippets        — a few lines of surrounding code
+                //                                    for human / model review.
+                //   * ComprehensiveRegionProperties — fill in charOffset/charLength
+                //                                    so consumers can address the
+                //                                    same span by offset, not just
+                //                                    line/column.
+                //
+                // OverwriteExistingData is intentionally NOT set; producers that
+                // have already populated any of these fields keep their values.
+                const OptionallyEmittedData EnrichmentFlags =
+                    OptionallyEmittedData.Hashes |
+                    OptionallyEmittedData.RegionSnippets |
+                    OptionallyEmittedData.ContextRegionSnippets |
+                    OptionallyEmittedData.ComprehensiveRegionProperties;
+
+                if (log?.Runs != null)
+                {
+                    foreach (Run run in log.Runs)
+                    {
+                        var visitor = new InsertOptionalDataVisitor(
+                            EnrichmentFlags,
+                            new FileRegionsCache(),
+                            originalUriBaseIds: run?.OriginalUriBaseIds);
+                        visitor.VisitRun(run);
                     }
                 }
 
