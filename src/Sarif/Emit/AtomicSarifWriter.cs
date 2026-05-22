@@ -2,6 +2,7 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System;
+using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 
@@ -64,17 +65,26 @@ namespace Microsoft.CodeAnalysis.Sarif.Emit
                         // safely en route to disk.
                         stream.Flush(flushToDisk: true);
                     }
-                    catch (ObjectDisposedException)
+                    catch (ObjectDisposedException ex)
                     {
+                        // Wrapper already disposed; bytes are en route via the OS buffer. Surface a
+                        // breadcrumb so the no-fsync path is visible to anyone debugging durability.
+                        Trace.WriteLine($"AtomicSarifWriter: skipped Flush(flushToDisk:true) on disposed stream for '{destinationPath}'. {ex.GetType().Name}: {ex.Message}");
                     }
                 }
 
+                // Use File.Replace when the destination exists so the rename is a single
+                // filesystem operation; File.Delete + File.Move opens a window where readers
+                // observe no file at all. File.Move covers the first-write case where there is
+                // nothing to replace.
                 if (File.Exists(destinationPath))
                 {
-                    File.Delete(destinationPath);
+                    File.Replace(stagingPath, destinationPath, destinationBackupFileName: null);
                 }
-
-                File.Move(stagingPath, destinationPath);
+                else
+                {
+                    File.Move(stagingPath, destinationPath);
+                }
             }
             catch
             {

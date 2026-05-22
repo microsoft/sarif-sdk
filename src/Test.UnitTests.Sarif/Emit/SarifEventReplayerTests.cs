@@ -2,6 +2,8 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
 
 using FluentAssertions;
 
@@ -143,6 +145,35 @@ namespace Microsoft.CodeAnalysis.Sarif.Test.UnitTests.Emit
             run.Results[0].RuleId.Should().Be("REAL");
             run.Invocations.Should().BeNull();
         }
+
+        // Reflection-enforced coverage: every public string constant declared on
+        // SarifEventKinds must be reached by a non-default case in
+        // SarifEventReplayer's switch. If a new kind is added to SarifEventKinds
+        // without a matching case, the replayer's default branch throws and this
+        // test fails for that kind.
+        [Theory]
+        [MemberData(nameof(EveryDeclaredEventKind))]
+        public void Replay_HasSwitchCoverageFor(string kind)
+        {
+            // Empty {} deserializes to a default instance for every payload type the
+            // replayer consumes today (Run, Result, Invocation, Notification). New kinds
+            // that need a richer minimal payload can extend MinimalPayloadFor.
+            JToken payload = MinimalPayloadFor(kind);
+            var ev = new SarifEvent { Kind = kind, Version = SarifEventKinds.CurrentSchemaVersion, Payload = payload };
+
+            System.Action act = () => SarifEventReplayer.Replay(new[] { ev });
+
+            act.Should().NotThrow<SarifEventLogException>(
+                because: $"every public const in SarifEventKinds must be handled by the replayer switch; '{kind}' is missing a case.");
+        }
+
+        public static IEnumerable<object[]> EveryDeclaredEventKind() =>
+            typeof(SarifEventKinds)
+                .GetFields(BindingFlags.Public | BindingFlags.Static)
+                .Where(f => f.IsLiteral && f.FieldType == typeof(string))
+                .Select(f => new object[] { (string)f.GetRawConstantValue() });
+
+        private static JToken MinimalPayloadFor(string kind) => new JObject();
 
         private static SarifEvent Event(string kind, object payload) =>
             new SarifEvent

@@ -19,9 +19,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Emit
     /// concurrent appends from other processes are rejected with an <see cref="IOException"/>.</para>
     /// <para>If the file exists and does not end with a newline, the prior writer was interrupted
     /// mid-line; the writer rejects the file with a <see cref="SarifEventLogException"/> rather
-    /// than risk concatenating bytes to a torn line.</para>
-    /// <para>Every event is serialized to a single UTF-8 line terminated with <c>\n</c>. The line
-    /// is flushed to disk before the writer call returns to minimize the torn-line window on crash.</para>
+    /// than risk concatenating bytes to a torn line. This is best-effort: a crash AFTER a partial
+    /// write of the current line but BEFORE the trailing <c>\n</c> still leaves a torn line; the
+    /// torn-line check protects subsequent <em>append</em> sessions, not the in-progress one.</para>
+    /// <para>Every event is serialized to a single UTF-8 line terminated with <c>\n</c>. After
+    /// each line the writer calls <see cref="FileStream.Flush()"/> (managed buffer to OS buffer)
+    /// — NOT <c>Flush(flushToDisk: true)</c>. The line is durably committed at <c>Dispose</c>
+    /// when the underlying <see cref="FileStream"/> flushes and closes; the final SARIF artifact
+    /// is the durable-write contract, written via <see cref="AtomicSarifWriter"/>.</para>
     /// </remarks>
     public sealed class SarifEventLogWriter : IDisposable
     {
@@ -103,10 +108,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Emit
             Append(kind, token);
         }
 
-        public void Dispose()
-        {
-            _stream?.Dispose();
-        }
+        public void Dispose() => _stream?.Dispose();
 
         /// <summary>
         /// If the file exists and is non-empty, verify its last byte is <c>\n</c>; otherwise the
