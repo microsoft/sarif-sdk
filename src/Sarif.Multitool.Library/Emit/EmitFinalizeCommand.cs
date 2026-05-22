@@ -148,6 +148,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
                 return SUCCESS;
             }
+            catch (AIRuleIdConventionException ex)
+            {
+                // AI orchestrator-facing failure: stderr carries the exception message
+                // verbatim (it is already shaped for AI consumption — see
+                // AIRuleIdConventionException.BuildMessage). We deliberately do NOT
+                // dump a stack trace here; the structured guidance is what the AI
+                // needs to retry.
+                Console.Error.WriteLine(ex.Message);
+                return FAILURE;
+            }
             catch (Exception ex) when (!Debugger.IsAttached)
             {
                 Console.Error.WriteLine(ex);

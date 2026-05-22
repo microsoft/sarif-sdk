@@ -24,7 +24,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Emit
     /// <item><description><c>result</c> events MUST be self-contained: <c>ruleIndex</c> is ignored
     /// (re-derived from <c>ruleId</c>); index references into run-level caches are not validated
     /// in v1 (producers needing indexed references should use <see cref="Writers.SarifLogger"/>
-    /// directly).</description></item>
+    /// directly). Every <see cref="Result.RuleId"/> MUST conform to
+    /// <see cref="AIRuleIdConvention"/> — taxonomy sub-id form
+    /// (<c>&lt;BASE&gt;/&lt;sub-id&gt;</c>, e.g., <c>CWE-89/kql-injection-from-config</c>) or
+    /// NOVEL escape hatch (<c>NOVEL-&lt;sub-id&gt;</c>). Violations throw
+    /// <see cref="AIRuleIdConventionException"/> listing every offender at once.</description></item>
     /// <item><description><c>invocation</c> events are appended to <c>run.invocations</c> in
     /// event order.</description></item>
     /// <item><description><c>notification</c> events are buffered and attached at finalize to
@@ -190,6 +194,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Emit
 
         private static void RegisterDescriptorsFromResults(Run run, IList<Result> results)
         {
+            // Reject every result whose ruleId violates the AI convention BEFORE we
+            // start mutating the run's descriptor table. The thrown exception lists
+            // every offender in one shot so an AI orchestrator can correct them all
+            // in a single retry rather than discovering them one at a time.
+            AIRuleIdConvention.ThrowIfAnyUnacceptable(results);
+
             // Build an index of already-registered descriptors so we don't duplicate.
             var idToIndex = new Dictionary<string, int>(StringComparer.Ordinal);
 
@@ -205,21 +215,17 @@ namespace Microsoft.CodeAnalysis.Sarif.Emit
 
             foreach (Result result in results)
             {
-                if (string.IsNullOrEmpty(result.RuleId))
-                {
-                    // RuleId-less result: leave RuleIndex at its default sentinel (-1). The SDK
-                    // and SARIF2004 cleanup handle that shape.
-                    result.RuleIndex = -1;
-                    continue;
-                }
-
+                // result.RuleId is guaranteed non-empty here (AIRuleIdConvention.ThrowIfAnyUnacceptable
+                // rejects empty / null ruleIds along with malformed ones).
+                //
                 // Per SARIF §3.49.3 descriptor ids are base-only. A hierarchical result.ruleId
                 // such as "CWE-79/dom-xss-via-sanitizer-bypass" registers (or reuses) a
                 // descriptor with the base id "CWE-79"; the full hierarchical form stays on
                 // the result per §3.52.4 (and is what AI1012 expects from a well-shaped AI
-                // finding). Producers that need a slash-bearing descriptor id can pre-register
-                // it on the run header — the pre-registered entry wins because the idToIndex
-                // seed above runs first.
+                // finding). NOVEL- prefixed ruleIds are flat (no slash) and register a
+                // descriptor with the full id. Producers that need a slash-bearing descriptor
+                // id can pre-register it on the run header — the pre-registered entry wins
+                // because the idToIndex seed above runs first.
                 string descriptorId = result.RuleId;
                 int slash = descriptorId.IndexOf('/');
                 if (slash > 0)

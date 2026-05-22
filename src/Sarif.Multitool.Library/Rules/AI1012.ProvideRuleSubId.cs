@@ -4,6 +4,8 @@
 using System.Collections.Generic;
 using System.Text;
 
+using Microsoft.CodeAnalysis.Sarif.Emit;
+
 namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 {
     public class ProvideRuleSubId : SarifValidationSkimmerBase
@@ -49,13 +51,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 
             // The sub-ID requirement: result.ruleId must have at least one hierarchical component
             // beyond the descriptor's base id. If we can't resolve a descriptor, fall back to
-            // checking for any '/' at all.
-            bool hasSubId = !string.IsNullOrEmpty(descriptorId)
-                ? descriptorId.IndexOf('/') >= 0
-                  || (ruleId.Length > descriptorId.Length
-                      && ruleId.StartsWith(descriptorId, System.StringComparison.Ordinal)
-                      && ruleId[descriptorId.Length] == '/')
-                : ruleId.IndexOf('/') >= 0;
+            // checking for any '/' at all. The NOVEL- prefix is recognized as an alternative
+            // sub-classifier — by convention a "NOVEL-<sub-id>" ruleId already carries a
+            // sub-classification (one that doesn't map to any taxonomy entry).
+            bool hasSubId = AIRuleIdConvention.IsNovel(ruleId)
+                || (!string.IsNullOrEmpty(descriptorId)
+                    ? descriptorId.IndexOf('/') >= 0
+                      || (ruleId.Length > descriptorId.Length
+                          && ruleId.StartsWith(descriptorId, System.StringComparison.Ordinal)
+                          && ruleId[descriptorId.Length] == '/')
+                    : ruleId.IndexOf('/') >= 0);
 
             if (hasSubId)
             {

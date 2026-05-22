@@ -51,8 +51,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         {
             SeedWip(
                 (SarifEventKinds.RunHeader, new Run { Tool = new Tool { Driver = new ToolComponent { Name = "demo" } } }),
-                (SarifEventKinds.Result, new Result { RuleId = "CWE-79", Message = new Message { Text = "xss" } }),
-                (SarifEventKinds.Result, new Result { RuleId = "CUSTOM", Message = new Message { Text = "n/a" } }));
+                (SarifEventKinds.Result, new Result { RuleId = "CWE-79/template-xss", Message = new Message { Text = "xss" } }),
+                (SarifEventKinds.Result, new Result { RuleId = "NOVEL-custom", Message = new Message { Text = "n/a" } }));
 
             int exit = new EmitFinalizeCommand().Run(new EmitFinalizeOptions { OutputFilePath = OutPath });
 
@@ -65,7 +65,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             log.Runs[0].Tool.Driver.Rules[0].Id.Should().Be("CWE-79");
             log.Runs[0].Tool.Driver.Rules[0].HelpUri.Should().NotBeNull();
             log.Runs[0].Tool.Driver.Rules[0].Name.Should().NotBeNullOrEmpty();
-            log.Runs[0].Tool.Driver.Rules[1].Id.Should().Be("CUSTOM");
+            log.Runs[0].Tool.Driver.Rules[1].Id.Should().Be("NOVEL-custom");
             log.Runs[0].Tool.Driver.Rules[1].HelpUri.Should().BeNull();
         }
 
@@ -82,7 +82,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         {
             SeedWip(
                 (SarifEventKinds.RunHeader, new Run { Tool = new Tool { Driver = new ToolComponent { Name = "demo" } } }),
-                (SarifEventKinds.Result, new Result { RuleId = "CWE-79", Message = new Message { Text = "xss" } }));
+                (SarifEventKinds.Result, new Result { RuleId = "CWE-79/template-xss", Message = new Message { Text = "xss" } }));
 
             int exit = new EmitFinalizeCommand().Run(new EmitFinalizeOptions
             {
@@ -123,14 +123,44 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
             SeedWip(
                 (SarifEventKinds.RunHeader, new Run { Tool = new Tool { Driver = new ToolComponent { Name = "demo" } } }),
-                (SarifEventKinds.Result, new Result { RuleId = "RULE-1", Message = new Message { Text = "x" } }));
+                (SarifEventKinds.Result, new Result { RuleId = "NOVEL-rule-1", Message = new Message { Text = "x" } }));
 
             int exit = new EmitFinalizeCommand().Run(new EmitFinalizeOptions { OutputFilePath = OutPath });
 
             exit.Should().Be(CommandBase.SUCCESS);
             string contents = File.ReadAllText(OutPath);
             contents.Should().NotContain("stale");
-            contents.Should().Contain("RULE-1");
+            contents.Should().Contain("NOVEL-rule-1");
+        }
+        [Fact]
+        public void Run_RejectsNonCompliantRuleId_WritesAIRuleIdEnvelopeToStderr()
+        {
+            SeedWip(
+                (SarifEventKinds.RunHeader, new Run { Tool = new Tool { Driver = new ToolComponent { Name = "demo" } } }),
+                (SarifEventKinds.Result, new Result { RuleId = "CWE-79", Message = new Message { Text = "xss" } }));
+
+            string capturedStderr;
+            int exit;
+            using (var writer = new StringWriter())
+            {
+                TextWriter original = Console.Error;
+                Console.SetError(writer);
+                try
+                {
+                    exit = new EmitFinalizeCommand().Run(new EmitFinalizeOptions { OutputFilePath = OutPath });
+                }
+                finally
+                {
+                    Console.SetError(original);
+                }
+                capturedStderr = writer.ToString();
+            }
+
+            exit.Should().Be(CommandBase.FAILURE);
+            File.Exists(OutPath).Should().BeFalse();
+            capturedStderr.Should().Contain(AIRuleIdConventionException.ErrorCode);
+            capturedStderr.Should().Contain("'CWE-79'");
+            capturedStderr.Should().NotContain("at Microsoft.CodeAnalysis.Sarif", "the catch block should write the envelope, not a stack trace");
         }
     }
 }

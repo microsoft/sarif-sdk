@@ -96,16 +96,37 @@ Write-Host "[1/4] Opening run -> $outPath"
 # file). The richness of the sample comes from the SARIF structure - regions,
 # rule descriptors, taxonomy enrichment - not from the source contents.
 $events = @(
-    @{ kind = 'result'; cwe = 'CWE-79';                                level = 'warning'; status = 'Stable';     msg = 'Possible XSS via unescaped user input in view template.';           startLine = 16; endLine = 18 }
-    @{ kind = 'result'; cwe = 'CWE-89';                                level = 'error';   status = 'Stable';     msg = 'SQL query built via string concatenation; parameterize.';           startLine = 20; endLine = 22 }
-    @{ kind = 'result'; cwe = 'CWE-22';                                level = 'error';   status = 'Stable';     msg = 'Path constructed from untrusted input without canonicalization.';   startLine = 24; endLine = 26 }
-    @{ kind = 'result'; cwe = 'CWE-798';                               level = 'error';   status = 'Draft';      msg = 'Hard-coded credential in production code path.';                     startLine = 28; endLine = 29 }
-    @{ kind = 'result'; cwe = 'CWE-1220';                              level = 'warning'; status = 'Incomplete'; msg = 'Authorization check missing tenant-scoped granularity.';            startLine = 31; endLine = 33 }
-    @{ kind = 'result'; cwe = 'CWE-79/dom-xss-via-sanitizer-bypass';   level = 'error';   status = 'Stable';     msg = 'DOM XSS: untrusted value reaches innerHTML after a sanitizer that does not escape the current context. AI sub-classification under CWE-79.'; startLine = 35; endLine = 39 }
+    @{ kind = 'result'; cwe = 'CWE-79/unescaped-view-input';            level = 'warning'; status = 'Stable';     msg = 'Possible XSS via unescaped user input in view template.';                 startLine = 18; endLine = 18 }
+    @{ kind = 'result'; cwe = 'CWE-89/string-concat-query';             level = 'error';   status = 'Stable';     msg = 'SQL query built via string concatenation; parameterize.';                 startLine = 22; endLine = 22 }
+    @{ kind = 'result'; cwe = 'CWE-22/untrusted-path-no-canon';         level = 'error';   status = 'Stable';     msg = 'Path constructed from untrusted input without canonicalization.';         startLine = 26; endLine = 26 }
+    @{ kind = 'result'; cwe = 'CWE-798/embedded-credential';            level = 'error';   status = 'Draft';      msg = 'Hard-coded credential in production code path.';                          startLine = 30; endLine = 30 }
+    @{ kind = 'result'; cwe = 'CWE-1220/missing-tenant-scope';          level = 'warning'; status = 'Incomplete'; msg = 'Authorization check missing tenant-scoped granularity.';                  startLine = 34; endLine = 34 }
+    @{ kind = 'result'; cwe = 'CWE-79/dom-xss-via-sanitizer-bypass';    level = 'error';   status = 'Stable';     msg = 'DOM XSS: untrusted value reaches innerHTML after a sanitizer that does not escape the current context. Second sub-id under CWE-79; shares the base descriptor with the first finding.'; startLine = 39; endLine = 39 }
+    @{ kind = 'result'; cwe = 'NOVEL-prompt-injection-via-system-message'; level = 'error'; status = '(novel)';   msg = 'Untrusted content reaches a system-role prompt at runtime, letting an attacker override tool-use policy. No CWE entry fits — emitted under the NOVEL- escape hatch.'; startLine = 44; endLine = 44 }
 )
 
 Write-Host "[2/4] Appending $($events.Count) Result events + 1 Notification as raw JSONL"
+
+# Read the source file once and trim the region.startColumn to the first
+# non-whitespace column of each finding's start line. The region then points
+# precisely at the meaningful content; the context region built by
+# InsertOptionalDataVisitor carries the surrounding indent and neighboring
+# lines so a reviewer still sees how the finding sits in its file.
+$sampleLines = [System.IO.File]::ReadAllLines((Join-Path $PSScriptRoot $sampleFile))
+
+function Get-FirstNonWhitespaceColumn {
+    param([string]$line)
+    if ([string]::IsNullOrEmpty($line)) { return 1 }
+    for ($i = 0; $i -lt $line.Length; $i++) {
+        if (-not [char]::IsWhiteSpace($line[$i])) { return $i + 1 }
+    }
+    return 1
+}
+
 foreach ($e in $events) {
+    $startLineText = if ($e.startLine -ge 1 -and $e.startLine -le $sampleLines.Length) { $sampleLines[$e.startLine - 1] } else { '' }
+    $startColumn = Get-FirstNonWhitespaceColumn $startLineText
+
     $payload = @{
         ruleId  = $e.cwe
         level   = $e.level
@@ -113,7 +134,7 @@ foreach ($e in $events) {
         locations = @(@{
             physicalLocation = @{
                 artifactLocation = @{ uri = $sampleFile; uriBaseId = 'SRCROOT' }
-                region           = @{ startLine = $e.startLine; endLine = $e.endLine }
+                region           = @{ startLine = $e.startLine; startColumn = $startColumn; endLine = $e.endLine }
             }
         })
     }
@@ -179,32 +200,43 @@ $rules | ForEach-Object {
     $helpUri    = Get-OptionalProperty $_ 'helpUri'
     $hasName    = -not [string]::IsNullOrEmpty($name)
     $hasHelpUri = -not [string]::IsNullOrEmpty($helpUri)
-    $marker     = if ($hasName -and $hasHelpUri) { '[OK]' } else { '[!!]' }
-    $shown      = if ($hasName) { $name } else { '(not enriched)' }
+    $isNovel    = $_.id -like 'NOVEL-*'
+    if ($isNovel) {
+        # NOVEL- descriptors have no upstream taxonomy to enrich from; the
+        # enricher correctly skips them. Show them as expected-bare.
+        $marker = '[--]'
+        $shown  = '(NOVEL: not enriched by design)'
+    } else {
+        $marker = if ($hasName -and $hasHelpUri) { '[OK]' } else { '[!!]' }
+        $shown  = if ($hasName) { $name } else { '(not enriched)' }
+    }
     "{0} {1,-10} {2}" -f $marker, $_.id, $shown
 } | ForEach-Object { Write-Host $_ }
 
+# Only CWE descriptors are expected to be enriched. NOVEL- descriptors do not
+# have a taxonomy back-end, so the enricher correctly leaves them bare.
 $unenriched = @($rules | Where-Object {
-    [string]::IsNullOrEmpty((Get-OptionalProperty $_ 'name'))
+    $_.id -notlike 'NOVEL-*' -and [string]::IsNullOrEmpty((Get-OptionalProperty $_ 'name'))
 })
 if ($unenriched.Count -gt 0) {
-    Write-Warning "$($unenriched.Count) rule(s) were not enriched. Expected the CweTaxonomyEnricher to populate every CWE-* ruleId. Investigate."
+    Write-Warning "$($unenriched.Count) CWE rule(s) were not enriched. Expected the CweTaxonomyEnricher to populate every CWE-* ruleId. Investigate."
     exit 1
 }
 
 Write-Host ""
 Write-Host "All CWE rule descriptors enriched successfully."
 
-# Verify the hierarchical sub-id finding wired up the way SARIF §3.49.3 / §3.52.4
-# describe: full hierarchical id stays on result.ruleId; result.ruleIndex points
-# at the BASE descriptor ("CWE-79") so the enricher's MITRE metadata applies.
-$hierarchical = @($run.results | Where-Object {
+# Verify each sub-id finding wired up the way SARIF §3.49.3 / §3.52.4 describe:
+# the full hierarchical id stays on result.ruleId; result.ruleIndex points at
+# the BASE descriptor so the enricher's MITRE metadata applies. Two CWE-79
+# sub-ids should share descriptor index 0.
+$subIdResults = @($run.results | Where-Object {
     (Get-OptionalProperty $_ 'ruleId') -and ((Get-OptionalProperty $_ 'ruleId') -like '*/*')
 })
-if ($hierarchical.Count -gt 0) {
+if ($subIdResults.Count -gt 0) {
     Write-Host ""
-    Write-Host "Hierarchical sub-id findings:"
-    foreach ($h in $hierarchical) {
+    Write-Host "Taxonomy sub-id findings (BASE/sub-id form):"
+    foreach ($h in $subIdResults) {
         $hRuleId = Get-OptionalProperty $h 'ruleId'
         $hRuleIndex = Get-OptionalProperty $h 'ruleIndex'
         $baseId = $hRuleId.Split('/')[0]
@@ -213,7 +245,30 @@ if ($hierarchical.Count -gt 0) {
         $mark = if ($descriptorId -eq $baseId) { '[OK]' } else { '[!!]' }
         Write-Host ("{0} {1} -> ruleIndex {2} -> descriptor '{3}' (base '{4}')" -f $mark, $hRuleId, $hRuleIndex, $descriptorId, $baseId)
         if ($descriptorId -ne $baseId) {
-            Write-Warning "Hierarchical ruleId '$hRuleId' did not resolve to its base descriptor '$baseId'."
+            Write-Warning "Sub-id ruleId '$hRuleId' did not resolve to its base descriptor '$baseId'."
+            exit 1
+        }
+    }
+}
+
+# Verify NOVEL- escape-hatch findings: result.ruleId stays flat (no slash),
+# the descriptor is registered with the same flat id, and it is correctly
+# left un-enriched.
+$novelResults = @($run.results | Where-Object {
+    (Get-OptionalProperty $_ 'ruleId') -and ((Get-OptionalProperty $_ 'ruleId') -like 'NOVEL-*')
+})
+if ($novelResults.Count -gt 0) {
+    Write-Host ""
+    Write-Host "NOVEL escape-hatch findings:"
+    foreach ($n in $novelResults) {
+        $nRuleId = Get-OptionalProperty $n 'ruleId'
+        $nRuleIndex = Get-OptionalProperty $n 'ruleIndex'
+        $descriptor = if ($null -ne $nRuleIndex -and $nRuleIndex -ge 0 -and $nRuleIndex -lt $rules.Count) { $rules[$nRuleIndex] } else { $null }
+        $descriptorId = if ($null -ne $descriptor) { Get-OptionalProperty $descriptor 'id' } else { $null }
+        $mark = if ($descriptorId -eq $nRuleId) { '[OK]' } else { '[!!]' }
+        Write-Host ("{0} {1} -> ruleIndex {2} -> descriptor '{3}' (flat, no enrichment)" -f $mark, $nRuleId, $nRuleIndex, $descriptorId)
+        if ($descriptorId -ne $nRuleId) {
+            Write-Warning "NOVEL- ruleId '$nRuleId' did not register a flat descriptor."
             exit 1
         }
     }

@@ -24,7 +24,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Test.UnitTests.Emit
             var events = new[]
             {
                 Event(SarifEventKinds.RunHeader, new Run { Tool = new Tool { Driver = new ToolComponent { Name = "demo" } } }),
-                Event(SarifEventKinds.Result, new Result { RuleId = "CWE-79", Message = new Message { Text = "xss" } }),
+                Event(SarifEventKinds.Result, new Result { RuleId = "CWE-79/xss-via-template", Message = new Message { Text = "xss" } }),
                 Event(SarifEventKinds.Invocation, new Invocation { ExecutionSuccessful = true }),
                 Event(SarifEventKinds.Notification, new Notification { Message = new Message { Text = "n" } }),
             };
@@ -45,16 +45,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Test.UnitTests.Emit
             var events = new[]
             {
                 Event(SarifEventKinds.RunHeader, new Run { Tool = new Tool { Driver = new ToolComponent { Name = "demo" } } }),
-                Event(SarifEventKinds.Result, new Result { RuleId = "RULE-A" }),
-                Event(SarifEventKinds.Result, new Result { RuleId = "RULE-B" }),
-                Event(SarifEventKinds.Result, new Result { RuleId = "RULE-A" }),
+                Event(SarifEventKinds.Result, new Result { RuleId = "NOVEL-rule-a" }),
+                Event(SarifEventKinds.Result, new Result { RuleId = "NOVEL-rule-b" }),
+                Event(SarifEventKinds.Result, new Result { RuleId = "NOVEL-rule-a" }),
             };
 
             Run run = SarifEventReplayer.Replay(events).Runs[0];
 
             run.Tool.Driver.Rules.Should().HaveCount(2);
-            run.Tool.Driver.Rules[0].Id.Should().Be("RULE-A");
-            run.Tool.Driver.Rules[1].Id.Should().Be("RULE-B");
+            run.Tool.Driver.Rules[0].Id.Should().Be("NOVEL-rule-a");
+            run.Tool.Driver.Rules[1].Id.Should().Be("NOVEL-rule-b");
             run.Results[0].RuleIndex.Should().Be(0);
             run.Results[1].RuleIndex.Should().Be(1);
             run.Results[2].RuleIndex.Should().Be(0);
@@ -110,7 +110,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Test.UnitTests.Emit
                     },
                 }),
                 Event(SarifEventKinds.Result, new Result { RuleId = "CWE-79/dom-xss-bypass" }),
-                Event(SarifEventKinds.Result, new Result { RuleId = "CWE-79" }),
+                Event(SarifEventKinds.Result, new Result { RuleId = "CWE-79/secondary" }),
             };
 
             Run run = SarifEventReplayer.Replay(events).Runs[0];
@@ -119,6 +119,48 @@ namespace Microsoft.CodeAnalysis.Sarif.Test.UnitTests.Emit
             run.Tool.Driver.Rules[0].Name.Should().Be("Pre-registered");
             run.Results[0].RuleIndex.Should().Be(0);
             run.Results[1].RuleIndex.Should().Be(0);
+        }
+
+        [Fact]
+        public void Replay_RejectsBareTaxonomyRuleId()
+        {
+            // A bare taxonomy id (no sub-id) violates the AI ruleId convention. The
+            // replayer surfaces this as AIRuleIdConventionException so emit-finalize can
+            // print a structured, AI-consumable error and the orchestrator can retry.
+            var events = new[]
+            {
+                Event(SarifEventKinds.RunHeader, new Run()),
+                Event(SarifEventKinds.Result, new Result { RuleId = "CWE-79" }),
+            };
+
+            System.Action act = () => SarifEventReplayer.Replay(events);
+
+            AIRuleIdConventionException ex = act.Should().Throw<AIRuleIdConventionException>().Which;
+            ex.OffendingRuleIds.Should().ContainSingle().Which.Should().Be("CWE-79");
+            ex.Message.Should().Contain("AI-RULEID-001");
+            ex.Message.Should().Contain("CWE-89/kql-injection-from-config");
+            ex.Message.Should().Contain("NOVEL-");
+        }
+
+        [Fact]
+        public void Replay_CollectsAllRuleIdViolationsInOneException()
+        {
+            // Multiple violators are reported in a single exception so an AI orchestrator
+            // can fix every offender in one retry rather than one-at-a-time.
+            var events = new[]
+            {
+                Event(SarifEventKinds.RunHeader, new Run()),
+                Event(SarifEventKinds.Result, new Result { RuleId = "CWE-79" }),                  // bare taxonomy
+                Event(SarifEventKinds.Result, new Result { RuleId = "CWE-89/x" }),                // OK (interleaved)
+                Event(SarifEventKinds.Result, new Result { RuleId = "my-custom-rule" }),          // not taxonomy, not NOVEL-
+                Event(SarifEventKinds.Result, new Result { RuleId = "NOVEL-foo/bar" }),           // NOVEL- with slash
+                Event(SarifEventKinds.Result, new Result { RuleId = string.Empty }),              // empty
+            };
+
+            System.Action act = () => SarifEventReplayer.Replay(events);
+
+            AIRuleIdConventionException ex = act.Should().Throw<AIRuleIdConventionException>().Which;
+            ex.OffendingRuleIds.Should().BeEquivalentTo(new[] { "CWE-79", "my-custom-rule", "NOVEL-foo/bar", string.Empty });
         }
 
         [Fact]
@@ -197,7 +239,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Test.UnitTests.Emit
         {
             var events = new[]
             {
-                Event(SarifEventKinds.Result, new Result { RuleId = "X" }),
+                Event(SarifEventKinds.Result, new Result { RuleId = "NOVEL-x" }),
             };
 
             Run run = SarifEventReplayer.Replay(events).Runs[0];
@@ -236,13 +278,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Test.UnitTests.Emit
             var events = new[]
             {
                 Event(SarifEventKinds.RunHeader, seed),
-                Event(SarifEventKinds.Result, new Result { RuleId = "REAL" }),
+                Event(SarifEventKinds.Result, new Result { RuleId = "NOVEL-real" }),
             };
 
             Run run = SarifEventReplayer.Replay(events).Runs[0];
 
             run.Results.Should().HaveCount(1);
-            run.Results[0].RuleId.Should().Be("REAL");
+            run.Results[0].RuleId.Should().Be("NOVEL-real");
             run.Invocations.Should().BeNull();
         }
 
