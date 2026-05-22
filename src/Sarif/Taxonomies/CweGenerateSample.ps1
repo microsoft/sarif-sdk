@@ -129,10 +129,13 @@ Write-Host "[3/4] Finalizing"
 Write-Host "[4/4] Verifying enrichment"
 $log = Get-Content $outPath -Raw | ConvertFrom-Json
 $run = $log.runs[0]
-$rules = $run.tool.driver.rules
+$driver = $run.tool.driver
+$rules = $driver.rules
 
 Write-Host ""
 Write-Host "Sample SARIF: $outPath"
+Write-Host "Tool:         $($driver.name) $($driver.version)"
+Write-Host "Info URI:     $($driver.informationUri)"
 Write-Host "Results:      $($run.results.Count)"
 Write-Host "Rules:        $($rules.Count) (auto-registered from result.ruleId)"
 Write-Host ""
