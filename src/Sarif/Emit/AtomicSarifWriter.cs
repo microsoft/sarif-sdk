@@ -102,9 +102,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Emit
                     File.Delete(path);
                 }
             }
-            catch
+            catch (Exception ex)
             {
-                // Best-effort cleanup; intentional swallow.
+                // Best-effort cleanup. We don't propagate the failure (the caller is already in
+                // its own catch path), but surface a breadcrumb so leaked staging files are
+                // visible to anyone debugging disk pressure or permission regressions.
+                Trace.WriteLine($"AtomicSarifWriter: failed to delete staging file '{path}'. {ex.GetType().Name}: {ex.Message}");
             }
         }
     }
