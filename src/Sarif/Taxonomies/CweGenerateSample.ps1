@@ -96,11 +96,12 @@ Write-Host "[1/4] Opening run -> $outPath"
 # file). The richness of the sample comes from the SARIF structure - regions,
 # rule descriptors, taxonomy enrichment - not from the source contents.
 $events = @(
-    @{ kind = 'result'; cwe = 'CWE-79';   level = 'warning'; status = 'Stable';     msg = 'Possible XSS via unescaped user input in view template.';           startLine = 16; endLine = 18 }
-    @{ kind = 'result'; cwe = 'CWE-89';   level = 'error';   status = 'Stable';     msg = 'SQL query built via string concatenation; parameterize.';           startLine = 20; endLine = 22 }
-    @{ kind = 'result'; cwe = 'CWE-22';   level = 'error';   status = 'Stable';     msg = 'Path constructed from untrusted input without canonicalization.';   startLine = 24; endLine = 26 }
-    @{ kind = 'result'; cwe = 'CWE-798';  level = 'error';   status = 'Draft';      msg = 'Hard-coded credential in production code path.';                     startLine = 28; endLine = 29 }
-    @{ kind = 'result'; cwe = 'CWE-1220'; level = 'warning'; status = 'Incomplete'; msg = 'Authorization check missing tenant-scoped granularity.';            startLine = 31; endLine = 33 }
+    @{ kind = 'result'; cwe = 'CWE-79';                                level = 'warning'; status = 'Stable';     msg = 'Possible XSS via unescaped user input in view template.';           startLine = 16; endLine = 18 }
+    @{ kind = 'result'; cwe = 'CWE-89';                                level = 'error';   status = 'Stable';     msg = 'SQL query built via string concatenation; parameterize.';           startLine = 20; endLine = 22 }
+    @{ kind = 'result'; cwe = 'CWE-22';                                level = 'error';   status = 'Stable';     msg = 'Path constructed from untrusted input without canonicalization.';   startLine = 24; endLine = 26 }
+    @{ kind = 'result'; cwe = 'CWE-798';                               level = 'error';   status = 'Draft';      msg = 'Hard-coded credential in production code path.';                     startLine = 28; endLine = 29 }
+    @{ kind = 'result'; cwe = 'CWE-1220';                              level = 'warning'; status = 'Incomplete'; msg = 'Authorization check missing tenant-scoped granularity.';            startLine = 31; endLine = 33 }
+    @{ kind = 'result'; cwe = 'CWE-79/dom-xss-via-sanitizer-bypass';   level = 'error';   status = 'Stable';     msg = 'DOM XSS: untrusted value reaches innerHTML after a sanitizer that does not escape the current context. AI sub-classification under CWE-79.'; startLine = 35; endLine = 39 }
 )
 
 Write-Host "[2/4] Appending $($events.Count) Result events + 1 Notification as raw JSONL"
@@ -193,3 +194,27 @@ if ($unenriched.Count -gt 0) {
 
 Write-Host ""
 Write-Host "All CWE rule descriptors enriched successfully."
+
+# Verify the hierarchical sub-id finding wired up the way SARIF §3.49.3 / §3.52.4
+# describe: full hierarchical id stays on result.ruleId; result.ruleIndex points
+# at the BASE descriptor ("CWE-79") so the enricher's MITRE metadata applies.
+$hierarchical = @($run.results | Where-Object {
+    (Get-OptionalProperty $_ 'ruleId') -and ((Get-OptionalProperty $_ 'ruleId') -like '*/*')
+})
+if ($hierarchical.Count -gt 0) {
+    Write-Host ""
+    Write-Host "Hierarchical sub-id findings:"
+    foreach ($h in $hierarchical) {
+        $hRuleId = Get-OptionalProperty $h 'ruleId'
+        $hRuleIndex = Get-OptionalProperty $h 'ruleIndex'
+        $baseId = $hRuleId.Split('/')[0]
+        $descriptor = if ($null -ne $hRuleIndex -and $hRuleIndex -ge 0 -and $hRuleIndex -lt $rules.Count) { $rules[$hRuleIndex] } else { $null }
+        $descriptorId = if ($null -ne $descriptor) { Get-OptionalProperty $descriptor 'id' } else { $null }
+        $mark = if ($descriptorId -eq $baseId) { '[OK]' } else { '[!!]' }
+        Write-Host ("{0} {1} -> ruleIndex {2} -> descriptor '{3}' (base '{4}')" -f $mark, $hRuleId, $hRuleIndex, $descriptorId, $baseId)
+        if ($descriptorId -ne $baseId) {
+            Write-Warning "Hierarchical ruleId '$hRuleId' did not resolve to its base descriptor '$baseId'."
+            exit 1
+        }
+    }
+}

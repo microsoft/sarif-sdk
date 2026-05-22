@@ -61,6 +61,67 @@ namespace Microsoft.CodeAnalysis.Sarif.Test.UnitTests.Emit
         }
 
         [Fact]
+        public void Replay_RegistersBaseDescriptorForHierarchicalRuleIds()
+        {
+            // Per SARIF §3.49.3 descriptor ids are base-only. A hierarchical result.ruleId
+            // such as "CWE-79/dom-xss-bypass" registers a descriptor with the base id
+            // "CWE-79"; the full hierarchical form stays on result.ruleId per §3.52.4.
+            // Multiple hierarchical results sharing a base reuse the same descriptor.
+            var events = new[]
+            {
+                Event(SarifEventKinds.RunHeader, new Run { Tool = new Tool { Driver = new ToolComponent { Name = "demo" } } }),
+                Event(SarifEventKinds.Result, new Result { RuleId = "CWE-79/dom-xss-bypass" }),
+                Event(SarifEventKinds.Result, new Result { RuleId = "CWE-79/stored-template-xss" }),
+                Event(SarifEventKinds.Result, new Result { RuleId = "CWE-89/string-concat-query" }),
+            };
+
+            Run run = SarifEventReplayer.Replay(events).Runs[0];
+
+            run.Tool.Driver.Rules.Should().HaveCount(2);
+            run.Tool.Driver.Rules[0].Id.Should().Be("CWE-79");
+            run.Tool.Driver.Rules[1].Id.Should().Be("CWE-89");
+
+            run.Results[0].RuleId.Should().Be("CWE-79/dom-xss-bypass");
+            run.Results[0].RuleIndex.Should().Be(0);
+            run.Results[1].RuleId.Should().Be("CWE-79/stored-template-xss");
+            run.Results[1].RuleIndex.Should().Be(0);
+            run.Results[2].RuleId.Should().Be("CWE-89/string-concat-query");
+            run.Results[2].RuleIndex.Should().Be(1);
+        }
+
+        [Fact]
+        public void Replay_HierarchicalRuleIdReusesPreRegisteredBaseDescriptor()
+        {
+            // If the producer pre-registered the base descriptor on the run header,
+            // a hierarchical result.ruleId resolves to it — no duplicate descriptor created,
+            // pre-registered metadata (name, helpUri, etc.) preserved.
+            var preRegistered = new ReportingDescriptor { Id = "CWE-79", Name = "Pre-registered" };
+            var events = new[]
+            {
+                Event(SarifEventKinds.RunHeader, new Run
+                {
+                    Tool = new Tool
+                    {
+                        Driver = new ToolComponent
+                        {
+                            Name = "demo",
+                            Rules = new List<ReportingDescriptor> { preRegistered },
+                        },
+                    },
+                }),
+                Event(SarifEventKinds.Result, new Result { RuleId = "CWE-79/dom-xss-bypass" }),
+                Event(SarifEventKinds.Result, new Result { RuleId = "CWE-79" }),
+            };
+
+            Run run = SarifEventReplayer.Replay(events).Runs[0];
+
+            run.Tool.Driver.Rules.Should().HaveCount(1);
+            run.Tool.Driver.Rules[0].Name.Should().Be("Pre-registered");
+            run.Results[0].RuleIndex.Should().Be(0);
+            run.Results[1].RuleIndex.Should().Be(0);
+        }
+
+        [Fact]
         public void Replay_SynthesizesInvocationToHoldNotificationsWhenNoneProvided()
         {
             var events = new[]

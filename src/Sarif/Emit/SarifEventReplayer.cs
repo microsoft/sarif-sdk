@@ -213,11 +213,25 @@ namespace Microsoft.CodeAnalysis.Sarif.Emit
                     continue;
                 }
 
-                if (!idToIndex.TryGetValue(result.RuleId, out int index))
+                // Per SARIF §3.49.3 descriptor ids are base-only. A hierarchical result.ruleId
+                // such as "CWE-79/dom-xss-via-sanitizer-bypass" registers (or reuses) a
+                // descriptor with the base id "CWE-79"; the full hierarchical form stays on
+                // the result per §3.52.4 (and is what AI1012 expects from a well-shaped AI
+                // finding). Producers that need a slash-bearing descriptor id can pre-register
+                // it on the run header — the pre-registered entry wins because the idToIndex
+                // seed above runs first.
+                string descriptorId = result.RuleId;
+                int slash = descriptorId.IndexOf('/');
+                if (slash > 0)
+                {
+                    descriptorId = descriptorId.Substring(0, slash);
+                }
+
+                if (!idToIndex.TryGetValue(descriptorId, out int index))
                 {
                     index = run.Tool.Driver.Rules.Count;
-                    run.Tool.Driver.Rules.Add(new ReportingDescriptor { Id = result.RuleId });
-                    idToIndex[result.RuleId] = index;
+                    run.Tool.Driver.Rules.Add(new ReportingDescriptor { Id = descriptorId });
+                    idToIndex[descriptorId] = index;
                 }
 
                 result.RuleIndex = index;

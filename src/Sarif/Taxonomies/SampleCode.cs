@@ -31,5 +31,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Taxonomies.SampleCode
         // Placeholder region for CWE-1220 (Insufficient Granularity of
         // Access Control).
         public static readonly string Cwe1220 = "placeholder";
+
+        // Placeholder region for a hierarchical sub-id under CWE-79:
+        // "CWE-79/dom-xss-via-sanitizer-bypass". Demonstrates that an AI tool
+        // can sub-classify findings beyond the base CWE while still mapping
+        // back to the enriched MITRE descriptor for "CWE-79".
+        public static readonly string Cwe79DomXssBypass = "placeholder";
     }
 }
