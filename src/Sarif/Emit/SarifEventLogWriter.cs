@@ -15,8 +15,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Emit
     /// Append-only writer for a SARIF event log (<c>*.sarif.wip.jsonl</c>).
     /// </summary>
     /// <remarks>
-    /// <para>The writer opens the target file with <see cref="FileShare.Read"/> sharing so
-    /// concurrent appends from other processes are rejected with an <see cref="IOException"/>.</para>
+    /// <para>The writer opens the target file with <see cref="FileShare.Read"/> sharing. On
+    /// Windows this rejects a concurrent second writer with an <see cref="IOException"/>; on
+    /// POSIX the .NET runtime does not enforce FileShare.Read against subsequent opens, so
+    /// the cross-process exclusive-write guarantee is Windows-only. The emit chain's
+    /// canonical use is single-process JSONL append; callers should not rely on cross-process
+    /// locking on Linux/macOS.</para>
     /// <para>If the file exists and does not end with a newline, the prior writer was interrupted
     /// mid-line; the writer rejects the file with a <see cref="SarifEventLogException"/> rather
     /// than risk concatenating bytes to a torn line. This is best-effort: a crash AFTER a partial

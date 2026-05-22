@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 
 using FluentAssertions;
@@ -161,6 +162,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Test.UnitTests.Emit
         [Fact]
         public void Writer_RejectsConcurrentWriterByExclusiveLock()
         {
+            // The exclusive-lock contract relies on Windows' mandatory file sharing
+            // semantics; on POSIX, .NET only honors FileShare.None as a best-effort
+            // advisory lock (FileShare.Read does not block a second writer). The
+            // emit chain's canonical use is single-process JSONL append, so this
+            // guarantee is documented and tested as Windows-only.
+            if (!RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+            {
+                return;
+            }
+
             using var first = new SarifEventLogWriter(_path);
             first.Append(SarifEventKinds.Result, new Result { RuleId = "A" });
 
