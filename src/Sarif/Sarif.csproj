@@ -76,6 +76,15 @@
     </EmbeddedResource>
   </ItemGroup>
 
+  <ItemGroup Label="Embedded CWE taxonomy artifacts">
+    <EmbeddedResource Include="Taxonomies\CWE.sarif">
+      <LogicalName>Microsoft.CodeAnalysis.Sarif.Taxonomies.CWE.sarif</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Taxonomies\CWE.brief.md">
+      <LogicalName>Microsoft.CodeAnalysis.Sarif.Taxonomies.CWE.brief.md</LogicalName>
+    </EmbeddedResource>
+  </ItemGroup>
+
   <ItemGroup>
     <None Include="CodeGenHints.json" />
     <None Include="CopyrightNotice.txt" />
