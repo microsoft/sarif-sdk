@@ -13,7 +13,7 @@ using Microsoft.CodeAnalysis.Sarif.Emit;
 namespace Microsoft.CodeAnalysis.Sarif.Multitool
 {
     /// <summary>
-    /// Implements <c>multitool emit-init</c>: creates an append-only SARIF event log
+    /// Implements <c>multitool emit-init-run</c>: creates an append-only SARIF event log
     /// (<c>&lt;output&gt;.wip.jsonl</c>) seeded with a <c>run-header</c> event built from the
     /// supplied tool / repo flags.
     /// </summary>
@@ -22,8 +22,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
     /// <list type="table">
     /// <listheader>
     /// <term>State</term>
-    /// <term>No <c>--allow-overwrite</c></term>
-    /// <term>With <c>--allow-overwrite</c></term>
+    /// <term>No <c>--force-overwrite</c></term>
+    /// <term>With <c>--force-overwrite</c></term>
     /// </listheader>
     /// <item>
     /// <term>Neither .sarif nor .wip.jsonl exists</term>
@@ -47,9 +47,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
     /// </item>
     /// </list>
     /// </remarks>
-    public class EmitInitCommand : CommandBase
+    public class EmitInitRunCommand : CommandBase
     {
-        public int Run(EmitInitOptions options, IFileSystem fileSystem = null)
+        internal const string SourceRootBaseId = "SRCROOT";
+
+        public int Run(EmitInitRunOptions options, IFileSystem fileSystem = null)
         {
             fileSystem ??= Sarif.FileSystem.Instance;
 
@@ -57,31 +59,65 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             {
                 if (string.IsNullOrWhiteSpace(options?.OutputFilePath))
                 {
-                    Console.Error.WriteLine("emit-init: output SARIF path is required.");
+                    Console.Error.WriteLine("Output SARIF path is required.");
                     return FAILURE;
                 }
 
                 if (string.IsNullOrWhiteSpace(options.ToolName))
                 {
-                    Console.Error.WriteLine("emit-init: --tool is required.");
+                    Console.Error.WriteLine("--tool-driver-name is required.");
                     return FAILURE;
                 }
 
-                string outputPath = Path.GetFullPath(options.OutputFilePath);
-                string wipPath = EmitConventions.GetWipPath(outputPath);
-
-                bool sarifExists = fileSystem.FileExists(outputPath);
-                bool wipExists = fileSystem.FileExists(wipPath);
-
-                if ((sarifExists || wipExists) && !options.AllowOverwrite)
+                if (!string.IsNullOrWhiteSpace(options.InformationUri)
+                    && !Uri.IsWellFormedUriString(options.InformationUri, UriKind.RelativeOrAbsolute))
                 {
                     Console.Error.WriteLine(
                         string.Format(
                             CultureInfo.CurrentCulture,
-                            "emit-init: '{0}'{1}{2} already exists. Pass --allow-overwrite to replace.",
+                            "--information-uri value '{0}' is not a valid URI.",
+                            options.InformationUri));
+                    return FAILURE;
+                }
+
+                if (!string.IsNullOrWhiteSpace(options.RepositoryUri)
+                    && !Uri.IsWellFormedUriString(options.RepositoryUri, UriKind.RelativeOrAbsolute))
+                {
+                    Console.Error.WriteLine(
+                        string.Format(
+                            CultureInfo.CurrentCulture,
+                            "--vcp-repositoryuri value '{0}' is not a valid URI.",
+                            options.RepositoryUri));
+                    return FAILURE;
+                }
+
+                if (!string.IsNullOrWhiteSpace(options.SourceRoot)
+                    && !Uri.IsWellFormedUriString(options.SourceRoot, UriKind.RelativeOrAbsolute))
+                {
+                    Console.Error.WriteLine(
+                        string.Format(
+                            CultureInfo.CurrentCulture,
+                            "--srcroot value '{0}' is not a valid URI.",
+                            options.SourceRoot));
+                    return FAILURE;
+                }
+
+                string outputPath = Path.GetFullPath(options.OutputFilePath);
+                string wipPath = outputPath + ".wip.jsonl";
+
+                bool sarifExists = fileSystem.FileExists(outputPath);
+                bool wipExists = fileSystem.FileExists(wipPath);
+
+                if ((sarifExists || wipExists) && !options.ForceOverwrite)
+                {
+                    Console.Error.WriteLine(
+                        string.Format(
+                            CultureInfo.CurrentCulture,
+                            "'{0}'{1} already exists. Pass --force-overwrite to replace.",
                             outputPath,
-                            wipExists ? " (and its .wip.jsonl)" : string.Empty,
-                            sarifExists && wipExists ? string.Empty : sarifExists ? string.Empty : " (.wip.jsonl)"));
+                            wipExists && sarifExists ? " (and its .wip.jsonl)"
+                            : wipExists ? " (.wip.jsonl)"
+                            : string.Empty));
                     return FAILURE;
                 }
 
@@ -106,7 +142,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 Console.Out.WriteLine(
                     string.Format(
                         CultureInfo.CurrentCulture,
-                        "emit-init: opened '{0}' for '{1}'.",
+                        "Opened '{0}' for '{1}'.",
                         wipPath,
                         options.ToolName));
                 return SUCCESS;
@@ -118,7 +154,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             }
         }
 
-        internal static Run BuildRunHeader(EmitInitOptions options)
+        internal static Run BuildRunHeader(EmitInitRunOptions options)
         {
             var driver = new ToolComponent
             {
@@ -158,7 +194,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             {
                 run.OriginalUriBaseIds = new Dictionary<string, ArtifactLocation>
                 {
-                    [EmitConventions.SourceRootBaseId] = new ArtifactLocation
+                    [SourceRootBaseId] = new ArtifactLocation
                     {
                         Uri = new Uri(options.SourceRoot, UriKind.RelativeOrAbsolute),
                     },
@@ -171,3 +207,4 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         private static string NullIfEmpty(string s) => string.IsNullOrWhiteSpace(s) ? null : s;
     }
 }
+

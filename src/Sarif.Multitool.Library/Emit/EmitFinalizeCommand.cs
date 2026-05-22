@@ -30,19 +30,19 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             {
                 if (string.IsNullOrWhiteSpace(options?.OutputFilePath))
                 {
-                    Console.Error.WriteLine("emit-finalize: output SARIF path is required.");
+                    Console.Error.WriteLine("Output SARIF path is required.");
                     return FAILURE;
                 }
 
                 string outputPath = Path.GetFullPath(options.OutputFilePath);
-                string wipPath = EmitConventions.GetWipPath(outputPath);
+                string wipPath = outputPath + ".wip.jsonl";
 
                 if (!fileSystem.FileExists(wipPath))
                 {
                     Console.Error.WriteLine(
                         string.Format(
                             CultureInfo.CurrentCulture,
-                            "emit-finalize: event log '{0}' does not exist; run 'emit-init' first.",
+                            "Event log '{0}' does not exist; run 'emit-init-run' first.",
                             wipPath));
                     return FAILURE;
                 }
@@ -84,7 +84,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 Console.Out.WriteLine(
                     string.Format(
                         CultureInfo.CurrentCulture,
-                        "emit-finalize: wrote '{0}' ({1} result(s), {2} rule(s)).",
+                        "Wrote '{0}' ({1} result(s), {2} rule(s)).",
                         outputPath,
                         resultCount,
                         ruleCount));
@@ -102,7 +102,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                         Console.Error.WriteLine(
                             string.Format(
                                 CultureInfo.CurrentCulture,
-                                "emit-finalize: warning — could not delete '{0}': {1}",
+                                "Warning — could not delete '{0}': {1}",
                                 wipPath,
                                 delEx.Message));
                     }

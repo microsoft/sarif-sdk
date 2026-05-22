@@ -6,13 +6,19 @@ using CommandLine;
 namespace Microsoft.CodeAnalysis.Sarif.Multitool
 {
     /// <summary>
-    /// Options for <c>emit-init</c>, which opens an append-only event log
+    /// Options for <c>emit-init-run</c>, which opens an append-only event log
     /// (<c>&lt;output&gt;.wip.jsonl</c>) seeded with a <c>run-header</c> event for the supplied
     /// tool. Subsequent producers append events to the log via the SARIF emit API and finalize
     /// via <c>multitool emit-finalize</c>.
     /// </summary>
-    [Verb("emit-init", HelpText = "Open an append-only event log seeded with a SARIF run header.")]
-    public class EmitInitOptions
+    /// <remarks>
+    /// CLI flags mirror the SARIF interior paths they populate (e.g., <c>--tool-driver-name</c>
+    /// populates <c>run.tool.driver.name</c>; <c>--vcp-revisionid</c> populates
+    /// <c>run.versionControlProvenance[0].revisionId</c>). This trades verbosity for a one-to-one
+    /// mapping that a SARIF-literate user can read without a help page.
+    /// </remarks>
+    [Verb("emit-init-run", HelpText = "Open an append-only event log seeded with a SARIF run header.")]
+    public class EmitInitRunOptions
     {
         [Value(
             0,
@@ -23,7 +29,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
         [Option(
             't',
-            "tool",
+            "tool-driver-name",
             HelpText = "Driver name (run.tool.driver.name). Required.",
             Required = true)]
         public string ToolName { get; set; }
@@ -34,7 +40,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         public string ToolVersion { get; set; }
 
         [Option(
-            "info-uri",
+            "information-uri",
             HelpText = "Driver information URI (run.tool.driver.informationUri).")]
         public string InformationUri { get; set; }
 
@@ -44,29 +50,30 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         public string Organization { get; set; }
 
         [Option(
-            "repo",
+            "vcp-repositoryuri",
             HelpText = "Repository URI (run.versionControlProvenance[0].repositoryUri).")]
         public string RepositoryUri { get; set; }
 
         [Option(
-            "revision",
+            "vcp-revisionid",
             HelpText = "Revision identifier, typically a commit SHA (run.versionControlProvenance[0].revisionId).")]
         public string RevisionId { get; set; }
 
         [Option(
-            "branch",
+            "vcp-branch",
             HelpText = "Branch name (run.versionControlProvenance[0].branch).")]
         public string Branch { get; set; }
 
         [Option(
-            "source-root",
+            "srcroot",
             HelpText = "Repository root on disk; recorded under originalUriBaseIds[\"SRCROOT\"].")]
         public string SourceRoot { get; set; }
 
         [Option(
-            "allow-overwrite",
-            HelpText = "Allow an existing .sarif or in-progress .wip.jsonl at the destination to be replaced.",
+            "force-overwrite",
+            HelpText = "Force replacement of an existing .sarif or in-progress .wip.jsonl at the destination.",
             Default = false)]
-        public bool AllowOverwrite { get; set; }
+        public bool ForceOverwrite { get; set; }
     }
 }
+

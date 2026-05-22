@@ -14,13 +14,13 @@ using Xunit;
 
 namespace Microsoft.CodeAnalysis.Sarif.Multitool
 {
-    public class EmitInitCommandTests : IDisposable
+    public class EmitInitRunCommandTests : IDisposable
     {
         private readonly string _dir;
 
-        public EmitInitCommandTests()
+        public EmitInitRunCommandTests()
         {
-            _dir = Path.Combine(Path.GetTempPath(), $"emit-init-{Guid.NewGuid():N}");
+            _dir = Path.Combine(Path.GetTempPath(), $"emit-init-run-{Guid.NewGuid():N}");
             Directory.CreateDirectory(_dir);
         }
 
@@ -35,7 +35,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         [Fact]
         public void Run_OnCleanState_CreatesWipWithRunHeaderEvent()
         {
-            int exit = new EmitInitCommand().Run(new EmitInitOptions
+            int exit = new EmitInitRunCommand().Run(new EmitInitRunOptions
             {
                 OutputFilePath = OutPath,
                 ToolName = "demo",
@@ -58,7 +58,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         {
             File.WriteAllText(WipPath, "{}\n");
 
-            int exit = new EmitInitCommand().Run(new EmitInitOptions
+            int exit = new EmitInitRunCommand().Run(new EmitInitRunOptions
             {
                 OutputFilePath = OutPath,
                 ToolName = "demo",
@@ -72,7 +72,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         {
             File.WriteAllText(OutPath, "{ \"version\": \"2.1.0\" }");
 
-            int exit = new EmitInitCommand().Run(new EmitInitOptions
+            int exit = new EmitInitRunCommand().Run(new EmitInitRunOptions
             {
                 OutputFilePath = OutPath,
                 ToolName = "demo",
@@ -82,15 +82,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         }
 
         [Fact]
-        public void Run_WithAllowOverwriteAndExistingWip_DeletesAndRecreates()
+        public void Run_WithForceOverwriteAndExistingWip_DeletesAndRecreates()
         {
             File.WriteAllText(WipPath, "stale wip\n");
 
-            int exit = new EmitInitCommand().Run(new EmitInitOptions
+            int exit = new EmitInitRunCommand().Run(new EmitInitRunOptions
             {
                 OutputFilePath = OutPath,
                 ToolName = "demo",
-                AllowOverwrite = true,
+                ForceOverwrite = true,
             });
 
             exit.Should().Be(CommandBase.SUCCESS);
@@ -102,7 +102,21 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         [Fact]
         public void Run_FailsIfToolNameMissing()
         {
-            int exit = new EmitInitCommand().Run(new EmitInitOptions { OutputFilePath = OutPath });
+            int exit = new EmitInitRunCommand().Run(new EmitInitRunOptions { OutputFilePath = OutPath });
+            exit.Should().Be(CommandBase.FAILURE);
+            File.Exists(WipPath).Should().BeFalse();
+        }
+
+        [Fact]
+        public void Run_FailsOnMalformedInformationUri()
+        {
+            int exit = new EmitInitRunCommand().Run(new EmitInitRunOptions
+            {
+                OutputFilePath = OutPath,
+                ToolName = "demo",
+                InformationUri = "ht!tp://not a uri",
+            });
+
             exit.Should().Be(CommandBase.FAILURE);
             File.Exists(WipPath).Should().BeFalse();
         }
@@ -110,7 +124,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         [Fact]
         public void BuildRunHeader_PopulatesVersionControlProvenanceFromFlags()
         {
-            Run run = EmitInitCommand.BuildRunHeader(new EmitInitOptions
+            Run run = EmitInitRunCommand.BuildRunHeader(new EmitInitRunOptions
             {
                 ToolName = "demo",
                 RepositoryUri = "https://github.com/acme/demo",
@@ -127,14 +141,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         [Fact]
         public void BuildRunHeader_OmitsVersionControlProvenanceWhenNoFlagsSupplied()
         {
-            Run run = EmitInitCommand.BuildRunHeader(new EmitInitOptions { ToolName = "demo" });
+            Run run = EmitInitRunCommand.BuildRunHeader(new EmitInitRunOptions { ToolName = "demo" });
             run.VersionControlProvenance.Should().BeNull();
         }
 
         [Fact]
         public void BuildRunHeader_AddsSourceRootUnderSrcrootBaseId()
         {
-            Run run = EmitInitCommand.BuildRunHeader(new EmitInitOptions
+            Run run = EmitInitRunCommand.BuildRunHeader(new EmitInitRunOptions
             {
                 ToolName = "demo",
                 SourceRoot = "file:///D:/work/demo",
