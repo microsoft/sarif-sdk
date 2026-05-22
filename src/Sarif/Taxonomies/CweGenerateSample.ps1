@@ -74,22 +74,33 @@ New-Item -ItemType Directory -Path $OutputDirectory -Force | Out-Null
 $outPath = Join-Path $OutputDirectory 'cwe-sample.sarif'
 $wipPath = "$outPath.wip.jsonl"
 
+# SRCROOT anchors every finding's artifactLocation.uri at the Taxonomies
+# folder. The sample source file (SampleCode.cs) lives next to this script,
+# so every result resolves to a real file on disk.
+$srcRootUri = ([System.Uri](Resolve-Path $PSScriptRoot).Path).AbsoluteUri
+if (-not $srcRootUri.EndsWith('/')) { $srcRootUri = "$srcRootUri/" }
+$sampleFile = 'SampleCode.cs'
+
 Write-Host "[1/4] Opening run -> $outPath"
 & dotnet $multitool emit-init-run $outPath `
     --tool-driver-name 'CweSamplerScanner' `
     --tool-version    '0.1.0' `
     --information-uri 'https://github.com/microsoft/sarif-sdk' `
-    --srcroot         'file:///D:/src/sarif-sdk/' | Out-Host
+    --srcroot         $srcRootUri | Out-Host
 
 # Each line is a SarifEvent envelope: {"v":1,"kind":"<kind>","payload":<SARIF object>}
 # Lines MUST be LF-terminated. AtomicSarifWriter rejects torn (non-LF) lines on
 # append-open. Do not use Add-Content; it writes CRLF on Windows.
+#
+# All findings point at SampleCode.cs (a checked-in, intentionally innocuous
+# file). The richness of the sample comes from the SARIF structure - regions,
+# rule descriptors, taxonomy enrichment - not from the source contents.
 $events = @(
-    @{ kind = 'result'; cwe = 'CWE-79';   level = 'warning'; status = 'Stable';     msg = 'Possible XSS via unescaped user input in view template.';                  uri = 'src/Web/Home.cshtml';            line = 42 }
-    @{ kind = 'result'; cwe = 'CWE-89';   level = 'error';   status = 'Stable';     msg = 'SQL query built via string concatenation; parameterize.';                 uri = 'src/Data/UserRepo.cs';           line = 117 }
-    @{ kind = 'result'; cwe = 'CWE-22';   level = 'error';   status = 'Stable';     msg = 'Path constructed from untrusted input without canonicalization.';        uri = 'src/Io/ArchiveExtractor.cs';     line = 88 }
-    @{ kind = 'result'; cwe = 'CWE-798';  level = 'error';   status = 'Draft';      msg = 'Hard-coded credential in production code path.';                          uri = 'src/Auth/LegacyClient.cs';       line = 14 }
-    @{ kind = 'result'; cwe = 'CWE-1220'; level = 'warning'; status = 'Incomplete'; msg = 'Authorization check missing tenant-scoped granularity.';                  uri = 'src/Authz/TenantPolicy.cs';      line = 51 }
+    @{ kind = 'result'; cwe = 'CWE-79';   level = 'warning'; status = 'Stable';     msg = 'Possible XSS via unescaped user input in view template.';           startLine = 16; endLine = 18 }
+    @{ kind = 'result'; cwe = 'CWE-89';   level = 'error';   status = 'Stable';     msg = 'SQL query built via string concatenation; parameterize.';           startLine = 20; endLine = 22 }
+    @{ kind = 'result'; cwe = 'CWE-22';   level = 'error';   status = 'Stable';     msg = 'Path constructed from untrusted input without canonicalization.';   startLine = 24; endLine = 26 }
+    @{ kind = 'result'; cwe = 'CWE-798';  level = 'error';   status = 'Draft';      msg = 'Hard-coded credential in production code path.';                     startLine = 28; endLine = 29 }
+    @{ kind = 'result'; cwe = 'CWE-1220'; level = 'warning'; status = 'Incomplete'; msg = 'Authorization check missing tenant-scoped granularity.';            startLine = 31; endLine = 33 }
 )
 
 Write-Host "[2/4] Appending $($events.Count) Result events + 1 Notification as raw JSONL"
@@ -100,8 +111,8 @@ foreach ($e in $events) {
         message = @{ text = $e.msg }
         locations = @(@{
             physicalLocation = @{
-                artifactLocation = @{ uri = $e.uri; uriBaseId = 'SRCROOT' }
-                region           = @{ startLine = $e.line }
+                artifactLocation = @{ uri = $sampleFile; uriBaseId = 'SRCROOT' }
+                region           = @{ startLine = $e.startLine; endLine = $e.endLine }
             }
         })
     }
@@ -109,7 +120,7 @@ foreach ($e in $events) {
     [System.IO.File]::AppendAllText($wipPath, $line + "`n")
 }
 
-$notif = @{ v = 1; kind = 'notification'; payload = @{ level = 'note'; message = @{ text = "Analyzed $($events.Count) findings across $(($events.uri | Sort-Object -Unique).Count) files." } } } | ConvertTo-Json -Compress -Depth 8
+$notif = @{ v = 1; kind = 'notification'; payload = @{ level = 'note'; message = @{ text = "Analyzed $($events.Count) findings across 1 file." } } } | ConvertTo-Json -Compress -Depth 8
 [System.IO.File]::AppendAllText($wipPath, $notif + "`n")
 
 Write-Host "[3/4] Finalizing"
