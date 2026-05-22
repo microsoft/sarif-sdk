@@ -122,6 +122,62 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         }
 
         [Fact]
+        public void Run_FailsOnRelativeInformationUri()
+        {
+            int exit = new EmitInitRunCommand().Run(new EmitInitRunOptions
+            {
+                OutputFilePath = OutPath,
+                ToolName = "demo",
+                InformationUri = "docs/tool",
+            });
+
+            exit.Should().Be(CommandBase.FAILURE);
+            File.Exists(WipPath).Should().BeFalse();
+        }
+
+        [Fact]
+        public void Run_FailsOnHttpInformationUri()
+        {
+            int exit = new EmitInitRunCommand().Run(new EmitInitRunOptions
+            {
+                OutputFilePath = OutPath,
+                ToolName = "demo",
+                InformationUri = "http://example.com/tool",
+            });
+
+            exit.Should().Be(CommandBase.FAILURE);
+            File.Exists(WipPath).Should().BeFalse();
+        }
+
+        [Fact]
+        public void Run_FailsOnFileSchemeInformationUri()
+        {
+            int exit = new EmitInitRunCommand().Run(new EmitInitRunOptions
+            {
+                OutputFilePath = OutPath,
+                ToolName = "demo",
+                InformationUri = "file:///etc/tool/docs",
+            });
+
+            exit.Should().Be(CommandBase.FAILURE);
+            File.Exists(WipPath).Should().BeFalse();
+        }
+
+        [Fact]
+        public void Run_FailsOnUnsupportedSchemeForSrcroot()
+        {
+            int exit = new EmitInitRunCommand().Run(new EmitInitRunOptions
+            {
+                OutputFilePath = OutPath,
+                ToolName = "demo",
+                SourceRoot = "ftp://example.com/src/",
+            });
+
+            exit.Should().Be(CommandBase.FAILURE);
+            File.Exists(WipPath).Should().BeFalse();
+        }
+
+        [Fact]
         public void BuildRunHeader_PopulatesVersionControlProvenanceFromFlags()
         {
             Run run = EmitInitRunCommand.BuildRunHeader(new EmitInitRunOptions
