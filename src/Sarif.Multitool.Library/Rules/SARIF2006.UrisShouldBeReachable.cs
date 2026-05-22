@@ -129,6 +129,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                 }
 
                 if (uri.AbsoluteUri != "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0-rtm.6.json" &&
+                    uri.AbsoluteUri != SarifUtilities.FinalV210SchemaUri &&
                     // TODO: Shaopeng to remove after finalized and published.
                     !IsUriReachable(uri.AbsoluteUri))
                 {

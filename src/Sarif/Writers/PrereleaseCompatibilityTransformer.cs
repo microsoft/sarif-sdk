@@ -89,6 +89,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                         case "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0-rtm.5.json":
                         case "http://json.schemastore.org/sarif-2.1.0-rtm.6":
                         case "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0-rtm.6.json":
+                        case "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0.json":
+                        case "https://www.schemastore.org/sarif-2.1.0.json":
+                        case "https://json.schemastore.org/sarif-2.1.0.json":
                         {
                             // Current schema version. There should be no work to do
                             break;
