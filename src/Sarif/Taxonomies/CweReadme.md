@@ -71,6 +71,27 @@ those descriptors' metadata empty so the producer notices and migrates.
 
 Callers that want a complete snapshot pass `CweStatus.All`.
 
+## Sample
+
+[`CweGenerateSample.ps1`](CweGenerateSample.ps1) emits a small sample SARIF
+log that exercises the enricher end-to-end via the multitool `emit-init-run` +
+`emit-finalize` verbs. The sample appends five Result events (covering the
+Stable, Draft, and Incomplete buckets) and one Notification to the on-disk
+`.wip.jsonl`, runs finalize, and verifies that every `CWE-*` ruleId came back
+hydrated with `name`, `shortDescription`, `fullDescription`, `helpUri`, and
+the MITRE markdown.
+
+Convention for this repo: every taxonomy that ships alongside the SDK includes
+a `<Taxonomy>GenerateSample.ps1` next to its data, so reviewers and consumers
+can see what enrichment looks like without building a producer from scratch.
+
+```pwsh
+pwsh src/Sarif/Taxonomies/CweGenerateSample.ps1
+```
+
+The script defaults to a unique subdirectory under `$env:TEMP` so the source
+tree stays clean and re-runs do not collide.
+
 ## Regeneration
 
 [`scripts/Generate-CweTaxonomy.ps1`](../../../scripts/Generate-CweTaxonomy.ps1)

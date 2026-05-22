@@ -165,6 +165,64 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
         #endregion
 
+        #region AI1012 — ProvideRuleSubId
+
+        private static void SetRuleIdShape(SarifLog log, string descriptorId, string resultRuleId)
+        {
+            log.Runs[0].Tool.Driver.Rules[0].Id = descriptorId;
+            log.Runs[0].Results[0].RuleId = resultRuleId;
+        }
+
+        [Fact]
+        public void AI1012_WhenRuleIdIsBareTaxonomyBaseId_ReportsError()
+        {
+            SarifLog log = CreateValidAISarifLog();
+            SetAIOrigin(log, "generated");
+            SetExploitability(log, "demonstrated");
+            // Bare taxonomy base id on both descriptor and result — no sub-id.
+            SetRuleIdShape(log, descriptorId: "CWE-78", resultRuleId: "CWE-78");
+
+            SarifLog output = RunAIValidation(log);
+            List<Result> results = GetResultsForRule(output, "AI1012");
+
+            results.Should().NotBeEmpty("a bare taxonomy ruleId (e.g. 'CWE-78') has no sub-id classifier");
+            results[0].Level.Should().Be(FailureLevel.Error);
+        }
+
+        [Fact]
+        public void AI1012_WhenRuleIdCarriesSubId_NoResult()
+        {
+            SarifLog log = CreateValidAISarifLog();
+            SetAIOrigin(log, "generated");
+            SetExploitability(log, "demonstrated");
+            // The seed log already uses this shape; assert it stays clean.
+
+            SarifLog output = RunAIValidation(log);
+            List<Result> results = GetResultsForRule(output, "AI1012");
+
+            results.Should().BeEmpty("'CWE-78/api-handler' carries a sub-id classifier");
+        }
+
+        [Fact]
+        public void AI1012_WhenRuleIdUsesNovelPrefix_NoResult()
+        {
+            SarifLog log = CreateValidAISarifLog();
+            SetAIOrigin(log, "generated");
+            SetExploitability(log, "demonstrated");
+            // NOVEL- escape hatch: flat descriptor id, same value on result.
+            SetRuleIdShape(
+                log,
+                descriptorId: "NOVEL-prompt-injection-via-system-message",
+                resultRuleId: "NOVEL-prompt-injection-via-system-message");
+
+            SarifLog output = RunAIValidation(log);
+            List<Result> results = GetResultsForRule(output, "AI1012");
+
+            results.Should().BeEmpty("the NOVEL- prefix is recognized as an inherent sub-classifier");
+        }
+
+        #endregion
+
         #region AI1006 — ProvideAIOrigin
 
         [Fact]
