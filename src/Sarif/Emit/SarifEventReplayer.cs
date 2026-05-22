@@ -30,7 +30,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Emit
     /// <item><description><c>notification</c> events are buffered and attached at finalize to
     /// <c>run.invocations[last].toolExecutionNotifications</c>. If no invocation has been
     /// supplied, a synthetic <c>{ "executionSuccessful": true }</c> invocation is created to
-    /// hold them (SARIF requires a home for notifications).</description></item>
+    /// hold them (SARIF requires a home for notifications). Notifications whose <c>timeUtc</c>
+    /// is unset on the event payload are stamped with <see cref="DateTime.UtcNow"/> at
+    /// replay time so AI execution-timeline consumers can order events without burdening
+    /// producers to track wall-clock themselves (cf. AI2019). Producer-supplied
+    /// <c>timeUtc</c> values are preserved.</description></item>
     /// </list>
     /// <para>Descriptor auto-registration mirrors <see cref="Writers.SarifLogger"/>: on first
     /// sighting of a <see cref="Result.RuleId"/>, the replayer appends a minimal
@@ -107,7 +111,17 @@ namespace Microsoft.CodeAnalysis.Sarif.Emit
                         break;
 
                     case SarifEventKinds.Notification:
-                        notifications.Add(sarifEvent.Payload.ToObject<Notification>(serializer));
+                        Notification notification = sarifEvent.Payload.ToObject<Notification>(serializer);
+                        // AI execution-timeline consumers (AI2019) expect every notification to
+                        // carry a UTC timestamp. Producers that already populated timeUtc keep
+                        // their value; everyone else gets the moment of replay, which is close
+                        // enough to "now" for any practical timeline reconstruction and avoids
+                        // requiring every event author to remember to stamp manually.
+                        if (notification != null && notification.TimeUtc == default(DateTime))
+                        {
+                            notification.TimeUtc = DateTime.UtcNow;
+                        }
+                        notifications.Add(notification);
                         break;
 
                     // The reader filters unknown kinds; an unknown kind reaching us here is a

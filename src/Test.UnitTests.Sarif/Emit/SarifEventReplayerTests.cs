@@ -1,6 +1,7 @@
 // Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -90,6 +91,44 @@ namespace Microsoft.CodeAnalysis.Sarif.Test.UnitTests.Emit
 
             run.Invocations[0].ToolExecutionNotifications.Should().BeNull();
             run.Invocations[1].ToolExecutionNotifications.Should().HaveCount(1);
+        }
+
+        [Fact]
+        public void Replay_StampsTimeUtcOnNotificationsLackingTimestamp()
+        {
+            // AI2019 expects every notification to carry timeUtc; the replayer fills the gap
+            // so producers don't have to remember. The exact value isn't asserted (it is
+            // the moment of replay) but it MUST fall between observations bracketing the call.
+            DateTime before = DateTime.UtcNow.AddSeconds(-1);
+            var events = new[]
+            {
+                Event(SarifEventKinds.RunHeader, new Run()),
+                Event(SarifEventKinds.Notification, new Notification { Message = new Message { Text = "n" } }),
+            };
+
+            Run run = SarifEventReplayer.Replay(events).Runs[0];
+            DateTime after = DateTime.UtcNow.AddSeconds(1);
+
+            Notification stamped = run.Invocations[0].ToolExecutionNotifications[0];
+            stamped.TimeUtc.Should().NotBe(default(DateTime));
+            stamped.TimeUtc.Should().BeOnOrAfter(before).And.BeOnOrBefore(after);
+        }
+
+        [Fact]
+        public void Replay_PreservesProducerSuppliedTimeUtcOnNotifications()
+        {
+            // Producer-supplied timeUtc wins. The replayer only fills the gap; it never
+            // rewrites a stamp the producer already chose.
+            var supplied = new DateTime(2020, 1, 2, 3, 4, 5, DateTimeKind.Utc);
+            var events = new[]
+            {
+                Event(SarifEventKinds.RunHeader, new Run()),
+                Event(SarifEventKinds.Notification, new Notification { Message = new Message { Text = "n" }, TimeUtc = supplied }),
+            };
+
+            Run run = SarifEventReplayer.Replay(events).Runs[0];
+
+            run.Invocations[0].ToolExecutionNotifications[0].TimeUtc.Should().Be(supplied);
         }
 
         [Fact]
