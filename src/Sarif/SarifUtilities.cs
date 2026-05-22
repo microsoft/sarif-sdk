@@ -23,7 +23,18 @@ namespace Microsoft.CodeAnalysis.Sarif
         public const string V1_0_0 = "1.0.0";
         public const string SarifSchemaUriBase = "https://schemastore.azurewebsites.net/schemas/json/sarif-";
 
-        public static readonly string SarifSchemaUri = ConvertToSchemaUri(SarifVersion.Current).OriginalString;
+        // The final SARIF 2.1.0 schema URL emitted by this SDK. The
+        // 'schemastore.azurewebsites.net' host is the canonical Microsoft-emitted
+        // alias used historically by MSVC '/analyze' output, the SARIF tutorials
+        // repo, and the VS Code SARIF extension demo logs. It 301-redirects to
+        // www.schemastore.org so the public-catalog content is preserved while
+        // the historical host-and-path shape stays stable for downstream
+        // consumers. The '-rtm.6' prerelease suffix is no longer present in the
+        // emitted URL now that SARIF 2.1.0 is final.
+        public const string FinalV210SchemaUri =
+            "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0.json";
+
+        public static readonly string SarifSchemaUri = FinalV210SchemaUri;
 
         /// <summary>
         /// Returns an ISO 8601 compatible universal date time format string with
@@ -72,9 +83,18 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         public static Uri ConvertToSchemaUri(this SarifVersion sarifVersion)
         {
+            // SARIF v2.1.0 (the only "Current" version we emit today) resolves
+            // to the final OASIS-published URL with no "-rtm" suffix - see
+            // SarifSchemaUri / FinalV210SchemaUri. Historical SARIF v1 (1.0.0)
+            // continues to compose via SarifSchemaUriBase + version + ".json"
+            // for backwards compatibility.
+            if (sarifVersion == SarifVersion.Current)
+            {
+                return new Uri(FinalV210SchemaUri, UriKind.Absolute);
+            }
+
             return new Uri(
-                    SarifSchemaUriBase +
-                    (sarifVersion == SarifVersion.Current ? VersionConstants.SchemaVersionAsPublishedToSchemaStoreOrg : sarifVersion.ConvertToText()) + ".json", UriKind.Absolute);
+                    SarifSchemaUriBase + sarifVersion.ConvertToText() + ".json", UriKind.Absolute);
         }
 
         public static Dictionary<string, string> BuildMessageFormats(IEnumerable<string> resourceNames, ResourceManager resourceManager)
