@@ -28,6 +28,73 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
     {
         internal const string WipSuffix = ".wip.jsonl";
 
+        // Allow-list for tool / repository documentation URIs (informationUri, repositoryUri).
+        // Both anchor live documentation surfaced to humans, and we require https so we never
+        // ship a clear-text link in the run header (http, file, and other schemes are blocked
+        // here so the typo surfaces at the emit verb rather than in a downstream consumer).
+        internal static readonly string[] DocumentationUriSchemes = new[] { Uri.UriSchemeHttps };
+
+        // Allow-list for base URIs (originalUriBaseIds["SRCROOT"]). SARIF base IDs commonly
+        // anchor at a local checkout (file://) or at a hosted source view (https://). http://
+        // is excluded for the same reason as above.
+        internal static readonly string[] BaseUriSchemes = new[] { Uri.UriSchemeHttps, Uri.UriSchemeFile };
+
+        /// <summary>
+        /// Validates that <paramref name="value"/> is either null/empty or a well-formed
+        /// absolute URI whose scheme appears in <paramref name="allowedSchemes"/>.
+        /// </summary>
+        /// <remarks>
+        /// Returning <c>true</c> when the value is empty preserves the "flag is optional"
+        /// contract — only supplied URIs are validated. We require an absolute URI (relative
+        /// values would never resolve meaningfully into a SARIF reader downstream) and we
+        /// constrain the scheme to a documented allow-list so a typo like <c>"htps://..."</c>
+        /// or an inappropriate scheme like <c>"file:..."</c> on a public-facing URL surfaces
+        /// here rather than silently shipping in the run header.
+        /// </remarks>
+        internal static bool TryValidateUri(string value, string flagName, string[] allowedSchemes, out string errorMessage)
+        {
+            if (string.IsNullOrWhiteSpace(value))
+            {
+                errorMessage = null;
+                return true;
+            }
+
+            if (!Uri.TryCreate(value, UriKind.Absolute, out Uri uri))
+            {
+                errorMessage = string.Format(
+                    CultureInfo.CurrentCulture,
+                    "{0} value '{1}' is not a well-formed absolute URI.",
+                    flagName,
+                    value);
+                return false;
+            }
+
+            bool schemeAllowed = false;
+            for (int i = 0; i < allowedSchemes.Length; i++)
+            {
+                if (string.Equals(uri.Scheme, allowedSchemes[i], StringComparison.Ordinal))
+                {
+                    schemeAllowed = true;
+                    break;
+                }
+            }
+
+            if (!schemeAllowed)
+            {
+                errorMessage = string.Format(
+                    CultureInfo.CurrentCulture,
+                    "{0} value '{1}' uses scheme '{2}'; expected one of: {3}.",
+                    flagName,
+                    value,
+                    uri.Scheme,
+                    string.Join(", ", allowedSchemes));
+                return false;
+            }
+
+            errorMessage = null;
+            return true;
+        }
+
         /// <summary>
         /// Resolves the staged event-log path for an output SARIF path and verifies it exists.
         /// </summary>

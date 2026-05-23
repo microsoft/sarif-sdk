@@ -5,10 +5,6 @@
 appsettings.local.json
 *.binlog
 
-# Side-by-side artifact written by CweGeneratedSampleTests when the
-# checked-in fixture drifts. Local-only — never commit.
-**/CweSample.actual.sarif
-
 # User-specific files
 *.suo
 *.user

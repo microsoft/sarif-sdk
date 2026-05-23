@@ -4,6 +4,13 @@
 * text=auto
 
 ###############################################################################
+# Pin sample source files used by deterministic taxonomy fixtures to LF so the
+# fixtures generated from them (snippet text, contextRegion text, artifact
+# sha-256) stay byte-identical across Windows / Linux / macOS checkouts.
+###############################################################################
+src/Sarif/Taxonomies/SampleCode.cs eol=lf
+
+###############################################################################
 # Set default behavior for command prompt diff.
 #
 # This is need for earlier builds of msysgit that does not have it on by

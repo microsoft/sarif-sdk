@@ -2,6 +2,7 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
 using System.IO;
@@ -34,6 +35,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                     fileSystem,
                     out string wipPath);
                 if (code != SUCCESS) { return code; }
+
+                if (!EmitEventLogHelpers.TryValidateUri(options.SrcRoot, "--srcroot", EmitEventLogHelpers.BaseUriSchemes, out string srcRootError))
+                {
+                    Console.Error.WriteLine(srcRootError);
+                    return FAILURE;
+                }
 
                 string outputPath = Path.GetFullPath(options.OutputFilePath);
 
@@ -81,6 +88,34 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                             new FileRegionsCache(),
                             originalUriBaseIds: run?.OriginalUriBaseIds);
                         visitor.VisitRun(run);
+                    }
+                }
+
+                // After enrichment, optionally rewrite originalUriBaseIds["SRCROOT"].uri.
+                // Producers commonly emit with a local file:// SRCROOT so the visitor above
+                // can read sources for snippets/hashes/contextRegion, then ship the SARIF
+                // with a canonical, host-independent URI (e.g. a GitHub blob URL). Doing
+                // the swap here — after the visitor, before serialization — keeps both
+                // contracts intact: enrichment uses real files; the artifact ships portable.
+                if (!string.IsNullOrWhiteSpace(options.SrcRoot) && log?.Runs != null)
+                {
+                    var finalSrcRoot = new Uri(options.SrcRoot, UriKind.Absolute);
+                    foreach (Run run in log.Runs)
+                    {
+                        if (run == null) { continue; }
+
+                        run.OriginalUriBaseIds ??= new Dictionary<string, ArtifactLocation>();
+                        if (run.OriginalUriBaseIds.TryGetValue(EmitInitRunCommand.SourceRootBaseId, out ArtifactLocation existing) && existing != null)
+                        {
+                            existing.Uri = finalSrcRoot;
+                        }
+                        else
+                        {
+                            run.OriginalUriBaseIds[EmitInitRunCommand.SourceRootBaseId] = new ArtifactLocation
+                            {
+                                Uri = finalSrcRoot,
+                            };
+                        }
                     }
                 }
 

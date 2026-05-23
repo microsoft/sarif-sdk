@@ -51,17 +51,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
     {
         internal const string SourceRootBaseId = "SRCROOT";
 
-        // Allow-list for tool / repository documentation URIs (informationUri, repositoryUri).
-        // Both anchor live documentation surfaced to humans, and we require https so we never
-        // ship a clear-text link in the run header (http, file, and other schemes are blocked
-        // here so the typo surfaces at emit-init-run rather than in a downstream consumer).
-        private static readonly string[] s_documentationSchemes = new[] { Uri.UriSchemeHttps };
-
-        // Allow-list for base URIs (originalUriBaseIds["SRCROOT"]). SARIF base IDs commonly
-        // anchor at a local checkout (file://) or at a hosted source view (https://). http://
-        // is excluded for the same reason as above.
-        private static readonly string[] s_baseUriSchemes = new[] { Uri.UriSchemeHttps, Uri.UriSchemeFile };
-
         public int Run(EmitInitRunOptions options, IFileSystem fileSystem = null)
         {
             fileSystem ??= Sarif.FileSystem.Instance;
@@ -80,19 +69,19 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                     return FAILURE;
                 }
 
-                if (!TryValidateUri(options.InformationUri, "--information-uri", s_documentationSchemes, out string informationUriError))
+                if (!EmitEventLogHelpers.TryValidateUri(options.InformationUri, "--information-uri", EmitEventLogHelpers.DocumentationUriSchemes, out string informationUriError))
                 {
                     Console.Error.WriteLine(informationUriError);
                     return FAILURE;
                 }
 
-                if (!TryValidateUri(options.RepositoryUri, "--vcp-repositoryuri", s_documentationSchemes, out string repositoryUriError))
+                if (!EmitEventLogHelpers.TryValidateUri(options.RepositoryUri, "--vcp-repositoryuri", EmitEventLogHelpers.DocumentationUriSchemes, out string repositoryUriError))
                 {
                     Console.Error.WriteLine(repositoryUriError);
                     return FAILURE;
                 }
 
-                if (!TryValidateUri(options.SourceRoot, "--srcroot", s_baseUriSchemes, out string sourceRootError))
+                if (!EmitEventLogHelpers.TryValidateUri(options.SourceRoot, "--srcroot", EmitEventLogHelpers.BaseUriSchemes, out string sourceRootError))
                 {
                     Console.Error.WriteLine(sourceRootError);
                     return FAILURE;
@@ -201,62 +190,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         }
 
         private static string NullIfEmpty(string s) => string.IsNullOrWhiteSpace(s) ? null : s;
-
-        /// <summary>
-        /// Validates that <paramref name="value"/> is either null/empty or a well-formed
-        /// absolute URI whose scheme appears in <paramref name="allowedSchemes"/>.
-        /// </summary>
-        /// <remarks>
-        /// Returning <c>true</c> when the value is empty preserves the "flag is optional"
-        /// contract — only supplied URIs are validated. We require an absolute URI (relative
-        /// values would never resolve meaningfully into a SARIF reader downstream) and we
-        /// constrain the scheme to a documented allow-list so a typo like <c>"htps://..."</c>
-        /// or an inappropriate scheme like <c>"file:..."</c> on a public-facing URL surfaces
-        /// here rather than silently shipping in the run header.
-        /// </remarks>
-        private static bool TryValidateUri(string value, string flagName, string[] allowedSchemes, out string errorMessage)
-        {
-            if (string.IsNullOrWhiteSpace(value))
-            {
-                errorMessage = null;
-                return true;
-            }
-
-            if (!Uri.TryCreate(value, UriKind.Absolute, out Uri uri))
-            {
-                errorMessage = string.Format(
-                    CultureInfo.CurrentCulture,
-                    "{0} value '{1}' is not a well-formed absolute URI.",
-                    flagName,
-                    value);
-                return false;
-            }
-
-            bool schemeAllowed = false;
-            for (int i = 0; i < allowedSchemes.Length; i++)
-            {
-                if (string.Equals(uri.Scheme, allowedSchemes[i], StringComparison.Ordinal))
-                {
-                    schemeAllowed = true;
-                    break;
-                }
-            }
-
-            if (!schemeAllowed)
-            {
-                errorMessage = string.Format(
-                    CultureInfo.CurrentCulture,
-                    "{0} value '{1}' uses scheme '{2}'; expected one of: {3}.",
-                    flagName,
-                    value,
-                    uri.Scheme,
-                    string.Join(", ", allowedSchemes));
-                return false;
-            }
-
-            errorMessage = null;
-            return true;
-        }
     }
 }
 

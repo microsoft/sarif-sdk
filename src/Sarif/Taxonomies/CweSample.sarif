@@ -103,14 +103,18 @@
       ],
       "originalUriBaseIds": {
         "SRCROOT": {
-          "uri": "file:///SRCROOT/"
+          "uri": "https://github.com/microsoft/sarif-sdk/blob/main/"
         }
       },
       "artifacts": [
         {
           "location": {
-            "uri": "SampleCode.cs",
+            "uri": "src/Sarif/Taxonomies/SampleCode.cs",
             "uriBaseId": "SRCROOT"
+          },
+          "hashes": {
+            "sha-1": "1C120172B3B8CC0623AFDA8F32BF44B89FC9E214",
+            "sha-256": "90B63D2A8FCC56D84B0E991430A5C40FEA8636E75122C2E0844B526712E12CC1"
           }
         }
       ],
@@ -125,14 +129,31 @@
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "SampleCode.cs",
+                  "uri": "src/Sarif/Taxonomies/SampleCode.cs",
                   "uriBaseId": "SRCROOT",
                   "index": 0
                 },
                 "region": {
                   "startLine": 18,
                   "startColumn": 9,
-                  "endLine": 18
+                  "endLine": 18,
+                  "endColumn": 79,
+                  "charOffset": 918,
+                  "charLength": 70,
+                  "snippet": {
+                    "text": "public static readonly string Cwe79UnescapedViewInput = \"placeholder\";"
+                  }
+                },
+                "contextRegion": {
+                  "startLine": 17,
+                  "startColumn": 1,
+                  "endLine": 19,
+                  "endColumn": 1,
+                  "charOffset": 859,
+                  "charLength": 130,
+                  "snippet": {
+                    "text": "        // template interpolation of a user value.\n        public static readonly string Cwe79UnescapedViewInput = \"placeholder\";\n"
+                  }
                 }
               }
             }
@@ -149,14 +170,31 @@
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "SampleCode.cs",
+                  "uri": "src/Sarif/Taxonomies/SampleCode.cs",
                   "uriBaseId": "SRCROOT",
                   "index": 0
                 },
                 "region": {
                   "startLine": 22,
                   "startColumn": 9,
-                  "endLine": 22
+                  "endLine": 22,
+                  "endColumn": 78,
+                  "charOffset": 1127,
+                  "charLength": 69,
+                  "snippet": {
+                    "text": "public static readonly string Cwe89StringConcatQuery = \"placeholder\";"
+                  }
+                },
+                "contextRegion": {
+                  "startLine": 21,
+                  "startColumn": 1,
+                  "endLine": 23,
+                  "endColumn": 1,
+                  "charOffset": 1065,
+                  "charLength": 132,
+                  "snippet": {
+                    "text": "        // built by concatenating an untrusted value.\n        public static readonly string Cwe89StringConcatQuery = \"placeholder\";\n"
+                  }
                 }
               }
             }
@@ -173,14 +211,31 @@
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "SampleCode.cs",
+                  "uri": "src/Sarif/Taxonomies/SampleCode.cs",
                   "uriBaseId": "SRCROOT",
                   "index": 0
                 },
                 "region": {
                   "startLine": 26,
                   "startColumn": 9,
-                  "endLine": 26
+                  "endLine": 26,
+                  "endColumn": 81,
+                  "charOffset": 1351,
+                  "charLength": 72,
+                  "snippet": {
+                    "text": "public static readonly string Cwe22UntrustedPathNoCanon = \"placeholder\";"
+                  }
+                },
+                "contextRegion": {
+                  "startLine": 25,
+                  "startColumn": 1,
+                  "endLine": 27,
+                  "endColumn": 1,
+                  "charOffset": 1273,
+                  "charLength": 151,
+                  "snippet": {
+                    "text": "        // Path opened from untrusted input without canonicalization.\n        public static readonly string Cwe22UntrustedPathNoCanon = \"placeholder\";\n"
+                  }
                 }
               }
             }
@@ -197,14 +252,31 @@
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "SampleCode.cs",
+                  "uri": "src/Sarif/Taxonomies/SampleCode.cs",
                   "uriBaseId": "SRCROOT",
                   "index": 0
                 },
                 "region": {
                   "startLine": 30,
                   "startColumn": 9,
-                  "endLine": 30
+                  "endLine": 30,
+                  "endColumn": 80,
+                  "charOffset": 1558,
+                  "charLength": 71,
+                  "snippet": {
+                    "text": "public static readonly string Cwe798EmbeddedCredential = \"placeholder\";"
+                  }
+                },
+                "contextRegion": {
+                  "startLine": 29,
+                  "startColumn": 1,
+                  "endLine": 31,
+                  "endColumn": 1,
+                  "charOffset": 1497,
+                  "charLength": 133,
+                  "snippet": {
+                    "text": "        // Production secret baked into source code.\n        public static readonly string Cwe798EmbeddedCredential = \"placeholder\";\n"
+                  }
                 }
               }
             }
@@ -220,14 +292,31 @@
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "SampleCode.cs",
+                  "uri": "src/Sarif/Taxonomies/SampleCode.cs",
                   "uriBaseId": "SRCROOT",
                   "index": 0
                 },
                 "region": {
                   "startLine": 34,
                   "startColumn": 9,
-                  "endLine": 34
+                  "endLine": 34,
+                  "endColumn": 81,
+                  "charOffset": 1773,
+                  "charLength": 72,
+                  "snippet": {
+                    "text": "public static readonly string Cwe1220MissingTenantScope = \"placeholder\";"
+                  }
+                },
+                "contextRegion": {
+                  "startLine": 33,
+                  "startColumn": 1,
+                  "endLine": 35,
+                  "endColumn": 1,
+                  "charOffset": 1705,
+                  "charLength": 141,
+                  "snippet": {
+                    "text": "        // AuthZ check ignores the caller's tenant context.\n        public static readonly string Cwe1220MissingTenantScope = \"placeholder\";\n"
+                  }
                 }
               }
             }
@@ -244,14 +333,31 @@
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "SampleCode.cs",
+                  "uri": "src/Sarif/Taxonomies/SampleCode.cs",
                   "uriBaseId": "SRCROOT",
                   "index": 0
                 },
                 "region": {
                   "startLine": 39,
                   "startColumn": 9,
-                  "endLine": 39
+                  "endLine": 39,
+                  "endColumn": 73,
+                  "charOffset": 2045,
+                  "charLength": 64,
+                  "snippet": {
+                    "text": "public static readonly string Cwe79DomXssBypass = \"placeholder\";"
+                  }
+                },
+                "contextRegion": {
+                  "startLine": 38,
+                  "startColumn": 1,
+                  "endLine": 40,
+                  "endColumn": 1,
+                  "charOffset": 2003,
+                  "charLength": 107,
+                  "snippet": {
+                    "text": "        // (CWE-79) after replay.\n        public static readonly string Cwe79DomXssBypass = \"placeholder\";\n"
+                  }
                 }
               }
             }
@@ -268,14 +374,31 @@
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "SampleCode.cs",
+                  "uri": "src/Sarif/Taxonomies/SampleCode.cs",
                   "uriBaseId": "SRCROOT",
                   "index": 0
                 },
                 "region": {
                   "startLine": 44,
                   "startColumn": 9,
-                  "endLine": 44
+                  "endLine": 44,
+                  "endColumn": 76,
+                  "charOffset": 2325,
+                  "charLength": 67,
+                  "snippet": {
+                    "text": "public static readonly string NovelPromptInjection = \"placeholder\";"
+                  }
+                },
+                "contextRegion": {
+                  "startLine": 43,
+                  "startColumn": 1,
+                  "endLine": 45,
+                  "endColumn": 6,
+                  "charOffset": 2249,
+                  "charLength": 149,
+                  "snippet": {
+                    "text": "        // shape used when no taxonomy entry fits — flat, no slash.\n        public static readonly string NovelPromptInjection = \"placeholder\";\n    }"
+                  }
                 }
               }
             }

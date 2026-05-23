@@ -3,139 +3,112 @@
 
 <#
 .SYNOPSIS
-    Emits a small sample SARIF log that exercises the CWE taxonomy enricher
-    end-to-end via the multitool emit verbs.
+    Emits CweSample.sarif — a deterministic, fully-enriched SARIF fixture
+    that demonstrates the CWE taxonomy enricher end-to-end via the multitool
+    emit verbs.
 
 .DESCRIPTION
     Convention: every taxonomy that ships with this SDK includes a
-    <Taxonomy>GenerateSample.ps1 alongside its data. The sample script
-    produces a runnable, self-checking demonstration of the taxonomy in
-    action so that contributors, reviewers, and downstream consumers can
-    see what enrichment looks like without building one from scratch.
+    <Taxonomy>GenerateSample.ps1 alongside its data, and that script
+    produces a checked-in <Taxonomy>Sample.sarif fixture next to itself.
+    The script has one job: deterministically (re)generate the fixture
+    so reviewers can diff it like any other source artifact and CI can
+    assert it stays in sync with the emit chain.
 
     For CWE specifically the script:
 
       1. Locates the locally built Sarif.Multitool.dll under bld/bin/.
-      2. Runs emit-init-run to open a fresh SARIF log.
-      3. Pipes a handful of CWE-shaped Result JSON objects (and one
-         Notification) into the multitool's add-result / add-notification
-         verbs over stdin. The verbs validate ruleId conformance to the
-         AI ruleId convention at receipt and append to the .wip.jsonl.
-      4. Runs emit-finalize. CweTaxonomyEnricher hydrates every CWE-*
-         ruleId into a full reportingDescriptor (name, shortDescription,
-         fullDescription, helpUri, MITRE markdown).
-      5. Prints a summary table of the rules the enricher populated.
+      2. Runs emit-init-run with a real local SRCROOT pointing at this
+         repository's working tree, so InsertOptionalDataVisitor can read
+         SampleCode.cs at finalize time and populate every value-add the
+         emit chain provides:
+           * artifact sha-256 hashes,
+           * region.snippet,
+           * contextRegion.snippet,
+           * charOffset / charLength (comprehensive region properties).
+      3. Pipes 7 CWE-shaped Result JSON objects and 1 Notification into
+         the multitool's add-result / add-notification verbs over stdin.
+         The verbs validate ruleId conformance to the AI ruleId convention
+         (BASE/sub-id or NOVEL-<sub-id>) at receipt.
+      4. Runs emit-finalize with --srcroot https://github.com/microsoft/sarif-sdk/blob/main/
+         so the shipped fixture anchors at a portable, host-independent URL
+         that resolves directly to file content on GitHub. The visitor's
+         file reads above used the local SRCROOT; the swap happens after
+         enrichment so both contracts hold.
+      5. Prints a summary table verifying the enricher hydrated every
+         CWE-* descriptor (and correctly left NOVEL- bare).
 
-    The CWE IDs in the sample are deliberately chosen to span the three
-    statuses included in CweTaxonomy.DefaultStatuses
-    (Stable, Draft, Incomplete) so the run also serves as a smoke test
-    that the default loadout covers the surface area real-world rulesets
-    cite. See CweReadme.md for the measurement behind that default.
-
-.PARAMETER OutputDirectory
-    Directory to write the sample SARIF (and its .wip.jsonl) into.
-    Defaults to a unique subdirectory under $env:TEMP so the source tree
-    stays clean and re-runs do not collide. Ignored when -CheckedIn is
-    set.
+    Determinism notes:
+      * notification.timeUtc is pre-populated so SarifEventReplayer does
+        not auto-stamp DateTime.UtcNow (its AI2019 timeline support).
+      * SampleCode.cs is pinned to LF via .gitattributes so snippets,
+        contextRegion text, and the artifact sha-256 are byte-identical
+        across Windows / Linux / macOS checkouts.
+      * The CWE IDs span CweTaxonomy.DefaultStatuses (Stable, Draft,
+        Incomplete) so the fixture doubles as a smoke test that the
+        default loadout covers real-world ruleset surface area. See
+        CweReadme.md for the measurement behind that default.
 
 .PARAMETER Configuration
     Build configuration whose multitool binary to invoke. Release or
     Debug. Defaults to Release.
 
-.PARAMETER CheckedIn
-    Regenerate the deterministic CweSample.sarif fixture that ships next
-    to this script. Forces a stable SRCROOT, writes output next to the
-    script, and suppresses the chatty per-step summary so the resulting
-    file is byte-stable across machines. CI guards this file via the
-    CweGenerateSampleRegressionTests fixture in Test.UnitTests.Sarif.
-
 .EXAMPLE
     pwsh src/Sarif/Taxonomies/CweGenerateSample.ps1
-
-.EXAMPLE
-    pwsh src/Sarif/Taxonomies/CweGenerateSample.ps1 `
-        -OutputDirectory C:\temp\cwe-sample -Configuration Debug
-
-.EXAMPLE
-    pwsh src/Sarif/Taxonomies/CweGenerateSample.ps1 -CheckedIn
 #>
 [CmdletBinding()]
 param(
-    [string]$OutputDirectory,
     [ValidateSet('Release', 'Debug')]
-    [string]$Configuration = 'Release',
-    [switch]$CheckedIn
+    [string]$Configuration = 'Release'
 )
 
 $ErrorActionPreference = 'Stop'
 Set-StrictMode -Version Latest
 
-# When generating the checked-in fixture, suppress chatty progress and
-# summary output so the script's stdout stays clean. Validation logic
-# (Write-Warning + exit on a missing enrichment) still runs.
-function Write-Status {
-    param([string]$msg)
-    if (-not $CheckedIn) { Write-Host $msg }
-}
-
-$repoRoot   = Resolve-Path (Join-Path $PSScriptRoot '..' '..' '..')
+$repoRoot   = (Resolve-Path (Join-Path $PSScriptRoot '..' '..' '..')).Path
 $multitool  = Join-Path $repoRoot "bld/bin/AnyCPU_$Configuration/Sarif.Multitool/net8.0/Sarif.Multitool.dll"
 
 if (-not (Test-Path $multitool)) {
     throw "Sarif.Multitool.dll not found at '$multitool'. Build the SDK in $Configuration configuration first (e.g. dotnet build src\Sarif.Multitool\Sarif.Multitool.csproj -c $Configuration)."
 }
 
-if (-not $OutputDirectory) {
-    if ($CheckedIn) {
-        # The checked-in fixture lives next to this script so the convention
-        # "<Taxonomy>GenerateSample.ps1 produces <Taxonomy>Sample.sarif"
-        # holds for every taxonomy that ships with the SDK.
-        $OutputDirectory = $PSScriptRoot
-    } else {
-        $stamp = [System.Guid]::NewGuid().ToString('N').Substring(0, 8)
-        $OutputDirectory = Join-Path $env:TEMP "cwe-sample-$stamp"
-    }
-}
-New-Item -ItemType Directory -Path $OutputDirectory -Force | Out-Null
-
-$outFileName = if ($CheckedIn) { 'CweSample.sarif' } else { 'cwe-sample.sarif' }
-$outPath = Join-Path $OutputDirectory $outFileName
+$outPath = Join-Path $PSScriptRoot 'CweSample.sarif'
 $wipPath = "$outPath.wip.jsonl"
 
-# SRCROOT anchors every finding's artifactLocation.uri at the Taxonomies
-# folder. The sample source file (SampleCode.cs) lives next to this script,
-# so every result resolves to a real file on disk. When generating the
-# checked-in fixture we substitute a stable placeholder so the URI does not
-# vary per machine.
-if ($CheckedIn) {
-    $srcRootUri = 'file:///SRCROOT/'
-} else {
-    $srcRootUri = ([System.Uri](Resolve-Path $PSScriptRoot).Path).AbsoluteUri
-    if (-not $srcRootUri.EndsWith('/')) { $srcRootUri = "$srcRootUri/" }
-}
-$sampleFile = 'SampleCode.cs'
+# During emit, SRCROOT must be a real local file:// URI so the visitor can
+# resolve src/Sarif/Taxonomies/SampleCode.cs and populate snippets/hashes.
+# emit-finalize --srcroot below swaps this to the canonical GitHub URL.
+$localSrcRootUri = ([System.Uri]$repoRoot).AbsoluteUri
+if (-not $localSrcRootUri.EndsWith('/')) { $localSrcRootUri = "$localSrcRootUri/" }
+$finalSrcRootUri = 'https://github.com/microsoft/sarif-sdk/blob/main/'
 
-Write-Status "[1/4] Opening run -> $outPath"
+# Artifact URIs are repo-relative (paired with SRCROOT base id) so the final
+# SRCROOT swap produces directly-clickable GitHub blob URLs:
+#   https://github.com/microsoft/sarif-sdk/blob/main/src/Sarif/Taxonomies/SampleCode.cs
+$sampleFileRepoRelative = 'src/Sarif/Taxonomies/SampleCode.cs'
+$sampleFileOnDisk       = Join-Path $PSScriptRoot 'SampleCode.cs'
+
+Write-Host "[1/4] Opening run -> $outPath"
 $initArgs = @(
     $multitool, 'emit-init-run', $outPath,
     '--tool-driver-name', 'CweSamplerScanner',
     '--tool-version',     '0.1.0',
     '--information-uri',  'https://github.com/microsoft/sarif-sdk',
-    '--srcroot',          $srcRootUri
+    '--srcroot',          $localSrcRootUri,
+    '--force-overwrite'
 )
-# In -CheckedIn mode the previous fixture is by design overwritten on every
-# run, so reviewers can diff the regenerated file against the prior commit.
-if ($CheckedIn) { $initArgs += '--force-overwrite' }
-$initOutput = & dotnet @initArgs
-if (-not $CheckedIn -and $initOutput) { $initOutput | Out-Host }
+& dotnet @initArgs | Out-Host
+if ($LASTEXITCODE -ne 0) { throw "emit-init-run failed (exit $LASTEXITCODE)." }
 
-# Each line is a SarifEvent envelope: {"v":1,"kind":"<kind>","payload":<SARIF object>}
-# Lines MUST be LF-terminated. AtomicSarifWriter rejects torn (non-LF) lines on
-# append-open. Do not use Add-Content; it writes CRLF on Windows.
+# Each line piped into add-result / add-notification is a fully-formed SARIF
+# Result or Notification JSON object. AI orchestrators have these objects in
+# hand already (code flows, thread flows, fixes etc.) so the verbs accept
+# the whole shape and round-trip it verbatim — they do NOT model individual
+# fields as CLI flags.
 #
 # All findings point at SampleCode.cs (a checked-in, intentionally innocuous
-# file). The richness of the sample comes from the SARIF structure - regions,
-# rule descriptors, taxonomy enrichment - not from the source contents.
+# file). The richness of the sample comes from the SARIF structure — regions,
+# enriched rule descriptors, taxonomy wiring — not from defects in the file.
 $events = @(
     @{ kind = 'result'; cwe = 'CWE-79/unescaped-view-input';            level = 'warning'; status = 'Stable';     msg = 'Possible XSS via unescaped user input in view template.';                 startLine = 18; endLine = 18 }
     @{ kind = 'result'; cwe = 'CWE-89/string-concat-query';             level = 'error';   status = 'Stable';     msg = 'SQL query built via string concatenation; parameterize.';                 startLine = 22; endLine = 22 }
@@ -146,14 +119,14 @@ $events = @(
     @{ kind = 'result'; cwe = 'NOVEL-prompt-injection-via-system-message'; level = 'error'; status = '(novel)';   msg = 'Untrusted content reaches a system-role prompt at runtime, letting an attacker override tool-use policy. No CWE entry fits — emitted under the NOVEL- escape hatch.'; startLine = 44; endLine = 44 }
 )
 
-Write-Status "[2/4] Appending $($events.Count) Result events + 1 Notification via add-result / add-notification"
+Write-Host "[2/4] Appending $($events.Count) Result events + 1 Notification via add-result / add-notification"
 
-# Read the source file once and trim the region.startColumn to the first
+# Read SampleCode.cs once and trim the region.startColumn to the first
 # non-whitespace column of each finding's start line. The region then points
 # precisely at the meaningful content; the context region built by
 # InsertOptionalDataVisitor carries the surrounding indent and neighboring
 # lines so a reviewer still sees how the finding sits in its file.
-$sampleLines = [System.IO.File]::ReadAllLines((Join-Path $PSScriptRoot $sampleFile))
+$sampleLines = [System.IO.File]::ReadAllLines($sampleFileOnDisk)
 
 function Get-FirstNonWhitespaceColumn {
     param([string]$line)
@@ -174,34 +147,37 @@ foreach ($e in $events) {
         message = @{ text = $e.msg }
         locations = @(@{
             physicalLocation = @{
-                artifactLocation = @{ uri = $sampleFile; uriBaseId = 'SRCROOT' }
+                artifactLocation = @{ uri = $sampleFileRepoRelative; uriBaseId = 'SRCROOT' }
                 region           = @{ startLine = $e.startLine; startColumn = $startColumn; endLine = $e.endLine }
             }
         })
     }
-    # Pipe the result JSON to add-result over stdin. The verb validates the
-    # ruleId against the AI ruleId convention (taxonomy sub-id or NOVEL-
-    # prefix) before appending — a bad ruleId fails clean WITHOUT polluting
-    # the event log, and prints an AI-consumable error envelope to stderr.
     $payloadJson = $payload | ConvertTo-Json -Compress -Depth 12
     $payloadJson | & dotnet $multitool add-result $outPath | Out-Null
     if ($LASTEXITCODE -ne 0) { throw "add-result failed for ruleId '$($e.cwe)' (exit $LASTEXITCODE)." }
 }
 
-$notifPayload = @{ level = 'note'; message = @{ text = "Analyzed $($events.Count) findings across 1 file." } }
-# In -CheckedIn mode pre-populate timeUtc so SarifEventReplayer leaves it
-# alone (it auto-stamps DateTime.UtcNow when absent for AI2019 timeline
-# support). Without this the fixture's byte hash drifts per regeneration.
-if ($CheckedIn) { $notifPayload['timeUtc'] = '2024-01-01T00:00:00.000Z' }
+# Pre-populate timeUtc so SarifEventReplayer leaves it alone (it auto-stamps
+# DateTime.UtcNow when absent for AI2019 timeline support). Without this the
+# fixture's byte hash drifts per regeneration.
+$notifPayload = @{
+    level   = 'note'
+    message = @{ text = "Analyzed $($events.Count) findings across 1 file." }
+    timeUtc = '2024-01-01T00:00:00.000Z'
+}
 $notifJson = $notifPayload | ConvertTo-Json -Compress -Depth 8
 $notifJson | & dotnet $multitool add-notification $outPath | Out-Null
 if ($LASTEXITCODE -ne 0) { throw "add-notification failed (exit $LASTEXITCODE)." }
 
-Write-Status "[3/4] Finalizing"
-$finalizeOutput = & dotnet $multitool emit-finalize $outPath
-if (-not $CheckedIn -and $finalizeOutput) { $finalizeOutput | Out-Host }
+Write-Host "[3/4] Finalizing (rewriting SRCROOT to $finalSrcRootUri)"
+$finalizeArgs = @(
+    $multitool, 'emit-finalize', $outPath,
+    '--srcroot', $finalSrcRootUri
+)
+& dotnet @finalizeArgs | Out-Host
+if ($LASTEXITCODE -ne 0) { throw "emit-finalize failed (exit $LASTEXITCODE)." }
 
-Write-Status "[4/4] Verifying enrichment"
+Write-Host "[4/4] Verifying enrichment"
 $log = Get-Content $outPath -Raw | ConvertFrom-Json
 $run = $log.runs[0]
 $driver = $run.tool.driver
@@ -219,18 +195,20 @@ $toolName    = Get-OptionalProperty $driver 'name'
 $toolVersion = Get-OptionalProperty $driver 'version'
 $toolInfoUri = Get-OptionalProperty $driver 'informationUri'
 $artifacts   = Get-OptionalProperty $run 'artifacts'
+$srcRootUri  = Get-OptionalProperty (Get-OptionalProperty $run.originalUriBaseIds 'SRCROOT') 'uri'
 
-Write-Status ""
-Write-Status "Sample SARIF: $outPath"
+Write-Host ""
+Write-Host "Sample SARIF: $outPath"
 $toolLine = if ([string]::IsNullOrEmpty($toolName)) { '(missing - is your multitool DLL current?)' } else { $toolName }
 if (-not [string]::IsNullOrEmpty($toolVersion)) { $toolLine = "$toolLine $toolVersion" }
-Write-Status "Tool:         $toolLine"
-Write-Status "Info URI:     $toolInfoUri"
-Write-Status "Results:      $($run.results.Count)"
-Write-Status "Rules:        $($rules.Count) (auto-registered from result.ruleId)"
+Write-Host "Tool:         $toolLine"
+Write-Host "Info URI:     $toolInfoUri"
+Write-Host "SRCROOT URI:  $srcRootUri"
+Write-Host "Results:      $($run.results.Count)"
+Write-Host "Rules:        $($rules.Count) (auto-registered from result.ruleId)"
 if ($null -ne $artifacts) {
     $hashedCount = @($artifacts | Where-Object { $null -ne (Get-OptionalProperty $_ 'hashes') }).Count
-    Write-Status "Artifacts:    $($artifacts.Count) ($hashedCount with sha-256 hash)"
+    Write-Host "Artifacts:    $($artifacts.Count) ($hashedCount with sha-256 hash)"
 }
 
 # Probe the first result to confirm InsertOptionalDataVisitor enrichment took.
@@ -244,10 +222,10 @@ if ($null -ne $firstResult) {
     $contextRegionSnippet = if ($null -ne $contextRegion) { Get-OptionalProperty $contextRegion 'snippet' } else { $null }
     $regionMark        = if ($null -ne $regionSnippet)        { '[OK]' } else { '[!!]' }
     $contextRegionMark = if ($null -ne $contextRegionSnippet) { '[OK]' } else { '[!!]' }
-    Write-Status "Region snippet:        $regionMark"
-    Write-Status "Context region snippet: $contextRegionMark"
+    Write-Host "Region snippet:        $regionMark"
+    Write-Host "Context region snippet: $contextRegionMark"
 }
-Write-Status ""
+Write-Host ""
 $rules | ForEach-Object {
     $name       = Get-OptionalProperty $_ 'name'
     $helpUri    = Get-OptionalProperty $_ 'helpUri'
@@ -264,7 +242,7 @@ $rules | ForEach-Object {
         $shown  = if ($hasName) { $name } else { '(not enriched)' }
     }
     "{0} {1,-10} {2}" -f $marker, $_.id, $shown
-} | ForEach-Object { Write-Status $_ }
+} | ForEach-Object { Write-Host $_ }
 
 # Only CWE descriptors are expected to be enriched. NOVEL- descriptors do not
 # have a taxonomy back-end, so the enricher correctly leaves them bare.
@@ -276,8 +254,8 @@ if ($unenriched.Count -gt 0) {
     exit 1
 }
 
-Write-Status ""
-Write-Status "All CWE rule descriptors enriched successfully."
+Write-Host ""
+Write-Host "All CWE rule descriptors enriched successfully."
 
 # Verify each sub-id finding wired up the way SARIF §3.49.3 / §3.52.4 describe:
 # the full hierarchical id stays on result.ruleId; result.ruleIndex points at
@@ -287,8 +265,8 @@ $subIdResults = @($run.results | Where-Object {
     (Get-OptionalProperty $_ 'ruleId') -and ((Get-OptionalProperty $_ 'ruleId') -like '*/*')
 })
 if ($subIdResults.Count -gt 0) {
-    Write-Status ""
-    Write-Status "Taxonomy sub-id findings (BASE/sub-id form):"
+    Write-Host ""
+    Write-Host "Taxonomy sub-id findings (BASE/sub-id form):"
     foreach ($h in $subIdResults) {
         $hRuleId = Get-OptionalProperty $h 'ruleId'
         $hRuleIndex = Get-OptionalProperty $h 'ruleIndex'
@@ -296,7 +274,7 @@ if ($subIdResults.Count -gt 0) {
         $descriptor = if ($null -ne $hRuleIndex -and $hRuleIndex -ge 0 -and $hRuleIndex -lt $rules.Count) { $rules[$hRuleIndex] } else { $null }
         $descriptorId = if ($null -ne $descriptor) { Get-OptionalProperty $descriptor 'id' } else { $null }
         $mark = if ($descriptorId -eq $baseId) { '[OK]' } else { '[!!]' }
-        Write-Status ("{0} {1} -> ruleIndex {2} -> descriptor '{3}' (base '{4}')" -f $mark, $hRuleId, $hRuleIndex, $descriptorId, $baseId)
+        Write-Host ("{0} {1} -> ruleIndex {2} -> descriptor '{3}' (base '{4}')" -f $mark, $hRuleId, $hRuleIndex, $descriptorId, $baseId)
         if ($descriptorId -ne $baseId) {
             Write-Warning "Sub-id ruleId '$hRuleId' did not resolve to its base descriptor '$baseId'."
             exit 1
@@ -311,15 +289,15 @@ $novelResults = @($run.results | Where-Object {
     (Get-OptionalProperty $_ 'ruleId') -and ((Get-OptionalProperty $_ 'ruleId') -like 'NOVEL-*')
 })
 if ($novelResults.Count -gt 0) {
-    Write-Status ""
-    Write-Status "NOVEL escape-hatch findings:"
+    Write-Host ""
+    Write-Host "NOVEL escape-hatch findings:"
     foreach ($n in $novelResults) {
         $nRuleId = Get-OptionalProperty $n 'ruleId'
         $nRuleIndex = Get-OptionalProperty $n 'ruleIndex'
         $descriptor = if ($null -ne $nRuleIndex -and $nRuleIndex -ge 0 -and $nRuleIndex -lt $rules.Count) { $rules[$nRuleIndex] } else { $null }
         $descriptorId = if ($null -ne $descriptor) { Get-OptionalProperty $descriptor 'id' } else { $null }
         $mark = if ($descriptorId -eq $nRuleId) { '[OK]' } else { '[!!]' }
-        Write-Status ("{0} {1} -> ruleIndex {2} -> descriptor '{3}' (flat, no enrichment)" -f $mark, $nRuleId, $nRuleIndex, $descriptorId)
+        Write-Host ("{0} {1} -> ruleIndex {2} -> descriptor '{3}' (flat, no enrichment)" -f $mark, $nRuleId, $nRuleIndex, $descriptorId)
         if ($descriptorId -ne $nRuleId) {
             Write-Warning "NOVEL- ruleId '$nRuleId' did not register a flat descriptor."
             exit 1

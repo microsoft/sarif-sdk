@@ -36,5 +36,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             HelpText = "Produce compact (single-line) JSON rather than indented output.",
             Default = false)]
         public bool Minify { get; set; }
+
+        [Option(
+            "srcroot",
+            HelpText = "Rewrite originalUriBaseIds[\"SRCROOT\"].uri to this value AFTER enrichment runs. Use a local file:// SRCROOT on emit-init-run so InsertOptionalDataVisitor can read sources for snippets/hashes, then pass the canonical portable URI here (e.g. https://github.com/<org>/<repo>/blob/<branch>/) so the shipped SARIF anchors at a stable, host-independent location.")]
+        public string SrcRoot { get; set; }
     }
 }
