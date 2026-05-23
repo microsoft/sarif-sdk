@@ -335,8 +335,47 @@ namespace Microsoft.CodeAnalysis.Sarif
             string logText = sb.ToString();
 
             SarifLog sarifLog = JsonConvert.DeserializeObject<SarifLog>(logText);
-            sarifLog.Runs[0].Artifacts[0].Hashes["sha-1"].Should().Be("9B59B1C1E3F5F7013B10F6C6B7436293685BAACE");
+            // SHA-1 is no longer emitted by default; SHA-256 remains the default algorithm.
+            sarifLog.Runs[0].Artifacts[0].Hashes.Should().NotContainKey("sha-1");
             sarifLog.Runs[0].Artifacts[0].Hashes["sha-256"].Should().Be("0953D7B3ADA7FED683680D2107EE517A9DBEC2D0AF7594A91F058D104B7A2AEB");
+        }
+
+        [Fact]
+        public void SarifLogger_GitBlobSha1Requested_EmitsGitBlobShaInArtifactHashes()
+        {
+            // Canonical git blob SHA-1 for the ASCII bytes of `#include "windows.h";` (21 bytes, no trailing newline).
+            // Verified against `git hash-object` for the same byte sequence.
+            const string ExpectedGitBlobSha1 = "e7b1c4ad7a76616c5313bfa64ebd50fb478aef9d";
+
+            var sb = new StringBuilder();
+            string file;
+
+            using (var tempFile = new TempFile(".cpp"))
+            using (var textWriter = new StringWriter(sb))
+            {
+                file = tempFile.Name;
+                File.WriteAllText(file, "#include \"windows.h\";");
+
+                using (var sarifLogger = new SarifLogger(textWriter,
+                                                         analysisTargets: new string[] { file },
+                                                         dataToInsert: OptionallyEmittedData.Hashes,
+                                                         hashAlgorithms: HashAlgorithms.Sha256 | HashAlgorithms.GitBlobSha1,
+                                                         invocationTokensToRedact: null,
+                                                         invocationPropertiesToLog: null,
+                                                         levels: BaseLogger.ErrorWarning,
+                                                         kinds: BaseLogger.Fail))
+                {
+                    LogSimpleResult(sarifLogger);
+                }
+            }
+
+            string logText = sb.ToString();
+
+            SarifLog sarifLog = JsonConvert.DeserializeObject<SarifLog>(logText);
+            IDictionary<string, string> hashes = sarifLog.Runs[0].Artifacts[0].Hashes;
+            hashes.Should().NotContainKey("sha-1");
+            hashes["sha-256"].Should().Be("0953D7B3ADA7FED683680D2107EE517A9DBEC2D0AF7594A91F058D104B7A2AEB");
+            hashes["git-blob-sha-1"].Should().Be(ExpectedGitBlobSha1);
         }
 
         [Fact]

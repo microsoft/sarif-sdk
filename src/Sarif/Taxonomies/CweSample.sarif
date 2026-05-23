@@ -148,11 +148,10 @@
             "uriBaseId": "SRCROOT"
           },
           "contents": {
-            "text": "// Copyright (c) Microsoft. All rights reserved.\n// Licensed under the MIT license. See LICENSE file in the project root for full license information.\n\n// SampleCode.cs - a stable target for SARIF taxonomy samples in this directory.\n// The contents are deliberately inert; the file exists to give sample findings\n// a real on-disk file + region to highlight. When a viewer navigates to a\n// SARIF result emitted by one of the *GenerateSample.ps1 scripts in this\n// folder, the region selects the placeholder comment that describes which\n// taxonomy entry (or NOVEL escape hatch) the sample was demonstrating.\n// There are no actual defects in this file for scanners to flag.\n\nnamespace Microsoft.CodeAnalysis.Sarif.Taxonomies.SampleCode\n{\n    public static class Placeholders\n    {\n        // Placeholder region for CWE-79 sub-id 'unescaped-view-input': bare\n        // template interpolation of a user value.\n        public static readonly string Cwe79UnescapedViewInput = \"placeholder\";\n\n        // Placeholder region for CWE-89 sub-id 'string-concat-query': SQL\n        // built by concatenating an untrusted value.\n        public static readonly string Cwe89StringConcatQuery = \"placeholder\";\n\n        // Placeholder region for CWE-22 sub-id 'untrusted-path-no-canon':\n        // Path opened from untrusted input without canonicalization.\n        public static readonly string Cwe22UntrustedPathNoCanon = \"placeholder\";\n\n        // Placeholder region for CWE-798 sub-id 'embedded-credential':\n        // Production secret baked into source code.\n        public static readonly string Cwe798EmbeddedCredential = \"placeholder\";\n\n        // Placeholder region for CWE-1220 sub-id 'missing-tenant-scope':\n        // AuthZ check ignores the caller's tenant context.\n        public static readonly string Cwe1220MissingTenantScope = \"placeholder\";\n\n        // Placeholder region for CWE-79 sub-id 'dom-xss-via-sanitizer-bypass':\n        // demonstrates that two sub-ids can share the same base descriptor\n        // (CWE-79) after replay.\n        public static readonly string Cwe79DomXssBypass = \"placeholder\";\n\n        // Placeholder region for a NOVEL- escape-hatch finding:\n        // 'NOVEL-prompt-injection-via-system-message'. Demonstrates the\n        // shape used when no taxonomy entry fits — flat, no slash.\n        public static readonly string NovelPromptInjection = \"placeholder\";\n    }\n}\n\n"
+            "text": "// Copyright (c) Microsoft. All rights reserved.\r\n// Licensed under the MIT license. See LICENSE file in the project root for full license information.\r\n\r\n// SampleCode.cs - a stable target for SARIF taxonomy samples in this directory.\r\n// The contents are deliberately inert; the file exists to give sample findings\r\n// a real on-disk file + region to highlight. When a viewer navigates to a\r\n// SARIF result emitted by one of the *GenerateSample.ps1 scripts in this\r\n// folder, the region selects the placeholder comment that describes which\r\n// taxonomy entry (or NOVEL escape hatch) the sample was demonstrating.\r\n// There are no actual defects in this file for scanners to flag.\r\n\r\nnamespace Microsoft.CodeAnalysis.Sarif.Taxonomies.SampleCode\r\n{\r\n    public static class Placeholders\r\n    {\r\n        // Placeholder region for CWE-79 sub-id 'unescaped-view-input': bare\r\n        // template interpolation of a user value.\r\n        public static readonly string Cwe79UnescapedViewInput = \"placeholder\";\r\n\r\n        // Placeholder region for CWE-89 sub-id 'string-concat-query': SQL\r\n        // built by concatenating an untrusted value.\r\n        public static readonly string Cwe89StringConcatQuery = \"placeholder\";\r\n\r\n        // Placeholder region for CWE-22 sub-id 'untrusted-path-no-canon':\r\n        // Path opened from untrusted input without canonicalization.\r\n        public static readonly string Cwe22UntrustedPathNoCanon = \"placeholder\";\r\n\r\n        // Placeholder region for CWE-798 sub-id 'embedded-credential':\r\n        // Production secret baked into source code.\r\n        public static readonly string Cwe798EmbeddedCredential = \"placeholder\";\r\n\r\n        // Placeholder region for CWE-1220 sub-id 'missing-tenant-scope':\r\n        // AuthZ check ignores the caller's tenant context.\r\n        public static readonly string Cwe1220MissingTenantScope = \"placeholder\";\r\n\r\n        // Placeholder region for CWE-79 sub-id 'dom-xss-via-sanitizer-bypass':\r\n        // demonstrates that two sub-ids can share the same base descriptor\r\n        // (CWE-79) after replay.\r\n        public static readonly string Cwe79DomXssBypass = \"placeholder\";\r\n\r\n        // Placeholder region for a NOVEL- escape-hatch finding:\r\n        // 'NOVEL-prompt-injection-via-system-message'. Demonstrates the\r\n        // shape used when no taxonomy entry fits — flat, no slash.\r\n        public static readonly string NovelPromptInjection = \"placeholder\";\r\n    }\r\n}\r\n\r\n"
           },
           "hashes": {
-            "sha-1": "1C120172B3B8CC0623AFDA8F32BF44B89FC9E214",
-            "sha-256": "90B63D2A8FCC56D84B0E991430A5C40FEA8636E75122C2E0844B526712E12CC1"
+            "sha-256": "E615D81BB399702E8303A69506DAF31D78EE6DADBBF1445763EAF7AB8C6D8EA6"
           }
         }
       ],
@@ -177,7 +176,7 @@
                   "startColumn": 9,
                   "endLine": 18,
                   "endColumn": 79,
-                  "charOffset": 918,
+                  "charOffset": 935,
                   "charLength": 70,
                   "snippet": {
                     "text": "public static readonly string Cwe79UnescapedViewInput = \"placeholder\";"
@@ -188,10 +187,10 @@
                   "startColumn": 1,
                   "endLine": 19,
                   "endColumn": 1,
-                  "charOffset": 859,
-                  "charLength": 130,
+                  "charOffset": 875,
+                  "charLength": 132,
                   "snippet": {
-                    "text": "        // template interpolation of a user value.\n        public static readonly string Cwe79UnescapedViewInput = \"placeholder\";\n"
+                    "text": "        // template interpolation of a user value.\r\n        public static readonly string Cwe79UnescapedViewInput = \"placeholder\";\r\n"
                   }
                 }
               }
@@ -199,8 +198,8 @@
           ],
           "rank": 60.0,
           "properties": {
-            "ai/exploitability": "theoretical",
-            "ai/attackerPosition": "unauthenticated-remote"
+            "ai/attackerPosition": "unauthenticated-remote",
+            "ai/exploitability": "theoretical"
           }
         },
         {
@@ -224,7 +223,7 @@
                   "startColumn": 9,
                   "endLine": 22,
                   "endColumn": 78,
-                  "charOffset": 1127,
+                  "charOffset": 1148,
                   "charLength": 69,
                   "snippet": {
                     "text": "public static readonly string Cwe89StringConcatQuery = \"placeholder\";"
@@ -235,10 +234,10 @@
                   "startColumn": 1,
                   "endLine": 23,
                   "endColumn": 1,
-                  "charOffset": 1065,
-                  "charLength": 132,
+                  "charOffset": 1085,
+                  "charLength": 134,
                   "snippet": {
-                    "text": "        // built by concatenating an untrusted value.\n        public static readonly string Cwe89StringConcatQuery = \"placeholder\";\n"
+                    "text": "        // built by concatenating an untrusted value.\r\n        public static readonly string Cwe89StringConcatQuery = \"placeholder\";\r\n"
                   }
                 }
               }
@@ -246,8 +245,8 @@
           ],
           "rank": 90.0,
           "properties": {
-            "ai/exploitability": "demonstrated",
-            "ai/attackerPosition": "unauthenticated-remote"
+            "ai/attackerPosition": "unauthenticated-remote",
+            "ai/exploitability": "demonstrated"
           }
         },
         {
@@ -271,7 +270,7 @@
                   "startColumn": 9,
                   "endLine": 26,
                   "endColumn": 81,
-                  "charOffset": 1351,
+                  "charOffset": 1376,
                   "charLength": 72,
                   "snippet": {
                     "text": "public static readonly string Cwe22UntrustedPathNoCanon = \"placeholder\";"
@@ -282,10 +281,10 @@
                   "startColumn": 1,
                   "endLine": 27,
                   "endColumn": 1,
-                  "charOffset": 1273,
-                  "charLength": 151,
+                  "charOffset": 1297,
+                  "charLength": 153,
                   "snippet": {
-                    "text": "        // Path opened from untrusted input without canonicalization.\n        public static readonly string Cwe22UntrustedPathNoCanon = \"placeholder\";\n"
+                    "text": "        // Path opened from untrusted input without canonicalization.\r\n        public static readonly string Cwe22UntrustedPathNoCanon = \"placeholder\";\r\n"
                   }
                 }
               }
@@ -293,8 +292,8 @@
           ],
           "rank": 85.0,
           "properties": {
-            "ai/exploitability": "poc",
-            "ai/attackerPosition": "authenticated-remote"
+            "ai/attackerPosition": "authenticated-remote",
+            "ai/exploitability": "poc"
           }
         },
         {
@@ -318,7 +317,7 @@
                   "startColumn": 9,
                   "endLine": 30,
                   "endColumn": 80,
-                  "charOffset": 1558,
+                  "charOffset": 1587,
                   "charLength": 71,
                   "snippet": {
                     "text": "public static readonly string Cwe798EmbeddedCredential = \"placeholder\";"
@@ -329,10 +328,10 @@
                   "startColumn": 1,
                   "endLine": 31,
                   "endColumn": 1,
-                  "charOffset": 1497,
-                  "charLength": 133,
+                  "charOffset": 1525,
+                  "charLength": 135,
                   "snippet": {
-                    "text": "        // Production secret baked into source code.\n        public static readonly string Cwe798EmbeddedCredential = \"placeholder\";\n"
+                    "text": "        // Production secret baked into source code.\r\n        public static readonly string Cwe798EmbeddedCredential = \"placeholder\";\r\n"
                   }
                 }
               }
@@ -340,8 +339,8 @@
           ],
           "rank": 95.0,
           "properties": {
-            "ai/exploitability": "demonstrated",
-            "ai/attackerPosition": "source-disclosure"
+            "ai/attackerPosition": "source-disclosure",
+            "ai/exploitability": "demonstrated"
           }
         },
         {
@@ -364,7 +363,7 @@
                   "startColumn": 9,
                   "endLine": 34,
                   "endColumn": 81,
-                  "charOffset": 1773,
+                  "charOffset": 1806,
                   "charLength": 72,
                   "snippet": {
                     "text": "public static readonly string Cwe1220MissingTenantScope = \"placeholder\";"
@@ -375,10 +374,10 @@
                   "startColumn": 1,
                   "endLine": 35,
                   "endColumn": 1,
-                  "charOffset": 1705,
-                  "charLength": 141,
+                  "charOffset": 1737,
+                  "charLength": 143,
                   "snippet": {
-                    "text": "        // AuthZ check ignores the caller's tenant context.\n        public static readonly string Cwe1220MissingTenantScope = \"placeholder\";\n"
+                    "text": "        // AuthZ check ignores the caller's tenant context.\r\n        public static readonly string Cwe1220MissingTenantScope = \"placeholder\";\r\n"
                   }
                 }
               }
@@ -386,8 +385,8 @@
           ],
           "rank": 55.0,
           "properties": {
-            "ai/exploitability": "theoretical",
-            "ai/attackerPosition": "authenticated-remote"
+            "ai/attackerPosition": "authenticated-remote",
+            "ai/exploitability": "theoretical"
           }
         },
         {
@@ -411,7 +410,7 @@
                   "startColumn": 9,
                   "endLine": 39,
                   "endColumn": 73,
-                  "charOffset": 2045,
+                  "charOffset": 2083,
                   "charLength": 64,
                   "snippet": {
                     "text": "public static readonly string Cwe79DomXssBypass = \"placeholder\";"
@@ -422,10 +421,10 @@
                   "startColumn": 1,
                   "endLine": 40,
                   "endColumn": 1,
-                  "charOffset": 2003,
-                  "charLength": 107,
+                  "charOffset": 2040,
+                  "charLength": 109,
                   "snippet": {
-                    "text": "        // (CWE-79) after replay.\n        public static readonly string Cwe79DomXssBypass = \"placeholder\";\n"
+                    "text": "        // (CWE-79) after replay.\r\n        public static readonly string Cwe79DomXssBypass = \"placeholder\";\r\n"
                   }
                 }
               }
@@ -433,8 +432,8 @@
           ],
           "rank": 80.0,
           "properties": {
-            "ai/exploitability": "poc",
-            "ai/attackerPosition": "unauthenticated-remote"
+            "ai/attackerPosition": "unauthenticated-remote",
+            "ai/exploitability": "poc"
           }
         },
         {
@@ -458,7 +457,7 @@
                   "startColumn": 9,
                   "endLine": 44,
                   "endColumn": 76,
-                  "charOffset": 2325,
+                  "charOffset": 2368,
                   "charLength": 67,
                   "snippet": {
                     "text": "public static readonly string NovelPromptInjection = \"placeholder\";"
@@ -469,10 +468,10 @@
                   "startColumn": 1,
                   "endLine": 45,
                   "endColumn": 6,
-                  "charOffset": 2249,
-                  "charLength": 149,
+                  "charOffset": 2291,
+                  "charLength": 151,
                   "snippet": {
-                    "text": "        // shape used when no taxonomy entry fits — flat, no slash.\n        public static readonly string NovelPromptInjection = \"placeholder\";\n    }"
+                    "text": "        // shape used when no taxonomy entry fits — flat, no slash.\r\n        public static readonly string NovelPromptInjection = \"placeholder\";\r\n    }"
                   }
                 }
               }
@@ -480,8 +479,8 @@
           ],
           "rank": 70.0,
           "properties": {
-            "ai/exploitability": "demonstrated",
-            "ai/attackerPosition": "unauthenticated-remote"
+            "ai/attackerPosition": "unauthenticated-remote",
+            "ai/exploitability": "demonstrated"
           }
         }
       ],

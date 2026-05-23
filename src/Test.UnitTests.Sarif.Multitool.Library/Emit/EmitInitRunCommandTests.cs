@@ -112,7 +112,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         [InlineData("InformationUri", "docs/tool")]                // relative
         [InlineData("InformationUri", "http://example.com/tool")]  // disallowed scheme (https-only)
         [InlineData("InformationUri", "file:///etc/tool/docs")]    // file scheme rejected for informationUri
-        [InlineData("SourceRoot",     "ftp://example.com/src/")]   // disallowed scheme for --srcroot
+        [InlineData("SourceRoot", "ftp://example.com/src/")]   // disallowed scheme for --srcroot
         public void Run_FailsOnInvalidUriFlag(string slot, string value)
         {
             // EmitEventLogHelpers.TryValidateUri rejects malformed URIs, relative URIs,
@@ -127,7 +127,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             switch (slot)
             {
                 case "InformationUri": options.InformationUri = value; break;
-                case "SourceRoot":     options.SourceRoot     = value; break;
+                case "SourceRoot": options.SourceRoot = value; break;
                 default: throw new ArgumentOutOfRangeException(nameof(slot));
             }
 

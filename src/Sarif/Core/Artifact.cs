@@ -20,7 +20,8 @@ namespace Microsoft.CodeAnalysis.Sarif
             OptionallyEmittedData dataToInsert = OptionallyEmittedData.None,
             Encoding encoding = null,
             HashData hashData = null,
-            IFileSystem fileSystem = null)
+            IFileSystem fileSystem = null,
+            HashAlgorithms hashAlgorithms = HashAlgorithms.Default)
         {
             if (uri == null) { throw new ArgumentNullException(nameof(uri)); }
 
@@ -29,7 +30,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             var artifact = new Artifact()
             {
                 Encoding = encoding?.WebName,
-                Hashes = hashData?.ToDictionary(),
+                Hashes = NullIfEmpty(hashData?.ToDictionary()),
             };
 
             string mimeType = SarifWriters.MimeType.DetermineFromFileExtension(uri);
@@ -70,17 +71,10 @@ namespace Microsoft.CodeAnalysis.Sarif
 
                 if (dataToInsert.HasFlag(OptionallyEmittedData.Hashes))
                 {
-                    HashData hashes = hashData ?? HashUtilities.ComputeHashes(filePath);
+                    HashData hashes = hashData
+                        ?? HashUtilities.ComputeHashes(filePath, fileSystem, hashAlgorithms);
 
-                    // The hash utilities will return null data in some test contexts.
-                    if (hashes != null)
-                    {
-                        artifact.Hashes = new Dictionary<string, string>
-                        {
-                            { "sha-1", hashes.Sha1 },
-                            { "sha-256", hashes.Sha256 },
-                        };
-                    }
+                    artifact.Hashes = NullIfEmpty(hashes?.ToDictionary());
                 }
             }
             catch (Exception e) when (e is IOException || e is UnauthorizedAccessException) { }
@@ -112,5 +106,11 @@ namespace Microsoft.CodeAnalysis.Sarif
             return this.Location?.ToString() ?? base.ToString();
         }
 #endif
+
+        // Avoid serializing an empty "hashes": {} object on an artifact.
+        private static IDictionary<string, string> NullIfEmpty(IDictionary<string, string> hashes)
+        {
+            return (hashes == null || hashes.Count == 0) ? null : hashes;
+        }
     }
 }

@@ -24,7 +24,11 @@ namespace Microsoft.CodeAnalysis.Sarif
         private static readonly int BLOCK_SIZE = 100;
         private static readonly Long MOD = new Long(37, 0, false);
 
-        public static IDictionary<string, HashData> MultithreadedComputeTargetFileHashes(IEnumerable<string> analysisTargets, bool suppressConsoleOutput = false)
+        public static IDictionary<string, HashData> MultithreadedComputeTargetFileHashes(
+            IEnumerable<string> analysisTargets,
+            bool suppressConsoleOutput = false,
+            IFileSystem fileSystem = null,
+            HashAlgorithms algorithms = HashAlgorithms.Default)
         {
             if (analysisTargets == null) { return null; }
 
@@ -47,7 +51,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                     {
                         if (queue.TryDequeue(out string filePath))
                         {
-                            fileToHashDataMap[filePath] = HashUtilities.ComputeHashes(filePath);
+                            fileToHashDataMap[filePath] = HashUtilities.ComputeHashes(filePath, fileSystem, algorithms);
                         }
                     }
                 }));
@@ -62,9 +66,16 @@ namespace Microsoft.CodeAnalysis.Sarif
             return fileToHashDataMap;
         }
 
+        /// <summary>
+        /// Computes the requested set of hashes for a file. Returns <c>null</c> if the file
+        /// cannot be opened (e.g., I/O error, access denied, or a mock file system returns
+        /// no stream). Defaults to <see cref="HashAlgorithms.Default"/> (SHA-256 only).
+        /// </summary>
         [SuppressMessage("Microsoft.Security.Cryptography", "CA5354:SHA1CannotBeUsed")]
         [SuppressMessage("Microsoft.Security.Cryptography", "CA5350:MD5CannotBeUsed")]
-        public static HashData ComputeHashes(string fileName, IFileSystem fileSystem = null)
+        public static HashData ComputeHashes(string fileName,
+                                             IFileSystem fileSystem = null,
+                                             HashAlgorithms algorithms = HashAlgorithms.Default)
         {
             fileSystem ??= FileSystem.Instance;
 
@@ -73,10 +84,10 @@ namespace Microsoft.CodeAnalysis.Sarif
                 using (Stream stream = fileSystem.FileOpenRead(fileName))
                 {
                     // This condition is actually only feasible in testing, as a null
-                    // value will only be returned by a mock object that doesn't 
+                    // value will only be returned by a mock object that doesn't
                     // recognize the current specified file argument. In production,
                     // an exception will always be raised for a missing file. If
-                    // we enter the code below, that indicates that a test 
+                    // we enter the code below, that indicates that a test
                     // encountered an adverse condition and is attempting to produce
                     // a file hash for some source file in a notification stack. We
                     // return null here, as the actual source hash isn't interesting
@@ -84,7 +95,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                     // and record exception details.
                     if (stream == null) { return null; }
 
-                    return ComputeHashes(stream);
+                    return ComputeHashes(stream, algorithms);
                 }
             }
             catch (IOException) { }
@@ -92,37 +103,131 @@ namespace Microsoft.CodeAnalysis.Sarif
             return null;
         }
 
-        public static HashData ComputeHashes(Stream stream)
+        /// <summary>
+        /// Computes the requested set of hashes from a stream in a single pass, hashing from
+        /// the stream's current position to the end. The position is restored on seekable streams.
+        /// </summary>
+        /// <remarks>
+        /// <see cref="HashAlgorithms.GitBlobSha1"/> uses the byte length of the hashed region
+        /// (<c>stream.Length - stream.Position</c>) to build the git blob header; the result
+        /// therefore matches <c>git hash-object</c> when the stream is positioned at zero.
+        /// Non-seekable streams are buffered in memory as a fallback. SHA-* values are
+        /// uppercase hex; <c>git-blob-sha-1</c> is lowercase, matching git's canonical form.
+        /// </remarks>
+        [SuppressMessage("Microsoft.Security.Cryptography", "CA5354:SHA1CannotBeUsed")]
+        [SuppressMessage("Microsoft.Security.Cryptography", "CA5350:MD5CannotBeUsed")]
+        public static HashData ComputeHashes(Stream stream, HashAlgorithms algorithms = HashAlgorithms.Default)
         {
-            using (var bufferedStream = new BufferedStream(stream, 1024 * 32))
+            if (algorithms == HashAlgorithms.None)
             {
-                string sha1, sha256;
-                byte[] checksum;
+                return new HashData();
+            }
 
-                using (var sha1Cng = SHA1.Create())
+            IncrementalHash sha1 = null;
+            IncrementalHash sha256 = null;
+            IncrementalHash sha512 = null;
+            IncrementalHash gitBlobSha1 = null;
+
+            try
+            {
+                if (algorithms.HasFlag(HashAlgorithms.Sha1))
                 {
-                    checksum = sha1Cng.ComputeHash(bufferedStream);
-                    sha1 = BitConverter.ToString(checksum).Replace("-", string.Empty);
+                    sha1 = IncrementalHash.CreateHash(HashAlgorithmName.SHA1);
                 }
 
-                stream.Seek(0, SeekOrigin.Begin);
-                bufferedStream.Seek(0, SeekOrigin.Begin);
-
-                using (var sha256Cng = SHA256.Create())
+                if (algorithms.HasFlag(HashAlgorithms.Sha256))
                 {
-                    checksum = sha256Cng.ComputeHash(bufferedStream);
-                    sha256 = BitConverter.ToString(checksum).Replace("-", string.Empty);
+                    sha256 = IncrementalHash.CreateHash(HashAlgorithmName.SHA256);
                 }
 
-                return new HashData(sha1, sha256);
+                if (algorithms.HasFlag(HashAlgorithms.Sha512))
+                {
+                    sha512 = IncrementalHash.CreateHash(HashAlgorithmName.SHA512);
+                }
+
+                if (algorithms.HasFlag(HashAlgorithms.GitBlobSha1))
+                {
+                    gitBlobSha1 = IncrementalHash.CreateHash(HashAlgorithmName.SHA1);
+
+                    long contentLength;
+                    if (stream.CanSeek)
+                    {
+                        contentLength = stream.Length - stream.Position;
+                    }
+                    else
+                    {
+                        var buffered = new MemoryStream();
+                        stream.CopyTo(buffered);
+                        buffered.Position = 0;
+                        stream = buffered;
+                        contentLength = buffered.Length;
+                    }
+
+                    byte[] header = Encoding.ASCII.GetBytes(
+                        "blob " + contentLength.ToString(System.Globalization.CultureInfo.InvariantCulture) + "\0");
+                    gitBlobSha1.AppendData(header, 0, header.Length);
+                }
+
+                long startPosition = stream.CanSeek ? stream.Position : 0;
+
+                var buffer = new byte[32 * 1024];
+                int read;
+                while ((read = stream.Read(buffer, 0, buffer.Length)) > 0)
+                {
+                    sha1?.AppendData(buffer, 0, read);
+                    sha256?.AppendData(buffer, 0, read);
+                    sha512?.AppendData(buffer, 0, read);
+                    gitBlobSha1?.AppendData(buffer, 0, read);
+                }
+
+                if (stream.CanSeek)
+                {
+                    stream.Seek(startPosition, SeekOrigin.Begin);
+                }
+
+                return new HashData
+                {
+                    Sha1 = sha1 != null ? ToUpperHex(sha1.GetHashAndReset()) : null,
+                    Sha256 = sha256 != null ? ToUpperHex(sha256.GetHashAndReset()) : null,
+                    Sha512 = sha512 != null ? ToUpperHex(sha512.GetHashAndReset()) : null,
+                    // Git canonically emits blob SHAs in lowercase hex.
+                    GitBlobSha1 = gitBlobSha1 != null ? ToLowerHex(gitBlobSha1.GetHashAndReset()) : null,
+                };
+            }
+            finally
+            {
+                sha1?.Dispose();
+                sha256?.Dispose();
+                sha512?.Dispose();
+                gitBlobSha1?.Dispose();
             }
         }
 
-        public static HashData ComputeHashesForText(string text)
+        /// <summary>
+        /// Computes the requested set of hashes for the UTF-8 byte representation of <paramref name="text"/>.
+        /// Defaults to <see cref="HashAlgorithms.Default"/> (SHA-256 only).
+        /// </summary>
+        /// <remarks>
+        /// Note that <see cref="HashAlgorithms.GitBlobSha1"/> computed via this overload reflects
+        /// the UTF-8 encoding of the supplied text, not the original on-disk bytes. To produce
+        /// a value that matches a git server's stored blob SHA, prefer the stream- or file-based
+        /// overloads operating on the raw file bytes.
+        /// </remarks>
+        public static HashData ComputeHashesForText(string text, HashAlgorithms algorithms = HashAlgorithms.Default)
         {
             text ??= string.Empty;
-            var stream = new MemoryStream(Encoding.UTF8.GetBytes(text));
-            return ComputeHashes(stream);
+            using var stream = new MemoryStream(Encoding.UTF8.GetBytes(text));
+            return ComputeHashes(stream, algorithms);
+        }
+
+        private static string ToUpperHex(byte[] bytes)
+        {
+            return BitConverter.ToString(bytes).Replace("-", string.Empty);
+        }
+
+        private static string ToLowerHex(byte[] bytes)
+        {
+            return BitConverter.ToString(bytes).Replace("-", string.Empty).ToLowerInvariant();
         }
 
         public static string ComputeSha256Hash(string fileName, IFileSystem fileSystem = null)
