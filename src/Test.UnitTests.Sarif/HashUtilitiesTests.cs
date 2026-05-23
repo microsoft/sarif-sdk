@@ -5,6 +5,8 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 
+using FluentAssertions;
+
 using Microsoft.CodeAnalysis.Sarif;
 using Microsoft.CodeAnalysis.Test.Utilities.Sarif;
 
@@ -314,6 +316,228 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif
 
             // Assert
             Assert.Equal(expectedOutput, actualOutput);
+        }
+
+        // ---------- HashAlgorithms / git-blob-sha-1 ----------
+
+        // The well-known git blob SHA-1 of an empty file.
+        // `git hash-object -t blob /dev/null` => e69de29bb2d1d6434b8b29ae775ad8c2e48c5391
+        private const string EmptyFileGitBlobSha1 = "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391";
+
+        // SHA-1 of: ASCII "blob 14\0" + UTF-8 "Hello, world!\n" (14 bytes)
+        // Verified to match `git hash-object` for the same byte sequence.
+        private const string HelloWorldGitBlobSha1 = "af5626b4a114abcb82d63db7c8082c3c4756e51b";
+
+        // SHA-512 of "Hello, world!\n" (14 ASCII bytes), uppercase hex.
+        private const string HelloWorldSha512 =
+            "09E1E2A84C92B56C8280F4A1203C7CFFD61B162CFE987278D4D6BE9AFBF38C0E" +
+            "8934CDADF83751F4E99D111352BFFEFC958E5A4852C8A7A29C95742CE59288A8";
+
+        [Fact]
+        public void ComputeHashes_EmptyStream_GitBlobSha1_MatchesGitCanonical()
+        {
+            using var stream = new MemoryStream(Array.Empty<byte>());
+            HashData hashes = HashUtilities.ComputeHashes(stream, HashAlgorithms.GitBlobSha1);
+
+            hashes.GitBlobSha1.Should().Be(EmptyFileGitBlobSha1);
+            hashes.Sha1.Should().BeNull();
+            hashes.Sha256.Should().BeNull();
+            hashes.Sha512.Should().BeNull();
+        }
+
+        [Fact]
+        public void ComputeHashes_KnownContent_GitBlobSha1_MatchesGitHashObject()
+        {
+            byte[] bytes = System.Text.Encoding.UTF8.GetBytes("Hello, world!\n");
+            using var stream = new MemoryStream(bytes);
+
+            HashData hashes = HashUtilities.ComputeHashes(stream, HashAlgorithms.GitBlobSha1);
+
+            hashes.GitBlobSha1.Should().Be(HelloWorldGitBlobSha1);
+        }
+
+        [Fact]
+        public void ComputeHashes_KnownContent_Sha512_MatchesCanonical()
+        {
+            byte[] bytes = System.Text.Encoding.ASCII.GetBytes("Hello, world!\n");
+            using var stream = new MemoryStream(bytes);
+
+            HashData hashes = HashUtilities.ComputeHashes(stream, HashAlgorithms.Sha512);
+
+            hashes.Sha512.Should().Be(HelloWorldSha512);
+            hashes.Sha1.Should().BeNull();
+            hashes.Sha256.Should().BeNull();
+            hashes.GitBlobSha1.Should().BeNull();
+        }
+
+        [Fact]
+        public void ComputeHashes_GitBlobSha1_EmittedAsLowercaseHex()
+        {
+            byte[] bytes = System.Text.Encoding.UTF8.GetBytes("Hello, world!\n");
+            using var stream = new MemoryStream(bytes);
+
+            HashData hashes = HashUtilities.ComputeHashes(stream, HashAlgorithms.GitBlobSha1);
+
+            // Git canonically emits blob SHAs in lowercase hex; SARIF should match that
+            // so values diff cleanly against `git hash-object` output.
+            hashes.GitBlobSha1.Should().Be(hashes.GitBlobSha1.ToLowerInvariant());
+        }
+
+        [Fact]
+        public void ComputeHashes_None_ReturnsAllNull()
+        {
+            using var stream = new MemoryStream(new byte[] { 1, 2, 3 });
+            HashData hashes = HashUtilities.ComputeHashes(stream, HashAlgorithms.None);
+
+            hashes.Sha1.Should().BeNull();
+            hashes.Sha256.Should().BeNull();
+            hashes.Sha512.Should().BeNull();
+            hashes.GitBlobSha1.Should().BeNull();
+        }
+
+        [Fact]
+        public void ComputeHashes_Sha256Only_ProducesOnlySha256()
+        {
+            using var stream = new MemoryStream(new byte[] { 1, 2, 3 });
+            HashData hashes = HashUtilities.ComputeHashes(stream, HashAlgorithms.Sha256);
+
+            hashes.Sha1.Should().BeNull();
+            hashes.Sha256.Should().NotBeNullOrEmpty();
+            hashes.Sha512.Should().BeNull();
+            hashes.GitBlobSha1.Should().BeNull();
+        }
+
+        [Fact]
+        public void ComputeHashes_AllAlgorithms_ProducesAll()
+        {
+            using var stream = new MemoryStream(new byte[] { 1, 2, 3 });
+            HashAlgorithms all = HashAlgorithms.Sha1 | HashAlgorithms.Sha256 | HashAlgorithms.Sha512 | HashAlgorithms.GitBlobSha1;
+
+            HashData hashes = HashUtilities.ComputeHashes(stream, all);
+
+            hashes.Sha1.Should().NotBeNullOrEmpty();
+            hashes.Sha256.Should().NotBeNullOrEmpty();
+            hashes.Sha512.Should().NotBeNullOrEmpty();
+            hashes.GitBlobSha1.Should().NotBeNullOrEmpty();
+        }
+
+        [Fact]
+        public void ComputeHashes_RestoresStreamPosition_ForSeekableStreams()
+        {
+            using var stream = new MemoryStream(new byte[] { 1, 2, 3, 4, 5 });
+            stream.Position = 1;
+
+            HashUtilities.ComputeHashes(stream, HashAlgorithms.Sha256 | HashAlgorithms.GitBlobSha1);
+
+            stream.Position.Should().Be(1);
+        }
+
+        [Fact]
+        public void ComputeHashes_DefaultParameterlessOverload_ProducesOnlySha256()
+        {
+            // With the v2 API, every overload defaults to HashAlgorithms.Default (SHA-256
+            // only). Callers who want the legacy SHA-1 + SHA-256 combination must opt in
+            // explicitly via the algorithms parameter. This test pins down that new
+            // default contract.
+            using var stream = new MemoryStream(new byte[] { 1, 2, 3 });
+            HashData hashes = HashUtilities.ComputeHashes(stream);
+
+            hashes.Sha1.Should().BeNull();
+            hashes.Sha256.Should().NotBeNullOrEmpty();
+            hashes.GitBlobSha1.Should().BeNull();
+        }
+
+        [Fact]
+        public void ComputeHashes_GitBlobSha1FromFile_MatchesStreamComputation()
+        {
+            string filePath = Path.GetTempFileName();
+            try
+            {
+                File.WriteAllText(filePath, "abc");
+
+                HashData fromFile = HashUtilities.ComputeHashes(filePath, fileSystem: null, HashAlgorithms.GitBlobSha1);
+
+                using var stream = File.OpenRead(filePath);
+                HashData fromStream = HashUtilities.ComputeHashes(stream, HashAlgorithms.GitBlobSha1);
+
+                fromFile.GitBlobSha1.Should().Be(fromStream.GitBlobSha1);
+                fromFile.GitBlobSha1.Should().NotBeNullOrEmpty();
+            }
+            finally
+            {
+                if (File.Exists(filePath)) { File.Delete(filePath); }
+            }
+        }
+
+        // ---------- HashData ----------
+
+        [Fact]
+        public void HashData_ToDictionary_SkipsNullValues()
+        {
+            var hashData = new HashData { Sha256 = "ABC" };
+            IDictionary<string, string> dict = hashData.ToDictionary();
+
+            dict.Should().ContainKey("sha-256");
+            dict.Should().NotContainKey("sha-1");
+            dict.Should().NotContainKey("sha-512");
+            dict.Should().NotContainKey("git-blob-sha-1");
+        }
+
+        [Fact]
+        public void HashData_ToDictionary_EmitsGitBlobSha1Key()
+        {
+            var hashData = new HashData { GitBlobSha1 = "deadbeef" };
+            IDictionary<string, string> dict = hashData.ToDictionary();
+
+            dict.Should().ContainKey("git-blob-sha-1");
+            dict["git-blob-sha-1"].Should().Be("deadbeef");
+        }
+
+        [Fact]
+        public void HashData_ToDictionary_EmitsSha512Key()
+        {
+            var hashData = new HashData { Sha512 = "ABCDEF" };
+            IDictionary<string, string> dict = hashData.ToDictionary();
+
+            dict.Should().ContainKey("sha-512");
+            dict["sha-512"].Should().Be("ABCDEF");
+        }
+
+        [Fact]
+        public void ComputeHashes_FromNonZeroStreamPosition_HashesSuffixAsStandaloneBlob()
+        {
+            // The git-blob-sha-1 contract documented on ComputeHashes(Stream, HashAlgorithms):
+            // hashing starts at the stream's current position, and the blob header length
+            // reflects the bytes that will actually be hashed (Length - Position). The
+            // resulting hash should therefore equal the canonical git blob SHA-1 of the
+            // suffix viewed as a standalone blob.
+            //
+            // Suffix bytes = "Hello, world!\n" (14 bytes) -> known git blob SHA-1.
+            const string expectedSuffixGitBlobSha1 = "af5626b4a114abcb82d63db7c8082c3c4756e51b";
+            const string prefix = "IGNORED-PREFIX:";
+            const string suffix = "Hello, world!\n";
+
+            byte[] bytes = System.Text.Encoding.ASCII.GetBytes(prefix + suffix);
+
+            using var stream = new MemoryStream(bytes);
+            stream.Position = prefix.Length;
+
+            HashData hashes = HashUtilities.ComputeHashes(stream, HashAlgorithms.GitBlobSha1);
+
+            hashes.GitBlobSha1.Should().Be(expectedSuffixGitBlobSha1);
+
+            // The implementation restores the starting position for seekable streams.
+            stream.Position.Should().Be(prefix.Length);
+        }
+
+        [Fact]
+        public void HashData_ToDictionary_WithAllNullValues_ReturnsEmptyDictionary()
+        {
+            var hashData = new HashData();
+            IDictionary<string, string> dict = hashData.ToDictionary();
+
+            dict.Should().NotBeNull();
+            dict.Should().BeEmpty();
         }
     }
 }

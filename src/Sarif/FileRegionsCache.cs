@@ -23,6 +23,19 @@ namespace Microsoft.CodeAnalysis.Sarif
         internal readonly Cache<string, NewLineIndex> _newLineIndexCache;
 
         /// <summary>
+        /// The hash algorithms this cache computes when producing <see cref="HashData"/> for files.
+        /// </summary>
+        public HashAlgorithms HashAlgorithms { get; }
+
+        /// <summary>
+        /// The file system this cache uses for all I/O. Exposed to internal callers so that
+        /// downstream <see cref="Artifact.Create"/> / <see cref="Run.GetFileIndex"/> sites
+        /// can flow the same <see cref="IFileSystem"/> instance instead of silently falling
+        /// back to the default <c>FileSystem.Instance</c>.
+        /// </summary>
+        internal IFileSystem FileSystem => _fileSystem;
+
+        /// <summary>
         /// Creates a new <see cref="FileRegionsCache"/> object.
         /// </summary>
         /// <param name="capacity">
@@ -31,9 +44,16 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="fileSystem">
         /// An object that provides access to file system services.
         /// </param>
-        public FileRegionsCache(int capacity = DefaultCacheCapacity, IFileSystem fileSystem = null)
+        /// <param name="hashAlgorithms">
+        /// The set of hash algorithms this cache will compute when producing <see cref="HashData"/>
+        /// for files. Defaults to <see cref="HashAlgorithms.Default"/> (SHA-256 only).
+        /// </param>
+        public FileRegionsCache(int capacity = DefaultCacheCapacity,
+                                IFileSystem fileSystem = null,
+                                HashAlgorithms hashAlgorithms = HashAlgorithms.Default)
         {
-            _fileSystem = fileSystem ?? FileSystem.Instance;
+            _fileSystem = fileSystem ?? Sarif.FileSystem.Instance;
+            HashAlgorithms = hashAlgorithms;
 
             _fileTextCache = new Cache<string, string>(RetrieveTextForFile, capacity);
             _hashDataCache = new Cache<string, HashData>(BuildHashDataForFile, capacity);
@@ -364,14 +384,14 @@ namespace Microsoft.CodeAnalysis.Sarif
         public HashData GetHashData(Uri uri, string fileText = null)
         {
             string path = uri.GetFilePath();
+
             if (fileText != null)
             {
                 _fileTextCache[path] = fileText;
+                return HashUtilities.ComputeHashesForText(fileText, HashAlgorithms);
             }
 
-            fileText = _fileTextCache[path];
-
-            return HashUtilities.ComputeHashesForText(fileText);
+            return _hashDataCache[path];
         }
 
         public NewLineIndex GetNewLineIndex(Uri uri, string fileText = null)
@@ -421,8 +441,15 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         private HashData BuildHashDataForFile(string path)
         {
+            HashData hashes = HashUtilities.ComputeHashes(path, _fileSystem, HashAlgorithms);
+            if (hashes != null)
+            {
+                return hashes;
+            }
+
+            // Fallback for mock file systems that return no stream: hash the cached text instead.
             string fileText = _fileTextCache[path];
-            return HashUtilities.ComputeHashesForText(fileText);
+            return HashUtilities.ComputeHashesForText(fileText, HashAlgorithms);
         }
 
         /// <summary>

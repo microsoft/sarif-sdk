@@ -154,7 +154,19 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     }
 
                     int length = node.Length;
-                    node = Artifact.Create(uri, dataToInsert, encoding: encoding);
+
+                    HashData hashData = null;
+                    if (FileRegionsCache != null && dataToInsert.HasFlag(OptionallyEmittedData.Hashes))
+                    {
+                        hashData = FileRegionsCache.GetHashData(uri);
+                    }
+
+                    node = Artifact.Create(uri,
+                                           dataToInsert,
+                                           encoding: encoding,
+                                           hashData: hashData,
+                                           fileSystem: _fileSystem,
+                                           hashAlgorithms: FileRegionsCache?.HashAlgorithms ?? HashAlgorithms.Default);
                     node.Length = length;
                     fileLocation.Index = -1;
                     node.Location = fileLocation;
