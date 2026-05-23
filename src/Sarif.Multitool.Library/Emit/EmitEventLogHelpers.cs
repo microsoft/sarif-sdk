@@ -4,24 +4,27 @@
 using System;
 using System.Globalization;
 using System.IO;
+using System.Text;
 
 using Microsoft.CodeAnalysis.Sarif.Driver;
 
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
 namespace Microsoft.CodeAnalysis.Sarif.Multitool
 {
     /// <summary>
-    /// Shared plumbing for the <c>add-*</c> emit verbs: resolves the staged event log path,
-    /// reads the caller-supplied JSON (file or stdin), and parses it into a <see cref="JToken"/>.
+    /// Shared plumbing for the emit verb chain (<c>emit-init-run</c>, <c>add-result</c>,
+    /// <c>add-notification</c>, <c>emit-finalize</c>): resolves the staged event log path,
+    /// reads caller-supplied JSON (file or stdin), and parses it into a
+    /// <see cref="JToken"/> in a date-safe way.
     /// </summary>
     /// <remarks>
-    /// Each <c>add-*</c> verb appends a single fully-formed SARIF object (result, notification,
-    /// etc.) to <c>&lt;output&gt;.wip.jsonl</c>. The verbs share three failure-shaping concerns
-    /// — missing wip log, missing/invalid JSON input, malformed JSON syntax — which live here
-    /// so the per-verb commands stay focused on payload validation and append.
+    /// The verbs share three concerns — locating <c>&lt;output&gt;.wip.jsonl</c>, sourcing
+    /// the payload, and parsing it without lossy normalization — which live here so the
+    /// per-verb commands can stay focused on payload-specific validation and append.
     /// </remarks>
-    internal static class AddEventCommandHelpers
+    internal static class EmitEventLogHelpers
     {
         internal const string WipSuffix = ".wip.jsonl";
 
@@ -106,7 +109,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                     return CommandBase.FAILURE;
                 }
 
-                json = Console.In.ReadToEnd();
+                json = ReadStandardInputAsUtf8();
             }
 
             if (string.IsNullOrWhiteSpace(json))
@@ -121,9 +124,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
             try
             {
-                payload = JToken.Parse(json);
+                // DateParseHandling.None is critical: SARIF payloads contain ISO-8601 strings in
+                // many places (timeUtc, properties bags, exception traces, custom evidence
+                // fields) which Json.NET's default DateParseHandling would silently convert to
+                // System.DateTime and re-serialize with a normalized format on the way back
+                // out. We must preserve the producer's exact text.
+                using var sr = new StringReader(json);
+                using var jr = new JsonTextReader(sr) { DateParseHandling = DateParseHandling.None };
+                payload = JToken.ReadFrom(jr);
             }
-            catch (Newtonsoft.Json.JsonReaderException ex)
+            catch (JsonReaderException ex)
             {
                 Console.Error.WriteLine(
                     string.Format(
@@ -146,6 +156,25 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             }
 
             return CommandBase.SUCCESS;
+        }
+
+        /// <summary>
+        /// Reads redirected stdin as UTF-8, bypassing <see cref="Console.InputEncoding"/>.
+        /// On Windows the console's default input encoding is the active OEM codepage
+        /// (often cp437 or cp850), which would mangle non-ASCII content in a piped
+        /// SARIF payload. AI orchestrators routinely emit messages, URIs, and properties
+        /// containing non-ASCII characters, so we must decode the raw byte stream as UTF-8
+        /// regardless of the console's current code page. A BOM-stamped input is still
+        /// honored — <see cref="StreamReader"/>'s detect-BOM flag handles that case.
+        /// </summary>
+        private static string ReadStandardInputAsUtf8()
+        {
+            using Stream stdin = Console.OpenStandardInput();
+            using var reader = new StreamReader(
+                stdin,
+                new UTF8Encoding(encoderShouldEmitUTF8Identifier: false),
+                detectEncodingFromByteOrderMarks: true);
+            return reader.ReadToEnd();
         }
 
         private static string Capitalize(string s)

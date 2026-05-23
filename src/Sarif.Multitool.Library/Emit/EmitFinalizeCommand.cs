@@ -29,24 +29,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
             try
             {
-                if (string.IsNullOrWhiteSpace(options?.OutputFilePath))
-                {
-                    Console.Error.WriteLine("Output SARIF path is required.");
-                    return FAILURE;
-                }
+                int code = EmitEventLogHelpers.TryResolveWipPath(
+                    options?.OutputFilePath,
+                    fileSystem,
+                    out string wipPath);
+                if (code != SUCCESS) { return code; }
 
                 string outputPath = Path.GetFullPath(options.OutputFilePath);
-                string wipPath = outputPath + ".wip.jsonl";
-
-                if (!fileSystem.FileExists(wipPath))
-                {
-                    Console.Error.WriteLine(
-                        string.Format(
-                            CultureInfo.CurrentCulture,
-                            "Event log '{0}' does not exist; run 'emit-init-run' first.",
-                            wipPath));
-                    return FAILURE;
-                }
 
                 SarifLog log = SarifEventReplayer.Replay(wipPath);
 

@@ -73,19 +73,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         }
 
         [Fact]
-        public void Run_HappyPath_AppendsResultFromStdin()
+        public void Run_PrefersInputFileWhenSupplied()
         {
+            // When --input is supplied, the verb reads from the file and ignores any stdin
+            // pipe. (The stdin-fallback path of the verb is exercised end-to-end by the
+            // sample-generation smoke script; xUnit doesn't redirect the OS-level stdin
+            // handle even when Console.SetIn is called, so we cannot exercise that path
+            // from a unit test.)
             SeedRunHeader();
-
             string json = "{ \"ruleId\": \"NOVEL-prompt-injection\", \"message\": { \"text\": \"x\" } }";
-            using var stdin = new StringReader(json);
-            Console.SetIn(stdin);
-
-            // Console.IsInputRedirected reflects the OS-level handle, which xUnit does not
-            // redirect even if Console.SetIn was called. The verb's stdin fallback path is
-            // covered indirectly by the end-to-end smoke test; the unit tests cover the
-            // input-file path explicitly. Here we just assert that the file path is preferred
-            // when supplied.
             File.WriteAllText(InputPath, json);
 
             int exit = new AddResultCommand().Run(new AddResultOptions
@@ -96,6 +92,59 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
             exit.Should().Be(CommandBase.SUCCESS);
             File.ReadAllText(WipPath).Should().Contain("NOVEL-prompt-injection");
+        }
+
+        [Fact]
+        public void Run_PreservesDateLikeStringInProperties()
+        {
+            // Json.NET's JsonTextReader defaults to DateParseHandling.DateTime, which would
+            // silently rewrite ISO-8601 strings inside an arbitrary 'properties' bag into
+            // System.DateTime instances and re-emit them with a normalized format on the
+            // way back out. The emit verbs use DateParseHandling.None so producer-supplied
+            // timestamp strings round-trip verbatim. Pin that behavior.
+            SeedRunHeader();
+            const string OriginalTimestamp = "2026-02-14T08:30:00.1234567+00:00";
+            string json = "{ \"ruleId\": \"CWE-79/x\", \"message\": { \"text\": \"x\" }, " +
+                $"\"properties\": {{ \"observed\": \"{OriginalTimestamp}\" }} }}";
+            File.WriteAllText(InputPath, json);
+
+            int exit = new AddResultCommand().Run(new AddResultOptions
+            {
+                OutputFilePath = OutPath,
+                InputFilePath = InputPath,
+            });
+
+            exit.Should().Be(CommandBase.SUCCESS);
+            string appended = File.ReadAllLines(WipPath).Last();
+            appended.Should().Contain(OriginalTimestamp,
+                "the producer's timestamp must round-trip verbatim — Json.NET must not coerce it to a normalized DateTime form");
+        }
+
+        [Fact]
+        public void Run_RejectsNonStringRuleId_WithSpecificDiagnostic()
+        {
+            SeedRunHeader();
+            // ruleId expressed as a JSON number (a typical AI generation mistake — emitting
+            // the descriptor index rather than the id string). We want the diagnostic to
+            // name the actual problem ("must be a string, got integer") rather than the
+            // generic "(empty ruleId)" produced when ruleId is missing or empty.
+            File.WriteAllText(InputPath, "{ \"ruleId\": 79, \"message\": { \"text\": \"x\" } }");
+
+            using var errWriter = new StringWriter();
+            Console.SetError(errWriter);
+
+            int exit = new AddResultCommand().Run(new AddResultOptions
+            {
+                OutputFilePath = OutPath,
+                InputFilePath = InputPath,
+            });
+
+            exit.Should().Be(CommandBase.FAILURE);
+            string err = errWriter.ToString();
+            err.Should().Contain(AIRuleIdConventionException.ErrorCode);
+            err.Should().Contain("must be a JSON string");
+            err.Should().Contain("integer");
+            File.ReadAllLines(WipPath).Should().HaveCount(1);
         }
 
         [Fact]

@@ -33,13 +33,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
             try
             {
-                int code = AddEventCommandHelpers.TryResolveWipPath(
+                int code = EmitEventLogHelpers.TryResolveWipPath(
                     options?.OutputFilePath,
                     fileSystem,
                     out string wipPath);
                 if (code != SUCCESS) { return code; }
 
-                code = AddEventCommandHelpers.TryReadJsonPayload(
+                code = EmitEventLogHelpers.TryReadJsonPayload(
                     options?.InputFilePath,
                     payloadKind: "notification",
                     fileSystem,

@@ -31,21 +31,39 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
             try
             {
-                int code = AddEventCommandHelpers.TryResolveWipPath(
+                int code = EmitEventLogHelpers.TryResolveWipPath(
                     options?.OutputFilePath,
                     fileSystem,
                     out string wipPath);
                 if (code != SUCCESS) { return code; }
 
-                code = AddEventCommandHelpers.TryReadJsonPayload(
+                code = EmitEventLogHelpers.TryReadJsonPayload(
                     options?.InputFilePath,
                     payloadKind: "result",
                     fileSystem,
                     out JToken payload);
                 if (code != SUCCESS) { return code; }
 
-                string ruleId = payload["ruleId"]?.Type == JTokenType.String
-                    ? payload["ruleId"].Value<string>()
+                JToken ruleIdToken = payload["ruleId"];
+                if (ruleIdToken != null
+                    && ruleIdToken.Type != JTokenType.Null
+                    && ruleIdToken.Type != JTokenType.String)
+                {
+                    // ThrowIfUnacceptable(null) would surface this as "(empty ruleId)" — which
+                    // is misleading when the producer actually supplied a value of the wrong
+                    // JSON type (e.g., a number). Emit a specific message in the AI-RULEID-001
+                    // envelope's namespace so the orchestrator can detect and correct.
+                    Console.Error.WriteLine(
+                        string.Format(
+                            CultureInfo.CurrentCulture,
+                            "error {0}: result.ruleId must be a JSON string, but the payload supplied a JSON {1}. See docs/AI-RuleId-Convention.md.",
+                            AIRuleIdConventionException.ErrorCode,
+                            ruleIdToken.Type.ToString().ToLowerInvariant()));
+                    return FAILURE;
+                }
+
+                string ruleId = ruleIdToken?.Type == JTokenType.String
+                    ? ruleIdToken.Value<string>()
                     : null;
 
                 AIRuleIdConvention.ThrowIfUnacceptable(ruleId);

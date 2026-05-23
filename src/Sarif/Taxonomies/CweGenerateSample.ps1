@@ -143,12 +143,12 @@ foreach ($e in $events) {
     # prefix) before appending — a bad ruleId fails clean WITHOUT polluting
     # the event log, and prints an AI-consumable error envelope to stderr.
     $payloadJson = $payload | ConvertTo-Json -Compress -Depth 12
-    $payloadJson | & dotnet $multitool add-result $outPath | Out-Host
+    $payloadJson | & dotnet $multitool add-result $outPath | Out-Null
     if ($LASTEXITCODE -ne 0) { throw "add-result failed for ruleId '$($e.cwe)' (exit $LASTEXITCODE)." }
 }
 
 $notifJson = @{ level = 'note'; message = @{ text = "Analyzed $($events.Count) findings across 1 file." } } | ConvertTo-Json -Compress -Depth 8
-$notifJson | & dotnet $multitool add-notification $outPath | Out-Host
+$notifJson | & dotnet $multitool add-notification $outPath | Out-Null
 if ($LASTEXITCODE -ne 0) { throw "add-notification failed (exit $LASTEXITCODE)." }
 
 Write-Host "[3/4] Finalizing"
