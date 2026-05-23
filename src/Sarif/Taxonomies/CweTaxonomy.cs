@@ -19,7 +19,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Taxonomies
     /// <remarks>
     /// <para>
     /// The SDK ships exactly two embedded resources — one consolidated SARIF taxonomy
-    /// (<c>CWE.sarif</c>) and one consolidated markdown table (<c>CWE.brief.md</c>) —
+    /// (<c>CweTaxonomy.sarif</c>) and one consolidated markdown table (<c>CweTaxonomy.brief.md</c>) —
     /// containing every entry in the upstream MITRE catalog regardless of status.
     /// Each taxon carries its <c>cwe/status</c> as a property, and the brief table has
     /// a Status column. Filtering by status happens at read time, never at load time.
@@ -67,8 +67,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Taxonomies
         /// </remarks>
         public const CweStatus DefaultStatuses = CweStatus.Stable | CweStatus.Draft | CweStatus.Incomplete;
 
-        private const string SarifResourceName = "Microsoft.CodeAnalysis.Sarif.Taxonomies.CWE.sarif";
-        private const string BriefResourceName = "Microsoft.CodeAnalysis.Sarif.Taxonomies.CWE.brief.md";
+        private const string SarifResourceName = "Microsoft.CodeAnalysis.Sarif.Taxonomies.CweTaxonomy.sarif";
+        private const string BriefResourceName = "Microsoft.CodeAnalysis.Sarif.Taxonomies.CweTaxonomy.brief.md";
 
         private const string StatusPropertyName = "cwe/status";
         private const string AbstractionPropertyName = "cwe/abstraction";

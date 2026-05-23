@@ -77,11 +77,11 @@
   </ItemGroup>
 
   <ItemGroup Label="Embedded CWE taxonomy artifacts">
-    <EmbeddedResource Include="Taxonomies\CWE.sarif">
-      <LogicalName>Microsoft.CodeAnalysis.Sarif.Taxonomies.CWE.sarif</LogicalName>
+    <EmbeddedResource Include="Taxonomies\CweTaxonomy.sarif">
+      <LogicalName>Microsoft.CodeAnalysis.Sarif.Taxonomies.CweTaxonomy.sarif</LogicalName>
     </EmbeddedResource>
-    <EmbeddedResource Include="Taxonomies\CWE.brief.md">
-      <LogicalName>Microsoft.CodeAnalysis.Sarif.Taxonomies.CWE.brief.md</LogicalName>
+    <EmbeddedResource Include="Taxonomies\CweTaxonomy.brief.md">
+      <LogicalName>Microsoft.CodeAnalysis.Sarif.Taxonomies.CweTaxonomy.brief.md</LogicalName>
     </EmbeddedResource>
   </ItemGroup>
 

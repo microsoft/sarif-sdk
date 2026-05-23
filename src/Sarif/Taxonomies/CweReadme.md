@@ -8,8 +8,8 @@ descriptors without making a network call to MITRE.
 
 | File | Size | Format | Purpose |
 |---|---:|---|---|
-| `CWE.sarif` | 2.74 MB | SARIF 2.1.0 taxonomy log | Full fidelity: `name`, `shortDescription`, `fullDescription`, `helpUri`, verbatim MITRE `help.markdown` (Description + Extended Description + Common Consequences + Potential Mitigations), plus `cwe/status`, `cwe/abstraction`, and `cwe/parent` (canonical View 1000 ChildOf) as properties on every taxon. |
-| `CWE.brief.md` | 248 KB | Markdown table | One row per entry: `ID │ Name │ Abstraction │ Status │ Parent │ Description`. Sorted numerically. ~60K tokens at the default loadout — sized for AI prompt-context injection. |
+| `CweTaxonomy.sarif` | 2.81 MB | SARIF 2.1.0 taxonomy log | Full fidelity: `name` (Pascal-case identifier per SARIF §3.49.7), `shortDescription`, `fullDescription`, `helpUri`, verbatim MITRE `help.markdown` (Description + Extended Description + Common Consequences + Potential Mitigations), plus `cwe/title` (the original MITRE long name), `cwe/status`, `cwe/abstraction`, and `cwe/parent` (canonical View 1000 ChildOf) as properties on every taxon. |
+| `CweTaxonomy.brief.md` | 240 KB | Markdown table | One row per entry: `ID │ Name │ Abstraction │ Status │ Parent │ Description`. `Name` is the Pascal-case identifier; the long MITRE title lives on the SARIF taxon as `cwe/title`. Sorted numerically. ~60K tokens at the default loadout — sized for AI prompt-context injection. |
 
 Both files contain **every** entry in the upstream MITRE catalog (969 entries
 in `cwec_v4.20`) regardless of status. Filtering by status is a **read-time**
@@ -53,11 +53,11 @@ Proof points beyond SSRF — Semgrep's top-cited CWEs by file count:
 
 | Rank | CWE | Name | Status | Files |
 |---:|---|---|---|---:|
-| 1 | CWE-798 | Use of Hard-coded Credentials | Draft | 265 |
-| 2 | CWE-79 | Cross-site Scripting | Stable | 128 |
-| 3 | **CWE-1220** | Insufficient Granularity of Access Control | **Incomplete** | **108** |
-| 4 | CWE-89 | SQL Injection | Stable | 79 |
-| 5 | CWE-319 | Cleartext Transmission of Sensitive Info | Draft | 77 |
+| 1 | CWE-798 | UseOfHardCodedCredentials | Draft | 265 |
+| 2 | CWE-79 | CrossSiteScripting | Stable | 128 |
+| 3 | **CWE-1220** | InsufficientGranularityOfAccessControl | **Incomplete** | **108** |
+| 4 | CWE-89 | SQLInjection | Stable | 79 |
+| 5 | CWE-319 | CleartextTransmissionOfSensitiveInformation | Draft | 77 |
 
 The third-most-cited CWE across all of Semgrep is Incomplete. This is not an
 edge case.
@@ -73,24 +73,25 @@ Callers that want a complete snapshot pass `CweStatus.All`.
 
 ## Sample
 
-[`CweGenerateSample.ps1`](CweGenerateSample.ps1) emits a small sample SARIF
-log that exercises the enricher end-to-end via the multitool `emit-init-run` +
-`emit-finalize` verbs. The sample appends five Result events (covering the
-Stable, Draft, and Incomplete buckets) and one Notification to the on-disk
-`.wip.jsonl`, runs finalize, and verifies that every `CWE-*` ruleId came back
-hydrated with `name`, `shortDescription`, `fullDescription`, `helpUri`, and
-the MITRE markdown.
+[`CweGenerateSample.ps1`](CweGenerateSample.ps1) emits the checked-in
+[`CweSample.sarif`](CweSample.sarif) fixture, a fully enriched SARIF log that
+exercises the emit chain end-to-end via the multitool `emit-init-run`,
+`add-result`, `add-notification`, and `emit-finalize` verbs. The sample
+appends seven Result events (covering the Stable, Draft, Incomplete, and
+NOVEL- "no-CWE-fits" cases) plus one Notification, runs finalize with the
+enrichment + validate gates on, and verifies that every `CWE-*` ruleId came
+back hydrated with `name`, `shortDescription`, `fullDescription`, `helpUri`,
+and the MITRE markdown.
 
 Convention for this repo: every taxonomy that ships alongside the SDK includes
-a `<Taxonomy>GenerateSample.ps1` next to its data, so reviewers and consumers
-can see what enrichment looks like without building a producer from scratch.
+a `<Taxonomy>GenerateSample.ps1` next to its data and a checked-in
+`<Taxonomy>Sample.sarif` artifact that the script (re)generates in place, so
+reviewers can `git diff` it like any other source artifact and CI asserts it
+stays byte-identical to what the emit chain produces.
 
 ```pwsh
 pwsh src/Sarif/Taxonomies/CweGenerateSample.ps1
 ```
-
-The script defaults to a unique subdirectory under `$env:TEMP` so the source
-tree stays clean and re-runs do not collide.
 
 ## Regeneration
 

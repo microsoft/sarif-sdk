@@ -37,7 +37,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Taxonomies
 
             modified.Should().Be(1);
             run.Tool.Driver.Rules[0].Id.Should().Be(id);
-            run.Tool.Driver.Rules[0].Name.Should().Contain("Cross-site Scripting");
+            run.Tool.Driver.Rules[0].Name.Should().Be("CrossSiteScripting");
         }
 
         [Theory]
@@ -93,7 +93,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Taxonomies
 
             modified.Should().Be(1);
             ReportingDescriptor rule = run.Tool.Driver.Rules[0];
-            rule.Name.Should().Contain("Cross-site Scripting");
+            rule.Name.Should().Be("CrossSiteScripting");
             rule.ShortDescription.Text.Should().NotBeNullOrWhiteSpace();
             rule.HelpUri.OriginalString.Should().Be("https://cwe.mitre.org/data/definitions/79.html");
             rule.Help.Markdown.Should().Contain("## Description");
@@ -160,7 +160,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Taxonomies
             int modified = CweTaxonomyEnricher.Enrich(run);
 
             modified.Should().Be(1);
-            run.Tool.Extensions[0].Rules[0].Name.Should().Contain("Cross-site Scripting");
+            run.Tool.Extensions[0].Rules[0].Name.Should().Be("CrossSiteScripting");
         }
 
         [Fact]

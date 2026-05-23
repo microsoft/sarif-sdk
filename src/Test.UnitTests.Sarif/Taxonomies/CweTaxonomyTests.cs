@@ -57,11 +57,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Taxonomies
             ReportingDescriptor xss = log.Runs[0].Taxonomies[0].Taxa
                 .Single(t => t.Id == "CWE-79");
 
-            xss.Name.Should().Contain("Cross-site Scripting");
+            xss.Name.Should().Be("CrossSiteScripting");
             xss.ShortDescription.Text.Should().NotBeNullOrWhiteSpace();
             xss.HelpUri.OriginalString.Should().Be("https://cwe.mitre.org/data/definitions/79.html");
             xss.Help.Markdown.Should().Contain("## Description");
 
+            xss.TryGetProperty("cwe/title", out string title).Should().BeTrue();
+            title.Should().Contain("Cross-site Scripting");
             xss.TryGetProperty("cwe/status", out string status).Should().BeTrue();
             status.Should().Be("Stable");
             xss.TryGetProperty("cwe/abstraction", out string abstr).Should().BeTrue();
