@@ -33,7 +33,8 @@ namespace Microsoft.CodeAnalysis.Sarif
             bool addToFilesTableIfNotPresent = true,
             OptionallyEmittedData dataToInsert = OptionallyEmittedData.None,
             Encoding encoding = null,
-            HashData hashData = null)
+            HashData hashData = null,
+            HashAlgorithms hashAlgorithms = HashAlgorithms.Default)
         {
             if (fileLocation == null) { throw new ArgumentNullException(nameof(fileLocation)); }
 
@@ -95,7 +96,8 @@ namespace Microsoft.CodeAnalysis.Sarif
                         artifactUri,
                         dataToInsert,
                         hashData: hashData,
-                        encoding: encoding);
+                        encoding: encoding,
+                        hashAlgorithms: hashAlgorithms);
 
                     // Copy ArtifactLocation to ensure changes to Result copy don't affect new Run.Artifacts copy
                     artifact.Location = new ArtifactLocation(fileLocation);

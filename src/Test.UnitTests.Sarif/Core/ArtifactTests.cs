@@ -43,15 +43,42 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Core
                 HashData hashes = HashUtilities.ComputeHashes(filePath);
                 fileData.Contents.Should().BeNull();
 
+                // SHA-1 is no longer emitted by default; SHA-256 is the only key.
+                fileData.Hashes.Should().NotContainKey("sha-1");
+                fileData.Hashes["sha-256"].Should().Be(hashes.Sha256);
+
                 foreach (string algorithm in fileData.Hashes.Keys)
                 {
                     switch (algorithm)
                     {
-                        case "sha-1": { fileData.Hashes[algorithm].Should().Be(hashes.Sha1); break; }
                         case "sha-256": { fileData.Hashes[algorithm].Should().Be(hashes.Sha256); break; }
                         default: { true.Should().BeFalse(); break; /* unexpected algorithm kind */ }
                     }
                 }
+            }
+            finally
+            {
+                if (File.Exists(filePath)) { File.Delete(filePath); }
+            }
+        }
+
+        [Fact]
+        public void Artifact_Create_HashesNotRequested_DoesNotEmitEmptyHashesObject()
+        {
+            // When the caller passes a HashData with all-null properties (e.g., produced
+            // by HashAlgorithms.None), Artifact.Create must not emit an empty "hashes": {}
+            // object on the resulting artifact.
+            string filePath = Path.GetTempFileName();
+            var uri = new Uri(filePath);
+
+            try
+            {
+                File.WriteAllText(filePath, "irrelevant");
+
+                var emptyHashData = new HashData(sha1: null, sha256: null, gitBlobSha1: null);
+                var artifact = Artifact.Create(uri, OptionallyEmittedData.None, hashData: emptyHashData);
+
+                artifact.Hashes.Should().BeNull();
             }
             finally
             {

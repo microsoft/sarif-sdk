@@ -23,6 +23,11 @@ namespace Microsoft.CodeAnalysis.Sarif
         internal readonly Cache<string, NewLineIndex> _newLineIndexCache;
 
         /// <summary>
+        /// The hash algorithms this cache computes when producing <see cref="HashData"/> for files.
+        /// </summary>
+        public HashAlgorithms HashAlgorithms { get; }
+
+        /// <summary>
         /// Creates a new <see cref="FileRegionsCache"/> object.
         /// </summary>
         /// <param name="capacity">
@@ -31,9 +36,16 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="fileSystem">
         /// An object that provides access to file system services.
         /// </param>
-        public FileRegionsCache(int capacity = DefaultCacheCapacity, IFileSystem fileSystem = null)
+        /// <param name="hashAlgorithms">
+        /// The set of hash algorithms this cache will compute when producing <see cref="HashData"/>
+        /// for files. Defaults to <see cref="HashAlgorithms.Default"/> (SHA-256 only).
+        /// </param>
+        public FileRegionsCache(int capacity = DefaultCacheCapacity,
+                                IFileSystem fileSystem = null,
+                                HashAlgorithms hashAlgorithms = HashAlgorithms.Default)
         {
             _fileSystem = fileSystem ?? FileSystem.Instance;
+            HashAlgorithms = hashAlgorithms;
 
             _fileTextCache = new Cache<string, string>(RetrieveTextForFile, capacity);
             _hashDataCache = new Cache<string, HashData>(BuildHashDataForFile, capacity);
@@ -364,14 +376,19 @@ namespace Microsoft.CodeAnalysis.Sarif
         public HashData GetHashData(Uri uri, string fileText = null)
         {
             string path = uri.GetFilePath();
+
+            // Legacy / test path: caller supplied the text directly. We hash the
+            // UTF-8 encoding of that text and cannot produce a meaningful
+            // git-blob-sha-1 (which requires the original on-disk bytes), so
+            // git-blob-sha-1 is suppressed here even if it was requested.
             if (fileText != null)
             {
                 _fileTextCache[path] = fileText;
+                HashAlgorithms textAlgorithms = HashAlgorithms & ~HashAlgorithms.GitBlobSha1;
+                return HashUtilities.ComputeHashesForText(fileText, textAlgorithms);
             }
 
-            fileText = _fileTextCache[path];
-
-            return HashUtilities.ComputeHashesForText(fileText);
+            return _hashDataCache[path];
         }
 
         public NewLineIndex GetNewLineIndex(Uri uri, string fileText = null)
@@ -421,8 +438,22 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         private HashData BuildHashDataForFile(string path)
         {
+            // Read raw bytes from disk so that git-blob-sha-1 (if requested) matches
+            // a server-persisted blob SHA for the same on-disk content, and so that
+            // sha-1 / sha-256 reflect the actual file rather than a UTF-8 re-encoding
+            // of decoded text.
+            HashData hashes = HashUtilities.ComputeHashes(path, _fileSystem, HashAlgorithms);
+            if (hashes != null)
+            {
+                return hashes;
+            }
+
+            // Fallback: file unreadable as a raw stream (e.g., a mock IFileSystem that
+            // returns no stream). Honor the legacy text-based behavior for non-git
+            // algorithms so existing test infrastructure keeps working.
             string fileText = _fileTextCache[path];
-            return HashUtilities.ComputeHashesForText(fileText);
+            HashAlgorithms textAlgorithms = HashAlgorithms & ~HashAlgorithms.GitBlobSha1;
+            return HashUtilities.ComputeHashesForText(fileText, textAlgorithms);
         }
 
         /// <summary>

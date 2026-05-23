@@ -43,7 +43,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                            FailureLevelSet levels = null,
                            ResultKindSet kinds = null,
                            IEnumerable<string> insertProperties = null,
-                           FileRegionsCache fileRegionsCache = null)
+                           FileRegionsCache fileRegionsCache = null,
+                           HashAlgorithms hashAlgorithms = HashAlgorithms.Default)
             : this(new StreamWriter(new FileStream(outputFilePath, FileMode.Create, FileAccess.Write, FileShare.Read)),
                                     logFilePersistenceOptions,
                                     dataToInsert,
@@ -57,7 +58,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                                     levels,
                                     kinds,
                                     insertProperties,
-                                    fileRegionsCache)
+                                    fileRegionsCache,
+                                    hashAlgorithms)
         {
         }
 
@@ -74,7 +76,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                            FailureLevelSet levels = null,
                            ResultKindSet kinds = null,
                            IEnumerable<string> insertProperties = null,
-                           FileRegionsCache fileRegionsCache = null) : base(failureLevels: levels, resultKinds: kinds)
+                           FileRegionsCache fileRegionsCache = null,
+                           HashAlgorithms hashAlgorithms = HashAlgorithms.Default) : base(failureLevels: levels, resultKinds: kinds)
         {
             _textWriter = textWriter;
             _closeWriterOnDispose = closeWriterOnDispose;
@@ -111,7 +114,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                                                                            insertProperties);
             }
 
-            FileRegionsCache = fileRegionsCache ?? new FileRegionsCache();
+            FileRegionsCache = fileRegionsCache ?? new FileRegionsCache(hashAlgorithms: hashAlgorithms);
 
             EnhanceRun(analysisTargets,
                        dataToInsert,
@@ -219,7 +222,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                         new Uri(target, UriKind.RelativeOrAbsolute),
                         dataToInsert,
                         encoding,
-                        hashData: hashData);
+                        hashData: hashData,
+                        hashAlgorithms: FileRegionsCache.HashAlgorithms);
 
                     var fileLocation = new ArtifactLocation
                     {
@@ -234,7 +238,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                         addToFilesTableIfNotPresent: true,
                         dataToInsert: dataToInsert,
                         encoding: encoding,
-                        hashData: hashData);
+                        hashData: hashData,
+                        hashAlgorithms: FileRegionsCache.HashAlgorithms);
                 }
             }
 
@@ -540,7 +545,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                                           addToFilesTableIfNotPresent: createArtifactEntries,
                                           _dataToInsert,
                                           encoding,
-                                          hashData);
+                                          hashData,
+                                          hashAlgorithms: FileRegionsCache?.HashAlgorithms ?? HashAlgorithms.Default);
 
             // Remove redundant Uri and UriBaseId once index has been set
             if (index > -1 && this.Optimize)
@@ -586,7 +592,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                     addToFilesTableIfNotPresent: true,
                     dataToInsert: _dataToInsert,
                     encoding: encoding,
-                    hashData: hashData);
+                    hashData: hashData,
+                    hashAlgorithms: FileRegionsCache?.HashAlgorithms ?? HashAlgorithms.Default);
 
                 if (index > -1)
                 {
