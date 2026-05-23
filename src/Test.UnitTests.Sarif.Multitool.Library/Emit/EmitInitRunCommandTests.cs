@@ -107,71 +107,31 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             File.Exists(WipPath).Should().BeFalse();
         }
 
-        [Fact]
-        public void Run_FailsOnMalformedInformationUri()
+        [Theory]
+        [InlineData("InformationUri", "ht!tp://not a uri")]       // malformed
+        [InlineData("InformationUri", "docs/tool")]                // relative
+        [InlineData("InformationUri", "http://example.com/tool")]  // disallowed scheme (https-only)
+        [InlineData("InformationUri", "file:///etc/tool/docs")]    // file scheme rejected for informationUri
+        [InlineData("SourceRoot",     "ftp://example.com/src/")]   // disallowed scheme for --srcroot
+        public void Run_FailsOnInvalidUriFlag(string slot, string value)
         {
-            int exit = new EmitInitRunCommand().Run(new EmitInitRunOptions
+            // EmitEventLogHelpers.TryValidateUri rejects malformed URIs, relative URIs,
+            // and any scheme outside the per-slot allow-list. Each rejection must
+            // surface as FAILURE *before* the wip file is created so a typo never
+            // leaves a partially-initialized scan state on disk.
+            var options = new EmitInitRunOptions
             {
                 OutputFilePath = OutPath,
                 ToolName = "demo",
-                InformationUri = "ht!tp://not a uri",
-            });
-
-            exit.Should().Be(CommandBase.FAILURE);
-            File.Exists(WipPath).Should().BeFalse();
-        }
-
-        [Fact]
-        public void Run_FailsOnRelativeInformationUri()
-        {
-            int exit = new EmitInitRunCommand().Run(new EmitInitRunOptions
+            };
+            switch (slot)
             {
-                OutputFilePath = OutPath,
-                ToolName = "demo",
-                InformationUri = "docs/tool",
-            });
+                case "InformationUri": options.InformationUri = value; break;
+                case "SourceRoot":     options.SourceRoot     = value; break;
+                default: throw new ArgumentOutOfRangeException(nameof(slot));
+            }
 
-            exit.Should().Be(CommandBase.FAILURE);
-            File.Exists(WipPath).Should().BeFalse();
-        }
-
-        [Fact]
-        public void Run_FailsOnHttpInformationUri()
-        {
-            int exit = new EmitInitRunCommand().Run(new EmitInitRunOptions
-            {
-                OutputFilePath = OutPath,
-                ToolName = "demo",
-                InformationUri = "http://example.com/tool",
-            });
-
-            exit.Should().Be(CommandBase.FAILURE);
-            File.Exists(WipPath).Should().BeFalse();
-        }
-
-        [Fact]
-        public void Run_FailsOnFileSchemeInformationUri()
-        {
-            int exit = new EmitInitRunCommand().Run(new EmitInitRunOptions
-            {
-                OutputFilePath = OutPath,
-                ToolName = "demo",
-                InformationUri = "file:///etc/tool/docs",
-            });
-
-            exit.Should().Be(CommandBase.FAILURE);
-            File.Exists(WipPath).Should().BeFalse();
-        }
-
-        [Fact]
-        public void Run_FailsOnUnsupportedSchemeForSrcroot()
-        {
-            int exit = new EmitInitRunCommand().Run(new EmitInitRunOptions
-            {
-                OutputFilePath = OutPath,
-                ToolName = "demo",
-                SourceRoot = "ftp://example.com/src/",
-            });
+            int exit = new EmitInitRunCommand().Run(options);
 
             exit.Should().Be(CommandBase.FAILURE);
             File.Exists(WipPath).Should().BeFalse();

@@ -87,6 +87,22 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                     return FAILURE;
                 }
 
+                if (!TryParseGuid(options.AutomationGuid, "--automation-guid", out Guid? automationGuid))
+                {
+                    return FAILURE;
+                }
+
+                if (!TryParseGuid(options.AutomationCorrelationGuid, "--automation-correlation-guid", out Guid? automationCorrelationGuid))
+                {
+                    return FAILURE;
+                }
+
+                if (!TryValidateAiOrigin(options.AiOrigin, out string aiOriginError))
+                {
+                    Console.Error.WriteLine(aiOriginError);
+                    return FAILURE;
+                }
+
                 string outputPath = Path.GetFullPath(options.OutputFilePath);
                 string wipPath = outputPath + ".wip.jsonl";
 
@@ -145,6 +161,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             {
                 Name = options.ToolName,
                 Version = NullIfEmpty(options.ToolVersion),
+                SemanticVersion = NullIfEmpty(options.ToolDriverSemanticVersion),
                 Organization = NullIfEmpty(options.Organization),
             };
 
@@ -158,6 +175,22 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 Tool = new Tool { Driver = driver },
             };
 
+            if (TryParseGuid(options.AutomationGuid, "--automation-guid", out Guid? automationGuid)
+                && TryParseGuid(options.AutomationCorrelationGuid, "--automation-correlation-guid", out Guid? automationCorrelationGuid)
+                && (automationGuid.HasValue || automationCorrelationGuid.HasValue))
+            {
+                run.AutomationDetails = new RunAutomationDetails
+                {
+                    Guid = automationGuid,
+                    CorrelationGuid = automationCorrelationGuid,
+                };
+            }
+
+            if (!string.IsNullOrWhiteSpace(options.AiOrigin))
+            {
+                run.SetProperty("ai/origin", options.AiOrigin.Trim());
+            }
+
             if (!string.IsNullOrWhiteSpace(options.RepositoryUri)
                 || !string.IsNullOrWhiteSpace(options.RevisionId)
                 || !string.IsNullOrWhiteSpace(options.Branch))
@@ -170,6 +203,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 if (!string.IsNullOrWhiteSpace(options.RepositoryUri))
                 {
                     vcd.RepositoryUri = new Uri(options.RepositoryUri, UriKind.Absolute);
+                }
+
+                if (!string.IsNullOrWhiteSpace(options.SourceRoot))
+                {
+                    vcd.MappedTo = new ArtifactLocation { UriBaseId = SourceRootBaseId };
                 }
 
                 run.VersionControlProvenance = new List<VersionControlDetails> { vcd };
@@ -187,6 +225,56 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             }
 
             return run;
+        }
+
+        internal static bool TryParseGuid(string raw, string flagName, out Guid? guid)
+        {
+            guid = null;
+            if (string.IsNullOrWhiteSpace(raw))
+            {
+                return true;
+            }
+
+            if (!Guid.TryParseExact(raw.Trim(), "D", out Guid parsed))
+            {
+                Console.Error.WriteLine(
+                    string.Format(
+                        CultureInfo.CurrentCulture,
+                        "{0}: '{1}' is not a valid GUID (expected canonical 8-4-4-4-12 hex form, e.g. a7ad9ab8-1234-5678-9abc-def012345678).",
+                        flagName,
+                        raw));
+                return false;
+            }
+
+            guid = parsed;
+            return true;
+        }
+
+        internal static readonly string[] AiOriginValues = new[] { "generated", "annotated", "synthesized" };
+
+        internal static bool TryValidateAiOrigin(string raw, out string error)
+        {
+            error = null;
+            if (string.IsNullOrWhiteSpace(raw))
+            {
+                return true;
+            }
+
+            string trimmed = raw.Trim();
+            foreach (string v in AiOriginValues)
+            {
+                if (string.Equals(v, trimmed, StringComparison.Ordinal))
+                {
+                    return true;
+                }
+            }
+
+            error = string.Format(
+                CultureInfo.CurrentCulture,
+                "--ai-origin: '{0}' is not valid. Expected one of: {1}.",
+                raw,
+                string.Join(", ", AiOriginValues));
+            return false;
         }
 
         private static string NullIfEmpty(string s) => string.IsNullOrWhiteSpace(s) ? null : s;

@@ -40,6 +40,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         public string ToolVersion { get; set; }
 
         [Option(
+            "tool-driver-semantic-version",
+            HelpText = "Driver semantic version per SemVer 2.0 (run.tool.driver.semanticVersion).")]
+        public string ToolDriverSemanticVersion { get; set; }
+
+        [Option(
             "information-uri",
             HelpText = "Driver information URI (run.tool.driver.informationUri).")]
         public string InformationUri { get; set; }
@@ -48,6 +53,21 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             "organization",
             HelpText = "Driver organization (run.tool.driver.organization).")]
         public string Organization { get; set; }
+
+        [Option(
+            "automation-guid",
+            HelpText = "Stable GUID for this run (run.automationDetails.guid).")]
+        public string AutomationGuid { get; set; }
+
+        [Option(
+            "automation-correlation-guid",
+            HelpText = "Stable GUID for the equivalence class of related runs (run.automationDetails.correlationGuid).")]
+        public string AutomationCorrelationGuid { get; set; }
+
+        [Option(
+            "ai-origin",
+            HelpText = "AI authoring origin (run.properties.ai/origin). One of: generated, annotated, synthesized.")]
+        public string AiOrigin { get; set; }
 
         [Option(
             "vcp-repositoryuri",

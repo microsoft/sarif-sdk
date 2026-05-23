@@ -6,12 +6,14 @@
       "tool": {
         "driver": {
           "name": "CweSamplerScanner",
+          "organization": "Example Scanner Authority",
           "version": "0.1.0",
-          "informationUri": "https://github.com/microsoft/sarif-sdk",
+          "semanticVersion": "0.1.0",
+          "informationUri": "https://cwesamplerscanner.example.com/",
           "rules": [
             {
               "id": "CWE-79",
-              "name": "Improper Neutralization of Input During Web Page Generation ('Cross-site Scripting')",
+              "name": "CrossSiteScripting",
               "fullDescription": {
                 "text": "There are many variants of cross-site scripting, characterized by a variety of terms or involving different attack topologies. However, they all indicate the same fundamental weakness: improper neutralization of dangerous input between the adversary and a victim."
               },
@@ -26,7 +28,7 @@
             },
             {
               "id": "CWE-89",
-              "name": "Improper Neutralization of Special Elements used in an SQL Command ('SQL Injection')",
+              "name": "SqlInjection",
               "help": {
                 "text": "The product constructs all or part of an SQL command using externally-influenced input from an upstream component, but it does not neutralize or incorrectly neutralizes special elements that could modify the intended SQL command when it is sent to a downstream component. Without sufficient removal or quoting of SQL syntax in user-controllable inputs, the generated SQL query can cause those inputs to be interpreted as SQL instead of ordinary user data.",
                 "markdown": "## Description\r\n\r\nThe product constructs all or part of an SQL command using externally-influenced input from an upstream component, but it does not neutralize or incorrectly neutralizes special elements that could modify the intended SQL command when it is sent to a downstream component. Without sufficient removal or quoting of SQL syntax in user-controllable inputs, the generated SQL query can cause those inputs to be interpreted as SQL instead of ordinary user data.\r\n\r\n## Common Consequences\r\n\r\n- **Scope**: Confidentiality, Integrity, Availability. **Impact**: Execute Unauthorized Code or Commands.\r\n  - Adversaries could execute system commands, typically by changing the SQL statement to redirect output to a file that can then be executed.\r\n- **Scope**: Confidentiality. **Impact**: Read Application Data.\r\n  - Since SQL databases generally hold sensitive data, loss of confidentiality is a frequent problem with SQL injection vulnerabilities.\r\n- **Scope**: Authentication. **Impact**: Gain Privileges or Assume Identity, Bypass Protection Mechanism.\r\n  - If poor SQL commands are used to check user names and passwords or perform other kinds of authentication, it may be possible to connect to the product as another user with no previous knowledge of the password.\r\n- **Scope**: Access Control. **Impact**: Bypass Protection Mechanism.\r\n  - If authorization information is held in a SQL database, it may be possible to change this information through the successful exploitation of a SQL injection vulnerability.\r\n- **Scope**: Integrity. **Impact**: Modify Application Data.\r\n  - Just as it may be possible to read sensitive information, it is also possible to modify or even delete this information with a SQL injection attack.\r\n\r\n## Potential Mitigations\r\n\r\n1. *Phase: Architecture and Design; Strategy: Libraries or Frameworks*. Use a vetted library or framework that does not allow this weakness to occur or provides constructs that make this weakness easier to avoid [REF-1482].For example, consider using persistence layers such as Hibernate or Enterprise Java Beans, which can provide significant protection against SQL injection if used properly.\r\n2. *Phase: Architecture and Design; Strategy: Parameterization*. If available, use structured mechanisms that automatically enforce the separation between data and code. These mechanisms may be able to provide the relevant quoting, encoding, and validation automatically, instead of relying on the developer to provide this capability at every point where output is generated.Process SQL queries using prepared statements, parameterized queries, or stored procedures. These features should accept parameters or variables and support strong typing. Do not dynamically construct and execute query strings within these features using \"exec\" or similar functionality, since this may re-introduce the possibility of SQL injection. [REF-867]\r\n3. *Phase: Architecture and Design, Operation; Strategy: Environment Hardening*. Run your code using the lowest privileges that are required to accomplish the necessary tasks [REF-76]. If possible, create isolated accounts with limited privileges that are only used for a single task. That way, a successful attack will not immediately give the attacker access to the rest of the software or its environment. For example, database applications rarely need to run as the database administrator, especially in day-to-day operations.Specifically, follow the principle of least privilege when creating user accounts to a SQL database. The database users should only have the minimum privileges necessary to use their account. If the requirements of the system indicate that a user can read and modify their own data, then limit their privileges so they cannot read/write others' data. Use the strictest permissions possible on all database objects, such as execute-only for stored procedures.\r\n4. *Phase: Architecture and Design*. For any security checks that are performed on the client side, ensure that these checks are duplicated on the server side, in order to avoid CWE-602. Attackers can bypass the client-side checks by modifying values after the checks have been performed, or by changing the client to remove the client-side checks entirely. Then, these modified values would be submitted to the server.\r\n5. *Phase: Implementation; Strategy: Output Encoding*. While it is risky to use dynamically-generated query strings, code, or commands that mix control and data together, sometimes it may be unavoidable. Properly quote arguments and escape any special characters within those arguments. The most conservative approach is to escape or filter all characters that do not pass an extremely strict allowlist (such as everything that is not alphanumeric or white space). If some special characters are still needed, such as white space, wrap each argument in quotes after the escaping/filtering step. Be careful of argument injection (CWE-88).Instead of building a new implementation, such features may be available in the database or programming language. For example, the Oracle DBMS_ASSERT package can check or enforce that parameters have certain properties that make them less vulnerable to SQL injection. For MySQL, the mysql_real_escape_string() API function is available in both C and PHP.\r\n6. *Phase: Implementation; Strategy: Input Validation*. Assume all input is malicious. Use an \"accept known good\" input validation strategy, i.e., use a list of acceptable inputs that strictly conform to specifications. Reject any input that does not strictly conform to specifications, or transform it into something that does.When performing input validation, consider all potentially relevant properties, including length, type of input, the full range of acceptable values, missing or extra inputs, syntax, consistency across related fields, and conformance to business rules. As an example of business rule logic, \"boat\" may be syntactically valid because it only contains alphanumeric characters, but it is not valid if the input is only expected to contain colors such as \"red\" or \"blue.\"Do not rely exclusively on looking for malicious or malformed inputs. This is likely to miss at least one undesirable input, especially if the code's environment changes. This can give attackers enough room to bypass the intended validation. However, denylists can be useful for detecting potential attacks or determining which inputs are so malformed that they should be rejected outright.When constructing SQL query strings, use stringent allowlists that limit the character set based on the expected value of the parameter in the request. This will indirectly limit the scope of an attack, but this technique is less important than proper output encoding and escaping.Note that proper output encoding, escaping, and quoting is the most effective solution for preventing SQL injection, although input validation may provide some defense-in-depth. This is because it effectively limits what will appear in output. Input validation will not always prevent SQL injection, especially if you are required to support free-form text fields that could contain arbitrary characters. For example, the name \"O'Reilly\" would likely pass the validation step, since it is a common last name in the English language. However, it cannot be directly inserted into the database because it contains the \"'\" apostrophe character, which would need to be escaped or otherwise handled. In this case, stripping the apostrophe might reduce the risk of SQL injection, but it would produce incorrect behavior because the wrong name would be recorded.When feasible, it may be safest to disallow meta-characters entirely, instead of escaping them. This will provide some defense in depth. After the data is entered into the database, later processes may neglect to escape meta-characters before use, and you may not have control over those processes.\r\n7. *Phase: Architecture and Design; Strategy: Enforcement by Conversion*. When the set of acceptable objects, such as filenames or URLs, is limited or known, create a mapping from a set of fixed input values (such as numeric IDs) to the actual filenames or URLs, and reject all other inputs.\r\n8. *Phase: Implementation*. Ensure that error messages only contain minimal details that are useful to the intended audience and no one else. The messages need to strike the balance between being too cryptic (which can confuse users) or being too detailed (which may reveal more than intended). The messages should not reveal the methods that were used to determine the error. Attackers can use detailed information to refine or optimize their original attack, thereby increasing their chances of success.If errors must be captured in some detail, record them in log messages, but consider what could occur if the log messages can be viewed by attackers. Highly sensitive information such as passwords should never be saved to log files.Avoid inconsistent messaging that might accidentally tip off an attacker about internal state, such as whether a user account exists or not.In the context of SQL Injection, error messages revealing the structure of a SQL query can help attackers tailor successful attack strings.\r\n9. *Phase: Operation; Strategy: Firewall*. Use an application firewall that can detect attacks against this weakness. It can be beneficial in cases in which the code cannot be fixed (because it is controlled by a third party), as an emergency prevention measure while more comprehensive software assurance measures are applied, or to provide defense in depth  [REF-1481.\r\n10. *Phase: Operation, Implementation; Strategy: Environment Hardening*. When using PHP, configure the application so that it does not use register_globals. During implementation, develop the application so that it does not rely on this feature, but be wary of implementing a register_globals emulation that is subject to weaknesses such as CWE-95, CWE-621, and similar issues."
@@ -38,7 +40,7 @@
             },
             {
               "id": "CWE-22",
-              "name": "Improper Limitation of a Pathname to a Restricted Directory ('Path Traversal')",
+              "name": "PathTraversal",
               "fullDescription": {
                 "text": "Many file operations are intended to take place within a restricted directory. By using special elements such as \"..\" and \"/\" separators, attackers can escape outside of the restricted location to access files or directories that are elsewhere on the system. One of the most common special elements is the \"../\" sequence, which in most modern operating systems is interpreted as the parent directory of the current location. This is referred to as relative path traversal. Path traversal also covers the use of absolute pathnames such as \"/usr/local/bin\" to access unexpected files. This is referred to as absolute path traversal."
               },
@@ -53,7 +55,7 @@
             },
             {
               "id": "CWE-798",
-              "name": "Use of Hard-coded Credentials",
+              "name": "UseOfHardCodedCredentials",
               "fullDescription": {
                 "text": "There are two main variations:Inbound: the product contains an authentication mechanism that checks the input credentials against a hard-coded set of credentials. In this variant, a default administration account is created, and a simple password is hard-coded into the product and associated with that account. This hard-coded password is the same for each installation of the product, and it usually cannot be changed or disabled by system administrators without manually modifying the program, or otherwise patching the product. It can also be difficult for the administrator to detect.Outbound: the product connects to another system or component, and it contains hard-coded credentials for connecting to that component. This variant applies to front-end systems that authenticate with a back-end service. The back-end service may require a fixed password that can be easily discovered. The programmer may simply hard-code those back-end credentials into the front-end product."
               },
@@ -68,7 +70,7 @@
             },
             {
               "id": "CWE-1220",
-              "name": "Insufficient Granularity of Access Control",
+              "name": "InsufficientGranularityOfAccessControl",
               "fullDescription": {
                 "text": "Integrated circuits and hardware engines can expose accesses to assets (device configuration, keys, etc.) to trusted firmware or a software module (commonly set by BIOS/bootloader). This access is typically access-controlled. Upon a power reset, the hardware or system usually starts with default values in registers, and the trusted firmware (Boot firmware) configures the necessary access-control protection.A common weakness that can exist in such protection schemes is that access controls or policies are not granular enough. This condition allows agents beyond trusted agents to access assets and could lead to a loss of functionality or the ability to set up the device securely. This further results in security risks from leaked, sensitive, key material to modification of device configuration."
               },
@@ -82,7 +84,25 @@
               "helpUri": "https://cwe.mitre.org/data/definitions/1220.html"
             },
             {
-              "id": "NOVEL-prompt-injection-via-system-message"
+              "id": "NOVEL-prompt-injection-via-system-message",
+              "name": "PromptInjectionViaSystemMessage",
+              "helpUri": "https://cwesamplerscanner.example.com/rules/PromptInjectionViaSystemMessage"
+            }
+          ],
+          "notifications": [
+            {
+              "id": "NOTIF0001",
+              "name": "AnalyzeComplete",
+              "shortDescription": {
+                "text": "Analysis run completed."
+              },
+              "fullDescription": {
+                "text": "Emitted when the scanner finishes analyzing its inputs. Carries the count of findings reported."
+              },
+              "helpUri": "https://cwesamplerscanner.example.com/notifications/AnalyzeComplete",
+              "defaultConfiguration": {
+                "level": "note"
+              }
             }
           ]
         }
@@ -92,13 +112,28 @@
           "toolExecutionNotifications": [
             {
               "message": {
-                "text": "Analyzed 7 findings across 1 file."
+                "text": "Analyzed 7 findings across 1 file.",
+                "markdown": "Analyzed **7** findings across **1** file."
               },
               "level": "note",
-              "timeUtc": "2024-01-01T00:00:00.000Z"
+              "timeUtc": "2024-01-01T00:00:00Z",
+              "descriptor": {
+                "id": "NOTIF0001",
+                "index": 0
+              }
             }
           ],
           "executionSuccessful": true
+        }
+      ],
+      "versionControlProvenance": [
+        {
+          "repositoryUri": "https://github.com/microsoft/sarif-sdk",
+          "revisionId": "0000000000000000000000000000000000000000",
+          "branch": "main",
+          "mappedTo": {
+            "uriBaseId": "SRCROOT"
+          }
         }
       ],
       "originalUriBaseIds": {
@@ -112,6 +147,9 @@
             "uri": "src/Sarif/Taxonomies/SampleCode.cs",
             "uriBaseId": "SRCROOT"
           },
+          "contents": {
+            "text": "// Copyright (c) Microsoft. All rights reserved.\n// Licensed under the MIT license. See LICENSE file in the project root for full license information.\n\n// SampleCode.cs - a stable target for SARIF taxonomy samples in this directory.\n// The contents are deliberately inert; the file exists to give sample findings\n// a real on-disk file + region to highlight. When a viewer navigates to a\n// SARIF result emitted by one of the *GenerateSample.ps1 scripts in this\n// folder, the region selects the placeholder comment that describes which\n// taxonomy entry (or NOVEL escape hatch) the sample was demonstrating.\n// There are no actual defects in this file for scanners to flag.\n\nnamespace Microsoft.CodeAnalysis.Sarif.Taxonomies.SampleCode\n{\n    public static class Placeholders\n    {\n        // Placeholder region for CWE-79 sub-id 'unescaped-view-input': bare\n        // template interpolation of a user value.\n        public static readonly string Cwe79UnescapedViewInput = \"placeholder\";\n\n        // Placeholder region for CWE-89 sub-id 'string-concat-query': SQL\n        // built by concatenating an untrusted value.\n        public static readonly string Cwe89StringConcatQuery = \"placeholder\";\n\n        // Placeholder region for CWE-22 sub-id 'untrusted-path-no-canon':\n        // Path opened from untrusted input without canonicalization.\n        public static readonly string Cwe22UntrustedPathNoCanon = \"placeholder\";\n\n        // Placeholder region for CWE-798 sub-id 'embedded-credential':\n        // Production secret baked into source code.\n        public static readonly string Cwe798EmbeddedCredential = \"placeholder\";\n\n        // Placeholder region for CWE-1220 sub-id 'missing-tenant-scope':\n        // AuthZ check ignores the caller's tenant context.\n        public static readonly string Cwe1220MissingTenantScope = \"placeholder\";\n\n        // Placeholder region for CWE-79 sub-id 'dom-xss-via-sanitizer-bypass':\n        // demonstrates that two sub-ids can share the same base descriptor\n        // (CWE-79) after replay.\n        public static readonly string Cwe79DomXssBypass = \"placeholder\";\n\n        // Placeholder region for a NOVEL- escape-hatch finding:\n        // 'NOVEL-prompt-injection-via-system-message'. Demonstrates the\n        // shape used when no taxonomy entry fits — flat, no slash.\n        public static readonly string NovelPromptInjection = \"placeholder\";\n    }\n}\n\n"
+          },
           "hashes": {
             "sha-1": "1C120172B3B8CC0623AFDA8F32BF44B89FC9E214",
             "sha-256": "90B63D2A8FCC56D84B0E991430A5C40FEA8636E75122C2E0844B526712E12CC1"
@@ -123,7 +161,8 @@
           "ruleId": "CWE-79/unescaped-view-input",
           "ruleIndex": 0,
           "message": {
-            "text": "Possible XSS via unescaped user input in view template."
+            "text": "Possible XSS via unescaped user input in view template.",
+            "markdown": "**CWE-79/unescaped-view-input** — Possible XSS via unescaped user input in view template.\n\nUntrusted request data flows directly into a server-rendered HTML response without per-context escaping. Escape on output via the templating engine's context-aware helper."
           },
           "locations": [
             {
@@ -157,14 +196,20 @@
                 }
               }
             }
-          ]
+          ],
+          "rank": 60.0,
+          "properties": {
+            "ai/exploitability": "theoretical",
+            "ai/attackerPosition": "unauthenticated-remote"
+          }
         },
         {
           "ruleId": "CWE-89/string-concat-query",
           "ruleIndex": 1,
           "level": "error",
           "message": {
-            "text": "SQL query built via string concatenation; parameterize."
+            "text": "SQL query built via string concatenation; parameterize.",
+            "markdown": "**CWE-89/string-concat-query** — SQL query built via string concatenation; parameterize.\n\nUser-controlled input is concatenated into a SQL statement. Use a parameterized query (`SqlCommand` + `Parameters.AddWithValue`) so the input is sent out of band."
           },
           "locations": [
             {
@@ -198,14 +243,20 @@
                 }
               }
             }
-          ]
+          ],
+          "rank": 90.0,
+          "properties": {
+            "ai/exploitability": "demonstrated",
+            "ai/attackerPosition": "unauthenticated-remote"
+          }
         },
         {
           "ruleId": "CWE-22/untrusted-path-no-canon",
           "ruleIndex": 2,
           "level": "error",
           "message": {
-            "text": "Path constructed from untrusted input without canonicalization."
+            "text": "Path constructed from untrusted input without canonicalization.",
+            "markdown": "**CWE-22/untrusted-path-no-canon** — Path constructed from untrusted input without canonicalization.\n\nUse `Path.GetFullPath` to canonicalize the candidate path and reject any result that escapes the allow-listed root directory."
           },
           "locations": [
             {
@@ -239,14 +290,20 @@
                 }
               }
             }
-          ]
+          ],
+          "rank": 85.0,
+          "properties": {
+            "ai/exploitability": "poc",
+            "ai/attackerPosition": "authenticated-remote"
+          }
         },
         {
           "ruleId": "CWE-798/embedded-credential",
           "ruleIndex": 3,
           "level": "error",
           "message": {
-            "text": "Hard-coded credential in production code path."
+            "text": "Hard-coded credential in production code path.",
+            "markdown": "**CWE-798/embedded-credential** — Hard-coded credential in production code path.\n\nReplace the embedded literal with a managed-identity acquisition (or Key Vault retrieval) and rotate the leaked credential immediately."
           },
           "locations": [
             {
@@ -280,13 +337,19 @@
                 }
               }
             }
-          ]
+          ],
+          "rank": 95.0,
+          "properties": {
+            "ai/exploitability": "demonstrated",
+            "ai/attackerPosition": "source-disclosure"
+          }
         },
         {
           "ruleId": "CWE-1220/missing-tenant-scope",
           "ruleIndex": 4,
           "message": {
-            "text": "Authorization check missing tenant-scoped granularity."
+            "text": "Authorization check missing tenant-scoped granularity.",
+            "markdown": "**CWE-1220/missing-tenant-scope** — Authorization check missing tenant-scoped granularity.\n\nPer-resource authorization MUST include the caller's tenant in the policy decision; cross-tenant data leakage is otherwise possible."
           },
           "locations": [
             {
@@ -320,14 +383,20 @@
                 }
               }
             }
-          ]
+          ],
+          "rank": 55.0,
+          "properties": {
+            "ai/exploitability": "theoretical",
+            "ai/attackerPosition": "authenticated-remote"
+          }
         },
         {
           "ruleId": "CWE-79/dom-xss-via-sanitizer-bypass",
           "ruleIndex": 0,
           "level": "error",
           "message": {
-            "text": "DOM XSS: untrusted value reaches innerHTML after a sanitizer that does not escape the current context. Second sub-id under CWE-79; shares the base descriptor with the first finding."
+            "text": "DOM XSS: untrusted value reaches innerHTML after a sanitizer that does not escape the current context.",
+            "markdown": "**CWE-79/dom-xss-via-sanitizer-bypass** — DOM XSS: untrusted value reaches innerHTML after a sanitizer that does not escape the current context.\n\nSecond sub-id under CWE-79; shares the base descriptor with the first finding. The DOM sink (`innerHTML`) requires HTML-context escaping; URL- or attribute-context escaping is insufficient."
           },
           "locations": [
             {
@@ -361,14 +430,20 @@
                 }
               }
             }
-          ]
+          ],
+          "rank": 80.0,
+          "properties": {
+            "ai/exploitability": "poc",
+            "ai/attackerPosition": "unauthenticated-remote"
+          }
         },
         {
           "ruleId": "NOVEL-prompt-injection-via-system-message",
           "ruleIndex": 5,
           "level": "error",
           "message": {
-            "text": "Untrusted content reaches a system-role prompt at runtime, letting an attacker override tool-use policy. No CWE entry fits — emitted under the NOVEL- escape hatch."
+            "text": "Untrusted content reaches a system-role prompt at runtime.",
+            "markdown": "**NOVEL-prompt-injection-via-system-message** — Untrusted content reaches a system-role prompt at runtime.\n\nUntrusted content is concatenated into a system-role prompt at runtime, letting an attacker override tool-use policy. No CWE entry fits — emitted under the NOVEL- escape hatch."
           },
           "locations": [
             {
@@ -402,10 +477,23 @@
                 }
               }
             }
-          ]
+          ],
+          "rank": 70.0,
+          "properties": {
+            "ai/exploitability": "demonstrated",
+            "ai/attackerPosition": "unauthenticated-remote"
+          }
         }
       ],
-      "columnKind": "utf16CodeUnits"
+      "automationDetails": {
+        "guid": "a7ad9ab8-1234-5678-9abc-def012345678",
+        "correlationGuid": "660f3001-34a8-46c5-8ad5-14b9682470ba"
+      },
+      "columnKind": "utf16CodeUnits",
+      "properties": {
+        "ai/origin": "generated",
+        "ai/handoff": "Analysis complete. 7 findings reported (5 error, 2 warning). No tool errors; no further passes recommended."
+      }
     }
   ]
 }

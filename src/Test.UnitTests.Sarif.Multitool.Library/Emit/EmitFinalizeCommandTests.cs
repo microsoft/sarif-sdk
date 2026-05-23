@@ -283,5 +283,28 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             capturedStderr.Should().Contain("--srcroot");
             capturedStderr.Should().Contain("scheme 'http'");
         }
+
+        [Fact]
+        public void Run_WithValidateFlag_ReturnsFailureWhenErrorFindingsPresent()
+        {
+            // A bare run with no AI-profile metadata fires several AI* error-level
+            // findings (AI1004 missing VCP, AI1006 missing ai/origin, etc.). The
+            // --validate gate should propagate this as a FAILURE exit code and
+            // leave the report file on disk for forensics. The clean-input
+            // success path is covered with higher fidelity by the
+            // CweGenerateSample.ps1 + CweSample.sarif integration fixture.
+            SeedWip(
+                (SarifEventKinds.RunHeader, new Run { Tool = new Tool { Driver = new ToolComponent { Name = "demo" } } }));
+
+            int exit = new EmitFinalizeCommand().Run(new EmitFinalizeOptions
+            {
+                OutputFilePath = OutPath,
+                Validate = true,
+            });
+
+            exit.Should().Be(CommandBase.FAILURE);
+            File.Exists(OutPath).Should().BeTrue();
+            File.Exists(Path.Combine(_dir, "scan.validate-report.sarif")).Should().BeTrue();
+        }
     }
 }
