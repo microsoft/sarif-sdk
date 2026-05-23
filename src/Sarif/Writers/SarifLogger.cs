@@ -223,6 +223,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                         dataToInsert,
                         encoding,
                         hashData: hashData,
+                        fileSystem: FileRegionsCache.FileSystem,
                         hashAlgorithms: FileRegionsCache.HashAlgorithms);
 
                     var fileLocation = new ArtifactLocation
@@ -239,6 +240,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                         dataToInsert: dataToInsert,
                         encoding: encoding,
                         hashData: hashData,
+                        fileSystem: FileRegionsCache.FileSystem,
                         hashAlgorithms: FileRegionsCache.HashAlgorithms);
                 }
             }
@@ -546,6 +548,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                                           _dataToInsert,
                                           encoding,
                                           hashData,
+                                          fileSystem: FileRegionsCache?.FileSystem,
                                           hashAlgorithms: FileRegionsCache?.HashAlgorithms ?? HashAlgorithms.Default);
 
             // Remove redundant Uri and UriBaseId once index has been set
@@ -593,6 +596,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                     dataToInsert: _dataToInsert,
                     encoding: encoding,
                     hashData: hashData,
+                    fileSystem: FileRegionsCache?.FileSystem,
                     hashAlgorithms: FileRegionsCache?.HashAlgorithms ?? HashAlgorithms.Default);
 
                 if (index > -1)

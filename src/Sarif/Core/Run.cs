@@ -34,6 +34,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             OptionallyEmittedData dataToInsert = OptionallyEmittedData.None,
             Encoding encoding = null,
             HashData hashData = null,
+            IFileSystem fileSystem = null,
             HashAlgorithms hashAlgorithms = HashAlgorithms.Default)
         {
             if (fileLocation == null) { throw new ArgumentNullException(nameof(fileLocation)); }
@@ -97,6 +98,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                         dataToInsert,
                         hashData: hashData,
                         encoding: encoding,
+                        fileSystem: fileSystem,
                         hashAlgorithms: hashAlgorithms);
 
                     // Copy ArtifactLocation to ensure changes to Result copy don't affect new Run.Artifacts copy

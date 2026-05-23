@@ -165,6 +165,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                                            dataToInsert,
                                            encoding: encoding,
                                            hashData: hashData,
+                                           fileSystem: _fileSystem,
                                            hashAlgorithms: FileRegionsCache?.HashAlgorithms ?? HashAlgorithms.Default);
                     node.Length = length;
                     fileLocation.Index = -1;

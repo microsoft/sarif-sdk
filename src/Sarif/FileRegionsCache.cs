@@ -28,6 +28,14 @@ namespace Microsoft.CodeAnalysis.Sarif
         public HashAlgorithms HashAlgorithms { get; }
 
         /// <summary>
+        /// The file system this cache uses for all I/O. Exposed to internal callers so that
+        /// downstream <see cref="Artifact.Create"/> / <see cref="Run.GetFileIndex"/> sites
+        /// can flow the same <see cref="IFileSystem"/> instance instead of silently falling
+        /// back to the default <c>FileSystem.Instance</c>.
+        /// </summary>
+        internal IFileSystem FileSystem => _fileSystem;
+
+        /// <summary>
         /// Creates a new <see cref="FileRegionsCache"/> object.
         /// </summary>
         /// <param name="capacity">
@@ -44,7 +52,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                                 IFileSystem fileSystem = null,
                                 HashAlgorithms hashAlgorithms = HashAlgorithms.Default)
         {
-            _fileSystem = fileSystem ?? FileSystem.Instance;
+            _fileSystem = fileSystem ?? Sarif.FileSystem.Instance;
             HashAlgorithms = hashAlgorithms;
 
             _fileTextCache = new Cache<string, string>(RetrieveTextForFile, capacity);
