@@ -328,6 +328,11 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif
         // Verified to match `git hash-object` for the same byte sequence.
         private const string HelloWorldGitBlobSha1 = "af5626b4a114abcb82d63db7c8082c3c4756e51b";
 
+        // SHA-512 of "Hello, world!\n" (14 ASCII bytes), uppercase hex.
+        private const string HelloWorldSha512 =
+            "09E1E2A84C92B56C8280F4A1203C7CFFD61B162CFE987278D4D6BE9AFBF38C0E" +
+            "8934CDADF83751F4E99D111352BFFEFC958E5A4852C8A7A29C95742CE59288A8";
+
         [Fact]
         public void ComputeHashes_EmptyStream_GitBlobSha1_MatchesGitCanonical()
         {
@@ -337,6 +342,7 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif
             hashes.GitBlobSha1.Should().Be(EmptyFileGitBlobSha1);
             hashes.Sha1.Should().BeNull();
             hashes.Sha256.Should().BeNull();
+            hashes.Sha512.Should().BeNull();
         }
 
         [Fact]
@@ -348,6 +354,20 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif
             HashData hashes = HashUtilities.ComputeHashes(stream, HashAlgorithms.GitBlobSha1);
 
             hashes.GitBlobSha1.Should().Be(HelloWorldGitBlobSha1);
+        }
+
+        [Fact]
+        public void ComputeHashes_KnownContent_Sha512_MatchesCanonical()
+        {
+            byte[] bytes = System.Text.Encoding.ASCII.GetBytes("Hello, world!\n");
+            using var stream = new MemoryStream(bytes);
+
+            HashData hashes = HashUtilities.ComputeHashes(stream, HashAlgorithms.Sha512);
+
+            hashes.Sha512.Should().Be(HelloWorldSha512);
+            hashes.Sha1.Should().BeNull();
+            hashes.Sha256.Should().BeNull();
+            hashes.GitBlobSha1.Should().BeNull();
         }
 
         [Fact]
@@ -371,6 +391,7 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif
 
             hashes.Sha1.Should().BeNull();
             hashes.Sha256.Should().BeNull();
+            hashes.Sha512.Should().BeNull();
             hashes.GitBlobSha1.Should().BeNull();
         }
 
@@ -382,6 +403,7 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif
 
             hashes.Sha1.Should().BeNull();
             hashes.Sha256.Should().NotBeNullOrEmpty();
+            hashes.Sha512.Should().BeNull();
             hashes.GitBlobSha1.Should().BeNull();
         }
 
@@ -389,12 +411,13 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif
         public void ComputeHashes_AllAlgorithms_ProducesAll()
         {
             using var stream = new MemoryStream(new byte[] { 1, 2, 3 });
-            HashAlgorithms all = HashAlgorithms.Sha1 | HashAlgorithms.Sha256 | HashAlgorithms.GitBlobSha1;
+            HashAlgorithms all = HashAlgorithms.Sha1 | HashAlgorithms.Sha256 | HashAlgorithms.Sha512 | HashAlgorithms.GitBlobSha1;
 
             HashData hashes = HashUtilities.ComputeHashes(stream, all);
 
             hashes.Sha1.Should().NotBeNullOrEmpty();
             hashes.Sha256.Should().NotBeNullOrEmpty();
+            hashes.Sha512.Should().NotBeNullOrEmpty();
             hashes.GitBlobSha1.Should().NotBeNullOrEmpty();
         }
 
@@ -451,18 +474,19 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif
         [Fact]
         public void HashData_ToDictionary_SkipsNullValues()
         {
-            var hashData = new HashData(sha1: null, sha256: "ABC", gitBlobSha1: null);
+            var hashData = new HashData { Sha256 = "ABC" };
             IDictionary<string, string> dict = hashData.ToDictionary();
 
             dict.Should().ContainKey("sha-256");
             dict.Should().NotContainKey("sha-1");
+            dict.Should().NotContainKey("sha-512");
             dict.Should().NotContainKey("git-blob-sha-1");
         }
 
         [Fact]
         public void HashData_ToDictionary_EmitsGitBlobSha1Key()
         {
-            var hashData = new HashData(sha1: null, sha256: null, gitBlobSha1: "deadbeef");
+            var hashData = new HashData { GitBlobSha1 = "deadbeef" };
             IDictionary<string, string> dict = hashData.ToDictionary();
 
             dict.Should().ContainKey("git-blob-sha-1");
@@ -470,10 +494,13 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif
         }
 
         [Fact]
-        public void HashData_LegacyTwoArgConstructor_LeavesGitBlobSha1Null()
+        public void HashData_ToDictionary_EmitsSha512Key()
         {
-            var hashData = new HashData("sha1value", "sha256value");
-            hashData.GitBlobSha1.Should().BeNull();
+            var hashData = new HashData { Sha512 = "ABCDEF" };
+            IDictionary<string, string> dict = hashData.ToDictionary();
+
+            dict.Should().ContainKey("sha-512");
+            dict["sha-512"].Should().Be("ABCDEF");
         }
 
         [Fact]
@@ -506,7 +533,7 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif
         [Fact]
         public void HashData_ToDictionary_WithAllNullValues_ReturnsEmptyDictionary()
         {
-            var hashData = new HashData(sha1: null, sha256: null, gitBlobSha1: null);
+            var hashData = new HashData();
             IDictionary<string, string> dict = hashData.ToDictionary();
 
             dict.Should().NotBeNull();

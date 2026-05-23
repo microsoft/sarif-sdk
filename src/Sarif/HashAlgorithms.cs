@@ -53,6 +53,11 @@ namespace Microsoft.CodeAnalysis.Sarif
         GitBlobSha1 = 0x4,
 
         /// <summary>
+        /// Compute SHA-512. Emitted under the dictionary key <c>sha-512</c>.
+        /// </summary>
+        Sha512 = 0x8,
+
+        /// <summary>
         /// The default set of algorithms computed by <see cref="SarifLogger"/> and related
         /// infrastructure when only <see cref="OptionallyEmittedData.Hashes"/> is requested.
         /// </summary>

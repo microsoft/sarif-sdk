@@ -74,18 +74,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                     HashData hashes = hashData
                         ?? HashUtilities.ComputeHashes(filePath, fileSystem, hashAlgorithms);
 
-                    // The hash utilities will return null data in some test contexts.
-                    if (hashes != null)
-                    {
-                        IDictionary<string, string> hashDictionary = hashes.ToDictionary();
-
-                        // Only attach a Hashes dictionary if at least one algorithm produced
-                        // a value; otherwise we would emit an empty `"hashes": {}` object.
-                        if (hashDictionary.Count > 0)
-                        {
-                            artifact.Hashes = hashDictionary;
-                        }
-                    }
+                    artifact.Hashes = NullIfEmpty(hashes?.ToDictionary());
                 }
             }
             catch (Exception e) when (e is IOException || e is UnauthorizedAccessException) { }
@@ -118,9 +107,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         }
 #endif
 
-        // Avoid serializing an empty "hashes": {} object when no algorithm produced a value
-        // (e.g., the caller selected HashAlgorithms.None or supplied a HashData with all-null
-        // properties). SARIF readers should not see an empty hashes object on an artifact.
+        // Avoid serializing an empty "hashes": {} object on an artifact.
         private static IDictionary<string, string> NullIfEmpty(IDictionary<string, string> hashes)
         {
             return (hashes == null || hashes.Count == 0) ? null : hashes;

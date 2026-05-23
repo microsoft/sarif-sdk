@@ -75,7 +75,7 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Core
             {
                 File.WriteAllText(filePath, "irrelevant");
 
-                var emptyHashData = new HashData(sha1: null, sha256: null, gitBlobSha1: null);
+                var emptyHashData = new HashData();
                 var artifact = Artifact.Create(uri, OptionallyEmittedData.None, hashData: emptyHashData);
 
                 artifact.Hashes.Should().BeNull();

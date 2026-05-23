@@ -377,15 +377,10 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             string path = uri.GetFilePath();
 
-            // Legacy / test path: caller supplied the text directly. We hash the
-            // UTF-8 encoding of that text and cannot produce a meaningful
-            // git-blob-sha-1 (which requires the original on-disk bytes), so
-            // git-blob-sha-1 is suppressed here even if it was requested.
             if (fileText != null)
             {
                 _fileTextCache[path] = fileText;
-                HashAlgorithms textAlgorithms = HashAlgorithms & ~HashAlgorithms.GitBlobSha1;
-                return HashUtilities.ComputeHashesForText(fileText, textAlgorithms);
+                return HashUtilities.ComputeHashesForText(fileText, HashAlgorithms);
             }
 
             return _hashDataCache[path];
@@ -438,22 +433,15 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         private HashData BuildHashDataForFile(string path)
         {
-            // Read raw bytes from disk so that git-blob-sha-1 (if requested) matches
-            // a server-persisted blob SHA for the same on-disk content, and so that
-            // sha-1 / sha-256 reflect the actual file rather than a UTF-8 re-encoding
-            // of decoded text.
             HashData hashes = HashUtilities.ComputeHashes(path, _fileSystem, HashAlgorithms);
             if (hashes != null)
             {
                 return hashes;
             }
 
-            // Fallback: file unreadable as a raw stream (e.g., a mock IFileSystem that
-            // returns no stream). Honor the legacy text-based behavior for non-git
-            // algorithms so existing test infrastructure keeps working.
+            // Fallback for mock file systems that return no stream: hash the cached text instead.
             string fileText = _fileTextCache[path];
-            HashAlgorithms textAlgorithms = HashAlgorithms & ~HashAlgorithms.GitBlobSha1;
-            return HashUtilities.ComputeHashesForText(fileText, textAlgorithms);
+            return HashUtilities.ComputeHashesForText(fileText, HashAlgorithms);
         }
 
         /// <summary>

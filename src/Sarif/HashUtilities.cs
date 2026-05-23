@@ -27,6 +27,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         public static IDictionary<string, HashData> MultithreadedComputeTargetFileHashes(
             IEnumerable<string> analysisTargets,
             bool suppressConsoleOutput = false,
+            IFileSystem fileSystem = null,
             HashAlgorithms algorithms = HashAlgorithms.Default)
         {
             if (analysisTargets == null) { return null; }
@@ -50,7 +51,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                     {
                         if (queue.TryDequeue(out string filePath))
                         {
-                            fileToHashDataMap[filePath] = HashUtilities.ComputeHashes(filePath, fileSystem: null, algorithms);
+                            fileToHashDataMap[filePath] = HashUtilities.ComputeHashes(filePath, fileSystem, algorithms);
                         }
                     }
                 }));
@@ -103,28 +104,15 @@ namespace Microsoft.CodeAnalysis.Sarif
         }
 
         /// <summary>
-        /// Computes the requested set of hashes from a stream in a single pass. Hashing
-        /// begins at the stream's current position and continues to the end of the stream.
-        /// If the stream is seekable, its position is restored to its starting value
-        /// before returning. Defaults to <see cref="HashAlgorithms.Default"/> (SHA-256 only).
+        /// Computes the requested set of hashes from a stream in a single pass, hashing from
+        /// the stream's current position to the end. The position is restored on seekable streams.
         /// </summary>
         /// <remarks>
-        /// <para>
-        /// <see cref="HashAlgorithms.GitBlobSha1"/> requires either a seekable stream (so the
-        /// content length can be read from <see cref="Stream.Length"/>) or sufficient memory
-        /// to buffer the entire stream as a fallback. The git blob header is constructed
-        /// using the length of the bytes that will actually be hashed — that is,
-        /// <c>stream.Length - stream.Position</c> at entry — so the result matches
-        /// <c>git hash-object &lt;file&gt;</c> exactly when the stream is positioned at zero
-        /// (e.g., a freshly opened <see cref="FileStream"/>). Callers wishing to compute the
-        /// git blob SHA-1 of a sub-region of a stream should treat that sub-region as a
-        /// standalone blob and position the stream accordingly.
-        /// </para>
-        /// <para>
-        /// SHA-1 and SHA-256 values are returned as uppercase hex (consistent with prior
-        /// versions of this library). <c>git-blob-sha-1</c> is returned as lowercase hex,
-        /// which is the canonical form emitted by git.
-        /// </para>
+        /// <see cref="HashAlgorithms.GitBlobSha1"/> uses the byte length of the hashed region
+        /// (<c>stream.Length - stream.Position</c>) to build the git blob header; the result
+        /// therefore matches <c>git hash-object</c> when the stream is positioned at zero.
+        /// Non-seekable streams are buffered in memory as a fallback. SHA-* values are
+        /// uppercase hex; <c>git-blob-sha-1</c> is lowercase, matching git's canonical form.
         /// </remarks>
         [SuppressMessage("Microsoft.Security.Cryptography", "CA5354:SHA1CannotBeUsed")]
         [SuppressMessage("Microsoft.Security.Cryptography", "CA5350:MD5CannotBeUsed")]
@@ -132,11 +120,12 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             if (algorithms == HashAlgorithms.None)
             {
-                return new HashData(sha1: null, sha256: null, gitBlobSha1: null);
+                return new HashData();
             }
 
             IncrementalHash sha1 = null;
             IncrementalHash sha256 = null;
+            IncrementalHash sha512 = null;
             IncrementalHash gitBlobSha1 = null;
 
             try
@@ -151,14 +140,15 @@ namespace Microsoft.CodeAnalysis.Sarif
                     sha256 = IncrementalHash.CreateHash(HashAlgorithmName.SHA256);
                 }
 
+                if (algorithms.HasFlag(HashAlgorithms.Sha512))
+                {
+                    sha512 = IncrementalHash.CreateHash(HashAlgorithmName.SHA512);
+                }
+
                 if (algorithms.HasFlag(HashAlgorithms.GitBlobSha1))
                 {
                     gitBlobSha1 = IncrementalHash.CreateHash(HashAlgorithmName.SHA1);
 
-                    // git's blob hash prefixes content with: "blob <length>\0"
-                    // We need the byte length up front. If the stream is not seekable,
-                    // buffer it into memory as a fallback (production callers should
-                    // pass a seekable FileStream or MemoryStream).
                     long contentLength;
                     if (stream.CanSeek)
                     {
@@ -186,6 +176,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 {
                     sha1?.AppendData(buffer, 0, read);
                     sha256?.AppendData(buffer, 0, read);
+                    sha512?.AppendData(buffer, 0, read);
                     gitBlobSha1?.AppendData(buffer, 0, read);
                 }
 
@@ -194,17 +185,20 @@ namespace Microsoft.CodeAnalysis.Sarif
                     stream.Seek(startPosition, SeekOrigin.Begin);
                 }
 
-                string sha1Hex = sha1 != null ? ToUpperHex(sha1.GetHashAndReset()) : null;
-                string sha256Hex = sha256 != null ? ToUpperHex(sha256.GetHashAndReset()) : null;
-                // Git canonically emits blob SHAs in lowercase hex.
-                string gitBlobSha1Hex = gitBlobSha1 != null ? ToLowerHex(gitBlobSha1.GetHashAndReset()) : null;
-
-                return new HashData(sha1Hex, sha256Hex, gitBlobSha1Hex);
+                return new HashData
+                {
+                    Sha1 = sha1 != null ? ToUpperHex(sha1.GetHashAndReset()) : null,
+                    Sha256 = sha256 != null ? ToUpperHex(sha256.GetHashAndReset()) : null,
+                    Sha512 = sha512 != null ? ToUpperHex(sha512.GetHashAndReset()) : null,
+                    // Git canonically emits blob SHAs in lowercase hex.
+                    GitBlobSha1 = gitBlobSha1 != null ? ToLowerHex(gitBlobSha1.GetHashAndReset()) : null,
+                };
             }
             finally
             {
                 sha1?.Dispose();
                 sha256?.Dispose();
+                sha512?.Dispose();
                 gitBlobSha1?.Dispose();
             }
         }
