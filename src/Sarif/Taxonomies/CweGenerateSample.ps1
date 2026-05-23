@@ -99,8 +99,14 @@ $outPath = Join-Path $PSScriptRoot 'CweSample.sarif'
 $wipPath = "$outPath.wip.jsonl"
 
 # Local SRCROOT for enrichment; rewritten to the canonical GitHub URL at finalize.
-$localSrcRootUri = ([System.Uri]$repoRoot).AbsoluteUri
-if (-not $localSrcRootUri.EndsWith('/')) { $localSrcRootUri = "$localSrcRootUri/" }
+# Cross-platform file:// construction: [System.Uri]$path returns a relative
+# Uri on Linux/macOS (Unix paths lack a scheme), and .AbsoluteUri on a
+# relative Uri yields $null — which then null-refs on .EndsWith. Build the
+# URI textually so it works identically on Windows and Unix.
+$repoRootSlash = $repoRoot.Replace('\', '/')
+if (-not $repoRootSlash.StartsWith('/')) { $repoRootSlash = "/$repoRootSlash" }
+if (-not $repoRootSlash.EndsWith('/'))   { $repoRootSlash = "$repoRootSlash/" }
+$localSrcRootUri = "file://$repoRootSlash"
 $finalSrcRootUri = 'https://github.com/microsoft/sarif-sdk/blob/main/'
 
 # Repo-relative artifact path; with --srcroot above this becomes a directly
