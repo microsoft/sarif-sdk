@@ -78,7 +78,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Taxonomies
 
             string configuration = InferConfigurationFromAssemblyPath(testAssemblyDirectory) ?? "Release";
 
-            string expectedHash = ComputeSha256(fixturePath);
+            byte[] expectedBytes = File.ReadAllBytes(fixturePath);
+            string expectedHash = ComputeSha256(expectedBytes);
 
             int exitCode = RunPwsh(
                 pwsh,
@@ -95,7 +96,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Taxonomies
                     $"stderr:{Environment.NewLine}{stderr}");
             }
 
-            string actualHash = ComputeSha256(fixturePath);
+            byte[] actualBytes = File.ReadAllBytes(fixturePath);
+            string actualHash = ComputeSha256(actualBytes);
 
             if (expectedHash != actualHash)
             {
@@ -104,15 +106,160 @@ namespace Microsoft.CodeAnalysis.Sarif.Taxonomies
                     "the regenerated fixture — review with `git diff src/Sarif/Taxonomies/CweSample.sarif` and " +
                     "commit alongside the source change if intended, or `git checkout` to revert." + Environment.NewLine +
                     $"Expected (checked-in) sha256: {expectedHash}" + Environment.NewLine +
-                    $"Actual   (regenerated) sha256: {actualHash}");
+                    $"Actual   (regenerated) sha256: {actualHash}" + Environment.NewLine +
+                    DescribeDrift(expectedBytes, actualBytes));
             }
         }
 
-        private static string ComputeSha256(string path)
+        /// <summary>
+        /// Produces a precise, CI-log-friendly diagnostic of how two byte streams differ.
+        /// Reports total sizes, line-ending counts, the first divergent byte offset with
+        /// a hex+ASCII window of surrounding context, and the line numbers + content of
+        /// the first few diverging lines. Designed to make cross-platform fixture drift
+        /// (e.g., line-ending or Unicode-escape differences) immediately visible in the
+        /// xUnit test output without requiring a separate local repro.
+        /// </summary>
+        private static string DescribeDrift(byte[] expected, byte[] actual)
+        {
+            var sb = new StringBuilder();
+            sb.AppendLine();
+            sb.AppendLine("=== Drift diagnostic ===");
+            sb.AppendLine($"Expected length: {expected.Length} bytes");
+            sb.AppendLine($"Actual   length: {actual.Length} bytes");
+            sb.AppendLine($"Expected line endings: CRLF={CountCrlf(expected)} LF-only={CountLfOnly(expected)}");
+            sb.AppendLine($"Actual   line endings: CRLF={CountCrlf(actual)} LF-only={CountLfOnly(actual)}");
+
+            int firstDiff = -1;
+            int min = Math.Min(expected.Length, actual.Length);
+            for (int i = 0; i < min; i++)
+            {
+                if (expected[i] != actual[i]) { firstDiff = i; break; }
+            }
+            if (firstDiff == -1 && expected.Length != actual.Length) { firstDiff = min; }
+
+            if (firstDiff >= 0)
+            {
+                sb.AppendLine();
+                sb.AppendLine($"First divergence at byte offset {firstDiff} (0x{firstDiff:X}).");
+                int contextStart = Math.Max(0, firstDiff - 32);
+                int contextEnd = Math.Min(Math.Max(expected.Length, actual.Length), firstDiff + 32);
+                sb.AppendLine("Expected window (hex / ASCII):");
+                sb.AppendLine(HexDumpWindow(expected, contextStart, contextEnd));
+                sb.AppendLine("Actual   window (hex / ASCII):");
+                sb.AppendLine(HexDumpWindow(actual, contextStart, contextEnd));
+            }
+
+            // Line-level diff. Decode both as UTF-8 and walk lines; report the first
+            // few diverging line pairs so a reviewer can see, e.g., "\u2014" vs "—"
+            // or property-order swaps in plain text.
+            string expectedText;
+            string actualText;
+            try
+            {
+                expectedText = new UTF8Encoding(false, true).GetString(expected);
+                actualText = new UTF8Encoding(false, true).GetString(actual);
+            }
+            catch (DecoderFallbackException)
+            {
+                sb.AppendLine();
+                sb.AppendLine("Skipped line-level diff: byte stream is not valid UTF-8.");
+                return sb.ToString();
+            }
+
+            string[] expectedLines = expectedText.Split('\n');
+            string[] actualLines = actualText.Split('\n');
+            sb.AppendLine();
+            sb.AppendLine($"Expected line count: {expectedLines.Length}");
+            sb.AppendLine($"Actual   line count: {actualLines.Length}");
+
+            const int maxLineReports = 5;
+            int reported = 0;
+            int common = Math.Min(expectedLines.Length, actualLines.Length);
+            for (int i = 0; i < common && reported < maxLineReports; i++)
+            {
+                if (!string.Equals(expectedLines[i], actualLines[i], StringComparison.Ordinal))
+                {
+                    sb.AppendLine();
+                    sb.AppendLine($"Line {i + 1} differs:");
+                    sb.AppendLine($"  expected: {Truncate(expectedLines[i], 240)}");
+                    sb.AppendLine($"  actual:   {Truncate(actualLines[i], 240)}");
+                    reported++;
+                }
+            }
+            if (reported == 0 && expectedLines.Length != actualLines.Length)
+            {
+                sb.AppendLine();
+                sb.AppendLine("Lines differ only at tail; counts above show which side has extra lines.");
+            }
+
+            return sb.ToString();
+        }
+
+        private static int CountCrlf(byte[] bytes)
+        {
+            int count = 0;
+            for (int i = 1; i < bytes.Length; i++)
+            {
+                if (bytes[i] == 0x0A && bytes[i - 1] == 0x0D) { count++; }
+            }
+            return count;
+        }
+
+        private static int CountLfOnly(byte[] bytes)
+        {
+            int count = 0;
+            for (int i = 0; i < bytes.Length; i++)
+            {
+                if (bytes[i] == 0x0A && (i == 0 || bytes[i - 1] != 0x0D)) { count++; }
+            }
+            return count;
+        }
+
+        private static string HexDumpWindow(byte[] bytes, int start, int end)
+        {
+            var sb = new StringBuilder();
+            for (int rowStart = start; rowStart < end; rowStart += 16)
+            {
+                int rowEnd = Math.Min(rowStart + 16, end);
+                sb.Append($"  {rowStart:X8}  ");
+                for (int i = rowStart; i < rowEnd; i++)
+                {
+                    if (i < bytes.Length)
+                    {
+                        sb.Append(bytes[i].ToString("x2"));
+                        sb.Append(' ');
+                    }
+                    else
+                    {
+                        sb.Append("   ");
+                    }
+                }
+                // Pad to align ASCII gutter
+                for (int i = rowEnd; i < rowStart + 16; i++) { sb.Append("   "); }
+                sb.Append(' ');
+                for (int i = rowStart; i < rowEnd; i++)
+                {
+                    if (i < bytes.Length)
+                    {
+                        byte b = bytes[i];
+                        sb.Append((b >= 0x20 && b < 0x7F) ? (char)b : '.');
+                    }
+                }
+                sb.AppendLine();
+            }
+            return sb.ToString();
+        }
+
+        private static string Truncate(string s, int max)
+        {
+            if (s.Length <= max) { return s; }
+            return s.Substring(0, max) + "…[truncated]";
+        }
+
+        private static string ComputeSha256(byte[] bytes)
         {
             using var sha = SHA256.Create();
-            using FileStream stream = File.OpenRead(path);
-            byte[] hash = sha.ComputeHash(stream);
+            byte[] hash = sha.ComputeHash(bytes);
             var sb = new StringBuilder(hash.Length * 2);
             foreach (byte b in hash)
             {
