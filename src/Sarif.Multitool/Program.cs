@@ -20,9 +20,17 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         {
             var optionsInterpreter = new OptionsInterpreter();
 
+            // Use a custom Parser so enum values bind case-insensitively
+            // (e.g. --rule-kind ghazdo, GHAzDO, GHAZDO all map to RuleKind.GHAzDO).
             // Use the non-generic ParseArguments overload to side-step the 16-type-parameter
             // ceiling on the strongly-typed overloads — the verb roster has outgrown it.
             // Keep the verb list in alphabetical order.
+            using var parser = new Parser(with =>
+            {
+                with.CaseInsensitiveEnumValues = true;
+                with.HelpWriter = Console.Error;
+            });
+
             var verbTypes = new List<Type>
             {
                 typeof(AbsoluteUriOptions),
@@ -49,7 +57,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 typeof(ValidateOptions),
             };
 
-            return Parser.Default.ParseArguments(args, verbTypes.ToArray())
+            return parser.ParseArguments(args, verbTypes.ToArray())
                 .WithParsed<AbsoluteUriOptions>(x => { optionsInterpreter.ConsumeEnvVarsAndInterpretOptions(x); })
 #if DEBUG
                 .WithParsed<AnalyzeTestOptions>(x => { optionsInterpreter.ConsumeEnvVarsAndInterpretOptions(x); })

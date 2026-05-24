@@ -398,7 +398,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         public static PerLanguageOption<RuleKindSet> RuleKindsProperty { get; } =
                     new PerLanguageOption<RuleKindSet>(
                         "CoreSettings", nameof(RuleKinds), defaultValue: () => new RuleKindSet(new[] { RuleKind.Sarif }),
-                        "One or more rule kinds that should be run. Valid values include Sarif, Ado, Ghas. " +
+                        "One or more rule kinds that should be run. Valid values include Sarif, GHAzDO, Ghas, AI. " +
                         "Defaults to 'Sarif'.");
 
         public static PerLanguageOption<FilePersistenceOptions> OutputFileOptionsProperty { get; } =

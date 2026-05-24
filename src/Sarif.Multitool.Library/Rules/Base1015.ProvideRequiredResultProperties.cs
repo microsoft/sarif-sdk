@@ -59,7 +59,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             }
 
             // Note: missing 'partialFingerprints' is intentionally not flagged. Both consumers covered
-            // by the ADO and GH rule kinds (Advanced Security for Azure DevOps, GitHub code scanning)
+            // by the GHAzDO and GH rule kinds (Advanced Security for Azure DevOps, GitHub code scanning)
             // compute partialFingerprints automatically when the producer omits them. See:
             //   * https://learn.microsoft.com/azure/devops/repos/security/github-advanced-security-code-scanning-third-party
             //   * https://docs.github.com/code-security/code-scanning/integrating-with-code-scanning/sarif-support-for-code-scanning#fingerprint-generation

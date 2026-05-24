@@ -65,40 +65,40 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         ///
         ///The SARIF standard was developed over several years and many intermediate versions of the schema were produced. Now that the standard is final, only the OASIS standard version of the schema is valid..
         /// </summary>
-        internal static string ADO1011_ReferenceFinalSchema_FullDescription_Text {
+        internal static string GHAzDO1011_ReferenceFinalSchema_FullDescription_Text {
             get {
-                return ResourceManager.GetString("ADO1011_ReferenceFinalSchema_FullDescription_Text", resourceCulture);
+                return ResourceManager.GetString("GHAzDO1011_ReferenceFinalSchema_FullDescription_Text", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The root element of a SARIF log file is a SarifLog object. The properties of this element provide information about the log&apos;s schema version as well as an array of analysis runs. These properties are required by the ADO Advanced Security service.
+        ///   Looks up a localized string similar to The root element of a SARIF log file is a SarifLog object. The properties of this element provide information about the log&apos;s schema version as well as an array of analysis runs. These properties are required by the GHAzDO (GitHub Advanced Security for Azure DevOps) service.
         ///
         ///Provide the &apos;$schema&apos; property, which must refer to the final version of the SARIF 2.1.0 schema. This enables IDEs to provide Intellisense for SARIF log files.
         ///
         ///Provide the &apos;version&apos; property, which must refer to the the final, OASIS standard version of the SA [rest of string was truncated]&quot;;.
         /// </summary>
-        internal static string ADO1013_ProvideRequiredSarifLogProperties_FullDescription_Text {
+        internal static string GHAzDO1013_ProvideRequiredSarifLogProperties_FullDescription_Text {
             get {
-                return ResourceManager.GetString("ADO1013_ProvideRequiredSarifLogProperties_FullDescription_Text", resourceCulture);
+                return ResourceManager.GetString("GHAzDO1013_ProvideRequiredSarifLogProperties_FullDescription_Text", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to {0}: This &apos;run&apos; object does not provide an &apos;automationDetails&apos; property. This property is required by the {1} service..
         /// </summary>
-        internal static string ADO1014_AdoProvideRequiredRunProperties_Error_MissingAutomationDetails_Text {
+        internal static string GHAzDO1014_GHAzDOProvideRequiredRunProperties_Error_MissingAutomationDetails_Text {
             get {
-                return ResourceManager.GetString("ADO1014_AdoProvideRequiredRunProperties_Error_MissingAutomationDetails_Text", resourceCulture);
+                return ResourceManager.GetString("GHAzDO1014_GHAzDOProvideRequiredRunProperties_Error_MissingAutomationDetails_Text", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to {0}: This &apos;run&apos; object&apos;s &apos;automationDetails&apos; object does not provide an &apos;id&apos; value. This property is required by the {1} service..
         /// </summary>
-        internal static string ADO1014_AdoProvideRequiredRunProperties_Error_MissingAutomationDetailsId_Text {
+        internal static string GHAzDO1014_GHAzDOProvideRequiredRunProperties_Error_MissingAutomationDetailsId_Text {
             get {
-                return ResourceManager.GetString("ADO1014_AdoProvideRequiredRunProperties_Error_MissingAutomationDetailsId_Text", resourceCulture);
+                return ResourceManager.GetString("GHAzDO1014_GHAzDOProvideRequiredRunProperties_Error_MissingAutomationDetailsId_Text", resourceCulture);
             }
         }
         
@@ -109,81 +109,162 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         ///
         ///Provide the &apos;results&apos; array, even if it is empty.
         ///
-        ///Provide the &apos;automationDetails&apos; property. The automationDetails&apos;s &apos;id&apos; property is required by the ADO Advanced Security service..
+        ///Provide the &apos;automationDetails&apos; property. The automationDetails&apos;s &apos;id&apos; property is required by the GHAzDO (GitHub Advanced Security for Azure DevOps) service..
         /// </summary>
-        internal static string ADO1014_ProvideRequiredRunProperties_FullDescription_Text {
+        internal static string GHAzDO1014_ProvideRequiredRunProperties_FullDescription_Text {
             get {
-                return ResourceManager.GetString("ADO1014_ProvideRequiredRunProperties_FullDescription_Text", resourceCulture);
+                return ResourceManager.GetString("GHAzDO1014_ProvideRequiredRunProperties_FullDescription_Text", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to {0}: This &apos;result&apos; object does not provide a &apos;ruleId&apos; value. This property is required by the {1} service..
         /// </summary>
-        internal static string ADO1015_ProvideRequiredResultProperties_Error_MissingRuleId_Text {
+        internal static string GHAzDO1015_ProvideRequiredResultProperties_Error_MissingRuleId_Text {
             get {
-                return ResourceManager.GetString("ADO1015_ProvideRequiredResultProperties_Error_MissingRuleId_Text", resourceCulture);
+                return ResourceManager.GetString("GHAzDO1015_ProvideRequiredResultProperties_Error_MissingRuleId_Text", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to The Result object represents an analysis finding and should provide details describing the nature of the problem along with its location in the scan target.
         ///
-        ///Provide the &apos;ruleId&apos; property, which is the unique identifier of the analysis rule that was violated. This property is required by the ADO Advanced Security service.
+        ///Provide the &apos;ruleId&apos; property, which is the unique identifier of the analysis rule that was violated. This property is required by the GHAzDO (GitHub Advanced Security for Azure DevOps) service.
         ///
-        ///Provide the &apos;message&apos; property, which is a user-facing explanation of the result occurrence. The message&apos;s &apos;text&apos; property is required by the ADO Advanced Security service.
+        ///Provide the &apos;message&apos; property, which is a user-facing explanation of the result occurrence. The message&apos;s &apos;text&apos; property is required by the GHAzDO (GitHub Advanced Security for Azure DevOps) service.
         ///
         ///Provide [rest of string was truncated]&quot;;.
         /// </summary>
-        internal static string ADO1015_ProvideRequiredResultProperties_FullDescription_Text {
+        internal static string GHAzDO1015_ProvideRequiredResultProperties_FullDescription_Text {
             get {
-                return ResourceManager.GetString("ADO1015_ProvideRequiredResultProperties_FullDescription_Text", resourceCulture);
+                return ResourceManager.GetString("GHAzDO1015_ProvideRequiredResultProperties_FullDescription_Text", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to The Location object is important for providing consumers with the location where the result occurred.
         ///
-        ///Provide the &apos;physicalLocation&apos; property. This property is required by the ADO Advanced Security service..
+        ///Provide the &apos;physicalLocation&apos; property. This property is required by the GHAzDO (GitHub Advanced Security for Azure DevOps) service..
         /// </summary>
-        internal static string ADO1016_ProvideRequiredLocationProperties_FullDescription_Text {
+        internal static string GHAzDO1016_ProvideRequiredLocationProperties_FullDescription_Text {
             get {
-                return ResourceManager.GetString("ADO1016_ProvideRequiredLocationProperties_FullDescription_Text", resourceCulture);
+                return ResourceManager.GetString("GHAzDO1016_ProvideRequiredLocationProperties_FullDescription_Text", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Provide the &apos;region&apos; property, along with the appropriate region properties. This property is required by the ADO Advanced Security service.
+        ///   Looks up a localized string similar to Provide the &apos;region&apos; property, along with the appropriate region properties. This property is required by the GHAzDO (GitHub Advanced Security for Azure DevOps) service.
         ///
-        ///Provide the &apos;artifactLocation&apos; property. This property is required by the ADO Advanced Security service..
+        ///Provide the &apos;artifactLocation&apos; property. This property is required by the GHAzDO (GitHub Advanced Security for Azure DevOps) service..
         /// </summary>
-        internal static string ADO1017_ProvideRequiredPhysicalLocationProperties_FullDescription_Text {
+        internal static string GHAzDO1017_ProvideRequiredPhysicalLocationProperties_FullDescription_Text {
             get {
-                return ResourceManager.GetString("ADO1017_ProvideRequiredPhysicalLocationProperties_FullDescription_Text", resourceCulture);
+                return ResourceManager.GetString("GHAzDO1017_ProvideRequiredPhysicalLocationProperties_FullDescription_Text", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to {0}: This &apos;driver&apos; object does not provide a &apos;fullName&apos; value. This property is required by the {1} service..
         /// </summary>
-        internal static string ADO1018_ProvideRequiredToolProperties_Error_MissingDriverFullName_Text {
+        internal static string GHAzDO1018_ProvideRequiredToolProperties_Error_MissingDriverFullName_Text {
             get {
-                return ResourceManager.GetString("ADO1018_ProvideRequiredToolProperties_Error_MissingDriverFullName_Text", resourceCulture);
+                return ResourceManager.GetString("GHAzDO1018_ProvideRequiredToolProperties_Error_MissingDriverFullName_Text", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Provide information that makes it easy to identify the name and version of your tool.
         ///
-        ///Provide the &apos;driver&apos; property. This property is required by the ADO Advanced Security service.
+        ///Provide the &apos;driver&apos; property. This property is required by the GHAzDO (GitHub Advanced Security for Azure DevOps) service.
         ///
         ///Provide the driver&apos;s &apos;name&apos; and &apos;fullName&apos; properties.
         ///
         ///Provide the driver&apos;s &apos;rules&apos; array..
         /// </summary>
-        internal static string ADO1018_ProvideRequiredToolProperties_FullDescription_Text {
+        internal static string GHAzDO1018_ProvideRequiredToolProperties_FullDescription_Text {
             get {
-                return ResourceManager.GetString("ADO1018_ProvideRequiredToolProperties_FullDescription_Text", resourceCulture);
+                return ResourceManager.GetString("GHAzDO1018_ProvideRequiredToolProperties_FullDescription_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to When &apos;run.automationDetails&apos; is present, the four &apos;azuredevops/pipeline/build/&apos; properties identify the build definition and phase that produced the run..
+        /// </summary>
+        internal static string GHAzDO1019_ProvidePipelineProperties_FullDescription_Text {
+            get {
+                return ResourceManager.GetString("GHAzDO1019_ProvidePipelineProperties_FullDescription_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0}: The &apos;automationDetails.properties&apos; bag does not provide &apos;{2}&apos;. This property is required by the {1} service to identify the build definition..
+        /// </summary>
+        internal static string GHAzDO1019_ProvidePipelineProperties_Error_MissingBuildDefinitionId_Text {
+            get {
+                return ResourceManager.GetString("GHAzDO1019_ProvidePipelineProperties_Error_MissingBuildDefinitionId_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0}: The &apos;automationDetails.properties&apos; value for &apos;{2}&apos; is &apos;{3}&apos;, which is not a non-zero integer. The {1} service requires a non-zero integer build definition id..
+        /// </summary>
+        internal static string GHAzDO1019_ProvidePipelineProperties_Error_InvalidBuildDefinitionId_Text {
+            get {
+                return ResourceManager.GetString("GHAzDO1019_ProvidePipelineProperties_Error_InvalidBuildDefinitionId_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0}: The &apos;automationDetails.properties&apos; bag does not provide &apos;{2}&apos;. This property is required by the {1} service to identify the build definition by name..
+        /// </summary>
+        internal static string GHAzDO1019_ProvidePipelineProperties_Error_MissingBuildDefinitionName_Text {
+            get {
+                return ResourceManager.GetString("GHAzDO1019_ProvidePipelineProperties_Error_MissingBuildDefinitionName_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0}: The &apos;automationDetails.properties&apos; bag does not provide &apos;{2}&apos;. This property is required by the {1} service to identify the build phase..
+        /// </summary>
+        internal static string GHAzDO1019_ProvidePipelineProperties_Error_MissingPhaseId_Text {
+            get {
+                return ResourceManager.GetString("GHAzDO1019_ProvidePipelineProperties_Error_MissingPhaseId_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0}: The &apos;automationDetails.properties&apos; value for &apos;{2}&apos; is &apos;{3}&apos;, which is not a non-empty GUID. The {1} service requires a non-empty GUID phase id..
+        /// </summary>
+        internal static string GHAzDO1019_ProvidePipelineProperties_Error_InvalidPhaseId_Text {
+            get {
+                return ResourceManager.GetString("GHAzDO1019_ProvidePipelineProperties_Error_InvalidPhaseId_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0}: The &apos;automationDetails.properties&apos; bag does not provide &apos;{2}&apos;. This property is required by the {1} service to identify the build phase by name..
+        /// </summary>
+        internal static string GHAzDO1019_ProvidePipelineProperties_Error_MissingPhaseName_Text {
+            get {
+                return ResourceManager.GetString("GHAzDO1019_ProvidePipelineProperties_Error_MissingPhaseName_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to When &apos;run.automationDetails.id&apos; is present, it must start with the canonical &apos;azuredevops/pipeline/build/&apos; prefix..
+        /// </summary>
+        internal static string GHAzDO1020_ProvideAutomationDetailsIdFormat_FullDescription_Text {
+            get {
+                return ResourceManager.GetString("GHAzDO1020_ProvideAutomationDetailsIdFormat_FullDescription_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0}: The &apos;automationDetails.id&apos; value &apos;{3}&apos; does not start with the expected prefix &apos;{2}&apos;..
+        /// </summary>
+        internal static string GHAzDO1020_ProvideAutomationDetailsIdFormat_Error_BadPrefix_Text {
+            get {
+                return ResourceManager.GetString("GHAzDO1020_ProvideAutomationDetailsIdFormat_Error_BadPrefix_Text", resourceCulture);
             }
         }
         
@@ -195,18 +276,18 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         ///
         ///Provide the &apos;name&apos; property, which contains a &quot;friendly name&quot; that helps users see at a glance the purpose of the rule. For uniformity of experience across all tools that produce SARIF, the friendly name should be a single Pascal-case identifier, for example, &apos;ProvideRuleFriendlyName&apos;..
         /// </summary>
-        internal static string ADO2012_ProvideRequiredReportingDescriptorProperties_FullDescription_Text {
+        internal static string GHAzDO2012_ProvideRequiredReportingDescriptorProperties_FullDescription_Text {
             get {
-                return ResourceManager.GetString("ADO2012_ProvideRequiredReportingDescriptorProperties_FullDescription_Text", resourceCulture);
+                return ResourceManager.GetString("GHAzDO2012_ProvideRequiredReportingDescriptorProperties_FullDescription_Text", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to {0}: This &apos;reportingDescriptor&apos; object does not provide a &apos;name&apos; value. This property is required by the {1} service..
         /// </summary>
-        internal static string ADO2012_ProvideRequiredResultProperties_Error_MissingName_Text {
+        internal static string GHAzDO2012_ProvideRequiredResultProperties_Error_MissingName_Text {
             get {
-                return ResourceManager.GetString("ADO2012_ProvideRequiredResultProperties_Error_MissingName_Text", resourceCulture);
+                return ResourceManager.GetString("GHAzDO2012_ProvideRequiredResultProperties_Error_MissingName_Text", resourceCulture);
             }
         }
         
@@ -552,7 +633,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The root element of a SARIF log file is a SarifLog object. The properties of this element provide information about the log&apos;s schema version as well as an array of analysis runs. These properties are required by the ADO Advanced Security service.
+        ///   Looks up a localized string similar to The root element of a SARIF log file is a SarifLog object. The properties of this element provide information about the log&apos;s schema version as well as an array of analysis runs. These properties are required by the GHAzDO (GitHub Advanced Security for Azure DevOps) service.
         ///
         ///Provide the &apos;$schema&apos; property, which must refer to the final version of the SARIF 2.1.0 schema. This enables IDEs to provide Intellisense for SARIF log files.
         ///
@@ -1488,11 +1569,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Azure DevOps Advanced Security.
+        ///   Looks up a localized string similar to GHAzDO (GitHub Advanced Security for Azure DevOps).
         /// </summary>
-        internal static string ServiceName_ADO {
+        internal static string ServiceName_GHAzDO {
             get {
-                return ResourceManager.GetString("ServiceName_ADO", resourceCulture);
+                return ResourceManager.GetString("ServiceName_GHAzDO", resourceCulture);
             }
         }
         

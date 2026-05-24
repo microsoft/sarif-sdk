@@ -60,15 +60,17 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         public const string GHASProvideRequiredToolProperties = "GH1018";
         public const string GHASProvideRequiredReportingDescriptorProperties = "GH2012";
 
-        // Rules for ADO Advanced Security.
-        public const string ADOReferenceFinalSchema = "ADO1011";
-        public const string ADOProvideRequiredSarifLogProperties = "ADO1013";
-        public const string ADOProvideRequiredRunProperties = "ADO1014";
-        public const string ADOProvideRequiredResultProperties = "ADO1015";
-        public const string ADOProvideRequiredLocationProperties = "ADO1016";
-        public const string ADOProvideRequiredPhysicalLocationProperties = "ADO1017";
-        public const string ADOProvideToolDriverProperties = "ADO1018";
-        public const string ADOProvideRequiredReportingDescriptorProperties = "ADO2012";
+        // Rules for GHAzDO (GitHub Advanced Security for Azure DevOps).
+        public const string GHAzDOReferenceFinalSchema = "GHAzDO1011";
+        public const string GHAzDOProvideRequiredSarifLogProperties = "GHAzDO1013";
+        public const string GHAzDOProvideRequiredRunProperties = "GHAzDO1014";
+        public const string GHAzDOProvideRequiredResultProperties = "GHAzDO1015";
+        public const string GHAzDOProvideRequiredLocationProperties = "GHAzDO1016";
+        public const string GHAzDOProvideRequiredPhysicalLocationProperties = "GHAzDO1017";
+        public const string GHAzDOProvideToolDriverProperties = "GHAzDO1018";
+        public const string GHAzDOProvidePipelineProperties = "GHAzDO1019";
+        public const string GHAzDOProvideAutomationDetailsIdFormat = "GHAzDO1020";
+        public const string GHAzDOProvideRequiredReportingDescriptorProperties = "GHAzDO2012";
 
         // TEMPLATE:
         // public const string RuleFriendlyName = "SARIFnnnn";
