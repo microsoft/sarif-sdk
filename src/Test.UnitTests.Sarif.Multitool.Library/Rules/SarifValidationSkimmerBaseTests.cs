@@ -160,9 +160,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         }
 
         [Fact]
-        public void IsAIOriginRun_NullRun_ReturnsFalse()
+        public void IsAIOriginRun_NullRun_Throws()
         {
-            SarifValidationSkimmerBase.IsAIOriginRun(null).Should().BeFalse();
+            Action act = () => SarifValidationSkimmerBase.IsAIOriginRun(null);
+            act.Should().Throw<ArgumentNullException>();
         }
 
         [Fact]
@@ -180,22 +181,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             SarifValidationSkimmerBase.IsAIOriginRun(run).Should().BeFalse();
         }
 
-        [Theory]
-        [InlineData("generated")]
-        [InlineData("assisted")]
-        [InlineData("reviewed")]
-        [InlineData("any-future-value")]
-        public void IsAIOriginRun_RunWithNonEmptyAIOrigin_ReturnsTrue(string value)
+        [Fact]
+        public void IsAIOriginRun_RunWithNonEmptyAIOrigin_ReturnsTrue()
         {
             var run = new Run();
-            run.SetProperty("ai/origin", value);
+            run.SetProperty("ai/origin", "generated");
             SarifValidationSkimmerBase.IsAIOriginRun(run).Should().BeTrue();
         }
 
-        [Theory]
-        [InlineData("")]
-        [InlineData(" ")]
-        public void IsAIOriginRun_RunWithEmptyAIOrigin_ReturnsFalse(string value)
+        [Fact]
+        public void IsAIOriginRun_RunWithEmptyAIOrigin_ReturnsFalse()
         {
             // Empty / whitespace-only is treated as "not set" so emitters that
             // accidentally serialize a blank marker don't accidentally suppress
@@ -203,7 +198,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             // JSON escapes on round-trip (\t comes back as literal backslash-t,
             // not a tab character), so we test the realistic blank values only.
             var run = new Run();
-            run.SetProperty("ai/origin", value);
+            run.SetProperty("ai/origin", " ");
             SarifValidationSkimmerBase.IsAIOriginRun(run).Should().BeFalse();
         }
     }

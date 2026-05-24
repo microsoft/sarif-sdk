@@ -39,8 +39,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         {
             if (IsAIOriginRun())
             {
-                // AI emitters render message.text per-result; the id+arguments pattern is
-                // human-authoring guidance that does not apply to generated content.
+                // AI results are stochastic: each message.text is rendered per result
+                // rather than composed from a parameterized template. The id+arguments
+                // pattern this rule recommends exists to support fixed-format strings
+                // (notably for localization), which AI emitters handle out-of-band —
+                // they can translate rendered content on the fly. Applying the
+                // recommendation to AI output would flag every result indiscriminately.
                 return;
             }
 

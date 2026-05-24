@@ -41,14 +41,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 
         protected override void Analyze(Tool tool, string toolPointer)
         {
-            if (IsAIOriginRun())
-            {
-                // Companion to SARIF2014: AI rule descriptors do not use the {N}
-                // template pattern, so the "enquote your dynamic content" guidance has
-                // nothing to operate on.
-                return;
-            }
-
             if (tool.Driver != null)
             {
                 AnalyzeToolDriver(tool.Driver, toolPointer.AtProperty(SarifPropertyName.Driver));
@@ -90,6 +82,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 
             if (s_nonEnquotedDynamicContextRegex.IsMatch(messageString))
             {
+                if (IsAIOriginRun())
+                {
+                    // Companion to SARIF2014: AI rule descriptors don't use the {N}
+                    // template pattern, so any apparent "dynamic content" here is
+                    // incidental text — the "enquote your placeholders" guidance is
+                    // human-authoring advice that doesn't apply.
+                    return;
+                }
+
                 // {0}: In rule '{1}', the message with id '{2}' includes dynamic content that is not
                 // enclosed in single quotes. Enquoting dynamic content makes it easier to spot, and
                 // single quotes give a less cluttered appearance.

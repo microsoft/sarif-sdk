@@ -39,14 +39,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 
         protected override void Analyze(Run run, string runPointer)
         {
-            if (IsAIOriginRun(run))
-            {
-                // The NOVEL- ruleId prefix is the AI conventional escape hatch for novel
-                // findings that don't fit any existing taxonomy id; SARIF2009's
-                // conventional-id check would mis-flag it.
-                return;
-            }
-
             AnalyzeTool(run.Tool, runPointer.AtProperty(SarifPropertyName.Tool));
         }
 
@@ -71,6 +63,18 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         {
             if (string.IsNullOrWhiteSpace(reportingDescriptor.Id))
             {
+                return;
+            }
+
+            if (IsAIOriginRun())
+            {
+                // AI ruleId convention (see AIRuleIdConvention): every accepted id is
+                // either 'BASE/sub-id' (e.g. 'CWE-89/kql-injection') — which AI1012
+                // sanctions and which this rule's slash branch would mis-flag — or
+                // the 'NOVEL-<sub-id>' escape hatch, which this rule's regex branch
+                // would mis-flag for not matching the short-prefix-plus-number shape.
+                // Both branches encode human-authoring conventions that don't apply
+                // to AI emitters; skip the per-descriptor check.
                 return;
             }
 

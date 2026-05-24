@@ -298,12 +298,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         }
 
         /// <summary>
-        /// The well-known run property whose presence (with any non-null value) declares
-        /// that the containing run was produced by an AI-emitting tool. Style-class
-        /// validation rules (e.g. SARIF2002, SARIF2009, SARIF2014, SARIF2015) suppress
-        /// themselves when this marker is set: AI emitters carry per-result rendered
-        /// message text, use the NOVEL- ruleId escape hatch, and otherwise diverge from
-        /// the human-authoring guidance those rules encode.
+        /// The well-known run property whose presence (with any non-null/non-empty
+        /// value) declares that the containing run was produced by an AI emitter.
+        /// AI-emitted SARIF is stochastic by construction — message text is rendered
+        /// per-result rather than authored against a table of <c>messageStrings</c>
+        /// templates, and rule ids ride the <c>NOVEL-</c> / <c>BASE/sub-id</c>
+        /// convention rather than a fixed tool prefix. Style-class validation rules
+        /// (e.g. SARIF2002, SARIF2009, SARIF2014, SARIF2015) encode human-authoring
+        /// guidance whose preconditions don't hold for AI output, so they suppress
+        /// themselves when this marker is set.
         ///
         /// Correctness-class rules (snippets, hashes, provenance, relative URIs, etc.)
         /// must NOT consult this marker — those checks apply uniformly to AI content.
@@ -313,23 +316,33 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         /// <summary>
         /// Returns true when <paramref name="run"/> declares AI provenance via the
         /// <c>ai/origin</c> run property. Any non-null/non-empty value counts; the
-        /// vocabulary (<c>generated</c>, <c>assisted</c>, <c>reviewed</c>, …) is open
-        /// by design so AI tooling can self-describe at any granularity.
+        /// vocabulary (<c>generated</c>, <c>annotated</c>, <c>synthesized</c>, …)
+        /// is open by design so AI tooling can self-describe at any granularity.
         /// </summary>
+        /// <exception cref="ArgumentNullException">
+        /// <paramref name="run"/> is null. Callers reading AI-origin during rule
+        /// dispatch should already hold a non-null run; the strict contract makes
+        /// upstream lifecycle bugs loud rather than masking them as "not AI".
+        /// </exception>
         internal static bool IsAIOriginRun(Run run)
         {
-            if (run == null) { return false; }
+            if (run == null) { throw new ArgumentNullException(nameof(run)); }
 
             return run.TryGetProperty(AIOriginPropertyName, out string aiOrigin)
                 && !string.IsNullOrWhiteSpace(aiOrigin);
         }
 
         /// <summary>
-        /// Instance convenience: reports whether the run currently being visited declares
-        /// AI provenance. Equivalent to <see cref="IsAIOriginRun(Run)"/> over
-        /// <c>Context.CurrentRun</c>.
+        /// Instance convenience: reports whether the run currently being visited
+        /// declares AI provenance. Returns false when there is no current run
+        /// scope (e.g. an <c>Analyze(SarifLog)</c> dispatch); otherwise defers to
+        /// <see cref="IsAIOriginRun(Run)"/>.
         /// </summary>
-        protected bool IsAIOriginRun() => IsAIOriginRun(Context?.CurrentRun);
+        protected bool IsAIOriginRun()
+        {
+            Run run = Context?.CurrentRun;
+            return run != null && IsAIOriginRun(run);
+        }
 
         private static readonly string s_javaScriptIdentifierPattern = @"^[$_\p{L}][$_\p{L}0-9]*$";
         private static readonly Regex s_javaScriptIdentifierRegex = new Regex(s_javaScriptIdentifierPattern, RegexOptions.Compiled);
