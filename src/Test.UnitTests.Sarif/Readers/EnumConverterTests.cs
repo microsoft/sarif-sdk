@@ -68,7 +68,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
                 ColumnKind = ColumnKind.Utf16CodeUnits,
             };
 
-            JToken token = JToken.FromObject(run, JsonSerializer.CreateDefault());
+            var token = JToken.FromObject(run, JsonSerializer.CreateDefault());
 
             JToken columnKindToken = token["columnKind"];
             columnKindToken.Type.Should().Be(JTokenType.String);
@@ -96,7 +96,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
         {
             var artifact = new Artifact { Roles = ArtifactRoles.AnalysisTarget | ArtifactRoles.Attachment };
 
-            JToken token = JToken.FromObject(artifact, JsonSerializer.CreateDefault());
+            var token = JToken.FromObject(artifact, JsonSerializer.CreateDefault());
 
             JToken rolesToken = token["roles"];
             rolesToken.Type.Should().Be(JTokenType.Array);
@@ -122,7 +122,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
             var when = new DateTime(2026, 5, 21, 19, 56, 46, 144, DateTimeKind.Utc);
             var invocation = new Invocation { StartTimeUtc = when, ExecutionSuccessful = true };
 
-            JToken token = JToken.FromObject(invocation, JsonSerializer.CreateDefault());
+            var token = JToken.FromObject(invocation, JsonSerializer.CreateDefault());
 
             JToken startToken = token["startTimeUtc"];
             startToken.Type.Should().Be(JTokenType.String);
@@ -137,7 +137,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
         {
             var log = new SarifLog { SchemaUri = new Uri("http://json.schemastore.org/sarif-2.1.0-rtm.5"), Version = SarifVersion.Current };
 
-            JToken token = JToken.FromObject(log, JsonSerializer.CreateDefault());
+            var token = JToken.FromObject(log, JsonSerializer.CreateDefault());
 
             JToken versionToken = token["version"];
             versionToken.Type.Should().Be(JTokenType.String);

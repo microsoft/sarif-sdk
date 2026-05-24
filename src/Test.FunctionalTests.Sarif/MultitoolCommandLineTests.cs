@@ -8,6 +8,7 @@ using FluentAssertions;
 
 #if DEBUG
 using FluentAssertions.Execution;
+
 using Microsoft.CodeAnalysis.Sarif.Driver;
 #endif
 

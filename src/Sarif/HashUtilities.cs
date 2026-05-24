@@ -170,7 +170,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
                 long startPosition = stream.CanSeek ? stream.Position : 0;
 
-                var buffer = new byte[32 * 1024];
+                byte[] buffer = new byte[32 * 1024];
                 int read;
                 while ((read = stream.Read(buffer, 0, buffer.Length)) > 0)
                 {

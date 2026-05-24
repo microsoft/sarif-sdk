@@ -21,7 +21,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Taxonomies
             log.Runs.Should().ContainSingle();
             log.Runs[0].Taxonomies.Should().ContainSingle();
 
-            var statuses = log.Runs[0].Taxonomies[0].Taxa
+            string[] statuses = log.Runs[0].Taxonomies[0].Taxa
                 .Select(t => t.TryGetProperty("cwe/status", out string s) ? s : null)
                 .Distinct()
                 .OrderBy(s => s)
