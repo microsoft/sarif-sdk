@@ -471,17 +471,17 @@ Semantics: Assuming the reader of the log file (an end user or another tool) has
   <data name="GH1007_ProvideFullyFormattedMessageStrings_FullDescription_Text" xml:space="preserve">
     <value>GitHub Advanced Security code scanning will reject a SARIF file that express result messages with 'message.id' and 'message.arguments' but without the 'message.text' property since the arugmented message format is not supported yet. Please provide fully formatted text in 'message.text' property.</value>
   </data>
-  <data name="ADO1014_AdoProvideRequiredRunProperties_Error_MissingAutomationDetails_Text" xml:space="preserve">
+  <data name="GHAzDO1014_GHAzDOProvideRequiredRunProperties_Error_MissingAutomationDetails_Text" xml:space="preserve">
     <value>{0}: This 'run' object does not provide an 'automationDetails' property. This property is required by the {1} service.</value>
   </data>
-  <data name="ADO1018_ProvideRequiredToolProperties_Error_MissingDriverFullName_Text" xml:space="preserve">
+  <data name="GHAzDO1018_ProvideRequiredToolProperties_Error_MissingDriverFullName_Text" xml:space="preserve">
     <value>{0}: This 'driver' object does not provide a 'fullName' value. This property is required by the {1} service.</value>
   </data>
   <data name="Base1014_ProvideRequiredRunProperties_Error_MissingResultsArray_Text" xml:space="preserve">
     <value>{0}: This 'run' object does not provide a 'results' array property. This property is required by the {1} service.</value>
   </data>
-  <data name="ServiceName_ADO" xml:space="preserve">
-    <value>Azure DevOps Advanced Security</value>
+  <data name="ServiceName_GHAzDO" xml:space="preserve">
+    <value>GHAzDO (GitHub Advanced Security for Azure DevOps)</value>
   </data>
   <data name="ServiceName_GHAS" xml:space="preserve">
     <value>GitHub Advanced Security</value>
@@ -504,16 +504,16 @@ Semantics: Assuming the reader of the log file (an end user or another tool) has
   <data name="Base1015_ProvideRequiredResultProperties_Error_MissingMessage_Text" xml:space="preserve">
     <value>{0}: This 'result' object does not provide a 'message' object. This property is required by the {1} service.</value>
   </data>
-  <data name="ADO1014_AdoProvideRequiredRunProperties_Error_MissingAutomationDetailsId_Text" xml:space="preserve">
+  <data name="GHAzDO1014_GHAzDOProvideRequiredRunProperties_Error_MissingAutomationDetailsId_Text" xml:space="preserve">
     <value>{0}: This 'run' object's 'automationDetails' object does not provide an 'id' value. This property is required by the {1} service.</value>
   </data>
   <data name="Base1016_ProvideRequiredLocationProperties_Error_MissingPhysicalLocation_Text" xml:space="preserve">
     <value>{0}: This 'location' object does not provide a 'physicalLocation' object. This property is required by the {1} service.</value>
   </data>
-  <data name="ADO1015_ProvideRequiredResultProperties_Error_MissingRuleId_Text" xml:space="preserve">
+  <data name="GHAzDO1015_ProvideRequiredResultProperties_Error_MissingRuleId_Text" xml:space="preserve">
     <value>{0}: This 'result' object does not provide a 'ruleId' value. This property is required by the {1} service.</value>
   </data>
-  <data name="ADO2012_ProvideRequiredResultProperties_Error_MissingName_Text" xml:space="preserve">
+  <data name="GHAzDO2012_ProvideRequiredResultProperties_Error_MissingName_Text" xml:space="preserve">
     <value>{0}: This 'reportingDescriptor' object does not provide a 'name' value. This property is required by the {1} service.</value>
   </data>
   <data name="Base1014_ProvideRequiredRunProperties_Error_MissingTool_Text" xml:space="preserve">
@@ -561,58 +561,58 @@ Semantics: Assuming the reader of the log file (an end user or another tool) has
   <data name="GH1017_ProvideRequiredPhysicalLocationProperties_Error_MissingArtifactLocationUri_Text" xml:space="preserve">
     <value>{0}: The 'artifactLocation' object on this 'physicalLocation' object does not provide a 'uri' object. This property is required by the {1} service.</value>
   </data>
-  <data name="ADO1011_ReferenceFinalSchema_FullDescription_Text" xml:space="preserve">
+  <data name="GHAzDO1011_ReferenceFinalSchema_FullDescription_Text" xml:space="preserve">
     <value>The '$schema' property must refer to the final version of the SARIF 2.1.0 schema. This enables IDEs to provide Intellisense for SARIF log files.
 
 The SARIF standard was developed over several years and many intermediate versions of the schema were produced. Now that the standard is final, only the OASIS standard version of the schema is valid.</value>
   </data>
-  <data name="ADO1013_ProvideRequiredSarifLogProperties_FullDescription_Text" xml:space="preserve">
-    <value>The root element of a SARIF log file is a SarifLog object. The properties of this element provide information about the log's schema version as well as an array of analysis runs. These properties are required by the ADO Advanced Security service.
+  <data name="GHAzDO1013_ProvideRequiredSarifLogProperties_FullDescription_Text" xml:space="preserve">
+    <value>The root element of a SARIF log file is a SarifLog object. The properties of this element provide information about the log's schema version as well as an array of analysis runs. These properties are required by the GHAzDO (GitHub Advanced Security for Azure DevOps) service.
 
 Provide the '$schema' property, which must refer to the final version of the SARIF 2.1.0 schema. This enables IDEs to provide Intellisense for SARIF log files.
 
 Provide the 'version' property, which must refer to the the final, OASIS standard version of the SARIF 2.1.0 schema. This enables IDEs to provide Intellisense for SARIF log files.
 
-Provide the 'runs' array, even if it is empty. The ADO Advanced Security service specifies a maximum of 20 runs.</value>
+Provide the 'runs' array, even if it is empty. The GHAzDO (GitHub Advanced Security for Azure DevOps) service specifies a maximum of 20 runs.</value>
   </data>
-  <data name="ADO1014_ProvideRequiredRunProperties_FullDescription_Text" xml:space="preserve">
+  <data name="GHAzDO1014_ProvideRequiredRunProperties_FullDescription_Text" xml:space="preserve">
     <value>The Run object represents a single execution of the specified analysis tool.
 
 Provide the 'tool' property, which contains metadata about the software that generated the static analysis results.
 
 Provide the 'results' array, even if it is empty.
 
-Provide the 'automationDetails' property. The automationDetails's 'id' property is required by the ADO Advanced Security service.</value>
+Provide the 'automationDetails' property. The automationDetails's 'id' property is required by the GHAzDO (GitHub Advanced Security for Azure DevOps) service.</value>
   </data>
-  <data name="ADO1015_ProvideRequiredResultProperties_FullDescription_Text" xml:space="preserve">
+  <data name="GHAzDO1015_ProvideRequiredResultProperties_FullDescription_Text" xml:space="preserve">
     <value>The Result object represents an analysis finding and should provide details describing the nature of the problem along with its location in the scan target.
 
-Provide the 'ruleId' property, which is the unique identifier of the analysis rule that was violated. This property is required by the ADO Advanced Security service.
+Provide the 'ruleId' property, which is the unique identifier of the analysis rule that was violated. This property is required by the GHAzDO (GitHub Advanced Security for Azure DevOps) service.
 
-Provide the 'message' property, which is a user-facing explanation of the result occurrence. The message's 'text' property is required by the ADO Advanced Security service.
+Provide the 'message' property, which is a user-facing explanation of the result occurrence. The message's 'text' property is required by the GHAzDO (GitHub Advanced Security for Azure DevOps) service.
 
 Provide the 'locations' array, which must contain at least one location object.</value>
   </data>
-  <data name="ADO1016_ProvideRequiredLocationProperties_FullDescription_Text" xml:space="preserve">
+  <data name="GHAzDO1016_ProvideRequiredLocationProperties_FullDescription_Text" xml:space="preserve">
     <value>The Location object is important for providing consumers with the location where the result occurred.
 
-Provide the 'physicalLocation' property. This property is required by the ADO Advanced Security service.</value>
+Provide the 'physicalLocation' property. This property is required by the GHAzDO (GitHub Advanced Security for Azure DevOps) service.</value>
   </data>
-  <data name="ADO1017_ProvideRequiredPhysicalLocationProperties_FullDescription_Text" xml:space="preserve">
-    <value>Provide the 'region' property, along with the appropriate region properties. This property is required by the ADO Advanced Security service.
+  <data name="GHAzDO1017_ProvideRequiredPhysicalLocationProperties_FullDescription_Text" xml:space="preserve">
+    <value>Provide the 'region' property, along with the appropriate region properties. This property is required by the GHAzDO (GitHub Advanced Security for Azure DevOps) service.
 
-Provide the 'artifactLocation' property. This property is required by the ADO Advanced Security service.</value>
+Provide the 'artifactLocation' property. This property is required by the GHAzDO (GitHub Advanced Security for Azure DevOps) service.</value>
   </data>
-  <data name="ADO1018_ProvideRequiredToolProperties_FullDescription_Text" xml:space="preserve">
+  <data name="GHAzDO1018_ProvideRequiredToolProperties_FullDescription_Text" xml:space="preserve">
     <value>Provide information that makes it easy to identify the name and version of your tool.
 
-Provide the 'driver' property. This property is required by the ADO Advanced Security service.
+Provide the 'driver' property. This property is required by the GHAzDO (GitHub Advanced Security for Azure DevOps) service.
 
 Provide the driver's 'name' and 'fullName' properties.
 
 Provide the driver's 'rules' array.</value>
   </data>
-  <data name="ADO2012_ProvideRequiredReportingDescriptorProperties_FullDescription_Text" xml:space="preserve">
+  <data name="GHAzDO2012_ProvideRequiredReportingDescriptorProperties_FullDescription_Text" xml:space="preserve">
     <value>Rule metadata should provide information that makes it easy to understand and fix the problem.
 rule.id
 
@@ -620,13 +620,46 @@ Provide the 'id' property whose value is a stable identifier for the rule.
 
 Provide the 'name' property, which contains a "friendly name" that helps users see at a glance the purpose of the rule. For uniformity of experience across all tools that produce SARIF, the friendly name should be a single Pascal-case identifier, for example, 'ProvideRuleFriendlyName'.</value>
   </data>
+  <data name="GHAzDO1019_ProvidePipelineProperties_FullDescription_Text" xml:space="preserve">
+    <value>When 'run.automationDetails' is present, the four 'azuredevops/pipeline/build/' properties below identify the build definition and phase that produced the run. GHAzDO (GitHub Advanced Security for Azure DevOps) ingestion reads these to attach the run to a pipeline; missing or unparseable values cause ingestion to drop the run with 'MissingAdoPipelineProperties'.
+
+Required keys on 'run.automationDetails.properties':
+- 'azuredevops/pipeline/build/buildDefinitionId'   — integer, non-zero
+- 'azuredevops/pipeline/build/buildDefinitionName' — non-empty string
+- 'azuredevops/pipeline/build/phaseId'             — GUID, not the empty GUID
+- 'azuredevops/pipeline/build/phaseName'           — non-empty string</value>
+  </data>
+  <data name="GHAzDO1019_ProvidePipelineProperties_Error_MissingBuildDefinitionId_Text" xml:space="preserve">
+    <value>{0}: The 'automationDetails.properties' bag does not provide '{2}'. This property is required by the {1} service to identify the build definition.</value>
+  </data>
+  <data name="GHAzDO1019_ProvidePipelineProperties_Error_InvalidBuildDefinitionId_Text" xml:space="preserve">
+    <value>{0}: The 'automationDetails.properties' value for '{2}' is '{3}', which is not a non-zero integer. The {1} service requires a non-zero integer build definition id.</value>
+  </data>
+  <data name="GHAzDO1019_ProvidePipelineProperties_Error_MissingBuildDefinitionName_Text" xml:space="preserve">
+    <value>{0}: The 'automationDetails.properties' bag does not provide '{2}'. This property is required by the {1} service to identify the build definition by name.</value>
+  </data>
+  <data name="GHAzDO1019_ProvidePipelineProperties_Error_MissingPhaseId_Text" xml:space="preserve">
+    <value>{0}: The 'automationDetails.properties' bag does not provide '{2}'. This property is required by the {1} service to identify the build phase.</value>
+  </data>
+  <data name="GHAzDO1019_ProvidePipelineProperties_Error_InvalidPhaseId_Text" xml:space="preserve">
+    <value>{0}: The 'automationDetails.properties' value for '{2}' is '{3}', which is not a non-empty GUID. The {1} service requires a non-empty GUID phase id.</value>
+  </data>
+  <data name="GHAzDO1019_ProvidePipelineProperties_Error_MissingPhaseName_Text" xml:space="preserve">
+    <value>{0}: The 'automationDetails.properties' bag does not provide '{2}'. This property is required by the {1} service to identify the build phase by name.</value>
+  </data>
+  <data name="GHAzDO1020_ProvideAutomationDetailsIdFormat_FullDescription_Text" xml:space="preserve">
+    <value>When 'run.automationDetails.id' is present, it must start with the canonical 'azuredevops/pipeline/build/' prefix. GHAzDO (GitHub Advanced Security for Azure DevOps) ingestion parses the slash-delimited remainder as '&lt;org&gt;/&lt;project&gt;/&lt;buildDefId&gt;/&lt;phaseId&gt;/&lt;branch&gt;/&lt;buildId&gt;'; ids that don't carry the prefix fail downstream parsing.</value>
+  </data>
+  <data name="GHAzDO1020_ProvideAutomationDetailsIdFormat_Error_BadPrefix_Text" xml:space="preserve">
+    <value>{0}: The 'automationDetails.id' value '{3}' does not start with the expected prefix '{2}'. The {1} service expects ids of the form '{2}&lt;org&gt;/&lt;project&gt;/&lt;buildDefId&gt;/&lt;phaseId&gt;/&lt;branch&gt;/&lt;buildId&gt;'.</value>
+  </data>
   <data name="GH1011_ReferenceFinalSchema" xml:space="preserve">
     <value>The '$schema' property must refer to the final version of the SARIF 2.1.0 schema. This enables IDEs to provide Intellisense for SARIF log files.
 
 The SARIF standard was developed over several years and many intermediate versions of the schema were produced. Now that the standard is final, only the OASIS standard version of the schema is valid.</value>
   </data>
   <data name="GH1013_ProvideRequiredSarifLogProperties_FullDescription_Text" xml:space="preserve">
-    <value>The root element of a SARIF log file is a SarifLog object. The properties of this element provide information about the log's schema version as well as an array of analysis runs. These properties are required by the ADO Advanced Security service.
+    <value>The root element of a SARIF log file is a SarifLog object. The properties of this element provide information about the log's schema version as well as an array of analysis runs. These properties are required by the GHAzDO (GitHub Advanced Security for Azure DevOps) service.
 
 Provide the '$schema' property, which must refer to the final version of the SARIF 2.1.0 schema. This enables IDEs to provide Intellisense for SARIF log files.
 
@@ -704,7 +737,7 @@ Provide the 'help' property and populate the 'text' property with information ab
     <value>{0}: The 'ai/origin' value '{1}' is not a recognized origin. Valid values are: 'generated', 'annotated', 'synthesized'.</value>
   </data>
   <data name="AI2003_ProvideSemanticVersion_FullDescription_Text" xml:space="preserve">
-    <value>The tool driver should provide a 'semanticVersion' property with a semver-compliant version string (e.g., '1.2.3'). A semantic version enables sortable version comparison and is required by some ingestion systems such as GitHub Advanced Security and Azure DevOps Advanced Security.</value>
+    <value>The tool driver should provide a 'semanticVersion' property with a semver-compliant version string (e.g., '1.2.3'). A semantic version enables sortable version comparison and is required by some ingestion systems such as GitHub Advanced Security and GHAzDO (GitHub Advanced Security for Azure DevOps).</value>
   </data>
   <data name="AI2003_ProvideSemanticVersion_Warning_Default_Text" xml:space="preserve">
     <value>{0}: The tool driver '{1}' does not provide a 'semanticVersion'. A semver-compliant version string enables sortable versioning and is required by some ingestion systems.</value>

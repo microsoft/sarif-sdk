@@ -52,59 +52,6 @@
               "helpUri": "http://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html"
             },
             {
-              "id": "ADO1015",
-              "name": "AdoProvideRequiredResultProperties",
-              "fullDescription": {
-                "text": "The Result object represents an analysis finding and should provide details describing the nature of the problem along with its location in the scan target.\r\n\r\nProvide the 'ruleId' property, which is the unique identifier of the analysis rule that was violated. This property is required by the ADO Advanced Security service.\r\n\r\nProvide the 'message' property, which is a user-facing explanation of the result occurrence. The message's 'text' property is required by the ADO Advanced Security service.\r\n\r\nProvide the 'locations' array, which must contain at least one location object."
-              },
-              "messageStrings": {
-                "Error_MissingRuleId": {
-                  "text": "{0}: This 'result' object does not provide a 'ruleId' value. This property is required by the {1} service."
-                },
-                "Error_EmptyLocationsArray": {
-                  "text": "{0}: The 'locations' array on this 'result' object is empty. This property is required by the {1} service."
-                },
-                "Error_MissingLocationsArray": {
-                  "text": "{0}: This 'result' object does not provide a 'locations' array. This property is required by the {1} service."
-                },
-                "Error_MissingMessageText": {
-                  "text": "{0}: The 'message' object on this 'result' object does not provide a 'text' property. This property is required by the {1} service."
-                },
-                "Error_MissingMessage": {
-                  "text": "{0}: This 'result' object does not provide a 'message' object. This property is required by the {1} service."
-                }
-              },
-              "defaultConfiguration": {
-                "level": "error"
-              },
-              "helpUri": "http://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html"
-            },
-            {
-              "id": "ADO1017",
-              "name": "AdoProvideRequiredPhysicalLocationProperties",
-              "fullDescription": {
-                "text": "Provide the 'region' property, along with the appropriate region properties. This property is required by the ADO Advanced Security service.\r\n\r\nProvide the 'artifactLocation' property. This property is required by the ADO Advanced Security service."
-              },
-              "messageStrings": {
-                "Error_EmptyLocationsArray": {
-                  "text": "{0}: The 'locations' array on this 'result' object is empty. This property is required by the {1} service."
-                },
-                "Error_MissingLocationsArray": {
-                  "text": "{0}: This 'result' object does not provide a 'locations' array. This property is required by the {1} service."
-                },
-                "Error_MissingMessageText": {
-                  "text": "{0}: The 'message' object on this 'result' object does not provide a 'text' property. This property is required by the {1} service."
-                },
-                "Error_MissingMessage": {
-                  "text": "{0}: This 'result' object does not provide a 'message' object. This property is required by the {1} service."
-                }
-              },
-              "defaultConfiguration": {
-                "level": "error"
-              },
-              "helpUri": "http://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html"
-            },
-            {
               "id": "GH1015",
               "name": "GhasProvideRequiredResultProperties",
               "fullDescription": {
@@ -195,6 +142,59 @@
               "helpUri": "http://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html"
             },
             {
+              "id": "GHAzDO1015",
+              "name": "GHAzDOProvideRequiredResultProperties",
+              "fullDescription": {
+                "text": "The Result object represents an analysis finding and should provide details describing the nature of the problem along with its location in the scan target.\r\n\r\nProvide the 'ruleId' property, which is the unique identifier of the analysis rule that was violated. This property is required by the GHAzDO (GitHub Advanced Security for Azure DevOps) service.\r\n\r\nProvide the 'message' property, which is a user-facing explanation of the result occurrence. The message's 'text' property is required by the GHAzDO (GitHub Advanced Security for Azure DevOps) service.\r\n\r\nProvide the 'locations' array, which must contain at least one location object."
+              },
+              "messageStrings": {
+                "Error_MissingRuleId": {
+                  "text": "{0}: This 'result' object does not provide a 'ruleId' value. This property is required by the {1} service."
+                },
+                "Error_EmptyLocationsArray": {
+                  "text": "{0}: The 'locations' array on this 'result' object is empty. This property is required by the {1} service."
+                },
+                "Error_MissingLocationsArray": {
+                  "text": "{0}: This 'result' object does not provide a 'locations' array. This property is required by the {1} service."
+                },
+                "Error_MissingMessageText": {
+                  "text": "{0}: The 'message' object on this 'result' object does not provide a 'text' property. This property is required by the {1} service."
+                },
+                "Error_MissingMessage": {
+                  "text": "{0}: This 'result' object does not provide a 'message' object. This property is required by the {1} service."
+                }
+              },
+              "defaultConfiguration": {
+                "level": "error"
+              },
+              "helpUri": "http://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html"
+            },
+            {
+              "id": "GHAzDO1017",
+              "name": "GHAzDOProvideRequiredPhysicalLocationProperties",
+              "fullDescription": {
+                "text": "Provide the 'region' property, along with the appropriate region properties. This property is required by the GHAzDO (GitHub Advanced Security for Azure DevOps) service.\r\n\r\nProvide the 'artifactLocation' property. This property is required by the GHAzDO (GitHub Advanced Security for Azure DevOps) service."
+              },
+              "messageStrings": {
+                "Error_EmptyLocationsArray": {
+                  "text": "{0}: The 'locations' array on this 'result' object is empty. This property is required by the {1} service."
+                },
+                "Error_MissingLocationsArray": {
+                  "text": "{0}: This 'result' object does not provide a 'locations' array. This property is required by the {1} service."
+                },
+                "Error_MissingMessageText": {
+                  "text": "{0}: The 'message' object on this 'result' object does not provide a 'text' property. This property is required by the {1} service."
+                },
+                "Error_MissingMessage": {
+                  "text": "{0}: This 'result' object does not provide a 'message' object. This property is required by the {1} service."
+                }
+              },
+              "defaultConfiguration": {
+                "level": "error"
+              },
+              "helpUri": "http://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html"
+            },
+            {
               "id": "SARIF2002",
               "name": "ProvideMessageArguments",
               "fullDescription": {
@@ -211,15 +211,12 @@
               "helpUri": "http://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html"
             },
             {
-              "id": "ADO1018",
-              "name": "AdoProvideRequiredToolProperties",
+              "id": "GH1018",
+              "name": "GhasProvideToolDriver",
               "fullDescription": {
-                "text": "Provide information that makes it easy to identify the name and version of your tool.\r\n\r\nProvide the 'driver' property. This property is required by the ADO Advanced Security service.\r\n\r\nProvide the driver's 'name' and 'fullName' properties.\r\n\r\nProvide the driver's 'rules' array."
+                "text": "Provide information that makes it easy to identify the name and version of your tool.\r\n\r\nProvide the 'driver' property. This property is required by the GitHub Advanced Security service.\r\n\r\nProvide the driver's 'name' property.\r\n\r\nProvide the driver's 'rules' array."
               },
               "messageStrings": {
-                "Error_MissingDriverFullName": {
-                  "text": "{0}: This 'driver' object does not provide a 'fullName' value. This property is required by the {1} service."
-                },
                 "Error_MissingDriverName": {
                   "text": "{0}: The 'driver' object in this tool does not provide a 'name' value. This property is required by the {1} service."
                 },
@@ -236,12 +233,15 @@
               "helpUri": "http://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html"
             },
             {
-              "id": "GH1018",
-              "name": "GhasProvideToolDriver",
+              "id": "GHAzDO1018",
+              "name": "GHAzDOProvideRequiredToolProperties",
               "fullDescription": {
-                "text": "Provide information that makes it easy to identify the name and version of your tool.\r\n\r\nProvide the 'driver' property. This property is required by the GitHub Advanced Security service.\r\n\r\nProvide the driver's 'name' property.\r\n\r\nProvide the driver's 'rules' array."
+                "text": "Provide information that makes it easy to identify the name and version of your tool.\r\n\r\nProvide the 'driver' property. This property is required by the GHAzDO (GitHub Advanced Security for Azure DevOps) service.\r\n\r\nProvide the driver's 'name' and 'fullName' properties.\r\n\r\nProvide the driver's 'rules' array."
               },
               "messageStrings": {
+                "Error_MissingDriverFullName": {
+                  "text": "{0}: This 'driver' object does not provide a 'fullName' value. This property is required by the {1} service."
+                },
                 "Error_MissingDriverName": {
                   "text": "{0}: The 'driver' object in this tool does not provide a 'name' value. This property is required by the {1} service."
                 },
@@ -276,6 +276,53 @@
                 "Warning_ProvideToolnformationUri": {
                   "text": "{0}: The tool '{1}' does not provide 'informationUri'. This property helps the developer responsible for addessing a result by providing a way to learn more about the tool."
                 }
+              },
+              "helpUri": "http://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html"
+            },
+            {
+              "id": "GHAzDO1019",
+              "name": "GHAzDOProvidePipelineProperties",
+              "fullDescription": {
+                "text": "When 'run.automationDetails' is present, the four 'azuredevops/pipeline/build/' properties below identify the build definition and phase that produced the run. GHAzDO (GitHub Advanced Security for Azure DevOps) ingestion reads these to attach the run to a pipeline; missing or unparseable values cause ingestion to drop the run with 'MissingAdoPipelineProperties'.\r\n\r\nRequired keys on 'run.automationDetails.properties':\r\n- 'azuredevops/pipeline/build/buildDefinitionId'   — integer, non-zero\r\n- 'azuredevops/pipeline/build/buildDefinitionName' — non-empty string\r\n- 'azuredevops/pipeline/build/phaseId'             — GUID, not the empty GUID\r\n- 'azuredevops/pipeline/build/phaseName'           — non-empty string"
+              },
+              "messageStrings": {
+                "Error_MissingBuildDefinitionId": {
+                  "text": "{0}: The 'automationDetails.properties' bag does not provide '{2}'. This property is required by the {1} service to identify the build definition."
+                },
+                "Error_InvalidBuildDefinitionId": {
+                  "text": "{0}: The 'automationDetails.properties' value for '{2}' is '{3}', which is not a non-zero integer. The {1} service requires a non-zero integer build definition id."
+                },
+                "Error_MissingBuildDefinitionName": {
+                  "text": "{0}: The 'automationDetails.properties' bag does not provide '{2}'. This property is required by the {1} service to identify the build definition by name."
+                },
+                "Error_MissingPhaseId": {
+                  "text": "{0}: The 'automationDetails.properties' bag does not provide '{2}'. This property is required by the {1} service to identify the build phase."
+                },
+                "Error_InvalidPhaseId": {
+                  "text": "{0}: The 'automationDetails.properties' value for '{2}' is '{3}', which is not a non-empty GUID. The {1} service requires a non-empty GUID phase id."
+                },
+                "Error_MissingPhaseName": {
+                  "text": "{0}: The 'automationDetails.properties' bag does not provide '{2}'. This property is required by the {1} service to identify the build phase by name."
+                }
+              },
+              "defaultConfiguration": {
+                "level": "error"
+              },
+              "helpUri": "http://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html"
+            },
+            {
+              "id": "GHAzDO1020",
+              "name": "GHAzDOProvideAutomationDetailsIdFormat",
+              "fullDescription": {
+                "text": "When 'run.automationDetails.id' is present, it must start with the canonical 'azuredevops/pipeline/build/' prefix. GHAzDO (GitHub Advanced Security for Azure DevOps) ingestion parses the slash-delimited remainder as '<org>/<project>/<buildDefId>/<phaseId>/<branch>/<buildId>'; ids that don't carry the prefix fail downstream parsing."
+              },
+              "messageStrings": {
+                "Error_BadPrefix": {
+                  "text": "{0}: The 'automationDetails.id' value '{3}' does not start with the expected prefix '{2}'. The {1} service expects ids of the form '{2}<org>/<project>/<buildDefId>/<phaseId>/<branch>/<buildId>'."
+                }
+              },
+              "defaultConfiguration": {
+                "level": "error"
               },
               "helpUri": "http://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html"
             }
@@ -361,66 +408,8 @@
           }
         },
         {
-          "ruleId": "ADO1015",
-          "ruleIndex": 2,
-          "level": "error",
-          "message": {
-            "id": "Error_MissingLocationsArray",
-            "arguments": [
-              "runs[0].results[0]",
-              "Azure DevOps Advanced Security"
-            ]
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "index": 1
-                },
-                "region": {
-                  "startLine": 7,
-                  "startColumn": 9
-                }
-              }
-            }
-          ],
-          "baselineState": "new",
-          "properties": {
-            "ResultMatching": {}
-          }
-        },
-        {
-          "ruleId": "ADO1017",
-          "ruleIndex": 3,
-          "level": "error",
-          "message": {
-            "id": "Error_MissingLocationsArray",
-            "arguments": [
-              "runs[0].results[0]",
-              "Azure DevOps Advanced Security"
-            ]
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "index": 1
-                },
-                "region": {
-                  "startLine": 7,
-                  "startColumn": 9
-                }
-              }
-            }
-          ],
-          "baselineState": "new",
-          "properties": {
-            "ResultMatching": {}
-          }
-        },
-        {
           "ruleId": "GH1015",
-          "ruleIndex": 4,
+          "ruleIndex": 2,
           "level": "error",
           "message": {
             "id": "Error_MissingLocationsArray",
@@ -449,7 +438,7 @@
         },
         {
           "ruleId": "GH1017",
-          "ruleIndex": 5,
+          "ruleIndex": 3,
           "level": "error",
           "message": {
             "id": "Error_MissingLocationsArray",
@@ -478,13 +467,71 @@
         },
         {
           "ruleId": "GH2012",
-          "ruleIndex": 6,
+          "ruleIndex": 4,
           "level": "error",
           "message": {
             "id": "Error_MissingLocationsArray",
             "arguments": [
               "runs[0].results[0]",
               "GitHub Advanced Security"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": 1
+                },
+                "region": {
+                  "startLine": 7,
+                  "startColumn": 9
+                }
+              }
+            }
+          ],
+          "baselineState": "new",
+          "properties": {
+            "ResultMatching": {}
+          }
+        },
+        {
+          "ruleId": "GHAzDO1015",
+          "ruleIndex": 5,
+          "level": "error",
+          "message": {
+            "id": "Error_MissingLocationsArray",
+            "arguments": [
+              "runs[0].results[0]",
+              "GHAzDO (GitHub Advanced Security for Azure DevOps)"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": 1
+                },
+                "region": {
+                  "startLine": 7,
+                  "startColumn": 9
+                }
+              }
+            }
+          ],
+          "baselineState": "new",
+          "properties": {
+            "ResultMatching": {}
+          }
+        },
+        {
+          "ruleId": "GHAzDO1017",
+          "ruleIndex": 6,
+          "level": "error",
+          "message": {
+            "id": "Error_MissingLocationsArray",
+            "arguments": [
+              "runs[0].results[0]",
+              "GHAzDO (GitHub Advanced Security for Azure DevOps)"
             ]
           },
           "locations": [
@@ -534,66 +581,8 @@
           }
         },
         {
-          "ruleId": "ADO1015",
-          "ruleIndex": 2,
-          "level": "error",
-          "message": {
-            "id": "Error_MissingLocationsArray",
-            "arguments": [
-              "runs[0].results[1]",
-              "Azure DevOps Advanced Security"
-            ]
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "index": 1
-                },
-                "region": {
-                  "startLine": 13,
-                  "startColumn": 9
-                }
-              }
-            }
-          ],
-          "baselineState": "new",
-          "properties": {
-            "ResultMatching": {}
-          }
-        },
-        {
-          "ruleId": "ADO1017",
-          "ruleIndex": 3,
-          "level": "error",
-          "message": {
-            "id": "Error_MissingLocationsArray",
-            "arguments": [
-              "runs[0].results[1]",
-              "Azure DevOps Advanced Security"
-            ]
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "index": 1
-                },
-                "region": {
-                  "startLine": 13,
-                  "startColumn": 9
-                }
-              }
-            }
-          ],
-          "baselineState": "new",
-          "properties": {
-            "ResultMatching": {}
-          }
-        },
-        {
           "ruleId": "GH1015",
-          "ruleIndex": 4,
+          "ruleIndex": 2,
           "level": "error",
           "message": {
             "id": "Error_MissingLocationsArray",
@@ -622,7 +611,7 @@
         },
         {
           "ruleId": "GH1017",
-          "ruleIndex": 5,
+          "ruleIndex": 3,
           "level": "error",
           "message": {
             "id": "Error_MissingLocationsArray",
@@ -651,13 +640,71 @@
         },
         {
           "ruleId": "GH2012",
-          "ruleIndex": 6,
+          "ruleIndex": 4,
           "level": "error",
           "message": {
             "id": "Error_MissingLocationsArray",
             "arguments": [
               "runs[0].results[1]",
               "GitHub Advanced Security"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": 1
+                },
+                "region": {
+                  "startLine": 13,
+                  "startColumn": 9
+                }
+              }
+            }
+          ],
+          "baselineState": "new",
+          "properties": {
+            "ResultMatching": {}
+          }
+        },
+        {
+          "ruleId": "GHAzDO1015",
+          "ruleIndex": 5,
+          "level": "error",
+          "message": {
+            "id": "Error_MissingLocationsArray",
+            "arguments": [
+              "runs[0].results[1]",
+              "GHAzDO (GitHub Advanced Security for Azure DevOps)"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": 1
+                },
+                "region": {
+                  "startLine": 13,
+                  "startColumn": 9
+                }
+              }
+            }
+          ],
+          "baselineState": "new",
+          "properties": {
+            "ResultMatching": {}
+          }
+        },
+        {
+          "ruleId": "GHAzDO1017",
+          "ruleIndex": 6,
+          "level": "error",
+          "message": {
+            "id": "Error_MissingLocationsArray",
+            "arguments": [
+              "runs[0].results[1]",
+              "GHAzDO (GitHub Advanced Security for Azure DevOps)"
             ]
           },
           "locations": [
@@ -707,66 +754,8 @@
           }
         },
         {
-          "ruleId": "ADO1015",
-          "ruleIndex": 2,
-          "level": "error",
-          "message": {
-            "id": "Error_MissingLocationsArray",
-            "arguments": [
-              "runs[0].results[2]",
-              "Azure DevOps Advanced Security"
-            ]
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "index": 1
-                },
-                "region": {
-                  "startLine": 19,
-                  "startColumn": 9
-                }
-              }
-            }
-          ],
-          "baselineState": "new",
-          "properties": {
-            "ResultMatching": {}
-          }
-        },
-        {
-          "ruleId": "ADO1017",
-          "ruleIndex": 3,
-          "level": "error",
-          "message": {
-            "id": "Error_MissingLocationsArray",
-            "arguments": [
-              "runs[0].results[2]",
-              "Azure DevOps Advanced Security"
-            ]
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "index": 1
-                },
-                "region": {
-                  "startLine": 19,
-                  "startColumn": 9
-                }
-              }
-            }
-          ],
-          "baselineState": "new",
-          "properties": {
-            "ResultMatching": {}
-          }
-        },
-        {
           "ruleId": "GH1015",
-          "ruleIndex": 4,
+          "ruleIndex": 2,
           "level": "error",
           "message": {
             "id": "Error_MissingLocationsArray",
@@ -795,7 +784,7 @@
         },
         {
           "ruleId": "GH1017",
-          "ruleIndex": 5,
+          "ruleIndex": 3,
           "level": "error",
           "message": {
             "id": "Error_MissingLocationsArray",
@@ -824,13 +813,71 @@
         },
         {
           "ruleId": "GH2012",
-          "ruleIndex": 6,
+          "ruleIndex": 4,
           "level": "error",
           "message": {
             "id": "Error_MissingLocationsArray",
             "arguments": [
               "runs[0].results[2]",
               "GitHub Advanced Security"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": 1
+                },
+                "region": {
+                  "startLine": 19,
+                  "startColumn": 9
+                }
+              }
+            }
+          ],
+          "baselineState": "new",
+          "properties": {
+            "ResultMatching": {}
+          }
+        },
+        {
+          "ruleId": "GHAzDO1015",
+          "ruleIndex": 5,
+          "level": "error",
+          "message": {
+            "id": "Error_MissingLocationsArray",
+            "arguments": [
+              "runs[0].results[2]",
+              "GHAzDO (GitHub Advanced Security for Azure DevOps)"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": 1
+                },
+                "region": {
+                  "startLine": 19,
+                  "startColumn": 9
+                }
+              }
+            }
+          ],
+          "baselineState": "new",
+          "properties": {
+            "ResultMatching": {}
+          }
+        },
+        {
+          "ruleId": "GHAzDO1017",
+          "ruleIndex": 6,
+          "level": "error",
+          "message": {
+            "id": "Error_MissingLocationsArray",
+            "arguments": [
+              "runs[0].results[2]",
+              "GHAzDO (GitHub Advanced Security for Azure DevOps)"
             ]
           },
           "locations": [
@@ -880,72 +927,72 @@
           }
         },
         {
-          "ruleId": "ADO1018",
-          "ruleIndex": 8,
-          "level": "error",
-          "message": {
-            "id": "Error_MissingDriverRules",
-            "arguments": [
-              "runs[0].tool.driver",
-              "Azure DevOps Advanced Security"
-            ]
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "index": 1
-                },
-                "region": {
-                  "startLine": 27,
-                  "startColumn": 19
-                }
-              }
-            }
-          ],
-          "baselineState": "new",
-          "properties": {
-            "ResultMatching": {}
-          }
-        },
-        {
-          "ruleId": "ADO1018",
-          "ruleIndex": 8,
-          "level": "error",
-          "message": {
-            "id": "Error_MissingDriverRules",
-            "arguments": [
-              "runs[0].tool.driver",
-              "Azure DevOps Advanced Security"
-            ]
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "index": 1
-                },
-                "region": {
-                  "startLine": 27,
-                  "startColumn": 19
-                }
-              }
-            }
-          ],
-          "baselineState": "new",
-          "properties": {
-            "ResultMatching": {}
-          }
-        },
-        {
           "ruleId": "GH1018",
-          "ruleIndex": 9,
+          "ruleIndex": 8,
           "level": "error",
           "message": {
             "id": "Error_MissingDriverRules",
             "arguments": [
               "runs[0].tool.driver",
               "GitHub Advanced Security"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": 1
+                },
+                "region": {
+                  "startLine": 27,
+                  "startColumn": 19
+                }
+              }
+            }
+          ],
+          "baselineState": "new",
+          "properties": {
+            "ResultMatching": {}
+          }
+        },
+        {
+          "ruleId": "GHAzDO1018",
+          "ruleIndex": 9,
+          "level": "error",
+          "message": {
+            "id": "Error_MissingDriverRules",
+            "arguments": [
+              "runs[0].tool.driver",
+              "GHAzDO (GitHub Advanced Security for Azure DevOps)"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": 1
+                },
+                "region": {
+                  "startLine": 27,
+                  "startColumn": 19
+                }
+              }
+            }
+          ],
+          "baselineState": "new",
+          "properties": {
+            "ResultMatching": {}
+          }
+        },
+        {
+          "ruleId": "GHAzDO1018",
+          "ruleIndex": 9,
+          "level": "error",
+          "message": {
+            "id": "Error_MissingDriverRules",
+            "arguments": [
+              "runs[0].tool.driver",
+              "GHAzDO (GitHub Advanced Security for Azure DevOps)"
             ]
           },
           "locations": [
@@ -1047,6 +1094,157 @@
             }
           ],
           "baselineState": "unchanged",
+          "properties": {
+            "ResultMatching": {}
+          }
+        },
+        {
+          "ruleId": "GHAzDO1019",
+          "ruleIndex": 11,
+          "level": "error",
+          "message": {
+            "id": "Error_MissingPhaseName",
+            "arguments": [
+              "runs[0].automationDetails",
+              "GHAzDO (GitHub Advanced Security for Azure DevOps)",
+              "azuredevops/pipeline/build/phaseName"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": 1
+                },
+                "region": {
+                  "startLine": 32,
+                  "startColumn": 28
+                }
+              }
+            }
+          ],
+          "baselineState": "new",
+          "properties": {
+            "ResultMatching": {}
+          }
+        },
+        {
+          "ruleId": "GHAzDO1019",
+          "ruleIndex": 11,
+          "level": "error",
+          "message": {
+            "id": "Error_MissingBuildDefinitionName",
+            "arguments": [
+              "runs[0].automationDetails",
+              "GHAzDO (GitHub Advanced Security for Azure DevOps)",
+              "azuredevops/pipeline/build/buildDefinitionName"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": 1
+                },
+                "region": {
+                  "startLine": 32,
+                  "startColumn": 28
+                }
+              }
+            }
+          ],
+          "baselineState": "new",
+          "properties": {
+            "ResultMatching": {}
+          }
+        },
+        {
+          "ruleId": "GHAzDO1019",
+          "ruleIndex": 11,
+          "level": "error",
+          "message": {
+            "id": "Error_MissingBuildDefinitionId",
+            "arguments": [
+              "runs[0].automationDetails",
+              "GHAzDO (GitHub Advanced Security for Azure DevOps)",
+              "azuredevops/pipeline/build/buildDefinitionId"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": 1
+                },
+                "region": {
+                  "startLine": 32,
+                  "startColumn": 28
+                }
+              }
+            }
+          ],
+          "baselineState": "new",
+          "properties": {
+            "ResultMatching": {}
+          }
+        },
+        {
+          "ruleId": "GHAzDO1019",
+          "ruleIndex": 11,
+          "level": "error",
+          "message": {
+            "id": "Error_MissingPhaseId",
+            "arguments": [
+              "runs[0].automationDetails",
+              "GHAzDO (GitHub Advanced Security for Azure DevOps)",
+              "azuredevops/pipeline/build/phaseId"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": 1
+                },
+                "region": {
+                  "startLine": 32,
+                  "startColumn": 28
+                }
+              }
+            }
+          ],
+          "baselineState": "new",
+          "properties": {
+            "ResultMatching": {}
+          }
+        },
+        {
+          "ruleId": "GHAzDO1020",
+          "ruleIndex": 12,
+          "level": "error",
+          "message": {
+            "id": "Error_BadPrefix",
+            "arguments": [
+              "runs[0].automationDetails.id",
+              "GHAzDO (GitHub Advanced Security for Azure DevOps)",
+              "azuredevops/pipeline/build/",
+              "automation-id"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": 1
+                },
+                "region": {
+                  "startLine": 33,
+                  "startColumn": 29
+                }
+              }
+            }
+          ],
+          "baselineState": "new",
           "properties": {
             "ResultMatching": {}
           }

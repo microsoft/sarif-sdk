@@ -9,7 +9,8 @@ namespace Microsoft.CodeAnalysis.Sarif
         Sarif = 1,
         Gh = 2,
         Ghas = 3,
-        Ado = 4,
+        GHAzDO = 4,
         AI = 5,
     }
 }
+

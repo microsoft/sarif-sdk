@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft. All rights reserved.
+// Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System;
@@ -31,7 +31,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         private readonly bool _testProducesSarifCurrentVersion;
         private readonly TestAssetResourceExtractor _extractor;
 
-        protected readonly List<RuleKind> AllRuleKinds = new List<RuleKind>(new[] { RuleKind.Sarif, RuleKind.Ado, RuleKind.Gh, RuleKind.Ghas });
+        protected readonly List<RuleKind> AllRuleKinds = new List<RuleKind>(new[] { RuleKind.Sarif, RuleKind.GHAzDO, RuleKind.Gh, RuleKind.Ghas });
 
         public FileDiffingUnitTests(ITestOutputHelper outputHelper, bool testProducesSarifCurrentVersion = true)
         {

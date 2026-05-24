@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft. All rights reserved.
+// Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System.Collections.Generic;
@@ -6,28 +6,28 @@ using System.Linq;
 
 namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 {
-    public class AdoProvideRequiredResultProperties
+    public class GHAzDOProvideRequiredResultProperties
         : BaseProvideRequiredResultProperties
     {
         /// <summary>
-        /// ADO1015
+        /// GHAzDO1015
         /// </summary>
-        public override string Id => RuleId.ADOProvideRequiredResultProperties;
+        public override string Id => RuleId.GHAzDOProvideRequiredResultProperties;
 
-        public override MultiformatMessageString FullDescription => new MultiformatMessageString() { Text = RuleResources.ADO1015_ProvideRequiredResultProperties_FullDescription_Text };
+        public override MultiformatMessageString FullDescription => new MultiformatMessageString() { Text = RuleResources.GHAzDO1015_ProvideRequiredResultProperties_FullDescription_Text };
 
         private readonly List<string> _messageResourceNames = new List<string>()
         {
-            nameof(RuleResources.ADO1015_ProvideRequiredResultProperties_Error_MissingRuleId_Text)
+            nameof(RuleResources.GHAzDO1015_ProvideRequiredResultProperties_Error_MissingRuleId_Text)
         };
 
         protected override ICollection<string> MessageResourceNames => _messageResourceNames.Concat(BaseMessageResourceNames).ToList();
 
-        public override HashSet<RuleKind> RuleKinds => new(new[] { RuleKind.Ado });
+        public override HashSet<RuleKind> RuleKinds => new(new[] { RuleKind.GHAzDO });
 
-        protected override string ServiceName => RuleResources.ServiceName_ADO;
+        protected override string ServiceName => RuleResources.ServiceName_GHAzDO;
 
-        public AdoProvideRequiredResultProperties()
+        public GHAzDOProvideRequiredResultProperties()
         {
             this.DefaultConfiguration.Level = FailureLevel.Error;
         }
@@ -41,7 +41,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                 // {0}: This 'result' object does not provide a 'ruleId' value. This property is required by the {1} service.
                 LogResult(
                     resultPointer,
-                    nameof(RuleResources.ADO1015_ProvideRequiredResultProperties_Error_MissingRuleId_Text));
+                    nameof(RuleResources.GHAzDO1015_ProvideRequiredResultProperties_Error_MissingRuleId_Text));
             }
         }
     }
