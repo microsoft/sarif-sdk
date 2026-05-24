@@ -162,5 +162,149 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             capturedStderr.Should().Contain("'CWE-79'");
             capturedStderr.Should().NotContain("at Microsoft.CodeAnalysis.Sarif", "the catch block should write the envelope, not a stack trace");
         }
+
+        [Fact]
+        public void Run_WithSrcRoot_RewritesExistingSrcRootUriAfterEnrichment()
+        {
+            // Producer emits with a local file:// SRCROOT so InsertOptionalDataVisitor can
+            // resolve sources, then asks finalize to rewrite the shipped URI to a portable
+            // canonical anchor. The shipped artifact must carry the post-rewrite value.
+            var initialRun = new Run
+            {
+                Tool = new Tool { Driver = new ToolComponent { Name = "demo" } },
+                OriginalUriBaseIds = new System.Collections.Generic.Dictionary<string, ArtifactLocation>
+                {
+                    ["SRCROOT"] = new ArtifactLocation { Uri = new Uri("file:///c:/repo/", UriKind.Absolute) },
+                },
+            };
+            SeedWip(
+                (SarifEventKinds.RunHeader, initialRun),
+                (SarifEventKinds.Result, new Result { RuleId = "NOVEL-test", Message = new Message { Text = "x" } }));
+
+            int exit = new EmitFinalizeCommand().Run(new EmitFinalizeOptions
+            {
+                OutputFilePath = OutPath,
+                SrcRoot = "https://github.com/microsoft/sarif-sdk/blob/main/",
+            });
+
+            exit.Should().Be(CommandBase.SUCCESS);
+            SarifLog log = LoadSarif();
+            log.Runs[0].OriginalUriBaseIds.Should().ContainKey("SRCROOT");
+            log.Runs[0].OriginalUriBaseIds["SRCROOT"].Uri
+                .Should().Be(new Uri("https://github.com/microsoft/sarif-sdk/blob/main/", UriKind.Absolute));
+        }
+
+        [Fact]
+        public void Run_WithSrcRoot_AddsSrcRootEntryWhenRunHadNoOriginalUriBaseIds()
+        {
+            // Run header was emitted without --srcroot. Finalize --srcroot should still
+            // honor the producer's intent and populate the SRCROOT base id from scratch.
+            SeedWip(
+                (SarifEventKinds.RunHeader, new Run { Tool = new Tool { Driver = new ToolComponent { Name = "demo" } } }),
+                (SarifEventKinds.Result, new Result { RuleId = "NOVEL-test", Message = new Message { Text = "x" } }));
+
+            int exit = new EmitFinalizeCommand().Run(new EmitFinalizeOptions
+            {
+                OutputFilePath = OutPath,
+                SrcRoot = "https://example.com/repo/",
+            });
+
+            exit.Should().Be(CommandBase.SUCCESS);
+            SarifLog log = LoadSarif();
+            log.Runs[0].OriginalUriBaseIds.Should().ContainKey("SRCROOT");
+            log.Runs[0].OriginalUriBaseIds["SRCROOT"].Uri
+                .Should().Be(new Uri("https://example.com/repo/", UriKind.Absolute));
+        }
+
+        [Fact]
+        public void Run_WithMalformedSrcRoot_FailsWithClearMessage()
+        {
+            SeedWip(
+                (SarifEventKinds.RunHeader, new Run { Tool = new Tool { Driver = new ToolComponent { Name = "demo" } } }));
+
+            string capturedStderr;
+            int exit;
+            using (var writer = new StringWriter())
+            {
+                TextWriter original = Console.Error;
+                Console.SetError(writer);
+                try
+                {
+                    exit = new EmitFinalizeCommand().Run(new EmitFinalizeOptions
+                    {
+                        OutputFilePath = OutPath,
+                        SrcRoot = "not a uri",
+                    });
+                }
+                finally
+                {
+                    Console.SetError(original);
+                }
+                capturedStderr = writer.ToString();
+            }
+
+            exit.Should().Be(CommandBase.FAILURE);
+            File.Exists(OutPath).Should().BeFalse();
+            capturedStderr.Should().Contain("--srcroot");
+            capturedStderr.Should().Contain("not a uri");
+        }
+
+        [Fact]
+        public void Run_WithDisallowedSrcRootScheme_FailsWithClearMessage()
+        {
+            // http:// is not in the base-URI allow-list (https + file only) so a typo
+            // surfaces here rather than silently shipping a clear-text base URI.
+            SeedWip(
+                (SarifEventKinds.RunHeader, new Run { Tool = new Tool { Driver = new ToolComponent { Name = "demo" } } }));
+
+            string capturedStderr;
+            int exit;
+            using (var writer = new StringWriter())
+            {
+                TextWriter original = Console.Error;
+                Console.SetError(writer);
+                try
+                {
+                    exit = new EmitFinalizeCommand().Run(new EmitFinalizeOptions
+                    {
+                        OutputFilePath = OutPath,
+                        SrcRoot = "http://example.com/repo/",
+                    });
+                }
+                finally
+                {
+                    Console.SetError(original);
+                }
+                capturedStderr = writer.ToString();
+            }
+
+            exit.Should().Be(CommandBase.FAILURE);
+            File.Exists(OutPath).Should().BeFalse();
+            capturedStderr.Should().Contain("--srcroot");
+            capturedStderr.Should().Contain("scheme 'http'");
+        }
+
+        [Fact]
+        public void Run_WithValidateFlag_ReturnsFailureWhenErrorFindingsPresent()
+        {
+            // A bare run with no AI-profile metadata fires several AI* error-level
+            // findings (AI1004 missing VCP, AI1006 missing ai/origin, etc.). The
+            // --validate gate should propagate this as a FAILURE exit code and
+            // leave the report file on disk for forensics. The clean-input
+            // success path is covered with higher fidelity by the
+            // CweGenerateSample.ps1 + CweSample.sarif integration fixture.
+            SeedWip(
+                (SarifEventKinds.RunHeader, new Run { Tool = new Tool { Driver = new ToolComponent { Name = "demo" } } }));
+
+            int exit = new EmitFinalizeCommand().Run(new EmitFinalizeOptions
+            {
+                OutputFilePath = OutPath,
+                Validate = true,
+            });
+
+            exit.Should().Be(CommandBase.FAILURE);
+            File.Exists(OutPath).Should().BeTrue();
+            File.Exists(Path.Combine(_dir, "scan.validate-report.sarif")).Should().BeTrue();
+        }
     }
 }

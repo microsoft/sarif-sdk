@@ -76,6 +76,51 @@ function Get-CleanText {
     return ($node.InnerText -replace '\s+', ' ').Trim()
 }
 
+function Get-PascalCaseName {
+    # Derive a single Pascal-case identifier from a CWE Name that satisfies the
+    # SARIF2012 strict Pascal-case regex: ^(\p{Lu}[\p{Ll}\p{Nd}]+)*$
+    #
+    # That regex requires EVERY uppercase letter to be followed by 1+ lower-case
+    # letters or digits, which means all-caps acronyms (SQL, XML, J2EE, DoS,
+    # RegEx) must be title-cased: 'Sql', 'Xml', 'J2ee', 'Dos', 'Regex'. This is
+    # the price of strict identifier conformance — the validator is the source
+    # of truth on what 'Pascal-case' means in SARIF, not English convention.
+    #
+    # Strategy:
+    #   1. If the CWE Name contains a parenthesized quoted short name like
+    #      ('Cross-site Scripting'), prefer that — the catalog's own "common
+    #      name" produces the most natural identifier (CrossSiteScripting).
+    #   2. Otherwise fall back to the full CWE Name.
+    # In either case, split on every non-alphanumeric character and title-case
+    # each fragment (first char upper, rest lower) before concatenating.
+    param([string]$cweName)
+
+    if ([string]::IsNullOrWhiteSpace($cweName)) { return $null }
+
+    $source = $cweName
+    $parenMatch = [regex]::Match($cweName, "\('([^']+)'\)|\(""([^""]+)""\)")
+    if ($parenMatch.Success) {
+        $source = if ($parenMatch.Groups[1].Success) { $parenMatch.Groups[1].Value } else { $parenMatch.Groups[2].Value }
+    }
+
+    $fragments = @([regex]::Split($source, '[^A-Za-z0-9]+') | Where-Object { $_ -ne '' })
+    if ($fragments.Count -eq 0) { return $null }
+
+    $sb = [System.Text.StringBuilder]::new()
+    foreach ($f in $fragments) {
+        # Title-case the fragment unconditionally (first char upper, rest lower).
+        # Yes, this lowercases the tails of all-caps tokens — SQL → Sql, XML →
+        # Xml. Required by SARIF2012's regex; matches its 'ProvideRuleFriendlyName'
+        # exemplar where every word is a single title-case run.
+        $null = $sb.Append([char]::ToUpperInvariant($f[0]))
+        if ($f.Length -gt 1) {
+            $null = $sb.Append($f.Substring(1).ToLowerInvariant())
+        }
+    }
+
+    return $sb.ToString()
+}
+
 function Has-Property {
     param($obj, [string]$name)
     if ($null -eq $obj) { return $false }
@@ -196,7 +241,8 @@ $allItems = $allItems | Sort-Object { [int]$_.ID }
 $taxa = New-Object System.Collections.Generic.List[object]
 foreach ($w in $allItems) {
     $id = "CWE-$($w.ID)"
-    $name = $w.Name
+    $title = $w.Name
+    $name = Get-PascalCaseName $title
     $shortText = if (Has-Property $w 'Description') { Get-CleanText $w.Description } else { '' }
 
     $taxon = [ordered]@{
@@ -220,6 +266,7 @@ foreach ($w in $allItems) {
     $taxon.helpUri = "https://cwe.mitre.org/data/definitions/$($w.ID).html"
 
     $props = [ordered]@{
+        'cwe/title'       = $title
         'cwe/status'      = $w.Status
         'cwe/abstraction' = if (Has-Property $w 'Abstraction') { $w.Abstraction } else { '' }
     }
@@ -261,7 +308,7 @@ $sarifLog = [ordered]@{
     runs      = @($run)
 }
 
-$sarifPath = Join-Path $OutputDirectory 'CWE.sarif'
+$sarifPath = Join-Path $OutputDirectory 'CweTaxonomy.sarif'
 $json = $sarifLog | ConvertTo-Json -Depth 50
 [System.IO.File]::WriteAllText($sarifPath, $json, [System.Text.UTF8Encoding]::new($false))
 
@@ -275,7 +322,7 @@ $null = $sb.AppendLine('|----|------|-------------|--------|--------|-----------
 
 foreach ($w in $allItems) {
     $idCell     = "CWE-$($w.ID)"
-    $nameCell   = (($w.Name -replace '\|', '\|') -replace "`r?`n", ' ').Trim()
+    $nameCell   = Get-PascalCaseName $w.Name
     $absCell    = if (Has-Property $w 'Abstraction') { $w.Abstraction } else { '' }
     $statusCell = $w.Status
     $parent     = Get-View1000Parent $w
@@ -285,10 +332,10 @@ foreach ($w in $allItems) {
     $null = $sb.AppendLine("| $idCell | $nameCell | $absCell | $statusCell | $parentCell | $descCell |")
 }
 
-$briefPath = Join-Path $OutputDirectory 'CWE.brief.md'
+$briefPath = Join-Path $OutputDirectory 'CweTaxonomy.brief.md'
 [System.IO.File]::WriteAllText($briefPath, $sb.ToString(), [System.Text.UTF8Encoding]::new($false))
 
-Write-Host ("  -> CWE.sarif ({0:N0} bytes) / CWE.brief.md ({1:N0} bytes) -- {2:N0} taxa" -f `
+Write-Host ("  -> CweTaxonomy.sarif ({0:N0} bytes) / CweTaxonomy.brief.md ({1:N0} bytes) -- {2:N0} taxa" -f `
     (Get-Item $sarifPath).Length, (Get-Item $briefPath).Length, $allItems.Count)
 
 Write-Host "Done."

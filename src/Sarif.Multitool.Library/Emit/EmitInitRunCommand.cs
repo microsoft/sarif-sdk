@@ -51,17 +51,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
     {
         internal const string SourceRootBaseId = "SRCROOT";
 
-        // Allow-list for tool / repository documentation URIs (informationUri, repositoryUri).
-        // Both anchor live documentation surfaced to humans, and we require https so we never
-        // ship a clear-text link in the run header (http, file, and other schemes are blocked
-        // here so the typo surfaces at emit-init-run rather than in a downstream consumer).
-        private static readonly string[] s_documentationSchemes = new[] { Uri.UriSchemeHttps };
-
-        // Allow-list for base URIs (originalUriBaseIds["SRCROOT"]). SARIF base IDs commonly
-        // anchor at a local checkout (file://) or at a hosted source view (https://). http://
-        // is excluded for the same reason as above.
-        private static readonly string[] s_baseUriSchemes = new[] { Uri.UriSchemeHttps, Uri.UriSchemeFile };
-
         public int Run(EmitInitRunOptions options, IFileSystem fileSystem = null)
         {
             fileSystem ??= Sarif.FileSystem.Instance;
@@ -80,21 +69,37 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                     return FAILURE;
                 }
 
-                if (!TryValidateUri(options.InformationUri, "--information-uri", s_documentationSchemes, out string informationUriError))
+                if (!EmitEventLogHelpers.TryValidateUri(options.InformationUri, "--information-uri", EmitEventLogHelpers.DocumentationUriSchemes, out string informationUriError))
                 {
                     Console.Error.WriteLine(informationUriError);
                     return FAILURE;
                 }
 
-                if (!TryValidateUri(options.RepositoryUri, "--vcp-repositoryuri", s_documentationSchemes, out string repositoryUriError))
+                if (!EmitEventLogHelpers.TryValidateUri(options.RepositoryUri, "--vcp-repositoryuri", EmitEventLogHelpers.DocumentationUriSchemes, out string repositoryUriError))
                 {
                     Console.Error.WriteLine(repositoryUriError);
                     return FAILURE;
                 }
 
-                if (!TryValidateUri(options.SourceRoot, "--srcroot", s_baseUriSchemes, out string sourceRootError))
+                if (!EmitEventLogHelpers.TryValidateUri(options.SourceRoot, "--srcroot", EmitEventLogHelpers.BaseUriSchemes, out string sourceRootError))
                 {
                     Console.Error.WriteLine(sourceRootError);
+                    return FAILURE;
+                }
+
+                if (!TryParseGuid(options.AutomationGuid, "--automation-guid", out Guid? automationGuid))
+                {
+                    return FAILURE;
+                }
+
+                if (!TryParseGuid(options.AutomationCorrelationGuid, "--automation-correlation-guid", out Guid? automationCorrelationGuid))
+                {
+                    return FAILURE;
+                }
+
+                if (!TryValidateAiOrigin(options.AiOrigin, out string aiOriginError))
+                {
+                    Console.Error.WriteLine(aiOriginError);
                     return FAILURE;
                 }
 
@@ -156,6 +161,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             {
                 Name = options.ToolName,
                 Version = NullIfEmpty(options.ToolVersion),
+                SemanticVersion = NullIfEmpty(options.ToolDriverSemanticVersion),
                 Organization = NullIfEmpty(options.Organization),
             };
 
@@ -169,6 +175,22 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 Tool = new Tool { Driver = driver },
             };
 
+            if (TryParseGuid(options.AutomationGuid, "--automation-guid", out Guid? automationGuid)
+                && TryParseGuid(options.AutomationCorrelationGuid, "--automation-correlation-guid", out Guid? automationCorrelationGuid)
+                && (automationGuid.HasValue || automationCorrelationGuid.HasValue))
+            {
+                run.AutomationDetails = new RunAutomationDetails
+                {
+                    Guid = automationGuid,
+                    CorrelationGuid = automationCorrelationGuid,
+                };
+            }
+
+            if (!string.IsNullOrWhiteSpace(options.AiOrigin))
+            {
+                run.SetProperty("ai/origin", options.AiOrigin.Trim());
+            }
+
             if (!string.IsNullOrWhiteSpace(options.RepositoryUri)
                 || !string.IsNullOrWhiteSpace(options.RevisionId)
                 || !string.IsNullOrWhiteSpace(options.Branch))
@@ -181,6 +203,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 if (!string.IsNullOrWhiteSpace(options.RepositoryUri))
                 {
                     vcd.RepositoryUri = new Uri(options.RepositoryUri, UriKind.Absolute);
+                }
+
+                if (!string.IsNullOrWhiteSpace(options.SourceRoot))
+                {
+                    vcd.MappedTo = new ArtifactLocation { UriBaseId = SourceRootBaseId };
                 }
 
                 run.VersionControlProvenance = new List<VersionControlDetails> { vcd };
@@ -200,63 +227,57 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             return run;
         }
 
-        private static string NullIfEmpty(string s) => string.IsNullOrWhiteSpace(s) ? null : s;
-
-        /// <summary>
-        /// Validates that <paramref name="value"/> is either null/empty or a well-formed
-        /// absolute URI whose scheme appears in <paramref name="allowedSchemes"/>.
-        /// </summary>
-        /// <remarks>
-        /// Returning <c>true</c> when the value is empty preserves the "flag is optional"
-        /// contract — only supplied URIs are validated. We require an absolute URI (relative
-        /// values would never resolve meaningfully into a SARIF reader downstream) and we
-        /// constrain the scheme to a documented allow-list so a typo like <c>"htps://..."</c>
-        /// or an inappropriate scheme like <c>"file:..."</c> on a public-facing URL surfaces
-        /// here rather than silently shipping in the run header.
-        /// </remarks>
-        private static bool TryValidateUri(string value, string flagName, string[] allowedSchemes, out string errorMessage)
+        internal static bool TryParseGuid(string raw, string flagName, out Guid? guid)
         {
-            if (string.IsNullOrWhiteSpace(value))
+            guid = null;
+            if (string.IsNullOrWhiteSpace(raw))
             {
-                errorMessage = null;
                 return true;
             }
 
-            if (!Uri.TryCreate(value, UriKind.Absolute, out Uri uri))
+            if (!Guid.TryParseExact(raw.Trim(), "D", out Guid parsed))
             {
-                errorMessage = string.Format(
-                    CultureInfo.CurrentCulture,
-                    "{0} value '{1}' is not a well-formed absolute URI.",
-                    flagName,
-                    value);
+                Console.Error.WriteLine(
+                    string.Format(
+                        CultureInfo.CurrentCulture,
+                        "{0}: '{1}' is not a valid GUID (expected canonical 8-4-4-4-12 hex form, e.g. a7ad9ab8-1234-5678-9abc-def012345678).",
+                        flagName,
+                        raw));
                 return false;
             }
 
-            bool schemeAllowed = false;
-            for (int i = 0; i < allowedSchemes.Length; i++)
+            guid = parsed;
+            return true;
+        }
+
+        internal static readonly string[] AiOriginValues = new[] { "generated", "annotated", "synthesized" };
+
+        internal static bool TryValidateAiOrigin(string raw, out string error)
+        {
+            error = null;
+            if (string.IsNullOrWhiteSpace(raw))
             {
-                if (string.Equals(uri.Scheme, allowedSchemes[i], StringComparison.Ordinal))
+                return true;
+            }
+
+            string trimmed = raw.Trim();
+            foreach (string v in AiOriginValues)
+            {
+                if (string.Equals(v, trimmed, StringComparison.Ordinal))
                 {
-                    schemeAllowed = true;
-                    break;
+                    return true;
                 }
             }
 
-            if (!schemeAllowed)
-            {
-                errorMessage = string.Format(
-                    CultureInfo.CurrentCulture,
-                    "{0} value '{1}' uses scheme '{2}'; expected one of: {3}.",
-                    flagName,
-                    value,
-                    uri.Scheme,
-                    string.Join(", ", allowedSchemes));
-                return false;
-            }
-
-            errorMessage = null;
-            return true;
+            error = string.Format(
+                CultureInfo.CurrentCulture,
+                "--ai-origin: '{0}' is not valid. Expected one of: {1}.",
+                raw,
+                string.Join(", ", AiOriginValues));
+            return false;
         }
+
+        private static string NullIfEmpty(string s) => string.IsNullOrWhiteSpace(s) ? null : s;
     }
 }
 

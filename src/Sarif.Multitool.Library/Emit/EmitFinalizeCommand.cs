@@ -2,6 +2,7 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
 using System.IO;
@@ -29,24 +30,19 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
             try
             {
-                if (string.IsNullOrWhiteSpace(options?.OutputFilePath))
+                int code = EmitEventLogHelpers.TryResolveWipPath(
+                    options?.OutputFilePath,
+                    fileSystem,
+                    out string wipPath);
+                if (code != SUCCESS) { return code; }
+
+                if (!EmitEventLogHelpers.TryValidateUri(options.SrcRoot, "--srcroot", EmitEventLogHelpers.BaseUriSchemes, out string srcRootError))
                 {
-                    Console.Error.WriteLine("Output SARIF path is required.");
+                    Console.Error.WriteLine(srcRootError);
                     return FAILURE;
                 }
 
                 string outputPath = Path.GetFullPath(options.OutputFilePath);
-                string wipPath = outputPath + ".wip.jsonl";
-
-                if (!fileSystem.FileExists(wipPath))
-                {
-                    Console.Error.WriteLine(
-                        string.Format(
-                            CultureInfo.CurrentCulture,
-                            "Event log '{0}' does not exist; run 'emit-init-run' first.",
-                            wipPath));
-                    return FAILURE;
-                }
 
                 SarifLog log = SarifEventReplayer.Replay(wipPath);
 
@@ -77,21 +73,57 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 //
                 // OverwriteExistingData is intentionally NOT set; producers that
                 // have already populated any of these fields keep their values.
-                const OptionallyEmittedData EnrichmentFlags =
+                OptionallyEmittedData enrichmentFlags =
                     OptionallyEmittedData.Hashes |
                     OptionallyEmittedData.RegionSnippets |
                     OptionallyEmittedData.ContextRegionSnippets |
                     OptionallyEmittedData.ComprehensiveRegionProperties;
+
+                if (options.EmbedTextFiles)
+                {
+                    // Self-contained AI fixtures want the source bytes inline so a
+                    // consumer can render snippets and re-derive regions without
+                    // any filesystem access. Clears SARIF2013.
+                    enrichmentFlags |= OptionallyEmittedData.TextFiles;
+                }
 
                 if (log?.Runs != null)
                 {
                     foreach (Run run in log.Runs)
                     {
                         var visitor = new InsertOptionalDataVisitor(
-                            EnrichmentFlags,
+                            enrichmentFlags,
                             new FileRegionsCache(),
                             originalUriBaseIds: run?.OriginalUriBaseIds);
                         visitor.VisitRun(run);
+                    }
+                }
+
+                // After enrichment, optionally rewrite originalUriBaseIds["SRCROOT"].uri.
+                // Producers commonly emit with a local file:// SRCROOT so the visitor above
+                // can read sources for snippets/hashes/contextRegion, then ship the SARIF
+                // with a canonical, host-independent URI (e.g. a GitHub blob URL). Doing
+                // the swap here — after the visitor, before serialization — keeps both
+                // contracts intact: enrichment uses real files; the artifact ships portable.
+                if (!string.IsNullOrWhiteSpace(options.SrcRoot) && log?.Runs != null)
+                {
+                    var finalSrcRoot = new Uri(options.SrcRoot, UriKind.Absolute);
+                    foreach (Run run in log.Runs)
+                    {
+                        if (run == null) { continue; }
+
+                        run.OriginalUriBaseIds ??= new Dictionary<string, ArtifactLocation>();
+                        if (run.OriginalUriBaseIds.TryGetValue(EmitInitRunCommand.SourceRootBaseId, out ArtifactLocation existing) && existing != null)
+                        {
+                            existing.Uri = finalSrcRoot;
+                        }
+                        else
+                        {
+                            run.OriginalUriBaseIds[EmitInitRunCommand.SourceRootBaseId] = new ArtifactLocation
+                            {
+                                Uri = finalSrcRoot,
+                            };
+                        }
                     }
                 }
 
@@ -146,6 +178,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                     }
                 }
 
+                if (options.Validate)
+                {
+                    int validateExit = RunValidatorAndReport(outputPath);
+                    if (validateExit != SUCCESS)
+                    {
+                        return validateExit;
+                    }
+                }
+
                 return SUCCESS;
             }
             catch (AIRuleIdConventionException ex)
@@ -161,6 +202,105 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             catch (Exception ex) when (!Debugger.IsAttached)
             {
                 Console.Error.WriteLine(ex);
+                return FAILURE;
+            }
+        }
+
+        /// <summary>
+        /// Runs the multitool validator (--rule-kind Sarif;AI) against the finalized SARIF.
+        /// Prints a one-line summary of Error/Warning/Note counts and (on Error) the rule IDs
+        /// that fired. Returns FAILURE if any Error-level finding is reported; otherwise SUCCESS.
+        /// </summary>
+        internal static int RunValidatorAndReport(string outputPath)
+        {
+            string reportPath = Path.Combine(
+                Path.GetDirectoryName(outputPath) ?? string.Empty,
+                Path.GetFileNameWithoutExtension(outputPath) + ".validate-report.sarif");
+
+            try
+            {
+                var validateOptions = new ValidateOptions
+                {
+                    TargetFileSpecifiers = new List<string> { outputPath },
+                    OutputFilePath = reportPath,
+                    OutputFileOptions = new[] { Sarif.FilePersistenceOptions.ForceOverwrite },
+                    Quiet = true,
+                    RuleKindOption = new[] { RuleKind.Sarif, RuleKind.AI },
+                };
+
+                new ValidateCommand().Run(validateOptions);
+
+                if (!File.Exists(reportPath))
+                {
+                    Console.Error.WriteLine(
+                        string.Format(
+                            CultureInfo.CurrentCulture,
+                            "--validate: validator did not produce a report at '{0}'.",
+                            reportPath));
+                    return FAILURE;
+                }
+
+                SarifLog report = SarifLog.Load(reportPath);
+                int errors = 0, warnings = 0, notes = 0;
+                var errorRuleIds = new SortedSet<string>(StringComparer.Ordinal);
+                if (report?.Runs != null)
+                {
+                    foreach (Run vrun in report.Runs)
+                    {
+                        if (vrun?.Results == null) { continue; }
+                        foreach (Result vr in vrun.Results)
+                        {
+                            switch (vr.Level)
+                            {
+                                case FailureLevel.Error:
+                                    errors++;
+                                    if (!string.IsNullOrEmpty(vr.RuleId))
+                                    {
+                                        errorRuleIds.Add(vr.RuleId);
+                                    }
+                                    break;
+                                case FailureLevel.Warning:
+                                    warnings++;
+                                    break;
+                                case FailureLevel.Note:
+                                    notes++;
+                                    break;
+                            }
+                        }
+                    }
+                }
+
+                Console.Out.WriteLine(
+                    string.Format(
+                        CultureInfo.CurrentCulture,
+                        "--validate: {0} error(s), {1} warning(s), {2} note(s) [Sarif+AI].",
+                        errors,
+                        warnings,
+                        notes));
+
+                if (errors > 0)
+                {
+                    Console.Error.WriteLine(
+                        string.Format(
+                            CultureInfo.CurrentCulture,
+                            "--validate: failing on Error-level rule(s): {0}. See '{1}' for details.",
+                            string.Join(", ", errorRuleIds),
+                            reportPath));
+                    return FAILURE;
+                }
+
+                // Clean up the report on success — Errors==0 means it carries only the noisy
+                // Warning/Note findings the caller has already been told the counts of.
+                try { File.Delete(reportPath); } catch { /* janitorial */ }
+                return SUCCESS;
+            }
+            catch (Exception ex)
+            {
+                Console.Error.WriteLine(
+                    string.Format(
+                        CultureInfo.CurrentCulture,
+                        "--validate: failed to run validator: {0}",
+                        ex.Message));
                 return FAILURE;
             }
         }
