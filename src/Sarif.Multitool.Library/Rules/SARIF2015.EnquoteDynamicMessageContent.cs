@@ -41,6 +41,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 
         protected override void Analyze(Tool tool, string toolPointer)
         {
+            if (IsAIOriginRun())
+            {
+                // Companion to SARIF2014: AI rule descriptors do not use the {N}
+                // template pattern, so the "enquote your dynamic content" guidance has
+                // nothing to operate on.
+                return;
+            }
+
             if (tool.Driver != null)
             {
                 AnalyzeToolDriver(tool.Driver, toolPointer.AtProperty(SarifPropertyName.Driver));

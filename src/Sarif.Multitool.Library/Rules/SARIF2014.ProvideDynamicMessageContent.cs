@@ -39,6 +39,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 
         protected override void Analyze(Tool tool, string toolPointer)
         {
+            if (IsAIOriginRun())
+            {
+                // AI rule descriptors carry direct, per-result message.text rather than
+                // {N}-templated messageStrings; the dynamic-content check is human-author
+                // guidance that does not apply.
+                return;
+            }
+
             if (tool.Driver != null)
             {
                 AnalyzeToolDriver(tool.Driver, toolPointer.AtProperty(SarifPropertyName.Driver));

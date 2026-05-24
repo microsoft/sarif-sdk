@@ -37,6 +37,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 
         protected override void Analyze(Result result, string resultPointer)
         {
+            if (IsAIOriginRun())
+            {
+                // AI emitters render message.text per-result; the id+arguments pattern is
+                // human-authoring guidance that does not apply to generated content.
+                return;
+            }
+
             if (string.IsNullOrEmpty(result.Message.Id))
             {
                 // {0}: The 'message' property of this result contains a 'text' property. Consider replacing

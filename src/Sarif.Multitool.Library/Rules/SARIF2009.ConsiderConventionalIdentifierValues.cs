@@ -39,6 +39,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 
         protected override void Analyze(Run run, string runPointer)
         {
+            if (IsAIOriginRun(run))
+            {
+                // The NOVEL- ruleId prefix is the AI conventional escape hatch for novel
+                // findings that don't fit any existing taxonomy id; SARIF2009's
+                // conventional-id check would mis-flag it.
+                return;
+            }
+
             AnalyzeTool(run.Tool, runPointer.AtProperty(SarifPropertyName.Tool));
         }
 

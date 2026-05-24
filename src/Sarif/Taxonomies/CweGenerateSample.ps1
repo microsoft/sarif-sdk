@@ -53,13 +53,12 @@
               Pascal-case identifier per SARIF §3.49.7 (clears SARIF2012
               on the NOVEL rule).
 
-      6. Validate the produced SARIF with --rule-kind Sarif;AI. The
-         fixture is required to ship with 0 Errors and 0 Warnings.
-         The only acceptable notes are SARIF2002 (recommends
-         message.id+arguments over message.text — not valuable for
-         AI-emitted fixtures) and SARIF2009 (NOVEL- rule id does not
-         match the conventional TOOL2001 form — by design; the NOVEL-
-         prefix IS the AI ruleId convention's escape hatch).
+      6. Validate the produced SARIF with --rule-kind Sarif;AI. Because
+         this fixture's run carries the ai/origin property, AI-aware
+         validation rules (SARIF2002, SARIF2009, SARIF2014, SARIF2015)
+         self-suppress per their AI-origin contract on
+         SarifValidationSkimmerBase. The fixture is required to ship
+         with 0 errors, 0 warnings, and 0 notes.
 
     Determinism notes:
       * SampleCode.cs is pinned to LF via .gitattributes so snippets,
@@ -169,21 +168,25 @@ foreach ($e in $events) {
     $startLineText = if ($e.startLine -ge 1 -and $e.startLine -le $sampleLines.Length) { $sampleLines[$e.startLine - 1] } else { '' }
     $startColumn = Get-FirstNonWhitespaceColumn $startLineText
 
-    $payload = @{
+    # [ordered] throughout: ConvertTo-Json preserves PowerShell hashtable key order
+    # only for [ordered]@{}. Bare @{} uses .NET Hashtable whose enumeration order
+    # varies across process startups, which would alternate JSON property order
+    # between script runs and break the determinism gate.
+    $payload = [ordered]@{
         ruleId  = $e.cwe
         level   = $e.level
         rank    = $e.rank
-        message = @{
+        message = [ordered]@{
             text     = $e.msg
             markdown = "**$($e.cwe)** — $($e.msg)`n`n$($e.mdAdd)"
         }
-        locations = @(@{
-            physicalLocation = @{
-                artifactLocation = @{ uri = $sampleFileRepoRelative; uriBaseId = 'SRCROOT' }
-                region           = @{ startLine = $e.startLine; startColumn = $startColumn; endLine = $e.endLine }
+        locations = @([ordered]@{
+            physicalLocation = [ordered]@{
+                artifactLocation = [ordered]@{ uri = $sampleFileRepoRelative; uriBaseId = 'SRCROOT' }
+                region           = [ordered]@{ startLine = $e.startLine; startColumn = $startColumn; endLine = $e.endLine }
             }
         })
-        properties = @{
+        properties = [ordered]@{
             'ai/exploitability'    = $e.exploit
             'ai/attackerPosition'  = $e.attacker
         }
@@ -194,9 +197,9 @@ foreach ($e in $events) {
 }
 
 # timeUtc preset so SarifEventReplayer leaves it alone (AI2019 auto-stamp).
-$notifPayload = @{
+$notifPayload = [ordered]@{
     level   = 'note'
-    message = @{
+    message = [ordered]@{
         text     = "Analyzed $($events.Count) findings across 1 file."
         markdown = "Analyzed **$($events.Count)** findings across **1** file."
     }
@@ -276,8 +279,11 @@ $json = $doc | ConvertTo-Json -Depth 64
 [System.IO.File]::WriteAllText($outPath, $json, [System.Text.UTF8Encoding]::new($false))
 
 # ---------------------------------------------------------------------------
-# Validate. CweSample.sarif MUST pass with 0 Errors and 0 Warnings under
-# --rule-kind Sarif;AI. Two notes are accepted by design (see header).
+# Validate. CweSample.sarif MUST pass with 0 errors, 0 warnings, and 0 notes
+# under --rule-kind Sarif;AI. The run carries ai/origin = "generated" so the
+# AI-aware style rules (SARIF2002, SARIF2009, SARIF2014, SARIF2015) self-
+# suppress; the fixture is also constructed to satisfy the remaining
+# correctness-class rules (snippets, hashes, provenance, etc.).
 # ---------------------------------------------------------------------------
 Write-Host "[5/6] Validating CweSample.sarif (--rule-kind Sarif;AI)"
 $validateReport = Join-Path $PSScriptRoot 'CweSample.validate-report.sarif'
@@ -312,23 +318,19 @@ $errors   = @($reportResults | Where-Object { (Get-ResultLevel $_) -eq 'error' }
 $warnings = @($reportResults | Where-Object { (Get-ResultLevel $_) -eq 'warning' })
 $notes    = @($reportResults | Where-Object { (Get-ResultLevel $_) -eq 'note' })
 
-$acceptedNoteRuleIds = @('SARIF2002', 'SARIF2009')
-$unacceptedNotes = @($notes | Where-Object { $acceptedNoteRuleIds -notcontains $_.ruleId })
-
 Write-Host ""
 Write-Host "Validator summary: $($errors.Count) error(s), $($warnings.Count) warning(s), $($notes.Count) note(s)"
 if ($notes.Count -gt 0) {
     $byRule = $notes | Group-Object -Property ruleId | Sort-Object Name
     foreach ($g in $byRule) {
-        $accepted = if ($acceptedNoteRuleIds -contains $g.Name) { ' (accepted by design)' } else { '' }
-        Write-Host ("  note: {0,-12} x{1}{2}" -f $g.Name, $g.Count, $accepted)
+        Write-Host ("  note: {0,-12} x{1}" -f $g.Name, $g.Count)
     }
 }
 
-if ($errors.Count -gt 0 -or $warnings.Count -gt 0 -or $unacceptedNotes.Count -gt 0) {
-    if ($errors.Count -gt 0)        { Write-Warning ("Error rules: "   + (($errors   | Group-Object ruleId | ForEach-Object { $_.Name }) -join ', ')) }
-    if ($warnings.Count -gt 0)      { Write-Warning ("Warning rules: " + (($warnings | Group-Object ruleId | ForEach-Object { $_.Name }) -join ', ')) }
-    if ($unacceptedNotes.Count -gt 0) { Write-Warning ("Unaccepted notes: " + (($unacceptedNotes | Group-Object ruleId | ForEach-Object { $_.Name }) -join ', ')) }
+if ($errors.Count -gt 0 -or $warnings.Count -gt 0 -or $notes.Count -gt 0) {
+    if ($errors.Count -gt 0)   { Write-Warning ("Error rules: "   + (($errors   | Group-Object ruleId | ForEach-Object { $_.Name }) -join ', ')) }
+    if ($warnings.Count -gt 0) { Write-Warning ("Warning rules: " + (($warnings | Group-Object ruleId | ForEach-Object { $_.Name }) -join ', ')) }
+    if ($notes.Count -gt 0)    { Write-Warning ("Note rules: "    + (($notes    | Group-Object ruleId | ForEach-Object { $_.Name }) -join ', ')) }
     Write-Warning "See '$validateReport' for details."
     exit 1
 }
@@ -387,4 +389,4 @@ foreach ($rule in $rules) {
 }
 
 Write-Host ""
-Write-Host "CweSample.sarif: 0 errors, 0 warnings, $($notes.Count) note(s) ($($notes.Count - $unacceptedNotes.Count) accepted by design)."
+Write-Host "CweSample.sarif: 0 errors, 0 warnings, 0 notes."
