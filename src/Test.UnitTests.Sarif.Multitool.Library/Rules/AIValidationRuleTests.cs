@@ -151,8 +151,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             }
             finally
             {
-                if (File.Exists(inputPath)) File.Delete(inputPath);
-                if (File.Exists(outputPath)) File.Delete(outputPath);
+                if (File.Exists(inputPath))
+                {
+                    File.Delete(inputPath);
+                }
+
+                if (File.Exists(outputPath))
+                {
+                    File.Delete(outputPath);
+                }
             }
         }
 
@@ -686,7 +693,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             SarifLog output = RunAIValidation(log);
 
             // Filter to only AI-prefixed rules
-            List<Result> aiResults = output.Runs[0].Results
+            var aiResults = output.Runs[0].Results
                 .Where(r => r.RuleId.StartsWith("AI"))
                 .ToList();
 
@@ -701,7 +708,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         public void AIRuleSet_ContainsExpectedRules()
         {
             // Verify the expected rules exist and AI2009 is gone
-            var ruleIds = new[]
+            string[] ruleIds = new[]
             {
                 RuleId.AIProvideRequiredRegionProperties, // AI1003
                 RuleId.AIProvideVersionControlProvenance, // AI1004

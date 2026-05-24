@@ -44,7 +44,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
             this.FilingContext = filingContext ?? new SarifWorkItemContext { HostUri = filingUri };
             filingUri = filingUri ?? this.FilingContext.HostUri;
 
-            if (filingUri == null) { throw new ArgumentNullException(nameof(filingUri)); };
+            if (filingUri == null) { throw new ArgumentNullException(nameof(filingUri)); }
 
             if (filingUri != this.FilingContext.HostUri)
             {

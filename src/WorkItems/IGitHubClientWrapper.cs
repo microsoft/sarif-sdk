@@ -13,7 +13,7 @@ namespace Microsoft.WorkItems
         /// Wraps GitHubClient.Issue.Create.
         /// Creates a single work item.
         /// </summary>
-        public Task<Issue> CreateWorkItemAsync(
+        Task<Issue> CreateWorkItemAsync(
                     string organization,
                     string repository,
                     NewIssue newissue);
@@ -22,7 +22,7 @@ namespace Microsoft.WorkItems
         /// Wraps GitHubClient.Issue.Update
         /// Creates a single work item.
         /// </summary>
-        public Task<Issue> UpdateWorkItemAsync(
+        Task<Issue> UpdateWorkItemAsync(
             string organization,
             string repository,
             int issueNumber,

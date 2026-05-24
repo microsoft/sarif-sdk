@@ -159,7 +159,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
             PartitionFunction<string> fn = PartitionFunctions.ForStrategy(log, SplittingStrategy.PerRule);
 
-            HashSet<string> keys = new HashSet<string>(log.Runs[0].Results.Select(r => fn(r)));
+            var keys = new HashSet<string>(log.Runs[0].Results.Select(r => fn(r)));
             keys.Should().BeEquivalentTo(new[] { "R0", "R1", "R2" });
         }
 
@@ -197,7 +197,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
             PartitionFunction<string> fn = PartitionFunctions.ForStrategy(log, SplittingStrategy.PerResult);
 
-            HashSet<string> keys = new HashSet<string>(log.Runs[0].Results.Select(r => fn(r)));
+            var keys = new HashSet<string>(log.Runs[0].Results.Select(r => fn(r)));
             keys.Should().HaveCount(4);
         }
 

@@ -170,8 +170,9 @@ foreach ($e in $events) {
 
     # [ordered] throughout: ConvertTo-Json preserves PowerShell hashtable key order
     # only for [ordered]@{}. Bare @{} uses .NET Hashtable whose enumeration order
-    # varies across process startups, which would alternate JSON property order
-    # between script runs and break the determinism gate.
+    # varies across process startups (different hash seed per process), which would
+    # alternate JSON property order between script runs / platforms and break the
+    # determinism gate. See PR #2926 for the original diagnosis.
     $payload = [ordered]@{
         ruleId  = $e.cwe
         level   = $e.level

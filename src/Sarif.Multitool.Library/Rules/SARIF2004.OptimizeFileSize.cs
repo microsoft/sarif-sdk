@@ -120,7 +120,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             // on deserialization) from "the producer literally wrote 'index: -1' in
             // the JSON" (the bloat case we want to flag). We only fire when the
             // property is physically present in the input log token.
-            JToken objectToken = objectPointer.ToJToken(Context.InputLogToken);
+            var objectToken = objectPointer.ToJToken(Context.InputLogToken);
             if (objectToken is JObject obj && obj.ContainsKey(propertyName))
             {
                 LogResult(

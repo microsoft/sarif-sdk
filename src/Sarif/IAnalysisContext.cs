@@ -21,13 +21,13 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         string ConfigurationFilePath { get; set; }
 
-        public bool Quiet { get; set; }
+        bool Quiet { get; set; }
 
-        public bool RichReturnCode { get; set; }
+        bool RichReturnCode { get; set; }
 
-        public string AutomationId { get; set; }
+        string AutomationId { get; set; }
 
-        public Guid AutomationGuid { get; set; }
+        Guid AutomationGuid { get; set; }
 
         FilePersistenceOptions OutputFileOptions { get; set; }
 
@@ -39,7 +39,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         IEnumeratedArtifact CurrentTarget { get; set; }
 
-        public ISet<string> InvocationPropertiesToLog { get; set; }
+        ISet<string> InvocationPropertiesToLog { get; set; }
 
         ISet<string> TargetFileSpecifiers { get; set; }
 
@@ -51,7 +51,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         RuleKindSet RuleKinds { get; set; }
 
-        public ISet<string> InsertProperties { get; set; }
+        ISet<string> InsertProperties { get; set; }
 
         OptionallyEmittedData DataToInsert { get; set; }
 

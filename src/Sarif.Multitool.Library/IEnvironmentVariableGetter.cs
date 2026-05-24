@@ -5,6 +5,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 {
     public interface IEnvironmentVariableGetter
     {
-        public string GetEnvironmentVariable(string variable);
+        string GetEnvironmentVariable(string variable);
     }
 }

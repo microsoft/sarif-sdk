@@ -2,7 +2,6 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
@@ -43,7 +42,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Test.UnitTests.Emit
                 writer.Append(SarifEventKinds.Notification, new Notification { Message = new Message { Text = "info" } });
             }
 
-            List<SarifEvent> events = new SarifEventLogReader().Read(_path).ToList();
+            var events = new SarifEventLogReader().Read(_path).ToList();
 
             events.Select(e => e.Kind).Should().Equal(
                 SarifEventKinds.RunHeader,

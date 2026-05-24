@@ -61,7 +61,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 default:
                     result.Level = FailureLevel.Note;
                     break;
-            };
+            }
 
             var region = new Region
             {
