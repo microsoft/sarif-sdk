@@ -66,6 +66,18 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                 return;
             }
 
+            if (IsAIOriginRun())
+            {
+                // AI ruleId convention (see AIRuleIdConvention): every accepted id is
+                // either 'BASE/sub-id' (e.g. 'CWE-89/kql-injection') — which AI1012
+                // sanctions and which this rule's slash branch would mis-flag — or
+                // the 'NOVEL-<sub-id>' escape hatch, which this rule's regex branch
+                // would mis-flag for not matching the short-prefix-plus-number shape.
+                // Both branches encode human-authoring conventions that don't apply
+                // to AI emitters; skip the per-descriptor check.
+                return;
+            }
+
             int slash = reportingDescriptor.Id.IndexOf('/');
             if (slash >= 0)
             {

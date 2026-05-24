@@ -81,6 +81,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 
             if (!s_dynamicContentRegex.IsMatch(messageString))
             {
+                if (IsAIOriginRun())
+                {
+                    // AI rule descriptors carry per-result message.text rather than
+                    // {N}-templated messageStrings, so this descriptor's static text
+                    // is a fallback / display string, not a parameterizable template.
+                    // The "include dynamic content" guidance is human-authoring
+                    // advice that doesn't apply.
+                    return;
+                }
+
                 // {0}: In rule '{1}', the message with id '{2}' does not include any dynamic content.
                 // Dynamic content makes your messages more specific and avoids the "wall of bugs"
                 // phenomenon, where hundreds of occurrences of the same message appear unapproachable.
