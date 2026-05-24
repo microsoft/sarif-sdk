@@ -169,21 +169,26 @@ foreach ($e in $events) {
     $startLineText = if ($e.startLine -ge 1 -and $e.startLine -le $sampleLines.Length) { $sampleLines[$e.startLine - 1] } else { '' }
     $startColumn = Get-FirstNonWhitespaceColumn $startLineText
 
-    $payload = @{
+    # [ordered] throughout: ConvertTo-Json preserves PowerShell hashtable key order
+    # only for [ordered]@{}. Bare @{} uses .NET Hashtable whose enumeration order
+    # varies across process startups (different hash seed per process), which would
+    # alternate JSON property order between script runs / platforms and break the
+    # determinism gate. See PR #2926 for the original diagnosis.
+    $payload = [ordered]@{
         ruleId  = $e.cwe
         level   = $e.level
         rank    = $e.rank
-        message = @{
+        message = [ordered]@{
             text     = $e.msg
             markdown = "**$($e.cwe)** — $($e.msg)`n`n$($e.mdAdd)"
         }
-        locations = @(@{
-            physicalLocation = @{
-                artifactLocation = @{ uri = $sampleFileRepoRelative; uriBaseId = 'SRCROOT' }
-                region           = @{ startLine = $e.startLine; startColumn = $startColumn; endLine = $e.endLine }
+        locations = @([ordered]@{
+            physicalLocation = [ordered]@{
+                artifactLocation = [ordered]@{ uri = $sampleFileRepoRelative; uriBaseId = 'SRCROOT' }
+                region           = [ordered]@{ startLine = $e.startLine; startColumn = $startColumn; endLine = $e.endLine }
             }
         })
-        properties = @{
+        properties = [ordered]@{
             'ai/exploitability'    = $e.exploit
             'ai/attackerPosition'  = $e.attacker
         }
@@ -194,9 +199,9 @@ foreach ($e in $events) {
 }
 
 # timeUtc preset so SarifEventReplayer leaves it alone (AI2019 auto-stamp).
-$notifPayload = @{
+$notifPayload = [ordered]@{
     level   = 'note'
-    message = @{
+    message = [ordered]@{
         text     = "Analyzed $($events.Count) findings across 1 file."
         markdown = "Analyzed **$($events.Count)** findings across **1** file."
     }
