@@ -25,7 +25,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         {
             foreach (IAnalysisLogger logger in Loggers)
             {
-                using (logger as IDisposable) 
+                using (logger as IDisposable)
                 {
                 }
             }
