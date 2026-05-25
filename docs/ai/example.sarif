@@ -1,0 +1,354 @@
+{
+  "$schema": "https://www.schemastore.org/schemas/json/sarif-2.1.0.json",
+  "version": "2.1.0",
+  "runs": [
+    {
+      "tool": {
+        "driver": {
+          "name": "AI Security Analyzer",
+          "organization": "Contoso",
+          "semanticVersion": "1.2.0",
+          "informationUri": "https://contoso.com/ai-security-analyzer",
+          "rules": [
+            {
+              "id": "CWE-78",
+              "name": "CommandInjectionApiHandler",
+              "shortDescription": {
+                "text": "API handler parameter flows to a command execution sink without sanitization"
+              },
+              "fullDescription": {
+                "text": "Detects cases where user-supplied input from an API handler (HTTP request parameter, tool call argument, etc.) flows to a command execution function such as subprocess.run(), child_process.exec(), or os.system() without validation or sanitization. This enables arbitrary command injection by any caller who can reach the endpoint."
+              },
+              "helpUri": "https://cwe.mitre.org/data/definitions/78.html",
+              "defaultConfiguration": {
+                "level": "error"
+              },
+              "properties": {
+                "tags": ["security", "injection", "CWE-78"]
+              }
+            },
+            {
+              "id": "CWE-20",
+              "name": "MissingInputValidation",
+              "shortDescription": {
+                "text": "External input accepted without validation or type checking"
+              },
+              "fullDescription": {
+                "text": "Detects cases where external input (API parameters, file contents, environment variables) is used in security-sensitive operations without prior validation, type checking, or allowlist enforcement."
+              },
+              "helpUri": "https://cwe.mitre.org/data/definitions/20.html",
+              "properties": {
+                "tags": ["security", "input-validation", "CWE-20"]
+              }
+            }
+          ]
+        },
+        "extensions": [
+          {
+            "name": "GPT-4o",
+            "version": "2024-11-20"
+          },
+          {
+            "name": "function-auditor",
+            "semanticVersion": "2.1.0",
+            "shortDescription": {
+              "text": "Autonomous agent that audits function-level security properties"
+            }
+          }
+        ]
+      },
+      "automationDetails": {
+        "id": "ai-security-analyzer/contoso/my-project/my-service/",
+        "guid": "a3f2e917-4b1c-4d2e-8f3a-1234567890ab",
+        "correlationGuid": "b4e3f028-5c2d-4e3f-9a4b-2345678901bc",
+        "description": {
+          "text": "AI Security Analyzer v1.2.0 · GPT-4o 2024-11-20 · Unauthenticated API servers concern"
+        }
+      },
+      "properties": {
+        "ai/origin": "generated",
+        "ai/handoff": "## For remediation\nAuth pattern throughout is Flask `@login_required` (see src/auth.py:18). Formatter is `black --line-length 100`. Tests for `src/` live under `tests/`; run with `pytest -q`.\n\n## Ruled out\n`/health` and `/metrics` endpoints checked — no user-controlled sinks."
+      },
+      "versionControlProvenance": [
+        {
+          "repositoryUri": "https://dev.azure.com/contoso/my-project/_git/my-service",
+          "revisionId": "a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2",
+          "branch": "main",
+          "mappedTo": {
+            "uriBaseId": "SRCROOT"
+          }
+        }
+      ],
+      "artifacts": [
+        {
+          "location": {
+            "uri": "src/handler.py",
+            "uriBaseId": "SRCROOT"
+          },
+          "roles": ["analysisTarget", "resultFile"],
+          "mimeType": "text/x-python",
+          "sourceLanguage": "python",
+          "hashes": {
+            "sha-256": "3b4c5d6e7f8a9b0c1d2e3f4a5b6c7d8e9f0a1b2c3d4e5f6a7b8c9d0e1f2a3b4"
+          },
+          "contents": {
+            "text": "import subprocess\nfrom flask import Flask, request, jsonify, abort\n\napp = Flask(__name__)\n\n# ... lines 5-36 omitted for brevity ...\n\ndef execute_job(request):\n    command = request.json['command']      # Line 38: untrusted input\n    timeout = request.json.get('timeout', 300)  # Line 39: no upper bound\n    # Line 40-41: processing\n    result = subprocess.run(command, shell=True, capture_output=True, timeout=timeout)  # Line 42: injection sink\n    return jsonify({'output': result.stdout.decode()})\n\n# ... remainder of file ...\n"
+          }
+        },
+        {
+          "location": {
+            "uri": "src/routes/api.ts",
+            "uriBaseId": "SRCROOT"
+          },
+          "roles": ["resultFile"],
+          "mimeType": "text/typescript",
+          "sourceLanguage": "typescript",
+          "hashes": {
+            "sha-256": "1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c6d7e8f9a0b1c2d3e4f5a6b7c8d9e0f1a2b"
+          }
+        }
+      ],
+      "results": [
+        {
+          "ruleId": "CWE-78/api-handler",
+          "ruleIndex": 0,
+          "kind": "fail",
+          "level": "error",
+          "rank": 92.5,
+          "message": {
+            "text": "The 'command' parameter flows unsanitized from the 'execute_job' API handler to subprocess.run(shell=True), enabling arbitrary command execution by an unauthenticated caller.",
+            "markdown": "## Command Injection via API Handler Parameter\n\n**Rule:** `CWE-78/api-handler` · **Severity:** Error · **Rank:** 92.5\n\n### What's Wrong\n\nThe `command` parameter supplied by the API caller at `src/handler.py:38` is assigned directly from `request.json['command']` and passed to `subprocess.run()` with `shell=True` at line 42. There is no validation, sanitization, or allowlisting. Any network-reachable client can execute arbitrary OS commands on the server.\n\n### Exploit Chain\n\n1. Attacker sends POST to `/execute` with crafted JSON body\n2. `request.json['command']` returns attacker-controlled string\n3. String passed verbatim to `subprocess.run(command, shell=True)`\n4. Shell interprets metacharacters (`;`, `|`, `$()`) enabling command chaining\n5. Output returned in HTTP response body — full read access to server\n\n### Evidence\n```python\n# src/handler.py:38-43\ndef execute_job(request):\n    command = request.json['command']  # untrusted input\n    timeout = request.json.get('timeout', 300)\n    result = subprocess.run(command, shell=True, capture_output=True, timeout=timeout)  # injection sink\n    return jsonify({'output': result.stdout.decode()})\n```\n\n### Reproduction Steps\n\n**Prerequisites:**\n- Python 3.8+, Flask installed (`pip install flask`)\n- Network access to port 8080\n\n**Steps:**\n1. Start the server: `python src/server.py`\n2. Run: `curl -X POST http://localhost:8080/execute -H 'Content-Type: application/json' -d '{\"command\": \"id; cat /etc/passwd\"}'`\n3. Observe: server executes `id` and `cat /etc/passwd`, returns output in response body.\n\n**Vulnerable behavior:** Injected commands execute; response contains `/etc/passwd` contents.\n**Fixed behavior:** Request returns 400 Bad Request with `Invalid command`.\n\n### Fix Suggestions\n\n**Approach 1 (recommended):** Allowlist valid commands and disable `shell=True`.\n```python\nALLOWED_COMMANDS = {'status', 'health', 'version'}\ncommand = request.json.get('command', '')\nif command not in ALLOWED_COMMANDS:\n    abort(400, 'Invalid command')\nresult = subprocess.run(['/usr/bin/mytool', command], shell=False, capture_output=True)\n```\n\n**Approach 2:** Add authentication middleware to restrict endpoint access (defense in depth, does not fix injection).\n\n### Bypass Concerns\n\n- If allowlist is regex-based rather than exact-match, attacker may craft strings that pass the regex but contain shell metacharacters\n- If `shell=True` is retained with an allowlist, shell expansion may still occur on allowed values\n- If fix only covers this endpoint, other handlers accepting `command`-like parameters remain vulnerable\n\n### Mitigating Factors\n\n- ❌ No authentication middleware found in call chain\n- ❌ Server binds to `0.0.0.0` (externally reachable)\n- ❌ No network-layer restriction found in deployment config\n- ❌ No input validation or allowlist applied to `command`\n\n### Context\n\n- **Language:** Python 3 / Flask\n- **Auth framework:** None detected on this endpoint\n- **Deployment:** Standalone Flask dev server, no WSGI wrapper detected\n\n### References\n\n- [CWE-78: OS Command Injection](https://cwe.mitre.org/data/definitions/78.html)\n- [OWASP Command Injection](https://owasp.org/www-community/attacks/Command_Injection)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/handler.py",
+                  "uriBaseId": "SRCROOT",
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 42,
+                  "startColumn": 5,
+                  "endLine": 42,
+                  "endColumn": 86,
+                  "snippet": {
+                    "text": "    result = subprocess.run(command, shell=True, capture_output=True, timeout=timeout)"
+                  }
+                },
+                "contextRegion": {
+                  "startLine": 37,
+                  "endLine": 46,
+                  "snippet": {
+                    "text": "def execute_job(request):\n    command = request.json['command']      # untrusted input\n    timeout = request.json.get('timeout', 300)\n    # processing\n    result = subprocess.run(command, shell=True, capture_output=True, timeout=timeout)  # injection sink\n    return jsonify({'output': result.stdout.decode()})\n\n@app.route('/health')\ndef health():\n    return jsonify({'status': 'ok'})"
+                  }
+                }
+              },
+              "logicalLocations": [
+                {
+                  "name": "execute_job",
+                  "fullyQualifiedName": "handler::execute_job",
+                  "kind": "function"
+                }
+              ]
+            }
+          ],
+          "codeFlows": [
+            {
+              "message": { "text": "Unsanitized parameter flows from API handler input to subprocess.run()" },
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": { "uri": "src/handler.py", "uriBaseId": "SRCROOT" },
+                          "region": {
+                            "startLine": 38,
+                            "startColumn": 15,
+                            "snippet": { "text": "    command = request.json['command']" }
+                          }
+                        },
+                        "message": { "text": "User input received: request.json['command']" }
+                      }
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": { "uri": "src/handler.py", "uriBaseId": "SRCROOT" },
+                          "region": {
+                            "startLine": 42,
+                            "startColumn": 5,
+                            "snippet": { "text": "    result = subprocess.run(command, shell=True, capture_output=True, timeout=timeout)" }
+                          }
+                        },
+                        "message": { "text": "Unsanitized value passed to subprocess.run(command, shell=True)" }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "fixes": [
+            {
+              "description": { "text": "Allowlist valid commands and disable shell=True. Direct remediation of the injection vector." },
+              "artifactChanges": [
+                {
+                  "artifactLocation": { "uri": "src/handler.py", "uriBaseId": "SRCROOT" },
+                  "replacements": [
+                    {
+                      "deletedRegion": { "startLine": 38, "endLine": 43 },
+                      "insertedContent": {
+                        "text": "    ALLOWED_COMMANDS = {'status', 'health', 'version'}\n    command = request.json.get('command', '')\n    if command not in ALLOWED_COMMANDS:\n        abort(400, 'Invalid command')\n    timeout = min(int(request.json.get('timeout', 300)), 600)\n    result = subprocess.run(['/usr/bin/mytool', command], shell=False, capture_output=True, timeout=timeout)\n"
+                      }
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "description": { "text": "Alternative: Add authentication middleware to the route. Does not fix the injection itself but restricts access to authorized callers." },
+              "artifactChanges": [
+                {
+                  "artifactLocation": { "uri": "src/routes/api.ts", "uriBaseId": "SRCROOT" },
+                  "replacements": [
+                    {
+                      "deletedRegion": { "startLine": 15, "endLine": 15 },
+                      "insertedContent": {
+                        "text": "router.post('/execute', requireAuth, executeJobHandler);\n"
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "relatedLocations": [
+            {
+              "id": 0,
+              "message": { "text": "API route registration — no auth middleware in chain" },
+              "physicalLocation": {
+                "artifactLocation": { "uri": "src/routes/api.ts", "uriBaseId": "SRCROOT", "index": 1 },
+                "region": { "startLine": 15 }
+              }
+            }
+          ],
+          "webRequest": {
+            "protocol": "HTTP",
+            "version": "1.1",
+            "target": "/execute",
+            "method": "POST",
+            "headers": {
+              "Content-Type": "application/json"
+            },
+            "body": {
+              "text": "{\"command\": \"id; cat /etc/passwd\"}"
+            }
+          },
+          "webResponse": {
+            "protocol": "HTTP",
+            "version": "1.1",
+            "statusCode": 200,
+            "headers": {
+              "Content-Type": "application/json"
+            },
+            "body": {
+              "text": "{\"output\": \"uid=1000(appuser) gid=1000(appuser)\\nroot:x:0:0:root:/root:/bin/bash\\n...\"}"
+            }
+          },
+          "properties": {
+            "ai/exploitability": "demonstrated",
+            "ai/attackerPosition": "unauthenticated-network",
+            "ai/evidence": [
+              {
+                "strength": "demonstrated",
+                "scope": "service",
+                "backing": [
+                  "sarif:/runs/0/results/0/codeFlows/0",
+                  "sarif:/runs/0/results/0/webRequest",
+                  "sarif:/runs/0/results/0/webResponse"
+                ],
+                "note": "End-to-end: crafted POST to /execute returns injected command output"
+              }
+            ],
+            "ai/handoff": "## For remediation\nAn allowlist already exists at `config/commands.yaml` but isn't wired up — Approach 1 in `fixes[]` should consult it rather than inlining `ALLOWED_COMMANDS`.\n\n## Open questions (human)\nIs `/execute` reachable from the public load balancer, or internal-mesh only?"
+          }
+        },
+        {
+          "ruleId": "CWE-20/timeout-unbounded",
+          "ruleIndex": 1,
+          "kind": "fail",
+          "rank": 65.0,
+          "message": {
+            "text": "The 'timeout' parameter in the 'execute_job' handler is accepted as a raw integer from user input without bounds checking, allowing denial-of-service via extremely large values.",
+            "markdown": "## Missing Input Validation on Timeout Parameter\n\n**Rule:** `CWE-20/timeout-unbounded` · **Rank:** 65.0\n\nThe `timeout` parameter at `src/handler.py:39` is read from the request body and passed directly to `subprocess.run(timeout=...)` without bounds validation.\n\n### Evidence\n```python\n# src/handler.py:39\ntimeout = request.json.get('timeout', 300)\nresult = subprocess.run(command, shell=True, timeout=timeout)  # No upper bound\n```\n\n### Mitigating Factors Checked\n- ✅ Default value of 300 exists (mitigates absent parameter)\n- ❌ No upper bound enforced (caller can specify timeout=999999)\n- ❌ No rate limiting on the endpoint\n\n### Recommended Fix\nEnforce bounds on the timeout value:\n```python\nMAX_TIMEOUT = 600  # 10 minutes\ntimeout = min(int(request.json.get('timeout', 300)), MAX_TIMEOUT)\nif timeout <= 0:\n    abort(400, 'Timeout must be positive')\n```\n\n### References\n- [CWE-20: Improper Input Validation](https://cwe.mitre.org/data/definitions/20.html)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/handler.py",
+                  "uriBaseId": "SRCROOT",
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 39,
+                  "startColumn": 15,
+                  "endLine": 39,
+                  "endColumn": 55,
+                  "snippet": {
+                    "text": "    timeout = request.json.get('timeout', 300)"
+                  }
+                },
+                "contextRegion": {
+                  "startLine": 37,
+                  "endLine": 43,
+                  "snippet": {
+                    "text": "def execute_job(request):\n    command = request.json['command']\n    timeout = request.json.get('timeout', 300)\n    # processing\n    result = subprocess.run(command, shell=True, capture_output=True, timeout=timeout)\n    return jsonify({'output': result.stdout.decode()})"
+                  }
+                }
+              },
+              "logicalLocations": [
+                {
+                  "name": "execute_job",
+                  "fullyQualifiedName": "handler::execute_job",
+                  "kind": "function"
+                }
+              ]
+            }
+          ],
+          "fixes": [
+            {
+              "description": { "text": "Add upper-bound validation and positive-integer check on the timeout parameter" },
+              "artifactChanges": [
+                {
+                  "artifactLocation": { "uri": "src/handler.py", "uriBaseId": "SRCROOT" },
+                  "replacements": [
+                    {
+                      "deletedRegion": { "startLine": 39, "endLine": 39 },
+                      "insertedContent": {
+                        "text": "    MAX_TIMEOUT = 600\n    timeout = min(int(request.json.get('timeout', 300)), MAX_TIMEOUT)\n    if timeout <= 0:\n        abort(400, 'Timeout must be positive')\n"
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "ai/exploitability": "theoretical",
+            "ai/attackerPosition": "unauthenticated-network",
+            "ai/evidence": [
+              {
+                "strength": "theoretical",
+                "scope": "service",
+                "note": "Static reasoning only — no upper bound on caller-supplied timeout; not exercised dynamically"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}
