@@ -31,6 +31,12 @@ Then you should be able to build in Visual Studio or on the Command Line using
 To learn how to accomplish common tasks with the SARIF SDK, such as reading and writing files from disk,
 see the [How To](https://github.com/Microsoft/sarif-sdk/blob/main/docs/how-to.md) page.
 
+## SARIF specification and AI generation guidance
+
+- [`docs/spec/sarif-v2.1.0-spec.md`](docs/spec/sarif-v2.1.0-spec.md) — a convenience markdown rendering of the OASIS SARIF 2.1.0 specification (canonical source linked from the file).
+- [`docs/ai/generating-sarif.md`](docs/ai/generating-sarif.md) — normative guidance for representing AI/LLM-produced security findings as first-class SARIF, including the `ai/*` property bag conventions, notification taxonomy, and a complete reference example ([`docs/ai/example.sarif`](docs/ai/example.sarif)).
+- [`skills/`](skills) — agent-operating procedures (Markdown skills) for emitting and validating AI SARIF using the `Sarif.Multitool` emit verbs.
+
 ## Code of conduct
 
 This project has adopted the [Microsoft Open Source Code of Conduct](https://opensource.microsoft.com/codeofconduct/).
