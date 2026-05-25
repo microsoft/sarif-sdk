@@ -51,6 +51,17 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
     {
         internal const string SourceRootBaseId = "SRCROOT";
 
+        private readonly IEnvironmentVariableGetter _environment;
+
+        public EmitInitRunCommand() : this(new EnvironmentVariableGetter())
+        {
+        }
+
+        public EmitInitRunCommand(IEnvironmentVariableGetter environment)
+        {
+            _environment = environment ?? throw new ArgumentNullException(nameof(environment));
+        }
+
         public int Run(EmitInitRunOptions options, IFileSystem fileSystem = null)
         {
             fileSystem ??= Sarif.FileSystem.Instance;
@@ -103,6 +114,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                     return FAILURE;
                 }
 
+                // Detect ADO pipeline context BEFORE any file-system side effects so a partial
+                // failure doesn't leave a half-written or freshly-deleted .wip.jsonl on disk.
+                AdoPipelineContext.DetectionState adoState =
+                    AdoPipelineContext.TryDetect(_environment, out AdoPipelineContext adoContext, out string adoError);
+                if (adoState == AdoPipelineContext.DetectionState.Partial)
+                {
+                    Console.Error.WriteLine(adoError);
+                    return FAILURE;
+                }
+
                 string outputPath = Path.GetFullPath(options.OutputFilePath);
                 string wipPath = outputPath + ".wip.jsonl";
 
@@ -134,6 +155,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 }
 
                 Run run = BuildRunHeader(options);
+
+                if (adoState == AdoPipelineContext.DetectionState.Complete)
+                {
+                    adoContext.ApplyTo(run);
+                }
 
                 using (var writer = new SarifEventLogWriter(wipPath))
                 {

@@ -3,15 +3,32 @@
 
 <#
 .SYNOPSIS
-    Emits CweSample.sarif — a deterministic, fully-enriched SARIF fixture
-    that exercises the multitool emit chain end-to-end and passes the
-    Sarif+AI validator with zero Errors and zero Warnings.
+    Emits CweSample.sarif (default) or CweGHAzDoSample.sarif (-GHAzDO) — a
+    deterministic, fully-enriched SARIF fixture that exercises the multitool
+    emit chain end-to-end and passes the validator with zero Errors,
+    zero Warnings, and zero Notes under the relevant rule-kinds.
 
 .DESCRIPTION
     Convention: every taxonomy that ships with this SDK includes a
     <Taxonomy>GenerateSample.ps1 alongside its data, and that script
     produces a checked-in <Taxonomy>Sample.sarif fixture next to itself.
     CI re-runs the script and asserts the working tree stays byte-identical.
+
+    Two variants, one script:
+      * Default (no switch) writes CweSample.sarif and validates with
+        --rule-kind Sarif;AI. This is the "AI scanner running anywhere"
+        shape — no ADO-pipeline identity is claimed.
+      * -GHAzDO writes CweGHAzDoSample.sarif and validates with
+        --rule-kind Sarif;AI;GHAzDO. This is the "AI scanner running
+        inside an Azure DevOps pipeline" shape — the GHAzDO ingestion
+        contract for automationDetails.id + the four
+        azuredevops/pipeline/build/* properties is satisfied. The script
+        sets the ADO predefined environment variables (TF_BUILD,
+        SYSTEM_COLLECTIONURI, …) to deterministic constants for the
+        duration of emit-init-run; the multitool's AdoPipelineContext
+        detector reads them and stamps the automationDetails. The env
+        vars are cleared in a finally block so they don't leak to other
+        steps in the same shell.
 
     Pipeline:
 
@@ -75,13 +92,26 @@
     Build configuration whose multitool binary to invoke. Release or
     Debug. Defaults to Release.
 
+.PARAMETER GHAzDO
+    When set, produces CweGHAzDoSample.sarif (the GHAzDO ingestion
+    variant) instead of CweSample.sarif. ADO predefined env vars are
+    populated for the duration of emit-init-run, AdoPipelineContext
+    stamps the automationDetails, and validation runs with rule-kind
+    Sarif;AI;GHAzDO. Default (switch absent) preserves the original
+    CweSample.sarif emission unchanged.
+
 .EXAMPLE
     pwsh src/Sarif/Taxonomies/CweGenerateSample.ps1
+
+.EXAMPLE
+    pwsh src/Sarif/Taxonomies/CweGenerateSample.ps1 -GHAzDO
 #>
 [CmdletBinding()]
 param(
     [ValidateSet('Release', 'Debug')]
-    [string]$Configuration = 'Release'
+    [string]$Configuration = 'Release',
+
+    [switch]$GHAzDO
 )
 
 $ErrorActionPreference = 'Stop'
@@ -94,8 +124,58 @@ if (-not (Test-Path $multitool)) {
     throw "Sarif.Multitool.dll not found at '$multitool'. Build the SDK in $Configuration configuration first (e.g. dotnet build src\Sarif.Multitool\Sarif.Multitool.csproj -c $Configuration)."
 }
 
-$outPath = Join-Path $PSScriptRoot 'CweSample.sarif'
+$sampleBaseName = if ($GHAzDO) { 'CweGHAzDoSample' } else { 'CweSample' }
+$outPath = Join-Path $PSScriptRoot ($sampleBaseName + '.sarif')
 $wipPath = "$outPath.wip.jsonl"
+
+# Validation rule-kinds. The GHAzDO variant adds the GHAzDO ruleset so the
+# fixture is required to satisfy the ADO ingestion contract on top of the
+# Sarif+AI baseline. Self-suppression for ai/origin runs lives on the rule
+# implementations, not here.
+$validateRuleKind = if ($GHAzDO) { 'Sarif;AI;GHAzDO' } else { 'Sarif;AI' }
+
+# Deterministic ADO pipeline-context env values used only when -GHAzDO. The
+# AdoPipelineContext detector reads these in emit-init-run and stamps
+# run.automationDetails.id plus the four azuredevops/pipeline/build/* keys
+# that GHAzDO1019/1020 validate. Values chosen so the resulting fixture is
+# stable across machines.
+$adoEnv = [ordered]@{
+    'TF_BUILD'             = 'True'
+    'SYSTEM_COLLECTIONURI' = 'https://dev.azure.com/example-org/'
+    'SYSTEM_TEAMPROJECTID' = '00000000-0000-0000-0000-000000000001'
+    'BUILD_DEFINITIONID'   = '1234'
+    'BUILD_DEFINITIONNAME' = 'CweSamplerScanner CI'
+    'BUILD_BUILDID'        = '98765'
+    'SYSTEM_PHASEID'       = '00000000-0000-0000-0000-000000000002'
+    'SYSTEM_PHASENAME'     = 'Build'
+    'BUILD_SOURCEBRANCH'   = 'refs/heads/main'
+}
+
+function Set-AdoEnv {
+    param([System.Collections.IDictionary]$envMap)
+    $saved = [ordered]@{}
+    foreach ($name in $envMap.Keys) {
+        $saved[$name] = [System.Environment]::GetEnvironmentVariable($name)
+        [System.Environment]::SetEnvironmentVariable($name, $envMap[$name])
+    }
+    return $saved
+}
+
+function Restore-AdoEnv {
+    param([System.Collections.IDictionary]$saved)
+    if ($null -eq $saved) { return }
+    foreach ($name in $saved.Keys) {
+        [System.Environment]::SetEnvironmentVariable($name, $saved[$name])
+    }
+}
+
+# Env vars to clear in default mode (a developer with TF_BUILD already in
+# their shell would otherwise accidentally stamp CweSample.sarif via
+# AdoPipelineContext auto-detect).
+$adoEnvCleared = [ordered]@{}
+foreach ($name in $adoEnv.Keys) {
+    $adoEnvCleared[$name] = $null
+}
 
 # Local SRCROOT for enrichment; rewritten to the canonical GitHub URL at finalize.
 # Cross-platform file:// construction: [System.Uri]$path returns a relative
@@ -135,8 +215,19 @@ $initArgs = @(
     '--ai-origin',                     'generated',
     '--force-overwrite'
 )
-& dotnet @initArgs | Out-Host
-if ($LASTEXITCODE -ne 0) { throw "emit-init-run failed (exit $LASTEXITCODE)." }
+
+# Stamp pipeline identity (-GHAzDO variant) or explicitly clear the ADO env
+# vars (default variant) for the lifetime of emit-init-run. Either way the
+# script's behavior is independent of the caller's shell state.
+$envToApply = if ($GHAzDO) { $adoEnv } else { $adoEnvCleared }
+$savedEnv = $null
+try {
+    $savedEnv = Set-AdoEnv $envToApply
+    & dotnet @initArgs | Out-Host
+    if ($LASTEXITCODE -ne 0) { throw "emit-init-run failed (exit $LASTEXITCODE)." }
+} finally {
+    Restore-AdoEnv $savedEnv
+}
 
 # Each finding. Vocabulary spread across AI2014 (ai/exploitability) and a
 # small ai/attackerPosition vocab so the fixture demonstrates the full range
@@ -273,6 +364,14 @@ foreach ($rule in $driver.rules) {
     }
 }
 
+# tool.driver.fullName — GHAzDO1018 requires a human-readable driver fullName
+# distinct from name. Only the -GHAzDO variant ships it so CweSample.sarif
+# (the bare AI shape) stays byte-stable; emit-init-run has no first-class
+# flag for fullName so we patch it post-finalize like the items above.
+if ($GHAzDO) {
+    $driver | Add-Member -NotePropertyName 'fullName' -NotePropertyValue 'CWE Sampler Scanner' -Force
+}
+
 # Write back. The SARIF was indented; preserve indentation. ConvertTo-Json
 # in PowerShell 7 uses 2-space indent by default; the emit-finalize JsonTextWriter
 # defaults to Indented = 2-space as well. Compare on hash, not diff.
@@ -286,10 +385,10 @@ $json = $doc | ConvertTo-Json -Depth 64
 # suppress; the fixture is also constructed to satisfy the remaining
 # correctness-class rules (snippets, hashes, provenance, etc.).
 # ---------------------------------------------------------------------------
-Write-Host "[5/6] Validating CweSample.sarif (--rule-kind Sarif;AI)"
-$validateReport = Join-Path $PSScriptRoot 'CweSample.validate-report.sarif'
+Write-Host "[5/6] Validating $sampleBaseName.sarif (--rule-kind $validateRuleKind)"
+$validateReport = Join-Path $PSScriptRoot ($sampleBaseName + '.validate-report.sarif')
 & dotnet $multitool validate $outPath `
-    --rule-kind 'Sarif;AI' `
+    --rule-kind $validateRuleKind `
     --level 'Error;Warning;Note' `
     --output $validateReport `
     --log 'ForceOverwrite' `
@@ -361,6 +460,8 @@ $srcRootUri  = Get-OptionalProperty (Get-OptionalProperty $run.originalUriBaseId
 
 Write-Host ""
 Write-Host "Sample SARIF: $outPath"
+$variant = if ($GHAzDO) { 'GHAzDO ingestion (Sarif+AI+GHAzDO)' } else { 'AI-shape (Sarif+AI)' }
+Write-Host "Variant:      $variant"
 $toolLine = if ([string]::IsNullOrEmpty($toolName)) { '(missing - is your multitool DLL current?)' } else { $toolName }
 if (-not [string]::IsNullOrEmpty($toolVersion)) { $toolLine = "$toolLine $toolVersion" }
 Write-Host "Tool:         $toolLine"
