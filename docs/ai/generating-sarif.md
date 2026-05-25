@@ -322,7 +322,7 @@ async def handle_config_update(request: ConfigRequest):
 ### Fix Suggestions
 
 **Approach 1 (recommended):** Add `Depends(get_current_user)` to the route
-handler, extending the existing ProjectApi auth pattern used in other endpoints.
+handler, extending the existing service-wide auth pattern used in other endpoints.
 
 **Approach 2:** Add auth middleware to all `/api/admin/*` routes.
 
@@ -339,12 +339,12 @@ network via Azure Front Door rules. Root cause remains.
 
 - Server is behind Azure Front Door with IP allowlisting
 - No WAF rule for this specific endpoint
-- Other endpoints in the same service DO use ProjectApi Depends
+- Other endpoints in the same service DO use the FastAPI `Depends` auth wrapper
 
 ### Context
 
-- **Language:** Python / ProjectApi / CPython 3.11
-- **Auth framework:** None detected on this endpoint (others use ProjectApi Depends)
+- **Language:** Python / FastAPI / CPython 3.11
+- **Auth framework:** None detected on this endpoint (others use FastAPI `Depends`)
 - **Deployment:** Container (Docker) → AKS, internet-facing
 - **Existing mitigations:** Behind Azure Front Door with IP allowlisting
 
@@ -735,7 +735,7 @@ Each `fix` contains a `description` and an array of `artifactChanges`, each of w
   "ruleId": "CWE-306/api-handler",
   "fixes": [
     {
-      "description": { "text": "Add ProjectApi auth dependency to admin config endpoint" },
+      "description": { "text": "Add FastAPI auth dependency to admin config endpoint" },
       "artifactChanges": [
         {
           "artifactLocation": { "uri": "src/api/admin.py", "uriBaseId": "SRCROOT" },
@@ -1319,7 +1319,7 @@ Notification types are registered as `reportingDescriptor` objects in `tool.driv
 
 ### Execution notifications (`toolExecutionNotifications`)
 
-These capture the AI's execution narrative — intended for the tool provider and the learning system (ALAS). They answer: *what did the AI do, what did it try, what decisions did it make, and what went wrong?*
+These capture the AI's execution narrative — intended for the tool provider and any quality/learning telemetry pipeline. They answer: *what did the AI do, what did it try, what decisions did it make, and what went wrong?*
 
 Each `invocation` object carries its own `toolExecutionNotifications[]` array, so multi-step analysis (clone → build → test → scan → probe) can have per-phase notifications.
 
@@ -1433,7 +1433,7 @@ This is SARIF's native mechanism for expressing what was previously prose-only i
     "level": "warning",
     "timeUtc": "2026-04-13T14:31:02Z",
     "message": {
-      "text": "Production telemetry query failed — identity lacks Reader role on Geneva cluster 'contoso-prod'. Dynamic correlation with runtime data unavailable."
+      "text": "Production telemetry query failed — identity lacks Reader role on telemetry cluster 'contoso-prod'. Dynamic correlation with runtime data unavailable."
     }
   },
   {
@@ -1449,22 +1449,22 @@ This is SARIF's native mechanism for expressing what was previously prose-only i
 
 **Severity semantics.** Per §3.58.6, a notification with `level: "error"` means the run failed. Use `"error"` only for configuration problems that prevented the tool from producing any useful output (e.g., invalid skill reference, missing required parameter). Use `"warning"` for degradation — the tool continued but with reduced coverage. Use `"note"` for informational configuration observations.
 
-### ALAS signal capture
+### Execution signal attachment
 
-ALAS (AI Learning and Support System) execution signals are for the **tool provider** — they are quality and learning telemetry. The SARIF notification infrastructure provides a proper structural home for them.
+The SARIF notification infrastructure provides a structural home for opaque execution-signal payloads — self-assessment, quality telemetry, or learning data — that the tool provider wants to attach to a run.
 
-**Pattern:** Emit the ALAS signal JSON as an artifact in `run.artifacts[]` with `roles: ["attachment"]`, and reference it from a `toolExecutionNotification` using `notification.locations[]` with an `artifactLocation.index` pointing at the artifact:
+**Pattern:** Emit the signal as an artifact in `run.artifacts[]` with `roles: ["attachment"]`, and reference it from a `toolExecutionNotification` using `notification.locations[]` with an `artifactLocation.index` pointing at the artifact:
 
 ```json
 "artifacts": [
   ...
   {
-    "location": { "uri": "alas/execution-signal.json" },
+    "location": { "uri": "execution-signal.json" },
     "roles": ["attachment"],
     "contents": {
-      "text": "{\"skill\": \"command-injection-skill\", \"version\": \"1.0.0\", \"confidence_self_assessment\": 0.85, \"evidence_gaps\": [\"no dynamic probe — server start failed\"], \"honesty_score\": null, \"timestamp\": \"2026-04-13T14:36:30Z\"}"
+      "text": "{\"skill\": \"command-injection-skill\", \"version\": \"1.0.0\", \"timestamp\": \"2026-04-13T14:36:30Z\"}"
     },
-    "description": { "text": "ALAS execution signal — self-assessment and learning data" }
+    "description": { "text": "Execution signal — opaque payload defined by the tool provider" }
   }
 ],
 
@@ -1480,12 +1480,12 @@ ALAS (AI Learning and Support System) execution signals are for the **tool provi
         "locations": [
           {
             "physicalLocation": {
-              "artifactLocation": { "uri": "alas/execution-signal.json", "index": 5 }
+              "artifactLocation": { "uri": "execution-signal.json", "index": 5 }
             }
           }
         ],
         "message": {
-          "text": "ALAS execution signal generated — self-assessment confidence 0.85, 1 evidence gap."
+          "text": "Execution signal artifact attached."
         }
       }
     ]
@@ -1493,7 +1493,7 @@ ALAS (AI Learning and Support System) execution signals are for the **tool provi
 ]
 ```
 
-The ALAS artifact is referenced structurally via `notification.locations[].physicalLocation.artifactLocation.index` (§3.58.4), not parsed from message text. The learning system queries `toolExecutionNotifications` for `AI/EXEC/ALAS-SIGNAL` descriptors and resolves the artifact through the standard location mechanism. The signal stays in-band with the SARIF log, discoverable and audience-tagged, rather than emitted through a separate channel.
+The signal artifact is referenced structurally via `notification.locations[].physicalLocation.artifactLocation.index` (§3.58.4), not parsed from message text. Consumers query `toolExecutionNotifications` for the `AI/EXEC/ALAS-SIGNAL` descriptor and resolve the artifact through the standard location mechanism. The signal stays in-band with the SARIF log, discoverable and audience-tagged, rather than emitted through a separate channel.
 
 ### Invoker control (`notificationConfigurationOverrides`)
 
@@ -1554,7 +1554,7 @@ AI producers **SHOULD NOT** populate `result.fingerprints` or `result.partialFin
 | Problem | Owner | Mechanism |
 |---|---|---|
 | Cross-run baselining — *is this the same issue I saw last scan?* | Result-management system (GHAS, ADO, etc.) | The ingestion layer MAY compute and inject its own `partialFingerprints` per its existing algorithms. The AI producer does not participate. |
-| Intra-remediation relocation — *I'm at `HEAD+50`, where did the finding go?* | Remediation agent | A **transient** content-anchored fingerprint computed on the fly during the edit/validate loop and discarded when the fix lands. Never persisted to SARIF. The reference algorithm lives in the companion remediation-architecture guidance. |
+| Intra-remediation relocation — *I'm at `HEAD+50`, where did the finding go?* | Remediation agent | A **transient** content-anchored fingerprint computed on the fly during the edit/validate loop and discarded when the fix lands. Never persisted to SARIF. The matching algorithm is local to the remediation tool; this profile does not standardize it. |
 
 If a future scan needs to re-identify the finding, it regenerates the same transient fingerprint from the same inputs. Nothing rots in storage.
 
@@ -1825,7 +1825,7 @@ classDiagram
         +Exception exception
         +PropertyBag properties
     }
-    note for Notification "descriptor.id: AI/EXEC/* or AI/CFG/*<br/>level: error | warning | note | none<br/>timeUtc: execution timeline<br/>associatedRule: links to affected rule<br/>exception: structured error capture<br/>─── Execution (tool provider) ───<br/>AI/EXEC/DECISION: model/skill choices<br/>AI/EXEC/RULED-OUT: dead ends explored<br/>AI/EXEC/CONTEXT-BUDGET: context limits<br/>AI/EXEC/RULE-COVERAGE-GAP: incomplete rule<br/>AI/EXEC/ALAS-SIGNAL: learning signal<br/>AI/EXEC/ERROR: unhandled exception<br/>─── Configuration (tool runner) ───<br/>AI/CFG/DATA-ACCESS-DENIED<br/>AI/CFG/PERMISSION-INSUFFICIENT<br/>AI/CFG/TOOL-UNAVAILABLE<br/>AI/CFG/RESOURCE-LIMIT<br/>AI/CFG/INVALID-CONFIG"
+    note for Notification "descriptor.id: AI/EXEC/* or AI/CFG/*<br/>level: error | warning | note | none<br/>timeUtc: execution timeline<br/>associatedRule: links to affected rule<br/>exception: structured error capture<br/>─── Execution (tool provider) ───<br/>AI/EXEC/DECISION: model/skill choices<br/>AI/EXEC/RULED-OUT: dead ends explored<br/>AI/EXEC/CONTEXT-BUDGET: context limits<br/>AI/EXEC/RULE-COVERAGE-GAP: incomplete rule<br/>AI/EXEC/ALAS-SIGNAL: execution signal attachment<br/>AI/EXEC/ERROR: unhandled exception<br/>─── Configuration (tool runner) ───<br/>AI/CFG/DATA-ACCESS-DENIED<br/>AI/CFG/PERMISSION-INSUFFICIENT<br/>AI/CFG/TOOL-UNAVAILABLE<br/>AI/CFG/RESOURCE-LIMIT<br/>AI/CFG/INVALID-CONFIG"
 
     class Exception {
         +string kind
