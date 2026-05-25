@@ -177,7 +177,36 @@ foreach ($name in $adoEnv.Keys) {
     $adoEnvCleared[$name] = $null
 }
 
-# Local SRCROOT for enrichment; rewritten to the canonical GitHub URL at finalize.
+# Resolve the repository's canonical URL via git porcelain. The clone we run
+# inside is the source of truth for both:
+#   - run.versionControlProvenance.repositoryUri (GHAzDO ingestion validates
+#     this against repositories visible to the calling identity), and
+#   - the SRCROOT base used by emit-finalize --srcroot rewriting (best-effort
+#     "blob view" form for clickable artifact URIs).
+# Falls back to the canonical GitHub URL if the working tree has no origin
+# (e.g. when running against an extracted source tarball with no .git).
+$gitRemoteUrl = $null
+try {
+    $gitRemoteUrl = (& git -C $repoRoot remote get-url origin 2>$null).Trim()
+} catch { }
+if (-not $gitRemoteUrl) { $gitRemoteUrl = 'https://github.com/microsoft/sarif-sdk' }
+$vcpRepoUri = $gitRemoteUrl -replace '\.git$',''
+
+# GitHub has a clean `<repo>/blob/<branch>/<path>` viewer URL. ADO uses
+# query-string addressing (`?path=&version=GB<branch>`) so there is no clean
+# prefix that concatenates with a relative artifact path; we use the bare
+# repo URL with a trailing slash. GHAzDO ingestion validates the VCP
+# repositoryUri but not the SRCROOT base, so the latter is best-effort UX,
+# not a correctness gate.
+$finalSrcRootUri = if ($vcpRepoUri -match '^https?://github\.com/[^/]+/[^/]+$') {
+    "$vcpRepoUri/blob/main/"
+} elseif ($vcpRepoUri.EndsWith('/')) {
+    $vcpRepoUri
+} else {
+    "$vcpRepoUri/"
+}
+
+# Local SRCROOT for enrichment; rewritten to $finalSrcRootUri at finalize.
 # Cross-platform file:// construction: [System.Uri]$path returns a relative
 # Uri on Linux/macOS (Unix paths lack a scheme), and .AbsoluteUri on a
 # relative Uri yields $null — which then null-refs on .EndsWith. Build the
@@ -186,10 +215,10 @@ $repoRootSlash = $repoRoot.Replace('\', '/')
 if (-not $repoRootSlash.StartsWith('/')) { $repoRootSlash = "/$repoRootSlash" }
 if (-not $repoRootSlash.EndsWith('/'))   { $repoRootSlash = "$repoRootSlash/" }
 $localSrcRootUri = "file://$repoRootSlash"
-$finalSrcRootUri = 'https://github.com/microsoft/sarif-sdk/blob/main/'
 
-# Repo-relative artifact path; with --srcroot above this becomes a directly
-# clickable https://github.com/microsoft/sarif-sdk/blob/main/<path>.
+# Repo-relative artifact path; with --srcroot above this becomes a clickable
+# permalink under $finalSrcRootUri (GitHub) or a host-specific reference
+# (ADO / others).
 $sampleFileRepoRelative = 'src/Sarif/Taxonomies/SampleCode.cs'
 $sampleFileOnDisk       = Join-Path $PSScriptRoot 'SampleCode.cs'
 
@@ -206,7 +235,7 @@ $initArgs = @(
     '--tool-driver-semantic-version',  '0.1.0',
     '--information-uri',               'https://cwesamplerscanner.example.com/',
     '--organization',                  'Example Scanner Authority',
-    '--vcp-repositoryuri',             'https://github.com/microsoft/sarif-sdk',
+    '--vcp-repositoryuri',             $vcpRepoUri,
     '--vcp-revisionid',                '0000000000000000000000000000000000000000',
     '--vcp-branch',                    'main',
     '--srcroot',                       $localSrcRootUri,
