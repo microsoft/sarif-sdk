@@ -17,6 +17,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
     public class EmitInitRunCommandTests : IDisposable
     {
         private readonly string _dir;
+        private readonly IEnvironmentVariableGetter _emptyEnv = new EmptyEnvironmentVariableGetter();
 
         public EmitInitRunCommandTests()
         {
@@ -32,10 +33,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         private string OutPath => Path.Combine(_dir, "scan.sarif");
         private string WipPath => OutPath + ".wip.jsonl";
 
+        private EmitInitRunCommand NewCommand() => new EmitInitRunCommand(_emptyEnv);
+
         [Fact]
         public void Run_OnCleanState_CreatesWipWithRunHeaderEvent()
         {
-            int exit = new EmitInitRunCommand().Run(new EmitInitRunOptions
+            int exit = NewCommand().Run(new EmitInitRunOptions
             {
                 OutputFilePath = OutPath,
                 ToolName = "demo",
@@ -58,7 +61,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         {
             File.WriteAllText(WipPath, "{}\n");
 
-            int exit = new EmitInitRunCommand().Run(new EmitInitRunOptions
+            int exit = NewCommand().Run(new EmitInitRunOptions
             {
                 OutputFilePath = OutPath,
                 ToolName = "demo",
@@ -72,7 +75,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         {
             File.WriteAllText(OutPath, "{ \"version\": \"2.1.0\" }");
 
-            int exit = new EmitInitRunCommand().Run(new EmitInitRunOptions
+            int exit = NewCommand().Run(new EmitInitRunOptions
             {
                 OutputFilePath = OutPath,
                 ToolName = "demo",
@@ -86,7 +89,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         {
             File.WriteAllText(WipPath, "stale wip\n");
 
-            int exit = new EmitInitRunCommand().Run(new EmitInitRunOptions
+            int exit = NewCommand().Run(new EmitInitRunOptions
             {
                 OutputFilePath = OutPath,
                 ToolName = "demo",
@@ -102,7 +105,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         [Fact]
         public void Run_FailsIfToolNameMissing()
         {
-            int exit = new EmitInitRunCommand().Run(new EmitInitRunOptions { OutputFilePath = OutPath });
+            int exit = NewCommand().Run(new EmitInitRunOptions { OutputFilePath = OutPath });
             exit.Should().Be(CommandBase.FAILURE);
             File.Exists(WipPath).Should().BeFalse();
         }
@@ -131,7 +134,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 default: throw new ArgumentOutOfRangeException(nameof(slot));
             }
 
-            int exit = new EmitInitRunCommand().Run(options);
+            int exit = NewCommand().Run(options);
 
             exit.Should().Be(CommandBase.FAILURE);
             File.Exists(WipPath).Should().BeFalse();
@@ -172,6 +175,77 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
             run.OriginalUriBaseIds.Should().ContainKey("SRCROOT");
             run.OriginalUriBaseIds["SRCROOT"].Uri.ToString().Should().Be("file:///D:/work/demo");
+        }
+
+        [Fact]
+        public void Run_WhenAdoPipelineContextComplete_StampsAutomationDetails()
+        {
+            // Wire up: env-driven Complete pipeline context flows into the on-disk run header.
+            var env = new FakeEnvironmentVariableGetter()
+                .With(AdoPipelineContext.TfBuildEnvVar, "True")
+                .With(AdoPipelineContext.CollectionUriEnvVar, "https://dev.azure.com/contoso/")
+                .With(AdoPipelineContext.TeamProjectIdEnvVar, "11111111-1111-1111-1111-111111111111")
+                .With(AdoPipelineContext.BuildDefinitionIdPrimaryEnvVar, "1234")
+                .With(AdoPipelineContext.BuildDefinitionNameEnvVar, "Nightly Build")
+                .With(AdoPipelineContext.BuildIdEnvVar, "98765")
+                .With(AdoPipelineContext.PhaseIdPrimaryEnvVar, "22222222-2222-2222-2222-222222222222")
+                .With(AdoPipelineContext.PhaseNamePrimaryEnvVar, "Build")
+                .With(AdoPipelineContext.SourceBranchEnvVar, "refs/heads/main");
+
+            int exit = new EmitInitRunCommand(env).Run(new EmitInitRunOptions
+            {
+                OutputFilePath = OutPath,
+                ToolName = "demo",
+            });
+
+            exit.Should().Be(CommandBase.SUCCESS);
+            var events = new SarifEventLogReader().Read(WipPath).ToList();
+            events.Should().HaveCount(1);
+
+            string id = events[0].Payload["automationDetails"]["id"].ToString();
+            id.Should().Be("azuredevops/pipeline/build/contoso/11111111-1111-1111-1111-111111111111/1234/22222222-2222-2222-2222-222222222222/refs/heads/main/98765");
+
+            events[0].Payload["automationDetails"]["properties"][AdoPipelineContext.PropBuildDefinitionId].ToString().Should().Be("1234");
+            events[0].Payload["automationDetails"]["properties"][AdoPipelineContext.PropPhaseName].ToString().Should().Be("Build");
+        }
+
+        [Fact]
+        public void Run_WhenAdoPipelineContextPartial_FailsBeforeCreatingWip()
+        {
+            // The partial-state path MUST NOT create or overwrite the .wip.jsonl, otherwise a
+            // misconfigured pipeline could blow away a valid in-flight scan with --force-overwrite.
+            File.WriteAllText(WipPath, "existing wip\n");
+
+            var env = new FakeEnvironmentVariableGetter()
+                .With(AdoPipelineContext.TfBuildEnvVar, "True")
+                .With(AdoPipelineContext.CollectionUriEnvVar, "https://dev.azure.com/contoso/")
+                .With(AdoPipelineContext.BuildDefinitionIdPrimaryEnvVar, "1234");
+            // intentionally omit other required vars -> Partial
+
+            int exit = new EmitInitRunCommand(env).Run(new EmitInitRunOptions
+            {
+                OutputFilePath = OutPath,
+                ToolName = "demo",
+                ForceOverwrite = true,
+            });
+
+            exit.Should().Be(CommandBase.FAILURE);
+            File.ReadAllText(WipPath).Should().Be("existing wip\n");
+        }
+
+        [Fact]
+        public void Run_WhenNoAdoEnvVarsSet_OmitsAutomationDetails()
+        {
+            int exit = new EmitInitRunCommand(_emptyEnv).Run(new EmitInitRunOptions
+            {
+                OutputFilePath = OutPath,
+                ToolName = "demo",
+            });
+
+            exit.Should().Be(CommandBase.SUCCESS);
+            var events = new SarifEventLogReader().Read(WipPath).ToList();
+            events.Should().HaveCount(1);
+            events[0].Payload["automationDetails"].Should().BeNull();
         }
     }
 }
