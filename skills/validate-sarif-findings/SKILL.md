@@ -2,7 +2,7 @@
 name: validate-sarif-findings
 description: Validates SARIF files against the SARIF 2.1.0 schema and the AI-generated-findings profile rules shipped by Sarif.Multitool.
 metadata:
-  author: mikefan
+  author: sarif-sdk-maintainers
   version: "1.0.0"
   category: sarif
   severity: medium
@@ -80,7 +80,7 @@ Capture all output. Each line with `note`, `warning`, or `error` is a finding. T
 | AI2015 | ProvideAttackerPosition | warning | `ai/attackerPosition` present; all-or-nothing |
 | AI2016 | ProvideEvidenceBacking | warning | Demonstrated evidence entries have backing |
 | AI2017 | ProvideNotificationDescriptor | warning | Notification descriptors resolve |
-| AI2018 | ProvideExecutionSignalArtifact | note | ALAS signal artifact has attachment role |
+| AI2018 | ProvideExecutionSignalArtifact | note | Execution signal artifact has attachment role |
 | AI2019 | ProvideNotificationTimestamp | note | Notifications include `timeUtc` |
 
 General SARIF rules that commonly fire on AI-generated output:
@@ -165,7 +165,7 @@ If `{{PROFILE}}` is `schema-only`, skip this step entirely.
 | NotificationDescriptorResolvable | AI2017 | warning | Every `notification.descriptor` in `toolExecutionNotifications` or `toolConfigurationNotifications` SHOULD resolve to a `reportingDescriptor` in `tool.driver.notifications[]` or an extension's `notifications[]` via `index` or `guid` (§3.52.3). If `descriptor.id` is present, it SHALL match the resolved descriptor's `id` |
 | NotificationAssociatedRuleResolvable | AI1013 | error | If `notification.associatedRule` is present, it SHALL resolve to a valid rule in `tool.driver.rules[]` or an extension's `rules[]` via `index` or `guid` |
 | ExecutionNotificationPlacement | AI1014 | error | `AI/EXEC/*` descriptors SHALL appear only in `toolExecutionNotifications`. `AI/CFG/*` descriptors SHALL appear only in `toolConfigurationNotifications` |
-| ALASSignalArtifactResolvable | AI2018 | note | A notification with `descriptor.id` of `AI/EXEC/ALAS-SIGNAL` SHOULD include a `locations[]` entry whose `physicalLocation.artifactLocation.index` resolves to a valid artifact in `run.artifacts[]` with `roles` containing `"attachment"` |
+| ExecutionSignalArtifactResolvable | AI2018 | note | A notification with `descriptor.id` of `AI/EXEC/ALAS-SIGNAL` SHOULD include a `locations[]` entry whose `physicalLocation.artifactLocation.index` resolves to a valid artifact in `run.artifacts[]` with `roles` containing `"attachment"` |
 | NotificationTimestampPresent | AI2019 | note | Notifications SHOULD include `timeUtc` to enable execution timeline reconstruction |
 
 ### Step 3 — Report
@@ -229,7 +229,7 @@ AI agents generating SARIF systematically drift from the standard in predictable
 | 16 | **threadFlowLocation index dangling** | Uses `threadFlow.locations[].index` to reference `runs[].threadFlowLocations` but never populates that top-level array | Either populate `runs[].threadFlowLocations[]` or use inline `location` objects on each threadFlowLocation | SARIF1009 |
 | 17 | **Missing `ai/attackerPosition`** | Omits attacker position entirely or on some results | Must appear on every result if present on any (all-or-nothing). Use `"unclear"` if genuinely unknown | AI2015 |
 | 18 | **Missing rule `helpUri`** | Emits `rules[]` without `helpUri` | Every rule should include `helpUri` linking to documentation (CWE URL, internal doc, etc.) | SARIF2012 |
-| 19 | **Non-conventional rule IDs** | Uses tool-specific prefixes like `SWT-CPP-001` | Rule IDs should follow conventional patterns; CWE-based IDs preferred for interoperability | SARIF2009 |
+| 19 | **Non-conventional rule IDs** | Uses tool-specific prefixes like `ACME-CPP-001` | Rule IDs should follow conventional patterns; CWE-based IDs preferred for interoperability | SARIF2009 |
 
 **How drift happens:** LLMs generate SARIF from training data that includes pre-standard drafts, partial examples, and SARIF from non-AI tools. The `emit-sarif-findings` skill instructs them correctly, but agents hallucinate "reasonable" values that aren't in the vocabulary, or place properties at plausible-but-wrong locations in the object graph. Schema validation catches structural drift (#1, #6); AI profile rules catch semantic drift (#2, #4, #5, #8, #10). Both layers are needed.
 
