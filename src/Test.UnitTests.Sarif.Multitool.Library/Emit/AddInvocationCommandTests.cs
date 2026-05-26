@@ -246,11 +246,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         [Fact]
         public void Run_FailsWhenPayloadIsEmpty()
         {
-            // Under xUnit, Console.IsInputRedirected is always true (the test runner pipes
-            // stdin), so a verb invocation with no --input falls into the stdin-read branch
-            // and returns an empty string. The TryReadJsonPayload helper rejects empty
-            // payloads with a per-kind "is empty" message before any append.
+            // Pointing --input at an empty file deterministically hits TryReadJsonPayload's
+            // "is empty" diagnostic via the file branch. Falling through to the stdin branch
+            // (InputFilePath = null) hangs under xUnit on the ADO Linux/Mac agents:
+            // Console.IsInputRedirected reports true but the runner's stdin pipe never closes,
+            // so Console.OpenStandardInput().ReadToEnd() never returns.
             SeedRunHeader();
+            File.WriteAllText(InputPath, string.Empty);
 
             using var errWriter = new StringWriter();
             Console.SetError(errWriter);
@@ -258,7 +260,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             int exit = new AddInvocationCommand().Run(new AddInvocationOptions
             {
                 OutputFilePath = OutPath,
-                InputFilePath = null,
+                InputFilePath = InputPath,
             });
 
             exit.Should().Be(CommandBase.FAILURE);

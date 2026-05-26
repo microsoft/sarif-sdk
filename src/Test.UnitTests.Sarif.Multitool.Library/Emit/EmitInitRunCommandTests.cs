@@ -173,17 +173,27 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         }
 
         [Fact]
-        public void Run_ReadsRunJsonFromStdin_WhenInputFlagOmitted()
+        public void Run_FailsWhenPayloadIsEmpty()
         {
-            // Stdin redirection via Console.SetIn. EmitEventLogHelpers.TryReadJsonPayload reads
-            // raw bytes from Console.OpenStandardInput which doesn't honor Console.SetIn —
-            // however the IsInputRedirected branch keys off of the redirected handle. We can
-            // exercise the "missing both" branch deterministically and assert it fails clean.
-            // (The actual stdin-byte-read path is integration-tested via AddResultCommandTests
-            // comment-equivalent skip and the CLI fixtures.)
-            int exit = NewCommand().Run(new EmitInitRunOptions { OutputFilePath = OutPath });
+            // Pointing --input at an empty file deterministically hits TryReadJsonPayload's
+            // "is empty" diagnostic via the file branch. Falling through to the stdin branch
+            // (InputFilePath = null) hangs under xUnit on the ADO Linux/Mac agents:
+            // Console.IsInputRedirected reports true but the runner's stdin pipe never closes,
+            // so Console.OpenStandardInput().ReadToEnd() never returns.
+            File.WriteAllText(InputPath, string.Empty);
+
+            using var errWriter = new StringWriter();
+            Console.SetError(errWriter);
+
+            int exit = NewCommand().Run(new EmitInitRunOptions
+            {
+                OutputFilePath = OutPath,
+                InputFilePath = InputPath,
+            });
 
             exit.Should().Be(CommandBase.FAILURE);
+            errWriter.ToString().Should().Contain("Run");
+            errWriter.ToString().Should().Contain("empty");
             File.Exists(WipPath).Should().BeFalse();
         }
 
