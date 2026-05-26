@@ -2,7 +2,7 @@
 name: emit-sarif-findings
 description: Serialize AI-detected security findings as SARIF v2.1.0 conforming to the AI-generated-findings profile, using the Sarif.Multitool emit verbs.
 metadata:
-  author: mikefan
+  author: sarif-sdk-maintainers
   version: "1.0.0"
   category: security
   packages:
