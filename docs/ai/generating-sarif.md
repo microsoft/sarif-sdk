@@ -151,12 +151,12 @@ Having decided the granularity, name the sub-ID:
 
 The sub-ID carries no separate metadata. It is the result's readable name, its baseline discriminator, and its bulk-disposition handle — choose it accordingly.
 
-**Novel findings:** In rare cases where no CWE adequately describes the vulnerability, use the reserved descriptor id `NOVEL`. The sub-ID on `result.ruleId` carries the concept's identity; there is no registry of novel-finding numbers and this profile does not pretend one exists.
+**Novel findings:** In rare cases where no CWE adequately describes the vulnerability, use the **NOVEL escape hatch** — `NOVEL-<sub-id>`. The dash-flat form (no slash, no separate base) carries the concept's identity in a single string; there is no registry of novel-finding numbers and this profile does not pretend one exists. Unlike a CWE finding, the NOVEL- form does not split into a base+sub-id pair — the descriptor's `id` and the result's `ruleId` are byte-identical.
 
 ```json
 // tool.driver.rules[]
 {
-  "id": "NOVEL",
+  "id": "NOVEL-capability-trust-bypass",
   "name": "CapabilityTrustBypass",
   "shortDescription": { "text": "Protocol handshake trusts client-supplied authorization claims" },
   "fullDescription": { "text": "The server accepts client-supplied capability objects as authorization decisions without server-side verification against an identity store." },
@@ -166,15 +166,16 @@ The sub-ID carries no separate metadata. It is the result's readable name, its b
 }
 // results[]
 {
-  "ruleId": "NOVEL/capability-trust-bypass",
-  "ruleIndex": 4,
+  "ruleId": "NOVEL-capability-trust-bypass",
   ...
 }
 ```
 
-SARIF §3.19.23 permits non-unique `reportingDescriptor.id` values within `rules[]`, so multiple distinct novel concepts in one run each get their own descriptor with `id: "NOVEL"` and a distinct `name`. This makes `result.ruleIndex` **required** (not merely recommended) for `NOVEL` results — id-only lookup cannot disambiguate which descriptor's metadata applies. The `NOVEL/` prefix in a triage list is itself a signal that the finding falls outside the standard taxonomy and warrants human review; if and when CWE assigns an identifier, the descriptor migrates to `CWE-NNNN` and the sub-ID is unchanged.
+Each distinct novel concept in a run gets its own descriptor with its own dash-flat `id`. The `NOVEL-` prefix in a triage list is itself a signal that the finding falls outside the standard taxonomy and warrants human review; if and when CWE assigns an identifier, the descriptor migrates to `CWE-NNNN` and the sub-id moves to the slash-delimited form (`CWE-NNNN/capability-trust-bypass`).
 
-The `ai/nearestCwe` property orients consumers to the closest known vulnerability class without pretending the classification is exact. In practice, most AI findings will map to existing CWEs — novel IDs should be the exception.
+The `ai/nearestCwe` property orients consumers to the closest known vulnerability class without pretending the classification is exact. In practice, most AI findings will map to existing CWEs — NOVEL- ids should be the exception.
+
+> The NOVEL- form is exclusive — `NOVEL-<sub-id>` is the entire id. `NOVEL-foo/bar` is rejected at receipt by the AI-authoring emit chain; see [`docs/AI-RuleId-Convention.md`](../AI-RuleId-Convention.md) for the full grammar.
 
 ---
 
@@ -781,33 +782,30 @@ Each `fix` contains a `description` and an array of `artifactChanges`, each of w
 
 ## Code Context & Embedded Artifacts
 
-SARIF provides three layers of source code context, from fine-grained to complete file embedding. AI tools SHOULD provide code context to make findings self-contained and actionable — especially when the remediation agent may not have immediate access to the source repository.
+SARIF provides multiple layers of source code context, from line/column references through to complete file embedding. The AI-authoring emit chain divides this work across two tiers: the producer (Tier 1) supplies the coordinates only the producer can know, and the `emit-finalize` enricher (Tier 2) reads the file on disk and fills the derivable rest.
 
-### Snippets and context regions (§3.30.13, §3.29.5)
+### Region coordinates (§3.30.13, §3.29.5)
 
-`region.snippet` embeds the specific code at the finding location. `contextRegion` provides a superset of `region` with surrounding lines for visual context.
+The producer is the source of truth for *which* lines a finding spans. The enricher is the source of truth for *what those lines contain*.
 
 ```json
 "physicalLocation": {
   "artifactLocation": { "uri": "src/api/admin.py", "uriBaseId": "SRCROOT" },
   "region": {
     "startLine": 42,
-    "endLine": 45,
-    "snippet": {
-      "text": "@app.post(\"/api/admin/config\")\nasync def handle_config_update(request: ConfigRequest):\n    config.update(request.json)\n    return {\"status\": \"updated\"}"
-    }
-  },
-  "contextRegion": {
-    "startLine": 38,
-    "endLine": 50,
-    "snippet": {
-      "text": "# ... surrounding function context including imports and adjacent handlers ..."
-    }
+    "endLine": 45
   }
 }
 ```
 
-AI tools SHOULD populate `region.snippet` for every finding location. `contextRegion` SHOULD be provided when surrounding code aids comprehension (e.g., showing that no auth middleware exists in adjacent handlers).
+AI tools SHOULD emit `region.startLine` (and `region.endLine` when the finding spans multiple lines). Do **not** populate `region.snippet`, `region.startColumn`/`endColumn`, `region.charOffset`/`charLength`, `artifact.hashes`, or the snippet text inside a `contextRegion` — `emit-finalize` runs `InsertOptionalDataVisitor` with `Hashes | RegionSnippets | ContextRegionSnippets | ComprehensiveRegionProperties` and fills every one of these fields from disk truth. Pre-populating them costs tokens, drift-risks the consumer's view of the file, and is silently overridden when the on-disk content differs.
+
+If a finding needs a wider visual window than the strict region (e.g., to show that no auth middleware exists in adjacent handlers), express that intent by supplying `contextRegion`'s `startLine`/`endLine` only — the enricher fills the snippet text:
+
+```json
+"region":        { "startLine": 42, "endLine": 45 },
+"contextRegion": { "startLine": 38, "endLine": 50 }
+```
 
 ### Full artifact embedding (§3.24.8)
 
@@ -835,7 +833,7 @@ This is a powerful technique for AI scenarios:
 
 **Trade-offs:**
 
-- **File size:** Embedding full files inflates the SARIF log substantially. Reserve for targeted files (analysis targets, not every transitive dependency). Use `region.snippet` for most locations and embed only the critical files.
+- **File size:** Embedding full files inflates the SARIF log substantially. Reserve for targeted files (analysis targets, not every transitive dependency). The enricher-populated `region.snippet`/`contextRegion` already covers most locations cheaply; embed full contents only for the files a downstream agent must read in their entirety.
 - **Sensitivity:** Embedded source code inherits the classification of the source repository. See [Sensitivity & Storage](#sensitivity--storage).
 
 `artifact.sourceLanguage` (§3.24.10) SHOULD be provided when contents are embedded — it enables SARIF viewers to render code with syntax highlighting.
