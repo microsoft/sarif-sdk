@@ -31,6 +31,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Emit
             SarifEventKinds.Result,
             SarifEventKinds.Notification,
             SarifEventKinds.Invocation,
+            SarifEventKinds.RuleDescriptor,
+            SarifEventKinds.NotificationDescriptor,
         };
 
         /// <summary>

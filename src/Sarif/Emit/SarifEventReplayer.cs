@@ -77,6 +77,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Emit
             var results = new List<Result>();
             var invocations = new List<Invocation>();
             var notifications = new List<Notification>();
+            var ruleDescriptors = new List<ReportingDescriptor>();
+            var notificationDescriptors = new List<ReportingDescriptor>();
             bool headerSeen = false;
 
             var serializer = JsonSerializer.Create(new JsonSerializerSettings
@@ -128,6 +130,20 @@ namespace Microsoft.CodeAnalysis.Sarif.Emit
                         notifications.Add(notification);
                         break;
 
+                    case SarifEventKinds.RuleDescriptor:
+                        // Producer-supplied rule descriptor (NOVEL- only per emit-time gate).
+                        // Buffered and merged into run.tool.driver.rules ahead of result-driven
+                        // auto-registration so the explicit descriptor wins over the minimal
+                        // synthesized one.
+                        ruleDescriptors.Add(sarifEvent.Payload.ToObject<ReportingDescriptor>(serializer));
+                        break;
+
+                    case SarifEventKinds.NotificationDescriptor:
+                        // Producer-supplied notification descriptor. Buffered and merged into
+                        // run.tool.driver.notifications.
+                        notificationDescriptors.Add(sarifEvent.Payload.ToObject<ReportingDescriptor>(serializer));
+                        break;
+
                     // The reader filters unknown kinds; an unknown kind reaching us here is a
                     // contract violation.
                     default:
@@ -142,6 +158,21 @@ namespace Microsoft.CodeAnalysis.Sarif.Emit
             run ??= new Run();
             run.Tool ??= new Tool();
             run.Tool.Driver ??= new ToolComponent { Name = "Unknown" };
+
+            // Merge producer-supplied descriptors BEFORE result-driven auto-registration so the
+            // explicit descriptors seed the idToIndex table — auto-registration only fills in
+            // ids that aren't already represented.
+            MergeDescriptors(
+                existing: run.Tool.Driver.Rules,
+                additions: ruleDescriptors,
+                target: nameof(ToolComponent.Rules),
+                assign: d => run.Tool.Driver.Rules = d);
+
+            MergeDescriptors(
+                existing: run.Tool.Driver.Notifications,
+                additions: notificationDescriptors,
+                target: nameof(ToolComponent.Notifications),
+                assign: d => run.Tool.Driver.Notifications = d);
 
             RegisterDescriptorsFromResults(run, results);
 
@@ -241,6 +272,48 @@ namespace Microsoft.CodeAnalysis.Sarif.Emit
                 }
 
                 result.RuleIndex = index;
+            }
+        }
+
+        /// <summary>
+        /// Merges producer-supplied descriptors emitted as <c>rule-descriptor</c> /
+        /// <c>notification-descriptor</c> events into the target list on the run's driver.
+        /// </summary>
+        /// <remarks>
+        /// <para>Header pre-populated entries (if any) are preserved by reference, so a producer
+        /// that supplied a descriptor on the run-header AND via an event for the same id is
+        /// already a contract violation that the verb's emit-time dedup should have rejected.
+        /// At replay we trust the invariant and append events after pre-populated entries; if
+        /// the invariant is violated (e.g., a manually-edited event log) the resulting SARIF
+        /// will carry two descriptors with the same id and the validator will flag it.</para>
+        /// <para>For the rules array specifically, this method must run BEFORE
+        /// <see cref="RegisterDescriptorsFromResults"/> so that the explicit descriptors seed
+        /// the <c>idToIndex</c> table — auto-registration synthesizes minimal descriptors only
+        /// for ids that aren't already represented.</para>
+        /// </remarks>
+        private static void MergeDescriptors(
+            IList<ReportingDescriptor> existing,
+            IList<ReportingDescriptor> additions,
+            string target,
+            Action<IList<ReportingDescriptor>> assign)
+        {
+            if (additions == null || additions.Count == 0)
+            {
+                return;
+            }
+
+            if (existing == null)
+            {
+                existing = new List<ReportingDescriptor>();
+                assign(existing);
+            }
+
+            foreach (ReportingDescriptor descriptor in additions)
+            {
+                if (descriptor != null)
+                {
+                    existing.Add(descriptor);
+                }
             }
         }
     }
