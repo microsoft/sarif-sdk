@@ -238,20 +238,47 @@ $automationGuid            = 'a7ad9ab8-1234-5678-9abc-def012345678'
 $automationCorrelationGuid = '660f3001-34a8-46c5-8ad5-14b9682470ba'
 
 Write-Host "[1/6] Opening run -> $outPath"
+
+# JSON-payload contract: construct a SARIF Run object and pipe it to
+# emit-init-run via stdin. The previous flag surface was removed in v5.1.0
+# to bring the verb into surface-area parity with the other emit verbs
+# (add-result, add-notification, add-reporting-descriptor) and to unblock
+# producers that need rich run-header shapes (multiple VCP entries,
+# properties bags, etc.) the flags could not encode.
+$runHeader = [ordered]@{
+    tool = [ordered]@{
+        driver = [ordered]@{
+            name             = 'CweSamplerScanner'
+            version          = '0.1.0'
+            semanticVersion  = '0.1.0'
+            informationUri   = 'https://cwesamplerscanner.example.com/'
+            organization     = 'Example Scanner Authority'
+        }
+    }
+    versionControlProvenance = @(
+        [ordered]@{
+            repositoryUri = $vcpRepoUri
+            revisionId    = '0000000000000000000000000000000000000000'
+            branch        = 'main'
+            mappedTo      = [ordered]@{ uriBaseId = 'SRCROOT' }
+        }
+    )
+    originalUriBaseIds = [ordered]@{
+        SRCROOT = [ordered]@{ uri = $localSrcRootUri }
+    }
+    automationDetails = [ordered]@{
+        guid            = $automationGuid
+        correlationGuid = $automationCorrelationGuid
+    }
+    properties = [ordered]@{
+        'ai/origin' = 'generated'
+    }
+}
+
+$runHeaderJson = $runHeader | ConvertTo-Json -Depth 32 -Compress
+
 $initArgs = @(
     $multitool, 'emit-init-run', $outPath,
-    '--tool-driver-name',              'CweSamplerScanner',
-    '--tool-version',                  '0.1.0',
-    '--tool-driver-semantic-version',  '0.1.0',
-    '--information-uri',               'https://cwesamplerscanner.example.com/',
-    '--organization',                  'Example Scanner Authority',
-    '--vcp-repositoryuri',             $vcpRepoUri,
-    '--vcp-revisionid',                '0000000000000000000000000000000000000000',
-    '--vcp-branch',                    'main',
-    '--srcroot',                       $localSrcRootUri,
-    '--automation-guid',               $automationGuid,
-    '--automation-correlation-guid',   $automationCorrelationGuid,
-    '--ai-origin',                     'generated',
     '--force-overwrite'
 )
 
@@ -262,7 +289,7 @@ $envToApply = if ($GHAzDO) { $adoEnv } else { $adoEnvCleared }
 $savedEnv = $null
 try {
     $savedEnv = Set-AdoEnv $envToApply
-    & dotnet @initArgs | Out-Host
+    $runHeaderJson | & dotnet @initArgs | Out-Host
     if ($LASTEXITCODE -ne 0) { throw "emit-init-run failed (exit $LASTEXITCODE)." }
 } finally {
     Restore-AdoEnv $savedEnv

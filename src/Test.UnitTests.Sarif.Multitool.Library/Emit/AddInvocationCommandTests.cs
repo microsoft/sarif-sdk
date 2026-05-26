@@ -1,0 +1,270 @@
+// Copyright (c) Microsoft. All rights reserved.
+// Licensed under the MIT license. See LICENSE file in the project root for full license information.
+
+using System;
+using System.IO;
+using System.Linq;
+
+using FluentAssertions;
+
+using Microsoft.CodeAnalysis.Sarif.Driver;
+using Microsoft.CodeAnalysis.Sarif.Emit;
+
+using Xunit;
+
+namespace Microsoft.CodeAnalysis.Sarif.Multitool
+{
+    public class AddInvocationCommandTests : IDisposable
+    {
+        private readonly string _dir;
+        private readonly TextWriter _origStdOut;
+        private readonly TextWriter _origStdErr;
+
+        public AddInvocationCommandTests()
+        {
+            _dir = Path.Combine(Path.GetTempPath(), $"add-invoc-{Guid.NewGuid():N}");
+            Directory.CreateDirectory(_dir);
+
+            _origStdOut = Console.Out;
+            _origStdErr = Console.Error;
+        }
+
+        public void Dispose()
+        {
+            Console.SetOut(_origStdOut);
+            Console.SetError(_origStdErr);
+
+            if (Directory.Exists(_dir)) { Directory.Delete(_dir, recursive: true); }
+        }
+
+        private string OutPath => Path.Combine(_dir, "scan.sarif");
+        private string WipPath => OutPath + ".wip.jsonl";
+        private string InputPath => Path.Combine(_dir, "invoc.json");
+
+        private void SeedRunHeader()
+        {
+            using var w = new SarifEventLogWriter(WipPath);
+            w.Append(SarifEventKinds.RunHeader, new Run { Tool = new Tool { Driver = new ToolComponent { Name = "demo" } } });
+        }
+
+        [Fact]
+        public void Run_HappyPath_AppendsInvocationFromFile()
+        {
+            SeedRunHeader();
+            File.WriteAllText(
+                InputPath,
+                "{ \"executionSuccessful\": true, \"commandLine\": \"demo --scan src\" }");
+
+            int exit = new AddInvocationCommand().Run(new AddInvocationOptions
+            {
+                OutputFilePath = OutPath,
+                InputFilePath = InputPath,
+            });
+
+            exit.Should().Be(CommandBase.SUCCESS);
+
+            string[] lines = File.ReadAllLines(WipPath);
+            lines.Length.Should().Be(2);
+            lines[1].Should().Contain("\"kind\":\"invocation\"");
+            lines[1].Should().Contain("demo --scan src");
+        }
+
+        [Fact]
+        public void Run_AppendsInvocationWithoutExecutionSuccessful()
+        {
+            // Every Invocation field is optional per SARIF §3.20. The verb must not require
+            // executionSuccessful; producers MAY ship an invocation that records only the
+            // command line or working directory (e.g., a daemon registering a session start
+            // before it knows the final exit state).
+            SeedRunHeader();
+            File.WriteAllText(
+                InputPath,
+                "{ \"commandLine\": \"demo --scan src\", \"workingDirectory\": { \"uri\": \"file:///work/\" } }");
+
+            using var outWriter = new StringWriter();
+            Console.SetOut(outWriter);
+
+            int exit = new AddInvocationCommand().Run(new AddInvocationOptions
+            {
+                OutputFilePath = OutPath,
+                InputFilePath = InputPath,
+            });
+
+            exit.Should().Be(CommandBase.SUCCESS);
+            outWriter.ToString().Should().Contain("executionSuccessful='<unset>'");
+        }
+
+        [Fact]
+        public void Run_FailsWhenWipMissing()
+        {
+            File.WriteAllText(InputPath, "{ \"executionSuccessful\": true }");
+
+            using var errWriter = new StringWriter();
+            Console.SetError(errWriter);
+
+            int exit = new AddInvocationCommand().Run(new AddInvocationOptions
+            {
+                OutputFilePath = OutPath,
+                InputFilePath = InputPath,
+            });
+
+            exit.Should().Be(CommandBase.FAILURE);
+            errWriter.ToString().Should().Contain("emit-init-run");
+        }
+
+        [Fact]
+        public void Run_FailsOnMalformedJson()
+        {
+            SeedRunHeader();
+            File.WriteAllText(InputPath, "not-json");
+
+            using var errWriter = new StringWriter();
+            Console.SetError(errWriter);
+
+            int exit = new AddInvocationCommand().Run(new AddInvocationOptions
+            {
+                OutputFilePath = OutPath,
+                InputFilePath = InputPath,
+            });
+
+            exit.Should().Be(CommandBase.FAILURE);
+            errWriter.ToString().Should().Contain("malformed");
+            File.ReadAllLines(WipPath).Should().HaveCount(1);
+        }
+
+        [Fact]
+        public void Run_FailsWhenPayloadIsNotAnObject()
+        {
+            SeedRunHeader();
+            File.WriteAllText(InputPath, "[ { \"executionSuccessful\": true } ]");
+
+            using var errWriter = new StringWriter();
+            Console.SetError(errWriter);
+
+            int exit = new AddInvocationCommand().Run(new AddInvocationOptions
+            {
+                OutputFilePath = OutPath,
+                InputFilePath = InputPath,
+            });
+
+            exit.Should().Be(CommandBase.FAILURE);
+            errWriter.ToString().Should().Contain("JSON object");
+            File.ReadAllLines(WipPath).Should().HaveCount(1);
+        }
+
+        [Fact]
+        public void Run_PreservesRichInvocationStructure()
+        {
+            // AI producers may ship invocations with rich data: start/end timestamps,
+            // command-line argument arrays, environment-variable dictionaries, properties bags.
+            // Confirm these survive the JToken round-trip into the event log.
+            SeedRunHeader();
+            const string richJson = @"{
+              ""startTimeUtc"": ""2026-05-26T10:00:00Z"",
+              ""endTimeUtc"": ""2026-05-26T10:05:42Z"",
+              ""executionSuccessful"": true,
+              ""exitCode"": 0,
+              ""commandLine"": ""demo --scan src --rule-kind AI"",
+              ""arguments"": [ ""--scan"", ""src"", ""--rule-kind"", ""AI"" ],
+              ""workingDirectory"": { ""uri"": ""file:///work/repo/"" },
+              ""environmentVariables"": {
+                ""TF_BUILD"": ""True"",
+                ""BUILD_BUILDID"": ""12345""
+              },
+              ""properties"": {
+                ""ai/origin"": ""generated"",
+                ""ai/skills"": [ ""prompt-injection"", ""kql-injection"" ]
+              }
+            }";
+            File.WriteAllText(InputPath, richJson);
+
+            int exit = new AddInvocationCommand().Run(new AddInvocationOptions
+            {
+                OutputFilePath = OutPath,
+                InputFilePath = InputPath,
+            });
+
+            exit.Should().Be(CommandBase.SUCCESS);
+            string appended = File.ReadAllLines(WipPath).Last();
+            appended.Should().Contain("2026-05-26T10:00:00Z");
+            appended.Should().Contain("2026-05-26T10:05:42Z");
+            appended.Should().Contain("TF_BUILD");
+            appended.Should().Contain("ai/skills");
+            appended.Should().Contain("prompt-injection");
+        }
+
+        [Fact]
+        public void Run_AppendsMultipleInvocationsInOrder()
+        {
+            // The replayer appends invocation events to run.invocations[] in event order
+            // (SarifEventReplayer.cs). Confirm the verb can be invoked repeatedly and that
+            // each append produces a separate event line.
+            SeedRunHeader();
+
+            for (int i = 0; i < 3; i++)
+            {
+                File.WriteAllText(
+                    InputPath,
+                    $"{{ \"executionSuccessful\": true, \"commandLine\": \"phase-{i}\" }}");
+
+                int exit = new AddInvocationCommand().Run(new AddInvocationOptions
+                {
+                    OutputFilePath = OutPath,
+                    InputFilePath = InputPath,
+                });
+
+                exit.Should().Be(CommandBase.SUCCESS);
+            }
+
+            string[] lines = File.ReadAllLines(WipPath);
+            lines.Length.Should().Be(4); // header + 3 invocations
+            lines[1].Should().Contain("phase-0");
+            lines[2].Should().Contain("phase-1");
+            lines[3].Should().Contain("phase-2");
+            lines.Skip(1).Should().OnlyContain(l => l.Contains("\"kind\":\"invocation\""));
+        }
+
+        [Fact]
+        public void Run_FailsWhenInputFileMissing()
+        {
+            SeedRunHeader();
+
+            using var errWriter = new StringWriter();
+            Console.SetError(errWriter);
+
+            int exit = new AddInvocationCommand().Run(new AddInvocationOptions
+            {
+                OutputFilePath = OutPath,
+                InputFilePath = InputPath, // does not exist
+            });
+
+            exit.Should().Be(CommandBase.FAILURE);
+            errWriter.ToString().Should().Contain("does not exist");
+            File.ReadAllLines(WipPath).Should().HaveCount(1);
+        }
+
+        [Fact]
+        public void Run_FailsWhenPayloadIsEmpty()
+        {
+            // Under xUnit, Console.IsInputRedirected is always true (the test runner pipes
+            // stdin), so a verb invocation with no --input falls into the stdin-read branch
+            // and returns an empty string. The TryReadJsonPayload helper rejects empty
+            // payloads with a per-kind "is empty" message before any append.
+            SeedRunHeader();
+
+            using var errWriter = new StringWriter();
+            Console.SetError(errWriter);
+
+            int exit = new AddInvocationCommand().Run(new AddInvocationOptions
+            {
+                OutputFilePath = OutPath,
+                InputFilePath = null,
+            });
+
+            exit.Should().Be(CommandBase.FAILURE);
+            errWriter.ToString().Should().Contain("Invocation");
+            errWriter.ToString().Should().Contain("empty");
+            File.ReadAllLines(WipPath).Should().HaveCount(1);
+        }
+    }
+}

@@ -266,12 +266,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         }
 
         [Fact]
-        public void ApplyTo_SetsCanonicalIdAndFourPropertyKeys()
+        public void TryApplyTo_OnEmptyRun_SetsCanonicalIdAndFourPropertyKeysAndReturnsTrue()
         {
             AdoPipelineContext.TryDetect(CompleteEnv(), out AdoPipelineContext ctx, out _);
             var run = new Run();
-            ctx.ApplyTo(run);
 
+            bool ok = ctx.TryApplyTo(run, out string error);
+
+            ok.Should().BeTrue();
+            error.Should().BeNull();
             run.AutomationDetails.Should().NotBeNull();
             run.AutomationDetails.Id.Should().Be(
                 "azuredevops/pipeline/build/contoso/11111111-1111-1111-1111-111111111111/1234/22222222-2222-2222-2222-222222222222/refs/heads/main/98765");
@@ -287,7 +290,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         }
 
         [Fact]
-        public void ApplyTo_PreservesExistingAutomationGuid()
+        public void TryApplyTo_PreservesExistingAutomationGuid()
         {
             AdoPipelineContext.TryDetect(CompleteEnv(), out AdoPipelineContext ctx, out _);
 
@@ -296,18 +299,87 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             {
                 AutomationDetails = new RunAutomationDetails { Guid = preExisting, CorrelationGuid = preExisting },
             };
-            ctx.ApplyTo(run);
 
+            bool ok = ctx.TryApplyTo(run, out string error);
+
+            ok.Should().BeTrue();
+            error.Should().BeNull();
             run.AutomationDetails.Guid.Should().Be(preExisting);
             run.AutomationDetails.CorrelationGuid.Should().Be(preExisting);
             run.AutomationDetails.Id.Should().StartWith(AdoPipelineContext.AutomationIdPrefix);
         }
 
         [Fact]
-        public void ApplyTo_NullRun_Throws()
+        public void TryApplyTo_WithEqualPreExistingValues_IsIdempotentAndReturnsTrue()
         {
             AdoPipelineContext.TryDetect(CompleteEnv(), out AdoPipelineContext ctx, out _);
-            Action act = () => ctx.ApplyTo(null);
+
+            var run = new Run
+            {
+                AutomationDetails = new RunAutomationDetails
+                {
+                    Id = "azuredevops/pipeline/build/contoso/11111111-1111-1111-1111-111111111111/1234/22222222-2222-2222-2222-222222222222/refs/heads/main/98765",
+                },
+            };
+            run.AutomationDetails.SetProperty(AdoPipelineContext.PropBuildDefinitionId, "1234");
+            run.AutomationDetails.SetProperty(AdoPipelineContext.PropBuildDefinitionName, "Nightly Build");
+            run.AutomationDetails.SetProperty(AdoPipelineContext.PropPhaseId, "22222222-2222-2222-2222-222222222222");
+            run.AutomationDetails.SetProperty(AdoPipelineContext.PropPhaseName, "Build");
+
+            bool ok = ctx.TryApplyTo(run, out string error);
+
+            ok.Should().BeTrue();
+            error.Should().BeNull();
+            run.AutomationDetails.Id.Should().Be(
+                "azuredevops/pipeline/build/contoso/11111111-1111-1111-1111-111111111111/1234/22222222-2222-2222-2222-222222222222/refs/heads/main/98765");
+        }
+
+        [Fact]
+        public void TryApplyTo_WithConflictingId_ReturnsFalseAndLeavesRunUnchanged()
+        {
+            AdoPipelineContext.TryDetect(CompleteEnv(), out AdoPipelineContext ctx, out _);
+
+            const string preExistingId = "self-hosted/forensic-trace/2025-11-26";
+            var run = new Run
+            {
+                AutomationDetails = new RunAutomationDetails { Id = preExistingId },
+            };
+
+            bool ok = ctx.TryApplyTo(run, out string error);
+
+            ok.Should().BeFalse();
+            error.Should().Contain("automationDetails.id");
+            error.Should().Contain(preExistingId);
+            run.AutomationDetails.Id.Should().Be(preExistingId);
+            run.AutomationDetails.TryGetProperty(AdoPipelineContext.PropBuildDefinitionId, out _).Should().BeFalse();
+        }
+
+        [Fact]
+        public void TryApplyTo_WithConflictingProperty_ReturnsFalseAndLeavesRunUnchanged()
+        {
+            AdoPipelineContext.TryDetect(CompleteEnv(), out AdoPipelineContext ctx, out _);
+
+            var run = new Run
+            {
+                AutomationDetails = new RunAutomationDetails(),
+            };
+            run.AutomationDetails.SetProperty(AdoPipelineContext.PropBuildDefinitionName, "Some Other Pipeline");
+
+            bool ok = ctx.TryApplyTo(run, out string error);
+
+            ok.Should().BeFalse();
+            error.Should().Contain(AdoPipelineContext.PropBuildDefinitionName);
+            error.Should().Contain("Some Other Pipeline");
+            run.AutomationDetails.Id.Should().BeNull();
+            run.AutomationDetails.TryGetProperty(AdoPipelineContext.PropBuildDefinitionName, out string buildDefName).Should().BeTrue();
+            buildDefName.Should().Be("Some Other Pipeline");
+        }
+
+        [Fact]
+        public void TryApplyTo_NullRun_Throws()
+        {
+            AdoPipelineContext.TryDetect(CompleteEnv(), out AdoPipelineContext ctx, out _);
+            Action act = () => ctx.TryApplyTo(null, out _);
             act.Should().Throw<ArgumentNullException>();
         }
     }
