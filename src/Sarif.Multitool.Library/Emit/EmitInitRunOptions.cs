@@ -7,17 +7,30 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 {
     /// <summary>
     /// Options for <c>emit-init-run</c>, which opens an append-only event log
-    /// (<c>&lt;output&gt;.wip.jsonl</c>) seeded with a <c>run-header</c> event for the supplied
-    /// tool. Subsequent producers append events to the log via the SARIF emit API and finalize
-    /// via <c>multitool emit-finalize</c>.
+    /// (<c>&lt;output&gt;.wip.jsonl</c>) seeded with a <c>run-header</c> event built from a
+    /// caller-supplied SARIF <c>Run</c> JSON document. Subsequent producers append events to the
+    /// log via the SARIF emit API and finalize via <c>multitool emit-finalize</c>.
     /// </summary>
     /// <remarks>
-    /// CLI flags mirror the SARIF interior paths they populate (e.g., <c>--tool-driver-name</c>
-    /// populates <c>run.tool.driver.name</c>; <c>--vcp-revisionid</c> populates
-    /// <c>run.versionControlProvenance[0].revisionId</c>). This trades verbosity for a one-to-one
-    /// mapping that a SARIF-literate user can read without a help page.
+    /// <para>The run JSON is supplied as a JSON document (file via <c>--input</c> or piped on
+    /// stdin), matching the contract used by <c>add-result</c>, <c>add-notification</c>, and
+    /// <c>add-reporting-descriptor</c>. SARIF <c>Run</c> is by far the richest object in the
+    /// schema; modeling each field as a CLI flag would require a sprawling and ever-expanding
+    /// surface that still could not express the legal partial-<c>Run</c> shape the replayer
+    /// accepts (multiple <c>versionControlProvenance</c> entries, <c>properties</c> bags,
+    /// <c>language</c>, <c>columnKind</c>, <c>defaultEncoding</c>, <c>redactionTokens</c>, …).
+    /// The JSON-payload contract keeps the verb generic and lets an AI producer emit
+    /// arbitrarily-rich run headers without losing fidelity.</para>
+    /// <para>Profile-essential defects are validated at receipt: <c>tool.driver.name</c> must
+    /// be a non-empty string; <c>tool.driver.informationUri</c> and
+    /// <c>versionControlProvenance[*].repositoryUri</c> must be <c>https</c>;
+    /// <c>originalUriBaseIds["SRCROOT"].uri</c> must be <c>https</c> or <c>file</c>;
+    /// <c>automationDetails.guid</c> / <c>correlationGuid</c> must be canonical 8-4-4-4-12
+    /// GUIDs; <c>properties["ai/origin"]</c> must be <c>generated</c>, <c>annotated</c>, or
+    /// <c>synthesized</c>. The verb also rejects a SARIF <em>log</em> accidentally supplied in
+    /// place of a <c>Run</c>.</para>
     /// </remarks>
-    [Verb("emit-init-run", HelpText = "Open an append-only event log seeded with a SARIF run header.")]
+    [Verb("emit-init-run", HelpText = "Open an append-only event log seeded with a SARIF run header (JSON).")]
     public class EmitInitRunOptions
     {
         [Value(
@@ -28,66 +41,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         public string OutputFilePath { get; set; }
 
         [Option(
-            't',
-            "tool-driver-name",
-            HelpText = "Driver name (run.tool.driver.name). Required.",
-            Required = true)]
-        public string ToolName { get; set; }
-
-        [Option(
-            "tool-version",
-            HelpText = "Driver semantic version (run.tool.driver.version).")]
-        public string ToolVersion { get; set; }
-
-        [Option(
-            "tool-driver-semantic-version",
-            HelpText = "Driver semantic version per SemVer 2.0 (run.tool.driver.semanticVersion).")]
-        public string ToolDriverSemanticVersion { get; set; }
-
-        [Option(
-            "information-uri",
-            HelpText = "Driver information URI (run.tool.driver.informationUri).")]
-        public string InformationUri { get; set; }
-
-        [Option(
-            "organization",
-            HelpText = "Driver organization (run.tool.driver.organization).")]
-        public string Organization { get; set; }
-
-        [Option(
-            "automation-guid",
-            HelpText = "Stable GUID for this run (run.automationDetails.guid).")]
-        public string AutomationGuid { get; set; }
-
-        [Option(
-            "automation-correlation-guid",
-            HelpText = "Stable GUID for the equivalence class of related runs (run.automationDetails.correlationGuid).")]
-        public string AutomationCorrelationGuid { get; set; }
-
-        [Option(
-            "ai-origin",
-            HelpText = "AI authoring origin (run.properties.ai/origin). One of: generated, annotated, synthesized.")]
-        public string AiOrigin { get; set; }
-
-        [Option(
-            "vcp-repositoryuri",
-            HelpText = "Repository URI (run.versionControlProvenance[0].repositoryUri).")]
-        public string RepositoryUri { get; set; }
-
-        [Option(
-            "vcp-revisionid",
-            HelpText = "Revision identifier, typically a commit SHA (run.versionControlProvenance[0].revisionId).")]
-        public string RevisionId { get; set; }
-
-        [Option(
-            "vcp-branch",
-            HelpText = "Branch name (run.versionControlProvenance[0].branch).")]
-        public string Branch { get; set; }
-
-        [Option(
-            "srcroot",
-            HelpText = "Repository root on disk; recorded under originalUriBaseIds[\"SRCROOT\"].")]
-        public string SourceRoot { get; set; }
+            'i',
+            "input",
+            HelpText = "Path to a JSON file containing the SARIF run object. If omitted, JSON is read from stdin.")]
+        public string InputFilePath { get; set; }
 
         [Option(
             "force-overwrite",
@@ -96,4 +53,3 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         public bool ForceOverwrite { get; set; }
     }
 }
-

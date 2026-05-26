@@ -6,7 +6,7 @@ metadata:
   version: "1.0.0"
   category: security
   packages:
-    - "Sarif.Multitool >= 5.0.0"
+    - "Sarif.Multitool >= 5.0.1"
   triggers:
     - "emit SARIF"
     - "write findings to SARIF"
@@ -32,7 +32,7 @@ Apply this skill when an agent is the **originating** detector (not post-process
 
 ## Prerequisites
 
-- **`Sarif.Multitool` ≥ 5.0.0.** Recommended invocation: `dotnet dnx Sarif.Multitool --yes -- <verb> ...` (zero-install, version-resolved at first run; requires .NET 10+). Fall back to a global install with `dotnet tool install --global Sarif.Multitool` if `dotnet dnx` is unavailable.
+- **`Sarif.Multitool` ≥ 5.0.1.** Recommended invocation: `dotnet dnx Sarif.Multitool --yes -- <verb> ...` (zero-install, version-resolved at first run; requires .NET 10+). Fall back to a global install with `dotnet tool install --global Sarif.Multitool` if `dotnet dnx` is unavailable.
 - The current commit SHA, branch, repository URI, and a local source-root path.
 - The normative profile doc: [`docs/ai/generating-sarif.md`](../../docs/ai/generating-sarif.md). Cross-reference it for every property you populate — do not invent vocabulary.
 
@@ -44,18 +44,47 @@ This staged design lets you build a run incrementally: hold one finding in worki
 
 ### Step 1 — Initialize the run
 
+Construct a SARIF `Run` JSON object — the same partial-Run shape consumed by `SarifEventReplayer` — and pipe it to `emit-init-run`. The verb accepts the run header via `--input <path>` or stdin, exactly like `add-result` / `add-notification`. There is no flag-based form; if a field belongs on `run.*` in the final SARIF, place it on the JSON you supply here.
+
 ```powershell
-dotnet dnx Sarif.Multitool --yes -- emit-init-run "{{OUTPUT_PATH}}" `
-  --tool-driver-name "{{SCANNER_NAME}}" `
-  --tool-driver-semantic-version "{{SCANNER_SEMVER}}" `
-  --information-uri "{{SCANNER_INFO_URI}}" `
-  --organization "{{ORGANIZATION}}" `
-  --ai-origin "{{AI_ORIGIN}}" `
-  --vcp-repositoryuri "{{REPO_URI}}" `
-  --vcp-revisionid "{{COMMIT_SHA}}" `
-  --vcp-branch "{{BRANCH}}" `
-  --srcroot "file:///{{LOCAL_SOURCE_ROOT}}" `
-  --automation-guid "{{NEW_GUID}}"
+$runHeader = [ordered]@{
+  tool = @{
+    driver = [ordered]@{
+      name             = "{{SCANNER_NAME}}"
+      semanticVersion  = "{{SCANNER_SEMVER}}"
+      informationUri   = "{{SCANNER_INFO_URI}}"
+      organization     = "{{ORGANIZATION}}"
+    }
+  }
+  versionControlProvenance = @(
+    [ordered]@{
+      repositoryUri = "{{REPO_URI}}"
+      revisionId    = "{{COMMIT_SHA}}"
+      branch        = "{{BRANCH}}"
+      mappedTo      = @{ uriBaseId = "SRCROOT" }
+    }
+    # Add more entries as needed — submodules, additional checkouts,
+    # cross-repo references. Attach a `properties` bag to any entry
+    # (e.g., `properties.skills = @("xss-detector", "sql-tainter")`) to
+    # document scanner/skill provenance for that source.
+  )
+  originalUriBaseIds = @{
+    SRCROOT = @{ uri = "file:///{{LOCAL_SOURCE_ROOT}}" }
+  }
+  automationDetails = [ordered]@{
+    guid = "{{NEW_GUID}}"
+  }
+  properties = @{
+    "ai/origin" = "{{AI_ORIGIN}}"
+  }
+} | ConvertTo-Json -Depth 32
+
+# Option A: pipe via stdin (matches add-result / add-notification).
+$runHeader | dotnet dnx Sarif.Multitool --yes -- emit-init-run "{{OUTPUT_PATH}}"
+
+# Option B: write to a file and reference it.
+$runHeader | Set-Content run-header.json
+dotnet dnx Sarif.Multitool --yes -- emit-init-run "{{OUTPUT_PATH}}" --input run-header.json
 ```
 
 Inputs:
@@ -66,9 +95,13 @@ Inputs:
 | `{{SCANNER_NAME}}` | yes | `run.tool.driver.name`. Keep stable across model upgrades — it is the producer identity. |
 | `{{SCANNER_SEMVER}}` | yes | SemVer 2.0 string for `run.tool.driver.semanticVersion`. |
 | `{{AI_ORIGIN}}` | yes | One of `generated`, `annotated`, `synthesized`. See `generating-sarif.md § AI Origin Declaration`. |
-| `{{REPO_URI}}` / `{{COMMIT_SHA}}` / `{{BRANCH}}` | yes | Populates `run.versionControlProvenance[0]`. Required by rule AI1004. |
+| `{{REPO_URI}}` / `{{COMMIT_SHA}}` / `{{BRANCH}}` | yes | Populates the first `run.versionControlProvenance` entry. Required by rule AI1004. Add additional entries — each with its own `properties` bag if useful — to document submodules, additional checkouts, or per-source scanner/skill provenance. |
 | `{{LOCAL_SOURCE_ROOT}}` | yes for snippet/hash enrichment | A `file://` URI that the SDK can read to compute snippets and artifact hashes during `emit-finalize`. Rewritten to a portable URI in the finalize step. |
 | `{{NEW_GUID}}` | yes | A fresh RFC 4122 GUID for `run.automationDetails.guid`. Required by rule AI2005. |
+
+The verb validates a small set of profile-essential fields at receipt: `tool.driver.name` is required and must be a non-empty string; `tool.driver.informationUri` and `versionControlProvenance[].repositoryUri` must be `https`; `originalUriBaseIds["SRCROOT"].uri` must be `https` or `file`; GUIDs must be canonical 8-4-4-4-12 strings; `ai/origin` must be one of `generated`, `annotated`, `synthesized`. Anything else the SARIF schema accepts on a partial `Run` is appended to the `.wip.jsonl` run-header event unchanged; note that `emit-finalize` materializes a typed `SarifLog` from that event log, so fields outside the SDK's typed `Run` model are dropped at finalize. Durable custom data should live in SARIF `properties` bags, which the typed model preserves.
+
+When the `TF_BUILD=True` environment indicates an Azure DevOps pipeline, `emit-init-run` stamps `automationDetails.id` plus the four `azuredevops/pipeline/build/*` properties required by GHAzDO ingestion. If your JSON supplies any of those fields, the values must match what the env detects, otherwise the verb fails with a conflict diagnostic — pick one source of truth.
 
 ### Step 2 — Append each result
 
@@ -135,4 +168,4 @@ A complete reference SARIF file conforming to the AI profile is at [`docs/ai/exa
 
 - **Multitool unavailable** — Install .NET 10+ for `dotnet dnx`, or `dotnet tool install --global Sarif.Multitool`. Do **not** attempt to hand-author SARIF JSON: the SDK's emit verbs handle enrichment, validation, and consistency in ways that are difficult to replicate by hand. If you genuinely have no .NET environment, the profile doc is the source of truth — read it carefully — but expect to invest significant effort to match SDK output.
 - **`emit-finalize --validate` reports persistent errors** — Inspect the validation output (rule ID, message). Cross-reference the rule ID with `docs/ValidationRules.md` and the AI rule list in the profile doc. If a rule appears wrong (false positive against a correct construct), file an issue against the SDK — do not silence the rule.
-- **Source root not available locally** — Drop `--srcroot` from `emit-init-run`. Snippets and artifact hashes will be empty; `--embed-text-files` will have no effect. The resulting log is still profile-conformant but less rich for consumers.
+- **Source root not available locally** — Omit `originalUriBaseIds["SRCROOT"]` from the run header JSON and drop `--srcroot` from `emit-finalize`. Snippets and artifact hashes will be empty; `--embed-text-files` will have no effect. The resulting log is still profile-conformant but less rich for consumers.

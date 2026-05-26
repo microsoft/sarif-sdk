@@ -196,16 +196,92 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         }
 
         /// <summary>
-        /// Stamps the detected pipeline identity onto <paramref name="run"/>.
-        /// Creates <see cref="Run.AutomationDetails"/> if absent; does not overwrite
-        /// <c>Guid</c> or <c>CorrelationGuid</c> fields populated from other sources.
+        /// Stamps the detected pipeline identity onto <paramref name="run"/>, returning
+        /// <c>true</c> when no conflict was detected. When the run already carries a
+        /// non-conflicting <c>automationDetails.id</c> or any of the four
+        /// <c>azuredevops/pipeline/build/*</c> property values, the existing values are
+        /// preserved. When the run carries a conflicting value, this method returns
+        /// <c>false</c> with a diagnostic on <paramref name="conflictError"/> and leaves
+        /// the run unchanged.
         /// </summary>
-        public void ApplyTo(Run run)
+        /// <remarks>
+        /// <para>The "stamp only when absent, fail on conflict" contract is required because
+        /// callers (notably <c>emit-init-run</c>'s JSON-payload contract) may supply these
+        /// fields directly. An unconditional overwrite would silently clobber a producer's
+        /// declared identity; a conflict is a misconfiguration signal that we want to surface
+        /// at the verb rather than ship in the run.</para>
+        /// <para>Producer-supplied <see cref="RunAutomationDetails.Guid"/> and
+        /// <see cref="RunAutomationDetails.CorrelationGuid"/> fields are never touched —
+        /// they name a different scope (run / run-equivalence-class identity) than the
+        /// pipeline identity stamped here.</para>
+        /// </remarks>
+        public bool TryApplyTo(Run run, out string conflictError)
         {
             if (run == null) { throw new ArgumentNullException(nameof(run)); }
 
+            conflictError = null;
+
+            string canonicalId = BuildCanonicalAutomationId();
+            string buildDefinitionIdValue = BuildDefinitionId.ToString(CultureInfo.InvariantCulture);
+            string phaseIdValue = PhaseId.ToString("D", CultureInfo.InvariantCulture);
+
+            // Probe-before-write so a conflict on any field leaves the run unchanged.
+            RunAutomationDetails existing = run.AutomationDetails;
+            if (existing != null)
+            {
+                if (!IsAbsentOrEqual(existing.Id, canonicalId, "automationDetails.id", out string idError))
+                {
+                    conflictError = idError;
+                    return false;
+                }
+
+                if (!IsPropertyAbsentOrEqual(existing, PropBuildDefinitionId, buildDefinitionIdValue, out string p1Error))
+                {
+                    conflictError = p1Error;
+                    return false;
+                }
+
+                if (!IsPropertyAbsentOrEqual(existing, PropBuildDefinitionName, BuildDefinitionName, out string p2Error))
+                {
+                    conflictError = p2Error;
+                    return false;
+                }
+
+                if (!IsPropertyAbsentOrEqual(existing, PropPhaseId, phaseIdValue, out string p3Error))
+                {
+                    conflictError = p3Error;
+                    return false;
+                }
+
+                if (!IsPropertyAbsentOrEqual(existing, PropPhaseName, PhaseName, out string p4Error))
+                {
+                    conflictError = p4Error;
+                    return false;
+                }
+            }
+
             run.AutomationDetails ??= new RunAutomationDetails();
-            run.AutomationDetails.Id = string.Format(
+            if (string.IsNullOrEmpty(run.AutomationDetails.Id))
+            {
+                run.AutomationDetails.Id = canonicalId;
+            }
+
+            StampPropertyIfAbsent(run.AutomationDetails, PropBuildDefinitionId, buildDefinitionIdValue);
+            StampPropertyIfAbsent(run.AutomationDetails, PropBuildDefinitionName, BuildDefinitionName);
+            StampPropertyIfAbsent(run.AutomationDetails, PropPhaseId, phaseIdValue);
+            StampPropertyIfAbsent(run.AutomationDetails, PropPhaseName, PhaseName);
+
+            return true;
+        }
+
+        /// <summary>
+        /// Computes the canonical <c>automationDetails.id</c>
+        /// (<c>azuredevops/pipeline/build/&lt;org&gt;/&lt;projectId&gt;/&lt;buildDefId&gt;/&lt;phaseId&gt;/&lt;branch&gt;/&lt;buildId&gt;</c>)
+        /// for this pipeline context. Exposed so JSON-direct callers can stamp the id without
+        /// constructing a typed <see cref="Run"/>.
+        /// </summary>
+        internal string BuildCanonicalAutomationId()
+            => string.Format(
                 CultureInfo.InvariantCulture,
                 "{0}{1}/{2}/{3}/{4}/{5}/{6}",
                 AutomationIdPrefix,
@@ -215,10 +291,66 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 PhaseId,
                 BranchRef,
                 BuildId);
-            run.AutomationDetails.SetProperty(PropBuildDefinitionId, BuildDefinitionId.ToString(CultureInfo.InvariantCulture));
-            run.AutomationDetails.SetProperty(PropBuildDefinitionName, BuildDefinitionName);
-            run.AutomationDetails.SetProperty(PropPhaseId, PhaseId.ToString("D", CultureInfo.InvariantCulture));
-            run.AutomationDetails.SetProperty(PropPhaseName, PhaseName);
+
+        /// <summary>
+        /// Returns the four <c>azuredevops/pipeline/build/*</c> property name/value pairs
+        /// validated by <c>GHAzDO1019</c>. Exposed so JSON-direct callers can stamp them
+        /// without constructing a typed <see cref="Run"/>.
+        /// </summary>
+        internal IReadOnlyList<KeyValuePair<string, string>> GetPipelinePropertyValues()
+            => new[]
+            {
+                new KeyValuePair<string, string>(PropBuildDefinitionId, BuildDefinitionId.ToString(CultureInfo.InvariantCulture)),
+                new KeyValuePair<string, string>(PropBuildDefinitionName, BuildDefinitionName),
+                new KeyValuePair<string, string>(PropPhaseId, PhaseId.ToString("D", CultureInfo.InvariantCulture)),
+                new KeyValuePair<string, string>(PropPhaseName, PhaseName),
+            };
+
+        private static bool IsAbsentOrEqual(string existingValue, string detectedValue, string label, out string conflictError)
+        {
+            conflictError = null;
+            if (string.IsNullOrEmpty(existingValue) || string.Equals(existingValue, detectedValue, StringComparison.Ordinal))
+            {
+                return true;
+            }
+
+            conflictError = string.Format(
+                CultureInfo.InvariantCulture,
+                "Supplied {0} '{1}' conflicts with detected ADO pipeline value '{2}'.",
+                label,
+                existingValue,
+                detectedValue);
+            return false;
+        }
+
+        private static bool IsPropertyAbsentOrEqual(RunAutomationDetails details, string propertyName, string detectedValue, out string conflictError)
+        {
+            conflictError = null;
+            if (!details.TryGetProperty(propertyName, out string existingValue))
+            {
+                return true;
+            }
+
+            if (string.Equals(existingValue, detectedValue, StringComparison.Ordinal))
+            {
+                return true;
+            }
+
+            conflictError = string.Format(
+                CultureInfo.InvariantCulture,
+                "Supplied automationDetails.properties[\"{0}\"]='{1}' conflicts with detected ADO pipeline value '{2}'.",
+                propertyName,
+                existingValue,
+                detectedValue);
+            return false;
+        }
+
+        private static void StampPropertyIfAbsent(RunAutomationDetails details, string propertyName, string value)
+        {
+            if (!details.TryGetProperty(propertyName, out _))
+            {
+                details.SetProperty(propertyName, value);
+            }
         }
 
         private static bool IsTrueLike(string raw)
