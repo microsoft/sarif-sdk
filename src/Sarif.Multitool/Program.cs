@@ -34,6 +34,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             var verbTypes = new List<Type>
             {
                 typeof(AbsoluteUriOptions),
+                typeof(AddInvocationOptions),
                 typeof(AddNotificationOptions),
                 typeof(AddReportingDescriptorOptions),
                 typeof(AddResultOptions),
@@ -88,6 +89,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             return options switch
             {
                 AbsoluteUriOptions o => new AbsoluteUriCommand().Run(o),
+                AddInvocationOptions o => new AddInvocationCommand().Run(o),
                 AddNotificationOptions o => new AddNotificationCommand().Run(o),
                 AddReportingDescriptorOptions o => new AddReportingDescriptorCommand().Run(o),
                 AddResultOptions o => new AddResultCommand().Run(o),

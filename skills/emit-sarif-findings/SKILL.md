@@ -38,7 +38,7 @@ Apply this skill when an agent is the **originating** detector (not post-process
 
 ## Method
 
-The skill uses four multitool verbs in sequence: `emit-init-run` → `add-result` (and/or `add-notification`) per finding → `emit-finalize --validate`. Each verb either appends to an event log (`<output>.wip.jsonl`) or replays the log into a finished SARIF file.
+The skill uses five multitool verbs: `emit-init-run` → `add-result` / `add-notification` / `add-invocation` (per finding, event, or scan phase) → `emit-finalize --validate`. Each verb either appends to an event log (`<output>.wip.jsonl`) or replays the log into a finished SARIF file.
 
 This staged design lets you build a run incrementally: hold one finding in working memory at a time, write it, move on. The final file is produced atomically by `emit-finalize`.
 
@@ -129,6 +129,14 @@ Get-Content notification-001.json | dotnet dnx Sarif.Multitool --yes -- add-noti
 ```
 
 See `docs/ai/generating-sarif.md § Execution Narrative & Configuration Feedback` for descriptor inventory and required shape.
+
+### Step 3.5 — Append invocations (optional)
+
+Use `add-invocation` to record one or more `Invocation` objects (`startTimeUtc`, `endTimeUtc`, `executionSuccessful`, `exitCode`, `commandLine`, `arguments`, `workingDirectory`, `environmentVariables`, properties bag, …). The replayer appends invocations to `run.invocations[]` in event order and attaches subsequent `add-notification` events to the most recent invocation, so emit a fresh invocation if you want to start a new notification group within the same scan.
+
+```powershell
+Get-Content invocation.json | dotnet dnx Sarif.Multitool --yes -- add-invocation "{{OUTPUT_PATH}}"
+```
 
 ### Step 4 — Finalize and validate
 

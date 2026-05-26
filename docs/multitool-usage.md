@@ -20,6 +20,7 @@ Use the SARIF Multitool to rewrite, enrich, filter, result match, and do other c
 | emit-init-run | Open an append-only event log seeded with a SARIF `run` JSON document (driver identity, version control provenance, AI origin) supplied via `--input` or stdin. |
 | add-result | Append a fully-formed SARIF `result` object (JSON) to an in-progress event log. |
 | add-notification | Append a fully-formed SARIF `notification` object (JSON) to an in-progress event log. |
+| add-invocation | Append a fully-formed SARIF `invocation` object (JSON) to an in-progress event log. |
 | emit-finalize | Replay a staged event log into a final SARIF file (with optional enrichment, embedding, and post-emit validation). |
 | help | See Usage |
 | version | Display version information |
