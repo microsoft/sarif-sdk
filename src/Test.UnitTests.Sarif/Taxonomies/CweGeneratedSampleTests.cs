@@ -58,6 +58,51 @@ namespace Microsoft.CodeAnalysis.Sarif.Taxonomies
                 fixtureRelativePath: GHAzDoFixtureRelativePath);
         }
 
+        [Fact]
+        public void CweGHAzDoSample_RegenerationSucceeds_WhenAmbientAdoFallbackEnvVarsConflict()
+        {
+            // Regression gate for the mseng pipeline break: a real ADO agent
+            // injects SYSTEM_DEFINITIONID (the fallback for BUILD_DEFINITIONID)
+            // with the genuine pipeline id, which disagrees with the fixed
+            // '1234' the script stamps on BUILD_DEFINITIONID. Without the
+            // script also overriding the fallback, AdoPipelineContext.TryDetect
+            // raises "disagrees with" and emit-init-run exits non-zero before
+            // any fixture bytes are written. Set conflicting values for every
+            // fallback env var the verb reads to ensure the script scrubs
+            // them all.
+            VerifyScriptIsIsolatedFromAmbientFallbackEnv(
+                new Dictionary<string, string>
+                {
+                    { "SYSTEM_DEFINITIONID", "9978" },
+                    { "SYSTEM_JOBID", "00000000-0000-0000-0000-deadbeefdead" },
+                    { "SYSTEM_JOBNAME", "AmbientAgentJob" },
+                });
+        }
+
+        private void VerifyScriptIsIsolatedFromAmbientFallbackEnv(IDictionary<string, string> conflictingEnv)
+        {
+            var saved = new Dictionary<string, string>();
+            try
+            {
+                foreach (KeyValuePair<string, string> kvp in conflictingEnv)
+                {
+                    saved[kvp.Key] = Environment.GetEnvironmentVariable(kvp.Key);
+                    Environment.SetEnvironmentVariable(kvp.Key, kvp.Value);
+                }
+
+                VerifyFixtureIsByteIdenticalToScriptOutput(
+                    extraScriptArgs: new[] { "-GHAzDO" },
+                    fixtureRelativePath: GHAzDoFixtureRelativePath);
+            }
+            finally
+            {
+                foreach (KeyValuePair<string, string> kvp in saved)
+                {
+                    Environment.SetEnvironmentVariable(kvp.Key, kvp.Value);
+                }
+            }
+        }
+
         private void VerifyFixtureIsByteIdenticalToScriptOutput(
             string[] extraScriptArgs,
             string fixtureRelativePath)
