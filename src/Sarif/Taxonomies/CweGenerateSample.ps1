@@ -139,15 +139,25 @@ $validateRuleKind = if ($GHAzDO) { 'Sarif;AI;GHAzDO' } else { 'Sarif;AI' }
 # run.automationDetails.id plus the four azuredevops/pipeline/build/* keys
 # that GHAzDO1019/1020 validate. Values chosen so the resulting fixture is
 # stable across machines.
+# The fallback env vars (SYSTEM_DEFINITIONID / SYSTEM_JOBID / SYSTEM_JOBNAME)
+# are also set here because ADO agents inject all of them, and
+# AdoPipelineContext.TryDetect rejects the run when a primary (e.g.
+# BUILD_DEFINITIONID) disagrees with its fallback (SYSTEM_DEFINITIONID).
+# Without overriding the fallbacks, this script crashes when re-run inside
+# a real ADO pipeline (the agent's SYSTEM_DEFINITIONID is the genuine
+# pipeline id, which disagrees with the fixed 1234 we stamp on the primary).
 $adoEnv = [ordered]@{
     'TF_BUILD'             = 'True'
     'SYSTEM_COLLECTIONURI' = 'https://dev.azure.com/example-org/'
     'SYSTEM_TEAMPROJECTID' = '00000000-0000-0000-0000-000000000001'
     'BUILD_DEFINITIONID'   = '1234'
+    'SYSTEM_DEFINITIONID'  = '1234'
     'BUILD_DEFINITIONNAME' = 'CweSamplerScanner CI'
     'BUILD_BUILDID'        = '98765'
     'SYSTEM_PHASEID'       = '00000000-0000-0000-0000-000000000002'
+    'SYSTEM_JOBID'         = '00000000-0000-0000-0000-000000000002'
     'SYSTEM_PHASENAME'     = 'Build'
+    'SYSTEM_JOBNAME'       = 'Build'
     'BUILD_SOURCEBRANCH'   = 'refs/heads/main'
 }
 
