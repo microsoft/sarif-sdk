@@ -57,7 +57,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                 {
                     Notification notification = invocation.ToolExecutionNotifications[iNotification];
 
-                    if (notification.Descriptor?.Id != "AI/EXEC/ALAS-SIGNAL")
+                    if (notification.Descriptor?.Id != "ALAS-SIGNAL")
                     {
                         continue;
                     }

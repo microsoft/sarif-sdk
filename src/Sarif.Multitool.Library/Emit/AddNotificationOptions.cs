@@ -32,5 +32,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             "input",
             HelpText = "Path to a JSON file containing the SARIF notification object. If omitted, JSON is read from stdin.")]
         public string InputFilePath { get; set; }
+
+        [Option(
+            'c',
+            "config",
+            HelpText = "Route the notification to 'toolConfigurationNotifications' instead of the default 'toolExecutionNotifications'.")]
+        public bool ConfigurationNotification { get; set; }
     }
 }

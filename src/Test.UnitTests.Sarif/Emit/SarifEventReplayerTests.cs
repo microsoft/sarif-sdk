@@ -26,7 +26,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Test.UnitTests.Emit
                 Event(SarifEventKinds.RunHeader, new Run { Tool = new Tool { Driver = new ToolComponent { Name = "demo" } } }),
                 Event(SarifEventKinds.Result, new Result { RuleId = "CWE-79/xss-via-template", Message = new Message { Text = "xss" } }),
                 Event(SarifEventKinds.Invocation, new Invocation { ExecutionSuccessful = true }),
-                Event(SarifEventKinds.Notification, new Notification { Message = new Message { Text = "n" } }),
+                Event(SarifEventKinds.ExecutionNotification, new Notification { Message = new Message { Text = "n" } }),
             };
 
             SarifLog log = SarifEventReplayer.Replay(events);
@@ -169,7 +169,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Test.UnitTests.Emit
             var events = new[]
             {
                 Event(SarifEventKinds.RunHeader, new Run { Tool = new Tool { Driver = new ToolComponent { Name = "demo" } } }),
-                Event(SarifEventKinds.Notification, new Notification { Message = new Message { Text = "orphan" } }),
+                Event(SarifEventKinds.ExecutionNotification, new Notification { Message = new Message { Text = "orphan" } }),
             };
 
             Run run = SarifEventReplayer.Replay(events).Runs[0];
@@ -187,13 +187,44 @@ namespace Microsoft.CodeAnalysis.Sarif.Test.UnitTests.Emit
                 Event(SarifEventKinds.RunHeader, new Run()),
                 Event(SarifEventKinds.Invocation, new Invocation { CommandLine = "first" }),
                 Event(SarifEventKinds.Invocation, new Invocation { CommandLine = "second" }),
-                Event(SarifEventKinds.Notification, new Notification { Message = new Message { Text = "n" } }),
+                Event(SarifEventKinds.ExecutionNotification, new Notification { Message = new Message { Text = "n" } }),
             };
 
             Run run = SarifEventReplayer.Replay(events).Runs[0];
 
             run.Invocations[0].ToolExecutionNotifications.Should().BeNull();
             run.Invocations[1].ToolExecutionNotifications.Should().HaveCount(1);
+        }
+
+        [Fact]
+        public void Replay_RoutesConfigurationNotificationsToTheirArray()
+        {
+            // Notification placement is encoded by event kind: ExecutionNotification flows to
+            // toolExecutionNotifications, ConfigurationNotification flows to
+            // toolConfigurationNotifications. The descriptor id no longer carries placement
+            // information (the array itself does), so the same id MAY legally appear in both.
+            var events = new[]
+            {
+                Event(SarifEventKinds.RunHeader, new Run()),
+                Event(SarifEventKinds.ExecutionNotification, new Notification
+                {
+                    Descriptor = new ReportingDescriptorReference { Id = "STATUS" },
+                    Message = new Message { Text = "exec-side status" },
+                }),
+                Event(SarifEventKinds.ConfigurationNotification, new Notification
+                {
+                    Descriptor = new ReportingDescriptorReference { Id = "STATUS" },
+                    Message = new Message { Text = "config-side status" },
+                }),
+            };
+
+            Run run = SarifEventReplayer.Replay(events).Runs[0];
+
+            run.Invocations.Should().HaveCount(1);
+            run.Invocations[0].ToolExecutionNotifications.Should().HaveCount(1);
+            run.Invocations[0].ToolExecutionNotifications[0].Message.Text.Should().Be("exec-side status");
+            run.Invocations[0].ToolConfigurationNotifications.Should().HaveCount(1);
+            run.Invocations[0].ToolConfigurationNotifications[0].Message.Text.Should().Be("config-side status");
         }
 
         [Fact]
@@ -206,7 +237,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Test.UnitTests.Emit
             var events = new[]
             {
                 Event(SarifEventKinds.RunHeader, new Run()),
-                Event(SarifEventKinds.Notification, new Notification { Message = new Message { Text = "n" } }),
+                Event(SarifEventKinds.ExecutionNotification, new Notification { Message = new Message { Text = "n" } }),
             };
 
             Run run = SarifEventReplayer.Replay(events).Runs[0];
@@ -226,7 +257,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Test.UnitTests.Emit
             var events = new[]
             {
                 Event(SarifEventKinds.RunHeader, new Run()),
-                Event(SarifEventKinds.Notification, new Notification { Message = new Message { Text = "n" }, TimeUtc = supplied }),
+                Event(SarifEventKinds.ExecutionNotification, new Notification { Message = new Message { Text = "n" }, TimeUtc = supplied }),
             };
 
             Run run = SarifEventReplayer.Replay(events).Runs[0];
@@ -298,7 +329,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Test.UnitTests.Emit
             {
                 Event(SarifEventKinds.RunHeader, new Run { Tool = new Tool { Driver = new ToolComponent { Name = "demo" } } }),
                 Event(SarifEventKinds.NotificationDescriptor, descriptor),
-                Event(SarifEventKinds.Notification, new Notification { Message = new Message { Text = "halfway" } }),
+                Event(SarifEventKinds.ExecutionNotification, new Notification { Message = new Message { Text = "halfway" } }),
             };
 
             Run run = SarifEventReplayer.Replay(events).Runs[0];

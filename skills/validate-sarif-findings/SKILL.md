@@ -70,7 +70,6 @@ Capture all output. Each line with `note`, `warning`, or `error` is a finding. T
 | AI1011 | RedactedRunMarker | error | `ai/redacted` is `true` or absent, never `false` |
 | AI1012 | ProvideRuleSubId | error | Rule descriptors include sub-IDs |
 | AI1013 | ProvideNotificationAssociatedRule | error | `notification.associatedRule` resolves to a valid rule |
-| AI1014 | ExecutionNotificationPlacement | error | `AI/EXEC/*` in exec, `AI/CFG/*` in config |
 | AI2003 | ProvideSemanticVersion | warning | `tool.driver.semanticVersion` present |
 | AI2005 | ProvideAutomationDetails | warning | `automationDetails.guid` present |
 | AI2010 | ProvideResultRank | note | `result.rank` in 0.0–100.0 |
@@ -164,8 +163,7 @@ If `{{PROFILE}}` is `schema-only`, skip this step entirely.
 |---|---|---|---|
 | NotificationDescriptorResolvable | AI2017 | warning | Every `notification.descriptor` in `toolExecutionNotifications` or `toolConfigurationNotifications` SHOULD resolve to a `reportingDescriptor` in `tool.driver.notifications[]` or an extension's `notifications[]` via `index` or `guid` (§3.52.3). If `descriptor.id` is present, it SHALL match the resolved descriptor's `id` |
 | NotificationAssociatedRuleResolvable | AI1013 | error | If `notification.associatedRule` is present, it SHALL resolve to a valid rule in `tool.driver.rules[]` or an extension's `rules[]` via `index` or `guid` |
-| ExecutionNotificationPlacement | AI1014 | error | `AI/EXEC/*` descriptors SHALL appear only in `toolExecutionNotifications`. `AI/CFG/*` descriptors SHALL appear only in `toolConfigurationNotifications` |
-| ExecutionSignalArtifactResolvable | AI2018 | note | A notification with `descriptor.id` of `AI/EXEC/ALAS-SIGNAL` SHOULD include a `locations[]` entry whose `physicalLocation.artifactLocation.index` resolves to a valid artifact in `run.artifacts[]` with `roles` containing `"attachment"` |
+| ExecutionSignalArtifactResolvable | AI2018 | note | A notification with `descriptor.id` of `ALAS-SIGNAL` SHOULD include a `locations[]` entry whose `physicalLocation.artifactLocation.index` resolves to a valid artifact in `run.artifacts[]` with `roles` containing `"attachment"` |
 | NotificationTimestampPresent | AI2019 | note | Notifications SHOULD include `timeUtc` to enable execution timeline reconstruction |
 
 ### Step 3 — Report
@@ -221,10 +219,10 @@ AI agents generating SARIF systematically drift from the standard in predictable
 | 8 | **Invented `ai/*` keys** | Adds `ai/confidence`, `ai/severity`, `ai/model`, etc. | Exactly 8 defined keys under `ai/` namespace; tool-specific data goes under tool namespace | AI-PROFILE |
 | 9 | **`kind` omitted** | Relies on default | Explicit `kind: "fail"` for vulnerability findings | Schema best practice |
 | 10 | **All-or-nothing violation** | Some results have `ai/exploitability`, others don't | If any result declares it, every result must | AI2014 consistency |
-| 11 | **Execution narrative in `ai/handoff`** | Puts dead-end analysis, model selection, and confidence self-assessment in `ai/handoff` | Execution narrative belongs in `toolExecutionNotifications`; `ai/handoff` is for remediation context only | AI1014 (placement) |
-| 12 | **Configuration gaps as prose** | Describes data access or permission issues in `ai/handoff` or `message.text` | Configuration gaps belong in `toolConfigurationNotifications` with `AI/CFG/*` descriptors | AI1014 (placement) |
+| 11 | **Execution narrative in `ai/handoff`** | Puts dead-end analysis, model selection, and confidence self-assessment in `ai/handoff` | Execution narrative belongs in `toolExecutionNotifications`; `ai/handoff` is for remediation context only | AI2012 (ai/handoff scope) |
+| 12 | **Configuration gaps as prose** | Describes data access or permission issues in `ai/handoff` or `message.text` | Configuration gaps belong in `toolConfigurationNotifications` (use `add-notification --config`) | — |
 | 13 | **Missing notification descriptors** | Emits notifications without registering descriptors in `tool.driver.notifications[]` | Notification descriptors must be registered for the `descriptor.id` to resolve | AI2017 |
-| 14 | **Wrong notification array** | Puts `AI/CFG/*` notifications in `toolExecutionNotifications` or vice versa | Each prefix has a designated array — `AI/EXEC/*` → execution, `AI/CFG/*` → configuration | AI1014 |
+| 14 | **Editorializing notification ids** | Uses `AI/EXEC/DECISION`, `<toolName>/EXEC/...`, or other prefixed ids | Notification descriptor ids name the concern only (e.g. `DECISION`, `DATA-ACCESS-DENIED`); the array (`toolExecutionNotifications` vs `toolConfigurationNotifications`) encodes the kind, `tool.driver.name` encodes the emitter | — |
 | 15 | **Zero-based line numbers** | Emits `startLine: 0` or other 0-based coordinates | SARIF line numbers are 1-based (`startLine` ≥ 1). 0 is invalid per JSON schema | JSON1008 |
 | 16 | **threadFlowLocation index dangling** | Uses `threadFlow.locations[].index` to reference `runs[].threadFlowLocations` but never populates that top-level array | Either populate `runs[].threadFlowLocations[]` or use inline `location` objects on each threadFlowLocation | SARIF1009 |
 | 17 | **Missing `ai/attackerPosition`** | Omits attacker position entirely or on some results | Must appear on every result if present on any (all-or-nothing). Use `"unclear"` if genuinely unknown | AI2015 |

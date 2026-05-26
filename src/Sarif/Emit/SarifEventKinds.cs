@@ -30,10 +30,18 @@ namespace Microsoft.CodeAnalysis.Sarif.Emit
         public const string Result = "result";
 
         /// <summary>
-        /// A single self-contained <see cref="Notification"/>. The replay engine appends it to
-        /// <c>invocations[last].toolExecutionNotifications</c> by default.
+        /// A self-contained <see cref="Notification"/> destined for
+        /// <c>invocations[last].toolExecutionNotifications</c>. The replay engine routes events
+        /// of this kind to the execution-notifications array.
         /// </summary>
-        public const string Notification = "notification";
+        public const string ExecutionNotification = "execution-notification";
+
+        /// <summary>
+        /// A self-contained <see cref="Notification"/> destined for
+        /// <c>invocations[last].toolConfigurationNotifications</c>. The replay engine routes
+        /// events of this kind to the configuration-notifications array.
+        /// </summary>
+        public const string ConfigurationNotification = "configuration-notification";
 
         /// <summary>
         /// A complete <see cref="Invocation"/> object. Producers may append multiple
