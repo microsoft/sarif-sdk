@@ -79,7 +79,7 @@ Capture all output. Each line with `note`, `warning`, or `error` is a finding. T
 | AI2015 | ProvideAttackerPosition | warning | `ai/attackerPosition` present; all-or-nothing |
 | AI2016 | ProvideEvidenceBacking | warning | Demonstrated evidence entries have backing |
 | AI2017 | ProvideNotificationDescriptor | warning | Notification descriptors resolve |
-| AI2018 | ProvideExecutionSignalArtifact | note | Execution signal artifact has attachment role |
+| AI2018 | ProvideLearningSignalArtifact | note | Learning signal artifact has attachment role |
 | AI2019 | ProvideNotificationTimestamp | note | Notifications include `timeUtc` |
 
 General SARIF rules that commonly fire on AI-generated output:
@@ -163,7 +163,7 @@ If `{{PROFILE}}` is `schema-only`, skip this step entirely.
 |---|---|---|---|
 | NotificationDescriptorResolvable | AI2017 | warning | Every `notification.descriptor` in `toolExecutionNotifications` or `toolConfigurationNotifications` SHOULD resolve to a `reportingDescriptor` in `tool.driver.notifications[]` or an extension's `notifications[]` via `index` or `guid` (§3.52.3). If `descriptor.id` is present, it SHALL match the resolved descriptor's `id` |
 | NotificationAssociatedRuleResolvable | AI1013 | error | If `notification.associatedRule` is present, it SHALL resolve to a valid rule in `tool.driver.rules[]` or an extension's `rules[]` via `index` or `guid` |
-| ExecutionSignalArtifactResolvable | AI2018 | note | A notification with `descriptor.id` of `ALAS-SIGNAL` SHOULD include a `locations[]` entry whose `physicalLocation.artifactLocation.index` resolves to a valid artifact in `run.artifacts[]` with `roles` containing `"attachment"` |
+| LearningSignalArtifactResolvable | AI2018 | note | A notification with `descriptor.id` of `LEARNING-SIGNAL` SHOULD include a `locations[]` entry whose `physicalLocation.artifactLocation.index` resolves to a valid artifact in `run.artifacts[]` with `roles` containing `"attachment"` |
 | NotificationTimestampPresent | AI2019 | note | Notifications SHOULD include `timeUtc` to enable execution timeline reconstruction |
 
 ### Step 3 — Report

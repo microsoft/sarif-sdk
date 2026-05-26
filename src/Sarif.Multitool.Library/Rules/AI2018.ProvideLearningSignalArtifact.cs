@@ -7,9 +7,9 @@ using Microsoft.Json.Pointer;
 
 namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 {
-    public class ProvideExecutionSignalArtifact : SarifValidationSkimmerBase
+    public class ProvideLearningSignalArtifact : SarifValidationSkimmerBase
     {
-        public ProvideExecutionSignalArtifact()
+        public ProvideLearningSignalArtifact()
         {
             this.DefaultConfiguration.Level = FailureLevel.Note;
         }
@@ -17,19 +17,19 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         /// <summary>
         /// AI2018
         /// </summary>
-        public override string Id => RuleId.AIProvideExecutionSignalArtifact;
+        public override string Id => RuleId.AIProvideLearningSignalArtifact;
 
         public override HashSet<RuleKind> RuleKinds => new HashSet<RuleKind>(new[] { RuleKind.AI });
 
         public override MultiformatMessageString FullDescription => new MultiformatMessageString
         {
-            Text = RuleResources.AI2018_ProvideExecutionSignalArtifact_FullDescription_Text
+            Text = RuleResources.AI2018_ProvideLearningSignalArtifact_FullDescription_Text
         };
 
         protected override ICollection<string> MessageResourceNames => new List<string>
         {
-            nameof(RuleResources.AI2018_ProvideExecutionSignalArtifact_Note_MissingLocation_Text),
-            nameof(RuleResources.AI2018_ProvideExecutionSignalArtifact_Note_UnresolvableArtifact_Text)
+            nameof(RuleResources.AI2018_ProvideLearningSignalArtifact_Note_MissingLocation_Text),
+            nameof(RuleResources.AI2018_ProvideLearningSignalArtifact_Note_UnresolvableArtifact_Text)
         };
 
         protected override void Analyze(Run run, string runPointer)
@@ -57,7 +57,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                 {
                     Notification notification = invocation.ToolExecutionNotifications[iNotification];
 
-                    if (notification.Descriptor?.Id != "ALAS-SIGNAL")
+                    if (notification.Descriptor?.Id != "LEARNING-SIGNAL")
                     {
                         continue;
                     }
@@ -66,11 +66,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 
                     if (notification.Locations == null || notification.Locations.Count == 0)
                     {
-                        // {0}: This ALAS-SIGNAL notification does not specify a location
+                        // {0}: This LEARNING-SIGNAL notification does not specify a location
                         // referencing the signal artifact.
                         LogResult(
                             notificationPointer,
-                            nameof(RuleResources.AI2018_ProvideExecutionSignalArtifact_Note_MissingLocation_Text));
+                            nameof(RuleResources.AI2018_ProvideLearningSignalArtifact_Note_MissingLocation_Text));
                         continue;
                     }
 
@@ -81,11 +81,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                         artifactIndex >= run.Artifacts.Count ||
                         !run.Artifacts[artifactIndex].Roles.HasFlag(ArtifactRoles.Attachment))
                     {
-                        // {0}: This ALAS-SIGNAL notification references an artifact that cannot
+                        // {0}: This LEARNING-SIGNAL notification references an artifact that cannot
                         // be resolved or does not have the 'attachment' role.
                         LogResult(
                             notificationPointer,
-                            nameof(RuleResources.AI2018_ProvideExecutionSignalArtifact_Note_UnresolvableArtifact_Text),
+                            nameof(RuleResources.AI2018_ProvideLearningSignalArtifact_Note_UnresolvableArtifact_Text),
                             artifactIndex.ToString());
                     }
                 }

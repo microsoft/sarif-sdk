@@ -1276,7 +1276,7 @@ Notification types are registered as `reportingDescriptor` objects in `tool.driv
         "defaultConfiguration": { "level": "warning" }
       },
       {
-        "id": "ALAS-SIGNAL",
+        "id": "LEARNING-SIGNAL",
         "shortDescription": { "text": "Learning signal generated — references artifact" },
         "defaultConfiguration": { "level": "note" }
       },
@@ -1315,7 +1315,7 @@ Notification types are registered as `reportingDescriptor` objects in `tool.driv
 }
 ```
 
-**ID convention:** Each notification descriptor id names the **concern** — what happened — and nothing else. The notification's **kind** (execution narrative vs. configuration feedback) is encoded structurally by the array it lives in: `toolExecutionNotifications` vs. `toolConfigurationNotifications`. The **emitting tool** is encoded by `tool.driver.name`. So `DECISION`, `DATA-ACCESS-DENIED`, `ALAS-SIGNAL` are sufficient on their own — no `AI/`, `EXEC/`, `CFG/`, or `<toolName>/` prefix is needed because the surrounding SARIF carries every piece of context the prefix would have repeated. Note that the same id MAY legally appear in both arrays when the concern applies to both contexts (e.g., a producer that emits a `STATUS` notification at both execution-narrative and configuration-feedback granularity).
+**ID convention:** Each notification descriptor id names the **concern** — what happened — and nothing else. The notification's **kind** (execution narrative vs. configuration feedback) is encoded structurally by the array it lives in: `toolExecutionNotifications` vs. `toolConfigurationNotifications`. The **emitting tool** is encoded by `tool.driver.name`. So `DECISION`, `DATA-ACCESS-DENIED`, `LEARNING-SIGNAL` are sufficient on their own — no `AI/`, `EXEC/`, `CFG/`, or `<toolName>/` prefix is needed because the surrounding SARIF carries every piece of context the prefix would have repeated. Note that the same id MAY legally appear in both arrays when the concern applies to both contexts (e.g., a producer that emits a `STATUS` notification at both execution-narrative and configuration-feedback granularity).
 
 **Routing at authoring time.** The `add-notification` verb defaults to `toolExecutionNotifications`. Pass `--config` (`-c`) to route to `toolConfigurationNotifications` instead. The routing is captured in the event log as the event kind (`execution-notification` vs. `configuration-notification`); the replayer reads the kind and appends to the matching array. The descriptor id itself carries no placement information.
 
@@ -1476,7 +1476,7 @@ The SARIF notification infrastructure provides a structural home for opaque exec
     "toolExecutionNotifications": [
       ...
       {
-        "descriptor": { "id": "ALAS-SIGNAL" },
+        "descriptor": { "id": "LEARNING-SIGNAL" },
         "level": "note",
         "timeUtc": "2026-04-13T14:36:30Z",
         "locations": [
@@ -1495,7 +1495,7 @@ The SARIF notification infrastructure provides a structural home for opaque exec
 ]
 ```
 
-The signal artifact is referenced structurally via `notification.locations[].physicalLocation.artifactLocation.index` (§3.58.4), not parsed from message text. Consumers query `toolExecutionNotifications` for the `ALAS-SIGNAL` descriptor and resolve the artifact through the standard location mechanism. The signal stays in-band with the SARIF log, discoverable and audience-tagged, rather than emitted through a separate channel.
+The signal artifact is referenced structurally via `notification.locations[].physicalLocation.artifactLocation.index` (§3.58.4), not parsed from message text. Consumers query `toolExecutionNotifications` for the `LEARNING-SIGNAL` descriptor and resolve the artifact through the standard location mechanism. The signal stays in-band with the SARIF log, discoverable and audience-tagged, rather than emitted through a separate channel.
 
 ### Invoker control (`notificationConfigurationOverrides`)
 
@@ -1716,7 +1716,7 @@ sarif validate my-results.sarif --rule-kind AI
 | AI2015 | ProvideAttackerPosition | warning | Each `result.properties` SHOULD contain `ai/attackerPosition`. Follows the all-or-nothing pattern: if any result declares it, all must. |
 | AI2016 | ProvideEvidenceBacking | warning | An `ai/evidence[]` entry with `strength: "demonstrated"` SHOULD carry non-empty `backing`. If `ai/exploitability` is `demonstrated`, at least one `ai/evidence[]` entry SHOULD be `demonstrated` with non-empty `backing`. |
 | AI2017 | ProvideNotificationDescriptor | warning | Every `notification.descriptor` in `toolExecutionNotifications` or `toolConfigurationNotifications` SHOULD resolve to a `reportingDescriptor` in `tool.driver.notifications[]` or an extension's `notifications[]` via `index` or `guid` (§3.52.3). If `descriptor.id` is present, it SHALL match the resolved descriptor's `id`. |
-| AI2018 | ProvideExecutionSignalArtifact | note | A notification with `descriptor.id` of `ALAS-SIGNAL` SHOULD include a `locations[]` entry whose `physicalLocation.artifactLocation.index` resolves to a valid artifact in `run.artifacts[]` with `roles` containing `"attachment"`. |
+| AI2018 | ProvideLearningSignalArtifact | note | A notification with `descriptor.id` of `LEARNING-SIGNAL` SHOULD include a `locations[]` entry whose `physicalLocation.artifactLocation.index` resolves to a valid artifact in `run.artifacts[]` with `roles` containing `"attachment"`. |
 | AI2019 | ProvideNotificationTimestamp | note | Notifications SHOULD include `timeUtc` to enable execution timeline reconstruction. Note: timestamps break deterministic run-over-run comparison (see Appendix F) but are essential for AI execution analysis. |
 
 ### SARIF-standard rules elevated for AI profile
@@ -1826,7 +1826,7 @@ classDiagram
         +Exception exception
         +PropertyBag properties
     }
-    note for Notification "descriptor.id: concern only (e.g. DECISION)<br/>level: error | warning | note | none<br/>timeUtc: execution timeline<br/>associatedRule: links to affected rule<br/>exception: structured error capture<br/>─── Execution (tool provider) ───<br/>DECISION: model/skill choices<br/>RULED-OUT: dead ends explored<br/>CONTEXT-BUDGET: context limits<br/>RULE-COVERAGE-GAP: incomplete rule<br/>ALAS-SIGNAL: execution signal attachment<br/>ERROR: unhandled exception<br/>─── Configuration (tool runner) ───<br/>DATA-ACCESS-DENIED<br/>PERMISSION-INSUFFICIENT<br/>TOOL-UNAVAILABLE<br/>RESOURCE-LIMIT<br/>INVALID-CONFIG"
+    note for Notification "descriptor.id: concern only (e.g. DECISION)<br/>level: error | warning | note | none<br/>timeUtc: execution timeline<br/>associatedRule: links to affected rule<br/>exception: structured error capture<br/>─── Execution (tool provider) ───<br/>DECISION: model/skill choices<br/>RULED-OUT: dead ends explored<br/>CONTEXT-BUDGET: context limits<br/>RULE-COVERAGE-GAP: incomplete rule<br/>LEARNING-SIGNAL: signal artifact attachment<br/>ERROR: unhandled exception<br/>─── Configuration (tool runner) ───<br/>DATA-ACCESS-DENIED<br/>PERMISSION-INSUFFICIENT<br/>TOOL-UNAVAILABLE<br/>RESOURCE-LIMIT<br/>INVALID-CONFIG"
 
     class Exception {
         +string kind
