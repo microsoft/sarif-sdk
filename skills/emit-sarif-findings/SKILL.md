@@ -89,7 +89,7 @@ The result JSON must include at minimum: `ruleId` (with sub-ID per AI1012, e.g. 
 
 ### Step 3 — Append notifications (optional but recommended)
 
-Use `add-notification` for execution narrative (`AI/EXEC/*`) and configuration feedback (`AI/CFG/*`). Notification placement is enforced by rule AI1014: `AI/EXEC/*` descriptors go in `toolExecutionNotifications`; `AI/CFG/*` go in `toolConfigurationNotifications`. The multitool routes the JSON correctly based on the descriptor ID prefix.
+Use `add-notification` for execution narrative and configuration feedback. Notification descriptor ids name the concern only (e.g. `DECISION`, `DATA-ACCESS-DENIED`) — no `AI/`, `EXEC/`, `CFG/`, or `<toolName>/` prefix. Placement is selected at the verb: the default routes to `toolExecutionNotifications`; pass `--config` (`-c`) to route to `toolConfigurationNotifications` instead.
 
 ```powershell
 Get-Content notification-001.json | dotnet dnx Sarif.Multitool --yes -- add-notification "{{OUTPUT_PATH}}"

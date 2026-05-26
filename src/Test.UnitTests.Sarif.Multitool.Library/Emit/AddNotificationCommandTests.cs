@@ -65,7 +65,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
             string[] lines = File.ReadAllLines(WipPath);
             lines.Length.Should().Be(2);
-            lines[1].Should().Contain("\"kind\":\"notification\"");
+            lines[1].Should().Contain("\"kind\":\"execution-notification\"");
             lines[1].Should().Contain("scan complete");
         }
 
@@ -170,6 +170,36 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             appended.Should().Contain("widget malfunction");
             appended.Should().Contain("ai/origin");
             appended.Should().Contain("custom-trace-id");
+        }
+
+        [Fact]
+        public void Run_RoutesToConfigurationNotifications_WhenConfigFlagSet()
+        {
+            // The descriptor id no longer encodes placement; the --config switch does. Producers
+            // selecting the configuration target write an event of kind 'configuration-notification'
+            // that the replayer routes to toolConfigurationNotifications.
+            SeedRunHeader();
+            File.WriteAllText(
+                InputPath,
+                "{ \"level\": \"warning\", \"message\": { \"text\": \"data source unreachable\" } }");
+
+            using var outWriter = new StringWriter();
+            Console.SetOut(outWriter);
+
+            int exit = new AddNotificationCommand().Run(new AddNotificationOptions
+            {
+                OutputFilePath = OutPath,
+                InputFilePath = InputPath,
+                ConfigurationNotification = true,
+            });
+
+            exit.Should().Be(CommandBase.SUCCESS);
+
+            string[] lines = File.ReadAllLines(WipPath);
+            lines.Length.Should().Be(2);
+            lines[1].Should().Contain("\"kind\":\"configuration-notification\"");
+            lines[1].Should().Contain("data source unreachable");
+            outWriter.ToString().Should().Contain("toolConfigurationNotifications");
         }
     }
 }

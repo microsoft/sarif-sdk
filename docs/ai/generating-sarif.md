@@ -1161,7 +1161,7 @@ The producing agent may be entirely decoupled from the target's engineering syst
 
 A remediation agent inspects `invocations[]` to determine how much of the environment is reconstructable from the SARIF alone, and falls back to its own discovery for the rest.
 
-**Machine-readable coverage gaps.** When degradation occurs because of data access, permissions, or missing tools — rather than source-code limitations — producers SHOULD also emit `toolConfigurationNotifications` (see [Execution Narrative & Configuration Feedback](#execution-narrative--configuration-feedback)). This makes the *reason* for degradation machine-readable: a dashboard can aggregate "70% of fleet runs had CodeQL access; 30% had `AI/CFG/DATA-ACCESS-DENIED`" without parsing prose.
+**Machine-readable coverage gaps.** When degradation occurs because of data access, permissions, or missing tools — rather than source-code limitations — producers SHOULD also emit `toolConfigurationNotifications` (see [Execution Narrative & Configuration Feedback](#execution-narrative--configuration-feedback)). This makes the *reason* for degradation machine-readable: a dashboard can aggregate "70% of fleet runs had CodeQL access; 30% had `DATA-ACCESS-DENIED`" without parsing prose.
 
 ---
 
@@ -1251,62 +1251,62 @@ Notification types are registered as `reportingDescriptor` objects in `tool.driv
     "rules": [ ... ],
     "notifications": [
       {
-        "id": "AI/EXEC/DECISION",
+        "id": "DECISION",
         "shortDescription": { "text": "AI execution decision — model selection, skill routing, or analysis strategy" },
         "defaultConfiguration": { "level": "note" }
       },
       {
-        "id": "AI/EXEC/RULED-OUT",
+        "id": "RULED-OUT",
         "shortDescription": { "text": "Analysis path explored and dismissed" },
         "defaultConfiguration": { "level": "note" }
       },
       {
-        "id": "AI/EXEC/CONTEXT-BUDGET",
+        "id": "CONTEXT-BUDGET",
         "shortDescription": { "text": "Context window approaching or exceeding limits" },
         "defaultConfiguration": { "level": "warning" }
       },
       {
-        "id": "AI/EXEC/RULE-COVERAGE-GAP",
+        "id": "RULE-COVERAGE-GAP",
         "shortDescription": { "text": "A rule's analysis was incomplete" },
         "defaultConfiguration": { "level": "warning" }
       },
       {
-        "id": "AI/EXEC/ESCALATION",
+        "id": "ESCALATION",
         "shortDescription": { "text": "Skill escalated — no matching skill or low confidence" },
         "defaultConfiguration": { "level": "warning" }
       },
       {
-        "id": "AI/EXEC/ALAS-SIGNAL",
+        "id": "ALAS-SIGNAL",
         "shortDescription": { "text": "Learning signal generated — references artifact" },
         "defaultConfiguration": { "level": "note" }
       },
       {
-        "id": "AI/EXEC/ERROR",
+        "id": "ERROR",
         "shortDescription": { "text": "Unhandled exception during analysis" },
         "defaultConfiguration": { "level": "error" }
       },
       {
-        "id": "AI/CFG/DATA-ACCESS-DENIED",
+        "id": "DATA-ACCESS-DENIED",
         "shortDescription": { "text": "Data source inaccessible — API returned an access error" },
         "defaultConfiguration": { "level": "warning" }
       },
       {
-        "id": "AI/CFG/PERMISSION-INSUFFICIENT",
+        "id": "PERMISSION-INSUFFICIENT",
         "shortDescription": { "text": "Identity lacks required role or permission for a data source" },
         "defaultConfiguration": { "level": "warning" }
       },
       {
-        "id": "AI/CFG/TOOL-UNAVAILABLE",
+        "id": "TOOL-UNAVAILABLE",
         "shortDescription": { "text": "Required analysis tool not installed or not on PATH" },
         "defaultConfiguration": { "level": "warning" }
       },
       {
-        "id": "AI/CFG/RESOURCE-LIMIT",
+        "id": "RESOURCE-LIMIT",
         "shortDescription": { "text": "Timeout, disk, memory, or rate-limit constraint hit" },
         "defaultConfiguration": { "level": "warning" }
       },
       {
-        "id": "AI/CFG/INVALID-CONFIG",
+        "id": "INVALID-CONFIG",
         "shortDescription": { "text": "Invalid parameter, unknown skill reference, or configuration error" },
         "defaultConfiguration": { "level": "error" }
       }
@@ -1315,7 +1315,9 @@ Notification types are registered as `reportingDescriptor` objects in `tool.driv
 }
 ```
 
-**ID convention:** `AI/EXEC/*` for execution notifications, `AI/CFG/*` for configuration notifications. Tool-specific notifications use `<toolName>/EXEC/*` and `<toolName>/CFG/*` prefixes, parallel to the `<toolName>/*` convention for property bag keys. The `AI/*` prefix is the shared interoperable namespace; do not use it for tool-specific notifications.
+**ID convention:** Each notification descriptor id names the **concern** — what happened — and nothing else. The notification's **kind** (execution narrative vs. configuration feedback) is encoded structurally by the array it lives in: `toolExecutionNotifications` vs. `toolConfigurationNotifications`. The **emitting tool** is encoded by `tool.driver.name`. So `DECISION`, `DATA-ACCESS-DENIED`, `ALAS-SIGNAL` are sufficient on their own — no `AI/`, `EXEC/`, `CFG/`, or `<toolName>/` prefix is needed because the surrounding SARIF carries every piece of context the prefix would have repeated. Note that the same id MAY legally appear in both arrays when the concern applies to both contexts (e.g., a producer that emits a `STATUS` notification at both execution-narrative and configuration-feedback granularity).
+
+**Routing at authoring time.** The `add-notification` verb defaults to `toolExecutionNotifications`. Pass `--config` (`-c`) to route to `toolConfigurationNotifications` instead. The routing is captured in the event log as the event kind (`execution-notification` vs. `configuration-notification`); the replayer reads the kind and appends to the matching array. The descriptor id itself carries no placement information.
 
 ### Execution notifications (`toolExecutionNotifications`)
 
@@ -1328,7 +1330,7 @@ Each `invocation` object carries its own `toolExecutionNotifications[]` array, s
 ```json
 "toolExecutionNotifications": [
   {
-    "descriptor": { "id": "AI/EXEC/DECISION" },
+    "descriptor": { "id": "DECISION" },
     "level": "note",
     "timeUtc": "2026-04-13T14:31:15Z",
     "message": {
@@ -1336,7 +1338,7 @@ Each `invocation` object carries its own `toolExecutionNotifications[]` array, s
     }
   },
   {
-    "descriptor": { "id": "AI/EXEC/DECISION" },
+    "descriptor": { "id": "DECISION" },
     "level": "note",
     "timeUtc": "2026-04-13T14:31:22Z",
     "message": {
@@ -1350,7 +1352,7 @@ Each `invocation` object carries its own `toolExecutionNotifications[]` array, s
 
 ```json
 {
-  "descriptor": { "id": "AI/EXEC/RULED-OUT" },
+  "descriptor": { "id": "RULED-OUT" },
   "level": "note",
   "timeUtc": "2026-04-13T14:33:45Z",
   "locations": [
@@ -1373,7 +1375,7 @@ Note `notification.locations` (§3.58.4) — the notification can point at the s
 
 ```json
 {
-  "descriptor": { "id": "AI/EXEC/RULE-COVERAGE-GAP" },
+  "descriptor": { "id": "RULE-COVERAGE-GAP" },
   "associatedRule": { "id": "CWE-78", "index": 0 },
   "level": "warning",
   "timeUtc": "2026-04-13T14:35:12Z",
@@ -1389,7 +1391,7 @@ Note `notification.locations` (§3.58.4) — the notification can point at the s
 
 ```json
 {
-  "descriptor": { "id": "AI/EXEC/ERROR" },
+  "descriptor": { "id": "ERROR" },
   "level": "error",
   "timeUtc": "2026-04-13T14:36:01Z",
   "exception": {
@@ -1413,7 +1415,7 @@ This is SARIF's native mechanism for expressing what was previously prose-only i
 ```json
 "toolConfigurationNotifications": [
   {
-    "descriptor": { "id": "AI/CFG/DATA-ACCESS-DENIED" },
+    "descriptor": { "id": "DATA-ACCESS-DENIED" },
     "level": "warning",
     "timeUtc": "2026-04-13T14:30:45Z",
     "message": {
@@ -1421,7 +1423,7 @@ This is SARIF's native mechanism for expressing what was previously prose-only i
     }
   },
   {
-    "descriptor": { "id": "AI/CFG/TOOL-UNAVAILABLE" },
+    "descriptor": { "id": "TOOL-UNAVAILABLE" },
     "level": "warning",
     "timeUtc": "2026-04-13T14:30:48Z",
     "message": {
@@ -1429,7 +1431,7 @@ This is SARIF's native mechanism for expressing what was previously prose-only i
     }
   },
   {
-    "descriptor": { "id": "AI/CFG/PERMISSION-INSUFFICIENT" },
+    "descriptor": { "id": "PERMISSION-INSUFFICIENT" },
     "level": "warning",
     "timeUtc": "2026-04-13T14:31:02Z",
     "message": {
@@ -1437,7 +1439,7 @@ This is SARIF's native mechanism for expressing what was previously prose-only i
     }
   },
   {
-    "descriptor": { "id": "AI/CFG/RESOURCE-LIMIT" },
+    "descriptor": { "id": "RESOURCE-LIMIT" },
     "level": "warning",
     "timeUtc": "2026-04-13T14:35:00Z",
     "message": {
@@ -1474,7 +1476,7 @@ The SARIF notification infrastructure provides a structural home for opaque exec
     "toolExecutionNotifications": [
       ...
       {
-        "descriptor": { "id": "AI/EXEC/ALAS-SIGNAL" },
+        "descriptor": { "id": "ALAS-SIGNAL" },
         "level": "note",
         "timeUtc": "2026-04-13T14:36:30Z",
         "locations": [
@@ -1493,7 +1495,7 @@ The SARIF notification infrastructure provides a structural home for opaque exec
 ]
 ```
 
-The signal artifact is referenced structurally via `notification.locations[].physicalLocation.artifactLocation.index` (§3.58.4), not parsed from message text. Consumers query `toolExecutionNotifications` for the `AI/EXEC/ALAS-SIGNAL` descriptor and resolve the artifact through the standard location mechanism. The signal stays in-band with the SARIF log, discoverable and audience-tagged, rather than emitted through a separate channel.
+The signal artifact is referenced structurally via `notification.locations[].physicalLocation.artifactLocation.index` (§3.58.4), not parsed from message text. Consumers query `toolExecutionNotifications` for the `ALAS-SIGNAL` descriptor and resolve the artifact through the standard location mechanism. The signal stays in-band with the SARIF log, discoverable and audience-tagged, rather than emitted through a separate channel.
 
 ### Invoker control (`notificationConfigurationOverrides`)
 
@@ -1503,11 +1505,11 @@ The `invocation.notificationConfigurationOverrides` property (§3.20.6) lets the
 {
   "notificationConfigurationOverrides": [
     {
-      "descriptor": { "id": "AI/EXEC/DECISION" },
+      "descriptor": { "id": "DECISION" },
       "configuration": { "level": "none" }
     },
     {
-      "descriptor": { "id": "AI/EXEC/RULED-OUT" },
+      "descriptor": { "id": "RULED-OUT" },
       "configuration": { "level": "none" }
     }
   ]
@@ -1522,7 +1524,7 @@ A learning system could do the opposite — *enable* verbose execution narrative
 
 ### Future: standardized AI notification taxonomy
 
-The `AI/EXEC/*` and `AI/CFG/*` descriptors defined above — context exhaustion, data access denied, model selection, rule coverage gaps — are **universal to any AI tool execution**, not specific to this repository or this scanner. They are candidates for cross-tool standardization, analogous to how CWE standardizes vulnerability classes and SARIF standardizes finding representation.
+The notification descriptors defined above — context exhaustion, data access denied, model selection, rule coverage gaps — are **universal to any AI tool execution**, not specific to this repository or this scanner. They are candidates for cross-tool standardization, analogous to how CWE standardizes vulnerability classes and SARIF standardizes finding representation.
 
 Additionally, there is a structural similarity between configuration notifications (e.g., "403 from CodeQL API — data access denied") and finding evidence (e.g., "403 from endpoint under test — authentication present"). Both are observed events with different audience implications. A unified evidence-reporting descriptor taxonomy could potentially serve both contexts. This convergence is noted as a design aspiration for future work.
 
@@ -1704,7 +1706,6 @@ sarif validate my-results.sarif --rule-kind AI
 | AI1011 | RedactedRunMarker | error | `ai/redacted` SHALL be `true` or absent (never `false`). When `true`, `run.redactionTokens` SHOULD be non-empty. `ai/fullLogLocation` SHALL NOT appear unless `ai/redacted` is `true`. |
 | AI1012 | ProvideRuleSubId | error | Every `result.ruleId` MUST include a sub-ID for disambiguation (e.g., `CWE-78/api-handler`). Rule descriptors (`tool.driver.rules[].id`) use the base ID only (e.g., `CWE-78`). |
 | AI1013 | ProvideNotificationAssociatedRule | error | If `notification.associatedRule` is present, it SHALL resolve to a valid rule in `tool.driver.rules[]` or an extension's `rules[]` via `index` or `guid`. |
-| AI1014 | ExecutionNotificationPlacement | error | `AI/EXEC/*` descriptors SHALL appear only in `toolExecutionNotifications`. `AI/CFG/*` descriptors SHALL appear only in `toolConfigurationNotifications`. |
 | AI1015 | ProvideRunDefaultSourceLanguage | error | Every run MUST set `run.defaultSourceLanguage` (§3.14.25) to a value from SARIF Appendix J. A single run MUST cover exactly one `(repository, branch, language)` tuple. |
 | AI2003 | ProvideSemanticVersion | warning | `tool.driver` SHOULD supply `semanticVersion` for reproducibility. |
 | AI2005 | ProvideAutomationDetails | warning | `run.automationDetails.guid` SHOULD be present for deduplication. |
@@ -1715,7 +1716,7 @@ sarif validate my-results.sarif --rule-kind AI
 | AI2015 | ProvideAttackerPosition | warning | Each `result.properties` SHOULD contain `ai/attackerPosition`. Follows the all-or-nothing pattern: if any result declares it, all must. |
 | AI2016 | ProvideEvidenceBacking | warning | An `ai/evidence[]` entry with `strength: "demonstrated"` SHOULD carry non-empty `backing`. If `ai/exploitability` is `demonstrated`, at least one `ai/evidence[]` entry SHOULD be `demonstrated` with non-empty `backing`. |
 | AI2017 | ProvideNotificationDescriptor | warning | Every `notification.descriptor` in `toolExecutionNotifications` or `toolConfigurationNotifications` SHOULD resolve to a `reportingDescriptor` in `tool.driver.notifications[]` or an extension's `notifications[]` via `index` or `guid` (§3.52.3). If `descriptor.id` is present, it SHALL match the resolved descriptor's `id`. |
-| AI2018 | ProvideExecutionSignalArtifact | note | A notification with `descriptor.id` of `AI/EXEC/ALAS-SIGNAL` SHOULD include a `locations[]` entry whose `physicalLocation.artifactLocation.index` resolves to a valid artifact in `run.artifacts[]` with `roles` containing `"attachment"`. |
+| AI2018 | ProvideExecutionSignalArtifact | note | A notification with `descriptor.id` of `ALAS-SIGNAL` SHOULD include a `locations[]` entry whose `physicalLocation.artifactLocation.index` resolves to a valid artifact in `run.artifacts[]` with `roles` containing `"attachment"`. |
 | AI2019 | ProvideNotificationTimestamp | note | Notifications SHOULD include `timeUtc` to enable execution timeline reconstruction. Note: timestamps break deterministic run-over-run comparison (see Appendix F) but are essential for AI execution analysis. |
 
 ### SARIF-standard rules elevated for AI profile
@@ -1770,7 +1771,7 @@ classDiagram
         +ArtifactLocation[] locations
         +MultiformatMessageString shortDescription
     }
-    note for ToolComponent "driver = scanning system<br/>extensions[] = LLM model, skills, orchestrator<br/>notifications[] = AI/EXEC/* and AI/CFG/*<br/>  descriptor types (parallel to rules[])"
+    note for ToolComponent "driver = scanning system<br/>extensions[] = LLM model, skills, orchestrator<br/>notifications[] = concern-only descriptor ids<br/>  (parallel to rules[]; placement comes from the array)"
 
     class ReportingDescriptor {
         +string id
@@ -1825,7 +1826,7 @@ classDiagram
         +Exception exception
         +PropertyBag properties
     }
-    note for Notification "descriptor.id: AI/EXEC/* or AI/CFG/*<br/>level: error | warning | note | none<br/>timeUtc: execution timeline<br/>associatedRule: links to affected rule<br/>exception: structured error capture<br/>─── Execution (tool provider) ───<br/>AI/EXEC/DECISION: model/skill choices<br/>AI/EXEC/RULED-OUT: dead ends explored<br/>AI/EXEC/CONTEXT-BUDGET: context limits<br/>AI/EXEC/RULE-COVERAGE-GAP: incomplete rule<br/>AI/EXEC/ALAS-SIGNAL: execution signal attachment<br/>AI/EXEC/ERROR: unhandled exception<br/>─── Configuration (tool runner) ───<br/>AI/CFG/DATA-ACCESS-DENIED<br/>AI/CFG/PERMISSION-INSUFFICIENT<br/>AI/CFG/TOOL-UNAVAILABLE<br/>AI/CFG/RESOURCE-LIMIT<br/>AI/CFG/INVALID-CONFIG"
+    note for Notification "descriptor.id: concern only (e.g. DECISION)<br/>level: error | warning | note | none<br/>timeUtc: execution timeline<br/>associatedRule: links to affected rule<br/>exception: structured error capture<br/>─── Execution (tool provider) ───<br/>DECISION: model/skill choices<br/>RULED-OUT: dead ends explored<br/>CONTEXT-BUDGET: context limits<br/>RULE-COVERAGE-GAP: incomplete rule<br/>ALAS-SIGNAL: execution signal attachment<br/>ERROR: unhandled exception<br/>─── Configuration (tool runner) ───<br/>DATA-ACCESS-DENIED<br/>PERMISSION-INSUFFICIENT<br/>TOOL-UNAVAILABLE<br/>RESOURCE-LIMIT<br/>INVALID-CONFIG"
 
     class Exception {
         +string kind

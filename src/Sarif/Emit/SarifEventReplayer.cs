@@ -31,8 +31,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Emit
     /// <see cref="AIRuleIdConventionException"/> listing every offender at once.</description></item>
     /// <item><description><c>invocation</c> events are appended to <c>run.invocations</c> in
     /// event order.</description></item>
-    /// <item><description><c>notification</c> events are buffered and attached at finalize to
-    /// <c>run.invocations[last].toolExecutionNotifications</c>. If no invocation has been
+    /// <item><description><c>execution-notification</c> events are buffered and attached at
+    /// finalize to <c>run.invocations[last].toolExecutionNotifications</c>;
+    /// <c>configuration-notification</c> events to
+    /// <c>run.invocations[last].toolConfigurationNotifications</c>. If no invocation has been
     /// supplied, a synthetic <c>{ "executionSuccessful": true }</c> invocation is created to
     /// hold them (SARIF requires a home for notifications). Notifications whose <c>timeUtc</c>
     /// is unset on the event payload are stamped with <see cref="DateTime.UtcNow"/> at
@@ -76,7 +78,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Emit
             Run run = null;
             var results = new List<Result>();
             var invocations = new List<Invocation>();
-            var notifications = new List<Notification>();
+            var executionNotifications = new List<Notification>();
+            var configurationNotifications = new List<Notification>();
             var ruleDescriptors = new List<ReportingDescriptor>();
             var notificationDescriptors = new List<ReportingDescriptor>();
             bool headerSeen = false;
@@ -116,18 +119,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Emit
                         invocations.Add(sarifEvent.Payload.ToObject<Invocation>(serializer));
                         break;
 
-                    case SarifEventKinds.Notification:
-                        Notification notification = sarifEvent.Payload.ToObject<Notification>(serializer);
-                        // AI execution-timeline consumers (AI2019) expect every notification to
-                        // carry a UTC timestamp. Producers that already populated timeUtc keep
-                        // their value; everyone else gets the moment of replay, which is close
-                        // enough to "now" for any practical timeline reconstruction and avoids
-                        // requiring every event author to remember to stamp manually.
-                        if (notification != null && notification.TimeUtc == default(DateTime))
-                        {
-                            notification.TimeUtc = DateTime.UtcNow;
-                        }
-                        notifications.Add(notification);
+                    case SarifEventKinds.ExecutionNotification:
+                        executionNotifications.Add(StampNotification(sarifEvent, serializer));
+                        break;
+
+                    case SarifEventKinds.ConfigurationNotification:
+                        configurationNotifications.Add(StampNotification(sarifEvent, serializer));
                         break;
 
                     case SarifEventKinds.RuleDescriptor:
@@ -179,7 +176,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Emit
             run.Results = results.Count > 0 ? results : null;
             run.Invocations = invocations.Count > 0 ? invocations : null;
 
-            if (notifications.Count > 0)
+            if (executionNotifications.Count > 0 || configurationNotifications.Count > 0)
             {
                 run.Invocations ??= new List<Invocation>
                 {
@@ -187,10 +184,23 @@ namespace Microsoft.CodeAnalysis.Sarif.Emit
                 };
 
                 Invocation host = run.Invocations[run.Invocations.Count - 1];
-                host.ToolExecutionNotifications ??= new List<Notification>();
-                foreach (Notification notification in notifications)
+
+                if (executionNotifications.Count > 0)
                 {
-                    host.ToolExecutionNotifications.Add(notification);
+                    host.ToolExecutionNotifications ??= new List<Notification>();
+                    foreach (Notification notification in executionNotifications)
+                    {
+                        host.ToolExecutionNotifications.Add(notification);
+                    }
+                }
+
+                if (configurationNotifications.Count > 0)
+                {
+                    host.ToolConfigurationNotifications ??= new List<Notification>();
+                    foreach (Notification notification in configurationNotifications)
+                    {
+                        host.ToolConfigurationNotifications.Add(notification);
+                    }
                 }
             }
 
@@ -198,6 +208,20 @@ namespace Microsoft.CodeAnalysis.Sarif.Emit
             {
                 Runs = new List<Run> { run },
             };
+        }
+
+        // AI execution-timeline consumers (AI2019) expect every notification to carry a UTC
+        // timestamp. Producers that already populated timeUtc keep their value; everyone else
+        // gets the moment of replay, close enough to "now" for any practical timeline
+        // reconstruction, and the producer is freed from tracking wall-clock themselves.
+        private static Notification StampNotification(SarifEvent sarifEvent, JsonSerializer serializer)
+        {
+            Notification notification = sarifEvent.Payload.ToObject<Notification>(serializer);
+            if (notification != null && notification.TimeUtc == default(DateTime))
+            {
+                notification.TimeUtc = DateTime.UtcNow;
+            }
+            return notification;
         }
 
         /// <summary>

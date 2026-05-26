@@ -89,7 +89,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         public const string AIRedactedRunMarker = "AI1011";
         public const string AIProvideRuleSubId = "AI1012";
         public const string AIProvideNotificationAssociatedRule = "AI1013";
-        public const string AIExecutionNotificationPlacement = "AI1014";
 
         public const string AIProvideSemanticVersion = "AI2003";
         public const string AIProvideAutomationDetails = "AI2005";

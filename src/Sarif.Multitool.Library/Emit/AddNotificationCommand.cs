@@ -50,16 +50,25 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                     ? payload["level"].Value<string>()
                     : "<unset>";
 
+                string targetKind = options?.ConfigurationNotification == true
+                    ? SarifEventKinds.ConfigurationNotification
+                    : SarifEventKinds.ExecutionNotification;
+
                 using (var writer = new SarifEventLogWriter(wipPath))
                 {
-                    writer.Append(SarifEventKinds.Notification, payload);
+                    writer.Append(targetKind, payload);
                 }
+
+                string targetArray = options?.ConfigurationNotification == true
+                    ? "toolConfigurationNotifications"
+                    : "toolExecutionNotifications";
 
                 Console.Out.WriteLine(
                     string.Format(
                         CultureInfo.CurrentCulture,
-                        "Appended notification (level='{0}') to '{1}'.",
+                        "Appended notification (level='{0}', target='{1}') to '{2}'.",
                         level,
+                        targetArray,
                         wipPath));
                 return SUCCESS;
             }
