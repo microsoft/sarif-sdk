@@ -844,14 +844,14 @@ Provide the 'help' property and populate the 'text' property with information ab
   <data name="AI1013_ProvideNotificationAssociatedRule_Error_Default_Text" xml:space="preserve">
     <value>{0}: The notification's 'associatedRule' with id '{1}' does not resolve to a valid rule in 'tool.driver.rules' or any extension's 'rules' array.</value>
   </data>
-  <data name="AI2018_ProvideExecutionSignalArtifact_FullDescription_Text" xml:space="preserve">
-    <value>A notification with descriptor id 'ALAS-SIGNAL' should include a 'locations' entry whose 'physicalLocation.artifactLocation.index' resolves to a valid artifact in 'run.artifacts' with 'roles' containing 'attachment'.</value>
+  <data name="AI2018_ProvideLearningSignalArtifact_FullDescription_Text" xml:space="preserve">
+    <value>A notification with descriptor id 'LEARNING-SIGNAL' should include a 'locations' entry whose 'physicalLocation.artifactLocation.index' resolves to a valid artifact in 'run.artifacts' with 'roles' containing 'attachment'.</value>
   </data>
-  <data name="AI2018_ProvideExecutionSignalArtifact_Note_MissingLocation_Text" xml:space="preserve">
-    <value>{0}: This 'ALAS-SIGNAL' notification does not include a 'locations' entry. The ALAS signal artifact should be referenced via 'physicalLocation.artifactLocation.index' so the learning system can locate it structurally.</value>
+  <data name="AI2018_ProvideLearningSignalArtifact_Note_MissingLocation_Text" xml:space="preserve">
+    <value>{0}: This 'LEARNING-SIGNAL' notification does not include a 'locations' entry. The learning signal artifact should be referenced via 'physicalLocation.artifactLocation.index' so downstream learning systems can locate it structurally.</value>
   </data>
-  <data name="AI2018_ProvideExecutionSignalArtifact_Note_UnresolvableArtifact_Text" xml:space="preserve">
-    <value>{0}: This 'ALAS-SIGNAL' notification references artifact index {1}, but the artifact either does not exist in 'run.artifacts' or does not have 'roles' containing 'attachment'.</value>
+  <data name="AI2018_ProvideLearningSignalArtifact_Note_UnresolvableArtifact_Text" xml:space="preserve">
+    <value>{0}: This 'LEARNING-SIGNAL' notification references artifact index {1}, but the artifact either does not exist in 'run.artifacts' or does not have 'roles' containing 'attachment'.</value>
   </data>
   <data name="AI2019_ProvideNotificationTimestamp_FullDescription_Text" xml:space="preserve">
     <value>Notifications should include 'timeUtc' to enable execution timeline reconstruction. Note: timestamps break deterministic run-over-run comparison but are essential for AI execution analysis.</value>

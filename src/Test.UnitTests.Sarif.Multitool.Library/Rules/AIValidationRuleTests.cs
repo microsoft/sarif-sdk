@@ -727,7 +727,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 RuleId.AIRedactedRunMarker,         // AI1011
                 RuleId.AIProvideNotificationDescriptor,    // AI2017
                 RuleId.AIProvideNotificationAssociatedRule, // AI1013
-                RuleId.AIProvideExecutionSignalArtifact,        // AI2018
+                RuleId.AIProvideLearningSignalArtifact,         // AI2018
                 RuleId.AIProvideNotificationTimestamp,      // AI2019
             };
 

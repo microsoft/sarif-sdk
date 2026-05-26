@@ -99,7 +99,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         public const string AIProvideAttackerPosition = "AI2015";
         public const string AIProvideEvidenceBacking = "AI2016";
         public const string AIProvideNotificationDescriptor = "AI2017";
-        public const string AIProvideExecutionSignalArtifact = "AI2018";
+        public const string AIProvideLearningSignalArtifact = "AI2018";
         public const string AIProvideNotificationTimestamp = "AI2019";
     }
 }
