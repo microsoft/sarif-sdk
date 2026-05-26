@@ -1,6 +1,6 @@
 # SARIF Package Release History (SDK, Driver, Converters, and Multitool)
 
-## **UNRELEASED**
+## **v5.0.0** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/v5.0.0) | [Driver](https://www.nuget.org/packages/Sarif.Driver/v5.0.0) | [Converters](https://www.nuget.org/packages/Sarif.Converters/v5.0.0) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/v5.0.0) | [Multitool Library](https://www.nuget.org/packages/Sarif.Multitool.Library/v5.0.0)
 * BRK: Hashing API consolidated around a new `HashAlgorithms` `[Flags]` enum (`Sha1`, `Sha256`, `Sha512`, `GitBlobSha1`, plus `Default = Sha256`). SHA-1 is no longer included in default hash emission; callers that need SHA-1 must opt in by passing `HashAlgorithms.Sha1` (alone or combined). Affected public surface:
   - `SarifLogger` constructors accept a new `HashAlgorithms hashAlgorithms = HashAlgorithms.Default` parameter (added at the end of both ctors); the legacy ctor signatures are removed. When a caller supplies a custom `FileRegionsCache`, the cache's `HashAlgorithms` wins and the logger's parameter is ignored.
   - `FileRegionsCache` constructor accepts a new `HashAlgorithms hashAlgorithms = HashAlgorithms.Default` parameter and exposes a public `HashAlgorithms` property. The cache now reads raw on-disk bytes (via `IFileSystem.FileOpenRead`) when computing hashes, which fixes a latent issue where hashes were previously computed over a UTF-8 re-encoding of decoded text for files whose on-disk encoding included a BOM or differed from UTF-8.
