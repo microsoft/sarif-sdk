@@ -2,6 +2,7 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Security.Cryptography;
@@ -15,21 +16,24 @@ using Xunit.Abstractions;
 namespace Microsoft.CodeAnalysis.Sarif.Taxonomies
 {
     /// <summary>
-    /// Regression gate for the checked-in CWE taxonomy sample.
-    /// CweSample.sarif ships next to CweGenerateSample.ps1 so reviewers can see
-    /// the shape of a fully-enriched CWE log without building anything. This
-    /// test hashes the fixture, re-runs the generator script (which overwrites
-    /// the fixture in-place), and re-hashes. A drift means an output-shape
-    /// change hit the emit chain, the visitor enrichment, the CWE enricher,
-    /// or SampleCode.cs. The working tree now carries the regenerated fixture;
-    /// review with <c>git diff src/Sarif/Taxonomies/CweSample.sarif</c>, commit
-    /// alongside the source change if intended, or <c>git checkout</c> to
-    /// revert.
+    /// Regression gate for the checked-in CWE taxonomy samples.
+    /// CweSample.sarif (default, AI-shape) and CweGHAzDoSample.sarif (the
+    /// -GHAzDO variant, AI + ADO pipeline ingestion shape) ship next to
+    /// CweGenerateSample.ps1 so reviewers can see the shape of a fully-
+    /// enriched CWE log without building anything. Each test re-runs the
+    /// generator in the relevant mode (which overwrites the fixture
+    /// in-place) and asserts it's byte-identical to what's checked in.
+    /// A drift means an output-shape change hit the emit chain, the
+    /// visitor enrichment, the CWE enricher, or SampleCode.cs. The
+    /// working tree now carries the regenerated fixture; review with
+    /// <c>git diff src/Sarif/Taxonomies/</c>, commit alongside the
+    /// source change if intended, or <c>git checkout</c> to revert.
     /// </summary>
     public class CweGeneratedSampleTests
     {
         private const string ScriptRelativePath = @"src/Sarif/Taxonomies/CweGenerateSample.ps1";
-        private const string FixtureRelativePath = @"src/Sarif/Taxonomies/CweSample.sarif";
+        private const string DefaultFixtureRelativePath = @"src/Sarif/Taxonomies/CweSample.sarif";
+        private const string GHAzDoFixtureRelativePath = @"src/Sarif/Taxonomies/CweGHAzDoSample.sarif";
 
         private readonly ITestOutputHelper _output;
 
@@ -40,6 +44,23 @@ namespace Microsoft.CodeAnalysis.Sarif.Taxonomies
 
         [Fact]
         public void CweSample_Sarif_IsByteIdenticalToCweGenerateSampleScriptOutput()
+        {
+            VerifyFixtureIsByteIdenticalToScriptOutput(
+                extraScriptArgs: Array.Empty<string>(),
+                fixtureRelativePath: DefaultFixtureRelativePath);
+        }
+
+        [Fact]
+        public void CweGHAzDoSample_Sarif_IsByteIdenticalToCweGenerateSampleScriptOutput()
+        {
+            VerifyFixtureIsByteIdenticalToScriptOutput(
+                extraScriptArgs: new[] { "-GHAzDO" },
+                fixtureRelativePath: GHAzDoFixtureRelativePath);
+        }
+
+        private void VerifyFixtureIsByteIdenticalToScriptOutput(
+            string[] extraScriptArgs,
+            string fixtureRelativePath)
         {
             // The script is PowerShell. CI images that lack pwsh on PATH can
             // skip without failing the build; the fixture stays guarded by
@@ -60,7 +81,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Taxonomies
             }
 
             string scriptPath = Path.Combine(repoRoot, ScriptRelativePath);
-            string fixturePath = Path.Combine(repoRoot, FixtureRelativePath);
+            string fixturePath = Path.Combine(repoRoot, fixtureRelativePath);
             File.Exists(scriptPath).Should().BeTrue($"the generator script must exist at '{scriptPath}'");
             File.Exists(fixturePath).Should().BeTrue($"the checked-in fixture must exist at '{fixturePath}'");
 
@@ -81,17 +102,20 @@ namespace Microsoft.CodeAnalysis.Sarif.Taxonomies
             byte[] expectedBytes = File.ReadAllBytes(fixturePath);
             string expectedHash = ComputeSha256(expectedBytes);
 
+            var scriptArgs = new List<string> { "-Configuration", configuration };
+            scriptArgs.AddRange(extraScriptArgs);
+
             int exitCode = RunPwsh(
                 pwsh,
                 scriptPath,
-                new[] { "-Configuration", configuration },
+                scriptArgs.ToArray(),
                 out string stdout,
                 out string stderr);
 
             if (exitCode != 0)
             {
                 Assert.Fail(
-                    $"CweGenerateSample.ps1 exited with code {exitCode}.{Environment.NewLine}" +
+                    $"CweGenerateSample.ps1 (args: {string.Join(" ", scriptArgs)}) exited with code {exitCode}.{Environment.NewLine}" +
                     $"stdout:{Environment.NewLine}{stdout}{Environment.NewLine}" +
                     $"stderr:{Environment.NewLine}{stderr}");
             }
@@ -102,8 +126,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Taxonomies
             if (expectedHash != actualHash)
             {
                 Assert.Fail(
-                    "CweSample.sarif drifted from CweGenerateSample.ps1 output. The working tree now contains " +
-                    "the regenerated fixture — review with `git diff src/Sarif/Taxonomies/CweSample.sarif` and " +
+                    $"{Path.GetFileName(fixturePath)} drifted from CweGenerateSample.ps1 output. The working tree now contains " +
+                    $"the regenerated fixture — review with `git diff {fixtureRelativePath}` and " +
                     "commit alongside the source change if intended, or `git checkout` to revert." + Environment.NewLine +
                     $"Expected (checked-in) sha256: {expectedHash}" + Environment.NewLine +
                     $"Actual   (regenerated) sha256: {actualHash}" + Environment.NewLine +

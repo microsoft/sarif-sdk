@@ -39,7 +39,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Test.UnitTests.Emit
                 writer.Append(SarifEventKinds.RunHeader, new Run { Tool = new Tool { Driver = new ToolComponent { Name = "demo" } } });
                 writer.Append(SarifEventKinds.Result, new Result { RuleId = "CWE-79", Message = new Message { Text = "xss" } });
                 writer.Append(SarifEventKinds.Invocation, new Invocation { ExecutionSuccessful = true });
-                writer.Append(SarifEventKinds.Notification, new Notification { Message = new Message { Text = "info" } });
+                writer.Append(SarifEventKinds.ExecutionNotification, new Notification { Message = new Message { Text = "info" } });
             }
 
             var events = new SarifEventLogReader().Read(_path).ToList();
@@ -48,7 +48,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Test.UnitTests.Emit
                 SarifEventKinds.RunHeader,
                 SarifEventKinds.Result,
                 SarifEventKinds.Invocation,
-                SarifEventKinds.Notification);
+                SarifEventKinds.ExecutionNotification);
             events.Should().OnlyContain(e => e.Version == SarifEventKinds.CurrentSchemaVersion);
             events[1].Payload["ruleId"].Value<string>().Should().Be("CWE-79");
         }

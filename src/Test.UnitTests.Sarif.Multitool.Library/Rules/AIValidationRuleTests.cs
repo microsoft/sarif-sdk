@@ -727,12 +727,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 RuleId.AIRedactedRunMarker,         // AI1011
                 RuleId.AIProvideNotificationDescriptor,    // AI2017
                 RuleId.AIProvideNotificationAssociatedRule, // AI1013
-                RuleId.AIExecutionNotificationPlacement,   // AI1014
-                RuleId.AIProvideExecutionSignalArtifact,        // AI2018
+                RuleId.AIProvideLearningSignalArtifact,         // AI2018
                 RuleId.AIProvideNotificationTimestamp,      // AI2019
             };
 
-            ruleIds.Should().HaveCount(20);
+            ruleIds.Should().HaveCount(19);
             ruleIds.Should().Contain("AI1003");
             ruleIds.Should().Contain("AI1004");
             ruleIds.Should().Contain("AI2014");
@@ -743,9 +742,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             ruleIds.Should().Contain("AI2012");
             ruleIds.Should().Contain("AI1011");
             ruleIds.Should().Contain("AI2017");
-            ruleIds.Should().Contain("AI1014");
             ruleIds.Should().Contain("AI2019");
             ruleIds.Should().NotContain("AI2009");
+            ruleIds.Should().NotContain("AI1014");
         }
 
         #endregion
@@ -815,70 +814,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
         #endregion
 
-        #region AI1014 — ExecutionNotificationPlacement
-
-        [Fact]
-        public void AI1014_WhenCfgDescriptorInExecNotifications_ReportsWarning()
-        {
-            SarifLog log = CreateValidAISarifLog();
-            SetAIOrigin(log, "generated");
-            SetExploitability(log, "demonstrated");
-            SetAttackerPosition(log, "network");
-            log.Runs[0].Invocations = new[]
-            {
-                new Invocation
-                {
-                    ExecutionSuccessful = true,
-                    ToolExecutionNotifications = new[]
-                    {
-                        new Notification
-                        {
-                            Descriptor = new ReportingDescriptorReference { Id = "AI/CFG/TOOL-UNAVAILABLE" },
-                            Message = new Message { Text = "CodeQL not installed." },
-                            Level = FailureLevel.Warning
-                        }
-                    }
-                }
-            };
-
-            SarifLog output = RunAIValidation(log);
-            List<Result> results = GetResultsForRule(output, "AI1014");
-
-            results.Should().NotBeEmpty();
-        }
-
-        [Fact]
-        public void AI1014_WhenExecDescriptorInExecNotifications_NoResult()
-        {
-            SarifLog log = CreateValidAISarifLog();
-            SetAIOrigin(log, "generated");
-            SetExploitability(log, "demonstrated");
-            SetAttackerPosition(log, "network");
-            log.Runs[0].Invocations = new[]
-            {
-                new Invocation
-                {
-                    ExecutionSuccessful = true,
-                    ToolExecutionNotifications = new[]
-                    {
-                        new Notification
-                        {
-                            Descriptor = new ReportingDescriptorReference { Id = "AI/EXEC/DECISION" },
-                            Message = new Message { Text = "Pivoted to deep triage." },
-                            Level = FailureLevel.Note
-                        }
-                    }
-                }
-            };
-
-            SarifLog output = RunAIValidation(log);
-            List<Result> results = GetResultsForRule(output, "AI1014");
-
-            results.Should().BeEmpty();
-        }
-
-        #endregion
-
         #region AI2019 — ProvideNotificationTimestamp
 
         [Fact]
@@ -897,7 +832,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                     {
                         new Notification
                         {
-                            Descriptor = new ReportingDescriptorReference { Id = "AI/EXEC/DECISION" },
+                            Descriptor = new ReportingDescriptorReference { Id = "DECISION" },
                             Message = new Message { Text = "Analysis started." },
                             Level = FailureLevel.Note
                         }
@@ -928,7 +863,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                     {
                         new Notification
                         {
-                            Descriptor = new ReportingDescriptorReference { Id = "AI/EXEC/DECISION" },
+                            Descriptor = new ReportingDescriptorReference { Id = "DECISION" },
                             Message = new Message { Text = "Analysis started." },
                             Level = FailureLevel.Note,
                             TimeUtc = System.DateTime.UtcNow

@@ -1856,39 +1856,21 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
             }
         }
 
-        internal static string AI1014_ExecutionNotificationPlacement_FullDescription_Text {
+        internal static string AI2018_ProvideLearningSignalArtifact_FullDescription_Text {
             get {
-                return ResourceManager.GetString("AI1014_ExecutionNotificationPlacement_FullDescription_Text", resourceCulture);
+                return ResourceManager.GetString("AI2018_ProvideLearningSignalArtifact_FullDescription_Text", resourceCulture);
             }
         }
 
-        internal static string AI1014_ExecutionNotificationPlacement_Error_ExecInConfig_Text {
+        internal static string AI2018_ProvideLearningSignalArtifact_Note_MissingLocation_Text {
             get {
-                return ResourceManager.GetString("AI1014_ExecutionNotificationPlacement_Error_ExecInConfig_Text", resourceCulture);
+                return ResourceManager.GetString("AI2018_ProvideLearningSignalArtifact_Note_MissingLocation_Text", resourceCulture);
             }
         }
 
-        internal static string AI1014_ExecutionNotificationPlacement_Error_CfgInExec_Text {
+        internal static string AI2018_ProvideLearningSignalArtifact_Note_UnresolvableArtifact_Text {
             get {
-                return ResourceManager.GetString("AI1014_ExecutionNotificationPlacement_Error_CfgInExec_Text", resourceCulture);
-            }
-        }
-
-        internal static string AI2018_ProvideExecutionSignalArtifact_FullDescription_Text {
-            get {
-                return ResourceManager.GetString("AI2018_ProvideExecutionSignalArtifact_FullDescription_Text", resourceCulture);
-            }
-        }
-
-        internal static string AI2018_ProvideExecutionSignalArtifact_Note_MissingLocation_Text {
-            get {
-                return ResourceManager.GetString("AI2018_ProvideExecutionSignalArtifact_Note_MissingLocation_Text", resourceCulture);
-            }
-        }
-
-        internal static string AI2018_ProvideExecutionSignalArtifact_Note_UnresolvableArtifact_Text {
-            get {
-                return ResourceManager.GetString("AI2018_ProvideExecutionSignalArtifact_Note_UnresolvableArtifact_Text", resourceCulture);
+                return ResourceManager.GetString("AI2018_ProvideLearningSignalArtifact_Note_UnresolvableArtifact_Text", resourceCulture);
             }
         }
 
