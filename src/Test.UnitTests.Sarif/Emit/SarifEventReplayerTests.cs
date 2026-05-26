@@ -250,6 +250,100 @@ namespace Microsoft.CodeAnalysis.Sarif.Test.UnitTests.Emit
         }
 
         [Fact]
+        public void Replay_RuleDescriptorEventPopulatesRulesAndPreemptsAutoRegistration()
+        {
+            // Producer pre-supplies a rule descriptor via a rule-descriptor event. A later
+            // result references the same NOVEL- ruleId. The auto-registration loop must see
+            // the explicit descriptor in the idToIndex seed and reuse it (rather than
+            // synthesizing a second minimal descriptor with the same id).
+            var rich = new ReportingDescriptor
+            {
+                Id = "NOVEL-prompt-injection",
+                Name = "PromptInjection",
+                ShortDescription = new MultiformatMessageString { Text = "prompt-injection short" },
+                HelpUri = new Uri("https://example.com/novel/prompt-injection"),
+            };
+
+            var events = new[]
+            {
+                Event(SarifEventKinds.RunHeader, new Run { Tool = new Tool { Driver = new ToolComponent { Name = "demo" } } }),
+                Event(SarifEventKinds.RuleDescriptor, rich),
+                Event(SarifEventKinds.Result, new Result { RuleId = "NOVEL-prompt-injection", Message = new Message { Text = "x" } }),
+            };
+
+            Run run = SarifEventReplayer.Replay(events).Runs[0];
+
+            run.Tool.Driver.Rules.Should().HaveCount(1, "the explicit descriptor MUST suppress the synthesized minimal one");
+            run.Tool.Driver.Rules[0].Id.Should().Be("NOVEL-prompt-injection");
+            run.Tool.Driver.Rules[0].Name.Should().Be("PromptInjection");
+            run.Tool.Driver.Rules[0].ShortDescription.Text.Should().Be("prompt-injection short");
+            run.Tool.Driver.Rules[0].HelpUri.Should().Be(new Uri("https://example.com/novel/prompt-injection"));
+            run.Results[0].RuleIndex.Should().Be(0);
+        }
+
+        [Fact]
+        public void Replay_NotificationDescriptorEventPopulatesNotifications()
+        {
+            // notification-descriptor events feed run.tool.driver.notifications. Unlike rules
+            // there's no auto-registration loop to worry about — the event payload simply
+            // appears in the notifications list verbatim.
+            var descriptor = new ReportingDescriptor
+            {
+                Id = "progress",
+                Name = "Progress",
+                ShortDescription = new MultiformatMessageString { Text = "Per-batch progress update." },
+            };
+
+            var events = new[]
+            {
+                Event(SarifEventKinds.RunHeader, new Run { Tool = new Tool { Driver = new ToolComponent { Name = "demo" } } }),
+                Event(SarifEventKinds.NotificationDescriptor, descriptor),
+                Event(SarifEventKinds.Notification, new Notification { Message = new Message { Text = "halfway" } }),
+            };
+
+            Run run = SarifEventReplayer.Replay(events).Runs[0];
+
+            run.Tool.Driver.Notifications.Should().HaveCount(1);
+            run.Tool.Driver.Notifications[0].Id.Should().Be("progress");
+            run.Tool.Driver.Notifications[0].Name.Should().Be("Progress");
+            run.Invocations[0].ToolExecutionNotifications.Should().HaveCount(1);
+        }
+
+        [Fact]
+        public void Replay_DescriptorEventsPreserveHeaderPrePopulatedDescriptors()
+        {
+            // If a producer pre-populates tool.driver.rules / tool.driver.notifications on the
+            // header AND adds further descriptors via events, both lists merge. (The verb's
+            // emit-time dedup blocks id collisions between header and events.)
+            var seedRun = new Run
+            {
+                Tool = new Tool
+                {
+                    Driver = new ToolComponent
+                    {
+                        Name = "demo",
+                        Rules = new List<ReportingDescriptor> { new() { Id = "NOVEL-from-header" } },
+                        Notifications = new List<ReportingDescriptor> { new() { Id = "config-error-from-header" } },
+                    },
+                },
+            };
+
+            var events = new[]
+            {
+                Event(SarifEventKinds.RunHeader, seedRun),
+                Event(SarifEventKinds.RuleDescriptor, new ReportingDescriptor { Id = "NOVEL-from-event" }),
+                Event(SarifEventKinds.NotificationDescriptor, new ReportingDescriptor { Id = "progress-from-event" }),
+            };
+
+            Run run = SarifEventReplayer.Replay(events).Runs[0];
+
+            run.Tool.Driver.Rules.Should().HaveCount(2);
+            run.Tool.Driver.Rules.Select(r => r.Id).Should().Equal("NOVEL-from-header", "NOVEL-from-event");
+            run.Tool.Driver.Notifications.Should().HaveCount(2);
+            run.Tool.Driver.Notifications.Select(n => n.Id).Should().Equal("config-error-from-header", "progress-from-event");
+        }
+
+        [Fact]
         public void Replay_ThrowsWhenSecondRunHeaderEncountered()
         {
             var events = new[]
