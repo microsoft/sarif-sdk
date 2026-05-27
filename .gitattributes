@@ -10,6 +10,9 @@
 ###############################################################################
 src/Sarif/Taxonomies/SampleCode.cs eol=lf
 
+# Pinned: this resource is embedded and hashed; line-ending drift would change the hash.
+src/Test.UnitTests.Sarif/TestData/InsertOptionalDataVisitor/InsertOptionalDataVisitor.txt text eol=crlf
+
 ###############################################################################
 # Set default behavior for command prompt diff.
 #

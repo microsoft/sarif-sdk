@@ -123,9 +123,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             var uut = new AndroidStudioProblem(builder);
             Result result = new AndroidStudioConverter().ConvertProblemToSarifResult(uut);
-            Assert.Equal(@"hungry EVIL zombies
-Possible resolution: comment
-Possible resolution: delete", result.Message.Text);
+            Assert.Equal(
+                $"hungry EVIL zombies{Environment.NewLine}Possible resolution: comment{Environment.NewLine}Possible resolution: delete",
+                result.Message.Text);
         }
 
         [Fact]

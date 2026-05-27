@@ -44,15 +44,15 @@ Accept-Language: en, mi
         public void WebRequest_Parse_ExtractsBody()
         {
             // Example from RFC 7230.
-            const string RequestString =
-@"GET /hello.txt HTTP/1.1
-User-Agent: curl/7.16.3 libcurl/7.16.3 OpenSSL/0.9.7l zlib/1.2.3
-Host: www.example.com
-Accept-Language: en, mi
-
-This is the body.
-Line 2.
-";
+            string RequestString = string.Join(Environment.NewLine,
+                "GET /hello.txt HTTP/1.1",
+                "User-Agent: curl/7.16.3 libcurl/7.16.3 OpenSSL/0.9.7l zlib/1.2.3",
+                "Host: www.example.com",
+                "Accept-Language: en, mi",
+                "",
+                "This is the body.",
+                "Line 2.",
+                "");
 
             var webRequest = WebRequest.Parse(RequestString);
 
