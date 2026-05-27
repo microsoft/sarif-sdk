@@ -11,14 +11,12 @@ Each release entry below is prefixed with one of:
 
 `BRK` entries lead each section. Older sections may predate this convention.
 
-## **v5.0.2** UNRELEASED
-* NEW: Reintroduce `RuleKind.Ado` as an `[Obsolete]` alias for `RuleKind.GHAzDO`.
-
 ## **v5.0.1** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/v5.0.1) | [Driver](https://www.nuget.org/packages/Sarif.Driver/v5.0.1) | [Converters](https://www.nuget.org/packages/Sarif.Converters/v5.0.1) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/v5.0.1) | [Multitool Library](https://www.nuget.org/packages/Sarif.Multitool.Library/v5.0.1)
 * BRK: `multitool emit-init-run` removes the twelve typed content flags shipped in v5.0.0 (`--tool-driver-name`, `--tool-version`, `--tool-driver-semantic-version`, `--information-uri`, `--organization`, `--automation-guid`, `--automation-correlation-guid`, `--ai-origin`, `--vcp-repositoryuri`, `--vcp-revisionid`, `--vcp-branch`, `--srcroot`) and consumes a SARIF `Run` JSON document via `--input <path>` or stdin instead, matching the contract of `add-result` / `add-notification` / `add-reporting-descriptor`. `--force-overwrite` is retained.
 * BRK: `Microsoft.CodeAnalysis.Sarif.Multitool.AdoPipelineContext.ApplyTo(Run)` is replaced by `bool TryApplyTo(Run run, out string error)`; stamps `automationDetails.id` and the four `azuredevops/pipeline/build/*` properties only when absent and returns false on per-field conflict.
 * NEW: `multitool emit-init-run` accepts the SARIF `Run` partial-document shape `SarifEventReplayer` already supports (`tool`, `language`, `columnKind`, `defaultEncoding`, `defaultSourceLanguage`, `originalUriBaseIds`, `versionControlProvenance`, `automationDetails`, `baselineGuid`, `redactionTokens`, …), unblocking multiple `versionControlProvenance` entries and arbitrary attached `properties` bags the flag surface could not encode.
 * NEW: Add `multitool add-invocation` verb that appends a SARIF `invocation` JSON object (`--input <path>` or stdin) to the staged event log as a `SarifEventKinds.Invocation` event. `SarifEventReplayer` strips header-carried `invocations`, so this is the only path producers have to populate `run.invocations[]`.
+* NEW: Reintroduce `RuleKind.Ado` as an `[Obsolete]` alias for `RuleKind.GHAzDO`.
 
 ## **v5.0.0** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/v5.0.0) | [Driver](https://www.nuget.org/packages/Sarif.Driver/v5.0.0) | [Converters](https://www.nuget.org/packages/Sarif.Converters/v5.0.0) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/v5.0.0) | [Multitool Library](https://www.nuget.org/packages/Sarif.Multitool.Library/v5.0.0)
 * BRK: Hashing API consolidated around a new `HashAlgorithms` `[Flags]` enum (`Sha1`, `Sha256`, `Sha512`, `GitBlobSha1`, plus `Default = Sha256`). SHA-1 is no longer included in default hash emission; callers that need SHA-1 must opt in by passing `HashAlgorithms.Sha1` (alone or combined). Affected public surface:
