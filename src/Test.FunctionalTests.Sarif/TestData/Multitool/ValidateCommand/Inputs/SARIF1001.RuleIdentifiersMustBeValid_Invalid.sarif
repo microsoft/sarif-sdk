@@ -21,6 +21,47 @@
       },
       "results": [],
       "columnKind": "utf16CodeUnits"
+    },
+    {
+      "tool": {
+        "driver": {
+          "name": "AIAnalyzer",
+          "version": "1.0",
+          "rules": [
+            {
+              "id": "DECISION",
+              "name": "Decision"
+            }
+          ],
+          "notifications": [
+            {
+              "id": "STRICT",
+              "name": "STRICT"
+            }
+          ]
+        }
+      },
+      "results": [],
+      "properties": {
+        "ai/origin": "test-fixture"
+      },
+      "columnKind": "utf16CodeUnits"
+    },
+    {
+      "tool": {
+        "driver": {
+          "name": "NonAIAnalyzer",
+          "version": "1.0",
+          "notifications": [
+            {
+              "id": "DECISION",
+              "name": "Decision"
+            }
+          ]
+        }
+      },
+      "results": [],
+      "columnKind": "utf16CodeUnits"
     }
   ]
 }
