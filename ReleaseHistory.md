@@ -12,6 +12,7 @@ Each release entry below is prefixed with one of:
 `BRK` entries lead each section. Older sections may predate this convention.
 
 ## **v5.0.2** UNRELEASED
+* BRK: Replace `scripts/Generate-CweTaxonomy.ps1` with `scripts/generate_cwe_taxonomy.py`, a Python 3 (stdlib only) regenerator runnable on Linux, macOS, and Windows without `pwsh`. Invoke as `python3 scripts/generate_cwe_taxonomy.py`; it downloads `cwec_latest.xml.zip`, extracts, parses, and writes both `CweTaxonomy.sarif` and `CweTaxonomy.brief.md` in place under `src/Sarif/Taxonomies/` with UTF-8 (no BOM) and LF line endings.
 * BUG: Drop AI1015 (`ProvideRunDefaultSourceLanguage`); AI runs are no longer required to set `run.defaultSourceLanguage`.
 * BUG: `SARIF1012.MessageArgumentsMustBeConsistentWithRule` no longer throws `NullReferenceException` when `result.message.id` is set but `result.ruleId` does not resolve (no matching rule by id, ruleIndex, or hierarchical base).
 
