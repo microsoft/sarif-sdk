@@ -1,5 +1,5 @@
 {
-  "$schema": "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0-rtm.6.json",
+  "$schema": "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0.json",
   "version": "2.1.0",
   "runs": [
     {
@@ -36,7 +36,9 @@
                 "markdown": "Rule id 1 title"
               },
               "properties": {
-                "tags": ["security"]
+                "tags": [
+                  "security"
+                ]
               }
             },
             {
@@ -52,7 +54,9 @@
               },
               "properties": {
                 "security-severity": "8.0",
-                "tags": ["security"]
+                "tags": [
+                  "security"
+                ]
               }
             }
           ],

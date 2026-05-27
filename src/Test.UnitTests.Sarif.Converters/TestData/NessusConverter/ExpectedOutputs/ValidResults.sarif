@@ -1,5 +1,5 @@
 {
-  "$schema": "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0-rtm.6.json",
+  "$schema": "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0.json",
   "version": "2.1.0",
   "runs": [
     {
@@ -30,7 +30,9 @@
                 "pluginPublicationDate": "2021/08/15",
                 "pluginType": "remote",
                 "security-severity": "3.0",
-                "tags": ["security"]
+                "tags": [
+                  "security"
+                ]
               }
             }
           ],
@@ -89,7 +91,11 @@
                 "pluginPublicationDate": "2021/08/15",
                 "pluginType": "remote",
                 "security-severity": "9.0",
-                "tags": ["security","CVE-2018-10858","CVE-2018-10919"]
+                "tags": [
+                  "security",
+                  "CVE-2018-10858",
+                  "CVE-2018-10919"
+                ]
               }
             }
           ],
@@ -118,7 +124,10 @@
             "severity": "2",
             "cvss3BaseScore": "9.0",
             "cvss3Vector": "AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:L/A:N",
-            "cve": ["CVE-2018-10858","CVE-2018-10919"]
+            "cve": [
+              "CVE-2018-10858",
+              "CVE-2018-10919"
+            ]
           }
         }
       ],
