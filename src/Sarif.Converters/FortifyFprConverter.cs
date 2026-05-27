@@ -277,7 +277,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
         private XmlReader OpenAuditFvdlReader(Stream fprFileStream)
         {
-            ZipArchive fprArchive = new ZipArchive(fprFileStream);
+            var fprArchive = new ZipArchive(fprFileStream);
             ZipArchiveEntry auditEntry = fprArchive.Entries.Single(e => e.FullName.Equals("audit.fvdl"));
 
             var settings = new XmlReaderSettings
@@ -459,7 +459,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             if (!string.IsNullOrEmpty(fileName))
             {
-                Uri uri = new Uri(fileName, UriKind.RelativeOrAbsolute);
+                var uri = new Uri(fileName, UriKind.RelativeOrAbsolute);
                 var fileData = new Artifact
                 {
                     Encoding = encoding,
@@ -851,7 +851,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         {
             string path = _reader.GetAttribute(_strings.PathAttribute);
 
-            PhysicalLocation location = new PhysicalLocation
+            var location = new PhysicalLocation
             {
                 Region = ParseRegion()
             };
@@ -1057,7 +1057,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                     string nodeLabel = _reader.ReadElementContentAsString();
 
                     // Convert to SARIF types.
-                    Node node = new Node(
+                    var node = new Node(
                         new ThreadFlowLocation
                         {
                             Kinds = ConvertActionTypeToLocationKinds(actionType),
@@ -1156,7 +1156,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                     };
                 }
 
-                using (StringReader reader = new StringReader(text))
+                using (var reader = new StringReader(text))
                 {
                     // Read down to the first line we want to include.
                     for (int i = 0; i < regionStartLine - snippetStartLine; i++)
@@ -1270,7 +1270,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             {
                 bool isGuid = Guid.TryParse(NormalizeGuid(ruleGuid), out Guid parsedGuid);
 
-                ReportingDescriptor rule = new ReportingDescriptor
+                var rule = new ReportingDescriptor
                 {
                     Id = ruleGuid,
                     Guid = isGuid ? parsedGuid : (Guid?)null
@@ -1317,7 +1317,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         private void AddMessagesToResult(Result result)
         {
             ReportingDescriptor rule = _rules[result.RuleIndex];
-            Message message = new Message();
+            var message = new Message();
 
             string messageText = (rule.ShortDescription ?? rule.FullDescription)?.Text;
 

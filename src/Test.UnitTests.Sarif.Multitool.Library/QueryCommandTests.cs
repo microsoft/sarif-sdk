@@ -22,6 +22,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             // All Results: No filter
             RunAndVerifyCount(5, new QueryOptions() { Expression = "", InputFilePath = filePath });
 
+            // Or operator
+            RunAndVerifyCount(2, new QueryOptions() { Expression = "Uri >| test_key.pem || Uri >| test_rsa_privkey.pem", InputFilePath = filePath });
+
             // Rule filtering
             RunAndVerifyCount(1, new QueryOptions() { Expression = "RuleId = 'CSCAN0020/0'", InputFilePath = filePath });
             RunAndVerifyCount(4, new QueryOptions() { Expression = "RuleId = 'CSCAN0060/0'", InputFilePath = filePath });
@@ -81,7 +84,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             // result filter: date time
             RunAndVerifyCount(0, new QueryOptions() { Expression = "properties.patchPublicationDate < '2022-04-25T00:00:00'", InputFilePath = filePath });
         }
-
 
         private void RunAndVerifyCount(int expectedCount, QueryOptions options)
         {

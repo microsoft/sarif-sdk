@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Text;
 
 using FluentAssertions;
 
@@ -172,6 +173,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             => RunInvalidTestForRule(RuleId.OptimizeFileSize);
 
         [Fact]
+        public void SARIF2004_OptimizeFileSize_SentinelIndexBloat()
+            => RunTest("SARIF2004.OptimizeFileSize_SentinelIndexBloat.sarif");
+
+        [Fact]
         public void SARIF2005_ProvideToolProperties_Valid()
             => RunValidTestForRule(RuleId.ProvideToolProperties);
 
@@ -289,6 +294,38 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             => RunInvalidTestForRule(RuleId.ConsiderConventionalIdentifierValues);
 
         [Fact]
+        public void AI1012_ProvideRuleSubId_Valid()
+            => RunValidTestForRule(RuleId.AIProvideRuleSubId);
+
+        [Fact]
+        public void AI1012_ProvideRuleSubId_Invalid()
+            => RunInvalidTestForRule(RuleId.AIProvideRuleSubId);
+
+        [Fact]
+        public void SARIF2017_ProvideRequiredRegionProperties_Valid()
+            => RunValidTestForRule(RuleId.SARIFProvideRequiredRegionProperties);
+
+        [Fact]
+        public void SARIF2017_ProvideRequiredRegionProperties_Invalid()
+            => RunInvalidTestForRule(RuleId.SARIFProvideRequiredRegionProperties);
+
+        [Fact]
+        public void AI1010_ProvideEvidenceBackingUri_Valid()
+            => RunValidTestForRule(RuleId.AIProvideEvidenceBackingUri);
+
+        [Fact]
+        public void AI1010_ProvideEvidenceBackingUri_Invalid()
+            => RunInvalidTestForRule(RuleId.AIProvideEvidenceBackingUri);
+
+        [Fact]
+        public void AI2016_ProvideEvidenceBacking_Valid()
+            => RunValidTestForRule(RuleId.AIProvideEvidenceBacking);
+
+        [Fact]
+        public void AI2016_ProvideEvidenceBacking_Invalid()
+            => RunInvalidTestForRule(RuleId.AIProvideEvidenceBacking);
+
+        [Fact]
         public void SARIF2010_ProvideCodeSnippets_Valid()
             => RunValidTestForRule(RuleId.ProvideCodeSnippets);
 
@@ -321,6 +358,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         [Trait(TestTraits.WindowsOnly, "true")]
         public void SARIF2012_ProvideRuleProperties_WithoutRuleMetadata()
             => RunTest("SARIF2012.ProvideRuleProperties_WithoutRuleMetadata.sarif");
+
+        [Fact]
+        [Trait(TestTraits.WindowsOnly, "true")]
+        public void SARIF2012_ProvideRuleProperties_WithHierarchicalIds()
+            => RunTest("SARIF2012.ProvideRuleProperties_WithHierarchicalIds.sarif");
 
         [Fact]
         [Trait(TestTraits.WindowsOnly, "true")]
@@ -506,19 +548,22 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 OutputFilePath = actualLogFilePath,
                 Quiet = true,
                 UpdateInputsToCurrentSarif = updateInputsToCurrentSarif,
-                PrettyPrint = true,
-                Optimize = true,
+                OutputFileOptions = new[] { FilePersistenceOptions.PrettyPrint, FilePersistenceOptions.Optimize },
                 Level = new List<FailureLevel> { FailureLevel.Error, FailureLevel.Warning, FailureLevel.Note, FailureLevel.None },
+                //RuleKindOption = AllRuleKinds
+                RuleKindOption = new List<RuleKind>() { RuleKind.Gh, RuleKind.Sarif, RuleKind.AI },
             };
 
             var mockFileSystem = new Mock<IFileSystem>();
 
+            mockFileSystem.Setup(x => x.FileInfoLength(It.IsAny<string>())).Returns(1);
             mockFileSystem.Setup(x => x.DirectoryExists(inputLogDirectory)).Returns(true);
-            mockFileSystem.Setup(x => x.DirectoryGetDirectories(It.IsAny<string>())).Returns(new string[0]);
-            mockFileSystem.Setup(x => x.DirectoryGetFiles(inputLogDirectory, inputLogFileName)).Returns(new string[] { inputLogFilePath });
+            mockFileSystem.Setup(x => x.DirectoryGetDirectories(It.IsAny<string>())).Returns(Array.Empty<string>());
+            mockFileSystem.Setup(x => x.DirectoryEnumerateFiles(inputLogDirectory, inputLogFileName, SearchOption.TopDirectoryOnly)).Returns(new string[] { inputLogFilePath });
             mockFileSystem.Setup(x => x.FileReadAllText(inputLogFilePath)).Returns(v2LogText);
+            mockFileSystem.Setup(x => x.FileOpenRead(inputLogFilePath)).Returns(new MemoryStream(Encoding.UTF8.GetBytes(v2LogText)));
             mockFileSystem.Setup(x => x.FileReadAllText(It.IsNotIn<string>(inputLogFilePath))).Returns<string>(path => File.ReadAllText(path));
-            mockFileSystem.Setup(x => x.FileWriteAllText(It.IsAny<string>(), It.IsAny<string>()));
+            mockFileSystem.Setup(x => x.FileExists(inputLogFilePath)).Returns(true);
 
             // Some rules are disabled by default, so create a configuration file that explicitly
             // enables the rule under test.
@@ -529,14 +574,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
                 var validateCommand = new ValidateCommand(mockFileSystem.Object);
 
-                int returnCode = validateCommand.Run(validateOptions);
-
-                if (validateCommand.ExecutionException != null)
+                var context = new SarifValidationContext
                 {
-                    Console.WriteLine(validateCommand.ExecutionException.ToString());
-                }
+                    FileSystem = mockFileSystem.Object
+                };
 
-                returnCode.Should().Be(0);
+                int returnCode = validateCommand.Run(validateOptions, ref context);
+                context.ValidateCommandExecution(returnCode);
             }
 
             string actualLogFileContents = File.ReadAllText(actualLogFilePath);

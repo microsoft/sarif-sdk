@@ -35,8 +35,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers.SampleModel
 
         public override bool Equals(object obj)
         {
-            LogMessage other = obj as LogMessage;
-            if (other == null) return false;
+            var other = obj as LogMessage;
+            if (other == null)
+            {
+                return false;
+            }
 
             return this.Level == other.Level
                 && this.WhenUtc == other.WhenUtc
@@ -70,8 +73,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers.SampleModel
 
         public override bool Equals(object obj)
         {
-            CodeContext other = obj as CodeContext;
-            if (other == null) return false;
+            var other = obj as CodeContext;
+            if (other == null)
+            {
+                return false;
+            }
 
             return this.ParentContextID == other.ParentContextID
                 && this.Name == other.Name
@@ -160,12 +166,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers.SampleModel
 
         public static Log Build(Random r, DateTime whenUtc, int messageCount)
         {
-            Log log = new Log();
+            var log = new Log();
             log.ID = Guid.NewGuid();
             log.StartTimeUtc = whenUtc;
             log.ApplicationContext = "CodeCrawler.exe";
 
-            Dictionary<string, CodeContext> contexts = new Dictionary<string, CodeContext>();
+            var contexts = new Dictionary<string, CodeContext>();
             contexts["app"] = new CodeContext() { Name = "CodeCrawler.exe", Type = CodeContextType.Binary };
             contexts["scan"] = new CodeContext() { Name = "CodeCrawler.Scanners", Type = CodeContextType.Namespace, ParentContextID = "app" };
             contexts["file"] = new CodeContext() { Name = "FileScanner", Type = CodeContextType.Class, ParentContextID = "scan" };
@@ -173,14 +179,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers.SampleModel
             contexts["load"] = new CodeContext() { Name = "LoadRules()", Type = CodeContextType.Method, ParentContextID = "run" };
             log.CodeContexts = contexts;
 
-            List<string> codeContextKeys = new List<string>(contexts.Keys);
+            var codeContextKeys = new List<string>(contexts.Keys);
 
             log.Messages = new List<LogMessage>();
             for (int i = 0; i < messageCount; ++i)
             {
                 whenUtc = whenUtc.AddMilliseconds(r.Next(10));
 
-                LogMessage m = new LogMessage()
+                var m = new LogMessage()
                 {
                     Level = (Level)r.Next(5),
                     WhenUtc = whenUtc,
@@ -199,13 +205,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers.SampleModel
             lock (_locker)
             {
                 Log log = null;
-                JsonSerializer serializer = new JsonSerializer();
+                var serializer = new JsonSerializer();
 
                 if (!File.Exists(SampleLogPath))
                 {
-                    if (log == null) log = Build();
+                    if (log == null)
+                    {
+                        log = Build();
+                    }
 
-                    using (JsonTextWriter writer = new JsonTextWriter(new StreamWriter(File.OpenWrite(SampleLogPath))))
+                    using (var writer = new JsonTextWriter(new StreamWriter(File.OpenWrite(SampleLogPath))))
                     {
                         serializer.Formatting = Formatting.Indented;
                         serializer.Serialize(writer, log);
@@ -214,9 +223,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers.SampleModel
 
                 if (!File.Exists(SampleOneLinePath))
                 {
-                    if (log == null) log = Build();
+                    if (log == null)
+                    {
+                        log = Build();
+                    }
 
-                    using (JsonTextWriter writer = new JsonTextWriter(new StreamWriter(File.OpenWrite(SampleOneLinePath))))
+                    using (var writer = new JsonTextWriter(new StreamWriter(File.OpenWrite(SampleOneLinePath))))
                     {
                         serializer.Formatting = Formatting.None;
                         serializer.Serialize(writer, log);
@@ -225,7 +237,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers.SampleModel
 
                 if (!File.Exists(SampleNoCodeContextsPath))
                 {
-                    if (log == null) log = Build();
+                    if (log == null)
+                    {
+                        log = Build();
+                    }
 
                     log.CodeContexts.Clear();
                     foreach (LogMessage m in log.Messages)
@@ -233,7 +248,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers.SampleModel
                         m.CodeContextID = null;
                     }
 
-                    using (JsonTextWriter writer = new JsonTextWriter(new StreamWriter(File.OpenWrite(SampleNoCodeContextsPath))))
+                    using (var writer = new JsonTextWriter(new StreamWriter(File.OpenWrite(SampleNoCodeContextsPath))))
                     {
                         serializer.Formatting = Formatting.None;
                         serializer.Serialize(writer, log);
@@ -242,12 +257,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers.SampleModel
 
                 if (!File.Exists(SampleEmptyPath))
                 {
-                    if (log == null) log = Build();
+                    if (log == null)
+                    {
+                        log = Build();
+                    }
 
                     log.CodeContexts.Clear();
                     log.Messages.Clear();
 
-                    using (JsonTextWriter writer = new JsonTextWriter(new StreamWriter(File.OpenWrite(SampleEmptyPath))))
+                    using (var writer = new JsonTextWriter(new StreamWriter(File.OpenWrite(SampleEmptyPath))))
                     {
                         serializer.Formatting = Formatting.Indented;
                         serializer.Serialize(writer, log);

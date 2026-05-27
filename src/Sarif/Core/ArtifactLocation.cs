@@ -127,5 +127,12 @@ namespace Microsoft.CodeAnalysis.Sarif
                     },
                 },
             };
+
+#if DEBUG
+        public override string ToString()
+        {
+            return this.Uri?.ToString() ?? base.ToString();
+        }
+#endif
     }
 }

@@ -44,7 +44,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
             this.FilingContext = filingContext ?? new SarifWorkItemContext { HostUri = filingUri };
             filingUri = filingUri ?? this.FilingContext.HostUri;
 
-            if (filingUri == null) { throw new ArgumentNullException(nameof(filingUri)); };
+            if (filingUri == null) { throw new ArgumentNullException(nameof(filingUri)); }
 
             if (filingUri != this.FilingContext.HostUri)
             {
@@ -191,7 +191,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
                 if (optionallyEmittedData != OptionallyEmittedData.None)
                 {
                     Logger.LogDebug("Inserting optional data.");
-                    var dataInsertingVisitor = new InsertOptionalDataVisitor(optionallyEmittedData);
+                    var dataInsertingVisitor = new InsertOptionalDataVisitor(optionallyEmittedData, new FileRegionsCache());
                     dataInsertingVisitor.Visit(sarifLog);
                 }
 
@@ -203,7 +203,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
 
                     PartitionFunction<string> partitionFunction = null;
 
-                    Stopwatch splittingStopwatch = Stopwatch.StartNew();
+                    var splittingStopwatch = Stopwatch.StartNew();
 
                     switch (splittingStrategy)
                     {
@@ -324,7 +324,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
                             // it should be pulled from the work flow (i.e., not filed).
                             if (updatedSarifWorkItemModel == null)
                             {
-                                Dictionary<string, object> customDimentions = new Dictionary<string, object>();
+                                var customDimentions = new Dictionary<string, object>();
                                 customDimentions.Add("TransformerType", transformer.GetType().FullName);
                                 LogMetricsForProcessedModel(sarifLog, sarifWorkItemModel, FilingResult.Canceled, customDimentions);
                                 return null;
@@ -336,7 +336,9 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
 
                     if (string.IsNullOrWhiteSpace(sarifWorkItemModel.Title) || string.IsNullOrWhiteSpace(sarifWorkItemModel.BodyOrDescription))
                     {
-                        this.Logger.LogWarning("Attempt to call work item client with invalid work item values.", logId);
+                        this.Logger.LogWarning("Attempt to call work item client with invalid work item values. Title: '{sarifWorkItemModel.Title}', BodyOrDescription:{sarifWorkItemModel.BodyOrDescription}",
+                            sarifWorkItemModel.Title,
+                            sarifWorkItemModel.BodyOrDescription);
                         this.LogMetricsForProcessedModel(sarifLog, sarifWorkItemModel, FilingResult.Canceled);
                         return null;
                     }
@@ -351,7 +353,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
                 {
                     this.Logger.LogError(ex, "An exception was raised filing log '{logId}'.", logId);
 
-                    Dictionary<string, object> customDimentions = new Dictionary<string, object>();
+                    var customDimentions = new Dictionary<string, object>();
                     customDimentions.Add("ExceptionType", ex.GetType().FullName);
                     customDimentions.Add("ExceptionMessage", ex.Message);
                     customDimentions.Add("ExceptionStackTrace", ex.ToString());

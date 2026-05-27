@@ -75,5 +75,12 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// I.e., the total number of log files created is the sum of distinct property bag property across all logs.
         /// </summary>
         PerPropertyBagProperty,
+
+        /// <summary>
+        /// Split SARIF log files according to an explicit list of result addresses
+        /// grouped into buckets. Used for AI-driven splitting where the caller
+        /// dictates exactly which results land in which output file.
+        /// </summary>
+        PerIndexList,
     }
 }

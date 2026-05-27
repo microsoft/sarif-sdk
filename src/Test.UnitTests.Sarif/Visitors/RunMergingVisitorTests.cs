@@ -3,7 +3,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
 
 using FluentAssertions;
 
@@ -484,7 +483,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 }
             };
 
-            RunMergingVisitor currentVisitor = new RunMergingVisitor();
+            var currentVisitor = new RunMergingVisitor();
             currentVisitor.Visit(baselineRun);
 
             currentVisitor.CurrentRun = currentRun;

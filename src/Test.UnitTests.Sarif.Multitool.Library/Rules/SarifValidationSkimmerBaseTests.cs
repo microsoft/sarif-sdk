@@ -158,5 +158,48 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 SarifValidationSkimmerBase.IsWellFormedUriString(testCase.uriString, testCase.uriKind).Should().BeFalse();
             }
         }
+
+        [Fact]
+        public void IsAIOriginRun_NullRun_Throws()
+        {
+            Action act = () => SarifValidationSkimmerBase.IsAIOriginRun(null);
+            act.Should().Throw<ArgumentNullException>();
+        }
+
+        [Fact]
+        public void IsAIOriginRun_RunWithoutProperties_ReturnsFalse()
+        {
+            var run = new Run();
+            SarifValidationSkimmerBase.IsAIOriginRun(run).Should().BeFalse();
+        }
+
+        [Fact]
+        public void IsAIOriginRun_RunWithUnrelatedProperty_ReturnsFalse()
+        {
+            var run = new Run();
+            run.SetProperty("some/other", "value");
+            SarifValidationSkimmerBase.IsAIOriginRun(run).Should().BeFalse();
+        }
+
+        [Fact]
+        public void IsAIOriginRun_RunWithNonEmptyAIOrigin_ReturnsTrue()
+        {
+            var run = new Run();
+            run.SetProperty("ai/origin", "generated");
+            SarifValidationSkimmerBase.IsAIOriginRun(run).Should().BeTrue();
+        }
+
+        [Fact]
+        public void IsAIOriginRun_RunWithEmptyAIOrigin_ReturnsFalse()
+        {
+            // Empty / whitespace-only is treated as "not set" so emitters that
+            // accidentally serialize a blank marker don't accidentally suppress
+            // AI-aware rules. Note: SARIF's property-bag layer does not decode
+            // JSON escapes on round-trip (\t comes back as literal backslash-t,
+            // not a tab character), so we test the realistic blank values only.
+            var run = new Run();
+            run.SetProperty("ai/origin", " ");
+            SarifValidationSkimmerBase.IsAIOriginRun(run).Should().BeFalse();
+        }
     }
 }

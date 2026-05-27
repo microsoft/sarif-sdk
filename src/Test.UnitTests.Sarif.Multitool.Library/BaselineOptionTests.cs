@@ -59,12 +59,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             {
                 SchemaFilePath = SchemaFilePath,
                 TargetFileSpecifiers = new string[] { logFilePath },
-                BaselineSarifFile = baseLineFilePath,
+                BaselineFilePath = baseLineFilePath,
             };
 
-            int returnCode = validateCommand.Run(options);
+            SarifValidationContext context = null;
+            int returnCode = validateCommand.Run(options, ref context);
             returnCode.Should().Be(1);
-            validateCommand.ExecutionException.Should().BeOfType<ExitApplicationException<ExitReason>>();
+            context.RuntimeExceptions[0].Should().BeOfType<ExitApplicationException<ExitReason>>();
         }
 
         [Fact]
@@ -83,8 +84,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 ConfigurationFilePath = configuration,
                 TargetFileSpecifiers = new string[] { path },
                 OutputFilePath = outputPath,
-                Force = true,
-                BaselineSarifFile = baselineFilePath,
+                OutputFileOptions = new[] { FilePersistenceOptions.ForceOverwrite },
+                BaselineFilePath = baselineFilePath,
                 Kind = new List<ResultKind> { ResultKind.Fail },
                 Level = new List<FailureLevel> { FailureLevel.Warning, FailureLevel.Error },
                 MaxFileSizeInKilobytes = 1024,
@@ -94,72 +95,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             int returnCode = new ValidateCommand().Run(options);
             returnCode.Should().Be(0);
 
-            SarifLog sarifLog = SarifLog.Load(outputPath);
+            var sarifLog = SarifLog.Load(outputPath);
             sarifLog.Runs.Count.Should().Be(1);
             sarifLog.Runs[0].Results.Count.Should().Be(1);
 
             // all results should have baseline status
             sarifLog.Runs[0].Results.Any(r => r.BaselineState == BaselineState.None).Should().BeFalse();
-        }
-
-        [Fact]
-        public void ValidateCommandWithBaseline_OutputOneZeroZero_ResultShouldHaveBaselineStatus()
-        {
-            string path = "ValidateSarif.sarif";
-            string configuration = "Configuration.json";
-            string outputPath = "ValidateSarifOutputOneZeroZero.sarif";
-            string baselineFilePath = "Baseline.sarif";
-            File.WriteAllText(path, s_extractor.GetResourceText(path));
-            File.WriteAllText(configuration, s_extractor.GetResourceText(configuration));
-            File.WriteAllText(baselineFilePath, s_extractor.GetResourceText(baselineFilePath));
-
-            var options = new ValidateOptions
-            {
-                ConfigurationFilePath = configuration,
-                TargetFileSpecifiers = new string[] { path },
-                OutputFilePath = outputPath,
-                Force = true,
-                BaselineSarifFile = baselineFilePath,
-                SarifOutputVersion = SarifVersion.OneZeroZero,
-            };
-
-            // Verify command returned success
-            int returnCode = new ValidateCommand().Run(options);
-            returnCode.Should().Be(0);
-
-            string version = SniffVersion(outputPath);
-            version.Should().Be("1.0.0");
-        }
-
-        [Fact]
-        public void ValidateCommandWithBaseline_WithInputOneZeroZero_ResultShouldHaveBaselineStatus()
-        {
-            string path = "ValidateSarifOneZeroZero.sarif";
-            string configuration = "Configuration.json";
-            string outputPath = "ValidateSarifOutputOneZeroZero.sarif";
-            string baselineFilePath = "Baseline.sarif";
-            File.WriteAllText(path, s_extractor.GetResourceText(path));
-            File.WriteAllText(configuration, s_extractor.GetResourceText(configuration));
-            File.WriteAllText(baselineFilePath, s_extractor.GetResourceText(baselineFilePath));
-
-            var options = new ValidateOptions
-            {
-                ConfigurationFilePath = configuration,
-                TargetFileSpecifiers = new string[] { path },
-                OutputFilePath = outputPath,
-                Force = true,
-                BaselineSarifFile = baselineFilePath,
-                Kind = new List<ResultKind> { ResultKind.Fail },
-                Level = new List<FailureLevel> { FailureLevel.Warning, FailureLevel.Error },
-                SarifOutputVersion = SarifVersion.OneZeroZero
-            };
-
-            // Verify command returned success
-            int returnCode = new ValidateCommand().Run(options);
-            returnCode.Should().Be(0);
-
-            string version = SniffVersion(outputPath);
-            version.Should().Be("1.0.0");
         }
 
         [Fact]
@@ -178,9 +119,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 ConfigurationFilePath = configuration,
                 TargetFileSpecifiers = new string[] { path },
                 OutputFilePath = outputPath,
-                Inline = true,
-                Force = true,
-                BaselineSarifFile = baselineFilePath,
+                OutputFileOptions = new[] { FilePersistenceOptions.ForceOverwrite, FilePersistenceOptions.Inline },
+                BaselineFilePath = baselineFilePath,
                 Kind = new List<ResultKind> { ResultKind.Fail },
                 Level = new List<FailureLevel> { FailureLevel.Warning, FailureLevel.Error }
             };
@@ -189,7 +129,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             int returnCode = new ValidateCommand().Run(options);
             returnCode.Should().Be(0);
 
-            SarifLog sarifLog = SarifLog.Load(baselineFilePath);
+            var sarifLog = SarifLog.Load(baselineFilePath);
             sarifLog.Runs.Count.Should().Be(1);
             sarifLog.Runs[0].Results.Count.Should().Be(1);
 

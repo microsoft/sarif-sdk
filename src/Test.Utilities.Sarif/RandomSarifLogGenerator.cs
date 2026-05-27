@@ -22,7 +22,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             // Slightly roundabout.  We want to randomly test this, but we also want to be able to repeat this if the test fails.
             int randomSeed = seed ?? (new Random()).Next();
 
-            Random random = new Random(randomSeed);
+            var random = new Random(randomSeed);
 
             output.WriteLine($"TestName: {testName} has seed {randomSeed}");
 
@@ -31,7 +31,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         public static SarifLog GenerateSarifLogWithRuns(Random randomGen, int runCount, int? resultCount = null, RandomDataFields dataFields = RandomDataFields.None)
         {
-            SarifLog log = new SarifLog();
+            var log = new SarifLog();
 
             if (runCount > 0)
             {
@@ -48,8 +48,8 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         public static Run GenerateRandomRun(Random random, int? resultCount = null, RandomDataFields dataFields = RandomDataFields.None)
         {
-            List<string> ruleIds = new List<string>() { "TEST001", "TEST002", "TEST003", "TEST004", "TEST005" };
-            List<Uri> filePaths = GenerateFakeFiles(GeneratorBaseUri, random.Next(20) + 1).Select(a => new Uri(a)).ToList();
+            var ruleIds = new List<string>() { "TEST001", "TEST002", "TEST003", "TEST004", "TEST005" };
+            var filePaths = GenerateFakeFiles(GeneratorBaseUri, random.Next(20) + 1).Select(a => new Uri(a)).ToList();
             int results = resultCount == null ? random.Next(100) : (int)resultCount;
 
             return new Run()
@@ -72,7 +72,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             Run run = GenerateRandomRun(random, resultCount);
             IList<Result> resultList = run.Results;
-            List<Result> uniqueResults = new List<Result>();
+            var uniqueResults = new List<Result>();
             foreach (Result result in resultList)
             {
                 if (!uniqueResults.Contains(result, comparer))
@@ -86,7 +86,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         public static IEnumerable<string> GenerateFakeFiles(string baseAddress, int count)
         {
-            List<string> results = new List<string>();
+            var results = new List<string>();
 
             for (int i = 0; i < count; i++)
             {
@@ -98,7 +98,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         public static IList<Result> GenerateFakeResults(Random random, List<string> ruleIds, List<Uri> filePaths, int resultCount, RandomDataFields dataFields = RandomDataFields.None)
         {
-            List<Result> results = new List<Result>();
+            var results = new List<Result>();
             for (int i = 0; i < resultCount; i++)
             {
                 int fileIndex = random.Next(filePaths.Count);

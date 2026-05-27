@@ -6,7 +6,6 @@ using System;
 using FluentAssertions;
 
 using Microsoft.ApplicationInsights.DataContracts;
-using Microsoft.TeamFoundation;
 
 using Xunit;
 
@@ -17,7 +16,7 @@ namespace Microsoft.WorkItems.Logging
         [Fact]
         public void CreateFilingTarget_ThrowsIfTelemetryIsNull()
         {
-            ApplicationInsightsTelemetryInitializer initializer = new ApplicationInsightsTelemetryInitializer();
+            var initializer = new ApplicationInsightsTelemetryInitializer();
 
             Action action = () => initializer.Initialize(null);
             action.Should().Throw<ArgumentNullException>();
@@ -26,8 +25,8 @@ namespace Microsoft.WorkItems.Logging
         [Fact]
         public void CreateFilingTarget_OperationIdIsSet()
         {
-            TraceTelemetry telemetry = new TraceTelemetry();
-            ApplicationInsightsTelemetryInitializer initializer = new ApplicationInsightsTelemetryInitializer();
+            var telemetry = new TraceTelemetry();
+            var initializer = new ApplicationInsightsTelemetryInitializer();
 
             telemetry.Context.Operation.Id.Should().BeNull();
 
@@ -37,7 +36,7 @@ namespace Microsoft.WorkItems.Logging
             Guid.TryParse(telemetry.Context.Operation.Id, out Guid temp).Should().BeTrue();
 
             // A second telemetry item should be assigned the same operation_Id
-            TraceTelemetry telemetry2 = new TraceTelemetry();
+            var telemetry2 = new TraceTelemetry();
             initializer.Initialize(telemetry2);
             telemetry.Context.Operation.Id.Should().Be(telemetry2.Context.Operation.Id);
         }
@@ -46,8 +45,8 @@ namespace Microsoft.WorkItems.Logging
         public void CreateFilingTarget_OperationIdIsDifferent()
         {
             // After initialization, the operation_Id should be set to a GUID.
-            TraceTelemetry telemetry = new TraceTelemetry();
-            ApplicationInsightsTelemetryInitializer initializer = new ApplicationInsightsTelemetryInitializer();
+            var telemetry = new TraceTelemetry();
+            var initializer = new ApplicationInsightsTelemetryInitializer();
 
             telemetry.Context.Operation.Id.Should().BeNull();
             initializer.Initialize(telemetry);
@@ -55,8 +54,8 @@ namespace Microsoft.WorkItems.Logging
             Guid.TryParse(telemetry.Context.Operation.Id, out Guid temp).Should().BeTrue();
 
             // A second telemetry item using a different Initializer should be assigned a different operation_Id
-            TraceTelemetry telemetry2 = new TraceTelemetry();
-            ApplicationInsightsTelemetryInitializer initializer2 = new ApplicationInsightsTelemetryInitializer();
+            var telemetry2 = new TraceTelemetry();
+            var initializer2 = new ApplicationInsightsTelemetryInitializer();
 
             telemetry2.Context.Operation.Id.Should().BeNull();
             initializer2.Initialize(telemetry2);
@@ -69,8 +68,8 @@ namespace Microsoft.WorkItems.Logging
         [Fact]
         public void CreateFilingTarget_OperationIdShouldNotBeOverwritten()
         {
-            TraceTelemetry telemetry = new TraceTelemetry();
-            ApplicationInsightsTelemetryInitializer initializer = new ApplicationInsightsTelemetryInitializer();
+            var telemetry = new TraceTelemetry();
+            var initializer = new ApplicationInsightsTelemetryInitializer();
 
             const string operationId = "abcd";
             telemetry.Context.Operation.Id = operationId;

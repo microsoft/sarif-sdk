@@ -93,7 +93,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="stackTrace"></param>
         public static Stack Create(string stackTrace)
         {
-            Stack stack = new Stack();
+            var stack = new Stack();
 
             if (string.IsNullOrEmpty(stackTrace))
             {
@@ -102,7 +102,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             stack.Frames = new List<StackFrame>();
 
-            var regex = new Regex(StackFrame.AT + @"([^)]+\))(" + StackFrame.IN + "([^:]+:[^:]+)" + StackFrame.LINE + " (.*))?", RegexOptions.Compiled);
+            var regex = new Regex(StackFrame.AT + @"([^)]+\))(" + StackFrame.IN + "([^:]+:?[^:]+)" + StackFrame.LINE + " (.*))?", RegexOptions.Compiled);
 
             foreach (string line in stackTrace.Split(new string[] { Environment.NewLine }, StringSplitOptions.None))
             {
@@ -130,7 +130,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                         {
                             ArtifactLocation = new ArtifactLocation
                             {
-                                Uri = new Uri(fileName)
+                                Uri = new Uri(fileName, UriKind.RelativeOrAbsolute)
                             },
                             Region = new Region
                             {
@@ -154,7 +154,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             if (this.Frames == null) { return "[No frames]"; }
 
-            StringBuilder sb = new StringBuilder(255);
+            var sb = new StringBuilder(255);
 
             for (int i = 0; i < this.Frames.Count; i++)
             {

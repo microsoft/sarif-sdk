@@ -133,6 +133,15 @@ namespace Microsoft.CodeAnalysis.Sarif {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Could not post to the URI specified on the command line: &apos;{0}&apos;..
+        /// </summary>
+        public static string ERR997_ErrorPostingLogFile {
+            get {
+                return ResourceManager.GetString("ERR997_ErrorPostingLogFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Could not access a file specified on the command line: &apos;{0}&apos;..
         /// </summary>
         public static string ERR997_ExceptionAccessingFile {
@@ -144,9 +153,9 @@ namespace Microsoft.CodeAnalysis.Sarif {
         /// <summary>
         ///   Looks up a localized string similar to Could not create output file &apos;{0}&apos;..
         /// </summary>
-        public static string ERR997_ExceptionCreatingLogFile {
+        public static string ERR997_ExceptionCreatingOutputFile {
             get {
-                return ResourceManager.GetString("ERR997_ExceptionCreatingLogFile", resourceCulture);
+                return ResourceManager.GetString("ERR997_ExceptionCreatingOutputFile", resourceCulture);
             }
         }
         
@@ -178,6 +187,15 @@ namespace Microsoft.CodeAnalysis.Sarif {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The output file &apos;{0}&apos; already exists. Use --log ForceOverwrite to overwrite..
+        /// </summary>
+        public static string ERR997_FileAlreadyExists {
+            get {
+                return ResourceManager.GetString("ERR997_FileAlreadyExists", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The current configuration enables rules that are not compatible (&apos;{0}&apos; has declared that it is not compatible with &apos;{1}&apos;). You can selectively disable one of the rules using an updated XML configuration (passed by the --config argument)..
         /// </summary>
         public static string ERR997_IncompatibleRulesDetected {
@@ -192,6 +210,15 @@ namespace Microsoft.CodeAnalysis.Sarif {
         public static string ERR997_InvalidInvocationPropertyName {
             get {
                 return ResourceManager.GetString("ERR997_InvalidInvocationPropertyName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The {0} argument(s) must be specified when using {1}..
+        /// </summary>
+        public static string ERR997_MissingCommandlineArgument {
+            get {
+                return ResourceManager.GetString("ERR997_MissingCommandlineArgument", resourceCulture);
             }
         }
         
@@ -241,15 +268,6 @@ namespace Microsoft.CodeAnalysis.Sarif {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The output file &apos;{0}&apos; already exists. Use --force to overwrite..
-        /// </summary>
-        public static string ERR997_OutputFileAlreadyExists {
-            get {
-                return ResourceManager.GetString("ERR997_OutputFileAlreadyExists", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to An exception of type &apos;{0}&apos; was raised analyzing &apos;{1}&apos; for check &apos;{2}&apos; (which has been disabled). The exception may have resulted from a problem related to parsing the analysis target, and not specific to the rule, however..
         /// </summary>
         public static string ERR998_ExceptionInAnalyze {
@@ -273,6 +291,24 @@ namespace Microsoft.CodeAnalysis.Sarif {
         public static string ERR998_ExceptionInInitialize {
             get {
                 return ResourceManager.GetString("ERR998_ExceptionInInitialize", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Analysis was canceled..
+        /// </summary>
+        public static string ERR999_AnalysisCanceled {
+            get {
+                return ResourceManager.GetString("ERR999_AnalysisCanceled", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Analysis timed out. Timeout specified was {0})..
+        /// </summary>
+        public static string ERR999_AnalysisTimedOut {
+            get {
+                return ResourceManager.GetString("ERR999_AnalysisTimedOut", resourceCulture);
             }
         }
         
@@ -360,7 +396,7 @@ namespace Microsoft.CodeAnalysis.Sarif {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to One or more targets was skipped entirely as it was determined to be an invalid target for analysis. Pass --verbose on the command-line for more information..
+        ///   Looks up a localized string similar to One or more targets was skipped entirely as it was determined to be an invalid target for analysis. Include &apos;Note&apos; on an explicit &apos;--level &apos; command-line argument (e.g., &apos;--level &quot;Error;Warning;Note&quot;&apos;) for more information..
         /// </summary>
         public static string MSG_OneOrMoreInvalidTargets {
             get {
@@ -369,7 +405,7 @@ namespace Microsoft.CodeAnalysis.Sarif {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to One or more rules was disabled for an analysis target, as it was determined not to be applicable to it (this is a common condition). Pass --verbose on the command-line for more information..
+        ///   Looks up a localized string similar to One or more rules was disabled for an analysis target, as it was determined not to be applicable to it (this is a common condition). Include &apos;NotApplicable&apos; on an explicit &apos;--kind&apos; command-line argument (e.g., &apos;--kind &quot;Fail;NotApplicable&quot;&apos;) for more information..
         /// </summary>
         public static string MSG_OneOrMoreNotApplicable {
             get {
@@ -387,11 +423,56 @@ namespace Microsoft.CodeAnalysis.Sarif {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Analyzing &apos;{0}&apos;....
+        ///   Looks up a localized string similar to Analyzing &apos;{0}&apos;..
         /// </summary>
         public static string MSG001_AnalyzingTarget {
             get {
                 return ResourceManager.GetString("MSG001_AnalyzingTarget", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Completed &apos;{0}&apos;..
+        /// </summary>
+        public static string MSG001_TargetAnalyzed {
+            get {
+                return ResourceManager.GetString("MSG001_TargetAnalyzed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &apos;{1}&apos; was skipped because it is zero bytes in size..
+        /// </summary>
+        public static string MSG002_EmptyFileSkipped {
+            get {
+                return ResourceManager.GetString("MSG002.EmptyFileSkipped", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &apos;{1}&apos; was skipped as it is zero bytes in size..
+        /// </summary>
+        public static string MSG002_EmptyFileSkipped1 {
+            get {
+                return ResourceManager.GetString("MSG002.EmptyFileSkipped1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &apos;{1}&apos; was not analyzed as its size ({2} kilobytes) exceeds the currently configured threshold ({3} kilobytes)..
+        /// </summary>
+        public static string MSG002_FileExceedingSizeLimitSkipped {
+            get {
+                return ResourceManager.GetString("MSG002.FileExceedingSizeLimitSkipped", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &apos;{1}&apos; was skipped as {2}..
+        /// </summary>
+        public static string MSG002_FileSkipped {
+            get {
+                return ResourceManager.GetString("MSG002.FileSkipped", resourceCulture);
             }
         }
         
@@ -504,15 +585,6 @@ namespace Microsoft.CodeAnalysis.Sarif {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &apos;{0}&apos; was not analyzed as its size ({1} kilobytes) exceeds the currently configured threshold ({2} kilobytes)..
-        /// </summary>
-        public static string WRN997_FileSkippedDueToSize {
-            get {
-                return ResourceManager.GetString("WRN997.FileSkippedDueToSize", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Option &apos;{0}&apos; is invalid for this command..
         /// </summary>
         public static string WRN997_InvalidOption {
@@ -549,11 +621,20 @@ namespace Microsoft.CodeAnalysis.Sarif {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to One or more files were skipped for analysis due to exceeding size limits (currently configured as {0} KB). The &apos;max-file-size-in-kb&apos; command-line argument can be used to increase this threshold..
+        ///   Looks up a localized string similar to {0} file(s) were skipped for analysis as {1}..
         /// </summary>
-        public static string WRN997_OneOrMoreFilesSkippedDueToSize {
+        public static string WRN997_OneOrMoreFilesSkipped {
             get {
-                return ResourceManager.GetString("WRN997_OneOrMoreFilesSkippedDueToSize", resourceCulture);
+                return ResourceManager.GetString("WRN997_OneOrMoreFilesSkipped", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} file(s) were skipped for analysis due to exceeding size limit (currently configured as {1} KB). The &apos;max-file-size-in-kb&apos; command-line argument can be used to increase this threshold..
+        /// </summary>
+        public static string WRN997_OneOrMoreFilesSkippedDueToExceedingSizeLimit {
+            get {
+                return ResourceManager.GetString("WRN997_OneOrMoreFilesSkippedDueToExceedingSizeLimit", resourceCulture);
             }
         }
         

@@ -1,0 +1,47 @@
+{
+  "$schema": "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0.json",
+  "version": "2.1.0",
+  "runs": [
+    {
+      "tool": {
+        "driver": {
+          "name": "SARIF Functional Testing",
+          "version": "1.2.3",
+          "rules": [
+            { "id": "CWE-78", "name": "OsCommandInjection" }
+          ]
+        }
+      },
+      "results": [
+        {
+          "ruleId": "CWE-78/api-handler",
+          "ruleIndex": 0,
+          "message": { "text": "Demonstrated strength with empty backing; AI2016 should fire per-entry and on the run-level inconsistency." },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": { "uri": "src/foo.cs" },
+                "region": { "startLine": 1 }
+              }
+            }
+          ],
+          "properties": {
+            "ai/exploitability": "demonstrated",
+            "ai/evidence": [
+              {
+                "summary": "Demonstrated entry with no backing at all.",
+                "strength": "demonstrated"
+              },
+              {
+                "summary": "Demonstrated entry with backing as an empty array.",
+                "strength": "demonstrated",
+                "backing": []
+              }
+            ]
+          }
+        }
+      ],
+      "columnKind": "utf16CodeUnits"
+    }
+  ]
+}

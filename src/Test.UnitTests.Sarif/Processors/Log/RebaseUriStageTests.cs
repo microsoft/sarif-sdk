@@ -29,7 +29,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Processors
         public void RewriteUri_RewritesAllFiles(int fileCount)
         {
             Random random = RandomSarifLogGenerator.GenerateRandomAndLog(this.output);
-            List<SarifLog> logs = new List<SarifLog>();
+            var logs = new List<SarifLog>();
             for (int i = 0; i < fileCount; i++)
             {
                 logs.Add(RandomSarifLogGenerator.GenerateSarifLogWithRuns(random, random.Next(10)));

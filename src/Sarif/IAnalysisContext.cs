@@ -2,24 +2,73 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System;
+using System.Collections.Generic;
+using System.Threading;
 
 namespace Microsoft.CodeAnalysis.Sarif
 {
     public interface IAnalysisContext : IDisposable
     {
-        Uri TargetUri { get; set; }
+        IList<VersionControlDetails> VersionControlProvenance { get; set; }
 
-        string MimeType { get; set; }
+        string PostUri { get; set; }
+
+        string OutputFilePath { get; set; }
+
+        string BaselineFilePath { get; set; }
+
+        string EventsFilePath { get; set; }
+
+        string ConfigurationFilePath { get; set; }
+
+        bool Quiet { get; set; }
+
+        bool RichReturnCode { get; set; }
+
+        string AutomationId { get; set; }
+
+        Guid AutomationGuid { get; set; }
+
+        FilePersistenceOptions OutputFileOptions { get; set; }
+
+        IFileSystem FileSystem { get; set; }
+
+        CancellationToken CancellationToken { get; set; }
+
+        IArtifactProvider TargetsProvider { get; set; }
+
+        IEnumeratedArtifact CurrentTarget { get; set; }
+
+        ISet<string> InvocationPropertiesToLog { get; set; }
+
+        ISet<string> TargetFileSpecifiers { get; set; }
+
+        ISet<string> PluginFilePaths { get; set; }
+
+        FailureLevelSet FailureLevels { get; set; }
+
+        ResultKindSet ResultKinds { get; set; }
+
+        RuleKindSet RuleKinds { get; set; }
+
+        ISet<string> InsertProperties { get; set; }
+
+        OptionallyEmittedData DataToInsert { get; set; }
+
+        OptionallyEmittedData DataToRemove { get; set; }
+
+        bool Recurse { get; set; }
+
+        int Threads { get; set; }
 
         HashData Hashes { get; set; }
 
-        Exception TargetLoadException { get; set; }
+        IList<Exception> RuntimeExceptions { get; set; }
 
         bool IsValidAnalysisTarget { get; }
 
         ReportingDescriptor Rule { get; set; }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         PropertiesDictionary Policy { get; set; }
 
         IAnalysisLogger Logger { get; set; }
@@ -28,8 +77,10 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         bool AnalysisComplete { get; set; }
 
-        DefaultTraces Traces { get; set; }
+        ISet<string> Traces { get; set; }
 
         long MaxFileSizeInKilobytes { get; set; }
+
+        int TimeoutInMilliseconds { get; set; }
     }
 }

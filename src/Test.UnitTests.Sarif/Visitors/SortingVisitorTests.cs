@@ -11,7 +11,6 @@ using FluentAssertions;
 
 using Microsoft.CodeAnalysis.Sarif;
 using Microsoft.CodeAnalysis.Sarif.Visitors;
-using Microsoft.CodeAnalysis.Test.Utilities.Sarif;
 
 using Newtonsoft.Json;
 

@@ -14,7 +14,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             IFileSystem fileSystem,
             IEnvironmentVariables environmentVariables)
         {
-            List<string> expandedArguments = new List<string>();
+            var expandedArguments = new List<string>();
 
             foreach (string argument in args)
             {
@@ -39,7 +39,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
         private static bool IsResponseFileArgument(string argument)
         {
-            return argument[0] == '@' && argument.Length > 1;
+            return argument.Length > 1 && argument[0] == '@';
         }
 
         private static void ExpandResponseFile(string[] responseFileLines, List<string> expandedArguments)

@@ -40,7 +40,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
         public int Run(MergeOptions mergeOptions)
         {
-            Stopwatch w = Stopwatch.StartNew();
+            var w = Stopwatch.StartNew();
             try
             {
                 _options = mergeOptions;
@@ -59,7 +59,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
                 if (_options.SplittingStrategy == 0)
                 {
-                    if (!DriverUtilities.ReportWhetherOutputFileCanBeCreated(outputFilePath, _options.Force, FileSystem))
+                    if (!DriverUtilities.ReportWhetherOutputFileCanBeCreated(outputFilePath, _options.ForceOverwrite, FileSystem))
                     {
                         return FAILURE;
                     }

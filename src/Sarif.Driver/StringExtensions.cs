@@ -3,7 +3,7 @@
 
 namespace Microsoft.CodeAnalysis.Sarif.Driver
 {
-    /// <summary>Extensions on the <see cref="System.String"/> class.</summary>
+    /// <summary>Extensions on the <see cref="string"/> class.</summary>
     public static class StringExtensions
     {
         /// <summary>Gets a null value for null or whitespace strings. Otherwise passes though the source string unchanged.</summary>

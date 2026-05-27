@@ -1,5 +1,5 @@
 {
-  "$schema": "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0-rtm.6.json",
+  "$schema": "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0.json",
   "version": "2.1.0",
   "runs": [
     {
@@ -23,7 +23,10 @@
             "uri": "file:///e:/src/sarif/src/test.functionaltests.sarif/convertertestdata/prefast/src/relevantkeyevents/relevantkeyevents.cpp",
             "index": 0
           },
-          "roles": ["analysisTarget","resultFile"]
+          "roles": [
+            "analysisTarget",
+            "resultFile"
+          ]
         }
       ],
       "results": [

@@ -1,6 +1,8 @@
 ﻿// Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
+using System;
+
 using CommandLine;
 
 using Microsoft.CodeAnalysis.Sarif.Driver;
@@ -25,7 +27,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
         [Option(
             "normalize-for-github",
-            HelpText = "Normalize converted output to conform to GitHub Advanced Security code scanning ingestion requirements.")]
+            HelpText = "(Deprecated. Use --normalize-for-ghas instead.) Normalize converted output to conform to GitHub Advanced Security (GHAS) code scanning ingestion requirements.")]
+        [Obsolete("Deprecated. Use --normalize-for-ghas instead.")]
         public bool NormalizeForGitHub { get; set; }
+
+        [Option(
+            "normalize-for-ghas",
+            HelpText = "Normalize converted output to conform to GitHub Advanced Security (GHAS) code scanning ingestion requirements.")]
+        public bool NormalizeForGhas { get; set; }
     }
 }

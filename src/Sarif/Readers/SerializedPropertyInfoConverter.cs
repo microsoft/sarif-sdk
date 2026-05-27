@@ -21,9 +21,9 @@ namespace Microsoft.CodeAnalysis.Sarif
             {
                 bool wasString = reader.TokenType == JsonToken.String;
 
-                StringBuilder builder = new StringBuilder();
-                using (StringWriter w = new StringWriter(builder))
-                using (JsonTextWriter writer = new JsonTextWriter(w))
+                var builder = new StringBuilder();
+                using (var w = new StringWriter(builder))
+                using (var writer = new JsonTextWriter(w))
                 {
                     writer.WriteToken(reader);
                 }

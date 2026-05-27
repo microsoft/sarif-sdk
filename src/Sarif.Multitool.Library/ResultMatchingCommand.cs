@@ -36,7 +36,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                     outputFilePath = Path.GetFileNameWithoutExtension(options.PreviousFilePath) + "-annotated.sarif";
                 }
 
-                if (!DriverUtilities.ReportWhetherOutputFileCanBeCreated(outputFilePath, options.Force, _fileSystem))
+                if (!DriverUtilities.ReportWhetherOutputFileCanBeCreated(outputFilePath, options.ForceOverwrite, _fileSystem))
                 {
                     return FAILURE;
                 }

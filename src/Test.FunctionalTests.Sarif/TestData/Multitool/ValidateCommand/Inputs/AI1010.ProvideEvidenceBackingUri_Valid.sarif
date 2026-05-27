@@ -1,0 +1,58 @@
+{
+  "$schema": "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0.json",
+  "version": "2.1.0",
+  "runs": [
+    {
+      "tool": {
+        "driver": {
+          "name": "SARIF Functional Testing",
+          "version": "1.2.3",
+          "rules": [
+            { "id": "CWE-78", "name": "OsCommandInjection" }
+          ]
+        }
+      },
+      "results": [
+        {
+          "ruleId": "CWE-78/api-handler",
+          "ruleIndex": 0,
+          "message": { "text": "Backing forms that AI1010 should not flag." },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": { "uri": "src/foo.cs" },
+                "region": { "startLine": 1 }
+              }
+            }
+          ],
+          "properties": {
+            "ai/evidence": [
+              {
+                "summary": "Single-string backing, non-sarif URI is ignored by AI1010 (only checks 'sarif:' URIs).",
+                "strength": "demonstrated",
+                "backing": "https://example.com/repro.md"
+              },
+              {
+                "summary": "Array of non-sarif URIs (the form AI1010 used to crash on).",
+                "strength": "demonstrated",
+                "backing": [
+                  "https://example.com/repro.md",
+                  "external/relative/repro.md"
+                ]
+              },
+              {
+                "summary": "Array containing a sarif URI that DOES resolve to a real element in this log.",
+                "strength": "demonstrated",
+                "backing": [
+                  "https://example.com/repro.md",
+                  "sarif:/runs/0/results/0/locations/0"
+                ]
+              }
+            ]
+          }
+        }
+      ],
+      "columnKind": "utf16CodeUnits"
+    }
+  ]
+}

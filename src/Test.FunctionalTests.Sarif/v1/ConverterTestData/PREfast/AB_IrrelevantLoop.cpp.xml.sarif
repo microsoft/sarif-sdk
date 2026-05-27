@@ -13,10 +13,6 @@
           "contents": "Ly8gTG9vcHMgYXJlIG1vcmUgY29tcGxpY2F0ZWQuDQovLyBVbmNvbmRpdGlvbmFsIGxvb3BzIGFyZSBhbHdheXMgZXhlY3V0ZWQgdGhlIHNhbWUgd2F5IChvbmx5IG9uZSBwYXRoKS4NCi8vIEFzc3VtZSBsb29wcyBhcmUgaXJyZWxldmFudCB1bmxlc3MgYSB1c2VmdWwga2V5IGV2ZW50IGlzIGZvdW5kIGluIHRoZW0uDQoNCg0Kdm9pZCBDNjM4NV9JcnJlbGV2YW50TG9vcCgpDQp7DQoJaW50IGRhdGFbMTBdOw0KCWludCBtYXhTaXplID0gMTA7DQoNCglmb3IgKGludCBpPTA7IGk8bWF4U2l6ZTsgaSsrKSAvLyB1bmNvbmRpdGlvbmFsIGxvb3ANCgkJZGF0YVtpXSA9IGk7DQoNCglpbnQgayA9IGRhdGFbbWF4U2l6ZV07DQp9DQoNCg==",
           "hashes": [
             {
-              "value": "827981999541CBB0B4FB4455E031DB78",
-              "algorithm": "md5"
-            },
-            {
               "value": "B0B08E57ECD6B872B3BAB8289BCB7BB11B6F993B",
               "algorithm": "sha1"
             },

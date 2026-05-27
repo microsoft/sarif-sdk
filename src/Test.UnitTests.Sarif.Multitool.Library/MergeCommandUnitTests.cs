@@ -41,13 +41,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
             var options = new MergeOptions
             {
-                PrettyPrint = true,
                 OutputDirectoryPath = testDirectory,
                 OutputFileName = "merged.sarif",
                 TargetFileSpecifiers = new[] { "*.sarif" },
                 MergeRuns = true,
-                Force = true,
-                Inline = true,
+                OutputFileOptions = new[] { FilePersistenceOptions.ForceOverwrite, FilePersistenceOptions.Inline, FilePersistenceOptions.PrettyPrint },
             };
 
             var mergeCommand = new MergeCommand(fileSystem);
@@ -65,12 +63,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
             var options = new MergeOptions
             {
-                PrettyPrint = true,
+                OutputFileOptions = new[] { FilePersistenceOptions.PrettyPrint },
                 OutputDirectoryPath = testDirectory,
                 OutputFileName = "merged.sarif",
                 TargetFileSpecifiers = new[] { "*.sarif" },
                 MergeRuns = true,
-                Force = false,
             };
 
             var mergeCommand = new MergeCommand(fileSystem);
@@ -100,12 +97,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
             var options = new MergeOptions
             {
-                PrettyPrint = true,
                 OutputDirectoryPath = testDirectory,
                 OutputFileName = "merged.sarif",
                 TargetFileSpecifiers = new[] { "*.sarif" },
                 MergeRuns = true,
-                Force = true,
+                OutputFileOptions = new[] { FilePersistenceOptions.ForceOverwrite, FilePersistenceOptions.PrettyPrint },
             };
 
             var mergeCommand = new MergeCommand(fileSystem);
@@ -139,12 +135,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
             var options = new MergeOptions
             {
-                PrettyPrint = true,
                 OutputDirectoryPath = testDirectory,
                 OutputFileName = "merged.sarif",
                 TargetFileSpecifiers = new[] { "*.sarif" },
                 MergeRuns = true,
-                Force = true,
+                OutputFileOptions = new[] { FilePersistenceOptions.ForceOverwrite, FilePersistenceOptions.PrettyPrint },
             };
 
             var mergeCommand = new MergeCommand(fileSystem);
@@ -192,12 +187,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
             var options = new MergeOptions
             {
-                PrettyPrint = true,
                 OutputDirectoryPath = testDirectory,
                 OutputFileName = "merged.sarif",
                 TargetFileSpecifiers = new[] { "*.sarif" },
                 MergeRuns = false,
-                Force = true,
+                OutputFileOptions = new[] { FilePersistenceOptions.ForceOverwrite, FilePersistenceOptions.PrettyPrint },
             };
 
             var mergeCommand = new MergeCommand(fileSystem);
@@ -252,12 +246,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
             var options = new MergeOptions
             {
-                PrettyPrint = true,
                 OutputDirectoryPath = testDirectory,
                 OutputFileName = "merged.sarif",
                 TargetFileSpecifiers = new[] { "*.sarif" },
                 SplittingStrategy = SplittingStrategy.PerRule,
-                Force = true,
+                OutputFileOptions = new[] { FilePersistenceOptions.ForceOverwrite, FilePersistenceOptions.PrettyPrint },
             };
 
             var mergeCommand = new MergeCommand(fileSystem);

@@ -47,7 +47,7 @@ namespace Test.EndToEnd.Baselining
 
         public void Write(SarifLog newBaselineLog, SarifLog baselineLog, BaseliningSummary summary)
         {
-            Dictionary<Guid?, Result> baselineResultsByGuid = new Dictionary<Guid?, Result>();
+            var baselineResultsByGuid = new Dictionary<Guid?, Result>();
             foreach (Result result in baselineLog.EnumerateResults())
             {
                 baselineResultsByGuid[result.CorrelationGuid ?? result.Guid] = result;

@@ -18,21 +18,21 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         [Fact]
         public void CppCheckConverter_Convert_NullInput()
         {
-            CppCheckConverter converter = new CppCheckConverter();
+            var converter = new CppCheckConverter();
             Assert.Throws<ArgumentNullException>(() => converter.Convert(null, null, OptionallyEmittedData.None));
         }
 
         [Fact]
         public void CppCheckConverter_Convert_NullOutput()
         {
-            CppCheckConverter converter = new CppCheckConverter();
+            var converter = new CppCheckConverter();
             Assert.Throws<ArgumentNullException>(() => converter.Convert(new MemoryStream(), null, OptionallyEmittedData.None));
         }
 
         [Fact]
         public void CppCheckConverter_Convert_NullLogTest()
         {
-            CppCheckConverter converter = new CppCheckConverter();
+            var converter = new CppCheckConverter();
             Assert.Throws<ArgumentNullException>(() => converter.Convert(null, new ResultLogObjectWriter(), OptionallyEmittedData.None));
         }
 

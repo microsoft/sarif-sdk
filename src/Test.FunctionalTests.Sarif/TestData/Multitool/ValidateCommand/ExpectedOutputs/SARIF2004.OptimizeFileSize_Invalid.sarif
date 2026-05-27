@@ -1,5 +1,5 @@
 {
-  "$schema": "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0-rtm.6.json",
+  "$schema": "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0.json",
   "version": "2.1.0",
   "runs": [
     {
@@ -28,6 +28,9 @@
                 },
                 "Warning_PreferRuleId": {
                   "text": "The result at '{0}' uses the 'rule' property to specify the violated rule, but this is not necessary because the rule is defined by 'tool.driver'. Use the 'ruleId' and 'ruleIndex' instead, because they are shorter and just as clear."
+                },
+                "Warning_OmitSentinelIndex": {
+                  "text": "{0}: The '{1}' property is set to the value -1, which SARIF §3.4 defines as the \"unset index\" sentinel. Emitting it literally is semantically equivalent to omitting the property entirely and only inflates the log size. Remove the '{1}' property."
                 }
               },
               "helpUri": "http://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html"
@@ -112,7 +115,7 @@
                   "index": 0
                 },
                 "region": {
-                  "startLine": 56,
+                  "startLine": 52,
                   "startColumn": 29
                 }
               }
@@ -135,7 +138,7 @@
                   "index": 0
                 },
                 "region": {
-                  "startLine": 69,
+                  "startLine": 63,
                   "startColumn": 9
                 }
               }
@@ -158,7 +161,7 @@
                   "index": 0
                 },
                 "region": {
-                  "startLine": 81,
+                  "startLine": 73,
                   "startColumn": 9
                 }
               }
@@ -181,7 +184,7 @@
                   "index": 0
                 },
                 "region": {
-                  "startLine": 94,
+                  "startLine": 84,
                   "startColumn": 9
                 }
               }

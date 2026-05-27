@@ -1,7 +1,6 @@
 // Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text.RegularExpressions;
@@ -55,8 +54,8 @@ namespace Test.EndToEnd.Baselining
 
         public void Convert(Stream source, Stream target)
         {
-            using (StreamReader reader = new StreamReader(source))
-            using (StreamWriter writer = new StreamWriter(target))
+            using (var reader = new StreamReader(source))
+            using (var writer = new StreamWriter(target))
             {
                 Convert(reader, writer);
             }

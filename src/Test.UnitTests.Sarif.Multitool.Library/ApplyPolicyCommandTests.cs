@@ -43,7 +43,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             {
                 InputFilePath = path,
                 OutputFilePath = path,
-                Force = true
+                OutputFileOptions = new[] { FilePersistenceOptions.ForceOverwrite },
             };
 
             // Verify command returned success

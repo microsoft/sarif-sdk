@@ -157,8 +157,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         {
             if (locations == null || locations.Count == 0) { return locations; }
 
-            HashSet<Location> uniqueLocations = new HashSet<Location>(Location.ValueComparer);
-            List<Location> newLocations = new List<Location>();
+            var uniqueLocations = new HashSet<Location>(Location.ValueComparer);
+            var newLocations = new List<Location>();
 
             foreach (Location location in locations)
             {
@@ -190,8 +190,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         {
             if (logicalLocations == null || logicalLocations.Count == 0) { return logicalLocations; }
 
-            HashSet<LogicalLocation> uniqueLocations = new HashSet<LogicalLocation>(LogicalLocation.ValueComparer);
-            List<LogicalLocation> newLocations = new List<LogicalLocation>();
+            var uniqueLocations = new HashSet<LogicalLocation>(LogicalLocation.ValueComparer);
+            var newLocations = new List<LogicalLocation>();
 
             foreach (LogicalLocation logicalLocation in logicalLocations)
             {

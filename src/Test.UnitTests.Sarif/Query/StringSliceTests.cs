@@ -34,7 +34,7 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Query
             Assert.Equal(-1, empty.CompareTo(":"));
 
             // AppendTo shouldn't do anything
-            StringBuilder result = new StringBuilder();
+            var result = new StringBuilder();
             empty.AppendTo(result);
             Assert.Equal(0, result.Length);
 
@@ -62,7 +62,7 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Query
             Assert.Equal(3, slice.Length);
             Assert.Equal(0, slice.CompareTo("the"));
 
-            StringBuilder result = new StringBuilder();
+            var result = new StringBuilder();
             slice.AppendTo(result);
             Assert.Equal(3, result.Length);
             Assert.Equal("the", result.ToString());

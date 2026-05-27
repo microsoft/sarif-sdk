@@ -23,7 +23,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         {
             public TestFixture()
             {
-                TestAssetResourceExtractor extractor = new TestAssetResourceExtractor(typeof(QueryCommandTests));
+                var extractor = new TestAssetResourceExtractor(typeof(QueryCommandTests));
                 File.WriteAllText(fileWithPropertyBag, extractor.GetResourceText(fileWithPropertyBag));
             }
         }

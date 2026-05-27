@@ -3,7 +3,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text.RegularExpressions;
 
 namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
@@ -33,29 +32,24 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         /// </summary>
         public override MultiformatMessageString FullDescription => new MultiformatMessageString { Text = RuleResources.SARIF1012_MessageArgumentsMustBeConsistentWithRule_FullDescription_Text };
 
-        protected override IEnumerable<string> MessageResourceNames => new string[] {
+        protected override ICollection<string> MessageResourceNames => new List<string> {
             nameof(RuleResources.SARIF1012_MessageArgumentsMustBeConsistentWithRule_Error_MessageIdMustExist_Text),
             nameof(RuleResources.SARIF1012_MessageArgumentsMustBeConsistentWithRule_Error_SupplyEnoughMessageArguments_Text)
         };
 
         private static readonly Regex s_replacementSequenceRegex = new Regex(@"\{(?<index>\d+)\}", RegexOptions.Compiled | RegexOptions.CultureInvariant);
-        private IList<ReportingDescriptor> currentRules;
-        private Run run;
-
-        protected override void Analyze(Run run, string runPointer)
-        {
-            this.run = run;
-            this.currentRules = run.Tool.Driver?.Rules;
-        }
 
         protected override void Analyze(Result result, string resultPointer)
         {
+            Run run = Context.CurrentRun;
+            IList<ReportingDescriptor> currentRules = run?.Tool.Driver?.Rules;
+
             // If message.id is present, check that a message with that id exists in the rule.
             if (!string.IsNullOrEmpty(result.Message.Id))
             {
-                ReportingDescriptor rule = result.GetRule(this.run);
+                ReportingDescriptor rule = result.GetRule(run);
 
-                if (this.currentRules == null
+                if (currentRules == null
                     || rule.MessageStrings?.ContainsKey(result.Message.Id) == false)
                 {
                     // {0}: This message object refers to the message with id '{1}' in rule '{2}',

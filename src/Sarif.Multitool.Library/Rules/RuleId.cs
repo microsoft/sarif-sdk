@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft. All rights reserved.
+// Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
@@ -37,6 +37,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         public const string ProvideDynamicMessageContent = "SARIF2014";
         public const string EnquoteDynamicMessageContent = "SARIF2015";
         public const string FileUrisShouldBeRelative = "SARIF2016";
+        public const string SARIFProvideRequiredRegionProperties = "SARIF2017";
 
         // Rules required to upload SARIF files to GitHub Advanced Security code scanning.
         // These rules are disabled by default. The can be enabled by running the Multitool
@@ -49,7 +50,56 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         public const string ProvideCheckoutPath = "GH1006";
         public const string ProvideFullyFormattedMessageStrings = "GH1007";
 
+        // Rules for GHAS.
+        public const string GHASReferenceFinalSchema = "GH1011";
+        public const string GHASProvideRequiredSarifLogProperties = "GH1013";
+        public const string GHASProvideRequiredRunProperties = "GH1014";
+        public const string GHASProvideRequiredResultProperties = "GH1015";
+        public const string GHASProvideRequiredLocationProperties = "GH1016";
+        public const string GHASProvideRequiredPhysicalLocationProperties = "GH1017";
+        public const string GHASProvideRequiredToolProperties = "GH1018";
+        public const string GHASProvideRequiredReportingDescriptorProperties = "GH2012";
+
+        // Rules for GHAzDO (GitHub Advanced Security for Azure DevOps).
+        public const string GHAzDOReferenceFinalSchema = "GHAzDO1011";
+        public const string GHAzDOProvideRequiredSarifLogProperties = "GHAzDO1013";
+        public const string GHAzDOProvideRequiredRunProperties = "GHAzDO1014";
+        public const string GHAzDOProvideRequiredResultProperties = "GHAzDO1015";
+        public const string GHAzDOProvideRequiredLocationProperties = "GHAzDO1016";
+        public const string GHAzDOProvideRequiredPhysicalLocationProperties = "GHAzDO1017";
+        public const string GHAzDOProvideToolDriverProperties = "GHAzDO1018";
+        public const string GHAzDOProvidePipelineProperties = "GHAzDO1019";
+        public const string GHAzDOProvideAutomationDetailsIdFormat = "GHAzDO1020";
+        public const string GHAzDOProvideRequiredReportingDescriptorProperties = "GHAzDO2012";
+
         // TEMPLATE:
         // public const string RuleFriendlyName = "SARIFnnnn";
+
+        // Rules for AI-generated SARIF findings.
+        // These rules are disabled by default. They can be enabled by running the Multitool
+        // with --rule-kind AI.
+        //
+        // AI1xxx: MUST/SHALL constraints (Error level).
+        // AI2xxx: SHOULD constraints (Warning or Note level).
+        public const string AIProvideRequiredRegionProperties = "AI1003";
+        public const string AIProvideVersionControlProvenance = "AI1004";
+        public const string AIProvideMessageMarkdown = "AI1005";
+        public const string AIProvideAIOrigin = "AI1006";
+        public const string AIProvideEvidenceBackingUri = "AI1010";
+        public const string AIRedactedRunMarker = "AI1011";
+        public const string AIProvideRuleSubId = "AI1012";
+        public const string AIProvideNotificationAssociatedRule = "AI1013";
+
+        public const string AIProvideSemanticVersion = "AI2003";
+        public const string AIProvideAutomationDetails = "AI2005";
+        public const string AIProvideResultRank = "AI2010";
+        public const string AIDoNotPersistFingerprints = "AI2011";
+        public const string AIProvideAiHandoff = "AI2012";
+        public const string AIProvideExploitability = "AI2014";
+        public const string AIProvideAttackerPosition = "AI2015";
+        public const string AIProvideEvidenceBacking = "AI2016";
+        public const string AIProvideNotificationDescriptor = "AI2017";
+        public const string AIProvideLearningSignalArtifact = "AI2018";
+        public const string AIProvideNotificationTimestamp = "AI2019";
     }
 }

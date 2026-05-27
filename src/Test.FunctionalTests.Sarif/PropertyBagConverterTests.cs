@@ -31,7 +31,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             long longPropertyValue = (long)10 * int.MaxValue;
 
             string dateTimePropertyName = nameof(dateTimePropertyName);
-            DateTime dateTimePropertyValue = new DateTime(2019, 9, 27, 13, 52, 0);
+            var dateTimePropertyValue = new DateTime(2019, 9, 27, 13, 52, 0);
 
             var run = new Run
             {

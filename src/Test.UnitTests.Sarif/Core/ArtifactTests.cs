@@ -33,27 +33,52 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Core
         {
             string filePath = Path.GetTempFileName();
             string fileContents = Guid.NewGuid().ToString();
-            Uri uri = new Uri(filePath);
+            var uri = new Uri(filePath);
 
             try
             {
                 File.WriteAllText(filePath, fileContents);
-                Artifact fileData = Artifact.Create(uri, OptionallyEmittedData.Hashes);
+                var fileData = Artifact.Create(uri, OptionallyEmittedData.Hashes);
                 fileData.Location.Should().Be(null);
                 HashData hashes = HashUtilities.ComputeHashes(filePath);
                 fileData.Contents.Should().BeNull();
-                fileData.Hashes.Count.Should().Be(3);
+
+                // SHA-1 is no longer emitted by default; SHA-256 is the only key.
+                fileData.Hashes.Should().NotContainKey("sha-1");
+                fileData.Hashes["sha-256"].Should().Be(hashes.Sha256);
 
                 foreach (string algorithm in fileData.Hashes.Keys)
                 {
                     switch (algorithm)
                     {
-                        case "md5": { fileData.Hashes[algorithm].Should().Be(hashes.MD5); break; }
-                        case "sha-1": { fileData.Hashes[algorithm].Should().Be(hashes.Sha1); break; }
                         case "sha-256": { fileData.Hashes[algorithm].Should().Be(hashes.Sha256); break; }
                         default: { true.Should().BeFalse(); break; /* unexpected algorithm kind */ }
                     }
                 }
+            }
+            finally
+            {
+                if (File.Exists(filePath)) { File.Delete(filePath); }
+            }
+        }
+
+        [Fact]
+        public void Artifact_Create_HashesNotRequested_DoesNotEmitEmptyHashesObject()
+        {
+            // When the caller passes a HashData with all-null properties (e.g., produced
+            // by HashAlgorithms.None), Artifact.Create must not emit an empty "hashes": {}
+            // object on the resulting artifact.
+            string filePath = Path.GetTempFileName();
+            var uri = new Uri(filePath);
+
+            try
+            {
+                File.WriteAllText(filePath, "irrelevant");
+
+                var emptyHashData = new HashData();
+                var artifact = Artifact.Create(uri, OptionallyEmittedData.None, hashData: emptyHashData);
+
+                artifact.Hashes.Should().BeNull();
             }
             finally
             {
@@ -82,12 +107,12 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Core
         {
             string filePath = Path.GetTempFileName() + fileExtension;
             string fileContents = Guid.NewGuid().ToString();
-            Uri uri = new Uri(filePath);
+            var uri = new Uri(filePath);
 
             try
             {
                 File.WriteAllText(filePath, fileContents);
-                Artifact fileData = Artifact.Create(uri, dataToInsert);
+                var fileData = Artifact.Create(uri, dataToInsert);
                 fileData.Location.Should().BeNull();
 
                 if (dataToInsert.HasFlag(OptionallyEmittedData.Hashes))
@@ -134,12 +159,12 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Core
             string textValue = "अचम्भा";
             byte[] fileContents = encoding.GetBytes(textValue);
 
-            Uri uri = new Uri(filePath);
+            var uri = new Uri(filePath);
 
             try
             {
                 File.WriteAllBytes(filePath, fileContents);
-                Artifact fileData = Artifact.Create(uri, OptionallyEmittedData.TextFiles, encoding: encoding);
+                var fileData = Artifact.Create(uri, OptionallyEmittedData.TextFiles, encoding: encoding);
                 fileData.Location.Should().Be(null);
                 fileData.Hashes.Should().BeNull();
 
@@ -158,8 +183,8 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Core
             // If a file does not exist, and we request file contents
             // persistence, the logger will not raise an exception
             string filePath = Path.GetTempFileName();
-            Uri uri = new Uri(filePath);
-            Artifact fileData = Artifact.Create(uri, OptionallyEmittedData.TextFiles);
+            var uri = new Uri(filePath);
+            var fileData = Artifact.Create(uri, OptionallyEmittedData.TextFiles);
             fileData.Location.Should().Be(null);
             fileData.Hashes.Should().BeNull();
             fileData.Contents.Should().BeNull();
@@ -169,7 +194,7 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Core
         public void Artifact_FileIsLocked()
         {
             string filePath = Path.GetTempFileName();
-            Uri uri = new Uri(filePath);
+            var uri = new Uri(filePath);
 
             try
             {
@@ -177,7 +202,7 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Core
                 // This raises an IOException, which is swallowed by FileData.Create
                 using (FileStream exclusiveAccessReader = File.Open(filePath, FileMode.Open, FileAccess.Read, FileShare.None))
                 {
-                    Artifact fileData = Artifact.Create(uri, OptionallyEmittedData.TextFiles);
+                    var fileData = Artifact.Create(uri, OptionallyEmittedData.TextFiles);
                     fileData.Location.Should().Be(null);
                     fileData.Hashes.Should().BeNull();
                     fileData.Contents.Should().BeNull();
@@ -204,7 +229,7 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Core
         [Fact]
         public void Artifact_SerializeSingleFileRole()
         {
-            Artifact fileData = Artifact.Create(new Uri("file:///example.cs"), OptionallyEmittedData.None);
+            var fileData = Artifact.Create(new Uri("file:///example.cs"), OptionallyEmittedData.None);
             fileData.Roles = ArtifactRoles.AnalysisTarget;
 
             string result = JsonConvert.SerializeObject(fileData);
@@ -215,7 +240,7 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Core
         [Fact]
         public void Artifact_SerializeMultipleFileRoles()
         {
-            Artifact fileData = Artifact.Create(new Uri("file:///example.cs"), OptionallyEmittedData.None);
+            var fileData = Artifact.Create(new Uri("file:///example.cs"), OptionallyEmittedData.None);
             fileData.Roles = ArtifactRoles.ResponseFile | ArtifactRoles.ResultFile;
 
             string actual = JsonConvert.SerializeObject(fileData);
@@ -226,14 +251,14 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Core
         [Fact]
         public void Artifact_DeserializeSingleFileRole()
         {
-            Artifact actual = JsonConvert.DeserializeObject("{\"roles\":[\"analysisTarget\"]}", typeof(Artifact)) as Artifact;
+            var actual = JsonConvert.DeserializeObject("{\"roles\":[\"analysisTarget\"]}", typeof(Artifact)) as Artifact;
             actual.Roles.Should().Be(ArtifactRoles.AnalysisTarget);
         }
 
         [Fact]
         public void Artifact_DeserializeMultipleFileRoles()
         {
-            Artifact actual = JsonConvert.DeserializeObject("{\"roles\":[\"responseFile\",\"resultFile\"]}", typeof(Artifact)) as Artifact;
+            var actual = JsonConvert.DeserializeObject("{\"roles\":[\"responseFile\",\"resultFile\"]}", typeof(Artifact)) as Artifact;
             actual.Roles.Should().Be(ArtifactRoles.ResponseFile | ArtifactRoles.ResultFile);
         }
 
@@ -241,11 +266,11 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Core
         {
             string extension = isTextFile ? ".cs" : ".dll";
             string filePath = Path.GetFullPath(Guid.NewGuid().ToString()) + extension;
-            Uri uri = new Uri(filePath);
+            var uri = new Uri(filePath);
 
             IFileSystem fileSystem = SetUnauthorizedAccessExceptionMock();
 
-            Artifact fileData = Artifact.Create(
+            var fileData = Artifact.Create(
                 uri,
                 OptionallyEmittedData.TextFiles,
                 encoding: null,

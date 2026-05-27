@@ -8,6 +8,8 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
 
 using FluentAssertions;
 
@@ -49,18 +51,18 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             string expectedText = s_extractor.GetResourceText("SimpleExample.sarif");
 
-            MemoryStream memoryStream = new MemoryStream();
+            var memoryStream = new MemoryStream();
             var streamWriter = new StreamWriter(memoryStream);
 
             using (var logger = new SarifLogger(streamWriter,
-                                                logFilePersistenceOptions: LogFilePersistenceOptions.PrettyPrint,
+                                                logFilePersistenceOptions: FilePersistenceOptions.PrettyPrint,
                                                 dataToRemove: OptionallyEmittedData.NondeterministicProperties,
                                                 closeWriterOnDispose: closeWriterOnDispose,
-                                                levels: new List<FailureLevel> { FailureLevel.Warning, FailureLevel.Error },
-                                                kinds: new List<ResultKind> { ResultKind.Fail }))
+                                                levels: BaseLogger.ErrorWarning,
+                                                kinds: BaseLogger.Fail))
             {
                 logger.Log(new ReportingDescriptor { Id = "MyId" },
-                           new Result { Message = new Message { Text = "My text" }, RuleId = "MyId" });
+                           new Result { Message = new Message { Text = "My text" }, RuleId = "MyId" }, null);
             }
 
             // Important. Force streamwriter to commit everything.
@@ -169,11 +171,11 @@ namespace Microsoft.CodeAnalysis.Sarif
 
                 using (_ = new SarifLogger(textWriter,
                                            analysisTargets: null,
-                                           logFilePersistenceOptions: LogFilePersistenceOptions.None,
+                                           logFilePersistenceOptions: FilePersistenceOptions.None,
                                            invocationTokensToRedact: tokensToRedact,
                                            invocationPropertiesToLog: new List<string> { "CommandLine" },
-                                           levels: new List<FailureLevel> { FailureLevel.Warning, FailureLevel.Error },
-                                           kinds: new List<ResultKind> { ResultKind.Fail })) { }
+                                           levels: BaseLogger.ErrorWarning,
+                                           kinds: BaseLogger.Fail)) { }
 
                 string result = sb.ToString();
                 result.Split(new string[] { SarifConstants.RedactedMarker }, StringSplitOptions.None)
@@ -203,8 +205,8 @@ namespace Microsoft.CodeAnalysis.Sarif
                     using (var sarifLogger = new SarifLogger(textWriter,
                                                              analysisTargets: analysisTargets,
                                                              dataToInsert: OptionallyEmittedData.Hashes,
-                                                             levels: new List<FailureLevel> { FailureLevel.Warning, FailureLevel.Error },
-                                                             kinds: new List<ResultKind> { ResultKind.Fail }))
+                                                             levels: BaseLogger.ErrorWarning,
+                                                             kinds: BaseLogger.Fail))
                     {
                         LogSimpleResult(sarifLogger);
                     }
@@ -225,11 +227,11 @@ namespace Microsoft.CodeAnalysis.Sarif
             {
                 using (var sarifLogger = new SarifLogger(textWriter,
                                                          analysisTargets: new string[] { @"example.cpp" },
-                                                         logFilePersistenceOptions: LogFilePersistenceOptions.None,
+                                                         logFilePersistenceOptions: FilePersistenceOptions.None,
                                                          invocationTokensToRedact: null,
                                                          invocationPropertiesToLog: null,
-                                                         levels: new List<FailureLevel> { FailureLevel.Warning, FailureLevel.Error },
-                                                         kinds: new List<ResultKind> { ResultKind.Fail }))
+                                                         levels: BaseLogger.ErrorWarning,
+                                                         kinds: BaseLogger.Fail))
                 {
                     LogSimpleResult(sarifLogger);
                 }
@@ -255,10 +257,10 @@ namespace Microsoft.CodeAnalysis.Sarif
             var versionControlUri = new Uri("https://www.github.com/contoso/contoso");
             var versionControlDetails = new VersionControlDetails() { RepositoryUri = versionControlUri, AsOfTimeUtc = DateTime.UtcNow };
             string originalUriBaseIdKey = "testBase";
-            Uri originalUriBaseIdValue = new Uri("https://sourceserver.contoso.com");
+            var originalUriBaseIdValue = new Uri("https://sourceserver.contoso.com");
             var originalUriBaseIds = new Dictionary<string, ArtifactLocation>() { { originalUriBaseIdKey, new ArtifactLocation { Uri = originalUriBaseIdValue } } };
             string defaultEncoding = "UTF7";
-            List<string> redactionTokens = new List<string> { "[MY_REDACTION_TOKEN]" };
+            var redactionTokens = new List<string> { "[MY_REDACTION_TOKEN]" };
 
             var sb = new StringBuilder();
 
@@ -284,8 +286,8 @@ namespace Microsoft.CodeAnalysis.Sarif
                 using (_ = new SarifLogger(textWriter,
                                            run: run,
                                            invocationPropertiesToLog: null,
-                                           levels: new List<FailureLevel> { FailureLevel.Warning, FailureLevel.Error },
-                                           kinds: new List<ResultKind> { ResultKind.Fail }))
+                                           levels: BaseLogger.ErrorWarning,
+                                           kinds: BaseLogger.Fail))
                 {
                 }
             }
@@ -323,8 +325,8 @@ namespace Microsoft.CodeAnalysis.Sarif
                                                          dataToInsert: OptionallyEmittedData.Hashes,
                                                          invocationTokensToRedact: null,
                                                          invocationPropertiesToLog: null,
-                                                         levels: new List<FailureLevel> { FailureLevel.Warning, FailureLevel.Error },
-                                                         kinds: new List<ResultKind> { ResultKind.Fail }))
+                                                         levels: BaseLogger.ErrorWarning,
+                                                         kinds: BaseLogger.Fail))
                 {
                     LogSimpleResult(sarifLogger);
                 }
@@ -333,10 +335,47 @@ namespace Microsoft.CodeAnalysis.Sarif
             string logText = sb.ToString();
 
             SarifLog sarifLog = JsonConvert.DeserializeObject<SarifLog>(logText);
-            sarifLog.Runs[0].Artifacts[0].Hashes.Keys.Count.Should().Be(3);
-            sarifLog.Runs[0].Artifacts[0].Hashes["md5"].Should().Be("4B9DC12934390387862CC4AB5E4A2159");
-            sarifLog.Runs[0].Artifacts[0].Hashes["sha-1"].Should().Be("9B59B1C1E3F5F7013B10F6C6B7436293685BAACE");
+            // SHA-1 is no longer emitted by default; SHA-256 remains the default algorithm.
+            sarifLog.Runs[0].Artifacts[0].Hashes.Should().NotContainKey("sha-1");
             sarifLog.Runs[0].Artifacts[0].Hashes["sha-256"].Should().Be("0953D7B3ADA7FED683680D2107EE517A9DBEC2D0AF7594A91F058D104B7A2AEB");
+        }
+
+        [Fact]
+        public void SarifLogger_GitBlobSha1Requested_EmitsGitBlobShaInArtifactHashes()
+        {
+            // Canonical git blob SHA-1 for the ASCII bytes of `#include "windows.h";` (21 bytes, no trailing newline).
+            // Verified against `git hash-object` for the same byte sequence.
+            const string ExpectedGitBlobSha1 = "e7b1c4ad7a76616c5313bfa64ebd50fb478aef9d";
+
+            var sb = new StringBuilder();
+            string file;
+
+            using (var tempFile = new TempFile(".cpp"))
+            using (var textWriter = new StringWriter(sb))
+            {
+                file = tempFile.Name;
+                File.WriteAllText(file, "#include \"windows.h\";");
+
+                using (var sarifLogger = new SarifLogger(textWriter,
+                                                         analysisTargets: new string[] { file },
+                                                         dataToInsert: OptionallyEmittedData.Hashes,
+                                                         hashAlgorithms: HashAlgorithms.Sha256 | HashAlgorithms.GitBlobSha1,
+                                                         invocationTokensToRedact: null,
+                                                         invocationPropertiesToLog: null,
+                                                         levels: BaseLogger.ErrorWarning,
+                                                         kinds: BaseLogger.Fail))
+                {
+                    LogSimpleResult(sarifLogger);
+                }
+            }
+
+            string logText = sb.ToString();
+
+            SarifLog sarifLog = JsonConvert.DeserializeObject<SarifLog>(logText);
+            IDictionary<string, string> hashes = sarifLog.Runs[0].Artifacts[0].Hashes;
+            hashes.Should().NotContainKey("sha-1");
+            hashes["sha-256"].Should().Be("0953D7B3ADA7FED683680D2107EE517A9DBEC2D0AF7594A91F058D104B7A2AEB");
+            hashes["git-blob-sha-1"].Should().Be(ExpectedGitBlobSha1);
         }
 
         [Fact]
@@ -373,8 +412,8 @@ namespace Microsoft.CodeAnalysis.Sarif
                                                run: run,
                                                analysisTargets: analysisTargets,
                                                dataToInsert: OptionallyEmittedData.TextFiles,
-                                               levels: new List<FailureLevel> { FailureLevel.Warning, FailureLevel.Error },
-                                               kinds: new List<ResultKind> { ResultKind.Fail }))
+                                               levels: BaseLogger.ErrorWarning,
+                                               kinds: BaseLogger.Fail))
                     {
                     }
 
@@ -452,10 +491,10 @@ namespace Microsoft.CodeAnalysis.Sarif
                     using (var sarifLogger = new SarifLogger(textWriter,
                                                              run: run,
                                                              dataToInsert: OptionallyEmittedData.TextFiles,
-                                                             levels: new List<FailureLevel> { FailureLevel.Warning, FailureLevel.Error },
-                                                             kinds: new List<ResultKind> { ResultKind.Fail }))
+                                                             levels: BaseLogger.ErrorWarning,
+                                                             kinds: BaseLogger.Fail))
                     {
-                        sarifLogger.Log(rule, result);
+                        sarifLogger.Log(rule, result, null);
                     }
 
                     // The logger should have populated the artifact contents.
@@ -486,8 +525,8 @@ namespace Microsoft.CodeAnalysis.Sarif
                                                          invocationTokensToRedact: null,
                                                          invocationPropertiesToLog: null,
                                                          defaultFileEncoding: "ImaginaryEncoding",
-                                                         levels: new List<FailureLevel> { FailureLevel.Warning, FailureLevel.Error },
-                                                         kinds: new List<ResultKind> { ResultKind.Fail }))
+                                                         levels: BaseLogger.ErrorWarning,
+                                                         kinds: BaseLogger.Fail))
                 {
                     LogSimpleResult(sarifLogger);
                 }
@@ -506,15 +545,22 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             var sb = new StringBuilder();
 
+            var fileRegionsCache = new FileRegionsCache();
+            for (int i = 0; i < 6; i++)
+            {
+                fileRegionsCache.GetHashData(new Uri(@$"file:///c:/file{i}.cpp"), Guid.NewGuid().ToString());
+            }
+
             using (var textWriter = new StringWriter(sb))
             {
                 using (var sarifLogger = new SarifLogger(textWriter,
                                                          analysisTargets: null,
                                                          dataToInsert: OptionallyEmittedData.Hashes,
+                                                         fileRegionsCache: fileRegionsCache,
                                                          invocationTokensToRedact: null,
                                                          invocationPropertiesToLog: null,
-                                                         levels: new List<FailureLevel> { FailureLevel.Warning, FailureLevel.Error },
-                                                         kinds: new List<ResultKind> { ResultKind.Fail }))
+                                                         levels: BaseLogger.ErrorWarning,
+                                                         kinds: BaseLogger.Fail))
                 {
                     string ruleId = "RuleId";
                     var rule = new ReportingDescriptor { Id = ruleId };
@@ -523,7 +569,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                     {
                         RuleId = ruleId,
                         Message = new Message { Text = "Some testing occurred." },
-                        AnalysisTarget = new ArtifactLocation { Uri = new Uri(@"file:///file0.cpp") },
+                        AnalysisTarget = new ArtifactLocation { Uri = new Uri(@"file:///c:/file0.cpp") },
                         Locations = new[]
                         {
                             new Location
@@ -532,7 +578,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                                 {
                                     ArtifactLocation = new ArtifactLocation
                                     {
-                                        Uri = new Uri(@"file:///file1.cpp")
+                                        Uri = new Uri(@"file:///c:/file1.cpp")
                                     }
                                 }
                             },
@@ -547,7 +593,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                                    {
                                         ArtifactLocation = new ArtifactLocation
                                         {
-                                            Uri = new Uri(@"file:///file2.cpp")
+                                            Uri = new Uri(@"file:///c:/file2.cpp")
                                         },
                                         Replacements = new[]
                                         {
@@ -567,7 +613,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                                 {
                                     ArtifactLocation = new ArtifactLocation
                                     {
-                                        Uri = new Uri(@"file:///file3.cpp")
+                                        Uri = new Uri(@"file:///c:/file3.cpp")
                                     }
                                 }
                             }
@@ -586,7 +632,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                                             {
                                                 ArtifactLocation = new ArtifactLocation
                                                 {
-                                                    Uri = new Uri(@"file:///file4.cpp")
+                                                    Uri = new Uri(@"file:///c:/file4.cpp")
                                                 }
                                             }
                                         }
@@ -612,7 +658,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                                                     {
                                                         ArtifactLocation = new ArtifactLocation
                                                         {
-                                                            Uri = new Uri(@"file:///file5.cpp")
+                                                            Uri = new Uri(@"file:///c:/file5.cpp")
                                                         }
                                                     }
                                                 }
@@ -624,7 +670,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                         }
                     };
 
-                    sarifLogger.Log(rule, result);
+                    sarifLogger.Log(rule, result, null);
                 }
             }
 
@@ -636,7 +682,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             for (int i = 0; i < fileCount; ++i)
             {
                 string fileName = @"file" + i + ".cpp";
-                string fileDataKey = "file:///" + fileName;
+                string fileDataKey = "file:///c:/" + fileName;
                 sarifLog.Runs[0].Artifacts.Where(f => f.Location.Uri.AbsoluteUri.ToString().Contains(fileDataKey)).Any().Should().BeTrue();
             }
 
@@ -655,8 +701,8 @@ namespace Microsoft.CodeAnalysis.Sarif
                                                          dataToInsert: OptionallyEmittedData.Hashes,
                                                          invocationTokensToRedact: null,
                                                          invocationPropertiesToLog: null,
-                                                         levels: new List<FailureLevel> { FailureLevel.Warning, FailureLevel.Error },
-                                                         kinds: new List<ResultKind> { ResultKind.Fail }))
+                                                         levels: BaseLogger.ErrorWarning,
+                                                         kinds: BaseLogger.Fail))
                 {
                     LogSimpleResult(sarifLogger);
                 }
@@ -688,8 +734,8 @@ namespace Microsoft.CodeAnalysis.Sarif
                                                          dataToInsert: OptionallyEmittedData.Hashes,
                                                          invocationTokensToRedact: null,
                                                          invocationPropertiesToLog: new[] { "WorkingDirectory", "ProcessId" },
-                                                         levels: new List<FailureLevel> { FailureLevel.Warning, FailureLevel.Error },
-                                                         kinds: new List<ResultKind> { ResultKind.Fail }))
+                                                         levels: BaseLogger.ErrorWarning,
+                                                         kinds: BaseLogger.Fail))
                 {
                     LogSimpleResult(sarifLogger);
                 }
@@ -725,8 +771,8 @@ namespace Microsoft.CodeAnalysis.Sarif
                                                          dataToInsert: OptionallyEmittedData.Hashes,
                                                          invocationTokensToRedact: null,
                                                          invocationPropertiesToLog: new[] { "WORKINGDIRECTORY", "prOCessID" },
-                                                         levels: new List<FailureLevel> { FailureLevel.Warning, FailureLevel.Error },
-                                                         kinds: new List<ResultKind> { ResultKind.Fail }))
+                                                         levels: BaseLogger.ErrorWarning,
+                                                         kinds: BaseLogger.Fail))
                 {
                     LogSimpleResult(sarifLogger);
                 }
@@ -750,13 +796,13 @@ namespace Microsoft.CodeAnalysis.Sarif
             using (var textWriter = new StringWriter(sb))
             {
                 using (var sarifLogger = new SarifLogger(textWriter: textWriter,
-                                                         levels: new List<FailureLevel> { FailureLevel.Warning, FailureLevel.Error },
-                                                         kinds: new List<ResultKind> { ResultKind.Fail }))
+                                                         levels: BaseLogger.ErrorWarning,
+                                                         kinds: BaseLogger.Fail))
                 {
                     var rule = new ReportingDescriptor { Id = "RuleId" };
                     var result = new Result { RuleId = "RuleId/1" };
 
-                    Action action = () => sarifLogger.Log(rule, result);
+                    Action action = () => sarifLogger.Log(rule, result, null);
                     action.Should().NotThrow();
                 }
             }
@@ -774,8 +820,8 @@ namespace Microsoft.CodeAnalysis.Sarif
             {
                 using (_ = new SarifLogger(textWriter,
                                            run: run,
-                                           levels: new List<FailureLevel> { FailureLevel.Warning, FailureLevel.Error },
-                                           kinds: new List<ResultKind> { ResultKind.Fail }))
+                                           levels: BaseLogger.ErrorWarning,
+                                           kinds: BaseLogger.Fail))
                 {
                 }
             }
@@ -820,8 +866,8 @@ namespace Microsoft.CodeAnalysis.Sarif
                 using (_ = new SarifLogger(textWriter,
                                            run: run,
                                            analysisTargets: analysisTargets,
-                                           levels: new List<FailureLevel> { FailureLevel.Warning, FailureLevel.Error },
-                                           kinds: new List<ResultKind> { ResultKind.Fail }))
+                                           levels: BaseLogger.ErrorWarning,
+                                           kinds: BaseLogger.Fail))
                 {
                 }
             }
@@ -837,13 +883,13 @@ namespace Microsoft.CodeAnalysis.Sarif
         [Fact]
         public void SarifLogger_AcceptsOverrideOfDefaultEncoding()
         {
-            const string Utf8 = "UTF-8";
-            const string Utf7 = "UTF-7";
+            const string utf8 = "UTF-8";
+            const string ascii = "ASCII";
 
             // Start off with a run that specifies the default file encoding.
             var run = new Run
             {
-                DefaultEncoding = Utf8
+                DefaultEncoding = utf8
             };
 
             var sb = new StringBuilder();
@@ -853,9 +899,9 @@ namespace Microsoft.CodeAnalysis.Sarif
                 // Create a logger that uses that run but specifies a different encoding.
                 using (_ = new SarifLogger(textWriter,
                                            run: run,
-                                           defaultFileEncoding: Utf7,
-                                           levels: new List<FailureLevel> { FailureLevel.Warning, FailureLevel.Error },
-                                           kinds: new List<ResultKind> { ResultKind.Fail }))
+                                           defaultFileEncoding: ascii,
+                                           levels: BaseLogger.ErrorWarning,
+                                           kinds: BaseLogger.Fail))
                 {
                 }
             }
@@ -864,13 +910,13 @@ namespace Microsoft.CodeAnalysis.Sarif
             SarifLog sarifLog = JsonConvert.DeserializeObject<SarifLog>(logText);
 
             // The logger accepted the override for default file encoding.
-            sarifLog.Runs[0].DefaultEncoding.Should().Be(Utf7);
+            sarifLog.Runs[0].DefaultEncoding.Should().Be(ascii);
         }
 
         private void LogSimpleResult(SarifLogger sarifLogger)
         {
-            ReportingDescriptor rule = new ReportingDescriptor { Id = "RuleId" };
-            sarifLogger.Log(rule, CreateSimpleResult(rule));
+            var rule = new ReportingDescriptor { Id = "RuleId" };
+            sarifLogger.Log(rule, CreateSimpleResult(rule), null);
         }
 
         private Result CreateSimpleResult(ReportingDescriptor rule)
@@ -927,7 +973,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             OptionallyEmittedData dataToInsert = OptionallyEmittedData.ComprehensiveRegionProperties | OptionallyEmittedData.ContextRegionSnippets;
             var sarifLogger = new SarifLogger(writer, fileRegionsCache: fileRegionsCache, dataToInsert: dataToInsert);
-            sarifLogger.Log(rule, result);
+            sarifLogger.Log(rule, result, null);
 
             region = new Region() { StartLine = 2 };
             Region expectedRegion = fileRegionsCache.PopulateTextRegionProperties(region, uri, populateSnippet: true, fileText);
@@ -944,8 +990,8 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             using (var writer = new StringWriter(sb))
             using (var sarifLogger = new SarifLogger(writer,
-                                                     kinds: new List<ResultKind> { ResultKind.Fail },
-                                                     levels: new List<FailureLevel> { FailureLevel.Warning, FailureLevel.Error }))
+                                                     kinds: BaseLogger.Fail,
+                                                     levels: BaseLogger.ErrorWarning))
             {
                 var rule = new ReportingDescriptor
                 {
@@ -958,23 +1004,23 @@ namespace Microsoft.CodeAnalysis.Sarif
                     Message = new Message { Text = "test message" }
                 };
 
-                Assert.Throws<ArgumentException>(() => sarifLogger.Log(rule, result));
+                Assert.Throws<ArgumentException>(() => sarifLogger.Log(rule, result, null));
             }
         }
 
         [Fact]
         public void SarifLogger_LoggingOptions()
         {
-            foreach (object loggingOptionsObject in Enum.GetValues(typeof(LogFilePersistenceOptions)))
+            foreach (object loggingOptionsObject in Enum.GetValues(typeof(FilePersistenceOptions)))
             {
-                TestForLoggingOption((LogFilePersistenceOptions)loggingOptionsObject);
+                TestForLoggingOption((FilePersistenceOptions)loggingOptionsObject);
             }
         }
 
         // This helper is intended to validate a single enum member only
         // and not arbitrary combinations of bits. One defined member,
         // All, contains all bits.
-        private void TestForLoggingOption(LogFilePersistenceOptions loggingOption)
+        private void TestForLoggingOption(FilePersistenceOptions loggingOption)
         {
             string fileName = Path.GetTempFileName();
 
@@ -985,11 +1031,11 @@ namespace Microsoft.CodeAnalysis.Sarif
                 // Validates overload that accept a path argument.
                 using (logger = new SarifLogger(fileName,
                                                 loggingOption,
-                                                levels: new List<FailureLevel> { FailureLevel.Warning, FailureLevel.Error },
-                                                kinds: new List<ResultKind> { ResultKind.Fail }))
+                                                levels: BaseLogger.ErrorWarning,
+                                                kinds: BaseLogger.Fail))
                 {
                     ValidateLoggerForExclusiveOption(logger, loggingOption);
-                };
+                }
 
                 // Validates overload that accepts any 
                 // TextWriter (for example, one instantiated over a
@@ -998,11 +1044,11 @@ namespace Microsoft.CodeAnalysis.Sarif
                 var stringWriter = new StringWriter(sb);
                 using (logger = new SarifLogger(stringWriter,
                                                 loggingOption,
-                                                levels: new List<FailureLevel> { FailureLevel.Warning, FailureLevel.Error },
-                                                kinds: new List<ResultKind> { ResultKind.Fail }))
+                                                levels: BaseLogger.ErrorWarning,
+                                                kinds: BaseLogger.Fail))
                 {
                     ValidateLoggerForExclusiveOption(logger, loggingOption);
-                };
+                }
             }
             catch (Exception e)
             {
@@ -1014,57 +1060,24 @@ namespace Microsoft.CodeAnalysis.Sarif
             }
         }
 
-        private void ValidateLoggerForExclusiveOption(SarifLogger logger, LogFilePersistenceOptions loggingOptions)
+        private void ValidateLoggerForExclusiveOption(SarifLogger logger, FilePersistenceOptions loggingOptions)
         {
-            switch (loggingOptions)
-            {
-                case LogFilePersistenceOptions.None:
-                {
-                    logger.OverwriteExistingOutputFile.Should().BeFalse();
-                    logger.PrettyPrint.Should().BeFalse();
-                    logger.Optimize.Should().BeFalse();
-                    break;
-                }
-                case LogFilePersistenceOptions.OverwriteExistingOutputFile:
-                {
-                    logger.OverwriteExistingOutputFile.Should().BeTrue();
-                    logger.PrettyPrint.Should().BeFalse();
-                    logger.Optimize.Should().BeFalse();
-                    break;
-                }
-                case LogFilePersistenceOptions.PrettyPrint:
-                {
-                    logger.OverwriteExistingOutputFile.Should().BeFalse();
-                    logger.PrettyPrint.Should().BeTrue();
-                    logger.Optimize.Should().BeFalse();
-                    break;
-                }
-                case LogFilePersistenceOptions.Optimize:
-                {
-                    logger.OverwriteExistingOutputFile.Should().BeFalse();
-                    logger.PrettyPrint.Should().BeFalse();
-                    logger.Optimize.Should().BeTrue();
-                    break;
-                }
-                case LogFilePersistenceOptions.All:
-                {
-                    logger.OverwriteExistingOutputFile.Should().BeTrue();
-                    logger.PrettyPrint.Should().BeTrue();
-                    logger.Optimize.Should().BeTrue();
-                    break;
-                }
-                default:
-                {
-                    throw new ArgumentException();
-                }
-            }
+
+            bool force = loggingOptions.HasFlag(FilePersistenceOptions.ForceOverwrite);
+            logger.OverwriteExistingOutputFile.Should().Be(force);
+
+            bool prettyPrint = loggingOptions.HasFlag(FilePersistenceOptions.PrettyPrint);
+            logger.PrettyPrint.Should().Be(prettyPrint);
+
+            bool optimize = loggingOptions.HasFlag(FilePersistenceOptions.Optimize);
+            logger.Optimize.Should().Be(optimize);
         }
 
         [Fact]
         public void SarifLogger_HonorsKindAndLevel()
         {
             IEnumerable<ResultKind> nonEmptyResultKinds = Enum.GetValues(typeof(ResultKind)).Cast<ResultKind>().Where(rk => rk != ResultKind.None).ToList();
-            IEnumerable<FailureLevel> nonEmptyFailureLevels = Enum.GetValues(typeof(FailureLevel)).Cast<FailureLevel>().Where(fl => fl != FailureLevel.None).ToList();
+            IEnumerable<FailureLevel> nonEmptyFailureLevels = Enum.GetValues(typeof(FailureLevel)).Cast<FailureLevel>().ToList();
 
             var allKindLevelCombinations = new List<Result>();
             var rule = new ReportingDescriptor { Id = "RuleId" };
@@ -1095,18 +1108,18 @@ namespace Microsoft.CodeAnalysis.Sarif
                 }
             }
 
-            List<ResultKind> desiredResultKinds = new List<ResultKind> { ResultKind.Fail };
-            List<FailureLevel> desiredFailureLevels = new List<FailureLevel> { FailureLevel.Warning, FailureLevel.Error };
+            ResultKindSet desiredResultKinds = BaseLogger.Fail;
+            FailureLevelSet desiredFailureLevels = BaseLogger.ErrorWarning;
             SarifLog sarifLog = CreateSarifLog(allKindLevelCombinations, rule, desiredFailureLevels, desiredResultKinds);
             VerifySarifLogHonoredKindAndLevel(desiredFailureLevels, desiredResultKinds, sarifLog);
 
-            desiredResultKinds = new List<ResultKind> { ResultKind.NotApplicable };
-            desiredFailureLevels = new List<FailureLevel> { FailureLevel.None };
+            desiredResultKinds = BaseLogger.Fail;
+            desiredFailureLevels = new FailureLevelSet(new[] { FailureLevel.None });
             sarifLog = CreateSarifLog(allKindLevelCombinations, rule, desiredFailureLevels, desiredResultKinds);
             VerifySarifLogHonoredKindAndLevel(desiredFailureLevels, desiredResultKinds, sarifLog);
 
-            desiredResultKinds = new List<ResultKind> { ResultKind.Fail };
-            desiredFailureLevels = new List<FailureLevel> { FailureLevel.Error };
+            desiredResultKinds = BaseLogger.Fail;
+            desiredFailureLevels = new FailureLevelSet(new[] { FailureLevel.Error });
             sarifLog = CreateSarifLog(allKindLevelCombinations, rule, desiredFailureLevels, desiredResultKinds);
             VerifySarifLogHonoredKindAndLevel(desiredFailureLevels, desiredResultKinds, sarifLog);
         }
@@ -1115,18 +1128,20 @@ namespace Microsoft.CodeAnalysis.Sarif
         public void SarifLogger_ShouldWriteToArtifactsIfNotificationHasLocation()
         {
             const string filePath = @"C:\example\example.sarif";
+            var fileRegionsCache = new FileRegionsCache();
+            fileRegionsCache.GetHashData(new Uri(filePath), Guid.NewGuid().ToString());
 
             var sb = new StringBuilder();
 
             using (var writer = new StringWriter(sb))
             using (var sarifLogger = new SarifLogger(writer,
-                                                     levels: new List<FailureLevel> { FailureLevel.Warning, FailureLevel.Error },
-                                                     kinds: new List<ResultKind> { ResultKind.Fail }))
+                                                     fileRegionsCache: fileRegionsCache,
+                                                     dataToInsert: OptionallyEmittedData.Hashes))
             {
                 var emptyNotification = new Notification();
 
                 // Logging empty notification
-                sarifLogger.LogToolNotification(emptyNotification);
+                sarifLogger.LogToolNotification(emptyNotification, associatedRule: null);
                 sarifLogger.LogConfigurationNotification(emptyNotification);
 
                 var notificationWithLocation = new Notification
@@ -1146,7 +1161,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                     }
                 };
 
-                sarifLogger.LogToolNotification(notificationWithLocation);
+                sarifLogger.LogToolNotification(notificationWithLocation, associatedRule: null);
                 sarifLogger.LogConfigurationNotification(notificationWithLocation);
             }
 
@@ -1163,7 +1178,67 @@ namespace Microsoft.CodeAnalysis.Sarif
             invocation.ToolConfigurationNotifications.Where(notification => notification.Locations != null).Should().HaveCount(1);
         }
 
-        private static void VerifySarifLogHonoredKindAndLevel(List<FailureLevel> desiredFailureLevels, List<ResultKind> desiredResultKinds, SarifLog sarifLog)
+        [Fact]
+        public void SarifLogger_ShouldNotThrowWhenWritingInvalidSequences()
+        {
+            var sb = new StringBuilder();
+
+            // Basic Latin
+            sb.Append("ASCII: Hello!");
+
+            // Accented Latin (still single UTF-16 code units in BMP)
+            sb.Append(" Café Español München");
+
+            // Greek
+            sb.Append(" Ελληνικά");
+
+            // Cyrillic
+            sb.Append(" Кириллица");
+
+            // CJK
+            sb.Append(" 漢字かなカナ");
+
+            // Music symbol (U+1D11E) -> surrogate pair
+            sb.Append(" MusicalSymbol: ").Append(char.ConvertFromUtf32(0x1D11E));
+
+            // Rocket emoji (U+1F680) -> surrogate pair
+            sb.Append(" Rocket: ").Append(char.ConvertFromUtf32(0x1F680));
+
+            // Explicit escape for a single BMP code unit (snowman U+2603)
+            sb.Append(" Snowman: \u2603");
+
+            // Explicit surrogate pair via UTF-32 for U+1F600 (grinning face)
+            int grinningFace = 0x1F600;
+            sb.Append(" Grin: ").Append(char.ConvertFromUtf32(grinningFace));
+
+            // Add some edge cases: lone high/low surrogate replaced with U+FFFD if sanitized
+            // (Normally you should AVOID constructing invalid sequences; shown only for testing.)
+            sb.Append('\uD800').Append('\uDC00'); // Valid pair for U+10000
+            sb.Append('\uD800'); // Lone high surrogate (invalid)
+            sb.Append('\uDC00'); // Lone low surrogate (invalid)
+            sb.Append('\uD83D');
+
+            string content = sb.ToString();
+            string serializedSarif = string.Empty;
+
+            using (var sarifLogger = new MemoryStreamSarifLogger())
+            {
+                var result = new Result
+                {
+                    Message = new Message
+                    {
+                        Text = content
+                    }
+                };
+
+                sarifLogger.Log(new ReportingDescriptor(), result, null);
+                serializedSarif = JsonConvert.SerializeObject(sarifLogger.ToSarifLog());
+            }
+
+            serializedSarif.Should().NotBeNull();
+        }
+
+        private static void VerifySarifLogHonoredKindAndLevel(FailureLevelSet desiredFailureLevels, ResultKindSet desiredResultKinds, SarifLog sarifLog)
         {
             int expectedCount = desiredResultKinds.Count * desiredFailureLevels.Count;
 
@@ -1179,9 +1254,9 @@ namespace Microsoft.CodeAnalysis.Sarif
             }
         }
 
-        private static SarifLog CreateSarifLog(List<Result> allKindLevelCombinations, ReportingDescriptor rule, List<FailureLevel> desiredFailureLevels, List<ResultKind> desiredResultKinds)
+        private static SarifLog CreateSarifLog(List<Result> allKindLevelCombinations, ReportingDescriptor rule, FailureLevelSet desiredFailureLevels, ResultKindSet desiredResultKinds)
         {
-            StringBuilder stringBuilder = new StringBuilder();
+            var stringBuilder = new StringBuilder();
 
             using (var stringWriter = new StringWriter(stringBuilder))
             {
@@ -1192,13 +1267,402 @@ namespace Microsoft.CodeAnalysis.Sarif
                 {
                     foreach (Result r in allKindLevelCombinations)
                     {
-                        sarifLogger.Log(rule, r);
+                        sarifLogger.Log(rule, r, null);
                     }
                 }
             }
 
             string logText = stringBuilder.ToString();
             return JsonConvert.DeserializeObject<SarifLog>(logText);
+        }
+
+        [Fact]
+        public void SarifLogger_AnalyzingTarget_PersistsArtifactWithAnalysisTargetRole()
+        {
+            var sb = new StringBuilder();
+
+            using (var textWriter = new StringWriter(sb))
+            {
+                using (var sarifLogger = new SarifLogger(textWriter,
+                                                         dataToInsert: OptionallyEmittedData.AnalysisTargets,
+                                                         levels: BaseLogger.ErrorWarning,
+                                                         kinds: BaseLogger.Fail))
+                {
+                    var context = new TestAnalysisContext
+                    {
+                        CurrentTarget = new EnumeratedArtifact(FileSystem.Instance)
+                        {
+                            Uri = new Uri("file:///c:/src/target.cpp")
+                        }
+                    };
+
+                    sarifLogger.AnalyzingTarget(context);
+                }
+            }
+
+            string logText = sb.ToString();
+            SarifLog sarifLog = JsonConvert.DeserializeObject<SarifLog>(logText);
+
+            IList<Artifact> artifacts = sarifLog.Runs[0].Artifacts;
+            artifacts.Should().NotBeNull();
+            artifacts.Count.Should().Be(1);
+            artifacts[0].Roles.Should().HaveFlag(ArtifactRoles.AnalysisTarget);
+        }
+
+        [Fact]
+        public void SarifLogger_AnalyzingTarget_DoesNotPersistWhenFlagNotSet()
+        {
+            var sb = new StringBuilder();
+
+            using (var textWriter = new StringWriter(sb))
+            {
+                using (var sarifLogger = new SarifLogger(textWriter,
+                                                         dataToInsert: OptionallyEmittedData.None,
+                                                         levels: BaseLogger.ErrorWarning,
+                                                         kinds: BaseLogger.Fail))
+                {
+                    var context = new TestAnalysisContext
+                    {
+                        CurrentTarget = new EnumeratedArtifact(FileSystem.Instance)
+                        {
+                            Uri = new Uri("file:///c:/src/target.cpp")
+                        }
+                    };
+
+                    sarifLogger.AnalyzingTarget(context);
+                }
+            }
+
+            string logText = sb.ToString();
+            SarifLog sarifLog = JsonConvert.DeserializeObject<SarifLog>(logText);
+
+            sarifLog.Runs[0].Artifacts.Should().BeNullOrEmpty();
+        }
+
+        [Fact]
+        public void SarifLogger_AnalyzingTarget_DeduplicatesWhenResultFiresForSameTarget()
+        {
+            var sb = new StringBuilder();
+
+            using (var textWriter = new StringWriter(sb))
+            {
+                using (var sarifLogger = new SarifLogger(textWriter,
+                                                         dataToInsert: OptionallyEmittedData.AnalysisTargets,
+                                                         levels: BaseLogger.ErrorWarning,
+                                                         kinds: BaseLogger.Fail))
+                {
+                    var targetUri = new Uri("file:///c:/src/target.cpp");
+
+                    var context = new TestAnalysisContext
+                    {
+                        CurrentTarget = new EnumeratedArtifact(FileSystem.Instance)
+                        {
+                            Uri = targetUri
+                        }
+                    };
+
+                    // First, the logger records the analysis target.
+                    sarifLogger.AnalyzingTarget(context);
+
+                    // Then a result fires that references the same file.
+                    string ruleId = "TEST001";
+                    var rule = new ReportingDescriptor { Id = ruleId };
+                    var result = new Result
+                    {
+                        RuleId = ruleId,
+                        Message = new Message { Text = "A finding." },
+                        AnalysisTarget = new ArtifactLocation { Uri = targetUri },
+                        Locations = new[]
+                        {
+                            new Location
+                            {
+                                PhysicalLocation = new PhysicalLocation
+                                {
+                                    ArtifactLocation = new ArtifactLocation { Uri = targetUri }
+                                }
+                            }
+                        }
+                    };
+
+                    sarifLogger.Log(rule, result, null);
+                }
+            }
+
+            string logText = sb.ToString();
+            SarifLog sarifLog = JsonConvert.DeserializeObject<SarifLog>(logText);
+
+            // Despite the target being referenced by both AnalyzingTarget and the result,
+            // only one artifact entry should exist (deduplication).
+            IList<Artifact> artifacts = sarifLog.Runs[0].Artifacts;
+            artifacts.Should().NotBeNull();
+            artifacts.Count.Should().Be(1);
+            artifacts[0].Roles.Should().HaveFlag(ArtifactRoles.AnalysisTarget);
+        }
+
+        [Fact]
+        public void SarifLogger_AnalyzingTarget_PersistsMultipleTargets()
+        {
+            var sb = new StringBuilder();
+
+            using (var textWriter = new StringWriter(sb))
+            {
+                using (var sarifLogger = new SarifLogger(textWriter,
+                                                         dataToInsert: OptionallyEmittedData.AnalysisTargets,
+                                                         levels: BaseLogger.ErrorWarning,
+                                                         kinds: BaseLogger.Fail))
+                {
+                    Uri[] targets = new[]
+                    {
+                        new Uri("file:///c:/src/file1.cpp"),
+                        new Uri("file:///c:/src/file2.cpp"),
+                        new Uri("file:///c:/src/file3.cpp"),
+                    };
+
+                    foreach (Uri targetUri in targets)
+                    {
+                        var context = new TestAnalysisContext
+                        {
+                            CurrentTarget = new EnumeratedArtifact(FileSystem.Instance)
+                            {
+                                Uri = targetUri
+                            }
+                        };
+
+                        sarifLogger.AnalyzingTarget(context);
+                    }
+                }
+            }
+
+            string logText = sb.ToString();
+            SarifLog sarifLog = JsonConvert.DeserializeObject<SarifLog>(logText);
+
+            IList<Artifact> artifacts = sarifLog.Runs[0].Artifacts;
+            artifacts.Should().NotBeNull();
+            artifacts.Count.Should().Be(3);
+
+            foreach (Artifact artifact in artifacts)
+            {
+                artifact.Roles.Should().HaveFlag(ArtifactRoles.AnalysisTarget);
+            }
+        }
+
+        // Regression test for a Dispose-time race where SarifRewritingVisitor
+        // mutated ReportingDescriptor.MessageStrings in place while another
+        // SarifLogger was serializing the same rule via WriteTool, producing
+        // 'InvalidOperationException: Collection was modified' inside
+        // JsonSerializerInternalWriter.SerializeDictionary on .NET Framework.
+        [Fact]
+        public void SarifLogger_DisposeIsThreadSafeWhenSarifRewritingVisitorRunsConcurrently()
+        {
+            const int iterations = 50;
+            const int ruleCount = 64;
+            const int messageKeysPerRule = 64;
+            const int mutatorThreadCount = 4;
+
+            var caughtExceptions = new List<Exception>();
+
+            for (int iter = 0; iter < iterations; iter++)
+            {
+                ReportingDescriptor[] rules = BuildRulesWithManyMessageStrings(ruleCount, messageKeysPerRule);
+
+                var sb = new StringBuilder();
+                var underlying = new StringWriter(sb);
+                var yieldingWriter = new YieldingTextWriter(underlying);
+                var sarifLogger = new SarifLogger(
+                    yieldingWriter,
+                    levels: BaseLogger.ErrorWarningNote,
+                    kinds: BaseLogger.Fail);
+
+                for (int i = 0; i < rules.Length; i++)
+                {
+                    ReportingDescriptor rule = rules[i];
+                    var result = new Result
+                    {
+                        RuleId = rule.Id,
+                        Level = FailureLevel.Warning,
+                        Kind = ResultKind.Fail,
+                        Message = new Message { Id = "Default", Arguments = new[] { "seed" } }
+                    };
+                    sarifLogger.Log(rule, result, extensionIndex: null);
+                }
+
+                using var stop = new CancellationTokenSource();
+                using var allReady = new CountdownEvent(mutatorThreadCount);
+                using var goSignal = new ManualResetEventSlim(initialState: false);
+
+                var mutatorTasks = new Task[mutatorThreadCount];
+                for (int m = 0; m < mutatorThreadCount; m++)
+                {
+                    int threadId = m;
+                    mutatorTasks[m] = Task.Run(() =>
+                    {
+                        var visitor = new NoOpRewritingVisitor();
+                        allReady.Signal();
+                        goSignal.Wait();
+                        while (!stop.IsCancellationRequested)
+                        {
+                            for (int r = threadId; r < rules.Length; r += mutatorThreadCount)
+                            {
+                                try
+                                {
+                                    visitor.VisitReportingDescriptor(rules[r]);
+                                }
+                                catch
+                                {
+                                    // Two visitor threads can still collide on the same rule;
+                                    // that is a writer-vs-writer race outside the scope of this
+                                    // test, which asserts that the writer does not race with
+                                    // the SarifLogger.Dispose-time reader.
+                                }
+                            }
+                        }
+                    });
+                }
+
+                allReady.Wait();
+                goSignal.Set();
+
+                try
+                {
+                    sarifLogger.Dispose();
+                }
+                catch (Exception ex)
+                {
+                    caughtExceptions.Add(ex);
+                    output.WriteLine($"Race observed on iteration {iter}: {ex.GetType().Name}: {ex.Message}");
+                    output.WriteLine(ex.ToString());
+                }
+
+                stop.Cancel();
+                Task.WaitAll(mutatorTasks);
+                yieldingWriter.Dispose();
+
+                if (caughtExceptions.Count > 0) { break; }
+
+                SarifLog parsed = JsonConvert.DeserializeObject<SarifLog>(sb.ToString());
+                parsed.Should().NotBeNull("Dispose must produce parseable SARIF even with a concurrent SarifRewritingVisitor");
+                parsed.Runs[0].Tool.Driver.Rules.Count.Should().Be(ruleCount,
+                    "all rules logged before Dispose must be present in the serialized output");
+                foreach (ReportingDescriptor emitted in parsed.Runs[0].Tool.Driver.Rules)
+                {
+                    emitted.MessageStrings.Should().NotBeNull();
+                    emitted.MessageStrings.Count.Should().Be(messageKeysPerRule,
+                        "MessageStrings must be fully serialized with no entries lost to the visitor/serializer race");
+                }
+            }
+
+            caughtExceptions.Should().BeEmpty(
+                "SarifRewritingVisitor.VisitReportingDescriptor must replace MessageStrings atomically (build a new dictionary and swap the reference) so that a concurrent Newtonsoft.Json enumeration during SarifLogger.Dispose cannot observe a Dictionary being mid-modification");
+        }
+
+        private sealed class NoOpRewritingVisitor : SarifRewritingVisitor
+        {
+        }
+
+        // Pass-through TextWriter that yields between writes to widen the race window.
+        private sealed class YieldingTextWriter : TextWriter
+        {
+            private readonly TextWriter _inner;
+
+            public YieldingTextWriter(TextWriter inner)
+            {
+                _inner = inner;
+            }
+
+            public override System.Text.Encoding Encoding => _inner.Encoding;
+
+            public override void Write(char value)
+            {
+                _inner.Write(value);
+                Thread.SpinWait(1);
+            }
+
+            public override void Write(string value)
+            {
+                _inner.Write(value);
+                Thread.SpinWait(1);
+            }
+
+            public override void Write(char[] buffer, int index, int count)
+            {
+                _inner.Write(buffer, index, count);
+                Thread.SpinWait(1);
+            }
+
+            public override void Flush() => _inner.Flush();
+
+            protected override void Dispose(bool disposing)
+            {
+                if (disposing) { _inner.Dispose(); }
+                base.Dispose(disposing);
+            }
+        }
+
+        private static ReportingDescriptor[] BuildRulesWithManyMessageStrings(int ruleCount, int messageKeysPerRule)
+        {
+            var rules = new ReportingDescriptor[ruleCount];
+            for (int i = 0; i < ruleCount; i++)
+            {
+                var messageStrings = new Dictionary<string, MultiformatMessageString>();
+                for (int k = 0; k < messageKeysPerRule; k++)
+                {
+                    messageStrings[$"Key{k:D2}"] = new MultiformatMessageString { Text = $"initial-rule{i}-key{k}" };
+                }
+
+                rules[i] = new ReportingDescriptor
+                {
+                    Id = $"RULE{i:D4}",
+                    Name = $"Rule{i}",
+                    ShortDescription = new MultiformatMessageString { Text = $"Short description for rule {i}" },
+                    FullDescription = new MultiformatMessageString { Text = $"Full description for rule {i}" },
+                    MessageStrings = new VersionBumpingDictionary(messageStrings),
+                };
+            }
+            return rules;
+        }
+
+        // Forces the inner Dictionary's _version to bump on every indexer-set by
+        // routing through Remove + Add. .NET Framework's Dictionary<,>.Insert
+        // bumps _version on overwrite-existing-key; .NET Core 3+ / .NET 5+ skip
+        // that bump. Wrapping MessageStrings in this dictionary makes the
+        // customer's race reproducible on any runtime, so the test fails
+        // against the unfixed in-place mutation pattern and passes against the
+        // fixed atomic-swap pattern.
+        private sealed class VersionBumpingDictionary : IDictionary<string, MultiformatMessageString>
+        {
+            private readonly Dictionary<string, MultiformatMessageString> _inner;
+
+            public VersionBumpingDictionary(IDictionary<string, MultiformatMessageString> source)
+            {
+                _inner = new Dictionary<string, MultiformatMessageString>(source);
+            }
+
+            public MultiformatMessageString this[string key]
+            {
+                get => _inner[key];
+                set
+                {
+                    _inner.Remove(key);
+                    _inner.Add(key, value);
+                }
+            }
+
+            public ICollection<string> Keys => _inner.Keys;
+            public ICollection<MultiformatMessageString> Values => _inner.Values;
+            public int Count => _inner.Count;
+            public bool IsReadOnly => false;
+
+            public void Add(string key, MultiformatMessageString value) => _inner.Add(key, value);
+            public void Add(KeyValuePair<string, MultiformatMessageString> item) => _inner.Add(item.Key, item.Value);
+            public void Clear() => _inner.Clear();
+            public bool Contains(KeyValuePair<string, MultiformatMessageString> item) => ((ICollection<KeyValuePair<string, MultiformatMessageString>>)_inner).Contains(item);
+            public bool ContainsKey(string key) => _inner.ContainsKey(key);
+            public void CopyTo(KeyValuePair<string, MultiformatMessageString>[] array, int arrayIndex) => ((ICollection<KeyValuePair<string, MultiformatMessageString>>)_inner).CopyTo(array, arrayIndex);
+            public IEnumerator<KeyValuePair<string, MultiformatMessageString>> GetEnumerator() => _inner.GetEnumerator();
+            public bool Remove(string key) => _inner.Remove(key);
+            public bool Remove(KeyValuePair<string, MultiformatMessageString> item) => ((ICollection<KeyValuePair<string, MultiformatMessageString>>)_inner).Remove(item);
+            public bool TryGetValue(string key, out MultiformatMessageString value) => _inner.TryGetValue(key, out value);
+            System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator() => _inner.GetEnumerator();
         }
     }
 }

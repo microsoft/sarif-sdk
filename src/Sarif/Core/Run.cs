@@ -13,15 +13,11 @@ namespace Microsoft.CodeAnalysis.Sarif
 {
     public partial class Run
     {
-        private static readonly Graph EmptyGraph = new Graph();
-        private static readonly Artifact EmptyFile = new Artifact();
-        private static readonly Invocation EmptyInvocation = new Invocation();
-        private static readonly LogicalLocation EmptyLogicalLocation = new LogicalLocation();
         private Dictionary<string, FailureLevel> PoliciesCache;
 
-        private IDictionary<ArtifactLocation, int> _artifactLocationToIndexMap;
+        private Dictionary<ArtifactLocation, int> _artifactLocationToIndexMap;
 
-        public Uri ExpandUrisWithUriBaseId(string key, string currentValue = null)
+        public Uri ExpandUrisWithUriBaseId(string key)
         {
             ArtifactLocation fileLocation = this.OriginalUriBaseIds[key];
 
@@ -37,7 +33,9 @@ namespace Microsoft.CodeAnalysis.Sarif
             bool addToFilesTableIfNotPresent = true,
             OptionallyEmittedData dataToInsert = OptionallyEmittedData.None,
             Encoding encoding = null,
-            HashData hashData = null)
+            HashData hashData = null,
+            IFileSystem fileSystem = null,
+            HashAlgorithms hashAlgorithms = HashAlgorithms.Default)
         {
             if (fileLocation == null) { throw new ArgumentNullException(nameof(fileLocation)); }
 
@@ -88,7 +86,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             {
                 if (addToFilesTableIfNotPresent)
                 {
-                    this.Artifacts = this.Artifacts ?? new List<Artifact>();
+                    this.Artifacts ??= new List<Artifact>();
                     artifactIndex = this.Artifacts.Count;
 
                     Uri artifactUri = artifactLocation.TryReconstructAbsoluteUri(this.OriginalUriBaseIds, out Uri resolvedUri)
@@ -99,7 +97,9 @@ namespace Microsoft.CodeAnalysis.Sarif
                         artifactUri,
                         dataToInsert,
                         hashData: hashData,
-                        encoding: encoding);
+                        encoding: encoding,
+                        fileSystem: fileSystem,
+                        hashAlgorithms: hashAlgorithms);
 
                     // Copy ArtifactLocation to ensure changes to Result copy don't affect new Run.Artifacts copy
                     artifact.Location = new ArtifactLocation(fileLocation);
@@ -158,9 +158,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             if (this.Results != null)
             {
-                DeferredList<Result> deferredResults = this.Results as DeferredList<Result>;
-
-                if (deferredResults != null)
+                if (this.Results is DeferredList<Result> deferredResults)
                 {
                     // On deferred object model, must change Results as they're read, since they are discarded after each enumeration
                     deferredResults.AddTransformer((result) =>
@@ -224,8 +222,8 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             return this.AutomationDetails?.Description != null ||
                 !string.IsNullOrWhiteSpace(this.AutomationDetails?.Id) ||
-                this.AutomationDetails?.Guid != null ||
-                this.AutomationDetails?.CorrelationGuid != null;
+                (this.AutomationDetails?.Guid != null && this.AutomationDetails.Guid.Value != Guid.Empty) ||
+                (this.AutomationDetails?.CorrelationGuid != null && this.AutomationDetails.CorrelationGuid != Guid.Empty);
         }
 
         public bool ShouldSerializeInvocations()
@@ -245,7 +243,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         internal static Dictionary<string, FailureLevel> ComputePolicies(IEnumerable<ToolComponent> policies)
         {
-            Dictionary<string, FailureLevel> localCache = new Dictionary<string, FailureLevel>();
+            var localCache = new Dictionary<string, FailureLevel>();
 
             // checking if we have have policies
             if (policies == null || !policies.Any())

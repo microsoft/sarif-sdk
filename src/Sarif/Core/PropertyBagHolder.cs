@@ -206,7 +206,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             // We need the concrete class because the IPropertyBagHolder interface
             // doesn't expose the raw Properties array.
-            PropertyBagHolder otherHolder = other as PropertyBagHolder;
+            var otherHolder = other as PropertyBagHolder;
             Debug.Assert(otherHolder != null);
 
             Properties = other.PropertyNames.Count > 0 ? new Dictionary<string, SerializedPropertyInfo>() : null;

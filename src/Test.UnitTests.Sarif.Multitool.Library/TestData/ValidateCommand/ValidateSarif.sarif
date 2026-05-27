@@ -6,6 +6,7 @@
       "tool": {
         "driver": {
           "name": "Test",
+          "fullName": "Test 1.0.0",
           "version": "1.0.0",
           "informationUri": "https://www.github.com/microsoft/sarif-sdk",
           "rules": [
@@ -33,6 +34,9 @@
           }
         }
       ],
+      "automationDetails": {
+        "id": "automation-id"
+      },
       "columnKind": "utf16CodeUnits"
     }
   ]

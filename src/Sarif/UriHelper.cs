@@ -62,7 +62,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             }
             else if (Uri.TryCreate(path, UriKind.Relative, out uri))
             {
-                UriBuilder builder = new UriBuilder("http", "www.example.com", 80, path);
+                var builder = new UriBuilder("http", "www.example.com", 80, path);
                 validUri = builder.Uri.AbsolutePath;
 
                 // Since what we actually want is a relative path, strip the leading "/"

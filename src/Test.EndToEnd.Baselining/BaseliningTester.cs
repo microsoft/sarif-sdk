@@ -55,7 +55,7 @@ namespace Test.EndToEnd.Baselining
 
         public BaseliningSummary RunUnder(string folderPath, string reportingName)
         {
-            BaseliningSummary folderSummary = new BaseliningSummary(Path.GetFileName(folderPath));
+            var folderSummary = new BaseliningSummary(Path.GetFileName(folderPath));
 
             // Recurse on subfolders, if found
             foreach (string subfolder in Directory.EnumerateDirectories(folderPath, "*", SearchOption.TopDirectoryOnly))
@@ -77,12 +77,12 @@ namespace Test.EndToEnd.Baselining
         public BaseliningSummary RunSeries(string seriesPath, string reportingName, int debugLogIndex = -1, int debugResultIndex = -1)
         {
             string outputLogPath = Path.ChangeExtension(seriesPath.Replace($"\\{InputFolderName}\\", $"\\{OutputFolderName}\\"), ".log");
-            BaseliningSummary seriesSummary = new BaseliningSummary(Path.GetFileName(seriesPath));
+            var seriesSummary = new BaseliningSummary(Path.GetFileName(seriesPath));
 
             Directory.CreateDirectory(Path.GetDirectoryName(outputLogPath));
 
             using (Stream outputStream = File.Create(outputLogPath))
-            using (BaseliningDetailLogger logger = new BaseliningDetailLogger(seriesPath, outputStream))
+            using (var logger = new BaseliningDetailLogger(seriesPath, outputStream))
             {
                 // Load the original baseline
                 SarifLog baseline = LoadBaseline(seriesPath);
@@ -100,11 +100,11 @@ namespace Test.EndToEnd.Baselining
 
                     if (debugLogIndex == current.LogIndex)
                     {
-                        List<Result> absentResults = newBaseline.EnumerateResults().Where((r) => r.BaselineState == BaselineState.Absent).ToList();
-                        List<Result> newResults = newBaseline.EnumerateResults().Where((r) => r.BaselineState == BaselineState.New).ToList();
+                        var absentResults = newBaseline.EnumerateResults().Where((r) => r.BaselineState == BaselineState.Absent).ToList();
+                        var newResults = newBaseline.EnumerateResults().Where((r) => r.BaselineState == BaselineState.New).ToList();
                     }
 
-                    BaseliningSummary fileSummary = new BaseliningSummary(Path.GetFileNameWithoutExtension(current.FilePath));
+                    var fileSummary = new BaseliningSummary(Path.GetFileNameWithoutExtension(current.FilePath));
                     fileSummary.Add(newBaseline, baseline, current.Log);
                     seriesSummary.AddCounts(fileSummary);
                     logger.Write(newBaseline, baseline, fileSummary);
@@ -138,7 +138,7 @@ namespace Test.EndToEnd.Baselining
         public void EnrichSeries(string seriesPath)
         {
             string outputLogPath = Path.ChangeExtension(seriesPath.Replace($"\\{InputFolderName}\\", $"\\{OutputFolderName}\\"), ".log");
-            BaseliningDetailEnricher enricher = new BaseliningDetailEnricher();
+            var enricher = new BaseliningDetailEnricher();
 
             // Load Baseline details
             SarifLog baseline = LoadBaseline(seriesPath);
@@ -196,7 +196,7 @@ namespace Test.EndToEnd.Baselining
         private IEnumerable<LogInSeries> LoadSeriesLogs(string seriesPath)
         {
             // Baseline each log in order
-            List<string> logs = new List<string>(Directory.EnumerateFiles(seriesPath, "*.sarif", SearchOption.TopDirectoryOnly).Where(filePath => !filePath.EndsWith(FirstBaselineFileName)).OrderBy(path => path));
+            var logs = new List<string>(Directory.EnumerateFiles(seriesPath, "*.sarif", SearchOption.TopDirectoryOnly).Where(filePath => !filePath.EndsWith(FirstBaselineFileName)).OrderBy(path => path));
             int logIndex = 1;
 
             foreach (string filePath in logs)
@@ -232,8 +232,8 @@ namespace Test.EndToEnd.Baselining
                 return false;
             }
 
-            ExtractedResult bExtractedResult = new ExtractedResult(bResult, bResult.Run);
-            ExtractedResult cExtractedResult = new ExtractedResult(cResult, cResult.Run);
+            var bExtractedResult = new ExtractedResult(bResult, bResult.Run);
+            var cExtractedResult = new ExtractedResult(cResult, cResult.Run);
 
             bool outcome = bExtractedResult.IsSufficientlySimilarTo(cExtractedResult);
             return outcome;
@@ -291,7 +291,7 @@ namespace Test.EndToEnd.Baselining
             // Mark all Results which are NOT in the new run as 'Unchanged'
             if (filteringMode == BaselineFilteringMode.ToIncludedArtifacts)
             {
-                HashSet<string> includedArtifacts = new HashSet<string>(currentLog.AllResultArtifactUris().Select(uri => uri.OriginalString));
+                var includedArtifacts = new HashSet<string>(currentLog.AllResultArtifactUris().Select(uri => uri.OriginalString));
 
                 foreach (Result result in outputLog.EnumerateResults())
                 {
@@ -332,7 +332,7 @@ namespace Test.EndToEnd.Baselining
         private static void SortForBaselining(Run run)
         {
             run.SetRunOnResults();
-            List<Result> results = (List<Result>)run.Results;
+            var results = (List<Result>)run.Results;
             results.Sort(DirectResultMatchingComparer.Instance);
         }
 

@@ -1,0 +1,3 @@
+<Project>
+  <Import Project="build.warnings_as_errors.props" />
+</Project>

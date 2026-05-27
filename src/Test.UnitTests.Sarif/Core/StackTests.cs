@@ -22,7 +22,7 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Core
         public void Stack_CreateFromStackTrace()
         {
             var dotNetStack = new StackTrace();
-            Stack stack = new Stack(dotNetStack);
+            var stack = new Stack(dotNetStack);
 
             // The .NET StackTrace.ToString() override must preserve a trailing NewLine
             // for compatibility reasons. We do not retain this behavior in ToString()
@@ -38,12 +38,13 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Core
             {
                 File.Create(Path.GetInvalidFileNameChars()[0].ToString(), 0);
             }
-            catch (ArgumentException exception)
+            catch (Exception ex) when (ex is ArgumentException || ex is IOException)
             {
-                IList<Stack> stacks = Stack.CreateStacks(exception).ToList();
+                // This code path catches ArgumentException in .NET 4.8 and IOException in later versions.
+                IList<Stack> stacks = Stack.CreateStacks(ex).ToList();
 
                 stacks.Count.Should().Be(1);
-                stacks[0].ToString().Should().BeCrossPlatformEquivalentStrings(exception.StackTrace);
+                stacks[0].ToString().Should().BeCrossPlatformEquivalentStrings(ex.StackTrace);
 
                 caughtException = true;
             }
@@ -58,16 +59,17 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Core
             {
                 File.Create(Path.GetInvalidFileNameChars()[0].ToString(), 0);
             }
-            catch (ArgumentException exception)
+            catch (Exception ex) when (ex is ArgumentException || ex is IOException)
             {
-                Exception containerException = new InvalidOperationException("test exception", exception);
+                // This code path catches ArgumentException in .NET 4.8 and IOException in later versions.
+                Exception containerException = new InvalidOperationException("test exception", ex);
 
                 IList<Stack> stacks = Stack.CreateStacks(containerException).ToList();
 
                 stacks.Count.Should().Be(2);
                 containerException.StackTrace.Should().Be(null);
                 Assert.Equal("[No frames]", stacks[0].ToString());
-                stacks[1].ToString().Should().BeCrossPlatformEquivalentStrings(exception.StackTrace);
+                stacks[1].ToString().Should().BeCrossPlatformEquivalentStrings(ex.StackTrace);
 
                 caughtException = true;
             }
@@ -82,10 +84,11 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Core
             {
                 File.Create(Path.GetInvalidFileNameChars()[0].ToString(), 0);
             }
-            catch (ArgumentException exception)
+            catch (Exception ex) when (ex is ArgumentException || ex is IOException)
             {
+                // This code path catches ArgumentException in .NET 4.8 and IOException in later versions.
                 var innerException1 = new InvalidOperationException("Test exception 1.");
-                var innerException2 = new InvalidOperationException("Test exception 2.", exception);
+                var innerException2 = new InvalidOperationException("Test exception 2.", ex);
 
                 var aggregated = new AggregateException(innerException1, innerException2);
 
@@ -97,16 +100,56 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Core
                 Assert.Equal("[No frames]", stacks[0].ToString());
                 Assert.Equal("[No frames]", stacks[1].ToString());
                 Assert.Equal("[No frames]", stacks[2].ToString());
-                stacks[3].ToString().Should().BeCrossPlatformEquivalentStrings(exception.StackTrace);
+                stacks[3].ToString().Should().BeCrossPlatformEquivalentStrings(ex.StackTrace);
 
                 Assert.Equal(aggregated.FormatMessage(), stacks[0].Message.Text);
                 Assert.Equal(innerException1.FormatMessage(), stacks[1].Message.Text);
                 Assert.Equal(innerException2.FormatMessage(), stacks[2].Message.Text);
-                Assert.Equal(exception.FormatMessage(), stacks[3].Message.Text);
+                Assert.Equal(ex.FormatMessage(), stacks[3].Message.Text);
 
                 caughtException = true;
             }
             Assert.True(caughtException);
+        }
+
+        [Fact]
+        public void Stack_CreateFromStackTraceWithRelativeSourceFileLocation()
+        {
+            string stackTraceTemplate = string.Join(Environment.NewLine,
+                "   at Microsoft.Win32.SafeHandles.SafeFileHandle.CreateFile(String fullPath, FileMode mode, FileAccess access, FileShare share, FileOptions options)",
+                "   at Microsoft.Win32.SafeHandles.SafeFileHandle.Open(String fullPath, FileMode mode, FileAccess access, FileShare share, FileOptions options, Int64 preallocationSize)",
+                "   at System.IO.Strategies.OSFileStreamStrategy..ctor(String path, FileMode mode, FileAccess access, FileShare share, FileOptions options, Int64 preallocationSize)",
+                "   at System.IO.Strategies.FileStreamHelpers.ChooseStrategyCore(String path, FileMode mode, FileAccess access, FileShare share, FileOptions options, Int64 preallocationSize)",
+                "   at System.IO.Strategies.FileStreamHelpers.ChooseStrategy(FileStream fileStream, String path, FileMode mode, FileAccess access, FileShare share, Int32 bufferSize, FileOptions options, Int64 preallocationSize)",
+                "   at System.IO.File.Create(String path, Int32 bufferSize)",
+                "   at Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Core.StackTests.Stack_CreateFromExceptionWithInnerException()");
+
+            int relativePathLineNumber = 60;
+            string relativeFilePath = "/_/src/Test.UnitTests.Sarif/Core/StackTests.cs";
+            var sarifStackWithRelativeFileLocation = Stack.Create(stackTraceTemplate + $" in {relativeFilePath}:line {relativePathLineNumber}");
+
+            sarifStackWithRelativeFileLocation.Frames.Count.Should().Be(7);
+            CodeAnalysis.Sarif.StackFrame lastFrame = sarifStackWithRelativeFileLocation.Frames.Last();
+            lastFrame.Location.PhysicalLocation.ArtifactLocation.Uri.OriginalString.Should().Be(relativeFilePath);
+            lastFrame.Location.PhysicalLocation.Region.StartLine.Should().Be(relativePathLineNumber);
+            lastFrame.ToString().Should().EndWith($" in {relativeFilePath}:line {relativePathLineNumber}");
+
+            int absolutePathLineNumber = 33;
+            string absoluteFilePath = @"C:\repo\src\Test.UnitTests.Sarif\Core\StackTests.cs";
+            var sarifStackWithAbsoluteFileLocation = Stack.Create(stackTraceTemplate + $" in {absoluteFilePath}:line {absolutePathLineNumber}");
+
+            sarifStackWithAbsoluteFileLocation.Frames.Count.Should().Be(7);
+            lastFrame = sarifStackWithAbsoluteFileLocation.Frames.Last();
+            lastFrame.Location.PhysicalLocation.ArtifactLocation.Uri.OriginalString.Should().Be(absoluteFilePath);
+            lastFrame.Location.PhysicalLocation.Region.StartLine.Should().Be(absolutePathLineNumber);
+            lastFrame.ToString().Should().EndWith($" in {absoluteFilePath}:line {absolutePathLineNumber}");
+
+            var sarifStackWithoutFileLocation = Stack.Create(stackTraceTemplate);
+
+            sarifStackWithoutFileLocation.Frames.Count.Should().Be(7);
+            lastFrame = sarifStackWithoutFileLocation.Frames.Last();
+            lastFrame.Location.PhysicalLocation.Should().BeNull();
+            lastFrame.ToString().Should().EndWith("Stack_CreateFromExceptionWithInnerException()");
         }
     }
 }

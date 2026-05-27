@@ -3,6 +3,7 @@
 using System;
 using System.Diagnostics;
 using System.IO;
+using System.Security;
 
 namespace Microsoft.CodeAnalysis.Sarif
 {
@@ -14,10 +15,25 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// </summary>
     public class FileRegionsCache
     {
-        public static readonly FileRegionsCache Instance = new FileRegionsCache();
         public const int DefaultCacheCapacity = 100;
         private readonly IFileSystem _fileSystem;
-        internal readonly Cache<string, Tuple<string, NewLineIndex>> _cache;
+
+        internal readonly Cache<string, string> _fileTextCache;
+        internal readonly Cache<string, HashData> _hashDataCache;
+        internal readonly Cache<string, NewLineIndex> _newLineIndexCache;
+
+        /// <summary>
+        /// The hash algorithms this cache computes when producing <see cref="HashData"/> for files.
+        /// </summary>
+        public HashAlgorithms HashAlgorithms { get; }
+
+        /// <summary>
+        /// The file system this cache uses for all I/O. Exposed to internal callers so that
+        /// downstream <see cref="Artifact.Create"/> / <see cref="Run.GetFileIndex"/> sites
+        /// can flow the same <see cref="IFileSystem"/> instance instead of silently falling
+        /// back to the default <c>FileSystem.Instance</c>.
+        /// </summary>
+        internal IFileSystem FileSystem => _fileSystem;
 
         /// <summary>
         /// Creates a new <see cref="FileRegionsCache"/> object.
@@ -28,12 +44,20 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="fileSystem">
         /// An object that provides access to file system services.
         /// </param>
-        public FileRegionsCache(int capacity = DefaultCacheCapacity, IFileSystem fileSystem = null)
+        /// <param name="hashAlgorithms">
+        /// The set of hash algorithms this cache will compute when producing <see cref="HashData"/>
+        /// for files. Defaults to <see cref="HashAlgorithms.Default"/> (SHA-256 only).
+        /// </param>
+        public FileRegionsCache(int capacity = DefaultCacheCapacity,
+                                IFileSystem fileSystem = null,
+                                HashAlgorithms hashAlgorithms = HashAlgorithms.Default)
         {
-            _fileSystem = fileSystem ?? FileSystem.Instance;
+            _fileSystem = fileSystem ?? Sarif.FileSystem.Instance;
+            HashAlgorithms = hashAlgorithms;
 
-            // Build a cache for this data, with the load method it should use to add new entries
-            _cache = new Cache<string, Tuple<string, NewLineIndex>>(BuildIndexForFile, capacity);
+            _fileTextCache = new Cache<string, string>(RetrieveTextForFile, capacity);
+            _hashDataCache = new Cache<string, HashData>(BuildHashDataForFile, capacity);
+            _newLineIndexCache = new Cache<string, NewLineIndex>(BuildIndexForFile, capacity);
         }
 
         /// <summary>
@@ -89,10 +113,12 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// </summary>
         public void ClearCache()
         {
-            this._cache.Clear();
+            _fileTextCache.Clear();
+            _hashDataCache.Clear();
+            _newLineIndexCache.Clear();
         }
 
-        private Region PopulateTextRegionProperties(NewLineIndex lineIndex, Region inputRegion, string fileText, bool populateSnippet)
+        private static Region PopulateTextRegionProperties(NewLineIndex lineIndex, Region inputRegion, string fileText, bool populateSnippet)
         {
             // A GENERAL NOTE ON THE PROPERTY POPULATION PROCESS:
             //
@@ -142,6 +168,9 @@ namespace Microsoft.CodeAnalysis.Sarif
             return region;
         }
 
+        internal const int BIGSNIPPETLENGTH = 512;
+        internal const int SMALLSNIPPETLENGTH = 128;
+
         public Region ConstructMultilineContextSnippet(Region inputRegion, Uri uri, string fileText = null)
         {
             if (inputRegion?.IsBinaryRegion != false)
@@ -156,11 +185,15 @@ namespace Microsoft.CodeAnalysis.Sarif
                 return null;
             }
 
-            const int bigSnippetLength = 512;
-            const int smallSnippetLength = 128;
+            fileText ??= newLineIndex.Text;
 
             // Generating full inputRegion to prevent issues.
-            Region originalRegion = this.PopulateTextRegionProperties(inputRegion, uri, populateSnippet: true);
+            Region originalRegion = this.PopulateTextRegionProperties(inputRegion, uri, populateSnippet: true, fileText);
+
+            if (originalRegion.CharLength >= BIGSNIPPETLENGTH)
+            {
+                return originalRegion.DeepClone();
+            }
 
             int maxLineNumber = newLineIndex.MaximumLineNumber;
 
@@ -171,10 +204,10 @@ namespace Microsoft.CodeAnalysis.Sarif
             };
 
             // Generating multilineRegion with one line before and after.
-            Region multilineContextSnippet = this.PopulateTextRegionProperties(region, uri, populateSnippet: true);
+            Region multilineContextSnippet = this.PopulateTextRegionProperties(region, uri, populateSnippet: true, fileText);
 
             if (originalRegion.CharLength <= multilineContextSnippet.CharLength &&
-                multilineContextSnippet.CharLength <= bigSnippetLength)
+                multilineContextSnippet.CharLength <= BIGSNIPPETLENGTH)
             {
                 return multilineContextSnippet;
             }
@@ -184,24 +217,20 @@ namespace Microsoft.CodeAnalysis.Sarif
             region.EndColumn = 0;
             region.StartLine = 0;
             region.EndLine = 0;
-            region.CharOffset = originalRegion.CharOffset < smallSnippetLength
-                ? 0
-                : originalRegion.CharOffset - smallSnippetLength;
+            region.CharOffset = Math.Max(0, originalRegion.CharOffset - SMALLSNIPPETLENGTH);
 
-            region.CharLength = originalRegion.CharLength + region.CharOffset + smallSnippetLength < newLineIndex.Text.Length
-                ? originalRegion.CharLength + smallSnippetLength + Math.Abs(region.CharOffset - originalRegion.CharOffset)
-                : newLineIndex.Text.Length - region.CharOffset;
+            region.CharLength = Math.Min(BIGSNIPPETLENGTH, fileText.Length - region.CharOffset);
 
-            // Generating  multineRegion with 128 characters to the left and right from the
+            // Generating multiline region with 128 characters to the left and right from the
             // originalRegion if possible.
-            multilineContextSnippet = this.PopulateTextRegionProperties(region, uri, populateSnippet: true);
+            multilineContextSnippet = this.PopulateTextRegionProperties(region, uri, populateSnippet: true, fileText);
 
             // We can't generate a contextRegion which is smaller than the original region.
             Debug.Assert(originalRegion.CharLength <= multilineContextSnippet.CharLength);
             return multilineContextSnippet;
         }
 
-        private void PopulatePropertiesFromCharOffsetAndLength(NewLineIndex newLineIndex, Region region)
+        private static void PopulatePropertiesFromCharOffsetAndLength(NewLineIndex newLineIndex, Region region)
         {
             Assert(!region.IsBinaryRegion);
             Assert(region.StartLine == 0);
@@ -235,7 +264,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             Assert(region.EndColumn == endColumn);
         }
 
-        private void PopulatePropertiesFromStartAndEndProperties(NewLineIndex lineIndex, Region region, string fileText)
+        private static void PopulatePropertiesFromStartAndEndProperties(NewLineIndex lineIndex, Region region, string fileText)
         {
             Assert(region.StartLine > 0);
 
@@ -284,7 +313,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             region.StartColumn = region.StartColumn == 0 ? 1 : region.StartColumn;
         }
 
-        private void PopulateEndColumn(NewLineIndex lineIndex, Region region, string fileText)
+        private static void PopulateEndColumn(NewLineIndex lineIndex, Region region, string fileText)
         {
             // Populated at this point: StartLine, EndLine, StartColumn
             Assert(region.StartLine > 0);
@@ -331,7 +360,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             Assert(region.CharOffset == offset);
         }
 
-        private void PopulateCharLength(NewLineIndex lineIndex, Region region)
+        private static void PopulateCharLength(NewLineIndex lineIndex, Region region)
         {
             // Populated at this point: StartLine, EndLine, StartColumn, EndColumn, CharOffset
             Assert(region.StartLine > 0);
@@ -352,57 +381,89 @@ namespace Microsoft.CodeAnalysis.Sarif
             Assert(region.CharLength == charLength);
         }
 
-        private NewLineIndex GetNewLineIndex(Uri uri, string fileText = null)
+        public HashData GetHashData(Uri uri, string fileText = null)
         {
             string path = uri.GetFilePath();
 
+            if (fileText != null)
+            {
+                _fileTextCache[path] = fileText;
+                return HashUtilities.ComputeHashesForText(fileText, HashAlgorithms);
+            }
+
+            return _hashDataCache[path];
+        }
+
+        public NewLineIndex GetNewLineIndex(Uri uri, string fileText = null)
+        {
+            string path = uri.GetFilePath();
+            if (fileText != null)
+            {
+                _fileTextCache[path] = fileText;
+            }
+            fileText = _fileTextCache[path];
+
             NewLineIndex newLineIndex;
-            if (!_cache.ContainsKey(path) && fileText != null)
+            if (!_newLineIndexCache.ContainsKey(path) && fileText != null)
             {
                 newLineIndex = new NewLineIndex(fileText);
 
-                _cache[path] = new Tuple<string, NewLineIndex>(item1: path,
-                                                               item2: newLineIndex);
+                _newLineIndexCache[path] = newLineIndex;
             }
             else
             {
-                newLineIndex = _cache[path].Item2;
+                newLineIndex = _newLineIndexCache[path];
             }
 
             return newLineIndex;
         }
 
-        /// <summary>
-        ///  Method to build cache entries which aren't already in the cache.
-        /// </summary>
-        /// <param name="localPath">Uri.LocalPath for the file to load</param>
-        /// <returns>Cache entry to add to cache with file contents and NewLineIndex</returns>
-        private Tuple<string, NewLineIndex> BuildIndexForFile(string localPath)
+        private string RetrieveTextForFile(string path)
         {
             string fileText = null;
-            NewLineIndex index = null;
 
             // We will expand this code later to construct all possible URLs from
             // the log file, bearing in mind things like uriBaseIds. Also, we could
             // consider downloading and caching web-hosted source files.
             try
             {
-                if (_fileSystem.FileExists(localPath))
+                if (_fileSystem.FileExists(path))
                 {
-                    fileText = _fileSystem.FileReadAllText(localPath);
+                    fileText = _fileSystem.FileReadAllText(path);
                 }
             }
             catch (IOException) { }
+            catch (SecurityException) { }
+            catch (UnauthorizedAccessException) { }
 
-            if (fileText != null)
-            {
-                index = new NewLineIndex(fileText);
-            }
-
-            return new Tuple<string, NewLineIndex>(fileText, index);
+            return fileText;
         }
 
-        private static void Assert(bool condition)
+        private HashData BuildHashDataForFile(string path)
+        {
+            HashData hashes = HashUtilities.ComputeHashes(path, _fileSystem, HashAlgorithms);
+            if (hashes != null)
+            {
+                return hashes;
+            }
+
+            // Fallback for mock file systems that return no stream: hash the cached text instead.
+            string fileText = _fileTextCache[path];
+            return HashUtilities.ComputeHashesForText(fileText, HashAlgorithms);
+        }
+
+        /// <summary>
+        ///  Method to build cache entries which aren't already in the cache.
+        /// </summary>
+        /// <param name="path">Uri.LocalPath for the file to load</param>
+        /// <returns>Cache entry to add to cache with file contents and NewLineIndex</returns>
+        private NewLineIndex BuildIndexForFile(string path)
+        {
+            string fileText = _fileTextCache[path];
+            return fileText != null ? new NewLineIndex(fileText) : null;
+        }
+
+        private static void Assert(bool _)
         {
             // Placeholder to report issues in a situationally appropriate way.
             //  We don't want Multitool rewrite to blow up.

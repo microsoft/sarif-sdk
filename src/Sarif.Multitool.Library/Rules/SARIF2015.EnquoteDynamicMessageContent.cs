@@ -1,7 +1,6 @@
 ﻿// Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 
@@ -34,7 +33,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         /// </summary>
         public override MultiformatMessageString FullDescription => new MultiformatMessageString { Text = RuleResources.SARIF2015_EnquoteDynamicMessageContent_FullDescription_Text };
 
-        protected override IEnumerable<string> MessageResourceNames => new string[] {
+        protected override ICollection<string> MessageResourceNames => new List<string> {
             nameof(RuleResources.SARIF2015_EnquoteDynamicMessageContent_Note_Default_Text)
         };
 
@@ -83,6 +82,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 
             if (s_nonEnquotedDynamicContextRegex.IsMatch(messageString))
             {
+                if (IsAIOriginRun())
+                {
+                    // Companion to SARIF2014: AI rule descriptors don't use the {N}
+                    // template pattern, so any apparent "dynamic content" here is
+                    // incidental text — the "enquote your placeholders" guidance is
+                    // human-authoring advice that doesn't apply.
+                    return;
+                }
+
                 // {0}: In rule '{1}', the message with id '{2}' includes dynamic content that is not
                 // enclosed in single quotes. Enquoting dynamic content makes it easier to spot, and
                 // single quotes give a less cluttered appearance.

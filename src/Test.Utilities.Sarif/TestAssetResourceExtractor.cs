@@ -5,8 +5,6 @@ using System;
 using System.IO;
 using System.Reflection;
 
-using Microsoft.CodeAnalysis.Test.Utilities.Sarif;
-
 namespace Microsoft.CodeAnalysis.Sarif
 {
     /// <summary>
@@ -69,8 +67,13 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             ValidateStream(resourcePath, fallbackResourcePath, stream);
 
-            using StreamReader reader = new StreamReader(stream);
-            return reader.ReadToEnd();
+            using var reader = new StreamReader(stream);
+            string text = reader.ReadToEnd();
+
+            // Canonicalize line endings to Environment.NewLine so resource text
+            // compares equal to tool output regardless of how the file was
+            // checked out (autocrlf) or which OS is running the tests.
+            return text.Replace("\r\n", "\n").Replace("\n", Environment.NewLine);
         }
 
         public byte[] GetResourceBytes(string resourcePath)
@@ -110,7 +113,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         private byte[] GetBytesFromStream(Stream stream)
         {
-            using MemoryStream memoryStream = new MemoryStream();
+            using var memoryStream = new MemoryStream();
             stream.CopyTo(memoryStream);
             return memoryStream.ToArray();
         }

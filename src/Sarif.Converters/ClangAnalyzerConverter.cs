@@ -37,7 +37,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             try
             {
-                XmlReaderSettings settings = new XmlReaderSettings
+                var settings = new XmlReaderSettings
                 {
                     IgnoreWhitespace = true,
                     DtdProcessing = DtdProcessing.Ignore,
@@ -46,7 +46,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
                 var results = new List<Result>();
 
-                using (XmlReader xmlReader = XmlReader.Create(input, settings))
+                using (var xmlReader = XmlReader.Create(input, settings))
                 {
                     xmlReader.MoveToContent();
                     xmlReader.ReadStartElement(ClangSchemaStrings.PlistName);
@@ -179,7 +179,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
         private static IList<object> ReadArray(XmlReader xmlReader)
         {
-            List<object> list = new List<object>();
+            var list = new List<object>();
             bool readerMoved = false; // ReadElementContentAsString moves the reader so prevent double moves.
 
             xmlReader.Read(); // Read past the "array" element start.

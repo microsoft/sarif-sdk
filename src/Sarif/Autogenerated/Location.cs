@@ -1,4 +1,4 @@
-// Copyright (c) Microsoft.  All Rights Reserved.
+// Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System;
@@ -169,7 +169,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             if (logicalLocations != null)
             {
                 var destination_0 = new List<LogicalLocation>();
-                foreach (var value_0 in logicalLocations)
+                foreach (LogicalLocation value_0 in logicalLocations)
                 {
                     if (value_0 == null)
                     {
@@ -192,7 +192,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             if (annotations != null)
             {
                 var destination_1 = new List<Region>();
-                foreach (var value_1 in annotations)
+                foreach (Region value_1 in annotations)
                 {
                     if (value_1 == null)
                     {
@@ -210,7 +210,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             if (relationships != null)
             {
                 var destination_2 = new List<LocationRelationship>();
-                foreach (var value_2 in relationships)
+                foreach (LocationRelationship value_2 in relationships)
                 {
                     if (value_2 == null)
                     {

@@ -10,57 +10,65 @@ using Newtonsoft.Json;
 
 namespace Microsoft.CodeAnalysis.Sarif.Driver
 {
-    public class CommonOptionsBase
+    public class CommonOptionsBase : PropertiesDictionary
     {
+        public bool Inline => OutputFileOptions.ToFlags().HasFlag(FilePersistenceOptions.Inline);
+
+        public bool Minify => OutputFileOptions.ToFlags().HasFlag(FilePersistenceOptions.Minify);
+
+        public bool Optimize => OutputFileOptions.ToFlags().HasFlag(FilePersistenceOptions.Optimize);
+
+        public bool PrettyPrint => OutputFileOptions.ToFlags().HasFlag(FilePersistenceOptions.PrettyPrint);
+
+        public bool ForceOverwrite => OutputFileOptions.ToFlags().HasFlag(FilePersistenceOptions.ForceOverwrite);
+
+        private HashSet<FilePersistenceOptions> _filePersistenceOptions;
+
         [Option(
-            'p',
-            "pretty-print",
-            Default = false,
+            "log",
+            Separator = ';',
             HelpText =
-            "Produce pretty-printed JSON output rather than compact output (all white space removed). If neither " +
-            "--pretty-print nor --minify is specified, --pretty-print is set to true. --pretty-print and --minify " +
-            "cannot be specified together.")]
-        public bool PrettyPrint { get; set; }
+            "Optionally present data, expressed as a semicolon-delimited list enclosed in double quotes, " +
+            "for governing output files. Valid values include ForceOverwrite, Inline, PrettyPrint, Minify or Optimize.")]
+        public IEnumerable<FilePersistenceOptions> OutputFileOptions
+        {
+            get => NormalizeFilePersistenceOptions(_filePersistenceOptions);
+            set => _filePersistenceOptions = new HashSet<FilePersistenceOptions>(value);
+        }
 
-        [Option(
-            'm',
-            "minify",
-            Default = false,
-            HelpText = "Produce compact JSON output (all white space removed) rather than pretty-printed output. " +
-            "If neither --pretty-print nor --minify is specified, --pretty-print is set to true. --pretty-print " +
-            "and --minify cannot be specified together.")]
-        public bool Minify { get; set; }
+        internal static IEnumerable<FilePersistenceOptions> NormalizeFilePersistenceOptions(HashSet<FilePersistenceOptions> filePersistenceOptions)
+        {
+            filePersistenceOptions ??= new HashSet<FilePersistenceOptions>();
+            if (filePersistenceOptions.Contains(FilePersistenceOptions.PrettyPrint))
+            {
+                filePersistenceOptions.Remove(FilePersistenceOptions.Minify);
+            }
 
-        [Option(
-            'f',
-            "force",
-            Default = false,
-            HelpText = "Force overwrite of output file if it exists.")]
-        public bool Force { get; set; }
+            if (filePersistenceOptions.Count > 0 &&
+                !filePersistenceOptions.Contains(FilePersistenceOptions.Minify))
+            {
+                filePersistenceOptions.Add(FilePersistenceOptions.PrettyPrint);
+            }
 
-        [Option(
-            'i',
-            "inline",
-            Default = false,
-            HelpText = "Overwrite each input file with the corresponding transformed file.")]
-        public bool Inline { get; set; }
+            return filePersistenceOptions;
+        }
 
         [Option(
             "insert",
             Separator = ';',
             HelpText =
-            "Optionally present data, expressed as a semicolon-delimited list, that should be inserted into the log file. " +
-            "Valid values include Hashes, TextFiles, BinaryFiles, EnvironmentVariables, RegionSnippets, ContextRegionSnippets, " +
-            "Guids, VersionControlDetails, and NondeterministicProperties.")]
+            "Optionally present data, expressed as a semicolon-delimited list enclosed in double quotes, " +
+            "that should be inserted into the log file. Valid values include Hashes, TextFiles, BinaryFiles, EnvironmentVariables, " +
+            "RegionSnippets, ContextRegionSnippets, ContextRegionSnippetPartialFingerprints, Guids, VersionControlDetails, and NondeterministicProperties.")]
         public IEnumerable<OptionallyEmittedData> DataToInsert { get; set; }
 
         [Option(
             "remove",
             Separator = ';',
             HelpText =
-            "Optionally present data, expressed as a semicolon-delimited list, that should be not be persisted to or which " +
-            "should be removed from the log file. Valid values include Hashes, TextFiles, BinaryFiles, EnvironmentVariables, " +
-            "RegionSnippets, ContextRegionSnippets, Guids, VersionControlDetails, and NondeterministicProperties.")]
+            "Optionally present data, expressed as a semicolon-delimited list enclosed in double quotes, " +
+            "that should be not be persisted to or which should be removed from the log file. Valid values include Hashes, TextFiles, " +
+            "BinaryFiles, EnvironmentVariables, RegionSnippets, ContextRegionSnippets, Guids, VersionControlDetails, and NondeterministicProperties.")]
         public IEnumerable<OptionallyEmittedData> DataToRemove { get; set; }
 
         [Option(
@@ -68,7 +76,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             "uriBaseIds",
             Separator = ';',
             HelpText =
-            @"A key + value pair that defines a uriBaseId and its corresponding local file path. E.g., SRC=c:\src;TEST=c:\test")]
+            @"Key + value pairs, expressed as a semicolon-delimited list enclosed in double quotes, " +
+            @"that defines a uriBaseId and its corresponding local file path. E.g., SRC=c:\src;TEST=c:\test")]
         public IEnumerable<string> UriBaseIds { get; set; }
 
         [Option(
@@ -88,20 +97,20 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             "insert-property",
             Separator = ';',
             HelpText =
-            "A semicolon-delimited list of JSON path + property values that should be inserted into the output log. Currently, " +
-            "only paths that point to a version control provenance property bag is supported, e.g., 'runs[0].invocations[1]." +
-            "versionControlProvenance.properties.myProperty=myValue'.")]
+            "JSON path + property values, expressed as a semicolon-delimited list enclosed in double quotes, that " +
+            "should be inserted into the output log. Currently, only paths that point to a version control provenance property bag " +
+            "is supported, e.g., 'runs[0].invocations[1].versionControlProvenance.properties.myProperty=myValue'.")]
         public IEnumerable<string> InsertProperties { get; set; }
 
         [Option(
-            "automationId",
+            "automation-id",
             HelpText = "An id that will be persisted to the 'Run.AutomationDetails.Id' property. See section '3.17.3' of the SARIF specification for more information.")]
         public string AutomationId { get; set; }
 
         [Option(
-            "automationGuid",
+            "automation-guid",
             HelpText = "A guid that will be persisted to the 'Run.AutomationDetails.Guid' property. See section '3.17.4' of the SARIF specification for more information.")]
-        public Guid? AutomationGuid { get; set; }
+        public Guid AutomationGuid { get; set; }
 
         public Formatting Formatting => this.PrettyPrint || (!this.PrettyPrint && !this.Minify)
             ? Formatting.Indented

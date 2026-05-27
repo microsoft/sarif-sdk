@@ -5,7 +5,7 @@ using System;
 
 namespace Microsoft.CodeAnalysis.Sarif.Processors
 {
-    class TestFoldProcessor : GenericFoldAction<int>
+    internal class TestFoldProcessor : GenericFoldAction<int>
     {
         public static Func<int, int, int> internalFunction = (acc, value) => { return acc + value; };
 

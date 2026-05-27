@@ -75,7 +75,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Query
 
             // Otherwise, build the string, doubling each character to escape
             int nextCopyFrom = 0;
-            StringBuilder result = new StringBuilder();
+            var result = new StringBuilder();
             result.Append('\'');
 
             for (int i = 0; i < value.Length; ++i)
@@ -129,7 +129,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Query
 
         public static IExpression ParseExpression(string expression)
         {
-            StringSlice text = new StringSlice(expression);
+            var text = new StringSlice(expression);
 
             // Parse the expression
             IExpression result = ParseExpression(ref text);
@@ -146,7 +146,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Query
             ConsumeWhitespace(ref text);
             if (text.Length == 0) { return new AllExpression(); }
 
-            List<IExpression> terms = new List<IExpression>
+            var terms = new List<IExpression>
             {
                 ParseAndExpression(ref text)
             };
@@ -170,7 +170,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Query
 
         private static IExpression ParseAndExpression(ref StringSlice text)
         {
-            List<IExpression> terms = new List<IExpression>
+            var terms = new List<IExpression>
             {
                 ParseTerm(ref text)
             };

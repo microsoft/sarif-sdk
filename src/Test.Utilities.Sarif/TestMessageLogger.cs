@@ -14,7 +14,15 @@ namespace Microsoft.CodeAnalysis.Sarif
             FailTargets = new HashSet<string>();
             PassTargets = new HashSet<string>();
             NotApplicableTargets = new HashSet<string>();
+            Results = new List<Tuple<ReportingDescriptor, Result>>();
         }
+
+        public int AnalyzingTargetCount { get; set; }
+
+        public int TargetAnalyzedCount { get; set; }
+
+
+        public List<Tuple<ReportingDescriptor, Result>> Results { get; set; }
 
         public RuntimeConditions RuntimeErrors { get; set; }
 
@@ -30,6 +38,8 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         public List<Notification> ConfigurationNotifications { get; set; }
 
+        public FileRegionsCache FileRegionsCache { get; set; }
+
         public void AnalysisStarted()
         {
         }
@@ -41,11 +51,18 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         public void AnalyzingTarget(IAnalysisContext context)
         {
+            AnalyzingTargetCount++;
         }
 
-        public void Log(ReportingDescriptor rule, Result result)
+        public void TargetAnalyzed(IAnalysisContext context)
         {
-            NoteTestResult(result.Kind, result.Locations.First().PhysicalLocation.ArtifactLocation.Uri.LocalPath);
+            TargetAnalyzedCount++;
+        }
+
+        public void Log(ReportingDescriptor rule, Result result, int? extensionIndex)
+        {
+            Results.Add(new Tuple<ReportingDescriptor, Result>(rule, result));
+            NoteTestResult(result.Kind, result.Locations.First().PhysicalLocation.ArtifactLocation.Uri.ToString());
         }
 
         public void NoteTestResult(ResultKind kind, string targetPath)
@@ -77,7 +94,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             }
         }
 
-        public void LogToolNotification(Notification notification)
+        public void LogToolNotification(Notification notification, ReportingDescriptor associatedRule)
         {
             ToolNotifications = ToolNotifications ?? new List<Notification>();
             ToolNotifications.Add(notification);

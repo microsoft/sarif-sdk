@@ -21,6 +21,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         /// </summary>
         public override string Id => RuleId.ProvideCheckoutPath;
 
+        public override HashSet<RuleKind> RuleKinds => new HashSet<RuleKind>(new[] { RuleKind.Gh });
+
         // GitHub Advanced Security code scanning will reject a SARIF file that expresses
         // result locations as absolute 'file' scheme URIs unless GitHub can determine the URI
         // of the repository root (which GitHub refers to as the "checkout path"). There are
@@ -38,18 +40,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         // requires the analysis tool always to be invoked from that same directory.
         public override MultiformatMessageString FullDescription => new MultiformatMessageString { Text = RuleResources.GH1006_ProvideCheckoutPath_FullDescription_Text };
 
-        protected override IEnumerable<string> MessageResourceNames => new string[] {
+        protected override ICollection<string> MessageResourceNames => new List<string> {
             nameof(RuleResources.GH1006_ProvideCheckoutPath_Error_Default_Text)
         };
 
         public override bool EnabledByDefault => false;
-
-        private List<string> checkoutPaths;
-
-        protected override void Analyze(Run run, string runPointer)
-        {
-            this.checkoutPaths = GetCheckoutPaths(run);
-        }
 
         protected override void Analyze(Result result, string resultPointer)
         {
@@ -70,29 +65,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                     ValidateLocation(result.RelatedLocations[i], relatedLocationsPointer.AtIndex(i));
                 }
             }
-        }
-
-        private List<string> GetCheckoutPaths(Run run)
-        {
-            var checkoutPaths = new List<string>();
-
-            if (run.Invocations?.Any() == true)
-            {
-                foreach (Invocation invocation in run.Invocations)
-                {
-                    // We are assuming that GitHub only looks at the URI and doesn't try to resolve
-                    // if through their (hypothetical) equivalent of the SDK's TryReconstructAbsoluteUri.
-                    // We'll need to determine that experimentally.
-                    if (invocation.WorkingDirectory?.Uri?.IsAbsoluteUri == true)
-                    {
-                        string absoluteUri = invocation.WorkingDirectory.Uri.AbsoluteUri;
-                        absoluteUri = EnsureTrailingSlash(absoluteUri);
-                        checkoutPaths.Add(absoluteUri);
-                    }
-                }
-            }
-
-            return checkoutPaths;
         }
 
         private string EnsureTrailingSlash(string uri)
@@ -123,6 +95,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         }
 
         private bool IsKnownCheckoutPath(string absoluteUri)
-            => this.checkoutPaths.Any(cp => absoluteUri.StartsWith(cp));
+        {
+            Run run = Context.CurrentRun;
+            if (run.Invocations?.Any() != true)
+            {
+                return false;
+            }
+
+            return run.Invocations.Any(invocation =>
+                invocation.WorkingDirectory?.Uri?.IsAbsoluteUri == true &&
+                absoluteUri.StartsWith(EnsureTrailingSlash(invocation.WorkingDirectory.Uri.AbsoluteUri)));
+        }
     }
 }

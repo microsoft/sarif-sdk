@@ -26,7 +26,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         /// </summary>
         public override MultiformatMessageString FullDescription => new MultiformatMessageString { Text = RuleResources.SARIF2013_ProvideEmbeddedFileContent_FullDescription_Text };
 
-        protected override IEnumerable<string> MessageResourceNames => new string[] {
+        protected override ICollection<string> MessageResourceNames => new List<string> {
             nameof(RuleResources.SARIF2013_ProvideEmbeddedFileContent_Note_Default_Text)
         };
 

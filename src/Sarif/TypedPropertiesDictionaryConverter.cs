@@ -43,12 +43,27 @@ namespace Microsoft.CodeAnalysis.Sarif
                 ja = JArray.Load(reader);
                 return new IntegerSet(ja.Values().Select(token => int.Parse(token.ToString())));
             }
+            else if (objectType == typeof(FailureLevelSet))
+            {
+                ja = JArray.Load(reader);
+                return new StringSet(ja.Values().Select(token => token.ToString()));
+            }
+            else if (objectType == typeof(ResultKindSet))
+            {
+                ja = JArray.Load(reader);
+                return new IntegerSet(ja.Values().Select(token => int.Parse(token.ToString())));
+            }
+            else if (objectType == typeof(RuleKindSet))
+            {
+                ja = JArray.Load(reader);
+                return new IntegerSet(ja.Values().Select(token => int.Parse(token.ToString())));
+            }
             else if (objectType == typeof(Version))
             {
                 return JsonConvert.DeserializeObject<Version>(reader.ReadAsString(), _versionConverter);
             }
 
-            JObject jo = JObject.Load(reader);
+            var jo = JObject.Load(reader);
             var result = new PropertiesDictionary();
 
             foreach (JProperty property in jo.Properties())
@@ -106,9 +121,24 @@ namespace Microsoft.CodeAnalysis.Sarif
                 ja = new JArray(stringSet.Select(i => new JValue(i)));
                 ja.WriteTo(writer);
             }
-            else if (value is IntegerSet integetSet)
+            else if (value is IntegerSet integerSet)
             {
-                ja = new JArray(integetSet.Select(i => new JValue(i)));
+                ja = new JArray(integerSet.Select(i => new JValue(i)));
+                ja.WriteTo(writer);
+            }
+            else if (value is FailureLevelSet failureLevelSet)
+            {
+                ja = new JArray(failureLevelSet.Select(i => new JValue(i)));
+                ja.WriteTo(writer);
+            }
+            else if (value is ResultKindSet resultKindSet)
+            {
+                ja = new JArray(resultKindSet.Select(i => new JValue(i)));
+                ja.WriteTo(writer);
+            }
+            else if (value is RuleKindSet ruleKindSet)
+            {
+                ja = new JArray(ruleKindSet.Select(i => new JValue(i)));
                 ja.WriteTo(writer);
             }
             else

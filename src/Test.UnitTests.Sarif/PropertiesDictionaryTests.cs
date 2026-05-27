@@ -137,7 +137,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             Exception exception = Record.Exception(() =>
             {
-                List<Task> taskList = new List<Task>();
+                var taskList = new List<Task>();
 
                 for (int i = 0; i < 1000; i++)
                 {

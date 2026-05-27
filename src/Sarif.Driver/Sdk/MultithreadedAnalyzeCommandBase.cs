@@ -4,20 +4,28 @@
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Collections.Immutable;
 using System.Diagnostics;
+using System.Diagnostics.Tracing;
 using System.IO;
+using System.IO.Compression;
 using System.Linq;
+using System.Net;
+using System.Net.Http;
+using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Threading.Channels;
 using System.Threading.Tasks;
 
+using Microsoft.CodeAnalysis.Sarif.Driver.Sdk;
 using Microsoft.CodeAnalysis.Sarif.Writers;
+using Microsoft.Diagnostics.Tracing.Session;
 
 namespace Microsoft.CodeAnalysis.Sarif.Driver
 {
     public abstract class MultithreadedAnalyzeCommandBase<TContext, TOptions> : PluginDriverCommand<TOptions>
-        where TContext : IAnalysisContext, new()
-        where TOptions : AnalyzeOptionsBase
+        where TContext : AnalyzeContextBase, new()
+        where TOptions : AnalyzeOptionsBase, new()
     {
         public const string DefaultPolicyName = "default";
 
@@ -26,32 +34,24 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         // ways depending on whether output is captured to a log file disk or not. In the latter case,
         // the captured output is useful to verify behavior.
         internal bool _captureConsoleOutput;
-
         internal ConsoleLogger _consoleLogger;
 
-        private Run _run;
-        private Tool _tool;
-        private bool _computeHashes;
-        internal TContext _rootContext;
-        private int _fileContextsCount;
-        private uint _ignoredFilesCount;
-        private Channel<int> readyToHashChannel;
-        private OptionallyEmittedData _dataToInsert;
-        private Channel<int> _resultsWritingChannel;
-        private Channel<int> readyToScanChannel;
-        private IDictionary<string, HashData> _pathToHashDataMap;
-        private ConcurrentDictionary<int, TContext> _fileContexts;
-
-        public Exception ExecutionException { get; set; }
-
-        public RuntimeConditions RuntimeErrors { get; set; }
+        private uint _fileContextsCount;
+        private long _filesMatchingGlobalFileDenyRegex;
+        private long _filesExceedingSizeLimitCount;
+        private Channel<uint> _resultsWritingChannel;
+        private Channel<uint> readyToScanChannel;
+        private ConcurrentDictionary<uint, TContext> _fileContexts;
 
         public static bool RaiseUnhandledExceptionInDriverCode { get; set; }
+
+        public virtual Tool Tool { get; set; }
 
         public virtual FileFormat ConfigurationFormat => FileFormat.Json;
 
         protected MultithreadedAnalyzeCommandBase(IFileSystem fileSystem = null)
         {
+            Tool ??= Tool.CreateFromAssemblyData();
             FileSystem = fileSystem ?? Sarif.FileSystem.Instance;
         }
 
@@ -66,207 +66,464 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
         public override int Run(TOptions options)
         {
+            TContext context = default;
+            return Run(options, ref context);
+        }
+
+        public virtual int Run(TOptions options, ref TContext globalContext)
+        {
             try
             {
-                // Initialize an common logger that drives all outputs. This
-                // object drives logging for console, statistics, etc.
-                using (AggregatingLogger logger = InitializeLogger(options))
-                {
-                    try
-                    {
-                        Analyze(options, logger);
-                    }
-                    catch (ExitApplicationException<ExitReason> ex)
-                    {
-                        // These exceptions have already been logged
-                        ExecutionException = ex;
-                        return FAILURE;
-                    }
-                    catch (Exception ex)
-                    {
-                        ex = ex.InnerException ?? ex;
+                globalContext ??= new TContext();
+                options ??= new TOptions();
+                globalContext = InitializeGlobalContextFromOptions(options, ref globalContext);
 
-                        if (!(ex is ExitApplicationException<ExitReason>))
+                // We must make a copy of the global context reference
+                // to utilize it in a separate thread.
+                TContext methodLocalContext = globalContext;
+
+                if (!string.IsNullOrEmpty(globalContext.EventsFilePath))
+                {
+                    Guid guid = EventSource.GetGuid(typeof(DriverEventSource));
+
+                    if (globalContext.EventsFilePath.Equals("console", StringComparison.OrdinalIgnoreCase))
+                    {
+                        globalContext.TraceEventSession = new TraceEventSession($"Sarif-Driver-{Guid.NewGuid()}");
+                        globalContext.TraceEventSession.BufferSizeMB = globalContext.EventsBufferSizeInMegabytes;
+                        TraceEventSession traceEventSession = globalContext.TraceEventSession;
+                        globalContext.TraceEventSession.Source.Dynamic.All += (e =>
                         {
-                            // These exceptions escaped our net and must be logged here
-                            Errors.LogUnhandledEngineException(_rootContext, ex);
-                        }
-                        ExecutionException = ex;
-                        return FAILURE;
+                            Console.WriteLine($"{e.TimeStamp:MM/dd/yyyy hh:mm:ss.ffff},{e.ThreadID}," +
+                            $"{e.ProcessorNumber},{e.EventName},{e.TimeStampRelativeMSec},{e.FormattedMessage}");
+
+                            if (e.EventName.Equals("SessionEnded"))
+                            {
+                                traceEventSession.Dispose();
+                            }
+                        });
+                        traceEventSession.EnableProvider(guid);
                     }
-                    finally
+                    else
                     {
-                        RuntimeErrors |= _rootContext.RuntimeErrors;
-                        logger.AnalysisStopped(RuntimeErrors);
+                        string etlFilePath =
+                        Path.GetExtension(globalContext.EventsFilePath).Equals(".csv", StringComparison.OrdinalIgnoreCase)
+                            ? $"{Path.GetFileNameWithoutExtension(globalContext.EventsFilePath)}.etl"
+                            : globalContext.EventsFilePath;
+
+                        globalContext.TraceEventSession = new TraceEventSession($"Sarif-Driver-{Guid.NewGuid()}", etlFilePath);
+                        globalContext.TraceEventSession.BufferSizeMB = globalContext.EventsBufferSizeInMegabytes;
+                        globalContext.TraceEventSession.EnableProvider(guid);
                     }
                 }
 
-                bool succeeded = (RuntimeErrors & ~RuntimeConditions.Nonfatal) == RuntimeConditions.None;
-
-                if (succeeded)
+                Task<int> analyzeTask = Task.Run(() =>
                 {
-                    try
-                    {
-                        ProcessBaseline(_rootContext, options, FileSystem);
-                    }
-                    catch (Exception ex)
-                    {
-                        RuntimeErrors |= RuntimeConditions.ExceptionProcessingBaseline;
-                        ExecutionException = ex;
-                        return FAILURE;
-                    }
+                    return Run(methodLocalContext);
+                }, globalContext.CancellationToken);
 
-                    try
+                int msDelay = globalContext.TimeoutInMilliseconds;
+                int result = FAILURE;
+
+                if (Task.WhenAny(analyzeTask, Task.Delay(msDelay)).GetAwaiter().GetResult() == analyzeTask)
+                {
+                    result = analyzeTask.Result;
+                }
+                else
+                {
+                    lock (globalContext)
                     {
-                        PostLogFile(options.PostUri, options.OutputFilePath, FileSystem);
-                    }
-                    catch (Exception ex)
-                    {
-                        RuntimeErrors |= RuntimeConditions.ExceptionPostingLogFile;
-                        ExecutionException = ex;
-                        return FAILURE;
+                        Errors.LogAnalysisTimedOut(globalContext);
                     }
                 }
 
-                return options.RichReturnCode
-                    ? (int)RuntimeErrors
-                    : succeeded ? SUCCESS : FAILURE;
+                DriverEventSource.Log.SessionEnded(result, globalContext.RuntimeErrors);
+                return result;
+            }
+            catch (Exception ex)
+            {
+                globalContext.RuntimeExceptions ??= new List<Exception>();
+                ProcessException(globalContext, ex);
             }
             finally
             {
-                _rootContext?.Dispose();
+                globalContext.Dispose();
             }
+
+            return
+                globalContext.RichReturnCode == true
+                    ? (int)globalContext.RuntimeErrors
+                    : FAILURE;
         }
 
-        private void Analyze(TOptions analyzeOptions, AggregatingLogger logger)
+        private void ProcessException(TContext globalContext, Exception ex)
         {
-            // 0. Log analysis initiation
-            logger.AnalysisStarted();
+            if (ex is ExitApplicationException<ExitReason> eae)
+            {
+                globalContext.RuntimeExceptions.Add(ex);
+                return;
+            }
 
-            // 1. Create context object to pass to skimmers. The logger
-            //    and configuration objects are common to all context
-            //    instances and will be passed on again for analysis.
-            _rootContext = CreateContext(analyzeOptions, logger, RuntimeErrors);
+            if (ex is AggregateException ae)
+            {
+                foreach (Exception innerException in ae.InnerExceptions)
+                {
+                    ProcessException(globalContext, innerException);
+                }
+                return;
+            }
 
-            // 2. Perform any command line argument validation beyond what
-            //    the command line parser library is capable of.
-            ValidateOptions(analyzeOptions, _rootContext);
+            if (ex.InnerException != null)
+            {
+                ProcessException(globalContext, ex.InnerException);
+                return;
+            }
 
-            // 5. Initialize report file, if configured.
-            InitializeOutputFile(analyzeOptions, _rootContext);
+            if (ex is OperationCanceledException oce)
+            {
+                lock (globalContext)
+                {
+                    globalContext.RuntimeExceptions.Add(oce);
+                }
 
-            // 6. Instantiate skimmers.
-            ISet<Skimmer<TContext>> skimmers = CreateSkimmers(analyzeOptions, _rootContext);
+                Errors.LogAnalysisCanceled(globalContext, oce);
+                globalContext.RuntimeExceptions.Add(new ExitApplicationException<ExitReason>(SdkResources.ERR999_AnalysisCanceled, oce)
+                {
+                    ExitReason = ExitReason.AnalysisCanceled
+                });
+                return;
+            }
 
-            // 7. Initialize configuration. This step must be done after initializing
-            //    the skimmers, as rules define their specific context objects and
-            //    so those assemblies must be loaded.
-            InitializeConfiguration(analyzeOptions, _rootContext);
+            lock (globalContext)
+            {
+                Errors.LogUnhandledEngineException(globalContext, ex);
+            }
 
-            // 8. Initialize skimmers. Initialize occurs a single time only. This
-            //    step needs to occurs after initializing configuration in order
+            globalContext.RuntimeExceptions.Add(new ExitApplicationException<ExitReason>(DriverResources.MSG_UnexpectedApplicationExit, ex)
+            {
+                ExitReason = ExitReason.UnhandledExceptionInEngine
+            });
+        }
+
+        private int Run(TContext globalContext)
+        {
+            bool succeeded;
+            IDisposable disposableLogger;
+
+            globalContext.FileSystem ??= FileSystem;
+            globalContext = ValidateContext(globalContext);
+            disposableLogger = globalContext.Logger as IDisposable;
+            InitializeOutputs(globalContext);
+
+            // 1. Instantiate skimmers. We need to do this before initializing
+            //    the output file so that we can preconstruct the tool 
+            //    extensions data written to the SARIF file. Due to this ordering, 
+            //    we won't emit any failures or notifications in this operation 
+            //    to the log file itself: it will only appear in console output.
+            ISet<Skimmer<TContext>> skimmers = CreateSkimmers(globalContext);
+
+            // 2. Initialize skimmers. Initialize occurs a single time only. This
+            //    step needs to occur after initializing configuration in order
             //    to allow command-line override of rule settings
-            skimmers = InitializeSkimmers(skimmers, _rootContext);
+            skimmers = InitializeSkimmers(skimmers, globalContext);
 
-            // 9. Run all multi-threaded analysis operations.
-            AnalyzeTargets(analyzeOptions, _rootContext, skimmers);
+            // 3. Log analysis initiation
+            globalContext.Logger.AnalysisStarted();
 
-            // 10. For test purposes, raise an unhandled exception if indicated
+            // 4. Run all multi-threaded analysis operations.
+            AnalyzeTargets(globalContext, skimmers);
+
+            // 5. For test purposes, raise an unhandled exception if indicated
             if (RaiseUnhandledExceptionInDriverCode)
             {
                 throw new InvalidOperationException(GetType().Name);
             }
+
+            // Analysis is complete. Generate our stopped event and also dispose
+            // of any disposable logs (which will flush and release locks on
+            // output files).
+            globalContext.Logger.AnalysisStopped(globalContext.RuntimeErrors);
+            disposableLogger?.Dispose();
+
+            if (Path.GetExtension(globalContext.EventsFilePath).Equals(".csv", StringComparison.OrdinalIgnoreCase))
+            {
+                var dumpEventsCommand = new DumpEventsCommand();
+
+                var options = new DumpEventsOptions()
+                {
+                    EventsFilePath = $"{Path.GetFileNameWithoutExtension(globalContext.EventsFilePath)}.etl",
+                    CsvFilePath = globalContext.EventsFilePath,
+                };
+
+                Console.WriteLine(options);
+                Console.WriteLine("Dumping session events to CSV (this could take a while)...");
+                dumpEventsCommand.Run(options);
+                Console.WriteLine($"Events written to: {globalContext.EventsFilePath}");
+            }
+
+            // Note that we don't clear the logger here. That is because the console
+            // logger and any other custom loggers can still be useful for these operations.
+            if ((globalContext.RuntimeErrors & ~RuntimeConditions.Nonfatal) == RuntimeConditions.None)
+            {
+                ProcessBaseline(globalContext);
+            }
+
+            // Even if there are fatal errors, if the log file is generated, we can upload it with the ToolExecutionNotifications.
+            PostLogFile(globalContext);
+
+            globalContext.Logger = null;
+            succeeded = (globalContext.RuntimeErrors & ~RuntimeConditions.Nonfatal) == RuntimeConditions.None;
+
+            return
+                globalContext.RichReturnCode
+                    ? (int)globalContext?.RuntimeErrors
+                    : succeeded ? SUCCESS : FAILURE;
         }
 
-        private void MultithreadedAnalyzeTargets(TOptions options,
-                                                 TContext rootContext,
+        public virtual TContext InitializeGlobalContextFromOptions(TOptions options, ref TContext context)
+        {
+            context ??= new TContext();
+            context.FileSystem ??= this.FileSystem ?? Sarif.FileSystem.Instance;
+
+            context.Quiet = options.Quiet != null ? options.Quiet.Value : context.Quiet;
+
+            // We initialize a temporary console logger that's used strictly to emit
+            // diagnostics output while we load/initialize various configurations settings.
+            IAnalysisLogger savedLogger = context.Logger;
+
+            try
+            {
+                context.Logger = new ConsoleLogger(quietConsole: context.Quiet,
+                                                   levels: BaseLogger.ErrorWarningNote,
+                                                   kinds: BaseLogger.Fail,
+                                                   toolName: Tool.Driver.Name);
+
+                // Next, we initialize ourselves from disk-based configuration, 
+                // if specified. This allows users to operate against configuration
+                // XML but to override specific settings within it via options.
+                context = InitializeConfiguration(options.ConfigurationFilePath, context);
+
+                // Now that our context if fully initialized, we can create
+                // the actual loggers used to complete analysis.
+                context.Logger = savedLogger;
+                context.ResultKinds = options.Kind != null ? options.ResultKinds : context.ResultKinds;
+                context.FailureLevels = options.Level != null ? options.FailureLevels : context.FailureLevels;
+                context.Logger ??= InitializeLogger(context);
+            }
+            finally
+            {
+                // Handle the remaining options.  This is in a finally block so even if the logger initialization throws
+                // (possible), we still have a reasonably well-constructed globalContext for controlling any still-relevant
+                // behaviors (ie: return code behavior.)  As a precaution, we handle trivial (clearly non-throwing)
+                // initialization first.
+                context.RichReturnCode = options.RichReturnCode ?? context.RichReturnCode;
+                context.PostUri = options.PostUri ?? context.PostUri;
+                context.AutomationId = options.AutomationId ?? context.AutomationId;
+                context.Threads = options.Threads > 0 ? options.Threads : context.Threads;
+                context.OutputFilePath = options.OutputFilePath ?? context.OutputFilePath;
+                context.BaselineFilePath = options.BaselineFilePath ?? context.BaselineFilePath;
+                context.Recurse = options.Recurse != null ? options.Recurse.Value : context.Recurse;
+                context.GlobalFilePathDenyRegex = options.GlobalFilePathDenyRegex ?? context.GlobalFilePathDenyRegex;
+                context.AutomationGuid = options.AutomationGuid != default ? options.AutomationGuid : context.AutomationGuid;
+                context.OutputConfigurationFilePath = options.OutputConfigurationFilePath ?? context.OutputConfigurationFilePath;
+                context.MaxFileSizeInKilobytes = options.MaxFileSizeInKilobytes != null ? options.MaxFileSizeInKilobytes.Value : context.MaxFileSizeInKilobytes;
+                context.PluginFilePaths = options.PluginFilePaths?.Any() == true ? options.PluginFilePaths?.ToImmutableHashSet() : context.PluginFilePaths;
+                context.TimeoutInMilliseconds = options.TimeoutInSeconds != null ? Math.Max(options.TimeoutInSeconds.Value * 1000, 0) : context.TimeoutInMilliseconds;
+                context.InsertProperties = options.InsertProperties?.Any() == true ? InitializeStringSet(options.InsertProperties) : context.InsertProperties;
+                context.TargetFileSpecifiers = options.TargetFileSpecifiers?.Any() == true ? InitializeStringSet(options.TargetFileSpecifiers) : context.TargetFileSpecifiers;
+                context.InvocationPropertiesToLog = options.InvocationPropertiesToLog?.Any() == true ? InitializeStringSet(options.InvocationPropertiesToLog) : context.InvocationPropertiesToLog;
+                context.Traces = options.Trace.Any() ? InitializeStringSet(options.Trace) : context.Traces;
+                context.RuleKinds = options.RuleKindOption != null ? options.RuleKinds : context.RuleKinds;
+            }
+
+            // Less-obviously throw-safe. We don't do these in the finally block because we'd prefer not to mask an earlier Exception during logger initialization. 
+            context.DataToInsert = options.DataToInsert?.Any() == true ? options.DataToInsert.ToFlags() : context.DataToInsert;
+            context.DataToRemove = options.DataToRemove?.Any() == true ? options.DataToRemove.ToFlags() : context.DataToRemove;
+            context.OutputFileOptions = options.OutputFileOptions?.Any() == true ? options.OutputFileOptions.ToFlags() : context.OutputFileOptions;
+            context.EventsFilePath = Environment.GetEnvironmentVariable("SPMI_ETW") ?? options.EventsFilePath ?? context.EventsFilePath;
+
+            if (context.TargetsProvider == null)
+            {
+                context.TargetsProvider =
+                    OrderedFileSpecifier.Create(
+                        context.TargetFileSpecifiers,
+                        context.Recurse,
+                        context.MaxFileSizeInKilobytes,
+                        context.FileSystem);
+            }
+
+            return context;
+        }
+
+        public virtual TContext ValidateContext(TContext globalContext)
+        {
+            bool succeeded = true;
+
+            bool force = globalContext.OutputFileOptions.HasFlag(FilePersistenceOptions.ForceOverwrite);
+            succeeded &= ValidateFile(globalContext,
+                                      globalContext.OutputFilePath,
+                                      shouldExist: force ? (bool?)null : false);
+
+            succeeded &= ValidateBaselineFile(globalContext);
+
+            bool required = !string.IsNullOrEmpty(globalContext.BaselineFilePath);
+            succeeded &= ValidateFile(globalContext,
+                                      globalContext.BaselineFilePath,
+                                      shouldExist: required ? true : (bool?)null);
+
+            required = globalContext.PluginFilePaths?.Any() == true;
+            succeeded &= ValidateFiles(globalContext,
+                                       globalContext.PluginFilePaths,
+                                       shouldExist: required ? true : (bool?)null);
+
+
+            if (!string.IsNullOrEmpty(globalContext.PostUri))
+            {
+                try
+                {
+                    using HttpClientWrapper httpClient = GetHttpClientWrapper();
+                    string separator = globalContext.PostUri.Contains("?") ? "&" : "?";
+                    string uri = $"{globalContext.PostUri}{separator}healthcheck=true";
+
+                    var content = new StringContent(string.Empty);
+                    HttpResponseMessage httpResponseMessage = httpClient.PostAsync(uri, content).GetAwaiter().GetResult();
+
+                    // For health check with query parameter, we expect a 202 (Accepted) response.
+                    // We also maintain backwards compatibility with 422 (unprocessable payload) for servers
+                    // that don't support the healthcheck parameter but will accept valid SARIF files.
+                    if (httpResponseMessage.StatusCode != HttpStatusCode.Accepted &&
+                        httpResponseMessage.StatusCode != (HttpStatusCode)422)
+                    {
+                        Errors.LogErrorPostingLogFile(globalContext, globalContext.PostUri);
+                        globalContext.PostUri = null;
+                        succeeded = false;
+                    }
+                }
+                catch (Exception e)
+                {
+                    Errors.LogErrorPostingLogFile(globalContext, globalContext.PostUri);
+                    globalContext.PostUri = null;
+                    succeeded = false;
+                    globalContext.RuntimeExceptions ??= new List<Exception>();
+                    globalContext.RuntimeExceptions.Add(e);
+                }
+                finally
+                {
+                    // TBD add logging if POST URI is null.
+                }
+            }
+
+            succeeded &= ValidateInvocationPropertiesToLog(globalContext);
+
+            if (!succeeded)
+            {
+                ThrowExitApplicationException(ExitReason.InvalidCommandLineOption);
+            }
+
+            return globalContext;
+        }
+
+        private static ISet<string> InitializeStringSet(IEnumerable<string> strings)
+        {
+            return strings?.Any() == true ?
+                   new StringSet(strings) :
+                   new StringSet();
+        }
+
+        private void MultithreadedAnalyzeTargets(TContext globalContext,
                                                  IEnumerable<Skimmer<TContext>> skimmers,
                                                  ISet<string> disabledSkimmers)
         {
-            options.Threads = options.Threads > 0
-                ? options.Threads
-                : (Debugger.IsAttached) ? 1 : Environment.ProcessorCount;
-
-            var channelOptions = new BoundedChannelOptions(2000)
-            {
-                SingleWriter = true,
-                SingleReader = true,
-            };
-            readyToHashChannel = Channel.CreateBounded<int>(channelOptions);
-
-            channelOptions = new BoundedChannelOptions(2000)
+            globalContext.CancellationToken.ThrowIfCancellationRequested();
+            var channelOptions = new BoundedChannelOptions(globalContext.ChannelSize)
             {
                 SingleWriter = true,
                 SingleReader = false,
             };
-            readyToScanChannel = Channel.CreateBounded<int>(channelOptions);
+            readyToScanChannel = Channel.CreateBounded<uint>(channelOptions);
 
-            channelOptions = new BoundedChannelOptions(2000)
+            channelOptions = new BoundedChannelOptions(globalContext.ChannelSize)
             {
                 SingleWriter = false,
                 SingleReader = true,
             };
-            _resultsWritingChannel = Channel.CreateBounded<int>(channelOptions);
+            _resultsWritingChannel = Channel.CreateBounded<uint>(channelOptions);
 
             var sw = Stopwatch.StartNew();
 
-            // 1: First we initiate an asynchronous operation to locate disk files for
-            // analysis, as specified in analysis configuration (file names, wildcards).
-            Task<bool> enumerateFilesOnDisk = EnumerateFilesOnDiskAsync(options);
-
-            // 2: Files found on disk are put in a specific sort order, after which a 
-            // reference to each scan target is put into a channel for hashing,
-            // if hashing is enabled.
-            Task<bool> hashFilesAndPutInAnalysisQueue = HashFilesAndPutInAnalysisQueueAsnc();
-
-            // 3: A dedicated set of threads pull scan targets and analyze them.
-            //    On completing a scan, the thread writes the index of the 
-            //    scanned item to a channel that drives logging.
-            var workers = new Task<bool>[options.Threads];
-            for (int i = 0; i < options.Threads; i++)
+            if (!globalContext.Quiet)
             {
-                workers[i] = ScanTargetsAsync(skimmers, disabledSkimmers);
+                Console.WriteLine($"THREADS: {globalContext.Threads}");
             }
 
-            // 4: A single-threaded consumer watches for completed scans
-            //    and logs results, if any. This operation is singlle-threaded
-            //    in order to help ensure determinism in log output. i.e., any
-            //    scan of the same targets using the same production code
-            //    should produce a log file that is byte-for-byte identical
-            //    to the previous output.
-            Task<bool> logScanResults = LogScanResultsAsync(rootContext);
+            // 1: First we initiate an asynchronous operation to locate disk files for
+            // analysis, as specified in analysis configuration (file names, wildcards).
+            Task<bool> enumerateTargets = Task.Run(() => EnumerateTargetsAsync(globalContext));
 
-            Task.WhenAll(workers)
+            // 2: A dedicated set of threads pull scan targets and analyze them.
+            //    On completing a scan, the thread writes the index of the 
+            //    scanned item to a channel that drives logging.
+            var scanWorkers = new Task[globalContext.Threads];
+            for (int i = 0; i < globalContext.Threads; i++)
+            {
+                scanWorkers[i] = Task.Run(() => ScanTargetsAsync(globalContext, skimmers, disabledSkimmers));
+            }
+
+            // 3: A single-threaded consumer watches for completed scans
+            //    and logs results, if any. This operation is single-threaded
+            //    to ensure determinism in log output. i.e., any scan of the
+            //    same targets using the same production code should produce
+            //    a log file that is byte-for-byte identical to previous log.
+            var logResults = Task.Run(() => LogResultsAsync(globalContext));
+
+            Task.WhenAll(scanWorkers)
                 .ContinueWith(_ => _resultsWritingChannel.Writer.Complete())
                 .Wait();
 
-            enumerateFilesOnDisk.Wait();
-            hashFilesAndPutInAnalysisQueue.Wait();
-            logScanResults.Wait();
+            enumerateTargets.Wait();
+            logResults.Wait();
 
-            Console.WriteLine();
-
-            if (rootContext.Traces.HasFlag(DefaultTraces.ScanTime))
+            if (_filesMatchingGlobalFileDenyRegex > 0)
             {
-                Console.WriteLine($"Done. {_fileContextsCount:n0} files scanned in {sw.Elapsed}.");
+                string reason = "file path(s) matched the global file deny regex";
+                Warnings.LogOneOrMoreFilesSkipped(globalContext, _filesMatchingGlobalFileDenyRegex, reason);
             }
-            else
+
+            if (!globalContext.Quiet) { Console.WriteLine(); }
+
+            string id;
+            if (globalContext.Traces.Contains(nameof(DefaultTraces.PeakWorkingSet)))
+            {
+                using (var currentProcess = Process.GetCurrentProcess())
+                {
+                    id = $"TRC101.{nameof(DefaultTraces.PeakWorkingSet)}";
+                    string memoryUsage = $"Peak working set: {currentProcess.PeakWorkingSet64 / 1024 / 1024}MB.";
+                    LogTrace(globalContext, memoryUsage, id);
+                }
+            }
+
+            if (globalContext.Traces.Contains(nameof(DefaultTraces.ScanTime)))
+            {
+                id = $"TRC101.{nameof(DefaultTraces.ScanTime)}";
+                string timing = $"Done. {_fileContextsCount:n0} files scanned, elapsed time {sw.Elapsed}.";
+                LogTrace(globalContext, timing, id);
+            }
+            else if (!globalContext.Quiet)
             {
                 Console.WriteLine($"Done. {_fileContextsCount:n0} files scanned.");
             }
         }
 
-        private async Task<bool> LogScanResultsAsync(TContext rootContext)
+        private async Task LogResultsAsync(TContext globalContext)
         {
-            int currentIndex = 0;
+            uint currentIndex = 0;
 
-            ChannelReader<int> reader = _resultsWritingChannel.Reader;
+            ChannelReader<uint> reader = _resultsWritingChannel.Reader;
 
             // Wait until there is work or the channel is closed.
             while (await reader.WaitToReadAsync())
             {
                 // Loop while there is work to do.
-                while (reader.TryRead(out int item))
+                while (reader.TryRead(out uint item))
                 {
                     // This condition can occur if currentIndex moves
                     // ahead in array processing due to operations
@@ -275,76 +532,84 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                     // processed, we just ignore this notification.
                     if (currentIndex > item) { break; }
 
-                    TContext context = default;
-                    try
+                    TContext context;
+                    context = _fileContexts[currentIndex];
+
+                    while (context?.AnalysisComplete == true)
                     {
-                        context = _fileContexts[currentIndex];
-
-                        while (context?.AnalysisComplete == true)
+                        lock (globalContext)
                         {
-                            LogCachingLogger(rootContext, context, clone: _computeHashes);
+                            DriverEventSource.Log.LogResultsStart();
+                            globalContext.CurrentTarget = context.CurrentTarget;
+                            LogCachingLogger(globalContext, (CachingLogger)context.Logger, clone: false);
+                            DriverEventSource.Log.LogResultsStop();
 
-                            RuntimeErrors |= context.RuntimeErrors;
+                            globalContext.RuntimeErrors |= context.RuntimeErrors;
+                            if (context.RuntimeExceptions != null)
+                            {
+                                globalContext.RuntimeExceptions ??= new List<Exception>();
+                                foreach (Exception exception in context.RuntimeExceptions)
+                                {
+                                    globalContext.RuntimeExceptions.Add(exception);
+                                }
+                            }
 
-                            context.Dispose();
-                            _fileContexts.TryRemove(currentIndex, out _);
-                            _fileContexts.TryGetValue(currentIndex + 1, out context);
-
-                            currentIndex++;
+                            globalContext.CurrentTarget = null;
                         }
-                    }
-                    catch (Exception e)
-                    {
-                        if (context != null)
-                        {
-                            RuntimeErrors |= context.RuntimeErrors;
-                            context?.Dispose();
-                        }
-                        context = default;
-                        Errors.LogUnhandledEngineException(rootContext, e);
-                        RuntimeErrors |= rootContext.RuntimeErrors;
-                        ThrowExitApplicationException(context, ExitReason.ExceptionWritingToLogFile, e);
+
+                        _fileContexts.TryRemove(currentIndex, out _);
+                        _fileContexts.TryGetValue(++currentIndex, out context);
                     }
                 }
             }
-
-            Debug.Assert(_fileContexts.IsEmpty);
-            Debug.Assert(_fileContextsCount == currentIndex);
-
-            return true;
         }
 
-        private static void LogCachingLogger(TContext rootContext, TContext context, bool clone = false)
+        private static void LogCachingLogger(TContext globalContext, CachingLogger cachingLogger, bool clone = false)
         {
-            var cachingLogger = (CachingLogger)context.Logger;
-            IDictionary<ReportingDescriptor, IList<Result>> results = cachingLogger.Results;
+            // Today, the signal to generate hash data in log files is synonymous with a decision
+            // to perform target file results-caching (where we only analyze a copy of a file, by
+            // hash, a single time). We need to separate configuring this mechanism. Some scan 
+            // scenarios, such as binary analysis + crawl of PDB, greatly benefit from this mechanism,
+            // other scan scenarios, such as lightweight linting of large #'s of source files, 
+            // experience significant memory pressure from it. Disabling caching altogether for now.
+            // 
+            // https://github.com/microsoft/sarif-sdk/issues/2620
+            //
+            // As a result of this gap, `clone` will always be false, because we have a per-file
+            // (and not per-file-by-hash) logger instance.
+
+            IDictionary<ReportingDescriptor, IList<Tuple<Result, int?>>> results = cachingLogger.Results;
+            globalContext.CancellationToken.ThrowIfCancellationRequested();
+            IEnumeratedArtifact artifact = globalContext.CurrentTarget;
 
             if (results?.Count > 0)
             {
-                foreach (KeyValuePair<ReportingDescriptor, IList<Result>> kv in results)
+                foreach (KeyValuePair<ReportingDescriptor, IList<Tuple<Result, int?>>> kv in results)
                 {
-                    foreach (Result result in kv.Value)
+                    globalContext.CancellationToken.ThrowIfCancellationRequested();
+                    foreach (Tuple<Result, int?> tuple in kv.Value)
                     {
+                        Result result = tuple.Item1;
                         Result currentResult = result;
                         if (clone)
                         {
                             Result clonedResult = result.DeepClone();
 
-                            UpdateLocationsAndMessageWithCurrentUri(clonedResult.Locations, clonedResult.Message, context.TargetUri);
+                            UpdateLocationsAndMessageWithCurrentUri(clonedResult.Locations, clonedResult.Message, artifact.Uri);
 
                             currentResult = clonedResult;
                         }
-
-                        rootContext.Logger.Log(kv.Key, currentResult);
+                        globalContext.Logger.FileRegionsCache = cachingLogger.FileRegionsCache;
+                        globalContext.Logger.Log(kv.Key, currentResult, tuple.Item2);
                     }
                 }
             }
 
             if (cachingLogger.ToolNotifications != null)
             {
-                foreach (Notification notification in cachingLogger.ToolNotifications)
+                foreach (Tuple<Notification, ReportingDescriptor> tuple in cachingLogger.ToolNotifications)
                 {
-                    rootContext.Logger.LogToolNotification(notification);
+                    globalContext.Logger.LogToolNotification(tuple.Item1, tuple.Item2);
                 }
             }
 
@@ -356,155 +621,205 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                     if (clone)
                     {
                         Notification clonedNotification = notification.DeepClone();
-                        UpdateLocationsAndMessageWithCurrentUri(clonedNotification.Locations, notification.Message, context.TargetUri);
+                        UpdateLocationsAndMessageWithCurrentUri(clonedNotification.Locations, notification.Message, artifact.Uri);
 
                         currentNotification = clonedNotification;
                     }
 
-                    rootContext.Logger.LogConfigurationNotification(currentNotification);
+                    globalContext.Logger.LogConfigurationNotification(currentNotification);
                 }
             }
+
+            globalContext.Logger.TargetAnalyzed(globalContext);
         }
 
-        protected virtual bool ShouldEnqueue(string file, TContext context)
-        {
-            bool shouldEnqueue = IsTargetWithinFileSizeLimit(file, context.MaxFileSizeInKilobytes, out long fileSizeInKb);
-
-            if (!shouldEnqueue)
-            {
-                Warnings.LogFileSkippedDueToSize(context, file, fileSizeInKb);
-            }
-
-            return shouldEnqueue;
-        }
-
-        protected virtual bool ShouldComputeHashes(string file, TContext context)
-        {
-            return true;
-        }
-
-        private async Task<bool> EnumerateFilesOnDiskAsync(TOptions options)
+        private async Task<bool> EnumerateTargetsAsync(TContext globalContext)
         {
             try
             {
                 this._fileContextsCount = 0;
-                this._fileContexts = new ConcurrentDictionary<int, TContext>();
+                this._fileContexts = new ConcurrentDictionary<uint, TContext>();
 
-                // INTERESTING BREAKPOINT: debug 'ERR997.NoValidAnalysisTargets : No valid analysis targets were specified.'
-                // Set a conditional breakpoint on 'matchExpression.Name' to filter by specific rules.
-                // Set a conditional breakpoint on 'searchText' to filter on specific target text patterns.
-                foreach (string specifier in options.TargetFileSpecifiers)
-                {
-                    string normalizedSpecifier = Environment.ExpandEnvironmentVariables(specifier);
-
-                    if (Uri.TryCreate(specifier, UriKind.RelativeOrAbsolute, out Uri uri))
-                    {
-                        if (uri.IsAbsoluteUri && (uri.IsFile || uri.IsUnc))
-                        {
-                            normalizedSpecifier = uri.LocalPath;
-                        }
-                    }
-
-                    string filter = Path.GetFileName(normalizedSpecifier);
-                    string directory = Path.GetDirectoryName(normalizedSpecifier);
-
-                    if (directory.Length == 0)
-                    {
-                        directory = $".{Path.DirectorySeparatorChar}";
-                    }
-
-                    directory = Path.GetFullPath(directory);
-                    var directories = new Queue<string>();
-
-                    if (!FileSystem.DirectoryExists(directory))
-                    {
-                        continue;
-                    }
-
-                    if (options.Recurse)
-                    {
-                        EnqueueAllDirectories(directories, directory);
-                    }
-                    else
-                    {
-                        directories.Enqueue(directory);
-                    }
-
-                    var sortedFiles = new SortedSet<string>();
-
-                    while (directories.Count > 0)
-                    {
-                        sortedFiles.Clear();
-
-                        directory = Path.GetFullPath(directories.Dequeue());
-
-#if NETFRAMEWORK
-                        // .NET Framework: Directory.Enumerate with empty filter returns NO files.
-                        // .NET Core: Directory.Enumerate with empty filter returns all files in directory.
-                        // We will standardize on the .NET Core behavior.
-                        if (string.IsNullOrEmpty(filter))
-                        {
-                            filter = "*";
-                        }
-#endif
-
-                        foreach (string file in FileSystem.DirectoryEnumerateFiles(directory, filter, SearchOption.TopDirectoryOnly))
-                        {
-                            // Only include files that are below the max size limit.
-                            if (ShouldEnqueue(file, _rootContext))
-                            {
-                                sortedFiles.Add(file);
-                                continue;
-                            }
-
-                            if (!IsTargetWithinFileSizeLimit(file, _rootContext.MaxFileSizeInKilobytes, out long fileSizeInKb))
-                            {
-                                _ignoredFilesCount++;
-                            }
-                        }
-
-                        foreach (string file in sortedFiles)
-                        {
-                            _fileContexts.TryAdd(
-                                _fileContextsCount,
-                                CreateContext(options,
-                                              new CachingLogger(options.Level, options.Kind),
-                                              _rootContext.RuntimeErrors,
-                                              _rootContext.Policy,
-                                              filePath: file)
-                            );
-
-                            await readyToHashChannel.Writer.WriteAsync(_fileContextsCount++);
-                        }
-                    }
-                }
-            }
-            catch (Exception e)
-            {
-                Errors.LogUnhandledEngineException(_rootContext, e);
-                ThrowExitApplicationException(_rootContext, ExitReason.UnhandledExceptionInEngine);
+                DriverEventSource.Log.EnumerateArtifactsStart();
+                await EnumerateFilesFromArtifactsProvider(globalContext, recursionDepth: 0);
+                DriverEventSource.Log.EnumerateArtifactsStop();
             }
             finally
             {
-                readyToHashChannel.Writer.Complete();
+                readyToScanChannel.Writer.Complete();
             }
 
-            if (_ignoredFilesCount > 0)
+            if (_filesExceedingSizeLimitCount > 0)
             {
-                Warnings.LogOneOrMoreFilesSkippedDueToSize(_rootContext);
+                Warnings.LogOneOrMoreFilesSkippedDueToExceedingSizeLimit(globalContext, _filesExceedingSizeLimitCount);
             }
 
             if (_fileContextsCount == 0)
             {
-                Errors.LogNoValidAnalysisTargets(_rootContext);
-                ThrowExitApplicationException(_rootContext, ExitReason.NoValidAnalysisTargets);
+                Errors.LogNoValidAnalysisTargets(globalContext);
+
+                ThrowExitApplicationException(ExitReason.NoValidAnalysisTargets);
             }
 
             return true;
         }
 
-        private void EnqueueAllDirectories(Queue<string> queue, string directory)
+        private async Task<bool> EnumerateArtifact(IEnumeratedArtifact artifact, TContext globalContext, int recursionDepth = 0)
         {
+            globalContext.CancellationToken.ThrowIfCancellationRequested();
+
+            string filePath = artifact.Uri.GetFilePath();
+            string suffix = artifact.Uri.IsAbsoluteUri ? artifact.Uri.Query : string.Empty;
+            filePath = $"{filePath}{suffix}";
+
+            if (globalContext.CompiledGlobalFileDenyRegex?.Match(filePath).Success == true)
+            {
+                _filesMatchingGlobalFileDenyRegex++;
+                DriverEventSource.Log.ArtifactNotScanned(filePath, DriverEventNames.FilePathDenied, artifact.SizeInBytes.Value, globalContext.GlobalFilePathDenyRegex);
+
+                string reason = $"its file path matched the global file deny regex: {globalContext.GlobalFilePathDenyRegex}";
+                Notes.LogFileSkipped(globalContext, filePath, reason);
+                return false;
+            }
+
+            if (artifact.SizeInBytes == 0)
+            {
+                DriverEventSource.Log.ArtifactNotScanned(filePath, DriverEventNames.EmptyFile, 00, data2: null);
+                Notes.LogEmptyFileSkipped(globalContext, filePath);
+                return true;
+            }
+
+            if (!IsTargetWithinFileSizeLimit(artifact.SizeInBytes.Value, globalContext.MaxFileSizeInKilobytes))
+            {
+                _filesExceedingSizeLimitCount++;
+                DriverEventSource.Log.ArtifactNotScanned(filePath, DriverEventNames.FileExceedsSizeLimits, artifact.SizeInBytes.Value, $"{globalContext.MaxFileSizeInKilobytes}");
+                Notes.LogFileExceedingSizeLimitSkipped(globalContext, filePath, artifact.SizeInBytes.Value / 1000);
+                return false;
+            }
+
+            if (IsOpcArtifact(artifact, filePath, globalContext))
+            {
+                if (recursionDepth >= globalContext.MaxArchiveRecursionDepth)
+                {
+                    string reason = $"archive nesting exceeded maximum depth of {globalContext.MaxArchiveRecursionDepth}";
+                    Notes.LogFileSkipped(globalContext, filePath, reason);
+                    return false;
+                }
+
+                var context = new TContext();
+                context.Policy = globalContext.Policy;
+                context.Logger = globalContext.Logger;
+
+                ZipArchive archive = null;
+
+                try
+                {
+                    if (artifact.Bytes != null)
+                    {
+                        context.CurrentTarget = artifact;
+                        archive = new ZipArchive(new MemoryStream(artifact.Bytes), ZipArchiveMode.Read, leaveOpen: false);
+                    }
+                    else
+                    {
+                        context.CurrentTarget = new EnumeratedArtifact(globalContext.FileSystem)
+                        {
+                            Uri = new Uri(filePath, UriKind.RelativeOrAbsolute)
+                        };
+                        archive = ZipFile.OpenRead(filePath);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    string message = "An exception was raised attempting to open a zip archive or Open Packaging Conventions (OPC) document.";
+                    bool possiblyProtectedDocument = ex.Message == "End of Central Directory record could not be found.";
+                    message = possiblyProtectedDocument
+                        ? $"{message} This may indicate the the file has been marked as sensitive or otherwise protected."
+                        : message;
+
+                    lock (globalContext)
+                    {
+                        Errors.LogTargetParseError(context, region: null, message, ex);
+                    }
+
+                    globalContext.RuntimeErrors |= context.RuntimeErrors;
+                    return false;
+                }
+
+                var artifactProvider = new MultithreadedZipArchiveArtifactProvider(context.CurrentTarget.Uri,
+                                                                                   archive,
+                                                                                   globalContext.FileSystem);
+                context.TargetsProvider = artifactProvider;
+                context.CurrentTarget = null;
+
+                await EnumerateFilesFromArtifactsProvider(context, recursionDepth: recursionDepth + 1);
+                return true;
+            }
+
+            TContext fileContext = CreateScanTargetContext(globalContext);
+
+            fileContext.Logger = new CachingLogger(globalContext.FailureLevels,
+                                                   globalContext.ResultKinds);
+
+            Debug.Assert(fileContext.Logger != null);
+            fileContext.CurrentTarget = artifact;
+            fileContext.CancellationToken = globalContext.CancellationToken;
+
+            lock (globalContext)
+            {
+                // We need to generate this event on the global logger, though as
+                // a result this event means 'target enumerated for analysis'
+                // rather than literally 'we are analyzing the target'.
+                //
+                // This call needs to be protected with a lock as the actual
+                // logging occurs on a separated thread.
+                globalContext.Logger.AnalyzingTarget(fileContext);
+            }
+
+            bool added = _fileContexts.TryAdd(_fileContextsCount, fileContext);
+            Debug.Assert(added);
+
+            if (_fileContextsCount == 0)
+            {
+                DriverEventSource.Log.FirstArtifactQueued(fileContext.CurrentTarget.Uri.GetFilePath());
+            }
+
+            await readyToScanChannel.Writer.WriteAsync(_fileContextsCount++);
+
+            return true;
+        }
+
+        private static bool IsOpcArtifact(IEnumeratedArtifact artifact, string filePath, TContext globalContext)
+        {
+            string extension = Path.GetExtension(filePath.ReplaceInvalidCharInFileName(string.Empty));
+            if (!globalContext.OpcFileExtensions.Contains(extension))
+            {
+                return false;
+            }
+
+            // If we have bytes (e.g., stream-supplied ZIP), it qualifies.
+            if (artifact.Bytes != null)
+            {
+                return true;
+            }
+
+            // Otherwise, it must be a URI-based artifact with no query string.
+            return artifact.Uri.IsAbsoluteUri && string.IsNullOrEmpty(artifact.Uri.Query);
+        }
+
+        private async Task<bool> EnumerateFilesFromArtifactsProvider(TContext globalContext, int recursionDepth = 0)
+        {
+            foreach (IEnumeratedArtifact artifact in globalContext.TargetsProvider.Artifacts)
+            {
+                await EnumerateArtifact(artifact, globalContext, recursionDepth);
+            }
+
+            return true;
+        }
+
+        private void EnqueueAllDirectories(TContext context, Queue<string> queue, string directory)
+        {
+            context.CancellationToken.ThrowIfCancellationRequested();
+
             var sortedDiskItems = new SortedSet<string>();
 
             queue.Enqueue(directory);
@@ -515,160 +830,88 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
             foreach (string childDirectory in sortedDiskItems)
             {
-                EnqueueAllDirectories(queue, childDirectory);
+                EnqueueAllDirectories(context, queue, childDirectory);
             }
         }
 
-        private async Task<bool> HashFilesAndPutInAnalysisQueueAsnc()
+        private async Task ScanTargetsAsync(TContext globalContext, IEnumerable<Skimmer<TContext>> skimmers, ISet<string> disabledSkimmers)
         {
-            ChannelReader<int> reader = readyToHashChannel.Reader;
-
-            Dictionary<string, CachingLogger> loggerCache = null;
-
-            try
-            {
-                // Wait until there is work or the channel is closed.
-                while (await reader.WaitToReadAsync())
-                {
-                    // Loop while there is work to do.
-                    while (reader.TryRead(out int index))
-                    {
-                        if (_computeHashes)
-                        {
-                            TContext context = _fileContexts[index];
-                            string localPath = context.TargetUri.LocalPath;
-
-                            HashData hashData = ShouldComputeHashes(localPath, _rootContext)
-                                ? HashUtilities.ComputeHashes(localPath, FileSystem)
-                                : null;
-
-                            context.Hashes = hashData;
-
-                            if (_pathToHashDataMap != null && !_pathToHashDataMap.ContainsKey(localPath))
-                            {
-                                _pathToHashDataMap.Add(localPath, hashData);
-                            }
-
-                            loggerCache ??= new Dictionary<string, CachingLogger>();
-
-                            if (hashData?.Sha256 != null)
-                            {
-                                context.Logger = loggerCache.TryGetValue(hashData.Sha256, out CachingLogger logger)
-                                    ? logger
-                                    : (loggerCache[hashData.Sha256] = (CachingLogger)context.Logger);
-                            }
-                        }
-
-                        await readyToScanChannel.Writer.WriteAsync(index);
-                    }
-                }
-            }
-            catch (Exception e)
-            {
-                Errors.LogUnhandledEngineException(_rootContext, e);
-                ThrowExitApplicationException(_rootContext, ExitReason.UnhandledExceptionInEngine);
-            }
-            finally
-            {
-                readyToScanChannel.Writer.Complete();
-            }
-
-            return true;
-        }
-
-        private async Task<bool> ScanTargetsAsync(IEnumerable<Skimmer<TContext>> skimmers, ISet<string> disabledSkimmers)
-        {
-            ChannelReader<int> reader = readyToScanChannel.Reader;
+            ChannelReader<uint> reader = readyToScanChannel.Reader;
+            globalContext.CancellationToken.ThrowIfCancellationRequested();
 
             // Wait until there is work or the channel is closed.
             while (await reader.WaitToReadAsync())
             {
                 // Loop while there is work to do.
-                while (reader.TryRead(out int item))
+                while (reader.TryRead(out uint item))
                 {
-                    TContext context = default;
+                    TContext perFileContext = _fileContexts[item]; ;
+                    perFileContext.CancellationToken.ThrowIfCancellationRequested();
+                    string filePath = perFileContext.CurrentTarget.Uri.GetFilePath();
 
-                    try
-                    {
-                        context = _fileContexts[item];
+                    DriverEventSource.Log.ReadArtifactStart(filePath);
+                    // Reading the length property faults in the file contents.
+                    long sizeInBytes = perFileContext.CurrentTarget.SizeInBytes.Value;
+                    DriverEventSource.Log.ReadArtifactStop(filePath, sizeInBytes);
 
-                        DetermineApplicabilityAndAnalyze(context, skimmers, disabledSkimmers);
-                    }
-                    catch (Exception e)
-                    {
-                        Console.Error.WriteLine(e.Message);
-                    }
-                    finally
-                    {
-                        if (context != null) { context.AnalysisComplete = true; }
-                        await _resultsWritingChannel.Writer.WriteAsync(item);
-                    }
+                    DetermineApplicabilityAndAnalyze(perFileContext, skimmers, disabledSkimmers);
+                    globalContext.RuntimeErrors |= perFileContext.RuntimeErrors;
+                    if (perFileContext != null) { perFileContext.AnalysisComplete = true; }
+                    await _resultsWritingChannel.Writer.WriteAsync(item);
                 }
             }
-            return true;
         }
 
         protected virtual void ValidateOptions(TOptions options, TContext context)
         {
             bool succeeded = true;
 
-            succeeded &= ValidateFile(context, options.OutputFilePath, DefaultPolicyName, shouldExist: null);
-            succeeded &= ValidateFile(context, options.ConfigurationFilePath, DefaultPolicyName, shouldExist: true);
-            succeeded &= ValidateFile(context, options.BaselineSarifFile, DefaultPolicyName, shouldExist: true);
-            succeeded &= ValidateFiles(context, options.PluginFilePaths, DefaultPolicyName, shouldExist: true);
-            succeeded &= ValidateOutputFileCanBeCreated(context, options.OutputFilePath, options.Force);
-            succeeded &= ValidateInvocationPropertiesToLog(context, options.InvocationPropertiesToLog);
+            succeeded &= ValidateFile(context, options.OutputFilePath, shouldExist: null);
+            succeeded &= ValidateFile(context, options.ConfigurationFilePath, shouldExist: true);
+            succeeded &= ValidateFile(context, options.BaselineFilePath, shouldExist: true);
+            succeeded &= ValidateFiles(context, options.PluginFilePaths, shouldExist: true);
+            succeeded &= ValidateInvocationPropertiesToLog(context);
             succeeded &= options.ValidateOutputOptions(context);
-
             succeeded &= context.MaxFileSizeInKilobytes >= 0;
+
+            succeeded &= ValidateOutputFileCanBeCreated(context);
 
             if (!succeeded)
             {
-                ThrowExitApplicationException(context, ExitReason.InvalidCommandLineOption);
+                ThrowExitApplicationException(ExitReason.InvalidCommandLineOption);
             }
         }
 
-        internal AggregatingLogger InitializeLogger(AnalyzeOptionsBase analyzeOptions)
+        internal AggregatingLogger InitializeLogger(TContext globalContext)
         {
-            _tool = Tool.CreateFromAssemblyData();
-
             var logger = new AggregatingLogger();
 
-            if (!analyzeOptions.Quiet)
+            if (!(globalContext.Quiet == true))
             {
-                _consoleLogger = new ConsoleLogger(analyzeOptions.Quiet, _tool.Driver.Name, analyzeOptions.Level, analyzeOptions.Kind) { CaptureOutput = _captureConsoleOutput };
+                _consoleLogger =
+                    new ConsoleLogger(quietConsole: false,
+                                      Tool.Driver.Name,
+                                      globalContext.FailureLevels,
+                                      globalContext.ResultKinds)
+                    {
+                        CaptureOutput = _captureConsoleOutput
+                    };
+
                 logger.Loggers.Add(_consoleLogger);
             }
-
-            _dataToInsert = analyzeOptions.DataToInsert.ToFlags();
-            _computeHashes = (_dataToInsert & OptionallyEmittedData.Hashes) != 0;
 
             return logger;
         }
 
-        protected virtual TContext CreateContext(TOptions options,
-                                                 IAnalysisLogger logger,
-                                                 RuntimeConditions runtimeErrors,
-                                                 PropertiesDictionary policy = null,
-                                                 string filePath = null)
+        protected virtual TContext CreateScanTargetContext(TContext globalContext)
         {
             var context = new TContext
             {
-                Policy = policy ?? new PropertiesDictionary(),
-                Logger = logger,
-                RuntimeErrors = runtimeErrors,
+                Logger = globalContext.Logger,
+                RuntimeErrors = globalContext.RuntimeErrors,
+                FileSystem = globalContext.FileSystem ?? this.FileSystem,
+                Policy = globalContext.Policy ?? new PropertiesDictionary(),
             };
-
-            context.MaxFileSizeInKilobytes =
-                options.MaxFileSizeInKilobytes >= 0
-                    ? options.MaxFileSizeInKilobytes
-                    : AnalyzeContextBase.MaxFileSizeInKilobytesDefaultValue;
-
-
-            if (filePath != null)
-            {
-                context.TargetUri = new Uri(filePath);
-            }
 
             return context;
         }
@@ -678,121 +921,148 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         /// </summary>
         /// <param name="options">Options</param>
         /// <returns>Configuration file path, or null if the built in configuration should be used.</returns>
-        internal string GetConfigurationFileName(TOptions options)
+        internal string GetConfigurationFileName(string configurationFilePath, IFileSystem fileSystem)
         {
-            if (options.ConfigurationFilePath == DefaultPolicyName)
+            // If the user passes our default file name, return null, indicating that no
+            // configuration should be loaded. As a result, we will pick up all runtime defaults.
+            if (configurationFilePath == DefaultPolicyName)
             {
                 return null;
             }
 
-            if (string.IsNullOrEmpty(options.ConfigurationFilePath))
+            if (string.IsNullOrEmpty(configurationFilePath))
             {
-                return !this.FileSystem.FileExists(this.DefaultConfigurationPath)
-                    ? null
-                    : this.DefaultConfigurationPath;
+                // If a configuration file is not explicitly specified but we see that 
+                // a default configuration file has been placed in the current working
+                // directory, we will load it. TBD: ensure this location is alongside
+                // the client executable?
+                return fileSystem.FileExists(this.DefaultConfigurationPath)
+                    ? this.DefaultConfigurationPath
+                    : null;
             }
-            return options.ConfigurationFilePath;
+
+            if (!File.Exists(configurationFilePath))
+            {
+                string fileName = Path.GetFileNameWithoutExtension(configurationFilePath);
+                string spamDirectory = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+                fileName = Path.Combine(spamDirectory, $"{fileName}.xml");
+
+                if (fileSystem.FileExists(fileName))
+                {
+                    return fileName;
+                }
+            }
+
+            return configurationFilePath;
         }
 
-        protected virtual void InitializeConfiguration(TOptions options, TContext context)
+        protected virtual TContext InitializeConfiguration(string configurationFileName, TContext context)
         {
             context.Policy ??= new PropertiesDictionary();
 
-            string configurationFileName = GetConfigurationFileName(options);
-            if (string.IsNullOrEmpty(configurationFileName))
+            configurationFileName = GetConfigurationFileName(configurationFileName, context.FileSystem);
+            context.ConfigurationFilePath = configurationFileName;
+
+            if (!ValidateFile(context,
+                              configurationFileName,
+                              shouldExist: !string.IsNullOrEmpty(configurationFileName) ? true : (bool?)null))
             {
-                return;
+                // TBD exit reason update to invalid config?
+                ThrowExitApplicationException(ExitReason.InvalidCommandLineOption);
             }
+
+            if (string.IsNullOrEmpty(configurationFileName)) { return context; }
 
             string extension = Path.GetExtension(configurationFileName);
 
+            var configuration = new PropertiesDictionary();
             if (extension.Equals(".xml", StringComparison.OrdinalIgnoreCase))
             {
-                context.Policy.LoadFromXml(configurationFileName);
+                configuration.LoadFromXml(configurationFileName);
             }
             else if (extension.Equals(".json", StringComparison.OrdinalIgnoreCase))
             {
-                context.Policy.LoadFromJson(configurationFileName);
+                configuration.LoadFromJson(configurationFileName);
             }
             else if (ConfigurationFormat == FileFormat.Xml)
             {
-                context.Policy.LoadFromXml(configurationFileName);
+                configuration.LoadFromXml(configurationFileName);
             }
             else
             {
-                context.Policy.LoadFromJson(configurationFileName);
+                configuration.LoadFromJson(configurationFileName);
             }
+            configuration.MergePreferFirst(context.Policy);
+            context.Policy = configuration;
+            return context;
         }
 
-        private void InitializeOutputFile(TOptions analyzeOptions, TContext context)
+        public virtual void InitializeOutputs(TContext globalContext)
         {
-            string filePath = analyzeOptions.OutputFilePath;
-            var aggregatingLogger = (AggregatingLogger)context.Logger;
+            string filePath = globalContext.OutputFilePath;
 
             if (!string.IsNullOrEmpty(filePath))
             {
+                var aggregatingLogger = globalContext.Logger as AggregatingLogger;
+                if (aggregatingLogger == null)
+                {
+                    aggregatingLogger = new AggregatingLogger();
+                    aggregatingLogger.Loggers.Add(globalContext.Logger);
+                    globalContext.Logger = aggregatingLogger;
+                }
+
+                if (globalContext.Traces.Contains(nameof(DefaultTraces.ResultsSummary)))
+                {
+                    aggregatingLogger.Loggers.Add(new ResultsSummaryLogger());
+                }
+
                 InvokeCatchingRelevantIOExceptions
                 (
                     () =>
                     {
-                        LogFilePersistenceOptions logFilePersistenceOptions = analyzeOptions.ConvertToLogFilePersistenceOptions();
+                        FilePersistenceOptions logFilePersistenceOptions = globalContext.OutputFileOptions;
 
-                        OptionallyEmittedData dataToInsert = _dataToInsert;
-                        OptionallyEmittedData dataToRemove = analyzeOptions.DataToRemove.ToFlags();
+                        OptionallyEmittedData dataToInsert = globalContext.DataToInsert;
+                        OptionallyEmittedData dataToRemove = globalContext.DataToRemove;
 
                         SarifLogger sarifLogger;
 
-                        _run = new Run()
+                        var run = new Run()
                         {
                             AutomationDetails = new RunAutomationDetails
                             {
-                                Id = analyzeOptions.AutomationId,
-                                Guid = analyzeOptions.AutomationGuid
-                            }
+                                Id = globalContext.AutomationId,
+                                Guid = globalContext.AutomationGuid
+                            },
+                            VersionControlProvenance = globalContext.VersionControlProvenance,
+                            Tool = Tool,
                         };
 
-                        if (analyzeOptions.SarifOutputVersion != SarifVersion.OneZeroZero)
-                        {
-                            sarifLogger = new SarifLogger(analyzeOptions.OutputFilePath,
-                                                          logFilePersistenceOptions,
-                                                          dataToInsert,
-                                                          dataToRemove,
-                                                          tool: _tool,
-                                                          run: _run,
-                                                          analysisTargets: null,
-                                                          quiet: analyzeOptions.Quiet,
-                                                          invocationTokensToRedact: GenerateSensitiveTokensList(),
-                                                          invocationPropertiesToLog: analyzeOptions.InvocationPropertiesToLog,
-                                                          levels: analyzeOptions.Level,
-                                                          kinds: analyzeOptions.Kind,
-                                                          insertProperties: analyzeOptions.InsertProperties);
-                        }
-                        else
-                        {
-                            sarifLogger = new SarifOneZeroZeroLogger(analyzeOptions.OutputFilePath,
-                                                                     logFilePersistenceOptions,
-                                                                     dataToInsert,
-                                                                     dataToRemove,
-                                                                     tool: _tool,
-                                                                     run: _run,
-                                                                     analysisTargets: null,
-                                                                     invocationTokensToRedact: GenerateSensitiveTokensList(),
-                                                                     invocationPropertiesToLog: analyzeOptions.InvocationPropertiesToLog,
-                                                                     levels: analyzeOptions.Level,
-                                                                     kinds: analyzeOptions.Kind,
-                                                                     insertProperties: analyzeOptions.InsertProperties);
-                        }
-                        _pathToHashDataMap = sarifLogger.AnalysisTargetToHashDataMap;
-                        sarifLogger.AnalysisStarted();
+                        var fileRegionsCache = new FileRegionsCache(fileSystem: globalContext.FileSystem);
+                        sarifLogger = new SarifLogger(globalContext.OutputFilePath,
+                                                      logFilePersistenceOptions,
+                                                      dataToInsert,
+                                                      dataToRemove,
+                                                      run,
+                                                      analysisTargets: null,
+                                                      fileRegionsCache: fileRegionsCache,
+                                                      invocationTokensToRedact: GenerateSensitiveTokensList(),
+                                                      invocationPropertiesToLog: globalContext.InvocationPropertiesToLog,
+                                                      levels: globalContext.FailureLevels,
+                                                      kinds: globalContext.ResultKinds,
+                                                      insertProperties: globalContext.InsertProperties);
+
                         aggregatingLogger.Loggers.Add(sarifLogger);
                     },
                     (ex) =>
                     {
-                        Errors.LogExceptionCreatingLogFile(context, filePath, ex);
-                        ThrowExitApplicationException(context, ExitReason.ExceptionCreatingLogFile, ex);
+                        Errors.LogExceptionCreatingOutputFile(globalContext, filePath, ex);
+                        ThrowExitApplicationException(ExitReason.ExceptionCreatingLogFile, ex);
                     }
                 );
             }
+
+            globalContext.Logger ??= new ConsoleLogger(quietConsole: false, "SPMI");
         }
 
         private static IEnumerable<string> GenerateSensitiveTokensList()
@@ -829,19 +1099,23 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             }
         }
 
-        protected virtual ISet<Skimmer<TContext>> CreateSkimmers(TOptions options, TContext context)
+        protected virtual ISet<Skimmer<TContext>> CreateSkimmers(TContext context)
         {
             IEnumerable<Skimmer<TContext>> skimmers;
             var result = new SortedSet<Skimmer<TContext>>(SkimmerIdComparer<TContext>.Instance);
 
             try
             {
-                skimmers = CompositionUtilities.GetExports<Skimmer<TContext>>(RetrievePluginAssemblies(DefaultPluginAssemblies, options.PluginFilePaths));
+                skimmers = CompositionUtilities.GetExports<Skimmer<TContext>>(RetrievePluginAssemblies(DefaultPluginAssemblies, context.PluginFilePaths));
 
                 SupportedPlatform currentOS = GetCurrentRunningOS();
                 foreach (Skimmer<TContext> skimmer in skimmers)
                 {
-                    if (skimmer.SupportedPlatforms.HasFlag(currentOS))
+                    if (!context.RuleKinds.Any(r => skimmer.RuleKinds.Contains(r)))
+                    {
+                        continue;
+                    }
+                    else if (skimmer.SupportedPlatforms.HasFlag(currentOS))
                     {
                         result.Add(skimmer);
                     }
@@ -854,13 +1128,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             catch (Exception ex)
             {
                 Errors.LogExceptionInstantiatingSkimmers(context, DefaultPluginAssemblies, ex);
-                ThrowExitApplicationException(context, ExitReason.UnhandledExceptionInstantiatingSkimmers, ex);
+                ThrowExitApplicationException(ExitReason.UnhandledExceptionInstantiatingSkimmers, ex);
             }
 
             if (result.Count == 0)
             {
                 Errors.LogNoRulesLoaded(context);
-                ThrowExitApplicationException(context, ExitReason.NoRulesLoaded);
+                ThrowExitApplicationException(ExitReason.NoRulesLoaded);
             }
             return result;
         }
@@ -890,9 +1164,29 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 #endif
         }
 
-        protected virtual void AnalyzeTargets(TOptions options,
-                                              TContext rootContext,
+        protected virtual void AnalyzeTargets(TContext context,
                                               IEnumerable<Skimmer<TContext>> skimmers)
+        {
+            if (skimmers == null)
+            {
+                Errors.LogNoRulesLoaded(context);
+                ThrowExitApplicationException(ExitReason.NoRulesLoaded);
+            }
+
+            ISet<string> disabledSkimmers = BuildDisabledSkimmersSet(context, skimmers);
+
+            if (disabledSkimmers.Count == skimmers.Count())
+            {
+                Errors.LogAllRulesExplicitlyDisabled(context);
+                ThrowExitApplicationException(ExitReason.NoRulesLoaded);
+            }
+
+            this.CheckIncompatibleRules(skimmers, context, disabledSkimmers);
+
+            MultithreadedAnalyzeTargets(context, skimmers, disabledSkimmers);
+        }
+
+        public static ISet<string> BuildDisabledSkimmersSet(TContext context, IEnumerable<Skimmer<TContext>> skimmers)
         {
             var disabledSkimmers = new SortedSet<string>();
 
@@ -901,13 +1195,17 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 PerLanguageOption<RuleEnabledState> ruleEnabledProperty =
                     DefaultDriverOptions.CreateRuleSpecificOption(skimmer, DefaultDriverOptions.RuleEnabled);
 
-                RuleEnabledState ruleEnabled = rootContext.Policy.GetProperty(ruleEnabledProperty);
+                RuleEnabledState ruleEnabled = context.Policy.GetProperty(ruleEnabledProperty);
+
+                FailureLevel failureLevel = (ruleEnabled == RuleEnabledState.Default || ruleEnabled == RuleEnabledState.Disabled)
+                    ? default
+                    : (FailureLevel)Enum.Parse(typeof(FailureLevel), ruleEnabled.ToString());
 
                 if (ruleEnabled == RuleEnabledState.Disabled)
                 {
                     disabledSkimmers.Add(skimmer.Id);
-                    Warnings.LogRuleExplicitlyDisabled(rootContext, skimmer.Id);
-                    RuntimeErrors |= RuntimeConditions.RuleWasExplicitlyDisabled;
+                    Warnings.LogRuleExplicitlyDisabled(context, skimmer.Id);
+                    context.RuntimeErrors |= RuntimeConditions.RuleWasExplicitlyDisabled;
                 }
                 else if (!skimmer.DefaultConfiguration.Enabled && ruleEnabled == RuleEnabledState.Default)
                 {
@@ -915,36 +1213,32 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                     // So disable it, but don't complain that the rule was explicitly disabled.
                     disabledSkimmers.Add(skimmer.Id);
                 }
+                else if (skimmer.DefaultConfiguration.Level != failureLevel &&
+                         ruleEnabled != RuleEnabledState.Default &&
+                         ruleEnabled != RuleEnabledState.Disabled)
+                {
+                    skimmer.DefaultConfiguration.Level = failureLevel;
+                }
             }
 
-            this.CheckIncompatibleRules(skimmers, rootContext, disabledSkimmers);
-
-            if (disabledSkimmers.Count == skimmers.Count())
-            {
-                Errors.LogAllRulesExplicitlyDisabled(rootContext);
-                ThrowExitApplicationException(rootContext, ExitReason.NoRulesLoaded);
-            }
-
-            MultithreadedAnalyzeTargets(options, rootContext, skimmers, disabledSkimmers);
+            return disabledSkimmers;
         }
 
-        protected virtual TContext DetermineApplicabilityAndAnalyze(
-            TContext context,
-            IEnumerable<Skimmer<TContext>> skimmers,
-            ISet<string> disabledSkimmers)
+        protected virtual TContext DetermineApplicabilityAndAnalyze(TContext context,
+                                                                    IEnumerable<Skimmer<TContext>> skimmers,
+                                                                    ISet<string> disabledSkimmers)
         {
-            // insert results caching replay logic here
+            string filePath = context.CurrentTarget.Uri.GetFilePath();
 
-            if (context.TargetLoadException != null)
+            if (context.RuntimeExceptions != null)
             {
-                Errors.LogExceptionLoadingTarget(context);
-                context.Dispose();
+                Debug.Assert(context.RuntimeExceptions.Count == 1);
+                Errors.LogExceptionLoadingTarget(context, context.RuntimeExceptions[0]);
                 return context;
             }
             else if (!context.IsValidAnalysisTarget)
             {
                 Warnings.LogExceptionInvalidTarget(context);
-                context.Dispose();
                 return context;
             }
 
@@ -954,14 +1248,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             if (logger.CacheFinalized)
             {
                 context.Logger = logger;
-                logger.ReleaseLock();
+                logger.TargetAnalyzed(context);
                 return context;
             }
 
+            context.CancellationToken.ThrowIfCancellationRequested();
             IEnumerable<Skimmer<TContext>> applicableSkimmers = DetermineApplicabilityForTarget(context, skimmers, disabledSkimmers);
+
             AnalyzeTarget(context, applicableSkimmers, disabledSkimmers);
 
-            logger.ReleaseLock();
+            logger.TargetAnalyzed(context);
             return context;
         }
 
@@ -1021,13 +1317,19 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
         protected virtual void AnalyzeTarget(TContext context, IEnumerable<Skimmer<TContext>> skimmers, ISet<string> disabledSkimmers)
         {
+            string filePath = context.CurrentTarget.Uri.GetFilePath();
+            long sizeInBytes = context.CurrentTarget.SizeInBytes.Value;
+
+            DriverEventSource.Log.ScanArtifactStart(filePath, sizeInBytes);
             AnalyzeTargetHelper(context, skimmers, disabledSkimmers);
+            DriverEventSource.Log.ScanArtifactStop(filePath, sizeInBytes);
         }
 
         public static void AnalyzeTargetHelper(TContext context, IEnumerable<Skimmer<TContext>> skimmers, ISet<string> disabledSkimmers)
         {
             foreach (Skimmer<TContext> skimmer in skimmers)
             {
+                context.CancellationToken.ThrowIfCancellationRequested();
                 if (disabledSkimmers.Count > 0)
                 {
                     lock (disabledSkimmers)
@@ -1040,11 +1342,33 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
                 try
                 {
+                    Stopwatch stopwatch = context.Traces.Contains(nameof(DefaultTraces.RuleScanTime))
+                        ? Stopwatch.StartNew()
+                        : null;
+
+                    DriverEventSource.Log.RuleStart(context.CurrentTarget.Uri.GetFilePath(), skimmer.Id, skimmer.Name);
                     skimmer.Analyze(context);
+                    DriverEventSource.Log.RuleStop(context.CurrentTarget.Uri.GetFilePath(), skimmer.Id, skimmer.Name);
+
+                    Uri uri = context.CurrentTarget.Uri;
+
+                    if (stopwatch != null)
+                    {
+                        string file = uri.GetFilePath();
+                        string directory = Path.GetDirectoryName(file);
+                        file = Path.GetFileName(file);
+
+                        string id = $"TRC101.{nameof(DefaultTraces.RuleScanTime)}";
+                        string timing = $"'{file}' : elapsed {stopwatch.Elapsed} : '{skimmer.Name}' : at '{directory}'";
+                        LogTrace(context, timing, id, context.Rule);
+                    }
                 }
                 catch (Exception ex)
                 {
                     Errors.LogUnhandledRuleExceptionAnalyzingTarget(disabledSkimmers, context, ex);
+
+                    context.RuntimeExceptions ??= new List<Exception>();
+                    context.RuntimeExceptions.Add(ex);
                 }
             }
         }
@@ -1054,12 +1378,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         IEnumerable<Skimmer<TContext>> skimmers,
         ISet<string> disabledSkimmers)
         {
-            skimmers = DetermineApplicabilityForTargetHelper(context, skimmers, disabledSkimmers);
-
-            // TODO single-threaded write?
-            RuntimeErrors |= context.RuntimeErrors;
-
-            return skimmers;
+            return DetermineApplicabilityForTargetHelper(context, skimmers, disabledSkimmers);
         }
 
         public static IEnumerable<Skimmer<TContext>> DetermineApplicabilityForTargetHelper(
@@ -1079,7 +1398,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                     }
                 }
 
-                string reasonForNotAnalyzing = null;
+                string reasonForNotAnalyzing;
                 context.Rule = skimmer;
 
                 AnalysisApplicability applicability = AnalysisApplicability.Unknown;
@@ -1112,13 +1431,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             return candidateSkimmers;
         }
 
-        protected void ThrowExitApplicationException(TContext context, ExitReason exitReason, Exception innerException = null)
+        protected void ThrowExitApplicationException(ExitReason exitReason, Exception innerException = null)
         {
-            if (context != null)
-            {
-                RuntimeErrors |= context.RuntimeErrors;
-            }
-
             throw new ExitApplicationException<ExitReason>(DriverResources.MSG_UnexpectedApplicationExit, innerException)
             {
                 ExitReason = exitReason
@@ -1151,13 +1465,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                     if (availableRules.ContainsKey(incompatibleRuleId))
                     {
                         Errors.LogIncompatibleRules(context, entry.Key, incompatibleRuleId);
-                        ThrowExitApplicationException(context, ExitReason.IncompatibleRulesDetected);
+                        ThrowExitApplicationException(ExitReason.IncompatibleRulesDetected);
                     }
                 }
             }
         }
 
-        protected virtual ISet<Skimmer<TContext>> InitializeSkimmers(ISet<Skimmer<TContext>> skimmers, TContext context)
+        protected virtual ISet<Skimmer<TContext>> InitializeSkimmers(ISet<Skimmer<TContext>> skimmers, TContext globalContext)
         {
             var disabledSkimmers = new SortedSet<Skimmer<TContext>>(SkimmerIdComparer<TContext>.Instance);
 
@@ -1167,13 +1481,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             {
                 try
                 {
-                    context.Rule = skimmer;
-                    skimmer.Initialize(context);
+                    globalContext.Rule = skimmer;
+                    skimmer.Initialize(globalContext);
                 }
                 catch (Exception ex)
                 {
-                    RuntimeErrors |= RuntimeConditions.ExceptionInSkimmerInitialize;
-                    Errors.LogUnhandledExceptionInitializingRule(context, ex);
+                    globalContext.RuntimeErrors |= RuntimeConditions.ExceptionInSkimmerInitialize;
+                    Errors.LogUnhandledExceptionInitializingRule(globalContext, ex);
                     disabledSkimmers.Add(skimmer);
                 }
             }
@@ -1186,9 +1500,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             return skimmers;
         }
 
-        protected static void LogToolNotification(
-            IAnalysisLogger logger,
+        protected static void LogTrace(
+            TContext globalContext,
             string message,
+            string id = null,
+            ReportingDescriptor associatedRule = null,
             FailureLevel level = FailureLevel.Note,
             Exception ex = null)
         {
@@ -1203,15 +1519,38 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 };
             }
 
-            TextWriter writer = level == FailureLevel.Error ? Console.Error : Console.Out;
-            writer.WriteLine(message);
+            if (!globalContext.FailureLevels.Contains(level))
+            {
+                // If our analysis run isn't configured to show the current failure level
+                // of this notification, we still write it out to the console, as it is
+                // a trace message that's explicitly enabled on the command-line.
+                TextWriter writer = level == FailureLevel.Error ? Console.Error : Console.Out;
+                writer.WriteLine(message);
+                return;
+            }
 
-            logger.LogToolNotification(new Notification
+            globalContext.Logger.LogToolNotification(new Notification
             {
                 Level = level,
+                Descriptor = new ReportingDescriptorReference
+                {
+                    Id = id
+                },
+                AssociatedRule = new ReportingDescriptorReference { Id = associatedRule?.Id },
                 Message = new Message { Text = message },
-                Exception = exceptionData
-            });
+                Exception = exceptionData,
+                TimeUtc = DateTime.UtcNow
+            },
+                associatedRule);
+        }
+
+        internal static bool IsTargetWithinFileSizeLimit(long size, long maxFileSizeInKB)
+        {
+            if (size == 0) { return false; }
+            ;
+            size = Math.Min(long.MaxValue - 1023, size);
+            long fileSizeInKb = (size + 1023) / 1024;
+            return fileSizeInKb <= maxFileSizeInKB;
         }
     }
 }

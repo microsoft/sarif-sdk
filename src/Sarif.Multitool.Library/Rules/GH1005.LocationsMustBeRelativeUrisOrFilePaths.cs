@@ -21,23 +21,17 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         /// </summary>
         public override string Id => RuleId.LocationsMustBeRelativeUrisOrFilePaths;
 
+        public override HashSet<RuleKind> RuleKinds => new HashSet<RuleKind>(new[] { RuleKind.Gh });
+
         // GitHub Advanced Security code scanning only displays results whose locations are specified
         // by file paths, either as relative URIs or as absolute URIs that use the 'file' scheme.
         public override MultiformatMessageString FullDescription => new MultiformatMessageString { Text = RuleResources.GH1005_LocationsMustBeRelativeUrisOrFilePaths_FullDescription_Text };
 
-        protected override IEnumerable<string> MessageResourceNames => new string[] {
+        protected override ICollection<string> MessageResourceNames => new List<string> {
             nameof(RuleResources.GH1005_LocationsMustBeRelativeUrisOrFilePaths_Error_Default_Text)
         };
 
         public override bool EnabledByDefault => false;
-
-        private List<Uri> workingDirectoryUris;
-
-        protected override void Analyze(Run run, string runPointer)
-        {
-            this.workingDirectoryUris = new List<Uri>();
-            GetWorkingDirectoryUris(run);
-        }
 
         protected override void Analyze(Result result, string resultPointer)
         {
@@ -76,9 +70,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 
             if (uri.IsAbsoluteUri && uri.Scheme != "file")
             {
-                if (this.workingDirectoryUris.Any(workingDirectoryUri => uri
-                    .OriginalString
-                    .StartsWith(workingDirectoryUri.OriginalString, StringComparison.OrdinalIgnoreCase)))
+                if (Context.CurrentRun.Invocations?.Any(invocation =>
+                    invocation.WorkingDirectory?.Uri != null &&
+                    uri.OriginalString.StartsWith(
+                        invocation.WorkingDirectory.Uri.OriginalString,
+                        StringComparison.OrdinalIgnoreCase)) == true)
                 {
                     // We have a workingDirectoryUri and that is the beginnig of the current URI
                     // And that is OK.
@@ -100,18 +96,5 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             }
         }
 
-        private void GetWorkingDirectoryUris(Run run)
-        {
-            if (run.Invocations?.Any() == true)
-            {
-                foreach (Invocation invocation in run.Invocations)
-                {
-                    if (invocation.WorkingDirectory?.Uri != null)
-                    {
-                        this.workingDirectoryUris.Add(invocation.WorkingDirectory?.Uri);
-                    }
-                }
-            }
-        }
     }
 }

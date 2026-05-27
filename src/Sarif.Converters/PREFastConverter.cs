@@ -28,7 +28,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             LogicalLocations.Clear();
 
-            XmlReaderSettings settings = new XmlReaderSettings
+            var settings = new XmlReaderSettings
             {
                 DtdProcessing = DtdProcessing.Ignore,
                 XmlResolver = null

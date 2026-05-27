@@ -1,4 +1,4 @@
-// Copyright (c) Microsoft.  All Rights Reserved.
+// Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System;
@@ -152,7 +152,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             if (locations != null)
             {
                 var destination_0 = new List<ThreadFlowLocation>();
-                foreach (var value_0 in locations)
+                foreach (ThreadFlowLocation value_0 in locations)
                 {
                     if (value_0 == null)
                     {

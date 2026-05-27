@@ -8,8 +8,6 @@ using System.Text;
 
 using FluentAssertions;
 
-using Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Readers;
-
 using Xunit;
 
 namespace Microsoft.CodeAnalysis.Sarif.Readers

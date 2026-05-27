@@ -10,8 +10,6 @@ using Microsoft.CodeAnalysis.Sarif.Driver;
 using Microsoft.CodeAnalysis.Sarif.Processors;
 using Microsoft.CodeAnalysis.Sarif.Visitors;
 
-using Newtonsoft.Json;
-
 namespace Microsoft.CodeAnalysis.Sarif.Multitool
 {
     public class RebaseUriCommand : CommandBase
@@ -60,7 +58,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
                     if (dataToInsert != 0)
                     {
-                        rebaseUriFile.Log = new InsertOptionalDataVisitor(dataToInsert, insertProperties: options.InsertProperties).VisitSarifLog(rebaseUriFile.Log);
+                        rebaseUriFile.Log =
+                            new InsertOptionalDataVisitor(dataToInsert,
+                                                          new FileRegionsCache(),
+                                                          insertProperties: options.InsertProperties).VisitSarifLog(rebaseUriFile.Log);
                     }
 
                     rebaseUriFile.Log = rebaseUriFile.Log.RebaseUri(options.BasePathToken, options.RebaseRelativeUris, baseUri);
@@ -98,12 +99,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
             valid &= rebaseOptions.ValidateOutputOptions();
 
-            valid &= DriverUtilities.ReportWhetherOutputFilesCanBeCreated(rebaseUriFiles.Select(f => f.OutputFilePath), rebaseOptions.Force, _fileSystem);
+            valid &= DriverUtilities.ReportWhetherOutputFilesCanBeCreated(rebaseUriFiles.Select(f => f.OutputFilePath), rebaseOptions.ForceOverwrite, _fileSystem);
 
             return valid;
         }
 
-        internal string GetOutputFilePath(string inputFilePath, RebaseUriOptions rebaseUriOptions)
+        internal static string GetOutputFilePath(string inputFilePath, RebaseUriOptions rebaseUriOptions)
         {
             if (rebaseUriOptions.Inline) { return inputFilePath; }
 

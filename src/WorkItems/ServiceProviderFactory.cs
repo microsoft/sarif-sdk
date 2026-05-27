@@ -8,7 +8,6 @@ using Microsoft.ApplicationInsights.Extensibility;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using Microsoft.VisualStudio.Services.Identity;
 using Microsoft.WorkItems.Logging;
 
 namespace Microsoft.WorkItems

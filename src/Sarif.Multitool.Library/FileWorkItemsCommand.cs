@@ -137,7 +137,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
             if (!string.IsNullOrEmpty(options.OutputFilePath))
             {
-                valid &= DriverUtilities.ReportWhetherOutputFileCanBeCreated(options.OutputFilePath, options.Force, fileSystem);
+                valid &= DriverUtilities.ReportWhetherOutputFileCanBeCreated(options.OutputFilePath, options.ForceOverwrite, fileSystem);
             }
 
             if ((options.SplittingStrategy == SplittingStrategy.PerFingerprint ||

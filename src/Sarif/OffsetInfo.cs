@@ -60,7 +60,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <returns>true if the objects are considered equal, false if they are not.</returns>
         public override bool Equals(object obj)
         {
-            OffsetInfo? other = obj as OffsetInfo?;
+            var other = obj as OffsetInfo?;
             return other != null
                 && this.Equals(other.Value);
         }

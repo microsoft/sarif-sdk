@@ -19,7 +19,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class SkimmerBaseTestResources {
@@ -70,11 +70,29 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to &quot;Error message from test behavior.&quot;.
+        /// </summary>
+        internal static string TEST1001_ErrorMessageFromTestBehavior {
+            get {
+                return ResourceManager.GetString("TEST1001_ErrorMessageFromTestBehavior", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to This test plainly failed for &apos;{0}&apos;..
         /// </summary>
         internal static string TEST1001_Failed {
             get {
                 return ResourceManager.GetString("TEST1001_Failed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Found a &apos;foo&apos; in the file..
+        /// </summary>
+        internal static string TEST1001_FoundAFooInTheFile {
+            get {
+                return ResourceManager.GetString("TEST1001_FoundAFooInTheFile", resourceCulture);
             }
         }
         

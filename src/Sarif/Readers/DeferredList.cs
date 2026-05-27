@@ -89,7 +89,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
         private void BuildPositions()
         {
             using (Stream stream = _streamProvider())
-            using (JsonPositionedTextReader reader = new JsonPositionedTextReader(() => stream))
+            using (var reader = new JsonPositionedTextReader(() => stream))
             {
                 stream.Seek(_start, SeekOrigin.Begin);
                 reader.Read();
@@ -100,7 +100,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
 
         private void BuildPositions(JsonPositionedTextReader reader, long currentOffset)
         {
-            List<long> positions = new List<long>();
+            var positions = new List<long>();
 
             while (true)
             {
@@ -161,7 +161,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
                 _stream.Seek(position, SeekOrigin.Begin);
 
                 // Build a JsonTextReader
-                using (JsonInnerTextReader reader = new JsonInnerTextReader(new StreamReader(_stream)))
+                using (var reader = new JsonInnerTextReader(new StreamReader(_stream)))
                 {
                     reader.CloseInput = false;
                     reader.Read();

@@ -3,6 +3,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Reflection;
 using System.Text;
@@ -18,7 +19,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// </remarks>
     public class FileSystem : IFileSystem
     {
-        public static readonly FileSystem Instance = new FileSystem();
+        public readonly static FileSystem Instance = new FileSystem();
 
         /// <summary>
         /// Loads an assembly given its file name or path.
@@ -134,20 +135,6 @@ namespace Microsoft.CodeAnalysis.Sarif
         }
 
         /// <summary>
-        /// Returns the absolute path for the specified path string.
-        /// </summary>
-        /// <param name="path">
-        /// The file or directory for which to obtain absolute path information.
-        /// </param>
-        /// <returns>
-        /// The fully qualified location of <paramref name="path"/>, such as "C:\MyFile.txt".
-        /// </returns>
-        public string PathGetFullPath(string path)
-        {
-            return Path.GetFullPath(path);
-        }
-
-        /// <summary>
         /// Returns the date and time the specified file or directory was last written to.
         /// </summary>
         /// <param name="path">The file or directory for which to obtain write date and time information.</param>
@@ -197,7 +184,24 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// </returns>
         public string FileReadAllText(string path)
         {
-            return File.ReadAllText(path);
+            using var fileStream = new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
+            using var textReader = new StreamReader(fileStream);
+            return textReader.ReadToEnd();
+        }
+
+        /// <summary>
+        /// Uses <see cref="FileStream"/> to get the size of a file in bytes.
+        /// </summary>
+        /// <param name="path">
+        /// The fully qualified name or relative name of the file.
+        /// </param>
+        /// <returns>
+        /// A long representing the size of the file in bytes.
+        /// </returns>
+        public long FileStreamLength(string path)
+        {
+            using var fileStream = new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
+            return fileStream.Length;
         }
 
         /// <summary>
@@ -395,8 +399,104 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// </returns>
         public long FileInfoLength(string path)
         {
-            FileInfo fileInfo = new FileInfo(path);
+            var fileInfo = new FileInfo(path);
             return fileInfo.Length;
+        }
+
+        /// <summary>
+        /// Uses <see cref="FileInfo"/> or <see cref="DirectoryInfo"/> to determine whether a file or directory is a symbolic link.
+        /// </summary>
+        /// <param name="path">
+        /// The fully qualified name or relative path of the file or directory.
+        /// </param>
+        /// <returns>
+        /// A boolean value indicating whether the file or directory is a symbolic link.
+        /// </returns>
+        public bool IsSymbolicLink(string path)
+        {
+            // https://learn.microsoft.com/en-us/dotnet/api/system.io.fileattributes
+            // While symbolic links will have the ReparsePoint flag set, not all reparse points represent symbolic links.
+            // This is a basic implementation.
+            if (FileExists(path))
+            {
+                var fileInfo = new FileInfo(path);
+                return (fileInfo.Attributes & FileAttributes.ReparsePoint) == FileAttributes.ReparsePoint;
+            }
+            else if (DirectoryExists(path))
+            {
+                var directoryInfo = new DirectoryInfo(path);
+                return (directoryInfo.Attributes & FileAttributes.ReparsePoint) == FileAttributes.ReparsePoint;
+            }
+
+            return false;
+        }
+
+        /// <summary>
+        /// Returns a <see cref="FileVersionInfo"/> representing the version information associated with the specified file.
+        /// </summary>
+        /// <param name="path">The fully qualified path and name of the file to retrieve the version information for.</param>
+        /// <returns>A <see cref="FileVersionInfo"/> containing information about the file. If the file did not
+        /// contain version information, the FileVersionInfo contains only the name of the file requested.</returns>
+        public FileVersionInfo FileVersionInfoGetVersionInfo(string fileName)
+        {
+            var fileVersionInfo = FileVersionInfo.GetVersionInfo(fileName);
+            return fileVersionInfo;
+        }
+
+        /// <summary>
+        /// Combines an array of strings into a path.
+        /// </summary>
+        /// <param name="paths">
+        /// An array of parts of the path.
+        /// </param>
+        /// <returns>
+        /// The combined path.
+        /// </returns>
+        public string PathCombine(params string[] paths)
+        {
+            return Path.Combine(paths);
+        }
+
+        /// <summary>
+        /// Returns the directory information for the specified path.
+        /// </summary>
+        /// <param name="path">
+        /// The path of a file or directory.
+        /// </param>
+        /// <returns>
+        /// Directory information for path, or null if path denotes a root directory or is null. Returns <see cref="string.Empty"/> if path does not contain directory information.
+        /// </returns>
+        public string PathGetDirectoryName(string path)
+        {
+            return Path.GetDirectoryName(path);
+        }
+
+        /// <summary>
+        /// Returns the absolute path for the specified path.
+        /// </summary>
+        /// <param name="path">
+        /// The path of a file or directory.
+        /// </param>
+        /// <returns>
+        /// The fully qualified location of <paramref name="path"/>, such as "C:\MyFile.txt".
+        /// </returns>
+        public string PathGetFullPath(string path)
+        {
+            return Path.GetFullPath(path);
+        }
+
+        /// <summary>
+        /// Returns the file name of the specified path string without the extension.
+        /// </summary>
+        /// <param name="path">
+        /// The path of the file.
+        /// </param>
+        /// <returns>
+        /// The string returned by <see cref = "Path.GetFileName(string)"/>, minus the last period (.) and all characters following it.
+        /// </returns>
+        public string PathGetFileNameWithoutExtension(string path)
+        {
+            return Path.GetFileNameWithoutExtension(path);
         }
     }
 }

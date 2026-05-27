@@ -48,7 +48,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             // to the expected output.
             string enlistmentRoot = GitHelper.Default.GetRepositoryRoot(Environment.CurrentDirectory, useCache: false);
 
-            if (inputResourceName == "CoreTests-Relative.sarif")
+            // Unfortunately, we require a test file name of this extreme brevity
+            // to avoid provoking file path length issues running tests under .NET 4.8.
+            if (inputResourceName == "Rel.sarif")
             {
                 Uri originalUri = actualLog.Runs[0].OriginalUriBaseIds["TESTROOT"].Uri;
                 string uriString = originalUri.ToString();
@@ -57,7 +59,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
                 actualLog.Runs[0].OriginalUriBaseIds["TESTROOT"] = new ArtifactLocation { Uri = new Uri(uriString, UriKind.Absolute) };
 
-                var visitor = new InsertOptionalDataVisitor(_currentOptionallyEmittedData);
+                var visitor = new InsertOptionalDataVisitor(_currentOptionallyEmittedData, new FileRegionsCache());
                 visitor.Visit(actualLog.Runs[0]);
 
                 // Restore the remanufactured URI so that file diffing succeeds.
@@ -75,7 +77,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     actualLog.Runs[0].OriginalUriBaseIds[repoRootUriBaseId] = new ArtifactLocation { Uri = new Uri(repoRootString, UriKind.Absolute) };
                 }
             }
-            else if (inputResourceName == "CoreTests-Absolute.sarif")
+            else if (inputResourceName == "Absolute.sarif")
             {
                 Uri originalUri = actualLog.Runs[0].Artifacts[0].Location.Uri;
                 string uriString = originalUri.ToString();
@@ -84,7 +86,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
                 actualLog.Runs[0].Artifacts[0].Location = new ArtifactLocation { Uri = new Uri(uriString, UriKind.Absolute) };
 
-                var visitor = new InsertOptionalDataVisitor(_currentOptionallyEmittedData);
+                var visitor = new InsertOptionalDataVisitor(_currentOptionallyEmittedData, new FileRegionsCache());
                 visitor.Visit(actualLog.Runs[0]);
 
                 // Restore the remanufactured URI so that file diffing matches
@@ -92,7 +94,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             }
             else
             {
-                var visitor = new InsertOptionalDataVisitor(_currentOptionallyEmittedData);
+                var visitor = new InsertOptionalDataVisitor(_currentOptionallyEmittedData, new FileRegionsCache());
                 visitor.Visit(actualLog.Runs[0]);
             }
 
@@ -158,91 +160,118 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         [Trait(TestTraits.WindowsOnly, "true")]
         public void InsertOptionalDataVisitor_PersistsHashes()
         {
-            RunTest("CoreTests-Relative.sarif", OptionallyEmittedData.Hashes);
+            RunTest("Rel.sarif", OptionallyEmittedData.Hashes);
         }
 
         [Fact]
         [Trait(TestTraits.WindowsOnly, "true")]
         public void InsertOptionalDataVisitor_PersistsTextFilesWithRelativeUris()
         {
-            RunTest("CoreTests-Relative.sarif", OptionallyEmittedData.TextFiles);
+            RunTest("Rel.sarif", OptionallyEmittedData.TextFiles);
         }
 
         [Fact]
         [Trait(TestTraits.WindowsOnly, "true")]
         public void InsertOptionalDataVisitor_PersistsTextFilesWithAbsoluteUris()
         {
-            RunTest("CoreTests-Absolute.sarif", OptionallyEmittedData.TextFiles);
+            RunTest("Absolute.sarif", OptionallyEmittedData.TextFiles);
         }
 
         [Fact]
         [Trait(TestTraits.WindowsOnly, "true")]
         public void InsertOptionalDataVisitor_PersistsRegionSnippets()
         {
-            RunTest("CoreTests-Relative.sarif", OptionallyEmittedData.RegionSnippets);
+            // Unfortunately, we require a test file name of this extreme brevity
+            // to avoid provoking file path length issues running tests under .NET 4.8.
+            RunTest("Rel.sarif", OptionallyEmittedData.RegionSnippets);
         }
 
         [Fact]
         public void InsertOptionalDataVisitor_PersistsFlattenedMessages()
         {
-            RunTest("CoreTests-Relative.sarif", OptionallyEmittedData.FlattenedMessages);
+            // Unfortunately, we require a test file name of this extreme brevity
+            // to avoid provoking file path length issues running tests under .NET 4.8.
+            RunTest("Rel.sarif", OptionallyEmittedData.FlattenedMessages);
         }
 
         [Fact]
         [Trait(TestTraits.WindowsOnly, "true")]
         public void InsertOptionalDataVisitor_PersistsContextRegionSnippets()
         {
-            RunTest("CoreTests-Relative.sarif", OptionallyEmittedData.ContextRegionSnippets);
+            // Unfortunately, we require a test file name of this extreme brevity
+            // to avoid provoking file path length issues running tests under .NET 4.8.
+            RunTest("Rel.sarif", OptionallyEmittedData.ContextRegionSnippets);
         }
 
         [Fact]
         [Trait(TestTraits.WindowsOnly, "true")]
         public void InsertOptionalDataVisitor_PersistsComprehensiveRegionProperties()
         {
-            RunTest("CoreTests-Relative.sarif", OptionallyEmittedData.ComprehensiveRegionProperties);
+            // Unfortunately, we require a test file name of this extreme brevity
+            // to avoid provoking file path length issues running tests under .NET 4.8.
+            RunTest("Rel.sarif", OptionallyEmittedData.ComprehensiveRegionProperties);
         }
 
         [Fact]
         public void InsertOptionalDataVisitor_PersistsGuids()
         {
             // NOTE: Test adding Guids, but validation is in test code, not diff, as Guids vary with each run.
-            RunTest("CoreTests-Relative.sarif", OptionallyEmittedData.Guids);
+            // Unfortunately, we require a test file name of this extreme brevity
+            // to avoid provoking file path length issues running tests under .NET 4.8.
+            RunTest("Rel.sarif", OptionallyEmittedData.Guids);
         }
 
         [Fact]
         [Trait(TestTraits.WindowsOnly, "true")]
         public void InsertOptionalDataVisitor_PersistsVersionControlInformation()
         {
-            RunTest("CoreTests-Relative.sarif", OptionallyEmittedData.VersionControlDetails);
+            // Unfortunately, we require a test file name of this extreme brevity
+            // to avoid provoking file path length issues running tests under .NET 4.8.
+            RunTest("Rel.sarif", OptionallyEmittedData.VersionControlDetails);
         }
 
         [Fact]
         public void InsertOptionalDataVisitor_PersistsNone()
         {
-            RunTest("CoreTests-Relative.sarif");
+            // Unfortunately, we require a test file name of this extreme brevity
+            // to avoid provoking file path length issues running tests under .NET 4.8.
+            RunTest("Rel.sarif");
         }
 
         [Fact]
         [Trait(TestTraits.WindowsOnly, "true")]
         public void InsertOptionalDataVisitor_PersistsHashesAndTextFiles()
         {
-            RunTest("CoreTests-Relative.sarif",
+            // Unfortunately, we require a test file name of this extreme brevity
+            // to avoid provoking file path length issues running tests under .NET 4.8.
+            RunTest("Rel.sarif",
                 OptionallyEmittedData.TextFiles |
                 OptionallyEmittedData.Hashes);
         }
 
         [Fact]
         [Trait(TestTraits.WindowsOnly, "true")]
+        public void InsertOptionalDataVisitor_PersistsContextRegionSnippetPartialFingerprints()
+        {
+            // Unfortunately, we require a test file name of this extreme brevity
+            // to avoid provoking file path length issues running tests under .NET 4.8.
+            RunTest("Rel.sarif", OptionallyEmittedData.ContextRegionSnippetPartialFingerprints);
+        }
+
+        [Fact]
+        [Trait(TestTraits.WindowsOnly, "true")]
         public void InsertOptionalDataVisitor_PersistsAll()
         {
-            RunTest("CoreTests-Relative.sarif",
+            // Unfortunately, we require a test file name of this extreme brevity
+            // to avoid provoking file path length issues running tests under .NET 4.8.
+            RunTest("Rel.sarif",
                 OptionallyEmittedData.All);
         }
 
         [Fact]
         public void InsertOptionalDataVisitor_ContextRegionSnippets_DoesNotFail_TopLevelOriginalUriBaseIdUriMissing()
         {
-            RunTest("TopLevelOriginalUriBaseIdUriMissing.sarif",
+            RunTest("UriMissing.sarif",
                 OptionallyEmittedData.ContextRegionSnippets);
         }
 
@@ -342,6 +371,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
             var visitor = new InsertOptionalDataVisitor(
                 OptionallyEmittedData.VersionControlDetails,
+                new FileRegionsCache(),
                 originalUriBaseIds: null,
                 fileSystem: mockFileSystem.Object,
                 processRunner: mockProcessRunner.Object,
@@ -426,12 +456,153 @@ Three";
                     }
                 };
 
-                var visitor = new InsertOptionalDataVisitor(OptionallyEmittedData.RegionSnippets, run, insertProperties: null);
+                var visitor = new InsertOptionalDataVisitor(OptionallyEmittedData.RegionSnippets, new FileRegionsCache(), run, insertProperties: null);
 
                 visitor.VisitResult(run.Results[0]);
 
                 run.Results[0].Locations[0].PhysicalLocation.Region.Snippet.Text.Should().Be(ExpectedSnippet);
             }
+        }
+
+        [Fact]
+        public void InsertOptionalDataVisitor_ContextRegionSnippetPartialFingerprintsFromExistingContextRegionSnippet()
+        {
+            string fileName = TempFile.CreateTempName();
+            string fileDirectory = Path.GetDirectoryName(fileName);
+
+            const string ContextRegionSnippet =
+@"One
+Two
+Three";
+            string expectedPartialFingerprintHash = HashUtilities.ComputeStringSha256Hash(ContextRegionSnippet);
+
+            var run = new Run
+            {
+                OriginalUriBaseIds =
+                    new Dictionary<string, ArtifactLocation>
+                    {
+                        [TestData.TestRootBaseId] = new ArtifactLocation
+                        {
+                            Uri = new Uri(fileDirectory, UriKind.Absolute)
+                        }
+                    },
+                Results = new List<Result>
+                {
+                    new Result
+                    {
+                        Locations = new List<Location>
+                        {
+                            new Location
+                            {
+                                PhysicalLocation = new PhysicalLocation
+                                {
+                                    ArtifactLocation = new ArtifactLocation
+                                    {
+                                        Uri = new Uri(fileName, UriKind.Relative),
+                                        UriBaseId = TestData.TestRootBaseId
+                                    },
+                                    ContextRegion = new Region
+                                    {
+                                        Snippet = new ArtifactContent
+                                        {
+                                            Text = ContextRegionSnippet
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            };
+
+            var visitor =
+                new InsertOptionalDataVisitor(
+                    OptionallyEmittedData.ContextRegionSnippetPartialFingerprints,
+                    new FileRegionsCache(),
+                    run,
+                    insertProperties: null);
+
+            visitor.VisitResult(run.Results[0]);
+
+            run.Results[0].PartialFingerprints[InsertOptionalDataVisitor.ContextRegionHash].Should()
+                .Be(expectedPartialFingerprintHash);
+        }
+
+        [Theory]
+        [InlineData(true)]
+        [InlineData(false)]
+        public void InsertOptionalDataVisitor_ContextRegionSnippetPartialFingerprintsAlreadyExist(bool overwriteExistingData)
+        {
+            string fileName = TempFile.CreateTempName();
+            string fileDirectory = Path.GetDirectoryName(fileName);
+
+            const string ContextRegionSnippet =
+@"One
+Two
+Three";
+            const string ExistingPartialFingerprintHash = "123";
+
+            string expectedPartialFingerprintHash = overwriteExistingData
+                ? HashUtilities.ComputeStringSha256Hash(ContextRegionSnippet)
+                : ExistingPartialFingerprintHash;
+
+            OptionallyEmittedData dataToInsert = overwriteExistingData
+                ? OptionallyEmittedData.ContextRegionSnippetPartialFingerprints | OptionallyEmittedData.OverwriteExistingData
+                : OptionallyEmittedData.ContextRegionSnippetPartialFingerprints;
+
+            var run = new Run
+            {
+                OriginalUriBaseIds =
+                    new Dictionary<string, ArtifactLocation>
+                    {
+                        [TestData.TestRootBaseId] = new ArtifactLocation
+                        {
+                            Uri = new Uri(fileDirectory, UriKind.Absolute)
+                        }
+                    },
+                Results = new List<Result>
+                {
+                    new Result
+                    {
+                        Locations = new List<Location>
+                        {
+                            new Location
+                            {
+                                PhysicalLocation = new PhysicalLocation
+                                {
+                                    ArtifactLocation = new ArtifactLocation
+                                    {
+                                        Uri = new Uri(fileName, UriKind.Relative),
+                                        UriBaseId = TestData.TestRootBaseId
+                                    },
+                                    ContextRegion = new Region
+                                    {
+                                        Snippet = new ArtifactContent
+                                        {
+                                            Text = ContextRegionSnippet
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        PartialFingerprints = new Dictionary<string, string>
+                        {
+                            { InsertOptionalDataVisitor.ContextRegionHash, ExistingPartialFingerprintHash }
+                        }
+                    }
+                }
+            };
+
+            var visitor =
+                new InsertOptionalDataVisitor(dataToInsert,
+                                              new FileRegionsCache(),
+                                              run,
+                                              insertProperties: null);
+
+            visitor.VisitResult(run.Results[0]);
+
+            run.Results[0].PartialFingerprints[InsertOptionalDataVisitor.ContextRegionHash].Should()
+                .Be(expectedPartialFingerprintHash);
         }
 
         private const int RuleIndex = 0;
@@ -531,7 +702,7 @@ Three";
                     }
                 });
 
-            var visitor = new InsertOptionalDataVisitor(OptionallyEmittedData.FlattenedMessages);
+            var visitor = new InsertOptionalDataVisitor(OptionallyEmittedData.FlattenedMessages, new FileRegionsCache());
             visitor.Visit(run);
 
             run.Results[0].Message.Text.Should().Be(UniqueGlobalMessageValue);
@@ -597,7 +768,7 @@ Three";
                 });
             configurationNotifications.Add(toolNotifications[2]);
 
-            var visitor = new InsertOptionalDataVisitor(OptionallyEmittedData.FlattenedMessages);
+            var visitor = new InsertOptionalDataVisitor(OptionallyEmittedData.FlattenedMessages, new FileRegionsCache());
             visitor.Visit(run);
 
             toolNotifications[0].Message.Text.Should().Be(SharedKeyGlobalMessageValue);
@@ -669,7 +840,7 @@ Three";
                     }
                 });
 
-            var visitor = new InsertOptionalDataVisitor(OptionallyEmittedData.FlattenedMessages);
+            var visitor = new InsertOptionalDataVisitor(OptionallyEmittedData.FlattenedMessages, new FileRegionsCache());
             visitor.Visit(run);
 
             run.Results[0].Fixes[0].Description.Text.Should().Be(UniqueGlobalMessageValue);
@@ -719,14 +890,14 @@ Three";
                 }
             };
 
-            var visitor = new InsertOptionalDataVisitor(OptionallyEmittedData.TextFiles);
+            var visitor = new InsertOptionalDataVisitor(OptionallyEmittedData.TextFiles, new FileRegionsCache());
             visitor.VisitRun(run);
 
             run.OriginalUriBaseIds.Should().BeNull();
             run.Artifacts.Count.Should().Be(1);
             run.Artifacts[0].Contents.Should().BeNull();
 
-            visitor = new InsertOptionalDataVisitor(OptionallyEmittedData.TextFiles, originalUriBaseIds);
+            visitor = new InsertOptionalDataVisitor(OptionallyEmittedData.TextFiles, new FileRegionsCache(), originalUriBaseIds);
             visitor.VisitRun(run);
 
             run.OriginalUriBaseIds.Should().Equal(originalUriBaseIds);

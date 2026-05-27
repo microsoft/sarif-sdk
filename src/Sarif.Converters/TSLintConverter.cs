@@ -41,7 +41,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         {
             entry = entry ?? throw new ArgumentNullException(nameof(entry));
 
-            Result result = new Result()
+            var result = new Result()
             {
                 RuleId = entry.RuleName,
                 Message = new Message { Text = entry.Failure },
@@ -63,7 +63,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                     break;
             }
 
-            Region region = new Region()
+            var region = new Region()
             {
                 // The TSLint logs have line and column start at 0, Sarif has them starting at 1, so add 1 to each
                 StartLine = entry.StartPosition.Line + 1,
@@ -77,7 +77,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             int length = entry.EndPosition.Position - entry.StartPosition.Position;
             region.CharLength = length > 0 ? length : 0;
 
-            Uri analysisTargetUri = new Uri(entry.Name, UriKind.Relative);
+            var analysisTargetUri = new Uri(entry.Name, UriKind.Relative);
 
             var physicalLocation = new PhysicalLocation
             {
@@ -88,7 +88,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 Region = region
             };
 
-            Location location = new Location()
+            var location = new Location()
             {
                 PhysicalLocation = physicalLocation
             };
@@ -104,7 +104,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
                 foreach (TSLintLogFix fix in entry.Fixes)
                 {
-                    Replacement replacement = new Replacement();
+                    var replacement = new Replacement();
 
                     replacement.DeletedRegion = new Region
                     {
@@ -132,7 +132,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                     Replacements = replacements
                 };
 
-                Fix sarifFix = new Fix(description: null, artifactChanges: new List<ArtifactChange>() { sarifFileChange }, properties: null);
+                var sarifFix = new Fix(description: null, artifactChanges: new List<ArtifactChange>() { sarifFileChange }, properties: null);
                 result.Fixes = new List<Fix> { sarifFix };
             }
 

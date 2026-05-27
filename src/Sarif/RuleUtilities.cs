@@ -46,7 +46,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             ruleMessageId = NormalizeRuleMessageId(ruleMessageId, context.Rule.Id);
 
-            Result result = new Result
+            var result = new Result
             {
                 RuleId = context.Rule.Id,
 
@@ -60,7 +60,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 Kind = kind
             };
 
-            if (context.TargetUri != null)
+            if (context.CurrentTarget?.Uri != null)
             {
                 result.Locations = new List<Location> {
                     new Sarif.Location {
@@ -68,7 +68,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                         {
                             ArtifactLocation = new ArtifactLocation
                             {
-                                Uri = context.TargetUri
+                                Uri = context.CurrentTarget.Uri
                             },
                             Region = region
                         }

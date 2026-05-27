@@ -27,8 +27,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Processors.Log
         public void TestMerge_WorksAsExpected()
         {
             Random random = RandomSarifLogGenerator.GenerateRandomAndLog(this.output);
-            List<SarifLog> logs = new List<SarifLog>();
-            List<SarifLog> secondLogSet = new List<SarifLog>();
+            var logs = new List<SarifLog>();
+            var secondLogSet = new List<SarifLog>();
             int count = random.Next(10) + 1;
             for (int i = 0; i < count; i++)
             {
@@ -46,7 +46,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Processors.Log
         public void RebaseUri_WorksAsExpected()
         {
             Random random = RandomSarifLogGenerator.GenerateRandomAndLog(this.output);
-            List<SarifLog> logs = new List<SarifLog>();
+            var logs = new List<SarifLog>();
 
             int count = random.Next(10) + 1;
             for (int i = 0; i < count; i++)
@@ -107,7 +107,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Processors.Log
         public void RebaseUri_WorksAsExpectedWithRebaseRelativeUris()
         {
             Random random = RandomSarifLogGenerator.GenerateRandomAndLog(this.output);
-            List<SarifLog> logs = new List<SarifLog>();
+            var logs = new List<SarifLog>();
 
             int count = random.Next(10) + 1;
             for (int i = 0; i < count; i++)

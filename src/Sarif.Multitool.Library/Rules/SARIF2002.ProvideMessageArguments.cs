@@ -1,9 +1,7 @@
 ﻿// Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-using System;
 using System.Collections.Generic;
-using System.Text.RegularExpressions;
 
 using Microsoft.Json.Pointer;
 
@@ -33,12 +31,23 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         /// </summary>
         public override MultiformatMessageString FullDescription => new MultiformatMessageString { Text = RuleResources.SARIF2002_ProvideMessageArguments_FullDescription_Text };
 
-        protected override IEnumerable<string> MessageResourceNames => new string[] {
+        protected override ICollection<string> MessageResourceNames => new List<string> {
             nameof(RuleResources.SARIF2002_ProvideMessageArguments_Note_Default_Text)
         };
 
         protected override void Analyze(Result result, string resultPointer)
         {
+            if (IsAIOriginRun())
+            {
+                // AI results are stochastic: each message.text is rendered per result
+                // rather than composed from a parameterized template. The id+arguments
+                // pattern this rule recommends exists to support fixed-format strings
+                // (notably for localization), which AI emitters handle out-of-band —
+                // they can translate rendered content on the fly. Applying the
+                // recommendation to AI output would flag every result indiscriminately.
+                return;
+            }
+
             if (string.IsNullOrEmpty(result.Message.Id))
             {
                 // {0}: The 'message' property of this result contains a 'text' property. Consider replacing

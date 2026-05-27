@@ -16,7 +16,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Processors
         [Fact]
         public void SerializeDeserializePipeline_WorksAsExpected()
         {
-            SarifLogPipeline preserialized = new SarifLogPipeline(
+            var preserialized = new SarifLogPipeline(
                 new List<SarifLogActionTuple>()
                  { new SarifLogActionTuple(){Action=SarifLogAction.RebaseUri, Parameters=new string[] {"SrcRoot", @"C:\src\"} },
                    new SarifLogActionTuple(){Action=SarifLogAction.Merge, Parameters=new string[0]}

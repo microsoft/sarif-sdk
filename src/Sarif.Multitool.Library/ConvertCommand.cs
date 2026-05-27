@@ -9,7 +9,6 @@ using System.IO;
 using Microsoft.CodeAnalysis.Sarif.Converters;
 using Microsoft.CodeAnalysis.Sarif.Driver;
 using Microsoft.CodeAnalysis.Sarif.Visitors;
-using Microsoft.CodeAnalysis.Sarif.Writers;
 
 using Newtonsoft.Json;
 
@@ -40,19 +39,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
                 if (!ValidateOptions(convertOptions, fileSystem)) { return FAILURE; }
 
-                LogFilePersistenceOptions logFilePersistenceOptions = LogFilePersistenceOptions.None;
+                FilePersistenceOptions logFilePersistenceOptions = FilePersistenceOptions.None;
 
                 OptionallyEmittedData dataToInsert = convertOptions.DataToInsert.ToFlags();
-
-                if (convertOptions.PrettyPrint)
-                {
-                    logFilePersistenceOptions |= LogFilePersistenceOptions.PrettyPrint;
-                }
-
-                if (convertOptions.Force)
-                {
-                    logFilePersistenceOptions |= LogFilePersistenceOptions.OverwriteExistingOutputFile;
-                }
 
                 new ToolFormatConverter().ConvertToStandardFormat(
                                                 convertOptions.ToolFormat,
@@ -62,16 +51,18 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                                                 dataToInsert,
                                                 convertOptions.PluginAssemblyPath);
 
-                if (convertOptions.NormalizeForGitHub)
+#pragma warning disable CS0618 // Type or member is obsolete
+                if (convertOptions.NormalizeForGhas || convertOptions.NormalizeForGitHub)
+#pragma warning restore CS0618 // Type or member is obsolete
                 {
                     SarifLog sarifLog;
 
-                    JsonSerializer serializer = new JsonSerializer()
+                    var serializer = new JsonSerializer()
                     {
                         Formatting = convertOptions.PrettyPrint ? Formatting.Indented : 0,
                     };
 
-                    using (JsonTextReader reader = new JsonTextReader(new StreamReader(convertOptions.OutputFilePath)))
+                    using (var reader = new JsonTextReader(new StreamReader(convertOptions.OutputFilePath)))
                     {
                         sarifLog = serializer.Deserialize<SarifLog>(reader);
                     }
@@ -80,8 +71,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                     visitor.VisitSarifLog(sarifLog);
 
                     using (FileStream stream = File.Create(convertOptions.OutputFilePath))
-                    using (StreamWriter streamWriter = new StreamWriter(stream))
-                    using (JsonTextWriter writer = new JsonTextWriter(streamWriter))
+                    using (var streamWriter = new StreamWriter(stream))
+                    using (var writer = new JsonTextWriter(streamWriter))
                     {
                         serializer.Serialize(writer, sarifLog);
                     }
@@ -102,7 +93,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
             valid &= convertOptions.Validate();
 
-            valid &= DriverUtilities.ReportWhetherOutputFileCanBeCreated(convertOptions.OutputFilePath, convertOptions.Force, fileSystem);
+            valid &= DriverUtilities.ReportWhetherOutputFileCanBeCreated(convertOptions.OutputFilePath, convertOptions.ForceOverwrite, fileSystem);
 
             return valid;
         }

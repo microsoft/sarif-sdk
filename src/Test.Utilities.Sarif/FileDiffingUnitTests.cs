@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft. All rights reserved.
+// Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System;
@@ -8,6 +8,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
+using System.Text.RegularExpressions;
 
 using FluentAssertions;
 
@@ -30,6 +31,8 @@ namespace Microsoft.CodeAnalysis.Sarif
         private readonly bool _testProducesSarifCurrentVersion;
         private readonly TestAssetResourceExtractor _extractor;
 
+        protected readonly List<RuleKind> AllRuleKinds = new List<RuleKind>(new[] { RuleKind.Sarif, RuleKind.GHAzDO, RuleKind.Gh, RuleKind.Ghas });
+
         public FileDiffingUnitTests(ITestOutputHelper outputHelper, bool testProducesSarifCurrentVersion = true)
         {
             _outputHelper = outputHelper;
@@ -49,7 +52,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         /// <summary>
         /// A specific unit test output directory, to store baseline ('expected') files and actual, etc., e.g.:
-        /// D:\src\sarif-sdk\bld\bin\AnyCPU_Debug\Test.UnitTests.Sarif.Multitool.Library\netcoreapp3.1\UnitTestOutput.MergeCommand
+        /// D:\src\sarif-sdk\bld\bin\AnyCPU_Debug\Test.UnitTests.Sarif.Multitool.Library\net8.0\UnitTestOutput.MergeCommand
         /// </summary>
         protected virtual string TestOutputDirectory => Path.Combine(GetBuildPath(), "UnitTestOutput." + TypeUnderTest);
 
@@ -129,7 +132,8 @@ namespace Microsoft.CodeAnalysis.Sarif
         protected virtual void RunTest(string inputResourceName,
                                        string expectedOutputResourceName = null,
                                        object parameter = null,
-                                       bool enforceNotificationsFree = false)
+                                       bool enforceNotificationsFree = false,
+                                       ISet<string> expectedResultFingerprintKeys = null)
         {
             // In the simple case of one input file and one output file, the output resource name
             // can be inferred from the input resource name. In the case of arbitrary numbers of
@@ -173,13 +177,15 @@ namespace Microsoft.CodeAnalysis.Sarif
                                     expectedOutputResourceNameDictionary,
                                     expectedSarifTexts,
                                     actualSarifTexts,
-                                    enforceNotificationsFree);
+                                    enforceNotificationsFree,
+                                    expectedResultFingerprintKeys);
         }
 
         protected virtual void RunTest(IList<string> inputResourceNames,
                                        IDictionary<string, string> expectedOutputResourceNames,
                                        object parameter = null,
-                                       bool enforceNotificationsFree = false)
+                                       bool enforceNotificationsFree = false,
+                                       ISet<string> expectedResultFingerprintKeys = null)
         {
             var expectedSarifTexts = expectedOutputResourceNames.ToDictionary(
                 pair => pair.Key,
@@ -193,7 +199,8 @@ namespace Microsoft.CodeAnalysis.Sarif
                                     expectedOutputResourceNames,
                                     expectedSarifTexts,
                                     actualSarifTexts,
-                                    enforceNotificationsFree);
+                                    enforceNotificationsFree,
+                                    expectedResultFingerprintKeys);
         }
 
         private void CompareActualToExpected(
@@ -201,7 +208,8 @@ namespace Microsoft.CodeAnalysis.Sarif
             IDictionary<string, string> expectedOutputResourceNameDictionary,
             IDictionary<string, string> expectedSarifTextDictionary,
             IDictionary<string, string> actualSarifTextDictionary,
-            bool enforceNotificationsFree)
+            bool enforceNotificationsFree,
+            ISet<string> expectedResultFingerprintKeys)
         {
             if (inputResourceNames.Count == 0)
             {
@@ -223,39 +231,77 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentException($"The number of actual output files ({actualSarifTextDictionary.Count}) does not match the number of expected output files {expectedSarifTextDictionary.Count}");
             }
 
-            bool passed = true;
             var filesWithErrors = new List<string>();
+            var filesResultNotMatch = new List<string>();
+            var filesMissingFingerprints = new List<string>();
 
             // Reify the list of keys because we're going to modify the dictionary in place.
-            List<string> keys = expectedSarifTextDictionary.Keys.ToList();
+            var keys = expectedSarifTextDictionary.Keys.ToList();
+            var userFacingTexts = new Dictionary<string, string>();
 
             foreach (string key in keys)
             {
+                bool passed;
                 if (_testProducesSarifCurrentVersion)
                 {
+                    string actualSarifText = actualSarifTextDictionary[key];
+                    SarifLog actualSarifLog = JsonConvert.DeserializeObject<SarifLog>(actualSarifText);
+                    if (actualSarifLog.Runs?.FirstOrDefault()?.TryGetProperty("consoleOut", out string userFacingText) == true)
+                    {
+                        userFacingTexts[key] = userFacingText != null ? Regex.Unescape(userFacingText) : null;
+                        actualSarifLog.Runs[0].RemoveProperty("consoleOut");
+                        actualSarifText = JsonConvert.SerializeObject(actualSarifLog, Formatting.Indented);
+                        actualSarifTextDictionary[key] = actualSarifText;
+                    }
+
                     PrereleaseCompatibilityTransformer.UpdateToCurrentVersion(expectedSarifTextDictionary[key], Formatting.Indented, out string transformedSarifText);
+
                     expectedSarifTextDictionary[key] = transformedSarifText;
 
-                    passed &= AreEquivalent<SarifLog>(actualSarifTextDictionary[key],
-                                                      expectedSarifTextDictionary[key],
-                                                      out SarifLog actual);
+                    passed = AreEquivalent<SarifLog>(actualSarifTextDictionary[key],
+                                                     expectedSarifTextDictionary[key],
+                                                     out SarifLog actual);
+
+                    if (expectedResultFingerprintKeys != null &&
+                        actual?.Runs?[0]?.Results != null)
+                    {
+                        List<string> missingFingerprints = null;
+
+                        foreach (string expectedFingerprintKey in expectedResultFingerprintKeys)
+                        {
+                            if (actual.Runs[0].Results.Any(r => r.Fingerprints.ContainsKey(expectedFingerprintKey) == false))
+                            {
+                                missingFingerprints ??= new List<string>();
+                                missingFingerprints.Add(expectedFingerprintKey);
+                            }
+                        }
+
+                        if (missingFingerprints?.Count > 0)
+                        {
+                            filesMissingFingerprints.Add($"'{key}' analysis result is missing required fingerprints: {string.Join(", ", missingFingerprints)}");
+                        }
+                    }
 
                     if (enforceNotificationsFree &&
                         actual != null &&
                         (actual.Runs[0].Invocations?[0].ToolExecutionNotifications != null ||
                          actual.Runs[0].Invocations?[0].ToolConfigurationNotifications != null))
                     {
-                        passed = false;
                         filesWithErrors.Add(key);
                     }
                 }
                 else
                 {
-                    passed &= AreEquivalent<SarifLogVersionOne>(
+                    passed = AreEquivalent<SarifLogVersionOne>(
                         actualSarifTextDictionary[key],
                         expectedSarifTextDictionary[key],
                         out SarifLogVersionOne actual,
                         SarifContractResolverVersionOne.Instance);
+                }
+
+                if (!passed)
+                {
+                    filesResultNotMatch.Add(key);
                 }
             }
 
@@ -281,35 +327,40 @@ namespace Microsoft.CodeAnalysis.Sarif
 
                 File.WriteAllText(expectedFilePath, expectedSarifTextDictionary[key]);
                 File.WriteAllText(actualFilePath, actualSarifTextDictionary[key]);
+
+                if (userFacingTexts.ContainsKey(key))
+                {
+                    File.WriteAllText(Path.Combine(actualRootDirectory, Path.GetFileNameWithoutExtension(key) + ".txt"), userFacingTexts[key]);
+                }
             }
 
-            StringBuilder sb = null;
+            var sb = new StringBuilder();
 
-            if (!passed)
+            if (filesMissingFingerprints.Count > 0)
             {
-                string errorMessage = string.Empty;
+                sb.AppendLine(Environment.NewLine)
+                  .AppendLine("one or more files contain results missing required fingerprints: ")
+                  .AppendLine(string.Join(Environment.NewLine, filesMissingFingerprints.Select(s => $" - {s}")));
+            }
 
-                if (filesWithErrors.Count > 0)
-                {
-                    errorMessage =
-                        "one or more files contain an unexpected notification (which likely " +
-                        "indicates that an unhandled exception was encountered at analysis time): " +
-                        Environment.NewLine +
-                        string.Join(Environment.NewLine, filesWithErrors) +
-                        Environment.NewLine + Environment.NewLine;
-                }
+            if (filesWithErrors.Count > 0)
+            {
+                sb.AppendLine(Environment.NewLine)
+                  .AppendLine("one or more files contain an unexpected notification (which likely indicates that an unhandled exception was encountered at analysis time): ")
+                  .AppendLine(string.Join(Environment.NewLine, filesWithErrors.Select(s => $" - {s}")));
+            }
 
-                errorMessage += string.Format(@"there should be no unexpected diffs detected comparing actual results to '{0}'.", string.Join(", ", inputResourceNames));
-                sb = new StringBuilder(errorMessage);
+            if (filesResultNotMatch.Count > 0)
+            {
+                sb.AppendLine("there are unexpected diffs detected comparing actual results to expected results for following test files:")
+                  .AppendLine(string.Join(Environment.NewLine, filesResultNotMatch.Select(s => $" - {s}")));
 
                 sb.AppendLine("To compare all difference for this test suite:");
                 sb.AppendLine(GenerateDiffCommand(TypeUnderTest, expectedRootDirectory, actualRootDirectory) + Environment.NewLine);
 
-                sb.AppendLine(
-                    "To rebaseline with current behavior:");
-
+                sb.AppendLine("To rebaseline with current behavior:");
                 string testDirectory = Path.Combine(TestBinaryTestDataDirectory, TypeUnderTest, "ExpectedOutputs");
-                sb.AppendLine(GenerateRebaselineCommand(TypeUnderTest, testDirectory, actualRootDirectory));
+                sb.AppendLine(GenerateRebaselineCommand(TypeUnderTest, testDirectory, actualRootDirectory) + Environment.NewLine);
             }
 
             ValidateResults(sb?.ToString());

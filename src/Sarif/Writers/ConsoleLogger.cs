@@ -2,32 +2,23 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System;
-using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Text;
 
 namespace Microsoft.CodeAnalysis.Sarif.Writers
 {
-    public class ConsoleLogger : BaseLogger, IAnalysisLogger
+    public class ConsoleLogger(bool quietConsole, string toolName, FailureLevelSet levels = null, ResultKindSet kinds = null)
+        : BaseLogger(levels, kinds), IAnalysisLogger
     {
-        //  TODO:  We directly instantiate this logger in two classes, creating 
-        //  unamanged dependencies.  Fix this pattern with dependency injection or a factory.
-        //  #2272 https://github.com/microsoft/sarif-sdk/issues/2272
-        public ConsoleLogger(bool quietConsole, string toolName, IEnumerable<FailureLevel> levels = null, IEnumerable<ResultKind> kinds = null) : base(levels, kinds)
-        {
-            _quietConsole = quietConsole;
-            _toolName = toolName.ToUpperInvariant();
-        }
-
-        private readonly string _toolName;
+        private readonly string _toolName = toolName.ToUpperInvariant();
         private StringBuilder _capturedOutput;
 
         public bool CaptureOutput { get; set; }
 
         public string CapturedOutput => _capturedOutput?.ToString();
 
-        private readonly bool _quietConsole;
+        private readonly bool _quietConsole = quietConsole;
 
         private void WriteLineToConsole(string text = null, bool forceEmitOfErrorNotifications = false)
         {
@@ -37,11 +28,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
                 if (CaptureOutput)
                 {
-                    _capturedOutput = _capturedOutput ?? new StringBuilder();
+                    _capturedOutput ??= new StringBuilder();
                     _capturedOutput.AppendLine(text);
                 }
             }
         }
+
+        public FileRegionsCache FileRegionsCache { get; set; }
 
         public void AnalysisStarted()
         {
@@ -83,17 +76,27 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
         public void AnalyzingTarget(IAnalysisContext context)
         {
-            if (context == null)
+            if (context.Traces.Contains(nameof(DefaultTraces.TargetsScanned)))
             {
-                throw new ArgumentNullException(nameof(context));
+                // Analyzing '{0}'.
+                WriteLineToConsole(string.Format(CultureInfo.CurrentCulture,
+                        SdkResources.MSG001_AnalyzingTarget,
+                            context.CurrentTarget.Uri.GetFileName()));
             }
-
-            WriteLineToConsole(string.Format(CultureInfo.CurrentCulture,
-                    SdkResources.MSG001_AnalyzingTarget,
-                        context.TargetUri.GetFileName()));
         }
 
-        public void Log(ReportingDescriptor rule, Result result)
+        public void TargetAnalyzed(IAnalysisContext context)
+        {
+            if (context.Traces.Contains(nameof(DefaultTraces.TargetsScanned)))
+            {
+                // Completed: '{0}'.
+                WriteLineToConsole(string.Format(CultureInfo.CurrentCulture,
+                        SdkResources.MSG001_TargetAnalyzed,
+                            context.CurrentTarget.Uri.GetFileName()));
+            }
+        }
+
+        public void Log(ReportingDescriptor rule, Result result, int? extensionIndex = null)
         {
             if (result == null)
             {
@@ -114,14 +117,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             WriteLineToConsole(GetMessageText(_toolName, physicalLocation?.ArtifactLocation?.Uri, physicalLocation?.Region, result.RuleId, message, result.Kind, result.Level));
         }
 
-        private static string GetMessageText(
-            string toolName,
-            Uri uri,
-            Region region,
-            string ruleId,
-            string message,
-            ResultKind kind,
-            FailureLevel level)
+        public static string GetMessageText(string toolName,
+                                            Uri uri,
+                                            Region region,
+                                            string ruleId,
+                                            string message,
+                                            ResultKind kind,
+                                            FailureLevel level)
         {
             string path = ConstructPathFromUri(uri);
 
@@ -144,7 +146,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 case FailureLevel.None:
                     issueType = kind.ToString().ToLowerInvariant();
                     // Shorten to 'info' for compatibility with previous behavior.
-                    if (issueType == "informational") { issueType = "info"; }
+                    if (issueType == "informational" || issueType == "fail") { issueType = "info"; }
                     break;
 
                 default:
@@ -162,7 +164,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 location = region.FormatForVisualStudio();
             }
 
-            return (path != null ? (path + location) : toolName)
+            return (!string.IsNullOrWhiteSpace(path) ? (path + location) : toolName)
                    + $": {issueType} "
                    + (!string.IsNullOrEmpty(ruleId) ? (ruleId + ": ") : "")
                    + detailedDiagnosis;
@@ -178,7 +180,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             return (enquote ? "\"" : "") + message + (enquote ? "\"" : "");
         }
 
-        public void LogToolNotification(Notification notification)
+        public void LogToolNotification(Notification notification, ReportingDescriptor associatedRule)
         {
             if (!ShouldLog(notification))
             {
@@ -252,7 +254,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             PhysicalLocation physicalLocation = notification.Locations?.First().PhysicalLocation;
             Uri uri = physicalLocation?.ArtifactLocation?.Uri;
 
-            var sb = new StringBuilder((ConstructPathFromUri(uri) ?? toolName) + " : ");
+            string path = ConstructPathFromUri(uri);
+            var sb = new StringBuilder((string.IsNullOrWhiteSpace(path) ? toolName : path) + " : ");
 
             sb.Append(issueType).Append(' ');
 
@@ -294,7 +297,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 }
             }
 
-            return path;
+            string suffix = uri?.IsAbsoluteUri == true ? uri.Query : null;
+            return $"{path}{suffix}";
         }
     }
 }

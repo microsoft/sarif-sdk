@@ -92,7 +92,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
             baselineLog.Runs[0].Tool.Driver.Name = "Test1";
             currentLog.Runs[0].Tool.Driver.Name = "Test2";
 
-            var exception = Record.Exception(() => baseliner.Match(new SarifLog[] { baselineLog }, new SarifLog[] { currentLog }).First());
+            Exception exception = Record.Exception(() => baseliner.Match(new SarifLog[] { baselineLog }, new SarifLog[] { currentLog }).First());
             Assert.Null(exception);
         }
 

@@ -17,7 +17,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Processors
 
         public IEnumerable<T> Map(IEnumerable<T> collection)
         {
-            List<T> output = new List<T>();
+            var output = new List<T>();
             foreach (T value in collection)
             {
                 output.Add(Action.Invoke(value));

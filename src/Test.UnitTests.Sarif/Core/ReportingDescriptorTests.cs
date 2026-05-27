@@ -13,12 +13,12 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Core
 {
     public class ReportingDescriptorTests
     {
-        private const string ShortDescription = "ShortDescription";
+        private const string ShortDescription = "shortDescription";
 
         [Fact]
         public void ShouldSerializeShortDescription_CorrectlyHandlesNullAndEmptyValues()
         {
-            ReportingDescriptor reportingDescriptor = new ReportingDescriptor()
+            var reportingDescriptor = new ReportingDescriptor()
             {
                 ShortDescription = null,
                 FullDescription = null
@@ -61,7 +61,7 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Core
         [Fact]
         public void ShouldSerializeShortDescription_FalseForIdenticalStrings()
         {
-            ReportingDescriptor reportingDescriptor = new ReportingDescriptor()
+            var reportingDescriptor = new ReportingDescriptor()
             {
                 ShortDescription = new MultiformatMessageString() { Text = "EasyFalse1" },
                 FullDescription = new MultiformatMessageString() { Text = "EasyFalse1" }
@@ -88,9 +88,7 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Core
         {
             Assert.False(should ^ reportingDescriptor.ShouldSerializeShortDescription());
             string testSerializedString = JsonConvert.SerializeObject(reportingDescriptor);
-            Assert.False(should ^ testSerializedString.Contains(ShortDescription, StringComparison.InvariantCultureIgnoreCase));
+            Assert.False(should ^ testSerializedString.Contains(ShortDescription));
         }
-
-        //  TODO: Add unit tests for remaining ShouldSerialize methods
     }
 }
