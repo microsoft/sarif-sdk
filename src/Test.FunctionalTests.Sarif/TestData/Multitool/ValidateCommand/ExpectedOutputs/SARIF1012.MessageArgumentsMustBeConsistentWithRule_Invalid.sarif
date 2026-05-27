@@ -124,6 +124,32 @@
               }
             }
           ]
+        },
+        {
+          "ruleId": "SARIF1012",
+          "ruleIndex": 0,
+          "level": "error",
+          "message": {
+            "id": "Error_MessageIdMustExist",
+            "arguments": [
+              "runs[0].results[3]",
+              "AnyId",
+              "NoSuchRule"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 53,
+                  "startColumn": 9
+                }
+              }
+            }
+          ]
         }
       ],
       "columnKind": "utf16CodeUnits"
