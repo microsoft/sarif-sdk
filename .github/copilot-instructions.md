@@ -69,6 +69,15 @@ you're writing a PR description. Trim or split.
   `src/Shared/CommonAssemblyInfo.cs`. New `internal const` env-var name
   fields or test-only helpers are reachable from the standard test
   assemblies without needing to be made `public`.
+- **No historical references in code comments.** Don't cite past
+  renames, deprecated names, PR numbers, or "this used to be X" prose
+  inside code. Version control (`git log -p`, `git blame`, GitHub PR
+  history) already carries that story — both humans and AI know how to
+  mine it. Code comments earn their place by clarifying intent or
+  invariants that aren't obvious from the code itself, not by narrating
+  the codebase's past. The `[Obsolete]` attribute's own message is the
+  right place for a one-line "use X instead" pointer; everything
+  beyond that belongs in the commit / PR that introduced the change.
 
 ## Commit / PR mechanics
 
