@@ -11,6 +11,9 @@ Each release entry below is prefixed with one of:
 
 `BRK` entries lead each section. Older sections may predate this convention.
 
+## **v5.0.2** UNRELEASED
+* BUG: Drop AI1015 (`ProvideRunDefaultSourceLanguage`); AI runs are no longer required to set `run.defaultSourceLanguage`.
+
 ## **v5.0.1** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/v5.0.1) | [Driver](https://www.nuget.org/packages/Sarif.Driver/v5.0.1) | [Converters](https://www.nuget.org/packages/Sarif.Converters/v5.0.1) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/v5.0.1) | [Multitool Library](https://www.nuget.org/packages/Sarif.Multitool.Library/v5.0.1)
 * BRK: `multitool emit-init-run` removes the twelve typed content flags shipped in v5.0.0 (`--tool-driver-name`, `--tool-version`, `--tool-driver-semantic-version`, `--information-uri`, `--organization`, `--automation-guid`, `--automation-correlation-guid`, `--ai-origin`, `--vcp-repositoryuri`, `--vcp-revisionid`, `--vcp-branch`, `--srcroot`) and consumes a SARIF `Run` JSON document via `--input <path>` or stdin instead, matching the contract of `add-result` / `add-notification` / `add-reporting-descriptor`. `--force-overwrite` is retained.
 * BRK: `Microsoft.CodeAnalysis.Sarif.Multitool.AdoPipelineContext.ApplyTo(Run)` is replaced by `bool TryApplyTo(Run run, out string error)`; stamps `automationDetails.id` and the four `azuredevops/pipeline/build/*` properties only when absent and returns false on per-field conflict.
