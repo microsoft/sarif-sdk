@@ -461,6 +461,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         public void GH1007_ProvideFullyFormattedMessageStrings_Invalid()
             => RunInvalidTestForRule(RuleId.ProvideFullyFormattedMessageStrings);
 
+        [Fact]
+        public void GHAzDO1021_ProvideShortBranchNameInVcp_Valid()
+            => RunValidTestForRule(RuleId.GHAzDOProvideShortBranchNameInVcp);
+
+        [Fact]
+        public void GHAzDO1021_ProvideShortBranchNameInVcp_Invalid()
+            => RunInvalidTestForRule(RuleId.GHAzDOProvideShortBranchNameInVcp);
+
         private void RunArrayLimitTest(string testFileNameSuffix)
         {
             // Some of the actual limits are impractically large for testing purposes,
@@ -551,7 +559,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 OutputFileOptions = new[] { FilePersistenceOptions.PrettyPrint, FilePersistenceOptions.Optimize },
                 Level = new List<FailureLevel> { FailureLevel.Error, FailureLevel.Warning, FailureLevel.Note, FailureLevel.None },
                 //RuleKindOption = AllRuleKinds
-                RuleKindOption = new List<RuleKind>() { RuleKind.Gh, RuleKind.Sarif, RuleKind.AI },
+                RuleKindOption = ruleUnderTest.StartsWith("GHAzDO")
+                    ? new List<RuleKind> { RuleKind.GHAzDO }
+                    : new List<RuleKind> { RuleKind.Gh, RuleKind.Sarif, RuleKind.AI },
             };
 
             var mockFileSystem = new Mock<IFileSystem>();
