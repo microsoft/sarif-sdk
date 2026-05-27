@@ -79,6 +79,29 @@ namespace Microsoft.CodeAnalysis.Sarif.Taxonomies
                 });
         }
 
+        [Fact]
+        public void CweGHAzDoSample_RegenerationSucceeds_WhenAmbientGitHubActionsEnvVarsConflict()
+        {
+            // Regression gate for the macOS CI break that surfaced when
+            // GitHubActionsContext landed: a GitHub Actions runner sets
+            // GITHUB_ACTIONS=true + GITHUB_SHA=<real commit sha>; without the
+            // script scrubbing those, GitHubActionsContext.TryDetect returns
+            // Complete with a revisionId that conflicts with the zero-SHA the
+            // script writes into the supplied VCP entry, and emit-init-run
+            // exits non-zero before any fixture bytes are written. Set
+            // conflicting values for every GHA env var the verb reads.
+            VerifyScriptIsIsolatedFromAmbientFallbackEnv(
+                new Dictionary<string, string>
+                {
+                    { "GITHUB_ACTIONS", "true" },
+                    { "GITHUB_SERVER_URL", "https://github.example.com" },
+                    { "GITHUB_REPOSITORY", "ambient/other" },
+                    { "GITHUB_SHA", "deadbeefdeadbeefdeadbeefdeadbeefdeadbeef" },
+                    { "GITHUB_REF_NAME", "feature/ambient" },
+                    { "GITHUB_REF", "refs/heads/feature/ambient" },
+                });
+        }
+
         private void VerifyScriptIsIsolatedFromAmbientFallbackEnv(IDictionary<string, string> conflictingEnv)
         {
             var saved = new Dictionary<string, string>();
