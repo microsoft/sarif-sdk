@@ -211,20 +211,6 @@ The `ai/nearestCwe` property orients consumers to the closest known vulnerabilit
 ]
 ```
 
-### Run partitioning by language
-
-AI runs MUST be partitioned by source language: a single run MUST cover exactly one `(repository, branch, language)` tuple. `run.defaultSourceLanguage` (§3.14.25) MUST be set to a value from SARIF Appendix J (compared case-insensitively per §3.24.10.2).
-
-```json
-"defaultSourceLanguage": "python"
-```
-
-A SARIF log MAY carry multiple runs to cover multiple languages or branches; each run is independently a `(repository, branch, language)` slice. A run MAY span multiple CWEs.
-
-`artifact.sourceLanguage` (§3.24.10) and `region.sourceLanguage` (§3.30.15) MAY be present for SARIF-viewer rendering but MUST NOT be the sole signal of a result's language — downstream consumers (notably GHAZDO bucket partitioning) resolve language at run scope only.
-
-This is stricter than the SARIF spec allows and is intentional: it makes per-language alert identity stable without per-result language inference at ingestion time.
-
 ---
 
 ## Result Structure
@@ -1704,7 +1690,6 @@ sarif validate my-results.sarif --rule-kind AI
 | AI1011 | RedactedRunMarker | error | `ai/redacted` SHALL be `true` or absent (never `false`). When `true`, `run.redactionTokens` SHOULD be non-empty. `ai/fullLogLocation` SHALL NOT appear unless `ai/redacted` is `true`. |
 | AI1012 | ProvideRuleSubId | error | Every `result.ruleId` MUST include a sub-ID for disambiguation (e.g., `CWE-78/api-handler`). Rule descriptors (`tool.driver.rules[].id`) use the base ID only (e.g., `CWE-78`). |
 | AI1013 | ProvideNotificationAssociatedRule | error | If `notification.associatedRule` is present, it SHALL resolve to a valid rule in `tool.driver.rules[]` or an extension's `rules[]` via `index` or `guid`. |
-| AI1015 | ProvideRunDefaultSourceLanguage | error | Every run MUST set `run.defaultSourceLanguage` (§3.14.25) to a value from SARIF Appendix J. A single run MUST cover exactly one `(repository, branch, language)` tuple. |
 | AI2003 | ProvideSemanticVersion | warning | `tool.driver` SHOULD supply `semanticVersion` for reproducibility. |
 | AI2005 | ProvideAutomationDetails | warning | `run.automationDetails.guid` SHOULD be present for deduplication. |
 | AI2010 | ProvideResultRank | note | Each `result.rank` SHOULD be populated (tool-specific confidence score, 0.0–100.0). |

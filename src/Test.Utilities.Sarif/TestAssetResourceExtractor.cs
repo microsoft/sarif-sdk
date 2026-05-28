@@ -68,7 +68,12 @@ namespace Microsoft.CodeAnalysis.Sarif
             ValidateStream(resourcePath, fallbackResourcePath, stream);
 
             using var reader = new StreamReader(stream);
-            return reader.ReadToEnd();
+            string text = reader.ReadToEnd();
+
+            // Canonicalize line endings to Environment.NewLine so resource text
+            // compares equal to tool output regardless of how the file was
+            // checked out (autocrlf) or which OS is running the tests.
+            return text.Replace("\r\n", "\n").Replace("\n", Environment.NewLine);
         }
 
         public byte[] GetResourceBytes(string resourcePath)

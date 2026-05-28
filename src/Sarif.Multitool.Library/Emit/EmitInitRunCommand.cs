@@ -94,6 +94,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                     return FAILURE;
                 }
 
+                // Same up-front detection for GitHub Actions. GHA contributes only to
+                // versionControlProvenance — there is no GHA automationDetails stamping today.
+                GitHubActionsContext.DetectionState ghaState =
+                    GitHubActionsContext.TryDetect(_environment, out GitHubActionsContext ghaContext, out string ghaError);
+                if (ghaState == GitHubActionsContext.DetectionState.Partial)
+                {
+                    Console.Error.WriteLine(ghaError);
+                    return FAILURE;
+                }
+
                 // Read and parse the caller-supplied Run JSON before any file-system side
                 // effects so malformed input never leaves a wip on disk.
                 int code = EmitEventLogHelpers.TryReadJsonPayload(
@@ -114,6 +124,36 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                     if (!TryStampAdoContext(runObject, adoContext, out string stampError))
                     {
                         Console.Error.WriteLine(stampError);
+                        return FAILURE;
+                    }
+                }
+
+                // VCP enrichment spans ADO and GHA env. The cross-source merge enforces
+                // agreement on any field both sources publish; the stamper applies the merged
+                // triple against the run-header VCP array.
+                if (adoState == AdoPipelineContext.DetectionState.Complete
+                    || ghaState == GitHubActionsContext.DetectionState.Complete)
+                {
+                    if (!TryResolveVcpFields(
+                            adoContext,
+                            ghaContext,
+                            out Uri vcpRepositoryUri,
+                            out string vcpRevisionId,
+                            out string vcpBranch,
+                            out string mergeError))
+                    {
+                        Console.Error.WriteLine(mergeError);
+                        return FAILURE;
+                    }
+
+                    if (!TryStampVcp(
+                            runObject,
+                            vcpRepositoryUri,
+                            vcpRevisionId,
+                            vcpBranch,
+                            out string vcpError))
+                    {
+                        Console.Error.WriteLine(vcpError);
                         return FAILURE;
                     }
                 }
@@ -537,6 +577,236 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             }
 
             return true;
+        }
+
+        /// <summary>
+        /// Enriches <c>versionControlProvenance</c> on the JSON payload with the resolved
+        /// repository URI / revision id / branch ref fields (sourced from the pipeline
+        /// environment via <see cref="TryResolveVcpFields"/>). Three input shapes:
+        /// <list type="bullet">
+        /// <item>VCP absent or empty array → append a synthesized entry with the fields we have
+        /// (only when a repository URI is known; branch/revision without a repo URI anchor is
+        /// informationally thin and cannot bind to a repo downstream).</item>
+        /// <item>VCP contains exactly one entry → enrich missing fields; fail on disagreement.</item>
+        /// <item>VCP contains multiple entries → leave untouched (caller declared a multi-repo
+        /// shape; we don't pick which entry names the pipeline's source repo).</item>
+        /// </list>
+        /// <para>This method is the env-driven stamper. The verb supports a layered set of
+        /// VCP sources:</para>
+        /// <list type="number">
+        /// <item>ADO pipeline environment — <c>TF_BUILD=True</c> plus the
+        /// <c>BUILD_REPOSITORY_URI</c> / <c>BUILD_SOURCEVERSION</c> /
+        /// <c>BUILD_SOURCEBRANCH</c> vars supply repo URI / revision / branch directly.</item>
+        /// <item>GitHub Actions environment — <c>GITHUB_ACTIONS=true</c> plus
+        /// <c>GITHUB_SERVER_URL</c> / <c>GITHUB_REPOSITORY</c> / <c>GITHUB_SHA</c> /
+        /// <c>GITHUB_REF</c> supply the same fields. When both ADO and GHA vars are
+        /// populated, the sources must agree on every field they both publish.</item>
+        /// <item>Caller-supplied — if neither CI env is present, the producer populates
+        /// <c>versionControlProvenance</c> entries directly in the run-header JSON and the
+        /// verb passes them through after shape validation. Callers running outside a
+        /// supported CI environment can shell out to <c>git</c> themselves and either
+        /// populate the entry directly or stage the corresponding env vars before invoking
+        /// the verb.</item>
+        /// </list>
+        /// </summary>
+        private static bool TryStampVcp(
+            JObject runObject,
+            Uri repositoryUri,
+            string revisionId,
+            string branch,
+            out string conflictError)
+        {
+            conflictError = null;
+
+            var vcpFields = new List<KeyValuePair<string, string>>(3);
+            if (repositoryUri != null)
+            {
+                vcpFields.Add(new KeyValuePair<string, string>(VcpFieldNames.RepositoryUri, repositoryUri.AbsoluteUri));
+            }
+            if (!string.IsNullOrEmpty(revisionId))
+            {
+                vcpFields.Add(new KeyValuePair<string, string>(VcpFieldNames.RevisionId, revisionId));
+            }
+            if (!string.IsNullOrEmpty(branch))
+            {
+                vcpFields.Add(new KeyValuePair<string, string>(VcpFieldNames.Branch, branch));
+            }
+
+            if (vcpFields.Count == 0)
+            {
+                return true;
+            }
+
+            // TryValidateRunHeader already enforced that versionControlProvenance (if present)
+            // is an array and each entry is an object.
+            var vcpArray = (JArray)runObject["versionControlProvenance"];
+
+            if (vcpArray == null || vcpArray.Count == 0)
+            {
+                // Only synthesize a new VCP entry when the repository URI is known —
+                // branch/revision without a repoUri anchor is informationally thin and
+                // downstream consumers (AdvSec ingestion) can't bind it to a repo.
+                if (repositoryUri == null)
+                {
+                    return true;
+                }
+
+                var entry = new JObject();
+                foreach (KeyValuePair<string, string> kv in vcpFields)
+                {
+                    entry[kv.Key] = kv.Value;
+                }
+
+                if (vcpArray == null)
+                {
+                    runObject["versionControlProvenance"] = new JArray { entry };
+                }
+                else
+                {
+                    vcpArray.Add(entry);
+                }
+                return true;
+            }
+
+            if (vcpArray.Count > 1)
+            {
+                // Multi-entry: caller has explicitly declared the multi-repo shape they want.
+                // We refuse to guess which entry names the pipeline's source repo.
+                return true;
+            }
+
+            var existing = (JObject)vcpArray[0];
+
+            // Probe-before-write so a conflict on any field leaves the JObject unchanged.
+            foreach (KeyValuePair<string, string> kv in vcpFields)
+            {
+                JToken existingToken = existing[kv.Key];
+                if (existingToken == null || existingToken.Type == JTokenType.Null) { continue; }
+
+                if (existingToken.Type != JTokenType.String)
+                {
+                    conflictError = string.Format(
+                        CultureInfo.CurrentCulture,
+                        "Supplied versionControlProvenance[0].{0} must be a JSON string, but the payload supplied a {1}. Detected pipeline value is '{2}'; either match it or omit the field.",
+                        kv.Key,
+                        existingToken.Type.ToString().ToLowerInvariant(),
+                        kv.Value);
+                    return false;
+                }
+
+                string existingValue = (string)existingToken;
+                if (existingValue.Length == 0) { continue; }
+
+                if (!VcpFieldValuesAgree(kv.Key, existingValue, kv.Value))
+                {
+                    conflictError = string.Format(
+                        CultureInfo.CurrentCulture,
+                        "Supplied versionControlProvenance[0].{0}='{1}' conflicts with detected pipeline value '{2}'.",
+                        kv.Key,
+                        existingValue,
+                        kv.Value);
+                    return false;
+                }
+            }
+
+            foreach (KeyValuePair<string, string> kv in vcpFields)
+            {
+                JToken existingToken = existing[kv.Key];
+                if (existingToken == null || existingToken.Type == JTokenType.Null
+                    || (existingToken.Type == JTokenType.String && ((string)existingToken).Length == 0))
+                {
+                    existing[kv.Key] = kv.Value;
+                }
+            }
+
+            return true;
+        }
+
+        /// <summary>
+        /// Resolves the three VCP fields (<c>repositoryUri</c>, <c>revisionId</c>,
+        /// <c>branch</c>) from the ADO and GitHub Actions environment contexts. ADO is the
+        /// higher-priority source: where ADO supplies a value it wins; GHA fills gaps where
+        /// ADO is silent. When both sources publish the same field, the values must agree
+        /// (case-insensitive URI equality for <c>repositoryUri</c>, ordinal for the rest) or
+        /// the method returns false with a diagnostic naming both sources.
+        /// </summary>
+        private static bool TryResolveVcpFields(
+            AdoPipelineContext adoContext,
+            GitHubActionsContext ghaContext,
+            out Uri repositoryUri,
+            out string revisionId,
+            out string branch,
+            out string conflictError)
+        {
+            conflictError = null;
+            repositoryUri = adoContext?.RepositoryUri;
+            revisionId = adoContext?.RevisionId;
+            branch = adoContext?.BranchRef;
+
+            if (ghaContext == null) { return true; }
+
+            if (!TryMergeRepositoryUri(ref repositoryUri, ghaContext.RepositoryUri, out conflictError))
+            {
+                return false;
+            }
+            if (!TryMergeStringField(ref revisionId, ghaContext.RevisionId, VcpFieldNames.RevisionId, out conflictError))
+            {
+                return false;
+            }
+            if (!TryMergeStringField(ref branch, ghaContext.BranchRef, VcpFieldNames.Branch, out conflictError))
+            {
+                return false;
+            }
+
+            return true;
+        }
+
+        private static bool TryMergeRepositoryUri(ref Uri resolved, Uri candidate, out string conflictError)
+        {
+            conflictError = null;
+            if (candidate == null) { return true; }
+            if (resolved == null) { resolved = candidate; return true; }
+            if (resolved == candidate) { return true; }
+
+            conflictError = string.Format(
+                CultureInfo.CurrentCulture,
+                "ADO pipeline env says {0}='{1}', GitHub Actions env says {0}='{2}'. Cross-source disagreement; refusing to stamp.",
+                VcpFieldNames.RepositoryUri,
+                resolved.AbsoluteUri,
+                candidate.AbsoluteUri);
+            return false;
+        }
+
+        private static bool TryMergeStringField(ref string resolved, string candidate, string fieldName, out string conflictError)
+        {
+            conflictError = null;
+            if (string.IsNullOrEmpty(candidate)) { return true; }
+            if (string.IsNullOrEmpty(resolved)) { resolved = candidate; return true; }
+            if (string.Equals(resolved, candidate, StringComparison.Ordinal)) { return true; }
+
+            conflictError = string.Format(
+                CultureInfo.CurrentCulture,
+                "ADO pipeline env says {0}='{1}', GitHub Actions env says {0}='{2}'. Cross-source disagreement; refusing to stamp.",
+                fieldName,
+                resolved,
+                candidate);
+            return false;
+        }
+
+        // repositoryUri values agree iff they parse to equivalent absolute URIs (the URI spec
+        // treats scheme/host case-insensitively and discards default ports / dot segments).
+        // revisionId and branch are byte-wise (an abbreviated SHA is not equal to its full
+        // form, and branch names are case-sensitive in git).
+        private static bool VcpFieldValuesAgree(string fieldName, string supplied, string detected)
+        {
+            if (string.Equals(fieldName, VcpFieldNames.RepositoryUri, StringComparison.Ordinal)
+                && Uri.TryCreate(supplied, UriKind.Absolute, out Uri suppliedUri)
+                && Uri.TryCreate(detected, UriKind.Absolute, out Uri detectedUri))
+            {
+                return suppliedUri == detectedUri;
+            }
+
+            return string.Equals(supplied, detected, StringComparison.Ordinal);
         }
     }
 }

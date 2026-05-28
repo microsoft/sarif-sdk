@@ -201,8 +201,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         }
 
         [Fact]
-        public void TryDetect_NormalizesBareBranchToRefsHeads()
+        public void TryDetect_PassesBareBranchThrough()
         {
+            // BUILD_SOURCEBRANCH is documented to always be long-form, but the detector
+            // passes whatever value the env publishes through as-is. AdvSec accepts both
+            // long and short branch forms in VCP.
             FakeEnvironmentVariableGetter env = CompleteEnv();
             env.With(AdoPipelineContext.SourceBranchEnvVar, "feature/x");
 
@@ -210,20 +213,132 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 AdoPipelineContext.TryDetect(env, out AdoPipelineContext ctx, out _);
 
             state.Should().Be(AdoPipelineContext.DetectionState.Complete);
-            ctx.BranchRef.Should().Be("refs/heads/feature/x");
+            ctx.BranchRef.Should().Be("feature/x");
         }
 
         [Fact]
-        public void TryDetect_PreservesPullRequestRefVerbatim()
+        public void TryDetect_VcpEnvVarsAbsent_LeavesVcpPropertiesNull()
         {
-            FakeEnvironmentVariableGetter env = CompleteEnv();
-            env.With(AdoPipelineContext.SourceBranchEnvVar, "refs/pull/42/merge");
+            // Optional env vars: absence does NOT degrade Complete -> Partial; the VCP
+            // enrichment path is just a no-op for this context.
+            AdoPipelineContext.DetectionState state =
+                AdoPipelineContext.TryDetect(CompleteEnv(), out AdoPipelineContext ctx, out _);
+
+            state.Should().Be(AdoPipelineContext.DetectionState.Complete);
+            ctx.RepositoryUri.Should().BeNull();
+            ctx.RevisionId.Should().BeNull();
+            ctx.BranchRef.Should().Be("refs/heads/main"); // pass-through of BUILD_SOURCEBRANCH (required var)
+        }
+
+        [Fact]
+        public void TryDetect_VcpEnvVarsWellFormed_PopulatesVcpProperties()
+        {
+            FakeEnvironmentVariableGetter env = CompleteEnv()
+                .With(AdoPipelineContext.RepositoryUriEnvVar, "https://dev.azure.com/contoso/example/_git/example")
+                .With(AdoPipelineContext.SourceVersionEnvVar, "0123456789abcdef0123456789abcdef01234567");
 
             AdoPipelineContext.DetectionState state =
                 AdoPipelineContext.TryDetect(env, out AdoPipelineContext ctx, out _);
 
             state.Should().Be(AdoPipelineContext.DetectionState.Complete);
+            ctx.RepositoryUri.AbsoluteUri.Should().Be("https://dev.azure.com/contoso/example/_git/example");
+            ctx.RevisionId.Should().Be("0123456789abcdef0123456789abcdef01234567");
+            ctx.BranchRef.Should().Be("refs/heads/main");
+        }
+
+        [Fact]
+        public void TryDetect_RepositoryUriMalformed_ReturnsPartial()
+        {
+            // Optional env vars don't go silent when malformed — a broken BUILD_REPOSITORY_URI
+            // is a misconfiguration signal we surface (consistent with how required vars fail).
+            FakeEnvironmentVariableGetter env = CompleteEnv()
+                .With(AdoPipelineContext.RepositoryUriEnvVar, "not-an-absolute-uri");
+
+            AdoPipelineContext.DetectionState state =
+                AdoPipelineContext.TryDetect(env, out AdoPipelineContext ctx, out string error);
+
+            state.Should().Be(AdoPipelineContext.DetectionState.Partial);
+            ctx.Should().BeNull();
+            error.Should().Contain(AdoPipelineContext.RepositoryUriEnvVar);
+            error.Should().Contain("absolute http(s) URI");
+        }
+
+        [Fact]
+        public void TryDetect_RepositoryUriNonHttpScheme_ReturnsPartial()
+        {
+            // file://, ftp://, ssh:// etc. are absolute URIs but not the http(s) shape AdvSec
+            // accepts for repositoryUri; reject loudly.
+            FakeEnvironmentVariableGetter env = CompleteEnv()
+                .With(AdoPipelineContext.RepositoryUriEnvVar, "ssh://git@dev.azure.com/contoso/example/_git/example");
+
+            AdoPipelineContext.DetectionState state =
+                AdoPipelineContext.TryDetect(env, out _, out string error);
+
+            state.Should().Be(AdoPipelineContext.DetectionState.Partial);
+            error.Should().Contain(AdoPipelineContext.RepositoryUriEnvVar);
+        }
+
+        [Fact]
+        public void TryDetect_SourceVersionMalformed_ReturnsPartial()
+        {
+            FakeEnvironmentVariableGetter env = CompleteEnv()
+                .With(AdoPipelineContext.SourceVersionEnvVar, "not-a-sha");
+
+            AdoPipelineContext.DetectionState state =
+                AdoPipelineContext.TryDetect(env, out _, out string error);
+
+            state.Should().Be(AdoPipelineContext.DetectionState.Partial);
+            error.Should().Contain(AdoPipelineContext.SourceVersionEnvVar);
+            error.Should().Contain("revision id");
+        }
+
+        [Fact]
+        public void TryDetect_SourceVersionAbbreviatedSha_Accepted()
+        {
+            // Real ADO always sets the full 40-char SHA, but the regex window admits any
+            // 7-40 hex sequence so callers can hand-set the var to an abbreviated SHA
+            // for tests or local invocations without a carve-out.
+            FakeEnvironmentVariableGetter env = CompleteEnv()
+                .With(AdoPipelineContext.SourceVersionEnvVar, "deadbee");
+
+            AdoPipelineContext.DetectionState state =
+                AdoPipelineContext.TryDetect(env, out AdoPipelineContext ctx, out _);
+
+            state.Should().Be(AdoPipelineContext.DetectionState.Complete);
+            ctx.RevisionId.Should().Be("deadbee");
+        }
+
+        [Fact]
+        public void TryDetect_PassesRefsHeadsThrough()
+        {
+            FakeEnvironmentVariableGetter env = CompleteEnv()
+                .With(AdoPipelineContext.SourceBranchEnvVar, "refs/heads/feature/x");
+
+            AdoPipelineContext.TryDetect(env, out AdoPipelineContext ctx, out _);
+
+            ctx.BranchRef.Should().Be("refs/heads/feature/x");
+        }
+
+        [Fact]
+        public void TryDetect_PassesRefsPullThrough()
+        {
+            FakeEnvironmentVariableGetter env = CompleteEnv()
+                .With(AdoPipelineContext.SourceBranchEnvVar, "refs/pull/42/merge");
+
+            AdoPipelineContext.TryDetect(env, out AdoPipelineContext ctx, out _);
+
             ctx.BranchRef.Should().Be("refs/pull/42/merge");
+        }
+
+        [Fact]
+        public void TryDetect_PassesRefsTagsThrough()
+        {
+            FakeEnvironmentVariableGetter env = CompleteEnv()
+                .With(AdoPipelineContext.SourceBranchEnvVar, "refs/tags/v5.0.2");
+
+            AdoPipelineContext.TryDetect(env, out AdoPipelineContext ctx, out _);
+
+            ctx.BranchRef.Should().Be("refs/tags/v5.0.2");
         }
 
         [Fact]

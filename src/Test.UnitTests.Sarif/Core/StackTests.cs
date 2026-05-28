@@ -115,13 +115,14 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Core
         [Fact]
         public void Stack_CreateFromStackTraceWithRelativeSourceFileLocation()
         {
-            string stackTraceTemplate = @"   at Microsoft.Win32.SafeHandles.SafeFileHandle.CreateFile(String fullPath, FileMode mode, FileAccess access, FileShare share, FileOptions options)
-   at Microsoft.Win32.SafeHandles.SafeFileHandle.Open(String fullPath, FileMode mode, FileAccess access, FileShare share, FileOptions options, Int64 preallocationSize)
-   at System.IO.Strategies.OSFileStreamStrategy..ctor(String path, FileMode mode, FileAccess access, FileShare share, FileOptions options, Int64 preallocationSize)
-   at System.IO.Strategies.FileStreamHelpers.ChooseStrategyCore(String path, FileMode mode, FileAccess access, FileShare share, FileOptions options, Int64 preallocationSize)
-   at System.IO.Strategies.FileStreamHelpers.ChooseStrategy(FileStream fileStream, String path, FileMode mode, FileAccess access, FileShare share, Int32 bufferSize, FileOptions options, Int64 preallocationSize)
-   at System.IO.File.Create(String path, Int32 bufferSize)
-   at Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Core.StackTests.Stack_CreateFromExceptionWithInnerException()";
+            string stackTraceTemplate = string.Join(Environment.NewLine,
+                "   at Microsoft.Win32.SafeHandles.SafeFileHandle.CreateFile(String fullPath, FileMode mode, FileAccess access, FileShare share, FileOptions options)",
+                "   at Microsoft.Win32.SafeHandles.SafeFileHandle.Open(String fullPath, FileMode mode, FileAccess access, FileShare share, FileOptions options, Int64 preallocationSize)",
+                "   at System.IO.Strategies.OSFileStreamStrategy..ctor(String path, FileMode mode, FileAccess access, FileShare share, FileOptions options, Int64 preallocationSize)",
+                "   at System.IO.Strategies.FileStreamHelpers.ChooseStrategyCore(String path, FileMode mode, FileAccess access, FileShare share, FileOptions options, Int64 preallocationSize)",
+                "   at System.IO.Strategies.FileStreamHelpers.ChooseStrategy(FileStream fileStream, String path, FileMode mode, FileAccess access, FileShare share, Int32 bufferSize, FileOptions options, Int64 preallocationSize)",
+                "   at System.IO.File.Create(String path, Int32 bufferSize)",
+                "   at Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Core.StackTests.Stack_CreateFromExceptionWithInnerException()");
 
             int relativePathLineNumber = 60;
             string relativeFilePath = "/_/src/Test.UnitTests.Sarif/Core/StackTests.cs";
