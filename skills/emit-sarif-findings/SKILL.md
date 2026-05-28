@@ -6,7 +6,7 @@ metadata:
   version: "1.0.0"
   category: security
   packages:
-    - "Sarif.Multitool >= 5.0.1"
+    - "Sarif.Multitool >= 5.0.2"
   triggers:
     - "emit SARIF"
     - "write findings to SARIF"
@@ -32,7 +32,7 @@ Apply this skill when an agent is the **originating** detector (not post-process
 
 ## Prerequisites
 
-- **`Sarif.Multitool` ≥ 5.0.1.** Recommended invocation: `dotnet dnx Sarif.Multitool --yes -- <verb> ...` (zero-install, version-resolved at first run; requires .NET 10+). Fall back to a global install with `dotnet tool install --global Sarif.Multitool` if `dotnet dnx` is unavailable.
+- **`Sarif.Multitool` ≥ 5.0.2.** Recommended invocation: `dotnet dnx Sarif.Multitool --yes -- <verb> ...` (zero-install, version-resolved at first run; requires .NET 10+). Fall back to a global install with `dotnet tool install --global Sarif.Multitool` if `dotnet dnx` is unavailable.
 - The current commit SHA, branch, repository URI, and a local source-root path.
 - The normative profile doc: [`docs/ai/generating-sarif.md`](../../docs/ai/generating-sarif.md). Cross-reference it for every property you populate — do not invent vocabulary.
 
