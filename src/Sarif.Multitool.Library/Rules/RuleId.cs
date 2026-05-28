@@ -70,6 +70,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         public const string GHAzDOProvideToolDriverProperties = "GHAzDO1018";
         public const string GHAzDOProvidePipelineProperties = "GHAzDO1019";
         public const string GHAzDOProvideAutomationDetailsIdFormat = "GHAzDO1020";
+        public const string GHAzDOProvideShortBranchNameInVcp = "GHAzDO1021";
         public const string GHAzDOProvideRequiredReportingDescriptorProperties = "GHAzDO2012";
 
         // TEMPLATE:

@@ -1,0 +1,125 @@
+{
+  "$schema": "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0.json",
+  "version": "2.1.0",
+  "runs": [
+    {
+      "tool": {
+        "driver": {
+          "name": "SARIF Functional Testing",
+          "rules": [
+            {
+              "id": "GHAzDO1021",
+              "name": "ProvideShortBranchNameInVcp",
+              "fullDescription": {
+                "text": "The AdvSec Service expects 'run.versionControlProvenance[].branch' to contain a short branch name. It silently drops VCP entries whose branch value starts with a 'refs/<class>/' prefix; strip the leading prefix so, for example, 'refs/heads/main' becomes 'main'."
+              },
+              "messageStrings": {
+                "Error_Default": {
+                  "text": "{0}: The 'versionControlProvenance[].branch' value '{1}' starts with a 'refs/<class>/' prefix. The AdvSec Service silently drops VCP entries whose branch value is not a short branch name; strip the leading prefix so this value becomes '{2}'."
+                }
+              },
+              "defaultConfiguration": {
+                "level": "error"
+              },
+              "helpUri": "http://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html"
+            }
+          ]
+        }
+      },
+      "invocations": [
+        {
+          "executionSuccessful": true
+        }
+      ],
+      "artifacts": [
+        {
+          "location": {
+            "uri": "FunctionalTestOutput.ValidateCommand/GHAzDO1021.ProvideShortBranchNameInVcp_Invalid.sarif",
+            "uriBaseId": "TEST_DIR"
+          }
+        }
+      ],
+      "results": [
+        {
+          "ruleId": "GHAzDO1021",
+          "ruleIndex": 0,
+          "level": "error",
+          "message": {
+            "id": "Error_Default",
+            "arguments": [
+              "runs[0].versionControlProvenance[0].branch",
+              "refs/heads/main",
+              "main"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 28,
+                  "startColumn": 37
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "GHAzDO1021",
+          "ruleIndex": 0,
+          "level": "error",
+          "message": {
+            "id": "Error_Default",
+            "arguments": [
+              "runs[0].versionControlProvenance[1].branch",
+              "refs/tags/v1.0.0",
+              "v1.0.0"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 33,
+                  "startColumn": 38
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "GHAzDO1021",
+          "ruleIndex": 0,
+          "level": "error",
+          "message": {
+            "id": "Error_Default",
+            "arguments": [
+              "runs[0].versionControlProvenance[2].branch",
+              "refs/pull/42/merge",
+              "42/merge"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 38,
+                  "startColumn": 40
+                }
+              }
+            }
+          ]
+        }
+      ],
+      "columnKind": "utf16CodeUnits"
+    }
+  ]
+}
