@@ -159,6 +159,25 @@ $adoEnv = [ordered]@{
     'SYSTEM_PHASENAME'     = 'Build'
     'SYSTEM_JOBNAME'       = 'Build'
     'BUILD_SOURCEBRANCH'   = 'refs/heads/main'
+    # The two optional VCP-augmenting vars (BUILD_REPOSITORY_URI /
+    # BUILD_SOURCEVERSION). BUILD_REPOSITORY_URI is set below once
+    # $vcpRepoUri is resolved; BUILD_SOURCEVERSION is the deterministic
+    # zero-SHA matching the hardcoded VCP placeholder. AdoPipelineContext
+    # detects both and verifies field-by-field agreement against the
+    # supplied VCP entry; mismatch would fail emit-init-run.
+    'BUILD_SOURCEVERSION'  = '0000000000000000000000000000000000000000'
+    # GitHub Actions gate + identity vars. Cleared in every script
+    # invocation so that GitHubActionsContext.TryDetect returns None: this
+    # script supplies a deterministic VCP and stamps ADO identity
+    # (-GHAzDO variant only); inheriting ambient GHA env from the host CI
+    # runner would let GitHubActionsContext detect a conflicting
+    # revisionId (the runner's real GITHUB_SHA) and abort emit-init-run.
+    'GITHUB_ACTIONS'       = $null
+    'GITHUB_SERVER_URL'    = $null
+    'GITHUB_REPOSITORY'    = $null
+    'GITHUB_SHA'           = $null
+    'GITHUB_REF_NAME'      = $null
+    'GITHUB_REF'           = $null
 }
 
 function Set-AdoEnv {
@@ -201,6 +220,13 @@ try {
 } catch { }
 if (-not $gitRemoteUrl) { $gitRemoteUrl = 'https://github.com/microsoft/sarif-sdk' }
 $vcpRepoUri = $gitRemoteUrl -replace '\.git$',''
+
+# Inject the now-resolved repository URL as the deterministic
+# BUILD_REPOSITORY_URI. The supplied VCP entry below sets the same
+# value, so AdoPipelineContext's enrichment is a no-op (no conflict);
+# the env var still gets stamped on so detection reports Complete and
+# the GHAzDO-variant fixture exercises the full ADO env shape.
+$adoEnv['BUILD_REPOSITORY_URI'] = $vcpRepoUri
 
 # GitHub has a clean `<repo>/blob/<branch>/<path>` viewer URL. ADO uses
 # query-string addressing (`?path=&version=GB<branch>`) so there is no clean

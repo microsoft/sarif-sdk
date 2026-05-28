@@ -429,6 +429,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             .With(AdoPipelineContext.PhaseNamePrimaryEnvVar, "Build")
             .With(AdoPipelineContext.SourceBranchEnvVar, "refs/heads/main");
 
+        private const string AdoRepoUriValue = "https://dev.azure.com/contoso/example/_git/example";
+        private const string AdoRevisionIdValue = "0123456789abcdef0123456789abcdef01234567";
+
+        private static FakeEnvironmentVariableGetter CompleteAdoEnvWithVcp()
+            => CompleteAdoEnv()
+                .With(AdoPipelineContext.RepositoryUriEnvVar, AdoRepoUriValue)
+                .With(AdoPipelineContext.SourceVersionEnvVar, AdoRevisionIdValue);
+
         private const string ExpectedAdoAutomationId
             = "azuredevops/pipeline/build/contoso/11111111-1111-1111-1111-111111111111/1234/22222222-2222-2222-2222-222222222222/refs/heads/main/98765";
 
@@ -532,6 +540,186 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         }
 
         [Fact]
+        public void Run_WhenAdoVcpFieldsPresent_AndJsonOmitsVcp_AppendsSynthesizedEntry()
+        {
+            int exit = RunWithInput(CompleteAdoEnvWithVcp(), MinimalRun());
+
+            exit.Should().Be(CommandBase.SUCCESS);
+            var events = new SarifEventLogReader().Read(WipPath).ToList();
+            JToken vcp = events[0].Payload["versionControlProvenance"];
+            vcp.Should().NotBeNull();
+            vcp.Type.Should().Be(JTokenType.Array);
+            ((JArray)vcp).Should().HaveCount(1);
+            vcp[0]["repositoryUri"].ToString().Should().Be(AdoRepoUriValue);
+            vcp[0]["revisionId"].ToString().Should().Be(AdoRevisionIdValue);
+            vcp[0]["branch"].ToString().Should().Be("main");
+        }
+
+        [Fact]
+        public void Run_WhenAdoVcpFieldsPresent_AndJsonHasEmptyVcpArray_AppendsSynthesizedEntry()
+        {
+            JObject runObject = MinimalRun();
+            runObject["versionControlProvenance"] = new JArray();
+
+            int exit = RunWithInput(CompleteAdoEnvWithVcp(), runObject);
+
+            exit.Should().Be(CommandBase.SUCCESS);
+            var events = new SarifEventLogReader().Read(WipPath).ToList();
+            var vcp = (JArray)events[0].Payload["versionControlProvenance"];
+            vcp.Should().HaveCount(1);
+            vcp[0]["repositoryUri"].ToString().Should().Be(AdoRepoUriValue);
+        }
+
+        [Fact]
+        public void Run_WhenAdoVcpFieldsPresent_AndJsonHasOneEntryMissingFields_EnrichesMissing()
+        {
+            // Producer supplies repositoryUri only; verb fills revisionId + branch.
+            JObject runObject = MinimalRun();
+            runObject["versionControlProvenance"] = new JArray
+            {
+                new JObject { ["repositoryUri"] = AdoRepoUriValue },
+            };
+
+            int exit = RunWithInput(CompleteAdoEnvWithVcp(), runObject);
+
+            exit.Should().Be(CommandBase.SUCCESS);
+            var events = new SarifEventLogReader().Read(WipPath).ToList();
+            var vcp = (JArray)events[0].Payload["versionControlProvenance"];
+            vcp.Should().HaveCount(1);
+            vcp[0]["repositoryUri"].ToString().Should().Be(AdoRepoUriValue);
+            vcp[0]["revisionId"].ToString().Should().Be(AdoRevisionIdValue);
+            vcp[0]["branch"].ToString().Should().Be("main");
+        }
+
+        [Fact]
+        public void Run_WhenAdoVcpFieldsPresent_AndJsonHasEqualFields_Idempotent()
+        {
+            JObject runObject = MinimalRun();
+            runObject["versionControlProvenance"] = new JArray
+            {
+                new JObject
+                {
+                    ["repositoryUri"] = AdoRepoUriValue,
+                    ["revisionId"] = AdoRevisionIdValue,
+                    ["branch"] = "main",
+                    ["properties"] = new JObject { ["custom"] = "preserved" },
+                },
+            };
+
+            int exit = RunWithInput(CompleteAdoEnvWithVcp(), runObject);
+
+            exit.Should().Be(CommandBase.SUCCESS);
+            var events = new SarifEventLogReader().Read(WipPath).ToList();
+            var vcp = (JArray)events[0].Payload["versionControlProvenance"];
+            vcp[0]["properties"]["custom"].ToString().Should().Be("preserved");
+        }
+
+        [Fact]
+        public void Run_WhenAdoVcpFieldsPresent_AndJsonHasConflictingRepositoryUri_Fails()
+        {
+            JObject runObject = MinimalRun();
+            runObject["versionControlProvenance"] = new JArray
+            {
+                new JObject { ["repositoryUri"] = "https://github.com/microsoft/sarif-sdk" },
+            };
+
+            int exit = RunWithInput(CompleteAdoEnvWithVcp(), runObject);
+
+            exit.Should().Be(CommandBase.FAILURE);
+            File.Exists(WipPath).Should().BeFalse();
+        }
+
+        [Fact]
+        public void Run_WhenAdoVcpFieldsPresent_AndJsonHasConflictingRevisionId_Fails()
+        {
+            JObject runObject = MinimalRun();
+            runObject["versionControlProvenance"] = new JArray
+            {
+                new JObject { ["revisionId"] = "feedfacefeedfacefeedfacefeedfacefeedface" },
+            };
+
+            int exit = RunWithInput(CompleteAdoEnvWithVcp(), runObject);
+
+            exit.Should().Be(CommandBase.FAILURE);
+            File.Exists(WipPath).Should().BeFalse();
+        }
+
+        [Fact]
+        public void Run_WhenAdoVcpFieldsPresent_AndJsonHasConflictingBranch_Fails()
+        {
+            JObject runObject = MinimalRun();
+            runObject["versionControlProvenance"] = new JArray
+            {
+                new JObject { ["branch"] = "release/v5.0.2" },
+            };
+
+            int exit = RunWithInput(CompleteAdoEnvWithVcp(), runObject);
+
+            exit.Should().Be(CommandBase.FAILURE);
+            File.Exists(WipPath).Should().BeFalse();
+        }
+
+        [Fact]
+        public void Run_WhenAdoVcpFieldsPresent_AndJsonHasMultipleEntries_LeavesUntouched()
+        {
+            // Multi-entry: caller has declared a multi-repo shape and we refuse to guess which
+            // entry names the pipeline's source repo. Both entries pass through verbatim.
+            JObject runObject = MinimalRun();
+            runObject["versionControlProvenance"] = new JArray
+            {
+                new JObject
+                {
+                    ["repositoryUri"] = "https://github.com/microsoft/sarif-sdk",
+                    ["revisionId"] = "feedfacefeedfacefeedfacefeedfacefeedface",
+                    ["branch"] = "release/v5.0.2",
+                },
+                new JObject
+                {
+                    ["repositoryUri"] = "https://github.com/microsoft/sarif-pattern-matcher",
+                    ["branch"] = "main",
+                },
+            };
+
+            int exit = RunWithInput(CompleteAdoEnvWithVcp(), runObject);
+
+            exit.Should().Be(CommandBase.SUCCESS);
+            var events = new SarifEventLogReader().Read(WipPath).ToList();
+            var vcp = (JArray)events[0].Payload["versionControlProvenance"];
+            vcp.Should().HaveCount(2);
+            vcp[0]["repositoryUri"].ToString().Should().Be("https://github.com/microsoft/sarif-sdk");
+            vcp[1]["repositoryUri"].ToString().Should().Be("https://github.com/microsoft/sarif-pattern-matcher");
+        }
+
+        [Fact]
+        public void Run_WhenAdoVcpFieldsAbsent_DoesNotTouchVcp()
+        {
+            // Only the pipeline-identity vars are set (no BUILD_REPOSITORY_URI / BUILD_SOURCEVERSION);
+            // VCP is untouched and the run continues to lack any versionControlProvenance entry.
+            int exit = RunWithInput(CompleteAdoEnv(), MinimalRun());
+
+            exit.Should().Be(CommandBase.SUCCESS);
+            var events = new SarifEventLogReader().Read(WipPath).ToList();
+            events[0].Payload["versionControlProvenance"].Should().BeNull();
+        }
+
+        [Fact]
+        public void Run_WhenAdoRepositoryUriHostCasingDiffers_IsNotConflict()
+        {
+            // URI equality treats scheme/host case-insensitively (per RFC 3986). The
+            // VcpFieldValuesAgree path normalizes via Uri.TryCreate so a producer-supplied
+            // host with different casing matches the detected value without conflict.
+            JObject runObject = MinimalRun();
+            runObject["versionControlProvenance"] = new JArray
+            {
+                new JObject { ["repositoryUri"] = "https://DEV.azure.com/contoso/example/_git/example" },
+            };
+
+            int exit = RunWithInput(CompleteAdoEnvWithVcp(), runObject);
+
+            exit.Should().Be(CommandBase.SUCCESS);
+        }
+
+        [Fact]
         public void Run_WithNonObjectToolParent_FailsWithShapeDiagnostic()
         {
             // Regression: prior to parent-shape validation, runObject["tool"]?["driver"] threw
@@ -618,6 +806,156 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             exit.Should().Be(CommandBase.SUCCESS);
             var events = new SarifEventLogReader().Read(WipPath).ToList();
             events[0].Payload["automationDetails"]["id"].ToString().Should().Be(ExpectedAdoAutomationId);
+        }
+
+        private const string GhaRepoUriValue = "https://github.com/microsoft/sarif-sdk";
+        private const string GhaRevisionIdValue = "fedcba9876543210fedcba9876543210fedcba98";
+
+        private static FakeEnvironmentVariableGetter CompleteGhaEnv() => new FakeEnvironmentVariableGetter()
+            .With(GitHubActionsContext.GitHubActionsEnvVar, "true")
+            .With(GitHubActionsContext.ServerUrlEnvVar, "https://github.com")
+            .With(GitHubActionsContext.RepositoryEnvVar, "microsoft/sarif-sdk")
+            .With(GitHubActionsContext.ShaEnvVar, GhaRevisionIdValue)
+            .With(GitHubActionsContext.RefNameEnvVar, "main");
+
+        [Fact]
+        public void Run_WhenGhaContextComplete_StampsVcpFromGhaEnv()
+        {
+            // GHA-only env (no ADO sentinels): VCP is synthesized from the GitHub Actions
+            // env vars. automationDetails is NOT stamped (no GHA pipeline-identity contract
+            // in scope for this verb today).
+            int exit = RunWithInput(CompleteGhaEnv(), MinimalRun());
+
+            exit.Should().Be(CommandBase.SUCCESS);
+            var events = new SarifEventLogReader().Read(WipPath).ToList();
+            events[0].Payload["automationDetails"].Should().BeNull();
+
+            var vcp = (JArray)events[0].Payload["versionControlProvenance"];
+            vcp.Should().HaveCount(1);
+            vcp[0]["repositoryUri"].ToString().Should().Be(GhaRepoUriValue);
+            vcp[0]["revisionId"].ToString().Should().Be(GhaRevisionIdValue);
+            vcp[0]["branch"].ToString().Should().Be("main");
+        }
+
+        [Fact]
+        public void Run_WhenAdoAndGhaBothCompleteWithDistinctValues_FailsCrossSource()
+        {
+            // Both ADO and GHA env populated with their own canonical (distinct) values;
+            // the cross-source merge MUST refuse to stamp rather than guess which source
+            // names the build's source repo.
+            var env = CompleteAdoEnvWithVcp();
+            env.With(GitHubActionsContext.GitHubActionsEnvVar, "true")
+               .With(GitHubActionsContext.ServerUrlEnvVar, "https://github.com")
+               .With(GitHubActionsContext.RepositoryEnvVar, "microsoft/sarif-sdk")
+               .With(GitHubActionsContext.ShaEnvVar, GhaRevisionIdValue)
+               .With(GitHubActionsContext.RefNameEnvVar, "main");
+
+            int exit = RunWithInput(env, MinimalRun());
+
+            exit.Should().Be(CommandBase.FAILURE);
+            File.Exists(WipPath).Should().BeFalse();
+        }
+
+        [Fact]
+        public void Run_WhenAdoAndGhaAgreeOnEveryVcpField_StampsOnce()
+        {
+            // Caller intentionally staged matching values across both source envs (hand-built
+            // test env, or AI exercising both shapes). Agreement on every field is fine; we
+            // stamp once with the merged triple.
+            var env = CompleteAdoEnv()
+                .With(AdoPipelineContext.RepositoryUriEnvVar, GhaRepoUriValue)
+                .With(AdoPipelineContext.SourceVersionEnvVar, GhaRevisionIdValue)
+                .With(GitHubActionsContext.GitHubActionsEnvVar, "true")
+                .With(GitHubActionsContext.ServerUrlEnvVar, "https://github.com")
+                .With(GitHubActionsContext.RepositoryEnvVar, "microsoft/sarif-sdk")
+                .With(GitHubActionsContext.ShaEnvVar, GhaRevisionIdValue)
+                .With(GitHubActionsContext.RefNameEnvVar, "main");
+
+            int exit = RunWithInput(env, MinimalRun());
+
+            exit.Should().Be(CommandBase.SUCCESS);
+            var events = new SarifEventLogReader().Read(WipPath).ToList();
+            var vcp = (JArray)events[0].Payload["versionControlProvenance"];
+            vcp.Should().HaveCount(1);
+            vcp[0]["repositoryUri"].ToString().Should().Be(GhaRepoUriValue);
+            vcp[0]["revisionId"].ToString().Should().Be(GhaRevisionIdValue);
+            vcp[0]["branch"].ToString().Should().Be("main");
+        }
+
+        [Fact]
+        public void Run_WhenAdoSilentOnRepoUri_GhaFillsTheGap()
+        {
+            // ADO publishes revision + branch only (BUILD_REPOSITORY_URI absent); GHA
+            // publishes a repo URI. Lower-priority GHA fills the gap and the synthesized
+            // entry uses all three fields. This is the cross-source gap-fill path.
+            var env = CompleteAdoEnv()
+                .With(AdoPipelineContext.SourceVersionEnvVar, AdoRevisionIdValue)
+                .With(GitHubActionsContext.GitHubActionsEnvVar, "true")
+                .With(GitHubActionsContext.ServerUrlEnvVar, "https://github.com")
+                .With(GitHubActionsContext.RepositoryEnvVar, "microsoft/sarif-sdk");
+
+            int exit = RunWithInput(env, MinimalRun());
+
+            exit.Should().Be(CommandBase.SUCCESS);
+            var events = new SarifEventLogReader().Read(WipPath).ToList();
+            var vcp = (JArray)events[0].Payload["versionControlProvenance"];
+            vcp.Should().HaveCount(1);
+            vcp[0]["repositoryUri"].ToString().Should().Be(GhaRepoUriValue);
+            vcp[0]["revisionId"].ToString().Should().Be(AdoRevisionIdValue);
+            vcp[0]["branch"].ToString().Should().Be("main");
+        }
+
+        [Fact]
+        public void Run_WhenGhaContextPartial_FailsBeforeCreatingWip()
+        {
+            // Same partial-state contract as ADO: malformed GHA env vars MUST NOT produce
+            // a wip on disk. Mirrors Run_WhenAdoPipelineContextPartial_FailsBeforeCreatingWip.
+            File.WriteAllText(WipPath, "existing wip\n");
+
+            var env = new FakeEnvironmentVariableGetter()
+                .With(GitHubActionsContext.GitHubActionsEnvVar, "true")
+                .With(GitHubActionsContext.ShaEnvVar, "not-a-sha");
+
+            int exit = RunWithInput(env, MinimalRun(), forceOverwrite: true);
+
+            exit.Should().Be(CommandBase.FAILURE);
+            File.ReadAllText(WipPath).Should().Be("existing wip\n");
+        }
+
+        [Fact]
+        public void Run_WhenGhaContextComplete_AndJsonSuppliesConflictingRepoUri_Fails()
+        {
+            // The single-entry VCP enrichment path's conflict semantics apply to GHA env
+            // identically to ADO. Producer-supplied repoUri that disagrees with the
+            // detected GHA value is a misconfiguration we refuse to stamp.
+            JObject runObject = MinimalRun();
+            runObject["versionControlProvenance"] = new JArray
+            {
+                new JObject { ["repositoryUri"] = "https://github.com/other/repo" },
+            };
+
+            int exit = RunWithInput(CompleteGhaEnv(), runObject);
+
+            exit.Should().Be(CommandBase.FAILURE);
+            File.Exists(WipPath).Should().BeFalse();
+        }
+
+        [Fact]
+        public void Run_WhenAdoAndGhaDisagreeOnRevisionId_FailsCrossSource()
+        {
+            // ADO and GHA both publish a revision; the values disagree. The cross-source
+            // merge errors out before we touch the JSON.
+            var env = CompleteAdoEnvWithVcp()
+                .With(GitHubActionsContext.GitHubActionsEnvVar, "true")
+                .With(GitHubActionsContext.ServerUrlEnvVar, "https://dev.azure.com")
+                .With(GitHubActionsContext.RepositoryEnvVar, "contoso/example/_git/example")
+                .With(GitHubActionsContext.ShaEnvVar, GhaRevisionIdValue)
+                .With(GitHubActionsContext.RefNameEnvVar, "main");
+
+            int exit = RunWithInput(env, MinimalRun());
+
+            exit.Should().Be(CommandBase.FAILURE);
+            File.Exists(WipPath).Should().BeFalse();
         }
     }
 }

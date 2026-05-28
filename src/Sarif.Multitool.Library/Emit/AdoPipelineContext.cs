@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Text;
+using System.Text.RegularExpressions;
 
 namespace Microsoft.CodeAnalysis.Sarif.Multitool
 {
@@ -47,12 +48,26 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         internal const string PhaseNamePrimaryEnvVar = "SYSTEM_PHASENAME";
         internal const string PhaseNameFallbackEnvVar = "SYSTEM_JOBNAME";
         internal const string SourceBranchEnvVar = "BUILD_SOURCEBRANCH";
+        internal const string RepositoryUriEnvVar = "BUILD_REPOSITORY_URI";
+        internal const string SourceVersionEnvVar = "BUILD_SOURCEVERSION";
 
         internal const string PropBuildDefinitionId = "azuredevops/pipeline/build/buildDefinitionId";
         internal const string PropBuildDefinitionName = "azuredevops/pipeline/build/buildDefinitionName";
         internal const string PropPhaseId = "azuredevops/pipeline/build/phaseId";
         internal const string PropPhaseName = "azuredevops/pipeline/build/phaseName";
         internal const string AutomationIdPrefix = "azuredevops/pipeline/build/";
+
+        // Matches any leading 'refs/<class>/' segment (refs/heads/, refs/tags/, refs/pull/, ...).
+        // Used to derive the short branch name AdvSec ingests for versionControlProvenance
+        // (per GHAzDO1021).
+        private static readonly Regex s_branchRefPrefixRegex =
+            new Regex(@"^refs/[^/]+/", RegexOptions.Compiled | RegexOptions.CultureInvariant | RegexOptions.ExplicitCapture);
+
+        // BUILD_SOURCEVERSION is always a full 40-char SHA-1 in ADO, but we accept any
+        // 7-40 hex window so callers can hand-set the var to an abbreviated SHA in tests
+        // or local invocations without a special carve-out.
+        private static readonly Regex s_revisionIdRegex =
+            new Regex(@"^[0-9a-fA-F]{7,40}$", RegexOptions.Compiled | RegexOptions.CultureInvariant | RegexOptions.ExplicitCapture);
 
         public enum DetectionState
         {
@@ -69,6 +84,26 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         public Guid PhaseId { get; private set; }
         public string PhaseName { get; private set; }
         public string BranchRef { get; private set; }
+
+        /// <summary>
+        /// Absolute URL identifier of the source repository. Lifted from
+        /// <c>BUILD_REPOSITORY_URI</c> when present and well-formed; otherwise null.
+        /// </summary>
+        public Uri RepositoryUri { get; private set; }
+
+        /// <summary>
+        /// The commit identifier (typically a 40-character SHA-1) the pipeline is building.
+        /// Lifted from <c>BUILD_SOURCEVERSION</c> when present and well-formed; otherwise null.
+        /// </summary>
+        public string RevisionId { get; private set; }
+
+        /// <summary>
+        /// The short branch name AdvSec ingests for <c>versionControlProvenance[].branch</c>,
+        /// derived from <see cref="BranchRef"/> by stripping any leading <c>refs/&lt;class&gt;/</c>
+        /// segment (so <c>refs/heads/main</c> becomes <c>main</c>). Null when no branch ref was
+        /// detected. See GHAzDO1021.
+        /// </summary>
+        public string BranchShortName { get; private set; }
 
         /// <summary>
         /// Reads ADO predefined environment variables via <paramref name="environment"/> and
@@ -104,6 +139,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             string phaseNamePrimary = environment.GetEnvironmentVariable(PhaseNamePrimaryEnvVar);
             string phaseNameFallback = environment.GetEnvironmentVariable(PhaseNameFallbackEnvVar);
             string sourceBranch = environment.GetEnvironmentVariable(SourceBranchEnvVar);
+            string repositoryUri = environment.GetEnvironmentVariable(RepositoryUriEnvVar);
+            string sourceVersion = environment.GetEnvironmentVariable(SourceVersionEnvVar);
 
             string buildDefIdRaw = FirstNonBlank(buildDefIdPrimary, buildDefIdFallback);
             string phaseIdRaw = FirstNonBlank(phaseIdPrimary, phaseIdFallback);
@@ -170,9 +207,28 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             }
 
             string branchRefValue = null;
+            string branchShortNameValue = null;
             if (TryReadRequiredString(sourceBranch, SourceBranchEnvVar, present, problems, out string parsedBranch))
             {
                 branchRefValue = NormalizeBranchRef(parsedBranch);
+                branchShortNameValue = s_branchRefPrefixRegex.Replace(branchRefValue, string.Empty);
+            }
+
+            // BUILD_REPOSITORY_URI and BUILD_SOURCEVERSION are optional arguments used to
+            // populate versionControlProvenance. They do NOT contribute to the partial-state
+            // gate when absent — automationDetails stamping is independent of VCP enrichment.
+            // When present but malformed, they DO add to problems so a misconfigured pipeline
+            // doesn't ship a half-enriched run.
+            Uri repositoryUriValue = null;
+            if (TryReadOptionalAbsoluteHttpUri(repositoryUri, RepositoryUriEnvVar, present, problems, out Uri parsedRepoUri))
+            {
+                repositoryUriValue = parsedRepoUri;
+            }
+
+            string revisionIdValue = null;
+            if (TryReadOptionalRevisionId(sourceVersion, SourceVersionEnvVar, present, problems, out string parsedRevision))
+            {
+                revisionIdValue = parsedRevision;
             }
 
             if (problems.Count > 0)
@@ -191,6 +247,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 PhaseId = phaseIdValue,
                 PhaseName = phaseNameValue,
                 BranchRef = branchRefValue,
+                BranchShortName = branchShortNameValue,
+                RepositoryUri = repositoryUriValue,
+                RevisionId = revisionIdValue,
             };
             return DetectionState.Complete;
         }
@@ -305,6 +364,42 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 new KeyValuePair<string, string>(PropPhaseId, PhaseId.ToString("D", CultureInfo.InvariantCulture)),
                 new KeyValuePair<string, string>(PropPhaseName, PhaseName),
             };
+
+        /// <summary>
+        /// True when this context carries at least one <c>versionControlProvenance</c>
+        /// field (repository URI, revision id, or short branch name) lifted from the
+        /// pipeline environment. False indicates the VCP enrichment path is a no-op
+        /// for this context and callers should leave any caller-supplied VCP untouched.
+        /// </summary>
+        internal bool HasVcpFields => RepositoryUri != null
+            || !string.IsNullOrEmpty(RevisionId)
+            || !string.IsNullOrEmpty(BranchShortName);
+
+        /// <summary>
+        /// Returns the non-null <c>versionControlProvenance</c> field name/value pairs
+        /// for this pipeline context. Pairs are ordered <c>repositoryUri</c>,
+        /// <c>revisionId</c>, <c>branch</c>; absent fields are omitted (the caller
+        /// should treat the list as the set we know about). Exposed so JSON-direct
+        /// callers can enrich without constructing a typed
+        /// <see cref="VersionControlDetails"/>.
+        /// </summary>
+        internal IReadOnlyList<KeyValuePair<string, string>> GetVcpFieldValues()
+        {
+            var pairs = new List<KeyValuePair<string, string>>(3);
+            if (RepositoryUri != null)
+            {
+                pairs.Add(new KeyValuePair<string, string>(VcpFieldNames.RepositoryUri, RepositoryUri.AbsoluteUri));
+            }
+            if (!string.IsNullOrEmpty(RevisionId))
+            {
+                pairs.Add(new KeyValuePair<string, string>(VcpFieldNames.RevisionId, RevisionId));
+            }
+            if (!string.IsNullOrEmpty(BranchShortName))
+            {
+                pairs.Add(new KeyValuePair<string, string>(VcpFieldNames.Branch, BranchShortName));
+            }
+            return pairs;
+        }
 
         private static bool IsAbsentOrEqual(string existingValue, string detectedValue, string label, out string conflictError)
         {
@@ -510,6 +605,52 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
             present.Add(envName);
             value = raw.Trim();
+            return true;
+        }
+
+        // The two parsers below treat absence as "no signal" (return false silently). Presence
+        // adds to `present` (so the diagnostic surface lists the var alongside the required
+        // ones), and malformed presence adds to `problems` so a misconfigured BUILD_REPOSITORY_URI
+        // or BUILD_SOURCEVERSION turns into a clean Partial rather than a half-enriched VCP.
+        private static bool TryReadOptionalAbsoluteHttpUri(string raw, string envName, List<string> present, List<string> problems, out Uri value)
+        {
+            value = null;
+            if (string.IsNullOrWhiteSpace(raw))
+            {
+                return false;
+            }
+
+            present.Add(envName);
+
+            if (!Uri.TryCreate(raw.Trim(), UriKind.Absolute, out Uri parsed)
+                || (parsed.Scheme != Uri.UriSchemeHttp && parsed.Scheme != Uri.UriSchemeHttps))
+            {
+                problems.Add(string.Format(CultureInfo.InvariantCulture, "{0}='{1}' is not a valid absolute http(s) URI", envName, raw));
+                return false;
+            }
+
+            value = parsed;
+            return true;
+        }
+
+        private static bool TryReadOptionalRevisionId(string raw, string envName, List<string> present, List<string> problems, out string value)
+        {
+            value = null;
+            if (string.IsNullOrWhiteSpace(raw))
+            {
+                return false;
+            }
+
+            present.Add(envName);
+
+            string trimmed = raw.Trim();
+            if (!s_revisionIdRegex.IsMatch(trimmed))
+            {
+                problems.Add(string.Format(CultureInfo.InvariantCulture, "{0}='{1}' is not a valid revision id (expected 7-40 hex chars)", envName, raw));
+                return false;
+            }
+
+            value = trimmed;
             return true;
         }
 
