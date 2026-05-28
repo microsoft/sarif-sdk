@@ -13,8 +13,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
     /// Detects a GitHub Actions execution context from environment variables and surfaces the
     /// <c>versionControlProvenance</c> fields the workflow runner publishes
     /// (<c>GITHUB_SERVER_URL</c>/<c>GITHUB_REPOSITORY</c> compose the repository URI;
-    /// <c>GITHUB_SHA</c> supplies the revision; <c>GITHUB_REF_NAME</c> supplies the short branch
-    /// name, with <c>GITHUB_REF</c> as a fallback).
+    /// <c>GITHUB_SHA</c> supplies the revision; <c>GITHUB_REF</c> supplies the branch
+    /// ref).
     /// </summary>
     /// <remarks>
     /// <para>This context is VCP-scoped: it does not stamp <c>automationDetails</c> for GitHub
@@ -43,7 +43,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         internal const string ServerUrlEnvVar = "GITHUB_SERVER_URL";
         internal const string RepositoryEnvVar = "GITHUB_REPOSITORY";
         internal const string ShaEnvVar = "GITHUB_SHA";
-        internal const string RefNameEnvVar = "GITHUB_REF_NAME";
         internal const string RefEnvVar = "GITHUB_REF";
 
         // Same regex contract as AdoPipelineContext: 7-40 hex window. The runner always sets
@@ -51,11 +50,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         // local invocations.
         private static readonly Regex s_revisionIdRegex =
             new Regex(@"^[0-9a-fA-F]{7,40}$", RegexOptions.Compiled | RegexOptions.CultureInvariant | RegexOptions.ExplicitCapture);
-
-        // Same prefix-stripping regex used for ADO. Used here to derive a short branch name
-        // from GITHUB_REF when GITHUB_REF_NAME is absent.
-        private static readonly Regex s_branchRefPrefixRegex =
-            new Regex(@"^refs/[^/]+/", RegexOptions.Compiled | RegexOptions.CultureInvariant | RegexOptions.ExplicitCapture);
 
         public enum DetectionState
         {
@@ -77,12 +71,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         public string RevisionId { get; private set; }
 
         /// <summary>
-        /// The short branch name (e.g. <c>main</c>, <c>feature/x</c>, <c>42/merge</c>) that
-        /// triggered the workflow. Lifted from <c>GITHUB_REF_NAME</c> when present, otherwise
-        /// derived from <c>GITHUB_REF</c> by stripping any leading <c>refs/&lt;class&gt;/</c>
-        /// segment; null when neither is set.
+        /// The branch ref (e.g. <c>refs/heads/main</c>, <c>refs/pull/42/merge</c>) that
+        /// triggered the workflow. Lifted from <c>GITHUB_REF</c> when present; null when
+        /// absent. Pass-through with no normalization — the value is whatever the runner
+        /// (or hand-built env) published.
         /// </summary>
-        public string BranchShortName { get; private set; }
+        public string BranchRef { get; private set; }
 
         /// <summary>
         /// Reads GitHub Actions predefined environment variables via
@@ -110,7 +104,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             string serverUrl = environment.GetEnvironmentVariable(ServerUrlEnvVar);
             string repository = environment.GetEnvironmentVariable(RepositoryEnvVar);
             string sha = environment.GetEnvironmentVariable(ShaEnvVar);
-            string refName = environment.GetEnvironmentVariable(RefNameEnvVar);
             string refValue = environment.GetEnvironmentVariable(RefEnvVar);
 
             var present = new List<string>();
@@ -118,7 +111,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
             Uri repositoryUriValue = TryComposeRepositoryUri(serverUrl, repository, present, problems);
             string revisionIdValue = TryReadOptionalRevisionId(sha, ShaEnvVar, present, problems);
-            string branchShortNameValue = TryReadOptionalBranch(refName, refValue, present, problems);
+            string branchRefValue = TryReadOptionalBranchRef(refValue, present);
 
             if (problems.Count > 0)
             {
@@ -130,19 +123,19 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             {
                 RepositoryUri = repositoryUriValue,
                 RevisionId = revisionIdValue,
-                BranchShortName = branchShortNameValue,
+                BranchRef = branchRefValue,
             };
             return DetectionState.Complete;
         }
 
         /// <summary>
         /// True when this context carries at least one <c>versionControlProvenance</c> field
-        /// (repository URI, revision id, or short branch name) lifted from the workflow
+        /// (repository URI, revision id, or branch ref) lifted from the workflow
         /// environment. False indicates the VCP enrichment path is a no-op for this context.
         /// </summary>
         internal bool HasVcpFields => RepositoryUri != null
             || !string.IsNullOrEmpty(RevisionId)
-            || !string.IsNullOrEmpty(BranchShortName);
+            || !string.IsNullOrEmpty(BranchRef);
 
         /// <summary>
         /// Returns the non-null <c>versionControlProvenance</c> field name/value pairs for this
@@ -160,9 +153,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             {
                 pairs.Add(new KeyValuePair<string, string>(VcpFieldNames.RevisionId, RevisionId));
             }
-            if (!string.IsNullOrEmpty(BranchShortName))
+            if (!string.IsNullOrEmpty(BranchRef))
             {
-                pairs.Add(new KeyValuePair<string, string>(VcpFieldNames.Branch, BranchShortName));
+                pairs.Add(new KeyValuePair<string, string>(VcpFieldNames.Branch, BranchRef));
             }
             return pairs;
         }
@@ -230,33 +223,18 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             return trimmed;
         }
 
-        // GITHUB_REF_NAME is the short name (e.g. 'main', '42/merge') and is the documented
-        // "use this" var. GITHUB_REF is the full ref (e.g. 'refs/heads/main') and is the
-        // fallback used when GITHUB_REF_NAME is absent.
-        private static string TryReadOptionalBranch(string rawRefName, string rawRef, List<string> present, List<string> problems)
+        // GITHUB_REF is the full ref (e.g. 'refs/heads/main', 'refs/pull/42/merge',
+        // 'refs/tags/v1'). The workflow runner always sets it. We pass it through
+        // as-is — no stripping, no normalization. GHAzDO ingestion accepts both short
+        // and long forms; AdoPipelineContext also passes BUILD_SOURCEBRANCH through
+        // as-is, so the two sources produce comparable shapes when both env sets are
+        // populated.
+        private static string TryReadOptionalBranchRef(string rawRef, List<string> present)
         {
-            if (!string.IsNullOrWhiteSpace(rawRefName))
-            {
-                present.Add(RefNameEnvVar);
-                return rawRefName.Trim();
-            }
-
             if (string.IsNullOrWhiteSpace(rawRef)) { return null; }
 
             present.Add(RefEnvVar);
-            string trimmed = rawRef.Trim();
-            string stripped = s_branchRefPrefixRegex.Replace(trimmed, string.Empty);
-            if (string.IsNullOrEmpty(stripped))
-            {
-                problems.Add(string.Format(
-                    CultureInfo.InvariantCulture,
-                    "{0}='{1}' yields an empty branch name after stripping the refs/<class>/ prefix",
-                    RefEnvVar,
-                    rawRef));
-                return null;
-            }
-
-            return stripped;
+            return rawRef.Trim();
         }
 
         private static bool IsTrueLike(string raw)

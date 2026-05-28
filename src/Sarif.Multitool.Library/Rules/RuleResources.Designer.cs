@@ -269,24 +269,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The AdvSec Service expects 'run.versionControlProvenance[].branch' to contain a short branch name. It silently drops VCP entries whose branch value starts with a 'refs/&lt;class&gt;/' prefix; strip the leading prefix so, for example, 'refs/heads/main' becomes 'main'..
-        /// </summary>
-        internal static string GHAzDO1021_ProvideShortBranchNameInVcp_FullDescription_Text {
-            get {
-                return ResourceManager.GetString("GHAzDO1021_ProvideShortBranchNameInVcp_FullDescription_Text", resourceCulture);
-            }
-        }
-
-        /// <summary>
-        ///   Looks up a localized string similar to {0}: The 'versionControlProvenance[].branch' value '{1}' starts with a 'refs/&lt;class&gt;/' prefix. The AdvSec Service silently drops VCP entries whose branch value is not a short branch name; strip the leading prefix so this value becomes '{2}'..
-        /// </summary>
-        internal static string GHAzDO1021_ProvideShortBranchNameInVcp_Error_Default_Text {
-            get {
-                return ResourceManager.GetString("GHAzDO1021_ProvideShortBranchNameInVcp_Error_Default_Text", resourceCulture);
-            }
-        }
-
-        /// <summary>
         ///   Looks up a localized string similar to Rule metadata should provide information that makes it easy to understand and fix the problem.
         ///rule.id
         ///

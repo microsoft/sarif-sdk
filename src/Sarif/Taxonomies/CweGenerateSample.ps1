@@ -285,7 +285,7 @@ $runHeader = [ordered]@{
         [ordered]@{
             repositoryUri = $vcpRepoUri
             revisionId    = '0000000000000000000000000000000000000000'
-            branch        = 'main'
+            branch        = 'refs/heads/main'
             mappedTo      = [ordered]@{ uriBaseId = 'SRCROOT' }
         }
     )

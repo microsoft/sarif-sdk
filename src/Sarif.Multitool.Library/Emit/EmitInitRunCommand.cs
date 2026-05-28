@@ -139,7 +139,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                             ghaContext,
                             out Uri vcpRepositoryUri,
                             out string vcpRevisionId,
-                            out string vcpBranchShortName,
+                            out string vcpBranch,
                             out string mergeError))
                     {
                         Console.Error.WriteLine(mergeError);
@@ -150,7 +150,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                             runObject,
                             vcpRepositoryUri,
                             vcpRevisionId,
-                            vcpBranchShortName,
+                            vcpBranch,
                             out string vcpError))
                     {
                         Console.Error.WriteLine(vcpError);
@@ -581,7 +581,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
         /// <summary>
         /// Enriches <c>versionControlProvenance</c> on the JSON payload with the resolved
-        /// repository URI / revision id / short branch fields (sourced from the pipeline
+        /// repository URI / revision id / branch ref fields (sourced from the pipeline
         /// environment via <see cref="TryResolveVcpFields"/>). Three input shapes:
         /// <list type="bullet">
         /// <item>VCP absent or empty array → append a synthesized entry with the fields we have
@@ -599,7 +599,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         /// <c>BUILD_SOURCEBRANCH</c> vars supply repo URI / revision / branch directly.</item>
         /// <item>GitHub Actions environment — <c>GITHUB_ACTIONS=true</c> plus
         /// <c>GITHUB_SERVER_URL</c> / <c>GITHUB_REPOSITORY</c> / <c>GITHUB_SHA</c> /
-        /// <c>GITHUB_REF_NAME</c> supply the same fields. When both ADO and GHA vars are
+        /// <c>GITHUB_REF</c> supply the same fields. When both ADO and GHA vars are
         /// populated, the sources must agree on every field they both publish.</item>
         /// <item>Caller-supplied — if neither CI env is present, the producer populates
         /// <c>versionControlProvenance</c> entries directly in the run-header JSON and the
@@ -613,7 +613,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             JObject runObject,
             Uri repositoryUri,
             string revisionId,
-            string branchShortName,
+            string branch,
             out string conflictError)
         {
             conflictError = null;
@@ -627,9 +627,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             {
                 vcpFields.Add(new KeyValuePair<string, string>(VcpFieldNames.RevisionId, revisionId));
             }
-            if (!string.IsNullOrEmpty(branchShortName))
+            if (!string.IsNullOrEmpty(branch))
             {
-                vcpFields.Add(new KeyValuePair<string, string>(VcpFieldNames.Branch, branchShortName));
+                vcpFields.Add(new KeyValuePair<string, string>(VcpFieldNames.Branch, branch));
             }
 
             if (vcpFields.Count == 0)
@@ -735,13 +735,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             GitHubActionsContext ghaContext,
             out Uri repositoryUri,
             out string revisionId,
-            out string branchShortName,
+            out string branch,
             out string conflictError)
         {
             conflictError = null;
             repositoryUri = adoContext?.RepositoryUri;
             revisionId = adoContext?.RevisionId;
-            branchShortName = adoContext?.BranchShortName;
+            branch = adoContext?.BranchRef;
 
             if (ghaContext == null) { return true; }
 
@@ -753,7 +753,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             {
                 return false;
             }
-            if (!TryMergeStringField(ref branchShortName, ghaContext.BranchShortName, VcpFieldNames.Branch, out conflictError))
+            if (!TryMergeStringField(ref branch, ghaContext.BranchRef, VcpFieldNames.Branch, out conflictError))
             {
                 return false;
             }

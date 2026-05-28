@@ -57,12 +57,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         internal const string PropPhaseName = "azuredevops/pipeline/build/phaseName";
         internal const string AutomationIdPrefix = "azuredevops/pipeline/build/";
 
-        // Matches any leading 'refs/<class>/' segment (refs/heads/, refs/tags/, refs/pull/, ...).
-        // Used to derive the short branch name AdvSec ingests for versionControlProvenance
-        // (per GHAzDO1021).
-        private static readonly Regex s_branchRefPrefixRegex =
-            new Regex(@"^refs/[^/]+/", RegexOptions.Compiled | RegexOptions.CultureInvariant | RegexOptions.ExplicitCapture);
-
         // BUILD_SOURCEVERSION is always a full 40-char SHA-1 in ADO, but we accept any
         // 7-40 hex window so callers can hand-set the var to an abbreviated SHA in tests
         // or local invocations without a special carve-out.
@@ -96,14 +90,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         /// Lifted from <c>BUILD_SOURCEVERSION</c> when present and well-formed; otherwise null.
         /// </summary>
         public string RevisionId { get; private set; }
-
-        /// <summary>
-        /// The short branch name AdvSec ingests for <c>versionControlProvenance[].branch</c>,
-        /// derived from <see cref="BranchRef"/> by stripping any leading <c>refs/&lt;class&gt;/</c>
-        /// segment (so <c>refs/heads/main</c> becomes <c>main</c>). Null when no branch ref was
-        /// detected. See GHAzDO1021.
-        /// </summary>
-        public string BranchShortName { get; private set; }
 
         /// <summary>
         /// Reads ADO predefined environment variables via <paramref name="environment"/> and
@@ -207,11 +193,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             }
 
             string branchRefValue = null;
-            string branchShortNameValue = null;
             if (TryReadRequiredString(sourceBranch, SourceBranchEnvVar, present, problems, out string parsedBranch))
             {
-                branchRefValue = NormalizeBranchRef(parsedBranch);
-                branchShortNameValue = s_branchRefPrefixRegex.Replace(branchRefValue, string.Empty);
+                branchRefValue = parsedBranch;
             }
 
             // BUILD_REPOSITORY_URI and BUILD_SOURCEVERSION are optional arguments used to
@@ -247,7 +231,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 PhaseId = phaseIdValue,
                 PhaseName = phaseNameValue,
                 BranchRef = branchRefValue,
-                BranchShortName = branchShortNameValue,
                 RepositoryUri = repositoryUriValue,
                 RevisionId = revisionIdValue,
             };
@@ -367,13 +350,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
         /// <summary>
         /// True when this context carries at least one <c>versionControlProvenance</c>
-        /// field (repository URI, revision id, or short branch name) lifted from the
-        /// pipeline environment. False indicates the VCP enrichment path is a no-op
-        /// for this context and callers should leave any caller-supplied VCP untouched.
+        /// field (repository URI, revision id, or branch ref) lifted from the pipeline
+        /// environment. False indicates the VCP enrichment path is a no-op for this
+        /// context and callers should leave any caller-supplied VCP untouched.
         /// </summary>
         internal bool HasVcpFields => RepositoryUri != null
             || !string.IsNullOrEmpty(RevisionId)
-            || !string.IsNullOrEmpty(BranchShortName);
+            || !string.IsNullOrEmpty(BranchRef);
 
         /// <summary>
         /// Returns the non-null <c>versionControlProvenance</c> field name/value pairs
@@ -394,9 +377,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             {
                 pairs.Add(new KeyValuePair<string, string>(VcpFieldNames.RevisionId, RevisionId));
             }
-            if (!string.IsNullOrEmpty(BranchShortName))
+            if (!string.IsNullOrEmpty(BranchRef))
             {
-                pairs.Add(new KeyValuePair<string, string>(VcpFieldNames.Branch, BranchShortName));
+                pairs.Add(new KeyValuePair<string, string>(VcpFieldNames.Branch, BranchRef));
             }
             return pairs;
         }
@@ -652,15 +635,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
             value = trimmed;
             return true;
-        }
-
-        // AdvSec's helper prepends "refs/heads/" only if absent. Preserve PR refs
-        // (refs/pull/N/merge) and tag refs (refs/tags/...) unchanged.
-        private static string NormalizeBranchRef(string raw)
-        {
-            return raw.StartsWith("refs/", StringComparison.Ordinal)
-                ? raw
-                : "refs/heads/" + raw;
         }
 
         private static string FormatPartialError(List<string> present, List<string> problems)

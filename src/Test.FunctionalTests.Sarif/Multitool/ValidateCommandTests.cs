@@ -461,14 +461,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         public void GH1007_ProvideFullyFormattedMessageStrings_Invalid()
             => RunInvalidTestForRule(RuleId.ProvideFullyFormattedMessageStrings);
 
-        [Fact]
-        public void GHAzDO1021_ProvideShortBranchNameInVcp_Valid()
-            => RunValidTestForRule(RuleId.GHAzDOProvideShortBranchNameInVcp);
-
-        [Fact]
-        public void GHAzDO1021_ProvideShortBranchNameInVcp_Invalid()
-            => RunInvalidTestForRule(RuleId.GHAzDOProvideShortBranchNameInVcp);
-
         private void RunArrayLimitTest(string testFileNameSuffix)
         {
             // Some of the actual limits are impractically large for testing purposes,
