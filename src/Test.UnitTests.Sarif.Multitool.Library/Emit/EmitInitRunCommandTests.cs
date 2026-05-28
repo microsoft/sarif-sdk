@@ -552,7 +552,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             ((JArray)vcp).Should().HaveCount(1);
             vcp[0]["repositoryUri"].ToString().Should().Be(AdoRepoUriValue);
             vcp[0]["revisionId"].ToString().Should().Be(AdoRevisionIdValue);
-            vcp[0]["branch"].ToString().Should().Be("main");
+            vcp[0]["branch"].ToString().Should().Be("refs/heads/main");
         }
 
         [Fact]
@@ -588,7 +588,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             vcp.Should().HaveCount(1);
             vcp[0]["repositoryUri"].ToString().Should().Be(AdoRepoUriValue);
             vcp[0]["revisionId"].ToString().Should().Be(AdoRevisionIdValue);
-            vcp[0]["branch"].ToString().Should().Be("main");
+            vcp[0]["branch"].ToString().Should().Be("refs/heads/main");
         }
 
         [Fact]
@@ -601,7 +601,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 {
                     ["repositoryUri"] = AdoRepoUriValue,
                     ["revisionId"] = AdoRevisionIdValue,
-                    ["branch"] = "main",
+                    ["branch"] = "refs/heads/main",
                     ["properties"] = new JObject { ["custom"] = "preserved" },
                 },
             };
@@ -816,7 +816,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             .With(GitHubActionsContext.ServerUrlEnvVar, "https://github.com")
             .With(GitHubActionsContext.RepositoryEnvVar, "microsoft/sarif-sdk")
             .With(GitHubActionsContext.ShaEnvVar, GhaRevisionIdValue)
-            .With(GitHubActionsContext.RefNameEnvVar, "main");
+            .With(GitHubActionsContext.RefEnvVar, "refs/heads/main");
 
         [Fact]
         public void Run_WhenGhaContextComplete_StampsVcpFromGhaEnv()
@@ -834,7 +834,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             vcp.Should().HaveCount(1);
             vcp[0]["repositoryUri"].ToString().Should().Be(GhaRepoUriValue);
             vcp[0]["revisionId"].ToString().Should().Be(GhaRevisionIdValue);
-            vcp[0]["branch"].ToString().Should().Be("main");
+            vcp[0]["branch"].ToString().Should().Be("refs/heads/main");
         }
 
         [Fact]
@@ -848,7 +848,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                .With(GitHubActionsContext.ServerUrlEnvVar, "https://github.com")
                .With(GitHubActionsContext.RepositoryEnvVar, "microsoft/sarif-sdk")
                .With(GitHubActionsContext.ShaEnvVar, GhaRevisionIdValue)
-               .With(GitHubActionsContext.RefNameEnvVar, "main");
+               .With(GitHubActionsContext.RefEnvVar, "refs/heads/main");
 
             int exit = RunWithInput(env, MinimalRun());
 
@@ -869,7 +869,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 .With(GitHubActionsContext.ServerUrlEnvVar, "https://github.com")
                 .With(GitHubActionsContext.RepositoryEnvVar, "microsoft/sarif-sdk")
                 .With(GitHubActionsContext.ShaEnvVar, GhaRevisionIdValue)
-                .With(GitHubActionsContext.RefNameEnvVar, "main");
+                .With(GitHubActionsContext.RefEnvVar, "refs/heads/main");
 
             int exit = RunWithInput(env, MinimalRun());
 
@@ -879,7 +879,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             vcp.Should().HaveCount(1);
             vcp[0]["repositoryUri"].ToString().Should().Be(GhaRepoUriValue);
             vcp[0]["revisionId"].ToString().Should().Be(GhaRevisionIdValue);
-            vcp[0]["branch"].ToString().Should().Be("main");
+            vcp[0]["branch"].ToString().Should().Be("refs/heads/main");
         }
 
         [Fact]
@@ -902,7 +902,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             vcp.Should().HaveCount(1);
             vcp[0]["repositoryUri"].ToString().Should().Be(GhaRepoUriValue);
             vcp[0]["revisionId"].ToString().Should().Be(AdoRevisionIdValue);
-            vcp[0]["branch"].ToString().Should().Be("main");
+            vcp[0]["branch"].ToString().Should().Be("refs/heads/main");
         }
 
         [Fact]
@@ -950,7 +950,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 .With(GitHubActionsContext.ServerUrlEnvVar, "https://dev.azure.com")
                 .With(GitHubActionsContext.RepositoryEnvVar, "contoso/example/_git/example")
                 .With(GitHubActionsContext.ShaEnvVar, GhaRevisionIdValue)
-                .With(GitHubActionsContext.RefNameEnvVar, "main");
+                .With(GitHubActionsContext.RefEnvVar, "refs/heads/main");
 
             int exit = RunWithInput(env, MinimalRun());
 

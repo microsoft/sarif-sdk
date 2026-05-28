@@ -201,8 +201,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         }
 
         [Fact]
-        public void TryDetect_NormalizesBareBranchToRefsHeads()
+        public void TryDetect_PassesBareBranchThrough()
         {
+            // BUILD_SOURCEBRANCH is documented to always be long-form, but the detector
+            // passes whatever value the env publishes through as-is. AdvSec accepts both
+            // long and short branch forms in VCP.
             FakeEnvironmentVariableGetter env = CompleteEnv();
             env.With(AdoPipelineContext.SourceBranchEnvVar, "feature/x");
 
@@ -210,20 +213,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 AdoPipelineContext.TryDetect(env, out AdoPipelineContext ctx, out _);
 
             state.Should().Be(AdoPipelineContext.DetectionState.Complete);
-            ctx.BranchRef.Should().Be("refs/heads/feature/x");
-        }
-
-        [Fact]
-        public void TryDetect_PreservesPullRequestRefVerbatim()
-        {
-            FakeEnvironmentVariableGetter env = CompleteEnv();
-            env.With(AdoPipelineContext.SourceBranchEnvVar, "refs/pull/42/merge");
-
-            AdoPipelineContext.DetectionState state =
-                AdoPipelineContext.TryDetect(env, out AdoPipelineContext ctx, out _);
-
-            state.Should().Be(AdoPipelineContext.DetectionState.Complete);
-            ctx.BranchRef.Should().Be("refs/pull/42/merge");
+            ctx.BranchRef.Should().Be("feature/x");
         }
 
         [Fact]
@@ -237,7 +227,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             state.Should().Be(AdoPipelineContext.DetectionState.Complete);
             ctx.RepositoryUri.Should().BeNull();
             ctx.RevisionId.Should().BeNull();
-            ctx.BranchShortName.Should().Be("main"); // derived from BUILD_SOURCEBRANCH (required var)
+            ctx.BranchRef.Should().Be("refs/heads/main"); // pass-through of BUILD_SOURCEBRANCH (required var)
         }
 
         [Fact]
@@ -253,7 +243,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             state.Should().Be(AdoPipelineContext.DetectionState.Complete);
             ctx.RepositoryUri.AbsoluteUri.Should().Be("https://dev.azure.com/contoso/example/_git/example");
             ctx.RevisionId.Should().Be("0123456789abcdef0123456789abcdef01234567");
-            ctx.BranchShortName.Should().Be("main");
+            ctx.BranchRef.Should().Be("refs/heads/main");
         }
 
         [Fact]
@@ -319,7 +309,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         }
 
         [Fact]
-        public void TryDetect_BranchShortName_StripsRefsHeads()
+        public void TryDetect_PassesRefsHeadsThrough()
         {
             FakeEnvironmentVariableGetter env = CompleteEnv()
                 .With(AdoPipelineContext.SourceBranchEnvVar, "refs/heads/feature/x");
@@ -327,11 +317,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             AdoPipelineContext.TryDetect(env, out AdoPipelineContext ctx, out _);
 
             ctx.BranchRef.Should().Be("refs/heads/feature/x");
-            ctx.BranchShortName.Should().Be("feature/x");
         }
 
         [Fact]
-        public void TryDetect_BranchShortName_StripsRefsPull()
+        public void TryDetect_PassesRefsPullThrough()
         {
             FakeEnvironmentVariableGetter env = CompleteEnv()
                 .With(AdoPipelineContext.SourceBranchEnvVar, "refs/pull/42/merge");
@@ -339,11 +328,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             AdoPipelineContext.TryDetect(env, out AdoPipelineContext ctx, out _);
 
             ctx.BranchRef.Should().Be("refs/pull/42/merge");
-            ctx.BranchShortName.Should().Be("42/merge");
         }
 
         [Fact]
-        public void TryDetect_BranchShortName_StripsRefsTags()
+        public void TryDetect_PassesRefsTagsThrough()
         {
             FakeEnvironmentVariableGetter env = CompleteEnv()
                 .With(AdoPipelineContext.SourceBranchEnvVar, "refs/tags/v5.0.2");
@@ -351,7 +339,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             AdoPipelineContext.TryDetect(env, out AdoPipelineContext ctx, out _);
 
             ctx.BranchRef.Should().Be("refs/tags/v5.0.2");
-            ctx.BranchShortName.Should().Be("v5.0.2");
         }
 
         [Fact]

@@ -20,7 +20,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             .With(GitHubActionsContext.ServerUrlEnvVar, GoodServerUrl)
             .With(GitHubActionsContext.RepositoryEnvVar, GoodRepository)
             .With(GitHubActionsContext.ShaEnvVar, GoodSha)
-            .With(GitHubActionsContext.RefNameEnvVar, "main");
+            .With(GitHubActionsContext.RefEnvVar, "refs/heads/main");
 
         [Fact]
         public void TryDetect_NullEnvironment_Throws()
@@ -61,7 +61,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             error.Should().BeNull();
             ctx.RepositoryUri.AbsoluteUri.Should().Be("https://github.com/microsoft/sarif-sdk");
             ctx.RevisionId.Should().Be(GoodSha);
-            ctx.BranchShortName.Should().Be("main");
+            ctx.BranchRef.Should().Be("refs/heads/main");
         }
 
         [Fact]
@@ -80,7 +80,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             error.Should().BeNull();
             ctx.RepositoryUri.Should().BeNull();
             ctx.RevisionId.Should().BeNull();
-            ctx.BranchShortName.Should().BeNull();
+            ctx.BranchRef.Should().BeNull();
         }
 
         [Fact]
@@ -140,32 +140,45 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         }
 
         [Fact]
-        public void TryDetect_PrefersRefNameOverRef()
+        public void TryDetect_PassesRefThrough()
         {
-            // GITHUB_REF_NAME is the documented "use this" var. When both are set, REF_NAME
-            // wins; we do not strip REF as a cross-check (per GH docs they're derived from
-            // each other and always agree in real runs).
+            // GITHUB_REF is the full ref shape (refs/heads/..., refs/pull/.../merge,
+            // refs/tags/...) and is passed through to BranchRef as-is. AdvSec accepts both
+            // long and short branch forms in VCP, and pass-through keeps GHA values
+            // comparable with AdoPipelineContext (which also passes BUILD_SOURCEBRANCH
+            // through verbatim) when both env sets are populated.
             FakeEnvironmentVariableGetter env = CompleteGhaEnv();
-            env.With(GitHubActionsContext.RefNameEnvVar, "feature/x")
-               .With(GitHubActionsContext.RefEnvVar, "refs/heads/main");
+            env.With(GitHubActionsContext.RefEnvVar, "refs/heads/feature/x");
 
             GitHubActionsContext.TryDetect(env, out GitHubActionsContext ctx, out _);
 
-            ctx.BranchShortName.Should().Be("feature/x");
+            ctx.BranchRef.Should().Be("refs/heads/feature/x");
         }
 
         [Fact]
-        public void TryDetect_FallsBackToRefWhenRefNameAbsent()
+        public void TryDetect_PassesPullRequestRefThrough()
         {
-            // Without GITHUB_REF_NAME, we strip refs/<class>/ from GITHUB_REF to derive
-            // the short name.
             FakeEnvironmentVariableGetter env = CompleteGhaEnv();
-            env.With(GitHubActionsContext.RefNameEnvVar, string.Empty)
-               .With(GitHubActionsContext.RefEnvVar, "refs/pull/42/merge");
+            env.With(GitHubActionsContext.RefEnvVar, "refs/pull/42/merge");
 
             GitHubActionsContext.TryDetect(env, out GitHubActionsContext ctx, out _);
 
-            ctx.BranchShortName.Should().Be("42/merge");
+            ctx.BranchRef.Should().Be("refs/pull/42/merge");
+        }
+
+        [Fact]
+        public void TryDetect_RefAbsent_LeavesBranchRefNull()
+        {
+            // GITHUB_REF is optional from the detector's perspective — absence yields a
+            // Complete context with a null BranchRef (the VCP stamper just emits no
+            // branch field). The runner always sets GITHUB_REF, so this only fires in
+            // hand-built / test envs.
+            FakeEnvironmentVariableGetter env = CompleteGhaEnv();
+            env.With(GitHubActionsContext.RefEnvVar, string.Empty);
+
+            GitHubActionsContext.TryDetect(env, out GitHubActionsContext ctx, out _);
+
+            ctx.BranchRef.Should().BeNull();
         }
 
         [Fact]

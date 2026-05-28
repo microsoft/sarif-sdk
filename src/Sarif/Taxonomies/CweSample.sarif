@@ -130,7 +130,7 @@
         {
           "repositoryUri": "https://github.com/microsoft/sarif-sdk",
           "revisionId": "0000000000000000000000000000000000000000",
-          "branch": "main",
+          "branch": "refs/heads/main",
           "mappedTo": {
             "uriBaseId": "SRCROOT"
           }
