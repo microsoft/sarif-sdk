@@ -1,0 +1,3173 @@
+{
+  "generated_at_utc": "2026-05-31T19:01:06Z",
+  "schema_version": 1,
+  "inventoried_tools": [
+    "codeql",
+    "semgrep",
+    "bandit",
+    "gosec",
+    "snyk-code",
+    "veracode-sast"
+  ],
+  "blocked_or_partial_tools": [
+    "sonarqube",
+    "fortify-sca",
+    "checkmarx-sast",
+    "coverity-blackduck"
+  ],
+  "total_unique_cwes": 396,
+  "cwes": [
+    {
+      "cwe": 11,
+      "tools": [
+        "codeql",
+        "semgrep"
+      ],
+      "tool_count": 2
+    },
+    {
+      "cwe": 12,
+      "tools": [
+        "codeql"
+      ],
+      "tool_count": 1
+    },
+    {
+      "cwe": 13,
+      "tools": [
+        "codeql"
+      ],
+      "tool_count": 1
+    },
+    {
+      "cwe": 14,
+      "tools": [
+        "codeql",
+        "semgrep"
+      ],
+      "tool_count": 2
+    },
+    {
+      "cwe": 15,
+      "tools": [
+        "snyk-code",
+        "veracode-sast"
+      ],
+      "tool_count": 2
+    },
+    {
+      "cwe": 16,
+      "tools": [
+        "codeql",
+        "semgrep",
+        "snyk-code",
+        "veracode-sast"
+      ],
+      "tool_count": 4
+    },
+    {
+      "cwe": 20,
+      "tools": [
+        "bandit",
+        "codeql",
+        "semgrep",
+        "snyk-code",
+        "veracode-sast"
+      ],
+      "tool_count": 5
+    },
+    {
+      "cwe": 22,
+      "tools": [
+        "bandit",
+        "codeql",
+        "gosec",
+        "semgrep",
+        "snyk-code",
+        "veracode-sast"
+      ],
+      "tool_count": 6
+    },
+    {
+      "cwe": 23,
+      "tools": [
+        "codeql",
+        "semgrep",
+        "snyk-code"
+      ],
+      "tool_count": 3
+    },
+    {
+      "cwe": 35,
+      "tools": [
+        "semgrep",
+        "snyk-code"
+      ],
+      "tool_count": 2
+    },
+    {
+      "cwe": 36,
+      "tools": [
+        "codeql"
+      ],
+      "tool_count": 1
+    },
+    {
+      "cwe": 73,
+      "tools": [
+        "codeql",
+        "semgrep",
+        "veracode-sast"
+      ],
+      "tool_count": 3
+    },
+    {
+      "cwe": 74,
+      "tools": [
+        "codeql",
+        "semgrep",
+        "snyk-code",
+        "veracode-sast"
+      ],
+      "tool_count": 4
+    },
+    {
+      "cwe": 77,
+      "tools": [
+        "semgrep",
+        "veracode-sast"
+      ],
+      "tool_count": 2
+    },
+    {
+      "cwe": 78,
+      "tools": [
+        "bandit",
+        "codeql",
+        "gosec",
+        "semgrep",
+        "snyk-code",
+        "veracode-sast"
+      ],
+      "tool_count": 6
+    },
+    {
+      "cwe": 79,
+      "tools": [
+        "bandit",
+        "codeql",
+        "gosec",
+        "semgrep",
+        "snyk-code",
+        "veracode-sast"
+      ],
+      "tool_count": 6
+    },
+    {
+      "cwe": 80,
+      "tools": [
+        "bandit",
+        "codeql",
+        "semgrep",
+        "veracode-sast"
+      ],
+      "tool_count": 4
+    },
+    {
+      "cwe": 83,
+      "tools": [
+        "veracode-sast"
+      ],
+      "tool_count": 1
+    },
+    {
+      "cwe": 86,
+      "tools": [
+        "veracode-sast"
+      ],
+      "tool_count": 1
+    },
+    {
+      "cwe": 88,
+      "tools": [
+        "codeql",
+        "veracode-sast"
+      ],
+      "tool_count": 2
+    },
+    {
+      "cwe": 89,
+      "tools": [
+        "bandit",
+        "codeql",
+        "gosec",
+        "semgrep",
+        "snyk-code",
+        "veracode-sast"
+      ],
+      "tool_count": 6
+    },
+    {
+      "cwe": 90,
+      "tools": [
+        "codeql",
+        "semgrep",
+        "snyk-code",
+        "veracode-sast"
+      ],
+      "tool_count": 4
+    },
+    {
+      "cwe": 91,
+      "tools": [
+        "codeql",
+        "semgrep",
+        "snyk-code",
+        "veracode-sast"
+      ],
+      "tool_count": 4
+    },
+    {
+      "cwe": 93,
+      "tools": [
+        "codeql",
+        "gosec",
+        "semgrep",
+        "veracode-sast"
+      ],
+      "tool_count": 4
+    },
+    {
+      "cwe": 94,
+      "tools": [
+        "bandit",
+        "codeql",
+        "gosec",
+        "semgrep",
+        "snyk-code",
+        "veracode-sast"
+      ],
+      "tool_count": 6
+    },
+    {
+      "cwe": 95,
+      "tools": [
+        "codeql",
+        "semgrep",
+        "veracode-sast"
+      ],
+      "tool_count": 3
+    },
+    {
+      "cwe": 96,
+      "tools": [
+        "codeql",
+        "semgrep",
+        "snyk-code"
+      ],
+      "tool_count": 3
+    },
+    {
+      "cwe": 98,
+      "tools": [
+        "semgrep",
+        "snyk-code",
+        "veracode-sast"
+      ],
+      "tool_count": 3
+    },
+    {
+      "cwe": 99,
+      "tools": [
+        "codeql",
+        "veracode-sast"
+      ],
+      "tool_count": 2
+    },
+    {
+      "cwe": 103,
+      "tools": [
+        "veracode-sast"
+      ],
+      "tool_count": 1
+    },
+    {
+      "cwe": 104,
+      "tools": [
+        "veracode-sast"
+      ],
+      "tool_count": 1
+    },
+    {
+      "cwe": 111,
+      "tools": [
+        "veracode-sast"
+      ],
+      "tool_count": 1
+    },
+    {
+      "cwe": 112,
+      "tools": [
+        "codeql",
+        "veracode-sast"
+      ],
+      "tool_count": 2
+    },
+    {
+      "cwe": 113,
+      "tools": [
+        "codeql",
+        "semgrep",
+        "snyk-code",
+        "veracode-sast"
+      ],
+      "tool_count": 4
+    },
+    {
+      "cwe": 114,
+      "tools": [
+        "codeql",
+        "snyk-code",
+        "veracode-sast"
+      ],
+      "tool_count": 3
+    },
+    {
+      "cwe": 115,
+      "tools": [
+        "semgrep",
+        "veracode-sast"
+      ],
+      "tool_count": 2
+    },
+    {
+      "cwe": 116,
+      "tools": [
+        "codeql",
+        "semgrep",
+        "snyk-code"
+      ],
+      "tool_count": 3
+    },
+    {
+      "cwe": 117,
+      "tools": [
+        "codeql",
+        "gosec",
+        "semgrep",
+        "snyk-code",
+        "veracode-sast"
+      ],
+      "tool_count": 5
+    },
+    {
+      "cwe": 118,
+      "tools": [
+        "veracode-sast"
+      ],
+      "tool_count": 1
+    },
+    {
+      "cwe": 119,
+      "tools": [
+        "codeql",
+        "semgrep"
+      ],
+      "tool_count": 2
+    },
+    {
+      "cwe": 120,
+      "tools": [
+        "codeql"
+      ],
+      "tool_count": 1
+    },
+    {
+      "cwe": 121,
+      "tools": [
+        "codeql",
+        "veracode-sast"
+      ],
+      "tool_count": 2
+    },
+    {
+      "cwe": 122,
+      "tools": [
+        "codeql",
+        "snyk-code"
+      ],
+      "tool_count": 2
+    },
+    {
+      "cwe": 123,
+      "tools": [
+        "semgrep"
+      ],
+      "tool_count": 1
+    },
+    {
+      "cwe": 125,
+      "tools": [
+        "codeql",
+        "semgrep",
+        "snyk-code",
+        "veracode-sast"
+      ],
+      "tool_count": 4
+    },
+    {
+      "cwe": 126,
+      "tools": [
+        "codeql",
+        "snyk-code"
+      ],
+      "tool_count": 2
+    },
+    {
+      "cwe": 128,
+      "tools": [
+        "codeql"
+      ],
+      "tool_count": 1
+    },
+    {
+      "cwe": 129,
+      "tools": [
+        "codeql",
+        "veracode-sast"
+      ],
+      "tool_count": 2
+    },
+    {
+      "cwe": 131,
+      "tools": [
+        "codeql"
+      ],
+      "tool_count": 1
+    },
+    {
+      "cwe": 134,
+      "tools": [
+        "codeql",
+        "semgrep",
+        "snyk-code",
+        "veracode-sast"
+      ],
+      "tool_count": 4
+    },
+    {
+      "cwe": 135,
+      "tools": [
+        "codeql",
+        "veracode-sast"
+      ],
+      "tool_count": 2
+    },
+    {
+      "cwe": 150,
+      "tools": [
+        "semgrep"
+      ],
+      "tool_count": 1
+    },
+    {
+      "cwe": 155,
+      "tools": [
+        "bandit",
+        "semgrep"
+      ],
+      "tool_count": 2
+    },
+    {
+      "cwe": 159,
+      "tools": [
+        "veracode-sast"
+      ],
+      "tool_count": 1
+    },
+    {
+      "cwe": 170,
+      "tools": [
+        "codeql",
+        "snyk-code",
+        "veracode-sast"
+      ],
+      "tool_count": 3
+    },
+    {
+      "cwe": 176,
+      "tools": [
+        "codeql"
+      ],
+      "tool_count": 1
+    },
+    {
+      "cwe": 178,
+      "tools": [
+        "codeql"
+      ],
+      "tool_count": 1
+    },
+    {
+      "cwe": 179,
+      "tools": [
+        "codeql"
+      ],
+      "tool_count": 1
+    },
+    {
+      "cwe": 180,
+      "tools": [
+        "codeql"
+      ],
+      "tool_count": 1
+    },
+    {
+      "cwe": 183,
+      "tools": [
+        "codeql",
+        "semgrep",
+        "veracode-sast"
+      ],
+      "tool_count": 3
+    },
+    {
+      "cwe": 184,
+      "tools": [
+        "codeql"
+      ],
+      "tool_count": 1
+    },
+    {
+      "cwe": 185,
+      "tools": [
+        "codeql",
+        "semgrep",
+        "veracode-sast"
+      ],
+      "tool_count": 3
+    },
+    {
+      "cwe": 186,
+      "tools": [
+        "codeql"
+      ],
+      "tool_count": 1
+    },
+    {
+      "cwe": 190,
+      "tools": [
+        "codeql",
+        "semgrep",
+        "snyk-code",
+        "veracode-sast"
+      ],
+      "tool_count": 4
+    },
+    {
+      "cwe": 191,
+      "tools": [
+        "codeql",
+        "semgrep",
+        "veracode-sast"
+      ],
+      "tool_count": 3
+    },
+    {
+      "cwe": 192,
+      "tools": [
+        "codeql",
+        "veracode-sast"
+      ],
+      "tool_count": 2
+    },
+    {
+      "cwe": 193,
+      "tools": [
+        "codeql",
+        "veracode-sast"
+      ],
+      "tool_count": 2
+    },
+    {
+      "cwe": 195,
+      "tools": [
+        "veracode-sast"
+      ],
+      "tool_count": 1
+    },
+    {
+      "cwe": 196,
+      "tools": [
+        "veracode-sast"
+      ],
+      "tool_count": 1
+    },
+    {
+      "cwe": 197,
+      "tools": [
+        "codeql",
+        "veracode-sast"
+      ],
+      "tool_count": 2
+    },
+    {
+      "cwe": 200,
+      "tools": [
+        "codeql",
+        "semgrep",
+        "snyk-code",
+        "veracode-sast"
+      ],
+      "tool_count": 4
+    },
+    {
+      "cwe": 201,
+      "tools": [
+        "codeql",
+        "semgrep",
+        "veracode-sast"
+      ],
+      "tool_count": 3
+    },
+    {
+      "cwe": 203,
+      "tools": [
+        "codeql"
+      ],
+      "tool_count": 1
+    },
+    {
+      "cwe": 208,
+      "tools": [
+        "codeql",
+        "snyk-code"
+      ],
+      "tool_count": 2
+    },
+    {
+      "cwe": 209,
+      "tools": [
+        "codeql",
+        "semgrep",
+        "snyk-code",
+        "veracode-sast"
+      ],
+      "tool_count": 4
+    },
+    {
+      "cwe": 215,
+      "tools": [
+        "codeql",
+        "snyk-code",
+        "veracode-sast"
+      ],
+      "tool_count": 3
+    },
+    {
+      "cwe": 219,
+      "tools": [
+        "codeql"
+      ],
+      "tool_count": 1
+    },
+    {
+      "cwe": 221,
+      "tools": [
+        "semgrep"
+      ],
+      "tool_count": 1
+    },
+    {
+      "cwe": 223,
+      "tools": [
+        "semgrep"
+      ],
+      "tool_count": 1
+    },
+    {
+      "cwe": 234,
+      "tools": [
+        "codeql",
+        "veracode-sast"
+      ],
+      "tool_count": 2
+    },
+    {
+      "cwe": 242,
+      "tools": [
+        "codeql",
+        "semgrep",
+        "veracode-sast"
+      ],
+      "tool_count": 3
+    },
+    {
+      "cwe": 243,
+      "tools": [
+        "codeql",
+        "veracode-sast"
+      ],
+      "tool_count": 2
+    },
+    {
+      "cwe": 245,
+      "tools": [
+        "veracode-sast"
+      ],
+      "tool_count": 1
+    },
+    {
+      "cwe": 247,
+      "tools": [
+        "codeql"
+      ],
+      "tool_count": 1
+    },
+    {
+      "cwe": 248,
+      "tools": [
+        "codeql",
+        "veracode-sast"
+      ],
+      "tool_count": 2
+    },
+    {
+      "cwe": 250,
+      "tools": [
+        "codeql",
+        "semgrep"
+      ],
+      "tool_count": 2
+    },
+    {
+      "cwe": 251,
+      "tools": [
+        "codeql"
+      ],
+      "tool_count": 1
+    },
+    {
+      "cwe": 252,
+      "tools": [
+        "codeql",
+        "semgrep",
+        "veracode-sast"
+      ],
+      "tool_count": 3
+    },
+    {
+      "cwe": 253,
+      "tools": [
+        "codeql"
+      ],
+      "tool_count": 1
+    },
+    {
+      "cwe": 256,
+      "tools": [
+        "codeql",
+        "snyk-code",
+        "veracode-sast"
+      ],
+      "tool_count": 3
+    },
+    {
+      "cwe": 257,
+      "tools": [
+        "semgrep"
+      ],
+      "tool_count": 1
+    },
+    {
+      "cwe": 258,
+      "tools": [
+        "codeql",
+        "veracode-sast"
+      ],
+      "tool_count": 2
+    },
+    {
+      "cwe": 259,
+      "tools": [
+        "bandit",
+        "codeql",
+        "snyk-code",
+        "veracode-sast"
+      ],
+      "tool_count": 4
+    },
+    {
+      "cwe": 260,
+      "tools": [
+        "codeql"
+      ],
+      "tool_count": 1
+    },
+    {
+      "cwe": 261,
+      "tools": [
+        "veracode-sast"
+      ],
+      "tool_count": 1
+    },
+    {
+      "cwe": 262,
+      "tools": [
+        "semgrep"
+      ],
+      "tool_count": 1
+    },
+    {
+      "cwe": 264,
+      "tools": [
+        "codeql",
+        "semgrep"
+      ],
+      "tool_count": 2
+    },
+    {
+      "cwe": 265,
+      "tools": [
+        "snyk-code"
+      ],
+      "tool_count": 1
+    },
+    {
+      "cwe": 266,
+      "tools": [
+        "codeql",
+        "snyk-code"
+      ],
+      "tool_count": 2
+    },
+    {
+      "cwe": 269,
+      "tools": [
+        "semgrep"
+      ],
+      "tool_count": 1
+    },
+    {
+      "cwe": 272,
+      "tools": [
+        "semgrep",
+        "veracode-sast"
+      ],
+      "tool_count": 2
+    },
+    {
+      "cwe": 273,
+      "tools": [
+        "codeql",
+        "veracode-sast"
+      ],
+      "tool_count": 2
+    },
+    {
+      "cwe": 274,
+      "tools": [
+        "veracode-sast"
+      ],
+      "tool_count": 1
+    },
+    {
+      "cwe": 276,
+      "tools": [
+        "semgrep"
+      ],
+      "tool_count": 1
+    },
+    {
+      "cwe": 280,
+      "tools": [
+        "snyk-code"
+      ],
+      "tool_count": 1
+    },
+    {
+      "cwe": 282,
+      "tools": [
+        "veracode-sast"
+      ],
+      "tool_count": 1
+    },
+    {
+      "cwe": 284,
+      "tools": [
+        "bandit",
+        "codeql",
+        "semgrep",
+        "snyk-code",
+        "veracode-sast"
+      ],
+      "tool_count": 5
+    },
+    {
+      "cwe": 285,
+      "tools": [
+        "codeql",
+        "semgrep",
+        "snyk-code",
+        "veracode-sast"
+      ],
+      "tool_count": 4
+    },
+    {
+      "cwe": 287,
+      "tools": [
+        "codeql",
+        "semgrep",
+        "snyk-code"
+      ],
+      "tool_count": 3
+    },
+    {
+      "cwe": 289,
+      "tools": [
+        "semgrep"
+      ],
+      "tool_count": 1
+    },
+    {
+      "cwe": 290,
+      "tools": [
+        "codeql",
+        "semgrep",
+        "snyk-code"
+      ],
+      "tool_count": 3
+    },
+    {
+      "cwe": 295,
+      "tools": [
+        "bandit",
+        "codeql",
+        "semgrep",
+        "snyk-code",
+        "veracode-sast"
+      ],
+      "tool_count": 5
+    },
+    {
+      "cwe": 296,
+      "tools": [
+        "veracode-sast"
+      ],
+      "tool_count": 1
+    },
+    {
+      "cwe": 297,
+      "tools": [
+        "codeql",
+        "semgrep",
+        "snyk-code",
+        "veracode-sast"
+      ],
+      "tool_count": 4
+    },
+    {
+      "cwe": 298,
+      "tools": [
+        "veracode-sast"
+      ],
+      "tool_count": 1
+    },
+    {
+      "cwe": 299,
+      "tools": [
+        "codeql",
+        "veracode-sast"
+      ],
+      "tool_count": 2
+    },
+    {
+      "cwe": 300,
+      "tools": [
+        "codeql",
+        "semgrep"
+      ],
+      "tool_count": 2
+    },
+    {
+      "cwe": 306,
+      "tools": [
+        "semgrep"
+      ],
+      "tool_count": 1
+    },
+    {
+      "cwe": 307,
+      "tools": [
+        "codeql",
+        "semgrep"
+      ],
+      "tool_count": 2
+    },
+    {
+      "cwe": 310,
+      "tools": [
+        "semgrep",
+        "snyk-code"
+      ],
+      "tool_count": 2
+    },
+    {
+      "cwe": 311,
+      "tools": [
+        "codeql",
+        "semgrep",
+        "snyk-code",
+        "veracode-sast"
+      ],
+      "tool_count": 4
+    },
+    {
+      "cwe": 312,
+      "tools": [
+        "codeql",
+        "snyk-code",
+        "veracode-sast"
+      ],
+      "tool_count": 3
+    },
+    {
+      "cwe": 313,
+      "tools": [
+        "codeql",
+        "veracode-sast"
+      ],
+      "tool_count": 2
+    },
+    {
+      "cwe": 315,
+      "tools": [
+        "codeql",
+        "snyk-code"
+      ],
+      "tool_count": 2
+    },
+    {
+      "cwe": 316,
+      "tools": [
+        "veracode-sast"
+      ],
+      "tool_count": 1
+    },
+    {
+      "cwe": 319,
+      "tools": [
+        "bandit",
+        "codeql",
+        "semgrep",
+        "snyk-code",
+        "veracode-sast"
+      ],
+      "tool_count": 5
+    },
+    {
+      "cwe": 320,
+      "tools": [
+        "codeql",
+        "semgrep"
+      ],
+      "tool_count": 2
+    },
+    {
+      "cwe": 321,
+      "tools": [
+        "codeql",
+        "semgrep",
+        "snyk-code",
+        "veracode-sast"
+      ],
+      "tool_count": 4
+    },
+    {
+      "cwe": 322,
+      "tools": [
+        "codeql",
+        "semgrep"
+      ],
+      "tool_count": 2
+    },
+    {
+      "cwe": 323,
+      "tools": [
+        "semgrep"
+      ],
+      "tool_count": 1
+    },
+    {
+      "cwe": 325,
+      "tools": [
+        "veracode-sast"
+      ],
+      "tool_count": 1
+    },
+    {
+      "cwe": 326,
+      "tools": [
+        "bandit",
+        "codeql",
+        "semgrep",
+        "snyk-code",
+        "veracode-sast"
+      ],
+      "tool_count": 5
+    },
+    {
+      "cwe": 327,
+      "tools": [
+        "bandit",
+        "codeql",
+        "semgrep",
+        "snyk-code",
+        "veracode-sast"
+      ],
+      "tool_count": 5
+    },
+    {
+      "cwe": 328,
+      "tools": [
+        "codeql",
+        "semgrep"
+      ],
+      "tool_count": 2
+    },
+    {
+      "cwe": 329,
+      "tools": [
+        "codeql",
+        "semgrep",
+        "snyk-code",
+        "veracode-sast"
+      ],
+      "tool_count": 4
+    },
+    {
+      "cwe": 330,
+      "tools": [
+        "bandit",
+        "codeql",
+        "semgrep",
+        "snyk-code",
+        "veracode-sast"
+      ],
+      "tool_count": 5
+    },
+    {
+      "cwe": 331,
+      "tools": [
+        "veracode-sast"
+      ],
+      "tool_count": 1
+    },
+    {
+      "cwe": 335,
+      "tools": [
+        "codeql"
+      ],
+      "tool_count": 1
+    },
+    {
+      "cwe": 337,
+      "tools": [
+        "codeql"
+      ],
+      "tool_count": 1
+    },
+    {
+      "cwe": 338,
+      "tools": [
+        "codeql",
+        "semgrep",
+        "veracode-sast"
+      ],
+      "tool_count": 3
+    },
+    {
+      "cwe": 340,
+      "tools": [
+        "codeql"
+      ],
+      "tool_count": 1
+    },
+    {
+      "cwe": 341,
+      "tools": [
+        "semgrep"
+      ],
+      "tool_count": 1
+    },
+    {
+      "cwe": 345,
+      "tools": [
+        "codeql",
+        "semgrep",
+        "veracode-sast"
+      ],
+      "tool_count": 3
+    },
+    {
+      "cwe": 346,
+      "tools": [
+        "codeql",
+        "semgrep",
+        "snyk-code",
+        "veracode-sast"
+      ],
+      "tool_count": 4
+    },
+    {
+      "cwe": 347,
+      "tools": [
+        "codeql",
+        "semgrep",
+        "snyk-code",
+        "veracode-sast"
+      ],
+      "tool_count": 4
+    },
+    {
+      "cwe": 348,
+      "tools": [
+        "codeql",
+        "snyk-code"
+      ],
+      "tool_count": 2
+    },
+    {
+      "cwe": 350,
+      "tools": [
+        "codeql",
+        "veracode-sast"
+      ],
+      "tool_count": 2
+    },
+    {
+      "cwe": 352,
+      "tools": [
+        "codeql",
+        "semgrep",
+        "snyk-code"
+      ],
+      "tool_count": 3
+    },
+    {
+      "cwe": 353,
+      "tools": [
+        "semgrep"
+      ],
+      "tool_count": 1
+    },
+    {
+      "cwe": 354,
+      "tools": [
+        "veracode-sast"
+      ],
+      "tool_count": 1
+    },
+    {
+      "cwe": 359,
+      "tools": [
+        "codeql",
+        "snyk-code",
+        "veracode-sast"
+      ],
+      "tool_count": 3
+    },
+    {
+      "cwe": 362,
+      "tools": [
+        "codeql"
+      ],
+      "tool_count": 1
+    },
+    {
+      "cwe": 366,
+      "tools": [
+        "codeql",
+        "veracode-sast"
+      ],
+      "tool_count": 2
+    },
+    {
+      "cwe": 367,
+      "tools": [
+        "codeql",
+        "semgrep",
+        "veracode-sast"
+      ],
+      "tool_count": 3
+    },
+    {
+      "cwe": 369,
+      "tools": [
+        "codeql",
+        "semgrep",
+        "snyk-code"
+      ],
+      "tool_count": 3
+    },
+    {
+      "cwe": 377,
+      "tools": [
+        "bandit",
+        "codeql",
+        "semgrep",
+        "snyk-code",
+        "veracode-sast"
+      ],
+      "tool_count": 5
+    },
+    {
+      "cwe": 378,
+      "tools": [
+        "codeql"
+      ],
+      "tool_count": 1
+    },
+    {
+      "cwe": 382,
+      "tools": [
+        "codeql",
+        "veracode-sast"
+      ],
+      "tool_count": 2
+    },
+    {
+      "cwe": 383,
+      "tools": [
+        "codeql"
+      ],
+      "tool_count": 1
+    },
+    {
+      "cwe": 384,
+      "tools": [
+        "codeql",
+        "veracode-sast"
+      ],
+      "tool_count": 2
+    },
+    {
+      "cwe": 390,
+      "tools": [
+        "codeql"
+      ],
+      "tool_count": 1
+    },
+    {
+      "cwe": 391,
+      "tools": [
+        "codeql",
+        "snyk-code"
+      ],
+      "tool_count": 2
+    },
+    {
+      "cwe": 395,
+      "tools": [
+        "codeql"
+      ],
+      "tool_count": 1
+    },
+    {
+      "cwe": 396,
+      "tools": [
+        "codeql"
+      ],
+      "tool_count": 1
+    },
+    {
+      "cwe": 398,
+      "tools": [
+        "veracode-sast"
+      ],
+      "tool_count": 1
+    },
+    {
+      "cwe": 399,
+      "tools": [
+        "semgrep"
+      ],
+      "tool_count": 1
+    },
+    {
+      "cwe": 400,
+      "tools": [
+        "bandit",
+        "codeql",
+        "gosec",
+        "semgrep",
+        "snyk-code"
+      ],
+      "tool_count": 5
+    },
+    {
+      "cwe": 401,
+      "tools": [
+        "codeql",
+        "snyk-code",
+        "veracode-sast"
+      ],
+      "tool_count": 3
+    },
+    {
+      "cwe": 402,
+      "tools": [
+        "veracode-sast"
+      ],
+      "tool_count": 1
+    },
+    {
+      "cwe": 404,
+      "tools": [
+        "codeql",
+        "veracode-sast"
+      ],
+      "tool_count": 2
+    },
+    {
+      "cwe": 406,
+      "tools": [
+        "semgrep"
+      ],
+      "tool_count": 1
+    },
+    {
+      "cwe": 409,
+      "tools": [
+        "codeql"
+      ],
+      "tool_count": 1
+    },
+    {
+      "cwe": 413,
+      "tools": [
+        "codeql"
+      ],
+      "tool_count": 1
+    },
+    {
+      "cwe": 415,
+      "tools": [
+        "codeql",
+        "semgrep",
+        "snyk-code",
+        "veracode-sast"
+      ],
+      "tool_count": 4
+    },
+    {
+      "cwe": 416,
+      "tools": [
+        "codeql",
+        "semgrep",
+        "snyk-code",
+        "veracode-sast"
+      ],
+      "tool_count": 4
+    },
+    {
+      "cwe": 421,
+      "tools": [
+        "codeql",
+        "veracode-sast"
+      ],
+      "tool_count": 2
+    },
+    {
+      "cwe": 426,
+      "tools": [
+        "semgrep",
+        "veracode-sast"
+      ],
+      "tool_count": 2
+    },
+    {
+      "cwe": 427,
+      "tools": [
+        "semgrep",
+        "veracode-sast"
+      ],
+      "tool_count": 2
+    },
+    {
+      "cwe": 428,
+      "tools": [
+        "codeql"
+      ],
+      "tool_count": 1
+    },
+    {
+      "cwe": 434,
+      "tools": [
+        "codeql",
+        "veracode-sast"
+      ],
+      "tool_count": 2
+    },
+    {
+      "cwe": 436,
+      "tools": [
+        "semgrep"
+      ],
+      "tool_count": 1
+    },
+    {
+      "cwe": 441,
+      "tools": [
+        "codeql",
+        "semgrep",
+        "veracode-sast"
+      ],
+      "tool_count": 3
+    },
+    {
+      "cwe": 444,
+      "tools": [
+        "codeql",
+        "semgrep"
+      ],
+      "tool_count": 2
+    },
+    {
+      "cwe": 451,
+      "tools": [
+        "codeql",
+        "semgrep",
+        "veracode-sast"
+      ],
+      "tool_count": 3
+    },
+    {
+      "cwe": 453,
+      "tools": [
+        "snyk-code"
+      ],
+      "tool_count": 1
+    },
+    {
+      "cwe": 454,
+      "tools": [
+        "codeql",
+        "semgrep",
+        "veracode-sast"
+      ],
+      "tool_count": 3
+    },
+    {
+      "cwe": 456,
+      "tools": [
+        "codeql"
+      ],
+      "tool_count": 1
+    },
+    {
+      "cwe": 457,
+      "tools": [
+        "codeql"
+      ],
+      "tool_count": 1
+    },
+    {
+      "cwe": 459,
+      "tools": [
+        "codeql"
+      ],
+      "tool_count": 1
+    },
+    {
+      "cwe": 460,
+      "tools": [
+        "codeql"
+      ],
+      "tool_count": 1
+    },
+    {
+      "cwe": 467,
+      "tools": [
+        "codeql"
+      ],
+      "tool_count": 1
+    },
+    {
+      "cwe": 468,
+      "tools": [
+        "codeql"
+      ],
+      "tool_count": 1
+    },
+    {
+      "cwe": 470,
+      "tools": [
+        "codeql",
+        "semgrep",
+        "snyk-code",
+        "veracode-sast"
+      ],
+      "tool_count": 4
+    },
+    {
+      "cwe": 471,
+      "tools": [
+        "codeql"
+      ],
+      "tool_count": 1
+    },
+    {
+      "cwe": 472,
+      "tools": [
+        "codeql",
+        "veracode-sast"
+      ],
+      "tool_count": 2
+    },
+    {
+      "cwe": 476,
+      "tools": [
+        "codeql",
+        "snyk-code"
+      ],
+      "tool_count": 2
+    },
+    {
+      "cwe": 477,
+      "tools": [
+        "codeql",
+        "semgrep",
+        "veracode-sast"
+      ],
+      "tool_count": 3
+    },
+    {
+      "cwe": 478,
+      "tools": [
+        "codeql"
+      ],
+      "tool_count": 1
+    },
+    {
+      "cwe": 479,
+      "tools": [
+        "veracode-sast"
+      ],
+      "tool_count": 1
+    },
+    {
+      "cwe": 480,
+      "tools": [
+        "codeql"
+      ],
+      "tool_count": 1
+    },
+    {
+      "cwe": 481,
+      "tools": [
+        "codeql"
+      ],
+      "tool_count": 1
+    },
+    {
+      "cwe": 482,
+      "tools": [
+        "codeql"
+      ],
+      "tool_count": 1
+    },
+    {
+      "cwe": 483,
+      "tools": [
+        "codeql"
+      ],
+      "tool_count": 1
+    },
+    {
+      "cwe": 484,
+      "tools": [
+        "codeql"
+      ],
+      "tool_count": 1
+    },
+    {
+      "cwe": 485,
+      "tools": [
+        "codeql"
+      ],
+      "tool_count": 1
+    },
+    {
+      "cwe": 486,
+      "tools": [
+        "codeql"
+      ],
+      "tool_count": 1
+    },
+    {
+      "cwe": 489,
+      "tools": [
+        "codeql",
+        "semgrep",
+        "snyk-code",
+        "veracode-sast"
+      ],
+      "tool_count": 4
+    },
+    {
+      "cwe": 494,
+      "tools": [
+        "bandit",
+        "codeql"
+      ],
+      "tool_count": 2
+    },
+    {
+      "cwe": 497,
+      "tools": [
+        "codeql",
+        "veracode-sast"
+      ],
+      "tool_count": 2
+    },
+    {
+      "cwe": 499,
+      "tools": [
+        "codeql"
+      ],
+      "tool_count": 1
+    },
+    {
+      "cwe": 501,
+      "tools": [
+        "codeql",
+        "semgrep",
+        "snyk-code",
+        "veracode-sast"
+      ],
+      "tool_count": 4
+    },
+    {
+      "cwe": 502,
+      "tools": [
+        "bandit",
+        "codeql",
+        "gosec",
+        "semgrep",
+        "snyk-code",
+        "veracode-sast"
+      ],
+      "tool_count": 6
+    },
+    {
+      "cwe": 506,
+      "tools": [
+        "codeql",
+        "veracode-sast"
+      ],
+      "tool_count": 2
+    },
+    {
+      "cwe": 509,
+      "tools": [
+        "semgrep"
+      ],
+      "tool_count": 1
+    },
+    {
+      "cwe": 511,
+      "tools": [
+        "veracode-sast"
+      ],
+      "tool_count": 1
+    },
+    {
+      "cwe": 514,
+      "tools": [
+        "veracode-sast"
+      ],
+      "tool_count": 1
+    },
+    {
+      "cwe": 521,
+      "tools": [
+        "semgrep",
+        "snyk-code"
+      ],
+      "tool_count": 2
+    },
+    {
+      "cwe": 522,
+      "tools": [
+        "codeql",
+        "semgrep",
+        "veracode-sast"
+      ],
+      "tool_count": 3
+    },
+    {
+      "cwe": 523,
+      "tools": [
+        "codeql",
+        "semgrep"
+      ],
+      "tool_count": 2
+    },
+    {
+      "cwe": 524,
+      "tools": [
+        "codeql"
+      ],
+      "tool_count": 1
+    },
+    {
+      "cwe": 525,
+      "tools": [
+        "codeql"
+      ],
+      "tool_count": 1
+    },
+    {
+      "cwe": 526,
+      "tools": [
+        "veracode-sast"
+      ],
+      "tool_count": 1
+    },
+    {
+      "cwe": 530,
+      "tools": [
+        "veracode-sast"
+      ],
+      "tool_count": 1
+    },
+    {
+      "cwe": 532,
+      "tools": [
+        "codeql",
+        "semgrep",
+        "snyk-code",
+        "veracode-sast"
+      ],
+      "tool_count": 4
+    },
+    {
+      "cwe": 538,
+      "tools": [
+        "semgrep",
+        "veracode-sast"
+      ],
+      "tool_count": 2
+    },
+    {
+      "cwe": 539,
+      "tools": [
+        "codeql"
+      ],
+      "tool_count": 1
+    },
+    {
+      "cwe": 540,
+      "tools": [
+        "semgrep"
+      ],
+      "tool_count": 1
+    },
+    {
+      "cwe": 543,
+      "tools": [
+        "codeql"
+      ],
+      "tool_count": 1
+    },
+    {
+      "cwe": 546,
+      "tools": [
+        "codeql"
+      ],
+      "tool_count": 1
+    },
+    {
+      "cwe": 547,
+      "tools": [
+        "snyk-code",
+        "veracode-sast"
+      ],
+      "tool_count": 2
+    },
+    {
+      "cwe": 548,
+      "tools": [
+        "codeql",
+        "semgrep",
+        "veracode-sast"
+      ],
+      "tool_count": 3
+    },
+    {
+      "cwe": 552,
+      "tools": [
+        "codeql"
+      ],
+      "tool_count": 1
+    },
+    {
+      "cwe": 553,
+      "tools": [
+        "semgrep"
+      ],
+      "tool_count": 1
+    },
+    {
+      "cwe": 554,
+      "tools": [
+        "snyk-code"
+      ],
+      "tool_count": 1
+    },
+    {
+      "cwe": 555,
+      "tools": [
+        "codeql"
+      ],
+      "tool_count": 1
+    },
+    {
+      "cwe": 557,
+      "tools": [
+        "veracode-sast"
+      ],
+      "tool_count": 1
+    },
+    {
+      "cwe": 560,
+      "tools": [
+        "codeql",
+        "veracode-sast"
+      ],
+      "tool_count": 2
+    },
+    {
+      "cwe": 561,
+      "tools": [
+        "codeql"
+      ],
+      "tool_count": 1
+    },
+    {
+      "cwe": 562,
+      "tools": [
+        "codeql"
+      ],
+      "tool_count": 1
+    },
+    {
+      "cwe": 563,
+      "tools": [
+        "codeql"
+      ],
+      "tool_count": 1
+    },
+    {
+      "cwe": 564,
+      "tools": [
+        "codeql",
+        "veracode-sast"
+      ],
+      "tool_count": 2
+    },
+    {
+      "cwe": 566,
+      "tools": [
+        "veracode-sast"
+      ],
+      "tool_count": 1
+    },
+    {
+      "cwe": 567,
+      "tools": [
+        "codeql"
+      ],
+      "tool_count": 1
+    },
+    {
+      "cwe": 568,
+      "tools": [
+        "codeql"
+      ],
+      "tool_count": 1
+    },
+    {
+      "cwe": 570,
+      "tools": [
+        "codeql"
+      ],
+      "tool_count": 1
+    },
+    {
+      "cwe": 571,
+      "tools": [
+        "codeql"
+      ],
+      "tool_count": 1
+    },
+    {
+      "cwe": 572,
+      "tools": [
+        "codeql"
+      ],
+      "tool_count": 1
+    },
+    {
+      "cwe": 573,
+      "tools": [
+        "codeql"
+      ],
+      "tool_count": 1
+    },
+    {
+      "cwe": 574,
+      "tools": [
+        "codeql"
+      ],
+      "tool_count": 1
+    },
+    {
+      "cwe": 575,
+      "tools": [
+        "codeql"
+      ],
+      "tool_count": 1
+    },
+    {
+      "cwe": 576,
+      "tools": [
+        "codeql"
+      ],
+      "tool_count": 1
+    },
+    {
+      "cwe": 577,
+      "tools": [
+        "codeql"
+      ],
+      "tool_count": 1
+    },
+    {
+      "cwe": 578,
+      "tools": [
+        "codeql"
+      ],
+      "tool_count": 1
+    },
+    {
+      "cwe": 580,
+      "tools": [
+        "codeql"
+      ],
+      "tool_count": 1
+    },
+    {
+      "cwe": 581,
+      "tools": [
+        "codeql"
+      ],
+      "tool_count": 1
+    },
+    {
+      "cwe": 582,
+      "tools": [
+        "codeql"
+      ],
+      "tool_count": 1
+    },
+    {
+      "cwe": 584,
+      "tools": [
+        "codeql"
+      ],
+      "tool_count": 1
+    },
+    {
+      "cwe": 585,
+      "tools": [
+        "codeql"
+      ],
+      "tool_count": 1
+    },
+    {
+      "cwe": 586,
+      "tools": [
+        "codeql"
+      ],
+      "tool_count": 1
+    },
+    {
+      "cwe": 595,
+      "tools": [
+        "codeql"
+      ],
+      "tool_count": 1
+    },
+    {
+      "cwe": 597,
+      "tools": [
+        "codeql",
+        "veracode-sast"
+      ],
+      "tool_count": 2
+    },
+    {
+      "cwe": 598,
+      "tools": [
+        "codeql",
+        "semgrep"
+      ],
+      "tool_count": 2
+    },
+    {
+      "cwe": 600,
+      "tools": [
+        "codeql"
+      ],
+      "tool_count": 1
+    },
+    {
+      "cwe": 601,
+      "tools": [
+        "codeql",
+        "gosec",
+        "semgrep",
+        "snyk-code",
+        "veracode-sast"
+      ],
+      "tool_count": 5
+    },
+    {
+      "cwe": 605,
+      "tools": [
+        "bandit"
+      ],
+      "tool_count": 1
+    },
+    {
+      "cwe": 606,
+      "tools": [
+        "snyk-code"
+      ],
+      "tool_count": 1
+    },
+    {
+      "cwe": 609,
+      "tools": [
+        "codeql"
+      ],
+      "tool_count": 1
+    },
+    {
+      "cwe": 610,
+      "tools": [
+        "codeql"
+      ],
+      "tool_count": 1
+    },
+    {
+      "cwe": 611,
+      "tools": [
+        "codeql",
+        "semgrep",
+        "snyk-code",
+        "veracode-sast"
+      ],
+      "tool_count": 4
+    },
+    {
+      "cwe": 613,
+      "tools": [
+        "semgrep",
+        "snyk-code"
+      ],
+      "tool_count": 2
+    },
+    {
+      "cwe": 614,
+      "tools": [
+        "codeql",
+        "semgrep",
+        "snyk-code",
+        "veracode-sast"
+      ],
+      "tool_count": 4
+    },
+    {
+      "cwe": 615,
+      "tools": [
+        "veracode-sast"
+      ],
+      "tool_count": 1
+    },
+    {
+      "cwe": 618,
+      "tools": [
+        "veracode-sast"
+      ],
+      "tool_count": 1
+    },
+    {
+      "cwe": 620,
+      "tools": [
+        "snyk-code"
+      ],
+      "tool_count": 1
+    },
+    {
+      "cwe": 625,
+      "tools": [
+        "codeql"
+      ],
+      "tool_count": 1
+    },
+    {
+      "cwe": 628,
+      "tools": [
+        "codeql",
+        "veracode-sast"
+      ],
+      "tool_count": 2
+    },
+    {
+      "cwe": 639,
+      "tools": [
+        "codeql",
+        "semgrep",
+        "veracode-sast"
+      ],
+      "tool_count": 3
+    },
+    {
+      "cwe": 640,
+      "tools": [
+        "codeql",
+        "snyk-code"
+      ],
+      "tool_count": 2
+    },
+    {
+      "cwe": 642,
+      "tools": [
+        "veracode-sast"
+      ],
+      "tool_count": 1
+    },
+    {
+      "cwe": 643,
+      "tools": [
+        "codeql",
+        "semgrep",
+        "snyk-code"
+      ],
+      "tool_count": 3
+    },
+    {
+      "cwe": 650,
+      "tools": [
+        "semgrep"
+      ],
+      "tool_count": 1
+    },
+    {
+      "cwe": 652,
+      "tools": [
+        "codeql"
+      ],
+      "tool_count": 1
+    },
+    {
+      "cwe": 656,
+      "tools": [
+        "veracode-sast"
+      ],
+      "tool_count": 1
+    },
+    {
+      "cwe": 662,
+      "tools": [
+        "codeql"
+      ],
+      "tool_count": 1
+    },
+    {
+      "cwe": 664,
+      "tools": [
+        "codeql"
+      ],
+      "tool_count": 1
+    },
+    {
+      "cwe": 665,
+      "tools": [
+        "codeql",
+        "veracode-sast"
+      ],
+      "tool_count": 2
+    },
+    {
+      "cwe": 666,
+      "tools": [
+        "codeql"
+      ],
+      "tool_count": 1
+    },
+    {
+      "cwe": 668,
+      "tools": [
+        "semgrep",
+        "snyk-code",
+        "veracode-sast"
+      ],
+      "tool_count": 3
+    },
+    {
+      "cwe": 670,
+      "tools": [
+        "codeql"
+      ],
+      "tool_count": 1
+    },
+    {
+      "cwe": 673,
+      "tools": [
+        "semgrep"
+      ],
+      "tool_count": 1
+    },
+    {
+      "cwe": 675,
+      "tools": [
+        "codeql",
+        "veracode-sast"
+      ],
+      "tool_count": 2
+    },
+    {
+      "cwe": 676,
+      "tools": [
+        "codeql",
+        "semgrep",
+        "snyk-code",
+        "veracode-sast"
+      ],
+      "tool_count": 4
+    },
+    {
+      "cwe": 681,
+      "tools": [
+        "codeql"
+      ],
+      "tool_count": 1
+    },
+    {
+      "cwe": 682,
+      "tools": [
+        "semgrep"
+      ],
+      "tool_count": 1
+    },
+    {
+      "cwe": 685,
+      "tools": [
+        "codeql"
+      ],
+      "tool_count": 1
+    },
+    {
+      "cwe": 686,
+      "tools": [
+        "codeql"
+      ],
+      "tool_count": 1
+    },
+    {
+      "cwe": 687,
+      "tools": [
+        "codeql"
+      ],
+      "tool_count": 1
+    },
+    {
+      "cwe": 688,
+      "tools": [
+        "semgrep"
+      ],
+      "tool_count": 1
+    },
+    {
+      "cwe": 691,
+      "tools": [
+        "codeql",
+        "veracode-sast"
+      ],
+      "tool_count": 2
+    },
+    {
+      "cwe": 693,
+      "tools": [
+        "codeql",
+        "semgrep",
+        "snyk-code",
+        "veracode-sast"
+      ],
+      "tool_count": 4
+    },
+    {
+      "cwe": 696,
+      "tools": [
+        "codeql"
+      ],
+      "tool_count": 1
+    },
+    {
+      "cwe": 697,
+      "tools": [
+        "semgrep"
+      ],
+      "tool_count": 1
+    },
+    {
+      "cwe": 703,
+      "tools": [
+        "bandit",
+        "codeql"
+      ],
+      "tool_count": 2
+    },
+    {
+      "cwe": 704,
+      "tools": [
+        "codeql",
+        "semgrep"
+      ],
+      "tool_count": 2
+    },
+    {
+      "cwe": 706,
+      "tools": [
+        "semgrep"
+      ],
+      "tool_count": 1
+    },
+    {
+      "cwe": 708,
+      "tools": [
+        "veracode-sast"
+      ],
+      "tool_count": 1
+    },
+    {
+      "cwe": 730,
+      "tools": [
+        "codeql",
+        "snyk-code"
+      ],
+      "tool_count": 2
+    },
+    {
+      "cwe": 732,
+      "tools": [
+        "bandit",
+        "codeql",
+        "semgrep",
+        "snyk-code",
+        "veracode-sast"
+      ],
+      "tool_count": 5
+    },
+    {
+      "cwe": 749,
+      "tools": [
+        "codeql",
+        "semgrep",
+        "veracode-sast"
+      ],
+      "tool_count": 3
+    },
+    {
+      "cwe": 754,
+      "tools": [
+        "codeql",
+        "semgrep"
+      ],
+      "tool_count": 2
+    },
+    {
+      "cwe": 755,
+      "tools": [
+        "codeql",
+        "snyk-code"
+      ],
+      "tool_count": 2
+    },
+    {
+      "cwe": 757,
+      "tools": [
+        "codeql",
+        "snyk-code",
+        "veracode-sast"
+      ],
+      "tool_count": 3
+    },
+    {
+      "cwe": 758,
+      "tools": [
+        "codeql"
+      ],
+      "tool_count": 1
+    },
+    {
+      "cwe": 759,
+      "tools": [
+        "codeql"
+      ],
+      "tool_count": 1
+    },
+    {
+      "cwe": 760,
+      "tools": [
+        "codeql",
+        "veracode-sast"
+      ],
+      "tool_count": 2
+    },
+    {
+      "cwe": 764,
+      "tools": [
+        "codeql"
+      ],
+      "tool_count": 1
+    },
+    {
+      "cwe": 770,
+      "tools": [
+        "codeql",
+        "semgrep",
+        "snyk-code"
+      ],
+      "tool_count": 3
+    },
+    {
+      "cwe": 772,
+      "tools": [
+        "codeql"
+      ],
+      "tool_count": 1
+    },
+    {
+      "cwe": 774,
+      "tools": [
+        "semgrep"
+      ],
+      "tool_count": 1
+    },
+    {
+      "cwe": 775,
+      "tools": [
+        "codeql",
+        "snyk-code"
+      ],
+      "tool_count": 2
+    },
+    {
+      "cwe": 776,
+      "tools": [
+        "codeql",
+        "semgrep"
+      ],
+      "tool_count": 2
+    },
+    {
+      "cwe": 778,
+      "tools": [
+        "semgrep"
+      ],
+      "tool_count": 1
+    },
+    {
+      "cwe": 779,
+      "tools": [
+        "semgrep"
+      ],
+      "tool_count": 1
+    },
+    {
+      "cwe": 780,
+      "tools": [
+        "codeql",
+        "semgrep",
+        "veracode-sast"
+      ],
+      "tool_count": 3
+    },
+    {
+      "cwe": 783,
+      "tools": [
+        "codeql"
+      ],
+      "tool_count": 1
+    },
+    {
+      "cwe": 787,
+      "tools": [
+        "codeql",
+        "semgrep",
+        "snyk-code",
+        "veracode-sast"
+      ],
+      "tool_count": 4
+    },
+    {
+      "cwe": 788,
+      "tools": [
+        "codeql"
+      ],
+      "tool_count": 1
+    },
+    {
+      "cwe": 789,
+      "tools": [
+        "codeql"
+      ],
+      "tool_count": 1
+    },
+    {
+      "cwe": 798,
+      "tools": [
+        "codeql",
+        "semgrep",
+        "snyk-code",
+        "veracode-sast"
+      ],
+      "tool_count": 4
+    },
+    {
+      "cwe": 805,
+      "tools": [
+        "codeql"
+      ],
+      "tool_count": 1
+    },
+    {
+      "cwe": 807,
+      "tools": [
+        "codeql",
+        "semgrep"
+      ],
+      "tool_count": 2
+    },
+    {
+      "cwe": 820,
+      "tools": [
+        "codeql"
+      ],
+      "tool_count": 1
+    },
+    {
+      "cwe": 822,
+      "tools": [
+        "snyk-code"
+      ],
+      "tool_count": 1
+    },
+    {
+      "cwe": 823,
+      "tools": [
+        "codeql",
+        "veracode-sast"
+      ],
+      "tool_count": 2
+    },
+    {
+      "cwe": 824,
+      "tools": [
+        "veracode-sast"
+      ],
+      "tool_count": 1
+    },
+    {
+      "cwe": 825,
+      "tools": [
+        "codeql"
+      ],
+      "tool_count": 1
+    },
+    {
+      "cwe": 826,
+      "tools": [
+        "codeql"
+      ],
+      "tool_count": 1
+    },
+    {
+      "cwe": 827,
+      "tools": [
+        "codeql"
+      ],
+      "tool_count": 1
+    },
+    {
+      "cwe": 829,
+      "tools": [
+        "codeql",
+        "semgrep",
+        "veracode-sast"
+      ],
+      "tool_count": 3
+    },
+    {
+      "cwe": 830,
+      "tools": [
+        "codeql",
+        "veracode-sast"
+      ],
+      "tool_count": 2
+    },
+    {
+      "cwe": 833,
+      "tools": [
+        "codeql"
+      ],
+      "tool_count": 1
+    },
+    {
+      "cwe": 834,
+      "tools": [
+        "codeql"
+      ],
+      "tool_count": 1
+    },
+    {
+      "cwe": 835,
+      "tools": [
+        "codeql",
+        "semgrep"
+      ],
+      "tool_count": 2
+    },
+    {
+      "cwe": 837,
+      "tools": [
+        "semgrep"
+      ],
+      "tool_count": 1
+    },
+    {
+      "cwe": 838,
+      "tools": [
+        "bandit",
+        "codeql"
+      ],
+      "tool_count": 2
+    },
+    {
+      "cwe": 840,
+      "tools": [
+        "codeql"
+      ],
+      "tool_count": 1
+    },
+    {
+      "cwe": 841,
+      "tools": [
+        "semgrep"
+      ],
+      "tool_count": 1
+    },
+    {
+      "cwe": 843,
+      "tools": [
+        "codeql"
+      ],
+      "tool_count": 1
+    },
+    {
+      "cwe": 862,
+      "tools": [
+        "codeql",
+        "semgrep",
+        "snyk-code",
+        "veracode-sast"
+      ],
+      "tool_count": 4
+    },
+    {
+      "cwe": 863,
+      "tools": [
+        "codeql",
+        "semgrep"
+      ],
+      "tool_count": 2
+    },
+    {
+      "cwe": 908,
+      "tools": [
+        "codeql"
+      ],
+      "tool_count": 1
+    },
+    {
+      "cwe": 910,
+      "tools": [
+        "snyk-code"
+      ],
+      "tool_count": 1
+    },
+    {
+      "cwe": 912,
+      "tools": [
+        "codeql"
+      ],
+      "tool_count": 1
+    },
+    {
+      "cwe": 913,
+      "tools": [
+        "semgrep"
+      ],
+      "tool_count": 1
+    },
+    {
+      "cwe": 915,
+      "tools": [
+        "codeql",
+        "semgrep",
+        "snyk-code",
+        "veracode-sast"
+      ],
+      "tool_count": 4
+    },
+    {
+      "cwe": 916,
+      "tools": [
+        "codeql",
+        "semgrep",
+        "snyk-code",
+        "veracode-sast"
+      ],
+      "tool_count": 4
+    },
+    {
+      "cwe": 917,
+      "tools": [
+        "codeql"
+      ],
+      "tool_count": 1
+    },
+    {
+      "cwe": 918,
+      "tools": [
+        "codeql",
+        "gosec",
+        "semgrep",
+        "snyk-code",
+        "veracode-sast"
+      ],
+      "tool_count": 5
+    },
+    {
+      "cwe": 921,
+      "tools": [
+        "semgrep"
+      ],
+      "tool_count": 1
+    },
+    {
+      "cwe": 922,
+      "tools": [
+        "semgrep",
+        "snyk-code"
+      ],
+      "tool_count": 2
+    },
+    {
+      "cwe": 923,
+      "tools": [
+        "semgrep",
+        "veracode-sast"
+      ],
+      "tool_count": 2
+    },
+    {
+      "cwe": 925,
+      "tools": [
+        "codeql"
+      ],
+      "tool_count": 1
+    },
+    {
+      "cwe": 926,
+      "tools": [
+        "codeql",
+        "semgrep",
+        "veracode-sast"
+      ],
+      "tool_count": 3
+    },
+    {
+      "cwe": 927,
+      "tools": [
+        "codeql"
+      ],
+      "tool_count": 1
+    },
+    {
+      "cwe": 939,
+      "tools": [
+        "codeql",
+        "semgrep"
+      ],
+      "tool_count": 2
+    },
+    {
+      "cwe": 940,
+      "tools": [
+        "codeql",
+        "snyk-code"
+      ],
+      "tool_count": 2
+    },
+    {
+      "cwe": 942,
+      "tools": [
+        "codeql",
+        "semgrep",
+        "snyk-code",
+        "veracode-sast"
+      ],
+      "tool_count": 4
+    },
+    {
+      "cwe": 943,
+      "tools": [
+        "codeql",
+        "semgrep",
+        "snyk-code",
+        "veracode-sast"
+      ],
+      "tool_count": 4
+    },
+    {
+      "cwe": 1004,
+      "tools": [
+        "codeql",
+        "semgrep",
+        "snyk-code"
+      ],
+      "tool_count": 3
+    },
+    {
+      "cwe": 1021,
+      "tools": [
+        "codeql",
+        "semgrep",
+        "snyk-code"
+      ],
+      "tool_count": 3
+    },
+    {
+      "cwe": 1022,
+      "tools": [
+        "codeql",
+        "semgrep"
+      ],
+      "tool_count": 2
+    },
+    {
+      "cwe": 1041,
+      "tools": [
+        "codeql"
+      ],
+      "tool_count": 1
+    },
+    {
+      "cwe": 1071,
+      "tools": [
+        "codeql"
+      ],
+      "tool_count": 1
+    },
+    {
+      "cwe": 1078,
+      "tools": [
+        "codeql"
+      ],
+      "tool_count": 1
+    },
+    {
+      "cwe": 1104,
+      "tools": [
+        "codeql",
+        "semgrep",
+        "snyk-code"
+      ],
+      "tool_count": 3
+    },
+    {
+      "cwe": 1125,
+      "tools": [
+        "veracode-sast"
+      ],
+      "tool_count": 1
+    },
+    {
+      "cwe": 1126,
+      "tools": [
+        "codeql"
+      ],
+      "tool_count": 1
+    },
+    {
+      "cwe": 1174,
+      "tools": [
+        "veracode-sast"
+      ],
+      "tool_count": 1
+    },
+    {
+      "cwe": 1176,
+      "tools": [
+        "codeql"
+      ],
+      "tool_count": 1
+    },
+    {
+      "cwe": 1188,
+      "tools": [
+        "semgrep"
+      ],
+      "tool_count": 1
+    },
+    {
+      "cwe": 1204,
+      "tools": [
+        "codeql",
+        "semgrep"
+      ],
+      "tool_count": 2
+    },
+    {
+      "cwe": 1220,
+      "tools": [
+        "semgrep"
+      ],
+      "tool_count": 1
+    },
+    {
+      "cwe": 1236,
+      "tools": [
+        "codeql",
+        "semgrep",
+        "veracode-sast"
+      ],
+      "tool_count": 3
+    },
+    {
+      "cwe": 1240,
+      "tools": [
+        "codeql"
+      ],
+      "tool_count": 1
+    },
+    {
+      "cwe": 1275,
+      "tools": [
+        "codeql",
+        "semgrep"
+      ],
+      "tool_count": 2
+    },
+    {
+      "cwe": 1285,
+      "tools": [
+        "semgrep",
+        "snyk-code"
+      ],
+      "tool_count": 2
+    },
+    {
+      "cwe": 1286,
+      "tools": [
+        "snyk-code"
+      ],
+      "tool_count": 1
+    },
+    {
+      "cwe": 1287,
+      "tools": [
+        "semgrep",
+        "snyk-code"
+      ],
+      "tool_count": 2
+    },
+    {
+      "cwe": 1321,
+      "tools": [
+        "snyk-code"
+      ],
+      "tool_count": 1
+    },
+    {
+      "cwe": 1323,
+      "tools": [
+        "semgrep"
+      ],
+      "tool_count": 1
+    },
+    {
+      "cwe": 1330,
+      "tools": [
+        "snyk-code"
+      ],
+      "tool_count": 1
+    },
+    {
+      "cwe": 1333,
+      "tools": [
+        "codeql",
+        "semgrep"
+      ],
+      "tool_count": 2
+    },
+    {
+      "cwe": 1336,
+      "tools": [
+        "codeql",
+        "semgrep",
+        "veracode-sast"
+      ],
+      "tool_count": 3
+    },
+    {
+      "cwe": 1357,
+      "tools": [
+        "semgrep",
+        "veracode-sast"
+      ],
+      "tool_count": 2
+    },
+    {
+      "cwe": 1390,
+      "tools": [
+        "semgrep"
+      ],
+      "tool_count": 1
+    },
+    {
+      "cwe": 1427,
+      "tools": [
+        "codeql",
+        "veracode-sast"
+      ],
+      "tool_count": 2
+    }
+  ]
+}
