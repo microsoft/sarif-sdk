@@ -71,8 +71,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 //                                    same span by offset, not just
                 //                                    line/column.
                 //
-                // OverwriteExistingData is intentionally NOT set; producers that
-                // have already populated any of these fields keep their values.
+                // OverwriteExistingData is intentionally NOT set. Beyond preserving any
+                // fields a producer already populated, leaving it unset also validates
+                // recomputed region coordinates: if a producer authored a region coordinate
+                // that does not match the source text, emit-finalize fails (ArgumentException)
+                // rather than silently shipping a region that points at the wrong span. A
+                // caller that wants divergent coordinates recomputed (overwritten) instead
+                // would set OverwriteExistingData.
                 OptionallyEmittedData enrichmentFlags =
                     OptionallyEmittedData.Hashes |
                     OptionallyEmittedData.RegionSnippets |
