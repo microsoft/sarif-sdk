@@ -445,6 +445,107 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests
         }
 
         [Fact]
+        public void FileRegionsCache_DivergentAuthoredCoordinate_ThrowsWhenNotOverwriting()
+        {
+            var fileRegionsCache = new FileRegionsCache();
+            var uri = new Uri(@"c:\temp\DoesNotExist\" + Guid.NewGuid().ToString() + ".cpp");
+            string fileText = "12345\n56790\n";
+
+            // Char-offset-based region addressing the first character of line 2
+            // (offset 6, length 1). The authored EndColumn (99) diverges from the
+            // value the SDK computes from the source text (2).
+            var divergentRegion = new Region
+            {
+                CharOffset = 6,
+                CharLength = 1,
+                EndColumn = 99
+            };
+
+            // Default (overwriteExistingData: false): a divergent authored coordinate is an
+            // error, surfaced as an ArgumentException naming the offending input parameter
+            // rather than silently shipping a region pointing at the wrong span.
+            Action validate = () => fileRegionsCache.PopulateTextRegionProperties(
+                divergentRegion, uri, populateSnippet: false, fileText: fileText);
+
+            validate.Should().Throw<ArgumentException>()
+                .Which.ParamName.Should().Be("inputRegion");
+        }
+
+        [Fact]
+        public void FileRegionsCache_DivergentAuthoredCoordinate_RecomputedWhenOverwriting()
+        {
+            var fileRegionsCache = new FileRegionsCache();
+            var uri = new Uri(@"c:\temp\DoesNotExist\" + Guid.NewGuid().ToString() + ".cpp");
+            string fileText = "12345\n56790\n";
+
+            var divergentRegion = new Region
+            {
+                CharOffset = 6,
+                CharLength = 1,
+                EndColumn = 99
+            };
+
+            // overwriteExistingData: true: the divergent authored value is overwritten with
+            // the value computed from the source text (EndColumn 2), instead of throwing or
+            // being silently kept.
+            Region overwritten = fileRegionsCache.PopulateTextRegionProperties(
+                divergentRegion, uri, populateSnippet: false, fileText: fileText, overwriteExistingData: true);
+
+            overwritten.EndColumn.Should().Be(2);
+        }
+
+        [Fact]
+        public void FileRegionsCache_ExactAuthoredCoordinates_SurviveBothModes()
+        {
+            var fileRegionsCache = new FileRegionsCache();
+            var uri = new Uri(@"c:\temp\DoesNotExist\" + Guid.NewGuid().ToString() + ".cpp");
+            string fileText = "12345\n56790\n";
+
+            // Fully-specified region that exactly matches the source text. Both modes must
+            // accept authored coordinates that agree with the computed values unchanged.
+            var exactRegion = new Region
+            {
+                CharOffset = 6,
+                CharLength = 1,
+                StartLine = 2,
+                EndLine = 2,
+                StartColumn = 1,
+                EndColumn = 2
+            };
+
+            Region validated = fileRegionsCache.PopulateTextRegionProperties(
+                exactRegion, uri, populateSnippet: false, fileText: fileText);
+            validated.ValueEquals(exactRegion).Should().BeTrue();
+
+            Region overwritten = fileRegionsCache.PopulateTextRegionProperties(
+                exactRegion, uri, populateSnippet: false, fileText: fileText, overwriteExistingData: true);
+            overwritten.ValueEquals(exactRegion).Should().BeTrue();
+        }
+
+        [Fact]
+        public void FileRegionsCache_BinaryRegion_IsReturnedUnvalidated()
+        {
+            var fileRegionsCache = new FileRegionsCache();
+            var uri = new Uri(@"c:\temp\DoesNotExist\" + Guid.NewGuid().ToString() + ".dll");
+            string fileText = "12345\n56790\n";
+
+            // Binary regions are addressed purely by byteOffset/byteLength; the SDK never
+            // computes text coordinates for them, so there is nothing to reconcile. Even in
+            // the default (non-overwriting) mode that throws on divergent text coordinates,
+            // a binary region must be returned untouched rather than validated or rejected.
+            var binaryRegion = new Region
+            {
+                ByteOffset = 6,
+                ByteLength = 1
+            };
+
+            Region result = fileRegionsCache.PopulateTextRegionProperties(
+                binaryRegion, uri, populateSnippet: true, fileText: fileText);
+
+            result.ValueEquals(binaryRegion).Should().BeTrue();
+        }
+
+        [Fact]
         public void FileRegionsCache_PopulatesContextRegions()
         {
             string sentinel = "baz";
