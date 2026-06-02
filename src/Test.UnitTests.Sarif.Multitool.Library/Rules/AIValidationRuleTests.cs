@@ -576,10 +576,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
         #endregion
 
-        #region AI2011 — DoNotPersistFingerprints
+        #region AI1007 / AI2011 — DoNotPersist(Partial)Fingerprints
 
         [Fact]
-        public void AI2011_WhenPartialFingerprintsPresent_ReportsNote()
+        public void AI2011_WhenPartialFingerprintsPresent_ReportsWarning()
         {
             SarifLog log = CreateValidAISarifLog();
             SetAIOrigin(log, "generated");
@@ -594,11 +594,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             List<Result> results = GetResultsForRule(output, "AI2011");
 
             results.Should().NotBeEmpty();
-            results[0].Level.Should().Be(FailureLevel.Note);
+            results[0].Level.Should().Be(FailureLevel.Warning);
+
+            // The Error-level fingerprints rule must NOT fire on partial fingerprints.
+            GetResultsForRule(output, "AI1007").Should().BeEmpty();
         }
 
         [Fact]
-        public void AI2011_WhenFingerprintsPresent_ReportsNote()
+        public void AI1007_WhenFingerprintsPresent_ReportsError()
         {
             SarifLog log = CreateValidAISarifLog();
             SetAIOrigin(log, "generated");
@@ -610,14 +613,17 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             };
 
             SarifLog output = RunAIValidation(log);
-            List<Result> results = GetResultsForRule(output, "AI2011");
+            List<Result> results = GetResultsForRule(output, "AI1007");
 
             results.Should().NotBeEmpty();
-            results[0].Level.Should().Be(FailureLevel.Note);
+            results[0].Level.Should().Be(FailureLevel.Error);
+
+            // The Warning-level partial-fingerprints rule must NOT fire on fingerprints.
+            GetResultsForRule(output, "AI2011").Should().BeEmpty();
         }
 
         [Fact]
-        public void AI2011_WhenNoFingerprints_NoResult()
+        public void AI1007_AI2011_WhenNoFingerprints_NoResult()
         {
             SarifLog log = CreateValidAISarifLog();
             SetAIOrigin(log, "generated");
@@ -625,9 +631,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             SetAiHandoff(log, "tier 2 reached");
 
             SarifLog output = RunAIValidation(log);
-            List<Result> results = GetResultsForRule(output, "AI2011");
 
-            results.Should().BeEmpty();
+            GetResultsForRule(output, "AI1007").Should().BeEmpty();
+            GetResultsForRule(output, "AI2011").Should().BeEmpty();
         }
 
         #endregion
@@ -722,7 +728,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 RuleId.AIProvideAutomationDetails, // AI2005
                 RuleId.AIProvideMessageMarkdown,   // AI1005
                 RuleId.AIProvideResultRank,         // AI2010
-                RuleId.AIDoNotPersistFingerprints,  // AI2011
+                RuleId.AIDoNotPersistFingerprints,  // AI1007
+                RuleId.AIDoNotPersistPartialFingerprints,  // AI2011
                 RuleId.AIProvideAiHandoff,          // AI2012
                 RuleId.AIRedactedRunMarker,         // AI1011
                 RuleId.AIProvideNotificationDescriptor,    // AI2017
@@ -731,13 +738,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 RuleId.AIProvideNotificationTimestamp,      // AI2019
             };
 
-            ruleIds.Should().HaveCount(19);
+            ruleIds.Should().HaveCount(20);
             ruleIds.Should().Contain("AI1003");
             ruleIds.Should().Contain("AI1004");
             ruleIds.Should().Contain("AI2014");
             ruleIds.Should().Contain("AI2015");
             ruleIds.Should().Contain("AI2016");
             ruleIds.Should().Contain("AI1010");
+            ruleIds.Should().Contain("AI1007");
             ruleIds.Should().Contain("AI2011");
             ruleIds.Should().Contain("AI2012");
             ruleIds.Should().Contain("AI1011");
