@@ -1,0 +1,7 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/microsoft/sarif-sdk/main/src/Sarif.Multitool.Library/GetSchema/ai-invocation.schema.json",
+  "title": "SARIF AI emit profile \u2014 invocation object",
+  "description": "Input contract for a single SARIF invocation an AI producer supplies to the add-invocation verb. SARIF \u00a73.20 makes every invocation field optional, so the verb's receipt check is intentionally minimal: any JSON object is accepted. Whole-log invocation validation is enforced at emit-finalize --validate, not on a single invocation here.",
+  "type": "object"
+}

@@ -40,6 +40,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
         private static readonly JsonSchema s_resultSchema = LoadAiSchema("ai-result.schema.json");
         private static readonly JsonSchema s_runHeaderSchema = LoadAiSchema("ai-run-header.schema.json");
+        private static readonly JsonSchema s_notificationSchema = LoadAiSchema("ai-notification.schema.json");
+        private static readonly JsonSchema s_invocationSchema = LoadAiSchema("ai-invocation.schema.json");
+        private static readonly JsonSchema s_reportingDescriptorSchema = LoadAiSchema("ai-reporting-descriptor.schema.json");
+        private static readonly JsonSchema s_ruleDescriptorSchema = LoadAiSchema("ai-rule-descriptor.schema.json");
         private static readonly EvaluationOptions s_options = BuildOptions();
 
         private const string Guid = "12345678-1234-1234-1234-1234567890ab";
@@ -493,7 +497,191 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
         #endregion
 
+        #region ai-notification.schema.json
+
+        [Fact]
+        public void AINotificationSchema_AcceptsAnyObject_RejectsNonObject()
+        {
+            // add-notification's receipt check is object-only (EmitEventLogHelpers
+            // .TryReadJsonPayload). level is read for a console message but NOT
+            // validated, so a nonsense level is accepted. AI1013 (the only Error-level
+            // notification rule) is cross-document and deferred to emit-finalize, so an
+            // unresolved associatedRule.id is accepted here too.
+            var offenders = new List<string>();
+
+            var accepted = new (string Label, JsonObject Value)[]
+            {
+                ("empty-object", new JsonObject()),
+                ("nonsense-level", new JsonObject { ["level"] = "nonsense" }),
+                ("full-notification", new JsonObject
+                {
+                    ["level"] = "error",
+                    ["message"] = new JsonObject { ["text"] = "boom" },
+                    ["associatedRule"] = new JsonObject { ["id"] = "does-not-resolve" },
+                    ["timeUtc"] = "2024-01-01T00:00:00.000Z"
+                }),
+            };
+            foreach ((string label, JsonObject value) in accepted)
+            {
+                if (!Accepts(s_notificationSchema, value))
+                {
+                    offenders.Add($"  [{label}] expected ACCEPT");
+                }
+            }
+
+            CollectNonObjectRejections(s_notificationSchema, offenders);
+
+            offenders.Should().BeEmpty(
+                "ai-notification.schema.json must accept any JSON object (the verb's only receipt check) and " +
+                "reject non-objects. It must NOT import SARIF-base requireds (e.g. message) or AI1013's " +
+                "cross-document associatedRule resolution, which the verb does not enforce at receipt:\n" +
+                string.Join("\n", offenders));
+        }
+
+        #endregion
+
+        #region ai-invocation.schema.json
+
+        [Fact]
+        public void AIInvocationSchema_AcceptsAnyObject_RejectsNonObject()
+        {
+            // add-invocation's receipt check is object-only. SARIF §3.20 makes every
+            // invocation field optional, and the verb's own doc says a producer may
+            // omit executionSuccessful; it reads executionSuccessful only for a console
+            // message and treats a non-boolean as "<unset>", so a string value is
+            // accepted. The schema must not import the SARIF-base executionSuccessful
+            // required.
+            var offenders = new List<string>();
+
+            var accepted = new (string Label, JsonObject Value)[]
+            {
+                ("empty-object", new JsonObject()),
+                ("string-executionSuccessful", new JsonObject { ["executionSuccessful"] = "true" }),
+                ("partial-fields", new JsonObject { ["startTimeUtc"] = "2024-01-01T00:00:00.000Z" }),
+            };
+            foreach ((string label, JsonObject value) in accepted)
+            {
+                if (!Accepts(s_invocationSchema, value))
+                {
+                    offenders.Add($"  [{label}] expected ACCEPT");
+                }
+            }
+
+            CollectNonObjectRejections(s_invocationSchema, offenders);
+
+            offenders.Should().BeEmpty(
+                "ai-invocation.schema.json must accept any JSON object (the verb's only receipt check) and " +
+                "reject non-objects. It must NOT import the SARIF-base executionSuccessful required, which the " +
+                "verb deliberately leaves optional (§3.20):\n" + string.Join("\n", offenders));
+        }
+
+        #endregion
+
+        #region ai-reporting-descriptor.schema.json
+
+        [Fact]
+        public void AIReportingDescriptorSchema_RequiresNonEmptyStringId()
+        {
+            // add-reporting-descriptor requires a non-empty string id (SARIF §3.49.3),
+            // gating on string.IsNullOrEmpty — so whitespace-only is accepted but ""
+            // is not. Extra properties are accepted (the verb only inspects id).
+            var offenders = new List<string>();
+
+            void Expect(string label, JsonNode value, bool accept)
+            {
+                if (Accepts(s_reportingDescriptorSchema, value) != accept)
+                {
+                    offenders.Add($"  [{label}] expected accept={accept}");
+                }
+            }
+
+            Expect("id-taxonomy", new JsonObject { ["id"] = "CWE-89" }, true);
+            Expect("id-novel", new JsonObject { ["id"] = "NOVEL-foo" }, true);
+            Expect("id-arbitrary", new JsonObject { ["id"] = "anything" }, true);
+            Expect("id-whitespace", new JsonObject { ["id"] = "   " }, true);
+            Expect("id-with-extra-props", new JsonObject { ["id"] = "X", ["name"] = "X", ["unknown"] = 1 }, true);
+
+            Expect("no-id", new JsonObject { ["name"] = "X" }, false);
+            Expect("id-empty", new JsonObject { ["id"] = "" }, false);
+            Expect("id-null", new JsonObject { ["id"] = null }, false);
+            Expect("id-number", new JsonObject { ["id"] = 123 }, false);
+
+            CollectNonObjectRejections(s_reportingDescriptorSchema, offenders);
+
+            offenders.Should().BeEmpty(
+                "ai-reporting-descriptor.schema.json must require a non-empty string id (minLength:1 mirrors the " +
+                "verb's IsNullOrEmpty gate, so '   ' is accepted) and otherwise accept any object:\n" +
+                string.Join("\n", offenders));
+        }
+
+        #endregion
+
+        #region ai-rule-descriptor.schema.json
+
+        [Fact]
+        public void AIRuleDescriptorSchema_RequiresNovelPrefixId()
+        {
+            // The --rules path gates id on AIRuleIdConvention.IsNovel, which is
+            // PREFIX-ONLY (id.StartsWith("NOVEL-")). The schema pins that prefix, NOT
+            // the full novel grammar — so 'NOVEL-' and 'NOVEL-foo/bar' are accepted
+            // here even though the richer result-side ruleId grammar rejects them. That
+            // divergence is intentional: this is the receipt gate, not finalize.
+            var offenders = new List<string>();
+
+            void Expect(string label, JsonNode value, bool accept)
+            {
+                if (Accepts(s_ruleDescriptorSchema, value) != accept)
+                {
+                    offenders.Add($"  [{label}] expected accept={accept}");
+                }
+            }
+
+            Expect("novel-simple", new JsonObject { ["id"] = "NOVEL-prompt-injection" }, true);
+            Expect("novel-prefix-only", new JsonObject { ["id"] = "NOVEL-" }, true);
+            Expect("novel-with-slash", new JsonObject { ["id"] = "NOVEL-foo/bar" }, true);
+            Expect("novel-mixed-case-tail", new JsonObject { ["id"] = "NOVEL-mixedCase-123" }, true);
+
+            Expect("taxonomy-id", new JsonObject { ["id"] = "CWE-89" }, false);
+            Expect("novel-no-dash", new JsonObject { ["id"] = "NOVEL" }, false);
+            Expect("lowercase-prefix", new JsonObject { ["id"] = "novel-foo" }, false);
+            Expect("id-empty", new JsonObject { ["id"] = "" }, false);
+            Expect("no-id", new JsonObject { ["name"] = "X" }, false);
+            Expect("id-number", new JsonObject { ["id"] = 123 }, false);
+
+            CollectNonObjectRejections(s_ruleDescriptorSchema, offenders);
+
+            offenders.Should().BeEmpty(
+                "ai-rule-descriptor.schema.json must gate id on the NOVEL- prefix only (matching IsNovel), not " +
+                "the full novel grammar. The 'NOVEL-foo/bar' accept is the deliberate drift-catch separating the " +
+                "receipt prefix gate from the result-side grammar:\n" + string.Join("\n", offenders));
+        }
+
+        #endregion
+
         #region helpers
+
+        // The three thin-contract schemas pin "must be a JSON object" as their entire
+        // structural check. Each non-object instance must be REJECTED; a regression
+        // that loosened type:object (or imported a base $ref that changed the verdict)
+        // would surface here.
+        private static void CollectNonObjectRejections(JsonSchema schema, List<string> offenders)
+        {
+            var nonObjects = new (string Label, JsonNode Value)[]
+            {
+                ("array", new JsonArray()),
+                ("string", JsonValue.Create("x")),
+                ("number", JsonValue.Create(123)),
+                ("boolean", JsonValue.Create(true)),
+                ("null", null),
+            };
+            foreach ((string label, JsonNode value) in nonObjects)
+            {
+                if (Accepts(schema, value))
+                {
+                    offenders.Add($"  [non-object:{label}] expected REJECT");
+                }
+            }
+        }
 
         private static bool Accepts(JsonSchema schema, JsonNode instance)
         {
