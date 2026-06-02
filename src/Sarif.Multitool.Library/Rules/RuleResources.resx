@@ -823,18 +823,6 @@ Provide the 'help' property and populate the 'text' property with information ab
   <data name="AI1010_ProvideEvidenceBackingUri_Error_Default_Text" xml:space="preserve">
     <value>{0}: The 'ai/evidence' entry at index {1} has a 'backing' value of '{2}' which uses the 'sarif:' URI scheme but does not resolve to a valid element in the log file.</value>
   </data>
-  <data name="AI1011_RedactedRunMarker_FullDescription_Text" xml:space="preserve">
-    <value>The 'ai/redacted' property in 'run.properties' SHALL be 'true' or absent — never 'false'. When 'true', 'run.redactionTokens' should be non-empty. 'ai/fullLogLocation' should not appear unless 'ai/redacted' is 'true'.</value>
-  </data>
-  <data name="AI1011_RedactedRunMarker_Error_FalseValue_Text" xml:space="preserve">
-    <value>{0}: 'ai/redacted' is 'false'. This property SHALL be 'true' (when the run is redacted) or absent (when the run is not redacted) — never 'false'.</value>
-  </data>
-  <data name="AI1011_RedactedRunMarker_Error_MissingRedactionTokens_Text" xml:space="preserve">
-    <value>{0}: 'ai/redacted' is 'true' but 'run.redactionTokens' is missing or empty. When a run is redacted, the redaction tokens should be provided so consumers can identify redacted content.</value>
-  </data>
-  <data name="AI1011_RedactedRunMarker_Error_FullLogWithoutRedaction_Text" xml:space="preserve">
-    <value>{0}: 'ai/fullLogLocation' is present but 'ai/redacted' is not 'true'. The full log location SHALL only appear when the run is redacted.</value>
-  </data>
   <data name="AI2017_ProvideNotificationDescriptor_FullDescription_Text" xml:space="preserve">
     <value>Every notification in 'toolExecutionNotifications' or 'toolConfigurationNotifications' should have a 'descriptor' that resolves to a 'reportingDescriptor' in 'tool.driver.notifications' or an extension's 'notifications' array. If 'descriptor.id' is present, it must match the resolved descriptor's 'id'.</value>
   </data>

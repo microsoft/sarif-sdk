@@ -1688,7 +1688,6 @@ sarif validate my-results.sarif --rule-kind AI
 | AI1006 | ProvideAIOrigin | error | `run.properties` MUST contain `ai/origin` with a recognized value (`generated`, `annotated`, `synthesized`). |
 | AI1007 | DoNotPersistFingerprints | error | `result.fingerprints` MUST NOT be populated by AI producers. Cross-run identity is owned by the result-management system; intra-remediation relocation uses a transient fingerprint. See [Result Identity & Fingerprints](#result-identity--fingerprints). |
 | AI1010 | ProvideEvidenceBackingUri | error | Every `sarif:` URI in `ai/evidence[].backing` SHALL resolve to an element within the containing log file per §3.10.3. |
-| AI1011 | RedactedRunMarker | error | `ai/redacted` SHALL be `true` or absent (never `false`). When `true`, `run.redactionTokens` SHOULD be non-empty. `ai/fullLogLocation` SHALL NOT appear unless `ai/redacted` is `true`. |
 | AI1012 | ProvideRuleSubId | error | Every `result.ruleId` MUST include a sub-ID for disambiguation (e.g., `CWE-78/api-handler`). Rule descriptors (`tool.driver.rules[].id`) use the base ID only (e.g., `CWE-78`). |
 | AI1013 | ProvideNotificationAssociatedRule | error | If `notification.associatedRule` is present, it SHALL resolve to a valid rule in `tool.driver.rules[]` or an extension's `rules[]` via `index` or `guid`. |
 | AI2003 | ProvideSemanticVersion | warning | `tool.driver` SHOULD supply `semanticVersion` for reproducibility. |

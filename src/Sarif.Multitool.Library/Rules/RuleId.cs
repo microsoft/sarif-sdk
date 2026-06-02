@@ -87,7 +87,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         public const string AIProvideAIOrigin = "AI1006";
         public const string AIDoNotPersistFingerprints = "AI1007";
         public const string AIProvideEvidenceBackingUri = "AI1010";
-        public const string AIRedactedRunMarker = "AI1011";
         public const string AIProvideRuleSubId = "AI1012";
         public const string AIProvideNotificationAssociatedRule = "AI1013";
 

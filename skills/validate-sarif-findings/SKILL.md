@@ -67,7 +67,6 @@ Capture all output. Each line with `note`, `warning`, or `error` is a finding. T
 | AI1005 | ProvideMessageMarkdown | error | `result.message.markdown` present |
 | AI1006 | ProvideAIOrigin | error | `ai/origin` ∈ {generated, annotated, synthesized} |
 | AI1010 | ProvideEvidenceBackingUri | error | `sarif:` URIs in evidence resolve within the log |
-| AI1011 | RedactedRunMarker | error | `ai/redacted` is `true` or absent, never `false` |
 | AI1012 | ProvideRuleSubId | error | Rule descriptors include sub-IDs |
 | AI1013 | ProvideNotificationAssociatedRule | error | `notification.associatedRule` resolves to a valid rule |
 | AI2003 | ProvideSemanticVersion | warning | `tool.driver.semanticVersion` present |
@@ -122,7 +121,6 @@ If `{{PROFILE}}` is `schema-only`, skip this step entirely.
 | ProvideAutomationDetails | AI2005 | warning | `run.automationDetails.guid` is present and non-empty |
 | ProvideSemanticVersion | AI2003 | warning | `run.tool.driver.semanticVersion` is present |
 | ProvideAIHandoff | AI2012 | note | `run.properties["ai/handoff"]` is present |
-| RedactedRunMarker | AI1011 | error | If `ai/redacted` is present, it is `true` (never `false`). If `true`, `ai/fullLogLocation` MAY be present. If `ai/redacted` is absent, `ai/fullLogLocation` MUST be absent |
 
 #### Result-level checks (for each result)
 
