@@ -2,6 +2,7 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 using System;
 using System.Diagnostics;
+using System.Globalization;
 using System.IO;
 using System.Security;
 
@@ -83,6 +84,12 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// An optional argument that, if present, contains the text contents of the file
         /// specified by <paramref name="uri"/>.
         /// </param>
+        /// <param name="overwriteExistingData">
+        /// Controls how an authored region coordinate that diverges from the value computed
+        /// from the source text is reconciled. When <c>false</c> (the default), the divergence
+        /// throws an <see cref="ArgumentException"/>; when <c>true</c>, the authored value is
+        /// overwritten with the computed value.
+        /// </param>
         /// <returns>
         /// A Region object whose text-related properties have been fully populated.
         /// </returns>
@@ -90,7 +97,8 @@ namespace Microsoft.CodeAnalysis.Sarif
             Region inputRegion,
             Uri uri,
             bool populateSnippet,
-            string fileText = null)
+            string fileText = null,
+            bool overwriteExistingData = false)
         {
             if (inputRegion == null || inputRegion.IsBinaryRegion)
             {
@@ -105,7 +113,8 @@ namespace Microsoft.CodeAnalysis.Sarif
                 newLineIndex,
                 inputRegion,
                 newLineIndex?.Text,
-                populateSnippet);
+                populateSnippet,
+                overwriteExistingData);
         }
 
         /// <summary>
@@ -118,7 +127,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             _newLineIndexCache.Clear();
         }
 
-        private static Region PopulateTextRegionProperties(NewLineIndex lineIndex, Region inputRegion, string fileText, bool populateSnippet)
+        private static Region PopulateTextRegionProperties(NewLineIndex lineIndex, Region inputRegion, string fileText, bool populateSnippet, bool overwriteExistingData)
         {
             // A GENERAL NOTE ON THE PROPERTY POPULATION PROCESS:
             //
@@ -143,11 +152,11 @@ namespace Microsoft.CodeAnalysis.Sarif
             if (region.StartLine == 0)
             {
                 // This means we have a region specified entirely via charOffset
-                PopulatePropertiesFromCharOffsetAndLength(lineIndex, region);
+                PopulatePropertiesFromCharOffsetAndLength(lineIndex, region, overwriteExistingData);
             }
             else
             {
-                PopulatePropertiesFromStartAndEndProperties(lineIndex, region, fileText);
+                PopulatePropertiesFromStartAndEndProperties(lineIndex, region, fileText, overwriteExistingData);
             }
 
             if (populateSnippet
@@ -230,7 +239,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return multilineContextSnippet;
         }
 
-        private static void PopulatePropertiesFromCharOffsetAndLength(NewLineIndex newLineIndex, Region region)
+        private static void PopulatePropertiesFromCharOffsetAndLength(NewLineIndex newLineIndex, Region region, bool overwriteExistingData)
         {
             Assert(!region.IsBinaryRegion);
             Assert(region.StartLine == 0);
@@ -257,14 +266,18 @@ namespace Microsoft.CodeAnalysis.Sarif
             if (region.EndLine == 0) { region.EndLine = endLine; }
             if (region.EndColumn == 0) { region.EndColumn = endColumn; }
 
-            // Validate cases where new line index disagrees with explicit values
-            Assert(region.StartLine == startLine);
-            Assert(region.StartColumn == startColumn);
-            Assert(region.EndLine == endLine);
-            Assert(region.EndColumn == endColumn);
+            // Reconcile cases where the new line index disagrees with explicit values. These
+            // fire only for authored coordinates that diverge from the source text (a value
+            // just computed above is assigned, so it can never diverge here). Depending on
+            // overwriteExistingData, a divergent authored value is either replaced with the
+            // computed value or rejected with an ArgumentException.
+            region.StartLine = ReconcileRegionCoordinate(overwriteExistingData, nameof(Region.StartLine), startLine, region.StartLine);
+            region.StartColumn = ReconcileRegionCoordinate(overwriteExistingData, nameof(Region.StartColumn), startColumn, region.StartColumn);
+            region.EndLine = ReconcileRegionCoordinate(overwriteExistingData, nameof(Region.EndLine), endLine, region.EndLine);
+            region.EndColumn = ReconcileRegionCoordinate(overwriteExistingData, nameof(Region.EndColumn), endColumn, region.EndColumn);
         }
 
-        private static void PopulatePropertiesFromStartAndEndProperties(NewLineIndex lineIndex, Region region, string fileText)
+        private static void PopulatePropertiesFromStartAndEndProperties(NewLineIndex lineIndex, Region region, string fileText, bool overwriteExistingData)
         {
             Assert(region.StartLine > 0);
 
@@ -282,15 +295,15 @@ namespace Microsoft.CodeAnalysis.Sarif
             PopulateEndColumn(lineIndex, region, fileText);
 
             // Populated at this point: StartLine, EndLine, StartColumn, EndColumn
-            PopulateCharOffset(lineIndex, region);
+            PopulateCharOffset(lineIndex, region, overwriteExistingData);
 
             // Populated at this point: StartLine, EndLine, StartColumn, EndColumn, CharOffset
-            PopulateCharLength(lineIndex, region);
+            PopulateCharLength(lineIndex, region, overwriteExistingData);
 
             // Populated at this point: StartLine, EndLine, StartColumn, EndColumn, CharOffset, CharLength
             Assert(region.StartLine > 0);
             Assert(region.EndLine > 0);
-            Assert((region.CharOffset + region.CharLength) <= fileText.Length);
+            if ((region.CharOffset + region.CharLength) > fileText.Length) { ReconcileRegionBounds(overwriteExistingData, region.CharOffset, region.CharLength, fileText.Length); }
             Assert(region.StartColumn > 0);
             Assert(region.CharLength > 0 || (region.StartColumn == region.EndColumn && region.StartLine == region.EndLine));
             Assert(region.EndColumn > 0);
@@ -338,7 +351,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             }
         }
 
-        private static void PopulateCharOffset(NewLineIndex lineIndex, Region region)
+        private static void PopulateCharOffset(NewLineIndex lineIndex, Region region, bool overwriteExistingData)
         {
             // Populated at this point: StartLine, EndLine, StartColumn, EndColumn
             Assert(region.StartLine > 0);
@@ -357,10 +370,10 @@ namespace Microsoft.CodeAnalysis.Sarif
                 region.CharOffset = offset;
             }
 
-            Assert(region.CharOffset == offset);
+            region.CharOffset = ReconcileRegionCoordinate(overwriteExistingData, nameof(Region.CharOffset), offset, region.CharOffset);
         }
 
-        private static void PopulateCharLength(NewLineIndex lineIndex, Region region)
+        private static void PopulateCharLength(NewLineIndex lineIndex, Region region, bool overwriteExistingData)
         {
             // Populated at this point: StartLine, EndLine, StartColumn, EndColumn, CharOffset
             Assert(region.StartLine > 0);
@@ -378,7 +391,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             {
                 region.CharLength = charLength;
             }
-            Assert(region.CharLength == charLength);
+            region.CharLength = ReconcileRegionCoordinate(overwriteExistingData, nameof(Region.CharLength), charLength, region.CharLength);
         }
 
         public HashData GetHashData(Uri uri, string fileText = null)
@@ -465,13 +478,62 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         private static void Assert(bool _)
         {
-            // Placeholder to report issues in a situationally appropriate way.
+            // Placeholder to report STRUCTURAL invariants (internal preconditions on the
+            // population state machine) in a situationally appropriate way. These are not
+            // authored-data validations: divergence between an authored region coordinate
+            // and the value computed from the source text now routes through
+            // ReconcileRegionCoordinate / ReconcileRegionBounds, which honor the caller's
+            // overwriteExistingData setting (overwrite = recompute; otherwise throw).
+            //
             //  We don't want Multitool rewrite to blow up.
             //  We don't want unit tests for invalid Regions to block on asserts; we want to verify the code leaves those results alone.
             //  We may want console or output log output when invalid Regions are detected during Multitool rewrite use.
-            // https://github.com/microsoft/sarif-sdk/issues/1784
 
             //Debug.Assert(condition);
+        }
+
+        /// <summary>
+        /// Reconciles an authored region coordinate against the value computed from the source
+        /// text. If they agree (including the common case where the value was just computed and
+        /// assigned because the authored value was absent), the value is returned unchanged.
+        /// On a genuine divergence the behavior depends on <paramref name="overwriteExistingData"/>.
+        /// </summary>
+        private static int ReconcileRegionCoordinate(bool overwriteExistingData, string propertyName, int computedValue, int authoredValue)
+        {
+            if (authoredValue == computedValue) { return authoredValue; }
+
+            if (overwriteExistingData) { return computedValue; }
+
+            throw new ArgumentException(
+                string.Format(
+                    CultureInfo.InvariantCulture,
+                    "The input region specifies '{0}' = {1}, but the value computed from the source file is {2}. " +
+                    "Authored region coordinates must exactly match the source text; omit a coordinate to have the " +
+                    "SDK compute it, or set OptionallyEmittedData.OverwriteExistingData to recompute (overwrite) it.",
+                    propertyName,
+                    authoredValue,
+                    computedValue),
+                "inputRegion");
+        }
+
+        /// <summary>
+        /// Reconciles an authored region whose character span extends beyond the source file.
+        /// </summary>
+        private static void ReconcileRegionBounds(bool overwriteExistingData, int charOffset, int charLength, int fileLength)
+        {
+            if (overwriteExistingData) { return; }
+
+            throw new ArgumentException(
+                string.Format(
+                    CultureInfo.InvariantCulture,
+                    "The input region's character span (charOffset {0} + charLength {1} = {2}) extends beyond the " +
+                    "source file length ({3}). Authored region coordinates must lie within the source text; omit them " +
+                    "to have the SDK compute the span, or set OptionallyEmittedData.OverwriteExistingData to recompute it.",
+                    charOffset,
+                    charLength,
+                    (long)charOffset + charLength,
+                    fileLength),
+                "inputRegion");
         }
     }
 }

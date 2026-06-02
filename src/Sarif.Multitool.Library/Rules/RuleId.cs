@@ -85,6 +85,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         public const string AIProvideVersionControlProvenance = "AI1004";
         public const string AIProvideMessageMarkdown = "AI1005";
         public const string AIProvideAIOrigin = "AI1006";
+        public const string AIDoNotPersistFingerprints = "AI1007";
         public const string AIProvideEvidenceBackingUri = "AI1010";
         public const string AIRedactedRunMarker = "AI1011";
         public const string AIProvideRuleSubId = "AI1012";
@@ -93,7 +94,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         public const string AIProvideSemanticVersion = "AI2003";
         public const string AIProvideAutomationDetails = "AI2005";
         public const string AIProvideResultRank = "AI2010";
-        public const string AIDoNotPersistFingerprints = "AI2011";
+        public const string AIDoNotPersistPartialFingerprints = "AI2011";
         public const string AIProvideAiHandoff = "AI2012";
         public const string AIProvideExploitability = "AI2014";
         public const string AIProvideAttackerPosition = "AI2015";
