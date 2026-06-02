@@ -2,7 +2,7 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://raw.githubusercontent.com/microsoft/sarif-sdk/main/src/Sarif.Multitool.Library/GetSchema/ai-reporting-descriptor.schema.json",
   "title": "SARIF AI emit profile \u2014 reporting descriptor object",
-  "description": "Input contract for a SARIF reportingDescriptor an AI producer supplies to the add-reporting-descriptor verb. The verb stores it under run.tool.driver.notifications[] by default, or run.tool.driver.rules[] with --rules. SARIF \u00a73.49.3 requires a non-empty string id; the verb rejects a missing, null, non-string, or empty id. On the --rules path the verb additionally requires the id to begin with NOVEL- (AIRuleIdConvention.IsNovel); ai-novel-rule-descriptor.schema.json overlays this schema to pin that tighter gate.",
+  "description": "Input contract for a SARIF reportingDescriptor an AI producer supplies to the add-reporting-descriptor verb, stored under run.tool.driver.notifications[] (default) or run.tool.driver.rules[] (--rules). Requires a non-empty string id (SARIF \u00a73.49.3); a missing, null, non-string, or empty id is rejected.",
   "type": "object",
   "required": [
     "id"
