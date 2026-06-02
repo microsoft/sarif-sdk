@@ -1533,7 +1533,7 @@ A remediation agent relocates the target using these anchors, re-derives the con
 
 AI producers **MUST NOT** populate `result.fingerprints`, and **SHOULD NOT** populate `result.partialFingerprints` (§3.27.16–17).
 
-**Rationale:** Persisted fingerprints decay. File renames and deletes orphan location-derived hashes; rule logic updates change what content is hashed; and an AI consumer does not need a precomputed hash because it has `ruleId`, `logicalLocations`, and `contextRegion.snippet` — enough to re-derive identity with judgment a fixed hash function cannot apply.
+**Rationale:** Persisted fingerprints decay. File renames and deletes orphan location-derived hashes; rule logic updates change what content is hashed; and an AI consumer does not need a precomputed hash because it has `ruleId`, `logicalLocations`, region coordinates (`region` and `contextRegion` line/column data), and their snippets (core plus surrounding context) — together a far richer matching signal than a single opaque hash, enough to re-derive identity with judgment a fixed hash function cannot apply.
 
 **Two distinct matching problems, two owners:**
 
