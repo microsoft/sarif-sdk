@@ -82,7 +82,6 @@
   <ItemGroup>
     <None Include="..\Sarif.Multitool.Library\GetSchema\ai-result.schema.json" Link="GetSchema\ai-result.schema.json" CopyToOutputDirectory="PreserveNewest" />
     <None Include="..\Sarif.Multitool.Library\GetSchema\ai-run-header.schema.json" Link="GetSchema\ai-run-header.schema.json" CopyToOutputDirectory="PreserveNewest" />
-    <None Include="..\Sarif.Multitool.Library\GetSchema\ai-notification.schema.json" Link="GetSchema\ai-notification.schema.json" CopyToOutputDirectory="PreserveNewest" />
     <None Include="..\Sarif.Multitool.Library\GetSchema\ai-invocation.schema.json" Link="GetSchema\ai-invocation.schema.json" CopyToOutputDirectory="PreserveNewest" />
     <None Include="..\Sarif.Multitool.Library\GetSchema\ai-reporting-descriptor.schema.json" Link="GetSchema\ai-reporting-descriptor.schema.json" CopyToOutputDirectory="PreserveNewest" />
     <None Include="..\Sarif.Multitool.Library\GetSchema\ai-novel-rule-descriptor.schema.json" Link="GetSchema\ai-novel-rule-descriptor.schema.json" CopyToOutputDirectory="PreserveNewest" />

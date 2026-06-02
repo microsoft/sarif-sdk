@@ -13,7 +13,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
     /// </summary>
     /// <remarks>
     /// <para>The run JSON is supplied as a JSON document (file via <c>--input</c> or piped on
-    /// stdin), matching the contract used by <c>add-result</c>, <c>add-notification</c>, and
+    /// stdin), matching the contract used by <c>add-result</c>, <c>add-invocation</c>, and
     /// <c>add-reporting-descriptor</c>. SARIF <c>Run</c> is by far the richest object in the
     /// schema; modeling each field as a CLI flag would require a sprawling and ever-expanding
     /// surface that still could not express the legal partial-<c>Run</c> shape the replayer

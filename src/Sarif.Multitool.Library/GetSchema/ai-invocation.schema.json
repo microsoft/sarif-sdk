@@ -2,6 +2,27 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://raw.githubusercontent.com/microsoft/sarif-sdk/main/src/Sarif.Multitool.Library/GetSchema/ai-invocation.schema.json",
   "title": "SARIF AI emit profile \u2014 invocation object",
-  "description": "Input contract for a single SARIF invocation an AI producer supplies to the add-invocation verb. SARIF \u00a73.20 makes every invocation field optional, so the verb's receipt check is intentionally minimal: any JSON object is accepted. Whole-log invocation validation is enforced at emit-finalize --validate, not on a single invocation here.",
-  "type": "object"
+  "description": "Input contract for a single fully-formed SARIF invocation an AI producer supplies to the add-invocation verb. An overlay on the canonical SARIF 2.1.0 invocation: it reuses the base shape by $ref and tightens it for the AI profile. An invocation models one process the producer launched, emitted as a self-contained subtree at completion; this is the only path a producer has to populate run.invocations[], and notifications travel INLINE on toolExecutionNotifications/toolConfigurationNotifications (the add-notification verb was removed because SARIF has no run-level notifications array and a streamed notification cannot be routed to one of several parallel invocations). executionSuccessful and commandLine are required; the verb auto-stamps endTimeUtc and any notification timeUtc it leaves unset at emit time, so those are not required here.",
+  "type": "object",
+  "allOf": [
+    {
+      "$ref": "https://json.schemastore.org/sarif-2.1.0.json#/definitions/invocation"
+    }
+  ],
+  "required": [
+    "executionSuccessful",
+    "commandLine"
+  ],
+  "properties": {
+    "executionSuccessful": {
+      "description": "Whether the process the invocation models completed successfully. Required by both SARIF \u00a73.20.21 and the AI profile.",
+      "type": "boolean"
+    },
+    "commandLine": {
+      "description": "The command line that launched the process this invocation models. Required by the AI profile (it is the natural identity of a launched process) even though SARIF \u00a73.20.4 makes it optional.",
+      "type": "string",
+      "minLength": 1,
+      "pattern": "\\S"
+    }
+  }
 }

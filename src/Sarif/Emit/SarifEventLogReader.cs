@@ -29,8 +29,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Emit
         {
             SarifEventKinds.RunHeader,
             SarifEventKinds.Result,
-            SarifEventKinds.ExecutionNotification,
-            SarifEventKinds.ConfigurationNotification,
             SarifEventKinds.Invocation,
             SarifEventKinds.RuleDescriptor,
             SarifEventKinds.NotificationDescriptor,

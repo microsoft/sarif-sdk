@@ -15,9 +15,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 {
     /// <summary>
     /// Shared plumbing for the emit verb chain (<c>emit-init-run</c>, <c>add-result</c>,
-    /// <c>add-notification</c>, <c>emit-finalize</c>): resolves the staged event log path,
-    /// reads caller-supplied JSON (file or stdin), and parses it into a
-    /// <see cref="JToken"/> in a date-safe way.
+    /// <c>add-invocation</c>, <c>add-reporting-descriptor</c>, <c>emit-finalize</c>): resolves
+    /// the staged event log path, reads caller-supplied JSON (file or stdin), and parses it into
+    /// a <see cref="JToken"/> in a date-safe way.
     /// </summary>
     /// <remarks>
     /// The verbs share three concerns — locating <c>&lt;output&gt;.wip.jsonl</c>, sourcing

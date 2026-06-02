@@ -30,22 +30,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Emit
         public const string Result = "result";
 
         /// <summary>
-        /// A self-contained <see cref="Notification"/> destined for
-        /// <c>invocations[last].toolExecutionNotifications</c>. The replay engine routes events
-        /// of this kind to the execution-notifications array.
-        /// </summary>
-        public const string ExecutionNotification = "execution-notification";
-
-        /// <summary>
-        /// A self-contained <see cref="Notification"/> destined for
-        /// <c>invocations[last].toolConfigurationNotifications</c>. The replay engine routes
-        /// events of this kind to the configuration-notifications array.
-        /// </summary>
-        public const string ConfigurationNotification = "configuration-notification";
-
-        /// <summary>
-        /// A complete <see cref="Invocation"/> object. Producers may append multiple
-        /// invocations per run.
+        /// A complete <see cref="Invocation"/> object. Producers may append multiple invocations
+        /// per run (SARIF <c>run.invocations[]</c> is an array, so parallel/overlapping processes
+        /// are each modeled by their own self-contained invocation). An invocation is the SOLE
+        /// carrier of notifications: producer-supplied <see cref="Notification"/> objects travel
+        /// INLINE on the invocation's <c>toolExecutionNotifications</c> /
+        /// <c>toolConfigurationNotifications</c> arrays. There is no streamed-notification event
+        /// kind because SARIF has no run-level notifications array, so a notification arriving on
+        /// its own could not be unambiguously routed to one of several concurrent invocations.
         /// </summary>
         public const string Invocation = "invocation";
 

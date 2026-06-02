@@ -21,7 +21,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
     /// </summary>
     /// <remarks>
     /// <para>The JSON-payload contract matches the other emit verbs (<c>add-result</c>,
-    /// <c>add-notification</c>, <c>add-reporting-descriptor</c>). The supplied <c>Run</c> may
+    /// <c>add-invocation</c>, <c>add-reporting-descriptor</c>). The supplied <c>Run</c> may
     /// carry any subset of the partial-Run shape the replayer accepts (<c>tool</c>,
     /// <c>language</c>, <c>columnKind</c>, <c>defaultEncoding</c>, <c>defaultSourceLanguage</c>,
     /// <c>originalUriBaseIds</c>, <c>versionControlProvenance</c>, <c>automationDetails</c>,

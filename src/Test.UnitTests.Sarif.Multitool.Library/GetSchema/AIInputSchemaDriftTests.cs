@@ -40,7 +40,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
         private static readonly JsonSchema s_resultSchema = LoadAiSchema("ai-result.schema.json");
         private static readonly JsonSchema s_runHeaderSchema = LoadAiSchema("ai-run-header.schema.json");
-        private static readonly JsonSchema s_notificationSchema = LoadAiSchema("ai-notification.schema.json");
         private static readonly JsonSchema s_invocationSchema = LoadAiSchema("ai-invocation.schema.json");
         private static readonly JsonSchema s_reportingDescriptorSchema = LoadAiSchema("ai-reporting-descriptor.schema.json");
         private static readonly JsonSchema s_novelRuleDescriptorSchema = LoadAiSchema("ai-novel-rule-descriptor.schema.json");
@@ -497,67 +496,42 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
         #endregion
 
-        #region ai-notification.schema.json
-
-        [Fact]
-        public void AINotificationSchema_AcceptsAnyObject_RejectsNonObject()
-        {
-            // add-notification's receipt check is object-only (EmitEventLogHelpers
-            // .TryReadJsonPayload). level is read for a console message but NOT
-            // validated, so a nonsense level is accepted. AI1013 (the only Error-level
-            // notification rule) is cross-document and deferred to emit-finalize, so an
-            // unresolved associatedRule.id is accepted here too.
-            var offenders = new List<string>();
-
-            var accepted = new (string Label, JsonObject Value)[]
-            {
-                ("empty-object", new JsonObject()),
-                ("nonsense-level", new JsonObject { ["level"] = "nonsense" }),
-                ("full-notification", new JsonObject
-                {
-                    ["level"] = "error",
-                    ["message"] = new JsonObject { ["text"] = "boom" },
-                    ["associatedRule"] = new JsonObject { ["id"] = "does-not-resolve" },
-                    ["timeUtc"] = "2024-01-01T00:00:00.000Z"
-                }),
-            };
-            foreach ((string label, JsonObject value) in accepted)
-            {
-                if (!Accepts(s_notificationSchema, value))
-                {
-                    offenders.Add($"  [{label}] expected ACCEPT");
-                }
-            }
-
-            CollectNonObjectRejections(s_notificationSchema, offenders);
-
-            offenders.Should().BeEmpty(
-                "ai-notification.schema.json must accept any JSON object (the verb's only receipt check) and " +
-                "reject non-objects. It must NOT import SARIF-base requireds (e.g. message) or AI1013's " +
-                "cross-document associatedRule resolution, which the verb does not enforce at receipt:\n" +
-                string.Join("\n", offenders));
-        }
-
-        #endregion
-
         #region ai-invocation.schema.json
 
         [Fact]
-        public void AIInvocationSchema_AcceptsAnyObject_RejectsNonObject()
+        public void AIInvocationSchema_RequiresExecutionSuccessfulAndCommandLine()
         {
-            // add-invocation's receipt check is object-only. SARIF §3.20 makes every
-            // invocation field optional, and the verb's own doc says a producer may
-            // omit executionSuccessful; it reads executionSuccessful only for a console
-            // message and treats a non-boolean as "<unset>", so a string value is
-            // accepted. The schema must not import the SARIF-base executionSuccessful
-            // required.
+            // The AI invocation profile is an overlay on the SARIF-base invocation: it $refs the
+            // base shape (so every base field keeps its type) and tightens it with two requireds
+            // matching AddInvocationCommand's receipt gate — a boolean executionSuccessful and a
+            // non-whitespace string commandLine. Notifications travel INLINE, so a fully-formed
+            // invocation carrying toolExecutionNotifications must validate. endTimeUtc must NOT be
+            // required: the verb stamps it at emit time.
             var offenders = new List<string>();
 
             var accepted = new (string Label, JsonObject Value)[]
             {
-                ("empty-object", new JsonObject()),
-                ("string-executionSuccessful", new JsonObject { ["executionSuccessful"] = "true" }),
-                ("partial-fields", new JsonObject { ["startTimeUtc"] = "2024-01-01T00:00:00.000Z" }),
+                ("minimal", new JsonObject
+                {
+                    ["executionSuccessful"] = true,
+                    ["commandLine"] = "myscanner scan ."
+                }),
+                ("rich-with-inline-notifications", new JsonObject
+                {
+                    ["executionSuccessful"] = false,
+                    ["commandLine"] = "myscanner scan .",
+                    ["exitCode"] = 1,
+                    ["startTimeUtc"] = "2024-01-01T00:00:00.000Z",
+                    ["workingDirectory"] = new JsonObject { ["uri"] = "file:///work" },
+                    ["toolExecutionNotifications"] = new JsonArray
+                    {
+                        new JsonObject
+                        {
+                            ["level"] = "error",
+                            ["message"] = new JsonObject { ["text"] = "boom" }
+                        }
+                    }
+                }),
             };
             foreach ((string label, JsonObject value) in accepted)
             {
@@ -567,12 +541,41 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 }
             }
 
+            var rejected = new (string Label, JsonObject Value)[]
+            {
+                ("missing-executionSuccessful", new JsonObject { ["commandLine"] = "myscanner scan ." }),
+                ("missing-commandLine", new JsonObject { ["executionSuccessful"] = true }),
+                ("executionSuccessful-as-string", new JsonObject
+                {
+                    ["executionSuccessful"] = "true",
+                    ["commandLine"] = "myscanner scan ."
+                }),
+                ("empty-commandLine", new JsonObject
+                {
+                    ["executionSuccessful"] = true,
+                    ["commandLine"] = ""
+                }),
+                ("whitespace-commandLine", new JsonObject
+                {
+                    ["executionSuccessful"] = true,
+                    ["commandLine"] = "   "
+                }),
+            };
+            foreach ((string label, JsonObject value) in rejected)
+            {
+                if (Accepts(s_invocationSchema, value))
+                {
+                    offenders.Add($"  [{label}] expected REJECT");
+                }
+            }
+
             CollectNonObjectRejections(s_invocationSchema, offenders);
 
             offenders.Should().BeEmpty(
-                "ai-invocation.schema.json must accept any JSON object (the verb's only receipt check) and " +
-                "reject non-objects. It must NOT import the SARIF-base executionSuccessful required, which the " +
-                "verb deliberately leaves optional (§3.20):\n" + string.Join("\n", offenders));
+                "ai-invocation.schema.json must require a boolean executionSuccessful and a non-whitespace " +
+                "string commandLine (mirroring AddInvocationCommand's receipt gate), accept a fully-formed " +
+                "invocation carrying inline notifications, and reject non-objects. It must NOT require " +
+                "endTimeUtc (the verb stamps it):\n" + string.Join("\n", offenders));
         }
 
         #endregion

@@ -30,17 +30,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Emit
     /// NOVEL escape hatch (<c>NOVEL-&lt;sub-id&gt;</c>). Violations throw
     /// <see cref="AIRuleIdConventionException"/> listing every offender at once.</description></item>
     /// <item><description><c>invocation</c> events are appended to <c>run.invocations</c> in
-    /// event order.</description></item>
-    /// <item><description><c>execution-notification</c> events are buffered and attached at
-    /// finalize to <c>run.invocations[last].toolExecutionNotifications</c>;
-    /// <c>configuration-notification</c> events to
-    /// <c>run.invocations[last].toolConfigurationNotifications</c>. If no invocation has been
-    /// supplied, a synthetic <c>{ "executionSuccessful": true }</c> invocation is created to
-    /// hold them (SARIF requires a home for notifications). Notifications whose <c>timeUtc</c>
-    /// is unset on the event payload are stamped with <see cref="DateTime.UtcNow"/> at
-    /// replay time so AI execution-timeline consumers can order events without burdening
-    /// producers to track wall-clock themselves (cf. AI2019). Producer-supplied
-    /// <c>timeUtc</c> values are preserved.</description></item>
+    /// event order. Each invocation is a complete, self-contained subtree: any
+    /// <see cref="Notification"/> the producer emitted travels INLINE on the invocation's
+    /// <c>toolExecutionNotifications</c> / <c>toolConfigurationNotifications</c> arrays and is
+    /// replayed verbatim. There is no streamed-notification event kind — SARIF has no run-level
+    /// notifications array, so a notification can only be authored as a child of the invocation
+    /// that owns it. The <c>add-invocation</c> verb is responsible for any <c>timeUtc</c> /
+    /// <c>endTimeUtc</c> wall-clock stamping at emit time, so this replay is fully deterministic
+    /// (it performs no clock reads).</description></item>
     /// </list>
     /// <para>Descriptor auto-registration mirrors <see cref="Writers.SarifLogger"/>: on first
     /// sighting of a <see cref="Result.RuleId"/>, the replayer appends a minimal
@@ -78,8 +75,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Emit
             Run run = null;
             var results = new List<Result>();
             var invocations = new List<Invocation>();
-            var executionNotifications = new List<Notification>();
-            var configurationNotifications = new List<Notification>();
             var ruleDescriptors = new List<ReportingDescriptor>();
             var notificationDescriptors = new List<ReportingDescriptor>();
             bool headerSeen = false;
@@ -116,15 +111,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Emit
                         break;
 
                     case SarifEventKinds.Invocation:
+                        // The invocation carries its own toolExecutionNotifications /
+                        // toolConfigurationNotifications inline; ToObject pulls them along.
                         invocations.Add(sarifEvent.Payload.ToObject<Invocation>(serializer));
-                        break;
-
-                    case SarifEventKinds.ExecutionNotification:
-                        executionNotifications.Add(StampNotification(sarifEvent, serializer));
-                        break;
-
-                    case SarifEventKinds.ConfigurationNotification:
-                        configurationNotifications.Add(StampNotification(sarifEvent, serializer));
                         break;
 
                     case SarifEventKinds.RuleDescriptor:
@@ -176,52 +165,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Emit
             run.Results = results.Count > 0 ? results : null;
             run.Invocations = invocations.Count > 0 ? invocations : null;
 
-            if (executionNotifications.Count > 0 || configurationNotifications.Count > 0)
-            {
-                run.Invocations ??= new List<Invocation>
-                {
-                    new Invocation { ExecutionSuccessful = true },
-                };
-
-                Invocation host = run.Invocations[run.Invocations.Count - 1];
-
-                if (executionNotifications.Count > 0)
-                {
-                    host.ToolExecutionNotifications ??= new List<Notification>();
-                    foreach (Notification notification in executionNotifications)
-                    {
-                        host.ToolExecutionNotifications.Add(notification);
-                    }
-                }
-
-                if (configurationNotifications.Count > 0)
-                {
-                    host.ToolConfigurationNotifications ??= new List<Notification>();
-                    foreach (Notification notification in configurationNotifications)
-                    {
-                        host.ToolConfigurationNotifications.Add(notification);
-                    }
-                }
-            }
-
             return new SarifLog
             {
                 Runs = new List<Run> { run },
             };
-        }
-
-        // AI execution-timeline consumers (AI2019) expect every notification to carry a UTC
-        // timestamp. Producers that already populated timeUtc keep their value; everyone else
-        // gets the moment of replay, close enough to "now" for any practical timeline
-        // reconstruction, and the producer is freed from tracking wall-clock themselves.
-        private static Notification StampNotification(SarifEvent sarifEvent, JsonSerializer serializer)
-        {
-            Notification notification = sarifEvent.Payload.ToObject<Notification>(serializer);
-            if (notification != null && notification.TimeUtc == default(DateTime))
-            {
-                notification.TimeUtc = DateTime.UtcNow;
-            }
-            return notification;
         }
 
         /// <summary>

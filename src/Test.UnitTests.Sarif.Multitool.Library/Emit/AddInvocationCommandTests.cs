@@ -70,19 +70,104 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         }
 
         [Fact]
-        public void Run_AppendsInvocationWithoutExecutionSuccessful()
+        public void Run_FailsWhenExecutionSuccessfulMissing()
         {
-            // Every Invocation field is optional per SARIF §3.20. The verb must not require
-            // executionSuccessful; producers MAY ship an invocation that records only the
-            // command line or working directory (e.g., a daemon registering a session start
-            // before it knows the final exit state).
+            // The AI invocation profile (ai-invocation.schema.json) requires a boolean
+            // executionSuccessful; the verb's receipt gate rejects a payload that omits it.
             SeedRunHeader();
             File.WriteAllText(
                 InputPath,
                 "{ \"commandLine\": \"demo --scan src\", \"workingDirectory\": { \"uri\": \"file:///work/\" } }");
 
-            using var outWriter = new StringWriter();
-            Console.SetOut(outWriter);
+            using var errWriter = new StringWriter();
+            Console.SetError(errWriter);
+
+            int exit = new AddInvocationCommand().Run(new AddInvocationOptions
+            {
+                OutputFilePath = OutPath,
+                InputFilePath = InputPath,
+            });
+
+            exit.Should().Be(CommandBase.FAILURE);
+            errWriter.ToString().Should().Contain("executionSuccessful");
+            File.ReadAllLines(WipPath).Should().HaveCount(1);
+        }
+
+        [Fact]
+        public void Run_FailsWhenExecutionSuccessfulNotBoolean()
+        {
+            SeedRunHeader();
+            File.WriteAllText(
+                InputPath,
+                "{ \"executionSuccessful\": \"true\", \"commandLine\": \"demo --scan src\" }");
+
+            using var errWriter = new StringWriter();
+            Console.SetError(errWriter);
+
+            int exit = new AddInvocationCommand().Run(new AddInvocationOptions
+            {
+                OutputFilePath = OutPath,
+                InputFilePath = InputPath,
+            });
+
+            exit.Should().Be(CommandBase.FAILURE);
+            errWriter.ToString().Should().Contain("executionSuccessful");
+            File.ReadAllLines(WipPath).Should().HaveCount(1);
+        }
+
+        [Fact]
+        public void Run_FailsWhenCommandLineMissing()
+        {
+            // The AI invocation profile requires a non-whitespace commandLine (the natural
+            // identity of a launched process); the receipt gate rejects a payload without it.
+            SeedRunHeader();
+            File.WriteAllText(InputPath, "{ \"executionSuccessful\": true }");
+
+            using var errWriter = new StringWriter();
+            Console.SetError(errWriter);
+
+            int exit = new AddInvocationCommand().Run(new AddInvocationOptions
+            {
+                OutputFilePath = OutPath,
+                InputFilePath = InputPath,
+            });
+
+            exit.Should().Be(CommandBase.FAILURE);
+            errWriter.ToString().Should().Contain("commandLine");
+            File.ReadAllLines(WipPath).Should().HaveCount(1);
+        }
+
+        [Fact]
+        public void Run_FailsWhenCommandLineIsWhitespace()
+        {
+            SeedRunHeader();
+            File.WriteAllText(
+                InputPath,
+                "{ \"executionSuccessful\": true, \"commandLine\": \"   \" }");
+
+            using var errWriter = new StringWriter();
+            Console.SetError(errWriter);
+
+            int exit = new AddInvocationCommand().Run(new AddInvocationOptions
+            {
+                OutputFilePath = OutPath,
+                InputFilePath = InputPath,
+            });
+
+            exit.Should().Be(CommandBase.FAILURE);
+            errWriter.ToString().Should().Contain("commandLine");
+            File.ReadAllLines(WipPath).Should().HaveCount(1);
+        }
+
+        [Fact]
+        public void Run_StampsEndTimeUtcWhenOmitted()
+        {
+            // The verb fills endTimeUtc at emit time when the producer left it unset, so the
+            // finalized invocation always carries a completion timestamp.
+            SeedRunHeader();
+            File.WriteAllText(
+                InputPath,
+                "{ \"executionSuccessful\": true, \"commandLine\": \"demo --scan src\" }");
 
             int exit = new AddInvocationCommand().Run(new AddInvocationOptions
             {
@@ -91,7 +176,49 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             });
 
             exit.Should().Be(CommandBase.SUCCESS);
-            outWriter.ToString().Should().Contain("executionSuccessful='<unset>'");
+            string appended = File.ReadAllLines(WipPath).Last();
+            appended.Should().Contain("\"endTimeUtc\"");
+        }
+
+        [Fact]
+        public void Run_StampsInlineNotificationTimeUtcWhenOmitted_PreservesSupplied()
+        {
+            // Notifications travel inline on the invocation; the verb stamps a timeUtc on any
+            // that lack one (so the AI execution timeline is orderable) and preserves any the
+            // producer already supplied.
+            SeedRunHeader();
+            const string json = @"{
+              ""executionSuccessful"": true,
+              ""commandLine"": ""demo --scan src"",
+              ""toolExecutionNotifications"": [
+                { ""message"": { ""text"": ""no time"" } },
+                { ""message"": { ""text"": ""has time"" }, ""timeUtc"": ""2026-05-26T10:05:42.000Z"" }
+              ],
+              ""toolConfigurationNotifications"": [
+                { ""message"": { ""text"": ""config no time"" } }
+              ]
+            }";
+            File.WriteAllText(InputPath, json);
+
+            int exit = new AddInvocationCommand().Run(new AddInvocationOptions
+            {
+                OutputFilePath = OutPath,
+                InputFilePath = InputPath,
+            });
+
+            exit.Should().Be(CommandBase.SUCCESS);
+
+            string appended = File.ReadAllLines(WipPath).Last();
+            appended.Should().Contain("2026-05-26T10:05:42.000Z"); // supplied value preserved
+            appended.Should().Contain("no time");
+            appended.Should().Contain("config no time");
+
+            // The two notifications that lacked a timeUtc were stamped: parse and assert none
+            // are missing a timeUtc.
+            SarifLog log = SarifEventReplayer.Replay(WipPath);
+            Invocation invocation = log.Runs[0].Invocations[0];
+            invocation.ToolExecutionNotifications.Should().OnlyContain(n => n.TimeUtc != default(DateTime));
+            invocation.ToolConfigurationNotifications.Should().OnlyContain(n => n.TimeUtc != default(DateTime));
         }
 
         [Fact]

@@ -1,7 +1,0 @@
-{
-  "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://raw.githubusercontent.com/microsoft/sarif-sdk/main/src/Sarif.Multitool.Library/GetSchema/ai-notification.schema.json",
-  "title": "SARIF AI emit profile \u2014 notification object",
-  "description": "Input contract for a single SARIF notification an AI producer supplies to the add-notification verb. The verb's receipt check is intentionally minimal: any JSON object is accepted. The one Error-level AI rule on notifications (associatedRule resolution) is cross-document and is enforced at emit-finalize --validate against the assembled run, not on a single notification here.",
-  "type": "object"
-}
