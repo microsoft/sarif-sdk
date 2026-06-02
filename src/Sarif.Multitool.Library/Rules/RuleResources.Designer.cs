@@ -1814,30 +1814,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
             }
         }
 
-        internal static string AI1011_RedactedRunMarker_FullDescription_Text {
-            get {
-                return ResourceManager.GetString("AI1011_RedactedRunMarker_FullDescription_Text", resourceCulture);
-            }
-        }
-
-        internal static string AI1011_RedactedRunMarker_Error_FalseValue_Text {
-            get {
-                return ResourceManager.GetString("AI1011_RedactedRunMarker_Error_FalseValue_Text", resourceCulture);
-            }
-        }
-
-        internal static string AI1011_RedactedRunMarker_Error_MissingRedactionTokens_Text {
-            get {
-                return ResourceManager.GetString("AI1011_RedactedRunMarker_Error_MissingRedactionTokens_Text", resourceCulture);
-            }
-        }
-
-        internal static string AI1011_RedactedRunMarker_Error_FullLogWithoutRedaction_Text {
-            get {
-                return ResourceManager.GetString("AI1011_RedactedRunMarker_Error_FullLogWithoutRedaction_Text", resourceCulture);
-            }
-        }
-
         internal static string AI2017_ProvideNotificationDescriptor_FullDescription_Text {
             get {
                 return ResourceManager.GetString("AI2017_ProvideNotificationDescriptor_FullDescription_Text", resourceCulture);

@@ -731,14 +731,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 RuleId.AIDoNotPersistFingerprints,  // AI1007
                 RuleId.AIDoNotPersistPartialFingerprints,  // AI2011
                 RuleId.AIProvideAiHandoff,          // AI2012
-                RuleId.AIRedactedRunMarker,         // AI1011
                 RuleId.AIProvideNotificationDescriptor,    // AI2017
                 RuleId.AIProvideNotificationAssociatedRule, // AI1013
                 RuleId.AIProvideLearningSignalArtifact,         // AI2018
                 RuleId.AIProvideNotificationTimestamp,      // AI2019
             };
 
-            ruleIds.Should().HaveCount(20);
+            ruleIds.Should().HaveCount(19);
             ruleIds.Should().Contain("AI1003");
             ruleIds.Should().Contain("AI1004");
             ruleIds.Should().Contain("AI2014");
@@ -748,7 +747,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             ruleIds.Should().Contain("AI1007");
             ruleIds.Should().Contain("AI2011");
             ruleIds.Should().Contain("AI2012");
-            ruleIds.Should().Contain("AI1011");
             ruleIds.Should().Contain("AI2017");
             ruleIds.Should().Contain("AI2019");
             ruleIds.Should().NotContain("AI2009");
@@ -783,39 +781,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
             SarifLog output = RunAIValidation(log);
             List<Result> results = GetResultsForRule(output, "AI2015");
-
-            results.Should().BeEmpty();
-        }
-
-        #endregion
-
-        #region AI1011 — RedactedRunMarker
-
-        [Fact]
-        public void AI1011_WhenRedactedIsFalse_ReportsWarning()
-        {
-            SarifLog log = CreateValidAISarifLog();
-            SetAIOrigin(log, "generated");
-            SetExploitability(log, "demonstrated");
-            SetAttackerPosition(log, "network");
-            log.Runs[0].SetProperty("ai/redacted", "false");
-
-            SarifLog output = RunAIValidation(log);
-            List<Result> results = GetResultsForRule(output, "AI1011");
-
-            results.Should().NotBeEmpty();
-        }
-
-        [Fact]
-        public void AI1011_WhenRedactedAbsent_NoResult()
-        {
-            SarifLog log = CreateValidAISarifLog();
-            SetAIOrigin(log, "generated");
-            SetExploitability(log, "demonstrated");
-            SetAttackerPosition(log, "network");
-
-            SarifLog output = RunAIValidation(log);
-            List<Result> results = GetResultsForRule(output, "AI1011");
 
             results.Should().BeEmpty();
         }

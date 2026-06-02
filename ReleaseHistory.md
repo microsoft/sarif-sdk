@@ -16,6 +16,7 @@ Entries are terse by design: one line per change, present-tense behavior, comple
 ## **v5.0.3** UNRELEASED
 * BRK: `FileRegionsCache.PopulateTextRegionProperties` gains an `overwriteExistingData` parameter (default `false`) and `OptionallyEmittedData.OverwriteExistingData` now suppresses exceptions for divergence in pre-populated versus computed region properties.
 * BRK: Split `AI2011.DoNotPersistFingerprints` (Note) into `AI1007.DoNotPersistFingerprints` (Error; `result.fingerprints`) and `AI2011.DoNotPersistPartialFingerprints` (Warning; `result.partialFingerprints`).
+* BRK: Remove `AI1011.RedactedRunMarker`; the AI emit profile no longer validates the `ai/redacted` run marker or `ai/fullLogLocation`.
 
 ## **v5.0.2** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/v5.0.2) | [Driver](https://www.nuget.org/packages/Sarif.Driver/v5.0.2) | [Converters](https://www.nuget.org/packages/Sarif.Converters/v5.0.2) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/v5.0.2) | [Multitool Library](https://www.nuget.org/packages/Sarif.Multitool.Library/v5.0.2)
 * BRK: Replace `scripts/Generate-CweTaxonomy.ps1` with `scripts/generate_cwe_taxonomy.py` (Python 3, stdlib only) so the CWE taxonomy regenerates on Linux, macOS, and Windows without `pwsh`.

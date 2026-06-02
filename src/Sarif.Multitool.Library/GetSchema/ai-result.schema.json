@@ -1,0 +1,112 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/microsoft/sarif-sdk/main/src/Sarif.Multitool.Library/GetSchema/ai-result.schema.json",
+  "title": "SARIF AI emit profile \u2014 result object",
+  "description": "Input contract for a single SARIF result an AI producer emits via the add-result verb. An overlay on the canonical SARIF 2.1.0 result: it reuses the base shape by $ref and tightens it for the AI profile, requiring the fields the profile mandates and forbidding the index/identity state the multitool assigns at finalize.",
+  "type": "object",
+  "allOf": [
+    {
+      "$ref": "https://json.schemastore.org/sarif-2.1.0.json#/definitions/result"
+    }
+  ],
+  "required": [
+    "ruleId",
+    "message",
+    "locations"
+  ],
+  "properties": {
+    "ruleId": {
+      "description": "Either a taxonomy sub-id 'BASE/sub-id' (e.g. CWE-89/kql-injection) or the NOVEL escape hatch 'NOVEL-<sub-id>'. NOVEL- is exclusive: it never takes a slash, so a NOVEL- prefix is held to the NOVEL grammar alone.",
+      "type": "string",
+      "minLength": 1,
+      "if": {
+        "pattern": "^NOVEL-"
+      },
+      "then": {
+        "pattern": "^NOVEL-[A-Za-z0-9]+(-[A-Za-z0-9]+)*$"
+      },
+      "else": {
+        "pattern": "^[A-Z][A-Z0-9]*(-[A-Za-z0-9]+)+/[^/\\s]+$"
+      }
+    },
+    "message": {
+      "description": "message.markdown is required and must contain non-whitespace.",
+      "type": "object",
+      "required": [
+        "markdown"
+      ],
+      "properties": {
+        "markdown": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "\\S"
+        }
+      }
+    },
+    "ruleIndex": false,
+    "guid": false,
+    "fingerprints": false,
+    "partialFingerprints": false,
+    "locations": {
+      "description": "At least one location. A location bearing a physicalLocation must carry a region whose startLine is an integer >= 1. Producer-supplied artifactLocation.index is forbidden; the multitool assigns indices at finalize.",
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "properties": {
+          "physicalLocation": {
+            "properties": {
+              "artifactLocation": {
+                "properties": {
+                  "index": false
+                }
+              }
+            }
+          }
+        },
+        "if": {
+          "required": [
+            "physicalLocation"
+          ]
+        },
+        "then": {
+          "properties": {
+            "physicalLocation": {
+              "required": [
+                "region"
+              ],
+              "properties": {
+                "region": {
+                  "required": [
+                    "startLine"
+                  ],
+                  "properties": {
+                    "startLine": {
+                      "type": "integer",
+                      "minimum": 1
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "relatedLocations": {
+      "type": "array",
+      "items": {
+        "properties": {
+          "physicalLocation": {
+            "properties": {
+              "artifactLocation": {
+                "properties": {
+                  "index": false
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
