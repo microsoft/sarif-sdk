@@ -43,7 +43,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         private static readonly JsonSchema s_notificationSchema = LoadAiSchema("ai-notification.schema.json");
         private static readonly JsonSchema s_invocationSchema = LoadAiSchema("ai-invocation.schema.json");
         private static readonly JsonSchema s_reportingDescriptorSchema = LoadAiSchema("ai-reporting-descriptor.schema.json");
-        private static readonly JsonSchema s_ruleDescriptorSchema = LoadAiSchema("ai-rule-descriptor.schema.json");
+        private static readonly JsonSchema s_novelRuleDescriptorSchema = LoadAiSchema("ai-novel-rule-descriptor.schema.json");
         private static readonly EvaluationOptions s_options = BuildOptions();
 
         private const string Guid = "12345678-1234-1234-1234-1234567890ab";
@@ -583,8 +583,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         public void AIReportingDescriptorSchema_RequiresNonEmptyStringId()
         {
             // add-reporting-descriptor requires a non-empty string id (SARIF §3.49.3),
-            // gating on string.IsNullOrEmpty — so whitespace-only is accepted but ""
-            // is not. Extra properties are accepted (the verb only inspects id).
+            // gating on string.IsNullOrEmpty — so whitespace-only is accepted but "" is
+            // not. Extra properties are accepted (the verb only inspects id). This is the
+            // general descriptor contract, stored under notifications[] by default or
+            // rules[] with --rules. The --rules-only NOVEL- gate (AIRuleIdConvention
+            // .IsNovel) is NOT pinned here — a NOVEL-less id is accepted at this level;
+            // ai-novel-rule-descriptor.schema.json overlays this schema to pin it. The
+            // id-taxonomy/id-novel/id-arbitrary accepts below assert that non-gating.
             var offenders = new List<string>();
 
             void Expect(string label, JsonNode value, bool accept)
@@ -610,27 +615,29 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
             offenders.Should().BeEmpty(
                 "ai-reporting-descriptor.schema.json must require a non-empty string id (minLength:1 mirrors the " +
-                "verb's IsNullOrEmpty gate, so '   ' is accepted) and otherwise accept any object:\n" +
+                "verb's IsNullOrEmpty gate, so '   ' is accepted) and otherwise accept any object. It must NOT pin " +
+                "the --rules-only NOVEL- prefix gate (ai-novel-rule-descriptor.schema.json overlays this to add it):\n" +
                 string.Join("\n", offenders));
         }
 
         #endregion
 
-        #region ai-rule-descriptor.schema.json
+        #region ai-novel-rule-descriptor.schema.json
 
         [Fact]
-        public void AIRuleDescriptorSchema_RequiresNovelPrefixId()
+        public void AINovelRuleDescriptorSchema_RequiresNovelPrefixId()
         {
-            // The --rules path gates id on AIRuleIdConvention.IsNovel, which is
-            // PREFIX-ONLY (id.StartsWith("NOVEL-")). The schema pins that prefix, NOT
-            // the full novel grammar — so 'NOVEL-' and 'NOVEL-foo/bar' are accepted
-            // here even though the richer result-side ruleId grammar rejects them. That
-            // divergence is intentional: this is the receipt gate, not finalize.
+            // ai-novel-rule-descriptor overlays ai-reporting-descriptor by $ref and adds
+            // the --rules-path tightening: id must StartsWith("NOVEL-") (AIRuleIdConvention
+            // .IsNovel). It pins the PREFIX ONLY, not the full novel grammar — so 'NOVEL-'
+            // and 'NOVEL-foo/bar' are accepted here even though the richer result-side
+            // ruleId grammar rejects them. The non-empty-string-id rejects (id-empty, no-id,
+            // id-number) are inherited from the $ref'd base, proving the overlay resolves.
             var offenders = new List<string>();
 
             void Expect(string label, JsonNode value, bool accept)
             {
-                if (Accepts(s_ruleDescriptorSchema, value) != accept)
+                if (Accepts(s_novelRuleDescriptorSchema, value) != accept)
                 {
                     offenders.Add($"  [{label}] expected accept={accept}");
                 }
@@ -648,12 +655,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             Expect("no-id", new JsonObject { ["name"] = "X" }, false);
             Expect("id-number", new JsonObject { ["id"] = 123 }, false);
 
-            CollectNonObjectRejections(s_ruleDescriptorSchema, offenders);
+            CollectNonObjectRejections(s_novelRuleDescriptorSchema, offenders);
 
             offenders.Should().BeEmpty(
-                "ai-rule-descriptor.schema.json must gate id on the NOVEL- prefix only (matching IsNovel), not " +
-                "the full novel grammar. The 'NOVEL-foo/bar' accept is the deliberate drift-catch separating the " +
-                "receipt prefix gate from the result-side grammar:\n" + string.Join("\n", offenders));
+                "ai-novel-rule-descriptor.schema.json must inherit the non-empty string id requirement from " +
+                "ai-reporting-descriptor (via $ref) and add the NOVEL- prefix gate only (matching IsNovel), not the " +
+                "full novel grammar. The 'NOVEL-foo/bar' accept is the deliberate drift-catch separating the receipt " +
+                "prefix gate from the result-side grammar:\n" + string.Join("\n", offenders));
         }
 
         #endregion
@@ -748,15 +756,18 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         }
 
         // The AI schemas $ref the public schemastore SARIF identity. Resolve that
-        // identity offline to the vendored sarif-2.1.0-rtm.6.json (copied next to
-        // the test assembly) so validation never reaches the network. JsonSchema.Net
-        // resolves $refs through the global registry, so register the base shape there.
+        // identity offline to the vendored sarif-2.1.0-rtm.6.json (copied next to the
+        // test assembly) so validation never reaches the network; JsonSchema.Net
+        // resolves $refs through the global registry. ai-rule-descriptor.schema.json
+        // $refs ai-notification-descriptor.schema.json by its own $id, which JsonSchema
+        // .FromText already auto-registers globally when the s_notificationDescriptorSchema
+        // field is loaded above — so no explicit registration is needed for that overlay.
         private static EvaluationOptions BuildOptions()
         {
             string sarifPath = Path.Combine(AppContext.BaseDirectory, "GetSchema", "sarif-2.1.0.json");
             JsonSchema sarif = JsonSchema.FromText(File.ReadAllText(sarifPath));
-
             SchemaRegistry.Global.Register(new Uri(SarifSchemaIdentity), sarif);
+
             return new EvaluationOptions();
         }
 

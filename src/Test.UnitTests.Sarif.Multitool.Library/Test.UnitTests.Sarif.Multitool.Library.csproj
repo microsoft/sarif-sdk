@@ -85,7 +85,7 @@
     <None Include="..\Sarif.Multitool.Library\GetSchema\ai-notification.schema.json" Link="GetSchema\ai-notification.schema.json" CopyToOutputDirectory="PreserveNewest" />
     <None Include="..\Sarif.Multitool.Library\GetSchema\ai-invocation.schema.json" Link="GetSchema\ai-invocation.schema.json" CopyToOutputDirectory="PreserveNewest" />
     <None Include="..\Sarif.Multitool.Library\GetSchema\ai-reporting-descriptor.schema.json" Link="GetSchema\ai-reporting-descriptor.schema.json" CopyToOutputDirectory="PreserveNewest" />
-    <None Include="..\Sarif.Multitool.Library\GetSchema\ai-rule-descriptor.schema.json" Link="GetSchema\ai-rule-descriptor.schema.json" CopyToOutputDirectory="PreserveNewest" />
+    <None Include="..\Sarif.Multitool.Library\GetSchema\ai-novel-rule-descriptor.schema.json" Link="GetSchema\ai-novel-rule-descriptor.schema.json" CopyToOutputDirectory="PreserveNewest" />
     <None Include="..\Sarif\Schemata\sarif-2.1.0-rtm.6.json" Link="GetSchema\sarif-2.1.0.json" CopyToOutputDirectory="PreserveNewest" />
   </ItemGroup>
 </Project>

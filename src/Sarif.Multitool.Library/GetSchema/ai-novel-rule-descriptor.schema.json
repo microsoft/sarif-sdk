@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/microsoft/sarif-sdk/main/src/Sarif.Multitool.Library/GetSchema/ai-novel-rule-descriptor.schema.json",
+  "title": "SARIF AI emit profile \u2014 novel rule descriptor object (--rules)",
+  "description": "Input contract for a reportingDescriptor an AI producer supplies to add-reporting-descriptor --rules (stored under run.tool.driver.rules[]). It overlays ai-reporting-descriptor.schema.json by $ref \u2014 inheriting the non-empty string id requirement \u2014 and adds the single tightening the --rules path enforces: the id must begin with the NOVEL- escape-hatch prefix (AIRuleIdConvention.IsNovel). Taxonomy-mapped rule descriptors (e.g. CWE-89) come from the finalize-time taxonomy enricher, not this verb. The prefix gate is matched as-is (StartsWith), not the full novel grammar.",
+  "allOf": [
+    {
+      "$ref": "https://raw.githubusercontent.com/microsoft/sarif-sdk/main/src/Sarif.Multitool.Library/GetSchema/ai-reporting-descriptor.schema.json"
+    }
+  ],
+  "properties": {
+    "id": {
+      "description": "Novel-finding descriptor id. The non-empty string requirement is inherited from ai-reporting-descriptor; this overlay adds the verb's IsNovel prefix gate. Prefix only, so 'NOVEL-foo/bar' is accepted here even though the richer result-side ruleId grammar rejects it.",
+      "pattern": "^NOVEL-"
+    }
+  }
+}
