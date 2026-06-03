@@ -49,7 +49,8 @@
            locations[].physicalLocation { artifactLocation, region }
 
       3. add-invocation × 1 — a fully-formed invocation (executionSuccessful +
-         commandLine + preset endTimeUtc) carrying one toolExecutionNotification
+         commandLine + workingDirectory + preset endTimeUtc) carrying one
+         toolExecutionNotification
          INLINE with preset timeUtc so the fixture's bytes are stable across
          re-runs. (The add-notification verb was removed; notifications now ride
          inside the invocation that owns them.)
@@ -393,6 +394,7 @@ foreach ($e in $events) {
 $invocationPayload = [ordered]@{
     executionSuccessful = $true
     commandLine         = 'cwe-sampler-scanner analyze ./SampleCode.cs'
+    workingDirectory    = [ordered]@{ uri = 'file:///src/' }
     endTimeUtc          = '2024-01-01T00:00:00.000Z'
     toolExecutionNotifications = @([ordered]@{
         level   = 'note'

@@ -125,7 +125,11 @@
               }
             }
           ],
-          "executionSuccessful": true
+          "executionSuccessful": true,
+          "workingDirectory": {
+            "uri": "file:///src/",
+            "index": 0
+          }
         }
       ],
       "versionControlProvenance": [
@@ -144,6 +148,14 @@
         }
       },
       "artifacts": [
+        {
+          "location": {
+            "uri": "file:///src/"
+          },
+          "hashes": {
+            "sha-256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+          }
+        },
         {
           "location": {
             "uri": "src/Sarif/Taxonomies/SampleCode.cs",
@@ -171,7 +183,7 @@
                 "artifactLocation": {
                   "uri": "src/Sarif/Taxonomies/SampleCode.cs",
                   "uriBaseId": "SRCROOT",
-                  "index": 0
+                  "index": 1
                 },
                 "region": {
                   "startLine": 18,
@@ -218,7 +230,7 @@
                 "artifactLocation": {
                   "uri": "src/Sarif/Taxonomies/SampleCode.cs",
                   "uriBaseId": "SRCROOT",
-                  "index": 0
+                  "index": 1
                 },
                 "region": {
                   "startLine": 22,
@@ -265,7 +277,7 @@
                 "artifactLocation": {
                   "uri": "src/Sarif/Taxonomies/SampleCode.cs",
                   "uriBaseId": "SRCROOT",
-                  "index": 0
+                  "index": 1
                 },
                 "region": {
                   "startLine": 26,
@@ -312,7 +324,7 @@
                 "artifactLocation": {
                   "uri": "src/Sarif/Taxonomies/SampleCode.cs",
                   "uriBaseId": "SRCROOT",
-                  "index": 0
+                  "index": 1
                 },
                 "region": {
                   "startLine": 30,
@@ -358,7 +370,7 @@
                 "artifactLocation": {
                   "uri": "src/Sarif/Taxonomies/SampleCode.cs",
                   "uriBaseId": "SRCROOT",
-                  "index": 0
+                  "index": 1
                 },
                 "region": {
                   "startLine": 34,
@@ -405,7 +417,7 @@
                 "artifactLocation": {
                   "uri": "src/Sarif/Taxonomies/SampleCode.cs",
                   "uriBaseId": "SRCROOT",
-                  "index": 0
+                  "index": 1
                 },
                 "region": {
                   "startLine": 39,
@@ -452,7 +464,7 @@
                 "artifactLocation": {
                   "uri": "src/Sarif/Taxonomies/SampleCode.cs",
                   "uriBaseId": "SRCROOT",
-                  "index": 0
+                  "index": 1
                 },
                 "region": {
                   "startLine": 44,

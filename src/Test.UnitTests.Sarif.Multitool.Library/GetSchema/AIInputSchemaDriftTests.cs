@@ -499,14 +499,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         #region ai-invocation.schema.json
 
         [Fact]
-        public void AIInvocationSchema_RequiresExecutionSuccessfulAndCommandLine()
+        public void AIInvocationSchema_RequiresExecutionSuccessfulCommandLineAndWorkingDirectory()
         {
             // The AI invocation profile is an overlay on the SARIF-base invocation: it $refs the
-            // base shape (so every base field keeps its type) and tightens it with two requireds
-            // matching AddInvocationCommand's receipt gate — a boolean executionSuccessful and a
-            // non-whitespace string commandLine. Notifications travel INLINE, so a fully-formed
-            // invocation carrying toolExecutionNotifications must validate. endTimeUtc must NOT be
-            // required: the verb stamps it at emit time.
+            // base shape (so every base field keeps its type) and tightens it with three requireds
+            // matching AddInvocationCommand's receipt gate — a boolean executionSuccessful, a
+            // non-whitespace string commandLine, and a workingDirectory artifactLocation with a
+            // non-whitespace uri. Notifications travel INLINE, so a fully-formed invocation carrying
+            // toolExecutionNotifications must validate. endTimeUtc must NOT be required: the verb
+            // stamps it at emit time.
             var offenders = new List<string>();
 
             var accepted = new (string Label, JsonObject Value)[]
@@ -514,7 +515,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 ("minimal", new JsonObject
                 {
                     ["executionSuccessful"] = true,
-                    ["commandLine"] = "myscanner scan ."
+                    ["commandLine"] = "myscanner scan .",
+                    ["workingDirectory"] = new JsonObject { ["uri"] = "file:///work" }
                 }),
                 ("rich-with-inline-notifications", new JsonObject
                 {
@@ -543,22 +545,50 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
             var rejected = new (string Label, JsonObject Value)[]
             {
-                ("missing-executionSuccessful", new JsonObject { ["commandLine"] = "myscanner scan ." }),
-                ("missing-commandLine", new JsonObject { ["executionSuccessful"] = true }),
+                ("missing-executionSuccessful", new JsonObject
+                {
+                    ["commandLine"] = "myscanner scan .",
+                    ["workingDirectory"] = new JsonObject { ["uri"] = "file:///work" }
+                }),
+                ("missing-commandLine", new JsonObject
+                {
+                    ["executionSuccessful"] = true,
+                    ["workingDirectory"] = new JsonObject { ["uri"] = "file:///work" }
+                }),
+                ("missing-workingDirectory", new JsonObject
+                {
+                    ["executionSuccessful"] = true,
+                    ["commandLine"] = "myscanner scan ."
+                }),
+                ("workingDirectory-without-uri", new JsonObject
+                {
+                    ["executionSuccessful"] = true,
+                    ["commandLine"] = "myscanner scan .",
+                    ["workingDirectory"] = new JsonObject()
+                }),
+                ("workingDirectory-empty-uri", new JsonObject
+                {
+                    ["executionSuccessful"] = true,
+                    ["commandLine"] = "myscanner scan .",
+                    ["workingDirectory"] = new JsonObject { ["uri"] = "" }
+                }),
                 ("executionSuccessful-as-string", new JsonObject
                 {
                     ["executionSuccessful"] = "true",
-                    ["commandLine"] = "myscanner scan ."
+                    ["commandLine"] = "myscanner scan .",
+                    ["workingDirectory"] = new JsonObject { ["uri"] = "file:///work" }
                 }),
                 ("empty-commandLine", new JsonObject
                 {
                     ["executionSuccessful"] = true,
-                    ["commandLine"] = ""
+                    ["commandLine"] = "",
+                    ["workingDirectory"] = new JsonObject { ["uri"] = "file:///work" }
                 }),
                 ("whitespace-commandLine", new JsonObject
                 {
                     ["executionSuccessful"] = true,
-                    ["commandLine"] = "   "
+                    ["commandLine"] = "   ",
+                    ["workingDirectory"] = new JsonObject { ["uri"] = "file:///work" }
                 }),
             };
             foreach ((string label, JsonObject value) in rejected)
@@ -572,9 +602,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             CollectNonObjectRejections(s_invocationSchema, offenders);
 
             offenders.Should().BeEmpty(
-                "ai-invocation.schema.json must require a boolean executionSuccessful and a non-whitespace " +
-                "string commandLine (mirroring AddInvocationCommand's receipt gate), accept a fully-formed " +
-                "invocation carrying inline notifications, and reject non-objects. It must NOT require " +
+                "ai-invocation.schema.json must require a boolean executionSuccessful, a non-whitespace " +
+                "string commandLine, and a workingDirectory with a non-whitespace uri (mirroring " +
+                "AddInvocationCommand's receipt gate), accept a fully-formed invocation carrying inline " +
+                "notifications, and reject non-objects. It must NOT require " +
                 "endTimeUtc (the verb stamps it):\n" + string.Join("\n", offenders));
         }
 

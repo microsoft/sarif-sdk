@@ -26,7 +26,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
     /// invocation when that process finishes.</para>
     /// <para>The verb enforces the load-bearing requireds of the AI invocation profile
     /// (<c>ai-invocation.schema.json</c>): the payload must be a JSON object carrying a boolean
-    /// <c>executionSuccessful</c> and a non-whitespace string <c>commandLine</c>. Richer
+    /// <c>executionSuccessful</c>, a non-whitespace string <c>commandLine</c>, and a
+    /// <c>workingDirectory</c> artifactLocation with a non-whitespace <c>uri</c>. Richer
     /// structural validation is deferred to <c>emit-finalize --validate</c>, which validates the
     /// assembled log.</para>
     /// <para>At emit time the verb stamps a single wall-clock <c>now</c> onto any fields the
@@ -89,7 +90,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
         // Mirrors the load-bearing requireds of ai-invocation.schema.json. Full structural
         // validation is deferred to emit-finalize --validate; this is a cheap receipt gate that
-        // rejects the two fields the AI profile makes mandatory.
+        // rejects the three fields the AI profile makes mandatory.
         private static bool TryValidateInvocationReceipt(JObject payload)
         {
             JToken executionSuccessful = payload["executionSuccessful"];
@@ -107,6 +108,19 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             {
                 Console.Error.WriteLine(
                     "Invalid invocation: 'commandLine' is required and must be a non-whitespace string.");
+                return false;
+            }
+
+            JToken workingDirectory = payload["workingDirectory"];
+            JToken workingDirectoryUri = (workingDirectory as JObject)?["uri"];
+            if (workingDirectory == null
+                || workingDirectory.Type != JTokenType.Object
+                || workingDirectoryUri == null
+                || workingDirectoryUri.Type != JTokenType.String
+                || string.IsNullOrWhiteSpace(workingDirectoryUri.Value<string>()))
+            {
+                Console.Error.WriteLine(
+                    "Invalid invocation: 'workingDirectory' is required and must be an artifactLocation with a non-whitespace 'uri'.");
                 return false;
             }
 

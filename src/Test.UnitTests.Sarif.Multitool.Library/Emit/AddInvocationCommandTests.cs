@@ -53,7 +53,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             SeedRunHeader();
             File.WriteAllText(
                 InputPath,
-                "{ \"executionSuccessful\": true, \"commandLine\": \"demo --scan src\" }");
+                "{ \"executionSuccessful\": true, \"commandLine\": \"demo --scan src\", \"workingDirectory\": { \"uri\": \"file:///work/\" } }");
 
             int exit = new AddInvocationCommand().Run(new AddInvocationOptions
             {
@@ -160,6 +160,54 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         }
 
         [Fact]
+        public void Run_FailsWhenWorkingDirectoryMissing()
+        {
+            // The AI invocation profile requires a workingDirectory artifactLocation (it anchors
+            // the relative paths in the scan); the verb's receipt gate rejects a payload omitting it.
+            SeedRunHeader();
+            File.WriteAllText(
+                InputPath,
+                "{ \"executionSuccessful\": true, \"commandLine\": \"demo --scan src\" }");
+
+            using var errWriter = new StringWriter();
+            Console.SetError(errWriter);
+
+            int exit = new AddInvocationCommand().Run(new AddInvocationOptions
+            {
+                OutputFilePath = OutPath,
+                InputFilePath = InputPath,
+            });
+
+            exit.Should().Be(CommandBase.FAILURE);
+            errWriter.ToString().Should().Contain("workingDirectory");
+            File.ReadAllLines(WipPath).Should().HaveCount(1);
+        }
+
+        [Fact]
+        public void Run_FailsWhenWorkingDirectoryUriIsWhitespace()
+        {
+            // A workingDirectory whose uri is empty/whitespace carries no anchor, so the receipt
+            // gate rejects it just as it rejects a whitespace commandLine.
+            SeedRunHeader();
+            File.WriteAllText(
+                InputPath,
+                "{ \"executionSuccessful\": true, \"commandLine\": \"demo --scan src\", \"workingDirectory\": { \"uri\": \"   \" } }");
+
+            using var errWriter = new StringWriter();
+            Console.SetError(errWriter);
+
+            int exit = new AddInvocationCommand().Run(new AddInvocationOptions
+            {
+                OutputFilePath = OutPath,
+                InputFilePath = InputPath,
+            });
+
+            exit.Should().Be(CommandBase.FAILURE);
+            errWriter.ToString().Should().Contain("workingDirectory");
+            File.ReadAllLines(WipPath).Should().HaveCount(1);
+        }
+
+        [Fact]
         public void Run_StampsEndTimeUtcWhenOmitted()
         {
             // The verb fills endTimeUtc at emit time when the producer left it unset, so the
@@ -167,7 +215,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             SeedRunHeader();
             File.WriteAllText(
                 InputPath,
-                "{ \"executionSuccessful\": true, \"commandLine\": \"demo --scan src\" }");
+                "{ \"executionSuccessful\": true, \"commandLine\": \"demo --scan src\", \"workingDirectory\": { \"uri\": \"file:///work/\" } }");
 
             int exit = new AddInvocationCommand().Run(new AddInvocationOptions
             {
@@ -190,6 +238,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             const string json = @"{
               ""executionSuccessful"": true,
               ""commandLine"": ""demo --scan src"",
+              ""workingDirectory"": { ""uri"": ""file:///work/"" },
               ""toolExecutionNotifications"": [
                 { ""message"": { ""text"": ""no time"" } },
                 { ""message"": { ""text"": ""has time"" }, ""timeUtc"": ""2026-05-26T10:05:42.000Z"" }
@@ -332,7 +381,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             {
                 File.WriteAllText(
                     InputPath,
-                    $"{{ \"executionSuccessful\": true, \"commandLine\": \"phase-{i}\" }}");
+                    $"{{ \"executionSuccessful\": true, \"commandLine\": \"phase-{i}\", \"workingDirectory\": {{ \"uri\": \"file:///work/\" }} }}");
 
                 int exit = new AddInvocationCommand().Run(new AddInvocationOptions
                 {
