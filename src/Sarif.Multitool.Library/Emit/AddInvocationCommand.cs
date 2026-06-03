@@ -19,11 +19,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
     /// <remarks>
     /// <para>An invocation models one process the producer launched and is the SOLE carrier of
     /// notifications: the producer supplies them INLINE on the payload's
-    /// <c>toolExecutionNotifications</c> / <c>toolConfigurationNotifications</c> arrays. There is
-    /// no separate <c>add-notification</c> verb because SARIF has no run-level notifications
-    /// array, so a notification authored on its own could not be routed to one of several
-    /// parallel invocations; the producer instead holds per-process state and emits ONE complete
-    /// invocation when that process finishes.</para>
+    /// <c>toolExecutionNotifications</c> / <c>toolConfigurationNotifications</c> arrays. A
+    /// notification is bound to the invocation that owns it because SARIF has no run-level
+    /// notifications array, and a free-standing notification could not be routed to one of
+    /// several parallel invocations; the producer holds per-process state and emits ONE complete
+    /// invocation (notifications inline) when that process finishes.</para>
     /// <para>The verb enforces the load-bearing requireds of the AI invocation profile
     /// (<c>ai-invocation.schema.json</c>): the payload must be a JSON object carrying a boolean
     /// <c>executionSuccessful</c>, a non-whitespace string <c>commandLine</c>, and a
@@ -80,7 +80,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                     string.Format(
                         CultureInfo.CurrentCulture,
                         "Appended invocation (executionSuccessful='{0}') to '{1}'.",
-                        executionSuccessful.ToString().ToLowerInvariant(),
+                        executionSuccessful ? "true" : "false",
                         wipPath));
                 return SUCCESS;
             }

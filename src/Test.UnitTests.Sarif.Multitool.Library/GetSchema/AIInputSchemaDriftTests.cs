@@ -654,10 +654,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             // gating on string.IsNullOrEmpty — so whitespace-only is accepted but "" is
             // not. Extra properties are accepted (the verb only inspects id). This is the
             // general descriptor contract, stored under notifications[] by default or
-            // rules[] with --rules. The --rules-only NOVEL- gate (AIRuleIdConvention
-            // .IsNovel) is NOT pinned here — a NOVEL-less id is accepted at this level;
-            // ai-novel-rule-descriptor.schema.json overlays this schema to pin it. The
-            // id-taxonomy/id-novel/id-arbitrary accepts below assert that non-gating.
+            // rules[] with --rules. The --rules-only NOVEL- grammar gate is NOT pinned here —
+            // a NOVEL-less id is accepted at this level; ai-novel-rule-descriptor.schema.json
+            // overlays this schema to pin it. The id-taxonomy/id-novel/id-arbitrary accepts
+            // below assert that non-gating.
             var offenders = new List<string>();
 
             void Expect(string label, JsonNode value, bool accept)
@@ -684,7 +684,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             offenders.Should().BeEmpty(
                 "ai-reporting-descriptor.schema.json must require a non-empty string id (minLength:1 mirrors the " +
                 "verb's IsNullOrEmpty gate, so '   ' is accepted) and otherwise accept any object. It must NOT pin " +
-                "the --rules-only NOVEL- prefix gate (ai-novel-rule-descriptor.schema.json overlays this to add it):\n" +
+                "the --rules-only NOVEL- grammar gate (ai-novel-rule-descriptor.schema.json overlays this to add it):\n" +
                 string.Join("\n", offenders));
         }
 
@@ -693,14 +693,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         #region ai-novel-rule-descriptor.schema.json
 
         [Fact]
-        public void AINovelRuleDescriptorSchema_RequiresNovelPrefixId()
+        public void AINovelRuleDescriptorSchema_RequiresWellFormedNovelId()
         {
             // ai-novel-rule-descriptor overlays ai-reporting-descriptor by $ref and adds
-            // the --rules-path tightening: id must StartsWith("NOVEL-") (AIRuleIdConvention
-            // .IsNovel). It pins the PREFIX ONLY, not the full novel grammar — so 'NOVEL-'
-            // and 'NOVEL-foo/bar' are accepted here even though the richer result-side
-            // ruleId grammar rejects them. The non-empty-string-id rejects (id-empty, no-id,
-            // id-number) are inherited from the $ref'd base, proving the overlay resolves.
+            // the --rules-path tightening: the descriptor id must satisfy the full NOVEL-
+            // escape-hatch grammar ^NOVEL-[a-z0-9]+(-[a-z0-9]+)*$ — the SAME lowercase-kebab
+            // form a result's NOVEL- ruleId must satisfy, so a descriptor id is byte-identical
+            // to the ruleId that references it. Bare 'NOVEL-', a slash, an uppercase tail, and
+            // a trailing hyphen are all rejected. The non-empty-string-id rejects (id-empty,
+            // no-id, id-number) are inherited from the $ref'd base, proving the overlay resolves.
             var offenders = new List<string>();
 
             void Expect(string label, JsonNode value, bool accept)
@@ -712,11 +713,18 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             }
 
             Expect("novel-simple", new JsonObject { ["id"] = "NOVEL-prompt-injection" }, true);
-            Expect("novel-prefix-only", new JsonObject { ["id"] = "NOVEL-" }, true);
-            Expect("novel-with-slash", new JsonObject { ["id"] = "NOVEL-foo/bar" }, true);
-            Expect("novel-mixed-case-tail", new JsonObject { ["id"] = "NOVEL-mixedCase-123" }, true);
+            Expect("novel-multi-segment", new JsonObject { ["id"] = "NOVEL-prompt-injection-via-system-message" }, true);
+            Expect("novel-sql-injection", new JsonObject { ["id"] = "NOVEL-sql-injection" }, true);
+            Expect("novel-single-char-tail", new JsonObject { ["id"] = "NOVEL-a" }, true);
+            Expect("novel-alphanumeric", new JsonObject { ["id"] = "NOVEL-cwe-89-lookalike" }, true);
 
             Expect("taxonomy-id", new JsonObject { ["id"] = "CWE-89" }, false);
+            Expect("novel-bare-prefix", new JsonObject { ["id"] = "NOVEL-" }, false);
+            Expect("novel-with-slash", new JsonObject { ["id"] = "NOVEL-foo/bar" }, false);
+            Expect("novel-mixed-case-tail", new JsonObject { ["id"] = "NOVEL-mixedCase-123" }, false);
+            Expect("novel-uppercase-tail", new JsonObject { ["id"] = "NOVEL-PROMPT" }, false);
+            Expect("novel-trailing-hyphen", new JsonObject { ["id"] = "NOVEL-trailing-" }, false);
+            Expect("novel-double-hyphen", new JsonObject { ["id"] = "NOVEL--double" }, false);
             Expect("novel-no-dash", new JsonObject { ["id"] = "NOVEL" }, false);
             Expect("lowercase-prefix", new JsonObject { ["id"] = "novel-foo" }, false);
             Expect("id-empty", new JsonObject { ["id"] = "" }, false);
@@ -727,9 +735,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
             offenders.Should().BeEmpty(
                 "ai-novel-rule-descriptor.schema.json must inherit the non-empty string id requirement from " +
-                "ai-reporting-descriptor (via $ref) and add the NOVEL- prefix gate only (matching IsNovel), not the " +
-                "full novel grammar. The 'NOVEL-foo/bar' accept is the deliberate drift-catch separating the receipt " +
-                "prefix gate from the result-side grammar:\n" + string.Join("\n", offenders));
+                "ai-reporting-descriptor (via $ref) and add the full NOVEL- grammar gate " +
+                "^NOVEL-[a-z0-9]+(-[a-z0-9]+)*$ — the same lowercase-kebab form the result-side NOVEL- ruleId " +
+                "must satisfy, so 'NOVEL-', 'NOVEL-foo/bar', an uppercase tail, and a trailing hyphen are all " +
+                "rejected:\n" + string.Join("\n", offenders));
         }
 
         #endregion

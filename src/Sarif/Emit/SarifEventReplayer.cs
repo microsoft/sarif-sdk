@@ -111,8 +111,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Emit
                         break;
 
                     case SarifEventKinds.Invocation:
-                        // The invocation carries its own toolExecutionNotifications /
-                        // toolConfigurationNotifications inline; ToObject pulls them along.
                         invocations.Add(sarifEvent.Payload.ToObject<Invocation>(serializer));
                         break;
 

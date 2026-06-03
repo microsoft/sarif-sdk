@@ -19,11 +19,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
     /// <remarks>
     /// <para>Default target is <c>run.tool.driver.notifications[]</c>; pass <c>--rules</c> to
     /// target <c>run.tool.driver.rules[]</c> instead.</para>
-    /// <para>On the <c>--rules</c> path, the descriptor id is gated against
-    /// <see cref="AIRuleIdConvention.IsNovel(string)"/>: only NOVEL- prefixed ids are accepted.
-    /// Taxonomy-mapped rule descriptors (e.g., <c>CWE-89</c>) come from the taxonomy enricher
-    /// at finalize time, not from this verb — this verb is the producer-side authoring path
-    /// for novel-finding descriptors that have no upstream taxonomy entry.</para>
+    /// <para>On the <c>--rules</c> path, the descriptor id is gated against the full NOVEL-
+    /// escape-hatch grammar (<see cref="AIRuleIdConvention.IsNovel(string)"/> +
+    /// <see cref="AIRuleIdConvention.IsAcceptable(string)"/>): only well-formed NOVEL- ids are
+    /// accepted — the same lowercase-kebab grammar a result's NOVEL- <c>ruleId</c> must satisfy,
+    /// so the descriptor id matches the ruleId that references it. Taxonomy-mapped rule
+    /// descriptors (e.g., <c>CWE-89</c>) come from the taxonomy enricher at finalize time, not
+    /// from this verb — this verb is the producer-side authoring path for novel-finding
+    /// descriptors that have no upstream taxonomy entry.</para>
     /// <para>Duplicate-id submissions within the same event log are rejected on receipt — the
     /// verb scans the existing event log (including any descriptors pre-populated on the
     /// run-header event) and fails before appending. (A future <c>--force</c> escape hatch
@@ -91,16 +94,18 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                     return FAILURE;
                 }
 
-                // The --rules path is reserved for NOVEL- ids. Reject anything else with a
-                // tailored envelope that mirrors the AI-RULEID-001 shape but is specific to
-                // descriptor authoring (the result-side AIRuleIdConventionException message
-                // talks about taxonomy sub-id form, which doesn't apply to a descriptor id).
-                if (isRules && !AIRuleIdConvention.IsNovel(id))
+                // The --rules path is reserved for well-formed NOVEL- ids. Reject anything else
+                // with a tailored envelope that mirrors the AI-RULEID-001 shape but is specific
+                // to descriptor authoring (the result-side AIRuleIdConventionException message
+                // talks about taxonomy sub-id form, which doesn't apply to a descriptor id). The
+                // gate is the full novel grammar (IsNovel + IsAcceptable), not just the prefix, so
+                // a descriptor id is byte-identical to the result ruleId that references it.
+                if (isRules && !(AIRuleIdConvention.IsNovel(id) && AIRuleIdConvention.IsAcceptable(id)))
                 {
                     Console.Error.WriteLine(
                         string.Format(
                             CultureInfo.CurrentCulture,
-                            "error {0}: rule descriptor id '{1}' is not in NOVEL- form. The --rules path is reserved for novel-finding descriptors that have no taxonomy entry; descriptors for taxonomy-mapped rules (e.g., 'CWE-89') come from the taxonomy enricher, not from this verb. Use a NOVEL- escape-hatch id (e.g., 'NOVEL-prompt-injection-via-system-message'). See docs/AI-RuleId-Convention.md.",
+                            "error {0}: rule descriptor id '{1}' is not a well-formed NOVEL- id. The --rules path is reserved for novel-finding descriptors that have no taxonomy entry; descriptors for taxonomy-mapped rules (e.g., 'CWE-89') come from the taxonomy enricher, not from this verb. Use a NOVEL- escape-hatch id: 'NOVEL-' followed by a lowercase-alphanumeric kebab sub-id (single hyphens, no slash, no trailing hyphen), e.g., 'NOVEL-prompt-injection-via-system-message'. See docs/AI-RuleId-Convention.md.",
                             AIRuleIdConventionException.ErrorCode,
                             id));
                     return FAILURE;

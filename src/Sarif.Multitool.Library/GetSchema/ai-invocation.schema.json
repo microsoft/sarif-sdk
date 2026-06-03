@@ -22,11 +22,10 @@
     "commandLine": {
       "description": "The command line that launched the process this invocation models. Required by the AI profile (the natural identity of a launched process) even though SARIF \u00a73.20.4 makes it optional.",
       "type": "string",
-      "minLength": 1,
       "pattern": "\\S"
     },
     "workingDirectory": {
-      "description": "The directory the process ran in, as a SARIF artifactLocation. Required by the AI profile (it anchors relative paths in the scan) even though SARIF \u00a73.20.19 makes it optional; the AI producer knows it. The uri must be a non-empty string.",
+      "description": "The directory the process ran in, as a SARIF artifactLocation. Required by the AI profile (it anchors relative paths in the scan) even though SARIF \u00a73.20.19 makes it optional; the AI producer knows it. The uri must be a non-whitespace string.",
       "type": "object",
       "required": [
         "uri"
@@ -34,7 +33,6 @@
       "properties": {
         "uri": {
           "type": "string",
-          "minLength": 1,
           "pattern": "\\S"
         }
       }
@@ -51,7 +49,6 @@
           "timeUtc": {
             "type": "string",
             "format": "date-time",
-            "minLength": 1,
             "pattern": "\\S"
           }
         }
@@ -69,7 +66,6 @@
           "timeUtc": {
             "type": "string",
             "format": "date-time",
-            "minLength": 1,
             "pattern": "\\S"
           }
         }

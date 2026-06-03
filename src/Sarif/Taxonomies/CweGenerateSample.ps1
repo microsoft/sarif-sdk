@@ -52,8 +52,8 @@
          commandLine + a real workingDirectory + arguments + preset endTimeUtc)
          carrying one toolExecutionNotification INLINE with a producer-supplied
          timeUtc (the verb requires it and never stamps it) so the fixture's
-         bytes are stable across re-runs. (The add-notification verb was removed;
-         notifications now ride inside the invocation that owns them.)
+         bytes are stable across re-runs. (SARIF has no run-level notifications
+         array, so notifications ride inside the invocation that owns them.)
 
       4. emit-finalize --embed-text-files --srcroot https://github.com/microsoft/sarif-sdk/blob/main/
          Enrichment runs against the local SRCROOT (snippets, hashes,
@@ -385,9 +385,9 @@ foreach ($e in $events) {
 }
 
 # A single fully-formed invocation carries the run's notification INLINE on
-# toolExecutionNotifications. The add-notification verb was removed: SARIF has no
-# run-level notifications array, so a notification travels inside the invocation
-# that owns it (and parallel processes are each modeled by their own invocation).
+# toolExecutionNotifications. SARIF has no run-level notifications array, so a
+# notification travels inside the invocation that owns it (and parallel processes
+# are each modeled by their own invocation).
 # workingDirectory is a REAL repo-relative directory (under SRCROOT) so enrichment
 # resolves it to an actual path; after emit-finalize rewrites SRCROOT to the hosted
 # GitHub URL it resolves there. endTimeUtc is preset so the verb leaves it alone (it

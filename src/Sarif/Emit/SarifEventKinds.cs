@@ -35,9 +35,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Emit
         /// are each modeled by their own self-contained invocation). An invocation is the SOLE
         /// carrier of notifications: producer-supplied <see cref="Notification"/> objects travel
         /// INLINE on the invocation's <c>toolExecutionNotifications</c> /
-        /// <c>toolConfigurationNotifications</c> arrays. There is no streamed-notification event
-        /// kind because SARIF has no run-level notifications array, so a notification arriving on
-        /// its own could not be unambiguously routed to one of several concurrent invocations.
+        /// <c>toolConfigurationNotifications</c> arrays. Notifications have no event kind of their
+        /// own: SARIF has no run-level notifications array, and a free-standing notification could
+        /// not be unambiguously routed to one of several concurrent invocations, so each
+        /// invocation carries its own.
         /// </summary>
         public const string Invocation = "invocation";
 
@@ -46,10 +47,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Emit
         /// Emitted by the <c>add-reporting-descriptor --rules</c> verb. The replayer appends the
         /// descriptor to the rules list before result-driven auto-registration runs, so an
         /// explicitly-supplied descriptor wins over the minimal one that would otherwise be
-        /// synthesized from a result's <c>ruleId</c>. The verb enforces
-        /// <see cref="AIRuleIdConvention.IsNovel(string)"/> on the descriptor id — this kind is
-        /// reserved for NOVEL- novel-finding descriptors. Taxonomy-mapped descriptors (e.g.,
-        /// <c>CWE-89</c>) come from the taxonomy enricher, not from this event.
+        /// synthesized from a result's <c>ruleId</c>. The verb gates the descriptor id on the
+        /// full NOVEL- grammar (the same lowercase-kebab form a result's NOVEL- <c>ruleId</c>
+        /// must satisfy, so the id equals the ruleId that references it); this kind is reserved
+        /// for novel-finding descriptors. Taxonomy-mapped descriptors (e.g., <c>CWE-89</c>) come
+        /// from the taxonomy enricher, not from this event.
         /// </summary>
         public const string RuleDescriptor = "rule-descriptor";
 
