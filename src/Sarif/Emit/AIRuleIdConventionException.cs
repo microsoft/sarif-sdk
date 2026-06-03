@@ -73,15 +73,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Emit
 
             sb.AppendLine();
             sb.AppendLine("Every AI-emitted result.ruleId MUST take one of two shapes:");
-            sb.AppendLine("  1. Taxonomy sub-id  <BASE>/<sub-id>");
+            sb.AppendLine("  1. Taxonomy sub-id  CWE-<number>/<sub-id>");
             sb.AppendLine("     e.g., 'CWE-89/kql-injection-from-config'");
-            sb.AppendLine("     Use this whenever the finding maps to a known taxonomy entry.");
+            sb.AppendLine("     Use this whenever the finding maps to a CWE entry.");
             sb.AppendLine("     The base id (CWE-89) drives descriptor enrichment; the sub-id");
             sb.AppendLine("     is your AI-chosen sub-classifier and keeps AI1012 silent.");
             sb.AppendLine("  2. NOVEL escape hatch  NOVEL-<sub-id>");
             sb.AppendLine("     e.g., 'NOVEL-prompt-injection-via-system-message'");
-            sb.AppendLine("     Use this ONLY when no taxonomy entry fits. The NOVEL- form is");
-            sb.AppendLine("     flat (no slash). If the finding maps to a CWE/CVE/OWASP entry,");
+            sb.AppendLine("     Use this ONLY when no CWE entry fits. The NOVEL- form is");
+            sb.AppendLine("     flat (no slash). If the finding maps to a CWE entry,");
             sb.AppendLine("     use shape #1 instead.");
             sb.AppendLine();
             sb.Append("Retry the emit after correcting every offender above. ");

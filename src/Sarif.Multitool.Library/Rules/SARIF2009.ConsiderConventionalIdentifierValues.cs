@@ -69,7 +69,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             if (IsAIOriginRun())
             {
                 // AI ruleId convention (see AIRuleIdConvention): every accepted id is
-                // either 'BASE/sub-id' (e.g. 'CWE-89/kql-injection') — which AI1012
+                // either 'CWE-NN/sub-id' (e.g. 'CWE-89/kql-injection') — which AI1012
                 // sanctions and which this rule's slash branch would mis-flag — or
                 // the 'NOVEL-<sub-id>' escape hatch, which this rule's regex branch
                 // would mis-flag for not matching the short-prefix-plus-number shape.

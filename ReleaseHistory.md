@@ -22,6 +22,7 @@ Entries are terse by design: one line per change, present-tense behavior, comple
 * BUG: `AddFileReferencesVisitor` no longer promotes an invocation's `workingDirectory` into `run.artifacts`; it is process context, not a scanned artifact.
 * BUG: `FileRegionsCache.GetHashData` returns null (rather than the sha-256 of the empty string) for a path that resolves to a directory or missing file with no cached text.
 * NEW: Add AI emit-profile input schemas for the `add-invocation` and `add-reporting-descriptor` verbs.
+* BRK: Tighten the AI `result.ruleId` convention to CWE-only: `CWE-<number>/<sub-id>` or `NOVEL-<sub-id>`, where `<sub-id>` is lowercase-alphanumeric kebab (single hyphens, no leading/trailing/consecutive hyphen). CVE, OWASP, and mixed-case sub-ids are no longer accepted.
 
 ## **v5.0.2** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/v5.0.2) | [Driver](https://www.nuget.org/packages/Sarif.Driver/v5.0.2) | [Converters](https://www.nuget.org/packages/Sarif.Converters/v5.0.2) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/v5.0.2) | [Multitool Library](https://www.nuget.org/packages/Sarif.Multitool.Library/v5.0.2)
 * BRK: Replace `scripts/Generate-CweTaxonomy.ps1` with `scripts/generate_cwe_taxonomy.py` (Python 3, stdlib only) so the CWE taxonomy regenerates on Linux, macOS, and Windows without `pwsh`.

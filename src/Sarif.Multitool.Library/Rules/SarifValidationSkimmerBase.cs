@@ -302,7 +302,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         /// value) declares that the containing run was produced by an AI emitter.
         /// AI-emitted SARIF is stochastic by construction — message text is rendered
         /// per-result rather than authored against a table of <c>messageStrings</c>
-        /// templates, and rule ids ride the <c>NOVEL-</c> / <c>BASE/sub-id</c>
+        /// templates, and rule ids ride the <c>NOVEL-</c> / <c>CWE-NN/sub-id</c>
         /// convention rather than a fixed tool prefix. Style-class validation rules
         /// (e.g. SARIF2002, SARIF2009, SARIF2014, SARIF2015) encode human-authoring
         /// guidance whose preconditions don't hold for AI output, so they suppress

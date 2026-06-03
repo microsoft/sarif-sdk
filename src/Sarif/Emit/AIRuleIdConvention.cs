@@ -15,39 +15,39 @@ namespace Microsoft.CodeAnalysis.Sarif.Emit
     /// is opinionated about what a well-shaped AI finding's <see cref="Result.RuleId"/>
     /// looks like. Every accepted result MUST carry a ruleId in one of two forms:</para>
     /// <list type="bullet">
-    /// <item><description><b>Taxonomy sub-id</b> — <c>&lt;BASE&gt;/&lt;sub-id&gt;</c> where
-    /// <c>BASE</c> is a recognized taxonomy entry id (e.g., <c>CWE-89</c>,
-    /// <c>CVE-2021-12345</c>, <c>OWASP-A01-2021</c>) and <c>sub-id</c> is a non-empty
-    /// AI-chosen sub-classifier with no slashes or whitespace
-    /// (e.g., <c>CWE-89/kql-injection-from-config</c>).</description></item>
+    /// <item><description><b>CWE sub-id</b> — <c>CWE-&lt;number&gt;/&lt;sub-id&gt;</c> where
+    /// <c>sub-id</c> is a non-empty AI-chosen sub-classifier in lowercase alphanumeric
+    /// kebab-case (single hyphens, no leading/trailing/consecutive hyphen),
+    /// e.g., <c>CWE-89/kql-injection-from-config</c>. AI findings are always CWE-based;
+    /// other taxonomies (CVE, OWASP) are not accepted on this path.</description></item>
     /// <item><description><b>NOVEL escape hatch</b> — <c>NOVEL-&lt;sub-id&gt;</c> for
-    /// findings that don't map to any known taxonomy entry
+    /// findings that don't map to any CWE entry
     /// (e.g., <c>NOVEL-prompt-injection-via-system-message</c>). The NOVEL- form is
     /// exclusive: it does not accept a slash. If the AI can connect the finding back to
-    /// a taxonomy entry it MUST use the sub-id form instead.</description></item>
+    /// a CWE entry it MUST use the sub-id form instead.</description></item>
     /// </list>
     /// <para>Rationale: the sub-id form keeps AI1012 silent (sub-classification is what
     /// the rule wants) AND lets the CWE taxonomy enricher hydrate the base descriptor
     /// from MITRE metadata, so the AI gets enriched output for free while staying
     /// honest about which sub-pattern of the base it observed. The NOVEL- form keeps
-    /// non-taxonomy findings emittable without forcing the AI to pretend a CWE applies.
+    /// non-CWE findings emittable without forcing the AI to pretend a CWE applies.
     /// See <c>docs/AI-RuleId-Convention.md</c> for the full rationale and examples.</para>
     /// <para>Producers using <see cref="Writers.SarifLogger"/> directly do not flow through
     /// this convention — it is specific to the AI-authoring emit verb path.</para>
     /// </remarks>
     public static class AIRuleIdConvention
     {
-        // Taxonomy sub-id form: uppercase taxonomy prefix (CWE, CVE, OWASP, ...) with one
-        // or more dash-separated alphanumeric tokens, then a slash, then a non-empty sub-id
-        // that contains no further slashes and no whitespace.
+        // CWE sub-id form: the literal CWE- prefix with a numeric base id, then a slash,
+        // then a non-empty lowercase-alphanumeric kebab sub-id (single hyphens, no
+        // leading/trailing/consecutive hyphen). AI findings are always CWE-based.
         private static readonly Regex s_taxonomySubId = new Regex(
-            @"^[A-Z][A-Z0-9]*(-[A-Za-z0-9]+)+/[^/\s]+$",
+            @"^CWE-[0-9]+/[a-z0-9]+(-[a-z0-9]+)*$",
             RegexOptions.Compiled | RegexOptions.CultureInvariant);
 
-        // NOVEL escape hatch: "NOVEL-" followed by one or more dash-separated alphanumeric
-        // tokens. No slashes, no whitespace, no trailing dash.
+        // NOVEL escape hatch: "NOVEL-" followed by a lowercase-alphanumeric kebab sub-id
+        // (single hyphens, no leading/trailing/consecutive hyphen). No slashes, no whitespace.
         private static readonly Regex s_novelPrefix = new Regex(
-            @"^NOVEL-[A-Za-z0-9]+(-[A-Za-z0-9]+)*$",
+            @"^NOVEL-[a-z0-9]+(-[a-z0-9]+)*$",
             RegexOptions.Compiled | RegexOptions.CultureInvariant);
 
         internal const string NovelMarker = "NOVEL-";

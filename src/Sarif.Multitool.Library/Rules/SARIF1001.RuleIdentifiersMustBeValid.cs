@@ -50,7 +50,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             // pair a SCREAMING-CAPS opaque id with the corresponding PascalCase end-user name
             // (e.g. 'DECISION' / 'Decision'); for those descriptors the convention check is suppressed.
             // The intersection (AI-origin AND notification descriptor) is the cut: AI rule ids are
-            // constrained by AI1012 to 'BASE/sub-id' or 'NOVEL-<sub-id>' forms whose hyphens / slashes
+            // constrained by AI1012 to 'CWE-NN/sub-id' or 'NOVEL-<sub-id>' forms whose hyphens / slashes
             // can't case-fold-collide with any PascalCase name, so the carve-out is unnecessary for
             // the rules/taxa kinds and we keep the typo heuristic engaged there.
             if (IsAIOriginRun()

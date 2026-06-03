@@ -26,7 +26,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
     //
     // It validates with JsonSchema.Net (json-everything), NOT Microsoft.Json.Schema:
     // the in-repo validator predates Draft 2020-12 and silently ignores the
-    // load-bearing if/then/else keywords, which would make this a
+    // Draft 2020-12 keywords the AI overlays rely on, which would make this a
     // false-green. The schemas $ref the public schemastore SARIF identity; the
     // base shape is resolved offline to the vendored sarif-2.1.0-rtm.6.json
     // (copied next to the test assembly) so the suite stays hermetic.
@@ -51,19 +51,20 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
         // ruleId accept/reject must match AIRuleIdConvention.cs (and the
         // AIRuleIdConventionTests / docs/AI-RuleId-Convention.md tables)
-        // case-for-case. The if/then/else is load-bearing: 'NOVEL-foo/bar'
-        // matches the taxonomy grammar but is rejected because NOVEL- is exclusive.
+        // case-for-case. AI rule ids are CWE-only; the CWE- and NOVEL- prefixes
+        // are disjoint, so a plain anyOf is exact ('NOVEL-foo/bar' is rejected
+        // by both branches).
         private static readonly string[] s_acceptedRuleIds =
         {
             "CWE-89/kql-injection-from-config",
             "CWE-79/dom-xss-via-sanitizer-bypass",
             "CWE-1/a",
-            "CVE-2021-12345/exploit-via-file-upload",
-            "OWASP-A01-2021/broken-access-control",
+            "CWE-327/md5-usage",
+            "CWE-89/2nd-order-injection",
             "NOVEL-look-ma-i-hallucinated-outside-of-mitre",
             "NOVEL-prompt-injection-via-system-message",
             "NOVEL-a",
-            "NOVEL-mixed-Case-123",
+            "NOVEL-x509-bypass",
         };
 
         private static readonly string[] s_rejectedRuleIds =
@@ -75,12 +76,23 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             "CWE-89/a/b",     // sub-id has slash
             "CWE-89/a b",     // sub-id has whitespace
             "cwe-89/foo",     // lowercase base
-            "CWE/foo",        // base has no '-' segment
+            "CWE/foo",        // base has no number
+            "CWE-x/foo",      // base is not numeric
+            "CWE-89/Foo",     // uppercase in sub-id
+            "CWE-89/a--b",    // consecutive hyphens
+            "CWE-89/a-",      // trailing hyphen
+            "CWE-89/-a",      // leading hyphen
+            "CVE-2021-12345/exploit-via-file-upload",   // CVE not accepted (CWE-only)
+            "OWASP-A01-2021/broken-access-control",     // OWASP not accepted (CWE-only)
             "MY-CUSTOM-RULE",
             "NOVEL",
             "NOVEL-",
-            "NOVEL-foo/bar",  // <-- the drift-catch (taxonomy-shaped but NOVEL-exclusive)
+            "NOVEL-foo/bar",  // NOVEL- is flat — no slash (and not a valid CWE base)
             "NOVEL-foo-",     // trailing dash
+            "NOVEL--foo",     // leading dash after prefix
+            "NOVEL-a--b",     // consecutive hyphens
+            "NOVEL-Foo",      // uppercase in sub-id
+            "NOVEL-mixed-Case-123",  // mixed case no longer allowed
             "novel-foo",      // lowercase prefix
             "NOVEL-foo bar",  // whitespace in sub-id
         };
@@ -108,8 +120,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
             offenders.Should().BeEmpty(
                 "ai-result.schema.json's ruleId verdict must match AIRuleIdConvention.cs case-for-case. " +
-                "A divergence means the schema drifted from the canonical grammar (taxonomy sub-id form " +
-                "or the NOVEL- escape) or the load-bearing if/then/else routing regressed:\n" +
+                "A divergence means the schema drifted from the canonical grammar (CWE sub-id form " +
+                "or the NOVEL- escape) or the anyOf ruleId patterns regressed:\n" +
                 string.Join("\n", offenders));
         }
 
@@ -263,45 +275,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             offenders.Should().BeEmpty(
                 "ai-result.schema.json must enforce AI1003 region constraints and require a non-empty " +
                 "locations array:\n" + string.Join("\n", offenders));
-        }
-
-        [Fact]
-        public void AIResultSchema_IfThenElseRuleIdRoutingIsLoadBearing()
-        {
-            // Prove the if/then/else cannot be flattened to a naive anyOf. A naive
-            // anyOf(taxonomy, novel) WRONGLY ACCEPTS 'NOVEL-foo/bar' (it matches the
-            // taxonomy branch), whereas the shipped if/then/else REJECTS it because
-            // a NOVEL- id is routed exclusively to the novelEscape grammar. This is
-            // the exact anyOf trap the if/then/else exists to avoid.
-            JsonSchema naive = JsonSchema.FromText(
-                """
-                {
-                  "$schema": "https://json-schema.org/draft/2020-12/schema",
-                  "type": "object",
-                  "properties": {
-                    "ruleId": {
-                      "type": "string",
-                      "minLength": 1,
-                      "anyOf": [
-                        { "pattern": "^[A-Z][A-Z0-9]*(-[A-Za-z0-9]+)+/[^/\\s]+$" },
-                        { "pattern": "^NOVEL-[A-Za-z0-9]+(-[A-Za-z0-9]+)*$" }
-                      ]
-                    }
-                  }
-                }
-                """);
-
-            JsonObject trap = MakeResult("NOVEL-foo/bar");
-            bool naiveAccepts = Accepts(naive, trap);
-            bool oursRejects = !Accepts(s_resultSchema, trap);
-
-            naiveAccepts.Should().BeTrue(
-                "a naive anyOf(taxonomy, novel) accepts 'NOVEL-foo/bar' because it matches the taxonomy branch; " +
-                "this is the trap the if/then/else exists to avoid");
-            oursRejects.Should().BeTrue(
-                "ai-result.schema.json's if/then/else must route a NOVEL- id exclusively to the novelEscape grammar " +
-                "and REJECT 'NOVEL-foo/bar'; if this fails the routing has been flattened and the schema drifted " +
-                "from AIRuleIdConvention's NOVEL-exclusivity rule");
         }
 
         #endregion
