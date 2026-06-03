@@ -49,11 +49,11 @@
            locations[].physicalLocation { artifactLocation, region }
 
       3. add-invocation × 1 — a fully-formed invocation (executionSuccessful +
-         commandLine + workingDirectory + preset endTimeUtc) carrying one
-         toolExecutionNotification
-         INLINE with preset timeUtc so the fixture's bytes are stable across
-         re-runs. (The add-notification verb was removed; notifications now ride
-         inside the invocation that owns them.)
+         commandLine + a real workingDirectory + arguments + preset endTimeUtc)
+         carrying one toolExecutionNotification INLINE with a producer-supplied
+         timeUtc (the verb requires it and never stamps it) so the fixture's
+         bytes are stable across re-runs. (The add-notification verb was removed;
+         notifications now ride inside the invocation that owns them.)
 
       4. emit-finalize --embed-text-files --srcroot https://github.com/microsoft/sarif-sdk/blob/main/
          Enrichment runs against the local SRCROOT (snippets, hashes,
@@ -388,13 +388,18 @@ foreach ($e in $events) {
 # toolExecutionNotifications. The add-notification verb was removed: SARIF has no
 # run-level notifications array, so a notification travels inside the invocation
 # that owns it (and parallel processes are each modeled by their own invocation).
-# endTimeUtc and the notification timeUtc are preset so the add-invocation verb
-# leaves them alone (it only auto-stamps fields the producer left unset) and the
-# fixture's bytes stay stable across re-runs.
+# workingDirectory is a REAL repo-relative directory (under SRCROOT) so enrichment
+# resolves it to an actual path; after emit-finalize rewrites SRCROOT to the hosted
+# GitHub URL it resolves there. endTimeUtc is preset so the verb leaves it alone (it
+# only auto-stamps endTimeUtc when the producer omits it). The notification timeUtc
+# is producer-supplied (the verb requires it and never stamps it). arguments[]
+# accompanies commandLine per SARIF 3.20.4. All presets keep the fixture's bytes
+# stable across re-runs.
 $invocationPayload = [ordered]@{
     executionSuccessful = $true
     commandLine         = 'cwe-sampler-scanner analyze ./SampleCode.cs'
-    workingDirectory    = [ordered]@{ uri = 'file:///src/' }
+    arguments           = @('analyze', './SampleCode.cs')
+    workingDirectory    = [ordered]@{ uri = 'src/Sarif/Taxonomies/'; uriBaseId = 'SRCROOT' }
     endTimeUtc          = '2024-01-01T00:00:00.000Z'
     toolExecutionNotifications = @([ordered]@{
         level   = 'note'

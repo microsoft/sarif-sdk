@@ -506,8 +506,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             // matching AddInvocationCommand's receipt gate — a boolean executionSuccessful, a
             // non-whitespace string commandLine, and a workingDirectory artifactLocation with a
             // non-whitespace uri. Notifications travel INLINE, so a fully-formed invocation carrying
-            // toolExecutionNotifications must validate. endTimeUtc must NOT be required: the verb
-            // stamps it at emit time.
+            // toolExecutionNotifications must validate. Each inline notification must carry a
+            // producer-supplied timeUtc (the verb never stamps it). endTimeUtc must NOT be
+            // required: the verb stamps it at emit time.
             var offenders = new List<string>();
 
             var accepted = new (string Label, JsonObject Value)[]
@@ -530,7 +531,23 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                         new JsonObject
                         {
                             ["level"] = "error",
+                            ["timeUtc"] = "2024-01-01T00:00:01.000Z",
                             ["message"] = new JsonObject { ["text"] = "boom" }
+                        }
+                    }
+                }),
+                ("rich-with-inline-config-notifications", new JsonObject
+                {
+                    ["executionSuccessful"] = true,
+                    ["commandLine"] = "myscanner scan .",
+                    ["workingDirectory"] = new JsonObject { ["uri"] = "file:///work" },
+                    ["toolConfigurationNotifications"] = new JsonArray
+                    {
+                        new JsonObject
+                        {
+                            ["level"] = "warning",
+                            ["timeUtc"] = "2024-01-01T00:00:02.000Z",
+                            ["message"] = new JsonObject { ["text"] = "tweak your config" }
                         }
                     }
                 }),
@@ -590,6 +607,49 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                     ["commandLine"] = "   ",
                     ["workingDirectory"] = new JsonObject { ["uri"] = "file:///work" }
                 }),
+                ("exec-notification-missing-timeUtc", new JsonObject
+                {
+                    ["executionSuccessful"] = false,
+                    ["commandLine"] = "myscanner scan .",
+                    ["workingDirectory"] = new JsonObject { ["uri"] = "file:///work" },
+                    ["toolExecutionNotifications"] = new JsonArray
+                    {
+                        new JsonObject
+                        {
+                            ["level"] = "error",
+                            ["message"] = new JsonObject { ["text"] = "boom" }
+                        }
+                    }
+                }),
+                ("config-notification-missing-timeUtc", new JsonObject
+                {
+                    ["executionSuccessful"] = true,
+                    ["commandLine"] = "myscanner scan .",
+                    ["workingDirectory"] = new JsonObject { ["uri"] = "file:///work" },
+                    ["toolConfigurationNotifications"] = new JsonArray
+                    {
+                        new JsonObject
+                        {
+                            ["level"] = "warning",
+                            ["message"] = new JsonObject { ["text"] = "tweak" }
+                        }
+                    }
+                }),
+                ("exec-notification-empty-timeUtc", new JsonObject
+                {
+                    ["executionSuccessful"] = false,
+                    ["commandLine"] = "myscanner scan .",
+                    ["workingDirectory"] = new JsonObject { ["uri"] = "file:///work" },
+                    ["toolExecutionNotifications"] = new JsonArray
+                    {
+                        new JsonObject
+                        {
+                            ["level"] = "error",
+                            ["timeUtc"] = "",
+                            ["message"] = new JsonObject { ["text"] = "boom" }
+                        }
+                    }
+                }),
             };
             foreach ((string label, JsonObject value) in rejected)
             {
@@ -605,7 +665,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 "ai-invocation.schema.json must require a boolean executionSuccessful, a non-whitespace " +
                 "string commandLine, and a workingDirectory with a non-whitespace uri (mirroring " +
                 "AddInvocationCommand's receipt gate), accept a fully-formed invocation carrying inline " +
-                "notifications, and reject non-objects. It must NOT require " +
+                "notifications that each carry a timeUtc, reject inline notifications missing timeUtc, and " +
+                "reject non-objects. It must NOT require " +
                 "endTimeUtc (the verb stamps it):\n" + string.Join("\n", offenders));
         }
 

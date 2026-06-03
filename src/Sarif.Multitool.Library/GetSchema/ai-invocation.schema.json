@@ -2,7 +2,7 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://raw.githubusercontent.com/microsoft/sarif-sdk/main/src/Sarif.Multitool.Library/GetSchema/ai-invocation.schema.json",
   "title": "SARIF AI emit profile \u2014 invocation object",
-  "description": "Input contract for a fully-formed SARIF invocation an AI producer supplies to the add-invocation verb. An overlay on the canonical SARIF 2.1.0 invocation ($ref to the base shape, tightened for the AI profile). Notifications travel INLINE on toolExecutionNotifications/toolConfigurationNotifications. executionSuccessful, commandLine, and workingDirectory are required; the verb auto-stamps endTimeUtc and any unset notification timeUtc, so those are not required here.",
+  "description": "Input contract for a fully-formed SARIF invocation an AI producer supplies to the add-invocation verb. An overlay on the canonical SARIF 2.1.0 invocation ($ref to the base shape, tightened for the AI profile). Notifications travel INLINE on toolExecutionNotifications/toolConfigurationNotifications and each must carry a producer-supplied timeUtc recording when the event occurred. executionSuccessful, commandLine, and workingDirectory are required; the verb auto-stamps endTimeUtc when omitted (so it is not required here) but never stamps notification timeUtc.",
   "type": "object",
   "allOf": [
     {
@@ -36,6 +36,42 @@
           "type": "string",
           "minLength": 1,
           "pattern": "\\S"
+        }
+      }
+    },
+    "toolExecutionNotifications": {
+      "description": "Notifications about the tool's runtime behavior (cf. SARIF \u00a73.20.27), supplied INLINE. The AI profile requires a producer-supplied timeUtc on each: it records when the event occurred mid-flight, so the verb never stamps it.",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "timeUtc"
+        ],
+        "properties": {
+          "timeUtc": {
+            "type": "string",
+            "format": "date-time",
+            "minLength": 1,
+            "pattern": "\\S"
+          }
+        }
+      }
+    },
+    "toolConfigurationNotifications": {
+      "description": "Notifications about the tool's configuration (cf. SARIF \u00a73.20.28), supplied INLINE. The AI profile requires a producer-supplied timeUtc on each: it records when the event occurred mid-flight, so the verb never stamps it.",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "timeUtc"
+        ],
+        "properties": {
+          "timeUtc": {
+            "type": "string",
+            "format": "date-time",
+            "minLength": 1,
+            "pattern": "\\S"
+          }
         }
       }
     }

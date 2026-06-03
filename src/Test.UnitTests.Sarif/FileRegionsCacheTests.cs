@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
+using System.IO;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -862,6 +863,41 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests
             // and the snippet.Text will be the entire content.
             multilineRegion.CharLength.Should().Be(content.Length);
             multilineRegion.Snippet.Text.Should().Be(content);
+        }
+
+        [Fact]
+        public void FileRegionsCache_GetHashData_ReturnsNullForDirectory()
+        {
+            // A path that resolves to a directory (e.g. an invocation's workingDirectory)
+            // has no file content to hash. The cache must return null, NOT the sha-256 of the
+            // empty string, which used to leak in as a bogus phantom hash on directory artifacts.
+            var directoryUri = new Uri(Path.GetTempPath());
+            var fileRegionsCache = new FileRegionsCache();
+
+            fileRegionsCache.GetHashData(directoryUri).Should().BeNull();
+        }
+
+        [Fact]
+        public void FileRegionsCache_GetHashData_ReturnsNullForMissingFile()
+        {
+            var missingUri = new Uri(Path.Combine(Path.GetTempPath(), $"{Guid.NewGuid():N}.does-not-exist"));
+            var fileRegionsCache = new FileRegionsCache();
+
+            fileRegionsCache.GetHashData(missingUri).Should().BeNull();
+        }
+
+        [Fact]
+        public void FileRegionsCache_GetHashData_HashesSuppliedTextEvenWhenFileAbsent()
+        {
+            // The explicit-text path is unchanged: when the caller hands us file text we hash it,
+            // regardless of whether the file exists on disk.
+            var missingUri = new Uri(Path.Combine(Path.GetTempPath(), $"{Guid.NewGuid():N}.cs"));
+            var fileRegionsCache = new FileRegionsCache();
+
+            HashData hashes = fileRegionsCache.GetHashData(missingUri, "some text");
+
+            hashes.Should().NotBeNull();
+            hashes.Sha256.Should().NotBeNullOrWhiteSpace();
         }
     }
 }

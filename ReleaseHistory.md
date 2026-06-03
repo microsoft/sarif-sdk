@@ -18,7 +18,9 @@ Entries are terse by design: one line per change, present-tense behavior, comple
 * BRK: Split `AI2011.DoNotPersistFingerprints` (Note) into `AI1007.DoNotPersistFingerprints` (Error; `result.fingerprints`) and `AI2011.DoNotPersistPartialFingerprints` (Warning; `result.partialFingerprints`).
 * BRK: Remove `AI1011.RedactedRunMarker`; the AI emit profile no longer validates the `ai/redacted` run marker or `ai/fullLogLocation`.
 * BRK: Remove the `add-notification` verb and the `execution-notification` / `configuration-notification` event kinds; notifications now travel inline on a fully-formed `add-invocation` payload, so parallel processes each emit a self-contained invocation.
-* BRK: `multitool add-invocation` now requires `executionSuccessful` (boolean) and a non-whitespace `commandLine`, auto-stamps `endTimeUtc` plus any inline notification `timeUtc` left unset (producer-supplied values preserved), and is the sole carrier of notifications.
+* BRK: `multitool add-invocation` now requires `executionSuccessful`, a non-whitespace `commandLine`, a `workingDirectory` with a non-whitespace `uri`, and a producer-supplied `timeUtc` on every inline notification; it auto-stamps only `endTimeUtc` when omitted.
+* BUG: `AddFileReferencesVisitor` no longer promotes an invocation's `workingDirectory` into `run.artifacts`; it is process context, not a scanned artifact.
+* BUG: `FileRegionsCache.GetHashData` returns null (rather than the sha-256 of the empty string) for a path that resolves to a directory or missing file with no cached text.
 * NEW: Add AI emit-profile input schemas for the `add-invocation` and `add-reporting-descriptor` verbs.
 
 ## **v5.0.2** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/v5.0.2) | [Driver](https://www.nuget.org/packages/Sarif.Driver/v5.0.2) | [Converters](https://www.nuget.org/packages/Sarif.Converters/v5.0.2) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/v5.0.2) | [Multitool Library](https://www.nuget.org/packages/Sarif.Multitool.Library/v5.0.2)

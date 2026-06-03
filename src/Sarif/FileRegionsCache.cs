@@ -461,8 +461,13 @@ namespace Microsoft.CodeAnalysis.Sarif
             }
 
             // Fallback for mock file systems that return no stream: hash the cached text instead.
+            // Only when there IS cached text. A path that resolves to nothing readable (a missing
+            // file, or a directory such as an invocation's workingDirectory) has no text, and must
+            // yield NO hash rather than the sha-256 of the empty string (a bogus phantom hash).
             string fileText = _fileTextCache[path];
-            return HashUtilities.ComputeHashesForText(fileText, HashAlgorithms);
+            return fileText != null
+                ? HashUtilities.ComputeHashesForText(fileText, HashAlgorithms)
+                : null;
         }
 
         /// <summary>

@@ -30,10 +30,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
     /// <c>workingDirectory</c> artifactLocation with a non-whitespace <c>uri</c>. Richer
     /// structural validation is deferred to <c>emit-finalize --validate</c>, which validates the
     /// assembled log.</para>
-    /// <para>At emit time the verb stamps a single wall-clock <c>now</c> onto any fields the
-    /// producer left unset: the invocation's <c>endTimeUtc</c>, and the <c>timeUtc</c> of every
-    /// inline notification (cf. AI2019). Producer-supplied values are preserved, so replay is
-    /// fully deterministic.</para>
+    /// <para>At emit time the verb stamps a single wall-clock <c>now</c> onto the invocation's
+    /// <c>endTimeUtc</c> when the producer left it unset (time of receipt is a faithful proxy
+    /// for process completion). Notification <c>timeUtc</c> values are NOT stamped: a
+    /// notification's timestamp records when that event occurred mid-flight, so the producer
+    /// must supply it as it builds the invocation. The AI profile therefore REQUIRES a
+    /// <c>timeUtc</c> on every inline notification (cf. AI2019). Producer-supplied values are
+    /// preserved, so replay is fully deterministic.</para>
     /// </remarks>
     public class AddInvocationCommand : CommandBase
     {
@@ -64,7 +67,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 string now = DateTime.UtcNow.ToString(
                     SarifUtilities.SarifDateTimeFormatMillisecondsPrecision,
                     CultureInfo.InvariantCulture);
-                StampWallClock((JObject)payload, now);
+                StampEndTimeUtcIfOmitted((JObject)payload, now);
 
                 bool executionSuccessful = payload["executionSuccessful"].Value<bool>();
 
@@ -124,33 +127,56 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 return false;
             }
 
+            // Inline notifications are the SOLE carrier of notifications, and each records when an
+            // event occurred mid-flight. The producer must supply that 'timeUtc' (the verb does not
+            // stamp it), so the AI profile requires a non-whitespace timeUtc on every notification.
+            if (!TryValidateNotificationTimes(payload["toolExecutionNotifications"], "toolExecutionNotifications")
+                || !TryValidateNotificationTimes(payload["toolConfigurationNotifications"], "toolConfigurationNotifications"))
+            {
+                return false;
+            }
+
             return true;
         }
 
-        // Fills wall-clock fields the producer left unset, using a single 'now' so endTimeUtc and
-        // every inline notification's timeUtc agree. Producer-supplied values are preserved.
-        private static void StampWallClock(JObject payload, string now)
+        private static bool TryValidateNotificationTimes(JToken notifications, string arrayName)
+        {
+            if (notifications == null || notifications.Type == JTokenType.Null) { return true; }
+
+            if (notifications.Type != JTokenType.Array)
+            {
+                Console.Error.WriteLine(
+                    string.Format(CultureInfo.CurrentCulture, "Invalid invocation: '{0}' must be an array.", arrayName));
+                return false;
+            }
+
+            foreach (JToken item in (JArray)notifications)
+            {
+                JToken timeUtc = (item as JObject)?["timeUtc"];
+                if (timeUtc == null
+                    || timeUtc.Type != JTokenType.String
+                    || string.IsNullOrWhiteSpace(timeUtc.Value<string>()))
+                {
+                    Console.Error.WriteLine(
+                        string.Format(
+                            CultureInfo.CurrentCulture,
+                            "Invalid invocation: every '{0}' entry requires a non-whitespace 'timeUtc' (the producer records when the event occurred; the verb does not stamp it).",
+                            arrayName));
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        // Fills the invocation's endTimeUtc when the producer left it unset; time of receipt is a
+        // faithful proxy for process completion. Notification timeUtc values are producer-owned and
+        // are never stamped here (see TryValidateNotificationTimes). Supplied values are preserved.
+        private static void StampEndTimeUtcIfOmitted(JObject payload, string now)
         {
             if (payload["endTimeUtc"] == null || payload["endTimeUtc"].Type == JTokenType.Null)
             {
                 payload["endTimeUtc"] = now;
-            }
-
-            StampNotificationTimes(payload["toolExecutionNotifications"] as JArray, now);
-            StampNotificationTimes(payload["toolConfigurationNotifications"] as JArray, now);
-        }
-
-        private static void StampNotificationTimes(JArray notifications, string now)
-        {
-            if (notifications == null) { return; }
-
-            foreach (JToken item in notifications)
-            {
-                if (item is JObject notification
-                    && (notification["timeUtc"] == null || notification["timeUtc"].Type == JTokenType.Null))
-                {
-                    notification["timeUtc"] = now;
-                }
             }
         }
     }

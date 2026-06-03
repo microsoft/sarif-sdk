@@ -229,22 +229,80 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         }
 
         [Fact]
-        public void Run_StampsInlineNotificationTimeUtcWhenOmitted_PreservesSupplied()
+        public void Run_RejectsInlineNotificationMissingTimeUtc()
         {
-            // Notifications travel inline on the invocation; the verb stamps a timeUtc on any
-            // that lack one (so the AI execution timeline is orderable) and preserves any the
-            // producer already supplied.
+            // Notifications travel inline on the invocation, and each records when an event
+            // occurred mid-flight. The producer owns that timeUtc (the verb never stamps it), so a
+            // notification lacking one is rejected by the receipt gate.
             SeedRunHeader();
             const string json = @"{
               ""executionSuccessful"": true,
               ""commandLine"": ""demo --scan src"",
               ""workingDirectory"": { ""uri"": ""file:///work/"" },
               ""toolExecutionNotifications"": [
-                { ""message"": { ""text"": ""no time"" } },
+                { ""message"": { ""text"": ""no time"" } }
+              ]
+            }";
+            File.WriteAllText(InputPath, json);
+
+            using var errWriter = new StringWriter();
+            Console.SetError(errWriter);
+
+            int exit = new AddInvocationCommand().Run(new AddInvocationOptions
+            {
+                OutputFilePath = OutPath,
+                InputFilePath = InputPath,
+            });
+
+            exit.Should().Be(CommandBase.FAILURE);
+            errWriter.ToString().Should().Contain("timeUtc");
+            // The WIP holds only the run header; no invocation event was appended.
+            File.ReadAllLines(WipPath).Should().HaveCount(1);
+        }
+
+        [Fact]
+        public void Run_RejectsInlineConfigNotificationMissingTimeUtc()
+        {
+            SeedRunHeader();
+            const string json = @"{
+              ""executionSuccessful"": true,
+              ""commandLine"": ""demo --scan src"",
+              ""workingDirectory"": { ""uri"": ""file:///work/"" },
+              ""toolConfigurationNotifications"": [
+                { ""message"": { ""text"": ""config no time"" } }
+              ]
+            }";
+            File.WriteAllText(InputPath, json);
+
+            using var errWriter = new StringWriter();
+            Console.SetError(errWriter);
+
+            int exit = new AddInvocationCommand().Run(new AddInvocationOptions
+            {
+                OutputFilePath = OutPath,
+                InputFilePath = InputPath,
+            });
+
+            exit.Should().Be(CommandBase.FAILURE);
+            errWriter.ToString().Should().Contain("timeUtc");
+            File.ReadAllLines(WipPath).Should().HaveCount(1);
+        }
+
+        [Fact]
+        public void Run_PreservesSuppliedNotificationTimeUtc()
+        {
+            // When every inline notification supplies its own timeUtc the gate passes and the
+            // producer-supplied values are preserved verbatim (the verb never rewrites them).
+            SeedRunHeader();
+            const string json = @"{
+              ""executionSuccessful"": true,
+              ""commandLine"": ""demo --scan src"",
+              ""workingDirectory"": { ""uri"": ""file:///work/"" },
+              ""toolExecutionNotifications"": [
                 { ""message"": { ""text"": ""has time"" }, ""timeUtc"": ""2026-05-26T10:05:42.000Z"" }
               ],
               ""toolConfigurationNotifications"": [
-                { ""message"": { ""text"": ""config no time"" } }
+                { ""message"": { ""text"": ""config has time"" }, ""timeUtc"": ""2026-05-26T10:05:43.000Z"" }
               ]
             }";
             File.WriteAllText(InputPath, json);
@@ -258,12 +316,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             exit.Should().Be(CommandBase.SUCCESS);
 
             string appended = File.ReadAllLines(WipPath).Last();
-            appended.Should().Contain("2026-05-26T10:05:42.000Z"); // supplied value preserved
-            appended.Should().Contain("no time");
-            appended.Should().Contain("config no time");
+            appended.Should().Contain("2026-05-26T10:05:42.000Z");
+            appended.Should().Contain("2026-05-26T10:05:43.000Z");
 
-            // The two notifications that lacked a timeUtc were stamped: parse and assert none
-            // are missing a timeUtc.
             SarifLog log = SarifEventReplayer.Replay(WipPath);
             Invocation invocation = log.Runs[0].Invocations[0];
             invocation.ToolExecutionNotifications.Should().OnlyContain(n => n.TimeUtc != default(DateTime));

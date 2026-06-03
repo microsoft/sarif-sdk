@@ -51,5 +51,22 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
             return base.VisitArtifactLocation(node);
         }
+
+        public override Invocation VisitInvocation(Invocation node)
+        {
+            // An invocation's workingDirectory is process context, not a scanned artifact, so it
+            // must not be promoted into run.artifacts. Doing so yields a location-only artifact
+            // entry (no hash/contents/roles) that wastes space and trips the SARIF best-practice
+            // validator (SARIF2004, EliminateLocationOnlyArtifacts) — and, for a path that resolves
+            // to a directory, there is no file to hash in the first place. Detach it across the
+            // indexing traversal so it stays a standalone artifactLocation (uri + uriBaseId).
+            ArtifactLocation workingDirectory = node.WorkingDirectory;
+            node.WorkingDirectory = null;
+
+            Invocation result = base.VisitInvocation(node);
+
+            result.WorkingDirectory = workingDirectory;
+            return result;
+        }
     }
 }
