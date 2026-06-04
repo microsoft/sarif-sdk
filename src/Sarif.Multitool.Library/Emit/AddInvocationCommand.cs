@@ -48,10 +48,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                     return FAILURE;
                 }
 
-                string now = DateTime.UtcNow.ToString(
-                    SarifUtilities.SarifDateTimeFormatMillisecondsPrecision,
-                    CultureInfo.InvariantCulture);
-                StampEndTimeUtcIfOmitted((JObject)payload, now);
+                StampEndTimeUtcIfOmitted((JObject)payload, DateTime.UtcNow);
 
                 bool executionSuccessful = payload["executionSuccessful"].Value<bool>();
 
@@ -150,11 +147,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             return true;
         }
 
-        private static void StampEndTimeUtcIfOmitted(JObject payload, string now)
+        private static void StampEndTimeUtcIfOmitted(JObject payload, DateTime endTimeUtc)
         {
             if (payload["endTimeUtc"] == null || payload["endTimeUtc"].Type == JTokenType.Null)
             {
-                payload["endTimeUtc"] = now;
+                payload["endTimeUtc"] = endTimeUtc.ToString(
+                    SarifUtilities.SarifDateTimeFormatMillisecondsPrecision,
+                    CultureInfo.InvariantCulture);
             }
         }
     }
