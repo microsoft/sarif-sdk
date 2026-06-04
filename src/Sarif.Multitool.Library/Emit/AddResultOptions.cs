@@ -7,7 +7,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 {
     /// <summary>
     /// Options for <c>add-result</c>, which appends a fully-formed SARIF <c>result</c> object
-    /// to a staged event log (<c>&lt;output&gt;.wip.jsonl</c>) created by <c>emit-init-run</c>.
+    /// to a staged event log (<c>&lt;output&gt;.wip.jsonl</c>) created by <c>emit-run</c>.
     /// </summary>
     /// <remarks>
     /// The result is supplied as a JSON document (file via <c>--input</c> or piped on stdin).

@@ -14,8 +14,9 @@ using Newtonsoft.Json.Linq;
 namespace Microsoft.CodeAnalysis.Sarif.Multitool
 {
     /// <summary>
-    /// Shared plumbing for the emit verb chain (<c>emit-init-run</c>, <c>add-result</c>,
-    /// <c>add-invocation</c>, <c>add-reporting-descriptor</c>, <c>emit-finalize</c>): resolves
+    /// Shared plumbing for the emit verb chain (<c>emit-run</c>, <c>add-result</c>,
+    /// <c>add-invocation</c>, <c>add-notification-reporting-descriptor</c>,
+    /// <c>add-rule-reporting-descriptor</c>, <c>emit-finalize</c>): resolves
     /// the staged event log path, reads caller-supplied JSON (file or stdin), and parses it into
     /// a <see cref="JToken"/> in a date-safe way.
     /// </summary>
@@ -111,7 +112,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 Console.Error.WriteLine(
                     string.Format(
                         CultureInfo.CurrentCulture,
-                        "Event log '{0}' does not exist; run 'emit-init-run' first.",
+                        "Event log '{0}' does not exist; run 'emit-run' first.",
                         wipPath));
                 return CommandBase.FAILURE;
             }

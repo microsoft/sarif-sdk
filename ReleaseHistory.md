@@ -19,10 +19,13 @@ Entries are terse by design: one line per change, present-tense behavior, comple
 * BRK: Remove `AI1011.RedactedRunMarker`; the AI emit profile no longer validates the `ai/redacted` run marker or `ai/fullLogLocation`.
 * BRK: Remove the `add-notification` verb and the `execution-notification` / `configuration-notification` event kinds; notifications now travel inline on a fully-formed `add-invocation` payload, so parallel processes each emit a self-contained invocation.
 * BRK: `multitool add-invocation` now requires `executionSuccessful`, a non-whitespace `commandLine`, a `workingDirectory` with a non-whitespace `uri`, and a producer-supplied `timeUtc` on every inline notification; it auto-stamps only `endTimeUtc` when omitted.
+* BRK: Rename `multitool emit-init-run` to `emit-run`.
+* BRK: Split `multitool add-reporting-descriptor` into `add-notification-reporting-descriptor` and `add-rule-reporting-descriptor`, removing the `--rules` flag.
 * BUG: `AddFileReferencesVisitor` no longer promotes an invocation's `workingDirectory` into `run.artifacts`; a bare location with no hashes, contents, or length adds nothing to the table.
 * BUG: `FileRegionsCache.GetHashData` returns null (rather than the sha-256 of the empty string) for a path that resolves to a directory or missing file with no cached text.
-* NEW: Add AI emit-profile input schemas for the `add-invocation` and `add-reporting-descriptor` verbs.
-* BRK: `multitool add-reporting-descriptor --rules` now gates the descriptor `id` against the full `NOVEL-` grammar (`NOVEL-` followed by a lowercase-alphanumeric kebab sub-id) rather than the `NOVEL-` prefix alone.
+* NEW: Add AI emit-profile input schemas — `ai-run`, `ai-result`, `ai-invocation`, `ai-notification-reporting-descriptor`, and `ai-rule-reporting-descriptor`.
+* NEW: `multitool get-schema <verb>` writes the AI input schema for an emit verb to stdout or `--output`; `--list` enumerates the available verbs.
+* BRK: `multitool add-rule-reporting-descriptor` now gates the descriptor `id` against the full `NOVEL-` grammar (`NOVEL-` followed by a lowercase-alphanumeric kebab sub-id) rather than the `NOVEL-` prefix alone.
 * BRK: Tighten the AI `result.ruleId` convention to CWE-only: `CWE-<number>/<sub-id>` or `NOVEL-<sub-id>`, where `<sub-id>` is lowercase-alphanumeric kebab (single hyphens, no leading/trailing/consecutive hyphen). CVE, OWASP, and mixed-case sub-ids are no longer accepted.
 
 ## **v5.0.2** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/v5.0.2) | [Driver](https://www.nuget.org/packages/Sarif.Driver/v5.0.2) | [Converters](https://www.nuget.org/packages/Sarif.Converters/v5.0.2) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/v5.0.2) | [Multitool Library](https://www.nuget.org/packages/Sarif.Multitool.Library/v5.0.2)

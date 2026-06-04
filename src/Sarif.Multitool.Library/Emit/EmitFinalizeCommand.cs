@@ -118,13 +118,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                         if (run == null) { continue; }
 
                         run.OriginalUriBaseIds ??= new Dictionary<string, ArtifactLocation>();
-                        if (run.OriginalUriBaseIds.TryGetValue(EmitInitRunCommand.SourceRootBaseId, out ArtifactLocation existing) && existing != null)
+                        if (run.OriginalUriBaseIds.TryGetValue(EmitRunCommand.SourceRootBaseId, out ArtifactLocation existing) && existing != null)
                         {
                             existing.Uri = finalSrcRoot;
                         }
                         else
                         {
-                            run.OriginalUriBaseIds[EmitInitRunCommand.SourceRootBaseId] = new ArtifactLocation
+                            run.OriginalUriBaseIds[EmitRunCommand.SourceRootBaseId] = new ArtifactLocation
                             {
                                 Uri = finalSrcRoot,
                             };

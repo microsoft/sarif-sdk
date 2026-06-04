@@ -17,7 +17,7 @@ Use the SARIF Multitool to rewrite, enrich, filter, result match, and do other c
 | rewrite | Transform a SARIF file to a reformatted version |
 | suppress | Suppress results from a SARIF file |
 | validate | Validate a SARIF File against the schema and against additional correctness rules. |
-| emit-init-run | Open an append-only event log seeded with a SARIF `run` JSON document (driver identity, version control provenance, AI origin) supplied via `--input` or stdin. |
+| emit-run | Open an append-only event log seeded with a SARIF `run` JSON document (driver identity, version control provenance, AI origin) supplied via `--input` or stdin. |
 | add-result | Append a fully-formed SARIF `result` object (JSON) to an in-progress event log. |
 | add-invocation | Append a fully-formed SARIF `invocation` object (JSON) to an in-progress event log. |
 | emit-finalize | Replay a staged event log into a final SARIF file (with optional enrichment, embedding, and post-emit validation). |
@@ -75,7 +75,7 @@ Sarif.Multitool validate Other.sarif
 Sarif.Multitool validate Other.sarif --rule-kind "Sarif;AI"
 
 : Open an append-only event log for AI-produced findings (run header via stdin JSON)
-'{"tool":{"driver":{"name":"MyScanner","semanticVersion":"1.0.0","informationUri":"https://myscanner.example.com/"}},"versionControlProvenance":[{"repositoryUri":"https://github.com/org/repo","revisionId":"<sha>","branch":"main","mappedTo":{"uriBaseId":"SRCROOT"}}],"originalUriBaseIds":{"SRCROOT":{"uri":"file:///C:/repo/"}},"automationDetails":{"guid":"a7ad9ab8-1234-5678-9abc-def012345678"},"properties":{"ai/origin":"generated"}}' | Sarif.Multitool emit-init-run my.sarif
+'{"tool":{"driver":{"name":"MyScanner","semanticVersion":"1.0.0","informationUri":"https://myscanner.example.com/"}},"versionControlProvenance":[{"repositoryUri":"https://github.com/org/repo","revisionId":"<sha>","branch":"main","mappedTo":{"uriBaseId":"SRCROOT"}}],"originalUriBaseIds":{"SRCROOT":{"uri":"file:///C:/repo/"}},"automationDetails":{"guid":"a7ad9ab8-1234-5678-9abc-def012345678"},"properties":{"ai/origin":"generated"}}' | Sarif.Multitool emit-run my.sarif
 
 : Append a result (JSON file form) to the in-progress event log
 Sarif.Multitool add-result my.sarif --input result-001.json

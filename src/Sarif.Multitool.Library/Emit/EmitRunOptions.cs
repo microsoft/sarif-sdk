@@ -6,7 +6,7 @@ using CommandLine;
 namespace Microsoft.CodeAnalysis.Sarif.Multitool
 {
     /// <summary>
-    /// Options for <c>emit-init-run</c>, which opens an append-only event log
+    /// Options for <c>emit-run</c>, which opens an append-only event log
     /// (<c>&lt;output&gt;.wip.jsonl</c>) seeded with a <c>run-header</c> event built from a
     /// caller-supplied SARIF <c>Run</c> JSON document. Subsequent producers append events to the
     /// log via the SARIF emit API and finalize via <c>multitool emit-finalize</c>.
@@ -17,8 +17,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
     /// <para>Profile-essential defects are validated at receipt: required <c>tool.driver.name</c>,
     /// URI schemes, canonical GUIDs, <c>properties["ai/origin"]</c>, and accidental SARIF-log input.</para>
     /// </remarks>
-    [Verb("emit-init-run", HelpText = "Open an append-only event log seeded with a SARIF run header (JSON).")]
-    public class EmitInitRunOptions
+    [Verb("emit-run", HelpText = "Open an append-only event log seeded with a SARIF run header (JSON).")]
+    public class EmitRunOptions
     {
         [Value(
             0,

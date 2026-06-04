@@ -1,6 +1,6 @@
 # AI rule-id convention
 
-The SARIF SDK's AI-authoring emit chain (`multitool emit-init-run` → JSONL append → `multitool emit-finalize`, plus anything that flows results through `SarifEventReplayer`) enforces two accepted `result.ruleId` shapes.
+The SARIF SDK's AI-authoring emit chain (`multitool emit-run` → JSONL append → `multitool emit-finalize`, plus anything that flows results through `SarifEventReplayer`) enforces two accepted `result.ruleId` shapes.
 
 ## TL;DR
 

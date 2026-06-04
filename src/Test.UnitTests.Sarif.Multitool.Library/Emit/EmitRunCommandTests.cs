@@ -16,7 +16,7 @@ using Xunit;
 
 namespace Microsoft.CodeAnalysis.Sarif.Multitool
 {
-    public class EmitInitRunCommandTests : IDisposable
+    public class EmitRunCommandTests : IDisposable
     {
         private readonly string _dir;
         private readonly TextWriter _origStdOut;
@@ -24,9 +24,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         private readonly TextReader _origStdIn;
         private readonly IEnvironmentVariableGetter _emptyEnv = new EmptyEnvironmentVariableGetter();
 
-        public EmitInitRunCommandTests()
+        public EmitRunCommandTests()
         {
-            _dir = Path.Combine(Path.GetTempPath(), $"emit-init-run-{Guid.NewGuid():N}");
+            _dir = Path.Combine(Path.GetTempPath(), $"emit-run-{Guid.NewGuid():N}");
             Directory.CreateDirectory(_dir);
 
             _origStdOut = Console.Out;
@@ -47,7 +47,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         private string WipPath => OutPath + ".wip.jsonl";
         private string InputPath => Path.Combine(_dir, "run.json");
 
-        private EmitInitRunCommand NewCommand() => new EmitInitRunCommand(_emptyEnv);
+        private EmitRunCommand NewCommand() => new EmitRunCommand(_emptyEnv);
 
         // Minimal Run shape that satisfies the verb's required-field check; tests build on this
         // by mutating a JObject clone so each scenario stays self-contained.
@@ -64,7 +64,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         private int RunWithInput(JObject runObject, bool forceOverwrite = false)
         {
             WriteInput(runObject);
-            return NewCommand().Run(new EmitInitRunOptions
+            return NewCommand().Run(new EmitRunOptions
             {
                 OutputFilePath = OutPath,
                 InputFilePath = InputPath,
@@ -75,7 +75,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         private int RunWithInput(IEnvironmentVariableGetter env, JObject runObject, bool forceOverwrite = false)
         {
             WriteInput(runObject);
-            return new EmitInitRunCommand(env).Run(new EmitInitRunOptions
+            return new EmitRunCommand(env).Run(new EmitRunOptions
             {
                 OutputFilePath = OutPath,
                 InputFilePath = InputPath,
@@ -100,9 +100,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         [Fact]
         public void Run_WithRichRunHeader_AppendsTwoVcpEntriesAndPropertiesBag()
         {
-            // The motivating scenario: producers need to emit multiple versionControlProvenance
-            // entries with attached properties bags (e.g. one documenting the skills in play)
-            // that the previous flag surface could not encode.
+            // Producers can emit multiple versionControlProvenance entries, each with an
+            // attached properties bag (e.g. one documenting the skills in play).
             var richRun = new JObject
             {
                 ["tool"] = new JObject
@@ -185,7 +184,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             using var errWriter = new StringWriter();
             Console.SetError(errWriter);
 
-            int exit = NewCommand().Run(new EmitInitRunOptions
+            int exit = NewCommand().Run(new EmitRunOptions
             {
                 OutputFilePath = OutPath,
                 InputFilePath = InputPath,
@@ -380,7 +379,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         {
             File.WriteAllText(InputPath, "{ not json ");
 
-            int exit = NewCommand().Run(new EmitInitRunOptions
+            int exit = NewCommand().Run(new EmitRunOptions
             {
                 OutputFilePath = OutPath,
                 InputFilePath = InputPath,
@@ -395,7 +394,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         {
             File.WriteAllText(InputPath, "[1,2,3]");
 
-            int exit = NewCommand().Run(new EmitInitRunOptions
+            int exit = NewCommand().Run(new EmitRunOptions
             {
                 OutputFilePath = OutPath,
                 InputFilePath = InputPath,
@@ -408,7 +407,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         [Fact]
         public void Run_WithMissingInputFile_Fails()
         {
-            int exit = NewCommand().Run(new EmitInitRunOptions
+            int exit = NewCommand().Run(new EmitRunOptions
             {
                 OutputFilePath = OutPath,
                 InputFilePath = Path.Combine(_dir, "missing.json"),

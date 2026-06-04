@@ -13,25 +13,27 @@ using Newtonsoft.Json.Linq;
 namespace Microsoft.CodeAnalysis.Sarif.Multitool
 {
     /// <summary>
-    /// Implements <c>multitool add-reporting-descriptor</c>: validates a fully-formed SARIF
-    /// reportingDescriptor JSON and appends an event to <c>&lt;output&gt;.wip.jsonl</c>.
+    /// Shared implementation behind <c>add-notification-reporting-descriptor</c> and
+    /// <c>add-rule-reporting-descriptor</c>: validates a SARIF reportingDescriptor JSON and
+    /// appends an event to <c>&lt;output&gt;.wip.jsonl</c>.
     /// </summary>
     /// <remarks>
-    /// <para>Default target is <c>run.tool.driver.notifications[]</c>; pass <c>--rules</c> to
-    /// target <c>run.tool.driver.rules[]</c>.</para>
-    /// <para>On the <c>--rules</c> path, the descriptor id must be a well-formed NOVEL- ruleId.
-    /// Taxonomy-mapped rule descriptors (e.g., <c>CWE-89</c>) come from the taxonomy enricher.</para>
-    /// <para>Duplicate ids in the same target array are rejected before append.</para>
+    /// Notifications append to <c>run.tool.driver.notifications[]</c>; rules append to
+    /// <c>run.tool.driver.rules[]</c> and require a well-formed <c>NOVEL-</c> id. Each id may
+    /// appear at most once in its target array.
     /// </remarks>
-    public class AddReportingDescriptorCommand : CommandBase
+    internal static class ReportingDescriptorEmitter
     {
-        public int Run(AddReportingDescriptorOptions options, IFileSystem fileSystem = null)
+        internal static int Append(
+            string outputFilePath,
+            string inputFilePath,
+            bool isRules,
+            IFileSystem fileSystem = null)
         {
             fileSystem ??= Sarif.FileSystem.Instance;
 
             try
             {
-                bool isRules = options?.Rules == true;
                 string payloadKind = isRules ? "rule descriptor" : "notification descriptor";
                 string targetArray = isRules ? "rules" : "notifications";
                 string eventKind = isRules
@@ -39,17 +41,17 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                     : SarifEventKinds.NotificationDescriptor;
 
                 int code = EmitEventLogHelpers.TryResolveWipPath(
-                    options?.OutputFilePath,
+                    outputFilePath,
                     fileSystem,
                     out string wipPath);
-                if (code != SUCCESS) { return code; }
+                if (code != CommandBase.SUCCESS) { return code; }
 
                 code = EmitEventLogHelpers.TryReadJsonPayload(
-                    options?.InputFilePath,
+                    inputFilePath,
                     payloadKind: payloadKind,
                     fileSystem,
                     out JToken payload);
-                if (code != SUCCESS) { return code; }
+                if (code != CommandBase.SUCCESS) { return code; }
 
                 // SARIF §3.49.3 requires a non-empty reportingDescriptor.id string.
                 JToken idToken = payload["id"];
@@ -68,7 +70,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                                     CultureInfo.CurrentCulture,
                                     "The payload supplied 'id' as JSON {0}",
                                     idToken.Type.ToString().ToLowerInvariant())));
-                    return FAILURE;
+                    return CommandBase.FAILURE;
                 }
 
                 string id = idToken.Value<string>();
@@ -79,7 +81,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                             CultureInfo.CurrentCulture,
                             "error: {0} JSON 'id' must be a non-empty string (SARIF §3.49.3).",
                             Capitalize(payloadKind)));
-                    return FAILURE;
+                    return CommandBase.FAILURE;
                 }
 
                 // Rule descriptors are accepted only for flat NOVEL- ids.
@@ -88,17 +90,17 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                     Console.Error.WriteLine(
                         string.Format(
                             CultureInfo.CurrentCulture,
-                            "error {0}: rule descriptor id '{1}' is not a well-formed NOVEL- id. The --rules path is reserved for novel-finding descriptors that have no taxonomy entry; descriptors for taxonomy-mapped rules (e.g., 'CWE-89') come from the taxonomy enricher, not from this verb. Use a NOVEL- escape-hatch id: 'NOVEL-' followed by a lowercase-alphanumeric kebab sub-id (single hyphens, no slash, no trailing hyphen), e.g., 'NOVEL-prompt-injection-via-system-message'. See docs/AI-RuleId-Convention.md.",
+                            "error {0}: rule descriptor id '{1}' is not a well-formed NOVEL- id. The add-rule-reporting-descriptor verb is reserved for novel-finding descriptors that have no taxonomy entry; descriptors for taxonomy-mapped rules (e.g., 'CWE-89') come from the taxonomy enricher, not from this verb. Use a NOVEL- escape-hatch id: 'NOVEL-' followed by a lowercase-alphanumeric kebab sub-id (single hyphens, no slash, no trailing hyphen), e.g., 'NOVEL-prompt-injection-via-system-message'. See docs/AI-RuleId-Convention.md.",
                             AIRuleIdConventionException.ErrorCode,
                             id));
-                    return FAILURE;
+                    return CommandBase.FAILURE;
                 }
 
                 // Reject duplicates against prior descriptor events and run-header descriptors.
                 if (TryFindDuplicate(wipPath, id, eventKind, targetArray, out string duplicateError))
                 {
                     Console.Error.WriteLine(duplicateError);
-                    return FAILURE;
+                    return CommandBase.FAILURE;
                 }
 
                 using (var writer = new SarifEventLogWriter(wipPath))
@@ -113,12 +115,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                         payloadKind,
                         id,
                         wipPath));
-                return SUCCESS;
+                return CommandBase.SUCCESS;
             }
             catch (Exception ex) when (!Debugger.IsAttached)
             {
                 Console.Error.WriteLine(ex);
-                return FAILURE;
+                return CommandBase.FAILURE;
             }
         }
 
@@ -128,7 +130,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         /// duplicate is found; <c>false</c> otherwise.
         /// </summary>
         /// <remarks>
-        /// Checks run-header descriptors and prior descriptor events of the same target kind.
         /// The event index in the error matches the event's position in the staged log.
         /// </remarks>
         private static bool TryFindDuplicate(

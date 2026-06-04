@@ -75,7 +75,7 @@ Callers that want a complete snapshot pass `CweStatus.All`.
 
 [`CweGenerateSample.ps1`](CweGenerateSample.ps1) emits the checked-in
 [`CweSample.sarif`](CweSample.sarif) fixture, a fully enriched SARIF log that
-exercises the emit chain end-to-end via the multitool `emit-init-run`,
+exercises the emit chain end-to-end via the multitool `emit-run`,
 `add-result`, `add-invocation`, and `emit-finalize` verbs. The sample
 appends seven Result events (covering the Stable, Draft, Incomplete, and
 NOVEL- "no-CWE-fits" cases) plus one Invocation carrying a notification

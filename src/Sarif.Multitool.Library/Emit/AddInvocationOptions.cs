@@ -8,7 +8,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
     /// <summary>
     /// Options for <c>add-invocation</c>, which appends a fully-formed SARIF <c>invocation</c>
     /// object to a staged event log (<c>&lt;output&gt;.wip.jsonl</c>) created by
-    /// <c>emit-init-run</c>.
+    /// <c>emit-run</c>.
     /// </summary>
     /// <remarks>
     /// The invocation is supplied as a JSON document (file via <c>--input</c> or piped on stdin).

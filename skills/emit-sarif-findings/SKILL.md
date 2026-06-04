@@ -38,13 +38,13 @@ Apply this skill when an agent is the **originating** detector (not post-process
 
 ## Method
 
-The skill uses four multitool verbs: `emit-init-run` → `add-result` / `add-invocation` (per finding or scan phase) → `emit-finalize --validate`. Each verb either appends to an event log (`<output>.wip.jsonl`) or replays the log into a finished SARIF file.
+The skill uses four multitool verbs: `emit-run` → `add-result` / `add-invocation` (per finding or scan phase) → `emit-finalize --validate`. Each verb either appends to an event log (`<output>.wip.jsonl`) or replays the log into a finished SARIF file.
 
 This staged design lets you build a run incrementally: hold one finding in working memory at a time, write it, move on. The final file is produced atomically by `emit-finalize`.
 
 ### Step 1 — Initialize the run
 
-Construct a SARIF `Run` JSON object — the same partial-Run shape consumed by `SarifEventReplayer` — and pipe it to `emit-init-run`. The verb accepts the run header via `--input <path>` or stdin, exactly like `add-result` / `add-invocation`. There is no flag-based form; if a field belongs on `run.*` in the final SARIF, place it on the JSON you supply here.
+Construct a SARIF `Run` JSON object — the same partial-Run shape consumed by `SarifEventReplayer` — and pipe it to `emit-run`. The verb accepts the run header via `--input <path>` or stdin, exactly like `add-result` / `add-invocation`. There is no flag-based form; if a field belongs on `run.*` in the final SARIF, place it on the JSON you supply here.
 
 ```powershell
 $runHeader = [ordered]@{
@@ -80,11 +80,11 @@ $runHeader = [ordered]@{
 } | ConvertTo-Json -Depth 32
 
 # Option A: pipe via stdin (matches add-result / add-invocation).
-$runHeader | dotnet dnx Sarif.Multitool --yes -- emit-init-run "{{OUTPUT_PATH}}"
+$runHeader | dotnet dnx Sarif.Multitool --yes -- emit-run "{{OUTPUT_PATH}}"
 
 # Option B: write to a file and reference it.
 $runHeader | Set-Content run-header.json
-dotnet dnx Sarif.Multitool --yes -- emit-init-run "{{OUTPUT_PATH}}" --input run-header.json
+dotnet dnx Sarif.Multitool --yes -- emit-run "{{OUTPUT_PATH}}" --input run-header.json
 ```
 
 Inputs:
@@ -101,7 +101,7 @@ Inputs:
 
 The verb validates a small set of profile-essential fields at receipt: `tool.driver.name` is required and must be a non-empty string; `tool.driver.informationUri` and `versionControlProvenance[].repositoryUri` must be `https`; `originalUriBaseIds["SRCROOT"].uri` must be `https` or `file`; GUIDs must be canonical 8-4-4-4-12 strings; `ai/origin` must be one of `generated`, `annotated`, `synthesized`. Anything else the SARIF schema accepts on a partial `Run` is appended to the `.wip.jsonl` run-header event unchanged; note that `emit-finalize` materializes a typed `SarifLog` from that event log, so fields outside the SDK's typed `Run` model are dropped at finalize. Durable custom data should live in SARIF `properties` bags, which the typed model preserves.
 
-When the `TF_BUILD=True` environment indicates an Azure DevOps pipeline, `emit-init-run` stamps `automationDetails.id` plus the four `azuredevops/pipeline/build/*` properties required by GHAzDO ingestion. If your JSON supplies any of those fields, the values must match what the env detects, otherwise the verb fails with a conflict diagnostic — pick one source of truth.
+When the `TF_BUILD=True` environment indicates an Azure DevOps pipeline, `emit-run` stamps `automationDetails.id` plus the four `azuredevops/pipeline/build/*` properties required by GHAzDO ingestion. If your JSON supplies any of those fields, the values must match what the env detects, otherwise the verb fails with a conflict diagnostic — pick one source of truth.
 
 ### Step 2 — Append each result
 

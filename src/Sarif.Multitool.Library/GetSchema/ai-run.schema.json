@@ -1,8 +1,8 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://raw.githubusercontent.com/microsoft/sarif-sdk/main/src/Sarif.Multitool.Library/GetSchema/ai-run-header.schema.json",
-  "title": "SARIF AI emit profile \u2014 run header object",
-  "description": "Input contract for the SARIF run-header partial document an AI producer supplies to the emit-init-run verb. An overlay on the canonical SARIF 2.1.0 run: it reuses the base shape by $ref and tightens it for the AI profile, requiring the run-scoped fields the profile mandates and bouncing header fields the replayer ignores.",
+  "$id": "https://raw.githubusercontent.com/microsoft/sarif-sdk/main/src/Sarif.Multitool.Library/GetSchema/ai-run.schema.json",
+  "title": "SARIF AI emit profile \u2014 run object",
+  "description": "Input contract for the SARIF run partial document an AI producer supplies to the emit-run verb. An overlay on the canonical SARIF 2.1.0 run: it reuses the base shape by $ref and tightens it for the AI profile, requiring the run-scoped fields the profile mandates and bouncing header fields the replayer ignores.",
   "type": "object",
   "allOf": [
     {

@@ -15,13 +15,14 @@ using Newtonsoft.Json.Linq;
 namespace Microsoft.CodeAnalysis.Sarif.Multitool
 {
     /// <summary>
-    /// Implements <c>multitool emit-init-run</c>: creates an append-only SARIF event log
+    /// Implements <c>multitool emit-run</c>: creates an append-only SARIF event log
     /// (<c>&lt;output&gt;.wip.jsonl</c>) seeded with a <c>run-header</c> event built from a
     /// caller-supplied SARIF <c>Run</c> JSON document (file via <c>--input</c> or stdin).
     /// </summary>
     /// <remarks>
     /// <para>The JSON-payload contract matches the other emit verbs (<c>add-result</c>,
-    /// <c>add-invocation</c>, <c>add-reporting-descriptor</c>). The supplied <c>Run</c> may
+    /// <c>add-invocation</c>, <c>add-notification-reporting-descriptor</c>,
+    /// <c>add-rule-reporting-descriptor</c>). The supplied <c>Run</c> may
     /// carry any subset of the partial-Run shape the replayer accepts (<c>tool</c>,
     /// <c>language</c>, <c>columnKind</c>, <c>defaultEncoding</c>, <c>defaultSourceLanguage</c>,
     /// <c>originalUriBaseIds</c>, <c>versionControlProvenance</c>, <c>automationDetails</c>,
@@ -56,23 +57,23 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
     /// </item>
     /// </list>
     /// </remarks>
-    public class EmitInitRunCommand : CommandBase
+    public class EmitRunCommand : CommandBase
     {
         internal const string SourceRootBaseId = "SRCROOT";
         internal static readonly string[] AiOriginValues = new[] { "generated", "annotated", "synthesized" };
 
         private readonly IEnvironmentVariableGetter _environment;
 
-        public EmitInitRunCommand() : this(new EnvironmentVariableGetter())
+        public EmitRunCommand() : this(new EnvironmentVariableGetter())
         {
         }
 
-        public EmitInitRunCommand(IEnvironmentVariableGetter environment)
+        public EmitRunCommand(IEnvironmentVariableGetter environment)
         {
             _environment = environment ?? throw new ArgumentNullException(nameof(environment));
         }
 
-        public int Run(EmitInitRunOptions options, IFileSystem fileSystem = null)
+        public int Run(EmitRunOptions options, IFileSystem fileSystem = null)
         {
             fileSystem ??= Sarif.FileSystem.Instance;
 
