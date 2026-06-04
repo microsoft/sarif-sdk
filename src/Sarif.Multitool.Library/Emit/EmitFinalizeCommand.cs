@@ -18,7 +18,7 @@ using Newtonsoft.Json;
 namespace Microsoft.CodeAnalysis.Sarif.Multitool
 {
     /// <summary>
-    /// Implements <c>multitool emit-finalize</c>: replays <c>&lt;output&gt;.wip.jsonl</c>,
+    /// Implements <c>emit-finalize</c>: replays <c>&lt;output&gt;.wip.jsonl</c>,
     /// optionally enriches CWE-as-rule-id descriptors, and atomically writes the destination
     /// SARIF file.
     /// </summary>
@@ -118,13 +118,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                         if (run == null) { continue; }
 
                         run.OriginalUriBaseIds ??= new Dictionary<string, ArtifactLocation>();
-                        if (run.OriginalUriBaseIds.TryGetValue(EmitInitRunCommand.SourceRootBaseId, out ArtifactLocation existing) && existing != null)
+                        if (run.OriginalUriBaseIds.TryGetValue(EmitRunCommand.SourceRootBaseId, out ArtifactLocation existing) && existing != null)
                         {
                             existing.Uri = finalSrcRoot;
                         }
                         else
                         {
-                            run.OriginalUriBaseIds[EmitInitRunCommand.SourceRootBaseId] = new ArtifactLocation
+                            run.OriginalUriBaseIds[EmitRunCommand.SourceRootBaseId] = new ArtifactLocation
                             {
                                 Uri = finalSrcRoot,
                             };

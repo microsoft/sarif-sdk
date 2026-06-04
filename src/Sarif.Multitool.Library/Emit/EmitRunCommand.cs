@@ -15,13 +15,14 @@ using Newtonsoft.Json.Linq;
 namespace Microsoft.CodeAnalysis.Sarif.Multitool
 {
     /// <summary>
-    /// Implements <c>multitool emit-init-run</c>: creates an append-only SARIF event log
+    /// Implements <c>emit-run</c>: creates an append-only SARIF event log
     /// (<c>&lt;output&gt;.wip.jsonl</c>) seeded with a <c>run-header</c> event built from a
     /// caller-supplied SARIF <c>Run</c> JSON document (file via <c>--input</c> or stdin).
     /// </summary>
     /// <remarks>
     /// <para>The JSON-payload contract matches the other emit verbs (<c>add-result</c>,
-    /// <c>add-invocation</c>, <c>add-reporting-descriptor</c>). The supplied <c>Run</c> may
+    /// <c>add-invocation</c>, <c>add-notification-reporting-descriptor</c>,
+    /// <c>add-rule-reporting-descriptor</c>). The supplied <c>Run</c> may
     /// carry any subset of the partial-Run shape the replayer accepts (<c>tool</c>,
     /// <c>language</c>, <c>columnKind</c>, <c>defaultEncoding</c>, <c>defaultSourceLanguage</c>,
     /// <c>originalUriBaseIds</c>, <c>versionControlProvenance</c>, <c>automationDetails</c>,
@@ -56,23 +57,23 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
     /// </item>
     /// </list>
     /// </remarks>
-    public class EmitInitRunCommand : CommandBase
+    public class EmitRunCommand : CommandBase
     {
         internal const string SourceRootBaseId = "SRCROOT";
         internal static readonly string[] AiOriginValues = new[] { "generated", "annotated", "synthesized" };
 
         private readonly IEnvironmentVariableGetter _environment;
 
-        public EmitInitRunCommand() : this(new EnvironmentVariableGetter())
+        public EmitRunCommand() : this(new EnvironmentVariableGetter())
         {
         }
 
-        public EmitInitRunCommand(IEnvironmentVariableGetter environment)
+        public EmitRunCommand(IEnvironmentVariableGetter environment)
         {
             _environment = environment ?? throw new ArgumentNullException(nameof(environment));
         }
 
-        public int Run(EmitInitRunOptions options, IFileSystem fileSystem = null)
+        public int Run(EmitRunOptions options, IFileSystem fileSystem = null)
         {
             fileSystem ??= Sarif.FileSystem.Instance;
 
@@ -115,7 +116,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
                 if (!TryRejectSarifLogShape(runObject)) { return FAILURE; }
 
-                if (!TryValidateRunHeader(runObject)) { return FAILURE; }
+                if (!TryValidateRunHeader(runObject, fileSystem)) { return FAILURE; }
 
                 if (adoState == AdoPipelineContext.DetectionState.Complete)
                 {
@@ -220,7 +221,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             return true;
         }
 
-        private static bool TryValidateRunHeader(JObject runObject)
+        private static bool TryValidateRunHeader(JObject runObject, IFileSystem fileSystem)
         {
             // Validate parent shapes before child accessors can trip JValue indexers.
             if (!TryRequireOptionalObject(runObject, "tool", out JObject toolObject)) { return false; }
@@ -309,6 +310,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 return false;
             }
 
+            if (!TryValidateSourceRootResolvesOnDisk(
+                originalUriBaseIdsObject?[SourceRootBaseId]?["uri"],
+                fileSystem))
+            {
+                return false;
+            }
+
             if (!TryValidateOptionalGuidToken(automationDetailsObject?["guid"], "automationDetails.guid"))
             {
                 return false;
@@ -388,6 +396,31 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             if (!EmitEventLogHelpers.TryValidateUri(value, path, allowedSchemes, out string error))
             {
                 Console.Error.WriteLine(error);
+                return false;
+            }
+
+            return true;
+        }
+
+        // A file: SRCROOT must resolve to a directory that exists on disk when the run header is
+        // received, so finalize can enrich result locations against an observable checkout.
+        private static bool TryValidateSourceRootResolvesOnDisk(JToken token, IFileSystem fileSystem)
+        {
+            if (token == null || token.Type != JTokenType.String) { return true; }
+
+            string value = (string)token;
+            if (string.IsNullOrWhiteSpace(value)) { return true; }
+
+            if (!Uri.TryCreate(value, UriKind.Absolute, out Uri uri) || !uri.IsFile) { return true; }
+
+            if (!fileSystem.DirectoryExists(uri.LocalPath))
+            {
+                Console.Error.WriteLine(
+                    string.Format(
+                        CultureInfo.CurrentCulture,
+                        "originalUriBaseIds[\"SRCROOT\"].uri: '{0}' does not resolve to an existing directory ('{1}'). A file: source root must point at an observable checkout when the run header is received.",
+                        value,
+                        uri.LocalPath));
                 return false;
             }
 

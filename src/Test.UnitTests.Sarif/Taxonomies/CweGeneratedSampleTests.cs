@@ -66,7 +66,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Taxonomies
             // with the genuine pipeline id, which disagrees with the fixed
             // '1234' the script stamps on BUILD_DEFINITIONID. Without the
             // script also overriding the fallback, AdoPipelineContext.TryDetect
-            // raises "disagrees with" and emit-init-run exits non-zero before
+            // raises "disagrees with" and emit-run exits non-zero before
             // any fixture bytes are written. Set conflicting values for every
             // fallback env var the verb reads to ensure the script scrubs
             // them all.
@@ -87,7 +87,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Taxonomies
             // GITHUB_ACTIONS=true + GITHUB_SHA=<real commit sha>; without the
             // script scrubbing those, GitHubActionsContext.TryDetect returns
             // Complete with a revisionId that conflicts with the zero-SHA the
-            // script writes into the supplied VCP entry, and emit-init-run
+            // script writes into the supplied VCP entry, and emit-run
             // exits non-zero before any fixture bytes are written. Set
             // conflicting values for every GHA env var the verb reads.
             VerifyScriptIsIsolatedFromAmbientFallbackEnv(

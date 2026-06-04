@@ -16,13 +16,14 @@ using Xunit;
 namespace Microsoft.CodeAnalysis.Sarif.Multitool
 {
     // Drift guard for the AI emit-profile input schemas that the get-schema verb
-    // serves (Sarif.Multitool.Library\GetSchema\ai-*.schema.json). These schemas
-    // are Draft 2020-12 OVERLAYS on the canonical SARIF result/run shapes: they
-    // reuse the base by $ref and TIGHTEN it to the Error-level AI rules plus the
-    // structural checks the emit verbs enforce. This test pins the schemas'
+    // serves (Sarif.Multitool.Library\GetSchema\ai-*.schema.json). The result and
+    // run schemas are Draft 2020-12 OVERLAYS on the canonical SARIF result/run
+    // shapes: they reuse the base by $ref and TIGHTEN it to the Error-level AI rules
+    // plus the structural checks the emit verbs enforce. The invocation and
+    // descriptor schemas are standalone thin contracts. This test pins the schemas'
     // accept/reject verdicts to that contract so a schema edit that drifts from
     // the C# rules (AIRuleIdConvention, AI1003/AI1004/AI1005/AI1006,
-    // EmitInitRunCommand) fails loudly.
+    // EmitRunCommand) fails loudly.
     //
     // It validates with JsonSchema.Net (json-everything), NOT Microsoft.Json.Schema:
     // the in-repo validator predates Draft 2020-12 and silently ignores the
@@ -39,10 +40,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         private const string SarifSchemaIdentity = "https://json.schemastore.org/sarif-2.1.0.json";
 
         private static readonly JsonSchema s_resultSchema = LoadAiSchema("ai-result.schema.json");
-        private static readonly JsonSchema s_runHeaderSchema = LoadAiSchema("ai-run-header.schema.json");
+        private static readonly JsonSchema s_runSchema = LoadAiSchema("ai-run.schema.json");
         private static readonly JsonSchema s_invocationSchema = LoadAiSchema("ai-invocation.schema.json");
-        private static readonly JsonSchema s_reportingDescriptorSchema = LoadAiSchema("ai-reporting-descriptor.schema.json");
-        private static readonly JsonSchema s_novelRuleDescriptorSchema = LoadAiSchema("ai-novel-rule-descriptor.schema.json");
+        private static readonly JsonSchema s_notificationDescriptorSchema = LoadAiSchema("ai-notification-reporting-descriptor.schema.json");
+        private static readonly JsonSchema s_ruleDescriptorSchema = LoadAiSchema("ai-rule-reporting-descriptor.schema.json");
         private static readonly EvaluationOptions s_options = BuildOptions();
 
         private const string Guid = "12345678-1234-1234-1234-1234567890ab";
@@ -92,7 +93,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             "NOVEL--foo",     // leading dash after prefix
             "NOVEL-a--b",     // consecutive hyphens
             "NOVEL-Foo",      // uppercase in sub-id
-            "NOVEL-mixed-Case-123",  // mixed case no longer allowed
+            "NOVEL-mixed-Case-123",  // mixed case in sub-id
             "novel-foo",      // lowercase prefix
             "NOVEL-foo bar",  // whitespace in sub-id
         };
@@ -279,14 +280,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
         #endregion
 
-        #region ai-run-header.schema.json
+        #region ai-run.schema.json
 
         [Fact]
         public void AIRunHeaderSchema_AcceptsAMinimalCleanHeader()
         {
-            Accepts(s_runHeaderSchema, MakeHeader()).Should().BeTrue(
+            Accepts(s_runSchema, MakeHeader()).Should().BeTrue(
                 "a header with tool.driver.name, a versionControlProvenance entry, and properties[ai/origin] " +
-                "must validate against ai-run-header.schema.json");
+                "must validate against ai-run.schema.json");
         }
 
         [Fact]
@@ -298,7 +299,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
             void Expect(string label, JsonObject header, bool accept)
             {
-                bool got = Accepts(s_runHeaderSchema, header);
+                bool got = Accepts(s_runSchema, header);
                 if (got != accept)
                 {
                     offenders.Add($"  [{label}] expected accept={accept}, got {got}");
@@ -340,7 +341,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             }, false);
 
             offenders.Should().BeEmpty(
-                "ai-run-header.schema.json must require tool.driver.name (non-whitespace), a non-empty " +
+                "ai-run.schema.json must require tool.driver.name (non-whitespace), a non-empty " +
                 "versionControlProvenance (AI1004), and properties[ai/origin] (AI1006):\n" +
                 string.Join("\n", offenders));
         }
@@ -353,19 +354,19 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
             foreach (string origin in new[] { "generated", "annotated", "synthesized" })
             {
-                if (!Accepts(s_runHeaderSchema, MakeHeader(origin: origin)))
+                if (!Accepts(s_runSchema, MakeHeader(origin: origin)))
                 {
                     offenders.Add($"  expected ACCEPT for origin '{origin}'");
                 }
             }
 
-            if (Accepts(s_runHeaderSchema, MakeHeader(origin: "invented")))
+            if (Accepts(s_runSchema, MakeHeader(origin: "invented")))
             {
                 offenders.Add("  expected REJECT for origin 'invented'");
             }
 
             offenders.Should().BeEmpty(
-                "ai-run-header.schema.json must enforce AI1006: properties[ai/origin] in " +
+                "ai-run.schema.json must enforce AI1006: properties[ai/origin] in " +
                 "{generated, annotated, synthesized}:\n" + string.Join("\n", offenders));
         }
 
@@ -381,7 +382,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
             void Expect(string label, JsonObject header, bool accept)
             {
-                bool got = Accepts(s_runHeaderSchema, header);
+                bool got = Accepts(s_runSchema, header);
                 if (got != accept)
                 {
                     offenders.Add($"  [{label}] expected accept={accept}, got {got}");
@@ -409,7 +410,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             Expect("srcroot-ftp", SrcRootHeader("ftp://x/"), false);
 
             offenders.Should().BeEmpty(
-                "ai-run-header.schema.json must restrict informationUri/repositoryUri to a lowercase https:// " +
+                "ai-run.schema.json must restrict informationUri/repositoryUri to a lowercase https:// " +
                 "scheme and SRCROOT.uri to lowercase https|file (canonical-form tightening over the C# scheme " +
                 "check):\n" + string.Join("\n", offenders));
         }
@@ -423,7 +424,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
             void Expect(string label, JsonObject header, bool accept)
             {
-                bool got = Accepts(s_runHeaderSchema, header);
+                bool got = Accepts(s_runSchema, header);
                 if (got != accept)
                 {
                     offenders.Add($"  [{label}] expected accept={accept}, got {got}");
@@ -436,34 +437,34 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             Expect("correlationGuid-bad", AutomationHeader("correlationGuid", "1234"), false);
 
             offenders.Should().BeEmpty(
-                "ai-run-header.schema.json must require automationDetails.guid/correlationGuid (when present) " +
+                "ai-run.schema.json must require automationDetails.guid/correlationGuid (when present) " +
                 "to be a canonical 8-4-4-4-12 hex GUID:\n" + string.Join("\n", offenders));
         }
 
         [Fact]
         public void AIRunHeaderSchema_ForbidsReplayIgnoredFields()
         {
-            // results / invocations are ignored when emit-init-run replays the
+            // results / invocations are ignored when emit-run replays the
             // header, so the schema bounces them: they belong in their own emit
             // events, not the run header.
             var offenders = new List<string>();
 
             JsonObject withResults = MakeHeader();
             withResults["results"] = new JsonArray();
-            if (Accepts(s_runHeaderSchema, withResults))
+            if (Accepts(s_runSchema, withResults))
             {
                 offenders.Add("  expected REJECT for header-level 'results'");
             }
 
             JsonObject withInvocations = MakeHeader();
             withInvocations["invocations"] = new JsonArray();
-            if (Accepts(s_runHeaderSchema, withInvocations))
+            if (Accepts(s_runSchema, withInvocations))
             {
                 offenders.Add("  expected REJECT for header-level 'invocations'");
             }
 
             offenders.Should().BeEmpty(
-                "ai-run-header.schema.json must forbid results/invocations on the run header (they are ignored " +
+                "ai-run.schema.json must forbid results/invocations on the run header (they are ignored " +
                 "at replay and belong in their own emit events):\n" + string.Join("\n", offenders));
         }
 
@@ -645,24 +646,21 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
         #endregion
 
-        #region ai-reporting-descriptor.schema.json
+        #region ai-notification-reporting-descriptor.schema.json
 
         [Fact]
-        public void AIReportingDescriptorSchema_RequiresNonEmptyStringId()
+        public void AINotificationReportingDescriptorSchema_RequiresNonEmptyStringId()
         {
-            // add-reporting-descriptor requires a non-empty string id (SARIF §3.49.3),
+            // add-notification-reporting-descriptor requires a non-empty string id (SARIF §3.49.3),
             // gating on string.IsNullOrEmpty — so whitespace-only is accepted but "" is
-            // not. Extra properties are accepted (the verb only inspects id). This is the
-            // general descriptor contract, stored under notifications[] by default or
-            // rules[] with --rules. The --rules-only NOVEL- grammar gate is NOT pinned here —
-            // a NOVEL-less id is accepted at this level; ai-novel-rule-descriptor.schema.json
-            // overlays this schema to pin it. The id-taxonomy/id-novel/id-arbitrary accepts
-            // below assert that non-gating.
+            // not. Extra properties are accepted (the verb only inspects id). Any id string
+            // is accepted here; the NOVEL- grammar is a separate verb/schema. The
+            // id-taxonomy/id-novel/id-arbitrary accepts below assert that non-gating.
             var offenders = new List<string>();
 
             void Expect(string label, JsonNode value, bool accept)
             {
-                if (Accepts(s_reportingDescriptorSchema, value) != accept)
+                if (Accepts(s_notificationDescriptorSchema, value) != accept)
                 {
                     offenders.Add($"  [{label}] expected accept={accept}");
                 }
@@ -679,34 +677,32 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             Expect("id-null", new JsonObject { ["id"] = null }, false);
             Expect("id-number", new JsonObject { ["id"] = 123 }, false);
 
-            CollectNonObjectRejections(s_reportingDescriptorSchema, offenders);
+            CollectNonObjectRejections(s_notificationDescriptorSchema, offenders);
 
             offenders.Should().BeEmpty(
-                "ai-reporting-descriptor.schema.json must require a non-empty string id (minLength:1 mirrors the " +
-                "verb's IsNullOrEmpty gate, so '   ' is accepted) and otherwise accept any object. It must NOT pin " +
-                "the --rules-only NOVEL- grammar gate (ai-novel-rule-descriptor.schema.json overlays this to add it):\n" +
+                "ai-notification-reporting-descriptor.schema.json must require a non-empty string id (minLength:1 mirrors the " +
+                "verb's IsNullOrEmpty gate, so '   ' is accepted) and otherwise accept any object:\n" +
                 string.Join("\n", offenders));
         }
 
         #endregion
 
-        #region ai-novel-rule-descriptor.schema.json
+        #region ai-rule-reporting-descriptor.schema.json
 
         [Fact]
-        public void AINovelRuleDescriptorSchema_RequiresWellFormedNovelId()
+        public void AIRuleReportingDescriptorSchema_RequiresWellFormedNovelId()
         {
-            // ai-novel-rule-descriptor overlays ai-reporting-descriptor by $ref and adds
-            // the --rules-path tightening: the descriptor id must satisfy the full NOVEL-
-            // escape-hatch grammar ^NOVEL-[a-z0-9]+(-[a-z0-9]+)*$ — the SAME lowercase-kebab
-            // form a result's NOVEL- ruleId must satisfy, so a descriptor id is byte-identical
-            // to the ruleId that references it. Bare 'NOVEL-', a slash, an uppercase tail, and
-            // a trailing hyphen are all rejected. The non-empty-string-id rejects (id-empty,
-            // no-id, id-number) are inherited from the $ref'd base, proving the overlay resolves.
+            // ai-rule-reporting-descriptor is a standalone schema that pins the descriptor id
+            // to the full NOVEL- escape-hatch grammar ^NOVEL-[a-z0-9]+(-[a-z0-9]+)*$ — the SAME
+            // lowercase-kebab form a result's NOVEL- ruleId must satisfy, so a descriptor id is
+            // byte-identical to the ruleId that references it. Bare 'NOVEL-', a slash, an
+            // uppercase tail, and a trailing hyphen are all rejected. The non-empty-string-id
+            // rejects (id-empty, no-id, id-number) follow from the inline type/pattern checks.
             var offenders = new List<string>();
 
             void Expect(string label, JsonNode value, bool accept)
             {
-                if (Accepts(s_novelRuleDescriptorSchema, value) != accept)
+                if (Accepts(s_ruleDescriptorSchema, value) != accept)
                 {
                     offenders.Add($"  [{label}] expected accept={accept}");
                 }
@@ -731,11 +727,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             Expect("no-id", new JsonObject { ["name"] = "X" }, false);
             Expect("id-number", new JsonObject { ["id"] = 123 }, false);
 
-            CollectNonObjectRejections(s_novelRuleDescriptorSchema, offenders);
+            CollectNonObjectRejections(s_ruleDescriptorSchema, offenders);
 
             offenders.Should().BeEmpty(
-                "ai-novel-rule-descriptor.schema.json must inherit the non-empty string id requirement from " +
-                "ai-reporting-descriptor (via $ref) and add the full NOVEL- grammar gate " +
+                "ai-rule-reporting-descriptor.schema.json must require a non-empty string id and " +
+                "pin the full NOVEL- grammar gate inline " +
                 "^NOVEL-[a-z0-9]+(-[a-z0-9]+)*$ — the same lowercase-kebab form the result-side NOVEL- ruleId " +
                 "must satisfy, so 'NOVEL-', 'NOVEL-foo/bar', an uppercase tail, and a trailing hyphen are all " +
                 "rejected:\n" + string.Join("\n", offenders));
@@ -832,13 +828,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             return JsonSchema.FromText(File.ReadAllText(path));
         }
 
-        // The AI schemas $ref the public schemastore SARIF identity. Resolve that
-        // identity offline to the vendored sarif-2.1.0-rtm.6.json (copied next to the
-        // test assembly) so validation never reaches the network; JsonSchema.Net
-        // resolves $refs through the global registry. ai-rule-descriptor.schema.json
-        // $refs ai-notification-descriptor.schema.json by its own $id, which JsonSchema
-        // .FromText already auto-registers globally when the s_notificationDescriptorSchema
-        // field is loaded above — so no explicit registration is needed for that overlay.
+        // The result and run schemas $ref the public schemastore SARIF identity. Resolve
+        // that identity offline to the vendored sarif-2.1.0-rtm.6.json (copied next to the
+        // test assembly) so validation never reaches the network; JsonSchema.Net resolves
+        // $refs through the global registry. The invocation and descriptor schemas are
+        // standalone thin contracts (no $ref), so they need no registration.
         private static EvaluationOptions BuildOptions()
         {
             string sarifPath = Path.Combine(AppContext.BaseDirectory, "GetSchema", "sarif-2.1.0.json");

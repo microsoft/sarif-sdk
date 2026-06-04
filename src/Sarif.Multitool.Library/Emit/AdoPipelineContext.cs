@@ -248,7 +248,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         /// </summary>
         /// <remarks>
         /// <para>The "stamp only when absent, fail on conflict" contract is required because
-        /// callers (notably <c>emit-init-run</c>'s JSON-payload contract) may supply these
+        /// callers (notably <c>emit-run</c>'s JSON-payload contract) may supply these
         /// fields directly. An unconditional overwrite would silently clobber a producer's
         /// declared identity; a conflict is a misconfiguration signal that we want to surface
         /// at the verb rather than ship in the run.</para>

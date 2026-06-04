@@ -25,14 +25,14 @@
         azuredevops/pipeline/build/* properties is satisfied. The script
         sets the ADO predefined environment variables (TF_BUILD,
         SYSTEM_COLLECTIONURI, …) to deterministic constants for the
-        duration of emit-init-run; the multitool's AdoPipelineContext
+        duration of emit-run; the multitool's AdoPipelineContext
         detector reads them and stamps the automationDetails. The env
         vars are cleared in a finally block so they don't leak to other
         steps in the same shell.
 
     Pipeline:
 
-      1. emit-init-run — opens .wip.jsonl with rich run-header metadata:
+      1. emit-run — opens .wip.jsonl with rich run-header metadata:
            tool.driver { name, version, semanticVersion, informationUri }
            run.versionControlProvenance[0]
            run.originalUriBaseIds.SRCROOT (local file:// so the
@@ -99,7 +99,7 @@
 .PARAMETER GHAzDO
     When set, produces CweGHAzDoSample.sarif (the GHAzDO ingestion
     variant) instead of CweSample.sarif. ADO predefined env vars are
-    populated for the duration of emit-init-run, AdoPipelineContext
+    populated for the duration of emit-run, AdoPipelineContext
     stamps the automationDetails, and validation runs with rule-kind
     Sarif;AI;GHAzDO. Default (switch absent) preserves the original
     CweSample.sarif emission unchanged.
@@ -139,7 +139,7 @@ $wipPath = "$outPath.wip.jsonl"
 $validateRuleKind = if ($GHAzDO) { 'Sarif;AI;GHAzDO' } else { 'Sarif;AI' }
 
 # Deterministic ADO pipeline-context env values used only when -GHAzDO. The
-# AdoPipelineContext detector reads these in emit-init-run and stamps
+# AdoPipelineContext detector reads these in emit-run and stamps
 # run.automationDetails.id plus the four azuredevops/pipeline/build/* keys
 # that GHAzDO1019/1020 validate. Values chosen so the resulting fixture is
 # stable across machines.
@@ -168,14 +168,14 @@ $adoEnv = [ordered]@{
     # $vcpRepoUri is resolved; BUILD_SOURCEVERSION is the deterministic
     # zero-SHA matching the hardcoded VCP placeholder. AdoPipelineContext
     # detects both and verifies field-by-field agreement against the
-    # supplied VCP entry; mismatch would fail emit-init-run.
+    # supplied VCP entry; mismatch would fail emit-run.
     'BUILD_SOURCEVERSION'  = '0000000000000000000000000000000000000000'
     # GitHub Actions gate + identity vars. Cleared in every script
     # invocation so that GitHubActionsContext.TryDetect returns None: this
     # script supplies a deterministic VCP and stamps ADO identity
     # (-GHAzDO variant only); inheriting ambient GHA env from the host CI
     # runner would let GitHubActionsContext detect a conflicting
-    # revisionId (the runner's real GITHUB_SHA) and abort emit-init-run.
+    # revisionId (the runner's real GITHUB_SHA) and abort emit-run.
     'GITHUB_ACTIONS'       = $null
     'GITHUB_SERVER_URL'    = $null
     'GITHUB_REPOSITORY'    = $null
@@ -270,11 +270,10 @@ $automationCorrelationGuid = '660f3001-34a8-46c5-8ad5-14b9682470ba'
 Write-Host "[1/6] Opening run -> $outPath"
 
 # JSON-payload contract: construct a SARIF Run object and pipe it to
-# emit-init-run via stdin. The previous flag surface was removed in v5.1.0
-# to bring the verb into surface-area parity with the other emit verbs
-# (add-result, add-invocation, add-reporting-descriptor) and to unblock
-# producers that need rich run-header shapes (multiple VCP entries,
-# properties bags, etc.) the flags could not encode.
+# emit-run via stdin, matching the other emit verbs (add-result,
+# add-invocation, add-notification-reporting-descriptor,
+# add-rule-reporting-descriptor). The Run object can carry rich run-header
+# shapes (multiple VCP entries, properties bags, etc.).
 $runHeader = [ordered]@{
     tool = [ordered]@{
         driver = [ordered]@{
@@ -308,19 +307,19 @@ $runHeader = [ordered]@{
 $runHeaderJson = $runHeader | ConvertTo-Json -Depth 32 -Compress
 
 $initArgs = @(
-    $multitool, 'emit-init-run', $outPath,
+    $multitool, 'emit-run', $outPath,
     '--force-overwrite'
 )
 
 # Stamp pipeline identity (-GHAzDO variant) or explicitly clear the ADO env
-# vars (default variant) for the lifetime of emit-init-run. Either way the
+# vars (default variant) for the lifetime of emit-run. Either way the
 # script's behavior is independent of the caller's shell state.
 $envToApply = if ($GHAzDO) { $adoEnv } else { $adoEnvCleared }
 $savedEnv = $null
 try {
     $savedEnv = Set-AdoEnv $envToApply
     $runHeaderJson | & dotnet @initArgs | Out-Host
-    if ($LASTEXITCODE -ne 0) { throw "emit-init-run failed (exit $LASTEXITCODE)." }
+    if ($LASTEXITCODE -ne 0) { throw "emit-run failed (exit $LASTEXITCODE)." }
 } finally {
     Restore-AdoEnv $savedEnv
 }
@@ -479,7 +478,7 @@ foreach ($rule in $driver.rules) {
 
 # tool.driver.fullName — GHAzDO1018 requires a human-readable driver fullName
 # distinct from name. Only the -GHAzDO variant ships it so CweSample.sarif
-# (the bare AI shape) stays byte-stable; emit-init-run has no first-class
+# (the bare AI shape) stays byte-stable; emit-run has no first-class
 # flag for fullName so we patch it post-finalize like the items above.
 if ($GHAzDO) {
     $driver | Add-Member -NotePropertyName 'fullName' -NotePropertyValue 'CWE Sampler Scanner' -Force

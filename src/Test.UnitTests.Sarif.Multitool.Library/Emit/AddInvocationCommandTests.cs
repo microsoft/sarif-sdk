@@ -340,7 +340,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             });
 
             exit.Should().Be(CommandBase.FAILURE);
-            errWriter.ToString().Should().Contain("emit-init-run");
+            errWriter.ToString().Should().Contain("emit-run");
         }
 
         [Fact]
