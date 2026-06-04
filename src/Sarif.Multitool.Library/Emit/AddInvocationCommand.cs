@@ -17,26 +17,17 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
     /// JSON to <c>&lt;output&gt;.wip.jsonl</c>.
     /// </summary>
     /// <remarks>
-    /// <para>An invocation models one process the producer launched and is the SOLE carrier of
-    /// notifications: the producer supplies them INLINE on the payload's
-    /// <c>toolExecutionNotifications</c> / <c>toolConfigurationNotifications</c> arrays. A
-    /// notification is bound to the invocation that owns it because SARIF has no run-level
-    /// notifications array, and a free-standing notification could not be routed to one of
-    /// several parallel invocations; the producer holds per-process state and emits ONE complete
-    /// invocation (notifications inline) when that process finishes.</para>
-    /// <para>The verb enforces the load-bearing requireds of the AI invocation profile
-    /// (<c>ai-invocation.schema.json</c>): the payload must be a JSON object carrying a boolean
-    /// <c>executionSuccessful</c>, a non-whitespace string <c>commandLine</c>, and a
-    /// <c>workingDirectory</c> artifactLocation with a non-whitespace <c>uri</c>. Richer
-    /// structural validation is deferred to <c>emit-finalize --validate</c>, which validates the
-    /// assembled log.</para>
-    /// <para>At emit time the verb stamps a single wall-clock <c>now</c> onto the invocation's
-    /// <c>endTimeUtc</c> when the producer left it unset (time of receipt is a faithful proxy
-    /// for process completion). Notification <c>timeUtc</c> values are NOT stamped: a
-    /// notification's timestamp records when that event occurred mid-flight, so the producer
-    /// must supply it as it builds the invocation. The AI profile therefore REQUIRES a
-    /// <c>timeUtc</c> on every inline notification (cf. AI2019). Producer-supplied values are
-    /// preserved, so replay is fully deterministic.</para>
+    /// <para>An invocation models one launched process. Its notifications travel inline on the
+    /// payload's <c>toolExecutionNotifications</c> / <c>toolConfigurationNotifications</c> arrays;
+    /// the producer holds per-process state and emits one complete invocation when that process
+    /// finishes.</para>
+    /// <para>The verb enforces the required fields of the AI invocation profile
+    /// (<c>ai-invocation.schema.json</c>): a boolean <c>executionSuccessful</c>, a non-whitespace
+    /// <c>commandLine</c>, and a <c>workingDirectory</c> artifactLocation with a non-whitespace
+    /// <c>uri</c>. Full structural validation runs at <c>emit-finalize --validate</c>.</para>
+    /// <para>The verb stamps <c>endTimeUtc</c> with the time of receipt when the producer leaves it
+    /// unset. The producer supplies each notification's <c>timeUtc</c> and the verb preserves it;
+    /// the AI profile requires a <c>timeUtc</c> on every inline notification (AI2019).</para>
     /// </remarks>
     public class AddInvocationCommand : CommandBase
     {
@@ -91,9 +82,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             }
         }
 
-        // Mirrors the load-bearing requireds of ai-invocation.schema.json. Full structural
-        // validation is deferred to emit-finalize --validate; this is a cheap receipt gate that
-        // rejects the three fields the AI profile makes mandatory.
+        // Receipt gate for the required fields of ai-invocation.schema.json; full structural
+        // validation runs at emit-finalize --validate.
         private static bool TryValidateInvocationReceipt(JObject payload)
         {
             JToken executionSuccessful = payload["executionSuccessful"];
@@ -127,9 +117,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 return false;
             }
 
-            // Inline notifications are the SOLE carrier of notifications, and each records when an
-            // event occurred mid-flight. The producer must supply that 'timeUtc' (the verb does not
-            // stamp it), so the AI profile requires a non-whitespace timeUtc on every notification.
+            // The AI profile requires a non-whitespace timeUtc on every inline notification; the
+            // producer supplies it and the verb preserves it.
             if (!TryValidateNotificationTimes(payload["toolExecutionNotifications"], "toolExecutionNotifications")
                 || !TryValidateNotificationTimes(payload["toolConfigurationNotifications"], "toolConfigurationNotifications"))
             {
@@ -160,7 +149,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                     Console.Error.WriteLine(
                         string.Format(
                             CultureInfo.CurrentCulture,
-                            "Invalid invocation: every '{0}' entry requires a non-whitespace 'timeUtc' (the producer records when the event occurred; the verb does not stamp it).",
+                                "Invalid invocation: every '{0}' entry requires a non-whitespace 'timeUtc'.",
                             arrayName));
                     return false;
                 }
@@ -169,9 +158,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             return true;
         }
 
-        // Fills the invocation's endTimeUtc when the producer left it unset; time of receipt is a
-        // faithful proxy for process completion. Notification timeUtc values are producer-owned and
-        // are never stamped here (see TryValidateNotificationTimes). Supplied values are preserved.
+        // Fills endTimeUtc with the time of receipt when the producer left it unset.
         private static void StampEndTimeUtcIfOmitted(JObject payload, string now)
         {
             if (payload["endTimeUtc"] == null || payload["endTimeUtc"].Type == JTokenType.Null)

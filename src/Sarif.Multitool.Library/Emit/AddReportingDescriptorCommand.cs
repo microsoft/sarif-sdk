@@ -94,12 +94,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                     return FAILURE;
                 }
 
-                // The --rules path is reserved for well-formed NOVEL- ids. Reject anything else
-                // with a tailored envelope that mirrors the AI-RULEID-001 shape but is specific
-                // to descriptor authoring (the result-side AIRuleIdConventionException message
-                // talks about taxonomy sub-id form, which doesn't apply to a descriptor id). The
-                // gate is the full novel grammar (IsNovel + IsAcceptable), not just the prefix, so
-                // a descriptor id is byte-identical to the result ruleId that references it.
+                // The --rules path is reserved for well-formed NOVEL- ids (full grammar, not just
+                // the prefix), so a descriptor id is byte-identical to the result ruleId that
+                // references it. The error envelope is tailored to descriptor authoring rather than
+                // reusing the result-side AIRuleIdConventionException text, which speaks in terms of
+                // taxonomy sub-id form.
                 if (isRules && !(AIRuleIdConvention.IsNovel(id) && AIRuleIdConvention.IsAcceptable(id)))
                 {
                     Console.Error.WriteLine(

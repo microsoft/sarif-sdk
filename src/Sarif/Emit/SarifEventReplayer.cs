@@ -33,11 +33,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Emit
     /// event order. Each invocation is a complete, self-contained subtree: any
     /// <see cref="Notification"/> the producer emitted travels INLINE on the invocation's
     /// <c>toolExecutionNotifications</c> / <c>toolConfigurationNotifications</c> arrays and is
-    /// replayed verbatim. There is no streamed-notification event kind — SARIF has no run-level
-    /// notifications array, so a notification can only be authored as a child of the invocation
-    /// that owns it. The <c>add-invocation</c> verb is responsible for any <c>timeUtc</c> /
-    /// <c>endTimeUtc</c> wall-clock stamping at emit time, so this replay is fully deterministic
-    /// (it performs no clock reads).</description></item>
+    /// replayed verbatim. The <c>add-invocation</c> verb performs any <c>endTimeUtc</c> stamping
+    /// at emit time, so replay reads no clock and is fully deterministic.</description></item>
     /// </list>
     /// <para>Descriptor auto-registration mirrors <see cref="Writers.SarifLogger"/>: on first
     /// sighting of a <see cref="Result.RuleId"/>, the replayer appends a minimal
