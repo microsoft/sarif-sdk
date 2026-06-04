@@ -48,8 +48,12 @@
            properties.ai/attackerPosition (spread across a vocab demo)
            locations[].physicalLocation { artifactLocation, region }
 
-      3. add-notification × 1 — toolExecutionNotification with preset
-         timeUtc so the fixture's bytes are stable across re-runs.
+      3. add-invocation × 1 — a fully-formed invocation (executionSuccessful +
+         commandLine + a real workingDirectory + arguments + preset endTimeUtc)
+         carrying one toolExecutionNotification INLINE with a producer-supplied
+         timeUtc (the verb requires it and never stamps it) so the fixture's
+         bytes are stable across re-runs. (SARIF has no run-level notifications
+         array, so notifications ride inside the invocation that owns them.)
 
       4. emit-finalize --embed-text-files --srcroot https://github.com/microsoft/sarif-sdk/blob/main/
          Enrichment runs against the local SRCROOT (snippets, hashes,
@@ -268,7 +272,7 @@ Write-Host "[1/6] Opening run -> $outPath"
 # JSON-payload contract: construct a SARIF Run object and pipe it to
 # emit-init-run via stdin. The previous flag surface was removed in v5.1.0
 # to bring the verb into surface-area parity with the other emit verbs
-# (add-result, add-notification, add-reporting-descriptor) and to unblock
+# (add-result, add-invocation, add-reporting-descriptor) and to unblock
 # producers that need rich run-header shapes (multiple VCP entries,
 # properties bags, etc.) the flags could not encode.
 $runHeader = [ordered]@{
@@ -334,7 +338,7 @@ $events = @(
     @{ kind='result'; cwe='NOVEL-prompt-injection-via-system-message'; level='error'; status='(novel)';  rank=70; exploit='demonstrated'; attacker='unauthenticated-remote'; startLine=44; endLine=44; msg='Untrusted content reaches a system-role prompt at runtime.'; mdAdd='Untrusted content is concatenated into a system-role prompt at runtime, letting an attacker override tool-use policy. No CWE entry fits — emitted under the NOVEL- escape hatch.' }
 )
 
-Write-Host "[2/6] Appending $($events.Count) Result events + 1 Notification"
+Write-Host "[2/6] Appending $($events.Count) Result events + 1 Invocation"
 
 $sampleLines = [System.IO.File]::ReadAllLines($sampleFileOnDisk)
 
@@ -380,18 +384,35 @@ foreach ($e in $events) {
     if ($LASTEXITCODE -ne 0) { throw "add-result failed for ruleId '$($e.cwe)' (exit $LASTEXITCODE)." }
 }
 
-# timeUtc preset so SarifEventReplayer leaves it alone (AI2019 auto-stamp).
-$notifPayload = [ordered]@{
-    level   = 'note'
-    message = [ordered]@{
-        text     = "Analyzed $($events.Count) findings across 1 file."
-        markdown = "Analyzed **$($events.Count)** findings across **1** file."
-    }
-    timeUtc = '2024-01-01T00:00:00.000Z'
+# A single fully-formed invocation carries the run's notification INLINE on
+# toolExecutionNotifications. SARIF has no run-level notifications array, so a
+# notification travels inside the invocation that owns it (and parallel processes
+# are each modeled by their own invocation).
+# workingDirectory is a REAL repo-relative directory (under SRCROOT) so enrichment
+# resolves it to an actual path; after emit-finalize rewrites SRCROOT to the hosted
+# GitHub URL it resolves there. endTimeUtc is preset so the verb leaves it alone (it
+# only auto-stamps endTimeUtc when the producer omits it). The notification timeUtc
+# is producer-supplied (the verb requires it and never stamps it). arguments[]
+# accompanies commandLine per SARIF 3.20.4. All presets keep the fixture's bytes
+# stable across re-runs.
+$invocationPayload = [ordered]@{
+    executionSuccessful = $true
+    commandLine         = 'cwe-sampler-scanner analyze ./SampleCode.cs'
+    arguments           = @('analyze', './SampleCode.cs')
+    workingDirectory    = [ordered]@{ uri = 'src/Sarif/Taxonomies/'; uriBaseId = 'SRCROOT' }
+    endTimeUtc          = '2024-01-01T00:00:00.000Z'
+    toolExecutionNotifications = @([ordered]@{
+        level   = 'note'
+        message = [ordered]@{
+            text     = "Analyzed $($events.Count) findings across 1 file."
+            markdown = "Analyzed **$($events.Count)** findings across **1** file."
+        }
+        timeUtc = '2024-01-01T00:00:00.000Z'
+    })
 }
-$notifJson = $notifPayload | ConvertTo-Json -Compress -Depth 8
-$notifJson | & dotnet $multitool add-notification $outPath | Out-Null
-if ($LASTEXITCODE -ne 0) { throw "add-notification failed (exit $LASTEXITCODE)." }
+$invocationJson = $invocationPayload | ConvertTo-Json -Compress -Depth 8
+$invocationJson | & dotnet $multitool add-invocation $outPath | Out-Null
+if ($LASTEXITCODE -ne 0) { throw "add-invocation failed (exit $LASTEXITCODE)." }
 
 Write-Host "[3/6] Finalizing (--srcroot $finalSrcRootUri --embed-text-files)"
 $finalizeArgs = @(

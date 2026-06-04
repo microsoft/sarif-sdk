@@ -26,7 +26,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
     //
     // It validates with JsonSchema.Net (json-everything), NOT Microsoft.Json.Schema:
     // the in-repo validator predates Draft 2020-12 and silently ignores the
-    // load-bearing if/then/else keywords, which would make this a
+    // Draft 2020-12 keywords the AI overlays rely on, which would make this a
     // false-green. The schemas $ref the public schemastore SARIF identity; the
     // base shape is resolved offline to the vendored sarif-2.1.0-rtm.6.json
     // (copied next to the test assembly) so the suite stays hermetic.
@@ -40,6 +40,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
         private static readonly JsonSchema s_resultSchema = LoadAiSchema("ai-result.schema.json");
         private static readonly JsonSchema s_runHeaderSchema = LoadAiSchema("ai-run-header.schema.json");
+        private static readonly JsonSchema s_invocationSchema = LoadAiSchema("ai-invocation.schema.json");
+        private static readonly JsonSchema s_reportingDescriptorSchema = LoadAiSchema("ai-reporting-descriptor.schema.json");
+        private static readonly JsonSchema s_novelRuleDescriptorSchema = LoadAiSchema("ai-novel-rule-descriptor.schema.json");
         private static readonly EvaluationOptions s_options = BuildOptions();
 
         private const string Guid = "12345678-1234-1234-1234-1234567890ab";
@@ -48,19 +51,20 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
         // ruleId accept/reject must match AIRuleIdConvention.cs (and the
         // AIRuleIdConventionTests / docs/AI-RuleId-Convention.md tables)
-        // case-for-case. The if/then/else is load-bearing: 'NOVEL-foo/bar'
-        // matches the taxonomy grammar but is rejected because NOVEL- is exclusive.
+        // case-for-case. AI rule ids are CWE-only; the CWE- and NOVEL- prefixes
+        // are disjoint, so a plain anyOf is exact ('NOVEL-foo/bar' is rejected
+        // by both branches).
         private static readonly string[] s_acceptedRuleIds =
         {
             "CWE-89/kql-injection-from-config",
             "CWE-79/dom-xss-via-sanitizer-bypass",
             "CWE-1/a",
-            "CVE-2021-12345/exploit-via-file-upload",
-            "OWASP-A01-2021/broken-access-control",
+            "CWE-327/md5-usage",
+            "CWE-89/2nd-order-injection",
             "NOVEL-look-ma-i-hallucinated-outside-of-mitre",
             "NOVEL-prompt-injection-via-system-message",
             "NOVEL-a",
-            "NOVEL-mixed-Case-123",
+            "NOVEL-x509-bypass",
         };
 
         private static readonly string[] s_rejectedRuleIds =
@@ -72,12 +76,23 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             "CWE-89/a/b",     // sub-id has slash
             "CWE-89/a b",     // sub-id has whitespace
             "cwe-89/foo",     // lowercase base
-            "CWE/foo",        // base has no '-' segment
+            "CWE/foo",        // base has no number
+            "CWE-x/foo",      // base is not numeric
+            "CWE-89/Foo",     // uppercase in sub-id
+            "CWE-89/a--b",    // consecutive hyphens
+            "CWE-89/a-",      // trailing hyphen
+            "CWE-89/-a",      // leading hyphen
+            "CVE-2021-12345/exploit-via-file-upload",   // CVE not accepted (CWE-only)
+            "OWASP-A01-2021/broken-access-control",     // OWASP not accepted (CWE-only)
             "MY-CUSTOM-RULE",
             "NOVEL",
             "NOVEL-",
-            "NOVEL-foo/bar",  // <-- the drift-catch (taxonomy-shaped but NOVEL-exclusive)
+            "NOVEL-foo/bar",  // NOVEL- is flat — no slash (and not a valid CWE base)
             "NOVEL-foo-",     // trailing dash
+            "NOVEL--foo",     // leading dash after prefix
+            "NOVEL-a--b",     // consecutive hyphens
+            "NOVEL-Foo",      // uppercase in sub-id
+            "NOVEL-mixed-Case-123",  // mixed case no longer allowed
             "novel-foo",      // lowercase prefix
             "NOVEL-foo bar",  // whitespace in sub-id
         };
@@ -105,8 +120,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
             offenders.Should().BeEmpty(
                 "ai-result.schema.json's ruleId verdict must match AIRuleIdConvention.cs case-for-case. " +
-                "A divergence means the schema drifted from the canonical grammar (taxonomy sub-id form " +
-                "or the NOVEL- escape) or the load-bearing if/then/else routing regressed:\n" +
+                "A divergence means the schema drifted from the canonical grammar (CWE sub-id form " +
+                "or the NOVEL- escape) or the anyOf ruleId patterns regressed:\n" +
                 string.Join("\n", offenders));
         }
 
@@ -260,45 +275,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             offenders.Should().BeEmpty(
                 "ai-result.schema.json must enforce AI1003 region constraints and require a non-empty " +
                 "locations array:\n" + string.Join("\n", offenders));
-        }
-
-        [Fact]
-        public void AIResultSchema_IfThenElseRuleIdRoutingIsLoadBearing()
-        {
-            // Prove the if/then/else cannot be flattened to a naive anyOf. A naive
-            // anyOf(taxonomy, novel) WRONGLY ACCEPTS 'NOVEL-foo/bar' (it matches the
-            // taxonomy branch), whereas the shipped if/then/else REJECTS it because
-            // a NOVEL- id is routed exclusively to the novelEscape grammar. This is
-            // the exact anyOf trap the if/then/else exists to avoid.
-            JsonSchema naive = JsonSchema.FromText(
-                """
-                {
-                  "$schema": "https://json-schema.org/draft/2020-12/schema",
-                  "type": "object",
-                  "properties": {
-                    "ruleId": {
-                      "type": "string",
-                      "minLength": 1,
-                      "anyOf": [
-                        { "pattern": "^[A-Z][A-Z0-9]*(-[A-Za-z0-9]+)+/[^/\\s]+$" },
-                        { "pattern": "^NOVEL-[A-Za-z0-9]+(-[A-Za-z0-9]+)*$" }
-                      ]
-                    }
-                  }
-                }
-                """);
-
-            JsonObject trap = MakeResult("NOVEL-foo/bar");
-            bool naiveAccepts = Accepts(naive, trap);
-            bool oursRejects = !Accepts(s_resultSchema, trap);
-
-            naiveAccepts.Should().BeTrue(
-                "a naive anyOf(taxonomy, novel) accepts 'NOVEL-foo/bar' because it matches the taxonomy branch; " +
-                "this is the trap the if/then/else exists to avoid");
-            oursRejects.Should().BeTrue(
-                "ai-result.schema.json's if/then/else must route a NOVEL- id exclusively to the novelEscape grammar " +
-                "and REJECT 'NOVEL-foo/bar'; if this fails the routing has been flattened and the schema drifted " +
-                "from AIRuleIdConvention's NOVEL-exclusivity rule");
         }
 
         #endregion
@@ -493,7 +469,304 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
         #endregion
 
+        #region ai-invocation.schema.json
+
+        [Fact]
+        public void AIInvocationSchema_RequiresExecutionSuccessfulCommandLineAndWorkingDirectory()
+        {
+            // The AI invocation profile is an overlay on the SARIF-base invocation: it $refs the
+            // base shape (so every base field keeps its type) and tightens it with three requireds
+            // matching AddInvocationCommand's receipt gate — a boolean executionSuccessful, a
+            // non-whitespace string commandLine, and a workingDirectory artifactLocation with a
+            // non-whitespace uri. Notifications travel INLINE, so a fully-formed invocation carrying
+            // toolExecutionNotifications must validate. Each inline notification must carry a
+            // producer-supplied timeUtc (the verb never stamps it). endTimeUtc must NOT be
+            // required: the verb stamps it at emit time.
+            var offenders = new List<string>();
+
+            var accepted = new (string Label, JsonObject Value)[]
+            {
+                ("minimal", new JsonObject
+                {
+                    ["executionSuccessful"] = true,
+                    ["commandLine"] = "myscanner scan .",
+                    ["workingDirectory"] = new JsonObject { ["uri"] = "file:///work" }
+                }),
+                ("rich-with-inline-notifications", new JsonObject
+                {
+                    ["executionSuccessful"] = false,
+                    ["commandLine"] = "myscanner scan .",
+                    ["exitCode"] = 1,
+                    ["startTimeUtc"] = "2024-01-01T00:00:00.000Z",
+                    ["workingDirectory"] = new JsonObject { ["uri"] = "file:///work" },
+                    ["toolExecutionNotifications"] = new JsonArray
+                    {
+                        new JsonObject
+                        {
+                            ["level"] = "error",
+                            ["timeUtc"] = "2024-01-01T00:00:01.000Z",
+                            ["message"] = new JsonObject { ["text"] = "boom" }
+                        }
+                    }
+                }),
+                ("rich-with-inline-config-notifications", new JsonObject
+                {
+                    ["executionSuccessful"] = true,
+                    ["commandLine"] = "myscanner scan .",
+                    ["workingDirectory"] = new JsonObject { ["uri"] = "file:///work" },
+                    ["toolConfigurationNotifications"] = new JsonArray
+                    {
+                        new JsonObject
+                        {
+                            ["level"] = "warning",
+                            ["timeUtc"] = "2024-01-01T00:00:02.000Z",
+                            ["message"] = new JsonObject { ["text"] = "tweak your config" }
+                        }
+                    }
+                }),
+            };
+            foreach ((string label, JsonObject value) in accepted)
+            {
+                if (!Accepts(s_invocationSchema, value))
+                {
+                    offenders.Add($"  [{label}] expected ACCEPT");
+                }
+            }
+
+            var rejected = new (string Label, JsonObject Value)[]
+            {
+                ("missing-executionSuccessful", new JsonObject
+                {
+                    ["commandLine"] = "myscanner scan .",
+                    ["workingDirectory"] = new JsonObject { ["uri"] = "file:///work" }
+                }),
+                ("missing-commandLine", new JsonObject
+                {
+                    ["executionSuccessful"] = true,
+                    ["workingDirectory"] = new JsonObject { ["uri"] = "file:///work" }
+                }),
+                ("missing-workingDirectory", new JsonObject
+                {
+                    ["executionSuccessful"] = true,
+                    ["commandLine"] = "myscanner scan ."
+                }),
+                ("workingDirectory-without-uri", new JsonObject
+                {
+                    ["executionSuccessful"] = true,
+                    ["commandLine"] = "myscanner scan .",
+                    ["workingDirectory"] = new JsonObject()
+                }),
+                ("workingDirectory-empty-uri", new JsonObject
+                {
+                    ["executionSuccessful"] = true,
+                    ["commandLine"] = "myscanner scan .",
+                    ["workingDirectory"] = new JsonObject { ["uri"] = "" }
+                }),
+                ("executionSuccessful-as-string", new JsonObject
+                {
+                    ["executionSuccessful"] = "true",
+                    ["commandLine"] = "myscanner scan .",
+                    ["workingDirectory"] = new JsonObject { ["uri"] = "file:///work" }
+                }),
+                ("empty-commandLine", new JsonObject
+                {
+                    ["executionSuccessful"] = true,
+                    ["commandLine"] = "",
+                    ["workingDirectory"] = new JsonObject { ["uri"] = "file:///work" }
+                }),
+                ("whitespace-commandLine", new JsonObject
+                {
+                    ["executionSuccessful"] = true,
+                    ["commandLine"] = "   ",
+                    ["workingDirectory"] = new JsonObject { ["uri"] = "file:///work" }
+                }),
+                ("exec-notification-missing-timeUtc", new JsonObject
+                {
+                    ["executionSuccessful"] = false,
+                    ["commandLine"] = "myscanner scan .",
+                    ["workingDirectory"] = new JsonObject { ["uri"] = "file:///work" },
+                    ["toolExecutionNotifications"] = new JsonArray
+                    {
+                        new JsonObject
+                        {
+                            ["level"] = "error",
+                            ["message"] = new JsonObject { ["text"] = "boom" }
+                        }
+                    }
+                }),
+                ("config-notification-missing-timeUtc", new JsonObject
+                {
+                    ["executionSuccessful"] = true,
+                    ["commandLine"] = "myscanner scan .",
+                    ["workingDirectory"] = new JsonObject { ["uri"] = "file:///work" },
+                    ["toolConfigurationNotifications"] = new JsonArray
+                    {
+                        new JsonObject
+                        {
+                            ["level"] = "warning",
+                            ["message"] = new JsonObject { ["text"] = "tweak" }
+                        }
+                    }
+                }),
+                ("exec-notification-empty-timeUtc", new JsonObject
+                {
+                    ["executionSuccessful"] = false,
+                    ["commandLine"] = "myscanner scan .",
+                    ["workingDirectory"] = new JsonObject { ["uri"] = "file:///work" },
+                    ["toolExecutionNotifications"] = new JsonArray
+                    {
+                        new JsonObject
+                        {
+                            ["level"] = "error",
+                            ["timeUtc"] = "",
+                            ["message"] = new JsonObject { ["text"] = "boom" }
+                        }
+                    }
+                }),
+            };
+            foreach ((string label, JsonObject value) in rejected)
+            {
+                if (Accepts(s_invocationSchema, value))
+                {
+                    offenders.Add($"  [{label}] expected REJECT");
+                }
+            }
+
+            CollectNonObjectRejections(s_invocationSchema, offenders);
+
+            offenders.Should().BeEmpty(
+                "ai-invocation.schema.json must require a boolean executionSuccessful, a non-whitespace " +
+                "string commandLine, and a workingDirectory with a non-whitespace uri (mirroring " +
+                "AddInvocationCommand's receipt gate), accept a fully-formed invocation carrying inline " +
+                "notifications that each carry a timeUtc, reject inline notifications missing timeUtc, and " +
+                "reject non-objects. It must NOT require " +
+                "endTimeUtc (the verb stamps it):\n" + string.Join("\n", offenders));
+        }
+
+        #endregion
+
+        #region ai-reporting-descriptor.schema.json
+
+        [Fact]
+        public void AIReportingDescriptorSchema_RequiresNonEmptyStringId()
+        {
+            // add-reporting-descriptor requires a non-empty string id (SARIF §3.49.3),
+            // gating on string.IsNullOrEmpty — so whitespace-only is accepted but "" is
+            // not. Extra properties are accepted (the verb only inspects id). This is the
+            // general descriptor contract, stored under notifications[] by default or
+            // rules[] with --rules. The --rules-only NOVEL- grammar gate is NOT pinned here —
+            // a NOVEL-less id is accepted at this level; ai-novel-rule-descriptor.schema.json
+            // overlays this schema to pin it. The id-taxonomy/id-novel/id-arbitrary accepts
+            // below assert that non-gating.
+            var offenders = new List<string>();
+
+            void Expect(string label, JsonNode value, bool accept)
+            {
+                if (Accepts(s_reportingDescriptorSchema, value) != accept)
+                {
+                    offenders.Add($"  [{label}] expected accept={accept}");
+                }
+            }
+
+            Expect("id-taxonomy", new JsonObject { ["id"] = "CWE-89" }, true);
+            Expect("id-novel", new JsonObject { ["id"] = "NOVEL-foo" }, true);
+            Expect("id-arbitrary", new JsonObject { ["id"] = "anything" }, true);
+            Expect("id-whitespace", new JsonObject { ["id"] = "   " }, true);
+            Expect("id-with-extra-props", new JsonObject { ["id"] = "X", ["name"] = "X", ["unknown"] = 1 }, true);
+
+            Expect("no-id", new JsonObject { ["name"] = "X" }, false);
+            Expect("id-empty", new JsonObject { ["id"] = "" }, false);
+            Expect("id-null", new JsonObject { ["id"] = null }, false);
+            Expect("id-number", new JsonObject { ["id"] = 123 }, false);
+
+            CollectNonObjectRejections(s_reportingDescriptorSchema, offenders);
+
+            offenders.Should().BeEmpty(
+                "ai-reporting-descriptor.schema.json must require a non-empty string id (minLength:1 mirrors the " +
+                "verb's IsNullOrEmpty gate, so '   ' is accepted) and otherwise accept any object. It must NOT pin " +
+                "the --rules-only NOVEL- grammar gate (ai-novel-rule-descriptor.schema.json overlays this to add it):\n" +
+                string.Join("\n", offenders));
+        }
+
+        #endregion
+
+        #region ai-novel-rule-descriptor.schema.json
+
+        [Fact]
+        public void AINovelRuleDescriptorSchema_RequiresWellFormedNovelId()
+        {
+            // ai-novel-rule-descriptor overlays ai-reporting-descriptor by $ref and adds
+            // the --rules-path tightening: the descriptor id must satisfy the full NOVEL-
+            // escape-hatch grammar ^NOVEL-[a-z0-9]+(-[a-z0-9]+)*$ — the SAME lowercase-kebab
+            // form a result's NOVEL- ruleId must satisfy, so a descriptor id is byte-identical
+            // to the ruleId that references it. Bare 'NOVEL-', a slash, an uppercase tail, and
+            // a trailing hyphen are all rejected. The non-empty-string-id rejects (id-empty,
+            // no-id, id-number) are inherited from the $ref'd base, proving the overlay resolves.
+            var offenders = new List<string>();
+
+            void Expect(string label, JsonNode value, bool accept)
+            {
+                if (Accepts(s_novelRuleDescriptorSchema, value) != accept)
+                {
+                    offenders.Add($"  [{label}] expected accept={accept}");
+                }
+            }
+
+            Expect("novel-simple", new JsonObject { ["id"] = "NOVEL-prompt-injection" }, true);
+            Expect("novel-multi-segment", new JsonObject { ["id"] = "NOVEL-prompt-injection-via-system-message" }, true);
+            Expect("novel-sql-injection", new JsonObject { ["id"] = "NOVEL-sql-injection" }, true);
+            Expect("novel-single-char-tail", new JsonObject { ["id"] = "NOVEL-a" }, true);
+            Expect("novel-alphanumeric", new JsonObject { ["id"] = "NOVEL-cwe-89-lookalike" }, true);
+
+            Expect("taxonomy-id", new JsonObject { ["id"] = "CWE-89" }, false);
+            Expect("novel-bare-prefix", new JsonObject { ["id"] = "NOVEL-" }, false);
+            Expect("novel-with-slash", new JsonObject { ["id"] = "NOVEL-foo/bar" }, false);
+            Expect("novel-mixed-case-tail", new JsonObject { ["id"] = "NOVEL-mixedCase-123" }, false);
+            Expect("novel-uppercase-tail", new JsonObject { ["id"] = "NOVEL-PROMPT" }, false);
+            Expect("novel-trailing-hyphen", new JsonObject { ["id"] = "NOVEL-trailing-" }, false);
+            Expect("novel-double-hyphen", new JsonObject { ["id"] = "NOVEL--double" }, false);
+            Expect("novel-no-dash", new JsonObject { ["id"] = "NOVEL" }, false);
+            Expect("lowercase-prefix", new JsonObject { ["id"] = "novel-foo" }, false);
+            Expect("id-empty", new JsonObject { ["id"] = "" }, false);
+            Expect("no-id", new JsonObject { ["name"] = "X" }, false);
+            Expect("id-number", new JsonObject { ["id"] = 123 }, false);
+
+            CollectNonObjectRejections(s_novelRuleDescriptorSchema, offenders);
+
+            offenders.Should().BeEmpty(
+                "ai-novel-rule-descriptor.schema.json must inherit the non-empty string id requirement from " +
+                "ai-reporting-descriptor (via $ref) and add the full NOVEL- grammar gate " +
+                "^NOVEL-[a-z0-9]+(-[a-z0-9]+)*$ — the same lowercase-kebab form the result-side NOVEL- ruleId " +
+                "must satisfy, so 'NOVEL-', 'NOVEL-foo/bar', an uppercase tail, and a trailing hyphen are all " +
+                "rejected:\n" + string.Join("\n", offenders));
+        }
+
+        #endregion
+
         #region helpers
+
+        // The three thin-contract schemas pin "must be a JSON object" as their entire
+        // structural check. Each non-object instance must be REJECTED; a regression
+        // that loosened type:object (or imported a base $ref that changed the verdict)
+        // would surface here.
+        private static void CollectNonObjectRejections(JsonSchema schema, List<string> offenders)
+        {
+            var nonObjects = new (string Label, JsonNode Value)[]
+            {
+                ("array", new JsonArray()),
+                ("string", JsonValue.Create("x")),
+                ("number", JsonValue.Create(123)),
+                ("boolean", JsonValue.Create(true)),
+                ("null", null),
+            };
+            foreach ((string label, JsonNode value) in nonObjects)
+            {
+                if (Accepts(schema, value))
+                {
+                    offenders.Add($"  [non-object:{label}] expected REJECT");
+                }
+            }
+        }
 
         private static bool Accepts(JsonSchema schema, JsonNode instance)
         {
@@ -560,15 +833,18 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         }
 
         // The AI schemas $ref the public schemastore SARIF identity. Resolve that
-        // identity offline to the vendored sarif-2.1.0-rtm.6.json (copied next to
-        // the test assembly) so validation never reaches the network. JsonSchema.Net
-        // resolves $refs through the global registry, so register the base shape there.
+        // identity offline to the vendored sarif-2.1.0-rtm.6.json (copied next to the
+        // test assembly) so validation never reaches the network; JsonSchema.Net
+        // resolves $refs through the global registry. ai-rule-descriptor.schema.json
+        // $refs ai-notification-descriptor.schema.json by its own $id, which JsonSchema
+        // .FromText already auto-registers globally when the s_notificationDescriptorSchema
+        // field is loaded above — so no explicit registration is needed for that overlay.
         private static EvaluationOptions BuildOptions()
         {
             string sarifPath = Path.Combine(AppContext.BaseDirectory, "GetSchema", "sarif-2.1.0.json");
             JsonSchema sarif = JsonSchema.FromText(File.ReadAllText(sarifPath));
-
             SchemaRegistry.Global.Register(new Uri(SarifSchemaIdentity), sarif);
+
             return new EvaluationOptions();
         }
 

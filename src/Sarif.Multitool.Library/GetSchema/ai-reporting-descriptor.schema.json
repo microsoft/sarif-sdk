@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/microsoft/sarif-sdk/main/src/Sarif.Multitool.Library/GetSchema/ai-reporting-descriptor.schema.json",
+  "title": "SARIF AI emit profile \u2014 reporting descriptor object",
+  "description": "Input contract for a SARIF reportingDescriptor an AI producer supplies to the add-reporting-descriptor verb, stored under run.tool.driver.notifications[] (default) or run.tool.driver.rules[] (--rules). Requires a non-empty string id (SARIF \u00a73.49.3); a missing, null, non-string, or empty id is rejected.",
+  "type": "object",
+  "required": [
+    "id"
+  ],
+  "properties": {
+    "id": {
+      "description": "Non-empty descriptor id (SARIF \u00a73.49.3). Empty is rejected; whitespace-only is accepted, matching the verb's IsNullOrEmpty gate.",
+      "type": "string",
+      "minLength": 1
+    }
+  }
+}

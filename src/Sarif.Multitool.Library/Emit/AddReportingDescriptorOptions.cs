@@ -11,18 +11,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
     /// (<c>&lt;output&gt;.wip.jsonl</c>) created by <c>emit-init-run</c>.
     /// </summary>
     /// <remarks>
-    /// <para>The verb's default target is <c>run.tool.driver.notifications[]</c> — AI producers
-    /// routinely emit notification descriptors (progress, telemetry, config errors, handoff
-    /// breadcrumbs). Pass <c>--rules</c> to target <c>run.tool.driver.rules[]</c> instead;
-    /// this rule-descriptor path is reserved for NOVEL- novel-finding descriptors (taxonomy
-    /// rule descriptors such as <c>CWE-89</c> come from the taxonomy enricher, not this
-    /// verb).</para>
+    /// <para>Default target is <c>run.tool.driver.notifications[]</c>; pass <c>--rules</c> to
+    /// target <c>run.tool.driver.rules[]</c>. The rules path is reserved for NOVEL- descriptors.</para>
     /// <para>The descriptor is supplied as a JSON document (file via <c>--input</c> or piped
-    /// on stdin). The full SARIF reportingDescriptor shape (id, name, shortDescription,
-    /// fullDescription, helpUri, messageStrings, defaultConfiguration, properties, …)
-    /// round-trips byte-for-byte through the staged event log.</para>
-    /// <para>Each descriptor <c>id</c> may appear at most once per event log. Submitting a
-    /// duplicate id is rejected with a clear error pointing at the prior occurrence.</para>
+    /// on stdin) and round-trips through the staged event log.</para>
+    /// <para>Each descriptor <c>id</c> may appear at most once per event log target.</para>
     /// </remarks>
     [Verb("add-reporting-descriptor", HelpText = "Append a fully-formed SARIF reportingDescriptor (JSON) to a staged event log. Default target is run.tool.driver.notifications[]; pass --rules to target run.tool.driver.rules[].")]
     public class AddReportingDescriptorOptions

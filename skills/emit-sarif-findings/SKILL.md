@@ -38,13 +38,13 @@ Apply this skill when an agent is the **originating** detector (not post-process
 
 ## Method
 
-The skill uses five multitool verbs: `emit-init-run` → `add-result` / `add-notification` / `add-invocation` (per finding, event, or scan phase) → `emit-finalize --validate`. Each verb either appends to an event log (`<output>.wip.jsonl`) or replays the log into a finished SARIF file.
+The skill uses four multitool verbs: `emit-init-run` → `add-result` / `add-invocation` (per finding or scan phase) → `emit-finalize --validate`. Each verb either appends to an event log (`<output>.wip.jsonl`) or replays the log into a finished SARIF file.
 
 This staged design lets you build a run incrementally: hold one finding in working memory at a time, write it, move on. The final file is produced atomically by `emit-finalize`.
 
 ### Step 1 — Initialize the run
 
-Construct a SARIF `Run` JSON object — the same partial-Run shape consumed by `SarifEventReplayer` — and pipe it to `emit-init-run`. The verb accepts the run header via `--input <path>` or stdin, exactly like `add-result` / `add-notification`. There is no flag-based form; if a field belongs on `run.*` in the final SARIF, place it on the JSON you supply here.
+Construct a SARIF `Run` JSON object — the same partial-Run shape consumed by `SarifEventReplayer` — and pipe it to `emit-init-run`. The verb accepts the run header via `--input <path>` or stdin, exactly like `add-result` / `add-invocation`. There is no flag-based form; if a field belongs on `run.*` in the final SARIF, place it on the JSON you supply here.
 
 ```powershell
 $runHeader = [ordered]@{
@@ -79,7 +79,7 @@ $runHeader = [ordered]@{
   }
 } | ConvertTo-Json -Depth 32
 
-# Option A: pipe via stdin (matches add-result / add-notification).
+# Option A: pipe via stdin (matches add-result / add-invocation).
 $runHeader | dotnet dnx Sarif.Multitool --yes -- emit-init-run "{{OUTPUT_PATH}}"
 
 # Option B: write to a file and reference it.
@@ -120,19 +120,11 @@ The result JSON must include at minimum: `ruleId` (with sub-ID per AI1012, e.g. 
 
 **Vocabulary discipline:** only the eight `ai/*` keys defined in the profile are valid. Do not invent additional `ai/*` keys; place tool-specific data under a tool-named namespace instead (e.g. `myscanner/confidence`).
 
-### Step 3 — Append notifications (optional but recommended)
+### Step 3 — Append invocations (optional but recommended)
 
-Use `add-notification` for execution narrative and configuration feedback. Notification descriptor ids name the concern only (e.g. `DECISION`, `DATA-ACCESS-DENIED`) — no `AI/`, `EXEC/`, `CFG/`, or `<toolName>/` prefix. Placement is selected at the verb: the default routes to `toolExecutionNotifications`; pass `--config` (`-c`) to route to `toolConfigurationNotifications` instead.
+Use `add-invocation` to record one or more `Invocation` objects (`startTimeUtc`, `endTimeUtc`, `executionSuccessful`, `exitCode`, `commandLine`, `arguments`, `workingDirectory`, `environmentVariables`, properties bag, …). The replayer appends invocations to `run.invocations[]` in event order.
 
-```powershell
-Get-Content notification-001.json | dotnet dnx Sarif.Multitool --yes -- add-notification "{{OUTPUT_PATH}}"
-```
-
-See `docs/ai/generating-sarif.md § Execution Narrative & Configuration Feedback` for descriptor inventory and required shape.
-
-### Step 3.5 — Append invocations (optional)
-
-Use `add-invocation` to record one or more `Invocation` objects (`startTimeUtc`, `endTimeUtc`, `executionSuccessful`, `exitCode`, `commandLine`, `arguments`, `workingDirectory`, `environmentVariables`, properties bag, …). The replayer appends invocations to `run.invocations[]` in event order and attaches subsequent `add-notification` events to the most recent invocation, so emit a fresh invocation if you want to start a new notification group within the same scan.
+Notifications travel inline on the invocation payload. Place each in the invocation's `toolExecutionNotifications` (execution narrative) or `toolConfigurationNotifications` (configuration feedback) array — the array selects placement. Descriptor ids name the concern only (e.g. `DECISION`, `DATA-ACCESS-DENIED`) — no `AI/`, `EXEC/`, `CFG/`, or `<toolName>/` prefix. Every inline notification requires a producer-supplied `timeUtc`. See `docs/ai/generating-sarif.md § Execution Narrative & Configuration Feedback` for descriptor inventory and required shape.
 
 ```powershell
 Get-Content invocation.json | dotnet dnx Sarif.Multitool --yes -- add-invocation "{{OUTPUT_PATH}}"

@@ -15,28 +15,22 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 {
     /// <summary>
     /// Shared plumbing for the emit verb chain (<c>emit-init-run</c>, <c>add-result</c>,
-    /// <c>add-notification</c>, <c>emit-finalize</c>): resolves the staged event log path,
-    /// reads caller-supplied JSON (file or stdin), and parses it into a
-    /// <see cref="JToken"/> in a date-safe way.
+    /// <c>add-invocation</c>, <c>add-reporting-descriptor</c>, <c>emit-finalize</c>): resolves
+    /// the staged event log path, reads caller-supplied JSON (file or stdin), and parses it into
+    /// a <see cref="JToken"/> in a date-safe way.
     /// </summary>
     /// <remarks>
-    /// The verbs share three concerns — locating <c>&lt;output&gt;.wip.jsonl</c>, sourcing
-    /// the payload, and parsing it without lossy normalization — which live here so the
-    /// per-verb commands can stay focused on payload-specific validation and append.
+    /// Shared helpers preserve payload text, including date-looking strings, until the staged
+    /// event log is finalized.
     /// </remarks>
     internal static class EmitEventLogHelpers
     {
         internal const string WipSuffix = ".wip.jsonl";
 
-        // Allow-list for tool / repository documentation URIs (informationUri, repositoryUri).
-        // Both anchor live documentation surfaced to humans, and we require https so we never
-        // ship a clear-text link in the run header (http, file, and other schemes are blocked
-        // here so the typo surfaces at the emit verb rather than in a downstream consumer).
+        // Public documentation and repository URIs must use HTTPS.
         internal static readonly string[] DocumentationUriSchemes = new[] { Uri.UriSchemeHttps };
 
-        // Allow-list for base URIs (originalUriBaseIds["SRCROOT"]). SARIF base IDs commonly
-        // anchor at a local checkout (file://) or at a hosted source view (https://). http://
-        // is excluded for the same reason as above.
+        // Source-root base URIs may point at a hosted source view or a local checkout.
         internal static readonly string[] BaseUriSchemes = new[] { Uri.UriSchemeHttps, Uri.UriSchemeFile };
 
         /// <summary>
@@ -44,12 +38,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         /// absolute URI whose scheme appears in <paramref name="allowedSchemes"/>.
         /// </summary>
         /// <remarks>
-        /// Returning <c>true</c> when the value is empty preserves the "flag is optional"
-        /// contract — only supplied URIs are validated. We require an absolute URI (relative
-        /// values would never resolve meaningfully into a SARIF reader downstream) and we
-        /// constrain the scheme to a documented allow-list so a typo like <c>"htps://..."</c>
-        /// or an inappropriate scheme like <c>"file:..."</c> on a public-facing URL surfaces
-        /// here rather than silently shipping in the run header.
+        /// Empty values are accepted because the corresponding flags are optional. Non-empty
+        /// values must be absolute and use an allowed scheme.
         /// </remarks>
         internal static bool TryValidateUri(string value, string flagName, string[] allowedSchemes, out string errorMessage)
         {
@@ -191,11 +181,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
             try
             {
-                // DateParseHandling.None is critical: SARIF payloads contain ISO-8601 strings in
-                // many places (timeUtc, properties bags, exception traces, custom evidence
-                // fields) which Json.NET's default DateParseHandling would silently convert to
-                // System.DateTime and re-serialize with a normalized format on the way back
-                // out. We must preserve the producer's exact text.
+                // Preserve ISO-8601 text exactly; Json.NET otherwise normalizes date-looking strings.
                 using var sr = new StringReader(json);
                 using var jr = new JsonTextReader(sr) { DateParseHandling = DateParseHandling.None };
                 payload = JToken.ReadFrom(jr);
@@ -226,13 +212,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         }
 
         /// <summary>
-        /// Reads redirected stdin as UTF-8, bypassing <see cref="Console.InputEncoding"/>.
-        /// On Windows the console's default input encoding is the active OEM codepage
-        /// (often cp437 or cp850), which would mangle non-ASCII content in a piped
-        /// SARIF payload. AI orchestrators routinely emit messages, URIs, and properties
-        /// containing non-ASCII characters, so we must decode the raw byte stream as UTF-8
-        /// regardless of the console's current code page. A BOM-stamped input is still
-        /// honored — <see cref="StreamReader"/>'s detect-BOM flag handles that case.
+        /// Reads redirected stdin as UTF-8, bypassing <see cref="Console.InputEncoding"/> so
+        /// Windows OEM codepages cannot mangle non-ASCII SARIF payloads. A UTF-8 BOM is honored.
         /// </summary>
         private static string ReadStandardInputAsUtf8()
         {

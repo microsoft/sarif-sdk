@@ -21,7 +21,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
     /// </summary>
     /// <remarks>
     /// <para>The JSON-payload contract matches the other emit verbs (<c>add-result</c>,
-    /// <c>add-notification</c>, <c>add-reporting-descriptor</c>). The supplied <c>Run</c> may
+    /// <c>add-invocation</c>, <c>add-reporting-descriptor</c>). The supplied <c>Run</c> may
     /// carry any subset of the partial-Run shape the replayer accepts (<c>tool</c>,
     /// <c>language</c>, <c>columnKind</c>, <c>defaultEncoding</c>, <c>defaultSourceLanguage</c>,
     /// <c>originalUriBaseIds</c>, <c>versionControlProvenance</c>, <c>automationDetails</c>,
@@ -94,8 +94,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                     return FAILURE;
                 }
 
-                // Same up-front detection for GitHub Actions. GHA contributes only to
-                // versionControlProvenance — there is no GHA automationDetails stamping today.
+                // Same up-front detection for GitHub Actions; GHA contributes to VCP stamping.
                 GitHubActionsContext.DetectionState ghaState =
                     GitHubActionsContext.TryDetect(_environment, out GitHubActionsContext ghaContext, out string ghaError);
                 if (ghaState == GitHubActionsContext.DetectionState.Partial)
@@ -104,8 +103,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                     return FAILURE;
                 }
 
-                // Read and parse the caller-supplied Run JSON before any file-system side
-                // effects so malformed input never leaves a wip on disk.
+                // Parse input before file-system side effects.
                 int code = EmitEventLogHelpers.TryReadJsonPayload(
                     options.InputFilePath,
                     payloadKind: "run",
@@ -128,9 +126,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                     }
                 }
 
-                // VCP enrichment spans ADO and GHA env. The cross-source merge enforces
-                // agreement on any field both sources publish; the stamper applies the merged
-                // triple against the run-header VCP array.
+                // ADO and GHA VCP fields must agree when both sources publish the same field.
                 if (adoState == AdoPipelineContext.DetectionState.Complete
                     || ghaState == GitHubActionsContext.DetectionState.Complete)
                 {
@@ -211,10 +207,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
         private static bool TryRejectSarifLogShape(JObject runObject)
         {
-            // A common UX mistake: piping a full SARIF log document (`{ "version": "2.1.0",
-            // "runs": [...] }`) in place of a Run object. Without this guard the user gets a
-            // misleading "tool.driver.name missing" diagnostic; with it they get a clear
-            // shape-mismatch message that points at the right fix.
+            // Catch full SARIF logs before they fall through to a misleading tool.driver.name error.
             JToken runs = runObject["runs"];
             JToken version = runObject["version"];
             if (runs != null && version != null && runs.Type == JTokenType.Array)
@@ -229,9 +222,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
         private static bool TryValidateRunHeader(JObject runObject)
         {
-            // Parent shapes first so child accessors below don't trip JValue indexers
-            // (which throw InvalidOperationException, surface as stack traces, and starve
-            // the producer of an actionable fix).
+            // Validate parent shapes before child accessors can trip JValue indexers.
             if (!TryRequireOptionalObject(runObject, "tool", out JObject toolObject)) { return false; }
             JObject driverObject = null;
             if (toolObject != null
@@ -337,12 +328,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         }
 
         /// <summary>
-        /// If <paramref name="parent"/> carries a token at <paramref name="key"/>, requires it to
-        /// be a JSON object and returns it via <paramref name="value"/>. Returns true when the key
-        /// is absent (or explicitly null) without surfacing an error; returns false with a clear
-        /// AI-consumable diagnostic when the key is present but the wrong shape (e.g.
-        /// <c>"tool": "x"</c>). Walking parent shapes up front prevents JValue indexer accesses
-        /// further down the validator chain from throwing InvalidOperationException.
+        /// Requires an optional token to be null/absent or a JSON object; returns the object via
+        /// <paramref name="value"/>.
         /// </summary>
         private static bool TryRequireOptionalObject(JObject parent, string path, out JObject value)
         {
@@ -470,11 +457,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         }
 
         /// <summary>
-        /// Stamps ADO pipeline identity directly onto the JSON payload. Mutating the JObject
-        /// rather than round-tripping through the typed <see cref="Run"/> model preserves any
-        /// SARIF Run fields the typed model doesn't surface (e.g., <c>redactionTokens</c>) in
-        /// the wip line. (The replayer materializes a typed <c>Run</c> at finalize time, so
-        /// non-typed fields are durable only up to that boundary.)
+        /// Stamps ADO pipeline identity directly onto the JSON payload, preserving fields not
+        /// surfaced by the typed <see cref="Run"/> model.
         /// </summary>
         private static bool TryStampAdoContext(JObject runObject, AdoPipelineContext context, out string conflictError)
         {
@@ -484,8 +468,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             IReadOnlyList<KeyValuePair<string, string>> pipelineProps = context.GetPipelinePropertyValues();
 
             // Probe-before-write so a conflict on any field leaves the JObject unchanged.
-            // TryValidateRunHeader already enforced that automationDetails (if present) is an
-            // object and automationDetails.properties (if present) is an object.
             var automationDetails = (JObject)runObject["automationDetails"];
             if (automationDetails != null)
             {
@@ -580,34 +562,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         }
 
         /// <summary>
-        /// Enriches <c>versionControlProvenance</c> on the JSON payload with the resolved
-        /// repository URI / revision id / branch ref fields (sourced from the pipeline
-        /// environment via <see cref="TryResolveVcpFields"/>). Three input shapes:
-        /// <list type="bullet">
-        /// <item>VCP absent or empty array → append a synthesized entry with the fields we have
-        /// (only when a repository URI is known; branch/revision without a repo URI anchor is
-        /// informationally thin and cannot bind to a repo downstream).</item>
-        /// <item>VCP contains exactly one entry → enrich missing fields; fail on disagreement.</item>
-        /// <item>VCP contains multiple entries → leave untouched (caller declared a multi-repo
-        /// shape; we don't pick which entry names the pipeline's source repo).</item>
-        /// </list>
-        /// <para>This method is the env-driven stamper. The verb supports a layered set of
-        /// VCP sources:</para>
-        /// <list type="number">
-        /// <item>ADO pipeline environment — <c>TF_BUILD=True</c> plus the
-        /// <c>BUILD_REPOSITORY_URI</c> / <c>BUILD_SOURCEVERSION</c> /
-        /// <c>BUILD_SOURCEBRANCH</c> vars supply repo URI / revision / branch directly.</item>
-        /// <item>GitHub Actions environment — <c>GITHUB_ACTIONS=true</c> plus
-        /// <c>GITHUB_SERVER_URL</c> / <c>GITHUB_REPOSITORY</c> / <c>GITHUB_SHA</c> /
-        /// <c>GITHUB_REF</c> supply the same fields. When both ADO and GHA vars are
-        /// populated, the sources must agree on every field they both publish.</item>
-        /// <item>Caller-supplied — if neither CI env is present, the producer populates
-        /// <c>versionControlProvenance</c> entries directly in the run-header JSON and the
-        /// verb passes them through after shape validation. Callers running outside a
-        /// supported CI environment can shell out to <c>git</c> themselves and either
-        /// populate the entry directly or stage the corresponding env vars before invoking
-        /// the verb.</item>
-        /// </list>
+        /// Enriches <c>versionControlProvenance</c> with resolved repository URI, revision id,
+        /// and branch fields. Empty VCP arrays receive a synthesized entry only when a repository
+        /// URI is known; single-entry arrays are enriched; multi-entry arrays are left untouched.
         /// </summary>
         private static bool TryStampVcp(
             JObject runObject,
@@ -637,15 +594,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 return true;
             }
 
-            // TryValidateRunHeader already enforced that versionControlProvenance (if present)
-            // is an array and each entry is an object.
             var vcpArray = (JArray)runObject["versionControlProvenance"];
 
             if (vcpArray == null || vcpArray.Count == 0)
             {
-                // Only synthesize a new VCP entry when the repository URI is known —
-                // branch/revision without a repoUri anchor is informationally thin and
-                // downstream consumers (AdvSec ingestion) can't bind it to a repo.
+                // Branch/revision without a repository URI cannot bind to a repo downstream.
                 if (repositoryUri == null)
                 {
                     return true;
@@ -670,8 +623,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
             if (vcpArray.Count > 1)
             {
-                // Multi-entry: caller has explicitly declared the multi-repo shape they want.
-                // We refuse to guess which entry names the pipeline's source repo.
+                // Multi-entry VCP is caller-authored; do not guess the source-repo entry.
                 return true;
             }
 
@@ -723,12 +675,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         }
 
         /// <summary>
-        /// Resolves the three VCP fields (<c>repositoryUri</c>, <c>revisionId</c>,
-        /// <c>branch</c>) from the ADO and GitHub Actions environment contexts. ADO is the
-        /// higher-priority source: where ADO supplies a value it wins; GHA fills gaps where
-        /// ADO is silent. When both sources publish the same field, the values must agree
-        /// (case-insensitive URI equality for <c>repositoryUri</c>, ordinal for the rest) or
-        /// the method returns false with a diagnostic naming both sources.
+        /// Resolves VCP fields from ADO and GitHub Actions contexts. ADO seeds each field; GHA
+        /// fills only the fields ADO left empty. Any field both sources publish must agree, or
+        /// stamping is refused.
         /// </summary>
         private static bool TryResolveVcpFields(
             AdoPipelineContext adoContext,

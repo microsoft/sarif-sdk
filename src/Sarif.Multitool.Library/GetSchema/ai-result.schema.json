@@ -16,18 +16,13 @@
   ],
   "properties": {
     "ruleId": {
-      "description": "Either a taxonomy sub-id 'BASE/sub-id' (e.g. CWE-89/kql-injection) or the NOVEL escape hatch 'NOVEL-<sub-id>'. NOVEL- is exclusive: it never takes a slash, so a NOVEL- prefix is held to the NOVEL grammar alone.",
+      "description": "Either a CWE sub-id 'CWE-<number>/<sub-id>' (e.g. CWE-89/kql-injection-from-config) or the NOVEL escape hatch 'NOVEL-<sub-id>'. The sub-id is lowercase-alphanumeric kebab: single hyphens, no leading/trailing/consecutive hyphen. The CWE- and NOVEL- prefixes are disjoint, so this anyOf is exact \u2014 a NOVEL- id can never satisfy the CWE branch and a CWE- id can never satisfy the NOVEL branch (so e.g. 'NOVEL-foo/bar' is rejected by both).",
       "type": "string",
       "minLength": 1,
-      "if": {
-        "pattern": "^NOVEL-"
-      },
-      "then": {
-        "pattern": "^NOVEL-[A-Za-z0-9]+(-[A-Za-z0-9]+)*$"
-      },
-      "else": {
-        "pattern": "^[A-Z][A-Z0-9]*(-[A-Za-z0-9]+)+/[^/\\s]+$"
-      }
+      "anyOf": [
+        { "pattern": "^CWE-[0-9]+/[a-z0-9]+(-[a-z0-9]+)*$" },
+        { "pattern": "^NOVEL-[a-z0-9]+(-[a-z0-9]+)*$" }
+      ]
     },
     "message": {
       "description": "message.markdown is required and must contain non-whitespace.",

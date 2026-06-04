@@ -11,15 +11,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
     /// </summary>
     /// <remarks>
     /// The result is supplied as a JSON document (file via <c>--input</c> or piped on stdin).
-    /// The SARIF <c>result</c> object can carry rich nested structures (code flows, thread flows,
-    /// stacks, fixes, taxa, related locations, properties bags). Modeling every field as a CLI
-    /// flag would explode the surface; the JSON-payload contract keeps the verb generic and lets
-    /// an AI producer emit arbitrarily-rich findings without losing fidelity.
-    ///
-    /// On receipt the verb validates that <c>result.ruleId</c> conforms to the AI ruleId
-    /// convention (taxonomy sub-id form or NOVEL- escape hatch) so an AI orchestrator gets an
-    /// immediate, AI-consumable rejection envelope rather than discovering the violation later
-    /// at <c>emit-finalize</c> time.
+    /// On receipt the verb validates <c>result.ruleId</c> against the AI ruleId convention.
     /// </remarks>
     [Verb("add-result", HelpText = "Append a fully-formed SARIF result (JSON) to a staged event log.")]
     public class AddResultOptions

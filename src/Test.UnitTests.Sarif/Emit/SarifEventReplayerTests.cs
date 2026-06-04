@@ -25,8 +25,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Test.UnitTests.Emit
             {
                 Event(SarifEventKinds.RunHeader, new Run { Tool = new Tool { Driver = new ToolComponent { Name = "demo" } } }),
                 Event(SarifEventKinds.Result, new Result { RuleId = "CWE-79/xss-via-template", Message = new Message { Text = "xss" } }),
-                Event(SarifEventKinds.Invocation, new Invocation { ExecutionSuccessful = true }),
-                Event(SarifEventKinds.ExecutionNotification, new Notification { Message = new Message { Text = "n" } }),
+                Event(SarifEventKinds.Invocation, new Invocation
+                {
+                    ExecutionSuccessful = true,
+                    ToolExecutionNotifications = new List<Notification> { new() { Message = new Message { Text = "n" } } },
+                }),
             };
 
             SarifLog log = SarifEventReplayer.Replay(events);
@@ -164,105 +167,53 @@ namespace Microsoft.CodeAnalysis.Sarif.Test.UnitTests.Emit
         }
 
         [Fact]
-        public void Replay_SynthesizesInvocationToHoldNotificationsWhenNoneProvided()
+        public void Replay_InvocationCarriesInlineNotificationsIntact()
         {
-            var events = new[]
+            // Notifications are no longer their own event kind: they travel inline on the
+            // invocation the producer emits. The replayer appends the invocation verbatim, so
+            // the embedded execution/configuration notifications come along untouched. Parallel
+            // processes are modeled by separate invocation events, each owning its own
+            // notifications — there is no routing ambiguity to resolve at replay.
+            var first = new Invocation
             {
-                Event(SarifEventKinds.RunHeader, new Run { Tool = new Tool { Driver = new ToolComponent { Name = "demo" } } }),
-                Event(SarifEventKinds.ExecutionNotification, new Notification { Message = new Message { Text = "orphan" } }),
+                CommandLine = "first",
+                ExecutionSuccessful = true,
+                ToolExecutionNotifications = new List<Notification>
+                {
+                    new() { Message = new Message { Text = "first-exec" } },
+                },
+            };
+            var second = new Invocation
+            {
+                CommandLine = "second",
+                ExecutionSuccessful = true,
+                ToolExecutionNotifications = new List<Notification>
+                {
+                    new() { Message = new Message { Text = "second-exec" } },
+                },
+                ToolConfigurationNotifications = new List<Notification>
+                {
+                    new() { Message = new Message { Text = "second-config" } },
+                },
             };
 
-            Run run = SarifEventReplayer.Replay(events).Runs[0];
-
-            run.Invocations.Should().HaveCount(1);
-            run.Invocations[0].ExecutionSuccessful.Should().BeTrue();
-            run.Invocations[0].ToolExecutionNotifications.Should().HaveCount(1);
-        }
-
-        [Fact]
-        public void Replay_RoutesNotificationsToLastInvocation()
-        {
             var events = new[]
             {
                 Event(SarifEventKinds.RunHeader, new Run()),
-                Event(SarifEventKinds.Invocation, new Invocation { CommandLine = "first" }),
-                Event(SarifEventKinds.Invocation, new Invocation { CommandLine = "second" }),
-                Event(SarifEventKinds.ExecutionNotification, new Notification { Message = new Message { Text = "n" } }),
+                Event(SarifEventKinds.Invocation, first),
+                Event(SarifEventKinds.Invocation, second),
             };
 
             Run run = SarifEventReplayer.Replay(events).Runs[0];
 
-            run.Invocations[0].ToolExecutionNotifications.Should().BeNull();
+            run.Invocations.Should().HaveCount(2);
+            run.Invocations[0].ToolExecutionNotifications.Should().HaveCount(1);
+            run.Invocations[0].ToolExecutionNotifications[0].Message.Text.Should().Be("first-exec");
+            run.Invocations[0].ToolConfigurationNotifications.Should().BeNull();
             run.Invocations[1].ToolExecutionNotifications.Should().HaveCount(1);
-        }
-
-        [Fact]
-        public void Replay_RoutesConfigurationNotificationsToTheirArray()
-        {
-            // Notification placement is encoded by event kind: ExecutionNotification flows to
-            // toolExecutionNotifications, ConfigurationNotification flows to
-            // toolConfigurationNotifications. The descriptor id no longer carries placement
-            // information (the array itself does), so the same id MAY legally appear in both.
-            var events = new[]
-            {
-                Event(SarifEventKinds.RunHeader, new Run()),
-                Event(SarifEventKinds.ExecutionNotification, new Notification
-                {
-                    Descriptor = new ReportingDescriptorReference { Id = "STATUS" },
-                    Message = new Message { Text = "exec-side status" },
-                }),
-                Event(SarifEventKinds.ConfigurationNotification, new Notification
-                {
-                    Descriptor = new ReportingDescriptorReference { Id = "STATUS" },
-                    Message = new Message { Text = "config-side status" },
-                }),
-            };
-
-            Run run = SarifEventReplayer.Replay(events).Runs[0];
-
-            run.Invocations.Should().HaveCount(1);
-            run.Invocations[0].ToolExecutionNotifications.Should().HaveCount(1);
-            run.Invocations[0].ToolExecutionNotifications[0].Message.Text.Should().Be("exec-side status");
-            run.Invocations[0].ToolConfigurationNotifications.Should().HaveCount(1);
-            run.Invocations[0].ToolConfigurationNotifications[0].Message.Text.Should().Be("config-side status");
-        }
-
-        [Fact]
-        public void Replay_StampsTimeUtcOnNotificationsLackingTimestamp()
-        {
-            // AI2019 expects every notification to carry timeUtc; the replayer fills the gap
-            // so producers don't have to remember. The exact value isn't asserted (it is
-            // the moment of replay) but it MUST fall between observations bracketing the call.
-            DateTime before = DateTime.UtcNow.AddSeconds(-1);
-            var events = new[]
-            {
-                Event(SarifEventKinds.RunHeader, new Run()),
-                Event(SarifEventKinds.ExecutionNotification, new Notification { Message = new Message { Text = "n" } }),
-            };
-
-            Run run = SarifEventReplayer.Replay(events).Runs[0];
-            DateTime after = DateTime.UtcNow.AddSeconds(1);
-
-            Notification stamped = run.Invocations[0].ToolExecutionNotifications[0];
-            stamped.TimeUtc.Should().NotBe(default(DateTime));
-            stamped.TimeUtc.Should().BeOnOrAfter(before).And.BeOnOrBefore(after);
-        }
-
-        [Fact]
-        public void Replay_PreservesProducerSuppliedTimeUtcOnNotifications()
-        {
-            // Producer-supplied timeUtc wins. The replayer only fills the gap; it never
-            // rewrites a stamp the producer already chose.
-            var supplied = new DateTime(2020, 1, 2, 3, 4, 5, DateTimeKind.Utc);
-            var events = new[]
-            {
-                Event(SarifEventKinds.RunHeader, new Run()),
-                Event(SarifEventKinds.ExecutionNotification, new Notification { Message = new Message { Text = "n" }, TimeUtc = supplied }),
-            };
-
-            Run run = SarifEventReplayer.Replay(events).Runs[0];
-
-            run.Invocations[0].ToolExecutionNotifications[0].TimeUtc.Should().Be(supplied);
+            run.Invocations[1].ToolExecutionNotifications[0].Message.Text.Should().Be("second-exec");
+            run.Invocations[1].ToolConfigurationNotifications.Should().HaveCount(1);
+            run.Invocations[1].ToolConfigurationNotifications[0].Message.Text.Should().Be("second-config");
         }
 
         [Fact]
@@ -329,7 +280,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Test.UnitTests.Emit
             {
                 Event(SarifEventKinds.RunHeader, new Run { Tool = new Tool { Driver = new ToolComponent { Name = "demo" } } }),
                 Event(SarifEventKinds.NotificationDescriptor, descriptor),
-                Event(SarifEventKinds.ExecutionNotification, new Notification { Message = new Message { Text = "halfway" } }),
+                Event(SarifEventKinds.Invocation, new Invocation
+                {
+                    ExecutionSuccessful = true,
+                    ToolExecutionNotifications = new List<Notification> { new() { Message = new Message { Text = "halfway" } } },
+                }),
             };
 
             Run run = SarifEventReplayer.Replay(events).Runs[0];

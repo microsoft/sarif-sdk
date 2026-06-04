@@ -2,7 +2,7 @@
 
 Compact one-row-per-entry index of the MITRE CWE catalog (cwec_v4.20.xml). 969 entries (Stable 26, Draft 432, Incomplete 486, Deprecated 25, Obsolete 0). Sorted by numeric ID.
 
-Designed for AI prompt-context injection: full id form (`CWE-N`), name, abstraction level (Pillar/Class/Base/Variant/Compound), MITRE maturity status, parent in View 1000 (Research Concepts), and the verbatim MITRE Description.
+Designed for AI prompt-context injection: full id form (`CWE-NNNN`), name, abstraction level (Pillar/Class/Base/Variant/Compound), MITRE maturity status, parent in View 1000 (Research Concepts), and the verbatim MITRE Description.
 
 | ID | Name | Abstraction | Status | Parent | Description |
 |----|------|-------------|--------|--------|-------------|

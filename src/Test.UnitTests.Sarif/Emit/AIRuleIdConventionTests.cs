@@ -17,8 +17,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Test.UnitTests.Emit
         [InlineData("CWE-89/kql-injection-from-config")]
         [InlineData("CWE-79/dom-xss-via-sanitizer-bypass")]
         [InlineData("CWE-1/a")]                                  // minimal viable shape
-        [InlineData("CVE-2021-12345/exploit-via-file-upload")]   // CVE with year + serial
-        [InlineData("OWASP-A01-2021/broken-access-control")]     // OWASP with year tail
+        [InlineData("CWE-327/md5-usage")]                        // digits allowed inside the sub-id
+        [InlineData("CWE-89/2nd-order-injection")]               // leading-digit token is fine
         public void IsAcceptable_ReturnsTrue_ForTaxonomySubIdForm(string ruleId)
         {
             AIRuleIdConvention.IsAcceptable(ruleId).Should().BeTrue();
@@ -30,7 +30,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Test.UnitTests.Emit
         [InlineData("NOVEL-look-ma-i-hallucinated-outside-of-mitre")]
         [InlineData("NOVEL-prompt-injection-via-system-message")]
         [InlineData("NOVEL-a")]                                  // minimal viable shape
-        [InlineData("NOVEL-mixed-Case-123")]                     // mixed case + digits allowed in sub-id
+        [InlineData("NOVEL-x509-bypass")]                        // lowercase + digits allowed
         public void IsAcceptable_ReturnsTrue_ForNovelEscapeForm(string ruleId)
         {
             AIRuleIdConvention.IsAcceptable(ruleId).Should().BeTrue();
@@ -55,8 +55,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Test.UnitTests.Emit
         [InlineData("CWE-89/a/b")]                                // sub-id contains slash
         [InlineData("CWE-89/a b")]                                // sub-id contains whitespace
         [InlineData("cwe-89/foo")]                                // lowercase base
-        [InlineData("CWE/foo")]                                   // base has no '-' segment
-        [InlineData("MY-CUSTOM-RULE")]                            // not taxonomy, not NOVEL-
+        [InlineData("CWE/foo")]                                   // base has no number
+        [InlineData("CWE-x/foo")]                                 // base is not numeric
+        [InlineData("CWE-89/Foo")]                                // uppercase in sub-id
+        [InlineData("CWE-89/a--b")]                               // consecutive hyphens
+        [InlineData("CWE-89/a-")]                                 // trailing hyphen
+        [InlineData("CWE-89/-a")]                                 // leading hyphen
+        [InlineData("CVE-2021-12345/exploit-via-file-upload")]   // CVE no longer accepted (CWE-only)
+        [InlineData("OWASP-A01-2021/broken-access-control")]     // OWASP no longer accepted (CWE-only)
+        [InlineData("MY-CUSTOM-RULE")]                            // not CWE, not NOVEL-
         public void IsAcceptable_ReturnsFalse_ForMalformedSubIdForm(string ruleId)
         {
             AIRuleIdConvention.IsAcceptable(ruleId).Should().BeFalse();
@@ -69,6 +76,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Test.UnitTests.Emit
         [InlineData("NOVEL-")]                                    // empty sub-id
         [InlineData("NOVEL-foo/bar")]                             // NOVEL- form is flat — no slash allowed
         [InlineData("NOVEL-foo-")]                                // trailing dash
+        [InlineData("NOVEL--foo")]                                // leading dash after prefix
+        [InlineData("NOVEL-a--b")]                                // consecutive hyphens
+        [InlineData("NOVEL-Foo")]                                 // uppercase in sub-id
+        [InlineData("NOVEL-mixed-Case-123")]                      // mixed case no longer allowed
         [InlineData("novel-foo")]                                 // lowercase prefix
         [InlineData("NOVEL-foo bar")]                             // whitespace in sub-id
         public void IsAcceptable_ReturnsFalse_ForMalformedNovelForm(string ruleId)

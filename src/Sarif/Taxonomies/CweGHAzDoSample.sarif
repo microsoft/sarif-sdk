@@ -110,6 +110,12 @@
       },
       "invocations": [
         {
+          "commandLine": "cwe-sampler-scanner analyze ./SampleCode.cs",
+          "arguments": [
+            "analyze",
+            "./SampleCode.cs"
+          ],
+          "endTimeUtc": "2024-01-01T00:00:00Z",
           "toolExecutionNotifications": [
             {
               "message": {
@@ -124,7 +130,11 @@
               }
             }
           ],
-          "executionSuccessful": true
+          "executionSuccessful": true,
+          "workingDirectory": {
+            "uri": "src/Sarif/Taxonomies/",
+            "uriBaseId": "SRCROOT"
+          }
         }
       ],
       "versionControlProvenance": [

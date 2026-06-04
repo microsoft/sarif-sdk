@@ -35,7 +35,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             {
                 typeof(AbsoluteUriOptions),
                 typeof(AddInvocationOptions),
-                typeof(AddNotificationOptions),
                 typeof(AddReportingDescriptorOptions),
                 typeof(AddResultOptions),
 #if DEBUG
@@ -90,7 +89,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             {
                 AbsoluteUriOptions o => new AbsoluteUriCommand().Run(o),
                 AddInvocationOptions o => new AddInvocationCommand().Run(o),
-                AddNotificationOptions o => new AddNotificationCommand().Run(o),
                 AddReportingDescriptorOptions o => new AddReportingDescriptorCommand().Run(o),
                 AddResultOptions o => new AddResultCommand().Run(o),
 #if DEBUG

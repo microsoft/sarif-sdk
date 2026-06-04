@@ -18,16 +18,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
     /// </summary>
     /// <remarks>
     /// <para>Default target is <c>run.tool.driver.notifications[]</c>; pass <c>--rules</c> to
-    /// target <c>run.tool.driver.rules[]</c> instead.</para>
-    /// <para>On the <c>--rules</c> path, the descriptor id is gated against
-    /// <see cref="AIRuleIdConvention.IsNovel(string)"/>: only NOVEL- prefixed ids are accepted.
-    /// Taxonomy-mapped rule descriptors (e.g., <c>CWE-89</c>) come from the taxonomy enricher
-    /// at finalize time, not from this verb — this verb is the producer-side authoring path
-    /// for novel-finding descriptors that have no upstream taxonomy entry.</para>
-    /// <para>Duplicate-id submissions within the same event log are rejected on receipt — the
-    /// verb scans the existing event log (including any descriptors pre-populated on the
-    /// run-header event) and fails before appending. (A future <c>--force</c> escape hatch
-    /// is acknowledged; not in v1.)</para>
+    /// target <c>run.tool.driver.rules[]</c>.</para>
+    /// <para>On the <c>--rules</c> path, the descriptor id must be a well-formed NOVEL- ruleId.
+    /// Taxonomy-mapped rule descriptors (e.g., <c>CWE-89</c>) come from the taxonomy enricher.</para>
+    /// <para>Duplicate ids in the same target array are rejected before append.</para>
     /// </remarks>
     public class AddReportingDescriptorCommand : CommandBase
     {
@@ -57,10 +51,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                     out JToken payload);
                 if (code != SUCCESS) { return code; }
 
-                // Validate that the payload carries a non-empty string id. SARIF §3.49.3:
-                // reportingDescriptor.id is required and is a non-empty string. Catching it
-                // here keeps the failure mode AI-consumable (specific error text) rather than
-                // surfacing a generic deserialization mismatch at replay time.
+                // SARIF §3.49.3 requires a non-empty reportingDescriptor.id string.
                 JToken idToken = payload["id"];
                 if (idToken == null
                     || idToken.Type == JTokenType.Null
@@ -91,25 +82,19 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                     return FAILURE;
                 }
 
-                // The --rules path is reserved for NOVEL- ids. Reject anything else with a
-                // tailored envelope that mirrors the AI-RULEID-001 shape but is specific to
-                // descriptor authoring (the result-side AIRuleIdConventionException message
-                // talks about taxonomy sub-id form, which doesn't apply to a descriptor id).
-                if (isRules && !AIRuleIdConvention.IsNovel(id))
+                // Rule descriptors are accepted only for flat NOVEL- ids.
+                if (isRules && !(AIRuleIdConvention.IsNovel(id) && AIRuleIdConvention.IsAcceptable(id)))
                 {
                     Console.Error.WriteLine(
                         string.Format(
                             CultureInfo.CurrentCulture,
-                            "error {0}: rule descriptor id '{1}' is not in NOVEL- form. The --rules path is reserved for novel-finding descriptors that have no taxonomy entry; descriptors for taxonomy-mapped rules (e.g., 'CWE-89') come from the taxonomy enricher, not from this verb. Use a NOVEL- escape-hatch id (e.g., 'NOVEL-prompt-injection-via-system-message'). See docs/AI-RuleId-Convention.md.",
+                            "error {0}: rule descriptor id '{1}' is not a well-formed NOVEL- id. The --rules path is reserved for novel-finding descriptors that have no taxonomy entry; descriptors for taxonomy-mapped rules (e.g., 'CWE-89') come from the taxonomy enricher, not from this verb. Use a NOVEL- escape-hatch id: 'NOVEL-' followed by a lowercase-alphanumeric kebab sub-id (single hyphens, no slash, no trailing hyphen), e.g., 'NOVEL-prompt-injection-via-system-message'. See docs/AI-RuleId-Convention.md.",
                             AIRuleIdConventionException.ErrorCode,
                             id));
                     return FAILURE;
                 }
 
-                // Reject duplicate ids at receipt — both against prior add-reporting-descriptor
-                // events of the same target AND against any descriptor pre-populated on the
-                // run-header for that target. Loud failure surfaces producer bugs immediately;
-                // a future --force flag is acknowledged but out of v1 scope.
+                // Reject duplicates against prior descriptor events and run-header descriptors.
                 if (TryFindDuplicate(wipPath, id, eventKind, targetArray, out string duplicateError))
                 {
                     Console.Error.WriteLine(duplicateError);
@@ -143,16 +128,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         /// duplicate is found; <c>false</c> otherwise.
         /// </summary>
         /// <remarks>
-        /// Two sources are checked:
-        /// <list type="bullet">
-        /// <item><description>Run-header events: <c>payload.tool.driver.&lt;targetArray&gt;[*].id</c>
-        /// — producers MAY pre-populate descriptors on the header.</description></item>
-        /// <item><description>Prior descriptor events of the same target kind:
-        /// <c>payload.id</c>.</description></item>
-        /// </list>
-        /// The reader silently skips unknown kinds and malformed-but-skippable rows; for the
-        /// scan we walk the full event sequence so the event index reported in the error
-        /// matches the producer's mental model of "the Nth thing I appended."
+        /// Checks run-header descriptors and prior descriptor events of the same target kind.
+        /// The event index in the error matches the event's position in the staged log.
         /// </remarks>
         private static bool TryFindDuplicate(
             string wipPath,
