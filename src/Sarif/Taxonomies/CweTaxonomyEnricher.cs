@@ -14,26 +14,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Taxonomies
     /// taxonomy artifacts.
     /// </summary>
     /// <remarks>
-    /// <para>
-    /// Producer-supplied descriptor fields are never overwritten — the enricher only fills
-    /// gaps. This makes the enricher safe to run repeatedly and safe to layer on top of
-    /// producer authoring.
-    /// </para>
-    /// <para>
-    /// This enricher does not add cross-references via <c>reportingDescriptor.relationships</c>
-    /// or <c>result.taxa</c>. Producers that author CWE descriptors directly do not need that
-    /// indirection; the pattern is reserved for tools that map their own rule IDs onto CWE.
-    /// </para>
+    /// <para>Producer-supplied descriptor fields are never overwritten.</para>
+    /// <para>This enricher does not add cross-references via
+    /// <c>reportingDescriptor.relationships</c> or <c>result.taxa</c>.</para>
     /// </remarks>
     public static class CweTaxonomyEnricher
     {
         private const string CweHelpUriFormat = "https://cwe.mitre.org/data/definitions/{0}.html";
 
-        // Match the canonical "CWE-N" form only, with case-insensitive prefix.
-        // Producers are expected to emit canonical descriptor ids; this matcher exists
-        // solely to absorb typographic case variation (e.g. "cwe-79"). Sub-id forms like
-        // "CWE-79/api-handler" are result-level constructs per SARIF §3.52.4 — they are
-        // not descriptor ids and intentionally do not match.
+        // Match descriptor ids only; result-level sub-id forms such as "CWE-79/api-handler"
+        // are not descriptor ids per SARIF §3.52.4.
         private static readonly Regex CweIdPattern =
             new Regex(@"^\s*[Cc][Ww][Ee]-(\d+)\s*$", RegexOptions.CultureInvariant);
 
@@ -44,9 +34,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Taxonomies
         /// <param name="run">The run whose <c>tool.driver.rules</c> and <c>tool.extensions[].rules</c> are enriched.</param>
         /// <param name="statuses">
         /// The CWE statuses to source enrichment data from. Defaults to <see cref="CweTaxonomy.DefaultStatuses"/>
-        /// (<c>Stable | Draft | Incomplete</c>), which excludes <see cref="CweStatus.Deprecated"/> by design —
-        /// see <see cref="CweTaxonomy.DefaultStatuses"/> for the rationale. Descriptors that reference
-        /// deprecated CWEs are left untouched so the producer notices the migration signal.
+        /// (<c>Stable | Draft | Incomplete</c>), which excludes <see cref="CweStatus.Deprecated"/>.
         /// </param>
         /// <returns>The number of descriptors whose content was modified.</returns>
         public static int Enrich(Run run, CweStatus statuses = CweTaxonomy.DefaultStatuses)

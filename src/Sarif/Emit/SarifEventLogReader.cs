@@ -35,8 +35,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Emit
         };
 
         /// <summary>
-        /// Streams events from the given path. Unknown kinds at supported schema versions are
-        /// silently skipped. Unknown <c>v</c> for a known kind throws.
+        /// Streams events from the given path.
         /// </summary>
         public IEnumerable<SarifEvent> Read(string path)
         {
@@ -100,13 +99,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Emit
                                     SarifEventKinds.CurrentSchemaVersion));
                         }
 
-                        // Unknown kind at unknown version: forward-compatible; skip.
+                        // Unknown kind at unknown version: forward-compatible.
                         continue;
                     }
 
                     if (!s_knownKinds.Contains(sarifEvent.Kind))
                     {
-                        // Known schema version, unknown kind: forward-compatible extension; skip.
+                        // Known schema version, unknown kind: forward-compatible extension.
                         continue;
                     }
 

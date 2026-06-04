@@ -37,22 +37,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 
             bool isStrictlyIdentical = reportingDescriptor.Id.Equals(reportingDescriptor.Name, StringComparison.Ordinal);
 
-            // Spec MUST (§3.49.7): if both 'id' and 'name' are present, they SHALL NOT be the
-            // same string. Strict-byte equality fires for every descriptor in every run.
+            // Spec MUST (§3.49.7): if both 'id' and 'name' are present, they SHALL NOT be equal.
             if (isStrictlyIdentical)
             {
                 LogIdNameCollision(reportingDescriptor, reportingDescriptorPointer);
                 return;
             }
 
-            // Authorial convention SHOULD: case-fold-equal 'id'/'name' pairs (e.g. 'LogLevel' / 'loglevel')
-            // are almost always a hand-authoring slip. AI notification taxonomies (see #2952) deliberately
-            // pair a SCREAMING-CAPS opaque id with the corresponding PascalCase end-user name
-            // (e.g. 'DECISION' / 'Decision'); for those descriptors the convention check is suppressed.
-            // The intersection (AI-origin AND notification descriptor) is the cut: AI rule ids are
-            // constrained by AI1012 to 'CWE-NN/sub-id' or 'NOVEL-<sub-id>' forms whose hyphens / slashes
-            // can't case-fold-collide with any PascalCase name, so the carve-out is unnecessary for
-            // the rules/taxa kinds and we keep the typo heuristic engaged there.
+            // AI notification descriptors may pair opaque SCREAMING-CAPS ids with PascalCase
+            // names (e.g. 'DECISION' / 'Decision'); suppress the case-fold typo heuristic there.
             if (IsAIOriginRun()
                 && Context?.CurrentReportingDescriptorKind == SarifValidationContext.ReportingDescriptorKind.Notification)
             {

@@ -30,33 +30,22 @@ namespace Microsoft.CodeAnalysis.Sarif.Emit
         public const string Result = "result";
 
         /// <summary>
-        /// A complete <see cref="Invocation"/> object. Producers may append multiple invocations
-        /// per run (SARIF <c>run.invocations[]</c> is an array, so parallel/overlapping processes
-        /// are each modeled by their own self-contained invocation). Producer-supplied
-        /// <see cref="Notification"/> objects travel INLINE on the invocation's
-        /// <c>toolExecutionNotifications</c> / <c>toolConfigurationNotifications</c> arrays; there
-        /// is no separate notification event kind.
+        /// A complete <see cref="Invocation"/> object. Producer-supplied <see cref="Notification"/>
+        /// objects travel inline on the invocation's <c>toolExecutionNotifications</c> /
+        /// <c>toolConfigurationNotifications</c> arrays.
         /// </summary>
         public const string Invocation = "invocation";
 
         /// <summary>
-        /// A single <see cref="ReportingDescriptor"/> targeted at <c>run.tool.driver.rules</c>.
-        /// Emitted by the <c>add-reporting-descriptor --rules</c> verb. The replayer appends the
-        /// descriptor to the rules list before result-driven auto-registration, so an explicit
-        /// descriptor takes precedence over an auto-synthesized one. The verb gates the descriptor
-        /// id on the NOVEL- grammar — the lowercase-kebab form a result's NOVEL- <c>ruleId</c>
-        /// uses, so the id equals the ruleId that references it. This kind is reserved for
-        /// novel-finding descriptors; taxonomy-mapped descriptors (e.g., <c>CWE-89</c>) come from
-        /// the taxonomy enricher, not from this event.
+        /// A <see cref="ReportingDescriptor"/> targeted at <c>run.tool.driver.rules</c>.
+        /// Explicit descriptors are merged before result-driven auto-registration and are
+        /// reserved for NOVEL- ruleIds.
         /// </summary>
         public const string RuleDescriptor = "rule-descriptor";
 
         /// <summary>
-        /// A single <see cref="ReportingDescriptor"/> targeted at
-        /// <c>run.tool.driver.notifications</c>. Emitted by the <c>add-reporting-descriptor</c>
-        /// verb (default target). Notifications use opaque ids by convention (e.g.,
-        /// <c>progress</c>, <c>config-error</c>) and carry no convention gate — any non-empty id
-        /// is accepted. The replayer appends the descriptor to the notifications list verbatim.
+        /// A <see cref="ReportingDescriptor"/> targeted at <c>run.tool.driver.notifications</c>.
+        /// Notification descriptor ids are opaque non-empty strings.
         /// </summary>
         public const string NotificationDescriptor = "notification-descriptor";
 

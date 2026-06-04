@@ -17,17 +17,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
     /// JSON to <c>&lt;output&gt;.wip.jsonl</c>.
     /// </summary>
     /// <remarks>
-    /// <para>An invocation models one launched process. Its notifications travel inline on the
-    /// payload's <c>toolExecutionNotifications</c> / <c>toolConfigurationNotifications</c> arrays;
-    /// the producer holds per-process state and emits one complete invocation when that process
-    /// finishes.</para>
-    /// <para>The verb enforces the required fields of the AI invocation profile
-    /// (<c>ai-invocation.schema.json</c>): a boolean <c>executionSuccessful</c>, a non-whitespace
-    /// <c>commandLine</c>, and a <c>workingDirectory</c> artifactLocation with a non-whitespace
-    /// <c>uri</c>. Full structural validation runs at <c>emit-finalize --validate</c>.</para>
-    /// <para>The verb stamps <c>endTimeUtc</c> with the time of receipt when the producer leaves it
-    /// unset. The producer supplies each notification's <c>timeUtc</c> and the verb preserves it;
-    /// the AI profile requires a <c>timeUtc</c> on every inline notification (AI2019).</para>
+    /// <para>The verb gates required AI invocation fields: <c>executionSuccessful</c>,
+    /// <c>commandLine</c>, <c>workingDirectory.uri</c>, and inline notification <c>timeUtc</c>
+    /// values. Full structural validation runs at <c>emit-finalize --validate</c>.</para>
+    /// <para>The verb stamps <c>endTimeUtc</c> with the time of receipt when the producer leaves it unset.</para>
     /// </remarks>
     public class AddInvocationCommand : CommandBase
     {
@@ -117,8 +110,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 return false;
             }
 
-            // The AI profile requires a non-whitespace timeUtc on every inline notification; the
-            // producer supplies it and the verb preserves it.
+            // The AI profile requires timeUtc on every inline notification.
             if (!TryValidateNotificationTimes(payload["toolExecutionNotifications"], "toolExecutionNotifications")
                 || !TryValidateNotificationTimes(payload["toolConfigurationNotifications"], "toolConfigurationNotifications"))
             {
@@ -158,7 +150,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             return true;
         }
 
-        // Fills endTimeUtc with the time of receipt when the producer left it unset.
         private static void StampEndTimeUtcIfOmitted(JObject payload, string now)
         {
             if (payload["endTimeUtc"] == null || payload["endTimeUtc"].Type == JTokenType.Null)

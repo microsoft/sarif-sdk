@@ -17,29 +17,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Emit
     /// <para>v1 contract:</para>
     /// <list type="bullet">
     /// <item><description>At most one <c>run-header</c> event; if present, it SHOULD be first.
-    /// The header MAY carry a partial <see cref="Run"/> shape (tool, language, columnKind,
-    /// defaultEncoding, defaultSourceLanguage, originalUriBaseIds, versionControlProvenance,
-    /// automationDetails, baselineGuid, redactionTokens, etc.). <c>results</c>, <c>invocations</c>,
-    /// and <c>notifications</c> on a header are ignored — those belong in their own events.</description></item>
-    /// <item><description><c>result</c> events MUST be self-contained: <c>ruleIndex</c> is ignored
-    /// (re-derived from <c>ruleId</c>); index references into run-level caches are not validated
-    /// in v1 (producers needing indexed references should use <see cref="Writers.SarifLogger"/>
-    /// directly). Every <see cref="Result.RuleId"/> MUST conform to
-    /// <see cref="AIRuleIdConvention"/> — taxonomy sub-id form
-    /// (<c>&lt;BASE&gt;/&lt;sub-id&gt;</c>, e.g., <c>CWE-89/kql-injection-from-config</c>) or
-    /// NOVEL escape hatch (<c>NOVEL-&lt;sub-id&gt;</c>). Violations throw
-    /// <see cref="AIRuleIdConventionException"/> listing every offender at once.</description></item>
+    /// Header <c>results</c>, <c>invocations</c>, and <c>notifications</c> are ignored.</description></item>
+    /// <item><description><c>result</c> events MUST be self-contained. <c>ruleIndex</c> is
+    /// re-derived from <c>ruleId</c>, and every <see cref="Result.RuleId"/> MUST conform to
+    /// <see cref="AIRuleIdConvention"/>.</description></item>
     /// <item><description><c>invocation</c> events are appended to <c>run.invocations</c> in
-    /// event order. Each invocation is a complete, self-contained subtree: any
-    /// <see cref="Notification"/> the producer emitted travels INLINE on the invocation's
-    /// <c>toolExecutionNotifications</c> / <c>toolConfigurationNotifications</c> arrays and is
-    /// replayed verbatim. The <c>add-invocation</c> verb performs any <c>endTimeUtc</c> stamping
-    /// at emit time, so replay reads no clock and is fully deterministic.</description></item>
+    /// event order and replayed verbatim.</description></item>
     /// </list>
-    /// <para>Descriptor auto-registration mirrors <see cref="Writers.SarifLogger"/>: on first
-    /// sighting of a <see cref="Result.RuleId"/>, the replayer appends a minimal
-    /// <see cref="ReportingDescriptor"/> to <c>run.tool.driver.rules</c> and back-fills
-    /// <see cref="Result.RuleIndex"/>.</para>
     /// </remarks>
     public static class SarifEventReplayer
     {
@@ -94,10 +78,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Emit
 
                         run = sarifEvent.Payload.ToObject<Run>(serializer) ?? new Run();
 
-                        // Header carries the skeleton only; clear anything that belongs in its
-                        // own event. Producers that pre-populate these on a header are tolerated
-                        // but their contents are discarded so that event-based authoring remains
-                        // the source of truth.
+                        // Header is the run skeleton; result and invocation events are authoritative.
                         run.Results = null;
                         run.Invocations = null;
                         headerSeen = true;
@@ -112,16 +93,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Emit
                         break;
 
                     case SarifEventKinds.RuleDescriptor:
-                        // Producer-supplied rule descriptor (NOVEL- only per emit-time gate).
-                        // Buffered and merged into run.tool.driver.rules ahead of result-driven
-                        // auto-registration so the explicit descriptor wins over the minimal
-                        // synthesized one.
+                        // Merge explicit descriptors before result-driven auto-registration.
                         ruleDescriptors.Add(sarifEvent.Payload.ToObject<ReportingDescriptor>(serializer));
                         break;
 
                     case SarifEventKinds.NotificationDescriptor:
-                        // Producer-supplied notification descriptor. Buffered and merged into
-                        // run.tool.driver.notifications.
                         notificationDescriptors.Add(sarifEvent.Payload.ToObject<ReportingDescriptor>(serializer));
                         break;
 
@@ -140,9 +116,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Emit
             run.Tool ??= new Tool();
             run.Tool.Driver ??= new ToolComponent { Name = "Unknown" };
 
-            // Merge producer-supplied descriptors BEFORE result-driven auto-registration so the
-            // explicit descriptors seed the idToIndex table — auto-registration only fills in
-            // ids that aren't already represented.
+            // Explicit descriptors seed the idToIndex table before auto-registration.
             MergeDescriptors(
                 existing: run.Tool.Driver.Rules,
                 additions: ruleDescriptors,
@@ -191,13 +165,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Emit
 
         private static void RegisterDescriptorsFromResults(Run run, IList<Result> results)
         {
-            // Reject every result whose ruleId violates the AI convention BEFORE we
-            // start mutating the run's descriptor table. The thrown exception lists
-            // every offender in one shot so an AI orchestrator can correct them all
-            // in a single retry rather than discovering them one at a time.
+            // Validate before mutating the descriptor table.
             AIRuleIdConvention.ThrowIfAnyUnacceptable(results);
 
-            // Build an index of already-registered descriptors so we don't duplicate.
             var idToIndex = new Dictionary<string, int>(StringComparer.Ordinal);
 
             run.Tool.Driver.Rules ??= new List<ReportingDescriptor>();
@@ -212,17 +182,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Emit
 
             foreach (Result result in results)
             {
-                // result.RuleId is guaranteed non-empty here (AIRuleIdConvention.ThrowIfAnyUnacceptable
-                // rejects empty / null ruleIds along with malformed ones).
-                //
                 // Per SARIF §3.49.3 descriptor ids are base-only. A hierarchical result.ruleId
-                // such as "CWE-79/dom-xss-via-sanitizer-bypass" registers (or reuses) a
-                // descriptor with the base id "CWE-79"; the full hierarchical form stays on
-                // the result per §3.52.4 (and is what AI1012 expects from a well-shaped AI
-                // finding). NOVEL- prefixed ruleIds are flat (no slash) and register a
-                // descriptor with the full id. Producers that need a slash-bearing descriptor
-                // id can pre-register it on the run header — the pre-registered entry wins
-                // because the idToIndex seed above runs first.
+                // such as "CWE-79/dom-xss-via-sanitizer-bypass" registers or reuses descriptor
+                // "CWE-79"; the full hierarchical form stays on the result per §3.52.4. NOVEL-
+                // ruleIds are flat and register with the full id.
                 string descriptorId = result.RuleId;
                 int slash = descriptorId.IndexOf('/');
                 if (slash > 0)
@@ -246,16 +209,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Emit
         /// <c>notification-descriptor</c> events into the target list on the run's driver.
         /// </summary>
         /// <remarks>
-        /// <para>Header pre-populated entries (if any) are preserved by reference, so a producer
-        /// that supplied a descriptor on the run-header AND via an event for the same id is
-        /// already a contract violation that the verb's emit-time dedup should have rejected.
-        /// At replay we trust the invariant and append events after pre-populated entries; if
-        /// the invariant is violated (e.g., a manually-edited event log) the resulting SARIF
-        /// will carry two descriptors with the same id and the validator will flag it.</para>
-        /// <para>For the rules array specifically, this method must run BEFORE
-        /// <see cref="RegisterDescriptorsFromResults"/> so that the explicit descriptors seed
-        /// the <c>idToIndex</c> table — auto-registration synthesizes minimal descriptors only
-        /// for ids that aren't already represented.</para>
+        /// Header entries are preserved by reference, and descriptor events are appended after
+        /// them. For rules, this method must run before <see cref="RegisterDescriptorsFromResults"/>
+        /// so explicit descriptors seed the <c>idToIndex</c> table.
         /// </remarks>
         private static void MergeDescriptors(
             IList<ReportingDescriptor> existing,

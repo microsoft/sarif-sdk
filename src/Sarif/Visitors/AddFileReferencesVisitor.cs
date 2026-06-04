@@ -16,8 +16,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
             run.Artifacts = run.Artifacts ?? new List<Artifact>();
 
-            // First, we'll initialize our file object to index map
-            // with any files that already exist in the table
             for (int i = 0; i < run.Artifacts.Count; i++)
             {
                 Artifact fileData = run.Artifacts[i];
@@ -30,14 +28,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
                 _fileToIndexMap[fileLocation] = i;
 
-                // For good measure, we'll explicitly populate the file index property
                 run.Artifacts[i].Location.Index = i;
             }
 
             _currentRun = run;
 
-            // Next, visit all run file locations. This will add any
-            // previously unknown file objects to the files table.
             base.VisitRun(run);
             return _currentRun;
         }
@@ -54,12 +49,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
         public override Invocation VisitInvocation(Invocation node)
         {
-            // An invocation's workingDirectory is process context, not a scanned artifact, so it
-            // must not be promoted into run.artifacts. Doing so yields a location-only artifact
-            // entry (no hash/contents/roles) that wastes space and trips the SARIF best-practice
-            // validator (SARIF2004, EliminateLocationOnlyArtifacts) — and, for a path that resolves
-            // to a directory, there is no file to hash in the first place. Detach it across the
-            // indexing traversal so it stays a standalone artifactLocation (uri + uriBaseId).
+            // workingDirectory is process context, not a scanned artifact; keep it out of
+            // run.artifacts and SARIF2004 location-only artifact checks.
             ArtifactLocation workingDirectory = node.WorkingDirectory;
             node.WorkingDirectory = null;
 

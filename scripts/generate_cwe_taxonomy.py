@@ -351,7 +351,7 @@ def emit(xml_path, output_dir, source_url):
         "Sorted by numeric ID.\n\n"
     )
     md.write(
-        "Designed for AI prompt-context injection: full id form (`CWE-N`), name, "
+        "Designed for AI prompt-context injection: full id form (`CWE-NNNN`), name, "
         "abstraction level (Pillar/Class/Base/Variant/Compound), MITRE maturity "
         "status, parent in View 1000 (Research Concepts), and the verbatim MITRE "
         "Description.\n\n"

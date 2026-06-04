@@ -13,13 +13,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Emit
     /// values violate <see cref="AIRuleIdConvention"/>.
     /// </summary>
     /// <remarks>
-    /// <para>The exception's <see cref="Exception.Message"/> is intentionally shaped for AI
-    /// consumption: it lists every offending id, explains the two accepted shapes with
-    /// concrete examples, and points at the documentation. A coding agent that catches the
-    /// emitted text (e.g., from <c>multitool emit-finalize</c> stderr) can read it directly,
-    /// correct every offender, and retry — no separate parsing of structured fields is
-    /// required for the common case. The <see cref="OffendingRuleIds"/> property is exposed
-    /// for programmatic consumers that prefer structured data.</para>
+    /// The exception message lists every offending id, the accepted shapes, and the
+    /// documentation pointer. <see cref="OffendingRuleIds"/> exposes the same ids for
+    /// programmatic consumers.
     /// </remarks>
     public sealed class AIRuleIdConventionException : Exception
     {

@@ -11,14 +11,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
     /// <c>emit-init-run</c>.
     /// </summary>
     /// <remarks>
-    /// The invocation is supplied as a JSON document (file via <c>--input</c> or piped on
-    /// stdin). <see cref="SarifEventReplayer"/> strips any <c>invocations</c> array carried on
-    /// the run header — invocations must arrive as their own events — so this verb is the
-    /// only path a producer has to populate <c>run.invocations[]</c>. Each invocation is a
-    /// complete, self-contained subtree: the producer supplies any notifications INLINE on the
-    /// payload's <c>toolExecutionNotifications</c> / <c>toolConfigurationNotifications</c> arrays
-    /// and emits one such invocation per launched process (including parallel/overlapping
-    /// processes, each modeled by its own invocation event).
+    /// The invocation is supplied as a JSON document (file via <c>--input</c> or piped on stdin).
+    /// Notifications travel inline on <c>toolExecutionNotifications</c> /
+    /// <c>toolConfigurationNotifications</c>.
     /// </remarks>
     [Verb("add-invocation", HelpText = "Append a fully-formed SARIF invocation (JSON) to a staged event log.")]
     public class AddInvocationOptions

@@ -13,22 +13,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
     /// </summary>
     /// <remarks>
     /// <para>The run JSON is supplied as a JSON document (file via <c>--input</c> or piped on
-    /// stdin), matching the contract used by <c>add-result</c>, <c>add-invocation</c>, and
-    /// <c>add-reporting-descriptor</c>. SARIF <c>Run</c> is by far the richest object in the
-    /// schema; modeling each field as a CLI flag would require a sprawling and ever-expanding
-    /// surface that still could not express the legal partial-<c>Run</c> shape the replayer
-    /// accepts (multiple <c>versionControlProvenance</c> entries, <c>properties</c> bags,
-    /// <c>language</c>, <c>columnKind</c>, <c>defaultEncoding</c>, <c>redactionTokens</c>, …).
-    /// The JSON-payload contract keeps the verb generic and lets an AI producer emit
-    /// arbitrarily-rich run headers without losing fidelity.</para>
-    /// <para>Profile-essential defects are validated at receipt: <c>tool.driver.name</c> must
-    /// be a non-empty string; <c>tool.driver.informationUri</c> and
-    /// <c>versionControlProvenance[*].repositoryUri</c> must be <c>https</c>;
-    /// <c>originalUriBaseIds["SRCROOT"].uri</c> must be <c>https</c> or <c>file</c>;
-    /// <c>automationDetails.guid</c> / <c>correlationGuid</c> must be canonical 8-4-4-4-12
-    /// GUIDs; <c>properties["ai/origin"]</c> must be <c>generated</c>, <c>annotated</c>, or
-    /// <c>synthesized</c>. The verb also rejects a SARIF <em>log</em> accidentally supplied in
-    /// place of a <c>Run</c>.</para>
+    /// stdin) and may contain any partial-<c>Run</c> fields the replayer accepts.</para>
+    /// <para>Profile-essential defects are validated at receipt: required <c>tool.driver.name</c>,
+    /// URI schemes, canonical GUIDs, <c>properties["ai/origin"]</c>, and accidental SARIF-log input.</para>
     /// </remarks>
     [Verb("emit-init-run", HelpText = "Open an append-only event log seeded with a SARIF run header (JSON).")]
     public class EmitInitRunOptions
