@@ -49,8 +49,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
         public override Invocation VisitInvocation(Invocation node)
         {
-            // workingDirectory is process context, not a scanned artifact; keep it out of
-            // run.artifacts and SARIF2004 location-only artifact checks.
+            // workingDirectory carries only a bare location — no hashes, contents, or length —
+            // so an entry in run.artifacts would add nothing; keep it out of the table and out
+            // of SARIF2004's location-only artifact check.
             ArtifactLocation workingDirectory = node.WorkingDirectory;
             node.WorkingDirectory = null;
 
