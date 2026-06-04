@@ -16,19 +16,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
     /// <c>toolConfigurationNotifications</c>.
     /// </remarks>
     [Verb("add-invocation", HelpText = "Append a fully-formed SARIF invocation (JSON) to a staged event log.")]
-    public class AddInvocationOptions
+    public class AddInvocationOptions : EmitInputOptionsBase
     {
-        [Value(
-            0,
-            MetaName = "<outputSarifPath>",
-            HelpText = "Path to the final SARIF file; the event log is appended to '<output>.wip.jsonl'.",
-            Required = true)]
-        public string OutputFilePath { get; set; }
-
-        [Option(
-            'i',
-            "input",
-            HelpText = "Path to a JSON file containing the SARIF invocation object. If omitted, JSON is read from stdin.")]
-        public string InputFilePath { get; set; }
     }
 }

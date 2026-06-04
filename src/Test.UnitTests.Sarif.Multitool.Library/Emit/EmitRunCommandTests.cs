@@ -323,6 +323,37 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         }
 
         [Fact]
+        public void Run_WithNonExistentFileSrcroot_Fails()
+        {
+            JObject runObject = MinimalRun();
+            string missingDir = Path.Combine(_dir, "no-such-checkout");
+            runObject["originalUriBaseIds"] = new JObject
+            {
+                ["SRCROOT"] = new JObject { ["uri"] = new Uri(missingDir).AbsoluteUri },
+            };
+
+            int exit = RunWithInput(runObject);
+
+            exit.Should().Be(CommandBase.FAILURE);
+            File.Exists(WipPath).Should().BeFalse();
+        }
+
+        [Fact]
+        public void Run_WithExistingFileSrcroot_Succeeds()
+        {
+            JObject runObject = MinimalRun();
+            runObject["originalUriBaseIds"] = new JObject
+            {
+                ["SRCROOT"] = new JObject { ["uri"] = new Uri(_dir).AbsoluteUri },
+            };
+
+            int exit = RunWithInput(runObject);
+
+            exit.Should().Be(CommandBase.SUCCESS);
+            File.Exists(WipPath).Should().BeTrue();
+        }
+
+        [Fact]
         public void Run_WithBadAutomationGuid_Fails()
         {
             JObject runObject = MinimalRun();

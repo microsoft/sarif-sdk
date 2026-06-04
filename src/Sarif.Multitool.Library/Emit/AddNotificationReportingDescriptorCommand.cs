@@ -6,7 +6,7 @@ using Microsoft.CodeAnalysis.Sarif.Driver;
 namespace Microsoft.CodeAnalysis.Sarif.Multitool
 {
     /// <summary>
-    /// Implements <c>multitool add-notification-reporting-descriptor</c>: validates a SARIF
+    /// Implements <c>add-notification-reporting-descriptor</c>: validates a SARIF
     /// reportingDescriptor JSON and appends it to <c>run.tool.driver.notifications[]</c> in a
     /// staged event log.
     /// </summary>

@@ -15,19 +15,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
     /// Each <c>id</c> may appear at most once in the notifications array.
     /// </remarks>
     [Verb("add-notification-reporting-descriptor", HelpText = "Append a SARIF reportingDescriptor (JSON) to run.tool.driver.notifications[] in a staged event log.")]
-    public class AddNotificationReportingDescriptorOptions
+    public class AddNotificationReportingDescriptorOptions : EmitInputOptionsBase
     {
-        [Value(
-            0,
-            MetaName = "<outputSarifPath>",
-            HelpText = "Path to the final SARIF file; the event log is appended to '<output>.wip.jsonl'.",
-            Required = true)]
-        public string OutputFilePath { get; set; }
-
-        [Option(
-            'i',
-            "input",
-            HelpText = "Path to a JSON file containing the SARIF reportingDescriptor object. If omitted, JSON is read from stdin.")]
-        public string InputFilePath { get; set; }
     }
 }

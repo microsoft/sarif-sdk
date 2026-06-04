@@ -14,7 +14,7 @@ using Microsoft.CodeAnalysis.Sarif.Driver;
 namespace Microsoft.CodeAnalysis.Sarif.Multitool
 {
     /// <summary>
-    /// Implements <c>multitool get-schema</c>: emits the embedded JSON Schema that validates the
+    /// Implements <c>get-schema</c>: emits the embedded JSON Schema that validates the
     /// input to a named emit verb.
     /// </summary>
     /// <remarks>

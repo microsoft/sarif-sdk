@@ -38,7 +38,7 @@ Apply this skill when an agent is the **originating** detector (not post-process
 
 ## Method
 
-The skill uses four multitool verbs: `emit-run` → `add-result` / `add-invocation` (per finding or scan phase) → `emit-finalize --validate`. Each verb either appends to an event log (`<output>.wip.jsonl`) or replays the log into a finished SARIF file.
+The skill uses these multitool verbs: `emit-run` → `add-result` / `add-invocation` (per finding or scan phase) → `add-notification-reporting-descriptor` / `add-rule-reporting-descriptor` (optional descriptor catalogs) → `emit-finalize --validate`. Each verb either appends to an event log (`<output>.wip.jsonl`) or replays the log into a finished SARIF file.
 
 This staged design lets you build a run incrementally: hold one finding in working memory at a time, write it, move on. The final file is produced atomically by `emit-finalize`.
 
@@ -99,7 +99,7 @@ Inputs:
 | `{{LOCAL_SOURCE_ROOT}}` | yes for snippet/hash enrichment | A `file://` URI that the SDK can read to compute snippets and artifact hashes during `emit-finalize`. Rewritten to a portable URI in the finalize step. |
 | `{{NEW_GUID}}` | yes | A fresh RFC 4122 GUID for `run.automationDetails.guid`. Required by rule AI2005. |
 
-The verb validates a small set of profile-essential fields at receipt: `tool.driver.name` is required and must be a non-empty string; `tool.driver.informationUri` and `versionControlProvenance[].repositoryUri` must be `https`; `originalUriBaseIds["SRCROOT"].uri` must be `https` or `file`; GUIDs must be canonical 8-4-4-4-12 strings; `ai/origin` must be one of `generated`, `annotated`, `synthesized`. Anything else the SARIF schema accepts on a partial `Run` is appended to the `.wip.jsonl` run-header event unchanged; note that `emit-finalize` materializes a typed `SarifLog` from that event log, so fields outside the SDK's typed `Run` model are dropped at finalize. Durable custom data should live in SARIF `properties` bags, which the typed model preserves.
+The verb validates a small set of profile-essential fields at receipt: `tool.driver.name` is required and must be a non-empty string; `tool.driver.informationUri` and `versionControlProvenance[].repositoryUri` must be `https`; `originalUriBaseIds["SRCROOT"].uri` must be `https` or `file`, and a `file:` source root must resolve to a directory that exists on disk when the run header is received, so `emit-finalize` can enrich result locations against an observable checkout; GUIDs must be canonical 8-4-4-4-12 strings; `ai/origin` must be one of `generated`, `annotated`, `synthesized`. Anything else the SARIF schema accepts on a partial `Run` is appended to the `.wip.jsonl` run-header event unchanged; note that `emit-finalize` materializes a typed `SarifLog` from that event log, so fields outside the SDK's typed `Run` model are dropped at finalize. Durable custom data should live in SARIF `properties` bags, which the typed model preserves.
 
 When the `TF_BUILD=True` environment indicates an Azure DevOps pipeline, `emit-run` stamps `automationDetails.id` plus the four `azuredevops/pipeline/build/*` properties required by GHAzDO ingestion. If your JSON supplies any of those fields, the values must match what the env detects, otherwise the verb fails with a conflict diagnostic — pick one source of truth.
 
@@ -130,7 +130,19 @@ Notifications travel inline on the invocation payload. Place each in the invocat
 Get-Content invocation.json | dotnet dnx Sarif.Multitool --yes -- add-invocation "{{OUTPUT_PATH}}"
 ```
 
-### Step 4 — Finalize and validate
+### Step 4 — Register reporting descriptors (optional)
+
+Two verbs append `reportingDescriptor` objects to the run's tool-driver catalogs. Both are producer-authored and validated at receipt against the same overlay schemas served by `get-schema`.
+
+- `add-notification-reporting-descriptor` appends a descriptor to `run.tool.driver.notifications[]` — the catalog that gives stable metadata (id, name, message strings) for the inline notifications recorded in Step 3.
+- `add-rule-reporting-descriptor` appends a descriptor with a `NOVEL-<kebab-sub-id>` id to `run.tool.driver.rules[]` — for novel rules the producer defines. Taxonomy/CWE rule descriptors are injected by the SDK at finalize and must not be supplied here.
+
+```powershell
+Get-Content notification-descriptor.json | dotnet dnx Sarif.Multitool --yes -- add-notification-reporting-descriptor "{{OUTPUT_PATH}}"
+Get-Content rule-descriptor.json         | dotnet dnx Sarif.Multitool --yes -- add-rule-reporting-descriptor "{{OUTPUT_PATH}}"
+```
+
+### Step 5 — Finalize and validate
 
 ```powershell
 dotnet dnx Sarif.Multitool --yes -- emit-finalize "{{OUTPUT_PATH}}" `

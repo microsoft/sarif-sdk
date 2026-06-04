@@ -14,19 +14,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
     /// On receipt the verb validates <c>result.ruleId</c> against the AI ruleId convention.
     /// </remarks>
     [Verb("add-result", HelpText = "Append a fully-formed SARIF result (JSON) to a staged event log.")]
-    public class AddResultOptions
+    public class AddResultOptions : EmitInputOptionsBase
     {
-        [Value(
-            0,
-            MetaName = "<outputSarifPath>",
-            HelpText = "Path to the final SARIF file; the event log is appended to '<output>.wip.jsonl'.",
-            Required = true)]
-        public string OutputFilePath { get; set; }
-
-        [Option(
-            'i',
-            "input",
-            HelpText = "Path to a JSON file containing the SARIF result object. If omitted, JSON is read from stdin.")]
-        public string InputFilePath { get; set; }
     }
 }

@@ -13,7 +13,7 @@ using Newtonsoft.Json.Linq;
 namespace Microsoft.CodeAnalysis.Sarif.Multitool
 {
     /// <summary>
-    /// Implements <c>multitool add-result</c>: validates a fully-formed SARIF result JSON and
+    /// Implements <c>add-result</c>: validates a fully-formed SARIF result JSON and
     /// appends a <c>result</c> event to <c>&lt;output&gt;.wip.jsonl</c>.
     /// </summary>
     /// <remarks>

@@ -18,7 +18,7 @@ using Newtonsoft.Json;
 namespace Microsoft.CodeAnalysis.Sarif.Multitool
 {
     /// <summary>
-    /// Implements <c>multitool emit-finalize</c>: replays <c>&lt;output&gt;.wip.jsonl</c>,
+    /// Implements <c>emit-finalize</c>: replays <c>&lt;output&gt;.wip.jsonl</c>,
     /// optionally enriches CWE-as-rule-id descriptors, and atomically writes the destination
     /// SARIF file.
     /// </summary>

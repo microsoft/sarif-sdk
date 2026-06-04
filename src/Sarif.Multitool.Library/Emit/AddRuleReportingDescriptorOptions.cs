@@ -16,19 +16,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
     /// taxonomy enricher, not this verb. Each <c>id</c> may appear at most once in the rules array.
     /// </remarks>
     [Verb("add-rule-reporting-descriptor", HelpText = "Append a SARIF reportingDescriptor (JSON) with a NOVEL- id to run.tool.driver.rules[] in a staged event log.")]
-    public class AddRuleReportingDescriptorOptions
+    public class AddRuleReportingDescriptorOptions : EmitInputOptionsBase
     {
-        [Value(
-            0,
-            MetaName = "<outputSarifPath>",
-            HelpText = "Path to the final SARIF file; the event log is appended to '<output>.wip.jsonl'.",
-            Required = true)]
-        public string OutputFilePath { get; set; }
-
-        [Option(
-            'i',
-            "input",
-            HelpText = "Path to a JSON file containing the SARIF reportingDescriptor object. If omitted, JSON is read from stdin.")]
-        public string InputFilePath { get; set; }
     }
 }

@@ -6,7 +6,7 @@ using Microsoft.CodeAnalysis.Sarif.Driver;
 namespace Microsoft.CodeAnalysis.Sarif.Multitool
 {
     /// <summary>
-    /// Implements <c>multitool add-rule-reporting-descriptor</c>: validates a SARIF
+    /// Implements <c>add-rule-reporting-descriptor</c>: validates a SARIF
     /// reportingDescriptor JSON with a <c>NOVEL-</c> id and appends it to
     /// <c>run.tool.driver.rules[]</c> in a staged event log.
     /// </summary>
