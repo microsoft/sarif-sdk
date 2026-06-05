@@ -139,7 +139,7 @@
       "versionControlProvenance": [
         {
           "repositoryUri": "https://github.com/microsoft/sarif-sdk",
-          "revisionId": "0000000000000000000000000000000000000000",
+          "revisionId": "84f83c813bcf52ae2c0fd7ff2963e2fa2a2efac7",
           "branch": "refs/heads/main",
           "mappedTo": {
             "uriBaseId": "SRCROOT"
@@ -148,7 +148,7 @@
       ],
       "originalUriBaseIds": {
         "SRCROOT": {
-          "uri": "https://github.com/microsoft/sarif-sdk/blob/main/"
+          "uri": "https://github.com/microsoft/sarif-sdk/blob/84f83c813bcf52ae2c0fd7ff2963e2fa2a2efac7/"
         }
       },
       "artifacts": [

@@ -38,11 +38,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         public bool Minify { get; set; }
 
         [Option(
-            "srcroot",
-            HelpText = "Rewrite originalUriBaseIds[\"SRCROOT\"].uri to this value AFTER enrichment runs. Use a local file:// SRCROOT on emit-run so InsertOptionalDataVisitor can read sources for snippets/hashes, then pass the canonical portable URI here (e.g. https://github.com/<org>/<repo>/blob/<branch>/) so the shipped SARIF anchors at a stable, host-independent location.")]
-        public string SrcRoot { get; set; }
-
-        [Option(
             "embed-text-files",
             HelpText = "Embed the textual content of every text-file artifact referenced by the run (run.artifacts[].contents.text). Use for self-contained AI fixtures and to clear SARIF2013.",
             Default = false)]

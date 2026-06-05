@@ -55,14 +55,15 @@
          bytes are stable across re-runs. (SARIF has no run-level notifications
          array, so notifications ride inside the invocation that owns them.)
 
-      4. emit-finalize --embed-text-files --srcroot https://github.com/microsoft/sarif-sdk/blob/main/
+      4. emit-finalize --embed-text-files
          Enrichment runs against the local SRCROOT (snippets, hashes,
          contextRegion, charOffset). --embed-text-files inlines
          SampleCode.cs into run.artifacts[].contents.text so the fixture
-         is self-contained (clears SARIF2013). --srcroot rewrites
-         originalUriBaseIds.SRCROOT.uri to the canonical GitHub URL
-         AFTER enrichment so the shipped artifact anchors at a stable,
-         host-independent URL.
+         is self-contained (clears SARIF2013). emit-finalize then
+         deconstructs the local SRCROOT into a portable github.com
+         blob permalink derived from versionControlProvenance
+         (repositoryUri + revisionId) AFTER enrichment, so the shipped
+         artifact anchors at a stable, host-independent URL.
 
       5. Post-finalize JSON patches that the multitool emit verbs do not
          currently model as first-class flags:
@@ -165,11 +166,11 @@ $adoEnv = [ordered]@{
     'BUILD_SOURCEBRANCH'   = 'refs/heads/main'
     # The two optional VCP-augmenting vars (BUILD_REPOSITORY_URI /
     # BUILD_SOURCEVERSION). BUILD_REPOSITORY_URI is set below once
-    # $vcpRepoUri is resolved; BUILD_SOURCEVERSION is the deterministic
-    # zero-SHA matching the hardcoded VCP placeholder. AdoPipelineContext
-    # detects both and verifies field-by-field agreement against the
-    # supplied VCP entry; mismatch would fail emit-run.
-    'BUILD_SOURCEVERSION'  = '0000000000000000000000000000000000000000'
+    # $vcpRepoUri is resolved; BUILD_SOURCEVERSION mirrors the supplied
+    # VCP entry's frozen revisionId. AdoPipelineContext detects both and
+    # verifies field-by-field agreement against the supplied VCP entry;
+    # mismatch would fail emit-run.
+    'BUILD_SOURCEVERSION'  = '84f83c813bcf52ae2c0fd7ff2963e2fa2a2efac7'
     # GitHub Actions gate + identity vars. Cleared in every script
     # invocation so that GitHubActionsContext.TryDetect returns None: this
     # script supplies a deterministic VCP and stamps ADO identity
@@ -211,13 +212,12 @@ foreach ($name in $adoEnv.Keys) {
 }
 
 # Resolve the repository's canonical URL via git porcelain. The clone we run
-# inside is the source of truth for both:
-#   - run.versionControlProvenance.repositoryUri (GHAzDO ingestion validates
-#     this against repositories visible to the calling identity), and
-#   - the SRCROOT base used by emit-finalize --srcroot rewriting (best-effort
-#     "blob view" form for clickable artifact URIs).
-# Falls back to the canonical GitHub URL if the working tree has no origin
-# (e.g. when running against an extracted source tarball with no .git).
+# inside is the source of truth for run.versionControlProvenance.repositoryUri
+# (GHAzDO ingestion validates this against repositories visible to the calling
+# identity). emit-finalize pairs it with revisionId to derive the portable
+# artifact permalinks. Falls back to the canonical GitHub URL if the working
+# tree has no origin (e.g. when running against an extracted source tarball
+# with no .git).
 $gitRemoteUrl = $null
 try {
     $gitRemoteUrl = (& git -C $repoRoot remote get-url origin 2>$null).Trim()
@@ -232,21 +232,8 @@ $vcpRepoUri = $gitRemoteUrl -replace '\.git$',''
 # the GHAzDO-variant fixture exercises the full ADO env shape.
 $adoEnv['BUILD_REPOSITORY_URI'] = $vcpRepoUri
 
-# GitHub has a clean `<repo>/blob/<branch>/<path>` viewer URL. ADO uses
-# query-string addressing (`?path=&version=GB<branch>`) so there is no clean
-# prefix that concatenates with a relative artifact path; we use the bare
-# repo URL with a trailing slash. GHAzDO ingestion validates the VCP
-# repositoryUri but not the SRCROOT base, so the latter is best-effort UX,
-# not a correctness gate.
-$finalSrcRootUri = if ($vcpRepoUri -match '^https?://github\.com/[^/]+/[^/]+$') {
-    "$vcpRepoUri/blob/main/"
-} elseif ($vcpRepoUri.EndsWith('/')) {
-    $vcpRepoUri
-} else {
-    "$vcpRepoUri/"
-}
-
-# Local SRCROOT for enrichment; rewritten to $finalSrcRootUri at finalize.
+# Local SRCROOT for enrichment; emit-finalize deconstructs it into the portable
+# GitHub permalink (derived from versionControlProvenance) after enrichment.
 # Cross-platform file:// construction: [System.Uri]$path returns a relative
 # Uri on Linux/macOS (Unix paths lack a scheme), and .AbsoluteUri on a
 # relative Uri yields $null — which then null-refs on .EndsWith. Build the
@@ -256,9 +243,8 @@ if (-not $repoRootSlash.StartsWith('/')) { $repoRootSlash = "/$repoRootSlash" }
 if (-not $repoRootSlash.EndsWith('/'))   { $repoRootSlash = "$repoRootSlash/" }
 $localSrcRootUri = "file://$repoRootSlash"
 
-# Repo-relative artifact path; with --srcroot above this becomes a clickable
-# permalink under $finalSrcRootUri (GitHub) or a host-specific reference
-# (ADO / others).
+# Repo-relative artifact path; emit-finalize binds it to the SRCROOT base, which
+# resolves to a clickable github.com/<owner>/<repo>/blob/<sha>/ permalink.
 $sampleFileRepoRelative = 'src/Sarif/Taxonomies/SampleCode.cs'
 $sampleFileOnDisk       = Join-Path $PSScriptRoot 'SampleCode.cs'
 
@@ -266,6 +252,12 @@ $sampleFileOnDisk       = Join-Path $PSScriptRoot 'SampleCode.cs'
 # constantly dirty the working tree.
 $automationGuid            = 'a7ad9ab8-1234-5678-9abc-def012345678'
 $automationCorrelationGuid = '660f3001-34a8-46c5-8ad5-14b9682470ba'
+
+# A real, immutable sarif-sdk commit (the v4.5.0 release tag). emit-finalize
+# derives the portable artifact permalink as
+# https://github.com/<owner>/<repo>/blob/<revisionId>/<path>, so the revisionId
+# must resolve to a real blob on github.com for the sample's links to work.
+$frozenRevisionId = '84f83c813bcf52ae2c0fd7ff2963e2fa2a2efac7'
 
 Write-Host "[1/6] Opening run -> $outPath"
 
@@ -287,7 +279,7 @@ $runHeader = [ordered]@{
     versionControlProvenance = @(
         [ordered]@{
             repositoryUri = $vcpRepoUri
-            revisionId    = '0000000000000000000000000000000000000000'
+            revisionId    = $frozenRevisionId
             branch        = 'refs/heads/main'
             mappedTo      = [ordered]@{ uriBaseId = 'SRCROOT' }
         }
@@ -413,10 +405,9 @@ $invocationJson = $invocationPayload | ConvertTo-Json -Compress -Depth 8
 $invocationJson | & dotnet $multitool add-invocation $outPath | Out-Null
 if ($LASTEXITCODE -ne 0) { throw "add-invocation failed (exit $LASTEXITCODE)." }
 
-Write-Host "[3/6] Finalizing (--srcroot $finalSrcRootUri --embed-text-files)"
+Write-Host "[3/6] Finalizing (--embed-text-files)"
 $finalizeArgs = @(
     $multitool, 'emit-finalize', $outPath,
-    '--srcroot',          $finalSrcRootUri,
     '--embed-text-files'
 )
 & dotnet @finalizeArgs | Out-Host
