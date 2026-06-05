@@ -3,7 +3,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
 
 using FluentAssertions;
 
@@ -254,7 +253,86 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         }
 
         [Fact]
-        public void NonGitHubHost_Fails()
+        public void UnsupportedHost_Fails()
+        {
+            var run = new Run
+            {
+                VersionControlProvenance = new[]
+                {
+                    Vcd("https://gitlab.com/contoso/widgets", "SRCROOT"),
+                },
+                OriginalUriBaseIds = Bases(("SRCROOT", "file:///d:/src/widgets/")),
+            };
+
+            EmitFinalizeRebaseVisitor visitor = Visit(run);
+
+            visitor.Success.Should().BeFalse();
+            string.Join(" ", visitor.Errors).Should().Contain("not supported");
+        }
+
+        [Fact]
+        public void AzureDevOps_SingleRepo_DerivesRepositoryRootBase()
+        {
+            var run = new Run
+            {
+                VersionControlProvenance = new[]
+                {
+                    Vcd("https://dev.azure.com/contoso/MyProject/_git/widgets", "SRCROOT"),
+                },
+                OriginalUriBaseIds = Bases(("SRCROOT", "file:///d:/src/widgets/")),
+                Results = new[] { ResultAt("file:///d:/src/widgets/src/Foo.cs") },
+            };
+
+            EmitFinalizeRebaseVisitor visitor = Visit(run);
+
+            visitor.Success.Should().BeTrue();
+            ArtifactLocation location = FirstLocation(run);
+            location.Uri.OriginalString.Should().Be("src/Foo.cs");
+            location.UriBaseId.Should().Be("SRCROOT");
+            run.OriginalUriBaseIds["SRCROOT"].Uri
+                .Should().Be(new Uri("https://dev.azure.com/contoso/MyProject/_git/widgets/", UriKind.Absolute));
+        }
+
+        [Fact]
+        public void AzureDevOps_ProjectAndRepoWithSpaces_PreserveEncodedSegments()
+        {
+            var run = new Run
+            {
+                VersionControlProvenance = new[]
+                {
+                    Vcd("https://dev.azure.com/contoso/My%20Project/_git/My%20Repo", "SRCROOT"),
+                },
+                OriginalUriBaseIds = Bases(("SRCROOT", "file:///d:/src/widgets/")),
+            };
+
+            EmitFinalizeRebaseVisitor visitor = Visit(run);
+
+            visitor.Success.Should().BeTrue();
+            run.OriginalUriBaseIds["SRCROOT"].Uri.OriginalString
+                .Should().Be("https://dev.azure.com/contoso/My%20Project/_git/My%20Repo/");
+        }
+
+        [Fact]
+        public void AzureDevOps_DotGitSuffix_IsStripped()
+        {
+            var run = new Run
+            {
+                VersionControlProvenance = new[]
+                {
+                    Vcd("https://dev.azure.com/contoso/proj/_git/widgets.git", "SRCROOT"),
+                },
+                OriginalUriBaseIds = Bases(("SRCROOT", "file:///d:/src/widgets/")),
+            };
+
+            EmitFinalizeRebaseVisitor visitor = Visit(run);
+
+            visitor.Success.Should().BeTrue();
+            run.OriginalUriBaseIds["SRCROOT"].Uri
+                .Should().Be(new Uri("https://dev.azure.com/contoso/proj/_git/widgets/", UriKind.Absolute));
+        }
+
+        [Fact]
+        public void AzureDevOps_MalformedPath_Fails()
         {
             var run = new Run
             {
@@ -268,7 +346,102 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             EmitFinalizeRebaseVisitor visitor = Visit(run);
 
             visitor.Success.Should().BeFalse();
-            string.Join(" ", visitor.Errors).Should().Contain("github.com");
+            string.Join(" ", visitor.Errors).Should().Contain("azure devops repositoryUri must take the form");
+        }
+
+        [Fact]
+        public void AzureDevOps_PreservesRevisionIdAndDoesNotEmbedItInRoot()
+        {
+            var run = new Run
+            {
+                VersionControlProvenance = new[]
+                {
+                    Vcd("https://dev.azure.com/contoso/proj/_git/widgets", "SRCROOT"),
+                },
+                OriginalUriBaseIds = Bases(("SRCROOT", "file:///d:/src/widgets/")),
+            };
+
+            EmitFinalizeRebaseVisitor visitor = Visit(run);
+
+            visitor.Success.Should().BeTrue();
+            run.VersionControlProvenance[0].RevisionId.Should().Be(Sha);
+            run.OriginalUriBaseIds["SRCROOT"].Uri.AbsoluteUri.Should().NotContain(Sha);
+        }
+
+        [Fact]
+        public void RepositoryUriWithQuery_Fails()
+        {
+            var run = new Run
+            {
+                VersionControlProvenance = new[]
+                {
+                    Vcd("https://dev.azure.com/contoso/proj/_git/widgets?path=/x&version=GCabc", "SRCROOT"),
+                },
+                OriginalUriBaseIds = Bases(("SRCROOT", "file:///d:/src/widgets/")),
+            };
+
+            EmitFinalizeRebaseVisitor visitor = Visit(run);
+
+            visitor.Success.Should().BeFalse();
+            string.Join(" ", visitor.Errors).Should().Contain("query or fragment");
+        }
+
+        [Fact]
+        public void RepositoryUriWithCredentials_FailsWithoutLeakingSecret()
+        {
+            var run = new Run
+            {
+                VersionControlProvenance = new[]
+                {
+                    Vcd("https://user:s3cr3t-token@github.com/contoso/widgets", "SRCROOT"),
+                },
+                OriginalUriBaseIds = Bases(("SRCROOT", "file:///d:/src/widgets/")),
+            };
+
+            EmitFinalizeRebaseVisitor visitor = Visit(run);
+
+            visitor.Success.Should().BeFalse();
+            string joined = string.Join(" ", visitor.Errors);
+            joined.Should().Contain("credentials");
+            joined.Should().NotContain("s3cr3t-token");
+        }
+
+        [Fact]
+        public void MixedHosts_GitHubAndAzureDevOps_MintDistinctBases()
+        {
+            var run = new Run
+            {
+                VersionControlProvenance = new[]
+                {
+                    Vcd("https://github.com/contoso/widgets", "A"),
+                    Vcd("https://dev.azure.com/fabrikam/proj/_git/widgets", "B"),
+                },
+                OriginalUriBaseIds = Bases(
+                    ("A", "file:///d:/gh/"),
+                    ("B", "file:///d:/ado/")),
+                Results = new[]
+                {
+                    ResultAt("file:///d:/gh/a.cs"),
+                    ResultAt("file:///d:/ado/b.cs"),
+                },
+            };
+
+            EmitFinalizeRebaseVisitor visitor = Visit(run);
+
+            visitor.Success.Should().BeTrue();
+
+            ArtifactLocation a = run.Results[0].Locations[0].PhysicalLocation.ArtifactLocation;
+            a.Uri.OriginalString.Should().Be("a.cs");
+            a.UriBaseId.Should().Be("SRCROOT_WIDGETS");
+
+            ArtifactLocation b = run.Results[1].Locations[0].PhysicalLocation.ArtifactLocation;
+            b.Uri.OriginalString.Should().Be("b.cs");
+            b.UriBaseId.Should().Be("SRCROOT_WIDGETS_2");
+
+            run.OriginalUriBaseIds["SRCROOT_WIDGETS"].Uri
+                .Should().Be(new Uri($"https://github.com/contoso/widgets/blob/{Sha}/", UriKind.Absolute));
+            run.OriginalUriBaseIds["SRCROOT_WIDGETS_2"].Uri
+                .Should().Be(new Uri("https://dev.azure.com/fabrikam/proj/_git/widgets/", UriKind.Absolute));
         }
 
         [Fact]

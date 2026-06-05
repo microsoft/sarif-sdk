@@ -7,18 +7,17 @@ using System.Globalization;
 using System.Linq;
 using System.Text;
 
-using Microsoft.CodeAnalysis.Sarif.Visitors;
-
 namespace Microsoft.CodeAnalysis.Sarif.Multitool
 {
     /// <summary>
     /// Rewrites absolute local file paths in a run into relative URIs plus portable, per-repository
-    /// <c>uriBaseId</c>s anchored at GitHub blob permalinks derived from
-    /// <c>versionControlProvenance</c>. Each artifact location is resolved against the run's input
-    /// <c>originalUriBaseIds</c>, attributed to the owning repository by longest-prefix match on the
-    /// mapped local root, and re-expressed relative to that repository's minted output base. The
-    /// rebuilt <c>originalUriBaseIds</c> anchor each base at the portable URL, so the finalized SARIF
-    /// carries no machine-specific path.
+    /// <c>uriBaseId</c>s derived from <c>versionControlProvenance</c>. Each artifact location is
+    /// resolved against the run's input <c>originalUriBaseIds</c>, attributed to the owning
+    /// repository by longest-prefix match on the mapped local root, and re-expressed relative to
+    /// that repository's minted output base. The rebuilt <c>originalUriBaseIds</c> anchor each base
+    /// at a portable root — a github.com blob permalink (commit-pinned in the URL) or an Azure
+    /// DevOps repository root (commit pinning carried by <c>versionControlProvenance.revisionId</c>)
+    /// — so the finalized SARIF carries no machine-specific path.
     /// </summary>
     /// <remarks>
     /// One repository collapses to the bare <c>SRCROOT</c> base. Multiple repositories each receive
@@ -208,7 +207,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
                 if (string.IsNullOrEmpty(vcd.RevisionId))
                 {
-                    _errors.Add(string.Format(CultureInfo.InvariantCulture, "{0}.revisionId must be a non-empty commit identifier so a portable permalink can be derived.", where));
+                    _errors.Add(string.Format(CultureInfo.InvariantCulture, "{0}.revisionId must be a non-empty commit identifier so a portable root can be derived.", where));
                     return false;
                 }
 
@@ -282,49 +281,159 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             leaf = null;
             error = null;
 
-            if (!string.Equals(repositoryUri.Host, "github.com", StringComparison.OrdinalIgnoreCase)
-                || !repositoryUri.IsDefaultPort)
+            // A shipped repositoryUri must be a clean repository identity. Azure DevOps' own clone
+            // URL carries a benign org as userinfo (org@dev.azure.com), which is tolerated; a colon
+            // in userinfo means user:password, and a query/fragment means a browser URL rather than
+            // a repository root — either would leak or misidentify the repository, so both fail
+            // closed. Error text is sanitized so credentials can never surface.
+            string display = SanitizeForDisplay(repositoryUri);
+
+            if (!repositoryUri.IsDefaultPort)
             {
-                error = string.Format(CultureInfo.InvariantCulture, "portable permalink derivation currently supports only github.com repositories; '{0}' is not supported (other hosts are a planned follow-up).", repositoryUri.AbsoluteUri);
+                error = string.Format(CultureInfo.InvariantCulture, "repositoryUri '{0}' must use the host's default port.", display);
                 return false;
             }
+
+            if (!string.IsNullOrEmpty(repositoryUri.Query) || !string.IsNullOrEmpty(repositoryUri.Fragment))
+            {
+                error = string.Format(CultureInfo.InvariantCulture, "repositoryUri '{0}' must be a bare repository URL with no query or fragment.", display);
+                return false;
+            }
+
+            if (repositoryUri.UserInfo.IndexOf(':') >= 0)
+            {
+                error = "a repositoryUri carrying credentials (user:password@) cannot be used to derive a portable root.";
+                return false;
+            }
+
+            if (string.Equals(repositoryUri.Host, "github.com", StringComparison.OrdinalIgnoreCase))
+            {
+                return TryDeriveGitHubRoot(repositoryUri, revisionId, display, out portableRoot, out leaf, out error);
+            }
+
+            if (string.Equals(repositoryUri.Host, "dev.azure.com", StringComparison.OrdinalIgnoreCase))
+            {
+                return TryDeriveAzureDevOpsRoot(repositoryUri, display, out portableRoot, out leaf, out error);
+            }
+
+            error = string.Format(CultureInfo.InvariantCulture, "portable root derivation currently supports github.com and dev.azure.com repositories; '{0}' is not supported (other hosts are a planned follow-up).", display);
+            return false;
+        }
+
+        private static bool TryDeriveGitHubRoot(Uri repositoryUri, string revisionId, string display, out Uri portableRoot, out string leaf, out string error)
+        {
+            portableRoot = null;
+            leaf = null;
+            error = null;
 
             string[] segments = repositoryUri.AbsolutePath.Split(new[] { '/' }, StringSplitOptions.RemoveEmptyEntries);
             if (segments.Length != 2)
             {
-                error = string.Format(CultureInfo.InvariantCulture, "github repositoryUri must take the form https://github.com/<owner>/<repo>; '{0}' did not.", repositoryUri.AbsoluteUri);
+                error = string.Format(CultureInfo.InvariantCulture, "github repositoryUri must take the form https://github.com/<owner>/<repo>; '{0}' did not.", display);
                 return false;
             }
 
-            string owner = segments[0];
-            string repo = segments[1];
-            if (repo.EndsWith(".git", StringComparison.OrdinalIgnoreCase))
+            if (!TryNormalizeRepoSegment(segments[1], out string repo, out leaf, out string leafError))
             {
-                repo = repo.Substring(0, repo.Length - 4);
-            }
-
-            if (repo.Length == 0)
-            {
-                error = string.Format(CultureInfo.InvariantCulture, "github repositoryUri '{0}' has an empty repository name.", repositoryUri.AbsoluteUri);
+                error = string.Format(CultureInfo.InvariantCulture, "github repositoryUri '{0}': {1}", display, leafError);
                 return false;
             }
-
-            leaf = Uri.UnescapeDataString(repo);
 
             string composed = string.Format(
                 CultureInfo.InvariantCulture,
                 "https://github.com/{0}/{1}/blob/{2}/",
-                owner,
+                segments[0],
                 repo,
                 Uri.EscapeDataString(revisionId));
 
             if (!Uri.TryCreate(composed, UriKind.Absolute, out portableRoot))
             {
-                error = string.Format(CultureInfo.InvariantCulture, "could not compose a portable URL from repositoryUri '{0}' and revisionId '{1}'.", repositoryUri.AbsoluteUri, revisionId);
+                error = string.Format(CultureInfo.InvariantCulture, "could not compose a portable permalink from repositoryUri '{0}' and revisionId '{1}'.", display, revisionId);
                 return false;
             }
 
             return true;
+        }
+
+        private static bool TryDeriveAzureDevOpsRoot(Uri repositoryUri, string display, out Uri portableRoot, out string leaf, out string error)
+        {
+            portableRoot = null;
+            leaf = null;
+            error = null;
+
+            // Azure DevOps cloud repositories take the form
+            // https://dev.azure.com/<org>/<project>/_git/<repo>. Collection / virtual-directory and
+            // legacy <org>.visualstudio.com shapes are a planned follow-up; anything that is not
+            // exactly that four-segment form is rejected so a malformed URL cannot mint a bogus root.
+            string[] segments = repositoryUri.AbsolutePath.Split(new[] { '/' }, StringSplitOptions.RemoveEmptyEntries);
+            if (segments.Length != 4
+                || !string.Equals(segments[2], "_git", StringComparison.OrdinalIgnoreCase))
+            {
+                error = string.Format(CultureInfo.InvariantCulture, "azure devops repositoryUri must take the form https://dev.azure.com/<org>/<project>/_git/<repo>; '{0}' did not.", display);
+                return false;
+            }
+
+            if (!TryNormalizeRepoSegment(segments[3], out string repo, out leaf, out string leafError))
+            {
+                error = string.Format(CultureInfo.InvariantCulture, "azure devops repositoryUri '{0}': {1}", display, leafError);
+                return false;
+            }
+
+            // ADO's per-file web URL is query-based (?path=...&version=GC<sha>), which cannot serve
+            // as a SARIF uriBaseId prefix: RFC 3986 relative resolution against a base that has a
+            // query drops the query. The portable root is therefore the repository root, and commit
+            // pinning lives on versionControlProvenance.revisionId, which finalize preserves. The
+            // org/project segments are reproduced in their original percent-encoded form so that
+            // names containing spaces (%20) round-trip unchanged.
+            string composed = string.Format(
+                CultureInfo.InvariantCulture,
+                "https://dev.azure.com/{0}/{1}/_git/{2}/",
+                segments[0],
+                segments[1],
+                repo);
+
+            if (!Uri.TryCreate(composed, UriKind.Absolute, out portableRoot))
+            {
+                error = string.Format(CultureInfo.InvariantCulture, "could not compose a portable root from repositoryUri '{0}'.", display);
+                return false;
+            }
+
+            return true;
+        }
+
+        private static bool TryNormalizeRepoSegment(string rawSegment, out string repoForUrl, out string leaf, out string error)
+        {
+            repoForUrl = null;
+            leaf = null;
+            error = null;
+
+            string repo = rawSegment;
+            if (repo.EndsWith(".git", StringComparison.OrdinalIgnoreCase))
+            {
+                repo = repo.Substring(0, repo.Length - 4);
+            }
+
+            string decoded = Uri.UnescapeDataString(repo);
+            if (decoded.Length == 0
+                || decoded == "."
+                || decoded == ".."
+                || decoded.IndexOf('/') >= 0
+                || decoded.IndexOf('\\') >= 0)
+            {
+                error = "the repository name is empty or is not a single valid path segment.";
+                return false;
+            }
+
+            repoForUrl = repo;
+            leaf = decoded;
+            return true;
+        }
+
+        private static string SanitizeForDisplay(Uri uri)
+        {
+            // Never echo credentials (or browser query/fragment) in diagnostics: keep only
+            // scheme, host, optional port, and path.
+            return uri.GetComponents(UriComponents.SchemeAndServer | UriComponents.Path, UriFormat.UriEscaped);
         }
 
         private RepoRoot LongestPrefixOwner(Uri abs)

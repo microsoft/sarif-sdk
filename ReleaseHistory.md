@@ -22,8 +22,9 @@ Entries are terse by design: one line per change, present-tense behavior, comple
 * BRK: Rename `multitool emit-init-run` to `emit-run`.
 * BRK: `emit-run` now rejects a `file:` `originalUriBaseIds["SRCROOT"]` whose path does not resolve to an existing directory on disk at receipt.
 * BRK: Remove the `--srcroot` flag from `multitool emit-finalize`; the verb now derives portable artifact roots from `run.versionControlProvenance` rather than a caller-supplied root.
-* BRK: `multitool emit-finalize` now requires each run to carry at least one `versionControlProvenance` entry whose `mappedTo.uriBaseId` names a declared `originalUriBaseIds` root; only `github.com` repository URIs yield permalinks in this release.
-* NEW: `multitool emit-finalize` rebases absolute local artifact paths to portable `github.com/<owner>/<repo>/blob/<revisionId>/` permalinks — one repository binds to `SRCROOT`, multiple to `SRCROOT_<REPO>` — and warns without failing on absolute paths no root resolves.
+* BRK: `multitool emit-finalize` now requires each run to carry at least one `versionControlProvenance` entry whose `mappedTo.uriBaseId` names a declared `originalUriBaseIds` root; `github.com` and `dev.azure.com` repository URIs are supported in this release.
+* NEW: `multitool emit-finalize` rebases absolute local artifact paths to portable per-repository roots derived from `versionControlProvenance`, binding one repository to `SRCROOT` and multiple to `SRCROOT_<REPO>`; it fails closed on any local path no root resolves.
+* NEW: `multitool emit-finalize` derives portable roots for `dev.azure.com` repositories — the commit-less `dev.azure.com/<org>/<project>/_git/<repo>/` root, with commit pinning carried on `versionControlProvenance.revisionId` — alongside `github.com` blob permalinks.
 * NEW: `multitool emit-run` stamps `versionControlProvenance[0].mappedTo.uriBaseId = "SRCROOT"` when it auto-fills a single source-repo entry and the run declares an `originalUriBaseIds["SRCROOT"]` root.
 * BRK: Split `multitool add-reporting-descriptor` into `add-notification-reporting-descriptor` and `add-rule-reporting-descriptor`, removing the `--rules` flag.
 * BUG: `AddFileReferencesVisitor` no longer promotes an invocation's `workingDirectory` into `run.artifacts`; a bare location with no hashes, contents, or length adds nothing to the table.
