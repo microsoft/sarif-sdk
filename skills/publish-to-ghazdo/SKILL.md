@@ -28,7 +28,7 @@ secret.
 
 Publish a SARIF only after it is **finalized** — its first run must carry an Azure DevOps
 `repositoryUri` and `revisionId` under `versionControlProvenance` (see
-[`emit-sarif-findings`](../emit-sarif-findings/SKILL.md) and the `emit-finalize` verb). The target
+[`emit-sarif`](../emit-sarif/SKILL.md) and the `emit-finalize` verb). The target
 organization, project, and repository are read from that provenance, so an unfinalized file cannot
 be published.
 

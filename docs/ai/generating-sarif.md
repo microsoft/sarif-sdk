@@ -8,10 +8,10 @@
 - [`docs/spec/sarif-v2.1.0-spec.md`](../spec/sarif-v2.1.0-spec.md) — convenience markdown rendering of the OASIS SARIF 2.1.0 specification (authoritative source linked from the file).
 - [`docs/AI-RuleId-Convention.md`](../AI-RuleId-Convention.md) — rule-ID structure and stability rules for AI-emitted SARIF.
 - [`docs/Producing effective SARIF.md`](../Producing%20effective%20SARIF.md) — general SDK producer guidance; AI producers should read this first.
-- [`docs/multitool-usage.md`](../multitool-usage.md) — `Sarif.Multitool` CLI reference, including the `emit-*` / `add-*` verbs used by the `emit-sarif-findings` skill.
+- [`docs/multitool-usage.md`](../multitool-usage.md) — `Sarif.Multitool` CLI reference, including the `emit-*` / `add-*` verbs used by the `emit-sarif` skill.
 - [`docs/ValidationRules.md`](../ValidationRules.md) — the full SARIF validation rule catalog.
-- [`skills/emit-sarif-findings/SKILL.md`](../../skills/emit-sarif-findings/SKILL.md) — agent-procedural skill for emitting AI SARIF using the multitool emit verbs.
-- [`skills/validate-sarif-findings/SKILL.md`](../../skills/validate-sarif-findings/SKILL.md) — agent-procedural skill for validating AI SARIF against this profile.
+- [`skills/emit-sarif/SKILL.md`](../../skills/emit-sarif/SKILL.md) — agent-procedural skill for emitting AI SARIF using the multitool emit verbs.
+- [`skills/validate-sarif/SKILL.md`](../../skills/validate-sarif/SKILL.md) — agent-procedural skill for validating AI SARIF against this profile.
 
 An object-model overview (Mermaid class diagram) appears in the [Appendix: Object Model Diagram](#appendix-object-model-diagram) at the end of this document.
 

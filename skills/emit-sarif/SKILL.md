@@ -1,5 +1,5 @@
 ---
-name: emit-sarif-findings
+name: emit-sarif
 description: Serialize AI-detected security findings as SARIF v2.1.0 conforming to the AI-generated-findings profile, using the Sarif.Multitool emit verbs.
 metadata:
   author: sarif-sdk-maintainers
@@ -167,7 +167,7 @@ If `--validate` reports errors, the produced file is on disk but did not meet th
 This skill's contract is satisfied when:
 
 1. `emit-finalize --validate` exits with code 0 (no Error-level rule findings under `--rule-kind Sarif;AI`).
-2. The file passes the [validate-sarif-findings skill](../validate-sarif-findings/SKILL.md) at full profile depth.
+2. The file passes the [validate-sarif skill](../validate-sarif/SKILL.md) at full profile depth.
 3. The file is consumable by the SDK object model (`SarifLog.Load`) without exceptions.
 
 Any of these failing means the producer drifted from the profile. The validation skill's "Known Drift Patterns" catalog enumerates the most common drift modes — consult it when finalize fails.

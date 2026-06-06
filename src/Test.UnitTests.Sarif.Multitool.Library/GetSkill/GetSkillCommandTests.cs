@@ -95,7 +95,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         [Fact]
         public void GetSkill_EmitSarifFindings_RewritesRelativeLinksToPinnedPermalinks()
         {
-            string emitted = RunToString("emit-sarif-findings");
+            string emitted = RunToString("emit-sarif");
 
             emitted.Should().Contain(
                 GetSkillCommand.RawContentBaseUrl,
@@ -104,7 +104,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 "/docs/ai/generating-sarif.md",
                 "the normative-profile link must resolve to its repository-root path.");
             emitted.Should().Contain(
-                "/skills/validate-sarif-findings/SKILL.md",
+                "/skills/validate-sarif/SKILL.md",
                 "the sibling-skill link must resolve to its repository-root path under the raw base.");
             emitted.Should().NotContain(
                 "](../",
@@ -126,7 +126,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 "build commit SHA (not the version-tag fallback). InformationalVersion was: " +
                 informationalVersion);
 
-            string emitted = RunToString("emit-sarif-findings");
+            string emitted = RunToString("emit-sarif");
             emitted.Should().Contain(
                 GetSkillCommand.RawContentBaseUrl + pin + "/docs/ai/generating-sarif.md",
                 "the emitted skill must pin its links to the exact build commit SHA.");
@@ -135,7 +135,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         [Fact]
         public void GetSkill_ValidateSarifFindings_PreservesFragmentOnRewrittenLink()
         {
-            string emitted = RunToString("validate-sarif-findings");
+            string emitted = RunToString("validate-sarif");
 
             emitted.Should().Contain(
                 "/docs/ai/generating-sarif.md#appendix-validation-rules",
@@ -155,7 +155,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 "[abs](https://example.com/x.md) [proto](//cdn/x) [anchor](#section) [rel](../../docs/x.md)";
 
             string rewritten = GetSkillCommand.RewriteRelativeLinks(
-                markdown, "skills/emit-sarif-findings", "v9.9.9");
+                markdown, "skills/emit-sarif", "v9.9.9");
 
             rewritten.Should().Contain("[abs](https://example.com/x.md)");
             rewritten.Should().Contain("[proto](//cdn/x)");
@@ -232,7 +232,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
             new GetSkillCommand().Run(new GetSkillOptions
             {
-                Skill = "emit-sarif-findings",
+                Skill = "emit-sarif",
                 OutputFilePath = outPath,
             })
             .Should().Be(CommandBase.FAILURE);
@@ -259,7 +259,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             var directory = new DirectoryInfo(AppContext.BaseDirectory);
             while (directory != null)
             {
-                string candidate = Path.Combine(directory.FullName, "skills", "emit-sarif-findings", "SKILL.md");
+                string candidate = Path.Combine(directory.FullName, "skills", "emit-sarif", "SKILL.md");
                 if (File.Exists(candidate))
                 {
                     return directory.FullName;
@@ -270,7 +270,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
             throw new DirectoryNotFoundException(
                 "Could not locate the repository root (no ancestor of " + AppContext.BaseDirectory +
-                " contains skills\\emit-sarif-findings\\SKILL.md).");
+                " contains skills\\emit-sarif\\SKILL.md).");
         }
     }
 }
