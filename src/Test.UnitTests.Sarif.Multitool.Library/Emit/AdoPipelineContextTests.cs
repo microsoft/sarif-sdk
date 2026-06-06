@@ -247,6 +247,23 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         }
 
         [Fact]
+        public void TryDetect_RepositoryUriWithLegacyOrgUserInfo_StripsCredentialAtBoundary()
+        {
+            // A legacy <org>@ or PAT userinfo on the env value is stripped at the boundary, so the
+            // stamped repositoryUri is a clean identity rather than a credential-rejection failure.
+            FakeEnvironmentVariableGetter env = CompleteEnv()
+                .With(AdoPipelineContext.RepositoryUriEnvVar, "https://contoso@dev.azure.com/contoso/example/_git/example")
+                .With(AdoPipelineContext.SourceVersionEnvVar, "0123456789abcdef0123456789abcdef01234567");
+
+            AdoPipelineContext.DetectionState state =
+                AdoPipelineContext.TryDetect(env, out AdoPipelineContext ctx, out _);
+
+            state.Should().Be(AdoPipelineContext.DetectionState.Complete);
+            ctx.RepositoryUri.AbsoluteUri.Should().Be("https://dev.azure.com/contoso/example/_git/example");
+            ctx.RepositoryUri.UserInfo.Should().BeEmpty();
+        }
+
+        [Fact]
         public void TryDetect_RepositoryUriMalformed_ReturnsPartial()
         {
             // Optional env vars don't go silent when malformed — a broken BUILD_REPOSITORY_URI
