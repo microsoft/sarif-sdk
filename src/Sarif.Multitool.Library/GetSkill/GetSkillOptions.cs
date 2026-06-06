@@ -10,10 +10,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
     /// validate verbs. The skill markdown is written to stdout, or to <c>--output</c>.
     /// </summary>
     /// <remarks>
-    /// The skill ships inside the signed package, so an agent that resolves the tool (for example via
-    /// <c>dotnet dnx</c>) obtains the procedure from the same trusted artifact it is about to run.
-    /// Relative links in the source skill are rewritten to commit-pinned permalinks on the way out so
-    /// the emitted document resolves its references against the exact repository state that built the tool.
+    /// The skill ships embedded in the package, so an agent that resolves the tool (for example via
+    /// <c>dotnet dnx</c>) obtains the procedure from the same artifact it runs. Relative links in the
+    /// source skill are rewritten to commit-pinned permalinks on the way out, so the emitted document
+    /// resolves its references against the exact repository state that built the tool.
     /// </remarks>
     [Verb("get-skill", HelpText = "Emit an agent skill that drives the emit/validate verbs. Pass --list to enumerate the available skills.")]
     public class GetSkillOptions

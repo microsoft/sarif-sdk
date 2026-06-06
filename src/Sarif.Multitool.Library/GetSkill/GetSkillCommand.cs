@@ -197,10 +197,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
         /// <summary>
         /// Rewrites every repository-relative markdown link in <paramref name="markdown"/> to a raw
-        /// permalink pinned to <paramref name="tag"/>. Absolute URLs, protocol-relative URLs, and bare
-        /// fragments are left untouched.
+        /// permalink pinned to <paramref name="pinRef"/>. Absolute URLs, protocol-relative URLs, and
+        /// bare fragments are left untouched.
         /// </summary>
-        internal static string RewriteRelativeLinks(string markdown, string skillSourceDirectory, string tag)
+        internal static string RewriteRelativeLinks(string markdown, string skillSourceDirectory, string pinRef)
         {
             return s_markdownLink.Replace(markdown, match =>
             {
@@ -213,7 +213,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
                 string repositoryPath = ResolveRepositoryRelative(skillSourceDirectory, path);
 
-                return "](" + RawContentBaseUrl + tag + "/" + repositoryPath + fragment + match.Groups["title"].Value + ")";
+                return "](" + RawContentBaseUrl + pinRef + "/" + repositoryPath + fragment + match.Groups["title"].Value + ")";
             });
         }
 
