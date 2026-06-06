@@ -36,6 +36,7 @@ Entries are terse by design: one line per change, present-tense behavior, comple
 * BUG: `FileRegionsCache.GetHashData` returns null (rather than the sha-256 of the empty string) for a path that resolves to a directory or missing file with no cached text.
 * NEW: Add AI emit-profile input schemas — `ai-run`, `ai-result`, `ai-invocation`, `ai-notification-reporting-descriptor`, and `ai-rule-reporting-descriptor`.
 * NEW: `multitool get-schema <verb>` writes the AI input schema for an emit verb to stdout or `--output`; `--list` enumerates the available verbs.
+* NEW: `multitool get-skill <skill>` writes an embedded agent skill (`emit-sarif-findings`, `validate-sarif-findings`) to stdout or `--output`, rewriting its repository-relative links to `raw.githubusercontent.com` permalinks pinned to the build commit SHA; `--list` enumerates the available skills.
 * BRK: `multitool add-rule-reporting-descriptor` now gates the descriptor `id` against the full `NOVEL-` grammar (`NOVEL-` followed by a lowercase-alphanumeric kebab sub-id) rather than the `NOVEL-` prefix alone.
 * BRK: Tighten the AI `result.ruleId` convention to CWE-only: `CWE-<number>/<sub-id>` or `NOVEL-<sub-id>`, where `<sub-id>` is lowercase-alphanumeric kebab (single hyphens, no leading/trailing/consecutive hyphen). CVE, OWASP, and mixed-case sub-ids are no longer accepted.
 
