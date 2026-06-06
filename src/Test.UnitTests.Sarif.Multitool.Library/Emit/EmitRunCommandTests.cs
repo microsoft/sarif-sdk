@@ -296,6 +296,74 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         }
 
         [Fact]
+        public void Run_WithUnsupportedVcpHost_Fails()
+        {
+            // https passes the header scheme check, but gitlab.com is not a derivable portable-root
+            // host, so the receipt-time shape gate rejects it.
+            JObject runObject = MinimalRun();
+            runObject["versionControlProvenance"] = new JArray
+            {
+                new JObject { ["repositoryUri"] = "https://gitlab.com/acme/demo" },
+            };
+
+            int exit = RunWithInput(runObject);
+
+            exit.Should().Be(CommandBase.FAILURE);
+            File.Exists(WipPath).Should().BeFalse();
+        }
+
+        [Fact]
+        public void Run_WithMalformedAdoVcpRepositoryUri_Fails()
+        {
+            // A dev.azure.com URL missing its project segment is a valid https URI but not a
+            // derivable Azure DevOps repository root, so the receipt-time shape gate rejects it.
+            JObject runObject = MinimalRun();
+            runObject["versionControlProvenance"] = new JArray
+            {
+                new JObject { ["repositoryUri"] = "https://dev.azure.com/contoso/_git/widgets" },
+            };
+
+            int exit = RunWithInput(runObject);
+
+            exit.Should().Be(CommandBase.FAILURE);
+            File.Exists(WipPath).Should().BeFalse();
+        }
+
+        [Fact]
+        public void Run_WithCredentialBearingVcpRepositoryUri_Fails()
+        {
+            // A repositoryUri carrying embedded credentials (account@ here; a PAT or user:password@
+            // would be worse) is rejected at the receipt-time shape gate so it never reaches finalize.
+            JObject runObject = MinimalRun();
+            runObject["versionControlProvenance"] = new JArray
+            {
+                new JObject { ["repositoryUri"] = "https://x-access-token@github.com/acme/demo" },
+            };
+
+            int exit = RunWithInput(runObject);
+
+            exit.Should().Be(CommandBase.FAILURE);
+            File.Exists(WipPath).Should().BeFalse();
+        }
+
+        [Fact]
+        public void Run_WithSupportedGheComVcpRepositoryUri_Succeeds()
+        {
+            // <slug>.ghe.com is the GitHub data-residency / EMU host and is an allow-listed
+            // portable-root host, so the receipt-time shape gate accepts it.
+            JObject runObject = MinimalRun();
+            runObject["versionControlProvenance"] = new JArray
+            {
+                new JObject { ["repositoryUri"] = "https://octocorp.ghe.com/acme/demo" },
+            };
+
+            int exit = RunWithInput(runObject);
+
+            exit.Should().Be(CommandBase.SUCCESS);
+            File.Exists(WipPath).Should().BeTrue();
+        }
+
+        [Fact]
         public void Run_WithNonArrayVcp_Fails()
         {
             JObject runObject = MinimalRun();

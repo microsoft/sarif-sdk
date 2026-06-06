@@ -155,6 +155,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                     }
                 }
 
+                if (!TryValidateVcpRepositoryShapes(runObject)) { return FAILURE; }
+
                 string outputPath = Path.GetFullPath(options.OutputFilePath);
                 string wipPath = outputPath + EmitEventLogHelpers.WipSuffix;
 
@@ -330,6 +332,42 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             if (!TryValidateOptionalAiOriginToken(((JObject)runObject["properties"])?["ai/origin"]))
             {
                 return false;
+            }
+
+            return true;
+        }
+
+        /// <summary>
+        /// Confirms that every present <c>versionControlProvenance[].repositoryUri</c> has a shape
+        /// from which <see cref="EmitFinalizeRebaseVisitor"/> can later derive a portable root. Runs
+        /// after header validation (which proves each value is an absolute https URI) and after env
+        /// stamping, so both caller-supplied and stamped entries are covered. Entries without a
+        /// repositoryUri are left to the finalize-time contract.
+        /// </summary>
+        private static bool TryValidateVcpRepositoryShapes(JObject runObject)
+        {
+            if (runObject["versionControlProvenance"] is not JArray vcpArray) { return true; }
+
+            int index = 0;
+            foreach (JToken entry in vcpArray)
+            {
+                JToken repositoryUriToken = (entry as JObject)?["repositoryUri"];
+                string raw = repositoryUriToken?.Type == JTokenType.String ? (string)repositoryUriToken : null;
+
+                if (!string.IsNullOrEmpty(raw)
+                    && Uri.TryCreate(raw, UriKind.Absolute, out Uri repositoryUri)
+                    && !VcpPortableRoot.TryValidateRepositoryUri(repositoryUri, out _, out string error))
+                {
+                    Console.Error.WriteLine(
+                        string.Format(
+                            CultureInfo.CurrentCulture,
+                            "versionControlProvenance[{0}]: {1}",
+                            index,
+                            error));
+                    return false;
+                }
+
+                index++;
             }
 
             return true;

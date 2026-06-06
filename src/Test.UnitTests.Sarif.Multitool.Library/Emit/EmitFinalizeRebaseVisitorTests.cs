@@ -23,6 +23,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 MappedTo = new ArtifactLocation { UriBaseId = uriBaseId },
             };
 
+        private static VersionControlDetails VcdRaw(string repositoryUri, string uriBaseId, string revisionId = Sha)
+            => new VersionControlDetails
+            {
+                RepositoryUri = new Uri(repositoryUri, UriKind.RelativeOrAbsolute),
+                RevisionId = revisionId,
+                Branch = "refs/heads/main",
+                MappedTo = new ArtifactLocation { UriBaseId = uriBaseId },
+            };
+
         private static IDictionary<string, ArtifactLocation> Bases(params (string id, string uri)[] entries)
         {
             var bases = new Dictionary<string, ArtifactLocation>(StringComparer.Ordinal);
@@ -267,7 +276,283 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             EmitFinalizeRebaseVisitor visitor = Visit(run);
 
             visitor.Success.Should().BeFalse();
-            string.Join(" ", visitor.Errors).Should().Contain("not supported");
+            string.Join(" ", visitor.Errors).Should().Contain("not a supported host");
+        }
+
+        [Fact]
+        public void Bitbucket_IsRejected()
+        {
+            var run = new Run
+            {
+                VersionControlProvenance = new[]
+                {
+                    Vcd("https://bitbucket.org/contoso/widgets", "SRCROOT"),
+                },
+                OriginalUriBaseIds = Bases(("SRCROOT", "file:///d:/src/widgets/")),
+            };
+
+            EmitFinalizeRebaseVisitor visitor = Visit(run);
+
+            visitor.Success.Should().BeFalse();
+            string.Join(" ", visitor.Errors).Should().Contain("not a supported host");
+        }
+
+        [Fact]
+        public void GitHubGheComHost_DerivesBlobPermalink()
+        {
+            var run = new Run
+            {
+                VersionControlProvenance = new[]
+                {
+                    Vcd("https://octocorp.ghe.com/octo/widgets", "SRCROOT"),
+                },
+                OriginalUriBaseIds = Bases(("SRCROOT", "file:///d:/src/widgets/")),
+                Results = new[] { ResultAt("file:///d:/src/widgets/src/Foo.cs") },
+            };
+
+            EmitFinalizeRebaseVisitor visitor = Visit(run);
+
+            visitor.Success.Should().BeTrue();
+            FirstLocation(run).Uri.OriginalString.Should().Be("src/Foo.cs");
+            run.OriginalUriBaseIds["SRCROOT"].Uri
+                .Should().Be(new Uri("https://octocorp.ghe.com/octo/widgets/blob/" + Sha + "/", UriKind.Absolute));
+        }
+
+        [Fact]
+        public void GitHubEnterpriseServer_CustomHost_IsRejected()
+        {
+            var run = new Run
+            {
+                VersionControlProvenance = new[]
+                {
+                    Vcd("https://github.contoso.com/octo/widgets", "SRCROOT"),
+                },
+                OriginalUriBaseIds = Bases(("SRCROOT", "file:///d:/src/widgets/")),
+            };
+
+            EmitFinalizeRebaseVisitor visitor = Visit(run);
+
+            visitor.Success.Should().BeFalse();
+            string.Join(" ", visitor.Errors).Should().Contain("not a supported host");
+        }
+
+        [Fact]
+        public void GitHub_ScpCloneUrl_IsNormalizedToBlobPermalink()
+        {
+            var run = new Run
+            {
+                VersionControlProvenance = new[]
+                {
+                    VcdRaw("git@github.com:octo/widgets.git", "SRCROOT"),
+                },
+                OriginalUriBaseIds = Bases(("SRCROOT", "file:///d:/src/widgets/")),
+            };
+
+            EmitFinalizeRebaseVisitor visitor = Visit(run);
+
+            visitor.Success.Should().BeTrue();
+            run.OriginalUriBaseIds["SRCROOT"].Uri
+                .Should().Be(new Uri("https://github.com/octo/widgets/blob/" + Sha + "/", UriKind.Absolute));
+        }
+
+        [Fact]
+        public void GitHub_SshCloneUrl_IsNormalizedToBlobPermalink()
+        {
+            var run = new Run
+            {
+                VersionControlProvenance = new[]
+                {
+                    VcdRaw("ssh://git@github.com/octo/widgets.git", "SRCROOT"),
+                },
+                OriginalUriBaseIds = Bases(("SRCROOT", "file:///d:/src/widgets/")),
+            };
+
+            EmitFinalizeRebaseVisitor visitor = Visit(run);
+
+            visitor.Success.Should().BeTrue();
+            run.OriginalUriBaseIds["SRCROOT"].Uri
+                .Should().Be(new Uri("https://github.com/octo/widgets/blob/" + Sha + "/", UriKind.Absolute));
+        }
+
+        [Fact]
+        public void AzureDevOpsSsh_IsRejectedWithHttpsGuidance()
+        {
+            var run = new Run
+            {
+                VersionControlProvenance = new[]
+                {
+                    VcdRaw("git@ssh.dev.azure.com:v3/contoso/MyProject/widgets", "SRCROOT"),
+                },
+                OriginalUriBaseIds = Bases(("SRCROOT", "file:///d:/src/widgets/")),
+            };
+
+            EmitFinalizeRebaseVisitor visitor = Visit(run);
+
+            visitor.Success.Should().BeFalse();
+            string.Join(" ", visitor.Errors).Should().Contain("ssh repositoryUri normalization is not supported");
+        }
+
+        [Fact]
+        public void AzureDevOps_VisualStudioComHost_IsRejected()
+        {
+            var run = new Run
+            {
+                VersionControlProvenance = new[]
+                {
+                    Vcd("https://contoso.visualstudio.com/MyProject/_git/widgets", "SRCROOT"),
+                },
+                OriginalUriBaseIds = Bases(("SRCROOT", "file:///d:/src/widgets/")),
+            };
+
+            EmitFinalizeRebaseVisitor visitor = Visit(run);
+
+            visitor.Success.Should().BeFalse();
+            string.Join(" ", visitor.Errors).Should().Contain("legacy Azure DevOps host form is not supported");
+        }
+
+        [Fact]
+        public void AzureDevOps_OnPremCollectionHost_IsRejected()
+        {
+            var run = new Run
+            {
+                VersionControlProvenance = new[]
+                {
+                    Vcd("https://tfs.contoso.com/tfs/DefaultCollection/MyProject/_git/widgets", "SRCROOT"),
+                },
+                OriginalUriBaseIds = Bases(("SRCROOT", "file:///d:/src/widgets/")),
+            };
+
+            EmitFinalizeRebaseVisitor visitor = Visit(run);
+
+            visitor.Success.Should().BeFalse();
+            string.Join(" ", visitor.Errors).Should().Contain("not a supported host");
+        }
+
+        [Fact]
+        public void GitHub_CredentialBearingHttpsUri_IsRejected()
+        {
+            var run = new Run
+            {
+                VersionControlProvenance = new[]
+                {
+                    Vcd("https://x-access-token@github.com/octo/widgets", "SRCROOT"),
+                },
+                OriginalUriBaseIds = Bases(("SRCROOT", "file:///d:/src/widgets/")),
+            };
+
+            EmitFinalizeRebaseVisitor visitor = Visit(run);
+
+            visitor.Success.Should().BeFalse();
+            string joined = string.Join(" ", visitor.Errors);
+            joined.Should().Contain("must not carry embedded credentials");
+            joined.Should().NotContain("x-access-token");
+        }
+
+        [Fact]
+        public void GitHub_ScpCloneUrlWithSmuggledHost_IsRejected()
+        {
+            var run = new Run
+            {
+                VersionControlProvenance = new[]
+                {
+                    VcdRaw("git@evil@github.com:octo/widgets.git", "SRCROOT"),
+                },
+                OriginalUriBaseIds = Bases(("SRCROOT", "file:///d:/src/widgets/")),
+            };
+
+            EmitFinalizeRebaseVisitor visitor = Visit(run);
+
+            visitor.Success.Should().BeFalse();
+        }
+
+        [Fact]
+        public void GitHub_ScpCloneUrlWithPasswordAuthority_IsRejectedWithoutEchoingSecret()
+        {
+            var run = new Run
+            {
+                VersionControlProvenance = new[]
+                {
+                    VcdRaw("user:s3cr3t@github.com:octo/widgets.git", "SRCROOT"),
+                },
+                OriginalUriBaseIds = Bases(("SRCROOT", "file:///d:/src/widgets/")),
+            };
+
+            EmitFinalizeRebaseVisitor visitor = Visit(run);
+
+            visitor.Success.Should().BeFalse();
+            string.Join(" ", visitor.Errors).Should().NotContain("s3cr3t");
+        }
+
+        [Fact]
+        public void GitHub_SshCloneUrlWithExplicitPort_IsRejected()
+        {
+            var run = new Run
+            {
+                VersionControlProvenance = new[]
+                {
+                    VcdRaw("ssh://git@github.com:2222/octo/widgets.git", "SRCROOT"),
+                },
+                OriginalUriBaseIds = Bases(("SRCROOT", "file:///d:/src/widgets/")),
+            };
+
+            EmitFinalizeRebaseVisitor visitor = Visit(run);
+
+            visitor.Success.Should().BeFalse();
+            string.Join(" ", visitor.Errors).Should().Contain("ssh repositoryUri must use the default port");
+        }
+
+        [Fact]
+        public void GitHub_SshCloneUrlWithQuery_IsRejected()
+        {
+            var run = new Run
+            {
+                VersionControlProvenance = new[]
+                {
+                    VcdRaw("ssh://git@github.com/octo/widgets.git?token=secret", "SRCROOT"),
+                },
+                OriginalUriBaseIds = Bases(("SRCROOT", "file:///d:/src/widgets/")),
+            };
+
+            EmitFinalizeRebaseVisitor visitor = Visit(run);
+
+            visitor.Success.Should().BeFalse();
+            string.Join(" ", visitor.Errors).Should().Contain("no query or fragment");
+        }
+
+        [Fact]
+        public void AzureDevOps_CredentialBearingHttpsUri_IsRejected()
+        {
+            var run = new Run
+            {
+                VersionControlProvenance = new[]
+                {
+                    Vcd("https://contoso@dev.azure.com/contoso/MyProject/_git/widgets", "SRCROOT"),
+                },
+                OriginalUriBaseIds = Bases(("SRCROOT", "file:///d:/src/widgets/")),
+            };
+
+            EmitFinalizeRebaseVisitor visitor = Visit(run);
+
+            visitor.Success.Should().BeFalse();
+            string.Join(" ", visitor.Errors).Should().Contain("must not carry embedded credentials");
+        }
+
+        [Fact]
+        public void AzureDevOps_TrailingSegmentAfterRepo_Fails()
+        {
+            var run = new Run
+            {
+                VersionControlProvenance = new[]
+                {
+                    Vcd("https://dev.azure.com/contoso/MyProject/_git/widgets/extra", "SRCROOT"),
+                },
+                OriginalUriBaseIds = Bases(("SRCROOT", "file:///d:/src/widgets/")),
+            };
+
+            EmitFinalizeRebaseVisitor visitor = Visit(run);
+
+            visitor.Success.Should().BeFalse();
+            string.Join(" ", visitor.Errors).Should().Contain("azure devops repositoryUri must take the form");
         }
 
         [Fact]
