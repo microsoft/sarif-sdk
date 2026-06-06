@@ -67,6 +67,36 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         }
 
         /// <summary>
+        /// Resolves the Azure DevOps organization, project, and repository from
+        /// <paramref name="rawRepositoryUri"/>, applying the same host and credential guards as
+        /// portable-root derivation. Fails when the repository is not an Azure DevOps target. The
+        /// coordinates are URL-path escaped, ready to compose into a REST endpoint path.
+        /// </summary>
+        internal static bool TryGetAzureDevOpsTarget(Uri rawRepositoryUri, out string organization, out string project, out string repository, out string error)
+        {
+            organization = null;
+            project = null;
+            repository = null;
+
+            if (!TryClassify(rawRepositoryUri, out Classification classification, out error))
+            {
+                return false;
+            }
+
+            if (!classification.IsAzureDevOps)
+            {
+                error = string.Format(CultureInfo.InvariantCulture, "publish to GHAzDO requires an Azure DevOps repositoryUri of the form https://dev.azure.com/<org>/<project>/_git/<repo>; '{0}' is not one.", classification.Display);
+                return false;
+            }
+
+            string[] prefix = classification.AdoPrefix.Split('/');
+            organization = prefix[0];
+            project = prefix[1];
+            repository = classification.RepoForUrl;
+            return true;
+        }
+
+        /// <summary>
         /// Mints the portable root for <paramref name="rawRepositoryUri"/>. Used at emit-finalize.
         /// <paramref name="canonicalRepositoryUri"/> is the clean https identity (userinfo stripped,
         /// ssh/scp normalized) that should be written back onto the run so the finalized SARIF never
@@ -193,6 +223,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             if (segments.Length != 4 || !string.Equals(segments[2], "_git", StringComparison.OrdinalIgnoreCase))
             {
                 error = string.Format(CultureInfo.InvariantCulture, "azure devops repositoryUri must take the form https://dev.azure.com/<org>/<project>/_git/<repo>; '{0}' did not.", display);
+                return false;
+            }
+
+            // Validate org and project as single decoded path segments so an encoded separator (e.g.
+            // a project named "%2F") cannot compose into an ambiguous REST path downstream.
+            if (!IsSingleSafeSegment(segments[0]) || !IsSingleSafeSegment(segments[1]))
+            {
+                error = string.Format(CultureInfo.InvariantCulture, "azure devops repositoryUri '{0}': the organization and project must each be a single valid path segment.", display);
                 return false;
             }
 
@@ -392,6 +430,18 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
         private static readonly char[] s_invalidScpHostChars =
             new[] { '@', '/', '\\', ':', '?', '#', ' ', '\t' };
+
+        private static bool IsSingleSafeSegment(string rawSegment)
+        {
+            if (string.IsNullOrEmpty(rawSegment)) { return false; }
+
+            string decoded = Uri.UnescapeDataString(rawSegment);
+            return decoded.Length != 0
+                && decoded != "."
+                && decoded != ".."
+                && decoded.IndexOf('/') < 0
+                && decoded.IndexOf('\\') < 0;
+        }
 
         private static bool TryNormalizeRepoSegment(string rawSegment, out string repoForUrl, out string leaf, out string error)
         {

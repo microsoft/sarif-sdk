@@ -33,6 +33,9 @@
     <EmbeddedResource Include="$(MsBuildThisFileDirectory)..\..\skills\emit-sarif-findings\SKILL.md">
       <LogicalName>Microsoft.CodeAnalysis.Sarif.Multitool.Skills.emit-sarif-findings.SKILL.md</LogicalName>
     </EmbeddedResource>
+    <EmbeddedResource Include="$(MsBuildThisFileDirectory)..\..\skills\publish-to-ghazdo\SKILL.md">
+      <LogicalName>Microsoft.CodeAnalysis.Sarif.Multitool.Skills.publish-to-ghazdo.SKILL.md</LogicalName>
+    </EmbeddedResource>
     <EmbeddedResource Include="$(MsBuildThisFileDirectory)..\..\skills\validate-sarif-findings\SKILL.md">
       <LogicalName>Microsoft.CodeAnalysis.Sarif.Multitool.Skills.validate-sarif-findings.SKILL.md</LogicalName>
     </EmbeddedResource>
