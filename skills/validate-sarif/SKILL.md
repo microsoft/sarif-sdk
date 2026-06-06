@@ -1,5 +1,5 @@
 ---
-name: validate-sarif-findings
+name: validate-sarif
 description: Validates SARIF files against the SARIF 2.1.0 schema and the AI-generated-findings profile rules shipped by Sarif.Multitool.
 metadata:
   author: sarif-sdk-maintainers
@@ -67,7 +67,6 @@ Capture all output. Each line with `note`, `warning`, or `error` is a finding. T
 | AI1005 | ProvideMessageMarkdown | error | `result.message.markdown` present |
 | AI1006 | ProvideAIOrigin | error | `ai/origin` ∈ {generated, annotated, synthesized} |
 | AI1010 | ProvideEvidenceBackingUri | error | `sarif:` URIs in evidence resolve within the log |
-| AI1011 | RedactedRunMarker | error | `ai/redacted` is `true` or absent, never `false` |
 | AI1012 | ProvideRuleSubId | error | Rule descriptors include sub-IDs |
 | AI1013 | ProvideNotificationAssociatedRule | error | `notification.associatedRule` resolves to a valid rule |
 | AI2003 | ProvideSemanticVersion | warning | `tool.driver.semanticVersion` present |
@@ -122,7 +121,6 @@ If `{{PROFILE}}` is `schema-only`, skip this step entirely.
 | ProvideAutomationDetails | AI2005 | warning | `run.automationDetails.guid` is present and non-empty |
 | ProvideSemanticVersion | AI2003 | warning | `run.tool.driver.semanticVersion` is present |
 | ProvideAIHandoff | AI2012 | note | `run.properties["ai/handoff"]` is present |
-| RedactedRunMarker | AI1011 | error | If `ai/redacted` is present, it is `true` (never `false`). If `true`, `ai/fullLogLocation` MAY be present. If `ai/redacted` is absent, `ai/fullLogLocation` MUST be absent |
 
 #### Result-level checks (for each result)
 
@@ -205,7 +203,7 @@ Produce a structured report. Group findings by severity:
 
 ## Known Drift Patterns
 
-AI agents generating SARIF systematically drift from the standard in predictable ways. This catalog captures observed patterns — use it both for validation (catching drift) and for improving the [`emit-sarif-findings`](../emit-sarif-findings/SKILL.md) skill (preventing drift).
+AI agents generating SARIF systematically drift from the standard in predictable ways. This catalog captures observed patterns — use it both for validation (catching drift) and for improving the [`emit-sarif`](../emit-sarif/SKILL.md) skill (preventing drift).
 
 | # | Pattern | What the agent does | What the standard requires | Rule(s) |
 |---|---------|--------------------|-----------------------------|---------|
@@ -220,7 +218,7 @@ AI agents generating SARIF systematically drift from the standard in predictable
 | 9 | **`kind` omitted** | Relies on default | Explicit `kind: "fail"` for vulnerability findings | Schema best practice |
 | 10 | **All-or-nothing violation** | Some results have `ai/exploitability`, others don't | If any result declares it, every result must | AI2014 consistency |
 | 11 | **Execution narrative in `ai/handoff`** | Puts dead-end analysis, model selection, and confidence self-assessment in `ai/handoff` | Execution narrative belongs in `toolExecutionNotifications`; `ai/handoff` is for remediation context only | AI2012 (ai/handoff scope) |
-| 12 | **Configuration gaps as prose** | Describes data access or permission issues in `ai/handoff` or `message.text` | Configuration gaps belong in `toolConfigurationNotifications` (use `add-notification --config`) | — |
+| 12 | **Configuration gaps as prose** | Describes data access or permission issues in `ai/handoff` or `message.text` | Configuration gaps belong in `toolConfigurationNotifications` (inline on the `add-invocation` payload) | — |
 | 13 | **Missing notification descriptors** | Emits notifications without registering descriptors in `tool.driver.notifications[]` | Notification descriptors must be registered for the `descriptor.id` to resolve | AI2017 |
 | 14 | **Editorializing notification ids** | Uses `AI/EXEC/DECISION`, `<toolName>/EXEC/...`, or other prefixed ids | Notification descriptor ids name the concern only (e.g. `DECISION`, `DATA-ACCESS-DENIED`); the array (`toolExecutionNotifications` vs `toolConfigurationNotifications`) encodes the kind, `tool.driver.name` encodes the emitter | — |
 | 15 | **Zero-based line numbers** | Emits `startLine: 0` or other 0-based coordinates | SARIF line numbers are 1-based (`startLine` ≥ 1). 0 is invalid per JSON schema | JSON1008 |
@@ -229,9 +227,9 @@ AI agents generating SARIF systematically drift from the standard in predictable
 | 18 | **Missing rule `helpUri`** | Emits `rules[]` without `helpUri` | Every rule should include `helpUri` linking to documentation (CWE URL, internal doc, etc.) | SARIF2012 |
 | 19 | **Non-conventional rule IDs** | Uses tool-specific prefixes like `ACME-CPP-001` | Rule IDs should follow conventional patterns; CWE-based IDs preferred for interoperability | SARIF2009 |
 
-**How drift happens:** LLMs generate SARIF from training data that includes pre-standard drafts, partial examples, and SARIF from non-AI tools. The `emit-sarif-findings` skill instructs them correctly, but agents hallucinate "reasonable" values that aren't in the vocabulary, or place properties at plausible-but-wrong locations in the object graph. Schema validation catches structural drift (#1, #6); AI profile rules catch semantic drift (#2, #4, #5, #8, #10). Both layers are needed.
+**How drift happens:** LLMs generate SARIF from training data that includes pre-standard drafts, partial examples, and SARIF from non-AI tools. The `emit-sarif` skill instructs them correctly, but agents hallucinate "reasonable" values that aren't in the vocabulary, or place properties at plausible-but-wrong locations in the object graph. Schema validation catches structural drift (#1, #6); AI profile rules catch semantic drift (#2, #4, #5, #8, #10). Both layers are needed.
 
-**Feedback loop:** When this skill finds a new drift pattern not in this catalog, add it. When the `emit-sarif-findings` skill is updated to prevent a pattern, note that in the catalog but keep the validation rule — prevention at generation time reduces but never eliminates drift.
+**Feedback loop:** When this skill finds a new drift pattern not in this catalog, add it. When the `emit-sarif` skill is updated to prevent a pattern, note that in the catalog but keep the validation rule — prevention at generation time reduces but never eliminates drift.
 
 ## Validation
 

@@ -14,14 +14,14 @@ using Xunit;
 
 namespace Microsoft.CodeAnalysis.Sarif.Multitool
 {
-    public class AddReportingDescriptorCommandTests : IDisposable
+    public class ReportingDescriptorCommandTests : IDisposable
     {
         private readonly string _dir;
         private readonly TextWriter _origStdOut;
         private readonly TextWriter _origStdErr;
         private readonly TextReader _origStdIn;
 
-        public AddReportingDescriptorCommandTests()
+        public ReportingDescriptorCommandTests()
         {
             _dir = Path.Combine(Path.GetTempPath(), $"add-rdesc-{Guid.NewGuid():N}");
             Directory.CreateDirectory(_dir);
@@ -59,11 +59,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 InputPath,
                 "{ \"id\": \"progress\", \"name\": \"Progress\", \"shortDescription\": { \"text\": \"Per-batch progress.\" } }");
 
-            int exit = new AddReportingDescriptorCommand().Run(new AddReportingDescriptorOptions
+            int exit = new AddNotificationReportingDescriptorCommand().Run(new AddNotificationReportingDescriptorOptions
             {
                 OutputFilePath = OutPath,
                 InputFilePath = InputPath,
-                // Rules defaults to false → notification target
+                // notifications target
             });
 
             exit.Should().Be(CommandBase.SUCCESS);
@@ -75,18 +75,17 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         }
 
         [Fact]
-        public void Run_HappyPath_AppendsRuleDescriptorWhenRulesFlagSet()
+        public void Run_HappyPath_AppendsRuleDescriptor()
         {
             SeedRunHeader();
             File.WriteAllText(
                 InputPath,
                 "{ \"id\": \"NOVEL-prompt-injection\", \"name\": \"PromptInjection\", \"helpUri\": \"https://example.com/help\" }");
 
-            int exit = new AddReportingDescriptorCommand().Run(new AddReportingDescriptorOptions
+            int exit = new AddRuleReportingDescriptorCommand().Run(new AddRuleReportingDescriptorOptions
             {
                 OutputFilePath = OutPath,
                 InputFilePath = InputPath,
-                Rules = true,
             });
 
             exit.Should().Be(CommandBase.SUCCESS);
@@ -115,11 +114,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 "\"properties\": { \"ai/family\": \"prompt\", \"observed\": \"2026-02-14T08:30:00+00:00\" } }";
             File.WriteAllText(InputPath, Rich);
 
-            int exit = new AddReportingDescriptorCommand().Run(new AddReportingDescriptorOptions
+            int exit = new AddRuleReportingDescriptorCommand().Run(new AddRuleReportingDescriptorOptions
             {
                 OutputFilePath = OutPath,
                 InputFilePath = InputPath,
-                Rules = true,
             });
 
             exit.Should().Be(CommandBase.SUCCESS);
@@ -135,26 +133,68 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         [Fact]
         public void Run_RulesPath_RejectsTaxonomyIdNotInNovelForm()
         {
-            // The --rules path is reserved for NOVEL- novel-finding descriptors. Taxonomy
+            // add-rule-reporting-descriptor is reserved for NOVEL- novel-finding descriptors. Taxonomy
             // rule descriptors (e.g., CWE-89) come from the taxonomy enricher and MUST NOT
             // be authored via this verb.
+            AssertRulesPathRejects("{ \"id\": \"CWE-89\", \"name\": \"SqlInjection\" }", "CWE-89");
+        }
+
+        [Fact]
+        public void Run_RulesPath_RejectsBareNovelPrefix()
+        {
+            // 'NOVEL-' has the prefix but no kebab sub-id — the full grammar requires at
+            // least one lowercase-alphanumeric segment after the hyphen.
+            AssertRulesPathRejects("{ \"id\": \"NOVEL-\", \"name\": \"Bare\" }", "NOVEL-");
+        }
+
+        [Fact]
+        public void Run_RulesPath_RejectsNovelIdWithSlash()
+        {
+            // The NOVEL- escape hatch is kebab-only; a slash (taxonomy sub-id punctuation)
+            // is not legal in a novel id, so a descriptor id can never carry one.
+            AssertRulesPathRejects("{ \"id\": \"NOVEL-foo/bar\", \"name\": \"Slash\" }", "NOVEL-foo/bar");
+        }
+
+        [Fact]
+        public void Run_RulesPath_RejectsNovelIdWithTrailingHyphen()
+        {
+            // A trailing hyphen leaves an empty final kebab segment — rejected.
+            AssertRulesPathRejects("{ \"id\": \"NOVEL-trailing-\", \"name\": \"Trailing\" }", "NOVEL-trailing-");
+        }
+
+        [Fact]
+        public void Run_RulesPath_RejectsNovelIdWithUppercaseTail()
+        {
+            // The novel grammar is lowercase-kebab; an uppercase tail would not match the
+            // result-side NOVEL- ruleId, so the descriptor id is rejected.
+            AssertRulesPathRejects("{ \"id\": \"NOVEL-PromptInjection\", \"name\": \"Upper\" }", "NOVEL-PromptInjection");
+        }
+
+        [Fact]
+        public void Run_RulesPath_RejectsNovelIdWithDoubleHyphen()
+        {
+            // Double hyphen yields an empty interior segment — rejected.
+            AssertRulesPathRejects("{ \"id\": \"NOVEL--double\", \"name\": \"Double\" }", "NOVEL--double");
+        }
+
+        private void AssertRulesPathRejects(string descriptorJson, string expectedIdInError)
+        {
             SeedRunHeader();
-            File.WriteAllText(InputPath, "{ \"id\": \"CWE-89\", \"name\": \"SqlInjection\" }");
+            File.WriteAllText(InputPath, descriptorJson);
 
             using var errWriter = new StringWriter();
             Console.SetError(errWriter);
 
-            int exit = new AddReportingDescriptorCommand().Run(new AddReportingDescriptorOptions
+            int exit = new AddRuleReportingDescriptorCommand().Run(new AddRuleReportingDescriptorOptions
             {
                 OutputFilePath = OutPath,
                 InputFilePath = InputPath,
-                Rules = true,
             });
 
             exit.Should().Be(CommandBase.FAILURE);
             string err = errWriter.ToString();
             err.Should().Contain(AIRuleIdConventionException.ErrorCode);
-            err.Should().Contain("'CWE-89'");
+            err.Should().Contain($"'{expectedIdInError}'");
             err.Should().Contain("NOVEL-");
 
             // Critical: the rejected descriptor must NOT pollute the event log.
@@ -168,11 +208,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             SeedRunHeader();
             File.WriteAllText(InputPath, "{ \"id\": \"config-error\", \"name\": \"ConfigError\" }");
 
-            int exit = new AddReportingDescriptorCommand().Run(new AddReportingDescriptorOptions
+            int exit = new AddNotificationReportingDescriptorCommand().Run(new AddNotificationReportingDescriptorOptions
             {
                 OutputFilePath = OutPath,
                 InputFilePath = InputPath,
-                // Rules = false → notifications target; no id convention enforced
+                // notifications target; no id convention enforced
             });
 
             exit.Should().Be(CommandBase.SUCCESS);
@@ -188,7 +228,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             using var errWriter = new StringWriter();
             Console.SetError(errWriter);
 
-            int exit = new AddReportingDescriptorCommand().Run(new AddReportingDescriptorOptions
+            int exit = new AddNotificationReportingDescriptorCommand().Run(new AddNotificationReportingDescriptorOptions
             {
                 OutputFilePath = OutPath,
                 InputFilePath = InputPath,
@@ -208,7 +248,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             using var errWriter = new StringWriter();
             Console.SetError(errWriter);
 
-            int exit = new AddReportingDescriptorCommand().Run(new AddReportingDescriptorOptions
+            int exit = new AddNotificationReportingDescriptorCommand().Run(new AddNotificationReportingDescriptorOptions
             {
                 OutputFilePath = OutPath,
                 InputFilePath = InputPath,
@@ -230,7 +270,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             using var errWriter = new StringWriter();
             Console.SetError(errWriter);
 
-            int exit = new AddReportingDescriptorCommand().Run(new AddReportingDescriptorOptions
+            int exit = new AddNotificationReportingDescriptorCommand().Run(new AddNotificationReportingDescriptorOptions
             {
                 OutputFilePath = OutPath,
                 InputFilePath = InputPath,
@@ -250,11 +290,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
             // First add: success.
             File.WriteAllText(InputPath, "{ \"id\": \"NOVEL-foo\", \"name\": \"Foo\" }");
-            new AddReportingDescriptorCommand().Run(new AddReportingDescriptorOptions
+            new AddRuleReportingDescriptorCommand().Run(new AddRuleReportingDescriptorOptions
             {
                 OutputFilePath = OutPath,
                 InputFilePath = InputPath,
-                Rules = true,
             }).Should().Be(CommandBase.SUCCESS);
 
             // Second add of the SAME id: reject.
@@ -262,11 +301,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             using var errWriter = new StringWriter();
             Console.SetError(errWriter);
 
-            int exit = new AddReportingDescriptorCommand().Run(new AddReportingDescriptorOptions
+            int exit = new AddRuleReportingDescriptorCommand().Run(new AddRuleReportingDescriptorOptions
             {
                 OutputFilePath = OutPath,
                 InputFilePath = InputPath,
-                Rules = true,
             });
 
             exit.Should().Be(CommandBase.FAILURE);
@@ -285,7 +323,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             SeedRunHeader();
 
             File.WriteAllText(InputPath, "{ \"id\": \"progress\", \"name\": \"Progress\" }");
-            new AddReportingDescriptorCommand().Run(new AddReportingDescriptorOptions
+            new AddNotificationReportingDescriptorCommand().Run(new AddNotificationReportingDescriptorOptions
             {
                 OutputFilePath = OutPath,
                 InputFilePath = InputPath,
@@ -295,7 +333,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             using var errWriter = new StringWriter();
             Console.SetError(errWriter);
 
-            int exit = new AddReportingDescriptorCommand().Run(new AddReportingDescriptorOptions
+            int exit = new AddNotificationReportingDescriptorCommand().Run(new AddNotificationReportingDescriptorOptions
             {
                 OutputFilePath = OutPath,
                 InputFilePath = InputPath,
@@ -315,15 +353,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             SeedRunHeader();
 
             File.WriteAllText(InputPath, "{ \"id\": \"NOVEL-foo\", \"name\": \"Foo\" }");
-            new AddReportingDescriptorCommand().Run(new AddReportingDescriptorOptions
+            new AddRuleReportingDescriptorCommand().Run(new AddRuleReportingDescriptorOptions
             {
                 OutputFilePath = OutPath,
                 InputFilePath = InputPath,
-                Rules = true,
             }).Should().Be(CommandBase.SUCCESS);
 
             File.WriteAllText(InputPath, "{ \"id\": \"NOVEL-foo\", \"name\": \"FooNotification\" }");
-            int exit = new AddReportingDescriptorCommand().Run(new AddReportingDescriptorOptions
+            int exit = new AddNotificationReportingDescriptorCommand().Run(new AddNotificationReportingDescriptorOptions
             {
                 OutputFilePath = OutPath,
                 InputFilePath = InputPath,
@@ -338,7 +375,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         public void Run_RejectsDuplicateAgainstHeaderPrePopulatedRules()
         {
             // Producer pre-populated a rule descriptor on the run-header. Subsequent
-            // add-reporting-descriptor --rules with the same id MUST fail at receipt.
+            // add-rule-reporting-descriptor with the same id MUST fail at receipt.
             SeedRunHeader(new Run
             {
                 Tool = new Tool
@@ -359,11 +396,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             using var errWriter = new StringWriter();
             Console.SetError(errWriter);
 
-            int exit = new AddReportingDescriptorCommand().Run(new AddReportingDescriptorOptions
+            int exit = new AddRuleReportingDescriptorCommand().Run(new AddRuleReportingDescriptorOptions
             {
                 OutputFilePath = OutPath,
                 InputFilePath = InputPath,
-                Rules = true,
             });
 
             exit.Should().Be(CommandBase.FAILURE);
@@ -397,7 +433,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             using var errWriter = new StringWriter();
             Console.SetError(errWriter);
 
-            int exit = new AddReportingDescriptorCommand().Run(new AddReportingDescriptorOptions
+            int exit = new AddNotificationReportingDescriptorCommand().Run(new AddNotificationReportingDescriptorOptions
             {
                 OutputFilePath = OutPath,
                 InputFilePath = InputPath,
@@ -419,14 +455,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             using var errWriter = new StringWriter();
             Console.SetError(errWriter);
 
-            int exit = new AddReportingDescriptorCommand().Run(new AddReportingDescriptorOptions
+            int exit = new AddNotificationReportingDescriptorCommand().Run(new AddNotificationReportingDescriptorOptions
             {
                 OutputFilePath = OutPath,
                 InputFilePath = InputPath,
             });
 
             exit.Should().Be(CommandBase.FAILURE);
-            errWriter.ToString().Should().Contain("emit-init-run");
+            errWriter.ToString().Should().Contain("emit-run");
         }
 
         [Fact]
@@ -438,7 +474,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             using var errWriter = new StringWriter();
             Console.SetError(errWriter);
 
-            int exit = new AddReportingDescriptorCommand().Run(new AddReportingDescriptorOptions
+            int exit = new AddNotificationReportingDescriptorCommand().Run(new AddNotificationReportingDescriptorOptions
             {
                 OutputFilePath = OutPath,
                 InputFilePath = InputPath,
@@ -458,7 +494,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             using var errWriter = new StringWriter();
             Console.SetError(errWriter);
 
-            int exit = new AddReportingDescriptorCommand().Run(new AddReportingDescriptorOptions
+            int exit = new AddNotificationReportingDescriptorCommand().Run(new AddNotificationReportingDescriptorOptions
             {
                 OutputFilePath = OutPath,
                 InputFilePath = InputPath,

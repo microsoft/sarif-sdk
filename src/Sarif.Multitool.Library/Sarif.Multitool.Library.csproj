@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup Label="AssemblyAttributes">
     <AssemblyTitle>SARIF Multitool Library</AssemblyTitle>
@@ -27,6 +27,18 @@
 
   <ItemGroup>
     <EmbeddedResource Include="$(MsBuildThisFileDirectory)..\Sarif\Schemata\sarif-$(SchemaVersionAsPublishedToSchemaStoreOrg).json" Link="sarif-2.1.0.json" CopyToOutputDirectory="PreserveNewest" />
+    <EmbeddedResource Include="GetSchema\*.schema.json">
+      <LogicalName>Microsoft.CodeAnalysis.Sarif.Multitool.GetSchema.%(Filename)%(Extension)</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MsBuildThisFileDirectory)..\..\skills\emit-sarif\SKILL.md">
+      <LogicalName>Microsoft.CodeAnalysis.Sarif.Multitool.Skills.emit-sarif.SKILL.md</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MsBuildThisFileDirectory)..\..\skills\publish-to-ghazdo\SKILL.md">
+      <LogicalName>Microsoft.CodeAnalysis.Sarif.Multitool.Skills.publish-to-ghazdo.SKILL.md</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MsBuildThisFileDirectory)..\..\skills\validate-sarif\SKILL.md">
+      <LogicalName>Microsoft.CodeAnalysis.Sarif.Multitool.Skills.validate-sarif.SKILL.md</LogicalName>
+    </EmbeddedResource>
   </ItemGroup>
 
   <ItemGroup>

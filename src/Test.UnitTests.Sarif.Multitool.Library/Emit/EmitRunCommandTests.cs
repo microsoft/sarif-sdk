@@ -16,7 +16,7 @@ using Xunit;
 
 namespace Microsoft.CodeAnalysis.Sarif.Multitool
 {
-    public class EmitInitRunCommandTests : IDisposable
+    public class EmitRunCommandTests : IDisposable
     {
         private readonly string _dir;
         private readonly TextWriter _origStdOut;
@@ -24,9 +24,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         private readonly TextReader _origStdIn;
         private readonly IEnvironmentVariableGetter _emptyEnv = new EmptyEnvironmentVariableGetter();
 
-        public EmitInitRunCommandTests()
+        public EmitRunCommandTests()
         {
-            _dir = Path.Combine(Path.GetTempPath(), $"emit-init-run-{Guid.NewGuid():N}");
+            _dir = Path.Combine(Path.GetTempPath(), $"emit-run-{Guid.NewGuid():N}");
             Directory.CreateDirectory(_dir);
 
             _origStdOut = Console.Out;
@@ -47,7 +47,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         private string WipPath => OutPath + ".wip.jsonl";
         private string InputPath => Path.Combine(_dir, "run.json");
 
-        private EmitInitRunCommand NewCommand() => new EmitInitRunCommand(_emptyEnv);
+        private EmitRunCommand NewCommand() => new EmitRunCommand(_emptyEnv);
 
         // Minimal Run shape that satisfies the verb's required-field check; tests build on this
         // by mutating a JObject clone so each scenario stays self-contained.
@@ -64,7 +64,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         private int RunWithInput(JObject runObject, bool forceOverwrite = false)
         {
             WriteInput(runObject);
-            return NewCommand().Run(new EmitInitRunOptions
+            return NewCommand().Run(new EmitRunOptions
             {
                 OutputFilePath = OutPath,
                 InputFilePath = InputPath,
@@ -75,7 +75,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         private int RunWithInput(IEnvironmentVariableGetter env, JObject runObject, bool forceOverwrite = false)
         {
             WriteInput(runObject);
-            return new EmitInitRunCommand(env).Run(new EmitInitRunOptions
+            return new EmitRunCommand(env).Run(new EmitRunOptions
             {
                 OutputFilePath = OutPath,
                 InputFilePath = InputPath,
@@ -100,9 +100,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         [Fact]
         public void Run_WithRichRunHeader_AppendsTwoVcpEntriesAndPropertiesBag()
         {
-            // The motivating scenario: producers need to emit multiple versionControlProvenance
-            // entries with attached properties bags (e.g. one documenting the skills in play)
-            // that the previous flag surface could not encode.
+            // Producers can emit multiple versionControlProvenance entries, each with an
+            // attached properties bag (e.g. one documenting the skills in play).
             var richRun = new JObject
             {
                 ["tool"] = new JObject
@@ -185,7 +184,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             using var errWriter = new StringWriter();
             Console.SetError(errWriter);
 
-            int exit = NewCommand().Run(new EmitInitRunOptions
+            int exit = NewCommand().Run(new EmitRunOptions
             {
                 OutputFilePath = OutPath,
                 InputFilePath = InputPath,
@@ -297,6 +296,74 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         }
 
         [Fact]
+        public void Run_WithUnsupportedVcpHost_Fails()
+        {
+            // https passes the header scheme check, but gitlab.com is not a derivable portable-root
+            // host, so the receipt-time shape gate rejects it.
+            JObject runObject = MinimalRun();
+            runObject["versionControlProvenance"] = new JArray
+            {
+                new JObject { ["repositoryUri"] = "https://gitlab.com/acme/demo" },
+            };
+
+            int exit = RunWithInput(runObject);
+
+            exit.Should().Be(CommandBase.FAILURE);
+            File.Exists(WipPath).Should().BeFalse();
+        }
+
+        [Fact]
+        public void Run_WithMalformedAdoVcpRepositoryUri_Fails()
+        {
+            // A dev.azure.com URL missing its project segment is a valid https URI but not a
+            // derivable Azure DevOps repository root, so the receipt-time shape gate rejects it.
+            JObject runObject = MinimalRun();
+            runObject["versionControlProvenance"] = new JArray
+            {
+                new JObject { ["repositoryUri"] = "https://dev.azure.com/contoso/_git/widgets" },
+            };
+
+            int exit = RunWithInput(runObject);
+
+            exit.Should().Be(CommandBase.FAILURE);
+            File.Exists(WipPath).Should().BeFalse();
+        }
+
+        [Fact]
+        public void Run_WithCredentialBearingVcpRepositoryUri_Fails()
+        {
+            // A repositoryUri carrying embedded credentials (account@ here; a PAT or user:password@
+            // would be worse) is rejected at the receipt-time shape gate so it never reaches finalize.
+            JObject runObject = MinimalRun();
+            runObject["versionControlProvenance"] = new JArray
+            {
+                new JObject { ["repositoryUri"] = "https://x-access-token@github.com/acme/demo" },
+            };
+
+            int exit = RunWithInput(runObject);
+
+            exit.Should().Be(CommandBase.FAILURE);
+            File.Exists(WipPath).Should().BeFalse();
+        }
+
+        [Fact]
+        public void Run_WithSupportedGheComVcpRepositoryUri_Succeeds()
+        {
+            // <slug>.ghe.com is the GitHub data-residency / EMU host and is an allow-listed
+            // portable-root host, so the receipt-time shape gate accepts it.
+            JObject runObject = MinimalRun();
+            runObject["versionControlProvenance"] = new JArray
+            {
+                new JObject { ["repositoryUri"] = "https://octocorp.ghe.com/acme/demo" },
+            };
+
+            int exit = RunWithInput(runObject);
+
+            exit.Should().Be(CommandBase.SUCCESS);
+            File.Exists(WipPath).Should().BeTrue();
+        }
+
+        [Fact]
         public void Run_WithNonArrayVcp_Fails()
         {
             JObject runObject = MinimalRun();
@@ -321,6 +388,37 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
             exit.Should().Be(CommandBase.FAILURE);
             File.Exists(WipPath).Should().BeFalse();
+        }
+
+        [Fact]
+        public void Run_WithNonExistentFileSrcroot_Fails()
+        {
+            JObject runObject = MinimalRun();
+            string missingDir = Path.Combine(_dir, "no-such-checkout");
+            runObject["originalUriBaseIds"] = new JObject
+            {
+                ["SRCROOT"] = new JObject { ["uri"] = new Uri(missingDir).AbsoluteUri },
+            };
+
+            int exit = RunWithInput(runObject);
+
+            exit.Should().Be(CommandBase.FAILURE);
+            File.Exists(WipPath).Should().BeFalse();
+        }
+
+        [Fact]
+        public void Run_WithExistingFileSrcroot_Succeeds()
+        {
+            JObject runObject = MinimalRun();
+            runObject["originalUriBaseIds"] = new JObject
+            {
+                ["SRCROOT"] = new JObject { ["uri"] = new Uri(_dir).AbsoluteUri },
+            };
+
+            int exit = RunWithInput(runObject);
+
+            exit.Should().Be(CommandBase.SUCCESS);
+            File.Exists(WipPath).Should().BeTrue();
         }
 
         [Fact]
@@ -380,7 +478,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         {
             File.WriteAllText(InputPath, "{ not json ");
 
-            int exit = NewCommand().Run(new EmitInitRunOptions
+            int exit = NewCommand().Run(new EmitRunOptions
             {
                 OutputFilePath = OutPath,
                 InputFilePath = InputPath,
@@ -395,7 +493,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         {
             File.WriteAllText(InputPath, "[1,2,3]");
 
-            int exit = NewCommand().Run(new EmitInitRunOptions
+            int exit = NewCommand().Run(new EmitRunOptions
             {
                 OutputFilePath = OutPath,
                 InputFilePath = InputPath,
@@ -408,7 +506,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         [Fact]
         public void Run_WithMissingInputFile_Fails()
         {
-            int exit = NewCommand().Run(new EmitInitRunOptions
+            int exit = NewCommand().Run(new EmitRunOptions
             {
                 OutputFilePath = OutPath,
                 InputFilePath = Path.Combine(_dir, "missing.json"),
@@ -700,6 +798,71 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             exit.Should().Be(CommandBase.SUCCESS);
             var events = new SarifEventLogReader().Read(WipPath).ToList();
             events[0].Payload["versionControlProvenance"].Should().BeNull();
+        }
+
+        [Fact]
+        public void Run_WhenSrcRootDeclared_AndVcpSynthesized_BindsMappedToSourceRoot()
+        {
+            // The run names a local SRCROOT, so the auto-stamped source-repo entry binds to it via
+            // mappedTo. emit-finalize relies on this binding to deconstruct local paths.
+            JObject runObject = MinimalRun();
+            runObject["originalUriBaseIds"] = new JObject
+            {
+                ["SRCROOT"] = new JObject { ["uri"] = new Uri(_dir).AbsoluteUri },
+            };
+            runObject["versionControlProvenance"] = new JArray();
+
+            int exit = RunWithInput(CompleteAdoEnvWithVcp(), runObject);
+
+            exit.Should().Be(CommandBase.SUCCESS);
+            var events = new SarifEventLogReader().Read(WipPath).ToList();
+            var vcp = (JArray)events[0].Payload["versionControlProvenance"];
+            vcp.Should().HaveCount(1);
+            vcp[0]["mappedTo"]["uriBaseId"].ToString().Should().Be(EmitRunCommand.SourceRootBaseId);
+        }
+
+        [Fact]
+        public void Run_WhenSrcRootDeclared_AndCallerSuppliesMappedTo_DoesNotOverride()
+        {
+            // A caller-authored mappedTo is authoritative; stamping fills missing fields but never
+            // rebinds the source root the producer already chose.
+            JObject runObject = MinimalRun();
+            runObject["originalUriBaseIds"] = new JObject
+            {
+                ["SRCROOT"] = new JObject { ["uri"] = new Uri(_dir).AbsoluteUri },
+            };
+            runObject["versionControlProvenance"] = new JArray
+            {
+                new JObject
+                {
+                    ["repositoryUri"] = AdoRepoUriValue,
+                    ["mappedTo"] = new JObject { ["uriBaseId"] = "REPO_ROOT" },
+                },
+            };
+
+            int exit = RunWithInput(CompleteAdoEnvWithVcp(), runObject);
+
+            exit.Should().Be(CommandBase.SUCCESS);
+            var events = new SarifEventLogReader().Read(WipPath).ToList();
+            var vcp = (JArray)events[0].Payload["versionControlProvenance"];
+            vcp[0]["mappedTo"]["uriBaseId"].ToString().Should().Be("REPO_ROOT");
+        }
+
+        [Fact]
+        public void Run_WhenNoSrcRootDeclared_StampedVcpHasNoMappedTo()
+        {
+            // Without a declared SRCROOT there is nothing for mappedTo to resolve against, so the
+            // stamped entry carries no binding rather than a dangling one.
+            JObject runObject = MinimalRun();
+            runObject["versionControlProvenance"] = new JArray();
+
+            int exit = RunWithInput(CompleteAdoEnvWithVcp(), runObject);
+
+            exit.Should().Be(CommandBase.SUCCESS);
+            var events = new SarifEventLogReader().Read(WipPath).ToList();
+            var vcp = (JArray)events[0].Payload["versionControlProvenance"];
+            vcp.Should().HaveCount(1);
+            vcp[0]["mappedTo"].Should().BeNull();
         }
 
         [Fact]

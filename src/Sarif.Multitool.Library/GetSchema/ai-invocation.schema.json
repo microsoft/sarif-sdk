@@ -1,0 +1,75 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/microsoft/sarif-sdk/main/src/Sarif.Multitool.Library/GetSchema/ai-invocation.schema.json",
+  "title": "SARIF AI emit profile \u2014 invocation object",
+  "description": "Input contract for a fully-formed SARIF invocation an AI producer supplies to the add-invocation verb. An overlay on the canonical SARIF 2.1.0 invocation ($ref to the base shape, tightened for the AI profile). Notifications travel INLINE on toolExecutionNotifications/toolConfigurationNotifications and each must carry a producer-supplied timeUtc recording when the event occurred. executionSuccessful, commandLine, and workingDirectory are required; the verb auto-stamps endTimeUtc when omitted (so it is not required here) but never stamps notification timeUtc.",
+  "type": "object",
+  "allOf": [
+    {
+      "$ref": "https://json.schemastore.org/sarif-2.1.0.json#/definitions/invocation"
+    }
+  ],
+  "required": [
+    "executionSuccessful",
+    "commandLine",
+    "workingDirectory"
+  ],
+  "properties": {
+    "executionSuccessful": {
+      "description": "Whether the process the invocation models completed successfully. Required by both SARIF \u00a73.20.21 and the AI profile.",
+      "type": "boolean"
+    },
+    "commandLine": {
+      "description": "The command line that launched the process this invocation models. Required by the AI profile (the natural identity of a launched process) even though SARIF \u00a73.20.4 makes it optional.",
+      "type": "string",
+      "pattern": "\\S"
+    },
+    "workingDirectory": {
+      "description": "The directory the process ran in, as a SARIF artifactLocation. Required by the AI profile (it anchors relative paths in the scan) even though SARIF \u00a73.20.19 makes it optional; the AI producer knows it. The uri must be a non-whitespace string.",
+      "type": "object",
+      "required": [
+        "uri"
+      ],
+      "properties": {
+        "uri": {
+          "type": "string",
+          "pattern": "\\S"
+        }
+      }
+    },
+    "toolExecutionNotifications": {
+      "description": "Notifications about the tool's runtime behavior (cf. SARIF \u00a73.20.27), supplied INLINE. The AI profile requires a producer-supplied timeUtc on each: it records when the event occurred mid-flight, so the verb never stamps it.",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "timeUtc"
+        ],
+        "properties": {
+          "timeUtc": {
+            "type": "string",
+            "format": "date-time",
+            "pattern": "\\S"
+          }
+        }
+      }
+    },
+    "toolConfigurationNotifications": {
+      "description": "Notifications about the tool's configuration (cf. SARIF \u00a73.20.28), supplied INLINE. The AI profile requires a producer-supplied timeUtc on each: it records when the event occurred mid-flight, so the verb never stamps it.",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "timeUtc"
+        ],
+        "properties": {
+          "timeUtc": {
+            "type": "string",
+            "format": "date-time",
+            "pattern": "\\S"
+          }
+        }
+      }
+    }
+  }
+}

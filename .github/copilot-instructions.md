@@ -53,7 +53,7 @@ you're writing a PR description. Trim or split.
   `run.automationDetails`, it must satisfy GHAzDO1019 (the four
   `azuredevops/pipeline/build/*` property keys) and GHAzDO1020 (`id`
   starts with `azuredevops/pipeline/build/`). The env-driven
-  `AdoPipelineContext` path in `emit-init-run` produces a compliant
+  `AdoPipelineContext` path in `emit-run` produces a compliant
   shape automatically when `TF_BUILD=True`.
 - **Sample fixture convention.** Every taxonomy ships a
   `<Tax>GenerateSample.ps1` that produces a deterministic

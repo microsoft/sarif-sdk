@@ -1778,15 +1778,27 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
             }
         }
 
-        internal static string AI2011_DoNotPersistFingerprints_FullDescription_Text {
+        internal static string AI1007_DoNotPersistFingerprints_FullDescription_Text {
             get {
-                return ResourceManager.GetString("AI2011_DoNotPersistFingerprints_FullDescription_Text", resourceCulture);
+                return ResourceManager.GetString("AI1007_DoNotPersistFingerprints_FullDescription_Text", resourceCulture);
             }
         }
 
-        internal static string AI2011_DoNotPersistFingerprints_Note_Default_Text {
+        internal static string AI1007_DoNotPersistFingerprints_Error_Default_Text {
             get {
-                return ResourceManager.GetString("AI2011_DoNotPersistFingerprints_Note_Default_Text", resourceCulture);
+                return ResourceManager.GetString("AI1007_DoNotPersistFingerprints_Error_Default_Text", resourceCulture);
+            }
+        }
+
+        internal static string AI2011_DoNotPersistPartialFingerprints_FullDescription_Text {
+            get {
+                return ResourceManager.GetString("AI2011_DoNotPersistPartialFingerprints_FullDescription_Text", resourceCulture);
+            }
+        }
+
+        internal static string AI2011_DoNotPersistPartialFingerprints_Warning_Default_Text {
+            get {
+                return ResourceManager.GetString("AI2011_DoNotPersistPartialFingerprints_Warning_Default_Text", resourceCulture);
             }
         }
 
@@ -1799,30 +1811,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         internal static string AI2012_ProvideAiHandoff_Note_Default_Text {
             get {
                 return ResourceManager.GetString("AI2012_ProvideAiHandoff_Note_Default_Text", resourceCulture);
-            }
-        }
-
-        internal static string AI1011_RedactedRunMarker_FullDescription_Text {
-            get {
-                return ResourceManager.GetString("AI1011_RedactedRunMarker_FullDescription_Text", resourceCulture);
-            }
-        }
-
-        internal static string AI1011_RedactedRunMarker_Error_FalseValue_Text {
-            get {
-                return ResourceManager.GetString("AI1011_RedactedRunMarker_Error_FalseValue_Text", resourceCulture);
-            }
-        }
-
-        internal static string AI1011_RedactedRunMarker_Error_MissingRedactionTokens_Text {
-            get {
-                return ResourceManager.GetString("AI1011_RedactedRunMarker_Error_MissingRedactionTokens_Text", resourceCulture);
-            }
-        }
-
-        internal static string AI1011_RedactedRunMarker_Error_FullLogWithoutRedaction_Text {
-            get {
-                return ResourceManager.GetString("AI1011_RedactedRunMarker_Error_FullLogWithoutRedaction_Text", resourceCulture);
             }
         }
 

@@ -248,7 +248,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         /// </summary>
         /// <remarks>
         /// <para>The "stamp only when absent, fail on conflict" contract is required because
-        /// callers (notably <c>emit-init-run</c>'s JSON-payload contract) may supply these
+        /// callers (notably <c>emit-run</c>'s JSON-payload contract) may supply these
         /// fields directly. An unconditional overwrite would silently clobber a producer's
         /// declared identity; a conflict is a misconfiguration signal that we want to surface
         /// at the verb rather than ship in the run.</para>
@@ -608,8 +608,26 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             if (!Uri.TryCreate(raw.Trim(), UriKind.Absolute, out Uri parsed)
                 || (parsed.Scheme != Uri.UriSchemeHttp && parsed.Scheme != Uri.UriSchemeHttps))
             {
-                problems.Add(string.Format(CultureInfo.InvariantCulture, "{0}='{1}' is not a valid absolute http(s) URI", envName, raw));
+                // Don't echo the raw value: it can carry a PAT or user:password@ credential.
+                problems.Add(string.Format(CultureInfo.InvariantCulture, "{0} is not a valid absolute http(s) URI", envName));
                 return false;
+            }
+
+            // BUILD_REPOSITORY_URI is untrusted pipeline input: legacy or migrated pipelines can emit
+            // https://<org>@dev.azure.com/... and PAT-auth setups emit a token. Strip the userinfo at
+            // this boundary so the stamped repositoryUri is a clean identity that the
+            // credential-rejecting portable-root derivation accepts.
+            if (!string.IsNullOrEmpty(parsed.UserInfo))
+            {
+                string withoutUserInfo = parsed.GetComponents(
+                    UriComponents.SchemeAndServer | UriComponents.PathAndQuery | UriComponents.Fragment,
+                    UriFormat.UriEscaped);
+
+                if (!Uri.TryCreate(withoutUserInfo, UriKind.Absolute, out parsed))
+                {
+                    problems.Add(string.Format(CultureInfo.InvariantCulture, "{0} is not a valid absolute http(s) URI", envName));
+                    return false;
+                }
             }
 
             value = parsed;

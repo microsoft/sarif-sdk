@@ -18,7 +18,7 @@ using Newtonsoft.Json;
 namespace Microsoft.CodeAnalysis.Sarif.Multitool
 {
     /// <summary>
-    /// Implements <c>multitool emit-finalize</c>: replays <c>&lt;output&gt;.wip.jsonl</c>,
+    /// Implements <c>emit-finalize</c>: replays <c>&lt;output&gt;.wip.jsonl</c>,
     /// optionally enriches CWE-as-rule-id descriptors, and atomically writes the destination
     /// SARIF file.
     /// </summary>
@@ -35,12 +35,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                     fileSystem,
                     out string wipPath);
                 if (code != SUCCESS) { return code; }
-
-                if (!EmitEventLogHelpers.TryValidateUri(options.SrcRoot, "--srcroot", EmitEventLogHelpers.BaseUriSchemes, out string srcRootError))
-                {
-                    Console.Error.WriteLine(srcRootError);
-                    return FAILURE;
-                }
 
                 string outputPath = Path.GetFullPath(options.OutputFilePath);
 
@@ -71,8 +65,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 //                                    same span by offset, not just
                 //                                    line/column.
                 //
-                // OverwriteExistingData is intentionally NOT set; producers that
-                // have already populated any of these fields keep their values.
+                // OverwriteExistingData is intentionally NOT set. Beyond preserving any
+                // fields a producer already populated, leaving it unset also validates
+                // recomputed region coordinates: if a producer authored a region coordinate
+                // that does not match the source text, emit-finalize fails (ArgumentException)
+                // rather than silently shipping a region that points at the wrong span. A
+                // caller that wants divergent coordinates recomputed (overwritten) instead
+                // would set OverwriteExistingData.
                 OptionallyEmittedData enrichmentFlags =
                     OptionallyEmittedData.Hashes |
                     OptionallyEmittedData.RegionSnippets |
@@ -99,31 +98,26 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                     }
                 }
 
-                // After enrichment, optionally rewrite originalUriBaseIds["SRCROOT"].uri.
-                // Producers commonly emit with a local file:// SRCROOT so the visitor above
-                // can read sources for snippets/hashes/contextRegion, then ship the SARIF
-                // with a canonical, host-independent URI (e.g. a GitHub blob URL). Doing
-                // the swap here — after the visitor, before serialization — keeps both
-                // contracts intact: enrichment uses real files; the artifact ships portable.
-                if (!string.IsNullOrWhiteSpace(options.SrcRoot) && log?.Runs != null)
+                // After enrichment reads sources from the local file:// bases, deconstruct every
+                // absolute local path into a relative URI plus a portable, per-repository uriBaseId
+                // derived from versionControlProvenance, so the shipped SARIF anchors at stable,
+                // host-independent permalinks and carries no machine-specific path.
+                if (log?.Runs != null)
                 {
-                    var finalSrcRoot = new Uri(options.SrcRoot, UriKind.Absolute);
+                    var rebaseVisitor = new EmitFinalizeRebaseVisitor();
                     foreach (Run run in log.Runs)
                     {
-                        if (run == null) { continue; }
+                        if (run != null) { rebaseVisitor.VisitRun(run); }
+                    }
 
-                        run.OriginalUriBaseIds ??= new Dictionary<string, ArtifactLocation>();
-                        if (run.OriginalUriBaseIds.TryGetValue(EmitInitRunCommand.SourceRootBaseId, out ArtifactLocation existing) && existing != null)
+                    if (!rebaseVisitor.Success)
+                    {
+                        foreach (string rebaseError in rebaseVisitor.Errors)
                         {
-                            existing.Uri = finalSrcRoot;
+                            Console.Error.WriteLine(rebaseError);
                         }
-                        else
-                        {
-                            run.OriginalUriBaseIds[EmitInitRunCommand.SourceRootBaseId] = new ArtifactLocation
-                            {
-                                Uri = finalSrcRoot,
-                            };
-                        }
+
+                        return FAILURE;
                     }
                 }
 

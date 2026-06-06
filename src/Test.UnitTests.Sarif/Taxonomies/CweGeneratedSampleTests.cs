@@ -59,6 +59,96 @@ namespace Microsoft.CodeAnalysis.Sarif.Taxonomies
         }
 
         [Fact]
+        public void CweGenerateSample_DefaultMode_ReconstructsLiveProvenanceFromGit()
+        {
+            // The bug this guards: the script once hardcoded revisionId to a
+            // frozen github sha while resolving repositoryUri live from the
+            // origin remote, so copying the taxonomy into another repo (e.g.
+            // Azure DevOps) and running it produced an INCOHERENT
+            // versionControlProvenance — a repositoryUri for repo X paired
+            // with a commit that only exists in github sarif-sdk. Default mode
+            // must now reconstruct the whole triple from the live working
+            // tree. We assert the regenerated fixture carries this repo's real
+            // HEAD (not the frozen pin), then restore the checked-in bytes so
+            // the test leaves the working tree clean.
+            string pwsh = FindOnPath("pwsh") ?? FindOnPath("pwsh.exe");
+            if (pwsh == null)
+            {
+                _output.WriteLine("pwsh not found on PATH; skipping live-provenance test.");
+                return;
+            }
+
+            string testAssemblyDirectory = Path.GetDirectoryName(typeof(CweGeneratedSampleTests).Assembly.Location);
+            string repoRoot = FindRepoRoot(testAssemblyDirectory);
+            if (repoRoot == null)
+            {
+                _output.WriteLine($"Could not locate repo root from '{testAssemblyDirectory}'; skipping.");
+                return;
+            }
+
+            string multitoolPath = Path.GetFullPath(Path.Combine(Path.GetDirectoryName(testAssemblyDirectory) ?? string.Empty, "..", "Sarif.Multitool", "net8.0", "Sarif.Multitool.dll"));
+            if (!File.Exists(multitoolPath))
+            {
+                _output.WriteLine($"Sarif.Multitool.dll not found at '{multitoolPath}'; skipping.");
+                return;
+            }
+
+            string headSha = RunGit(repoRoot, "rev-parse HEAD");
+            if (string.IsNullOrWhiteSpace(headSha))
+            {
+                _output.WriteLine($"Could not resolve HEAD at '{repoRoot}' (no git context); skipping live-provenance test.");
+                return;
+            }
+            headSha = headSha.Trim();
+
+            string scriptPath = Path.Combine(repoRoot, ScriptRelativePath);
+            string fixturePath = Path.Combine(repoRoot, DefaultFixtureRelativePath);
+            File.Exists(scriptPath).Should().BeTrue($"the generator script must exist at '{scriptPath}'");
+            File.Exists(fixturePath).Should().BeTrue($"the checked-in fixture must exist at '{fixturePath}'");
+
+            string configuration = InferConfigurationFromAssemblyPath(testAssemblyDirectory) ?? "Release";
+
+            // Snapshot the checked-in fixture; default mode overwrites it in
+            // place with live provenance, so we restore it in the finally.
+            byte[] checkedInBytes = File.ReadAllBytes(fixturePath);
+            try
+            {
+                int exitCode = RunPwsh(
+                    pwsh,
+                    scriptPath,
+                    new[] { "-Configuration", configuration },
+                    out string stdout,
+                    out string stderr);
+
+                if (exitCode != 0)
+                {
+                    Assert.Fail(
+                        $"CweGenerateSample.ps1 (default mode) exited with code {exitCode}.{Environment.NewLine}" +
+                        $"stdout:{Environment.NewLine}{stdout}{Environment.NewLine}" +
+                        $"stderr:{Environment.NewLine}{stderr}");
+                }
+
+                string produced = File.ReadAllText(fixturePath);
+
+                produced.Should().Contain(
+                    headSha,
+                    "default mode must stamp the live HEAD commit into versionControlProvenance.revisionId (and, on the github host, the SRCROOT blob permalink)");
+
+                const string FrozenPin = "84f83c813bcf52ae2c0fd7ff2963e2fa2a2efac7";
+                if (!string.Equals(headSha, FrozenPin, StringComparison.OrdinalIgnoreCase))
+                {
+                    produced.Should().NotContain(
+                        FrozenPin,
+                        "default mode must reconstruct provenance from the live tree, not fall back to the hardcoded canonical sha");
+                }
+            }
+            finally
+            {
+                File.WriteAllBytes(fixturePath, checkedInBytes);
+            }
+        }
+
+        [Fact]
         public void CweGHAzDoSample_RegenerationSucceeds_WhenAmbientAdoFallbackEnvVarsConflict()
         {
             // Regression gate for the mseng pipeline break: a real ADO agent
@@ -66,7 +156,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Taxonomies
             // with the genuine pipeline id, which disagrees with the fixed
             // '1234' the script stamps on BUILD_DEFINITIONID. Without the
             // script also overriding the fallback, AdoPipelineContext.TryDetect
-            // raises "disagrees with" and emit-init-run exits non-zero before
+            // raises "disagrees with" and emit-run exits non-zero before
             // any fixture bytes are written. Set conflicting values for every
             // fallback env var the verb reads to ensure the script scrubs
             // them all.
@@ -87,7 +177,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Taxonomies
             // GITHUB_ACTIONS=true + GITHUB_SHA=<real commit sha>; without the
             // script scrubbing those, GitHubActionsContext.TryDetect returns
             // Complete with a revisionId that conflicts with the zero-SHA the
-            // script writes into the supplied VCP entry, and emit-init-run
+            // script writes into the supplied VCP entry, and emit-run
             // exits non-zero before any fixture bytes are written. Set
             // conflicting values for every GHA env var the verb reads.
             VerifyScriptIsIsolatedFromAmbientFallbackEnv(
@@ -170,7 +260,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Taxonomies
             byte[] expectedBytes = File.ReadAllBytes(fixturePath);
             string expectedHash = ComputeSha256(expectedBytes);
 
-            var scriptArgs = new List<string> { "-Configuration", configuration };
+            // -Deterministic pins versionControlProvenance to the canonical
+            // fixture triple (repositoryUri/revisionId/branch) so the
+            // regeneration is byte-identical regardless of the host machine's
+            // git HEAD, branch, or origin remote (fork PRs included). Without
+            // it the script reconstructs live provenance from the working
+            // tree, which is the run-anywhere consumer path, not the fixture.
+            var scriptArgs = new List<string> { "-Configuration", configuration, "-Deterministic" };
             scriptArgs.AddRange(extraScriptArgs);
 
             int exitCode = RunPwsh(
@@ -391,6 +487,33 @@ namespace Microsoft.CodeAnalysis.Sarif.Taxonomies
             stdout = stdoutBuilder.ToString();
             stderr = stderrBuilder.ToString();
             return process.ExitCode;
+        }
+
+        private static string RunGit(string workingDirectory, string arguments)
+        {
+            try
+            {
+                var psi = new ProcessStartInfo
+                {
+                    FileName = "git",
+                    Arguments = arguments,
+                    WorkingDirectory = workingDirectory,
+                    UseShellExecute = false,
+                    RedirectStandardOutput = true,
+                    RedirectStandardError = true,
+                    CreateNoWindow = true,
+                };
+                using var process = new Process { StartInfo = psi };
+                process.Start();
+                string output = process.StandardOutput.ReadToEnd();
+                process.StandardError.ReadToEnd();
+                process.WaitForExit();
+                return process.ExitCode == 0 ? output : null;
+            }
+            catch
+            {
+                return null;
+            }
         }
 
         private static string FindOnPath(string fileName)

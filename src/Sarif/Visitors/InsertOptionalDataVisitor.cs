@@ -101,7 +101,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             {
                 Uri resolvedUri = GetResolvedArtifactLocationUri(node.ArtifactLocation);
 
-                Region expandedRegion = FileRegionsCache.PopulateTextRegionProperties(node.Region, resolvedUri, populateSnippet: insertRegionSnippets);
+                Region expandedRegion = FileRegionsCache.PopulateTextRegionProperties(node.Region, resolvedUri, populateSnippet: insertRegionSnippets, fileText: null, overwriteExistingData: overwriteExistingData);
 
                 ArtifactContent originalSnippet = node.Region.Snippet;
 
@@ -242,7 +242,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     if (contextRegionSnippet == null)
                     {
                         Region expandedRegion =
-                            FileRegionsCache.PopulateTextRegionProperties(physicalLocation.Region, resolvedUri, false);
+                            FileRegionsCache.PopulateTextRegionProperties(physicalLocation.Region, resolvedUri, populateSnippet: false, fileText: null, overwriteExistingData: dataToInsert.HasFlag(OptionallyEmittedData.OverwriteExistingData));
                         contextRegionSnippet = FileRegionsCache.ConstructMultilineContextSnippet(expandedRegion, resolvedUri)?.Snippet;
                     }
 

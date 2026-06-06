@@ -1,12 +1,12 @@
 ---
-name: emit-sarif-findings
+name: emit-sarif
 description: Serialize AI-detected security findings as SARIF v2.1.0 conforming to the AI-generated-findings profile, using the Sarif.Multitool emit verbs.
 metadata:
   author: sarif-sdk-maintainers
   version: "1.0.0"
   category: security
   packages:
-    - "Sarif.Multitool >= 5.0.2"
+    - "Sarif.Multitool >= 5.0.3"
   triggers:
     - "emit SARIF"
     - "write findings to SARIF"
@@ -32,19 +32,19 @@ Apply this skill when an agent is the **originating** detector (not post-process
 
 ## Prerequisites
 
-- **`Sarif.Multitool` ≥ 5.0.2.** Recommended invocation: `dotnet dnx Sarif.Multitool --yes -- <verb> ...` (zero-install, version-resolved at first run; requires .NET 10+). Fall back to a global install with `dotnet tool install --global Sarif.Multitool` if `dotnet dnx` is unavailable.
+- **`Sarif.Multitool` ≥ 5.0.3.** Recommended invocation: `dotnet dnx Sarif.Multitool --yes -- <verb> ...` (zero-install, version-resolved at first run; requires .NET 10+). Fall back to a global install with `dotnet tool install --global Sarif.Multitool` if `dotnet dnx` is unavailable.
 - The current commit SHA, branch, repository URI, and a local source-root path.
 - The normative profile doc: [`docs/ai/generating-sarif.md`](../../docs/ai/generating-sarif.md). Cross-reference it for every property you populate — do not invent vocabulary.
 
 ## Method
 
-The skill uses five multitool verbs: `emit-init-run` → `add-result` / `add-notification` / `add-invocation` (per finding, event, or scan phase) → `emit-finalize --validate`. Each verb either appends to an event log (`<output>.wip.jsonl`) or replays the log into a finished SARIF file.
+The skill uses these multitool verbs: `emit-run` → `add-result` / `add-invocation` (per finding or scan phase) → `add-notification-reporting-descriptor` / `add-rule-reporting-descriptor` (optional descriptor catalogs) → `emit-finalize --validate`. Each verb either appends to an event log (`<output>.wip.jsonl`) or replays the log into a finished SARIF file.
 
 This staged design lets you build a run incrementally: hold one finding in working memory at a time, write it, move on. The final file is produced atomically by `emit-finalize`.
 
 ### Step 1 — Initialize the run
 
-Construct a SARIF `Run` JSON object — the same partial-Run shape consumed by `SarifEventReplayer` — and pipe it to `emit-init-run`. The verb accepts the run header via `--input <path>` or stdin, exactly like `add-result` / `add-notification`. There is no flag-based form; if a field belongs on `run.*` in the final SARIF, place it on the JSON you supply here.
+Construct a SARIF `Run` JSON object — the same partial-Run shape consumed by `SarifEventReplayer` — and pipe it to `emit-run`. The verb accepts the run header via `--input <path>` or stdin, exactly like `add-result` / `add-invocation`. There is no flag-based form; if a field belongs on `run.*` in the final SARIF, place it on the JSON you supply here.
 
 ```powershell
 $runHeader = [ordered]@{
@@ -79,12 +79,12 @@ $runHeader = [ordered]@{
   }
 } | ConvertTo-Json -Depth 32
 
-# Option A: pipe via stdin (matches add-result / add-notification).
-$runHeader | dotnet dnx Sarif.Multitool --yes -- emit-init-run "{{OUTPUT_PATH}}"
+# Option A: pipe via stdin (matches add-result / add-invocation).
+$runHeader | dotnet dnx Sarif.Multitool --yes -- emit-run "{{OUTPUT_PATH}}"
 
 # Option B: write to a file and reference it.
 $runHeader | Set-Content run-header.json
-dotnet dnx Sarif.Multitool --yes -- emit-init-run "{{OUTPUT_PATH}}" --input run-header.json
+dotnet dnx Sarif.Multitool --yes -- emit-run "{{OUTPUT_PATH}}" --input run-header.json
 ```
 
 Inputs:
@@ -99,9 +99,9 @@ Inputs:
 | `{{LOCAL_SOURCE_ROOT}}` | yes for snippet/hash enrichment | A `file://` URI that the SDK can read to compute snippets and artifact hashes during `emit-finalize`. Rewritten to a portable URI in the finalize step. |
 | `{{NEW_GUID}}` | yes | A fresh RFC 4122 GUID for `run.automationDetails.guid`. Required by rule AI2005. |
 
-The verb validates a small set of profile-essential fields at receipt: `tool.driver.name` is required and must be a non-empty string; `tool.driver.informationUri` and `versionControlProvenance[].repositoryUri` must be `https`; `originalUriBaseIds["SRCROOT"].uri` must be `https` or `file`; GUIDs must be canonical 8-4-4-4-12 strings; `ai/origin` must be one of `generated`, `annotated`, `synthesized`. Anything else the SARIF schema accepts on a partial `Run` is appended to the `.wip.jsonl` run-header event unchanged; note that `emit-finalize` materializes a typed `SarifLog` from that event log, so fields outside the SDK's typed `Run` model are dropped at finalize. Durable custom data should live in SARIF `properties` bags, which the typed model preserves.
+The verb validates a small set of profile-essential fields at receipt: `tool.driver.name` is required and must be a non-empty string; `tool.driver.informationUri` and `versionControlProvenance[].repositoryUri` must be `https`; `originalUriBaseIds["SRCROOT"].uri` must be `https` or `file`, and a `file:` source root must resolve to a directory that exists on disk when the run header is received, so `emit-finalize` can enrich result locations against an observable checkout; GUIDs must be canonical 8-4-4-4-12 strings; `ai/origin` must be one of `generated`, `annotated`, `synthesized`. Anything else the SARIF schema accepts on a partial `Run` is appended to the `.wip.jsonl` run-header event unchanged; note that `emit-finalize` materializes a typed `SarifLog` from that event log, so fields outside the SDK's typed `Run` model are dropped at finalize. Durable custom data should live in SARIF `properties` bags, which the typed model preserves.
 
-When the `TF_BUILD=True` environment indicates an Azure DevOps pipeline, `emit-init-run` stamps `automationDetails.id` plus the four `azuredevops/pipeline/build/*` properties required by GHAzDO ingestion. If your JSON supplies any of those fields, the values must match what the env detects, otherwise the verb fails with a conflict diagnostic — pick one source of truth.
+When the `TF_BUILD=True` environment indicates an Azure DevOps pipeline, `emit-run` stamps `automationDetails.id` plus the four `azuredevops/pipeline/build/*` properties required by GHAzDO ingestion. If your JSON supplies any of those fields, the values must match what the env detects, otherwise the verb fails with a conflict diagnostic — pick one source of truth.
 
 ### Step 2 — Append each result
 
@@ -120,25 +120,29 @@ The result JSON must include at minimum: `ruleId` (with sub-ID per AI1012, e.g. 
 
 **Vocabulary discipline:** only the eight `ai/*` keys defined in the profile are valid. Do not invent additional `ai/*` keys; place tool-specific data under a tool-named namespace instead (e.g. `myscanner/confidence`).
 
-### Step 3 — Append notifications (optional but recommended)
+### Step 3 — Append invocations (optional but recommended)
 
-Use `add-notification` for execution narrative and configuration feedback. Notification descriptor ids name the concern only (e.g. `DECISION`, `DATA-ACCESS-DENIED`) — no `AI/`, `EXEC/`, `CFG/`, or `<toolName>/` prefix. Placement is selected at the verb: the default routes to `toolExecutionNotifications`; pass `--config` (`-c`) to route to `toolConfigurationNotifications` instead.
+Use `add-invocation` to record one or more `Invocation` objects (`startTimeUtc`, `endTimeUtc`, `executionSuccessful`, `exitCode`, `commandLine`, `arguments`, `workingDirectory`, `environmentVariables`, properties bag, …). The replayer appends invocations to `run.invocations[]` in event order.
 
-```powershell
-Get-Content notification-001.json | dotnet dnx Sarif.Multitool --yes -- add-notification "{{OUTPUT_PATH}}"
-```
-
-See `docs/ai/generating-sarif.md § Execution Narrative & Configuration Feedback` for descriptor inventory and required shape.
-
-### Step 3.5 — Append invocations (optional)
-
-Use `add-invocation` to record one or more `Invocation` objects (`startTimeUtc`, `endTimeUtc`, `executionSuccessful`, `exitCode`, `commandLine`, `arguments`, `workingDirectory`, `environmentVariables`, properties bag, …). The replayer appends invocations to `run.invocations[]` in event order and attaches subsequent `add-notification` events to the most recent invocation, so emit a fresh invocation if you want to start a new notification group within the same scan.
+Notifications travel inline on the invocation payload. Place each in the invocation's `toolExecutionNotifications` (execution narrative) or `toolConfigurationNotifications` (configuration feedback) array — the array selects placement. Descriptor ids name the concern only (e.g. `DECISION`, `DATA-ACCESS-DENIED`) — no `AI/`, `EXEC/`, `CFG/`, or `<toolName>/` prefix. Every inline notification requires a producer-supplied `timeUtc`. See `docs/ai/generating-sarif.md § Execution Narrative & Configuration Feedback` for descriptor inventory and required shape.
 
 ```powershell
 Get-Content invocation.json | dotnet dnx Sarif.Multitool --yes -- add-invocation "{{OUTPUT_PATH}}"
 ```
 
-### Step 4 — Finalize and validate
+### Step 4 — Register reporting descriptors (optional)
+
+Two verbs append `reportingDescriptor` objects to the run's tool-driver catalogs. Both are producer-authored and validated at receipt against the same overlay schemas served by `get-schema`.
+
+- `add-notification-reporting-descriptor` appends a descriptor to `run.tool.driver.notifications[]` — the catalog that gives stable metadata (id, name, message strings) for the inline notifications recorded in Step 3.
+- `add-rule-reporting-descriptor` appends a descriptor with a `NOVEL-<kebab-sub-id>` id to `run.tool.driver.rules[]` — for novel rules the producer defines. Taxonomy/CWE rule descriptors are injected by the SDK at finalize and must not be supplied here.
+
+```powershell
+Get-Content notification-descriptor.json | dotnet dnx Sarif.Multitool --yes -- add-notification-reporting-descriptor "{{OUTPUT_PATH}}"
+Get-Content rule-descriptor.json         | dotnet dnx Sarif.Multitool --yes -- add-rule-reporting-descriptor "{{OUTPUT_PATH}}"
+```
+
+### Step 5 — Finalize and validate
 
 ```powershell
 dotnet dnx Sarif.Multitool --yes -- emit-finalize "{{OUTPUT_PATH}}" `
@@ -163,7 +167,7 @@ If `--validate` reports errors, the produced file is on disk but did not meet th
 This skill's contract is satisfied when:
 
 1. `emit-finalize --validate` exits with code 0 (no Error-level rule findings under `--rule-kind Sarif;AI`).
-2. The file passes the [validate-sarif-findings skill](../validate-sarif-findings/SKILL.md) at full profile depth.
+2. The file passes the [validate-sarif skill](../validate-sarif/SKILL.md) at full profile depth.
 3. The file is consumable by the SDK object model (`SarifLog.Load`) without exceptions.
 
 Any of these failing means the producer drifted from the profile. The validation skill's "Known Drift Patterns" catalog enumerates the most common drift modes — consult it when finalize fails.

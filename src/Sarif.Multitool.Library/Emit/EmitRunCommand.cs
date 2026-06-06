@@ -15,13 +15,14 @@ using Newtonsoft.Json.Linq;
 namespace Microsoft.CodeAnalysis.Sarif.Multitool
 {
     /// <summary>
-    /// Implements <c>multitool emit-init-run</c>: creates an append-only SARIF event log
+    /// Implements <c>emit-run</c>: creates an append-only SARIF event log
     /// (<c>&lt;output&gt;.wip.jsonl</c>) seeded with a <c>run-header</c> event built from a
     /// caller-supplied SARIF <c>Run</c> JSON document (file via <c>--input</c> or stdin).
     /// </summary>
     /// <remarks>
     /// <para>The JSON-payload contract matches the other emit verbs (<c>add-result</c>,
-    /// <c>add-notification</c>, <c>add-reporting-descriptor</c>). The supplied <c>Run</c> may
+    /// <c>add-invocation</c>, <c>add-notification-reporting-descriptor</c>,
+    /// <c>add-rule-reporting-descriptor</c>). The supplied <c>Run</c> may
     /// carry any subset of the partial-Run shape the replayer accepts (<c>tool</c>,
     /// <c>language</c>, <c>columnKind</c>, <c>defaultEncoding</c>, <c>defaultSourceLanguage</c>,
     /// <c>originalUriBaseIds</c>, <c>versionControlProvenance</c>, <c>automationDetails</c>,
@@ -56,23 +57,23 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
     /// </item>
     /// </list>
     /// </remarks>
-    public class EmitInitRunCommand : CommandBase
+    public class EmitRunCommand : CommandBase
     {
         internal const string SourceRootBaseId = "SRCROOT";
         internal static readonly string[] AiOriginValues = new[] { "generated", "annotated", "synthesized" };
 
         private readonly IEnvironmentVariableGetter _environment;
 
-        public EmitInitRunCommand() : this(new EnvironmentVariableGetter())
+        public EmitRunCommand() : this(new EnvironmentVariableGetter())
         {
         }
 
-        public EmitInitRunCommand(IEnvironmentVariableGetter environment)
+        public EmitRunCommand(IEnvironmentVariableGetter environment)
         {
             _environment = environment ?? throw new ArgumentNullException(nameof(environment));
         }
 
-        public int Run(EmitInitRunOptions options, IFileSystem fileSystem = null)
+        public int Run(EmitRunOptions options, IFileSystem fileSystem = null)
         {
             fileSystem ??= Sarif.FileSystem.Instance;
 
@@ -94,8 +95,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                     return FAILURE;
                 }
 
-                // Same up-front detection for GitHub Actions. GHA contributes only to
-                // versionControlProvenance — there is no GHA automationDetails stamping today.
+                // Same up-front detection for GitHub Actions; GHA contributes to VCP stamping.
                 GitHubActionsContext.DetectionState ghaState =
                     GitHubActionsContext.TryDetect(_environment, out GitHubActionsContext ghaContext, out string ghaError);
                 if (ghaState == GitHubActionsContext.DetectionState.Partial)
@@ -104,8 +104,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                     return FAILURE;
                 }
 
-                // Read and parse the caller-supplied Run JSON before any file-system side
-                // effects so malformed input never leaves a wip on disk.
+                // Parse input before file-system side effects.
                 int code = EmitEventLogHelpers.TryReadJsonPayload(
                     options.InputFilePath,
                     payloadKind: "run",
@@ -117,7 +116,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
                 if (!TryRejectSarifLogShape(runObject)) { return FAILURE; }
 
-                if (!TryValidateRunHeader(runObject)) { return FAILURE; }
+                if (!TryValidateRunHeader(runObject, fileSystem)) { return FAILURE; }
 
                 if (adoState == AdoPipelineContext.DetectionState.Complete)
                 {
@@ -128,9 +127,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                     }
                 }
 
-                // VCP enrichment spans ADO and GHA env. The cross-source merge enforces
-                // agreement on any field both sources publish; the stamper applies the merged
-                // triple against the run-header VCP array.
+                // ADO and GHA VCP fields must agree when both sources publish the same field.
                 if (adoState == AdoPipelineContext.DetectionState.Complete
                     || ghaState == GitHubActionsContext.DetectionState.Complete)
                 {
@@ -157,6 +154,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                         return FAILURE;
                     }
                 }
+
+                if (!TryValidateVcpRepositoryShapes(runObject)) { return FAILURE; }
 
                 string outputPath = Path.GetFullPath(options.OutputFilePath);
                 string wipPath = outputPath + EmitEventLogHelpers.WipSuffix;
@@ -211,10 +210,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
         private static bool TryRejectSarifLogShape(JObject runObject)
         {
-            // A common UX mistake: piping a full SARIF log document (`{ "version": "2.1.0",
-            // "runs": [...] }`) in place of a Run object. Without this guard the user gets a
-            // misleading "tool.driver.name missing" diagnostic; with it they get a clear
-            // shape-mismatch message that points at the right fix.
+            // Catch full SARIF logs before they fall through to a misleading tool.driver.name error.
             JToken runs = runObject["runs"];
             JToken version = runObject["version"];
             if (runs != null && version != null && runs.Type == JTokenType.Array)
@@ -227,11 +223,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             return true;
         }
 
-        private static bool TryValidateRunHeader(JObject runObject)
+        private static bool TryValidateRunHeader(JObject runObject, IFileSystem fileSystem)
         {
-            // Parent shapes first so child accessors below don't trip JValue indexers
-            // (which throw InvalidOperationException, surface as stack traces, and starve
-            // the producer of an actionable fix).
+            // Validate parent shapes before child accessors can trip JValue indexers.
             if (!TryRequireOptionalObject(runObject, "tool", out JObject toolObject)) { return false; }
             JObject driverObject = null;
             if (toolObject != null
@@ -318,6 +312,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 return false;
             }
 
+            if (!TryValidateSourceRootResolvesOnDisk(
+                originalUriBaseIdsObject?[SourceRootBaseId]?["uri"],
+                fileSystem))
+            {
+                return false;
+            }
+
             if (!TryValidateOptionalGuidToken(automationDetailsObject?["guid"], "automationDetails.guid"))
             {
                 return false;
@@ -337,12 +338,44 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         }
 
         /// <summary>
-        /// If <paramref name="parent"/> carries a token at <paramref name="key"/>, requires it to
-        /// be a JSON object and returns it via <paramref name="value"/>. Returns true when the key
-        /// is absent (or explicitly null) without surfacing an error; returns false with a clear
-        /// AI-consumable diagnostic when the key is present but the wrong shape (e.g.
-        /// <c>"tool": "x"</c>). Walking parent shapes up front prevents JValue indexer accesses
-        /// further down the validator chain from throwing InvalidOperationException.
+        /// Confirms that every present <c>versionControlProvenance[].repositoryUri</c> has a shape
+        /// from which <see cref="EmitFinalizeRebaseVisitor"/> can later derive a portable root. Runs
+        /// after header validation (which proves each value is an absolute https URI) and after env
+        /// stamping, so both caller-supplied and stamped entries are covered. Entries without a
+        /// repositoryUri are left to the finalize-time contract.
+        /// </summary>
+        private static bool TryValidateVcpRepositoryShapes(JObject runObject)
+        {
+            if (runObject["versionControlProvenance"] is not JArray vcpArray) { return true; }
+
+            int index = 0;
+            foreach (JToken entry in vcpArray)
+            {
+                JToken repositoryUriToken = (entry as JObject)?["repositoryUri"];
+                string raw = repositoryUriToken?.Type == JTokenType.String ? (string)repositoryUriToken : null;
+
+                if (!string.IsNullOrEmpty(raw)
+                    && Uri.TryCreate(raw, UriKind.Absolute, out Uri repositoryUri)
+                    && !VcpPortableRoot.TryValidateRepositoryUri(repositoryUri, out _, out string error))
+                {
+                    Console.Error.WriteLine(
+                        string.Format(
+                            CultureInfo.CurrentCulture,
+                            "versionControlProvenance[{0}]: {1}",
+                            index,
+                            error));
+                    return false;
+                }
+
+                index++;
+            }
+
+            return true;
+        }
+
+        /// <summary>
+        /// Requires an optional token to be null/absent or a JSON object; returns the object via
+        /// <paramref name="value"/>.
         /// </summary>
         private static bool TryRequireOptionalObject(JObject parent, string path, out JObject value)
         {
@@ -401,6 +434,31 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             if (!EmitEventLogHelpers.TryValidateUri(value, path, allowedSchemes, out string error))
             {
                 Console.Error.WriteLine(error);
+                return false;
+            }
+
+            return true;
+        }
+
+        // A file: SRCROOT must resolve to a directory that exists on disk when the run header is
+        // received, so finalize can enrich result locations against an observable checkout.
+        private static bool TryValidateSourceRootResolvesOnDisk(JToken token, IFileSystem fileSystem)
+        {
+            if (token == null || token.Type != JTokenType.String) { return true; }
+
+            string value = (string)token;
+            if (string.IsNullOrWhiteSpace(value)) { return true; }
+
+            if (!Uri.TryCreate(value, UriKind.Absolute, out Uri uri) || !uri.IsFile) { return true; }
+
+            if (!fileSystem.DirectoryExists(uri.LocalPath))
+            {
+                Console.Error.WriteLine(
+                    string.Format(
+                        CultureInfo.CurrentCulture,
+                        "originalUriBaseIds[\"SRCROOT\"].uri: '{0}' does not resolve to an existing directory ('{1}'). A file: source root must point at an observable checkout when the run header is received.",
+                        value,
+                        uri.LocalPath));
                 return false;
             }
 
@@ -470,11 +528,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         }
 
         /// <summary>
-        /// Stamps ADO pipeline identity directly onto the JSON payload. Mutating the JObject
-        /// rather than round-tripping through the typed <see cref="Run"/> model preserves any
-        /// SARIF Run fields the typed model doesn't surface (e.g., <c>redactionTokens</c>) in
-        /// the wip line. (The replayer materializes a typed <c>Run</c> at finalize time, so
-        /// non-typed fields are durable only up to that boundary.)
+        /// Stamps ADO pipeline identity directly onto the JSON payload, preserving fields not
+        /// surfaced by the typed <see cref="Run"/> model.
         /// </summary>
         private static bool TryStampAdoContext(JObject runObject, AdoPipelineContext context, out string conflictError)
         {
@@ -484,8 +539,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             IReadOnlyList<KeyValuePair<string, string>> pipelineProps = context.GetPipelinePropertyValues();
 
             // Probe-before-write so a conflict on any field leaves the JObject unchanged.
-            // TryValidateRunHeader already enforced that automationDetails (if present) is an
-            // object and automationDetails.properties (if present) is an object.
             var automationDetails = (JObject)runObject["automationDetails"];
             if (automationDetails != null)
             {
@@ -580,34 +633,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         }
 
         /// <summary>
-        /// Enriches <c>versionControlProvenance</c> on the JSON payload with the resolved
-        /// repository URI / revision id / branch ref fields (sourced from the pipeline
-        /// environment via <see cref="TryResolveVcpFields"/>). Three input shapes:
-        /// <list type="bullet">
-        /// <item>VCP absent or empty array → append a synthesized entry with the fields we have
-        /// (only when a repository URI is known; branch/revision without a repo URI anchor is
-        /// informationally thin and cannot bind to a repo downstream).</item>
-        /// <item>VCP contains exactly one entry → enrich missing fields; fail on disagreement.</item>
-        /// <item>VCP contains multiple entries → leave untouched (caller declared a multi-repo
-        /// shape; we don't pick which entry names the pipeline's source repo).</item>
-        /// </list>
-        /// <para>This method is the env-driven stamper. The verb supports a layered set of
-        /// VCP sources:</para>
-        /// <list type="number">
-        /// <item>ADO pipeline environment — <c>TF_BUILD=True</c> plus the
-        /// <c>BUILD_REPOSITORY_URI</c> / <c>BUILD_SOURCEVERSION</c> /
-        /// <c>BUILD_SOURCEBRANCH</c> vars supply repo URI / revision / branch directly.</item>
-        /// <item>GitHub Actions environment — <c>GITHUB_ACTIONS=true</c> plus
-        /// <c>GITHUB_SERVER_URL</c> / <c>GITHUB_REPOSITORY</c> / <c>GITHUB_SHA</c> /
-        /// <c>GITHUB_REF</c> supply the same fields. When both ADO and GHA vars are
-        /// populated, the sources must agree on every field they both publish.</item>
-        /// <item>Caller-supplied — if neither CI env is present, the producer populates
-        /// <c>versionControlProvenance</c> entries directly in the run-header JSON and the
-        /// verb passes them through after shape validation. Callers running outside a
-        /// supported CI environment can shell out to <c>git</c> themselves and either
-        /// populate the entry directly or stage the corresponding env vars before invoking
-        /// the verb.</item>
-        /// </list>
+        /// Enriches <c>versionControlProvenance</c> with resolved repository URI, revision id,
+        /// and branch fields. Empty VCP arrays receive a synthesized entry only when a repository
+        /// URI is known; single-entry arrays are enriched; multi-entry arrays are left untouched.
         /// </summary>
         private static bool TryStampVcp(
             JObject runObject,
@@ -637,15 +665,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 return true;
             }
 
-            // TryValidateRunHeader already enforced that versionControlProvenance (if present)
-            // is an array and each entry is an object.
             var vcpArray = (JArray)runObject["versionControlProvenance"];
 
             if (vcpArray == null || vcpArray.Count == 0)
             {
-                // Only synthesize a new VCP entry when the repository URI is known —
-                // branch/revision without a repoUri anchor is informationally thin and
-                // downstream consumers (AdvSec ingestion) can't bind it to a repo.
+                // Branch/revision without a repository URI cannot bind to a repo downstream.
                 if (repositoryUri == null)
                 {
                     return true;
@@ -656,6 +680,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 {
                     entry[kv.Key] = kv.Value;
                 }
+
+                StampMappedToIfAbsent(entry, runObject);
 
                 if (vcpArray == null)
                 {
@@ -670,8 +696,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
             if (vcpArray.Count > 1)
             {
-                // Multi-entry: caller has explicitly declared the multi-repo shape they want.
-                // We refuse to guess which entry names the pipeline's source repo.
+                // Multi-entry VCP is caller-authored; do not guess the source-repo entry.
                 return true;
             }
 
@@ -719,16 +744,36 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 }
             }
 
+            StampMappedToIfAbsent(existing, runObject);
+
             return true;
         }
 
+        // The auto-stamped source-repo entry binds to the local source root via mappedTo so
+        // emit-finalize can deconstruct local paths into portable permalinks. Only stamp when the
+        // run declares originalUriBaseIds.SRCROOT (otherwise the binding could not resolve) and the
+        // caller has not already supplied its own mappedTo.
+        private static void StampMappedToIfAbsent(JObject vcpEntry, JObject runObject)
+        {
+            JToken sourceRoot = runObject["originalUriBaseIds"]?[SourceRootBaseId];
+            if (sourceRoot == null || sourceRoot.Type != JTokenType.Object)
+            {
+                return;
+            }
+
+            JToken existingMappedTo = vcpEntry["mappedTo"];
+            if (existingMappedTo != null && existingMappedTo.Type != JTokenType.Null)
+            {
+                return;
+            }
+
+            vcpEntry["mappedTo"] = new JObject { ["uriBaseId"] = SourceRootBaseId };
+        }
+
         /// <summary>
-        /// Resolves the three VCP fields (<c>repositoryUri</c>, <c>revisionId</c>,
-        /// <c>branch</c>) from the ADO and GitHub Actions environment contexts. ADO is the
-        /// higher-priority source: where ADO supplies a value it wins; GHA fills gaps where
-        /// ADO is silent. When both sources publish the same field, the values must agree
-        /// (case-insensitive URI equality for <c>repositoryUri</c>, ordinal for the rest) or
-        /// the method returns false with a diagnostic naming both sources.
+        /// Resolves VCP fields from ADO and GitHub Actions contexts. ADO seeds each field; GHA
+        /// fills only the fields ADO left empty. Any field both sources publish must agree, or
+        /// stamping is refused.
         /// </summary>
         private static bool TryResolveVcpFields(
             AdoPipelineContext adoContext,
