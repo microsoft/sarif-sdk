@@ -88,7 +88,7 @@ Sarif.Multitool emit-finalize my.sarif --srcroot https://github.com/org/repo/blo
 ```
 
 For a step-by-step procedure that emits AI SARIF using these verbs, see
-[`skills/emit-sarif-findings/SKILL.md`](../skills/emit-sarif-findings/SKILL.md).
+[`skills/emit-sarif/SKILL.md`](../skills/emit-sarif/SKILL.md).
 
 ## Supported Converters
 Run ```Sarif.Multitool convert --help``` for the current list.

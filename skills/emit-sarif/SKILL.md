@@ -1,12 +1,12 @@
 ---
-name: emit-sarif-findings
+name: emit-sarif
 description: Serialize AI-detected security findings as SARIF v2.1.0 conforming to the AI-generated-findings profile, using the Sarif.Multitool emit verbs.
 metadata:
   author: sarif-sdk-maintainers
   version: "1.0.0"
   category: security
   packages:
-    - "Sarif.Multitool >= 5.0.2"
+    - "Sarif.Multitool >= 5.0.3"
   triggers:
     - "emit SARIF"
     - "write findings to SARIF"
@@ -32,7 +32,7 @@ Apply this skill when an agent is the **originating** detector (not post-process
 
 ## Prerequisites
 
-- **`Sarif.Multitool` ≥ 5.0.2.** Recommended invocation: `dotnet dnx Sarif.Multitool --yes -- <verb> ...` (zero-install, version-resolved at first run; requires .NET 10+). Fall back to a global install with `dotnet tool install --global Sarif.Multitool` if `dotnet dnx` is unavailable.
+- **`Sarif.Multitool` ≥ 5.0.3.** Recommended invocation: `dotnet dnx Sarif.Multitool --yes -- <verb> ...` (zero-install, version-resolved at first run; requires .NET 10+). Fall back to a global install with `dotnet tool install --global Sarif.Multitool` if `dotnet dnx` is unavailable.
 - The current commit SHA, branch, repository URI, and a local source-root path.
 - The normative profile doc: [`docs/ai/generating-sarif.md`](../../docs/ai/generating-sarif.md). Cross-reference it for every property you populate — do not invent vocabulary.
 
@@ -167,7 +167,7 @@ If `--validate` reports errors, the produced file is on disk but did not meet th
 This skill's contract is satisfied when:
 
 1. `emit-finalize --validate` exits with code 0 (no Error-level rule findings under `--rule-kind Sarif;AI`).
-2. The file passes the [validate-sarif-findings skill](../validate-sarif-findings/SKILL.md) at full profile depth.
+2. The file passes the [validate-sarif skill](../validate-sarif/SKILL.md) at full profile depth.
 3. The file is consumable by the SDK object model (`SarifLog.Load`) without exceptions.
 
 Any of these failing means the producer drifted from the profile. The validation skill's "Known Drift Patterns" catalog enumerates the most common drift modes — consult it when finalize fails.

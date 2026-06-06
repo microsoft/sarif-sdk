@@ -1,5 +1,5 @@
 ---
-name: validate-sarif-findings
+name: validate-sarif
 description: Validates SARIF files against the SARIF 2.1.0 schema and the AI-generated-findings profile rules shipped by Sarif.Multitool.
 metadata:
   author: sarif-sdk-maintainers
@@ -203,7 +203,7 @@ Produce a structured report. Group findings by severity:
 
 ## Known Drift Patterns
 
-AI agents generating SARIF systematically drift from the standard in predictable ways. This catalog captures observed patterns — use it both for validation (catching drift) and for improving the [`emit-sarif-findings`](../emit-sarif-findings/SKILL.md) skill (preventing drift).
+AI agents generating SARIF systematically drift from the standard in predictable ways. This catalog captures observed patterns — use it both for validation (catching drift) and for improving the [`emit-sarif`](../emit-sarif/SKILL.md) skill (preventing drift).
 
 | # | Pattern | What the agent does | What the standard requires | Rule(s) |
 |---|---------|--------------------|-----------------------------|---------|
@@ -227,9 +227,9 @@ AI agents generating SARIF systematically drift from the standard in predictable
 | 18 | **Missing rule `helpUri`** | Emits `rules[]` without `helpUri` | Every rule should include `helpUri` linking to documentation (CWE URL, internal doc, etc.) | SARIF2012 |
 | 19 | **Non-conventional rule IDs** | Uses tool-specific prefixes like `ACME-CPP-001` | Rule IDs should follow conventional patterns; CWE-based IDs preferred for interoperability | SARIF2009 |
 
-**How drift happens:** LLMs generate SARIF from training data that includes pre-standard drafts, partial examples, and SARIF from non-AI tools. The `emit-sarif-findings` skill instructs them correctly, but agents hallucinate "reasonable" values that aren't in the vocabulary, or place properties at plausible-but-wrong locations in the object graph. Schema validation catches structural drift (#1, #6); AI profile rules catch semantic drift (#2, #4, #5, #8, #10). Both layers are needed.
+**How drift happens:** LLMs generate SARIF from training data that includes pre-standard drafts, partial examples, and SARIF from non-AI tools. The `emit-sarif` skill instructs them correctly, but agents hallucinate "reasonable" values that aren't in the vocabulary, or place properties at plausible-but-wrong locations in the object graph. Schema validation catches structural drift (#1, #6); AI profile rules catch semantic drift (#2, #4, #5, #8, #10). Both layers are needed.
 
-**Feedback loop:** When this skill finds a new drift pattern not in this catalog, add it. When the `emit-sarif-findings` skill is updated to prevent a pattern, note that in the catalog but keep the validation rule — prevention at generation time reduces but never eliminates drift.
+**Feedback loop:** When this skill finds a new drift pattern not in this catalog, add it. When the `emit-sarif` skill is updated to prevent a pattern, note that in the catalog but keep the validation rule — prevention at generation time reduces but never eliminates drift.
 
 ## Validation
 

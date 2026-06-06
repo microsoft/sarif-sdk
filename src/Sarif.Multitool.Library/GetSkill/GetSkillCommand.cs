@@ -38,8 +38,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         internal static readonly IReadOnlyDictionary<string, string> SkillSourceDirectory =
             new SortedDictionary<string, string>(StringComparer.Ordinal)
             {
-                ["emit-sarif-findings"] = "skills/emit-sarif-findings",
-                ["validate-sarif-findings"] = "skills/validate-sarif-findings",
+                ["emit-sarif"] = "skills/emit-sarif",
+                ["publish-to-ghazdo"] = "skills/publish-to-ghazdo",
+                ["validate-sarif"] = "skills/validate-sarif",
             };
 
         private static readonly Regex s_markdownLink = new Regex(

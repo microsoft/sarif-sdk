@@ -21,7 +21,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         [Value(
             0,
             MetaName = "<skill>",
-            HelpText = "The skill to emit (e.g., 'emit-sarif-findings', 'validate-sarif-findings').",
+            HelpText = "The skill to emit (e.g., 'emit-sarif', 'validate-sarif').",
             Required = false)]
         public string Skill { get; set; }
 

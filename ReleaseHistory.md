@@ -13,7 +13,7 @@ Each release entry below is prefixed with one of:
 
 Entries are terse by design: one line per change, present-tense behavior, complete but only essential data. No issue/PR archaeology or narrative — that history lives in the engineering system.
 
-## **v5.0.3** UNRELEASED
+## **v5.0.3** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/v5.0.3) | [Driver](https://www.nuget.org/packages/Sarif.Driver/v5.0.3) | [Converters](https://www.nuget.org/packages/Sarif.Converters/v5.0.3) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/v5.0.3) | [Multitool Library](https://www.nuget.org/packages/Sarif.Multitool.Library/v5.0.3)
 * BRK: `FileRegionsCache.PopulateTextRegionProperties` gains an `overwriteExistingData` parameter (default `false`) and `OptionallyEmittedData.OverwriteExistingData` now suppresses exceptions for divergence in pre-populated versus computed region properties.
 * BRK: Split `AI2011.DoNotPersistFingerprints` (Note) into `AI1007.DoNotPersistFingerprints` (Error; `result.fingerprints`) and `AI2011.DoNotPersistPartialFingerprints` (Warning; `result.partialFingerprints`).
 * BRK: Remove `AI1011.RedactedRunMarker`; the AI emit profile no longer validates the `ai/redacted` run marker or `ai/fullLogLocation`.
@@ -39,6 +39,7 @@ Entries are terse by design: one line per change, present-tense behavior, comple
 * NEW: Add AI emit-profile input schemas — `ai-run`, `ai-result`, `ai-invocation`, `ai-notification-reporting-descriptor`, and `ai-rule-reporting-descriptor`.
 * NEW: `sarif get-schema <verb>` writes the AI input schema for an emit verb to stdout or `--output`; `--list` enumerates the available verbs.
 * NEW: `sarif get-skill <skill>` writes an embedded agent skill to stdout or `--output`, rewriting its repo-relative links to commit-pinned `raw.githubusercontent.com` permalinks; `--list` enumerates the available skills.
+* NEW: `sarif publish-to-ghazdo <sarif>` uploads a finalized SARIF to GitHub Advanced Security for Azure DevOps, deriving the `dev.azure.com` target from `versionControlProvenance`; the bearer secret is read from the `--token-env-var` env var (Entra token sent as Bearer, PAT as Basic).
 
 ## **v5.0.2** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/v5.0.2) | [Driver](https://www.nuget.org/packages/Sarif.Driver/v5.0.2) | [Converters](https://www.nuget.org/packages/Sarif.Converters/v5.0.2) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/v5.0.2) | [Multitool Library](https://www.nuget.org/packages/Sarif.Multitool.Library/v5.0.2)
 * BRK: Replace `scripts/Generate-CweTaxonomy.ps1` with `scripts/generate_cwe_taxonomy.py` (Python 3, stdlib only) so the CWE taxonomy regenerates on Linux, macOS, and Windows without `pwsh`.
