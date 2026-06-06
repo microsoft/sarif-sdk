@@ -733,6 +733,71 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         }
 
         [Fact]
+        public void Run_WhenSrcRootDeclared_AndVcpSynthesized_BindsMappedToSourceRoot()
+        {
+            // The run names a local SRCROOT, so the auto-stamped source-repo entry binds to it via
+            // mappedTo. emit-finalize relies on this binding to deconstruct local paths.
+            JObject runObject = MinimalRun();
+            runObject["originalUriBaseIds"] = new JObject
+            {
+                ["SRCROOT"] = new JObject { ["uri"] = new Uri(_dir).AbsoluteUri },
+            };
+            runObject["versionControlProvenance"] = new JArray();
+
+            int exit = RunWithInput(CompleteAdoEnvWithVcp(), runObject);
+
+            exit.Should().Be(CommandBase.SUCCESS);
+            var events = new SarifEventLogReader().Read(WipPath).ToList();
+            var vcp = (JArray)events[0].Payload["versionControlProvenance"];
+            vcp.Should().HaveCount(1);
+            vcp[0]["mappedTo"]["uriBaseId"].ToString().Should().Be(EmitRunCommand.SourceRootBaseId);
+        }
+
+        [Fact]
+        public void Run_WhenSrcRootDeclared_AndCallerSuppliesMappedTo_DoesNotOverride()
+        {
+            // A caller-authored mappedTo is authoritative; stamping fills missing fields but never
+            // rebinds the source root the producer already chose.
+            JObject runObject = MinimalRun();
+            runObject["originalUriBaseIds"] = new JObject
+            {
+                ["SRCROOT"] = new JObject { ["uri"] = new Uri(_dir).AbsoluteUri },
+            };
+            runObject["versionControlProvenance"] = new JArray
+            {
+                new JObject
+                {
+                    ["repositoryUri"] = AdoRepoUriValue,
+                    ["mappedTo"] = new JObject { ["uriBaseId"] = "REPO_ROOT" },
+                },
+            };
+
+            int exit = RunWithInput(CompleteAdoEnvWithVcp(), runObject);
+
+            exit.Should().Be(CommandBase.SUCCESS);
+            var events = new SarifEventLogReader().Read(WipPath).ToList();
+            var vcp = (JArray)events[0].Payload["versionControlProvenance"];
+            vcp[0]["mappedTo"]["uriBaseId"].ToString().Should().Be("REPO_ROOT");
+        }
+
+        [Fact]
+        public void Run_WhenNoSrcRootDeclared_StampedVcpHasNoMappedTo()
+        {
+            // Without a declared SRCROOT there is nothing for mappedTo to resolve against, so the
+            // stamped entry carries no binding rather than a dangling one.
+            JObject runObject = MinimalRun();
+            runObject["versionControlProvenance"] = new JArray();
+
+            int exit = RunWithInput(CompleteAdoEnvWithVcp(), runObject);
+
+            exit.Should().Be(CommandBase.SUCCESS);
+            var events = new SarifEventLogReader().Read(WipPath).ToList();
+            var vcp = (JArray)events[0].Payload["versionControlProvenance"];
+            vcp.Should().HaveCount(1);
+            vcp[0]["mappedTo"].Should().BeNull();
+        }
+
+        [Fact]
         public void Run_WhenAdoRepositoryUriHostCasingDiffers_IsNotConflict()
         {
             // URI equality treats scheme/host case-insensitively (per RFC 3986). The

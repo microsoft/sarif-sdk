@@ -36,12 +36,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                     out string wipPath);
                 if (code != SUCCESS) { return code; }
 
-                if (!EmitEventLogHelpers.TryValidateUri(options.SrcRoot, "--srcroot", EmitEventLogHelpers.BaseUriSchemes, out string srcRootError))
-                {
-                    Console.Error.WriteLine(srcRootError);
-                    return FAILURE;
-                }
-
                 string outputPath = Path.GetFullPath(options.OutputFilePath);
 
                 SarifLog log = SarifEventReplayer.Replay(wipPath);
@@ -104,31 +98,26 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                     }
                 }
 
-                // After enrichment, optionally rewrite originalUriBaseIds["SRCROOT"].uri.
-                // Producers commonly emit with a local file:// SRCROOT so the visitor above
-                // can read sources for snippets/hashes/contextRegion, then ship the SARIF
-                // with a canonical, host-independent URI (e.g. a GitHub blob URL). Doing
-                // the swap here — after the visitor, before serialization — keeps both
-                // contracts intact: enrichment uses real files; the artifact ships portable.
-                if (!string.IsNullOrWhiteSpace(options.SrcRoot) && log?.Runs != null)
+                // After enrichment reads sources from the local file:// bases, deconstruct every
+                // absolute local path into a relative URI plus a portable, per-repository uriBaseId
+                // derived from versionControlProvenance, so the shipped SARIF anchors at stable,
+                // host-independent permalinks and carries no machine-specific path.
+                if (log?.Runs != null)
                 {
-                    var finalSrcRoot = new Uri(options.SrcRoot, UriKind.Absolute);
+                    var rebaseVisitor = new EmitFinalizeRebaseVisitor();
                     foreach (Run run in log.Runs)
                     {
-                        if (run == null) { continue; }
+                        if (run != null) { rebaseVisitor.VisitRun(run); }
+                    }
 
-                        run.OriginalUriBaseIds ??= new Dictionary<string, ArtifactLocation>();
-                        if (run.OriginalUriBaseIds.TryGetValue(EmitRunCommand.SourceRootBaseId, out ArtifactLocation existing) && existing != null)
+                    if (!rebaseVisitor.Success)
+                    {
+                        foreach (string rebaseError in rebaseVisitor.Errors)
                         {
-                            existing.Uri = finalSrcRoot;
+                            Console.Error.WriteLine(rebaseError);
                         }
-                        else
-                        {
-                            run.OriginalUriBaseIds[EmitRunCommand.SourceRootBaseId] = new ArtifactLocation
-                            {
-                                Uri = finalSrcRoot,
-                            };
-                        }
+
+                        return FAILURE;
                     }
                 }
 

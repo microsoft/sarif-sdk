@@ -46,11 +46,35 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             return JsonSerializer.CreateDefault().Deserialize<SarifLog>(jr);
         }
 
+        private const string FrozenSha = "1234567890abcdef1234567890abcdef12345678";
+
+        // emit-finalize now requires every run to declare versionControlProvenance with a
+        // mappedTo-bound local root so it can deconstruct local paths into portable permalinks.
+        private static Run RunHeader()
+            => new Run
+            {
+                Tool = new Tool { Driver = new ToolComponent { Name = "demo" } },
+                VersionControlProvenance = new[]
+                {
+                    new VersionControlDetails
+                    {
+                        RepositoryUri = new Uri("https://github.com/microsoft/sarif-sdk", UriKind.Absolute),
+                        RevisionId = FrozenSha,
+                        Branch = "refs/heads/main",
+                        MappedTo = new ArtifactLocation { UriBaseId = "SRCROOT" },
+                    },
+                },
+                OriginalUriBaseIds = new System.Collections.Generic.Dictionary<string, ArtifactLocation>
+                {
+                    ["SRCROOT"] = new ArtifactLocation { Uri = new Uri("file:///d:/repo/", UriKind.Absolute) },
+                },
+            };
+
         [Fact]
         public void Run_HappyPath_WritesSarifWithEnrichedCweDescriptorsAndRemovesWip()
         {
             SeedWip(
-                (SarifEventKinds.RunHeader, new Run { Tool = new Tool { Driver = new ToolComponent { Name = "demo" } } }),
+                (SarifEventKinds.RunHeader, RunHeader()),
                 (SarifEventKinds.Result, new Result { RuleId = "CWE-79/template-xss", Message = new Message { Text = "xss" } }),
                 (SarifEventKinds.Result, new Result { RuleId = "NOVEL-custom", Message = new Message { Text = "n/a" } }));
 
@@ -81,7 +105,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         public void Run_WithNoCweEnrichment_LeavesCweDescriptorBare()
         {
             SeedWip(
-                (SarifEventKinds.RunHeader, new Run { Tool = new Tool { Driver = new ToolComponent { Name = "demo" } } }),
+                (SarifEventKinds.RunHeader, RunHeader()),
                 (SarifEventKinds.Result, new Result { RuleId = "CWE-79/template-xss", Message = new Message { Text = "xss" } }));
 
             int exit = new EmitFinalizeCommand().Run(new EmitFinalizeOptions
@@ -102,7 +126,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         public void Run_WithKeepWip_RetainsWipAfterSuccess()
         {
             SeedWip(
-                (SarifEventKinds.RunHeader, new Run { Tool = new Tool { Driver = new ToolComponent { Name = "demo" } } }));
+                (SarifEventKinds.RunHeader, RunHeader()));
 
             int exit = new EmitFinalizeCommand().Run(new EmitFinalizeOptions
             {
@@ -122,7 +146,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             File.WriteAllText(OutPath, "{ \"stale\": true }");
 
             SeedWip(
-                (SarifEventKinds.RunHeader, new Run { Tool = new Tool { Driver = new ToolComponent { Name = "demo" } } }),
+                (SarifEventKinds.RunHeader, RunHeader()),
                 (SarifEventKinds.Result, new Result { RuleId = "NOVEL-rule-1", Message = new Message { Text = "x" } }));
 
             int exit = new EmitFinalizeCommand().Run(new EmitFinalizeOptions { OutputFilePath = OutPath });
@@ -164,64 +188,56 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         }
 
         [Fact]
-        public void Run_WithSrcRoot_RewritesExistingSrcRootUriAfterEnrichment()
+        public void Run_RebasesSrcRootToPortableGitHubPermalink()
         {
             // Producer emits with a local file:// SRCROOT so InsertOptionalDataVisitor can
-            // resolve sources, then asks finalize to rewrite the shipped URI to a portable
-            // canonical anchor. The shipped artifact must carry the post-rewrite value.
-            var initialRun = new Run
-            {
-                Tool = new Tool { Driver = new ToolComponent { Name = "demo" } },
-                OriginalUriBaseIds = new System.Collections.Generic.Dictionary<string, ArtifactLocation>
-                {
-                    ["SRCROOT"] = new ArtifactLocation { Uri = new Uri("file:///c:/repo/", UriKind.Absolute) },
-                },
-            };
+            // resolve sources; finalize deconstructs that local anchor into a portable GitHub
+            // blob permalink derived from versionControlProvenance. The shipped artifact must
+            // carry the post-rebase value and keep result URIs relative.
             SeedWip(
-                (SarifEventKinds.RunHeader, initialRun),
-                (SarifEventKinds.Result, new Result { RuleId = "NOVEL-test", Message = new Message { Text = "x" } }));
+                (SarifEventKinds.RunHeader, RunHeader()),
+                (SarifEventKinds.Result, new Result
+                {
+                    RuleId = "NOVEL-test",
+                    Message = new Message { Text = "x" },
+                    Locations = new[]
+                    {
+                        new Location
+                        {
+                            PhysicalLocation = new PhysicalLocation
+                            {
+                                ArtifactLocation = new ArtifactLocation
+                                {
+                                    Uri = new Uri("src/a.cs", UriKind.Relative),
+                                    UriBaseId = "SRCROOT",
+                                },
+                            },
+                        },
+                    },
+                }));
 
-            int exit = new EmitFinalizeCommand().Run(new EmitFinalizeOptions
-            {
-                OutputFilePath = OutPath,
-                SrcRoot = "https://github.com/microsoft/sarif-sdk/blob/main/",
-            });
+            int exit = new EmitFinalizeCommand().Run(new EmitFinalizeOptions { OutputFilePath = OutPath });
 
             exit.Should().Be(CommandBase.SUCCESS);
             SarifLog log = LoadSarif();
             log.Runs[0].OriginalUriBaseIds.Should().ContainKey("SRCROOT");
             log.Runs[0].OriginalUriBaseIds["SRCROOT"].Uri
-                .Should().Be(new Uri("https://github.com/microsoft/sarif-sdk/blob/main/", UriKind.Absolute));
+                .Should().Be(new Uri($"https://github.com/microsoft/sarif-sdk/blob/{FrozenSha}/", UriKind.Absolute));
+
+            ArtifactLocation shipped = log.Runs[0].Results[0].Locations[0].PhysicalLocation.ArtifactLocation;
+            shipped.Uri.OriginalString.Should().Be("src/a.cs");
+            shipped.UriBaseId.Should().Be("SRCROOT");
         }
 
         [Fact]
-        public void Run_WithSrcRoot_AddsSrcRootEntryWhenRunHadNoOriginalUriBaseIds()
+        public void Run_FailsWhenRunHasNoVersionControlProvenance()
         {
-            // Run header was emitted without --srcroot. Finalize --srcroot should still
-            // honor the producer's intent and populate the SRCROOT base id from scratch.
+            // The finalize contract requires versionControlProvenance so local paths can be
+            // rebased to portable permalinks; a run without it is refused before any file ships.
             SeedWip(
                 (SarifEventKinds.RunHeader, new Run { Tool = new Tool { Driver = new ToolComponent { Name = "demo" } } }),
                 (SarifEventKinds.Result, new Result { RuleId = "NOVEL-test", Message = new Message { Text = "x" } }));
 
-            int exit = new EmitFinalizeCommand().Run(new EmitFinalizeOptions
-            {
-                OutputFilePath = OutPath,
-                SrcRoot = "https://example.com/repo/",
-            });
-
-            exit.Should().Be(CommandBase.SUCCESS);
-            SarifLog log = LoadSarif();
-            log.Runs[0].OriginalUriBaseIds.Should().ContainKey("SRCROOT");
-            log.Runs[0].OriginalUriBaseIds["SRCROOT"].Uri
-                .Should().Be(new Uri("https://example.com/repo/", UriKind.Absolute));
-        }
-
-        [Fact]
-        public void Run_WithMalformedSrcRoot_FailsWithClearMessage()
-        {
-            SeedWip(
-                (SarifEventKinds.RunHeader, new Run { Tool = new Tool { Driver = new ToolComponent { Name = "demo" } } }));
-
             string capturedStderr;
             int exit;
             using (var writer = new StringWriter())
@@ -230,11 +246,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 Console.SetError(writer);
                 try
                 {
-                    exit = new EmitFinalizeCommand().Run(new EmitFinalizeOptions
-                    {
-                        OutputFilePath = OutPath,
-                        SrcRoot = "not a uri",
-                    });
+                    exit = new EmitFinalizeCommand().Run(new EmitFinalizeOptions { OutputFilePath = OutPath });
                 }
                 finally
                 {
@@ -245,56 +257,20 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
             exit.Should().Be(CommandBase.FAILURE);
             File.Exists(OutPath).Should().BeFalse();
-            capturedStderr.Should().Contain("--srcroot");
-            capturedStderr.Should().Contain("not a uri");
-        }
-
-        [Fact]
-        public void Run_WithDisallowedSrcRootScheme_FailsWithClearMessage()
-        {
-            // http:// is not in the base-URI allow-list (https + file only) so a typo
-            // surfaces here rather than silently shipping a clear-text base URI.
-            SeedWip(
-                (SarifEventKinds.RunHeader, new Run { Tool = new Tool { Driver = new ToolComponent { Name = "demo" } } }));
-
-            string capturedStderr;
-            int exit;
-            using (var writer = new StringWriter())
-            {
-                TextWriter original = Console.Error;
-                Console.SetError(writer);
-                try
-                {
-                    exit = new EmitFinalizeCommand().Run(new EmitFinalizeOptions
-                    {
-                        OutputFilePath = OutPath,
-                        SrcRoot = "http://example.com/repo/",
-                    });
-                }
-                finally
-                {
-                    Console.SetError(original);
-                }
-                capturedStderr = writer.ToString();
-            }
-
-            exit.Should().Be(CommandBase.FAILURE);
-            File.Exists(OutPath).Should().BeFalse();
-            capturedStderr.Should().Contain("--srcroot");
-            capturedStderr.Should().Contain("scheme 'http'");
+            capturedStderr.Should().Contain("versionControlProvenance");
         }
 
         [Fact]
         public void Run_WithValidateFlag_ReturnsFailureWhenErrorFindingsPresent()
         {
-            // A bare run with no AI-profile metadata fires several AI* error-level
-            // findings (AI1004 missing VCP, AI1006 missing ai/origin, etc.). The
-            // --validate gate should propagate this as a FAILURE exit code and
-            // leave the report file on disk for forensics. The clean-input
-            // success path is covered with higher fidelity by the
+            // A run that carries versionControlProvenance (so finalize can rebase) but is
+            // otherwise bare of AI-profile metadata fires several AI* error-level findings
+            // (AI1006 missing ai/origin, automationDetails, etc.). The --validate gate should
+            // propagate this as a FAILURE exit code and leave the report file on disk for
+            // forensics. The clean-input success path is covered with higher fidelity by the
             // CweGenerateSample.ps1 + CweSample.sarif integration fixture.
             SeedWip(
-                (SarifEventKinds.RunHeader, new Run { Tool = new Tool { Driver = new ToolComponent { Name = "demo" } } }));
+                (SarifEventKinds.RunHeader, RunHeader()));
 
             int exit = new EmitFinalizeCommand().Run(new EmitFinalizeOptions
             {

@@ -643,6 +643,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                     entry[kv.Key] = kv.Value;
                 }
 
+                StampMappedToIfAbsent(entry, runObject);
+
                 if (vcpArray == null)
                 {
                     runObject["versionControlProvenance"] = new JArray { entry };
@@ -704,7 +706,30 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 }
             }
 
+            StampMappedToIfAbsent(existing, runObject);
+
             return true;
+        }
+
+        // The auto-stamped source-repo entry binds to the local source root via mappedTo so
+        // emit-finalize can deconstruct local paths into portable permalinks. Only stamp when the
+        // run declares originalUriBaseIds.SRCROOT (otherwise the binding could not resolve) and the
+        // caller has not already supplied its own mappedTo.
+        private static void StampMappedToIfAbsent(JObject vcpEntry, JObject runObject)
+        {
+            JToken sourceRoot = runObject["originalUriBaseIds"]?[SourceRootBaseId];
+            if (sourceRoot == null || sourceRoot.Type != JTokenType.Object)
+            {
+                return;
+            }
+
+            JToken existingMappedTo = vcpEntry["mappedTo"];
+            if (existingMappedTo != null && existingMappedTo.Type != JTokenType.Null)
+            {
+                return;
+            }
+
+            vcpEntry["mappedTo"] = new JObject { ["uriBaseId"] = SourceRootBaseId };
         }
 
         /// <summary>
