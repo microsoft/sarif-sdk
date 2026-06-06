@@ -21,7 +21,7 @@ metadata:
 ## Context
 
 GitHub Advanced Security for Azure DevOps (GHAzDO) ingests SARIF through the Advanced
-Security alert API. The [`publish-to-ghazdo`](../../src/Sarif.Multitool.Library/Publish/PublishToGhazdoCommand.cs)
+Security alert API. The [`publish-to-ghazdo`](../../src/Sarif.Multitool.Library/PublishToGhazdo/PublishToGhazdoCommand.cs)
 verb uploads a finalized SARIF file to that endpoint: it derives the Azure DevOps target from the
 run's version-control provenance, compresses the body, and posts it under a caller-supplied bearer
 secret.
