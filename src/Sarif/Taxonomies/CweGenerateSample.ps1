@@ -128,9 +128,11 @@
     -Branch when HEAD is detached. Ignored under -Deterministic.
 
 .PARAMETER Branch
-    Overrides the live-derived branch (git rev-parse --abbrev-ref HEAD)
-    in default mode; a bare name is normalized to refs/heads/<name>.
-    Ignored under -Deterministic.
+    Overrides the live-derived branch in default mode; a bare name is
+    normalized to refs/heads/<name>. When omitted, the branch resolves
+    from git (git rev-parse --abbrev-ref HEAD) or, on a detached-HEAD CI
+    checkout, from BUILD_SOURCEBRANCH / GITHUB_REF. Ignored under
+    -Deterministic.
 
 .EXAMPLE
     pwsh src/Sarif/Taxonomies/CweGenerateSample.ps1
@@ -319,10 +321,28 @@ else {
         else {
             $abbrev = $null
             try { $abbrev = (& git -C $repoRoot rev-parse --abbrev-ref HEAD 2>$null).Trim() } catch { }
-            if (-not $abbrev -or $abbrev -eq 'HEAD') {
-                throw "Detached HEAD at '$repoRoot' has no branch to record. Pass -Branch <name>, or pass -Deterministic."
+            if ($abbrev -and $abbrev -ne 'HEAD') {
+                $vcpBranch = ConvertTo-RefsHeads $abbrev
             }
-            $vcpBranch = ConvertTo-RefsHeads $abbrev
+            else {
+                # Detached HEAD — the normal state of a CI / pipeline checkout.
+                # git cannot name the branch, but the CI system does, via an
+                # environment ref that describes this very checkout (the same
+                # commit HEAD points at, so still coherent live provenance — not
+                # the canonical-pin mixing this resolver otherwise forbids). Read
+                # it so default-mode reconstruction works unattended in a
+                # GitHub Actions or Azure DevOps pipeline rather than demanding
+                # -Branch. These vars are read before Set-AdoEnv scrubs them for
+                # the multitool subprocess, so the parent value is intact.
+                $ciRef = $env:BUILD_SOURCEBRANCH
+                if (-not $ciRef) { $ciRef = $env:GITHUB_REF }
+                if ($ciRef -and $ciRef.Trim()) {
+                    $vcpBranch = ConvertTo-RefsHeads $ciRef.Trim()
+                }
+                else {
+                    throw "Detached HEAD at '$repoRoot' and no CI branch ref (BUILD_SOURCEBRANCH / GITHUB_REF) to record. Pass -Branch <name>, or pass -Deterministic."
+                }
+            }
         }
     }
     else {
