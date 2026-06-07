@@ -189,26 +189,74 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         [Fact]
         public void GetSkill_List_EnumeratesExactlyTheCatalogSkills()
         {
-            string output;
-            TextWriter original = Console.Out;
-            try
-            {
-                using var writer = new StringWriter();
-                Console.SetOut(writer);
-                new GetSkillCommand().Run(new GetSkillOptions { List = true })
-                    .Should().Be(CommandBase.SUCCESS);
-                output = writer.ToString();
-            }
-            finally
-            {
-                Console.SetOut(original);
-            }
+            string output = RunListToString();
 
             foreach (string skill in GetSkillCommand.SkillSourceDirectory.Keys)
             {
                 output.Should().Contain(skill);
             }
         }
+
+        [Fact]
+        public void GetSkill_List_SurfacesEachSkillDescriptionBesideItsName()
+        {
+            string output = RunListToString();
+            string[] lines = output.Split(new[] { "\r\n", "\n" }, StringSplitOptions.None);
+
+            var offenders = new List<string>();
+            foreach (string skill in GetSkillCommand.SkillSourceDirectory.Keys)
+            {
+                string description = GetSkillCommand.TryGetSkillDescription(skill);
+                if (string.IsNullOrEmpty(description))
+                {
+                    offenders.Add($"  [{skill}] declares no frontmatter description.");
+                    continue;
+                }
+
+                string line = lines.SingleOrDefault(l => l.IndexOf(description, StringComparison.Ordinal) >= 0);
+                if (line == null)
+                {
+                    offenders.Add($"  [{skill}] description is not present on exactly one --list line.");
+                    continue;
+                }
+
+                if (!line.TrimStart().StartsWith(skill, StringComparison.Ordinal))
+                {
+                    offenders.Add($"  [{skill}] description is not on the same line as its name.");
+                }
+            }
+
+            offenders.Should().BeEmpty(
+                "get-skill --list must surface each skill's frontmatter description beside its name:\n"
+                + string.Join("\n", offenders));
+        }
+
+        [Fact]
+        public void GetSkill_ExtractDescription_ReadsUnquotedSingleLineScalar()
+            => AssertExtractedDescription("---\nname: x\ndescription: Hello, world.\n---\nbody\n", "Hello, world.");
+
+        [Fact]
+        public void GetSkill_ExtractDescription_StripsSurroundingDoubleQuotes()
+            => AssertExtractedDescription("---\ndescription: \"Quoted value\"\n---\n", "Quoted value");
+
+        [Fact]
+        public void GetSkill_ExtractDescription_StripsSurroundingSingleQuotes()
+            => AssertExtractedDescription("---\ndescription: 'Quoted value'\n---\n", "Quoted value");
+
+        [Fact]
+        public void GetSkill_ExtractDescription_ReturnsNullWhenDocumentHasNoFrontmatter()
+            => AssertExtractedDescription("# Title\ndescription: not in frontmatter\n", null);
+
+        [Fact]
+        public void GetSkill_ExtractDescription_ReturnsNullForBlockScalarIndicator()
+            => AssertExtractedDescription("---\ndescription: >\n  folded text spilling to the next line\n---\n", null);
+
+        [Fact]
+        public void GetSkill_ExtractDescription_IgnoresDescriptionAfterFrontmatterCloses()
+            => AssertExtractedDescription("---\nname: x\n---\ndescription: body line\n", null);
+
+        private static void AssertExtractedDescription(string document, string expected)
+            => GetSkillCommand.ExtractFrontmatterDescription(document).Should().Be(expected);
 
         [Fact]
         public void GetSkill_UnknownSkill_Fails()
@@ -252,6 +300,23 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             .Should().Be(CommandBase.SUCCESS);
 
             return File.ReadAllText(outPath);
+        }
+
+        private static string RunListToString()
+        {
+            TextWriter original = Console.Out;
+            try
+            {
+                using var writer = new StringWriter();
+                Console.SetOut(writer);
+                new GetSkillCommand().Run(new GetSkillOptions { List = true })
+                    .Should().Be(CommandBase.SUCCESS);
+                return writer.ToString();
+            }
+            finally
+            {
+                Console.SetOut(original);
+            }
         }
 
         private static string FindRepositoryRoot()
