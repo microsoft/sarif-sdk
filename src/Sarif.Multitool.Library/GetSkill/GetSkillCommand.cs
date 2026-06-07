@@ -61,13 +61,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         // `description:` appearing in skill prose cannot leak into the catalog.
         private static readonly Regex s_frontmatterDescription = new Regex(
             @"^description:[ \t]*(?<value>.+?)[ \t]*$",
-            RegexOptions.Compiled);
+            RegexOptions.Compiled | RegexOptions.CultureInvariant | RegexOptions.ExplicitCapture);
 
         // A bare YAML block-scalar header (">", "|", optionally with a chomping/indentation indicator)
         // means the value spills onto following lines; the terse catalog skips such a description.
         private static readonly Regex s_blockScalarHeader = new Regex(
             @"^[>|][0-9+\-]*$",
-            RegexOptions.Compiled);
+            RegexOptions.Compiled | RegexOptions.CultureInvariant | RegexOptions.ExplicitCapture);
 
         public int Run(GetSkillOptions options, IFileSystem fileSystem = null)
         {

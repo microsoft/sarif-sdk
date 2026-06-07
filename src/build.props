@@ -14,7 +14,6 @@
     <Product Condition=" '$(Product)' == '' ">Microsoft SARIF SDK</Product>
     <Copyright Condition=" '$(Copyright)' == '' ">© Microsoft Corporation. All rights reserved.</Copyright>
     <VersionPrefix>5.0.4</VersionPrefix>
-    <PreviousVersionPrefix>5.0.3</PreviousVersionPrefix>
 
     <!-- SchemaVersionAsPublishedToSchemaStoreOrg identifies the current published version on json schema store at https://schemastore.azurewebsites.net/schemas/json/ -->
     <SchemaVersionAsPublishedToSchemaStoreOrg>2.1.0-rtm.6</SchemaVersionAsPublishedToSchemaStoreOrg>
