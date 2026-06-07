@@ -1,6 +1,6 @@
 ---
 name: publish-to-ghazdo
-description: Uploads a finalized SARIF file to GitHub Advanced Security for Azure DevOps (GHAzDO) using the Sarif.Multitool publish-to-ghazdo verb, with the bearer secret read strictly from an environment variable.
+description: Uploads a finalized SARIF file to GitHub Advanced Security for Azure DevOps (GHAzDO) using the Sarif.Multitool publish-to-ghazdo verb.
 metadata:
   author: sarif-sdk-maintainers
   version: "1.0.0"

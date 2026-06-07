@@ -56,6 +56,19 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             @"\+(?<sha>[0-9a-fA-F]{7,64})",
             RegexOptions.Compiled);
 
+        // The frontmatter `description:` scalar surfaced beside each skill in the get-skill --list
+        // catalog. Matched only against lines inside the leading YAML frontmatter block, so a
+        // `description:` appearing in skill prose cannot leak into the catalog.
+        private static readonly Regex s_frontmatterDescription = new Regex(
+            @"^description:[ \t]*(?<value>.+?)[ \t]*$",
+            RegexOptions.Compiled | RegexOptions.CultureInvariant | RegexOptions.ExplicitCapture);
+
+        // A bare YAML block-scalar header (">", "|", optionally with a chomping/indentation indicator)
+        // means the value spills onto following lines; the terse catalog skips such a description.
+        private static readonly Regex s_blockScalarHeader = new Regex(
+            @"^[>|][0-9+\-]*$",
+            RegexOptions.Compiled | RegexOptions.CultureInvariant | RegexOptions.ExplicitCapture);
+
         public int Run(GetSkillOptions options, IFileSystem fileSystem = null)
         {
             fileSystem ??= Sarif.FileSystem.Instance;
@@ -264,8 +277,72 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
         private static string BuildSkillList()
         {
-            return "Available skills:" + Environment.NewLine
-                + string.Concat(SkillSourceDirectory.Keys.Select(name => "  " + name + Environment.NewLine)).TrimEnd();
+            int width = SkillSourceDirectory.Keys.Max(name => name.Length);
+
+            var builder = new StringBuilder("Available skills:");
+            foreach (string name in SkillSourceDirectory.Keys)
+            {
+                builder.Append(Environment.NewLine).Append("  ");
+
+                string description = TryGetSkillDescription(name);
+                if (string.IsNullOrEmpty(description))
+                {
+                    builder.Append(name);
+                }
+                else
+                {
+                    builder.Append(name.PadRight(width)).Append("  ").Append(description);
+                }
+            }
+
+            return builder.ToString();
+        }
+
+        /// <summary>
+        /// Returns the skill's frontmatter <c>description</c>, or <c>null</c> when the embedded resource
+        /// is missing or declares none. This is the single source of truth for the skill's one-line
+        /// summary — the same scalar a consumer reads from the emitted document's frontmatter.
+        /// </summary>
+        internal static string TryGetSkillDescription(string skillName)
+        {
+            byte[] bytes = ReadEmbeddedSkill(skillName);
+            return bytes == null ? null : ExtractFrontmatterDescription(DecodeUtf8(bytes));
+        }
+
+        /// <summary>
+        /// Extracts the <c>description</c> scalar from a skill document's leading YAML frontmatter block.
+        /// Returns <c>null</c> when the document opens no frontmatter, declares no description, or uses a
+        /// multi-line block scalar (which the terse catalog does not render).
+        /// </summary>
+        internal static string ExtractFrontmatterDescription(string document)
+        {
+            if (string.IsNullOrEmpty(document)) { return null; }
+
+            using (var reader = new StringReader(document))
+            {
+                if (reader.ReadLine()?.Trim() != "---") { return null; }
+
+                string line;
+                while ((line = reader.ReadLine()) != null)
+                {
+                    if (line.Trim() == "---") { return null; }
+
+                    Match match = s_frontmatterDescription.Match(line);
+                    if (!match.Success) { continue; }
+
+                    string value = match.Groups["value"].Value;
+                    if (value.Length >= 2
+                        && (value[0] == '"' || value[0] == '\'')
+                        && value[value.Length - 1] == value[0])
+                    {
+                        value = value.Substring(1, value.Length - 2);
+                    }
+
+                    return s_blockScalarHeader.IsMatch(value) ? null : value;
+                }
+            }
+
+            return null;
         }
     }
 }
