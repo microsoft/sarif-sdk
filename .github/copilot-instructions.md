@@ -45,7 +45,7 @@ you're writing a PR description. Trim or split.
 - **PowerShell parameters are case-insensitive by default.** Don't
   invent ceremony around that — `-GHAzDO`, `-ghazdo`, `-GHAZDO` all
   bind to the same `[switch]`.
-- **AI ruleId convention (`AI-RULEID-001`).** Every AI-emitted
+- **AI ruleId convention (`AI1012`).** Every AI-emitted
   `result.ruleId` must take taxonomy sub-id form (`CWE-89/kql-injection`)
   or the NOVEL escape hatch (`NOVEL-<sub-id>`); the `NOVEL-` form does
   not accept a slash. `AI1012` stays silent on conformant ids.

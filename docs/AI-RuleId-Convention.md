@@ -89,7 +89,7 @@ The convention is enforced at `emit-finalize` time by [`AIRuleIdConvention.Throw
 When `emit-finalize` catches the exception it writes the exception message to stderr:
 
 ```
-error AI-RULEID-001: 2 results did not conform to the AI ruleId convention:
+error AI1012: 2 results did not conform to the AI ruleId convention:
   - 'CWE-89'
   - 'my-custom-rule'
 

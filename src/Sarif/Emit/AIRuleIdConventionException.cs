@@ -21,9 +21,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Emit
     {
         /// <summary>
         /// Stable error code so downstream tooling can pattern-match without parsing the
-        /// human-readable message body.
+        /// human-readable message body. This is the canonical AI1012 (ProvideRuleSubId)
+        /// rule id, so the emit-time rejection and the post-hoc validator report one id.
         /// </summary>
-        public const string ErrorCode = "AI-RULEID-001";
+        public const string ErrorCode = "AI1012";
 
         public AIRuleIdConventionException(IList<string> offendingRuleIds)
             : base(BuildMessage(offendingRuleIds))
