@@ -102,11 +102,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         /// ssh/scp normalized) that should be written back onto the run so the finalized SARIF never
         /// ships a credential-bearing or non-https repositoryUri.
         /// </summary>
-        internal static bool TryDerivePortableRoot(Uri rawRepositoryUri, string revisionId, out Uri portableRoot, out Uri canonicalRepositoryUri, out string leaf, out string error)
+        internal static bool TryDerivePortableRoot(Uri rawRepositoryUri, string revisionId, out Uri portableRoot, out Uri canonicalRepositoryUri, out string leaf, out Uri revisionWebUrl, out string error)
         {
             portableRoot = null;
             canonicalRepositoryUri = null;
             leaf = null;
+            revisionWebUrl = null;
 
             if (!TryClassify(rawRepositoryUri, out Classification classification, out error))
             {
@@ -139,6 +140,33 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             if (!Uri.TryCreate(composed, UriKind.Absolute, out portableRoot))
             {
                 error = string.Format(CultureInfo.InvariantCulture, "could not compose a portable root from repositoryUri '{0}'.", classification.Display);
+                return false;
+            }
+
+            // A browsable web URL anchored at the revision. The portable root above is a uriBaseId
+            // prefix (a GitHub blob/<sha>/ path that expects a file beneath it), so it is not itself
+            // clickable; this companion URL points at the repository root as it stood at the commit.
+            // GitHub exposes that as a /tree/<sha> permalink; Azure DevOps as a ?version=GC<sha> query
+            // on the repository root (its per-file web URLs are query-based for the same reason).
+            string revisionWeb = classification.IsAzureDevOps
+                ? string.Format(
+                    CultureInfo.InvariantCulture,
+                    "{0}/{1}/_git/{2}?version=GC{3}",
+                    classification.SchemeAndServer,
+                    classification.AdoPrefix,
+                    classification.RepoForUrl,
+                    Uri.EscapeDataString(revisionId))
+                : string.Format(
+                    CultureInfo.InvariantCulture,
+                    "{0}/{1}/{2}/tree/{3}",
+                    classification.SchemeAndServer,
+                    classification.Owner,
+                    classification.RepoForUrl,
+                    Uri.EscapeDataString(revisionId));
+
+            if (!Uri.TryCreate(revisionWeb, UriKind.Absolute, out revisionWebUrl))
+            {
+                error = string.Format(CultureInfo.InvariantCulture, "could not compose a revision web URL from repositoryUri '{0}'.", classification.Display);
                 return false;
             }
 

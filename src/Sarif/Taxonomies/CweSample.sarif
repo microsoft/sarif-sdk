@@ -148,7 +148,10 @@
       ],
       "originalUriBaseIds": {
         "SRCROOT": {
-          "uri": "https://github.com/microsoft/sarif-sdk/blob/84f83c813bcf52ae2c0fd7ff2963e2fa2a2efac7/"
+          "uri": "https://github.com/microsoft/sarif-sdk/blob/84f83c813bcf52ae2c0fd7ff2963e2fa2a2efac7/",
+          "description": {
+            "text": "Source root mapped to [sarif-sdk@84f83c8](https://github.com/microsoft/sarif-sdk/tree/84f83c813bcf52ae2c0fd7ff2963e2fa2a2efac7)."
+          }
         }
       },
       "artifacts": [

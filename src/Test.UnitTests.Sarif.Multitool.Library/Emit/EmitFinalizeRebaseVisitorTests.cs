@@ -95,6 +95,121 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         }
 
         [Fact]
+        public void SingleRepo_MintedBase_CarriesDescriptionLinkingRepositoryAndCommit()
+        {
+            var run = new Run
+            {
+                VersionControlProvenance = new[] { Vcd("https://github.com/microsoft/sarif-sdk", "SRCROOT") },
+                OriginalUriBaseIds = Bases(("SRCROOT", "file:///d:/src/sarif-sdk/")),
+                Results = new[] { ResultAt("file:///d:/src/sarif-sdk/src/Foo.cs") },
+            };
+
+            EmitFinalizeRebaseVisitor visitor = Visit(run);
+
+            visitor.Success.Should().BeTrue();
+            Message description = run.OriginalUriBaseIds["SRCROOT"].Description;
+
+            // The text is a SARIF embedded link (spec §3.11.6): the anchor names the
+            // repository and abbreviated commit (repo@short-sha) and links to the
+            // GitHub tree permalink pinned at the full commit. No separate markdown
+            // form is minted.
+            description.Text
+                .Should().Be($"Source root mapped to [sarif-sdk@{Sha.Substring(0, 7)}](https://github.com/microsoft/sarif-sdk/tree/{Sha}).");
+            description.Markdown.Should().BeNull();
+        }
+
+        [Fact]
+        public void SingleAzureDevOpsRepo_MintedBase_LinksToRepoAtRevisionWithVersionQuery()
+        {
+            var run = new Run
+            {
+                VersionControlProvenance = new[] { Vcd("https://dev.azure.com/fabrikam/proj/_git/widgets", "SRCROOT") },
+                OriginalUriBaseIds = Bases(("SRCROOT", "file:///d:/src/widgets/")),
+                Results = new[] { ResultAt("file:///d:/src/widgets/src/Foo.cs") },
+            };
+
+            EmitFinalizeRebaseVisitor visitor = Visit(run);
+
+            visitor.Success.Should().BeTrue();
+            Message description = run.OriginalUriBaseIds["SRCROOT"].Description;
+
+            // Azure DevOps pins a commit with the ?version=GC<sha> query on the
+            // repository root rather than a path segment; the anchor carries the
+            // abbreviated commit (repo@short-sha).
+            description.Text
+                .Should().Be($"Source root mapped to [widgets@{Sha.Substring(0, 7)}](https://dev.azure.com/fabrikam/proj/_git/widgets?version=GC{Sha}).");
+            description.Markdown.Should().BeNull();
+        }
+
+        [Fact]
+        public void MultipleRepos_EachMintedBase_CarriesItsOwnRepositoryDescription()
+        {
+            var run = new Run
+            {
+                VersionControlProvenance = new[]
+                {
+                    Vcd("https://github.com/contoso/widgets", "A"),
+                    Vcd("https://dev.azure.com/fabrikam/proj/_git/widgets", "B"),
+                },
+                OriginalUriBaseIds = Bases(
+                    ("A", "file:///d:/gh/"),
+                    ("B", "file:///d:/ado/")),
+                Results = new[]
+                {
+                    ResultAt("file:///d:/gh/a.cs"),
+                    ResultAt("file:///d:/ado/b.cs"),
+                },
+            };
+
+            EmitFinalizeRebaseVisitor visitor = Visit(run);
+
+            visitor.Success.Should().BeTrue();
+
+            // The text is a SARIF embedded link (spec §3.11.6) whose anchor names the
+            // repository and abbreviated commit (repo@short-sha) and links to the
+            // root-at-revision URL, shaped per host: GitHub /tree/<sha>, Azure DevOps
+            // ?version=GC<sha>. It must never carry the portable blob/<commit>/
+            // segment, and no separate markdown form is minted.
+            Message gitHub = run.OriginalUriBaseIds["SRCROOT_WIDGETS"].Description;
+            gitHub.Text
+                .Should().Be($"Source root mapped to [widgets@{Sha.Substring(0, 7)}](https://github.com/contoso/widgets/tree/{Sha}).")
+                .And.NotContain("/blob/");
+            gitHub.Markdown.Should().BeNull();
+
+            Message azureDevOps = run.OriginalUriBaseIds["SRCROOT_WIDGETS_2"].Description;
+            azureDevOps.Text
+                .Should().Be($"Source root mapped to [widgets@{Sha.Substring(0, 7)}](https://dev.azure.com/fabrikam/proj/_git/widgets?version=GC{Sha}).");
+            azureDevOps.Markdown.Should().BeNull();
+        }
+
+        [Fact]
+        public void SingleRepo_ProducerSuppliedDescription_IsPreserved()
+        {
+            var inputBases = new Dictionary<string, ArtifactLocation>(StringComparer.Ordinal)
+            {
+                ["SRCROOT"] = new ArtifactLocation
+                {
+                    Uri = new Uri("file:///d:/src/sarif-sdk/", UriKind.Absolute),
+                    Description = new Message { Text = "Producer-authored description." },
+                },
+            };
+
+            var run = new Run
+            {
+                VersionControlProvenance = new[] { Vcd("https://github.com/microsoft/sarif-sdk", "SRCROOT") },
+                OriginalUriBaseIds = inputBases,
+                Results = new[] { ResultAt("file:///d:/src/sarif-sdk/src/Foo.cs") },
+            };
+
+            EmitFinalizeRebaseVisitor visitor = Visit(run);
+
+            visitor.Success.Should().BeTrue();
+            Message description = run.OriginalUriBaseIds["SRCROOT"].Description;
+            description.Text.Should().Be("Producer-authored description.");
+            description.Markdown.Should().BeNull();
+        }
+
+        [Fact]
         public void SingleRepo_RelativeLocationAlreadyUnderBase_KeepsRelativeForm()
         {
             var run = new Run

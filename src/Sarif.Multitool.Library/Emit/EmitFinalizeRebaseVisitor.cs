@@ -18,7 +18,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
     /// at a portable root — a GitHub-compatible blob permalink (commit-pinned in the URL) or an Azure
     /// DevOps repository root (commit pinning carried by <c>versionControlProvenance.revisionId</c>),
     /// derived from the repositoryUri by <see cref="VcpPortableRoot"/> — so the finalized SARIF
-    /// carries no machine-specific path.
+    /// carries no machine-specific path. Each minted base also carries a <c>description</c> whose
+    /// <c>text</c> is a SARIF embedded link (§3.11.6) whose anchor names the repository and
+    /// abbreviated commit (<c>&lt;repo&gt;@&lt;short-sha&gt;</c>) and whose destination is a
+    /// browsable root-at-revision URL, unless the input base already supplied a description.
     /// </summary>
     /// <remarks>
     /// One repository collapses to the bare <c>SRCROOT</c> base. Multiple repositories each receive
@@ -229,7 +232,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
                 seenLocalRoots[localKey] = i;
 
-                if (!VcpPortableRoot.TryDerivePortableRoot(vcd.RepositoryUri, vcd.RevisionId, out Uri portableRoot, out Uri canonicalRepositoryUri, out string leaf, out string deriveError))
+                if (!VcpPortableRoot.TryDerivePortableRoot(vcd.RepositoryUri, vcd.RevisionId, out Uri portableRoot, out Uri canonicalRepositoryUri, out string leaf, out Uri revisionWebUrl, out string deriveError))
                 {
                     _errors.Add(string.Format(CultureInfo.InvariantCulture, "{0}: {1}", where, deriveError));
                     return false;
@@ -254,6 +257,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                     SourceBaseId = vcd.MappedTo.UriBaseId,
                     LocalRoot = localRoot,
                     PortableRoot = portableRoot,
+                    RevisionWebUrl = revisionWebUrl,
                     Leaf = leaf,
                 });
             }
@@ -322,6 +326,19 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
                 baseEntry.Uri = root.PortableRoot;
                 baseEntry.UriBaseId = null;
+                string shortRevision =
+                    root.Vcd.RevisionId.Length > 7
+                        ? root.Vcd.RevisionId.Substring(0, 7)
+                        : root.Vcd.RevisionId;
+                baseEntry.Description ??= new Message
+                {
+                    Text = string.Format(
+                        CultureInfo.InvariantCulture,
+                        "Source root mapped to [{0}@{1}]({2}).",
+                        root.Leaf,
+                        shortRevision,
+                        root.RevisionWebUrl.AbsoluteUri),
+                };
                 bases[root.OutputBaseId] = baseEntry;
             }
 
@@ -471,6 +488,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             public Uri LocalRoot { get; set; }
 
             public Uri PortableRoot { get; set; }
+
+            public Uri RevisionWebUrl { get; set; }
 
             public string Leaf { get; set; }
 
