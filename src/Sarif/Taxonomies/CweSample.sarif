@@ -150,7 +150,8 @@
         "SRCROOT": {
           "uri": "https://github.com/microsoft/sarif-sdk/blob/84f83c813bcf52ae2c0fd7ff2963e2fa2a2efac7/",
           "description": {
-            "text": "Source root mapped to https://github.com/microsoft/sarif-sdk at commit 84f83c813bcf52ae2c0fd7ff2963e2fa2a2efac7."
+            "text": "Source root mapped to https://github.com/microsoft/sarif-sdk at commit 84f83c813bcf52ae2c0fd7ff2963e2fa2a2efac7.",
+            "markdown": "Source root mapped to [sarif-sdk](https://github.com/microsoft/sarif-sdk/tree/84f83c813bcf52ae2c0fd7ff2963e2fa2a2efac7) at commit 84f83c813bcf52ae2c0fd7ff2963e2fa2a2efac7."
           }
         }
       },

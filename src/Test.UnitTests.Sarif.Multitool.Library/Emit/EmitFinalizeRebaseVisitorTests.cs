@@ -108,8 +108,37 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
             visitor.Success.Should().BeTrue();
             string repositoryUri = run.VersionControlProvenance[0].RepositoryUri.AbsoluteUri;
-            run.OriginalUriBaseIds["SRCROOT"].Description.Text
+            Message description = run.OriginalUriBaseIds["SRCROOT"].Description;
+            description.Text
                 .Should().Be($"Source root mapped to {repositoryUri} at commit {Sha}.");
+
+            // The markdown form links the short repository name to the GitHub
+            // tree permalink at the pinned commit.
+            description.Markdown
+                .Should().Be($"Source root mapped to [sarif-sdk](https://github.com/microsoft/sarif-sdk/tree/{Sha}) at commit {Sha}.");
+        }
+
+        [Fact]
+        public void SingleAzureDevOpsRepo_MintedBase_LinksToRepoAtRevisionWithVersionQuery()
+        {
+            var run = new Run
+            {
+                VersionControlProvenance = new[] { Vcd("https://dev.azure.com/fabrikam/proj/_git/widgets", "SRCROOT") },
+                OriginalUriBaseIds = Bases(("SRCROOT", "file:///d:/src/widgets/")),
+                Results = new[] { ResultAt("file:///d:/src/widgets/src/Foo.cs") },
+            };
+
+            EmitFinalizeRebaseVisitor visitor = Visit(run);
+
+            visitor.Success.Should().BeTrue();
+            Message description = run.OriginalUriBaseIds["SRCROOT"].Description;
+            description.Text
+                .Should().Be($"Source root mapped to https://dev.azure.com/fabrikam/proj/_git/widgets at commit {Sha}.");
+
+            // Azure DevOps pins a commit with the ?version=GC<sha> query on the
+            // repository root rather than a path segment.
+            description.Markdown
+                .Should().Be($"Source root mapped to [widgets](https://dev.azure.com/fabrikam/proj/_git/widgets?version=GC{Sha}) at commit {Sha}.");
         }
 
         [Fact]
@@ -136,13 +165,23 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
             visitor.Success.Should().BeTrue();
 
-            // The description names the repository identity, never the portable
-            // root, so the GitHub form must not carry the blob/<commit>/ segment.
-            run.OriginalUriBaseIds["SRCROOT_WIDGETS"].Description.Text
+            // The text names the repository identity, never the portable root, so
+            // the GitHub form must not carry the blob/<commit>/ segment. The
+            // markdown links the short repository name to the root-at-revision URL,
+            // shaped per host: GitHub /tree/<sha>, Azure DevOps ?version=GC<sha>.
+            Message gitHub = run.OriginalUriBaseIds["SRCROOT_WIDGETS"].Description;
+            gitHub.Text
                 .Should().Be($"Source root mapped to https://github.com/contoso/widgets at commit {Sha}.")
                 .And.NotContain("/blob/");
-            run.OriginalUriBaseIds["SRCROOT_WIDGETS_2"].Description.Text
+            gitHub.Markdown
+                .Should().Be($"Source root mapped to [widgets](https://github.com/contoso/widgets/tree/{Sha}) at commit {Sha}.")
+                .And.NotContain("/blob/");
+
+            Message azureDevOps = run.OriginalUriBaseIds["SRCROOT_WIDGETS_2"].Description;
+            azureDevOps.Text
                 .Should().Be($"Source root mapped to https://dev.azure.com/fabrikam/proj/_git/widgets at commit {Sha}.");
+            azureDevOps.Markdown
+                .Should().Be($"Source root mapped to [widgets](https://dev.azure.com/fabrikam/proj/_git/widgets?version=GC{Sha}) at commit {Sha}.");
         }
 
         [Fact]
@@ -167,8 +206,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             EmitFinalizeRebaseVisitor visitor = Visit(run);
 
             visitor.Success.Should().BeTrue();
-            run.OriginalUriBaseIds["SRCROOT"].Description.Text
-                .Should().Be("Producer-authored description.");
+            Message description = run.OriginalUriBaseIds["SRCROOT"].Description;
+            description.Text.Should().Be("Producer-authored description.");
+            description.Markdown.Should().BeNull();
         }
 
         [Fact]
