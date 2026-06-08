@@ -116,7 +116,7 @@ dotnet dnx Sarif.Multitool --yes -- add-result "{{OUTPUT_PATH}}" --input result-
 Get-Content result-001.json | dotnet dnx Sarif.Multitool --yes -- add-result "{{OUTPUT_PATH}}"
 ```
 
-The result JSON must include at minimum: `ruleId` (with sub-ID per AI1012, e.g. `CWE-78/api-handler`), `kind: "fail"`, `level`, `message.text`, `message.markdown` (AI1005), at least one `locations[].physicalLocation` with a `region.startLine`, and any `ai/*` property bag entries required by the profile (`ai/exploitability`, `ai/attackerPosition`, `ai/evidence`).
+The result JSON must include at minimum: `ruleId` (with sub-ID per AI1012, e.g. `CWE-78/api-handler`), `level`, `message.text`, `message.markdown` (AI1005), at least one `locations[].physicalLocation` with a `region.startLine`, and any `ai/*` property bag entries required by the profile (`ai/exploitability`, `ai/attackerPosition`, `ai/evidence`).
 
 **Vocabulary discipline:** only the eight `ai/*` keys defined in the profile are valid. Do not invent additional `ai/*` keys; place tool-specific data under a tool-named namespace instead (e.g. `myscanner/confidence`).
 

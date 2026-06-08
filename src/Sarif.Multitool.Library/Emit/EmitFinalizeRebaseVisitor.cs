@@ -191,7 +191,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
                 if (vcd.MappedTo == null || string.IsNullOrEmpty(vcd.MappedTo.UriBaseId))
                 {
-                    _errors.Add(string.Format(CultureInfo.InvariantCulture, "{0}.mappedTo must declare a uriBaseId that binds the repository root to an originalUriBaseIds entry.", where));
+                    _errors.Add(string.Format(
+                        CultureInfo.InvariantCulture,
+                        "{0}.mappedTo must declare a uriBaseId that binds the repository root to an originalUriBaseIds entry.{1} See rule SARIF2007 (ExpressPathsRelativeToRepoRoot).",
+                        where,
+                        DescribeMappedToBindingFix(run)));
                     return false;
                 }
 
@@ -217,7 +221,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                     || !localRoot.IsAbsoluteUri
                     || localRoot.Scheme != Uri.UriSchemeFile)
                 {
-                    _errors.Add(string.Format(CultureInfo.InvariantCulture, "{0}.mappedTo (uriBaseId '{1}') must resolve to an absolute local file:// path through originalUriBaseIds.", where, vcd.MappedTo.UriBaseId));
+                    _errors.Add(string.Format(
+                        CultureInfo.InvariantCulture,
+                        "{0}.mappedTo (uriBaseId '{1}') must resolve to an absolute local file:// path through originalUriBaseIds. For example, originalUriBaseIds['{1}'].uri = \"file:///path/to/checkout/\". emit-finalize resolves result regions and snippets against this on-disk checkout, then rebases the local prefix to a portable per-repository root derived from versionControlProvenance (repositoryUri + revisionId), so the local path is not retained in the finalized SARIF.",
+                        where,
+                        vcd.MappedTo.UriBaseId));
                     return false;
                 }
 
@@ -418,6 +426,38 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             }
 
             return true;
+        }
+
+        // Build the situational, instructive tail for the "mappedTo must declare a uriBaseId"
+        // diagnostic: name the originalUriBaseIds binding the producer should use (the conventional
+        // SRCROOT when present, otherwise whatever roots are declared), and show the fix shape.
+        private static string DescribeMappedToBindingFix(Run run)
+        {
+            const string conventionalBaseId = "SRCROOT";
+            IDictionary<string, ArtifactLocation> bases = run.OriginalUriBaseIds;
+
+            if (bases != null && bases.ContainsKey(conventionalBaseId))
+            {
+                return string.Format(
+                    CultureInfo.InvariantCulture,
+                    " Your originalUriBaseIds already declares '{0}', so bind to it: \"mappedTo\": {{ \"uriBaseId\": \"{0}\" }}.",
+                    conventionalBaseId);
+            }
+
+            if (bases != null && bases.Count > 0)
+            {
+                string declared = string.Join(", ", bases.Keys.Select(k => "'" + k + "'"));
+                return string.Format(
+                    CultureInfo.InvariantCulture,
+                    " Your originalUriBaseIds declares {0}; set mappedTo.uriBaseId to the entry for the repository root (conventionally '{1}').",
+                    declared,
+                    conventionalBaseId);
+            }
+
+            return string.Format(
+                CultureInfo.InvariantCulture,
+                " Declare an originalUriBaseIds entry for the repository root (conventionally '{0}') and bind to it: \"mappedTo\": {{ \"uriBaseId\": \"{0}\" }}.",
+                conventionalBaseId);
         }
 
         // mappedTo carries only a uriBaseId (enforced in TryBuildPlan); the repository's absolute
