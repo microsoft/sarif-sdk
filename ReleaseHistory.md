@@ -15,6 +15,7 @@ Entries are terse by design: one line per change, present-tense behavior, comple
 
 ## **v5.0.4** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/v5.0.4) | [Driver](https://www.nuget.org/packages/Sarif.Driver/v5.0.4) | [Converters](https://www.nuget.org/packages/Sarif.Converters/v5.0.4) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/v5.0.4) | [Multitool Library](https://www.nuget.org/packages/Sarif.Multitool.Library/v5.0.4)
 * NEW: `sarif get-skill --list` now prints each skill's frontmatter `description` beside its name.
+* NEW: `sarif emit-finalize` now stamps a `description` on each minted `originalUriBaseIds` entry naming its repository URI and pinned commit; a producer-supplied description is preserved.
 
 ## **v5.0.3** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/v5.0.3) | [Driver](https://www.nuget.org/packages/Sarif.Driver/v5.0.3) | [Converters](https://www.nuget.org/packages/Sarif.Converters/v5.0.3) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/v5.0.3) | [Multitool Library](https://www.nuget.org/packages/Sarif.Multitool.Library/v5.0.3)
 * BRK: `FileRegionsCache.PopulateTextRegionProperties` gains an `overwriteExistingData` parameter (default `false`) and `OptionallyEmittedData.OverwriteExistingData` now suppresses exceptions for divergence in pre-populated versus computed region properties.

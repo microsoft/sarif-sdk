@@ -18,7 +18,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
     /// at a portable root — a GitHub-compatible blob permalink (commit-pinned in the URL) or an Azure
     /// DevOps repository root (commit pinning carried by <c>versionControlProvenance.revisionId</c>),
     /// derived from the repositoryUri by <see cref="VcpPortableRoot"/> — so the finalized SARIF
-    /// carries no machine-specific path.
+    /// carries no machine-specific path. Each minted base also carries a <c>description</c> naming
+    /// its repository URI and pinned commit, unless the input base already supplied one.
     /// </summary>
     /// <remarks>
     /// One repository collapses to the bare <c>SRCROOT</c> base. Multiple repositories each receive
@@ -322,6 +323,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
                 baseEntry.Uri = root.PortableRoot;
                 baseEntry.UriBaseId = null;
+                baseEntry.Description ??= new Message
+                {
+                    Text = string.Format(
+                        CultureInfo.InvariantCulture,
+                        "Source root mapped to {0} at commit {1}.",
+                        root.Vcd.RepositoryUri.AbsoluteUri,
+                        root.Vcd.RevisionId),
+                };
                 bases[root.OutputBaseId] = baseEntry;
             }
 

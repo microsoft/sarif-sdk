@@ -95,6 +95,83 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         }
 
         [Fact]
+        public void SingleRepo_MintedBase_CarriesDescriptionNamingRepositoryAndCommit()
+        {
+            var run = new Run
+            {
+                VersionControlProvenance = new[] { Vcd("https://github.com/microsoft/sarif-sdk", "SRCROOT") },
+                OriginalUriBaseIds = Bases(("SRCROOT", "file:///d:/src/sarif-sdk/")),
+                Results = new[] { ResultAt("file:///d:/src/sarif-sdk/src/Foo.cs") },
+            };
+
+            EmitFinalizeRebaseVisitor visitor = Visit(run);
+
+            visitor.Success.Should().BeTrue();
+            string repositoryUri = run.VersionControlProvenance[0].RepositoryUri.AbsoluteUri;
+            run.OriginalUriBaseIds["SRCROOT"].Description.Text
+                .Should().Be($"Source root mapped to {repositoryUri} at commit {Sha}.");
+        }
+
+        [Fact]
+        public void MultipleRepos_EachMintedBase_CarriesItsOwnRepositoryDescription()
+        {
+            var run = new Run
+            {
+                VersionControlProvenance = new[]
+                {
+                    Vcd("https://github.com/contoso/widgets", "A"),
+                    Vcd("https://dev.azure.com/fabrikam/proj/_git/widgets", "B"),
+                },
+                OriginalUriBaseIds = Bases(
+                    ("A", "file:///d:/gh/"),
+                    ("B", "file:///d:/ado/")),
+                Results = new[]
+                {
+                    ResultAt("file:///d:/gh/a.cs"),
+                    ResultAt("file:///d:/ado/b.cs"),
+                },
+            };
+
+            EmitFinalizeRebaseVisitor visitor = Visit(run);
+
+            visitor.Success.Should().BeTrue();
+
+            // The description names the repository identity, never the portable
+            // root, so the GitHub form must not carry the blob/<commit>/ segment.
+            run.OriginalUriBaseIds["SRCROOT_WIDGETS"].Description.Text
+                .Should().Be($"Source root mapped to https://github.com/contoso/widgets at commit {Sha}.")
+                .And.NotContain("/blob/");
+            run.OriginalUriBaseIds["SRCROOT_WIDGETS_2"].Description.Text
+                .Should().Be($"Source root mapped to https://dev.azure.com/fabrikam/proj/_git/widgets at commit {Sha}.");
+        }
+
+        [Fact]
+        public void SingleRepo_ProducerSuppliedDescription_IsPreserved()
+        {
+            var inputBases = new Dictionary<string, ArtifactLocation>(StringComparer.Ordinal)
+            {
+                ["SRCROOT"] = new ArtifactLocation
+                {
+                    Uri = new Uri("file:///d:/src/sarif-sdk/", UriKind.Absolute),
+                    Description = new Message { Text = "Producer-authored description." },
+                },
+            };
+
+            var run = new Run
+            {
+                VersionControlProvenance = new[] { Vcd("https://github.com/microsoft/sarif-sdk", "SRCROOT") },
+                OriginalUriBaseIds = inputBases,
+                Results = new[] { ResultAt("file:///d:/src/sarif-sdk/src/Foo.cs") },
+            };
+
+            EmitFinalizeRebaseVisitor visitor = Visit(run);
+
+            visitor.Success.Should().BeTrue();
+            run.OriginalUriBaseIds["SRCROOT"].Description.Text
+                .Should().Be("Producer-authored description.");
+        }
+
+        [Fact]
         public void SingleRepo_RelativeLocationAlreadyUnderBase_KeepsRelativeForm()
         {
             var run = new Run
