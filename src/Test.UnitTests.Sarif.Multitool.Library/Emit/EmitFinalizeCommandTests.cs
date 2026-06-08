@@ -3,6 +3,7 @@
 
 using System;
 using System.IO;
+using System.Linq;
 
 using FluentAssertions;
 
@@ -282,5 +283,187 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             File.Exists(OutPath).Should().BeTrue();
             File.Exists(Path.Combine(_dir, "scan.validate-report.sarif")).Should().BeTrue();
         }
+
+        [Fact]
+        public void Run_StampsSecuritySeverityFromObservedMaxRank()
+        {
+            // Two findings on the same CWE rule (sub-id forms both collapse to descriptor
+            // "CWE-79"); the higher rank (85) wins and maps to security-severity 8.5.
+            SeedWip(
+                (SarifEventKinds.RunHeader, RunHeader()),
+                (SarifEventKinds.Result, new Result { RuleId = "CWE-79/template-xss", Rank = 60, Message = new Message { Text = "xss" } }),
+                (SarifEventKinds.Result, new Result { RuleId = "CWE-79/dom-xss", Rank = 85, Message = new Message { Text = "xss" } }));
+
+            int exit = new EmitFinalizeCommand().Run(new EmitFinalizeOptions { OutputFilePath = OutPath });
+
+            exit.Should().Be(CommandBase.SUCCESS);
+            ReportingDescriptor rule = LoadSarif().Runs[0].Tool.Driver.Rules.Single(r => r.Id == "CWE-79");
+            SecuritySeverityOf(rule).Should().Be("8.5");
+        }
+
+        [Fact]
+        public void Run_PreservesProducerAuthoredSecuritySeverityThroughReplay()
+        {
+            // A producer that authored a rule descriptor with its own security-severity keeps it,
+            // even when a ranked result referencing that rule would otherwise derive a higher value.
+            var seededRule = new ReportingDescriptor { Id = "CWE-79" };
+            seededRule.SetProperty("security-severity", "2.0");
+
+            SeedWip(
+                (SarifEventKinds.RunHeader, RunHeader()),
+                (SarifEventKinds.RuleDescriptor, seededRule),
+                (SarifEventKinds.Result, new Result { RuleId = "CWE-79/dom-xss", Rank = 95, Message = new Message { Text = "xss" } }));
+
+            int exit = new EmitFinalizeCommand().Run(new EmitFinalizeOptions { OutputFilePath = OutPath });
+
+            exit.Should().Be(CommandBase.SUCCESS);
+            ReportingDescriptor rule = LoadSarif().Runs[0].Tool.Driver.Rules.Single(r => r.Id == "CWE-79");
+            SecuritySeverityOf(rule).Should().Be("2.0");
+        }
+
+        [Fact]
+        public void ApplyRankDerivedSecuritySeverity_StampsMaxRankDividedByTen()
+        {
+            Run run = BuildRun(
+                new[] { "CWE-89" },
+                (ruleIndex: 0, rank: 40.0),
+                (ruleIndex: 0, rank: 95.0));
+
+            int stamped = EmitFinalizeCommand.ApplyRankDerivedSecuritySeverity(run);
+
+            stamped.Should().Be(1);
+            SecuritySeverityOf(run.Tool.Driver.Rules[0]).Should().Be("9.5");
+        }
+
+        [Fact]
+        public void ApplyRankDerivedSecuritySeverity_TreatsEachRuleIndependently()
+        {
+            Run run = BuildRun(
+                new[] { "CWE-89", "CWE-79" },
+                (ruleIndex: 0, rank: 95.0),
+                (ruleIndex: 1, rank: 30.0));
+
+            int stamped = EmitFinalizeCommand.ApplyRankDerivedSecuritySeverity(run);
+
+            stamped.Should().Be(2);
+            SecuritySeverityOf(run.Tool.Driver.Rules[0]).Should().Be("9.5");
+            SecuritySeverityOf(run.Tool.Driver.Rules[1]).Should().Be("3.0");
+        }
+
+        [Fact]
+        public void ApplyRankDerivedSecuritySeverity_SkipsRuleWithNoRankedResults()
+        {
+            // Rank defaults to the -1.0 "unset" sentinel; a rule whose results carry no rank
+            // is left bare rather than fabricated a 0.0.
+            Run run = BuildRun(
+                new[] { "CWE-89" },
+                (ruleIndex: 0, rank: -1.0));
+
+            int stamped = EmitFinalizeCommand.ApplyRankDerivedSecuritySeverity(run);
+
+            stamped.Should().Be(0);
+            HasSecuritySeverity(run.Tool.Driver.Rules[0]).Should().BeFalse();
+        }
+
+        [Fact]
+        public void ApplyRankDerivedSecuritySeverity_StampsExplicitZeroRank()
+        {
+            // Rank 0 is an authored value (lowest severity), distinct from the -1.0 unset
+            // sentinel, so it is honored and maps to 0.0.
+            Run run = BuildRun(
+                new[] { "CWE-89" },
+                (ruleIndex: 0, rank: 0.0));
+
+            int stamped = EmitFinalizeCommand.ApplyRankDerivedSecuritySeverity(run);
+
+            stamped.Should().Be(1);
+            SecuritySeverityOf(run.Tool.Driver.Rules[0]).Should().Be("0.0");
+        }
+
+        [Fact]
+        public void ApplyRankDerivedSecuritySeverity_ClampsRankAboveOneHundred()
+        {
+            Run run = BuildRun(
+                new[] { "CWE-89" },
+                (ruleIndex: 0, rank: 150.0));
+
+            EmitFinalizeCommand.ApplyRankDerivedSecuritySeverity(run);
+
+            SecuritySeverityOf(run.Tool.Driver.Rules[0]).Should().Be("10.0");
+        }
+
+        [Fact]
+        public void ApplyRankDerivedSecuritySeverity_MapsRankOneHundredToTen()
+        {
+            Run run = BuildRun(
+                new[] { "CWE-89" },
+                (ruleIndex: 0, rank: 100.0));
+
+            EmitFinalizeCommand.ApplyRankDerivedSecuritySeverity(run);
+
+            SecuritySeverityOf(run.Tool.Driver.Rules[0]).Should().Be("10.0");
+        }
+
+        [Fact]
+        public void ApplyRankDerivedSecuritySeverity_RoundsFractionalRankToOneDecimal()
+        {
+            // rank 84.9 / 10 = 8.49, formatted to one decimal as 8.5.
+            Run run = BuildRun(
+                new[] { "CWE-89" },
+                (ruleIndex: 0, rank: 84.9));
+
+            EmitFinalizeCommand.ApplyRankDerivedSecuritySeverity(run);
+
+            SecuritySeverityOf(run.Tool.Driver.Rules[0]).Should().Be("8.5");
+        }
+
+        [Fact]
+        public void ApplyRankDerivedSecuritySeverity_PreservesProducerAuthoredValue()
+        {
+            Run run = BuildRun(
+                new[] { "CWE-89" },
+                (ruleIndex: 0, rank: 95.0));
+            run.Tool.Driver.Rules[0].SetProperty("security-severity", "2.0");
+
+            int stamped = EmitFinalizeCommand.ApplyRankDerivedSecuritySeverity(run);
+
+            stamped.Should().Be(0);
+            SecuritySeverityOf(run.Tool.Driver.Rules[0]).Should().Be("2.0");
+        }
+
+        [Fact]
+        public void ApplyRankDerivedSecuritySeverity_IgnoresResultWithOutOfRangeRuleIndex()
+        {
+            Run run = BuildRun(
+                new[] { "CWE-89" },
+                (ruleIndex: 7, rank: 95.0));
+
+            int stamped = EmitFinalizeCommand.ApplyRankDerivedSecuritySeverity(run);
+
+            stamped.Should().Be(0);
+            HasSecuritySeverity(run.Tool.Driver.Rules[0]).Should().BeFalse();
+        }
+
+        private static Run BuildRun(string[] ruleIds, params (int ruleIndex, double rank)[] results)
+            => new Run
+            {
+                Tool = new Tool
+                {
+                    Driver = new ToolComponent
+                    {
+                        Name = "demo",
+                        Rules = ruleIds.Select(id => new ReportingDescriptor { Id = id }).ToList(),
+                    },
+                },
+                Results = results
+                    .Select(r => new Result { RuleIndex = r.ruleIndex, Rank = r.rank })
+                    .ToList(),
+            };
+
+        private static string SecuritySeverityOf(ReportingDescriptor descriptor)
+            => descriptor.TryGetProperty("security-severity", out string value) ? value : null;
+
+        private static bool HasSecuritySeverity(ReportingDescriptor descriptor)
+            => descriptor.PropertyNames.Contains("security-severity");
     }
 }
