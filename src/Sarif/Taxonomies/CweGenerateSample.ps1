@@ -622,9 +622,9 @@ $json = $doc | ConvertTo-Json -Depth 64
 # Validate. CweSample.sarif MUST pass with 0 errors, 0 warnings, and 0 notes
 # under --rule-kind Sarif;AI, with one carve-out: SARIF2006
 # (UrisShouldBeReachable) makes a live HTTP GET against the fixture's external
-# URIs and notes any it cannot reach. Reachability is environmental (the agent's
-# DNS/TLS/egress), not a property of the document, so its notes are reported but
-# never fatal here. The run carries ai/origin = "generated" so the AI-aware
+# URIs and notes any it cannot reach. Whether a remote host answers depends on
+# the build agent's network access, not on the SARIF, so its notes are reported
+# but never fatal here. The run carries ai/origin = "generated" so the AI-aware
 # style rules (SARIF2002, SARIF2009, SARIF2014, SARIF2015) self-suppress; the
 # fixture is also constructed to satisfy the remaining correctness-class rules
 # (snippets, hashes, provenance, etc.).
@@ -671,10 +671,10 @@ $warnings = @($reportResults | Where-Object { (Get-ResultLevel $_) -eq 'warning'
 $notes    = @($reportResults | Where-Object { (Get-ResultLevel $_) -eq 'note' })
 
 # SARIF2006 (UrisShouldBeReachable) emits a note when a live HTTP GET against an
-# external URI in the fixture (repositoryUri, rule helpUris) fails. A transient
-# DNS/TLS/timeout on the build agent is not a defect in the SARIF, so its notes
-# are reported but excluded from the fatal count. Every other note stays fatal —
-# the fixture is held to 0 non-environmental notes.
+# external URI in the fixture (repositoryUri, rule helpUris) fails. Whether a
+# remote host answers depends on the build agent's network access, not on the
+# SARIF, so its notes are reported but excluded from the fatal count. Every other
+# note stays fatal — the fixture is held to 0 non-environmental notes.
 $environmentalNotes = @($notes | Where-Object { (Get-ResultRuleId $_) -eq 'SARIF2006' })
 $fatalNotes         = @($notes | Where-Object { (Get-ResultRuleId $_) -ne 'SARIF2006' })
 
