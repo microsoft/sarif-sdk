@@ -140,7 +140,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Test.UnitTests.Emit
 
             AIRuleIdConventionException ex = act.Should().Throw<AIRuleIdConventionException>().Which;
             ex.OffendingRuleIds.Should().ContainSingle().Which.Should().Be("CWE-79");
-            ex.Message.Should().Contain("AI-RULEID-001");
+            ex.Message.Should().Contain(AIRuleIdConventionException.ErrorCode);
             ex.Message.Should().Contain("CWE-89/kql-injection-from-config");
             ex.Message.Should().Contain("NOVEL-");
         }

@@ -21,9 +21,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Emit
     {
         /// <summary>
         /// Stable error code so downstream tooling can pattern-match without parsing the
-        /// human-readable message body.
+        /// human-readable message body. This is the canonical AI1012 (ProvideRuleSubId)
+        /// rule id, so the emit-time rejection and the post-hoc validator report one id.
         /// </summary>
-        public const string ErrorCode = "AI-RULEID-001";
+        public const string ErrorCode = "AI1012";
 
         public AIRuleIdConventionException(IList<string> offendingRuleIds)
             : base(BuildMessage(offendingRuleIds))
@@ -74,6 +75,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Emit
             sb.AppendLine("     Use this whenever the finding maps to a CWE entry.");
             sb.AppendLine("     The base id (CWE-89) drives descriptor enrichment; the sub-id");
             sb.AppendLine("     is your AI-chosen sub-classifier and keeps AI1012 silent.");
+            sb.AppendLine("     If no sharper sub-pattern applies, fall back to the kebab-cased");
+            sb.AppendLine("     CWE name (for CWE-89: 'CWE-89/sql-injection') -- the generic floor,");
+            sb.AppendLine("     not the goal. Prefer a sharper sub-id when it names something you");
+            sb.AppendLine("     actually observed, but never invent one just to avoid the floor:");
+            sb.AppendLine("     a truthful generic beats a fabricated specific. The emit chain");
+            sb.AppendLine("     never fills the fallback in for you, so choosing it is your call,");
+            sb.AppendLine("     on the record.");
             sb.AppendLine("  2. NOVEL escape hatch  NOVEL-<sub-id>");
             sb.AppendLine("     e.g., 'NOVEL-prompt-injection-via-system-message'");
             sb.AppendLine("     Use this ONLY when no CWE entry fits. The NOVEL- form is");

@@ -18,7 +18,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
     /// at a portable root — a GitHub-compatible blob permalink (commit-pinned in the URL) or an Azure
     /// DevOps repository root (commit pinning carried by <c>versionControlProvenance.revisionId</c>),
     /// derived from the repositoryUri by <see cref="VcpPortableRoot"/> — so the finalized SARIF
-    /// carries no machine-specific path.
+    /// carries no machine-specific path. Each minted base also carries a <c>description</c> whose
+    /// <c>text</c> is a SARIF embedded link (§3.11.6) whose anchor names the repository and
+    /// abbreviated commit (<c>&lt;repo&gt;@&lt;short-sha&gt;</c>) and whose destination is a
+    /// browsable root-at-revision URL, unless the input base already supplied a description.
     /// </summary>
     /// <remarks>
     /// One repository collapses to the bare <c>SRCROOT</c> base. Multiple repositories each receive
@@ -188,7 +191,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
                 if (vcd.MappedTo == null || string.IsNullOrEmpty(vcd.MappedTo.UriBaseId))
                 {
-                    _errors.Add(string.Format(CultureInfo.InvariantCulture, "{0}.mappedTo must declare a uriBaseId that binds the repository root to an originalUriBaseIds entry.", where));
+                    _errors.Add(string.Format(
+                        CultureInfo.InvariantCulture,
+                        "{0}.mappedTo must declare a uriBaseId that binds the repository root to an originalUriBaseIds entry.{1} See rule SARIF2007 (ExpressPathsRelativeToRepoRoot).",
+                        where,
+                        DescribeMappedToBindingFix(run)));
                     return false;
                 }
 
@@ -214,7 +221,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                     || !localRoot.IsAbsoluteUri
                     || localRoot.Scheme != Uri.UriSchemeFile)
                 {
-                    _errors.Add(string.Format(CultureInfo.InvariantCulture, "{0}.mappedTo (uriBaseId '{1}') must resolve to an absolute local file:// path through originalUriBaseIds.", where, vcd.MappedTo.UriBaseId));
+                    _errors.Add(string.Format(
+                        CultureInfo.InvariantCulture,
+                        "{0}.mappedTo (uriBaseId '{1}') must resolve to an absolute local file:// path through originalUriBaseIds. For example, originalUriBaseIds['{1}'].uri = \"file:///path/to/checkout/\". emit-finalize resolves result regions and snippets against this on-disk checkout, then rebases the local prefix to a portable per-repository root derived from versionControlProvenance (repositoryUri + revisionId), so the local path is not retained in the finalized SARIF.",
+                        where,
+                        vcd.MappedTo.UriBaseId));
                     return false;
                 }
 
@@ -229,7 +240,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
                 seenLocalRoots[localKey] = i;
 
-                if (!VcpPortableRoot.TryDerivePortableRoot(vcd.RepositoryUri, vcd.RevisionId, out Uri portableRoot, out Uri canonicalRepositoryUri, out string leaf, out string deriveError))
+                if (!VcpPortableRoot.TryDerivePortableRoot(vcd.RepositoryUri, vcd.RevisionId, out Uri portableRoot, out Uri canonicalRepositoryUri, out string leaf, out Uri revisionWebUrl, out string deriveError))
                 {
                     _errors.Add(string.Format(CultureInfo.InvariantCulture, "{0}: {1}", where, deriveError));
                     return false;
@@ -254,6 +265,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                     SourceBaseId = vcd.MappedTo.UriBaseId,
                     LocalRoot = localRoot,
                     PortableRoot = portableRoot,
+                    RevisionWebUrl = revisionWebUrl,
                     Leaf = leaf,
                 });
             }
@@ -322,6 +334,19 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
                 baseEntry.Uri = root.PortableRoot;
                 baseEntry.UriBaseId = null;
+                string shortRevision =
+                    root.Vcd.RevisionId.Length > 7
+                        ? root.Vcd.RevisionId.Substring(0, 7)
+                        : root.Vcd.RevisionId;
+                baseEntry.Description ??= new Message
+                {
+                    Text = string.Format(
+                        CultureInfo.InvariantCulture,
+                        "Source root mapped to [{0}@{1}]({2}).",
+                        root.Leaf,
+                        shortRevision,
+                        root.RevisionWebUrl.AbsoluteUri),
+                };
                 bases[root.OutputBaseId] = baseEntry;
             }
 
@@ -403,6 +428,38 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             return true;
         }
 
+        // Build the situational, instructive tail for the "mappedTo must declare a uriBaseId"
+        // diagnostic: name the originalUriBaseIds binding the producer should use (the conventional
+        // SRCROOT when present, otherwise whatever roots are declared), and show the fix shape.
+        private static string DescribeMappedToBindingFix(Run run)
+        {
+            const string conventionalBaseId = "SRCROOT";
+            IDictionary<string, ArtifactLocation> bases = run.OriginalUriBaseIds;
+
+            if (bases != null && bases.ContainsKey(conventionalBaseId))
+            {
+                return string.Format(
+                    CultureInfo.InvariantCulture,
+                    " Your originalUriBaseIds already declares '{0}', so bind to it: \"mappedTo\": {{ \"uriBaseId\": \"{0}\" }}.",
+                    conventionalBaseId);
+            }
+
+            if (bases != null && bases.Count > 0)
+            {
+                string declared = string.Join(", ", bases.Keys.Select(k => "'" + k + "'"));
+                return string.Format(
+                    CultureInfo.InvariantCulture,
+                    " Your originalUriBaseIds declares {0}; set mappedTo.uriBaseId to the entry for the repository root (conventionally '{1}').",
+                    declared,
+                    conventionalBaseId);
+            }
+
+            return string.Format(
+                CultureInfo.InvariantCulture,
+                " Declare an originalUriBaseIds entry for the repository root (conventionally '{0}') and bind to it: \"mappedTo\": {{ \"uriBaseId\": \"{0}\" }}.",
+                conventionalBaseId);
+        }
+
         // mappedTo carries only a uriBaseId (enforced in TryBuildPlan); the repository's absolute
         // local root is the resolution of the matching originalUriBaseIds entry.
         private static bool TryResolveLocalRoot(IDictionary<string, ArtifactLocation> bases, ArtifactLocation mappedTo, out Uri localRoot)
@@ -471,6 +528,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             public Uri LocalRoot { get; set; }
 
             public Uri PortableRoot { get; set; }
+
+            public Uri RevisionWebUrl { get; set; }
 
             public string Leaf { get; set; }
 

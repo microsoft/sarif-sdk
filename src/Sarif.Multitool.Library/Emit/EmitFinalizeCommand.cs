@@ -48,6 +48,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                     }
                 }
 
+                if (log?.Runs != null)
+                {
+                    foreach (Run run in log.Runs)
+                    {
+                        ApplyRankDerivedSecuritySeverity(run);
+                    }
+                }
+
                 // Always populate the artifact and region surface that downstream
                 // consumers (AI evidence pipelines, code-flow viewers, fingerprint
                 // matchers) need to reason about a result without having to re-open
@@ -199,6 +207,61 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 return FAILURE;
             }
         }
+
+        /// <summary>
+        /// Derives a GitHub Advanced Security <c>security-severity</c> for each rule descriptor
+        /// from the highest <see cref="Result.Rank"/> observed across the results that reference
+        /// it, mapping the SARIF rank scale (0–100) onto the security-severity scale (0.0–10.0)
+        /// by dividing by ten.
+        /// </summary>
+        /// <remarks>
+        /// GHAS reads <c>security-severity</c> off the rule a result references, never off a
+        /// taxon, so the value is stamped on <c>tool.driver.rules[]</c>. Results carry an
+        /// authoritative <c>ruleIndex</c> by the time the log is replayed, so association is by
+        /// index rather than by id. The rank sentinel <c>-1.0</c> ("unset") is excluded: a rule
+        /// whose results carry no rank receives nothing, and a producer-authored
+        /// <c>security-severity</c> is left untouched.
+        /// </remarks>
+        /// <returns>The number of rule descriptors stamped.</returns>
+        internal static int ApplyRankDerivedSecuritySeverity(Run run)
+        {
+            IList<ReportingDescriptor> rules = run?.Tool?.Driver?.Rules;
+            if (rules == null || rules.Count == 0 || run.Results == null) { return 0; }
+
+            var maxRankByRule = new double[rules.Count];
+            for (int i = 0; i < maxRankByRule.Length; i++) { maxRankByRule[i] = UnsetRank; }
+
+            foreach (Result result in run.Results)
+            {
+                if (result == null || result.Rank < 0) { continue; }
+
+                int index = result.RuleIndex;
+                if (index < 0 || index >= rules.Count) { continue; }
+
+                if (result.Rank > maxRankByRule[index]) { maxRankByRule[index] = result.Rank; }
+            }
+
+            int stamped = 0;
+            for (int i = 0; i < rules.Count; i++)
+            {
+                if (maxRankByRule[i] < 0) { continue; }
+
+                ReportingDescriptor rule = rules[i];
+                if (rule.PropertyNames.Contains(SecuritySeverityPropertyName)) { continue; }
+
+                double score = Math.Min(10.0, Math.Max(0.0, maxRankByRule[i] / 10.0));
+                rule.SetProperty(
+                    SecuritySeverityPropertyName,
+                    score.ToString("0.0", CultureInfo.InvariantCulture));
+                stamped++;
+            }
+
+            return stamped;
+        }
+
+        private const string SecuritySeverityPropertyName = "security-severity";
+
+        private const double UnsetRank = -1.0;
 
         /// <summary>
         /// Runs the multitool validator (--rule-kind Sarif;AI) against the finalized SARIF.

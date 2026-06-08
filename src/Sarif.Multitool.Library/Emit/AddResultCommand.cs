@@ -19,7 +19,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
     /// <remarks>
     /// The result's <c>ruleId</c> is validated at receipt against the AI ruleId convention
     /// (taxonomy sub-id form or NOVEL- escape hatch). On rejection the verb writes the
-    /// AI-consumable error envelope (error code AI-RULEID-001) to stderr and returns
+    /// AI-consumable error envelope (error code AI1012) to stderr and returns
     /// <see cref="CommandBase.FAILURE"/> WITHOUT appending — an AI orchestrator can retry the
     /// individual result without first having to remove garbage from the event log.
     /// </remarks>
@@ -51,7 +51,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 {
                     // ThrowIfUnacceptable(null) would surface this as "(empty ruleId)" — which
                     // is misleading when the producer actually supplied a value of the wrong
-                    // JSON type (e.g., a number). Emit a specific message in the AI-RULEID-001
+                    // JSON type (e.g., a number). Emit a specific message in the AI1012
                     // envelope's namespace so the orchestrator can detect and correct.
                     Console.Error.WriteLine(
                         string.Format(
