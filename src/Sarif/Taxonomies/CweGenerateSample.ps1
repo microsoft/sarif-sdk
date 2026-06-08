@@ -82,10 +82,7 @@
          validation rules (SARIF2002, SARIF2009, SARIF2014, SARIF2015)
          self-suppress per their AI-origin contract on
          SarifValidationSkimmerBase. The fixture is required to ship
-         with 0 errors, 0 warnings, and 0 notes — except SARIF2006
-         (UrisShouldBeReachable), whose notes are reported but not fatal
-         because reachability is a property of the build agent's network
-         egress, not of the SARIF document.
+         with 0 errors, 0 warnings, and 0 notes.
 
     Determinism notes:
       * SampleCode.cs is pinned to LF via .gitattributes so snippets,
@@ -620,14 +617,10 @@ $json = $doc | ConvertTo-Json -Depth 64
 
 # ---------------------------------------------------------------------------
 # Validate. CweSample.sarif MUST pass with 0 errors, 0 warnings, and 0 notes
-# under --rule-kind Sarif;AI, with one carve-out: SARIF2006
-# (UrisShouldBeReachable) makes a live HTTP GET against the fixture's external
-# URIs and notes any it cannot reach. Whether a remote host answers depends on
-# the build agent's network access, not on the SARIF, so its notes are reported
-# but never fatal here. The run carries ai/origin = "generated" so the AI-aware
-# style rules (SARIF2002, SARIF2009, SARIF2014, SARIF2015) self-suppress; the
-# fixture is also constructed to satisfy the remaining correctness-class rules
-# (snippets, hashes, provenance, etc.).
+# under --rule-kind Sarif;AI. The run carries ai/origin = "generated" so the
+# AI-aware style rules (SARIF2002, SARIF2009, SARIF2014, SARIF2015) self-
+# suppress; the fixture is also constructed to satisfy the remaining
+# correctness-class rules (snippets, hashes, provenance, etc.).
 # ---------------------------------------------------------------------------
 Write-Host "[5/6] Validating $sampleBaseName.sarif (--rule-kind $validateRuleKind)"
 $validateReport = Join-Path $PSScriptRoot ($sampleBaseName + '.validate-report.sarif')
@@ -658,40 +651,23 @@ function Get-ResultLevel {
     return $v
 }
 
-function Get-ResultRuleId {
-    param($r)
-    if ($null -eq $r) { return '' }
-    $p = $r.PSObject.Properties['ruleId']
-    if ($null -eq $p) { return '' }
-    return [string]$p.Value
-}
-
 $errors   = @($reportResults | Where-Object { (Get-ResultLevel $_) -eq 'error' })
 $warnings = @($reportResults | Where-Object { (Get-ResultLevel $_) -eq 'warning' })
 $notes    = @($reportResults | Where-Object { (Get-ResultLevel $_) -eq 'note' })
-
-# SARIF2006 (UrisShouldBeReachable) emits a note when a live HTTP GET against an
-# external URI in the fixture (repositoryUri, rule helpUris) fails. Whether a
-# remote host answers depends on the build agent's network access, not on the
-# SARIF, so its notes are reported but excluded from the fatal count. Every other
-# note stays fatal — the fixture is held to 0 non-environmental notes.
-$environmentalNotes = @($notes | Where-Object { (Get-ResultRuleId $_) -eq 'SARIF2006' })
-$fatalNotes         = @($notes | Where-Object { (Get-ResultRuleId $_) -ne 'SARIF2006' })
 
 Write-Host ""
 Write-Host "Validator summary: $($errors.Count) error(s), $($warnings.Count) warning(s), $($notes.Count) note(s)"
 if ($notes.Count -gt 0) {
     $byRule = $notes | Group-Object -Property ruleId | Sort-Object Name
     foreach ($g in $byRule) {
-        $tag = if ($g.Name -eq 'SARIF2006') { ' (environmental, non-fatal)' } else { '' }
-        Write-Host ("  note: {0,-12} x{1}{2}" -f $g.Name, $g.Count, $tag)
+        Write-Host ("  note: {0,-12} x{1}" -f $g.Name, $g.Count)
     }
 }
 
-if ($errors.Count -gt 0 -or $warnings.Count -gt 0 -or $fatalNotes.Count -gt 0) {
-    if ($errors.Count -gt 0)     { Write-Warning ("Error rules: "   + (($errors     | Group-Object ruleId | ForEach-Object { $_.Name }) -join ', ')) }
-    if ($warnings.Count -gt 0)   { Write-Warning ("Warning rules: " + (($warnings   | Group-Object ruleId | ForEach-Object { $_.Name }) -join ', ')) }
-    if ($fatalNotes.Count -gt 0) { Write-Warning ("Note rules: "    + (($fatalNotes | Group-Object ruleId | ForEach-Object { $_.Name }) -join ', ')) }
+if ($errors.Count -gt 0 -or $warnings.Count -gt 0 -or $notes.Count -gt 0) {
+    if ($errors.Count -gt 0)   { Write-Warning ("Error rules: "   + (($errors   | Group-Object ruleId | ForEach-Object { $_.Name }) -join ', ')) }
+    if ($warnings.Count -gt 0) { Write-Warning ("Warning rules: " + (($warnings | Group-Object ruleId | ForEach-Object { $_.Name }) -join ', ')) }
+    if ($notes.Count -gt 0)    { Write-Warning ("Note rules: "    + (($notes    | Group-Object ruleId | ForEach-Object { $_.Name }) -join ', ')) }
     Write-Warning "See '$validateReport' for details."
     exit 1
 }
@@ -752,5 +728,4 @@ foreach ($rule in $rules) {
 }
 
 Write-Host ""
-$envNoteSuffix = if ($environmentalNotes.Count -gt 0) { " ($($environmentalNotes.Count) environmental SARIF2006 reachability note(s), non-fatal)" } else { '' }
-Write-Host "$sampleBaseName.sarif: 0 errors, 0 warnings, 0 non-environmental notes.$envNoteSuffix"
+Write-Host "CweSample.sarif: 0 errors, 0 warnings, 0 notes."
