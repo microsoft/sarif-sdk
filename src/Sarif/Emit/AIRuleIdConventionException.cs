@@ -76,9 +76,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Emit
             sb.AppendLine("     is your AI-chosen sub-classifier and keeps AI1012 silent.");
             sb.AppendLine("     If no sharper sub-pattern applies, fall back to the kebab-cased");
             sb.AppendLine("     CWE name (for CWE-89: 'CWE-89/sql-injection') -- the generic floor,");
-            sb.AppendLine("     not the goal. A true sub-classification is always preferred; the");
-            sb.AppendLine("     emit chain never fills the fallback in for you, so authoring it");
-            sb.AppendLine("     keeps the generic choice on the record as yours.");
+            sb.AppendLine("     not the goal. Prefer a sharper sub-id when it names something you");
+            sb.AppendLine("     actually observed, but never invent one just to avoid the floor:");
+            sb.AppendLine("     a truthful generic beats a fabricated specific. The emit chain");
+            sb.AppendLine("     never fills the fallback in for you, so choosing it is your call,");
+            sb.AppendLine("     on the record.");
             sb.AppendLine("  2. NOVEL escape hatch  NOVEL-<sub-id>");
             sb.AppendLine("     e.g., 'NOVEL-prompt-injection-via-system-message'");
             sb.AppendLine("     Use this ONLY when no CWE entry fits. The NOVEL- form is");

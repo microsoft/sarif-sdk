@@ -17,7 +17,7 @@ If an AI tool emits anything else — bare `CWE-89`, missing entirely, `cwe-89/f
 
 A SARIF result's sub-classifier — the part after `CWE-89/` — is where the producer records *which kind* of CWE-89 finding it emitted. The taxonomy entry is necessary but rarely sufficient, so AI-produced findings should name the sub-pattern they actually observed (`CWE-89/orm-string-interpolation`, not just `CWE-89`). The `AI1012` validation rule encodes exactly this expectation: any well-shaped AI finding either has a slash-bearing `ruleId` or extends its descriptor id with a slash-separated sub-id.
 
-When no sharper sub-pattern applies, the kebab-cased CWE name is an acceptable fallback — for `CWE-89` that is `CWE-89/sql-injection`. It is the generic floor, not the goal: a true sub-classification is always preferred. The emit chain never fills the sub-id in for you, and a bare `CWE-89` is still rejected — requiring you to author even the fallback is a forcing function, so the generic value is a choice you made rather than a default you slid into.
+When no sharper sub-pattern applies, the kebab-cased CWE name is an acceptable fallback — for `CWE-89` that is `CWE-89/sql-injection`. It is the generic floor, not the goal: prefer a sharper sub-id when it names something you actually observed, but never invent one just to avoid the floor — a truthful generic beats a fabricated specific. The emit chain never fills the sub-id in for you, and a bare `CWE-89` is still rejected, so the generic value, when you choose it, is a deliberate call rather than a default you slid into.
 
 The two-shape contract serves two distinct producer cases:
 
@@ -100,9 +100,12 @@ Every AI-emitted result.ruleId MUST take one of two shapes:
      The base id (CWE-89) drives descriptor enrichment; the sub-id
      is your AI-chosen sub-classifier and keeps AI1012 silent.
      If no sharper sub-pattern applies, fall back to the kebab-cased
-     CWE name (for CWE-89: 'CWE-89/sql-injection'). Emit that fallback
-     yourself to record that you weighed a finer sub-classification and
-     chose the generic one; the emit chain never fills it in for you.
+     CWE name (for CWE-89: 'CWE-89/sql-injection') -- the generic floor,
+     not the goal. Prefer a sharper sub-id when it names something you
+     actually observed, but never invent one just to avoid the floor:
+     a truthful generic beats a fabricated specific. The emit chain
+     never fills the fallback in for you, so choosing it is your call,
+     on the record.
   2. NOVEL escape hatch  NOVEL-<sub-id>
      e.g., 'NOVEL-prompt-injection-via-system-message'
      Use this ONLY when no CWE entry fits. The NOVEL- form is
