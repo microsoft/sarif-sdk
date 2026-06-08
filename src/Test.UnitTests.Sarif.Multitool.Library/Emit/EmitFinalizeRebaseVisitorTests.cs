@@ -885,6 +885,91 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         }
 
         [Fact]
+        public void VcpMissingMappedTo_ErrorNamesExistingSrcRootBinding()
+        {
+            var vcd = Vcd("https://github.com/microsoft/sarif-sdk", "SRCROOT");
+            vcd.MappedTo = null;
+
+            var run = new Run
+            {
+                VersionControlProvenance = new[] { vcd },
+                OriginalUriBaseIds = Bases(("SRCROOT", "file:///d:/src/sarif-sdk/")),
+            };
+
+            EmitFinalizeRebaseVisitor visitor = Visit(run);
+
+            visitor.Success.Should().BeFalse();
+            string joined = string.Join(" ", visitor.Errors);
+            joined.Should().Contain("already declares 'SRCROOT'");
+            joined.Should().Contain("\"uriBaseId\": \"SRCROOT\"");
+            joined.Should().Contain("SARIF2007");
+        }
+
+        [Fact]
+        public void VcpMissingMappedTo_NoBases_ErrorInstructsDeclaringSrcRoot()
+        {
+            var vcd = Vcd("https://github.com/microsoft/sarif-sdk", "SRCROOT");
+            vcd.MappedTo = null;
+
+            var run = new Run
+            {
+                VersionControlProvenance = new[] { vcd },
+                OriginalUriBaseIds = null,
+            };
+
+            EmitFinalizeRebaseVisitor visitor = Visit(run);
+
+            visitor.Success.Should().BeFalse();
+            string joined = string.Join(" ", visitor.Errors);
+            joined.Should().Contain("Declare an originalUriBaseIds entry");
+            joined.Should().Contain("conventionally 'SRCROOT'");
+        }
+
+        [Fact]
+        public void VcpMissingMappedTo_NonSrcRootBase_ErrorNamesDeclaredBase()
+        {
+            var vcd = Vcd("https://github.com/microsoft/sarif-sdk", "CHECKOUT");
+            vcd.MappedTo = null;
+
+            var run = new Run
+            {
+                VersionControlProvenance = new[] { vcd },
+                OriginalUriBaseIds = Bases(("CHECKOUT", "file:///d:/src/sarif-sdk/")),
+            };
+
+            EmitFinalizeRebaseVisitor visitor = Visit(run);
+
+            visitor.Success.Should().BeFalse();
+            string joined = string.Join(" ", visitor.Errors);
+            joined.Should().Contain("declares 'CHECKOUT'");
+            joined.Should().Contain("set mappedTo.uriBaseId to the entry for the repository root");
+        }
+
+        [Fact]
+        public void MappedToUriBaseId_NotResolvingToLocalFile_ErrorExplainsTransientRebase()
+        {
+            // SRCROOT is bound to a portable https uri rather than the local file:// checkout that
+            // finalize resolves snippets against. The diagnostic must teach that the local path is
+            // used transiently and rebased out of the finalized SARIF.
+            var run = new Run
+            {
+                VersionControlProvenance = new[]
+                {
+                    Vcd("https://github.com/microsoft/sarif-sdk", "SRCROOT"),
+                },
+                OriginalUriBaseIds = Bases(("SRCROOT", "https://github.com/microsoft/sarif-sdk/")),
+            };
+
+            EmitFinalizeRebaseVisitor visitor = Visit(run);
+
+            visitor.Success.Should().BeFalse();
+            string joined = string.Join(" ", visitor.Errors);
+            joined.Should().Contain("file:///path/to/checkout/");
+            joined.Should().Contain("not retained in the finalized SARIF");
+            joined.Should().NotContain("--srcroot");
+        }
+
+        [Fact]
         public void MissingRevisionId_Fails()
         {
             var run = new Run
