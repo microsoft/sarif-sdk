@@ -109,11 +109,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             visitor.Success.Should().BeTrue();
             Message description = run.OriginalUriBaseIds["SRCROOT"].Description;
 
-            // The text is a SARIF embedded link (spec §3.11.6): the short repository
-            // name links to the GitHub tree permalink at the pinned commit. No
-            // separate markdown form is minted.
+            // The text is a SARIF embedded link (spec §3.11.6): the anchor names the
+            // repository and abbreviated commit (repo@short-sha) and links to the
+            // GitHub tree permalink pinned at the full commit. No separate markdown
+            // form is minted.
             description.Text
-                .Should().Be($"Source root mapped to [sarif-sdk](https://github.com/microsoft/sarif-sdk/tree/{Sha}) at commit {Sha}.");
+                .Should().Be($"Source root mapped to [sarif-sdk@{Sha.Substring(0, 7)}](https://github.com/microsoft/sarif-sdk/tree/{Sha}).");
             description.Markdown.Should().BeNull();
         }
 
@@ -133,9 +134,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             Message description = run.OriginalUriBaseIds["SRCROOT"].Description;
 
             // Azure DevOps pins a commit with the ?version=GC<sha> query on the
-            // repository root rather than a path segment.
+            // repository root rather than a path segment; the anchor carries the
+            // abbreviated commit (repo@short-sha).
             description.Text
-                .Should().Be($"Source root mapped to [widgets](https://dev.azure.com/fabrikam/proj/_git/widgets?version=GC{Sha}) at commit {Sha}.");
+                .Should().Be($"Source root mapped to [widgets@{Sha.Substring(0, 7)}](https://dev.azure.com/fabrikam/proj/_git/widgets?version=GC{Sha}).");
             description.Markdown.Should().BeNull();
         }
 
@@ -163,20 +165,20 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
             visitor.Success.Should().BeTrue();
 
-            // The text is a SARIF embedded link (spec §3.11.6) naming the short
-            // repository name and linking it to the root-at-revision URL, shaped
-            // per host: GitHub /tree/<sha>, Azure DevOps ?version=GC<sha>. It must
-            // never carry the portable blob/<commit>/ segment, and no separate
-            // markdown form is minted.
+            // The text is a SARIF embedded link (spec §3.11.6) whose anchor names the
+            // repository and abbreviated commit (repo@short-sha) and links to the
+            // root-at-revision URL, shaped per host: GitHub /tree/<sha>, Azure DevOps
+            // ?version=GC<sha>. It must never carry the portable blob/<commit>/
+            // segment, and no separate markdown form is minted.
             Message gitHub = run.OriginalUriBaseIds["SRCROOT_WIDGETS"].Description;
             gitHub.Text
-                .Should().Be($"Source root mapped to [widgets](https://github.com/contoso/widgets/tree/{Sha}) at commit {Sha}.")
+                .Should().Be($"Source root mapped to [widgets@{Sha.Substring(0, 7)}](https://github.com/contoso/widgets/tree/{Sha}).")
                 .And.NotContain("/blob/");
             gitHub.Markdown.Should().BeNull();
 
             Message azureDevOps = run.OriginalUriBaseIds["SRCROOT_WIDGETS_2"].Description;
             azureDevOps.Text
-                .Should().Be($"Source root mapped to [widgets](https://dev.azure.com/fabrikam/proj/_git/widgets?version=GC{Sha}) at commit {Sha}.");
+                .Should().Be($"Source root mapped to [widgets@{Sha.Substring(0, 7)}](https://dev.azure.com/fabrikam/proj/_git/widgets?version=GC{Sha}).");
             azureDevOps.Markdown.Should().BeNull();
         }
 

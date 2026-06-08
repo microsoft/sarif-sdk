@@ -19,9 +19,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
     /// DevOps repository root (commit pinning carried by <c>versionControlProvenance.revisionId</c>),
     /// derived from the repositoryUri by <see cref="VcpPortableRoot"/> — so the finalized SARIF
     /// carries no machine-specific path. Each minted base also carries a <c>description</c> whose
-    /// <c>text</c> is a SARIF embedded link (§3.11.6) linking the short repository name to a
-    /// browsable root-at-revision URL and naming the pinned commit, unless the input base already
-    /// supplied a description.
+    /// <c>text</c> is a SARIF embedded link (§3.11.6) whose anchor names the repository and
+    /// abbreviated commit (<c>&lt;repo&gt;@&lt;short-sha&gt;</c>) and whose destination is a
+    /// browsable root-at-revision URL, unless the input base already supplied a description.
     /// </summary>
     /// <remarks>
     /// One repository collapses to the bare <c>SRCROOT</c> base. Multiple repositories each receive
@@ -326,14 +326,18 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
                 baseEntry.Uri = root.PortableRoot;
                 baseEntry.UriBaseId = null;
+                string shortRevision =
+                    root.Vcd.RevisionId.Length > 7
+                        ? root.Vcd.RevisionId.Substring(0, 7)
+                        : root.Vcd.RevisionId;
                 baseEntry.Description ??= new Message
                 {
                     Text = string.Format(
                         CultureInfo.InvariantCulture,
-                        "Source root mapped to [{0}]({1}) at commit {2}.",
+                        "Source root mapped to [{0}@{1}]({2}).",
                         root.Leaf,
-                        root.RevisionWebUrl.AbsoluteUri,
-                        root.Vcd.RevisionId),
+                        shortRevision,
+                        root.RevisionWebUrl.AbsoluteUri),
                 };
                 bases[root.OutputBaseId] = baseEntry;
             }
