@@ -162,6 +162,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Test.UnitTests.Emit
             ex.Message.Should().Contain("(empty ruleId)");
             ex.Message.Should().Contain("Taxonomy sub-id");
             ex.Message.Should().Contain("CWE-89/kql-injection-from-config");
+            ex.Message.Should().Contain("CWE-89/sql-injection");
+            ex.Message.Should().Contain("fall back");
             ex.Message.Should().Contain("NOVEL escape hatch");
             ex.Message.Should().Contain("NOVEL-prompt-injection-via-system-message");
             ex.Message.Should().Contain("docs/AI-RuleId-Convention.md");

@@ -15,7 +15,9 @@ If an AI tool emits anything else — bare `CWE-89`, missing entirely, `cwe-89/f
 
 ## Why
 
-A SARIF result without a sub-classifier — a bare `ruleId: "CWE-89"` — is a flag that the producer did not actually think about *which kind* of CWE-89 finding it just emitted. AI-produced findings should be specific about the sub-pattern they observed; the taxonomy entry is necessary but rarely sufficient. The `AI1012` validation rule encodes exactly this expectation: any well-shaped AI finding either has a slash-bearing `ruleId` or extends its descriptor id with a slash-separated sub-id.
+A SARIF result's sub-classifier — the part after `CWE-89/` — is where the producer records *which kind* of CWE-89 finding it emitted. The taxonomy entry is necessary but rarely sufficient, so AI-produced findings should name the sub-pattern they actually observed (`CWE-89/orm-string-interpolation`, not just `CWE-89`). The `AI1012` validation rule encodes exactly this expectation: any well-shaped AI finding either has a slash-bearing `ruleId` or extends its descriptor id with a slash-separated sub-id.
+
+When no sharper sub-pattern applies, falling back to the kebab-cased CWE name is explicitly fine — for `CWE-89` that is `CWE-89/sql-injection`. This is a deliberate, conformant choice, not a lesser one: emitting the fallback yourself records that you weighed a finer sub-classification and chose the generic one. The emit chain never fills the sub-id in for you; a bare `CWE-89` is still rejected, because the act of supplying the slug — even the fallback — is the producer's on-record classification.
 
 The two-shape contract serves two distinct producer cases:
 
@@ -47,6 +49,7 @@ AI findings are always CWE-based. The NOVEL- form is exclusive and flat; `NOVEL-
 | Input | Why it passes |
 |---|---|
 | `CWE-89/kql-injection-from-config` | Sub-id form; base `CWE-89` enriched, sub-id descriptive |
+| `CWE-89/sql-injection` | Sub-id form; kebab-cased CWE name is an acceptable generic fallback when no sharper sub-pattern applies |
 | `CWE-79/dom-xss-via-sanitizer-bypass` | Sub-id form |
 | `CWE-327/md5-usage` | Sub-id may contain digits |
 | `CWE-89/2nd-order-injection` | A token may start with a digit |
@@ -96,6 +99,10 @@ Every AI-emitted result.ruleId MUST take one of two shapes:
      Use this whenever the finding maps to a CWE entry.
      The base id (CWE-89) drives descriptor enrichment; the sub-id
      is your AI-chosen sub-classifier and keeps AI1012 silent.
+     If no sharper sub-pattern applies, fall back to the kebab-cased
+     CWE name (for CWE-89: 'CWE-89/sql-injection'). Emit that fallback
+     yourself to record that you weighed a finer sub-classification and
+     chose the generic one; the emit chain never fills it in for you.
   2. NOVEL escape hatch  NOVEL-<sub-id>
      e.g., 'NOVEL-prompt-injection-via-system-message'
      Use this ONLY when no CWE entry fits. The NOVEL- form is

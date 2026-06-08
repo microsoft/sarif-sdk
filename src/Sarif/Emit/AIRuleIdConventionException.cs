@@ -74,6 +74,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Emit
             sb.AppendLine("     Use this whenever the finding maps to a CWE entry.");
             sb.AppendLine("     The base id (CWE-89) drives descriptor enrichment; the sub-id");
             sb.AppendLine("     is your AI-chosen sub-classifier and keeps AI1012 silent.");
+            sb.AppendLine("     If no sharper sub-pattern applies, fall back to the kebab-cased");
+            sb.AppendLine("     CWE name (for CWE-89: 'CWE-89/sql-injection'). Emit that fallback");
+            sb.AppendLine("     yourself to record that you weighed a finer sub-classification and");
+            sb.AppendLine("     chose the generic one; the emit chain never fills it in for you.");
             sb.AppendLine("  2. NOVEL escape hatch  NOVEL-<sub-id>");
             sb.AppendLine("     e.g., 'NOVEL-prompt-injection-via-system-message'");
             sb.AppendLine("     Use this ONLY when no CWE entry fits. The NOVEL- form is");
