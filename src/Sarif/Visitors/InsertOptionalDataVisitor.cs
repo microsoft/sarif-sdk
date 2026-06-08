@@ -267,13 +267,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 Location primaryLocation = node.Locations?.FirstOrDefault();
                 PhysicalLocation physicalLocation = primaryLocation?.PhysicalLocation;
 
-                // A result whose primary location has no startLine is not anchored to a source
-                // line, so there is nothing to hash. This matches the CodeQL behavior, which
-                // skips such results rather than defaulting to the first line.
-                int startLine = physicalLocation?.Region?.StartLine ?? 0;
-
-                if (physicalLocation?.ArtifactLocation != null && startLine > 0)
+                if (physicalLocation?.ArtifactLocation != null)
                 {
+                    // The fingerprint anchors to the primary location's startLine. A result with
+                    // no region line pertains to the whole file and is fingerprinted from line 1,
+                    // matching the reference implementation (github/codeql-action fingerprints.ts).
+                    int startLine = physicalLocation.Region?.StartLine ?? 0;
+                    if (startLine <= 0) { startLine = 1; }
+
                     Uri resolvedUri = GetResolvedArtifactLocationUri(physicalLocation.ArtifactLocation);
 
                     if (resolvedUri != null && resolvedUri.IsAbsoluteUri)

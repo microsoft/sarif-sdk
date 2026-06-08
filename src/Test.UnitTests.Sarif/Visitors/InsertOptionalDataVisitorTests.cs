@@ -636,24 +636,45 @@ print(x)
         }
 
         [Fact]
-        public void InsertOptionalDataVisitor_PrimaryLocationLineHashSkippedWhenRegionMissing()
+        public void InsertOptionalDataVisitor_PrimaryLocationLineHashFromLineOneWhenRegionMissing()
         {
             using var tempFile = new TempFile();
             File.WriteAllText(tempFile.Name, RollingHashFileContent);
+
+            // A result with no region pertains to the whole file; the reference implementation
+            // (github/codeql-action) fingerprints it from line 1 rather than skipping it.
+            string expectedHash = HashUtilities.RollingHash(RollingHashFileContent)[1];
 
             Run run = RunRollingHashVisitor(BuildRollingHashRun(tempFile.Name, startLine: 0, includeRegion: false));
 
-            HasPrimaryLocationLineHash(run.Results[0]).Should().BeFalse();
+            run.Results[0].PartialFingerprints[InsertOptionalDataVisitor.PrimaryLocationLineHash].Should().Be(expectedHash);
         }
 
         [Fact]
-        public void InsertOptionalDataVisitor_PrimaryLocationLineHashSkippedWhenStartLineAbsent()
+        public void InsertOptionalDataVisitor_PrimaryLocationLineHashFromLineOneWhenStartLineAbsent()
         {
             using var tempFile = new TempFile();
             File.WriteAllText(tempFile.Name, RollingHashFileContent);
 
-            // A region with no startLine is not anchored to a source line, so CodeQL (and we) skip it.
+            // A region present but without a startLine is treated as whole-file and fingerprinted
+            // from line 1, matching the reference implementation.
+            string expectedHash = HashUtilities.RollingHash(RollingHashFileContent)[1];
+
             Run run = RunRollingHashVisitor(BuildRollingHashRun(tempFile.Name, startLine: 0, includeRegion: true));
+
+            run.Results[0].PartialFingerprints[InsertOptionalDataVisitor.PrimaryLocationLineHash].Should().Be(expectedHash);
+        }
+
+        [Fact]
+        public void InsertOptionalDataVisitor_PrimaryLocationLineHashSkippedWhenArtifactUnresolvable()
+        {
+            // A result with no physical location resolves to no file, so there is nothing to
+            // hash and no fingerprint is stamped (the reference implementation discards such
+            // locations via resolveUriToFile).
+            var result = new Result { Message = new Message { Text = "no location" } };
+            var run = new Run { Results = new List<Result> { result } };
+
+            run = RunRollingHashVisitor(run);
 
             HasPrimaryLocationLineHash(run.Results[0]).Should().BeFalse();
         }
@@ -702,6 +723,27 @@ print(x)
 
             run.Results[0].PartialFingerprints[InsertOptionalDataVisitor.PrimaryLocationLineHash].Should().Be(expected[1]);
             run.Results[1].PartialFingerprints[InsertOptionalDataVisitor.PrimaryLocationLineHash].Should().Be(expected[4]);
+        }
+
+        [Fact]
+        public void InsertOptionalDataVisitor_PrimaryLocationLineHashStampsMixedResultsInOnePass()
+        {
+            using var tempFile = new TempFile();
+            File.WriteAllText(tempFile.Name, RollingHashFileContent);
+
+            Dictionary<int, string> expected = HashUtilities.RollingHash(RollingHashFileContent);
+
+            // Two anchored results plus a whole-file (no region) result, fingerprinted in a single
+            // pass: the anchored results take their own lines, the whole-file result takes line 1.
+            Run run = BuildRollingHashRun(tempFile.Name, startLine: 2);
+            run.Results.Add(BuildRollingHashRun(tempFile.Name, startLine: 5).Results[0]);
+            run.Results.Add(BuildRollingHashRun(tempFile.Name, startLine: 0, includeRegion: false).Results[0]);
+
+            run = RunRollingHashVisitor(run);
+
+            run.Results[0].PartialFingerprints[InsertOptionalDataVisitor.PrimaryLocationLineHash].Should().Be(expected[2]);
+            run.Results[1].PartialFingerprints[InsertOptionalDataVisitor.PrimaryLocationLineHash].Should().Be(expected[5]);
+            run.Results[2].PartialFingerprints[InsertOptionalDataVisitor.PrimaryLocationLineHash].Should().Be(expected[1]);
         }
 
         private static bool HasPrimaryLocationLineHash(Result result)
