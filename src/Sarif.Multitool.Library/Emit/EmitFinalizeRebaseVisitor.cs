@@ -19,8 +19,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
     /// DevOps repository root (commit pinning carried by <c>versionControlProvenance.revisionId</c>),
     /// derived from the repositoryUri by <see cref="VcpPortableRoot"/> — so the finalized SARIF
     /// carries no machine-specific path. Each minted base also carries a <c>description</c> whose
-    /// <c>text</c> names its repository URI and pinned commit and whose <c>markdown</c> links the
-    /// short repository name to a browsable root-at-revision URL, unless the input base already
+    /// <c>text</c> is a SARIF embedded link (§3.11.6) linking the short repository name to a
+    /// browsable root-at-revision URL and naming the pinned commit, unless the input base already
     /// supplied a description.
     /// </summary>
     /// <remarks>
@@ -329,11 +329,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 baseEntry.Description ??= new Message
                 {
                     Text = string.Format(
-                        CultureInfo.InvariantCulture,
-                        "Source root mapped to {0} at commit {1}.",
-                        root.Vcd.RepositoryUri.AbsoluteUri,
-                        root.Vcd.RevisionId),
-                    Markdown = string.Format(
                         CultureInfo.InvariantCulture,
                         "Source root mapped to [{0}]({1}) at commit {2}.",
                         root.Leaf,

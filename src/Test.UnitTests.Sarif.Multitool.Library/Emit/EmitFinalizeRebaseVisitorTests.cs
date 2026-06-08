@@ -95,7 +95,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         }
 
         [Fact]
-        public void SingleRepo_MintedBase_CarriesDescriptionNamingRepositoryAndCommit()
+        public void SingleRepo_MintedBase_CarriesDescriptionLinkingRepositoryAndCommit()
         {
             var run = new Run
             {
@@ -107,15 +107,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             EmitFinalizeRebaseVisitor visitor = Visit(run);
 
             visitor.Success.Should().BeTrue();
-            string repositoryUri = run.VersionControlProvenance[0].RepositoryUri.AbsoluteUri;
             Message description = run.OriginalUriBaseIds["SRCROOT"].Description;
-            description.Text
-                .Should().Be($"Source root mapped to {repositoryUri} at commit {Sha}.");
 
-            // The markdown form links the short repository name to the GitHub
-            // tree permalink at the pinned commit.
-            description.Markdown
+            // The text is a SARIF embedded link (spec §3.11.6): the short repository
+            // name links to the GitHub tree permalink at the pinned commit. No
+            // separate markdown form is minted.
+            description.Text
                 .Should().Be($"Source root mapped to [sarif-sdk](https://github.com/microsoft/sarif-sdk/tree/{Sha}) at commit {Sha}.");
+            description.Markdown.Should().BeNull();
         }
 
         [Fact]
@@ -132,13 +131,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
             visitor.Success.Should().BeTrue();
             Message description = run.OriginalUriBaseIds["SRCROOT"].Description;
-            description.Text
-                .Should().Be($"Source root mapped to https://dev.azure.com/fabrikam/proj/_git/widgets at commit {Sha}.");
 
             // Azure DevOps pins a commit with the ?version=GC<sha> query on the
             // repository root rather than a path segment.
-            description.Markdown
+            description.Text
                 .Should().Be($"Source root mapped to [widgets](https://dev.azure.com/fabrikam/proj/_git/widgets?version=GC{Sha}) at commit {Sha}.");
+            description.Markdown.Should().BeNull();
         }
 
         [Fact]
@@ -165,23 +163,21 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
             visitor.Success.Should().BeTrue();
 
-            // The text names the repository identity, never the portable root, so
-            // the GitHub form must not carry the blob/<commit>/ segment. The
-            // markdown links the short repository name to the root-at-revision URL,
-            // shaped per host: GitHub /tree/<sha>, Azure DevOps ?version=GC<sha>.
+            // The text is a SARIF embedded link (spec §3.11.6) naming the short
+            // repository name and linking it to the root-at-revision URL, shaped
+            // per host: GitHub /tree/<sha>, Azure DevOps ?version=GC<sha>. It must
+            // never carry the portable blob/<commit>/ segment, and no separate
+            // markdown form is minted.
             Message gitHub = run.OriginalUriBaseIds["SRCROOT_WIDGETS"].Description;
             gitHub.Text
-                .Should().Be($"Source root mapped to https://github.com/contoso/widgets at commit {Sha}.")
-                .And.NotContain("/blob/");
-            gitHub.Markdown
                 .Should().Be($"Source root mapped to [widgets](https://github.com/contoso/widgets/tree/{Sha}) at commit {Sha}.")
                 .And.NotContain("/blob/");
+            gitHub.Markdown.Should().BeNull();
 
             Message azureDevOps = run.OriginalUriBaseIds["SRCROOT_WIDGETS_2"].Description;
             azureDevOps.Text
-                .Should().Be($"Source root mapped to https://dev.azure.com/fabrikam/proj/_git/widgets at commit {Sha}.");
-            azureDevOps.Markdown
                 .Should().Be($"Source root mapped to [widgets](https://dev.azure.com/fabrikam/proj/_git/widgets?version=GC{Sha}) at commit {Sha}.");
+            azureDevOps.Markdown.Should().BeNull();
         }
 
         [Fact]
