@@ -366,6 +366,22 @@ namespace Microsoft.CodeAnalysis.Sarif
             return _hashDataCache[path];
         }
 
+        /// <summary>
+        /// Returns the full text of the artifact at <paramref name="uri"/>, reading it from the
+        /// file system on first access and caching the result. Returns <c>null</c> when the file
+        /// cannot be read (missing, I/O error, or access denied).
+        /// </summary>
+        public string GetText(Uri uri, string fileText = null)
+        {
+            string path = uri.GetFilePath();
+            if (fileText != null)
+            {
+                _fileTextCache[path] = fileText;
+            }
+
+            return _fileTextCache[path];
+        }
+
         public NewLineIndex GetNewLineIndex(Uri uri, string fileText = null)
         {
             string path = uri.GetFilePath();

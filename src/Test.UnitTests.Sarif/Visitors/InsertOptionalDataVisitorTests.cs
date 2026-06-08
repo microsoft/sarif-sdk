@@ -605,6 +605,159 @@ Three";
                 .Be(expectedPartialFingerprintHash);
         }
 
+        private const string RollingHashFileContent =
+@"x = 2
+x = 1
+print(x)
+x = 3
+print(x)
+";
+
+        [Fact]
+        public void InsertOptionalDataVisitor_PersistsPrimaryLocationLineHash()
+        {
+            using var tempFile = new TempFile();
+            File.WriteAllText(tempFile.Name, RollingHashFileContent);
+
+            string expectedHash = HashUtilities.RollingHash(RollingHashFileContent)[3];
+
+            Run run = RunRollingHashVisitor(BuildRollingHashRun(tempFile.Name, startLine: 3));
+
+            run.Results[0].PartialFingerprints.Should().ContainKey(InsertOptionalDataVisitor.PrimaryLocationLineHash);
+            run.Results[0].PartialFingerprints[InsertOptionalDataVisitor.PrimaryLocationLineHash].Should().Be(expectedHash);
+        }
+
+        [Fact]
+        public void InsertOptionalDataVisitor_PrimaryLocationLineHashKeyMatchesGitHubContract()
+        {
+            // GHAS and GHAzDO consume this exact key; a rename or version suffix would silently
+            // break result matching on ingestion.
+            InsertOptionalDataVisitor.PrimaryLocationLineHash.Should().Be("primaryLocationLineHash");
+        }
+
+        [Fact]
+        public void InsertOptionalDataVisitor_PrimaryLocationLineHashSkippedWhenRegionMissing()
+        {
+            using var tempFile = new TempFile();
+            File.WriteAllText(tempFile.Name, RollingHashFileContent);
+
+            Run run = RunRollingHashVisitor(BuildRollingHashRun(tempFile.Name, startLine: 0, includeRegion: false));
+
+            HasPrimaryLocationLineHash(run.Results[0]).Should().BeFalse();
+        }
+
+        [Fact]
+        public void InsertOptionalDataVisitor_PrimaryLocationLineHashSkippedWhenStartLineAbsent()
+        {
+            using var tempFile = new TempFile();
+            File.WriteAllText(tempFile.Name, RollingHashFileContent);
+
+            // A region with no startLine is not anchored to a source line, so CodeQL (and we) skip it.
+            Run run = RunRollingHashVisitor(BuildRollingHashRun(tempFile.Name, startLine: 0, includeRegion: true));
+
+            HasPrimaryLocationLineHash(run.Results[0]).Should().BeFalse();
+        }
+
+        [Fact]
+        public void InsertOptionalDataVisitor_PrimaryLocationLineHashPreservedWhenAlreadyPresent()
+        {
+            using var tempFile = new TempFile();
+            File.WriteAllText(tempFile.Name, RollingHashFileContent);
+
+            const string existingHash = "999:1";
+            Run run = RunRollingHashVisitor(
+                BuildRollingHashRun(tempFile.Name, startLine: 3, existingHash: existingHash),
+                overwriteExistingData: false);
+
+            run.Results[0].PartialFingerprints[InsertOptionalDataVisitor.PrimaryLocationLineHash].Should().Be(existingHash);
+        }
+
+        [Fact]
+        public void InsertOptionalDataVisitor_PrimaryLocationLineHashOverwrittenWhenRequested()
+        {
+            using var tempFile = new TempFile();
+            File.WriteAllText(tempFile.Name, RollingHashFileContent);
+
+            string expectedHash = HashUtilities.RollingHash(RollingHashFileContent)[3];
+
+            Run run = RunRollingHashVisitor(
+                BuildRollingHashRun(tempFile.Name, startLine: 3, existingHash: "999:1"),
+                overwriteExistingData: true);
+
+            run.Results[0].PartialFingerprints[InsertOptionalDataVisitor.PrimaryLocationLineHash].Should().Be(expectedHash);
+        }
+
+        [Fact]
+        public void InsertOptionalDataVisitor_PrimaryLocationLineHashComputedPerLineForSharedFile()
+        {
+            using var tempFile = new TempFile();
+            File.WriteAllText(tempFile.Name, RollingHashFileContent);
+
+            Dictionary<int, string> expected = HashUtilities.RollingHash(RollingHashFileContent);
+
+            Run run = BuildRollingHashRun(tempFile.Name, startLine: 1);
+            run.Results.Add(BuildRollingHashRun(tempFile.Name, startLine: 4).Results[0]);
+
+            run = RunRollingHashVisitor(run);
+
+            run.Results[0].PartialFingerprints[InsertOptionalDataVisitor.PrimaryLocationLineHash].Should().Be(expected[1]);
+            run.Results[1].PartialFingerprints[InsertOptionalDataVisitor.PrimaryLocationLineHash].Should().Be(expected[4]);
+        }
+
+        private static bool HasPrimaryLocationLineHash(Result result)
+            => result.PartialFingerprints != null &&
+               result.PartialFingerprints.ContainsKey(InsertOptionalDataVisitor.PrimaryLocationLineHash);
+
+        private static Run RunRollingHashVisitor(Run run, bool overwriteExistingData = false)
+        {
+            OptionallyEmittedData dataToInsert = OptionallyEmittedData.RollingHashPartialFingerprints;
+            if (overwriteExistingData)
+            {
+                dataToInsert |= OptionallyEmittedData.OverwriteExistingData;
+            }
+
+            var visitor = new InsertOptionalDataVisitor(dataToInsert, new FileRegionsCache(), run, insertProperties: null);
+            return visitor.VisitRun(run);
+        }
+
+        private static Run BuildRollingHashRun(
+            string filePath,
+            int startLine,
+            bool includeRegion = true,
+            string existingHash = null)
+        {
+            var result = new Result
+            {
+                Locations = new List<Location>
+                {
+                    new Location
+                    {
+                        PhysicalLocation = new PhysicalLocation
+                        {
+                            ArtifactLocation = new ArtifactLocation
+                            {
+                                Uri = new Uri(filePath, UriKind.Absolute)
+                            },
+                            Region = includeRegion ? new Region { StartLine = startLine } : null
+                        }
+                    }
+                }
+            };
+
+            if (existingHash != null)
+            {
+                result.PartialFingerprints = new Dictionary<string, string>
+                {
+                    { InsertOptionalDataVisitor.PrimaryLocationLineHash, existingHash }
+                };
+            }
+
+            return new Run
+            {
+                Results = new List<Result> { result }
+            };
+        }
+
         private const int RuleIndex = 0;
         private const string RuleId = nameof(RuleId);
         private const string NotificationId = nameof(NotificationId);

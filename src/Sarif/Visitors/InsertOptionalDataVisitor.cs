@@ -27,6 +27,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
         private int _ruleIndex = -1;
         private readonly IEnumerable<string> _insertProperties = insertProperties ?? new List<string>();
+        private readonly Dictionary<string, Dictionary<int, string>> _rollingHashesByPath = new Dictionary<string, Dictionary<int, string>>();
 
         private const string Name = nameof(Name);
         private const string Email = nameof(Email);
@@ -51,6 +52,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             _run = node;
             _gitHelper = new GitHelper(_fileSystem, processRunner);
             _repoRootUris = new HashSet<Uri>();
+            _rollingHashesByPath.Clear();
 
             if (originalUriBaseIds != null)
             {
@@ -257,6 +259,37 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 }
             }
 
+            if (dataToInsert.HasFlag(OptionallyEmittedData.RollingHashPartialFingerprints) &&
+                (node.PartialFingerprints == null ||
+                 !node.PartialFingerprints.ContainsKey(PrimaryLocationLineHash) ||
+                 dataToInsert.HasFlag(OptionallyEmittedData.OverwriteExistingData)))
+            {
+                Location primaryLocation = node.Locations?.FirstOrDefault();
+                PhysicalLocation physicalLocation = primaryLocation?.PhysicalLocation;
+
+                // A result whose primary location has no startLine is not anchored to a source
+                // line, so there is nothing to hash. This matches the CodeQL behavior, which
+                // skips such results rather than defaulting to the first line.
+                int startLine = physicalLocation?.Region?.StartLine ?? 0;
+
+                if (physicalLocation?.ArtifactLocation != null && startLine > 0)
+                {
+                    Uri resolvedUri = GetResolvedArtifactLocationUri(physicalLocation.ArtifactLocation);
+
+                    if (resolvedUri != null && resolvedUri.IsAbsoluteUri)
+                    {
+                        Dictionary<int, string> lineHashes = GetRollingHashes(resolvedUri);
+
+                        if (lineHashes != null && lineHashes.TryGetValue(startLine, out string lineHash))
+                        {
+                            node.PartialFingerprints ??= new Dictionary<string, string>();
+
+                            SarifUtilities.AddOrUpdateDictionaryEntry(node.PartialFingerprints, PrimaryLocationLineHash, lineHash);
+                        }
+                    }
+                }
+            }
+
             return node;
         }
 
@@ -417,8 +450,29 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             return resolvedUri;
         }
 
+        // Computes the CodeQL rolling line hashes for the file at the supplied URI, memoizing the
+        // result per file so a file shared by many results is read and hashed only once per run.
+        private Dictionary<int, string> GetRollingHashes(Uri resolvedUri)
+        {
+            string path = resolvedUri.GetFilePath();
+
+            if (!_rollingHashesByPath.TryGetValue(path, out Dictionary<int, string> lineHashes))
+            {
+                string fileText = FileRegionsCache?.GetText(resolvedUri);
+                lineHashes = fileText != null ? HashUtilities.RollingHash(fileText) : null;
+                _rollingHashesByPath[path] = lineHashes;
+            }
+
+            return lineHashes;
+        }
+
         private const string RepoRootUriBaseIdStem = "REPO_ROOT";
         public const string ContextRegionHash = "contextRegionHash/v1";
+
+        // The partial fingerprint key that GitHub code scanning (GHAS) and GitHub Advanced Security
+        // for Azure DevOps (GHAzDO) consume for result matching. The name is fixed by those
+        // consumers and must not carry a version suffix.
+        public const string PrimaryLocationLineHash = "primaryLocationLineHash";
 
         // When there is only one repo root (the usual case), the uriBaseId is "REPO_ROOT" (unless
         // that symbol is already in use in originalUriBaseIds. The second and subsequent uriBaseIds

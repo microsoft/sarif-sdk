@@ -59,7 +59,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             HelpText =
             "Optionally present data, expressed as a semicolon-delimited list enclosed in double quotes, " +
             "that should be inserted into the log file. Valid values include Hashes, TextFiles, BinaryFiles, EnvironmentVariables, " +
-            "RegionSnippets, ContextRegionSnippets, ContextRegionSnippetPartialFingerprints, Guids, VersionControlDetails, and NondeterministicProperties.")]
+            "RegionSnippets, ContextRegionSnippets, ContextRegionSnippetPartialFingerprints, RollingHashPartialFingerprints, Guids, VersionControlDetails, and NondeterministicProperties.")]
         public IEnumerable<OptionallyEmittedData> DataToInsert { get; set; }
 
         [Option(
