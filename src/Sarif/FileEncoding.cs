@@ -43,11 +43,22 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             Windows1252 ??= Encoding.GetEncoding(1252);
 
+            int successiveNulls = 0;
             bool containsControlCharacters = false;
 
             for (int i = 0; i < count; i++)
             {
-                containsControlCharacters |= bytes[i] < 0x20;
+                byte b = bytes[i];
+
+                if (b == 0)
+                {
+                    if (++successiveNulls > 3)
+                    {
+                        return false;
+                    }
+                }
+
+                containsControlCharacters |= b < 0x20;
             }
 
             if (!containsControlCharacters)
