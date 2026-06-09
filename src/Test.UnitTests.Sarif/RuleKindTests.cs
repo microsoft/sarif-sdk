@@ -23,6 +23,15 @@ namespace Test.UnitTests.Sarif
         }
 
         [Fact]
+        public void RuleKind_GhAlias_SharesUnderlyingValueWithGhas()
+        {
+#pragma warning disable CS0618
+            ((int)RuleKind.Gh).Should().Be((int)RuleKind.Ghas);
+            RuleKind.Gh.Should().Be(RuleKind.Ghas);
+#pragma warning restore CS0618
+        }
+
+        [Fact]
         public void RuleKind_AdoAlias_ParsesCaseInsensitively()
         {
             AssertParsesToGHAzDO("Ado");
