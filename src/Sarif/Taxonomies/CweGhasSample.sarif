@@ -42,6 +42,9 @@
               "helpUri": "https://cwe.mitre.org/data/definitions/89.html",
               "properties": {
                 "security-severity": "9.0"
+              },
+              "fullDescription": {
+                "text": "Without sufficient removal or quoting of SQL syntax in user-controllable inputs, the generated SQL query can cause those inputs to be interpreted as SQL instead of ordinary user data. This can be used to alter query logic to bypass security checks, or to insert additional statements that modify the back-end database, possibly including execution of system commands."
               }
             },
             {
@@ -104,6 +107,15 @@
                 "security-severity": "7.0"
               },
               "name": "PromptInjectionViaSystemMessage",
+              "shortDescription": {
+                "text": "Untrusted content reaches a system-role prompt."
+              },
+              "fullDescription": {
+                "text": "Untrusted content is concatenated into a system-role prompt at runtime, letting an attacker override tool-use policy or exfiltrate context. No CWE entry fits, so the finding is emitted under the NOVEL- escape hatch. Treat the model boundary as a trust boundary: keep untrusted content out of system-role messages and constrain tool use with out-of-band policy."
+              },
+              "help": {
+                "text": "Separate untrusted input from system-role instructions; never interpolate request data into the system prompt. Enforce tool-use authorization independently of model output."
+              },
               "helpUri": "https://cwesamplerscanner.example.com/rules/PromptInjectionViaSystemMessage"
             }
           ],
@@ -116,6 +128,9 @@
               },
               "fullDescription": {
                 "text": "Emitted when the scanner finishes analyzing its inputs. Carries the count of findings reported."
+              },
+              "help": {
+                "text": "Informational notification raised once per run when analysis completes successfully. No action is required."
               },
               "helpUri": "https://cwesamplerscanner.example.com/notifications/AnalyzeComplete",
               "defaultConfiguration": {
@@ -227,6 +242,9 @@
               }
             }
           ],
+          "partialFingerprints": {
+            "primaryLocationLineHash": "b2242f15e488c866:1"
+          },
           "rank": 60.0,
           "properties": {
             "ai/exploitability": "theoretical",
@@ -274,6 +292,9 @@
               }
             }
           ],
+          "partialFingerprints": {
+            "primaryLocationLineHash": "7d48724abd2e99ef:1"
+          },
           "rank": 90.0,
           "properties": {
             "ai/exploitability": "demonstrated",
@@ -321,6 +342,9 @@
               }
             }
           ],
+          "partialFingerprints": {
+            "primaryLocationLineHash": "1d1a1d010f10e2b7:1"
+          },
           "rank": 85.0,
           "properties": {
             "ai/exploitability": "poc",
@@ -368,6 +392,9 @@
               }
             }
           ],
+          "partialFingerprints": {
+            "primaryLocationLineHash": "536c6b794af9fed6:1"
+          },
           "rank": 95.0,
           "properties": {
             "ai/exploitability": "demonstrated",
@@ -414,6 +441,9 @@
               }
             }
           ],
+          "partialFingerprints": {
+            "primaryLocationLineHash": "db6a26cac961318c:1"
+          },
           "rank": 55.0,
           "properties": {
             "ai/exploitability": "theoretical",
@@ -461,6 +491,9 @@
               }
             }
           ],
+          "partialFingerprints": {
+            "primaryLocationLineHash": "3d6f405ea72f6c3e:1"
+          },
           "rank": 80.0,
           "properties": {
             "ai/exploitability": "poc",
@@ -508,6 +541,9 @@
               }
             }
           ],
+          "partialFingerprints": {
+            "primaryLocationLineHash": "b159e082553f5e29:1"
+          },
           "rank": 70.0,
           "properties": {
             "ai/exploitability": "demonstrated",

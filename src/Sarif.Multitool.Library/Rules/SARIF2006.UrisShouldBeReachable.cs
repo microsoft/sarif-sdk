@@ -48,7 +48,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             ".example.com", ".example.net", ".example.org",
         };
 
-        private static bool IsReservedDocumentationHost(Uri uri)
+        // Azure DevOps organizations are documentation placeholders by the same convention RFC 2606
+        // applies to hostnames: a dev.azure.com/<org> whose org names a fictitious account. These
+        // are exact names, not a prefix, so a real org incidentally starting with "example-" is not
+        // exempted.
+        private static readonly string[] s_reservedAzureDevOpsDocOrgs = new[] { "example", "example-org" };
+
+        internal static bool IsReservedDocumentationHost(Uri uri)
         {
             if (!uri.IsAbsoluteUri || string.IsNullOrEmpty(uri.Host)) { return false; }
 
@@ -63,6 +69,27 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             foreach (string suffix in s_reservedHostSuffixes)
             {
                 if (host.EndsWith(suffix, StringComparison.Ordinal)) { return true; }
+            }
+
+            if (host == "dev.azure.com" && IsReservedAzureDevOpsDocOrg(uri))
+            {
+                return true;
+            }
+
+            return false;
+        }
+
+        private static bool IsReservedAzureDevOpsDocOrg(Uri uri)
+        {
+            // dev.azure.com URLs take the form /<org>/<project>/_git/<repo>; the first path segment
+            // is the organization.
+            string[] segments = uri.AbsolutePath.Split(new[] { '/' }, StringSplitOptions.RemoveEmptyEntries);
+            if (segments.Length == 0) { return false; }
+
+            string org = segments[0].ToLowerInvariant();
+            foreach (string docOrg in s_reservedAzureDevOpsDocOrgs)
+            {
+                if (org == docOrg) { return true; }
             }
 
             return false;

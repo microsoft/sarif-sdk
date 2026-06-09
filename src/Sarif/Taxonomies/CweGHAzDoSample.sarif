@@ -24,10 +24,7 @@
               "shortDescription": {
                 "text": "The product does not neutralize or incorrectly neutralizes user-controllable input before it is placed in output that is used as a web page that is served to other users."
               },
-              "helpUri": "https://cwe.mitre.org/data/definitions/79.html",
-              "properties": {
-                "security-severity": "8.0"
-              }
+              "helpUri": "https://cwe.mitre.org/data/definitions/79.html"
             },
             {
               "id": "CWE-89",
@@ -40,8 +37,8 @@
                 "text": "The product constructs all or part of an SQL command using externally-influenced input from an upstream component, but it does not neutralize or incorrectly neutralizes special elements that could modify the intended SQL command when it is sent to a downstream component. Without sufficient removal or quoting of SQL syntax in user-controllable inputs, the generated SQL query can cause those inputs to be interpreted as SQL instead of ordinary user data."
               },
               "helpUri": "https://cwe.mitre.org/data/definitions/89.html",
-              "properties": {
-                "security-severity": "9.0"
+              "fullDescription": {
+                "text": "Without sufficient removal or quoting of SQL syntax in user-controllable inputs, the generated SQL query can cause those inputs to be interpreted as SQL instead of ordinary user data. This can be used to alter query logic to bypass security checks, or to insert additional statements that modify the back-end database, possibly including execution of system commands."
               }
             },
             {
@@ -57,10 +54,7 @@
               "shortDescription": {
                 "text": "The product uses external input to construct a pathname that is intended to identify a file or directory that is located underneath a restricted parent directory, but the product does not properly neutralize special elements within the pathname that can cause the pathname to resolve to a location that is outside of the restricted directory."
               },
-              "helpUri": "https://cwe.mitre.org/data/definitions/22.html",
-              "properties": {
-                "security-severity": "8.5"
-              }
+              "helpUri": "https://cwe.mitre.org/data/definitions/22.html"
             },
             {
               "id": "CWE-798",
@@ -75,10 +69,7 @@
               "shortDescription": {
                 "text": "The product contains hard-coded credentials, such as a password or cryptographic key."
               },
-              "helpUri": "https://cwe.mitre.org/data/definitions/798.html",
-              "properties": {
-                "security-severity": "9.5"
-              }
+              "helpUri": "https://cwe.mitre.org/data/definitions/798.html"
             },
             {
               "id": "CWE-1220",
@@ -93,17 +84,20 @@
               "shortDescription": {
                 "text": "The product implements access controls via a policy or other feature with the intention to disable or restrict accesses (reads and/or writes) to assets in a system from untrusted agents. However, implemented access controls lack required granularity, which renders the control policy too broad because it allows accesses from unauthorized agents to the security-sensitive assets."
               },
-              "helpUri": "https://cwe.mitre.org/data/definitions/1220.html",
-              "properties": {
-                "security-severity": "5.5"
-              }
+              "helpUri": "https://cwe.mitre.org/data/definitions/1220.html"
             },
             {
               "id": "NOVEL-prompt-injection-via-system-message",
-              "properties": {
-                "security-severity": "7.0"
-              },
               "name": "PromptInjectionViaSystemMessage",
+              "shortDescription": {
+                "text": "Untrusted content reaches a system-role prompt."
+              },
+              "fullDescription": {
+                "text": "Untrusted content is concatenated into a system-role prompt at runtime, letting an attacker override tool-use policy or exfiltrate context. No CWE entry fits, so the finding is emitted under the NOVEL- escape hatch. Treat the model boundary as a trust boundary: keep untrusted content out of system-role messages and constrain tool use with out-of-band policy."
+              },
+              "help": {
+                "text": "Separate untrusted input from system-role instructions; never interpolate request data into the system prompt. Enforce tool-use authorization independently of model output."
+              },
               "helpUri": "https://cwesamplerscanner.example.com/rules/PromptInjectionViaSystemMessage"
             }
           ],
@@ -116,6 +110,9 @@
               },
               "fullDescription": {
                 "text": "Emitted when the scanner finishes analyzing its inputs. Carries the count of findings reported."
+              },
+              "help": {
+                "text": "Informational notification raised once per run when analysis completes successfully. No action is required."
               },
               "helpUri": "https://cwesamplerscanner.example.com/notifications/AnalyzeComplete",
               "defaultConfiguration": {
@@ -157,8 +154,8 @@
       ],
       "versionControlProvenance": [
         {
-          "repositoryUri": "https://github.com/microsoft/sarif-sdk",
-          "revisionId": "84f83c813bcf52ae2c0fd7ff2963e2fa2a2efac7",
+          "repositoryUri": "https://dev.azure.com/example-org/example-project/_git/sarif-sdk",
+          "revisionId": "cafebabecafebabecafebabecafebabecafebabe",
           "branch": "refs/heads/main",
           "mappedTo": {
             "uriBaseId": "SRCROOT"
@@ -167,9 +164,9 @@
       ],
       "originalUriBaseIds": {
         "SRCROOT": {
-          "uri": "https://github.com/microsoft/sarif-sdk/blob/84f83c813bcf52ae2c0fd7ff2963e2fa2a2efac7/",
+          "uri": "https://dev.azure.com/example-org/example-project/_git/sarif-sdk/",
           "description": {
-            "text": "Source root mapped to [sarif-sdk@84f83c8](https://github.com/microsoft/sarif-sdk/tree/84f83c813bcf52ae2c0fd7ff2963e2fa2a2efac7)."
+            "text": "Source root mapped to [sarif-sdk@cafebab](https://dev.azure.com/example-org/example-project/_git/sarif-sdk?version=GCcafebabecafebabecafebabecafebabecafebabe)."
           }
         }
       },

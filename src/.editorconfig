@@ -330,5 +330,5 @@ dotnet_style_namespace_match_folder = true:suggestion
 dotnet_code_quality_unused_parameters = all:error
 dotnet_style_prefer_collection_expression = when_types_loosely_match:suggestion
 [Sarif/Taxonomies/SampleCode.cs]
-# Pinned to LF: file is embedded into CweSample.sarif fixture; CRLF would change its hash
+# Pinned to LF: file is embedded into the Cwe sample fixtures; CRLF would change their hash
 end_of_line = lf

@@ -15,6 +15,11 @@ Entries are terse by design: one line per change, present-tense behavior, comple
 
 ## **UNRELEASED**
 * BRK: `RuleKind` is now a `[Flags]` enum (`Sarif=1, Ghas=2, GHAzDO=4, AI=8`); the GH#### rules report `RuleKind.Ghas`, and `RuleKind.Gh` is now an `[Obsolete]` alias of `Ghas`.
+* BUG: `sarif emit-finalize` now adds the GHAS `security-severity` rule property only to GitHub-hosted runs (`github.com`/`*.ghe.com` provenance); Azure DevOps-hosted runs no longer receive it. A producer-authored `security-severity` is preserved on any host.
+* BUG: `sarif emit-finalize` likewise adds the `primaryLocationLineHash` rolling-hash partial fingerprint only to GitHub-hosted runs; it is no longer added to Azure DevOps-hosted runs.
+* NEW: `AI2011.DoNotPersistPartialFingerprints` no longer warns on a lone non-empty `primaryLocationLineHash` on a GitHub-hosted run (GitHub's raw code-scanning upload does not backfill partial fingerprints); any other key, or any partial fingerprint on a non-GitHub run, still warns.
+* NEW: `SARIF2006.UrisShouldBeReachable` no longer probes a `dev.azure.com/<org>` URI whose `<org>` is a documentation placeholder (`example`, `example-org`), extending the existing RFC 2606 documentation-host carve-out.
+* FUN: Rename the CWE taxonomy sample `CweSample.sarif` to `CweGhasSample.sarif` (the `github.com`/GHAS variant); `CweGenerateSample.ps1 -GHAzDO` now emits a genuinely `dev.azure.com`-hosted `CweGHAzDoSample.sarif`, so the two fixtures differ by repository host.
 
 ## **v5.0.4** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/v5.0.4) | [Driver](https://www.nuget.org/packages/Sarif.Driver/v5.0.4) | [Converters](https://www.nuget.org/packages/Sarif.Converters/v5.0.4) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/v5.0.4) | [Multitool Library](https://www.nuget.org/packages/Sarif.Multitool.Library/v5.0.4)
 * NEW: `sarif get-skill --list` now prints each skill's frontmatter `description` beside its name.
