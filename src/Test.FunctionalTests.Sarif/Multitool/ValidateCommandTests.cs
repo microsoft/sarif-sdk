@@ -553,7 +553,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 //RuleKindOption = AllRuleKinds
                 RuleKindOption = ruleUnderTest.StartsWith("GHAzDO")
                     ? new List<RuleKind> { RuleKind.GHAzDO }
-                    : new List<RuleKind> { RuleKind.Gh, RuleKind.Sarif, RuleKind.AI },
+                    : new List<RuleKind> { RuleKind.Ghas, RuleKind.Sarif, RuleKind.AI },
             };
 
             var mockFileSystem = new Mock<IFileSystem>();

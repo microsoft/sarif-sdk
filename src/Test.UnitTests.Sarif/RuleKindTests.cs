@@ -30,6 +30,21 @@ namespace Test.UnitTests.Sarif
             AssertParsesToGHAzDO("ADO");
         }
 
+        [Fact]
+        public void RuleKind_IsFlags_WithDistinctSingleBitValues()
+        {
+            RuleKind[] kinds = { RuleKind.Sarif, RuleKind.Ghas, RuleKind.GHAzDO, RuleKind.AI };
+
+            int combined = 0;
+            foreach (RuleKind kind in kinds)
+            {
+                int value = (int)kind;
+                (value & (value - 1)).Should().Be(0, "each kind is a single-bit flag");
+                (combined & value).Should().Be(0, "kinds occupy non-overlapping bits");
+                combined |= value;
+            }
+        }
+
         private static void AssertParsesToGHAzDO(string input)
         {
             RuleKind parsed = (RuleKind)Enum.Parse(typeof(RuleKind), input, ignoreCase: true);

@@ -13,6 +13,9 @@ Each release entry below is prefixed with one of:
 
 Entries are terse by design: one line per change, present-tense behavior, complete but only essential data. No issue/PR archaeology or narrative — that history lives in the engineering system.
 
+## **UNRELEASED**
+* BRK: `RuleKind` is now a `[Flags]` enum (`Sarif=1, Ghas=2, GHAzDO=4, AI=8`); `RuleKind.Gh` is removed and the GH#### rules report `RuleKind.Ghas`. Callers selecting `Gh` must use `Ghas`.
+
 ## **v5.0.4** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/v5.0.4) | [Driver](https://www.nuget.org/packages/Sarif.Driver/v5.0.4) | [Converters](https://www.nuget.org/packages/Sarif.Converters/v5.0.4) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/v5.0.4) | [Multitool Library](https://www.nuget.org/packages/Sarif.Multitool.Library/v5.0.4)
 * NEW: `sarif get-skill --list` now prints each skill's frontmatter `description` beside its name.
 * NEW: `sarif emit-finalize` now stamps each minted `originalUriBaseIds` entry with a `description` whose `text` is an embedded link (§3.11.6), `[<repo>@<short-sha>](<root-at-revision URL>)`, pinning the source to its commit. A producer-supplied description is preserved.
