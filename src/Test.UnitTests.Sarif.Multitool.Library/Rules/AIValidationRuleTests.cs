@@ -120,6 +120,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             log.Runs[0].Results[0].SetProperty("ai/attackerPosition", value);
         }
 
+        private static void SetRepositoryHostToAzureDevOps(SarifLog log)
+        {
+            log.Runs[0].VersionControlProvenance[0].RepositoryUri =
+                new System.Uri("https://dev.azure.com/example-org/example-project/_git/sarif-sdk");
+        }
+
         #endregion
 
         #region Helper
@@ -579,7 +585,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         #region AI1007 / AI2011 — DoNotPersist(Partial)Fingerprints
 
         [Fact]
-        public void AI2011_WhenPartialFingerprintsPresent_ReportsWarning()
+        public void AI2011_WhenNonLineHashPartialFingerprintPresent_ReportsWarning()
         {
             SarifLog log = CreateValidAISarifLog();
             SetAIOrigin(log, "generated");
@@ -587,7 +593,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             SetAiHandoff(log, "tier 2 reached");
             log.Runs[0].Results[0].PartialFingerprints = new Dictionary<string, string>
             {
-                { "primaryLocationLineHash", "abc123" }
+                { "contextRegionHash/v1", "abc123" }
             };
 
             SarifLog output = RunAIValidation(log);
@@ -598,6 +604,70 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
             // The Error-level fingerprints rule must NOT fire on partial fingerprints.
             GetResultsForRule(output, "AI1007").Should().BeEmpty();
+        }
+
+        [Fact]
+        public void AI2011_WhenLoneLineHashOnGitHubHostedRun_NoWarning()
+        {
+            // GitHub's raw code-scanning upload API does not backfill partialFingerprints,
+            // so a github-hosted run may persist the single rolling-hash
+            // primaryLocationLineHash without AI2011 objecting. CreateValidAISarifLog is
+            // github.com-hosted.
+            SarifLog log = CreateValidAISarifLog();
+            SetAIOrigin(log, "generated");
+            SetExploitability(log, "demonstrated");
+            SetAiHandoff(log, "tier 2 reached");
+            log.Runs[0].Results[0].PartialFingerprints = new Dictionary<string, string>
+            {
+                { "primaryLocationLineHash", "abc123" }
+            };
+
+            SarifLog output = RunAIValidation(log);
+
+            GetResultsForRule(output, "AI2011").Should().BeEmpty();
+        }
+
+        [Fact]
+        public void AI2011_WhenLoneLineHashOnAzureDevOpsHostedRun_ReportsWarning()
+        {
+            // The carve-out is github-only; a dev.azure.com-hosted run still gets flagged.
+            SarifLog log = CreateValidAISarifLog();
+            SetAIOrigin(log, "generated");
+            SetExploitability(log, "demonstrated");
+            SetAiHandoff(log, "tier 2 reached");
+            SetRepositoryHostToAzureDevOps(log);
+            log.Runs[0].Results[0].PartialFingerprints = new Dictionary<string, string>
+            {
+                { "primaryLocationLineHash", "abc123" }
+            };
+
+            SarifLog output = RunAIValidation(log);
+            List<Result> results = GetResultsForRule(output, "AI2011");
+
+            results.Should().NotBeEmpty();
+            results[0].Level.Should().Be(FailureLevel.Warning);
+        }
+
+        [Fact]
+        public void AI2011_WhenLineHashAccompaniedByOtherKeyOnGitHubRun_ReportsWarning()
+        {
+            // The carve-out covers only the LONE primaryLocationLineHash; a second
+            // partial fingerprint forfeits it even on a github-hosted run.
+            SarifLog log = CreateValidAISarifLog();
+            SetAIOrigin(log, "generated");
+            SetExploitability(log, "demonstrated");
+            SetAiHandoff(log, "tier 2 reached");
+            log.Runs[0].Results[0].PartialFingerprints = new Dictionary<string, string>
+            {
+                { "primaryLocationLineHash", "abc123" },
+                { "contextRegionHash/v1", "def456" }
+            };
+
+            SarifLog output = RunAIValidation(log);
+            List<Result> results = GetResultsForRule(output, "AI2011");
+
+            results.Should().NotBeEmpty();
+            results[0].Level.Should().Be(FailureLevel.Warning);
         }
 
         [Fact]

@@ -58,7 +58,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Taxonomies
                 .Single(t => t.Id == "CWE-79");
 
             xss.Name.Should().Be("CrossSiteScripting");
-            xss.ShortDescription.Text.Should().NotBeNullOrWhiteSpace();
+
+            // The taxonomy omits shortDescription for CWE-79 because it is recoverable as the
+            // first sentence of fullDescription (SARIF §3.49.10). fullDescription is always
+            // present, and that first sentence is derivable for a consumer to display.
+            xss.FullDescription.Text.Should().NotBeNullOrWhiteSpace();
+            CweTaxonomy.DeriveShortDescription(xss.FullDescription.Text).Should().NotBeNullOrWhiteSpace();
+
             xss.HelpUri.OriginalString.Should().Be("https://cwe.mitre.org/data/definitions/79.html");
             xss.Help.Markdown.Should().Contain("## Description");
 

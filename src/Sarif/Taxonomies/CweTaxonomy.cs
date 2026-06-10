@@ -7,6 +7,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
+using System.Text.RegularExpressions;
 
 namespace Microsoft.CodeAnalysis.Sarif.Taxonomies
 {
@@ -78,6 +79,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Taxonomies
         private static SarifLog canonicalLog;
         private static string canonicalBrief;
 
+        // First-sentence terminator: the first sentence-ending punctuation, any
+        // trailing closing quote/paren/bracket, then whitespace or end of string.
+        // This is the dead-simple rule the taxonomy generator uses to decide
+        // whether shortDescription is recoverable from fullDescription, and that
+        // consumers use to recover it (SARIF §3.49.10). It is deliberately naive:
+        // the generator only omits shortDescription when this rule reproduces the
+        // curated first sentence exactly, so consumers never need a smarter parser.
+        private static readonly Regex SentenceEndPattern =
+            new Regex(@"[.!?][""')\]]*(\s|$)", RegexOptions.CultureInvariant);
+
         /// <summary>
         /// Loads the consolidated CWE taxonomy, optionally filtered by status.
         /// </summary>
@@ -128,6 +139,26 @@ namespace Microsoft.CodeAnalysis.Sarif.Taxonomies
 
             HashSet<string> wantedStatusNames = StatusNamesFromFlags(statuses);
             return RenderBrief(LoadCanonical(), wantedStatusNames);
+        }
+
+        /// <summary>
+        /// Recovers the first sentence of a CWE <c>fullDescription</c>, the value a consumer
+        /// displays as <c>shortDescription</c> when the taxonomy omits one (SARIF §3.49.10).
+        /// </summary>
+        /// <param name="fullDescriptionText">The <c>fullDescription</c> text to recover from.</param>
+        /// <returns>
+        /// The leading sentence (through its terminating punctuation), trimmed; the whole
+        /// trimmed input when no sentence terminator is present; <c>null</c> for null input.
+        /// </returns>
+        public static string DeriveShortDescription(string fullDescriptionText)
+        {
+            if (fullDescriptionText == null) { return null; }
+
+            Match match = SentenceEndPattern.Match(fullDescriptionText);
+            string candidate = match.Success
+                ? fullDescriptionText.Substring(0, match.Index + match.Length)
+                : fullDescriptionText;
+            return candidate.Trim();
         }
 
         internal static SarifLog LoadCanonical()
@@ -241,7 +272,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Taxonomies
                 string status = GetPropertyString(t, StatusPropertyName);
                 string abstraction = GetPropertyString(t, AbstractionPropertyName);
                 string parent = GetPropertyString(t, ParentPropertyName);
-                string desc = (t.ShortDescription?.Text ?? string.Empty).Replace("|", @"\|").Replace("\r", " ").Replace("\n", " ");
+                string shortText = t.ShortDescription?.Text;
+                if (string.IsNullOrEmpty(shortText) && !string.IsNullOrEmpty(t.FullDescription?.Text))
+                {
+                    shortText = DeriveShortDescription(t.FullDescription.Text);
+                }
+                string desc = (shortText ?? string.Empty).Replace("|", @"\|").Replace("\r", " ").Replace("\n", " ");
                 string name = (t.Name ?? string.Empty).Replace("|", @"\|").Replace("\r", " ").Replace("\n", " ").Trim();
                 sb.AppendLine($"| {t.Id} | {name} | {abstraction} | {status} | {parent} | {desc} |");
             }

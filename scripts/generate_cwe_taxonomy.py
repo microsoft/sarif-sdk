@@ -9,10 +9,15 @@ Downloads cwec_latest.xml.zip from cwe.mitre.org, extracts the XML,
 parses the entries, and emits two consolidated artifacts covering all
 maturity statuses (Stable, Draft, Incomplete, Deprecated, Obsolete):
 
-    CweTaxonomy.sarif       SARIF 2.1.0 taxonomy with verbatim help content
-                            (Description + Extended Description + Common
-                            Consequences + Potential Mitigations) embedded
-                            in reportingDescriptor.help.markdown.
+    CweTaxonomy.sarif       SARIF 2.1.0 taxonomy with verbatim MITRE content.
+                            Each taxon carries fullDescription (Description +
+                            Extended Description) and help content (Description
+                            + Extended Description + Common Consequences +
+                            Potential Mitigations) in both help.text and
+                            help.markdown. shortDescription is emitted only when
+                            a consumer cannot recover it from the first sentence
+                            of fullDescription (SARIF §3.49.2, §3.49.10), keeping
+                            the file as small as possible.
 
     CweTaxonomy.brief.md    Compact markdown table sized for AI prompt
                             context-window injection.
@@ -95,6 +100,92 @@ def clean_text(node):
 _PAREN_NAME_RE = re.compile(r"\('([^']+)'\)|\(\"([^\"]+)\"\)")
 _NON_ALNUM_RE = re.compile(r"[^A-Za-z0-9]+")
 
+# A sentence terminator is . ! or ? plus any closing quotes/brackets,
+# followed by whitespace or end-of-string. Requiring trailing whitespace
+# means the internal dots of abbreviations like "e.g." (followed by a
+# letter, not a space) are never candidate boundaries.
+_SENTENCE_END_RE = re.compile(r"[.!?][\"')\]]*(?:\s|$)")
+
+# Lowercased tokens (trailing run up to and including the period) that look
+# like a sentence end but are not. Used to skip false boundaries.
+_ABBREVIATIONS = frozenset([
+    "e.g.", "i.e.", "etc.", "vs.", "cf.", "resp.", "al.", "approx.",
+    "inc.", "corp.", "ltd.", "co.", "no.", "fig.", "ref.", "a.k.a.",
+])
+
+
+def first_sentence(text):
+    """Return the first sentence of ``text`` verbatim.
+
+    The result is always a literal prefix of ``text`` (or the whole string
+    when no boundary is found) — never a paraphrase — so a shortDescription
+    derived from a MITRE Description stays definitively MITRE-sourced.
+
+    Boundary detection skips common abbreviations (``e.g.``, ``i.e.``,
+    ``etc.``), single-letter initials (``U.S.``), terminators sitting inside
+    an unclosed parenthetical (the dot in ``(e.g.`` or the tag
+    ``[PLANNED FOR DEPRECATION.``), and terminators followed by a lowercase
+    continuation (a quoted example like ``".."`` that the sentence resumes
+    after). When in doubt it errs toward *not* splitting, so the worst case
+    is the unchanged full text.
+    """
+    if not text:
+        return text
+    for m in _SENTENCE_END_RE.finditer(text):
+        punct_idx = m.start()
+        token_match = re.search(r"\S+$", text[:punct_idx + 1])
+        token = token_match.group(0).lower() if token_match else ""
+        # Drop leading openers so "(e.g." is recognized as the abbreviation
+        # "e.g." rather than read as a distinct, unguarded token.
+        token = token.lstrip("([{\"'")
+        if token in _ABBREVIATIONS:
+            continue
+        # Single-letter initial at a word boundary, e.g. the "U." / "S." in
+        # "U.S.": an uppercase letter preceded by a non-alphanumeric char.
+        if text[punct_idx - 1:punct_idx].isupper():
+            before = text[punct_idx - 2:punct_idx - 1]
+            if before == "" or not before.isalnum():
+                continue
+        candidate = text[:m.end()]
+        # A terminator inside an unclosed parenthetical or bracket is not a
+        # real sentence end.
+        if (candidate.count("(") != candidate.count(")")
+                or candidate.count("[") != candidate.count("]")
+                or candidate.count("{") != candidate.count("}")):
+            continue
+        # A real boundary is followed by end-of-text or the start of a new
+        # sentence (an uppercase letter or a digit). A lowercase next
+        # character means the terminator is internal -- a quoted example or
+        # an abbreviation -- and the sentence actually continues.
+        rest = text[m.end():].lstrip()
+        if rest and not (rest[0].isupper() or rest[0].isdigit()):
+            continue
+        return candidate.strip()
+    return text.strip()
+
+
+def naive_first_sentence(text):
+    """Return the first sentence using only the bare terminator rule.
+
+    This is the dead-simple extraction a downstream consumer applies to
+    recover a shortDescription from a fullDescription: the prefix up to and
+    including the first ``.``/``!``/``?`` (with any trailing closing quotes or
+    brackets) that is followed by whitespace or end-of-text. Unlike
+    :func:`first_sentence` it has no abbreviation, parenthetical, or
+    lowercase-continuation guards.
+
+    The generator omits shortDescription only when this naive result equals the
+    curated :func:`first_sentence`, so a consumer using this rule reconstructs
+    the curated value exactly. Where the two disagree (a guarded boundary), the
+    curated shortDescription is retained verbatim.
+    """
+    if not text:
+        return text
+    m = _SENTENCE_END_RE.search(text)
+    if m:
+        return text[:m.end()].strip()
+    return text.strip()
+
 
 def pascal_case_name(cwe_name):
     """Derive a single Pascal-case identifier from a CWE Name that satisfies
@@ -152,27 +243,36 @@ def view1000_parent(weakness):
     return f"CWE-{parent.get('CWE_ID')}"
 
 
-def build_help_markdown(weakness):
-    """Produce the verbatim help markdown block embedded on each taxon.
+def build_help(weakness, markdown=True):
+    """Produce the verbatim help block embedded on each taxon.
+
+    With ``markdown=True`` the result is the rich ``help.markdown`` value; with
+    ``markdown=False`` it is the plaintext twin stored in ``help.text`` — the
+    same sections and structure with the markdown markup (``##`` headers,
+    ``**bold**``, ``*italic*``) removed. The two are faithful renderings of one
+    body of content, per the SARIF multiformatMessageString contract.
 
     Sections (in order, each only present when source content is non-empty):
 
-    - ``## Description`` (CWE Description)
-    - ``## Extended Description`` (CWE Extended_Description)
-    - ``## Common Consequences`` (CWE Common_Consequences/Consequence)
-    - ``## Potential Mitigations`` (CWE Potential_Mitigations/Mitigation)
+    - ``Description`` (CWE Description)
+    - ``Extended Description`` (CWE Extended_Description)
+    - ``Common Consequences`` (CWE Common_Consequences/Consequence)
+    - ``Potential Mitigations`` (CWE Potential_Mitigations/Mitigation)
     """
+    head = "## " if markdown else ""
+    strong = "**" if markdown else ""
+    emph = "*" if markdown else ""
     out = io.StringIO()
 
     desc = clean_text(weakness.find("c:Description", NS))
     if desc:
-        out.write("## Description\n\n")
+        out.write(f"{head}Description\n\n")
         out.write(desc)
         out.write("\n\n")
 
     ext = clean_text(weakness.find("c:Extended_Description", NS))
     if ext:
-        out.write("## Extended Description\n\n")
+        out.write(f"{head}Extended Description\n\n")
         out.write(ext)
         out.write("\n\n")
 
@@ -180,7 +280,7 @@ def build_help_markdown(weakness):
     if cc is not None:
         consequences = cc.findall("c:Consequence", NS)
         if consequences:
-            out.write("## Common Consequences\n\n")
+            out.write(f"{head}Common Consequences\n\n")
             for c in consequences:
                 scopes = [clean_text(s) for s in c.findall("c:Scope", NS)]
                 impacts = [clean_text(i) for i in c.findall("c:Impact", NS)]
@@ -188,9 +288,9 @@ def build_help_markdown(weakness):
                 impact_text = ", ".join(i for i in impacts if i)
                 line = "- "
                 if scope_text:
-                    line += f"**Scope**: {scope_text}. "
+                    line += f"{strong}Scope{strong}: {scope_text}. "
                 if impact_text:
-                    line += f"**Impact**: {impact_text}."
+                    line += f"{strong}Impact{strong}: {impact_text}."
                 out.write(line.rstrip() + "\n")
                 note = clean_text(c.find("c:Note", NS))
                 if note:
@@ -201,7 +301,7 @@ def build_help_markdown(weakness):
     if pm is not None:
         mitigations = pm.findall("c:Mitigation", NS)
         if mitigations:
-            out.write("## Potential Mitigations\n\n")
+            out.write(f"{head}Potential Mitigations\n\n")
             for i, m in enumerate(mitigations, start=1):
                 phases = [clean_text(p) for p in m.findall("c:Phase", NS)]
                 phase_text = ", ".join(p for p in phases if p)
@@ -211,7 +311,7 @@ def build_help_markdown(weakness):
                     tag_parts.append(f"Phase: {phase_text}")
                 if strategy_text:
                     tag_parts.append(f"Strategy: {strategy_text}")
-                tag = "*" + "; ".join(tag_parts) + "*" if tag_parts else ""
+                tag = emph + "; ".join(tag_parts) + emph if tag_parts else ""
                 desc_text = clean_text(m.find("c:Description", NS))
                 line = f"{i}. "
                 if tag:
@@ -262,22 +362,31 @@ def emit(xml_path, output_dir, source_url):
         cwe_id = f"CWE-{w.get('ID')}"
         title = w.get("Name")
         name = pascal_case_name(title)
-        short_text = clean_text(w.find("c:Description", NS))
+        desc_text = clean_text(w.find("c:Description", NS))
+        curated_short = first_sentence(desc_text)
+
+        ext = clean_text(w.find("c:Extended_Description", NS))
+        full_text = desc_text + ("\n\n" + ext if ext else "")
 
         taxon = {
             "id": cwe_id,
             "name": name,
-            "shortDescription": {"text": short_text},
         }
 
-        ext = clean_text(w.find("c:Extended_Description", NS))
-        if ext:
-            taxon["fullDescription"] = {"text": ext}
+        # fullDescription begins with the Description, whose first sentence is
+        # the curated short (SARIF §3.49.10). Emit shortDescription only when a
+        # consumer's bare first-sentence rule would NOT recover the curated
+        # value; otherwise omit it and let the consumer derive it from
+        # fullDescription (SARIF §3.49.2 — full alone satisfies the constraint).
+        if curated_short and naive_first_sentence(full_text) != curated_short:
+            taxon["shortDescription"] = {"text": curated_short}
 
-        help_md = build_help_markdown(w)
+        taxon["fullDescription"] = {"text": full_text}
+
+        help_md = build_help(w, markdown=True)
         if help_md:
             taxon["help"] = {
-                "text": short_text,
+                "text": build_help(w, markdown=False),
                 "markdown": help_md,
             }
         taxon["helpUri"] = f"https://cwe.mitre.org/data/definitions/{w.get('ID')}.html"

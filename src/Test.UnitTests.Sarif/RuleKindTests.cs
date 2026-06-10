@@ -23,11 +23,35 @@ namespace Test.UnitTests.Sarif
         }
 
         [Fact]
+        public void RuleKind_GhAlias_SharesUnderlyingValueWithGhas()
+        {
+#pragma warning disable CS0618
+            ((int)RuleKind.Gh).Should().Be((int)RuleKind.Ghas);
+            RuleKind.Gh.Should().Be(RuleKind.Ghas);
+#pragma warning restore CS0618
+        }
+
+        [Fact]
         public void RuleKind_AdoAlias_ParsesCaseInsensitively()
         {
             AssertParsesToGHAzDO("Ado");
             AssertParsesToGHAzDO("ado");
             AssertParsesToGHAzDO("ADO");
+        }
+
+        [Fact]
+        public void RuleKind_IsFlags_WithDistinctSingleBitValues()
+        {
+            RuleKind[] kinds = { RuleKind.Sarif, RuleKind.Ghas, RuleKind.GHAzDO, RuleKind.AI };
+
+            int combined = 0;
+            foreach (RuleKind kind in kinds)
+            {
+                int value = (int)kind;
+                (value & (value - 1)).Should().Be(0, "each kind is a single-bit flag");
+                (combined & value).Should().Be(0, "kinds occupy non-overlapping bits");
+                combined |= value;
+            }
         }
 
         private static void AssertParsesToGHAzDO(string input)

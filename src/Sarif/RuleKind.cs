@@ -8,17 +8,17 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// <summary>
     /// Identifies the validator family that applies a SARIF reporting-descriptor rule.
     /// </summary>
-    /// <remarks>
-    /// Not a <c>[Flags]</c> enum; combinations are expressed via <see cref="RuleKindSet"/>.
-    /// </remarks>
+    [Flags]
     public enum RuleKind
     {
         None = 0,
         Sarif = 1,
-        Gh = 2,
-        Ghas = 3,
+        Ghas = 2,
         GHAzDO = 4,
-        AI = 5,
+        AI = 8,
+
+        [Obsolete("Use RuleKind.Ghas instead.")]
+        Gh = Ghas,
 
         [Obsolete("Use RuleKind.GHAzDO instead.")]
         Ado = GHAzDO,
