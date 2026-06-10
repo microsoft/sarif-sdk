@@ -98,8 +98,17 @@ namespace Microsoft.CodeAnalysis.Sarif
             {
                 foreach (Encoding encoding in new[] { Encoding.Unicode, Encoding.UTF8, Encoding.BigEndianUnicode, Encoding.UTF32 })
                 {
-                    byte[] input = encoding.GetBytes(unicodeText);
-                    FileEncoding.IsTextualData(input).Should().BeTrue(because: $"'{unicodeText}' encoded as '{encoding.EncodingName}' should not be classified as binary data");
+                    // Prepend the encoding's BOM (preamble). UTF-16/UTF-32 content is
+                    // indistinguishable from binary by content alone (its NUL padding
+                    // bytes trip the NUL-scan heuristic), so the BOM is the signal that
+                    // declares the data textual and its byte order.
+                    byte[] preamble = encoding.GetPreamble();
+                    byte[] encoded = encoding.GetBytes(unicodeText);
+                    byte[] input = new byte[preamble.Length + encoded.Length];
+                    Buffer.BlockCopy(preamble, 0, input, 0, preamble.Length);
+                    Buffer.BlockCopy(encoded, 0, input, preamble.Length, encoded.Length);
+
+                    FileEncoding.IsTextualData(input).Should().BeTrue(because: $"'{unicodeText}' encoded as '{encoding.EncodingName}' with a BOM should not be classified as binary data");
                 }
             }
         }

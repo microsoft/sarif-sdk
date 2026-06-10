@@ -15,6 +15,7 @@ Entries are terse by design: one line per change, present-tense behavior, comple
 
 ## **UNRELEASED**
 * BRK: `RuleKind` is now a `[Flags]` enum (`Sarif=1, Ghas=2, GHAzDO=4, AI=8`); the GH#### rules report `RuleKind.Ghas`, and `RuleKind.Gh` is now an `[Obsolete]` alias of `Ghas`.
+* NEW: `FileEncoding.IsBinaryData` classifies data via a BOM check (textual) then a NUL-byte scan (binary); `FileEncoding.IsTextualData` is now its inverse, so BOM-less UTF-16/UTF-32 content is now treated as binary.
 
 ## **v5.0.4** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/v5.0.4) | [Driver](https://www.nuget.org/packages/Sarif.Driver/v5.0.4) | [Converters](https://www.nuget.org/packages/Sarif.Converters/v5.0.4) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/v5.0.4) | [Multitool Library](https://www.nuget.org/packages/Sarif.Multitool.Library/v5.0.4)
 * NEW: `sarif get-skill --list` now prints each skill's frontmatter `description` beside its name.
