@@ -2,6 +2,7 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System;
+using System.Collections.Generic;
 using System.Globalization;
 
 namespace Microsoft.CodeAnalysis.Sarif.Multitool
@@ -63,6 +64,33 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             }
 
             leaf = classification.Leaf;
+            return true;
+        }
+
+        /// <summary>
+        /// Reports whether <paramref name="run"/> is hosted on GitHub: it carries at least one
+        /// <c>versionControlProvenance</c> entry and every entry's <c>repositoryUri</c> classifies as a
+        /// supported GitHub host (<c>github.com</c> or a <c>&lt;slug&gt;.ghe.com</c> host). Default-deny:
+        /// a run with no provenance, a null entry, or any entry that is Azure DevOps or unclassifiable
+        /// yields <c>false</c>. This is the single discriminator for GitHub-only finalize enrichments —
+        /// rule-level <c>security-severity</c> and the <c>primaryLocationLineHash</c> partial fingerprint
+        /// — which have no Azure DevOps analog.
+        /// </summary>
+        internal static bool IsGitHubHostedRun(Run run)
+        {
+            IList<VersionControlDetails> provenance = run?.VersionControlProvenance;
+            if (provenance == null || provenance.Count == 0) { return false; }
+
+            foreach (VersionControlDetails details in provenance)
+            {
+                if (details == null
+                    || !TryClassify(details.RepositoryUri, out Classification classification, out _)
+                    || !classification.IsGitHub)
+                {
+                    return false;
+                }
+            }
+
             return true;
         }
 
@@ -304,6 +332,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
             classification = new Classification
             {
+                IsGitHub = true,
                 IsAzureDevOps = false,
                 SchemeAndServer = repositoryUri.GetComponents(UriComponents.SchemeAndServer, UriFormat.UriEscaped),
                 Owner = segments[0],
@@ -508,6 +537,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
         private sealed class Classification
         {
+            public bool IsGitHub { get; set; }
+
             public bool IsAzureDevOps { get; set; }
 
             public string SchemeAndServer { get; set; }

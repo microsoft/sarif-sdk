@@ -71,6 +71,31 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 },
             };
 
+        private const string FrozenAdoRevisionId = "cafebabecafebabecafebabecafebabecafebabe";
+
+        // An Azure DevOps-hosted counterpart to RunHeader(): the run's repositoryUri host is
+        // dev.azure.com, so the GitHub-only finalize enrichments (security-severity, rolling-hash
+        // primaryLocationLineHash) must NOT be applied.
+        private static Run AdoRunHeader()
+            => new Run
+            {
+                Tool = new Tool { Driver = new ToolComponent { Name = "demo" } },
+                VersionControlProvenance = new[]
+                {
+                    new VersionControlDetails
+                    {
+                        RepositoryUri = new Uri("https://dev.azure.com/example-org/example-project/_git/sarif-sdk", UriKind.Absolute),
+                        RevisionId = FrozenAdoRevisionId,
+                        Branch = "refs/heads/main",
+                        MappedTo = new ArtifactLocation { UriBaseId = "SRCROOT" },
+                    },
+                },
+                OriginalUriBaseIds = new System.Collections.Generic.Dictionary<string, ArtifactLocation>
+                {
+                    ["SRCROOT"] = new ArtifactLocation { Uri = new Uri("file:///d:/repo/", UriKind.Absolute) },
+                },
+            };
+
         [Fact]
         public void Run_HappyPath_WritesSarifWithEnrichedCweDescriptorsAndRemovesWip()
         {
@@ -269,7 +294,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             // (AI1006 missing ai/origin, automationDetails, etc.). The --validate gate should
             // propagate this as a FAILURE exit code and leave the report file on disk for
             // forensics. The clean-input success path is covered with higher fidelity by the
-            // CweGenerateSample.ps1 + CweSample.sarif integration fixture.
+            // CweGenerateSample.ps1 + CweGhasSample.sarif integration fixture.
             SeedWip(
                 (SarifEventKinds.RunHeader, RunHeader()));
 
@@ -299,6 +324,89 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             exit.Should().Be(CommandBase.SUCCESS);
             ReportingDescriptor rule = LoadSarif().Runs[0].Tool.Driver.Rules.Single(r => r.Id == "CWE-79");
             SecuritySeverityOf(rule).Should().Be("8.5");
+        }
+
+        [Fact]
+        public void Run_DoesNotStampSecuritySeverityForAzureDevOpsHostedRun()
+        {
+            // Same ranked findings as the github-hosted case, but the run is dev.azure.com-hosted.
+            // security-severity is a GitHub property with no Azure DevOps analog, so finalize must
+            // not add it.
+            SeedWip(
+                (SarifEventKinds.RunHeader, AdoRunHeader()),
+                (SarifEventKinds.Result, new Result { RuleId = "CWE-79/template-xss", Rank = 60, Message = new Message { Text = "xss" } }),
+                (SarifEventKinds.Result, new Result { RuleId = "CWE-79/dom-xss", Rank = 85, Message = new Message { Text = "xss" } }));
+
+            int exit = new EmitFinalizeCommand().Run(new EmitFinalizeOptions { OutputFilePath = OutPath });
+
+            exit.Should().Be(CommandBase.SUCCESS);
+            ReportingDescriptor rule = LoadSarif().Runs[0].Tool.Driver.Rules.Single(r => r.Id == "CWE-79");
+            HasSecuritySeverity(rule).Should().BeFalse();
+        }
+
+        [Fact]
+        public void Run_PreservesProducerAuthoredSecuritySeverityOnAzureDevOpsHostedRun()
+        {
+            // Finalize does not ADD security-severity to an Azure DevOps run, but a value the
+            // producer authored is left untouched (the gate only governs the enrichment, not removal).
+            var seededRule = new ReportingDescriptor { Id = "CWE-79" };
+            seededRule.SetProperty("security-severity", "2.0");
+
+            SeedWip(
+                (SarifEventKinds.RunHeader, AdoRunHeader()),
+                (SarifEventKinds.RuleDescriptor, seededRule),
+                (SarifEventKinds.Result, new Result { RuleId = "CWE-79/dom-xss", Rank = 85, Message = new Message { Text = "xss" } }));
+
+            int exit = new EmitFinalizeCommand().Run(new EmitFinalizeOptions { OutputFilePath = OutPath });
+
+            exit.Should().Be(CommandBase.SUCCESS);
+            ReportingDescriptor rule = LoadSarif().Runs[0].Tool.Driver.Rules.Single(r => r.Id == "CWE-79");
+            SecuritySeverityOf(rule).Should().Be("2.0");
+        }
+
+        [Fact]
+        public void IsGitHubHostedRun_TrueForGitHubHostedRun()
+        {
+            VcpPortableRoot.IsGitHubHostedRun(RunHeader()).Should().BeTrue();
+        }
+
+        [Fact]
+        public void IsGitHubHostedRun_FalseForAzureDevOpsHostedRun()
+        {
+            VcpPortableRoot.IsGitHubHostedRun(AdoRunHeader()).Should().BeFalse();
+        }
+
+        [Fact]
+        public void IsGitHubHostedRun_FalseForMixedGitHubAndAzureDevOpsProvenance()
+        {
+            // Default-deny: a run is GitHub-hosted only when EVERY provenance entry is GitHub.
+            // A single Azure DevOps entry forfeits the enrichments for the whole run.
+            var run = new Run
+            {
+                VersionControlProvenance = new System.Collections.Generic.List<VersionControlDetails>
+                {
+                    new VersionControlDetails
+                    {
+                        RepositoryUri = new Uri("https://github.com/microsoft/sarif-sdk", UriKind.Absolute),
+                        RevisionId = FrozenSha,
+                        Branch = "refs/heads/main",
+                    },
+                    new VersionControlDetails
+                    {
+                        RepositoryUri = new Uri("https://dev.azure.com/example-org/example-project/_git/sarif-sdk", UriKind.Absolute),
+                        RevisionId = FrozenAdoRevisionId,
+                        Branch = "refs/heads/main",
+                    },
+                },
+            };
+
+            VcpPortableRoot.IsGitHubHostedRun(run).Should().BeFalse();
+        }
+
+        [Fact]
+        public void IsGitHubHostedRun_FalseWhenRunHasNoVersionControlProvenance()
+        {
+            VcpPortableRoot.IsGitHubHostedRun(new Run()).Should().BeFalse();
         }
 
         [Fact]
