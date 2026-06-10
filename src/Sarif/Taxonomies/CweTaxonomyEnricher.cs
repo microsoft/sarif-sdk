@@ -15,6 +15,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Taxonomies
     /// </summary>
     /// <remarks>
     /// <para>Producer-supplied descriptor fields are never overwritten.</para>
+    /// <para>The taxonomy omits <c>shortDescription</c> for taxa whose value is the
+    /// first sentence of <c>fullDescription</c> (SARIF §3.49.10). When such a taxon
+    /// enriches a descriptor, this enricher derives <c>shortDescription</c> from the
+    /// first sentence of the copied <c>fullDescription</c> so consumers that require an
+    /// explicit short description still receive one.</para>
     /// <para>This enricher does not add cross-references via
     /// <c>reportingDescriptor.relationships</c> or <c>result.taxa</c>.</para>
     /// </remarks>
@@ -26,6 +31,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Taxonomies
         // are not descriptor ids per SARIF §3.52.4.
         private static readonly Regex CweIdPattern =
             new Regex(@"^\s*[Cc][Ww][Ee]-(\d+)\s*$", RegexOptions.CultureInvariant);
+
+        // First-sentence terminator. Mirrors the dead-simple rule the taxonomy
+        // generator uses to decide whether shortDescription is recoverable from
+        // fullDescription: the first sentence-ending punctuation, any trailing
+        // closing quote/paren/bracket, then whitespace or end of string.
+        private static readonly Regex SentenceEndPattern =
+            new Regex(@"[.!?][""')\]]*(\s|$)", RegexOptions.CultureInvariant);
 
         /// <summary>
         /// Enriches every descriptor on the supplied <see cref="Run"/> whose id maps to a
@@ -105,6 +117,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Taxonomies
                 modified = true;
             }
 
+            if (IsEmptyMessage(rule.ShortDescription) && !string.IsNullOrEmpty(rule.FullDescription?.Text))
+            {
+                rule.ShortDescription = new MultiformatMessageString
+                {
+                    Text = DeriveShortDescription(rule.FullDescription.Text),
+                };
+                modified = true;
+            }
+
             if (string.IsNullOrEmpty(rule.HelpUri?.OriginalString))
             {
                 string helpUri = !string.IsNullOrEmpty(taxon.HelpUri?.OriginalString)
@@ -150,6 +171,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Taxonomies
         private static bool IsEmptyMessage(MultiformatMessageString message)
         {
             return message == null || (string.IsNullOrEmpty(message.Text) && string.IsNullOrEmpty(message.Markdown));
+        }
+
+        private static string DeriveShortDescription(string fullDescriptionText)
+        {
+            Match match = SentenceEndPattern.Match(fullDescriptionText);
+            string candidate = match.Success
+                ? fullDescriptionText.Substring(0, match.Index + match.Length)
+                : fullDescriptionText;
+            return candidate.Trim();
         }
 
         private static MultiformatMessageString CloneMessage(MultiformatMessageString source)
