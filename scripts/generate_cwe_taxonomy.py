@@ -117,8 +117,12 @@ def first_sentence(text):
     derived from a MITRE Description stays definitively MITRE-sourced.
 
     Boundary detection skips common abbreviations (``e.g.``, ``i.e.``,
-    ``etc.``) and single-letter initials (``U.S.``). When in doubt it errs
-    toward *not* splitting, so the worst case is the unchanged full text.
+    ``etc.``), single-letter initials (``U.S.``), terminators sitting inside
+    an unclosed parenthetical (the dot in ``(e.g.`` or the tag
+    ``[PLANNED FOR DEPRECATION.``), and terminators followed by a lowercase
+    continuation (a quoted example like ``".."`` that the sentence resumes
+    after). When in doubt it errs toward *not* splitting, so the worst case
+    is the unchanged full text.
     """
     if not text:
         return text
@@ -126,6 +130,9 @@ def first_sentence(text):
         punct_idx = m.start()
         token_match = re.search(r"\S+$", text[:punct_idx + 1])
         token = token_match.group(0).lower() if token_match else ""
+        # Drop leading openers so "(e.g." is recognized as the abbreviation
+        # "e.g." rather than read as a distinct, unguarded token.
+        token = token.lstrip("([{\"'")
         if token in _ABBREVIATIONS:
             continue
         # Single-letter initial at a word boundary, e.g. the "U." / "S." in
@@ -134,8 +141,21 @@ def first_sentence(text):
             before = text[punct_idx - 2:punct_idx - 1]
             if before == "" or not before.isalnum():
                 continue
-        end = m.end()
-        return text[:end].strip()
+        candidate = text[:m.end()]
+        # A terminator inside an unclosed parenthetical or bracket is not a
+        # real sentence end.
+        if (candidate.count("(") != candidate.count(")")
+                or candidate.count("[") != candidate.count("]")
+                or candidate.count("{") != candidate.count("}")):
+            continue
+        # A real boundary is followed by end-of-text or the start of a new
+        # sentence (an uppercase letter or a digit). A lowercase next
+        # character means the terminator is internal -- a quoted example or
+        # an abbreviation -- and the sentence actually continues.
+        rest = text[m.end():].lstrip()
+        if rest and not (rest[0].isupper() or rest[0].isdigit()):
+            continue
+        return candidate.strip()
     return text.strip()
 
 

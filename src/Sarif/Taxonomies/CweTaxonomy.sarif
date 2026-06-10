@@ -269,7 +269,7 @@
               "id": "CWE-23",
               "name": "RelativePathTraversal",
               "shortDescription": {
-                "text": "The product uses external input to construct a pathname that should be within a restricted directory, but it does not properly neutralize sequences such as \"..\""
+                "text": "The product uses external input to construct a pathname that should be within a restricted directory, but it does not properly neutralize sequences such as \"..\" that can resolve to a location that is outside of that directory."
               },
               "help": {
                 "text": "The product uses external input to construct a pathname that should be within a restricted directory, but it does not properly neutralize sequences such as \"..\" that can resolve to a location that is outside of that directory.",
@@ -455,7 +455,7 @@
               "id": "CWE-32",
               "name": "PathTraversalTripleDot",
               "shortDescription": {
-                "text": "The product uses external input to construct a pathname that should be within a restricted directory, but it does not properly neutralize '...'"
+                "text": "The product uses external input to construct a pathname that should be within a restricted directory, but it does not properly neutralize '...' (triple dot) sequences that can resolve to a location that is outside of that directory."
               },
               "fullDescription": {
                 "text": "This allows attackers to traverse the file system to access files or directories that are outside of the restricted directory. The '...' manipulation is useful for bypassing some path traversal protection schemes. On some Windows systems, it is equivalent to \"..\\..\" and might bypass checks that assume only two dots are valid. Incomplete filtering, such as removal of \"./\" sequences, can ultimately produce valid \"..\" sequences due to a collapse into unsafe value (CWE-182)."
@@ -476,7 +476,7 @@
               "id": "CWE-33",
               "name": "PathTraversalMultipleDot",
               "shortDescription": {
-                "text": "The product uses external input to construct a pathname that should be within a restricted directory, but it does not properly neutralize '....'"
+                "text": "The product uses external input to construct a pathname that should be within a restricted directory, but it does not properly neutralize '....' (multiple dot) sequences that can resolve to a location that is outside of that directory."
               },
               "fullDescription": {
                 "text": "This allows attackers to traverse the file system to access files or directories that are outside of the restricted directory. The '....' manipulation is useful for bypassing some path traversal protection schemes. On some Windows systems, it is equivalent to \"..\\..\\..\" and might bypass checks that assume only two dots are valid. Incomplete filtering, such as removal of \"./\" sequences, can ultimately produce valid \"..\" sequences due to a collapse into unsafe value (CWE-182)."
@@ -650,7 +650,7 @@
               "id": "CWE-42",
               "name": "PathEquivalenceFilenameTrailingDot",
               "shortDescription": {
-                "text": "The product accepts path input in the form of trailing dot ('filedir.')"
+                "text": "The product accepts path input in the form of trailing dot ('filedir.') without appropriate validation, which can lead to ambiguous path resolution and allow an attacker to traverse the file system to unintended locations or access arbitrary files."
               },
               "help": {
                 "text": "The product accepts path input in the form of trailing dot ('filedir.') without appropriate validation, which can lead to ambiguous path resolution and allow an attacker to traverse the file system to unintended locations or access arbitrary files.",
@@ -668,7 +668,7 @@
               "id": "CWE-43",
               "name": "PathEquivalenceFilenameMultipleTrailingDot",
               "shortDescription": {
-                "text": "The product accepts path input in the form of multiple trailing dot ('filedir....')"
+                "text": "The product accepts path input in the form of multiple trailing dot ('filedir....') without appropriate validation, which can lead to ambiguous path resolution and allow an attacker to traverse the file system to unintended locations or access arbitrary files."
               },
               "help": {
                 "text": "The product accepts path input in the form of multiple trailing dot ('filedir....') without appropriate validation, which can lead to ambiguous path resolution and allow an attacker to traverse the file system to unintended locations or access arbitrary files.",
@@ -1581,7 +1581,7 @@
               "id": "CWE-95",
               "name": "EvalInjection",
               "shortDescription": {
-                "text": "The product receives input from an upstream component, but it does not neutralize or incorrectly neutralizes code syntax before using the input in a dynamic evaluation call (e.g."
+                "text": "The product receives input from an upstream component, but it does not neutralize or incorrectly neutralizes code syntax before using the input in a dynamic evaluation call (e.g. \"eval\")."
               },
               "help": {
                 "text": "The product receives input from an upstream component, but it does not neutralize or incorrectly neutralizes code syntax before using the input in a dynamic evaluation call (e.g. \"eval\").",
@@ -3413,7 +3413,7 @@
               "id": "CWE-198",
               "name": "UseOfIncorrectByteOrdering",
               "shortDescription": {
-                "text": "The product receives input from an upstream component, but it does not account for byte ordering (e.g."
+                "text": "The product receives input from an upstream component, but it does not account for byte ordering (e.g. big-endian and little-endian) when processing the input, causing an incorrect number or value to be used."
               },
               "help": {
                 "text": "The product receives input from an upstream component, but it does not account for byte ordering (e.g. big-endian and little-endian) when processing the input, causing an incorrect number or value to be used.",
@@ -6766,7 +6766,7 @@
               "id": "CWE-391",
               "name": "UncheckedErrorCondition",
               "shortDescription": {
-                "text": "[PLANNED FOR DEPRECATION."
+                "text": "[PLANNED FOR DEPRECATION. SEE MAINTENANCE NOTES AND CONSIDER CWE-252, CWE-248, OR CWE-1069.]"
               },
               "help": {
                 "text": "[PLANNED FOR DEPRECATION. SEE MAINTENANCE NOTES AND CONSIDER CWE-252, CWE-248, OR CWE-1069.] Ignoring exceptions and other error conditions may allow an attacker to induce unexpected behavior unnoticed.",
@@ -10697,7 +10697,7 @@
               "id": "CWE-616",
               "name": "IncompleteIdentificationOfUploadedFileVariablesPhp",
               "shortDescription": {
-                "text": "The PHP application uses an old method for processing uploaded files by referencing the four global variables that are set for each file (e.g."
+                "text": "The PHP application uses an old method for processing uploaded files by referencing the four global variables that are set for each file (e.g. $varname, $varname_size, $varname_name, $varname_type)."
               },
               "fullDescription": {
                 "text": "These global variables could be overwritten by POST requests, cookies, or other methods of populating or overwriting these variables. This could be used to read or process arbitrary files by providing values such as \"/etc/passwd\"."
@@ -10739,7 +10739,7 @@
               "id": "CWE-618",
               "name": "ExposedUnsafeActivexMethod",
               "shortDescription": {
-                "text": "An ActiveX control is intended for use in a web browser, but it exposes dangerous methods that perform actions that are outside of the browser's security model (e.g."
+                "text": "An ActiveX control is intended for use in a web browser, but it exposes dangerous methods that perform actions that are outside of the browser's security model (e.g. the zone or domain)."
               },
               "fullDescription": {
                 "text": "ActiveX controls can exercise far greater control over the operating system than typical Java or javascript. Exposed methods can be subject to various vulnerabilities, depending on the implemented behaviors of those methods, and whether input validation is performed on the provided arguments. If there is no integrity checking or origin validation, this method could be invoked by attackers."
@@ -11282,7 +11282,7 @@
               "id": "CWE-651",
               "name": "ExposureOfWsdlFileContainingSensitiveInformation",
               "shortDescription": {
-                "text": "The Web services architecture may require exposing a Web Service Definition Language (WSDL) file that contains information on the publicly accessible services and how callers of these services should interact with them (e.g."
+                "text": "The Web services architecture may require exposing a Web Service Definition Language (WSDL) file that contains information on the publicly accessible services and how callers of these services should interact with them (e.g. what parameters they expect and what types they return)."
               },
               "fullDescription": {
                 "text": "An information exposure may occur if any of the following apply: The WSDL file is accessible to a wider audience than intended. The WSDL file contains information on the methods/services that should not be publicly accessible or information about deprecated methods. This problem is made more likely due to the WSDL often being automatically generated from the code. Information in the WSDL file helps guess names/locations of methods/resources that should not be publicly accessible."
@@ -11444,7 +11444,7 @@
               "id": "CWE-663",
               "name": "UseOfANonReentrantFunctionInAConcurrentContext",
               "shortDescription": {
-                "text": "The product calls a non-reentrant function in a concurrent context in which a competing code sequence (e.g."
+                "text": "The product calls a non-reentrant function in a concurrent context in which a competing code sequence (e.g. thread or signal handler) may have an opportunity to call the same function or otherwise influence its state."
               },
               "help": {
                 "text": "The product calls a non-reentrant function in a concurrent context in which a competing code sequence (e.g. thread or signal handler) may have an opportunity to call the same function or otherwise influence its state.",
@@ -13130,7 +13130,7 @@
               "id": "CWE-796",
               "name": "OnlyFilteringSpecialElementsRelativeToAMarker",
               "shortDescription": {
-                "text": "The product receives data from an upstream component, but only accounts for special elements positioned relative to a marker (e.g."
+                "text": "The product receives data from an upstream component, but only accounts for special elements positioned relative to a marker (e.g. \"at the beginning/end of a string; the second argument\"), thereby missing remaining special elements that may exist before sending it to a downstream component."
               },
               "help": {
                 "text": "The product receives data from an upstream component, but only accounts for special elements positioned relative to a marker (e.g. \"at the beginning/end of a string; the second argument\"), thereby missing remaining special elements that may exist before sending it to a downstream component.",
@@ -13148,7 +13148,7 @@
               "id": "CWE-797",
               "name": "OnlyFilteringSpecialElementsAtAnAbsolutePosition",
               "shortDescription": {
-                "text": "The product receives data from an upstream component, but only accounts for special elements at an absolute position (e.g."
+                "text": "The product receives data from an upstream component, but only accounts for special elements at an absolute position (e.g. \"byte number 10\"), thereby missing remaining special elements that may exist before sending it to a downstream component."
               },
               "help": {
                 "text": "The product receives data from an upstream component, but only accounts for special elements at an absolute position (e.g. \"byte number 10\"), thereby missing remaining special elements that may exist before sending it to a downstream component.",
@@ -14471,7 +14471,7 @@
               "id": "CWE-1039",
               "name": "InadequateDetectionOrHandlingOfAdversarialInputPerturbationsInAutomatedRecognitionMechanism",
               "shortDescription": {
-                "text": "The product uses an automated mechanism such as machine learning to recognize complex data inputs (e.g."
+                "text": "The product uses an automated mechanism such as machine learning to recognize complex data inputs (e.g. image or audio) as a particular concept or category, but it does not properly detect or handle inputs that have been modified or constructed in a way that causes the mechanism to detect a different, incorrect concept."
               },
               "fullDescription": {
                 "text": "When techniques such as machine learning are used to automatically classify input streams, and those classifications are used for security-critical decisions, then any mistake in classification can introduce a vulnerability that allows attackers to cause the product to make the wrong security decision or disrupt service of the automated mechanism. If the mechanism is not developed or \"trained\" with enough input data or has not adequately undergone test and evaluation, then attackers may be able to craft malicious inputs that intentionally trigger the incorrect classification. Targeted technologies include, but are not necessarily limited to: automated speech recognition automated image recognition automated cyber defense Chatbot, LLMs, generative AI For example, an attacker might modify road signs or road surface markings to trick autonomous vehicles into misreading the sign/marking and performing a dangerous action. Another example includes an attacker that crafts highly specific and complex prompts to \"jailbreak\" a chatbot to bypass safety or privacy mechanisms, better known as prompt injection attacks."
