@@ -17,8 +17,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Taxonomies
 {
     /// <summary>
     /// Regression gate for the checked-in CWE taxonomy samples.
-    /// CweSample.sarif (default, AI-shape) and CweGHAzDoSample.sarif (the
-    /// -GHAzDO variant, AI + ADO pipeline ingestion shape) ship next to
+    /// CweGhasSample.sarif (the github.com/GHAS variant) and
+    /// CweGHAzDoSample.sarif (the dev.azure.com/GHAzDO variant) ship next to
     /// CweGenerateSample.ps1 so reviewers can see the shape of a fully-
     /// enriched CWE log without building anything. Each test re-runs the
     /// generator in the relevant mode (which overwrites the fixture
@@ -32,7 +32,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Taxonomies
     public class CweGeneratedSampleTests
     {
         private const string ScriptRelativePath = @"src/Sarif/Taxonomies/CweGenerateSample.ps1";
-        private const string DefaultFixtureRelativePath = @"src/Sarif/Taxonomies/CweSample.sarif";
+        private const string GhasFixtureRelativePath = @"src/Sarif/Taxonomies/CweGhasSample.sarif";
         private const string GHAzDoFixtureRelativePath = @"src/Sarif/Taxonomies/CweGHAzDoSample.sarif";
 
         private readonly ITestOutputHelper _output;
@@ -43,11 +43,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Taxonomies
         }
 
         [Fact]
-        public void CweSample_Sarif_IsByteIdenticalToCweGenerateSampleScriptOutput()
+        public void CweGhasSample_Sarif_IsByteIdenticalToCweGenerateSampleScriptOutput()
         {
             VerifyFixtureIsByteIdenticalToScriptOutput(
                 extraScriptArgs: Array.Empty<string>(),
-                fixtureRelativePath: DefaultFixtureRelativePath);
+                fixtureRelativePath: GhasFixtureRelativePath);
         }
 
         [Fact]
@@ -102,7 +102,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Taxonomies
             headSha = headSha.Trim();
 
             string scriptPath = Path.Combine(repoRoot, ScriptRelativePath);
-            string fixturePath = Path.Combine(repoRoot, DefaultFixtureRelativePath);
+            string fixturePath = Path.Combine(repoRoot, GhasFixtureRelativePath);
             File.Exists(scriptPath).Should().BeTrue($"the generator script must exist at '{scriptPath}'");
             File.Exists(fixturePath).Should().BeTrue($"the checked-in fixture must exist at '{fixturePath}'");
 
@@ -226,7 +226,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Taxonomies
             string pwsh = FindOnPath("pwsh") ?? FindOnPath("pwsh.exe");
             if (pwsh == null)
             {
-                _output.WriteLine("pwsh not found on PATH; skipping CweSample fixture regression test.");
+                _output.WriteLine("pwsh not found on PATH; skipping Cwe sample fixture regression test.");
                 return;
             }
 

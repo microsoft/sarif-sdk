@@ -3,7 +3,7 @@
 
 <#
 .SYNOPSIS
-    Emits CweSample.sarif (default) or CweGHAzDoSample.sarif (-GHAzDO) — a
+    Emits CweGhasSample.sarif (default) or CweGHAzDoSample.sarif (-GHAzDO) — a
     deterministic, fully-enriched SARIF fixture that exercises the multitool
     emit chain end-to-end and passes the validator with zero Errors,
     zero Warnings, and zero Notes under the relevant rule-kinds.
@@ -11,18 +11,22 @@
 .DESCRIPTION
     Convention: every taxonomy that ships with this SDK includes a
     <Taxonomy>GenerateSample.ps1 alongside its data, and that script
-    produces a checked-in <Taxonomy>Sample.sarif fixture next to itself.
+    produces a checked-in sample SARIF fixture next to itself.
     CI re-runs the script and asserts the working tree stays byte-identical.
 
-    Two variants, one script:
-      * Default (no switch) writes CweSample.sarif and validates with
-        --rule-kind Sarif;AI. This is the "AI scanner running anywhere"
-        shape — no ADO-pipeline identity is claimed.
-      * -GHAzDO writes CweGHAzDoSample.sarif and validates with
-        --rule-kind Sarif;AI;GHAzDO. This is the "AI scanner running
-        inside an Azure DevOps pipeline" shape — the GHAzDO ingestion
+    Two variants, one script. The output fixture and validation rule-kinds are
+    selected from the HOST of the resolved versionControlProvenance
+    repositoryUri (the autodetected publish target):
+      * A github.com / *.ghe.com host writes CweGhasSample.sarif and validates
+        with --rule-kind Sarif;AI;Ghas. This is the GitHub Advanced Security
+        target — the run carries the security-severity + primaryLocationLineHash
+        enrichments emit-finalize applies for github-hosted runs.
+      * A dev.azure.com host (forced by -GHAzDO) writes CweGHAzDoSample.sarif and
+        validates with --rule-kind Sarif;AI;GHAzDO. This is the "AI scanner
+        running inside an Azure DevOps pipeline" shape — the GHAzDO ingestion
         contract for automationDetails.id + the four
-        azuredevops/pipeline/build/* properties is satisfied. The script
+        azuredevops/pipeline/build/* properties is satisfied, and the
+        github-only enrichments are absent. The script
         sets the ADO predefined environment variables (TF_BUILD,
         SYSTEM_COLLECTIONURI, …) to deterministic constants for the
         duration of emit-run; the multitool's AdoPipelineContext
@@ -107,18 +111,18 @@
     Debug. Defaults to Release.
 
 .PARAMETER GHAzDO
-    When set, produces CweGHAzDoSample.sarif (the GHAzDO ingestion
-    variant) instead of CweSample.sarif. ADO predefined env vars are
-    populated for the duration of emit-run, AdoPipelineContext
-    stamps the automationDetails, and validation runs with rule-kind
-    Sarif;AI;GHAzDO. Default (switch absent) preserves the original
-    CweSample.sarif emission unchanged.
+    When set, forces a dev.azure.com repositoryUri and produces
+    CweGHAzDoSample.sarif (the GHAzDO ingestion variant) instead of
+    CweGhasSample.sarif. ADO predefined env vars are populated for the
+    duration of emit-run, AdoPipelineContext stamps the automationDetails,
+    and validation runs with rule-kind Sarif;AI;GHAzDO. Switch absent leaves
+    the github.com host in place, producing the GHAS variant CweGhasSample.sarif.
 
 .PARAMETER Deterministic
     Pins versionControlProvenance to the canonical fixture triple
     (repositoryUri https://github.com/microsoft/sarif-sdk, the frozen
     v4.5.0 revisionId, branch refs/heads/main) so the checked-in
-    CweSample.sarif / CweGHAzDoSample.sarif regenerate byte-identically
+    CweGhasSample.sarif / CweGHAzDoSample.sarif regenerate byte-identically
     on any machine, commit, or fork. The byte-gate test passes this.
     Mutually exclusive with -RevisionId / -Branch.
 
@@ -168,15 +172,10 @@ if (-not (Test-Path $multitool)) {
     throw "Sarif.Multitool.dll not found at '$multitool'. Build the SDK in $Configuration configuration first (e.g. dotnet build src\Sarif.Multitool\Sarif.Multitool.csproj -c $Configuration)."
 }
 
-$sampleBaseName = if ($GHAzDO) { 'CweGHAzDoSample' } else { 'CweSample' }
-$outPath = Join-Path $PSScriptRoot ($sampleBaseName + '.sarif')
-$wipPath = "$outPath.wip.jsonl"
-
-# Validation rule-kinds. The GHAzDO variant adds the GHAzDO ruleset so the
-# fixture is required to satisfy the ADO ingestion contract on top of the
-# Sarif+AI baseline. Self-suppression for ai/origin runs lives on the rule
-# implementations, not here.
-$validateRuleKind = if ($GHAzDO) { 'Sarif;AI;GHAzDO' } else { 'Sarif;AI' }
+# The output fixture file + validation rule-kinds are derived AFTER provenance
+# resolution from the HOST of the resolved repositoryUri (the autodetected
+# publish target): github.com -> the GHAS fixture; dev.azure.com -> the GHAzDO
+# fixture. See the variant-selection block below.
 
 # Deterministic ADO pipeline-context env values used only when -GHAzDO. The
 # AdoPipelineContext detector reads these in emit-run and stamps
@@ -240,7 +239,7 @@ function Restore-AdoEnv {
 }
 
 # Env vars to clear in default mode (a developer with TF_BUILD already in
-# their shell would otherwise accidentally stamp CweSample.sarif via
+# their shell would otherwise accidentally stamp the GHAzDO identity via
 # AdoPipelineContext auto-detect).
 $adoEnvCleared = [ordered]@{}
 foreach ($name in $adoEnv.Keys) {
@@ -273,6 +272,17 @@ $canonicalRepositoryUri = 'https://github.com/microsoft/sarif-sdk'
 $canonicalRevisionId    = '84f83c813bcf52ae2c0fd7ff2963e2fa2a2efac7'
 $canonicalBranch        = 'refs/heads/main'
 
+# The canonical synthetic Azure DevOps pin for the -GHAzDO fixture. The org is a
+# documentation placeholder (example-org) so the repositoryUri is fictitious by
+# convention: SARIF2006 skips probing it (IsReservedDocumentationHost recognizes
+# the dev.azure.com example-org documentation organization), and the org matches
+# the SYSTEM_COLLECTIONURI injected for AdoPipelineContext. The revisionId is
+# synthetic — no real ADO commit exists — which is sound because the ADO portable
+# root is commit-less (it pins on revisionId, not a blob permalink).
+$canonicalAdoRepositoryUri = 'https://dev.azure.com/example-org/example-project/_git/sarif-sdk'
+$canonicalAdoRevisionId    = 'cafebabecafebabecafebabecafebabecafebabe'
+$canonicalAdoBranch        = 'refs/heads/main'
+
 function ConvertTo-RefsHeads {
     param([string]$name)
     $n = $name.Trim()
@@ -280,7 +290,20 @@ function ConvertTo-RefsHeads {
     return "refs/heads/$n"
 }
 
-if ($Deterministic) {
+if ($GHAzDO) {
+    # The -GHAzDO fixture is a synthetic Azure DevOps identity: a documentation
+    # org paired with a synthetic revisionId and the deterministic ADO pipeline
+    # env injected below. Live reconstruction does not apply — this github
+    # checkout is not the ADO repository it models — so the triple is always the
+    # canonical ADO pin (already deterministic; -Deterministic is a no-op here).
+    if ($RevisionId -or $Branch) {
+        throw "-GHAzDO stamps the canonical synthetic Azure DevOps provenance triple and cannot be combined with -RevisionId/-Branch."
+    }
+    $vcpRepoUri = $canonicalAdoRepositoryUri
+    $revisionId = $canonicalAdoRevisionId
+    $vcpBranch  = $canonicalAdoBranch
+}
+elseif ($Deterministic) {
     if ($RevisionId -or $Branch) {
         throw "-Deterministic pins the canonical provenance triple and cannot be combined with -RevisionId/-Branch. Drop -Deterministic to override individual live-derived fields."
     }
@@ -362,6 +385,37 @@ else {
 if (-not $Deterministic -and $vcpRepoUri -eq $canonicalRepositoryUri -and $revisionId -ne $canonicalRevisionId) {
     Write-Warning "Generating with live provenance (revisionId $revisionId). To reproduce the checked-in fixture byte-for-byte, re-run with -Deterministic."
 }
+
+# Derive the output fixture + validation rule-kinds from the HOST of the resolved
+# repositoryUri — the autodetected publish target. A consumer who copies this
+# taxonomy into their own repo and runs it produces the fixture matching their
+# host; in this repo the github default mints the GHAS fixture and -GHAzDO mints
+# the Azure DevOps fixture. github.com / *.ghe.com => GHAS (security-severity +
+# primaryLocationLineHash enrichments, validated under Sarif;AI;Ghas);
+# dev.azure.com => GHAzDO (neither enrichment, validated under Sarif;AI;GHAzDO).
+$vcpHostLower = ([System.Uri]$vcpRepoUri).Host.ToLowerInvariant()
+if ($vcpHostLower -eq 'dev.azure.com') {
+    $variant          = 'GHAzDO'
+    $sampleBaseName   = 'CweGHAzDoSample'
+    $validateRuleKind = 'Sarif;AI;GHAzDO'
+}
+elseif ($vcpHostLower -eq 'github.com' -or $vcpHostLower.EndsWith('.ghe.com')) {
+    $variant          = 'Ghas'
+    $sampleBaseName   = 'CweGhasSample'
+    $validateRuleKind = 'Sarif;AI;Ghas'
+}
+else {
+    throw "repositoryUri host '$vcpHostLower' is neither github.com/*.ghe.com (GHAS) nor dev.azure.com (GHAzDO); cannot select a sample variant. Resolved repositoryUri: $vcpRepoUri."
+}
+
+# -GHAzDO forces the dev.azure.com host above, so switch and host can never
+# diverge; assert it to catch a future regression in provenance resolution.
+if ($GHAzDO -and $variant -ne 'GHAzDO') {
+    throw "-GHAzDO was specified but the resolved repositoryUri host '$vcpHostLower' is not dev.azure.com (resolved variant '$variant')."
+}
+
+$outPath = Join-Path $PSScriptRoot ($sampleBaseName + '.sarif')
+$wipPath = "$outPath.wip.jsonl"
 
 # Stamp the three VCP-augmenting ADO env vars from the resolved triple so the
 # -GHAzDO variant's AdoPipelineContext agreement check passes (it compares
@@ -549,13 +603,20 @@ if ($LASTEXITCODE -ne 0) { throw "emit-finalize failed (exit $LASTEXITCODE)." }
 
 # ---------------------------------------------------------------------------
 # Post-finalize JSON patches the emit verbs do not currently model:
-#   * notification descriptor registration + reference  (AI2017)
-#   * ai/handoff on run.properties                       (AI2012)
-#   * NOVEL- descriptor name + helpUri                   (SARIF2012)
+#   * notification descriptor registration + reference    (AI2017)
+#   * ai/handoff on run.properties                         (AI2012)
+#   * NOVEL- descriptor name + helpUri                     (SARIF2012)
+#   * reportingDescriptor short/full/help text             (GH2012)
+# GH2012 (GhasProvideRequiredReportingDescriptorProperties) requires every rule
+# AND notification descriptor to carry shortDescription.text, fullDescription.text,
+# and a help object with help.text. The CWE rules get these from the taxonomy
+# enricher, but the synthetic NOVEL rule, the CWE-89 taxon (which has no MITRE
+# Extended Description), and the notification descriptor need them authored here.
+# Applied to both fixtures for descriptor-hygiene parity.
 # Doing this here keeps the SDK's verb surface lean; if any of these get
 # enough usage to warrant flags, promote them.
 # ---------------------------------------------------------------------------
-Write-Host "[4/6] Applying post-finalize JSON patches (notification descriptor, ai/handoff, NOVEL name)"
+Write-Host "[4/6] Applying post-finalize JSON patches (notification descriptor, ai/handoff, NOVEL name, GH2012 descriptor text)"
 
 $novelRuleName     = 'PromptInjectionViaSystemMessage'
 $novelRuleHelpUri  = 'https://cwesamplerscanner.example.com/rules/PromptInjectionViaSystemMessage'
@@ -576,6 +637,7 @@ $notifDescriptor = [pscustomobject]@{
     name            = $notificationDescriptorName
     shortDescription = [pscustomobject]@{ text = 'Analysis run completed.' }
     fullDescription  = [pscustomobject]@{ text = 'Emitted when the scanner finishes analyzing its inputs. Carries the count of findings reported.' }
+    help            = [pscustomobject]@{ text = 'Informational notification raised once per run when analysis completes successfully. No action is required.' }
     helpUri         = $notificationDescriptorHelpUri
     defaultConfiguration = [pscustomobject]@{ level = 'note' }
 }
@@ -592,20 +654,35 @@ if (-not $run.PSObject.Properties['properties']) {
 }
 $run.properties | Add-Member -NotePropertyName 'ai/handoff' -NotePropertyValue $handoffText -Force
 
-# NOVEL- descriptor name + helpUri so it satisfies SARIF §3.49.7 Pascal-case
-# and AI consumers have a stable identifier + a home for further reading.
+# Author the reportingDescriptor text GH2012 requires where the taxonomy enricher
+# cannot supply it:
+#   * the synthetic NOVEL rule (no taxonomy backing) — short + full + help;
+#   * CWE-89, whose embedded MITRE taxon carries a Description (shortDescription)
+#     and help but no Extended Description (fullDescription).
+# The NOVEL rule also gets a Pascal-case name + helpUri (SARIF §3.49.7 / SARIF2012).
+$novelShortDescription = 'Untrusted content reaches a system-role prompt.'
+$novelFullDescription  = 'Untrusted content is concatenated into a system-role prompt at runtime, letting an attacker override tool-use policy or exfiltrate context. No CWE entry fits, so the finding is emitted under the NOVEL- escape hatch. Treat the model boundary as a trust boundary: keep untrusted content out of system-role messages and constrain tool use with out-of-band policy.'
+$novelHelpText         = 'Separate untrusted input from system-role instructions; never interpolate request data into the system prompt. Enforce tool-use authorization independently of model output.'
+$cwe89FullDescription  = 'Without sufficient removal or quoting of SQL syntax in user-controllable inputs, the generated SQL query can cause those inputs to be interpreted as SQL instead of ordinary user data. This can be used to alter query logic to bypass security checks, or to insert additional statements that modify the back-end database, possibly including execution of system commands.'
+
 foreach ($rule in $driver.rules) {
     if ($rule.id -eq 'NOVEL-prompt-injection-via-system-message') {
-        $rule | Add-Member -NotePropertyName 'name'    -NotePropertyValue $novelRuleName    -Force
-        $rule | Add-Member -NotePropertyName 'helpUri' -NotePropertyValue $novelRuleHelpUri -Force
+        $rule | Add-Member -NotePropertyName 'name'             -NotePropertyValue $novelRuleName    -Force
+        $rule | Add-Member -NotePropertyName 'shortDescription' -NotePropertyValue ([pscustomobject]@{ text = $novelShortDescription }) -Force
+        $rule | Add-Member -NotePropertyName 'fullDescription'  -NotePropertyValue ([pscustomobject]@{ text = $novelFullDescription })  -Force
+        $rule | Add-Member -NotePropertyName 'help'             -NotePropertyValue ([pscustomobject]@{ text = $novelHelpText })         -Force
+        $rule | Add-Member -NotePropertyName 'helpUri'          -NotePropertyValue $novelRuleHelpUri -Force
+    }
+    elseif ($rule.id -eq 'CWE-89') {
+        $rule | Add-Member -NotePropertyName 'fullDescription' -NotePropertyValue ([pscustomobject]@{ text = $cwe89FullDescription }) -Force
     }
 }
 
 # tool.driver.fullName — GHAzDO1018 requires a human-readable driver fullName
-# distinct from name. Only the -GHAzDO variant ships it so CweSample.sarif
-# (the bare AI shape) stays byte-stable; emit-run has no first-class
-# flag for fullName so we patch it post-finalize like the items above.
-if ($GHAzDO) {
+# distinct from name. Only the GHAzDO variant ships it so the GHAS fixture (the
+# bare AI shape) stays byte-stable; emit-run has no first-class flag for fullName
+# so we patch it post-finalize like the items above.
+if ($variant -eq 'GHAzDO') {
     $driver | Add-Member -NotePropertyName 'fullName' -NotePropertyValue 'CWE Sampler Scanner' -Force
 }
 
@@ -616,11 +693,12 @@ $json = $doc | ConvertTo-Json -Depth 64
 [System.IO.File]::WriteAllText($outPath, $json, [System.Text.UTF8Encoding]::new($false))
 
 # ---------------------------------------------------------------------------
-# Validate. CweSample.sarif MUST pass with 0 errors, 0 warnings, and 0 notes
-# under --rule-kind Sarif;AI. The run carries ai/origin = "generated" so the
+# Validate. The fixture MUST pass with 0 errors, 0 warnings, and 0 notes under
+# its variant's rule-kinds (Sarif;AI;Ghas for the GHAS fixture, Sarif;AI;GHAzDO
+# for the GHAzDO fixture). The run carries ai/origin = "generated" so the
 # AI-aware style rules (SARIF2002, SARIF2009, SARIF2014, SARIF2015) self-
 # suppress; the fixture is also constructed to satisfy the remaining
-# correctness-class rules (snippets, hashes, provenance, etc.).
+# correctness-class rules (snippets, hashes, provenance, descriptor text, etc.).
 # ---------------------------------------------------------------------------
 Write-Host "[5/6] Validating $sampleBaseName.sarif (--rule-kind $validateRuleKind)"
 $validateReport = Join-Path $PSScriptRoot ($sampleBaseName + '.validate-report.sarif')
@@ -697,8 +775,8 @@ $srcRootUri  = Get-OptionalProperty (Get-OptionalProperty $run.originalUriBaseId
 
 Write-Host ""
 Write-Host "Sample SARIF: $outPath"
-$variant = if ($GHAzDO) { 'GHAzDO ingestion (Sarif+AI+GHAzDO)' } else { 'AI-shape (Sarif+AI)' }
-Write-Host "Variant:      $variant"
+$variantLabel = if ($variant -eq 'GHAzDO') { 'GHAzDO ingestion (Sarif+AI+GHAzDO)' } else { 'GHAS ingestion (Sarif+AI+Ghas)' }
+Write-Host "Variant:      $variantLabel"
 $toolLine = if ([string]::IsNullOrEmpty($toolName)) { '(missing - is your multitool DLL current?)' } else { $toolName }
 if (-not [string]::IsNullOrEmpty($toolVersion)) { $toolLine = "$toolLine $toolVersion" }
 Write-Host "Tool:         $toolLine"
@@ -728,4 +806,4 @@ foreach ($rule in $rules) {
 }
 
 Write-Host ""
-Write-Host "CweSample.sarif: 0 errors, 0 warnings, 0 notes."
+Write-Host "$sampleBaseName.sarif: 0 errors, 0 warnings, 0 notes."

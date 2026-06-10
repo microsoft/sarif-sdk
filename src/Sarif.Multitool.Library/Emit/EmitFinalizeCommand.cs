@@ -48,14 +48,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                     }
                 }
 
-                if (log?.Runs != null)
-                {
-                    foreach (Run run in log.Runs)
-                    {
-                        ApplyRankDerivedSecuritySeverity(run);
-                    }
-                }
-
                 // Always populate the artifact and region surface that downstream
                 // consumers (AI evidence pipelines, code-flow viewers, fingerprint
                 // matchers) need to reason about a result without having to re-open
@@ -80,7 +72,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 // rather than silently shipping a region that points at the wrong span. A
                 // caller that wants divergent coordinates recomputed (overwritten) instead
                 // would set OverwriteExistingData.
-                OptionallyEmittedData enrichmentFlags =
+                OptionallyEmittedData baseEnrichmentFlags =
                     OptionallyEmittedData.Hashes |
                     OptionallyEmittedData.RegionSnippets |
                     OptionallyEmittedData.ContextRegionSnippets |
@@ -91,17 +83,41 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                     // Self-contained AI fixtures want the source bytes inline so a
                     // consumer can render snippets and re-derive regions without
                     // any filesystem access. Clears SARIF2013.
-                    enrichmentFlags |= OptionallyEmittedData.TextFiles;
+                    baseEnrichmentFlags |= OptionallyEmittedData.TextFiles;
                 }
 
+                // GitHub and Azure DevOps consume SARIF differently, so two finalize enrichments are
+                // applied only when the run is GitHub-hosted (discriminated by versionControlProvenance):
+                //
+                //   * rule-level security-severity — a GitHub property that buckets a result into a
+                //     security severity (critical/high/medium/low); Azure DevOps has no analog.
+                //   * primaryLocationLineHash       — the rolling-hash partial fingerprint. GitHub's raw
+                //     code-scanning SARIF upload API does not backfill partialFingerprints (the
+                //     upload-sarif Action does), so emitting it ourselves is what prevents duplicate
+                //     alerts on API-upload pipelines.
+                //
+                // An Azure DevOps (or unclassifiable) run receives neither.
                 if (log?.Runs != null)
                 {
                     foreach (Run run in log.Runs)
                     {
+                        if (run == null) { continue; }
+
+                        bool isGitHubHosted = VcpPortableRoot.IsGitHubHostedRun(run);
+
+                        if (isGitHubHosted)
+                        {
+                            ApplyRankDerivedSecuritySeverity(run);
+                        }
+
+                        OptionallyEmittedData runFlags = isGitHubHosted
+                            ? baseEnrichmentFlags | OptionallyEmittedData.RollingHashPartialFingerprints
+                            : baseEnrichmentFlags;
+
                         var visitor = new InsertOptionalDataVisitor(
-                            enrichmentFlags,
+                            runFlags,
                             new FileRegionsCache(),
-                            originalUriBaseIds: run?.OriginalUriBaseIds);
+                            originalUriBaseIds: run.OriginalUriBaseIds);
                         visitor.VisitRun(run);
                     }
                 }
