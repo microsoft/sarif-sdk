@@ -95,6 +95,49 @@ def clean_text(node):
 _PAREN_NAME_RE = re.compile(r"\('([^']+)'\)|\(\"([^\"]+)\"\)")
 _NON_ALNUM_RE = re.compile(r"[^A-Za-z0-9]+")
 
+# A sentence terminator is . ! or ? plus any closing quotes/brackets,
+# followed by whitespace or end-of-string. Requiring trailing whitespace
+# means the internal dots of abbreviations like "e.g." (followed by a
+# letter, not a space) are never candidate boundaries.
+_SENTENCE_END_RE = re.compile(r"[.!?][\"')\]]*(?:\s|$)")
+
+# Lowercased tokens (trailing run up to and including the period) that look
+# like a sentence end but are not. Used to skip false boundaries.
+_ABBREVIATIONS = frozenset([
+    "e.g.", "i.e.", "etc.", "vs.", "cf.", "resp.", "al.", "approx.",
+    "inc.", "corp.", "ltd.", "co.", "no.", "fig.", "ref.", "a.k.a.",
+])
+
+
+def first_sentence(text):
+    """Return the first sentence of ``text`` verbatim.
+
+    The result is always a literal prefix of ``text`` (or the whole string
+    when no boundary is found) — never a paraphrase — so a shortDescription
+    derived from a MITRE Description stays definitively MITRE-sourced.
+
+    Boundary detection skips common abbreviations (``e.g.``, ``i.e.``,
+    ``etc.``) and single-letter initials (``U.S.``). When in doubt it errs
+    toward *not* splitting, so the worst case is the unchanged full text.
+    """
+    if not text:
+        return text
+    for m in _SENTENCE_END_RE.finditer(text):
+        punct_idx = m.start()
+        token_match = re.search(r"\S+$", text[:punct_idx + 1])
+        token = token_match.group(0).lower() if token_match else ""
+        if token in _ABBREVIATIONS:
+            continue
+        # Single-letter initial at a word boundary, e.g. the "U." / "S." in
+        # "U.S.": an uppercase letter preceded by a non-alphanumeric char.
+        if text[punct_idx - 1:punct_idx].isupper():
+            before = text[punct_idx - 2:punct_idx - 1]
+            if before == "" or not before.isalnum():
+                continue
+        end = m.end()
+        return text[:end].strip()
+    return text.strip()
+
 
 def pascal_case_name(cwe_name):
     """Derive a single Pascal-case identifier from a CWE Name that satisfies
@@ -262,7 +305,8 @@ def emit(xml_path, output_dir, source_url):
         cwe_id = f"CWE-{w.get('ID')}"
         title = w.get("Name")
         name = pascal_case_name(title)
-        short_text = clean_text(w.find("c:Description", NS))
+        desc_text = clean_text(w.find("c:Description", NS))
+        short_text = first_sentence(desc_text)
 
         taxon = {
             "id": cwe_id,
@@ -277,7 +321,7 @@ def emit(xml_path, output_dir, source_url):
         help_md = build_help_markdown(w)
         if help_md:
             taxon["help"] = {
-                "text": short_text,
+                "text": desc_text,
                 "markdown": help_md,
             }
         taxon["helpUri"] = f"https://cwe.mitre.org/data/definitions/{w.get('ID')}.html"
