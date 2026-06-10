@@ -236,10 +236,21 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 Status = GetProperty(taxon, CweStatusProperty),
                 Abstraction = GetProperty(taxon, CweAbstractionProperty),
                 Parent = GetProperty(taxon, CweParentProperty),
-                ShortDescription = taxon.ShortDescription?.Text,
+                ShortDescription = ResolveShortDescription(taxon),
                 HelpUri = ResolveHelpUri(taxon),
                 Help = concise ? null : (taxon.Help?.Markdown ?? taxon.Help?.Text),
             };
+        }
+
+        // The taxonomy omits shortDescription whenever it is recoverable as the first sentence
+        // of fullDescription (SARIF §3.49.10). get-cwe is such a consumer: it recovers the short
+        // so every served record carries one.
+        private static string ResolveShortDescription(ReportingDescriptor taxon)
+        {
+            if (!string.IsNullOrEmpty(taxon.ShortDescription?.Text)) { return taxon.ShortDescription.Text; }
+
+            string full = taxon.FullDescription?.Text;
+            return string.IsNullOrEmpty(full) ? null : CweTaxonomy.DeriveShortDescription(full);
         }
 
         private static string ResolveHelpUri(ReportingDescriptor taxon)

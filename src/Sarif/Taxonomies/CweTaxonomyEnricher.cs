@@ -32,13 +32,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Taxonomies
         private static readonly Regex CweIdPattern =
             new Regex(@"^\s*[Cc][Ww][Ee]-(\d+)\s*$", RegexOptions.CultureInvariant);
 
-        // First-sentence terminator. Mirrors the dead-simple rule the taxonomy
-        // generator uses to decide whether shortDescription is recoverable from
-        // fullDescription: the first sentence-ending punctuation, any trailing
-        // closing quote/paren/bracket, then whitespace or end of string.
-        private static readonly Regex SentenceEndPattern =
-            new Regex(@"[.!?][""')\]]*(\s|$)", RegexOptions.CultureInvariant);
-
         /// <summary>
         /// Enriches every descriptor on the supplied <see cref="Run"/> whose id maps to a
         /// CWE entry in the requested statuses.
@@ -121,7 +114,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Taxonomies
             {
                 rule.ShortDescription = new MultiformatMessageString
                 {
-                    Text = DeriveShortDescription(rule.FullDescription.Text),
+                    Text = CweTaxonomy.DeriveShortDescription(rule.FullDescription.Text),
                 };
                 modified = true;
             }
@@ -171,15 +164,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Taxonomies
         private static bool IsEmptyMessage(MultiformatMessageString message)
         {
             return message == null || (string.IsNullOrEmpty(message.Text) && string.IsNullOrEmpty(message.Markdown));
-        }
-
-        private static string DeriveShortDescription(string fullDescriptionText)
-        {
-            Match match = SentenceEndPattern.Match(fullDescriptionText);
-            string candidate = match.Success
-                ? fullDescriptionText.Substring(0, match.Index + match.Length)
-                : fullDescriptionText;
-            return candidate.Trim();
         }
 
         private static MultiformatMessageString CloneMessage(MultiformatMessageString source)
