@@ -9,10 +9,15 @@ Downloads cwec_latest.xml.zip from cwe.mitre.org, extracts the XML,
 parses the entries, and emits two consolidated artifacts covering all
 maturity statuses (Stable, Draft, Incomplete, Deprecated, Obsolete):
 
-    CweTaxonomy.sarif       SARIF 2.1.0 taxonomy with verbatim help content
-                            (Description + Extended Description + Common
-                            Consequences + Potential Mitigations) embedded
-                            in reportingDescriptor.help.markdown.
+    CweTaxonomy.sarif       SARIF 2.1.0 taxonomy with verbatim MITRE content.
+                            Each taxon carries fullDescription (Description +
+                            Extended Description) and help content (Description
+                            + Extended Description + Common Consequences +
+                            Potential Mitigations) in both help.text and
+                            help.markdown. shortDescription is emitted only when
+                            a consumer cannot recover it from the first sentence
+                            of fullDescription (SARIF §3.49.2, §3.49.10), keeping
+                            the file as small as possible.
 
     CweTaxonomy.brief.md    Compact markdown table sized for AI prompt
                             context-window injection.
@@ -159,6 +164,29 @@ def first_sentence(text):
     return text.strip()
 
 
+def naive_first_sentence(text):
+    """Return the first sentence using only the bare terminator rule.
+
+    This is the dead-simple extraction a downstream consumer applies to
+    recover a shortDescription from a fullDescription: the prefix up to and
+    including the first ``.``/``!``/``?`` (with any trailing closing quotes or
+    brackets) that is followed by whitespace or end-of-text. Unlike
+    :func:`first_sentence` it has no abbreviation, parenthetical, or
+    lowercase-continuation guards.
+
+    The generator omits shortDescription only when this naive result equals the
+    curated :func:`first_sentence`, so a consumer using this rule reconstructs
+    the curated value exactly. Where the two disagree (a guarded boundary), the
+    curated shortDescription is retained verbatim.
+    """
+    if not text:
+        return text
+    m = _SENTENCE_END_RE.search(text)
+    if m:
+        return text[:m.end()].strip()
+    return text.strip()
+
+
 def pascal_case_name(cwe_name):
     """Derive a single Pascal-case identifier from a CWE Name that satisfies
     the SARIF2012 strict Pascal-case regex ``^(\\p{Lu}[\\p{Ll}\\p{Nd}]+)*$``.
@@ -215,27 +243,36 @@ def view1000_parent(weakness):
     return f"CWE-{parent.get('CWE_ID')}"
 
 
-def build_help_markdown(weakness):
-    """Produce the verbatim help markdown block embedded on each taxon.
+def build_help(weakness, markdown=True):
+    """Produce the verbatim help block embedded on each taxon.
+
+    With ``markdown=True`` the result is the rich ``help.markdown`` value; with
+    ``markdown=False`` it is the plaintext twin stored in ``help.text`` — the
+    same sections and structure with the markdown markup (``##`` headers,
+    ``**bold**``, ``*italic*``) removed. The two are faithful renderings of one
+    body of content, per the SARIF multiformatMessageString contract.
 
     Sections (in order, each only present when source content is non-empty):
 
-    - ``## Description`` (CWE Description)
-    - ``## Extended Description`` (CWE Extended_Description)
-    - ``## Common Consequences`` (CWE Common_Consequences/Consequence)
-    - ``## Potential Mitigations`` (CWE Potential_Mitigations/Mitigation)
+    - ``Description`` (CWE Description)
+    - ``Extended Description`` (CWE Extended_Description)
+    - ``Common Consequences`` (CWE Common_Consequences/Consequence)
+    - ``Potential Mitigations`` (CWE Potential_Mitigations/Mitigation)
     """
+    head = "## " if markdown else ""
+    strong = "**" if markdown else ""
+    emph = "*" if markdown else ""
     out = io.StringIO()
 
     desc = clean_text(weakness.find("c:Description", NS))
     if desc:
-        out.write("## Description\n\n")
+        out.write(f"{head}Description\n\n")
         out.write(desc)
         out.write("\n\n")
 
     ext = clean_text(weakness.find("c:Extended_Description", NS))
     if ext:
-        out.write("## Extended Description\n\n")
+        out.write(f"{head}Extended Description\n\n")
         out.write(ext)
         out.write("\n\n")
 
@@ -243,7 +280,7 @@ def build_help_markdown(weakness):
     if cc is not None:
         consequences = cc.findall("c:Consequence", NS)
         if consequences:
-            out.write("## Common Consequences\n\n")
+            out.write(f"{head}Common Consequences\n\n")
             for c in consequences:
                 scopes = [clean_text(s) for s in c.findall("c:Scope", NS)]
                 impacts = [clean_text(i) for i in c.findall("c:Impact", NS)]
@@ -251,9 +288,9 @@ def build_help_markdown(weakness):
                 impact_text = ", ".join(i for i in impacts if i)
                 line = "- "
                 if scope_text:
-                    line += f"**Scope**: {scope_text}. "
+                    line += f"{strong}Scope{strong}: {scope_text}. "
                 if impact_text:
-                    line += f"**Impact**: {impact_text}."
+                    line += f"{strong}Impact{strong}: {impact_text}."
                 out.write(line.rstrip() + "\n")
                 note = clean_text(c.find("c:Note", NS))
                 if note:
@@ -264,7 +301,7 @@ def build_help_markdown(weakness):
     if pm is not None:
         mitigations = pm.findall("c:Mitigation", NS)
         if mitigations:
-            out.write("## Potential Mitigations\n\n")
+            out.write(f"{head}Potential Mitigations\n\n")
             for i, m in enumerate(mitigations, start=1):
                 phases = [clean_text(p) for p in m.findall("c:Phase", NS)]
                 phase_text = ", ".join(p for p in phases if p)
@@ -274,7 +311,7 @@ def build_help_markdown(weakness):
                     tag_parts.append(f"Phase: {phase_text}")
                 if strategy_text:
                     tag_parts.append(f"Strategy: {strategy_text}")
-                tag = "*" + "; ".join(tag_parts) + "*" if tag_parts else ""
+                tag = emph + "; ".join(tag_parts) + emph if tag_parts else ""
                 desc_text = clean_text(m.find("c:Description", NS))
                 line = f"{i}. "
                 if tag:
@@ -326,22 +363,30 @@ def emit(xml_path, output_dir, source_url):
         title = w.get("Name")
         name = pascal_case_name(title)
         desc_text = clean_text(w.find("c:Description", NS))
-        short_text = first_sentence(desc_text)
+        curated_short = first_sentence(desc_text)
+
+        ext = clean_text(w.find("c:Extended_Description", NS))
+        full_text = desc_text + ("\n\n" + ext if ext else "")
 
         taxon = {
             "id": cwe_id,
             "name": name,
-            "shortDescription": {"text": short_text},
         }
 
-        ext = clean_text(w.find("c:Extended_Description", NS))
-        if ext:
-            taxon["fullDescription"] = {"text": ext}
+        # fullDescription begins with the Description, whose first sentence is
+        # the curated short (SARIF §3.49.10). Emit shortDescription only when a
+        # consumer's bare first-sentence rule would NOT recover the curated
+        # value; otherwise omit it and let the consumer derive it from
+        # fullDescription (SARIF §3.49.2 — full alone satisfies the constraint).
+        if curated_short and naive_first_sentence(full_text) != curated_short:
+            taxon["shortDescription"] = {"text": curated_short}
 
-        help_md = build_help_markdown(w)
+        taxon["fullDescription"] = {"text": full_text}
+
+        help_md = build_help(w, markdown=True)
         if help_md:
             taxon["help"] = {
-                "text": desc_text,
+                "text": build_help(w, markdown=False),
                 "markdown": help_md,
             }
         taxon["helpUri"] = f"https://cwe.mitre.org/data/definitions/{w.get('ID')}.html"

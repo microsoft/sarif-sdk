@@ -224,5 +224,91 @@ namespace Microsoft.CodeAnalysis.Sarif.Taxonomies
             Action act = () => CweTaxonomyEnricher.Enrich(null);
             act.Should().Throw<ArgumentNullException>();
         }
+
+        [Fact]
+        public void Enrich_DerivesShortDescriptionWhenTaxonOmitsIt()
+        {
+            // CWE-89's taxon omits shortDescription because it is recoverable from the
+            // first sentence of fullDescription (SARIF §3.49.10). The enricher derives it.
+            ReportingDescriptor taxon = LoadTaxon("CWE-89");
+            taxon.ShortDescription.Should().BeNull("the taxonomy omits short when it is the first sentence of full");
+
+            ReportingDescriptor rule = EnrichSingleRule("CWE-89");
+
+            rule.FullDescription.Text.Should().NotBeNullOrWhiteSpace();
+            rule.ShortDescription.Text.Should().NotBeNullOrWhiteSpace();
+            rule.FullDescription.Text.Should().StartWith(rule.ShortDescription.Text);
+            rule.ShortDescription.Text.Should().EndWith(".");
+            rule.ShortDescription.Text.Should().NotBe(rule.FullDescription.Text, "full carries additional sentences");
+        }
+
+        [Fact]
+        public void Enrich_CopiesTaxonSuppliedShortDescriptionVerbatim()
+        {
+            // CWE-23's taxon retains shortDescription because its first sentence is not
+            // recoverable by the dead-simple rule; the enricher copies it verbatim.
+            ReportingDescriptor taxon = LoadTaxon("CWE-23");
+            taxon.ShortDescription.Text.Should().NotBeNullOrWhiteSpace("this taxon keeps an explicit short");
+
+            ReportingDescriptor rule = EnrichSingleRule("CWE-23");
+
+            rule.ShortDescription.Text.Should().Be(taxon.ShortDescription.Text);
+        }
+
+        [Fact]
+        public void Enrich_PreservesProducerShortWhenTaxonOmitsIt()
+        {
+            var run = new Run
+            {
+                Tool = new Tool
+                {
+                    Driver = new ToolComponent
+                    {
+                        Rules = new List<ReportingDescriptor>
+                        {
+                            new ReportingDescriptor
+                            {
+                                Id = "CWE-89",
+                                ShortDescription = new MultiformatMessageString { Text = "Producer short." },
+                            },
+                        },
+                    },
+                },
+            };
+
+            CweTaxonomyEnricher.Enrich(run);
+
+            run.Tool.Driver.Rules[0].ShortDescription.Text.Should().Be("Producer short.");
+        }
+
+        private static ReportingDescriptor EnrichSingleRule(string id)
+        {
+            var run = new Run
+            {
+                Tool = new Tool
+                {
+                    Driver = new ToolComponent
+                    {
+                        Rules = new List<ReportingDescriptor>
+                        {
+                            new ReportingDescriptor { Id = id },
+                        },
+                    },
+                },
+            };
+
+            CweTaxonomyEnricher.Enrich(run);
+            return run.Tool.Driver.Rules[0];
+        }
+
+        private static ReportingDescriptor LoadTaxon(string id)
+        {
+            foreach (ReportingDescriptor entry in CweTaxonomy.Load().Runs[0].Taxonomies[0].Taxa)
+            {
+                if (entry.Id == id) { return entry; }
+            }
+
+            throw new InvalidOperationException($"Taxon {id} not found in default loadout.");
+        }
     }
 }

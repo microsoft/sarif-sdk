@@ -655,15 +655,13 @@ if (-not $run.PSObject.Properties['properties']) {
 $run.properties | Add-Member -NotePropertyName 'ai/handoff' -NotePropertyValue $handoffText -Force
 
 # Author the reportingDescriptor text GH2012 requires where the taxonomy enricher
-# cannot supply it:
-#   * the synthetic NOVEL rule (no taxonomy backing) — short + full + help;
-#   * CWE-89, whose embedded MITRE taxon carries a Description (shortDescription)
-#     and help but no Extended Description (fullDescription).
-# The NOVEL rule also gets a Pascal-case name + helpUri (SARIF §3.49.7 / SARIF2012).
+# cannot supply it: the synthetic NOVEL rule has no taxonomy backing, so it needs
+# short + full + help authored here. It also gets a Pascal-case name + helpUri
+# (SARIF §3.49.7 / SARIF2012). Every CWE-backed rule (including CWE-89) is filled
+# by the enricher from the embedded taxonomy.
 $novelShortDescription = 'Untrusted content reaches a system-role prompt.'
 $novelFullDescription  = 'Untrusted content is concatenated into a system-role prompt at runtime, letting an attacker override tool-use policy or exfiltrate context. No CWE entry fits, so the finding is emitted under the NOVEL- escape hatch. Treat the model boundary as a trust boundary: keep untrusted content out of system-role messages and constrain tool use with out-of-band policy.'
 $novelHelpText         = 'Separate untrusted input from system-role instructions; never interpolate request data into the system prompt. Enforce tool-use authorization independently of model output.'
-$cwe89FullDescription  = 'Without sufficient removal or quoting of SQL syntax in user-controllable inputs, the generated SQL query can cause those inputs to be interpreted as SQL instead of ordinary user data. This can be used to alter query logic to bypass security checks, or to insert additional statements that modify the back-end database, possibly including execution of system commands.'
 
 foreach ($rule in $driver.rules) {
     if ($rule.id -eq 'NOVEL-prompt-injection-via-system-message') {
@@ -672,9 +670,6 @@ foreach ($rule in $driver.rules) {
         $rule | Add-Member -NotePropertyName 'fullDescription'  -NotePropertyValue ([pscustomobject]@{ text = $novelFullDescription })  -Force
         $rule | Add-Member -NotePropertyName 'help'             -NotePropertyValue ([pscustomobject]@{ text = $novelHelpText })         -Force
         $rule | Add-Member -NotePropertyName 'helpUri'          -NotePropertyValue $novelRuleHelpUri -Force
-    }
-    elseif ($rule.id -eq 'CWE-89') {
-        $rule | Add-Member -NotePropertyName 'fullDescription' -NotePropertyValue ([pscustomobject]@{ text = $cwe89FullDescription }) -Force
     }
 }
 

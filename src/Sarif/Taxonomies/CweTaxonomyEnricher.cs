@@ -15,6 +15,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Taxonomies
     /// </summary>
     /// <remarks>
     /// <para>Producer-supplied descriptor fields are never overwritten.</para>
+    /// <para>The taxonomy omits <c>shortDescription</c> for taxa whose value is the
+    /// first sentence of <c>fullDescription</c> (SARIF §3.49.10). When such a taxon
+    /// enriches a descriptor, this enricher derives <c>shortDescription</c> from the
+    /// first sentence of the copied <c>fullDescription</c> so consumers that require an
+    /// explicit short description still receive one.</para>
     /// <para>This enricher does not add cross-references via
     /// <c>reportingDescriptor.relationships</c> or <c>result.taxa</c>.</para>
     /// </remarks>
@@ -102,6 +107,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Taxonomies
             if (IsEmptyMessage(rule.FullDescription) && !IsEmptyMessage(taxon.FullDescription))
             {
                 rule.FullDescription = CloneMessage(taxon.FullDescription);
+                modified = true;
+            }
+
+            if (IsEmptyMessage(rule.ShortDescription) && !string.IsNullOrEmpty(rule.FullDescription?.Text))
+            {
+                rule.ShortDescription = new MultiformatMessageString
+                {
+                    Text = CweTaxonomy.DeriveShortDescription(rule.FullDescription.Text),
+                };
                 modified = true;
             }
 
