@@ -954,5 +954,59 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         }
 
         #endregion
+
+        #region Evidence well-formedness — AI2016 owns the malformed-evidence report
+
+        private static void SetEvidence(SarifLog log, object value)
+        {
+            log.Runs[0].Results[0].SetProperty("ai/evidence", value);
+        }
+
+        [Fact]
+        public void AI2016_WhenEvidenceIsNotAnArray_ReportsMalformed()
+        {
+            SarifLog log = CreateValidAISarifLog();
+            SetAIOrigin(log, "generated");
+            SetExploitability(log, "demonstrated");
+            // 'ai/evidence' is present but is a bare string, not a JSON array.
+            SetEvidence(log, "this-is-not-a-json-array");
+
+            SarifLog output = RunAIValidation(log);
+            List<Result> results = GetResultsForRule(output, "AI2016");
+
+            results.Should().ContainSingle("AI2016 owns the well-formedness report for a malformed 'ai/evidence'");
+            results[0].Level.Should().Be(FailureLevel.Warning);
+            results[0].Message.Id.Should().Be("Warning_MalformedEvidence");
+        }
+
+        [Fact]
+        public void AI1010_WhenEvidenceIsNotAnArray_NoResult()
+        {
+            SarifLog log = CreateValidAISarifLog();
+            SetAIOrigin(log, "generated");
+            SetExploitability(log, "demonstrated");
+            SetEvidence(log, "this-is-not-a-json-array");
+
+            SarifLog output = RunAIValidation(log);
+            List<Result> results = GetResultsForRule(output, "AI1010");
+
+            results.Should().BeEmpty("AI1010 skips malformed 'ai/evidence' cleanly and defers the report to AI2016");
+        }
+
+        [Fact]
+        public void AI2016_WhenEvidenceIsWellFormedArray_NoMalformedResult()
+        {
+            SarifLog log = CreateValidAISarifLog();
+            SetAIOrigin(log, "generated");
+            // A well-formed evidence array with a non-demonstrated entry: nothing to flag.
+            SetEvidence(log, new object[] { new { summary = "Reviewed call site.", strength = "theoretical" } });
+
+            SarifLog output = RunAIValidation(log);
+            List<Result> results = GetResultsForRule(output, "AI2016");
+
+            results.Should().BeEmpty("a well-formed 'ai/evidence' array with no demonstrated entry is conformant");
+        }
+
+        #endregion
     }
 }

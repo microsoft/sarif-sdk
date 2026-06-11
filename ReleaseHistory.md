@@ -14,6 +14,7 @@ Each release entry below is prefixed with one of:
 Entries are terse by design: one line per change, present-tense behavior, complete but only essential data. No issue/PR archaeology or narrative — that history lives in the engineering system.
 
 ## **UNRELEASED**
+* NEW: `AI2016/ProvideEvidenceBacking` now flags an `ai/evidence` property that is present but not a well-formed JSON array (`Warning_MalformedEvidence`); this rule owns the malformed-evidence report, while other evidence rules skip the same input cleanly.
 * NEW: `AI1012/ProvideRuleSubId` now validates the full AI ruleId grammar, flagging a malformed id (non-`CWE`/`NOVEL` base, an uppercase or underscore sub-id, a `NOVEL-` id carrying a slash, or an empty sub-id) as `Error_Malformed`, distinct from a bare `CWE-<n>` flagged `Error_Missing` — matching the convention `emit` hard-enforces.
 
 ## **v5.0.6** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/v5.0.6) | [Driver](https://www.nuget.org/packages/Sarif.Driver/v5.0.6) | [Converters](https://www.nuget.org/packages/Sarif.Converters/v5.0.6) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/v5.0.6) | [Multitool Library](https://www.nuget.org/packages/Sarif.Multitool.Library/v5.0.6)

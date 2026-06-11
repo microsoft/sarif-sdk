@@ -820,6 +820,9 @@ Provide the 'help' property and populate the 'text' property with information ab
   <data name="AI2016_ProvideEvidenceBacking_Warning_Inconsistent_Text" xml:space="preserve">
     <value>{0}: This result declares 'ai/exploitability' as 'demonstrated' but no 'ai/evidence' entry has 'strength' of 'demonstrated' with non-empty 'backing'. The headline exploitability should be consistent with the evidence array.</value>
   </data>
+  <data name="AI2016_ProvideEvidenceBacking_Warning_MalformedEvidence_Text" xml:space="preserve">
+    <value>{0}: The 'ai/evidence' property is present but is not a well-formed JSON array. Evidence must be a JSON array of objects; a malformed or wrong-typed value cannot be validated and is silently dropped by every evidence consumer.</value>
+  </data>
   <data name="AI1010_ProvideEvidenceBackingUri_FullDescription_Text" xml:space="preserve">
     <value>Every 'sarif:' URI in 'ai/evidence[].backing' SHALL resolve to an element within the containing log file per SARIF spec §3.10.3.</value>
   </data>

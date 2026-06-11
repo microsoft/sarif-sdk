@@ -1735,6 +1735,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
                 return ResourceManager.GetString("AI2016_ProvideEvidenceBacking_Warning_Inconsistent_Text", resourceCulture);
             }
         }
+        
+        internal static string AI2016_ProvideEvidenceBacking_Warning_MalformedEvidence_Text {
+            get {
+                return ResourceManager.GetString("AI2016_ProvideEvidenceBacking_Warning_MalformedEvidence_Text", resourceCulture);
+            }
+        }
 
         internal static string AI1010_ProvideEvidenceBackingUri_FullDescription_Text {
             get {
