@@ -776,7 +776,7 @@ Provide the 'help' property and populate the 'text' property with information ab
     <value>{0}: 'result.ruleId' is '{1}' with no sub-component beyond the descriptor id. Append a hierarchical sub-ID: a true sub-classification of '{1}' if one applies, otherwise the kebab-cased rule name (e.g. '{1}/{2}'). SARIF has no 'result.name'; this sub-ID is that name and the bulk-disposition key (§3.27.5).</value>
   </data>
   <data name="AI2010_ProvideResultRank_FullDescription_Text" xml:space="preserve">
-    <value>AI-generated results should provide a 'rank' value (0.0 to 100.0) expressing the confidence of the finding. This is the spec-native mechanism (§3.27.25) for numeric confidence, enabling priority-based triage and filtering without relying on property bag conventions.</value>
+    <value>AI-generated results should provide a 'rank' value (0.0 to 100.0) expressing the confidence of the finding — the producer's estimated likelihood that the result is a true positive. This is the spec-native mechanism (§3.27.25) for numeric confidence, enabling priority-based triage and filtering without relying on property bag conventions. Rank is per-result confidence and is orthogonal to severity: it is never mapped onto 'security-severity', which is a stable per-rule (per-CWE) prior the SDK supplies separately.</value>
   </data>
   <data name="AI2010_ProvideResultRank_Note_Default_Text" xml:space="preserve">
     <value>{0}: This result does not provide a 'rank' value. AI-generated findings should express confidence as a numeric rank (0.0 to 100.0) to enable priority-based triage.</value>

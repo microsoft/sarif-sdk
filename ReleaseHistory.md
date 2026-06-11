@@ -14,6 +14,10 @@ Each release entry below is prefixed with one of:
 Entries are terse by design: one line per change, present-tense behavior, complete but only essential data. No issue/PR archaeology or narrative — that history lives in the engineering system.
 
 ## **UNRELEASED**
+* BRK: `sarif emit-finalize` no longer derives a rule's `security-severity` from `result.rank` (severity and confidence are orthogonal axes); it now stamps a stable, hand-curated per-CWE prior from the new `CweSecuritySeverity` table, host-agnostically — both GitHub Advanced Security and Azure DevOps Advanced Security read it off the rule. A producer-authored value still wins, and a CWE with no curated prior (including the `NOVEL-` form) is left unstamped.
+* NEW: New public `Microsoft.CodeAnalysis.Sarif.Taxonomies.CweSecuritySeverity` exposes the curated per-CWE `security-severity` map: `TryGetSecuritySeverity(int, out double)` / `TryGetSecuritySeverity(string, out double)` (accepts `89`, `CWE-89`, `CWE-89/<slug>`), `SecuritySeverityByCwe`, `FormatPropertyValue`, and the `PropertyName` constant; `AIRuleIdConvention.TryGetCweId` extracts the canonical `CWE-<n>` from any conformant ruleId.
+* NEW: The CWE taxonomy taxa now carry the curated `security-severity` prior as a property, and `CweTaxonomyEnricher` copies it onto CWE-matched rule descriptors (a producer-authored value is preserved) so GitHub and Azure DevOps consumers read it directly off the rule.
+* NEW: `sarif get-cwe` records now carry a `securitySeverity` field (the curated per-CWE prior) in both JSON and markdown output.
 
 ## **v5.0.5** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/v5.0.5) | [Driver](https://www.nuget.org/packages/Sarif.Driver/v5.0.5) | [Converters](https://www.nuget.org/packages/Sarif.Converters/v5.0.5) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/v5.0.5) | [Multitool Library](https://www.nuget.org/packages/Sarif.Multitool.Library/v5.0.5)
 * BRK: `RuleKind` is now a `[Flags]` enum (`Sarif=1, Ghas=2, GHAzDO=4, AI=8`); the GH#### rules report `RuleKind.Ghas`, and `RuleKind.Gh` is now an `[Obsolete]` alias of `Ghas`.

@@ -529,6 +529,12 @@ AI findings inherently carry confidence — SARIF's native `result.rank` propert
 
 **Conditional severity.** When impact depends on deployment configuration ("critical if `X-Forwarded-For` is trusted, otherwise by-design"), set `level` to the **expected-case** severity, set `rank` to the **worst-case**, and state the gating condition in `message.markdown § Mitigating Factors`. Do not invent compound levels.
 
+## Security Severity (per-CWE prior)
+
+`rank` is per-result **confidence** and is never the source of `security-severity`. Severity and confidence are orthogonal axes: a low-confidence finding of a critical weakness class is still critical *if* it is real. Both GitHub Advanced Security and Azure DevOps Advanced Security read a numeric `security-severity` (0.0–10.0, CVSS-aligned) off the **rule descriptor** — not off `rank` — to bucket a result into critical/high/medium/low.
+
+The SDK supplies a stable, hand-curated per-CWE `security-severity` prior (`Microsoft.CodeAnalysis.Sarif.Taxonomies.CweSecuritySeverity`). Because AI findings use CWE as their rule taxonomy, the prior is keyed by the CWE token in the descriptor `id`. `emit-finalize` stamps it onto each CWE-as-rule descriptor host-agnostically (producer-authored values are preserved; a CWE with no curated prior, including the `NOVEL-` form, is left unstamped so platforms degrade to level-based severity). `get-cwe` surfaces the same value as a `securitySeverity` field. Producers do not need to author `security-severity` themselves — author a precise CWE `ruleId` and clean per-result `rank`, and let finalize supply the severity prior.
+
 ---
 
 ## Reproduction Steps Template

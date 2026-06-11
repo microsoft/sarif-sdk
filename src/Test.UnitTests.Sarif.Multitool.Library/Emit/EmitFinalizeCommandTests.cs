@@ -74,8 +74,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         private const string FrozenAdoRevisionId = "cafebabecafebabecafebabecafebabecafebabe";
 
         // An Azure DevOps-hosted counterpart to RunHeader(): the run's repositoryUri host is
-        // dev.azure.com, so the GitHub-only finalize enrichments (security-severity, rolling-hash
-        // primaryLocationLineHash) must NOT be applied.
+        // dev.azure.com, so the GitHub-only rolling-hash primaryLocationLineHash enrichment must
+        // NOT be applied (security-severity is host-agnostic and IS applied to ADO runs).
         private static Run AdoRunHeader()
             => new Run
             {
@@ -310,10 +310,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         }
 
         [Fact]
-        public void Run_StampsSecuritySeverityFromObservedMaxRank()
+        public void Run_StampsCweSecuritySeverityFromCuratedTable()
         {
-            // Two findings on the same CWE rule (sub-id forms both collapse to descriptor
-            // "CWE-79"); the higher rank (85) wins and maps to security-severity 8.5.
+            // A finding on a CWE rule (sub-id form collapses to descriptor "CWE-79"); finalize
+            // stamps the curated per-CWE prior (CWE-79 -> 7.8), not anything derived from rank.
             SeedWip(
                 (SarifEventKinds.RunHeader, RunHeader()),
                 (SarifEventKinds.Result, new Result { RuleId = "CWE-79/template-xss", Rank = 60, Message = new Message { Text = "xss" } }),
@@ -323,15 +323,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
             exit.Should().Be(CommandBase.SUCCESS);
             ReportingDescriptor rule = LoadSarif().Runs[0].Tool.Driver.Rules.Single(r => r.Id == "CWE-79");
-            SecuritySeverityOf(rule).Should().Be("8.5");
+            SecuritySeverityOf(rule).Should().Be("7.8");
         }
 
         [Fact]
-        public void Run_DoesNotStampSecuritySeverityForAzureDevOpsHostedRun()
+        public void Run_StampsCweSecuritySeverityForAzureDevOpsHostedRun()
         {
-            // Same ranked findings as the github-hosted case, but the run is dev.azure.com-hosted.
-            // security-severity is a GitHub property with no Azure DevOps analog, so finalize must
-            // not add it.
+            // security-severity is host-agnostic: Azure DevOps Advanced Security reads it off the
+            // rule descriptor on the same 0-10 scale as GitHub, so an ADO-hosted run is stamped too.
             SeedWip(
                 (SarifEventKinds.RunHeader, AdoRunHeader()),
                 (SarifEventKinds.Result, new Result { RuleId = "CWE-79/template-xss", Rank = 60, Message = new Message { Text = "xss" } }),
@@ -341,14 +340,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
             exit.Should().Be(CommandBase.SUCCESS);
             ReportingDescriptor rule = LoadSarif().Runs[0].Tool.Driver.Rules.Single(r => r.Id == "CWE-79");
-            HasSecuritySeverity(rule).Should().BeFalse();
+            SecuritySeverityOf(rule).Should().Be("7.8");
         }
 
         [Fact]
         public void Run_PreservesProducerAuthoredSecuritySeverityOnAzureDevOpsHostedRun()
         {
-            // Finalize does not ADD security-severity to an Azure DevOps run, but a value the
-            // producer authored is left untouched (the gate only governs the enrichment, not removal).
+            // A producer-authored value wins over the curated table prior, regardless of host.
             var seededRule = new ReportingDescriptor { Id = "CWE-79" };
             seededRule.SetProperty("security-severity", "2.0");
 
@@ -413,7 +411,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         public void Run_PreservesProducerAuthoredSecuritySeverityThroughReplay()
         {
             // A producer that authored a rule descriptor with its own security-severity keeps it,
-            // even when a ranked result referencing that rule would otherwise derive a higher value.
+            // even when the curated table carries a different prior for that CWE.
             var seededRule = new ReportingDescriptor { Id = "CWE-79" };
             seededRule.SetProperty("security-severity", "2.0");
 
@@ -430,129 +428,55 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         }
 
         [Fact]
-        public void ApplyRankDerivedSecuritySeverity_StampsMaxRankDividedByTen()
+        public void ApplyCweDerivedSecuritySeverity_StampsCuratedTableValue()
         {
-            Run run = BuildRun(
-                new[] { "CWE-89" },
-                (ruleIndex: 0, rank: 40.0),
-                (ruleIndex: 0, rank: 95.0));
+            Run run = BuildRun("CWE-89");
 
-            int stamped = EmitFinalizeCommand.ApplyRankDerivedSecuritySeverity(run);
+            int stamped = EmitFinalizeCommand.ApplyCweDerivedSecuritySeverity(run);
 
             stamped.Should().Be(1);
-            SecuritySeverityOf(run.Tool.Driver.Rules[0]).Should().Be("9.5");
+            SecuritySeverityOf(run.Tool.Driver.Rules[0]).Should().Be("8.8");
         }
 
         [Fact]
-        public void ApplyRankDerivedSecuritySeverity_TreatsEachRuleIndependently()
+        public void ApplyCweDerivedSecuritySeverity_StampsEachKnownCweRuleIndependently()
         {
-            Run run = BuildRun(
-                new[] { "CWE-89", "CWE-79" },
-                (ruleIndex: 0, rank: 95.0),
-                (ruleIndex: 1, rank: 30.0));
+            Run run = BuildRun("CWE-89", "CWE-79");
 
-            int stamped = EmitFinalizeCommand.ApplyRankDerivedSecuritySeverity(run);
+            int stamped = EmitFinalizeCommand.ApplyCweDerivedSecuritySeverity(run);
 
             stamped.Should().Be(2);
-            SecuritySeverityOf(run.Tool.Driver.Rules[0]).Should().Be("9.5");
-            SecuritySeverityOf(run.Tool.Driver.Rules[1]).Should().Be("3.0");
+            SecuritySeverityOf(run.Tool.Driver.Rules[0]).Should().Be("8.8");
+            SecuritySeverityOf(run.Tool.Driver.Rules[1]).Should().Be("7.8");
         }
 
         [Fact]
-        public void ApplyRankDerivedSecuritySeverity_SkipsRuleWithNoRankedResults()
+        public void ApplyCweDerivedSecuritySeverity_ElidesUnknownCweAndNovelRules()
         {
-            // Rank defaults to the -1.0 "unset" sentinel; a rule whose results carry no rank
-            // is left bare rather than fabricated a 0.0.
-            Run run = BuildRun(
-                new[] { "CWE-89" },
-                (ruleIndex: 0, rank: -1.0));
+            // A CWE with no curated prior, and the NOVEL- escape hatch (which carries no CWE),
+            // both receive nothing rather than a fabricated default.
+            Run run = BuildRun("CWE-999999", "NOVEL-prompt-injection");
 
-            int stamped = EmitFinalizeCommand.ApplyRankDerivedSecuritySeverity(run);
+            int stamped = EmitFinalizeCommand.ApplyCweDerivedSecuritySeverity(run);
 
             stamped.Should().Be(0);
             HasSecuritySeverity(run.Tool.Driver.Rules[0]).Should().BeFalse();
+            HasSecuritySeverity(run.Tool.Driver.Rules[1]).Should().BeFalse();
         }
 
         [Fact]
-        public void ApplyRankDerivedSecuritySeverity_StampsExplicitZeroRank()
+        public void ApplyCweDerivedSecuritySeverity_PreservesProducerAuthoredValue()
         {
-            // Rank 0 is an authored value (lowest severity), distinct from the -1.0 unset
-            // sentinel, so it is honored and maps to 0.0.
-            Run run = BuildRun(
-                new[] { "CWE-89" },
-                (ruleIndex: 0, rank: 0.0));
-
-            int stamped = EmitFinalizeCommand.ApplyRankDerivedSecuritySeverity(run);
-
-            stamped.Should().Be(1);
-            SecuritySeverityOf(run.Tool.Driver.Rules[0]).Should().Be("0.0");
-        }
-
-        [Fact]
-        public void ApplyRankDerivedSecuritySeverity_ClampsRankAboveOneHundred()
-        {
-            Run run = BuildRun(
-                new[] { "CWE-89" },
-                (ruleIndex: 0, rank: 150.0));
-
-            EmitFinalizeCommand.ApplyRankDerivedSecuritySeverity(run);
-
-            SecuritySeverityOf(run.Tool.Driver.Rules[0]).Should().Be("10.0");
-        }
-
-        [Fact]
-        public void ApplyRankDerivedSecuritySeverity_MapsRankOneHundredToTen()
-        {
-            Run run = BuildRun(
-                new[] { "CWE-89" },
-                (ruleIndex: 0, rank: 100.0));
-
-            EmitFinalizeCommand.ApplyRankDerivedSecuritySeverity(run);
-
-            SecuritySeverityOf(run.Tool.Driver.Rules[0]).Should().Be("10.0");
-        }
-
-        [Fact]
-        public void ApplyRankDerivedSecuritySeverity_RoundsFractionalRankToOneDecimal()
-        {
-            // rank 84.9 / 10 = 8.49, formatted to one decimal as 8.5.
-            Run run = BuildRun(
-                new[] { "CWE-89" },
-                (ruleIndex: 0, rank: 84.9));
-
-            EmitFinalizeCommand.ApplyRankDerivedSecuritySeverity(run);
-
-            SecuritySeverityOf(run.Tool.Driver.Rules[0]).Should().Be("8.5");
-        }
-
-        [Fact]
-        public void ApplyRankDerivedSecuritySeverity_PreservesProducerAuthoredValue()
-        {
-            Run run = BuildRun(
-                new[] { "CWE-89" },
-                (ruleIndex: 0, rank: 95.0));
+            Run run = BuildRun("CWE-89");
             run.Tool.Driver.Rules[0].SetProperty("security-severity", "2.0");
 
-            int stamped = EmitFinalizeCommand.ApplyRankDerivedSecuritySeverity(run);
+            int stamped = EmitFinalizeCommand.ApplyCweDerivedSecuritySeverity(run);
 
             stamped.Should().Be(0);
             SecuritySeverityOf(run.Tool.Driver.Rules[0]).Should().Be("2.0");
         }
 
-        [Fact]
-        public void ApplyRankDerivedSecuritySeverity_IgnoresResultWithOutOfRangeRuleIndex()
-        {
-            Run run = BuildRun(
-                new[] { "CWE-89" },
-                (ruleIndex: 7, rank: 95.0));
-
-            int stamped = EmitFinalizeCommand.ApplyRankDerivedSecuritySeverity(run);
-
-            stamped.Should().Be(0);
-            HasSecuritySeverity(run.Tool.Driver.Rules[0]).Should().BeFalse();
-        }
-
-        private static Run BuildRun(string[] ruleIds, params (int ruleIndex, double rank)[] results)
+        private static Run BuildRun(params string[] ruleIds)
             => new Run
             {
                 Tool = new Tool
@@ -563,9 +487,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                         Rules = ruleIds.Select(id => new ReportingDescriptor { Id = id }).ToList(),
                     },
                 },
-                Results = results
-                    .Select(r => new Result { RuleIndex = r.ruleIndex, Rank = r.rank })
-                    .ToList(),
             };
 
         private static string SecuritySeverityOf(ReportingDescriptor descriptor)

@@ -134,6 +134,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Taxonomies
                 modified = true;
             }
 
+            if (!rule.PropertyNames.Contains(CweSecuritySeverity.PropertyName)
+                && taxon.TryGetProperty(CweSecuritySeverity.PropertyName, out string securitySeverity)
+                && !string.IsNullOrEmpty(securitySeverity))
+            {
+                rule.SetProperty(CweSecuritySeverity.PropertyName, securitySeverity);
+                modified = true;
+            }
+
             return modified;
         }
 
