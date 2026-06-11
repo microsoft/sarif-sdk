@@ -22,6 +22,7 @@ Entries are terse by design: one line per change, present-tense behavior, comple
 * NEW: Every CWE taxon now carries `fullDescription` (verbatim MITRE Description + Extended Description) and a `help.text` twin of `help.markdown`; `shortDescription` is omitted when recoverable as the first sentence of `fullDescription` (SARIF §3.49.10), shrinking the taxonomy.
 * NEW: `CweTaxonomyEnricher` derives `shortDescription` from the first sentence of `fullDescription` when a CWE-matched descriptor has `fullDescription` but no `shortDescription`, keeping enriched rules valid for consumers that require it (`GH2012`).
 * FUN: Rename the CWE taxonomy sample `CweSample.sarif` to `CweGhasSample.sarif` (the `github.com`/GHAS variant); `CweGenerateSample.ps1 -GHAzDO` now emits a genuinely `dev.azure.com`-hosted `CweGHAzDoSample.sarif`, so the two fixtures differ by repository host.
+* NEW: `FileEncoding.IsBinaryData` classifies data via a BOM check (textual) then a NUL-byte scan (binary); `FileEncoding.IsTextualData` is now its inverse, so BOM-less UTF-16/UTF-32 content is now treated as binary.
 
 ## **v5.0.4** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/v5.0.4) | [Driver](https://www.nuget.org/packages/Sarif.Driver/v5.0.4) | [Converters](https://www.nuget.org/packages/Sarif.Converters/v5.0.4) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/v5.0.4) | [Multitool Library](https://www.nuget.org/packages/Sarif.Multitool.Library/v5.0.4)
 * NEW: `sarif get-skill --list` now prints each skill's frontmatter `description` beside its name.
