@@ -13,7 +13,7 @@ Each release entry below is prefixed with one of:
 
 Entries are terse by design: one line per change, present-tense behavior, complete but only essential data. No issue/PR archaeology or narrative — that history lives in the engineering system.
 
-## **UNRELEASED**
+## **v5.0.6** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/v5.0.6) | [Driver](https://www.nuget.org/packages/Sarif.Driver/v5.0.6) | [Converters](https://www.nuget.org/packages/Sarif.Converters/v5.0.6) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/v5.0.6) | [Multitool Library](https://www.nuget.org/packages/Sarif.Multitool.Library/v5.0.6)
 * BRK: `sarif emit-finalize` no longer derives `security-severity` from `result.rank`; it stamps a stable hand-curated per-CWE prior (new `CweSecuritySeverity` table) for both GHAS and GHAzDO. A producer value wins; a CWE with no prior (including `NOVEL-`) stays unstamped.
 * BUG: `sarif add-invocation` now accepts a `workingDirectory` anchored by `uriBaseId` alone (empty or absent `uri`), so an `emit-finalize`-rebased invocation round-trips back through the verb; a whitespace `uri` with no `uriBaseId` is still rejected.
 * NEW: New public `Microsoft.CodeAnalysis.Sarif.Taxonomies.CweSecuritySeverity` exposes the curated per-CWE `security-severity` map: `TryGetSecuritySeverity`, `SecuritySeverityByCwe`, `FormatPropertyValue`, and the `PropertyName` constant.
