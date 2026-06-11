@@ -14,6 +14,7 @@ Each release entry below is prefixed with one of:
 Entries are terse by design: one line per change, present-tense behavior, complete but only essential data. No issue/PR archaeology or narrative — that history lives in the engineering system.
 
 ## **UNRELEASED**
+* BRK: `sarif merge` now coalesces inputs into one run per tool + version and no longer accepts `--merge-runs` or `--split`; partition the merged log with the `partition` verb to split by rule, run, or target. Artifacts, logical locations, rules, and invocations are remapped into each merged run and value-identical results are deduped.
 * BUG: `@microsoft/sarif-multitool-win32` ships `Sarif.Multitool.exe` again, restoring `npx @microsoft/sarif-multitool` on Windows; the `win-x64` publish drops `PublishReadyToRun` (a crossgen2 failure had emptied the package) and `BuildMultitoolForNpm.ps1` now fails on any missing platform payload.
 
 ## **v5.0.6** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/v5.0.6) | [Driver](https://www.nuget.org/packages/Sarif.Driver/v5.0.6) | [Converters](https://www.nuget.org/packages/Sarif.Converters/v5.0.6) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/v5.0.6) | [Multitool Library](https://www.nuget.org/packages/Sarif.Multitool.Library/v5.0.6)
