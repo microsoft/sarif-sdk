@@ -183,5 +183,56 @@ namespace Microsoft.CodeAnalysis.Sarif.Test.UnitTests.Emit
             var ex = new AIRuleIdConventionException(new[] { "CWE-79", "CWE-89" });
             ex.Message.Should().Contain("2 results did not conform");
         }
+
+        // ----- TryGetCweId: canonical CWE extraction (house style: [Fact] + shared helper) -----
+
+        private static void VerifyTryGetCweId(string ruleId, bool expectedSuccess, string expectedCweId)
+        {
+            bool success = AIRuleIdConvention.TryGetCweId(ruleId, out string cweId);
+
+            success.Should().Be(expectedSuccess);
+            cweId.Should().Be(expectedCweId);
+        }
+
+        [Fact]
+        public void TryGetCweId_ReturnsCanonicalId_ForBareCweDescriptorId()
+        {
+            VerifyTryGetCweId("CWE-89", expectedSuccess: true, expectedCweId: "CWE-89");
+        }
+
+        [Fact]
+        public void TryGetCweId_ReturnsCanonicalId_AndDropsSubId_ForSubIdForm()
+        {
+            VerifyTryGetCweId("CWE-89/kql-injection", expectedSuccess: true, expectedCweId: "CWE-89");
+        }
+
+        [Fact]
+        public void TryGetCweId_NormalizesLeadingZeros()
+        {
+            VerifyTryGetCweId("CWE-089", expectedSuccess: true, expectedCweId: "CWE-89");
+            VerifyTryGetCweId("CWE-007/path-traversal", expectedSuccess: true, expectedCweId: "CWE-7");
+        }
+
+        [Fact]
+        public void TryGetCweId_ReturnsFalse_ForNovelForm()
+        {
+            VerifyTryGetCweId("NOVEL-prompt-injection", expectedSuccess: false, expectedCweId: null);
+        }
+
+        [Fact]
+        public void TryGetCweId_ReturnsFalse_ForNullEmptyOrWhitespace()
+        {
+            VerifyTryGetCweId(null, expectedSuccess: false, expectedCweId: null);
+            VerifyTryGetCweId(string.Empty, expectedSuccess: false, expectedCweId: null);
+            VerifyTryGetCweId("   ", expectedSuccess: false, expectedCweId: null);
+        }
+
+        [Fact]
+        public void TryGetCweId_ReturnsFalse_ForNonCweRuleIds()
+        {
+            VerifyTryGetCweId("cwe-89/foo", expectedSuccess: false, expectedCweId: null);   // lowercase base
+            VerifyTryGetCweId("CWE-x/foo", expectedSuccess: false, expectedCweId: null);    // non-numeric
+            VerifyTryGetCweId("MY-CUSTOM-RULE", expectedSuccess: false, expectedCweId: null);
+        }
     }
 }

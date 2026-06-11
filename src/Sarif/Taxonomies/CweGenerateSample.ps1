@@ -19,14 +19,16 @@
     repositoryUri (the autodetected publish target):
       * A github.com / *.ghe.com host writes CweGhasSample.sarif and validates
         with --rule-kind Sarif;AI;Ghas. This is the GitHub Advanced Security
-        target — the run carries the security-severity + primaryLocationLineHash
-        enrichments emit-finalize applies for github-hosted runs.
+        target — the run carries the security-severity (a host-agnostic per-CWE
+        prior) and primaryLocationLineHash (github-only) enrichments emit-finalize
+        applies for github-hosted runs.
       * A dev.azure.com host (forced by -GHAzDO) writes CweGHAzDoSample.sarif and
         validates with --rule-kind Sarif;AI;GHAzDO. This is the "AI scanner
         running inside an Azure DevOps pipeline" shape — the GHAzDO ingestion
         contract for automationDetails.id + the four
-        azuredevops/pipeline/build/* properties is satisfied, and the
-        github-only enrichments are absent. The script
+        azuredevops/pipeline/build/* properties is satisfied. The run carries
+        security-severity (host-agnostic) but not the github-only
+        primaryLocationLineHash. The script
         sets the ADO predefined environment variables (TF_BUILD,
         SYSTEM_COLLECTIONURI, …) to deterministic constants for the
         duration of emit-run; the multitool's AdoPipelineContext
@@ -390,9 +392,10 @@ if (-not $Deterministic -and $vcpRepoUri -eq $canonicalRepositoryUri -and $revis
 # repositoryUri — the autodetected publish target. A consumer who copies this
 # taxonomy into their own repo and runs it produces the fixture matching their
 # host; in this repo the github default mints the GHAS fixture and -GHAzDO mints
-# the Azure DevOps fixture. github.com / *.ghe.com => GHAS (security-severity +
-# primaryLocationLineHash enrichments, validated under Sarif;AI;Ghas);
-# dev.azure.com => GHAzDO (neither enrichment, validated under Sarif;AI;GHAzDO).
+# the Azure DevOps fixture. Both carry security-severity (a host-agnostic per-CWE
+# prior). github.com / *.ghe.com => GHAS (security-severity + primaryLocationLineHash
+# enrichments, validated under Sarif;AI;Ghas); dev.azure.com => GHAzDO
+# (security-severity only — no primaryLocationLineHash — validated under Sarif;AI;GHAzDO).
 $vcpHostLower = ([System.Uri]$vcpRepoUri).Host.ToLowerInvariant()
 if ($vcpHostLower -eq 'dev.azure.com') {
     $variant          = 'GHAzDO'

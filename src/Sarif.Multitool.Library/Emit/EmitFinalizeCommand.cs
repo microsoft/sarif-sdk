@@ -86,29 +86,25 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                     baseEnrichmentFlags |= OptionallyEmittedData.TextFiles;
                 }
 
-                // GitHub and Azure DevOps consume SARIF differently, so two finalize enrichments are
-                // applied only when the run is GitHub-hosted (discriminated by versionControlProvenance):
+                // The shipped SARIF carries two finalize enrichments with different audiences:
                 //
-                //   * rule-level security-severity — a GitHub property that buckets a result into a
-                //     security severity (critical/high/medium/low); Azure DevOps has no analog.
+                //   * rule-level security-severity — a host-agnostic, per-CWE severity prior
+                //     (CweSecuritySeverity) stamped on tool.driver.rules[]. Both GitHub Advanced
+                //     Security and Azure DevOps Advanced Security read security-severity off a rule
+                //     to bucket a result (critical/high/medium/low), so it is applied to every run.
                 //   * primaryLocationLineHash       — the rolling-hash partial fingerprint. GitHub's raw
                 //     code-scanning SARIF upload API does not backfill partialFingerprints (the
                 //     upload-sarif Action does), so emitting it ourselves is what prevents duplicate
-                //     alerts on API-upload pipelines.
-                //
-                // An Azure DevOps (or unclassifiable) run receives neither.
+                //     alerts on API-upload pipelines. This one is GitHub-only.
                 if (log?.Runs != null)
                 {
                     foreach (Run run in log.Runs)
                     {
                         if (run == null) { continue; }
 
-                        bool isGitHubHosted = VcpPortableRoot.IsGitHubHostedRun(run);
+                        ApplyCweDerivedSecuritySeverity(run);
 
-                        if (isGitHubHosted)
-                        {
-                            ApplyRankDerivedSecuritySeverity(run);
-                        }
+                        bool isGitHubHosted = VcpPortableRoot.IsGitHubHostedRun(run);
 
                         OptionallyEmittedData runFlags = isGitHubHosted
                             ? baseEnrichmentFlags | OptionallyEmittedData.RollingHashPartialFingerprints
@@ -225,59 +221,40 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         }
 
         /// <summary>
-        /// Derives a GitHub Advanced Security <c>security-severity</c> for each rule descriptor
-        /// from the highest <see cref="Result.Rank"/> observed across the results that reference
-        /// it, mapping the SARIF rank scale (0–100) onto the security-severity scale (0.0–10.0)
-        /// by dividing by ten.
+        /// Stamps each rule descriptor whose <c>id</c> carries a CWE token with the curated
+        /// per-CWE <c>security-severity</c> prior from <see cref="CweSecuritySeverity"/>.
         /// </summary>
         /// <remarks>
-        /// GHAS reads <c>security-severity</c> off the rule a result references, never off a
-        /// taxon, so the value is stamped on <c>tool.driver.rules[]</c>. Results carry an
-        /// authoritative <c>ruleIndex</c> by the time the log is replayed, so association is by
-        /// index rather than by id. The rank sentinel <c>-1.0</c> ("unset") is excluded: a rule
-        /// whose results carry no rank receives nothing, and a producer-authored
-        /// <c>security-severity</c> is left untouched.
+        /// Both GitHub and Azure DevOps read <c>security-severity</c> off the rule a result
+        /// references — never off a result's <c>rank</c> — so the value is a property of the
+        /// weakness class, not of any one finding. A descriptor whose id maps to no curated CWE
+        /// (including the <c>NOVEL-</c> form) receives nothing, and a producer-authored
+        /// <c>security-severity</c> is left untouched. Severity (this value) and confidence
+        /// (<see cref="Result.Rank"/>) are orthogonal; neither is derived from the other.
         /// </remarks>
         /// <returns>The number of rule descriptors stamped.</returns>
-        internal static int ApplyRankDerivedSecuritySeverity(Run run)
+        internal static int ApplyCweDerivedSecuritySeverity(Run run)
         {
             IList<ReportingDescriptor> rules = run?.Tool?.Driver?.Rules;
-            if (rules == null || rules.Count == 0 || run.Results == null) { return 0; }
-
-            var maxRankByRule = new double[rules.Count];
-            for (int i = 0; i < maxRankByRule.Length; i++) { maxRankByRule[i] = UnsetRank; }
-
-            foreach (Result result in run.Results)
-            {
-                if (result == null || result.Rank < 0) { continue; }
-
-                int index = result.RuleIndex;
-                if (index < 0 || index >= rules.Count) { continue; }
-
-                if (result.Rank > maxRankByRule[index]) { maxRankByRule[index] = result.Rank; }
-            }
+            if (rules == null || rules.Count == 0) { return 0; }
 
             int stamped = 0;
-            for (int i = 0; i < rules.Count; i++)
+            foreach (ReportingDescriptor rule in rules)
             {
-                if (maxRankByRule[i] < 0) { continue; }
-
-                ReportingDescriptor rule = rules[i];
+                if (rule == null || string.IsNullOrEmpty(rule.Id)) { continue; }
                 if (rule.PropertyNames.Contains(SecuritySeverityPropertyName)) { continue; }
+                if (!CweSecuritySeverity.TryGetSecuritySeverity(rule.Id, out double securitySeverity)) { continue; }
 
-                double score = Math.Min(10.0, Math.Max(0.0, maxRankByRule[i] / 10.0));
                 rule.SetProperty(
                     SecuritySeverityPropertyName,
-                    score.ToString("0.0", CultureInfo.InvariantCulture));
+                    CweSecuritySeverity.FormatPropertyValue(securitySeverity));
                 stamped++;
             }
 
             return stamped;
         }
 
-        private const string SecuritySeverityPropertyName = "security-severity";
-
-        private const double UnsetRank = -1.0;
+        private const string SecuritySeverityPropertyName = CweSecuritySeverity.PropertyName;
 
         /// <summary>
         /// Runs the multitool validator (--rule-kind Sarif;AI) against the finalized SARIF.
