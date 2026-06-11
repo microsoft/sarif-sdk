@@ -1760,6 +1760,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
             }
         }
 
+        internal static string AI1012_ProvideRuleSubId_Error_Malformed_Text {
+            get {
+                return ResourceManager.GetString("AI1012_ProvideRuleSubId_Error_Malformed_Text", resourceCulture);
+            }
+        }
+
         internal static string SARIF2009_ConsiderConventionalIdentifierValues_Note_HierarchicalIdOnDescriptor_Text {
             get {
                 return ResourceManager.GetString("SARIF2009_ConsiderConventionalIdentifierValues_Note_HierarchicalIdOnDescriptor_Text", resourceCulture);

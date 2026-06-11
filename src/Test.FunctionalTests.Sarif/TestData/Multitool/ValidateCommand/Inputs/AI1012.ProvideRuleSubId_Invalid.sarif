@@ -11,9 +11,6 @@
             {
               "id": "CWE-862",
               "name": "PlanEventMissingAuthorization"
-            },
-            {
-              "id": "TST0002"
             }
           ]
         }
@@ -22,16 +19,27 @@
         {
           "ruleId": "CWE-862",
           "ruleIndex": 0,
-          "message": { "text": "Bare descriptor id, no sub-component. Kebab suggestion should derive from rule.name." }
+          "message": { "text": "Bare CWE base id with a resolvable descriptor; the missing sub-id can be appended and the kebab suggestion derives from rule.name." }
+        },
+        {
+          "ruleId": "CWE-77",
+          "message": { "text": "Bare CWE base id with no resolvable descriptor; the kebab suggestion falls back to 'readable-slug'." }
         },
         {
           "ruleId": "TST0002",
-          "ruleIndex": 1,
-          "message": { "text": "Bare descriptor id, descriptor has no name; suggestion falls back to 'readable-slug'." }
+          "message": { "text": "Non-CWE, non-NOVEL base; no appended sub-id can make it conform." }
         },
         {
-          "ruleId": "TST0003",
-          "message": { "text": "No descriptor, no slash." }
+          "ruleId": "CWE-89/KQL_Injection",
+          "message": { "text": "Sub-id is not lowercase kebab-case (uppercase plus underscore)." }
+        },
+        {
+          "ruleId": "NOVEL/prompt-injection",
+          "message": { "text": "NOVEL escape hatch must be flat 'NOVEL-<sub-id>'; the slash form is malformed." }
+        },
+        {
+          "ruleId": "CWE-89/",
+          "message": { "text": "Empty sub-id after the slash." }
         }
       ],
       "columnKind": "utf16CodeUnits"

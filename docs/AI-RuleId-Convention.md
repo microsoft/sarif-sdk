@@ -15,7 +15,7 @@ If an AI tool emits anything else — bare `CWE-89`, missing entirely, `cwe-89/f
 
 ## Why
 
-A SARIF result's sub-classifier — the part after `CWE-89/` — is where the producer records *which kind* of CWE-89 finding it emitted. The taxonomy entry is necessary but rarely sufficient, so AI-produced findings should name the sub-pattern they actually observed (`CWE-89/orm-string-interpolation`, not just `CWE-89`). The `AI1012` validation rule encodes exactly this expectation: any well-shaped AI finding either has a slash-bearing `ruleId` or extends its descriptor id with a slash-separated sub-id.
+A SARIF result's sub-classifier — the part after `CWE-89/` — is where the producer records *which kind* of CWE-89 finding it emitted. The taxonomy entry is necessary but rarely sufficient, so AI-produced findings should name the sub-pattern they actually observed (`CWE-89/orm-string-interpolation`, not just `CWE-89`). The `AI1012` validation rule is the validation-time counterpart to the emit-time enforcement: it holds `result.ruleId` to this same grammar, distinguishing a bare CWE base id (repairable by appending a sub-id) from a malformed id that no appended sub-id can rescue.
 
 When no sharper sub-pattern applies, the kebab-cased CWE name is an acceptable fallback — for `CWE-89` that is `CWE-89/sql-injection`. It is the generic floor, not the goal: prefer a sharper sub-id when it names something you actually observed, but never invent one just to avoid the floor — a truthful generic beats a fabricated specific. The emit chain never fills the sub-id in for you, and a bare `CWE-89` is still rejected, so the generic value, when you choose it, is a deliberate call rather than a default you slid into.
 
@@ -25,7 +25,7 @@ The two-shape contract serves two distinct producer cases:
 
 2. **The finding doesn't fit any CWE entry.** Use the NOVEL escape hatch (`NOVEL-<sub-id>`). NOVEL- is flat — no slash, no hierarchy. If the AI can connect the finding back to a CWE entry, it MUST use shape #1 instead.
 
-`SarifLogger` consumers do not flow through this convention — it is specific to the AI-authoring emit verb path.
+The `emit` verb hard-enforces this convention at authoring time: `emit-finalize` exits non-zero on any violation. `AI1012` is the validation-time net — when a log is validated with the AI rule kind enabled, `result.ruleId` is held to the same grammar regardless of how the log was produced, so `SarifLogger` callers and hand-authored SARIF are covered even though they never flow through the emit verb.
 
 ## Grammar
 

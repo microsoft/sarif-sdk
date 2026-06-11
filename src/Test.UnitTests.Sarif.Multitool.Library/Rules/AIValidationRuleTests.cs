@@ -200,7 +200,39 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
             results.Should().NotBeEmpty("a bare taxonomy ruleId (e.g. 'CWE-78') has no sub-id classifier");
             results[0].Level.Should().Be(FailureLevel.Error);
+            results[0].Message.Id.Should().Be("Error_Missing", "a bare CWE base id is repairable by appending a sub-id");
         }
+
+        private void RunMalformedRuleIdTest(string ruleId, string because)
+        {
+            SarifLog log = CreateValidAISarifLog();
+            SetAIOrigin(log, "generated");
+            SetExploitability(log, "demonstrated");
+            SetRuleIdShape(log, descriptorId: ruleId, resultRuleId: ruleId);
+
+            SarifLog output = RunAIValidation(log);
+            List<Result> results = GetResultsForRule(output, "AI1012");
+
+            results.Should().NotBeEmpty(because);
+            results[0].Level.Should().Be(FailureLevel.Error);
+            results[0].Message.Id.Should().Be("Error_Malformed", because);
+        }
+
+        [Fact]
+        public void AI1012_WhenSubIdIsNotLowercaseKebab_ReportsMalformed()
+            => RunMalformedRuleIdTest("CWE-89/KQL_Injection", "the sub-id must be lowercase kebab-case (no uppercase, no underscores)");
+
+        [Fact]
+        public void AI1012_WhenNovelEscapeHatchUsesSlash_ReportsMalformed()
+            => RunMalformedRuleIdTest("NOVEL/prompt-injection", "the NOVEL- escape hatch is flat and takes no slash");
+
+        [Fact]
+        public void AI1012_WhenSubIdIsEmpty_ReportsMalformed()
+            => RunMalformedRuleIdTest("CWE-89/", "a trailing slash with no sub-id is not a sub-classification");
+
+        [Fact]
+        public void AI1012_WhenBaseIsNeitherCweNorNovel_ReportsMalformed()
+            => RunMalformedRuleIdTest("TST0002", "only 'CWE-<number>/<sub-id>' and 'NOVEL-<sub-id>' are accepted bases");
 
         [Fact]
         public void AI1012_WhenRuleIdCarriesSubId_NoResult()
