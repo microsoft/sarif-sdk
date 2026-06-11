@@ -17,8 +17,10 @@
     <!-- Seeing assembly load failures with trimmed exe, but not without. On some machines, for some commands. :/ -->
     <!-- <PublishTrimmed Condition="'$(RuntimeIdentifier)' != ''">true</PublishTrimmed> -->
 
-    <!-- Publish 'ready-to-run' on Windows (Linux/Mac not yet supported) -->
-    <PublishReadyToRun Condition="'$(RuntimeIdentifier)' == 'win-x64'">true</PublishReadyToRun>
+    <!-- ReadyToRun is left off: crossgen2 aborts the self-contained win-x64 publish
+         (NETSDK1096) under the SDK the build host runs, which is the only RID that
+         enables it. The startup gain does not justify a publish that fails. -->
+    <PublishReadyToRun Condition="'$(RuntimeIdentifier)' != ''">false</PublishReadyToRun>
   </PropertyGroup>
 
   <PropertyGroup Label="AssemblyAttributes">
