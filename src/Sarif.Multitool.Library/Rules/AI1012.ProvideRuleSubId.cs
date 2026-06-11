@@ -34,9 +34,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             nameof(RuleResources.AI1012_ProvideRuleSubId_Error_Malformed_Text)
         };
 
-        // A bare CWE base id (CWE-<number>) is conformant except that it lacks the required
-        // sub-id; appending one (e.g. CWE-89/kql-injection) makes it acceptable. Every other
-        // non-conformant shape is malformed: it can never be repaired by appending a sub-id.
+        // A bare 'CWE-<number>' lacks only the required sub-id, so appending one repairs it
+        // (the Missing path). Every other non-conformant shape is malformed beyond repair.
         private static readonly Regex s_bareCweBaseId = new Regex(
             @"^CWE-[0-9]+$",
             RegexOptions.Compiled | RegexOptions.CultureInvariant);
@@ -51,8 +50,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                 return;
             }
 
-            // The validation gate is the same convention emit hard-enforces via
-            // AIRuleIdConvention.ThrowIfAnyUnacceptable: result.ruleId is either
+            // The gate is the convention emit hard-enforces via AIRuleIdConvention:
             // 'CWE-<number>/<kebab-sub-id>' or the flat 'NOVEL-<kebab-sub-id>' escape hatch.
             if (AIRuleIdConvention.IsAcceptable(ruleId))
             {
@@ -61,16 +59,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 
             if (s_bareCweBaseId.IsMatch(ruleId))
             {
-                // GetRule can NRE on degenerate logs (e.g. tool.driver absent, extension-only
-                // tool, bad ruleIndex). A validation skimmer must never throw on malformed
-                // input — those shapes are other rules' job to flag. The descriptor is consulted
-                // only to suggest a kebab-cased sub-id; failure to resolve it is non-fatal.
-                ReportingDescriptor rule = null;
-                try { rule = result.GetRule(run); } catch { /* fall through with rule == null */ }
+                // The descriptor is consulted only to suggest a kebab-cased sub-id. A throw
+                // here on a degenerate log (bad ruleIndex, absent driver) propagates to the
+                // analysis engine's single rule-exception handler, which logs it.
+                ReportingDescriptor rule = result.GetRule(run);
 
-                // {0}: 'result.ruleId' is '{1}' with no sub-component beyond the descriptor id.
-                // Append a hierarchical sub-ID: a true sub-classification of '{1}' if one applies,
-                // otherwise the kebab-cased rule name (e.g. '{1}/{2}').
+                // {1} is the bare ruleId; {2} is the suggested sub-id (kebab rule name or a slug).
                 LogResult(
                     resultPointer,
                     nameof(RuleResources.AI1012_ProvideRuleSubId_Error_Missing_Text),
@@ -79,8 +73,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                 return;
             }
 
-            // {0}: 'result.ruleId' is '{1}', which is neither a 'CWE-<number>/<sub-id>' nor a
-            // 'NOVEL-<sub-id>' value, so no appended sub-id can make it conform.
+            // Not a bare CWE base id and not acceptable: no appended sub-id can repair it.
             LogResult(
                 resultPointer,
                 nameof(RuleResources.AI1012_ProvideRuleSubId_Error_Malformed_Text),
