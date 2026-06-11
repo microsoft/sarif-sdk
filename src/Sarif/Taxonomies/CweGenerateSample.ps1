@@ -49,7 +49,7 @@
       2. add-result × 7 — each Result is a fully-formed SARIF object piped
          in as JSON. Per-result payload carries:
            message.text + message.markdown
-           rank (numeric, derived from level)
+           rank (numeric 0-100 priority, hand-assigned per finding)
            properties.ai/exploitability (spread across the AI2014 vocab)
            properties.ai/attackerPosition (spread across a vocab demo)
            locations[].physicalLocation { artifactLocation, region }

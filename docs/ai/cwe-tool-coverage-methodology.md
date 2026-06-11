@@ -248,7 +248,9 @@ land outside even the broader `observed` set:
   the source-of-truth chain.
 - **The CWE was added after MITRE 4.20**. Use it; flag for refresh.
 - **No CWE applies**. Don't force one. Emit the finding without a CWE
-  taxon (or with a `ruleId` that doesn't claim CWE mapping).
+  taxon, giving it a `ruleId` in the `NOVEL-<sub-id>` form (the escape
+  hatch the AI ruleId convention reserves for findings with no fitting
+  CWE; note `NOVEL-` takes no slash).
 
 ## Caveats
 
