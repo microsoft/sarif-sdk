@@ -322,7 +322,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             _run = node;
             _run = base.VisitRun(node);
 
-            _run.Invocations = null;
+            // Invocations are intentionally preserved: RunMergingVisitor aggregates
+            // them into the merged run and rebases each result's invocationIndex.
             _run.Artifacts = null;
             _run.Tool.Driver = new ToolComponent
             {
