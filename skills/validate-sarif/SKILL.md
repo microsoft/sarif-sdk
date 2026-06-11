@@ -34,7 +34,7 @@ Both layers matter. A structurally valid SARIF file with `ai/exploitability: "un
 
 - **`Sarif.Multitool` ≥ 5.0.0.** Recommended invocation: `dotnet dnx Sarif.Multitool --yes -- validate ...` (zero-install, requires .NET 10+). Fall back to `dotnet tool install --global Sarif.Multitool` if `dotnet dnx` is unavailable.
 - The normative profile document at [`docs/ai/generating-sarif.md`](../../docs/ai/generating-sarif.md). This skill references it but embeds the rules for offline execution.
-- The full validation rule catalog at [`docs/ValidationRules.md`](../../docs/ValidationRules.md).
+- The standard (base-profile) validation rule catalog at [`docs/ValidationRules.md`](../../docs/ValidationRules.md). AI- and GHAzDO-profile rules are documented in [`docs/ai/generating-sarif.md`](../../docs/ai/generating-sarif.md).
 
 ## Detection
 
@@ -92,7 +92,7 @@ General SARIF rules that commonly fire on AI-generated output:
 | SARIF2009 | Non-conventional rule IDs |
 | SARIF2012 | Rules missing `helpUri` |
 
-See [`docs/ValidationRules.md`](../../docs/ValidationRules.md) for the full catalog.
+See [`docs/ValidationRules.md`](../../docs/ValidationRules.md) for the standard catalog; AI- and GHAzDO-profile rules are documented in [`docs/ai/generating-sarif.md`](../../docs/ai/generating-sarif.md).
 
 **If `dotnet dnx` is not available:** Fall back to the global tool: `dotnet tool install --global Sarif.Multitool` then run:
 

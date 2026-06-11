@@ -35,6 +35,44 @@ namespace Microsoft.CodeAnalysis.Sarif.Emit
 
         internal const string NovelMarker = "NOVEL-";
 
+        // Captures the CWE number from a conformant CWE sub-id ruleId; the sub-id tail is ignored.
+        private static readonly Regex s_cweNumber = new Regex(
+            @"^CWE-([0-9]+)(/|$)",
+            RegexOptions.Compiled | RegexOptions.CultureInvariant);
+
+        /// <summary>
+        /// Extracts the canonical CWE id (<c>CWE-&lt;number&gt;</c>) carried by an AI ruleId,
+        /// whether the ruleId is a bare descriptor id (<c>CWE-89</c>) or a result-level sub-id
+        /// form (<c>CWE-89/kql-injection</c>). The leading-zero-free canonical form is returned
+        /// (e.g. <c>CWE-089/...</c> yields <c>CWE-89</c>).
+        /// </summary>
+        /// <param name="ruleId">The ruleId to inspect.</param>
+        /// <param name="cweId">The canonical <c>CWE-&lt;number&gt;</c> id, when present.</param>
+        /// <returns>
+        /// <c>true</c> when <paramref name="ruleId"/> carries a CWE token; <c>false</c> for the
+        /// <c>NOVEL-</c> form, null/empty, and anything that does not begin with a CWE token.
+        /// </returns>
+        public static bool TryGetCweId(string ruleId, out string cweId)
+        {
+            cweId = null;
+            if (string.IsNullOrEmpty(ruleId)) { return false; }
+
+            Match match = s_cweNumber.Match(ruleId);
+            if (!match.Success) { return false; }
+
+            if (!int.TryParse(
+                    match.Groups[1].Value,
+                    System.Globalization.NumberStyles.None,
+                    System.Globalization.CultureInfo.InvariantCulture,
+                    out int number))
+            {
+                return false;
+            }
+
+            cweId = "CWE-" + number.ToString(System.Globalization.CultureInfo.InvariantCulture);
+            return true;
+        }
+
         /// <summary>
         /// Returns true when <paramref name="ruleId"/> starts with the NOVEL- escape-hatch
         /// prefix; the full grammar is enforced by <see cref="IsAcceptable"/>.

@@ -281,6 +281,56 @@ namespace Microsoft.CodeAnalysis.Sarif.Taxonomies
             run.Tool.Driver.Rules[0].ShortDescription.Text.Should().Be("Producer short.");
         }
 
+        [Fact]
+        public void Enrich_CopiesTaxonSecuritySeverityOntoRule()
+        {
+            // CWE-79's taxon carries the curated security-severity prior; the enricher copies
+            // it verbatim onto a CWE-matched rule so GitHub and Azure DevOps can read it.
+            ReportingDescriptor taxon = LoadTaxon("CWE-79");
+            taxon.TryGetProperty(CweSecuritySeverity.PropertyName, out string taxonValue).Should().BeTrue();
+
+            ReportingDescriptor rule = EnrichSingleRule("CWE-79");
+
+            rule.TryGetProperty(CweSecuritySeverity.PropertyName, out string ruleValue).Should().BeTrue();
+            ruleValue.Should().Be(taxonValue);
+        }
+
+        [Fact]
+        public void Enrich_PreservesProducerSecuritySeverity()
+        {
+            var rule = new ReportingDescriptor { Id = "CWE-79" };
+            rule.SetProperty(CweSecuritySeverity.PropertyName, "3.3");
+
+            var run = new Run
+            {
+                Tool = new Tool
+                {
+                    Driver = new ToolComponent
+                    {
+                        Rules = new List<ReportingDescriptor> { rule },
+                    },
+                },
+            };
+
+            CweTaxonomyEnricher.Enrich(run);
+
+            run.Tool.Driver.Rules[0].TryGetProperty(CweSecuritySeverity.PropertyName, out string value).Should().BeTrue();
+            value.Should().Be("3.3", "a producer-authored security-severity is never overwritten");
+        }
+
+        [Fact]
+        public void Enrich_OmitsSecuritySeverityWhenTaxonHasNone()
+        {
+            // CWE-1220 is in the catalog but has no curated prior, so its taxon carries no
+            // security-severity; the enricher leaves the rule without one (no gap-filler stamp).
+            ReportingDescriptor taxon = LoadTaxon("CWE-1220");
+            taxon.TryGetProperty(CweSecuritySeverity.PropertyName, out string _).Should().BeFalse();
+
+            ReportingDescriptor rule = EnrichSingleRule("CWE-1220");
+
+            rule.TryGetProperty(CweSecuritySeverity.PropertyName, out string _).Should().BeFalse();
+        }
+
         private static ReportingDescriptor EnrichSingleRule(string id)
         {
             var run = new Run

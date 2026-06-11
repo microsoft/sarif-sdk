@@ -18,7 +18,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
     /// </summary>
     /// <remarks>
     /// <para>The verb gates required AI invocation fields: <c>executionSuccessful</c>,
-    /// <c>commandLine</c>, <c>workingDirectory.uri</c>, and inline notification <c>timeUtc</c>
+    /// <c>commandLine</c>, an anchored <c>workingDirectory</c> (a <c>uri</c> and/or
+    /// <c>uriBaseId</c>), and inline notification <c>timeUtc</c>
     /// values. Full structural validation runs at <c>emit-finalize --validate</c>.</para>
     /// <para>The verb stamps <c>endTimeUtc</c> with the time of receipt when the producer leaves it unset.</para>
     /// </remarks>
@@ -95,15 +96,27 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             }
 
             JToken workingDirectory = payload["workingDirectory"];
-            JToken workingDirectoryUri = (workingDirectory as JObject)?["uri"];
-            if (workingDirectory == null
-                || workingDirectory.Type != JTokenType.Object
-                || workingDirectoryUri == null
-                || workingDirectoryUri.Type != JTokenType.String
-                || string.IsNullOrWhiteSpace(workingDirectoryUri.Value<string>()))
+            if (workingDirectory == null || workingDirectory.Type != JTokenType.Object)
             {
                 Console.Error.WriteLine(
-                    "Invalid invocation: 'workingDirectory' is required and must be an artifactLocation with a non-whitespace 'uri'.");
+                    "Invalid invocation: 'workingDirectory' is required and must be an artifactLocation.");
+                return false;
+            }
+
+            // A SARIF artifactLocation is addressable by 'uri' and/or 'uriBaseId'. emit-finalize
+            // rebases a repo-root workingDirectory to an empty 'uri' under a 'uriBaseId', so accept
+            // either anchor; only a workingDirectory carrying neither is unanchored and rejected.
+            var workingDirectoryObject = (JObject)workingDirectory;
+            JToken workingDirectoryUri = workingDirectoryObject["uri"];
+            JToken workingDirectoryUriBaseId = workingDirectoryObject["uriBaseId"];
+            bool hasUri = workingDirectoryUri?.Type == JTokenType.String
+                && !string.IsNullOrWhiteSpace(workingDirectoryUri.Value<string>());
+            bool hasUriBaseId = workingDirectoryUriBaseId?.Type == JTokenType.String
+                && !string.IsNullOrWhiteSpace(workingDirectoryUriBaseId.Value<string>());
+            if (!hasUri && !hasUriBaseId)
+            {
+                Console.Error.WriteLine(
+                    "Invalid invocation: 'workingDirectory' must be an artifactLocation with a non-whitespace 'uri' or 'uriBaseId'.");
                 return false;
             }
 

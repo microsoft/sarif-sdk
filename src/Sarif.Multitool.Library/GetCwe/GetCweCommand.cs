@@ -236,10 +236,22 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 Status = GetProperty(taxon, CweStatusProperty),
                 Abstraction = GetProperty(taxon, CweAbstractionProperty),
                 Parent = GetProperty(taxon, CweParentProperty),
+                SecuritySeverity = ResolveSecuritySeverity(taxon),
                 ShortDescription = ResolveShortDescription(taxon),
                 HelpUri = ResolveHelpUri(taxon),
                 Help = concise ? null : (taxon.Help?.Markdown ?? taxon.Help?.Text),
             };
+        }
+
+        // Surfaces the security-severity prior the CWE taxon carries (the SDK's stable per-CWE
+        // value, on the 0.0-10.0 scale GitHub and Azure DevOps read). get-cwe reflects exactly what
+        // the taxonomy ships. A taxon with no curated prior yields null and the field is omitted.
+        private static double? ResolveSecuritySeverity(ReportingDescriptor taxon)
+        {
+            return taxon.TryGetProperty(CweSecuritySeverity.PropertyName, out string value)
+                && double.TryParse(value, NumberStyles.Float, CultureInfo.InvariantCulture, out double parsed)
+                ? parsed
+                : (double?)null;
         }
 
         // The taxonomy omits shortDescription whenever it is recoverable as the first sentence
@@ -290,6 +302,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 if (!string.IsNullOrEmpty(r.Status)) { sb.AppendLine($"- **status**: {r.Status}"); }
                 if (!string.IsNullOrEmpty(r.Abstraction)) { sb.AppendLine($"- **abstraction**: {r.Abstraction}"); }
                 if (!string.IsNullOrEmpty(r.Parent)) { sb.AppendLine($"- **parent**: {r.Parent}"); }
+                if (r.SecuritySeverity.HasValue)
+                {
+                    sb.AppendLine($"- **security-severity**: {CweSecuritySeverity.FormatPropertyValue(r.SecuritySeverity.Value)}");
+                }
                 if (!string.IsNullOrEmpty(r.HelpUri)) { sb.AppendLine($"- **help**: {r.HelpUri}"); }
 
                 if (!string.IsNullOrEmpty(r.ShortDescription))
@@ -332,6 +348,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
             [JsonProperty("parent", NullValueHandling = NullValueHandling.Ignore)]
             public string Parent { get; set; }
+
+            [JsonProperty("securitySeverity", NullValueHandling = NullValueHandling.Ignore)]
+            public double? SecuritySeverity { get; set; }
 
             [JsonProperty("shortDescription", NullValueHandling = NullValueHandling.Ignore)]
             public string ShortDescription { get; set; }

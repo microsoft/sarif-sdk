@@ -62,6 +62,16 @@ def default_output_dir():
     return repo_root() / "src" / "Sarif" / "Taxonomies"
 
 
+def load_security_severity():
+    """Load the SDK's curated per-CWE security-severity table
+    (src/Sarif/Taxonomies/CweSecuritySeverity.json), keyed by CWE id (e.g. "CWE-89").
+    This is the SDK's hand-curated severity prior, not MITRE data; the taxonomy carries
+    it so it is a formal part of the CWE story and flows to CWE-as-rule descriptors."""
+    path = repo_root() / "src" / "Sarif" / "Taxonomies" / "CweSecuritySeverity.json"
+    with open(path, "r", encoding="utf-8") as f:
+        return json.load(f)
+
+
 def download_and_extract(source_url, staging_dir):
     """Download ``source_url`` and extract the embedded CWE XML into
     ``staging_dir``. Returns the path to the extracted ``cwec_v*.xml``."""
@@ -358,6 +368,7 @@ def emit(xml_path, output_dir, source_url):
     )
 
     taxa = []
+    security_severity = load_security_severity()
     for w in all_items:
         cwe_id = f"CWE-{w.get('ID')}"
         title = w.get("Name")
@@ -399,6 +410,9 @@ def emit(xml_path, output_dir, source_url):
         parent = view1000_parent(w)
         if parent:
             props["cwe/parent"] = parent
+        sev = security_severity.get(cwe_id)
+        if sev is not None:
+            props["security-severity"] = f"{sev:.1f}"
         taxon["properties"] = props
 
         taxa.append(taxon)
@@ -418,8 +432,10 @@ def emit(xml_path, output_dir, source_url):
         "fullDescription": {
             "text": (
                 "Complete snapshot of the MITRE CWE catalog. Each taxon carries "
-                f"cwe/status ({status_counts}), cwe/abstraction, and (where applicable) "
-                "cwe/parent (canonical ChildOf parent under CWE View 1000 / Research Concepts)."
+                f"cwe/status ({status_counts}), cwe/abstraction, (where applicable) "
+                "cwe/parent (canonical ChildOf parent under CWE View 1000 / Research Concepts), "
+                "and (where curated) security-severity (the SDK's stable per-CWE severity prior "
+                "on the 0.0-10.0 scale read by GitHub and Azure DevOps Advanced Security)."
             )
         },
         "taxa": taxa,

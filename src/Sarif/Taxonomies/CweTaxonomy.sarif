@@ -22,7 +22,7 @@
             "text": "MITRE Common Weakness Enumeration (CWE). 969 entries from cwec_v4.20.xml."
           },
           "fullDescription": {
-            "text": "Complete snapshot of the MITRE CWE catalog. Each taxon carries cwe/status (Stable=26, Draft=432, Incomplete=486, Deprecated=25, Obsolete=0), cwe/abstraction, and (where applicable) cwe/parent (canonical ChildOf parent under CWE View 1000 / Research Concepts)."
+            "text": "Complete snapshot of the MITRE CWE catalog. Each taxon carries cwe/status (Stable=26, Draft=432, Incomplete=486, Deprecated=25, Obsolete=0), cwe/abstraction, (where applicable) cwe/parent (canonical ChildOf parent under CWE View 1000 / Research Concepts), and (where curated) security-severity (the SDK's stable per-CWE severity prior on the 0.0-10.0 scale read by GitHub and Azure DevOps Advanced Security)."
           },
           "taxa": [
             {
@@ -130,7 +130,8 @@
                 "cwe/title": "ASP.NET Misconfiguration: Creating Debug Binary",
                 "cwe/status": "Draft",
                 "cwe/abstraction": "Variant",
-                "cwe/parent": "CWE-489"
+                "cwe/parent": "CWE-489",
+                "security-severity": "7.5"
               }
             },
             {
@@ -148,7 +149,8 @@
                 "cwe/title": "ASP.NET Misconfiguration: Missing Custom Error Page",
                 "cwe/status": "Draft",
                 "cwe/abstraction": "Variant",
-                "cwe/parent": "CWE-756"
+                "cwe/parent": "CWE-756",
+                "security-severity": "7.5"
               }
             },
             {
@@ -166,7 +168,8 @@
                 "cwe/title": "ASP.NET Misconfiguration: Password in Configuration File",
                 "cwe/status": "Draft",
                 "cwe/abstraction": "Variant",
-                "cwe/parent": "CWE-260"
+                "cwe/parent": "CWE-260",
+                "security-severity": "7.5"
               }
             },
             {
@@ -184,7 +187,8 @@
                 "cwe/title": "Compiler Removal of Code to Clear Buffers",
                 "cwe/status": "Draft",
                 "cwe/abstraction": "Variant",
-                "cwe/parent": "CWE-733"
+                "cwe/parent": "CWE-733",
+                "security-severity": "7.8"
               }
             },
             {
@@ -220,7 +224,8 @@
                 "cwe/title": "Improper Input Validation",
                 "cwe/status": "Stable",
                 "cwe/abstraction": "Class",
-                "cwe/parent": "CWE-707"
+                "cwe/parent": "CWE-707",
+                "security-severity": "7.8"
               }
             },
             {
@@ -238,7 +243,8 @@
                 "cwe/title": "Improper Limitation of a Pathname to a Restricted Directory ('Path Traversal')",
                 "cwe/status": "Stable",
                 "cwe/abstraction": "Base",
-                "cwe/parent": "CWE-706"
+                "cwe/parent": "CWE-706",
+                "security-severity": "7.5"
               }
             },
             {
@@ -259,7 +265,8 @@
                 "cwe/title": "Relative Path Traversal",
                 "cwe/status": "Draft",
                 "cwe/abstraction": "Base",
-                "cwe/parent": "CWE-22"
+                "cwe/parent": "CWE-22",
+                "security-severity": "7.5"
               }
             },
             {
@@ -499,7 +506,8 @@
                 "cwe/title": "Absolute Path Traversal",
                 "cwe/status": "Draft",
                 "cwe/abstraction": "Base",
-                "cwe/parent": "CWE-22"
+                "cwe/parent": "CWE-22",
+                "security-severity": "7.5"
               }
             },
             {
@@ -1098,7 +1106,8 @@
                 "cwe/title": "External Control of File Name or Path",
                 "cwe/status": "Draft",
                 "cwe/abstraction": "Base",
-                "cwe/parent": "CWE-642"
+                "cwe/parent": "CWE-642",
+                "security-severity": "7.5"
               }
             },
             {
@@ -1116,7 +1125,8 @@
                 "cwe/title": "Improper Neutralization of Special Elements in Output Used by a Downstream Component ('Injection')",
                 "cwe/status": "Incomplete",
                 "cwe/abstraction": "Class",
-                "cwe/parent": "CWE-707"
+                "cwe/parent": "CWE-707",
+                "security-severity": "9.3"
               }
             },
             {
@@ -1170,7 +1180,8 @@
                 "cwe/title": "Improper Neutralization of Special Elements used in a Command ('Command Injection')",
                 "cwe/status": "Draft",
                 "cwe/abstraction": "Class",
-                "cwe/parent": "CWE-74"
+                "cwe/parent": "CWE-74",
+                "security-severity": "7.0"
               }
             },
             {
@@ -1188,7 +1199,8 @@
                 "cwe/title": "Improper Neutralization of Special Elements used in an OS Command ('OS Command Injection')",
                 "cwe/status": "Stable",
                 "cwe/abstraction": "Base",
-                "cwe/parent": "CWE-77"
+                "cwe/parent": "CWE-77",
+                "security-severity": "9.8"
               }
             },
             {
@@ -1206,7 +1218,8 @@
                 "cwe/title": "Improper Neutralization of Input During Web Page Generation ('Cross-site Scripting')",
                 "cwe/status": "Stable",
                 "cwe/abstraction": "Base",
-                "cwe/parent": "CWE-74"
+                "cwe/parent": "CWE-74",
+                "security-severity": "7.8"
               }
             },
             {
@@ -1224,7 +1237,8 @@
                 "cwe/title": "Improper Neutralization of Script-Related HTML Tags in a Web Page (Basic XSS)",
                 "cwe/status": "Incomplete",
                 "cwe/abstraction": "Variant",
-                "cwe/parent": "CWE-79"
+                "cwe/parent": "CWE-79",
+                "security-severity": "7.8"
               }
             },
             {
@@ -1368,7 +1382,8 @@
                 "cwe/title": "Improper Neutralization of Argument Delimiters in a Command ('Argument Injection')",
                 "cwe/status": "Draft",
                 "cwe/abstraction": "Base",
-                "cwe/parent": "CWE-77"
+                "cwe/parent": "CWE-77",
+                "security-severity": "9.8"
               }
             },
             {
@@ -1386,7 +1401,8 @@
                 "cwe/title": "Improper Neutralization of Special Elements used in an SQL Command ('SQL Injection')",
                 "cwe/status": "Stable",
                 "cwe/abstraction": "Base",
-                "cwe/parent": "CWE-943"
+                "cwe/parent": "CWE-943",
+                "security-severity": "8.8"
               }
             },
             {
@@ -1404,7 +1420,8 @@
                 "cwe/title": "Improper Neutralization of Special Elements used in an LDAP Query ('LDAP Injection')",
                 "cwe/status": "Draft",
                 "cwe/abstraction": "Base",
-                "cwe/parent": "CWE-943"
+                "cwe/parent": "CWE-943",
+                "security-severity": "9.8"
               }
             },
             {
@@ -1422,7 +1439,8 @@
                 "cwe/title": "XML Injection (aka Blind XPath Injection)",
                 "cwe/status": "Draft",
                 "cwe/abstraction": "Base",
-                "cwe/parent": "CWE-74"
+                "cwe/parent": "CWE-74",
+                "security-severity": "8.8"
               }
             },
             {
@@ -1460,7 +1478,8 @@
                 "cwe/title": "Improper Neutralization of CRLF Sequences ('CRLF Injection')",
                 "cwe/status": "Draft",
                 "cwe/abstraction": "Base",
-                "cwe/parent": "CWE-74"
+                "cwe/parent": "CWE-74",
+                "security-severity": "6.1"
               }
             },
             {
@@ -1478,7 +1497,8 @@
                 "cwe/title": "Improper Control of Generation of Code ('Code Injection')",
                 "cwe/status": "Draft",
                 "cwe/abstraction": "Base",
-                "cwe/parent": "CWE-74"
+                "cwe/parent": "CWE-74",
+                "security-severity": "9.3"
               }
             },
             {
@@ -1499,7 +1519,8 @@
                 "cwe/title": "Improper Neutralization of Directives in Dynamically Evaluated Code ('Eval Injection')",
                 "cwe/status": "Incomplete",
                 "cwe/abstraction": "Variant",
-                "cwe/parent": "CWE-94"
+                "cwe/parent": "CWE-94",
+                "security-severity": "9.3"
               }
             },
             {
@@ -1517,7 +1538,8 @@
                 "cwe/title": "Improper Neutralization of Directives in Statically Saved Code ('Static Code Injection')",
                 "cwe/status": "Draft",
                 "cwe/abstraction": "Base",
-                "cwe/parent": "CWE-94"
+                "cwe/parent": "CWE-94",
+                "security-severity": "9.3"
               }
             },
             {
@@ -1571,7 +1593,8 @@
                 "cwe/title": "Improper Control of Resource Identifiers ('Resource Injection')",
                 "cwe/status": "Draft",
                 "cwe/abstraction": "Class",
-                "cwe/parent": "CWE-74"
+                "cwe/parent": "CWE-74",
+                "security-severity": "7.5"
               }
             },
             {
@@ -1769,7 +1792,8 @@
                 "cwe/title": "Missing XML Validation",
                 "cwe/status": "Draft",
                 "cwe/abstraction": "Base",
-                "cwe/parent": "CWE-1286"
+                "cwe/parent": "CWE-1286",
+                "security-severity": "4.3"
               }
             },
             {
@@ -1787,7 +1811,8 @@
                 "cwe/title": "Improper Neutralization of CRLF Sequences in HTTP Headers ('HTTP Request/Response Splitting')",
                 "cwe/status": "Incomplete",
                 "cwe/abstraction": "Variant",
-                "cwe/parent": "CWE-93"
+                "cwe/parent": "CWE-93",
+                "security-severity": "6.1"
               }
             },
             {
@@ -1805,7 +1830,8 @@
                 "cwe/title": "Process Control",
                 "cwe/status": "Incomplete",
                 "cwe/abstraction": "Class",
-                "cwe/parent": "CWE-73"
+                "cwe/parent": "CWE-73",
+                "security-severity": "8.2"
               }
             },
             {
@@ -1841,7 +1867,8 @@
                 "cwe/title": "Improper Encoding or Escaping of Output",
                 "cwe/status": "Draft",
                 "cwe/abstraction": "Class",
-                "cwe/parent": "CWE-707"
+                "cwe/parent": "CWE-707",
+                "security-severity": "7.8"
               }
             },
             {
@@ -1859,7 +1886,8 @@
                 "cwe/title": "Improper Output Neutralization for Logs",
                 "cwe/status": "Draft",
                 "cwe/abstraction": "Base",
-                "cwe/parent": "CWE-116"
+                "cwe/parent": "CWE-116",
+                "security-severity": "6.1"
               }
             },
             {
@@ -1895,7 +1923,8 @@
                 "cwe/title": "Improper Restriction of Operations within the Bounds of a Memory Buffer",
                 "cwe/status": "Stable",
                 "cwe/abstraction": "Class",
-                "cwe/parent": "CWE-118"
+                "cwe/parent": "CWE-118",
+                "security-severity": "9.3"
               }
             },
             {
@@ -1913,7 +1942,8 @@
                 "cwe/title": "Buffer Copy without Checking Size of Input ('Classic Buffer Overflow')",
                 "cwe/status": "Incomplete",
                 "cwe/abstraction": "Base",
-                "cwe/parent": "CWE-787"
+                "cwe/parent": "CWE-787",
+                "security-severity": "9.3"
               }
             },
             {
@@ -1931,7 +1961,8 @@
                 "cwe/title": "Stack-based Buffer Overflow",
                 "cwe/status": "Draft",
                 "cwe/abstraction": "Variant",
-                "cwe/parent": "CWE-788"
+                "cwe/parent": "CWE-788",
+                "security-severity": "9.1"
               }
             },
             {
@@ -1949,7 +1980,8 @@
                 "cwe/title": "Heap-based Buffer Overflow",
                 "cwe/status": "Draft",
                 "cwe/abstraction": "Variant",
-                "cwe/parent": "CWE-788"
+                "cwe/parent": "CWE-788",
+                "security-severity": "9.3"
               }
             },
             {
@@ -2003,7 +2035,8 @@
                 "cwe/title": "Out-of-bounds Read",
                 "cwe/status": "Draft",
                 "cwe/abstraction": "Base",
-                "cwe/parent": "CWE-119"
+                "cwe/parent": "CWE-119",
+                "security-severity": "8.8"
               }
             },
             {
@@ -2021,7 +2054,8 @@
                 "cwe/title": "Buffer Over-read",
                 "cwe/status": "Draft",
                 "cwe/abstraction": "Variant",
-                "cwe/parent": "CWE-788"
+                "cwe/parent": "CWE-788",
+                "security-severity": "9.3"
               }
             },
             {
@@ -2057,7 +2091,8 @@
                 "cwe/title": "Wrap-around Error",
                 "cwe/status": "Incomplete",
                 "cwe/abstraction": "Base",
-                "cwe/parent": "CWE-682"
+                "cwe/parent": "CWE-682",
+                "security-severity": "8.1"
               }
             },
             {
@@ -2075,7 +2110,8 @@
                 "cwe/title": "Improper Validation of Array Index",
                 "cwe/status": "Draft",
                 "cwe/abstraction": "Variant",
-                "cwe/parent": "CWE-1285"
+                "cwe/parent": "CWE-1285",
+                "security-severity": "8.8"
               }
             },
             {
@@ -2111,7 +2147,8 @@
                 "cwe/title": "Incorrect Calculation of Buffer Size",
                 "cwe/status": "Draft",
                 "cwe/abstraction": "Base",
-                "cwe/parent": "CWE-682"
+                "cwe/parent": "CWE-682",
+                "security-severity": "9.3"
               }
             },
             {
@@ -2146,7 +2183,8 @@
                 "cwe/title": "Use of Externally-Controlled Format String",
                 "cwe/status": "Draft",
                 "cwe/abstraction": "Base",
-                "cwe/parent": "CWE-668"
+                "cwe/parent": "CWE-668",
+                "security-severity": "7.3"
               }
             },
             {
@@ -2164,7 +2202,8 @@
                 "cwe/title": "Incorrect Calculation of Multi-Byte String Length",
                 "cwe/status": "Draft",
                 "cwe/abstraction": "Base",
-                "cwe/parent": "CWE-682"
+                "cwe/parent": "CWE-682",
+                "security-severity": "7.8"
               }
             },
             {
@@ -2722,7 +2761,8 @@
                 "cwe/title": "Improper Null Termination",
                 "cwe/status": "Incomplete",
                 "cwe/abstraction": "Base",
-                "cwe/parent": "CWE-707"
+                "cwe/parent": "CWE-707",
+                "security-severity": "8.9"
               }
             },
             {
@@ -2848,7 +2888,8 @@
                 "cwe/title": "Improper Handling of Case Sensitivity",
                 "cwe/status": "Incomplete",
                 "cwe/abstraction": "Base",
-                "cwe/parent": "CWE-706"
+                "cwe/parent": "CWE-706",
+                "security-severity": "7.3"
               }
             },
             {
@@ -2938,7 +2979,8 @@
                 "cwe/title": "Permissive List of Allowed Inputs",
                 "cwe/status": "Draft",
                 "cwe/abstraction": "Base",
-                "cwe/parent": "CWE-697"
+                "cwe/parent": "CWE-697",
+                "security-severity": "7.5"
               }
             },
             {
@@ -2956,7 +2998,8 @@
                 "cwe/title": "Incomplete List of Disallowed Inputs",
                 "cwe/status": "Draft",
                 "cwe/abstraction": "Base",
-                "cwe/parent": "CWE-693"
+                "cwe/parent": "CWE-693",
+                "security-severity": "7.8"
               }
             },
             {
@@ -2974,7 +3017,8 @@
                 "cwe/title": "Incorrect Regular Expression",
                 "cwe/status": "Draft",
                 "cwe/abstraction": "Class",
-                "cwe/parent": "CWE-697"
+                "cwe/parent": "CWE-697",
+                "security-severity": "7.8"
               }
             },
             {
@@ -2992,7 +3036,8 @@
                 "cwe/title": "Overly Restrictive Regular Expression",
                 "cwe/status": "Draft",
                 "cwe/abstraction": "Base",
-                "cwe/parent": "CWE-185"
+                "cwe/parent": "CWE-185",
+                "security-severity": "7.8"
               }
             },
             {
@@ -3046,7 +3091,8 @@
                 "cwe/title": "Integer Overflow or Wraparound",
                 "cwe/status": "Stable",
                 "cwe/abstraction": "Base",
-                "cwe/parent": "CWE-682"
+                "cwe/parent": "CWE-682",
+                "security-severity": "8.1"
               }
             },
             {
@@ -3064,7 +3110,8 @@
                 "cwe/title": "Integer Underflow (Wrap or Wraparound)",
                 "cwe/status": "Draft",
                 "cwe/abstraction": "Base",
-                "cwe/parent": "CWE-682"
+                "cwe/parent": "CWE-682",
+                "security-severity": "8.6"
               }
             },
             {
@@ -3082,7 +3129,8 @@
                 "cwe/title": "Integer Coercion Error",
                 "cwe/status": "Incomplete",
                 "cwe/abstraction": "Variant",
-                "cwe/parent": "CWE-681"
+                "cwe/parent": "CWE-681",
+                "security-severity": "8.1"
               }
             },
             {
@@ -3100,7 +3148,8 @@
                 "cwe/title": "Off-by-one Error",
                 "cwe/status": "Draft",
                 "cwe/abstraction": "Base",
-                "cwe/parent": "CWE-682"
+                "cwe/parent": "CWE-682",
+                "security-severity": "9.3"
               }
             },
             {
@@ -3172,7 +3221,8 @@
                 "cwe/title": "Numeric Truncation Error",
                 "cwe/status": "Incomplete",
                 "cwe/abstraction": "Base",
-                "cwe/parent": "CWE-681"
+                "cwe/parent": "CWE-681",
+                "security-severity": "8.1"
               }
             },
             {
@@ -3211,7 +3261,8 @@
                 "cwe/title": "Exposure of Sensitive Information to an Unauthorized Actor",
                 "cwe/status": "Draft",
                 "cwe/abstraction": "Class",
-                "cwe/parent": "CWE-668"
+                "cwe/parent": "CWE-668",
+                "security-severity": "6.5"
               }
             },
             {
@@ -3229,7 +3280,8 @@
                 "cwe/title": "Insertion of Sensitive Information Into Sent Data",
                 "cwe/status": "Draft",
                 "cwe/abstraction": "Base",
-                "cwe/parent": "CWE-200"
+                "cwe/parent": "CWE-200",
+                "security-severity": "4.3"
               }
             },
             {
@@ -3355,7 +3407,8 @@
                 "cwe/title": "Observable Timing Discrepancy",
                 "cwe/status": "Incomplete",
                 "cwe/abstraction": "Base",
-                "cwe/parent": "CWE-203"
+                "cwe/parent": "CWE-203",
+                "security-severity": "6.0"
               }
             },
             {
@@ -3373,7 +3426,8 @@
                 "cwe/title": "Generation of Error Message Containing Sensitive Information",
                 "cwe/status": "Draft",
                 "cwe/abstraction": "Base",
-                "cwe/parent": "CWE-200"
+                "cwe/parent": "CWE-200",
+                "security-severity": "5.4"
               }
             },
             {
@@ -3481,7 +3535,8 @@
                 "cwe/title": "Insertion of Sensitive Information Into Debugging Code",
                 "cwe/status": "Draft",
                 "cwe/abstraction": "Base",
-                "cwe/parent": "CWE-200"
+                "cwe/parent": "CWE-200",
+                "security-severity": "7.5"
               }
             },
             {
@@ -3550,7 +3605,8 @@
                 "cwe/title": "Storage of File with Sensitive Data Under Web Root",
                 "cwe/status": "Draft",
                 "cwe/abstraction": "Variant",
-                "cwe/parent": "CWE-552"
+                "cwe/parent": "CWE-552",
+                "security-severity": "6.5"
               }
             },
             {
@@ -3804,7 +3860,8 @@
                 "cwe/title": "Failure to Handle Missing Parameter",
                 "cwe/status": "Incomplete",
                 "cwe/abstraction": "Variant",
-                "cwe/parent": "CWE-233"
+                "cwe/parent": "CWE-233",
+                "security-severity": "5.0"
               }
             },
             {
@@ -3951,7 +4008,8 @@
                 "cwe/title": "Use of Inherently Dangerous Function",
                 "cwe/status": "Draft",
                 "cwe/abstraction": "Base",
-                "cwe/parent": "CWE-1177"
+                "cwe/parent": "CWE-1177",
+                "security-severity": "10.0"
               }
             },
             {
@@ -4040,7 +4098,8 @@
               "properties": {
                 "cwe/title": "DEPRECATED: Reliance on DNS Lookups in a Security Decision",
                 "cwe/status": "Deprecated",
-                "cwe/abstraction": "Base"
+                "cwe/abstraction": "Base",
+                "security-severity": "7.5"
               }
             },
             {
@@ -4058,7 +4117,8 @@
                 "cwe/title": "Uncaught Exception",
                 "cwe/status": "Draft",
                 "cwe/abstraction": "Base",
-                "cwe/parent": "CWE-705"
+                "cwe/parent": "CWE-705",
+                "security-severity": "7.5"
               }
             },
             {
@@ -4093,7 +4153,8 @@
                 "cwe/title": "Execution with Unnecessary Privileges",
                 "cwe/status": "Draft",
                 "cwe/abstraction": "Base",
-                "cwe/parent": "CWE-269"
+                "cwe/parent": "CWE-269",
+                "security-severity": "7.5"
               }
             },
             {
@@ -4111,7 +4172,8 @@
                 "cwe/title": "Unchecked Return Value",
                 "cwe/status": "Draft",
                 "cwe/abstraction": "Base",
-                "cwe/parent": "CWE-754"
+                "cwe/parent": "CWE-754",
+                "security-severity": "7.5"
               }
             },
             {
@@ -4129,7 +4191,8 @@
                 "cwe/title": "Incorrect Check of Function Return Value",
                 "cwe/status": "Incomplete",
                 "cwe/abstraction": "Base",
-                "cwe/parent": "CWE-573"
+                "cwe/parent": "CWE-573",
+                "security-severity": "7.5"
               }
             },
             {
@@ -4147,7 +4210,8 @@
                 "cwe/title": "Plaintext Storage of a Password",
                 "cwe/status": "Incomplete",
                 "cwe/abstraction": "Base",
-                "cwe/parent": "CWE-522"
+                "cwe/parent": "CWE-522",
+                "security-severity": "7.5"
               }
             },
             {
@@ -4183,7 +4247,8 @@
                 "cwe/title": "Empty Password in Configuration File",
                 "cwe/status": "Incomplete",
                 "cwe/abstraction": "Variant",
-                "cwe/parent": "CWE-260"
+                "cwe/parent": "CWE-260",
+                "security-severity": "7.7"
               }
             },
             {
@@ -4201,7 +4266,8 @@
                 "cwe/title": "Use of Hard-coded Password",
                 "cwe/status": "Draft",
                 "cwe/abstraction": "Variant",
-                "cwe/parent": "CWE-798"
+                "cwe/parent": "CWE-798",
+                "security-severity": "9.8"
               }
             },
             {
@@ -4219,7 +4285,8 @@
                 "cwe/title": "Password in Configuration File",
                 "cwe/status": "Incomplete",
                 "cwe/abstraction": "Base",
-                "cwe/parent": "CWE-522"
+                "cwe/parent": "CWE-522",
+                "security-severity": "7.5"
               }
             },
             {
@@ -4291,7 +4358,8 @@
                 "cwe/title": "Incorrect Privilege Assignment",
                 "cwe/status": "Draft",
                 "cwe/abstraction": "Base",
-                "cwe/parent": "CWE-269"
+                "cwe/parent": "CWE-269",
+                "security-severity": "7.8"
               }
             },
             {
@@ -4417,7 +4485,8 @@
                 "cwe/title": "Improper Check for Dropped Privileges",
                 "cwe/status": "Incomplete",
                 "cwe/abstraction": "Base",
-                "cwe/parent": "CWE-754"
+                "cwe/parent": "CWE-754",
+                "security-severity": "9.8"
               }
             },
             {
@@ -4599,7 +4668,8 @@
               "properties": {
                 "cwe/title": "Improper Access Control",
                 "cwe/status": "Incomplete",
-                "cwe/abstraction": "Pillar"
+                "cwe/abstraction": "Pillar",
+                "security-severity": "8.2"
               }
             },
             {
@@ -4617,7 +4687,8 @@
                 "cwe/title": "Improper Authorization",
                 "cwe/status": "Draft",
                 "cwe/abstraction": "Class",
-                "cwe/parent": "CWE-284"
+                "cwe/parent": "CWE-284",
+                "security-severity": "8.1"
               }
             },
             {
@@ -4653,7 +4724,8 @@
                 "cwe/title": "Improper Authentication",
                 "cwe/status": "Draft",
                 "cwe/abstraction": "Class",
-                "cwe/parent": "CWE-284"
+                "cwe/parent": "CWE-284",
+                "security-severity": "8.5"
               }
             },
             {
@@ -4707,7 +4779,8 @@
                 "cwe/title": "Authentication Bypass by Spoofing",
                 "cwe/status": "Incomplete",
                 "cwe/abstraction": "Base",
-                "cwe/parent": "CWE-1390"
+                "cwe/parent": "CWE-1390",
+                "security-severity": "7.8"
               }
             },
             {
@@ -4796,7 +4869,8 @@
                 "cwe/title": "Improper Certificate Validation",
                 "cwe/status": "Draft",
                 "cwe/abstraction": "Base",
-                "cwe/parent": "CWE-287"
+                "cwe/parent": "CWE-287",
+                "security-severity": "7.5"
               }
             },
             {
@@ -4832,7 +4906,8 @@
                 "cwe/title": "Improper Validation of Certificate with Host Mismatch",
                 "cwe/status": "Incomplete",
                 "cwe/abstraction": "Variant",
-                "cwe/parent": "CWE-923"
+                "cwe/parent": "CWE-923",
+                "security-severity": "5.9"
               }
             },
             {
@@ -4886,7 +4961,8 @@
                 "cwe/title": "Channel Accessible by Non-Endpoint",
                 "cwe/status": "Draft",
                 "cwe/abstraction": "Class",
-                "cwe/parent": "CWE-923"
+                "cwe/parent": "CWE-923",
+                "security-severity": "8.1"
               }
             },
             {
@@ -4994,7 +5070,8 @@
                 "cwe/title": "Missing Authentication for Critical Function",
                 "cwe/status": "Draft",
                 "cwe/abstraction": "Base",
-                "cwe/parent": "CWE-287"
+                "cwe/parent": "CWE-287",
+                "security-severity": "9.8"
               }
             },
             {
@@ -5012,7 +5089,8 @@
                 "cwe/title": "Improper Restriction of Excessive Authentication Attempts",
                 "cwe/status": "Draft",
                 "cwe/abstraction": "Base",
-                "cwe/parent": "CWE-1390"
+                "cwe/parent": "CWE-1390",
+                "security-severity": "7.5"
               }
             },
             {
@@ -5066,7 +5144,8 @@
                 "cwe/title": "Missing Encryption of Sensitive Data",
                 "cwe/status": "Draft",
                 "cwe/abstraction": "Class",
-                "cwe/parent": "CWE-693"
+                "cwe/parent": "CWE-693",
+                "security-severity": "5.0"
               }
             },
             {
@@ -5084,7 +5163,8 @@
                 "cwe/title": "Cleartext Storage of Sensitive Information",
                 "cwe/status": "Draft",
                 "cwe/abstraction": "Base",
-                "cwe/parent": "CWE-311"
+                "cwe/parent": "CWE-311",
+                "security-severity": "7.5"
               }
             },
             {
@@ -5102,7 +5182,8 @@
                 "cwe/title": "Cleartext Storage in a File or on Disk",
                 "cwe/status": "Draft",
                 "cwe/abstraction": "Variant",
-                "cwe/parent": "CWE-312"
+                "cwe/parent": "CWE-312",
+                "security-severity": "7.5"
               }
             },
             {
@@ -5138,7 +5219,8 @@
                 "cwe/title": "Cleartext Storage of Sensitive Information in a Cookie",
                 "cwe/status": "Draft",
                 "cwe/abstraction": "Variant",
-                "cwe/parent": "CWE-312"
+                "cwe/parent": "CWE-312",
+                "security-severity": "7.5"
               }
             },
             {
@@ -5210,7 +5292,8 @@
                 "cwe/title": "Cleartext Transmission of Sensitive Information",
                 "cwe/status": "Draft",
                 "cwe/abstraction": "Base",
-                "cwe/parent": "CWE-311"
+                "cwe/parent": "CWE-311",
+                "security-severity": "7.5"
               }
             },
             {
@@ -5228,7 +5311,8 @@
                 "cwe/title": "Use of Hard-coded Cryptographic Key",
                 "cwe/status": "Draft",
                 "cwe/abstraction": "Variant",
-                "cwe/parent": "CWE-798"
+                "cwe/parent": "CWE-798",
+                "security-severity": "9.8"
               }
             },
             {
@@ -5246,7 +5330,8 @@
                 "cwe/title": "Key Exchange without Entity Authentication",
                 "cwe/status": "Draft",
                 "cwe/abstraction": "Base",
-                "cwe/parent": "CWE-306"
+                "cwe/parent": "CWE-306",
+                "security-severity": "8.2"
               }
             },
             {
@@ -5318,7 +5403,8 @@
                 "cwe/title": "Inadequate Encryption Strength",
                 "cwe/status": "Draft",
                 "cwe/abstraction": "Class",
-                "cwe/parent": "CWE-693"
+                "cwe/parent": "CWE-693",
+                "security-severity": "7.5"
               }
             },
             {
@@ -5336,7 +5422,8 @@
                 "cwe/title": "Use of a Broken or Risky Cryptographic Algorithm",
                 "cwe/status": "Draft",
                 "cwe/abstraction": "Class",
-                "cwe/parent": "CWE-693"
+                "cwe/parent": "CWE-693",
+                "security-severity": "7.5"
               }
             },
             {
@@ -5354,7 +5441,8 @@
                 "cwe/title": "Use of Weak Hash",
                 "cwe/status": "Draft",
                 "cwe/abstraction": "Base",
-                "cwe/parent": "CWE-327"
+                "cwe/parent": "CWE-327",
+                "security-severity": "7.5"
               }
             },
             {
@@ -5372,7 +5460,8 @@
                 "cwe/title": "Generation of Predictable IV with CBC Mode",
                 "cwe/status": "Draft",
                 "cwe/abstraction": "Variant",
-                "cwe/parent": "CWE-1204"
+                "cwe/parent": "CWE-1204",
+                "security-severity": "7.5"
               }
             },
             {
@@ -5390,7 +5479,8 @@
                 "cwe/title": "Use of Insufficiently Random Values",
                 "cwe/status": "Stable",
                 "cwe/abstraction": "Class",
-                "cwe/parent": "CWE-693"
+                "cwe/parent": "CWE-693",
+                "security-severity": "7.8"
               }
             },
             {
@@ -5480,7 +5570,8 @@
                 "cwe/title": "Incorrect Usage of Seeds in Pseudo-Random Number Generator (PRNG)",
                 "cwe/status": "Draft",
                 "cwe/abstraction": "Base",
-                "cwe/parent": "CWE-330"
+                "cwe/parent": "CWE-330",
+                "security-severity": "9.8"
               }
             },
             {
@@ -5516,7 +5607,8 @@
                 "cwe/title": "Predictable Seed in Pseudo-Random Number Generator (PRNG)",
                 "cwe/status": "Draft",
                 "cwe/abstraction": "Variant",
-                "cwe/parent": "CWE-335"
+                "cwe/parent": "CWE-335",
+                "security-severity": "9.8"
               }
             },
             {
@@ -5534,7 +5626,8 @@
                 "cwe/title": "Use of Cryptographically Weak Pseudo-Random Number Generator (PRNG)",
                 "cwe/status": "Draft",
                 "cwe/abstraction": "Base",
-                "cwe/parent": "CWE-330"
+                "cwe/parent": "CWE-330",
+                "security-severity": "7.8"
               }
             },
             {
@@ -5570,7 +5663,8 @@
                 "cwe/title": "Generation of Predictable Numbers or Identifiers",
                 "cwe/status": "Incomplete",
                 "cwe/abstraction": "Class",
-                "cwe/parent": "CWE-330"
+                "cwe/parent": "CWE-330",
+                "security-severity": "5.0"
               }
             },
             {
@@ -5660,7 +5754,8 @@
                 "cwe/title": "Insufficient Verification of Data Authenticity",
                 "cwe/status": "Draft",
                 "cwe/abstraction": "Class",
-                "cwe/parent": "CWE-693"
+                "cwe/parent": "CWE-693",
+                "security-severity": "8.1"
               }
             },
             {
@@ -5678,7 +5773,8 @@
                 "cwe/title": "Origin Validation Error",
                 "cwe/status": "Draft",
                 "cwe/abstraction": "Class",
-                "cwe/parent": "CWE-345"
+                "cwe/parent": "CWE-345",
+                "security-severity": "7.5"
               }
             },
             {
@@ -5696,7 +5792,8 @@
                 "cwe/title": "Improper Verification of Cryptographic Signature",
                 "cwe/status": "Draft",
                 "cwe/abstraction": "Base",
-                "cwe/parent": "CWE-345"
+                "cwe/parent": "CWE-345",
+                "security-severity": "7.8"
               }
             },
             {
@@ -5732,7 +5829,8 @@
                 "cwe/title": "Acceptance of Extraneous Untrusted Data With Trusted Data",
                 "cwe/status": "Draft",
                 "cwe/abstraction": "Base",
-                "cwe/parent": "CWE-345"
+                "cwe/parent": "CWE-345",
+                "security-severity": "7.5"
               }
             },
             {
@@ -5750,7 +5848,8 @@
                 "cwe/title": "Reliance on Reverse DNS Resolution for a Security-Critical Action",
                 "cwe/status": "Draft",
                 "cwe/abstraction": "Variant",
-                "cwe/parent": "CWE-290"
+                "cwe/parent": "CWE-290",
+                "security-severity": "7.5"
               }
             },
             {
@@ -5786,7 +5885,8 @@
                 "cwe/title": "Cross-Site Request Forgery (CSRF)",
                 "cwe/status": "Stable",
                 "cwe/abstraction": "Compound",
-                "cwe/parent": "CWE-345"
+                "cwe/parent": "CWE-345",
+                "security-severity": "8.8"
               }
             },
             {
@@ -5894,7 +5994,8 @@
                 "cwe/title": "Exposure of Private Personal Information to an Unauthorized Actor",
                 "cwe/status": "Incomplete",
                 "cwe/abstraction": "Base",
-                "cwe/parent": "CWE-200"
+                "cwe/parent": "CWE-200",
+                "security-severity": "7.5"
               }
             },
             {
@@ -5930,7 +6031,8 @@
                 "cwe/title": "Concurrent Execution using Shared Resource with Improper Synchronization ('Race Condition')",
                 "cwe/status": "Draft",
                 "cwe/abstraction": "Class",
-                "cwe/parent": "CWE-662"
+                "cwe/parent": "CWE-662",
+                "security-severity": "7.0"
               }
             },
             {
@@ -6019,7 +6121,8 @@
                 "cwe/title": "Time-of-check Time-of-use (TOCTOU) Race Condition",
                 "cwe/status": "Incomplete",
                 "cwe/abstraction": "Base",
-                "cwe/parent": "CWE-362"
+                "cwe/parent": "CWE-362",
+                "security-severity": "7.7"
               }
             },
             {
@@ -6162,7 +6265,8 @@
                 "cwe/title": "Insecure Temporary File",
                 "cwe/status": "Incomplete",
                 "cwe/abstraction": "Class",
-                "cwe/parent": "CWE-668"
+                "cwe/parent": "CWE-668",
+                "security-severity": "7.0"
               }
             },
             {
@@ -6180,7 +6284,8 @@
                 "cwe/title": "Creation of Temporary File With Insecure Permissions",
                 "cwe/status": "Draft",
                 "cwe/abstraction": "Base",
-                "cwe/parent": "CWE-377"
+                "cwe/parent": "CWE-377",
+                "security-severity": "7.0"
               }
             },
             {
@@ -6252,7 +6357,8 @@
                 "cwe/title": "Session Fixation",
                 "cwe/status": "Incomplete",
                 "cwe/abstraction": "Compound",
-                "cwe/parent": "CWE-610"
+                "cwe/parent": "CWE-610",
+                "security-severity": "6.9"
               }
             },
             {
@@ -6453,7 +6559,8 @@
                 "cwe/title": "Uncontrolled Resource Consumption",
                 "cwe/status": "Draft",
                 "cwe/abstraction": "Class",
-                "cwe/parent": "CWE-664"
+                "cwe/parent": "CWE-664",
+                "security-severity": "7.5"
               }
             },
             {
@@ -6471,7 +6578,8 @@
                 "cwe/title": "Missing Release of Memory after Effective Lifetime",
                 "cwe/status": "Draft",
                 "cwe/abstraction": "Variant",
-                "cwe/parent": "CWE-772"
+                "cwe/parent": "CWE-772",
+                "security-severity": "7.5"
               }
             },
             {
@@ -6615,7 +6723,8 @@
                 "cwe/title": "Improper Handling of Highly Compressed Data (Data Amplification)",
                 "cwe/status": "Incomplete",
                 "cwe/abstraction": "Base",
-                "cwe/parent": "CWE-405"
+                "cwe/parent": "CWE-405",
+                "security-severity": "7.8"
               }
             },
             {
@@ -6705,7 +6814,8 @@
                 "cwe/title": "Double Free",
                 "cwe/status": "Draft",
                 "cwe/abstraction": "Variant",
-                "cwe/parent": "CWE-825"
+                "cwe/parent": "CWE-825",
+                "security-severity": "9.3"
               }
             },
             {
@@ -6723,7 +6833,8 @@
                 "cwe/title": "Use After Free",
                 "cwe/status": "Stable",
                 "cwe/abstraction": "Variant",
-                "cwe/parent": "CWE-825"
+                "cwe/parent": "CWE-825",
+                "security-severity": "8.8"
               }
             },
             {
@@ -6777,7 +6888,8 @@
                 "cwe/title": "Race Condition During Access to Alternate Channel",
                 "cwe/status": "Draft",
                 "cwe/abstraction": "Base",
-                "cwe/parent": "CWE-420"
+                "cwe/parent": "CWE-420",
+                "security-severity": "7.2"
               }
             },
             {
@@ -6902,7 +7014,8 @@
                 "cwe/title": "Unquoted Search Path or Element",
                 "cwe/status": "Draft",
                 "cwe/abstraction": "Base",
-                "cwe/parent": "CWE-668"
+                "cwe/parent": "CWE-668",
+                "security-severity": "7.8"
               }
             },
             {
@@ -6992,7 +7105,8 @@
                 "cwe/title": "Unrestricted Upload of File with Dangerous Type",
                 "cwe/status": "Draft",
                 "cwe/abstraction": "Base",
-                "cwe/parent": "CWE-669"
+                "cwe/parent": "CWE-669",
+                "security-severity": "6.3"
               }
             },
             {
@@ -7099,7 +7213,8 @@
                 "cwe/title": "Unintended Proxy or Intermediary ('Confused Deputy')",
                 "cwe/status": "Draft",
                 "cwe/abstraction": "Class",
-                "cwe/parent": "CWE-610"
+                "cwe/parent": "CWE-610",
+                "security-severity": "7.5"
               }
             },
             {
@@ -7134,7 +7249,8 @@
                 "cwe/title": "Inconsistent Interpretation of HTTP Requests ('HTTP Request/Response Smuggling')",
                 "cwe/status": "Incomplete",
                 "cwe/abstraction": "Base",
-                "cwe/parent": "CWE-436"
+                "cwe/parent": "CWE-436",
+                "security-severity": "9.0"
               }
             },
             {
@@ -7242,7 +7358,8 @@
                 "cwe/title": "User Interface (UI) Misrepresentation of Critical Information",
                 "cwe/status": "Draft",
                 "cwe/abstraction": "Class",
-                "cwe/parent": "CWE-684"
+                "cwe/parent": "CWE-684",
+                "security-severity": "7.5"
               }
             },
             {
@@ -7278,7 +7395,8 @@
                 "cwe/title": "External Initialization of Trusted Variables or Data Stores",
                 "cwe/status": "Draft",
                 "cwe/abstraction": "Base",
-                "cwe/parent": "CWE-1419"
+                "cwe/parent": "CWE-1419",
+                "security-severity": "9.8"
               }
             },
             {
@@ -7314,7 +7432,8 @@
                 "cwe/title": "Missing Initialization of a Variable",
                 "cwe/status": "Draft",
                 "cwe/abstraction": "Variant",
-                "cwe/parent": "CWE-909"
+                "cwe/parent": "CWE-909",
+                "security-severity": "7.5"
               }
             },
             {
@@ -7332,7 +7451,8 @@
                 "cwe/title": "Use of Uninitialized Variable",
                 "cwe/status": "Draft",
                 "cwe/abstraction": "Variant",
-                "cwe/parent": "CWE-908"
+                "cwe/parent": "CWE-908",
+                "security-severity": "7.8"
               }
             },
             {
@@ -7475,7 +7595,8 @@
                 "cwe/title": "Use of sizeof() on a Pointer Type",
                 "cwe/status": "Draft",
                 "cwe/abstraction": "Variant",
-                "cwe/parent": "CWE-131"
+                "cwe/parent": "CWE-131",
+                "security-severity": "8.8"
               }
             },
             {
@@ -7493,7 +7614,8 @@
                 "cwe/title": "Incorrect Pointer Scaling",
                 "cwe/status": "Incomplete",
                 "cwe/abstraction": "Base",
-                "cwe/parent": "CWE-682"
+                "cwe/parent": "CWE-682",
+                "security-severity": "8.8"
               }
             },
             {
@@ -7529,7 +7651,8 @@
                 "cwe/title": "Use of Externally-Controlled Input to Select Classes or Code ('Unsafe Reflection')",
                 "cwe/status": "Draft",
                 "cwe/abstraction": "Base",
-                "cwe/parent": "CWE-913"
+                "cwe/parent": "CWE-913",
+                "security-severity": "9.8"
               }
             },
             {
@@ -7547,7 +7670,8 @@
                 "cwe/title": "Modification of Assumed-Immutable Data (MAID)",
                 "cwe/status": "Draft",
                 "cwe/abstraction": "Base",
-                "cwe/parent": "CWE-664"
+                "cwe/parent": "CWE-664",
+                "security-severity": "6.1"
               }
             },
             {
@@ -7565,7 +7689,8 @@
                 "cwe/title": "External Control of Assumed-Immutable Web Parameter",
                 "cwe/status": "Draft",
                 "cwe/abstraction": "Base",
-                "cwe/parent": "CWE-642"
+                "cwe/parent": "CWE-642",
+                "security-severity": "7.5"
               }
             },
             {
@@ -7637,7 +7762,8 @@
                 "cwe/title": "NULL Pointer Dereference",
                 "cwe/status": "Stable",
                 "cwe/abstraction": "Base",
-                "cwe/parent": "CWE-710"
+                "cwe/parent": "CWE-710",
+                "security-severity": "7.5"
               }
             },
             {
@@ -7709,7 +7835,8 @@
                 "cwe/title": "Use of Incorrect Operator",
                 "cwe/status": "Draft",
                 "cwe/abstraction": "Base",
-                "cwe/parent": "CWE-670"
+                "cwe/parent": "CWE-670",
+                "security-severity": "7.5"
               }
             },
             {
@@ -7853,7 +7980,8 @@
                 "cwe/title": "Active Debug Code",
                 "cwe/status": "Draft",
                 "cwe/abstraction": "Base",
-                "cwe/parent": "CWE-710"
+                "cwe/parent": "CWE-710",
+                "security-severity": "7.2"
               }
             },
             {
@@ -7925,7 +8053,8 @@
                 "cwe/title": "Download of Code Without Integrity Check",
                 "cwe/status": "Draft",
                 "cwe/abstraction": "Base",
-                "cwe/parent": "CWE-345"
+                "cwe/parent": "CWE-345",
+                "security-severity": "8.1"
               }
             },
             {
@@ -7979,7 +8108,8 @@
                 "cwe/title": "Exposure of Sensitive System Information to an Unauthorized Control Sphere",
                 "cwe/status": "Incomplete",
                 "cwe/abstraction": "Base",
-                "cwe/parent": "CWE-200"
+                "cwe/parent": "CWE-200",
+                "security-severity": "5.4"
               }
             },
             {
@@ -8015,7 +8145,8 @@
                 "cwe/title": "Serializable Class Containing Sensitive Data",
                 "cwe/status": "Draft",
                 "cwe/abstraction": "Variant",
-                "cwe/parent": "CWE-668"
+                "cwe/parent": "CWE-668",
+                "security-severity": "7.5"
               }
             },
             {
@@ -8051,7 +8182,8 @@
                 "cwe/title": "Trust Boundary Violation",
                 "cwe/status": "Draft",
                 "cwe/abstraction": "Base",
-                "cwe/parent": "CWE-664"
+                "cwe/parent": "CWE-664",
+                "security-severity": "8.8"
               }
             },
             {
@@ -8069,7 +8201,8 @@
                 "cwe/title": "Deserialization of Untrusted Data",
                 "cwe/status": "Draft",
                 "cwe/abstraction": "Base",
-                "cwe/parent": "CWE-913"
+                "cwe/parent": "CWE-913",
+                "security-severity": "9.8"
               }
             },
             {
@@ -8087,7 +8220,8 @@
                 "cwe/title": "Embedded Malicious Code",
                 "cwe/status": "Incomplete",
                 "cwe/abstraction": "Class",
-                "cwe/parent": "CWE-912"
+                "cwe/parent": "CWE-912",
+                "security-severity": "9.1"
               }
             },
             {
@@ -8302,7 +8436,8 @@
                 "cwe/title": "Insufficiently Protected Credentials",
                 "cwe/status": "Incomplete",
                 "cwe/abstraction": "Class",
-                "cwe/parent": "CWE-1390"
+                "cwe/parent": "CWE-1390",
+                "security-severity": "8.3"
               }
             },
             {
@@ -8338,7 +8473,8 @@
                 "cwe/title": "Use of Cache Containing Sensitive Information",
                 "cwe/status": "Incomplete",
                 "cwe/abstraction": "Base",
-                "cwe/parent": "CWE-668"
+                "cwe/parent": "CWE-668",
+                "security-severity": "8.1"
               }
             },
             {
@@ -8356,7 +8492,8 @@
                 "cwe/title": "Use of Web Browser Cache Containing Sensitive Information",
                 "cwe/status": "Incomplete",
                 "cwe/abstraction": "Variant",
-                "cwe/parent": "CWE-524"
+                "cwe/parent": "CWE-524",
+                "security-severity": "9.0"
               }
             },
             {
@@ -8482,7 +8619,8 @@
                 "cwe/title": "Insertion of Sensitive Information into Log File",
                 "cwe/status": "Incomplete",
                 "cwe/abstraction": "Base",
-                "cwe/parent": "CWE-538"
+                "cwe/parent": "CWE-538",
+                "security-severity": "7.5"
               }
             },
             {
@@ -8606,7 +8744,8 @@
                 "cwe/title": "Use of Persistent Cookies Containing Sensitive Information",
                 "cwe/status": "Incomplete",
                 "cwe/abstraction": "Variant",
-                "cwe/parent": "CWE-552"
+                "cwe/parent": "CWE-552",
+                "security-severity": "8.2"
               }
             },
             {
@@ -8766,7 +8905,8 @@
                 "cwe/title": "Exposure of Information Through Directory Listing",
                 "cwe/status": "Draft",
                 "cwe/abstraction": "Variant",
-                "cwe/parent": "CWE-497"
+                "cwe/parent": "CWE-497",
+                "security-severity": "6.5"
               }
             },
             {
@@ -8838,7 +8978,8 @@
                 "cwe/title": "Files or Directories Accessible to External Parties",
                 "cwe/status": "Draft",
                 "cwe/abstraction": "Base",
-                "cwe/parent": "CWE-668"
+                "cwe/parent": "CWE-668",
+                "security-severity": "7.5"
               }
             },
             {
@@ -8982,7 +9123,8 @@
                 "cwe/title": "Return of Stack Variable Address",
                 "cwe/status": "Draft",
                 "cwe/abstraction": "Base",
-                "cwe/parent": "CWE-758"
+                "cwe/parent": "CWE-758",
+                "security-severity": "2.1"
               }
             },
             {
@@ -9018,7 +9160,8 @@
                 "cwe/title": "SQL Injection: Hibernate",
                 "cwe/status": "Incomplete",
                 "cwe/abstraction": "Variant",
-                "cwe/parent": "CWE-89"
+                "cwe/parent": "CWE-89",
+                "security-severity": "8.8"
               }
             },
             {
@@ -9108,7 +9251,8 @@
                 "cwe/title": "Expression is Always False",
                 "cwe/status": "Draft",
                 "cwe/abstraction": "Base",
-                "cwe/parent": "CWE-710"
+                "cwe/parent": "CWE-710",
+                "security-severity": "7.5"
               }
             },
             {
@@ -9610,7 +9754,8 @@
                 "cwe/title": "Use of HTTP Request With Sensitive Query String",
                 "cwe/status": "Draft",
                 "cwe/abstraction": "Variant",
-                "cwe/parent": "CWE-201"
+                "cwe/parent": "CWE-201",
+                "security-severity": "6.5"
               }
             },
             {
@@ -9664,7 +9809,8 @@
                 "cwe/title": "URL Redirection to Untrusted Site ('Open Redirect')",
                 "cwe/status": "Draft",
                 "cwe/abstraction": "Base",
-                "cwe/parent": "CWE-610"
+                "cwe/parent": "CWE-610",
+                "security-severity": "6.1"
               }
             },
             {
@@ -9808,7 +9954,8 @@
                 "cwe/title": "Externally Controlled Reference to a Resource in Another Sphere",
                 "cwe/status": "Draft",
                 "cwe/abstraction": "Class",
-                "cwe/parent": "CWE-664"
+                "cwe/parent": "CWE-664",
+                "security-severity": "7.5"
               }
             },
             {
@@ -9826,7 +9973,8 @@
                 "cwe/title": "Improper Restriction of XML External Entity Reference",
                 "cwe/status": "Draft",
                 "cwe/abstraction": "Base",
-                "cwe/parent": "CWE-610"
+                "cwe/parent": "CWE-610",
+                "security-severity": "9.1"
               }
             },
             {
@@ -9880,7 +10028,8 @@
                 "cwe/title": "Sensitive Cookie in HTTPS Session Without 'Secure' Attribute",
                 "cwe/status": "Draft",
                 "cwe/abstraction": "Variant",
-                "cwe/parent": "CWE-319"
+                "cwe/parent": "CWE-319",
+                "security-severity": "5.0"
               }
             },
             {
@@ -10084,7 +10233,8 @@
                 "cwe/title": "Permissive Regular Expression",
                 "cwe/status": "Draft",
                 "cwe/abstraction": "Base",
-                "cwe/parent": "CWE-185"
+                "cwe/parent": "CWE-185",
+                "security-severity": "7.5"
               }
             },
             {
@@ -10210,7 +10360,8 @@
                 "cwe/title": "Authorization Bypass Through User-Controlled Key",
                 "cwe/status": "Incomplete",
                 "cwe/abstraction": "Base",
-                "cwe/parent": "CWE-863"
+                "cwe/parent": "CWE-863",
+                "security-severity": "7.5"
               }
             },
             {
@@ -10228,7 +10379,8 @@
                 "cwe/title": "Weak Password Recovery Mechanism for Forgotten Password",
                 "cwe/status": "Incomplete",
                 "cwe/abstraction": "Base",
-                "cwe/parent": "CWE-1390"
+                "cwe/parent": "CWE-1390",
+                "security-severity": "9.8"
               }
             },
             {
@@ -10282,7 +10434,8 @@
                 "cwe/title": "Improper Neutralization of Data within XPath Expressions ('XPath Injection')",
                 "cwe/status": "Incomplete",
                 "cwe/abstraction": "Base",
-                "cwe/parent": "CWE-943"
+                "cwe/parent": "CWE-943",
+                "security-severity": "9.8"
               }
             },
             {
@@ -10593,7 +10746,8 @@
               "properties": {
                 "cwe/title": "Improper Control of a Resource Through its Lifetime",
                 "cwe/status": "Draft",
-                "cwe/abstraction": "Pillar"
+                "cwe/abstraction": "Pillar",
+                "security-severity": "8.8"
               }
             },
             {
@@ -10611,7 +10765,8 @@
                 "cwe/title": "Improper Initialization",
                 "cwe/status": "Draft",
                 "cwe/abstraction": "Class",
-                "cwe/parent": "CWE-664"
+                "cwe/parent": "CWE-664",
+                "security-severity": "7.8"
               }
             },
             {
@@ -10701,7 +10856,8 @@
                 "cwe/title": "Always-Incorrect Control Flow Implementation",
                 "cwe/status": "Draft",
                 "cwe/abstraction": "Class",
-                "cwe/parent": "CWE-691"
+                "cwe/parent": "CWE-691",
+                "security-severity": "7.7"
               }
             },
             {
@@ -10809,7 +10965,8 @@
                 "cwe/title": "Use of Potentially Dangerous Function",
                 "cwe/status": "Draft",
                 "cwe/abstraction": "Base",
-                "cwe/parent": "CWE-1177"
+                "cwe/parent": "CWE-1177",
+                "security-severity": "10.0"
               }
             },
             {
@@ -10845,7 +11002,8 @@
                 "cwe/title": "Incorrect Conversion between Numeric Types",
                 "cwe/status": "Draft",
                 "cwe/abstraction": "Base",
-                "cwe/parent": "CWE-704"
+                "cwe/parent": "CWE-704",
+                "security-severity": "8.1"
               }
             },
             {
@@ -10916,7 +11074,8 @@
                 "cwe/title": "Function Call With Incorrect Number of Arguments",
                 "cwe/status": "Draft",
                 "cwe/abstraction": "Variant",
-                "cwe/parent": "CWE-628"
+                "cwe/parent": "CWE-628",
+                "security-severity": "5.0"
               }
             },
             {
@@ -10934,7 +11093,8 @@
                 "cwe/title": "Function Call With Incorrect Argument Type",
                 "cwe/status": "Draft",
                 "cwe/abstraction": "Variant",
-                "cwe/parent": "CWE-628"
+                "cwe/parent": "CWE-628",
+                "security-severity": "7.5"
               }
             },
             {
@@ -11058,7 +11218,8 @@
               "properties": {
                 "cwe/title": "Protection Mechanism Failure",
                 "cwe/status": "Draft",
-                "cwe/abstraction": "Pillar"
+                "cwe/abstraction": "Pillar",
+                "security-severity": "7.0"
               }
             },
             {
@@ -11182,7 +11343,8 @@
                 "cwe/title": "Incorrect Type Conversion or Cast",
                 "cwe/status": "Incomplete",
                 "cwe/abstraction": "Class",
-                "cwe/parent": "CWE-664"
+                "cwe/parent": "CWE-664",
+                "security-severity": "8.8"
               }
             },
             {
@@ -11288,7 +11450,8 @@
                 "cwe/title": "Incorrect Permission Assignment for Critical Resource",
                 "cwe/status": "Draft",
                 "cwe/abstraction": "Class",
-                "cwe/parent": "CWE-285"
+                "cwe/parent": "CWE-285",
+                "security-severity": "7.8"
               }
             },
             {
@@ -11324,7 +11487,8 @@
                 "cwe/title": "Exposed Dangerous Method or Function",
                 "cwe/status": "Incomplete",
                 "cwe/abstraction": "Base",
-                "cwe/parent": "CWE-284"
+                "cwe/parent": "CWE-284",
+                "security-severity": "7.8"
               }
             },
             {
@@ -11342,7 +11506,8 @@
                 "cwe/title": "Improper Check for Unusual or Exceptional Conditions",
                 "cwe/status": "Incomplete",
                 "cwe/abstraction": "Class",
-                "cwe/parent": "CWE-703"
+                "cwe/parent": "CWE-703",
+                "security-severity": "7.5"
               }
             },
             {
@@ -11360,7 +11525,8 @@
                 "cwe/title": "Improper Handling of Exceptional Conditions",
                 "cwe/status": "Incomplete",
                 "cwe/abstraction": "Class",
-                "cwe/parent": "CWE-703"
+                "cwe/parent": "CWE-703",
+                "security-severity": "7.5"
               }
             },
             {
@@ -11396,7 +11562,8 @@
                 "cwe/title": "Selection of Less-Secure Algorithm During Negotiation ('Algorithm Downgrade')",
                 "cwe/status": "Incomplete",
                 "cwe/abstraction": "Base",
-                "cwe/parent": "CWE-693"
+                "cwe/parent": "CWE-693",
+                "security-severity": "7.5"
               }
             },
             {
@@ -11414,7 +11581,8 @@
                 "cwe/title": "Reliance on Undefined, Unspecified, or Implementation-Defined Behavior",
                 "cwe/status": "Incomplete",
                 "cwe/abstraction": "Class",
-                "cwe/parent": "CWE-710"
+                "cwe/parent": "CWE-710",
+                "security-severity": "2.1"
               }
             },
             {
@@ -11450,7 +11618,8 @@
                 "cwe/title": "Use of a One-Way Hash with a Predictable Salt",
                 "cwe/status": "Incomplete",
                 "cwe/abstraction": "Variant",
-                "cwe/parent": "CWE-916"
+                "cwe/parent": "CWE-916",
+                "security-severity": "7.5"
               }
             },
             {
@@ -11522,7 +11691,8 @@
                 "cwe/title": "Multiple Locks of a Critical Resource",
                 "cwe/status": "Incomplete",
                 "cwe/abstraction": "Base",
-                "cwe/parent": "CWE-667"
+                "cwe/parent": "CWE-667",
+                "security-severity": "5.0"
               }
             },
             {
@@ -11629,7 +11799,8 @@
                 "cwe/title": "Allocation of Resources Without Limits or Throttling",
                 "cwe/status": "Incomplete",
                 "cwe/abstraction": "Base",
-                "cwe/parent": "CWE-400"
+                "cwe/parent": "CWE-400",
+                "security-severity": "7.5"
               }
             },
             {
@@ -11719,7 +11890,8 @@
                 "cwe/title": "Missing Release of File Descriptor or Handle after Effective Lifetime",
                 "cwe/status": "Incomplete",
                 "cwe/abstraction": "Variant",
-                "cwe/parent": "CWE-772"
+                "cwe/parent": "CWE-772",
+                "security-severity": "7.8"
               }
             },
             {
@@ -11737,7 +11909,8 @@
                 "cwe/title": "Improper Restriction of Recursive Entity References in DTDs ('XML Entity Expansion')",
                 "cwe/status": "Draft",
                 "cwe/abstraction": "Base",
-                "cwe/parent": "CWE-674"
+                "cwe/parent": "CWE-674",
+                "security-severity": "9.1"
               }
             },
             {
@@ -11809,7 +11982,8 @@
                 "cwe/title": "Use of RSA Algorithm without OAEP",
                 "cwe/status": "Incomplete",
                 "cwe/abstraction": "Variant",
-                "cwe/parent": "CWE-327"
+                "cwe/parent": "CWE-327",
+                "security-severity": "7.5"
               }
             },
             {
@@ -11935,7 +12109,8 @@
                 "cwe/title": "Out-of-bounds Write",
                 "cwe/status": "Draft",
                 "cwe/abstraction": "Base",
-                "cwe/parent": "CWE-119"
+                "cwe/parent": "CWE-119",
+                "security-severity": "9.3"
               }
             },
             {
@@ -11953,7 +12128,8 @@
                 "cwe/title": "Access of Memory Location After End of Buffer",
                 "cwe/status": "Incomplete",
                 "cwe/abstraction": "Base",
-                "cwe/parent": "CWE-119"
+                "cwe/parent": "CWE-119",
+                "security-severity": "9.3"
               }
             },
             {
@@ -11971,7 +12147,8 @@
                 "cwe/title": "Memory Allocation with Excessive Size Value",
                 "cwe/status": "Draft",
                 "cwe/abstraction": "Variant",
-                "cwe/parent": "CWE-770"
+                "cwe/parent": "CWE-770",
+                "security-severity": "8.1"
               }
             },
             {
@@ -12139,7 +12316,8 @@
                 "cwe/title": "Use of Hard-coded Credentials",
                 "cwe/status": "Draft",
                 "cwe/abstraction": "Base",
-                "cwe/parent": "CWE-1391"
+                "cwe/parent": "CWE-1391",
+                "security-severity": "9.8"
               }
             },
             {
@@ -12193,7 +12371,8 @@
                 "cwe/title": "Buffer Access with Incorrect Length Value",
                 "cwe/status": "Incomplete",
                 "cwe/abstraction": "Base",
-                "cwe/parent": "CWE-119"
+                "cwe/parent": "CWE-119",
+                "security-severity": "9.3"
               }
             },
             {
@@ -12229,7 +12408,8 @@
                 "cwe/title": "Reliance on Untrusted Inputs in a Security Decision",
                 "cwe/status": "Incomplete",
                 "cwe/abstraction": "Base",
-                "cwe/parent": "CWE-693"
+                "cwe/parent": "CWE-693",
+                "security-severity": "7.8"
               }
             },
             {
@@ -12301,7 +12481,8 @@
                 "cwe/title": "Use of Out-of-range Pointer Offset",
                 "cwe/status": "Incomplete",
                 "cwe/abstraction": "Base",
-                "cwe/parent": "CWE-119"
+                "cwe/parent": "CWE-119",
+                "security-severity": "9.3"
               }
             },
             {
@@ -12337,7 +12518,8 @@
                 "cwe/title": "Expired Pointer Dereference",
                 "cwe/status": "Incomplete",
                 "cwe/abstraction": "Base",
-                "cwe/parent": "CWE-119"
+                "cwe/parent": "CWE-119",
+                "security-severity": "9.3"
               }
             },
             {
@@ -12355,7 +12537,8 @@
                 "cwe/title": "Premature Release of Resource During Expected Lifetime",
                 "cwe/status": "Incomplete",
                 "cwe/abstraction": "Base",
-                "cwe/parent": "CWE-666"
+                "cwe/parent": "CWE-666",
+                "security-severity": "7.0"
               }
             },
             {
@@ -12373,7 +12556,8 @@
                 "cwe/title": "Improper Control of Document Type Definition",
                 "cwe/status": "Incomplete",
                 "cwe/abstraction": "Variant",
-                "cwe/parent": "CWE-706"
+                "cwe/parent": "CWE-706",
+                "security-severity": "9.1"
               }
             },
             {
@@ -12409,7 +12593,8 @@
                 "cwe/title": "Inclusion of Functionality from Untrusted Control Sphere",
                 "cwe/status": "Incomplete",
                 "cwe/abstraction": "Base",
-                "cwe/parent": "CWE-669"
+                "cwe/parent": "CWE-669",
+                "security-severity": "8.1"
               }
             },
             {
@@ -12427,7 +12612,8 @@
                 "cwe/title": "Inclusion of Web Functionality from an Untrusted Source",
                 "cwe/status": "Incomplete",
                 "cwe/abstraction": "Variant",
-                "cwe/parent": "CWE-829"
+                "cwe/parent": "CWE-829",
+                "security-severity": "6.6"
               }
             },
             {
@@ -12481,7 +12667,8 @@
                 "cwe/title": "Deadlock",
                 "cwe/status": "Incomplete",
                 "cwe/abstraction": "Base",
-                "cwe/parent": "CWE-667"
+                "cwe/parent": "CWE-667",
+                "security-severity": "5.0"
               }
             },
             {
@@ -12499,7 +12686,8 @@
                 "cwe/title": "Excessive Iteration",
                 "cwe/status": "Incomplete",
                 "cwe/abstraction": "Class",
-                "cwe/parent": "CWE-691"
+                "cwe/parent": "CWE-691",
+                "security-severity": "7.5"
               }
             },
             {
@@ -12517,7 +12705,8 @@
                 "cwe/title": "Loop with Unreachable Exit Condition ('Infinite Loop')",
                 "cwe/status": "Incomplete",
                 "cwe/abstraction": "Base",
-                "cwe/parent": "CWE-834"
+                "cwe/parent": "CWE-834",
+                "security-severity": "7.5"
               }
             },
             {
@@ -12571,7 +12760,8 @@
                 "cwe/title": "Inappropriate Encoding for Output Context",
                 "cwe/status": "Incomplete",
                 "cwe/abstraction": "Base",
-                "cwe/parent": "CWE-116"
+                "cwe/parent": "CWE-116",
+                "security-severity": "7.8"
               }
             },
             {
@@ -12643,7 +12833,8 @@
                 "cwe/title": "Access of Resource Using Incompatible Type ('Type Confusion')",
                 "cwe/status": "Incomplete",
                 "cwe/abstraction": "Base",
-                "cwe/parent": "CWE-704"
+                "cwe/parent": "CWE-704",
+                "security-severity": "9.3"
               }
             },
             {
@@ -12661,7 +12852,8 @@
                 "cwe/title": "Missing Authorization",
                 "cwe/status": "Incomplete",
                 "cwe/abstraction": "Class",
-                "cwe/parent": "CWE-285"
+                "cwe/parent": "CWE-285",
+                "security-severity": "7.5"
               }
             },
             {
@@ -12769,7 +12961,8 @@
                 "cwe/title": "Hidden Functionality",
                 "cwe/status": "Incomplete",
                 "cwe/abstraction": "Class",
-                "cwe/parent": "CWE-684"
+                "cwe/parent": "CWE-684",
+                "security-severity": "6.3"
               }
             },
             {
@@ -12823,7 +13016,8 @@
                 "cwe/title": "Improperly Controlled Modification of Dynamically-Determined Object Attributes",
                 "cwe/status": "Incomplete",
                 "cwe/abstraction": "Base",
-                "cwe/parent": "CWE-913"
+                "cwe/parent": "CWE-913",
+                "security-severity": "6.1"
               }
             },
             {
@@ -12841,7 +13035,8 @@
                 "cwe/title": "Use of Password Hash With Insufficient Computational Effort",
                 "cwe/status": "Incomplete",
                 "cwe/abstraction": "Base",
-                "cwe/parent": "CWE-328"
+                "cwe/parent": "CWE-328",
+                "security-severity": "7.5"
               }
             },
             {
@@ -12859,7 +13054,8 @@
                 "cwe/title": "Improper Neutralization of Special Elements used in an Expression Language Statement ('Expression Language Injection')",
                 "cwe/status": "Incomplete",
                 "cwe/abstraction": "Base",
-                "cwe/parent": "CWE-77"
+                "cwe/parent": "CWE-77",
+                "security-severity": "9.8"
               }
             },
             {
@@ -12877,7 +13073,8 @@
                 "cwe/title": "Server-Side Request Forgery (SSRF)",
                 "cwe/status": "Incomplete",
                 "cwe/abstraction": "Base",
-                "cwe/parent": "CWE-441"
+                "cwe/parent": "CWE-441",
+                "security-severity": "9.1"
               }
             },
             {
@@ -12985,7 +13182,8 @@
                 "cwe/title": "Improper Verification of Intent by Broadcast Receiver",
                 "cwe/status": "Incomplete",
                 "cwe/abstraction": "Variant",
-                "cwe/parent": "CWE-940"
+                "cwe/parent": "CWE-940",
+                "security-severity": "8.2"
               }
             },
             {
@@ -13003,7 +13201,8 @@
                 "cwe/title": "Improper Export of Android Application Components",
                 "cwe/status": "Incomplete",
                 "cwe/abstraction": "Variant",
-                "cwe/parent": "CWE-285"
+                "cwe/parent": "CWE-285",
+                "security-severity": "8.0"
               }
             },
             {
@@ -13021,7 +13220,8 @@
                 "cwe/title": "Use of Implicit Intent for Sensitive Communication",
                 "cwe/status": "Incomplete",
                 "cwe/abstraction": "Variant",
-                "cwe/parent": "CWE-285"
+                "cwe/parent": "CWE-285",
+                "security-severity": "8.2"
               }
             },
             {
@@ -13057,7 +13257,8 @@
                 "cwe/title": "Improper Verification of Source of a Communication Channel",
                 "cwe/status": "Incomplete",
                 "cwe/abstraction": "Base",
-                "cwe/parent": "CWE-923"
+                "cwe/parent": "CWE-923",
+                "security-severity": "6.2"
               }
             },
             {
@@ -13093,7 +13294,8 @@
                 "cwe/title": "Permissive Cross-domain Security Policy with Untrusted Domains",
                 "cwe/status": "Incomplete",
                 "cwe/abstraction": "Variant",
-                "cwe/parent": "CWE-863"
+                "cwe/parent": "CWE-863",
+                "security-severity": "7.5"
               }
             },
             {
@@ -13111,7 +13313,8 @@
                 "cwe/title": "Improper Neutralization of Special Elements in Data Query Logic",
                 "cwe/status": "Incomplete",
                 "cwe/abstraction": "Class",
-                "cwe/parent": "CWE-74"
+                "cwe/parent": "CWE-74",
+                "security-severity": "8.8"
               }
             },
             {
@@ -13129,7 +13332,8 @@
                 "cwe/title": "Sensitive Cookie Without 'HttpOnly' Flag",
                 "cwe/status": "Incomplete",
                 "cwe/abstraction": "Variant",
-                "cwe/parent": "CWE-732"
+                "cwe/parent": "CWE-732",
+                "security-severity": "5.0"
               }
             },
             {
@@ -13165,7 +13369,8 @@
                 "cwe/title": "Improper Restriction of Rendered UI Layers or Frames",
                 "cwe/status": "Incomplete",
                 "cwe/abstraction": "Base",
-                "cwe/parent": "CWE-441"
+                "cwe/parent": "CWE-441",
+                "security-severity": "7.0"
               }
             },
             {
@@ -13183,7 +13388,8 @@
                 "cwe/title": "Use of Web Link to Untrusted Target with window.opener Access",
                 "cwe/status": "Incomplete",
                 "cwe/abstraction": "Variant",
-                "cwe/parent": "CWE-266"
+                "cwe/parent": "CWE-266",
+                "security-severity": "6.5"
               }
             },
             {
@@ -13993,7 +14199,8 @@
                 "cwe/title": "Inappropriate Source Code Style or Formatting",
                 "cwe/status": "Incomplete",
                 "cwe/abstraction": "Class",
-                "cwe/parent": "CWE-1076"
+                "cwe/parent": "CWE-1076",
+                "security-severity": "7.8"
               }
             },
             {
@@ -14446,7 +14653,8 @@
                 "cwe/title": "Use of Unmaintained Third Party Components",
                 "cwe/status": "Incomplete",
                 "cwe/abstraction": "Base",
-                "cwe/parent": "CWE-1357"
+                "cwe/parent": "CWE-1357",
+                "security-severity": "5.8"
               }
             },
             {
@@ -14935,7 +15143,8 @@
                 "cwe/title": "Inefficient CPU Computation",
                 "cwe/status": "Incomplete",
                 "cwe/abstraction": "Class",
-                "cwe/parent": "CWE-405"
+                "cwe/parent": "CWE-405",
+                "security-severity": "8.8"
               }
             },
             {
@@ -15096,7 +15305,8 @@
                 "cwe/title": "Generation of Weak Initialization Vector (IV)",
                 "cwe/status": "Incomplete",
                 "cwe/abstraction": "Base",
-                "cwe/parent": "CWE-330"
+                "cwe/parent": "CWE-330",
+                "security-severity": "7.5"
               }
             },
             {
@@ -15384,7 +15594,8 @@
                 "cwe/title": "Use of a Cryptographic Primitive with a Risky Implementation",
                 "cwe/status": "Draft",
                 "cwe/abstraction": "Base",
-                "cwe/parent": "CWE-327"
+                "cwe/parent": "CWE-327",
+                "security-severity": "7.5"
               }
             },
             {
@@ -16014,7 +16225,8 @@
                 "cwe/title": "Sensitive Cookie with Improper SameSite Attribute",
                 "cwe/status": "Incomplete",
                 "cwe/abstraction": "Variant",
-                "cwe/parent": "CWE-923"
+                "cwe/parent": "CWE-923",
+                "security-severity": "5.0"
               }
             },
             {
@@ -16967,7 +17179,8 @@
                 "cwe/title": "Inefficient Regular Expression Complexity",
                 "cwe/status": "Draft",
                 "cwe/abstraction": "Base",
-                "cwe/parent": "CWE-407"
+                "cwe/parent": "CWE-407",
+                "security-severity": "7.5"
               }
             },
             {
@@ -17021,7 +17234,8 @@
                 "cwe/title": "Improper Neutralization of Special Elements Used in a Template Engine",
                 "cwe/status": "Incomplete",
                 "cwe/abstraction": "Base",
-                "cwe/parent": "CWE-94"
+                "cwe/parent": "CWE-94",
+                "security-severity": "9.3"
               }
             },
             {
@@ -17309,7 +17523,8 @@
                 "cwe/title": "Dependency on Vulnerable Third-Party Component",
                 "cwe/status": "Incomplete",
                 "cwe/abstraction": "Class",
-                "cwe/parent": "CWE-1357"
+                "cwe/parent": "CWE-1357",
+                "security-severity": "7.5"
               }
             },
             {
@@ -17435,7 +17650,8 @@
                 "cwe/title": "Improper Neutralization of Input Used for LLM Prompting",
                 "cwe/status": "Incomplete",
                 "cwe/abstraction": "Base",
-                "cwe/parent": "CWE-77"
+                "cwe/parent": "CWE-77",
+                "security-severity": "5.0"
               }
             },
             {

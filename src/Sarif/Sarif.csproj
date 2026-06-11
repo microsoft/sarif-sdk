@@ -83,6 +83,9 @@
     <EmbeddedResource Include="Taxonomies\CweTaxonomy.brief.md">
       <LogicalName>Microsoft.CodeAnalysis.Sarif.Taxonomies.CweTaxonomy.brief.md</LogicalName>
     </EmbeddedResource>
+    <EmbeddedResource Include="Taxonomies\CweSecuritySeverity.json">
+      <LogicalName>Microsoft.CodeAnalysis.Sarif.Taxonomies.CweSecuritySeverity.json</LogicalName>
+    </EmbeddedResource>
   </ItemGroup>
 
   <ItemGroup>

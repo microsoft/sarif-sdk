@@ -208,6 +208,46 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         }
 
         [Fact]
+        public void Run_SucceedsWhenWorkingDirectoryAnchoredByUriBaseIdWithEmptyUri()
+        {
+            // emit-finalize rebases a repo-root workingDirectory to an empty 'uri' under a
+            // 'uriBaseId'; that shape is a valid artifactLocation and must round-trip back
+            // through add-invocation rather than tripping the receipt gate.
+            SeedRunHeader();
+            File.WriteAllText(
+                InputPath,
+                "{ \"executionSuccessful\": true, \"commandLine\": \"demo --scan src\", \"workingDirectory\": { \"uri\": \"\", \"uriBaseId\": \"SRCROOT\" } }");
+
+            int exit = new AddInvocationCommand().Run(new AddInvocationOptions
+            {
+                OutputFilePath = OutPath,
+                InputFilePath = InputPath,
+            });
+
+            exit.Should().Be(CommandBase.SUCCESS);
+            File.ReadAllLines(WipPath).Should().HaveCount(2);
+        }
+
+        [Fact]
+        public void Run_SucceedsWhenWorkingDirectoryAnchoredByUriBaseIdAlone()
+        {
+            // A 'uriBaseId' with no 'uri' member is likewise anchored and accepted.
+            SeedRunHeader();
+            File.WriteAllText(
+                InputPath,
+                "{ \"executionSuccessful\": true, \"commandLine\": \"demo --scan src\", \"workingDirectory\": { \"uriBaseId\": \"SRCROOT\" } }");
+
+            int exit = new AddInvocationCommand().Run(new AddInvocationOptions
+            {
+                OutputFilePath = OutPath,
+                InputFilePath = InputPath,
+            });
+
+            exit.Should().Be(CommandBase.SUCCESS);
+            File.ReadAllLines(WipPath).Should().HaveCount(2);
+        }
+
+        [Fact]
         public void Run_StampsEndTimeUtcWhenOmitted()
         {
             // The verb fills endTimeUtc at emit time when the producer left it unset, so the

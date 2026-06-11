@@ -9,7 +9,7 @@
 - [`docs/AI-RuleId-Convention.md`](../AI-RuleId-Convention.md) — rule-ID structure and stability rules for AI-emitted SARIF.
 - [`docs/Producing effective SARIF.md`](../Producing%20effective%20SARIF.md) — general SDK producer guidance; AI producers should read this first.
 - [`docs/multitool-usage.md`](../multitool-usage.md) — `Sarif.Multitool` CLI reference, including the `emit-*` / `add-*` verbs used by the `emit-sarif` skill.
-- [`docs/ValidationRules.md`](../ValidationRules.md) — the full SARIF validation rule catalog.
+- [`docs/ValidationRules.md`](../ValidationRules.md) — the standard (base-profile) SARIF validation rule catalog. The AI- and GHAzDO-profile rules are documented in this file and in `RuleResources.resx`.
 - [`skills/emit-sarif/SKILL.md`](../../skills/emit-sarif/SKILL.md) — agent-procedural skill for emitting AI SARIF using the multitool emit verbs.
 - [`skills/validate-sarif/SKILL.md`](../../skills/validate-sarif/SKILL.md) — agent-procedural skill for validating AI SARIF against this profile.
 
@@ -390,7 +390,7 @@ Precise regions plus context snippets make the finding understandable without so
 
 ## Evidence Strength (`ai/exploitability`)
 
-AI findings carry varying levels of exploitability evidence. Use `ai/exploitability` in `result.properties` to classify the **strength of evidence** — how much was actually demonstrated, as distinct from impact (`level`/`rank`) or attacker position (below) — on a per-result basis.
+AI findings carry varying levels of exploitability evidence. Use `ai/exploitability` in `result.properties` to classify the **strength of evidence** — how much was actually demonstrated, as distinct from impact (`level`/`security-severity`) or attacker position (below) — on a per-result basis.
 
 **All-or-nothing rule (suppressions pattern, §3.27.23):** If *any* result in the run declares `ai/exploitability`, then *every* result in the run MUST declare it. Mixed presence — some results with, some without — is a data quality error. This follows the same design rationale as SARIF suppressions: a tool either has the capability to assess exploitability or it does not. Consumers can inspect a single result to determine whether exploitability data is available for the entire run.
 
@@ -426,7 +426,7 @@ The value is per-result — different results in the same run may have different
 
 | Axis | Question | SARIF home |
 |---|---|---|
-| **Impact** | How bad if exploited? | `level` (§3.27.10), `rank` (§3.27.25) |
+| **Impact** | How bad if exploited? | `level` (§3.27.10), `security-severity` (rule descriptor) |
 | **Evidence strength** | How much did we prove? | `ai/exploitability` (above) |
 | **Attacker position** | Who has to be where to pull it off? | `ai/attackerPosition` (this section) |
 
@@ -513,9 +513,15 @@ A string in `result.properties` naming the minimum attacker position from which 
 
 ---
 
-## Confidence & Rank
+## Rank (priority, repurposed for confidence)
 
-AI findings inherently carry confidence — SARIF's native `result.rank` property (§3.27.25) is the canonical location. `rank` is a floating-point value from 0.0 to 100.0 (higher = higher confidence); it is only meaningful when `kind` is `"fail"`. Per the spec, rank values from different tools are **not commensurable** — each producer defines its own scale. Do not invent cross-tool range mappings; consumers that aggregate results from multiple tools must normalize per-producer.
+SARIF's `result.rank` (§3.27.25) is a **general-purpose priority** value — the schema defines it as *"a number representing the priority or importance of the result"*: a float from 0.0 to 100.0 (higher = more important; the `-1.0` default means *absent*), meaningful only when `kind` is `"fail"`.
+
+A producer chooses how it prioritizes. Ordering findings by *least likely to be a false positive* is one legitimate prioritization — and the one this guidance adopts — so here `rank` carries the producer's **confidence**: its estimated likelihood that the finding is a true positive. Other prioritizations are equally valid under the spec (ordering by blast radius, exposure, or data sensitivity, for instance), and a tool may compute rank by any methodology it chooses. Because each producer defines its own scale, rank values are **not commensurable** across tools — a consumer that aggregates results from multiple tools normalizes per-producer.
+
+Under this confidence ordering, `ai/exploitability` (above) is an **input** to `rank`, not a competing axis: demonstrated, backed reachability is strong evidence the finding is a true positive and should *raise* rank, while a theoretical, unbacked claim should lower it. The connection is directional, not a fixed formula — scope matters (`demonstrated` at `function` is not `demonstrated` in `production`) and rank is continuous — but the ordering SHOULD be monotonic: all else equal, a result with stronger exploitability evidence SHOULD NOT rank below an otherwise-identical weaker one.
+
+> SARIF 2.2 proposes a first-class `precision` property (oasis-tcs/sarif-spec#611) as a dedicated home for true-positive likelihood. If it lands, confidence can move there and `rank` reverts to expressing pure priority.
 
 ```json
 {
@@ -527,7 +533,13 @@ AI findings inherently carry confidence — SARIF's native `result.rank` propert
 }
 ```
 
-**Conditional severity.** When impact depends on deployment configuration ("critical if `X-Forwarded-For` is trusted, otherwise by-design"), set `level` to the **expected-case** severity, set `rank` to the **worst-case**, and state the gating condition in `message.markdown § Mitigating Factors`. Do not invent compound levels.
+**Conditional severity.** When impact depends on deployment configuration ("critical if `X-Forwarded-For` is trusted, otherwise by-design"), set `level` to the **expected-case** severity and state the worst case and its gating condition in `message.markdown § Mitigating Factors`. `level` carries the severity and `rank` carries confidence, so a single discrete `level` plus a prose mitigating-factors note expresses the conditional cleanly.
+
+## Security Severity (per-CWE prior)
+
+The confidence carried in `rank` (above) is **never** the source of `security-severity`. Severity and confidence are orthogonal axes: a low-confidence finding of a critical weakness class is still critical *if* it is real. Both GitHub Advanced Security and Azure DevOps Advanced Security read a numeric `security-severity` (0.0–10.0, CVSS-aligned) off the **rule descriptor** — not off `rank` — to bucket a result into critical/high/medium/low.
+
+The SDK supplies a stable, hand-curated per-CWE `security-severity` prior (`Microsoft.CodeAnalysis.Sarif.Taxonomies.CweSecuritySeverity`). Because AI findings use CWE as their rule taxonomy, the prior is keyed by the CWE token in the descriptor `id`. `emit-finalize` stamps it onto each CWE-as-rule descriptor host-agnostically (producer-authored values are preserved; a CWE with no curated prior, including the `NOVEL-` form, is left unstamped so platforms degrade to level-based severity). `get-cwe` surfaces the same value as a `securitySeverity` field. Producers do not need to author `security-severity` themselves — author a precise CWE `ruleId` and clean per-result `rank`, and let finalize supply the severity prior.
 
 ---
 
@@ -569,7 +581,7 @@ A SARIF file containing exploit narratives, reproduction steps, captured HTTP tr
 **Indirection:** For highly sensitive findings, producers MAY emit a redacted version for the standard alert pipeline (title, severity, location — no repro steps) and store the full SARIF in a secure location:
 
 ```markdown
-## [NOVEL/capability-trust-bypass] — Novel Finding
+## [NOVEL-capability-trust-bypass] — Novel Finding
 
 **Classification:** Novel (nearest CWE: CWE-345)
 **Severity:** Critical
@@ -977,7 +989,7 @@ Until concrete samples are validated through dogfooding, the following prelimina
 
 ### Observed vs. predicted evidence
 
-The difference between `theoretical` and `demonstrated` exploitability (see [Exploitability Evidence](#exploitability-evidence)) is expressed structurally through the richness of the `codeFlows` data. A predicted path has locations and messages; observed evidence adds timestamps, HTTP traffic, and runtime state.
+The difference between `theoretical` and `demonstrated` exploitability (see [Evidence Strength](#evidence-strength-aiexploitability)) is expressed structurally through the richness of the `codeFlows` data. A predicted path has locations and messages; observed evidence adds timestamps, HTTP traffic, and runtime state.
 
 **Predicted path** (static analysis — `theoretical`):
 
@@ -1674,8 +1686,10 @@ These constructs were designed speculatively — no concrete producer/consumer p
 The [SARIF SDK](https://github.com/microsoft/sarif-sdk) ships validation rules that check conformance with these conventions. Run them with:
 
 ```bash
-sarif validate my-results.sarif --rule-kind AI
+sarif validate my-results.sarif --rule-kind "Sarif;AI" --level "Note;Warning;Error"
 ```
+
+The `AI` kind activates the AI rule pack (AI1003–AI2019); the `Sarif` kind runs the full standard SARIF catalog (SARIF1xxx/2xxx, JSON1xxx) alongside it. Run both together — the AI pack does not subsume the standard structural checks. The `--level` list surfaces the note-level AI rules (rank, handoff, learning-signal).
 
 ### AI-specific rules
 
@@ -1691,7 +1705,7 @@ sarif validate my-results.sarif --rule-kind AI
 | AI1013 | ProvideNotificationAssociatedRule | error | If `notification.associatedRule` is present, it SHALL resolve to a valid rule in `tool.driver.rules[]` or an extension's `rules[]` via `index` or `guid`. |
 | AI2003 | ProvideSemanticVersion | warning | `tool.driver` SHOULD supply `semanticVersion` for reproducibility. |
 | AI2005 | ProvideAutomationDetails | warning | `run.automationDetails.guid` SHOULD be present for deduplication. |
-| AI2010 | ProvideResultRank | note | Each `result.rank` SHOULD be populated (tool-specific confidence score, 0.0–100.0). |
+| AI2010 | ProvideResultRank | note | Each `result.rank` SHOULD be populated — a 0.0–100.0 priority/importance value (§3.27.25); this guidance prioritizes by true-positive likelihood, i.e. confidence. |
 | AI2011 | DoNotPersistPartialFingerprints | warning | `result.partialFingerprints` SHOULD NOT be populated by AI producers. Cross-run identity is owned by the result-management system; intra-remediation relocation uses a transient fingerprint. See [Result Identity & Fingerprints](#result-identity--fingerprints). |
 | AI2012 | ProvideAIHandoff | note | `run.properties` SHOULD contain `ai/handoff` — repo-wide forward-notes for the remediation agent (at minimum: ladder depth reached and why). |
 | AI2014 | ProvideExploitability | warning | Each `result.properties` SHOULD contain `ai/exploitability` with one of `demonstrated`, `poc`, or `theoretical`. Follows the all-or-nothing pattern: if any result declares exploitability, all must. |
@@ -1703,7 +1717,7 @@ sarif validate my-results.sarif --rule-kind AI
 
 ### SARIF-standard rules elevated for AI profile
 
-These rules are defined by the base SARIF profile and fire in both standard and AI modes. They are enabled by default; no configuration file is needed — `--rule-kind AI` activates them automatically.
+These rules are defined by the base SARIF profile and fire in both standard and AI modes. Running with `--rule-kind "Sarif;AI"` activates the AI pack together with the full standard SARIF rule set, so these elevated rules run with their AI-profile levels.
 
 | Rule ID | Name | AI Level | Description |
 |---------|------|----------|-------------|
@@ -1848,7 +1862,7 @@ classDiagram
         +WebResponse webResponse
         +PropertyBag properties
     }
-    note for Result "ruleId: CWE-78/api-handler or NOVEL/slug<br/>kind: fail (primary for AI findings)<br/>level: error | warning | note<br/>rank: 0.0-100.0 (per-tool scale)<br/>─── ai/* properties ───<br/>ai/exploitability: demonstrated | poc | theoretical<br/>ai/attackerPosition: unauthenticated-network | ...<br/>ai/evidence[]: {strength, scope, backing[], note}<br/>ai/handoff: markdown forward-notes"
+    note for Result "ruleId: CWE-78/api-handler or NOVEL-prompt-injection<br/>kind: fail (primary for AI findings)<br/>level: error | warning | note<br/>rank: 0.0-100.0 (per-tool scale)<br/>─── ai/* properties ───<br/>ai/exploitability: demonstrated | poc | theoretical<br/>ai/attackerPosition: unauthenticated-network | ...<br/>ai/evidence[]: {strength, scope, backing[], note}<br/>ai/handoff: markdown forward-notes"
 
     class Message {
         +string text
