@@ -166,6 +166,60 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         }
 
         [Fact]
+        public void MergeCommand_WhenMergeRunsOn_AggregatesInvocationsAndRebasesInvocationIndex()
+        {
+            var sarifLog1 = new SarifLog { Runs = new[] { CreateRunReferencingInvocations("cmd-1a", "cmd-1b") } };
+            var sarifLog2 = new SarifLog { Runs = new[] { CreateRunReferencingInvocations("cmd-2a") } };
+            string sarifLog1Json = JsonConvert.SerializeObject(sarifLog1);
+            string sarifLog2Json = JsonConvert.SerializeObject(sarifLog2);
+            string sarifLog1FilePath = Path.Combine(testDirectory, "SarifLog1.sarif");
+            string sarifLog2FilePath = Path.Combine(testDirectory, "SarifLog2.sarif");
+            string outputFilePath = Path.Combine(testDirectory, "merged.sarif");
+            var outputStringBuilder = new StringBuilder();
+
+            var mockFileSystem = new Mock<IFileSystem>();
+            ArrangeMockFileSystemRead(mockFileSystem, sarifLog1Json, sarifLog1FilePath);
+            ArrangeMockFileSystemRead(mockFileSystem, sarifLog2Json, sarifLog2FilePath);
+            ArrangeMockFileSystemCreate(mockFileSystem, outputFilePath, outputStringBuilder);
+            ArrangeMockFileSystemEnumerate(mockFileSystem, testDirectory, new[] { sarifLog1FilePath, sarifLog2FilePath });
+
+            IFileSystem fileSystem = mockFileSystem.Object;
+
+            var options = new MergeOptions
+            {
+                OutputDirectoryPath = testDirectory,
+                OutputFileName = "merged.sarif",
+                TargetFileSpecifiers = new[] { "*.sarif" },
+                MergeRuns = true,
+                OutputFileOptions = new[] { FilePersistenceOptions.ForceOverwrite, FilePersistenceOptions.PrettyPrint },
+            };
+
+            var mergeCommand = new MergeCommand(fileSystem);
+            int returnCode = mergeCommand.Run(options);
+            returnCode.Should().Be(0);
+
+            SarifLog mergedLog = JsonConvert.DeserializeObject<SarifLog>(outputStringBuilder.ToString());
+            mergedLog.Runs.Count.Should().Be(1);
+
+            Run merged = mergedLog.Runs[0];
+
+            // All invocations are aggregated (concatenated, no dedup).
+            merged.Invocations.Count.Should().Be(3);
+            merged.Results.Count.Should().Be(3);
+
+            // Each result still resolves to the same invocation it referenced before the merge.
+            // We seed Message.Text == the referenced invocation's CommandLine, so the cross-run
+            // rebasing of provenance.invocationIndex is verified independently of array order.
+            foreach (Result result in merged.Results)
+            {
+                int index = result.Provenance.InvocationIndex;
+                index.Should().BeGreaterOrEqualTo(0);
+                index.Should().BeLessThan(merged.Invocations.Count);
+                merged.Invocations[index].CommandLine.Should().Be(result.Message.Text);
+            }
+        }
+
+        [Fact]
         public void MergeCommand_WhenMergeRunsOff_RunShouldAggregateByRuleToolVersion_SingleToolVersion()
         {
             var sarifLog1 = new SarifLog { Runs = new[] { CreateTestRun(5) } };
@@ -273,6 +327,30 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 mergedLogs[i - 1].Runs[0].Tool.Driver.Name.Should().Be("TestTool");
                 mergedLogs[i - 1].Runs[0].Results[0].RuleId.Should().Be($"TESTRULE/00{i}");
             }
+        }
+
+        private static Run CreateRunReferencingInvocations(params string[] commandLines)
+        {
+            var invocations = new List<Invocation>();
+            var results = new List<Result>();
+
+            for (int i = 0; i < commandLines.Length; i++)
+            {
+                invocations.Add(new Invocation { CommandLine = commandLines[i] });
+                results.Add(new Result
+                {
+                    RuleId = "TESTRULE001",
+                    Message = new Message { Text = commandLines[i] },
+                    Provenance = new ResultProvenance { InvocationIndex = i },
+                });
+            }
+
+            return new Run
+            {
+                Tool = new Tool { Driver = new ToolComponent { Name = "TestTool", Version = "15.0.0.0", SemanticVersion = "15.0.0.0" } },
+                Invocations = invocations,
+                Results = results,
+            };
         }
 
         private Run CreateTestRun(int numberOfResult, bool createSubRule = false, string toolName = null, string version = null, string semanticVersion = null)
