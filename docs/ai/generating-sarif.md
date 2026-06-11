@@ -515,9 +515,9 @@ A string in `result.properties` naming the minimum attacker position from which 
 
 ## Rank (priority, repurposed for confidence)
 
-SARIF's `result.rank` (§3.27.25) is a **general-purpose priority** value. The schema defines it as *"a number representing the priority or importance of the result"* — a float from 0.0 to 100.0 (higher = more important; the `-1.0` default means *absent*), meaningful only when `kind` is `"fail"`. It is **not** a confidence field in SARIF.
+SARIF's `result.rank` (§3.27.25) is a **general-purpose priority** value — the schema defines it as *"a number representing the priority or importance of the result"*: a float from 0.0 to 100.0 (higher = more important; the `-1.0` default means *absent*), meaningful only when `kind` is `"fail"`.
 
-Read this subtlety precisely — do not overgeneralize it to "rank means confidence." The spec lets a tool compute rank by **any methodology it chooses**, and prioritizing findings by *least likely to be a false positive* is an entirely reasonable one. So this guidance populates `rank` with the producer's **confidence** — its estimated likelihood that the finding is a true positive — and uses that as the priority signal. We are choosing a confidence-driven *prioritization*, not redefining the property. Each producer defines its own scale, so rank values are **not commensurable** across tools: do not invent cross-tool range mappings; consumers that aggregate must normalize per-producer.
+A producer chooses how it prioritizes. Ordering findings by *least likely to be a false positive* is one legitimate prioritization — and the one this guidance adopts — so here `rank` carries the producer's **confidence**: its estimated likelihood that the finding is a true positive. Other prioritizations are equally valid under the spec (ordering by exploitability, blast radius, or exposure, for instance), and a tool may compute rank by any methodology it chooses. Because each producer defines its own scale, rank values are **not commensurable** across tools — a consumer that aggregates results from multiple tools normalizes per-producer.
 
 > SARIF 2.2 proposes a first-class `precision` property (oasis-tcs/sarif-spec#611) as a dedicated home for true-positive likelihood. If it lands, confidence can move there and `rank` reverts to expressing pure priority.
 
@@ -531,7 +531,7 @@ Read this subtlety precisely — do not overgeneralize it to "rank means confide
 }
 ```
 
-**Conditional severity.** When impact depends on deployment configuration ("critical if `X-Forwarded-For` is trusted, otherwise by-design"), set `level` to the **expected-case** severity and state the worst case and its gating condition in `message.markdown § Mitigating Factors`. Do not encode the worst case in `rank` (which carries confidence, not severity) and do not invent compound levels.
+**Conditional severity.** When impact depends on deployment configuration ("critical if `X-Forwarded-For` is trusted, otherwise by-design"), set `level` to the **expected-case** severity and state the worst case and its gating condition in `message.markdown § Mitigating Factors`. `level` carries the severity and `rank` carries confidence, so a single discrete `level` plus a prose mitigating-factors note expresses the conditional cleanly.
 
 ## Security Severity (per-CWE prior)
 
