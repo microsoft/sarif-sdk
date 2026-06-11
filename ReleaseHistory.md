@@ -14,7 +14,7 @@ Each release entry below is prefixed with one of:
 Entries are terse by design: one line per change, present-tense behavior, complete but only essential data. No issue/PR archaeology or narrative — that history lives in the engineering system.
 
 ## **UNRELEASED**
-* BUG: `npx @microsoft/sarif-multitool` works on Windows again — the `@microsoft/sarif-multitool-win32` package now ships `Sarif.Multitool.exe`. The self-contained `win-x64` publish no longer enables `PublishReadyToRun`, whose crossgen2 failure had silently produced an empty Windows package; `BuildMultitoolForNpm.ps1` now fails the build if any platform payload is missing.
+* BUG: `@microsoft/sarif-multitool-win32` ships `Sarif.Multitool.exe` again, restoring `npx @microsoft/sarif-multitool` on Windows; the `win-x64` publish drops `PublishReadyToRun` (a crossgen2 failure had emptied the package) and `BuildMultitoolForNpm.ps1` now fails on any missing platform payload.
 
 ## **v5.0.6** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/v5.0.6) | [Driver](https://www.nuget.org/packages/Sarif.Driver/v5.0.6) | [Converters](https://www.nuget.org/packages/Sarif.Converters/v5.0.6) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/v5.0.6) | [Multitool Library](https://www.nuget.org/packages/Sarif.Multitool.Library/v5.0.6)
 * BRK: `sarif emit-finalize` no longer derives `security-severity` from `result.rank`; it stamps a stable hand-curated per-CWE prior (new `CweSecuritySeverity` table) for both GHAS and GHAzDO. A producer value wins; a CWE with no prior (including `NOVEL-`) stays unstamped.
