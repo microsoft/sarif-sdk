@@ -33,7 +33,7 @@
 
 .EXAMPLE
     $env:ADO_PAT = '<your-pat>'
-    pwsh ./PublishSampleToGhazdo.ps1 -SarifPath ./CweGHAzDoSample.sarif
+    pwsh ./PublishSampleToGhazdo.ps1 -SarifPath ./CweGHAzDOSample.sarif
 #>
 [CmdletBinding()]
 param(
