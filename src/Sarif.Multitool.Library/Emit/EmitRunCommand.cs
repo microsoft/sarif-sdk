@@ -187,6 +187,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                     fileSystem.DirectoryCreateDirectory(directory);
                 }
 
+                WarnOnIgnoredHeaderData(runObject);
+
                 using (var writer = new SarifEventLogWriter(wipPath))
                 {
                     writer.Append(SarifEventKinds.RunHeader, runObject);
@@ -221,6 +223,32 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             }
 
             return true;
+        }
+
+        // results and invocations on the run header are dropped when the event log is replayed
+        // (SarifEventReplayer); they belong in their own add-result / add-invocation events. Warn
+        // rather than reject so a producer that ships a fuller Run object is told what is lost.
+        private static void WarnOnIgnoredHeaderData(JObject runObject)
+        {
+            var dropped = new List<string>();
+            if (runObject["results"] is JArray results && results.Count > 0)
+            {
+                dropped.Add(string.Format(CultureInfo.CurrentCulture, "results[{0}]", results.Count));
+            }
+
+            if (runObject["invocations"] is JArray invocations && invocations.Count > 0)
+            {
+                dropped.Add(string.Format(CultureInfo.CurrentCulture, "invocations[{0}]", invocations.Count));
+            }
+
+            if (dropped.Count > 0)
+            {
+                Console.Error.WriteLine(
+                    string.Format(
+                        CultureInfo.CurrentCulture,
+                        "warning: the run header carries {0}; this data is ignored at replay (results belong in add-result, invocations in add-invocation) and will not appear in the finalized log.",
+                        string.Join(", ", dropped)));
+            }
         }
 
         private static bool TryValidateRunHeader(JObject runObject, IFileSystem fileSystem)

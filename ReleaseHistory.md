@@ -15,10 +15,12 @@ Entries are terse by design: one line per change, present-tense behavior, comple
 
 ## **UNRELEASED**
 * BRK: `sarif emit-finalize` no longer derives `security-severity` from `result.rank`; it stamps a stable hand-curated per-CWE prior (new `CweSecuritySeverity` table) for both GHAS and GHAzDO. A producer value wins; a CWE with no prior (including `NOVEL-`) stays unstamped.
+* BUG: `sarif add-invocation` now accepts a `workingDirectory` anchored by `uriBaseId` alone (empty or absent `uri`), so an `emit-finalize`-rebased invocation round-trips back through the verb; a whitespace `uri` with no `uriBaseId` is still rejected.
 * NEW: New public `Microsoft.CodeAnalysis.Sarif.Taxonomies.CweSecuritySeverity` exposes the curated per-CWE `security-severity` map: `TryGetSecuritySeverity`, `SecuritySeverityByCwe`, `FormatPropertyValue`, and the `PropertyName` constant.
 * NEW: `AIRuleIdConvention.TryGetCweId` extracts the canonical `CWE-<n>` from any conformant AI ruleId (`89`, `CWE-89`, `CWE-89/<slug>`).
 * NEW: The CWE taxonomy taxa now carry the curated `security-severity` prior as a property, and `CweTaxonomyEnricher` copies it onto CWE-matched rule descriptors (a producer-authored value is preserved) so GitHub and Azure DevOps consumers read it directly off the rule.
 * NEW: `sarif get-cwe` records now carry a `securitySeverity` field (the curated per-CWE prior) in both JSON and markdown output.
+* NEW: `sarif emit-run` now warns to stderr when the supplied run header carries `results` or `invocations` (use `add-result`/`add-invocation`); these are dropped at replay, and the header is still written.
 
 ## **v5.0.5** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/v5.0.5) | [Driver](https://www.nuget.org/packages/Sarif.Driver/v5.0.5) | [Converters](https://www.nuget.org/packages/Sarif.Converters/v5.0.5) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/v5.0.5) | [Multitool Library](https://www.nuget.org/packages/Sarif.Multitool.Library/v5.0.5)
 * BRK: `RuleKind` is now a `[Flags]` enum (`Sarif=1, Ghas=2, GHAzDO=4, AI=8`); the GH#### rules report `RuleKind.Ghas`, and `RuleKind.Gh` is now an `[Obsolete]` alias of `Ghas`.
