@@ -3,7 +3,7 @@
 
 <#
 .SYNOPSIS
-    Emits CweGhasSample.sarif (default) or CweGHAzDoSample.sarif (-GHAzDO) — a
+    Emits CweGhasSample.sarif (default) or CweGHAzDOSample.sarif (-GHAzDO) — a
     deterministic, fully-enriched SARIF fixture that exercises the multitool
     emit chain end-to-end and passes the validator with zero Errors,
     zero Warnings, and zero Notes under the relevant rule-kinds.
@@ -22,7 +22,7 @@
         target — the run carries the security-severity (a host-agnostic per-CWE
         prior) and primaryLocationLineHash (github-only) enrichments emit-finalize
         applies for github-hosted runs.
-      * A dev.azure.com host (forced by -GHAzDO) writes CweGHAzDoSample.sarif and
+      * A dev.azure.com host (forced by -GHAzDO) writes CweGHAzDOSample.sarif and
         validates with --rule-kind Sarif;AI;GHAzDO. This is the "AI scanner
         running inside an Azure DevOps pipeline" shape — the GHAzDO ingestion
         contract for automationDetails.id + the four
@@ -114,7 +114,7 @@
 
 .PARAMETER GHAzDO
     When set, forces a dev.azure.com repositoryUri and produces
-    CweGHAzDoSample.sarif (the GHAzDO ingestion variant) instead of
+    CweGHAzDOSample.sarif (the GHAzDO ingestion variant) instead of
     CweGhasSample.sarif. ADO predefined env vars are populated for the
     duration of emit-run, AdoPipelineContext stamps the automationDetails,
     and validation runs with rule-kind Sarif;AI;GHAzDO. Switch absent leaves
@@ -124,7 +124,7 @@
     Pins versionControlProvenance to the canonical fixture triple
     (repositoryUri https://github.com/microsoft/sarif-sdk, the frozen
     v4.5.0 revisionId, branch refs/heads/main) so the checked-in
-    CweGhasSample.sarif / CweGHAzDoSample.sarif regenerate byte-identically
+    CweGhasSample.sarif / CweGHAzDOSample.sarif regenerate byte-identically
     on any machine, commit, or fork. The byte-gate test passes this.
     Mutually exclusive with -RevisionId / -Branch.
 
@@ -399,7 +399,7 @@ if (-not $Deterministic -and $vcpRepoUri -eq $canonicalRepositoryUri -and $revis
 $vcpHostLower = ([System.Uri]$vcpRepoUri).Host.ToLowerInvariant()
 if ($vcpHostLower -eq 'dev.azure.com') {
     $variant          = 'GHAzDO'
-    $sampleBaseName   = 'CweGHAzDoSample'
+    $sampleBaseName   = 'CweGHAzDOSample'
     $validateRuleKind = 'Sarif;AI;GHAzDO'
 }
 elseif ($vcpHostLower -eq 'github.com' -or $vcpHostLower.EndsWith('.ghe.com')) {
