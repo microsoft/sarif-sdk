@@ -516,6 +516,77 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             File.Exists(WipPath).Should().BeFalse();
         }
 
+        [Fact]
+        public void Run_WhenHeaderCarriesResults_WarnsToStderrButStillWritesHeader()
+        {
+            // results on the run header are dropped at replay (they belong in add-result), so the
+            // verb warns rather than silently discarding them; the header is still written.
+            JObject runObject = MinimalRun();
+            runObject["results"] = new JArray
+            {
+                new JObject { ["ruleId"] = "TEST0001", ["message"] = new JObject { ["text"] = "x" } },
+            };
+
+            using var errWriter = new StringWriter();
+            Console.SetError(errWriter);
+
+            int exit = RunWithInput(runObject);
+
+            exit.Should().Be(CommandBase.SUCCESS);
+            errWriter.ToString().Should().Contain("results[1]");
+            File.Exists(WipPath).Should().BeTrue();
+        }
+
+        [Fact]
+        public void Run_WhenHeaderCarriesInvocations_WarnsToStderrButStillWritesHeader()
+        {
+            // invocations on the run header are dropped at replay (they belong in add-invocation),
+            // so the verb warns rather than silently discarding them; the header is still written.
+            JObject runObject = MinimalRun();
+            runObject["invocations"] = new JArray
+            {
+                new JObject { ["executionSuccessful"] = true },
+                new JObject { ["executionSuccessful"] = false },
+            };
+
+            using var errWriter = new StringWriter();
+            Console.SetError(errWriter);
+
+            int exit = RunWithInput(runObject);
+
+            exit.Should().Be(CommandBase.SUCCESS);
+            errWriter.ToString().Should().Contain("invocations[2]");
+            File.Exists(WipPath).Should().BeTrue();
+        }
+
+        [Fact]
+        public void Run_WhenHeaderHasNoResultsOrInvocations_DoesNotWarn()
+        {
+            using var errWriter = new StringWriter();
+            Console.SetError(errWriter);
+
+            int exit = RunWithInput(MinimalRun());
+
+            exit.Should().Be(CommandBase.SUCCESS);
+            errWriter.ToString().Should().NotContain("ignored at replay");
+        }
+
+        [Fact]
+        public void Run_WhenHeaderHasEmptyResultsArray_DoesNotWarn()
+        {
+            // An empty array carries no data, so it is not worth a warning.
+            JObject runObject = MinimalRun();
+            runObject["results"] = new JArray();
+
+            using var errWriter = new StringWriter();
+            Console.SetError(errWriter);
+
+            int exit = RunWithInput(runObject);
+
+            exit.Should().Be(CommandBase.SUCCESS);
+            errWriter.ToString().Should().NotContain("ignored at replay");
+        }
+
         private static FakeEnvironmentVariableGetter CompleteAdoEnv() => new FakeEnvironmentVariableGetter()
             .With(AdoPipelineContext.TfBuildEnvVar, "True")
             .With(AdoPipelineContext.CollectionUriEnvVar, "https://dev.azure.com/contoso/")
