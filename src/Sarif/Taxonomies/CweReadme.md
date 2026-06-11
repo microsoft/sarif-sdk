@@ -74,7 +74,6 @@ Callers that want a complete snapshot pass `CweStatus.All`.
 ## Sample
 
 [`CweGenerateSample.ps1`](CweGenerateSample.ps1) emits the checked-in
-[`CweGenerateSample.ps1`](CweGenerateSample.ps1) emits the checked-in
 [`CweGhasSample.sarif`](CweGhasSample.sarif) fixture (and, with `-GHAzDO`,
 [`CweGHAzDoSample.sarif`](CweGHAzDoSample.sarif)), a fully enriched SARIF log that
 exercises the emit chain end-to-end via the multitool `emit-run`,

@@ -9,7 +9,7 @@
 - [`docs/AI-RuleId-Convention.md`](../AI-RuleId-Convention.md) — rule-ID structure and stability rules for AI-emitted SARIF.
 - [`docs/Producing effective SARIF.md`](../Producing%20effective%20SARIF.md) — general SDK producer guidance; AI producers should read this first.
 - [`docs/multitool-usage.md`](../multitool-usage.md) — `Sarif.Multitool` CLI reference, including the `emit-*` / `add-*` verbs used by the `emit-sarif` skill.
-- [`docs/ValidationRules.md`](../ValidationRules.md) — the full SARIF validation rule catalog.
+- [`docs/ValidationRules.md`](../ValidationRules.md) — the standard (base-profile) SARIF validation rule catalog. The AI- and GHAzDO-profile rules are documented in this file and in `RuleResources.resx`.
 - [`skills/emit-sarif/SKILL.md`](../../skills/emit-sarif/SKILL.md) — agent-procedural skill for emitting AI SARIF using the multitool emit verbs.
 - [`skills/validate-sarif/SKILL.md`](../../skills/validate-sarif/SKILL.md) — agent-procedural skill for validating AI SARIF against this profile.
 
@@ -581,7 +581,7 @@ A SARIF file containing exploit narratives, reproduction steps, captured HTTP tr
 **Indirection:** For highly sensitive findings, producers MAY emit a redacted version for the standard alert pipeline (title, severity, location — no repro steps) and store the full SARIF in a secure location:
 
 ```markdown
-## [NOVEL/capability-trust-bypass] — Novel Finding
+## [NOVEL-capability-trust-bypass] — Novel Finding
 
 **Classification:** Novel (nearest CWE: CWE-345)
 **Severity:** Critical
@@ -989,7 +989,7 @@ Until concrete samples are validated through dogfooding, the following prelimina
 
 ### Observed vs. predicted evidence
 
-The difference between `theoretical` and `demonstrated` exploitability (see [Exploitability Evidence](#exploitability-evidence)) is expressed structurally through the richness of the `codeFlows` data. A predicted path has locations and messages; observed evidence adds timestamps, HTTP traffic, and runtime state.
+The difference between `theoretical` and `demonstrated` exploitability (see [Evidence Strength](#evidence-strength-aiexploitability)) is expressed structurally through the richness of the `codeFlows` data. A predicted path has locations and messages; observed evidence adds timestamps, HTTP traffic, and runtime state.
 
 **Predicted path** (static analysis — `theoretical`):
 
@@ -1686,8 +1686,10 @@ These constructs were designed speculatively — no concrete producer/consumer p
 The [SARIF SDK](https://github.com/microsoft/sarif-sdk) ships validation rules that check conformance with these conventions. Run them with:
 
 ```bash
-sarif validate my-results.sarif --rule-kind AI
+sarif validate my-results.sarif --rule-kind "Sarif;AI" --level "Note;Warning;Error"
 ```
+
+The `AI` kind activates the AI rule pack (AI1003–AI2019); the `Sarif` kind runs the full standard SARIF catalog (SARIF1xxx/2xxx, JSON1xxx) alongside it. Run both together — the AI pack does not subsume the standard structural checks. The `--level` list surfaces the note-level AI rules (rank, handoff, learning-signal).
 
 ### AI-specific rules
 
@@ -1715,7 +1717,7 @@ sarif validate my-results.sarif --rule-kind AI
 
 ### SARIF-standard rules elevated for AI profile
 
-These rules are defined by the base SARIF profile and fire in both standard and AI modes. They are enabled by default; no configuration file is needed — `--rule-kind AI` activates them automatically.
+These rules are defined by the base SARIF profile and fire in both standard and AI modes. Running with `--rule-kind "Sarif;AI"` activates the AI pack together with the full standard SARIF rule set, so these elevated rules run with their AI-profile levels.
 
 | Rule ID | Name | AI Level | Description |
 |---------|------|----------|-------------|
@@ -1860,7 +1862,7 @@ classDiagram
         +WebResponse webResponse
         +PropertyBag properties
     }
-    note for Result "ruleId: CWE-78/api-handler or NOVEL/slug<br/>kind: fail (primary for AI findings)<br/>level: error | warning | note<br/>rank: 0.0-100.0 (per-tool scale)<br/>─── ai/* properties ───<br/>ai/exploitability: demonstrated | poc | theoretical<br/>ai/attackerPosition: unauthenticated-network | ...<br/>ai/evidence[]: {strength, scope, backing[], note}<br/>ai/handoff: markdown forward-notes"
+    note for Result "ruleId: CWE-78/api-handler or NOVEL-prompt-injection<br/>kind: fail (primary for AI findings)<br/>level: error | warning | note<br/>rank: 0.0-100.0 (per-tool scale)<br/>─── ai/* properties ───<br/>ai/exploitability: demonstrated | poc | theoretical<br/>ai/attackerPosition: unauthenticated-network | ...<br/>ai/evidence[]: {strength, scope, backing[], note}<br/>ai/handoff: markdown forward-notes"
 
     class Message {
         +string text
