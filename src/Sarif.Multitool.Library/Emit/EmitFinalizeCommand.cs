@@ -117,7 +117,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                     {
                         if (run == null) { continue; }
 
-                        ApplyAiSecuritySeverity(run);
+                        ApplyAISecuritySeverity(run);
 
                         bool isGitHubHosted = VcpPortableRoot.IsGitHubHostedRun(run);
 
@@ -262,7 +262,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         /// neither is derived from the other.
         /// </remarks>
         /// <returns>The number of rule descriptors stamped.</returns>
-        internal static int ApplyAiSecuritySeverity(Run run)
+        internal static int ApplyAISecuritySeverity(Run run)
         {
             IList<ReportingDescriptor> rules = run?.Tool?.Driver?.Rules;
             if (rules == null || rules.Count == 0) { return 0; }

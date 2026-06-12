@@ -429,22 +429,22 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         }
 
         [Fact]
-        public void ApplyAiSecuritySeverity_StampsCuratedTableValue()
+        public void ApplyAISecuritySeverity_StampsCuratedTableValue()
         {
             Run run = BuildRun("CWE-89");
 
-            int stamped = EmitFinalizeCommand.ApplyAiSecuritySeverity(run);
+            int stamped = EmitFinalizeCommand.ApplyAISecuritySeverity(run);
 
             stamped.Should().Be(1);
             SecuritySeverityOf(run.Tool.Driver.Rules[0]).Should().Be("8.8");
         }
 
         [Fact]
-        public void ApplyAiSecuritySeverity_StampsEachKnownCweRuleIndependently()
+        public void ApplyAISecuritySeverity_StampsEachKnownCweRuleIndependently()
         {
             Run run = BuildRun("CWE-89", "CWE-79");
 
-            int stamped = EmitFinalizeCommand.ApplyAiSecuritySeverity(run);
+            int stamped = EmitFinalizeCommand.ApplyAISecuritySeverity(run);
 
             stamped.Should().Be(2);
             SecuritySeverityOf(run.Tool.Driver.Rules[0]).Should().Be("8.8");
@@ -452,14 +452,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         }
 
         [Fact]
-        public void ApplyAiSecuritySeverity_StampsMediumDefaultForUncuratedCweAndNovelRules()
+        public void ApplyAISecuritySeverity_StampsMediumDefaultForUncuratedCweAndNovelRules()
         {
             // A CWE with no curated prior, and the NOVEL- escape hatch (which carries no CWE), are
             // both uncurated content: rather than ship with no severity, they get the neutral medium
             // emit-time default (5.0) so they bucket as security findings on GitHub/Azure DevOps.
             Run run = BuildRun("CWE-999999", "NOVEL-prompt-injection");
 
-            int stamped = EmitFinalizeCommand.ApplyAiSecuritySeverity(run);
+            int stamped = EmitFinalizeCommand.ApplyAISecuritySeverity(run);
 
             stamped.Should().Be(2);
             SecuritySeverityOf(run.Tool.Driver.Rules[0]).Should().Be("5.0");
@@ -467,25 +467,25 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         }
 
         [Fact]
-        public void ApplyAiSecuritySeverity_LeavesNonAiRuleBare()
+        public void ApplyAISecuritySeverity_LeavesNonAiRuleBare()
         {
             // A rule id that is neither a CWE nor a NOVEL- id is not an AI security rule; it receives
             // no severity (and no default).
             Run run = BuildRun("MY-CUSTOM-RULE");
 
-            int stamped = EmitFinalizeCommand.ApplyAiSecuritySeverity(run);
+            int stamped = EmitFinalizeCommand.ApplyAISecuritySeverity(run);
 
             stamped.Should().Be(0);
             HasSecuritySeverity(run.Tool.Driver.Rules[0]).Should().BeFalse();
         }
 
         [Fact]
-        public void ApplyAiSecuritySeverity_PreservesProducerAuthoredValue()
+        public void ApplyAISecuritySeverity_PreservesProducerAuthoredValue()
         {
             Run run = BuildRun("CWE-89");
             run.Tool.Driver.Rules[0].SetProperty("security-severity", "2.0");
 
-            int stamped = EmitFinalizeCommand.ApplyAiSecuritySeverity(run);
+            int stamped = EmitFinalizeCommand.ApplyAISecuritySeverity(run);
 
             stamped.Should().Be(0);
             SecuritySeverityOf(run.Tool.Driver.Rules[0]).Should().Be("2.0");
@@ -515,10 +515,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         }
 
         [Fact]
-        public void ApplyGitHubCweTags_DerivesCweNumberFromSubIdRuleId()
+        public void ApplyGitHubCweTags_DerivesCweNumberFromCweDescriptorId()
         {
-            // The descriptor id collapses a sub-id form (CWE-89/string-concat-query) to "CWE-89";
-            // the tag tracks the same CWE number regardless of the sub-id.
+            // A CWE-as-rule descriptor carries a base CWE id; the external/cwe tag tracks its number.
             Run run = BuildRun("CWE-89");
 
             EmitFinalizeCommand.ApplyGitHubCweTags(run);
@@ -613,6 +612,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         public void CollapseResultRuleSubIds_CollapsesSubIdToDescriptorId()
         {
             Run run = BuildRunWithResults(("CWE-79", "CWE-79/template-xss"));
+            run.Results[0].RuleId.Should().Be("CWE-79/template-xss");
 
             int collapsed = EmitFinalizeCommand.CollapseResultRuleSubIds(run);
 
@@ -628,6 +628,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             Run run = BuildRunWithResults(
                 ("CWE-79", "CWE-79/template-xss"),
                 ("CWE-79", "CWE-79/dom-xss-via-sanitizer-bypass"));
+            run.Results[0].RuleId.Should().Be("CWE-79/template-xss");
+            run.Results[1].RuleId.Should().Be("CWE-79/dom-xss-via-sanitizer-bypass");
 
             int collapsed = EmitFinalizeCommand.CollapseResultRuleSubIds(run);
 
@@ -668,6 +670,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             // ruleId and the rule.id collapse together so they remain equal (valid SARIF §3.27.7).
             Run run = BuildRunWithResults(("CWE-79", "CWE-79/template-xss"));
             run.Results[0].Rule = new ReportingDescriptorReference { Id = "CWE-79/template-xss", Index = 0 };
+            run.Results[0].RuleId.Should().Be("CWE-79/template-xss");
+            run.Results[0].Rule.Id.Should().Be("CWE-79/template-xss");
 
             int collapsed = EmitFinalizeCommand.CollapseResultRuleSubIds(run);
 

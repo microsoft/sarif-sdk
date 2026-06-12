@@ -98,9 +98,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Taxonomies
         }
 
         /// <summary>
-        /// Parses the CWE number out of any identifier the SDK accepts: a bare number
-        /// (<c>89</c>), a canonical id (<c>CWE-89</c>, any case, leading zeros tolerated), or an
-        /// AI ruleId carrying a sub-id (<c>CWE-89/kql-injection</c>). The <c>NOVEL-</c> form and
+        /// Parses the CWE number out of a canonical CWE id (<c>CWE-89</c>, any case, leading
+        /// zeros tolerated) or an AI ruleId carrying a sub-id (<c>CWE-89/kql-injection</c>). The
+        /// <c>CWE-</c> prefix is required: a bare number (<c>89</c>), the <c>NOVEL-</c> form, and
         /// anything non-conforming yield <c>false</c>.
         /// </summary>
         /// <param name="cweId">The CWE identifier or AI ruleId to resolve.</param>
@@ -113,13 +113,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Taxonomies
 
             string token = cweId.Trim();
 
+            if (!token.StartsWith("CWE-", StringComparison.OrdinalIgnoreCase)) { return false; }
+            token = token.Substring(4);
+
             int slash = token.IndexOf('/');
             if (slash >= 0) { token = token.Substring(0, slash); }
-
-            if (token.StartsWith("CWE-", StringComparison.OrdinalIgnoreCase))
-            {
-                token = token.Substring(4);
-            }
 
             return int.TryParse(token, NumberStyles.None, CultureInfo.InvariantCulture, out cweNumber);
         }

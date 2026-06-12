@@ -38,7 +38,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Test.UnitTests.Taxonomies
             VerifyNumericLookup(99999, expectedFound: false, expectedValue: default);
         }
 
-        // ----- String lookup (accepts bare number, CWE-<n>, CWE-<n>/sub-id) -----
+        // ----- String lookup (requires CWE- prefix: CWE-<n>, CWE-<n>/sub-id) -----
 
         private static void VerifyStringLookup(string cweId, bool expectedFound, double expectedValue)
         {
@@ -52,9 +52,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Test.UnitTests.Taxonomies
         }
 
         [Fact]
-        public void TryGetSecuritySeverity_String_AcceptsBareNumber()
+        public void TryGetSecuritySeverity_String_ReturnsFalse_ForBareNumber()
         {
-            VerifyStringLookup("89", expectedFound: true, expectedValue: 8.8);
+            VerifyStringLookup("89", expectedFound: false, expectedValue: default);
         }
 
         [Fact]
