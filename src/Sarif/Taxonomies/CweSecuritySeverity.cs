@@ -82,7 +82,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Taxonomies
         public static bool TryGetSecuritySeverity(string cweId, out double securitySeverity)
         {
             securitySeverity = default;
-            return TryParseCweNumber(cweId, out int cweNumber)
+            return TryGetCweNumber(cweId, out int cweNumber)
                 && TryGetSecuritySeverity(cweNumber, out securitySeverity);
         }
 
@@ -97,9 +97,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Taxonomies
             return securitySeverity.ToString("0.0", CultureInfo.InvariantCulture);
         }
 
-        // Accepts "89", "CWE-89" / "cwe-089" (any case, leading zeros), and "CWE-89/<sub-id>".
-        // The NOVEL- form and anything non-conforming yield false.
-        private static bool TryParseCweNumber(string cweId, out int cweNumber)
+        /// <summary>
+        /// Parses the CWE number out of any identifier the SDK accepts: a bare number
+        /// (<c>89</c>), a canonical id (<c>CWE-89</c>, any case, leading zeros tolerated), or an
+        /// AI ruleId carrying a sub-id (<c>CWE-89/kql-injection</c>). The <c>NOVEL-</c> form and
+        /// anything non-conforming yield <c>false</c>.
+        /// </summary>
+        /// <param name="cweId">The CWE identifier or AI ruleId to resolve.</param>
+        /// <param name="cweNumber">The parsed CWE number (e.g. <c>89</c>), when found.</param>
+        /// <returns><c>true</c> when a CWE number was parsed; otherwise <c>false</c>.</returns>
+        public static bool TryGetCweNumber(string cweId, out int cweNumber)
         {
             cweNumber = default;
             if (string.IsNullOrWhiteSpace(cweId)) { return false; }
@@ -142,7 +149,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Taxonomies
             var table = new Dictionary<int, double>(raw.Count);
             foreach (KeyValuePair<string, double> entry in raw)
             {
-                if (TryParseCweNumber(entry.Key, out int cweNumber))
+                if (TryGetCweNumber(entry.Key, out int cweNumber))
                 {
                     table[cweNumber] = entry.Value;
                 }
