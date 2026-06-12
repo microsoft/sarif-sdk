@@ -206,20 +206,48 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             }
         }
 
-        private SarifLog RunMerge(SarifLog sarifLog1, SarifLog sarifLog2)
+        [Fact]
+        public void MergeCommand_CoalescesMultipleSameToolRunsWithinASingleInputFile()
         {
-            string sarifLog1Json = JsonConvert.SerializeObject(sarifLog1);
-            string sarifLog2Json = JsonConvert.SerializeObject(sarifLog2);
-            string sarifLog1FilePath = Path.Combine(testDirectory, "SarifLog1.sarif");
-            string sarifLog2FilePath = Path.Combine(testDirectory, "SarifLog2.sarif");
+            // The customer hands us one SARIF file that already contains several runs, each
+            // produced by an identical tool + version (e.g. a sharded scan serialized as one
+            // file with one run per shard). Merge must coalesce those runs into a single run
+            // carrying every distinct result; source-file boundaries are irrelevant to keying.
+            var singleInput = new SarifLog
+            {
+                Runs = new[]
+                {
+                    CreateTestRun(4, ruleIdPrefix: "ALPHA"),
+                    CreateTestRun(5, ruleIdPrefix: "BETA"),
+                    CreateTestRun(6, ruleIdPrefix: "GAMMA"),
+                }
+            };
+
+            SarifLog mergedLog = RunMerge(singleInput);
+
+            mergedLog.Runs.Count.Should().Be(1);
+            mergedLog.Runs[0].Tool.Driver.Name.Should().Be("TestTool");
+            mergedLog.Runs[0].Results.Count.Should().Be(15);
+        }
+
+        private SarifLog RunMerge(params SarifLog[] inputLogs)
+        {
+            var mockFileSystem = new Mock<IFileSystem>();
+            var inputFilePaths = new List<string>();
+
+            for (int i = 0; i < inputLogs.Length; i++)
+            {
+                string inputJson = JsonConvert.SerializeObject(inputLogs[i]);
+                string inputFilePath = Path.Combine(testDirectory, $"SarifLog{i + 1}.sarif");
+                inputFilePaths.Add(inputFilePath);
+                ArrangeMockFileSystemRead(mockFileSystem, inputJson, inputFilePath);
+            }
+
             string outputFilePath = Path.Combine(testDirectory, "merged.sarif");
             var outputStringBuilder = new StringBuilder();
 
-            var mockFileSystem = new Mock<IFileSystem>();
-            ArrangeMockFileSystemRead(mockFileSystem, sarifLog1Json, sarifLog1FilePath);
-            ArrangeMockFileSystemRead(mockFileSystem, sarifLog2Json, sarifLog2FilePath);
             ArrangeMockFileSystemCreate(mockFileSystem, outputFilePath, outputStringBuilder);
-            ArrangeMockFileSystemEnumerate(mockFileSystem, testDirectory, new[] { sarifLog1FilePath, sarifLog2FilePath });
+            ArrangeMockFileSystemEnumerate(mockFileSystem, testDirectory, inputFilePaths);
 
             IFileSystem fileSystem = mockFileSystem.Object;
 
