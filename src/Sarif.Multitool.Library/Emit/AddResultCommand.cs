@@ -56,7 +56,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                     Console.Error.WriteLine(
                         string.Format(
                             CultureInfo.CurrentCulture,
-                            "error {0}: result.ruleId must be a JSON string, but the payload supplied a JSON {1}. See docs/AI-RuleId-Convention.md.",
+                            "error {0}: result.ruleId must be a JSON string, but the payload supplied a JSON {1}. See docs/ai/generating-sarif.md#rule-id-convention.",
                             AIRuleIdConventionException.ErrorCode,
                             ruleIdToken.Type.ToString().ToLowerInvariant()));
                     return FAILURE;

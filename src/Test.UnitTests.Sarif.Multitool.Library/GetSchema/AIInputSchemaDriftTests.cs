@@ -51,7 +51,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         #region ai-result.schema.json
 
         // ruleId accept/reject must match AIRuleIdConvention.cs (and the
-        // AIRuleIdConventionTests / docs/AI-RuleId-Convention.md tables)
+        // AIRuleIdConventionTests / generating-sarif.md Rule-ID Convention tables)
         // case-for-case. AI rule ids are CWE-only; the CWE- and NOVEL- prefixes
         // are disjoint, so a plain anyOf is exact ('NOVEL-foo/bar' is rejected
         // by both branches).

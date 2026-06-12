@@ -89,7 +89,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Emit
             sb.AppendLine("     use shape #1 instead.");
             sb.AppendLine();
             sb.Append("Retry the emit after correcting every offender above. ");
-            sb.Append("See docs/AI-RuleId-Convention.md for full guidance.");
+            sb.Append("See docs/ai/generating-sarif.md#rule-id-convention for full guidance.");
 
             return sb.ToString();
         }
