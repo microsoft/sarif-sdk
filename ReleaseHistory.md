@@ -13,7 +13,7 @@ Each release entry below is prefixed with one of:
 
 Entries are terse by design: one line per change, present-tense behavior, complete but only essential data. No issue/PR archaeology or narrative — that history lives in the engineering system.
 
-## **UNRELEASED**
+## **v5.0.7** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/v5.0.7) | [Driver](https://www.nuget.org/packages/Sarif.Driver/v5.0.7) | [Converters](https://www.nuget.org/packages/Sarif.Converters/v5.0.7) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/v5.0.7) | [Multitool Library](https://www.nuget.org/packages/Sarif.Multitool.Library/v5.0.7)
 * BRK: `sarif merge` now coalesces inputs into one run per tool + version and no longer accepts `--merge-runs` or `--split`; use the `partition` verb to split the merged log by rule, run, or target.
 * BUG: `@microsoft/sarif-multitool-win32` ships `Sarif.Multitool.exe` again, restoring `npx @microsoft/sarif-multitool` on Windows; the `win-x64` publish drops `PublishReadyToRun` (a crossgen2 failure had emptied the package) and `BuildMultitoolForNpm.ps1` now fails on any missing platform payload.
 * NEW: `AI2016.ProvideEvidenceBacking` now flags a present-but-malformed `ai/evidence` value (not a JSON array) as `Warning_MalformedEvidence`.
