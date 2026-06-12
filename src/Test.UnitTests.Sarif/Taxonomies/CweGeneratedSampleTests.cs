@@ -18,7 +18,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Taxonomies
     /// <summary>
     /// Regression gate for the checked-in CWE taxonomy samples.
     /// CweGhasSample.sarif (the github.com/GHAS variant) and
-    /// CweGHAzDoSample.sarif (the dev.azure.com/GHAzDO variant) ship next to
+    /// CweGHAzDOSample.sarif (the dev.azure.com/GHAzDO variant) ship next to
     /// CweGenerateSample.ps1 so reviewers can see the shape of a fully-
     /// enriched CWE log without building anything. Each test re-runs the
     /// generator in the relevant mode (which overwrites the fixture
@@ -33,7 +33,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Taxonomies
     {
         private const string ScriptRelativePath = @"src/Sarif/Taxonomies/CweGenerateSample.ps1";
         private const string GhasFixtureRelativePath = @"src/Sarif/Taxonomies/CweGhasSample.sarif";
-        private const string GHAzDoFixtureRelativePath = @"src/Sarif/Taxonomies/CweGHAzDoSample.sarif";
+        private const string GHAzDOFixtureRelativePath = @"src/Sarif/Taxonomies/CweGHAzDOSample.sarif";
 
         private readonly ITestOutputHelper _output;
 
@@ -51,11 +51,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Taxonomies
         }
 
         [Fact]
-        public void CweGHAzDoSample_Sarif_IsByteIdenticalToCweGenerateSampleScriptOutput()
+        public void CweGHAzDOSample_Sarif_IsByteIdenticalToCweGenerateSampleScriptOutput()
         {
             VerifyFixtureIsByteIdenticalToScriptOutput(
                 extraScriptArgs: new[] { "-GHAzDO" },
-                fixtureRelativePath: GHAzDoFixtureRelativePath);
+                fixtureRelativePath: GHAzDOFixtureRelativePath);
         }
 
         [Fact]
@@ -149,7 +149,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Taxonomies
         }
 
         [Fact]
-        public void CweGHAzDoSample_RegenerationSucceeds_WhenAmbientAdoFallbackEnvVarsConflict()
+        public void CweGHAzDOSample_RegenerationSucceeds_WhenAmbientAdoFallbackEnvVarsConflict()
         {
             // Regression gate for the mseng pipeline break: a real ADO agent
             // injects SYSTEM_DEFINITIONID (the fallback for BUILD_DEFINITIONID)
@@ -170,7 +170,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Taxonomies
         }
 
         [Fact]
-        public void CweGHAzDoSample_RegenerationSucceeds_WhenAmbientGitHubActionsEnvVarsConflict()
+        public void CweGHAzDOSample_RegenerationSucceeds_WhenAmbientGitHubActionsEnvVarsConflict()
         {
             // Regression gate for the macOS CI break that surfaced when
             // GitHubActionsContext landed: a GitHub Actions runner sets
@@ -205,7 +205,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Taxonomies
 
                 VerifyFixtureIsByteIdenticalToScriptOutput(
                     extraScriptArgs: new[] { "-GHAzDO" },
-                    fixtureRelativePath: GHAzDoFixtureRelativePath);
+                    fixtureRelativePath: GHAzDOFixtureRelativePath);
             }
             finally
             {

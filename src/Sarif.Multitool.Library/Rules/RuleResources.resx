@@ -770,10 +770,13 @@ Provide the 'help' property and populate the 'text' property with information ab
     <value>{0}: The run contains a mixture of results with and without 'ai/exploitability' ({1} with, {2} without). Following the suppressions pattern (SARIF spec §3.27.23), exploitability should be present on all results or absent from all results.</value>
   </data>
   <data name="AI1012_ProvideRuleSubId_FullDescription_Text" xml:space="preserve">
-    <value>AI-generated results must carry a hierarchical sub-component on 'result.ruleId' beyond the base 'reportingDescriptor.id'. SARIF has no 'result.name'; the hierarchical 'ruleId' is the one slot where a per-finding readable handle survives minimal SARIF, and it is the suppression and baseline grouping key (SARIF spec §3.27.5). Choose a true sub-classification of the base rule when one applies (e.g. 'CWE-78/api-handler'); otherwise kebab-case the rule's friendly 'name'. Choose granularity deliberately: results that should be dispositioned as a bundle share a sub-ID; distinct issues under one base rule get distinct sub-IDs.</value>
+    <value>AI-generated results must carry a hierarchical sub-component on 'result.ruleId' beyond the base 'reportingDescriptor.id'. SARIF has no 'result.name'; the hierarchical 'ruleId' is the one slot where a per-finding readable handle survives minimal SARIF, and it is the suppression and baseline grouping key (SARIF spec §3.27.5). The accepted shapes are a taxonomy sub-ID, 'CWE-&lt;number&gt;/&lt;sub-id&gt;' (e.g. 'CWE-78/api-handler'), or the escape hatch 'NOVEL-&lt;sub-id&gt;' for a finding that maps to no taxonomy entry; the sub-ID is lowercase kebab-case and the 'NOVEL-' form takes no slash. This is the same convention the 'emit' verb hard-enforces, so logs produced by other paths conform too. Use a true sub-classification of the base rule when one applies, otherwise kebab-case the rule's friendly 'name', and pick granularity deliberately: results dispositioned as a bundle share a sub-ID; distinct issues under one base rule get distinct sub-IDs.</value>
   </data>
   <data name="AI1012_ProvideRuleSubId_Error_Missing_Text" xml:space="preserve">
     <value>{0}: 'result.ruleId' is '{1}' with no sub-component beyond the descriptor id. Append a hierarchical sub-ID: a true sub-classification of '{1}' if one applies, otherwise the kebab-cased rule name (e.g. '{1}/{2}'). SARIF has no 'result.name'; this sub-ID is that name and the bulk-disposition key (§3.27.5).</value>
+  </data>
+  <data name="AI1012_ProvideRuleSubId_Error_Malformed_Text" xml:space="preserve">
+    <value>{0}: 'result.ruleId' is '{1}', which does not match the AI ruleId convention. Use a taxonomy sub-ID 'CWE-&lt;number&gt;/&lt;sub-id&gt;' (e.g. 'CWE-89/kql-injection') or the escape hatch 'NOVEL-&lt;sub-id&gt;' (e.g. 'NOVEL-prompt-injection'); the sub-ID is lowercase kebab-case and the 'NOVEL-' form takes no slash. No appended sub-ID can repair this value, so rewrite it to a conformant shape (§3.27.5).</value>
   </data>
   <data name="AI2010_ProvideResultRank_FullDescription_Text" xml:space="preserve">
     <value>AI-generated results should provide a 'rank' value (0.0 to 100.0). Per the SARIF spec (§3.27.25), 'rank' expresses a result's relative priority or importance, and a tool may compute it by any methodology. Prioritizing findings by 'least likely to be a false positive' is a reasonable choice, so an AI producer may populate 'rank' with its confidence — the estimated likelihood that the result is a true positive — and use that as the priority signal. 'rank' remains a priority value and is orthogonal to 'security-severity', which is a stable per-rule (per-CWE) prior the SDK supplies separately.</value>
@@ -816,6 +819,9 @@ Provide the 'help' property and populate the 'text' property with information ab
   </data>
   <data name="AI2016_ProvideEvidenceBacking_Warning_Inconsistent_Text" xml:space="preserve">
     <value>{0}: This result declares 'ai/exploitability' as 'demonstrated' but no 'ai/evidence' entry has 'strength' of 'demonstrated' with non-empty 'backing'. The headline exploitability should be consistent with the evidence array.</value>
+  </data>
+  <data name="AI2016_ProvideEvidenceBacking_Warning_MalformedEvidence_Text" xml:space="preserve">
+    <value>{0}: The 'ai/evidence' property is present but is not a well-formed JSON array. Evidence must be a JSON array of objects; a malformed or wrong-typed value cannot be validated and is silently dropped by every evidence consumer.</value>
   </data>
   <data name="AI1010_ProvideEvidenceBackingUri_FullDescription_Text" xml:space="preserve">
     <value>Every 'sarif:' URI in 'ai/evidence[].backing' SHALL resolve to an element within the containing log file per SARIF spec §3.10.3.</value>

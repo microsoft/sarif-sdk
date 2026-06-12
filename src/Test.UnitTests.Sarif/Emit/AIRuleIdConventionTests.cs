@@ -1,6 +1,10 @@
 // Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
+using System;
+using System.IO;
+using System.Text.RegularExpressions;
+
 using FluentAssertions;
 
 using Microsoft.CodeAnalysis.Sarif.Emit;
@@ -166,7 +170,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Test.UnitTests.Emit
             ex.Message.Should().Contain("fall back");
             ex.Message.Should().Contain("NOVEL escape hatch");
             ex.Message.Should().Contain("NOVEL-prompt-injection-via-system-message");
-            ex.Message.Should().Contain("docs/AI-RuleId-Convention.md");
+            ex.Message.Should().Contain("docs/ai/generating-sarif.md#rule-id-convention");
         }
 
         [Fact]
@@ -233,6 +237,62 @@ namespace Microsoft.CodeAnalysis.Sarif.Test.UnitTests.Emit
             VerifyTryGetCweId("cwe-89/foo", expectedSuccess: false, expectedCweId: null);   // lowercase base
             VerifyTryGetCweId("CWE-x/foo", expectedSuccess: false, expectedCweId: null);    // non-numeric
             VerifyTryGetCweId("MY-CUSTOM-RULE", expectedSuccess: false, expectedCweId: null);
+        }
+
+        // ----- Cited-doc anchor must not rot -----
+        // Every runtime ruleId-convention error directs the reader to
+        // docs/ai/generating-sarif.md#rule-id-convention. That fragment is only
+        // useful if the heading it targets still exists, so gate both ends here:
+        // the heading must be present, and the anchor the exception cites must be
+        // the GitHub slug of that heading. Rename one without the other and this
+        // fails.
+        private const string GeneratingSarifRelativePath = "docs/ai/generating-sarif.md";
+        private const string RuleIdConventionHeading = "## Rule-ID Convention";
+
+        [Fact]
+        public void ExceptionMessage_CitesLiveAnchorInGeneratingSarifDoc()
+        {
+            string docPath = FindRepoFile(GeneratingSarifRelativePath);
+            string[] lines = File.ReadAllLines(docPath);
+
+            string heading = Array.Find(lines, line => line.Trim() == RuleIdConventionHeading);
+            heading.Should().NotBeNull(
+                $"{GeneratingSarifRelativePath} must contain a '{RuleIdConventionHeading}' heading — " +
+                "runtime errors cite its anchor for the full grammar.");
+
+            string anchor = GitHubAnchor(RuleIdConventionHeading.TrimStart('#', ' '));
+            string expectedCitation = GeneratingSarifRelativePath + "#" + anchor;
+
+            var ex = new AIRuleIdConventionException(new[] { "CWE-79" });
+            ex.Message.Should().Contain(expectedCitation,
+                "the exception must point at the live heading anchor; if the heading is renamed, " +
+                "update the citation in AIRuleIdConventionException, AddResultCommand, and ReportingDescriptorEmitter.");
+        }
+
+        // GitHub heading-slug algorithm: lowercase, drop characters that are not
+        // word/space/hyphen, then replace spaces with hyphens.
+        private static string GitHubAnchor(string heading)
+        {
+            string lowered = heading.ToLowerInvariant();
+            string stripped = Regex.Replace(lowered, @"[^\w\- ]", string.Empty);
+            return stripped.Replace(' ', '-');
+        }
+
+        private static string FindRepoFile(string relativePath)
+        {
+            for (DirectoryInfo dir = new DirectoryInfo(AppContext.BaseDirectory);
+                 dir != null;
+                 dir = dir.Parent)
+            {
+                string candidate = Path.Combine(dir.FullName, relativePath.Replace('/', Path.DirectorySeparatorChar));
+                if (File.Exists(candidate))
+                {
+                    return candidate;
+                }
+            }
+
+            throw new FileNotFoundException(
+                $"Could not locate {relativePath} by walking up from {AppContext.BaseDirectory}");
         }
     }
 }
