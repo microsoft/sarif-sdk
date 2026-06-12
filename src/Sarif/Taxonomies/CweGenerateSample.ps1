@@ -693,7 +693,11 @@ $json = $doc | ConvertTo-Json -Depth 64
 # ---------------------------------------------------------------------------
 # Validate. The fixture MUST pass with 0 errors, 0 warnings, and 0 notes under
 # its variant's rule-kinds (Sarif;AI;Ghas for the GHAS fixture, Sarif;AI;GHAzDO
-# for the GHAzDO fixture). The run carries ai/origin = "generated" so the
+# for the GHAzDO fixture), with one deliberate exception: SARIF2006
+# (UrisShouldBeReachable) issues live HTTP GET requests against the fixture's
+# real URIs, so its findings reflect transient network state on the build host
+# rather than a fixture defect and are treated as informational (see the
+# fatal-set logic below). The run carries ai/origin = "generated" so the
 # AI-aware style rules (SARIF2002, SARIF2009, SARIF2014, SARIF2015) self-
 # suppress; the fixture is also constructed to satisfy the remaining
 # correctness-class rules (snippets, hashes, provenance, descriptor text, etc.).
@@ -731,6 +735,12 @@ $errors   = @($reportResults | Where-Object { (Get-ResultLevel $_) -eq 'error' }
 $warnings = @($reportResults | Where-Object { (Get-ResultLevel $_) -eq 'warning' })
 $notes    = @($reportResults | Where-Object { (Get-ResultLevel $_) -eq 'note' })
 
+# SARIF2006 (UrisShouldBeReachable) probes the fixture's real URIs over the
+# network, so a note from it reflects transient host connectivity rather than a
+# fixture defect. Exclude it from the fatal set; every other note still fails.
+$reachabilityNotes = @($notes | Where-Object { $_.ruleId -eq 'SARIF2006' })
+$fatalNotes        = @($notes | Where-Object { $_.ruleId -ne 'SARIF2006' })
+
 Write-Host ""
 Write-Host "Validator summary: $($errors.Count) error(s), $($warnings.Count) warning(s), $($notes.Count) note(s)"
 if ($notes.Count -gt 0) {
@@ -739,11 +749,14 @@ if ($notes.Count -gt 0) {
         Write-Host ("  note: {0,-12} x{1}" -f $g.Name, $g.Count)
     }
 }
+if ($reachabilityNotes.Count -gt 0) {
+    Write-Host "  (SARIF2006 reachability notes are informational and do not fail generation.)"
+}
 
-if ($errors.Count -gt 0 -or $warnings.Count -gt 0 -or $notes.Count -gt 0) {
-    if ($errors.Count -gt 0)   { Write-Warning ("Error rules: "   + (($errors   | Group-Object ruleId | ForEach-Object { $_.Name }) -join ', ')) }
-    if ($warnings.Count -gt 0) { Write-Warning ("Warning rules: " + (($warnings | Group-Object ruleId | ForEach-Object { $_.Name }) -join ', ')) }
-    if ($notes.Count -gt 0)    { Write-Warning ("Note rules: "    + (($notes    | Group-Object ruleId | ForEach-Object { $_.Name }) -join ', ')) }
+if ($errors.Count -gt 0 -or $warnings.Count -gt 0 -or $fatalNotes.Count -gt 0) {
+    if ($errors.Count -gt 0)     { Write-Warning ("Error rules: "   + (($errors     | Group-Object ruleId | ForEach-Object { $_.Name }) -join ', ')) }
+    if ($warnings.Count -gt 0)   { Write-Warning ("Warning rules: " + (($warnings   | Group-Object ruleId | ForEach-Object { $_.Name }) -join ', ')) }
+    if ($fatalNotes.Count -gt 0) { Write-Warning ("Note rules: "    + (($fatalNotes | Group-Object ruleId | ForEach-Object { $_.Name }) -join ', ')) }
     Write-Warning "See '$validateReport' for details."
     exit 1
 }
