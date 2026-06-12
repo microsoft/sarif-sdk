@@ -14,6 +14,7 @@ Each release entry below is prefixed with one of:
 Entries are terse by design: one line per change, present-tense behavior, complete but only essential data. No issue/PR archaeology or narrative — that history lives in the engineering system.
 
 ## **UNRELEASED**
+* BRK: `sarif merge` now coalesces inputs into one run per tool + version and no longer accepts `--merge-runs` or `--split`; use the `partition` verb to split the merged log by rule, run, or target.
 * BUG: `@microsoft/sarif-multitool-win32` ships `Sarif.Multitool.exe` again, restoring `npx @microsoft/sarif-multitool` on Windows; the `win-x64` publish drops `PublishReadyToRun` (a crossgen2 failure had emptied the package) and `BuildMultitoolForNpm.ps1` now fails on any missing platform payload.
 * NEW: `AI2016.ProvideEvidenceBacking` now flags a present-but-malformed `ai/evidence` value (not a JSON array) as `Warning_MalformedEvidence`.
 * NEW: `AI1012.ProvideRuleSubId` now flags a malformed AI ruleId as `Error_Malformed`, distinct from a bare `CWE-<n>` (still `Error_Missing`).
