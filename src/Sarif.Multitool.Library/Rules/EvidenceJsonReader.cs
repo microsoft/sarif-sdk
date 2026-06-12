@@ -4,6 +4,7 @@
 using System;
 using System.Collections.Generic;
 
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
 namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
@@ -16,6 +17,28 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
     /// </summary>
     internal static class EvidenceJsonReader
     {
+        /// <summary>
+        /// Parses the serialized <c>ai/evidence</c> property value as a JSON array.
+        /// Returns <c>false</c> when <paramref name="evidenceJson"/> is not a well-formed
+        /// JSON array — malformed JSON, or a well-formed but wrong-shaped token (object,
+        /// string, number). That producer defect is reported once, by <c>AI2016</c>;
+        /// every other evidence rule calls this and skips cleanly on <c>false</c> so the
+        /// malformed log yields a single diagnostic rather than silence.
+        /// </summary>
+        public static bool TryParseEvidenceArray(string evidenceJson, out JArray evidenceArray)
+        {
+            try
+            {
+                evidenceArray = JArray.Parse(evidenceJson);
+                return true;
+            }
+            catch (JsonReaderException)
+            {
+                evidenceArray = null;
+                return false;
+            }
+        }
+
         /// <summary>
         /// Reads <paramref name="propertyName"/> from <paramref name="entry"/>
         /// as a string. Returns null if the property is absent or not a JSON

@@ -19,6 +19,9 @@
                 },
                 "Warning_Inconsistent": {
                   "text": "{0}: This result declares 'ai/exploitability' as 'demonstrated' but no 'ai/evidence' entry has 'strength' of 'demonstrated' with non-empty 'backing'. The headline exploitability should be consistent with the evidence array."
+                },
+                "Warning_MalformedEvidence": {
+                  "text": "{0}: The 'ai/evidence' property is present but is not a well-formed JSON array. Evidence must be a JSON array of objects; a malformed or wrong-typed value cannot be validated and is silently dropped by every evidence consumer."
                 }
               },
               "helpUri": "http://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html"

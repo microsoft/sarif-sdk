@@ -29,7 +29,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         protected override ICollection<string> MessageResourceNames => new List<string>
         {
             nameof(RuleResources.AI2016_ProvideEvidenceBacking_Warning_MissingBacking_Text),
-            nameof(RuleResources.AI2016_ProvideEvidenceBacking_Warning_Inconsistent_Text)
+            nameof(RuleResources.AI2016_ProvideEvidenceBacking_Warning_Inconsistent_Text),
+            nameof(RuleResources.AI2016_ProvideEvidenceBacking_Warning_MalformedEvidence_Text)
         };
 
         protected override void Analyze(Result result, string resultPointer)
@@ -39,13 +40,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                 return;
             }
 
-            JArray evidenceArray;
-            try
+            // AI2016 owns the 'ai/evidence' well-formedness check: a present-but-malformed
+            // value is a producer defect worth a single, explicit diagnostic. Other evidence
+            // rules skip silently on the same failure and defer the report to this one.
+            if (!EvidenceJsonReader.TryParseEvidenceArray(evidenceJson, out JArray evidenceArray))
             {
-                evidenceArray = JArray.Parse(evidenceJson);
-            }
-            catch
-            {
+                LogResult(
+                    resultPointer,
+                    nameof(RuleResources.AI2016_ProvideEvidenceBacking_Warning_MalformedEvidence_Text));
                 return;
             }
 

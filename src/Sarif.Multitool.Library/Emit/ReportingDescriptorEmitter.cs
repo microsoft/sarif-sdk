@@ -90,7 +90,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                     Console.Error.WriteLine(
                         string.Format(
                             CultureInfo.CurrentCulture,
-                            "error {0}: rule descriptor id '{1}' is not a well-formed NOVEL- id. The add-rule-reporting-descriptor verb is reserved for novel-finding descriptors that have no taxonomy entry; descriptors for taxonomy-mapped rules (e.g., 'CWE-89') come from the taxonomy enricher, not from this verb. Use a NOVEL- escape-hatch id: 'NOVEL-' followed by a lowercase-alphanumeric kebab sub-id (single hyphens, no slash, no trailing hyphen), e.g., 'NOVEL-prompt-injection-via-system-message'. See docs/AI-RuleId-Convention.md.",
+                            "error {0}: rule descriptor id '{1}' is not a well-formed NOVEL- id. The add-rule-reporting-descriptor verb is reserved for novel-finding descriptors that have no taxonomy entry; descriptors for taxonomy-mapped rules (e.g., 'CWE-89') come from the taxonomy enricher, not from this verb. Use a NOVEL- escape-hatch id: 'NOVEL-' followed by a lowercase-alphanumeric kebab sub-id (single hyphens, no slash, no trailing hyphen), e.g., 'NOVEL-prompt-injection-via-system-message'. See docs/ai/generating-sarif.md#rule-id-convention.",
                             AIRuleIdConventionException.ErrorCode,
                             id));
                     return CommandBase.FAILURE;

@@ -200,7 +200,39 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
             results.Should().NotBeEmpty("a bare taxonomy ruleId (e.g. 'CWE-78') has no sub-id classifier");
             results[0].Level.Should().Be(FailureLevel.Error);
+            results[0].Message.Id.Should().Be("Error_Missing", "a bare CWE base id is repairable by appending a sub-id");
         }
+
+        private void RunMalformedRuleIdTest(string ruleId, string because)
+        {
+            SarifLog log = CreateValidAISarifLog();
+            SetAIOrigin(log, "generated");
+            SetExploitability(log, "demonstrated");
+            SetRuleIdShape(log, descriptorId: ruleId, resultRuleId: ruleId);
+
+            SarifLog output = RunAIValidation(log);
+            List<Result> results = GetResultsForRule(output, "AI1012");
+
+            results.Should().NotBeEmpty(because);
+            results[0].Level.Should().Be(FailureLevel.Error);
+            results[0].Message.Id.Should().Be("Error_Malformed", because);
+        }
+
+        [Fact]
+        public void AI1012_WhenSubIdIsNotLowercaseKebab_ReportsMalformed()
+            => RunMalformedRuleIdTest("CWE-89/KQL_Injection", "the sub-id must be lowercase kebab-case (no uppercase, no underscores)");
+
+        [Fact]
+        public void AI1012_WhenNovelEscapeHatchUsesSlash_ReportsMalformed()
+            => RunMalformedRuleIdTest("NOVEL/prompt-injection", "the NOVEL- escape hatch is flat and takes no slash");
+
+        [Fact]
+        public void AI1012_WhenSubIdIsEmpty_ReportsMalformed()
+            => RunMalformedRuleIdTest("CWE-89/", "a trailing slash with no sub-id is not a sub-classification");
+
+        [Fact]
+        public void AI1012_WhenBaseIsNeitherCweNorNovel_ReportsMalformed()
+            => RunMalformedRuleIdTest("TST0002", "only 'CWE-<number>/<sub-id>' and 'NOVEL-<sub-id>' are accepted bases");
 
         [Fact]
         public void AI1012_WhenRuleIdCarriesSubId_NoResult()
@@ -919,6 +951,60 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             List<Result> results = GetResultsForRule(output, "AI2019");
 
             results.Should().BeEmpty();
+        }
+
+        #endregion
+
+        #region Evidence well-formedness — AI2016 owns the malformed-evidence report
+
+        private static void SetEvidence(SarifLog log, object value)
+        {
+            log.Runs[0].Results[0].SetProperty("ai/evidence", value);
+        }
+
+        [Fact]
+        public void AI2016_WhenEvidenceIsNotAnArray_ReportsMalformed()
+        {
+            SarifLog log = CreateValidAISarifLog();
+            SetAIOrigin(log, "generated");
+            SetExploitability(log, "demonstrated");
+            // 'ai/evidence' is present but is a bare string, not a JSON array.
+            SetEvidence(log, "this-is-not-a-json-array");
+
+            SarifLog output = RunAIValidation(log);
+            List<Result> results = GetResultsForRule(output, "AI2016");
+
+            results.Should().ContainSingle("AI2016 owns the well-formedness report for a malformed 'ai/evidence'");
+            results[0].Level.Should().Be(FailureLevel.Warning);
+            results[0].Message.Id.Should().Be("Warning_MalformedEvidence");
+        }
+
+        [Fact]
+        public void AI1010_WhenEvidenceIsNotAnArray_NoResult()
+        {
+            SarifLog log = CreateValidAISarifLog();
+            SetAIOrigin(log, "generated");
+            SetExploitability(log, "demonstrated");
+            SetEvidence(log, "this-is-not-a-json-array");
+
+            SarifLog output = RunAIValidation(log);
+            List<Result> results = GetResultsForRule(output, "AI1010");
+
+            results.Should().BeEmpty("AI1010 skips malformed 'ai/evidence' cleanly and defers the report to AI2016");
+        }
+
+        [Fact]
+        public void AI2016_WhenEvidenceIsWellFormedArray_NoMalformedResult()
+        {
+            SarifLog log = CreateValidAISarifLog();
+            SetAIOrigin(log, "generated");
+            // A well-formed evidence array with a non-demonstrated entry: nothing to flag.
+            SetEvidence(log, new object[] { new { summary = "Reviewed call site.", strength = "theoretical" } });
+
+            SarifLog output = RunAIValidation(log);
+            List<Result> results = GetResultsForRule(output, "AI2016");
+
+            results.Should().BeEmpty("a well-formed 'ai/evidence' array with no demonstrated entry is conformant");
         }
 
         #endregion

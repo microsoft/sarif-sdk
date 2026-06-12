@@ -41,12 +41,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                 return;
             }
 
-            JArray evidenceArray;
-            try
-            {
-                evidenceArray = JArray.Parse(evidenceJson);
-            }
-            catch
+            // A malformed or wrong-shaped 'ai/evidence' value is reported by AI2016, which
+            // owns the well-formedness check; skip cleanly here rather than re-report it.
+            if (!EvidenceJsonReader.TryParseEvidenceArray(evidenceJson, out JArray evidenceArray))
             {
                 return;
             }
@@ -87,8 +84,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                                 backing);
                         }
                     }
-                    catch
+                    catch (ArgumentException)
                     {
+                        // A malformed or unresolvable JSON pointer is the violation this
+                        // rule reports; JsonPointer surfaces both as ArgumentException.
+                        // Anything else is an unexpected fault and propagates to the
+                        // analysis engine's logging handler rather than being masked here.
                         LogResult(
                             resultPointer,
                             nameof(RuleResources.AI1010_ProvideEvidenceBackingUri_Error_Default_Text),

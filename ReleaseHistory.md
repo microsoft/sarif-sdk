@@ -15,6 +15,9 @@ Entries are terse by design: one line per change, present-tense behavior, comple
 
 ## **UNRELEASED**
 * BUG: `@microsoft/sarif-multitool-win32` ships `Sarif.Multitool.exe` again, restoring `npx @microsoft/sarif-multitool` on Windows; the `win-x64` publish drops `PublishReadyToRun` (a crossgen2 failure had emptied the package) and `BuildMultitoolForNpm.ps1` now fails on any missing platform payload.
+* NEW: `AI2016.ProvideEvidenceBacking` now flags a present-but-malformed `ai/evidence` value (not a JSON array) as `Warning_MalformedEvidence`.
+* NEW: `AI1012.ProvideRuleSubId` now flags a malformed AI ruleId as `Error_Malformed`, distinct from a bare `CWE-<n>` (still `Error_Missing`).
+* FUN: AI ruleId-convention errors now cite `docs/ai/generating-sarif.md#rule-id-convention`; the convention is documented there instead of a standalone `docs/AI-RuleId-Convention.md`.
 
 ## **v5.0.6** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/v5.0.6) | [Driver](https://www.nuget.org/packages/Sarif.Driver/v5.0.6) | [Converters](https://www.nuget.org/packages/Sarif.Converters/v5.0.6) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/v5.0.6) | [Multitool Library](https://www.nuget.org/packages/Sarif.Multitool.Library/v5.0.6)
 * BRK: `sarif emit-finalize` no longer derives `security-severity` from `result.rank`; it stamps a stable hand-curated per-CWE prior (new `CweSecuritySeverity` table) for both GHAS and GHAzDO. A producer value wins; a CWE with no prior (including `NOVEL-`) stays unstamped.
