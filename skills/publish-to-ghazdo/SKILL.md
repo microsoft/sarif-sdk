@@ -95,7 +95,25 @@ Confirm the reported `org/project/repo`, the `auth scheme` (`Bearer` for an Entr
 a PAT), and the candidate POST URLs. If the target is wrong, the SARIF was not finalized against the
 intended Azure DevOps repository — re-finalize it; do not hand-edit the URL.
 
-### Step 3 — Publish
+### Step 3 — Validate the ingestion contract offline
+
+The dry-run resolves the *target*; it does not inspect the SARIF's *provenance*. GHAzDO rejects a
+file at ingestion (HTTP 400) when `run.automationDetails.id` is null or empty, or when the
+`azuredevops/pipeline/build/*` build-definition properties are absent. Catch those offline before the
+round-trip by validating with the GHAzDO rule kind:
+
+```powershell
+dotnet dnx Sarif.Multitool --yes -- validate "{{SARIF_FILE}}" --rule-kind "Sarif;AI;GHAzDO"
+```
+
+The `GHAzDO` kind activates the ingestion-contract checks — chiefly `GHAzDO1014` (required run
+properties), `GHAzDO1019` (the four `azuredevops/pipeline/build/*` keys), and `GHAzDO1020`
+(`automationDetails.id` format). A clean GHAzDO-ruleset validation is the offline equivalent of
+GHAzDO ingestion acceptance. If it reports errors, the SARIF lacks pipeline provenance: re-emit it so
+the provenance is stamped — `emit-run` supplies the `automationDetails.id` and build-definition
+properties automatically when `TF_BUILD=True`. Do not hand-edit the file.
+
+### Step 4 — Publish
 
 ```powershell
 dotnet dnx Sarif.Multitool --yes -- publish-to-ghazdo "{{SARIF_FILE}}"
@@ -130,14 +148,19 @@ sarif publish-to-ghazdo "{{SARIF_FILE}}"
 4. **404 on both hosts** — The org/project/repo path does not resolve, or the repository is not
    onboarded to Advanced Security. Verify the target and PAT scope.
 5. **401/403** — The secret is invalid, expired, or lacks **Advanced Security (Read & Write)**.
+6. **HTTP 400 "invalid Sarif" (provenance gap)** — `run.automationDetails.id` is null/empty or the
+   `azuredevops/pipeline/build/*` properties are missing. This is detectable offline: the Step 3
+   GHAzDO-ruleset validation reproduces it as `GHAzDO1014/1019/1020` so you never need the round-trip
+   to find it. Re-emit with pipeline provenance (`emit-run` under `TF_BUILD=True`) and re-validate.
 
 ## Validation
 
 After running this skill:
 
 1. The secret never appeared in any printed command, log line, or error message.
-2. The dry-run target matched the intended Azure DevOps repository before the live publish.
-3. A successful publish returned exit code `0`; a rejected one surfaced the HTTP status and a
+2. The GHAzDO-ruleset validation (`--rule-kind "Sarif;AI;GHAzDO"`) was clean before the live publish.
+3. The dry-run target matched the intended Azure DevOps repository before the live publish.
+4. A successful publish returned exit code `0`; a rejected one surfaced the HTTP status and a
    non-zero exit code.
 
 ## Escalation
