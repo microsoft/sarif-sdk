@@ -54,6 +54,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         // exempted.
         private static readonly string[] s_reservedAzureDevOpsDocOrgs = new[] { "example", "example-org" };
 
+        internal static bool IsHttpScheme(Uri uri)
+            => uri.Scheme == Uri.UriSchemeHttp || uri.Scheme == Uri.UriSchemeHttps;
+
         internal static bool IsReservedDocumentationHost(Uri uri)
         {
             if (!uri.IsAbsoluteUri || string.IsNullOrEmpty(uri.Host)) { return false; }
@@ -148,6 +151,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                 // Ok, it's a well-formed absolute URI. If it's not reachable, _now_ we can report it.
                 var uri = new Uri(uriString, UriKind.Absolute);
 
+                // This rule asks whether a URI is reachable via an HTTP GET, a question that is
+                // only meaningful for HTTP and HTTPS URIs. Other schemes (file, ftp, mailto, or
+                // custom registry-based schemes) are out of scope, and passing them to
+                // HttpClient.GetAsync would throw NotSupportedException and abort the run.
+                if (!IsHttpScheme(uri))
+                {
+                    return;
+                }
+
                 // Skip RFC 2606/6761 reserved documentation/testing hosts entirely — they are
                 // fictitious by definition, so neither "reachable" nor "unreachable" is meaningful.
                 if (IsReservedDocumentationHost(uri))
@@ -191,6 +203,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             catch (System.Threading.Tasks.TaskCanceledException)
             {
                 // Timeout.
+                reachable = false;
+            }
+            catch (NotSupportedException)
+            {
+                // The URI scheme is not supported for an HTTP GET. Callers filter non-HTTP(S)
+                // schemes before reaching this point, so this guards an injected IHttpClient
+                // that probes a scheme HttpClient cannot service rather than aborting the run.
                 reachable = false;
             }
 
