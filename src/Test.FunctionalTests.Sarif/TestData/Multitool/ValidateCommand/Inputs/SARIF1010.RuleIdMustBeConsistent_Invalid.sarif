@@ -23,6 +23,15 @@
           "message": {
             "text": "This result contains both a ruleId and a rule.id property, but they are different."
           }
+        },
+        {
+          "ruleId": "TST0003",
+          "rule": {
+            "id": "tst0003"
+          },
+          "message": {
+            "text": "This result contains both a ruleId and a rule.id property that differ only by case; per the spec they must be equal (case-sensitive)."
+          }
         }
       ],
       "columnKind": "utf16CodeUnits"

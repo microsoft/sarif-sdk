@@ -37,8 +37,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 
         private void AnalyzeRuleId(Result result, string pointer)
         {
-            // At least one of result.ruleId or result.rule.id must be present
-            if (string.IsNullOrWhiteSpace(result.RuleId) && string.IsNullOrWhiteSpace(result.Rule?.Id))
+            // A property is "present" when it exists, even if its value is empty or
+            // whitespace; the SARIF specification (§3.27.5) speaks of presence, not of a
+            // non-blank value. Validating the *content* of a ruleId is a separate concern.
+            bool ruleIdPresent = result.RuleId != null;
+            bool ruleDotIdPresent = result.Rule?.Id != null;
+
+            // At least one of result.ruleId or result.rule.id must be present.
+            if (!ruleIdPresent && !ruleDotIdPresent)
             {
                 // {0}: This result contains neither of the properties 'ruleId' or 'rule.id'. The SARIF specification
                 // ([§3.27.5](https://docs.oasis-open.org/sarif/sarif/v2.1.0/os/sarif-v2.1.0-os.html#_Toc34317643))
@@ -47,10 +53,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                     pointer,
                     nameof(RuleResources.SARIF1010_RuleIdMustBeConsistent_Error_ResultMustSpecifyRuleId_Text));
             }
-            // if both are present, they must be equal.
-            else if (!string.IsNullOrWhiteSpace(result.RuleId)
-                && !string.IsNullOrWhiteSpace(result.Rule?.Id)
-                && !result.RuleId.Equals(result.Rule?.Id, StringComparison.OrdinalIgnoreCase))
+            // If both are present, they must be equal.
+            else if (ruleIdPresent
+                && ruleDotIdPresent
+                && !result.RuleId.Equals(result.Rule.Id, StringComparison.Ordinal))
             {
                 // {0}: This result contains both the 'ruleId' property '{1}' and the 'rule.id' property
                 // {2}', but they are not equal. The SARIF specification ([§3.27.5]

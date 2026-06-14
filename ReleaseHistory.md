@@ -14,6 +14,8 @@ Each release entry below is prefixed with one of:
 Entries are terse by design: one line per change, present-tense behavior, complete but only essential data. No issue/PR archaeology or narrative — that history lives in the engineering system.
 
 ## **v5.0.9** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/v5.0.9) | [Driver](https://www.nuget.org/packages/Sarif.Driver/v5.0.9) | [Converters](https://www.nuget.org/packages/Sarif.Converters/v5.0.9) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/v5.0.9) | [Multitool Library](https://www.nuget.org/packages/Sarif.Multitool.Library/v5.0.9)
+* BUG: `SARIF1010.RuleIdMustBeConsistent` now compares `ruleId` and `rule.id` case-sensitively (`StringComparison.Ordinal`); per SARIF §3.27.5 they SHALL be equal, so ids that differ only by case (e.g. `TST0003` vs `tst0003`) are now correctly flagged as inconsistent.
+* BUG: `SARIF1010.RuleIdMustBeConsistent` no longer reports a present-but-whitespace `ruleId` (or `rule.id`) as absent; presence is decided by the property existing, not by a non-blank value, per SARIF §3.27.5 (content validity stays a separate concern).
 * BUG: `sarif validate` and `sarif analyze` no longer crash with `ArgumentNullException` on the single-file build; `DefaultConfigurationPath` and the `--config <name>` fallback derive the assembly directory from `AppContext.BaseDirectory` when `Assembly.Location` is empty.
 
 ## **v5.0.8** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/v5.0.8) | [Driver](https://www.nuget.org/packages/Sarif.Driver/v5.0.8) | [Converters](https://www.nuget.org/packages/Sarif.Converters/v5.0.8) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/v5.0.8) | [Multitool Library](https://www.nuget.org/packages/Sarif.Multitool.Library/v5.0.8)
