@@ -92,6 +92,32 @@
               }
             }
           ]
+        },
+        {
+          "ruleId": "SARIF1010",
+          "ruleIndex": 0,
+          "level": "error",
+          "message": {
+            "id": "Error_ResultRuleIdMustBeConsistent",
+            "arguments": [
+              "runs[0].results[2]",
+              "TST0003",
+              "tst0003"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 27,
+                  "startColumn": 9
+                }
+              }
+            }
+          ]
         }
       ],
       "columnKind": "utf16CodeUnits"

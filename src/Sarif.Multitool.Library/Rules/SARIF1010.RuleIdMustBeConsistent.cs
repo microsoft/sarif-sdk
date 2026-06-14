@@ -50,7 +50,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             // if both are present, they must be equal.
             else if (!string.IsNullOrWhiteSpace(result.RuleId)
                 && !string.IsNullOrWhiteSpace(result.Rule?.Id)
-                && !result.RuleId.Equals(result.Rule?.Id, StringComparison.OrdinalIgnoreCase))
+                && !result.RuleId.Equals(result.Rule?.Id, StringComparison.Ordinal))
             {
                 // {0}: This result contains both the 'ruleId' property '{1}' and the 'rule.id' property
                 // {2}', but they are not equal. The SARIF specification ([§3.27.5]
