@@ -59,6 +59,18 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 
             if (s_bareCweBaseId.IsMatch(ruleId))
             {
+                // A GitHub-hosted run is the one place a bare 'CWE-<number>' is the expected,
+                // correct shape: emit-finalize collapses each result's hierarchical ruleId to its
+                // descriptor id for GitHub because GitHub's code-scanning security classifier binds
+                // a result to its rule by ruleId-string equality with a reportingDescriptor.id and
+                // does not honor SARIF's hierarchical-ruleId / ruleIndex resolution (SARIF §3.27.5,
+                // §3.27.6). The sub-id requirement is suspended for that GitHub-only collapse and
+                // still enforced everywhere else.
+                if (VcpPortableRoot.IsGitHubHostedRun(run))
+                {
+                    return;
+                }
+
                 // The descriptor is consulted only to suggest a kebab-cased sub-id. A throw
                 // here on a degenerate log (bad ruleIndex, absent driver) propagates to the
                 // analysis engine's single rule-exception handler, which logs it.

@@ -26,7 +26,11 @@
               },
               "helpUri": "https://cwe.mitre.org/data/definitions/79.html",
               "properties": {
-                "security-severity": "7.8"
+                "security-severity": "7.8",
+                "tags": [
+                  "security",
+                  "external/cwe/cwe-79"
+                ]
               }
             },
             {
@@ -44,7 +48,11 @@
               },
               "helpUri": "https://cwe.mitre.org/data/definitions/89.html",
               "properties": {
-                "security-severity": "8.8"
+                "security-severity": "8.8",
+                "tags": [
+                  "security",
+                  "external/cwe/cwe-89"
+                ]
               }
             },
             {
@@ -62,7 +70,11 @@
               },
               "helpUri": "https://cwe.mitre.org/data/definitions/22.html",
               "properties": {
-                "security-severity": "7.5"
+                "security-severity": "7.5",
+                "tags": [
+                  "security",
+                  "external/cwe/cwe-22"
+                ]
               }
             },
             {
@@ -80,7 +92,11 @@
               },
               "helpUri": "https://cwe.mitre.org/data/definitions/798.html",
               "properties": {
-                "security-severity": "9.8"
+                "security-severity": "9.8",
+                "tags": [
+                  "security",
+                  "external/cwe/cwe-798"
+                ]
               }
             },
             {
@@ -96,10 +112,23 @@
               "shortDescription": {
                 "text": "The product implements access controls via a policy or other feature with the intention to disable or restrict accesses (reads and/or writes) to assets in a system from untrusted agents."
               },
-              "helpUri": "https://cwe.mitre.org/data/definitions/1220.html"
+              "helpUri": "https://cwe.mitre.org/data/definitions/1220.html",
+              "properties": {
+                "security-severity": "5.0",
+                "tags": [
+                  "security",
+                  "external/cwe/cwe-1220"
+                ]
+              }
             },
             {
               "id": "NOVEL-prompt-injection-via-system-message",
+              "properties": {
+                "security-severity": "5.0",
+                "tags": [
+                  "security"
+                ]
+              },
               "name": "PromptInjectionViaSystemMessage",
               "shortDescription": {
                 "text": "Untrusted content reaches a system-role prompt."
@@ -197,7 +226,7 @@
       ],
       "results": [
         {
-          "ruleId": "CWE-79/unescaped-view-input",
+          "ruleId": "CWE-79",
           "ruleIndex": 0,
           "message": {
             "text": "Possible XSS via unescaped user input in view template.",
@@ -246,7 +275,7 @@
           }
         },
         {
-          "ruleId": "CWE-89/string-concat-query",
+          "ruleId": "CWE-89",
           "ruleIndex": 1,
           "level": "error",
           "message": {
@@ -296,7 +325,7 @@
           }
         },
         {
-          "ruleId": "CWE-22/untrusted-path-no-canon",
+          "ruleId": "CWE-22",
           "ruleIndex": 2,
           "level": "error",
           "message": {
@@ -346,7 +375,7 @@
           }
         },
         {
-          "ruleId": "CWE-798/embedded-credential",
+          "ruleId": "CWE-798",
           "ruleIndex": 3,
           "level": "error",
           "message": {
@@ -396,7 +425,7 @@
           }
         },
         {
-          "ruleId": "CWE-1220/missing-tenant-scope",
+          "ruleId": "CWE-1220",
           "ruleIndex": 4,
           "message": {
             "text": "Authorization check missing tenant-scoped granularity.",
@@ -445,7 +474,7 @@
           }
         },
         {
-          "ruleId": "CWE-79/dom-xss-via-sanitizer-bypass",
+          "ruleId": "CWE-79",
           "ruleIndex": 0,
           "level": "error",
           "message": {

@@ -2,6 +2,7 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 
@@ -428,22 +429,22 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         }
 
         [Fact]
-        public void ApplyCweDerivedSecuritySeverity_StampsCuratedTableValue()
+        public void ApplyAISecuritySeverity_StampsCuratedTableValue()
         {
             Run run = BuildRun("CWE-89");
 
-            int stamped = EmitFinalizeCommand.ApplyCweDerivedSecuritySeverity(run);
+            int stamped = EmitFinalizeCommand.ApplyAISecuritySeverity(run);
 
             stamped.Should().Be(1);
             SecuritySeverityOf(run.Tool.Driver.Rules[0]).Should().Be("8.8");
         }
 
         [Fact]
-        public void ApplyCweDerivedSecuritySeverity_StampsEachKnownCweRuleIndependently()
+        public void ApplyAISecuritySeverity_StampsEachKnownCweRuleIndependently()
         {
             Run run = BuildRun("CWE-89", "CWE-79");
 
-            int stamped = EmitFinalizeCommand.ApplyCweDerivedSecuritySeverity(run);
+            int stamped = EmitFinalizeCommand.ApplyAISecuritySeverity(run);
 
             stamped.Should().Be(2);
             SecuritySeverityOf(run.Tool.Driver.Rules[0]).Should().Be("8.8");
@@ -451,29 +452,260 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         }
 
         [Fact]
-        public void ApplyCweDerivedSecuritySeverity_ElidesUnknownCweAndNovelRules()
+        public void ApplyAISecuritySeverity_StampsMediumDefaultForUncuratedCweAndNovelRules()
         {
-            // A CWE with no curated prior, and the NOVEL- escape hatch (which carries no CWE),
-            // both receive nothing rather than a fabricated default.
+            // A CWE with no curated prior, and the NOVEL- escape hatch (which carries no CWE), are
+            // both uncurated content: rather than ship with no severity, they get the neutral medium
+            // emit-time default (5.0) so they bucket as security findings on GitHub/Azure DevOps.
             Run run = BuildRun("CWE-999999", "NOVEL-prompt-injection");
 
-            int stamped = EmitFinalizeCommand.ApplyCweDerivedSecuritySeverity(run);
+            int stamped = EmitFinalizeCommand.ApplyAISecuritySeverity(run);
 
-            stamped.Should().Be(0);
-            HasSecuritySeverity(run.Tool.Driver.Rules[0]).Should().BeFalse();
-            HasSecuritySeverity(run.Tool.Driver.Rules[1]).Should().BeFalse();
+            stamped.Should().Be(2);
+            SecuritySeverityOf(run.Tool.Driver.Rules[0]).Should().Be("5.0");
+            SecuritySeverityOf(run.Tool.Driver.Rules[1]).Should().Be("5.0");
         }
 
         [Fact]
-        public void ApplyCweDerivedSecuritySeverity_PreservesProducerAuthoredValue()
+        public void ApplyAISecuritySeverity_LeavesNonAiRuleBare()
+        {
+            // A rule id that is neither a CWE nor a NOVEL- id is not an AI security rule; it receives
+            // no severity (and no default).
+            Run run = BuildRun("MY-CUSTOM-RULE");
+
+            int stamped = EmitFinalizeCommand.ApplyAISecuritySeverity(run);
+
+            stamped.Should().Be(0);
+            HasSecuritySeverity(run.Tool.Driver.Rules[0]).Should().BeFalse();
+        }
+
+        [Fact]
+        public void ApplyAISecuritySeverity_PreservesProducerAuthoredValue()
         {
             Run run = BuildRun("CWE-89");
             run.Tool.Driver.Rules[0].SetProperty("security-severity", "2.0");
 
-            int stamped = EmitFinalizeCommand.ApplyCweDerivedSecuritySeverity(run);
+            int stamped = EmitFinalizeCommand.ApplyAISecuritySeverity(run);
 
             stamped.Should().Be(0);
             SecuritySeverityOf(run.Tool.Driver.Rules[0]).Should().Be("2.0");
+        }
+
+        [Fact]
+        public void ApplyGitHubCweTags_StampsSecurityAndCweTags()
+        {
+            Run run = BuildRun("CWE-129");
+
+            int stamped = EmitFinalizeCommand.ApplyGitHubCweTags(run);
+
+            stamped.Should().Be(1);
+            TagsOf(run.Tool.Driver.Rules[0]).Should().Equal("security", "external/cwe/cwe-129");
+        }
+
+        [Fact]
+        public void ApplyGitHubCweTags_StampsEachKnownCweRuleIndependently()
+        {
+            Run run = BuildRun("CWE-89", "CWE-79");
+
+            int stamped = EmitFinalizeCommand.ApplyGitHubCweTags(run);
+
+            stamped.Should().Be(2);
+            TagsOf(run.Tool.Driver.Rules[0]).Should().Equal("security", "external/cwe/cwe-89");
+            TagsOf(run.Tool.Driver.Rules[1]).Should().Equal("security", "external/cwe/cwe-79");
+        }
+
+        [Fact]
+        public void ApplyGitHubCweTags_DerivesCweNumberFromCweDescriptorId()
+        {
+            // A CWE-as-rule descriptor carries a base CWE id; the external/cwe tag tracks its number.
+            Run run = BuildRun("CWE-89");
+
+            EmitFinalizeCommand.ApplyGitHubCweTags(run);
+
+            TagsOf(run.Tool.Driver.Rules[0]).Should().Equal("security", "external/cwe/cwe-89");
+        }
+
+        [Fact]
+        public void ApplyGitHubCweTags_StampsBareSecurityTagForNovelRule()
+        {
+            // The NOVEL- escape hatch is a real security finding with no fitting CWE: it gets the
+            // bare "security" tag (so GitHub classifies it as a security alert) but no external/cwe tag.
+            Run run = BuildRun("NOVEL-prompt-injection");
+
+            int stamped = EmitFinalizeCommand.ApplyGitHubCweTags(run);
+
+            stamped.Should().Be(1);
+            TagsOf(run.Tool.Driver.Rules[0]).Should().Equal("security");
+        }
+
+        [Fact]
+        public void ApplyGitHubCweTags_ElidesNonAiRules()
+        {
+            // A rule id that is neither a CWE nor a NOVEL- id is not an AI security rule; it is not tagged.
+            Run run = BuildRun("MY-CUSTOM-RULE");
+
+            int stamped = EmitFinalizeCommand.ApplyGitHubCweTags(run);
+
+            stamped.Should().Be(0);
+            HasTags(run.Tool.Driver.Rules[0]).Should().BeFalse();
+        }
+
+        [Fact]
+        public void ApplyGitHubCweTags_PreservesProducerAuthoredTags()
+        {
+            // A producer-authored tag survives; the two GitHub tags are merged in without dropping it.
+            Run run = BuildRun("CWE-89");
+            run.Tool.Driver.Rules[0].SetProperty("tags", new List<string> { "custom-taxonomy/foo" });
+
+            int stamped = EmitFinalizeCommand.ApplyGitHubCweTags(run);
+
+            stamped.Should().Be(1);
+            TagsOf(run.Tool.Driver.Rules[0]).Should().Equal("custom-taxonomy/foo", "security", "external/cwe/cwe-89");
+        }
+
+        [Fact]
+        public void ApplyGitHubCweTags_DoesNotDuplicateExistingTags()
+        {
+            // Re-running over an already-stamped rule adds nothing and reports no modification.
+            Run run = BuildRun("CWE-89");
+            EmitFinalizeCommand.ApplyGitHubCweTags(run);
+
+            int stamped = EmitFinalizeCommand.ApplyGitHubCweTags(run);
+
+            stamped.Should().Be(0);
+            TagsOf(run.Tool.Driver.Rules[0]).Should().Equal("security", "external/cwe/cwe-89");
+        }
+
+        [Fact]
+        public void Run_StampsGitHubCweTagsForGitHubHostedRun()
+        {
+            SeedWip(
+                (SarifEventKinds.RunHeader, RunHeader()),
+                (SarifEventKinds.Result, new Result { RuleId = "CWE-79/template-xss", Message = new Message { Text = "xss" } }));
+
+            int exit = new EmitFinalizeCommand().Run(new EmitFinalizeOptions { OutputFilePath = OutPath });
+
+            exit.Should().Be(CommandBase.SUCCESS);
+            ReportingDescriptor rule = LoadSarif().Runs[0].Tool.Driver.Rules.Single(r => r.Id == "CWE-79");
+            TagsOf(rule).Should().Equal("security", "external/cwe/cwe-79");
+            SecuritySeverityOf(rule).Should().Be("7.8");
+        }
+
+        [Fact]
+        public void Run_DoesNotStampGitHubCweTagsForAzureDevOpsHostedRun()
+        {
+            // The CWE tags are GitHub-only — GHAzDO does not require them. An ADO-hosted run still
+            // gets the host-agnostic security-severity, but no tags.
+            SeedWip(
+                (SarifEventKinds.RunHeader, AdoRunHeader()),
+                (SarifEventKinds.Result, new Result { RuleId = "CWE-79/template-xss", Message = new Message { Text = "xss" } }));
+
+            int exit = new EmitFinalizeCommand().Run(new EmitFinalizeOptions { OutputFilePath = OutPath });
+
+            exit.Should().Be(CommandBase.SUCCESS);
+            ReportingDescriptor rule = LoadSarif().Runs[0].Tool.Driver.Rules.Single(r => r.Id == "CWE-79");
+            HasTags(rule).Should().BeFalse();
+            SecuritySeverityOf(rule).Should().Be("7.8");
+        }
+
+        [Fact]
+        public void CollapseResultRuleSubIds_CollapsesSubIdToDescriptorId()
+        {
+            Run run = BuildRunWithResults(("CWE-79", "CWE-79/template-xss"));
+            run.Results[0].RuleId.Should().Be("CWE-79/template-xss");
+
+            int collapsed = EmitFinalizeCommand.CollapseResultRuleSubIds(run);
+
+            collapsed.Should().Be(1);
+            run.Results[0].RuleId.Should().Be("CWE-79");
+        }
+
+        [Fact]
+        public void CollapseResultRuleSubIds_CollapsesMultipleSubRulesOfSameRule()
+        {
+            // Two distinct sub-ids of the same CWE both bind to the single "CWE-79" descriptor and
+            // both collapse to it.
+            Run run = BuildRunWithResults(
+                ("CWE-79", "CWE-79/template-xss"),
+                ("CWE-79", "CWE-79/dom-xss-via-sanitizer-bypass"));
+            run.Results[0].RuleId.Should().Be("CWE-79/template-xss");
+            run.Results[1].RuleId.Should().Be("CWE-79/dom-xss-via-sanitizer-bypass");
+
+            int collapsed = EmitFinalizeCommand.CollapseResultRuleSubIds(run);
+
+            collapsed.Should().Be(2);
+            run.Results[0].RuleId.Should().Be("CWE-79");
+            run.Results[1].RuleId.Should().Be("CWE-79");
+        }
+
+        [Fact]
+        public void CollapseResultRuleSubIds_LeavesFlatRuleIdUnchanged()
+        {
+            // A result whose ruleId already equals its descriptor id (no sub-id) is left as-is and
+            // is not counted as collapsed.
+            Run run = BuildRunWithResults(("CWE-79", "CWE-79"));
+
+            int collapsed = EmitFinalizeCommand.CollapseResultRuleSubIds(run);
+
+            collapsed.Should().Be(0);
+            run.Results[0].RuleId.Should().Be("CWE-79");
+        }
+
+        [Fact]
+        public void CollapseResultRuleSubIds_LeavesNovelRuleIdUnchanged()
+        {
+            // NOVEL- ids are flat (no slash); there is no sub-id to collapse.
+            Run run = BuildRunWithResults(("NOVEL-prompt-injection", "NOVEL-prompt-injection"));
+
+            int collapsed = EmitFinalizeCommand.CollapseResultRuleSubIds(run);
+
+            collapsed.Should().Be(0);
+            run.Results[0].RuleId.Should().Be("NOVEL-prompt-injection");
+        }
+
+        [Fact]
+        public void CollapseResultRuleSubIds_KeepsRuleIdAndRuleDotIdConsistent()
+        {
+            // When a result also carries a rule reference whose id is the sub-id form, both the
+            // ruleId and the rule.id collapse together so they remain equal (valid SARIF §3.27.7).
+            Run run = BuildRunWithResults(("CWE-79", "CWE-79/template-xss"));
+            run.Results[0].Rule = new ReportingDescriptorReference { Id = "CWE-79/template-xss", Index = 0 };
+            run.Results[0].RuleId.Should().Be("CWE-79/template-xss");
+            run.Results[0].Rule.Id.Should().Be("CWE-79/template-xss");
+
+            int collapsed = EmitFinalizeCommand.CollapseResultRuleSubIds(run);
+
+            collapsed.Should().Be(1);
+            run.Results[0].RuleId.Should().Be("CWE-79");
+            run.Results[0].Rule.Id.Should().Be("CWE-79");
+        }
+
+        [Fact]
+        public void Run_CollapsesResultRuleSubIdForGitHubHostedRun()
+        {
+            SeedWip(
+                (SarifEventKinds.RunHeader, RunHeader()),
+                (SarifEventKinds.Result, new Result { RuleId = "CWE-79/template-xss", Message = new Message { Text = "xss" } }));
+
+            int exit = new EmitFinalizeCommand().Run(new EmitFinalizeOptions { OutputFilePath = OutPath });
+
+            exit.Should().Be(CommandBase.SUCCESS);
+            LoadSarif().Runs[0].Results[0].RuleId.Should().Be("CWE-79");
+        }
+
+        [Fact]
+        public void Run_KeepsResultRuleSubIdForAzureDevOpsHostedRun()
+        {
+            // The collapse is a GitHub code-scanning compatibility shim; Azure DevOps resolves the
+            // rule through ruleIndex correctly, so its results keep the legal sub-id form.
+            SeedWip(
+                (SarifEventKinds.RunHeader, AdoRunHeader()),
+                (SarifEventKinds.Result, new Result { RuleId = "CWE-79/template-xss", Message = new Message { Text = "xss" } }));
+
+            int exit = new EmitFinalizeCommand().Run(new EmitFinalizeOptions { OutputFilePath = OutPath });
+
+            exit.Should().Be(CommandBase.SUCCESS);
+            LoadSarif().Runs[0].Results[0].RuleId.Should().Be("CWE-79/template-xss");
         }
 
         private static Run BuildRun(params string[] ruleIds)
@@ -489,10 +721,49 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 },
             };
 
+        // Builds a run whose descriptor table is the distinct set of descriptor ids across the
+        // supplied (descriptorId, ruleId) pairs, with each result's RuleIndex pointing at its
+        // descriptor — mirroring the binding SarifEventReplayer produces from result ruleIds.
+        private static Run BuildRunWithResults(params (string descriptorId, string ruleId)[] pairs)
+        {
+            var rules = new List<ReportingDescriptor>();
+            var idToIndex = new Dictionary<string, int>(StringComparer.Ordinal);
+            var results = new List<Result>();
+
+            foreach ((string descriptorId, string ruleId) in pairs)
+            {
+                if (!idToIndex.TryGetValue(descriptorId, out int index))
+                {
+                    index = rules.Count;
+                    rules.Add(new ReportingDescriptor { Id = descriptorId });
+                    idToIndex[descriptorId] = index;
+                }
+
+                results.Add(new Result
+                {
+                    RuleId = ruleId,
+                    RuleIndex = index,
+                    Message = new Message { Text = "finding" },
+                });
+            }
+
+            return new Run
+            {
+                Tool = new Tool { Driver = new ToolComponent { Name = "demo", Rules = rules } },
+                Results = results,
+            };
+        }
+
         private static string SecuritySeverityOf(ReportingDescriptor descriptor)
             => descriptor.TryGetProperty("security-severity", out string value) ? value : null;
 
         private static bool HasSecuritySeverity(ReportingDescriptor descriptor)
             => descriptor.PropertyNames.Contains("security-severity");
+
+        private static List<string> TagsOf(ReportingDescriptor descriptor)
+            => descriptor.TryGetProperty("tags", out List<string> value) ? value : null;
+
+        private static bool HasTags(ReportingDescriptor descriptor)
+            => descriptor.PropertyNames.Contains("tags");
     }
 }

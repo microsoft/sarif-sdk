@@ -187,11 +187,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         }
 
         [Fact]
-        public void AI1012_WhenRuleIdIsBareTaxonomyBaseId_ReportsError()
+        public void AI1012_WhenRuleIdIsBareTaxonomyBaseId_OnNonGitHubHostedRun_ReportsError()
         {
             SarifLog log = CreateValidAISarifLog();
             SetAIOrigin(log, "generated");
             SetExploitability(log, "demonstrated");
+            // A non-GitHub host keeps the sub-id requirement in force.
+            SetRepositoryHostToAzureDevOps(log);
             // Bare taxonomy base id on both descriptor and result — no sub-id.
             SetRuleIdShape(log, descriptorId: "CWE-78", resultRuleId: "CWE-78");
 
@@ -201,6 +203,23 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             results.Should().NotBeEmpty("a bare taxonomy ruleId (e.g. 'CWE-78') has no sub-id classifier");
             results[0].Level.Should().Be(FailureLevel.Error);
             results[0].Message.Id.Should().Be("Error_Missing", "a bare CWE base id is repairable by appending a sub-id");
+        }
+
+        [Fact]
+        public void AI1012_WhenRuleIdIsBareTaxonomyBaseId_OnGitHubHostedRun_NoResult()
+        {
+            SarifLog log = CreateValidAISarifLog();
+            SetAIOrigin(log, "generated");
+            SetExploitability(log, "demonstrated");
+            // The seed log is GitHub-hosted. emit-finalize collapses hierarchical ruleIds to their
+            // base descriptor id for GitHub (whose security classifier binds by ruleId-string
+            // equality), so a bare 'CWE-78' is the expected, correct shape there — AI1012 stays silent.
+            SetRuleIdShape(log, descriptorId: "CWE-78", resultRuleId: "CWE-78");
+
+            SarifLog output = RunAIValidation(log);
+            List<Result> results = GetResultsForRule(output, "AI1012");
+
+            results.Should().BeEmpty("a bare CWE base id is the expected collapsed shape on a GitHub-hosted run");
         }
 
         private void RunMalformedRuleIdTest(string ruleId, string because)

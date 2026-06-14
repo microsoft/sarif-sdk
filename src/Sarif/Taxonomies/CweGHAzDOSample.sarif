@@ -96,10 +96,16 @@
               "shortDescription": {
                 "text": "The product implements access controls via a policy or other feature with the intention to disable or restrict accesses (reads and/or writes) to assets in a system from untrusted agents."
               },
-              "helpUri": "https://cwe.mitre.org/data/definitions/1220.html"
+              "helpUri": "https://cwe.mitre.org/data/definitions/1220.html",
+              "properties": {
+                "security-severity": "5.0"
+              }
             },
             {
               "id": "NOVEL-prompt-injection-via-system-message",
+              "properties": {
+                "security-severity": "5.0"
+              },
               "name": "PromptInjectionViaSystemMessage",
               "shortDescription": {
                 "text": "Untrusted content reaches a system-role prompt."
