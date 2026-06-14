@@ -17,6 +17,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         private readonly Uri uri;
         private string contents;
         private byte[] bytes;
+        private byte[] rawBytes;
 
         public ZipArchiveArtifact(Uri archiveUri,
                                   ZipArchive archive,
@@ -47,15 +48,11 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             get
             {
-                if (this.entry == null)
-                {
-                    return null;
-                }
+                GetArtifactData();
 
-                lock (this.archive)
-                {
-                    return entry.Open();
-                }
+                return this.rawBytes == null
+                    ? null
+                    : new MemoryStream(this.rawBytes, writable: false);
             }
             set => throw new NotImplementedException();
         }
@@ -92,50 +89,47 @@ namespace Microsoft.CodeAnalysis.Sarif
             {
                 lock (this.archive)
                 {
-                    if (this.contents == null && this.bytes == null)
+                    if (this.contents == null && this.bytes == null && this.entry != null)
                     {
                         const int PeekWindowBytes = 1024;
-                        var peekable = new PeekableStream(this.Stream, PeekWindowBytes);
 
-                        byte[] header = new byte[PeekWindowBytes];
-                        int readLength = this.Stream.Read(header, 0, header.Length);
+                        byte[] raw = ReadAllBytes(this.entry);
+                        this.rawBytes = raw;
 
-                        bool isText = FileEncoding.IsTextualData(header, 0, readLength);
-
-                        peekable.Rewind();
+                        int peekLength = Math.Min(raw.Length, PeekWindowBytes);
+                        bool isText = FileEncoding.IsTextualData(raw, 0, peekLength);
 
                         if (isText)
                         {
-                            this.contents = new StreamReader(Stream).ReadToEnd();
+                            using var reader = new StreamReader(new MemoryStream(raw, writable: false));
+                            this.contents = reader.ReadToEnd();
                         }
                         else
                         {
-                            // The underlying System.IO.Compression.DeflateStream throws on reads to get_Length.
-                            using var ms = new MemoryStream((int)SizeInBytes.Value);
-                            this.Stream.CopyTo(ms);
-
-                            byte[] memStreamBuffer = ms.GetBuffer();
-                            if (memStreamBuffer.Length == ms.Position)
-                            {
-                                // We might have succeeded in exactly sizing the MemoryStream.  In that case, we can just use it.
-                                this.bytes = memStreamBuffer;
-                            }
-                            else
-                            {
-                                // No luck.  Have to take a copy to align the buffers.
-                                ms.Position = 0;
-                                this.bytes = new byte[ms.Length];
-
-                                ms.Read(this.bytes, 0, this.bytes.Length);
-                            }
+                            this.bytes = raw;
                         }
+
+                        this.entry = null;
                     }
                 }
-
-                this.entry = null;
             }
 
             return (this.contents, this.bytes);
+        }
+
+        private static byte[] ReadAllBytes(ZipArchiveEntry entry)
+        {
+            using Stream entryStream = entry.Open();
+
+            int capacity = entry.Length > 0 && entry.Length <= int.MaxValue
+                ? (int)entry.Length
+                : 0;
+
+            using var ms = new MemoryStream(capacity);
+            entryStream.CopyTo(ms);
+
+            byte[] buffer = ms.GetBuffer();
+            return buffer.Length == ms.Length ? buffer : ms.ToArray();
         }
 
         public long? SizeInBytes
