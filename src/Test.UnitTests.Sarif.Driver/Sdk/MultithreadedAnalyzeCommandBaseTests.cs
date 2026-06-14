@@ -41,6 +41,28 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         }
 
         [Fact]
+        public void ResolveAssemblyDirectory_EmptyLocationFallsBackToAppBaseDirectory()
+            => VerifyResolveAssemblyDirectory(string.Empty, AppContext.BaseDirectory);
+
+        [Fact]
+        public void ResolveAssemblyDirectory_NullLocationFallsBackToAppBaseDirectory()
+            => VerifyResolveAssemblyDirectory(null, AppContext.BaseDirectory);
+
+        [Fact]
+        public void ResolveAssemblyDirectory_PopulatedLocationReturnsContainingDirectory()
+        {
+            string directory = Path.Combine(Path.GetTempPath(), "sarif-resolve-assembly-directory");
+            string location = Path.Combine(directory, "Some.Assembly.dll");
+            VerifyResolveAssemblyDirectory(location, directory);
+        }
+
+        private static void VerifyResolveAssemblyDirectory(string location, string expected)
+        {
+            string actual = TestMultithreadedAnalyzeCommand.ResolveAssemblyDirectory(location);
+            actual.Should().Be(expected);
+        }
+
+        [Fact]
         public void MultithreadedAnalyzeCommandBase_InvalidZipArchive()
         {
             var logger = new TestMessageLogger();
