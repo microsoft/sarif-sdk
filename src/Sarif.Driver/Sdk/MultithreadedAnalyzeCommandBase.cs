@@ -59,9 +59,22 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         {
             get
             {
-                string currentDirectory = Path.GetDirectoryName(GetType().Assembly.Location);
+                string currentDirectory = ResolveAssemblyDirectory(GetType().Assembly.Location);
                 return Path.Combine(currentDirectory, "default.configuration.xml");
             }
+        }
+
+        internal static string ResolveAssemblyDirectory(string assemblyLocation)
+        {
+            // In a single-file published application Assembly.Location is empty, and
+            // Path.GetDirectoryName("") returns null, which crashes a subsequent
+            // Path.Combine. Fall back to the application base directory so that
+            // configuration-file probing remains functional in that layout.
+            string directory = string.IsNullOrEmpty(assemblyLocation)
+                ? null
+                : Path.GetDirectoryName(assemblyLocation);
+
+            return string.IsNullOrEmpty(directory) ? AppContext.BaseDirectory : directory;
         }
 
         public override int Run(TOptions options)
@@ -944,7 +957,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             if (!File.Exists(configurationFilePath))
             {
                 string fileName = Path.GetFileNameWithoutExtension(configurationFilePath);
-                string spamDirectory = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+                string spamDirectory = ResolveAssemblyDirectory(Assembly.GetExecutingAssembly().Location);
                 fileName = Path.Combine(spamDirectory, $"{fileName}.xml");
 
                 if (fileSystem.FileExists(fileName))
