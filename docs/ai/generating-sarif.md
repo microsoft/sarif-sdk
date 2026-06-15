@@ -6,12 +6,11 @@
 **Companion docs in this repo:**
 
 - [`docs/spec/sarif-v2.1.0-spec.md`](../spec/sarif-v2.1.0-spec.md) — convenience markdown rendering of the OASIS SARIF 2.1.0 specification (authoritative source linked from the file).
-- [`docs/AI-RuleId-Convention.md`](../AI-RuleId-Convention.md) — rule-ID structure and stability rules for AI-emitted SARIF.
 - [`docs/Producing effective SARIF.md`](../Producing%20effective%20SARIF.md) — general SDK producer guidance; AI producers should read this first.
-- [`docs/multitool-usage.md`](../multitool-usage.md) — `Sarif.Multitool` CLI reference, including the `emit-*` / `add-*` verbs used by the `emit-sarif-findings` skill.
-- [`docs/ValidationRules.md`](../ValidationRules.md) — the full SARIF validation rule catalog.
-- [`skills/emit-sarif-findings/SKILL.md`](../../skills/emit-sarif-findings/SKILL.md) — agent-procedural skill for emitting AI SARIF using the multitool emit verbs.
-- [`skills/validate-sarif-findings/SKILL.md`](../../skills/validate-sarif-findings/SKILL.md) — agent-procedural skill for validating AI SARIF against this profile.
+- [`docs/multitool-usage.md`](../multitool-usage.md) — `Sarif.Multitool` CLI reference, including the `emit-*` / `add-*` verbs used by the `emit-sarif` skill.
+- [`docs/ValidationRules.md`](../ValidationRules.md) — the standard (base-profile) SARIF validation rule catalog. The AI- and GHAzDO-profile rules are documented in this file and in `RuleResources.resx`.
+- [`skills/emit-sarif/SKILL.md`](../../skills/emit-sarif/SKILL.md) — agent-procedural skill for emitting AI SARIF using the multitool emit verbs.
+- [`skills/validate-sarif/SKILL.md`](../../skills/validate-sarif/SKILL.md) — agent-procedural skill for validating AI SARIF against this profile.
 
 An object-model overview (Mermaid class diagram) appears in the [Appendix: Object Model Diagram](#appendix-object-model-diagram) at the end of this document.
 
@@ -28,6 +27,100 @@ An object-model overview (Mermaid class diagram) appears in the [Appendix: Objec
 ## Core Principle
 
 In this scenario, AI is the originating tool — the primary source of findings, not a post-processor of another tool's output. Its findings are first-class `result` objects with CWE-based rule IDs.
+
+---
+
+## Rule-ID Convention
+
+The AI-authoring emit chain (`multitool emit-run` → JSONL append → `multitool emit-finalize`, plus anything that flows results through `SarifEventReplayer`) enforces two accepted `result.ruleId` shapes. This is the one hard gate on AI output: `emit-finalize` exits non-zero on any violation, and the `AI1012` validation rule holds `result.ruleId` to the same grammar however the log was produced.
+
+Every result MUST have a `ruleId` that takes one of these two shapes:
+
+| Shape | Form | Example |
+|---|---|---|
+| CWE sub-id | `CWE-<number>/<sub-id>` | `CWE-89/kql-injection-from-config` |
+| NOVEL escape hatch | `NOVEL-<sub-id>` | `NOVEL-prompt-injection-via-system-message` |
+
+If an AI tool emits anything else — bare `CWE-89`, missing entirely, `cwe-89/foo`, `CWE-89/a--b`, `NOVEL-foo/bar`, `CVE-…`, `OWASP-…` — `emit-finalize` exits non-zero and lists every offending id on stderr.
+
+### Why
+
+A SARIF result's sub-classifier — the part after `CWE-89/` — is where the producer records *which kind* of CWE-89 finding it emitted. The taxonomy entry is necessary but rarely sufficient, so AI-produced findings should name the sub-pattern they actually observed (`CWE-89/orm-string-interpolation`, not just `CWE-89`). The `AI1012` validation rule is the validation-time counterpart to the emit-time enforcement: it holds `result.ruleId` to this same grammar, distinguishing a bare CWE base id (repairable by appending a sub-id) from a malformed id that no appended sub-id can rescue.
+
+When no sharper sub-pattern applies, the kebab-cased CWE name is an acceptable fallback — for `CWE-89` that is `CWE-89/sql-injection`. It is the generic floor, not the goal: prefer a sharper sub-id when it names something you actually observed, but never invent one just to avoid the floor — a truthful generic beats a fabricated specific. The emit chain never fills the sub-id in for you, and a bare `CWE-89` is still rejected, so the generic value, when you choose it, is a deliberate call rather than a default you slid into.
+
+The two-shape contract serves two distinct producer cases:
+
+1. **The finding maps to a CWE entry.** Use the sub-id form (`CWE-<number>/<sub-id>`). The replayer registers a descriptor with the *base id* (e.g., `CWE-89`) per [SARIF §3.49.3](https://docs.oasis-open.org/sarif/sarif/v2.1.0/os/sarif-v2.1.0-os.html#_Toc34317644), keeps the full hierarchical form on `result.ruleId` per [§3.52.4](https://docs.oasis-open.org/sarif/sarif/v2.1.0/os/sarif-v2.1.0-os.html#_Toc34317727), and the CWE taxonomy enricher hydrates the base descriptor with MITRE metadata.
+
+2. **The finding doesn't fit any CWE entry.** Use the NOVEL escape hatch (`NOVEL-<sub-id>`). NOVEL- is flat — no slash, no hierarchy. If the AI can connect the finding back to a CWE entry, it MUST use shape #1 instead.
+
+The `emit` verb hard-enforces this convention at authoring time: `emit-finalize` exits non-zero on any violation. `AI1012` is the validation-time net — when a log is validated with the AI rule kind enabled, `result.ruleId` is held to the same grammar regardless of how the log was produced, so `SarifLogger` callers and hand-authored SARIF are covered even though they never flow through the emit verb.
+
+### Grammar
+
+```
+result.ruleId  ::= cweSubId | novelEscape
+
+cweSubId       ::= base "/" subId
+base           ::= "CWE-" [0-9]+                            ; e.g., CWE-89, CWE-327
+subId          ::= [a-z0-9]+ ("-" [a-z0-9]+)*               ; lowercase-alphanumeric kebab,
+                                                             ; single hyphens, no leading/
+                                                             ; trailing/consecutive hyphen
+
+novelEscape    ::= "NOVEL-" novelSubId
+novelSubId     ::= [a-z0-9]+ ("-" [a-z0-9]+)*               ; same kebab grammar as subId
+```
+
+AI findings are always CWE-based. The NOVEL- form is exclusive and flat; `NOVEL-foo/bar` is rejected.
+
+### Accepted examples
+
+| Input | Why it passes |
+|---|---|
+| `CWE-89/kql-injection-from-config` | Sub-id form; base `CWE-89` enriched, sub-id descriptive |
+| `CWE-89/sql-injection` | Sub-id form; kebab-cased CWE name is an acceptable generic fallback when no sharper sub-pattern applies |
+| `CWE-79/dom-xss-via-sanitizer-bypass` | Sub-id form |
+| `CWE-327/md5-usage` | Sub-id may contain digits |
+| `CWE-89/2nd-order-injection` | A token may start with a digit |
+| `NOVEL-prompt-injection-via-system-message` | NOVEL escape hatch |
+| `NOVEL-x509-bypass` | NOVEL sub-id may contain digits |
+| `NOVEL-look-ma-i-hallucinated-outside-of-mitre` | NOVEL escape hatch |
+
+### Rejected examples
+
+| Input | Why it fails |
+|---|---|
+| *(missing)* | Empty / null ruleId is rejected |
+| `CWE-89` | Bare taxonomy id — no sub-id |
+| `cwe-89/foo` | Base must be uppercase `CWE-` |
+| `CWE-x/foo` | Base number must be numeric |
+| `CWE-89/` | Sub-id is empty |
+| `CWE-89/Foo` | Sub-id must be lowercase |
+| `CWE-89/a--b` | Consecutive hyphens not allowed |
+| `CWE-89/a-` | Trailing hyphen not allowed |
+| `CWE-89/-a` | Leading hyphen not allowed |
+| `CWE-89/a/b` | Sub-id contains a slash |
+| `CWE-89/a b` | Sub-id contains whitespace |
+| `CVE-2021-12345/exploit-via-file-upload` | Not a CWE — AI rules are CWE-only |
+| `OWASP-A01-2021/broken-access-control` | Not a CWE — AI rules are CWE-only |
+| `NOVEL` | Missing `-<sub-id>` |
+| `NOVEL-` | Empty sub-id after `NOVEL-` |
+| `NOVEL-foo/bar` | NOVEL- form is flat — no slash allowed |
+| `NOVEL-a--b` | Consecutive hyphens not allowed |
+| `NOVEL-Foo` | Sub-id must be lowercase |
+| `novel-foo` | NOVEL- prefix must be uppercase |
+| `MY-CUSTOM-RULE` | No `/` and not NOVEL-prefixed |
+
+### Enforcement
+
+The convention is enforced at `emit-finalize` time by [`AIRuleIdConvention.ThrowIfAnyUnacceptable`](../../src/Sarif/Emit/AIRuleIdConvention.cs), invoked from `SarifEventReplayer.RegisterDescriptorsFromResults`. The validator collects every offender and throws `AIRuleIdConventionException` once with the full list.
+
+When `emit-finalize` catches the exception it writes the exception message to stderr: the offending ids followed by the two-shape guidance summarized above. That stderr text is generated by [`AIRuleIdConventionException.BuildMessage`](../../src/Sarif/Emit/AIRuleIdConventionException.cs) — read it there rather than relying on a copy reproduced here, which would only drift.
+
+### GitHub-hosted collapse
+
+GitHub code scanning's security classifier binds a result to its rule by `result.ruleId`-string equality with a `reportingDescriptor.id`; it does not follow SARIF's hierarchical-`ruleId` / `ruleIndex` resolution ([§3.27.5](https://docs.oasis-open.org/sarif/sarif/v2.1.0/os/sarif-v2.1.0-os.html#_Toc34317619), [§3.27.6](https://docs.oasis-open.org/sarif/sarif/v2.1.0/os/sarif-v2.1.0-os.html#_Toc34317620)) for this purpose. A result emitted under a sub-id (`CWE-79/dom-xss-via-sanitizer-bypass`) therefore never matches its base `CWE-79` descriptor, so the `security-severity` and `tags` stamped on that descriptor are silently dropped. For **GitHub-hosted runs only**, `emit-finalize` collapses each result's `ruleId` to its descriptor id (`CWE-79/dom-xss-via-sanitizer-bypass` → `CWE-79`), collapsing `result.rule.id` in step so the two stay equal ([§3.27.7](https://docs.oasis-open.org/sarif/sarif/v2.1.0/os/sarif-v2.1.0-os.html#_Toc34317621)). The sub-id is legal SARIF but carries no descriptor metadata ([§3.49.3 NOTE 2](https://docs.oasis-open.org/sarif/sarif/v2.1.0/os/sarif-v2.1.0-os.html#_Toc34317644)), so nothing classifiable is lost; Azure DevOps-hosted runs resolve the rule correctly and keep the sub-id. Accordingly, `AI1012` accepts a bare `CWE-<number>` `result.ruleId` on a GitHub-hosted run (the expected post-collapse shape) and still requires the sub-id everywhere else.
 
 ---
 
@@ -55,7 +148,7 @@ The three values map directly to the primary use cases for AI-produced SARIF:
 | `"annotated"` | AI enrichment of another tool | Findings originate from a non-AI source (traditional SAST, human review, etc.) and are enriched, triaged, or augmented by AI |
 | `"synthesized"` | AI correlation across sources | AI correlates and merges findings from multiple tools or signals into new composite findings that no single source could produce alone |
 
-**Why this matters:** Each value implies different trust and provenance characteristics. `"generated"` findings are AI-originated and may require more scrutiny. `"annotated"` findings have a non-AI-originated core — the detection itself has traditional provenance, with AI adding richness. `"synthesized"` findings are AI-constructed from cross-tool correlation — they may surface patterns invisible to any individual tool, but the composite reasoning is AI's contribution.
+**Why this matters:** Each value implies different trust and provenance characteristics: `"generated"` is AI-originated, `"annotated"` has a non-AI-originated core, and `"synthesized"` is AI-constructed from cross-tool correlation.
 
 **Placement:** `run.properties` — the origin applies to the entire run, not individual results. If a single log file contains runs with different AI involvement levels, each run declares its own `ai/origin`.
 
@@ -65,7 +158,7 @@ The three values map directly to the primary use cases for AI-produced SARIF:
 
 `run.tool.driver` is the **scanning system** — prompt infrastructure, parsing logic, concern definition — versioned independently of the underlying model.
 
-`run.tool.extensions[]` documents the **execution session components**: the LLM model, named skills, and optional orchestrator. Each is independently versioned. This is what makes the provenance of an AI production machine-readable — a consumer can identify which model and skill versions produced a given run without inspecting prose.
+`run.tool.extensions[]` documents the **execution session components**: the LLM model, named skills, and optional orchestrator. Each is independently versioned so consumers can identify which model and skill versions produced a run.
 
 ```json
 "tool": {
@@ -133,13 +226,13 @@ The three values map directly to the primary use cases for AI-produced SARIF:
 ]
 ```
 
-The hash is the invariant: it makes "the AI ran under these exact instructions" auditable whether the bytes are fetched or inline. Reference-only (no `contents`) is sufficient when consumers have standing read on the skills repo. Populate `artifacts[].contents.text` in the full log when audit durability matters — six months on, the answer to "what prompt produced this finding" should be in the log, not behind a repo that may have been reorganized. Either way, strip `contents` from the redacted log; skill text is detection methodology.
+The hash is the invariant: it makes "the AI ran under these exact instructions" auditable whether the bytes are fetched or inline. Reference-only (no `contents`) is sufficient when consumers have standing read on the skills repo. Populate `artifacts[].contents.text` in the full log when audit durability matters. Strip `contents` from the redacted log; skill text is detection methodology.
 
 **Rule ID design:** CWE is the primary rule namespace. The sub-ID sub-classifies broad CWEs: `CWE-78` covers OS Command Injection across any context; `CWE-78/api-handler` is an instance of it in API handler contexts.
 
 Per SARIF §3.27.5 / §3.49.3 NOTE 2, the **base** CWE ID goes on the `reportingDescriptor` (`tool.driver.rules[].id = "CWE-78"`); the per-finding sub-ID is appended **only on `result.ruleId`** (`"CWE-78/api-handler"`). The descriptor stays stable across a campaign — without bloating `rules[]` with one entry per slug, and without losing `ruleIndex` resolution (§3.52.4: a `reportingDescriptorReference.id` may equal the descriptor's id plus one extra hierarchical component).
 
-The sub-ID is **required** for AI-generated results. SARIF has no `result.name`; the hierarchical `ruleId` is the one slot where a per-finding readable handle survives minimal SARIF (no `rules[]`, no `ruleIndex`). It is also — critically — the **suppression and baseline grouping key**. SARIF §3.27.5: *"A SARIF viewer or result management system MAY use the additional hierarchical components to allow a user to suppress a subset of the violations of a given rule [and] to more precisely match results between runs."* Downstream tooling that lets a reviewer accept-risk, suppress, or bulk-fix keys on `ruleId`. The producer therefore must choose sub-ID **granularity** deliberately, not coin a unique slug per result by reflex:
+The sub-ID is **required** for AI-generated results. SARIF has no `result.name`; the hierarchical `ruleId` is the durable per-finding handle and the suppression/baseline grouping key. SARIF §3.27.5 permits viewers to use hierarchical components for subset suppression and run-to-run matching, so producers must choose sub-ID **granularity** deliberately:
 
 - **One pattern, N locations → one sub-ID, N results.** Six occurrences of a banned API, or the same missing-null-check shape in six call sites, share a single sub-ID. The reviewer dispositions the bundle once ("all six are test fixtures — suppress `CWE-477/legacy-hash-api`") and the decision sticks across the set.
 - **N distinct issues under one CWE → N sub-IDs.** Three unrelated missing-authorization bugs in three controllers get three sub-IDs; suppressing one must not silence the others.
@@ -149,7 +242,7 @@ Having decided the granularity, name the sub-ID:
 - Prefer a **true sub-classification** of the base rule when one applies — e.g. `CWE-78/api-handler`, `CWE-122/heap-write` — where the slug names a narrower category the finding is an instance of.
 - In the absence of a true sub-classification, **kebab-case the friendly name** of the top-level rule: `reportingDescriptor.name = "PlanEventMissingAuthorization"` → `result.ruleId = "CWE-862/plan-event-missing-authorization"`. This is mechanical and always available; it is never acceptable to omit the sub-ID on the grounds that no sub-classification exists.
 
-The sub-ID carries no separate metadata. It is the result's readable name, its baseline discriminator, and its bulk-disposition handle — choose it accordingly.
+The sub-ID is the result's readable name, baseline discriminator, and bulk-disposition handle.
 
 **Novel findings:** In rare cases where no CWE adequately describes the vulnerability, use the **NOVEL escape hatch** — `NOVEL-<sub-id>`. The dash-flat form (no slash, no separate base) carries the concept's identity in a single string; there is no registry of novel-finding numbers and this profile does not pretend one exists. Unlike a CWE finding, the NOVEL- form does not split into a base+sub-id pair — the descriptor's `id` and the result's `ruleId` are byte-identical.
 
@@ -175,7 +268,7 @@ Each distinct novel concept in a run gets its own descriptor with its own dash-f
 
 The `ai/nearestCwe` property orients consumers to the closest known vulnerability class without pretending the classification is exact. In practice, most AI findings will map to existing CWEs — NOVEL- ids should be the exception.
 
-> The NOVEL- form is exclusive — `NOVEL-<sub-id>` is the entire id. `NOVEL-foo/bar` is rejected at receipt by the AI-authoring emit chain; see [`docs/AI-RuleId-Convention.md`](../AI-RuleId-Convention.md) for the full grammar.
+> The NOVEL- form is exclusive — `NOVEL-<sub-id>` is the entire id. `NOVEL-foo/bar` is rejected at receipt by the AI-authoring emit chain; see [Rule-ID Convention](#rule-id-convention) for the full grammar.
 
 ---
 
@@ -210,20 +303,6 @@ The `ai/nearestCwe` property orients consumers to the closest known vulnerabilit
   }
 ]
 ```
-
-### Run partitioning by language
-
-AI runs MUST be partitioned by source language: a single run MUST cover exactly one `(repository, branch, language)` tuple. `run.defaultSourceLanguage` (§3.14.25) MUST be set to a value from SARIF Appendix J (compared case-insensitively per §3.24.10.2).
-
-```json
-"defaultSourceLanguage": "python"
-```
-
-A SARIF log MAY carry multiple runs to cover multiple languages or branches; each run is independently a `(repository, branch, language)` slice. A run MAY span multiple CWEs.
-
-`artifact.sourceLanguage` (§3.24.10) and `region.sourceLanguage` (§3.30.15) MAY be present for SARIF-viewer rendering but MUST NOT be the sole signal of a result's language — downstream consumers (notably GHAZDO bucket partitioning) resolve language at run scope only.
-
-This is stricter than the SARIF spec allows and is intentional: it makes per-language alert identity stable without per-result language inference at ingestion time.
 
 ---
 
@@ -374,7 +453,7 @@ AI tools typically have full file context available during analysis. Producers S
 }
 ```
 
-**Snippets.** Include `region.snippet.text` with the code at the finding location. This makes findings self-contained — consumers can see the vulnerable code without fetching the source file.
+**Snippets.** Include `region.snippet.text` with the code at the finding location so consumers can inspect the finding without fetching source.
 
 **Context regions.** When possible, also provide `contextRegion` (§3.30.2) with surrounding code to give the finding spatial context:
 
@@ -398,13 +477,13 @@ AI tools typically have full file context available during analysis. Producers S
 }
 ```
 
-The combination of precise region + context snippet gives both AI and human consumers everything they need to understand a finding without source access.
+Precise regions plus context snippets make the finding understandable without source access.
 
 ---
 
 ## Evidence Strength (`ai/exploitability`)
 
-AI findings carry varying levels of exploitability evidence. Use `ai/exploitability` in `result.properties` to classify the **strength of evidence** — how much was actually demonstrated, as distinct from impact (`level`/`rank`) or attacker position (below) — on a per-result basis.
+AI findings carry varying levels of exploitability evidence. Use `ai/exploitability` in `result.properties` to classify the **strength of evidence** — how much was actually demonstrated, as distinct from impact (`level`/`security-severity`) or attacker position (below) — on a per-result basis.
 
 **All-or-nothing rule (suppressions pattern, §3.27.23):** If *any* result in the run declares `ai/exploitability`, then *every* result in the run MUST declare it. Mixed presence — some results with, some without — is a data quality error. This follows the same design rationale as SARIF suppressions: a tool either has the capability to assess exploitability or it does not. Consumers can inspect a single result to determine whether exploitability data is available for the entire run.
 
@@ -440,7 +519,7 @@ The value is per-result — different results in the same run may have different
 
 | Axis | Question | SARIF home |
 |---|---|---|
-| **Impact** | How bad if exploited? | `level` (§3.27.10), `rank` (§3.27.25) |
+| **Impact** | How bad if exploited? | `level` (§3.27.10), `security-severity` (rule descriptor) |
 | **Evidence strength** | How much did we prove? | `ai/exploitability` (above) |
 | **Attacker position** | Who has to be where to pull it off? | `ai/attackerPosition` (this section) |
 
@@ -511,7 +590,7 @@ A string in `result.properties` naming the minimum attacker position from which 
 | `backing` | array of `sarif:` URI strings | Pointers (§3.10.3) to the structural SARIF elements that substantiate this claim — `codeFlows[n]`, a specific `threadFlows[n].locations[m]`, `stacks[n]`, `attachments[n]`, `webRequest`, a run-level `invocations[n]`, or another `results[n]`. MAY be empty or absent for unbacked claims. |
 | `note` | string | Freeform one-line gloss. Optional. |
 
-**Relationship to structural evidence.** `ai/evidence` is an interpretation layer over the result's structural arrays, not a parallel store. The structure (`codeFlows`, `stacks`, `webRequest`/`webResponse`, `attachments`) *is* the evidence — replayable, inspectable. An `ai/evidence` entry states what a given piece of structure *establishes* in strength × scope terms, which is not otherwise derivable: a `codeFlow` alone does not say whether it was executed or traced, nor which trust boundary its first location sits behind.
+**Relationship to structural evidence.** `ai/evidence` interprets the result's structural arrays (`codeFlows`, `stacks`, `webRequest`/`webResponse`, `attachments`) in strength × scope terms. A `codeFlow` alone does not say whether it was executed or traced, nor which trust boundary its first location sits behind.
 
 | Structural evidence | `ai/evidence` entry | Reading |
 |---|---|---|
@@ -521,15 +600,21 @@ A string in `result.properties` naming the minimum attacker position from which 
 
 **Consistency.** An entry with `strength: "demonstrated"` SHOULD carry non-empty `backing`. The headline `ai/exploitability` SHOULD be consistent with the array — a producer SHOULD NOT claim `ai/exploitability: "demonstrated"` unless at least one `ai/evidence` entry is `demonstrated` with non-empty `backing`. The headline is producer-set, not mechanically derived from the array; see validation rule AI2016.
 
-**Downstream use.** The array is the worklist for an agent chain. An unbacked `{theoretical, service}` entry alongside a backed `{demonstrated, component}` entry tells an escalation agent precisely what to go prove: close the component→service gap. On success it upgrades the entry in place (`theoretical`→`demonstrated`, populates `backing` with the new `webRequest`/`codeFlow`) and re-emits. Human triagers and dashboards continue to sort on the scalar `ai/exploitability`; the array is opt-in depth.
+**Downstream use.** The array is the worklist for an agent chain. An unbacked `{theoretical, service}` entry beside a backed `{demonstrated, component}` entry tells an escalation agent to close the component→service gap. Human triagers and dashboards can still sort on scalar `ai/exploitability`.
 
 > NOTE — `sarif:` URI fragility. Per §3.10.3, `sarif:` URIs use RFC 6901 JSON Pointer and are document-rooted and index-based; post-processors that concatenate runs or filter results SHALL rewrite `backing` URIs accordingly, under the same obligation that already applies to `sarif:` URIs in embedded message links (§3.11.6). SARIF 2.1.0 defines no relative-to-current-element form. **Open question:** a result-rooted shorthand (bare RFC 6901 pointer evaluated against the containing `result`, e.g. `"/codeFlows/1"`) would make the common intra-result case robust to reordering with no rewriting. This would be a §3.10.3 enhancement at the SARIF-core level rather than a profile convention; tracked as a discussion point on the OASIS issue.
 
 ---
 
-## Confidence & Rank
+## Rank (priority, repurposed for confidence)
 
-AI findings inherently carry confidence — SARIF's native `result.rank` property (§3.27.25) is the canonical location. `rank` is a floating-point value from 0.0 to 100.0 (higher = higher confidence); it is only meaningful when `kind` is `"fail"`. Per the spec, rank values from different tools are **not commensurable** — each producer defines its own scale. Do not invent cross-tool range mappings; consumers that aggregate results from multiple tools must normalize per-producer.
+SARIF's `result.rank` (§3.27.25) is a **general-purpose priority** value — the schema defines it as *"a number representing the priority or importance of the result"*: a float from 0.0 to 100.0 (higher = more important; the `-1.0` default means *absent*), meaningful only when `kind` is `"fail"`.
+
+A producer chooses how it prioritizes. Ordering findings by *least likely to be a false positive* is one legitimate prioritization — and the one this guidance adopts — so here `rank` carries the producer's **confidence**: its estimated likelihood that the finding is a true positive. Other prioritizations are equally valid under the spec (ordering by blast radius, exposure, or data sensitivity, for instance), and a tool may compute rank by any methodology it chooses. Because each producer defines its own scale, rank values are **not commensurable** across tools — a consumer that aggregates results from multiple tools normalizes per-producer.
+
+Under this confidence ordering, `ai/exploitability` (above) is an **input** to `rank`, not a competing axis: demonstrated, backed reachability is strong evidence the finding is a true positive and should *raise* rank, while a theoretical, unbacked claim should lower it. The connection is directional, not a fixed formula — scope matters (`demonstrated` at `function` is not `demonstrated` in `production`) and rank is continuous — but the ordering SHOULD be monotonic: all else equal, a result with stronger exploitability evidence SHOULD NOT rank below an otherwise-identical weaker one.
+
+> SARIF 2.2 proposes a first-class `precision` property (oasis-tcs/sarif-spec#611) as a dedicated home for true-positive likelihood. If it lands, confidence can move there and `rank` reverts to expressing pure priority.
 
 ```json
 {
@@ -541,7 +626,17 @@ AI findings inherently carry confidence — SARIF's native `result.rank` propert
 }
 ```
 
-**Conditional severity.** When impact depends on deployment configuration ("critical if `X-Forwarded-For` is trusted, otherwise by-design"), set `level` to the **expected-case** severity, set `rank` to reflect the **worst-case**, and state the gating condition explicitly in `message.markdown § Mitigating Factors`. Do not invent compound levels. This keeps the headline honest for the common deployment while ensuring a triager sorting by `rank` still surfaces the finding near the top of the queue.
+**Conditional severity.** When impact depends on deployment configuration ("critical if `X-Forwarded-For` is trusted, otherwise by-design"), set `level` to the **expected-case** severity and state the worst case and its gating condition in `message.markdown § Mitigating Factors`. `level` carries the severity and `rank` carries confidence, so a single discrete `level` plus a prose mitigating-factors note expresses the conditional cleanly.
+
+## Security Severity (per-CWE prior)
+
+The confidence carried in `rank` (above) is **never** the source of `security-severity`. Severity and confidence are orthogonal axes: a low-confidence finding of a critical weakness class is still critical *if* it is real. Both GitHub Advanced Security and Azure DevOps Advanced Security read a numeric `security-severity` (0.0–10.0, CVSS-aligned) off the **rule descriptor** — not off `rank` — to bucket a result into critical/high/medium/low.
+
+The SDK supplies a stable, hand-curated per-CWE `security-severity` prior (`Microsoft.CodeAnalysis.Sarif.Taxonomies.CweSecuritySeverity`). Because AI findings use CWE as their rule taxonomy, the prior is keyed by the CWE token in the descriptor `id`. `emit-finalize` stamps a `security-severity` onto each AI security rule host-agnostically: the curated prior when one exists, otherwise a neutral **medium** default (`5.0`) for *uncurated content* — a CWE outside the curated table, or a `NOVEL-` finding that maps to no CWE. The curated table is seeded from the CodeQL query corpus and deliberately under-covers the long tail of weakness classes an AI producer emits, so without the default those findings would reach a platform with no severity at all. The default is an **emit-verb policy**, not a curated datum: `CweSecuritySeverity` still reports an uncurated CWE as having no prior, and `get-cwe` surfaces only curated values. Producer-authored `security-severity` values are always preserved. Producers do not need to author `security-severity` themselves — author a precise CWE `ruleId` and clean per-result `rank`, and let finalize supply the severity.
+
+### Security classification tags (GitHub-only)
+
+GitHub Advanced Security **ignores `security-severity` unless the rule's `properties.tags` also carries the `security` tag**, and keys CWE association off an `external/cwe/cwe-<n>` tag. For GitHub-hosted runs (detected from `versionControlProvenance`), `emit-finalize` stamps these tags onto each AI security rule: a CWE rule gets `["security", "external/cwe/cwe-<n>"]`; a `NOVEL-` rule gets the bare `["security"]` (no CWE tag fits, but the `security` tag is still what makes GitHub treat the finding as a security alert). Producer-authored tags are merged, not overwritten. Azure DevOps Advanced Security does not require these tags, so they are not emitted for Azure DevOps-hosted runs (the host-agnostic `security-severity` is). See `src/Sarif/Taxonomies/CweGhasSample.sarif` (tags present) versus `CweGHAzDOSample.sarif` (tags absent).
 
 ---
 
@@ -583,7 +678,7 @@ A SARIF file containing exploit narratives, reproduction steps, captured HTTP tr
 **Indirection:** For highly sensitive findings, producers MAY emit a redacted version for the standard alert pipeline (title, severity, location — no repro steps) and store the full SARIF in a secure location:
 
 ```markdown
-## [NOVEL/capability-trust-bypass] — Novel Finding
+## [NOVEL-capability-trust-bypass] — Novel Finding
 
 **Classification:** Novel (nearest CWE: CWE-345)
 **Severity:** Critical
@@ -881,8 +976,7 @@ For `poc` and `demonstrated` findings, AI tools can embed executable reproductio
 
 **Design notes:**
 
-- The script is embedded in `artifact.contents.text` and can be extracted by any consumer — human, CI system, or AI agent — without repository access.
-- For short reproduction commands (a single curl, a one-liner), embedding a code block in `message.markdown` is simpler and equally extractable by AI. Reserve `attachments` for multi-step scripts that benefit from being independently executable files.
+- Short reproduction commands belong in `message.markdown`; reserve `attachments` for independently executable files.
 - Multiple attachments per result are permitted — e.g., a setup script and an exploit script.
 
 ---
@@ -960,7 +1054,7 @@ The spec provides several first-class objects for expressing dynamic execution c
 | `webResponse` | §3.38.7 | HTTP response observed at this step |
 | `stack` | §3.38.5 | Call stack captured at this point |
 
-The combination of `executionTimeUtc` + `state` enables a debugger-like experience: a viewer can replay the flow step-by-step, showing what values were observed and when. For AI tools performing runtime analysis, these timestamps are critical for distinguishing static predictions from observed dynamic behavior.
+The combination of `executionTimeUtc` and `state` lets consumers distinguish static predictions from observed dynamic behavior.
 
 #### Web requests and responses (§3.46–§3.47)
 
@@ -992,7 +1086,7 @@ Until concrete samples are validated through dogfooding, the following prelimina
 
 ### Observed vs. predicted evidence
 
-The difference between `theoretical` and `demonstrated` exploitability (see [Exploitability Evidence](#exploitability-evidence)) is expressed structurally through the richness of the `codeFlows` data. A predicted path has locations and messages; observed evidence adds timestamps, HTTP traffic, and runtime state.
+The difference between `theoretical` and `demonstrated` exploitability (see [Evidence Strength](#evidence-strength-aiexploitability)) is expressed structurally through the richness of the `codeFlows` data. A predicted path has locations and messages; observed evidence adds timestamps, HTTP traffic, and runtime state.
 
 **Predicted path** (static analysis — `theoretical`):
 
@@ -1089,7 +1183,7 @@ The difference between `theoretical` and `demonstrated` exploitability (see [Exp
 ]
 ```
 
-The observed-evidence flow is unmistakable: it carries timestamps, the actual HTTP request/response, and the runtime state change. A consumer can immediately see this is not a predicted vulnerability — it was exercised and the effect was captured.
+The observed-evidence flow carries timestamps, the actual HTTP request/response, and the runtime state change.
 
 ---
 
@@ -1137,7 +1231,7 @@ The observed-evidence flow is unmistakable: it carries timestamps, the actual HT
 ]
 ```
 
-A remediation agent replays this transcript against a fresh clone at `versionControlProvenance.revisionId` to reconstruct the producing agent's environment, then again post-patch to verify nothing regressed.
+A remediation agent can replay this transcript at `versionControlProvenance.revisionId`, then again post-patch.
 
 **`resultProvenance.invocationIndex` (§3.48.7):** A result MAY set `result.provenance.invocationIndex` to point at the specific invocation that surfaced it. This distinguishes "found by static reasoning over source" from "found during dynamic probe at `invocations[4]`."
 
@@ -1159,7 +1253,7 @@ The producing agent may be entirely decoupled from the target's engineering syst
 
 A remediation agent inspects `invocations[]` to determine how much of the environment is reconstructable from the SARIF alone, and falls back to its own discovery for the rest.
 
-**Machine-readable coverage gaps.** When degradation occurs because of data access, permissions, or missing tools — rather than source-code limitations — producers SHOULD also emit `toolConfigurationNotifications` (see [Execution Narrative & Configuration Feedback](#execution-narrative--configuration-feedback)). This makes the *reason* for degradation machine-readable: a dashboard can aggregate "70% of fleet runs had CodeQL access; 30% had `DATA-ACCESS-DENIED`" without parsing prose.
+**Machine-readable coverage gaps.** When degradation occurs because of data access, permissions, or missing tools, producers SHOULD also emit `toolConfigurationNotifications` (see [Execution Narrative & Configuration Feedback](#execution-narrative--configuration-feedback)). Dashboards can then aggregate coverage gaps without parsing prose.
 
 ---
 
@@ -1206,7 +1300,7 @@ Beyond analysis-target source files, producers SHOULD embed engineering-system a
 
 **Semantics:** Ephemeral and run-scoped. Anything the producing agent learns that is *durable* — true of the repository independent of this scan — belongs in the repository's `.ai-context/` directory, not in SARIF. `ai/handoff` is for what the agent learned *during this run* that the next agent in the chain should know.
 
-**Capability asymmetry:** The producing agent may be more or less capable than the consuming agent, and may have had more or less context. A less-capable producer can dump raw observations; a more-capable one can write a tight brief. The consumer is an LLM and will extract value from either. Producers SHOULD err toward including observations rather than discarding them.
+**Capability asymmetry:** The producing agent may be more or less capable than the consuming agent, and may have had more or less context. Producers SHOULD err toward including observations rather than discarding them.
 
 **Multiple audiences.** A single `ai/handoff` block often serves several downstream readers — the next agent in the chain, a human triager, a learning agent. When that is the case, producers SHOULD structure the freeform markdown with subheadings so consumers can route:
 
@@ -1315,7 +1409,7 @@ Notification types are registered as `reportingDescriptor` objects in `tool.driv
 
 **ID convention:** Each notification descriptor id names the **concern** — what happened — and nothing else. The notification's **kind** (execution narrative vs. configuration feedback) is encoded structurally by the array it lives in: `toolExecutionNotifications` vs. `toolConfigurationNotifications`. The **emitting tool** is encoded by `tool.driver.name`. So `DECISION`, `DATA-ACCESS-DENIED`, `LEARNING-SIGNAL` are sufficient on their own — no `AI/`, `EXEC/`, `CFG/`, or `<toolName>/` prefix is needed because the surrounding SARIF carries every piece of context the prefix would have repeated. Note that the same id MAY legally appear in both arrays when the concern applies to both contexts (e.g., a producer that emits a `STATUS` notification at both execution-narrative and configuration-feedback granularity).
 
-**Routing at authoring time.** The `add-notification` verb defaults to `toolExecutionNotifications`. Pass `--config` (`-c`) to route to `toolConfigurationNotifications` instead. The routing is captured in the event log as the event kind (`execution-notification` vs. `configuration-notification`); the replayer reads the kind and appends to the matching array. The descriptor id itself carries no placement information.
+**Routing at authoring time.** Placement is structural: emit the notification in the invocation payload's `toolExecutionNotifications` or `toolConfigurationNotifications` array (supplied via `add-invocation`). The descriptor id itself carries no placement information.
 
 ### Execution notifications (`toolExecutionNotifications`)
 
@@ -1545,9 +1639,9 @@ A remediation agent relocates the target using these anchors, re-derives the con
 
 ## Result Identity & Fingerprints
 
-AI producers **SHOULD NOT** populate `result.fingerprints` or `result.partialFingerprints` (§3.27.16–17).
+AI producers **MUST NOT** populate `result.fingerprints`, and **SHOULD NOT** populate `result.partialFingerprints` (§3.27.16–17).
 
-**Rationale:** Persisted fingerprints decay. File renames and deletes orphan location-derived hashes; rule logic updates change what content is hashed; and an AI consumer does not need a precomputed hash because it has `ruleId`, `logicalLocations`, and `contextRegion.snippet` — enough to re-derive identity with judgment a fixed hash function cannot apply.
+**Rationale:** Persisted fingerprints decay. File renames and deletes orphan location-derived hashes; rule logic updates change what content is hashed; and an AI consumer does not need a precomputed hash because it has `ruleId`, `logicalLocations`, region coordinates (`region` and `contextRegion` line/column data), and their snippets (core plus surrounding context) — together a far richer matching signal than a single opaque hash, enough to re-derive identity with judgment a fixed hash function cannot apply.
 
 **Two distinct matching problems, two owners:**
 
@@ -1689,8 +1783,10 @@ These constructs were designed speculatively — no concrete producer/consumer p
 The [SARIF SDK](https://github.com/microsoft/sarif-sdk) ships validation rules that check conformance with these conventions. Run them with:
 
 ```bash
-sarif validate my-results.sarif --rule-kind AI
+sarif validate my-results.sarif --rule-kind "Sarif;AI" --level "Note;Warning;Error"
 ```
+
+The `AI` kind activates the AI rule pack (AI1003–AI2019); the `Sarif` kind runs the full standard SARIF catalog (SARIF1xxx/2xxx, JSON1xxx) alongside it. Run both together — the AI pack does not subsume the standard structural checks. The `--level` list surfaces the note-level AI rules (rank, handoff, learning-signal).
 
 ### AI-specific rules
 
@@ -1700,15 +1796,14 @@ sarif validate my-results.sarif --rule-kind AI
 | AI1004 | ProvideVersionControlProvenance | error | `run.versionControlProvenance` MUST contain at least one entry with `repositoryUri` and `revisionId`. |
 | AI1005 | ProvideMessageMarkdown | error | Every `result.message` MUST include a `markdown` property (structured narrative for AI consumers). |
 | AI1006 | ProvideAIOrigin | error | `run.properties` MUST contain `ai/origin` with a recognized value (`generated`, `annotated`, `synthesized`). |
+| AI1007 | DoNotPersistFingerprints | error | `result.fingerprints` MUST NOT be populated by AI producers. Cross-run identity is owned by the result-management system; intra-remediation relocation uses a transient fingerprint. See [Result Identity & Fingerprints](#result-identity--fingerprints). |
 | AI1010 | ProvideEvidenceBackingUri | error | Every `sarif:` URI in `ai/evidence[].backing` SHALL resolve to an element within the containing log file per §3.10.3. |
-| AI1011 | RedactedRunMarker | error | `ai/redacted` SHALL be `true` or absent (never `false`). When `true`, `run.redactionTokens` SHOULD be non-empty. `ai/fullLogLocation` SHALL NOT appear unless `ai/redacted` is `true`. |
-| AI1012 | ProvideRuleSubId | error | Every `result.ruleId` MUST include a sub-ID for disambiguation (e.g., `CWE-78/api-handler`). Rule descriptors (`tool.driver.rules[].id`) use the base ID only (e.g., `CWE-78`). |
+| AI1012 | ProvideRuleSubId | error | Every `result.ruleId` MUST conform to the [Rule-ID Convention](#rule-id-convention): a taxonomy sub-ID `CWE-<number>/<sub-id>` or the flat escape hatch `NOVEL-<sub-id>`. A bare base id is flagged as missing its sub-ID; any other non-conformant value is flagged as malformed. |
 | AI1013 | ProvideNotificationAssociatedRule | error | If `notification.associatedRule` is present, it SHALL resolve to a valid rule in `tool.driver.rules[]` or an extension's `rules[]` via `index` or `guid`. |
-| AI1015 | ProvideRunDefaultSourceLanguage | error | Every run MUST set `run.defaultSourceLanguage` (§3.14.25) to a value from SARIF Appendix J. A single run MUST cover exactly one `(repository, branch, language)` tuple. |
 | AI2003 | ProvideSemanticVersion | warning | `tool.driver` SHOULD supply `semanticVersion` for reproducibility. |
 | AI2005 | ProvideAutomationDetails | warning | `run.automationDetails.guid` SHOULD be present for deduplication. |
-| AI2010 | ProvideResultRank | note | Each `result.rank` SHOULD be populated (tool-specific confidence score, 0.0–100.0). |
-| AI2011 | DoNotPersistFingerprints | note | `result.fingerprints` / `result.partialFingerprints` SHOULD NOT be populated by AI producers. Cross-run identity is owned by the result-management system; intra-remediation relocation uses a transient fingerprint. See [Result Identity & Fingerprints](#result-identity--fingerprints). |
+| AI2010 | ProvideResultRank | note | Each `result.rank` SHOULD be populated — a 0.0–100.0 priority/importance value (§3.27.25); this guidance prioritizes by true-positive likelihood, i.e. confidence. |
+| AI2011 | DoNotPersistPartialFingerprints | warning | `result.partialFingerprints` SHOULD NOT be populated by AI producers. Cross-run identity is owned by the result-management system; intra-remediation relocation uses a transient fingerprint. See [Result Identity & Fingerprints](#result-identity--fingerprints). |
 | AI2012 | ProvideAIHandoff | note | `run.properties` SHOULD contain `ai/handoff` — repo-wide forward-notes for the remediation agent (at minimum: ladder depth reached and why). |
 | AI2014 | ProvideExploitability | warning | Each `result.properties` SHOULD contain `ai/exploitability` with one of `demonstrated`, `poc`, or `theoretical`. Follows the all-or-nothing pattern: if any result declares exploitability, all must. |
 | AI2015 | ProvideAttackerPosition | warning | Each `result.properties` SHOULD contain `ai/attackerPosition`. Follows the all-or-nothing pattern: if any result declares it, all must. |
@@ -1719,7 +1814,7 @@ sarif validate my-results.sarif --rule-kind AI
 
 ### SARIF-standard rules elevated for AI profile
 
-These rules are defined by the base SARIF profile and fire in both standard and AI modes. They are enabled by default; no configuration file is needed — `--rule-kind AI` activates them automatically.
+These rules are defined by the base SARIF profile and fire in both standard and AI modes. Running with `--rule-kind "Sarif;AI"` activates the AI pack together with the full standard SARIF rule set, so these elevated rules run with their AI-profile levels.
 
 | Rule ID | Name | AI Level | Description |
 |---------|------|----------|-------------|
@@ -1864,7 +1959,7 @@ classDiagram
         +WebResponse webResponse
         +PropertyBag properties
     }
-    note for Result "ruleId: CWE-78/api-handler or NOVEL/slug<br/>kind: fail (primary for AI findings)<br/>level: error | warning | note<br/>rank: 0.0-100.0 (per-tool scale)<br/>─── ai/* properties ───<br/>ai/exploitability: demonstrated | poc | theoretical<br/>ai/attackerPosition: unauthenticated-network | ...<br/>ai/evidence[]: {strength, scope, backing[], note}<br/>ai/handoff: markdown forward-notes"
+    note for Result "ruleId: CWE-78/api-handler or NOVEL-prompt-injection<br/>kind: fail (primary for AI findings)<br/>level: error | warning | note<br/>rank: 0.0-100.0 (per-tool scale)<br/>─── ai/* properties ───<br/>ai/exploitability: demonstrated | poc | theoretical<br/>ai/attackerPosition: unauthenticated-network | ...<br/>ai/evidence[]: {strength, scope, backing[], note}<br/>ai/handoff: markdown forward-notes"
 
     class Message {
         +string text

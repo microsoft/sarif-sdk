@@ -45,7 +45,7 @@ you're writing a PR description. Trim or split.
 - **PowerShell parameters are case-insensitive by default.** Don't
   invent ceremony around that — `-GHAzDO`, `-ghazdo`, `-GHAZDO` all
   bind to the same `[switch]`.
-- **AI ruleId convention (`AI-RULEID-001`).** Every AI-emitted
+- **AI ruleId convention (`AI1012`).** Every AI-emitted
   `result.ruleId` must take taxonomy sub-id form (`CWE-89/kql-injection`)
   or the NOVEL escape hatch (`NOVEL-<sub-id>`); the `NOVEL-` form does
   not accept a slash. `AI1012` stays silent on conformant ids.
@@ -53,7 +53,7 @@ you're writing a PR description. Trim or split.
   `run.automationDetails`, it must satisfy GHAzDO1019 (the four
   `azuredevops/pipeline/build/*` property keys) and GHAzDO1020 (`id`
   starts with `azuredevops/pipeline/build/`). The env-driven
-  `AdoPipelineContext` path in `emit-init-run` produces a compliant
+  `AdoPipelineContext` path in `emit-run` produces a compliant
   shape automatically when `TF_BUILD=True`.
 - **Sample fixture convention.** Every taxonomy ships a
   `<Tax>GenerateSample.ps1` that produces a deterministic

@@ -13,7 +13,7 @@
               "name": "PlanEventMissingAuthorization"
             },
             {
-              "id": "NOVEL",
+              "id": "NOVEL-capability-trust-bypass",
               "name": "CapabilityTrustBypass"
             },
             {
@@ -30,9 +30,9 @@
           "message": { "text": "Has a true sub-classification slug." }
         },
         {
-          "ruleId": "NOVEL/capability-trust-bypass",
+          "ruleId": "NOVEL-capability-trust-bypass",
           "ruleIndex": 1,
-          "message": { "text": "Reserved NOVEL descriptor with concept-identity sub-id." }
+          "message": { "text": "Reserved NOVEL escape hatch with concept-identity sub-id (flat, no slash)." }
         },
         {
           "ruleId": "CWE-78/api-handler",

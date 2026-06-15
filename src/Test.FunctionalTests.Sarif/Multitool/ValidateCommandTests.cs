@@ -551,7 +551,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 OutputFileOptions = new[] { FilePersistenceOptions.PrettyPrint, FilePersistenceOptions.Optimize },
                 Level = new List<FailureLevel> { FailureLevel.Error, FailureLevel.Warning, FailureLevel.Note, FailureLevel.None },
                 //RuleKindOption = AllRuleKinds
-                RuleKindOption = new List<RuleKind>() { RuleKind.Gh, RuleKind.Sarif, RuleKind.AI },
+                RuleKindOption = ruleUnderTest.StartsWith("GHAzDO")
+                    ? new List<RuleKind> { RuleKind.GHAzDO }
+                    : new List<RuleKind> { RuleKind.Ghas, RuleKind.Sarif, RuleKind.AI },
             };
 
             var mockFileSystem = new Mock<IFileSystem>();

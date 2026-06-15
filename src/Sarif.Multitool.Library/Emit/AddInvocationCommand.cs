@@ -13,19 +13,15 @@ using Newtonsoft.Json.Linq;
 namespace Microsoft.CodeAnalysis.Sarif.Multitool
 {
     /// <summary>
-    /// Implements <c>multitool add-invocation</c>: appends a fully-formed SARIF invocation
+    /// Implements <c>add-invocation</c>: appends a fully-formed SARIF invocation
     /// JSON to <c>&lt;output&gt;.wip.jsonl</c>.
     /// </summary>
     /// <remarks>
-    /// <para>The verb performs no schema validation on the invocation payload beyond "must be
-    /// a JSON object" — SARIF §3.20 makes every field on <c>Invocation</c> optional, and AI
-    /// producers vary widely in which fields they have meaningful values for (a daemon may
-    /// know its <c>startTimeUtc</c> but not its <c>exitCode</c>; a one-shot scanner may know
-    /// both). Full-log validation belongs in <c>emit-finalize --validate</c>, not at receipt.</para>
-    /// <para>Invocations are replayed in event order to <c>run.invocations[]</c>. Subsequent
-    /// <c>execution-notification</c> and <c>configuration-notification</c> events attach to
-    /// the most recent invocation, so emitting a fresh invocation event MAY be used to start
-    /// a new notification group within the same scan.</para>
+    /// <para>The verb gates required AI invocation fields: <c>executionSuccessful</c>,
+    /// <c>commandLine</c>, an anchored <c>workingDirectory</c> (a <c>uri</c> and/or
+    /// <c>uriBaseId</c>), and inline notification <c>timeUtc</c>
+    /// values. Full structural validation runs at <c>emit-finalize --validate</c>.</para>
+    /// <para>The verb stamps <c>endTimeUtc</c> with the time of receipt when the producer leaves it unset.</para>
     /// </remarks>
     public class AddInvocationCommand : CommandBase
     {
@@ -48,9 +44,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                     out JToken payload);
                 if (code != SUCCESS) { return code; }
 
-                string executionSuccessful = payload["executionSuccessful"]?.Type == JTokenType.Boolean
-                    ? payload["executionSuccessful"].Value<bool>().ToString().ToLowerInvariant()
-                    : "<unset>";
+                if (!TryValidateInvocationReceipt((JObject)payload))
+                {
+                    return FAILURE;
+                }
+
+                StampEndTimeUtcIfOmitted((JObject)payload, DateTime.UtcNow);
+
+                bool executionSuccessful = payload["executionSuccessful"].Value<bool>();
 
                 using (var writer = new SarifEventLogWriter(wipPath))
                 {
@@ -61,7 +62,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                     string.Format(
                         CultureInfo.CurrentCulture,
                         "Appended invocation (executionSuccessful='{0}') to '{1}'.",
-                        executionSuccessful,
+                        executionSuccessful ? "true" : "false",
                         wipPath));
                 return SUCCESS;
             }
@@ -69,6 +70,103 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             {
                 Console.Error.WriteLine(ex);
                 return FAILURE;
+            }
+        }
+
+        // Receipt gate for the required fields of ai-invocation.schema.json; full structural
+        // validation runs at emit-finalize --validate.
+        private static bool TryValidateInvocationReceipt(JObject payload)
+        {
+            JToken executionSuccessful = payload["executionSuccessful"];
+            if (executionSuccessful == null || executionSuccessful.Type != JTokenType.Boolean)
+            {
+                Console.Error.WriteLine(
+                    "Invalid invocation: 'executionSuccessful' is required and must be a boolean.");
+                return false;
+            }
+
+            JToken commandLine = payload["commandLine"];
+            if (commandLine == null
+                || commandLine.Type != JTokenType.String
+                || string.IsNullOrWhiteSpace(commandLine.Value<string>()))
+            {
+                Console.Error.WriteLine(
+                    "Invalid invocation: 'commandLine' is required and must be a non-whitespace string.");
+                return false;
+            }
+
+            JToken workingDirectory = payload["workingDirectory"];
+            if (workingDirectory == null || workingDirectory.Type != JTokenType.Object)
+            {
+                Console.Error.WriteLine(
+                    "Invalid invocation: 'workingDirectory' is required and must be an artifactLocation.");
+                return false;
+            }
+
+            // A SARIF artifactLocation is addressable by 'uri' and/or 'uriBaseId'. emit-finalize
+            // rebases a repo-root workingDirectory to an empty 'uri' under a 'uriBaseId', so accept
+            // either anchor; only a workingDirectory carrying neither is unanchored and rejected.
+            var workingDirectoryObject = (JObject)workingDirectory;
+            JToken workingDirectoryUri = workingDirectoryObject["uri"];
+            JToken workingDirectoryUriBaseId = workingDirectoryObject["uriBaseId"];
+            bool hasUri = workingDirectoryUri?.Type == JTokenType.String
+                && !string.IsNullOrWhiteSpace(workingDirectoryUri.Value<string>());
+            bool hasUriBaseId = workingDirectoryUriBaseId?.Type == JTokenType.String
+                && !string.IsNullOrWhiteSpace(workingDirectoryUriBaseId.Value<string>());
+            if (!hasUri && !hasUriBaseId)
+            {
+                Console.Error.WriteLine(
+                    "Invalid invocation: 'workingDirectory' must be an artifactLocation with a non-whitespace 'uri' or 'uriBaseId'.");
+                return false;
+            }
+
+            // The AI profile requires timeUtc on every inline notification.
+            if (!TryValidateNotificationTimes(payload["toolExecutionNotifications"], "toolExecutionNotifications")
+                || !TryValidateNotificationTimes(payload["toolConfigurationNotifications"], "toolConfigurationNotifications"))
+            {
+                return false;
+            }
+
+            return true;
+        }
+
+        private static bool TryValidateNotificationTimes(JToken notifications, string arrayName)
+        {
+            if (notifications == null || notifications.Type == JTokenType.Null) { return true; }
+
+            if (notifications.Type != JTokenType.Array)
+            {
+                Console.Error.WriteLine(
+                    string.Format(CultureInfo.CurrentCulture, "Invalid invocation: '{0}' must be an array.", arrayName));
+                return false;
+            }
+
+            foreach (JToken item in (JArray)notifications)
+            {
+                JToken timeUtc = (item as JObject)?["timeUtc"];
+                if (timeUtc == null
+                    || timeUtc.Type != JTokenType.String
+                    || string.IsNullOrWhiteSpace(timeUtc.Value<string>()))
+                {
+                    Console.Error.WriteLine(
+                        string.Format(
+                            CultureInfo.CurrentCulture,
+                                "Invalid invocation: every '{0}' entry requires a non-whitespace 'timeUtc'.",
+                            arrayName));
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        private static void StampEndTimeUtcIfOmitted(JObject payload, DateTime endTimeUtc)
+        {
+            if (payload["endTimeUtc"] == null || payload["endTimeUtc"].Type == JTokenType.Null)
+            {
+                payload["endTimeUtc"] = endTimeUtc.ToString(
+                    SarifUtilities.SarifDateTimeFormatMillisecondsPrecision,
+                    CultureInfo.InvariantCulture);
             }
         }
     }

@@ -49,6 +49,12 @@
               "runs[0].originalUriBaseIds.SRCINVALID"
             ]
           }
+        },
+        {
+          "ruleId": "NoSuchRule",
+          "message": {
+            "id": "AnyId"
+          }
         }
       ],
       "columnKind": "utf16CodeUnits"

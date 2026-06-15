@@ -42,15 +42,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         protected override void Analyze(Result result, string resultPointer)
         {
             Run run = Context.CurrentRun;
-            IList<ReportingDescriptor> currentRules = run?.Tool.Driver?.Rules;
 
             // If message.id is present, check that a message with that id exists in the rule.
             if (!string.IsNullOrEmpty(result.Message.Id))
             {
                 ReportingDescriptor rule = result.GetRule(run);
 
-                if (currentRules == null
-                    || rule.MessageStrings?.ContainsKey(result.Message.Id) == false)
+                if (rule == null
+                    || rule.MessageStrings == null
+                    || !rule.MessageStrings.ContainsKey(result.Message.Id))
                 {
                     // {0}: This message object refers to the message with id '{1}' in rule '{2}',
                     // but that rule does not define a message with that id. When a tool creates a

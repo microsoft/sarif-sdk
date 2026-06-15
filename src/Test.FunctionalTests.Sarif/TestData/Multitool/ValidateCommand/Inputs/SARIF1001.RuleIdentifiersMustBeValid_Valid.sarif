@@ -21,6 +21,29 @@
       },
       "results": [],
       "columnKind": "utf16CodeUnits"
+    },
+    {
+      "tool": {
+        "driver": {
+          "name": "AIAnalyzer",
+          "version": "1.0",
+          "notifications": [
+            {
+              "id": "DECISION",
+              "name": "Decision"
+            },
+            {
+              "id": "RULE-COVERAGE-GAP",
+              "name": "RuleCoverageGap"
+            }
+          ]
+        }
+      },
+      "results": [],
+      "properties": {
+        "ai/origin": "test-fixture"
+      },
+      "columnKind": "utf16CodeUnits"
     }
   ]
 }

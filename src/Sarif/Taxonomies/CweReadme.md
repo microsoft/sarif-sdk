@@ -74,11 +74,13 @@ Callers that want a complete snapshot pass `CweStatus.All`.
 ## Sample
 
 [`CweGenerateSample.ps1`](CweGenerateSample.ps1) emits the checked-in
-[`CweSample.sarif`](CweSample.sarif) fixture, a fully enriched SARIF log that
-exercises the emit chain end-to-end via the multitool `emit-init-run`,
-`add-result`, `add-notification`, and `emit-finalize` verbs. The sample
+[`CweGhasSample.sarif`](CweGhasSample.sarif) fixture (and, with `-GHAzDO`,
+[`CweGHAzDOSample.sarif`](CweGHAzDOSample.sarif)), a fully enriched SARIF log that
+exercises the emit chain end-to-end via the multitool `emit-run`,
+`add-result`, `add-invocation`, and `emit-finalize` verbs. The sample
 appends seven Result events (covering the Stable, Draft, Incomplete, and
-NOVEL- "no-CWE-fits" cases) plus one Notification, runs finalize with the
+NOVEL- "no-CWE-fits" cases) plus one Invocation carrying a notification
+inline, runs finalize with the
 enrichment + validate gates on, and verifies that every `CWE-*` ruleId came
 back hydrated with `name`, `shortDescription`, `fullDescription`, `helpUri`,
 and the MITRE markdown.
@@ -95,10 +97,21 @@ pwsh src/Sarif/Taxonomies/CweGenerateSample.ps1
 
 ## Regeneration
 
-[`scripts/Generate-CweTaxonomy.ps1`](../../../scripts/Generate-CweTaxonomy.ps1)
-downloads the upstream MITRE XML zip, parses every weakness, sorts by numeric
-ID, and writes both artifacts. Re-run when MITRE publishes a new CWE version
-and update the version-stamp in this README.
+```bash
+python3 scripts/generate_cwe_taxonomy.py
+```
+
+Requires Python 3 (stdlib only — no pip packages). Downloads
+`cwec_latest.xml.zip` from MITRE, parses every weakness, sorts by numeric
+ID, and writes both artifacts in place under `src/Sarif/Taxonomies/` with
+UTF-8 (no BOM) and LF line endings. Re-run when MITRE publishes a new CWE
+version and update the version-stamp in this README.
+
+For offline or testing scenarios, point the script at a pre-extracted XML:
+
+```bash
+python3 scripts/generate_cwe_taxonomy.py --xml path/to/cwec_v4.20.xml
+```
 
 ## Licensing
 

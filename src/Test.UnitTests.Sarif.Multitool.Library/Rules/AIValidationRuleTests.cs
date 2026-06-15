@@ -120,6 +120,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             log.Runs[0].Results[0].SetProperty("ai/attackerPosition", value);
         }
 
+        private static void SetRepositoryHostToAzureDevOps(SarifLog log)
+        {
+            log.Runs[0].VersionControlProvenance[0].RepositoryUri =
+                new System.Uri("https://dev.azure.com/example-org/example-project/_git/sarif-sdk");
+        }
+
         #endregion
 
         #region Helper
@@ -181,11 +187,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         }
 
         [Fact]
-        public void AI1012_WhenRuleIdIsBareTaxonomyBaseId_ReportsError()
+        public void AI1012_WhenRuleIdIsBareTaxonomyBaseId_OnNonGitHubHostedRun_ReportsError()
         {
             SarifLog log = CreateValidAISarifLog();
             SetAIOrigin(log, "generated");
             SetExploitability(log, "demonstrated");
+            // A non-GitHub host keeps the sub-id requirement in force.
+            SetRepositoryHostToAzureDevOps(log);
             // Bare taxonomy base id on both descriptor and result — no sub-id.
             SetRuleIdShape(log, descriptorId: "CWE-78", resultRuleId: "CWE-78");
 
@@ -194,7 +202,56 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
             results.Should().NotBeEmpty("a bare taxonomy ruleId (e.g. 'CWE-78') has no sub-id classifier");
             results[0].Level.Should().Be(FailureLevel.Error);
+            results[0].Message.Id.Should().Be("Error_Missing", "a bare CWE base id is repairable by appending a sub-id");
         }
+
+        [Fact]
+        public void AI1012_WhenRuleIdIsBareTaxonomyBaseId_OnGitHubHostedRun_NoResult()
+        {
+            SarifLog log = CreateValidAISarifLog();
+            SetAIOrigin(log, "generated");
+            SetExploitability(log, "demonstrated");
+            // The seed log is GitHub-hosted. emit-finalize collapses hierarchical ruleIds to their
+            // base descriptor id for GitHub (whose security classifier binds by ruleId-string
+            // equality), so a bare 'CWE-78' is the expected, correct shape there — AI1012 stays silent.
+            SetRuleIdShape(log, descriptorId: "CWE-78", resultRuleId: "CWE-78");
+
+            SarifLog output = RunAIValidation(log);
+            List<Result> results = GetResultsForRule(output, "AI1012");
+
+            results.Should().BeEmpty("a bare CWE base id is the expected collapsed shape on a GitHub-hosted run");
+        }
+
+        private void RunMalformedRuleIdTest(string ruleId, string because)
+        {
+            SarifLog log = CreateValidAISarifLog();
+            SetAIOrigin(log, "generated");
+            SetExploitability(log, "demonstrated");
+            SetRuleIdShape(log, descriptorId: ruleId, resultRuleId: ruleId);
+
+            SarifLog output = RunAIValidation(log);
+            List<Result> results = GetResultsForRule(output, "AI1012");
+
+            results.Should().NotBeEmpty(because);
+            results[0].Level.Should().Be(FailureLevel.Error);
+            results[0].Message.Id.Should().Be("Error_Malformed", because);
+        }
+
+        [Fact]
+        public void AI1012_WhenSubIdIsNotLowercaseKebab_ReportsMalformed()
+            => RunMalformedRuleIdTest("CWE-89/KQL_Injection", "the sub-id must be lowercase kebab-case (no uppercase, no underscores)");
+
+        [Fact]
+        public void AI1012_WhenNovelEscapeHatchUsesSlash_ReportsMalformed()
+            => RunMalformedRuleIdTest("NOVEL/prompt-injection", "the NOVEL- escape hatch is flat and takes no slash");
+
+        [Fact]
+        public void AI1012_WhenSubIdIsEmpty_ReportsMalformed()
+            => RunMalformedRuleIdTest("CWE-89/", "a trailing slash with no sub-id is not a sub-classification");
+
+        [Fact]
+        public void AI1012_WhenBaseIsNeitherCweNorNovel_ReportsMalformed()
+            => RunMalformedRuleIdTest("TST0002", "only 'CWE-<number>/<sub-id>' and 'NOVEL-<sub-id>' are accepted bases");
 
         [Fact]
         public void AI1012_WhenRuleIdCarriesSubId_NoResult()
@@ -576,11 +633,37 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
         #endregion
 
-        #region AI2011 — DoNotPersistFingerprints
+        #region AI1007 / AI2011 — DoNotPersist(Partial)Fingerprints
 
         [Fact]
-        public void AI2011_WhenPartialFingerprintsPresent_ReportsNote()
+        public void AI2011_WhenNonLineHashPartialFingerprintPresent_ReportsWarning()
         {
+            SarifLog log = CreateValidAISarifLog();
+            SetAIOrigin(log, "generated");
+            SetExploitability(log, "demonstrated");
+            SetAiHandoff(log, "tier 2 reached");
+            log.Runs[0].Results[0].PartialFingerprints = new Dictionary<string, string>
+            {
+                { "contextRegionHash/v1", "abc123" }
+            };
+
+            SarifLog output = RunAIValidation(log);
+            List<Result> results = GetResultsForRule(output, "AI2011");
+
+            results.Should().NotBeEmpty();
+            results[0].Level.Should().Be(FailureLevel.Warning);
+
+            // The Error-level fingerprints rule must NOT fire on partial fingerprints.
+            GetResultsForRule(output, "AI1007").Should().BeEmpty();
+        }
+
+        [Fact]
+        public void AI2011_WhenLoneLineHashOnGitHubHostedRun_NoWarning()
+        {
+            // GitHub's raw code-scanning upload API does not backfill partialFingerprints,
+            // so a github-hosted run may persist the single rolling-hash
+            // primaryLocationLineHash without AI2011 objecting. CreateValidAISarifLog is
+            // github.com-hosted.
             SarifLog log = CreateValidAISarifLog();
             SetAIOrigin(log, "generated");
             SetExploitability(log, "demonstrated");
@@ -591,14 +674,55 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             };
 
             SarifLog output = RunAIValidation(log);
-            List<Result> results = GetResultsForRule(output, "AI2011");
 
-            results.Should().NotBeEmpty();
-            results[0].Level.Should().Be(FailureLevel.Note);
+            GetResultsForRule(output, "AI2011").Should().BeEmpty();
         }
 
         [Fact]
-        public void AI2011_WhenFingerprintsPresent_ReportsNote()
+        public void AI2011_WhenLoneLineHashOnAzureDevOpsHostedRun_ReportsWarning()
+        {
+            // The carve-out is github-only; a dev.azure.com-hosted run still gets flagged.
+            SarifLog log = CreateValidAISarifLog();
+            SetAIOrigin(log, "generated");
+            SetExploitability(log, "demonstrated");
+            SetAiHandoff(log, "tier 2 reached");
+            SetRepositoryHostToAzureDevOps(log);
+            log.Runs[0].Results[0].PartialFingerprints = new Dictionary<string, string>
+            {
+                { "primaryLocationLineHash", "abc123" }
+            };
+
+            SarifLog output = RunAIValidation(log);
+            List<Result> results = GetResultsForRule(output, "AI2011");
+
+            results.Should().NotBeEmpty();
+            results[0].Level.Should().Be(FailureLevel.Warning);
+        }
+
+        [Fact]
+        public void AI2011_WhenLineHashAccompaniedByOtherKeyOnGitHubRun_ReportsWarning()
+        {
+            // The carve-out covers only the LONE primaryLocationLineHash; a second
+            // partial fingerprint forfeits it even on a github-hosted run.
+            SarifLog log = CreateValidAISarifLog();
+            SetAIOrigin(log, "generated");
+            SetExploitability(log, "demonstrated");
+            SetAiHandoff(log, "tier 2 reached");
+            log.Runs[0].Results[0].PartialFingerprints = new Dictionary<string, string>
+            {
+                { "primaryLocationLineHash", "abc123" },
+                { "contextRegionHash/v1", "def456" }
+            };
+
+            SarifLog output = RunAIValidation(log);
+            List<Result> results = GetResultsForRule(output, "AI2011");
+
+            results.Should().NotBeEmpty();
+            results[0].Level.Should().Be(FailureLevel.Warning);
+        }
+
+        [Fact]
+        public void AI1007_WhenFingerprintsPresent_ReportsError()
         {
             SarifLog log = CreateValidAISarifLog();
             SetAIOrigin(log, "generated");
@@ -610,14 +734,17 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             };
 
             SarifLog output = RunAIValidation(log);
-            List<Result> results = GetResultsForRule(output, "AI2011");
+            List<Result> results = GetResultsForRule(output, "AI1007");
 
             results.Should().NotBeEmpty();
-            results[0].Level.Should().Be(FailureLevel.Note);
+            results[0].Level.Should().Be(FailureLevel.Error);
+
+            // The Warning-level partial-fingerprints rule must NOT fire on fingerprints.
+            GetResultsForRule(output, "AI2011").Should().BeEmpty();
         }
 
         [Fact]
-        public void AI2011_WhenNoFingerprints_NoResult()
+        public void AI1007_AI2011_WhenNoFingerprints_NoResult()
         {
             SarifLog log = CreateValidAISarifLog();
             SetAIOrigin(log, "generated");
@@ -625,9 +752,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             SetAiHandoff(log, "tier 2 reached");
 
             SarifLog output = RunAIValidation(log);
-            List<Result> results = GetResultsForRule(output, "AI2011");
 
-            results.Should().BeEmpty();
+            GetResultsForRule(output, "AI1007").Should().BeEmpty();
+            GetResultsForRule(output, "AI2011").Should().BeEmpty();
         }
 
         #endregion
@@ -722,9 +849,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 RuleId.AIProvideAutomationDetails, // AI2005
                 RuleId.AIProvideMessageMarkdown,   // AI1005
                 RuleId.AIProvideResultRank,         // AI2010
-                RuleId.AIDoNotPersistFingerprints,  // AI2011
+                RuleId.AIDoNotPersistFingerprints,  // AI1007
+                RuleId.AIDoNotPersistPartialFingerprints,  // AI2011
                 RuleId.AIProvideAiHandoff,          // AI2012
-                RuleId.AIRedactedRunMarker,         // AI1011
                 RuleId.AIProvideNotificationDescriptor,    // AI2017
                 RuleId.AIProvideNotificationAssociatedRule, // AI1013
                 RuleId.AIProvideLearningSignalArtifact,         // AI2018
@@ -738,9 +865,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             ruleIds.Should().Contain("AI2015");
             ruleIds.Should().Contain("AI2016");
             ruleIds.Should().Contain("AI1010");
+            ruleIds.Should().Contain("AI1007");
             ruleIds.Should().Contain("AI2011");
             ruleIds.Should().Contain("AI2012");
-            ruleIds.Should().Contain("AI1011");
             ruleIds.Should().Contain("AI2017");
             ruleIds.Should().Contain("AI2019");
             ruleIds.Should().NotContain("AI2009");
@@ -775,39 +902,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
             SarifLog output = RunAIValidation(log);
             List<Result> results = GetResultsForRule(output, "AI2015");
-
-            results.Should().BeEmpty();
-        }
-
-        #endregion
-
-        #region AI1011 — RedactedRunMarker
-
-        [Fact]
-        public void AI1011_WhenRedactedIsFalse_ReportsWarning()
-        {
-            SarifLog log = CreateValidAISarifLog();
-            SetAIOrigin(log, "generated");
-            SetExploitability(log, "demonstrated");
-            SetAttackerPosition(log, "network");
-            log.Runs[0].SetProperty("ai/redacted", "false");
-
-            SarifLog output = RunAIValidation(log);
-            List<Result> results = GetResultsForRule(output, "AI1011");
-
-            results.Should().NotBeEmpty();
-        }
-
-        [Fact]
-        public void AI1011_WhenRedactedAbsent_NoResult()
-        {
-            SarifLog log = CreateValidAISarifLog();
-            SetAIOrigin(log, "generated");
-            SetExploitability(log, "demonstrated");
-            SetAttackerPosition(log, "network");
-
-            SarifLog output = RunAIValidation(log);
-            List<Result> results = GetResultsForRule(output, "AI1011");
 
             results.Should().BeEmpty();
         }
@@ -876,6 +970,60 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             List<Result> results = GetResultsForRule(output, "AI2019");
 
             results.Should().BeEmpty();
+        }
+
+        #endregion
+
+        #region Evidence well-formedness — AI2016 owns the malformed-evidence report
+
+        private static void SetEvidence(SarifLog log, object value)
+        {
+            log.Runs[0].Results[0].SetProperty("ai/evidence", value);
+        }
+
+        [Fact]
+        public void AI2016_WhenEvidenceIsNotAnArray_ReportsMalformed()
+        {
+            SarifLog log = CreateValidAISarifLog();
+            SetAIOrigin(log, "generated");
+            SetExploitability(log, "demonstrated");
+            // 'ai/evidence' is present but is a bare string, not a JSON array.
+            SetEvidence(log, "this-is-not-a-json-array");
+
+            SarifLog output = RunAIValidation(log);
+            List<Result> results = GetResultsForRule(output, "AI2016");
+
+            results.Should().ContainSingle("AI2016 owns the well-formedness report for a malformed 'ai/evidence'");
+            results[0].Level.Should().Be(FailureLevel.Warning);
+            results[0].Message.Id.Should().Be("Warning_MalformedEvidence");
+        }
+
+        [Fact]
+        public void AI1010_WhenEvidenceIsNotAnArray_NoResult()
+        {
+            SarifLog log = CreateValidAISarifLog();
+            SetAIOrigin(log, "generated");
+            SetExploitability(log, "demonstrated");
+            SetEvidence(log, "this-is-not-a-json-array");
+
+            SarifLog output = RunAIValidation(log);
+            List<Result> results = GetResultsForRule(output, "AI1010");
+
+            results.Should().BeEmpty("AI1010 skips malformed 'ai/evidence' cleanly and defers the report to AI2016");
+        }
+
+        [Fact]
+        public void AI2016_WhenEvidenceIsWellFormedArray_NoMalformedResult()
+        {
+            SarifLog log = CreateValidAISarifLog();
+            SetAIOrigin(log, "generated");
+            // A well-formed evidence array with a non-demonstrated entry: nothing to flag.
+            SetEvidence(log, new object[] { new { summary = "Reviewed call site.", strength = "theoretical" } });
+
+            SarifLog output = RunAIValidation(log);
+            List<Result> results = GetResultsForRule(output, "AI2016");
+
+            results.Should().BeEmpty("a well-formed 'ai/evidence' array with no demonstrated entry is conformant");
         }
 
         #endregion

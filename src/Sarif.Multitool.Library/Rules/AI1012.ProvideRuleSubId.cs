@@ -3,6 +3,7 @@
 
 using System.Collections.Generic;
 using System.Text;
+using System.Text.RegularExpressions;
 
 using Microsoft.CodeAnalysis.Sarif.Emit;
 
@@ -29,8 +30,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 
         protected override ICollection<string> MessageResourceNames => new List<string>
         {
-            nameof(RuleResources.AI1012_ProvideRuleSubId_Error_Missing_Text)
+            nameof(RuleResources.AI1012_ProvideRuleSubId_Error_Missing_Text),
+            nameof(RuleResources.AI1012_ProvideRuleSubId_Error_Malformed_Text)
         };
+
+        // A bare 'CWE-<number>' lacks only the required sub-id, so appending one repairs it
+        // (the Missing path). Every other non-conformant shape is malformed beyond repair.
+        private static readonly Regex s_bareCweBaseId = new Regex(
+            @"^CWE-[0-9]+$",
+            RegexOptions.Compiled | RegexOptions.CultureInvariant);
 
         protected override void Analyze(Result result, string resultPointer)
         {
@@ -42,39 +50,46 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                 return;
             }
 
-            // GetRule can NRE on degenerate logs (e.g. tool.driver absent, extension-only
-            // tool, bad ruleIndex). A validation skimmer must never throw on malformed
-            // input — those shapes are other rules' job to flag.
-            ReportingDescriptor rule = null;
-            try { rule = result.GetRule(run); } catch { /* fall through with rule == null */ }
-            string descriptorId = rule?.Id;
-
-            // The sub-ID requirement: result.ruleId must have at least one hierarchical component
-            // beyond the descriptor's base id. If we can't resolve a descriptor, fall back to
-            // checking for any '/' at all. The NOVEL- prefix is recognized as an alternative
-            // sub-classifier — by convention a "NOVEL-<sub-id>" ruleId already carries a
-            // sub-classification (one that doesn't map to any taxonomy entry).
-            bool hasSubId = AIRuleIdConvention.IsNovel(ruleId)
-                || (!string.IsNullOrEmpty(descriptorId)
-                    ? descriptorId.IndexOf('/') >= 0
-                      || (ruleId.Length > descriptorId.Length
-                          && ruleId.StartsWith(descriptorId, System.StringComparison.Ordinal)
-                          && ruleId[descriptorId.Length] == '/')
-                    : ruleId.IndexOf('/') >= 0);
-
-            if (hasSubId)
+            // The gate is the convention emit hard-enforces via AIRuleIdConvention:
+            // 'CWE-<number>/<kebab-sub-id>' or the flat 'NOVEL-<kebab-sub-id>' escape hatch.
+            if (AIRuleIdConvention.IsAcceptable(ruleId))
             {
                 return;
             }
 
-            // {0}: 'result.ruleId' is '{1}' with no sub-component beyond the descriptor id.
-            // Append a hierarchical sub-ID: a true sub-classification of '{1}' if one applies,
-            // otherwise the kebab-cased rule name (e.g. '{1}/{2}').
+            if (s_bareCweBaseId.IsMatch(ruleId))
+            {
+                // A GitHub-hosted run is the one place a bare 'CWE-<number>' is the expected,
+                // correct shape: emit-finalize collapses each result's hierarchical ruleId to its
+                // descriptor id for GitHub because GitHub's code-scanning security classifier binds
+                // a result to its rule by ruleId-string equality with a reportingDescriptor.id and
+                // does not honor SARIF's hierarchical-ruleId / ruleIndex resolution (SARIF §3.27.5,
+                // §3.27.6). The sub-id requirement is suspended for that GitHub-only collapse and
+                // still enforced everywhere else.
+                if (VcpPortableRoot.IsGitHubHostedRun(run))
+                {
+                    return;
+                }
+
+                // The descriptor is consulted only to suggest a kebab-cased sub-id. A throw
+                // here on a degenerate log (bad ruleIndex, absent driver) propagates to the
+                // analysis engine's single rule-exception handler, which logs it.
+                ReportingDescriptor rule = result.GetRule(run);
+
+                // {1} is the bare ruleId; {2} is the suggested sub-id (kebab rule name or a slug).
+                LogResult(
+                    resultPointer,
+                    nameof(RuleResources.AI1012_ProvideRuleSubId_Error_Missing_Text),
+                    ruleId,
+                    ToKebabCase(rule?.Name) ?? "readable-slug");
+                return;
+            }
+
+            // Not a bare CWE base id and not acceptable: no appended sub-id can repair it.
             LogResult(
                 resultPointer,
-                nameof(RuleResources.AI1012_ProvideRuleSubId_Error_Missing_Text),
-                ruleId,
-                ToKebabCase(rule?.Name) ?? "readable-slug");
+                nameof(RuleResources.AI1012_ProvideRuleSubId_Error_Malformed_Text),
+                ruleId);
         }
 
         // PlanEventMissingAuthorization -> plan-event-missing-authorization

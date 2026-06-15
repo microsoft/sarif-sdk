@@ -33,23 +33,45 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 
         protected override void Analyze(ReportingDescriptor reportingDescriptor, string reportingDescriptorPointer)
         {
-            if (reportingDescriptor.Id != null &&
-                reportingDescriptor.Name != null &&
-                reportingDescriptor.Id.Equals(reportingDescriptor.Name, StringComparison.OrdinalIgnoreCase))
+            if (reportingDescriptor.Id == null || reportingDescriptor.Name == null) { return; }
+
+            bool isStrictlyIdentical = reportingDescriptor.Id.Equals(reportingDescriptor.Name, StringComparison.Ordinal);
+
+            // Spec MUST (§3.49.7): if both 'id' and 'name' are present, they SHALL NOT be equal.
+            if (isStrictlyIdentical)
             {
-                // {0}: The rule '{1}' has a 'name' property that is identical to its 'id' property.
-                // The required 'id' property must be a "stable, opaque identifier" (the SARIF specification
-                // ([3.49.3](https://docs.oasis-open.org/sarif/sarif/v2.1.0/os/sarif-v2.1.0-os.html#_Toc34317839))
-                // explains the reasons for this). The optional 'name' property
-                // ([3.49.7](https://docs.oasis-open.org/sarif/sarif/v2.1.0/os/sarif-v2.1.0-os.html#_Toc34317843))
-                // is an identifier that is understandable to an end user. Therefore if both 'id' and
-                // 'name' are present, they must be different. If they are identical, the tool must
-                // omit the 'name' property.
-                LogResult(
-                    reportingDescriptorPointer,
-                    nameof(RuleResources.SARIF1001_RuleIdentifiersMustBeValid_Warning_Default_Text),
-                    reportingDescriptor.Id);
+                LogIdNameCollision(reportingDescriptor, reportingDescriptorPointer);
+                return;
             }
+
+            // AI notification descriptors may pair opaque SCREAMING-CAPS ids with PascalCase
+            // names (e.g. 'DECISION' / 'Decision'); suppress the case-fold typo heuristic there.
+            if (IsAIOriginRun()
+                && Context?.CurrentReportingDescriptorKind == SarifValidationContext.ReportingDescriptorKind.Notification)
+            {
+                return;
+            }
+
+            if (reportingDescriptor.Id.Equals(reportingDescriptor.Name, StringComparison.OrdinalIgnoreCase))
+            {
+                LogIdNameCollision(reportingDescriptor, reportingDescriptorPointer);
+            }
+        }
+
+        private void LogIdNameCollision(ReportingDescriptor reportingDescriptor, string reportingDescriptorPointer)
+        {
+            // {0}: The rule '{1}' has a 'name' property that is identical to its 'id' property.
+            // The required 'id' property must be a "stable, opaque identifier" (the SARIF specification
+            // ([3.49.3](https://docs.oasis-open.org/sarif/sarif/v2.1.0/os/sarif-v2.1.0-os.html#_Toc34317839))
+            // explains the reasons for this). The optional 'name' property
+            // ([3.49.7](https://docs.oasis-open.org/sarif/sarif/v2.1.0/os/sarif-v2.1.0-os.html#_Toc34317843))
+            // is an identifier that is understandable to an end user. Therefore if both 'id' and
+            // 'name' are present, they must be different. If they are identical, the tool must
+            // omit the 'name' property.
+            LogResult(
+                reportingDescriptorPointer,
+                nameof(RuleResources.SARIF1001_RuleIdentifiersMustBeValid_Warning_Default_Text),
+                reportingDescriptor.Id);
         }
     }
 }

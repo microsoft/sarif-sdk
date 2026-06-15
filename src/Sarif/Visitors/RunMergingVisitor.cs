@@ -4,6 +4,7 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Runtime.CompilerServices;
 
 namespace Microsoft.CodeAnalysis.Sarif.Visitors
 {
@@ -29,10 +30,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         private List<Artifact> Artifacts { get; }
         private List<LogicalLocation> LogicalLocations { get; }
         private List<ReportingDescriptor> Rules { get; }
+        private List<Invocation> Invocations { get; }
 
         private Dictionary<string, int> RuleIdToIndex { get; }
         private Dictionary<OrderSensitiveValueComparisonList<LogicalLocation>, int> LogicalLocationToIndex { get; }
         private Dictionary<OrderSensitiveValueComparisonList<Artifact>, int> ArtifactToIndex { get; }
+        private Dictionary<Run, int> InvocationBaseIndexByRun { get; }
 
         public Run CurrentRun { get; set; }
 
@@ -42,10 +45,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             Artifacts = new List<Artifact>();
             LogicalLocations = new List<LogicalLocation>();
             Rules = new List<ReportingDescriptor>();
+            Invocations = new List<Invocation>();
 
             RuleIdToIndex = new Dictionary<string, int>();
             LogicalLocationToIndex = new Dictionary<OrderSensitiveValueComparisonList<LogicalLocation>, int>();
             ArtifactToIndex = new Dictionary<OrderSensitiveValueComparisonList<Artifact>, int>();
+            InvocationBaseIndexByRun = new Dictionary<Run, int>(RunReferenceComparer.Instance);
         }
 
         public void PopulateWithMerged(Run targetRun)
@@ -57,6 +62,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             targetRun.Tool ??= new Tool();
             targetRun.Tool.Driver ??= new ToolComponent();
             targetRun.Tool.Driver.Rules = Rules;
+
+            // Aggregate (do not dedupe) the invocations referenced by the merged
+            // results so result.provenance.invocationIndex remains resolvable. Only
+            // overwrite when we actually gathered invocations, leaving the target's
+            // own invocations intact for the no-invocation merge.
+            if (Invocations.Count > 0)
+            {
+                targetRun.Invocations = Invocations;
+            }
         }
 
         public override Run VisitRun(Run node)
@@ -100,9 +114,36 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 node.RuleId ??= resultRuleId;
             }
 
+            RemapInvocationIndex(node);
+
             Result result = base.VisitResult(node);
             Results.Add(result);
             return result;
+        }
+
+        private void RemapInvocationIndex(Result node)
+        {
+            if (CurrentRun?.Invocations == null || CurrentRun.Invocations.Count == 0)
+            {
+                return;
+            }
+
+            // Aggregate each contributing run's invocations exactly once, recording the
+            // offset at which they were appended so every result that run produced can be
+            // rebased into the merged run.invocations array.
+            if (!InvocationBaseIndexByRun.TryGetValue(CurrentRun, out int baseIndex))
+            {
+                baseIndex = Invocations.Count;
+                InvocationBaseIndexByRun[CurrentRun] = baseIndex;
+
+                Invocations.AddRange(CurrentRun.Invocations);
+            }
+
+            int originalIndex = node.Provenance?.InvocationIndex ?? -1;
+            if (originalIndex >= 0 && originalIndex < CurrentRun.Invocations.Count)
+            {
+                node.Provenance.InvocationIndex = baseIndex + originalIndex;
+            }
         }
 
         public override LogicalLocation VisitLogicalLocation(LogicalLocation node)
@@ -247,6 +288,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             } while (parentIndex != -1);
 
             return logicalLocationChain;
+        }
+
+        private sealed class RunReferenceComparer : IEqualityComparer<Run>
+        {
+            public static readonly RunReferenceComparer Instance = new RunReferenceComparer();
+
+            public bool Equals(Run x, Run y) => ReferenceEquals(x, y);
+
+            public int GetHashCode(Run obj) => RuntimeHelpers.GetHashCode(obj);
         }
     }
 }

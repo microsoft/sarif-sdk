@@ -59,6 +59,7 @@
 
   <ItemGroup>
     <PackageReference Include="FluentAssertions" />
+    <PackageReference Include="JsonSchema.Net" />
     <PackageReference Include="Newtonsoft.Json" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" />
     <PackageReference Include="Moq" />
@@ -73,5 +74,17 @@
     <ProjectReference Include="..\Sarif.Driver\Sarif.Driver.csproj" />
     <ProjectReference Include="..\Sarif.Multitool.Library\Sarif.Multitool.Library.csproj" />
     <ProjectReference Include="..\Test.Utilities.Sarif\Test.Utilities.Sarif.csproj" />
+  </ItemGroup>
+
+  <!-- The AI emit-profile input schemas (source of truth in Sarif.Multitool.Library\GetSchema)
+       and the vendored SARIF base schema they $ref, copied next to the test assembly so the
+       drift tests can validate them offline. -->
+  <ItemGroup>
+    <None Include="..\Sarif.Multitool.Library\GetSchema\ai-result.schema.json" Link="GetSchema\ai-result.schema.json" CopyToOutputDirectory="PreserveNewest" />
+    <None Include="..\Sarif.Multitool.Library\GetSchema\ai-run.schema.json" Link="GetSchema\ai-run.schema.json" CopyToOutputDirectory="PreserveNewest" />
+    <None Include="..\Sarif.Multitool.Library\GetSchema\ai-invocation.schema.json" Link="GetSchema\ai-invocation.schema.json" CopyToOutputDirectory="PreserveNewest" />
+    <None Include="..\Sarif.Multitool.Library\GetSchema\ai-notification-reporting-descriptor.schema.json" Link="GetSchema\ai-notification-reporting-descriptor.schema.json" CopyToOutputDirectory="PreserveNewest" />
+    <None Include="..\Sarif.Multitool.Library\GetSchema\ai-rule-reporting-descriptor.schema.json" Link="GetSchema\ai-rule-reporting-descriptor.schema.json" CopyToOutputDirectory="PreserveNewest" />
+    <None Include="..\Sarif\Schemata\sarif-2.1.0-rtm.6.json" Link="GetSchema\sarif-2.1.0.json" CopyToOutputDirectory="PreserveNewest" />
   </ItemGroup>
 </Project>

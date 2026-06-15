@@ -1,0 +1,552 @@
+{
+  "$schema": "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0.json",
+  "version": "2.1.0",
+  "runs": [
+    {
+      "tool": {
+        "driver": {
+          "name": "CweSamplerScanner",
+          "organization": "Example Scanner Authority",
+          "version": "0.1.0",
+          "semanticVersion": "0.1.0",
+          "informationUri": "https://cwesamplerscanner.example.com/",
+          "rules": [
+            {
+              "id": "CWE-79",
+              "name": "CrossSiteScripting",
+              "fullDescription": {
+                "text": "The product does not neutralize or incorrectly neutralizes user-controllable input before it is placed in output that is used as a web page that is served to other users.\n\nThere are many variants of cross-site scripting, characterized by a variety of terms or involving different attack topologies. However, they all indicate the same fundamental weakness: improper neutralization of dangerous input between the adversary and a victim."
+              },
+              "help": {
+                "text": "Description\n\nThe product does not neutralize or incorrectly neutralizes user-controllable input before it is placed in output that is used as a web page that is served to other users.\n\nExtended Description\n\nThere are many variants of cross-site scripting, characterized by a variety of terms or involving different attack topologies. However, they all indicate the same fundamental weakness: improper neutralization of dangerous input between the adversary and a victim.\n\nCommon Consequences\n\n- Scope: Access Control, Confidentiality. Impact: Bypass Protection Mechanism, Read Application Data.\n  - The most common attack performed with cross-site scripting involves the disclosure of private information stored in user cookies, such as session information. Typically, a malicious user will craft a client-side script, which -- when parsed by a web browser -- performs some activity on behalf of the victim to an attacker-controlled system (such as sending all site cookies to a given E-mail address). This could be especially dangerous to the site if the victim has administrator privileges to manage that site. This script will be loaded and run by each user visiting the web site. Since the site requesting to run the script has access to the cookies in question, the malicious script does also.\n- Scope: Integrity, Confidentiality, Availability. Impact: Execute Unauthorized Code or Commands.\n  - In some circumstances it may be possible to run arbitrary code on a victim's computer when cross-site scripting is combined with other flaws, for example, \"drive-by hacking.\"\n- Scope: Confidentiality, Integrity, Availability, Access Control. Impact: Execute Unauthorized Code or Commands, Bypass Protection Mechanism, Read Application Data.\n  - The consequence of an XSS attack is the same regardless of whether it is stored or reflected. The difference is in how the payload arrives at the server. XSS can cause a variety of problems for the end user that range in severity from an annoyance to complete account compromise. Some cross-site scripting vulnerabilities can be exploited to manipulate or steal cookies, create requests that can be mistaken for those of a valid user, compromise confidential information, or execute malicious code on the end user systems for a variety of nefarious purposes. Other damaging attacks include the disclosure of end user files, installation of Trojan horse programs, redirecting the user to some other page or site, running \"Active X\" controls (under Microsoft Internet Explorer) from sites that a user perceives as trustworthy, and modifying presentation of content.\n\nPotential Mitigations\n\n1. Phase: Architecture and Design; Strategy: Libraries or Frameworks. Use a vetted library or framework that does not allow this weakness to occur or provides constructs that make this weakness easier to avoid [REF-1482]. Examples of libraries and frameworks that make it easier to generate properly encoded output include Microsoft's Anti-XSS library, the OWASP ESAPI Encoding module, and Apache Wicket.\n2. Phase: Implementation, Architecture and Design. Understand the context in which your data will be used and the encoding that will be expected. This is especially important when transmitting data between different components, or when generating outputs that can contain multiple encodings at the same time, such as web pages or multi-part mail messages. Study all expected communication protocols and data representations to determine the required encoding strategies. For any data that will be output to another web page, especially any data that was received from external inputs, use the appropriate encoding on all non-alphanumeric characters. Parts of the same output document may require different encodings, which will vary depending on whether the output is in the: HTML body Element attributes (such as src=\"XYZ\") URIs JavaScript sections Cascading Style Sheets and style property etc. Note that HTML Entity Encoding is only appropriate for the HTML body. Consult the XSS Prevention Cheat Sheet [REF-724] for more details on the types of encoding and escaping that are needed.\n3. Phase: Architecture and Design, Implementation; Strategy: Attack Surface Reduction. Understand all the potential areas where untrusted inputs can enter your software: parameters or arguments, cookies, anything read from the network, environment variables, reverse DNS lookups, query results, request headers, URL components, e-mail, files, filenames, databases, and any external systems that provide data to the application. Remember that such inputs may be obtained indirectly through API calls.\n4. Phase: Architecture and Design. For any security checks that are performed on the client side, ensure that these checks are duplicated on the server side, in order to avoid CWE-602. Attackers can bypass the client-side checks by modifying values after the checks have been performed, or by changing the client to remove the client-side checks entirely. Then, these modified values would be submitted to the server.\n5. Phase: Architecture and Design; Strategy: Parameterization. If available, use structured mechanisms that automatically enforce the separation between data and code. These mechanisms may be able to provide the relevant quoting, encoding, and validation automatically, instead of relying on the developer to provide this capability at every point where output is generated.\n6. Phase: Implementation; Strategy: Output Encoding. Use and specify an output encoding that can be handled by the downstream component that is reading the output. Common encodings include ISO-8859-1, UTF-7, and UTF-8. When an encoding is not specified, a downstream component may choose a different encoding, either by assuming a default encoding or automatically inferring which encoding is being used, which can be erroneous. When the encodings are inconsistent, the downstream component might treat some character or byte sequences as special, even if they are not special in the original encoding. Attackers might then be able to exploit this discrepancy and conduct injection attacks; they even might be able to bypass protection mechanisms that assume the original encoding is also being used by the downstream component. The problem of inconsistent output encodings often arises in web pages. If an encoding is not specified in an HTTP header, web browsers often guess about which encoding is being used. This can open up the browser to subtle XSS attacks.\n7. Phase: Implementation. With Struts, write all data from form beans with the bean's filter attribute set to true.\n8. Phase: Implementation; Strategy: Attack Surface Reduction. To help mitigate XSS attacks against the user's session cookie, set the session cookie to be HttpOnly. In browsers that support the HttpOnly feature (such as more recent versions of Internet Explorer and Firefox), this attribute can prevent the user's session cookie from being accessible to malicious client-side scripts that use document.cookie. This is not a complete solution, since HttpOnly is not supported by all browsers. More importantly, XmlHttpRequest and other powerful browser technologies provide read access to HTTP headers, including the Set-Cookie header in which the HttpOnly flag is set.\n9. Phase: Implementation; Strategy: Input Validation. Assume all input is malicious. Use an \"accept known good\" input validation strategy, i.e., use a list of acceptable inputs that strictly conform to specifications. Reject any input that does not strictly conform to specifications, or transform it into something that does. When performing input validation, consider all potentially relevant properties, including length, type of input, the full range of acceptable values, missing or extra inputs, syntax, consistency across related fields, and conformance to business rules. As an example of business rule logic, \"boat\" may be syntactically valid because it only contains alphanumeric characters, but it is not valid if the input is only expected to contain colors such as \"red\" or \"blue.\" Do not rely exclusively on looking for malicious or malformed inputs. This is likely to miss at least one undesirable input, especially if the code's environment changes. This can give attackers enough room to bypass the intended validation. However, denylists can be useful for detecting potential attacks or determining which inputs are so malformed that they should be rejected outright. When dynamically constructing web pages, use stringent allowlists that limit the character set based on the expected value of the parameter in the request. All input should be validated and cleansed, not just parameters that the user is supposed to specify, but all data in the request, including hidden fields, cookies, headers, the URL itself, and so forth. A common mistake that leads to continuing XSS vulnerabilities is to validate only fields that are expected to be redisplayed by the site. It is common to see data from the request that is reflected by the application server or the application that the development team did not anticipate. Also, a field that is not currently reflected may be used by a future developer. Therefore, validating ALL parts of the HTTP request is recommended. Note that proper output encoding, escaping, and quoting is the most effective solution for preventing XSS, although input validation may provide some defense-in-depth. This is because it effectively limits what will appear in output. Input validation will not always prevent XSS, especially if you are required to support free-form text fields that could contain arbitrary characters. For example, in a chat application, the heart emoticon (\"<3\") would likely pass the validation step, since it is commonly used. However, it cannot be directly inserted into the web page because it contains the \"<\" character, which would need to be escaped or otherwise handled. In this case, stripping the \"<\" might reduce the risk of XSS, but it would produce incorrect behavior because the emoticon would not be recorded. This might seem to be a minor inconvenience, but it would be more important in a mathematical forum that wants to represent inequalities. Even if you make a mistake in your validation (such as forgetting one out of 100 input fields), appropriate encoding is still likely to protect you from injection-based attacks. As long as it is not done in isolation, input validation is still a useful technique, since it may significantly reduce your attack surface, allow you to detect some attacks, and provide other security benefits that proper encoding does not address. Ensure that you perform input validation at well-defined interfaces within the application. This will help protect the application even if a component is reused or moved elsewhere.\n10. Phase: Architecture and Design; Strategy: Enforcement by Conversion. When the set of acceptable objects, such as filenames or URLs, is limited or known, create a mapping from a set of fixed input values (such as numeric IDs) to the actual filenames or URLs, and reject all other inputs.\n11. Phase: Operation; Strategy: Firewall. Use an application firewall that can detect attacks against this weakness. It can be beneficial in cases in which the code cannot be fixed (because it is controlled by a third party), as an emergency prevention measure while more comprehensive software assurance measures are applied, or to provide defense in depth [REF-1481].\n12. Phase: Operation, Implementation; Strategy: Environment Hardening. When using PHP, configure the application so that it does not use register_globals. During implementation, develop the application so that it does not rely on this feature, but be wary of implementing a register_globals emulation that is subject to weaknesses such as CWE-95, CWE-621, and similar issues.",
+                "markdown": "## Description\n\nThe product does not neutralize or incorrectly neutralizes user-controllable input before it is placed in output that is used as a web page that is served to other users.\n\n## Extended Description\n\nThere are many variants of cross-site scripting, characterized by a variety of terms or involving different attack topologies. However, they all indicate the same fundamental weakness: improper neutralization of dangerous input between the adversary and a victim.\n\n## Common Consequences\n\n- **Scope**: Access Control, Confidentiality. **Impact**: Bypass Protection Mechanism, Read Application Data.\n  - The most common attack performed with cross-site scripting involves the disclosure of private information stored in user cookies, such as session information. Typically, a malicious user will craft a client-side script, which -- when parsed by a web browser -- performs some activity on behalf of the victim to an attacker-controlled system (such as sending all site cookies to a given E-mail address). This could be especially dangerous to the site if the victim has administrator privileges to manage that site. This script will be loaded and run by each user visiting the web site. Since the site requesting to run the script has access to the cookies in question, the malicious script does also.\n- **Scope**: Integrity, Confidentiality, Availability. **Impact**: Execute Unauthorized Code or Commands.\n  - In some circumstances it may be possible to run arbitrary code on a victim's computer when cross-site scripting is combined with other flaws, for example, \"drive-by hacking.\"\n- **Scope**: Confidentiality, Integrity, Availability, Access Control. **Impact**: Execute Unauthorized Code or Commands, Bypass Protection Mechanism, Read Application Data.\n  - The consequence of an XSS attack is the same regardless of whether it is stored or reflected. The difference is in how the payload arrives at the server. XSS can cause a variety of problems for the end user that range in severity from an annoyance to complete account compromise. Some cross-site scripting vulnerabilities can be exploited to manipulate or steal cookies, create requests that can be mistaken for those of a valid user, compromise confidential information, or execute malicious code on the end user systems for a variety of nefarious purposes. Other damaging attacks include the disclosure of end user files, installation of Trojan horse programs, redirecting the user to some other page or site, running \"Active X\" controls (under Microsoft Internet Explorer) from sites that a user perceives as trustworthy, and modifying presentation of content.\n\n## Potential Mitigations\n\n1. *Phase: Architecture and Design; Strategy: Libraries or Frameworks*. Use a vetted library or framework that does not allow this weakness to occur or provides constructs that make this weakness easier to avoid [REF-1482]. Examples of libraries and frameworks that make it easier to generate properly encoded output include Microsoft's Anti-XSS library, the OWASP ESAPI Encoding module, and Apache Wicket.\n2. *Phase: Implementation, Architecture and Design*. Understand the context in which your data will be used and the encoding that will be expected. This is especially important when transmitting data between different components, or when generating outputs that can contain multiple encodings at the same time, such as web pages or multi-part mail messages. Study all expected communication protocols and data representations to determine the required encoding strategies. For any data that will be output to another web page, especially any data that was received from external inputs, use the appropriate encoding on all non-alphanumeric characters. Parts of the same output document may require different encodings, which will vary depending on whether the output is in the: HTML body Element attributes (such as src=\"XYZ\") URIs JavaScript sections Cascading Style Sheets and style property etc. Note that HTML Entity Encoding is only appropriate for the HTML body. Consult the XSS Prevention Cheat Sheet [REF-724] for more details on the types of encoding and escaping that are needed.\n3. *Phase: Architecture and Design, Implementation; Strategy: Attack Surface Reduction*. Understand all the potential areas where untrusted inputs can enter your software: parameters or arguments, cookies, anything read from the network, environment variables, reverse DNS lookups, query results, request headers, URL components, e-mail, files, filenames, databases, and any external systems that provide data to the application. Remember that such inputs may be obtained indirectly through API calls.\n4. *Phase: Architecture and Design*. For any security checks that are performed on the client side, ensure that these checks are duplicated on the server side, in order to avoid CWE-602. Attackers can bypass the client-side checks by modifying values after the checks have been performed, or by changing the client to remove the client-side checks entirely. Then, these modified values would be submitted to the server.\n5. *Phase: Architecture and Design; Strategy: Parameterization*. If available, use structured mechanisms that automatically enforce the separation between data and code. These mechanisms may be able to provide the relevant quoting, encoding, and validation automatically, instead of relying on the developer to provide this capability at every point where output is generated.\n6. *Phase: Implementation; Strategy: Output Encoding*. Use and specify an output encoding that can be handled by the downstream component that is reading the output. Common encodings include ISO-8859-1, UTF-7, and UTF-8. When an encoding is not specified, a downstream component may choose a different encoding, either by assuming a default encoding or automatically inferring which encoding is being used, which can be erroneous. When the encodings are inconsistent, the downstream component might treat some character or byte sequences as special, even if they are not special in the original encoding. Attackers might then be able to exploit this discrepancy and conduct injection attacks; they even might be able to bypass protection mechanisms that assume the original encoding is also being used by the downstream component. The problem of inconsistent output encodings often arises in web pages. If an encoding is not specified in an HTTP header, web browsers often guess about which encoding is being used. This can open up the browser to subtle XSS attacks.\n7. *Phase: Implementation*. With Struts, write all data from form beans with the bean's filter attribute set to true.\n8. *Phase: Implementation; Strategy: Attack Surface Reduction*. To help mitigate XSS attacks against the user's session cookie, set the session cookie to be HttpOnly. In browsers that support the HttpOnly feature (such as more recent versions of Internet Explorer and Firefox), this attribute can prevent the user's session cookie from being accessible to malicious client-side scripts that use document.cookie. This is not a complete solution, since HttpOnly is not supported by all browsers. More importantly, XmlHttpRequest and other powerful browser technologies provide read access to HTTP headers, including the Set-Cookie header in which the HttpOnly flag is set.\n9. *Phase: Implementation; Strategy: Input Validation*. Assume all input is malicious. Use an \"accept known good\" input validation strategy, i.e., use a list of acceptable inputs that strictly conform to specifications. Reject any input that does not strictly conform to specifications, or transform it into something that does. When performing input validation, consider all potentially relevant properties, including length, type of input, the full range of acceptable values, missing or extra inputs, syntax, consistency across related fields, and conformance to business rules. As an example of business rule logic, \"boat\" may be syntactically valid because it only contains alphanumeric characters, but it is not valid if the input is only expected to contain colors such as \"red\" or \"blue.\" Do not rely exclusively on looking for malicious or malformed inputs. This is likely to miss at least one undesirable input, especially if the code's environment changes. This can give attackers enough room to bypass the intended validation. However, denylists can be useful for detecting potential attacks or determining which inputs are so malformed that they should be rejected outright. When dynamically constructing web pages, use stringent allowlists that limit the character set based on the expected value of the parameter in the request. All input should be validated and cleansed, not just parameters that the user is supposed to specify, but all data in the request, including hidden fields, cookies, headers, the URL itself, and so forth. A common mistake that leads to continuing XSS vulnerabilities is to validate only fields that are expected to be redisplayed by the site. It is common to see data from the request that is reflected by the application server or the application that the development team did not anticipate. Also, a field that is not currently reflected may be used by a future developer. Therefore, validating ALL parts of the HTTP request is recommended. Note that proper output encoding, escaping, and quoting is the most effective solution for preventing XSS, although input validation may provide some defense-in-depth. This is because it effectively limits what will appear in output. Input validation will not always prevent XSS, especially if you are required to support free-form text fields that could contain arbitrary characters. For example, in a chat application, the heart emoticon (\"<3\") would likely pass the validation step, since it is commonly used. However, it cannot be directly inserted into the web page because it contains the \"<\" character, which would need to be escaped or otherwise handled. In this case, stripping the \"<\" might reduce the risk of XSS, but it would produce incorrect behavior because the emoticon would not be recorded. This might seem to be a minor inconvenience, but it would be more important in a mathematical forum that wants to represent inequalities. Even if you make a mistake in your validation (such as forgetting one out of 100 input fields), appropriate encoding is still likely to protect you from injection-based attacks. As long as it is not done in isolation, input validation is still a useful technique, since it may significantly reduce your attack surface, allow you to detect some attacks, and provide other security benefits that proper encoding does not address. Ensure that you perform input validation at well-defined interfaces within the application. This will help protect the application even if a component is reused or moved elsewhere.\n10. *Phase: Architecture and Design; Strategy: Enforcement by Conversion*. When the set of acceptable objects, such as filenames or URLs, is limited or known, create a mapping from a set of fixed input values (such as numeric IDs) to the actual filenames or URLs, and reject all other inputs.\n11. *Phase: Operation; Strategy: Firewall*. Use an application firewall that can detect attacks against this weakness. It can be beneficial in cases in which the code cannot be fixed (because it is controlled by a third party), as an emergency prevention measure while more comprehensive software assurance measures are applied, or to provide defense in depth [REF-1481].\n12. *Phase: Operation, Implementation; Strategy: Environment Hardening*. When using PHP, configure the application so that it does not use register_globals. During implementation, develop the application so that it does not rely on this feature, but be wary of implementing a register_globals emulation that is subject to weaknesses such as CWE-95, CWE-621, and similar issues."
+              },
+              "shortDescription": {
+                "text": "The product does not neutralize or incorrectly neutralizes user-controllable input before it is placed in output that is used as a web page that is served to other users."
+              },
+              "helpUri": "https://cwe.mitre.org/data/definitions/79.html",
+              "properties": {
+                "security-severity": "7.8"
+              }
+            },
+            {
+              "id": "CWE-89",
+              "name": "SqlInjection",
+              "fullDescription": {
+                "text": "The product constructs all or part of an SQL command using externally-influenced input from an upstream component, but it does not neutralize or incorrectly neutralizes special elements that could modify the intended SQL command when it is sent to a downstream component. Without sufficient removal or quoting of SQL syntax in user-controllable inputs, the generated SQL query can cause those inputs to be interpreted as SQL instead of ordinary user data."
+              },
+              "help": {
+                "text": "Description\n\nThe product constructs all or part of an SQL command using externally-influenced input from an upstream component, but it does not neutralize or incorrectly neutralizes special elements that could modify the intended SQL command when it is sent to a downstream component. Without sufficient removal or quoting of SQL syntax in user-controllable inputs, the generated SQL query can cause those inputs to be interpreted as SQL instead of ordinary user data.\n\nCommon Consequences\n\n- Scope: Confidentiality, Integrity, Availability. Impact: Execute Unauthorized Code or Commands.\n  - Adversaries could execute system commands, typically by changing the SQL statement to redirect output to a file that can then be executed.\n- Scope: Confidentiality. Impact: Read Application Data.\n  - Since SQL databases generally hold sensitive data, loss of confidentiality is a frequent problem with SQL injection vulnerabilities.\n- Scope: Authentication. Impact: Gain Privileges or Assume Identity, Bypass Protection Mechanism.\n  - If poor SQL commands are used to check user names and passwords or perform other kinds of authentication, it may be possible to connect to the product as another user with no previous knowledge of the password.\n- Scope: Access Control. Impact: Bypass Protection Mechanism.\n  - If authorization information is held in a SQL database, it may be possible to change this information through the successful exploitation of a SQL injection vulnerability.\n- Scope: Integrity. Impact: Modify Application Data.\n  - Just as it may be possible to read sensitive information, it is also possible to modify or even delete this information with a SQL injection attack.\n\nPotential Mitigations\n\n1. Phase: Architecture and Design; Strategy: Libraries or Frameworks. Use a vetted library or framework that does not allow this weakness to occur or provides constructs that make this weakness easier to avoid [REF-1482]. For example, consider using persistence layers such as Hibernate or Enterprise Java Beans, which can provide significant protection against SQL injection if used properly.\n2. Phase: Architecture and Design; Strategy: Parameterization. If available, use structured mechanisms that automatically enforce the separation between data and code. These mechanisms may be able to provide the relevant quoting, encoding, and validation automatically, instead of relying on the developer to provide this capability at every point where output is generated. Process SQL queries using prepared statements, parameterized queries, or stored procedures. These features should accept parameters or variables and support strong typing. Do not dynamically construct and execute query strings within these features using \"exec\" or similar functionality, since this may re-introduce the possibility of SQL injection. [REF-867]\n3. Phase: Architecture and Design, Operation; Strategy: Environment Hardening. Run your code using the lowest privileges that are required to accomplish the necessary tasks [REF-76]. If possible, create isolated accounts with limited privileges that are only used for a single task. That way, a successful attack will not immediately give the attacker access to the rest of the software or its environment. For example, database applications rarely need to run as the database administrator, especially in day-to-day operations. Specifically, follow the principle of least privilege when creating user accounts to a SQL database. The database users should only have the minimum privileges necessary to use their account. If the requirements of the system indicate that a user can read and modify their own data, then limit their privileges so they cannot read/write others' data. Use the strictest permissions possible on all database objects, such as execute-only for stored procedures.\n4. Phase: Architecture and Design. For any security checks that are performed on the client side, ensure that these checks are duplicated on the server side, in order to avoid CWE-602. Attackers can bypass the client-side checks by modifying values after the checks have been performed, or by changing the client to remove the client-side checks entirely. Then, these modified values would be submitted to the server.\n5. Phase: Implementation; Strategy: Output Encoding. While it is risky to use dynamically-generated query strings, code, or commands that mix control and data together, sometimes it may be unavoidable. Properly quote arguments and escape any special characters within those arguments. The most conservative approach is to escape or filter all characters that do not pass an extremely strict allowlist (such as everything that is not alphanumeric or white space). If some special characters are still needed, such as white space, wrap each argument in quotes after the escaping/filtering step. Be careful of argument injection (CWE-88). Instead of building a new implementation, such features may be available in the database or programming language. For example, the Oracle DBMS_ASSERT package can check or enforce that parameters have certain properties that make them less vulnerable to SQL injection. For MySQL, the mysql_real_escape_string() API function is available in both C and PHP.\n6. Phase: Implementation; Strategy: Input Validation. Assume all input is malicious. Use an \"accept known good\" input validation strategy, i.e., use a list of acceptable inputs that strictly conform to specifications. Reject any input that does not strictly conform to specifications, or transform it into something that does. When performing input validation, consider all potentially relevant properties, including length, type of input, the full range of acceptable values, missing or extra inputs, syntax, consistency across related fields, and conformance to business rules. As an example of business rule logic, \"boat\" may be syntactically valid because it only contains alphanumeric characters, but it is not valid if the input is only expected to contain colors such as \"red\" or \"blue.\" Do not rely exclusively on looking for malicious or malformed inputs. This is likely to miss at least one undesirable input, especially if the code's environment changes. This can give attackers enough room to bypass the intended validation. However, denylists can be useful for detecting potential attacks or determining which inputs are so malformed that they should be rejected outright. When constructing SQL query strings, use stringent allowlists that limit the character set based on the expected value of the parameter in the request. This will indirectly limit the scope of an attack, but this technique is less important than proper output encoding and escaping. Note that proper output encoding, escaping, and quoting is the most effective solution for preventing SQL injection, although input validation may provide some defense-in-depth. This is because it effectively limits what will appear in output. Input validation will not always prevent SQL injection, especially if you are required to support free-form text fields that could contain arbitrary characters. For example, the name \"O'Reilly\" would likely pass the validation step, since it is a common last name in the English language. However, it cannot be directly inserted into the database because it contains the \"'\" apostrophe character, which would need to be escaped or otherwise handled. In this case, stripping the apostrophe might reduce the risk of SQL injection, but it would produce incorrect behavior because the wrong name would be recorded. When feasible, it may be safest to disallow meta-characters entirely, instead of escaping them. This will provide some defense in depth. After the data is entered into the database, later processes may neglect to escape meta-characters before use, and you may not have control over those processes.\n7. Phase: Architecture and Design; Strategy: Enforcement by Conversion. When the set of acceptable objects, such as filenames or URLs, is limited or known, create a mapping from a set of fixed input values (such as numeric IDs) to the actual filenames or URLs, and reject all other inputs.\n8. Phase: Implementation. Ensure that error messages only contain minimal details that are useful to the intended audience and no one else. The messages need to strike the balance between being too cryptic (which can confuse users) or being too detailed (which may reveal more than intended). The messages should not reveal the methods that were used to determine the error. Attackers can use detailed information to refine or optimize their original attack, thereby increasing their chances of success. If errors must be captured in some detail, record them in log messages, but consider what could occur if the log messages can be viewed by attackers. Highly sensitive information such as passwords should never be saved to log files. Avoid inconsistent messaging that might accidentally tip off an attacker about internal state, such as whether a user account exists or not. In the context of SQL Injection, error messages revealing the structure of a SQL query can help attackers tailor successful attack strings.\n9. Phase: Operation; Strategy: Firewall. Use an application firewall that can detect attacks against this weakness. It can be beneficial in cases in which the code cannot be fixed (because it is controlled by a third party), as an emergency prevention measure while more comprehensive software assurance measures are applied, or to provide defense in depth [REF-1481.\n10. Phase: Operation, Implementation; Strategy: Environment Hardening. When using PHP, configure the application so that it does not use register_globals. During implementation, develop the application so that it does not rely on this feature, but be wary of implementing a register_globals emulation that is subject to weaknesses such as CWE-95, CWE-621, and similar issues.",
+                "markdown": "## Description\n\nThe product constructs all or part of an SQL command using externally-influenced input from an upstream component, but it does not neutralize or incorrectly neutralizes special elements that could modify the intended SQL command when it is sent to a downstream component. Without sufficient removal or quoting of SQL syntax in user-controllable inputs, the generated SQL query can cause those inputs to be interpreted as SQL instead of ordinary user data.\n\n## Common Consequences\n\n- **Scope**: Confidentiality, Integrity, Availability. **Impact**: Execute Unauthorized Code or Commands.\n  - Adversaries could execute system commands, typically by changing the SQL statement to redirect output to a file that can then be executed.\n- **Scope**: Confidentiality. **Impact**: Read Application Data.\n  - Since SQL databases generally hold sensitive data, loss of confidentiality is a frequent problem with SQL injection vulnerabilities.\n- **Scope**: Authentication. **Impact**: Gain Privileges or Assume Identity, Bypass Protection Mechanism.\n  - If poor SQL commands are used to check user names and passwords or perform other kinds of authentication, it may be possible to connect to the product as another user with no previous knowledge of the password.\n- **Scope**: Access Control. **Impact**: Bypass Protection Mechanism.\n  - If authorization information is held in a SQL database, it may be possible to change this information through the successful exploitation of a SQL injection vulnerability.\n- **Scope**: Integrity. **Impact**: Modify Application Data.\n  - Just as it may be possible to read sensitive information, it is also possible to modify or even delete this information with a SQL injection attack.\n\n## Potential Mitigations\n\n1. *Phase: Architecture and Design; Strategy: Libraries or Frameworks*. Use a vetted library or framework that does not allow this weakness to occur or provides constructs that make this weakness easier to avoid [REF-1482]. For example, consider using persistence layers such as Hibernate or Enterprise Java Beans, which can provide significant protection against SQL injection if used properly.\n2. *Phase: Architecture and Design; Strategy: Parameterization*. If available, use structured mechanisms that automatically enforce the separation between data and code. These mechanisms may be able to provide the relevant quoting, encoding, and validation automatically, instead of relying on the developer to provide this capability at every point where output is generated. Process SQL queries using prepared statements, parameterized queries, or stored procedures. These features should accept parameters or variables and support strong typing. Do not dynamically construct and execute query strings within these features using \"exec\" or similar functionality, since this may re-introduce the possibility of SQL injection. [REF-867]\n3. *Phase: Architecture and Design, Operation; Strategy: Environment Hardening*. Run your code using the lowest privileges that are required to accomplish the necessary tasks [REF-76]. If possible, create isolated accounts with limited privileges that are only used for a single task. That way, a successful attack will not immediately give the attacker access to the rest of the software or its environment. For example, database applications rarely need to run as the database administrator, especially in day-to-day operations. Specifically, follow the principle of least privilege when creating user accounts to a SQL database. The database users should only have the minimum privileges necessary to use their account. If the requirements of the system indicate that a user can read and modify their own data, then limit their privileges so they cannot read/write others' data. Use the strictest permissions possible on all database objects, such as execute-only for stored procedures.\n4. *Phase: Architecture and Design*. For any security checks that are performed on the client side, ensure that these checks are duplicated on the server side, in order to avoid CWE-602. Attackers can bypass the client-side checks by modifying values after the checks have been performed, or by changing the client to remove the client-side checks entirely. Then, these modified values would be submitted to the server.\n5. *Phase: Implementation; Strategy: Output Encoding*. While it is risky to use dynamically-generated query strings, code, or commands that mix control and data together, sometimes it may be unavoidable. Properly quote arguments and escape any special characters within those arguments. The most conservative approach is to escape or filter all characters that do not pass an extremely strict allowlist (such as everything that is not alphanumeric or white space). If some special characters are still needed, such as white space, wrap each argument in quotes after the escaping/filtering step. Be careful of argument injection (CWE-88). Instead of building a new implementation, such features may be available in the database or programming language. For example, the Oracle DBMS_ASSERT package can check or enforce that parameters have certain properties that make them less vulnerable to SQL injection. For MySQL, the mysql_real_escape_string() API function is available in both C and PHP.\n6. *Phase: Implementation; Strategy: Input Validation*. Assume all input is malicious. Use an \"accept known good\" input validation strategy, i.e., use a list of acceptable inputs that strictly conform to specifications. Reject any input that does not strictly conform to specifications, or transform it into something that does. When performing input validation, consider all potentially relevant properties, including length, type of input, the full range of acceptable values, missing or extra inputs, syntax, consistency across related fields, and conformance to business rules. As an example of business rule logic, \"boat\" may be syntactically valid because it only contains alphanumeric characters, but it is not valid if the input is only expected to contain colors such as \"red\" or \"blue.\" Do not rely exclusively on looking for malicious or malformed inputs. This is likely to miss at least one undesirable input, especially if the code's environment changes. This can give attackers enough room to bypass the intended validation. However, denylists can be useful for detecting potential attacks or determining which inputs are so malformed that they should be rejected outright. When constructing SQL query strings, use stringent allowlists that limit the character set based on the expected value of the parameter in the request. This will indirectly limit the scope of an attack, but this technique is less important than proper output encoding and escaping. Note that proper output encoding, escaping, and quoting is the most effective solution for preventing SQL injection, although input validation may provide some defense-in-depth. This is because it effectively limits what will appear in output. Input validation will not always prevent SQL injection, especially if you are required to support free-form text fields that could contain arbitrary characters. For example, the name \"O'Reilly\" would likely pass the validation step, since it is a common last name in the English language. However, it cannot be directly inserted into the database because it contains the \"'\" apostrophe character, which would need to be escaped or otherwise handled. In this case, stripping the apostrophe might reduce the risk of SQL injection, but it would produce incorrect behavior because the wrong name would be recorded. When feasible, it may be safest to disallow meta-characters entirely, instead of escaping them. This will provide some defense in depth. After the data is entered into the database, later processes may neglect to escape meta-characters before use, and you may not have control over those processes.\n7. *Phase: Architecture and Design; Strategy: Enforcement by Conversion*. When the set of acceptable objects, such as filenames or URLs, is limited or known, create a mapping from a set of fixed input values (such as numeric IDs) to the actual filenames or URLs, and reject all other inputs.\n8. *Phase: Implementation*. Ensure that error messages only contain minimal details that are useful to the intended audience and no one else. The messages need to strike the balance between being too cryptic (which can confuse users) or being too detailed (which may reveal more than intended). The messages should not reveal the methods that were used to determine the error. Attackers can use detailed information to refine or optimize their original attack, thereby increasing their chances of success. If errors must be captured in some detail, record them in log messages, but consider what could occur if the log messages can be viewed by attackers. Highly sensitive information such as passwords should never be saved to log files. Avoid inconsistent messaging that might accidentally tip off an attacker about internal state, such as whether a user account exists or not. In the context of SQL Injection, error messages revealing the structure of a SQL query can help attackers tailor successful attack strings.\n9. *Phase: Operation; Strategy: Firewall*. Use an application firewall that can detect attacks against this weakness. It can be beneficial in cases in which the code cannot be fixed (because it is controlled by a third party), as an emergency prevention measure while more comprehensive software assurance measures are applied, or to provide defense in depth [REF-1481.\n10. *Phase: Operation, Implementation; Strategy: Environment Hardening*. When using PHP, configure the application so that it does not use register_globals. During implementation, develop the application so that it does not rely on this feature, but be wary of implementing a register_globals emulation that is subject to weaknesses such as CWE-95, CWE-621, and similar issues."
+              },
+              "shortDescription": {
+                "text": "The product constructs all or part of an SQL command using externally-influenced input from an upstream component, but it does not neutralize or incorrectly neutralizes special elements that could modify the intended SQL command when it is sent to a downstream component."
+              },
+              "helpUri": "https://cwe.mitre.org/data/definitions/89.html",
+              "properties": {
+                "security-severity": "8.8"
+              }
+            },
+            {
+              "id": "CWE-22",
+              "name": "PathTraversal",
+              "fullDescription": {
+                "text": "The product uses external input to construct a pathname that is intended to identify a file or directory that is located underneath a restricted parent directory, but the product does not properly neutralize special elements within the pathname that can cause the pathname to resolve to a location that is outside of the restricted directory.\n\nMany file operations are intended to take place within a restricted directory. By using special elements such as \"..\" and \"/\" separators, attackers can escape outside of the restricted location to access files or directories that are elsewhere on the system. One of the most common special elements is the \"../\" sequence, which in most modern operating systems is interpreted as the parent directory of the current location. This is referred to as relative path traversal. Path traversal also covers the use of absolute pathnames such as \"/usr/local/bin\" to access unexpected files. This is referred to as absolute path traversal."
+              },
+              "help": {
+                "text": "Description\n\nThe product uses external input to construct a pathname that is intended to identify a file or directory that is located underneath a restricted parent directory, but the product does not properly neutralize special elements within the pathname that can cause the pathname to resolve to a location that is outside of the restricted directory.\n\nExtended Description\n\nMany file operations are intended to take place within a restricted directory. By using special elements such as \"..\" and \"/\" separators, attackers can escape outside of the restricted location to access files or directories that are elsewhere on the system. One of the most common special elements is the \"../\" sequence, which in most modern operating systems is interpreted as the parent directory of the current location. This is referred to as relative path traversal. Path traversal also covers the use of absolute pathnames such as \"/usr/local/bin\" to access unexpected files. This is referred to as absolute path traversal.\n\nCommon Consequences\n\n- Scope: Integrity, Confidentiality, Availability. Impact: Execute Unauthorized Code or Commands.\n  - The attacker may be able to create or overwrite critical files that are used to execute code, such as programs or libraries.\n- Scope: Integrity. Impact: Modify Files or Directories.\n  - The attacker may be able to overwrite or create critical files, such as programs, libraries, or important data. If the targeted file is used for a security mechanism, then the attacker may be able to bypass that mechanism. For example, appending a new account at the end of a password file may allow an attacker to bypass authentication.\n- Scope: Confidentiality. Impact: Read Files or Directories.\n  - The attacker may be able read the contents of unexpected files and expose sensitive data. If the targeted file is used for a security mechanism, then the attacker may be able to bypass that mechanism. For example, by reading a password file, the attacker could conduct brute force password guessing attacks in order to break into an account on the system.\n- Scope: Availability. Impact: DoS: Crash, Exit, or Restart.\n  - The attacker may be able to overwrite, delete, or corrupt unexpected critical files such as programs, libraries, or important data. This may prevent the product from working at all and in the case of protection mechanisms such as authentication, it has the potential to lock out product users.\n\nPotential Mitigations\n\n1. Phase: Implementation; Strategy: Input Validation. Assume all input is malicious. Use an \"accept known good\" input validation strategy, i.e., use a list of acceptable inputs that strictly conform to specifications. Reject any input that does not strictly conform to specifications, or transform it into something that does. When performing input validation, consider all potentially relevant properties, including length, type of input, the full range of acceptable values, missing or extra inputs, syntax, consistency across related fields, and conformance to business rules. As an example of business rule logic, \"boat\" may be syntactically valid because it only contains alphanumeric characters, but it is not valid if the input is only expected to contain colors such as \"red\" or \"blue.\" Do not rely exclusively on looking for malicious or malformed inputs. This is likely to miss at least one undesirable input, especially if the code's environment changes. This can give attackers enough room to bypass the intended validation. However, denylists can be useful for detecting potential attacks or determining which inputs are so malformed that they should be rejected outright. When validating filenames, use stringent allowlists that limit the character set to be used. If feasible, only allow a single \".\" character in the filename to avoid weaknesses such as CWE-23, and exclude directory separators such as \"/\" to avoid CWE-36. Use a list of allowable file extensions, which will help to avoid CWE-434. Do not rely exclusively on a filtering mechanism that removes potentially dangerous characters. This is equivalent to a denylist, which may be incomplete (CWE-184). For example, filtering \"/\" is insufficient protection if the filesystem also supports the use of \"\\\" as a directory separator. Another possible error could occur when the filtering is applied in a way that still produces dangerous data (CWE-182). For example, if \"../\" sequences are removed from the \".../...//\" string in a sequential fashion, two instances of \"../\" would be removed from the original string, but the remaining characters would still form the \"../\" string.\n2. Phase: Architecture and Design. For any security checks that are performed on the client side, ensure that these checks are duplicated on the server side, in order to avoid CWE-602. Attackers can bypass the client-side checks by modifying values after the checks have been performed, or by changing the client to remove the client-side checks entirely. Then, these modified values would be submitted to the server.\n3. Phase: Implementation; Strategy: Input Validation. Inputs should be decoded and canonicalized to the application's current internal representation before being validated (CWE-180). Make sure that the application does not decode the same input twice (CWE-174). Such errors could be used to bypass allowlist validation schemes by introducing dangerous inputs after they have been checked. Use a built-in path canonicalization function (such as realpath() in C) that produces the canonical version of the pathname, which effectively removes \"..\" sequences and symbolic links (CWE-23, CWE-59). This includes: realpath() in C getCanonicalPath() in Java GetFullPath() in ASP.NET realpath() or abs_path() in Perl realpath() in PHP\n4. Phase: Architecture and Design; Strategy: Libraries or Frameworks. Use a vetted library or framework that does not allow this weakness to occur or provides constructs that make this weakness easier to avoid [REF-1482].\n5. Phase: Operation; Strategy: Firewall. Use an application firewall that can detect attacks against this weakness. It can be beneficial in cases in which the code cannot be fixed (because it is controlled by a third party), as an emergency prevention measure while more comprehensive software assurance measures are applied, or to provide defense in depth [REF-1481].\n6. Phase: Architecture and Design, Operation; Strategy: Environment Hardening. Run your code using the lowest privileges that are required to accomplish the necessary tasks [REF-76]. If possible, create isolated accounts with limited privileges that are only used for a single task. That way, a successful attack will not immediately give the attacker access to the rest of the software or its environment. For example, database applications rarely need to run as the database administrator, especially in day-to-day operations.\n7. Phase: Architecture and Design; Strategy: Enforcement by Conversion. When the set of acceptable objects, such as filenames or URLs, is limited or known, create a mapping from a set of fixed input values (such as numeric IDs) to the actual filenames or URLs, and reject all other inputs. For example, ID 1 could map to \"inbox.txt\" and ID 2 could map to \"profile.txt\". Features such as the ESAPI AccessReferenceMap [REF-185] provide this capability.\n8. Phase: Architecture and Design, Operation; Strategy: Sandbox or Jail. Run the code in a \"jail\" or similar sandbox environment that enforces strict boundaries between the process and the operating system. This may effectively restrict which files can be accessed in a particular directory or which commands can be executed by the software. OS-level examples include the Unix chroot jail, AppArmor, and SELinux. In general, managed code may provide some protection. For example, java.io.FilePermission in the Java SecurityManager allows the software to specify restrictions on file operations. This may not be a feasible solution, and it only limits the impact to the operating system; the rest of the application may still be subject to compromise. Be careful to avoid CWE-243 and other weaknesses related to jails.\n9. Phase: Architecture and Design, Operation; Strategy: Attack Surface Reduction. Store library, include, and utility files outside of the web document root, if possible. Otherwise, store them in a separate directory and use the web server's access control capabilities to prevent attackers from directly requesting them. One common practice is to define a fixed constant in each calling program, then check for the existence of the constant in the library/include file; if the constant does not exist, then the file was directly requested, and it can exit immediately. This significantly reduces the chance of an attacker being able to bypass any protection mechanisms that are in the base program but not in the include files. It will also reduce the attack surface.\n10. Phase: Implementation. Ensure that error messages only contain minimal details that are useful to the intended audience and no one else. The messages need to strike the balance between being too cryptic (which can confuse users) or being too detailed (which may reveal more than intended). The messages should not reveal the methods that were used to determine the error. Attackers can use detailed information to refine or optimize their original attack, thereby increasing their chances of success. If errors must be captured in some detail, record them in log messages, but consider what could occur if the log messages can be viewed by attackers. Highly sensitive information such as passwords should never be saved to log files. Avoid inconsistent messaging that might accidentally tip off an attacker about internal state, such as whether a user account exists or not. In the context of path traversal, error messages which disclose path information can help attackers craft the appropriate attack strings to move through the file system hierarchy.\n11. Phase: Operation, Implementation; Strategy: Environment Hardening. When using PHP, configure the application so that it does not use register_globals. During implementation, develop the application so that it does not rely on this feature, but be wary of implementing a register_globals emulation that is subject to weaknesses such as CWE-95, CWE-621, and similar issues.",
+                "markdown": "## Description\n\nThe product uses external input to construct a pathname that is intended to identify a file or directory that is located underneath a restricted parent directory, but the product does not properly neutralize special elements within the pathname that can cause the pathname to resolve to a location that is outside of the restricted directory.\n\n## Extended Description\n\nMany file operations are intended to take place within a restricted directory. By using special elements such as \"..\" and \"/\" separators, attackers can escape outside of the restricted location to access files or directories that are elsewhere on the system. One of the most common special elements is the \"../\" sequence, which in most modern operating systems is interpreted as the parent directory of the current location. This is referred to as relative path traversal. Path traversal also covers the use of absolute pathnames such as \"/usr/local/bin\" to access unexpected files. This is referred to as absolute path traversal.\n\n## Common Consequences\n\n- **Scope**: Integrity, Confidentiality, Availability. **Impact**: Execute Unauthorized Code or Commands.\n  - The attacker may be able to create or overwrite critical files that are used to execute code, such as programs or libraries.\n- **Scope**: Integrity. **Impact**: Modify Files or Directories.\n  - The attacker may be able to overwrite or create critical files, such as programs, libraries, or important data. If the targeted file is used for a security mechanism, then the attacker may be able to bypass that mechanism. For example, appending a new account at the end of a password file may allow an attacker to bypass authentication.\n- **Scope**: Confidentiality. **Impact**: Read Files or Directories.\n  - The attacker may be able read the contents of unexpected files and expose sensitive data. If the targeted file is used for a security mechanism, then the attacker may be able to bypass that mechanism. For example, by reading a password file, the attacker could conduct brute force password guessing attacks in order to break into an account on the system.\n- **Scope**: Availability. **Impact**: DoS: Crash, Exit, or Restart.\n  - The attacker may be able to overwrite, delete, or corrupt unexpected critical files such as programs, libraries, or important data. This may prevent the product from working at all and in the case of protection mechanisms such as authentication, it has the potential to lock out product users.\n\n## Potential Mitigations\n\n1. *Phase: Implementation; Strategy: Input Validation*. Assume all input is malicious. Use an \"accept known good\" input validation strategy, i.e., use a list of acceptable inputs that strictly conform to specifications. Reject any input that does not strictly conform to specifications, or transform it into something that does. When performing input validation, consider all potentially relevant properties, including length, type of input, the full range of acceptable values, missing or extra inputs, syntax, consistency across related fields, and conformance to business rules. As an example of business rule logic, \"boat\" may be syntactically valid because it only contains alphanumeric characters, but it is not valid if the input is only expected to contain colors such as \"red\" or \"blue.\" Do not rely exclusively on looking for malicious or malformed inputs. This is likely to miss at least one undesirable input, especially if the code's environment changes. This can give attackers enough room to bypass the intended validation. However, denylists can be useful for detecting potential attacks or determining which inputs are so malformed that they should be rejected outright. When validating filenames, use stringent allowlists that limit the character set to be used. If feasible, only allow a single \".\" character in the filename to avoid weaknesses such as CWE-23, and exclude directory separators such as \"/\" to avoid CWE-36. Use a list of allowable file extensions, which will help to avoid CWE-434. Do not rely exclusively on a filtering mechanism that removes potentially dangerous characters. This is equivalent to a denylist, which may be incomplete (CWE-184). For example, filtering \"/\" is insufficient protection if the filesystem also supports the use of \"\\\" as a directory separator. Another possible error could occur when the filtering is applied in a way that still produces dangerous data (CWE-182). For example, if \"../\" sequences are removed from the \".../...//\" string in a sequential fashion, two instances of \"../\" would be removed from the original string, but the remaining characters would still form the \"../\" string.\n2. *Phase: Architecture and Design*. For any security checks that are performed on the client side, ensure that these checks are duplicated on the server side, in order to avoid CWE-602. Attackers can bypass the client-side checks by modifying values after the checks have been performed, or by changing the client to remove the client-side checks entirely. Then, these modified values would be submitted to the server.\n3. *Phase: Implementation; Strategy: Input Validation*. Inputs should be decoded and canonicalized to the application's current internal representation before being validated (CWE-180). Make sure that the application does not decode the same input twice (CWE-174). Such errors could be used to bypass allowlist validation schemes by introducing dangerous inputs after they have been checked. Use a built-in path canonicalization function (such as realpath() in C) that produces the canonical version of the pathname, which effectively removes \"..\" sequences and symbolic links (CWE-23, CWE-59). This includes: realpath() in C getCanonicalPath() in Java GetFullPath() in ASP.NET realpath() or abs_path() in Perl realpath() in PHP\n4. *Phase: Architecture and Design; Strategy: Libraries or Frameworks*. Use a vetted library or framework that does not allow this weakness to occur or provides constructs that make this weakness easier to avoid [REF-1482].\n5. *Phase: Operation; Strategy: Firewall*. Use an application firewall that can detect attacks against this weakness. It can be beneficial in cases in which the code cannot be fixed (because it is controlled by a third party), as an emergency prevention measure while more comprehensive software assurance measures are applied, or to provide defense in depth [REF-1481].\n6. *Phase: Architecture and Design, Operation; Strategy: Environment Hardening*. Run your code using the lowest privileges that are required to accomplish the necessary tasks [REF-76]. If possible, create isolated accounts with limited privileges that are only used for a single task. That way, a successful attack will not immediately give the attacker access to the rest of the software or its environment. For example, database applications rarely need to run as the database administrator, especially in day-to-day operations.\n7. *Phase: Architecture and Design; Strategy: Enforcement by Conversion*. When the set of acceptable objects, such as filenames or URLs, is limited or known, create a mapping from a set of fixed input values (such as numeric IDs) to the actual filenames or URLs, and reject all other inputs. For example, ID 1 could map to \"inbox.txt\" and ID 2 could map to \"profile.txt\". Features such as the ESAPI AccessReferenceMap [REF-185] provide this capability.\n8. *Phase: Architecture and Design, Operation; Strategy: Sandbox or Jail*. Run the code in a \"jail\" or similar sandbox environment that enforces strict boundaries between the process and the operating system. This may effectively restrict which files can be accessed in a particular directory or which commands can be executed by the software. OS-level examples include the Unix chroot jail, AppArmor, and SELinux. In general, managed code may provide some protection. For example, java.io.FilePermission in the Java SecurityManager allows the software to specify restrictions on file operations. This may not be a feasible solution, and it only limits the impact to the operating system; the rest of the application may still be subject to compromise. Be careful to avoid CWE-243 and other weaknesses related to jails.\n9. *Phase: Architecture and Design, Operation; Strategy: Attack Surface Reduction*. Store library, include, and utility files outside of the web document root, if possible. Otherwise, store them in a separate directory and use the web server's access control capabilities to prevent attackers from directly requesting them. One common practice is to define a fixed constant in each calling program, then check for the existence of the constant in the library/include file; if the constant does not exist, then the file was directly requested, and it can exit immediately. This significantly reduces the chance of an attacker being able to bypass any protection mechanisms that are in the base program but not in the include files. It will also reduce the attack surface.\n10. *Phase: Implementation*. Ensure that error messages only contain minimal details that are useful to the intended audience and no one else. The messages need to strike the balance between being too cryptic (which can confuse users) or being too detailed (which may reveal more than intended). The messages should not reveal the methods that were used to determine the error. Attackers can use detailed information to refine or optimize their original attack, thereby increasing their chances of success. If errors must be captured in some detail, record them in log messages, but consider what could occur if the log messages can be viewed by attackers. Highly sensitive information such as passwords should never be saved to log files. Avoid inconsistent messaging that might accidentally tip off an attacker about internal state, such as whether a user account exists or not. In the context of path traversal, error messages which disclose path information can help attackers craft the appropriate attack strings to move through the file system hierarchy.\n11. *Phase: Operation, Implementation; Strategy: Environment Hardening*. When using PHP, configure the application so that it does not use register_globals. During implementation, develop the application so that it does not rely on this feature, but be wary of implementing a register_globals emulation that is subject to weaknesses such as CWE-95, CWE-621, and similar issues."
+              },
+              "shortDescription": {
+                "text": "The product uses external input to construct a pathname that is intended to identify a file or directory that is located underneath a restricted parent directory, but the product does not properly neutralize special elements within the pathname that can cause the pathname to resolve to a location that is outside of the restricted directory."
+              },
+              "helpUri": "https://cwe.mitre.org/data/definitions/22.html",
+              "properties": {
+                "security-severity": "7.5"
+              }
+            },
+            {
+              "id": "CWE-798",
+              "name": "UseOfHardCodedCredentials",
+              "fullDescription": {
+                "text": "The product contains hard-coded credentials, such as a password or cryptographic key.\n\nThere are two main variations: Inbound: the product contains an authentication mechanism that checks the input credentials against a hard-coded set of credentials. In this variant, a default administration account is created, and a simple password is hard-coded into the product and associated with that account. This hard-coded password is the same for each installation of the product, and it usually cannot be changed or disabled by system administrators without manually modifying the program, or otherwise patching the product. It can also be difficult for the administrator to detect. Outbound: the product connects to another system or component, and it contains hard-coded credentials for connecting to that component. This variant applies to front-end systems that authenticate with a back-end service. The back-end service may require a fixed password that can be easily discovered. The programmer may simply hard-code those back-end credentials into the front-end product."
+              },
+              "help": {
+                "text": "Description\n\nThe product contains hard-coded credentials, such as a password or cryptographic key.\n\nExtended Description\n\nThere are two main variations: Inbound: the product contains an authentication mechanism that checks the input credentials against a hard-coded set of credentials. In this variant, a default administration account is created, and a simple password is hard-coded into the product and associated with that account. This hard-coded password is the same for each installation of the product, and it usually cannot be changed or disabled by system administrators without manually modifying the program, or otherwise patching the product. It can also be difficult for the administrator to detect. Outbound: the product connects to another system or component, and it contains hard-coded credentials for connecting to that component. This variant applies to front-end systems that authenticate with a back-end service. The back-end service may require a fixed password that can be easily discovered. The programmer may simply hard-code those back-end credentials into the front-end product.\n\nCommon Consequences\n\n- Scope: Access Control. Impact: Bypass Protection Mechanism.\n  - If hard-coded passwords are used, it is almost certain that malicious users will gain access to the account in question. Any user of the product that hard-codes passwords may be able to extract the password. Client-side systems with hard-coded passwords pose even more of a threat, since the extraction of a password from a binary is usually very simple.\n- Scope: Integrity, Confidentiality, Availability, Access Control, Other. Impact: Read Application Data, Gain Privileges or Assume Identity, Execute Unauthorized Code or Commands, Other.\n  - This weakness can lead to the exposure of resources or functionality to unintended actors, possibly providing attackers with sensitive information or even execute arbitrary code. If the password is ever discovered or published (a common occurrence on the Internet), then anybody with knowledge of this password can access the product. Finally, since all installations of the product will have the same password, even across different organizations, this enables massive attacks such as worms to take place.\n\nPotential Mitigations\n\n1. Phase: Architecture and Design. For outbound authentication: store passwords, keys, and other credentials outside of the code in a strongly-protected, encrypted configuration file or database that is protected from access by all outsiders, including other local users on the same system. Properly protect the key (CWE-320). If you cannot use encryption to protect the file, then make sure that the permissions are as restrictive as possible [REF-7]. In Windows environments, the Encrypted File System (EFS) may provide some protection.\n2. Phase: Architecture and Design. For inbound authentication: Rather than hard-code a default username and password, key, or other authentication credentials for first time logins, utilize a \"first login\" mode that requires the user to enter a unique strong password or key.\n3. Phase: Architecture and Design. If the product must contain hard-coded credentials or they cannot be removed, perform access control checks and limit which entities can access the feature that requires the hard-coded credentials. For example, a feature might only be enabled through the system console instead of through a network connection.\n4. Phase: Architecture and Design. For inbound authentication using passwords: apply strong one-way hashes to passwords and store those hashes in a configuration file or database with appropriate access control. That way, theft of the file/database still requires the attacker to try to crack the password. When handling an incoming password during authentication, take the hash of the password and compare it to the saved hash. Use randomly assigned salts for each separate hash that is generated. This increases the amount of computation that an attacker needs to conduct a brute-force attack, possibly limiting the effectiveness of the rainbow table method.\n5. Phase: Architecture and Design. For front-end to back-end connections: Three solutions are possible, although none are complete. The first suggestion involves the use of generated passwords or keys that are changed automatically and must be entered at given time intervals by a system administrator. These passwords will be held in memory and only be valid for the time intervals. Next, the passwords or keys should be limited at the back end to only performing actions valid for the front end, as opposed to having full access. Finally, the messages sent should be tagged and checksummed with time sensitive values so as to prevent replay-style attacks.",
+                "markdown": "## Description\n\nThe product contains hard-coded credentials, such as a password or cryptographic key.\n\n## Extended Description\n\nThere are two main variations: Inbound: the product contains an authentication mechanism that checks the input credentials against a hard-coded set of credentials. In this variant, a default administration account is created, and a simple password is hard-coded into the product and associated with that account. This hard-coded password is the same for each installation of the product, and it usually cannot be changed or disabled by system administrators without manually modifying the program, or otherwise patching the product. It can also be difficult for the administrator to detect. Outbound: the product connects to another system or component, and it contains hard-coded credentials for connecting to that component. This variant applies to front-end systems that authenticate with a back-end service. The back-end service may require a fixed password that can be easily discovered. The programmer may simply hard-code those back-end credentials into the front-end product.\n\n## Common Consequences\n\n- **Scope**: Access Control. **Impact**: Bypass Protection Mechanism.\n  - If hard-coded passwords are used, it is almost certain that malicious users will gain access to the account in question. Any user of the product that hard-codes passwords may be able to extract the password. Client-side systems with hard-coded passwords pose even more of a threat, since the extraction of a password from a binary is usually very simple.\n- **Scope**: Integrity, Confidentiality, Availability, Access Control, Other. **Impact**: Read Application Data, Gain Privileges or Assume Identity, Execute Unauthorized Code or Commands, Other.\n  - This weakness can lead to the exposure of resources or functionality to unintended actors, possibly providing attackers with sensitive information or even execute arbitrary code. If the password is ever discovered or published (a common occurrence on the Internet), then anybody with knowledge of this password can access the product. Finally, since all installations of the product will have the same password, even across different organizations, this enables massive attacks such as worms to take place.\n\n## Potential Mitigations\n\n1. *Phase: Architecture and Design*. For outbound authentication: store passwords, keys, and other credentials outside of the code in a strongly-protected, encrypted configuration file or database that is protected from access by all outsiders, including other local users on the same system. Properly protect the key (CWE-320). If you cannot use encryption to protect the file, then make sure that the permissions are as restrictive as possible [REF-7]. In Windows environments, the Encrypted File System (EFS) may provide some protection.\n2. *Phase: Architecture and Design*. For inbound authentication: Rather than hard-code a default username and password, key, or other authentication credentials for first time logins, utilize a \"first login\" mode that requires the user to enter a unique strong password or key.\n3. *Phase: Architecture and Design*. If the product must contain hard-coded credentials or they cannot be removed, perform access control checks and limit which entities can access the feature that requires the hard-coded credentials. For example, a feature might only be enabled through the system console instead of through a network connection.\n4. *Phase: Architecture and Design*. For inbound authentication using passwords: apply strong one-way hashes to passwords and store those hashes in a configuration file or database with appropriate access control. That way, theft of the file/database still requires the attacker to try to crack the password. When handling an incoming password during authentication, take the hash of the password and compare it to the saved hash. Use randomly assigned salts for each separate hash that is generated. This increases the amount of computation that an attacker needs to conduct a brute-force attack, possibly limiting the effectiveness of the rainbow table method.\n5. *Phase: Architecture and Design*. For front-end to back-end connections: Three solutions are possible, although none are complete. The first suggestion involves the use of generated passwords or keys that are changed automatically and must be entered at given time intervals by a system administrator. These passwords will be held in memory and only be valid for the time intervals. Next, the passwords or keys should be limited at the back end to only performing actions valid for the front end, as opposed to having full access. Finally, the messages sent should be tagged and checksummed with time sensitive values so as to prevent replay-style attacks."
+              },
+              "shortDescription": {
+                "text": "The product contains hard-coded credentials, such as a password or cryptographic key."
+              },
+              "helpUri": "https://cwe.mitre.org/data/definitions/798.html",
+              "properties": {
+                "security-severity": "9.8"
+              }
+            },
+            {
+              "id": "CWE-1220",
+              "name": "InsufficientGranularityOfAccessControl",
+              "fullDescription": {
+                "text": "The product implements access controls via a policy or other feature with the intention to disable or restrict accesses (reads and/or writes) to assets in a system from untrusted agents. However, implemented access controls lack required granularity, which renders the control policy too broad because it allows accesses from unauthorized agents to the security-sensitive assets.\n\nIntegrated circuits and hardware engines can expose accesses to assets (device configuration, keys, etc.) to trusted firmware or a software module (commonly set by BIOS/bootloader). This access is typically access-controlled. Upon a power reset, the hardware or system usually starts with default values in registers, and the trusted firmware (Boot firmware) configures the necessary access-control protection. A common weakness that can exist in such protection schemes is that access controls or policies are not granular enough. This condition allows agents beyond trusted agents to access assets and could lead to a loss of functionality or the ability to set up the device securely. This further results in security risks from leaked, sensitive, key material to modification of device configuration."
+              },
+              "help": {
+                "text": "Description\n\nThe product implements access controls via a policy or other feature with the intention to disable or restrict accesses (reads and/or writes) to assets in a system from untrusted agents. However, implemented access controls lack required granularity, which renders the control policy too broad because it allows accesses from unauthorized agents to the security-sensitive assets.\n\nExtended Description\n\nIntegrated circuits and hardware engines can expose accesses to assets (device configuration, keys, etc.) to trusted firmware or a software module (commonly set by BIOS/bootloader). This access is typically access-controlled. Upon a power reset, the hardware or system usually starts with default values in registers, and the trusted firmware (Boot firmware) configures the necessary access-control protection. A common weakness that can exist in such protection schemes is that access controls or policies are not granular enough. This condition allows agents beyond trusted agents to access assets and could lead to a loss of functionality or the ability to set up the device securely. This further results in security risks from leaked, sensitive, key material to modification of device configuration.\n\nCommon Consequences\n\n- Scope: Confidentiality, Integrity, Availability, Access Control. Impact: Modify Memory, Read Memory, Execute Unauthorized Code or Commands, Gain Privileges or Assume Identity, Bypass Protection Mechanism, Other.\n\nPotential Mitigations\n\n1. Phase: Architecture and Design, Implementation, Testing. Access-control-policy protections must be reviewed for design inconsistency and common weaknesses. Access-control-policy definition and programming flow must be tested in pre-silicon, post-silicon testing.",
+                "markdown": "## Description\n\nThe product implements access controls via a policy or other feature with the intention to disable or restrict accesses (reads and/or writes) to assets in a system from untrusted agents. However, implemented access controls lack required granularity, which renders the control policy too broad because it allows accesses from unauthorized agents to the security-sensitive assets.\n\n## Extended Description\n\nIntegrated circuits and hardware engines can expose accesses to assets (device configuration, keys, etc.) to trusted firmware or a software module (commonly set by BIOS/bootloader). This access is typically access-controlled. Upon a power reset, the hardware or system usually starts with default values in registers, and the trusted firmware (Boot firmware) configures the necessary access-control protection. A common weakness that can exist in such protection schemes is that access controls or policies are not granular enough. This condition allows agents beyond trusted agents to access assets and could lead to a loss of functionality or the ability to set up the device securely. This further results in security risks from leaked, sensitive, key material to modification of device configuration.\n\n## Common Consequences\n\n- **Scope**: Confidentiality, Integrity, Availability, Access Control. **Impact**: Modify Memory, Read Memory, Execute Unauthorized Code or Commands, Gain Privileges or Assume Identity, Bypass Protection Mechanism, Other.\n\n## Potential Mitigations\n\n1. *Phase: Architecture and Design, Implementation, Testing*. Access-control-policy protections must be reviewed for design inconsistency and common weaknesses. Access-control-policy definition and programming flow must be tested in pre-silicon, post-silicon testing."
+              },
+              "shortDescription": {
+                "text": "The product implements access controls via a policy or other feature with the intention to disable or restrict accesses (reads and/or writes) to assets in a system from untrusted agents."
+              },
+              "helpUri": "https://cwe.mitre.org/data/definitions/1220.html",
+              "properties": {
+                "security-severity": "5.0"
+              }
+            },
+            {
+              "id": "NOVEL-prompt-injection-via-system-message",
+              "properties": {
+                "security-severity": "5.0"
+              },
+              "name": "PromptInjectionViaSystemMessage",
+              "shortDescription": {
+                "text": "Untrusted content reaches a system-role prompt."
+              },
+              "fullDescription": {
+                "text": "Untrusted content is concatenated into a system-role prompt at runtime, letting an attacker override tool-use policy or exfiltrate context. No CWE entry fits, so the finding is emitted under the NOVEL- escape hatch. Treat the model boundary as a trust boundary: keep untrusted content out of system-role messages and constrain tool use with out-of-band policy."
+              },
+              "help": {
+                "text": "Separate untrusted input from system-role instructions; never interpolate request data into the system prompt. Enforce tool-use authorization independently of model output."
+              },
+              "helpUri": "https://cwesamplerscanner.example.com/rules/PromptInjectionViaSystemMessage"
+            }
+          ],
+          "notifications": [
+            {
+              "id": "NOTIF0001",
+              "name": "AnalyzeComplete",
+              "shortDescription": {
+                "text": "Analysis run completed."
+              },
+              "fullDescription": {
+                "text": "Emitted when the scanner finishes analyzing its inputs. Carries the count of findings reported."
+              },
+              "help": {
+                "text": "Informational notification raised once per run when analysis completes successfully. No action is required."
+              },
+              "helpUri": "https://cwesamplerscanner.example.com/notifications/AnalyzeComplete",
+              "defaultConfiguration": {
+                "level": "note"
+              }
+            }
+          ],
+          "fullName": "CWE Sampler Scanner"
+        }
+      },
+      "invocations": [
+        {
+          "commandLine": "cwe-sampler-scanner analyze ./SampleCode.cs",
+          "arguments": [
+            "analyze",
+            "./SampleCode.cs"
+          ],
+          "endTimeUtc": "2024-01-01T00:00:00Z",
+          "toolExecutionNotifications": [
+            {
+              "message": {
+                "text": "Analyzed 7 findings across 1 file.",
+                "markdown": "Analyzed **7** findings across **1** file."
+              },
+              "level": "note",
+              "timeUtc": "2024-01-01T00:00:00Z",
+              "descriptor": {
+                "id": "NOTIF0001",
+                "index": 0
+              }
+            }
+          ],
+          "executionSuccessful": true,
+          "workingDirectory": {
+            "uri": "src/Sarif/Taxonomies/",
+            "uriBaseId": "SRCROOT"
+          }
+        }
+      ],
+      "versionControlProvenance": [
+        {
+          "repositoryUri": "https://dev.azure.com/example-org/example-project/_git/sarif-sdk",
+          "revisionId": "cafebabecafebabecafebabecafebabecafebabe",
+          "branch": "refs/heads/main",
+          "mappedTo": {
+            "uriBaseId": "SRCROOT"
+          }
+        }
+      ],
+      "originalUriBaseIds": {
+        "SRCROOT": {
+          "uri": "https://dev.azure.com/example-org/example-project/_git/sarif-sdk/",
+          "description": {
+            "text": "Source root mapped to [sarif-sdk@cafebab](https://dev.azure.com/example-org/example-project/_git/sarif-sdk?version=GCcafebabecafebabecafebabecafebabecafebabe)."
+          }
+        }
+      },
+      "artifacts": [
+        {
+          "location": {
+            "uri": "src/Sarif/Taxonomies/SampleCode.cs",
+            "uriBaseId": "SRCROOT"
+          },
+          "contents": {
+            "text": "// Copyright (c) Microsoft. All rights reserved.\n// Licensed under the MIT license. See LICENSE file in the project root for full license information.\n\n// SampleCode.cs - a stable target for SARIF taxonomy samples in this directory.\n// The contents are deliberately inert; the file exists to give sample findings\n// a real on-disk file + region to highlight. When a viewer navigates to a\n// SARIF result emitted by one of the *GenerateSample.ps1 scripts in this\n// folder, the region selects the placeholder comment that describes which\n// taxonomy entry (or NOVEL escape hatch) the sample was demonstrating.\n// There are no actual defects in this file for scanners to flag.\n\nnamespace Microsoft.CodeAnalysis.Sarif.Taxonomies.SampleCode\n{\n    public static class Placeholders\n    {\n        // Placeholder region for CWE-79 sub-id 'unescaped-view-input': bare\n        // template interpolation of a user value.\n        public static readonly string Cwe79UnescapedViewInput = \"placeholder\";\n\n        // Placeholder region for CWE-89 sub-id 'string-concat-query': SQL\n        // built by concatenating an untrusted value.\n        public static readonly string Cwe89StringConcatQuery = \"placeholder\";\n\n        // Placeholder region for CWE-22 sub-id 'untrusted-path-no-canon':\n        // Path opened from untrusted input without canonicalization.\n        public static readonly string Cwe22UntrustedPathNoCanon = \"placeholder\";\n\n        // Placeholder region for CWE-798 sub-id 'embedded-credential':\n        // Production secret baked into source code.\n        public static readonly string Cwe798EmbeddedCredential = \"placeholder\";\n\n        // Placeholder region for CWE-1220 sub-id 'missing-tenant-scope':\n        // AuthZ check ignores the caller's tenant context.\n        public static readonly string Cwe1220MissingTenantScope = \"placeholder\";\n\n        // Placeholder region for CWE-79 sub-id 'dom-xss-via-sanitizer-bypass':\n        // demonstrates that two sub-ids can share the same base descriptor\n        // (CWE-79) after replay.\n        public static readonly string Cwe79DomXssBypass = \"placeholder\";\n\n        // Placeholder region for a NOVEL- escape-hatch finding:\n        // 'NOVEL-prompt-injection-via-system-message'. Demonstrates the\n        // shape used when no taxonomy entry fits — flat, no slash.\n        public static readonly string NovelPromptInjection = \"placeholder\";\n    }\n}\n\n"
+          },
+          "hashes": {
+            "sha-256": "90B63D2A8FCC56D84B0E991430A5C40FEA8636E75122C2E0844B526712E12CC1"
+          }
+        }
+      ],
+      "results": [
+        {
+          "ruleId": "CWE-79/unescaped-view-input",
+          "ruleIndex": 0,
+          "message": {
+            "text": "Possible XSS via unescaped user input in view template.",
+            "markdown": "**CWE-79/unescaped-view-input** — Possible XSS via unescaped user input in view template.\n\nUntrusted request data flows directly into a server-rendered HTML response without per-context escaping. Escape on output via the templating engine's context-aware helper."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/Sarif/Taxonomies/SampleCode.cs",
+                  "uriBaseId": "SRCROOT",
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 18,
+                  "startColumn": 9,
+                  "endLine": 18,
+                  "endColumn": 79,
+                  "charOffset": 918,
+                  "charLength": 70,
+                  "snippet": {
+                    "text": "public static readonly string Cwe79UnescapedViewInput = \"placeholder\";"
+                  }
+                },
+                "contextRegion": {
+                  "startLine": 17,
+                  "startColumn": 1,
+                  "endLine": 19,
+                  "endColumn": 1,
+                  "charOffset": 859,
+                  "charLength": 130,
+                  "snippet": {
+                    "text": "        // template interpolation of a user value.\n        public static readonly string Cwe79UnescapedViewInput = \"placeholder\";\n"
+                  }
+                }
+              }
+            }
+          ],
+          "rank": 60.0,
+          "properties": {
+            "ai/exploitability": "theoretical",
+            "ai/attackerPosition": "unauthenticated-remote"
+          }
+        },
+        {
+          "ruleId": "CWE-89/string-concat-query",
+          "ruleIndex": 1,
+          "level": "error",
+          "message": {
+            "text": "SQL query built via string concatenation; parameterize.",
+            "markdown": "**CWE-89/string-concat-query** — SQL query built via string concatenation; parameterize.\n\nUser-controlled input is concatenated into a SQL statement. Use a parameterized query (`SqlCommand` + `Parameters.AddWithValue`) so the input is sent out of band."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/Sarif/Taxonomies/SampleCode.cs",
+                  "uriBaseId": "SRCROOT",
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 22,
+                  "startColumn": 9,
+                  "endLine": 22,
+                  "endColumn": 78,
+                  "charOffset": 1127,
+                  "charLength": 69,
+                  "snippet": {
+                    "text": "public static readonly string Cwe89StringConcatQuery = \"placeholder\";"
+                  }
+                },
+                "contextRegion": {
+                  "startLine": 21,
+                  "startColumn": 1,
+                  "endLine": 23,
+                  "endColumn": 1,
+                  "charOffset": 1065,
+                  "charLength": 132,
+                  "snippet": {
+                    "text": "        // built by concatenating an untrusted value.\n        public static readonly string Cwe89StringConcatQuery = \"placeholder\";\n"
+                  }
+                }
+              }
+            }
+          ],
+          "rank": 90.0,
+          "properties": {
+            "ai/exploitability": "demonstrated",
+            "ai/attackerPosition": "unauthenticated-remote"
+          }
+        },
+        {
+          "ruleId": "CWE-22/untrusted-path-no-canon",
+          "ruleIndex": 2,
+          "level": "error",
+          "message": {
+            "text": "Path constructed from untrusted input without canonicalization.",
+            "markdown": "**CWE-22/untrusted-path-no-canon** — Path constructed from untrusted input without canonicalization.\n\nUse `Path.GetFullPath` to canonicalize the candidate path and reject any result that escapes the allow-listed root directory."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/Sarif/Taxonomies/SampleCode.cs",
+                  "uriBaseId": "SRCROOT",
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 26,
+                  "startColumn": 9,
+                  "endLine": 26,
+                  "endColumn": 81,
+                  "charOffset": 1351,
+                  "charLength": 72,
+                  "snippet": {
+                    "text": "public static readonly string Cwe22UntrustedPathNoCanon = \"placeholder\";"
+                  }
+                },
+                "contextRegion": {
+                  "startLine": 25,
+                  "startColumn": 1,
+                  "endLine": 27,
+                  "endColumn": 1,
+                  "charOffset": 1273,
+                  "charLength": 151,
+                  "snippet": {
+                    "text": "        // Path opened from untrusted input without canonicalization.\n        public static readonly string Cwe22UntrustedPathNoCanon = \"placeholder\";\n"
+                  }
+                }
+              }
+            }
+          ],
+          "rank": 85.0,
+          "properties": {
+            "ai/exploitability": "poc",
+            "ai/attackerPosition": "authenticated-remote"
+          }
+        },
+        {
+          "ruleId": "CWE-798/embedded-credential",
+          "ruleIndex": 3,
+          "level": "error",
+          "message": {
+            "text": "Hard-coded credential in production code path.",
+            "markdown": "**CWE-798/embedded-credential** — Hard-coded credential in production code path.\n\nReplace the embedded literal with a managed-identity acquisition (or Key Vault retrieval) and rotate the leaked credential immediately."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/Sarif/Taxonomies/SampleCode.cs",
+                  "uriBaseId": "SRCROOT",
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 30,
+                  "startColumn": 9,
+                  "endLine": 30,
+                  "endColumn": 80,
+                  "charOffset": 1558,
+                  "charLength": 71,
+                  "snippet": {
+                    "text": "public static readonly string Cwe798EmbeddedCredential = \"placeholder\";"
+                  }
+                },
+                "contextRegion": {
+                  "startLine": 29,
+                  "startColumn": 1,
+                  "endLine": 31,
+                  "endColumn": 1,
+                  "charOffset": 1497,
+                  "charLength": 133,
+                  "snippet": {
+                    "text": "        // Production secret baked into source code.\n        public static readonly string Cwe798EmbeddedCredential = \"placeholder\";\n"
+                  }
+                }
+              }
+            }
+          ],
+          "rank": 95.0,
+          "properties": {
+            "ai/exploitability": "demonstrated",
+            "ai/attackerPosition": "source-disclosure"
+          }
+        },
+        {
+          "ruleId": "CWE-1220/missing-tenant-scope",
+          "ruleIndex": 4,
+          "message": {
+            "text": "Authorization check missing tenant-scoped granularity.",
+            "markdown": "**CWE-1220/missing-tenant-scope** — Authorization check missing tenant-scoped granularity.\n\nPer-resource authorization MUST include the caller's tenant in the policy decision; cross-tenant data leakage is otherwise possible."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/Sarif/Taxonomies/SampleCode.cs",
+                  "uriBaseId": "SRCROOT",
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 34,
+                  "startColumn": 9,
+                  "endLine": 34,
+                  "endColumn": 81,
+                  "charOffset": 1773,
+                  "charLength": 72,
+                  "snippet": {
+                    "text": "public static readonly string Cwe1220MissingTenantScope = \"placeholder\";"
+                  }
+                },
+                "contextRegion": {
+                  "startLine": 33,
+                  "startColumn": 1,
+                  "endLine": 35,
+                  "endColumn": 1,
+                  "charOffset": 1705,
+                  "charLength": 141,
+                  "snippet": {
+                    "text": "        // AuthZ check ignores the caller's tenant context.\n        public static readonly string Cwe1220MissingTenantScope = \"placeholder\";\n"
+                  }
+                }
+              }
+            }
+          ],
+          "rank": 55.0,
+          "properties": {
+            "ai/exploitability": "theoretical",
+            "ai/attackerPosition": "authenticated-remote"
+          }
+        },
+        {
+          "ruleId": "CWE-79/dom-xss-via-sanitizer-bypass",
+          "ruleIndex": 0,
+          "level": "error",
+          "message": {
+            "text": "DOM XSS: untrusted value reaches innerHTML after a sanitizer that does not escape the current context.",
+            "markdown": "**CWE-79/dom-xss-via-sanitizer-bypass** — DOM XSS: untrusted value reaches innerHTML after a sanitizer that does not escape the current context.\n\nSecond sub-id under CWE-79; shares the base descriptor with the first finding. The DOM sink (`innerHTML`) requires HTML-context escaping; URL- or attribute-context escaping is insufficient."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/Sarif/Taxonomies/SampleCode.cs",
+                  "uriBaseId": "SRCROOT",
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 39,
+                  "startColumn": 9,
+                  "endLine": 39,
+                  "endColumn": 73,
+                  "charOffset": 2045,
+                  "charLength": 64,
+                  "snippet": {
+                    "text": "public static readonly string Cwe79DomXssBypass = \"placeholder\";"
+                  }
+                },
+                "contextRegion": {
+                  "startLine": 38,
+                  "startColumn": 1,
+                  "endLine": 40,
+                  "endColumn": 1,
+                  "charOffset": 2003,
+                  "charLength": 107,
+                  "snippet": {
+                    "text": "        // (CWE-79) after replay.\n        public static readonly string Cwe79DomXssBypass = \"placeholder\";\n"
+                  }
+                }
+              }
+            }
+          ],
+          "rank": 80.0,
+          "properties": {
+            "ai/exploitability": "poc",
+            "ai/attackerPosition": "unauthenticated-remote"
+          }
+        },
+        {
+          "ruleId": "NOVEL-prompt-injection-via-system-message",
+          "ruleIndex": 5,
+          "level": "error",
+          "message": {
+            "text": "Untrusted content reaches a system-role prompt at runtime.",
+            "markdown": "**NOVEL-prompt-injection-via-system-message** — Untrusted content reaches a system-role prompt at runtime.\n\nUntrusted content is concatenated into a system-role prompt at runtime, letting an attacker override tool-use policy. No CWE entry fits — emitted under the NOVEL- escape hatch."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/Sarif/Taxonomies/SampleCode.cs",
+                  "uriBaseId": "SRCROOT",
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 44,
+                  "startColumn": 9,
+                  "endLine": 44,
+                  "endColumn": 76,
+                  "charOffset": 2325,
+                  "charLength": 67,
+                  "snippet": {
+                    "text": "public static readonly string NovelPromptInjection = \"placeholder\";"
+                  }
+                },
+                "contextRegion": {
+                  "startLine": 43,
+                  "startColumn": 1,
+                  "endLine": 45,
+                  "endColumn": 6,
+                  "charOffset": 2249,
+                  "charLength": 149,
+                  "snippet": {
+                    "text": "        // shape used when no taxonomy entry fits — flat, no slash.\n        public static readonly string NovelPromptInjection = \"placeholder\";\n    }"
+                  }
+                }
+              }
+            }
+          ],
+          "rank": 70.0,
+          "properties": {
+            "ai/exploitability": "demonstrated",
+            "ai/attackerPosition": "unauthenticated-remote"
+          }
+        }
+      ],
+      "automationDetails": {
+        "id": "azuredevops/pipeline/build/example-org/00000000-0000-0000-0000-000000000001/1234/00000000-0000-0000-0000-000000000002/refs/heads/main/98765",
+        "guid": "a7ad9ab8-1234-5678-9abc-def012345678",
+        "correlationGuid": "660f3001-34a8-46c5-8ad5-14b9682470ba",
+        "properties": {
+          "azuredevops/pipeline/build/buildDefinitionId": "1234",
+          "azuredevops/pipeline/build/buildDefinitionName": "CweSamplerScanner CI",
+          "azuredevops/pipeline/build/phaseId": "00000000-0000-0000-0000-000000000002",
+          "azuredevops/pipeline/build/phaseName": "Build"
+        }
+      },
+      "columnKind": "utf16CodeUnits",
+      "properties": {
+        "ai/origin": "generated",
+        "ai/handoff": "Analysis complete. 7 findings reported (5 error, 2 warning). No tool errors; no further passes recommended."
+      }
+    }
+  ]
+}

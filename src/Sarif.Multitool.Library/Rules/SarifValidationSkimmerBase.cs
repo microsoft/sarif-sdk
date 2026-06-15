@@ -17,8 +17,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 {
     public abstract class SarifValidationSkimmerBase : Skimmer<SarifValidationContext>
     {
-        // OASIS defines this URI to always point to the latest revision (draft or approved) of the specified version
-        // of the SARIF specification.
+        // OASIS defines this URI to point to the latest revision of the specified SARIF version.
         private static readonly string SarifSpecUri =
             $"http://docs.oasis-open.org/sarif/sarif/v{VersionConstants.StableSarifVersion}/sarif-v{VersionConstants.StableSarifVersion}.html";
 
@@ -63,7 +62,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 
             int diff = 1 + (string.IsNullOrWhiteSpace(this.ServiceName) ? 0 : 1);
 
-            // All messages start with "{jPointer}: ...". Prepend the jPointer to the args.
             string[] argsWithPointer = new string[args.Length + diff];
             Array.Copy(args, 0, argsWithPointer, diff, args.Length);
             argsWithPointer[0] = JsonPointerToJavaScript(jPointer);
@@ -298,32 +296,17 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         }
 
         /// <summary>
-        /// The well-known run property whose presence (with any non-null/non-empty
-        /// value) declares that the containing run was produced by an AI emitter.
-        /// AI-emitted SARIF is stochastic by construction — message text is rendered
-        /// per-result rather than authored against a table of <c>messageStrings</c>
-        /// templates, and rule ids ride the <c>NOVEL-</c> / <c>BASE/sub-id</c>
-        /// convention rather than a fixed tool prefix. Style-class validation rules
-        /// (e.g. SARIF2002, SARIF2009, SARIF2014, SARIF2015) encode human-authoring
-        /// guidance whose preconditions don't hold for AI output, so they suppress
-        /// themselves when this marker is set.
-        ///
-        /// Correctness-class rules (snippets, hashes, provenance, relative URIs, etc.)
-        /// must NOT consult this marker — those checks apply uniformly to AI content.
+        /// Run property whose non-empty value declares AI-origin SARIF. Style-class validation
+        /// rules may suppress human-authoring guidance when this marker is set; correctness-class
+        /// rules (snippets, hashes, provenance, relative URIs, etc.) must not.
         /// </summary>
         protected const string AIOriginPropertyName = "ai/origin";
 
         /// <summary>
-        /// Returns true when <paramref name="run"/> declares AI provenance via the
-        /// <c>ai/origin</c> run property. Any non-null/non-empty value counts; the
-        /// vocabulary (<c>generated</c>, <c>annotated</c>, <c>synthesized</c>, …)
-        /// is open by design so AI tooling can self-describe at any granularity.
+        /// Returns true when <paramref name="run"/> declares AI provenance via a non-empty
+        /// <c>ai/origin</c> run property.
         /// </summary>
-        /// <exception cref="ArgumentNullException">
-        /// <paramref name="run"/> is null. Callers reading AI-origin during rule
-        /// dispatch should already hold a non-null run; the strict contract makes
-        /// upstream lifecycle bugs loud rather than masking them as "not AI".
-        /// </exception>
+        /// <exception cref="ArgumentNullException"><paramref name="run"/> is null.</exception>
         internal static bool IsAIOriginRun(Run run)
         {
             if (run == null) { throw new ArgumentNullException(nameof(run)); }
@@ -333,10 +316,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         }
 
         /// <summary>
-        /// Instance convenience: reports whether the run currently being visited
-        /// declares AI provenance. Returns false when there is no current run
-        /// scope (e.g. an <c>Analyze(SarifLog)</c> dispatch); otherwise defers to
-        /// <see cref="IsAIOriginRun(Run)"/>.
+        /// Reports whether the run currently being visited declares AI provenance.
         /// </summary>
         protected bool IsAIOriginRun()
         {

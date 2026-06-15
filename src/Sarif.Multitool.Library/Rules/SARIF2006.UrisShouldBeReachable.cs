@@ -48,7 +48,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             ".example.com", ".example.net", ".example.org",
         };
 
-        private static bool IsReservedDocumentationHost(Uri uri)
+        // Azure DevOps organizations are documentation placeholders by the same convention RFC 2606
+        // applies to hostnames: a dev.azure.com/<org> whose org names a fictitious account. These
+        // are exact names, not a prefix, so a real org incidentally starting with "example-" is not
+        // exempted.
+        private static readonly string[] s_reservedAzureDevOpsDocOrgs = new[] { "example", "example-org" };
+
+        internal static bool IsHttpScheme(Uri uri)
+            => uri.Scheme == Uri.UriSchemeHttp || uri.Scheme == Uri.UriSchemeHttps;
+
+        internal static bool IsReservedDocumentationHost(Uri uri)
         {
             if (!uri.IsAbsoluteUri || string.IsNullOrEmpty(uri.Host)) { return false; }
 
@@ -63,6 +72,27 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             foreach (string suffix in s_reservedHostSuffixes)
             {
                 if (host.EndsWith(suffix, StringComparison.Ordinal)) { return true; }
+            }
+
+            if (host == "dev.azure.com" && IsReservedAzureDevOpsDocOrg(uri))
+            {
+                return true;
+            }
+
+            return false;
+        }
+
+        private static bool IsReservedAzureDevOpsDocOrg(Uri uri)
+        {
+            // dev.azure.com URLs take the form /<org>/<project>/_git/<repo>; the first path segment
+            // is the organization.
+            string[] segments = uri.AbsolutePath.Split(new[] { '/' }, StringSplitOptions.RemoveEmptyEntries);
+            if (segments.Length == 0) { return false; }
+
+            string org = segments[0].ToLowerInvariant();
+            foreach (string docOrg in s_reservedAzureDevOpsDocOrgs)
+            {
+                if (org == docOrg) { return true; }
             }
 
             return false;
@@ -121,6 +151,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                 // Ok, it's a well-formed absolute URI. If it's not reachable, _now_ we can report it.
                 var uri = new Uri(uriString, UriKind.Absolute);
 
+                // This rule asks whether a URI is reachable via an HTTP GET, a question that is
+                // only meaningful for HTTP and HTTPS URIs. Other schemes (file, ftp, mailto, or
+                // custom registry-based schemes) are out of scope, and passing them to
+                // HttpClient.GetAsync would throw NotSupportedException and abort the run.
+                if (!IsHttpScheme(uri))
+                {
+                    return;
+                }
+
                 // Skip RFC 2606/6761 reserved documentation/testing hosts entirely — they are
                 // fictitious by definition, so neither "reachable" nor "unreachable" is meaningful.
                 if (IsReservedDocumentationHost(uri))
@@ -164,6 +203,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             catch (System.Threading.Tasks.TaskCanceledException)
             {
                 // Timeout.
+                reachable = false;
+            }
+            catch (NotSupportedException)
+            {
+                // The URI scheme is not supported for an HTTP GET. Callers filter non-HTTP(S)
+                // schemes before reaching this point, so this guards an injected IHttpClient
+                // that probes a scheme HttpClient cannot service rather than aborting the run.
                 reachable = false;
             }
 

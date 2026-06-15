@@ -27,6 +27,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
         private int _ruleIndex = -1;
         private readonly IEnumerable<string> _insertProperties = insertProperties ?? new List<string>();
+        private readonly Dictionary<string, Dictionary<int, string>> _rollingHashesByPath = new Dictionary<string, Dictionary<int, string>>();
 
         private const string Name = nameof(Name);
         private const string Email = nameof(Email);
@@ -51,6 +52,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             _run = node;
             _gitHelper = new GitHelper(_fileSystem, processRunner);
             _repoRootUris = new HashSet<Uri>();
+            _rollingHashesByPath.Clear();
 
             if (originalUriBaseIds != null)
             {
@@ -101,7 +103,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             {
                 Uri resolvedUri = GetResolvedArtifactLocationUri(node.ArtifactLocation);
 
-                Region expandedRegion = FileRegionsCache.PopulateTextRegionProperties(node.Region, resolvedUri, populateSnippet: insertRegionSnippets);
+                Region expandedRegion = FileRegionsCache.PopulateTextRegionProperties(node.Region, resolvedUri, populateSnippet: insertRegionSnippets, fileText: null, overwriteExistingData: overwriteExistingData);
 
                 ArtifactContent originalSnippet = node.Region.Snippet;
 
@@ -242,7 +244,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     if (contextRegionSnippet == null)
                     {
                         Region expandedRegion =
-                            FileRegionsCache.PopulateTextRegionProperties(physicalLocation.Region, resolvedUri, false);
+                            FileRegionsCache.PopulateTextRegionProperties(physicalLocation.Region, resolvedUri, populateSnippet: false, fileText: null, overwriteExistingData: dataToInsert.HasFlag(OptionallyEmittedData.OverwriteExistingData));
                         contextRegionSnippet = FileRegionsCache.ConstructMultilineContextSnippet(expandedRegion, resolvedUri)?.Snippet;
                     }
 
@@ -253,6 +255,38 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                         node.PartialFingerprints ??= new Dictionary<string, string>();
 
                         SarifUtilities.AddOrUpdateDictionaryEntry(node.PartialFingerprints, ContextRegionHash, contextRegionHash);
+                    }
+                }
+            }
+
+            if (dataToInsert.HasFlag(OptionallyEmittedData.RollingHashPartialFingerprints) &&
+                (node.PartialFingerprints == null ||
+                 !node.PartialFingerprints.ContainsKey(PrimaryLocationLineHash) ||
+                 dataToInsert.HasFlag(OptionallyEmittedData.OverwriteExistingData)))
+            {
+                Location primaryLocation = node.Locations?.FirstOrDefault();
+                PhysicalLocation physicalLocation = primaryLocation?.PhysicalLocation;
+
+                if (physicalLocation?.ArtifactLocation != null)
+                {
+                    // The fingerprint anchors to the primary location's startLine. A result with
+                    // no region line pertains to the whole file and is fingerprinted from line 1,
+                    // matching the reference implementation (github/codeql-action fingerprints.ts).
+                    int startLine = physicalLocation.Region?.StartLine ?? 0;
+                    if (startLine <= 0) { startLine = 1; }
+
+                    Uri resolvedUri = GetResolvedArtifactLocationUri(physicalLocation.ArtifactLocation);
+
+                    if (resolvedUri != null && resolvedUri.IsAbsoluteUri)
+                    {
+                        Dictionary<int, string> lineHashes = GetRollingHashes(resolvedUri);
+
+                        if (lineHashes != null && lineHashes.TryGetValue(startLine, out string lineHash))
+                        {
+                            node.PartialFingerprints ??= new Dictionary<string, string>();
+
+                            SarifUtilities.AddOrUpdateDictionaryEntry(node.PartialFingerprints, PrimaryLocationLineHash, lineHash);
+                        }
                     }
                 }
             }
@@ -417,8 +451,29 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             return resolvedUri;
         }
 
+        // Computes the CodeQL rolling line hashes for the file at the supplied URI, memoizing the
+        // result per file so a file shared by many results is read and hashed only once per run.
+        private Dictionary<int, string> GetRollingHashes(Uri resolvedUri)
+        {
+            string path = resolvedUri.GetFilePath();
+
+            if (!_rollingHashesByPath.TryGetValue(path, out Dictionary<int, string> lineHashes))
+            {
+                string fileText = FileRegionsCache?.GetText(resolvedUri);
+                lineHashes = fileText != null ? HashUtilities.RollingHash(fileText) : null;
+                _rollingHashesByPath[path] = lineHashes;
+            }
+
+            return lineHashes;
+        }
+
         private const string RepoRootUriBaseIdStem = "REPO_ROOT";
         public const string ContextRegionHash = "contextRegionHash/v1";
+
+        // The partial fingerprint key that GitHub code scanning (GHAS) and GitHub Advanced Security
+        // for Azure DevOps (GHAzDO) consume for result matching. The name is fixed by those
+        // consumers and must not carry a version suffix.
+        public const string PrimaryLocationLineHash = "primaryLocationLineHash";
 
         // When there is only one repo root (the usual case), the uriBaseId is "REPO_ROOT" (unless
         // that symbol is already in use in originalUriBaseIds. The second and subsequent uriBaseIds
