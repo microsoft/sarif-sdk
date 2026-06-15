@@ -20,9 +20,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
     /// caller-supplied SARIF <c>Run</c> JSON document (file via <c>--input</c> or stdin).
     /// </summary>
     /// <remarks>
-    /// <para>The JSON-payload contract matches the other emit verbs (<c>add-result</c>,
-    /// <c>add-invocation</c>, <c>add-notification-reporting-descriptor</c>,
-    /// <c>add-rule-reporting-descriptor</c>). The supplied <c>Run</c> may
+    /// <para>The JSON-payload contract matches the other emit verbs (<c>add-results</c>,
+    /// <c>add-invocations</c>, <c>add-notification-reporting-descriptors</c>,
+    /// <c>add-rule-reporting-descriptors</c>). The supplied <c>Run</c> may
     /// carry any subset of the partial-Run shape the replayer accepts (<c>tool</c>,
     /// <c>language</c>, <c>columnKind</c>, <c>defaultEncoding</c>, <c>defaultSourceLanguage</c>,
     /// <c>originalUriBaseIds</c>, <c>versionControlProvenance</c>, <c>automationDetails</c>,
@@ -226,7 +226,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         }
 
         // results and invocations on the run header are dropped when the event log is replayed
-        // (SarifEventReplayer); they belong in their own add-result / add-invocation events. Warn
+        // (SarifEventReplayer); they belong in their own add-results / add-invocations events. Warn
         // rather than reject so a producer that ships a fuller Run object is told what is lost.
         private static void WarnOnIgnoredHeaderData(JObject runObject)
         {
@@ -246,7 +246,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 Console.Error.WriteLine(
                     string.Format(
                         CultureInfo.CurrentCulture,
-                        "warning: the run header carries {0}; this data is ignored at replay (results belong in add-result, invocations in add-invocation) and will not appear in the finalized log.",
+                        "warning: the run header carries {0}; this data is ignored at replay (results belong in add-results, invocations in add-invocations) and will not appear in the finalized log.",
                         string.Join(", ", dropped)));
             }
         }

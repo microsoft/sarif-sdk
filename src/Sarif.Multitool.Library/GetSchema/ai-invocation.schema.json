@@ -2,7 +2,7 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://raw.githubusercontent.com/microsoft/sarif-sdk/main/src/Sarif.Multitool.Library/GetSchema/ai-invocation.schema.json",
   "title": "SARIF AI emit profile \u2014 invocation object",
-  "description": "Input contract for a fully-formed SARIF invocation an AI producer supplies to the add-invocation verb. An overlay on the canonical SARIF 2.1.0 invocation ($ref to the base shape, tightened for the AI profile). Notifications travel INLINE on toolExecutionNotifications/toolConfigurationNotifications and each must carry a producer-supplied timeUtc recording when the event occurred. executionSuccessful, commandLine, and workingDirectory are required; the verb auto-stamps endTimeUtc when omitted (so it is not required here) but never stamps notification timeUtc.",
+  "description": "Input contract for a fully-formed SARIF invocation an AI producer supplies to the add-invocations verb. An overlay on the canonical SARIF 2.1.0 invocation ($ref to the base shape, tightened for the AI profile). Notifications travel INLINE on toolExecutionNotifications/toolConfigurationNotifications and each must carry a producer-supplied timeUtc recording when the event occurred. executionSuccessful, commandLine, and workingDirectory are required; the verb auto-stamps endTimeUtc when omitted from a single (one-object) submission, but a batch (array) submission must supply endTimeUtc on every element; notification timeUtc is never stamped.",
   "type": "object",
   "allOf": [
     {

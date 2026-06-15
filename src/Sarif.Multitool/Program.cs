@@ -34,10 +34,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             var verbTypes = new List<Type>
             {
                 typeof(AbsoluteUriOptions),
-                typeof(AddInvocationOptions),
-                typeof(AddNotificationReportingDescriptorOptions),
-                typeof(AddResultOptions),
-                typeof(AddRuleReportingDescriptorOptions),
+                typeof(AddInvocationsOptions),
+                typeof(AddNotificationReportingDescriptorsOptions),
+                typeof(AddResultsOptions),
+                typeof(AddRuleReportingDescriptorsOptions),
 #if DEBUG
                 typeof(AnalyzeTestOptions),
 #endif
@@ -93,10 +93,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             return options switch
             {
                 AbsoluteUriOptions o => new AbsoluteUriCommand().Run(o),
-                AddInvocationOptions o => new AddInvocationCommand().Run(o),
-                AddNotificationReportingDescriptorOptions o => new AddNotificationReportingDescriptorCommand().Run(o),
-                AddResultOptions o => new AddResultCommand().Run(o),
-                AddRuleReportingDescriptorOptions o => new AddRuleReportingDescriptorCommand().Run(o),
+                AddInvocationsOptions o => new AddInvocationsCommand().Run(o),
+                AddNotificationReportingDescriptorsOptions o => new AddNotificationReportingDescriptorsCommand().Run(o),
+                AddResultsOptions o => new AddResultsCommand().Run(o),
+                AddRuleReportingDescriptorsOptions o => new AddRuleReportingDescriptorsCommand().Run(o),
 #if DEBUG
                 AnalyzeTestOptions o => new AnalyzeTestCommand().Run(o),
 #endif

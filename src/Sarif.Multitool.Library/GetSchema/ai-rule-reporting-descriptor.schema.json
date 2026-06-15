@@ -2,7 +2,7 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://raw.githubusercontent.com/microsoft/sarif-sdk/main/src/Sarif.Multitool.Library/GetSchema/ai-rule-reporting-descriptor.schema.json",
   "title": "SARIF AI emit profile \u2014 rule reporting descriptor object",
-  "description": "Input contract for a SARIF reportingDescriptor an AI producer supplies to the add-rule-reporting-descriptor verb, stored under run.tool.driver.rules[]. The id must match the NOVEL- escape-hatch grammar (NOVEL- followed by a lowercase-alphanumeric kebab sub-id, single hyphens, no slash, no leading/trailing/consecutive hyphen), the same grammar a result's NOVEL- ruleId satisfies, so the descriptor id matches the ruleId that references it. Taxonomy-mapped rule descriptors (e.g. CWE-89) come from the finalize-time taxonomy enricher, not this verb.",
+  "description": "Input contract for a SARIF reportingDescriptor an AI producer supplies to the add-rule-reporting-descriptors verb, stored under run.tool.driver.rules[]. The id must match the NOVEL- escape-hatch grammar (NOVEL- followed by a lowercase-alphanumeric kebab sub-id, single hyphens, no slash, no leading/trailing/consecutive hyphen), the same grammar a result's NOVEL- ruleId satisfies, so the descriptor id matches the ruleId that references it. Taxonomy-mapped rule descriptors (e.g. CWE-89) come from the finalize-time taxonomy enricher, not this verb.",
   "type": "object",
   "required": [
     "id"
