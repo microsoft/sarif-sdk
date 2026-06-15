@@ -46,7 +46,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             var results = new List<Result>();
             foreach (CisCatRule rule in log.Rules.Where(i => !i.IsPass()))
             {
-                results.Add(CreateResult(rule));
+                results.Add(CreateResult(rule, log.BenchmarkId));
             }
 
             PersistResults(output, results, run);
@@ -117,13 +117,29 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             return descriptor;
         }
 
-        internal Result CreateResult(CisCatRule rule)
+        internal Result CreateResult(CisCatRule rule, string benchmarkId)
         {
             //set the result metadata
             Result result = new Result
             {
                 RuleId = rule.RuleId,
                 Message = new Message { Text = rule.RuleTitle },
+            };
+
+            //associate the result with the assessed benchmark so consumers (e.g.
+            //GitHub code scanning) have a renderable artifact location
+            result.Locations = new List<Location>
+            {
+                new Location
+                {
+                    PhysicalLocation = new PhysicalLocation
+                    {
+                        ArtifactLocation = new ArtifactLocation
+                        {
+                            Uri = new Uri($"benchmark://{benchmarkId}", UriKind.RelativeOrAbsolute),
+                        },
+                    },
+                },
             };
 
             //set result kind, level and rank (Critical - Low risk rating)

@@ -80,7 +80,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             driver.Name = this.ToolName;
             driver.FullName = data.Report.Name;
-            driver.Version = data.Policy.Preferences.ServerPreference.Preferences.FirstOrDefault(i => i.Name.Equals("sc_version"))?.Value;
+
+            string serverVersion = data.Policy.Preferences.ServerPreference.Preferences.FirstOrDefault(i => i.Name.Equals("sc_version"))?.Value;
+            driver.Version = serverVersion;
+            if (!string.IsNullOrWhiteSpace(serverVersion))
+            {
+                driver.SemanticVersion = serverVersion;
+            }
+
             driver.InformationUri = new Uri("https://static.tenable.com/documentation/nessus_v2_file_format.pdf");
             driver.SetProperty("targetId", targetId);
             return driver;
@@ -92,6 +99,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             descriptor.Id = item.PluginId;
             descriptor.Name = item.PluginName;
+            descriptor.HelpUri = new Uri($"https://www.tenable.com/plugins/nessus/{item.PluginId}");
             descriptor.ShortDescription = new MultiformatMessageString()
             {
                 Text = item.Synopsis,
@@ -159,6 +167,22 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             result.SetProperty("protocol", item.Protocol);
             result.SetProperty("service", item.ServiceName);
             result.SetProperty("targetId", hostName);
+
+            //associate the result with the scanned host so consumers (e.g. GitHub
+            //code scanning) have a renderable artifact location
+            result.Locations = new List<Location>
+            {
+                new Location
+                {
+                    PhysicalLocation = new PhysicalLocation
+                    {
+                        ArtifactLocation = new ArtifactLocation
+                        {
+                            Uri = new Uri($"host://{hostName}", UriKind.RelativeOrAbsolute),
+                        },
+                    },
+                },
+            };
 
             //set solution if present
             if (!string.IsNullOrWhiteSpace(item.Solution) && !item.Solution.Equals("n/a"))

@@ -10,6 +10,10 @@
                     <value>10.0.0.1,10.0.0.2</value>
                 </preference>
                 <preference>
+                    <name>sc_version</name>
+                    <value>10.4.2</value>
+                </preference>
+                <preference>
                     <name>preference1</name>
                     <value>value1</value>
                 </preference>

@@ -10,6 +10,16 @@
           "message": {
             "text": "Rule id 2 title"
           },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "benchmark://cis.benchmark.id/",
+                  "index": 0
+                }
+              }
+            }
+          ],
           "fingerprints": {
             "0": "d23eea429d06cfe703ab69b8d0d0c1abd41fc9e26b4167575e3356733c97bf61"
           },
@@ -68,6 +78,13 @@
           }
         }
       },
+      "artifacts": [
+        {
+          "location": {
+            "uri": "benchmark://cis.benchmark.id/"
+          }
+        }
+      ],
       "columnKind": "utf16CodeUnits"
     }
   ]

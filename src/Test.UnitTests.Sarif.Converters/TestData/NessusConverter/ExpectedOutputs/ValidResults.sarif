@@ -7,6 +7,8 @@
         "driver": {
           "name": "Nessus",
           "fullName": "NessusReport",
+          "version": "10.4.2",
+          "semanticVersion": "10.4.2",
           "informationUri": "https://static.tenable.com/documentation/nessus_v2_file_format.pdf",
           "rules": [
             {
@@ -24,6 +26,7 @@
                 "text": "Synopsis test",
                 "markdown": "Synopsis test"
               },
+              "helpUri": "https://www.tenable.com/plugins/nessus/12345",
               "properties": {
                 "pluginFamily": "Family Name",
                 "pluginModificationDate": "2022/08/15",
@@ -48,6 +51,15 @@
           "message": {
             "text": "plugin output text"
           },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "host://10.0.0.1"
+                }
+              }
+            }
+          ],
           "fingerprints": {
             "0": "1e6bb36ff29ed6c40f06c82791515391820f7b546e700886adbd88b2c897279c"
           },
@@ -68,6 +80,8 @@
         "driver": {
           "name": "Nessus",
           "fullName": "NessusReport",
+          "version": "10.4.2",
+          "semanticVersion": "10.4.2",
           "informationUri": "https://static.tenable.com/documentation/nessus_v2_file_format.pdf",
           "rules": [
             {
@@ -85,6 +99,7 @@
                 "text": "Synopis text",
                 "markdown": "Synopis text"
               },
+              "helpUri": "https://www.tenable.com/plugins/nessus/12345",
               "properties": {
                 "pluginFamily": "Family Name",
                 "pluginModificationDate": "2022/08/15",
@@ -111,6 +126,15 @@
           "message": {
             "text": "plugin output"
           },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "host://10.0.0.2"
+                }
+              }
+            }
+          ],
           "fingerprints": {
             "0": "c630cd9cdc8784d7ecdbbbe2ae5b6e0e30609841d2df1cef336b5e646391d876"
           },
