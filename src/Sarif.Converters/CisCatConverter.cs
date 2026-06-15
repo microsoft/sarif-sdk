@@ -198,7 +198,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                     kind = ResultKind.Fail;
                     rank = RankConstants.Medium;
                     break;
-            };
+            }
         }
     }
 }
