@@ -15,9 +15,10 @@ namespace Microsoft.CodeAnalysis.Sarif
         private readonly ZipArchive archive;
         private ZipArchiveEntry entry;
         private readonly Uri uri;
-        private string contents;
-        private byte[] bytes;
         private byte[] rawBytes;
+        private string contents;
+        private bool isTextual;
+        private bool resolved;
 
         public ZipArchiveArtifact(Uri archiveUri,
                                   ZipArchive archive,
@@ -40,7 +41,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             get
             {
                 GetArtifactData();
-                return this.bytes != null;
+                return !this.isTextual;
             }
         }
 
@@ -73,48 +74,53 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         public string Contents
         {
-            get => GetArtifactData().text;
+            get
+            {
+                GetArtifactData();
+                return this.isTextual ? this.contents : null;
+            }
             set => throw new NotImplementedException();
         }
 
         public byte[] Bytes
         {
-            get => GetArtifactData().bytes;
+            get
+            {
+                GetArtifactData();
+                return this.isTextual ? null : this.rawBytes;
+            }
             set => throw new NotImplementedException();
         }
 
-        private (string text, byte[] bytes) GetArtifactData()
+        private void GetArtifactData()
         {
-            if (this.contents == null && this.bytes == null)
+            if (this.resolved)
             {
-                lock (this.archive)
-                {
-                    if (this.contents == null && this.bytes == null && this.entry != null)
-                    {
-                        const int PeekWindowBytes = 1024;
-
-                        byte[] raw = ReadAllBytes(this.entry);
-                        this.rawBytes = raw;
-
-                        int peekLength = Math.Min(raw.Length, PeekWindowBytes);
-                        bool isText = FileEncoding.IsTextualData(raw, 0, peekLength);
-
-                        if (isText)
-                        {
-                            using var reader = new StreamReader(new MemoryStream(raw, writable: false));
-                            this.contents = reader.ReadToEnd();
-                        }
-                        else
-                        {
-                            this.bytes = raw;
-                        }
-
-                        this.entry = null;
-                    }
-                }
+                return;
             }
 
-            return (this.contents, this.bytes);
+            lock (this.archive)
+            {
+                if (!this.resolved && this.entry != null)
+                {
+                    const int PeekWindowBytes = 1024;
+
+                    byte[] raw = ReadAllBytes(this.entry);
+                    this.rawBytes = raw;
+
+                    int peekLength = Math.Min(raw.Length, PeekWindowBytes);
+                    this.isTextual = FileEncoding.IsTextualData(raw, 0, peekLength);
+
+                    if (this.isTextual)
+                    {
+                        using var reader = new StreamReader(new MemoryStream(raw, writable: false));
+                        this.contents = reader.ReadToEnd();
+                    }
+
+                    this.entry = null;
+                    this.resolved = true;
+                }
+            }
         }
 
         private static byte[] ReadAllBytes(ZipArchiveEntry entry)
@@ -136,14 +142,9 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             get
             {
-                if (this.contents != null)
+                if (this.resolved)
                 {
-                    return this.contents.Length;
-                }
-
-                if (this.bytes != null)
-                {
-                    return this.bytes.Length;
+                    return this.isTextual ? this.contents.Length : this.rawBytes.Length;
                 }
 
                 lock (this.archive)
