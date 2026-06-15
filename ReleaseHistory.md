@@ -13,6 +13,9 @@ Each release entry below is prefixed with one of:
 
 Entries are terse by design: one line per change, present-tense behavior, complete but only essential data. No issue/PR archaeology or narrative — that history lives in the engineering system.
 
+## **v5.0.10** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/v5.0.10) | [Driver](https://www.nuget.org/packages/Sarif.Driver/v5.0.10) | [Converters](https://www.nuget.org/packages/Sarif.Converters/v5.0.10) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/v5.0.10) | [Multitool Library](https://www.nuget.org/packages/Sarif.Multitool.Library/v5.0.10)
+* BUG: `ZipArchiveArtifact.Stream` no longer races over the shared archive. Binary entries return an independent in-memory snapshot; textual entries throw `InvalidOperationException` directing callers to `Contents`. Behavior is now deterministic regardless of `Contents`/`Bytes` access order.
+
 ## **v5.0.9** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/v5.0.9) | [Driver](https://www.nuget.org/packages/Sarif.Driver/v5.0.9) | [Converters](https://www.nuget.org/packages/Sarif.Converters/v5.0.9) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/v5.0.9) | [Multitool Library](https://www.nuget.org/packages/Sarif.Multitool.Library/v5.0.9)
 * BUG: `SARIF1010.RuleIdMustBeConsistent` now compares `ruleId` and `rule.id` case-sensitively (`StringComparison.Ordinal`); per SARIF §3.27.5 they SHALL be equal, so ids that differ only by case (e.g. `TST0003` vs `tst0003`) are now correctly flagged as inconsistent.
 * BUG: `SARIF1010.RuleIdMustBeConsistent` no longer reports a present-but-whitespace `ruleId` (or `rule.id`) as absent; presence is decided by the property existing, not by a non-blank value, per SARIF §3.27.5 (content validity stays a separate concern).
