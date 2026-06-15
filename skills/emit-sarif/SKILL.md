@@ -120,11 +120,25 @@ The result JSON must include at minimum: `ruleId` (with sub-ID per AI1012, e.g. 
 
 **Batching.** `add-results` is polymorphic: pass a single result object or a JSON array of results. A batch is validated atomically — if any element is rejected, nothing is appended — and the verb reports `{ "appended": N, "rejected": [ { "index", "errorCode", "message" } ] }` on stdout, so you can correct the offending elements by index and retry idempotently.
 
+**Stream vs batch — the trade-off.** Both modes are first-class; choose by how you hold findings, not by volume (results are not necessarily high-cardinality):
+
+- *Stream one result per call* as each finding is produced. Simplest to author, and each finding stands alone — a malformed finding fails only its own call and never blocks the others — but you pay a process spawn per result.
+- *Batch an array* when you already hold several findings. One boundary crossing amortizes the spawn cost across the whole set. The cost you take on is atomicity: the batch is all-or-none, so a **single** invalid element — even the Nth — fails the **entire** submission and appends nothing. You don't get a partial write; you get per-index diagnostics (`{ "appended": 0, "rejected": [ { "index", "errorCode", "message" } ] }`), fix the flagged elements, and resubmit. Because nothing was appended, the resubmit cannot double-append the elements that were already valid.
+
+So the decision is spawn-cost-per-finding vs. blast-radius-of-one-bad-finding. Stream when findings are produced sparsely or their validity is uncertain (you'd rather a bad one not sink its neighbors); batch when you hold a vetted set and want to amortize the per-call spawn. Validation is identical per element either way — batching changes only the failure granularity, not the verdict.
+
 **Vocabulary discipline:** only the eight `ai/*` keys defined in the profile are valid. Do not invent additional `ai/*` keys; place tool-specific data under a tool-named namespace instead (e.g. `myscanner/confidence`).
 
 ### Step 3 — Append invocations (optional but recommended)
 
-Use `add-invocations` to record one or more `Invocation` objects (`startTimeUtc`, `endTimeUtc`, `executionSuccessful`, `exitCode`, `commandLine`, `arguments`, `workingDirectory`, `environmentVariables`, properties bag, …). The replayer appends invocations to `run.invocations[]` in event order. Like `add-results`, the verb accepts a single object or a JSON array and validates the batch atomically. A lone invocation object may omit `endTimeUtc` (the verb stamps receipt time, ≈ completion); a batched array must carry `endTimeUtc` on every element, since one write instant cannot stand in for many invocations assembled after the fact.
+Use `add-invocations` to record one or more `Invocation` objects (`startTimeUtc`, `endTimeUtc`, `executionSuccessful`, `exitCode`, `commandLine`, `arguments`, `workingDirectory`, `environmentVariables`, properties bag, …). The replayer appends invocations to `run.invocations[]` in event order. Like `add-results`, the verb accepts a single object or a JSON array and validates the batch atomically.
+
+**Stream vs batch — the trade-off.** Invocations differ from results in one consequential way: the `endTimeUtc` rule makes the two modes genuinely distinct, so the choice is not just spawn-cost bookkeeping.
+
+- *Stream one invocation per call*, at the moment it concludes. A lone invocation object may omit `endTimeUtc` — the verb stamps receipt time, which is ≈ coincident with the invocation's end when you write at conclusion. The producer carries **no** end-time bookkeeping, at the cost of one process spawn per invocation.
+- *Batch an array* of already-completed invocations in a single call. This amortizes the spawn cost, but you **must** supply `endTimeUtc` on every element yourself: one write instant cannot stand in for N invocations that ended at different times, so the verb rejects (by index) any batched element missing it.
+
+Rule of thumb: stream when invocations conclude sparsely and you'd rather we time-stamp them; batch when you've already accumulated several with their own end times recorded and want one boundary crossing.
 
 Notifications travel inline on the invocation payload. Place each in the invocation's `toolExecutionNotifications` (execution narrative) or `toolConfigurationNotifications` (configuration feedback) array — the array selects placement. Descriptor ids name the concern only (e.g. `DECISION`, `DATA-ACCESS-DENIED`) — no `AI/`, `EXEC/`, `CFG/`, or `<toolName>/` prefix. Every inline notification requires a producer-supplied `timeUtc`. See `docs/ai/generating-sarif.md § Execution Narrative & Configuration Feedback` for descriptor inventory and required shape.
 
