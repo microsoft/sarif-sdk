@@ -18,7 +18,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         private byte[] rawBytes;
         private string contents;
         private bool isTextual;
-        private bool resolved;
+        private volatile bool resolved;
 
         public ZipArchiveArtifact(Uri archiveUri,
                                   ZipArchive archive,
@@ -51,9 +51,14 @@ namespace Microsoft.CodeAnalysis.Sarif
             {
                 GetArtifactData();
 
-                return this.rawBytes == null
-                    ? null
-                    : new MemoryStream(this.rawBytes, writable: false);
+                if (this.isTextual)
+                {
+                    throw new InvalidOperationException(
+                        "A raw byte stream is not available for a textual archive entry. " +
+                        "Construct a stream over the Contents property if one is required.");
+                }
+
+                return new MemoryStream(this.rawBytes, writable: false);
             }
             set => throw new NotImplementedException();
         }
@@ -106,7 +111,6 @@ namespace Microsoft.CodeAnalysis.Sarif
                     const int PeekWindowBytes = 1024;
 
                     byte[] raw = ReadAllBytes(this.entry);
-                    this.rawBytes = raw;
 
                     int peekLength = Math.Min(raw.Length, PeekWindowBytes);
                     this.isTextual = FileEncoding.IsTextualData(raw, 0, peekLength);
@@ -115,6 +119,10 @@ namespace Microsoft.CodeAnalysis.Sarif
                     {
                         using var reader = new StreamReader(new MemoryStream(raw, writable: false));
                         this.contents = reader.ReadToEnd();
+                    }
+                    else
+                    {
+                        this.rawBytes = raw;
                     }
 
                     this.entry = null;

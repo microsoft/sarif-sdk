@@ -100,13 +100,16 @@ namespace Test.UnitTests.Sarif
         }
 
         [Fact]
-        public void ZipArchiveArtifact_StreamIsByteExactForTextEntry()
+        public void ZipArchiveArtifact_StreamThrowsForTextEntry()
         {
             byte[] contents = Encoding.UTF8.GetBytes($"text-{Guid.NewGuid()}");
             ZipArchive archive = EnumeratedArtifactTests.CreateZipArchive("entry.txt", contents);
             var artifact = new ZipArchiveArtifact(new Uri("file://does-not-exist.zip"), archive, archive.Entries.First());
 
-            ReadFully(artifact.Stream).Should().Equal(contents);
+            artifact.IsBinary.Should().BeFalse();
+
+            InvalidOperationException exception = Assert.Throws<InvalidOperationException>(() => artifact.Stream);
+            exception.Message.Should().Contain("Contents");
         }
 
         [Fact]
@@ -124,27 +127,31 @@ namespace Test.UnitTests.Sarif
         }
 
         [Fact]
-        public void ZipArchiveArtifact_StreamReturnsContentAfterContentMaterialized()
+        public void ZipArchiveArtifact_StreamThrowsForTextEntryRegardlessOfAccessOrder()
         {
             byte[] contents = Encoding.UTF8.GetBytes($"text-{Guid.NewGuid()}");
             ZipArchive archive = EnumeratedArtifactTests.CreateZipArchive("entry.txt", contents);
             var artifact = new ZipArchiveArtifact(new Uri("file://does-not-exist.zip"), archive, archive.Entries.First());
 
-            // Materializing the content used to null the underlying entry, after
-            // which a Stream access returned null regardless of call order.
+            // Faulting in the textual content must not change the Stream
+            // contract: a raw byte stream is never synthesized for a textual
+            // entry, and the refusal is deterministic, not call-order sensitive.
             _ = artifact.Contents;
 
-            Stream stream = artifact.Stream;
-            stream.Should().NotBeNull();
-            ReadFully(stream).Should().Equal(contents);
+            Assert.Throws<InvalidOperationException>(() => artifact.Stream);
         }
 
         [Fact]
         public void ZipArchiveArtifact_StreamReturnsIndependentSnapshotPerAccess()
         {
-            byte[] contents = Encoding.UTF8.GetBytes($"text-{Guid.NewGuid()}");
-            ZipArchive archive = EnumeratedArtifactTests.CreateZipArchive("entry.txt", contents);
+            byte[] contents = new byte[1024];
+            new Random(7).NextBytes(contents);
+            contents[0] = 0x00;
+
+            ZipArchive archive = EnumeratedArtifactTests.CreateZipArchive("entry.bin", contents);
             var artifact = new ZipArchiveArtifact(new Uri("file://does-not-exist.zip"), archive, archive.Entries.First());
+
+            artifact.IsBinary.Should().BeTrue();
 
             Stream first = artifact.Stream;
             Stream second = artifact.Stream;
@@ -159,11 +166,13 @@ namespace Test.UnitTests.Sarif
         public void ZipArchiveArtifact_StreamIsThreadSafeAcrossEntriesOfOneArchive()
         {
             var expected = new Dictionary<string, byte[]>();
+            var random = new Random(11);
             for (int i = 0; i < 64; i++)
             {
-                string marker = $"entry-{i}-{Guid.NewGuid()};";
-                expected[$"dir/entry-{i}.txt"] =
-                    Encoding.UTF8.GetBytes(string.Concat(Enumerable.Repeat(marker, 200)));
+                byte[] data = new byte[2048];
+                random.NextBytes(data);
+                data[0] = 0x00;
+                expected[$"dir/entry-{i}.bin"] = data;
             }
 
             ZipArchive archive = CreateMultiEntryArchive(expected);
