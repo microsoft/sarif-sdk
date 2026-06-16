@@ -13,8 +13,13 @@ Each release entry below is prefixed with one of:
 
 Entries are terse by design: one line per change, present-tense behavior, complete but only essential data. No issue/PR archaeology or narrative — that history lives in the engineering system.
 
-## **v5.0.10** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/v5.0.10) | [Driver](https://www.nuget.org/packages/Sarif.Driver/v5.0.10) | [Converters](https://www.nuget.org/packages/Sarif.Converters/v5.0.10) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/v5.0.10) | [Multitool Library](https://www.nuget.org/packages/Sarif.Multitool.Library/v5.0.10)
+## **v5.0.11** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/v5.0.11) | [Driver](https://www.nuget.org/packages/Sarif.Driver/v5.0.11) | [Converters](https://www.nuget.org/packages/Sarif.Converters/v5.0.11) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/v5.0.11) | [Multitool Library](https://www.nuget.org/packages/Sarif.Multitool.Library/v5.0.11)
 * NEW: Add `NessusConverter` and `CisCatConverter` (`sarif convert --tool Nessus` / `--tool CisCat`), converting Tenable Nessus `.nessus` XML and CIS-CAT JSON assessment reports to SARIF.
+
+## **v5.0.10** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/v5.0.10) | [Driver](https://www.nuget.org/packages/Sarif.Driver/v5.0.10) | [Converters](https://www.nuget.org/packages/Sarif.Converters/v5.0.10) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/v5.0.10) | [Multitool Library](https://www.nuget.org/packages/Sarif.Multitool.Library/v5.0.10)
+* BRK: Rename the `add-*` emit verbs to plural — `add-results`, `add-invocations`, `add-notification-reporting-descriptors`, `add-rule-reporting-descriptors` — reflecting that each now accepts one or many; `get-schema` verb keys follow.
+* NEW: The plural `add-*` verbs accept a single JSON object or an array and validate atomically — any rejected element appends nothing — reporting the appended count and rejected element indices on stdout; an id duplicated within a batch is rejected like a cross-log duplicate.
+* NEW: `sarif add-invocations` auto-stamps `endTimeUtc` only for a lone invocation object (write time ≈ completion); a batched array must carry `endTimeUtc` on every element, since one write instant cannot stand in for many invocations.
 * BUG: `ZipArchiveArtifact.Stream` no longer races over the shared archive. Binary entries return an independent in-memory snapshot; textual entries throw `InvalidOperationException` directing callers to `Contents`. Behavior is now deterministic regardless of `Contents`/`Bytes` access order.
 
 ## **v5.0.9** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/v5.0.9) | [Driver](https://www.nuget.org/packages/Sarif.Driver/v5.0.9) | [Converters](https://www.nuget.org/packages/Sarif.Converters/v5.0.9) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/v5.0.9) | [Multitool Library](https://www.nuget.org/packages/Sarif.Multitool.Library/v5.0.9)

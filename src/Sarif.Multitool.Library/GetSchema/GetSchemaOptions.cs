@@ -19,7 +19,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         [Value(
             0,
             MetaName = "<verb>",
-            HelpText = "The emit verb whose input schema to emit (e.g., 'emit-run', 'add-result').",
+            HelpText = "The emit verb whose input schema to emit (e.g., 'emit-run', 'add-results').",
             Required = false)]
         public string Verb { get; set; }
 
