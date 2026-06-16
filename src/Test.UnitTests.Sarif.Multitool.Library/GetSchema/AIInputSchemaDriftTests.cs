@@ -477,7 +477,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         {
             // The AI invocation profile is an overlay on the SARIF-base invocation: it $refs the
             // base shape (so every base field keeps its type) and tightens it with three requireds
-            // matching AddInvocationCommand's receipt gate — a boolean executionSuccessful, a
+            // matching AddInvocationsCommand's receipt gate — a boolean executionSuccessful, a
             // non-whitespace string commandLine, and a workingDirectory artifactLocation with a
             // non-whitespace uri. Notifications travel INLINE, so a fully-formed invocation carrying
             // toolExecutionNotifications must validate. Each inline notification must carry a
@@ -638,7 +638,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             offenders.Should().BeEmpty(
                 "ai-invocation.schema.json must require a boolean executionSuccessful, a non-whitespace " +
                 "string commandLine, and a workingDirectory with a non-whitespace uri (mirroring " +
-                "AddInvocationCommand's receipt gate), accept a fully-formed invocation carrying inline " +
+                "AddInvocationsCommand's receipt gate), accept a fully-formed invocation carrying inline " +
                 "notifications that each carry a timeUtc, reject inline notifications missing timeUtc, and " +
                 "reject non-objects. It must NOT require " +
                 "endTimeUtc (the verb stamps it):\n" + string.Join("\n", offenders));
@@ -651,7 +651,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         [Fact]
         public void AINotificationReportingDescriptorSchema_RequiresNonEmptyStringId()
         {
-            // add-notification-reporting-descriptor requires a non-empty string id (SARIF §3.49.3),
+            // add-notification-reporting-descriptors requires a non-empty string id (SARIF §3.49.3),
             // gating on string.IsNullOrEmpty — so whitespace-only is accepted but "" is
             // not. Extra properties are accepted (the verb only inspects id). Any id string
             // is accepted here; the NOVEL- grammar is a separate verb/schema. The

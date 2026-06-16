@@ -1409,7 +1409,7 @@ Notification types are registered as `reportingDescriptor` objects in `tool.driv
 
 **ID convention:** Each notification descriptor id names the **concern** — what happened — and nothing else. The notification's **kind** (execution narrative vs. configuration feedback) is encoded structurally by the array it lives in: `toolExecutionNotifications` vs. `toolConfigurationNotifications`. The **emitting tool** is encoded by `tool.driver.name`. So `DECISION`, `DATA-ACCESS-DENIED`, `LEARNING-SIGNAL` are sufficient on their own — no `AI/`, `EXEC/`, `CFG/`, or `<toolName>/` prefix is needed because the surrounding SARIF carries every piece of context the prefix would have repeated. Note that the same id MAY legally appear in both arrays when the concern applies to both contexts (e.g., a producer that emits a `STATUS` notification at both execution-narrative and configuration-feedback granularity).
 
-**Routing at authoring time.** Placement is structural: emit the notification in the invocation payload's `toolExecutionNotifications` or `toolConfigurationNotifications` array (supplied via `add-invocation`). The descriptor id itself carries no placement information.
+**Routing at authoring time.** Placement is structural: emit the notification in the invocation payload's `toolExecutionNotifications` or `toolConfigurationNotifications` array (supplied via `add-invocations`). The descriptor id itself carries no placement information.
 
 ### Execution notifications (`toolExecutionNotifications`)
 

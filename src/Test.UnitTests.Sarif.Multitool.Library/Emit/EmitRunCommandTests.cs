@@ -519,7 +519,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         [Fact]
         public void Run_WhenHeaderCarriesResults_WarnsToStderrButStillWritesHeader()
         {
-            // results on the run header are dropped at replay (they belong in add-result), so the
+            // results on the run header are dropped at replay (they belong in add-results), so the
             // verb warns rather than silently discarding them; the header is still written.
             JObject runObject = MinimalRun();
             runObject["results"] = new JArray
@@ -540,7 +540,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         [Fact]
         public void Run_WhenHeaderCarriesInvocations_WarnsToStderrButStillWritesHeader()
         {
-            // invocations on the run header are dropped at replay (they belong in add-invocation),
+            // invocations on the run header are dropped at replay (they belong in add-invocations),
             // so the verb warns rather than silently discarding them; the header is still written.
             JObject runObject = MinimalRun();
             runObject["invocations"] = new JArray

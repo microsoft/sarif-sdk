@@ -6,18 +6,18 @@ using Microsoft.CodeAnalysis.Sarif.Driver;
 namespace Microsoft.CodeAnalysis.Sarif.Multitool
 {
     /// <summary>
-    /// Implements <c>add-notification-reporting-descriptor</c>: validates a SARIF
-    /// reportingDescriptor JSON and appends it to <c>run.tool.driver.notifications[]</c> in a
-    /// staged event log.
+    /// Implements <c>add-rule-reporting-descriptors</c>: validates one or more SARIF
+    /// reportingDescriptor objects with <c>NOVEL-</c> ids and appends them to
+    /// <c>run.tool.driver.rules[]</c> in a staged event log.
     /// </summary>
-    public class AddNotificationReportingDescriptorCommand : CommandBase
+    public class AddRuleReportingDescriptorsCommand : CommandBase
     {
-        public int Run(AddNotificationReportingDescriptorOptions options, IFileSystem fileSystem = null)
+        public int Run(AddRuleReportingDescriptorsOptions options, IFileSystem fileSystem = null)
         {
             return ReportingDescriptorEmitter.Append(
                 options?.OutputFilePath,
                 options?.InputFilePath,
-                isRules: false,
+                isRules: true,
                 fileSystem);
         }
     }

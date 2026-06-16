@@ -2,7 +2,7 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://raw.githubusercontent.com/microsoft/sarif-sdk/main/src/Sarif.Multitool.Library/GetSchema/ai-notification-reporting-descriptor.schema.json",
   "title": "SARIF AI emit profile \u2014 notification reporting descriptor object",
-  "description": "Input contract for a SARIF reportingDescriptor an AI producer supplies to the add-notification-reporting-descriptor verb, stored under run.tool.driver.notifications[]. Requires a non-empty string id (SARIF \u00a73.49.3); a missing, null, non-string, or empty id is rejected.",
+  "description": "Input contract for a SARIF reportingDescriptor an AI producer supplies to the add-notification-reporting-descriptors verb, stored under run.tool.driver.notifications[]. Requires a non-empty string id (SARIF \u00a73.49.3); a missing, null, non-string, or empty id is rejected.",
   "type": "object",
   "required": [
     "id"

@@ -14,9 +14,9 @@ using Newtonsoft.Json.Linq;
 namespace Microsoft.CodeAnalysis.Sarif.Multitool
 {
     /// <summary>
-    /// Shared plumbing for the emit verb chain (<c>emit-run</c>, <c>add-result</c>,
-    /// <c>add-invocation</c>, <c>add-notification-reporting-descriptor</c>,
-    /// <c>add-rule-reporting-descriptor</c>, <c>emit-finalize</c>): resolves
+    /// Shared plumbing for the emit verb chain (<c>emit-run</c>, <c>add-results</c>,
+    /// <c>add-invocations</c>, <c>add-notification-reporting-descriptors</c>,
+    /// <c>add-rule-reporting-descriptors</c>, <c>emit-finalize</c>): resolves
     /// the staged event log path, reads caller-supplied JSON (file or stdin), and parses it into
     /// a <see cref="JToken"/> in a date-safe way.
     /// </summary>
@@ -139,6 +139,37 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             out JToken payload)
         {
             payload = null;
+
+            int code = TryReadJsonToken(inputFilePath, payloadKind, fileSystem, out JToken token);
+            if (code != CommandBase.SUCCESS) { return code; }
+
+            if (token.Type != JTokenType.Object)
+            {
+                Console.Error.WriteLine(
+                    string.Format(
+                        CultureInfo.CurrentCulture,
+                        "{0} JSON must be a JSON object, but the parsed payload was a {1}.",
+                        Capitalize(payloadKind),
+                        token.Type.ToString().ToLowerInvariant()));
+                return CommandBase.FAILURE;
+            }
+
+            payload = token;
+            return CommandBase.SUCCESS;
+        }
+
+        /// <summary>
+        /// Reads the caller-supplied JSON (file or stdin) and parses it into a <see cref="JToken"/>
+        /// in a date-safe way, without constraining the token's type. Single-payload callers use
+        /// <see cref="TryReadJsonPayload"/>; batch callers accept an object or an array.
+        /// </summary>
+        internal static int TryReadJsonToken(
+            string inputFilePath,
+            string payloadKind,
+            IFileSystem fileSystem,
+            out JToken token)
+        {
+            token = null;
             string json;
 
             if (!string.IsNullOrEmpty(inputFilePath))
@@ -185,7 +216,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 // Preserve ISO-8601 text exactly; Json.NET otherwise normalizes date-looking strings.
                 using var sr = new StringReader(json);
                 using var jr = new JsonTextReader(sr) { DateParseHandling = DateParseHandling.None };
-                payload = JToken.ReadFrom(jr);
+                token = JToken.ReadFrom(jr);
             }
             catch (JsonReaderException ex)
             {
@@ -195,17 +226,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                         "{0} JSON is malformed: {1}",
                         Capitalize(payloadKind),
                         ex.Message));
-                return CommandBase.FAILURE;
-            }
-
-            if (payload.Type != JTokenType.Object)
-            {
-                Console.Error.WriteLine(
-                    string.Format(
-                        CultureInfo.CurrentCulture,
-                        "{0} JSON must be a JSON object, but the parsed payload was a {1}.",
-                        Capitalize(payloadKind),
-                        payload.Type.ToString().ToLowerInvariant()));
                 return CommandBase.FAILURE;
             }
 

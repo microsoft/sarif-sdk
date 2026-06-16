@@ -266,7 +266,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Test.UnitTests.Emit
             var ex = new AIRuleIdConventionException(new[] { "CWE-79" });
             ex.Message.Should().Contain(expectedCitation,
                 "the exception must point at the live heading anchor; if the heading is renamed, " +
-                "update the citation in AIRuleIdConventionException, AddResultCommand, and ReportingDescriptorEmitter.");
+                "update the citation in AIRuleIdConventionException, AddResultsCommand, and ReportingDescriptorEmitter.");
         }
 
         // GitHub heading-slug algorithm: lowercase, drop characters that are not
