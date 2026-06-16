@@ -15,8 +15,10 @@ namespace Microsoft.CodeAnalysis.Sarif
         private readonly ZipArchive archive;
         private ZipArchiveEntry entry;
         private readonly Uri uri;
+        private byte[] rawBytes;
         private string contents;
-        private byte[] bytes;
+        private bool isTextual;
+        private volatile bool resolved;
 
         public ZipArchiveArtifact(Uri archiveUri,
                                   ZipArchive archive,
@@ -39,7 +41,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             get
             {
                 GetArtifactData();
-                return this.bytes != null;
+                return !this.isTextual;
             }
         }
 
@@ -47,15 +49,16 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             get
             {
-                if (this.entry == null)
+                GetArtifactData();
+
+                if (this.isTextual)
                 {
-                    return null;
+                    throw new InvalidOperationException(
+                        "A raw byte stream is not available for a textual archive entry. " +
+                        "Construct a stream over the Contents property if one is required.");
                 }
 
-                lock (this.archive)
-                {
-                    return entry.Open();
-                }
+                return new MemoryStream(this.rawBytes, writable: false);
             }
             set => throw new NotImplementedException();
         }
@@ -76,80 +79,80 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         public string Contents
         {
-            get => GetArtifactData().text;
+            get
+            {
+                GetArtifactData();
+                return this.isTextual ? this.contents : null;
+            }
             set => throw new NotImplementedException();
         }
 
         public byte[] Bytes
         {
-            get => GetArtifactData().bytes;
+            get
+            {
+                GetArtifactData();
+                return this.isTextual ? null : this.rawBytes;
+            }
             set => throw new NotImplementedException();
         }
 
-        private (string text, byte[] bytes) GetArtifactData()
+        private void GetArtifactData()
         {
-            if (this.contents == null && this.bytes == null)
+            if (this.resolved)
             {
-                lock (this.archive)
-                {
-                    if (this.contents == null && this.bytes == null)
-                    {
-                        const int PeekWindowBytes = 1024;
-                        var peekable = new PeekableStream(this.Stream, PeekWindowBytes);
-
-                        byte[] header = new byte[PeekWindowBytes];
-                        int readLength = this.Stream.Read(header, 0, header.Length);
-
-                        bool isText = FileEncoding.IsTextualData(header, 0, readLength);
-
-                        peekable.Rewind();
-
-                        if (isText)
-                        {
-                            this.contents = new StreamReader(Stream).ReadToEnd();
-                        }
-                        else
-                        {
-                            // The underlying System.IO.Compression.DeflateStream throws on reads to get_Length.
-                            using var ms = new MemoryStream((int)SizeInBytes.Value);
-                            this.Stream.CopyTo(ms);
-
-                            byte[] memStreamBuffer = ms.GetBuffer();
-                            if (memStreamBuffer.Length == ms.Position)
-                            {
-                                // We might have succeeded in exactly sizing the MemoryStream.  In that case, we can just use it.
-                                this.bytes = memStreamBuffer;
-                            }
-                            else
-                            {
-                                // No luck.  Have to take a copy to align the buffers.
-                                ms.Position = 0;
-                                this.bytes = new byte[ms.Length];
-
-                                ms.Read(this.bytes, 0, this.bytes.Length);
-                            }
-                        }
-                    }
-                }
-
-                this.entry = null;
+                return;
             }
 
-            return (this.contents, this.bytes);
+            lock (this.archive)
+            {
+                if (!this.resolved && this.entry != null)
+                {
+                    const int PeekWindowBytes = 1024;
+
+                    byte[] raw = ReadAllBytes(this.entry);
+
+                    int peekLength = Math.Min(raw.Length, PeekWindowBytes);
+                    this.isTextual = FileEncoding.IsTextualData(raw, 0, peekLength);
+
+                    if (this.isTextual)
+                    {
+                        using var reader = new StreamReader(new MemoryStream(raw, writable: false));
+                        this.contents = reader.ReadToEnd();
+                    }
+                    else
+                    {
+                        this.rawBytes = raw;
+                    }
+
+                    this.entry = null;
+                    this.resolved = true;
+                }
+            }
+        }
+
+        private static byte[] ReadAllBytes(ZipArchiveEntry entry)
+        {
+            using Stream entryStream = entry.Open();
+
+            int capacity = entry.Length > 0 && entry.Length <= int.MaxValue
+                ? (int)entry.Length
+                : 0;
+
+            using var ms = new MemoryStream(capacity);
+            entryStream.CopyTo(ms);
+
+            byte[] buffer = ms.GetBuffer();
+            return buffer.Length == ms.Length ? buffer : ms.ToArray();
         }
 
         public long? SizeInBytes
         {
             get
             {
-                if (this.contents != null)
+                if (this.resolved)
                 {
-                    return this.contents.Length;
-                }
-
-                if (this.bytes != null)
-                {
-                    return this.bytes.Length;
+                    return this.isTextual ? this.contents.Length : this.rawBytes.Length;
                 }
 
                 lock (this.archive)

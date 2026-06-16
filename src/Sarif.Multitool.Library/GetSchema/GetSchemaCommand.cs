@@ -34,10 +34,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             {
                 ["emit-run"] = "ai-run.schema.json",
                 ["emit-finalize"] = null,
-                ["add-result"] = "ai-result.schema.json",
-                ["add-invocation"] = "ai-invocation.schema.json",
-                ["add-notification-reporting-descriptor"] = "ai-notification-reporting-descriptor.schema.json",
-                ["add-rule-reporting-descriptor"] = "ai-rule-reporting-descriptor.schema.json",
+                ["add-results"] = "ai-result.schema.json",
+                ["add-invocations"] = "ai-invocation.schema.json",
+                ["add-notification-reporting-descriptors"] = "ai-notification-reporting-descriptor.schema.json",
+                ["add-rule-reporting-descriptors"] = "ai-rule-reporting-descriptor.schema.json",
             };
 
         public int Run(GetSchemaOptions options, IFileSystem fileSystem = null)
