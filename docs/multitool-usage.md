@@ -88,6 +88,15 @@ Sarif.Multitool add-results my.sarif --input results-batch.json
 
 : Finalize: replay the event log into a SARIF file, enrich, and validate
 Sarif.Multitool emit-finalize my.sarif --srcroot https://github.com/org/repo/blob/<sha>/ --validate
+
+: Project results into flat CSV rows over an ordered column list (one row per location)
+Sarif.Multitool project Current.sarif --columns RuleId,Level,Location.Uri,Location.Region.StartLine,Properties.security-severity --output results.csv
+
+: Project to TSV or NDJSON, one row per result (its first location)
+Sarif.Multitool project Current.sarif --columns RuleId,Level,Location.Uri --format ndjson --first-location-only --output results.ndjson
+
+: Filter with 'query', then project the matches into rows
+Sarif.Multitool query Current.sarif --expression "BaselineState == 'New'" --output New.sarif && Sarif.Multitool project New.sarif --columns RuleId,Location.Uri --output new.csv
 ```
 
 For a step-by-step procedure that emits AI SARIF using these verbs, see
