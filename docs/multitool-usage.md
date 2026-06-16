@@ -87,7 +87,7 @@ Get-Content result-001.json | Sarif.Multitool add-results my.sarif
 Sarif.Multitool add-results my.sarif --input results-batch.json
 
 : Finalize: replay the event log into a SARIF file, enrich, and validate
-Sarif.Multitool emit-finalize my.sarif --srcroot https://github.com/org/repo/blob/<sha>/ --validate
+Sarif.Multitool emit-finalize my.sarif --validate
 ```
 
 For a step-by-step procedure that emits AI SARIF using these verbs, see
