@@ -164,7 +164,6 @@ Get-Content rule-descriptor.json         | dotnet dnx Sarif.Multitool --yes -- a
 
 ```powershell
 dotnet dnx Sarif.Multitool --yes -- emit-finalize "{{OUTPUT_PATH}}" `
-  --srcroot "{{PORTABLE_SRCROOT_URI}}" `
   --embed-text-files `
   --validate
 ```
@@ -174,7 +173,7 @@ What this does:
 1. Replays the `.wip.jsonl` event log into a final SARIF file.
 2. Runs `InsertOptionalDataVisitor` against the local source root to populate snippets, context regions, and artifact hashes.
 3. Enriches CWE-as-rule-id descriptors from the embedded MITRE CWE taxonomy (omit with `--no-cwe-enrichment` if you've already populated descriptors).
-4. Rewrites `originalUriBaseIds["SRCROOT"]` to `{{PORTABLE_SRCROOT_URI}}` (typically `https://github.com/<org>/<repo>/blob/<sha>/`) so the published log anchors at a host-independent location.
+4. Rewrites `originalUriBaseIds["SRCROOT"]` to a portable, commit-pinned root derived from `versionControlProvenance` (a GitHub blob permalink such as `https://github.com/<org>/<repo>/blob/<sha>/`, or an Azure DevOps repository root) so the published log anchors at a host-independent location.
 5. Embeds text-file artifact contents (`--embed-text-files`). Useful for self-contained AI fixtures and to clear `SARIF2013`.
 6. Runs the validator against the output with `--rule-kind Sarif;AI` (`--validate`). Fails non-zero with a summary if any Error-level findings are reported.
 
@@ -198,4 +197,4 @@ A complete reference SARIF file conforming to the AI profile is at [`docs/ai/exa
 
 - **Multitool unavailable** — Install .NET 10+ for `dotnet dnx`, or `dotnet tool install --global Sarif.Multitool`. Do **not** attempt to hand-author SARIF JSON: the SDK's emit verbs handle enrichment, validation, and consistency in ways that are difficult to replicate by hand. If you genuinely have no .NET environment, the profile doc is the source of truth — read it carefully — but expect to invest significant effort to match SDK output.
 - **`emit-finalize --validate` reports persistent errors** — Inspect the validation output (rule ID, message). Cross-reference the rule ID with `docs/ValidationRules.md` and the AI rule list in the profile doc. If a rule appears wrong (false positive against a correct construct), file an issue against the SDK — do not silence the rule.
-- **Source root not available locally** — Omit `originalUriBaseIds["SRCROOT"]` from the run header JSON and drop `--srcroot` from `emit-finalize`. Snippets and artifact hashes will be empty; `--embed-text-files` will have no effect. The resulting log is still profile-conformant but less rich for consumers.
+- **Source root not available locally** — Omit `originalUriBaseIds["SRCROOT"]` from the run header JSON. Snippets and artifact hashes will be empty; `--embed-text-files` will have no effect. The resulting log is still profile-conformant but less rich for consumers.
