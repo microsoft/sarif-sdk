@@ -31,6 +31,29 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         /// </summary>
         public const string UnpublishablePropertyName = "unpublishable";
 
+        /// <summary>
+        /// Reports whether <paramref name="log"/> carries any run stamped unpublishable by
+        /// <c>emit-finalize --no-repo</c>. Publishing ingests every run in a file, so a single
+        /// unpublishable run makes the whole log unpublishable. Shared by the publish verbs so the
+        /// log-level refusal is enforced from one implementation.
+        /// </summary>
+        public static bool IsMarkedUnpublishable(SarifLog log)
+        {
+            if (log?.Runs == null) { return false; }
+
+            foreach (Run run in log.Runs)
+            {
+                if (run != null
+                    && run.TryGetProperty(UnpublishablePropertyName, out bool unpublishable)
+                    && unpublishable)
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
         public int Run(EmitFinalizeOptions options, IFileSystem fileSystem = null)
         {
             fileSystem ??= Sarif.FileSystem.Instance;

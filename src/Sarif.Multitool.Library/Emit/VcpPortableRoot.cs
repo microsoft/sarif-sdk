@@ -125,6 +125,42 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         }
 
         /// <summary>
+        /// Resolves the GitHub upload target (<paramref name="owner"/>/<paramref name="repository"/>)
+        /// and the REST API host (<paramref name="apiHost"/>) from a run's raw repositoryUri, reusing
+        /// the shared classifier so credential-bearing, non-https, and non-GitHub URIs are rejected.
+        /// Fails when the repository is not a GitHub target.
+        /// </summary>
+        internal static bool TryGetGitHubTarget(Uri rawRepositoryUri, out string owner, out string repository, out string apiHost, out string error)
+        {
+            owner = null;
+            repository = null;
+            apiHost = null;
+
+            if (!TryClassify(rawRepositoryUri, out Classification classification, out error))
+            {
+                return false;
+            }
+
+            if (!classification.IsGitHub)
+            {
+                error = string.Format(CultureInfo.InvariantCulture, "publish to GHAS requires a GitHub repositoryUri of the form https://github.com/<owner>/<repo> (or a <slug>.ghe.com host); '{0}' is not one.", classification.Display);
+                return false;
+            }
+
+            owner = classification.Owner;
+            repository = classification.RepoForUrl;
+            apiHost = GitHubApiHost(rawRepositoryUri.Host);
+            return true;
+        }
+
+        // github.com → api.github.com; a <slug>.ghe.com data-residency host → api.<slug>.ghe.com.
+        // These are the only GitHub hosts the classifier admits, so no other shape reaches here.
+        private static string GitHubApiHost(string host)
+            => string.Equals(host, "github.com", StringComparison.OrdinalIgnoreCase)
+                ? "api.github.com"
+                : "api." + host.ToLowerInvariant();
+
+        /// <summary>
         /// Mints the portable root for <paramref name="rawRepositoryUri"/>. Used at emit-finalize.
         /// <paramref name="canonicalRepositoryUri"/> is the clean https identity (userinfo stripped,
         /// ssh/scp normalized) that should be written back onto the run so the finalized SARIF never
