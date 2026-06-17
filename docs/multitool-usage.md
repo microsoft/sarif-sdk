@@ -87,7 +87,8 @@ Get-Content result-001.json | Sarif.Multitool add-results my.sarif
 Sarif.Multitool add-results my.sarif --input results-batch.json
 
 : Finalize: replay the event log into a SARIF file, enrich, and validate
-Sarif.Multitool emit-finalize my.sarif --srcroot https://github.com/org/repo/blob/<sha>/ --validate
+: Finalize: replay the event log into a SARIF file, enrich, and validate
+Sarif.Multitool emit-finalize my.sarif --validate
 
 : Project results into flat CSV rows over an ordered column list (one row per location)
 Sarif.Multitool project Current.sarif --columns RuleId,Level,Location.Uri,Location.Region.StartLine,Properties.security-severity --output results.csv
