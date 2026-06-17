@@ -381,7 +381,36 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             stderr.Should().Contain("--no-repo");
         }
 
-        // ----- helpers -----
+        [Fact]
+        public void Publish_RefusesMultiRunLogWhenAnyRunUnpublishable_EvenIfFirstRunIsPublishable()
+        {
+            var publishableRun = new Run
+            {
+                Results = new List<Result>(),
+                VersionControlProvenance = new List<VersionControlDetails>
+                {
+                    new VersionControlDetails
+                    {
+                        RepositoryUri = new Uri("https://dev.azure.com/org/project/_git/repo"),
+                        RevisionId = "0123456789abcdef0123456789abcdef01234567",
+                    },
+                },
+            };
+
+            var unpublishableRun = new Run { Results = new List<Result>() };
+            unpublishableRun.SetProperty(EmitFinalizeCommand.UnpublishablePropertyName, true);
+
+            var log = new SarifLog { Runs = new List<Run> { publishableRun, unpublishableRun } };
+            string sarifPath = Path.Combine(_dir, $"{Guid.NewGuid():N}.sarif");
+            CommandBase.WriteSarifFile(Sarif.FileSystem.Instance, log, sarifPath, Newtonsoft.Json.Formatting.Indented);
+
+            var handler = new ThrowingHandler();
+            (int exit, string _, string stderr) = InvokeWithSecret(handler, sarifPath, PatSecret);
+
+            exit.Should().Be(CommandBase.FAILURE);
+            stderr.Should().Contain("unpublishable");
+            stderr.Should().Contain("--no-repo");
+        }
 
         private string WriteSarif(Uri repositoryUri)
         {

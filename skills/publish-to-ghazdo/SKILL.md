@@ -140,10 +140,11 @@ sarif publish-to-ghazdo "{{SARIF_FILE}}"
 
 1. **No provenance** — The run carries no `versionControlProvenance[0].repositoryUri`. The verb fails
    closed. Finalize the SARIF (`emit-finalize`) before publishing.
-2. **Unpublishable (repo-less) log** — The run carries `properties.unpublishable = true`, stamped by
-   `emit-finalize --no-repo` for a scan outside version control. The verb refuses it up front: a
-   non-version-controlled scan has no repository or commit to anchor alerts to and cannot be
-   published. Re-scan against a checked-out repository and finalize without `--no-repo` to publish.
+2. **Unpublishable (repo-less) log** — Any run carries `properties.unpublishable = true`, stamped by
+   `emit-finalize --no-repo` for a scan outside version control. The verb refuses the whole file up
+   front (publishing ingests every run): a non-version-controlled scan has no repository or commit to
+   anchor alerts to. Publish a log whose runs were all finalized against a checked-out repository
+   (without `--no-repo`); split a merged log first if only some runs are unpublishable.
 3. **Non-Azure-DevOps target** — The repository is GitHub or a legacy `visualstudio.com` host. The
    verb rejects it; publish supports `dev.azure.com` only.
 4. **Secret unset** — The named environment variable is empty or missing. The verb fails closed
