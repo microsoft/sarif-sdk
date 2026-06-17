@@ -49,6 +49,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         public static Run GenerateRandomRun(Random random, int? resultCount = null, RandomDataFields dataFields = RandomDataFields.None)
         {
             var ruleIds = new List<string>() { "TEST001", "TEST002", "TEST003", "TEST004", "TEST005" };
+            var guids = new List<Guid>() { Guid.Parse("704cf481-0cfd-46ae-90cd-533cdc6c3bb4"), Guid.Parse("ecaa7988-5cef-411b-b468-6c20851d6994"), Guid.Parse("c65b76c7-3cd6-4381-9216-430bcc7fab2d"), Guid.Parse("04753e26-d297-43e2-a7f7-ae2d34c398c9"), Guid.Parse("54cb1f58-f401-4f8e-8f42-f2482a123b85") };
             var filePaths = GenerateFakeFiles(GeneratorBaseUri, random.Next(20) + 1).Select(a => new Uri(a)).ToList();
             int results = resultCount == null ? random.Next(100) : (int)resultCount;
 
@@ -64,7 +65,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                     }
                 },
                 Artifacts = GenerateFiles(filePaths),
-                Results = GenerateFakeResults(random, ruleIds, filePaths, results, dataFields)
+                Results = GenerateFakeResults(random, ruleIds, guids, filePaths, results, dataFields)
             };
         }
 
@@ -96,17 +97,19 @@ namespace Microsoft.CodeAnalysis.Sarif
             return results;
         }
 
-        public static IList<Result> GenerateFakeResults(Random random, List<string> ruleIds, List<Uri> filePaths, int resultCount, RandomDataFields dataFields = RandomDataFields.None)
+        public static IList<Result> GenerateFakeResults(Random random, List<string> ruleIds, List<Guid> guids, List<Uri> filePaths, int resultCount, RandomDataFields dataFields = RandomDataFields.None)
         {
             var results = new List<Result>();
             for (int i = 0; i < resultCount; i++)
             {
                 int fileIndex = random.Next(filePaths.Count);
                 int ruleIndex = random.Next(ruleIds.Count);
+                int guidIndex = random.Next(guids.Count);
                 results.Add(new Result()
                 {
                     RuleId = ruleIds[ruleIndex],
                     RuleIndex = ruleIndex,
+                    Guid = guids[guidIndex],
                     Locations = new Location[]
                     {
                         new Location

@@ -1,6 +1,9 @@
 ﻿// Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
+using System;
+using System.Collections.Generic;
+
 using CommandLine;
 
 using Microsoft.CodeAnalysis.Sarif.Driver;
@@ -27,14 +30,32 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         public bool Guids { get; set; }
 
         [Option(
+            "results-guids",
+            HelpText = "A comma delimited list of SARIF log result guid(s) to suppress.",
+            Default = null,
+            Separator = ',')]
+        public IEnumerable<string> ResultsGuids { get; set; }
+
+        [Option(
+            'e',
+            "expression",
+            HelpText = "Result Expression to Evaluate (ex: (BaselineState != 'Unchanged'))")]
+        public string Expression { get; set; }
+
+        [Option(
             "timestamps",
             HelpText = "The property 'timeUtc' that will be associated with a suppression.")]
         public bool Timestamps { get; set; }
 
         [Option(
             "expiryInDays",
-            HelpText = "The property 'expiryUtc' that will be associated with a suppression from the 'timeUtc'.")]
+            HelpText = "The property 'expiryUtc' that will be associated with a suppression from the 'timeUtc'. Cannot be used with 'expiryUtc'.")]
         public int ExpiryInDays { get; set; }
+
+        [Option(
+            "expiryUtc",
+            HelpText = "The property 'expiryUtc' that will be associated with a suppression. Cannot be used with 'expiryInDays'.")]
+        public DateTime? ExpiryUtc { get; set; }
 
         [Option(
             "status",

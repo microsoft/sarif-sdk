@@ -46,7 +46,7 @@
            run.automationDetails { guid, correlationGuid }   (fixed)
            run.properties.ai/origin = "generated"
 
-      2. add-results × 7 — each Result is a fully-formed SARIF object piped
+      2. emit-results × 7 — each Result is a fully-formed SARIF object piped
          in as JSON. Per-result payload carries:
            message.text + message.markdown
            rank (numeric 0-100 priority, hand-assigned per finding)
@@ -54,7 +54,7 @@
            properties.ai/attackerPosition (spread across a vocab demo)
            locations[].physicalLocation { artifactLocation, region }
 
-      3. add-invocations × 1 — a fully-formed invocation (executionSuccessful +
+      3. emit-invocations × 1 — a fully-formed invocation (executionSuccessful +
          commandLine + a real workingDirectory + arguments + preset endTimeUtc)
          carrying one toolExecutionNotification INLINE with a producer-supplied
          timeUtc (the verb requires it and never stamps it) so the fixture's
@@ -453,9 +453,9 @@ $automationCorrelationGuid = '660f3001-34a8-46c5-8ad5-14b9682470ba'
 Write-Host "[1/6] Opening run -> $outPath"
 
 # JSON-payload contract: construct a SARIF Run object and pipe it to
-# emit-run via stdin, matching the other emit verbs (add-results,
-# add-invocations, add-notification-reporting-descriptors,
-# add-rule-reporting-descriptors). The Run object can carry rich run-header
+# emit-run via stdin, matching the other emit verbs (emit-results,
+# emit-invocations, emit-notification-descriptors,
+# emit-rule-descriptors). The Run object can carry rich run-header
 # shapes (multiple VCP entries, properties bags, etc.).
 $runHeader = [ordered]@{
     tool = [ordered]@{
@@ -562,8 +562,8 @@ foreach ($e in $events) {
         }
     }
     $payloadJson = $payload | ConvertTo-Json -Compress -Depth 12
-    $payloadJson | & dotnet $multitool add-results $outPath | Out-Null
-    if ($LASTEXITCODE -ne 0) { throw "add-results failed for ruleId '$($e.cwe)' (exit $LASTEXITCODE)." }
+    $payloadJson | & dotnet $multitool emit-results $outPath | Out-Null
+    if ($LASTEXITCODE -ne 0) { throw "emit-results failed for ruleId '$($e.cwe)' (exit $LASTEXITCODE)." }
 }
 
 # A single fully-formed invocation carries the run's notification INLINE on
@@ -593,8 +593,8 @@ $invocationPayload = [ordered]@{
     })
 }
 $invocationJson = $invocationPayload | ConvertTo-Json -Compress -Depth 8
-$invocationJson | & dotnet $multitool add-invocations $outPath | Out-Null
-if ($LASTEXITCODE -ne 0) { throw "add-invocations failed (exit $LASTEXITCODE)." }
+$invocationJson | & dotnet $multitool emit-invocations $outPath | Out-Null
+if ($LASTEXITCODE -ne 0) { throw "emit-invocations failed (exit $LASTEXITCODE)." }
 
 Write-Host "[3/6] Finalizing (--embed-text-files)"
 $finalizeArgs = @(

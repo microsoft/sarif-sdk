@@ -1,6 +1,7 @@
 ﻿// Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
+using System;
 using System.Collections.Generic;
 
 using FluentAssertions;
@@ -55,8 +56,9 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Core
         {
             var result = new Result
             {
-                Suppressions = new List<Suppression>()
+                Suppressions = new List<Suppression>() { }
             };
+
             result.TryIsSuppressed(out bool isSuppressed).Should().BeTrue();
             isSuppressed.Should().BeFalse();
 
@@ -85,6 +87,13 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Core
             result.Suppressions.Clear();
             result.Suppressions.Add(new Suppression { Status = SuppressionStatus.Accepted });
             result.TryIsSuppressed(out isSuppressed).Should().BeTrue();
+            isSuppressed.Should().BeTrue();
+
+            // Suppression with 'Accepted' only and expired.
+            result.Suppressions.Clear();
+            result.Suppressions.Add(new Suppression { Status = SuppressionStatus.Accepted });
+            result.Suppressions[0].SetProperty("expiryUtc", DateTime.UtcNow.AddDays(1));
+            result.TryIsSuppressed(out isSuppressed, true).Should().BeTrue();
             isSuppressed.Should().BeTrue();
         }
     }

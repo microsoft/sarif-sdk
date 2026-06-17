@@ -77,7 +77,7 @@ Callers that want a complete snapshot pass `CweStatus.All`.
 [`CweGhasSample.sarif`](CweGhasSample.sarif) fixture (and, with `-GHAzDO`,
 [`CweGHAzDOSample.sarif`](CweGHAzDOSample.sarif)), a fully enriched SARIF log that
 exercises the emit chain end-to-end via the multitool `emit-run`,
-`add-results`, `add-invocations`, and `emit-finalize` verbs. The sample
+`emit-results`, `emit-invocations`, and `emit-finalize` verbs. The sample
 appends seven Result events (covering the Stable, Draft, Incomplete, and
 NOVEL- "no-CWE-fits" cases) plus one Invocation carrying a notification
 inline, runs finalize with the

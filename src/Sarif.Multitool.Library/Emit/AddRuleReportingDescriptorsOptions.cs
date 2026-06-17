@@ -6,7 +6,7 @@ using CommandLine;
 namespace Microsoft.CodeAnalysis.Sarif.Multitool
 {
     /// <summary>
-    /// Options for <c>add-rule-reporting-descriptors</c>, which appends one or more SARIF
+    /// Options for <c>emit-rule-descriptors</c>, which appends one or more SARIF
     /// <c>reportingDescriptor</c> objects to <c>run.tool.driver.rules[]</c> in a staged event log
     /// (<c>&lt;output&gt;.wip.jsonl</c>) created by <c>emit-run</c>.
     /// </summary>
@@ -16,7 +16,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
     /// taxonomy enricher, not this verb. The payload may be a single descriptor object or an array;
     /// each <c>id</c> may appear at most once in the rules array (and at most once within a batch).
     /// </remarks>
-    [Verb("add-rule-reporting-descriptors", HelpText = "Append one or more SARIF reportingDescriptors (JSON object or array) with NOVEL- ids to run.tool.driver.rules[] in a staged event log.")]
+    [Verb("emit-rule-descriptors", HelpText = "Append one or more SARIF reportingDescriptors (JSON object or array) with NOVEL- ids to run.tool.driver.rules[] in a staged event log.")]
     public class AddRuleReportingDescriptorsOptions : EmitInputOptionsBase
     {
     }
