@@ -5,7 +5,7 @@ using System;
 using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
-
+using Stj = System.Text.Json.Serialization;
 namespace Microsoft.CodeAnalysis.Sarif.VersionOne
 {
     /// <summary>
@@ -35,60 +35,70 @@ namespace Microsoft.CodeAnalysis.Sarif.VersionOne
         /// An identifier for the condition that was encountered.
         /// </summary>
         [DataMember(Name = "id", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("id")]
         public string Id { get; set; }
 
         /// <summary>
         /// The stable, unique identifier of the rule (if any) to which this notification is relevant. If 'ruleKey' is not specified, this member can be used to retrieve rule metadata from the rules dictionary, if it exists.
         /// </summary>
         [DataMember(Name = "ruleId", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("ruleId")]
         public string RuleId { get; set; }
 
         /// <summary>
         /// A key used to retrieve the rule metadata from the rules dictionary that is relevant to the notificationn.
         /// </summary>
         [DataMember(Name = "ruleKey", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("ruleKey")]
         public string RuleKey { get; set; }
 
         /// <summary>
         /// The file and region relevant to this notification.
         /// </summary>
         [DataMember(Name = "physicalLocation", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("physicalLocation")]
         public PhysicalLocationVersionOne PhysicalLocation { get; set; }
 
         /// <summary>
         /// A string that describes the condition that was encountered.
         /// </summary>
         [DataMember(Name = "message", IsRequired = true)]
+        [Stj.JsonPropertyName("message")]
         public string Message { get; set; }
 
         /// <summary>
         /// A value specifying the severity level of the notification.
         /// </summary>
         [DataMember(Name = "level", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("level")]
         public NotificationLevelVersionOne Level { get; set; }
 
         /// <summary>
         /// The thread identifier of the code that generated the notification.
         /// </summary>
         [DataMember(Name = "threadId", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("threadId")]
         public int ThreadId { get; set; }
 
         /// <summary>
         /// The date and time at which the analysis tool generated the notification.
         /// </summary>
         [DataMember(Name = "time", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("time")]
         public DateTime Time { get; set; }
 
         /// <summary>
         /// The runtime exception, if any, relevant to this notification.
         /// </summary>
         [DataMember(Name = "exception", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("exception")]
         public ExceptionDataVersionOne Exception { get; set; }
 
         /// <summary>
         /// Key/value pairs that provide additional information about the notification.
         /// </summary>
         [DataMember(Name = "properties", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("properties")]
         internal override IDictionary<string, SerializedPropertyInfo> Properties { get; set; }
 
         /// <summary>

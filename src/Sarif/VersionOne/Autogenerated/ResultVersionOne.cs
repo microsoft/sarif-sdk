@@ -5,7 +5,7 @@ using System;
 using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
-
+using Stj = System.Text.Json.Serialization;
 namespace Microsoft.CodeAnalysis.Sarif.VersionOne
 {
     /// <summary>
@@ -35,92 +35,108 @@ namespace Microsoft.CodeAnalysis.Sarif.VersionOne
         /// The stable, unique identifier of the rule (if any) to which this notification is relevant. If 'ruleKey' is not specified, this member can be used to retrieve rule metadata from the rules dictionary, if it exists.
         /// </summary>
         [DataMember(Name = "ruleId", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("ruleId")]
         public string RuleId { get; set; }
 
         /// <summary>
         /// A key used to retrieve the rule metadata from the rules dictionary that is relevant to the notificationn.
         /// </summary>
         [DataMember(Name = "ruleKey", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("ruleKey")]
         public string RuleKey { get; set; }
 
         /// <summary>
         /// A value specifying the severity level of the result. If this property is not present, its implied value is 'warning'.
         /// </summary>
         [DataMember(Name = "level", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("level")]
         public ResultLevelVersionOne Level { get; set; }
 
         /// <summary>
         /// A string that describes the result. The first sentence of the message only will be displayed when visible space is limited.
         /// </summary>
         [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("message")]
         public string Message { get; set; }
 
         /// <summary>
         /// A 'formattedRuleMessage' object that can be used to construct a formatted message that describes the result. If the 'formattedMessage' property is present on a result, the 'fullMessage' property shall not be present. If the 'fullMessage' property is present on an result, the 'formattedMessage' property shall not be present
         /// </summary>
         [DataMember(Name = "formattedRuleMessage", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("formattedRuleMessage")]
         public FormattedRuleMessageVersionOne FormattedRuleMessage { get; set; }
 
         /// <summary>
         /// One or more locations where the result occurred. Specify only one location unless the problem indicated by the result can only be corrected by making a change at every specified location.
         /// </summary>
         [DataMember(Name = "locations", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("locations")]
         public IList<LocationVersionOne> Locations { get; set; }
 
         /// <summary>
         /// A source code or other file fragment that illustrates the result.
         /// </summary>
         [DataMember(Name = "snippet", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("snippet")]
         public string Snippet { get; set; }
 
         /// <summary>
         /// A unique identifer for the result.
         /// </summary>
         [DataMember(Name = "id", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("id")]
         public string Id { get; set; }
 
         /// <summary>
         /// A string that contributes to the unique identity of the result.
         /// </summary>
         [DataMember(Name = "toolFingerprintContribution", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("toolFingerprintContribution")]
         public string ToolFingerprintContribution { get; set; }
 
         /// <summary>
         /// An array of 'stack' objects relevant to the result.
         /// </summary>
         [DataMember(Name = "stacks", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("stacks")]
         public IList<StackVersionOne> Stacks { get; set; }
 
         /// <summary>
         /// An array of 'codeFlow' objects relevant to the result.
         /// </summary>
         [DataMember(Name = "codeFlows", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("codeFlows")]
         public IList<CodeFlowVersionOne> CodeFlows { get; set; }
 
         /// <summary>
         /// A grouped set of locations and messages, if available, that represent code areas that are related to this result.
         /// </summary>
         [DataMember(Name = "relatedLocations", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("relatedLocations")]
         public IList<AnnotatedCodeLocationVersionOne> RelatedLocations { get; set; }
         [DataMember(Name = "suppressionStates", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("suppressionStates")]
         public SuppressionStatesVersionOne SuppressionStates { get; set; }
 
         /// <summary>
         /// The state of a result relative to a baseline of a previous run.
         /// </summary>
         [DataMember(Name = "baselineState", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("baselineState")]
         public BaselineStateVersionOne BaselineState { get; set; }
 
         /// <summary>
         /// An array of 'fix' objects, each of which represents a proposed fix to the problem indicated by the result.
         /// </summary>
         [DataMember(Name = "fixes", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("fixes")]
         public IList<FixVersionOne> Fixes { get; set; }
 
         /// <summary>
         /// Key/value pairs that provide additional information about the result.
         /// </summary>
         [DataMember(Name = "properties", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("properties")]
         internal override IDictionary<string, SerializedPropertyInfo> Properties { get; set; }
 
         /// <summary>

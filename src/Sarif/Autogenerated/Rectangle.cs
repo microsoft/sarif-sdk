@@ -5,7 +5,7 @@ using System;
 using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
-
+using Stj = System.Text.Json.Serialization;
 namespace Microsoft.CodeAnalysis.Sarif
 {
     /// <summary>
@@ -37,36 +37,42 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// The Y coordinate of the top edge of the rectangle, measured in the image's natural units.
         /// </summary>
         [DataMember(Name = "top", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("top")]
         public virtual double Top { get; set; }
 
         /// <summary>
         /// The X coordinate of the left edge of the rectangle, measured in the image's natural units.
         /// </summary>
         [DataMember(Name = "left", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("left")]
         public virtual double Left { get; set; }
 
         /// <summary>
         /// The Y coordinate of the bottom edge of the rectangle, measured in the image's natural units.
         /// </summary>
         [DataMember(Name = "bottom", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("bottom")]
         public virtual double Bottom { get; set; }
 
         /// <summary>
         /// The X coordinate of the right edge of the rectangle, measured in the image's natural units.
         /// </summary>
         [DataMember(Name = "right", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("right")]
         public virtual double Right { get; set; }
 
         /// <summary>
         /// A message relevant to the rectangle.
         /// </summary>
         [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("message")]
         public virtual Message Message { get; set; }
 
         /// <summary>
         /// Key/value pairs that provide additional information about the rectangle.
         /// </summary>
         [DataMember(Name = "properties", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("properties")]
         internal override IDictionary<string, SerializedPropertyInfo> Properties { get; set; }
 
         /// <summary>

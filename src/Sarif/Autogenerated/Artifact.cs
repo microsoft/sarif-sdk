@@ -8,7 +8,7 @@ using System.ComponentModel;
 using System.Runtime.Serialization;
 
 using Newtonsoft.Json;
-
+using Stj = System.Text.Json.Serialization;
 namespace Microsoft.CodeAnalysis.Sarif
 {
     /// <summary>
@@ -40,41 +40,50 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// A short description of the artifact.
         /// </summary>
         [DataMember(Name = "description", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("description")]
         public virtual Message Description { get; set; }
 
         /// <summary>
         /// The location of the artifact.
         /// </summary>
         [DataMember(Name = "location", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("location")]
         public virtual ArtifactLocation Location { get; set; }
 
         /// <summary>
         /// Identifies the index of the immediate parent of the artifact, if this artifact is nested.
         /// </summary>
         [DataMember(Name = "parentIndex", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("parentIndex")]
         [DefaultValue(-1)]
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
+        [Stj.JsonIgnore(Condition = Stj.JsonIgnoreCondition.WhenWritingDefault)]
         public virtual int ParentIndex { get; set; }
 
         /// <summary>
         /// The offset in bytes of the artifact within its containing artifact.
         /// </summary>
         [DataMember(Name = "offset", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("offset")]
         public virtual int Offset { get; set; }
 
         /// <summary>
         /// The length of the artifact in bytes.
         /// </summary>
         [DataMember(Name = "length", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("length")]
         [DefaultValue(-1)]
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
+        [Stj.JsonIgnore(Condition = Stj.JsonIgnoreCondition.WhenWritingDefault)]
         public virtual int Length { get; set; }
 
         /// <summary>
         /// The role or roles played by the artifact in the analysis.
         /// </summary>
         [DataMember(Name = "roles", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("roles")]
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
+        [Stj.JsonIgnore(Condition = Stj.JsonIgnoreCondition.WhenWritingDefault)]
         [JsonConverter(typeof(Microsoft.CodeAnalysis.Sarif.Readers.FlagsEnumConverter))]
         public virtual ArtifactRoles Roles { get; set; }
 
@@ -82,36 +91,42 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// The MIME type (RFC 2045) of the artifact.
         /// </summary>
         [DataMember(Name = "mimeType", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("mimeType")]
         public virtual string MimeType { get; set; }
 
         /// <summary>
         /// The contents of the artifact.
         /// </summary>
         [DataMember(Name = "contents", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("contents")]
         public virtual ArtifactContent Contents { get; set; }
 
         /// <summary>
         /// Specifies the encoding for an artifact object that refers to a text file.
         /// </summary>
         [DataMember(Name = "encoding", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("encoding")]
         public virtual string Encoding { get; set; }
 
         /// <summary>
         /// Specifies the source language for any artifact object that refers to a text file that contains source code.
         /// </summary>
         [DataMember(Name = "sourceLanguage", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("sourceLanguage")]
         public virtual string SourceLanguage { get; set; }
 
         /// <summary>
         /// A dictionary, each of whose keys is the name of a hash function and each of whose values is the hashed value of the artifact produced by the specified hash function.
         /// </summary>
         [DataMember(Name = "hashes", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("hashes")]
         public virtual IDictionary<string, string> Hashes { get; set; }
 
         /// <summary>
         /// The Coordinated Universal Time (UTC) date and time at which the artifact was most recently modified. See "Date/time properties" in the SARIF spec for the required format.
         /// </summary>
         [DataMember(Name = "lastModifiedTimeUtc", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("lastModifiedTimeUtc")]
         [JsonConverter(typeof(Microsoft.CodeAnalysis.Sarif.Readers.DateTimeConverter))]
         public virtual DateTime LastModifiedTimeUtc { get; set; }
 
@@ -119,6 +134,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// Key/value pairs that provide additional information about the artifact.
         /// </summary>
         [DataMember(Name = "properties", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("properties")]
         internal override IDictionary<string, SerializedPropertyInfo> Properties { get; set; }
 
         /// <summary>

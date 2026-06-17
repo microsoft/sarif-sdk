@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Runtime.Serialization;
 
 using Newtonsoft.Json;
-
+using Stj = System.Text.Json.Serialization;
 namespace Microsoft.CodeAnalysis.Sarif
 {
     /// <summary>
@@ -39,19 +39,23 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// The analysis tool that was run.
         /// </summary>
         [DataMember(Name = "driver", IsRequired = true)]
+        [Stj.JsonPropertyName("driver")]
         public virtual ToolComponent Driver { get; set; }
 
         /// <summary>
         /// Tool extensions that contributed to or reconfigured the analysis tool that was run.
         /// </summary>
         [DataMember(Name = "extensions", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("extensions")]
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
+        [Stj.JsonIgnore(Condition = Stj.JsonIgnoreCondition.WhenWritingDefault)]
         public virtual IList<ToolComponent> Extensions { get; set; }
 
         /// <summary>
         /// Key/value pairs that provide additional information about the tool.
         /// </summary>
         [DataMember(Name = "properties", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("properties")]
         internal override IDictionary<string, SerializedPropertyInfo> Properties { get; set; }
 
         /// <summary>
