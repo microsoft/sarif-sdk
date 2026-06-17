@@ -1,0 +1,39 @@
+{
+  "name": "@microsoft/sarif",
+  "version": "0.0.0",
+  "description": "SARIF SDK for Node.js: open-typed object model, region/snippet resolution, AI ruleId convention, and serialization helpers. Native TypeScript; no CLR dependency.",
+  "author": "Microsoft",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/microsoft/sarif-sdk",
+    "directory": "npm/sarif"
+  },
+  "keywords": ["sarif", "static-analysis", "security"],
+  "type": "module",
+  "engines": {
+    "node": ">=20"
+  },
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist/",
+    "README.md"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "build": "tsc"
+  },
+  "devDependencies": {
+    "@types/node": "^20.14.0",
+    "typescript": "^5.5.0"
+  }
+}
