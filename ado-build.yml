@@ -47,3 +47,15 @@ jobs:
         inputs:
           targetType: filePath
           filePath: ./scripts/BuildMultitoolForNpm.ps1
+
+      - task: NodeTool@0
+        displayName: Use Node.js LTS
+        inputs:
+          versionSpec: "20.x"
+
+      # Build @microsoft/sarif and @microsoft/sarif-multitool-ts for npm
+      - task: PowerShell@2
+        displayName: Build Sarif TS for npm
+        inputs:
+          targetType: filePath
+          filePath: ./scripts/BuildSarifTsForNpm.ps1
