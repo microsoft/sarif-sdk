@@ -39,7 +39,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
         {
             Result result = null;
 
-            Dictionary<string, object> resultMatchingProperties = new Dictionary<string, object>();
+            var resultMatchingProperties = new Dictionary<string, object>();
             Dictionary<string, object> originalResultMatchingProperties = null;
             if (PreviousResult != null && CurrentResult != null)
             {

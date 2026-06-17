@@ -19,12 +19,14 @@ namespace Microsoft.CodeAnalysis.Sarif
         // which is the line in the file at index n.
         private readonly ImmutableArray<int> _lineOffsetStarts;
 
+        // Realistically, no IDE create line locations based on the
+        // the unicode separators, so we will ignore them.
         internal static char[] s_newLineChars =
         {
             '\n',
             '\r',
-            '\u2028', // Unicode line separate
-            '\u2029'  // Unicode paragraph separator
+            //'\u2028', // Unicode line separator
+            //'\u2029'  // Unicode paragraph separator
         };
 
         internal static ImmutableHashSet<char> s_newLineCharSet = ImmutableHashSet.Create(s_newLineChars);

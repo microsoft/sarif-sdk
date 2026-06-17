@@ -32,7 +32,7 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Baseline
             // Reminder: CompareTo less than zero means left sorts before right.
             5.CompareTo(10).Should().BeLessThan(0);
 
-            Region left = new Region(SampleRegion);
+            var left = new Region(SampleRegion);
             Region right;
 
             // Equal
@@ -109,15 +109,15 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Baseline
         [Fact]
         public void WhereComparer_ArtifactLocation()
         {
-            Run run = new Run();
+            var run = new Run();
             run.Artifacts = new List<Artifact>();
 
             run.Artifacts.Add(new Artifact() { Location = new ArtifactLocation() });
             run.Artifacts.Add(new Artifact() { Location = ArtifactLocationUri1 });
             run.Artifacts.Add(new Artifact() { Location = ArtifactLocationUri2 });
 
-            ArtifactLocation left = new ArtifactLocation(ArtifactLocationUri1);
-            ArtifactLocation right = new ArtifactLocation(ArtifactLocationUri2);
+            var left = new ArtifactLocation(ArtifactLocationUri1);
+            var right = new ArtifactLocation(ArtifactLocationUri2);
 
             // Equal; run not needed if no index provided.
             WhereComparer.CompareTo(left, null, left, null).Should().Be(0);
@@ -147,12 +147,12 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Baseline
         [Fact]
         public void WhereComparer_PhysicalLocation()
         {
-            PhysicalLocation left = new PhysicalLocation
+            var left = new PhysicalLocation
             {
                 ArtifactLocation = new ArtifactLocation() { Uri = Uri1 }
             };
 
-            PhysicalLocation right = new PhysicalLocation
+            var right = new PhysicalLocation
             {
                 ArtifactLocation = new ArtifactLocation { Uri = Uri2 }
             };
@@ -162,7 +162,7 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Baseline
             WhereComparer.CompareTo(left, null, right, null).Should().BeLessThan(0);
 
             left.Region = SampleRegion;
-            PhysicalLocation leftLater = new PhysicalLocation(left) { Region = new Region(SampleRegion) { StartLine = SampleRegion.StartLine + 1 } };
+            var leftLater = new PhysicalLocation(left) { Region = new Region(SampleRegion) { StartLine = SampleRegion.StartLine + 1 } };
 
             // Sort by Region if Uris match
             WhereComparer.CompareTo(left, null, leftLater, null).Should().BeLessThan(0);
@@ -188,14 +188,14 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Baseline
         [Fact]
         public void WhereComparer_ListOfLogicalLocation()
         {
-            List<LogicalLocation> empty = new List<LogicalLocation>();
+            var empty = new List<LogicalLocation>();
 
-            List<LogicalLocation> left = new List<LogicalLocation>
+            var left = new List<LogicalLocation>
             {
                 LogicalLocation1
             };
 
-            List<LogicalLocation> right = new List<LogicalLocation>
+            var right = new List<LogicalLocation>
             {
                 LogicalLocation1,
                 LogicalLocation2
@@ -214,7 +214,7 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Baseline
             WhereComparer.CompareTo(left, null, right, null).Should().BeLessThan(0);
 
             // Later location wins over longer list
-            List<LogicalLocation> three = new List<LogicalLocation> { LogicalLocation2 };
+            var three = new List<LogicalLocation> { LogicalLocation2 };
             WhereComparer.CompareTo(right, null, three, null).Should().BeLessThan(0);
         }
     }

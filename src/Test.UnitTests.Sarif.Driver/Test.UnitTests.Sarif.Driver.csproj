@@ -8,10 +8,9 @@
   <Import Project="$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildThisFileDirectory), build.props))\build.props" />
 
   <PropertyGroup>
-    <TargetFrameworks>netcoreapp3.1</TargetFrameworks>
+    <TargetFrameworks>net8.0</TargetFrameworks>
     <IsPackable>false</IsPackable>
     <IsTestProject>true</IsTestProject>
-    <CoyoteVersion>1.6.1</CoyoteVersion>
     <PowershellExecutable Condition="'$(OS)'=='Windows_NT'">powershell</PowershellExecutable>
     <PowershellExecutable Condition="'$(PowershellExecutable)'==''">pwsh</PowershellExecutable>
     <PathSeparator Condition="'$(OS)'=='Windows_NT'">\</PathSeparator>
@@ -20,7 +19,7 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    <ExecCommand>$(PowershellExecutable) -executionpolicy bypass -command ".$(PathSeparator)rewriteUnitTests.ps1 -Configuration $(Configuration) -CoyoteVersion $(CoyoteVersion) -TargetFramework $(TargetFramework)"</ExecCommand>
+    <ExecCommand>$(PowershellExecutable) -executionpolicy bypass -command ".$(PathSeparator)rewriteUnitTests.ps1 -Configuration $(Configuration) -TargetFramework $(TargetFramework)"</ExecCommand>
   </PropertyGroup>
 
   <Target Name="CopyFunctionalTestData" AfterTargets="Build">
@@ -31,21 +30,13 @@
   </Target>
 
   <ItemGroup>
-    <PackageReference Include="FluentAssertions" Version="5.10.2" />
-    <PackageReference Include="Microsoft.Coyote" Version="$(CoyoteVersion)" />
-    <PackageReference Include="Microsoft.Coyote.Test" Version="$(CoyoteVersion)" />
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.4.0-preview-20220707-01" />
-    <PackageReference Include="Moq" Version="4.13.1" />
-    <PackageReference Include="System.Composition" Version="5.0.0" />
-    <PackageReference Include="xunit" Version="2.4.1" />
-    <PackageReference Include="xunit.runner.console" Version="2.4.1">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
-    <PackageReference Include="xunit.runner.visualstudio" Version="2.4.3">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
+    <PackageReference Include="FluentAssertions" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" />
+    <PackageReference Include="Moq" />
+    <PackageReference Include="System.Composition" />
+    <PackageReference Include="xunit" />
+    <PackageReference Include="xunit.runner.console" PrivateAssets="All" />
+    <PackageReference Include="xunit.runner.visualstudio" PrivateAssets="All" />
   </ItemGroup>
 
   <ItemGroup>
@@ -69,8 +60,4 @@
       <CustomToolNamespace>Microsoft.CodeAnalysis.Sarif.Driver.Sdk</CustomToolNamespace>
     </EmbeddedResource>
   </ItemGroup>
-
-  <Target Name="CoyoteRewriting" AfterTargets="AfterBuild">
-    <Exec Command="$(ExecCommand)" />
-  </Target>
 </Project>

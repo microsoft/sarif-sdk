@@ -451,24 +451,24 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests.Visitors
 
                 if (timestamps && suppression.TryGetProperty("timeUtc", out DateTime timeUtc))
                 {
-                    timeUtc.Should().BeCloseTo(DateTime.UtcNow, DateTimeAssertPrecision);
+                    timeUtc.Should().BeCloseTo(DateTime.UtcNow, TimeSpan.FromMilliseconds(DateTimeAssertPrecision));
                 }
 
                 if (expiryInDays > 0)
                 {
                     suppression.TryGetProperty("expiryUtc", out DateTime expiryInDaysUtc).Should().BeTrue();
-                    expiryInDaysUtc.Should().BeCloseTo(DateTime.UtcNow.AddDays(expiryInDays), DateTimeAssertPrecision);
+                    expiryInDaysUtc.Should().BeCloseTo(DateTime.UtcNow.AddDays(expiryInDays), TimeSpan.FromMilliseconds(DateTimeAssertPrecision));
                 }
 
                 if (expiryUtc.HasValue)
                 {
                     suppression.TryGetProperty("expiryUtc", out DateTime expiryTimestampUtc).Should().BeTrue();
-                    expiryTimestampUtc.Should().BeCloseTo(expiryUtc.Value, DateTimeAssertPrecision);
+                    expiryTimestampUtc.Should().BeCloseTo(expiryUtc.Value, TimeSpan.FromMilliseconds(DateTimeAssertPrecision));
                 }
 
                 if (guids != null)
                 {
-                    suppression.Should().Match(b => (guids.Contains(result.Guid, StringComparer.OrdinalIgnoreCase)));
+                    suppression.Should().Match(b => (guids.Contains(result.Guid?.ToString(), StringComparer.OrdinalIgnoreCase)));
                 }
             }
         }

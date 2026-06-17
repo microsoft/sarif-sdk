@@ -32,7 +32,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             Assembly assembly = methodBase?.DeclaringType.Assembly;
             string fullyQualifiedName = CreateFullyQualifiedName(methodBase);
 
-            StackFrame stackFrame = new StackFrame
+            var stackFrame = new StackFrame
             {
                 Module = assembly?.GetName().Name,
                 Location = new Location()
@@ -102,7 +102,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             if (this.Location?.PhysicalLocation?.ArtifactLocation?.Uri != null)
             {
-                string fileName = this.Location.PhysicalLocation.ArtifactLocation.Uri.LocalPath;
+                string fileName = this.Location.PhysicalLocation.ArtifactLocation.Uri.OriginalString;
                 result += IN + fileName;
 
                 if (this.Location?.PhysicalLocation?.Region != null)

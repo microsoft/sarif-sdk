@@ -44,6 +44,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                         SupportedTaxonomies = new List<ToolComponentReference>() { new ToolComponentReference() { Name = "NIST SP800-53 v5", Guid = Guid.Parse("AAFBAB93-5201-419E-8443-D4925C542398") } }
                     }
                 },
+                OriginalUriBaseIds = new Dictionary<string, ArtifactLocation>()
+                {
+                    {
+                        "ROOTPATH",  new ArtifactLocation {
+                            Uri = new Uri("file:///")
+                        }
+                    }
+                },
                 ExternalPropertyFileReferences = new ExternalPropertyFileReferences()
                 {
                     Taxonomies = new List<ExternalPropertyFileReference>()
@@ -90,15 +98,24 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             var reportingDescriptor = new ReportingDescriptor
             {
                 Id = execJsonControl.Id,
-                Name = execJsonControl.Title,
+                Name = string.Join("", execJsonControl.Title.Split(' ').Select(s => char.ToUpper(s[0]) + s.Substring(1))),
                 ShortDescription = new MultiformatMessageString
+                {
+                    Text = AppendPeriod(execJsonControl.Title),
+                },
+                FullDescription = new MultiformatMessageString
                 {
                     Text = AppendPeriod(execJsonControl.Desc),
                 },
                 DefaultConfiguration = new ReportingConfiguration
                 {
                     Level = SarifLevelFromHdfImpact(execJsonControl.Impact),
+                    Enabled = !execJsonControl.Results.All(r => r.Status == ControlResultStatus.Skipped),
                 },
+                Help = execJsonControl.Descriptions.Any() ? new MultiformatMessageString
+                {
+                    Text = string.Join("\n", execJsonControl.Descriptions.Select(d => d.Label + ":\n" + d.Data))
+                } : null,
                 HelpUri = null,
                 Relationships = new List<ReportingDescriptorRelationship>(
                     ((JArray)execJsonControl.Tags["nist"])
@@ -117,19 +134,61 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                         Kinds = new List<string>() { "relevant" },
                     }))
             };
+            reportingDescriptor.SetProperty("security-severity", SarifSecuritySeverityFromHdfImpact(execJsonControl.Impact).ToString());
+            reportingDescriptor.SetProperty("precision", "very-high");
+            reportingDescriptor.SetProperty("tags", new List<string>() { "security" });
 
             var results = new List<Result>(execJsonControl.Results.Count);
             foreach (ControlResult controlResult in execJsonControl.Results)
             {
+                ResultKind kind;
+                if (execJsonControl.Impact <= 0.1)
+                {
+                    kind = ResultKind.NotApplicable;
+                }
+                else
+                {
+                    kind = controlResult.Status switch
+                    {
+                        ControlResultStatus.Passed => ResultKind.Pass,
+                        ControlResultStatus.Failed => ResultKind.Fail,
+                        ControlResultStatus.Error => ResultKind.Review,
+                        ControlResultStatus.Skipped => ResultKind.Review,
+                        _ => ResultKind.Fail,
+                    };
+                }
+                FailureLevel level = (kind == ResultKind.Fail) ? SarifLevelFromHdfImpact(execJsonControl.Impact) : FailureLevel.None;
+                double rank = (kind == ResultKind.Fail) ? SarifRankFromHdfImpact(execJsonControl.Impact) : -1.0;
                 var result = new Result
                 {
                     RuleId = execJsonControl.Id,
                     Message = new Message
                     {
-                        Text = AppendPeriod(controlResult.CodeDesc),
+                        Text = AppendPeriod(string.IsNullOrWhiteSpace(controlResult.CodeDesc) ? execJsonControl.Desc : controlResult.CodeDesc),
                     },
-                    Level = SarifLevelFromHdfImpact(execJsonControl.Impact),
-                    Rank = SarifRankFromHdfImpact(execJsonControl.Impact),
+                    Kind = kind,
+                    Level = level,
+                    Rank = rank,
+                    Locations = new List<Location>
+                    {
+                        new Location {
+                            PhysicalLocation = new PhysicalLocation
+                            {
+                                ArtifactLocation = new ArtifactLocation
+                                {
+                                   Uri =  new Uri(execJsonControl.SourceLocation.Ref ?? "file:///", UriKind.RelativeOrAbsolute),
+                                   UriBaseId = "ROOTPATH",
+                                },
+                                Region = new Region
+                                {
+                                    StartLine = execJsonControl.SourceLocation.Line ?? 1,
+                                    StartColumn = 1,
+                                    EndLine = execJsonControl.SourceLocation.Line ?? 1,
+                                    EndColumn = 1,
+                                }
+                            }
+                        }
+                    }
                 };
                 results.Add(result);
             }
@@ -164,7 +223,18 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             }
         }
 
+        private static double SarifSecuritySeverityFromHdfImpact(double impact) =>
+            /*
+            security-descriptor     Hdf Impact
+            >=9.0 (critical)         >=0.9 (critical)
+            >=7.0 (high)             >=0.7 (high)
+            >=4.0 (medium)           >=0.5 (medium)
+            <4.0 (low)               >=0.3 (low)
+            */
+            // security severity is exactly 10x impact
+            impact * 10.0;
         private static double SarifRankFromHdfImpact(double impact) =>
+            // https://docs.github.com/en/code-security/code-scanning/integrating-with-code-scanning/sarif-support-for-code-scanning#reportingdescriptor-object
             /*
             SARIF rank  Hdf Level   SARIF level Default Viewer Action
             0.0         0           note        Does not display by default

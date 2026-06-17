@@ -19,11 +19,11 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Baseline
         [Fact]
         public void WhatComparer_Basics()
         {
-            Run run = new Run();
-            Result left = new Result { RuleId = "Rule1", Message = new Message() { Text = "One" }, Run = run };
-            Result right = new Result { RuleId = "Rule1", Message = new Message() { Text = "Two" }, Run = run };
-            ExtractedResult eLeft = new ExtractedResult(left, run);
-            ExtractedResult eRight = new ExtractedResult(right, run);
+            var run = new Run();
+            var left = new Result { RuleId = "Rule1", Message = new Message() { Text = "One" }, Run = run };
+            var right = new Result { RuleId = "Rule1", Message = new Message() { Text = "Two" }, Run = run };
+            var eLeft = new ExtractedResult(left, run);
+            var eRight = new ExtractedResult(right, run);
 
             // GUIDs
             // =====
@@ -122,7 +122,7 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Baseline
             WhatComparer.MatchesWhat(eLeft, eRight).Should().BeTrue();
 
             // Verify snippets must also match.
-            Location location = new Location
+            var location = new Location
             {
                 PhysicalLocation = new PhysicalLocation
                 {

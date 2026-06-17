@@ -20,8 +20,8 @@ namespace Microsoft.WorkItems.Logging
             customDimensions ??= new Dictionary<string, object>();
 
             AssemblyName assemblyName = assembly.GetName();
-            FileInfo assemblyFileInfo = new FileInfo(assembly.Location);
-            Dictionary<string, object> assemblyMetrics = new Dictionary<string, object>(customDimensions);
+            var assemblyFileInfo = new FileInfo(assembly.Location);
+            var assemblyMetrics = new Dictionary<string, object>(customDimensions);
             assemblyMetrics.Add("Name", assemblyName.Name);
             assemblyMetrics.Add("Version", assemblyName.Version);
             assemblyMetrics.Add("CreationTime", assemblyFileInfo.CreationTime.ToUniversalTime().ToString());

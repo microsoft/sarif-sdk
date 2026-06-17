@@ -3,7 +3,6 @@
 
 using System;
 using System.Collections;
-using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.ComponentModel;
@@ -46,7 +45,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             propertyBagType = propertyBag.GetType();
             propertyBagTypeName = propertyBagType.Name;
 
-            if (propertyBagTypeName != "PropertyBag")
+            if (propertyBagTypeName != "PropertiesDictionary")
             {
                 propertyBagTypeName = NormalizeTypeName(propertyBag.GetType().FullName);
             }
@@ -57,7 +56,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 writer.WriteAttributeString(KEY_ID, name);
             }
 
-            if (propertyBagTypeName != "PropertyBag")
+            if (propertyBagTypeName != "PropertiesDictionary")
             {
                 writer.WriteAttributeString(TYPE_ID, propertyBagTypeName);
             }
@@ -81,21 +80,42 @@ namespace Microsoft.CodeAnalysis.Sarif
                     }
                 }
 
-                StringSet stringSet = property as StringSet;
+                var stringSet = property as StringSet;
                 if (stringSet != null)
                 {
                     SaveSet(writer, stringSet, key);
                     continue;
                 }
 
-                IntegerSet integerSet = property as IntegerSet;
+                var integerSet = property as IntegerSet;
                 if (integerSet != null)
                 {
                     SaveSet(writer, integerSet, key);
                     continue;
                 }
 
-                IDictionary pb = property as IDictionary;
+                var failureLevelSet = property as FailureLevelSet;
+                if (failureLevelSet != null)
+                {
+                    SaveSet(writer, failureLevelSet, key);
+                    continue;
+                }
+
+                var resultKindSet = property as ResultKindSet;
+                if (resultKindSet != null)
+                {
+                    SaveSet(writer, resultKindSet, key);
+                    continue;
+                }
+
+                var ruleKindSet = property as RuleKindSet;
+                if (ruleKindSet != null)
+                {
+                    SaveSet(writer, ruleKindSet, key);
+                    continue;
+                }
+
+                var pb = property as IDictionary;
                 if (pb != null)
                 {
                     pb.SavePropertiesToXmlStream(writer, settings, key, settingNameToDescriptionMap);
@@ -145,7 +165,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             writer.WriteAttributeString(KEY_ID, key);
             writer.WriteAttributeString(TYPE_ID, items.GetType().Name);
 
-            T[] sorted = new T[items.Count];
+            var sorted = new T[items.Count];
             items.CopyTo(sorted, 0);
             Array.Sort(sorted);
 
@@ -218,17 +238,38 @@ namespace Microsoft.CodeAnalysis.Sarif
                     isEmpty = reader.IsEmptyElement;
 
                     if (typeName == STRING_SET_ID ||
-                        typeName == INTEGER_SET_ID)
+                        typeName == INTEGER_SET_ID ||
+                        typeName == RESULT_KIND_SET_ID ||
+                        typeName == RULE_KIND_SET_ID ||
+                        typeName == FAILURE_LEVEL_SET_ID)
                     {
                         if (typeName == STRING_SET_ID)
                         {
-                            StringSet set = new StringSet();
+                            var set = new StringSet();
+                            propertyBag[key] = set;
+                            LoadSet(set, reader);
+                        }
+                        else if (typeName == INTEGER_SET_ID)
+                        {
+                            var set = new IntegerSet();
+                            propertyBag[key] = set;
+                            LoadSet(set, reader);
+                        }
+                        else if (typeName == FAILURE_LEVEL_SET_ID)
+                        {
+                            var set = new FailureLevelSet();
+                            propertyBag[key] = set;
+                            LoadSet(set, reader);
+                        }
+                        else if (typeName == RESULT_KIND_SET_ID)
+                        {
+                            var set = new ResultKindSet();
                             propertyBag[key] = set;
                             LoadSet(set, reader);
                         }
                         else
                         {
-                            IntegerSet set = new IntegerSet();
+                            var set = new RuleKindSet();
                             propertyBag[key] = set;
                             LoadSet(set, reader);
                         }
@@ -326,14 +367,15 @@ namespace Microsoft.CodeAnalysis.Sarif
         #endregion
 
         private const string KEY_ID = "Key";
-        private const string SET_ID = "Set";
         private const string ITEM_ID = "Item";
         private const string TYPE_ID = "Type";
         private const string VALUE_ID = "Value";
         private const string PROPERTY_ID = "Property";
-        private const string ITEMTYPE_ID = "ItemType";
         private const string STRING_SET_ID = "StringSet";
         private const string INTEGER_SET_ID = "IntegerSet";
+        private const string RULE_KIND_SET_ID = "RuleKindSet";
+        private const string RESULT_KIND_SET_ID = "ResultKindSet";
+        private const string FAILURE_LEVEL_SET_ID = "FailureLevelSet";
         internal const string PROPERTIES_ID = "Properties";
 
         private static readonly HybridDictionary s_typesCache = new HybridDictionary();

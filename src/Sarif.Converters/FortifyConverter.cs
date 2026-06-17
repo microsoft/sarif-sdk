@@ -55,7 +55,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             string runDescription = null;
             var results = new List<Result>();
 
-            using (XmlReader reader = XmlReader.Create(input, settings))
+            using (var reader = XmlReader.Create(input, settings))
             {
                 while (reader.Read())
                 {
@@ -79,7 +79,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                     {
                         while (StringReference.AreEqual(reader.LocalName, _strings.Issue))
                         {
-                            FortifyIssue fortify = FortifyIssue.Parse(reader, _strings);
+                            var fortify = FortifyIssue.Parse(reader, _strings);
                             results.Add(ConvertFortifyIssueToSarifIssue(fortify));
                         }
                     }
@@ -122,7 +122,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 SarifUtilities.AddOrUpdateDictionaryEntry(result.PartialFingerprints, "InstanceId", fortify.InstanceId);
             }
 
-            List<string> messageComponents = new List<string>();
+            var messageComponents = new List<string>();
             if (fortify.Abstract != null)
             {
                 messageComponents.Add(fortify.Abstract);

@@ -1,5 +1,5 @@
 {
-  "$schema": "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0-rtm.6.json",
+  "$schema": "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0.json",
   "version": "2.1.0",
   "runs": [
     {
@@ -15,6 +15,11 @@
               "guid": "AAFBAB93-5201-419E-8443-D4925C542398"
             }
           ]
+        }
+      },
+      "originalUriBaseIds": {
+        "ROOTPATH": {
+          "uri": "file:///"
         }
       },
       "artifacts": [

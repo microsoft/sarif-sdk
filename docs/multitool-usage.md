@@ -17,6 +17,10 @@ Use the SARIF Multitool to rewrite, enrich, filter, result match, and do other c
 | rewrite | Transform a SARIF file to a reformatted version |
 | suppress | Suppress results from a SARIF file |
 | validate | Validate a SARIF File against the schema and against additional correctness rules. |
+| emit-run | Open an append-only event log seeded with a SARIF `run` JSON document (driver identity, version control provenance, AI origin) supplied via `--input` or stdin. |
+| add-results | Append one or more fully-formed SARIF `result` objects (a JSON object or array) to an in-progress event log. |
+| add-invocations | Append one or more fully-formed SARIF `invocation` objects (a JSON object or array) to an in-progress event log. |
+| emit-finalize | Replay a staged event log into a final SARIF file (with optional enrichment, embedding, and post-emit validation). |
 | help | See Usage |
 | version | Display version information |
 
@@ -32,13 +36,13 @@ npx @microsoft/sarif-multitool <args>
 Sarif.Multitool @microsoft/sarif-multitool help
 
 : Convert a Fortify file to SARIF
-Sarif.Multitool convert Current.fpr -tool FortifyFpr -output Current.sarif
+Sarif.Multitool convert Current.fpr --tool FortifyFpr --output Current.sarif
 
 : Add file contents from analyzed files and snippets from result regions to SARIF
-Sarif.Multitool rewrite Current.sarif --insert "TextFiles,RegionSnippets" --inline
+Sarif.Multitool rewrite Current.sarif --insert TextFiles;RegionSnippets --log Inline
 
 : Remove codeFlows from results regions to SARIF
-Sarif.Multitool rewrite Current.sarif --remove "CodeFlows" --inline
+Sarif.Multitool rewrite Current.sarif --remove CodeFlows --log Inline
 
 : Transform to latest SARIF version (if older)
 Sarif.Multitool rewrite OlderFormat.sarif --output CurrentFormat.sarif --sarif-output-version Current
@@ -56,7 +60,7 @@ Sarif.Multitool export-validation-config validation.xml
 Sarif.Multitool export-validation-rules ValidationRules.md
 
 : Merge multiple SARIF files into one
-Sarif.Multitool merge C:\Input\*.sarif --recurse --output-directory=C:\Output\ --output-file=MergeResult.sarif
+Sarif.Multitool merge C:\Input\*.sarif --recurse true --output-directory=C:\Output\ --output-file=MergeResult.sarif
 
 : Extract new Results only from New Baseline
 Sarif.Multitool query NewBaseline.sarif --expression "BaselineState == 'New'" --output Current.NewResults.sarif
@@ -66,12 +70,47 @@ Sarif.Multitool suppress current.sarif --justification "some justification" --al
 
 : Validate a SARIF file conforms to the schema
 Sarif.Multitool validate Other.sarif
+
+: Validate against schema + AI profile rules (AI1003–AI2019)
+Sarif.Multitool validate Other.sarif --rule-kind "Sarif;AI"
+
+: Open an append-only event log for AI-produced findings (run header via stdin JSON)
+'{"tool":{"driver":{"name":"MyScanner","semanticVersion":"1.0.0","informationUri":"https://myscanner.example.com/"}},"versionControlProvenance":[{"repositoryUri":"https://github.com/org/repo","revisionId":"<sha>","branch":"main","mappedTo":{"uriBaseId":"SRCROOT"}}],"originalUriBaseIds":{"SRCROOT":{"uri":"file:///C:/repo/"}},"automationDetails":{"guid":"a7ad9ab8-1234-5678-9abc-def012345678"},"properties":{"ai/origin":"generated"}}' | Sarif.Multitool emit-run my.sarif
+
+: Append a result (JSON file form) to the in-progress event log
+Sarif.Multitool add-results my.sarif --input result-001.json
+
+: Append a result (stdin form)
+Get-Content result-001.json | Sarif.Multitool add-results my.sarif
+
+: Append a batch of results atomically (JSON array; reports appended/rejected indices on stdout)
+Sarif.Multitool add-results my.sarif --input results-batch.json
+
+: Finalize: replay the event log into a SARIF file, enrich, and validate
+Sarif.Multitool emit-finalize my.sarif --validate
+
+: Finalize a repo-less scan (no version control): elide the local root and mark the run unpublishable
+Sarif.Multitool emit-finalize my.sarif --no-repo --validate
+
+: Project results into flat CSV rows over an ordered column list (one row per location)
+Sarif.Multitool project Current.sarif --columns RuleId,Level,Location.Uri,Location.Region.StartLine,Properties.security-severity --output results.csv
+
+: Project to TSV or NDJSON, one row per result (its first location)
+Sarif.Multitool project Current.sarif --columns RuleId,Level,Location.Uri --format ndjson --first-location-only --output results.ndjson
+
+: Filter with 'query', then project the matches into rows
+Sarif.Multitool query Current.sarif --expression "BaselineState == 'New'" --output New.sarif && Sarif.Multitool project New.sarif --columns RuleId,Location.Uri --output new.csv
 ```
 
+For a step-by-step procedure that emits AI SARIF using these verbs, see
+[`skills/emit-sarif/SKILL.md`](../skills/emit-sarif/SKILL.md).
+
 ## Supported Converters
+
 Run ```Sarif.Multitool convert --help``` for the current list.
 
 - AndroidStudio
+- CisCat
 - ClangAnalyzer
 - ClangTidy
 - CppCheck
@@ -79,6 +118,7 @@ Run ```Sarif.Multitool convert --help``` for the current list.
 - Fortify
 - FortifyFpr
 - FxCop
+- Nessus
 - PREfast
 - Pylint
 - SemmleQL
@@ -94,10 +134,12 @@ clang-tidy --checks=* --header-filter=.* --system-headers --export-fixes=report.
 ```
 This will generate an extra report.yml.log, leave in the same folder with the input report.yml file.
 
-## Common Arguments
+## Common parameter `--log` log file persistence  options
 
 | Name | Purpose |
 | ---- | ------- |
-| pretty-print | Produce pretty-printed JSON output rather than compact form. |
-| minify | Produce compact JSON output (all white space removed) rather than pretty-printed output. |
-| force | Force overwrite of output file if it exists. |
+| ForceOverwrite | Force overwrite of output file if it exists. |
+| Inline | Inline outputs to files where appropriate. |
+| PrettyPrint | Produce pretty-printed JSON output rather than compact form. |
+| Minify | Produce compact JSON output (all white space removed) rather than pretty-printed output. |
+| Optimize | Produce a smaller but non-human-readable log omitting redundant properties. |

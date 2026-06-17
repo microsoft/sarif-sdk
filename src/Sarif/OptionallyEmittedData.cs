@@ -66,7 +66,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         // both versions exist
         FlattenedMessages = 0x100,
 
-        // SARIF Results may each have a GUID assigned to uniquely identify them.
+        // Assign a unique GUID to every SARIF result.
         Guids = 0x200,
 
         // Specifies the repository, branch, and other information describing the source controlled
@@ -80,13 +80,27 @@ namespace Microsoft.CodeAnalysis.Sarif
         // Enrich SARIF log with git blame information
         GitBlameInformation = 0x1000,
 
-        // A special enum value that indicates that insertion should overwrite any existing
-        // information in the SARIF log file. In the absence of this setting, any existing
-        // data that would otherwise have been overwritten by the insert operation will
-        // be preserved.
+        // Enrich SARIF log with partial fingerprint based on the hash value of the context region snippet (sha256).
+        ContextRegionSnippetPartialFingerprints = 0x2000,
+
+        // Enrich SARIF log with partial fingerprint based on the CodeQL rolling hash algorithm.
+        RollingHashPartialFingerprints = 0x4000,
+
+        // Persist an entry in the artifacts table for every analysis target, with the
+        // AnalysisTarget role, even if no result is reported for that target.
+        AnalysisTargets = 0x8000,
+
+        // When set, data that the insert operation can recompute — hashes, region
+        // properties, snippets, and similar — is overwritten with the recomputed values
+        // rather than preserving whatever was already present in the SARIF log file. In the
+        // absence of this setting, existing data is preserved.
+        //
+        // Note that leaving this bit unset can also surface exception behavior: when
+        // recomputed data (e.g. region properties derived from the source text) does not
+        // match the original authored input, the insert fails rather than overwriting it.
         OverwriteExistingData = 0x40000000,
 
-        // Insert Everything - should include every flag except the overwrite and git blame information ones
+        // Insert Everything - should include every flag except the overwrite and git blame information ones.
         All = ~OverwriteExistingData & ~GitBlameInformation
     }
 }

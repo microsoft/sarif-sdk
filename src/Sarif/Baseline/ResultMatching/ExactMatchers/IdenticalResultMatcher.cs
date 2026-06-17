@@ -22,13 +22,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching.ExactMatchers
 
         public IList<MatchedResults> Match(IList<ExtractedResult> baseline, IList<ExtractedResult> current)
         {
-            List<MatchedResults> matchedResults = new List<MatchedResults>();
+            var matchedResults = new List<MatchedResults>();
 
             IdenticalResultEqualityComparer comparer = _considerPropertyBagsWhenComparing
                 ? IdenticalResultEqualityComparer.PropertyBagComparingInstance
                 : IdenticalResultEqualityComparer.PropertyBagIgnoringInstance;
 
-            Dictionary<Result, List<ExtractedResult>> baselineResults = new Dictionary<Result, List<ExtractedResult>>(comparer);
+            var baselineResults = new Dictionary<Result, List<ExtractedResult>>(comparer);
 
             foreach (ExtractedResult result in baseline)
             {

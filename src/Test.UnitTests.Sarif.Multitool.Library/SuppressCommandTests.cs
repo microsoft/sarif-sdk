@@ -267,7 +267,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
                 if (options.Guids)
                 {
-                    suppression.Guid.Should().NotBeNullOrEmpty();
+                    suppression.Guid.Should().NotBeNull();
                 }
 
                 if (!string.IsNullOrWhiteSpace(options.Expression))
@@ -277,19 +277,19 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
                 if (options.Timestamps && suppression.TryGetProperty("timeUtc", out DateTime timeUtc))
                 {
-                    timeUtc.Should().BeCloseTo(DateTime.UtcNow, DateTimeAssertPrecision);
+                    timeUtc.Should().BeCloseTo(DateTime.UtcNow, TimeSpan.FromMilliseconds(DateTimeAssertPrecision));
                 }
 
                 if (options.ExpiryInDays > 0)
                 {
                     suppression.TryGetProperty("expiryUtc", out DateTime expiryInDaysUtc).Should().BeTrue();
-                    expiryInDaysUtc.Should().BeCloseTo(DateTime.UtcNow.AddDays(options.ExpiryInDays), DateTimeAssertPrecision);
+                    expiryInDaysUtc.Should().BeCloseTo(DateTime.UtcNow.AddDays(options.ExpiryInDays), TimeSpan.FromMilliseconds(DateTimeAssertPrecision));
                 }
 
                 if (options.ExpiryUtc.HasValue)
                 {
                     suppression.TryGetProperty("expiryUtc", out DateTime expiryUtc).Should().BeTrue();
-                    expiryUtc.Should().BeCloseTo(options.ExpiryUtc.Value, DateTimeAssertPrecision);
+                    expiryUtc.Should().BeCloseTo(options.ExpiryUtc.Value, TimeSpan.FromMilliseconds(DateTimeAssertPrecision));
                 }
             }
         }

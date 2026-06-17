@@ -32,12 +32,71 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         /// </summary>
         public override MultiformatMessageString FullDescription => new MultiformatMessageString { Text = RuleResources.SARIF2006_UrisShouldBeReachable_FullDescription_Text };
 
-        protected override IEnumerable<string> MessageResourceNames => new string[] {
+        protected override ICollection<string> MessageResourceNames => new List<string> {
             nameof(RuleResources.SARIF2006_UrisShouldBeReachable_Note_Default_Text)
         };
 
         // cache stores all visited Uris
         private static readonly ConcurrentDictionary<string, bool> s_checkedUris = new ConcurrentDictionary<string, bool>();
+
+        // RFC 2606 / RFC 6761 reserved TLDs and second-level names. Hosts under these are
+        // documentation/testing names by definition; probing them is meaningless (and arbitrary
+        // subdomains of example.com/net/org do not resolve).
+        private static readonly string[] s_reservedHostSuffixes = new[]
+        {
+            ".example", ".test", ".invalid", ".localhost",
+            ".example.com", ".example.net", ".example.org",
+        };
+
+        // Azure DevOps organizations are documentation placeholders by the same convention RFC 2606
+        // applies to hostnames: a dev.azure.com/<org> whose org names a fictitious account. These
+        // are exact names, not a prefix, so a real org incidentally starting with "example-" is not
+        // exempted.
+        private static readonly string[] s_reservedAzureDevOpsDocOrgs = new[] { "example", "example-org" };
+
+        internal static bool IsHttpScheme(Uri uri)
+            => uri.Scheme == Uri.UriSchemeHttp || uri.Scheme == Uri.UriSchemeHttps;
+
+        internal static bool IsReservedDocumentationHost(Uri uri)
+        {
+            if (!uri.IsAbsoluteUri || string.IsNullOrEmpty(uri.Host)) { return false; }
+
+            string host = uri.DnsSafeHost.ToLowerInvariant();
+
+            if (host == "example.com" || host == "example.net" || host == "example.org" ||
+                host == "example" || host == "test" || host == "invalid" || host == "localhost")
+            {
+                return true;
+            }
+
+            foreach (string suffix in s_reservedHostSuffixes)
+            {
+                if (host.EndsWith(suffix, StringComparison.Ordinal)) { return true; }
+            }
+
+            if (host == "dev.azure.com" && IsReservedAzureDevOpsDocOrg(uri))
+            {
+                return true;
+            }
+
+            return false;
+        }
+
+        private static bool IsReservedAzureDevOpsDocOrg(Uri uri)
+        {
+            // dev.azure.com URLs take the form /<org>/<project>/_git/<repo>; the first path segment
+            // is the organization.
+            string[] segments = uri.AbsolutePath.Split(new[] { '/' }, StringSplitOptions.RemoveEmptyEntries);
+            if (segments.Length == 0) { return false; }
+
+            string org = segments[0].ToLowerInvariant();
+            foreach (string docOrg in s_reservedAzureDevOpsDocOrgs)
+            {
+                if (org == docOrg) { return true; }
+            }
+
+            return false;
+        }
 
         protected override void Analyze(SarifLog log, string logPointer)
         {
@@ -90,8 +149,26 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             if (uriString != null && IsWellFormedUriString(uriString, UriKind.Absolute))
             {
                 // Ok, it's a well-formed absolute URI. If it's not reachable, _now_ we can report it.
-                Uri uri = new Uri(uriString, UriKind.Absolute);
+                var uri = new Uri(uriString, UriKind.Absolute);
+
+                // This rule asks whether a URI is reachable via an HTTP GET, a question that is
+                // only meaningful for HTTP and HTTPS URIs. Other schemes (file, ftp, mailto, or
+                // custom registry-based schemes) are out of scope, and passing them to
+                // HttpClient.GetAsync would throw NotSupportedException and abort the run.
+                if (!IsHttpScheme(uri))
+                {
+                    return;
+                }
+
+                // Skip RFC 2606/6761 reserved documentation/testing hosts entirely — they are
+                // fictitious by definition, so neither "reachable" nor "unreachable" is meaningful.
+                if (IsReservedDocumentationHost(uri))
+                {
+                    return;
+                }
+
                 if (uri.AbsoluteUri != "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0-rtm.6.json" &&
+                    uri.AbsoluteUri != SarifUtilities.FinalV210SchemaUri &&
                     // TODO: Shaopeng to remove after finalized and published.
                     !IsUriReachable(uri.AbsoluteUri))
                 {
@@ -111,10 +188,33 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                 return value;
             }
 
-            // http wrapper handles the cache all Uris has been accessed
-            HttpResponseMessage httpResponseMessage = httpProvider.GetAsync(uriString).GetAwaiter().GetResult();
-            s_checkedUris.TryAdd(uriString, httpResponseMessage.IsSuccessStatusCode);
-            return httpResponseMessage.IsSuccessStatusCode;
+            bool reachable;
+            try
+            {
+                HttpResponseMessage httpResponseMessage = httpProvider.GetAsync(uriString).GetAwaiter().GetResult();
+                reachable = httpResponseMessage.IsSuccessStatusCode;
+            }
+            catch (HttpRequestException)
+            {
+                // DNS failure, connection refused, TLS error, etc. — treat as unreachable and
+                // let the rule emit its note rather than aborting the whole validation run.
+                reachable = false;
+            }
+            catch (System.Threading.Tasks.TaskCanceledException)
+            {
+                // Timeout.
+                reachable = false;
+            }
+            catch (NotSupportedException)
+            {
+                // The URI scheme is not supported for an HTTP GET. Callers filter non-HTTP(S)
+                // schemes before reaching this point, so this guards an injected IHttpClient
+                // that probes a scheme HttpClient cannot service rather than aborting the run.
+                reachable = false;
+            }
+
+            s_checkedUris.TryAdd(uriString, reachable);
+            return reachable;
         }
     }
 }

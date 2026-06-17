@@ -2,7 +2,6 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System.Collections.Generic;
-using System.Linq;
 
 using CommandLine;
 
@@ -66,7 +65,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                         "--remove",
                         "VersionControlDetails;NondeterministicProperties",
                         "--sort-results",
-                        "--force"
+                        "--log",
+                        "ForceOverwrite"
                     },
                     Valid = true,
                     ExpectedOptions = SetEmptyValue(new RewriteOptions
@@ -79,7 +79,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                             OptionallyEmittedData.NondeterministicProperties
                         },
                         SortResults = true,
-                        Force = true,
+                        OutputFileOptions = new[] { FilePersistenceOptions.ForceOverwrite },
                     }),
                 },
                 new {
@@ -88,7 +88,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                         "--output",
                         "updated.sarif",
                         "test.sarif",
-                        "--force",
+                        "--log",
+                        "ForceOverwrite",
                         "--sort-results",
                     },
                     Valid = true,
@@ -97,7 +98,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                         InputFilePath = "test.sarif",
                         OutputFilePath = "updated.sarif",
                         SortResults = true,
-                        Force = true,
+                        OutputFileOptions = new[] { FilePersistenceOptions.ForceOverwrite },
                     }),
                 },
                 new {
@@ -107,7 +108,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                         "updated.sarif",
                         "test.sarif",
                         "-s",
-                        "-f"
+                        "--log",
+                        "ForceOverwrite"
                     },
                     Valid = true,
                     ExpectedOptions = SetEmptyValue(new RewriteOptions
@@ -115,7 +117,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                         InputFilePath = "test.sarif",
                         OutputFilePath = "updated.sarif",
                         SortResults = true,
-                        Force = true,
+                        OutputFileOptions = new[] { FilePersistenceOptions.ForceOverwrite },
                     }),
                 },
                 new {
@@ -126,7 +128,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                         "updated.sarif",
                         "--remove",
                         "--sort-results",
-                        "--force"
+                        "--log",
+                        "ForceOverwrite"
                     },
                     Valid = false,
                     ExpectedOptions = (RewriteOptions)null,
@@ -138,7 +141,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                         "--output",
                         "updated.sarif",
                         "--sort-result",
-                        "--force"
+                        "--log",
+                        "ForceOverwrite"
                     },
                     Valid = false,
                     ExpectedOptions = (RewriteOptions)null,

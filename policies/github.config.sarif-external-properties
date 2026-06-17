@@ -53,6 +53,13 @@
           "defaultConfiguration": {
             "enabled": true
           }
+        },
+        {
+          "id": "GH1007",
+          "name": "ProvideFullyFormattedMessageStrings",
+          "defaultConfiguration": {
+            "enabled": true
+          }
         }
       ]
     }

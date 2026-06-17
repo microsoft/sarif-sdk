@@ -3,17 +3,27 @@
 
 namespace Microsoft.CodeAnalysis.Sarif.Driver
 {
+    // Be sure to append new values for this enum to avoid changing existing member values.
     public enum ExitReason
     {
         None,
+
+        InvalidCommandLineOption,
+
+        UnhandledExceptionInEngine,
+        UnhandledExceptionInstantiatingSkimmers,
+
+        ExceptionPostingLogFile,
         ExceptionCreatingLogFile,
         ExceptionWritingToLogFile,
-        UnhandledExceptionInstantiatingSkimmers,
-        UnhandledExceptionInEngine,
-        NoRulesLoaded,
-        NoValidAnalysisTargets,
-        InvalidCommandLineOption,
         ExceptionProcessingBaseline,
-        ExceptionPostingLogFile
+
+        NoRulesLoaded,
+        IncompatibleRulesDetected,
+
+        NoValidAnalysisTargets,
+
+        AnalysisCanceled,
+        AnalysisTimedOut,
     }
 }

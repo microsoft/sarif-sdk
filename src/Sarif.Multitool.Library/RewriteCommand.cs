@@ -30,7 +30,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             try
             {
                 Console.WriteLine($"Rewriting '{options.InputFilePath}' => '{options.OutputFilePath}'...");
-                Stopwatch w = Stopwatch.StartNew();
+                var w = Stopwatch.StartNew();
 
                 bool valid = ValidateOptions(options);
                 if (!valid)
@@ -57,11 +57,26 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 IDictionary<string, ArtifactLocation> originalUriBaseIds = options.ConstructUriBaseIdsDictionary();
 
                 SarifLog reformattedLog = new RemoveOptionalDataVisitor(dataToRemove).VisitSarifLog(actualLog);
-                reformattedLog = new InsertOptionalDataVisitor(dataToInsert, originalUriBaseIds, insertProperties: options.InsertProperties).VisitSarifLog(reformattedLog);
+
+                reformattedLog = new InsertOptionalDataVisitor(dataToInsert,
+                                                               new FileRegionsCache(),
+                                                               originalUriBaseIds,
+                                                               insertProperties: options.InsertProperties).VisitSarifLog(reformattedLog);
 
                 if (options.SortResults)
                 {
                     reformattedLog = new SortingVisitor().VisitSarifLog(reformattedLog);
+                }
+
+                if (options.NormalizeForGhas)
+                {
+                    if (options.BasePath != null && options.BasePathToken != null)
+                    {
+                        var visitor = new RebaseUriVisitor(options.BasePathToken, new Uri(options.BasePath), options.RebaseRelativeUris);
+                        reformattedLog = visitor.VisitSarifLog(reformattedLog);
+                    }
+
+                    reformattedLog = new GitHubIngestionVisitor().VisitSarifLog(reformattedLog);
                 }
 
                 if (options.SarifOutputVersion == SarifVersion.OneZeroZero)
@@ -69,6 +84,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                     var visitor = new SarifCurrentToVersionOneVisitor();
                     visitor.VisitSarifLog(reformattedLog);
 
+                    bool minify = options.OutputFileOptions.ToFlags().HasFlag(FilePersistenceOptions.Minify);
                     WriteSarifFile(_fileSystem, visitor.SarifLogVersionOne, actualOutputPath, options.Minify, SarifContractResolverVersionOne.Instance);
                 }
                 else
@@ -98,7 +114,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             //  While this is returning true for inline cases, I think it's doing so for the wrong reasons.
             //  TODO: validate whether "actualOutputPath" can be created.
             //  #2270 https://github.com/microsoft/sarif-sdk/issues/2270
-            if (!DriverUtilities.ReportWhetherOutputFileCanBeCreated(rewriteOptions.OutputFilePath, rewriteOptions.Force, _fileSystem))
+            if (!DriverUtilities.ReportWhetherOutputFileCanBeCreated(rewriteOptions.OutputFilePath, rewriteOptions.ForceOverwrite, _fileSystem))
             {
                 return false;
             }
@@ -110,7 +126,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         //  #2271 https://github.com/microsoft/sarif-sdk/issues/2271
         private string SniffVersion(string sarifPath)
         {
-            using (JsonTextReader reader = new JsonTextReader(new StreamReader(_fileSystem.FileOpenRead(sarifPath))))
+            using (var reader = new JsonTextReader(new StreamReader(_fileSystem.FileOpenRead(sarifPath))))
             {
                 while (reader.Read())
                 {

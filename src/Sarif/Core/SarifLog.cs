@@ -76,23 +76,54 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="filePath"></param>
         /// <param name="fileSystem"></param>
         /// <param name="httpClient"></param>
-        public static async Task Post(Uri postUri,
-                                      string filePath,
-                                      IFileSystem fileSystem,
-                                      HttpClient httpClient)
+        /// <returns>If the SarifLog has been posted successfully.</returns>
+        public static async Task<(bool, string)> Post(Uri postUri,
+                                              string filePath,
+                                              IFileSystem fileSystem,
+                                              HttpClient httpClient)
         {
+            return await Post(postUri, filePath, fileSystem, new HttpClientWrapper(httpClient));
+        }
+
+        internal static async Task<(bool, string)> Post(Uri postUri,
+                                                      string filePath,
+                                                      IFileSystem fileSystem,
+                                                      HttpClientWrapper httpClient)
+        {
+            string postMessage = null;
+
             if (string.IsNullOrWhiteSpace(filePath))
             {
                 throw new ArgumentNullException(nameof(filePath));
             }
+
+            fileSystem ??= FileSystem.Instance;
 
             if (!fileSystem.FileExists(filePath))
             {
                 throw new ArgumentException($"File path does not exist: '{filePath}'", nameof(filePath));
             }
 
-            using Stream fileStream = fileSystem.FileOpenRead(filePath);
-            await Post(postUri, fileStream, httpClient);
+            byte[] fileBytes = fileSystem.FileReadAllBytes(filePath);
+            SarifLog sarifLog = Load(new MemoryStream(fileBytes));
+
+            if (!ShouldSendLog(sarifLog))
+            {
+                postMessage = $"Post of log file to {postUri} was skipped because the log contains no results or fatal errors to report.";
+                return (false, postMessage);
+            }
+
+            HttpResponseMessage response = await Post(postUri, new MemoryStream(fileBytes), httpClient);
+            string responseText = await response.Content.ReadAsStringAsync();
+
+            if (!response.IsSuccessStatusCode)
+            {
+                postMessage = $"Error posting log file to: {postUri}. Endpoint provided status code '{response.StatusCode}' and message: '{responseText}'";
+                return (false, postMessage);
+            }
+
+            postMessage = $"Posted log file successfully to: {postUri}. Endpoint provided status code '{response.StatusCode}' and message: '{responseText}'";
+            return (true, postMessage);
         }
 
         /// <summary>
@@ -103,7 +134,12 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="postUri"></param>
         /// <param name="stream"></param>
         /// <param name="httpClient"></param>
-        public static async Task Post(Uri postUri, Stream stream, HttpClient httpClient)
+        public static async Task<HttpResponseMessage> Post(Uri postUri, Stream stream, HttpClient httpClient)
+        {
+            return await Post(postUri, stream, new HttpClientWrapper(httpClient));
+        }
+
+        internal static async Task<HttpResponseMessage> Post(Uri postUri, Stream stream, HttpClientWrapper httpClient)
         {
             if (postUri == null)
             {
@@ -120,11 +156,13 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentNullException(nameof(httpClient));
             }
 
-            using var streamContent = new StreamContent(stream);
-            using HttpResponseMessage response = await httpClient
-                .PostAsync(postUri, streamContent);
+            if (stream.CanSeek)
+            {
+                stream.Seek(0, SeekOrigin.Begin);
+            }
 
-            response.EnsureSuccessStatusCode();
+            using var streamContent = new StreamContent(stream);
+            return await httpClient.PostAsync(postUri.ToString(), streamContent);
         }
 
         /// <summary>
@@ -160,6 +198,26 @@ namespace Microsoft.CodeAnalysis.Sarif
             var writer = new JsonTextWriter(streamWriter);
             serializer.Serialize(writer, this);
             writer.Flush();
+        }
+
+        /// <summary>
+        /// Enumerate all results from all runs in the SARIF log.
+        /// </summary>
+        /// <returns>A Result enumerator for the SARIF log.</returns>
+        public IEnumerable<Result> Results()
+        {
+            if (this.Runs?.Count > 0 == false) { yield break; }
+
+            foreach (Run run in this.Runs)
+            {
+                if (run.Results?.Count > 0 == false) { continue; }
+
+                foreach (Result result in run.Results)
+                {
+                    result.Run = run;
+                    yield return result;
+                }
+            }
         }
 
         /// <summary>
@@ -214,6 +272,39 @@ namespace Microsoft.CodeAnalysis.Sarif
                     localCache[rule.Id] = rule.DefaultConfiguration.Level;
                 }
             }
+        }
+
+        internal static bool ShouldSendLog(SarifLog sarifLog)
+        {
+            if (sarifLog?.Runs?.Count > 0)
+            {
+                foreach (Run run in sarifLog.Runs)
+                {
+                    if (run.Results?.Count > 0)
+                    {
+                        return true;
+                    }
+
+                    if (run.Invocations?.Count > 0)
+                    {
+                        foreach (Invocation invocation in run.Invocations)
+                        {
+                            if (invocation.ToolExecutionNotifications?.Count > 0)
+                            {
+                                foreach (Notification notification in invocation.ToolExecutionNotifications)
+                                {
+                                    if (notification.Level == FailureLevel.Error)
+                                    {
+                                        return true;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            return false;
         }
     }
 }

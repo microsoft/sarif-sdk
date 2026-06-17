@@ -13,7 +13,7 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests
         public void CacheBasics()
         {
             int buildCount = 0;
-            Cache<int, int> cache = new Cache<int, int>(
+            var cache = new Cache<int, int>(
                 (key) => { buildCount++; return 10 * key; },
                 capacity: 2);
 

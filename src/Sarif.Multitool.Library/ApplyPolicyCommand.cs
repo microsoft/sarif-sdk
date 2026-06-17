@@ -22,7 +22,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             try
             {
                 Console.WriteLine($"Applying policy '{options.InputFilePath}' => '{options.OutputFilePath}'...");
-                Stopwatch w = Stopwatch.StartNew();
+                var w = Stopwatch.StartNew();
 
                 bool valid = ValidateOptions(options);
                 if (!valid) { return FAILURE; }
@@ -53,7 +53,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
             valid &= applyPolicyOptions.Validate();
 
-            valid &= DriverUtilities.ReportWhetherOutputFileCanBeCreated(applyPolicyOptions.OutputFilePath, applyPolicyOptions.Force, _fileSystem);
+            valid &= DriverUtilities.ReportWhetherOutputFileCanBeCreated(applyPolicyOptions.OutputFilePath, applyPolicyOptions.ForceOverwrite, _fileSystem);
 
             return valid;
         }

@@ -2,10 +2,9 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System;
-using System.Collections.Generic;
+using System.Collections.Concurrent;
 using System.Net;
 using System.Net.Http;
-using System.Net.Http.Headers;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -20,45 +19,101 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new StringContent(AnyContentText);
         }
 
-        public static readonly HttpResponseMessage OKResponse =
-            new HttpResponseMessage(HttpStatusCode.OK);
+        public static HttpResponseMessage CreateOKResponse(HttpContent content = null)
+        {
+            var response = new HttpResponseMessage(HttpStatusCode.OK);
+            if (content != null)
+            {
+                response.Content = content;
+            }
+            return response;
+        }
 
-        public static readonly HttpResponseMessage NotFoundResponse =
-            new HttpResponseMessage(HttpStatusCode.NotFound);
+        public static HttpResponseMessage CreateNotFoundResponse(HttpContent content = null)
+        {
+            var response = new HttpResponseMessage(HttpStatusCode.NotFound);
+            if (content != null)
+            {
+                response.Content = content;
+            }
+            return response;
+        }
 
-        public static readonly HttpResponseMessage ForbiddenResponse =
-            new HttpResponseMessage(HttpStatusCode.Forbidden);
+        public static HttpResponseMessage CreateForbiddenResponse(HttpContent content = null)
+        {
+            var response = new HttpResponseMessage(HttpStatusCode.Forbidden);
+            if (content != null)
+            {
+                response.Content = content;
+            }
+            return response;
+        }
 
-        public static readonly HttpResponseMessage BadGatewayResponse =
-            new HttpResponseMessage(HttpStatusCode.BadGateway);
+        public static HttpResponseMessage CreateBadGatewayResponse(HttpContent content = null)
+        {
+            var response = new HttpResponseMessage(HttpStatusCode.BadGateway);
+            if (content != null)
+            {
+                response.Content = content;
+            }
+            return response;
+        }
 
-        public static readonly HttpResponseMessage BadRequestResponse =
-            new HttpResponseMessage(HttpStatusCode.BadRequest);
+        public static HttpResponseMessage CreateBadRequestResponse(HttpContent content = null)
+        {
+            var response = new HttpResponseMessage(HttpStatusCode.BadRequest);
+            if (content != null)
+            {
+                response.Content = content;
+            }
+            return response;
+        }
 
-        public static readonly HttpResponseMessage UnauthorizedResponse =
-            new HttpResponseMessage(HttpStatusCode.Unauthorized);
+        public static HttpResponseMessage CreateUnauthorizedResponse(HttpContent content = null)
+        {
+            var response = new HttpResponseMessage(HttpStatusCode.Unauthorized);
+            if (content != null)
+            {
+                response.Content = content;
+            }
+            return response;
+        }
 
-        public static readonly HttpResponseMessage InternalServerErrorResponse =
-            new HttpResponseMessage(HttpStatusCode.InternalServerError);
+        public static HttpResponseMessage CreateInternalServerErrorResponse(HttpContent content = null)
+        {
+            var response = new HttpResponseMessage(HttpStatusCode.InternalServerError);
+            if (content != null)
+            {
+                response.Content = content;
+            }
+            return response;
+        }
 
-        public static readonly HttpResponseMessage NonAuthoritativeInformationResponse =
-            new HttpResponseMessage(HttpStatusCode.NonAuthoritativeInformation);
+        public static HttpResponseMessage CreateNonAuthoritativeInformationResponse(HttpContent content = null)
+        {
+            var response = new HttpResponseMessage(HttpStatusCode.NonAuthoritativeInformation);
+            if (content != null)
+            {
+                response.Content = content;
+            }
+            return response;
+        }
 
-        private readonly List<Tuple<HttpRequestMessage, string, HttpResponseMessage>> mockedResponses =
-            new List<Tuple<HttpRequestMessage, string, HttpResponseMessage>>();
+        private readonly ConcurrentQueue<HttpResponseMessage> mockedResponses =
+            new ConcurrentQueue<HttpResponseMessage>();
 
         public static HttpResponseMessage GetResponseForStatusCode(HttpStatusCode statusCode)
         {
             switch (statusCode)
             {
-                case HttpStatusCode.OK: { return OKResponse; }
-                case HttpStatusCode.NotFound: { return NotFoundResponse; }
-                case HttpStatusCode.Forbidden: { return ForbiddenResponse; }
-                case HttpStatusCode.BadGateway: { return BadRequestResponse; }
-                case HttpStatusCode.BadRequest: { return BadRequestResponse; }
-                case HttpStatusCode.Unauthorized: { return UnauthorizedResponse; }
-                case HttpStatusCode.InternalServerError: { return InternalServerErrorResponse; }
-                case HttpStatusCode.NonAuthoritativeInformation: { return NonAuthoritativeInformationResponse; }
+                case HttpStatusCode.OK: { return CreateOKResponse(); }
+                case HttpStatusCode.NotFound: { return CreateNotFoundResponse(); }
+                case HttpStatusCode.Forbidden: { return CreateForbiddenResponse(); }
+                case HttpStatusCode.BadGateway: { return CreateBadGatewayResponse(); }
+                case HttpStatusCode.BadRequest: { return CreateBadRequestResponse(); }
+                case HttpStatusCode.Unauthorized: { return CreateUnauthorizedResponse(); }
+                case HttpStatusCode.InternalServerError: { return CreateInternalServerErrorResponse(); }
+                case HttpStatusCode.NonAuthoritativeInformation: { return CreateNonAuthoritativeInformationResponse(); }
             }
 
             throw new NotImplementedException();
@@ -66,71 +121,28 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         public void Mock(HttpRequestMessage httpRequestMessage, HttpStatusCode httpStatusCode, HttpContent responseContent)
         {
-            string requestContent = httpRequestMessage?.Content?.ReadAsStringAsync().GetAwaiter().GetResult();
-            this.mockedResponses.Add(new Tuple<HttpRequestMessage, string, HttpResponseMessage>(
-                httpRequestMessage,
-                requestContent ?? string.Empty,
-                new HttpResponseMessage(httpStatusCode) { RequestMessage = httpRequestMessage, Content = responseContent }));
+            this.mockedResponses.Enqueue(
+                new HttpResponseMessage(httpStatusCode) { RequestMessage = httpRequestMessage, Content = responseContent });
         }
 
-        public void Mock(HttpRequestMessage httpRequestMessage, HttpResponseMessage httpResponseMessage)
+        public void Mock(HttpResponseMessage httpResponseMessage)
         {
-            string requestContent = httpRequestMessage?.Content?.ReadAsStringAsync().GetAwaiter().GetResult();
-            this.mockedResponses.Add(new Tuple<HttpRequestMessage, string, HttpResponseMessage>(
-                httpRequestMessage,
-                requestContent ?? string.Empty,
-                httpResponseMessage));
+            this.mockedResponses.Enqueue(httpResponseMessage);
         }
 
         public void Clear()
         {
-            this.mockedResponses.Clear();
-        }
-
-        private static bool CompareHeaders(HttpRequestHeaders headers1, HttpRequestHeaders headers2)
-        {
-            foreach (KeyValuePair<string, IEnumerable<string>> header in headers1)
+            while (!this.mockedResponses.IsEmpty)
             {
-                string headerName = header.Key;
-                if (!headers2.TryGetValues(headerName, out IEnumerable<string> values))
-                {
-                    return false;
-                }
-
-                string headerContent1 = string.Join(",", header.Value);
-                string headerContent2 = string.Join(",", values);
-
-                if (headerContent1 != headerContent2)
-                {
-                    return false;
-                }
+                this.mockedResponses.TryDequeue(out _);
             }
-
-            return true;
         }
 
         protected override Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
         {
-            Tuple<HttpRequestMessage, string, HttpResponseMessage> fakeResponse;
-
-            string content = request.Content?.ReadAsStringAsync().GetAwaiter().GetResult() ?? string.Empty;
-
-            if (request.Headers.IsEmptyEnumerable())
-            {
-                fakeResponse = this.mockedResponses.Find(fr =>
-                    fr.Item1.RequestUri == request.RequestUri &&
-                    fr.Item1.Headers.IsEmptyEnumerable()
-                    && (fr.Item2 == content || fr.Item2 == AnyContentText));
-            }
-            else
-            {
-                fakeResponse = this.mockedResponses.Find(fr =>
-                    fr.Item1.RequestUri == request.RequestUri
-                    && CompareHeaders(request.Headers, fr.Item1.Headers)
-                    && (fr.Item2 == content || fr.Item2 == AnyContentText));
-            }
-
-            return Task.FromResult(fakeResponse.Item3);
+            this.mockedResponses.TryDequeue(out HttpResponseMessage message);
+            HttpRequestMessage _ = message.RequestMessage;
+            return Task.FromResult(message);
         }
     }
 }

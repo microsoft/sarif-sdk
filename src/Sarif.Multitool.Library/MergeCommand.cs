@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft. All rights reserved.
+// Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System;
@@ -25,22 +25,27 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         private long _filesToProcessCount;
         private Channel<string> _logLoadChannel;
         private Channel<SarifLog> _mergeLogsChannel;
-        private readonly Dictionary<string, Run> _ruleIdToRunsMap;
-        private readonly Dictionary<string, SarifLog> _idToSarifLogMap;
-        private readonly Dictionary<string, HashSet<Result>> _ruleIdToResultsMap;
-        private readonly Dictionary<string, RunMergingVisitor> _ruleIdToMergeVisitorsMap;
+
+        // Coalescing is keyed by tool name + version. Each distinct tool maps to a single
+        // RunMergingVisitor that absorbs every contributing run, deduping results and
+        // remapping descriptor, artifact, logical-location, and invocation indices into one
+        // merged run. _toolKeyOrder preserves first-seen order so the output is deterministic.
+        private readonly List<string> _toolKeyOrder;
+        private readonly Dictionary<string, Run> _toolKeyToMergedRun;
+        private readonly Dictionary<string, RunMergingVisitor> _toolKeyToVisitor;
+        private readonly Dictionary<string, HashSet<Result>> _toolKeyToResults;
 
         public MergeCommand(IFileSystem fileSystem = null) : base(fileSystem)
         {
-            _ruleIdToRunsMap = new Dictionary<string, Run>();
-            _idToSarifLogMap = new Dictionary<string, SarifLog>();
-            _ruleIdToResultsMap = new Dictionary<string, HashSet<Result>>();
-            _ruleIdToMergeVisitorsMap = new Dictionary<string, RunMergingVisitor>();
+            _toolKeyOrder = new List<string>();
+            _toolKeyToMergedRun = new Dictionary<string, Run>();
+            _toolKeyToVisitor = new Dictionary<string, RunMergingVisitor>();
+            _toolKeyToResults = new Dictionary<string, HashSet<Result>>();
         }
 
         public int Run(MergeOptions mergeOptions)
         {
-            Stopwatch w = Stopwatch.StartNew();
+            var w = Stopwatch.StartNew();
             try
             {
                 _options = mergeOptions;
@@ -57,12 +62,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                     return FAILURE;
                 }
 
-                if (_options.SplittingStrategy == 0)
+                if (!DriverUtilities.ReportWhetherOutputFileCanBeCreated(outputFilePath, _options.ForceOverwrite, FileSystem))
                 {
-                    if (!DriverUtilities.ReportWhetherOutputFileCanBeCreated(outputFilePath, _options.Force, FileSystem))
-                    {
-                        return FAILURE;
-                    }
+                    return FAILURE;
                 }
 
                 var logLoadOptions = new BoundedChannelOptions(1000)
@@ -102,27 +104,23 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 // waiting writer
                 writer.Wait();
 
-                foreach (string key in _idToSarifLogMap.Keys)
+                var mergedLog = new SarifLog { Runs = new List<Run>() };
+                foreach (string toolKey in _toolKeyOrder)
                 {
-                    SarifLog mergedLog = _idToSarifLogMap[key]
-                                            .InsertOptionalData(this._options.DataToInsert.ToFlags())
-                                            .RemoveOptionalData(this._options.DataToInsert.ToFlags());
-
-                    // If there were no input files, the Merge operation set combinedLog.Runs to null. Although
-                    // null is valid in certain error cases, it is not valid here. Here, the correct value is
-                    // an empty list. See the SARIF spec, §3.13.4, "runs property".
-                    mergedLog.Runs ??= new List<Run>();
-                    mergedLog.Version = SarifVersion.Current;
-                    mergedLog.SchemaUri = mergedLog.Version.ConvertToSchemaUri();
-
-                    // We must replace invalid file characters in the constructed output file name
-                    // that may appear in any rule ids incorporated into the file name candidate.
-                    FileSystem.DirectoryCreateDirectory(outputDirectory);
-                    outputFilePath = Path.Combine(
-                        outputDirectory,
-                        GetOutputFileName(_options, key).ReplaceInvalidCharInFileName("."));
-                    WriteSarifFile(FileSystem, mergedLog, outputFilePath, _options.Minify);
+                    Run mergedRun = _toolKeyToMergedRun[toolKey];
+                    _toolKeyToVisitor[toolKey].PopulateWithMerged(mergedRun);
+                    mergedLog.Runs.Add(mergedRun);
                 }
+
+                mergedLog = mergedLog
+                                .InsertOptionalData(this._options.DataToInsert.ToFlags())
+                                .RemoveOptionalData(this._options.DataToInsert.ToFlags());
+
+                mergedLog.Version = SarifVersion.Current;
+                mergedLog.SchemaUri = mergedLog.Version.ConvertToSchemaUri();
+
+                FileSystem.DirectoryCreateDirectory(outputDirectory);
+                WriteSarifFile(FileSystem, mergedLog, outputFilePath, _options.Minify);
             }
             catch (Exception ex)
             {
@@ -138,14 +136,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
         private async Task<bool> MergeSarifLogsAsync()
         {
-            if (_options.SplittingStrategy != SplittingStrategy.PerRule)
-            {
-                this._idToSarifLogMap[""] = new SarifLog()
-                {
-                    Runs = new List<Run>()
-                };
-            }
-
             ChannelReader<SarifLog> reader = _mergeLogsChannel.Reader;
 
             // Wait until there is work or the channel is closed.
@@ -154,57 +144,53 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 // Loop while there is work to do.
                 while (reader.TryRead(out SarifLog sarifLog))
                 {
+                    if (sarifLog.Runs == null)
+                    {
+                        continue;
+                    }
+
                     foreach (Run run in sarifLog.Runs)
                     {
-                        if (_options.SplittingStrategy == SplittingStrategy.PerRule || !_options.MergeEmptyLogs)
+                        bool hasResults = run.Results != null && run.Results.Count > 0;
+                        if (!hasResults && !_options.MergeEmptyLogs)
                         {
-                            if (run.Results == null || run.Results.Count == 0)
-                            {
-                                continue;
-                            }
+                            continue;
                         }
 
                         run.SetRunOnResults();
 
-                        if (run.Results != null)
+                        string toolKey = CreateToolKey(run);
+                        if (!_toolKeyToVisitor.TryGetValue(toolKey, out RunMergingVisitor visitor))
                         {
-                            foreach (Result result in run.Results)
+                            visitor = _toolKeyToVisitor[toolKey] = new RunMergingVisitor();
+                            _toolKeyToResults[toolKey] = new HashSet<Result>(Result.ValueComparer);
+                            _toolKeyOrder.Add(toolKey);
+
+                            // The first run of a given tool + version supplies the merged run's
+                            // header (tool metadata, automationDetails, columnKind, etc.). Its
+                            // result, artifact, and rule collections are replaced by the merged
+                            // sets in PopulateWithMerged once every contributing run is absorbed.
+                            _toolKeyToMergedRun[toolKey] = run.DeepClone();
+                        }
+
+                        if (run.Results == null)
+                        {
+                            continue;
+                        }
+
+                        HashSet<Result> seenResults = _toolKeyToResults[toolKey];
+                        foreach (Result result in run.Results)
+                        {
+                            // Drop results that are value-identical to one already merged for this
+                            // tool. A sharded scan can re-report the same finding in more than one
+                            // input log; the merged run should carry each finding exactly once.
+                            if (!seenResults.Add(result))
                             {
-                                string key = _options.SplittingStrategy == SplittingStrategy.PerRule
-                                    ? result.RuleId
-                                    : string.Empty;
-
-                                if (!_idToSarifLogMap.TryGetValue(key, out SarifLog splitLog))
-                                {
-                                    splitLog = _idToSarifLogMap[key] = new SarifLog()
-                                    {
-                                        Runs = new List<Run>()
-                                    };
-                                }
-
-                                string ruleId = _options.MergeRuns ? null : result.RuleId;
-                                key = CreateRuleKey(ruleId, run);
-
-                                if (!_ruleIdToRunsMap.TryGetValue(key, out Run splitRun))
-                                {
-                                    Run emptyRun = run.DeepClone();
-                                    emptyRun.Results.Clear();
-                                    splitRun = _ruleIdToRunsMap[key] = emptyRun;
-                                    splitLog.Runs.Add(splitRun);
-                                    _ruleIdToResultsMap[key] = new HashSet<Result>(Result.ValueComparer);
-                                    _ruleIdToMergeVisitorsMap[key] = new RunMergingVisitor();
-                                }
-
-                                if (!_ruleIdToResultsMap[key].Contains(result))
-                                {
-                                    _ruleIdToResultsMap[key].Add(result);
-
-                                    RunMergingVisitor currentVisitor = _ruleIdToMergeVisitorsMap[key];
-                                    currentVisitor.CurrentRun = result.Run;
-                                    currentVisitor.VisitResult(result.DeepClone());
-                                    currentVisitor.PopulateWithMerged(splitRun);
-                                }
+                                continue;
                             }
+
+                            visitor.CurrentRun = run;
+                            visitor.VisitResult(result.DeepClone());
                         }
                     }
                 }
@@ -212,10 +198,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             return true;
         }
 
-        private static string CreateRuleKey(string ruleId, Run run)
+        private static string CreateToolKey(Run run)
         {
             return
-                (ruleId ?? "") +
                 (run.Tool.Driver.Name ?? "") +
                 (run.Tool.Driver.Version ?? "") +
                 (run.Tool.Driver.SemanticVersion ?? "") +
@@ -252,11 +237,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 FileSystem.FileReadAllText(filePath),
                 formatting: Formatting.None,
                 out string sarifText);
-
-            if (_options.MergeRuns)
-            {
-                new FixupVisitor().VisitSarifLog(sarifLog);
-            }
 
             _mergeLogsChannel.Writer.TryWrite(sarifLog);
             Interlocked.Decrement(ref _filesToProcessCount);
@@ -295,60 +275,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             return true;
         }
 
-        internal static string GetOutputFileName(MergeOptions mergeOptions, string prefix = "")
+        internal static string GetOutputFileName(MergeOptions mergeOptions)
         {
-            return string.IsNullOrEmpty(mergeOptions.OutputFileName) == false
-                ? GetPrefix(prefix) + mergeOptions.OutputFileName
-                : GetPrefix("merged.sarif");
-        }
-
-        private static string GetPrefix(string prefix)
-        {
-            if (!string.IsNullOrWhiteSpace(prefix) && !prefix.EndsWith("_"))
-            {
-                prefix += "_";
-            }
-
-            return prefix ?? string.Empty;
-        }
-    }
-
-    internal class FixupVisitor : SarifRewritingVisitor
-    {
-        private Run _run;
-
-        public override Run VisitRun(Run node)
-        {
-            _run = node;
-            _run = base.VisitRun(node);
-
-            _run.Invocations = null;
-            _run.Artifacts = null;
-            _run.Tool.Driver = new ToolComponent
-            {
-                Name = _run.Tool.Driver.Name,
-                Version = _run.Tool.Driver.Version,
-                SemanticVersion = _run.Tool.Driver.SemanticVersion,
-                DottedQuadFileVersion = _run.Tool.Driver.DottedQuadFileVersion
-            };
-
-            return _run;
-        }
-
-        public override Result VisitResult(Result node)
-        {
-            node.RuleIndex = -1;
-            return base.VisitResult(node);
-        }
-
-        public override ArtifactLocation VisitArtifactLocation(ArtifactLocation node)
-        {
-            if (_run.Artifacts != null && node.Index > -1)
-            {
-                node = _run.Artifacts[node.Index].Location;
-            }
-            node.Index = -1;
-            return base.VisitArtifactLocation(node);
+            return string.IsNullOrEmpty(mergeOptions.OutputFileName)
+                ? "merged.sarif"
+                : mergeOptions.OutputFileName;
         }
     }
 }

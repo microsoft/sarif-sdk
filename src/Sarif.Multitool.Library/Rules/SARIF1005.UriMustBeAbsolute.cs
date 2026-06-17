@@ -27,7 +27,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         /// </summary>
         public override MultiformatMessageString FullDescription => new MultiformatMessageString { Text = RuleResources.SARIF1005_UriMustBeAbsolute_FullDescription_Text };
 
-        protected override IEnumerable<string> MessageResourceNames => new string[] {
+        protected override ICollection<string> MessageResourceNames => new List<string> {
             nameof(RuleResources.SARIF1005_UriMustBeAbsolute_Error_Default_Text)
         };
 
@@ -81,7 +81,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             {
                 // Ok, it's a well-formed URI of some kind. If it's not absolute, _now_ we
                 // can report it.
-                Uri uri = new Uri(uriString, UriKind.RelativeOrAbsolute);
+                var uri = new Uri(uriString, UriKind.RelativeOrAbsolute);
                 if (!uri.IsAbsoluteUri)
                 {
                     // {0}: The value of this property is required to be an absolute URI, but '{1}' is a relative URI reference.

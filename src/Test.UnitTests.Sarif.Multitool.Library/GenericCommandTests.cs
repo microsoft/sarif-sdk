@@ -29,7 +29,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
         private void CheckTypeForDuplicateArgumentNames(Type type)
         {
-            Dictionary<char, Argument> parameters = new Dictionary<char, Argument>();
+            var parameters = new Dictionary<char, Argument>();
 
             foreach (PropertyInfo property in type.GetProperties())
             {
@@ -57,7 +57,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
         private Argument ParseOptionAttribute(CustomAttributeData attribute)
         {
-            Argument result = new Argument();
+            var result = new Argument();
 
             foreach (CustomAttributeTypedArgument argument in attribute.ConstructorArguments)
             {

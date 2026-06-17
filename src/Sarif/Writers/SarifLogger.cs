@@ -2,7 +2,6 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System;
-using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
@@ -18,75 +17,76 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 {
     public class SarifLogger : BaseLogger, IDisposable, IAnalysisLogger
     {
+        private TextWriter _textWriter;
+        private JsonTextWriter _jsonTextWriter;
+        private ResultLogJsonWriter _issueLogJsonWriter;
+
         private readonly Run _run;
-        private readonly TextWriter _textWriter;
         private readonly bool _closeWriterOnDispose;
-        private readonly LogFilePersistenceOptions _logFilePersistenceOptions;
-        private readonly JsonTextWriter _jsonTextWriter;
         private readonly OptionallyEmittedData _dataToInsert;
         private readonly OptionallyEmittedData _dataToRemove;
-        private readonly ResultLogJsonWriter _issueLogJsonWriter;
+        private readonly FilePersistenceOptions _filePersistenceOptions;
         private readonly InsertOptionalDataVisitor _insertOptionalDataVisitor;
 
-        protected const LogFilePersistenceOptions DefaultLogFilePersistenceOptions = LogFilePersistenceOptions.PrettyPrint;
+        protected const FilePersistenceOptions DefaultLogFilePersistenceOptions = FilePersistenceOptions.PrettyPrint;
 
         public SarifLogger(string outputFilePath,
-                           LogFilePersistenceOptions logFilePersistenceOptions = DefaultLogFilePersistenceOptions,
+                           FilePersistenceOptions logFilePersistenceOptions = DefaultLogFilePersistenceOptions,
                            OptionallyEmittedData dataToInsert = OptionallyEmittedData.None,
                            OptionallyEmittedData dataToRemove = OptionallyEmittedData.None,
-                           Tool tool = null,
                            Run run = null,
                            IEnumerable<string> analysisTargets = null,
                            IEnumerable<string> invocationTokensToRedact = null,
                            IEnumerable<string> invocationPropertiesToLog = null,
                            string defaultFileEncoding = null,
                            bool closeWriterOnDispose = true,
-                           bool quiet = false,
-                           IEnumerable<FailureLevel> levels = null,
-                           IEnumerable<ResultKind> kinds = null,
+                           FailureLevelSet levels = null,
+                           ResultKindSet kinds = null,
                            IEnumerable<string> insertProperties = null,
-                           FileRegionsCache fileRegionsCache = null)
-            : this(new StreamWriter(new FileStream(outputFilePath, FileMode.Create, FileAccess.Write, FileShare.None)),
+                           FileRegionsCache fileRegionsCache = null,
+                           HashAlgorithms hashAlgorithms = HashAlgorithms.Default)
+            : this(new StreamWriter(new FileStream(outputFilePath, FileMode.Create, FileAccess.Write, FileShare.Read)),
                                     logFilePersistenceOptions,
                                     dataToInsert,
                                     dataToRemove,
-                                    tool,
                                     run,
                                     analysisTargets,
                                     invocationTokensToRedact,
                                     invocationPropertiesToLog,
                                     defaultFileEncoding,
                                     closeWriterOnDispose,
-                                    quiet,
                                     levels,
                                     kinds,
                                     insertProperties,
-                                    fileRegionsCache)
+                                    fileRegionsCache,
+                                    hashAlgorithms)
         {
         }
 
         public SarifLogger(TextWriter textWriter,
-                           LogFilePersistenceOptions logFilePersistenceOptions = DefaultLogFilePersistenceOptions,
+                           FilePersistenceOptions logFilePersistenceOptions = DefaultLogFilePersistenceOptions,
                            OptionallyEmittedData dataToInsert = OptionallyEmittedData.None,
                            OptionallyEmittedData dataToRemove = OptionallyEmittedData.None,
-                           Tool tool = null,
                            Run run = null,
                            IEnumerable<string> analysisTargets = null,
                            IEnumerable<string> invocationTokensToRedact = null,
                            IEnumerable<string> invocationPropertiesToLog = null,
                            string defaultFileEncoding = null,
                            bool closeWriterOnDispose = true,
-                           bool quiet = false,
-                           IEnumerable<FailureLevel> levels = null,
-                           IEnumerable<ResultKind> kinds = null,
+                           FailureLevelSet levels = null,
+                           ResultKindSet kinds = null,
                            IEnumerable<string> insertProperties = null,
-                           FileRegionsCache fileRegionsCache = null) : base(failureLevels: levels, resultKinds: kinds)
+                           FileRegionsCache fileRegionsCache = null,
+                           HashAlgorithms hashAlgorithms = HashAlgorithms.Default) : base(failureLevels: levels, resultKinds: kinds)
         {
             _textWriter = textWriter;
             _closeWriterOnDispose = closeWriterOnDispose;
-            _jsonTextWriter = new JsonTextWriter(_textWriter);
+            _jsonTextWriter = new JsonTextWriter(_textWriter)
+            {
+                StringEscapeHandling = StringEscapeHandling.EscapeNonAscii
+            };
 
-            _logFilePersistenceOptions = logFilePersistenceOptions;
+            _filePersistenceOptions = logFilePersistenceOptions;
 
             if (PrettyPrint)
             {
@@ -98,40 +98,50 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             _jsonTextWriter.CloseOutput = _closeWriterOnDispose;
 
             _issueLogJsonWriter = new ResultLogJsonWriter(_jsonTextWriter);
+            RuleToReportingDescriptorReferenceMap = new Dictionary<ReportingDescriptor, ReportingDescriptorReference>(ReportingDescriptor.ValueComparer);
             RuleToIndexMap = new Dictionary<ReportingDescriptor, int>(ReportingDescriptor.ValueComparer);
-
-            if (dataToInsert.HasFlag(OptionallyEmittedData.Hashes))
-            {
-                AnalysisTargetToHashDataMap = HashUtilities.MultithreadedComputeTargetFileHashes(analysisTargets, quiet) ?? new ConcurrentDictionary<string, HashData>();
-            }
+            ExtensionGuidToIndexMap = new Dictionary<Guid, int>();
 
             _run = run ?? new Run();
 
-            if (dataToInsert.HasFlag(OptionallyEmittedData.RegionSnippets) ||
+            if (dataToInsert.HasFlag(OptionallyEmittedData.Hashes) ||
+                dataToInsert.HasFlag(OptionallyEmittedData.RegionSnippets) ||
                 dataToInsert.HasFlag(OptionallyEmittedData.ContextRegionSnippets))
             {
                 _insertOptionalDataVisitor = new InsertOptionalDataVisitor(dataToInsert,
+                                                                           fileRegionsCache,
                                                                            _run,
-                                                                           insertProperties,
-                                                                           fileRegionsCache);
+                                                                           insertProperties);
             }
+
+            FileRegionsCache = fileRegionsCache ?? new FileRegionsCache(hashAlgorithms: hashAlgorithms);
 
             EnhanceRun(analysisTargets,
                        dataToInsert,
                        dataToRemove,
                        invocationTokensToRedact,
                        invocationPropertiesToLog,
-                       defaultFileEncoding,
-                       AnalysisTargetToHashDataMap);
+                       defaultFileEncoding);
 
-            tool = tool ?? Tool.CreateFromAssemblyData();
-
-            _run.Tool = tool;
+            _run.Tool ??= Tool.CreateFromAssemblyData();
             _dataToInsert = dataToInsert;
             _dataToRemove = dataToRemove;
             _issueLogJsonWriter.Initialize(_run);
 
             // Map existing Rules to ensure duplicates aren't created
+            if (_run.Tool.Extensions != null)
+            {
+                RecordRules(extensionIndex: null, _run.Tool.Driver);
+
+                for (int extensionIndex = 0; extensionIndex < _run.Tool.Extensions.Count; ++extensionIndex)
+                {
+                    ToolComponent extension = _run.Tool.Extensions[extensionIndex];
+                    ExtensionGuidToIndexMap[extension.Guid.Value] = extensionIndex;
+                    RecordRules(extensionIndex, extension);
+                }
+
+            }
+
             if (_run.Tool.Driver?.Rules != null)
             {
                 for (int i = 0; i < _run.Tool.Driver.Rules.Count; ++i)
@@ -141,13 +151,49 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             }
         }
 
+        private FileRegionsCache _fileRegionsCache;
+        public FileRegionsCache FileRegionsCache
+        {
+            get => _fileRegionsCache;
+            set
+            {
+                _fileRegionsCache = value;
+                if (_insertOptionalDataVisitor != null)
+                {
+
+                    _insertOptionalDataVisitor.FileRegionsCache = _fileRegionsCache = value;
+                }
+            }
+        }
+
+        private void RecordRules(int? extensionIndex, ToolComponent toolComponent)
+        {
+            if (toolComponent.Rules == null) { return; }
+
+            for (int ruleIndex = 0; ruleIndex < toolComponent.Rules.Count; ruleIndex++)
+            {
+                ReportingDescriptor rule = toolComponent.Rules[ruleIndex];
+                RuleToReportingDescriptorReferenceMap[rule] =
+                new ReportingDescriptorReference
+                {
+                    Id = rule.Id,
+                    Index = ruleIndex,
+                    ToolComponent = extensionIndex != null
+                        ? new ToolComponentReference
+                        {
+                            Index = extensionIndex.Value,
+                        }
+                        : null,
+                };
+            }
+        }
+
         private void EnhanceRun(IEnumerable<string> analysisTargets,
                                 OptionallyEmittedData dataToInsert,
                                 OptionallyEmittedData dataToRemove,
                                 IEnumerable<string> invocationTokensToRedact,
                                 IEnumerable<string> invocationPropertiesToLog,
-                                string defaultFileEncoding = null,
-                                IDictionary<string, HashData> filePathToHashDataMap = null)
+                                string defaultFileEncoding = null)
         {
             _run.Invocations ??= new List<Invocation>();
             if (defaultFileEncoding != null)
@@ -163,19 +209,22 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
                 foreach (string target in analysisTargets)
                 {
-                    Uri uri = new Uri(UriHelper.MakeValidUri(target), UriKind.RelativeOrAbsolute);
+                    string uriText = UriHelper.MakeValidUri(target);
+                    var uri = new Uri(uriText, UriKind.RelativeOrAbsolute);
 
                     HashData hashData = null;
-                    if (dataToInsert.HasFlag(OptionallyEmittedData.Hashes))
+                    if (dataToInsert.HasFlag(OptionallyEmittedData.Hashes) && FileRegionsCache != null)
                     {
-                        filePathToHashDataMap?.TryGetValue(target, out hashData);
+                        hashData = FileRegionsCache.GetHashData(uri);
                     }
 
                     var artifact = Artifact.Create(
                         new Uri(target, UriKind.RelativeOrAbsolute),
                         dataToInsert,
                         encoding,
-                        hashData: hashData);
+                        hashData: hashData,
+                        fileSystem: FileRegionsCache.FileSystem,
+                        hashAlgorithms: FileRegionsCache.HashAlgorithms);
 
                     var fileLocation = new ArtifactLocation
                     {
@@ -190,7 +239,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                         addToFilesTableIfNotPresent: true,
                         dataToInsert: dataToInsert,
                         encoding: encoding,
-                        hashData: hashData);
+                        hashData: hashData,
+                        fileSystem: FileRegionsCache.FileSystem,
+                        hashAlgorithms: FileRegionsCache.HashAlgorithms);
                 }
             }
 
@@ -228,9 +279,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             _run.Invocations.Add(invocation);
         }
 
-        public IDictionary<string, HashData> AnalysisTargetToHashDataMap { get; }
+        public IDictionary<ReportingDescriptor, ReportingDescriptorReference> RuleToReportingDescriptorReferenceMap { get; }
 
         public IDictionary<ReportingDescriptor, int> RuleToIndexMap { get; }
+
+        public Dictionary<Guid, int> ExtensionGuidToIndexMap { get; }
 
         public bool ComputeFileHashes => _dataToInsert.HasFlag(OptionallyEmittedData.Hashes);
 
@@ -240,11 +293,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
         public bool PersistEnvironment => _dataToInsert.HasFlag(OptionallyEmittedData.EnvironmentVariables);
 
-        public bool OverwriteExistingOutputFile => _logFilePersistenceOptions.HasFlag(LogFilePersistenceOptions.OverwriteExistingOutputFile);
+        public bool OverwriteExistingOutputFile => _filePersistenceOptions.HasFlag(FilePersistenceOptions.ForceOverwrite);
 
-        public bool PrettyPrint => _logFilePersistenceOptions.HasFlag(LogFilePersistenceOptions.PrettyPrint);
+        public bool PrettyPrint => _filePersistenceOptions.HasFlag(FilePersistenceOptions.PrettyPrint);
 
-        public bool Optimize => _logFilePersistenceOptions.HasFlag(LogFilePersistenceOptions.Optimize);
+        public bool Optimize => _filePersistenceOptions.HasFlag(FilePersistenceOptions.Optimize);
+
+        public bool PersistAnalysisTargets => _dataToInsert.HasFlag(OptionallyEmittedData.AnalysisTargets);
 
         public virtual void Dispose()
         {
@@ -262,12 +317,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
                 _issueLogJsonWriter.CompleteRun();
                 _issueLogJsonWriter.Dispose();
+                _issueLogJsonWriter = null;
             }
 
             if (_closeWriterOnDispose)
             {
-                if (_textWriter != null) { _textWriter.Dispose(); }
-                if (_jsonTextWriter != null) { _jsonTextWriter.Close(); }
+                _textWriter?.Dispose();
+                _jsonTextWriter?.Close();
+
+                _textWriter = null;
+                _jsonTextWriter = null;
             }
 
             GC.SuppressFinalize(this);
@@ -289,7 +348,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             }
         }
 
-        public void Log(ReportingDescriptor rule, Result result)
+        public void Log(ReportingDescriptor rule, Result result, int? extensionIndex)
         {
             if (rule == null)
             {
@@ -303,7 +362,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
             if (result.RuleId != null && !result.RuleId.IsEqualToOrHierarchicalDescendantOf(rule.Id))
             {
-                //The rule id '{0}' specified by the result does not match the actual id of the rule '{1}'
+                // The rule id '{0}' specified by the result does not match the actual id of the rule '{1}'
                 string message = string.Format(CultureInfo.InvariantCulture, SdkResources.ResultRuleIdDoesNotMatchRule,
                     result.RuleId,
                     rule.Id);
@@ -316,14 +375,18 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 return;
             }
 
-            result.RuleIndex = LogRule(rule);
+            if (extensionIndex == null)
+            {
+                result.RuleIndex = LogRule(rule);
+            }
+            else
+            {
+                result.Rule = LogRule(rule, extensionIndex.Value);
+            }
 
             CaptureFilesInResult(result);
 
-            if (_insertOptionalDataVisitor != null)
-            {
-                _insertOptionalDataVisitor.VisitResult(result);
-            }
+            _insertOptionalDataVisitor?.Visit(result);
 
             _issueLogJsonWriter.WriteResult(result);
         }
@@ -339,6 +402,30 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             }
 
             return ruleIndex;
+        }
+
+        private ReportingDescriptorReference LogRule(ReportingDescriptor rule, int extensionIndex)
+        {
+            ToolComponent toolComponent = _run.Tool.Extensions[extensionIndex];
+
+            if (!RuleToReportingDescriptorReferenceMap.TryGetValue(rule, out ReportingDescriptorReference reference))
+            {
+                toolComponent.Rules ??= new OrderSensitiveValueComparisonList<ReportingDescriptor>(ReportingDescriptor.ValueComparer);
+                int ruleIndex = toolComponent.Rules.Count;
+                toolComponent.Rules.Add(rule);
+
+                reference = RuleToReportingDescriptorReferenceMap[rule] = new ReportingDescriptorReference
+                {
+                    Id = rule.Id,
+                    Index = ruleIndex,
+                    ToolComponent = new ToolComponentReference
+                    {
+                        Index = extensionIndex
+                    },
+                };
+            }
+
+            return reference;
         }
 
         private void CaptureFilesInResult(Result result)
@@ -427,6 +514,17 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 return;
             }
 
+            // We only populate the artifacts table is there is some data
+            // in addition to the location URI. Otherwise, each results
+            // stores the URI and an artifact index that points to an
+            // entry that merely recapitulates the URI with no other data.
+            bool createArtifactEntries =
+                _dataToInsert.HasFlag(OptionallyEmittedData.Hashes) ||
+                _dataToInsert.HasFlag(OptionallyEmittedData.TextFiles) ||
+                _dataToInsert.HasFlag(OptionallyEmittedData.BinaryFiles) ||
+                !string.IsNullOrEmpty(fileLocation.UriBaseId) ||
+                this.Optimize;
+
             Encoding encoding = null;
 
             if (_run.DefaultEncoding != null)
@@ -439,14 +537,19 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             }
 
             HashData hashData = null;
-            AnalysisTargetToHashDataMap?.TryGetValue(fileLocation.Uri.OriginalString, out hashData);
+            if (_dataToInsert.HasFlag(OptionallyEmittedData.Hashes) && FileRegionsCache != null)
+            {
+                hashData = FileRegionsCache.GetHashData(fileLocation.Uri);
+            }
 
             // Ensure Artifact is in Run.Artifacts and ArtifactLocation.Index is set to point to it
             int index = _run.GetFileIndex(fileLocation,
-                                          addToFilesTableIfNotPresent: true,
+                                          addToFilesTableIfNotPresent: createArtifactEntries,
                                           _dataToInsert,
                                           encoding,
-                                          hashData);
+                                          hashData,
+                                          fileSystem: FileRegionsCache?.FileSystem,
+                                          hashAlgorithms: FileRegionsCache?.HashAlgorithms ?? HashAlgorithms.Default);
 
             // Remove redundant Uri and UriBaseId once index has been set
             if (index > -1 && this.Optimize)
@@ -460,9 +563,55 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
         public void AnalyzingTarget(IAnalysisContext context)
         {
+            if (PersistAnalysisTargets && context?.CurrentTarget?.Uri != null)
+            {
+                Uri targetUri = context.CurrentTarget.Uri;
+
+                Encoding encoding = null;
+                if (_run.DefaultEncoding != null)
+                {
+                    try
+                    {
+                        encoding = Encoding.GetEncoding(_run.DefaultEncoding);
+                    }
+                    catch (ArgumentException) { } // Unrecognized encoding name
+                }
+
+                HashData hashData = null;
+                if (_dataToInsert.HasFlag(OptionallyEmittedData.Hashes) && FileRegionsCache != null)
+                {
+                    hashData = FileRegionsCache.GetHashData(targetUri);
+                }
+
+                var fileLocation = new ArtifactLocation
+                {
+                    Uri = new Uri(UriHelper.MakeValidUri(targetUri.OriginalString), UriKind.RelativeOrAbsolute)
+                };
+
+                // GetFileIndex will deduplicate: if the artifact is already present,
+                // it returns the existing index rather than creating a new entry.
+                int index = _run.GetFileIndex(
+                    fileLocation,
+                    addToFilesTableIfNotPresent: true,
+                    dataToInsert: _dataToInsert,
+                    encoding: encoding,
+                    hashData: hashData,
+                    fileSystem: FileRegionsCache?.FileSystem,
+                    hashAlgorithms: FileRegionsCache?.HashAlgorithms ?? HashAlgorithms.Default);
+
+                if (index > -1)
+                {
+                    _run.Artifacts[index].Roles |= ArtifactRoles.AnalysisTarget;
+                }
+            }
         }
 
-        public void LogToolNotification(Notification notification)
+        public void TargetAnalyzed(IAnalysisContext context)
+        {
+
+        }
+
+        public void LogToolNotification(Notification notification, ReportingDescriptor associatedRule)
         {
             if (!ShouldLog(notification))
             {
@@ -479,6 +628,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             _run.Invocations[0].ExecutionSuccessful &= notification.Level != FailureLevel.Error;
 
             CaptureFilesInNotification(notification);
+
+            if (associatedRule != null)
+            {
+                int ruleIndex = LogRule(associatedRule);
+                notification.AssociatedRule = new ReportingDescriptorReference
+                {
+                    Index = ruleIndex,
+                    Id = associatedRule.Id,
+                };
+            }
         }
 
         public void LogConfigurationNotification(Notification notification)

@@ -1,5 +1,5 @@
 {
-  "$schema": "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0-rtm.6.json",
+  "$schema": "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0.json",
   "version": "2.1.0",
   "runs": [
     {
@@ -20,6 +20,29 @@
         }
       },
       "results": [],
+      "columnKind": "utf16CodeUnits"
+    },
+    {
+      "tool": {
+        "driver": {
+          "name": "AIAnalyzer",
+          "version": "1.0",
+          "notifications": [
+            {
+              "id": "DECISION",
+              "name": "Decision"
+            },
+            {
+              "id": "RULE-COVERAGE-GAP",
+              "name": "RuleCoverageGap"
+            }
+          ]
+        }
+      },
+      "results": [],
+      "properties": {
+        "ai/origin": "test-fixture"
+      },
       "columnKind": "utf16CodeUnits"
     }
   ]

@@ -3,11 +3,11 @@
 
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Text;
 
 using FluentAssertions;
 
-using Microsoft.CodeAnalysis.Sarif.Driver;
 using Microsoft.CodeAnalysis.Sarif.Readers;
 using Microsoft.CodeAnalysis.Sarif.VersionOne;
 
@@ -17,11 +17,77 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
 using Xunit;
+using Xunit.Abstractions;
 
 namespace Microsoft.CodeAnalysis.Sarif.Multitool
 {
-    public class RewriteCommandTests
+    public class RewriteCommandTests : FileDiffingUnitTests
     {
+        private RewriteOptions options;
+
+        public RewriteCommandTests(ITestOutputHelper outputHelper) : base(outputHelper) { }
+
+        private static RewriteOptions CreateDefaultOptions()
+        {
+            return new RewriteOptions
+            {
+                BasePath = @"C:\vs\src\2\s\",
+                BasePathToken = "SRCROOT",
+                OutputFileOptions = new[] { FilePersistenceOptions.Inline, FilePersistenceOptions.PrettyPrint },
+                SarifOutputVersion = SarifVersion.Current,
+                NormalizeForGhas = true,
+            };
+        }
+
+        protected override string ConstructTestOutputFromInputResource(string testFilePath, object parameter)
+        {
+            return RunRewriteCommand(testFilePath);
+        }
+
+        [Fact]
+        public void RunRewriteCommand_RewriteForGhas()
+        {
+            string testFilePath = "RunWithArtifacts.sarif";
+
+            this.options = CreateDefaultOptions();
+
+            RunTest(testFilePath);
+        }
+
+        private string RunRewriteCommand(string testFilePath)
+        {
+            string inputSarifLog = GetInputSarifTextFromResource(testFilePath);
+
+            string logFilePath = Path.Combine(Directory.GetCurrentDirectory(), "mylog.sarif");
+            var transformedContents = new StringBuilder();
+
+            this.options.InputFilePath = logFilePath;
+            this.options.OutputFilePath = null;
+
+            Mock<IFileSystem> mockFileSystem = ArrangeMockFileSystem(inputSarifLog, logFilePath, transformedContents);
+
+            var RewriteCommand = new RewriteCommand(mockFileSystem.Object);
+
+            int returnCode = RewriteCommand.Run(this.options);
+            string actualOutput = transformedContents.ToString();
+
+            returnCode.Should().Be(0);
+
+            return actualOutput;
+        }
+
+        private static Mock<IFileSystem> ArrangeMockFileSystem(string sarifLog, string logFilePath, StringBuilder transformedContents)
+        {
+            var mockFileSystem = new Mock<IFileSystem>();
+            mockFileSystem.Setup(x => x.FileReadAllText(logFilePath)).Returns(sarifLog);
+            mockFileSystem.Setup(x => x.FileOpenRead(logFilePath)).Returns(() => new MemoryStream(Encoding.UTF8.GetBytes(sarifLog)));
+            mockFileSystem.Setup(x => x.FileCreate(logFilePath)).Returns(() => new MemoryStreamToStringBuilder(transformedContents));
+            mockFileSystem.Setup(x => x.FileWriteAllText(logFilePath, It.IsAny<string>())).Callback<string, string>((path, contents) => { transformedContents.Append(contents); });
+            mockFileSystem.Setup(x => x.DirectoryExists(It.IsAny<string>())).Returns(true);
+            mockFileSystem.Setup(x => x.DirectoryGetFiles(It.IsAny<string>(), It.IsAny<string>())).Returns(new string[] { logFilePath });
+            return mockFileSystem;
+        }
+
         public const string MinimalPrereleaseV2Text =
     @"{
   ""$schema"": ""http://json.schemastore.org/sarif-2.0.0"",
@@ -29,8 +95,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
   ""runs"": [
     {
       ""tool"": {
+        ""fullName"": ""TestTool 1.0.0"",
         ""name"": ""TestTool""
       },
+      ""automationDetails"": { },
       ""results"": []
     }
   ]
@@ -46,10 +114,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                     {
                         Driver = new ToolComponent
                         {
-                            Name = "TestTool"
+                            FullName = "TestTool-1.0.0",
+                            Name = "TestTool",
+                            Rules = new List<ReportingDescriptor>() { new ReportingDescriptor() { Id = "JS1001" } }
                         }
                     },
-                    Results = new List<Result>()
+                    Results = new List<Result>(),
+                    AutomationDetails = new RunAutomationDetails() { Id = "automation-id" }
                 }
             }
         };
@@ -66,8 +137,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
   ""runs"": [
     {
       ""tool"": {
+        ""fullName"": ""TestTool 1.0.0"",
         ""name"": ""TestTool""
       },
+      ""automationDetails"": { },
       ""results"": [{ ""ruleId"" : ""JS1001"", ""message"" : ""My rule message."" } ]
     }
   ]
@@ -129,16 +202,18 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         }
 
         [Fact]
-        public void TransformCommand_WhenOutputFormatOptionsAreInconsistent_Fails()
+        public void TransformCommand_WhenOutputFormatOptionsAreInconsistent_PrefersPrettyPrint()
         {
             var options = new RewriteOptions
             {
-                PrettyPrint = true,
-                Minify = true
+                OutputFileOptions = new[] { FilePersistenceOptions.Minify, FilePersistenceOptions.PrettyPrint },
             };
 
+            options.PrettyPrint.Should().BeTrue();
+            options.Minify.Should().BeFalse();
+
             (string _, int returnCode) = RunTransformationCore(MinimalV1Text, SarifVersion.Current, options);
-            returnCode.Should().Be(1);
+            returnCode.Should().Be(0);
         }
 
         private static void RunTransformationToV2Test(string logFileContents)
@@ -154,7 +229,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
         private void PrereleaseSarifLogVersionDiffersFromCurrent(string prereleaseV2Text)
         {
-            JObject sarifLog = JObject.Parse(prereleaseV2Text);
+            var sarifLog = JObject.Parse(prereleaseV2Text);
 
             ((string)sarifLog["$schema"]).Should().NotBe(SarifUtilities.SarifSchemaUri);
             ((string)sarifLog["version"]).Should().NotBe(SarifUtilities.StableSarifVersion);
@@ -181,7 +256,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
             options ??= new RewriteOptions
             {
-                Inline = true,
+                OutputFileOptions = new[] { FilePersistenceOptions.Inline },
                 SarifOutputVersion = targetVersion,
                 InputFilePath = LogFilePath
             };
@@ -193,7 +268,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
             if (options.InputFilePath == null)
             {
-                options.Inline = true;
+                options.OutputFileOptions = new HashSet<FilePersistenceOptions>(options.OutputFileOptions) { FilePersistenceOptions.Inline }.ToArray();
                 options.InputFilePath = LogFilePath;
             }
 

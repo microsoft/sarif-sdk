@@ -8,26 +8,17 @@
   <Import Project="$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildThisFileDirectory), build.props))\build.props" />
 
   <PropertyGroup>
-    <TargetFrameworks>netcoreapp3.1</TargetFrameworks>
+    <TargetFrameworks>net8.0</TargetFrameworks>
     <IsPackable>false</IsPackable>
     <IsTestProject>true</IsTestProject>
     <RootNamespace>Test.UnitTests.Sarif.Multitool.Library</RootNamespace>
+	<SuppressTfmSupportBuildWarnings>true</SuppressTfmSupportBuildWarnings>
   </PropertyGroup>
 
   <ItemGroup>
     <Compile Remove="TestData\ExportRuleDocumentationCommand\**" />
     <EmbeddedResource Remove="TestData\ExportRuleDocumentationCommand\**" />
     <None Remove="TestData\ExportRuleDocumentationCommand\**" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Remove="TestData\ExportValidationRulesMetadataCommand\ExpectedOutputs\MarkdownFullDescription.md" />
-    <None Remove="TestData\ExportValidationRulesMetadataCommand\ExpectedOutputs\MarkdownShortDescription.md" />
-    <None Remove="TestData\ExportValidationRulesMetadataCommand\ExpectedOutputs\NoDescription.md" />
-    <None Remove="TestData\ExportValidationRulesMetadataCommand\ExpectedOutputs\NonStandardMessageStringKey.md" />
-    <None Remove="TestData\ExportValidationRulesMetadataCommand\ExpectedOutputs\StandardMessageStringKey.md" />
-    <None Remove="TestData\ExportValidationRulesMetadataCommand\ExpectedOutputs\TextShortDescription.md" />
-    <None Remove="TestData\MergeCommand\ExpectedOutputs\DuplicatedResults.sarif" />
   </ItemGroup>
 
   <ItemGroup>
@@ -55,6 +46,8 @@
     <EmbeddedResource Include="TestData\PageCommand\elfie-arriba.sarif" />
     <EmbeddedResource Include="TestData\QueryCommand\elfie-arriba.sarif" />
     <EmbeddedResource Include="TestData\QueryCommand\WithProperties.sarif" />
+    <EmbeddedResource Include="TestData\RewriteCommand\ExpectedOutputs\RunWithArtifacts.sarif" />
+    <EmbeddedResource Include="TestData\RewriteCommand\Inputs\RunWithArtifacts.sarif" />
     <EmbeddedResource Include="TestData\RebaseUriCommand\ExpectedOutputs\RunWithArtifacts.sarif" />
     <EmbeddedResource Include="TestData\RebaseUriCommand\Inputs\RunWithArtifacts.sarif" />
     <EmbeddedResource Include="TestData\ValidateCommand\Configuration.json" />
@@ -65,20 +58,15 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="FluentAssertions" Version="5.10.2" />
-    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.4.0-preview-20220707-01" />
-    <PackageReference Include="Moq" Version="4.13.1" />
-    <PackageReference Include="System.Composition" Version="5.0.0" />
-    <PackageReference Include="xunit" Version="2.4.1" />
-    <PackageReference Include="xunit.runner.console" Version="2.4.1">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
-    <PackageReference Include="xunit.runner.visualstudio" Version="2.4.3">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
+    <PackageReference Include="FluentAssertions" />
+    <PackageReference Include="JsonSchema.Net" />
+    <PackageReference Include="Newtonsoft.Json" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" />
+    <PackageReference Include="Moq" />
+    <PackageReference Include="System.Composition" />
+    <PackageReference Include="xunit" />
+    <PackageReference Include="xunit.runner.console" PrivateAssets="All" />
+    <PackageReference Include="xunit.runner.visualstudio" PrivateAssets="All" />
   </ItemGroup>
 
   <ItemGroup>
@@ -86,5 +74,17 @@
     <ProjectReference Include="..\Sarif.Driver\Sarif.Driver.csproj" />
     <ProjectReference Include="..\Sarif.Multitool.Library\Sarif.Multitool.Library.csproj" />
     <ProjectReference Include="..\Test.Utilities.Sarif\Test.Utilities.Sarif.csproj" />
+  </ItemGroup>
+
+  <!-- The AI emit-profile input schemas (source of truth in Sarif.Multitool.Library\GetSchema)
+       and the vendored SARIF base schema they $ref, copied next to the test assembly so the
+       drift tests can validate them offline. -->
+  <ItemGroup>
+    <None Include="..\Sarif.Multitool.Library\GetSchema\ai-result.schema.json" Link="GetSchema\ai-result.schema.json" CopyToOutputDirectory="PreserveNewest" />
+    <None Include="..\Sarif.Multitool.Library\GetSchema\ai-run.schema.json" Link="GetSchema\ai-run.schema.json" CopyToOutputDirectory="PreserveNewest" />
+    <None Include="..\Sarif.Multitool.Library\GetSchema\ai-invocation.schema.json" Link="GetSchema\ai-invocation.schema.json" CopyToOutputDirectory="PreserveNewest" />
+    <None Include="..\Sarif.Multitool.Library\GetSchema\ai-notification-reporting-descriptor.schema.json" Link="GetSchema\ai-notification-reporting-descriptor.schema.json" CopyToOutputDirectory="PreserveNewest" />
+    <None Include="..\Sarif.Multitool.Library\GetSchema\ai-rule-reporting-descriptor.schema.json" Link="GetSchema\ai-rule-reporting-descriptor.schema.json" CopyToOutputDirectory="PreserveNewest" />
+    <None Include="..\Sarif\Schemata\sarif-2.1.0-rtm.6.json" Link="GetSchema\sarif-2.1.0.json" CopyToOutputDirectory="PreserveNewest" />
   </ItemGroup>
 </Project>

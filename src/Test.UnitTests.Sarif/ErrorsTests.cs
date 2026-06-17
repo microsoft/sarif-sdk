@@ -20,7 +20,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             logger.Messages.Should().BeNull();
             logger.ToolNotifications.Should().BeNull();
-            logger.ConfigurationNotifications.Count.Should().Equals(1);
+            logger.ConfigurationNotifications.Count.Should().Be(1);
             logger.ConfigurationNotifications[0].Descriptor.Id.Should().BeEquivalentTo(Errors.ERR997_NoPluginsConfigured);
 
             context.RuntimeErrors.Should().Be(RuntimeConditions.NoRulesLoaded);

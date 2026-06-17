@@ -82,7 +82,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
         private Result CreateTestResult()
         {
-            Result testResult = new Result()
+            var testResult = new Result()
             {
                 RuleId = "ruleName.test.value",
                 Message = new Message { Text = "failure.test.value" },
@@ -90,7 +90,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 Kind = ResultKind.Fail
             };
 
-            Region region = new Region()
+            var region = new Region()
             {
                 StartLine = 3,
                 StartColumn = 2,
@@ -100,7 +100,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 CharOffset = 3,
                 CharLength = 10
             };
-            PhysicalLocation physLoc = new PhysicalLocation()
+            var physLoc = new PhysicalLocation()
             {
                 ArtifactLocation = new ArtifactLocation
                 {
@@ -108,7 +108,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 },
                 Region = region
             };
-            Location location = new Location()
+            var location = new Location()
             {
                 PhysicalLocation = physLoc
             };
@@ -118,7 +118,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 location
             };
 
-            Replacement replacement = new Replacement()
+            var replacement = new Replacement()
             {
                 DeletedRegion = new Region
                 {
@@ -173,7 +173,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         public void TSLintConverter_Convert_WhenInputIsValid_Passes()
         {
             byte[] data = Encoding.UTF8.GetBytes(InputJson);
-            MemoryStream stream = new MemoryStream(data);
+            var stream = new MemoryStream(data);
 
             var mockWriter = new Mock<IResultLogWriter>();
             mockWriter.Setup(writer => writer.Initialize(It.IsAny<Run>()));

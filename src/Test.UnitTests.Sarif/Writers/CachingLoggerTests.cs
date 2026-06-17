@@ -26,13 +26,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 }
             };
 
-            TestAnalyzeOptions testAnalyzeOptions = new TestAnalyzeOptions();
+            var testAnalyzeOptions = new TestAnalyzeOptions();
 
-            var logger = new CachingLogger(testAnalyzeOptions.Level, testAnalyzeOptions.Kind);
+            var logger = new CachingLogger(testAnalyzeOptions.FailureLevels, testAnalyzeOptions.ResultKinds);
             logger.LogConfigurationNotification(notification);
             logger.ConfigurationNotifications.Should().HaveCount(1);
 
-            logger.LogToolNotification(notification);
+            logger.LogToolNotification(notification, associatedRule: null);
             logger.ToolNotifications.Should().HaveCount(1);
         }
 
@@ -42,28 +42,28 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             Result result01 = GenerateResult();
             ReportingDescriptor rule01 = GenerateRule();
 
-            TestAnalyzeOptions testAnalyzeOptions = new TestAnalyzeOptions();
+            var testAnalyzeOptions = new TestAnalyzeOptions();
 
-            var logger = new CachingLogger(testAnalyzeOptions.Level, testAnalyzeOptions.Kind);
+            var logger = new CachingLogger(testAnalyzeOptions.FailureLevels, testAnalyzeOptions.ResultKinds);
 
-            Assert.Throws<ArgumentNullException>(() => logger.Log(null, result01));
-            Assert.Throws<ArgumentNullException>(() => logger.Log(rule01, null));
+            Assert.Throws<ArgumentNullException>(() => logger.Log(null, result01, null));
+            Assert.Throws<ArgumentNullException>(() => logger.Log(rule01, null, null));
 
             rule01.Id = "TEST0001";
             result01.RuleId = "TEST0002";
 
-            Assert.Throws<ArgumentException>(() => logger.Log(rule01, result01));
+            Assert.Throws<ArgumentException>(() => logger.Log(rule01, result01, null));
 
             rule01.Id = "TEST0001";
             result01.RuleId = "TEST0001";
 
             // Validate simple insert
-            logger.Log(rule01, result01);
+            logger.Log(rule01, result01, null);
             logger.Results.Should().HaveCount(1);
             logger.Results.Should().ContainKey(rule01);
 
             // Updating value from a specific key
-            logger.Log(rule01, result01);
+            logger.Log(rule01, result01, null);
             logger.Results.Should().HaveCount(1);
             logger.Results.Should().ContainKey(rule01);
             logger.Results[rule01].Should().HaveCount(2);
@@ -75,20 +75,20 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             Result result01 = GenerateResult();
             ReportingDescriptor rule01 = GenerateRule();
 
-            TestAnalyzeOptions testAnalyzeOptions = new TestAnalyzeOptions();
+            var testAnalyzeOptions = new TestAnalyzeOptions();
 
-            var logger = new CachingLogger(testAnalyzeOptions.Level, testAnalyzeOptions.Kind);
+            var logger = new CachingLogger(testAnalyzeOptions.FailureLevels, testAnalyzeOptions.ResultKinds);
 
             rule01.Id = "TEST0001";
             result01.RuleId = "TEST0001/001";
 
             // Validate simple insert
-            logger.Log(rule01, result01);
+            logger.Log(rule01, result01, null);
             logger.Results.Should().HaveCount(1);
             logger.Results.Should().ContainKey(rule01);
 
             // Updating value from a specific key
-            logger.Log(rule01, result01);
+            logger.Log(rule01, result01, null);
             logger.Results.Should().HaveCount(1);
             logger.Results.Should().ContainKey(rule01);
             logger.Results[rule01].Should().HaveCount(2);
@@ -104,7 +104,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             string message = Guid.NewGuid().ToString();
             string uriText = Guid.NewGuid().ToString();
 
-            Uri uri = new Uri(uriText, UriKind.RelativeOrAbsolute);
+            var uri = new Uri(uriText, UriKind.RelativeOrAbsolute);
 
             return new Result
             {

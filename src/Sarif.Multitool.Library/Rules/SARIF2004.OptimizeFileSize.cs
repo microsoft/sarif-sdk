@@ -1,7 +1,6 @@
 ﻿// Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -57,28 +56,85 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         /// </summary>
         public override MultiformatMessageString FullDescription => new MultiformatMessageString { Text = RuleResources.SARIF2004_OptimizeFileSize_FullDescription_Text };
 
-        protected override IEnumerable<string> MessageResourceNames => new string[] {
+        protected override ICollection<string> MessageResourceNames => new List<string> {
             nameof(RuleResources.SARIF2004_OptimizeFileSize_Warning_AvoidDuplicativeAnalysisTarget_Text),
             nameof(RuleResources.SARIF2004_OptimizeFileSize_Warning_AvoidDuplicativeResultRuleInformation_Text),
             nameof(RuleResources.SARIF2004_OptimizeFileSize_Warning_EliminateLocationOnlyArtifacts_Text),
             nameof(RuleResources.SARIF2004_OptimizeFileSize_Warning_EliminateIdOnlyRules_Text),
-            nameof(RuleResources.SARIF2004_OptimizeFileSize_Warning_PreferRuleId_Text)
+            nameof(RuleResources.SARIF2004_OptimizeFileSize_Warning_PreferRuleId_Text),
+            nameof(RuleResources.SARIF2004_OptimizeFileSize_Warning_OmitSentinelIndex_Text)
         };
-
-        private Guid? driverGuid;
 
         protected override void Analyze(Run run, string runPointer)
         {
             AnalyzeLocationOnlyArtifacts(run, runPointer);
             AnalyzeIdOnlyRules(run, runPointer);
+        }
 
-            this.driverGuid = run.Tool.Driver?.Guid;
+        protected override void Analyze(ArtifactLocation artifactLocation, string artifactLocationPointer)
+        {
+            CheckSentinelIndex(artifactLocation.Index, artifactLocationPointer, SarifPropertyName.Index);
+        }
+
+        protected override void Analyze(ReportingDescriptorReference reference, string referencePointer)
+        {
+            CheckSentinelIndex(reference.Index, referencePointer, SarifPropertyName.Index);
+        }
+
+        protected override void Analyze(ThreadFlowLocation threadFlowLocation, string threadFlowLocationPointer)
+        {
+            CheckSentinelIndex(threadFlowLocation.Index, threadFlowLocationPointer, SarifPropertyName.Index);
+        }
+
+        protected override void Analyze(LogicalLocation logicalLocation, string logicalLocationPointer)
+        {
+            CheckSentinelIndex(logicalLocation.Index, logicalLocationPointer, SarifPropertyName.Index);
+            CheckSentinelIndex(logicalLocation.ParentIndex, logicalLocationPointer, SarifPropertyName.ParentIndex);
+        }
+
+        protected override void Analyze(Address address, string addressPointer)
+        {
+            CheckSentinelIndex(address.Index, addressPointer, SarifPropertyName.Index);
+            CheckSentinelIndex(address.ParentIndex, addressPointer, SarifPropertyName.ParentIndex);
+        }
+
+        protected override void Analyze(Artifact artifact, string artifactPointer)
+        {
+            CheckSentinelIndex(artifact.ParentIndex, artifactPointer, SarifPropertyName.ParentIndex);
+        }
+
+        /// <summary>
+        /// Flag an explicit emission of the SARIF <c>-1</c> "unset index" sentinel
+        /// (\u00a73.4) when the JSON contains the property literally. The sentinel is
+        /// semantically equivalent to omitting the property; emitting it bloats the
+        /// log without changing meaning.
+        /// </summary>
+        private void CheckSentinelIndex(int actualValue, string objectPointer, string propertyName)
+        {
+            if (actualValue != -1)
+            {
+                return;
+            }
+
+            // Distinguish "the producer omitted the property" (Index defaulted to -1
+            // on deserialization) from "the producer literally wrote 'index: -1' in
+            // the JSON" (the bloat case we want to flag). We only fire when the
+            // property is physically present in the input log token.
+            var objectToken = objectPointer.ToJToken(Context.InputLogToken);
+            if (objectToken is JObject obj && obj.ContainsKey(propertyName))
+            {
+                LogResult(
+                    objectPointer.AtProperty(propertyName),
+                    nameof(RuleResources.SARIF2004_OptimizeFileSize_Warning_OmitSentinelIndex_Text),
+                    propertyName);
+            }
         }
 
         protected override void Analyze(Result result, string resultPointer)
         {
             ReportUnnecessaryAnalysisTarget(result, resultPointer);
             ReportRuleDuplication(result, resultPointer);
+            CheckSentinelIndex(result.RuleIndex, resultPointer, SarifPropertyName.RuleIndex);
         }
 
         private void ReportRuleDuplication(Result result, string resultPointer)
@@ -87,7 +143,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             {
                 if (result.Rule.ToolComponent != null)
                 {
-                    if (result.Rule.ToolComponent.RefersToDriver(this.driverGuid))
+                    if (result.Rule.ToolComponent.RefersToDriver(Context.CurrentRun.Tool.Driver?.Guid))
                     {
                         // The result at '{0}' uses the 'rule' property to specify
                         // the violated rule, but this is not necessary because the rule
@@ -186,7 +242,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 
         private bool HasResultLocationsWithUriAndIndex(string resultPointer)
         {
-            JToken resultToken = resultPointer.ToJToken(Context.InputLogToken);
+            var resultToken = resultPointer.ToJToken(Context.InputLogToken);
             return
                 resultToken.HasProperty(SarifPropertyName.Uri) &&
                 resultToken.HasProperty(SarifPropertyName.Index);
@@ -194,7 +250,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 
         private bool HasLocationOnlyArtifacts(string artifactPointer)
         {
-            JToken artifactToken = artifactPointer.ToJToken(Context.InputLogToken);
+            var artifactToken = artifactPointer.ToJToken(Context.InputLogToken);
             return
                 artifactToken.HasProperty(SarifPropertyName.Location) &&
                 artifactToken.Children().Count() == 1;
@@ -236,7 +292,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 
         private bool HasIdOnlyRules(string rulePointer)
         {
-            JToken ruleToken = rulePointer.ToJToken(Context.InputLogToken);
+            var ruleToken = rulePointer.ToJToken(Context.InputLogToken);
             return
                 ruleToken.HasProperty(SarifPropertyName.Id) &&
                 ruleToken.Children().Count() == 1;

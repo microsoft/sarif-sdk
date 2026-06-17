@@ -16,7 +16,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         public const int SUCCESS = 0;
         public const int FAILURE = 1;
 
-        protected IFileSystem FileSystem { get; set; }
+        // TBD delete this!
+        protected virtual IFileSystem FileSystem { get; set; }
 
         // TODO:  Removing this constructor broke the one of AbsoluteUriCommand entirely but all unit tests were passing
         // Add unit tests that will break when this constructor is deleted or malfunctioning.
@@ -52,7 +53,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         {
             var serializer = new JsonSerializer() { ContractResolver = contractResolver };
 
-            using (JsonTextReader reader = new JsonTextReader(new StreamReader(fileSystem.FileOpenRead(filePath))))
+            using (var reader = new JsonTextReader(new StreamReader(fileSystem.FileOpenRead(filePath))))
             {
                 return serializer.Deserialize<T>(reader);
             }
@@ -87,18 +88,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
         public static HashSet<string> CreateTargetsSet(IEnumerable<string> targetSpecifiers, bool recurse, IFileSystem fileSystem)
         {
-            HashSet<string> targets = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+            var targets = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
             foreach (string specifier in targetSpecifiers)
             {
                 string normalizedSpecifier = specifier;
 
                 if (Uri.TryCreate(specifier, UriKind.RelativeOrAbsolute, out Uri uri))
                 {
-                    if (uri.IsAbsoluteUri && (uri.IsFile || uri.IsUnc))
-                    {
-                        normalizedSpecifier = uri.LocalPath;
-                    }
+                    normalizedSpecifier = uri.GetFilePath();
                 }
+
                 // Currently, we do not filter on any extensions.
                 var fileSpecifier = new FileSpecifier(normalizedSpecifier, recurse, fileSystem);
                 foreach (string file in fileSpecifier.Files) { targets.Add(file); }

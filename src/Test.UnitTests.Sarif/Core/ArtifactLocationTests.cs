@@ -185,7 +185,7 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Core
                 Uri = new Uri(SourceFile, UriKind.Relative)
             };
 
-            Location location = artifactLocation.ToLocation(lineNumber: 12, column: 9, length: 14, offset: 140);
+            var location = artifactLocation.ToLocation(lineNumber: 12, column: 9, length: 14, offset: 140);
 
             PhysicalLocation physicalLocation = location.PhysicalLocation;
             physicalLocation.ArtifactLocation.Uri.OriginalString.Should().Be(SourceFile);

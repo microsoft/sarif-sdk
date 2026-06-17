@@ -54,10 +54,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                     Title = "GitHub host",
                     Args = new string[] {
                         "file-work-items",
+                        "test.sarif",
                         "--host-uri",
                         "https://github.com/my-org/my-project",
-                        "--inline",
-                        "test.sarif"
+                        "--log",
+                        "Inline",
                     },
                     ExpectedExitCode = 0
                 },
@@ -66,10 +67,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                     Title = "AzureDevOps host",
                     Args = new string[] {
                         "file-work-items",
+                        "test.sarif",
                         "--host-uri",
                         "https://dev.azure.com/my-org/my-project",
-                        "--inline",
-                        "test.sarif"
+                        "--log",
+                        "Inline",
                     },
                     ExpectedExitCode = 0
                 },
@@ -78,10 +80,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                     Title = "AzureDevOps host with legacy uri",
                     Args = new string[] {
                         "file-work-items",
+                        "test.sarif",
                         "--host-uri",
                         "https://my-org.visualstudio.com/my-project",
-                        "--inline",
-                        "test.sarif"
+                        "--log",
+                        "Inline",
                     },
                     ExpectedExitCode = 0
                 },
@@ -103,10 +106,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                     Title = "Implicit splitting strategy",
                     Args = new string[] {
                         "file-work-items",
+                        "test.sarif",
                         "--host-uri",
                         "https://github.com/my-org/my-project",
-                        "--inline",
-                        "test.sarif"
+                        "--log",
+                        "Inline",
                     },
                     ExpectedExitCode = 0
                 },
@@ -115,10 +119,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                     Title = "Explicit 'PerResult' splitting strategy",
                     Args = new string[] {
                         "file-work-items",
+                        "test.sarif",
                         "--host-uri",
                         "https://github.com/my-org/my-project",
-                        "--inline",
-                        "test.sarif",
+                        "--log",
+                        "Inline",
                         "--split",
                         "PerResult"
                     },
@@ -129,10 +134,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                     Title = "Explicit 'PerRun' splitting strategy",
                     Args = new string[] {
                         "file-work-items",
+                        "test.sarif",
                         "--host-uri",
                         "https://github.com/my-org/my-project",
-                        "--inline",
-                        "test.sarif",
+                        "--log",
+                        "Inline",
                         "--split",
                         "PerRun"
                     },
@@ -143,10 +149,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                     Title = "Explicit 'None' splitting strategy",
                     Args = new string[] {
                         "file-work-items",
+                        "test.sarif",
                         "--host-uri",
                         "https://github.com/my-org/my-project",
-                        "--inline",
-                        "test.sarif",
+                        "--log",
+                        "Inline",
                         "--split",
                         "None"
                     },
@@ -159,8 +166,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                         "file-work-items",
                         "--host-uri",
                         "https://github.com/my-org/my-project",
-                        "--inline",
                         "test.sarif",
+                        "--log",
+                        "Inline",
                         "--split",
                         "PerRunPerRule"
                     },
@@ -173,8 +181,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                         "file-work-items",
                         "--host-uri",
                         "https://github.com/my-org/my-project",
-                        "--inline",
                         "test.sarif",
+                        "--log",
+                        "Inline",
                         "--split",
                         "PerRunPerTargetPerRule"
                     },
@@ -187,7 +196,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                         "file-work-items",
                         "--host-uri",
                         "https://github.com/my-org/my-project",
-                        "--inline",
+                        "--log",
+                        "Inline",
                         "test.sarif",
                         "--split",
                         "PerRunPerRun"
@@ -211,7 +221,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                         "file-work-items",
                         "--host-uri",
                         "https://dev.azure.com/my-org/my-project",
-                        "--inline"
+                        "--log",
+                        "Inline",
                     },
                     ExpectedExitCode = 1
                 },
@@ -222,7 +233,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                         "file-work-items",
                        "--host-uri",
                         "dev.azure.com/my-org/my-project",
-                        "--inline",
+                        "--log",
+                        "Inline",
                         "test.sarif"
                     },
                     ExpectedExitCode = 1
@@ -236,7 +248,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                         "https://dev.azure.com/my-org/my-project",
                         "--output",
                         "test-output.sarif",
-                        "--inline",
+                        "--log",
+                        "Inline",
                         "test.sarif"
                     },
                     ExpectedExitCode = 1
@@ -255,17 +268,17 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
                 new TestCase
                 {
-                    Title = "Both --pretty-print and --minify",
+                    Title = "Both --pretty-print and --minify succeeds (with pretty print prevailing)",
                     Args = new string[]
                     {
                         "file-work-items",
                         "--host-uri",
                         "https://dev.azure.com/my-org/my-project",
                         "test.sarif",
-                        "--pretty-print",
-                        "--minify"
+                        "--log",
+                        "PrettyPrint;Minify",
                     },
-                    ExpectedExitCode = 1
+                    ExpectedExitCode = 0
                 }
             };
     }

@@ -22,24 +22,22 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
         public SarifOneZeroZeroLogger(
             string outputFilePath,
-            LogFilePersistenceOptions logFilePersistenceOptions = SarifLogger.DefaultLogFilePersistenceOptions,
+            FilePersistenceOptions logFilePersistenceOptions = SarifLogger.DefaultLogFilePersistenceOptions,
             OptionallyEmittedData dataToInsert = OptionallyEmittedData.None,
             OptionallyEmittedData dataToRemove = OptionallyEmittedData.None,
-            Tool tool = null,
             Run run = null,
             IEnumerable<string> analysisTargets = null,
             IEnumerable<string> invocationTokensToRedact = null,
             IEnumerable<string> invocationPropertiesToLog = null,
             string defaultFileEncoding = null,
-            IEnumerable<FailureLevel> levels = null,
-            IEnumerable<ResultKind> kinds = null,
+            FailureLevelSet levels = null,
+            ResultKindSet kinds = null,
             IEnumerable<string> insertProperties = null)
             : base(new StreamWriter(new FileStream(outputFilePath, FileMode.Create, FileAccess.Write, FileShare.None)),
                   logFilePersistenceOptions: logFilePersistenceOptions,
                   dataToInsert: dataToInsert,
                   dataToRemove: dataToRemove,
                   defaultFileEncoding: defaultFileEncoding,
-                  tool: tool,
                   run: run,
                   analysisTargets: analysisTargets,
                   invocationTokensToRedact: invocationTokensToRedact,
@@ -62,7 +60,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             var transformer = new SarifCurrentToVersionOneVisitor();
             transformer.VisitSarifLog(v2Log);
 
-            JsonSerializerSettings v1Settings = new JsonSerializerSettings()
+            var v1Settings = new JsonSerializerSettings()
             {
                 ContractResolver = SarifContractResolverVersionOne.Instance,
                 Formatting = PrettyPrint ? Formatting.Indented : Formatting.None

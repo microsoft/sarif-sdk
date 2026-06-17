@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
+using System.IO;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -399,9 +400,9 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests
             var run = new Run();
             var fileRegionsCache = new FileRegionsCache();
 
-            Uri uri = new Uri(@"c:\temp\DoesNotExist\" + Guid.NewGuid().ToString() + ".cpp");
+            var uri = new Uri(@"c:\temp\DoesNotExist\" + Guid.NewGuid().ToString() + ".cpp");
 
-            Region region = new Region() { CharOffset = 17 };
+            var region = new Region() { CharOffset = 17 };
 
             // Region should not be touched in any way if the file it references is missing
             fileRegionsCache.PopulateTextRegionProperties(region, uri, populateSnippet: false).ValueEquals(region).Should().BeTrue();
@@ -411,19 +412,16 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests
         [Fact]
         public void FileRegionsCache_PopulatesUsingProvidedText()
         {
-            var run = new Run();
             var fileRegionsCache = new FileRegionsCache();
-
-            Uri uri = new Uri(@"c:\temp\DoesNotExist\" + Guid.NewGuid().ToString() + ".cpp");
-
+            var uri = new Uri(@"c:\temp\DoesNotExist\" + Guid.NewGuid().ToString() + ".cpp");
             string fileText = "12345\n56790\n";
             int charOffset = 6;
             int charLength = 1;
 
             // Region should grab the second line of text in 'fileText'.
-            Region region = new Region() { CharOffset = charOffset, CharLength = charLength };
+            var region = new Region() { CharOffset = charOffset, CharLength = charLength };
 
-            Region expected = new Region()
+            var expected = new Region()
             {
                 CharOffset = charOffset,
                 CharLength = charLength,
@@ -446,6 +444,230 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests
             actual.Snippet = null;
             actual.ValueEquals(expected).Should().BeTrue();
         }
+
+        [Fact]
+        public void FileRegionsCache_DivergentAuthoredCoordinate_ThrowsWhenNotOverwriting()
+        {
+            var fileRegionsCache = new FileRegionsCache();
+            var uri = new Uri(@"c:\temp\DoesNotExist\" + Guid.NewGuid().ToString() + ".cpp");
+            string fileText = "12345\n56790\n";
+
+            // Char-offset-based region addressing the first character of line 2
+            // (offset 6, length 1). The authored EndColumn (99) diverges from the
+            // value the SDK computes from the source text (2).
+            var divergentRegion = new Region
+            {
+                CharOffset = 6,
+                CharLength = 1,
+                EndColumn = 99
+            };
+
+            // Default (overwriteExistingData: false): a divergent authored coordinate is an
+            // error, surfaced as an ArgumentException naming the offending input parameter
+            // rather than silently shipping a region pointing at the wrong span.
+            Action validate = () => fileRegionsCache.PopulateTextRegionProperties(
+                divergentRegion, uri, populateSnippet: false, fileText: fileText);
+
+            validate.Should().Throw<ArgumentException>()
+                .Which.ParamName.Should().Be("inputRegion");
+        }
+
+        [Fact]
+        public void FileRegionsCache_DivergentAuthoredCoordinate_RecomputedWhenOverwriting()
+        {
+            var fileRegionsCache = new FileRegionsCache();
+            var uri = new Uri(@"c:\temp\DoesNotExist\" + Guid.NewGuid().ToString() + ".cpp");
+            string fileText = "12345\n56790\n";
+
+            var divergentRegion = new Region
+            {
+                CharOffset = 6,
+                CharLength = 1,
+                EndColumn = 99
+            };
+
+            // overwriteExistingData: true: the divergent authored value is overwritten with
+            // the value computed from the source text (EndColumn 2), instead of throwing or
+            // being silently kept.
+            Region overwritten = fileRegionsCache.PopulateTextRegionProperties(
+                divergentRegion, uri, populateSnippet: false, fileText: fileText, overwriteExistingData: true);
+
+            overwritten.EndColumn.Should().Be(2);
+        }
+
+        [Fact]
+        public void FileRegionsCache_ExactAuthoredCoordinates_SurviveBothModes()
+        {
+            var fileRegionsCache = new FileRegionsCache();
+            var uri = new Uri(@"c:\temp\DoesNotExist\" + Guid.NewGuid().ToString() + ".cpp");
+            string fileText = "12345\n56790\n";
+
+            // Fully-specified region that exactly matches the source text. Both modes must
+            // accept authored coordinates that agree with the computed values unchanged.
+            var exactRegion = new Region
+            {
+                CharOffset = 6,
+                CharLength = 1,
+                StartLine = 2,
+                EndLine = 2,
+                StartColumn = 1,
+                EndColumn = 2
+            };
+
+            Region validated = fileRegionsCache.PopulateTextRegionProperties(
+                exactRegion, uri, populateSnippet: false, fileText: fileText);
+            validated.ValueEquals(exactRegion).Should().BeTrue();
+
+            Region overwritten = fileRegionsCache.PopulateTextRegionProperties(
+                exactRegion, uri, populateSnippet: false, fileText: fileText, overwriteExistingData: true);
+            overwritten.ValueEquals(exactRegion).Should().BeTrue();
+        }
+
+        [Fact]
+        public void FileRegionsCache_BinaryRegion_IsReturnedUnvalidated()
+        {
+            var fileRegionsCache = new FileRegionsCache();
+            var uri = new Uri(@"c:\temp\DoesNotExist\" + Guid.NewGuid().ToString() + ".dll");
+            string fileText = "12345\n56790\n";
+
+            // Binary regions are addressed purely by byteOffset/byteLength; the SDK never
+            // computes text coordinates for them, so there is nothing to reconcile. Even in
+            // the default (non-overwriting) mode that throws on divergent text coordinates,
+            // a binary region must be returned untouched rather than validated or rejected.
+            var binaryRegion = new Region
+            {
+                ByteOffset = 6,
+                ByteLength = 1
+            };
+
+            Region result = fileRegionsCache.PopulateTextRegionProperties(
+                binaryRegion, uri, populateSnippet: true, fileText: fileText);
+
+            result.ValueEquals(binaryRegion).Should().BeTrue();
+        }
+
+        [Fact]
+        public void FileRegionsCache_PopulatesContextRegions()
+        {
+            string sentinel = "baz";
+            char padding = 'a';
+
+            // The context region populating API has two special values, 128 characters 
+            // (which are used to generate leading and trailing text in single-line
+            // text files) and a value of 512', which is intended to be a limit
+            // on the overall size of the snippet that's returned.
+
+            int bsl = FileRegionsCache.BIGSNIPPETLENGTH;
+            int ssl = FileRegionsCache.SMALLSNIPPETLENGTH;
+
+            var context = new StringBuilder();
+
+            // Prepend a newline (or not!) in front of every sentinel region.
+            foreach (string pr in new string[] { null, Environment.NewLine })
+            {
+                // Post-fix a newline (or not!) in front of every sentinel region.
+                foreach (string po in new string[] { null, Environment.NewLine })
+                {
+                    string[] tests =
+                    {
+                        $"{new string(padding,   0)}{pr}{sentinel}{po}{new string(padding,   0)}",
+                        $"{new string(padding,   0)}{pr}{sentinel}{po}{new string(padding,   3)}",
+                        $"{new string(padding,   3)}{pr}{sentinel}{po}{new string(padding,   0)}",
+                        $"{new string(padding,   3)}{pr}{sentinel}{po}{new string(padding,   3)}",
+                        $"{new string(padding, ssl)}{pr}{sentinel}{po}{new string(padding, ssl)}",
+                        $"{new string(padding,   1)}{pr}{sentinel}{po}{new string(padding, ssl)}",
+                        $"{new string(padding, ssl)}{pr}{sentinel}{po}{new string(padding,   1)}",
+                        $"{new string(padding, ssl)}{pr}{sentinel}{po}{new string(padding,   0)}",
+                        $"{new string(padding,   0)}{pr}{sentinel}{po}{new string(padding, ssl)}",
+                        $"{new string(padding,   0)}{pr}{sentinel}{po}{new string(padding,   0)}",
+                        $"{new string(padding, bsl)}{pr}{sentinel}{po}{new string(padding, bsl)}",
+                        $"{new string(padding,  10)}{pr}{sentinel}{po}{new string(padding, bsl)}",
+                        $"{new string(padding, bsl)}{pr}{sentinel}{po}{new string(padding,  10)}",
+                        $"{new string(padding, bsl)}{pr}{sentinel}{po}{new string(padding,   0)}",
+                        $"{new string(padding,   0)}{pr}{sentinel}{po}{new string(padding, bsl)}",
+                        $"{new string(padding,   0)}{pr}{sentinel}{po}{new string(padding,   0)}",
+                        $"{new string(padding,   0)}{pr}{sentinel}{po}{new string(padding,   0)}",
+                        $"{new string(padding,   0)}{pr}{sentinel}{po}{new string(padding,   3)}",
+                        $"{new string(padding,   3)}{pr}{sentinel}{po}{new string(padding,   0)}",
+                        $"{new string(padding,   3)}{pr}{sentinel}{po}{new string(padding,   3)}",
+                        $"{new string(padding, ssl)}{pr}{sentinel}{po}{new string(padding, ssl)}",
+                        $"{new string(padding,   1)}{pr}{sentinel}{po}{new string(padding, ssl)}",
+                        $"{new string(padding, ssl)}{pr}{sentinel}{po}{new string(padding,   1)}",
+                        $"{new string(padding, ssl)}{pr}{sentinel}{po}{new string(padding,   0)}",
+                        $"{new string(padding,   0)}{pr}{sentinel}{po}{new string(padding, ssl)}",
+                        $"{new string(padding,   0)}{pr}{sentinel}{po}{new string(padding,   0)}",
+                        $"{new string(padding, bsl)}{pr}{sentinel}{po}{new string(padding, bsl)}",
+                        $"{new string(padding,  10)}{pr}{sentinel}{po}{new string(padding, bsl)}",
+                        $"{new string(padding, bsl)}{pr}{sentinel}{po}{new string(padding,  10)}",
+                        $"{new string(padding, bsl)}{pr}{sentinel}{po}{new string(padding,   0)}",
+                        $"{new string(padding,   0)}{pr}{sentinel}{po}{new string(padding, bsl)}",
+                        $"{new string(padding,   0)}{pr}{sentinel}{po}{new string(padding,   0)}",
+                    };
+
+                    context.Clear();
+                    int iteration = 0;
+
+                    // DEBUGGING THESE TESTS: these tests do not accumulate all outputs and report 
+                    // them, instead they break on the first failure. A failure will report a 
+                    // message like so:
+                    //
+                    // Expected contextRegion.Snippet not to be <null> because 'baz' snippet exists
+                    // (iteration 12, while processing char-based region type for value 'abaza'). 
+                    //
+                    // Observe the iteration value (in this case 12). Set a conditional breakpoint
+                    // below when the iteration variable equals this value and you can debug the
+                    // relevant failure.
+
+                    foreach (string test in tests)
+                    {
+                        var cache = new FileRegionsCache();
+                        var uri = new Uri(@$"c:\temp\DoesNotExist\{Guid.NewGuid()}.cpp");
+
+                        int index = test.IndexOf(sentinel);
+
+                        // The FileRegions code takes two discrete code paths depending on whether
+                        // the input variable is char-offset based or uses the start line convention.
+                        var regions = new Region[]
+                        {
+                    new Region
+                    {
+                        CharOffset = index,
+                        CharLength = sentinel.Length,
+                    },
+                    new Region
+                    {
+                        StartLine = 1,
+                        StartColumn = index + 1,
+                        EndColumn = index + sentinel.Length + 1,
+                    }
+                        };
+
+                        string charBased = "char-based";
+                        string lineBased = "line-based";
+
+                        foreach (Region region in regions)
+                        {
+                            context.Clear();
+                            context.Append($"(iteration {iteration}, while processing {(region.StartLine == 1 ? lineBased : charBased)} region type for value '{test}')");
+
+                            // First, we populate the region and text snippet for the actual test finding.
+                            Region actual = cache.PopulateTextRegionProperties(region, uri, populateSnippet: true, test);
+
+                            actual.Snippet.Should().NotBeNull($"'{sentinel}' snippet exists {context}");
+                            actual.Snippet.Text?.Should().Be($"{sentinel}", $"region snippet did not match {context}");
+
+                            // Now, we attempt to produce a context region.
+                            Region contextRegion = cache.ConstructMultilineContextSnippet(actual, uri, test);
+                            contextRegion.Snippet.Should().NotBeNull($"'{sentinel}' snippet exists {context}");
+                            contextRegion.Snippet.Text.Contains(sentinel).Should().BeTrue($"context region should encapsulate finding {context}");
+                        }
+
+                        iteration++;
+                    }
+                }
+            }
+        }
+
 
         [Fact]
         public void FileRegionsCache_PopulatesSpecExampleRegions()
@@ -471,7 +693,7 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests
             Exception exception = Record.Exception(() =>
             {
                 var fileRegionsCache = new FileRegionsCache();
-                List<Task> taskList = new List<Task>();
+                var taskList = new List<Task>();
 
                 for (int i = 0; i < 1_000; i++)
                 {
@@ -486,7 +708,7 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests
 
         private static void ExecuteTests(string fileText, ReadOnlyCollection<TestCaseData> testCases)
         {
-            Uri uri = new Uri(@"c:\temp\myFile.cpp");
+            var uri = new Uri(@"c:\temp\myFile.cpp");
 
             var run = new Run();
             IFileSystem mockFileSystem = MockFactory.MakeMockFileSystem(uri.LocalPath, fileText);
@@ -533,19 +755,19 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests
         [Fact(Skip = "Flaky test. Results vary depending on environment.")]
         public void FileRegionsCache_ProperlyCaches()
         {
-            Uri uri = new Uri(@"C:\Code\Program.cs");
+            var uri = new Uri(@"C:\Code\Program.cs");
 
-            StringBuilder fileContents = new StringBuilder();
+            var fileContents = new StringBuilder();
             for (int i = 0; i < 1000; ++i)
             {
                 fileContents.AppendLine("0123456789");
             }
 
-            Run run = new Run();
+            var run = new Run();
             IFileSystem mockFileSystem = MockFactory.MakeMockFileSystem(uri.LocalPath, fileContents.ToString());
-            FileRegionsCache fileRegionsCache = new FileRegionsCache(fileSystem: mockFileSystem);
+            var fileRegionsCache = new FileRegionsCache(fileSystem: mockFileSystem);
 
-            Region region = new Region()
+            var region = new Region()
             {
                 StartLine = 2,
                 StartColumn = 1,
@@ -553,7 +775,7 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests
                 EndColumn = 10,
             };
 
-            Stopwatch w = Stopwatch.StartNew();
+            var w = Stopwatch.StartNew();
 
             for (int i = 0; i < 1000; ++i)
             {
@@ -571,7 +793,7 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests
         [Fact]
         public void FileRegionsCache_PopulatesNullRegion()
         {
-            Uri uri = new Uri(@"c:\temp\myFile.cpp");
+            var uri = new Uri(@"c:\temp\myFile.cpp");
 
             var run = new Run();
             IFileSystem mockFileSystem = MockFactory.MakeMockFileSystem(uri.LocalPath, SPEC_EXAMPLE);
@@ -587,7 +809,7 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests
         [Fact]
         public void FileRegionsCache_IncreasingToLeftAndRight()
         {
-            Uri uri = new Uri(@"c:\temp\myFile.cpp");
+            var uri = new Uri(@"c:\temp\myFile.cpp");
             string fileContent = $"{new string('a', 200)}{new string('b', 800)}";
 
             var region = new Region
@@ -600,9 +822,7 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests
             region = fileRegionsCache.PopulateTextRegionProperties(region, uri, true, fileContent);
 
             Region multilineRegion = fileRegionsCache.ConstructMultilineContextSnippet(region, uri);
-
-            // 114 (charoffset) + 600 (charlength) + 128 (grabbing right content)
-            multilineRegion.CharLength.Should().Be(114 + 600 + 128);
+            multilineRegion.CharLength.Should().Be(region.CharLength);
         }
 
         [Fact]
@@ -620,8 +840,7 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests
             region = fileRegionsCache.PopulateTextRegionProperties(region, uri, true, content);
             Region multilineRegion = fileRegionsCache.ConstructMultilineContextSnippet(region, uri);
 
-            // CharLength + 128 to the right = 428 characters
-            multilineRegion.CharLength.Should().Be(300 + 128);
+            multilineRegion.CharLength.Should().Be(FileRegionsCache.BIGSNIPPETLENGTH);
             multilineRegion.Snippet.Text.Should().NotBeNullOrEmpty();
         }
 
@@ -644,6 +863,41 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests
             // and the snippet.Text will be the entire content.
             multilineRegion.CharLength.Should().Be(content.Length);
             multilineRegion.Snippet.Text.Should().Be(content);
+        }
+
+        [Fact]
+        public void FileRegionsCache_GetHashData_ReturnsNullForDirectory()
+        {
+            // A path that resolves to a directory (e.g. an invocation's workingDirectory)
+            // has no file content to hash. The cache must return null, NOT the sha-256 of the
+            // empty string, which used to leak in as a bogus phantom hash on directory artifacts.
+            var directoryUri = new Uri(Path.GetTempPath());
+            var fileRegionsCache = new FileRegionsCache();
+
+            fileRegionsCache.GetHashData(directoryUri).Should().BeNull();
+        }
+
+        [Fact]
+        public void FileRegionsCache_GetHashData_ReturnsNullForMissingFile()
+        {
+            var missingUri = new Uri(Path.Combine(Path.GetTempPath(), $"{Guid.NewGuid():N}.does-not-exist"));
+            var fileRegionsCache = new FileRegionsCache();
+
+            fileRegionsCache.GetHashData(missingUri).Should().BeNull();
+        }
+
+        [Fact]
+        public void FileRegionsCache_GetHashData_HashesSuppliedTextEvenWhenFileAbsent()
+        {
+            // The explicit-text path is unchanged: when the caller hands us file text we hash it,
+            // regardless of whether the file exists on disk.
+            var missingUri = new Uri(Path.Combine(Path.GetTempPath(), $"{Guid.NewGuid():N}.cs"));
+            var fileRegionsCache = new FileRegionsCache();
+
+            HashData hashes = fileRegionsCache.GetHashData(missingUri, "some text");
+
+            hashes.Should().NotBeNull();
+            hashes.Sha256.Should().NotBeNullOrWhiteSpace();
         }
     }
 }

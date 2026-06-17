@@ -41,7 +41,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         {
             defect = defect ?? throw new ArgumentNullException(nameof(defect));
 
-            Result result = new Result
+            var result = new Result
             {
                 RuleId = $"{defect.MessageId}({defect.Symbol})",
                 Message = new Message { Text = defect.Message },
@@ -61,7 +61,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 default:
                     result.Level = FailureLevel.Note;
                     break;
-            };
+            }
 
             var region = new Region
             {

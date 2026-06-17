@@ -1,12 +1,11 @@
-﻿// Copyright (c) Microsoft Corporation. All rights reserved.
-// Licensed under the MIT License.
+﻿// Copyright (c) Microsoft. All rights reserved.
+// Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Globalization;
-using System.Linq;
 using System.Text.RegularExpressions;
 
 using Newtonsoft.Json;
@@ -61,13 +60,21 @@ namespace Microsoft.CodeAnalysis.Sarif.Query.Evaluators
         private IExpressionEvaluator<Result> CreateEvaluator(TermExpression term)
         {
             if (IsStringComparison(term))
+            {
                 return new StringEvaluator<Result>(GetProperty<string>, term, StringComparison.OrdinalIgnoreCase);
+            }
             else if (IsDateTimeComparison(term))
+            {
                 return new DateTimeEvaluator<Result>(GetProperty<DateTime>, term);
+            }
             else if (IsDoubleComparison(term))
+            {
                 return new DoubleEvaluator<Result>(GetProperty<double>, term);
+            }
             else
+            {
                 return new StringEvaluator<Result>(GetProperty<string>, term, StringComparison.OrdinalIgnoreCase);
+            }
         }
 
         private static readonly ReadOnlyCollection<CompareOperator> s_stringSpecificOperators =

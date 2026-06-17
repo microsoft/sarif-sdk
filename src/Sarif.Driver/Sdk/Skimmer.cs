@@ -23,9 +23,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
         protected virtual ResourceManager ResourceManager => null;
 
-        protected virtual IEnumerable<string> MessageResourceNames => throw new NotImplementedException();
+        protected virtual ICollection<string> MessageResourceNames => throw new NotImplementedException();
 
-        virtual public bool EnabledByDefault => true;
+        public virtual bool EnabledByDefault => true;
+
+        public virtual ReportingDescriptorReference ReportingDescriptorReference { get; set; }
+
+        public virtual ISet<string> IncompatibleRuleIds { get; internal set; }
 
         public override IDictionary<string, MultiformatMessageString> MessageStrings
         {
@@ -45,6 +49,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 : RuleUtilities.BuildDictionary(ResourceManager, MessageResourceNames, ruleId: Id);
         }
 
+        public int ExtensionIndex { get; set; }
+
         public override string Id => throw new InvalidOperationException($"The {nameof(Id)} property must be overridden in the SkimmerBase-derived class.");
 
         public override MultiformatMessageString FullDescription => throw new InvalidOperationException($"The {nameof(FullDescription)} property must be overridden in the SkimmerBase-derived class.");
@@ -54,6 +60,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         public override string Name => this.GetType().Name;
 
         public IDictionary<string, string> Options { get; }
+
+        public virtual HashSet<RuleKind> RuleKinds => new HashSet<RuleKind>(new[] { RuleKind.Sarif });
 
         public virtual void Initialize(TContext context) { }
 
@@ -68,5 +76,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         public abstract void Analyze(TContext context);
 
         protected static string MakeAnalyzerMoniker(string id, string name) => $"{id}.{name}";
+
+        public override string ToString()
+        {
+            return $"{this.Id}.{this.Name}";
+        }
     }
 }

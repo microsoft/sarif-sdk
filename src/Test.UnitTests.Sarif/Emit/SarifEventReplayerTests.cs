@@ -1,0 +1,408 @@
+// Copyright (c) Microsoft. All rights reserved.
+// Licensed under the MIT license. See LICENSE file in the project root for full license information.
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
+
+using FluentAssertions;
+
+using Microsoft.CodeAnalysis.Sarif.Emit;
+
+using Newtonsoft.Json.Linq;
+
+using Xunit;
+
+namespace Microsoft.CodeAnalysis.Sarif.Test.UnitTests.Emit
+{
+    public class SarifEventReplayerTests
+    {
+        [Fact]
+        public void Replay_BuildsSingleRunFromEvents()
+        {
+            var events = new[]
+            {
+                Event(SarifEventKinds.RunHeader, new Run { Tool = new Tool { Driver = new ToolComponent { Name = "demo" } } }),
+                Event(SarifEventKinds.Result, new Result { RuleId = "CWE-79/xss-via-template", Message = new Message { Text = "xss" } }),
+                Event(SarifEventKinds.Invocation, new Invocation
+                {
+                    ExecutionSuccessful = true,
+                    ToolExecutionNotifications = new List<Notification> { new() { Message = new Message { Text = "n" } } },
+                }),
+            };
+
+            SarifLog log = SarifEventReplayer.Replay(events);
+
+            log.Runs.Should().HaveCount(1);
+            Run run = log.Runs[0];
+            run.Tool.Driver.Name.Should().Be("demo");
+            run.Results.Should().HaveCount(1);
+            run.Invocations.Should().HaveCount(1);
+            run.Invocations[0].ToolExecutionNotifications.Should().HaveCount(1);
+        }
+
+        [Fact]
+        public void Replay_AutoRegistersDescriptorForFirstSightingOfRuleId()
+        {
+            var events = new[]
+            {
+                Event(SarifEventKinds.RunHeader, new Run { Tool = new Tool { Driver = new ToolComponent { Name = "demo" } } }),
+                Event(SarifEventKinds.Result, new Result { RuleId = "NOVEL-rule-a" }),
+                Event(SarifEventKinds.Result, new Result { RuleId = "NOVEL-rule-b" }),
+                Event(SarifEventKinds.Result, new Result { RuleId = "NOVEL-rule-a" }),
+            };
+
+            Run run = SarifEventReplayer.Replay(events).Runs[0];
+
+            run.Tool.Driver.Rules.Should().HaveCount(2);
+            run.Tool.Driver.Rules[0].Id.Should().Be("NOVEL-rule-a");
+            run.Tool.Driver.Rules[1].Id.Should().Be("NOVEL-rule-b");
+            run.Results[0].RuleIndex.Should().Be(0);
+            run.Results[1].RuleIndex.Should().Be(1);
+            run.Results[2].RuleIndex.Should().Be(0);
+        }
+
+        [Fact]
+        public void Replay_RegistersBaseDescriptorForHierarchicalRuleIds()
+        {
+            // Per SARIF §3.49.3 descriptor ids are base-only. A hierarchical result.ruleId
+            // such as "CWE-79/dom-xss-bypass" registers a descriptor with the base id
+            // "CWE-79"; the full hierarchical form stays on result.ruleId per §3.52.4.
+            // Multiple hierarchical results sharing a base reuse the same descriptor.
+            var events = new[]
+            {
+                Event(SarifEventKinds.RunHeader, new Run { Tool = new Tool { Driver = new ToolComponent { Name = "demo" } } }),
+                Event(SarifEventKinds.Result, new Result { RuleId = "CWE-79/dom-xss-bypass" }),
+                Event(SarifEventKinds.Result, new Result { RuleId = "CWE-79/stored-template-xss" }),
+                Event(SarifEventKinds.Result, new Result { RuleId = "CWE-89/string-concat-query" }),
+            };
+
+            Run run = SarifEventReplayer.Replay(events).Runs[0];
+
+            run.Tool.Driver.Rules.Should().HaveCount(2);
+            run.Tool.Driver.Rules[0].Id.Should().Be("CWE-79");
+            run.Tool.Driver.Rules[1].Id.Should().Be("CWE-89");
+
+            run.Results[0].RuleId.Should().Be("CWE-79/dom-xss-bypass");
+            run.Results[0].RuleIndex.Should().Be(0);
+            run.Results[1].RuleId.Should().Be("CWE-79/stored-template-xss");
+            run.Results[1].RuleIndex.Should().Be(0);
+            run.Results[2].RuleId.Should().Be("CWE-89/string-concat-query");
+            run.Results[2].RuleIndex.Should().Be(1);
+        }
+
+        [Fact]
+        public void Replay_HierarchicalRuleIdReusesPreRegisteredBaseDescriptor()
+        {
+            // If the producer pre-registered the base descriptor on the run header,
+            // a hierarchical result.ruleId resolves to it — no duplicate descriptor created,
+            // pre-registered metadata (name, helpUri, etc.) preserved.
+            var preRegistered = new ReportingDescriptor { Id = "CWE-79", Name = "Pre-registered" };
+            var events = new[]
+            {
+                Event(SarifEventKinds.RunHeader, new Run
+                {
+                    Tool = new Tool
+                    {
+                        Driver = new ToolComponent
+                        {
+                            Name = "demo",
+                            Rules = new List<ReportingDescriptor> { preRegistered },
+                        },
+                    },
+                }),
+                Event(SarifEventKinds.Result, new Result { RuleId = "CWE-79/dom-xss-bypass" }),
+                Event(SarifEventKinds.Result, new Result { RuleId = "CWE-79/secondary" }),
+            };
+
+            Run run = SarifEventReplayer.Replay(events).Runs[0];
+
+            run.Tool.Driver.Rules.Should().HaveCount(1);
+            run.Tool.Driver.Rules[0].Name.Should().Be("Pre-registered");
+            run.Results[0].RuleIndex.Should().Be(0);
+            run.Results[1].RuleIndex.Should().Be(0);
+        }
+
+        [Fact]
+        public void Replay_RejectsBareTaxonomyRuleId()
+        {
+            // A bare taxonomy id (no sub-id) violates the AI ruleId convention. The
+            // replayer surfaces this as AIRuleIdConventionException so emit-finalize can
+            // print a structured, AI-consumable error and the orchestrator can retry.
+            var events = new[]
+            {
+                Event(SarifEventKinds.RunHeader, new Run()),
+                Event(SarifEventKinds.Result, new Result { RuleId = "CWE-79" }),
+            };
+
+            System.Action act = () => SarifEventReplayer.Replay(events);
+
+            AIRuleIdConventionException ex = act.Should().Throw<AIRuleIdConventionException>().Which;
+            ex.OffendingRuleIds.Should().ContainSingle().Which.Should().Be("CWE-79");
+            ex.Message.Should().Contain(AIRuleIdConventionException.ErrorCode);
+            ex.Message.Should().Contain("CWE-89/kql-injection-from-config");
+            ex.Message.Should().Contain("NOVEL-");
+        }
+
+        [Fact]
+        public void Replay_CollectsAllRuleIdViolationsInOneException()
+        {
+            // Multiple violators are reported in a single exception so an AI orchestrator
+            // can fix every offender in one retry rather than one-at-a-time.
+            var events = new[]
+            {
+                Event(SarifEventKinds.RunHeader, new Run()),
+                Event(SarifEventKinds.Result, new Result { RuleId = "CWE-79" }),                  // bare taxonomy
+                Event(SarifEventKinds.Result, new Result { RuleId = "CWE-89/x" }),                // OK (interleaved)
+                Event(SarifEventKinds.Result, new Result { RuleId = "my-custom-rule" }),          // not taxonomy, not NOVEL-
+                Event(SarifEventKinds.Result, new Result { RuleId = "NOVEL-foo/bar" }),           // NOVEL- with slash
+                Event(SarifEventKinds.Result, new Result { RuleId = string.Empty }),              // empty
+            };
+
+            System.Action act = () => SarifEventReplayer.Replay(events);
+
+            AIRuleIdConventionException ex = act.Should().Throw<AIRuleIdConventionException>().Which;
+            ex.OffendingRuleIds.Should().BeEquivalentTo(new[] { "CWE-79", "my-custom-rule", "NOVEL-foo/bar", string.Empty });
+        }
+
+        [Fact]
+        public void Replay_InvocationCarriesInlineNotificationsIntact()
+        {
+            // Notifications are no longer their own event kind: they travel inline on the
+            // invocation the producer emits. The replayer appends the invocation verbatim, so
+            // the embedded execution/configuration notifications come along untouched. Parallel
+            // processes are modeled by separate invocation events, each owning its own
+            // notifications — there is no routing ambiguity to resolve at replay.
+            var first = new Invocation
+            {
+                CommandLine = "first",
+                ExecutionSuccessful = true,
+                ToolExecutionNotifications = new List<Notification>
+                {
+                    new() { Message = new Message { Text = "first-exec" } },
+                },
+            };
+            var second = new Invocation
+            {
+                CommandLine = "second",
+                ExecutionSuccessful = true,
+                ToolExecutionNotifications = new List<Notification>
+                {
+                    new() { Message = new Message { Text = "second-exec" } },
+                },
+                ToolConfigurationNotifications = new List<Notification>
+                {
+                    new() { Message = new Message { Text = "second-config" } },
+                },
+            };
+
+            var events = new[]
+            {
+                Event(SarifEventKinds.RunHeader, new Run()),
+                Event(SarifEventKinds.Invocation, first),
+                Event(SarifEventKinds.Invocation, second),
+            };
+
+            Run run = SarifEventReplayer.Replay(events).Runs[0];
+
+            run.Invocations.Should().HaveCount(2);
+            run.Invocations[0].ToolExecutionNotifications.Should().HaveCount(1);
+            run.Invocations[0].ToolExecutionNotifications[0].Message.Text.Should().Be("first-exec");
+            run.Invocations[0].ToolConfigurationNotifications.Should().BeNull();
+            run.Invocations[1].ToolExecutionNotifications.Should().HaveCount(1);
+            run.Invocations[1].ToolExecutionNotifications[0].Message.Text.Should().Be("second-exec");
+            run.Invocations[1].ToolConfigurationNotifications.Should().HaveCount(1);
+            run.Invocations[1].ToolConfigurationNotifications[0].Message.Text.Should().Be("second-config");
+        }
+
+        [Fact]
+        public void Replay_TolleratesAbsenceOfRunHeader()
+        {
+            var events = new[]
+            {
+                Event(SarifEventKinds.Result, new Result { RuleId = "NOVEL-x" }),
+            };
+
+            Run run = SarifEventReplayer.Replay(events).Runs[0];
+
+            run.Tool.Driver.Name.Should().Be("Unknown");
+            run.Tool.Driver.Rules.Should().HaveCount(1);
+            run.Results.Should().HaveCount(1);
+        }
+
+        [Fact]
+        public void Replay_RuleDescriptorEventPopulatesRulesAndPreemptsAutoRegistration()
+        {
+            // Producer pre-supplies a rule descriptor via a rule-descriptor event. A later
+            // result references the same NOVEL- ruleId. The auto-registration loop must see
+            // the explicit descriptor in the idToIndex seed and reuse it (rather than
+            // synthesizing a second minimal descriptor with the same id).
+            var rich = new ReportingDescriptor
+            {
+                Id = "NOVEL-prompt-injection",
+                Name = "PromptInjection",
+                ShortDescription = new MultiformatMessageString { Text = "prompt-injection short" },
+                HelpUri = new Uri("https://example.com/novel/prompt-injection"),
+            };
+
+            var events = new[]
+            {
+                Event(SarifEventKinds.RunHeader, new Run { Tool = new Tool { Driver = new ToolComponent { Name = "demo" } } }),
+                Event(SarifEventKinds.RuleDescriptor, rich),
+                Event(SarifEventKinds.Result, new Result { RuleId = "NOVEL-prompt-injection", Message = new Message { Text = "x" } }),
+            };
+
+            Run run = SarifEventReplayer.Replay(events).Runs[0];
+
+            run.Tool.Driver.Rules.Should().HaveCount(1, "the explicit descriptor MUST suppress the synthesized minimal one");
+            run.Tool.Driver.Rules[0].Id.Should().Be("NOVEL-prompt-injection");
+            run.Tool.Driver.Rules[0].Name.Should().Be("PromptInjection");
+            run.Tool.Driver.Rules[0].ShortDescription.Text.Should().Be("prompt-injection short");
+            run.Tool.Driver.Rules[0].HelpUri.Should().Be(new Uri("https://example.com/novel/prompt-injection"));
+            run.Results[0].RuleIndex.Should().Be(0);
+        }
+
+        [Fact]
+        public void Replay_NotificationDescriptorEventPopulatesNotifications()
+        {
+            // notification-descriptor events feed run.tool.driver.notifications. Unlike rules
+            // there's no auto-registration loop to worry about — the event payload simply
+            // appears in the notifications list verbatim.
+            var descriptor = new ReportingDescriptor
+            {
+                Id = "progress",
+                Name = "Progress",
+                ShortDescription = new MultiformatMessageString { Text = "Per-batch progress update." },
+            };
+
+            var events = new[]
+            {
+                Event(SarifEventKinds.RunHeader, new Run { Tool = new Tool { Driver = new ToolComponent { Name = "demo" } } }),
+                Event(SarifEventKinds.NotificationDescriptor, descriptor),
+                Event(SarifEventKinds.Invocation, new Invocation
+                {
+                    ExecutionSuccessful = true,
+                    ToolExecutionNotifications = new List<Notification> { new() { Message = new Message { Text = "halfway" } } },
+                }),
+            };
+
+            Run run = SarifEventReplayer.Replay(events).Runs[0];
+
+            run.Tool.Driver.Notifications.Should().HaveCount(1);
+            run.Tool.Driver.Notifications[0].Id.Should().Be("progress");
+            run.Tool.Driver.Notifications[0].Name.Should().Be("Progress");
+            run.Invocations[0].ToolExecutionNotifications.Should().HaveCount(1);
+        }
+
+        [Fact]
+        public void Replay_DescriptorEventsPreserveHeaderPrePopulatedDescriptors()
+        {
+            // If a producer pre-populates tool.driver.rules / tool.driver.notifications on the
+            // header AND adds further descriptors via events, both lists merge. (The verb's
+            // emit-time dedup blocks id collisions between header and events.)
+            var seedRun = new Run
+            {
+                Tool = new Tool
+                {
+                    Driver = new ToolComponent
+                    {
+                        Name = "demo",
+                        Rules = new List<ReportingDescriptor> { new() { Id = "NOVEL-from-header" } },
+                        Notifications = new List<ReportingDescriptor> { new() { Id = "config-error-from-header" } },
+                    },
+                },
+            };
+
+            var events = new[]
+            {
+                Event(SarifEventKinds.RunHeader, seedRun),
+                Event(SarifEventKinds.RuleDescriptor, new ReportingDescriptor { Id = "NOVEL-from-event" }),
+                Event(SarifEventKinds.NotificationDescriptor, new ReportingDescriptor { Id = "progress-from-event" }),
+            };
+
+            Run run = SarifEventReplayer.Replay(events).Runs[0];
+
+            run.Tool.Driver.Rules.Should().HaveCount(2);
+            run.Tool.Driver.Rules.Select(r => r.Id).Should().Equal("NOVEL-from-header", "NOVEL-from-event");
+            run.Tool.Driver.Notifications.Should().HaveCount(2);
+            run.Tool.Driver.Notifications.Select(n => n.Id).Should().Equal("config-error-from-header", "progress-from-event");
+        }
+
+        [Fact]
+        public void Replay_ThrowsWhenSecondRunHeaderEncountered()
+        {
+            var events = new[]
+            {
+                Event(SarifEventKinds.RunHeader, new Run()),
+                Event(SarifEventKinds.RunHeader, new Run()),
+            };
+
+            System.Action act = () => SarifEventReplayer.Replay(events);
+
+            act.Should().Throw<SarifEventLogException>().WithMessage("*more than one*");
+        }
+
+        [Fact]
+        public void Replay_DiscardsResultsAndInvocationsOnRunHeader()
+        {
+            // The header carries a partial Run shape only; results/invocations on a header are
+            // ignored so events remain the source of truth.
+            var seed = new Run
+            {
+                Tool = new Tool { Driver = new ToolComponent { Name = "demo" } },
+                Results = new List<Result> { new() { RuleId = "STALE" } },
+                Invocations = new List<Invocation> { new() { CommandLine = "stale" } },
+            };
+
+            var events = new[]
+            {
+                Event(SarifEventKinds.RunHeader, seed),
+                Event(SarifEventKinds.Result, new Result { RuleId = "NOVEL-real" }),
+            };
+
+            Run run = SarifEventReplayer.Replay(events).Runs[0];
+
+            run.Results.Should().HaveCount(1);
+            run.Results[0].RuleId.Should().Be("NOVEL-real");
+            run.Invocations.Should().BeNull();
+        }
+
+        // Reflection-enforced coverage: every public string constant declared on
+        // SarifEventKinds must be reached by a non-default case in
+        // SarifEventReplayer's switch. If a new kind is added to SarifEventKinds
+        // without a matching case, the replayer's default branch throws and this
+        // test fails for that kind.
+        [Theory]
+        [MemberData(nameof(EveryDeclaredEventKind))]
+        public void Replay_HasSwitchCoverageFor(string kind)
+        {
+            // Empty {} deserializes to a default instance for every payload type the
+            // replayer consumes today (Run, Result, Invocation, Notification). New kinds
+            // that need a richer minimal payload can extend MinimalPayloadFor.
+            JToken payload = MinimalPayloadFor(kind);
+            var ev = new SarifEvent { Kind = kind, Version = SarifEventKinds.CurrentSchemaVersion, Payload = payload };
+
+            System.Action act = () => SarifEventReplayer.Replay(new[] { ev });
+
+            act.Should().NotThrow<SarifEventLogException>(
+                because: $"every public const in SarifEventKinds must be handled by the replayer switch; '{kind}' is missing a case.");
+        }
+
+        public static IEnumerable<object[]> EveryDeclaredEventKind() =>
+            typeof(SarifEventKinds)
+                .GetFields(BindingFlags.Public | BindingFlags.Static)
+                .Where(f => f.IsLiteral && f.FieldType == typeof(string))
+                .Select(f => new object[] { (string)f.GetRawConstantValue() });
+
+        private static JToken MinimalPayloadFor(string kind) => new JObject();
+
+        private static SarifEvent Event(string kind, object payload) =>
+            new SarifEvent
+            {
+                Kind = kind,
+                Version = SarifEventKinds.CurrentSchemaVersion,
+                Payload = JToken.FromObject(payload),
+            };
+    }
+}

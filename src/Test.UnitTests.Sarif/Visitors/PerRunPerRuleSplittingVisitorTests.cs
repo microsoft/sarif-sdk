@@ -70,7 +70,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         {
             SarifLog sarifLog = GetTestSarifLog();
 
-            HashSet<string> ruleIds = new HashSet<string>();
+            var ruleIds = new HashSet<string>();
 
             for (int i = 0; i < sarifLog.Runs[0].Results.Count; i++)
             {

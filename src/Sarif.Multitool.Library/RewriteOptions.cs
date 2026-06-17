@@ -16,5 +16,33 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             Default = false,
             HelpText = "Sort results in the final output file.")]
         public bool SortResults { get; set; }
+
+        [Option(
+            "normalize-for-ghas",
+            HelpText = "Normalize SARIF to conform to GitHub Advanced Security (GHAS) code scanning ingestion requirements.")]
+        public bool NormalizeForGhas { get; set; }
+
+        [Option(
+            'b',
+            "base-path-value",
+            Required = false,
+            HelpText = "Base path value to use while rebasing all paths.  E.x. 'C:\\bld\\1234\\bin\\'"
+            )]
+        public string BasePath { get; set; }
+
+        [Option(
+            't',
+            "base-path-token",
+            Required = false,
+            HelpText = "Variable to use for the base path token (e.x. 'SRCROOT')"
+            )]
+        public string BasePathToken { get; set; }
+
+        [Option(
+            "rebase-relative-uris",
+            Default = false,
+            HelpText = "All relative uris will be rebased to the base-path-value if true. Default is false."
+            )]
+        public bool RebaseRelativeUris { get; set; }
     }
 }

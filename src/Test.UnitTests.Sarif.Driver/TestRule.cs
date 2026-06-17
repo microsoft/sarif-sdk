@@ -8,12 +8,12 @@ using System.IO;
 using System.Reflection;
 using System.Resources;
 using System.Threading;
+using System.Threading.Tasks;
 
 using FluentAssertions;
 
 using Microsoft.CodeAnalysis.Sarif.Driver;
 using Microsoft.CodeAnalysis.Sarif.Driver.Sdk;
-using Microsoft.CodeAnalysis.Test.Utilities.Sarif;
 
 namespace Microsoft.CodeAnalysis.Sarif
 {
@@ -41,7 +41,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         protected override ResourceManager ResourceManager => SkimmerBaseTestResources.ResourceManager;
 
-        protected override IEnumerable<string> MessageResourceNames => new List<string>
+        protected override IList<string> MessageResourceNames => new List<string>
         {
             nameof(SkimmerBaseTestResources.TEST1001_Failed),
             nameof(SkimmerBaseTestResources.TEST1001_Pass),
@@ -122,11 +122,11 @@ namespace Microsoft.CodeAnalysis.Sarif
                 return AnalysisApplicability.NotApplicableToSpecifiedTarget;
             }
 
-            string fileName = Path.GetFileName(context.TargetUri.LocalPath);
+            string fileName = Path.GetFileName(context.CurrentTarget.Uri.GetFileName());
 
             if (fileName.Contains("NotApplicable"))
             {
-                reasonIfNotApplicable = "test was configured to find target not applicable.";
+                reasonIfNotApplicable = "test was configured to find target not applicable";
                 applicability = AnalysisApplicability.NotApplicableToSpecifiedTarget;
             }
 
@@ -140,14 +140,15 @@ namespace Microsoft.CodeAnalysis.Sarif
             // We do not access the static test rule behaviors here. We also want to 
             // ensure this data is only set with flags (if any) that are legal for 
             // this property.
-            (s_testRuleBehaviors & s_testRuleBehaviors.AccessibleOutsideOfContextOnly())
+            (s_testRuleBehaviors & s_testRuleBehaviors)
                 .Should().Be(s_testRuleBehaviors);
 
             // Now we'll make sure the context test rule behaviors are restricted
             // to settings that are legal to pass in a context object.
             TestRuleBehaviors testRuleBehaviors = context.Policy.GetProperty(Behaviors);
-            (testRuleBehaviors & testRuleBehaviors.AccessibleWithinContextOnly())
-                .Should().Be(testRuleBehaviors);
+
+            int delay = context.Policy.GetProperty(DelayInMilliseconds);
+            Task.Delay(delay).Wait();
 
             switch (testRuleBehaviors)
             {
@@ -182,7 +183,20 @@ namespace Microsoft.CodeAnalysis.Sarif
                             {
                                 RuleId = this.Id,
                                 Level = FailureLevel.Error,
-                                Message = new Message { Text = "Simple test rule message." }
+                                Message = new Message { Text = "Simple test rule message." },
+                                Locations = new[]
+                                {
+                                    new Location
+                                    {
+                                        PhysicalLocation = new PhysicalLocation
+                                        {
+                                            ArtifactLocation = new ArtifactLocation
+                                            {
+                                                Uri = context.CurrentTarget.Uri,
+                                            }
+                                        }
+                                    }
+                                }
                             });
 
                         Thread.Sleep(s_random.Next(0, 10));
@@ -196,56 +210,56 @@ namespace Microsoft.CodeAnalysis.Sarif
                 }
             }
 
-            string fileName = Path.GetFileName(context.TargetUri.LocalPath);
+            string fileName = Path.GetFileName(context.CurrentTarget.Uri.GetFileName());
 
             if (fileName.Contains(nameof(FailureLevel.Error)))
             {
                 context.Logger.Log(this,
                     RuleUtilities.BuildResult(FailureLevel.Error, context, null,
                     nameof(SkimmerBaseTestResources.TEST1001_Failed),
-                    context.TargetUri.GetFileName()));
+                    context.CurrentTarget.Uri.GetFileName()));
             }
             if (fileName.Contains(nameof(FailureLevel.Warning)))
             {
                 context.Logger.Log(this,
                     RuleUtilities.BuildResult(FailureLevel.Warning, context, null,
                     nameof(SkimmerBaseTestResources.TEST1001_Failed),
-                    context.TargetUri.GetFileName()));
+                    context.CurrentTarget.Uri.GetFileName()));
             }
             if (fileName.Contains(nameof(FailureLevel.Note)))
             {
                 context.Logger.Log(this,
                     RuleUtilities.BuildResult(FailureLevel.Note, context, null,
                     nameof(SkimmerBaseTestResources.TEST1001_Note),
-                    context.TargetUri.GetFileName()));
+                    context.CurrentTarget.Uri.GetFileName()));
             }
             else if (fileName.Contains(nameof(ResultKind.Pass)))
             {
                 context.Logger.Log(this,
                     RuleUtilities.BuildResult(ResultKind.Pass, context, null,
                     nameof(SkimmerBaseTestResources.TEST1001_Pass),
-                    context.TargetUri.GetFileName()));
+                    context.CurrentTarget.Uri.GetFileName()));
             }
             else if (fileName.Contains(nameof(ResultKind.Review)))
             {
                 context.Logger.Log(this,
                     RuleUtilities.BuildResult(ResultKind.Review, context, null,
                     nameof(SkimmerBaseTestResources.TEST1001_Review),
-                    context.TargetUri.GetFileName()));
+                    context.CurrentTarget.Uri.GetFileName()));
             }
             else if (fileName.Contains(nameof(ResultKind.Open)))
             {
                 context.Logger.Log(this,
                     RuleUtilities.BuildResult(ResultKind.Open, context, null,
                     nameof(SkimmerBaseTestResources.TEST1001_Open),
-                    context.TargetUri.GetFileName()));
+                    context.CurrentTarget.Uri.GetFileName()));
             }
             else if (fileName.Contains(nameof(ResultKind.Informational)))
             {
                 context.Logger.Log(this,
                     RuleUtilities.BuildResult(ResultKind.Informational, context, null,
                     nameof(SkimmerBaseTestResources.TEST1001_Information),
-                    context.TargetUri.GetFileName()));
+                    context.CurrentTarget.Uri.GetFileName()));
             }
         }
 
@@ -259,7 +273,11 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new IOption[] { Behaviors, UnusedOption, ErrorsCount };
         }
 
-        private const string AnalyzerName = TestRuleId + "." + nameof(TestRule);
+        internal const string AnalyzerName = TestRuleId + "." + nameof(TestRule);
+
+        public static PerLanguageOption<int> DelayInMilliseconds { get; } =
+            new PerLanguageOption<int>(
+                AnalyzerName, nameof(DelayInMilliseconds), defaultValue: () => 0);
 
         public static PerLanguageOption<uint> ErrorsCount { get; } =
             new PerLanguageOption<uint>(

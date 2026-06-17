@@ -181,7 +181,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             string friority = xmlReader.ReadOptionalElementContentAsString(strings.Friority);
             xmlReader.IgnoreElement(strings.Tag, IgnoreOptions.Optional | IgnoreOptions.Multiple);
             xmlReader.IgnoreElement(strings.Comment, IgnoreOptions.Optional | IgnoreOptions.Multiple);
-            FortifyPathElement primary = FortifyPathElement.Parse(xmlReader, strings);
+            var primary = FortifyPathElement.Parse(xmlReader, strings);
             FortifyPathElement source;
             if (xmlReader.NodeType == XmlNodeType.Element && StringReference.AreEqual(xmlReader.LocalName, strings.Source))
             {

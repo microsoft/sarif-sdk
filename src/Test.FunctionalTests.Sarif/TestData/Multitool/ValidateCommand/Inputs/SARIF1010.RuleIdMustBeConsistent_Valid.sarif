@@ -1,5 +1,5 @@
 {
-  "$schema": "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0-rtm.6.json",
+  "$schema": "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0.json",
   "version": "2.1.0",
   "runs": [
     {
@@ -31,6 +31,12 @@
           },
           "message": {
             "text": "this result contains only a rule.id property."
+          }
+        },
+        {
+          "ruleId": " ",
+          "message": {
+            "text": "This result has a present-but-whitespace ruleId; it is present, so SARIF1010 must not report it as absent (issue #2799)."
           }
         }
       ],

@@ -12,42 +12,19 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         // Internal static rather than private const to allow a unit test with a practical limit.
         internal static int s_MaxResults = 5000;
 
+        private Run run;
+        private int ruleIndex = -1;
         private IList<Artifact> artifacts;
         private IList<ThreadFlowLocation> threadFlowLocations;
 
         public override Run VisitRun(Run node)
         {
+            this.run = node;
             this.artifacts = node.Artifacts;
             this.threadFlowLocations = node.ThreadFlowLocations;
 
             if (node.Results != null)
             {
-                int errorsCount = 0;
-                foreach (Result result in node.Results)
-                {
-                    if (result.Level == FailureLevel.Error)
-                    {
-                        errorsCount++;
-                    }
-                }
-
-                if (errorsCount != node.Results.Count)
-                {
-                    var errors = new List<Result>();
-
-                    foreach (Result result in node.Results)
-                    {
-                        if (result.Level == FailureLevel.Error)
-                        {
-                            errors.Add(result);
-                        }
-
-                        if (errors.Count == s_MaxResults) { break; }
-                    }
-
-                    node.Results = errors;
-                }
-
                 if (node.Results.Count > s_MaxResults)
                 {
                     node.Results = node.Results.Take(s_MaxResults).ToList();
@@ -89,10 +66,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 {
                     // Make sure there's a place to put the message. threadFlowLocation.Location
                     // is not required, so the shared object might not have had one.
-                    if (node.Location == null)
-                    {
-                        node.Location = new Location();
-                    }
+                    node.Location ??= new Location();
 
                     node.Location.Message = message;
                 }
@@ -144,6 +118,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
         public override Result VisitResult(Result node)
         {
+            this.ruleIndex = node.RuleIndex;
+
             if (node.Fingerprints != null)
             {
                 // GitHub appears to require that fingerprints be emitted to the
@@ -161,6 +137,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             return base.VisitResult(node);
         }
 
+        public override Message VisitMessage(Message message)
+        {
+            if (message.Text == null)
+            {
+                message.Flatten(this.ruleIndex, this.run);
+            }
+
+            return base.VisitMessage(message);
+        }
+
         // Merge properties from a source to a target, preferring the existing properties
         // on the target if there are any duplicates.
         private static void MergeProperties(PropertyBagHolder target, PropertyBagHolder source)
@@ -169,10 +155,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             if (source.Properties != null)
             {
                 // If so, make sure there's someplace to put them.
-                if (target.Properties == null)
-                {
-                    target.Properties = new Dictionary<string, SerializedPropertyInfo>();
-                }
+                target.Properties ??= new Dictionary<string, SerializedPropertyInfo>();
 
                 target.Properties = target.Properties.MergePreferFirst(source.Properties);
             }

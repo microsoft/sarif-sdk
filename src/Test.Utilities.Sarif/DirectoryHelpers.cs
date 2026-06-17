@@ -1,11 +1,8 @@
 ﻿// Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
-using System.Text;
 
 using Microsoft.CodeAnalysis.Sarif;
 
@@ -20,7 +17,11 @@ namespace Microsoft.CodeAnalysis.Test.Utilities.Sarif
         /// <returns></returns>
         public static string GetEnlistmentRoot()
         {
+#if NETSTANDARD2_0_OR_GREATER
             string path = typeof(DirectoryHelpers).Assembly.Location;
+#else
+            string path = Environment.CurrentDirectory;
+#endif
             return GitHelper.Default.GetTopLevel(path);
         }
 
@@ -31,7 +32,11 @@ namespace Microsoft.CodeAnalysis.Test.Utilities.Sarif
         /// <returns></returns>
         public static string GetEnlistmentSrcDirectory()
         {
+#if NETSTANDARD2_0_OR_GREATER
             string path = typeof(DirectoryHelpers).Assembly.Location;
+#else
+            string path = Environment.CurrentDirectory;
+#endif
             path = GitHelper.Default.GetTopLevel(path);
             return Path.Combine(GetEnlistmentRoot(), @"src\");
         }

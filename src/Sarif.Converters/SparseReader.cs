@@ -110,7 +110,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             ReadStartElement();
 
             if (isEmpty)
+            {
                 return; // DONE with this element
+            }
 
             while (!IsEndState(tagName))
             {

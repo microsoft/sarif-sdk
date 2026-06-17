@@ -32,7 +32,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             using (TextReader streamReader = new StreamReader(input))
             using (JsonReader reader = new JsonTextReader(streamReader))
             {
-                JToken rootToken = JToken.ReadFrom(reader);
+                var rootToken = JToken.ReadFrom(reader);
                 rootToken = NormalizeLog(rootToken);
                 string normalizedLogContents = rootToken.ToString();
                 using (Stream normalizedLogStream = new MemoryStream(Encoding.UTF8.GetBytes(normalizedLogContents)))

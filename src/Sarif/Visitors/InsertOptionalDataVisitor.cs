@@ -3,39 +3,40 @@
 
 using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 
 namespace Microsoft.CodeAnalysis.Sarif.Visitors
 {
-    public class InsertOptionalDataVisitor : SarifRewritingVisitor
+    public class InsertOptionalDataVisitor(
+        OptionallyEmittedData dataToInsert,
+        FileRegionsCache fileRegionsCache,
+        IDictionary<string, ArtifactLocation> originalUriBaseIds = null,
+        IFileSystem fileSystem = null,
+        GitHelper.ProcessRunner processRunner = null,
+        IEnumerable<string> insertProperties = null) : SarifRewritingVisitor
     {
         private static readonly Regex versionControlPropertiesRegex =
             new Regex(@"(?i)runs\[(?<run>\d?)\]\.invocations\[(?<invocation>\d?)\].versionControlProvenance.properties.(?<property>[a-zA-Z]+)=(?<value>.*)", RegexOptions.Compiled);
 
-        private readonly IFileSystem _fileSystem;
-        private readonly GitHelper.ProcessRunner _processRunner;
-
+        private readonly IFileSystem _fileSystem = fileSystem ?? FileSystem.Instance;
         private Run _run;
         private HashSet<Uri> _repoRootUris;
-        private GitHelper _gitHelper;
+        private GitHelper _gitHelper = new GitHelper();
 
-        private int _ruleIndex;
-        private readonly FileRegionsCache _fileRegionsCache;
-        private readonly OptionallyEmittedData _dataToInsert;
-        private readonly IDictionary<string, ArtifactLocation> _originalUriBaseIds;
-        private readonly IEnumerable<string> _insertProperties;
+        private int _ruleIndex = -1;
+        private readonly IEnumerable<string> _insertProperties = insertProperties ?? new List<string>();
+        private readonly Dictionary<string, Dictionary<int, string>> _rollingHashesByPath = new Dictionary<string, Dictionary<int, string>>();
 
         private const string Name = nameof(Name);
         private const string Email = nameof(Email);
         private const string CommitSha = nameof(CommitSha);
 
         public InsertOptionalDataVisitor(OptionallyEmittedData dataToInsert,
+                                         FileRegionsCache fileRegionsCache,
                                          Run run,
-                                         IEnumerable<string> insertProperties,
-                                         FileRegionsCache fileRegionsCache = null)
+                                         IEnumerable<string> insertProperties)
             : this(dataToInsert,
                    originalUriBaseIds: run?.OriginalUriBaseIds,
                    insertProperties: insertProperties,
@@ -44,47 +45,30 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             _run = run ?? throw new ArgumentNullException(nameof(run));
         }
 
-        public InsertOptionalDataVisitor(
-            OptionallyEmittedData dataToInsert,
-            IDictionary<string, ArtifactLocation> originalUriBaseIds = null,
-            IFileSystem fileSystem = null,
-            GitHelper.ProcessRunner processRunner = null,
-            IEnumerable<string> insertProperties = null,
-            FileRegionsCache fileRegionsCache = null)
-        {
-            _fileSystem = fileSystem ?? FileSystem.Instance;
-            _processRunner = processRunner;
-
-            _ruleIndex = -1;
-            _gitHelper = new GitHelper();
-            _dataToInsert = dataToInsert;
-            _originalUriBaseIds = originalUriBaseIds;
-            _insertProperties = insertProperties ?? new List<string>();
-
-            _fileRegionsCache = fileRegionsCache ?? FileRegionsCache.Instance;
-        }
+        public FileRegionsCache FileRegionsCache { get; set; } = fileRegionsCache;
 
         public override Run VisitRun(Run node)
         {
             _run = node;
-            _gitHelper = new GitHelper(_fileSystem, _processRunner);
+            _gitHelper = new GitHelper(_fileSystem, processRunner);
             _repoRootUris = new HashSet<Uri>();
+            _rollingHashesByPath.Clear();
 
-            if (_originalUriBaseIds != null)
+            if (originalUriBaseIds != null)
             {
                 _run.OriginalUriBaseIds ??= new Dictionary<string, ArtifactLocation>();
 
-                foreach (string key in _originalUriBaseIds.Keys)
+                foreach (string key in originalUriBaseIds.Keys)
                 {
-                    _run.OriginalUriBaseIds[key] = _originalUriBaseIds[key];
+                    _run.OriginalUriBaseIds[key] = originalUriBaseIds[key];
                 }
             }
 
             if (node == null) { return null; }
 
-            bool scrapeFileReferences = _dataToInsert.HasFlag(OptionallyEmittedData.Hashes) ||
-                                        _dataToInsert.HasFlag(OptionallyEmittedData.TextFiles) ||
-                                        _dataToInsert.HasFlag(OptionallyEmittedData.BinaryFiles);
+            bool scrapeFileReferences = dataToInsert.HasFlag(OptionallyEmittedData.Hashes) ||
+                                        dataToInsert.HasFlag(OptionallyEmittedData.TextFiles) ||
+                                        dataToInsert.HasFlag(OptionallyEmittedData.BinaryFiles);
 
             if (scrapeFileReferences)
             {
@@ -95,7 +79,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             Run visited = base.VisitRun(node);
 
             // After all the ArtifactLocations have been visited,
-            if (_run.VersionControlProvenance == null && _dataToInsert.HasFlag(OptionallyEmittedData.VersionControlDetails))
+            if (_run.VersionControlProvenance == null && dataToInsert.HasFlag(OptionallyEmittedData.VersionControlDetails))
             {
                 _run.VersionControlProvenance = CreateVersionControlProvenance();
             }
@@ -110,32 +94,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 goto Exit;
             }
 
-            bool insertRegionSnippets = _dataToInsert.HasFlag(OptionallyEmittedData.RegionSnippets);
-            bool overwriteExistingData = _dataToInsert.HasFlag(OptionallyEmittedData.OverwriteExistingData);
-            bool insertContextCodeSnippets = _dataToInsert.HasFlag(OptionallyEmittedData.ContextRegionSnippets);
-            bool populateRegionProperties = _dataToInsert.HasFlag(OptionallyEmittedData.ComprehensiveRegionProperties);
+            bool insertRegionSnippets = dataToInsert.HasFlag(OptionallyEmittedData.RegionSnippets);
+            bool overwriteExistingData = dataToInsert.HasFlag(OptionallyEmittedData.OverwriteExistingData);
+            bool insertContextCodeSnippets = dataToInsert.HasFlag(OptionallyEmittedData.ContextRegionSnippets);
+            bool populateRegionProperties = dataToInsert.HasFlag(OptionallyEmittedData.ComprehensiveRegionProperties);
 
             if (insertRegionSnippets || populateRegionProperties || insertContextCodeSnippets)
             {
-                Region expandedRegion;
-                ArtifactLocation artifactLocation = node.ArtifactLocation;
+                Uri resolvedUri = GetResolvedArtifactLocationUri(node.ArtifactLocation);
 
-                if (artifactLocation.Uri == null && artifactLocation.Index >= 0)
-                {
-                    // Uri is not stored at result level, but we have an index to go look in run.Artifacts
-                    // we must pick the ArtifactLocation details from run.artifacts array
-                    Artifact artifactFromRun = _run.Artifacts[artifactLocation.Index];
-                    artifactLocation = artifactFromRun.Location;
-                }
-
-                // If we can resolve a file location to a newly constructed
-                // absolute URI, we will prefer that
-                if (!artifactLocation.TryReconstructAbsoluteUri(_run.OriginalUriBaseIds, out Uri resolvedUri))
-                {
-                    resolvedUri = artifactLocation.Uri;
-                }
-
-                expandedRegion = _fileRegionsCache.PopulateTextRegionProperties(node.Region, resolvedUri, populateSnippet: insertRegionSnippets);
+                Region expandedRegion = FileRegionsCache.PopulateTextRegionProperties(node.Region, resolvedUri, populateSnippet: insertRegionSnippets, fileText: null, overwriteExistingData: overwriteExistingData);
 
                 ArtifactContent originalSnippet = node.Region.Snippet;
 
@@ -144,18 +112,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     node.Region = expandedRegion;
                 }
 
-                if (originalSnippet == null || overwriteExistingData)
-                {
-                    node.Region.Snippet = expandedRegion.Snippet;
-                }
-                else
-                {
-                    node.Region.Snippet = originalSnippet;
-                }
+                node.Region.Snippet = originalSnippet == null || overwriteExistingData
+                    ? expandedRegion.Snippet
+                    : originalSnippet;
 
                 if (insertContextCodeSnippets && (node.ContextRegion == null || overwriteExistingData))
                 {
-                    node.ContextRegion = _fileRegionsCache.ConstructMultilineContextSnippet(expandedRegion, resolvedUri);
+                    node.ContextRegion = FileRegionsCache.ConstructMultilineContextSnippet(expandedRegion, resolvedUri);
                 }
             }
 
@@ -169,11 +132,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             if (fileLocation != null)
             {
                 bool workToDo = false;
-                bool overwriteExistingData = _dataToInsert.HasFlag(OptionallyEmittedData.OverwriteExistingData);
+                bool overwriteExistingData = dataToInsert.HasFlag(OptionallyEmittedData.OverwriteExistingData);
 
-                workToDo |= (node.Hashes == null || overwriteExistingData) && _dataToInsert.HasFlag(OptionallyEmittedData.Hashes);
-                workToDo |= (node.Contents?.Text == null || overwriteExistingData) && _dataToInsert.HasFlag(OptionallyEmittedData.TextFiles);
-                workToDo |= (node.Contents?.Binary == null || overwriteExistingData) && _dataToInsert.HasFlag(OptionallyEmittedData.BinaryFiles);
+                workToDo |= (node.Hashes == null || overwriteExistingData) && dataToInsert.HasFlag(OptionallyEmittedData.Hashes);
+                workToDo |= (node.Contents?.Text == null || overwriteExistingData) && dataToInsert.HasFlag(OptionallyEmittedData.TextFiles);
+                workToDo |= (node.Contents?.Binary == null || overwriteExistingData) && dataToInsert.HasFlag(OptionallyEmittedData.BinaryFiles);
 
                 if (workToDo)
                 {
@@ -193,7 +156,19 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                         }
 
                         int length = node.Length;
-                        node = Artifact.Create(uri, _dataToInsert, encoding: encoding);
+
+                        HashData hashData = null;
+                        if (FileRegionsCache != null && dataToInsert.HasFlag(OptionallyEmittedData.Hashes))
+                        {
+                            hashData = FileRegionsCache.GetHashData(uri);
+                        }
+
+                        node = Artifact.Create(uri,
+                                               dataToInsert,
+                                               encoding: encoding,
+                                               hashData: hashData,
+                                               fileSystem: _fileSystem,
+                                               hashAlgorithms: FileRegionsCache?.HashAlgorithms ?? HashAlgorithms.Default);
                         node.Length = length;
                         fileLocation.Index = -1;
                         node.Location = fileLocation;
@@ -206,7 +181,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
         public override ArtifactLocation VisitArtifactLocation(ArtifactLocation node)
         {
-            if (_dataToInsert.HasFlag(OptionallyEmittedData.VersionControlDetails))
+            if (dataToInsert.HasFlag(OptionallyEmittedData.VersionControlDetails))
             {
                 node = ExpressRelativeToRepoRoot(node);
             }
@@ -220,12 +195,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             node = base.VisitResult(node);
             _ruleIndex = -1;
 
-            if (node.Guid == null && _dataToInsert.HasFlag(OptionallyEmittedData.Guids))
+            if (node.Guid == null && dataToInsert.HasFlag(OptionallyEmittedData.Guids))
             {
                 node.Guid = Guid.NewGuid();
             }
 
-            if (_dataToInsert.HasFlag(OptionallyEmittedData.GitBlameInformation))
+            if (dataToInsert.HasFlag(OptionallyEmittedData.GitBlameInformation))
             {
                 // add git blame information to the result
                 string filePath = GetFilePath(node.Locations[0].PhysicalLocation.ArtifactLocation);
@@ -253,35 +228,80 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 }
             }
 
+            if (dataToInsert.HasFlag(OptionallyEmittedData.ContextRegionSnippetPartialFingerprints) &&
+                (node.PartialFingerprints == null ||
+                 !node.PartialFingerprints.ContainsKey(ContextRegionHash) ||
+                 dataToInsert.HasFlag(OptionallyEmittedData.OverwriteExistingData)))
+            {
+                Location primaryLocation = node.Locations?.FirstOrDefault();
+                if (primaryLocation != null)
+                {
+                    PhysicalLocation physicalLocation = primaryLocation.PhysicalLocation;
+                    Uri resolvedUri = GetResolvedArtifactLocationUri(physicalLocation.ArtifactLocation);
+
+                    ArtifactContent contextRegionSnippet = physicalLocation.ContextRegion?.Snippet;
+
+                    if (contextRegionSnippet == null)
+                    {
+                        Region expandedRegion =
+                            FileRegionsCache.PopulateTextRegionProperties(physicalLocation.Region, resolvedUri, populateSnippet: false, fileText: null, overwriteExistingData: dataToInsert.HasFlag(OptionallyEmittedData.OverwriteExistingData));
+                        contextRegionSnippet = FileRegionsCache.ConstructMultilineContextSnippet(expandedRegion, resolvedUri)?.Snippet;
+                    }
+
+                    if (contextRegionSnippet?.Text != null)
+                    {
+                        string contextRegionHash = HashUtilities.ComputeStringSha256Hash(contextRegionSnippet.Text);
+
+                        node.PartialFingerprints ??= new Dictionary<string, string>();
+
+                        SarifUtilities.AddOrUpdateDictionaryEntry(node.PartialFingerprints, ContextRegionHash, contextRegionHash);
+                    }
+                }
+            }
+
+            if (dataToInsert.HasFlag(OptionallyEmittedData.RollingHashPartialFingerprints) &&
+                (node.PartialFingerprints == null ||
+                 !node.PartialFingerprints.ContainsKey(PrimaryLocationLineHash) ||
+                 dataToInsert.HasFlag(OptionallyEmittedData.OverwriteExistingData)))
+            {
+                Location primaryLocation = node.Locations?.FirstOrDefault();
+                PhysicalLocation physicalLocation = primaryLocation?.PhysicalLocation;
+
+                if (physicalLocation?.ArtifactLocation != null)
+                {
+                    // The fingerprint anchors to the primary location's startLine. A result with
+                    // no region line pertains to the whole file and is fingerprinted from line 1,
+                    // matching the reference implementation (github/codeql-action fingerprints.ts).
+                    int startLine = physicalLocation.Region?.StartLine ?? 0;
+                    if (startLine <= 0) { startLine = 1; }
+
+                    Uri resolvedUri = GetResolvedArtifactLocationUri(physicalLocation.ArtifactLocation);
+
+                    if (resolvedUri != null && resolvedUri.IsAbsoluteUri)
+                    {
+                        Dictionary<int, string> lineHashes = GetRollingHashes(resolvedUri);
+
+                        if (lineHashes != null && lineHashes.TryGetValue(startLine, out string lineHash))
+                        {
+                            node.PartialFingerprints ??= new Dictionary<string, string>();
+
+                            SarifUtilities.AddOrUpdateDictionaryEntry(node.PartialFingerprints, PrimaryLocationLineHash, lineHash);
+                        }
+                    }
+                }
+            }
+
             return node;
         }
 
-        public override Message VisitMessage(Message node)
+        public override Message VisitMessage(Message message)
         {
-            if ((node.Text == null || _dataToInsert.HasFlag(OptionallyEmittedData.OverwriteExistingData)) &&
-                _dataToInsert.HasFlag(OptionallyEmittedData.FlattenedMessages))
+            if ((message.Text == null || dataToInsert.HasFlag(OptionallyEmittedData.OverwriteExistingData)) &&
+                dataToInsert.HasFlag(OptionallyEmittedData.FlattenedMessages))
             {
-                MultiformatMessageString formatString = null;
-                ReportingDescriptor rule = _ruleIndex != -1 ? _run.Tool.Driver.Rules[_ruleIndex] : null;
-
-                if (rule != null &&
-                    rule.MessageStrings != null &&
-                    rule.MessageStrings.TryGetValue(node.Id, out formatString))
-                {
-                    node.Text = node.Arguments?.Count > 0
-                        ? rule.Format(node.Id, node.Arguments)
-                        : formatString?.Text;
-                }
-
-                if (node.Text == null &&
-                    _run.Tool.Driver.GlobalMessageStrings?.TryGetValue(node.Id, out formatString) == true)
-                {
-                    node.Text = node.Arguments?.Count > 0
-                        ? string.Format(CultureInfo.CurrentCulture, formatString.Text, node.Arguments.ToArray())
-                        : formatString?.Text;
-                }
+                message.Flatten(_ruleIndex, _run);
             }
-            return base.VisitMessage(node);
+            return base.VisitMessage(message);
         }
 
         private List<VersionControlDetails> CreateVersionControlProvenance()
@@ -370,10 +390,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             }
 
             // No, so add one.
-            if (_run.OriginalUriBaseIds == null)
-            {
-                _run.OriginalUriBaseIds = new Dictionary<string, ArtifactLocation>();
-            }
+            _run.OriginalUriBaseIds ??= new Dictionary<string, ArtifactLocation>();
 
             string uriBaseId = GetNextRepoRootUriBaseId();
             _run.OriginalUriBaseIds.Add(
@@ -414,7 +431,49 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             return uri.IsAbsoluteUri && uri.IsFile ? uri.GetFilePath() : null;
         }
 
+        private Uri GetResolvedArtifactLocationUri(ArtifactLocation artifactLocation)
+        {
+            if (artifactLocation.Uri == null && artifactLocation.Index >= 0)
+            {
+                // Uri is not stored at result level, but we have an index to go look in run.Artifacts
+                // we must pick the ArtifactLocation details from run.artifacts array
+                Artifact artifactFromRun = _run.Artifacts[artifactLocation.Index];
+                artifactLocation = artifactFromRun.Location;
+            }
+
+            // If we can resolve a file location to a newly constructed
+            // absolute URI, we will prefer that
+            if (!artifactLocation.TryReconstructAbsoluteUri(_run.OriginalUriBaseIds, out Uri resolvedUri))
+            {
+                resolvedUri = artifactLocation.Uri;
+            }
+
+            return resolvedUri;
+        }
+
+        // Computes the CodeQL rolling line hashes for the file at the supplied URI, memoizing the
+        // result per file so a file shared by many results is read and hashed only once per run.
+        private Dictionary<int, string> GetRollingHashes(Uri resolvedUri)
+        {
+            string path = resolvedUri.GetFilePath();
+
+            if (!_rollingHashesByPath.TryGetValue(path, out Dictionary<int, string> lineHashes))
+            {
+                string fileText = FileRegionsCache?.GetText(resolvedUri);
+                lineHashes = fileText != null ? HashUtilities.RollingHash(fileText) : null;
+                _rollingHashesByPath[path] = lineHashes;
+            }
+
+            return lineHashes;
+        }
+
         private const string RepoRootUriBaseIdStem = "REPO_ROOT";
+        public const string ContextRegionHash = "contextRegionHash/v1";
+
+        // The partial fingerprint key that GitHub code scanning (GHAS) and GitHub Advanced Security
+        // for Azure DevOps (GHAzDO) consume for result matching. The name is fixed by those
+        // consumers and must not carry a version suffix.
+        public const string PrimaryLocationLineHash = "primaryLocationLineHash";
 
         // When there is only one repo root (the usual case), the uriBaseId is "REPO_ROOT" (unless
         // that symbol is already in use in originalUriBaseIds. The second and subsequent uriBaseIds

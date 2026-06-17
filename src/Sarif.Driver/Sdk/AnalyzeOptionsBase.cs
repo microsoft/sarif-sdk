@@ -3,17 +3,20 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 using CommandLine;
+
+using Microsoft.CodeAnalysis.Sarif.Writers;
 
 namespace Microsoft.CodeAnalysis.Sarif.Driver
 {
     [Verb("analyze", HelpText = "Analyze one or more binary files for security and correctness issues.")]
-    public abstract class AnalyzeOptionsBase : CommonOptionsBase
+    public class AnalyzeOptionsBase : CommonOptionsBase
     {
         [Value(0,
                HelpText = "One or more specifiers to a file, directory, or filter pattern that resolves to one or more binaries to analyze.")]
-        public IEnumerable<string> TargetFileSpecifiers { get; set; }
+        public IList<string> TargetFileSpecifiers { get; set; }
 
         [Option(
             'o',
@@ -25,7 +28,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             'r',
             "recurse",
             HelpText = "Recurse into subdirectories when evaluating file specifier arguments.")]
-        public bool Recurse { get; set; }
+        public bool? Recurse { get; set; }
 
         [Option(
             'c',
@@ -34,81 +37,91 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         public string ConfigurationFilePath { get; set; }
 
         [Option(
+            "output-config",
+            HelpText = "Path to a policy file to which all analysis settings from the current run will be saved.")]
+        public string OutputConfigurationFilePath { get; set; }
+
+        [Option(
             'q',
             "quiet",
             HelpText = "Suppress all console output (except for catastrophic tool runtime or configuration errors).")]
-        public bool Quiet { get; set; }
-
-        [Option(
-            's',
-            "statistics",
-            HelpText = "Generate timing and other statistics for analysis session.")]
-        [Obsolete()]
-        public bool Statistics { get; set; }
-
-        [Option(
-            'h',
-            "hashes",
-            HelpText = "Output MD5, SHA1, and SHA-256 hash of analysis targets when emitting SARIF reports.")]
-        [Obsolete("Use --insert instead, passing 'Hashes' along with any other references to data to be inserted.")]
-        public bool ComputeFileHashes { get; set; }
+        public bool? Quiet { get; set; }
 
         [Option(
             'e',
             "environment",
             HelpText = "Log machine environment details of run to output file. WARNING: This option records potentially sensitive information (such as all environment variable values) to any emitted log.")]
-        public bool LogEnvironment { get; set; }
+        public bool? LogEnvironment { get; set; }
 
         [Option(
+            'p',
             "plugin",
             Separator = ';',
-            HelpText = "Path to plugin that will be invoked against all targets in the analysis set.")]
+            HelpText = "Plugin paths, expressed as a semicolon-delimited list enclosed in double quotes, that " +
+                       "points to plugin(s) that should drive analysis for all configured scan targets.")]
         public IEnumerable<string> PluginFilePaths { get; set; }
 
         [Option(
             "invocation-properties",
             Separator = ';',
-            HelpText = "Properties of the Invocation object to log. NOTE: StartTime and EndTime are always logged.")]
+            HelpText = "Properties of the Invocation object to log, expressed as a semicolon-delimited list enclosed in double quotes. " +
+                       "NOTE: StartTime and EndTime are always logged.")]
         public IEnumerable<string> InvocationPropertiesToLog { get; set; }
 
         [Option(
             "rich-return-code",
             HelpText = "Emit a 'rich' return code consisting of a bitfield of conditions (as opposed to 0 or 1 indicating success or failure.")]
-        public bool RichReturnCode { get; set; }
-
-        [Option(
-            'z',
-            "optimize",
-            HelpText = "Omit redundant properties, producing a smaller but non-human-readable log.")]
-        public bool Optimize { get; set; }
+        public bool? RichReturnCode { get; set; }
 
         [Option(
             "trace",
             Separator = ';',
-            Default = new string[] { },
-            HelpText = "Execution traces, expressed as a semicolon-delimited list, that " +
+            Default = null,
+            HelpText = "Execution traces, expressed as a semicolon-delimited list enclosed in double quotes, that " +
                        "should be emitted to the console and log file (if appropriate). " +
                        "Valid values: ScanTime.")]
-        public virtual IEnumerable<string> Traces { get; set; }
+        public IEnumerable<string> Trace { get; set; } = Array.Empty<string>();
 
+        private IEnumerable<FailureLevel> level;
         [Option(
             "level",
             Separator = ';',
-            Default = new FailureLevel[] { FailureLevel.Error, FailureLevel.Warning },
-            HelpText = "A semicolon delimited list to filter output of scan results to one or more failure levels. Valid values: Error, Warning and Note.")]
-        public IEnumerable<FailureLevel> Level { get; set; }
+            Default = null,
+            HelpText = "Failure levels, expressed as a semicolon-delimited list enclosed in double quotes, that " +
+                       "is used to filter the scan results. Valid values: Error, Warning and Note.")]
+        public IEnumerable<FailureLevel> Level
+        {
+            get => this.level;
+            set => this.level = value?.Count() > 0 ? value : null;
+        }
 
+        public FailureLevelSet FailureLevels => Level != null ? new FailureLevelSet(Level) : BaseLogger.ErrorWarning;
+
+        private IEnumerable<ResultKind> kind;
         [Option(
             "kind",
             Separator = ';',
-            Default = new ResultKind[] { ResultKind.Fail },
-            HelpText = "A semicolon delimited list to filter output to one or more result kinds. Valid values: Fail (for literal scan results), Pass, Review, Open, NotApplicable and Informational.")]
-        public IEnumerable<ResultKind> Kind { get; set; }
+            Default = null,
+            HelpText = "Result kinds, expressed as a semicolon-delimited list enclosed in double quotes, that " +
+                       "is used to filter the scan results. Valid values: Fail (for literal scan results), Pass, Review, Open, NotApplicable and Informational.")]
+        public IEnumerable<ResultKind> Kind
+        {
+            get => this.kind;
+            set => this.kind = value?.Count() > 0 ? value : null;
+        }
+
+        public ResultKindSet ResultKinds => Kind != null ? new ResultKindSet(Kind) : BaseLogger.Fail;
 
         [Option(
             "baseline",
             HelpText = "A SARIF file to be used as baseline.")]
-        public string BaselineSarifFile { get; set; }
+        public string BaselineFilePath { get; set; }
+
+
+        [Option(
+            "etw",
+            HelpText = "A file path to which all ETW events for the session will be saved.")]
+        public string EventsFilePath { get; set; }
 
         [Option(
             "post-uri",
@@ -117,8 +130,34 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
         [Option(
             "max-file-size-in-kb",
-            HelpText = "The maximum file size (in kilobytes) that will be analyzed.",
-            Default = 1024)]
-        public int MaxFileSizeInKilobytes { get; internal set; } = 1024;
+            HelpText = "The maximum file size (in kilobytes) that will be analyzed.")]
+        public long? MaxFileSizeInKilobytes { get; set; }
+
+        [Option(
+            "timeout-in-seconds",
+            HelpText = "A timeout value expressed in seconds.")]
+        public int? TimeoutInSeconds { get; set; }
+
+        [Option(
+            "deny-regex",
+            HelpText = "A regular expression used to suppress scanning for any file or directory path that matches the regex.")]
+        public string GlobalFilePathDenyRegex { get; set; }
+
+        private IEnumerable<RuleKind> ruleKindOption;
+        [Option(
+            "rule-kind",
+            Separator = ';',
+            Default = null,
+            HelpText =
+            @"Specify the kind(s) of rules that should be run.")]
+        public IEnumerable<RuleKind> RuleKindOption
+        {
+            get => this.ruleKindOption;
+            set => this.ruleKindOption = value?.Count() > 0 ? value : null;
+        }
+
+        public RuleKindSet RuleKinds => RuleKindOption != null ?
+            new RuleKindSet(RuleKindOption) :
+            new RuleKindSet(new List<RuleKind>(new[] { RuleKind.Sarif }));
     }
 }

@@ -32,7 +32,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
                 throw new ArgumentNullException(nameof(writer));
             }
 
-            Version version = (Version)value;
+            var version = (Version)value;
 
             string versionString = version.ToString();
 

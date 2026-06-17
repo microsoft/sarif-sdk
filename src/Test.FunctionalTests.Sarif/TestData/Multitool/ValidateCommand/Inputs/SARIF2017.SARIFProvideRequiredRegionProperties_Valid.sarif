@@ -1,0 +1,59 @@
+{
+  "$schema": "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0.json",
+  "version": "2.1.0",
+  "runs": [
+    {
+      "tool": {
+        "driver": {
+          "name": "SARIF Functional Testing",
+          "version": "1.2.3",
+          "rules": [
+            { "id": "TEST001", "name": "TestRule" }
+          ]
+        }
+      },
+      "results": [
+        {
+          "ruleId": "TEST001",
+          "ruleIndex": 0,
+          "message": { "text": "Line/column region \u2014 the most common form." },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": { "uri": "src/a.cs" },
+                "region": { "startLine": 42, "startColumn": 9, "endLine": 42, "endColumn": 30 }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "TEST001",
+          "ruleIndex": 0,
+          "message": { "text": "Char-offset region \u2014 valid per SARIF \u00a73.30 even with no startLine." },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": { "uri": "src/b.cs" },
+                "region": { "charOffset": 512, "charLength": 64 }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "TEST001",
+          "ruleIndex": 0,
+          "message": { "text": "Byte-offset whole-artifact region \u2014 spec-blessed shape for file-level findings (Region.ForEntireArtifact)." },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": { "uri": "src/c.bin" },
+                "region": { "byteOffset": 0, "byteLength": 2048 }
+              }
+            }
+          ]
+        }
+      ],
+      "columnKind": "utf16CodeUnits"
+    }
+  ]
+}

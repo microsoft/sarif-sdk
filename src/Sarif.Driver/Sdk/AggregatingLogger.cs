@@ -25,7 +25,24 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         {
             foreach (IAnalysisLogger logger in Loggers)
             {
-                using (logger as IDisposable) { };
+                using (logger as IDisposable)
+                {
+                }
+            }
+        }
+
+        private FileRegionsCache fileRegionsCache;
+
+        public FileRegionsCache FileRegionsCache
+        {
+            get => fileRegionsCache;
+            set
+            {
+                foreach (IAnalysisLogger logger in Loggers)
+                {
+                    logger.FileRegionsCache = value;
+                }
+                this.fileRegionsCache = value;
             }
         }
 
@@ -53,19 +70,27 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             }
         }
 
-        public void Log(ReportingDescriptor rule, Result result)
+        public void TargetAnalyzed(IAnalysisContext context)
         {
             foreach (IAnalysisLogger logger in Loggers)
             {
-                logger.Log(rule, result);
+                logger.TargetAnalyzed(context);
             }
         }
 
-        public void LogToolNotification(Notification notification)
+        public void Log(ReportingDescriptor rule, Result result, int? extensionIndex)
         {
             foreach (IAnalysisLogger logger in Loggers)
             {
-                logger.LogToolNotification(notification);
+                logger.Log(rule, result, extensionIndex);
+            }
+        }
+
+        public void LogToolNotification(Notification notification, ReportingDescriptor associatedRule)
+        {
+            foreach (IAnalysisLogger logger in Loggers)
+            {
+                logger.LogToolNotification(notification, associatedRule);
             }
         }
 

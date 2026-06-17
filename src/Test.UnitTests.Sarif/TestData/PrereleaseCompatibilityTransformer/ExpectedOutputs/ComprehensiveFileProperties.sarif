@@ -1,5 +1,5 @@
 {
-  "$schema": "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0-rtm.6.json",
+  "$schema": "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0.json",
   "version": "2.1.0",
   "runs": [
     {
@@ -27,7 +27,9 @@
             "index": 0
           },
           "length": 3945,
-          "roles": ["added"],
+          "roles": [
+            "added"
+          ],
           "mimeType": "text/plain"
         },
         {

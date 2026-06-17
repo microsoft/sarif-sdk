@@ -2,7 +2,6 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System;
-using System.Diagnostics;
 using System.IO;
 using System.Reflection;
 using System.Text.RegularExpressions;
@@ -14,41 +13,59 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// </summary>
     public partial class Tool
     {
-        // This regex does not anchor to the end of the string ("$") because FileVersionInfo
-        // can contain additional information, for example: "2.1.3.25 built by: MY-MACHINE".
+        // This regex is not anchored to the end of the string ("$") so that a version string
+        // carrying trailing build metadata (for example "2.1.3.25 built by: MY-MACHINE") still
+        // yields its leading dotted-quad.
         private const string DottedQuadFileVersionPattern = @"^\d+(\.\d+){3}";
 
         private static readonly Regex dottedQuadFileVersionRegex = new Regex(DottedQuadFileVersionPattern, RegexOptions.Compiled | RegexOptions.CultureInvariant);
 
-        public static Tool CreateFromAssemblyData(Assembly assembly = null, string prereleaseInfo = null)
+        public static Tool CreateFromAssemblyData(Assembly assembly = null,
+                                                  bool omitSemanticVersion = false,
+                                                  IFileSystem fileSystem = null)
         {
-            assembly = assembly ?? Assembly.GetEntryAssembly() ?? Assembly.GetExecutingAssembly();
-            string name = Path.GetFileNameWithoutExtension(assembly.Location);
+            assembly ??= Assembly.GetEntryAssembly() ?? Assembly.GetExecutingAssembly();
+            string location = assembly.Location;
             Version version = assembly.GetName().Version;
 
-            string dottedQuadFileVersion = null;
+            // Tool identity is sourced from the assembly's own version attributes rather than the
+            // on-disk Win32 version resource. Those attributes are embedded in the assembly and
+            // reachable without a file path, so this also works under single-file publish, where
+            // Assembly.Location returns an empty string (documented .NET behavior) and a file-based
+            // read would throw.
+            string name = string.IsNullOrEmpty(location)
+                ? assembly.GetName().Name
+                : Path.GetFileNameWithoutExtension(location);
 
-            FileVersionInfo fileVersion = FileVersionInfo.GetVersionInfo(assembly.Location);
-            if (fileVersion.FileVersion != version.ToString())
+            string fileVersionString = assembly.GetCustomAttribute<AssemblyFileVersionAttribute>()?.Version
+                ?? version?.ToString();
+            string semanticVersion = assembly.GetCustomAttribute<AssemblyInformationalVersionAttribute>()?.InformationalVersion
+                ?? fileVersionString;
+            string companyName = assembly.GetCustomAttribute<AssemblyCompanyAttribute>()?.Company;
+            string productName = assembly.GetCustomAttribute<AssemblyProductAttribute>()?.Product;
+            string comments = assembly.GetCustomAttribute<AssemblyDescriptionAttribute>()?.Description;
+
+            string dottedQuadFileVersion = null;
+            if (fileVersionString != version?.ToString())
             {
-                dottedQuadFileVersion = ParseFileVersion(fileVersion.FileVersion);
+                dottedQuadFileVersion = ParseFileVersion(version?.ToString());
             }
 
-            Tool tool = new Tool
+            var tool = new Tool
             {
                 Driver = new ToolComponent
                 {
                     Name = name,
-                    FullName = name + " " + version.ToString() + (prereleaseInfo ?? ""),
-                    Version = version.ToString(),
-                    DottedQuadFileVersion = dottedQuadFileVersion,
-                    SemanticVersion = version.Major.ToString() + "." + version.Minor.ToString() + "." + version.Build.ToString(),
-                    Organization = string.IsNullOrEmpty(fileVersion.CompanyName) ? null : fileVersion.CompanyName,
-                    Product = string.IsNullOrEmpty(fileVersion.ProductName) ? null : fileVersion.ProductName,
+                    FullName = name + " " + (omitSemanticVersion ? null : version?.ToString()),
+                    Version = omitSemanticVersion ? null : fileVersionString,
+                    DottedQuadFileVersion = omitSemanticVersion ? null : dottedQuadFileVersion,
+                    SemanticVersion = omitSemanticVersion ? null : semanticVersion,
+                    Organization = string.IsNullOrEmpty(companyName) ? null : companyName,
+                    Product = string.IsNullOrEmpty(productName) ? null : productName,
                 }
             };
 
-            SetDriverPropertiesFromFileVersionInfo(tool.Driver, fileVersion);
+            if (!string.IsNullOrEmpty(comments)) { tool.Driver.SetProperty("comments", comments); }
 
             return tool;
         }
@@ -57,11 +74,6 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             Match match = dottedQuadFileVersionRegex.Match(fileVersion);
             return match.Success ? match.Value : null;
-        }
-
-        private static void SetDriverPropertiesFromFileVersionInfo(ToolComponent driver, FileVersionInfo fileVersion)
-        {
-            if (!string.IsNullOrEmpty(fileVersion.Comments)) { driver.SetProperty("Comments", fileVersion.Comments); }
         }
 
         /// <summary>
@@ -103,6 +115,11 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             // Neither specified? Driver.
             return this.Driver;
+        }
+
+        public bool ShouldSerializeExtensions()
+        {
+            return this.Extensions?.HasAtLeastOneNonNullValue() == true;
         }
     }
 }

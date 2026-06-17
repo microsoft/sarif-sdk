@@ -16,8 +16,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
             run.Artifacts = run.Artifacts ?? new List<Artifact>();
 
-            // First, we'll initialize our file object to index map
-            // with any files that already exist in the table
             for (int i = 0; i < run.Artifacts.Count; i++)
             {
                 Artifact fileData = run.Artifacts[i];
@@ -30,14 +28,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
                 _fileToIndexMap[fileLocation] = i;
 
-                // For good measure, we'll explicitly populate the file index property
                 run.Artifacts[i].Location.Index = i;
             }
 
             _currentRun = run;
 
-            // Next, visit all run file locations. This will add any
-            // previously unknown file objects to the files table.
             base.VisitRun(run);
             return _currentRun;
         }
@@ -50,6 +45,20 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             }
 
             return base.VisitArtifactLocation(node);
+        }
+
+        public override Invocation VisitInvocation(Invocation node)
+        {
+            // workingDirectory carries only a bare location — no hashes, contents, or length —
+            // so an entry in run.artifacts would add nothing; keep it out of the table and out
+            // of SARIF2004's location-only artifact check.
+            ArtifactLocation workingDirectory = node.WorkingDirectory;
+            node.WorkingDirectory = null;
+
+            Invocation result = base.VisitInvocation(node);
+
+            result.WorkingDirectory = workingDirectory;
+            return result;
         }
     }
 }

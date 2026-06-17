@@ -1,5 +1,5 @@
 {
-  "$schema": "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0-rtm.6.json",
+  "$schema": "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0.json",
   "version": "2.1.0",
   "runs": [
     {
@@ -48,6 +48,12 @@
             "arguments": [
               "runs[0].originalUriBaseIds.SRCINVALID"
             ]
+          }
+        },
+        {
+          "ruleId": "NoSuchRule",
+          "message": {
+            "id": "AnyId"
           }
         }
       ],

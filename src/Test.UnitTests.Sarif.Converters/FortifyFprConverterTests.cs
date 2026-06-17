@@ -16,7 +16,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         [Fact]
         public void FortifyFprConverter_GetFailureLevelFromRuleMetadata_MissingImpactProperty_ReturnsWarning()
         {
-            ReportingDescriptor rule = new ReportingDescriptor();
+            var rule = new ReportingDescriptor();
 
             FailureLevel level = FortifyFprConverter.GetFailureLevelFromRuleMetadata(rule);
 
@@ -51,7 +51,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             foreach (KeyValuePair<string, FailureLevel> keyValuePair in expectedInputOutputs)
             {
-                ReportingDescriptor rule = new ReportingDescriptor();
+                var rule = new ReportingDescriptor();
                 rule.SetProperty<string>("Impact", keyValuePair.Key);
 
                 FailureLevel level = FortifyFprConverter.GetFailureLevelFromRuleMetadata(rule);

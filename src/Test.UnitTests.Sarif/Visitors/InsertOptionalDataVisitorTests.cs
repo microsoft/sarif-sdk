@@ -48,7 +48,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             // to the expected output.
             string enlistmentRoot = GitHelper.Default.GetRepositoryRoot(Environment.CurrentDirectory, useCache: false);
 
-            if (inputResourceName == "CoreTests-Relative.sarif")
+            // Unfortunately, we require a test file name of this extreme brevity
+            // to avoid provoking file path length issues running tests under .NET 4.8.
+            if (inputResourceName == "Rel.sarif")
             {
                 Uri originalUri = actualLog.Runs[0].OriginalUriBaseIds["TESTROOT"].Uri;
                 string uriString = originalUri.ToString();
@@ -57,7 +59,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
                 actualLog.Runs[0].OriginalUriBaseIds["TESTROOT"] = new ArtifactLocation { Uri = new Uri(uriString, UriKind.Absolute) };
 
-                var visitor = new InsertOptionalDataVisitor(_currentOptionallyEmittedData);
+                var visitor = new InsertOptionalDataVisitor(_currentOptionallyEmittedData, new FileRegionsCache());
                 visitor.Visit(actualLog.Runs[0]);
 
                 // Restore the remanufactured URI so that file diffing succeeds.
@@ -75,7 +77,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     actualLog.Runs[0].OriginalUriBaseIds[repoRootUriBaseId] = new ArtifactLocation { Uri = new Uri(repoRootString, UriKind.Absolute) };
                 }
             }
-            else if (inputResourceName == "CoreTests-Absolute.sarif")
+            else if (inputResourceName == "Absolute.sarif")
             {
                 Uri originalUri = actualLog.Runs[0].Artifacts[0].Location.Uri;
                 string uriString = originalUri.ToString();
@@ -84,7 +86,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
                 actualLog.Runs[0].Artifacts[0].Location = new ArtifactLocation { Uri = new Uri(uriString, UriKind.Absolute) };
 
-                var visitor = new InsertOptionalDataVisitor(_currentOptionallyEmittedData);
+                var visitor = new InsertOptionalDataVisitor(_currentOptionallyEmittedData, new FileRegionsCache());
                 visitor.Visit(actualLog.Runs[0]);
 
                 // Restore the remanufactured URI so that file diffing matches
@@ -92,7 +94,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             }
             else
             {
-                var visitor = new InsertOptionalDataVisitor(_currentOptionallyEmittedData);
+                var visitor = new InsertOptionalDataVisitor(_currentOptionallyEmittedData, new FileRegionsCache());
                 visitor.Visit(actualLog.Runs[0]);
             }
 
@@ -158,91 +160,118 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         [Trait(TestTraits.WindowsOnly, "true")]
         public void InsertOptionalDataVisitor_PersistsHashes()
         {
-            RunTest("CoreTests-Relative.sarif", OptionallyEmittedData.Hashes);
+            RunTest("Rel.sarif", OptionallyEmittedData.Hashes);
         }
 
         [Fact]
         [Trait(TestTraits.WindowsOnly, "true")]
         public void InsertOptionalDataVisitor_PersistsTextFilesWithRelativeUris()
         {
-            RunTest("CoreTests-Relative.sarif", OptionallyEmittedData.TextFiles);
+            RunTest("Rel.sarif", OptionallyEmittedData.TextFiles);
         }
 
         [Fact]
         [Trait(TestTraits.WindowsOnly, "true")]
         public void InsertOptionalDataVisitor_PersistsTextFilesWithAbsoluteUris()
         {
-            RunTest("CoreTests-Absolute.sarif", OptionallyEmittedData.TextFiles);
+            RunTest("Absolute.sarif", OptionallyEmittedData.TextFiles);
         }
 
         [Fact]
         [Trait(TestTraits.WindowsOnly, "true")]
         public void InsertOptionalDataVisitor_PersistsRegionSnippets()
         {
-            RunTest("CoreTests-Relative.sarif", OptionallyEmittedData.RegionSnippets);
+            // Unfortunately, we require a test file name of this extreme brevity
+            // to avoid provoking file path length issues running tests under .NET 4.8.
+            RunTest("Rel.sarif", OptionallyEmittedData.RegionSnippets);
         }
 
         [Fact]
         public void InsertOptionalDataVisitor_PersistsFlattenedMessages()
         {
-            RunTest("CoreTests-Relative.sarif", OptionallyEmittedData.FlattenedMessages);
+            // Unfortunately, we require a test file name of this extreme brevity
+            // to avoid provoking file path length issues running tests under .NET 4.8.
+            RunTest("Rel.sarif", OptionallyEmittedData.FlattenedMessages);
         }
 
         [Fact]
         [Trait(TestTraits.WindowsOnly, "true")]
         public void InsertOptionalDataVisitor_PersistsContextRegionSnippets()
         {
-            RunTest("CoreTests-Relative.sarif", OptionallyEmittedData.ContextRegionSnippets);
+            // Unfortunately, we require a test file name of this extreme brevity
+            // to avoid provoking file path length issues running tests under .NET 4.8.
+            RunTest("Rel.sarif", OptionallyEmittedData.ContextRegionSnippets);
         }
 
         [Fact]
         [Trait(TestTraits.WindowsOnly, "true")]
         public void InsertOptionalDataVisitor_PersistsComprehensiveRegionProperties()
         {
-            RunTest("CoreTests-Relative.sarif", OptionallyEmittedData.ComprehensiveRegionProperties);
+            // Unfortunately, we require a test file name of this extreme brevity
+            // to avoid provoking file path length issues running tests under .NET 4.8.
+            RunTest("Rel.sarif", OptionallyEmittedData.ComprehensiveRegionProperties);
         }
 
         [Fact]
         public void InsertOptionalDataVisitor_PersistsGuids()
         {
             // NOTE: Test adding Guids, but validation is in test code, not diff, as Guids vary with each run.
-            RunTest("CoreTests-Relative.sarif", OptionallyEmittedData.Guids);
+            // Unfortunately, we require a test file name of this extreme brevity
+            // to avoid provoking file path length issues running tests under .NET 4.8.
+            RunTest("Rel.sarif", OptionallyEmittedData.Guids);
         }
 
         [Fact]
         [Trait(TestTraits.WindowsOnly, "true")]
         public void InsertOptionalDataVisitor_PersistsVersionControlInformation()
         {
-            RunTest("CoreTests-Relative.sarif", OptionallyEmittedData.VersionControlDetails);
+            // Unfortunately, we require a test file name of this extreme brevity
+            // to avoid provoking file path length issues running tests under .NET 4.8.
+            RunTest("Rel.sarif", OptionallyEmittedData.VersionControlDetails);
         }
 
         [Fact]
         public void InsertOptionalDataVisitor_PersistsNone()
         {
-            RunTest("CoreTests-Relative.sarif");
+            // Unfortunately, we require a test file name of this extreme brevity
+            // to avoid provoking file path length issues running tests under .NET 4.8.
+            RunTest("Rel.sarif");
         }
 
         [Fact]
         [Trait(TestTraits.WindowsOnly, "true")]
         public void InsertOptionalDataVisitor_PersistsHashesAndTextFiles()
         {
-            RunTest("CoreTests-Relative.sarif",
+            // Unfortunately, we require a test file name of this extreme brevity
+            // to avoid provoking file path length issues running tests under .NET 4.8.
+            RunTest("Rel.sarif",
                 OptionallyEmittedData.TextFiles |
                 OptionallyEmittedData.Hashes);
         }
 
         [Fact]
         [Trait(TestTraits.WindowsOnly, "true")]
+        public void InsertOptionalDataVisitor_PersistsContextRegionSnippetPartialFingerprints()
+        {
+            // Unfortunately, we require a test file name of this extreme brevity
+            // to avoid provoking file path length issues running tests under .NET 4.8.
+            RunTest("Rel.sarif", OptionallyEmittedData.ContextRegionSnippetPartialFingerprints);
+        }
+
+        [Fact]
+        [Trait(TestTraits.WindowsOnly, "true")]
         public void InsertOptionalDataVisitor_PersistsAll()
         {
-            RunTest("CoreTests-Relative.sarif",
+            // Unfortunately, we require a test file name of this extreme brevity
+            // to avoid provoking file path length issues running tests under .NET 4.8.
+            RunTest("Rel.sarif",
                 OptionallyEmittedData.All);
         }
 
         [Fact]
         public void InsertOptionalDataVisitor_ContextRegionSnippets_DoesNotFail_TopLevelOriginalUriBaseIdUriMissing()
         {
-            RunTest("TopLevelOriginalUriBaseIdUriMissing.sarif",
+            RunTest("UriMissing.sarif",
                 OptionallyEmittedData.ContextRegionSnippets);
         }
 
@@ -342,6 +371,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
             var visitor = new InsertOptionalDataVisitor(
                 OptionallyEmittedData.VersionControlDetails,
+                new FileRegionsCache(),
                 originalUriBaseIds: null,
                 fileSystem: mockFileSystem.Object,
                 processRunner: mockProcessRunner.Object,
@@ -426,12 +456,348 @@ Three";
                     }
                 };
 
-                var visitor = new InsertOptionalDataVisitor(OptionallyEmittedData.RegionSnippets, run, insertProperties: null);
+                var visitor = new InsertOptionalDataVisitor(OptionallyEmittedData.RegionSnippets, new FileRegionsCache(), run, insertProperties: null);
 
                 visitor.VisitResult(run.Results[0]);
 
                 run.Results[0].Locations[0].PhysicalLocation.Region.Snippet.Text.Should().Be(ExpectedSnippet);
             }
+        }
+
+        [Fact]
+        public void InsertOptionalDataVisitor_ContextRegionSnippetPartialFingerprintsFromExistingContextRegionSnippet()
+        {
+            string fileName = TempFile.CreateTempName();
+            string fileDirectory = Path.GetDirectoryName(fileName);
+
+            const string ContextRegionSnippet =
+@"One
+Two
+Three";
+            string expectedPartialFingerprintHash = HashUtilities.ComputeStringSha256Hash(ContextRegionSnippet);
+
+            var run = new Run
+            {
+                OriginalUriBaseIds =
+                    new Dictionary<string, ArtifactLocation>
+                    {
+                        [TestData.TestRootBaseId] = new ArtifactLocation
+                        {
+                            Uri = new Uri(fileDirectory, UriKind.Absolute)
+                        }
+                    },
+                Results = new List<Result>
+                {
+                    new Result
+                    {
+                        Locations = new List<Location>
+                        {
+                            new Location
+                            {
+                                PhysicalLocation = new PhysicalLocation
+                                {
+                                    ArtifactLocation = new ArtifactLocation
+                                    {
+                                        Uri = new Uri(fileName, UriKind.Relative),
+                                        UriBaseId = TestData.TestRootBaseId
+                                    },
+                                    ContextRegion = new Region
+                                    {
+                                        Snippet = new ArtifactContent
+                                        {
+                                            Text = ContextRegionSnippet
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            };
+
+            var visitor =
+                new InsertOptionalDataVisitor(
+                    OptionallyEmittedData.ContextRegionSnippetPartialFingerprints,
+                    new FileRegionsCache(),
+                    run,
+                    insertProperties: null);
+
+            visitor.VisitResult(run.Results[0]);
+
+            run.Results[0].PartialFingerprints[InsertOptionalDataVisitor.ContextRegionHash].Should()
+                .Be(expectedPartialFingerprintHash);
+        }
+
+        [Theory]
+        [InlineData(true)]
+        [InlineData(false)]
+        public void InsertOptionalDataVisitor_ContextRegionSnippetPartialFingerprintsAlreadyExist(bool overwriteExistingData)
+        {
+            string fileName = TempFile.CreateTempName();
+            string fileDirectory = Path.GetDirectoryName(fileName);
+
+            const string ContextRegionSnippet =
+@"One
+Two
+Three";
+            const string ExistingPartialFingerprintHash = "123";
+
+            string expectedPartialFingerprintHash = overwriteExistingData
+                ? HashUtilities.ComputeStringSha256Hash(ContextRegionSnippet)
+                : ExistingPartialFingerprintHash;
+
+            OptionallyEmittedData dataToInsert = overwriteExistingData
+                ? OptionallyEmittedData.ContextRegionSnippetPartialFingerprints | OptionallyEmittedData.OverwriteExistingData
+                : OptionallyEmittedData.ContextRegionSnippetPartialFingerprints;
+
+            var run = new Run
+            {
+                OriginalUriBaseIds =
+                    new Dictionary<string, ArtifactLocation>
+                    {
+                        [TestData.TestRootBaseId] = new ArtifactLocation
+                        {
+                            Uri = new Uri(fileDirectory, UriKind.Absolute)
+                        }
+                    },
+                Results = new List<Result>
+                {
+                    new Result
+                    {
+                        Locations = new List<Location>
+                        {
+                            new Location
+                            {
+                                PhysicalLocation = new PhysicalLocation
+                                {
+                                    ArtifactLocation = new ArtifactLocation
+                                    {
+                                        Uri = new Uri(fileName, UriKind.Relative),
+                                        UriBaseId = TestData.TestRootBaseId
+                                    },
+                                    ContextRegion = new Region
+                                    {
+                                        Snippet = new ArtifactContent
+                                        {
+                                            Text = ContextRegionSnippet
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        PartialFingerprints = new Dictionary<string, string>
+                        {
+                            { InsertOptionalDataVisitor.ContextRegionHash, ExistingPartialFingerprintHash }
+                        }
+                    }
+                }
+            };
+
+            var visitor =
+                new InsertOptionalDataVisitor(dataToInsert,
+                                              new FileRegionsCache(),
+                                              run,
+                                              insertProperties: null);
+
+            visitor.VisitResult(run.Results[0]);
+
+            run.Results[0].PartialFingerprints[InsertOptionalDataVisitor.ContextRegionHash].Should()
+                .Be(expectedPartialFingerprintHash);
+        }
+
+        private const string RollingHashFileContent =
+@"x = 2
+x = 1
+print(x)
+x = 3
+print(x)
+";
+
+        [Fact]
+        public void InsertOptionalDataVisitor_PersistsPrimaryLocationLineHash()
+        {
+            using var tempFile = new TempFile();
+            File.WriteAllText(tempFile.Name, RollingHashFileContent);
+
+            string expectedHash = HashUtilities.RollingHash(RollingHashFileContent)[3];
+
+            Run run = RunRollingHashVisitor(BuildRollingHashRun(tempFile.Name, startLine: 3));
+
+            run.Results[0].PartialFingerprints.Should().ContainKey(InsertOptionalDataVisitor.PrimaryLocationLineHash);
+            run.Results[0].PartialFingerprints[InsertOptionalDataVisitor.PrimaryLocationLineHash].Should().Be(expectedHash);
+        }
+
+        [Fact]
+        public void InsertOptionalDataVisitor_PrimaryLocationLineHashKeyMatchesGitHubContract()
+        {
+            // GHAS and GHAzDO consume this exact key; a rename or version suffix would silently
+            // break result matching on ingestion.
+            InsertOptionalDataVisitor.PrimaryLocationLineHash.Should().Be("primaryLocationLineHash");
+        }
+
+        [Fact]
+        public void InsertOptionalDataVisitor_PrimaryLocationLineHashFromLineOneWhenRegionMissing()
+        {
+            using var tempFile = new TempFile();
+            File.WriteAllText(tempFile.Name, RollingHashFileContent);
+
+            // A result with no region pertains to the whole file; the reference implementation
+            // (github/codeql-action) fingerprints it from line 1 rather than skipping it.
+            string expectedHash = HashUtilities.RollingHash(RollingHashFileContent)[1];
+
+            Run run = RunRollingHashVisitor(BuildRollingHashRun(tempFile.Name, startLine: 0, includeRegion: false));
+
+            run.Results[0].PartialFingerprints[InsertOptionalDataVisitor.PrimaryLocationLineHash].Should().Be(expectedHash);
+        }
+
+        [Fact]
+        public void InsertOptionalDataVisitor_PrimaryLocationLineHashFromLineOneWhenStartLineAbsent()
+        {
+            using var tempFile = new TempFile();
+            File.WriteAllText(tempFile.Name, RollingHashFileContent);
+
+            // A region present but without a startLine is treated as whole-file and fingerprinted
+            // from line 1, matching the reference implementation.
+            string expectedHash = HashUtilities.RollingHash(RollingHashFileContent)[1];
+
+            Run run = RunRollingHashVisitor(BuildRollingHashRun(tempFile.Name, startLine: 0, includeRegion: true));
+
+            run.Results[0].PartialFingerprints[InsertOptionalDataVisitor.PrimaryLocationLineHash].Should().Be(expectedHash);
+        }
+
+        [Fact]
+        public void InsertOptionalDataVisitor_PrimaryLocationLineHashSkippedWhenArtifactUnresolvable()
+        {
+            // A result with no physical location resolves to no file, so there is nothing to
+            // hash and no fingerprint is stamped (the reference implementation discards such
+            // locations via resolveUriToFile).
+            var result = new Result { Message = new Message { Text = "no location" } };
+            var run = new Run { Results = new List<Result> { result } };
+
+            run = RunRollingHashVisitor(run);
+
+            HasPrimaryLocationLineHash(run.Results[0]).Should().BeFalse();
+        }
+
+        [Fact]
+        public void InsertOptionalDataVisitor_PrimaryLocationLineHashPreservedWhenAlreadyPresent()
+        {
+            using var tempFile = new TempFile();
+            File.WriteAllText(tempFile.Name, RollingHashFileContent);
+
+            const string existingHash = "999:1";
+            Run run = RunRollingHashVisitor(
+                BuildRollingHashRun(tempFile.Name, startLine: 3, existingHash: existingHash),
+                overwriteExistingData: false);
+
+            run.Results[0].PartialFingerprints[InsertOptionalDataVisitor.PrimaryLocationLineHash].Should().Be(existingHash);
+        }
+
+        [Fact]
+        public void InsertOptionalDataVisitor_PrimaryLocationLineHashOverwrittenWhenRequested()
+        {
+            using var tempFile = new TempFile();
+            File.WriteAllText(tempFile.Name, RollingHashFileContent);
+
+            string expectedHash = HashUtilities.RollingHash(RollingHashFileContent)[3];
+
+            Run run = RunRollingHashVisitor(
+                BuildRollingHashRun(tempFile.Name, startLine: 3, existingHash: "999:1"),
+                overwriteExistingData: true);
+
+            run.Results[0].PartialFingerprints[InsertOptionalDataVisitor.PrimaryLocationLineHash].Should().Be(expectedHash);
+        }
+
+        [Fact]
+        public void InsertOptionalDataVisitor_PrimaryLocationLineHashComputedPerLineForSharedFile()
+        {
+            using var tempFile = new TempFile();
+            File.WriteAllText(tempFile.Name, RollingHashFileContent);
+
+            Dictionary<int, string> expected = HashUtilities.RollingHash(RollingHashFileContent);
+
+            Run run = BuildRollingHashRun(tempFile.Name, startLine: 1);
+            run.Results.Add(BuildRollingHashRun(tempFile.Name, startLine: 4).Results[0]);
+
+            run = RunRollingHashVisitor(run);
+
+            run.Results[0].PartialFingerprints[InsertOptionalDataVisitor.PrimaryLocationLineHash].Should().Be(expected[1]);
+            run.Results[1].PartialFingerprints[InsertOptionalDataVisitor.PrimaryLocationLineHash].Should().Be(expected[4]);
+        }
+
+        [Fact]
+        public void InsertOptionalDataVisitor_PrimaryLocationLineHashStampsMixedResultsInOnePass()
+        {
+            using var tempFile = new TempFile();
+            File.WriteAllText(tempFile.Name, RollingHashFileContent);
+
+            Dictionary<int, string> expected = HashUtilities.RollingHash(RollingHashFileContent);
+
+            // Two anchored results plus a whole-file (no region) result, fingerprinted in a single
+            // pass: the anchored results take their own lines, the whole-file result takes line 1.
+            Run run = BuildRollingHashRun(tempFile.Name, startLine: 2);
+            run.Results.Add(BuildRollingHashRun(tempFile.Name, startLine: 5).Results[0]);
+            run.Results.Add(BuildRollingHashRun(tempFile.Name, startLine: 0, includeRegion: false).Results[0]);
+
+            run = RunRollingHashVisitor(run);
+
+            run.Results[0].PartialFingerprints[InsertOptionalDataVisitor.PrimaryLocationLineHash].Should().Be(expected[2]);
+            run.Results[1].PartialFingerprints[InsertOptionalDataVisitor.PrimaryLocationLineHash].Should().Be(expected[5]);
+            run.Results[2].PartialFingerprints[InsertOptionalDataVisitor.PrimaryLocationLineHash].Should().Be(expected[1]);
+        }
+
+        private static bool HasPrimaryLocationLineHash(Result result)
+            => result.PartialFingerprints != null &&
+               result.PartialFingerprints.ContainsKey(InsertOptionalDataVisitor.PrimaryLocationLineHash);
+
+        private static Run RunRollingHashVisitor(Run run, bool overwriteExistingData = false)
+        {
+            OptionallyEmittedData dataToInsert = OptionallyEmittedData.RollingHashPartialFingerprints;
+            if (overwriteExistingData)
+            {
+                dataToInsert |= OptionallyEmittedData.OverwriteExistingData;
+            }
+
+            var visitor = new InsertOptionalDataVisitor(dataToInsert, new FileRegionsCache(), run, insertProperties: null);
+            return visitor.VisitRun(run);
+        }
+
+        private static Run BuildRollingHashRun(
+            string filePath,
+            int startLine,
+            bool includeRegion = true,
+            string existingHash = null)
+        {
+            var result = new Result
+            {
+                Locations = new List<Location>
+                {
+                    new Location
+                    {
+                        PhysicalLocation = new PhysicalLocation
+                        {
+                            ArtifactLocation = new ArtifactLocation
+                            {
+                                Uri = new Uri(filePath, UriKind.Absolute)
+                            },
+                            Region = includeRegion ? new Region { StartLine = startLine } : null
+                        }
+                    }
+                }
+            };
+
+            if (existingHash != null)
+            {
+                result.PartialFingerprints = new Dictionary<string, string>
+                {
+                    { InsertOptionalDataVisitor.PrimaryLocationLineHash, existingHash }
+                };
+            }
+
+            return new Run
+            {
+                Results = new List<Result> { result }
+            };
         }
 
         private const int RuleIndex = 0;
@@ -531,7 +897,7 @@ Three";
                     }
                 });
 
-            var visitor = new InsertOptionalDataVisitor(OptionallyEmittedData.FlattenedMessages);
+            var visitor = new InsertOptionalDataVisitor(OptionallyEmittedData.FlattenedMessages, new FileRegionsCache());
             visitor.Visit(run);
 
             run.Results[0].Message.Text.Should().Be(UniqueGlobalMessageValue);
@@ -597,7 +963,7 @@ Three";
                 });
             configurationNotifications.Add(toolNotifications[2]);
 
-            var visitor = new InsertOptionalDataVisitor(OptionallyEmittedData.FlattenedMessages);
+            var visitor = new InsertOptionalDataVisitor(OptionallyEmittedData.FlattenedMessages, new FileRegionsCache());
             visitor.Visit(run);
 
             toolNotifications[0].Message.Text.Should().Be(SharedKeyGlobalMessageValue);
@@ -669,7 +1035,7 @@ Three";
                     }
                 });
 
-            var visitor = new InsertOptionalDataVisitor(OptionallyEmittedData.FlattenedMessages);
+            var visitor = new InsertOptionalDataVisitor(OptionallyEmittedData.FlattenedMessages, new FileRegionsCache());
             visitor.Visit(run);
 
             run.Results[0].Fixes[0].Description.Text.Should().Be(UniqueGlobalMessageValue);
@@ -719,14 +1085,14 @@ Three";
                 }
             };
 
-            var visitor = new InsertOptionalDataVisitor(OptionallyEmittedData.TextFiles);
+            var visitor = new InsertOptionalDataVisitor(OptionallyEmittedData.TextFiles, new FileRegionsCache());
             visitor.VisitRun(run);
 
             run.OriginalUriBaseIds.Should().BeNull();
             run.Artifacts.Count.Should().Be(1);
             run.Artifacts[0].Contents.Should().BeNull();
 
-            visitor = new InsertOptionalDataVisitor(OptionallyEmittedData.TextFiles, originalUriBaseIds);
+            visitor = new InsertOptionalDataVisitor(OptionallyEmittedData.TextFiles, new FileRegionsCache(), originalUriBaseIds);
             visitor.VisitRun(run);
 
             run.OriginalUriBaseIds.Should().Equal(originalUriBaseIds);

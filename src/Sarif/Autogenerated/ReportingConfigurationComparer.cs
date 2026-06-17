@@ -1,10 +1,17 @@
-// Copyright (c) Microsoft.  All Rights Reserved.
+// Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
+
+/* Unmerged change from project 'Sarif(net462)'
+Before:
 using System;
 using System.CodeDom.Compiler;
+After:
+using System.CodeDom.Compiler;
+*/
+using System.CodeDom.Compiler;
+
 using System.Collections.Generic;
-using Microsoft.CodeAnalysis.Sarif.Readers;
 
 namespace Microsoft.CodeAnalysis.Sarif
 {

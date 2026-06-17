@@ -2,13 +2,14 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System;
+using System.Collections.Generic;
 using System.IO;
 
 using Newtonsoft.Json.Linq;
 
 namespace Microsoft.CodeAnalysis.Sarif.Multitool
 {
-    public class SarifValidationContext : IAnalysisContext
+    public class SarifValidationContext : AnalyzeContextBase
     {
         public enum ReportingDescriptorKind
         {
@@ -25,56 +26,38 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             CurrentReportingDescriptorKind = ReportingDescriptorKind.None;
         }
 
-        public bool IsValidAnalysisTarget
+        public override bool IsValidAnalysisTarget
         {
             get
             {
-                return Path.GetExtension(TargetUri.LocalPath).Equals(SarifConstants.SarifFileExtension, StringComparison.OrdinalIgnoreCase) ||
-                       Path.GetExtension(TargetUri.LocalPath).Equals(".json", StringComparison.OrdinalIgnoreCase);
+                return Path.GetExtension(CurrentTarget.Uri.GetFileName()).Equals(SarifConstants.SarifFileExtension, StringComparison.OrdinalIgnoreCase) ||
+                       Path.GetExtension(CurrentTarget.Uri.GetFileName()).Equals(".json", StringComparison.OrdinalIgnoreCase);
+            }
+            set
+            {
+                throw new InvalidOperationException();
             }
         }
 
-        public IAnalysisLogger Logger { get; set; }
+        public override IAnalysisLogger Logger { get; set; }
 
-        public string MimeType
+        public override string MimeType
         {
             get { return "application/sarif-json"; }
             set { throw new InvalidOperationException(); }
         }
 
-        public bool AnalysisComplete { get; set; }
+        public override bool AnalysisComplete { get; set; }
 
-        public HashData Hashes { get; set; }
+        public override HashData Hashes { get; set; }
 
-        public PropertiesDictionary Policy { get; set; }
+        public override ReportingDescriptor Rule { get; set; }
 
-        public ReportingDescriptor Rule { get; set; }
+        public override RuntimeConditions RuntimeErrors { get; set; }
 
-        public RuntimeConditions RuntimeErrors { get; set; }
-
-        public Exception TargetLoadException { get; set; }
+        public override IList<Exception> RuntimeExceptions { get; set; }
 
         public bool UpdateInputsToCurrentSarif { get; set; }
-
-        private Uri _uri;
-
-        public Uri TargetUri
-        {
-            get
-            {
-                return _uri;
-            }
-
-            set
-            {
-                if (_uri != null)
-                {
-                    throw new InvalidOperationException(MultitoolResources.ErrorIllegalContextReuse);
-                }
-
-                _uri = value;
-            }
-        }
 
         public string SchemaFilePath { get; internal set; }
 
@@ -94,13 +77,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
         public JToken InputLogToken { get; internal set; }
 
-        public DefaultTraces Traces { get; set; }
-
-        public int MaxFileSizeInKilobytes { get; set; }
-
-        public void Dispose()
+        public override void Dispose()
         {
-            // Nothing to dispose.
+            base.Dispose();
         }
     }
 }

@@ -1,0 +1,9 @@
+----- Catalog construction errors -----
+Error #1
+Microsoft.VisualStudio.Composition.PartDiscoveryException: ReflectionTypeLoadException while enumerating types in assembly "C:\PROGRAM FILES (X86)\MICROSOFT VISUAL STUDIO\2019\ENTERPRISE\COMMON7\IDE\EXTENSIONS\MICROSOFT\GRAPHICS\DEBUGGER\VsGraphicsDebuggerPkg.dll". Results will be incomplete. ---> System.Reflection.ReflectionTypeLoadException: Unable to load one or more of the requested types. Retrieve the LoaderExceptions property for more information.
+   at System.Reflection.RuntimeModule.GetTypes(RuntimeModule module)
+   at System.Reflection.RuntimeModule.GetTypes()
+   at System.Reflection.Assembly.GetTypes()
+   at Microsoft.VisualStudio.Composition.PartDiscovery.CombinedPartDiscovery.GetTypes(Assembly assembly)
+   at Microsoft.VisualStudio.Composition.PartDiscovery.<>c__DisplayClass32_0.<CreateAssemblyDiscoveryBlockChain>b__0(Assembly a)
+   --- End of inner exception stack trace ---

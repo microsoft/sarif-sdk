@@ -11,14 +11,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching.ExactMatchers
     {
         public IList<MatchedResults> Match(IList<ExtractedResult> baseline, IList<ExtractedResult> current)
         {
-            List<MatchedResults> matchedResults = new List<MatchedResults>();
-            Dictionary<Tuple<string, string>, List<ExtractedResult>> baselineResults = new Dictionary<Tuple<string, string>, List<ExtractedResult>>(FingerprintEqualityCalculator.Instance);
+            var matchedResults = new List<MatchedResults>();
+            var baselineResults = new Dictionary<Tuple<string, string>, List<ExtractedResult>>(FingerprintEqualityCalculator.Instance);
 
             foreach (ExtractedResult result in baseline)
             {
                 foreach (string key in result.Result.Fingerprints.Keys)
                 {
-                    Tuple<string, string> fingerprint = new Tuple<string, string>(key, result.Result.Fingerprints[key]);
+                    var fingerprint = new Tuple<string, string>(key, result.Result.Fingerprints[key]);
                     if (!baselineResults.ContainsKey(fingerprint) || baselineResults[fingerprint] == null)
                     {
                         baselineResults[fingerprint] = new List<ExtractedResult>() { result };
@@ -34,7 +34,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching.ExactMatchers
             {
                 foreach (string key in result.Result.Fingerprints.Keys)
                 {
-                    Tuple<string, string> fingerprint = new Tuple<string, string>(key, result.Result.Fingerprints[key]);
+                    var fingerprint = new Tuple<string, string>(key, result.Result.Fingerprints[key]);
                     if (baselineResults.ContainsKey(fingerprint) && baselineResults[fingerprint] != null && baselineResults[fingerprint].Count > 0)
                     {
                         ExtractedResult baselineResult = baselineResults[fingerprint].First();

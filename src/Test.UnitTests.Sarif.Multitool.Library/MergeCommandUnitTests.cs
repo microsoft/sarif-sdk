@@ -4,6 +4,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Text;
 
 using FluentAssertions;
@@ -41,13 +42,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
             var options = new MergeOptions
             {
-                PrettyPrint = true,
                 OutputDirectoryPath = testDirectory,
                 OutputFileName = "merged.sarif",
                 TargetFileSpecifiers = new[] { "*.sarif" },
-                MergeRuns = true,
-                Force = true,
-                Inline = true,
+                OutputFileOptions = new[] { FilePersistenceOptions.ForceOverwrite, FilePersistenceOptions.Inline, FilePersistenceOptions.PrettyPrint },
             };
 
             var mergeCommand = new MergeCommand(fileSystem);
@@ -65,12 +63,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
             var options = new MergeOptions
             {
-                PrettyPrint = true,
+                OutputFileOptions = new[] { FilePersistenceOptions.PrettyPrint },
                 OutputDirectoryPath = testDirectory,
                 OutputFileName = "merged.sarif",
                 TargetFileSpecifiers = new[] { "*.sarif" },
-                MergeRuns = true,
-                Force = false,
             };
 
             var mergeCommand = new MergeCommand(fileSystem);
@@ -79,79 +75,54 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         }
 
         [Fact]
-        public void MergeCommand_WhenMergeRunsOn_RunShouldAggregateByToolVersion_SingleToolVersion()
+        public void MergeCommand_CoalescesSameToolIntoSingleRun()
         {
-            var sarifLog1 = new SarifLog { Runs = new[] { CreateTestRun(3) } };
+            var sarifLog1 = new SarifLog { Runs = new[] { CreateTestRun(5, ruleIdPrefix: "ALPHA") } };
+            var sarifLog2 = new SarifLog { Runs = new[] { CreateTestRun(6, ruleIdPrefix: "BETA") } };
+
+            SarifLog mergedLog = RunMerge(sarifLog1, sarifLog2);
+
+            // Every contributing run shares one tool + version, so the merge coalesces them
+            // into a single run that carries all (distinct) results.
+            mergedLog.Runs.Count.Should().Be(1);
+            mergedLog.Runs[0].Tool.Driver.Name.Should().Be("TestTool");
+            mergedLog.Runs[0].Results.Count.Should().Be(11);
+        }
+
+        [Fact]
+        public void MergeCommand_DedupsValueIdenticalResultsAcrossInputs()
+        {
+            // The same finding can be re-reported in more than one shard of a sharded scan.
+            // Coalescing collapses value-identical results so the merged run carries each once.
+            var sarifLog1 = new SarifLog { Runs = new[] { CreateTestRun(5) } };
             var sarifLog2 = new SarifLog { Runs = new[] { CreateTestRun(6) } };
-            string sarifLog1Json = JsonConvert.SerializeObject(sarifLog1);
-            string sarifLog2Json = JsonConvert.SerializeObject(sarifLog2);
-            string sarifLog1FilePath = Path.Combine(testDirectory, "SarifLog1.sarif");
-            string sarifLog2FilePath = Path.Combine(testDirectory, "SarifLog2.sarif");
-            string outputFilePath = Path.Combine(testDirectory, "merged.sarif");
-            var outputStringBuilder = new StringBuilder();
 
-            var mockFileSystem = new Mock<IFileSystem>();
-            ArrangeMockFileSystemRead(mockFileSystem, sarifLog1Json, sarifLog1FilePath);
-            ArrangeMockFileSystemRead(mockFileSystem, sarifLog2Json, sarifLog2FilePath);
-            ArrangeMockFileSystemCreate(mockFileSystem, outputFilePath, outputStringBuilder);
-            ArrangeMockFileSystemEnumerate(mockFileSystem, testDirectory, new[] { sarifLog1FilePath, sarifLog2FilePath });
+            SarifLog mergedLog = RunMerge(sarifLog1, sarifLog2);
 
-            IFileSystem fileSystem = mockFileSystem.Object;
+            mergedLog.Runs.Count.Should().Be(1);
+            mergedLog.Runs[0].Results.Count.Should().Be(6);
+        }
 
-            var options = new MergeOptions
-            {
-                PrettyPrint = true,
-                OutputDirectoryPath = testDirectory,
-                OutputFileName = "merged.sarif",
-                TargetFileSpecifiers = new[] { "*.sarif" },
-                MergeRuns = true,
-                Force = true,
-            };
+        [Fact]
+        public void MergeCommand_CoalescesByToolVersion_SingleToolVersion()
+        {
+            var sarifLog1 = new SarifLog { Runs = new[] { CreateTestRun(3, ruleIdPrefix: "ALPHA") } };
+            var sarifLog2 = new SarifLog { Runs = new[] { CreateTestRun(6, ruleIdPrefix: "BETA") } };
 
-            var mergeCommand = new MergeCommand(fileSystem);
-            int returnCode = mergeCommand.Run(options);
-            returnCode.Should().Be(0);
+            SarifLog mergedLog = RunMerge(sarifLog1, sarifLog2);
 
-            SarifLog mergedLog = JsonConvert.DeserializeObject<SarifLog>(outputStringBuilder.ToString());
             mergedLog.Runs.Count.Should().Be(1);
             mergedLog.Runs[0].Results.Count.Should().Be(9);
         }
 
         [Fact]
-        public void MergeCommand_WhenMergeRunsOn_RunShouldAggregateByToolVersion_ThreeToolVersions()
+        public void MergeCommand_CoalescesByToolVersion_ThreeToolVersions()
         {
             var sarifLog1 = new SarifLog { Runs = new[] { CreateTestRun(7, false, "Tool1"), CreateTestRun(4, false, "Tool2") } };
             var sarifLog2 = new SarifLog { Runs = new[] { CreateTestRun(2, false, "Tool3") } };
-            string sarifLog1Json = JsonConvert.SerializeObject(sarifLog1);
-            string sarifLog2Json = JsonConvert.SerializeObject(sarifLog2);
-            string sarifLog1FilePath = Path.Combine(testDirectory, "SarifLog1.sarif");
-            string sarifLog2FilePath = Path.Combine(testDirectory, "SarifLog2.sarif");
-            string outputFilePath = Path.Combine(testDirectory, "merged.sarif");
-            var outputStringBuilder = new StringBuilder();
 
-            var mockFileSystem = new Mock<IFileSystem>();
-            ArrangeMockFileSystemRead(mockFileSystem, sarifLog1Json, sarifLog1FilePath);
-            ArrangeMockFileSystemRead(mockFileSystem, sarifLog2Json, sarifLog2FilePath);
-            ArrangeMockFileSystemCreate(mockFileSystem, outputFilePath, outputStringBuilder);
-            ArrangeMockFileSystemEnumerate(mockFileSystem, testDirectory, new[] { sarifLog1FilePath, sarifLog2FilePath });
+            SarifLog mergedLog = RunMerge(sarifLog1, sarifLog2);
 
-            IFileSystem fileSystem = mockFileSystem.Object;
-
-            var options = new MergeOptions
-            {
-                PrettyPrint = true,
-                OutputDirectoryPath = testDirectory,
-                OutputFileName = "merged.sarif",
-                TargetFileSpecifiers = new[] { "*.sarif" },
-                MergeRuns = true,
-                Force = true,
-            };
-
-            var mergeCommand = new MergeCommand(fileSystem);
-            int returnCode = mergeCommand.Run(options);
-            returnCode.Should().Be(0);
-
-            SarifLog mergedLog = JsonConvert.DeserializeObject<SarifLog>(outputStringBuilder.ToString());
             mergedLog.Runs.Count.Should().Be(3);
             foreach (Run run in mergedLog.Runs)
             {
@@ -171,118 +142,155 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         }
 
         [Fact]
-        public void MergeCommand_WhenMergeRunsOff_RunShouldAggregateByRuleToolVersion_SingleToolVersion()
+        public void MergeCommand_AggregatesInvocationsAndRebasesInvocationIndex()
         {
-            var sarifLog1 = new SarifLog { Runs = new[] { CreateTestRun(5) } };
-            var sarifLog2 = new SarifLog { Runs = new[] { CreateTestRun(6) } };
-            string sarifLog1Json = JsonConvert.SerializeObject(sarifLog1);
-            string sarifLog2Json = JsonConvert.SerializeObject(sarifLog2);
-            string sarifLog1FilePath = Path.Combine(testDirectory, "SarifLog1.sarif");
-            string sarifLog2FilePath = Path.Combine(testDirectory, "SarifLog2.sarif");
-            string outputFilePath = Path.Combine(testDirectory, "merged.sarif");
-            var outputStringBuilder = new StringBuilder();
+            var sarifLog1 = new SarifLog { Runs = new[] { CreateRunReferencingInvocations("cmd-1a", "cmd-1b") } };
+            var sarifLog2 = new SarifLog { Runs = new[] { CreateRunReferencingInvocations("cmd-2a") } };
 
-            var mockFileSystem = new Mock<IFileSystem>();
-            ArrangeMockFileSystemRead(mockFileSystem, sarifLog1Json, sarifLog1FilePath);
-            ArrangeMockFileSystemRead(mockFileSystem, sarifLog2Json, sarifLog2FilePath);
-            ArrangeMockFileSystemCreate(mockFileSystem, outputFilePath, outputStringBuilder);
-            ArrangeMockFileSystemEnumerate(mockFileSystem, testDirectory, new[] { sarifLog1FilePath, sarifLog2FilePath });
+            SarifLog mergedLog = RunMerge(sarifLog1, sarifLog2);
 
-            IFileSystem fileSystem = mockFileSystem.Object;
+            mergedLog.Runs.Count.Should().Be(1);
 
-            var options = new MergeOptions
+            Run merged = mergedLog.Runs[0];
+
+            // All invocations are aggregated (concatenated, no dedup).
+            merged.Invocations.Count.Should().Be(3);
+            merged.Results.Count.Should().Be(3);
+
+            // Each result still resolves to the same invocation it referenced before the merge.
+            // We seed Message.Text == the referenced invocation's CommandLine, so the cross-run
+            // rebasing of provenance.invocationIndex is verified independently of array order.
+            foreach (Result result in merged.Results)
             {
-                PrettyPrint = true,
-                OutputDirectoryPath = testDirectory,
-                OutputFileName = "merged.sarif",
-                TargetFileSpecifiers = new[] { "*.sarif" },
-                MergeRuns = false,
-                Force = true,
-            };
-
-            var mergeCommand = new MergeCommand(fileSystem);
-            int returnCode = mergeCommand.Run(options);
-            returnCode.Should().Be(0);
-
-            // merged log should have 6 runs grouped by rule id
-            SarifLog mergedLog = JsonConvert.DeserializeObject<SarifLog>(outputStringBuilder.ToString());
-            mergedLog.Runs.Count.Should().Be(6);
-            for (int i = 1; i <= 6; i++)
-            {
-                mergedLog.Runs[i - 1].Tool.Driver.Name.Should().Be("TestTool");
-                mergedLog.Runs[i - 1].Results[0].RuleId.Should().Be($"TESTRULE00{i}");
+                int index = result.Provenance.InvocationIndex;
+                index.Should().BeGreaterOrEqualTo(0);
+                index.Should().BeLessThan(merged.Invocations.Count);
+                merged.Invocations[index].CommandLine.Should().Be(result.Message.Text);
             }
         }
 
         [Fact]
-        public void MergeCommand_WhenSplitPerRule_LogShouldAggregateByRuleToolVersion()
+        public void MergeCommand_PreservesDescriptorEnrichmentAndBaseRuleId()
         {
-            var sarifLog1 = new SarifLog { Runs = new[] { CreateTestRun(6, true) } };
-            var sarifLog2 = new SarifLog { Runs = new[] { CreateTestRun(4, true) } };
-            string sarifLog1Json = JsonConvert.SerializeObject(sarifLog1);
-            string sarifLog2Json = JsonConvert.SerializeObject(sarifLog2);
-            string sarifLog1FilePath = Path.Combine(testDirectory, "SarifLog1.sarif");
-            string sarifLog2FilePath = Path.Combine(testDirectory, "SarifLog2.sarif");
+            // Two runs of the same tool+version, each carrying base CWE descriptors enriched
+            // with a security-severity property and help text, and results whose ruleId uses
+            // the hierarchical sub-id form ("CWE-79/<sub>"). The merge must collapse them into
+            // one run while preserving the descriptor enrichment and the base reportingDescriptor
+            // id, and keeping each result's full sub-id ruleId.
+            var sarifLog1 = new SarifLog { Runs = new[] { CreateEnrichedSubIdRun(tag: "log1") } };
+            var sarifLog2 = new SarifLog { Runs = new[] { CreateEnrichedSubIdRun(tag: "log2") } };
 
-            string outputFilePath1 = Path.Combine(testDirectory, "TESTRULE.001_merged.sarif");
-            var outputStringBuilder1 = new StringBuilder();
-            string outputFilePath2 = Path.Combine(testDirectory, "TESTRULE.002_merged.sarif");
-            var outputStringBuilder2 = new StringBuilder();
-            string outputFilePath3 = Path.Combine(testDirectory, "TESTRULE.003_merged.sarif");
-            var outputStringBuilder3 = new StringBuilder();
-            string outputFilePath4 = Path.Combine(testDirectory, "TESTRULE.004_merged.sarif");
-            var outputStringBuilder4 = new StringBuilder();
-            string outputFilePath5 = Path.Combine(testDirectory, "TESTRULE.005_merged.sarif");
-            var outputStringBuilder5 = new StringBuilder();
-            string outputFilePath6 = Path.Combine(testDirectory, "TESTRULE.006_merged.sarif");
-            var outputStringBuilder6 = new StringBuilder();
+            SarifLog mergedLog = RunMerge(sarifLog1, sarifLog2);
 
+            mergedLog.Runs.Count.Should().Be(1);
+            Run merged = mergedLog.Runs[0];
+
+            // Descriptors are deduped to their base id; the hierarchical sub-id never leaks into a
+            // reportingDescriptor.id.
+            List<string> ruleIds = merged.Tool.Driver.Rules.Select(r => r.Id).ToList();
+            ruleIds.Should().Contain("CWE-79");
+            ruleIds.Should().Contain("CWE-89");
+            ruleIds.Should().NotContain(id => id.Contains("/"));
+
+            // Descriptor enrichment (security-severity property + help) survives the merge.
+            ReportingDescriptor xss = merged.Tool.Driver.Rules.Single(r => r.Id == "CWE-79");
+            xss.GetProperty<string>("security-severity").Should().Be("7.8");
+            xss.Help.Text.Should().Be("XSS help");
+
+            // Every result keeps its full sub-id ruleId and resolves to the base descriptor.
+            merged.Results.Count.Should().Be(6);
+            foreach (Result result in merged.Results)
+            {
+                result.RuleId.Should().Contain("/");
+                result.GetRule(merged).Id.Should().Be(result.RuleId.Split('/')[0]);
+            }
+        }
+
+        [Fact]
+        public void MergeCommand_CoalescesMultipleSameToolRunsWithinASingleInputFile()
+        {
+            // The customer hands us one SARIF file that already contains several runs, each
+            // produced by an identical tool + version (e.g. a sharded scan serialized as one
+            // file with one run per shard). Merge must coalesce those runs into a single run
+            // carrying every distinct result; source-file boundaries are irrelevant to keying.
+            var singleInput = new SarifLog
+            {
+                Runs = new[]
+                {
+                    CreateTestRun(4, ruleIdPrefix: "ALPHA"),
+                    CreateTestRun(5, ruleIdPrefix: "BETA"),
+                    CreateTestRun(6, ruleIdPrefix: "GAMMA"),
+                }
+            };
+
+            SarifLog mergedLog = RunMerge(singleInput);
+
+            mergedLog.Runs.Count.Should().Be(1);
+            mergedLog.Runs[0].Tool.Driver.Name.Should().Be("TestTool");
+            mergedLog.Runs[0].Results.Count.Should().Be(15);
+        }
+
+        private SarifLog RunMerge(params SarifLog[] inputLogs)
+        {
             var mockFileSystem = new Mock<IFileSystem>();
-            ArrangeMockFileSystemRead(mockFileSystem, sarifLog1Json, sarifLog1FilePath);
-            ArrangeMockFileSystemRead(mockFileSystem, sarifLog2Json, sarifLog2FilePath);
-            ArrangeMockFileSystemCreate(mockFileSystem, outputFilePath1, outputStringBuilder1);
-            ArrangeMockFileSystemCreate(mockFileSystem, outputFilePath2, outputStringBuilder2);
-            ArrangeMockFileSystemCreate(mockFileSystem, outputFilePath3, outputStringBuilder3);
-            ArrangeMockFileSystemCreate(mockFileSystem, outputFilePath4, outputStringBuilder4);
-            ArrangeMockFileSystemCreate(mockFileSystem, outputFilePath5, outputStringBuilder5);
-            ArrangeMockFileSystemCreate(mockFileSystem, outputFilePath6, outputStringBuilder6);
-            ArrangeMockFileSystemEnumerate(mockFileSystem, testDirectory, new[] { sarifLog1FilePath, sarifLog2FilePath });
+            var inputFilePaths = new List<string>();
+
+            for (int i = 0; i < inputLogs.Length; i++)
+            {
+                string inputJson = JsonConvert.SerializeObject(inputLogs[i]);
+                string inputFilePath = Path.Combine(testDirectory, $"SarifLog{i + 1}.sarif");
+                inputFilePaths.Add(inputFilePath);
+                ArrangeMockFileSystemRead(mockFileSystem, inputJson, inputFilePath);
+            }
+
+            string outputFilePath = Path.Combine(testDirectory, "merged.sarif");
+            var outputStringBuilder = new StringBuilder();
+
+            ArrangeMockFileSystemCreate(mockFileSystem, outputFilePath, outputStringBuilder);
+            ArrangeMockFileSystemEnumerate(mockFileSystem, testDirectory, inputFilePaths);
 
             IFileSystem fileSystem = mockFileSystem.Object;
 
             var options = new MergeOptions
             {
-                PrettyPrint = true,
                 OutputDirectoryPath = testDirectory,
                 OutputFileName = "merged.sarif",
                 TargetFileSpecifiers = new[] { "*.sarif" },
-                SplittingStrategy = SplittingStrategy.PerRule,
-                Force = true,
+                OutputFileOptions = new[] { FilePersistenceOptions.ForceOverwrite, FilePersistenceOptions.PrettyPrint },
             };
 
             var mergeCommand = new MergeCommand(fileSystem);
             int returnCode = mergeCommand.Run(options);
             returnCode.Should().Be(0);
 
-            // should have 6 merged logs each log has result of 1 rule
-            var mergedLogs = new List<SarifLog>
-            {
-                JsonConvert.DeserializeObject<SarifLog>(outputStringBuilder1.ToString()),
-                JsonConvert.DeserializeObject<SarifLog>(outputStringBuilder2.ToString()),
-                JsonConvert.DeserializeObject<SarifLog>(outputStringBuilder3.ToString()),
-                JsonConvert.DeserializeObject<SarifLog>(outputStringBuilder4.ToString()),
-                JsonConvert.DeserializeObject<SarifLog>(outputStringBuilder5.ToString()),
-                JsonConvert.DeserializeObject<SarifLog>(outputStringBuilder6.ToString()),
-            };
-
-            for (int i = 1; i <= 6; i++)
-            {
-                mergedLogs[i - 1].Runs[0].Tool.Driver.Name.Should().Be("TestTool");
-                mergedLogs[i - 1].Runs[0].Results[0].RuleId.Should().Be($"TESTRULE/00{i}");
-            }
+            return JsonConvert.DeserializeObject<SarifLog>(outputStringBuilder.ToString());
         }
 
-        private Run CreateTestRun(int numberOfResult, bool createSubRule = false, string toolName = null, string version = null, string semanticVersion = null)
+        private static Run CreateRunReferencingInvocations(params string[] commandLines)
+        {
+            var invocations = new List<Invocation>();
+            var results = new List<Result>();
+
+            for (int i = 0; i < commandLines.Length; i++)
+            {
+                invocations.Add(new Invocation { CommandLine = commandLines[i] });
+                results.Add(new Result
+                {
+                    RuleId = "TESTRULE001",
+                    Message = new Message { Text = commandLines[i] },
+                    Provenance = new ResultProvenance { InvocationIndex = i },
+                });
+            }
+
+            return new Run
+            {
+                Tool = new Tool { Driver = new ToolComponent { Name = "TestTool", Version = "15.0.0.0", SemanticVersion = "15.0.0.0" } },
+                Invocations = invocations,
+                Results = results,
+            };
+        }
+
+        private Run CreateTestRun(int numberOfResult, bool createSubRule = false, string toolName = null, string version = null, string semanticVersion = null, string ruleIdPrefix = "TESTRULE")
         {
             Run run = RandomSarifLogGenerator.GenerateRandomRun(this.random, 0);
             run.Tool.Driver.Name = toolName ?? "TestTool";
@@ -295,12 +303,36 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
             for (int i = 1; i <= numberOfResult; i++)
             {
-                string ruleId = createSubRule ? $"TESTRULE/00{i}" : $"TESTRULE00{i}";
+                string ruleId = createSubRule ? $"{ruleIdPrefix}/00{i}" : $"{ruleIdPrefix}00{i}";
                 run.Results.AddRange(
                     RandomSarifLogGenerator.GenerateFakeResults(this.random, new List<string> { ruleId }, new List<string>() { guid }, new List<Uri> { artifactUri }, 1));
             }
 
             return run;
+        }
+
+        private static Run CreateEnrichedSubIdRun(string toolName = "TestTool", string version = "15.0.0.0", string tag = "")
+        {
+            var rules = new List<ReportingDescriptor>
+            {
+                new ReportingDescriptor { Id = "CWE-79", Name = "CrossSiteScripting", Help = new MultiformatMessageString { Text = "XSS help" } },
+                new ReportingDescriptor { Id = "CWE-89", Name = "SqlInjection", Help = new MultiformatMessageString { Text = "SQLi help" } },
+            };
+            rules[0].SetProperty("security-severity", "7.8");
+            rules[1].SetProperty("security-severity", "8.8");
+
+            var results = new List<Result>
+            {
+                new Result { RuleId = "CWE-79/unescaped-view-input", RuleIndex = 0, Message = new Message { Text = $"a-{tag}" } },
+                new Result { RuleId = "CWE-89/string-concat-query", RuleIndex = 1, Message = new Message { Text = $"b-{tag}" } },
+                new Result { RuleId = "CWE-79/dom-xss-via-sanitizer-bypass", RuleIndex = 0, Message = new Message { Text = $"c-{tag}" } },
+            };
+
+            return new Run
+            {
+                Tool = new Tool { Driver = new ToolComponent { Name = toolName, Version = version, SemanticVersion = version, Rules = rules } },
+                Results = results,
+            };
         }
 
         private static void ArrangeMockFileSystemRead(Mock<IFileSystem> mockFileSystem, string sarifLogJson, string sariflogFilePath)

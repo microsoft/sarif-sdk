@@ -1,5 +1,5 @@
 {
-  "$schema": "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0-rtm.6.json",
+  "$schema": "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0.json",
   "version": "2.1.0",
   "runs": [
     {
@@ -87,6 +87,32 @@
                 },
                 "region": {
                   "startLine": 18,
+                  "startColumn": 9
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "SARIF1010",
+          "ruleIndex": 0,
+          "level": "error",
+          "message": {
+            "id": "Error_ResultRuleIdMustBeConsistent",
+            "arguments": [
+              "runs[0].results[2]",
+              "TST0003",
+              "tst0003"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 27,
                   "startColumn": 9
                 }
               }

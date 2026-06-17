@@ -19,18 +19,21 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
     {
         private bool cacheLoggingData;
         private string currentFileHash;
-
-        public Dictionary<string, List<Notification>> HashToNotificationsMap { get; private set; }
-        public Dictionary<string, List<Tuple<ReportingDescriptor, Result>>> HashToResultsMap { get; private set; }
-
-        public CacheByFileHashLogger(IEnumerable<FailureLevel> levels, IEnumerable<ResultKind> kinds) : base(levels, kinds)
+        public CacheByFileHashLogger(FailureLevelSet levels, ResultKindSet kinds) : base(levels, kinds)
         {
         }
+
+        public Dictionary<string, List<Notification>> HashToNotificationsMap { get; private set; }
+
+        public Dictionary<string, List<Tuple<ReportingDescriptor, Result, int?>>> HashToResultsMap { get; private set; }
+
+        public FileRegionsCache FileRegionsCache { get; set; }
+
 
         public void AnalysisStarted()
         {
             HashToNotificationsMap = new Dictionary<string, List<Notification>>();
-            HashToResultsMap = new Dictionary<string, List<Tuple<ReportingDescriptor, Result>>>();
+            HashToResultsMap = new Dictionary<string, List<Tuple<ReportingDescriptor, Result, int?>>>();
         }
 
         public void AnalysisStopped(RuntimeConditions runtimeConditions)
@@ -52,11 +55,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             {
                 cacheLoggingData = true;
                 HashToNotificationsMap[currentFileHash] = new List<Notification>();
-                HashToResultsMap[currentFileHash] = new List<Tuple<ReportingDescriptor, Result>>();
+                HashToResultsMap[currentFileHash] = new List<Tuple<ReportingDescriptor, Result, int?>>();
             }
         }
 
-        public void Log(ReportingDescriptor rule, Result result)
+        public void TargetAnalyzed(IAnalysisContext _) { }
+
+        public void Log(ReportingDescriptor rule, Result result, int? extensionIndex = null)
         {
             if (!cacheLoggingData) { return; }
 
@@ -65,16 +70,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 return;
             }
 
-            CacheResult(rule, result);
+            CacheResult(rule, result, extensionIndex);
         }
 
-        private void CacheResult(ReportingDescriptor rule, Result result)
+        private void CacheResult(ReportingDescriptor rule, Result result, int? extensionIndex)
         {
-            if (!HashToResultsMap.TryGetValue(currentFileHash, out List<Tuple<ReportingDescriptor, Result>> results))
+            if (!HashToResultsMap.TryGetValue(currentFileHash, out List<Tuple<ReportingDescriptor, Result, int?>> results))
             {
-                results = HashToResultsMap[currentFileHash] = new List<Tuple<ReportingDescriptor, Result>>();
+                results = HashToResultsMap[currentFileHash] = new List<Tuple<ReportingDescriptor, Result, int?>>();
             }
-            results.Add(new Tuple<ReportingDescriptor, Result>(rule, result));
+            results.Add(new Tuple<ReportingDescriptor, Result, int?>(rule, result, extensionIndex));
         }
 
         public void LogConfigurationNotification(Notification notification)
@@ -88,7 +93,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             notifications.Add(notification);
         }
 
-        public void LogToolNotification(Notification notification)
+        public void LogToolNotification(Notification notification, ReportingDescriptor associatedRule)
         {
             //  In case someone adds something here:
             if (!ShouldLog(notification))

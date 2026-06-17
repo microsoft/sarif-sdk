@@ -4,10 +4,6 @@
     <!-- Upgraded from Warning, because GitHub requires this. -->
     <Property Key='RuleEnabled' Value='Error' />
   </Properties>
-  <Properties Key='SARIF2012.ProvideHelpUris.Options'>
-    <!-- Upgraded from Note, because GitHub displays them if available. -->
-    <Property Key='RuleEnabled' Value='Warning' />
-  </Properties>
   <Properties Key='SARIF2016.FileUrisShouldBeRelative.Options'>
     <!-- Not necessary because SARIF2007.ExpressPathsRelativeToRepoRoot is stricter. -->
     <Property Key='RuleEnabled' Value='Disabled' />
@@ -28,6 +24,9 @@
     <Property Key='RuleEnabled' Value='Error' />
   </Properties>
   <Properties Key='GH1006.ProvideCheckoutPath.Options'>
+    <Property Key='RuleEnabled' Value='Error' />
+  </Properties>
+  <Properties Key='GH1007.ProvideFullyFormattedMessageStrings.Options'>
     <Property Key='RuleEnabled' Value='Error' />
   </Properties>
 </Properties>

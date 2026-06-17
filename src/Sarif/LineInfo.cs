@@ -51,7 +51,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <returns>true if the objects are considered equal, false if they are not.</returns>
         public override bool Equals(object obj)
         {
-            LineInfo? other = obj as LineInfo?;
+            var other = obj as LineInfo?;
             return other != null
                 && this.Equals(other.Value);
         }

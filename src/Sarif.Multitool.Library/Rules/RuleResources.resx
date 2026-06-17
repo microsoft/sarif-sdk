@@ -244,6 +244,9 @@ If 'version' is used, facilitate comparison between versions by specifying a ver
   <data name="SARIF2009_ConsiderConventionalIdentifierValues_Note_UseConventionalRuleIds_Text" xml:space="preserve">
     <value>{0}: The 'id' property of the rule '{1}' does not follow the recommended format: a short string identifying the tool concatenated with a numeric rule number, for example, 'CS2001'. Using a conventional format for the rule id provides a more uniform experience across tools.</value>
   </data>
+  <data name="SARIF2009_ConsiderConventionalIdentifierValues_Note_HierarchicalIdOnDescriptor_Text" xml:space="preserve">
+    <value>{0}: The 'id' property of the rule '{1}' contains a '/' separator. This appears to be a hierarchical rule id. Per SARIF spec §3.49.3 NOTE 2, sub-rules carry no separate metadata: put the base id (e.g. '{2}') on the 'reportingDescriptor' and append the sub-component on 'result.ruleId' instead.</value>
+  </data>
   <data name="SARIF1007_RegionPropertiesMustBeConsistent_Error_RegionStartPropertyMustBePresent_Text" xml:space="preserve">
     <value>{0}: This 'region' object does not specify 'startLine', 'charOffset', or 'byteOffset'. As a result, it is impossible to determine whether this 'region' object describes a line/column text region, a character offset/length text region, or a binary region.</value>
   </data>
@@ -359,6 +362,9 @@ Provide the 'helpUri' property, which contains a URI where users can find detail
   <data name="SARIF2004_OptimizeFileSize_Warning_PreferRuleId_Text" xml:space="preserve">
     <value>The result at '{0}' uses the 'rule' property to specify the violated rule, but this is not necessary because the rule is defined by 'tool.driver'. Use the 'ruleId' and 'ruleIndex' instead, because they are shorter and just as clear.</value>
   </data>
+  <data name="SARIF2004_OptimizeFileSize_Warning_OmitSentinelIndex_Text" xml:space="preserve">
+    <value>{0}: The '{1}' property is set to the value -1, which SARIF §3.4 defines as the "unset index" sentinel. Emitting it literally is semantically equivalent to omitting the property entirely and only inflates the log size. Remove the '{1}' property.</value>
+  </data>
   <data name="SARIF2016_FileUrisShouldBeRelative_FullDescription_Text" xml:space="preserve">
     <value>When an artifact location refers to a file on the local file system, specify a relative reference for the uri property and provide a uriBaseId property, rather than specifying an absolute URI.
 
@@ -379,7 +385,7 @@ Semantics: Assuming the reader of the log file (an end user or another tool) has
     <value>Each result location must provide the property 'physicalLocation.artifactLocation.uri'. GitHub Advanced Security code scanning will not display a result whose location does not provide the URI of the artifact that contains the result.</value>
   </data>
   <data name="GH1001_ProvideRequiredLocationProperties_Error_MissingLocationProperty_Text" xml:space="preserve">
-    <value>{0}: '{1}' is absent. GitHub Advanced Security code scanning will not display a result location that does not provide the URI of the artifact that contains the result.</value>
+    <value>{0}: '{2}' is absent. GitHub Advanced Security code scanning will not display a result location that does not provide the URI of the artifact that contains the result.</value>
   </data>
   <data name="GH1001_ProvideRequiredLocationProperties_Error_EmptyLocationsArray_Text" xml:space="preserve">
     <value>{0}: The 'locations' array is empty. GitHub Advanced Security code scanning will not display a result unless it provides a location that specifies the URI of the artifact that contains the result.</value>
@@ -449,5 +455,408 @@ Semantics: Assuming the reader of the log file (an end user or another tool) has
   </data>
   <data name="SARIF2016_FileUrisShouldBeRelative_Note_ShouldNotContainBackSlash_Text" xml:space="preserve">
     <value>{0}: The relative file URL '{1}' contains one or more backslashes, which will be preserved when concatenating to an absolute URL. This can result in inconsistent representations, compared to URLs created from an absolute file path, which may be regarded as not equivalent. Replace all backslashes with forward slashes.</value>
+  </data>
+  <data name="SARIF2017_ProvideRequiredRegionProperties_FullDescription_Text" xml:space="preserve">
+    <value>Results should localize their physical locations with a non-empty 'region' object. SARIF §3.30 defines three valid region representations: line/column-based ('startLine'/'startColumn'/'endLine'/'endColumn'); character-offset-based ('charOffset'/'charLength'); or byte-offset-based ('byteOffset'/'byteLength'). Any one form localizes the finding, but producers SHOULD fully express both start AND end positions — consumers (IDEs highlighting precise spans, diff tools rendering inline annotations, downstream agents) rely on column data, not the spec's permissive defaults ('startColumn' defaults to 1, 'endLine' defaults to 'startLine', 'endColumn' defaults to end-of-line). The SDK helper 'FileRegionsCache.PopulateTextRegionProperties' fills in derived properties ('endLine', 'endColumn', char/byte offsets, and 'snippet') from a minimal starting region. Sibling rules SARIF2010 ('ProvideCodeSnippets') and SARIF2011 ('ProvideContextRegion') ask for additional region content for a complete result. For findings that apply to a whole artifact, the minimum forms suffice: '{{ startLine: 1, endLine: &lt;lineCount&gt; }}' (line-based, stable under newline normalization); '{{ charOffset: 0, charLength: &lt;chars&gt; }}' (when the content is in hand as a string); or '{{ byteOffset: 0, byteLength: &lt;bytes&gt; }}' (universal; required for binary artifacts).</value>
+  </data>
+  <data name="SARIF2017_ProvideRequiredRegionProperties_Warning_MissingRegion_Text" xml:space="preserve">
+    <value>{0}: The 'region' property is absent. Express the location via a 'region' object in one of the SARIF §3.30 forms: line/column ('startLine'/'startColumn'/'endLine'/'endColumn'); char-offset ('charOffset'/'charLength'); or byte-offset ('byteOffset'/'byteLength'). Fully express both start AND end positions — consumers rely on column data, not the spec's permissive defaults. See also SARIF2010 ('region.snippet') and SARIF2011 ('contextRegion') for a complete result. For a whole-artifact finding, the minimum suffices: '{{ startLine: 1, endLine: &lt;lineCount&gt; }}', '{{ charOffset: 0, charLength: &lt;chars&gt; }}', or '{{ byteOffset: 0, byteLength: &lt;bytes&gt; }}'.</value>
+  </data>
+  <data name="SARIF2017_ProvideRequiredRegionProperties_Warning_MissingRegionProperty_Text" xml:space="preserve">
+    <value>{0}: The 'region' object carries no positional information. Populate one of the SARIF §3.30 forms: line/column ('startLine'/'startColumn'/'endLine'/'endColumn'); char-offset ('charOffset'/'charLength'); or byte-offset ('byteOffset'/'byteLength'). Fully express both start AND end positions — consumers rely on column data, not the spec's permissive defaults. See also SARIF2010 ('region.snippet') and SARIF2011 ('contextRegion') for a complete result. For a whole-artifact finding, the minimum suffices: '{{ startLine: 1, endLine: &lt;lineCount&gt; }}', '{{ charOffset: 0, charLength: &lt;chars&gt; }}', or '{{ byteOffset: 0, byteLength: &lt;bytes&gt; }}'.</value>
+  </data>
+  <data name="GH1007_ProvideFullyFormattedMessageStrings_Error_Default_Text" xml:space="preserve">
+    <value>{0}: The 'text' property of this result message is absent. GitHub Advanced Security code scanning will reject this file because it does not support the argumented message now. Try to provide fully formatted text in 'message.text' property.</value>
+  </data>
+  <data name="GH1007_ProvideFullyFormattedMessageStrings_FullDescription_Text" xml:space="preserve">
+    <value>GitHub Advanced Security code scanning will reject a SARIF file that express result messages with 'message.id' and 'message.arguments' but without the 'message.text' property since the arugmented message format is not supported yet. Please provide fully formatted text in 'message.text' property.</value>
+  </data>
+  <data name="GHAzDO1014_GHAzDOProvideRequiredRunProperties_Error_MissingAutomationDetails_Text" xml:space="preserve">
+    <value>{0}: This 'run' object does not provide an 'automationDetails' property. This property is required by the {1} service.</value>
+  </data>
+  <data name="GHAzDO1018_ProvideRequiredToolProperties_Error_MissingDriverFullName_Text" xml:space="preserve">
+    <value>{0}: This 'driver' object does not provide a 'fullName' value. This property is required by the {1} service.</value>
+  </data>
+  <data name="Base1014_ProvideRequiredRunProperties_Error_MissingResultsArray_Text" xml:space="preserve">
+    <value>{0}: This 'run' object does not provide a 'results' array property. This property is required by the {1} service.</value>
+  </data>
+  <data name="ServiceName_GHAzDO" xml:space="preserve">
+    <value>GHAzDO (GitHub Advanced Security for Azure DevOps)</value>
+  </data>
+  <data name="ServiceName_GHAS" xml:space="preserve">
+    <value>GitHub Advanced Security</value>
+  </data>
+  <data name="Base1013_MaximumRunsCount_Note_Default_Text" xml:space="preserve">
+    <value>{0}: This 'sarifLog' object's 'runs' array contains {2} element(s), which exceeds the limit of {3} imposed by the {1} service.</value>
+  </data>
+  <data name="Base1013_ProvideSchemaVersion_Warning_Default_Text" xml:space="preserve">
+    <value>{0}: The SARIF log file does not specify 'version' property that refers to the final, OASIS standard version of the SARIF 2.1.0 schema. This enables IDEs to provide Intellisense for SARIF log files.</value>
+  </data>
+  <data name="Base1013_ProvideSchema_Warning_Default_Text" xml:space="preserve">
+    <value>{0}: The SARIF log file does not contain a '$schema' property. Add a '$schema' property that refers to the final OASIS standard version of the SARIF 2.1.0 schema. This enables IDEs to provide Intellisense for SARIF log files.</value>
+  </data>
+  <data name="Base1013_ReferenceFinalSchema_Error_Default_Text" xml:space="preserve">
+    <value>{0}: The '$schema' property value '{2}' does not refer to the final version of the SARIF 2.1.0 schema. If you are using an earlier version of the SARIF format, consider upgrading your analysis tool to produce the final version. If this file does in fact conform to the final version of the schema, upgrade the tool to populate the '$schema' property with a URL that refers to the final version of the schema.</value>
+  </data>
+  <data name="Base1013_SarifLogRunsArray_Note_Default_Text" xml:space="preserve">
+    <value>{0}: This 'sarifLog' object does not provide a 'runs' array, which is required by the {1} service.</value>
+  </data>
+  <data name="Base1015_ProvideRequiredResultProperties_Error_MissingMessage_Text" xml:space="preserve">
+    <value>{0}: This 'result' object does not provide a 'message' object. This property is required by the {1} service.</value>
+  </data>
+  <data name="GHAzDO1014_GHAzDOProvideRequiredRunProperties_Error_MissingAutomationDetailsId_Text" xml:space="preserve">
+    <value>{0}: This 'run' object's 'automationDetails' object does not provide an 'id' value. This property is required by the {1} service.</value>
+  </data>
+  <data name="Base1016_ProvideRequiredLocationProperties_Error_MissingPhysicalLocation_Text" xml:space="preserve">
+    <value>{0}: This 'location' object does not provide a 'physicalLocation' object. This property is required by the {1} service.</value>
+  </data>
+  <data name="GHAzDO1015_ProvideRequiredResultProperties_Error_MissingRuleId_Text" xml:space="preserve">
+    <value>{0}: This 'result' object does not provide a 'ruleId' value. This property is required by the {1} service.</value>
+  </data>
+  <data name="GHAzDO2012_ProvideRequiredResultProperties_Error_MissingName_Text" xml:space="preserve">
+    <value>{0}: This 'reportingDescriptor' object does not provide a 'name' value. This property is required by the {1} service.</value>
+  </data>
+  <data name="Base1014_ProvideRequiredRunProperties_Error_MissingTool_Text" xml:space="preserve">
+    <value>{0}: This 'run' object does not provide a 'tool' object. This property is required by the {1} service.</value>
+  </data>
+  <data name="Base1015_ProvideRequiredResultProperties_Error_EmptyLocationsArray_Text" xml:space="preserve">
+    <value>{0}: The 'locations' array on this 'result' object is empty. This property is required by the {1} service.</value>
+  </data>
+  <data name="Base1015_ProvideRequiredResultProperties_Error_MissingLocationsArray_Text" xml:space="preserve">
+    <value>{0}: This 'result' object does not provide a 'locations' array. This property is required by the {1} service.</value>
+  </data>
+  <data name="Base1015_ProvideRequiredResultProperties_Error_MissingMessageText_Text" xml:space="preserve">
+    <value>{0}: The 'message' object on this 'result' object does not provide a 'text' property. This property is required by the {1} service.</value>
+  </data>
+  <data name="Base1018_ProvideRequiredToolProperties_Error_MissingDriverName_Text" xml:space="preserve">
+    <value>{0}: The 'driver' object in this tool does not provide a 'name' value. This property is required by the {1} service.</value>
+  </data>
+  <data name="Base1018_ProvideRequiredToolProperties_Error_MissingDriverRules_Text" xml:space="preserve">
+    <value>{0}: The 'driver' object in this tool does not provide a 'rules' array. This property is required by the {1} service.</value>
+  </data>
+  <data name="Base1018_ProvideRequiredToolProperties_Error_MissingDriver_Text" xml:space="preserve">
+    <value>{0}: This 'tool' object does not provide a 'driver' object. This property is required by the {1} service.</value>
+  </data>
+  <data name="Base2012_ProvideRequiredReportingDescriptorProperties_Error_MissingIdProperty_Text" xml:space="preserve">
+    <value>{0}: This 'reportingDescriptor' object does not provide an 'Id' value. This property is required by the {1} service.</value>
+  </data>
+  <data name="GH2012_ProvideRequiredReportingDescriptorProperties_Error_MissingFullDescription_Text" xml:space="preserve">
+    <value>{0}: This 'reportingDescriptor' object does not provide a 'fullDescription' value. This property is required by the {1} service.</value>
+  </data>
+  <data name="GH2012_ProvideRequiredReportingDescriptorProperties_Error_MissingHelp_Text" xml:space="preserve">
+    <value>{0}: This 'reportingDescriptor' object does not provide a 'help' object. This property is required by the {1} service.</value>
+  </data>
+  <data name="GH2012_ProvideRequiredReportingDescriptorProperties_Error_MissingHelpText_Text" xml:space="preserve">
+    <value>{0}: This 'help' object does not provide a 'text' value. This property is required by the {1} service.</value>
+  </data>
+  <data name="GH2012_ProvideRequiredReportingDescriptorProperties_Error_MissingShortDescription_Text" xml:space="preserve">
+    <value>{0}: This 'reportingDescriptor' object does not provide a 'shortDescription' value. This property is required by the {1} service.</value>
+  </data>
+  <data name="Base1017_ProvideRequiredPhysicalLocationProperties_Error_MissingArtifactLocation_Text" xml:space="preserve">
+    <value>{0}: This 'physicalLocation' object does not provide an 'artifactLocation' object. This property is required by the {1} service.</value>
+  </data>
+  <data name="Base1017_ProvideRequiredPhysicalLocationProperties_Error_MissingRegion_Text" xml:space="preserve">
+    <value>{0}: The 'physicalLocation' object does not provide a 'region' object. This property is required by the {1} service.</value>
+  </data>
+  <data name="GH1017_ProvideRequiredPhysicalLocationProperties_Error_MissingArtifactLocationUri_Text" xml:space="preserve">
+    <value>{0}: The 'artifactLocation' object on this 'physicalLocation' object does not provide a 'uri' object. This property is required by the {1} service.</value>
+  </data>
+  <data name="GHAzDO1011_ReferenceFinalSchema_FullDescription_Text" xml:space="preserve">
+    <value>The '$schema' property must refer to the final version of the SARIF 2.1.0 schema. This enables IDEs to provide Intellisense for SARIF log files.
+
+The SARIF standard was developed over several years and many intermediate versions of the schema were produced. Now that the standard is final, only the OASIS standard version of the schema is valid.</value>
+  </data>
+  <data name="GHAzDO1013_ProvideRequiredSarifLogProperties_FullDescription_Text" xml:space="preserve">
+    <value>The root element of a SARIF log file is a SarifLog object. The properties of this element provide information about the log's schema version as well as an array of analysis runs. These properties are required by the GHAzDO (GitHub Advanced Security for Azure DevOps) service.
+
+Provide the '$schema' property, which must refer to the final version of the SARIF 2.1.0 schema. This enables IDEs to provide Intellisense for SARIF log files.
+
+Provide the 'version' property, which must refer to the the final, OASIS standard version of the SARIF 2.1.0 schema. This enables IDEs to provide Intellisense for SARIF log files.
+
+Provide the 'runs' array, even if it is empty. The GHAzDO (GitHub Advanced Security for Azure DevOps) service specifies a maximum of 20 runs.</value>
+  </data>
+  <data name="GHAzDO1014_ProvideRequiredRunProperties_FullDescription_Text" xml:space="preserve">
+    <value>The Run object represents a single execution of the specified analysis tool.
+
+Provide the 'tool' property, which contains metadata about the software that generated the static analysis results.
+
+Provide the 'results' array, even if it is empty.
+
+Provide the 'automationDetails' property. The automationDetails's 'id' property is required by the GHAzDO (GitHub Advanced Security for Azure DevOps) service.</value>
+  </data>
+  <data name="GHAzDO1015_ProvideRequiredResultProperties_FullDescription_Text" xml:space="preserve">
+    <value>The Result object represents an analysis finding and should provide details describing the nature of the problem along with its location in the scan target.
+
+Provide the 'ruleId' property, which is the unique identifier of the analysis rule that was violated. This property is required by the GHAzDO (GitHub Advanced Security for Azure DevOps) service.
+
+Provide the 'message' property, which is a user-facing explanation of the result occurrence. The message's 'text' property is required by the GHAzDO (GitHub Advanced Security for Azure DevOps) service.
+
+Provide the 'locations' array, which must contain at least one location object.</value>
+  </data>
+  <data name="GHAzDO1016_ProvideRequiredLocationProperties_FullDescription_Text" xml:space="preserve">
+    <value>The Location object is important for providing consumers with the location where the result occurred.
+
+Provide the 'physicalLocation' property. This property is required by the GHAzDO (GitHub Advanced Security for Azure DevOps) service.</value>
+  </data>
+  <data name="GHAzDO1017_ProvideRequiredPhysicalLocationProperties_FullDescription_Text" xml:space="preserve">
+    <value>Provide the 'region' property, along with the appropriate region properties. This property is required by the GHAzDO (GitHub Advanced Security for Azure DevOps) service.
+
+Provide the 'artifactLocation' property. This property is required by the GHAzDO (GitHub Advanced Security for Azure DevOps) service.</value>
+  </data>
+  <data name="GHAzDO1018_ProvideRequiredToolProperties_FullDescription_Text" xml:space="preserve">
+    <value>Provide information that makes it easy to identify the name and version of your tool.
+
+Provide the 'driver' property. This property is required by the GHAzDO (GitHub Advanced Security for Azure DevOps) service.
+
+Provide the driver's 'name' and 'fullName' properties.
+
+Provide the driver's 'rules' array.</value>
+  </data>
+  <data name="GHAzDO2012_ProvideRequiredReportingDescriptorProperties_FullDescription_Text" xml:space="preserve">
+    <value>Rule metadata should provide information that makes it easy to understand and fix the problem.
+rule.id
+
+Provide the 'id' property whose value is a stable identifier for the rule.
+
+Provide the 'name' property, which contains a "friendly name" that helps users see at a glance the purpose of the rule. For uniformity of experience across all tools that produce SARIF, the friendly name should be a single Pascal-case identifier, for example, 'ProvideRuleFriendlyName'.</value>
+  </data>
+  <data name="GHAzDO1019_ProvidePipelineProperties_FullDescription_Text" xml:space="preserve">
+    <value>When 'run.automationDetails' is present, the four 'azuredevops/pipeline/build/' properties below identify the build definition and phase that produced the run. GHAzDO (GitHub Advanced Security for Azure DevOps) ingestion reads these to attach the run to a pipeline; missing or unparseable values cause ingestion to drop the run with 'MissingAdoPipelineProperties'.
+
+Required keys on 'run.automationDetails.properties':
+- 'azuredevops/pipeline/build/buildDefinitionId'   — integer, non-zero
+- 'azuredevops/pipeline/build/buildDefinitionName' — non-empty string
+- 'azuredevops/pipeline/build/phaseId'             — GUID, not the empty GUID
+- 'azuredevops/pipeline/build/phaseName'           — non-empty string</value>
+  </data>
+  <data name="GHAzDO1019_ProvidePipelineProperties_Error_MissingBuildDefinitionId_Text" xml:space="preserve">
+    <value>{0}: The 'automationDetails.properties' bag does not provide '{2}'. This property is required by the {1} service to identify the build definition.</value>
+  </data>
+  <data name="GHAzDO1019_ProvidePipelineProperties_Error_InvalidBuildDefinitionId_Text" xml:space="preserve">
+    <value>{0}: The 'automationDetails.properties' value for '{2}' is '{3}', which is not a non-zero integer. The {1} service requires a non-zero integer build definition id.</value>
+  </data>
+  <data name="GHAzDO1019_ProvidePipelineProperties_Error_MissingBuildDefinitionName_Text" xml:space="preserve">
+    <value>{0}: The 'automationDetails.properties' bag does not provide '{2}'. This property is required by the {1} service to identify the build definition by name.</value>
+  </data>
+  <data name="GHAzDO1019_ProvidePipelineProperties_Error_MissingPhaseId_Text" xml:space="preserve">
+    <value>{0}: The 'automationDetails.properties' bag does not provide '{2}'. This property is required by the {1} service to identify the build phase.</value>
+  </data>
+  <data name="GHAzDO1019_ProvidePipelineProperties_Error_InvalidPhaseId_Text" xml:space="preserve">
+    <value>{0}: The 'automationDetails.properties' value for '{2}' is '{3}', which is not a non-empty GUID. The {1} service requires a non-empty GUID phase id.</value>
+  </data>
+  <data name="GHAzDO1019_ProvidePipelineProperties_Error_MissingPhaseName_Text" xml:space="preserve">
+    <value>{0}: The 'automationDetails.properties' bag does not provide '{2}'. This property is required by the {1} service to identify the build phase by name.</value>
+  </data>
+  <data name="GHAzDO1020_ProvideAutomationDetailsIdFormat_FullDescription_Text" xml:space="preserve">
+    <value>When 'run.automationDetails.id' is present, it must start with the canonical 'azuredevops/pipeline/build/' prefix. GHAzDO (GitHub Advanced Security for Azure DevOps) ingestion parses the slash-delimited remainder as '&lt;org&gt;/&lt;project&gt;/&lt;buildDefId&gt;/&lt;phaseId&gt;/&lt;branch&gt;/&lt;buildId&gt;'; ids that don't carry the prefix fail downstream parsing.</value>
+  </data>
+  <data name="GHAzDO1020_ProvideAutomationDetailsIdFormat_Error_BadPrefix_Text" xml:space="preserve">
+    <value>{0}: The 'automationDetails.id' value '{3}' does not start with the expected prefix '{2}'. The {1} service expects ids of the form '{2}&lt;org&gt;/&lt;project&gt;/&lt;buildDefId&gt;/&lt;phaseId&gt;/&lt;branch&gt;/&lt;buildId&gt;'.</value>
+  </data>
+  <data name="GH1011_ReferenceFinalSchema" xml:space="preserve">
+    <value>The '$schema' property must refer to the final version of the SARIF 2.1.0 schema. This enables IDEs to provide Intellisense for SARIF log files.
+
+The SARIF standard was developed over several years and many intermediate versions of the schema were produced. Now that the standard is final, only the OASIS standard version of the schema is valid.</value>
+  </data>
+  <data name="GH1013_ProvideRequiredSarifLogProperties_FullDescription_Text" xml:space="preserve">
+    <value>The root element of a SARIF log file is a SarifLog object. The properties of this element provide information about the log's schema version as well as an array of analysis runs. These properties are required by the GHAzDO (GitHub Advanced Security for Azure DevOps) service.
+
+Provide the '$schema' property, which must refer to the final version of the SARIF 2.1.0 schema. This enables IDEs to provide Intellisense for SARIF log files.
+
+Provide the 'version' property, which must refer to the the final, OASIS standard version of the SARIF 2.1.0 schema. This enables IDEs to provide Intellisense for SARIF log files.
+
+Provide the 'runs' array, even if it is empty. The GitHub Advanced Security service specifies a maximum of 20 runs.</value>
+  </data>
+  <data name="GH1014_ProvideRequiredRunProperties_FullDescription_Text" xml:space="preserve">
+    <value>The Run object represents a single execution of the specified analysis tool.
+
+Provide the 'tool' property, which contains metadata about the software that generated the static analysis results.
+
+Provide the 'results' array, even if it is empty.</value>
+  </data>
+  <data name="GH1015_ProvideRequiredResultProperties_FullDescription_Text" xml:space="preserve">
+    <value>The Result object represents an analysis finding and should provide details describing the nature of the problem along with its location in the scan target.
+
+Provide the 'message' property, which is a user-facing explanation of the result occurrence. The message's 'text' property is required by the GitHub Advanced Security service.
+
+Provide the 'locations' array, which must contain at least one location object.</value>
+  </data>
+  <data name="GH1016_ProvideRequiredLocationProperties_FullDescription_Text" xml:space="preserve">
+    <value>The Location object is important for providing consumers with the location where the result occurred.
+
+Provide the 'physicalLocation' property. This property is required by the GitHub Advanced Security service.</value>
+  </data>
+  <data name="GH1017_ProvideRequiredPhysicalLocationProperties_FullDescription_Text" xml:space="preserve">
+    <value>Provide the 'region' property, along with the appropriate region properties. This property is required by the GitHub Advanced Security service.
+
+Provide the 'artifactLocation' property. This property is required by the GitHub Advanced Security service.</value>
+  </data>
+  <data name="GH1018_ProvideRequiredToolProperties_FullDescription_Text" xml:space="preserve">
+    <value>Provide information that makes it easy to identify the name and version of your tool.
+
+Provide the 'driver' property. This property is required by the GitHub Advanced Security service.
+
+Provide the driver's 'name' property.
+
+Provide the driver's 'rules' array.</value>
+  </data>
+  <data name="GH2012_ProvideRequiredReportingDescriptorProperties_FullDescription_Text" xml:space="preserve">
+    <value>Rule metadata should provide information that makes it easy to understand and fix the problem.
+
+Provide the 'id' property whose value is a stable identifier for the rule.
+
+Provide the 'shortDescription' and 'fullDescription' properties.
+
+Provide the 'help' property and populate the 'text' property with information about the rule.</value>
+  </data>
+  <data name="Base1011_ReferenceFinalSchema_Error_Default_Text" xml:space="preserve">
+    <value>{0}: The '$schema' property value '{2}' does not refer to the final version of the SARIF 2.1.0 schema. If you are using an earlier version of the SARIF format, consider upgrading your analysis tool to produce the final version. If this file does, in fact, conform to the final version of the schema, upgrade the tool to populate the '$schema' property with a URL that refers to the final version of the schema.</value>
+  </data>
+  <data name="AI1003_ProvideRequiredRegionProperties_FullDescription_Text" xml:space="preserve">
+    <value>AI-generated results must provide a 'region' property with at least 'startLine' in each physical location. Without precise location data, consumers cannot navigate to the finding or verify the AI's analysis. Providing 'startColumn', 'endLine', and 'endColumn' further improves precision.</value>
+  </data>
+  <data name="AI1003_ProvideRequiredRegionProperties_Error_MissingRegion_Text" xml:space="preserve">
+    <value>{0}: The 'region' property is absent. AI-generated results must provide a 'region' object with at least 'startLine' so that consumers can navigate to the precise location of the finding.</value>
+  </data>
+  <data name="AI1003_ProvideRequiredRegionProperties_Error_MissingRegionProperty_Text" xml:space="preserve">
+    <value>{0}: The 'startLine' property is absent. AI-generated results must provide at least 'startLine' in the 'region' object. Providing 'startColumn', 'endLine', and 'endColumn' further improves precision.</value>
+  </data>
+  <data name="AI1004_ProvideVersionControlProvenance_FullDescription_Text" xml:space="preserve">
+    <value>AI-generated SARIF runs must provide 'run.versionControlProvenance' to record which version of the code was analyzed. Without this, consumers cannot determine the exact code state the AI examined, making it impossible to verify findings or reproduce the analysis.</value>
+  </data>
+  <data name="AI1004_ProvideVersionControlProvenance_Error_Default_Text" xml:space="preserve">
+    <value>{0}: This run does not provide 'versionControlProvenance'. AI-generated findings must include version control provenance so consumers can determine which version of the code was analyzed and verify findings against the correct source.</value>
+  </data>
+  <data name="AI1006_ProvideAIOrigin_FullDescription_Text" xml:space="preserve">
+    <value>AI-involved SARIF runs must declare 'ai/origin' in 'run.properties' with a value of 'generated', 'annotated', or 'synthesized'. This signal enables consumers to calibrate trust levels, review workflows, and ingestion policies without heuristic inspection of tool names or metadata.</value>
+  </data>
+  <data name="AI1006_ProvideAIOrigin_Error_Missing_Text" xml:space="preserve">
+    <value>{0}: This run does not declare 'ai/origin' in 'run.properties'. AI-involved SARIF runs must declare their origin ('generated', 'annotated', or 'synthesized') to enable consumers to calibrate trust and workflow routing.</value>
+  </data>
+  <data name="AI1006_ProvideAIOrigin_Error_InvalidValue_Text" xml:space="preserve">
+    <value>{0}: The 'ai/origin' value '{1}' is not a recognized origin. Valid values are: 'generated', 'annotated', 'synthesized'.</value>
+  </data>
+  <data name="AI2003_ProvideSemanticVersion_FullDescription_Text" xml:space="preserve">
+    <value>The tool driver should provide a 'semanticVersion' property with a semver-compliant version string (e.g., '1.2.3'). A semantic version enables sortable version comparison and is required by some ingestion systems such as GitHub Advanced Security and GHAzDO (GitHub Advanced Security for Azure DevOps).</value>
+  </data>
+  <data name="AI2003_ProvideSemanticVersion_Warning_Default_Text" xml:space="preserve">
+    <value>{0}: The tool driver '{1}' does not provide a 'semanticVersion'. A semver-compliant version string enables sortable versioning and is required by some ingestion systems.</value>
+  </data>
+  <data name="AI2005_ProvideAutomationDetails_FullDescription_Text" xml:space="preserve">
+    <value>AI scans should include 'automationDetails' with a 'guid' and optionally a 'correlationGuid'. A unique run identifier enables deduplication, tracking across scan campaigns, and correlation of runs that belong to the same logical analysis effort.</value>
+  </data>
+  <data name="AI2005_ProvideAutomationDetails_Warning_Missing_Text" xml:space="preserve">
+    <value>{0}: This run does not provide 'automationDetails'. AI scans should include automation details with 'guid' and 'correlationGuid' to enable run identification and campaign-level aggregation.</value>
+  </data>
+  <data name="AI2005_ProvideAutomationDetails_Warning_MissingGuid_Text" xml:space="preserve">
+    <value>{0}: The 'automationDetails' object does not provide a 'guid'. A stable run identifier enables deduplication and tracking across scan campaigns.</value>
+  </data>
+  <data name="AI1005_ProvideMessageMarkdown_FullDescription_Text" xml:space="preserve">
+    <value>AI-generated results must provide rich 'message.markdown' content. Markdown messages enable structured analysis including evidence, reproduction steps, and fix suggestions. The plain-text 'message.text' property alone does not provide sufficient richness for actionable remediation of AI-generated findings.</value>
+  </data>
+  <data name="AI1005_ProvideMessageMarkdown_Error_Default_Text" xml:space="preserve">
+    <value>{0}: This result does not provide 'message.markdown'. AI-generated findings must provide rich markdown with structured analysis including evidence, reproduction steps, and fix suggestions.</value>
+  </data>
+  <data name="AI2014_ProvideExploitability_FullDescription_Text" xml:space="preserve">
+    <value>AI-generated results should declare 'ai/exploitability' in 'result.properties' with a value of 'demonstrated', 'poc', or 'theoretical'. This signal enables consumers to triage findings by the strength of exploitation evidence. Following the suppressions pattern (SARIF spec §3.27.23), exploitability SHALL be either present on all results in the run or absent from all results — mixed presence is a data quality error.</value>
+  </data>
+  <data name="AI2014_ProvideExploitability_Warning_Missing_Text" xml:space="preserve">
+    <value>{0}: This result does not declare 'ai/exploitability' in 'result.properties'. AI-generated findings should declare their exploitability ('demonstrated', 'poc', or 'theoretical') to enable evidence-based triage.</value>
+  </data>
+  <data name="AI2014_ProvideExploitability_Warning_InvalidValue_Text" xml:space="preserve">
+    <value>{0}: The 'ai/exploitability' value '{1}' is not a recognized exploitability level. Valid values are: 'demonstrated', 'poc', 'theoretical'.</value>
+  </data>
+  <data name="AI2014_ProvideExploitability_Warning_Inconsistent_Text" xml:space="preserve">
+    <value>{0}: The run contains a mixture of results with and without 'ai/exploitability' ({1} with, {2} without). Following the suppressions pattern (SARIF spec §3.27.23), exploitability should be present on all results or absent from all results.</value>
+  </data>
+  <data name="AI1012_ProvideRuleSubId_FullDescription_Text" xml:space="preserve">
+    <value>AI-generated results must carry a hierarchical sub-component on 'result.ruleId' beyond the base 'reportingDescriptor.id'. SARIF has no 'result.name'; the hierarchical 'ruleId' is the one slot where a per-finding readable handle survives minimal SARIF, and it is the suppression and baseline grouping key (SARIF spec §3.27.5). The accepted shapes are a taxonomy sub-ID, 'CWE-&lt;number&gt;/&lt;sub-id&gt;' (e.g. 'CWE-78/api-handler'), or the escape hatch 'NOVEL-&lt;sub-id&gt;' for a finding that maps to no taxonomy entry; the sub-ID is lowercase kebab-case and the 'NOVEL-' form takes no slash. This is the same convention the 'emit' verb hard-enforces, so logs produced by other paths conform too. Use a true sub-classification of the base rule when one applies, otherwise kebab-case the rule's friendly 'name', and pick granularity deliberately: results dispositioned as a bundle share a sub-ID; distinct issues under one base rule get distinct sub-IDs.</value>
+  </data>
+  <data name="AI1012_ProvideRuleSubId_Error_Missing_Text" xml:space="preserve">
+    <value>{0}: 'result.ruleId' is '{1}' with no sub-component beyond the descriptor id. Append a hierarchical sub-ID: a true sub-classification of '{1}' if one applies, otherwise the kebab-cased rule name (e.g. '{1}/{2}'). SARIF has no 'result.name'; this sub-ID is that name and the bulk-disposition key (§3.27.5).</value>
+  </data>
+  <data name="AI1012_ProvideRuleSubId_Error_Malformed_Text" xml:space="preserve">
+    <value>{0}: 'result.ruleId' is '{1}', which does not match the AI ruleId convention. Use a taxonomy sub-ID 'CWE-&lt;number&gt;/&lt;sub-id&gt;' (e.g. 'CWE-89/kql-injection') or the escape hatch 'NOVEL-&lt;sub-id&gt;' (e.g. 'NOVEL-prompt-injection'); the sub-ID is lowercase kebab-case and the 'NOVEL-' form takes no slash. No appended sub-ID can repair this value, so rewrite it to a conformant shape (§3.27.5).</value>
+  </data>
+  <data name="AI2010_ProvideResultRank_FullDescription_Text" xml:space="preserve">
+    <value>AI-generated results should provide a 'rank' value (0.0 to 100.0). Per the SARIF spec (§3.27.25), 'rank' expresses a result's relative priority or importance, and a tool may compute it by any methodology. Prioritizing findings by 'least likely to be a false positive' is a reasonable choice, so an AI producer may populate 'rank' with its confidence — the estimated likelihood that the result is a true positive — and use that as the priority signal. 'rank' remains a priority value and is orthogonal to 'security-severity', which is a stable per-rule (per-CWE) prior the SDK supplies separately.</value>
+  </data>
+  <data name="AI2010_ProvideResultRank_Note_Default_Text" xml:space="preserve">
+    <value>{0}: This result does not provide a 'rank' value. AI-generated findings should set a numeric 'rank' (0.0 to 100.0) — for example, prioritizing by likelihood of being a true positive — to enable priority-based triage.</value>
+  </data>
+  <data name="AI1007_DoNotPersistFingerprints_FullDescription_Text" xml:space="preserve">
+    <value>AI producers MUST NOT populate 'result.fingerprints'. Persisted fingerprints decay under file renames, deletes, and rule logic updates. Cross-run result identity is owned by the result-management system, which may compute and inject its own fingerprints at ingestion. For intra-remediation relocation, the remediation agent computes a transient content-anchored fingerprint on the fly from 'ruleId', 'logicalLocations', and 'contextRegion.snippet', and discards it when the fix lands.</value>
+  </data>
+  <data name="AI1007_DoNotPersistFingerprints_Error_Default_Text" xml:space="preserve">
+    <value>{0}: This result populates '{1}'. AI producers must not persist fingerprints. Cross-run baselining is owned by the result-management system; intra-remediation relocation uses a transient fingerprint computed from 'ruleId', 'logicalLocations', and 'contextRegion.snippet'.</value>
+  </data>
+  <data name="AI2011_DoNotPersistPartialFingerprints_FullDescription_Text" xml:space="preserve">
+    <value>AI producers should not populate 'result.partialFingerprints'. Persisted partial fingerprints decay under file renames, deletes, and rule logic updates. Cross-run result identity is owned by the result-management system, which may compute and inject its own partial fingerprints at ingestion. For intra-remediation relocation, the remediation agent computes a transient content-anchored fingerprint on the fly from 'ruleId', 'logicalLocations', and 'contextRegion.snippet', and discards it when the fix lands. A GitHub-hosted run (github.com or a &lt;slug&gt;.ghe.com host, per versionControlProvenance) is the single exception: it may persist one 'primaryLocationLineHash' rolling-hash fingerprint, because GitHub's raw code-scanning SARIF upload API does not backfill partialFingerprints and would otherwise raise duplicate alerts.</value>
+  </data>
+  <data name="AI2011_DoNotPersistPartialFingerprints_Warning_Default_Text" xml:space="preserve">
+    <value>{0}: This result populates '{1}'. AI producers should not persist partial fingerprints. Cross-run baselining is owned by the result-management system; intra-remediation relocation uses a transient fingerprint computed from 'ruleId', 'logicalLocations', and 'contextRegion.snippet'.</value>
+  </data>
+  <data name="AI2012_ProvideAiHandoff_FullDescription_Text" xml:space="preserve">
+    <value>AI-generated runs should provide 'ai/handoff' in 'run.properties': a freeform markdown forward-note from the producing agent to downstream remediation agents. It carries repo-wide observations (build/test/format commands that worked, auth pattern, where tests live, ladder depth reached) that have no structural SARIF home. Per-finding notes go in 'result.properties.ai/handoff'; durable repo facts go in the repository's '.ai-context/' directory.</value>
+  </data>
+  <data name="AI2012_ProvideAiHandoff_Note_Default_Text" xml:space="preserve">
+    <value>{0}: This run does not provide 'ai/handoff' in 'run.properties'. AI producers should record repo-wide observations for downstream remediation agents — at minimum, the analysis depth reached and why it stopped.</value>
+  </data>
+  <data name="AI2015_ProvideAttackerPosition_FullDescription_Text" xml:space="preserve">
+    <value>Each result should declare 'ai/attackerPosition' in 'result.properties' to indicate the attacker's position relative to the vulnerable component. Follows the all-or-nothing pattern: if any result declares attacker position, all results must.</value>
+  </data>
+  <data name="AI2015_ProvideAttackerPosition_Warning_Missing_Text" xml:space="preserve">
+    <value>{0}: This result does not declare 'ai/attackerPosition' in 'result.properties'. AI producers should indicate the attacker's access requirements for each finding.</value>
+  </data>
+  <data name="AI2015_ProvideAttackerPosition_Warning_Inconsistent_Text" xml:space="preserve">
+    <value>{0}: {1} result(s) declare 'ai/attackerPosition' but {2} do not. This property follows the all-or-nothing pattern — if any result declares it, all must.</value>
+  </data>
+  <data name="AI2016_ProvideEvidenceBacking_FullDescription_Text" xml:space="preserve">
+    <value>An 'ai/evidence' array entry with 'strength' of 'demonstrated' should carry non-empty 'backing'. If 'ai/exploitability' is 'demonstrated', at least one evidence entry should also be 'demonstrated' with non-empty backing.</value>
+  </data>
+  <data name="AI2016_ProvideEvidenceBacking_Warning_MissingBacking_Text" xml:space="preserve">
+    <value>{0}: The 'ai/evidence' entry at index {1} has 'strength' of 'demonstrated' but 'backing' is missing or empty. Demonstrated evidence should include concrete backing (e.g., a SARIF URI pointing to a code flow, artifact, or test).</value>
+  </data>
+  <data name="AI2016_ProvideEvidenceBacking_Warning_Inconsistent_Text" xml:space="preserve">
+    <value>{0}: This result declares 'ai/exploitability' as 'demonstrated' but no 'ai/evidence' entry has 'strength' of 'demonstrated' with non-empty 'backing'. The headline exploitability should be consistent with the evidence array.</value>
+  </data>
+  <data name="AI2016_ProvideEvidenceBacking_Warning_MalformedEvidence_Text" xml:space="preserve">
+    <value>{0}: The 'ai/evidence' property is present but is not a well-formed JSON array. Evidence must be a JSON array of objects; a malformed or wrong-typed value cannot be validated and is silently dropped by every evidence consumer.</value>
+  </data>
+  <data name="AI1010_ProvideEvidenceBackingUri_FullDescription_Text" xml:space="preserve">
+    <value>Every 'sarif:' URI in 'ai/evidence[].backing' SHALL resolve to an element within the containing log file per SARIF spec §3.10.3.</value>
+  </data>
+  <data name="AI1010_ProvideEvidenceBackingUri_Error_Default_Text" xml:space="preserve">
+    <value>{0}: The 'ai/evidence' entry at index {1} has a 'backing' value of '{2}' which uses the 'sarif:' URI scheme but does not resolve to a valid element in the log file.</value>
+  </data>
+  <data name="AI2017_ProvideNotificationDescriptor_FullDescription_Text" xml:space="preserve">
+    <value>Every notification in 'toolExecutionNotifications' or 'toolConfigurationNotifications' should have a 'descriptor' that resolves to a 'reportingDescriptor' in 'tool.driver.notifications' or an extension's 'notifications' array. If 'descriptor.id' is present, it must match the resolved descriptor's 'id'.</value>
+  </data>
+  <data name="AI2017_ProvideNotificationDescriptor_Warning_Missing_Text" xml:space="preserve">
+    <value>{0}: This notification does not have a 'descriptor' property. AI tool notifications should reference a declared notification descriptor so consumers can programmatically identify the notification type.</value>
+  </data>
+  <data name="AI2017_ProvideNotificationDescriptor_Warning_Unresolvable_Text" xml:space="preserve">
+    <value>{0}: The notification descriptor with id '{1}' does not resolve to a 'reportingDescriptor' in 'tool.driver.notifications' or any extension's 'notifications' array.</value>
+  </data>
+  <data name="AI1013_ProvideNotificationAssociatedRule_FullDescription_Text" xml:space="preserve">
+    <value>If a notification's 'associatedRule' is present, it SHALL resolve to a valid rule in 'tool.driver.rules' or an extension's 'rules' array via 'index' or 'guid'.</value>
+  </data>
+  <data name="AI1013_ProvideNotificationAssociatedRule_Error_Default_Text" xml:space="preserve">
+    <value>{0}: The notification's 'associatedRule' with id '{1}' does not resolve to a valid rule in 'tool.driver.rules' or any extension's 'rules' array.</value>
+  </data>
+  <data name="AI2018_ProvideLearningSignalArtifact_FullDescription_Text" xml:space="preserve">
+    <value>A notification with descriptor id 'LEARNING-SIGNAL' should include a 'locations' entry whose 'physicalLocation.artifactLocation.index' resolves to a valid artifact in 'run.artifacts' with 'roles' containing 'attachment'.</value>
+  </data>
+  <data name="AI2018_ProvideLearningSignalArtifact_Note_MissingLocation_Text" xml:space="preserve">
+    <value>{0}: This 'LEARNING-SIGNAL' notification does not include a 'locations' entry. The learning signal artifact should be referenced via 'physicalLocation.artifactLocation.index' so downstream learning systems can locate it structurally.</value>
+  </data>
+  <data name="AI2018_ProvideLearningSignalArtifact_Note_UnresolvableArtifact_Text" xml:space="preserve">
+    <value>{0}: This 'LEARNING-SIGNAL' notification references artifact index {1}, but the artifact either does not exist in 'run.artifacts' or does not have 'roles' containing 'attachment'.</value>
+  </data>
+  <data name="AI2019_ProvideNotificationTimestamp_FullDescription_Text" xml:space="preserve">
+    <value>Notifications should include 'timeUtc' to enable execution timeline reconstruction. Note: timestamps break deterministic run-over-run comparison but are essential for AI execution analysis.</value>
+  </data>
+  <data name="AI2019_ProvideNotificationTimestamp_Note_Default_Text" xml:space="preserve">
+    <value>{0}: This notification does not include 'timeUtc'. AI tool notifications should include timestamps to enable execution timeline reconstruction and performance analysis.</value>
   </data>
 </root>

@@ -1,5 +1,5 @@
 {
-  "$schema": "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0-rtm.6.json",
+  "$schema": "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0.json",
   "version": "2.1.0",
   "runs": [
     {
@@ -79,6 +79,78 @@
                 },
                 "region": {
                   "startLine": 15,
+                  "startColumn": 13
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "SARIF1001",
+          "ruleIndex": 0,
+          "message": {
+            "id": "Warning_Default",
+            "arguments": [
+              "runs[1].tool.driver.notifications[0]",
+              "STRICT"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 37,
+                  "startColumn": 13
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "SARIF1001",
+          "ruleIndex": 0,
+          "message": {
+            "id": "Warning_Default",
+            "arguments": [
+              "runs[1].tool.driver.rules[0]",
+              "DECISION"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 31,
+                  "startColumn": 13
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "SARIF1001",
+          "ruleIndex": 0,
+          "message": {
+            "id": "Warning_Default",
+            "arguments": [
+              "runs[2].tool.driver.notifications[0]",
+              "DECISION"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 56,
                   "startColumn": 13
                 }
               }

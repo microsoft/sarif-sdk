@@ -19,7 +19,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             int bufferSize = 64;
 
             // Empty file - verify no rows
-            using (CsvReader reader = new CsvReader(StreamFromString(""), bufferSize))
+            using (var reader = new CsvReader(StreamFromString(""), bufferSize))
             {
                 Assert.False(reader.NextRow());
 
@@ -28,7 +28,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             }
 
             // Single row file, no trailing newline
-            using (CsvReader reader = new CsvReader(StreamFromString("One,Two,Three"), bufferSize))
+            using (var reader = new CsvReader(StreamFromString("One,Two,Three"), bufferSize))
             {
                 Assert.Equal(0, reader.RowCountRead);
                 Assert.True(reader.NextRow());
@@ -39,7 +39,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             }
 
             // Empty values
-            using (CsvReader reader = new CsvReader(StreamFromString(",Value,,"), bufferSize))
+            using (var reader = new CsvReader(StreamFromString(",Value,,"), bufferSize))
             {
                 Assert.True(reader.NextRow());
                 Assert.Equal("|Value||", string.Join("|", reader.Current()));
@@ -47,7 +47,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             }
 
             // Newline variation and trailing newline
-            using (CsvReader reader = new CsvReader(StreamFromString("One\nTwo\r\nThree\r\n"), bufferSize))
+            using (var reader = new CsvReader(StreamFromString("One\nTwo\r\nThree\r\n"), bufferSize))
             {
                 Assert.True(reader.NextRow());
                 Assert.Equal("One", string.Join("|", reader.Current()));
@@ -60,7 +60,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             // Row requiring a buffer resize and verify nothing is missed
             string oneHundredColumns = string.Join(",", Enumerable.Range(100, 100).Select(i => i.ToString()));
-            using (CsvReader reader = new CsvReader(StreamFromString(oneHundredColumns), bufferSize))
+            using (var reader = new CsvReader(StreamFromString(oneHundredColumns), bufferSize))
             {
                 Assert.True(reader.NextRow());
                 Assert.Equal(100, reader.Current().Count);
@@ -69,7 +69,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             // Value exactly 2x buffer, requiring two buffer resizes to be read
             string valueRequiringBufferExpand = new string('0', 128);
-            using (CsvReader reader = new CsvReader(StreamFromString($"One,Two,Three\r\nSecond,Row\r\n{valueRequiringBufferExpand}"), bufferSize))
+            using (var reader = new CsvReader(StreamFromString($"One,Two,Three\r\nSecond,Row\r\n{valueRequiringBufferExpand}"), bufferSize))
             {
                 Assert.True(reader.NextRow());
                 Assert.Equal("One|Two|Three", string.Join("|", reader.Current()));
@@ -81,7 +81,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             }
 
             // '\r' exactly at buffer boundary, requiring refill to track the unread '\n' to ignore
-            using (CsvReader reader = new CsvReader(StreamFromString($"{new string('0', 63)}\r\nNextRow\r\n"), bufferSize))
+            using (var reader = new CsvReader(StreamFromString($"{new string('0', 63)}\r\nNextRow\r\n"), bufferSize))
             {
                 Assert.True(reader.NextRow());
                 Assert.Equal(new string('0', 63), string.Join("|", reader.Current()));
@@ -91,7 +91,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             }
 
             // Quoted value variations - quoted empty, quotes at start/end, quote in middle, unquoted after quoted, adjacent escaped quotes
-            using (CsvReader reader = new CsvReader(StreamFromString("\"\",\"\"\"Around\"\"\",\"With\"\"in\",None,\"Many\"\"\"\"\"\nNextRow"), bufferSize))
+            using (var reader = new CsvReader(StreamFromString("\"\",\"\"\"Around\"\"\",\"With\"\"in\",None,\"Many\"\"\"\"\"\nNextRow"), bufferSize))
             {
                 Assert.True(reader.NextRow());
                 Assert.Equal("|\"Around\"|With\"in|None|Many\"\"", string.Join("|", reader.Current()));
@@ -101,7 +101,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             }
 
             // Exception for unescaped quote not at cell end
-            using (CsvReader reader = new CsvReader(StreamFromString("\"Unescaped\"Quote,"), bufferSize))
+            using (var reader = new CsvReader(StreamFromString("\"Unescaped\"Quote,"), bufferSize))
             {
                 Assert.Throws<IOException>(() => reader.NextRow());
             }
@@ -135,7 +135,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
         private int ParseFile(string filePath)
         {
-            using (CsvReader reader = new CsvReader(filePath))
+            using (var reader = new CsvReader(filePath))
             {
                 while (reader.NextRow())
                 { }

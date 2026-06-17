@@ -17,8 +17,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 {
     public abstract class SarifValidationSkimmerBase : Skimmer<SarifValidationContext>
     {
-        // OASIS defines this URI to always point to the latest revision (draft or approved) of the specified version
-        // of the SARIF specification.
+        // OASIS defines this URI to point to the latest revision of the specified SARIF version.
         private static readonly string SarifSpecUri =
             $"http://docs.oasis-open.org/sarif/sarif/v{VersionConstants.StableSarifVersion}/sarif-v{VersionConstants.StableSarifVersion}.html";
 
@@ -28,13 +27,25 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 
         public override MultiformatMessageString Help => null;
 
-        protected SarifValidationContext Context { get; private set; }
+        // Thread-static so that each worker thread in the multithreaded analysis
+        // pipeline gets its own context reference, preventing races when the same
+        // skimmer instance is invoked concurrently on different targets.
+        [ThreadStatic]
+        private static SarifValidationContext s_context;
+
+        protected SarifValidationContext Context
+        {
+            get => s_context;
+            private set => s_context = value;
+        }
 
         protected override sealed ResourceManager ResourceManager => RuleResources.ResourceManager;
 
-        private readonly string[] _emptyMessageResourceNames = Array.Empty<string>();
+        private readonly List<string> _emptyMessageResourceNames = new List<string>();
 
-        protected override IEnumerable<string> MessageResourceNames => _emptyMessageResourceNames;
+        protected override ICollection<string> MessageResourceNames => _emptyMessageResourceNames;
+
+        protected virtual string ServiceName { get; }
 
         public override sealed void Analyze(SarifValidationContext context)
         {
@@ -45,22 +56,38 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             Visit(Context.InputLog, logPointer: string.Empty);
         }
 
-        protected void LogResult(string jPointer, string formatId, params string[] args)
+        protected Result GetResult(string jPointer, string formatId, params string[] args)
         {
             Region region = GetRegionFromJPointer(jPointer);
 
-            // All messages start with "{jPointer}: ...". Prepend the jPointer to the args.
-            string[] argsWithPointer = new string[args.Length + 1];
-            Array.Copy(args, 0, argsWithPointer, 1, args.Length);
+            int diff = 1 + (string.IsNullOrWhiteSpace(this.ServiceName) ? 0 : 1);
+
+            string[] argsWithPointer = new string[args.Length + diff];
+            Array.Copy(args, 0, argsWithPointer, diff, args.Length);
             argsWithPointer[0] = JsonPointerToJavaScript(jPointer);
 
-            Context.Logger.Log(this,
-                RuleUtilities.BuildResult(
-                    DefaultConfiguration.Level,
-                    Context,
-                    region,
-                    formatId,
-                    argsWithPointer));
+            if (diff == 2)
+            {
+                argsWithPointer[1] = this.ServiceName;
+            }
+
+            return RuleUtilities.BuildResult(
+                DefaultConfiguration.Level,
+                Context,
+                region,
+                formatId,
+                argsWithPointer);
+        }
+
+        protected void LogResult(string jPointer, string formatId, params string[] args)
+        {
+            Result result = this.GetResult(jPointer, formatId, args);
+            Context.Logger.Log(this, result);
+        }
+
+        protected void LogResult(Result result)
+        {
+            Context.Logger.Log(this, result);
         }
 
         protected virtual void Analyze(Address address, string addressPointer)
@@ -86,6 +113,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         protected virtual void Analyze(CodeFlow codeFlow, string codeFlowPointer)
         {
         }
+
         protected virtual void Analyze(ConfigurationOverride configurationOverride, string configurationOverridePointer)
         {
         }
@@ -113,6 +141,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         protected virtual void Analyze(Invocation invocation, string invocationPointer)
         {
         }
+
+        protected virtual void Analyze(Location Location, string locationPointer)
+        {
+        }
+
         protected virtual void Analyze(LogicalLocation logicalLocation, string logicalLocationPointer)
         {
         }
@@ -260,6 +293,35 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             bool subjectToWellKnownClrBug = (uriString.StartsWith("file:/", StringComparison.OrdinalIgnoreCase) && Uri.TryCreate(uriString, uriKind, out Uri result));
 
             return isWellFormed || subjectToWellKnownClrBug;
+        }
+
+        /// <summary>
+        /// Run property whose non-empty value declares AI-origin SARIF. Style-class validation
+        /// rules may suppress human-authoring guidance when this marker is set; correctness-class
+        /// rules (snippets, hashes, provenance, relative URIs, etc.) must not.
+        /// </summary>
+        protected const string AIOriginPropertyName = "ai/origin";
+
+        /// <summary>
+        /// Returns true when <paramref name="run"/> declares AI provenance via a non-empty
+        /// <c>ai/origin</c> run property.
+        /// </summary>
+        /// <exception cref="ArgumentNullException"><paramref name="run"/> is null.</exception>
+        internal static bool IsAIOriginRun(Run run)
+        {
+            if (run == null) { throw new ArgumentNullException(nameof(run)); }
+
+            return run.TryGetProperty(AIOriginPropertyName, out string aiOrigin)
+                && !string.IsNullOrWhiteSpace(aiOrigin);
+        }
+
+        /// <summary>
+        /// Reports whether the run currently being visited declares AI provenance.
+        /// </summary>
+        protected bool IsAIOriginRun()
+        {
+            Run run = Context?.CurrentRun;
+            return run != null && IsAIOriginRun(run);
         }
 
         private static readonly string s_javaScriptIdentifierPattern = @"^[$_\p{L}][$_\p{L}0-9]*$";
@@ -1240,7 +1302,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 
         private Region GetRegionFromJPointer(string jPointer)
         {
-            JsonPointer jsonPointer = new JsonPointer(jPointer);
+            var jsonPointer = new JsonPointer(jPointer);
             JToken jToken = jsonPointer.Evaluate(Context.InputLogToken);
             IJsonLineInfo lineInfo = jToken;
 

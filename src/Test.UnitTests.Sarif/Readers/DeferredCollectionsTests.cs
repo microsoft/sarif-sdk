@@ -66,12 +66,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
         private static void CompareReadNormalToReadDeferredWithStreams(string filePath)
         {
             LogModelSampleBuilder.EnsureSamplesBuilt();
-            JsonSerializer serializer = new JsonSerializer();
+            var serializer = new JsonSerializer();
 
             Log expected;
             Log actual;
             // Read normally (JsonSerializer -> JsonTextReader -> StreamReader)
-            using (JsonTextReader reader = new JsonTextReader(new StreamReader(filePath)))
+            using (var reader = new JsonTextReader(new StreamReader(filePath)))
             {
                 expected = serializer.Deserialize<Log>(reader);
                 Assert.IsType<Dictionary<string, CodeContext>>(expected.CodeContexts);
@@ -82,7 +82,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
             serializer.ContractResolver = new LogModelDeferredContractResolver();
             Stream contents = File.OpenRead(filePath);
 
-            using (JsonPositionedTextReader reader = JsonPositionedTextReader.FromStream(contents))
+            using (var reader = JsonPositionedTextReader.FromStream(contents))
             {
                 actual = serializer.Deserialize<Log>(reader);
                 Assert.IsType<DeferredDictionary<CodeContext>>(actual.CodeContexts);
@@ -98,7 +98,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
             AssertEqual(expected, actual);
 
             // DeferredList Code Coverage - CopyTo()
-            LogMessage[] messages = new LogMessage[actual.Messages.Count + 1];
+            var messages = new LogMessage[actual.Messages.Count + 1];
             actual.Messages.CopyTo(messages, 1);
             if (actual.Messages.Count > 0) { Assert.Equal<LogMessage>(actual.Messages[0], messages[1]); }
 
@@ -125,12 +125,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
             }
 
             // CopyTo
-            KeyValuePair<string, CodeContext>[] contexts = new KeyValuePair<string, CodeContext>[actual.CodeContexts.Count + 1];
+            var contexts = new KeyValuePair<string, CodeContext>[actual.CodeContexts.Count + 1];
             actual.CodeContexts.CopyTo(contexts, 1);
             if (actual.CodeContexts.Count > 0) { Assert.Equal(actual.CodeContexts.First(), contexts[1]); }
 
             // Enumeration
-            Dictionary<string, CodeContext> contextsCopy = new Dictionary<string, CodeContext>();
+            var contextsCopy = new Dictionary<string, CodeContext>();
             foreach (KeyValuePair<string, CodeContext> pair in actual.CodeContexts)
             {
                 contextsCopy[pair.Key] = pair.Value;

@@ -3,7 +3,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
 
 using FluentAssertions;
 
@@ -484,12 +483,110 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 }
             };
 
-            RunMergingVisitor currentVisitor = new RunMergingVisitor();
+            var currentVisitor = new RunMergingVisitor();
             currentVisitor.Visit(baselineRun);
 
             currentVisitor.CurrentRun = currentRun;
             Action action = () => currentVisitor.VisitResult(baselineRun.Results[0]);
             action.Should().Throw<InvalidOperationException>("Expect VisitResult method throw InvalidOperationException when RunMergingVisitor.CurrentRun is null");
+        }
+
+        [Fact]
+        public void RunMergingVisitor_AggregatesInvocationsAndRebasesInvocationIndex()
+        {
+            Run runA = CreateRunWithInvocations("Test Tool", new[] { "a0", "a1" }, new[] { 0, 1 });
+            Run runB = CreateRunWithInvocations("Test Tool", new[] { "b0" }, new[] { 0 });
+
+            Run mergedRun = MergeViaVisitor(runA, runB);
+
+            // No dedupe: every contributing run's invocations are concatenated.
+            mergedRun.Invocations.Count.Should().Be(3);
+            mergedRun.Invocations[0].CommandLine.Should().Be("a0");
+            mergedRun.Invocations[1].CommandLine.Should().Be("a1");
+            mergedRun.Invocations[2].CommandLine.Should().Be("b0");
+
+            // Every result's invocationIndex resolves to the invocation its source run referenced.
+            mergedRun.Results.Count.Should().Be(3);
+            mergedRun.Results[0].Provenance.InvocationIndex.Should().Be(0);
+            mergedRun.Results[1].Provenance.InvocationIndex.Should().Be(1);
+            mergedRun.Results[2].Provenance.InvocationIndex.Should().Be(2);
+
+            foreach (Result result in mergedRun.Results)
+            {
+                mergedRun.Invocations[result.Provenance.InvocationIndex].Should().NotBeNull();
+            }
+        }
+
+        [Fact]
+        public void RunMergingVisitor_AggregatesInvocationEvenWhenNoResultReferencesIt()
+        {
+            // The lone result carries the default invocationIndex (-1), yet "aggregate all"
+            // means the source run's invocation is still carried into the merged run.
+            Run run = CreateRunWithInvocations("Test Tool", new[] { "a0" }, new[] { -1 });
+
+            Run mergedRun = MergeViaVisitor(run);
+
+            mergedRun.Invocations.Count.Should().Be(1);
+            mergedRun.Invocations[0].CommandLine.Should().Be("a0");
+
+            // A -1 index is "no associated invocation" and must survive the rebase untouched.
+            mergedRun.Results[0].Provenance.InvocationIndex.Should().Be(-1);
+        }
+
+        [Fact]
+        public void RunMergingVisitor_LeavesInvocationsNullWhenNoneProvided()
+        {
+            Run runA = CreateRunWithInvocations("Test Tool", Array.Empty<string>(), new[] { -1 });
+            Run runB = CreateRunWithInvocations("Test Tool", Array.Empty<string>(), new[] { -1 });
+
+            Run mergedRun = MergeViaVisitor(runA, runB);
+
+            mergedRun.Invocations.Should().BeNull();
+        }
+
+        private static Run MergeViaVisitor(params Run[] runs)
+        {
+            var visitor = new RunMergingVisitor();
+
+            foreach (Run run in runs)
+            {
+                visitor.VisitRun(run.DeepClone());
+            }
+
+            var mergedRun = new Run { Tool = runs[0].Tool.DeepClone() };
+            visitor.PopulateWithMerged(mergedRun);
+            return mergedRun;
+        }
+
+        private static Run CreateRunWithInvocations(string toolName, string[] commandLines, int[] resultInvocationIndices)
+        {
+            List<Invocation> invocations = null;
+            if (commandLines.Length > 0)
+            {
+                invocations = new List<Invocation>();
+                foreach (string commandLine in commandLines)
+                {
+                    invocations.Add(new Invocation { CommandLine = commandLine });
+                }
+            }
+
+            var results = new List<Result>();
+            foreach (int invocationIndex in resultInvocationIndices)
+            {
+                results.Add(new Result
+                {
+                    RuleId = "TEST0001",
+                    Message = new Message { Text = "Test result." },
+                    Provenance = new ResultProvenance { InvocationIndex = invocationIndex }
+                });
+            }
+
+            return new Run
+            {
+                Tool = new Tool { Driver = new ToolComponent { Name = toolName } },
+                Invocations = invocations,
+                Results = results
+            };
         }
     }
 }

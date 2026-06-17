@@ -143,7 +143,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 throw reader.CreateException(ConverterResources.AndroidStudioNotProblemElement);
             }
 
-            Builder b = new Builder();
+            var b = new Builder();
             if (!reader.IsEmptyElement)
             {
                 int problemDepth = reader.Depth;

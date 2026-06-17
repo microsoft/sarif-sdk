@@ -26,7 +26,7 @@ Accept-Language: en, mi
 
 ";
 
-            WebRequest webRequest = WebRequest.Parse(RequestString);
+            var webRequest = WebRequest.Parse(RequestString);
 
             webRequest.Method.Should().Be("GET");
             webRequest.Target.Should().Be("/hello.txt");
@@ -44,17 +44,17 @@ Accept-Language: en, mi
         public void WebRequest_Parse_ExtractsBody()
         {
             // Example from RFC 7230.
-            const string RequestString =
-@"GET /hello.txt HTTP/1.1
-User-Agent: curl/7.16.3 libcurl/7.16.3 OpenSSL/0.9.7l zlib/1.2.3
-Host: www.example.com
-Accept-Language: en, mi
+            string RequestString = string.Join(Environment.NewLine,
+                "GET /hello.txt HTTP/1.1",
+                "User-Agent: curl/7.16.3 libcurl/7.16.3 OpenSSL/0.9.7l zlib/1.2.3",
+                "Host: www.example.com",
+                "Accept-Language: en, mi",
+                "",
+                "This is the body.",
+                "Line 2.",
+                "");
 
-This is the body.
-Line 2.
-";
-
-            WebRequest webRequest = WebRequest.Parse(RequestString);
+            var webRequest = WebRequest.Parse(RequestString);
 
             webRequest.Method.Should().Be("GET");
             webRequest.Target.Should().Be("/hello.txt");
@@ -78,7 +78,7 @@ User-Agent: my-agent
 
 ";
 
-            WebRequest webRequest = WebRequest.Parse(RequestString);
+            var webRequest = WebRequest.Parse(RequestString);
 
             webRequest.Method.Should().Be("GET");
             webRequest.Target.Should().Be("/hello.txt?verbose=true&debug=false");
@@ -104,7 +104,7 @@ User-Agent: my-agent
 
 ";
 
-            WebRequest webRequest = WebRequest.Parse(RequestString);
+            var webRequest = WebRequest.Parse(RequestString);
 
             webRequest.Method.Should().Be("GET");
             webRequest.Target.Should().Be("/hello.txt?this-query-is-a-parameter-without-value");

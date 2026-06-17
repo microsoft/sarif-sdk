@@ -1,7 +1,6 @@
 ﻿// Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 
@@ -32,7 +31,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         /// </summary>
         public override MultiformatMessageString FullDescription => new MultiformatMessageString { Text = RuleResources.SARIF2014_ProvideDynamicMessageContent_FullDescription_Text };
 
-        protected override IEnumerable<string> MessageResourceNames => new string[] {
+        protected override ICollection<string> MessageResourceNames => new List<string> {
             nameof(RuleResources.SARIF2014_ProvideDynamicMessageContent_Note_Default_Text)
         };
 
@@ -82,6 +81,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 
             if (!s_dynamicContentRegex.IsMatch(messageString))
             {
+                if (IsAIOriginRun())
+                {
+                    // AI rule descriptors carry per-result message.text rather than
+                    // {N}-templated messageStrings, so this descriptor's static text
+                    // is a fallback / display string, not a parameterizable template.
+                    // The "include dynamic content" guidance is human-authoring
+                    // advice that doesn't apply.
+                    return;
+                }
+
                 // {0}: In rule '{1}', the message with id '{2}' does not include any dynamic content.
                 // Dynamic content makes your messages more specific and avoids the "wall of bugs"
                 // phenomenon, where hundreds of occurrences of the same message appear unapproachable.

@@ -29,7 +29,7 @@ $Frameworks.Library = @("netstandard2.0") + $Frameworks.NetFx
 $Frameworks.ApplicationNetFx = @("net462")
 
 # Frameworks for which we build applications.
-$Frameworks.Application = @("netcoreapp3.1") + $Frameworks.ApplicationNetFx
+$Frameworks.Application = @("net8.0") + $Frameworks.ApplicationNetFx
 
 $Frameworks.All = ($Frameworks.Library + $Frameworks.Application | Select -Unique)
 

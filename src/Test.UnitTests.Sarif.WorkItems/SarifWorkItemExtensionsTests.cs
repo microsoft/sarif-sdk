@@ -69,10 +69,10 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
             string expectedTemplate = "[aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa:Warning]: TestRuleId: Test Rule (in al...)";
             string expected = $":Warning]: TestRuleId: Test Rule (in al" + new string('a', maxLength - expectedTemplate.Length) + "...)";
 
-            Result result = new Result();
-            ArtifactLocation artifactLocation = new ArtifactLocation(new Uri("al" + new string('a', 1024), UriKind.Relative), string.Empty, 0, new Message(), new Dictionary<string, SerializedPropertyInfo>());
-            PhysicalLocation physicalLocation = new PhysicalLocation(new Address(), artifactLocation, new Region(), new Region(), new Dictionary<string, SerializedPropertyInfo>());
-            Location location = new Location(0, physicalLocation, null, null, null, null, null);
+            var result = new Result();
+            var artifactLocation = new ArtifactLocation(new Uri("al" + new string('a', 1024), UriKind.Relative), string.Empty, 0, new Message(), new Dictionary<string, SerializedPropertyInfo>());
+            var physicalLocation = new PhysicalLocation(new Address(), artifactLocation, new Region(), new Region(), new Dictionary<string, SerializedPropertyInfo>());
+            var location = new Location(0, physicalLocation, null, null, null, null, null);
             result.Locations = new List<Location>();
             result.Locations.Add(location);
             result.RuleId = ruleId;
@@ -89,9 +89,9 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
         [Fact]
         public void SarifWorkItemExtensions_CreateWorkItemTitle_LongTitleFromLogicalLocation()
         {
-            Result result = new Result();
-            LogicalLocation logicaLocation = new LogicalLocation(null, 0, string.Empty, null, 0, null, null);
-            Location location = new Location(0, null, new[] { logicaLocation }, null, null, null, null);
+            var result = new Result();
+            var logicaLocation = new LogicalLocation(null, 0, string.Empty, null, 0, null, null);
+            var location = new Location(0, null, new[] { logicaLocation }, null, null, null, null);
             result.Locations = new List<Location>();
             result.Locations.Add(location);
             result.RuleId = "TestRuleId";
@@ -173,7 +173,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItems
         [Fact]
         public void SarifWorkItemExtensions_PhraseToolNames_ConstructPhraseCorrectly()
         {
-            StringBuilder sb = new StringBuilder();
+            var sb = new StringBuilder();
 
             foreach (PhraseToolNamesTestCase testCase in s_phraseToolNamesTestCases)
             {

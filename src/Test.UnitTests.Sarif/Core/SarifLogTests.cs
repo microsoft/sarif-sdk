@@ -6,11 +6,11 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net.Http;
-using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
 using FluentAssertions;
+using FluentAssertions.Execution;
 
 using Moq;
 
@@ -149,7 +149,13 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests.Core
         public void SarifLog_SplitPerTarget_WithEmptyLocations()
         {
             Random random = RandomSarifLogGenerator.GenerateRandomAndLog(this.output);
-            SarifLog sarifLog = RandomSarifLogGenerator.GenerateSarifLogWithRuns(random, 1);
+            SarifLog sarifLog = null;
+
+            while (true)
+            {
+                sarifLog = RandomSarifLogGenerator.GenerateSarifLogWithRuns(random, 1);
+                if (sarifLog.Runs[0].Results.Count > 0) { break; }
+            }
 
             // set random result's location to empty
             IList<Result> results = sarifLog.Runs.First().Results;
@@ -210,21 +216,21 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests.Core
             {
                 await SarifLog.Post(postUri: null,
                                     new MemoryStream(),
-                                    new HttpClient());
+                                    new HttpClientWrapper());
             });
 
             await Assert.ThrowsAsync<ArgumentNullException>(async () =>
             {
                 await SarifLog.Post(new Uri("https://github.com/microsoft/sarif-sdk"),
                                     null,
-                                    new HttpClient());
+                                    new HttpClientWrapper());
             });
 
             await Assert.ThrowsAsync<ArgumentNullException>(async () =>
             {
                 await SarifLog.Post(new Uri("https://github.com/microsoft/sarif-sdk"),
                                     new MemoryStream(),
-                                    null);
+                                    (HttpClientWrapper)null);
             });
         }
 
@@ -239,7 +245,7 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests.Core
                 await SarifLog.Post(postUri: null,
                                     filePath,
                                     fileSystem.Object,
-                                    httpClient: null);
+                                    httpClient: (HttpClientWrapper)null);
             });
 
             filePath = "SomeFile.txt";
@@ -252,8 +258,86 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests.Core
                 await SarifLog.Post(postUri: null,
                                     filePath,
                                     fileSystem.Object,
-                                    httpClient: null);
+                                    httpClient: (HttpClientWrapper)null);
             });
+        }
+
+        [Fact]
+        public async Task SarifLog_PostFile_PostTests()
+        {
+            using var assertionScope = new AssertionScope();
+
+            var postUri = new Uri("https://sarif-post/example.com");
+            var httpMock = new HttpMockHelper();
+            string filePath = "SomeFile.sarif";
+            var fileSystem = new Mock<IFileSystem>();
+            fileSystem
+                .Setup(f => f.FileExists(It.IsAny<string>()))
+                .Returns(true);
+
+            // This method creates a bare-bones SARIF file with no results and notifications.
+            var stream = (MemoryStream)CreateSarifLogStream();
+            fileSystem
+                .Setup(f => f.FileReadAllBytes(It.IsAny<string>()))
+                .Returns(stream.ToArray());
+            (bool, string) logPosted = await SarifLog.Post(postUri,
+                                                           filePath,
+                                                           fileSystem.Object,
+                                                           httpClient: (HttpClientWrapper)null);
+            logPosted.Item1.Should().BeFalse("with no results or notifications");
+            logPosted.Item2.Should().Contain("was skipped");
+
+            string content = $"{Guid.NewGuid()}";
+            var httpContent = new StringContent(content, Encoding.UTF8, "text/plain");
+
+            stream = (MemoryStream)CreateSarifLogStreamWithResult();
+            fileSystem
+                .Setup(f => f.FileReadAllBytes(It.IsAny<string>()))
+                .Returns(stream.ToArray());
+            httpMock.Mock(HttpMockHelper.CreateOKResponse(httpContent));
+            logPosted = await SarifLog.Post(postUri,
+                                            filePath,
+                                            fileSystem.Object,
+                                            httpClient: new HttpClientWrapper(httpMock));
+            logPosted.Item1.Should().BeTrue("with results");
+            logPosted.Item2.Should().Contain("status code 'OK'");
+            logPosted.Item2.Should().Contain(content);
+
+            stream = (MemoryStream)CreateSarifLogStreamWithToolExecutionNotifications(FailureLevel.Error);
+            fileSystem
+                .Setup(f => f.FileReadAllBytes(It.IsAny<string>()))
+                .Returns(stream.ToArray());
+            httpMock.Mock(HttpMockHelper.CreateOKResponse(httpContent));
+            logPosted = await SarifLog.Post(postUri,
+                                            filePath,
+                                            fileSystem.Object,
+                                            httpClient: new HttpClientWrapper(httpMock));
+            logPosted.Item1.Should().BeTrue("with error level ToolExecutionNotifications");
+            logPosted.Item2.Should().Contain("status code 'OK'");
+            logPosted.Item2.Should().Contain(content);
+
+            stream = (MemoryStream)CreateSarifLogStreamWithToolExecutionNotifications(FailureLevel.Warning);
+            fileSystem
+                .Setup(f => f.FileReadAllBytes(It.IsAny<string>()))
+                .Returns(stream.ToArray());
+            logPosted = await SarifLog.Post(postUri,
+                                            filePath,
+                                            fileSystem.Object,
+                                            httpClient: new HttpClientWrapper(httpMock));
+            logPosted.Item1.Should().BeFalse("with warning level ToolExecutionNotifications");
+            logPosted.Item2.Should().Contain("was skipped");
+
+            stream = (MemoryStream)CreateSarifLogStreamWithToolExecutionNotifications(FailureLevel.Error);
+            fileSystem
+                .Setup(f => f.FileReadAllBytes(It.IsAny<string>()))
+                .Returns(stream.ToArray());
+            httpMock.Mock(HttpMockHelper.CreateBadRequestResponse());
+            logPosted = await SarifLog.Post(postUri,
+                                            filePath,
+                                            fileSystem.Object,
+                                            httpClient: new HttpClientWrapper(httpMock));
+            logPosted.Item1.Should().BeFalse("a status code of 'BadRequest' should fail the call even though we posted error-level 'ToolExcecutionNotifications'");
+            logPosted.Item2.Should().Contain("status code 'BadRequest'");
         }
 
         [Fact]
@@ -270,7 +354,6 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests.Core
 
             newSarifLog.Should().BeEquivalentTo(sarifLog);
         }
-
 
         [Fact]
         public void SarifLog_SaveToStreamWriterRoundtrips()
@@ -296,76 +379,121 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests.Core
         }
 
         [Fact]
-        public async Task SarifLog_Post_WithValidParameters_ShouldNotThrownAnExceptionWhenRequestIsValid()
+        public async Task SarifLog_Post_BadRequestResponse()
         {
-            var postUri = new Uri("https://github.com/microsoft/sarif-sdk");
-            var sarifLog = new SarifLog();
+            var postUri = new Uri("https://sarif-post/example.com");
             var httpMock = new HttpMockHelper();
-            var memoryStream = new MemoryStream();
-            sarifLog.Save(memoryStream);
-            memoryStream.Seek(0, SeekOrigin.Begin);
-            httpMock.Mock(
-                new HttpRequestMessage(HttpMethod.Post, postUri) { Content = new StreamContent(memoryStream) },
-                HttpMockHelper.BadRequestResponse);
 
-            memoryStream.Seek(0, SeekOrigin.Begin);
-            await Assert.ThrowsAsync<HttpRequestException>(async () =>
-            {
+            httpMock.Mock(HttpMockHelper.CreateBadRequestResponse());
+
+            HttpResponseMessage response =
                 await SarifLog.Post(postUri,
-                                    memoryStream,
-                                    new HttpClient(httpMock));
+                    CreateSarifLogStream(),
+                    new HttpClientWrapper(httpMock));
+
+            Assert.Throws<HttpRequestException>(() =>
+            {
+                response.EnsureSuccessStatusCode();
             });
-            httpMock.Clear();
+        }
 
-            memoryStream = new MemoryStream();
-            sarifLog.Save(memoryStream);
-            memoryStream.Seek(0, SeekOrigin.Begin);
-            httpMock.Mock(
-                new HttpRequestMessage(HttpMethod.Post, postUri) { Content = new StreamContent(memoryStream) },
-                HttpMockHelper.OKResponse);
+        [Fact]
+        public async Task SarifLog_Post_OkRequestResponseFromStream()
+        {
+            var postUri = new Uri("https://sarif-post/example.com");
+            var httpMock = new HttpMockHelper();
 
-            memoryStream.Seek(0, SeekOrigin.Begin);
+            httpMock.Mock(HttpMockHelper.CreateOKResponse());
+
             try
             {
                 await SarifLog.Post(postUri,
-                                    memoryStream,
-                                    new HttpClient(httpMock));
+                                    CreateSarifLogStream(),
+                                    new HttpClientWrapper(httpMock));
             }
             catch (Exception ex)
             {
-                Assert.True(false, "Expected no exception, but got: " + ex.Message);
+                Assert.True(false, $"Unhandled exception: {ex}");
             }
-            httpMock.Clear();
+        }
+
+        [Fact]
+        public async Task SarifLog_Post_OkRequestResponseFromFilePath()
+        {
+            var postUri = new Uri("https://sarif-post/example.com");
+            var httpMock = new HttpMockHelper();
 
             string filePath = "SomeFile.txt";
             var fileSystem = new Mock<IFileSystem>();
-            memoryStream = new MemoryStream();
-            sarifLog.Save(memoryStream);
-
             fileSystem
                 .Setup(f => f.FileExists(It.IsAny<string>()))
                 .Returns(true);
 
             fileSystem
                 .Setup(f => f.FileOpenRead(It.IsAny<string>()))
-                .Returns(memoryStream);
+                .Returns(CreateSarifLogStream());
 
-            httpMock.Mock(
-                new HttpRequestMessage(HttpMethod.Post, postUri) { Content = new StreamContent(memoryStream) },
-                HttpMockHelper.OKResponse);
+            httpMock.Mock(HttpMockHelper.CreateOKResponse());
 
             try
             {
                 await SarifLog.Post(postUri,
                                     filePath,
                                     fileSystem.Object,
-                                    new HttpClient(httpMock));
+                                    new HttpClientWrapper(httpMock));
             }
             catch (Exception ex)
             {
-                Assert.True(false, "Expected no exception, but got: " + ex.Message);
+                Assert.True(false, $"Unhandled exception: {ex}");
             }
             httpMock.Clear();
+        }
+
+        private Stream CreateSarifLogStream()
+        {
+            var memoryStream = new MemoryStream();
+            new SarifLog().Save(memoryStream);
+            memoryStream.Position = 0;
+            return memoryStream;
+        }
+
+        private Stream CreateSarifLogStreamWithResult()
+        {
+            var memoryStream = new MemoryStream();
+            var sarifLog = new SarifLog();
+            var result = new Result() { Message = new Message() { Text = "A sample result message." } };
+            var run = new Run();
+            run.Results = new Result[] { result };
+            sarifLog.Runs = new Run[] { run };
+            sarifLog.Save(memoryStream);
+            memoryStream.Position = 0;
+            return memoryStream;
+        }
+
+        private Stream CreateSarifLogStreamWithToolConfigurationNotifications(FailureLevel level)
+        {
+            var memoryStream = new MemoryStream();
+            var sarifLog = new SarifLog();
+            var run = new Run();
+            run.Invocations = new Invocation[] { new Invocation()
+            { ToolConfigurationNotifications = new Notification[] { new Notification() { Level = level } } } };
+            sarifLog.Runs = new Run[] { run };
+            sarifLog.Save(memoryStream);
+            memoryStream.Position = 0;
+            return memoryStream;
+        }
+
+        private Stream CreateSarifLogStreamWithToolExecutionNotifications(FailureLevel level)
+        {
+            var memoryStream = new MemoryStream();
+            var sarifLog = new SarifLog();
+            var run = new Run();
+            run.Invocations = new Invocation[] { new Invocation()
+            { ToolExecutionNotifications = new Notification[] { new Notification() { Level = level } } } };
+            sarifLog.Runs = new Run[] { run };
+            sarifLog.Save(memoryStream);
+            memoryStream.Position = 0;
+            return memoryStream;
         }
 
         private Run SerializeAndDeserialize(Run run)

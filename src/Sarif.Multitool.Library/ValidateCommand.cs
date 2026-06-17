@@ -14,7 +14,9 @@ using Newtonsoft.Json;
 
 namespace Microsoft.CodeAnalysis.Sarif.Multitool
 {
-    public class ValidateCommand : AnalyzeCommandBase<SarifValidationContext, ValidateOptions>
+#pragma warning disable CS0618
+    public class ValidateCommand : MultithreadedAnalyzeCommandBase<SarifValidationContext, ValidateOptions>
+#pragma warning restore CS0618
     {
         private List<Assembly> _defaultPlugInAssemblies;
 
@@ -38,23 +40,18 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             }
         }
 
-        protected override SarifValidationContext CreateContext(
-            ValidateOptions options,
-            IAnalysisLogger logger,
-            RuntimeConditions runtimeErrors,
-            PropertiesDictionary policy = null,
-            string filePath = null)
+        protected override SarifValidationContext CreateScanTargetContext(SarifValidationContext globalContext)
         {
-            SarifValidationContext context = base.CreateContext(options, logger, runtimeErrors, policy, filePath);
-            context.SchemaFilePath = options.SchemaFilePath;
-            context.UpdateInputsToCurrentSarif = options.UpdateInputsToCurrentSarif;
-            return context;
+            SarifValidationContext scanTargetContext = base.CreateScanTargetContext(globalContext);
+
+            scanTargetContext.SchemaFilePath = globalContext.SchemaFilePath;
+            scanTargetContext.UpdateInputsToCurrentSarif = globalContext.UpdateInputsToCurrentSarif;
+            return scanTargetContext;
         }
 
-        protected override void AnalyzeTarget(
-            IEnumerable<Skimmer<SarifValidationContext>> skimmers,
-            SarifValidationContext context,
-            ISet<string> disabledSkimmers)
+        protected override void AnalyzeTarget(SarifValidationContext context,
+                                              IEnumerable<Skimmer<SarifValidationContext>> skimmers,
+                                              ISet<string> disabledSkimmers)
         {
             // The base class knows how to invoke the skimmers that implement smart validation,
             // but it doesn't know how to invoke schema validation, which has its own set of rules,
@@ -62,7 +59,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             //
             // Validate will return an empty file if there are any JSON syntax errors. 
             // In that case there's no point in going on.
-            string sarifText = Validate(context.TargetUri.LocalPath, context.SchemaFilePath, context.Logger, context.UpdateInputsToCurrentSarif);
+            string sarifText =
+                Validate(context.CurrentTarget.Uri.GetFilePath(),
+                         context.SchemaFilePath,
+                         context.Logger,
+                         context.FileSystem,
+                         context.UpdateInputsToCurrentSarif);
 
             if (!string.IsNullOrEmpty(sarifText))
             {
@@ -72,7 +74,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 if (context.InputLog != null)
                 {
                     // Everything's ready, so run all the skimmers.
-                    base.AnalyzeTarget(skimmers, context, disabledSkimmers);
+                    base.AnalyzeTarget(context, skimmers, disabledSkimmers);
                 }
             }
         }
@@ -97,13 +99,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             string instanceFilePath,
             string schemaFilePath,
             IAnalysisLogger logger,
+            IFileSystem fileSystem,
             bool updateToCurrentSarifVersion = true)
         {
             string instanceText = null;
 
             try
             {
-                instanceText = FileSystem.FileReadAllText(instanceFilePath);
+                instanceText = fileSystem.FileReadAllText(instanceFilePath);
 
                 if (updateToCurrentSarifVersion)
                 {

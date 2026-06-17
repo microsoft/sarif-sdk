@@ -1,5 +1,5 @@
 {
-  "$schema": "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0-rtm.6.json",
+  "$schema": "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0.json",
   "version": "2.1.0",
   "runs": [
     {
@@ -119,6 +119,32 @@
                 },
                 "region": {
                   "startLine": 43,
+                  "startColumn": 9
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "SARIF1012",
+          "ruleIndex": 0,
+          "level": "error",
+          "message": {
+            "id": "Error_MessageIdMustExist",
+            "arguments": [
+              "runs[0].results[3]",
+              "AnyId",
+              "NoSuchRule"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 53,
                   "startColumn": 9
                 }
               }
