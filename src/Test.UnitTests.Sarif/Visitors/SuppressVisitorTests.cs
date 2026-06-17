@@ -468,7 +468,7 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests.Visitors
 
                 if (guids != null)
                 {
-                    suppression.Should().Match(b => (guids.Contains(result.Guid?.ToString(), StringComparer.OrdinalIgnoreCase)));
+                    suppression.Should().Match(b => (result.Guid.HasValue && guids.Contains(result.Guid.Value.ToString(), StringComparer.OrdinalIgnoreCase)));
                 }
             }
         }

@@ -7,8 +7,6 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 
-using Kusto.Cloud.Platform.Utils;
-
 using Microsoft.CodeAnalysis.Sarif.Driver;
 using Microsoft.CodeAnalysis.Sarif.Query;
 using Microsoft.CodeAnalysis.Sarif.Query.Evaluators;
@@ -133,7 +131,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
             // Remove any Runs with no remaining matches
             log.Runs = log.Runs.Where(r => (r?.Results?.Count ?? 0) > 0).ToList();
-            var guids = log.Runs.SelectMany(x => x.Results.Select(y => y.Guid)).ToList();
+            var guids = log.Runs.SelectMany(x => x.Results.Select(y => y.Guid)).Where(g => g.HasValue).Select(g => g.Value.ToString()).ToList();
 
             return guids;
         }

@@ -223,7 +223,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                             new Result
                             {
                                 RuleId = "Test0001",
-                                Guid = "GUID",
+                                Guid = Guid.Parse("11111111-1111-1111-1111-111111111111"),
                                 BaselineState = BaselineState.New
                             }
                         }

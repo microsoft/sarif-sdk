@@ -87,7 +87,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
             if (this.resultsGuids != null)
             {
-                if (this.resultsGuids.Contains(node.Guid, StringComparer.OrdinalIgnoreCase))
+                if (this.resultsGuids.Contains(node.Guid?.ToString(), StringComparer.OrdinalIgnoreCase))
                 {
                     node.Suppressions.Add(suppression);
                 }
