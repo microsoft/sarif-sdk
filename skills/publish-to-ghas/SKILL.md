@@ -61,8 +61,8 @@ This is the security-critical part of the skill. Follow it exactly.
   bearer token. Less scope yields HTTP 403.
 - **GitHub hosts only.** The target must resolve to `github.com` or a `<slug>.ghe.com` data-residency
   host from `versionControlProvenance`; the API host is `api.github.com` or `api.<slug>.ghe.com`
-  respectively. A `dev.azure.com` (GHAzDO) target, a legacy host, SSH, and credential-bearing
-  repository URLs are rejected.
+  respectively. A `dev.azure.com` (GHAzDO) target, a legacy host, and credential-bearing repository
+  URLs are rejected. A GitHub SSH/scp clone URL is normalized to its https identity.
 
 ## Prerequisites
 

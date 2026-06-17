@@ -211,6 +211,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 return false;
             }
 
+            if (!versionControl.Branch.StartsWith("refs/", StringComparison.Ordinal))
+            {
+                error = "the SARIF run's versionControlProvenance[0].branch is not a fully-qualified ref; GitHub code scanning requires refs/heads/<branch> (or refs/tags/..., refs/pull/...). Re-finalize with a fully-qualified ref before publishing.";
+                return false;
+            }
+
             repositoryUri = versionControl.RepositoryUri;
             commitSha = versionControl.RevisionId;
             gitRef = versionControl.Branch;

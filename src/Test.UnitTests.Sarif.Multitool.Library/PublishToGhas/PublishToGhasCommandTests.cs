@@ -69,6 +69,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             handler.Authorizations[0].Scheme.Should().Be("Bearer");
             handler.Authorizations[0].Parameter.Should().Be(PatToken);
             handler.ContentTypes[0].Should().Be("application/json");
+            handler.ApiVersions[0].Should().Be("2022-11-28", "GitHub requires the X-GitHub-Api-Version header.");
+            handler.Accepts[0].Should().Be("application/vnd.github+json");
+            handler.UserAgents[0].Should().Be("Sarif.Multitool", "GitHub rejects a request with no User-Agent.");
 
             JObject body = JObject.Parse(handler.Bodies[0]);
             body.Value<string>("commit_sha").Should().Be(CommitSha);
@@ -103,6 +106,21 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             handler.Authorizations[0].Scheme.Should().Be("Bearer");
             handler.Authorizations[0].Parameter.Should().Be(JwtToken);
             stdout.Should().NotContain(JwtToken);
+        }
+
+        [Fact]
+        public void Publish_GitHubSshCloneUrl_NormalizedToHttpsApiTarget()
+        {
+            // A GitHub ssh clone URL is normalized to its https identity; the API host must come from
+            // that normalized host, not a raw-host derivation.
+            string sarifPath = WriteSarif(new Uri("ssh://git@github.com/myowner/myrepo"));
+            var handler = new RecordingHandler(HttpStatusCode.Accepted);
+
+            (int exit, string _, string _2) = InvokeWithSecret(handler, sarifPath, PatToken);
+
+            exit.Should().Be(CommandBase.SUCCESS);
+            handler.Urls[0].Host.Should().Be("api.github.com");
+            handler.Urls[0].AbsolutePath.Should().Be("/repos/myowner/myrepo/code-scanning/sarifs");
         }
 
         // ----- fail-closed paths -----
@@ -173,6 +191,21 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         }
 
         [Fact]
+        public void Publish_BranchIsNotFullyQualifiedRef_FailsClosedWithoutNetwork()
+        {
+            // A bare branch name ("main") is not a ref GitHub accepts; catch it offline rather than at
+            // upload time, matching the verb's fail-closed posture.
+            string sarifPath = WriteSarif(new Uri("https://github.com/myowner/myrepo"), revisionId: CommitSha, branch: "main");
+            var handler = new RecordingHandler(HttpStatusCode.Accepted);
+
+            (int exit, string _, string stderr) = InvokeWithSecret(handler, sarifPath, PatToken);
+
+            exit.Should().Be(CommandBase.FAILURE);
+            handler.Requests.Should().BeEmpty();
+            stderr.Should().Contain("ref");
+        }
+
+        [Fact]
         public void Publish_TokenEnvironmentVariableUnset_FailsClosedWithoutNetwork()
         {
             string sarifPath = WriteSarif(new Uri("https://github.com/myowner/myrepo"));
@@ -191,10 +224,38 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 exit.Should().Be(CommandBase.FAILURE);
                 handler.Requests.Should().BeEmpty();
                 stderr.Should().Contain("token-env-var");
+                stderr.Should().NotContain(envVar, "the variable name is not echoed back, so a token mistakenly passed as the name cannot leak.");
             }
             finally
             {
                 Environment.SetEnvironmentVariable(envVar, prior);
+            }
+        }
+
+        [Fact]
+        public void Publish_TokenEnvVarNamedAfterAValidIdentifierToken_DoesNotEchoItWhenUnset()
+        {
+            // A ghp_-prefixed PAT is a syntactically valid environment-variable name, so it passes the
+            // name check; the "unset" diagnostic must still never echo it.
+            string sarifPath = WriteSarif(new Uri("https://github.com/myowner/myrepo"));
+            var handler = new RecordingHandler(HttpStatusCode.Accepted);
+
+            string prior = Environment.GetEnvironmentVariable(PatToken);
+            try
+            {
+                Environment.SetEnvironmentVariable(PatToken, null);
+
+                (int exit, string _, string stderr) = Invoke(
+                    new PublishToGhasCommand(handler),
+                    NewOptions(sarifPath, PatToken));
+
+                exit.Should().Be(CommandBase.FAILURE);
+                handler.Requests.Should().BeEmpty();
+                stderr.Should().NotContain(PatToken, "the variable name is never echoed, so a token mistakenly passed as the name cannot leak.");
+            }
+            finally
+            {
+                Environment.SetEnvironmentVariable(PatToken, prior);
             }
         }
 
@@ -459,6 +520,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
             public List<string> ContentTypes { get; } = new List<string>();
 
+            public List<string> ApiVersions { get; } = new List<string>();
+
+            public List<string> Accepts { get; } = new List<string>();
+
+            public List<string> UserAgents { get; } = new List<string>();
+
             public List<string> Bodies { get; } = new List<string>();
 
             public string ResponseBody { get; set; } = "{}";
@@ -469,6 +536,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 Urls.Add(request.RequestUri);
                 Authorizations.Add(request.Headers.Authorization);
                 ContentTypes.Add(request.Content?.Headers.ContentType?.MediaType);
+                ApiVersions.Add(request.Headers.TryGetValues("X-GitHub-Api-Version", out IEnumerable<string> versions) ? string.Join(",", versions) : null);
+                Accepts.Add(request.Headers.Accept.Count > 0 ? request.Headers.Accept.ToString() : null);
+                UserAgents.Add(request.Headers.UserAgent.Count > 0 ? request.Headers.UserAgent.ToString() : null);
                 Bodies.Add(request.Content == null ? null : await request.Content.ReadAsStringAsync());
 
                 HttpStatusCode status = _statuses.Count > 0 ? _statuses.Dequeue() : HttpStatusCode.Accepted;

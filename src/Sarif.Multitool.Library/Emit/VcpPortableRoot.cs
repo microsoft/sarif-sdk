@@ -149,7 +149,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
             owner = classification.Owner;
             repository = classification.RepoForUrl;
-            apiHost = GitHubApiHost(rawRepositoryUri.Host);
+
+            // Derive the API host from the *normalized* host (TryClassify rewrites an SSH/scp clone
+            // URL to https), not the raw URI host — an scp-style URL has no Uri.Host and would yield
+            // a broken "api." host.
+            apiHost = GitHubApiHost(new Uri(classification.SchemeAndServer).Host);
             return true;
         }
 
