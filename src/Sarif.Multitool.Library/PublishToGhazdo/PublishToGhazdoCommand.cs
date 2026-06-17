@@ -65,6 +65,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
                 SarifLog log = ReadSarifFile<SarifLog>(fileSystem, options.SarifPath);
 
+                if (IsMarkedUnpublishable(log))
+                {
+                    Console.Error.WriteLine("error: this SARIF was finalized with emit-finalize --no-repo (no version-control provenance) and is marked unpublishable. A non-version-controlled scan cannot be uploaded to GitHub Advanced Security for Azure DevOps, which anchors every alert to a repository and commit. Finalize with versionControlProvenance present (without --no-repo) to publish.");
+                    return FAILURE;
+                }
+
                 if (!TryGetRepositoryUri(log, out Uri repositoryUri, out string vcpError))
                 {
                     Console.Error.WriteLine(string.Format(CultureInfo.CurrentCulture, "error: {0}", vcpError));
@@ -106,6 +112,23 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 Console.Error.WriteLine(string.Format(CultureInfo.CurrentCulture, "error: {0}", Redact(ex.Message, secretForRedaction)));
                 return FAILURE;
             }
+        }
+
+        private static bool IsMarkedUnpublishable(SarifLog log)
+        {
+            if (log?.Runs == null) { return false; }
+
+            foreach (Run run in log.Runs)
+            {
+                if (run != null
+                    && run.TryGetProperty(EmitFinalizeCommand.UnpublishablePropertyName, out bool unpublishable)
+                    && unpublishable)
+                {
+                    return true;
+                }
+            }
+
+            return false;
         }
 
         private int Upload(PublishToGhazdoOptions options, string organization, string project, string repository, byte[] gzipBytes, AuthenticationHeaderValue authorization, string secret)

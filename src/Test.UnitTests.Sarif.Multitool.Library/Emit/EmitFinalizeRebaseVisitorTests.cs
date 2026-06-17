@@ -74,6 +74,103 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             return visitor;
         }
 
+        private static EmitFinalizeRebaseVisitor VisitRepoless(Run run)
+        {
+            var visitor = new EmitFinalizeRebaseVisitor(repoless: true);
+            visitor.VisitRun(run);
+            return visitor;
+        }
+
+        [Fact]
+        public void Repoless_RelativeLocationUnderBase_ElidesLocalRootAndKeepsBaseSymbol()
+        {
+            var run = new Run
+            {
+                OriginalUriBaseIds = Bases(("SRCROOT", "file:///d:/scan/root/")),
+                Results = new[] { ResultAt("src/Foo.cs", "SRCROOT") },
+            };
+
+            EmitFinalizeRebaseVisitor visitor = VisitRepoless(run);
+
+            visitor.Success.Should().BeTrue();
+            ArtifactLocation location = FirstLocation(run);
+            location.Uri.OriginalString.Should().Be("src/Foo.cs");
+            location.UriBaseId.Should().Be("SRCROOT");
+            run.OriginalUriBaseIds.Should().ContainKey("SRCROOT");
+            run.OriginalUriBaseIds["SRCROOT"].Uri.Should().BeNull("the transient local root is elided, not rewritten");
+        }
+
+        [Fact]
+        public void Repoless_AbsoluteFileLocation_FailsAsLeak()
+        {
+            var run = new Run
+            {
+                OriginalUriBaseIds = Bases(("SRCROOT", "file:///d:/scan/root/")),
+                Results = new[] { ResultAt("file:///d:/scan/root/src/Foo.cs") },
+            };
+
+            EmitFinalizeRebaseVisitor visitor = VisitRepoless(run);
+
+            visitor.Success.Should().BeFalse("an absolute local path cannot be made portable without a repository root");
+        }
+
+        [Fact]
+        public void Repoless_RootedRelativeLocation_FailsAsLeak()
+        {
+            var run = new Run
+            {
+                Results = new[] { ResultAt("/etc/passwd") },
+            };
+
+            EmitFinalizeRebaseVisitor visitor = VisitRepoless(run);
+
+            visitor.Success.Should().BeFalse();
+        }
+
+        [Fact]
+        public void Repoless_VersionControlProvenancePresent_FailsAsConflict()
+        {
+            var run = new Run
+            {
+                VersionControlProvenance = new[] { Vcd("https://github.com/microsoft/sarif-sdk", "SRCROOT") },
+                OriginalUriBaseIds = Bases(("SRCROOT", "file:///d:/src/sarif-sdk/")),
+                Results = new[] { ResultAt("src/Foo.cs", "SRCROOT") },
+            };
+
+            EmitFinalizeRebaseVisitor visitor = VisitRepoless(run);
+
+            visitor.Success.Should().BeFalse();
+            visitor.Errors.Should().Contain(e => e.Contains("--no-repo was specified"));
+        }
+
+        [Fact]
+        public void Repoless_PortableHttpsLocation_ShippedUntouched()
+        {
+            var run = new Run
+            {
+                OriginalUriBaseIds = Bases(("SRCROOT", "file:///d:/scan/root/")),
+                Results = new[] { ResultAt("https://example.com/x.cs") },
+            };
+
+            EmitFinalizeRebaseVisitor visitor = VisitRepoless(run);
+
+            visitor.Success.Should().BeTrue();
+            FirstLocation(run).Uri.OriginalString.Should().Be("https://example.com/x.cs");
+        }
+
+        [Fact]
+        public void Repoless_BareRelativeLocationNoBase_Succeeds()
+        {
+            var run = new Run
+            {
+                Results = new[] { ResultAt("findings/x.cs") },
+            };
+
+            EmitFinalizeRebaseVisitor visitor = VisitRepoless(run);
+
+            visitor.Success.Should().BeTrue();
+        }
+
         [Fact]
         public void SingleRepo_AbsoluteFileLocation_BecomesRelativeUnderSrcRoot()
         {

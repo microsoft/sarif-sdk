@@ -179,6 +179,8 @@ What this does:
 
 If `--validate` reports errors, the produced file is on disk but did not meet the profile. Treat this as a generation defect: fix the offending result or notification, regenerate, and re-finalize.
 
+**Repo-less scans (no version control).** A scan of content that is not under version control — a local working copy with no remote, an unpacked container image, a downloaded package or tarball — has no `repositoryUri` to anchor to, so the run carries no `versionControlProvenance` and step 4 has no portable root to rewrite to. Pass `--no-repo` to `emit-finalize` in that case: it enriches descriptors and reads snippets exactly as above, then **elides** the transient local `originalUriBaseIds` root (dropping its `uri` rather than rewriting it) so no machine-specific path ships, and marks every run `properties.unpublishable = true`. That marker states the findings are outside version control; because every current code-scanning alert store anchors alerts to a repository and commit, an unpublishable run **cannot be published** (`publish-to-ghazdo` refuses it up front). Without `--no-repo`, a run lacking `versionControlProvenance` fails finalize by design.
+
 ## Validation
 
 This skill's contract is satisfied when:

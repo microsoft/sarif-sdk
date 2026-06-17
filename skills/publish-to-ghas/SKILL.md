@@ -111,6 +111,15 @@ they match the repository you intend to publish to.
 
 ```powershell
 $log = Get-Content "{{SARIF_FILE}}" -Raw | ConvertFrom-Json
+
+# Refuse a repo-less (unpublishable) log up front, mirroring publish-to-ghazdo's coded refusal.
+# Publishing is atomic at the file level (GHAS ingests every run), so refuse if ANY run is marked:
+# a run finalized with `emit-finalize --no-repo` is outside version control and has no
+# repository/commit to anchor alerts to.
+if ($log.runs | Where-Object { $_.properties.unpublishable -eq $true }) {
+    throw "A SARIF run is marked properties.unpublishable=true (finalized with 'emit-finalize --no-repo', a scan outside version control). GHAS code scanning anchors alerts to a repository and commit and ingests the whole file, so this log cannot be published while any run is unpublishable. Publish a log whose runs were all finalized against a checked-out repository (without --no-repo)."
+}
+
 $vcp = $log.runs[0].versionControlProvenance[0]
 $uri = [Uri]$vcp.repositoryUri
 if ($uri.Host -notmatch '(^|\.)github\.com$|\.ghe\.com$') {
@@ -156,16 +165,20 @@ A non-`complete` status with `errors` means GitHub rejected the analysis; the bo
 
 1. **No provenance** — The run carries no `versionControlProvenance[0].repositoryUri`. Finalize the
    SARIF (`emit-finalize`) before publishing.
-2. **Non-GitHub target** — The repository is `dev.azure.com` or a legacy host. Out of scope; use
+2. **Unpublishable (repo-less) log** — Any run carries `properties.unpublishable = true`, stamped by
+   `emit-finalize --no-repo` for a scan outside version control. Publishing ingests the whole file, so
+   the upload is refused while any run is unpublishable; re-scan against a checked-out repository and
+   finalize without `--no-repo`, or split a merged log so only publishable runs remain.
+3. **Non-GitHub target** — The repository is `dev.azure.com` or a legacy host. Out of scope; use
    `publish-to-ghazdo`.
-3. **`ref` is not `refs/heads/...`** — The upload needs a fully-qualified ref. Re-finalize with the
+4. **`ref` is not `refs/heads/...`** — The upload needs a fully-qualified ref. Re-finalize with the
    correct branch; a bare branch name is rejected.
-4. **`commit_sha` not in the repo** — GitHub rejects an analysis whose commit it cannot find. Publish
+5. **`commit_sha` not in the repo** — GitHub rejects an analysis whose commit it cannot find. Publish
    against a SARIF finalized at a commit that has been pushed.
-5. **HTTP 403** — The token lacks `security_events` (or `repo` for a private repo), or GHAS / code
+6. **HTTP 403** — The token lacks `security_events` (or `repo` for a private repo), or GHAS / code
    scanning is not enabled on the repository.
-6. **HTTP 404** — `owner/repo` does not resolve, or the token cannot see it.
-7. **No security severity on alerts** — The alerts appear but without critical/high/medium/low. The
+7. **HTTP 404** — `owner/repo` does not resolve, or the token cannot see it.
+8. **No security severity on alerts** — The alerts appear but without critical/high/medium/low. The
    rules are missing the `security` tag; re-finalize so `emit-finalize` stamps it (Step 2 catches
    this offline).
 
