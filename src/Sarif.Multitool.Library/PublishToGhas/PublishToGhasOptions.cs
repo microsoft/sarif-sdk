@@ -24,7 +24,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         [Option(
             "token-env-var",
             HelpText = "Name of the environment variable holding the GitHub bearer token (a classic or fine-grained PAT with security_events write). The token is never accepted on the command line.",
-            Default = "GH_TOKEN")]
+            Default = "GHAS_TOKEN")]
         public string TokenEnvironmentVariable { get; set; }
 
         [Option(

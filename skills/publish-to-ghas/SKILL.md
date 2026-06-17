@@ -53,7 +53,8 @@ These tags are emitted only for GitHub-hosted runs; an Azure DevOps-hosted SARIF
 This is the security-critical part of the skill. Follow it exactly.
 
 - **The token never appears on the command line.** Place the token in an environment variable and name
-  that variable with `--token-env-var` (default `GH_TOKEN`). The verb reads the value from the
+  that variable with `--token-env-var` (default `GHAS_TOKEN`, paralleling `publish-to-ghazdo`'s
+  `GHAZDO_TOKEN`). The verb reads the value from the
   environment; it is never an argument, and it is never printed — not in dry-run output, not in error
   messages, and it is redacted from any server response body or exception text.
 - **Always sent as `Authorization: Bearer`.** A classic or fine-grained GitHub personal access token
@@ -80,7 +81,7 @@ This is the security-critical part of the skill. Follow it exactly.
 | Parameter | Required | Description |
 |---|---|---|
 | `{{SARIF_FILE}}` | Yes | Path to the finalized `.sarif` file to upload |
-| `{{TOKEN_ENV_VAR}}` | No | Name of the environment variable holding the token. Default `GH_TOKEN` |
+| `{{TOKEN_ENV_VAR}}` | No | Name of the environment variable holding the token. Default `GHAS_TOKEN` |
 
 ### Step 1 — Set the token in the environment
 
@@ -89,12 +90,12 @@ history. Use your platform's mechanism for assigning a value without echoing it.
 
 ```powershell
 # PowerShell — paste the token when prompted; it is not echoed to history.
-$env:GH_TOKEN = (Read-Host -AsSecureString | ForEach-Object { [System.Net.NetworkCredential]::new('', $_).Password })
+$env:GHAS_TOKEN = (Read-Host -AsSecureString | ForEach-Object { [System.Net.NetworkCredential]::new('', $_).Password })
 ```
 
 ```bash
 # bash — read without echo.
-read -rs GH_TOKEN && export GH_TOKEN
+read -rs GHAS_TOKEN && export GHAS_TOKEN
 ```
 
 ### Step 2 — Validate pre-flight (no network)
