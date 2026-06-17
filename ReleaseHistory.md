@@ -13,7 +13,9 @@ Each release entry below is prefixed with one of:
 
 Entries are terse by design: one line per change, present-tense behavior, complete but only essential data. No issue/PR archaeology or narrative — that history lives in the engineering system.
 
-## **v5.0.11** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/v5.0.11) | [Driver](https://www.nuget.org/packages/Sarif.Driver/v5.0.11) | [Converters](https://www.nuget.org/packages/Sarif.Converters/v5.0.11) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/v5.0.11) | [Multitool Library](https://www.nuget.org/packages/Sarif.Multitool.Library/v5.0.11)
+## **v5.1.0** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/v5.1.0) | [Driver](https://www.nuget.org/packages/Sarif.Driver/v5.1.0) | [Converters](https://www.nuget.org/packages/Sarif.Converters/v5.1.0) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/v5.1.0) | [Multitool Library](https://www.nuget.org/packages/Sarif.Multitool.Library/v5.1.0)
+* NEW: `RunEmitContext` runs the `add-*` emit pipeline in-process over a pluggable `IEmitSink` (`FileEmitSink`/`InMemoryEmitSink`): `AddResults`/`AddInvocations`/`AddRuleDescriptors`/`AddNotificationDescriptors` validate atomically and return an `EmitReport`, with no process spawn per call.
+* NEW: `SarifEmitSession` composes N `RunEmitContext` shards into one multi-run log; `Finalize` resolves the runs in parallel in memory, while `FinalizeToFile` streams them one run at a time into a single atomic file (`prettyPrint` selects indented or compact).
 * NEW: Add `NessusConverter` and `CisCatConverter` (`sarif convert --tool Nessus` / `--tool CisCat`), converting Tenable Nessus `.nessus` XML and CIS-CAT JSON assessment reports to SARIF.
 
 ## **v5.0.10** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/v5.0.10) | [Driver](https://www.nuget.org/packages/Sarif.Driver/v5.0.10) | [Converters](https://www.nuget.org/packages/Sarif.Converters/v5.0.10) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/v5.0.10) | [Multitool Library](https://www.nuget.org/packages/Sarif.Multitool.Library/v5.0.10)

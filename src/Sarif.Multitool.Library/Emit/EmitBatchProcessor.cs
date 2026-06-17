@@ -2,9 +2,7 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Globalization;
 using System.Linq;
 
 using Microsoft.CodeAnalysis.Sarif.Driver;
@@ -16,60 +14,26 @@ using Newtonsoft.Json.Linq;
 namespace Microsoft.CodeAnalysis.Sarif.Multitool
 {
     /// <summary>
-    /// Describes a single batch element the verb refused to append, identified by its
-    /// position in the submitted payload.
+    /// CLI shell for the polymorphic <c>add-*</c> emit verbs. Resolves the staged event log path,
+    /// reads the caller-supplied JSON (file or stdin), drives a <see cref="RunEmitContext"/> over a
+    /// <see cref="FileEmitSink"/>, and renders the resulting <see cref="EmitReport"/>. The verb's
+    /// value — element validation and all-or-none append semantics — lives in
+    /// <see cref="RunEmitContext"/>; this shell owns only process I/O and exit-code mapping.
     /// </summary>
-    internal sealed class BatchElementError
-    {
-        internal BatchElementError(int index, string message, string errorCode = null)
-        {
-            Index = index;
-            Message = message;
-            ErrorCode = errorCode;
-        }
-
-        /// <summary>The element's zero-based position in the submitted array (0 for a lone object).</summary>
-        internal int Index { get; }
-
-        /// <summary>An optional machine-readable code (e.g. <c>AI1012</c>) for the rejection.</summary>
-        internal string ErrorCode { get; }
-
-        /// <summary>A human/AI-consumable description of why the element was rejected.</summary>
-        internal string Message { get; }
-    }
-
-    /// <summary>
-    /// Validates a single batch element and may mutate it in place (e.g. stamping a default).
-    /// Returns <c>null</c> when the element is acceptable; otherwise the error describing the
-    /// rejection.
-    /// </summary>
-    /// <param name="element">The element to validate.</param>
-    /// <param name="index">The element's zero-based position in the submitted payload.</param>
-    /// <param name="batched">
-    /// <c>true</c> when the payload arrived as a JSON array (batch submission); <c>false</c> when
-    /// it arrived as a lone JSON object. A validator that defaults a field from receipt time uses
-    /// this to refuse the default under batch submission, where one write instant cannot stand in
-    /// for many elements assembled after the fact.
-    /// </param>
-    internal delegate BatchElementError ValidateBatchElement(JObject element, int index, bool batched);
-
-    /// <summary>
-    /// Shared orchestration for the polymorphic <c>add-*</c> emit verbs. Each verb accepts a single
-    /// JSON object or an array of objects, validates every element atomically, and appends all or
-    /// none: if any element is rejected the staged event log is left untouched. The outcome is
-    /// reported as a structured JSON document on stdout
+    /// <remarks>
+    /// A whole-payload rejection (<see cref="EmitReport.PayloadError"/>) is written to stderr; per-
+    /// element rejections are rendered as a structured JSON document on stdout
     /// (<c>{ "appended": N, "rejected": [ { "index": i, "errorCode": "...", "message": "..." } ] }</c>),
     /// so an AI orchestrator can correct the offending elements and retry idempotently.
-    /// </summary>
+    /// </remarks>
     internal static class EmitBatchProcessor
     {
         internal static int Run(
             string outputFilePath,
             string inputFilePath,
             string payloadKind,
-            string eventKind,
             IFileSystem fileSystem,
-            Func<string, ValidateBatchElement> buildValidator)
+            Func<RunEmitContext, JToken, EmitReport> apply)
         {
             fileSystem ??= Sarif.FileSystem.Instance;
 
@@ -81,83 +45,20 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 code = EmitEventLogHelpers.TryReadJsonToken(inputFilePath, payloadKind, fileSystem, out JToken token);
                 if (code != CommandBase.SUCCESS) { return code; }
 
-                var elements = new List<JObject>();
-                var errors = new List<BatchElementError>();
-                bool batched;
-
-                if (token.Type == JTokenType.Object)
+                EmitReport report;
+                using (var sink = new FileEmitSink(wipPath))
                 {
-                    batched = false;
-                    elements.Add((JObject)token);
+                    report = apply(new RunEmitContext(sink), token);
                 }
-                else if (token.Type == JTokenType.Array)
-                {
-                    batched = true;
-                    int i = 0;
-                    foreach (JToken item in (JArray)token)
-                    {
-                        if (item.Type == JTokenType.Object)
-                        {
-                            elements.Add((JObject)item);
-                        }
-                        else
-                        {
-                            // Keep the index aligned so the report cites the submitted position.
-                            elements.Add(null);
-                            errors.Add(new BatchElementError(
-                                i,
-                                string.Format(
-                                    CultureInfo.CurrentCulture,
-                                    "{0} batch element must be a JSON object, but element {1} was a JSON {2}.",
-                                    Capitalize(payloadKind),
-                                    i,
-                                    item.Type.ToString().ToLowerInvariant())));
-                        }
 
-                        i++;
-                    }
-                }
-                else
+                if (report.PayloadError != null)
                 {
-                    Console.Error.WriteLine(
-                        string.Format(
-                            CultureInfo.CurrentCulture,
-                            "{0} JSON must be a JSON object or an array of objects, but the parsed payload was a {1}.",
-                            Capitalize(payloadKind),
-                            token.Type.ToString().ToLowerInvariant()));
+                    Console.Error.WriteLine(report.PayloadError);
                     return CommandBase.FAILURE;
                 }
 
-                ValidateBatchElement validate = buildValidator(wipPath);
-
-                for (int index = 0; index < elements.Count; index++)
-                {
-                    JObject element = elements[index];
-                    if (element == null) { continue; } // already captured as a structural error
-
-                    BatchElementError error = validate(element, index, batched);
-                    if (error != null) { errors.Add(error); }
-                }
-
-                // Atomic: any rejection appends nothing, so a retry of the corrected payload never
-                // double-appends the elements that were already valid.
-                if (errors.Count > 0)
-                {
-                    WriteReport(appended: 0, errors);
-                    return CommandBase.FAILURE;
-                }
-
-                if (elements.Count > 0)
-                {
-                    using var writer = new SarifEventLogWriter(wipPath);
-                    foreach (JObject element in elements)
-                    {
-                        writer.Append(eventKind, element);
-                    }
-                }
-
-                WriteReport(elements.Count, errors);
-                return CommandBase.SUCCESS;
+                WriteReport(report);
+                return report.Rejected.Count > 0 ? CommandBase.FAILURE : CommandBase.SUCCESS;
             }
             catch (Exception ex) when (!Debugger.IsAttached)
             {
@@ -166,11 +67,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             }
         }
 
-        private static void WriteReport(int appended, List<BatchElementError> errors)
+        private static void WriteReport(EmitReport report)
         {
             var rejected = new JArray(
-                errors
-                    .OrderBy(e => e.Index)
+                report.Rejected
                     .Select(e =>
                     {
                         var entry = new JObject { ["index"] = e.Index };
@@ -180,19 +80,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                     })
                     .Cast<JToken>());
 
-            var report = new JObject
+            var document = new JObject
             {
-                ["appended"] = appended,
+                ["appended"] = report.Appended,
                 ["rejected"] = rejected,
             };
 
-            Console.Out.WriteLine(report.ToString(Formatting.Indented));
-        }
-
-        private static string Capitalize(string s)
-        {
-            if (string.IsNullOrEmpty(s)) { return s; }
-            return char.ToUpperInvariant(s[0]) + s.Substring(1);
+            Console.Out.WriteLine(document.ToString(Formatting.Indented));
         }
     }
 }
