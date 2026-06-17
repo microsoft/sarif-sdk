@@ -1,13 +1,13 @@
 ---
 name: publish-to-ghas
-description: Uploads a finalized SARIF file to GitHub Advanced Security (GHAS) code scanning via the GitHub code-scanning SARIF API, deriving the GitHub target from the run's version-control provenance.
+description: Uploads a finalized SARIF file to GitHub Advanced Security (GHAS) code scanning using the Sarif.Multitool publish-to-ghas verb, deriving the GitHub target, commit, and ref from the run's version-control provenance.
 metadata:
   author: sarif-sdk-maintainers
-  version: "1.0.0"
+  version: "2.0.0"
   category: sarif
   severity: medium
   packages:
-    - "Sarif.Multitool >= 5.0.7"
+    - "Sarif.Multitool >= 5.1.0"
   triggers:
     - "publish sarif"
     - "upload sarif"
@@ -23,14 +23,17 @@ metadata:
 
 GitHub Advanced Security (GHAS) ingests SARIF through the GitHub code-scanning SARIF API
 ([`POST /repos/{owner}/{repo}/code-scanning/sarifs`](https://docs.github.com/en/rest/code-scanning/code-scanning#upload-an-analysis-as-sarif-data)).
-Unlike GHAzDO, there is **no `Sarif.Multitool` verb** for this upload — the GitHub host accepts a
-gzipped, base64-encoded SARIF body directly. This skill drives that upload with the `gh` CLI so the
-SARIF you produced with [`emit-sarif`](../emit-sarif/SKILL.md) and the `emit-finalize` verb shows up
-as code-scanning alerts.
+The [`publish-to-ghas`](../../src/Sarif.Multitool.Library/PublishToGhas/PublishToGhasCommand.cs) verb
+uploads a finalized SARIF file to that endpoint: it derives the GitHub `owner/repo`, the `commit_sha`,
+and the `ref` from the run's version-control provenance, gzip-compresses and base64-encodes the body
+into the JSON payload, and posts it under a caller-supplied bearer token. The verb is the companion of
+[`publish-to-ghazdo`](../publish-to-ghazdo/SKILL.md) for Azure DevOps targets, and shares its
+log-level refusal of an unpublishable (`--no-repo`) log.
 
 Publish a SARIF only after it is **finalized** — its first run must carry a GitHub `repositoryUri`,
-`revisionId`, and branch under `versionControlProvenance`. The target `owner/repo`, the `commit_sha`,
-and the `ref` are read from that provenance, so an unfinalized file cannot be published.
+`revisionId`, and branch under `versionControlProvenance` (see [`emit-sarif`](../emit-sarif/SKILL.md)
+and the `emit-finalize` verb). The target `owner/repo`, the `commit_sha`, and the `ref` are read from
+that provenance, so an unfinalized file cannot be published.
 
 ### Why finalize matters for GHAS specifically
 
@@ -49,23 +52,27 @@ These tags are emitted only for GitHub-hosted runs; an Azure DevOps-hosted SARIF
 
 This is the security-critical part of the skill. Follow it exactly.
 
-- **The secret never appears on the command line.** Place the token in an environment variable
-  (`GH_TOKEN`, which `gh` reads automatically) and let `gh` consume it. It is never an argument and
-  never printed. If you are already authenticated via `gh auth login`, you do not need to set a token
-  at all — `gh` uses the keyring.
-- **`github.com` / `*.ghe.com` only.** The target must resolve to a GitHub host from
-  `versionControlProvenance`. A `dev.azure.com` (GHAzDO) target is out of scope for this skill.
-- **Token scope.** A fine-grained or classic token must carry **`security_events`** write
-  (`repo` also grants it for private repositories). Less scope yields HTTP 403.
+- **The token never appears on the command line.** Place the token in an environment variable and name
+  that variable with `--token-env-var` (default `GHAS_TOKEN`, paralleling `publish-to-ghazdo`'s
+  `GHAZDO_TOKEN`). The verb reads the value from the
+  environment; it is never an argument, and it is never printed — not in dry-run output, not in error
+  messages, and it is redacted from any server response body or exception text.
+- **Always sent as `Authorization: Bearer`.** A classic or fine-grained GitHub personal access token
+  carrying **`security_events`** write (`repo` also grants it for private repositories) is sent as a
+  bearer token. Less scope yields HTTP 403.
+- **GitHub hosts only.** The target must resolve to `github.com` or a `<slug>.ghe.com` data-residency
+  host from `versionControlProvenance`; the API host is `api.github.com` or `api.<slug>.ghe.com`
+  respectively. A `dev.azure.com` (GHAzDO) target, a legacy host, and credential-bearing repository
+  URLs are rejected. A GitHub SSH/scp clone URL is normalized to its https identity.
 
 ## Prerequisites
 
-- **`gh` CLI**, authenticated (`gh auth status`), or a `GH_TOKEN` env var with `security_events`.
-- **`Sarif.Multitool` ≥ 5.0.7** for the recommended validate pre-flight. Recommended invocation:
-  `dotnet dnx Sarif.Multitool --yes -- ...` (zero-install, .NET 10+), or a global
-  `dotnet tool install --global Sarif.Multitool` then `sarif ...`.
+- **`Sarif.Multitool` ≥ 5.1.0.** Recommended invocation: `dotnet dnx Sarif.Multitool --yes -- publish-to-ghas ...`
+  (zero-install, requires .NET 10+). Fall back to `dotnet tool install --global Sarif.Multitool`,
+  then invoke as `sarif publish-to-ghas ...`.
 - A **finalized** SARIF whose first run carries a GitHub `repositoryUri`, `revisionId`, and a
   `refs/heads/...` branch.
+- A GitHub personal access token with `security_events` write, stored in an environment variable.
 
 ## Detection
 
@@ -74,21 +81,21 @@ This is the security-critical part of the skill. Follow it exactly.
 | Parameter | Required | Description |
 |---|---|---|
 | `{{SARIF_FILE}}` | Yes | Path to the finalized `.sarif` file to upload |
-| `{{TOKEN_ENV_VAR}}` | No | Name of the environment variable holding the token. Default `GH_TOKEN` |
+| `{{TOKEN_ENV_VAR}}` | No | Name of the environment variable holding the token. Default `GHAS_TOKEN` |
 
-### Step 1 — Set the token in the environment (skip if `gh auth status` is green)
+### Step 1 — Set the token in the environment
 
 Set the variable in the current session only. Do not write the token to a file, a script, or shell
-history.
+history. Use your platform's mechanism for assigning a value without echoing it.
 
 ```powershell
 # PowerShell — paste the token when prompted; it is not echoed to history.
-$env:GH_TOKEN = (Read-Host -AsSecureString | ForEach-Object { [System.Net.NetworkCredential]::new('', $_).Password })
+$env:GHAS_TOKEN = (Read-Host -AsSecureString | ForEach-Object { [System.Net.NetworkCredential]::new('', $_).Password })
 ```
 
 ```bash
 # bash — read without echo.
-read -rs GH_TOKEN && export GH_TOKEN
+read -rs GHAS_TOKEN && export GHAS_TOKEN
 ```
 
 ### Step 2 — Validate pre-flight (no network)
@@ -104,31 +111,14 @@ Resolve any **error**-level findings before publishing. In particular, GHAS will
 security severity unless each AI rule carries the `security` tag — re-finalize (`emit-finalize`) the
 SARIF rather than hand-editing tags.
 
-### Step 3 — Resolve the target from provenance (no network)
+### Step 3 — Dry run (no network)
 
-The `owner/repo`, `commit_sha`, and `ref` come from the SARIF, not from you. Read them and confirm
-they match the repository you intend to publish to.
+Always dry-run first. This resolves the GitHub target, the `ref`, and the `commit_sha` from the
+SARIF's provenance and prints the request shape **without contacting the server and without printing
+the token**.
 
 ```powershell
-$log = Get-Content "{{SARIF_FILE}}" -Raw | ConvertFrom-Json
-
-# Refuse a repo-less (unpublishable) log up front, mirroring publish-to-ghazdo's coded refusal.
-# Publishing is atomic at the file level (GHAS ingests every run), so refuse if ANY run is marked:
-# a run finalized with `emit-finalize --no-repo` is outside version control and has no
-# repository/commit to anchor alerts to.
-if ($log.runs | Where-Object { $_.properties.unpublishable -eq $true }) {
-    throw "A SARIF run is marked properties.unpublishable=true (finalized with 'emit-finalize --no-repo', a scan outside version control). GHAS code scanning anchors alerts to a repository and commit and ingests the whole file, so this log cannot be published while any run is unpublishable. Publish a log whose runs were all finalized against a checked-out repository (without --no-repo)."
-}
-
-$vcp = $log.runs[0].versionControlProvenance[0]
-$uri = [Uri]$vcp.repositoryUri
-if ($uri.Host -notmatch '(^|\.)github\.com$|\.ghe\.com$') {
-    throw "repositoryUri host '$($uri.Host)' is not a GitHub host; use publish-to-ghazdo for dev.azure.com."
-}
-$ownerRepo = $uri.AbsolutePath.Trim('/') -replace '\.git$',''
-$commitSha = $vcp.revisionId
-$ref       = $vcp.branch          # expected shape: refs/heads/<branch>
-"$ownerRepo  $ref  $commitSha"
+dotnet dnx Sarif.Multitool --yes -- publish-to-ghas "{{SARIF_FILE}}" --dry-run
 ```
 
 Confirm the reported `owner/repo`, `ref`, and `commit_sha`. If the target is wrong, the SARIF was not
@@ -136,43 +126,42 @@ finalized against the intended GitHub repository — re-finalize it; do not hand
 
 ### Step 4 — Publish
 
-GitHub requires the SARIF body **gzipped then base64-encoded**. The `gh api` call below reads
-`GH_TOKEN` (or the `gh` keyring) for auth — the token is never on the command line.
-
 ```powershell
-$bytes = [System.IO.File]::ReadAllBytes((Resolve-Path "{{SARIF_FILE}}"))
-$ms = [System.IO.MemoryStream]::new()
-$gz = [System.IO.Compression.GZipStream]::new($ms, [System.IO.Compression.CompressionMode]::Compress)
-$gz.Write($bytes, 0, $bytes.Length); $gz.Dispose()
-$sarifB64 = [Convert]::ToBase64String($ms.ToArray())
-
-gh api "repos/$ownerRepo/code-scanning/sarifs" -X POST `
-  -f commit_sha="$commitSha" `
-  -f ref="$ref" `
-  -f sarif="$sarifB64"
+dotnet dnx Sarif.Multitool --yes -- publish-to-ghas "{{SARIF_FILE}}"
 ```
 
-A successful call returns `201` with an `{ "id": ..., "url": ... }` body — the URL is the analysis
-status endpoint. Poll it until `"processing_status": "complete"`:
+To name a different environment variable:
 
 ```powershell
-gh api "repos/$ownerRepo/code-scanning/sarifs/<id>"
+dotnet dnx Sarif.Multitool --yes -- publish-to-ghas "{{SARIF_FILE}}" --token-env-var "{{TOKEN_ENV_VAR}}"
 ```
 
-A non-`complete` status with `errors` means GitHub rejected the analysis; the body names the cause.
+The verb posts to `api.github.com` (or `api.<slug>.ghe.com`). Exit code `0` means the server accepted
+the upload (HTTP 2xx — GitHub answers `202 Accepted`); a non-zero exit code with `error: publish
+failed with HTTP <code>` means it did not. The verb prints the analysis response body (with the token
+redacted) — its `url` is the analysis status endpoint, which you can poll with `gh api` until
+`"processing_status": "complete"`.
+
+**If `dotnet dnx` is not available:** install the global tool and use the `sarif` command name:
+
+```powershell
+dotnet tool install --global Sarif.Multitool
+sarif publish-to-ghas "{{SARIF_FILE}}"
+```
 
 ## Edge Cases
 
-1. **No provenance** — The run carries no `versionControlProvenance[0].repositoryUri`. Finalize the
-   SARIF (`emit-finalize`) before publishing.
+1. **No provenance** — The run carries no `versionControlProvenance[0].repositoryUri`. The verb fails
+   closed. Finalize the SARIF (`emit-finalize`) before publishing.
 2. **Unpublishable (repo-less) log** — Any run carries `properties.unpublishable = true`, stamped by
-   `emit-finalize --no-repo` for a scan outside version control. Publishing ingests the whole file, so
-   the upload is refused while any run is unpublishable; re-scan against a checked-out repository and
-   finalize without `--no-repo`, or split a merged log so only publishable runs remain.
-3. **Non-GitHub target** — The repository is `dev.azure.com` or a legacy host. Out of scope; use
-   `publish-to-ghazdo`.
-4. **`ref` is not `refs/heads/...`** — The upload needs a fully-qualified ref. Re-finalize with the
-   correct branch; a bare branch name is rejected.
+   `emit-finalize --no-repo` for a scan outside version control. The verb refuses the whole file up
+   front (publishing ingests every run): a non-version-controlled scan has no repository or commit to
+   anchor alerts to. Publish a log whose runs were all finalized against a checked-out repository
+   (without `--no-repo`); split a merged log first if only some runs are unpublishable.
+3. **Non-GitHub target** — The repository is `dev.azure.com` or a legacy host. The verb rejects it;
+   use `publish-to-ghazdo`.
+4. **Missing `revisionId` or `branch`** — GHAS anchors an analysis to a commit and a fully-qualified
+   ref (`refs/heads/...`). The verb fails closed if either is absent; re-finalize with both present.
 5. **`commit_sha` not in the repo** — GitHub rejects an analysis whose commit it cannot find. Publish
    against a SARIF finalized at a commit that has been pushed.
 6. **HTTP 403** — The token lacks `security_events` (or `repo` for a private repo), or GHAS / code
@@ -187,16 +176,16 @@ A non-`complete` status with `errors` means GitHub rejected the analysis; the bo
 After running this skill:
 
 1. The token never appeared in any printed command, log line, or error message.
-2. The resolved `owner/repo` + `ref` + `commit_sha` matched the intended GitHub repository before the
-   upload.
-3. The upload returned `201` and the analysis reached `processing_status: complete`.
-4. The resulting alerts carry a security severity (critical/high/medium/low) — confirming the
+2. The GHAS-ruleset validation (`--rule-kind "Sarif;AI;Ghas"`) was clean before the live publish.
+3. The dry-run `owner/repo` + `ref` + `commit_sha` matched the intended GitHub repository.
+4. A successful publish returned exit code `0` and the analysis reached `processing_status: complete`.
+5. The resulting alerts carry a security severity (critical/high/medium/low) — confirming the
    `security` tag and `security-severity` survived finalize.
 
 ## Escalation
 
-- **`gh` not available / not authenticated** — Report the gap; the SARIF cannot be published from
-  this environment.
+- **Multitool not available** — Neither `dotnet dnx` nor a global install succeeded. Report the gap;
+  the SARIF cannot be published from this environment.
 - **Repeated 4xx / non-`complete` status** — After confirming target, ref, commit, and token scope,
-  capture the analysis `errors` body (it contains no secret) and escalate to the repository's
-  Advanced Security administrator.
+  capture the analysis `errors` body the verb prints (it contains no secret) and escalate to the
+  repository's Advanced Security administrator.
