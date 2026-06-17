@@ -104,9 +104,11 @@ For a step-by-step procedure that emits AI SARIF using these verbs, see
 [`skills/emit-sarif/SKILL.md`](../skills/emit-sarif/SKILL.md).
 
 ## Supported Converters
+
 Run ```Sarif.Multitool convert --help``` for the current list.
 
 - AndroidStudio
+- CisCat
 - ClangAnalyzer
 - ClangTidy
 - CppCheck
@@ -114,6 +116,7 @@ Run ```Sarif.Multitool convert --help``` for the current list.
 - Fortify
 - FortifyFpr
 - FxCop
+- Nessus
 - PREfast
 - Pylint
 - SemmleQL
