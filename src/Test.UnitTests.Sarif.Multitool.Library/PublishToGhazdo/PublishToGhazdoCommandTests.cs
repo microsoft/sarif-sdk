@@ -364,6 +364,23 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             }
         }
 
+        [Fact]
+        public void Publish_RefusesUnpublishableLog_BeforeAnyVcpOrTokenCheck()
+        {
+            var run = new Run { Results = new List<Result>() };
+            run.SetProperty(EmitFinalizeCommand.UnpublishablePropertyName, true);
+            var log = new SarifLog { Runs = new List<Run> { run } };
+            string sarifPath = Path.Combine(_dir, $"{Guid.NewGuid():N}.sarif");
+            CommandBase.WriteSarifFile(Sarif.FileSystem.Instance, log, sarifPath, Newtonsoft.Json.Formatting.Indented);
+
+            var handler = new ThrowingHandler();
+            (int exit, string _, string stderr) = InvokeWithSecret(handler, sarifPath, PatSecret);
+
+            exit.Should().Be(CommandBase.FAILURE);
+            stderr.Should().Contain("unpublishable");
+            stderr.Should().Contain("--no-repo");
+        }
+
         // ----- helpers -----
 
         private string WriteSarif(Uri repositoryUri)

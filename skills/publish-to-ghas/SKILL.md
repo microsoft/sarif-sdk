@@ -156,16 +156,20 @@ A non-`complete` status with `errors` means GitHub rejected the analysis; the bo
 
 1. **No provenance** — The run carries no `versionControlProvenance[0].repositoryUri`. Finalize the
    SARIF (`emit-finalize`) before publishing.
-2. **Non-GitHub target** — The repository is `dev.azure.com` or a legacy host. Out of scope; use
+2. **Unpublishable (repo-less) log** — The run carries `properties.unpublishable = true`, stamped by
+   `emit-finalize --no-repo` for a scan outside version control. Such a scan has no repository or
+   commit to anchor alerts to and cannot be published; re-scan against a checked-out repository and
+   finalize without `--no-repo` to publish.
+3. **Non-GitHub target** — The repository is `dev.azure.com` or a legacy host. Out of scope; use
    `publish-to-ghazdo`.
-3. **`ref` is not `refs/heads/...`** — The upload needs a fully-qualified ref. Re-finalize with the
+4. **`ref` is not `refs/heads/...`** — The upload needs a fully-qualified ref. Re-finalize with the
    correct branch; a bare branch name is rejected.
-4. **`commit_sha` not in the repo** — GitHub rejects an analysis whose commit it cannot find. Publish
+5. **`commit_sha` not in the repo** — GitHub rejects an analysis whose commit it cannot find. Publish
    against a SARIF finalized at a commit that has been pushed.
-5. **HTTP 403** — The token lacks `security_events` (or `repo` for a private repo), or GHAS / code
+6. **HTTP 403** — The token lacks `security_events` (or `repo` for a private repo), or GHAS / code
    scanning is not enabled on the repository.
-6. **HTTP 404** — `owner/repo` does not resolve, or the token cannot see it.
-7. **No security severity on alerts** — The alerts appear but without critical/high/medium/low. The
+7. **HTTP 404** — `owner/repo` does not resolve, or the token cannot see it.
+8. **No security severity on alerts** — The alerts appear but without critical/high/medium/low. The
    rules are missing the `security` tag; re-finalize so `emit-finalize` stamps it (Step 2 catches
    this offline).
 

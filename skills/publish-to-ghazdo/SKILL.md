@@ -140,15 +140,19 @@ sarif publish-to-ghazdo "{{SARIF_FILE}}"
 
 1. **No provenance** — The run carries no `versionControlProvenance[0].repositoryUri`. The verb fails
    closed. Finalize the SARIF (`emit-finalize`) before publishing.
-2. **Non-Azure-DevOps target** — The repository is GitHub or a legacy `visualstudio.com` host. The
+2. **Unpublishable (repo-less) log** — The run carries `properties.unpublishable = true`, stamped by
+   `emit-finalize --no-repo` for a scan outside version control. The verb refuses it up front: a
+   non-version-controlled scan has no repository or commit to anchor alerts to and cannot be
+   published. Re-scan against a checked-out repository and finalize without `--no-repo` to publish.
+3. **Non-Azure-DevOps target** — The repository is GitHub or a legacy `visualstudio.com` host. The
    verb rejects it; publish supports `dev.azure.com` only.
-3. **Secret unset** — The named environment variable is empty or missing. The verb fails closed
+4. **Secret unset** — The named environment variable is empty or missing. The verb fails closed
    before any network call. (Dry-run still prints the request shape and reports the scheme as
    undetermined.)
-4. **404 on both hosts** — The org/project/repo path does not resolve, or the repository is not
+5. **404 on both hosts** — The org/project/repo path does not resolve, or the repository is not
    onboarded to Advanced Security. Verify the target and PAT scope.
-5. **401/403** — The secret is invalid, expired, or lacks **Advanced Security (Read & Write)**.
-6. **HTTP 400 "invalid Sarif" (provenance gap)** — `run.automationDetails.id` is null/empty or the
+6. **401/403** — The secret is invalid, expired, or lacks **Advanced Security (Read & Write)**.
+7. **HTTP 400 "invalid Sarif" (provenance gap)** — `run.automationDetails.id` is null/empty or the
    `azuredevops/pipeline/build/*` properties are missing. This is detectable offline: the Step 3
    GHAzDO-ruleset validation reproduces it as `GHAzDO1014/1019/1020` so you never need the round-trip
    to find it. Re-emit with pipeline provenance (`emit-run` under `TF_BUILD=True`) and re-validate.

@@ -88,6 +88,9 @@ Sarif.Multitool add-results my.sarif --input results-batch.json
 
 : Finalize: replay the event log into a SARIF file, enrich, and validate
 Sarif.Multitool emit-finalize my.sarif --validate
+
+: Finalize a repo-less scan (no version control): elide the local root and mark the run unpublishable
+Sarif.Multitool emit-finalize my.sarif --no-repo --validate
 ```
 
 For a step-by-step procedure that emits AI SARIF using these verbs, see

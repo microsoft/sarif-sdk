@@ -24,6 +24,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
     /// </summary>
     public class EmitFinalizeCommand : CommandBase
     {
+        /// <summary>
+        /// Property name stamped on <c>run.properties</c> by <c>--no-repo</c> to record that a run
+        /// was finalized without version-control provenance and therefore cannot be uploaded to a
+        /// code-scanning alert store. Read by the publish verbs to refuse early.
+        /// </summary>
+        public const string UnpublishablePropertyName = "unpublishable";
+
         public int Run(EmitFinalizeOptions options, IFileSystem fileSystem = null)
         {
             fileSystem ??= Sarif.FileSystem.Instance;
@@ -145,7 +152,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 // host-independent permalinks and carries no machine-specific path.
                 if (log?.Runs != null)
                 {
-                    var rebaseVisitor = new EmitFinalizeRebaseVisitor();
+                    var rebaseVisitor = new EmitFinalizeRebaseVisitor(options.NoRepo);
                     foreach (Run run in log.Runs)
                     {
                         if (run != null) { rebaseVisitor.VisitRun(run); }
@@ -159,6 +166,17 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                         }
 
                         return FAILURE;
+                    }
+
+                    // A repo-less finalize produced a leak-free log with no portable repository
+                    // root; stamp each run so the publish verbs refuse it early rather than letting
+                    // the producer discover the rejection at upload time.
+                    if (options.NoRepo)
+                    {
+                        foreach (Run run in log.Runs)
+                        {
+                            if (run != null) { run.SetProperty(UnpublishablePropertyName, true); }
+                        }
                     }
                 }
 

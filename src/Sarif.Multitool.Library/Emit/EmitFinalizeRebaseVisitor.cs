@@ -36,6 +36,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         private readonly List<string> _errors = new List<string>();
         private readonly HashSet<string> _referencedBaseIds = new HashSet<string>(StringComparer.Ordinal);
         private readonly List<string> _leakUris = new List<string>();
+        private readonly bool _repoless;
+
+        public EmitFinalizeRebaseVisitor(bool repoless = false)
+        {
+            _repoless = repoless;
+        }
 
         private List<RepoRoot> _plan;
         private IDictionary<string, ArtifactLocation> _inputBases;
@@ -54,6 +60,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             _sourceToOutputBaseId = null;
             _referencedBaseIds.Clear();
             _leakUris.Clear();
+
+            if (_repoless)
+            {
+                return VisitRunRepoless(node);
+            }
 
             if (!TryBuildPlan(node, out _plan))
             {
@@ -84,6 +95,74 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             return rewritten;
         }
 
+        private Run VisitRunRepoless(Run node)
+        {
+            // --no-repo asserts the scan has no version control. A run that nonetheless declares
+            // versionControlProvenance is a contradictory signal; refuse rather than silently drop
+            // the provenance and ship a log that claims both.
+            IList<VersionControlDetails> vcp = node.VersionControlProvenance;
+            if (vcp != null && vcp.Count > 0)
+            {
+                _errors.Add("--no-repo was specified, but run.versionControlProvenance declares one or more repositories. Remove --no-repo to rebase artifact locations to portable, per-repository roots derived from versionControlProvenance, or remove the provenance to finalize as a repo-less scan.");
+                return node;
+            }
+
+            if (!TryValidateNoBaseCycles(node.OriginalUriBaseIds, out string cycleError))
+            {
+                _errors.Add(cycleError);
+                return node;
+            }
+
+            // Detach the base definitions so the rewriting pass visits only result/artifact
+            // locations, not the base entries themselves (which still carry their transient local
+            // file:// roots at this point). Locations are leak-checked but never rewritten — there
+            // is no portable root to rebase onto — then the local roots are elided from the bases.
+            IDictionary<string, ArtifactLocation> bases = node.OriginalUriBaseIds;
+            node.OriginalUriBaseIds = null;
+
+            Run rewritten = base.VisitRun(node);
+
+            rewritten.OriginalUriBaseIds = ElideLocalBases(bases);
+
+            VerifyNoLeak(rewritten);
+
+            return rewritten;
+        }
+
+        private ArtifactLocation VisitArtifactLocationRepoless(ArtifactLocation node)
+        {
+            if (!string.IsNullOrEmpty(node.UriBaseId)) { _referencedBaseIds.Add(node.UriBaseId); }
+
+            // A repo-less location must be expressed relative to a declared base. A rooted local
+            // path (absolute file://, or a rooted relative shape) cannot be made portable without a
+            // repository root, so it is a leak the final assertion rejects.
+            if (node.Uri != null && IsRootedLocalShape(node.Uri))
+            {
+                _leakUris.Add(node.Uri.OriginalString);
+            }
+
+            return node;
+        }
+
+        // Drop the transient local file:// root from each originalUriBaseIds entry, keeping the base
+        // symbol (and any description / parent chain) so locations remain &lt;BASE&gt;-relative and the
+        // finalized log carries no machine-specific path.
+        private static IDictionary<string, ArtifactLocation> ElideLocalBases(IDictionary<string, ArtifactLocation> bases)
+        {
+            if (bases == null) { return null; }
+
+            foreach (KeyValuePair<string, ArtifactLocation> kv in bases)
+            {
+                ArtifactLocation al = kv.Value;
+                if (al?.Uri != null && al.Uri.IsAbsoluteUri && al.Uri.Scheme == Uri.UriSchemeFile)
+                {
+                    al.Uri = null;
+                }
+            }
+
+            return bases;
+        }
+
         public override VersionControlDetails VisitVersionControlDetails(VersionControlDetails node)
         {
             // mappedTo records the local root, which the minted output base now represents; bind it
@@ -103,6 +182,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             if (node == null)
             {
                 return node;
+            }
+
+            if (_repoless)
+            {
+                return VisitArtifactLocationRepoless(node);
             }
 
             if (node.Uri == null)
@@ -165,7 +249,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             IList<VersionControlDetails> vcp = run.VersionControlProvenance;
             if (vcp == null || vcp.Count == 0)
             {
-                _errors.Add("emit-finalize requires run.versionControlProvenance to declare at least one repository, each carrying mappedTo, repositoryUri, and revisionId.");
+                _errors.Add("emit-finalize requires run.versionControlProvenance to declare at least one repository, each carrying mappedTo, repositoryUri, and revisionId. For a scan with no version control (a local working copy, an unpacked container image, or a downloaded package), pass --no-repo to finalize as a repo-less, unpublishable scan.");
                 return false;
             }
 

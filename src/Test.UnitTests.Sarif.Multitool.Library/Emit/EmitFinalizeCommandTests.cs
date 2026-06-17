@@ -97,6 +97,74 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 },
             };
 
+        // A repo-less scan: no versionControlProvenance, but a transient local SRCROOT base the
+        // producer injected so finalize can read source. --no-repo must finalize it.
+        private static Run RepoLessRunHeader()
+            => new Run
+            {
+                Tool = new Tool { Driver = new ToolComponent { Name = "demo" } },
+                OriginalUriBaseIds = new System.Collections.Generic.Dictionary<string, ArtifactLocation>
+                {
+                    ["SRCROOT"] = new ArtifactLocation { Uri = new Uri("file:///d:/scan/root/", UriKind.Absolute) },
+                },
+            };
+
+        [Fact]
+        public void Run_WithNoRepo_FinalizesRepolessScan_ElidesLocalRootAndStampsUnpublishable()
+        {
+            SeedWip(
+                (SarifEventKinds.RunHeader, RepoLessRunHeader()),
+                (SarifEventKinds.Result, new Result { RuleId = "NOVEL-x", Message = new Message { Text = "x" } }));
+
+            int exit = new EmitFinalizeCommand().Run(new EmitFinalizeOptions
+            {
+                OutputFilePath = OutPath,
+                NoRepo = true,
+            });
+
+            exit.Should().Be(CommandBase.SUCCESS);
+
+            SarifLog log = LoadSarif();
+            Run run = log.Runs[0];
+            run.OriginalUriBaseIds.Should().ContainKey("SRCROOT");
+            run.OriginalUriBaseIds["SRCROOT"].Uri.Should().BeNull("the transient local root is elided");
+            run.TryGetProperty(EmitFinalizeCommand.UnpublishablePropertyName, out bool unpublishable).Should().BeTrue();
+            unpublishable.Should().BeTrue();
+
+            string raw = File.ReadAllText(OutPath);
+            raw.Should().NotContain("file:///", "the finalized log must carry no machine-specific path");
+            raw.Should().NotContain("d:/scan/root");
+        }
+
+        [Fact]
+        public void Run_WithoutNoRepo_AndNoVersionControl_FailsWithNudgeToNoRepo()
+        {
+            SeedWip(
+                (SarifEventKinds.RunHeader, RepoLessRunHeader()),
+                (SarifEventKinds.Result, new Result { RuleId = "NOVEL-x", Message = new Message { Text = "x" } }));
+
+            string capturedStderr;
+            int exit;
+            using (var writer = new StringWriter())
+            {
+                TextWriter original = Console.Error;
+                Console.SetError(writer);
+                try
+                {
+                    exit = new EmitFinalizeCommand().Run(new EmitFinalizeOptions { OutputFilePath = OutPath });
+                }
+                finally
+                {
+                    Console.SetError(original);
+                }
+
+                capturedStderr = writer.ToString();
+            }
+
+            exit.Should().Be(CommandBase.FAILURE);
+            capturedStderr.Should().Contain("--no-repo");
+        }
+
         [Fact]
         public void Run_HappyPath_WritesSarifWithEnrichedCweDescriptorsAndRemovesWip()
         {
