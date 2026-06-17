@@ -1,0 +1,47 @@
+{
+  "name": "@microsoft/sarif-multitool-ts",
+  "version": "0.0.0",
+  "description": "Native-TypeScript SARIF Multitool verbs (emit-*, get-*, validate). In-process library + arg-compatible CLI; no CLR dependency.",
+  "author": "Microsoft",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/microsoft/sarif-sdk",
+    "directory": "npm/sarif-multitool-ts"
+  },
+  "keywords": ["sarif", "static-analysis", "security", "multitool"],
+  "type": "module",
+  "engines": {
+    "node": ">=20"
+  },
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "bin": {
+    "sarif": "./dist/cli.js"
+  },
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    },
+    "./schemas/*": "./schemas/*",
+    "./skills/*": "./skills/*"
+  },
+  "files": [
+    "dist/",
+    "schemas/",
+    "skills/",
+    "assets/",
+    "README.md"
+  ],
+  "scripts": {
+    "build": "tsc"
+  },
+  "dependencies": {
+    "@microsoft/sarif": "file:../sarif"
+  },
+  "devDependencies": {
+    "@types/node": "^20.14.0",
+    "typescript": "^5.5.0"
+  }
+}
