@@ -2,7 +2,7 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://raw.githubusercontent.com/microsoft/sarif-sdk/main/src/Sarif.Multitool.Library/GetSchema/ai-result.schema.json",
   "title": "SARIF AI emit profile \u2014 result object",
-  "description": "Input contract for a single SARIF result an AI producer emits via the add-results verb. An overlay on the canonical SARIF 2.1.0 result: it reuses the base shape by $ref and tightens it for the AI profile, requiring the fields the profile mandates and forbidding the index/identity state the multitool assigns at finalize.",
+  "description": "Input contract for a single SARIF result an AI producer emits via the emit-results verb. An overlay on the canonical SARIF 2.1.0 result: it reuses the base shape by $ref and tightens it for the AI profile, requiring the fields the profile mandates and forbidding the index/identity state the multitool assigns at finalize.",
   "type": "object",
   "allOf": [
     {

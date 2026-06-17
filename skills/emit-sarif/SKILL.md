@@ -38,13 +38,13 @@ Apply this skill when an agent is the **originating** detector (not post-process
 
 ## Method
 
-The skill uses these multitool verbs: `emit-run` → `add-results` / `add-invocations` (per finding or scan phase) → `add-notification-reporting-descriptors` / `add-rule-reporting-descriptors` (optional descriptor catalogs) → `emit-finalize --validate`. Each verb either appends to an event log (`<output>.wip.jsonl`) or replays the log into a finished SARIF file.
+The skill uses these multitool verbs: `emit-run` → `emit-results` / `emit-invocations` (per finding or scan phase) → `emit-notification-descriptors` / `emit-rule-descriptors` (optional descriptor catalogs) → `emit-finalize --validate`. Each verb either appends to an event log (`<output>.wip.jsonl`) or replays the log into a finished SARIF file.
 
 This staged design lets you build a run incrementally: hold one finding in working memory at a time, write it, move on. The final file is produced atomically by `emit-finalize`.
 
 ### Step 1 — Initialize the run
 
-Construct a SARIF `Run` JSON object — the same partial-Run shape consumed by `SarifEventReplayer` — and pipe it to `emit-run`. The verb accepts the run header via `--input <path>` or stdin, exactly like `add-results` / `add-invocations`. There is no flag-based form; if a field belongs on `run.*` in the final SARIF, place it on the JSON you supply here.
+Construct a SARIF `Run` JSON object — the same partial-Run shape consumed by `SarifEventReplayer` — and pipe it to `emit-run`. The verb accepts the run header via `--input <path>` or stdin, exactly like `emit-results` / `emit-invocations`. There is no flag-based form; if a field belongs on `run.*` in the final SARIF, place it on the JSON you supply here.
 
 ```powershell
 $runHeader = [ordered]@{
@@ -79,7 +79,7 @@ $runHeader = [ordered]@{
   }
 } | ConvertTo-Json -Depth 32
 
-# Option A: pipe via stdin (matches add-results / add-invocations).
+# Option A: pipe via stdin (matches emit-results / emit-invocations).
 $runHeader | dotnet dnx Sarif.Multitool --yes -- emit-run "{{OUTPUT_PATH}}"
 
 # Option B: write to a file and reference it.
@@ -110,15 +110,15 @@ For each finding, construct a complete SARIF `result` JSON object that conforms 
 ```powershell
 # Option A: write the result to a JSON file, then point at it
 '@{ ... your result JSON ... }' | Set-Content result-001.json
-dotnet dnx Sarif.Multitool --yes -- add-results "{{OUTPUT_PATH}}" --input result-001.json
+dotnet dnx Sarif.Multitool --yes -- emit-results "{{OUTPUT_PATH}}" --input result-001.json
 
 # Option B: pipe the result JSON via stdin
-Get-Content result-001.json | dotnet dnx Sarif.Multitool --yes -- add-results "{{OUTPUT_PATH}}"
+Get-Content result-001.json | dotnet dnx Sarif.Multitool --yes -- emit-results "{{OUTPUT_PATH}}"
 ```
 
 The result JSON must include at minimum: `ruleId` (with sub-ID per AI1012, e.g. `CWE-78/api-handler`), `level`, `message.text`, `message.markdown` (AI1005), and at least one `locations[].physicalLocation` with a `region.startLine`. For security findings, also populate the `ai/*` keys the profile recommends — `ai/exploitability` and `ai/attackerPosition` (AI2014, and `ai/evidence` per AI2015 when present). These `ai/*` keys are SHOULD, not MUST, and AI2014's set is all-or-nothing: emit the whole group or none.
 
-**Batching.** `add-results` is polymorphic: pass a single result object or a JSON array of results. A batch is validated atomically — if any element is rejected, nothing is appended — and the verb reports `{ "appended": N, "rejected": [ { "index", "errorCode", "message" } ] }` on stdout, so you can correct the offending elements by index and retry idempotently.
+**Batching.** `emit-results` is polymorphic: pass a single result object or a JSON array of results. A batch is validated atomically — if any element is rejected, nothing is appended — and the verb reports `{ "appended": N, "rejected": [ { "index", "errorCode", "message" } ] }` on stdout, so you can correct the offending elements by index and retry idempotently.
 
 **Stream vs batch — the trade-off.** Both modes are first-class; choose by how you hold findings, not by volume (results are not necessarily high-cardinality):
 
@@ -131,7 +131,7 @@ So the decision is spawn-cost-per-finding vs. blast-radius-of-one-bad-finding. S
 
 ### Step 3 — Append invocations (optional but recommended)
 
-Use `add-invocations` to record one or more `Invocation` objects (`startTimeUtc`, `endTimeUtc`, `executionSuccessful`, `exitCode`, `commandLine`, `arguments`, `workingDirectory`, `environmentVariables`, properties bag, …). The replayer appends invocations to `run.invocations[]` in event order. Like `add-results`, the verb accepts a single object or a JSON array and validates the batch atomically.
+Use `emit-invocations` to record one or more `Invocation` objects (`startTimeUtc`, `endTimeUtc`, `executionSuccessful`, `exitCode`, `commandLine`, `arguments`, `workingDirectory`, `environmentVariables`, properties bag, …). The replayer appends invocations to `run.invocations[]` in event order. Like `emit-results`, the verb accepts a single object or a JSON array and validates the batch atomically.
 
 **Stream vs batch — the trade-off.** Invocations differ from results in one consequential way: the `endTimeUtc` rule makes the two modes genuinely distinct, so the choice is not just spawn-cost bookkeeping.
 
@@ -143,21 +143,21 @@ Rule of thumb: stream when invocations conclude sparsely and you'd rather we tim
 Notifications travel inline on the invocation payload. Place each in the invocation's `toolExecutionNotifications` (execution narrative) or `toolConfigurationNotifications` (configuration feedback) array — the array selects placement. Descriptor ids name the concern only (e.g. `DECISION`, `DATA-ACCESS-DENIED`) — no `AI/`, `EXEC/`, `CFG/`, or `<toolName>/` prefix. Every inline notification requires a producer-supplied `timeUtc`. See `docs/ai/generating-sarif.md § Execution Narrative & Configuration Feedback` for descriptor inventory and required shape.
 
 ```powershell
-Get-Content invocation.json | dotnet dnx Sarif.Multitool --yes -- add-invocations "{{OUTPUT_PATH}}"
+Get-Content invocation.json | dotnet dnx Sarif.Multitool --yes -- emit-invocations "{{OUTPUT_PATH}}"
 ```
 
 ### Step 4 — Register reporting descriptors (optional)
 
 Two verbs append `reportingDescriptor` objects to the run's tool-driver catalogs. Both are producer-authored and validated at receipt against the same overlay schemas served by `get-schema`.
 
-- `add-notification-reporting-descriptors` appends a descriptor to `run.tool.driver.notifications[]` — the catalog that gives stable metadata (id, name, message strings) for the inline notifications recorded in Step 3.
-- `add-rule-reporting-descriptors` appends a descriptor with a `NOVEL-<kebab-sub-id>` id to `run.tool.driver.rules[]` — for novel rules the producer defines. Taxonomy/CWE rule descriptors are injected by the SDK at finalize and must not be supplied here.
+- `emit-notification-descriptors` appends a descriptor to `run.tool.driver.notifications[]` — the catalog that gives stable metadata (id, name, message strings) for the inline notifications recorded in Step 3.
+- `emit-rule-descriptors` appends a descriptor with a `NOVEL-<kebab-sub-id>` id to `run.tool.driver.rules[]` — for novel rules the producer defines. Taxonomy/CWE rule descriptors are injected by the SDK at finalize and must not be supplied here.
 
 Both verbs are polymorphic (single object or JSON array) and validate the batch atomically; a duplicate id — whether already in the event log or repeated within the same batch — rejects the whole submission and appends nothing.
 
 ```powershell
-Get-Content notification-descriptor.json | dotnet dnx Sarif.Multitool --yes -- add-notification-reporting-descriptors "{{OUTPUT_PATH}}"
-Get-Content rule-descriptor.json         | dotnet dnx Sarif.Multitool --yes -- add-rule-reporting-descriptors "{{OUTPUT_PATH}}"
+Get-Content notification-descriptor.json | dotnet dnx Sarif.Multitool --yes -- emit-notification-descriptors "{{OUTPUT_PATH}}"
+Get-Content rule-descriptor.json         | dotnet dnx Sarif.Multitool --yes -- emit-rule-descriptors "{{OUTPUT_PATH}}"
 ```
 
 ### Step 5 — Finalize and validate
