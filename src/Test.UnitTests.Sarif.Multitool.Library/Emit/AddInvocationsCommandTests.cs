@@ -47,7 +47,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             w.Append(SarifEventKinds.RunHeader, new Run { Tool = new Tool { Driver = new ToolComponent { Name = "demo" } } });
         }
 
-        // Runs add-invocations, capturing the structured report (stdout) and any pre-flight
+        // Runs emit-invocations, capturing the structured report (stdout) and any pre-flight
         // diagnostic (stderr).
         private (int exit, string stdout, string stderr) RunAddInvocations(string payloadJson)
         {

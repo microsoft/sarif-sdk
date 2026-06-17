@@ -6,7 +6,7 @@ using CommandLine;
 namespace Microsoft.CodeAnalysis.Sarif.Multitool
 {
     /// <summary>
-    /// Options for <c>add-notification-reporting-descriptors</c>, which appends one or more SARIF
+    /// Options for <c>emit-notification-descriptors</c>, which appends one or more SARIF
     /// <c>reportingDescriptor</c> objects to <c>run.tool.driver.notifications[]</c> in a staged
     /// event log (<c>&lt;output&gt;.wip.jsonl</c>) created by <c>emit-run</c>.
     /// </summary>
@@ -16,7 +16,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
     /// appear at most once in the notifications array (and at most once within a batch); the batch
     /// is appended atomically (all or none).
     /// </remarks>
-    [Verb("add-notification-reporting-descriptors", HelpText = "Append one or more SARIF reportingDescriptors (JSON object or array) to run.tool.driver.notifications[] in a staged event log.")]
+    [Verb("emit-notification-descriptors", HelpText = "Append one or more SARIF reportingDescriptors (JSON object or array) to run.tool.driver.notifications[] in a staged event log.")]
     public class AddNotificationReportingDescriptorsOptions : EmitInputOptionsBase
     {
     }

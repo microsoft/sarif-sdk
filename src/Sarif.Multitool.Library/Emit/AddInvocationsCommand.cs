@@ -6,7 +6,7 @@ using Microsoft.CodeAnalysis.Sarif.Driver;
 namespace Microsoft.CodeAnalysis.Sarif.Multitool
 {
     /// <summary>
-    /// Implements <c>add-invocations</c>: validates one or more fully-formed SARIF invocations and
+    /// Implements <c>emit-invocations</c>: validates one or more fully-formed SARIF invocations and
     /// appends an <c>invocation</c> event per element to <c>&lt;output&gt;.wip.jsonl</c>.
     /// </summary>
     /// <remarks>

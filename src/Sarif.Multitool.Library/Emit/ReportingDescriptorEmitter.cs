@@ -4,8 +4,8 @@
 namespace Microsoft.CodeAnalysis.Sarif.Multitool
 {
     /// <summary>
-    /// Shared entry point behind <c>add-notification-reporting-descriptors</c> and
-    /// <c>add-rule-reporting-descriptors</c>: drives a <see cref="Sarif.Emit.RunEmitContext"/> to
+    /// Shared entry point behind <c>emit-notification-descriptors</c> and
+    /// <c>emit-rule-descriptors</c>: drives a <see cref="Sarif.Emit.RunEmitContext"/> to
     /// validate one or more SARIF reportingDescriptor objects and append an event per element to
     /// <c>&lt;output&gt;.wip.jsonl</c>.
     /// </summary>

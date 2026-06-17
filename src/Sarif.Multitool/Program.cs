@@ -18,6 +18,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         /// <returns>0 on success; nonzero on failure.</returns>
         public static int Main(string[] args)
         {
+            // Normalize deprecated emit-verb names (add-* -> emit-*) before parsing so a
+            // single options class serves both the canonical and the deprecated form. See
+            // EmitVerbAliases for the rationale and the v6 removal plan.
+            if (args.Length > 0)
+            {
+                args[0] = EmitVerbAliases.Normalize(args[0]);
+            }
+
             var optionsInterpreter = new OptionsInterpreter();
 
             // Use a custom Parser so enum values bind case-insensitively

@@ -14,9 +14,9 @@ using Newtonsoft.Json.Linq;
 namespace Microsoft.CodeAnalysis.Sarif.Multitool
 {
     /// <summary>
-    /// Shared plumbing for the emit verb chain (<c>emit-run</c>, <c>add-results</c>,
-    /// <c>add-invocations</c>, <c>add-notification-reporting-descriptors</c>,
-    /// <c>add-rule-reporting-descriptors</c>, <c>emit-finalize</c>): resolves
+    /// Shared plumbing for the emit verb chain (<c>emit-run</c>, <c>emit-results</c>,
+    /// <c>emit-invocations</c>, <c>emit-notification-descriptors</c>,
+    /// <c>emit-rule-descriptors</c>, <c>emit-finalize</c>): resolves
     /// the staged event log path, reads caller-supplied JSON (file or stdin), and parses it into
     /// a <see cref="JToken"/> in a date-safe way.
     /// </summary>

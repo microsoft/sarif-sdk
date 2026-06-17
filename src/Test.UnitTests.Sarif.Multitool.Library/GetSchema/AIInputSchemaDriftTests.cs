@@ -651,7 +651,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         [Fact]
         public void AINotificationReportingDescriptorSchema_RequiresNonEmptyStringId()
         {
-            // add-notification-reporting-descriptors requires a non-empty string id (SARIF §3.49.3),
+            // emit-notification-descriptors requires a non-empty string id (SARIF §3.49.3),
             // gating on string.IsNullOrEmpty — so whitespace-only is accepted but "" is
             // not. Extra properties are accepted (the verb only inspects id). Any id string
             // is accepted here; the NOVEL- grammar is a separate verb/schema. The
