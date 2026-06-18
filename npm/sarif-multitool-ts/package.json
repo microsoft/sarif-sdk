@@ -38,12 +38,17 @@
     "access": "public"
   },
   "scripts": {
-    "build": "tsc"
+    "prebuild": "node scripts/copy-assets.mjs",
+    "build": "tsc",
+    "test": "npm run build && cucumber-js",
+    "test:conformance": "npm run build && node --test test/conformance.test.js",
+    "test:memory": "npm run build && node --expose-gc test/memory-smoke.js"
   },
   "dependencies": {
     "@microsoft/sarif": "file:../sarif"
   },
   "devDependencies": {
+    "@cucumber/cucumber": "^10.8.0",
     "@types/node": "^20.14.0",
     "typescript": "^5.5.0"
   }

@@ -3,34 +3,46 @@
 
 /**
  * @microsoft/sarif-multitool-ts — native-TypeScript SARIF Multitool verbs.
- *
- * v0.0.x PLACEHOLDER. This release reserves the package name and proves the
- * publish pipeline; the verb implementations (emit-run, emit-results,
- * emit-invocations, emit-rule-descriptors, emit-notification-descriptors,
- * emit-finalize, get-schema, get-skill, get-cwe, validate) land in a
- * subsequent release tracked at https://github.com/microsoft/sarif-sdk.
- *
- * Until then, use `@microsoft/sarif-multitool` (the .NET-backed wrapper).
+ * In-process library + arg-compatible CLI; no CLR dependency. Depends on
+ * @microsoft/sarif for the open-typed object model and core helpers.
  */
 
+// Re-export the base SDK so `import ... from '@microsoft/sarif-multitool-ts'`
+// is sufficient for most consumers.
 export * from '@microsoft/sarif';
 
-function notYetImplemented(verb: string): never {
-  throw new Error(
-    `@microsoft/sarif-multitool-ts: '${verb}' is not yet implemented in this v0.0.x ` +
-      `placeholder release. Use \`npx @microsoft/sarif-multitool ${verb}\` (the .NET-backed ` +
-      `wrapper) until the TypeScript implementation ships. ` +
-      `Track progress at https://github.com/microsoft/sarif-sdk.`,
-  );
-}
+// emit-* verbs (canonical names per the v5.1 rename; add* aliases below).
+export { emitRun, type EmitRunOptions, type EmitRunOutcome, SOURCE_ROOT_BASE_ID } from './emitRun.js';
+export {
+  addResults as emitResults,
+  type AddResultsOptions as EmitResultsOptions,
+  AI_RULEID_ERROR_CODE,
+} from './addResults.js';
+export {
+  addInvocations as emitInvocations,
+  type AddInvocationsOptions as EmitInvocationsOptions,
+} from './addInvocations.js';
+export {
+  addRuleReportingDescriptors as emitRuleDescriptors,
+  addNotificationReportingDescriptors as emitNotificationDescriptors,
+  type AddReportingDescriptorsOptions as EmitDescriptorsOptions,
+} from './addReportingDescriptors.js';
+export { emitFinalize, type EmitFinalizeOptions, type EmitFinalizeOutcome } from './emitFinalize.js';
 
-export const emitRun = () => notYetImplemented('emit-run');
-export const emitResults = () => notYetImplemented('emit-results');
-export const emitInvocations = () => notYetImplemented('emit-invocations');
-export const emitRuleDescriptors = () => notYetImplemented('emit-rule-descriptors');
-export const emitNotificationDescriptors = () => notYetImplemented('emit-notification-descriptors');
-export const emitFinalize = () => notYetImplemented('emit-finalize');
-export const getSchema = () => notYetImplemented('get-schema');
-export const getSkill = () => notYetImplemented('get-skill');
-export const getCwe = () => notYetImplemented('get-cwe');
-export const validate = () => notYetImplemented('validate');
+// get-* verbs.
+export { getSchema, listSchemas, SchemaByVerb } from './getSchema.js';
+export { getSkill, listSkills } from './getSkill.js';
+export { getCweTaxonomy, getCweSecuritySeverityTable } from './getCwe.js';
+
+// Infrastructure.
+export { type BatchOutcome, type BatchElementError, EmitVerbError } from './batch.js';
+export { SarifEventKinds, replay, readEvents, wipPathFor } from './eventLog.js';
+
+// Deprecated aliases — kept through the v5.x window alongside the .NET CLI's
+// add-* aliases (see EmitVerbAliases.cs). Remove in v6.
+export { addResults } from './addResults.js';
+export { addInvocations } from './addInvocations.js';
+export {
+  addRuleReportingDescriptors,
+  addNotificationReportingDescriptors,
+} from './addReportingDescriptors.js';
