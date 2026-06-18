@@ -12,7 +12,9 @@
 import { promises as fs, existsSync, mkdirSync } from 'node:fs';
 import { dirname, basename, resolve as resolvePath, join as joinPath } from 'node:path';
 import { randomUUID } from 'node:crypto';
+import { EOL } from 'node:os';
 import type { SarifLog } from './sarif.js';
+import { emitCanonicalJson } from './canonicalize.js';
 
 /**
  * Atomically writes a file by staging to a sibling temp file in the same
@@ -62,10 +64,18 @@ export function stripNulls<T>(value: T): T {
   return value;
 }
 
-/** Serializes a SarifLog with two-space indent and null-stripping. */
+/**
+ * Serializes a SarifLog to match the .NET multitool byte-for-byte: model-order
+ * keys, two-space indent, null-stripping, verbatim-compact property-bag values
+ * (a Newtonsoft trait — bag values are stored as pre-serialized JToken text),
+ * `Environment.NewLine` line endings, and no trailing newline. See
+ * canonicalize.ts for the ordering/emit details.
+ */
 export function serializeSarifLog(log: SarifLog, prettyPrint = true): string {
-  const cleaned = stripNulls(log);
-  return prettyPrint
-    ? JSON.stringify(cleaned, undefined, 2) + '\n'
-    : JSON.stringify(cleaned) + '\n';
+  const json = emitCanonicalJson(stripNulls(log), prettyPrint);
+  // Newtonsoft's indented writer uses Environment.NewLine; mirror it so a
+  // Windows-generated fixture is CRLF and a Linux one is LF, matching .NET on
+  // the same host. Only structural newlines are affected — JSON escapes any
+  // newline inside a string value as \n, so it never reaches this split.
+  return prettyPrint && EOL !== '\n' ? json.split('\n').join(EOL) : json;
 }

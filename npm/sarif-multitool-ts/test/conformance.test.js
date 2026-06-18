@@ -3,8 +3,18 @@
 
 /**
  * Conformance harness: runs the same emit-chain scenario through the TS
- * library and the .NET multitool, then deep-diffs the output SARIF after
- * normalizing volatile fields (endTimeUtc, absolute temp paths).
+ * library and the .NET multitool, then asserts the two outputs are
+ * **byte-for-byte identical** (after masking volatile fields like endTimeUtc
+ * and absolute temp paths). A structural deep-diff runs first to give an
+ * actionable failure message; the raw-text equality that follows is the actual
+ * gate — it also pins key order, indentation, CRLF endings, no-trailing-newline,
+ * and the compact-property-bag-value shape of the Newtonsoft writer.
+ *
+ * This is the single-oracle parity contract: npm/sarif's serializer
+ * (canonicalize.ts + io.ts) targets the *raw* .NET multitool output, so a
+ * change on either the TS or the .NET side that drifts the wire shape fails
+ * this test mutually. See npm/sarif/README.md ("Byte-identity with the .NET
+ * multitool") for the design.
  *
  * Skips with a clear message if `dotnet` is not on PATH or the multitool
  * project doesn't build — so `npm test` stays green on a node-only box,
@@ -56,21 +66,35 @@ function buildDotnetOnce() {
  * Volatile:
  *   - endTimeUtc → "<TIMESTAMP>"
  *   - any file:// URI under the temp dir → "<TMPDIR>/..."
- *   - $schema (Newtonsoft model uses a different default URI form)
  *
  * No substantive fields are stripped: run.columnKind (both chains emit
- * 'utf16CodeUnits') and result.partialFingerprints.primaryLocationLineHash
- * (both chains stamp the identical rolling hash for GitHub-hosted runs) are
- * now produced on both sides and so are enforced by the deep-diff.
+ * 'utf16CodeUnits'), result.partialFingerprints.primaryLocationLineHash (both
+ * chains stamp the identical rolling hash for GitHub-hosted runs), and $schema
+ * (both chains emit the same schemastore URI) are now produced on both sides and
+ * so are enforced by the deep-diff.
  */
 function normalize(obj, tmpRoot) {
   const tmpUri = pathToFileURL(tmpRoot).toString().replace(/\/?$/, '/');
   const json = JSON.stringify(obj);
   const replaced = json
     .replaceAll(tmpUri, '<TMPDIR>/')
-    .replace(/"\$schema":"[^"]*"/g, '"$schema":"<SCHEMA>"')
     .replace(/"endTimeUtc":"[^"]*"/g, '"endTimeUtc":"<TIMESTAMP>"');
   return JSON.parse(replaced);
+}
+
+/**
+ * Normalizes volatile fields in the *raw* serialized text so a byte-for-byte
+ * string compare is meaningful. Mirrors normalize() but operates on the emitted
+ * text (with pretty-print spacing) rather than a parsed object, so it also gates
+ * key ordering, indentation, line endings, and the compact-property-bag-value
+ * shape — none of which survive a parse → deep-equal.
+ */
+function normalizeText(text, tmpRoot) {
+  const tmpUri = pathToFileURL(tmpRoot).toString().replace(/\/?$/, '/');
+  return text
+    .split(tmpUri)
+    .join('<TMPDIR>/')
+    .replace(/"endTimeUtc":\s*"[^"]*"/g, '"endTimeUtc": "<TIMESTAMP>"');
 }
 
 // CI-context env vars read by emit-run's AdoPipelineContext / GitHubActionsContext
@@ -209,7 +233,8 @@ async function runTsChain(tmp, scenario, data) {
   });
   await emitResults({ output: out, results: structuredClone(data.results) });
   await emitFinalize({ output: out, keepWip: true });
-  return JSON.parse(readFileSync(out, 'utf8'));
+  const text = readFileSync(out, 'utf8');
+  return { text, log: JSON.parse(text) };
 }
 
 function runDotnetChain(tmp, scenario, data) {
@@ -222,7 +247,8 @@ function runDotnetChain(tmp, scenario, data) {
   runDotnet(['emit-run', out, '--input', runJson, '--force-overwrite'], tmp, env);
   runDotnet(['add-results', out, '--input', resJson], tmp, env);
   runDotnet(['emit-finalize', out, '--keep-wip'], tmp, env);
-  return JSON.parse(readFileSync(out, 'utf8'));
+  const text = readFileSync(out, 'utf8');
+  return { text, log: JSON.parse(text) };
 }
 
 test('TS emit chain ⇔ .NET emit chain produce equivalent SARIF', async (t) => {
@@ -240,8 +266,10 @@ test('TS emit chain ⇔ .NET emit chain produce equivalent SARIF', async (t) => 
       const tmp = mkdtempSync(join(tmpdir(), 'sarif-conf-'));
       try {
         const data = scenario.build(tmp);
-        const tsLog = normalize(await runTsChain(tmp, scenario, data), tmp);
-        const netLog = normalize(runDotnetChain(tmp, scenario, data), tmp);
+        const tsChain = await runTsChain(tmp, scenario, data);
+        const netChain = runDotnetChain(tmp, scenario, data);
+        const tsLog = normalize(tsChain.log, tmp);
+        const netLog = normalize(netChain.log, tmp);
 
         // Headline assertions first so a failure message is actionable even if
         // the deep-diff is large.
@@ -258,6 +286,21 @@ test('TS emit chain ⇔ .NET emit chain produce equivalent SARIF', async (t) => 
         // io.ts#serializeSarifLog or the normalize() helper above (if the
         // discrepancy is genuinely cosmetic).
         assert.deepEqual(tsLog, netLog);
+
+        // The strict gate: the two chains must serialize byte-for-byte
+        // identically (after masking volatile timestamps/paths). This is
+        // strictly stronger than the structural diff above — it also pins key
+        // order, two-space indentation, CRLF line endings, the absence of a
+        // trailing newline, and the compact-property-bag-value shape that the
+        // .NET (Newtonsoft) writer produces. If this fires but the deep-equal
+        // above passed, the divergence is purely in serialization formatting:
+        // fix it in npm/sarif's canonicalize.ts / io.ts, never by loosening
+        // this assertion.
+        assert.equal(
+          normalizeText(tsChain.text, tmp),
+          normalizeText(netChain.text, tmp),
+          'raw byte-identical serialization (TS ⇔ .NET)',
+        );
       } finally {
         rmSync(tmp, { recursive: true, force: true });
       }

@@ -251,4 +251,4 @@ export type SarifLog = PropertyBagHolder & {
 };
 
 export const SARIF_SCHEMA_URI =
-  'https://docs.oasis-open.org/sarif/sarif/v2.1.0/errata01/csd01/schemas/sarif-schema-2.1.0.json';
+  'https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0.json';
