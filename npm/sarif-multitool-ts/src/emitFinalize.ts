@@ -120,7 +120,7 @@ export async function emitFinalize(opts: EmitFinalizeOptions): Promise<EmitFinal
 
   if (opts.validate) {
     warnings.push(
-      '--validate is not implemented in @microsoft/sarif-emit v1. The output SARIF was written successfully; ' +
+      '--validate is not implemented in @microsoft/sarif-multitool-ts. The output SARIF was written successfully; ' +
         'run the .NET multitool `sarif validate --rule-kind "Sarif;AI" ' +
         outputPath +
         '` in your test/CI environment as the validation backstop. See README#Validation.',

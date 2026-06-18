@@ -27,7 +27,8 @@
     "README.md"
   ],
   "scripts": {
-    "build": "tsc"
+    "build": "tsc",
+    "test": "npm run build && node --test test/insertOptionalData.test.js test/regions.test.js test/vcp.test.js"
   },
   "devDependencies": {
     "@types/node": "^20.14.0",
