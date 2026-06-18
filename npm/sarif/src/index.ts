@@ -4,11 +4,27 @@
 /**
  * @microsoft/sarif — SARIF SDK for Node.js.
  *
- * v0.0.x PLACEHOLDER. This release reserves the package name and proves the
- * publish pipeline; the implementation (open-typed SARIF object model,
- * FileRegionsCache, AIRuleIdConvention, serialization helpers) lands in a
- * subsequent release tracked at https://github.com/microsoft/sarif-sdk.
+ * Open-typed SARIF 2.1.0 object model, region/snippet resolution, AI ruleId
+ * convention, portable-root derivation, and serialization helpers. Every TS
+ * module names the C# source-of-truth file it was ported from. The C# under
+ * src/Sarif/ is normative; when they disagree this package has a bug.
  */
 
-export const SARIF_SCHEMA_URI =
-  'https://docs.oasis-open.org/sarif/sarif/v2.1.0/errata01/csd01/schemas/sarif-schema-2.1.0.json';
+export * from './sarif.js';
+export { FileRegionsCache, NewLineIndex } from './regions.js';
+export { computeRollingHashes } from './rollingHash.js';
+export { AIRuleIdConvention, AIRuleIdConventionError } from './aiRuleId.js';
+export {
+  tryValidateRepositoryUri,
+  tryDerivePortableRoot,
+  isGitHubHostedRun,
+  type PortableRoot,
+} from './vcp.js';
+export {
+  insertOptionalData,
+  tryReconstructAbsoluteUri,
+  PRIMARY_LOCATION_LINE_HASH,
+  type InsertOptionalDataFlags,
+} from './insertOptionalData.js';
+export { atomicWrite, stripNulls, serializeSarifLog } from './io.js';
+export { rewriteRelativeLinks, extractFrontmatterDescription } from './skill.js';
