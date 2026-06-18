@@ -14,6 +14,7 @@ import { readFileSync } from 'node:fs';
 import { createHash } from 'node:crypto';
 import { fileURLToPath } from 'node:url';
 import type { Region } from './sarif.js';
+import { computeRollingHashes } from './rollingHash.js';
 
 const NEWLINE_CHARS = new Set(['\n', '\r']);
 const BIG_SNIPPET_LENGTH = 512;
@@ -94,6 +95,7 @@ export class FileRegionsCache {
   private readonly textCache = new Map<string, string | null>();
   private readonly indexCache = new Map<string, NewLineIndex | null>();
   private readonly hashCache = new Map<string, string>();
+  private readonly rollingHashCache = new Map<string, Map<number, string> | null>();
 
   private localPathFor(absoluteUri: string): string | undefined {
     try {
@@ -144,6 +146,19 @@ export class FileRegionsCache {
     const hash = createHash('sha256').update(buf).digest('hex').toUpperCase();
     this.hashCache.set(absoluteUri, hash);
     return hash;
+  }
+
+  /**
+   * CodeQL-style per-line rolling-hash fingerprints for the file, keyed by
+   * 1-based line number, or null if the file is unreadable. Mirrors
+   * InsertOptionalDataVisitor.GetRollingHashes.
+   */
+  getRollingHashes(absoluteUri: string): Map<number, string> | null {
+    if (this.rollingHashCache.has(absoluteUri)) return this.rollingHashCache.get(absoluteUri)!;
+    const text = this.getText(absoluteUri);
+    const hashes = text !== null ? computeRollingHashes(text) : null;
+    this.rollingHashCache.set(absoluteUri, hashes);
+    return hashes;
   }
 
   /**

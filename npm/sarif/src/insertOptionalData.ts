@@ -27,7 +27,17 @@ export interface InsertOptionalDataFlags {
   regionSnippets: boolean;
   contextRegionSnippets: boolean;
   comprehensiveRegionProperties: boolean;
+  /**
+   * Stamp the GitHub rolling-hash `primaryLocationLineHash` partial
+   * fingerprint on each result's primary location. GitHub-only — the raw
+   * code-scanning upload API does not backfill it. Off by default; existing
+   * values are preserved (OverwriteExistingData is not honored here).
+   */
+  rollingHashFingerprints?: boolean;
 }
+
+/** Partial-fingerprint key GitHub reads for cross-scan result de-duplication. */
+export const PRIMARY_LOCATION_LINE_HASH = 'primaryLocationLineHash';
 
 /**
  * Resolves an artifactLocation's `uri` + `uriBaseId` against the run's
@@ -96,7 +106,43 @@ export function insertOptionalData(run: Run, flags: InsertOptionalDataFlags): Ru
     }
   }
 
+  if (flags.rollingHashFingerprints) {
+    for (const result of run.results ?? []) {
+      stampPrimaryLocationLineHash(result, oub, cache);
+    }
+  }
+
   return run;
+}
+
+/**
+ * Stamps the rolling-hash `primaryLocationLineHash` on a result's primary
+ * location, anchored to its startLine (a result with no region line pertains
+ * to the whole file and is fingerprinted from line 1, matching
+ * github/codeql-action fingerprints.ts). Mirrors the
+ * RollingHashPartialFingerprints branch of InsertOptionalDataVisitor.cs.
+ */
+function stampPrimaryLocationLineHash(
+  result: Result,
+  oub: Record<string, ArtifactLocation> | undefined,
+  cache: FileRegionsCache,
+): void {
+  if (result.partialFingerprints?.[PRIMARY_LOCATION_LINE_HASH] !== undefined) return;
+
+  const physicalLocation = result.locations?.[0]?.physicalLocation;
+  if (!physicalLocation?.artifactLocation) return;
+
+  let startLine = physicalLocation.region?.startLine ?? 0;
+  if (startLine <= 0) startLine = 1;
+
+  const resolvedUri = tryReconstructAbsoluteUri(physicalLocation.artifactLocation, oub);
+  if (!resolvedUri) return;
+
+  const lineHash = cache.getRollingHashes(resolvedUri)?.get(startLine);
+  if (lineHash === undefined) return;
+
+  result.partialFingerprints ??= {};
+  result.partialFingerprints[PRIMARY_LOCATION_LINE_HASH] = lineHash;
 }
 
 function visitResultLocations(result: Result, visit: (pl: PhysicalLocation) => void): void {

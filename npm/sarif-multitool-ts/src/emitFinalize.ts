@@ -71,14 +71,20 @@ export async function emitFinalize(opts: EmitFinalizeOptions): Promise<EmitFinal
   }
 
   // Enrichment passes — see EmitFinalizeCommand.cs for the per-pass rationale.
-  // RollingHashPartialFingerprints is a known v1 gap (GitHub-only dedup hint);
-  // tracked in README#Known-gaps.
   for (const run of log.runs ?? []) {
     if (!run) continue;
 
+    // The TS region pipeline computes columns by indexing JS strings, i.e. in
+    // UTF-16 code units. The SARIF default for an absent columnKind is
+    // unicodeCodePoints, so the unit must be declared explicitly or a strict
+    // consumer mis-reads columns for non-BMP source. Mirrors the .NET model
+    // default (Run.cs sets ColumnKind.Utf16CodeUnits).
+    run.columnKind ??= 'utf16CodeUnits';
+
     applyAISecuritySeverity(run);
 
-    if (isGitHubHostedRun(run)) {
+    const github = isGitHubHostedRun(run);
+    if (github) {
       applyGitHubCweTags(run);
       collapseResultRuleSubIds(run);
     }
@@ -88,6 +94,9 @@ export async function emitFinalize(opts: EmitFinalizeOptions): Promise<EmitFinal
       regionSnippets: true,
       contextRegionSnippets: true,
       comprehensiveRegionProperties: true,
+      // GitHub's raw upload API does not backfill partialFingerprints, so a
+      // GitHub-hosted run stamps the rolling-hash primaryLocationLineHash here.
+      rollingHashFingerprints: github,
     });
   }
 

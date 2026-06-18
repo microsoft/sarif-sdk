@@ -51,21 +51,17 @@ function buildDotnetOnce() {
 }
 
 /**
- * Replaces volatile fields with sentinels so structural diff is meaningful,
- * and strips known-gap fields (documented in README#Known-gaps) so the
- * deep-diff focuses on substantive parity.
+ * Replaces volatile fields with sentinels so structural diff is meaningful.
  *
  * Volatile:
  *   - endTimeUtc → "<TIMESTAMP>"
  *   - any file:// URI under the temp dir → "<TMPDIR>/..."
  *   - $schema (Newtonsoft model uses a different default URI form)
  *
- * Known gaps (stripped from BOTH sides):
- *   - run.columnKind — .NET model emits its enum default ('utf16CodeUnits')
- *     even when the producer never set it; the TS port preserves absence.
- *     Cosmetic Newtonsoft default-value emission, not a semantic delta.
- *   - result.partialFingerprints.primaryLocationLineHash — the GitHub-only
- *     rolling-hash dedup hint. Documented v1 gap; remove when ported.
+ * No substantive fields are stripped: run.columnKind (both chains emit
+ * 'utf16CodeUnits') and result.partialFingerprints.primaryLocationLineHash
+ * (both chains stamp the identical rolling hash for GitHub-hosted runs) are
+ * now produced on both sides and so are enforced by the deep-diff.
  */
 function normalize(obj, tmpRoot) {
   const tmpUri = pathToFileURL(tmpRoot).toString().replace(/\/?$/, '/');
@@ -74,17 +70,7 @@ function normalize(obj, tmpRoot) {
     .replaceAll(tmpUri, '<TMPDIR>/')
     .replace(/"\$schema":"[^"]*"/g, '"$schema":"<SCHEMA>"')
     .replace(/"endTimeUtc":"[^"]*"/g, '"endTimeUtc":"<TIMESTAMP>"');
-  const out = JSON.parse(replaced);
-  for (const run of out.runs ?? []) {
-    delete run.columnKind;
-    for (const r of run.results ?? []) {
-      if (r.partialFingerprints) {
-        delete r.partialFingerprints.primaryLocationLineHash;
-        if (Object.keys(r.partialFingerprints).length === 0) delete r.partialFingerprints;
-      }
-    }
-  }
-  return out;
+  return JSON.parse(replaced);
 }
 
 // CI-context env vars read by emit-run's AdoPipelineContext / GitHubActionsContext

@@ -90,9 +90,7 @@ and is the backstop that catches anything the sparse port lets through.
 | Gap | Effect | Workaround |
 |---|---|---|
 | `--validate` | Stubbed (see above) | `.NET sarif validate` in CI |
-| `RollingHashPartialFingerprints` | GitHub-only `primaryLocationLineHash` not stamped | Upload via the `upload-sarif` Action (it backfills), or accept dedup on location alone |
 | `--embed-text-files` | Source bytes not inlined in artifacts | Run `.NET emit-finalize` with the flag if you need self-contained fixtures |
-| `run.columnKind` default | .NET emits its enum default `utf16CodeUnits` even when unset; TS preserves absence | Cosmetic; set it explicitly in your run header if a consumer requires it |
 
 ## Behavioral parity
 

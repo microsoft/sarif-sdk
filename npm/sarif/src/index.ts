@@ -12,6 +12,7 @@
 
 export * from './sarif.js';
 export { FileRegionsCache, NewLineIndex } from './regions.js';
+export { computeRollingHashes } from './rollingHash.js';
 export { AIRuleIdConvention, AIRuleIdConventionError } from './aiRuleId.js';
 export {
   tryValidateRepositoryUri,
@@ -22,6 +23,7 @@ export {
 export {
   insertOptionalData,
   tryReconstructAbsoluteUri,
+  PRIMARY_LOCATION_LINE_HASH,
   type InsertOptionalDataFlags,
 } from './insertOptionalData.js';
 export { atomicWrite, stripNulls, serializeSarifLog } from './io.js';
