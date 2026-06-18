@@ -48,5 +48,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             HelpText = "After writing the SARIF, run the multitool validator (--rule-kind Sarif;AI) against the output. Fails with non-zero exit and prints a summary if any Error-level findings are reported. Warnings/Notes are summarized but do not fail.",
             Default = false)]
         public bool Validate { get; set; }
+
+        [Option(
+            "no-repo",
+            HelpText = "Finalize a scan that has no version control (a local working copy, an unpacked container image, or a downloaded package). Tolerates absent run.versionControlProvenance, elides any transient local file:// source-root base from the output, and marks each run unpublishable. An unpublishable run cannot be uploaded to a code-scanning alert store, which anchors every alert to a repository and commit.",
+            Default = false)]
+        public bool NoRepo { get; set; }
     }
 }

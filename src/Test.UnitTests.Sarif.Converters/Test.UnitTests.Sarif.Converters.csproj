@@ -46,6 +46,17 @@
     <EmbeddedResource Include="TestData\HdfConverter\Inputs\Empty.json" />
     <EmbeddedResource Include="TestData\HdfConverter\Inputs\InvalidResult.json" />
     <EmbeddedResource Include="TestData\HdfConverter\Inputs\ValidResults.json" />
+    <EmbeddedResource Include="TestData\CisCatConverter\Inputs\InvalidResults.json" />
+    <EmbeddedResource Include="TestData\CisCatConverter\Inputs\NoResults.json" />
+    <EmbeddedResource Include="TestData\CisCatConverter\Inputs\ValidResults.json" />
+    <EmbeddedResource Include="TestData\CisCatConverter\ExpectedOutputs\NoResults.sarif" />
+    <EmbeddedResource Include="TestData\CisCatConverter\ExpectedOutputs\ValidResults.sarif" />
+    <EmbeddedResource Include="TestData\NessusConverter\Inputs\InvalidResults.nessus.xml" />
+    <EmbeddedResource Include="TestData\NessusConverter\Inputs\NoResults.nessus.xml" />
+    <EmbeddedResource Include="TestData\NessusConverter\Inputs\ValidResults.nessus.xml" />
+    <EmbeddedResource Include="TestData\NessusConverter\ExpectedOutputs\NoResults.sarif" />
+    <EmbeddedResource Include="TestData\NessusConverter\ExpectedOutputs\ValidResults.sarif" />
+    <EmbeddedResource Include="TestData\NessusConverter\ExpectedOutputs\InvalidResults.sarif" />
     <EmbeddedResource Include="TestData\MSBuildConverter\ExpectedOutputs\NoResults.sarif" />
     <EmbeddedResource Include="TestData\MSBuildConverter\ExpectedOutputs\ValidResults.sarif" />
     <EmbeddedResource Include="TestData\MSBuildConverter\Inputs\Empty.ERR" />

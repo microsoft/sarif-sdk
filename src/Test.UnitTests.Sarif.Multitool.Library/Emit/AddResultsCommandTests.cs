@@ -23,7 +23,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
         public AddResultsCommandTests()
         {
-            _dir = Path.Combine(Path.GetTempPath(), $"add-results-{Guid.NewGuid():N}");
+            _dir = Path.Combine(Path.GetTempPath(), $"emit-results-{Guid.NewGuid():N}");
             Directory.CreateDirectory(_dir);
 
             _origStdOut = Console.Out;
@@ -50,7 +50,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             w.Append(SarifEventKinds.RunHeader, new Run { Tool = new Tool { Driver = new ToolComponent { Name = "demo" } } });
         }
 
-        // Runs add-results against the supplied payload, capturing the structured report (stdout)
+        // Runs emit-results against the supplied payload, capturing the structured report (stdout)
         // and any pre-flight diagnostic (stderr). The batch report carries per-element rejections;
         // pre-flight failures (missing wip/input, empty/malformed JSON, top-level scalar) go to
         // stderr.

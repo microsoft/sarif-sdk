@@ -6,7 +6,7 @@ using CommandLine;
 namespace Microsoft.CodeAnalysis.Sarif.Multitool
 {
     /// <summary>
-    /// Options for <c>add-invocations</c>, which appends one or more fully-formed SARIF
+    /// Options for <c>emit-invocations</c>, which appends one or more fully-formed SARIF
     /// <c>invocation</c> objects to a staged event log (<c>&lt;output&gt;.wip.jsonl</c>) created by
     /// <c>emit-run</c>.
     /// </summary>
@@ -17,7 +17,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
     /// payload is a lone object and omits <c>endTimeUtc</c>, the verb stamps receipt time; a batch
     /// (array) submission must carry <c>endTimeUtc</c> on every element.
     /// </remarks>
-    [Verb("add-invocations", HelpText = "Append one or more fully-formed SARIF invocations (JSON object or array) to a staged event log.")]
+    [Verb("emit-invocations", HelpText = "Append one or more fully-formed SARIF invocations (JSON object or array) to a staged event log.")]
     public class AddInvocationsOptions : EmitInputOptionsBase
     {
     }

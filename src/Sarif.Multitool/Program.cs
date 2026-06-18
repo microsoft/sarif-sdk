@@ -18,6 +18,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         /// <returns>0 on success; nonzero on failure.</returns>
         public static int Main(string[] args)
         {
+            // Normalize deprecated emit-verb names (add-* -> emit-*) before parsing so a
+            // single options class serves both the canonical and the deprecated form. See
+            // EmitVerbAliases for the rationale and the v6 removal plan.
+            if (args.Length > 0)
+            {
+                args[0] = EmitVerbAliases.Normalize(args[0]);
+            }
+
             var optionsInterpreter = new OptionsInterpreter();
 
             // Use a custom Parser so enum values bind case-insensitively
@@ -55,6 +63,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 typeof(MergeOptions),
                 typeof(PageOptions),
                 typeof(PartitionOptions),
+                typeof(ProjectOptions),
+                typeof(PublishToGhasOptions),
                 typeof(PublishToGhazdoOptions),
                 typeof(QueryOptions),
                 typeof(RebaseUriOptions),
@@ -114,6 +124,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 MergeOptions o => new MergeCommand().Run(o),
                 PageOptions o => new PageCommand().Run(o),
                 PartitionOptions o => new PartitionCommand().Run(o),
+                ProjectOptions o => new ProjectCommand().Run(o),
+                PublishToGhasOptions o => new PublishToGhasCommand().Run(o),
                 PublishToGhazdoOptions o => new PublishToGhazdoCommand().Run(o),
                 QueryOptions o => new QueryCommand().Run(o),
                 RebaseUriOptions o => new RebaseUriCommand().Run(o),
