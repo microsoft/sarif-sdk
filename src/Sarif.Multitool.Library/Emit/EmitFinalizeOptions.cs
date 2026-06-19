@@ -3,21 +3,29 @@
 
 using CommandLine;
 
+using System.Collections.Generic;
+
 namespace Microsoft.CodeAnalysis.Sarif.Multitool
 {
     /// <summary>
     /// Options for <c>emit-finalize</c>, which replays the staged event log and atomically
     /// writes the destination SARIF file.
     /// </summary>
-    [Verb("emit-finalize", HelpText = "Replay a staged SARIF event log into a final SARIF file.")]
+    [Verb("emit-finalize", HelpText = "Replay one or more staged SARIF event logs into a final SARIF file.")]
     public class EmitFinalizeOptions
     {
         [Value(
             0,
             MetaName = "<outputSarifPath>",
-            HelpText = "Path to the final SARIF file; the event log is read from '<output>.wip.jsonl'.",
+            HelpText = "Path to the final SARIF file. With no --inputs, the event log is read from '<output>.wip.jsonl'.",
             Required = true)]
         public string OutputFilePath { get; set; }
+
+        [Option(
+            "inputs",
+            HelpText = "One or more staged event logs ('*.wip.jsonl') to replay, in order, into a single multi-run SARIF file. runs[i] corresponds to the i-th input deterministically, which is what cross-run 'sarif:' result pointers require. When omitted, the single staged log '<output>.wip.jsonl' is replayed (the original one-run behavior).",
+            Separator = ' ')]
+        public IEnumerable<string> Inputs { get; set; }
 
         [Option(
             "no-cwe-enrichment",
