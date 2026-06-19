@@ -203,31 +203,44 @@ If we later teach `merge` to be pointer-safe (#2520), it must **rewrite** `sarif
 track the runs/results it relocates; until then, `merge` stays documented as unsafe for
 grouped logs and grouped producers use multi-run `emit-finalize`.
 
-### 3.3 New validation rules (AI profile)
+### 3.3 New validation rules
 
-Three checks, layered from general to grouping-specific. (IDs proposed; finalize during
-implementation — see the plan. `AI1xxx` = Error/MUST, `AI2xxx` = Warning/SHOULD.)
+Three checks, layered from general to grouping-specific. The first is **base-profile** SARIF
+correctness (any log can use `sarif:` references); the other two are AI-profile grouping
+conventions. (IDs proposed; finalize during implementation — see the plan.)
 
-1. **`sarif:` pointers MUST resolve (proposed `AI1014`, Error).** Every `sarif:` URI anywhere
-   in the log (artifactLocation, related locations, etc.) MUST resolve to an element that
-   exists in the final log. This is the general index-fragility net the AI friends asked for
-   — it catches a dangling `sarif:/runs/0/results/7` regardless of grouping. Pairs naturally
-   with the `index: -1` family ([#2910](https://github.com/microsoft/sarif-sdk/issues/2910)).
+| Proposed ID | Profile | Level | Name |
+|---|---|---|---|
+| `SARIF1013` | `Sarif` | Error | `SarifReferencesMustResolve` |
+| `AI1015` | `AI` | Error | `ProvideReciprocalGroupingRelationships` |
+| `AI2020` | `AI` | Warning | `ProvideConventionalGroupingDirection` |
 
-2. **Grouping links MUST be reciprocal (proposed `AI1015`, Error).** If
-   `runs[s].results[i]` (synthesized) `includes` `runs[g].results[j]` via a `sarif:` pointer,
-   then `runs[g].results[j]` MUST carry the inverse `isIncludedBy` pointer back to
-   `runs[s].results[i]`, and vice versa. A one-way link is a producer bug: a consumer that
-   followed only one direction would build an inconsistent view.
+1. **`sarif:` references MUST resolve — `SARIF1013` (base `Sarif` profile, Error).** Every
+   `sarif:` URI anywhere in the log (artifactLocation, related locations, etc.) MUST resolve
+   to an element that exists in the log. This is **general SARIF correctness**, not an
+   AI-specific concern: the `sarif:` URI scheme is the spec's own internal-reference mechanism,
+   so the rule lives in the base profile as a string-pointer sibling to **SARIF1009
+   `IndexPropertiesMustBeConsistentWithArrays`** (which covers the *integer*-`index`
+   mechanism). It catches a dangling `sarif:/runs/0/results/7` regardless of grouping, and
+   pairs naturally with the `index: -1` family
+   ([#2910](https://github.com/microsoft/sarif-sdk/issues/2910)).
 
-3. **Grouping respects the origin tiers (proposed `AI2020`, Warning).** An `includes` edge
-   SHOULD originate in a `synthesized` run and target a `generated` (or `annotated`) run —
-   not the reverse, and not within the same tier. Warning, not Error, because the spec permits
-   richer topologies; this rule encodes the *convention* this document describes, so a
-   producer that deliberately departs from it can suppress.
+2. **Grouping links MUST be reciprocal — `AI1015 ProvideReciprocalGroupingRelationships`
+   (AI profile, Error).** If `runs[s].results[i]` (synthesized) `includes` `runs[g].results[j]`
+   via a `sarif:` pointer, then `runs[g].results[j]` MUST carry the inverse `isIncludedBy`
+   pointer back to `runs[s].results[i]`, and vice versa. A one-way link is a producer bug: a
+   consumer that followed only one direction would build an inconsistent view.
 
-These join the existing AI catalog (`AI1006` already constrains `ai/origin`); they do not
-change any base-profile (`Sarif`) behavior.
+3. **Grouping respects the origin tiers — `AI2020 ProvideConventionalGroupingDirection`
+   (AI profile, Warning).** An `includes` edge SHOULD originate in a `synthesized` run and
+   target a `generated` (or `annotated`) run — not the reverse, and not within the same tier.
+   Warning, not Error, because the spec permits richer topologies; this rule encodes the
+   *convention* this document describes, so a producer that deliberately departs from it can
+   suppress.
+
+`AI1015` / `AI2020` join the existing AI catalog (`AI1006` already constrains `ai/origin`).
+`SARIF1013` is the only base-profile change and is independently useful to any `sarif:`-using
+producer.
 
 ### 3.4 Skill / doc surface
 
@@ -260,13 +273,13 @@ to real results.
 
 ## 5. Open questions (resolve during planning)
 
-1. **Rule IDs.** Confirm `AI1014` / `AI1015` / `AI2020` (and whether the reciprocity + tier
-   checks should be one rule or two). `AI1015` was historically floated for a different,
-   rejected purpose ([#2953](https://github.com/microsoft/sarif-sdk/issues/2953)) — pick a
-   clean unused id if reuse is confusing.
-2. **Scope of `AI1014`.** Validate *all* `sarif:` pointers (general), or only the
-   grouping-related ones? Recommendation: general — the index-fragility net is valuable
-   independent of grouping.
+1. **Rule IDs / names.** Confirm `SARIF1013 SarifReferencesMustResolve` (base),
+   `AI1015 ProvideReciprocalGroupingRelationships`, `AI2020 ProvideConventionalGroupingDirection`.
+   Confirm `SARIF1013` is a clean unused id (the `SARIF1003` slot is a retired gap — do not
+   reuse it).
+2. **One rule or two for the AI checks.** Reciprocity (Error) and tier-direction (Warning)
+   have different severities, so they are proposed as two rules. Fold into one only if we want
+   a single grouping rule with configurable sub-levels.
 3. **`merge` vs. multi-run `emit-finalize`.** Ship multi-run `emit-finalize` first (#3051);
    treat pointer-safe `merge` (#2520) as a separate, later effort.
 4. **Same-log requirement.** This convention assumes generated + synthesized live in **one**
