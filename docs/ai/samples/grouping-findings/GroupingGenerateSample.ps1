@@ -111,6 +111,29 @@ $genHandle = Join-Path $stageDir 'generated.sarif'
 $synHandle = Join-Path $stageDir 'synthesized.sarif'
 $outPath = Join-Path $sampleDir 'GroupingSample.sarif'
 
+# emit-run / emit-finalize auto-detect CI pipeline context (GitHub Actions via
+# GITHUB_*, Azure DevOps via TF_BUILD) and reconcile provenance against it. This
+# sample carries its own deterministic, fictitious versionControlProvenance and
+# no pipeline automationDetails, so when the generator runs inside CI the ambient
+# coordinates (e.g. GITHUB_REPOSITORY=microsoft/sarif-sdk) conflict with the
+# supplied repositoryUri and abort emit-run. Clear the detection gates + identity
+# vars for the duration of the emit chain so both detectors return None and the
+# fixture stays host-independent.
+$ciEnvShield = [ordered]@{
+    'TF_BUILD'          = $null
+    'GITHUB_ACTIONS'    = $null
+    'GITHUB_SERVER_URL' = $null
+    'GITHUB_REPOSITORY' = $null
+    'GITHUB_SHA'        = $null
+    'GITHUB_REF_NAME'   = $null
+    'GITHUB_REF'        = $null
+}
+$savedCiEnv = [ordered]@{}
+foreach ($name in $ciEnvShield.Keys) {
+    $savedCiEnv[$name] = [System.Environment]::GetEnvironmentVariable($name)
+    [System.Environment]::SetEnvironmentVariable($name, $ciEnvShield[$name])
+}
+
 try {
     Write-Host "[1/4] emit-run x2 (generated, synthesized)"
     Invoke-EmitRun $genHandle (New-RunHeader 'generated' '22222222-2222-2222-2222-222222222222')
@@ -199,5 +222,8 @@ try {
     Write-Host "[4/4] Wrote $outPath"
 }
 finally {
+    foreach ($name in $savedCiEnv.Keys) {
+        [System.Environment]::SetEnvironmentVariable($name, $savedCiEnv[$name])
+    }
     Remove-Item $stageDir -Recurse -Force -ErrorAction SilentlyContinue
 }
