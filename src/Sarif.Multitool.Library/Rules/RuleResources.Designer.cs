@@ -1095,6 +1095,18 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
             }
         }
         
+        internal static string SARIF1013_SarifReferencesMustResolve_FullDescription_Text {
+            get {
+                return ResourceManager.GetString("SARIF1013_SarifReferencesMustResolve_FullDescription_Text", resourceCulture);
+            }
+        }
+        
+        internal static string SARIF1013_SarifReferencesMustResolve_Error_Default_Text {
+            get {
+                return ResourceManager.GetString("SARIF1013_SarifReferencesMustResolve_Error_Default_Text", resourceCulture);
+            }
+        }
+        
         /// <summary>
         ///   Looks up a localized string similar to Express plain text result messages as complete sentences and end each sentence with a period. This guidance does not apply to Markdown messages, which might include formatting that makes the punctuation unnecessary.
         ///

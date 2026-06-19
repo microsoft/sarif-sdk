@@ -1,0 +1,55 @@
+{
+  "$schema": "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0.json",
+  "version": "2.1.0",
+  "runs": [
+    {
+      "tool": {
+        "driver": {
+          "name": "SARIF Functional Testing",
+          "version": "1.2.3",
+          "rules": [
+            { "id": "CWE-89/kql-injection", "name": "SqlInjection" }
+          ]
+        }
+      },
+      "results": [
+        {
+          "ruleId": "CWE-89/kql-injection",
+          "ruleIndex": 0,
+          "message": { "text": "A raw generated finding." },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": { "uri": "src/query.cs" },
+                "region": { "startLine": 12 }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CWE-89/kql-injection",
+          "ruleIndex": 0,
+          "message": { "text": "A synthesized finding that groups the generated finding above." },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": { "uri": "src/query.cs" },
+                "region": { "startLine": 12 }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "id": 0,
+              "physicalLocation": {
+                "artifactLocation": { "uri": "sarif:/runs/0/results/0" }
+              },
+              "message": { "text": "Grouped generated finding." }
+            }
+          ]
+        }
+      ],
+      "columnKind": "utf16CodeUnits"
+    }
+  ]
+}
