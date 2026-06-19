@@ -35,8 +35,15 @@ Write-Information "Stamping version $Version."
 # Build order matters: @microsoft/sarif-multitool-ts compiles against @microsoft/sarif's
 # source via a tsconfig path mapping, but at publish time it depends on the built dist/.
 $packages = @("sarif", "sarif-multitool-ts")
-$npmSourceFolder = "$RepoRoot\npm"
-$npmBuildFolder  = "$BuildRoot\Publish\npm-ts"
+# Resolve roots from $PSScriptRoot rather than ScriptUtilities' exported $RepoRoot /
+# $BuildRoot: Get-PackageVersion (above) runs Get-VersionConstants.ps1, which re-imports
+# ScriptUtilities with -Force. That Remove-Module / re-import cycle drops the module's
+# scope-local variables from this script's scope (its functions stay session-global and
+# survive), leaving $RepoRoot empty. Deriving the paths here keeps them correct no matter
+# when Get-PackageVersion runs.
+$repoRoot = (Resolve-Path "$PSScriptRoot\..").Path
+$npmSourceFolder = Join-Path $repoRoot "npm"
+$npmBuildFolder  = Join-Path $repoRoot "bld\Publish\npm-ts"
 
 Remove-DirectorySafely $npmBuildFolder
 New-DirectorySafely $npmBuildFolder
