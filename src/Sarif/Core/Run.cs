@@ -58,6 +58,16 @@ namespace Microsoft.CodeAnalysis.Sarif
                 return fileLocation.Index;
             }
 
+            // A 'sarif:' URI is an in-log object address (e.g. a result pointer
+            // used by relatedLocations cross-links or partitioning), not a
+            // physical artifact, so it must never be materialized in the run's
+            // artifacts table. Treat it like the bare-index case above.
+            if (fileLocation.Uri.OriginalString.StartsWith(
+                    UriUtilities.SarifScheme.WithColon(), StringComparison.OrdinalIgnoreCase))
+            {
+                return fileLocation.Index;
+            }
+
             // Strictly speaking, some elements that may contribute to a files table
             // key are case sensitive, e.g., everything but the scheme and protocol of a
             // web URI. We don't have a proper comparer implementation that can handle
