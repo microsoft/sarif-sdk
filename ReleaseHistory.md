@@ -13,6 +13,14 @@ Each release entry below is prefixed with one of:
 
 Entries are terse by design: one line per change, present-tense behavior, complete but only essential data. No issue/PR archaeology or narrative — that history lives in the engineering system.
 
+## **v5.2.0** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/v5.2.0) | [Driver](https://www.nuget.org/packages/Sarif.Driver/v5.2.0) | [Converters](https://www.nuget.org/packages/Sarif.Converters/v5.2.0) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/v5.2.0) | [Multitool Library](https://www.nuget.org/packages/Sarif.Multitool.Library/v5.2.0)
+* NEW: `@microsoft/sarif` ships the native-TypeScript SARIF 2.1.0 SDK — open-typed object model, `FileRegionsCache` region/snippet resolution, `AIRuleIdConvention`, rolling-hash and optional-data enrichment, and a `serializeSarifLog` byte-identical to the .NET multitool; no CLR dependency.
+* NEW: `@microsoft/sarif-multitool-ts` ships the in-process `emit-*` and `get-*` verbs and an arg-compatible `sarif` CLI, replacing the v5.1.1 publish-proof shells; no CLR dependency.
+
+## **v5.1.1** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/v5.1.1) | [Driver](https://www.nuget.org/packages/Sarif.Driver/v5.1.1) | [Converters](https://www.nuget.org/packages/Sarif.Converters/v5.1.1) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/v5.1.1) | [Multitool Library](https://www.nuget.org/packages/Sarif.Multitool.Library/v5.1.1)
+* NEW: Add the empty `@microsoft/sarif` and `@microsoft/sarif-multitool-ts` npm package shells as a publish-path proof ahead of the native-TypeScript SARIF SDK port; `scripts/BuildSarifTsForNpm.ps1` builds and stages them.
+* FUN: The `ado-build.yml` pipeline builds the TypeScript npm packages on every successful build.
+
 ## **v5.1.0** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/v5.1.0) | [Driver](https://www.nuget.org/packages/Sarif.Driver/v5.1.0) | [Converters](https://www.nuget.org/packages/Sarif.Converters/v5.1.0) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/v5.1.0) | [Multitool Library](https://www.nuget.org/packages/Sarif.Multitool.Library/v5.1.0)
 * BRK: Rename the four `add-*` emit verbs to the `emit-` prefix, dropping the `-reporting-` segment: `emit-results`, `emit-invocations`, `emit-rule-descriptors`, `emit-notification-descriptors`. The old names still work with a stderr deprecation and are removed in v6; `get-schema` keys follow.
 * NEW: `RunEmitContext` runs the `add-*` emit pipeline in-process over a pluggable `IEmitSink` (`FileEmitSink`/`InMemoryEmitSink`): `AddResults`/`AddInvocations`/`AddRuleDescriptors`/`AddNotificationDescriptors` validate atomically and return an `EmitReport`, with no process spawn per call.

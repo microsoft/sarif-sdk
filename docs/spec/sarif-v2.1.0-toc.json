@@ -1,0 +1,2748 @@
+{
+  "_source": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html",
+  "_base_url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html",
+  "_description": "SARIF v2.1.0 (OASIS) section-number -> deep-link anchor map, parsed from the spec TOC.",
+  "_generated": "2026-06-18",
+  "sections": {
+    "1": {
+      "title": "1",
+      "anchor": "#_Toc141790657",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790657"
+    },
+    "1.1": {
+      "title": "IPR Policy",
+      "anchor": "#_Toc141790658",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790658"
+    },
+    "1.2": {
+      "title": "Terminology",
+      "anchor": "#_Toc141790659",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790659"
+    },
+    "1.3": {
+      "title": "Normative References",
+      "anchor": "#_Toc141790660",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790660"
+    },
+    "1.4": {
+      "title": "Non-Normative References",
+      "anchor": "#_Toc141790661",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790661"
+    },
+    "1.5": {
+      "title": "Trademarks",
+      "anchor": "#_Toc141790662",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790662"
+    },
+    "2": {
+      "title": "2",
+      "anchor": "#_Toc141790663",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790663"
+    },
+    "2.1": {
+      "title": "General",
+      "anchor": "#_Toc141790664",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790664"
+    },
+    "2.2": {
+      "title": "Format examples",
+      "anchor": "#_Toc141790665",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790665"
+    },
+    "2.3": {
+      "title": "Property notation",
+      "anchor": "#_Toc141790666",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790666"
+    },
+    "2.4": {
+      "title": "Syntax notation",
+      "anchor": "#_Toc141790667",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790667"
+    },
+    "2.5": {
+      "title": "Commonly used objects",
+      "anchor": "#_Toc141790668",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790668"
+    },
+    "3": {
+      "title": "3",
+      "anchor": "#_Toc141790669",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790669"
+    },
+    "3.1": {
+      "title": "General",
+      "anchor": "#_Toc141790670",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790670"
+    },
+    "3.2": {
+      "title": "SARIF file naming convention",
+      "anchor": "#_Toc141790671",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790671"
+    },
+    "3.3": {
+      "title": "artifactContent object",
+      "anchor": "#_Toc141790672",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790672"
+    },
+    "3.3.1": {
+      "title": "General",
+      "anchor": "#_Toc141790673",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790673"
+    },
+    "3.3.2": {
+      "title": "text property",
+      "anchor": "#_Toc141790674",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790674"
+    },
+    "3.3.3": {
+      "title": "binary property",
+      "anchor": "#_Toc141790675",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790675"
+    },
+    "3.3.4": {
+      "title": "rendered property",
+      "anchor": "#_Toc141790676",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790676"
+    },
+    "3.4": {
+      "title": "artifactLocation object",
+      "anchor": "#_Toc141790677",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790677"
+    },
+    "3.4.1": {
+      "title": "General",
+      "anchor": "#_Toc141790678",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790678"
+    },
+    "3.4.2": {
+      "title": "Constraints",
+      "anchor": "#_Toc141790679",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790679"
+    },
+    "3.4.3": {
+      "title": "uri property",
+      "anchor": "#_Toc141790680",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790680"
+    },
+    "3.4.4": {
+      "title": "uriBaseId property",
+      "anchor": "#_Toc141790681",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790681"
+    },
+    "3.4.5": {
+      "title": "index property",
+      "anchor": "#_Toc141790682",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790682"
+    },
+    "3.4.6": {
+      "title": "description property",
+      "anchor": "#_Toc141790683",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790683"
+    },
+    "3.4.7": {
+      "title": "Guidance on the use of artifactLocation objects",
+      "anchor": "#_Toc141790684",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790684"
+    },
+    "3.5": {
+      "title": "String properties",
+      "anchor": "#_Toc141790685",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790685"
+    },
+    "3.5.1": {
+      "title": "Localizable strings",
+      "anchor": "#_Toc141790686",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790686"
+    },
+    "3.5.2": {
+      "title": "Redactable strings",
+      "anchor": "#_Toc141790687",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790687"
+    },
+    "3.5.3": {
+      "title": "GUID-valued strings",
+      "anchor": "#_Toc141790688",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790688"
+    },
+    "3.5.4": {
+      "title": "Hierarchical strings",
+      "anchor": "#_Toc141790689",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790689"
+    },
+    "3.5.4.1": {
+      "title": "General",
+      "anchor": "#_Toc141790690",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790690"
+    },
+    "3.5.4.2": {
+      "title": "Versioned hierarchical strings",
+      "anchor": "#_Toc141790691",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790691"
+    },
+    "3.6": {
+      "title": "Object properties",
+      "anchor": "#_Toc141790692",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790692"
+    },
+    "3.7": {
+      "title": "Array properties",
+      "anchor": "#_Toc141790693",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790693"
+    },
+    "3.7.1": {
+      "title": "General",
+      "anchor": "#_Toc141790694",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790694"
+    },
+    "3.7.2": {
+      "title": "Default value",
+      "anchor": "#_Toc141790695",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790695"
+    },
+    "3.7.3": {
+      "title": "Array properties with unique values",
+      "anchor": "#_Toc141790696",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790696"
+    },
+    "3.7.4": {
+      "title": "Array indices",
+      "anchor": "#_Toc141790697",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790697"
+    },
+    "3.8": {
+      "title": "Property bags",
+      "anchor": "#_Toc141790698",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790698"
+    },
+    "3.8.1": {
+      "title": "General",
+      "anchor": "#_Toc141790699",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790699"
+    },
+    "3.8.2": {
+      "title": "Tags",
+      "anchor": "#_Toc141790700",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790700"
+    },
+    "3.8.2.1": {
+      "title": "General",
+      "anchor": "#_Toc141790701",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790701"
+    },
+    "3.8.2.2": {
+      "title": "Tag metadata",
+      "anchor": "#_Toc141790702",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790702"
+    },
+    "3.9": {
+      "title": "Date/time properties",
+      "anchor": "#_Toc141790703",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790703"
+    },
+    "3.10": {
+      "title": "URI-valued properties",
+      "anchor": "#_Toc141790704",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790704"
+    },
+    "3.10.1": {
+      "title": "General",
+      "anchor": "#_Toc141790705",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790705"
+    },
+    "3.10.2": {
+      "title": "Normalizing file scheme URIs",
+      "anchor": "#_Toc141790706",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790706"
+    },
+    "3.10.3": {
+      "title": "URIs that use the sarif scheme",
+      "anchor": "#_Toc141790707",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790707"
+    },
+    "3.10.4": {
+      "title": "Internationalized Resource Identifiers (IRIs)",
+      "anchor": "#_Toc141790708",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790708"
+    },
+    "3.11": {
+      "title": "message object",
+      "anchor": "#_Toc141790709",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790709"
+    },
+    "3.11.1": {
+      "title": "General",
+      "anchor": "#_Toc141790710",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790710"
+    },
+    "3.11.2": {
+      "title": "Constraints",
+      "anchor": "#_Toc141790711",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790711"
+    },
+    "3.11.3": {
+      "title": "Plain text messages",
+      "anchor": "#_Toc141790712",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790712"
+    },
+    "3.11.4": {
+      "title": "Formatted messages",
+      "anchor": "#_Toc141790713",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790713"
+    },
+    "3.11.4.1": {
+      "title": "General",
+      "anchor": "#_Toc141790714",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790714"
+    },
+    "3.11.4.2": {
+      "title": "Security implications",
+      "anchor": "#_Toc141790715",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790715"
+    },
+    "3.11.5": {
+      "title": "Messages with placeholders",
+      "anchor": "#_Toc141790716",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790716"
+    },
+    "3.11.6": {
+      "title": "Messages with embedded links",
+      "anchor": "#_Toc141790717",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790717"
+    },
+    "3.11.7": {
+      "title": "Message string lookup",
+      "anchor": "#_Toc141790718",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790718"
+    },
+    "3.11.8": {
+      "title": "text property",
+      "anchor": "#_Toc141790719",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790719"
+    },
+    "3.11.9": {
+      "title": "markdown property",
+      "anchor": "#_Toc141790720",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790720"
+    },
+    "3.11.10": {
+      "title": "id property",
+      "anchor": "#_Toc141790721",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790721"
+    },
+    "3.11.11": {
+      "title": "arguments property",
+      "anchor": "#_Toc141790722",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790722"
+    },
+    "3.12": {
+      "title": "multiformatMessageString object",
+      "anchor": "#_Toc141790723",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790723"
+    },
+    "3.12.1": {
+      "title": "General",
+      "anchor": "#_Toc141790724",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790724"
+    },
+    "3.12.2": {
+      "title": "Localizable multiformatMessageStrings",
+      "anchor": "#_Toc141790725",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790725"
+    },
+    "3.12.3": {
+      "title": "text property",
+      "anchor": "#_Toc141790726",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790726"
+    },
+    "3.12.4": {
+      "title": "markdown property",
+      "anchor": "#_Toc141790727",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790727"
+    },
+    "3.13": {
+      "title": "sarifLog object",
+      "anchor": "#_Toc141790728",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790728"
+    },
+    "3.13.1": {
+      "title": "General",
+      "anchor": "#_Toc141790729",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790729"
+    },
+    "3.13.2": {
+      "title": "version property",
+      "anchor": "#_Toc141790730",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790730"
+    },
+    "3.13.3": {
+      "title": "$schema property",
+      "anchor": "#_Toc141790731",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790731"
+    },
+    "3.13.4": {
+      "title": "runs property",
+      "anchor": "#_Toc141790732",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790732"
+    },
+    "3.13.5": {
+      "title": "inlineExternalProperties property",
+      "anchor": "#_Toc141790733",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790733"
+    },
+    "3.14": {
+      "title": "run object",
+      "anchor": "#_Toc141790734",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790734"
+    },
+    "3.14.1": {
+      "title": "General",
+      "anchor": "#_Toc141790735",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790735"
+    },
+    "3.14.2": {
+      "title": "externalPropertyFileReferences property",
+      "anchor": "#_Toc141790736",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790736"
+    },
+    "3.14.3": {
+      "title": "automationDetails property",
+      "anchor": "#_Toc141790737",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790737"
+    },
+    "3.14.4": {
+      "title": "runAggregates property",
+      "anchor": "#_Toc141790738",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790738"
+    },
+    "3.14.5": {
+      "title": "baselineGuid property",
+      "anchor": "#_Toc141790739",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790739"
+    },
+    "3.14.6": {
+      "title": "tool property",
+      "anchor": "#_Toc141790740",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790740"
+    },
+    "3.14.7": {
+      "title": "language",
+      "anchor": "#_Toc141790741",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790741"
+    },
+    "3.14.8": {
+      "title": "taxonomies property",
+      "anchor": "#_Toc141790742",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790742"
+    },
+    "3.14.9": {
+      "title": "translations property",
+      "anchor": "#_Toc141790743",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790743"
+    },
+    "3.14.10": {
+      "title": "policies property",
+      "anchor": "#_Toc141790744",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790744"
+    },
+    "3.14.11": {
+      "title": "invocations property",
+      "anchor": "#_Toc141790745",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790745"
+    },
+    "3.14.12": {
+      "title": "conversion property",
+      "anchor": "#_Toc141790746",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790746"
+    },
+    "3.14.13": {
+      "title": "versionControlProvenance property",
+      "anchor": "#_Toc141790747",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790747"
+    },
+    "3.14.14": {
+      "title": "originalUriBaseIds property",
+      "anchor": "#_Toc141790748",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790748"
+    },
+    "3.14.15": {
+      "title": "artifacts property",
+      "anchor": "#_Toc141790749",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790749"
+    },
+    "3.14.16": {
+      "title": "specialLocations property",
+      "anchor": "#_Toc141790750",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790750"
+    },
+    "3.14.17": {
+      "title": "logicalLocations property",
+      "anchor": "#_Toc141790751",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790751"
+    },
+    "3.14.18": {
+      "title": "addresses property",
+      "anchor": "#_Toc141790752",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790752"
+    },
+    "3.14.19": {
+      "title": "threadFlowLocations property",
+      "anchor": "#_Toc141790753",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790753"
+    },
+    "3.14.20": {
+      "title": "graphs property",
+      "anchor": "#_Toc141790754",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790754"
+    },
+    "3.14.21": {
+      "title": "webRequests property",
+      "anchor": "#_Toc141790755",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790755"
+    },
+    "3.14.22": {
+      "title": "webResponses property",
+      "anchor": "#_Toc141790756",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790756"
+    },
+    "3.14.23": {
+      "title": "results property",
+      "anchor": "#_Toc141790757",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790757"
+    },
+    "3.14.24": {
+      "title": "defaultEncoding property",
+      "anchor": "#_Toc141790758",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790758"
+    },
+    "3.14.25": {
+      "title": "defaultSourceLanguage property",
+      "anchor": "#_Toc141790759",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790759"
+    },
+    "3.14.26": {
+      "title": "newlineSequences property",
+      "anchor": "#_Toc141790760",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790760"
+    },
+    "3.14.27": {
+      "title": "columnKind property",
+      "anchor": "#_Toc141790761",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790761"
+    },
+    "3.14.28": {
+      "title": "redactionTokens property",
+      "anchor": "#_Toc141790762",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790762"
+    },
+    "3.15": {
+      "title": "externalPropertyFileReferences object",
+      "anchor": "#_Toc141790763",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790763"
+    },
+    "3.15.1": {
+      "title": "General",
+      "anchor": "#_Toc141790764",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790764"
+    },
+    "3.15.2": {
+      "title": "Rationale",
+      "anchor": "#_Toc141790765",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790765"
+    },
+    "3.15.3": {
+      "title": "Properties",
+      "anchor": "#_Toc141790766",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790766"
+    },
+    "3.16": {
+      "title": "externalPropertyFileReference object",
+      "anchor": "#_Toc141790767",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790767"
+    },
+    "3.16.1": {
+      "title": "General",
+      "anchor": "#_Toc141790768",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790768"
+    },
+    "3.16.2": {
+      "title": "Constraints",
+      "anchor": "#_Toc141790769",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790769"
+    },
+    "3.16.3": {
+      "title": "location property",
+      "anchor": "#_Toc141790770",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790770"
+    },
+    "3.16.4": {
+      "title": "guid property",
+      "anchor": "#_Toc141790771",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790771"
+    },
+    "3.16.5": {
+      "title": "itemCount property",
+      "anchor": "#_Toc141790772",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790772"
+    },
+    "3.17": {
+      "title": "runAutomationDetails object",
+      "anchor": "#_Toc141790773",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790773"
+    },
+    "3.17.1": {
+      "title": "General",
+      "anchor": "#_Toc141790774",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790774"
+    },
+    "3.17.2": {
+      "title": "description property",
+      "anchor": "#_Toc141790775",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790775"
+    },
+    "3.17.3": {
+      "title": "id property",
+      "anchor": "#_Toc141790776",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790776"
+    },
+    "3.17.4": {
+      "title": "guid property",
+      "anchor": "#_Toc141790777",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790777"
+    },
+    "3.17.5": {
+      "title": "correlationGuid property",
+      "anchor": "#_Toc141790778",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790778"
+    },
+    "3.18": {
+      "title": "tool object",
+      "anchor": "#_Toc141790779",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790779"
+    },
+    "3.18.1": {
+      "title": "General",
+      "anchor": "#_Toc141790780",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790780"
+    },
+    "3.18.2": {
+      "title": "driver property",
+      "anchor": "#_Toc141790781",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790781"
+    },
+    "3.18.3": {
+      "title": "extensions property",
+      "anchor": "#_Toc141790782",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790782"
+    },
+    "3.19": {
+      "title": "toolComponent object",
+      "anchor": "#_Toc141790783",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790783"
+    },
+    "3.19.1": {
+      "title": "General",
+      "anchor": "#_Toc141790784",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790784"
+    },
+    "3.19.2": {
+      "title": "Constraints",
+      "anchor": "#_Toc141790785",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790785"
+    },
+    "3.19.3": {
+      "title": "Taxonomies",
+      "anchor": "#_Toc141790786",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790786"
+    },
+    "3.19.4": {
+      "title": "Translations",
+      "anchor": "#_Toc141790787",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790787"
+    },
+    "3.19.5": {
+      "title": "Policies",
+      "anchor": "#_Toc141790788",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790788"
+    },
+    "3.19.6": {
+      "title": "guid property",
+      "anchor": "#_Toc141790789",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790789"
+    },
+    "3.19.7": {
+      "title": "Product hierarchy properties",
+      "anchor": "#_Toc141790790",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790790"
+    },
+    "3.19.8": {
+      "title": "name property",
+      "anchor": "#_Toc141790791",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790791"
+    },
+    "3.19.9": {
+      "title": "fullName property",
+      "anchor": "#_Toc141790792",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790792"
+    },
+    "3.19.10": {
+      "title": "product property",
+      "anchor": "#_Toc141790793",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790793"
+    },
+    "3.19.11": {
+      "title": "productSuite property",
+      "anchor": "#_Toc141790794",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790794"
+    },
+    "3.19.12": {
+      "title": "semanticVersion property",
+      "anchor": "#_Toc141790795",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790795"
+    },
+    "3.19.13": {
+      "title": "version property",
+      "anchor": "#_Toc141790796",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790796"
+    },
+    "3.19.14": {
+      "title": "dottedQuadFileVersion property",
+      "anchor": "#_Toc141790797",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790797"
+    },
+    "3.19.15": {
+      "title": "releaseDateUtc property",
+      "anchor": "#_Toc141790798",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790798"
+    },
+    "3.19.16": {
+      "title": "downloadUri property",
+      "anchor": "#_Toc141790799",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790799"
+    },
+    "3.19.17": {
+      "title": "informationUri property",
+      "anchor": "#_Toc141790800",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790800"
+    },
+    "3.19.18": {
+      "title": "organization property",
+      "anchor": "#_Toc141790801",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790801"
+    },
+    "3.19.19": {
+      "title": "shortDescription property",
+      "anchor": "#_Toc141790802",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790802"
+    },
+    "3.19.20": {
+      "title": "fullDescription property",
+      "anchor": "#_Toc141790803",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790803"
+    },
+    "3.19.21": {
+      "title": "language property",
+      "anchor": "#_Toc141790804",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790804"
+    },
+    "3.19.22": {
+      "title": "globalMessageStrings property",
+      "anchor": "#_Toc141790805",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790805"
+    },
+    "3.19.23": {
+      "title": "rules property",
+      "anchor": "#_Toc141790806",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790806"
+    },
+    "3.19.24": {
+      "title": "notifications property",
+      "anchor": "#_Toc141790807",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790807"
+    },
+    "3.19.25": {
+      "title": "taxa property",
+      "anchor": "#_Toc141790808",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790808"
+    },
+    "3.19.26": {
+      "title": "supportedTaxonomies property",
+      "anchor": "#_Toc141790809",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790809"
+    },
+    "3.19.27": {
+      "title": "translationMetadata property",
+      "anchor": "#_Toc141790810",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790810"
+    },
+    "3.19.28": {
+      "title": "locations property",
+      "anchor": "#_Toc141790811",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790811"
+    },
+    "3.19.29": {
+      "title": "contents property",
+      "anchor": "#_Toc141790812",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790812"
+    },
+    "3.19.30": {
+      "title": "isComprehensive property",
+      "anchor": "#_Toc141790813",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790813"
+    },
+    "3.19.31": {
+      "title": "localizedDataSemanticVersion property",
+      "anchor": "#_Toc141790814",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790814"
+    },
+    "3.19.32": {
+      "title": "minimumRequiredLocalizedDataSemanticVersion property",
+      "anchor": "#_Toc141790815",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790815"
+    },
+    "3.19.33": {
+      "title": "associatedComponent property",
+      "anchor": "#_Toc141790816",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790816"
+    },
+    "3.20": {
+      "title": "invocation object",
+      "anchor": "#_Toc141790817",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790817"
+    },
+    "3.20.1": {
+      "title": "General",
+      "anchor": "#_Toc141790818",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790818"
+    },
+    "3.20.2": {
+      "title": "commandLine property",
+      "anchor": "#_Toc141790819",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790819"
+    },
+    "3.20.3": {
+      "title": "arguments property",
+      "anchor": "#_Toc141790820",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790820"
+    },
+    "3.20.4": {
+      "title": "responseFiles property",
+      "anchor": "#_Toc141790821",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790821"
+    },
+    "3.20.5": {
+      "title": "ruleConfigurationOverrides property",
+      "anchor": "#_Toc141790822",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790822"
+    },
+    "3.20.6": {
+      "title": "notificationConfigurationOverrides property",
+      "anchor": "#_Toc141790823",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790823"
+    },
+    "3.20.7": {
+      "title": "startTimeUtc property",
+      "anchor": "#_Toc141790824",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790824"
+    },
+    "3.20.8": {
+      "title": "endTimeUtc property",
+      "anchor": "#_Toc141790825",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790825"
+    },
+    "3.20.9": {
+      "title": "exitCode property",
+      "anchor": "#_Toc141790826",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790826"
+    },
+    "3.20.10": {
+      "title": "exitCodeDescription property",
+      "anchor": "#_Toc141790827",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790827"
+    },
+    "3.20.11": {
+      "title": "exitSignalName property",
+      "anchor": "#_Toc141790828",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790828"
+    },
+    "3.20.12": {
+      "title": "exitSignalNumber property",
+      "anchor": "#_Toc141790829",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790829"
+    },
+    "3.20.13": {
+      "title": "processStartFailureMessage property",
+      "anchor": "#_Toc141790830",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790830"
+    },
+    "3.20.14": {
+      "title": "executionSuccessful property",
+      "anchor": "#_Toc141790831",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790831"
+    },
+    "3.20.15": {
+      "title": "machine property",
+      "anchor": "#_Toc141790832",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790832"
+    },
+    "3.20.16": {
+      "title": "account property",
+      "anchor": "#_Toc141790833",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790833"
+    },
+    "3.20.17": {
+      "title": "processId property",
+      "anchor": "#_Toc141790834",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790834"
+    },
+    "3.20.18": {
+      "title": "executableLocation property",
+      "anchor": "#_Toc141790835",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790835"
+    },
+    "3.20.19": {
+      "title": "workingDirectory property",
+      "anchor": "#_Toc141790836",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790836"
+    },
+    "3.20.20": {
+      "title": "environmentVariables property",
+      "anchor": "#_Toc141790837",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790837"
+    },
+    "3.20.21": {
+      "title": "toolExecutionNotifications property",
+      "anchor": "#_Toc141790838",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790838"
+    },
+    "3.20.22": {
+      "title": "toolConfigurationNotifications property",
+      "anchor": "#_Toc141790839",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790839"
+    },
+    "3.20.23": {
+      "title": "stdin, stdout, stderr, and stdoutStderr properties",
+      "anchor": "#_Toc141790840",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790840"
+    },
+    "3.21": {
+      "title": "attachment object",
+      "anchor": "#_Toc141790841",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790841"
+    },
+    "3.21.1": {
+      "title": "General",
+      "anchor": "#_Toc141790842",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790842"
+    },
+    "3.21.2": {
+      "title": "description property",
+      "anchor": "#_Toc141790843",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790843"
+    },
+    "3.21.3": {
+      "title": "location property",
+      "anchor": "#_Toc141790844",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790844"
+    },
+    "3.21.4": {
+      "title": "regions property",
+      "anchor": "#_Toc141790845",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790845"
+    },
+    "3.21.5": {
+      "title": "rectangles property",
+      "anchor": "#_Toc141790846",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790846"
+    },
+    "3.22": {
+      "title": "conversion object",
+      "anchor": "#_Toc141790847",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790847"
+    },
+    "3.22.1": {
+      "title": "General",
+      "anchor": "#_Toc141790848",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790848"
+    },
+    "3.22.2": {
+      "title": "tool property",
+      "anchor": "#_Toc141790849",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790849"
+    },
+    "3.22.3": {
+      "title": "invocation property",
+      "anchor": "#_Toc141790850",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790850"
+    },
+    "3.22.4": {
+      "title": "analysisToolLogFiles property",
+      "anchor": "#_Toc141790851",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790851"
+    },
+    "3.23": {
+      "title": "versionControlDetails object",
+      "anchor": "#_Toc141790852",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790852"
+    },
+    "3.23.1": {
+      "title": "General",
+      "anchor": "#_Toc141790853",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790853"
+    },
+    "3.23.2": {
+      "title": "Constraints",
+      "anchor": "#_Toc141790854",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790854"
+    },
+    "3.23.3": {
+      "title": "repositoryUri property",
+      "anchor": "#_Toc141790855",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790855"
+    },
+    "3.23.4": {
+      "title": "revisionId property",
+      "anchor": "#_Toc141790856",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790856"
+    },
+    "3.23.5": {
+      "title": "branch property",
+      "anchor": "#_Toc141790857",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790857"
+    },
+    "3.23.6": {
+      "title": "revisionTag property",
+      "anchor": "#_Toc141790858",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790858"
+    },
+    "3.23.7": {
+      "title": "asOfTimeUtc property",
+      "anchor": "#_Toc141790859",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790859"
+    },
+    "3.23.8": {
+      "title": "mappedTo property",
+      "anchor": "#_Toc141790860",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790860"
+    },
+    "3.24": {
+      "title": "artifact object",
+      "anchor": "#_Toc141790861",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790861"
+    },
+    "3.24.1": {
+      "title": "General",
+      "anchor": "#_Toc141790862",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790862"
+    },
+    "3.24.2": {
+      "title": "location property",
+      "anchor": "#_Toc141790863",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790863"
+    },
+    "3.24.3": {
+      "title": "parentIndex property",
+      "anchor": "#_Toc141790864",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790864"
+    },
+    "3.24.4": {
+      "title": "offset property",
+      "anchor": "#_Toc141790865",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790865"
+    },
+    "3.24.5": {
+      "title": "length property",
+      "anchor": "#_Toc141790866",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790866"
+    },
+    "3.24.6": {
+      "title": "roles property",
+      "anchor": "#_Toc141790867",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790867"
+    },
+    "3.24.7": {
+      "title": "mimeType property",
+      "anchor": "#_Toc141790868",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790868"
+    },
+    "3.24.8": {
+      "title": "contents property",
+      "anchor": "#_Toc141790869",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790869"
+    },
+    "3.24.9": {
+      "title": "encoding property",
+      "anchor": "#_Toc141790870",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790870"
+    },
+    "3.24.10": {
+      "title": "sourceLanguage property",
+      "anchor": "#_Toc141790871",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790871"
+    },
+    "3.24.10.1": {
+      "title": "General",
+      "anchor": "#_Toc141790872",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790872"
+    },
+    "3.24.10.2": {
+      "title": "Source language identifier conventions and practices",
+      "anchor": "#_Toc141790873",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790873"
+    },
+    "3.24.11": {
+      "title": "hashes property",
+      "anchor": "#_Toc141790874",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790874"
+    },
+    "3.24.12": {
+      "title": "lastModifiedTimeUtc property",
+      "anchor": "#_Toc141790875",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790875"
+    },
+    "3.24.13": {
+      "title": "description property",
+      "anchor": "#_Toc141790876",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790876"
+    },
+    "3.25": {
+      "title": "specialLocations object",
+      "anchor": "#_Toc141790877",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790877"
+    },
+    "3.25.1": {
+      "title": "General",
+      "anchor": "#_Toc141790878",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790878"
+    },
+    "3.25.2": {
+      "title": "displayBase property",
+      "anchor": "#_Toc141790879",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790879"
+    },
+    "3.26": {
+      "title": "translationMetadata object",
+      "anchor": "#_Toc141790880",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790880"
+    },
+    "3.26.1": {
+      "title": "General",
+      "anchor": "#_Toc141790881",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790881"
+    },
+    "3.26.2": {
+      "title": "name property",
+      "anchor": "#_Toc141790882",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790882"
+    },
+    "3.26.3": {
+      "title": "fullName property",
+      "anchor": "#_Toc141790883",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790883"
+    },
+    "3.26.4": {
+      "title": "shortDescription property",
+      "anchor": "#_Toc141790884",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790884"
+    },
+    "3.26.5": {
+      "title": "fullDescription property",
+      "anchor": "#_Toc141790885",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790885"
+    },
+    "3.26.6": {
+      "title": "downloadUri property",
+      "anchor": "#_Toc141790886",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790886"
+    },
+    "3.26.7": {
+      "title": "informationUri property",
+      "anchor": "#_Toc141790887",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790887"
+    },
+    "3.27": {
+      "title": "result object",
+      "anchor": "#_Toc141790888",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790888"
+    },
+    "3.27.1": {
+      "title": "General",
+      "anchor": "#_Toc141790889",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790889"
+    },
+    "3.27.2": {
+      "title": "Distinguishing logically identical from logically distinct results",
+      "anchor": "#_Toc141790890",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790890"
+    },
+    "3.27.3": {
+      "title": "guid property",
+      "anchor": "#_Toc141790891",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790891"
+    },
+    "3.27.4": {
+      "title": "correlationGuid property",
+      "anchor": "#_Toc141790892",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790892"
+    },
+    "3.27.5": {
+      "title": "ruleId property",
+      "anchor": "#_Toc141790893",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790893"
+    },
+    "3.27.6": {
+      "title": "ruleIndex property",
+      "anchor": "#_Toc141790894",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790894"
+    },
+    "3.27.7": {
+      "title": "rule property",
+      "anchor": "#_Toc141790895",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790895"
+    },
+    "3.27.8": {
+      "title": "taxa property",
+      "anchor": "#_Toc141790896",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790896"
+    },
+    "3.27.9": {
+      "title": "kind property",
+      "anchor": "#_Toc141790897",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790897"
+    },
+    "3.27.10": {
+      "title": "level property",
+      "anchor": "#_Toc141790898",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790898"
+    },
+    "3.27.11": {
+      "title": "message property",
+      "anchor": "#_Toc141790899",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790899"
+    },
+    "3.27.12": {
+      "title": "locations property",
+      "anchor": "#_Toc141790900",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790900"
+    },
+    "3.27.13": {
+      "title": "analysisTarget property",
+      "anchor": "#_Toc141790901",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790901"
+    },
+    "3.27.14": {
+      "title": "webRequest property",
+      "anchor": "#_Toc141790902",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790902"
+    },
+    "3.27.15": {
+      "title": "webResponse property",
+      "anchor": "#_Toc141790903",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790903"
+    },
+    "3.27.16": {
+      "title": "fingerprints property",
+      "anchor": "#_Toc141790904",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790904"
+    },
+    "3.27.17": {
+      "title": "partialFingerprints property",
+      "anchor": "#_Toc141790905",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790905"
+    },
+    "3.27.18": {
+      "title": "codeFlows property",
+      "anchor": "#_Toc141790906",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790906"
+    },
+    "3.27.19": {
+      "title": "graphs property",
+      "anchor": "#_Toc141790907",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790907"
+    },
+    "3.27.20": {
+      "title": "graphTraversals property",
+      "anchor": "#_Toc141790908",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790908"
+    },
+    "3.27.21": {
+      "title": "stacks property",
+      "anchor": "#_Toc141790909",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790909"
+    },
+    "3.27.22": {
+      "title": "relatedLocations property",
+      "anchor": "#_Toc141790910",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790910"
+    },
+    "3.27.23": {
+      "title": "suppressions property",
+      "anchor": "#_Toc141790911",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790911"
+    },
+    "3.27.24": {
+      "title": "baselineState property",
+      "anchor": "#_Toc141790912",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790912"
+    },
+    "3.27.25": {
+      "title": "rank property",
+      "anchor": "#_Toc141790913",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790913"
+    },
+    "3.27.26": {
+      "title": "attachments property",
+      "anchor": "#_Toc141790914",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790914"
+    },
+    "3.27.27": {
+      "title": "workItemUris property",
+      "anchor": "#_Toc141790915",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790915"
+    },
+    "3.27.28": {
+      "title": "hostedViewerUri property",
+      "anchor": "#_Toc141790916",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790916"
+    },
+    "3.27.29": {
+      "title": "provenance property",
+      "anchor": "#_Toc141790917",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790917"
+    },
+    "3.27.30": {
+      "title": "fixes property",
+      "anchor": "#_Toc141790918",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790918"
+    },
+    "3.27.31": {
+      "title": "occurrenceCount property",
+      "anchor": "#_Toc141790919",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790919"
+    },
+    "3.28": {
+      "title": "location object",
+      "anchor": "#_Toc141790920",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790920"
+    },
+    "3.28.1": {
+      "title": "General",
+      "anchor": "#_Toc141790921",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790921"
+    },
+    "3.28.2": {
+      "title": "id property",
+      "anchor": "#_Toc141790922",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790922"
+    },
+    "3.28.3": {
+      "title": "physicalLocation property",
+      "anchor": "#_Toc141790923",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790923"
+    },
+    "3.28.4": {
+      "title": "logicalLocations property",
+      "anchor": "#_Toc141790924",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790924"
+    },
+    "3.28.5": {
+      "title": "message property",
+      "anchor": "#_Toc141790925",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790925"
+    },
+    "3.28.6": {
+      "title": "annotations property",
+      "anchor": "#_Toc141790926",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790926"
+    },
+    "3.28.7": {
+      "title": "relationships property",
+      "anchor": "#_Toc141790927",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790927"
+    },
+    "3.29": {
+      "title": "physicalLocation object",
+      "anchor": "#_Toc141790928",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790928"
+    },
+    "3.29.1": {
+      "title": "General",
+      "anchor": "#_Toc141790929",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790929"
+    },
+    "3.29.2": {
+      "title": "Constraints",
+      "anchor": "#_Toc141790930",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790930"
+    },
+    "3.29.3": {
+      "title": "artifactLocation property",
+      "anchor": "#_Toc141790931",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790931"
+    },
+    "3.29.4": {
+      "title": "region property",
+      "anchor": "#_Toc141790932",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790932"
+    },
+    "3.29.5": {
+      "title": "contextRegion property",
+      "anchor": "#_Toc141790933",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790933"
+    },
+    "3.29.6": {
+      "title": "address property",
+      "anchor": "#_Toc141790934",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790934"
+    },
+    "3.30": {
+      "title": "region object",
+      "anchor": "#_Toc141790935",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790935"
+    },
+    "3.30.1": {
+      "title": "General",
+      "anchor": "#_Toc141790936",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790936"
+    },
+    "3.30.2": {
+      "title": "Text regions",
+      "anchor": "#_Toc141790937",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790937"
+    },
+    "3.30.3": {
+      "title": "Binary regions",
+      "anchor": "#_Toc141790938",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790938"
+    },
+    "3.30.4": {
+      "title": "Independence of text and binary regions",
+      "anchor": "#_Toc141790939",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790939"
+    },
+    "3.30.5": {
+      "title": "startLine property",
+      "anchor": "#_Toc141790940",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790940"
+    },
+    "3.30.6": {
+      "title": "startColumn property",
+      "anchor": "#_Toc141790941",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790941"
+    },
+    "3.30.7": {
+      "title": "endLine property",
+      "anchor": "#_Toc141790942",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790942"
+    },
+    "3.30.8": {
+      "title": "endColumn property",
+      "anchor": "#_Toc141790943",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790943"
+    },
+    "3.30.9": {
+      "title": "charOffset property",
+      "anchor": "#_Toc141790944",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790944"
+    },
+    "3.30.10": {
+      "title": "charLength property",
+      "anchor": "#_Toc141790945",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790945"
+    },
+    "3.30.11": {
+      "title": "byteOffset property",
+      "anchor": "#_Toc141790946",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790946"
+    },
+    "3.30.12": {
+      "title": "byteLength property",
+      "anchor": "#_Toc141790947",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790947"
+    },
+    "3.30.13": {
+      "title": "snippet property",
+      "anchor": "#_Toc141790948",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790948"
+    },
+    "3.30.14": {
+      "title": "message property",
+      "anchor": "#_Toc141790949",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790949"
+    },
+    "3.30.15": {
+      "title": "sourceLanguage property",
+      "anchor": "#_Toc141790950",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790950"
+    },
+    "3.31": {
+      "title": "rectangle object",
+      "anchor": "#_Toc141790951",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790951"
+    },
+    "3.31.1": {
+      "title": "General",
+      "anchor": "#_Toc141790952",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790952"
+    },
+    "3.31.2": {
+      "title": "top, left, bottom, and right properties",
+      "anchor": "#_Toc141790953",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790953"
+    },
+    "3.31.3": {
+      "title": "message property",
+      "anchor": "#_Toc141790954",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790954"
+    },
+    "3.32": {
+      "title": "address object",
+      "anchor": "#_Toc141790955",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790955"
+    },
+    "3.32.1": {
+      "title": "General",
+      "anchor": "#_Toc141790956",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790956"
+    },
+    "3.32.2": {
+      "title": "Parent-child relationships",
+      "anchor": "#_Toc141790957",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790957"
+    },
+    "3.32.3": {
+      "title": "Absolute address calculation",
+      "anchor": "#_Toc141790958",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790958"
+    },
+    "3.32.4": {
+      "title": "Relative address calculation",
+      "anchor": "#_Toc141790959",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790959"
+    },
+    "3.32.5": {
+      "title": "index property",
+      "anchor": "#_Toc141790960",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790960"
+    },
+    "3.32.6": {
+      "title": "absoluteAddress property",
+      "anchor": "#_Toc141790961",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790961"
+    },
+    "3.32.7": {
+      "title": "relativeAddress property",
+      "anchor": "#_Toc141790962",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790962"
+    },
+    "3.32.8": {
+      "title": "offsetFromParent property",
+      "anchor": "#_Toc141790963",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790963"
+    },
+    "3.32.9": {
+      "title": "length property",
+      "anchor": "#_Toc141790964",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790964"
+    },
+    "3.32.10": {
+      "title": "name property",
+      "anchor": "#_Toc141790965",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790965"
+    },
+    "3.32.11": {
+      "title": "fullyQualifiedName property",
+      "anchor": "#_Toc141790966",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790966"
+    },
+    "3.32.12": {
+      "title": "kind property",
+      "anchor": "#_Toc141790967",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790967"
+    },
+    "3.32.13": {
+      "title": "parentIndex property",
+      "anchor": "#_Toc141790968",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790968"
+    },
+    "3.33": {
+      "title": "logicalLocation object",
+      "anchor": "#_Toc141790969",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790969"
+    },
+    "3.33.1": {
+      "title": "General",
+      "anchor": "#_Toc141790970",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790970"
+    },
+    "3.33.2": {
+      "title": "Logical location naming rules",
+      "anchor": "#_Toc141790971",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790971"
+    },
+    "3.33.3": {
+      "title": "index property",
+      "anchor": "#_Toc141790972",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790972"
+    },
+    "3.33.4": {
+      "title": "name property",
+      "anchor": "#_Toc141790973",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790973"
+    },
+    "3.33.5": {
+      "title": "fullyQualifiedName property",
+      "anchor": "#_Toc141790974",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790974"
+    },
+    "3.33.6": {
+      "title": "decoratedName property",
+      "anchor": "#_Toc141790975",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790975"
+    },
+    "3.33.7": {
+      "title": "kind property",
+      "anchor": "#_Toc141790976",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790976"
+    },
+    "3.33.8": {
+      "title": "parentIndex property",
+      "anchor": "#_Toc141790977",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790977"
+    },
+    "3.34": {
+      "title": "locationRelationship object",
+      "anchor": "#_Toc141790978",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790978"
+    },
+    "3.34.1": {
+      "title": "General",
+      "anchor": "#_Toc141790979",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790979"
+    },
+    "3.34.2": {
+      "title": "target property",
+      "anchor": "#_Toc141790980",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790980"
+    },
+    "3.34.3": {
+      "title": "kinds property",
+      "anchor": "#_Toc141790981",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790981"
+    },
+    "3.34.4": {
+      "title": "description property",
+      "anchor": "#_Toc141790982",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790982"
+    },
+    "3.35": {
+      "title": "suppression object",
+      "anchor": "#_Toc141790983",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790983"
+    },
+    "3.35.1": {
+      "title": "General",
+      "anchor": "#_Toc141790984",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790984"
+    },
+    "3.35.2": {
+      "title": "kind property",
+      "anchor": "#_Toc141790985",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790985"
+    },
+    "3.35.3": {
+      "title": "status property",
+      "anchor": "#_Toc141790986",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790986"
+    },
+    "3.35.4": {
+      "title": "location property",
+      "anchor": "#_Toc141790987",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790987"
+    },
+    "3.35.5": {
+      "title": "guid property",
+      "anchor": "#_Toc141790988",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790988"
+    },
+    "3.35.6": {
+      "title": "justification property",
+      "anchor": "#_Toc141790989",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790989"
+    },
+    "3.36": {
+      "title": "codeFlow object",
+      "anchor": "#_Toc141790990",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790990"
+    },
+    "3.36.1": {
+      "title": "General",
+      "anchor": "#_Toc141790991",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790991"
+    },
+    "3.36.2": {
+      "title": "message property",
+      "anchor": "#_Toc141790992",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790992"
+    },
+    "3.36.3": {
+      "title": "threadFlows property",
+      "anchor": "#_Toc141790993",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790993"
+    },
+    "3.37": {
+      "title": "threadFlow object",
+      "anchor": "#_Toc141790994",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790994"
+    },
+    "3.37.1": {
+      "title": "General",
+      "anchor": "#_Toc141790995",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790995"
+    },
+    "3.37.2": {
+      "title": "id property",
+      "anchor": "#_Toc141790996",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790996"
+    },
+    "3.37.3": {
+      "title": "message property",
+      "anchor": "#_Toc141790997",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790997"
+    },
+    "3.37.4": {
+      "title": "initialState property",
+      "anchor": "#_Toc141790998",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790998"
+    },
+    "3.37.5": {
+      "title": "immutableState property",
+      "anchor": "#_Toc141790999",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141790999"
+    },
+    "3.37.6": {
+      "title": "locations property",
+      "anchor": "#_Toc141791000",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141791000"
+    },
+    "3.38": {
+      "title": "threadFlowLocation object",
+      "anchor": "#_Toc141791001",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141791001"
+    },
+    "3.38.1": {
+      "title": "General",
+      "anchor": "#_Toc141791002",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141791002"
+    },
+    "3.38.2": {
+      "title": "index property",
+      "anchor": "#_Toc141791003",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141791003"
+    },
+    "3.38.3": {
+      "title": "location property",
+      "anchor": "#_Toc141791004",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141791004"
+    },
+    "3.38.4": {
+      "title": "module property",
+      "anchor": "#_Toc141791005",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141791005"
+    },
+    "3.38.5": {
+      "title": "stack property",
+      "anchor": "#_Toc141791006",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141791006"
+    },
+    "3.38.6": {
+      "title": "webRequest property",
+      "anchor": "#_Toc141791007",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141791007"
+    },
+    "3.38.7": {
+      "title": "webResponse property",
+      "anchor": "#_Toc141791008",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141791008"
+    },
+    "3.38.8": {
+      "title": "kinds property",
+      "anchor": "#_Toc141791009",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141791009"
+    },
+    "3.38.9": {
+      "title": "state property",
+      "anchor": "#_Toc141791010",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141791010"
+    },
+    "3.38.10": {
+      "title": "nestingLevel property",
+      "anchor": "#_Toc141791011",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141791011"
+    },
+    "3.38.11": {
+      "title": "executionOrder property",
+      "anchor": "#_Toc141791012",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141791012"
+    },
+    "3.38.12": {
+      "title": "executionTimeUtc property",
+      "anchor": "#_Toc141791013",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141791013"
+    },
+    "3.38.13": {
+      "title": "importance property",
+      "anchor": "#_Toc141791014",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141791014"
+    },
+    "3.38.14": {
+      "title": "taxa property",
+      "anchor": "#_Toc141791015",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141791015"
+    },
+    "3.39": {
+      "title": "graph object",
+      "anchor": "#_Toc141791016",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141791016"
+    },
+    "3.39.1": {
+      "title": "General",
+      "anchor": "#_Toc141791017",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141791017"
+    },
+    "3.39.2": {
+      "title": "description property",
+      "anchor": "#_Toc141791018",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141791018"
+    },
+    "3.39.3": {
+      "title": "nodes property",
+      "anchor": "#_Toc141791019",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141791019"
+    },
+    "3.39.4": {
+      "title": "edges property",
+      "anchor": "#_Toc141791020",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141791020"
+    },
+    "3.40": {
+      "title": "node object",
+      "anchor": "#_Toc141791021",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141791021"
+    },
+    "3.40.1": {
+      "title": "General",
+      "anchor": "#_Toc141791022",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141791022"
+    },
+    "3.40.2": {
+      "title": "id property",
+      "anchor": "#_Toc141791023",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141791023"
+    },
+    "3.40.3": {
+      "title": "label property",
+      "anchor": "#_Toc141791024",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141791024"
+    },
+    "3.40.4": {
+      "title": "location property",
+      "anchor": "#_Toc141791025",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141791025"
+    },
+    "3.40.5": {
+      "title": "children property",
+      "anchor": "#_Toc141791026",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141791026"
+    },
+    "3.41": {
+      "title": "edge object",
+      "anchor": "#_Toc141791027",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141791027"
+    },
+    "3.41.1": {
+      "title": "General",
+      "anchor": "#_Toc141791028",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141791028"
+    },
+    "3.41.2": {
+      "title": "id property",
+      "anchor": "#_Toc141791029",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141791029"
+    },
+    "3.41.3": {
+      "title": "label property",
+      "anchor": "#_Toc141791030",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141791030"
+    },
+    "3.41.4": {
+      "title": "sourceNodeId property",
+      "anchor": "#_Toc141791031",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141791031"
+    },
+    "3.41.5": {
+      "title": "targetNodeId property",
+      "anchor": "#_Toc141791032",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141791032"
+    },
+    "3.42": {
+      "title": "graphTraversal object",
+      "anchor": "#_Toc141791033",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141791033"
+    },
+    "3.42.1": {
+      "title": "General",
+      "anchor": "#_Toc141791034",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141791034"
+    },
+    "3.42.2": {
+      "title": "Constraints",
+      "anchor": "#_Toc141791035",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141791035"
+    },
+    "3.42.3": {
+      "title": "resultGraphIndex property",
+      "anchor": "#_Toc141791036",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141791036"
+    },
+    "3.42.4": {
+      "title": "runGraphIndex property",
+      "anchor": "#_Toc141791037",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141791037"
+    },
+    "3.42.5": {
+      "title": "description property",
+      "anchor": "#_Toc141791038",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141791038"
+    },
+    "3.42.6": {
+      "title": "initialState property",
+      "anchor": "#_Toc141791039",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141791039"
+    },
+    "3.42.7": {
+      "title": "immutableState property",
+      "anchor": "#_Toc141791040",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141791040"
+    },
+    "3.42.8": {
+      "title": "edgeTraversals property",
+      "anchor": "#_Toc141791041",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141791041"
+    },
+    "3.43": {
+      "title": "edgeTraversal object",
+      "anchor": "#_Toc141791042",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141791042"
+    },
+    "3.43.1": {
+      "title": "General",
+      "anchor": "#_Toc141791043",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141791043"
+    },
+    "3.43.2": {
+      "title": "edgeId property",
+      "anchor": "#_Toc141791044",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141791044"
+    },
+    "3.43.3": {
+      "title": "message property",
+      "anchor": "#_Toc141791045",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141791045"
+    },
+    "3.43.4": {
+      "title": "finalState property",
+      "anchor": "#_Toc141791046",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141791046"
+    },
+    "3.43.5": {
+      "title": "stepOverEdgeCount property",
+      "anchor": "#_Toc141791047",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141791047"
+    },
+    "3.44": {
+      "title": "stack object",
+      "anchor": "#_Toc141791048",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141791048"
+    },
+    "3.44.1": {
+      "title": "General",
+      "anchor": "#_Toc141791049",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141791049"
+    },
+    "3.44.2": {
+      "title": "message property",
+      "anchor": "#_Toc141791050",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141791050"
+    },
+    "3.44.3": {
+      "title": "frames property",
+      "anchor": "#_Toc141791051",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141791051"
+    },
+    "3.45": {
+      "title": "stackFrame object",
+      "anchor": "#_Toc141791052",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141791052"
+    },
+    "3.45.1": {
+      "title": "General",
+      "anchor": "#_Toc141791053",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141791053"
+    },
+    "3.45.2": {
+      "title": "location property",
+      "anchor": "#_Toc141791054",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141791054"
+    },
+    "3.45.3": {
+      "title": "module property",
+      "anchor": "#_Toc141791055",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141791055"
+    },
+    "3.45.4": {
+      "title": "threadId property",
+      "anchor": "#_Toc141791056",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141791056"
+    },
+    "3.45.5": {
+      "title": "parameters property",
+      "anchor": "#_Toc141791057",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141791057"
+    },
+    "3.46": {
+      "title": "webRequest object",
+      "anchor": "#_Toc141791058",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141791058"
+    },
+    "3.46.1": {
+      "title": "General",
+      "anchor": "#_Toc141791059",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141791059"
+    },
+    "3.46.2": {
+      "title": "index property",
+      "anchor": "#_Toc141791060",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141791060"
+    },
+    "3.46.3": {
+      "title": "protocol property",
+      "anchor": "#_Toc141791061",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141791061"
+    },
+    "3.46.4": {
+      "title": "version property",
+      "anchor": "#_Toc141791062",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141791062"
+    },
+    "3.46.5": {
+      "title": "target property",
+      "anchor": "#_Toc141791063",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141791063"
+    },
+    "3.46.6": {
+      "title": "method property",
+      "anchor": "#_Toc141791064",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141791064"
+    },
+    "3.46.7": {
+      "title": "headers property",
+      "anchor": "#_Toc141791065",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141791065"
+    },
+    "3.46.8": {
+      "title": "parameters property",
+      "anchor": "#_Toc141791066",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141791066"
+    },
+    "3.46.9": {
+      "title": "body property",
+      "anchor": "#_Toc141791067",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141791067"
+    },
+    "3.47": {
+      "title": "webResponse object",
+      "anchor": "#_Toc141791068",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141791068"
+    },
+    "3.47.1": {
+      "title": "General",
+      "anchor": "#_Toc141791069",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141791069"
+    },
+    "3.47.2": {
+      "title": "index property",
+      "anchor": "#_Toc141791070",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141791070"
+    },
+    "3.47.3": {
+      "title": "protocol property",
+      "anchor": "#_Toc141791071",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141791071"
+    },
+    "3.47.4": {
+      "title": "version property",
+      "anchor": "#_Toc141791072",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141791072"
+    },
+    "3.47.5": {
+      "title": "statusCode property",
+      "anchor": "#_Toc141791073",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141791073"
+    },
+    "3.47.6": {
+      "title": "reasonPhrase property",
+      "anchor": "#_Toc141791074",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141791074"
+    },
+    "3.47.7": {
+      "title": "headers property",
+      "anchor": "#_Toc141791075",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141791075"
+    },
+    "3.47.8": {
+      "title": "body property",
+      "anchor": "#_Toc141791076",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141791076"
+    },
+    "3.47.9": {
+      "title": "noResponseReceived property",
+      "anchor": "#_Toc141791077",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141791077"
+    },
+    "3.48": {
+      "title": "resultProvenance object",
+      "anchor": "#_Toc141791078",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141791078"
+    },
+    "3.48.1": {
+      "title": "General",
+      "anchor": "#_Toc141791079",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141791079"
+    },
+    "3.48.2": {
+      "title": "firstDetectionTimeUtc property",
+      "anchor": "#_Toc141791080",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141791080"
+    },
+    "3.48.3": {
+      "title": "lastDetectionTimeUtc property",
+      "anchor": "#_Toc141791081",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141791081"
+    },
+    "3.48.4": {
+      "title": "firstDetectionRunGuid property",
+      "anchor": "#_Toc141791082",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141791082"
+    },
+    "3.48.5": {
+      "title": "lastDetectionRunGuid property",
+      "anchor": "#_Toc141791083",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141791083"
+    },
+    "3.48.6": {
+      "title": "invocationIndex property",
+      "anchor": "#_Toc141791084",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141791084"
+    },
+    "3.48.7": {
+      "title": "conversionSources property",
+      "anchor": "#_Toc141791085",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141791085"
+    },
+    "3.49": {
+      "title": "reportingDescriptor object",
+      "anchor": "#_Toc141791086",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141791086"
+    },
+    "3.49.1": {
+      "title": "General",
+      "anchor": "#_Toc141791087",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141791087"
+    },
+    "3.49.2": {
+      "title": "Constraints",
+      "anchor": "#_Toc141791088",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141791088"
+    },
+    "3.49.3": {
+      "title": "id property",
+      "anchor": "#_Toc141791089",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141791089"
+    },
+    "3.49.4": {
+      "title": "deprecatedIds property",
+      "anchor": "#_Toc141791090",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141791090"
+    },
+    "3.49.5": {
+      "title": "guid property",
+      "anchor": "#_Toc141791091",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141791091"
+    },
+    "3.49.6": {
+      "title": "deprecatedGuids property",
+      "anchor": "#_Toc141791092",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141791092"
+    },
+    "3.49.7": {
+      "title": "name property",
+      "anchor": "#_Toc141791093",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141791093"
+    },
+    "3.49.8": {
+      "title": "deprecatedNames property",
+      "anchor": "#_Toc141791094",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141791094"
+    },
+    "3.49.9": {
+      "title": "shortDescription property",
+      "anchor": "#_Toc141791095",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141791095"
+    },
+    "3.49.10": {
+      "title": "fullDescription property",
+      "anchor": "#_Toc141791096",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141791096"
+    },
+    "3.49.11": {
+      "title": "messageStrings property",
+      "anchor": "#_Toc141791097",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141791097"
+    },
+    "3.49.12": {
+      "title": "helpUri property",
+      "anchor": "#_Toc141791098",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141791098"
+    },
+    "3.49.13": {
+      "title": "help property",
+      "anchor": "#_Toc141791099",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141791099"
+    },
+    "3.49.14": {
+      "title": "defaultConfiguration property",
+      "anchor": "#_Toc141791100",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141791100"
+    },
+    "3.49.15": {
+      "title": "relationships property",
+      "anchor": "#_Toc141791101",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141791101"
+    },
+    "3.50": {
+      "title": "reportingConfiguration object",
+      "anchor": "#_Toc141791102",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141791102"
+    },
+    "3.50.1": {
+      "title": "General",
+      "anchor": "#_Toc141791103",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141791103"
+    },
+    "3.50.2": {
+      "title": "enabled property",
+      "anchor": "#_Toc141791104",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141791104"
+    },
+    "3.50.3": {
+      "title": "level property",
+      "anchor": "#_Toc141791105",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141791105"
+    },
+    "3.50.4": {
+      "title": "rank property",
+      "anchor": "#_Toc141791106",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141791106"
+    },
+    "3.50.5": {
+      "title": "parameters property",
+      "anchor": "#_Toc141791107",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141791107"
+    },
+    "3.51": {
+      "title": "configurationOverride object",
+      "anchor": "#_Toc141791108",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141791108"
+    },
+    "3.51.1": {
+      "title": "General",
+      "anchor": "#_Toc141791109",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141791109"
+    },
+    "3.51.2": {
+      "title": "descriptor property",
+      "anchor": "#_Toc141791110",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141791110"
+    },
+    "3.51.3": {
+      "title": "configuration property",
+      "anchor": "#_Toc141791111",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141791111"
+    },
+    "3.52": {
+      "title": "reportingDescriptorReference object",
+      "anchor": "#_Toc141791112",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141791112"
+    },
+    "3.52.1": {
+      "title": "General",
+      "anchor": "#_Toc141791113",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141791113"
+    },
+    "3.52.2": {
+      "title": "Constraints",
+      "anchor": "#_Toc141791114",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141791114"
+    },
+    "3.52.3": {
+      "title": "reportingDescriptor lookup",
+      "anchor": "#_Toc141791115",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141791115"
+    },
+    "3.52.4": {
+      "title": "id property",
+      "anchor": "#_Toc141791116",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141791116"
+    },
+    "3.52.5": {
+      "title": "index property",
+      "anchor": "#_Toc141791117",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141791117"
+    },
+    "3.52.6": {
+      "title": "guid property",
+      "anchor": "#_Toc141791118",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141791118"
+    },
+    "3.52.7": {
+      "title": "toolComponent property",
+      "anchor": "#_Toc141791119",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141791119"
+    },
+    "3.53": {
+      "title": "reportingDescriptorRelationship object",
+      "anchor": "#_Toc141791120",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141791120"
+    },
+    "3.53.1": {
+      "title": "General",
+      "anchor": "#_Toc141791121",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141791121"
+    },
+    "3.53.2": {
+      "title": "target property",
+      "anchor": "#_Toc141791122",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141791122"
+    },
+    "3.53.3": {
+      "title": "kinds property",
+      "anchor": "#_Toc141791123",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141791123"
+    },
+    "3.53.4": {
+      "title": "description property",
+      "anchor": "#_Toc141791124",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141791124"
+    },
+    "3.54": {
+      "title": "toolComponentReference object",
+      "anchor": "#_Toc141791125",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141791125"
+    },
+    "3.54.1": {
+      "title": "General",
+      "anchor": "#_Toc141791126",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141791126"
+    },
+    "3.54.2": {
+      "title": "toolComponent lookup",
+      "anchor": "#_Toc141791127",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141791127"
+    },
+    "3.54.3": {
+      "title": "name property",
+      "anchor": "#_Toc141791128",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141791128"
+    },
+    "3.54.4": {
+      "title": "index property",
+      "anchor": "#_Toc141791129",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141791129"
+    },
+    "3.54.5": {
+      "title": "guid property",
+      "anchor": "#_Toc141791130",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141791130"
+    },
+    "3.55": {
+      "title": "fix object",
+      "anchor": "#_Toc141791131",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141791131"
+    },
+    "3.55.1": {
+      "title": "General",
+      "anchor": "#_Toc141791132",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141791132"
+    },
+    "3.55.2": {
+      "title": "description property",
+      "anchor": "#_Toc141791133",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141791133"
+    },
+    "3.55.3": {
+      "title": "artifactChanges property",
+      "anchor": "#_Toc141791134",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141791134"
+    },
+    "3.56": {
+      "title": "artifactChange object",
+      "anchor": "#_Toc141791135",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141791135"
+    },
+    "3.56.1": {
+      "title": "General",
+      "anchor": "#_Toc141791136",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141791136"
+    },
+    "3.56.2": {
+      "title": "artifactLocation property",
+      "anchor": "#_Toc141791137",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141791137"
+    },
+    "3.56.3": {
+      "title": "replacements property",
+      "anchor": "#_Toc141791138",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141791138"
+    },
+    "3.57": {
+      "title": "replacement object",
+      "anchor": "#_Toc141791139",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141791139"
+    },
+    "3.57.1": {
+      "title": "General",
+      "anchor": "#_Toc141791140",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141791140"
+    },
+    "3.57.2": {
+      "title": "Constraints",
+      "anchor": "#_Toc141791141",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141791141"
+    },
+    "3.57.3": {
+      "title": "deletedRegion property",
+      "anchor": "#_Toc141791142",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141791142"
+    },
+    "3.57.4": {
+      "title": "insertedContent property",
+      "anchor": "#_Toc141791143",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141791143"
+    },
+    "3.58": {
+      "title": "notification object",
+      "anchor": "#_Toc141791144",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141791144"
+    },
+    "3.58.1": {
+      "title": "General",
+      "anchor": "#_Toc141791145",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141791145"
+    },
+    "3.58.2": {
+      "title": "descriptor property",
+      "anchor": "#_Toc141791146",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141791146"
+    },
+    "3.58.3": {
+      "title": "associatedRule property",
+      "anchor": "#_Toc141791147",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141791147"
+    },
+    "3.58.4": {
+      "title": "locations property",
+      "anchor": "#_Toc141791148",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141791148"
+    },
+    "3.58.5": {
+      "title": "message property",
+      "anchor": "#_Toc141791149",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141791149"
+    },
+    "3.58.6": {
+      "title": "level property",
+      "anchor": "#_Toc141791150",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141791150"
+    },
+    "3.58.7": {
+      "title": "threadId property",
+      "anchor": "#_Toc141791151",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141791151"
+    },
+    "3.58.8": {
+      "title": "timeUtc property",
+      "anchor": "#_Toc141791152",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141791152"
+    },
+    "3.58.9": {
+      "title": "exception property",
+      "anchor": "#_Toc141791153",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141791153"
+    },
+    "3.59": {
+      "title": "exception object",
+      "anchor": "#_Toc141791154",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141791154"
+    },
+    "3.59.1": {
+      "title": "General",
+      "anchor": "#_Toc141791155",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141791155"
+    },
+    "3.59.2": {
+      "title": "kind property",
+      "anchor": "#_Toc141791156",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141791156"
+    },
+    "3.59.3": {
+      "title": "message property",
+      "anchor": "#_Toc141791157",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141791157"
+    },
+    "3.59.4": {
+      "title": "stack property",
+      "anchor": "#_Toc141791158",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141791158"
+    },
+    "3.59.5": {
+      "title": "innerExceptions property",
+      "anchor": "#_Toc141791159",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141791159"
+    },
+    "4": {
+      "title": "4",
+      "anchor": "#_Toc141791160",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141791160"
+    },
+    "4.1": {
+      "title": "General",
+      "anchor": "#_Toc141791161",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141791161"
+    },
+    "4.2": {
+      "title": "External property file naming convention",
+      "anchor": "#_Toc141791162",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141791162"
+    },
+    "4.3": {
+      "title": "externalProperties object",
+      "anchor": "#_Toc141791163",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141791163"
+    },
+    "4.3.1": {
+      "title": "General",
+      "anchor": "#_Toc141791164",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141791164"
+    },
+    "4.3.2": {
+      "title": "$schema property",
+      "anchor": "#_Toc141791165",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141791165"
+    },
+    "4.3.3": {
+      "title": "version property",
+      "anchor": "#_Toc141791166",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141791166"
+    },
+    "4.3.4": {
+      "title": "guid property",
+      "anchor": "#_Toc141791167",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141791167"
+    },
+    "4.3.5": {
+      "title": "runGuid property",
+      "anchor": "#_Toc141791168",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141791168"
+    },
+    "4.3.6": {
+      "title": "The property value properties",
+      "anchor": "#_Toc141791169",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141791169"
+    },
+    "5": {
+      "title": "5",
+      "anchor": "#_Toc141791170",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141791170"
+    },
+    "5.1": {
+      "title": "Conformance targets",
+      "anchor": "#_Toc141791171",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141791171"
+    },
+    "5.2": {
+      "title": "Conformance Clause 1: SARIF log file",
+      "anchor": "#_Toc141791172",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141791172"
+    },
+    "5.3": {
+      "title": "Conformance Clause 2: SARIF producer",
+      "anchor": "#_Toc141791173",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141791173"
+    },
+    "5.4": {
+      "title": "Conformance Clause 3: Direct producer",
+      "anchor": "#_Toc141791174",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141791174"
+    },
+    "5.5": {
+      "title": "Conformance Clause 4: Converter",
+      "anchor": "#_Toc141791175",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141791175"
+    },
+    "5.6": {
+      "title": "Conformance Clause 5: SARIF post-processor",
+      "anchor": "#_Toc141791176",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141791176"
+    },
+    "5.7": {
+      "title": "Conformance Clause 6: SARIF consumer",
+      "anchor": "#_Toc141791177",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141791177"
+    },
+    "5.8": {
+      "title": "Conformance Clause 7: Viewer",
+      "anchor": "#_Toc141791178",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141791178"
+    },
+    "5.9": {
+      "title": "Conformance Clause 8: Result management system",
+      "anchor": "#_Toc141791179",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141791179"
+    },
+    "5.10": {
+      "title": "Conformance Clause 9: Engineering system",
+      "anchor": "#_Toc141791180",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141791180"
+    },
+    "Appendix A. (Informative) Acknowledgments": {
+      "title": "Appendix A. (Informative) Acknowledgments",
+      "anchor": "#_Toc141791181",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141791181"
+    },
+    "Appendix B. (Normative) Use of fingerprints by result management systems": {
+      "title": "Appendix B. (Normative) Use of fingerprints by result management systems",
+      "anchor": "#_Toc141791182",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141791182"
+    },
+    "Appendix C. (Informative) Use of SARIF by log file viewers": {
+      "title": "Appendix C. (Informative) Use of SARIF by log file viewers",
+      "anchor": "#_Toc141791183",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141791183"
+    },
+    "Appendix D. (Normative) Production of SARIF by converters": {
+      "title": "Appendix D. (Normative) Production of SARIF by converters",
+      "anchor": "#_Toc141791184",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141791184"
+    },
+    "Appendix E. (Informative) Locating rule and notification metadata": {
+      "title": "Appendix E. (Informative) Locating rule and notification metadata",
+      "anchor": "#_Toc141791185",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141791185"
+    },
+    "Appendix F. (Informative) Producing deterministic SARIF log files": {
+      "title": "Appendix F. (Informative) Producing deterministic SARIF log files",
+      "anchor": "#_Toc141791186",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141791186"
+    },
+    "Appendix G. (Informative) Guidance on fixes": {
+      "title": "Appendix G. (Informative) Guidance on fixes",
+      "anchor": "#_Toc141791194",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141791194"
+    },
+    "Appendix H. (Informative) Diagnosing results in generated files": {
+      "title": "Appendix H. (Informative) Diagnosing results in generated files",
+      "anchor": "#_Toc141791195",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141791195"
+    },
+    "Appendix I. (Informative) Detecting incomplete result sets": {
+      "title": "Appendix I. (Informative) Detecting incomplete result sets",
+      "anchor": "#_Toc141791196",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141791196"
+    },
+    "Appendix J. (Informative) Sample sourceLanguage values": {
+      "title": "Appendix J. (Informative) Sample sourceLanguage values",
+      "anchor": "#_Toc141791197",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141791197"
+    },
+    "Appendix K. (Informative) Examples": {
+      "title": "Appendix K. (Informative) Examples",
+      "anchor": "#_Toc141791198",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141791198"
+    },
+    "Appendix L. (Informative) Revision History": {
+      "title": "Appendix L. (Informative) Revision History",
+      "anchor": "#_Toc141791203",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141791203"
+    },
+    "Appendix M. (Non-Normative) MIME Types and File Name Extensions": {
+      "title": "Appendix M. (Non-Normative) MIME Types and File Name Extensions",
+      "anchor": "#_Toc141791204",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141791204"
+    },
+    "F.1 General": {
+      "title": "F.1 General",
+      "anchor": "#_Toc141791187",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141791187"
+    },
+    "F.2 Non-deterministic file format elements": {
+      "title": "F.2 Non-deterministic file format elements",
+      "anchor": "#_Toc141791188",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141791188"
+    },
+    "F.3 Array and dictionary element ordering": {
+      "title": "F.3 Array and dictionary element ordering",
+      "anchor": "#_Toc141791189",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141791189"
+    },
+    "F.4 Absolute paths": {
+      "title": "F.4 Absolute paths",
+      "anchor": "#_Toc141791190",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141791190"
+    },
+    "F.5 Inherently non-deterministic tools": {
+      "title": "F.5 Inherently non-deterministic tools",
+      "anchor": "#_Toc141791191",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141791191"
+    },
+    "F.6 Compensating for non-deterministic output": {
+      "title": "F.6 Compensating for non-deterministic output",
+      "anchor": "#_Toc141791192",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141791192"
+    },
+    "F.7 Interaction between determinism and baselining": {
+      "title": "F.7 Interaction between determinism and baselining",
+      "anchor": "#_Toc141791193",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141791193"
+    },
+    "K.1 Minimal valid SARIF log file": {
+      "title": "K.1 Minimal valid SARIF log file",
+      "anchor": "#_Toc141791199",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141791199"
+    },
+    "K.2 Minimal recommended SARIF log file with source information": {
+      "title": "K.2 Minimal recommended SARIF log file with source information",
+      "anchor": "#_Toc141791200",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141791200"
+    },
+    "K.3 Minimal recommended SARIF log file without source information": {
+      "title": "K.3 Minimal recommended SARIF log file without source information",
+      "anchor": "#_Toc141791201",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141791201"
+    },
+    "K.4 Comprehensive SARIF file": {
+      "title": "K.4 Comprehensive SARIF file",
+      "anchor": "#_Toc141791202",
+      "url": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html#_Toc141791202"
+    }
+  }
+}
