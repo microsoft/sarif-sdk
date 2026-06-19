@@ -65,8 +65,14 @@ if (-not (Test-Path $multitool)) {
 
 # SRCROOT is the sample folder so emit-finalize can read and embed proxy.ts.
 # It is rebased to the repository blob URL in the finalized output, so this
-# machine-specific local path never reaches the fixture.
-$srcRootUri = ([System.Uri]($sampleDir + [System.IO.Path]::DirectorySeparatorChar)).AbsoluteUri
+# machine-specific local path never reaches the fixture. Build the file:// URI
+# textually: [System.Uri]$path returns a RELATIVE Uri on Linux/macOS (Unix
+# paths carry no scheme) whose .AbsoluteUri is $null, so construct it by hand
+# to work identically on Windows and Unix.
+$srcRootPath = $sampleDir -replace '\\', '/'
+if (-not $srcRootPath.StartsWith('/')) { $srcRootPath = "/$srcRootPath" }
+if (-not $srcRootPath.EndsWith('/'))   { $srcRootPath = "$srcRootPath/" }
+$srcRootUri = "file://$srcRootPath"
 
 # A fixed provenance triple keeps the rebased SRCROOT and artifact URLs stable
 # across hosts. These coordinates are illustrative; the sample is not a real repo.
