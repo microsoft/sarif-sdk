@@ -76,11 +76,6 @@
           "hashes": {
             "sha-256": "3BAC1BB6830B488994C4F52133BDDC65E698E4D6522CC0ACB8A35538D5906E52"
           }
-        },
-        {
-          "location": {
-            "uri": "sarif:/runs/1/results/0"
-          }
         }
       ],
       "results": [
@@ -142,8 +137,7 @@
               "id": 1,
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "sarif:/runs/1/results/0",
-                  "index": 1
+                  "uri": "sarif:/runs/1/results/0"
                 }
               },
               "message": {
@@ -215,8 +209,7 @@
               "id": 1,
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "sarif:/runs/1/results/0",
-                  "index": 1
+                  "uri": "sarif:/runs/1/results/0"
                 }
               },
               "message": {
@@ -298,16 +291,6 @@
           "hashes": {
             "sha-256": "3BAC1BB6830B488994C4F52133BDDC65E698E4D6522CC0ACB8A35538D5906E52"
           }
-        },
-        {
-          "location": {
-            "uri": "sarif:/runs/0/results/0"
-          }
-        },
-        {
-          "location": {
-            "uri": "sarif:/runs/0/results/1"
-          }
         }
       ],
       "results": [
@@ -375,8 +358,7 @@
               "id": 1,
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "sarif:/runs/0/results/0",
-                  "index": 1
+                  "uri": "sarif:/runs/0/results/0"
                 }
               },
               "message": {
@@ -387,8 +369,7 @@
               "id": 2,
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "sarif:/runs/0/results/1",
-                  "index": 2
+                  "uri": "sarif:/runs/0/results/1"
                 }
               },
               "message": {
