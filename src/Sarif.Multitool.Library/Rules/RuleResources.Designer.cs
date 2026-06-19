@@ -1867,6 +1867,18 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
                 return ResourceManager.GetString("AI1013_ProvideNotificationAssociatedRule_Error_Default_Text", resourceCulture);
             }
         }
+        
+        internal static string AI1015_ProvideReciprocalGroupingRelationships_FullDescription_Text {
+            get {
+                return ResourceManager.GetString("AI1015_ProvideReciprocalGroupingRelationships_FullDescription_Text", resourceCulture);
+            }
+        }
+        
+        internal static string AI1015_ProvideReciprocalGroupingRelationships_Error_Default_Text {
+            get {
+                return ResourceManager.GetString("AI1015_ProvideReciprocalGroupingRelationships_Error_Default_Text", resourceCulture);
+            }
+        }
 
         internal static string AI2018_ProvideLearningSignalArtifact_FullDescription_Text {
             get {
@@ -1895,6 +1907,18 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         internal static string AI2019_ProvideNotificationTimestamp_Note_Default_Text {
             get {
                 return ResourceManager.GetString("AI2019_ProvideNotificationTimestamp_Note_Default_Text", resourceCulture);
+            }
+        }
+        
+        internal static string AI2020_ProvideConventionalGroupingDirection_FullDescription_Text {
+            get {
+                return ResourceManager.GetString("AI2020_ProvideConventionalGroupingDirection_FullDescription_Text", resourceCulture);
+            }
+        }
+        
+        internal static string AI2020_ProvideConventionalGroupingDirection_Warning_Default_Text {
+            get {
+                return ResourceManager.GetString("AI2020_ProvideConventionalGroupingDirection_Warning_Default_Text", resourceCulture);
             }
         }
     }

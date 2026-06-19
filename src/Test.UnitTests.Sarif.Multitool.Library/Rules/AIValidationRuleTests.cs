@@ -1027,5 +1027,200 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         }
 
         #endregion
+
+        #region AI1015 — ProvideReciprocalGroupingRelationships
+
+        private static Location SarifPointerRelatedLocation(int id, string pointer)
+            => new Location
+            {
+                Id = id,
+                PhysicalLocation = new PhysicalLocation
+                {
+                    ArtifactLocation = new ArtifactLocation
+                    {
+                        Uri = new System.Uri(pointer, System.UriKind.RelativeOrAbsolute)
+                    }
+                }
+            };
+
+        private static Result GroupingResult(string text, string kind, int relatedLocationId, string targetPointer, bool declareRelationship)
+        {
+            var primary = new Location
+            {
+                Id = 0,
+                PhysicalLocation = new PhysicalLocation
+                {
+                    ArtifactLocation = new ArtifactLocation { Uri = new System.Uri("src/a.cs", System.UriKind.Relative) }
+                }
+            };
+
+            if (declareRelationship)
+            {
+                primary.Relationships = new List<LocationRelationship>
+                {
+                    new LocationRelationship { Target = relatedLocationId, Kinds = new[] { kind } }
+                };
+            }
+
+            var result = new Result
+            {
+                RuleId = "CWE-89/kql-injection",
+                Message = new Message { Text = text },
+                Locations = new List<Location> { primary }
+            };
+
+            if (declareRelationship)
+            {
+                result.RelatedLocations = new List<Location>
+                {
+                    SarifPointerRelatedLocation(relatedLocationId, targetPointer)
+                };
+            }
+
+            return result;
+        }
+
+        private static SarifLog CreateGroupedLog(bool generatedDeclaresInverse, bool synthesizedDeclaresIncludes)
+        {
+            var generated = new Run
+            {
+                Tool = new Tool { Driver = new ToolComponent { Name = "GeneratedScanner" } },
+                Results = new List<Result>
+                {
+                    GroupingResult("A raw generated finding.", "isIncludedBy", 1, "sarif:/runs/1/results/0", generatedDeclaresInverse)
+                }
+            };
+
+            var synthesized = new Run
+            {
+                Tool = new Tool { Driver = new ToolComponent { Name = "SynthesizedSkill" } },
+                Results = new List<Result>
+                {
+                    GroupingResult("A synthesized grouping finding.", "includes", 1, "sarif:/runs/0/results/0", synthesizedDeclaresIncludes)
+                }
+            };
+
+            return new SarifLog { Runs = new[] { generated, synthesized } };
+        }
+
+        [Fact]
+        public void AI1015_WhenGroupingRelationshipsAreReciprocal_NoResult()
+        {
+            SarifLog log = CreateGroupedLog(generatedDeclaresInverse: true, synthesizedDeclaresIncludes: true);
+
+            SarifLog output = RunAIValidation(log);
+            List<Result> results = GetResultsForRule(output, "AI1015");
+
+            results.Should().BeEmpty("the 'includes' and 'isIncludedBy' edges point back at each other");
+        }
+
+        [Fact]
+        public void AI1015_WhenIncludesHasNoReciprocal_ReportsError()
+        {
+            SarifLog log = CreateGroupedLog(generatedDeclaresInverse: false, synthesizedDeclaresIncludes: true);
+
+            SarifLog output = RunAIValidation(log);
+            List<Result> results = GetResultsForRule(output, "AI1015");
+
+            results.Should().NotBeEmpty("the synthesized 'includes' edge has no matching 'isIncludedBy' back");
+            results[0].Level.Should().Be(FailureLevel.Error);
+        }
+
+        [Fact]
+        public void AI1015_WhenIsIncludedByHasNoReciprocal_ReportsError()
+        {
+            SarifLog log = CreateGroupedLog(generatedDeclaresInverse: true, synthesizedDeclaresIncludes: false);
+
+            SarifLog output = RunAIValidation(log);
+            List<Result> results = GetResultsForRule(output, "AI1015");
+
+            results.Should().NotBeEmpty("the generated 'isIncludedBy' edge has no matching 'includes' back");
+            results[0].Level.Should().Be(FailureLevel.Error);
+        }
+
+        #endregion
+
+        #region AI2020 — ProvideConventionalGroupingDirection
+
+        private static SarifLog CreateDirectedGroupingLog(string includingOrigin, string includedOrigin)
+        {
+            var included = new Run
+            {
+                Tool = new Tool { Driver = new ToolComponent { Name = "IncludedScanner" } },
+                Results = new List<Result>
+                {
+                    GroupingResult("An included finding.", "isIncludedBy", 1, "sarif:/runs/1/results/0", declareRelationship: true)
+                }
+            };
+
+            var including = new Run
+            {
+                Tool = new Tool { Driver = new ToolComponent { Name = "IncludingSkill" } },
+                Results = new List<Result>
+                {
+                    GroupingResult("An including finding.", "includes", 1, "sarif:/runs/0/results/0", declareRelationship: true)
+                }
+            };
+
+            if (includedOrigin != null)
+            {
+                included.SetProperty("ai/origin", includedOrigin);
+            }
+
+            if (includingOrigin != null)
+            {
+                including.SetProperty("ai/origin", includingOrigin);
+            }
+
+            return new SarifLog { Runs = new[] { included, including } };
+        }
+
+        [Fact]
+        public void AI2020_WhenSynthesizedIncludesGenerated_NoResult()
+        {
+            SarifLog log = CreateDirectedGroupingLog(includingOrigin: "synthesized", includedOrigin: "generated");
+
+            SarifLog output = RunAIValidation(log);
+            List<Result> results = GetResultsForRule(output, "AI2020");
+
+            results.Should().BeEmpty("an 'includes' edge from a synthesized run to a generated run is the conventional direction");
+        }
+
+        [Fact]
+        public void AI2020_WhenGeneratedIncludesSynthesized_ReportsWarning()
+        {
+            SarifLog log = CreateDirectedGroupingLog(includingOrigin: "generated", includedOrigin: "synthesized");
+
+            SarifLog output = RunAIValidation(log);
+            List<Result> results = GetResultsForRule(output, "AI2020");
+
+            results.Should().NotBeEmpty("the 'includes' edge inverts the generated/synthesized hierarchy");
+            results[0].Level.Should().Be(FailureLevel.Warning);
+        }
+
+        [Fact]
+        public void AI2020_WhenIncludesIsWithinSameTier_ReportsWarning()
+        {
+            SarifLog log = CreateDirectedGroupingLog(includingOrigin: "synthesized", includedOrigin: "synthesized");
+
+            SarifLog output = RunAIValidation(log);
+            List<Result> results = GetResultsForRule(output, "AI2020");
+
+            results.Should().NotBeEmpty("an 'includes' edge should target a generated or annotated run, not another synthesized one");
+            results[0].Level.Should().Be(FailureLevel.Warning);
+        }
+
+        [Fact]
+        public void AI2020_WhenOriginsAbsent_NoResult()
+        {
+            SarifLog log = CreateDirectedGroupingLog(includingOrigin: null, includedOrigin: null);
+
+            SarifLog output = RunAIValidation(log);
+            List<Result> results = GetResultsForRule(output, "AI2020");
+
+            results.Should().BeEmpty("direction is assessed only when both runs declare an 'ai/origin'");
+        }
+
+        #endregion
     }
 }

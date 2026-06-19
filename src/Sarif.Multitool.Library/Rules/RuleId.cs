@@ -90,6 +90,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         public const string AIProvideEvidenceBackingUri = "AI1010";
         public const string AIProvideRuleSubId = "AI1012";
         public const string AIProvideNotificationAssociatedRule = "AI1013";
+        public const string AIProvideReciprocalGroupingRelationships = "AI1015";
 
         public const string AIProvideSemanticVersion = "AI2003";
         public const string AIProvideAutomationDetails = "AI2005";
@@ -102,5 +103,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         public const string AIProvideNotificationDescriptor = "AI2017";
         public const string AIProvideLearningSignalArtifact = "AI2018";
         public const string AIProvideNotificationTimestamp = "AI2019";
+        public const string AIProvideConventionalGroupingDirection = "AI2020";
     }
 }
