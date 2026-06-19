@@ -1,0 +1,416 @@
+{
+  "$schema": "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0.json",
+  "version": "2.1.0",
+  "runs": [
+    {
+      "tool": {
+        "driver": {
+          "name": "GroupingSamplerScanner",
+          "organization": "Example Scanner Authority",
+          "version": "0.1.0",
+          "semanticVersion": "0.1.0",
+          "informationUri": "https://groupingsampler.example.com/",
+          "rules": [
+            {
+              "id": "CWE-306",
+              "name": "MissingAuthenticationForCriticalFunction",
+              "fullDescription": {
+                "text": "The product does not perform any authentication for functionality that requires a provable user identity or consumes a significant amount of resources."
+              },
+              "help": {
+                "text": "Description\n\nThe product does not perform any authentication for functionality that requires a provable user identity or consumes a significant amount of resources.\n\nCommon Consequences\n\n- Scope: Access Control, Other. Impact: Gain Privileges or Assume Identity, Varies by Context.\n  - Exposing critical functionality essentially provides an attacker with the privilege level of that functionality. The consequences will depend on the associated functionality, but they can range from reading or modifying sensitive data, accessing administrative or other privileged functionality, or possibly even executing arbitrary code.\n\nPotential Mitigations\n\n1. Phase: Architecture and Design. Divide the software into anonymous, normal, privileged, and administrative areas. Identify which of these areas require a proven user identity, and use a centralized authentication capability. Identify all potential communication channels, or other means of interaction with the software, to ensure that all channels are appropriately protected, including those channels that are assumed to be accessible only by authorized parties. Developers sometimes perform authentication at the primary channel, but open up a secondary channel that is assumed to be private. For example, a login mechanism may be listening on one network port, but after successful authentication, it may open up a second port where it waits for the connection, but avoids authentication because it assumes that only the authenticated party will connect to the port. In general, if the software or protocol allows a single session or user state to persist across multiple connections or channels, authentication and appropriate credential management need to be used throughout.\n2. Phase: Architecture and Design. For any security checks that are performed on the client side, ensure that these checks are duplicated on the server side, in order to avoid CWE-602. Attackers can bypass the client-side checks by modifying values after the checks have been performed, or by changing the client to remove the client-side checks entirely. Then, these modified values would be submitted to the server.\n3. Phase: Architecture and Design. Where possible, avoid implementing custom, \"grow-your-own\" authentication routines and consider using authentication capabilities as provided by the surrounding framework, operating system, or environment. These capabilities may avoid common weaknesses that are unique to authentication; support automatic auditing and tracking; and make it easier to provide a clear separation between authentication tasks and authorization tasks. In environments such as the World Wide Web, the line between authentication and authorization is sometimes blurred. If custom authentication routines are required instead of those provided by the server, then these routines must be applied to every single page, since these pages could be requested directly.\n4. Phase: Architecture and Design; Strategy: Libraries or Frameworks. Use a vetted library or framework that does not allow this weakness to occur or provides constructs that make this weakness easier to avoid. For example, consider using libraries with authentication capabilities such as OpenSSL or the ESAPI Authenticator [REF-45].\n5. Phase: Implementation, System Configuration, Operation. When storing data in the cloud (e.g., S3 buckets, Azure blobs, Google Cloud Storage, etc.), use the provider's controls to require strong authentication for users who should be allowed to access the data [REF-1297] [REF-1298] [REF-1302].",
+                "markdown": "## Description\n\nThe product does not perform any authentication for functionality that requires a provable user identity or consumes a significant amount of resources.\n\n## Common Consequences\n\n- **Scope**: Access Control, Other. **Impact**: Gain Privileges or Assume Identity, Varies by Context.\n  - Exposing critical functionality essentially provides an attacker with the privilege level of that functionality. The consequences will depend on the associated functionality, but they can range from reading or modifying sensitive data, accessing administrative or other privileged functionality, or possibly even executing arbitrary code.\n\n## Potential Mitigations\n\n1. *Phase: Architecture and Design*. Divide the software into anonymous, normal, privileged, and administrative areas. Identify which of these areas require a proven user identity, and use a centralized authentication capability. Identify all potential communication channels, or other means of interaction with the software, to ensure that all channels are appropriately protected, including those channels that are assumed to be accessible only by authorized parties. Developers sometimes perform authentication at the primary channel, but open up a secondary channel that is assumed to be private. For example, a login mechanism may be listening on one network port, but after successful authentication, it may open up a second port where it waits for the connection, but avoids authentication because it assumes that only the authenticated party will connect to the port. In general, if the software or protocol allows a single session or user state to persist across multiple connections or channels, authentication and appropriate credential management need to be used throughout.\n2. *Phase: Architecture and Design*. For any security checks that are performed on the client side, ensure that these checks are duplicated on the server side, in order to avoid CWE-602. Attackers can bypass the client-side checks by modifying values after the checks have been performed, or by changing the client to remove the client-side checks entirely. Then, these modified values would be submitted to the server.\n3. *Phase: Architecture and Design*. Where possible, avoid implementing custom, \"grow-your-own\" authentication routines and consider using authentication capabilities as provided by the surrounding framework, operating system, or environment. These capabilities may avoid common weaknesses that are unique to authentication; support automatic auditing and tracking; and make it easier to provide a clear separation between authentication tasks and authorization tasks. In environments such as the World Wide Web, the line between authentication and authorization is sometimes blurred. If custom authentication routines are required instead of those provided by the server, then these routines must be applied to every single page, since these pages could be requested directly.\n4. *Phase: Architecture and Design; Strategy: Libraries or Frameworks*. Use a vetted library or framework that does not allow this weakness to occur or provides constructs that make this weakness easier to avoid. For example, consider using libraries with authentication capabilities such as OpenSSL or the ESAPI Authenticator [REF-45].\n5. *Phase: Implementation, System Configuration, Operation*. When storing data in the cloud (e.g., S3 buckets, Azure blobs, Google Cloud Storage, etc.), use the provider's controls to require strong authentication for users who should be allowed to access the data [REF-1297] [REF-1298] [REF-1302]."
+              },
+              "helpUri": "https://cwe.mitre.org/data/definitions/306.html",
+              "properties": {
+                "security-severity": "9.8",
+                "tags": ["security","external/cwe/cwe-306"]
+              }
+            },
+            {
+              "id": "CWE-918",
+              "name": "ServerSideRequestForgerySsrf",
+              "fullDescription": {
+                "text": "The web server receives a URL or similar request from an upstream component and retrieves the contents of this URL, but it does not sufficiently ensure that the request is being sent to the expected destination."
+              },
+              "help": {
+                "text": "Description\n\nThe web server receives a URL or similar request from an upstream component and retrieves the contents of this URL, but it does not sufficiently ensure that the request is being sent to the expected destination.\n\nCommon Consequences\n\n- Scope: Confidentiality. Impact: Read Application Data.\n- Scope: Integrity. Impact: Execute Unauthorized Code or Commands.\n- Scope: Access Control. Impact: Bypass Protection Mechanism.\n  - By providing URLs to unexpected hosts or ports, attackers can make it appear that the server is sending the request, possibly bypassing access controls such as firewalls that prevent the attackers from accessing the URLs directly. The server can be used as a proxy to conduct port scanning of hosts in internal networks, use other URLs such as that can access documents on the system (using file://), or use other protocols such as gopher:// or tftp://, which may provide greater control over the contents of requests.",
+                "markdown": "## Description\n\nThe web server receives a URL or similar request from an upstream component and retrieves the contents of this URL, but it does not sufficiently ensure that the request is being sent to the expected destination.\n\n## Common Consequences\n\n- **Scope**: Confidentiality. **Impact**: Read Application Data.\n- **Scope**: Integrity. **Impact**: Execute Unauthorized Code or Commands.\n- **Scope**: Access Control. **Impact**: Bypass Protection Mechanism.\n  - By providing URLs to unexpected hosts or ports, attackers can make it appear that the server is sending the request, possibly bypassing access controls such as firewalls that prevent the attackers from accessing the URLs directly. The server can be used as a proxy to conduct port scanning of hosts in internal networks, use other URLs such as that can access documents on the system (using file://), or use other protocols such as gopher:// or tftp://, which may provide greater control over the contents of requests."
+              },
+              "helpUri": "https://cwe.mitre.org/data/definitions/918.html",
+              "properties": {
+                "security-severity": "9.1",
+                "tags": ["security","external/cwe/cwe-918"]
+              }
+            }
+          ]
+        }
+      },
+      "versionControlProvenance": [
+        {
+          "repositoryUri": "https://github.com/example/grouping-sample",
+          "revisionId": "0000000000000000000000000000000000000000",
+          "branch": "main",
+          "mappedTo": {
+            "uriBaseId": "SRCROOT"
+          }
+        }
+      ],
+      "originalUriBaseIds": {
+        "SRCROOT": {
+          "uri": "https://github.com/example/grouping-sample/blob/0000000000000000000000000000000000000000/",
+          "description": {
+            "text": "Source root mapped to [grouping-sample@0000000](https://github.com/example/grouping-sample/tree/0000000000000000000000000000000000000000)."
+          }
+        }
+      },
+      "artifacts": [
+        {
+          "location": {
+            "uri": "src/api/proxy.ts",
+            "uriBaseId": "SRCROOT"
+          },
+          "contents": {
+            "text": "// A deliberately vulnerable proxy endpoint used by the finding-grouping\n// worked sample (docs/ai/grouping-findings.md). Two raw findings live here -\n// a missing authentication check and an unvalidated outbound fetch - which a\n// synthesizing skill clusters into one higher-level SSRF vulnerability.\nexport async function proxy(req: Request): Promise<Response> {\n  const target = new URL(req.url).searchParams.get(\"target\"); // unvalidated input\n  // No authentication gate guards this public ingress (CWE-306).\n  return await fetch(target!);                                 // SSRF sink (CWE-918)\n}"
+          },
+          "hashes": {
+            "sha-256": "3BAC1BB6830B488994C4F52133BDDC65E698E4D6522CC0ACB8A35538D5906E52"
+          }
+        },
+        {
+          "location": {
+            "uri": "sarif:/runs/1/results/0"
+          }
+        }
+      ],
+      "results": [
+        {
+          "ruleId": "CWE-306",
+          "ruleIndex": 0,
+          "level": "error",
+          "message": {
+            "text": "Missing authentication check on the public proxy ingress.",
+            "markdown": "**CWE-306** - the public proxy entrypoint performs no authentication, so any remote caller reaches the outbound-fetch path."
+          },
+          "locations": [
+            {
+              "id": 0,
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/api/proxy.ts",
+                  "uriBaseId": "SRCROOT",
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 7,
+                  "startColumn": 1,
+                  "endLine": 7,
+                  "endColumn": 66,
+                  "charOffset": 448,
+                  "charLength": 65,
+                  "snippet": {
+                    "text": "  // No authentication gate guards this public ingress (CWE-306)."
+                  }
+                },
+                "contextRegion": {
+                  "startLine": 6,
+                  "startColumn": 1,
+                  "endLine": 8,
+                  "endColumn": 86,
+                  "charOffset": 365,
+                  "charLength": 234,
+                  "snippet": {
+                    "text": "  const target = new URL(req.url).searchParams.get(\"target\"); // unvalidated input\n  // No authentication gate guards this public ingress (CWE-306).\n  return await fetch(target!);                                 // SSRF sink (CWE-918)"
+                  }
+                }
+              },
+              "relationships": [
+                {
+                  "target": 1,
+                  "kinds": [
+                    "isIncludedBy"
+                  ]
+                }
+              ]
+            }
+          ],
+          "partialFingerprints": {
+            "primaryLocationLineHash": "c490513b1c31ba45:1"
+          },
+          "relatedLocations": [
+            {
+              "id": 1,
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "sarif:/runs/1/results/0",
+                  "index": 1
+                }
+              },
+              "message": {
+                "text": "Grouping parent: the SSRF cluster that includes this finding."
+              }
+            }
+          ],
+          "rank": 80.0,
+          "properties": {
+            "ai/exploitability": "poc",
+            "ai/attackerPosition": "unauthenticated-remote"
+          }
+        },
+        {
+          "ruleId": "CWE-918",
+          "ruleIndex": 1,
+          "level": "error",
+          "message": {
+            "text": "Outbound fetch targets an unvalidated, attacker-controlled URL.",
+            "markdown": "**CWE-918** - the fetch target derives from unvalidated request input, permitting requests to arbitrary internal hosts."
+          },
+          "locations": [
+            {
+              "id": 0,
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/api/proxy.ts",
+                  "uriBaseId": "SRCROOT",
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 6,
+                  "startColumn": 1,
+                  "endLine": 6,
+                  "endColumn": 83,
+                  "charOffset": 365,
+                  "charLength": 82,
+                  "snippet": {
+                    "text": "  const target = new URL(req.url).searchParams.get(\"target\"); // unvalidated input"
+                  }
+                },
+                "contextRegion": {
+                  "startLine": 5,
+                  "startColumn": 1,
+                  "endLine": 7,
+                  "endColumn": 66,
+                  "charOffset": 302,
+                  "charLength": 211,
+                  "snippet": {
+                    "text": "export async function proxy(req: Request): Promise<Response> {\n  const target = new URL(req.url).searchParams.get(\"target\"); // unvalidated input\n  // No authentication gate guards this public ingress (CWE-306)."
+                  }
+                }
+              },
+              "relationships": [
+                {
+                  "target": 1,
+                  "kinds": [
+                    "isIncludedBy"
+                  ]
+                }
+              ]
+            }
+          ],
+          "partialFingerprints": {
+            "primaryLocationLineHash": "1b92012d6a44cdc7:1"
+          },
+          "relatedLocations": [
+            {
+              "id": 1,
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "sarif:/runs/1/results/0",
+                  "index": 1
+                }
+              },
+              "message": {
+                "text": "Grouping parent: the SSRF cluster that includes this finding."
+              }
+            }
+          ],
+          "rank": 75.0,
+          "properties": {
+            "ai/exploitability": "theoretical",
+            "ai/attackerPosition": "unauthenticated-remote"
+          }
+        }
+      ],
+      "automationDetails": {
+        "guid": "22222222-2222-2222-2222-222222222222",
+        "correlationGuid": "11111111-1111-1111-1111-111111111111"
+      },
+      "columnKind": "utf16CodeUnits",
+      "properties": {
+        "ai/origin": "generated"
+      }
+    },
+    {
+      "tool": {
+        "driver": {
+          "name": "GroupingSamplerScanner",
+          "organization": "Example Scanner Authority",
+          "version": "0.1.0",
+          "semanticVersion": "0.1.0",
+          "informationUri": "https://groupingsampler.example.com/",
+          "rules": [
+            {
+              "id": "CWE-918",
+              "name": "ServerSideRequestForgerySsrf",
+              "fullDescription": {
+                "text": "The web server receives a URL or similar request from an upstream component and retrieves the contents of this URL, but it does not sufficiently ensure that the request is being sent to the expected destination."
+              },
+              "help": {
+                "text": "Description\n\nThe web server receives a URL or similar request from an upstream component and retrieves the contents of this URL, but it does not sufficiently ensure that the request is being sent to the expected destination.\n\nCommon Consequences\n\n- Scope: Confidentiality. Impact: Read Application Data.\n- Scope: Integrity. Impact: Execute Unauthorized Code or Commands.\n- Scope: Access Control. Impact: Bypass Protection Mechanism.\n  - By providing URLs to unexpected hosts or ports, attackers can make it appear that the server is sending the request, possibly bypassing access controls such as firewalls that prevent the attackers from accessing the URLs directly. The server can be used as a proxy to conduct port scanning of hosts in internal networks, use other URLs such as that can access documents on the system (using file://), or use other protocols such as gopher:// or tftp://, which may provide greater control over the contents of requests.",
+                "markdown": "## Description\n\nThe web server receives a URL or similar request from an upstream component and retrieves the contents of this URL, but it does not sufficiently ensure that the request is being sent to the expected destination.\n\n## Common Consequences\n\n- **Scope**: Confidentiality. **Impact**: Read Application Data.\n- **Scope**: Integrity. **Impact**: Execute Unauthorized Code or Commands.\n- **Scope**: Access Control. **Impact**: Bypass Protection Mechanism.\n  - By providing URLs to unexpected hosts or ports, attackers can make it appear that the server is sending the request, possibly bypassing access controls such as firewalls that prevent the attackers from accessing the URLs directly. The server can be used as a proxy to conduct port scanning of hosts in internal networks, use other URLs such as that can access documents on the system (using file://), or use other protocols such as gopher:// or tftp://, which may provide greater control over the contents of requests."
+              },
+              "helpUri": "https://cwe.mitre.org/data/definitions/918.html",
+              "properties": {
+                "security-severity": "9.1",
+                "tags": ["security","external/cwe/cwe-918"]
+              }
+            }
+          ]
+        }
+      },
+      "versionControlProvenance": [
+        {
+          "repositoryUri": "https://github.com/example/grouping-sample",
+          "revisionId": "0000000000000000000000000000000000000000",
+          "branch": "main",
+          "mappedTo": {
+            "uriBaseId": "SRCROOT"
+          }
+        }
+      ],
+      "originalUriBaseIds": {
+        "SRCROOT": {
+          "uri": "https://github.com/example/grouping-sample/blob/0000000000000000000000000000000000000000/",
+          "description": {
+            "text": "Source root mapped to [grouping-sample@0000000](https://github.com/example/grouping-sample/tree/0000000000000000000000000000000000000000)."
+          }
+        }
+      },
+      "artifacts": [
+        {
+          "location": {
+            "uri": "src/api/proxy.ts",
+            "uriBaseId": "SRCROOT"
+          },
+          "contents": {
+            "text": "// A deliberately vulnerable proxy endpoint used by the finding-grouping\n// worked sample (docs/ai/grouping-findings.md). Two raw findings live here -\n// a missing authentication check and an unvalidated outbound fetch - which a\n// synthesizing skill clusters into one higher-level SSRF vulnerability.\nexport async function proxy(req: Request): Promise<Response> {\n  const target = new URL(req.url).searchParams.get(\"target\"); // unvalidated input\n  // No authentication gate guards this public ingress (CWE-306).\n  return await fetch(target!);                                 // SSRF sink (CWE-918)\n}"
+          },
+          "hashes": {
+            "sha-256": "3BAC1BB6830B488994C4F52133BDDC65E698E4D6522CC0ACB8A35538D5906E52"
+          }
+        },
+        {
+          "location": {
+            "uri": "sarif:/runs/0/results/0"
+          }
+        },
+        {
+          "location": {
+            "uri": "sarif:/runs/0/results/1"
+          }
+        }
+      ],
+      "results": [
+        {
+          "ruleId": "CWE-918",
+          "ruleIndex": 0,
+          "level": "error",
+          "message": {
+            "text": "Unauthenticated SSRF reachable from the public ingress.",
+            "markdown": "**CWE-918** - a missing authentication check (CWE-306) and an unvalidated outbound fetch (CWE-918) together compose an unauthenticated server-side request forgery reachable from the public ingress."
+          },
+          "locations": [
+            {
+              "id": 0,
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/api/proxy.ts",
+                  "uriBaseId": "SRCROOT",
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 8,
+                  "startColumn": 1,
+                  "endLine": 8,
+                  "endColumn": 86,
+                  "charOffset": 514,
+                  "charLength": 85,
+                  "snippet": {
+                    "text": "  return await fetch(target!);                                 // SSRF sink (CWE-918)"
+                  }
+                },
+                "contextRegion": {
+                  "startLine": 7,
+                  "startColumn": 1,
+                  "endLine": 9,
+                  "endColumn": 2,
+                  "charOffset": 448,
+                  "charLength": 153,
+                  "snippet": {
+                    "text": "  // No authentication gate guards this public ingress (CWE-306).\n  return await fetch(target!);                                 // SSRF sink (CWE-918)\n}"
+                  }
+                }
+              },
+              "relationships": [
+                {
+                  "target": 1,
+                  "kinds": [
+                    "includes"
+                  ]
+                },
+                {
+                  "target": 2,
+                  "kinds": [
+                    "includes"
+                  ]
+                }
+              ]
+            }
+          ],
+          "partialFingerprints": {
+            "primaryLocationLineHash": "32a7ee3123477c46:1"
+          },
+          "relatedLocations": [
+            {
+              "id": 1,
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "sarif:/runs/0/results/0",
+                  "index": 1
+                }
+              },
+              "message": {
+                "text": "Member: the missing authentication check."
+              }
+            },
+            {
+              "id": 2,
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "sarif:/runs/0/results/1",
+                  "index": 2
+                }
+              },
+              "message": {
+                "text": "Member: the unvalidated outbound fetch."
+              }
+            }
+          ],
+          "rank": 90.0,
+          "properties": {
+            "ai/exploitability": "poc",
+            "ai/attackerPosition": "unauthenticated-remote"
+          }
+        }
+      ],
+      "automationDetails": {
+        "guid": "33333333-3333-3333-3333-333333333333",
+        "correlationGuid": "11111111-1111-1111-1111-111111111111"
+      },
+      "columnKind": "utf16CodeUnits",
+      "properties": {
+        "ai/origin": "synthesized"
+      }
+    }
+  ]
+}
