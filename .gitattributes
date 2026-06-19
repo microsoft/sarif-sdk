@@ -9,6 +9,7 @@
 # sha-256) stay byte-identical across Windows / Linux / macOS checkouts.
 ###############################################################################
 src/Sarif/Taxonomies/SampleCode.cs eol=lf
+docs/ai/samples/grouping-findings/src/api/proxy.ts eol=lf
 
 # Pin the generated CWE taxonomy artifacts to LF so the embedded resources
 # (hashed into Sarif.dll) don't change across host OSes when contributors

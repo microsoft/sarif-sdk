@@ -1,0 +1,122 @@
+{
+  "$schema": "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0.json",
+  "version": "2.1.0",
+  "runs": [
+    {
+      "tool": {
+        "driver": {
+          "name": "SARIF Functional Testing",
+          "rules": [
+            {
+              "id": "SARIF1013",
+              "name": "SarifReferencesMustResolve",
+              "fullDescription": {
+                "text": "Every URI that uses the 'sarif:' scheme must resolve to an element within the same log file. The 'sarif:' scheme expresses an internal reference: the portion of the URI following 'sarif:' is a JSON pointer (for example, 'sarif:/runs/0/results/2') that is evaluated against the root of the log. Because these references are pinned to array positions, any change that reorders runs or results (such as a merge) can leave them dangling. This rule reports a 'sarif:' URI whose JSON pointer is malformed or does not resolve to an element in the log."
+              },
+              "messageStrings": {
+                "Error_Default": {
+                  "text": "{0}: This 'artifactLocation' object has a 'uri' value of '{1}' which uses the 'sarif:' URI scheme but does not resolve to an element in the log file. A 'sarif:' URI must be a valid JSON pointer that resolves against the root of the log; references can dangle when runs or results are reordered (for example, by a merge). Verify that the pointer is well formed and that the element it targets exists."
+                }
+              },
+              "defaultConfiguration": {
+                "level": "error"
+              },
+              "helpUri": "http://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html"
+            }
+          ]
+        }
+      },
+      "invocations": [
+        {
+          "executionSuccessful": true
+        }
+      ],
+      "artifacts": [
+        {
+          "location": {
+            "uri": "FunctionalTestOutput.ValidateCommand/SARIF1013.SarifReferencesMustResolve_Invalid.sarif",
+            "uriBaseId": "TEST_DIR"
+          }
+        }
+      ],
+      "results": [
+        {
+          "ruleId": "SARIF1013",
+          "ruleIndex": 0,
+          "level": "error",
+          "message": {
+            "id": "Error_Default",
+            "arguments": [
+              "runs[0].results[1].relatedLocations[0].physicalLocation.artifactLocation",
+              "sarif:/runs/0/results/99"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 45,
+                  "startColumn": 37
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "SARIF1013",
+          "ruleIndex": 0,
+          "level": "error",
+          "message": {
+            "id": "Error_Default",
+            "arguments": [
+              "runs[0].results[1].relatedLocations[1].physicalLocation.artifactLocation",
+              "sarif:/runs/5/results/0"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 52,
+                  "startColumn": 37
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "SARIF1013",
+          "ruleIndex": 0,
+          "level": "error",
+          "message": {
+            "id": "Error_Default",
+            "arguments": [
+              "runs[0].results[1].relatedLocations[2].physicalLocation.artifactLocation",
+              "sarif:/runs/0/results/0/locations/9/physicalLocation"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 59,
+                  "startColumn": 37
+                }
+              }
+            }
+          ]
+        }
+      ],
+      "columnKind": "utf16CodeUnits"
+    }
+  ]
+}

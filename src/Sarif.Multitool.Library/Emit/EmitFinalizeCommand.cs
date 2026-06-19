@@ -60,15 +60,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
             try
             {
-                int code = EmitEventLogHelpers.TryResolveWipPath(
-                    options?.OutputFilePath,
+                int code = TryLoadCombinedLog(
+                    options,
                     fileSystem,
-                    out string wipPath);
+                    out SarifLog log,
+                    out List<string> wipPaths);
                 if (code != SUCCESS) { return code; }
 
                 string outputPath = Path.GetFullPath(options.OutputFilePath);
-
-                SarifLog log = SarifEventReplayer.Replay(wipPath);
 
                 if (!options.NoCweEnrichment && log?.Runs != null)
                 {
@@ -237,20 +236,23 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
                 if (!options.KeepWip)
                 {
-                    try
+                    foreach (string wipPath in wipPaths)
                     {
-                        fileSystem.FileDelete(wipPath);
-                    }
-                    catch (Exception delEx)
-                    {
-                        // Non-fatal: SARIF was successfully written; failing to remove the wip is
-                        // a janitorial issue worth reporting but not worth aborting.
-                        Console.Error.WriteLine(
-                            string.Format(
-                                CultureInfo.CurrentCulture,
-                                "Warning — could not delete '{0}': {1}",
-                                wipPath,
-                                delEx.Message));
+                        try
+                        {
+                            fileSystem.FileDelete(wipPath);
+                        }
+                        catch (Exception delEx)
+                        {
+                            // Non-fatal: SARIF was successfully written; failing to remove the wip is
+                            // a janitorial issue worth reporting but not worth aborting.
+                            Console.Error.WriteLine(
+                                string.Format(
+                                    CultureInfo.CurrentCulture,
+                                    "Warning — could not delete '{0}': {1}",
+                                    wipPath,
+                                    delEx.Message));
+                        }
                     }
                 }
 
@@ -280,6 +282,102 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 Console.Error.WriteLine(ex);
                 return FAILURE;
             }
+        }
+
+        /// <summary>
+        /// Loads the staged event log(s) this finalize run will replay and reports the set of
+        /// <c>.wip.jsonl</c> paths consumed (so the caller can clean them up).
+        /// </summary>
+        /// <remarks>
+        /// Two forms, mutually exclusive:
+        /// <list type="bullet">
+        /// <item><description>
+        /// <b>Single (default).</b> With no <c>--inputs</c>, the staged log is derived from the
+        /// output path as <c>&lt;output&gt;.wip.jsonl</c> and replayed into a single-run log — the
+        /// original behavior.
+        /// </description></item>
+        /// <item><description>
+        /// <b>Multi (<c>--inputs</c>).</b> Each listed staged log is replayed, in caller-specified
+        /// order, and its run(s) appended to one combined log, so <c>runs[i]</c> corresponds to the
+        /// i-th input deterministically. This order-preservation is what cross-run <c>sarif:</c>
+        /// result pointers depend on (unlike <c>merge</c>, which reorders runs). Every input is
+        /// validated to exist before any is replayed, so a missing input fails clean with no
+        /// partial work.
+        /// </description></item>
+        /// </list>
+        /// Per-run enrichment downstream is identical for both forms — it iterates <c>log.Runs</c>
+        /// and is indifferent to how the runs were assembled.
+        /// </remarks>
+        private static int TryLoadCombinedLog(
+            EmitFinalizeOptions options,
+            IFileSystem fileSystem,
+            out SarifLog log,
+            out List<string> wipPaths)
+        {
+            log = null;
+            wipPaths = new List<string>();
+
+            var inputs = options?.Inputs == null
+                ? new List<string>()
+                : new List<string>(options.Inputs);
+
+            if (inputs.Count == 0)
+            {
+                int code = EmitEventLogHelpers.TryResolveWipPath(
+                    options?.OutputFilePath,
+                    fileSystem,
+                    out string wipPath);
+                if (code != SUCCESS) { return code; }
+
+                wipPaths.Add(wipPath);
+                log = SarifEventReplayer.Replay(wipPath);
+                return SUCCESS;
+            }
+
+            foreach (string input in inputs)
+            {
+                if (string.IsNullOrWhiteSpace(input))
+                {
+                    Console.Error.WriteLine("--inputs contains an empty path.");
+                    return FAILURE;
+                }
+
+                string fullPath = Path.GetFullPath(input);
+
+                if (!fileSystem.FileExists(fullPath))
+                {
+                    Console.Error.WriteLine(
+                        string.Format(
+                            CultureInfo.CurrentCulture,
+                            "Event log '{0}' does not exist.",
+                            fullPath));
+                    return FAILURE;
+                }
+
+                wipPaths.Add(fullPath);
+            }
+
+            SarifLog combined = null;
+            foreach (string wipPath in wipPaths)
+            {
+                SarifLog replayed = SarifEventReplayer.Replay(wipPath);
+
+                if (combined == null)
+                {
+                    combined = replayed;
+                    combined.Runs ??= new List<Run>();
+                }
+                else if (replayed?.Runs != null)
+                {
+                    foreach (Run run in replayed.Runs)
+                    {
+                        combined.Runs.Add(run);
+                    }
+                }
+            }
+
+            log = combined;
+            return SUCCESS;
         }
 
         /// <summary>

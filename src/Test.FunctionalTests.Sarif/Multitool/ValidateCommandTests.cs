@@ -139,6 +139,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             => RunInvalidTestForRule(RuleId.MessageArgumentsMustBeConsistentWithRule);
 
         [Fact]
+        public void SARIF1013_SarifReferencesMustResolve_Valid()
+            => RunValidTestForRule(RuleId.SarifReferencesMustResolve);
+
+        [Fact]
+        public void SARIF1013_SarifReferencesMustResolve_Invalid()
+            => RunInvalidTestForRule(RuleId.SarifReferencesMustResolve);
+
+        [Fact]
         public void SARIF2001_TerminateMessagesWithPeriod_Valid()
             => RunValidTestForRule(RuleId.TerminateMessagesWithPeriod);
 

@@ -13,6 +13,12 @@ Each release entry below is prefixed with one of:
 
 Entries are terse by design: one line per change, present-tense behavior, complete but only essential data. No issue/PR archaeology or narrative — that history lives in the engineering system.
 
+## **UNRELEASED** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/) | [Driver](https://www.nuget.org/packages/Sarif.Driver/) | [Converters](https://www.nuget.org/packages/Sarif.Converters/) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/) | [Multitool Library](https://www.nuget.org/packages/Sarif.Multitool.Library/)
+* NEW: `emit-finalize --inputs a.wip.jsonl b.wip.jsonl ...` replays multiple staged event logs into one order-preserving multi-run SARIF file, so `runs[i]` is the i-th input and cross-run `sarif:` result pointers stay valid. The single positional `<output>.wip.jsonl` form is unchanged.
+* NEW: Validation rule `SARIF1013.SarifReferencesMustResolve` (Error, base `Sarif` profile) reports any `artifactLocation.uri` using the `sarif:` scheme whose JSON pointer is malformed or does not resolve to an element in the log.
+* NEW: Validation rule `AI1015.ProvideReciprocalGroupingRelationships` (Error, `AI` profile) reports a finding-grouping `includes`/`isIncludedBy` relationship whose reciprocal edge is missing on the target result.
+* NEW: Validation rule `AI2020.ProvideConventionalGroupingDirection` (Warning, `AI` profile) reports an `includes` grouping edge that does not run from a `synthesized` run to a `generated` or `annotated` run, when both runs declare an `ai/origin`.
+
 ## **v5.2.0** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/v5.2.0) | [Driver](https://www.nuget.org/packages/Sarif.Driver/v5.2.0) | [Converters](https://www.nuget.org/packages/Sarif.Converters/v5.2.0) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/v5.2.0) | [Multitool Library](https://www.nuget.org/packages/Sarif.Multitool.Library/v5.2.0)
 * NEW: `@microsoft/sarif` ships the native-TypeScript SARIF 2.1.0 SDK — open-typed object model, `FileRegionsCache` region/snippet resolution, `AIRuleIdConvention`, rolling-hash and optional-data enrichment, and a `serializeSarifLog` byte-identical to the .NET multitool; no CLR dependency.
 * NEW: `@microsoft/sarif-multitool-ts` ships the in-process `emit-*` and `get-*` verbs and an arg-compatible `sarif` CLI, replacing the v5.1.1 publish-proof shells; no CLR dependency.
