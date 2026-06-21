@@ -9,6 +9,12 @@ namespace Microsoft.CodeAnalysis.Sarif
     {
         public const string FileScheme = "file";
 
+        // The in-log object-addressing scheme: a 'sarif:' URI (e.g.
+        // "sarif:/runs/<r>/results/<m>") addresses another object in the same
+        // log - used by relatedLocations cross-links and partitioning - and is
+        // not a physical artifact. See Writers/PartitionFunctions.cs.
+        public const string SarifScheme = "sarif";
+
         public static string WithColon(this string scheme)
         {
             scheme = scheme ?? throw new ArgumentNullException(nameof(scheme));

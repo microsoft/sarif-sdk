@@ -784,8 +784,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         }
 
         [Fact]
-        public void Run_WhenAdoVcpFieldsPresent_AndJsonHasConflictingRepositoryUri_Fails()
+        public void Run_WhenAdoVcpFieldsPresent_AndSingleEntryNamesDifferentRepo_LeavesUntouched()
         {
+            // A single entry whose repositoryUri names a repo other than the pipeline's enlistment
+            // is caller-authored for a different repository (the normal case for a scanner whose
+            // scan target differs from the pipeline source repo). The verb must not assume it is
+            // the pipeline primary repo and must neither stamp pipeline revisionId/branch onto it
+            // nor fail; the entry passes through verbatim.
             JObject runObject = MinimalRun();
             runObject["versionControlProvenance"] = new JArray
             {
@@ -794,8 +799,42 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
             int exit = RunWithInput(CompleteAdoEnvWithVcp(), runObject);
 
-            exit.Should().Be(CommandBase.FAILURE);
-            File.Exists(WipPath).Should().BeFalse();
+            exit.Should().Be(CommandBase.SUCCESS);
+            var events = new SarifEventLogReader().Read(WipPath).ToList();
+            var vcp = (JArray)events[0].Payload["versionControlProvenance"];
+            vcp.Should().HaveCount(1);
+            vcp[0]["repositoryUri"].ToString().Should().Be("https://github.com/microsoft/sarif-sdk");
+            vcp[0]["branch"].Should().BeNull();
+            vcp[0]["mappedTo"].Should().BeNull();
+        }
+
+        [Fact]
+        public void Run_WhenAdoVcpFieldsPresent_AndSingleEntryForDifferentRepoHasOwnFields_PreservesThem()
+        {
+            // The scan-target entry carries its own revisionId/branch that diverge from the
+            // pipeline's. Because the repositoryUri identifies a different repo, those values are
+            // authoritative for that repo and must survive verbatim rather than colliding with the
+            // pipeline values.
+            JObject runObject = MinimalRun();
+            runObject["versionControlProvenance"] = new JArray
+            {
+                new JObject
+                {
+                    ["repositoryUri"] = "https://github.com/microsoft/sarif-sdk",
+                    ["revisionId"] = "feedfacefeedfacefeedfacefeedfacefeedface",
+                    ["branch"] = "release/v5.0.2",
+                },
+            };
+
+            int exit = RunWithInput(CompleteAdoEnvWithVcp(), runObject);
+
+            exit.Should().Be(CommandBase.SUCCESS);
+            var events = new SarifEventLogReader().Read(WipPath).ToList();
+            var vcp = (JArray)events[0].Payload["versionControlProvenance"];
+            vcp.Should().HaveCount(1);
+            vcp[0]["repositoryUri"].ToString().Should().Be("https://github.com/microsoft/sarif-sdk");
+            vcp[0]["revisionId"].ToString().Should().Be("feedfacefeedfacefeedfacefeedfacefeedface");
+            vcp[0]["branch"].ToString().Should().Be("release/v5.0.2");
         }
 
         [Fact]
@@ -1157,11 +1196,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         }
 
         [Fact]
-        public void Run_WhenGhaContextComplete_AndJsonSuppliesConflictingRepoUri_Fails()
+        public void Run_WhenGhaContextComplete_AndSingleEntryNamesDifferentRepo_LeavesUntouched()
         {
-            // The single-entry VCP enrichment path's conflict semantics apply to GHA env
-            // identically to ADO. Producer-supplied repoUri that disagrees with the
-            // detected GHA value is a misconfiguration we refuse to stamp.
+            // The single-entry VCP repositoryUri-gate applies to GHA env identically to ADO: a
+            // producer-supplied repoUri that names a different repo than the detected GHA value is
+            // a separate scan target, left untouched rather than reconciled or failed.
             JObject runObject = MinimalRun();
             runObject["versionControlProvenance"] = new JArray
             {
@@ -1170,8 +1209,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
             int exit = RunWithInput(CompleteGhaEnv(), runObject);
 
-            exit.Should().Be(CommandBase.FAILURE);
-            File.Exists(WipPath).Should().BeFalse();
+            exit.Should().Be(CommandBase.SUCCESS);
+            var events = new SarifEventLogReader().Read(WipPath).ToList();
+            var vcp = (JArray)events[0].Payload["versionControlProvenance"];
+            vcp.Should().HaveCount(1);
+            vcp[0]["repositoryUri"].ToString().Should().Be("https://github.com/other/repo");
+            vcp[0]["revisionId"].Should().BeNull();
+            vcp[0]["branch"].Should().BeNull();
         }
 
         [Fact]

@@ -663,7 +663,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         /// <summary>
         /// Enriches <c>versionControlProvenance</c> with resolved repository URI, revision id,
         /// and branch fields. Empty VCP arrays receive a synthesized entry only when a repository
-        /// URI is known; single-entry arrays are enriched; multi-entry arrays are left untouched.
+        /// URI is known; a single entry is enriched only when its <c>repositoryUri</c> matches the
+        /// pipeline-detected repo (or is absent); multi-entry arrays are left untouched.
         /// </summary>
         private static bool TryStampVcp(
             JObject runObject,
@@ -729,6 +730,23 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             }
 
             var existing = (JObject)vcpArray[0];
+
+            // A single-entry VCP is the pipeline's primary enlistment only when its
+            // repositoryUri matches the pipeline-detected repo (or is absent, in which
+            // case it binds to the detected repo below). When the caller authored the
+            // entry for a different repository - the normal case for a scanner whose
+            // scan target differs from the pipeline's own enlistment - leave it
+            // untouched, mirroring the multi-entry "do not guess" stance. Otherwise the
+            // detected branch/revisionId would be reconciled against an unrelated repo.
+            JToken existingRepositoryToken = existing[VcpFieldNames.RepositoryUri];
+            string existingRepositoryUri =
+                existingRepositoryToken?.Type == JTokenType.String ? (string)existingRepositoryToken : null;
+            if (!string.IsNullOrEmpty(existingRepositoryUri)
+                && repositoryUri != null
+                && !VcpFieldValuesAgree(VcpFieldNames.RepositoryUri, existingRepositoryUri, repositoryUri.AbsoluteUri))
+            {
+                return true;
+            }
 
             // Probe-before-write so a conflict on any field leaves the JObject unchanged.
             foreach (KeyValuePair<string, string> kv in vcpFields)

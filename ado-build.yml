@@ -41,9 +41,17 @@ jobs:
     pool:
       vmImage: "windows-latest"
     steps:
-      # Build Multitool for npm
+      # BuildMultitoolForNpm.ps1 compiles the TypeScript packages too, so Node must be on
+      # the PATH before it runs.
+      - task: NodeTool@0
+        displayName: Use Node.js LTS
+        inputs:
+          versionSpec: "20.x"
+
+      # Build and stage every npm package: the .NET multitool platform packages and the
+      # native-TypeScript @microsoft/sarif and @microsoft/sarif-multitool-ts packages.
       - task: PowerShell@2
-        displayName: Build Multitool for npm
+        displayName: Build npm packages
         inputs:
           targetType: filePath
           filePath: ./scripts/BuildMultitoolForNpm.ps1

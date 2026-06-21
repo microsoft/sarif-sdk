@@ -78,6 +78,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Taxonomies
         private static readonly object Gate = new object();
         private static SarifLog canonicalLog;
         private static string canonicalBrief;
+        private static HashSet<int> weaknessNumbers;
 
         // First-sentence terminator: the first sentence-ending punctuation, any
         // trailing closing quote/paren/bracket, then whitespace or end of string.
@@ -161,6 +162,24 @@ namespace Microsoft.CodeAnalysis.Sarif.Taxonomies
             return candidate.Trim();
         }
 
+        /// <summary>
+        /// Determines whether a CWE identifier names a known MITRE <em>Weakness</em> — the only
+        /// abstraction that is a valid <c>result.ruleId</c> mapping target. Returns <c>false</c>
+        /// for a Category, a View, a withdrawn id, a typo, or any non-CWE token. Membership is
+        /// evaluated across every maturity status (a deprecated Weakness is still a Weakness).
+        /// </summary>
+        /// <param name="cweId">
+        /// A CWE identifier in any form the SDK accepts: a canonical id (<c>CWE-89</c>, any case,
+        /// leading zeros tolerated) or an AI ruleId carrying a sub-id (<c>CWE-89/kql-injection</c>).
+        /// The <c>CWE-</c> prefix is required; a bare number or the <c>NOVEL-</c> form yields <c>false</c>.
+        /// </param>
+        /// <returns><c>true</c> when the id resolves to an embedded CWE Weakness; otherwise <c>false</c>.</returns>
+        public static bool IsKnownWeakness(string cweId)
+        {
+            return CweSecuritySeverity.TryGetCweNumber(cweId, out int cweNumber)
+                && WeaknessNumbers().Contains(cweNumber);
+        }
+
         internal static SarifLog LoadCanonical()
         {
             lock (Gate)
@@ -173,6 +192,26 @@ namespace Microsoft.CodeAnalysis.Sarif.Taxonomies
                     }
                 }
                 return canonicalLog;
+            }
+        }
+
+        private static HashSet<int> WeaknessNumbers()
+        {
+            lock (Gate)
+            {
+                if (weaknessNumbers == null)
+                {
+                    var set = new HashSet<int>();
+                    foreach (ReportingDescriptor taxon in LoadCanonical().Runs[0].Taxonomies[0].Taxa)
+                    {
+                        if (CweSecuritySeverity.TryGetCweNumber(taxon.Id, out int cweNumber))
+                        {
+                            set.Add(cweNumber);
+                        }
+                    }
+                    weaknessNumbers = set;
+                }
+                return weaknessNumbers;
             }
         }
 

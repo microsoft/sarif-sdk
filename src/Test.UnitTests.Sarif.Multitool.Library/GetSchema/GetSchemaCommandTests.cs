@@ -110,18 +110,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         }
 
         [Fact]
-        public void GetSchema_ReservedVerbWithoutSchema_Fails()
-        {
-            GetSchemaCommand.SchemaByVerb.Should().ContainKey(
-                "emit-finalize",
-                "emit-finalize is a reserved verb whose schema is tracked as a fast-follow.");
-            GetSchemaCommand.SchemaByVerb["emit-finalize"].Should().BeNull();
-
-            int exit = new GetSchemaCommand().Run(new GetSchemaOptions { Verb = "emit-finalize" });
-            exit.Should().Be(CommandBase.FAILURE);
-        }
-
-        [Fact]
         public void GetSchema_UnknownVerb_Fails()
         {
             int exit = new GetSchemaCommand().Run(new GetSchemaOptions { Verb = "not-a-verb" });
@@ -174,8 +162,25 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             {
                 output.Should().Contain(verb);
             }
+        }
 
-            output.Should().NotContain("emit-finalize");
+        [Fact]
+        public void GetSchema_EmitFinalize_ServesAiLogSchema()
+        {
+            GetSchemaCommand.SchemaByVerb["emit-finalize"].Should().Be(
+                "ai-log.schema.json",
+                "emit-finalize serves the finalized whole-log contract, completing the verb-to-schema map to 6 of 6.");
+
+            string outPath = Path.Combine(_dir, "ai-log.schema.json");
+            int exit = new GetSchemaCommand().Run(new GetSchemaOptions
+            {
+                Verb = "emit-finalize",
+                OutputFilePath = outPath,
+                ForceOverwrite = true,
+            });
+
+            exit.Should().Be(CommandBase.SUCCESS);
+            File.ReadAllText(outPath).Should().Contain("SARIF AI emit profile");
         }
 
         [Fact]

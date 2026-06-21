@@ -10,6 +10,7 @@ using System.Text;
 using FluentAssertions;
 
 using Microsoft.CodeAnalysis.Sarif;
+using Microsoft.CodeAnalysis.Sarif.Visitors;
 
 using Newtonsoft.Json;
 
@@ -372,6 +373,71 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Core
                 Index = 0
             };
             RetrieveFileIndexAndValidate(run, fileLocation, expectedFileIndex: 0);
+        }
+
+        [Fact]
+        public void Run_GetFileIndex_DoesNotMaterializeSarifSchemePointerAsArtifact()
+        {
+            Run run = BuildDefaultRunObject();
+            int originalArtifactCount = run.Artifacts.Count;
+
+            var pointer = new ArtifactLocation
+            {
+                Uri = new Uri("sarif:/runs/0/results/0", UriKind.RelativeOrAbsolute)
+            };
+
+            int index = run.GetFileIndex(pointer, addToFilesTableIfNotPresent: true);
+
+            index.Should().Be(-1, "a 'sarif:' URI is an in-log object address, not a physical artifact");
+            run.Artifacts.Count.Should().Be(
+                originalArtifactCount,
+                "a 'sarif:' pointer must not be added to the run's artifacts table");
+        }
+
+        [Fact]
+        public void AddFileReferencesVisitor_DoesNotAddSarifSchemePointerToArtifactsTable()
+        {
+            var run = new Run
+            {
+                Tool = new Tool { Driver = new ToolComponent { Name = "Test tool" } },
+                Results = new List<Result>
+                {
+                    new Result
+                    {
+                        RuleId = "CWE-306/test-slug",
+                        Message = new Message { Text = "isolated repro" },
+                        Locations = new List<Location>
+                        {
+                            new Location
+                            {
+                                PhysicalLocation = new PhysicalLocation
+                                {
+                                    ArtifactLocation = new ArtifactLocation { Uri = new Uri("real.cs", UriKind.RelativeOrAbsolute) },
+                                    Region = new Region { StartLine = 1 }
+                                }
+                            }
+                        },
+                        RelatedLocations = new List<Location>
+                        {
+                            new Location
+                            {
+                                Id = 1,
+                                PhysicalLocation = new PhysicalLocation
+                                {
+                                    ArtifactLocation = new ArtifactLocation { Uri = new Uri("sarif:/runs/0/results/0", UriKind.RelativeOrAbsolute) }
+                                },
+                                Message = new Message { Text = "cross-link pointer" }
+                            }
+                        }
+                    }
+                }
+            };
+
+            new AddFileReferencesVisitor().VisitRun(run);
+
+            run.Artifacts.Select(a => a.Location.Uri.OriginalString)
+                .Should().Equal(new[] { "real.cs" },
+                    "only the physical artifact belongs in the table; the 'sarif:' relatedLocation pointer must be skipped");
         }
 
         [Fact]

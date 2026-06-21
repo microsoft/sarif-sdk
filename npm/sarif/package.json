@@ -34,7 +34,7 @@
     "test": "npm run build && node --test test/insertOptionalData.test.js test/regions.test.js test/rollingHash.test.js test/vcp.test.js"
   },
   "devDependencies": {
-    "@types/node": "^20.14.0",
+    "@types/node": "^26.0.0",
     "typescript": "^5.5.0"
   }
 }

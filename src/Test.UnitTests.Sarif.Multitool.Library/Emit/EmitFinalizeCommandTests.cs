@@ -41,6 +41,43 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             foreach ((string kind, object payload) in events) { w.Append(kind, payload); }
         }
 
+        private static void SeedWipAt(string path, Run header, params Result[] results)
+        {
+            using var w = new SarifEventLogWriter(path);
+            w.Append(SarifEventKinds.RunHeader, header);
+            foreach (Result result in results) { w.Append(SarifEventKinds.Result, result); }
+        }
+
+        private static Run OriginRunHeader(string origin)
+        {
+            Run run = RunHeader();
+            run.SetProperty("ai/origin", origin);
+            return run;
+        }
+
+        private static string GetOrigin(Run run)
+            => run.TryGetProperty("ai/origin", out string origin) ? origin : null;
+
+        private static Result NovelResult()
+            => new Result { RuleId = "NOVEL-x", Message = new Message { Text = "x" } };
+
+        private static Location PrimaryWithRelationship(string kind)
+            => new Location
+            {
+                Id = 0,
+                Relationships = new[] { new LocationRelationship { Target = 1, Kinds = new[] { kind } } },
+            };
+
+        private static Location SarifPointerLocation(string sarifUri)
+            => new Location
+            {
+                Id = 1,
+                PhysicalLocation = new PhysicalLocation
+                {
+                    ArtifactLocation = new ArtifactLocation { Uri = new Uri(sarifUri, UriKind.Absolute) },
+                },
+            };
+
         private SarifLog LoadSarif()
         {
             using var sr = new StreamReader(OutPath);
@@ -197,7 +234,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         }
 
         [Fact]
-        public void Run_WithNoCweEnrichment_LeavesCweDescriptorBare()
+        public void Run_WithNoCweEnrichment_SkipsTaxonomyEnrichmentButStillFloorsName()
         {
             SeedWip(
                 (SarifEventKinds.RunHeader, RunHeader()),
@@ -213,8 +250,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             SarifLog log = LoadSarif();
             ReportingDescriptor descriptor = log.Runs[0].Tool.Driver.Rules[0];
             descriptor.Id.Should().Be("CWE-79");
+            // --no-cwe-enrichment suppresses taxonomy enrichment (the MITRE title, helpUri, descriptions)...
             descriptor.HelpUri.Should().BeNull();
-            descriptor.Name.Should().BeNull();
+            descriptor.ShortDescription.Should().BeNull();
+            // ...but CWE-79 is a genuine Weakness, so the abstraction-aware name floor still names it
+            // to its honest id — the descriptor is never emitted nameless and GHAzDO-broken.
+            descriptor.Name.Should().Be("CWE-79");
         }
 
         [Fact]
@@ -353,6 +394,124 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             exit.Should().Be(CommandBase.FAILURE);
             File.Exists(OutPath).Should().BeFalse();
             capturedStderr.Should().Contain("versionControlProvenance");
+        }
+
+        [Fact]
+        public void Run_WithInputs_AssemblesOrderedMultiRunLog_AndDeletesEveryInput()
+        {
+            // The generated tier (runs[0]) and synthesized tier (runs[1]) are staged separately,
+            // each with a cross-run sarif: pointer at the other. --inputs replays them in order
+            // into one multi-run log; the pointers are index-pinned, so the order must be exactly
+            // as listed and the pointers must survive finalize unchanged.
+            string genWip = Path.Combine(_dir, "0_generated.wip.jsonl");
+            string synWip = Path.Combine(_dir, "1_synthesized.wip.jsonl");
+
+            SeedWipAt(genWip, OriginRunHeader("generated"),
+                new Result
+                {
+                    RuleId = "CWE-306/missing-auth-check",
+                    Message = new Message { Text = "missing auth" },
+                    Locations = new[] { PrimaryWithRelationship("isIncludedBy") },
+                    RelatedLocations = new[] { SarifPointerLocation("sarif:/runs/1/results/0") },
+                });
+
+            SeedWipAt(synWip, OriginRunHeader("synthesized"),
+                new Result
+                {
+                    RuleId = "CWE-918/ssrf-via-unvalidated-fetch",
+                    Message = new Message { Text = "ssrf cluster" },
+                    Locations = new[] { PrimaryWithRelationship("includes") },
+                    RelatedLocations = new[] { SarifPointerLocation("sarif:/runs/0/results/0") },
+                });
+
+            int exit = new EmitFinalizeCommand().Run(new EmitFinalizeOptions
+            {
+                OutputFilePath = OutPath,
+                Inputs = new[] { genWip, synWip },
+            });
+
+            exit.Should().Be(CommandBase.SUCCESS);
+            File.Exists(genWip).Should().BeFalse("every consumed input wip is cleaned up");
+            File.Exists(synWip).Should().BeFalse("every consumed input wip is cleaned up");
+
+            SarifLog log = LoadSarif();
+            log.Runs.Should().HaveCount(2);
+            GetOrigin(log.Runs[0]).Should().Be("generated");
+            GetOrigin(log.Runs[1]).Should().Be("synthesized");
+
+            log.Runs[1].Results[0].RelatedLocations[0].PhysicalLocation.ArtifactLocation.Uri
+                .OriginalString.Should().Be("sarif:/runs/0/results/0");
+            log.Runs[0].Results[0].RelatedLocations[0].PhysicalLocation.ArtifactLocation.Uri
+                .OriginalString.Should().Be("sarif:/runs/1/results/0");
+        }
+
+        [Fact]
+        public void Run_WithInputs_PreservesCallerOrder_WhenReversed()
+        {
+            // Order is the property merge lacks: listing the synthesized tier first must place it
+            // at runs[0]. This is what makes cross-run sarif: pointers safe under emit-finalize.
+            string genWip = Path.Combine(_dir, "gen.wip.jsonl");
+            string synWip = Path.Combine(_dir, "syn.wip.jsonl");
+
+            SeedWipAt(genWip, OriginRunHeader("generated"), NovelResult());
+            SeedWipAt(synWip, OriginRunHeader("synthesized"), NovelResult());
+
+            int exit = new EmitFinalizeCommand().Run(new EmitFinalizeOptions
+            {
+                OutputFilePath = OutPath,
+                Inputs = new[] { synWip, genWip },
+            });
+
+            exit.Should().Be(CommandBase.SUCCESS);
+
+            SarifLog log = LoadSarif();
+            log.Runs.Should().HaveCount(2);
+            GetOrigin(log.Runs[0]).Should().Be("synthesized");
+            GetOrigin(log.Runs[1]).Should().Be("generated");
+        }
+
+        [Fact]
+        public void Run_WithInputs_MissingInput_FailsWithoutWritingOutput_AndLeavesExistingInput()
+        {
+            // Inputs are validated to exist before any is replayed, so a missing input fails clean:
+            // no output ships and the present input is not consumed.
+            string present = Path.Combine(_dir, "present.wip.jsonl");
+            string missing = Path.Combine(_dir, "missing.wip.jsonl");
+
+            SeedWipAt(present, OriginRunHeader("generated"), NovelResult());
+
+            int exit = new EmitFinalizeCommand().Run(new EmitFinalizeOptions
+            {
+                OutputFilePath = OutPath,
+                Inputs = new[] { present, missing },
+            });
+
+            exit.Should().Be(CommandBase.FAILURE);
+            File.Exists(OutPath).Should().BeFalse();
+            File.Exists(present).Should().BeTrue("no input is consumed when another input is missing");
+        }
+
+        [Fact]
+        public void Run_WithSingleInput_BehavesLikePositionalForm()
+        {
+            // A single --inputs entry is the multi-run path with N=1: it must produce the same
+            // single-run result the positional '<output>.wip.jsonl' form does.
+            string wip = Path.Combine(_dir, "only.wip.jsonl");
+            SeedWipAt(wip, OriginRunHeader("generated"),
+                new Result { RuleId = "CWE-79/template-xss", Message = new Message { Text = "xss" } });
+
+            int exit = new EmitFinalizeCommand().Run(new EmitFinalizeOptions
+            {
+                OutputFilePath = OutPath,
+                Inputs = new[] { wip },
+            });
+
+            exit.Should().Be(CommandBase.SUCCESS);
+            File.Exists(wip).Should().BeFalse();
+
+            SarifLog log = LoadSarif();
+            log.Runs.Should().HaveCount(1);
+            log.Runs[0].Tool.Driver.Rules[0].Id.Should().Be("CWE-79");
         }
 
         [Fact]
@@ -557,6 +716,89 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
             stamped.Should().Be(0);
             SecuritySeverityOf(run.Tool.Driver.Rules[0]).Should().Be("2.0");
+        }
+
+        [Fact]
+        public void EnsureCweRuleDescriptorNames_FloorsUnbundledWeaknessNameToId()
+        {
+            // CWE-89 is a genuine Weakness; under --no-cwe-enrichment the replayer-created descriptor
+            // reaches finalize nameless, so the floor names it to its honest id (the SDK has no title
+            // to offer under that flag) and the descriptor stays GHAzDO-publishable.
+            Run run = BuildRun("CWE-89");
+
+            int floored = EmitFinalizeCommand.EnsureCweRuleDescriptorNames(run);
+
+            floored.Should().Be(1);
+            run.Tool.Driver.Rules[0].Name.Should().Be("CWE-89");
+        }
+
+        [Fact]
+        public void EnsureCweRuleDescriptorNames_LeavesCategoryDescriptorNameless()
+        {
+            // CWE-16 is a MITRE Category, not a Weakness, so mapping a result to it is a producer
+            // bug. The floor deliberately leaves it nameless so it fails loudly (AI1016 at validate,
+            // GHAzDO2012 at ingestion) instead of being normalized into a publishable-looking descriptor.
+            Run run = BuildRun("CWE-16");
+
+            int floored = EmitFinalizeCommand.EnsureCweRuleDescriptorNames(run);
+
+            floored.Should().Be(0);
+            run.Tool.Driver.Rules[0].Name.Should().BeNull();
+        }
+
+        [Fact]
+        public void EnsureCweRuleDescriptorNames_FloorsEachUnnamedWeaknessIndependently()
+        {
+            Run run = BuildRun("CWE-79", "CWE-89");
+
+            int floored = EmitFinalizeCommand.EnsureCweRuleDescriptorNames(run);
+
+            floored.Should().Be(2);
+            run.Tool.Driver.Rules[0].Name.Should().Be("CWE-79");
+            run.Tool.Driver.Rules[1].Name.Should().Be("CWE-89");
+        }
+
+        [Fact]
+        public void EnsureCweRuleDescriptorNames_LeavesEnrichedNameUntouched()
+        {
+            Run run = BuildRun("CWE-79");
+            run.Tool.Driver.Rules[0].Name = "Cross-site Scripting";
+
+            int floored = EmitFinalizeCommand.EnsureCweRuleDescriptorNames(run);
+
+            floored.Should().Be(0);
+            run.Tool.Driver.Rules[0].Name.Should().Be("Cross-site Scripting");
+        }
+
+        [Fact]
+        public void EnsureCweRuleDescriptorNames_LeavesNovelAndNonCweDescriptorsAlone()
+        {
+            // The floor is the GHAzDO publishability guarantee for the CWE Weakness descriptors the SDK
+            // injects and enriches; a NOVEL- id and an arbitrary rule id are producer-owned and out of scope.
+            Run run = BuildRun("NOVEL-prompt-injection", "MY-CUSTOM-RULE");
+
+            int floored = EmitFinalizeCommand.EnsureCweRuleDescriptorNames(run);
+
+            floored.Should().Be(0);
+            run.Tool.Driver.Rules[0].Name.Should().BeNull();
+            run.Tool.Driver.Rules[1].Name.Should().BeNull();
+        }
+
+        [Fact]
+        public void Run_LeavesCategoryCweDescriptorNamelessSoItFailsLoudly()
+        {
+            // End-to-end: a result mapped to a Category CWE sub-id (CWE-16, not a Weakness) is a
+            // producer mapping bug. emit-finalize leaves the descriptor nameless on purpose so it
+            // fails GHAzDO2012 at ingestion rather than being normalized into publishable-looking output.
+            SeedWip(
+                (SarifEventKinds.RunHeader, RunHeader()),
+                (SarifEventKinds.Result, new Result { RuleId = "CWE-16/insecure-default-config", Message = new Message { Text = "config" } }));
+
+            int exit = new EmitFinalizeCommand().Run(new EmitFinalizeOptions { OutputFilePath = OutPath });
+
+            exit.Should().Be(CommandBase.SUCCESS);
+            ReportingDescriptor rule = LoadSarif().Runs[0].Tool.Driver.Rules.Single(r => r.Id == "CWE-16");
+            rule.Name.Should().BeNull();
         }
 
         [Fact]

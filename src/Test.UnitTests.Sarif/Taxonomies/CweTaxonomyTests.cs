@@ -157,5 +157,51 @@ namespace Microsoft.CodeAnalysis.Sarif.Taxonomies
             Action act = () => CweTaxonomy.LoadBrief(CweStatus.None);
             act.Should().Throw<ArgumentException>();
         }
+
+        // ----- IsKnownWeakness (house style: [Fact] + shared helper) -----
+
+        private static void VerifyIsKnownWeakness(string cweId, bool expected)
+        {
+            CweTaxonomy.IsKnownWeakness(cweId).Should().Be(expected, "for '{0}'", cweId);
+        }
+
+        [Fact]
+        public void IsKnownWeakness_ReturnsTrue_ForKnownWeakness()
+            => VerifyIsKnownWeakness("CWE-89", true);
+
+        [Fact]
+        public void IsKnownWeakness_ReturnsTrue_ForWeaknessCarryingSubId()
+            => VerifyIsKnownWeakness("CWE-79/template-xss", true);
+
+        [Fact]
+        public void IsKnownWeakness_ReturnsTrue_ForDeprecatedWeakness()
+            // CWE-247 is a deprecated Weakness; a deprecated Weakness is still a Weakness.
+            => VerifyIsKnownWeakness("CWE-247", true);
+
+        [Fact]
+        public void IsKnownWeakness_ReturnsFalse_ForCategory()
+            // CWE-16 'Configuration' is a Category, not a Weakness.
+            => VerifyIsKnownWeakness("CWE-16", false);
+
+        [Fact]
+        public void IsKnownWeakness_ReturnsFalse_ForView()
+            // CWE-1000 'Research Concepts' is a View, not a Weakness.
+            => VerifyIsKnownWeakness("CWE-1000", false);
+
+        [Fact]
+        public void IsKnownWeakness_ReturnsFalse_ForUnknownCweNumber()
+            => VerifyIsKnownWeakness("CWE-99999", false);
+
+        [Fact]
+        public void IsKnownWeakness_ReturnsFalse_ForNovelEscapeHatch()
+            => VerifyIsKnownWeakness("NOVEL-prompt-injection", false);
+
+        [Fact]
+        public void IsKnownWeakness_ReturnsFalse_ForBareNumberAndNullAndEmpty()
+        {
+            VerifyIsKnownWeakness("89", false);
+            VerifyIsKnownWeakness(null, false);
+            VerifyIsKnownWeakness("", false);
+        }
     }
 }

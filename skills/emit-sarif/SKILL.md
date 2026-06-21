@@ -103,6 +103,8 @@ The verb validates a small set of profile-essential fields at receipt: `tool.dri
 
 When the `TF_BUILD=True` environment indicates an Azure DevOps pipeline, `emit-run` stamps `automationDetails.id` plus the four `azuredevops/pipeline/build/*` properties required by GHAzDO ingestion. If your JSON supplies any of those fields, the values must match what the env detects, otherwise the verb fails with a conflict diagnostic — pick one source of truth.
 
+Outside a pipeline (`TF_BUILD` unset — a local or non-Azure-DevOps run), `emit-run` stamps neither `automationDetails.id` nor the `azuredevops/pipeline/build/*` properties, so the finalized log **cannot be published to GHAZDO**: it fails the GHAzDO ingestion contract (`GHAzDO1014`/`GHAzDO1019`/`GHAzDO1020`) and [`publish-to-ghazdo`](../publish-to-ghazdo/SKILL.md) refuses it up front. A clean `Sarif;AI` validate does **not** imply publishability — see [`publish-to-ghazdo` Step 3](../publish-to-ghazdo/SKILL.md).
+
 ### Step 2 — Append each result
 
 For each finding, construct a complete SARIF `result` JSON object that conforms to `docs/ai/generating-sarif.md § Result Structure`, then append it:
@@ -174,18 +176,29 @@ What this does:
 2. Runs `InsertOptionalDataVisitor` against the local source root to populate snippets, context regions, and artifact hashes.
 3. Enriches CWE-as-rule-id descriptors from the embedded MITRE CWE taxonomy (omit with `--no-cwe-enrichment` if you've already populated descriptors).
 4. Rewrites `originalUriBaseIds["SRCROOT"]` to a portable, commit-pinned root derived from `versionControlProvenance` (a GitHub blob permalink such as `https://github.com/<org>/<repo>/blob/<sha>/`, or an Azure DevOps repository root) so the published log anchors at a host-independent location.
-5. Embeds text-file artifact contents (`--embed-text-files`). Useful for self-contained AI fixtures and to clear `SARIF2013`.
-6. Runs the validator against the output with `--rule-kind Sarif;AI` (`--validate`). Fails non-zero with a summary if any Error-level findings are reported.
+5. For **GitHub-hosted runs only** (host detected from `versionControlProvenance`), collapses each result's `ruleId` sub-id to its base CWE descriptor id (`CWE-79/dom-xss-via-sanitizer-bypass` → `CWE-79`), keeping `result.rule.id` equal in step, so GitHub code scanning — which binds a result to its rule by `ruleId`-string equality and does not follow hierarchical `ruleIndex` resolution — finds the descriptor and its `security-severity`/tags. **Azure DevOps / GHAZDO-hosted runs keep the authored sub-id intact.** The sub-id carries no descriptor metadata, so nothing classifiable is lost; but it is not relocated either, so if you need the authored sub-classifier to survive finalize on a GitHub-hosted run, park it in a tool-namespaced `result.properties` key (e.g. `myscanner/subId`) — `result.ruleId` is not a durable carrier for it. See [`generating-sarif.md § GitHub-hosted collapse`](../../docs/ai/generating-sarif.md).
+6. Embeds text-file artifact contents (`--embed-text-files`). Useful for self-contained AI fixtures and to clear `SARIF2013`.
+7. Runs the validator against the output with `--rule-kind Sarif;AI` (`--validate`). Fails non-zero with a summary if any Error-level findings are reported. This covers the `Sarif;AI` profile **only — not the GHAzDO ingestion contract.** When your destination is GHAZDO, also validate with `--rule-kind "Sarif;AI;GHAzDO"` to exercise `GHAzDO1014`/`GHAzDO1019`/`GHAzDO1020` offline; a run that is clean under `Sarif;AI` can still be rejected at ingestion (HTTP 400). See [`publish-to-ghazdo` Step 3](../publish-to-ghazdo/SKILL.md).
 
 If `--validate` reports errors, the produced file is on disk but did not meet the profile. Treat this as a generation defect: fix the offending result or notification, regenerate, and re-finalize.
 
 **Repo-less scans (no version control).** A scan of content that is not under version control — a local working copy with no remote, an unpacked container image, a downloaded package or tarball — has no `repositoryUri` to anchor to, so the run carries no `versionControlProvenance` and step 4 has no portable root to rewrite to. Pass `--no-repo` to `emit-finalize` in that case: it enriches descriptors and reads snippets exactly as above, then **elides** the transient local `originalUriBaseIds` root (dropping its `uri` rather than rewriting it) so no machine-specific path ships, and marks every run `properties.unpublishable = true`. That marker states the findings are outside version control; because every current code-scanning alert store anchors alerts to a repository and commit, an unpublishable run **cannot be published** (`publish-to-ghazdo` refuses it up front). Without `--no-repo`, a run lacking `versionControlProvenance` fails finalize by design.
 
+**Grouped findings (multi-run logs).** To ship raw findings and higher-level grouped findings in one log — the `ai/origin: generated` / `synthesized` two-tier model — stage each tier as its own event log, then assemble them in order with `--inputs`:
+
+```powershell
+dotnet dnx Sarif.Multitool --yes -- emit-finalize "{{OUTPUT_PATH}}" `
+  --inputs generated.wip.jsonl synthesized.wip.jsonl `
+  --validate
+```
+
+`runs[i]` corresponds to the i-th input deterministically (unlike `merge`, which reorders runs and does not rewrite pointers). That order-preservation is what cross-run `sarif:` result pointers — `sarif:/runs/0/results/7` carried in a synthesized result's `relatedLocations`, linked with `locationRelationship` kinds `includes` / `isIncludedBy` — depend on. Each input is replayed, CWE-enriched, and VCP-rebased independently; `--validate` runs once over the assembled multi-run log. See [`docs/ai/grouping-findings.md`](../../docs/ai/grouping-findings.md) for the full convention.
+
 ## Validation
 
 This skill's contract is satisfied when:
 
-1. `emit-finalize --validate` exits with code 0 (no Error-level rule findings under `--rule-kind Sarif;AI`).
+1. `emit-finalize --validate` exits with code 0 (no Error-level rule findings under `--rule-kind Sarif;AI`). This is the `Sarif;AI` profile only; if the destination is GHAZDO, a clean result here is necessary but not sufficient — also run `--rule-kind "Sarif;AI;GHAzDO"` (see Step 5 and [`publish-to-ghazdo` Step 3](../publish-to-ghazdo/SKILL.md)).
 2. The file passes the [validate-sarif skill](../validate-sarif/SKILL.md) at full profile depth.
 3. The file is consumable by the SDK object model (`SarifLog.Load`) without exceptions.
 

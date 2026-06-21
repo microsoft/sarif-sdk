@@ -1095,6 +1095,18 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
             }
         }
         
+        internal static string SARIF1013_SarifReferencesMustResolve_FullDescription_Text {
+            get {
+                return ResourceManager.GetString("SARIF1013_SarifReferencesMustResolve_FullDescription_Text", resourceCulture);
+            }
+        }
+        
+        internal static string SARIF1013_SarifReferencesMustResolve_Error_Default_Text {
+            get {
+                return ResourceManager.GetString("SARIF1013_SarifReferencesMustResolve_Error_Default_Text", resourceCulture);
+            }
+        }
+        
         /// <summary>
         ///   Looks up a localized string similar to Express plain text result messages as complete sentences and end each sentence with a period. This guidance does not apply to Markdown messages, which might include formatting that makes the punctuation unnecessary.
         ///
@@ -1855,6 +1867,42 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
                 return ResourceManager.GetString("AI1013_ProvideNotificationAssociatedRule_Error_Default_Text", resourceCulture);
             }
         }
+        
+        internal static string AI1015_ProvideReciprocalGroupingRelationships_FullDescription_Text {
+            get {
+                return ResourceManager.GetString("AI1015_ProvideReciprocalGroupingRelationships_FullDescription_Text", resourceCulture);
+            }
+        }
+        
+        internal static string AI1015_ProvideReciprocalGroupingRelationships_Error_Default_Text {
+            get {
+                return ResourceManager.GetString("AI1015_ProvideReciprocalGroupingRelationships_Error_Default_Text", resourceCulture);
+            }
+        }
+
+        internal static string AI1016_ProvideValidRuleId_FullDescription_Text {
+            get {
+                return ResourceManager.GetString("AI1016_ProvideValidRuleId_FullDescription_Text", resourceCulture);
+            }
+        }
+        
+        internal static string AI1016_ProvideValidRuleId_Error_Category_Text {
+            get {
+                return ResourceManager.GetString("AI1016_ProvideValidRuleId_Error_Category_Text", resourceCulture);
+            }
+        }
+        
+        internal static string AI1016_ProvideValidRuleId_Error_NotAWeakness_Text {
+            get {
+                return ResourceManager.GetString("AI1016_ProvideValidRuleId_Error_NotAWeakness_Text", resourceCulture);
+            }
+        }
+        
+        internal static string AI1016_ProvideValidRuleId_Error_NotCweOrNovel_Text {
+            get {
+                return ResourceManager.GetString("AI1016_ProvideValidRuleId_Error_NotCweOrNovel_Text", resourceCulture);
+            }
+        }
 
         internal static string AI2018_ProvideLearningSignalArtifact_FullDescription_Text {
             get {
@@ -1883,6 +1931,18 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         internal static string AI2019_ProvideNotificationTimestamp_Note_Default_Text {
             get {
                 return ResourceManager.GetString("AI2019_ProvideNotificationTimestamp_Note_Default_Text", resourceCulture);
+            }
+        }
+        
+        internal static string AI2020_ProvideConventionalGroupingDirection_FullDescription_Text {
+            get {
+                return ResourceManager.GetString("AI2020_ProvideConventionalGroupingDirection_FullDescription_Text", resourceCulture);
+            }
+        }
+        
+        internal static string AI2020_ProvideConventionalGroupingDirection_Warning_Default_Text {
+            get {
+                return ResourceManager.GetString("AI2020_ProvideConventionalGroupingDirection_Warning_Default_Text", resourceCulture);
             }
         }
     }

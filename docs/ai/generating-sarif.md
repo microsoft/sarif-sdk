@@ -55,6 +55,8 @@ The two-shape contract serves two distinct producer cases:
 
 2. **The finding doesn't fit any CWE entry.** Use the NOVEL escape hatch (`NOVEL-<sub-id>`). NOVEL- is flat — no slash, no hierarchy. If the AI can connect the finding back to a CWE entry, it MUST use shape #1 instead.
 
+**The base CWE must be a Weakness, never a Category.** MITRE CWE has three kinds of entry: *Weaknesses* (the specific flaws — `CWE-89` SQL Injection, `CWE-79` Cross-site Scripting), *Categories* (organizational groupings — `CWE-16` "Configuration", `CWE-19` "Data Processing Errors"), and *Views* (`CWE-1000` "Research Concepts"). Only a Weakness names an actual flaw, carries a `security-severity` prior, and is a valid mapping target. Mapping a result to a Category is the single most common AI mis-mapping: it misclassifies the finding, the SDK has no title or severity for it, and the nameless descriptor the replayer injects fails `GHAzDO2012` at ingestion. Map to the specific Weakness *under* the grouping — the leaf `CWE-<number>` that names the issue you actually found — not the umbrella. Because AI runs carry the CWE as the native rule id, the `AI1016` validation rule holds every `tool.driver.rules[]` descriptor id to this invariant — it must be a CWE Weakness or a `NOVEL-<sub-id>` id — and names the Category when it recognizes one so the fix is obvious. A View, a withdrawn or unknown CWE, and a non-CWE token (a MITRE ATT&CK technique, an OWASP category) all fail the same rule.
+
 The `emit` verb hard-enforces this convention at authoring time: `emit-finalize` exits non-zero on any violation. `AI1012` is the validation-time net — when a log is validated with the AI rule kind enabled, `result.ruleId` is held to the same grammar regardless of how the log was produced, so `SarifLogger` callers and hand-authored SARIF are covered even though they never flow through the emit verb.
 
 ### Grammar
@@ -151,6 +153,8 @@ The three values map directly to the primary use cases for AI-produced SARIF:
 **Why this matters:** Each value implies different trust and provenance characteristics: `"generated"` is AI-originated, `"annotated"` has a non-AI-originated core, and `"synthesized"` is AI-constructed from cross-tool correlation.
 
 **Placement:** `run.properties` — the origin applies to the entire run, not individual results. If a single log file contains runs with different AI involvement levels, each run declares its own `ai/origin`.
+
+**Grouping generated and synthesized findings:** A common multi-run shape emits raw findings in a `"generated"` run and higher-level clusters that group them in a `"synthesized"` run, cross-linked with `includes`/`isIncludedBy` location relationships. See [grouping-findings.md](grouping-findings.md) for the two-tier model, the cross-link encoding, and the `SARIF1013`/`AI1015`/`AI2020` rules that validate it.
 
 ---
 
@@ -1800,6 +1804,7 @@ The `AI` kind activates the AI rule pack (AI1003–AI2019); the `Sarif` kind run
 | AI1010 | ProvideEvidenceBackingUri | error | Every `sarif:` URI in `ai/evidence[].backing` SHALL resolve to an element within the containing log file per §3.10.3. |
 | AI1012 | ProvideRuleSubId | error | Every `result.ruleId` MUST conform to the [Rule-ID Convention](#rule-id-convention): a taxonomy sub-ID `CWE-<number>/<sub-id>` or the flat escape hatch `NOVEL-<sub-id>`. A bare base id is flagged as missing its sub-ID; any other non-conformant value is flagged as malformed. |
 | AI1013 | ProvideNotificationAssociatedRule | error | If `notification.associatedRule` is present, it SHALL resolve to a valid rule in `tool.driver.rules[]` or an extension's `rules[]` via `index` or `guid`. |
+| AI1015 | ProvideReciprocalGroupingRelationships | error | A finding-grouping `includes`/`isIncludedBy` relationship to another result MUST be reciprocated by the inverse relationship on the target result. See [grouping-findings.md](grouping-findings.md). |
 | AI2003 | ProvideSemanticVersion | warning | `tool.driver` SHOULD supply `semanticVersion` for reproducibility. |
 | AI2005 | ProvideAutomationDetails | warning | `run.automationDetails.guid` SHOULD be present for deduplication. |
 | AI2010 | ProvideResultRank | note | Each `result.rank` SHOULD be populated — a 0.0–100.0 priority/importance value (§3.27.25); this guidance prioritizes by true-positive likelihood, i.e. confidence. |
@@ -1811,6 +1816,7 @@ The `AI` kind activates the AI rule pack (AI1003–AI2019); the `Sarif` kind run
 | AI2017 | ProvideNotificationDescriptor | warning | Every `notification.descriptor` in `toolExecutionNotifications` or `toolConfigurationNotifications` SHOULD resolve to a `reportingDescriptor` in `tool.driver.notifications[]` or an extension's `notifications[]` via `index` or `guid` (§3.52.3). If `descriptor.id` is present, it SHALL match the resolved descriptor's `id`. |
 | AI2018 | ProvideLearningSignalArtifact | note | A notification with `descriptor.id` of `LEARNING-SIGNAL` SHOULD include a `locations[]` entry whose `physicalLocation.artifactLocation.index` resolves to a valid artifact in `run.artifacts[]` with `roles` containing `"attachment"`. |
 | AI2019 | ProvideNotificationTimestamp | note | Notifications SHOULD include `timeUtc` to enable execution timeline reconstruction. Note: timestamps break deterministic run-over-run comparison (see Appendix F) but are essential for AI execution analysis. |
+| AI2020 | ProvideConventionalGroupingDirection | warning | A finding-grouping `includes` edge SHOULD originate in a `synthesized` run and target a `generated` or `annotated` run. Assessed only when both runs declare an `ai/origin`. See [grouping-findings.md](grouping-findings.md). |
 
 ### SARIF-standard rules elevated for AI profile
 
@@ -1818,6 +1824,7 @@ These rules are defined by the base SARIF profile and fire in both standard and 
 
 | Rule ID | Name | AI Level | Description |
 |---------|------|----------|-------------|
+| SARIF1013 | SarifReferencesMustResolve | error | Every `artifactLocation.uri` using the `sarif:` scheme MUST resolve to an element within the containing log file. Catches dangling cross-result grouping pointers. See [grouping-findings.md](grouping-findings.md). |
 | SARIF2010 | ProvideCodeSnippets | warning | Region objects SHOULD include a `snippet` so consumers can see the flagged code without source access. |
 | SARIF2011 | ProvideContextRegion | note | Physical locations SHOULD include a `contextRegion` providing surrounding code for orientation. |
 

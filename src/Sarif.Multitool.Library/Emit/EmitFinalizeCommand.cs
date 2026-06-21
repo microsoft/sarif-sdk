@@ -60,15 +60,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
             try
             {
-                int code = EmitEventLogHelpers.TryResolveWipPath(
-                    options?.OutputFilePath,
+                int code = TryLoadCombinedLog(
+                    options,
                     fileSystem,
-                    out string wipPath);
+                    out SarifLog log,
+                    out List<string> wipPaths);
                 if (code != SUCCESS) { return code; }
 
                 string outputPath = Path.GetFullPath(options.OutputFilePath);
-
-                SarifLog log = SarifEventReplayer.Replay(wipPath);
 
                 if (!options.NoCweEnrichment && log?.Runs != null)
                 {
@@ -148,6 +147,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                         if (run == null) { continue; }
 
                         ApplyAISecuritySeverity(run);
+                        EnsureCweRuleDescriptorNames(run);
 
                         bool isGitHubHosted = VcpPortableRoot.IsGitHubHostedRun(run);
 
@@ -237,20 +237,23 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
                 if (!options.KeepWip)
                 {
-                    try
+                    foreach (string wipPath in wipPaths)
                     {
-                        fileSystem.FileDelete(wipPath);
-                    }
-                    catch (Exception delEx)
-                    {
-                        // Non-fatal: SARIF was successfully written; failing to remove the wip is
-                        // a janitorial issue worth reporting but not worth aborting.
-                        Console.Error.WriteLine(
-                            string.Format(
-                                CultureInfo.CurrentCulture,
-                                "Warning — could not delete '{0}': {1}",
-                                wipPath,
-                                delEx.Message));
+                        try
+                        {
+                            fileSystem.FileDelete(wipPath);
+                        }
+                        catch (Exception delEx)
+                        {
+                            // Non-fatal: SARIF was successfully written; failing to remove the wip is
+                            // a janitorial issue worth reporting but not worth aborting.
+                            Console.Error.WriteLine(
+                                string.Format(
+                                    CultureInfo.CurrentCulture,
+                                    "Warning — could not delete '{0}': {1}",
+                                    wipPath,
+                                    delEx.Message));
+                        }
                     }
                 }
 
@@ -280,6 +283,102 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 Console.Error.WriteLine(ex);
                 return FAILURE;
             }
+        }
+
+        /// <summary>
+        /// Loads the staged event log(s) this finalize run will replay and reports the set of
+        /// <c>.wip.jsonl</c> paths consumed (so the caller can clean them up).
+        /// </summary>
+        /// <remarks>
+        /// Two forms, mutually exclusive:
+        /// <list type="bullet">
+        /// <item><description>
+        /// <b>Single (default).</b> With no <c>--inputs</c>, the staged log is derived from the
+        /// output path as <c>&lt;output&gt;.wip.jsonl</c> and replayed into a single-run log — the
+        /// original behavior.
+        /// </description></item>
+        /// <item><description>
+        /// <b>Multi (<c>--inputs</c>).</b> Each listed staged log is replayed, in caller-specified
+        /// order, and its run(s) appended to one combined log, so <c>runs[i]</c> corresponds to the
+        /// i-th input deterministically. This order-preservation is what cross-run <c>sarif:</c>
+        /// result pointers depend on (unlike <c>merge</c>, which reorders runs). Every input is
+        /// validated to exist before any is replayed, so a missing input fails clean with no
+        /// partial work.
+        /// </description></item>
+        /// </list>
+        /// Per-run enrichment downstream is identical for both forms — it iterates <c>log.Runs</c>
+        /// and is indifferent to how the runs were assembled.
+        /// </remarks>
+        private static int TryLoadCombinedLog(
+            EmitFinalizeOptions options,
+            IFileSystem fileSystem,
+            out SarifLog log,
+            out List<string> wipPaths)
+        {
+            log = null;
+            wipPaths = new List<string>();
+
+            var inputs = options?.Inputs == null
+                ? new List<string>()
+                : new List<string>(options.Inputs);
+
+            if (inputs.Count == 0)
+            {
+                int code = EmitEventLogHelpers.TryResolveWipPath(
+                    options?.OutputFilePath,
+                    fileSystem,
+                    out string wipPath);
+                if (code != SUCCESS) { return code; }
+
+                wipPaths.Add(wipPath);
+                log = SarifEventReplayer.Replay(wipPath);
+                return SUCCESS;
+            }
+
+            foreach (string input in inputs)
+            {
+                if (string.IsNullOrWhiteSpace(input))
+                {
+                    Console.Error.WriteLine("--inputs contains an empty path.");
+                    return FAILURE;
+                }
+
+                string fullPath = Path.GetFullPath(input);
+
+                if (!fileSystem.FileExists(fullPath))
+                {
+                    Console.Error.WriteLine(
+                        string.Format(
+                            CultureInfo.CurrentCulture,
+                            "Event log '{0}' does not exist.",
+                            fullPath));
+                    return FAILURE;
+                }
+
+                wipPaths.Add(fullPath);
+            }
+
+            SarifLog combined = null;
+            foreach (string wipPath in wipPaths)
+            {
+                SarifLog replayed = SarifEventReplayer.Replay(wipPath);
+
+                if (combined == null)
+                {
+                    combined = replayed;
+                    combined.Runs ??= new List<Run>();
+                }
+                else if (replayed?.Runs != null)
+                {
+                    foreach (Run run in replayed.Runs)
+                    {
+                        combined.Runs.Add(run);
+                    }
+                }
+            }
+
+            log = combined;
+            return SUCCESS;
         }
 
         /// <summary>
@@ -333,6 +432,45 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         }
 
         private const string SecuritySeverityPropertyName = CweSecuritySeverity.PropertyName;
+
+        /// <summary>
+        /// Guarantees every descriptor for a CWE <em>Weakness</em> used as a rule id carries a
+        /// non-empty <c>name</c> — the property GHAzDO ingestion requires and the SDK's own
+        /// <c>GHAzDO2012</c> rule enforces. The replayer registers a bare <c>{ "id": "CWE-&lt;n&gt;" }</c>
+        /// descriptor for each result rule id, and <see cref="CweTaxonomyEnricher"/> names it from the
+        /// embedded MITRE taxonomy; when enrichment is suppressed (<c>--no-cwe-enrichment</c>) the
+        /// descriptor stays nameless. For a genuine Weakness the id is the honest minimal name — the
+        /// SDK simply has no title to offer under that flag — so this floors <c>name</c> to the
+        /// canonical CWE id and the descriptor is publishable.
+        /// </summary>
+        /// <remarks>
+        /// The floor is abstraction-aware on purpose. A CWE that is <em>not</em> a known Weakness —
+        /// a MITRE <em>Category</em> such as <c>CWE-16</c>, a View, a withdrawn id, or a typo — is a
+        /// producer mapping bug, not a missing title, and is deliberately left nameless so it fails
+        /// loudly: <see cref="Rules.ProvideValidRuleId"/> (AI1016) names the class of mistake at
+        /// validate time and <c>GHAzDO2012</c> rejects the nameless descriptor. Flooring such an id
+        /// would normalize the bug into a publishable-looking descriptor, which is exactly the
+        /// outcome we refuse.
+        /// </remarks>
+        /// <returns>The number of descriptors whose name was floored to the id.</returns>
+        internal static int EnsureCweRuleDescriptorNames(Run run)
+        {
+            IList<ReportingDescriptor> rules = run?.Tool?.Driver?.Rules;
+            if (rules == null || rules.Count == 0) { return 0; }
+
+            int floored = 0;
+            foreach (ReportingDescriptor rule in rules)
+            {
+                if (rule == null || string.IsNullOrEmpty(rule.Id)) { continue; }
+                if (!string.IsNullOrWhiteSpace(rule.Name)) { continue; }
+                if (!CweTaxonomy.IsKnownWeakness(rule.Id)) { continue; }
+
+                rule.Name = rule.Id;
+                floored++;
+            }
+
+            return floored;
+        }
 
         /// <summary>
         /// The emit-time <c>security-severity</c> prior stamped on an AI security rule that has no

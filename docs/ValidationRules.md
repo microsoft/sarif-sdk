@@ -308,6 +308,20 @@ When a result's 'message' object uses the 'id' and 'arguments' properties (which
 
 ---
 
+## Rule `SARIF1013.SarifReferencesMustResolve`
+
+### Description
+
+Every URI that uses the 'sarif:' scheme must resolve to an element within the same log file. The 'sarif:' scheme expresses an internal reference: the portion of the URI following 'sarif:' is a JSON pointer (for example, 'sarif:/runs/0/results/2') that is evaluated against the root of the log. Because these references are pinned to array positions, any change that reorders runs or results (such as a merge) can leave them dangling. This rule reports a 'sarif:' URI whose JSON pointer is malformed or does not resolve to an element in the log.
+
+### Messages
+
+#### `Default`: Error
+
+{0}: This 'artifactLocation' object has a 'uri' value of '{1}' which uses the 'sarif:' URI scheme but does not resolve to an element in the log file. A 'sarif:' URI must be a valid JSON pointer that resolves against the root of the log; references can dangle when runs or results are reordered (for example, by a merge). Verify that the pointer is well formed and that the element it targets exists.
+
+---
+
 ## Rule `SARIF2001.TerminateMessagesWithPeriod`
 
 ### Description

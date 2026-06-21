@@ -318,6 +318,12 @@ Each element of the 'versionControlProvenance' array is a 'versionControlDetails
 
 When a result's 'message' object uses the 'id' and 'arguments' properties (which, by the way, is recommended: see SARIF2002.ProvideMessageArguments), it must ensure that the rule actually defines a message string with that id, and that 'arguments' array has enough elements to provide values for every replacement sequence in the message specified by 'id'. For example, if the highest numbered replacement sequence in the specified message string is '{{3}}', then the 'arguments' array must contain at least 4 elements.</value>
   </data>
+  <data name="SARIF1013_SarifReferencesMustResolve_FullDescription_Text" xml:space="preserve">
+    <value>Every URI that uses the 'sarif:' scheme must resolve to an element within the same log file. The 'sarif:' scheme expresses an internal reference: the portion of the URI following 'sarif:' is a JSON pointer (for example, 'sarif:/runs/0/results/2') that is evaluated against the root of the log. Because these references are pinned to array positions, any change that reorders runs or results (such as a merge) can leave them dangling. This rule reports a 'sarif:' URI whose JSON pointer is malformed or does not resolve to an element in the log.</value>
+  </data>
+  <data name="SARIF1013_SarifReferencesMustResolve_Error_Default_Text" xml:space="preserve">
+    <value>{0}: This 'artifactLocation' object has a 'uri' value of '{1}' which uses the 'sarif:' URI scheme but does not resolve to an element in the log file. A 'sarif:' URI must be a valid JSON pointer that resolves against the root of the log; references can dangle when runs or results are reordered (for example, by a merge). Verify that the pointer is well formed and that the element it targets exists.</value>
+  </data>
   <data name="SARIF2013_ProvideEmbeddedFileContent_Note_Default_Text" xml:space="preserve">
     <value>{0}: This run does not provide embedded file content. Providing embedded file content enables users to examine results in their full context without having to enlist in the source repository. Embedding file content in a SARIF log file can dramatically increase its size, so consider the usage scenario when you decide whether to provide it.</value>
   </data>
@@ -844,6 +850,24 @@ Provide the 'help' property and populate the 'text' property with information ab
   <data name="AI1013_ProvideNotificationAssociatedRule_Error_Default_Text" xml:space="preserve">
     <value>{0}: The notification's 'associatedRule' with id '{1}' does not resolve to a valid rule in 'tool.driver.rules' or any extension's 'rules' array.</value>
   </data>
+  <data name="AI1015_ProvideReciprocalGroupingRelationships_FullDescription_Text" xml:space="preserve">
+    <value>Findings that are grouped across the generated and synthesized tiers are cross-linked with location relationships: a synthesized result 'includes' each of its members, and each member result 'isIncludedBy' its cluster. These relationships must be reciprocal. When a result declares an 'includes' (or 'isIncludedBy') grouping relationship to another result through a 'sarif:' pointer, the target result must declare the inverse relationship back to it. This rule reports a grouping relationship whose reciprocal is missing.</value>
+  </data>
+  <data name="AI1015_ProvideReciprocalGroupingRelationships_Error_Default_Text" xml:space="preserve">
+    <value>{0}: This result declares an '{1}' grouping relationship to '{2}', but that result does not declare the reciprocal '{3}' relationship back to this result. Grouping relationships that link generated and synthesized findings must be mutual: an 'includes' edge requires an 'isIncludedBy' edge back, and vice versa.</value>
+  </data>
+  <data name="AI1016_ProvideValidRuleId_FullDescription_Text" xml:space="preserve">
+    <value>AI-authored runs carry the CWE as the native rule id: every 'reportingDescriptor.id' in 'tool.driver.rules' is either a bare 'CWE-&lt;number&gt;' that names a MITRE Weakness, or the 'NOVEL-&lt;sub-id&gt;' escape hatch for a finding that maps to no CWE. Any other rule id is invalid. A CWE Category — an organizational grouping such as CWE-16 'Configuration' — names no specific flaw; a View, a withdrawn id, or a typo is likewise not a Weakness; and a non-CWE token (a MITRE ATT&amp;CK technique, an OWASP category, a tool-private id) is neither. An invalid rule id is a producer bug, not a missing detail: the SDK has no security-severity prior or descriptor metadata for it, GHAzDO ingestion rejects the resulting nameless descriptor (GHAzDO2012), and the finding is misclassified. Use the specific Weakness that names the actual flaw (the leaf 'CWE-&lt;number&gt;'), or the 'NOVEL-&lt;sub-id&gt;' escape hatch when no Weakness applies.</value>
+  </data>
+  <data name="AI1016_ProvideValidRuleId_Error_Category_Text" xml:space="preserve">
+    <value>{0}: The rule descriptor id '{1}' is the MITRE CWE Category '{2}', not a Weakness. AI findings carry the CWE as the native rule id, and a Category is an organizational grouping of weaknesses — it names no specific flaw, carries no severity prior, and is never a valid rule id. Use the specific Weakness under it — the leaf 'CWE-&lt;number&gt;' that names the actual issue — or 'NOVEL-&lt;sub-id&gt;' if no Weakness applies.</value>
+  </data>
+  <data name="AI1016_ProvideValidRuleId_Error_NotAWeakness_Text" xml:space="preserve">
+    <value>{0}: The rule descriptor id '{1}' is not a known CWE Weakness — it is likely a View, a withdrawn entry, or a typo. AI findings carry the CWE as the native rule id, and only a Weakness is a valid mapping target. Use the specific Weakness that names the actual flaw ('CWE-&lt;number&gt;'), or 'NOVEL-&lt;sub-id&gt;' if no Weakness applies.</value>
+  </data>
+  <data name="AI1016_ProvideValidRuleId_Error_NotCweOrNovel_Text" xml:space="preserve">
+    <value>{0}: The rule descriptor id '{1}' is neither a CWE Weakness nor a 'NOVEL-' id. AI-authored runs use the CWE as the native rule id ('CWE-&lt;number&gt;', e.g. 'CWE-89') for any finding that maps to a weakness class, and the 'NOVEL-&lt;sub-id&gt;' escape hatch for one that maps to none. Replace this id with the CWE Weakness it represents, or a 'NOVEL-&lt;sub-id&gt;' id.</value>
+  </data>
   <data name="AI2018_ProvideLearningSignalArtifact_FullDescription_Text" xml:space="preserve">
     <value>A notification with descriptor id 'LEARNING-SIGNAL' should include a 'locations' entry whose 'physicalLocation.artifactLocation.index' resolves to a valid artifact in 'run.artifacts' with 'roles' containing 'attachment'.</value>
   </data>
@@ -858,5 +882,11 @@ Provide the 'help' property and populate the 'text' property with information ab
   </data>
   <data name="AI2019_ProvideNotificationTimestamp_Note_Default_Text" xml:space="preserve">
     <value>{0}: This notification does not include 'timeUtc'. AI tool notifications should include timestamps to enable execution timeline reconstruction and performance analysis.</value>
+  </data>
+  <data name="AI2020_ProvideConventionalGroupingDirection_FullDescription_Text" xml:space="preserve">
+    <value>Finding-grouping relationships should follow the conventional tier direction: an 'includes' edge should originate in a 'synthesized' run and target a 'generated' (or 'annotated') run, reflecting a higher-level finding that groups lower-level ones. An 'includes' edge that points the other way, or that links results within the same tier, is spec-legal but inverts the intended generated/synthesized hierarchy and is harder for consumers to interpret. This rule is assessed only when both the including and included runs declare an 'ai/origin'.</value>
+  </data>
+  <data name="AI2020_ProvideConventionalGroupingDirection_Warning_Default_Text" xml:space="preserve">
+    <value>{0}: This result declares an 'includes' grouping relationship to '{1}', but grouping edges should originate in a 'synthesized' run and target a 'generated' or 'annotated' run. The including run's 'ai/origin' is '{2}' and the included run's 'ai/origin' is '{3}'.</value>
   </data>
 </root>

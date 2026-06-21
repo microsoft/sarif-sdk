@@ -1027,5 +1027,276 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         }
 
         #endregion
+
+        #region AI1015 — ProvideReciprocalGroupingRelationships
+
+        private static Location SarifPointerRelatedLocation(int id, string pointer)
+            => new Location
+            {
+                Id = id,
+                PhysicalLocation = new PhysicalLocation
+                {
+                    ArtifactLocation = new ArtifactLocation
+                    {
+                        Uri = new System.Uri(pointer, System.UriKind.RelativeOrAbsolute)
+                    }
+                }
+            };
+
+        private static Result GroupingResult(string text, string kind, int relatedLocationId, string targetPointer, bool declareRelationship)
+        {
+            var primary = new Location
+            {
+                Id = 0,
+                PhysicalLocation = new PhysicalLocation
+                {
+                    ArtifactLocation = new ArtifactLocation { Uri = new System.Uri("src/a.cs", System.UriKind.Relative) }
+                }
+            };
+
+            if (declareRelationship)
+            {
+                primary.Relationships = new List<LocationRelationship>
+                {
+                    new LocationRelationship { Target = relatedLocationId, Kinds = new[] { kind } }
+                };
+            }
+
+            var result = new Result
+            {
+                RuleId = "CWE-89/kql-injection",
+                Message = new Message { Text = text },
+                Locations = new List<Location> { primary }
+            };
+
+            if (declareRelationship)
+            {
+                result.RelatedLocations = new List<Location>
+                {
+                    SarifPointerRelatedLocation(relatedLocationId, targetPointer)
+                };
+            }
+
+            return result;
+        }
+
+        private static SarifLog CreateGroupedLog(bool generatedDeclaresInverse, bool synthesizedDeclaresIncludes)
+        {
+            var generated = new Run
+            {
+                Tool = new Tool { Driver = new ToolComponent { Name = "GeneratedScanner" } },
+                Results = new List<Result>
+                {
+                    GroupingResult("A raw generated finding.", "isIncludedBy", 1, "sarif:/runs/1/results/0", generatedDeclaresInverse)
+                }
+            };
+
+            var synthesized = new Run
+            {
+                Tool = new Tool { Driver = new ToolComponent { Name = "SynthesizedSkill" } },
+                Results = new List<Result>
+                {
+                    GroupingResult("A synthesized grouping finding.", "includes", 1, "sarif:/runs/0/results/0", synthesizedDeclaresIncludes)
+                }
+            };
+
+            return new SarifLog { Runs = new[] { generated, synthesized } };
+        }
+
+        [Fact]
+        public void AI1015_WhenGroupingRelationshipsAreReciprocal_NoResult()
+        {
+            SarifLog log = CreateGroupedLog(generatedDeclaresInverse: true, synthesizedDeclaresIncludes: true);
+
+            SarifLog output = RunAIValidation(log);
+            List<Result> results = GetResultsForRule(output, "AI1015");
+
+            results.Should().BeEmpty("the 'includes' and 'isIncludedBy' edges point back at each other");
+        }
+
+        [Fact]
+        public void AI1015_WhenIncludesHasNoReciprocal_ReportsError()
+        {
+            SarifLog log = CreateGroupedLog(generatedDeclaresInverse: false, synthesizedDeclaresIncludes: true);
+
+            SarifLog output = RunAIValidation(log);
+            List<Result> results = GetResultsForRule(output, "AI1015");
+
+            results.Should().NotBeEmpty("the synthesized 'includes' edge has no matching 'isIncludedBy' back");
+            results[0].Level.Should().Be(FailureLevel.Error);
+        }
+
+        [Fact]
+        public void AI1015_WhenIsIncludedByHasNoReciprocal_ReportsError()
+        {
+            SarifLog log = CreateGroupedLog(generatedDeclaresInverse: true, synthesizedDeclaresIncludes: false);
+
+            SarifLog output = RunAIValidation(log);
+            List<Result> results = GetResultsForRule(output, "AI1015");
+
+            results.Should().NotBeEmpty("the generated 'isIncludedBy' edge has no matching 'includes' back");
+            results[0].Level.Should().Be(FailureLevel.Error);
+        }
+
+        #endregion
+
+        #region AI2020 — ProvideConventionalGroupingDirection
+
+        private static SarifLog CreateDirectedGroupingLog(string includingOrigin, string includedOrigin)
+        {
+            var included = new Run
+            {
+                Tool = new Tool { Driver = new ToolComponent { Name = "IncludedScanner" } },
+                Results = new List<Result>
+                {
+                    GroupingResult("An included finding.", "isIncludedBy", 1, "sarif:/runs/1/results/0", declareRelationship: true)
+                }
+            };
+
+            var including = new Run
+            {
+                Tool = new Tool { Driver = new ToolComponent { Name = "IncludingSkill" } },
+                Results = new List<Result>
+                {
+                    GroupingResult("An including finding.", "includes", 1, "sarif:/runs/0/results/0", declareRelationship: true)
+                }
+            };
+
+            if (includedOrigin != null)
+            {
+                included.SetProperty("ai/origin", includedOrigin);
+            }
+
+            if (includingOrigin != null)
+            {
+                including.SetProperty("ai/origin", includingOrigin);
+            }
+
+            return new SarifLog { Runs = new[] { included, including } };
+        }
+
+        [Fact]
+        public void AI2020_WhenSynthesizedIncludesGenerated_NoResult()
+        {
+            SarifLog log = CreateDirectedGroupingLog(includingOrigin: "synthesized", includedOrigin: "generated");
+
+            SarifLog output = RunAIValidation(log);
+            List<Result> results = GetResultsForRule(output, "AI2020");
+
+            results.Should().BeEmpty("an 'includes' edge from a synthesized run to a generated run is the conventional direction");
+        }
+
+        [Fact]
+        public void AI2020_WhenGeneratedIncludesSynthesized_ReportsWarning()
+        {
+            SarifLog log = CreateDirectedGroupingLog(includingOrigin: "generated", includedOrigin: "synthesized");
+
+            SarifLog output = RunAIValidation(log);
+            List<Result> results = GetResultsForRule(output, "AI2020");
+
+            results.Should().NotBeEmpty("the 'includes' edge inverts the generated/synthesized hierarchy");
+            results[0].Level.Should().Be(FailureLevel.Warning);
+        }
+
+        [Fact]
+        public void AI2020_WhenIncludesIsWithinSameTier_ReportsWarning()
+        {
+            SarifLog log = CreateDirectedGroupingLog(includingOrigin: "synthesized", includedOrigin: "synthesized");
+
+            SarifLog output = RunAIValidation(log);
+            List<Result> results = GetResultsForRule(output, "AI2020");
+
+            results.Should().NotBeEmpty("an 'includes' edge should target a generated or annotated run, not another synthesized one");
+            results[0].Level.Should().Be(FailureLevel.Warning);
+        }
+
+        [Fact]
+        public void AI2020_WhenOriginsAbsent_NoResult()
+        {
+            SarifLog log = CreateDirectedGroupingLog(includingOrigin: null, includedOrigin: null);
+
+            SarifLog output = RunAIValidation(log);
+            List<Result> results = GetResultsForRule(output, "AI2020");
+
+            results.Should().BeEmpty("direction is assessed only when both runs declare an 'ai/origin'");
+        }
+
+        #endregion
+
+        #region AI1016 — ProvideValidRuleId
+
+        // The rule is descriptor-level: it judges 'tool.driver.rules[].id'. The seed log carries a
+        // single rule descriptor, so setting its id is enough; the matching result.ruleId is set too
+        // to keep the log internally consistent (this rule never inspects the result).
+        private void RunAI1016ErrorTest(string descriptorId, string expectedMessageId, string because)
+        {
+            SarifLog log = CreateValidAISarifLog();
+            SetRuleIdShape(log, descriptorId: descriptorId, resultRuleId: descriptorId);
+
+            SarifLog output = RunAIValidation(log);
+            List<Result> results = GetResultsForRule(output, "AI1016");
+
+            results.Should().NotBeEmpty(because);
+            results[0].Level.Should().Be(FailureLevel.Error);
+            results[0].Message.Id.Should().Be(expectedMessageId, because);
+        }
+
+        private void RunAI1016NoResultTest(string descriptorId, string because)
+        {
+            SarifLog log = CreateValidAISarifLog();
+            SetRuleIdShape(log, descriptorId: descriptorId, resultRuleId: descriptorId);
+
+            SarifLog output = RunAIValidation(log);
+            GetResultsForRule(output, "AI1016").Should().BeEmpty(because);
+        }
+
+        [Fact]
+        public void AI1016_WhenDescriptorIdIsCweCategory_ReportsCategoryError()
+            => RunAI1016ErrorTest(
+                "CWE-16",
+                "Error_Category",
+                "CWE-16 is the MITRE Category 'Configuration', not a Weakness, so it is never a valid rule id");
+
+        [Fact]
+        public void AI1016_WhenDescriptorIdIsCweView_ReportsNotAWeaknessError()
+            => RunAI1016ErrorTest(
+                "CWE-1000",
+                "Error_NotAWeakness",
+                "CWE-1000 is a MITRE View, not a Weakness");
+
+        [Fact]
+        public void AI1016_WhenDescriptorIdIsUnknownCwe_ReportsNotAWeaknessError()
+            => RunAI1016ErrorTest(
+                "CWE-99999",
+                "Error_NotAWeakness",
+                "CWE-99999 is not a known CWE Weakness (a typo or an id newer than the bundled catalog)");
+
+        [Fact]
+        public void AI1016_WhenDescriptorIdIsMitreAttackTechnique_ReportsNotCweOrNovelError()
+            => RunAI1016ErrorTest(
+                "MITRE-ATTACK-T1059",
+                "Error_NotCweOrNovel",
+                "a MITRE ATT&CK technique is neither a CWE Weakness nor a NOVEL- id");
+
+        [Fact]
+        public void AI1016_WhenDescriptorIdIsToolPrivateId_ReportsNotCweOrNovelError()
+            => RunAI1016ErrorTest(
+                "TST0002",
+                "Error_NotCweOrNovel",
+                "a tool-private rule id is neither a CWE Weakness nor a NOVEL- id");
+
+        [Fact]
+        public void AI1016_WhenDescriptorIdIsCweWeakness_NoResult()
+            => RunAI1016NoResultTest(
+                "CWE-89",
+                "CWE-89 is a genuine Weakness and a valid native rule id");
+
+        [Fact]
+        public void AI1016_WhenDescriptorIdUsesNovelPrefix_NoResult()
+            => RunAI1016NoResultTest(
+                "NOVEL-prompt-injection",
+                "the NOVEL- escape hatch is a valid rule id for a finding that maps to no CWE");
+
+        #endregion
     }
 }
