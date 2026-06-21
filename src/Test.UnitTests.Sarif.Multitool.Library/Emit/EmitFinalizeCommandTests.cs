@@ -234,7 +234,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         }
 
         [Fact]
-        public void Run_WithNoCweEnrichment_LeavesCweDescriptorBare()
+        public void Run_WithNoCweEnrichment_SkipsTaxonomyEnrichmentButStillFloorsName()
         {
             SeedWip(
                 (SarifEventKinds.RunHeader, RunHeader()),
@@ -250,8 +250,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             SarifLog log = LoadSarif();
             ReportingDescriptor descriptor = log.Runs[0].Tool.Driver.Rules[0];
             descriptor.Id.Should().Be("CWE-79");
+            // --no-cwe-enrichment suppresses taxonomy enrichment (the MITRE title, helpUri, descriptions)...
             descriptor.HelpUri.Should().BeNull();
-            descriptor.Name.Should().BeNull();
+            descriptor.ShortDescription.Should().BeNull();
+            // ...but the name floor is an always-on emit-verb publishability policy (like the
+            // security-severity default), so the descriptor is never emitted nameless and GHAzDO-broken.
+            descriptor.Name.Should().Be("CWE-79");
         }
 
         [Fact]
@@ -712,6 +716,75 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
             stamped.Should().Be(0);
             SecuritySeverityOf(run.Tool.Driver.Rules[0]).Should().Be("2.0");
+        }
+
+        [Fact]
+        public void EnsureCweRuleDescriptorNames_FloorsUnbundledCweNameToId()
+        {
+            // CWE-16 is a deprecated MITRE category absent from the embedded taxonomy, so the enricher
+            // never names it; without the floor the replayer-created descriptor reaches finalize
+            // nameless and fails the SDK's own GHAzDO2012.
+            Run run = BuildRun("CWE-16");
+
+            int floored = EmitFinalizeCommand.EnsureCweRuleDescriptorNames(run);
+
+            floored.Should().Be(1);
+            run.Tool.Driver.Rules[0].Name.Should().Be("CWE-16");
+        }
+
+        [Fact]
+        public void EnsureCweRuleDescriptorNames_FloorsEachUnnamedCweIndependently()
+        {
+            Run run = BuildRun("CWE-16", "CWE-251");
+
+            int floored = EmitFinalizeCommand.EnsureCweRuleDescriptorNames(run);
+
+            floored.Should().Be(2);
+            run.Tool.Driver.Rules[0].Name.Should().Be("CWE-16");
+            run.Tool.Driver.Rules[1].Name.Should().Be("CWE-251");
+        }
+
+        [Fact]
+        public void EnsureCweRuleDescriptorNames_LeavesEnrichedNameUntouched()
+        {
+            Run run = BuildRun("CWE-79");
+            run.Tool.Driver.Rules[0].Name = "Cross-site Scripting";
+
+            int floored = EmitFinalizeCommand.EnsureCweRuleDescriptorNames(run);
+
+            floored.Should().Be(0);
+            run.Tool.Driver.Rules[0].Name.Should().Be("Cross-site Scripting");
+        }
+
+        [Fact]
+        public void EnsureCweRuleDescriptorNames_LeavesNovelAndNonCweDescriptorsAlone()
+        {
+            // The floor is the GHAzDO publishability guarantee for the CWE descriptors the SDK injects
+            // and enriches; a NOVEL- id and an arbitrary rule id are producer-owned and out of scope.
+            Run run = BuildRun("NOVEL-prompt-injection", "MY-CUSTOM-RULE");
+
+            int floored = EmitFinalizeCommand.EnsureCweRuleDescriptorNames(run);
+
+            floored.Should().Be(0);
+            run.Tool.Driver.Rules[0].Name.Should().BeNull();
+            run.Tool.Driver.Rules[1].Name.Should().BeNull();
+        }
+
+        [Fact]
+        public void Run_NamesUnbundledCweDescriptorSoItIsGhazdoPublishable()
+        {
+            // End-to-end: a result under a deprecated-category CWE sub-id (CWE-16, absent from the
+            // taxonomy) must leave finalize with a named descriptor, or it fails GHAzDO2012 at
+            // ingestion despite a clean Sarif;AI validate.
+            SeedWip(
+                (SarifEventKinds.RunHeader, RunHeader()),
+                (SarifEventKinds.Result, new Result { RuleId = "CWE-16/insecure-default-config", Message = new Message { Text = "config" } }));
+
+            int exit = new EmitFinalizeCommand().Run(new EmitFinalizeOptions { OutputFilePath = OutPath });
+
+            exit.Should().Be(CommandBase.SUCCESS);
+            ReportingDescriptor rule = LoadSarif().Runs[0].Tool.Driver.Rules.Single(r => r.Id == "CWE-16");
+            rule.Name.Should().Be("CWE-16");
         }
 
         [Fact]

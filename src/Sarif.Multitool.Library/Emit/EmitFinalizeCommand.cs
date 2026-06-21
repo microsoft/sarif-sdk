@@ -147,6 +147,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                         if (run == null) { continue; }
 
                         ApplyAISecuritySeverity(run);
+                        EnsureCweRuleDescriptorNames(run);
 
                         bool isGitHubHosted = VcpPortableRoot.IsGitHubHostedRun(run);
 
@@ -431,6 +432,39 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         }
 
         private const string SecuritySeverityPropertyName = CweSecuritySeverity.PropertyName;
+
+        /// <summary>
+        /// Guarantees every CWE-as-rule-id descriptor carries a non-empty <c>name</c> — the property
+        /// GHAzDO ingestion requires and the SDK's own <c>GHAzDO2012</c> rule enforces. The replayer
+        /// registers a bare <c>{ "id": "CWE-&lt;n&gt;" }</c> descriptor for each result rule id, and
+        /// <see cref="CweTaxonomyEnricher"/> names it from the embedded MITRE taxonomy. A CWE that is
+        /// not in that taxonomy — a deprecated MITRE <em>category</em> such as <c>CWE-16</c>, or a CWE
+        /// newer than the bundled catalog — is never named, so without this floor it would reach a
+        /// consumer as a nameless descriptor that <c>--rule-kind "Sarif;AI;GHAzDO"</c> and GHAzDO
+        /// ingestion reject (HTTP 400). When enrichment supplied no name, this floors <c>name</c> to
+        /// the canonical CWE id so the descriptor is publishable; an enriched descriptor keeps its
+        /// MITRE title. The id is the honest value — the SDK has no title for an unbundled CWE — and it
+        /// reads as the "unenriched / verify the CWE" signal those deprecated ids already carry.
+        /// </summary>
+        /// <returns>The number of descriptors whose name was floored to the id.</returns>
+        internal static int EnsureCweRuleDescriptorNames(Run run)
+        {
+            IList<ReportingDescriptor> rules = run?.Tool?.Driver?.Rules;
+            if (rules == null || rules.Count == 0) { return 0; }
+
+            int floored = 0;
+            foreach (ReportingDescriptor rule in rules)
+            {
+                if (rule == null || string.IsNullOrEmpty(rule.Id)) { continue; }
+                if (!string.IsNullOrWhiteSpace(rule.Name)) { continue; }
+                if (!CweSecuritySeverity.TryGetCweNumber(rule.Id, out _)) { continue; }
+
+                rule.Name = rule.Id;
+                floored++;
+            }
+
+            return floored;
+        }
 
         /// <summary>
         /// The emit-time <c>security-severity</c> prior stamped on an AI security rule that has no
