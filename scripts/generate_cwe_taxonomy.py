@@ -6,7 +6,7 @@
 the authoritative MITRE Common Weakness Enumeration (CWE) XML catalog.
 
 Downloads cwec_latest.xml.zip from cwe.mitre.org, extracts the XML,
-parses the entries, and emits two consolidated artifacts covering all
+parses the entries, and emits three consolidated artifacts covering all
 maturity statuses (Stable, Draft, Incomplete, Deprecated, Obsolete):
 
     CweTaxonomy.sarif       SARIF 2.1.0 taxonomy with verbatim MITRE content.
@@ -21,6 +21,12 @@ maturity statuses (Stable, Draft, Incomplete, Deprecated, Obsolete):
 
     CweTaxonomy.brief.md    Compact markdown table sized for AI prompt
                             context-window injection.
+
+    CweCategories.json      Compact id -> name map of every MITRE CWE Category.
+                            A Category is an organizational grouping, never a
+                            valid result.ruleId mapping target; consumers use
+                            this to recognize and explain that class of
+                            mis-mapping.
 
 Both files are written with UTF-8 (no BOM) and LF line endings regardless of
 the host OS so checked-in artifacts stay byte-stable across contributors.
@@ -361,6 +367,15 @@ def emit(xml_path, output_dir, source_url):
     for s in ALL_STATUSES:
         print(f"    {s:<11} {len(bucketed[s]):>4} entries")
 
+    # Categories are organizational groupings, never valid result.ruleId mapping
+    # targets. We capture their id -> name (across every status) so a consumer can
+    # recognize the single most common AI mis-mapping -- naming a Category instead
+    # of the specific Weakness under it -- and say so in its own output.
+    categories = root.findall(".//c:Categories/c:Category", NS)
+    category_map = {f"CWE-{c.get('ID')}": c.get("Name") for c in categories}
+    category_map = dict(sorted(category_map.items(), key=lambda kv: int(kv[0].split("-", 1)[1])))
+    print(f"  Parsed {len(category_map)} categories.")
+
     print(f"[4/4] Writing consolidated artifacts to {output_dir} ...")
     all_items = sorted(
         (w for s in ALL_STATUSES for w in bucketed[s]),
@@ -499,10 +514,27 @@ def emit(xml_path, output_dir, source_url):
     with open(brief_path, "w", encoding="utf-8", newline="\n") as f:
         f.write(md.getvalue())
 
+    # ---- Categories map ----
+    categories_doc = {
+        "version": cwe_version,
+        "comment": (
+            f"MITRE CWE Categories (id -> name) from cwec_v{cwe_version}.xml, generated "
+            "from the same catalog as CweTaxonomy.sarif. A Category is an organizational "
+            "grouping, never a valid result.ruleId mapping target; consumers use this to "
+            "recognize and explain that class of mis-mapping."
+        ),
+        "categories": category_map,
+    }
+    categories_path = output_dir / "CweCategories.json"
+    categories_text = json.dumps(categories_doc, indent=2, ensure_ascii=False)
+    with open(categories_path, "w", encoding="utf-8", newline="\n") as f:
+        f.write(categories_text)
+
     print(
         f"  -> CweTaxonomy.sarif ({sarif_path.stat().st_size:,} bytes) / "
-        f"CweTaxonomy.brief.md ({brief_path.stat().st_size:,} bytes) -- "
-        f"{len(all_items):,} taxa"
+        f"CweTaxonomy.brief.md ({brief_path.stat().st_size:,} bytes) / "
+        f"CweCategories.json ({categories_path.stat().st_size:,} bytes) -- "
+        f"{len(all_items):,} taxa, {len(category_map):,} categories"
     )
     print("Done.")
 

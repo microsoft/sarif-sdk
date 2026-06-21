@@ -1222,5 +1222,64 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         }
 
         #endregion
+
+        #region AI1016 — MapToCweWeaknessNotCategory
+
+        private void RunAI1016ErrorTest(string ruleId, string expectedMessageId, string because)
+        {
+            SarifLog log = CreateValidAISarifLog();
+            SetRuleIdShape(log, descriptorId: ruleId, resultRuleId: ruleId);
+
+            SarifLog output = RunAIValidation(log);
+            List<Result> results = GetResultsForRule(output, "AI1016");
+
+            results.Should().NotBeEmpty(because);
+            results[0].Level.Should().Be(FailureLevel.Error);
+            results[0].Message.Id.Should().Be(expectedMessageId, because);
+        }
+
+        private void RunAI1016NoResultTest(string ruleId, string because)
+        {
+            SarifLog log = CreateValidAISarifLog();
+            SetRuleIdShape(log, descriptorId: ruleId, resultRuleId: ruleId);
+
+            SarifLog output = RunAIValidation(log);
+            GetResultsForRule(output, "AI1016").Should().BeEmpty(because);
+        }
+
+        [Fact]
+        public void AI1016_WhenRuleIdMapsToCategory_ReportsCategoryError()
+            => RunAI1016ErrorTest(
+                "CWE-16/insecure-default-config",
+                "Error_Category",
+                "CWE-16 is the MITRE Category 'Configuration', not a Weakness, so it is never a valid mapping target");
+
+        [Fact]
+        public void AI1016_WhenRuleIdMapsToView_ReportsNotAWeaknessError()
+            => RunAI1016ErrorTest(
+                "CWE-1000/research-concepts",
+                "Error_NotAWeakness",
+                "CWE-1000 is a MITRE View, not a Weakness");
+
+        [Fact]
+        public void AI1016_WhenRuleIdIsUnknownCwe_ReportsNotAWeaknessError()
+            => RunAI1016ErrorTest(
+                "CWE-99999/made-up",
+                "Error_NotAWeakness",
+                "CWE-99999 is not a known CWE Weakness (a typo or an id newer than the bundled catalog)");
+
+        [Fact]
+        public void AI1016_WhenRuleIdMapsToWeakness_NoResult()
+            => RunAI1016NoResultTest(
+                "CWE-89/kql-injection",
+                "CWE-89 is a genuine Weakness and the only valid mapping target shape");
+
+        [Fact]
+        public void AI1016_WhenRuleIdUsesNovelPrefix_NoResult()
+            => RunAI1016NoResultTest(
+                "NOVEL-prompt-injection",
+                "the NOVEL- escape hatch carries no CWE and is out of this rule's scope");
+
+        #endregion
     }
 }

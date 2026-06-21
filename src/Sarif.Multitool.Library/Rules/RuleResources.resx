@@ -856,6 +856,15 @@ Provide the 'help' property and populate the 'text' property with information ab
   <data name="AI1015_ProvideReciprocalGroupingRelationships_Error_Default_Text" xml:space="preserve">
     <value>{0}: This result declares an '{1}' grouping relationship to '{2}', but that result does not declare the reciprocal '{3}' relationship back to this result. Grouping relationships that link generated and synthesized findings must be mutual: an 'includes' edge requires an 'isIncludedBy' edge back, and vice versa.</value>
   </data>
+  <data name="AI1016_MapToCweWeaknessNotCategory_FullDescription_Text" xml:space="preserve">
+    <value>AI-generated results map a finding to a CWE by carrying the CWE on 'result.ruleId' (typically 'CWE-&lt;number&gt;/&lt;sub-id&gt;'). Only a CWE Weakness is a valid mapping target. A CWE Category — an organizational grouping such as CWE-16 'Configuration' — names no specific flaw; a View, a withdrawn id, or a typo is likewise not a Weakness. Mapping to one is a producer bug, not a missing detail: the SDK has no security-severity prior or descriptor metadata for it, GHAzDO ingestion rejects the resulting nameless descriptor (GHAzDO2012), and the finding is misclassified. Map to the specific Weakness under the grouping (the leaf 'CWE-&lt;number&gt;' that names the actual flaw), or use the 'NOVEL-&lt;sub-id&gt;' escape hatch when no Weakness applies.</value>
+  </data>
+  <data name="AI1016_MapToCweWeaknessNotCategory_Error_Category_Text" xml:space="preserve">
+    <value>{0}: 'result.ruleId' is '{1}', but {2} is the MITRE CWE Category '{3}', not a Weakness. A Category is an organizational grouping of weaknesses and is never a valid mapping target — it names no specific flaw and carries no severity prior. Map to the specific Weakness under it — the leaf 'CWE-&lt;number&gt;/&lt;sub-id&gt;' that names the actual issue — or use 'NOVEL-&lt;sub-id&gt;' if no Weakness applies.</value>
+  </data>
+  <data name="AI1016_MapToCweWeaknessNotCategory_Error_NotAWeakness_Text" xml:space="preserve">
+    <value>{0}: 'result.ruleId' is '{1}', but {2} is not a known CWE Weakness — it is likely a View, a withdrawn entry, or a typo. Only a CWE Weakness is a valid mapping target. Map to the specific Weakness that names the actual flaw ('CWE-&lt;number&gt;/&lt;sub-id&gt;'), or use 'NOVEL-&lt;sub-id&gt;' if no Weakness applies.</value>
+  </data>
   <data name="AI2018_ProvideLearningSignalArtifact_FullDescription_Text" xml:space="preserve">
     <value>A notification with descriptor id 'LEARNING-SIGNAL' should include a 'locations' entry whose 'physicalLocation.artifactLocation.index' resolves to a valid artifact in 'run.artifacts' with 'roles' containing 'attachment'.</value>
   </data>

@@ -1880,6 +1880,24 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
             }
         }
 
+        internal static string AI1016_MapToCweWeaknessNotCategory_FullDescription_Text {
+            get {
+                return ResourceManager.GetString("AI1016_MapToCweWeaknessNotCategory_FullDescription_Text", resourceCulture);
+            }
+        }
+        
+        internal static string AI1016_MapToCweWeaknessNotCategory_Error_Category_Text {
+            get {
+                return ResourceManager.GetString("AI1016_MapToCweWeaknessNotCategory_Error_Category_Text", resourceCulture);
+            }
+        }
+        
+        internal static string AI1016_MapToCweWeaknessNotCategory_Error_NotAWeakness_Text {
+            get {
+                return ResourceManager.GetString("AI1016_MapToCweWeaknessNotCategory_Error_NotAWeakness_Text", resourceCulture);
+            }
+        }
+
         internal static string AI2018_ProvideLearningSignalArtifact_FullDescription_Text {
             get {
                 return ResourceManager.GetString("AI2018_ProvideLearningSignalArtifact_FullDescription_Text", resourceCulture);
