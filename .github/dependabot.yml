@@ -1,0 +1,45 @@
+# Dependabot configuration.
+#
+# Dependabot always reads this file from the repository's default branch (main),
+# but every update below opens its PRs against `dev` via `target-branch`: dependency
+# bumps land on the integration branch and flow `dev` -> `main` with the rest of the
+# feature work, rather than landing on `main` directly.
+#
+# Minor and patch updates are grouped into a single PR per package directory to keep
+# the queue quiet; major updates still arrive as individual PRs so they get reviewed
+# on their own (e.g. a test-framework major bump that can break the suite).
+version: 2
+updates:
+  # --- npm: native-TypeScript packages ---
+  # Only npm/sarif and npm/sarif-multitool-ts carry real dependencies; the .NET
+  # multitool wrapper packages (sarif-multitool[-win32|-linux|-darwin]) have none.
+  - package-ecosystem: "npm"
+    directory: "/npm/sarif"
+    target-branch: "dev"
+    schedule:
+      interval: "weekly"
+    groups:
+      minor-and-patch:
+        patterns: ["*"]
+        update-types: ["minor", "patch"]
+
+  - package-ecosystem: "npm"
+    directory: "/npm/sarif-multitool-ts"
+    target-branch: "dev"
+    schedule:
+      interval: "weekly"
+    groups:
+      minor-and-patch:
+        patterns: ["*"]
+        update-types: ["minor", "patch"]
+
+  # --- NuGet: the SARIF SDK solution and its projects under /src ---
+  - package-ecosystem: "nuget"
+    directory: "/src"
+    target-branch: "dev"
+    schedule:
+      interval: "weekly"
+    groups:
+      minor-and-patch:
+        patterns: ["*"]
+        update-types: ["minor", "patch"]
