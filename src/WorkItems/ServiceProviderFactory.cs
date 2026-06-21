@@ -50,7 +50,10 @@ namespace Microsoft.WorkItems
                     {
                         if (!string.IsNullOrEmpty(config[LoggingApplicationInsightsInstrumentationKey]))
                         {
-                            builder.AddApplicationInsights(config[LoggingApplicationInsightsInstrumentationKey], options => options.FlushOnDispose = true);
+                            string instrumentationKey = config[LoggingApplicationInsightsInstrumentationKey];
+                            builder.AddApplicationInsights(
+                                telemetry => telemetry.ConnectionString = $"InstrumentationKey={instrumentationKey}",
+                                options => options.FlushOnDispose = true);
                         }
                     }
 

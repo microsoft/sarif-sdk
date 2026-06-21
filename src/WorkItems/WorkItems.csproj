@@ -22,6 +22,9 @@
     <TargetFrameworks>netstandard2.0</TargetFrameworks>
     <!-- We require 461 as a minimal framework due to dependency such as Microsoft.Extensions.Logging.Console -->
     <TargetFrameworks Condition="$(OS) == 'Windows_NT'">$(TargetFrameworks);net461</TargetFrameworks>
+    <!-- System.Data.SqlClient ships only as a transitive security pin here (no direct use); its
+         newer releases drop net461 from their support matrix but still run on it. -->
+    <SuppressTfmSupportBuildWarnings>true</SuppressTfmSupportBuildWarnings>
   </PropertyGroup>
 
   <ItemGroup>

@@ -104,6 +104,14 @@
     <Compile Include="$(MsBuildThisFileDirectory)Shared\CommonAssemblyInfo.cs" />
   </ItemGroup>
 
+  <!-- On .NET Framework a transitive dependency declares a Microsoft.Bcl.HashCode >= 6.0.0
+       requirement that NuGet resolves down to 1.1.1, leaving an unresolvable 6.0.0.0 reference
+       identity that surfaces as MSB3277 (fatal under warnings-as-errors). An explicit reference
+       pins a single, unambiguous version across the closure. -->
+  <ItemGroup Condition=" '$(TargetFrameworkIdentifier)' == '.NETFramework' ">
+    <PackageReference Include="Microsoft.Bcl.HashCode" />
+  </ItemGroup>
+
   <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
     <ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
     <Deterministic>true</Deterministic>
