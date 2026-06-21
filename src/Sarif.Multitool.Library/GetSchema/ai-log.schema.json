@@ -1,0 +1,305 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/microsoft/sarif-sdk/main/src/Sarif.Multitool.Library/GetSchema/ai-log.schema.json",
+  "title": "SARIF AI emit profile \u2014 finalized whole log",
+  "description": "Whole-document contract for a fully-enriched SARIF AI log: the output of the emit-finalize verb. An overlay on the canonical SARIF 2.1.0 document that reuses the base shape by $ref and tightens it to the Error-level AI rules at whole-log scale. Unlike the per-object input schemas, this is a POST-enrichment contract: it ACCEPTS the index/identity state finalize assigns (result.ruleIndex, result.guid, artifactLocation.index, run.taxonomies) and REQUIRES the run-scoped fields the AI profile mandates (tool.driver.name, a versionControlProvenance entry, properties[ai/origin]) plus, when a run carries the Azure DevOps pipeline shape, the GHAzDO automationDetails contract (GHAzDO1019/GHAzDO1020). What this schema cannot express at whole-log fidelity (e.g. the full org/project/buildId segment structure of automationDetails.id) is deferred to emit-finalize --validate.",
+  "type": "object",
+  "allOf": [
+    {
+      "$ref": "https://json.schemastore.org/sarif-2.1.0.json"
+    }
+  ],
+  "required": [
+    "version",
+    "runs"
+  ],
+  "properties": {
+    "version": {
+      "const": "2.1.0"
+    },
+    "runs": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/aiLogRun"
+      }
+    }
+  },
+  "$defs": {
+    "aiLogRun": {
+      "description": "A finalized AI run. Reuses the base run by $ref and tightens it to the AI profile: a named tool driver, at least one versionControlProvenance entry, properties[ai/origin], and a results array (which finalize always writes, possibly empty). Header-only forbids from the input profile are lifted here \u2014 results live in the whole log.",
+      "type": "object",
+      "allOf": [
+        {
+          "$ref": "https://json.schemastore.org/sarif-2.1.0.json#/definitions/run"
+        }
+      ],
+      "required": [
+        "tool",
+        "versionControlProvenance",
+        "properties",
+        "results"
+      ],
+      "properties": {
+        "tool": {
+          "type": "object",
+          "required": [
+            "driver"
+          ],
+          "properties": {
+            "driver": {
+              "type": "object",
+              "required": [
+                "name"
+              ],
+              "properties": {
+                "name": {
+                  "description": "Non-empty, non-whitespace tool driver name.",
+                  "type": "string",
+                  "minLength": 1,
+                  "pattern": "\\S"
+                },
+                "informationUri": {
+                  "description": "When present, a canonical lowercase https URI.",
+                  "type": "string",
+                  "pattern": "^https://"
+                }
+              }
+            }
+          }
+        },
+        "versionControlProvenance": {
+          "description": "At least one version-control provenance entry. Each repositoryUri, when present, is a canonical lowercase https URI.",
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "properties": {
+              "repositoryUri": {
+                "type": "string",
+                "pattern": "^https://"
+              }
+            }
+          }
+        },
+        "originalUriBaseIds": {
+          "type": "object",
+          "properties": {
+            "SRCROOT": {
+              "type": "object",
+              "properties": {
+                "uri": {
+                  "description": "Canonical lowercase https or file URI.",
+                  "type": "string",
+                  "pattern": "^(https|file)://"
+                }
+              }
+            }
+          }
+        },
+        "automationDetails": {
+          "$ref": "#/$defs/aiLogAutomationDetails"
+        },
+        "properties": {
+          "description": "ai/origin is required and identifies how the run was produced.",
+          "type": "object",
+          "required": [
+            "ai/origin"
+          ],
+          "properties": {
+            "ai/origin": {
+              "enum": [
+                "generated",
+                "annotated",
+                "synthesized"
+              ]
+            }
+          }
+        },
+        "results": {
+          "description": "The finalized result set. May be empty (a clean scan), but each result present must satisfy the AI result contract.",
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/aiLogResult"
+          }
+        }
+      }
+    },
+    "aiLogResult": {
+      "description": "A finalized AI result. Reuses the base result by $ref and tightens it to the Error-level AI rules (ruleId grammar, message.markdown, region). Unlike ai-result.schema.json (the producer input), this ACCEPTS the index/identity state finalize assigns: ruleIndex, guid, and artifactLocation.index are permitted here.",
+      "type": "object",
+      "allOf": [
+        {
+          "$ref": "https://json.schemastore.org/sarif-2.1.0.json#/definitions/result"
+        }
+      ],
+      "required": [
+        "ruleId",
+        "message",
+        "locations"
+      ],
+      "properties": {
+        "ruleId": {
+          "description": "A finalized result.ruleId. Three accepted shapes: a CWE sub-id 'CWE-<number>/<sub-id>' (e.g. CWE-89/kql-injection-from-config); the NOVEL escape hatch 'NOVEL-<sub-id>'; or a BARE collapsed taxonomy id 'CWE-<number>' (e.g. CWE-89). The bare form is the post-collapse shape emit-finalize writes for GitHub-hosted runs, where the sub-id is folded to its descriptor id so GitHub's ruleId-string rule binding still matches. This is the one place the finalized (output) grammar is a SUPERSET of the per-object input grammar, which rejects the bare form. The host-conditional restriction (bare form legal only on a GitHub-hosted run) is not expressible at schema fidelity and is deferred to AI1012 / emit-finalize --validate.",
+          "type": "string",
+          "minLength": 1,
+          "anyOf": [
+            { "pattern": "^CWE-[0-9]+/[a-z0-9]+(-[a-z0-9]+)*$" },
+            { "pattern": "^CWE-[0-9]+$" },
+            { "pattern": "^NOVEL-[a-z0-9]+(-[a-z0-9]+)*$" }
+          ]
+        },
+        "ruleIndex": {
+          "description": "Finalize-assigned rule index (>= 0). Producers do not author this; the replayer assigns it.",
+          "type": "integer",
+          "minimum": 0
+        },
+        "guid": {
+          "description": "Finalize-assigned canonical 8-4-4-4-12 hex GUID.",
+          "type": "string",
+          "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$"
+        },
+        "message": {
+          "description": "message.markdown is required and must contain non-whitespace.",
+          "type": "object",
+          "required": [
+            "markdown"
+          ],
+          "properties": {
+            "markdown": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "\\S"
+            }
+          }
+        },
+        "locations": {
+          "description": "At least one location. A location bearing a physicalLocation must carry a region whose startLine is an integer >= 1.",
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "if": {
+              "required": [
+                "physicalLocation"
+              ]
+            },
+            "then": {
+              "properties": {
+                "physicalLocation": {
+                  "required": [
+                    "region"
+                  ],
+                  "properties": {
+                    "region": {
+                      "required": [
+                        "startLine"
+                      ],
+                      "properties": {
+                        "startLine": {
+                          "type": "integer",
+                          "minimum": 1
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "aiLogAutomationDetails": {
+      "description": "Finalized run.automationDetails. When present, guid/correlationGuid (if supplied) must be canonical GUIDs. A run that carries the Azure DevOps pipeline shape \u2014 detected by an azuredevops/pipeline/build/* property key or an automationDetails.id bearing that prefix \u2014 must satisfy the full GHAzDO contract: GHAzDO1020 (id starts with 'azuredevops/pipeline/build/') and GHAzDO1019 (all four pipeline properties, well-typed). A non-pipeline AI run may carry an automationDetails with only guid/correlationGuid and is not held to the GHAzDO contract.",
+      "type": "object",
+      "properties": {
+        "guid": {
+          "description": "Canonical 8-4-4-4-12 hex GUID.",
+          "type": "string",
+          "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$"
+        },
+        "correlationGuid": {
+          "description": "Canonical 8-4-4-4-12 hex GUID.",
+          "type": "string",
+          "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$"
+        }
+      },
+      "if": {
+        "anyOf": [
+          {
+            "properties": {
+              "id": {
+                "type": "string",
+                "pattern": "^azuredevops/pipeline/build/"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          },
+          {
+            "properties": {
+              "properties": {
+                "anyOf": [
+                  { "required": [ "azuredevops/pipeline/build/buildDefinitionId" ] },
+                  { "required": [ "azuredevops/pipeline/build/buildDefinitionName" ] },
+                  { "required": [ "azuredevops/pipeline/build/phaseId" ] },
+                  { "required": [ "azuredevops/pipeline/build/phaseName" ] }
+                ]
+              }
+            },
+            "required": [
+              "properties"
+            ]
+          }
+        ]
+      },
+      "then": {
+        "description": "GHAzDO1020 + GHAzDO1019: the pipeline shape requires a prefixed id and all four well-typed pipeline properties.",
+        "required": [
+          "id",
+          "properties"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^azuredevops/pipeline/build/"
+          },
+          "properties": {
+            "type": "object",
+            "required": [
+              "azuredevops/pipeline/build/buildDefinitionId",
+              "azuredevops/pipeline/build/buildDefinitionName",
+              "azuredevops/pipeline/build/phaseId",
+              "azuredevops/pipeline/build/phaseName"
+            ],
+            "properties": {
+              "azuredevops/pipeline/build/buildDefinitionId": {
+                "description": "Integer != 0, serialized as a string.",
+                "type": "string",
+                "pattern": "^-?(?!0+$)[0-9]+$"
+              },
+              "azuredevops/pipeline/build/buildDefinitionName": {
+                "description": "Non-empty, non-whitespace string.",
+                "type": "string",
+                "minLength": 1,
+                "pattern": "\\S"
+              },
+              "azuredevops/pipeline/build/phaseId": {
+                "description": "Canonical GUID != the empty GUID, serialized as a string.",
+                "type": "string",
+                "pattern": "^(?![0]{8}-[0]{4}-[0]{4}-[0]{4}-[0]{12}$)[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$"
+              },
+              "azuredevops/pipeline/build/phaseName": {
+                "description": "Non-empty, non-whitespace string.",
+                "type": "string",
+                "minLength": 1,
+                "pattern": "\\S"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
