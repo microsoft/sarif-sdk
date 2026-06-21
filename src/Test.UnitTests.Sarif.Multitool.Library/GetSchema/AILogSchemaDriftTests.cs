@@ -52,8 +52,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         private const string SarifSchemaIdentity = "https://json.schemastore.org/sarif-2.1.0.json";
         private const string Guid = "12345678-1234-1234-1234-1234567890ab";
 
-        private static readonly JsonSchema s_logSchema = LoadAiSchema("ai-log.schema.json");
-        private static readonly EvaluationOptions s_options = BuildOptions();
+        private static readonly JsonSchema s_logSchema = AiLogSchemaFixture.Schema;
+        private static readonly EvaluationOptions s_options = AiLogSchemaFixture.Options;
 
         [Fact]
         public void AILogSchema_AcceptsAMinimalFinalizedLog()
@@ -488,24 +488,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         {
             JsonElement element = JsonSerializer.SerializeToElement(instance);
             return schema.Evaluate(element, s_options).IsValid;
-        }
-
-        private static JsonSchema LoadAiSchema(string fileName)
-        {
-            string path = Path.Combine(AppContext.BaseDirectory, "GetSchema", fileName);
-            return JsonSchema.FromText(File.ReadAllText(path));
-        }
-
-        // The schema $refs the public schemastore SARIF identity (document, run, and result
-        // shapes). Resolve that identity offline to the vendored sarif-2.1.0.json copied next
-        // to the test assembly so validation never reaches the network.
-        private static EvaluationOptions BuildOptions()
-        {
-            string sarifPath = Path.Combine(AppContext.BaseDirectory, "GetSchema", "sarif-2.1.0.json");
-            JsonSchema sarif = JsonSchema.FromText(File.ReadAllText(sarifPath));
-            SchemaRegistry.Global.Register(new Uri(SarifSchemaIdentity), sarif);
-
-            return new EvaluationOptions();
         }
 
         #endregion

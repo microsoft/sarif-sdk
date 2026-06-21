@@ -20,13 +20,23 @@ metadata:
 
 ## Context
 
-SARIF files produced by AI security agents must conform to two layers of correctness:
+SARIF files produced by AI security agents must conform to three layers of correctness:
 
-1. **Schema layer** — Valid SARIF 2.1.0 per the OASIS standard. Structural issues like misplaced properties, missing required fields, or type mismatches. `Sarif.Multitool validate` checks this.
+1. **Base schema layer** — Valid SARIF 2.1.0 per the OASIS standard. Structural issues like misplaced properties, missing required fields, or type mismatches. `Sarif.Multitool validate` checks this.
 
-2. **AI profile layer** — The conventions defined in [`docs/ai/generating-sarif.md`](../../docs/ai/generating-sarif.md). These include closed vocabularies for `ai/exploitability` and `ai/origin`, all-or-nothing consistency rules, required keys per result, and structural evidence backing. The multitool's AI rule pack (AI1003–AI2019) covers most of this when run with `--rule-kind "Sarif;AI"`; this skill rounds out the remaining profile-level checks.
+2. **Whole-log overlay layer** — [`ai-log.schema.json`](../../src/Sarif.Multitool.Library/GetSchema/ai-log.schema.json), the post-enrichment output schema `Sarif.Multitool get-schema` serves for `emit-finalize`. It `$ref`s base SARIF 2.1.0 and tightens it to the subset of Error-level AI rules JSON Schema *can* express at whole-log scale: the `result.ruleId` shape (`CWE-<n>/<sub-id>`, bare `CWE-<n>`, or `NOVEL-<sub-id>`), `message.markdown` non-empty, a `physicalLocation` with `region.startLine >= 1`, a per-run `versionControlProvenance` (so a `--no-repo` log is rejected — it is unpublishable), `properties[ai/origin]` in the closed set, and the GHAzDO `automationDetails` contract when the Azure DevOps pipeline shape is present. This overlay is **advisory** — the contract `get-schema` documents, not a gate `validate` runs.
 
-Both layers matter. A structurally valid SARIF file with `ai/exploitability: "unconfirmed"` will pass schema validation but fail downstream consumers that expect the `{demonstrated, poc, theoretical}` vocabulary. Conversely, a file with correct `ai/*` keys but `contextRegion` nested inside `region` (instead of `physicalLocation`) is structurally broken.
+3. **AI rich-rule layer** — The conventions in [`docs/ai/generating-sarif.md`](../../docs/ai/generating-sarif.md), enforced by the multitool's AI rule pack (AI1003–AI2019) under `--rule-kind "Sarif;AI"`. These carry every semantic rule JSON Schema cannot express; this skill rounds out the remaining profile-level checks.
+
+All three matter, and the boundary between layers 2 and 3 is deliberate. JSON Schema validates structure and shape; it cannot reach the semantics below. **The overlay accepts these, and only the rich rules (`validate`) reject them:**
+
+- **Closed vocabularies on the open `properties` bag** — `ai/exploitability: "unconfirmed"` is structurally a string, so the overlay passes it; AI2014 holds it to the `{demonstrated, poc, theoretical}` set.
+- **All-or-nothing co-presence** — a lone `ai/exploitability` with no `ai/attackerPosition`/`ai/evidence` companion passes the overlay; AI2014 requires the triple to be all-present or all-absent.
+- **Cross-run grouping reciprocity** — the overlay validates each run independently, so a one-directional grouping link passes; AI1015 requires it to be reciprocal.
+- **Non-persistence** — a rolling-hash `partialFingerprints` entry is a well-formed string map to the overlay; AI2011 forbids persisting it as a stable identity.
+- **Category vs. Weakness ruleId base** — `CWE-16/insecure-default-config` matches the overlay's structural `CWE-<n>/<sub-id>` shape, but CWE-16 is a MITRE *Category*, never a valid mapping target. Whether a base CWE is a Category or a Weakness is taxonomy data the schema does not carry; the Category-mapping rule rejects it as a hard producer-emit failure. A Category ruleId is an emit bug, not something to normalize — never auto-correct it to a Weakness or a name floor.
+
+A structurally valid SARIF file with `ai/exploitability: "unconfirmed"` passes both schema layers but fails downstream consumers; conversely, a file with correct `ai/*` keys but `contextRegion` nested inside `region` (instead of `physicalLocation`) is structurally broken at layer 1.
 
 **Why validate early:** every SARIF file that reaches a result store, dashboard, or remediation agent with profile violations creates silent data quality debt. Validate at production time — immediately after the producing agent writes the file — to catch issues before they propagate.
 
