@@ -38,6 +38,8 @@ All three matter, and the boundary between layers 2 and 3 is deliberate. JSON Sc
 
 A structurally valid SARIF file with `ai/exploitability: "unconfirmed"` passes both schema layers but fails downstream consumers; conversely, a file with correct `ai/*` keys but `contextRegion` nested inside `region` (instead of `physicalLocation`) is structurally broken at layer 1.
 
+**The CLR seam — which layers you can enforce depends on your runtime.** Layers 1 and 2 are portable JSON Schema: any consumer with a JSON Schema (Draft 2020-12) validator can enforce them with no .NET dependency, including the TypeScript-only [`@microsoft/sarif`](../../npm/sarif) library. `ai-log.schema.json` is therefore the *ceiling* of validation a no-CLR consumer gets for free — it captures every AI rule JSON Schema can express. Layer 3, the rich-rule pack, requires the CLR: take a dependency on `Sarif.Multitool` and run `validate --rule-kind "Sarif;AI"`. **If you can take the CLR, do — it is the only way to get the semantic rules above (reciprocity, co-presence, closed vocabularies, Category-vs-Weakness, non-persistence).** A TS-only consumer that cannot take the CLR validates the full schema (base SARIF 2.1.0 + `ai-log.schema.json`) and either accepts the layer-3 gaps or, if it wants that coverage, implements those semantic checks itself.
+
 **Why validate early:** every SARIF file that reaches a result store, dashboard, or remediation agent with profile violations creates silent data quality debt. Validate at production time — immediately after the producing agent writes the file — to catch issues before they propagate.
 
 ## Prerequisites
