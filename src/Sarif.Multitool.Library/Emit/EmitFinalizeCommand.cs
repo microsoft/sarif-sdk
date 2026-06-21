@@ -447,7 +447,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         /// The floor is abstraction-aware on purpose. A CWE that is <em>not</em> a known Weakness —
         /// a MITRE <em>Category</em> such as <c>CWE-16</c>, a View, a withdrawn id, or a typo — is a
         /// producer mapping bug, not a missing title, and is deliberately left nameless so it fails
-        /// loudly: <see cref="Rules.MapToCweWeaknessNotCategory"/> (AI1016) names the class of mistake at
+        /// loudly: <see cref="Rules.ProvideValidRuleId"/> (AI1016) names the class of mistake at
         /// validate time and <c>GHAzDO2012</c> rejects the nameless descriptor. Flooring such an id
         /// would normalize the bug into a publishable-looking descriptor, which is exactly the
         /// outcome we refuse.

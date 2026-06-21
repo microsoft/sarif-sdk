@@ -1223,12 +1223,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
         #endregion
 
-        #region AI1016 — MapToCweWeaknessNotCategory
+        #region AI1016 — ProvideValidRuleId
 
-        private void RunAI1016ErrorTest(string ruleId, string expectedMessageId, string because)
+        // The rule is descriptor-level: it judges 'tool.driver.rules[].id'. The seed log carries a
+        // single rule descriptor, so setting its id is enough; the matching result.ruleId is set too
+        // to keep the log internally consistent (this rule never inspects the result).
+        private void RunAI1016ErrorTest(string descriptorId, string expectedMessageId, string because)
         {
             SarifLog log = CreateValidAISarifLog();
-            SetRuleIdShape(log, descriptorId: ruleId, resultRuleId: ruleId);
+            SetRuleIdShape(log, descriptorId: descriptorId, resultRuleId: descriptorId);
 
             SarifLog output = RunAIValidation(log);
             List<Result> results = GetResultsForRule(output, "AI1016");
@@ -1238,47 +1241,61 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             results[0].Message.Id.Should().Be(expectedMessageId, because);
         }
 
-        private void RunAI1016NoResultTest(string ruleId, string because)
+        private void RunAI1016NoResultTest(string descriptorId, string because)
         {
             SarifLog log = CreateValidAISarifLog();
-            SetRuleIdShape(log, descriptorId: ruleId, resultRuleId: ruleId);
+            SetRuleIdShape(log, descriptorId: descriptorId, resultRuleId: descriptorId);
 
             SarifLog output = RunAIValidation(log);
             GetResultsForRule(output, "AI1016").Should().BeEmpty(because);
         }
 
         [Fact]
-        public void AI1016_WhenRuleIdMapsToCategory_ReportsCategoryError()
+        public void AI1016_WhenDescriptorIdIsCweCategory_ReportsCategoryError()
             => RunAI1016ErrorTest(
-                "CWE-16/insecure-default-config",
+                "CWE-16",
                 "Error_Category",
-                "CWE-16 is the MITRE Category 'Configuration', not a Weakness, so it is never a valid mapping target");
+                "CWE-16 is the MITRE Category 'Configuration', not a Weakness, so it is never a valid rule id");
 
         [Fact]
-        public void AI1016_WhenRuleIdMapsToView_ReportsNotAWeaknessError()
+        public void AI1016_WhenDescriptorIdIsCweView_ReportsNotAWeaknessError()
             => RunAI1016ErrorTest(
-                "CWE-1000/research-concepts",
+                "CWE-1000",
                 "Error_NotAWeakness",
                 "CWE-1000 is a MITRE View, not a Weakness");
 
         [Fact]
-        public void AI1016_WhenRuleIdIsUnknownCwe_ReportsNotAWeaknessError()
+        public void AI1016_WhenDescriptorIdIsUnknownCwe_ReportsNotAWeaknessError()
             => RunAI1016ErrorTest(
-                "CWE-99999/made-up",
+                "CWE-99999",
                 "Error_NotAWeakness",
                 "CWE-99999 is not a known CWE Weakness (a typo or an id newer than the bundled catalog)");
 
         [Fact]
-        public void AI1016_WhenRuleIdMapsToWeakness_NoResult()
-            => RunAI1016NoResultTest(
-                "CWE-89/kql-injection",
-                "CWE-89 is a genuine Weakness and the only valid mapping target shape");
+        public void AI1016_WhenDescriptorIdIsMitreAttackTechnique_ReportsNotCweOrNovelError()
+            => RunAI1016ErrorTest(
+                "MITRE-ATTACK-T1059",
+                "Error_NotCweOrNovel",
+                "a MITRE ATT&CK technique is neither a CWE Weakness nor a NOVEL- id");
 
         [Fact]
-        public void AI1016_WhenRuleIdUsesNovelPrefix_NoResult()
+        public void AI1016_WhenDescriptorIdIsToolPrivateId_ReportsNotCweOrNovelError()
+            => RunAI1016ErrorTest(
+                "TST0002",
+                "Error_NotCweOrNovel",
+                "a tool-private rule id is neither a CWE Weakness nor a NOVEL- id");
+
+        [Fact]
+        public void AI1016_WhenDescriptorIdIsCweWeakness_NoResult()
+            => RunAI1016NoResultTest(
+                "CWE-89",
+                "CWE-89 is a genuine Weakness and a valid native rule id");
+
+        [Fact]
+        public void AI1016_WhenDescriptorIdUsesNovelPrefix_NoResult()
             => RunAI1016NoResultTest(
                 "NOVEL-prompt-injection",
-                "the NOVEL- escape hatch carries no CWE and is out of this rule's scope");
+                "the NOVEL- escape hatch is a valid rule id for a finding that maps to no CWE");
 
         #endregion
     }

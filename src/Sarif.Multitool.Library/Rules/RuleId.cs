@@ -91,7 +91,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         public const string AIProvideRuleSubId = "AI1012";
         public const string AIProvideNotificationAssociatedRule = "AI1013";
         public const string AIProvideReciprocalGroupingRelationships = "AI1015";
-        public const string AIMapToCweWeaknessNotCategory = "AI1016";
+        public const string AIProvideValidRuleId = "AI1016";
 
         public const string AIProvideSemanticVersion = "AI2003";
         public const string AIProvideAutomationDetails = "AI2005";

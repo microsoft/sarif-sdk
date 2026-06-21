@@ -1880,21 +1880,27 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
             }
         }
 
-        internal static string AI1016_MapToCweWeaknessNotCategory_FullDescription_Text {
+        internal static string AI1016_ProvideValidRuleId_FullDescription_Text {
             get {
-                return ResourceManager.GetString("AI1016_MapToCweWeaknessNotCategory_FullDescription_Text", resourceCulture);
+                return ResourceManager.GetString("AI1016_ProvideValidRuleId_FullDescription_Text", resourceCulture);
             }
         }
         
-        internal static string AI1016_MapToCweWeaknessNotCategory_Error_Category_Text {
+        internal static string AI1016_ProvideValidRuleId_Error_Category_Text {
             get {
-                return ResourceManager.GetString("AI1016_MapToCweWeaknessNotCategory_Error_Category_Text", resourceCulture);
+                return ResourceManager.GetString("AI1016_ProvideValidRuleId_Error_Category_Text", resourceCulture);
             }
         }
         
-        internal static string AI1016_MapToCweWeaknessNotCategory_Error_NotAWeakness_Text {
+        internal static string AI1016_ProvideValidRuleId_Error_NotAWeakness_Text {
             get {
-                return ResourceManager.GetString("AI1016_MapToCweWeaknessNotCategory_Error_NotAWeakness_Text", resourceCulture);
+                return ResourceManager.GetString("AI1016_ProvideValidRuleId_Error_NotAWeakness_Text", resourceCulture);
+            }
+        }
+        
+        internal static string AI1016_ProvideValidRuleId_Error_NotCweOrNovel_Text {
+            get {
+                return ResourceManager.GetString("AI1016_ProvideValidRuleId_Error_NotCweOrNovel_Text", resourceCulture);
             }
         }
 
