@@ -33,7 +33,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             new SortedDictionary<string, string>(StringComparer.Ordinal)
             {
                 ["emit-run"] = "ai-run.schema.json",
-                ["emit-finalize"] = null,
+                ["emit-finalize"] = "ai-log.schema.json",
                 ["emit-results"] = "ai-result.schema.json",
                 ["emit-invocations"] = "ai-invocation.schema.json",
                 ["emit-notification-descriptors"] = "ai-notification-reporting-descriptor.schema.json",
@@ -76,7 +76,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                     Console.Error.WriteLine(
                         string.Format(
                             CultureInfo.CurrentCulture,
-                            "error: the schema for '{0}' is not yet available (tracking: https://github.com/microsoft/sarif-sdk/issues/2970).",
+                            "error: the schema for '{0}' is reserved but not yet available.",
                             verb));
                     return FAILURE;
                 }
