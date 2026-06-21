@@ -234,7 +234,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         }
 
         [Fact]
-        public void Run_WithNoCweEnrichment_LeavesCweDescriptorBare()
+        public void Run_WithNoCweEnrichment_SkipsTaxonomyEnrichmentButStillFloorsName()
         {
             SeedWip(
                 (SarifEventKinds.RunHeader, RunHeader()),
@@ -250,8 +250,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             SarifLog log = LoadSarif();
             ReportingDescriptor descriptor = log.Runs[0].Tool.Driver.Rules[0];
             descriptor.Id.Should().Be("CWE-79");
+            // --no-cwe-enrichment suppresses taxonomy enrichment (the MITRE title, helpUri, descriptions)...
             descriptor.HelpUri.Should().BeNull();
-            descriptor.Name.Should().BeNull();
+            descriptor.ShortDescription.Should().BeNull();
+            // ...but CWE-79 is a genuine Weakness, so the abstraction-aware name floor still names it
+            // to its honest id — the descriptor is never emitted nameless and GHAzDO-broken.
+            descriptor.Name.Should().Be("CWE-79");
         }
 
         [Fact]
@@ -712,6 +716,89 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
             stamped.Should().Be(0);
             SecuritySeverityOf(run.Tool.Driver.Rules[0]).Should().Be("2.0");
+        }
+
+        [Fact]
+        public void EnsureCweRuleDescriptorNames_FloorsUnbundledWeaknessNameToId()
+        {
+            // CWE-89 is a genuine Weakness; under --no-cwe-enrichment the replayer-created descriptor
+            // reaches finalize nameless, so the floor names it to its honest id (the SDK has no title
+            // to offer under that flag) and the descriptor stays GHAzDO-publishable.
+            Run run = BuildRun("CWE-89");
+
+            int floored = EmitFinalizeCommand.EnsureCweRuleDescriptorNames(run);
+
+            floored.Should().Be(1);
+            run.Tool.Driver.Rules[0].Name.Should().Be("CWE-89");
+        }
+
+        [Fact]
+        public void EnsureCweRuleDescriptorNames_LeavesCategoryDescriptorNameless()
+        {
+            // CWE-16 is a MITRE Category, not a Weakness, so mapping a result to it is a producer
+            // bug. The floor deliberately leaves it nameless so it fails loudly (AI1016 at validate,
+            // GHAzDO2012 at ingestion) instead of being normalized into a publishable-looking descriptor.
+            Run run = BuildRun("CWE-16");
+
+            int floored = EmitFinalizeCommand.EnsureCweRuleDescriptorNames(run);
+
+            floored.Should().Be(0);
+            run.Tool.Driver.Rules[0].Name.Should().BeNull();
+        }
+
+        [Fact]
+        public void EnsureCweRuleDescriptorNames_FloorsEachUnnamedWeaknessIndependently()
+        {
+            Run run = BuildRun("CWE-79", "CWE-89");
+
+            int floored = EmitFinalizeCommand.EnsureCweRuleDescriptorNames(run);
+
+            floored.Should().Be(2);
+            run.Tool.Driver.Rules[0].Name.Should().Be("CWE-79");
+            run.Tool.Driver.Rules[1].Name.Should().Be("CWE-89");
+        }
+
+        [Fact]
+        public void EnsureCweRuleDescriptorNames_LeavesEnrichedNameUntouched()
+        {
+            Run run = BuildRun("CWE-79");
+            run.Tool.Driver.Rules[0].Name = "Cross-site Scripting";
+
+            int floored = EmitFinalizeCommand.EnsureCweRuleDescriptorNames(run);
+
+            floored.Should().Be(0);
+            run.Tool.Driver.Rules[0].Name.Should().Be("Cross-site Scripting");
+        }
+
+        [Fact]
+        public void EnsureCweRuleDescriptorNames_LeavesNovelAndNonCweDescriptorsAlone()
+        {
+            // The floor is the GHAzDO publishability guarantee for the CWE Weakness descriptors the SDK
+            // injects and enriches; a NOVEL- id and an arbitrary rule id are producer-owned and out of scope.
+            Run run = BuildRun("NOVEL-prompt-injection", "MY-CUSTOM-RULE");
+
+            int floored = EmitFinalizeCommand.EnsureCweRuleDescriptorNames(run);
+
+            floored.Should().Be(0);
+            run.Tool.Driver.Rules[0].Name.Should().BeNull();
+            run.Tool.Driver.Rules[1].Name.Should().BeNull();
+        }
+
+        [Fact]
+        public void Run_LeavesCategoryCweDescriptorNamelessSoItFailsLoudly()
+        {
+            // End-to-end: a result mapped to a Category CWE sub-id (CWE-16, not a Weakness) is a
+            // producer mapping bug. emit-finalize leaves the descriptor nameless on purpose so it
+            // fails GHAzDO2012 at ingestion rather than being normalized into publishable-looking output.
+            SeedWip(
+                (SarifEventKinds.RunHeader, RunHeader()),
+                (SarifEventKinds.Result, new Result { RuleId = "CWE-16/insecure-default-config", Message = new Message { Text = "config" } }));
+
+            int exit = new EmitFinalizeCommand().Run(new EmitFinalizeOptions { OutputFilePath = OutPath });
+
+            exit.Should().Be(CommandBase.SUCCESS);
+            ReportingDescriptor rule = LoadSarif().Runs[0].Tool.Driver.Rules.Single(r => r.Id == "CWE-16");
+            rule.Name.Should().BeNull();
         }
 
         [Fact]
