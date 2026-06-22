@@ -3,7 +3,17 @@
 
 import { When, Then } from '@cucumber/cucumber';
 import assert from 'node:assert/strict';
-import { getSchema, listSchemas, getSkill, listSkills, getCweTaxonomy } from '../../dist/index.js';
+import { readdirSync } from 'node:fs';
+import { fileURLToPath } from 'node:url';
+import { dirname, join } from 'node:path';
+import {
+  getSchema,
+  listSchemas,
+  SchemaByVerb,
+  getSkill,
+  listSkills,
+  getCweTaxonomy,
+} from '../../dist/index.js';
 
 // ---------------------------------------------------------------------------
 // get-schema
@@ -36,6 +46,22 @@ Then('the schema {string} contains {string}', function (key, fragment) {
 
 Then('the schema list includes {string}', function (verb) {
   assert.ok(this.schemaList.includes(verb), `${verb} not in ${this.schemaList}`);
+});
+
+When('the bundled schemas directory is enumerated', function () {
+  const pkgRoot = join(dirname(fileURLToPath(import.meta.url)), '..', '..');
+  this.bundledSchemaFiles = readdirSync(join(pkgRoot, 'schemas')).filter((f) => f.endsWith('.json'));
+});
+
+Then('every bundled schema file is served by some get-schema verb', function () {
+  assert.ok(this.bundledSchemaFiles.length > 0, 'no bundled schema files were found');
+  const served = new Set(Object.values(SchemaByVerb).filter((v) => v !== null));
+  for (const file of this.bundledSchemaFiles) {
+    assert.ok(
+      served.has(file),
+      `bundled schema '${file}' is not reachable through any get-schema verb`,
+    );
+  }
 });
 
 // ---------------------------------------------------------------------------

@@ -2,8 +2,10 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 /**
- * `get-schema`: returns the JSON Schema that validates the input to a named
- * emit verb. Ported from src/Sarif.Multitool.Library/GetSchema/GetSchemaCommand.cs.
+ * `get-schema`: returns the JSON Schema for the document at a named emit verb's
+ * boundary — the AI-authored input contract for the incremental emit-* verbs,
+ * and the finalized whole-log output contract for the terminal emit-finalize
+ * verb. Ported from src/Sarif.Multitool.Library/GetSchema/GetSchemaCommand.cs.
  *
  * Node consumers can also `import schema from
  * '@microsoft/sarif-multitool-ts/schemas/ai-result.schema.json'` directly.
@@ -13,13 +15,15 @@ import { readFileSync } from 'node:fs';
 import { assetPath } from './assets.js';
 
 /**
- * Maps each emit verb to the schema file that validates its input. A null
- * value marks a verb whose schema is reserved but not yet available.
+ * Maps each emit verb to the schema file for the document at its boundary: the
+ * AI-authored input contract for the incremental emit-* verbs, and the
+ * finalized whole-log output contract for emit-finalize. A null value marks a
+ * verb whose schema is reserved but not yet available.
  * Mirrors GetSchemaCommand.SchemaByVerb (post-#3035 canonical names).
  */
 export const SchemaByVerb: Readonly<Record<string, string | null>> = {
   'emit-run': 'ai-run.schema.json',
-  'emit-finalize': null,
+  'emit-finalize': 'ai-sarif-log.schema.json',
   'emit-results': 'ai-result.schema.json',
   'emit-invocations': 'ai-invocation.schema.json',
   'emit-notification-descriptors': 'ai-notification-reporting-descriptor.schema.json',

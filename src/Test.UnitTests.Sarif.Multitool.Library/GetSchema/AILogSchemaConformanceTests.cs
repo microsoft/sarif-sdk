@@ -9,7 +9,7 @@ using Xunit;
 
 namespace Microsoft.CodeAnalysis.Sarif.Multitool
 {
-    // Conformance matrix for ai-log.schema.json, the WHOLE-LOG overlay get-schema serves
+    // Conformance matrix for ai-sarif-log.schema.json, the WHOLE-LOG overlay get-schema serves
     // for emit-finalize output. Where AILogSchemaDriftTests pins the schema's accept/reject
     // verdicts against the C# rules it DOES encode, this class maps the deliberate fidelity
     // boundary in two directions:
