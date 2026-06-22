@@ -85,6 +85,36 @@ sarif validate --rule-kind "Sarif;AI" scan.sarif
 This is a **test-time-only** dependency — no CLR in your production path —
 and is the backstop that catches anything the sparse port lets through.
 
+## Schemas
+
+The AI-content JSON Schemas ship in the package and are named for the SARIF
+object each constrains: `ai-run`, `ai-result`, `ai-invocation`,
+`ai-rule-reporting-descriptor`, `ai-notification-reporting-descriptor`, and
+`ai-sarif-log` (the finalized whole-log contract `emit-finalize` produces).
+
+**Primary path — import the file directly.** Each schema is exported under
+`./schemas/*`, so Node consumers resolve it without going through a verb:
+
+```js
+import sarifLogSchema from '@microsoft/sarif-multitool-ts/schemas/ai-sarif-log.schema.json' with { type: 'json' };
+// or, CommonJS:
+// const sarifLogSchema = require('@microsoft/sarif-multitool-ts/schemas/ai-sarif-log.schema.json');
+```
+
+This is the robust path: it depends only on the published file name, not on the
+verb→schema lookup.
+
+**Fallback — resolve by verb.** `get-schema <verb>` (CLI) and `getSchema(verb)`
+(library) return the same schema text keyed by the verb that produces or
+consumes it — handy when you already hold a verb name:
+
+```sh
+npx @microsoft/sarif-multitool-ts get-schema emit-finalize   # → ai-sarif-log.schema.json
+```
+
+The verb→schema map mirrors the .NET multitool and is held in sync by a CI
+drift gate (`npm run test:conformance`).
+
 ## Known gaps vs. the .NET tool (v1)
 
 | Gap | Effect | Workaround |
