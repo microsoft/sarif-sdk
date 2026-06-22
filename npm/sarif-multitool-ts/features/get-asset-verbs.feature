@@ -1,13 +1,18 @@
 Feature: get-schema, get-skill, get-cwe serve bundled assets
 
   As an AI orchestrator
-  I want to fetch the input schemas, the operational skills, and the CWE taxonomy
+  I want to fetch the schemas, the operational skills, and the CWE taxonomy
   So that I can validate payloads and follow the authoring contract without a network round-trip
 
   Scenario: get-schema returns the emit-results input schema
     When get-schema is invoked for "emit-results"
     Then the schema parses as JSON
     And the schema "$id" contains "ai-result.schema.json"
+
+  Scenario: get-schema returns the emit-finalize finalized whole-log output schema
+    When get-schema is invoked for "emit-finalize"
+    Then the schema parses as JSON
+    And the schema "$id" contains "ai-log.schema.json"
 
   Scenario: get-schema accepts the deprecated add-* verb name
     When get-schema is invoked for "add-results"
@@ -21,10 +26,15 @@ Feature: get-schema, get-skill, get-cwe serve bundled assets
   Scenario: get-schema lists every emit verb with a schema
     When get-schema --list is invoked
     Then the schema list includes "emit-run"
+    And the schema list includes "emit-finalize"
     And the schema list includes "emit-results"
     And the schema list includes "emit-invocations"
     And the schema list includes "emit-rule-descriptors"
     And the schema list includes "emit-notification-descriptors"
+
+  Scenario: every bundled schema asset is reachable through a verb
+    When the bundled schemas directory is enumerated
+    Then every bundled schema file is served by some get-schema verb
 
   Scenario: get-skill rewrites repository-relative links to pinned permalinks
     When get-skill is invoked for "emit-sarif" with pinRef "v5.2.0"

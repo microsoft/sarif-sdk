@@ -13,6 +13,9 @@ Each release entry below is prefixed with one of:
 
 Entries are terse by design: one line per change, present-tense behavior, complete but only essential data. No issue/PR archaeology or narrative — that history lives in the engineering system.
 
+## **v5.3.1** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/v5.3.1) | [Driver](https://www.nuget.org/packages/Sarif.Driver/v5.3.1) | [Converters](https://www.nuget.org/packages/Sarif.Converters/v5.3.1) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/v5.3.1) | [Multitool Library](https://www.nuget.org/packages/Sarif.Multitool.Library/v5.3.1)
+* BUG: `get-schema emit-finalize` in the `@microsoft/sarif-multitool-ts` package now returns `ai-log.schema.json` instead of throwing; the TypeScript verb→schema map was missing the entry the .NET multitool already serves.
+
 ## **v5.3.0** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/v5.3.0) | [Driver](https://www.nuget.org/packages/Sarif.Driver/v5.3.0) | [Converters](https://www.nuget.org/packages/Sarif.Converters/v5.3.0) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/v5.3.0) | [Multitool Library](https://www.nuget.org/packages/Sarif.Multitool.Library/v5.3.0)
 * NEW: `emit-finalize --inputs a.wip.jsonl b.wip.jsonl ...` replays multiple staged event logs into one order-preserving multi-run SARIF file, so `runs[i]` is the i-th input and cross-run `sarif:` result pointers stay valid. The single positional `<output>.wip.jsonl` form is unchanged.
 * NEW: Validation rule `SARIF1013.SarifReferencesMustResolve` (Error, base `Sarif` profile) reports any `artifactLocation.uri` using the `sarif:` scheme whose JSON pointer is malformed or does not resolve to an element in the log.

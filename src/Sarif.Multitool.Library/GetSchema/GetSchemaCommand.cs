@@ -14,8 +14,10 @@ using Microsoft.CodeAnalysis.Sarif.Driver;
 namespace Microsoft.CodeAnalysis.Sarif.Multitool
 {
     /// <summary>
-    /// Implements <c>get-schema</c>: emits the embedded JSON Schema that validates the
-    /// input to a named emit verb.
+    /// Implements <c>get-schema</c>: emits the embedded JSON Schema for the document at a
+    /// named emit verb's boundary — the AI-authored input contract for the incremental
+    /// emit-* verbs, and the finalized whole-log output contract for the terminal
+    /// emit-finalize verb.
     /// </summary>
     /// <remarks>
     /// The served bytes are the assembly's embedded resources, byte-identical to the schema files
@@ -26,8 +28,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         internal const string ResourcePrefix = "Microsoft.CodeAnalysis.Sarif.Multitool.GetSchema.";
 
         /// <summary>
-        /// Maps each emit verb to the embedded schema file that validates its input. A null value
-        /// marks a verb whose schema is reserved but not yet available.
+        /// Maps each emit verb to the embedded schema file for the document at its boundary: the
+        /// AI-authored input contract for the incremental emit-* verbs, and the finalized whole-log
+        /// output contract for emit-finalize. A null value marks a verb whose schema is reserved
+        /// but not yet available.
         /// </summary>
         internal static readonly IReadOnlyDictionary<string, string> SchemaByVerb =
             new SortedDictionary<string, string>(StringComparer.Ordinal)
