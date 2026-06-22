@@ -22,6 +22,17 @@ function cp(src, dstDir, dstName) {
 cp(join(repo, 'src/Sarif/Taxonomies/CweTaxonomy.sarif'), join(pkg, 'assets'));
 cp(join(repo, 'src/Sarif/Taxonomies/CweSecuritySeverity.json'), join(pkg, 'assets'));
 
+// Canonical SARIF 2.1.0 document schema, bundled for offline whole-log
+// validation (emit-finalize --validate resolves the ai-sarif-log overlay's
+// $ref to it). It lives under assets/, not schemas/: schemas/ is the
+// verb-addressable set, and a non-verb schema there would fail the get-schema
+// parity gate.
+cp(
+  join(repo, 'src/Sarif/Schemata/sarif-2.1.0-rtm.6.json'),
+  join(pkg, 'assets'),
+  'sarif-2.1.0.schema.json',
+);
+
 // Emit-verb input schemas.
 const schemaSrc = join(repo, 'src/Sarif.Multitool.Library/GetSchema');
 for (const f of readdirSync(schemaSrc)) {

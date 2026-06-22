@@ -8,8 +8,9 @@
  *
  * Ported from src/Sarif.Multitool.Library/Emit/EmitFinalizeCommand.cs.
  *
- * `--validate` is DEFERRED in this package — it returns a notice pointing at
- * the .NET `sarif validate` verb. See README#Validation.
+ * With `--validate`, the finalized log is checked against
+ * `ai-sarif-log.schema.json` and the verdict is carried on the outcome's
+ * `validation` field. See README#Validation.
  */
 
 import { promises as fs } from 'node:fs';
@@ -30,6 +31,7 @@ import {
   collapseResultRuleSubIds,
 } from './cwe.js';
 import { rebaseRun } from './rebase.js';
+import { validateFinalizedLog, type ValidationOutcome } from './validate.js';
 
 export interface EmitFinalizeOptions {
   /** Final SARIF file path. The event log is read from `<output>.wip.jsonl`. */
@@ -41,9 +43,9 @@ export interface EmitFinalizeOptions {
   /** Keep the .wip.jsonl after a successful finalize (default: delete). */
   keepWip?: boolean;
   /**
-   * DEFERRED. The .NET tool runs the SARIF+AI analyzer rule set; this package
-   * emits a deferral notice instead. Run `sarif validate --rule-kind "Sarif;AI"`
-   * in your test/CI environment as the backstop.
+   * Validate the finalized log against `ai-sarif-log.schema.json` (the AI
+   * whole-log contract) and report the verdict on `outcome.validation`. The
+   * SARIF file is written regardless; validation is a report, not a gate.
    */
   validate?: boolean;
 }
@@ -54,10 +56,13 @@ export interface EmitFinalizeOutcome {
   ruleCount: number;
   warnings: string[];
   log: SarifLog;
+  /** Present only when `validate` was requested. */
+  validation?: ValidationOutcome;
 }
 
 export async function emitFinalize(opts: EmitFinalizeOptions): Promise<EmitFinalizeOutcome> {
   const warnings: string[] = [];
+  let validation: ValidationOutcome | undefined;
 
   const wipPath = resolveWipPath(opts.output);
   const outputPath = resolvePath(opts.output);
@@ -128,13 +133,8 @@ export async function emitFinalize(opts: EmitFinalizeOptions): Promise<EmitFinal
   }
 
   if (opts.validate) {
-    warnings.push(
-      '--validate is not implemented in @microsoft/sarif-multitool-ts. The output SARIF was written successfully; ' +
-        'run the .NET multitool `sarif validate --rule-kind "Sarif;AI" ' +
-        outputPath +
-        '` in your test/CI environment as the validation backstop. See README#Validation.',
-    );
+    validation = validateFinalizedLog(log);
   }
 
-  return { outputPath, resultCount, ruleCount, warnings, log };
+  return { outputPath, resultCount, ruleCount, warnings, log, validation };
 }
