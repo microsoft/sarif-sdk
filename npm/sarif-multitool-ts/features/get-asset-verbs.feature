@@ -12,7 +12,7 @@ Feature: get-schema, get-skill, get-cwe serve bundled assets
   Scenario: get-schema returns the emit-finalize finalized whole-log output schema
     When get-schema is invoked for "emit-finalize"
     Then the schema parses as JSON
-    And the schema "$id" contains "ai-log.schema.json"
+    And the schema "$id" contains "ai-sarif-log.schema.json"
 
   Scenario: get-schema accepts the deprecated add-* verb name
     When get-schema is invoked for "add-results"

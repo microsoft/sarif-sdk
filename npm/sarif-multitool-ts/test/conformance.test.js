@@ -29,7 +29,7 @@ import { mkdtempSync, rmSync, writeFileSync, readFileSync, mkdirSync } from 'nod
 import { tmpdir } from 'node:os';
 import { join, resolve } from 'node:path';
 import { pathToFileURL } from 'node:url';
-import { emitRun, emitResults, emitFinalize } from '../dist/index.js';
+import { emitRun, emitResults, emitFinalize, getSchema, listSchemas } from '../dist/index.js';
 
 const REPO_ROOT = resolve(import.meta.dirname, '..', '..', '..');
 const MULTITOOL_PROJ = join(REPO_ROOT, 'src', 'Sarif.Multitool', 'Sarif.Multitool.csproj');
@@ -305,5 +305,48 @@ test('TS emit chain ⇔ .NET emit chain produce equivalent SARIF', async (t) => 
         rmSync(tmp, { recursive: true, force: true });
       }
     });
+  }
+});
+
+// Drift gate: the TS verb→schema map (getSchema.ts) and the .NET map
+// (GetSchemaCommand.SchemaByVerb) are hand-maintained in two languages. The
+// 5.3.0 bug was exactly a divergence — emit-finalize wired in .NET but left
+// null in TS. This asserts the two implementations agree on both the verb set
+// and the schema each verb resolves to, so any future drift fails CI.
+test('get-schema verb→schema resolution matches the .NET multitool', (t) => {
+  if (!dotnetAvailable()) {
+    t.skip('dotnet not on PATH; conformance harness requires the .NET SDK');
+    return;
+  }
+  if (!buildDotnetOnce()) {
+    t.skip('dotnet build of Sarif.Multitool failed; fix the .NET build first');
+    return;
+  }
+
+  const tmp = mkdtempSync(join(tmpdir(), 'sarif-getschema-'));
+  try {
+    // 1. The servable verb sets must be identical.
+    const tsVerbs = listSchemas();
+    const netVerbs = runDotnet(['get-schema', '--list'], tmp)
+      .stdout.split('\n')
+      .map((l) => l.trim())
+      .filter((l) => l.startsWith('emit-'))
+      .sort();
+    assert.deepEqual(
+      tsVerbs,
+      netVerbs,
+      `get-schema --list drift: TS=[${tsVerbs}] .NET=[${netVerbs}]`,
+    );
+
+    // 2. Each verb must resolve to the same schema ($id) on both sides.
+    for (const verb of tsVerbs) {
+      const tsId = JSON.parse(getSchema(verb)).$id;
+      const netFile = join(tmp, `${verb}.schema.json`);
+      runDotnet(['get-schema', verb, '--output', netFile, '--force-overwrite'], tmp);
+      const netId = JSON.parse(readFileSync(netFile, 'utf8')).$id;
+      assert.equal(netId, tsId, `get-schema '${verb}' $id drift: TS='${tsId}' .NET='${netId}'`);
+    }
+  } finally {
+    rmSync(tmp, { recursive: true, force: true });
   }
 });

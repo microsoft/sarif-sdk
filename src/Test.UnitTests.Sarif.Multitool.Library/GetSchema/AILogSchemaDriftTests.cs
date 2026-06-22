@@ -15,7 +15,7 @@ using Xunit;
 
 namespace Microsoft.CodeAnalysis.Sarif.Multitool
 {
-    // Drift guard for ai-log.schema.json — the WHOLE-LOG contract the get-schema verb
+    // Drift guard for ai-sarif-log.schema.json — the WHOLE-LOG contract the get-schema verb
     // serves for emit-finalize (the output side, completing the verb->schema map to
     // 6 of 6). Unlike the per-object input schemas, this is a POST-enrichment overlay:
     // it $refs the canonical SARIF document and run/result shapes and tightens them to
@@ -60,7 +60,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         {
             Accepts(s_logSchema, MakeLog(MakeRun())).Should().BeTrue(
                 "a whole log with one finalized run (named driver, a versionControlProvenance entry, " +
-                "properties[ai/origin], and a results array) must validate against ai-log.schema.json");
+                "properties[ai/origin], and a results array) must validate against ai-sarif-log.schema.json");
         }
 
         [Fact]
@@ -102,7 +102,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             Expect("empty-runs", emptyRuns, false);
 
             offenders.Should().BeEmpty(
-                "ai-log.schema.json must require version == 2.1.0 and a non-empty runs array:\n" +
+                "ai-sarif-log.schema.json must require version == 2.1.0 and a non-empty runs array:\n" +
                 string.Join("\n", offenders));
         }
 
@@ -155,7 +155,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             Expect("no-results", noResults, false);
 
             offenders.Should().BeEmpty(
-                "ai-log.schema.json must require, per run, tool.driver.name (non-whitespace), a non-empty " +
+                "ai-sarif-log.schema.json must require, per run, tool.driver.name (non-whitespace), a non-empty " +
                 "versionControlProvenance with lowercase-https repositoryUri (AI1004), properties[ai/origin] " +
                 "in {generated,annotated,synthesized} (AI1006), and a results array:\n" +
                 string.Join("\n", offenders));
@@ -213,7 +213,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             }
 
             offenders.Should().BeEmpty(
-                "ai-log.schema.json's result ruleId verdict must match AIRuleIdConvention.cs at finalize scale: " +
+                "ai-sarif-log.schema.json's result ruleId verdict must match AIRuleIdConvention.cs at finalize scale: " +
                 "the CWE sub-id form, the NOVEL- escape, AND the bare collapsed 'CWE-<number>' form that " +
                 "emit-finalize writes for GitHub-hosted runs:\n" + string.Join("\n", offenders));
         }
@@ -260,7 +260,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             }
 
             offenders.Should().BeEmpty(
-                "ai-log.schema.json must ACCEPT the index/identity state finalize assigns (ruleIndex >= 0, " +
+                "ai-sarif-log.schema.json must ACCEPT the index/identity state finalize assigns (ruleIndex >= 0, " +
                 "guid, artifactLocation.index, run.taxonomies) that the input schemas bounce:\n" +
                 string.Join("\n", offenders));
         }
@@ -313,7 +313,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             }
 
             offenders.Should().BeEmpty(
-                "ai-log.schema.json must enforce AI1005 (markdown) and AI1003 (region.startLine >= 1, " +
+                "ai-sarif-log.schema.json must enforce AI1005 (markdown) and AI1003 (region.startLine >= 1, " +
                 "non-empty locations) on finalized results:\n" + string.Join("\n", offenders));
         }
 
@@ -375,7 +375,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             }, false);
 
             offenders.Should().BeEmpty(
-                "ai-log.schema.json must enforce GHAzDO1019 (four well-typed azuredevops/pipeline/build/* " +
+                "ai-sarif-log.schema.json must enforce GHAzDO1019 (four well-typed azuredevops/pipeline/build/* " +
                 "properties) and GHAzDO1020 (id prefix) once a run carries the pipeline shape, while leaving a " +
                 "bare guid-only automationDetails untouched:\n" + string.Join("\n", offenders));
         }
@@ -408,12 +408,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 JsonNode log = JsonNode.Parse(File.ReadAllText(path));
                 if (!Accepts(s_logSchema, log))
                 {
-                    offenders.Add($"  [{sample}] a real finalized sample log was REJECTED by ai-log.schema.json");
+                    offenders.Add($"  [{sample}] a real finalized sample log was REJECTED by ai-sarif-log.schema.json");
                 }
             }
 
             offenders.Should().BeEmpty(
-                "ai-log.schema.json must accept the real finalized teacher samples emit-finalize produces:\n" +
+                "ai-sarif-log.schema.json must accept the real finalized teacher samples emit-finalize produces:\n" +
                 string.Join("\n", offenders));
         }
 

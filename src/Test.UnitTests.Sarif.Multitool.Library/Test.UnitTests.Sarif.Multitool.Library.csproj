@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup Label="AssemblyAttributes">
     <AssemblyTitle>SARIF Multitool Library Unit Tests</AssemblyTitle>
@@ -82,7 +82,7 @@
   <ItemGroup>
     <None Include="..\Sarif.Multitool.Library\GetSchema\ai-result.schema.json" Link="GetSchema\ai-result.schema.json" CopyToOutputDirectory="PreserveNewest" />
     <None Include="..\Sarif.Multitool.Library\GetSchema\ai-run.schema.json" Link="GetSchema\ai-run.schema.json" CopyToOutputDirectory="PreserveNewest" />
-    <None Include="..\Sarif.Multitool.Library\GetSchema\ai-log.schema.json" Link="GetSchema\ai-log.schema.json" CopyToOutputDirectory="PreserveNewest" />
+    <None Include="..\Sarif.Multitool.Library\GetSchema\ai-sarif-log.schema.json" Link="GetSchema\ai-sarif-log.schema.json" CopyToOutputDirectory="PreserveNewest" />
     <None Include="..\Sarif.Multitool.Library\GetSchema\ai-invocation.schema.json" Link="GetSchema\ai-invocation.schema.json" CopyToOutputDirectory="PreserveNewest" />
     <None Include="..\Sarif.Multitool.Library\GetSchema\ai-notification-reporting-descriptor.schema.json" Link="GetSchema\ai-notification-reporting-descriptor.schema.json" CopyToOutputDirectory="PreserveNewest" />
     <None Include="..\Sarif.Multitool.Library\GetSchema\ai-rule-reporting-descriptor.schema.json" Link="GetSchema\ai-rule-reporting-descriptor.schema.json" CopyToOutputDirectory="PreserveNewest" />

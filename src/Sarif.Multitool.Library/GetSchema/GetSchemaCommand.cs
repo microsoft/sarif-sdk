@@ -37,7 +37,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             new SortedDictionary<string, string>(StringComparer.Ordinal)
             {
                 ["emit-run"] = "ai-run.schema.json",
-                ["emit-finalize"] = "ai-log.schema.json",
+                ["emit-finalize"] = "ai-sarif-log.schema.json",
                 ["emit-results"] = "ai-result.schema.json",
                 ["emit-invocations"] = "ai-invocation.schema.json",
                 ["emit-notification-descriptors"] = "ai-notification-reporting-descriptor.schema.json",
