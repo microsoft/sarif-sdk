@@ -74,9 +74,13 @@ relationship kinds (§3.34.3): **`includes`** and **`isIncludedBy`**.
 
 A `locationRelationship` relates one *location* to another *location* by the target
 location's `id` (§3.34.2 — `target` is a location `id`, **not** an array index). To make the
-relationship cross **results** (and cross **runs**), the target location is a member of the
-result's `relatedLocations[]` whose `physicalLocation.artifactLocation.uri` is a **`sarif:`
-URI** pointing at the other result.
+relationship cross **results** (and cross **runs**), it lives on the member of the result's
+`relatedLocations[]` whose `physicalLocation.artifactLocation.uri` is a **`sarif:` URI**
+pointing at the other result. That same related-location is both the carrier of the
+cross-result pointer and the bearer of the kind, so its `target` is its **own `id`** (a
+self-reference — see the note below). The cluster cross-link therefore stays entirely within
+`relatedLocations[]`; `result.locations[]` remains the detection's own physical sites and
+never references a clustering parent.
 
 Concretely, for a synthesized cluster `runs[1].results[3]` that consolidates
 `runs[0].results[7]`:
@@ -90,16 +94,16 @@ Concretely, for a synthesized cluster `runs[1].results[3]` that consolidates
   "locations": [
     {
       "id": 0,
-      "physicalLocation": { "artifactLocation": { "uri": "src/api/proxy.ts" }, "region": { "startLine": 40 } },
-      "relationships": [
-        { "target": 1, "kinds": [ "includes" ] }   // -> relatedLocations[id=1]
-      ]
+      "physicalLocation": { "artifactLocation": { "uri": "src/api/proxy.ts" }, "region": { "startLine": 40 } }
     }
   ],
   "relatedLocations": [
     {
       "id": 1,
-      "physicalLocation": { "artifactLocation": { "uri": "sarif:/runs/0/results/7" } }
+      "physicalLocation": { "artifactLocation": { "uri": "sarif:/runs/0/results/7" } },
+      "relationships": [
+        { "target": 1, "kinds": [ "includes" ] }   // target: 1 == this location's own id
+      ]
     }
   ]
 }
@@ -113,24 +117,32 @@ Concretely, for a synthesized cluster `runs[1].results[3]` that consolidates
   "locations": [
     {
       "id": 0,
-      "physicalLocation": { "artifactLocation": { "uri": "src/api/proxy.ts" }, "region": { "startLine": 42 } },
-      "relationships": [
-        { "target": 1, "kinds": [ "isIncludedBy" ] }  // -> relatedLocations[id=1]
-      ]
+      "physicalLocation": { "artifactLocation": { "uri": "src/api/proxy.ts" }, "region": { "startLine": 42 } }
     }
   ],
   "relatedLocations": [
     {
       "id": 1,
-      "physicalLocation": { "artifactLocation": { "uri": "sarif:/runs/1/results/3" } }
+      "physicalLocation": { "artifactLocation": { "uri": "sarif:/runs/1/results/3" } },
+      "relationships": [
+        { "target": 1, "kinds": [ "isIncludedBy" ] }  // target: 1 == this location's own id
+      ]
     }
   ]
 }
 ```
 
-A synthesized result with *N* members has *N* `relatedLocations` (each a `sarif:` pointer to
-one member) and *N* `includes` relationships on its primary location. Each member carries one
-`isIncludedBy` pointer back to its cluster. The relationship is reciprocal by construction.
+A synthesized result with *N* members has *N* `relatedLocations`, each a `sarif:` pointer to
+one member and each carrying its own `includes` relationship. Each member carries one
+`relatedLocation` pointing back to its cluster with the inverse `isIncludedBy`. The relationship
+is reciprocal by construction.
+
+> **On the self-reference.** `locationRelationship.target` is a *required* field
+> (§3.34.2). Because the kind (`includes` / `isIncludedBy`) and the `sarif:` pointer ride on
+> the *same* related-location, `target` resolves to that location's own `id`. This is the
+> deliberate cost of keeping the cluster cross-link out of `result.locations[]` while still
+> using the spec's well-known relationship kinds: the relationship is being used to *type* the
+> pointer-bearing location, and the required `target` is satisfied by its own `id`.
 
 ```mermaid
 flowchart LR
@@ -262,8 +274,8 @@ producer.
 A reader that understands this convention may rely on:
 
 - `run.properties["ai/origin"]` partitions runs into tiers; `synthesized` runs hold clusters.
-- A synthesized result's members are exactly the results its primary-location `includes`
-  relationships resolve to (via the `sarif:` pointers in its `relatedLocations`).
+- A synthesized result's members are exactly the results the `includes` relationships on its
+  `relatedLocations` resolve to (each via that related-location's own `sarif:` pointer).
 - Every member result resolves back via `isIncludedBy` (reciprocity is validator-enforced).
 - A consumer that ignores the synthesized tier loses no raw findings; a consumer that ignores
   the generated tier loses no synthesized findings (the synthesized result is self-contained —

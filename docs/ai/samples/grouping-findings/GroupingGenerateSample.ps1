@@ -22,9 +22,12 @@
       runs[1]  ai/origin = synthesized  one cluster:
                  results[0] CWE-918/ssrf-via-unvalidated-fetch
 
-    The cluster's primary location 'includes' both raw findings via 'sarif:'
-    pointers in its relatedLocations; each raw finding carries the inverse
-    'isIncludedBy' pointer back to the cluster. The links are reciprocal by
+    The cluster's relatedLocations 'include' both raw findings via 'sarif:'
+    pointers (each carrying the 'includes' relationship that links to itself,
+    the pointer-bearing location); each raw finding carries the inverse
+    'isIncludedBy' pointer back to the cluster the same way. Cross-finding
+    grouping never touches result.locations[] (the detection's own sites) -
+    it lives entirely in relatedLocations[]. The links are reciprocal by
     construction (AI1015) and flow synthesized -> generated (AI2020); every
     'sarif:' pointer resolves against the final assembled log (SARIF1013).
 
@@ -159,12 +162,12 @@ try {
         locations = @([ordered]@{
             id = 0
             physicalLocation = [ordered]@{ artifactLocation = [ordered]@{ uri = 'src/api/proxy.ts'; uriBaseId = 'SRCROOT' }; region = [ordered]@{ startLine = 7 } }
-            relationships = @([ordered]@{ target = 1; kinds = @('isIncludedBy') })
         })
         relatedLocations = @([ordered]@{
             id = 1
             physicalLocation = [ordered]@{ artifactLocation = [ordered]@{ uri = 'sarif:/runs/1/results/0' } }
             message = [ordered]@{ text = 'Grouping parent: the SSRF cluster that includes this finding.' }
+            relationships = @([ordered]@{ target = 1; kinds = @('isIncludedBy') })
         })
         properties = [ordered]@{ 'ai/exploitability' = 'poc'; 'ai/attackerPosition' = 'unauthenticated-remote' }
     })
@@ -181,12 +184,12 @@ try {
         locations = @([ordered]@{
             id = 0
             physicalLocation = [ordered]@{ artifactLocation = [ordered]@{ uri = 'src/api/proxy.ts'; uriBaseId = 'SRCROOT' }; region = [ordered]@{ startLine = 6 } }
-            relationships = @([ordered]@{ target = 1; kinds = @('isIncludedBy') })
         })
         relatedLocations = @([ordered]@{
             id = 1
             physicalLocation = [ordered]@{ artifactLocation = [ordered]@{ uri = 'sarif:/runs/1/results/0' } }
             message = [ordered]@{ text = 'Grouping parent: the SSRF cluster that includes this finding.' }
+            relationships = @([ordered]@{ target = 1; kinds = @('isIncludedBy') })
         })
         properties = [ordered]@{ 'ai/exploitability' = 'theoretical'; 'ai/attackerPosition' = 'unauthenticated-remote' }
     })
@@ -203,14 +206,10 @@ try {
         locations = @([ordered]@{
             id = 0
             physicalLocation = [ordered]@{ artifactLocation = [ordered]@{ uri = 'src/api/proxy.ts'; uriBaseId = 'SRCROOT' }; region = [ordered]@{ startLine = 8 } }
-            relationships = @(
-                [ordered]@{ target = 1; kinds = @('includes') },
-                [ordered]@{ target = 2; kinds = @('includes') }
-            )
         })
         relatedLocations = @(
-            [ordered]@{ id = 1; physicalLocation = [ordered]@{ artifactLocation = [ordered]@{ uri = 'sarif:/runs/0/results/0' } }; message = [ordered]@{ text = 'Member: the missing authentication check.' } },
-            [ordered]@{ id = 2; physicalLocation = [ordered]@{ artifactLocation = [ordered]@{ uri = 'sarif:/runs/0/results/1' } }; message = [ordered]@{ text = 'Member: the unvalidated outbound fetch.' } }
+            [ordered]@{ id = 1; physicalLocation = [ordered]@{ artifactLocation = [ordered]@{ uri = 'sarif:/runs/0/results/0' } }; message = [ordered]@{ text = 'Member: the missing authentication check.' }; relationships = @([ordered]@{ target = 1; kinds = @('includes') }) },
+            [ordered]@{ id = 2; physicalLocation = [ordered]@{ artifactLocation = [ordered]@{ uri = 'sarif:/runs/0/results/1' } }; message = [ordered]@{ text = 'Member: the unvalidated outbound fetch.' }; relationships = @([ordered]@{ target = 2; kinds = @('includes') }) }
         )
         properties = [ordered]@{ 'ai/exploitability' = 'poc'; 'ai/attackerPosition' = 'unauthenticated-remote' }
     })

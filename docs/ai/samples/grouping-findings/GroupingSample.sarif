@@ -118,15 +118,7 @@
                     "text": "  const target = new URL(req.url).searchParams.get(\"target\"); // unvalidated input\n  // No authentication gate guards this public ingress (CWE-306).\n  return await fetch(target!);                                 // SSRF sink (CWE-918)"
                   }
                 }
-              },
-              "relationships": [
-                {
-                  "target": 1,
-                  "kinds": [
-                    "isIncludedBy"
-                  ]
-                }
-              ]
+              }
             }
           ],
           "partialFingerprints": {
@@ -142,7 +134,15 @@
               },
               "message": {
                 "text": "Grouping parent: the SSRF cluster that includes this finding."
-              }
+              },
+              "relationships": [
+                {
+                  "target": 1,
+                  "kinds": [
+                    "isIncludedBy"
+                  ]
+                }
+              ]
             }
           ],
           "rank": 80.0,
@@ -190,15 +190,7 @@
                     "text": "export async function proxy(req: Request): Promise<Response> {\n  const target = new URL(req.url).searchParams.get(\"target\"); // unvalidated input\n  // No authentication gate guards this public ingress (CWE-306)."
                   }
                 }
-              },
-              "relationships": [
-                {
-                  "target": 1,
-                  "kinds": [
-                    "isIncludedBy"
-                  ]
-                }
-              ]
+              }
             }
           ],
           "partialFingerprints": {
@@ -214,7 +206,15 @@
               },
               "message": {
                 "text": "Grouping parent: the SSRF cluster that includes this finding."
-              }
+              },
+              "relationships": [
+                {
+                  "target": 1,
+                  "kinds": [
+                    "isIncludedBy"
+                  ]
+                }
+              ]
             }
           ],
           "rank": 75.0,
@@ -333,21 +333,7 @@
                     "text": "  // No authentication gate guards this public ingress (CWE-306).\n  return await fetch(target!);                                 // SSRF sink (CWE-918)\n}"
                   }
                 }
-              },
-              "relationships": [
-                {
-                  "target": 1,
-                  "kinds": [
-                    "includes"
-                  ]
-                },
-                {
-                  "target": 2,
-                  "kinds": [
-                    "includes"
-                  ]
-                }
-              ]
+              }
             }
           ],
           "partialFingerprints": {
@@ -363,7 +349,15 @@
               },
               "message": {
                 "text": "Member: the missing authentication check."
-              }
+              },
+              "relationships": [
+                {
+                  "target": 1,
+                  "kinds": [
+                    "includes"
+                  ]
+                }
+              ]
             },
             {
               "id": 2,
@@ -374,7 +368,15 @@
               },
               "message": {
                 "text": "Member: the unvalidated outbound fetch."
-              }
+              },
+              "relationships": [
+                {
+                  "target": 2,
+                  "kinds": [
+                    "includes"
+                  ]
+                }
+              ]
             }
           ],
           "rank": 90.0,
