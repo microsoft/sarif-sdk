@@ -185,7 +185,11 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             if (originalRegion.CharLength >= BIGSNIPPETLENGTH)
             {
-                return originalRegion.DeepClone();
+                // A context region must be a proper superset of the region (SARIF spec
+                // contextRegion, enforced by SARIF1008). The region already meets the snippet
+                // cap, so no larger in-cap snippet exists; omit the context region rather than
+                // return one identical to the region.
+                return null;
             }
 
             int maxLineNumber = newLineIndex.MaximumLineNumber;
@@ -215,9 +219,12 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             multilineContextSnippet = this.PopulateTextRegionProperties(region, uri, populateSnippet: true, fileText);
 
-            // We can't generate a contextRegion which is smaller than the original region.
-            Debug.Assert(originalRegion.CharLength <= multilineContextSnippet.CharLength);
-            return multilineContextSnippet;
+            // The capped char-offset window does not always contain the region (a region longer
+            // than the window's reach past its start runs off the end). Emit the context region
+            // only when it is a genuine proper superset of the region; otherwise omit it.
+            return multilineContextSnippet.IsProperSupersetOf(originalRegion)
+                ? multilineContextSnippet
+                : null;
         }
 
         private static void PopulatePropertiesFromCharOffsetAndLength(NewLineIndex newLineIndex, Region region, bool overwriteExistingData)

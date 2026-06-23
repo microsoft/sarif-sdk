@@ -13,13 +13,12 @@ Each release entry below is prefixed with one of:
 
 Entries are terse by design: one line per change, present-tense behavior, complete but only essential data. No issue/PR archaeology or narrative — that history lives in the engineering system.
 
-## **v5.5.0** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/v5.5.0) | [Driver](https://www.nuget.org/packages/Sarif.Driver/v5.5.0) | [Converters](https://www.nuget.org/packages/Sarif.Converters/v5.5.0) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/v5.5.0) | [Multitool Library](https://www.nuget.org/packages/Sarif.Multitool.Library/v5.5.0)
+## **v5.4.0** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/v5.4.0) | [Driver](https://www.nuget.org/packages/Sarif.Driver/v5.4.0) | [Converters](https://www.nuget.org/packages/Sarif.Converters/v5.4.0) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/v5.4.0) | [Multitool Library](https://www.nuget.org/packages/Sarif.Multitool.Library/v5.4.0)
 * BRK: Bundled schema files are renamed from the `2.1.0-rtm.6` prerelease name to finalized `sarif-2.1.0.json` and `sarif-external-property-file-2.1.0.json`; `VersionConstants.SchemaVersionAsPublishedToSchemaStoreOrg` is now `2.1.0`.
+* NEW: `emit-finalize --validate` in `@microsoft/sarif-multitool-ts` validates the finalized SARIF against `ai-sarif-log.schema.json` and exits non-zero when the log does not conform.
 * BUG: `ArtifactRoles` adds the spec-valid `ConversionSource`, `ExternalPropertyFile`, and `RepositoryRoot` values, which the schema previously omitted and rejected on round-trip.
 * BUG: `SARIF1011.ReferenceFinalSchema` recognizes finalized `sarif-2.1.0.json` as the final schema and flags a `$schema` that still references the `2.1.0-rtm.6` prerelease.
-
-## **v5.4.0** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/v5.4.0) | [Driver](https://www.nuget.org/packages/Sarif.Driver/v5.4.0) | [Converters](https://www.nuget.org/packages/Sarif.Converters/v5.4.0) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/v5.4.0) | [Multitool Library](https://www.nuget.org/packages/Sarif.Multitool.Library/v5.4.0)
-* NEW: `emit-finalize --validate` in `@microsoft/sarif-multitool-ts` validates the finalized SARIF against `ai-sarif-log.schema.json` and exits non-zero when the log does not conform.
+* BUG: `FileRegionsCache.ConstructMultilineContextSnippet` omits `contextRegion` unless it is a proper superset of `region`, so enriched multi-line regions no longer emit SARIF that `SARIF1008.PhysicalLocationPropertiesMustBeConsistent` rejects.
 
 ## **v5.3.1** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/v5.3.1) | [Driver](https://www.nuget.org/packages/Sarif.Driver/v5.3.1) | [Converters](https://www.nuget.org/packages/Sarif.Converters/v5.3.1) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/v5.3.1) | [Multitool Library](https://www.nuget.org/packages/Sarif.Multitool.Library/v5.3.1)
 * BRK: `get-schema emit-finalize`'s schema is renamed `ai-log.schema.json` → `ai-sarif-log.schema.json`; update any direct `schemas/ai-log.schema.json` import or `$id` reference.
