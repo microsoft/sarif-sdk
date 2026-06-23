@@ -28,6 +28,7 @@ export {
   type AddReportingDescriptorsOptions as EmitDescriptorsOptions,
 } from './addReportingDescriptors.js';
 export { emitFinalize, type EmitFinalizeOptions, type EmitFinalizeOutcome } from './emitFinalize.js';
+export { validateFinalizedLog, type ValidationOutcome } from './validate.js';
 
 // get-* verbs.
 export { getSchema, listSchemas, SchemaByVerb } from './getSchema.js';

@@ -69,21 +69,40 @@ the contract.
 
 ## Validation
 
-`emit-finalize --validate` is **deferred** in this package. The emit verbs
-perform receipt-time checks only — AI ruleId grammar (`AI1012`), required
-fields, batch atomicity, descriptor-id uniqueness — not the full SARIF/AI
-analyzer rule set.
+`emit-finalize --validate` checks the finalized SARIF against
+`ai-sarif-log.schema.json` — the AI emit profile overlay on the canonical
+SARIF 2.1.0 document schema. Both schemas are bundled, so validation runs
+fully offline. On a conforming log the CLI prints a confirmation and exits 0;
+on a non-conforming log it prints each `instancePath: message` to stderr and
+exits 1. The SARIF file is written either way — validation is a report, not a
+gate on the write.
 
-**If you adopt this package, keep a .NET validation step in your test/CI
-environment** until the AI-content JSON Schema ships:
+```sh
+npx @microsoft/sarif-multitool-ts emit-finalize scan.sarif --validate
+```
+
+Library callers read the verdict off the outcome (or validate an
+already-finalized log directly):
+
+```js
+import { emitFinalize, validateFinalizedLog } from '@microsoft/sarif-multitool-ts';
+
+const { validation } = await emitFinalize({ output: 'scan.sarif', validate: true });
+if (validation && !validation.valid) console.error(validation.errors.join('\n'));
+
+const { valid, errors } = validateFinalizedLog(log);
+```
+
+This is JSON-Schema validation: it enforces the whole-log AI contract —
+required `versionControlProvenance`, `properties[ai/origin]`, the result
+`ruleId` grammar, and the per-run GHAzDO `automationDetails` shape. It does
+**not** run the .NET analyzer rule set; for the full `Sarif;AI` rule pass keep
+a .NET step in your test/CI environment:
 
 ```sh
 dotnet tool install -g Sarif.Multitool   # once
 sarif validate --rule-kind "Sarif;AI" scan.sarif
 ```
-
-This is a **test-time-only** dependency — no CLR in your production path —
-and is the backstop that catches anything the sparse port lets through.
 
 ## Schemas
 
@@ -119,7 +138,7 @@ drift gate (`npm run test:conformance`).
 
 | Gap | Effect | Workaround |
 |---|---|---|
-| `--validate` | Stubbed (see above) | `.NET sarif validate` in CI |
+| `--validate` (analyzer rules) | TS `--validate` is JSON-Schema only — it does not run the full `Sarif;AI` analyzer rule set | `.NET sarif validate --rule-kind "Sarif;AI"` for the full rule pass |
 | `--embed-text-files` | Source bytes not inlined in artifacts | Run `.NET emit-finalize` with the flag if you need self-contained fixtures |
 
 ## Behavioral parity

@@ -8,7 +8,7 @@
  * emit-* / get-* subset. Verbs not yet ported print a redirect to
  * @microsoft/sarif-multitool (the .NET wrapper).
  *
- * Zero runtime dependencies — argv is parsed by hand.
+ * Argv is parsed by hand — no command-line framework.
  */
 
 import { readFileSync } from 'node:fs';
@@ -197,6 +197,21 @@ async function main(): Promise<number> {
       process.stdout.write(
         `Wrote '${r.outputPath}' (${r.resultCount} result(s), ${r.ruleCount} rule(s)).\n`,
       );
+      if (r.validation) {
+        if (r.validation.valid) {
+          process.stdout.write('Validation: conforms to ai-sarif-log.schema.json.\n');
+        } else {
+          process.stderr.write(
+            `Validation: does not conform to ai-sarif-log.schema.json (${r.validation.errors.length} error(s)):\n`,
+          );
+          for (const e of r.validation.errors) process.stderr.write(`  ${e}\n`);
+          return 1;
+        }
+      } else {
+        process.stdout.write(
+          'Validation: not run. Pass --validate to check the finalized SARIF against ai-sarif-log.schema.json.\n',
+        );
+      }
       return 0;
     }
 
