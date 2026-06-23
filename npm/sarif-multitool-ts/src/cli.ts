@@ -207,6 +207,10 @@ async function main(): Promise<number> {
           for (const e of r.validation.errors) process.stderr.write(`  ${e}\n`);
           return 1;
         }
+      } else {
+        process.stdout.write(
+          'Validation: not run. Pass --validate to check the finalized SARIF against ai-sarif-log.schema.json.\n',
+        );
       }
       return 0;
     }
