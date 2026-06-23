@@ -96,6 +96,17 @@ Given(
 );
 
 Given(
+  'an open event log for tool {string} with a GitHub source root, VCP, and ai\\/origin {string}',
+  async function (name, origin) {
+    if (!this.tmp) this.init();
+    this.runHeader = this.finalizableRunHeader(true);
+    this.runHeader.tool.driver.name = name;
+    this.runHeader.properties = { 'ai/origin': origin };
+    await emitRun({ output: this.output, run: this.runHeader, env: this.env });
+  },
+);
+
+Given(
   'an open event log for tool {string} with a source root but no VCP',
   async function (name) {
     if (!this.tmp) this.init();
@@ -194,6 +205,18 @@ When(
     this.lastOutcome = await emitResults({
       output: this.output,
       results: makeResult(ruleId, relPath, line),
+    });
+  },
+);
+
+When(
+  'emit-results is invoked with a conformant AI result at {string} line {int} with ruleId {string}',
+  async function (relPath, line, ruleId) {
+    this.lastOutcome = await emitResults({
+      output: this.output,
+      results: makeResult(ruleId, relPath, line, {
+        message: { text: 'finding', markdown: '**finding**' },
+      }),
     });
   },
 );
@@ -300,6 +323,12 @@ When('emit-finalize is invoked', async function () {
   this.finalizedLog = r.log;
 });
 
+When('emit-finalize is invoked with validation', async function () {
+  const r = await emitFinalize({ output: this.output, keepWip: true, validate: true });
+  this.finalizedLog = r.log;
+  this.validation = r.validation;
+});
+
 When('emit-finalize is invoked expecting failure', async function () {
   try {
     await emitFinalize({ output: this.output, keepWip: true });
@@ -390,6 +419,29 @@ Then('the replayed invocation {int} field {string} equals {string}', function (i
 function finalizedRun(world) {
   return world.finalizedLog.runs[0];
 }
+
+Then('the finalized SARIF conforms to the AI whole-log schema', function () {
+  assert.ok(this.validation, 'emit-finalize was not invoked with validation');
+  assert.ok(
+    this.validation.valid,
+    `expected conformance but got errors:\n  ${this.validation.errors.join('\n  ')}`,
+  );
+  assert.deepEqual(this.validation.errors, []);
+});
+
+Then('the finalized SARIF does not conform to the AI whole-log schema', function () {
+  assert.ok(this.validation, 'emit-finalize was not invoked with validation');
+  assert.equal(this.validation.valid, false, 'expected a non-conformant log');
+  assert.ok(this.validation.errors.length > 0, 'expected at least one validation error');
+});
+
+Then('a validation error mentions {string}', function (fragment) {
+  assert.ok(this.validation, 'emit-finalize was not invoked with validation');
+  assert.ok(
+    this.validation.errors.some((e) => e.includes(fragment)),
+    `no validation error mentions '${fragment}':\n  ${this.validation.errors.join('\n  ')}`,
+  );
+});
 
 Then('the finalized SARIF result {int} field {string} equals {string}', function (i, path, expected) {
   assert.equal(get(finalizedRun(this).results[i], path), expected);

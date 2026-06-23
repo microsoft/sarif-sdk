@@ -22,6 +22,7 @@ class EmitWorld {
     this.lastError = undefined;
     this.replayedLog = undefined;
     this.finalizedLog = undefined;
+    this.validation = undefined;
     /** Test seam: env getter for CI-context detection. Default = no CI. */
     this.env = () => undefined;
   }
