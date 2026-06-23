@@ -34,6 +34,10 @@
     <PackageReference Include="xunit.runner.visualstudio" PrivateAssets="All" />
   </ItemGroup>
 
+  <ItemGroup Condition="'$(TargetFramework)' == 'net48'">
+    <PackageReference Include="System.Reflection.Metadata" />
+  </ItemGroup>
+
   <ItemGroup>
     <EmbeddedResource Include="TestData\EmptyResults.sarif" />
     <EmbeddedResource Include="TestData\Invalid.sarif" />

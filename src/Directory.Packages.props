@@ -22,7 +22,7 @@
     <PackageVersion Include="Microsoft.Json.Pointer" Version="2.1.0" />
     <PackageVersion Include="Microsoft.Json.Schema" Version="2.1.0" />
     <PackageVersion Include="Microsoft.Json.Schema.Validation" Version="2.1.0" />
-    <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="17.4.1" />
+    <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="17.12.0" />
     <PackageVersion Include="Microsoft.SourceLink.GitHub" Version="1.1.1" />
     <PackageVersion Include="Microsoft.TeamFoundationServer.Client" Version="16.170.0" />
     <PackageVersion Include="Moq" Version="4.18.4" />
@@ -34,13 +34,14 @@
     <PackageVersion Include="System.IO.Compression" Version="4.3.0" />
     <PackageVersion Include="System.IO.FileSystem.Primitives" Version="4.3.0" />
     <PackageVersion Include="System.Private.Uri" Version="4.3.2" />
+    <PackageVersion Include="System.Reflection.Metadata" Version="1.8.0" />
     <PackageVersion Include="System.Text.Encoding.CodePages" Version="4.3.0" />
     <PackageVersion Include="System.Text.Encoding.Extensions" Version="4.3.0" />
     <PackageVersion Include="System.Text.Encodings.Web" Version="6.0.0" />
     <PackageVersion Include="System.Threading.Channels" Version="5.0.0" />
-    <PackageVersion Include="xunit" Version="2.4.2" />
-    <PackageVersion Include="xunit.runner.console" Version="2.4.2" />
-    <PackageVersion Include="xunit.runner.visualstudio" Version="2.4.5" />
+    <PackageVersion Include="xunit" Version="2.9.3" />
+    <PackageVersion Include="xunit.runner.console" Version="2.9.3" />
+    <PackageVersion Include="xunit.runner.visualstudio" Version="2.8.2" />
     <PackageVersion Include="YamlDotNet" Version="11.2.0" />
   </ItemGroup>
 </Project>
