@@ -28,7 +28,7 @@ cp(join(repo, 'src/Sarif/Taxonomies/CweSecuritySeverity.json'), join(pkg, 'asset
 // verb-addressable set, and a non-verb schema there would fail the get-schema
 // parity gate.
 cp(
-  join(repo, 'src/Sarif/Schemata/sarif-2.1.0-rtm.6.json'),
+  join(repo, 'src/Sarif/Schemata/sarif-2.1.0.json'),
   join(pkg, 'assets'),
   'sarif-2.1.0.schema.json',
 );
