@@ -166,7 +166,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 }
                 else
                 {
-                    Assert.False(true, pathToExe + " " + commandLine);
+                    Assert.Fail(pathToExe + " " + commandLine);
                 }
 
                 using (_ = new SarifLogger(textWriter,
@@ -1052,7 +1052,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             }
             catch (Exception e)
             {
-                Assert.True(false, e.ToString());
+                Assert.Fail(e.ToString());
             }
             finally
             {
@@ -1452,7 +1452,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         // 'InvalidOperationException: Collection was modified' inside
         // JsonSerializerInternalWriter.SerializeDictionary on .NET Framework.
         [Fact]
-        public void SarifLogger_DisposeIsThreadSafeWhenSarifRewritingVisitorRunsConcurrently()
+        public async Task SarifLogger_DisposeIsThreadSafeWhenSarifRewritingVisitorRunsConcurrently()
         {
             const int iterations = 50;
             const int ruleCount = 64;
@@ -1534,7 +1534,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 }
 
                 stop.Cancel();
-                Task.WaitAll(mutatorTasks);
+                await Task.WhenAll(mutatorTasks);
                 yieldingWriter.Dispose();
 
                 if (caughtExceptions.Count > 0) { break; }

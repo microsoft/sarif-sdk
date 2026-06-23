@@ -45,7 +45,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                         {
                             if (parameters.ContainsKey(result.ShortName))
                             {
-                                Assert.True(false, $"{type.Name} has a conflict for {result.ShortName} between {result.LongName} and {parameters[result.ShortName].LongName}.");
+                                Assert.Fail($"{type.Name} has a conflict for {result.ShortName} between {result.LongName} and {parameters[result.ShortName].LongName}.");
                             }
 
                             parameters[result.ShortName] = result;
