@@ -11,13 +11,13 @@ using Json.Schema;
 
 namespace Microsoft.CodeAnalysis.Sarif.Multitool
 {
-    // Shared schema-evaluation surface for ai-log.schema.json. Centralizes the single
+    // Shared schema-evaluation surface for ai-sarif-log.schema.json. Centralizes the single
     // offline registration of the SARIF 2.1.0 base identity (so sibling test classes do
     // not double-register it in SchemaRegistry.Global) and exposes the whole-log accept
     // verdict plus the canonical JsonObject builders the schema tests assert over.
     //
     // It evaluates with JsonSchema.Net (json-everything), NOT Microsoft.Json.Schema, for
-    // the Draft 2020-12 support ai-log.schema.json requires, and resolves the base $ref
+    // the Draft 2020-12 support ai-sarif-log.schema.json requires, and resolves the base $ref
     // against the vendored sarif-2.1.0.json copied next to the test assembly so validation
     // never reaches the network.
     internal static class AiLogSchemaFixture
@@ -25,13 +25,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         public const string SarifSchemaIdentity = "https://json.schemastore.org/sarif-2.1.0.json";
         public const string Guid = "12345678-1234-1234-1234-1234567890ab";
 
-        public static readonly JsonSchema Schema = LoadAiSchema("ai-log.schema.json");
+        public static readonly JsonSchema Schema = LoadAiSchema("ai-sarif-log.schema.json");
         public static readonly EvaluationOptions Options = BuildOptions();
 
         private static readonly EvaluationOptions s_explainOptions =
             new EvaluationOptions { OutputFormat = OutputFormat.List };
 
-        // True when ai-log.schema.json accepts the supplied whole log.
+        // True when ai-sarif-log.schema.json accepts the supplied whole log.
         public static bool Accepts(JsonNode log)
         {
             JsonElement element = JsonSerializer.SerializeToElement(log);

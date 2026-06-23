@@ -168,10 +168,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         public void GetSchema_EmitFinalize_ServesAiLogSchema()
         {
             GetSchemaCommand.SchemaByVerb["emit-finalize"].Should().Be(
-                "ai-log.schema.json",
+                "ai-sarif-log.schema.json",
                 "emit-finalize serves the finalized whole-log contract, completing the verb-to-schema map to 6 of 6.");
 
-            string outPath = Path.Combine(_dir, "ai-log.schema.json");
+            string outPath = Path.Combine(_dir, "ai-sarif-log.schema.json");
             int exit = new GetSchemaCommand().Run(new GetSchemaOptions
             {
                 Verb = "emit-finalize",
