@@ -36,6 +36,9 @@ namespace Microsoft.CodeAnalysis.Sarif
         Directory = 524288,
         UserSpecifiedConfiguration = 1048576,
         ToolSpecifiedConfiguration = 2097152,
-        DebugOutputFile = 4194304
+        DebugOutputFile = 4194304,
+        ConversionSource = 8388608,
+        ExternalPropertyFile = 16777216,
+        RepositoryRoot = 33554432
     }
 }

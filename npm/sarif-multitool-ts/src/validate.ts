@@ -44,10 +44,6 @@ function buildValidator(): ValidateFunction {
   const base = JSON.parse(
     readFileSync(assetPath('assets', 'sarif-2.1.0.schema.json'), 'utf8'),
   ) as Record<string, unknown>;
-  // The bundled base carries a draft-04 `id` schema keyword that Ajv2020
-  // rejects. It is registered under its canonical `$id` explicitly below, so
-  // the in-body keyword is redundant — drop it.
-  delete base.id;
   ajv.addSchema(base, SARIF_2_1_0_ID);
 
   const overlay = JSON.parse(getSchema('emit-finalize')) as Record<string, unknown>;
