@@ -9,7 +9,12 @@
     "url": "https://github.com/microsoft/sarif-sdk",
     "directory": "npm/sarif-multitool-ts"
   },
-  "keywords": ["sarif", "static-analysis", "security", "multitool"],
+  "keywords": [
+    "sarif",
+    "static-analysis",
+    "security",
+    "multitool"
+  ],
   "type": "module",
   "engines": {
     "node": ">=20"
@@ -41,11 +46,14 @@
     "prebuild": "node scripts/copy-assets.mjs",
     "build": "tsc",
     "test": "npm run build && cucumber-js",
+    "test:unit": "npm run build && node --test test/validate.test.js",
     "test:conformance": "npm run build && node --test test/conformance.test.js",
     "test:memory": "npm run build && node --expose-gc test/memory-smoke.js"
   },
   "dependencies": {
-    "@microsoft/sarif": "file:../sarif"
+    "@microsoft/sarif": "file:../sarif",
+    "ajv": "^8.20.0",
+    "ajv-formats": "^3.0.1"
   },
   "devDependencies": {
     "@cucumber/cucumber": "^13.0.0",
