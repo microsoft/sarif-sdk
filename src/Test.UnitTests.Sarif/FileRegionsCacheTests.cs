@@ -807,7 +807,7 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests
         }
 
         [Fact]
-        public void FileRegionsCache_IncreasingToLeftAndRight()
+        public void FileRegionsCache_OmitsContextRegionWhenRegionMeetsSnippetCap()
         {
             var uri = new Uri(@"c:\temp\myFile.cpp");
             string fileContent = $"{new string('a', 200)}{new string('b', 800)}";
@@ -821,8 +821,34 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests
             var fileRegionsCache = new FileRegionsCache();
             region = fileRegionsCache.PopulateTextRegionProperties(region, uri, true, fileContent);
 
+            // The region's CharLength (600) already meets the 512-character snippet cap, so no
+            // larger in-cap context region exists. A context region identical to the region would
+            // fail SARIF1008's proper-superset requirement, so the context region is omitted.
             Region multilineRegion = fileRegionsCache.ConstructMultilineContextSnippet(region, uri);
-            multilineRegion.CharLength.Should().Be(region.CharLength);
+            multilineRegion.Should().BeNull();
+        }
+
+        [Fact]
+        public void FileRegionsCache_OmitsContextRegionWhenCharOffsetWindowCannotContainRegion()
+        {
+            var uri = new Uri(@"c:\temp\myFile.cpp");
+            string fileContent = new string('a', 1000);
+
+            var region = new Region
+            {
+                CharOffset = 100,
+                CharLength = 450,
+            };
+
+            var fileRegionsCache = new FileRegionsCache();
+            region = fileRegionsCache.PopulateTextRegionProperties(region, uri, true, fileContent);
+
+            // The single-line context expansion exceeds the cap, so the routine falls back to a
+            // 512-character char-offset window starting 128 characters before the region. That
+            // window (chars 0-512) ends before the region (chars 100-550), so it is not a proper
+            // superset; the context region is omitted rather than emitted as an undershoot.
+            Region multilineRegion = fileRegionsCache.ConstructMultilineContextSnippet(region, uri);
+            multilineRegion.Should().BeNull();
         }
 
         [Fact]
