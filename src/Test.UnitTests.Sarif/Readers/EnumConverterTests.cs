@@ -117,6 +117,39 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
         }
 
         [Fact]
+        public void FlagsEnumConverter_RoundTripsConversionSourceRole()
+        {
+            RoundTripSingleRole(ArtifactRoles.ConversionSource, "conversionSource");
+        }
+
+        [Fact]
+        public void FlagsEnumConverter_RoundTripsExternalPropertyFileRole()
+        {
+            RoundTripSingleRole(ArtifactRoles.ExternalPropertyFile, "externalPropertyFile");
+        }
+
+        [Fact]
+        public void FlagsEnumConverter_RoundTripsRepositoryRootRole()
+        {
+            RoundTripSingleRole(ArtifactRoles.RepositoryRoot, "repositoryRoot");
+        }
+
+        private static void RoundTripSingleRole(ArtifactRoles role, string wireName)
+        {
+            var artifact = new Artifact { Roles = role };
+
+            var token = JToken.FromObject(artifact, JsonSerializer.CreateDefault());
+
+            JToken rolesToken = token["roles"];
+            rolesToken.Type.Should().Be(JTokenType.Array);
+            rolesToken.Should().HaveCount(1);
+            ((string)rolesToken[0]).Should().Be(wireName);
+
+            Artifact roundTripped = token.ToObject<Artifact>(JsonSerializer.CreateDefault());
+            roundTripped.Roles.Should().Be(role);
+        }
+
+        [Fact]
         public void DateTimeConverter_RoundTripsThroughJTokenWriter()
         {
             var when = new DateTime(2026, 5, 21, 19, 56, 46, 144, DateTimeKind.Utc);

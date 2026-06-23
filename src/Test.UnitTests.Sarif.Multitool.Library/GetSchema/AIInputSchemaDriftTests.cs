@@ -29,7 +29,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
     // the in-repo validator predates Draft 2020-12 and silently ignores the
     // Draft 2020-12 keywords the AI overlays rely on, which would make this a
     // false-green. The schemas $ref the public schemastore SARIF identity; the
-    // base shape is resolved offline to the vendored sarif-2.1.0-rtm.6.json
+    // base shape is resolved offline to the vendored sarif-2.1.0.json
     // (copied next to the test assembly) so the suite stays hermetic.
     //
     // Per repo idiom (and because [Theory] discovery is reflection-heavy), each
@@ -829,7 +829,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         }
 
         // The result and run schemas $ref the public schemastore SARIF identity. Resolve
-        // that identity offline to the vendored sarif-2.1.0-rtm.6.json (copied next to the
+        // that identity offline to the vendored sarif-2.1.0.json (copied next to the
         // test assembly) so validation never reaches the network; JsonSchema.Net resolves
         // $refs through the global registry. The invocation and descriptor schemas are
         // standalone thin contracts (no $ref), so they need no registration.
