@@ -93,6 +93,27 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         }
 
         [Fact]
+        public void GetSkill_Catalog_CoversEverySkillThatShipsOnDisk()
+        {
+            // The embedded-resource and byte-identity tests above iterate the catalog, so a skill that
+            // ships a skills\<name>\SKILL.md on disk but is missing from SkillSourceDirectory is invisible
+            // to them: it is simply never enumerated. This test closes that gap by driving from disk —
+            // every skills\<name>\SKILL.md must be registered in the catalog (and reachable by name).
+            string repositoryRoot = FindRepositoryRoot();
+            string skillsRoot = Path.Combine(repositoryRoot, "skills");
+
+            IEnumerable<string> onDisk = Directory
+                .EnumerateFiles(skillsRoot, "SKILL.md", SearchOption.AllDirectories)
+                .Select(path => Path.GetFileName(Path.GetDirectoryName(path)));
+
+            onDisk.Should().BeEquivalentTo(
+                GetSkillCommand.SkillSourceDirectory.Keys,
+                "every skills\\<name>\\SKILL.md that ships in the repository must be registered in " +
+                "GetSkillCommand.SkillSourceDirectory so get-skill --list enumerates it and get-skill " +
+                "<name> resolves it.");
+        }
+
+        [Fact]
         public void GetSkill_EmitSarifFindings_RewritesRelativeLinksToPinnedPermalinks()
         {
             string emitted = RunToString("emit-sarif");
