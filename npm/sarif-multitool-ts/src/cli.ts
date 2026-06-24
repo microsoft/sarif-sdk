@@ -126,7 +126,7 @@ emit chain:
   sarif emit-invocations <output.sarif> [--input <invocations.json>]
   sarif emit-rule-descriptors <output.sarif> [--input <descriptors.json>]
   sarif emit-notification-descriptors <output.sarif> [--input <descriptors.json>]
-  sarif emit-finalize <output.sarif> [--no-cwe-enrichment] [--minify] [--keep-wip] [--validate]
+  sarif emit-finalize <output.sarif> [--no-cwe-enrichment] [--minify] [--keep-wip] [--no-repo] [--validate]
 
 asset verbs:
   sarif get-schema <emit-verb> [--output <path>] [--force-overwrite] | --list
@@ -191,6 +191,7 @@ async function main(): Promise<number> {
         noCweEnrichment: !!flags['no-cwe-enrichment'],
         minify: !!flags.minify,
         keepWip: !!flags['keep-wip'],
+        noRepo: !!flags['no-repo'],
         validate: !!flags.validate,
       });
       for (const w of r.warnings) process.stderr.write(w + '\n');

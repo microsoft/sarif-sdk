@@ -31,7 +31,9 @@ export interface RebaseResult {
 }
 
 /** Rebases the run in place. Returns errors (success ↔ errors.length === 0). */
-export function rebaseRun(run: Run): RebaseResult {
+export function rebaseRun(run: Run, noRepo = false): RebaseResult {
+  if (noRepo) return rebaseRunRepoless(run);
+
   const errors: string[] = [];
   const referencedBaseIds = new Set<string>();
   const leakUris: string[] = [];
@@ -66,9 +68,56 @@ export function rebaseRun(run: Run): RebaseResult {
   return { success: errors.length === 0, errors };
 }
 
-// ---------------------------------------------------------------------------
-// Planning
-// ---------------------------------------------------------------------------
+/**
+ * Rebases a run finalized with --no-repo: the scan asserts it has no version control, so there is
+ * no portable root to rebase onto. Locations are leak-checked but never rewritten, and each base's
+ * transient local file:// root is elided so the finalized log carries no machine-specific path.
+ *
+ * Ported from EmitFinalizeRebaseVisitor.VisitRunRepoless.
+ */
+function rebaseRunRepoless(run: Run): RebaseResult {
+  const errors: string[] = [];
+  const referencedBaseIds = new Set<string>();
+  const leakUris: string[] = [];
+
+  // --no-repo asserts the scan has no version control. A run that nonetheless declares
+  // versionControlProvenance is a contradictory signal; refuse rather than ship a log that
+  // claims both.
+  if (run.versionControlProvenance && run.versionControlProvenance.length > 0) {
+    errors.push(
+      '--no-repo was specified, but run.versionControlProvenance declares one or more repositories. Remove --no-repo to rebase artifact locations to portable, per-repository roots derived from versionControlProvenance, or remove the provenance to finalize as a repo-less scan.',
+    );
+    return { success: false, errors };
+  }
+
+  const cycleErr = validateNoBaseCycles(run.originalUriBaseIds);
+  if (cycleErr) {
+    errors.push(cycleErr);
+    return { success: false, errors };
+  }
+
+  // A repo-less location must be expressed relative to a declared base. A rooted local path
+  // (absolute file://, or a rooted relative shape) cannot be made portable without a repository
+  // root, so it is a leak the final assertion rejects.
+  walkArtifactLocations(run, (al) => {
+    if (al.uriBaseId) referencedBaseIds.add(al.uriBaseId);
+    if (al.uri && isRootedLocalShape(al.uri)) leakUris.push(al.uri);
+  });
+
+  // Drop the transient local file:// root from each base, keeping the base symbol (and any
+  // description / parent chain) so locations remain <BASE>-relative.
+  if (run.originalUriBaseIds) {
+    for (const entry of Object.values(run.originalUriBaseIds)) {
+      if (entry?.uri && entry.uri.startsWith('file:')) {
+        entry.uri = undefined;
+      }
+    }
+  }
+
+  verifyNoLeak(run, referencedBaseIds, leakUris, errors);
+
+  return { success: errors.length === 0, errors };
+}
 
 function buildPlan(run: Run, errors: string[]): RepoRoot[] | undefined {
   const vcp = run.versionControlProvenance;

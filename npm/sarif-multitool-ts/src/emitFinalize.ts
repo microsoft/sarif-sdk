@@ -48,6 +48,13 @@ export interface EmitFinalizeOptions {
    * SARIF file is written regardless; validation is a report, not a gate.
    */
   validate?: boolean;
+  /**
+   * Finalize a repo-less scan: the run carries no versionControlProvenance. Local file:// roots
+   * are elided (not rebased onto a repository root) and the run is stamped
+   * `properties.unpublishable = true`, which exempts it from the version-control-provenance
+   * requirement in both the schema and the AI1004 rule. Mirrors the .NET --no-repo switch.
+   */
+  noRepo?: boolean;
 }
 
 export interface EmitFinalizeOutcome {
@@ -109,9 +116,14 @@ export async function emitFinalize(opts: EmitFinalizeOptions): Promise<EmitFinal
   // file:// bases.
   for (const run of log.runs ?? []) {
     if (!run) continue;
-    const r = rebaseRun(run);
+    const r = rebaseRun(run, opts.noRepo);
     if (!r.success) {
       throw new EmitVerbError(r.errors.join('\n'));
+    }
+    // --no-repo asserts the scan has no version control; stamp the run so the schema and the
+    // AI1004 rule exempt it from the version-control-provenance requirement.
+    if (opts.noRepo) {
+      run.properties = { ...run.properties, unpublishable: true };
     }
   }
 
