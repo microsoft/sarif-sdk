@@ -5,7 +5,7 @@ using System;
 using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
-
+using Stj = System.Text.Json.Serialization;
 namespace Microsoft.CodeAnalysis.Sarif.VersionOne
 {
     /// <summary>
@@ -35,12 +35,14 @@ namespace Microsoft.CodeAnalysis.Sarif.VersionOne
         /// A string that identifies the message format used to format the message that describes this result. The value of formatId must correspond to one of the names in the set of name/value pairs contained in the 'messageFormats' property of the rule object whose 'id' property matches the 'ruleId' property of this result.
         /// </summary>
         [DataMember(Name = "formatId", IsRequired = true)]
+        [Stj.JsonPropertyName("formatId")]
         public string FormatId { get; set; }
 
         /// <summary>
         /// An array of strings that will be used, in combination with a message format, to construct a result message.
         /// </summary>
         [DataMember(Name = "arguments", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("arguments")]
         public IList<string> Arguments { get; set; }
 
         /// <summary>

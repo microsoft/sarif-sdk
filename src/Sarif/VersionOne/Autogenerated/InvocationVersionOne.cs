@@ -5,7 +5,7 @@ using System;
 using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
-
+using Stj = System.Text.Json.Serialization;
 namespace Microsoft.CodeAnalysis.Sarif.VersionOne
 {
     /// <summary>
@@ -35,66 +35,77 @@ namespace Microsoft.CodeAnalysis.Sarif.VersionOne
         /// The command line used to invoke the tool.
         /// </summary>
         [DataMember(Name = "commandLine", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("commandLine")]
         public string CommandLine { get; set; }
 
         /// <summary>
         /// The contents of any response files specified on the tool's command line.
         /// </summary>
         [DataMember(Name = "responseFiles", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("responseFiles")]
         public IDictionary<string, string> ResponseFiles { get; set; }
 
         /// <summary>
         /// The date and time at which the run started. See "Date/time properties" in the SARIF spec for the required format.
         /// </summary>
         [DataMember(Name = "startTime", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("startTime")]
         public DateTime StartTime { get; set; }
 
         /// <summary>
         /// The date and time at which the run ended. See "Date/time properties" in the  SARIF spec for the required format.
         /// </summary>
         [DataMember(Name = "endTime", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("endTime")]
         public DateTime EndTime { get; set; }
 
         /// <summary>
         /// The machine that hosted the analysis tool run.
         /// </summary>
         [DataMember(Name = "machine", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("machine")]
         public string Machine { get; set; }
 
         /// <summary>
         /// The account that ran the analysis tool.
         /// </summary>
         [DataMember(Name = "account", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("account")]
         public string Account { get; set; }
 
         /// <summary>
         /// The process id for the analysis tool run.
         /// </summary>
         [DataMember(Name = "processId", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("processId")]
         public int ProcessId { get; set; }
 
         /// <summary>
         /// The fully qualified path to the analysis tool.
         /// </summary>
         [DataMember(Name = "fileName", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("fileName")]
         public string FileName { get; set; }
 
         /// <summary>
         /// The working directory for the analysis rool run.
         /// </summary>
         [DataMember(Name = "workingDirectory", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("workingDirectory")]
         public string WorkingDirectory { get; set; }
 
         /// <summary>
         /// The environment variables associated with the analysis tool process, expressed as key/value pairs.
         /// </summary>
         [DataMember(Name = "environmentVariables", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("environmentVariables")]
         public IDictionary<string, string> EnvironmentVariables { get; set; }
 
         /// <summary>
         /// Key/value pairs that provide additional information about the run.
         /// </summary>
         [DataMember(Name = "properties", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("properties")]
         internal override IDictionary<string, SerializedPropertyInfo> Properties { get; set; }
 
         /// <summary>

@@ -5,7 +5,7 @@ using System;
 using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
-
+using Stj = System.Text.Json.Serialization;
 namespace Microsoft.CodeAnalysis.Sarif.VersionOne
 {
     /// <summary>
@@ -35,48 +35,56 @@ namespace Microsoft.CodeAnalysis.Sarif.VersionOne
         /// The name of the tool.
         /// </summary>
         [DataMember(Name = "name", IsRequired = true)]
+        [Stj.JsonPropertyName("name")]
         public string Name { get; set; }
 
         /// <summary>
         /// The name of the tool along with its version and any other useful identifying information, such as its locale.
         /// </summary>
         [DataMember(Name = "fullName", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("fullName")]
         public string FullName { get; set; }
 
         /// <summary>
         /// The tool version, in whatever format the tool natively provides.
         /// </summary>
         [DataMember(Name = "version", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("version")]
         public string Version { get; set; }
 
         /// <summary>
         /// The tool version in the format specified by Semantic Versioning 2.0.
         /// </summary>
         [DataMember(Name = "semanticVersion", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("semanticVersion")]
         public string SemanticVersion { get; set; }
 
         /// <summary>
         /// The binary version of the tool's primary executable file (for operating systems such as Windows that provide that information).
         /// </summary>
         [DataMember(Name = "fileVersion", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("fileVersion")]
         public string FileVersion { get; set; }
 
         /// <summary>
         /// A version that uniquely identifies the SARIF logging component that generated this file, if it is versioned separately from the tool.
         /// </summary>
         [DataMember(Name = "sarifLoggerVersion", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("sarifLoggerVersion")]
         public string SarifLoggerVersion { get; set; }
 
         /// <summary>
         /// The tool language (expressed as an ISO 649 two-letter lowercase culture code) and region (expressed as an ISO 3166 two-letter uppercase subculture code associated with a country or region).
         /// </summary>
         [DataMember(Name = "language", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("language")]
         public string Language { get; set; }
 
         /// <summary>
         /// Key/value pairs that provide additional information about the tool.
         /// </summary>
         [DataMember(Name = "properties", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("properties")]
         internal override IDictionary<string, SerializedPropertyInfo> Properties { get; set; }
 
         /// <summary>

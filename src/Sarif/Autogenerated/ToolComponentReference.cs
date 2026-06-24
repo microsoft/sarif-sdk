@@ -8,7 +8,7 @@ using System.ComponentModel;
 using System.Runtime.Serialization;
 
 using Newtonsoft.Json;
-
+using Stj = System.Text.Json.Serialization;
 namespace Microsoft.CodeAnalysis.Sarif
 {
     /// <summary>
@@ -40,26 +40,31 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// The 'name' property of the referenced toolComponent.
         /// </summary>
         [DataMember(Name = "name", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("name")]
         public virtual string Name { get; set; }
 
         /// <summary>
         /// An index into the referenced toolComponent in tool.extensions.
         /// </summary>
         [DataMember(Name = "index", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("index")]
         [DefaultValue(-1)]
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
+        [Stj.JsonIgnore(Condition = Stj.JsonIgnoreCondition.WhenWritingDefault)]
         public virtual int Index { get; set; }
 
         /// <summary>
         /// The 'guid' property of the referenced toolComponent.
         /// </summary>
         [DataMember(Name = "guid", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("guid")]
         public virtual Guid? Guid { get; set; }
 
         /// <summary>
         /// Key/value pairs that provide additional information about the toolComponentReference.
         /// </summary>
         [DataMember(Name = "properties", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("properties")]
         internal override IDictionary<string, SerializedPropertyInfo> Properties { get; set; }
 
         /// <summary>

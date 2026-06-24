@@ -5,7 +5,7 @@ using System;
 using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
-
+using Stj = System.Text.Json.Serialization;
 namespace Microsoft.CodeAnalysis.Sarif
 {
     /// <summary>
@@ -37,18 +37,21 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// Specifies how the rule or notification was configured during the scan.
         /// </summary>
         [DataMember(Name = "configuration", IsRequired = true)]
+        [Stj.JsonPropertyName("configuration")]
         public virtual ReportingConfiguration Configuration { get; set; }
 
         /// <summary>
         /// A reference used to locate the descriptor whose configuration was overridden.
         /// </summary>
         [DataMember(Name = "descriptor", IsRequired = true)]
+        [Stj.JsonPropertyName("descriptor")]
         public virtual ReportingDescriptorReference Descriptor { get; set; }
 
         /// <summary>
         /// Key/value pairs that provide additional information about the configuration override.
         /// </summary>
         [DataMember(Name = "properties", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("properties")]
         internal override IDictionary<string, SerializedPropertyInfo> Properties { get; set; }
 
         /// <summary>
