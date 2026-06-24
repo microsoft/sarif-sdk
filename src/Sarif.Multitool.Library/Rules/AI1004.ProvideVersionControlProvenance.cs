@@ -31,6 +31,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 
         protected override void Analyze(Run run, string runPointer)
         {
+            // A run finalized with emit-finalize --no-repo declares it has no version control and
+            // is stamped unpublishable. It must not be faulted for the version-control provenance
+            // it has deliberately asserted is absent; every other AI-profile check still applies.
+            if (run.TryGetProperty(EmitFinalizeCommand.UnpublishablePropertyName, out bool unpublishable)
+                && unpublishable)
+            {
+                return;
+            }
+
             if (run.VersionControlProvenance == null || run.VersionControlProvenance.Count == 0)
             {
                 LogResult(

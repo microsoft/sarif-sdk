@@ -69,6 +69,26 @@ test('a missing ai/origin is reported', () => {
   );
 });
 
+test('a run missing versionControlProvenance is reported', () => {
+  const log = conformantLog();
+  delete log.runs[0].versionControlProvenance;
+  const r = validateFinalizedLog(log);
+  assert.equal(r.valid, false);
+  assert.ok(
+    r.errors.some((e) => e.includes('versionControlProvenance')),
+    r.errors.join('\n'),
+  );
+});
+
+test('a repo-less run stamped unpublishable validates without versionControlProvenance', () => {
+  const log = conformantLog();
+  delete log.runs[0].versionControlProvenance;
+  log.runs[0].properties.unpublishable = true;
+  const r = validateFinalizedLog(log);
+  assert.equal(r.valid, true, r.errors.join('\n'));
+  assert.deepEqual(r.errors, []);
+});
+
 test('a result without message.markdown is reported', () => {
   const log = conformantLog();
   log.runs[0].results[0].message = { text: 'XSS' };
