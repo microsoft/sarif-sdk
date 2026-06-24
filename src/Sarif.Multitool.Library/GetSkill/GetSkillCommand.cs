@@ -39,6 +39,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             new SortedDictionary<string, string>(StringComparer.Ordinal)
             {
                 ["emit-sarif"] = "skills/emit-sarif",
+                ["publish-to-ghas"] = "skills/publish-to-ghas",
                 ["publish-to-ghazdo"] = "skills/publish-to-ghazdo",
                 ["validate-sarif"] = "skills/validate-sarif",
             };
