@@ -2,7 +2,7 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://raw.githubusercontent.com/microsoft/sarif-sdk/main/src/Sarif.Multitool.Library/GetSchema/ai-sarif-log.schema.json",
   "title": "SARIF AI emit profile \u2014 finalized whole log",
-  "description": "Whole-document contract for a fully-enriched SARIF AI log: the output of the emit-finalize verb. An overlay on the canonical SARIF 2.1.0 document that reuses the base shape by $ref and tightens it to the Error-level AI rules at whole-log scale. Unlike the per-object input schemas, this is a POST-enrichment contract: it ACCEPTS the index/identity state finalize assigns (result.ruleIndex, result.guid, artifactLocation.index, run.taxonomies) and REQUIRES the run-scoped fields the AI profile mandates (tool.driver.name, a versionControlProvenance entry, properties[ai/origin]) plus, when a run carries the Azure DevOps pipeline shape, the GHAzDO automationDetails contract (GHAzDO1019/GHAzDO1020). What this schema cannot express at whole-log fidelity (e.g. the full org/project/buildId segment structure of automationDetails.id) is deferred to emit-finalize --validate.",
+  "description": "Whole-document contract for a fully-enriched SARIF AI log: the output of the emit-finalize verb. An overlay on the canonical SARIF 2.1.0 document that reuses the base shape by $ref and tightens it to the Error-level AI rules at whole-log scale. Unlike the per-object input schemas, this is a POST-enrichment contract: it ACCEPTS the index/identity state finalize assigns (result.ruleIndex, result.guid, artifactLocation.index, run.taxonomies) and REQUIRES the run-scoped fields the AI profile mandates (tool.driver.name, a versionControlProvenance entry unless the run is stamped properties[unpublishable]=true by emit-finalize --no-repo, properties[ai/origin]) plus, when a run carries the Azure DevOps pipeline shape, the GHAzDO automationDetails contract (GHAzDO1019/GHAzDO1020). What this schema cannot express at whole-log fidelity (e.g. the full org/project/buildId segment structure of automationDetails.id) is deferred to emit-finalize --validate.",
   "type": "object",
   "allOf": [
     {
@@ -27,7 +27,7 @@
   },
   "$defs": {
     "aiLogRun": {
-      "description": "A finalized AI run. Reuses the base run by $ref and tightens it to the AI profile: a named tool driver, at least one versionControlProvenance entry, properties[ai/origin], and a results array (which finalize always writes, possibly empty). Header-only forbids from the input profile are lifted here \u2014 results live in the whole log.",
+      "description": "A finalized AI run. Reuses the base run by $ref and tightens it to the AI profile: a named tool driver, properties[ai/origin], a results array (which finalize always writes, possibly empty), and \u2014 unless the run is stamped properties[unpublishable]=true by emit-finalize --no-repo \u2014 at least one versionControlProvenance entry. Header-only forbids from the input profile are lifted here \u2014 results live in the whole log.",
       "type": "object",
       "allOf": [
         {
@@ -36,10 +36,33 @@
       ],
       "required": [
         "tool",
-        "versionControlProvenance",
         "properties",
         "results"
       ],
+      "if": {
+        "required": [
+          "properties"
+        ],
+        "properties": {
+          "properties": {
+            "required": [
+              "unpublishable"
+            ],
+            "properties": {
+              "unpublishable": {
+                "const": true
+              }
+            }
+          }
+        }
+      },
+      "then": true,
+      "else": {
+        "description": "A publishable run must carry version-control provenance; a run finalized --no-repo (properties[unpublishable]=true) is exempt.",
+        "required": [
+          "versionControlProvenance"
+        ]
+      },
       "properties": {
         "tool": {
           "type": "object",

@@ -121,6 +121,22 @@ Given(
   },
 );
 
+Given(
+  'an open event log for tool {string} with a source root, no VCP, and ai\\/origin {string}',
+  async function (name, origin) {
+    if (!this.tmp) this.init();
+    this.runHeader = this.finalizableRunHeader(false);
+    this.runHeader.tool.driver.name = name;
+    this.runHeader.properties = { 'ai/origin': origin };
+    await emitRun({
+      output: this.output,
+      run: this.runHeader,
+      forceOverwrite: true,
+      env: this.env,
+    });
+  },
+);
+
 Given('emit-run has already been invoked', async function () {
   await emitRun({ output: this.output, run: this.runHeader, env: this.env });
 });
@@ -338,6 +354,26 @@ When('emit-finalize is invoked expecting failure', async function () {
   }
 });
 
+When('emit-finalize is invoked with no-repo', async function () {
+  const r = await emitFinalize({ output: this.output, keepWip: true, noRepo: true });
+  this.finalizedLog = r.log;
+});
+
+When('emit-finalize is invoked with no-repo and validation', async function () {
+  const r = await emitFinalize({ output: this.output, keepWip: true, noRepo: true, validate: true });
+  this.finalizedLog = r.log;
+  this.validation = r.validation;
+});
+
+When('emit-finalize is invoked with no-repo expecting failure', async function () {
+  try {
+    await emitFinalize({ output: this.output, keepWip: true, noRepo: true });
+    assert.fail('emit-finalize --no-repo was expected to fail but succeeded');
+  } catch (err) {
+    this.lastError = err;
+  }
+});
+
 // ---------------------------------------------------------------------------
 // Then — event log
 // ---------------------------------------------------------------------------
@@ -520,6 +556,10 @@ Then(
 Then('the finalized SARIF contains no {string} anywhere', function (fragment) {
   const text = readFileSync(this.output, 'utf8');
   assert.ok(!text.includes(fragment), `output SARIF still contains '${fragment}'`);
+});
+
+Then('the finalized SARIF run property {string} is true', function (key) {
+  assert.equal(finalizedRun(this).properties?.[key], true);
 });
 
 Then('the finalized SARIF rule {string} has a non-empty {string}', function (id, field) {

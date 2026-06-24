@@ -538,6 +538,36 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         }
 
         [Fact]
+        public void Run_WithNoRepoAndValidate_DoesNotFaultRepolessRunForMissingVersionControl()
+        {
+            // Regression for #3100: --no-repo deliberately omits versionControlProvenance and stamps
+            // the run unpublishable. The --validate gate must not fault that run with AI1004 (the rule
+            // skips the unpublishable marker), even though other AI-profile findings may still fire.
+            SeedWip(
+                (SarifEventKinds.RunHeader, RepoLessRunHeader()),
+                (SarifEventKinds.Result, NovelResult()));
+
+            new EmitFinalizeCommand().Run(new EmitFinalizeOptions
+            {
+                OutputFilePath = OutPath,
+                NoRepo = true,
+                Validate = true,
+            });
+
+            string reportPath = Path.Combine(_dir, "scan.validate-report.sarif");
+            File.Exists(reportPath).Should().BeTrue();
+
+            using var sr = new StreamReader(reportPath);
+            using var jr = new JsonTextReader(sr);
+            SarifLog report = JsonSerializer.CreateDefault().Deserialize<SarifLog>(jr);
+
+            report.Runs
+                .SelectMany(r => r.Results ?? new List<Result>())
+                .Where(res => res.RuleId == "AI1004")
+                .Should().BeEmpty("--no-repo stamps the run unpublishable, exempting it from AI1004");
+        }
+
+        [Fact]
         public void Run_StampsCweSecuritySeverityFromCuratedTable()
         {
             // A finding on a CWE rule (sub-id form collapses to descriptor "CWE-79"); finalize

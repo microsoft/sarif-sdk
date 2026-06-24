@@ -73,6 +73,39 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         }
 
         [Fact]
+        public void AILogSchema_AcceptsRepoLessRunWhenStampedUnpublishable()
+        {
+            // emit-finalize --no-repo finalizes a run with no versionControlProvenance and stamps
+            // properties[unpublishable]=true. The schema must exempt that run from the VCP requirement
+            // (parity with the AI1004 rule, which skips the same marker) while still rejecting an
+            // unmarked VCP-less run.
+            var offenders = new List<string>();
+
+            void Expect(string label, JsonObject run, bool accept)
+            {
+                if (Accepts(s_logSchema, MakeLog(run)) != accept)
+                {
+                    offenders.Add($"  [{label}] expected accept={accept}");
+                }
+            }
+
+            JsonObject unpublishable = MakeRun();
+            unpublishable.Remove("versionControlProvenance");
+            unpublishable["properties"] = new JsonObject { ["ai/origin"] = "generated", ["unpublishable"] = true };
+            Expect("no-vcp-unpublishable", unpublishable, true);
+
+            JsonObject falseMarker = MakeRun();
+            falseMarker.Remove("versionControlProvenance");
+            falseMarker["properties"] = new JsonObject { ["ai/origin"] = "generated", ["unpublishable"] = false };
+            Expect("no-vcp-unpublishable-false", falseMarker, false);
+
+            offenders.Should().BeEmpty(
+                "ai-sarif-log.schema.json must accept a versionControlProvenance-less run stamped " +
+                "properties[unpublishable]=true (emit-finalize --no-repo) and still reject one that is not:\n" +
+                string.Join("\n", offenders));
+        }
+
+        [Fact]
         public void AILogSchema_RequiresVersionAndNonEmptyRuns()
         {
             var offenders = new List<string>();

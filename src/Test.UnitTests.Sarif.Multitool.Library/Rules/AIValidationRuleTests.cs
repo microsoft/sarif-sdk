@@ -611,6 +611,22 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             results.Should().BeEmpty("VCP is present in the valid log");
         }
 
+        [Fact]
+        public void AI1004_WhenRunMarkedUnpublishable_NoResult()
+        {
+            SarifLog log = CreateValidAISarifLog();
+            SetAIOrigin(log, "generated");
+            SetExploitability(log, "demonstrated");
+            log.Runs[0].VersionControlProvenance = null;
+            log.Runs[0].SetProperty(EmitFinalizeCommand.UnpublishablePropertyName, true);
+
+            SarifLog output = RunAIValidation(log);
+            List<Result> results = GetResultsForRule(output, "AI1004");
+
+            results.Should().BeEmpty(
+                "a run finalized --no-repo is stamped unpublishable and must be exempt from AI1004");
+        }
+
         #endregion
 
         #region SARIF2017 — does NOT fire in AI-only profile
