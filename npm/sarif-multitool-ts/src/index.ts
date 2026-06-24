@@ -33,6 +33,7 @@ export {
   reportValidation,
   validationReportPath,
   buildValidationReportSarif,
+  buildValidationReceipt,
   MAX_STDERR_DETAILS,
 } from './validateReport.js';
 

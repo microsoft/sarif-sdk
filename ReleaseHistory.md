@@ -15,7 +15,7 @@ Entries are terse by design: one line per change, present-tense behavior, comple
 
 ## **v5.4.1** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/v5.4.1) | [Driver](https://www.nuget.org/packages/Sarif.Driver/v5.4.1) | [Converters](https://www.nuget.org/packages/Sarif.Converters/v5.4.1) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/v5.4.1) | [Multitool Library](https://www.nuget.org/packages/Sarif.Multitool.Library/v5.4.1)
 * BUG: `AI1004.ProvideVersionControlProvenance` and the `ai-sarif-log.schema.json` whole-log contract exempt a run stamped `properties.unpublishable` (finalized `--no-repo`), so `emit-finalize --no-repo --validate` no longer faults the provenance it omits.
-* BUG: `emit-finalize --validate` writes non-conformance detail (counts plus per-error rule id, location, message, capped at 20) to stderr and persists full findings to `<output>.validate-report.sarif`; .NET and `@microsoft/sarif-multitool-ts` now channel identically.
+* BUG: `emit-finalize --validate` writes a structured verdict receipt (`conforms`, counts, `reportPath`, full `errors`) to stdout always, a capped summary to stderr on failure, and full findings to `<output>.validate-report.sarif`; .NET and `@microsoft/sarif-multitool-ts` channel identically.
 * BUG: `get-skill` registers the `publish-to-ghas` skill, which shipped in the repository but was absent from the catalog; `get-skill --list` now enumerates it and `get-skill publish-to-ghas` resolves it.
 * NEW: `emit-finalize --no-repo` in `@microsoft/sarif-multitool-ts` finalizes a repo-less scan, eliding transient local roots and stamping `properties.unpublishable`, matching the .NET switch.
 

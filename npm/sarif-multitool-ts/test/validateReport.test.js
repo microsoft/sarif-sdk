@@ -3,11 +3,11 @@
 
 /**
  * Unit coverage for `reportValidation` — the channeling layer behind
- * `emit-finalize --validate`. Asserts the verdict is debuggable from a CI log:
- * on failure the count header, per-error detail, and report pointer all go to
- * stderr (never stdout), and the complete findings are persisted to a
- * `<output>.validate-report.sarif` file. On success a one-line summary goes to
- * stdout and no report is written.
+ * `emit-finalize --validate`. Asserts the converged contract: a structured JSON
+ * receipt (verdict + full, uncapped error set) goes to stdout on every run; on
+ * failure a capped human summary also goes to stderr and the complete findings
+ * are persisted to a `<output>.validate-report.sarif` file; on success no report
+ * is written.
  *
  * Runs against the built dist/. Run via `npm run test:unit`.
  */
@@ -58,27 +58,44 @@ function nonConformantOutcome(count) {
   return { valid: false, errors: details.map((d) => `${d.instancePath}: ${d.message}`), details };
 }
 
-test('a conforming outcome prints a one-line summary to stdout and writes no report', () => {
+test('a conforming outcome writes a structured receipt to stdout and no report', () => {
   withTempOutput((output) => {
     const { exit, stdout, stderr } = capture(() =>
       reportValidation(output, { valid: true, errors: [], details: [] }),
     );
     assert.equal(exit, 0);
-    assert.match(stdout, /conforms to ai-sarif-log\.schema\.json/);
     assert.equal(stderr, '');
     assert.equal(existsSync(validationReportPath(output)), false);
+
+    const receipt = JSON.parse(stdout);
+    assert.equal(receipt.conforms, true);
+    assert.equal(receipt.profile, 'ai-sarif-log.schema.json');
+    assert.equal(receipt.errorCount, 0);
+    assert.equal(receipt.reportPath, null);
+    assert.deepEqual(receipt.errors, []);
   });
 });
 
-test('a failing outcome writes all detail to stderr, not stdout', () => {
+test('a failing outcome writes a structured receipt to stdout and a human summary to stderr', () => {
   withTempOutput((output) => {
     const { exit, stdout, stderr } = capture(() => reportValidation(output, nonConformantOutcome(2)));
     assert.equal(exit, 1);
 
+    // stderr: the human summary.
     assert.match(stderr, /does not conform/);
     assert.match(stderr, /Full report:/);
     assert.match(stderr, /\n {2}pattern @ \/runs\/0\/results\/0\/ruleId — must match pattern/);
 
+    // stdout: the structured receipt — parseable, with the full error set.
+    const receipt = JSON.parse(stdout);
+    assert.equal(receipt.conforms, false);
+    assert.equal(receipt.errorCount, 2);
+    assert.equal(receipt.errors.length, 2);
+    assert.equal(receipt.errors[0].ruleId, 'pattern');
+    assert.equal(receipt.errors[0].location, '/runs/0/results/0/ruleId');
+    assert.match(receipt.reportPath, /scan\.validate-report\.sarif$/);
+
+    // The human prose never leaks onto stdout.
     assert.doesNotMatch(stdout, /does not conform/);
     assert.doesNotMatch(stdout, /Full report:/);
   });
@@ -99,12 +116,17 @@ test('a failing outcome persists a valid SARIF report next to the output', () =>
   });
 });
 
-test('stderr caps per-error detail at 20 and points the overflow at the report file', () => {
+test('stderr caps detail at 20 while the stdout receipt carries the full uncapped set', () => {
   withTempOutput((output) => {
-    const { stderr } = capture(() => reportValidation(output, nonConformantOutcome(25)));
+    const { stdout, stderr } = capture(() => reportValidation(output, nonConformantOutcome(25)));
 
     const detailLines = stderr.split('\n').filter((l) => / @ \//.test(l));
     assert.equal(detailLines.length, 20);
     assert.match(stderr, /\.\.\.and 5 more error\(s\)\./);
+
+    // The receipt is never capped — it is the machine-readable channel.
+    const receipt = JSON.parse(stdout);
+    assert.equal(receipt.errorCount, 25);
+    assert.equal(receipt.errors.length, 25);
   });
 });

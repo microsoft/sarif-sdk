@@ -53,7 +53,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
         [Option(
             "validate",
-            HelpText = "After writing the SARIF, run the multitool validator (--rule-kind Sarif;AI) against the output. On non-conformance, writes a concise per-error summary (rule id, location, message) to stderr, persists the full findings to <output>.validate-report.sarif, and fails with a non-zero exit. A conforming run prints a one-line count summary to stdout; Warnings/Notes are reported but do not fail.",
+            HelpText = "After writing the SARIF, run the multitool validator (--rule-kind Sarif;AI) against the output. Every run writes a structured JSON receipt — { conforms, profile, errorCount, warningCount, noteCount, reportPath, errors } with the full error set — to stdout. A non-conforming run additionally writes a concise per-error summary (rule id, location, message; capped at 20) to stderr, persists the full findings to <output>.validate-report.sarif, and fails with a non-zero exit. A conforming run deletes the report (reportPath null); Warnings/Notes are reported but do not fail.",
             Default = false)]
         public bool Validate { get; set; }
 

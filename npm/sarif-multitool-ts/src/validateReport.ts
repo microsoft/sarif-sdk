@@ -2,11 +2,14 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 /**
- * Channels the `emit-finalize --validate` verdict the way the emit verbs do, and
- * the way the .NET multitool does: a conforming log prints a one-line summary to
- * stdout; a non-conforming log writes the count header plus concise per-error
- * detail (capped at {@link MAX_STDERR_DETAILS}) to stderr — the channel a CI
- * pipeline reliably captures — and persists the complete set of findings to a
+ * Channels the `emit-finalize --validate` verdict the way the emit batch verbs do, and
+ * the way the .NET multitool does. A structured JSON receipt
+ * (`{ conforms, profile, errorCount, warningCount, noteCount, reportPath, errors }`,
+ * the full error set uncapped) is written to stdout on every run, pass or fail — the
+ * machine-readable twin of the batch verbs' `{ appended, rejected }`. A non-conforming
+ * run additionally writes a concise, human-readable summary (count header plus per-error
+ * detail, capped at {@link MAX_STDERR_DETAILS}) to stderr — the channel a CI pipeline
+ * reliably captures — and persists the complete set of findings to a
  * `<output>.validate-report.sarif` file for machine consumption.
  */
 
@@ -14,6 +17,9 @@ import { writeFileSync } from 'node:fs';
 import path from 'node:path';
 import process from 'node:process';
 import type { ValidationDetail, ValidationOutcome } from './validate.js';
+
+/** The schema this verb validates against; carried in the stdout receipt's `profile`. */
+const PROFILE = 'ai-sarif-log.schema.json';
 
 /**
  * Maximum number of findings whose detail is streamed to stderr before the
@@ -62,20 +68,52 @@ export function buildValidationReportSarif(details: readonly ValidationDetail[])
 }
 
 /**
+ * Builds the structured stdout receipt: the verdict, the profile, the per-level counts
+ * (TS validation is schema-only, so every finding is an error — warnings/notes are 0),
+ * the persisted report path (null when conforming), and the full, uncapped error set.
+ * Each error is the flat, pipeable twin of a stderr detail line: `{ ruleId, location,
+ * message }`, where `ruleId` is the failing ajv keyword and `location` the JSON Pointer.
+ */
+export function buildValidationReceipt(
+  outcome: ValidationOutcome,
+  reportPath: string | null,
+): Record<string, unknown> {
+  return {
+    conforms: outcome.valid,
+    profile: PROFILE,
+    errorCount: outcome.details.length,
+    warningCount: 0,
+    noteCount: 0,
+    reportPath,
+    errors: outcome.details.map((d) => ({
+      ruleId: d.keyword,
+      location: where(d.instancePath),
+      message: d.message,
+    })),
+  };
+}
+
+/**
  * Reports the validation verdict and returns the process exit code (0 conforms,
- * 1 does not). On failure the structured report is written next to the output.
+ * 1 does not). The structured receipt is written to stdout on every run; on failure
+ * the full report is also persisted next to the output and a capped human summary is
+ * written to stderr.
  */
 export function reportValidation(outputPath: string, outcome: ValidationOutcome): number {
   if (outcome.valid) {
-    process.stdout.write('--validate: conforms to ai-sarif-log.schema.json.\n');
+    process.stdout.write(JSON.stringify(buildValidationReceipt(outcome, null), undefined, 2) + '\n');
     return 0;
   }
 
   const reportPath = validationReportPath(outputPath);
   writeFileSync(reportPath, JSON.stringify(buildValidationReportSarif(outcome.details), undefined, 2));
 
+  process.stdout.write(
+    JSON.stringify(buildValidationReceipt(outcome, reportPath), undefined, 2) + '\n',
+  );
+
   const lines: string[] = [
-    `--validate: ${outcome.details.length} error(s) — '${outputPath}' does not conform to ai-sarif-log.schema.json.`,
+    `--validate: ${outcome.details.length} error(s) — '${outputPath}' does not conform to ${PROFILE}.`,
   ];
 
   const shown = Math.min(outcome.details.length, MAX_STDERR_DETAILS);
