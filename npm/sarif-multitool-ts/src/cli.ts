@@ -21,6 +21,7 @@ import {
   addNotificationReportingDescriptors,
 } from './addReportingDescriptors.js';
 import { emitFinalize } from './emitFinalize.js';
+import { reportValidation } from './validateReport.js';
 import { getSchema, listSchemas } from './getSchema.js';
 import { getSkill, listSkills } from './getSkill.js';
 import { getCweTaxonomy } from './getCwe.js';
@@ -199,20 +200,11 @@ async function main(): Promise<number> {
         `Wrote '${r.outputPath}' (${r.resultCount} result(s), ${r.ruleCount} rule(s)).\n`,
       );
       if (r.validation) {
-        if (r.validation.valid) {
-          process.stdout.write('Validation: conforms to ai-sarif-log.schema.json.\n');
-        } else {
-          process.stderr.write(
-            `Validation: does not conform to ai-sarif-log.schema.json (${r.validation.errors.length} error(s)):\n`,
-          );
-          for (const e of r.validation.errors) process.stderr.write(`  ${e}\n`);
-          return 1;
-        }
-      } else {
-        process.stdout.write(
-          'Validation: not run. Pass --validate to check the finalized SARIF against ai-sarif-log.schema.json.\n',
-        );
+        return reportValidation(r.outputPath, r.validation);
       }
+      process.stdout.write(
+        'Validation: not run. Pass --validate to check the finalized SARIF against ai-sarif-log.schema.json.\n',
+      );
       return 0;
     }
 

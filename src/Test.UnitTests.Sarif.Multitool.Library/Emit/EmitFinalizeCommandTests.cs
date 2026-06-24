@@ -12,6 +12,7 @@ using Microsoft.CodeAnalysis.Sarif.Driver;
 using Microsoft.CodeAnalysis.Sarif.Emit;
 
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 using Xunit;
 
@@ -535,6 +536,67 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             exit.Should().Be(CommandBase.FAILURE);
             File.Exists(OutPath).Should().BeTrue();
             File.Exists(Path.Combine(_dir, "scan.validate-report.sarif")).Should().BeTrue();
+        }
+
+        [Fact]
+        public void Run_WithValidateFlag_OnFailure_WritesStructuredReceiptToStdoutAndHumanSummaryToStderr()
+        {
+            // Converged channel discipline: stdout carries a structured JSON receipt (the verdict
+            // and the full, uncapped error set) — the machine-readable twin of the emit batch verbs'
+            // { appended, rejected }; stderr carries the concise human summary (count header, capped
+            // per-error detail, report pointer) — the channel a CI log reliably captures; the full
+            // structured report persists to disk.
+            SeedWip(
+                (SarifEventKinds.RunHeader, RunHeader()));
+
+            (int exit, string stdout, string stderr) = RunCapturingBothStreams(new EmitFinalizeOptions
+            {
+                OutputFilePath = OutPath,
+                Validate = true,
+            });
+
+            exit.Should().Be(CommandBase.FAILURE);
+            File.Exists(Path.Combine(_dir, "scan.validate-report.sarif")).Should().BeTrue();
+
+            // stderr: the human summary.
+            stderr.Should().Contain("does not conform");
+            stderr.Should().Contain("[Sarif+AI]");
+            stderr.Should().Contain("Full report:");
+            stderr.Should().Contain("\n  ", "each Error-level finding is rendered as an indented detail line");
+
+            // stdout: the structured receipt — parseable, carrying the verdict and full error set.
+            JObject receipt = JObject.Parse(stdout.Substring(stdout.IndexOf('{')));
+            receipt.Value<bool>("conforms").Should().BeFalse();
+            receipt.Value<string>("profile").Should().Be("Sarif;AI");
+            receipt.Value<int>("errorCount").Should().BeGreaterThan(0);
+            receipt.Value<string>("reportPath").Should().Contain("scan.validate-report.sarif");
+            ((JArray)receipt["errors"]).Count.Should().Be(receipt.Value<int>("errorCount"),
+                "the stdout receipt carries the full, uncapped error set");
+
+            // The human prose never leaks onto stdout.
+            stdout.Should().NotContain("does not conform");
+            stdout.Should().NotContain("Full report:");
+            stdout.Should().NotContain("[Sarif+AI]", "the bracketed human header stays on stderr");
+        }
+
+        private static (int exit, string stdout, string stderr) RunCapturingBothStreams(EmitFinalizeOptions options)
+        {
+            using var outWriter = new StringWriter();
+            using var errWriter = new StringWriter();
+            TextWriter originalOut = Console.Out;
+            TextWriter originalError = Console.Error;
+            Console.SetOut(outWriter);
+            Console.SetError(errWriter);
+            try
+            {
+                int exit = new EmitFinalizeCommand().Run(options);
+                return (exit, outWriter.ToString(), errWriter.ToString());
+            }
+            finally
+            {
+                Console.SetOut(originalOut);
+                Console.SetError(originalError);
+            }
         }
 
         [Fact]
