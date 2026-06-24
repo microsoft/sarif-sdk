@@ -111,3 +111,19 @@ test('the NOVEL escape-hatch ruleId is accepted', () => {
   log.runs[0].results[0].ruleId = 'NOVEL-llm-leak';
   assert.equal(validateFinalizedLog(log).valid, true);
 });
+
+test('a non-conformant outcome carries structured details parallel to errors', () => {
+  const log = conformantLog();
+  log.runs[0].results[0].ruleId = 'not-a-valid-id';
+  const r = validateFinalizedLog(log);
+  assert.equal(r.valid, false);
+  assert.equal(r.details.length, r.errors.length);
+  assert.ok(
+    r.details.every((d) => typeof d.keyword === 'string' && typeof d.instancePath === 'string'),
+    JSON.stringify(r.details),
+  );
+  assert.ok(
+    r.details.some((d) => d.instancePath.includes('/runs/0/results/0/ruleId')),
+    JSON.stringify(r.details),
+  );
+});

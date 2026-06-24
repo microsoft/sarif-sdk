@@ -32,6 +32,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         public const string UnpublishablePropertyName = "unpublishable";
 
         /// <summary>
+        /// Maximum number of Error-level findings whose detail <c>--validate</c> streams to stderr
+        /// before collapsing the remainder into a single "...and N more" line. Keeps a CI failure
+        /// log legible; the complete set is always in the persisted validate-report.sarif.
+        /// </summary>
+        internal const int MaxStderrErrorDetails = 20;
+
+        /// <summary>
         /// Reports whether <paramref name="log"/> carries any run stamped unpublishable by
         /// <c>emit-finalize --no-repo</c>. Publishing ingests every run in a file, so a single
         /// unpublishable run makes the whole log unpublishable. Shared by the publish verbs so the
@@ -608,8 +615,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         }
 
 
-        /// Prints a one-line summary of Error/Warning/Note counts and (on Error) the rule IDs
-        /// that fired. Returns FAILURE if any Error-level finding is reported; otherwise SUCCESS.
+        /// <summary>
+        /// Runs the Sarif+AI validator over the finalized log and channels the verdict like the
+        /// emit verbs: a conforming run prints a one-line count summary to stdout and deletes the
+        /// report; a non-conforming run writes the count header plus concise per-error detail
+        /// (rule id, location, message — capped at <see cref="MaxStderrErrorDetails"/>) to stderr
+        /// and keeps the full structured report on disk. Returns FAILURE on any Error-level
+        /// finding or if the validator could not produce a report; otherwise SUCCESS.
         /// </summary>
         internal static int RunValidatorAndReport(string outputPath)
         {
@@ -642,7 +654,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
                 SarifLog report = SarifLog.Load(reportPath);
                 int errors = 0, warnings = 0, notes = 0;
-                var errorRuleIds = new SortedSet<string>(StringComparer.Ordinal);
+                var errorDetails = new List<string>();
                 if (report?.Runs != null)
                 {
                     foreach (Run vrun in report.Runs)
@@ -654,10 +666,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                             {
                                 case FailureLevel.Error:
                                     errors++;
-                                    if (!string.IsNullOrEmpty(vr.RuleId))
-                                    {
-                                        errorRuleIds.Add(vr.RuleId);
-                                    }
+                                    errorDetails.Add(DescribeValidationError(vr));
                                     break;
                                 case FailureLevel.Warning:
                                     warnings++;
@@ -670,29 +679,56 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                     }
                 }
 
-                Console.Out.WriteLine(
-                    string.Format(
-                        CultureInfo.CurrentCulture,
-                        "--validate: {0} error(s), {1} warning(s), {2} note(s) [Sarif+AI].",
-                        errors,
-                        warnings,
-                        notes));
-
-                if (errors > 0)
+                if (errors == 0)
                 {
-                    Console.Error.WriteLine(
+                    // Conforms. The summary is informational (no failure), so it stays on stdout;
+                    // the report carries only the Warning/Note findings whose counts we just gave.
+                    Console.Out.WriteLine(
                         string.Format(
                             CultureInfo.CurrentCulture,
-                            "--validate: failing on Error-level rule(s): {0}. See '{1}' for details.",
-                            string.Join(", ", errorRuleIds),
-                            reportPath));
-                    return FAILURE;
+                            "--validate: 0 error(s), {0} warning(s), {1} note(s) [Sarif+AI].",
+                            warnings,
+                            notes));
+                    try { File.Delete(reportPath); } catch { /* janitorial */ }
+                    return SUCCESS;
                 }
 
-                // Clean up the report on success — Errors==0 means it carries only the noisy
-                // Warning/Note findings the caller has already been told the counts of.
-                try { File.Delete(reportPath); } catch { /* janitorial */ }
-                return SUCCESS;
+                // Non-conformant. Every byte of failure detail goes to stderr — the channel a CI
+                // pipeline reliably captures — so a failed run is debuggable from the log alone,
+                // while the complete structured report stays on disk for machine consumption.
+                var sb = new StringBuilder();
+                sb.AppendLine(
+                    string.Format(
+                        CultureInfo.CurrentCulture,
+                        "--validate: {0} error(s), {1} warning(s), {2} note(s) [Sarif+AI] — '{3}' does not conform.",
+                        errors,
+                        warnings,
+                        notes,
+                        outputPath));
+
+                int shown = Math.Min(errorDetails.Count, MaxStderrErrorDetails);
+                for (int i = 0; i < shown; i++)
+                {
+                    sb.AppendLine("  " + errorDetails[i]);
+                }
+
+                if (errorDetails.Count > shown)
+                {
+                    sb.AppendLine(
+                        string.Format(
+                            CultureInfo.CurrentCulture,
+                            "  ...and {0} more error(s).",
+                            errorDetails.Count - shown));
+                }
+
+                sb.Append(
+                    string.Format(
+                        CultureInfo.CurrentCulture,
+                        "  Full report: '{0}'.",
+                        reportPath));
+
+                Console.Error.WriteLine(sb.ToString());
+                return FAILURE;
             }
             catch (Exception ex)
             {
@@ -703,6 +739,61 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                         ex.Message));
                 return FAILURE;
             }
+        }
+
+        /// <summary>
+        /// Renders one Error-level validation result as a concise stderr line:
+        /// <c>ruleId @ uri:line:col — message</c>, eliding the <c>@ location</c> clause when the
+        /// result carries no resolvable location.
+        /// </summary>
+        private static string DescribeValidationError(Result result)
+        {
+            string ruleId = string.IsNullOrEmpty(result.RuleId) ? "(no rule id)" : result.RuleId;
+
+            string message = result.Message?.Text?.Trim();
+            if (string.IsNullOrEmpty(message)) { message = "(no message)"; }
+
+            string location = DescribeLocation(result);
+
+            return location == null
+                ? string.Format(CultureInfo.CurrentCulture, "{0} — {1}", ruleId, message)
+                : string.Format(CultureInfo.CurrentCulture, "{0} @ {1} — {2}", ruleId, location, message);
+        }
+
+        /// <summary>
+        /// Extracts a concise <c>uri:line:col</c> (column and line elided when absent) from a
+        /// result's first physical location, falling back to a logical location's fully qualified
+        /// name. Returns null when the result carries no usable location.
+        /// </summary>
+        private static string DescribeLocation(Result result)
+        {
+            if (result.Locations == null) { return null; }
+
+            foreach (Location loc in result.Locations)
+            {
+                PhysicalLocation phys = loc?.PhysicalLocation;
+                string uri = phys?.ArtifactLocation?.Uri?.OriginalString;
+                if (!string.IsNullOrEmpty(uri))
+                {
+                    Region region = phys.Region;
+                    if (region != null && region.StartLine > 0)
+                    {
+                        return region.StartColumn > 0
+                            ? string.Format(CultureInfo.CurrentCulture, "{0}:{1}:{2}", uri, region.StartLine, region.StartColumn)
+                            : string.Format(CultureInfo.CurrentCulture, "{0}:{1}", uri, region.StartLine);
+                    }
+
+                    return uri;
+                }
+
+                if (loc?.LogicalLocations != null && loc.LogicalLocations.Count > 0)
+                {
+                    string logical = loc.LogicalLocations[0].FullyQualifiedName;
+                    if (!string.IsNullOrEmpty(logical)) { return logical; }
+                }
+            }
+
+            return null;
         }
     }
 }

@@ -28,11 +28,22 @@ const addFormats = _addFormats as unknown as typeof _addFormats.default;
 // document, `#/definitions/run`, and `#/definitions/result` resolve.
 const SARIF_2_1_0_ID = 'https://json.schemastore.org/sarif-2.1.0.json';
 
+export interface ValidationDetail {
+  /** JSON Pointer into the validated log (`''` denotes the document root). */
+  instancePath: string;
+  /** The ajv failure message. */
+  message: string;
+  /** The ajv keyword that failed (e.g. `required`, `type`, `enum`). */
+  keyword: string;
+}
+
 export interface ValidationOutcome {
   /** True when the finalized log conforms to ai-sarif-log.schema.json. */
   valid: boolean;
   /** Human-readable `instancePath: message` strings, empty when valid. */
   errors: string[];
+  /** Structured per-error detail (channeling + report file), empty when valid. */
+  details: ValidationDetail[];
 }
 
 let cachedValidate: ValidateFunction | undefined;
@@ -50,18 +61,28 @@ function buildValidator(): ValidateFunction {
   return ajv.compile(overlay);
 }
 
-function formatErrors(errors: readonly ErrorObject[]): string[] {
+function buildDetails(errors: readonly ErrorObject[]): ValidationDetail[] {
   const seen = new Set<string>();
-  const out: string[] = [];
+  const out: ValidationDetail[] = [];
   for (const e of errors) {
-    const where = e.instancePath === '' ? '/' : e.instancePath;
-    const message = `${where}: ${e.message ?? 'is invalid'}`;
-    if (!seen.has(message)) {
-      seen.add(message);
-      out.push(message);
+    const detail: ValidationDetail = {
+      instancePath: e.instancePath,
+      message: e.message ?? 'is invalid',
+      keyword: e.keyword,
+    };
+    const key = `${detail.instancePath}: ${detail.message}`;
+    if (!seen.has(key)) {
+      seen.add(key);
+      out.push(detail);
     }
   }
   return out;
+}
+
+/** Renders one detail as the legacy `instancePath: message` string (root shown as `/`). */
+export function formatDetail(detail: ValidationDetail): string {
+  const where = detail.instancePath === '' ? '/' : detail.instancePath;
+  return `${where}: ${detail.message}`;
 }
 
 /**
@@ -72,7 +93,9 @@ function formatErrors(errors: readonly ErrorObject[]): string[] {
 export function validateFinalizedLog(log: SarifLog): ValidationOutcome {
   cachedValidate ??= buildValidator();
   const valid = cachedValidate(log) as boolean;
-  return valid
-    ? { valid: true, errors: [] }
-    : { valid: false, errors: formatErrors(cachedValidate.errors ?? []) };
+  if (valid) {
+    return { valid: true, errors: [], details: [] };
+  }
+  const details = buildDetails(cachedValidate.errors ?? []);
+  return { valid: false, errors: details.map(formatDetail), details };
 }

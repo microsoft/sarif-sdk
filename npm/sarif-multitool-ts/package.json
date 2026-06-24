@@ -46,7 +46,7 @@
     "prebuild": "node scripts/copy-assets.mjs",
     "build": "tsc",
     "test": "npm run build && cucumber-js",
-    "test:unit": "npm run build && node --test test/validate.test.js",
+    "test:unit": "npm run build && node --test test/validate.test.js test/validateReport.test.js",
     "test:conformance": "npm run build && node --test test/conformance.test.js",
     "test:memory": "npm run build && node --expose-gc test/memory-smoke.js"
   },

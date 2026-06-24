@@ -538,6 +538,55 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         }
 
         [Fact]
+        public void Run_WithValidateFlag_OnFailure_WritesAllDetailToStderrNotStdout()
+        {
+            // The verdict must be debuggable from a CI log, where only stderr is reliably captured.
+            // On non-conformance the count header, per-error detail, and report pointer all land on
+            // stderr; stdout carries none of the failure detail. Mirrors how the emit verbs reserve
+            // stderr for the can't-produce channel and keep the structured record on disk.
+            SeedWip(
+                (SarifEventKinds.RunHeader, RunHeader()));
+
+            (int exit, string stdout, string stderr) = RunCapturingBothStreams(new EmitFinalizeOptions
+            {
+                OutputFilePath = OutPath,
+                Validate = true,
+            });
+
+            exit.Should().Be(CommandBase.FAILURE);
+            File.Exists(Path.Combine(_dir, "scan.validate-report.sarif")).Should().BeTrue();
+
+            stderr.Should().Contain("does not conform");
+            stderr.Should().Contain("[Sarif+AI]");
+            stderr.Should().Contain("Full report:");
+            stderr.Should().Contain("\n  ", "each Error-level finding is rendered as an indented detail line");
+
+            stdout.Should().NotContain("does not conform");
+            stdout.Should().NotContain("Full report:");
+            stdout.Should().NotContain("[Sarif+AI]", "no count header or failure detail leaks to stdout on a failing run");
+        }
+
+        private static (int exit, string stdout, string stderr) RunCapturingBothStreams(EmitFinalizeOptions options)
+        {
+            using var outWriter = new StringWriter();
+            using var errWriter = new StringWriter();
+            TextWriter originalOut = Console.Out;
+            TextWriter originalError = Console.Error;
+            Console.SetOut(outWriter);
+            Console.SetError(errWriter);
+            try
+            {
+                int exit = new EmitFinalizeCommand().Run(options);
+                return (exit, outWriter.ToString(), errWriter.ToString());
+            }
+            finally
+            {
+                Console.SetOut(originalOut);
+                Console.SetError(originalError);
+            }
+        }
+
+        [Fact]
         public void Run_WithNoRepoAndValidate_DoesNotFaultRepolessRunForMissingVersionControl()
         {
             // Regression for #3100: --no-repo deliberately omits versionControlProvenance and stamps

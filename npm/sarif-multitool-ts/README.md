@@ -72,10 +72,12 @@ the contract.
 `emit-finalize --validate` checks the finalized SARIF against
 `ai-sarif-log.schema.json` — the AI emit profile overlay on the canonical
 SARIF 2.1.0 document schema. Both schemas are bundled, so validation runs
-fully offline. On a conforming log the CLI prints a confirmation and exits 0;
-on a non-conforming log it prints each `instancePath: message` to stderr and
-exits 1. The SARIF file is written either way — validation is a report, not a
-gate on the write.
+fully offline. On a conforming log the CLI prints a one-line summary to stdout
+and exits 0; on a non-conforming log it writes a count header plus concise
+per-error detail (`keyword @ instancePath — message`, capped at 20) to stderr —
+the channel a CI pipeline reliably captures — persists the complete set of
+findings to `<output>.validate-report.sarif`, and exits 1. The SARIF file is
+written either way — validation is a report, not a gate on the write.
 
 ```sh
 npx @microsoft/sarif-multitool-ts emit-finalize scan.sarif --validate
