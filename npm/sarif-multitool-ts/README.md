@@ -75,8 +75,9 @@ SARIF 2.1.0 document schema. Both schemas are bundled, so validation runs
 fully offline. Every run writes a structured JSON receipt — `{ conforms,
 profile, errorCount, warningCount, noteCount, reportPath, errors }`, carrying
 the full, uncapped error set — to stdout, the machine-readable twin of the emit
-batch verbs' `{ appended, rejected }`. On a conforming log it exits 0 and
-writes no report (`reportPath` null); on a non-conforming log it also writes a
+batch verbs' `{ appended, rejected }`. On a conforming log it exits 0, deletes
+`<output>.validate-report.sarif` if present, and emits `reportPath` null; on a
+non-conforming log it also writes a
 count header plus concise per-error detail (`keyword @ instancePath — message`,
 capped at 20) to stderr — the channel a CI pipeline reliably captures —
 persists the complete set of findings to `<output>.validate-report.sarif`, and
@@ -139,6 +140,31 @@ npx @microsoft/sarif-multitool-ts get-schema emit-finalize   # → ai-sarif-log.
 
 The verb→schema map mirrors the .NET multitool and is held in sync by a CI
 drift gate (`npm run test:conformance`).
+
+## CWE helpers
+
+The package bundles the MITRE CWE data the emit/validate path needs and exports
+it for direct use:
+
+```js
+import {
+  getCweTaxonomy,            // the full CWE Weakness taxonomy (CweTaxonomy.sarif)
+  getCweSecuritySeverityTable,
+  getCweCategories,          // { "CWE-16": "Configuration", ... }
+  isCweCategory,             // isCweCategory('CWE-16') === true
+  getCweCategoryName,        // getCweCategoryName('CWE-16') === 'Configuration'
+} from '@microsoft/sarif-multitool-ts';
+```
+
+A CWE **Category** (e.g. `CWE-16` "Configuration") is an organizational
+grouping, **never a valid `result.ruleId` mapping target**. Categories do **not**
+appear in `CweTaxonomy.sarif` / `getCweTaxonomy()` — they carry Weaknesses only —
+so a Category cannot be recognized from the taxonomy's `cwe/abstraction` field.
+Use `isCweCategory(id)` to flag a Category-mapped ruleId. The three functions
+mirror the .NET `CweCategories` helper and accept any form the SDK accepts: a
+canonical id (`CWE-16`, any case), a sub-id ruleId (`CWE-16/insecure-default`),
+and leading zeros; a bare number, the `NOVEL-` form, and non-strings resolve to
+`false` / `undefined`.
 
 ## Known gaps vs. the .NET tool (v1)
 
