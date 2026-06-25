@@ -86,7 +86,7 @@ Get-Content result-001.json | Sarif.Multitool emit-results my.sarif
 : Append a batch of results atomically (JSON array; reports appended/rejected indices on stdout)
 Sarif.Multitool emit-results my.sarif --input results-batch.json
 
-: Finalize: replay the event log into a SARIF file, enrich, and validate
+: Finalize: replay the event log into a SARIF file, enrich, and validate (verdict receipt to stdout always; capped summary to stderr and `<file>.validate-report.sarif` kept on failure; non-zero exit on non-conformance)
 Sarif.Multitool emit-finalize my.sarif --validate
 
 : Finalize a repo-less scan (no version control): elide the local root and mark the run unpublishable
