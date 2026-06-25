@@ -41,6 +41,7 @@ export {
 export { getSchema, listSchemas, SchemaByVerb } from './getSchema.js';
 export { getSkill, listSkills } from './getSkill.js';
 export { getCweTaxonomy, getCweSecuritySeverityTable } from './getCwe.js';
+export { getCweCategories, isCweCategory, getCweCategoryName } from './cweCategories.js';
 
 // Infrastructure.
 export { type BatchOutcome, type BatchElementError, EmitVerbError } from './batch.js';

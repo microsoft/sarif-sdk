@@ -22,6 +22,11 @@ function cp(src, dstDir, dstName) {
 cp(join(repo, 'src/Sarif/Taxonomies/CweTaxonomy.sarif'), join(pkg, 'assets'));
 cp(join(repo, 'src/Sarif/Taxonomies/CweSecuritySeverity.json'), join(pkg, 'assets'));
 
+// CWE Category id -> name map. Categories are organizational groupings, never a
+// valid result.ruleId mapping target; they do not appear in CweTaxonomy.sarif
+// (Weaknesses only), so they ship as their own file for isCweCategory().
+cp(join(repo, 'src/Sarif/Taxonomies/CweCategories.json'), join(pkg, 'assets'));
+
 // Canonical SARIF 2.1.0 document schema, bundled for offline whole-log
 // validation (emit-finalize --validate resolves the ai-sarif-log overlay's
 // $ref to it). It lives under assets/, not schemas/: schemas/ is the
