@@ -722,10 +722,10 @@ Provide the 'help' property and populate the 'text' property with information ab
     <value>AI-generated results must provide a 'region' property with at least 'startLine' in each physical location. Without precise location data, consumers cannot navigate to the finding or verify the AI's analysis. Providing 'startColumn', 'endLine', and 'endColumn' further improves precision.</value>
   </data>
   <data name="AI1003_ProvideRequiredRegionProperties_Error_MissingRegion_Text" xml:space="preserve">
-    <value>{0}: The 'region' property is absent. AI-generated results must provide a 'region' object with at least 'startLine' so that consumers can navigate to the precise location of the finding.</value>
+    <value>{0}: The 'region' property is absent. AI-generated results must express the location via a 'region' object in one of the SARIF §3.30 forms: line/column ('startLine'/'startColumn'/'endLine'/'endColumn'); char-offset ('charOffset'/'charLength'); or byte-offset ('byteOffset'/'byteLength'), so consumers can navigate to the precise location of the finding.</value>
   </data>
   <data name="AI1003_ProvideRequiredRegionProperties_Error_MissingRegionProperty_Text" xml:space="preserve">
-    <value>{0}: The 'startLine' property is absent. AI-generated results must provide at least 'startLine' in the 'region' object. Providing 'startColumn', 'endLine', and 'endColumn' further improves precision.</value>
+    <value>{0}: The 'region' object carries no positional information. AI-generated results must populate one of the SARIF §3.30 forms: line/column ('startLine'/'startColumn'/'endLine'/'endColumn'); char-offset ('charOffset'/'charLength'); or byte-offset ('byteOffset'/'byteLength').</value>
   </data>
   <data name="AI1004_ProvideVersionControlProvenance_FullDescription_Text" xml:space="preserve">
     <value>AI-generated SARIF runs must provide 'run.versionControlProvenance' to record which version of the code was analyzed. Without this, consumers cannot determine the exact code state the AI examined, making it impossible to verify findings or reproduce the analysis.</value>

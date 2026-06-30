@@ -191,24 +191,23 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         }
 
         [Fact]
-        public void Run_SingleObject_StampsEndTimeUtcWhenOmitted()
+        public void Run_SingleObject_OmittingEndTimeUtc_LeavesItAbsent()
         {
-            // A lone object's write is roughly coincident with the invocation's conclusion, so the
-            // verb fills endTimeUtc at receipt when the producer left it unset.
+            // The emit verb ingests an already-completed run; it never invents timing. An omitted
+            // endTimeUtc stays omitted rather than being relabeled with the emit machine's clock.
             SeedRunHeader();
 
             (int exit, _, _) = RunAddInvocations(
                 "{ \"executionSuccessful\": true, \"commandLine\": \"demo --scan src\", \"workingDirectory\": { \"uri\": \"file:///work/\" } }");
 
             exit.Should().Be(CommandBase.SUCCESS);
-            File.ReadAllLines(WipPath).Last().Should().Contain("\"endTimeUtc\"");
+            File.ReadAllLines(WipPath).Last().Should().NotContain("\"endTimeUtc\"");
         }
 
         [Fact]
         public void Run_Batch_AppendsAllInvocationsInOrder()
         {
-            // Batched invocations carry their own endTimeUtc (the receipt-time default is a
-            // single-submission affordance).
+            // Each invocation in a batch is appended in submission order.
             SeedRunHeader();
 
             (int exit, string stdout, _) = RunAddInvocations(
@@ -226,21 +225,35 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         }
 
         [Fact]
-        public void Run_Batch_RejectsInvocationMissingEndTimeUtc()
+        public void Run_Batch_OmittingEndTimeUtc_IsAccepted()
         {
-            // The receipt-time endTimeUtc default applies only to single submission; a batched
-            // invocation that omits endTimeUtc is rejected by index rather than fabricated.
+            // endTimeUtc is optional; a batched invocation that omits it is appended as-is, not
+            // rejected and not fabricated.
             SeedRunHeader();
 
             (int exit, string stdout, _) = RunAddInvocations(
                 "[ { \"executionSuccessful\": true, \"commandLine\": \"phase-0\", \"workingDirectory\": { \"uri\": \"file:///work/\" }, \"endTimeUtc\": \"2026-05-26T10:00:00.000Z\" }, " +
                 "{ \"executionSuccessful\": true, \"commandLine\": \"phase-1\", \"workingDirectory\": { \"uri\": \"file:///work/\" } } ]");
 
+            exit.Should().Be(CommandBase.SUCCESS);
+            stdout.Should().Contain("\"appended\": 2");
+            File.ReadAllLines(WipPath).Should().HaveCount(3);
+        }
+
+        [Fact]
+        public void Run_SingleObject_FutureEndTimeUtc_IsRejected()
+        {
+            // A completed run cannot carry a timestamp beyond the emit machine's clock; the verb
+            // refuses rather than recording an impossible future time.
+            SeedRunHeader();
+
+            string future = DateTime.UtcNow.AddHours(1).ToString("o");
+            (int exit, string stdout, _) = RunAddInvocations(
+                "{ \"executionSuccessful\": true, \"commandLine\": \"demo\", \"workingDirectory\": { \"uri\": \"file:///work/\" }, \"endTimeUtc\": \"" + future + "\" }");
+
             exit.Should().Be(CommandBase.FAILURE);
-            stdout.Should().Contain("\"appended\": 0");
-            stdout.Should().Contain("\"index\": 1");
-            stdout.Should().Contain("endTimeUtc");
-            File.ReadAllLines(WipPath).Should().HaveCount(1, "no element of a rejected batch may be appended");
+            stdout.Should().Contain("future");
+            File.ReadAllLines(WipPath).Should().HaveCount(1, "a rejected invocation must not be appended");
         }
 
         [Fact]
