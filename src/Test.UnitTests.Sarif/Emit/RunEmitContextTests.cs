@@ -1,12 +1,16 @@
 // Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
+using System;
+using System.Globalization;
+using System.IO;
 using System.Linq;
 
 using FluentAssertions;
 
 using Microsoft.CodeAnalysis.Sarif.Emit;
 
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
 using Xunit;
@@ -80,22 +84,19 @@ namespace Microsoft.CodeAnalysis.Sarif.Test.UnitTests.Emit
         }
 
         [Fact]
-        public void AddInvocations_SingleOmittingEndTimeUtc_StampsReceiptTime()
+        public void AddInvocations_SingleOmittingEndTimeUtc_LeavesEndTimeUtcAbsent()
         {
-            var sink = new InMemoryEmitSink();
-            var context = new RunEmitContext(sink);
-
-            EmitReport report = context.AddInvocations(Obj(
-                @"{ ""executionSuccessful"": true, ""commandLine"": ""scan"", ""workingDirectory"": { ""uri"": ""file:///repo/"" } }"));
+            (EmitReport report, InMemoryEmitSink sink) = EmitSingleInvocation(
+                @"{ ""executionSuccessful"": true, ""commandLine"": ""scan"", ""workingDirectory"": { ""uri"": ""file:///repo/"" } }");
 
             report.Succeeded.Should().BeTrue();
             report.Appended.Should().Be(1);
             JToken appended = sink.Events.Single(e => e.Kind == SarifEventKinds.Invocation).Payload;
-            appended["endTimeUtc"].Should().NotBeNull();
+            appended["endTimeUtc"].Should().BeNull();
         }
 
         [Fact]
-        public void AddInvocations_BatchOmittingEndTimeUtc_IsRejected()
+        public void AddInvocations_BatchOmittingEndTimeUtc_IsAccepted()
         {
             var sink = new InMemoryEmitSink();
             var context = new RunEmitContext(sink);
@@ -103,11 +104,68 @@ namespace Microsoft.CodeAnalysis.Sarif.Test.UnitTests.Emit
             EmitReport report = context.AddInvocations(Arr(
                 @"[ { ""executionSuccessful"": true, ""commandLine"": ""scan"", ""workingDirectory"": { ""uri"": ""file:///repo/"" } } ]"));
 
+            report.Succeeded.Should().BeTrue();
+            report.Appended.Should().Be(1);
+            sink.Events.Should().ContainSingle(e => e.Kind == SarifEventKinds.Invocation);
+        }
+
+        [Fact]
+        public void AddInvocations_EndTimeUtcInFuture_IsRejected()
+        {
+            (EmitReport report, _) = EmitSingleInvocation(InvocationWith("endTimeUtc", Future));
+
             report.Succeeded.Should().BeFalse();
-            report.Appended.Should().Be(0);
             report.Rejected.Should().ContainSingle()
-                .Which.Message.Should().Contain("endTimeUtc");
-            sink.Events.Should().BeEmpty();
+                .Which.Message.Should().Contain("future");
+        }
+
+        [Fact]
+        public void AddInvocations_StartTimeUtcInFuture_IsRejected()
+        {
+            (EmitReport report, _) = EmitSingleInvocation(InvocationWith("startTimeUtc", Future));
+
+            report.Succeeded.Should().BeFalse();
+            report.Rejected.Should().ContainSingle()
+                .Which.Message.Should().Contain("future");
+        }
+
+        [Fact]
+        public void AddInvocations_EndTimeUtcWithinSkewGrace_IsAccepted()
+        {
+            (EmitReport report, _) = EmitSingleInvocation(InvocationWith("endTimeUtc", WithinGrace));
+
+            report.Succeeded.Should().BeTrue();
+            report.Appended.Should().Be(1);
+        }
+
+        [Fact]
+        public void AddInvocations_PastTimes_AreAccepted()
+        {
+            (EmitReport report, _) = EmitSingleInvocation(InvocationWith("endTimeUtc", Past));
+
+            report.Succeeded.Should().BeTrue();
+            report.Appended.Should().Be(1);
+        }
+
+        [Fact]
+        public void AddInvocations_NotificationTimeUtcInFuture_IsRejected()
+        {
+            (EmitReport report, _) = EmitSingleInvocation(
+                $@"{{ ""executionSuccessful"": true, ""commandLine"": ""scan"", ""workingDirectory"": {{ ""uri"": ""file:///repo/"" }}, ""toolExecutionNotifications"": [ {{ ""message"": {{ ""text"": ""x"" }}, ""timeUtc"": ""{Future}"" }} ] }}");
+
+            report.Succeeded.Should().BeFalse();
+            report.Rejected.Should().ContainSingle()
+                .Which.Message.Should().Contain("future");
+        }
+
+        [Fact]
+        public void AddInvocations_NotificationTimeUtcInPast_IsAccepted()
+        {
+            (EmitReport report, _) = EmitSingleInvocation(
+                $@"{{ ""executionSuccessful"": true, ""commandLine"": ""scan"", ""workingDirectory"": {{ ""uri"": ""file:///repo/"" }}, ""toolExecutionNotifications"": [ {{ ""message"": {{ ""text"": ""x"" }}, ""timeUtc"": ""{Past}"" }} ] }}");
+
+            report.Succeeded.Should().BeTrue();
+            report.Appended.Should().Be(1);
         }
 
         [Fact]
@@ -202,5 +260,33 @@ namespace Microsoft.CodeAnalysis.Sarif.Test.UnitTests.Emit
         private static JObject Obj(string json) => (JObject)JToken.Parse(json);
 
         private static JArray Arr(string json) => (JArray)JToken.Parse(json);
+
+        private static string Future => DateTime.UtcNow.AddHours(1).ToString("o", CultureInfo.InvariantCulture);
+
+        private static string WithinGrace => DateTime.UtcNow.AddMinutes(2).ToString("o", CultureInfo.InvariantCulture);
+
+        private static string Past => DateTime.UtcNow.AddMinutes(-5).ToString("o", CultureInfo.InvariantCulture);
+
+        private static string InvocationWith(string propertyName, string timeValue) =>
+            $@"{{ ""executionSuccessful"": true, ""commandLine"": ""scan"", ""workingDirectory"": {{ ""uri"": ""file:///repo/"" }}, ""{propertyName}"": ""{timeValue}"" }}";
+
+        private static (EmitReport report, InMemoryEmitSink sink) EmitSingleInvocation(string invocationJson)
+        {
+            var sink = new InMemoryEmitSink();
+            var context = new RunEmitContext(sink);
+            EmitReport report = context.AddInvocations(ObjPreservingDates(invocationJson));
+            return (report, sink);
+        }
+
+        // Mirror the production reader: keep timeUtc/startTimeUtc/endTimeUtc as string tokens rather
+        // than letting JToken.Parse coerce them into Date tokens, so the receipt gate sees the same
+        // shape it sees at emit time.
+        private static JObject ObjPreservingDates(string json)
+        {
+            using (var reader = new JsonTextReader(new StringReader(json)) { DateParseHandling = DateParseHandling.None })
+            {
+                return (JObject)JToken.ReadFrom(reader);
+            }
+        }
     }
 }

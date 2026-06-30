@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 
+using Microsoft.CodeAnalysis.Sarif.Emit;
 using Microsoft.Json.Pointer;
 
 namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
@@ -186,6 +187,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         {
             if (reportingDescriptor.HelpUri == null)
             {
+                // A NOVEL- rule denotes an AI finding with no catalog entry, so there is no
+                // help topic to point at. Demanding a help URI here would push a producer to
+                // attest to a page that does not exist; CWE-backed and conventional rules,
+                // which do have stable documentation, continue to be noted.
+                if (AIRuleIdConvention.IsNovel(reportingDescriptor.Id))
+                {
+                    return;
+                }
+
                 string ruleMoniker = reportingDescriptor.Id;
                 if (!string.IsNullOrWhiteSpace(reportingDescriptor.Name))
                 {

@@ -18,9 +18,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Emit
     /// <param name="index">The element's zero-based position in the submitted payload.</param>
     /// <param name="batched">
     /// <c>true</c> when the payload arrived as a JSON array (batch submission); <c>false</c> when it
-    /// arrived as a lone JSON object. A validator that defaults a field from receipt time uses this to
-    /// refuse the default under batch submission, where one write instant cannot stand in for many
-    /// elements assembled after the fact.
+    /// arrived as a lone JSON object.
     /// </param>
     public delegate EmitElementError ValidateEmitElement(JObject element, int index, bool batched);
 
@@ -215,30 +213,22 @@ namespace Microsoft.CodeAnalysis.Sarif.Emit
 
         private static EmitElementError ValidateInvocation(JObject invocation, int index, bool batched)
         {
-            string message = ValidateInvocationReceipt(invocation);
-            if (message != null) { return new EmitElementError(index, message); }
+            // The emit verb ingests an already-completed run; it never invents timing. Optional
+            // start/end times are left exactly as the producer supplied them (or absent), and any
+            // time that is present is held to one invariant: it cannot lie in the future.
+            DateTime nowUtc = DateTime.UtcNow;
 
-            JToken endTimeUtc = invocation["endTimeUtc"];
-            bool hasEndTimeUtc = endTimeUtc != null && endTimeUtc.Type != JTokenType.Null;
-            if (!hasEndTimeUtc)
-            {
-                if (batched)
-                {
-                    return new EmitElementError(
-                        index,
-                        "Invalid invocation: 'endTimeUtc' is required when submitting invocations as a batch. The receipt-time default applies only to single (one-object) submission, where the write is roughly coincident with the invocation's conclusion; a batch is assembled after the fact, so each invocation must carry its own 'endTimeUtc'.");
-                }
+            string message = ValidateInvocationReceipt(invocation, nowUtc)
+                ?? ValidateProvidedTimeNotFuture(invocation["startTimeUtc"], "startTimeUtc", nowUtc)
+                ?? ValidateProvidedTimeNotFuture(invocation["endTimeUtc"], "endTimeUtc", nowUtc);
 
-                StampEndTimeUtc(invocation, DateTime.UtcNow);
-            }
-
-            return null;
+            return message != null ? new EmitElementError(index, message) : null;
         }
 
         // Receipt gate for the required fields of ai-invocation.schema.json; full structural
         // validation runs at emit-finalize --validate. Returns null when the invocation is
         // acceptable; otherwise a message describing the first violation.
-        private static string ValidateInvocationReceipt(JObject invocation)
+        private static string ValidateInvocationReceipt(JObject invocation, DateTime nowUtc)
         {
             JToken executionSuccessful = invocation["executionSuccessful"];
             if (executionSuccessful == null || executionSuccessful.Type != JTokenType.Boolean)
@@ -275,12 +265,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Emit
                 return "Invalid invocation: 'workingDirectory' must be an artifactLocation with a non-whitespace 'uri' or 'uriBaseId'.";
             }
 
-            // The AI profile requires timeUtc on every inline notification.
-            return ValidateNotificationTimes(invocation["toolExecutionNotifications"], "toolExecutionNotifications")
-                ?? ValidateNotificationTimes(invocation["toolConfigurationNotifications"], "toolConfigurationNotifications");
+            // The AI profile requires timeUtc on every inline notification, and that time — like
+            // every producer-supplied time — must not lie in the future.
+            return ValidateNotificationTimes(invocation["toolExecutionNotifications"], "toolExecutionNotifications", nowUtc)
+                ?? ValidateNotificationTimes(invocation["toolConfigurationNotifications"], "toolConfigurationNotifications", nowUtc);
         }
 
-        private static string ValidateNotificationTimes(JToken notifications, string arrayName)
+        private static string ValidateNotificationTimes(JToken notifications, string arrayName, DateTime nowUtc)
         {
             if (notifications == null || notifications.Type == JTokenType.Null) { return null; }
 
@@ -301,16 +292,60 @@ namespace Microsoft.CodeAnalysis.Sarif.Emit
                         "Invalid invocation: every '{0}' entry requires a non-whitespace 'timeUtc'.",
                         arrayName);
                 }
+
+                if (IsFutureTime(timeUtc, nowUtc))
+                {
+                    return string.Format(
+                        CultureInfo.CurrentCulture,
+                        "Invalid invocation: a '{0}' entry carries a 'timeUtc' that lies in the future relative to the emit machine's clock. A logged event cannot occur after the run that records it; supply the actual event time.",
+                        arrayName);
+                }
             }
 
             return null;
         }
 
-        private static void StampEndTimeUtc(JObject invocation, DateTime endTimeUtc)
+        // Producer-supplied times are compared against the emit machine's clock with a tolerance for
+        // benign cross-machine skew; a value beyond this horizon is an impossible future time for a
+        // completed run or a past event, and is rejected rather than recorded.
+        private static readonly TimeSpan FutureTimeSkewGrace = TimeSpan.FromMinutes(5);
+
+        private static string ValidateProvidedTimeNotFuture(JToken timeToken, string propertyName, DateTime nowUtc)
         {
-            invocation["endTimeUtc"] = endTimeUtc.ToString(
-                SarifUtilities.SarifDateTimeFormatMillisecondsPrecision,
-                CultureInfo.InvariantCulture);
+            if (!IsFutureTime(timeToken, nowUtc)) { return null; }
+
+            return string.Format(
+                CultureInfo.CurrentCulture,
+                "Invalid invocation: '{0}' lies in the future relative to the emit machine's clock. A completed run cannot carry a future timestamp; supply the actual time.",
+                propertyName);
+        }
+
+        private static bool IsFutureTime(JToken timeToken, DateTime nowUtc)
+        {
+            if (timeToken == null) { return false; }
+
+            DateTime parsed;
+            if (timeToken.Type == JTokenType.Date)
+            {
+                parsed = timeToken.Value<DateTime>();
+            }
+            else if (timeToken.Type == JTokenType.String
+                && DateTime.TryParse(
+                    timeToken.Value<string>(),
+                    CultureInfo.InvariantCulture,
+                    DateTimeStyles.AdjustToUniversal | DateTimeStyles.AssumeUniversal,
+                    out parsed))
+            {
+                // parsed assigned by TryParse.
+            }
+            else
+            {
+                // A malformed or non-string time cannot be range-checked here; emit-finalize
+                // enforces format conformance against the schema.
+                return false;
+            }
+
+            return parsed.ToUniversalTime() > nowUtc.Add(FutureTimeSkewGrace);
         }
 
         private ValidateEmitElement BuildDescriptorValidator(bool isRules, string payloadKind)

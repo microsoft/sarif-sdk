@@ -176,6 +176,82 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 .ToList();
         }
 
+        private static SarifLog RunSarifValidation(SarifLog inputLog)
+        {
+            string inputPath = Path.GetTempFileName() + ".sarif";
+            string outputPath = Path.GetTempFileName() + ".sarif";
+
+            try
+            {
+                inputLog.Save(inputPath);
+
+                var options = new ValidateOptions
+                {
+                    TargetFileSpecifiers = new string[] { inputPath },
+                    OutputFilePath = outputPath,
+                    OutputFileOptions = new[] { FilePersistenceOptions.ForceOverwrite },
+                    RuleKindOption = new List<RuleKind> { RuleKind.Sarif },
+                    Kind = new List<ResultKind> { ResultKind.Fail },
+                    Level = new List<FailureLevel> { FailureLevel.Note, FailureLevel.Warning, FailureLevel.Error },
+                };
+
+                var context = new SarifValidationContext { FileSystem = FileSystem.Instance };
+                new ValidateCommand().Run(options, ref context);
+
+                return SarifLog.Load(outputPath);
+            }
+            finally
+            {
+                if (File.Exists(inputPath))
+                {
+                    File.Delete(inputPath);
+                }
+
+                if (File.Exists(outputPath))
+                {
+                    File.Delete(outputPath);
+                }
+            }
+        }
+
+        #endregion
+
+        #region SARIF2012 — ProvideRuleProperties (NOVEL helpUri exemption)
+
+        [Fact]
+        public void SARIF2012_WhenConventionalRuleOmitsHelpUri_ReportsNote()
+        {
+            SarifLog log = CreateValidAISarifLog();
+
+            // A CWE-backed rule with no helpUri continues to be noted: such rules have stable
+            // catalog documentation to point at.
+            log.Runs[0].Tool.Driver.Rules[0].HelpUri = null;
+
+            SarifLog output = RunSarifValidation(log);
+            List<Result> results = GetResultsForRule(output, "SARIF2012");
+
+            bool hasHelpUriNote = results.Any(r => r.Message != null && r.Message.Id == "Note_ProvideHelpUri");
+            hasHelpUriNote.Should().BeTrue("a conventional rule without a helpUri should still be noted");
+        }
+
+        [Fact]
+        public void SARIF2012_WhenNovelRuleOmitsHelpUri_NoHelpUriNote()
+        {
+            SarifLog log = CreateValidAISarifLog();
+
+            // A NOVEL- rule denotes an AI finding with no catalog entry, so there is no help topic
+            // to attest to; SARIF2012 must not demand a helpUri for it.
+            log.Runs[0].Tool.Driver.Rules[0].Id = "NOVEL-prompt-injection";
+            log.Runs[0].Tool.Driver.Rules[0].HelpUri = null;
+            log.Runs[0].Results[0].RuleId = "NOVEL-prompt-injection";
+
+            SarifLog output = RunSarifValidation(log);
+            List<Result> results = GetResultsForRule(output, "SARIF2012");
+
+            bool hasHelpUriNote = results.Any(r => r.Message != null && r.Message.Id == "Note_ProvideHelpUri");
+            hasHelpUriNote.Should().BeFalse("a NOVEL- rule has no documentation page to point at");
+        }
+
         #endregion
 
         #region AI1012 — ProvideRuleSubId
@@ -577,6 +653,40 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             List<Result> results = GetResultsForRule(output, "AI1003");
 
             results.Should().BeEmpty("fully populated region should not trigger AI1003");
+        }
+
+        [Fact]
+        public void AI1003_WhenRegionIsOffsetBased_NoResult()
+        {
+            SarifLog log = CreateValidAISarifLog();
+            SetAIOrigin(log, "generated");
+            SetExploitability(log, "demonstrated");
+
+            // An offset-based text region (charOffset/charLength) is a complete §3.30 region; AI1003
+            // must not demand startLine in addition.
+            log.Runs[0].Results[0].Locations[0].PhysicalLocation.Region = new Region { CharOffset = 42, CharLength = 10 };
+
+            SarifLog output = RunAIValidation(log);
+            List<Result> results = GetResultsForRule(output, "AI1003");
+
+            results.Should().BeEmpty("an offset-based region satisfies AI1003");
+        }
+
+        [Fact]
+        public void AI1003_WhenRegionIsBinary_NoResult()
+        {
+            SarifLog log = CreateValidAISarifLog();
+            SetAIOrigin(log, "generated");
+            SetExploitability(log, "demonstrated");
+
+            // A binary region (byteOffset/byteLength) is a complete §3.30 region; AI1003 must not
+            // demand startLine in addition.
+            log.Runs[0].Results[0].Locations[0].PhysicalLocation.Region = new Region { ByteOffset = 128, ByteLength = 16 };
+
+            SarifLog output = RunAIValidation(log);
+            List<Result> results = GetResultsForRule(output, "AI1003");
+
+            results.Should().BeEmpty("a binary region satisfies AI1003");
         }
 
         #endregion
