@@ -163,7 +163,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             }
 
             int buildDefinitionIdValue = 0;
-            if (TryParseRequiredPositiveInt(buildDefIdPrimary, buildDefIdFallback, BuildDefinitionIdPrimaryEnvVar, BuildDefinitionIdFallbackEnvVar, present, problems, out int parsedBuildDefId))
+            if (TryParseRequiredPositiveInt(buildDefIdPrimary, buildDefIdFallback, BuildDefinitionIdPrimaryEnvVar, BuildDefinitionIdFallbackEnvVar, present, problems, allowNegativeOneSentinel: true, out int parsedBuildDefId))
             {
                 buildDefinitionIdValue = parsedBuildDefId;
             }
@@ -175,7 +175,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             }
 
             int buildIdValue = 0;
-            if (TryParseRequiredPositiveInt(buildId, null, BuildIdEnvVar, null, present, problems, out int parsedBuildId))
+            if (TryParseRequiredPositiveInt(buildId, null, BuildIdEnvVar, null, present, problems, allowNegativeOneSentinel: false, out int parsedBuildId))
             {
                 buildIdValue = parsedBuildId;
             }
@@ -525,7 +525,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             return true;
         }
 
-        private static bool TryParseRequiredPositiveInt(string primaryRaw, string fallbackRaw, string primaryEnvName, string fallbackEnvName, List<string> present, List<string> problems, out int value)
+        private static bool TryParseRequiredPositiveInt(string primaryRaw, string fallbackRaw, string primaryEnvName, string fallbackEnvName, List<string> present, List<string> problems, bool allowNegativeOneSentinel, out int value)
         {
             value = 0;
 
@@ -547,9 +547,18 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 return false;
             }
 
-            if (parsed <= 0)
+            // A valid build definition id is any positive integer, or the -1 sentinel ADO uses
+            // for runs not associated with a saved definition. Zero and any other negative value
+            // are rejected. Other pipeline ids (e.g. buildId) remain strictly positive.
+            if (parsed <= 0 && !(allowNegativeOneSentinel && parsed == -1))
             {
-                problems.Add(string.Format(CultureInfo.InvariantCulture, "{0}='{1}' must be a positive integer", sourceEnv, raw));
+                problems.Add(string.Format(
+                    CultureInfo.InvariantCulture,
+                    allowNegativeOneSentinel
+                        ? "{0}='{1}' must be a positive integer or the -1 sentinel"
+                        : "{0}='{1}' must be a positive integer",
+                    sourceEnv,
+                    raw));
                 return false;
             }
 

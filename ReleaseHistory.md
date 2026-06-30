@@ -13,6 +13,9 @@ Each release entry below is prefixed with one of:
 
 Entries are terse by design: one line per change, present-tense behavior, complete but only essential data. No issue/PR archaeology or narrative — that history lives in the engineering system.
 
+## **v5.4.3** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/v5.4.3) | [Driver](https://www.nuget.org/packages/Sarif.Driver/v5.4.3) | [Converters](https://www.nuget.org/packages/Sarif.Converters/v5.4.3) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/v5.4.3) | [Multitool Library](https://www.nuget.org/packages/Sarif.Multitool.Library/v5.4.3)
+* BUG: `GHAzDO1019.ProvidePipelineProperties`, the `emit-run` pipeline-context producer, and the `ai-sarif-log.schema.json` build contract accept `-1` as the buildDefinitionId sentinel for runs with no saved definition, still rejecting `0` and other negatives.
+
 ## **v5.4.2** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/v5.4.2) | [Driver](https://www.nuget.org/packages/Sarif.Driver/v5.4.2) | [Converters](https://www.nuget.org/packages/Sarif.Converters/v5.4.2) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/v5.4.2) | [Multitool Library](https://www.nuget.org/packages/Sarif.Multitool.Library/v5.4.2)
 * BUG: `SARIF2012.ProvideRuleProperties` exempts `NOVEL-` rules from the missing-`helpUri` note; a novel finding has no catalog topic to cite.
 * BUG: `emit-invocations` stops stamping a receipt-time `endTimeUtc` default and rejects any `startTimeUtc`, `endTimeUtc`, or notification `timeUtc` more than five minutes past the emit clock.
