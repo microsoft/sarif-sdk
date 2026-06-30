@@ -60,7 +60,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                         physicalLocationPointer,
                         nameof(RuleResources.AI1003_ProvideRequiredRegionProperties_Error_MissingRegion_Text));
                 }
-                else if (physicalLocation.Region.StartLine == 0)
+                else if (!physicalLocation.Region.IsLineColumnBasedTextRegion
+                      && !physicalLocation.Region.IsOffsetBasedTextRegion
+                      && !physicalLocation.Region.IsBinaryRegion)
                 {
                     string regionPointer = resultPointer
                         .AtProperty(SarifPropertyName.Locations)
