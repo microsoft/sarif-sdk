@@ -8,7 +8,7 @@ using System.ComponentModel;
 using System.Runtime.Serialization;
 
 using Newtonsoft.Json;
-
+using Stj = System.Text.Json.Serialization;
 namespace Microsoft.CodeAnalysis.Sarif
 {
     /// <summary>
@@ -40,117 +40,143 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// Information about the tool or tool pipeline that generated the results in this run. A run can only contain results produced by a single tool or tool pipeline. A run can aggregate results from multiple log files, as long as context around the tool run (tool command-line arguments and the like) is identical for all aggregated files.
         /// </summary>
         [DataMember(Name = "tool", IsRequired = true)]
+        [Stj.JsonPropertyName("tool")]
         public virtual Tool Tool { get; set; }
 
         /// <summary>
         /// Describes the invocation of the analysis tool.
         /// </summary>
         [DataMember(Name = "invocations", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("invocations")]
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
+        [Stj.JsonIgnore(Condition = Stj.JsonIgnoreCondition.WhenWritingDefault)]
         public virtual IList<Invocation> Invocations { get; set; }
 
         /// <summary>
         /// A conversion object that describes how a converter transformed an analysis tool's native reporting format into the SARIF format.
         /// </summary>
         [DataMember(Name = "conversion", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("conversion")]
         public virtual Conversion Conversion { get; set; }
 
         /// <summary>
         /// The language of the messages emitted into the log file during this run (expressed as an ISO 639-1 two-letter lowercase culture code) and an optional region (expressed as an ISO 3166-1 two-letter uppercase subculture code associated with a country or region). The casing is recommended but not required (in order for this data to conform to RFC5646).
         /// </summary>
         [DataMember(Name = "language", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("language")]
         [DefaultValue("en-US")]
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
+        [Stj.JsonIgnore(Condition = Stj.JsonIgnoreCondition.WhenWritingDefault)]
         public virtual string Language { get; set; }
 
         /// <summary>
         /// Specifies the revision in version control of the artifacts that were scanned.
         /// </summary>
         [DataMember(Name = "versionControlProvenance", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("versionControlProvenance")]
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
+        [Stj.JsonIgnore(Condition = Stj.JsonIgnoreCondition.WhenWritingDefault)]
         public virtual IList<VersionControlDetails> VersionControlProvenance { get; set; }
 
         /// <summary>
         /// The artifact location specified by each uriBaseId symbol on the machine where the tool originally ran.
         /// </summary>
         [DataMember(Name = "originalUriBaseIds", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("originalUriBaseIds")]
         public virtual IDictionary<string, ArtifactLocation> OriginalUriBaseIds { get; set; }
 
         /// <summary>
         /// An array of artifact objects relevant to the run.
         /// </summary>
         [DataMember(Name = "artifacts", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("artifacts")]
         public virtual IList<Artifact> Artifacts { get; set; }
 
         /// <summary>
         /// An array of logical locations such as namespaces, types or functions.
         /// </summary>
         [DataMember(Name = "logicalLocations", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("logicalLocations")]
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
+        [Stj.JsonIgnore(Condition = Stj.JsonIgnoreCondition.WhenWritingDefault)]
         public virtual IList<LogicalLocation> LogicalLocations { get; set; }
 
         /// <summary>
         /// An array of zero or more unique graph objects associated with the run.
         /// </summary>
         [DataMember(Name = "graphs", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("graphs")]
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
+        [Stj.JsonIgnore(Condition = Stj.JsonIgnoreCondition.WhenWritingDefault)]
         public virtual IList<Graph> Graphs { get; set; }
 
         /// <summary>
         /// The set of results contained in an SARIF log. The results array can be omitted when a run is solely exporting rules metadata. It must be present (but may be empty) if a log file represents an actual scan.
         /// </summary>
         [DataMember(Name = "results", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("results")]
         public virtual IList<Result> Results { get; set; }
 
         /// <summary>
         /// Automation details that describe this run.
         /// </summary>
         [DataMember(Name = "automationDetails", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("automationDetails")]
         public virtual RunAutomationDetails AutomationDetails { get; set; }
 
         /// <summary>
         /// Automation details that describe the aggregate of runs to which this run belongs.
         /// </summary>
         [DataMember(Name = "runAggregates", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("runAggregates")]
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
+        [Stj.JsonIgnore(Condition = Stj.JsonIgnoreCondition.WhenWritingDefault)]
         public virtual IList<RunAutomationDetails> RunAggregates { get; set; }
 
         /// <summary>
         /// The 'guid' property of a previous SARIF 'run' that comprises the baseline that was used to compute result 'baselineState' properties for the run.
         /// </summary>
         [DataMember(Name = "baselineGuid", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("baselineGuid")]
         public virtual Guid? BaselineGuid { get; set; }
 
         /// <summary>
         /// An array of strings used to replace sensitive information in a redaction-aware property.
         /// </summary>
         [DataMember(Name = "redactionTokens", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("redactionTokens")]
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
+        [Stj.JsonIgnore(Condition = Stj.JsonIgnoreCondition.WhenWritingDefault)]
         public virtual IList<string> RedactionTokens { get; set; }
 
         /// <summary>
         /// Specifies the default encoding for any artifact object that refers to a text file.
         /// </summary>
         [DataMember(Name = "defaultEncoding", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("defaultEncoding")]
         public virtual string DefaultEncoding { get; set; }
 
         /// <summary>
         /// Specifies the default source language for any artifact object that refers to a text file that contains source code.
         /// </summary>
         [DataMember(Name = "defaultSourceLanguage", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("defaultSourceLanguage")]
         public virtual string DefaultSourceLanguage { get; set; }
 
         /// <summary>
         /// An ordered list of character sequences that were treated as line breaks when computing region information for the run.
         /// </summary>
         [DataMember(Name = "newlineSequences", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("newlineSequences")]
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
+        [Stj.JsonIgnore(Condition = Stj.JsonIgnoreCondition.WhenWritingDefault)]
         public virtual IList<string> NewlineSequences { get; set; }
 
         /// <summary>
         /// Specifies the unit in which the tool measures columns.
         /// </summary>
         [DataMember(Name = "columnKind", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("columnKind")]
         [JsonConverter(typeof(Microsoft.CodeAnalysis.Sarif.Readers.EnumConverter))]
         public virtual ColumnKind ColumnKind { get; set; }
 
@@ -158,67 +184,84 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// References to external property files that should be inlined with the content of a root log file.
         /// </summary>
         [DataMember(Name = "externalPropertyFileReferences", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("externalPropertyFileReferences")]
         public virtual ExternalPropertyFileReferences ExternalPropertyFileReferences { get; set; }
 
         /// <summary>
         /// An array of threadFlowLocation objects cached at run level.
         /// </summary>
         [DataMember(Name = "threadFlowLocations", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("threadFlowLocations")]
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
+        [Stj.JsonIgnore(Condition = Stj.JsonIgnoreCondition.WhenWritingDefault)]
         public virtual IList<ThreadFlowLocation> ThreadFlowLocations { get; set; }
 
         /// <summary>
         /// An array of toolComponent objects relevant to a taxonomy in which results are categorized.
         /// </summary>
         [DataMember(Name = "taxonomies", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("taxonomies")]
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
+        [Stj.JsonIgnore(Condition = Stj.JsonIgnoreCondition.WhenWritingDefault)]
         public virtual IList<ToolComponent> Taxonomies { get; set; }
 
         /// <summary>
         /// Addresses associated with this run instance, if any.
         /// </summary>
         [DataMember(Name = "addresses", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("addresses")]
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
+        [Stj.JsonIgnore(Condition = Stj.JsonIgnoreCondition.WhenWritingDefault)]
         public virtual IList<Address> Addresses { get; set; }
 
         /// <summary>
         /// The set of available translations of the localized data provided by the tool.
         /// </summary>
         [DataMember(Name = "translations", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("translations")]
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
+        [Stj.JsonIgnore(Condition = Stj.JsonIgnoreCondition.WhenWritingDefault)]
         public virtual IList<ToolComponent> Translations { get; set; }
 
         /// <summary>
         /// Contains configurations that may potentially override both reportingDescriptor.defaultConfiguration (the tool's default severities) and invocation.configurationOverrides (severities established at run-time from the command line).
         /// </summary>
         [DataMember(Name = "policies", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("policies")]
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
+        [Stj.JsonIgnore(Condition = Stj.JsonIgnoreCondition.WhenWritingDefault)]
         public virtual IList<ToolComponent> Policies { get; set; }
 
         /// <summary>
         /// An array of request objects cached at run level.
         /// </summary>
         [DataMember(Name = "webRequests", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("webRequests")]
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
+        [Stj.JsonIgnore(Condition = Stj.JsonIgnoreCondition.WhenWritingDefault)]
         public virtual IList<WebRequest> WebRequests { get; set; }
 
         /// <summary>
         /// An array of response objects cached at run level.
         /// </summary>
         [DataMember(Name = "webResponses", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("webResponses")]
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
+        [Stj.JsonIgnore(Condition = Stj.JsonIgnoreCondition.WhenWritingDefault)]
         public virtual IList<WebResponse> WebResponses { get; set; }
 
         /// <summary>
         /// A specialLocations object that defines locations of special significance to SARIF consumers.
         /// </summary>
         [DataMember(Name = "specialLocations", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("specialLocations")]
         public virtual SpecialLocations SpecialLocations { get; set; }
 
         /// <summary>
         /// Key/value pairs that provide additional information about the run.
         /// </summary>
         [DataMember(Name = "properties", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("properties")]
         internal override IDictionary<string, SerializedPropertyInfo> Properties { get; set; }
 
         /// <summary>

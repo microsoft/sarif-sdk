@@ -5,7 +5,7 @@ using System;
 using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
-
+using Stj = System.Text.Json.Serialization;
 namespace Microsoft.CodeAnalysis.Sarif.VersionOne
 {
     /// <summary>
@@ -35,54 +35,63 @@ namespace Microsoft.CodeAnalysis.Sarif.VersionOne
         /// The path to the file within its containing file.
         /// </summary>
         [DataMember(Name = "uri", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("uri")]
         public Uri Uri { get; set; }
 
         /// <summary>
         /// A string that identifies the conceptual base for the 'uri' property (if it is relative), e.g.,'$(SolutionDir)' or '%SRCROOT%'.
         /// </summary>
         [DataMember(Name = "uriBaseId", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("uriBaseId")]
         public string UriBaseId { get; set; }
 
         /// <summary>
         /// Identifies the key of the immediate parent of the file, if this file is nested.
         /// </summary>
         [DataMember(Name = "parentKey", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("parentKey")]
         public string ParentKey { get; set; }
 
         /// <summary>
         /// The offset in bytes of the file within its containing file.
         /// </summary>
         [DataMember(Name = "offset", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("offset")]
         public int Offset { get; set; }
 
         /// <summary>
         /// The length of the file in bytes.
         /// </summary>
         [DataMember(Name = "length", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("length")]
         public int Length { get; set; }
 
         /// <summary>
         /// The MIME type (RFC 2045) of the file.
         /// </summary>
         [DataMember(Name = "mimeType", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("mimeType")]
         public string MimeType { get; set; }
 
         /// <summary>
         /// The contents of the file, expressed as a MIME Base64-encoded byte sequence.
         /// </summary>
         [DataMember(Name = "contents", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("contents")]
         public string Contents { get; set; }
 
         /// <summary>
         /// An array of hash objects, each of which specifies a hashed value for the file, along with the name of the algorithm used to compute the hash.
         /// </summary>
         [DataMember(Name = "hashes", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("hashes")]
         public IList<HashVersionOne> Hashes { get; set; }
 
         /// <summary>
         /// Key/value pairs that provide additional information about the file.
         /// </summary>
         [DataMember(Name = "properties", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("properties")]
         internal override IDictionary<string, SerializedPropertyInfo> Properties { get; set; }
 
         /// <summary>
