@@ -94,7 +94,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         [Fact]
         public void TryDetect_RejectsMalformedOrZeroBuildDefinitionId()
         {
-            // Both non-integer values and the literal "0" must fail the positive-int guard
+            // Both non-integer values and the literal "0" must fail the build-definition-id guard
             // (zero is invalid per GHAzDO1019).
             FakeEnvironmentVariableGetter badInt = CompleteEnv();
             badInt.With(AdoPipelineContext.BuildDefinitionIdPrimaryEnvVar, "abc");
@@ -108,6 +108,46 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             AdoPipelineContext.TryDetect(zero, out _, out string err2)
                 .Should().Be(AdoPipelineContext.DetectionState.Partial);
             err2.Should().Contain("positive");
+        }
+
+        [Fact]
+        public void TryDetect_AcceptsNegativeOneSentinelBuildDefinitionId()
+        {
+            // -1 is ADO's sentinel for a run not associated with a saved build definition.
+            FakeEnvironmentVariableGetter env = CompleteEnv();
+            env.With(AdoPipelineContext.BuildDefinitionIdPrimaryEnvVar, "-1");
+            env.With(AdoPipelineContext.BuildDefinitionIdFallbackEnvVar, "-1");
+
+            AdoPipelineContext.TryDetect(env, out AdoPipelineContext ctx, out string error)
+                .Should().Be(AdoPipelineContext.DetectionState.Complete);
+            error.Should().BeNull();
+            ctx.BuildDefinitionId.Should().Be(-1);
+        }
+
+        [Fact]
+        public void TryDetect_RejectsNegativeNonSentinelBuildDefinitionId()
+        {
+            FakeEnvironmentVariableGetter env = CompleteEnv();
+            env.With(AdoPipelineContext.BuildDefinitionIdPrimaryEnvVar, "-2");
+            env.With(AdoPipelineContext.BuildDefinitionIdFallbackEnvVar, "-2");
+
+            AdoPipelineContext.TryDetect(env, out _, out string error)
+                .Should().Be(AdoPipelineContext.DetectionState.Partial);
+            error.Should().Contain(AdoPipelineContext.BuildDefinitionIdPrimaryEnvVar);
+            error.Should().Contain("-1 sentinel");
+        }
+
+        [Fact]
+        public void TryDetect_RejectsNegativeOneBuildId()
+        {
+            // The -1 sentinel allowance is specific to buildDefinitionId; buildId stays strictly positive.
+            FakeEnvironmentVariableGetter env = CompleteEnv();
+            env.With(AdoPipelineContext.BuildIdEnvVar, "-1");
+
+            AdoPipelineContext.TryDetect(env, out _, out string error)
+                .Should().Be(AdoPipelineContext.DetectionState.Partial);
+            error.Should().Contain(AdoPipelineContext.BuildIdEnvVar);
+            error.Should().Contain("positive");
         }
 
         [Fact]
