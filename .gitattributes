@@ -20,6 +20,11 @@ src/Sarif/Taxonomies/CweTaxonomy.brief.md text eol=lf
 # Pinned: this resource is embedded and hashed; line-ending drift would change the hash.
 src/Test.UnitTests.Sarif/TestData/InsertOptionalDataVisitor/InsertOptionalDataVisitor.txt text eol=crlf
 
+# Pinned: rule message strings are compiled into embedded resources and reproduced
+# verbatim in functional-test baselines; LF drift would rewrite every multi-line
+# message and break those baselines.
+src/Sarif.Multitool.Library/Rules/RuleResources.resx text eol=crlf
+
 ###############################################################################
 # Set default behavior for command prompt diff.
 #

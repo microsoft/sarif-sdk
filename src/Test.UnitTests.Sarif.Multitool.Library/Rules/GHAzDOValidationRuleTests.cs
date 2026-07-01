@@ -151,16 +151,40 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         }
 
         [Fact]
-        public void GHAzDO1019_WhenBuildDefinitionIdNotPositiveInteger_ReportsError()
+        public void GHAzDO1019_WhenBuildDefinitionIdIsZero_ReportsError()
+            => AssertBuildDefinitionId("0", expectError: true);
+
+        [Fact]
+        public void GHAzDO1019_WhenBuildDefinitionIdIsNegativeOneSentinel_NoResult()
+            // -1 is ADO's sentinel for a run not associated with a saved definition.
+            => AssertBuildDefinitionId("-1", expectError: false);
+
+        [Fact]
+        public void GHAzDO1019_WhenBuildDefinitionIdIsNegativeNonSentinel_ReportsError()
+            => AssertBuildDefinitionId("-2", expectError: true);
+
+        [Fact]
+        public void GHAzDO1019_WhenBuildDefinitionIdNotInteger_ReportsError()
+            => AssertBuildDefinitionId("not-an-int", expectError: true);
+
+        private static void AssertBuildDefinitionId(string buildDefinitionId, bool expectError)
         {
             SarifLog log = CreateValidGHAzDOSarifLog();
             log.Runs[0].AutomationDetails.SetProperty(
-                GHAzDOProvidePipelineProperties.BuildDefinitionIdKey, "0");
+                GHAzDOProvidePipelineProperties.BuildDefinitionIdKey, buildDefinitionId);
 
             SarifLog output = RunGHAzDOValidation(log);
+            List<Result> results = ResultsFor(output, "GHAzDO1019");
 
-            ResultsFor(output, "GHAzDO1019").Should().ContainSingle()
-                .Which.Level.Should().Be(FailureLevel.Error);
+            if (expectError)
+            {
+                results.Should().ContainSingle()
+                    .Which.Level.Should().Be(FailureLevel.Error);
+            }
+            else
+            {
+                results.Should().BeEmpty();
+            }
         }
 
         [Fact]

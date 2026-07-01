@@ -290,7 +290,7 @@
                   "text": "{0}: The 'automationDetails.properties' bag does not provide '{2}'. This property is required by the {1} service to identify the build definition."
                 },
                 "Error_InvalidBuildDefinitionId": {
-                  "text": "{0}: The 'automationDetails.properties' value for '{2}' is '{3}', which is not a non-zero integer. The {1} service requires a non-zero integer build definition id."
+                  "text": "{0}: The 'automationDetails.properties' value for '{2}' is '{3}', which is not a positive integer or the -1 sentinel. The {1} service requires a positive build definition id, or the -1 sentinel for runs not associated with a saved definition."
                 },
                 "Error_MissingBuildDefinitionName": {
                   "text": "{0}: The 'automationDetails.properties' bag does not provide '{2}'. This property is required by the {1} service to identify the build definition by name."

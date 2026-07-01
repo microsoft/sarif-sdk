@@ -1555,6 +1555,74 @@ namespace Microsoft.CodeAnalysis.Sarif
                 "SarifRewritingVisitor.VisitReportingDescriptor must replace MessageStrings atomically (build a new dictionary and swap the reference) so that a concurrent Newtonsoft.Json enumeration during SarifLogger.Dispose cannot observe a Dictionary being mid-modification");
         }
 
+        // Regression test for a construction-time crash: a toolComponent's 'guid'
+        // is optional (SARIF spec §3.19.6), but SarifLogger unconditionally read
+        // extension.Guid.Value when mapping extensions, throwing on any extension
+        // that omitted its guid.
+        [Fact]
+        public void SarifLogger_DoesNotThrowAndStillRecordsRulesWhenExtensionOmitsGuid()
+        {
+            var guidlessRule = new ReportingDescriptor { Id = "EXT0001" };
+
+            using SarifLogger sarifLogger = CreateSarifLoggerWithExtensions(
+                guidlessExtensionRule: guidlessRule,
+                guidedExtensionGuid: Guid.NewGuid());
+
+            // The extension without a guid contributes no entry to the guid map...
+            sarifLogger.ExtensionGuidToIndexMap.Count.Should().Be(1,
+                "only the extension that declares a guid is addressable by guid");
+
+            // ...but its rules are still recorded, addressable through the extension at index 0.
+            sarifLogger.RuleToReportingDescriptorReferenceMap.Should().ContainKey(guidlessRule);
+            sarifLogger.RuleToReportingDescriptorReferenceMap[guidlessRule].ToolComponent.Index.Should().Be(0,
+                "a guidless extension's rules must remain recorded against its extension index");
+        }
+
+        [Fact]
+        public void SarifLogger_MapsExtensionGuidToIndexWhenGuidPresent()
+        {
+            Guid guid = Guid.NewGuid();
+
+            using SarifLogger sarifLogger = CreateSarifLoggerWithExtensions(
+                guidlessExtensionRule: new ReportingDescriptor { Id = "EXT0001" },
+                guidedExtensionGuid: guid);
+
+            sarifLogger.ExtensionGuidToIndexMap.Should().ContainKey(guid);
+            sarifLogger.ExtensionGuidToIndexMap[guid].Should().Be(1,
+                "the guid-bearing extension is the second entry in run.tool.extensions");
+        }
+
+        private static SarifLogger CreateSarifLoggerWithExtensions(ReportingDescriptor guidlessExtensionRule, Guid guidedExtensionGuid)
+        {
+            var run = new Run
+            {
+                Tool = new Tool
+                {
+                    Driver = new ToolComponent { Name = "TestDriver" },
+                    Extensions = new List<ToolComponent>
+                    {
+                        new ToolComponent
+                        {
+                            Name = "extension-without-guid",
+                            Rules = new List<ReportingDescriptor> { guidlessExtensionRule },
+                        },
+                        new ToolComponent
+                        {
+                            Name = "extension-with-guid",
+                            Guid = guidedExtensionGuid,
+                            Rules = new List<ReportingDescriptor> { new ReportingDescriptor { Id = "EXT1001" } },
+                        },
+                    },
+                },
+            };
+
+            return new SarifLogger(
+                new StringWriter(new StringBuilder()),
+                run: run,
+                levels: BaseLogger.ErrorWarningNote,
+                kinds: BaseLogger.Fail);
+        }
+
         private sealed class NoOpRewritingVisitor : SarifRewritingVisitor
         {
         }

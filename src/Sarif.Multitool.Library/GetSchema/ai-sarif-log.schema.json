@@ -298,9 +298,9 @@
             ],
             "properties": {
               "azuredevops/pipeline/build/buildDefinitionId": {
-                "description": "Integer != 0, serialized as a string.",
+                "description": "Positive integer, or the -1 sentinel, serialized as a string.",
                 "type": "string",
-                "pattern": "^-?(?!0+$)[0-9]+$"
+                "pattern": "^(-1|[1-9][0-9]*)$"
               },
               "azuredevops/pipeline/build/buildDefinitionName": {
                 "description": "Non-empty, non-whitespace string.",

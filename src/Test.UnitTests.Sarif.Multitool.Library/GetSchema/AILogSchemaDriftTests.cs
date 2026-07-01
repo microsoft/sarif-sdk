@@ -386,10 +386,20 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             ((JsonObject)missingProp["properties"]).Remove("azuredevops/pipeline/build/phaseName");
             Expect("pipeline-missing-phaseName", missingProp, false);
 
-            // buildDefinitionId == "0": GHAzDO1019 rejects (int != 0).
+            // buildDefinitionId == "0": GHAzDO1019 rejects (positive or -1 sentinel only).
             JsonObject zeroId = CompliantPipeline();
             zeroId["properties"]["azuredevops/pipeline/build/buildDefinitionId"] = "0";
             Expect("pipeline-zero-buildDefinitionId", zeroId, false);
+
+            // buildDefinitionId == "-1": accepted (ADO sentinel for runs with no saved definition).
+            JsonObject sentinelId = CompliantPipeline();
+            sentinelId["properties"]["azuredevops/pipeline/build/buildDefinitionId"] = "-1";
+            Expect("pipeline-negative-one-buildDefinitionId", sentinelId, true);
+
+            // buildDefinitionId == "-2": GHAzDO1019 rejects (negative, non-sentinel).
+            JsonObject negativeId = CompliantPipeline();
+            negativeId["properties"]["azuredevops/pipeline/build/buildDefinitionId"] = "-2";
+            Expect("pipeline-negative-buildDefinitionId", negativeId, false);
 
             // phaseId == empty GUID: GHAzDO1019 rejects (Guid != Empty).
             JsonObject emptyPhase = CompliantPipeline();
