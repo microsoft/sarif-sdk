@@ -18,6 +18,7 @@ namespace Microsoft.WorkItems
         private const string LoggingSection = "Sarif-WorkItems:Logging";
         private const string LoggingApplicationInsightsSection = "Sarif-WorkItems:Logging:ApplicationInsights";
         private const string LoggingApplicationInsightsInstrumentationKey = "Sarif-WorkItems:Logging:ApplicationInsights:InstrumentationKey";
+        private const string LoggingApplicationInsightsConnectionString = "Sarif-WorkItems:Logging:ApplicationInsights:ConnectionString";
         private const string LoggingConsoleSection = "Sarif-WorkItems:Logging:Console";
 
         public static IServiceProvider ServiceProvider { get; private set; }
@@ -48,9 +49,20 @@ namespace Microsoft.WorkItems
 
                     if (config.GetSection(LoggingApplicationInsightsSection).Exists())
                     {
-                        if (!string.IsNullOrEmpty(config[LoggingApplicationInsightsInstrumentationKey]))
+                        // Prefer an explicit connection string; express a legacy instrumentation
+                        // key as one so both configuration shapes route to the same ingestion.
+                        string connectionString = config[LoggingApplicationInsightsConnectionString];
+
+                        if (string.IsNullOrEmpty(connectionString) && !string.IsNullOrEmpty(config[LoggingApplicationInsightsInstrumentationKey]))
                         {
-                            builder.AddApplicationInsights(config[LoggingApplicationInsightsInstrumentationKey], options => options.FlushOnDispose = true);
+                            connectionString = $"InstrumentationKey={config[LoggingApplicationInsightsInstrumentationKey]}";
+                        }
+
+                        if (!string.IsNullOrEmpty(connectionString))
+                        {
+                            builder.AddApplicationInsights(
+                                telemetryConfiguration => telemetryConfiguration.ConnectionString = connectionString,
+                                options => options.FlushOnDispose = true);
                         }
                     }
 

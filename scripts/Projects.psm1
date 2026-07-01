@@ -10,15 +10,14 @@
 $Frameworks = @{}
 
 # .NET Framework versions for which we build.
-# net462 is this minimal support .NET framework. We allow linkage
-# to net461 for compatibility reasons.
-# and any upstream consumer of them.
-$Frameworks.NetFx = @("net461")
+# net481 is our minimal supported .NET Framework, and the floor
+# required for internal Microsoft consumption.
+$Frameworks.NetFx = @("net481")
 
 # Frameworks for which we build libraries.
 $Frameworks.Library = @("netstandard2.0") + $Frameworks.NetFx
 
-# net462 is the current minimum supported .NET
+# net481 is the current minimum supported .NET
 # framework, so we use it for all client tools.
 # it is fine to support a down-level, unsupported
 # .NET framework for a library, because the client 
@@ -26,7 +25,7 @@ $Frameworks.Library = @("netstandard2.0") + $Frameworks.NetFx
 # current .NET framework. When we control the app
 # we will require the minimal supported version to 
 # ensure that the runtime we are executing on is secure.
-$Frameworks.ApplicationNetFx = @("net462")
+$Frameworks.ApplicationNetFx = @("net481")
 
 # Frameworks for which we build applications.
 $Frameworks.Application = @("net8.0") + $Frameworks.ApplicationNetFx

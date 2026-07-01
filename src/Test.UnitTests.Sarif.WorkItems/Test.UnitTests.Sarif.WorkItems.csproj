@@ -9,7 +9,7 @@
 
   <PropertyGroup>
     <TargetFrameworks>net8.0</TargetFrameworks>
-    <TargetFrameworks Condition="$(OS) == 'Windows_NT'">$(TargetFrameworks);net48</TargetFrameworks>
+    <TargetFrameworks Condition="$(OS) == 'Windows_NT'">$(TargetFrameworks);net481</TargetFrameworks>
     <IsPackable>false</IsPackable>
     <IsTestProject>true</IsTestProject>
     <RootNamespace>Test.UnitTests.Sarif.WorkItems</RootNamespace>
@@ -34,7 +34,7 @@
     <PackageReference Include="xunit.runner.visualstudio" PrivateAssets="All" />
   </ItemGroup>
 
-  <ItemGroup Condition="'$(TargetFramework)' == 'net48'">
+  <ItemGroup Condition="'$(TargetFramework)' == 'net481'">
     <PackageReference Include="System.Reflection.Metadata" />
   </ItemGroup>
 

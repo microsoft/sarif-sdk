@@ -14,7 +14,7 @@
     <Company Condition=" '$(Company)' == '' ">Microsoft</Company>
     <Product Condition=" '$(Product)' == '' ">Microsoft SARIF SDK</Product>
     <Copyright Condition=" '$(Copyright)' == '' ">© Microsoft Corporation. All rights reserved.</Copyright>
-    <VersionPrefix>5.4.3</VersionPrefix>
+    <VersionPrefix>5.5.0</VersionPrefix>
 
     <!-- SchemaVersionAsPublishedToSchemaStoreOrg identifies the current published version on json schema store at https://schemastore.azurewebsites.net/schemas/json/ -->
     <SchemaVersionAsPublishedToSchemaStoreOrg>2.1.0</SchemaVersionAsPublishedToSchemaStoreOrg>
@@ -102,6 +102,17 @@
 
   <ItemGroup>
     <Compile Include="$(MsBuildThisFileDirectory)Shared\CommonAssemblyInfo.cs" />
+  </ItemGroup>
+
+  <!-- On .NET Framework, the newer System.* (9.x) runtime packages pull facade
+       assemblies that forward System.Net.Http / System.IO.Compression types and
+       displace the built-in framework references, and CsvHelper drags in an older
+       Microsoft.Bcl.HashCode. Reference the framework facades explicitly and pin
+       Microsoft.Bcl.HashCode so the assembly graph unifies. -->
+  <ItemGroup Condition="'$(TargetFrameworkIdentifier)' == '.NETFramework'">
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.IO.Compression" />
+    <PackageReference Include="Microsoft.Bcl.HashCode" />
   </ItemGroup>
 
   <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">

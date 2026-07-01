@@ -34,8 +34,8 @@
 
   <PropertyGroup>
     <TargetFrameworks>net8.0</TargetFrameworks>
-    <!-- net462 is the current minimal supported .NET framework. -->
-    <TargetFrameworks Condition="$(OS) == 'Windows_NT'">$(TargetFrameworks);net462</TargetFrameworks>
+    <!-- net481 is the current minimal supported .NET framework. -->
+    <TargetFrameworks Condition="$(OS) == 'Windows_NT'">$(TargetFrameworks);net481</TargetFrameworks>
   </PropertyGroup>
 
   <ItemGroup>
