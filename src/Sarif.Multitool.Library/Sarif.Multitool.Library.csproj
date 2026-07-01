@@ -9,7 +9,7 @@
   
   <PropertyGroup>
     <TargetFrameworks>netstandard2.0;</TargetFrameworks>
-    <TargetFrameworks Condition="$(OS) == 'Windows_NT'">$(TargetFrameworks);net481</TargetFrameworks>
+    <TargetFrameworks Condition="$(OS) == 'Windows_NT'">$(TargetFrameworks);net462</TargetFrameworks>
     <RootNamespace>Microsoft.CodeAnalysis.Sarif.Multitool</RootNamespace>
     <SuppressTfmSupportBuildWarnings>true</SuppressTfmSupportBuildWarnings>
   </PropertyGroup>
@@ -69,7 +69,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="default.configuration.xml" Pack="true" PackagePath="lib/netstandard2.0;lib/net481" CopyToOutputDirectory="PreserveNewest" />
+    <None Include="default.configuration.xml" Pack="true" PackagePath="lib/netstandard2.0;lib/net462" CopyToOutputDirectory="PreserveNewest" />
     <None Include="..\..\policies\*" Pack="true" PackagePath="policies" />
     <None Include="**\*.cs" Pack="true" PackagePath="src" />
     <None Include="..\..\ReleaseHistory.md" Pack="true" PackagePath="/" />

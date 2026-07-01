@@ -20,8 +20,8 @@
 
   <PropertyGroup>
     <TargetFrameworks>netstandard2.0</TargetFrameworks>
-    <!-- We require net481 as a minimal framework due to dependency such as Microsoft.Extensions.Logging.Console -->
-    <TargetFrameworks Condition="$(OS) == 'Windows_NT'">$(TargetFrameworks);net481</TargetFrameworks>
+    <!-- net462 is the floor: System.Collections.Immutable / System.Reflection.Metadata 9.x drop net461. -->
+    <TargetFrameworks Condition="$(OS) == 'Windows_NT'">$(TargetFrameworks);net462</TargetFrameworks>
   </PropertyGroup>
 
   <ItemGroup>

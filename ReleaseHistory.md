@@ -13,9 +13,8 @@ Each release entry below is prefixed with one of:
 
 Entries are terse by design: one line per change, present-tense behavior, complete but only essential data. No issue/PR archaeology or narrative — that history lives in the engineering system.
 
-## **v5.5.0** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/v5.5.0) | [Driver](https://www.nuget.org/packages/Sarif.Driver/v5.5.0) | [Converters](https://www.nuget.org/packages/Sarif.Converters/v5.5.0) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/v5.5.0) | [Multitool Library](https://www.nuget.org/packages/Sarif.Multitool.Library/v5.5.0)
-* BRK: Raise the .NET Framework floor to `net481` for all packages, dropping the `net461` and `net462` targets.
-* DEP: Update the minor-and-patch dependency group, notably `Microsoft.Diagnostics.Tracing.TraceEvent` 3.2.4, `System.Collections.Immutable` and `System.Reflection.Metadata` 9.0.8, and `System.Data.SqlClient` 4.9.1.
+## **v5.4.4** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/v5.4.4) | [Driver](https://www.nuget.org/packages/Sarif.Driver/v5.4.4) | [Converters](https://www.nuget.org/packages/Sarif.Converters/v5.4.4) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/v5.4.4) | [Multitool Library](https://www.nuget.org/packages/Sarif.Multitool.Library/v5.4.4)
+* DEP: Update the minor-and-patch dependency group, notably `Microsoft.Diagnostics.Tracing.TraceEvent` 3.2.4, `System.Collections.Immutable` and `System.Reflection.Metadata` 9.0.8, and `System.Data.SqlClient` 4.9.1; these drop `net461`, raising the `net461` packages to a `net462` floor.
 * DEP: `Microsoft.Extensions.Logging.ApplicationInsights` 2.23.0; `ServiceProviderFactory` configures Application Insights via connection string instead of the obsolete instrumentation-key API.
 
 ## **v5.4.3** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/v5.4.3) | [Driver](https://www.nuget.org/packages/Sarif.Driver/v5.4.3) | [Converters](https://www.nuget.org/packages/Sarif.Converters/v5.4.3) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/v5.4.3) | [Multitool Library](https://www.nuget.org/packages/Sarif.Multitool.Library/v5.4.3)
