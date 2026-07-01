@@ -136,7 +136,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 for (int extensionIndex = 0; extensionIndex < _run.Tool.Extensions.Count; ++extensionIndex)
                 {
                     ToolComponent extension = _run.Tool.Extensions[extensionIndex];
-                    ExtensionGuidToIndexMap[extension.Guid.Value] = extensionIndex;
+
+                    // 'guid' is optional on a toolComponent (SARIF spec §3.19.6); only
+                    // extensions that declare one are addressable by guid.
+                    if (extension.Guid.HasValue)
+                    {
+                        ExtensionGuidToIndexMap[extension.Guid.Value] = extensionIndex;
+                    }
+
                     RecordRules(extensionIndex, extension);
                 }
 

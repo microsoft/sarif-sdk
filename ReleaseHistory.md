@@ -20,6 +20,7 @@ Entries are terse by design: one line per change, present-tense behavior, comple
 * BUG: `SARIF2012.ProvideRuleProperties` exempts `NOVEL-` rules from the missing-`helpUri` note; a novel finding has no catalog topic to cite.
 * BUG: `emit-invocations` stops stamping a receipt-time `endTimeUtc` default and rejects any `startTimeUtc`, `endTimeUtc`, or notification `timeUtc` more than five minutes past the emit clock.
 * BUG: `AI1003.ProvideRequiredRegionProperties` accepts a `region` expressed as char-offset or byte-offset (SARIF §3.30), matching `SARIF2017.ProvideRequiredRegionProperties`, instead of faulting any region that lacks `startLine`.
+* BUG: `SarifLogger` no longer throws when a `run.tool.extensions[]` entry omits the optional `toolComponent.guid`; the guidless extension is left out of `ExtensionGuidToIndexMap` while its rules are still recorded.
 
 ## **v5.4.1** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/v5.4.1) | [Driver](https://www.nuget.org/packages/Sarif.Driver/v5.4.1) | [Converters](https://www.nuget.org/packages/Sarif.Converters/v5.4.1) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/v5.4.1) | [Multitool Library](https://www.nuget.org/packages/Sarif.Multitool.Library/v5.4.1)
 * BUG: `AI1004.ProvideVersionControlProvenance` and the `ai-sarif-log.schema.json` whole-log contract exempt a run stamped `properties.unpublishable` (finalized `--no-repo`), so `emit-finalize --no-repo --validate` no longer faults the provenance it omits.
