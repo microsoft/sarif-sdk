@@ -20,15 +20,15 @@
     <PackageVersion Include="Microsoft.Extensions.Logging.Abstractions" Version="3.1.32" />
     <PackageVersion Include="Microsoft.Extensions.Logging.ApplicationInsights" Version="2.23.0" />
     <PackageVersion Include="Microsoft.Extensions.Logging.Console" Version="3.1.32" />
-    <PackageVersion Include="Microsoft.Json.Pointer" Version="2.1.0" />
-    <PackageVersion Include="Microsoft.Json.Schema" Version="2.1.0" />
-    <PackageVersion Include="Microsoft.Json.Schema.Validation" Version="2.1.0" />
+    <PackageVersion Include="Microsoft.Json.Pointer" Version="2.3.0" />
+    <PackageVersion Include="Microsoft.Json.Schema" Version="2.3.0" />
+    <PackageVersion Include="Microsoft.Json.Schema.Validation" Version="2.3.0" />
     <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="18.7.0" />
     <PackageVersion Include="Microsoft.SourceLink.GitHub" Version="1.1.1" />
     <PackageVersion Include="Microsoft.TeamFoundationServer.Client" Version="16.205.3" />
     <PackageVersion Include="Moq" Version="4.20.72" />
     <PackageVersion Include="Newtonsoft.Json" Version="13.0.4" />
-    <PackageVersion Include="System.Collections.Immutable" Version="9.0.8" />
+    <PackageVersion Include="System.Collections.Immutable" Version="9.0.17" />
     <PackageVersion Include="System.Composition" Version="5.0.1" />
     <PackageVersion Include="System.Data.SqlClient" Version="4.9.1" />
     <PackageVersion Include="System.Diagnostics.Debug" Version="4.3.0" />
