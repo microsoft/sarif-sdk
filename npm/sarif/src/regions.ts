@@ -223,7 +223,11 @@ export class FileRegionsCache {
     const original = this.populateTextRegionProperties(inputRegion, absoluteUri, true);
 
     if ((original.charLength ?? 0) >= BIG_SNIPPET_LENGTH) {
-      return { ...original };
+      // A context region must be a proper superset of the region (SARIF §3.29.5,
+      // enforced by SARIF1008). The region already meets the snippet cap, so no
+      // larger in-cap snippet exists; omit the context region rather than return
+      // one identical to the region.
+      return undefined;
     }
 
     const maxLine = idx.maximumLineNumber;
@@ -243,7 +247,12 @@ export class FileRegionsCache {
     const charOffset = Math.max(0, (original.charOffset ?? 0) - SMALL_SNIPPET_LENGTH);
     const charLength = Math.min(BIG_SNIPPET_LENGTH, fileText.length - charOffset);
     context = this.populateTextRegionProperties({ charOffset, charLength }, absoluteUri, true);
-    return context;
+
+    // The capped char-offset window does not always contain the region (a region
+    // longer than the window's reach past its start runs off the end). Emit the
+    // context region only when it is a genuine proper superset of the region;
+    // otherwise omit it (SARIF §3.29.5 / SARIF1008).
+    return isProperSupersetOf(context, original) ? context : undefined;
   }
 }
 
@@ -253,6 +262,80 @@ export class FileRegionsCache {
 
 function isBinaryRegion(r: Region): boolean {
   return r.byteOffset !== undefined && r.byteOffset >= 0;
+}
+
+// ---------------------------------------------------------------------------
+// Proper-superset test (mirrors Region.IsProperSupersetOf)
+// ---------------------------------------------------------------------------
+
+/**
+ * True when `sup` strictly contains `sub`: every position covered by `sub` lies
+ * within `sup` and the two spans are not identical. Each populated coordinate
+ * dimension (line/column, char offset) must independently hold. Mirrors
+ * Region.IsProperSupersetOf.
+ */
+function isProperSupersetOf(sup: Region, sub: Region): boolean {
+  if (
+    isLineColumnBasedRegion(sup) &&
+    isLineColumnBasedRegion(sub) &&
+    !isLineColumnProperSupersetOf(sup, sub)
+  ) {
+    return false;
+  }
+
+  if (
+    isOffsetBasedRegion(sup) &&
+    isOffsetBasedRegion(sub) &&
+    !isOffsetProperSupersetOf(sup, sub)
+  ) {
+    return false;
+  }
+
+  return true;
+}
+
+function isLineColumnBasedRegion(r: Region): boolean {
+  return (r.startLine ?? 0) >= 1;
+}
+
+function isOffsetBasedRegion(r: Region): boolean {
+  return (r.charOffset ?? -1) >= 0;
+}
+
+function isLineColumnProperSupersetOf(sup: Region, sub: Region): boolean {
+  const supStartLine = sup.startLine ?? 0;
+  const supEndLine = sup.endLine ?? supStartLine;
+  const supStartColumn = sup.startColumn ?? 1;
+  const supEndColumn = sup.endColumn ?? Number.MAX_SAFE_INTEGER;
+  const subStartLine = sub.startLine ?? 0;
+  const subEndLine = sub.endLine ?? subStartLine;
+  const subStartColumn = sub.startColumn ?? 1;
+  const subEndColumn = sub.endColumn ?? Number.MAX_SAFE_INTEGER;
+
+  if (supStartLine > subStartLine || supEndLine < subEndLine) return false;
+  if (supStartLine === subStartLine && supStartColumn > subStartColumn) return false;
+  if (supEndLine === subEndLine && supEndColumn < subEndColumn) return false;
+
+  // Identical span is not a proper superset.
+  return !(
+    supStartLine === subStartLine &&
+    supEndLine === subEndLine &&
+    supStartColumn === subStartColumn &&
+    supEndColumn === subEndColumn
+  );
+}
+
+function isOffsetProperSupersetOf(sup: Region, sub: Region): boolean {
+  const supOffset = sup.charOffset ?? 0;
+  const supLength = sup.charLength ?? 0;
+  const subOffset = sub.charOffset ?? 0;
+  const subLength = sub.charLength ?? 0;
+
+  if (supOffset > subOffset) return false;
+  if (supOffset + supLength < subOffset + subLength) return false;
+
+  // Same start and no greater length is not a proper superset.
+  return !(supOffset === subOffset && supLength <= subLength);
 }
 
 function reconcile(

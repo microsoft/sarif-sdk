@@ -14,6 +14,7 @@ Each release entry below is prefixed with one of:
 Entries are terse by design: one line per change, present-tense behavior, complete but only essential data. No issue/PR archaeology or narrative — that history lives in the engineering system.
 
 ## **UNRELEASED**
+* BUG: `@microsoft/sarif`'s `FileRegionsCache.constructMultilineContextSnippet` omits `contextRegion` when the region meets the 512-char cap or the window is not a proper superset of `region`, so long lines no longer emit SARIF that `SARIF1008.PhysicalLocationPropertiesMustBeConsistent` rejects.
 * NEW: `@microsoft/sarif-multitool-ts` `emit-run`/`emit-finalize` accept `--authorized-hosts ghe:<host>` (or `SARIF_AUTHORIZED_HOSTS`), so a caller-attested self-hosted GitHub Enterprise Server derives a github.com-style portable root instead of hard-failing; unattested hosts stay rejected.
 
 ## **v5.4.3** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/v5.4.3) | [Driver](https://www.nuget.org/packages/Sarif.Driver/v5.4.3) | [Converters](https://www.nuget.org/packages/Sarif.Converters/v5.4.3) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/v5.4.3) | [Multitool Library](https://www.nuget.org/packages/Sarif.Multitool.Library/v5.4.3)
