@@ -33,6 +33,36 @@ export interface PortableRoot {
   revisionWebUrl: string;
 }
 
+/**
+ * A VCS product recognized by portable-root derivation. Extensible: a new
+ * product (e.g. `gitlab`, `bitbucket`) is a new type with its own permalink
+ * shape in `classify`/`tryDerivePortableRoot`. Currently only `ghe` (GitHub
+ * Enterprise Server) is recognized.
+ */
+export type AuthorizedHostType = 'ghe';
+
+const AUTHORIZED_HOST_TYPES: readonly AuthorizedHostType[] = ['ghe'];
+
+export interface AuthorizedHost {
+  /** The VCS product running on `host`. */
+  type: AuthorizedHostType;
+  /** The host, lowercased, e.g. `githost.contoso.com`. */
+  host: string;
+}
+
+export interface VcpOptions {
+  /**
+   * Caller-attested hosts, each tagged with the VCS product running there (see
+   * `parseAuthorizedHosts` for the `<hostType>:<host>` grammar). A self-hosted
+   * instance runs on a custom domain that is structurally indistinguishable
+   * from any other host, so it cannot be auto-recognized; an attested host is
+   * classified per its type (a `ghe` host mints a github.com-style
+   * `{host}/{owner}/{repo}/blob/{sha}/` portable root). Matched
+   * case-insensitively.
+   */
+  authorizedHosts?: readonly AuthorizedHost[];
+}
+
 type Result<T> = { ok: true; value: T } | { ok: false; error: string };
 
 function ok<T>(value: T): Result<T> {
@@ -42,9 +72,47 @@ function err<T>(error: string): Result<T> {
   return { ok: false, error };
 }
 
-function isGitHubHost(host: string): boolean {
+/**
+ * Parses a comma-separated `--authorized-hosts` value of `<hostType>:<host>`
+ * tokens (e.g. `ghe:githost.contoso.com,ghe:other.example.com`) into attested
+ * hosts. A new VCS product is added by extending `AuthorizedHostType` and the
+ * derivation switch, not by changing this grammar. Currently only `ghe`
+ * (GitHub Enterprise Server) is recognized.
+ */
+export function parseAuthorizedHosts(raw: string | undefined): Result<AuthorizedHost[]> {
+  const hosts: AuthorizedHost[] = [];
+  if (!raw?.trim()) return ok(hosts);
+  for (const token of raw.split(',')) {
+    const spec = token.trim();
+    if (!spec) continue;
+    const colon = spec.indexOf(':');
+    if (colon <= 0 || colon === spec.length - 1) {
+      return err(
+        `authorized host '${spec}' must take the form <hostType>:<host> (e.g. ghe:githost.contoso.com).`,
+      );
+    }
+    const type = spec.slice(0, colon).toLowerCase();
+    const host = spec.slice(colon + 1).trim().toLowerCase();
+    if (!(AUTHORIZED_HOST_TYPES as readonly string[]).includes(type)) {
+      return err(
+        `authorized host '${spec}' uses unknown host type '${type}'; supported types: ${AUTHORIZED_HOST_TYPES.join(', ')}.`,
+      );
+    }
+    if (!host || INVALID_SCP_HOST_CHARS.test(host)) {
+      return err(`authorized host '${spec}' has an invalid host.`);
+    }
+    hosts.push({ type: type as AuthorizedHostType, host });
+  }
+  return ok(hosts);
+}
+
+function isGitHubHost(host: string, authorizedHosts?: readonly AuthorizedHost[]): boolean {
   const h = host.toLowerCase();
-  return h === 'github.com' || h.endsWith('.ghe.com');
+  if (h === 'github.com' || h.endsWith('.ghe.com')) return true;
+  // A caller-attested GitHub Enterprise Server runs on a custom domain that is
+  // structurally indistinguishable from any other host, so it cannot be
+  // auto-recognized; an attested `ghe` host is classified as GitHub.
+  return authorizedHosts?.some((a) => a.type === 'ghe' && a.host.toLowerCase() === h) ?? false;
 }
 
 function isLegacyAzureDevOpsHost(host: string): boolean {
@@ -171,7 +239,7 @@ function tryNormalizeToHttps(rawRepositoryUri: string): Result<URL> {
   }
 }
 
-function classify(rawRepositoryUri: string | undefined): Result<Classification> {
+function classify(rawRepositoryUri: string | undefined, options?: VcpOptions): Result<Classification> {
   if (!rawRepositoryUri) {
     return err('repositoryUri is required so a portable root can be derived.');
   }
@@ -198,7 +266,7 @@ function classify(rawRepositoryUri: string | undefined): Result<Classification> 
   const schemeAndServer = `${u.protocol}//${u.host}`;
   const host = u.hostname;
 
-  if (isGitHubHost(host)) {
+  if (isGitHubHost(host, options?.authorizedHosts)) {
     if (segments.length !== 2) {
       return err(`github repositoryUri must take the form https://<host>/<owner>/<repo>; '${display}' did not.`);
     }
@@ -251,8 +319,11 @@ function classify(rawRepositoryUri: string | undefined): Result<Classification> 
 }
 
 /** Validates that a portable root can be derived (no revisionId required). */
-export function tryValidateRepositoryUri(rawRepositoryUri: string): Result<{ leaf: string }> {
-  const c = classify(rawRepositoryUri);
+export function tryValidateRepositoryUri(
+  rawRepositoryUri: string,
+  options?: VcpOptions,
+): Result<{ leaf: string }> {
+  const c = classify(rawRepositoryUri, options);
   return c.ok ? ok({ leaf: c.value.leaf }) : c;
 }
 
@@ -260,8 +331,9 @@ export function tryValidateRepositoryUri(rawRepositoryUri: string): Result<{ lea
 export function tryDerivePortableRoot(
   rawRepositoryUri: string,
   revisionId: string,
+  options?: VcpOptions,
 ): Result<PortableRoot> {
-  const cr = classify(rawRepositoryUri);
+  const cr = classify(rawRepositoryUri, options);
   if (!cr.ok) return cr;
   const c = cr.value;
 
@@ -284,12 +356,12 @@ export function tryDerivePortableRoot(
  * repositoryUri classifies as a supported GitHub host. Mirrors
  * VcpPortableRoot.IsGitHubHostedRun.
  */
-export function isGitHubHostedRun(run: Run): boolean {
+export function isGitHubHostedRun(run: Run, options?: VcpOptions): boolean {
   const vcp = run.versionControlProvenance;
   if (!vcp || vcp.length === 0) return false;
   for (const d of vcp) {
     if (!d) return false;
-    const c = classify(d.repositoryUri);
+    const c = classify(d.repositoryUri, options);
     if (!c.ok || !c.value.isGitHub) return false;
   }
   return true;

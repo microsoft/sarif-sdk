@@ -17,6 +17,7 @@ import { promises as fs } from 'node:fs';
 import { resolve as resolvePath } from 'node:path';
 import {
   type SarifLog,
+  type AuthorizedHost,
   atomicWrite,
   serializeSarifLog,
   isGitHubHostedRun,
@@ -55,6 +56,15 @@ export interface EmitFinalizeOptions {
    * requirement in both the schema and the AI1004 rule. Mirrors the .NET --no-repo switch.
    */
   noRepo?: boolean;
+  /**
+   * Hosts the caller attests are self-hosted VCS instances (`<hostType>:<host>`,
+   * parsed by `parseAuthorizedHosts`), so their
+   * `versionControlProvenance.repositoryUri` derives a portable root per the
+   * attested product instead of failing rebase, and a `ghe` host makes the run
+   * GitHub-hosted. Must match the value passed to `emit-run`. Matched
+   * case-insensitively.
+   */
+  authorizedHosts?: readonly AuthorizedHost[];
 }
 
 export interface EmitFinalizeOutcome {
@@ -95,7 +105,7 @@ export async function emitFinalize(opts: EmitFinalizeOptions): Promise<EmitFinal
 
     applyAISecuritySeverity(run);
 
-    const github = isGitHubHostedRun(run);
+    const github = isGitHubHostedRun(run, { authorizedHosts: opts.authorizedHosts });
     if (github) {
       applyGitHubCweTags(run);
       collapseResultRuleSubIds(run);
@@ -116,7 +126,7 @@ export async function emitFinalize(opts: EmitFinalizeOptions): Promise<EmitFinal
   // file:// bases.
   for (const run of log.runs ?? []) {
     if (!run) continue;
-    const r = rebaseRun(run, opts.noRepo);
+    const r = rebaseRun(run, opts.noRepo, opts.authorizedHosts);
     if (!r.success) {
       throw new EmitVerbError(r.errors.join('\n'));
     }

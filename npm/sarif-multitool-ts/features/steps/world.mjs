@@ -61,6 +61,17 @@ class EmitWorld {
     return header;
   }
 
+  /**
+   * A finalizable run header whose VCP repositoryUri is a self-hosted GitHub
+   * Enterprise Server custom domain (unrecognizable without attestation).
+   */
+  ghesRunHeader() {
+    const header = this.finalizableRunHeader(true);
+    header.versionControlProvenance[0].repositoryUri =
+      'https://gecgithub01.walmart.com/AI-INNOVATION-LAB/pawprints';
+    return header;
+  }
+
   cleanup() {
     if (this.tmp) {
       try {

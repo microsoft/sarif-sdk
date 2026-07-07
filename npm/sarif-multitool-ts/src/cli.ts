@@ -26,7 +26,7 @@ import { getSchema, listSchemas } from './getSchema.js';
 import { getSkill, listSkills } from './getSkill.js';
 import { getCweTaxonomy } from './getCwe.js';
 import { EmitVerbError, type BatchOutcome } from './batch.js';
-import { atomicWrite } from '@microsoft/sarif';
+import { atomicWrite, parseAuthorizedHosts, type AuthorizedHost } from '@microsoft/sarif';
 
 // Mirrors EmitVerbAliases.cs — accepted through the v5.x deprecation window.
 const DEPRECATED_TO_CANONICAL: Readonly<Record<string, string>> = {
@@ -122,12 +122,12 @@ const HELP = `\
 sarif — native-TypeScript SARIF Multitool verbs (no CLR)
 
 emit chain:
-  sarif emit-run <output.sarif> [--input <run.json>] [--force-overwrite]
+  sarif emit-run <output.sarif> [--input <run.json>] [--authorized-hosts <type:host,...>] [--force-overwrite]
   sarif emit-results <output.sarif> [--input <results.json>]
   sarif emit-invocations <output.sarif> [--input <invocations.json>]
   sarif emit-rule-descriptors <output.sarif> [--input <descriptors.json>]
   sarif emit-notification-descriptors <output.sarif> [--input <descriptors.json>]
-  sarif emit-finalize <output.sarif> [--no-cwe-enrichment] [--minify] [--keep-wip] [--no-repo] [--validate]
+  sarif emit-finalize <output.sarif> [--no-cwe-enrichment] [--minify] [--keep-wip] [--no-repo] [--authorized-hosts <type:host,...>] [--validate]
 
 asset verbs:
   sarif get-schema <emit-verb> [--output <path>] [--force-overwrite] | --list
@@ -135,6 +135,10 @@ asset verbs:
   sarif get-cwe [--output <path>] [--force-overwrite]
 
 When --input is omitted the payload JSON is read from stdin.
+--authorized-hosts attests self-hosted VCS instances as <hostType>:<host>
+(comma-separated, e.g. ghe:githost.contoso.com); pass it to both emit-run and
+emit-finalize, or set SARIF_AUTHORIZED_HOSTS. Only the ghe host type is
+currently recognized.
 Deprecated add-* verb names are accepted with a warning through v5.x.
 Verbs not listed above are not yet ported; use \`npx @microsoft/sarif-multitool <verb>\`.
 `;
@@ -146,6 +150,19 @@ async function main(): Promise<number> {
   const fileOut = typeof flags.output === 'string' ? flags.output : undefined;
   const force = !!flags['force-overwrite'];
 
+  // Caller-attested self-hosted VCS hosts (<hostType>:<host>), from the flag or
+  // the SARIF_AUTHORIZED_HOSTS env fallback. Parsed once; emit-run and
+  // emit-finalize must both see it (the host is derived independently in each).
+  const authorizedHostsRaw =
+    typeof flags['authorized-hosts'] === 'string'
+      ? (flags['authorized-hosts'] as string)
+      : process.env.SARIF_AUTHORIZED_HOSTS;
+  const authorizedHostsResult = parseAuthorizedHosts(authorizedHostsRaw);
+  if (!authorizedHostsResult.ok) {
+    throw new EmitVerbError(authorizedHostsResult.error);
+  }
+  const authorizedHosts: readonly AuthorizedHost[] = authorizedHostsResult.value;
+
   switch (verb) {
     case 'emit-run': {
       const run = readJsonInput(input, 'run');
@@ -156,6 +173,7 @@ async function main(): Promise<number> {
         output,
         run: run as Record<string, unknown>,
         forceOverwrite: force,
+        authorizedHosts,
       });
       for (const w of r.warnings) process.stderr.write(w + '\n');
       process.stdout.write(`Opened '${r.wipPath}' for '${r.toolName}'.\n`);
@@ -194,6 +212,7 @@ async function main(): Promise<number> {
         keepWip: !!flags['keep-wip'],
         noRepo: !!flags['no-repo'],
         validate: !!flags.validate,
+        authorizedHosts,
       });
       for (const w of r.warnings) process.stderr.write(w + '\n');
       process.stdout.write(
