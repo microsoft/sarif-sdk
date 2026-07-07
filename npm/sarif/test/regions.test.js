@@ -36,6 +36,22 @@ function withTempFile(content, fn) {
   }
 }
 
+// A context region must be a proper superset of its region (SARIF §3.29.5,
+// enforced by SARIF1008): it must fully contain the region and not be identical
+// to it. Omitting the context region entirely is always conformant.
+function assertContextOmittedOrProperSuperset(ctx, regionStart, regionEnd) {
+  if (ctx === undefined) return;
+  const ctxStart = ctx.charOffset ?? 0;
+  const ctxEnd = ctxStart + (ctx.charLength ?? 0);
+  const contains = ctxStart <= regionStart && ctxEnd >= regionEnd;
+  const identical = ctxStart === regionStart && ctxEnd === regionEnd;
+  assert.ok(
+    contains && !identical,
+    `context region [${ctxStart}..${ctxEnd}] must be a proper superset of region ` +
+      `[${regionStart}..${regionEnd}] (SARIF §3.29.5 / SARIF1008), or be omitted`,
+  );
+}
+
 test('NewLineIndex counts lines across LF, CRLF, and bare CR', () => {
   assert.equal(new NewLineIndex(MIXED).maximumLineNumber, 4);
 });
@@ -127,5 +143,38 @@ test('constructMultilineContextSnippet widens to the neighbouring lines', () => 
     // line 2 of 4 → context spans lines 1..3.
     assert.equal(ctx.startLine, 1);
     assert.equal(ctx.endLine, 3);
+  });
+});
+
+// Variant 1 — the region already meets the 512-char snippet cap (a minified /
+// pathologically long line). No larger in-cap context exists, so the context
+// region must be omitted rather than returned byte-identical to the region.
+// The C# reference (FileRegionsCache.ConstructMultilineContextSnippet) returns
+// null here; the TypeScript port returned a clone of the region → SARIF1008.
+test('constructMultilineContextSnippet omits the context region when the region meets the snippet cap', () => {
+  const longLine = 'x'.repeat(900); // region charLength 900 >= 512
+  withTempFile(longLine, (uri) => {
+    const ctx = new FileRegionsCache().constructMultilineContextSnippet(
+      { startLine: 1, endLine: 1 },
+      uri,
+    );
+    assertContextOmittedOrProperSuperset(ctx, 0, 900);
+  });
+});
+
+// Variant 2 — the ±128 / 512-char char-offset window clamps short of a wide
+// region, so the window does not contain the region's full span. The C#
+// reference returns the window only when IsProperSupersetOf(region); the
+// TypeScript port returned it unconditionally → SARIF1008.
+test('constructMultilineContextSnippet omits the context region when the clamped window does not contain the region', () => {
+  const longLine = 'x'.repeat(1200);
+  withTempFile(longLine, (uri) => {
+    // region [600..1100]: charLength 500 (< 512, so the cap guard is skipped),
+    // window becomes [472..984], which ends before the region does.
+    const ctx = new FileRegionsCache().constructMultilineContextSnippet(
+      { charOffset: 600, charLength: 500 },
+      uri,
+    );
+    assertContextOmittedOrProperSuperset(ctx, 600, 1100);
   });
 });
