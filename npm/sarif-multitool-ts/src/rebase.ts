@@ -8,7 +8,7 @@
  * Ported from src/Sarif.Multitool.Library/Emit/EmitFinalizeRebaseVisitor.cs.
  */
 
-import type { Run, ArtifactLocation, VersionControlDetails } from '@microsoft/sarif';
+import type { Run, ArtifactLocation, VersionControlDetails, AuthorizedHost } from '@microsoft/sarif';
 import { tryDerivePortableRoot } from '@microsoft/sarif';
 import { tryReconstructAbsoluteUri } from '@microsoft/sarif';
 import { SOURCE_ROOT_BASE_ID } from './emitRun.js';
@@ -31,14 +31,18 @@ export interface RebaseResult {
 }
 
 /** Rebases the run in place. Returns errors (success ↔ errors.length === 0). */
-export function rebaseRun(run: Run, noRepo = false): RebaseResult {
+export function rebaseRun(
+  run: Run,
+  noRepo = false,
+  authorizedHosts?: readonly AuthorizedHost[],
+): RebaseResult {
   if (noRepo) return rebaseRunRepoless(run);
 
   const errors: string[] = [];
   const referencedBaseIds = new Set<string>();
   const leakUris: string[] = [];
 
-  const planResult = buildPlan(run, errors);
+  const planResult = buildPlan(run, errors, authorizedHosts);
   if (!planResult) return { success: false, errors };
   const plan = planResult;
 
@@ -119,7 +123,11 @@ function rebaseRunRepoless(run: Run): RebaseResult {
   return { success: errors.length === 0, errors };
 }
 
-function buildPlan(run: Run, errors: string[]): RepoRoot[] | undefined {
+function buildPlan(
+  run: Run,
+  errors: string[],
+  authorizedHosts?: readonly AuthorizedHost[],
+): RepoRoot[] | undefined {
   const vcp = run.versionControlProvenance;
   if (!vcp || vcp.length === 0) {
     errors.push(
@@ -186,7 +194,7 @@ function buildPlan(run: Run, errors: string[]): RepoRoot[] | undefined {
     }
     seenLocalRoots.set(localKey, i);
 
-    const derived = tryDerivePortableRoot(vcd.repositoryUri, vcd.revisionId);
+    const derived = tryDerivePortableRoot(vcd.repositoryUri, vcd.revisionId, { authorizedHosts });
     if (!derived.ok) {
       errors.push(`${where}: ${derived.error}`);
       return undefined;

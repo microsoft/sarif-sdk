@@ -11,7 +11,12 @@
 
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { tryValidateRepositoryUri, tryDerivePortableRoot, isGitHubHostedRun } from '../dist/index.js';
+import {
+  tryValidateRepositoryUri,
+  tryDerivePortableRoot,
+  isGitHubHostedRun,
+  parseAuthorizedHosts,
+} from '../dist/index.js';
 
 test('tryDerivePortableRoot mints a GitHub blob root from an https clone URL', () => {
   const r = tryDerivePortableRoot('https://github.com/contoso/widgets', 'abc123');
@@ -81,5 +86,80 @@ test('isGitHubHostedRun is false when any entry is a non-GitHub host', () => {
       ],
     }),
     false,
+  );
+});
+
+// --- Enterprise GitHub (GHES) host attestation -------------------------------
+// A self-hosted GitHub Enterprise Server uses a custom domain (e.g. Walmart's
+// gecgithub01.walmart.com) that is structurally indistinguishable from any
+// other host, so it cannot be auto-recognized. When the caller attests a host
+// as `ghe`, its permalinks are byte-identical to github.com
+// ({host}/{owner}/{repo}/blob/{sha}/), so the existing GitHub derivation path
+// applies unchanged.
+
+const GHES_URI = 'https://gecgithub01.walmart.com/AI-INNOVATION-LAB/pawprints';
+const GHES_HOSTS = [{ type: 'ghe', host: 'gecgithub01.walmart.com' }];
+
+test('parseAuthorizedHosts parses <hostType>:<host> tokens', () => {
+  const r = parseAuthorizedHosts('ghe:githost.contoso.com, ghe:Other.Example.com');
+  assert.ok(r.ok);
+  assert.deepEqual(r.value, [
+    { type: 'ghe', host: 'githost.contoso.com' },
+    { type: 'ghe', host: 'other.example.com' },
+  ]);
+});
+
+test('parseAuthorizedHosts returns an empty list for empty input', () => {
+  const r = parseAuthorizedHosts(undefined);
+  assert.ok(r.ok);
+  assert.deepEqual(r.value, []);
+});
+
+test('parseAuthorizedHosts rejects a token missing the host type', () => {
+  assert.equal(parseAuthorizedHosts('githost.contoso.com').ok, false);
+});
+
+test('parseAuthorizedHosts rejects an unknown host type', () => {
+  assert.equal(parseAuthorizedHosts('gitlab:git.contoso.com').ok, false);
+});
+
+test('tryDerivePortableRoot mints a GitHub-style blob root for an attested ghe host', () => {
+  const r = tryDerivePortableRoot(GHES_URI, 'abc123', { authorizedHosts: GHES_HOSTS });
+  assert.ok(r.ok);
+  assert.equal(
+    r.value.portableRoot,
+    'https://gecgithub01.walmart.com/AI-INNOVATION-LAB/pawprints/blob/abc123/',
+  );
+  assert.equal(r.value.leaf, 'pawprints');
+  assert.equal(
+    r.value.revisionWebUrl,
+    'https://gecgithub01.walmart.com/AI-INNOVATION-LAB/pawprints/tree/abc123',
+  );
+});
+
+test('tryValidateRepositoryUri accepts an attested ghe host', () => {
+  const r = tryValidateRepositoryUri(GHES_URI, { authorizedHosts: GHES_HOSTS });
+  assert.ok(r.ok);
+  assert.equal(r.value.leaf, 'pawprints');
+});
+
+test('ghe-host attestation is case-insensitive on the host', () => {
+  const r = tryValidateRepositoryUri(GHES_URI, {
+    authorizedHosts: [{ type: 'ghe', host: 'GECGitHub01.Walmart.com' }],
+  });
+  assert.ok(r.ok);
+});
+
+test('tryValidateRepositoryUri still rejects an unattested host (default-deny preserved)', () => {
+  assert.equal(tryValidateRepositoryUri(GHES_URI).ok, false);
+});
+
+test('isGitHubHostedRun is true when every VCP entry is an attested ghe host', () => {
+  assert.equal(
+    isGitHubHostedRun(
+      { versionControlProvenance: [{ repositoryUri: GHES_URI }] },
+      { authorizedHosts: GHES_HOSTS },
+    ),
+    true,
   );
 });

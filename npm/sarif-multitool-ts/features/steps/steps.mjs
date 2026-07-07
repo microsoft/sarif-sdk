@@ -16,6 +16,7 @@ import {
   replay,
   wipPathFor,
 } from '../../dist/index.js';
+import { parseAuthorizedHosts } from '@microsoft/sarif';
 
 // ---------------------------------------------------------------------------
 // Helpers
@@ -184,6 +185,43 @@ When('emit-run is invoked expecting failure', async function () {
   } catch (err) {
     this.lastError = err;
   }
+});
+
+// ---------------------------------------------------------------------------
+// Given/When — attested self-hosted (GHES) hosts
+// ---------------------------------------------------------------------------
+
+Given(
+  'an open event log for tool {string} with a GHES source root and VCP authorized as {string}',
+  async function (name, hostsSpec) {
+    if (!this.tmp) this.init();
+    this.runHeader = this.ghesRunHeader();
+    this.runHeader.tool.driver.name = name;
+    const parsed = parseAuthorizedHosts(hostsSpec);
+    assert.ok(parsed.ok, parsed.ok ? '' : parsed.error);
+    this.authorizedHosts = parsed.value;
+    await emitRun({
+      output: this.output,
+      run: this.runHeader,
+      authorizedHosts: this.authorizedHosts,
+      env: this.env,
+    });
+  },
+);
+
+Given('a GHES run header for tool {string}', function (name) {
+  if (!this.tmp) this.init();
+  this.runHeader = this.ghesRunHeader();
+  this.runHeader.tool.driver.name = name;
+});
+
+When('emit-finalize is invoked with the authorized host', async function () {
+  const r = await emitFinalize({
+    output: this.output,
+    keepWip: true,
+    authorizedHosts: this.authorizedHosts,
+  });
+  this.finalizedLog = r.log;
 });
 
 // ---------------------------------------------------------------------------
