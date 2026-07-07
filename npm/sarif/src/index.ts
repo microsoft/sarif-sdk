@@ -18,7 +18,11 @@ export {
   tryValidateRepositoryUri,
   tryDerivePortableRoot,
   isGitHubHostedRun,
+  parseAuthorizedHosts,
   type PortableRoot,
+  type VcpOptions,
+  type AuthorizedHost,
+  type AuthorizedHostType,
 } from './vcp.js';
 export {
   insertOptionalData,

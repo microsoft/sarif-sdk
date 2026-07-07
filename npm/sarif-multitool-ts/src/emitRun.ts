@@ -24,6 +24,7 @@ import {
   type EnvGetter,
 } from './ciContext.js';
 import { tryValidateRepositoryUri } from '@microsoft/sarif';
+import type { AuthorizedHost } from '@microsoft/sarif';
 import { EmitVerbError } from './batch.js';
 
 export const SOURCE_ROOT_BASE_ID = 'SRCROOT';
@@ -41,6 +42,14 @@ export interface EmitRunOptions {
   run: Obj;
   /** Replace an existing .sarif or in-progress .wip.jsonl at the destination. */
   forceOverwrite?: boolean;
+  /**
+   * Hosts the caller attests are self-hosted VCS instances (`<hostType>:<host>`,
+   * parsed by `parseAuthorizedHosts`), so their
+   * `versionControlProvenance.repositoryUri` validates against the attested
+   * product instead of being rejected as unsupported. Matched
+   * case-insensitively.
+   */
+  authorizedHosts?: readonly AuthorizedHost[];
   /** Test seam; defaults to process.env. */
   env?: EnvGetter;
 }
@@ -88,7 +97,7 @@ export async function emitRun(opts: EmitRunOptions): Promise<EmitRunOutcome> {
     stampVcp(runObject, merged.repositoryUri, merged.revisionId, merged.branch);
   }
 
-  validateVcpRepositoryShapes(runObject);
+  validateVcpRepositoryShapes(runObject, opts.authorizedHosts);
 
   const outputPath = resolvePath(opts.output);
   const wipPath = wipPathFor(outputPath);
@@ -263,13 +272,16 @@ function validateOptionalAiOrigin(token: unknown): void {
   }
 }
 
-function validateVcpRepositoryShapes(runObject: Obj): void {
+function validateVcpRepositoryShapes(
+  runObject: Obj,
+  authorizedHosts?: readonly AuthorizedHost[],
+): void {
   const vcp = runObject.versionControlProvenance;
   if (!Array.isArray(vcp)) return;
   for (let i = 0; i < vcp.length; i++) {
     const repoUri = isObj(vcp[i]) ? (vcp[i] as Obj).repositoryUri : undefined;
     if (typeof repoUri !== 'string' || !repoUri) continue;
-    const r = tryValidateRepositoryUri(repoUri);
+    const r = tryValidateRepositoryUri(repoUri, { authorizedHosts });
     if (!r.ok) {
       throw new EmitVerbError(`versionControlProvenance[${i}]: ${r.error}`);
     }
