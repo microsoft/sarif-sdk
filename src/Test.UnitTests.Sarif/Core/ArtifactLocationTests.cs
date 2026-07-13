@@ -176,6 +176,92 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Core
         }
 
         [Fact]
+        public void TryReconstructAbsoluteUri_WhenRelativeUriEscapesBaseWithDotDot_ReturnsFalse()
+        {
+            AssertReconstructionFails(new Uri("../../../../Windows/System32/drivers/etc/hosts", UriKind.Relative));
+        }
+
+        [Fact]
+        public void TryReconstructAbsoluteUri_WhenRelativeUriEscapesBaseWithSingleDotDot_ReturnsFalse()
+        {
+            AssertReconstructionFails(new Uri("../secret.txt", UriKind.Relative));
+        }
+
+        [Fact]
+        public void TryReconstructAbsoluteUri_WhenDotDotEscapesBaseThroughChainedBase_ReturnsFalse()
+        {
+            var artifactLocation = new ArtifactLocation
+            {
+                Uri = new Uri("../../../../secret.txt", UriKind.Relative),
+                UriBaseId = SourceRootBaseId
+            };
+
+            var originalUriBaseIds = new Dictionary<string, ArtifactLocation>
+            {
+                [ProjectRootBaseId] = new ArtifactLocation
+                {
+                    Uri = new Uri("file://c:/code/sarif-sdk/", UriKind.Absolute)
+                },
+
+                [SourceRootBaseId] = new ArtifactLocation
+                {
+                    Uri = new Uri("src/", UriKind.Relative),
+                    UriBaseId = ProjectRootBaseId
+                }
+            };
+
+            bool wasResolved = artifactLocation.TryReconstructAbsoluteUri(originalUriBaseIds, out Uri resolvedUri);
+
+            wasResolved.Should().BeFalse();
+            resolvedUri.Should().BeNull();
+        }
+
+        [Fact]
+        public void TryReconstructAbsoluteUri_WhenDotDotStaysWithinBase_ReturnsTrueWithResolvedUri()
+        {
+            var artifactLocation = new ArtifactLocation
+            {
+                Uri = new Uri("src/../README.md", UriKind.Relative),
+                UriBaseId = ProjectRootBaseId
+            };
+
+            var originalUriBaseIds = new Dictionary<string, ArtifactLocation>
+            {
+                [ProjectRootBaseId] = new ArtifactLocation
+                {
+                    Uri = new Uri("file://c:/code/sarif-sdk/", UriKind.Absolute)
+                }
+            };
+
+            bool wasResolved = artifactLocation.TryReconstructAbsoluteUri(originalUriBaseIds, out Uri resolvedUri);
+
+            wasResolved.Should().BeTrue();
+            resolvedUri.Should().Be(new Uri("file://c:/code/sarif-sdk/README.md", UriKind.Absolute));
+        }
+
+        private static void AssertReconstructionFails(Uri escapingRelativeUri)
+        {
+            var artifactLocation = new ArtifactLocation
+            {
+                Uri = escapingRelativeUri,
+                UriBaseId = ProjectRootBaseId
+            };
+
+            var originalUriBaseIds = new Dictionary<string, ArtifactLocation>
+            {
+                [ProjectRootBaseId] = new ArtifactLocation
+                {
+                    Uri = new Uri("file://c:/code/sarif-sdk/", UriKind.Absolute)
+                }
+            };
+
+            bool wasResolved = artifactLocation.TryReconstructAbsoluteUri(originalUriBaseIds, out Uri resolvedUri);
+
+            wasResolved.Should().BeFalse();
+            resolvedUri.Should().BeNull();
+        }
+
+        [Fact]
         public void ToLocation_ProducesExpectedLocationObject()
         {
             const string SourceFile = "src/Sarif/Core/ArtifactLocation.cs";
