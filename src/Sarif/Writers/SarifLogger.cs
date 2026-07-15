@@ -252,38 +252,44 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 }
             }
 
-            var invocation = Invocation.Create(
-                emitMachineEnvironment: dataToInsert.HasFlag(OptionallyEmittedData.EnvironmentVariables),
-                emitTimestamps: !dataToRemove.HasFlag(OptionallyEmittedData.NondeterministicProperties),
-                invocationPropertiesToLog);
-
-            // TODO we should actually redact across the complete log file context
-            // by a dedicated rewriting visitor or some other approach.
-
-            if (invocationTokensToRedact != null)
+            // Synthesize an invocation to capture command-line, machine, and timing
+            // data only when the caller has not already provided one. Adding one
+            // unconditionally would duplicate a caller-supplied invocation in the run.
+            if (_run.Invocations.Count == 0)
             {
-                invocation.CommandLine = Redact(invocation.CommandLine, invocationTokensToRedact);
-                invocation.Machine = Redact(invocation.Machine, invocationTokensToRedact);
-                invocation.Account = Redact(invocation.Account, invocationTokensToRedact);
+                var invocation = Invocation.Create(
+                    emitMachineEnvironment: dataToInsert.HasFlag(OptionallyEmittedData.EnvironmentVariables),
+                    emitTimestamps: !dataToRemove.HasFlag(OptionallyEmittedData.NondeterministicProperties),
+                    invocationPropertiesToLog);
 
-                if (invocation.WorkingDirectory != null)
+                // TODO we should actually redact across the complete log file context
+                // by a dedicated rewriting visitor or some other approach.
+
+                if (invocationTokensToRedact != null)
                 {
-                    invocation.WorkingDirectory.Uri = Redact(invocation.WorkingDirectory.Uri, invocationTokensToRedact);
-                }
+                    invocation.CommandLine = Redact(invocation.CommandLine, invocationTokensToRedact);
+                    invocation.Machine = Redact(invocation.Machine, invocationTokensToRedact);
+                    invocation.Account = Redact(invocation.Account, invocationTokensToRedact);
 
-                if (invocation.EnvironmentVariables != null)
-                {
-                    string[] keys = invocation.EnvironmentVariables.Keys.ToArray();
-
-                    foreach (string key in keys)
+                    if (invocation.WorkingDirectory != null)
                     {
-                        string value = invocation.EnvironmentVariables[key];
-                        invocation.EnvironmentVariables[key] = Redact(value, invocationTokensToRedact);
+                        invocation.WorkingDirectory.Uri = Redact(invocation.WorkingDirectory.Uri, invocationTokensToRedact);
+                    }
+
+                    if (invocation.EnvironmentVariables != null)
+                    {
+                        string[] keys = invocation.EnvironmentVariables.Keys.ToArray();
+
+                        foreach (string key in keys)
+                        {
+                            string value = invocation.EnvironmentVariables[key];
+                            invocation.EnvironmentVariables[key] = Redact(value, invocationTokensToRedact);
+                        }
                     }
                 }
-            }
 
-            _run.Invocations.Add(invocation);
+                _run.Invocations.Add(invocation);
+            }
         }
 
         public IDictionary<ReportingDescriptor, ReportingDescriptorReference> RuleToReportingDescriptorReferenceMap { get; }
