@@ -814,6 +814,61 @@ namespace Microsoft.CodeAnalysis.Sarif
             // Start off with a run that doesn't contain any Invocations.
             var run = new Run();
 
+            SarifLog sarifLog = RunSarifLoggerOverRun(run);
+
+            // The logger should have added an Invocation.
+            sarifLog.Runs[0].Invocations?.Count.Should().Be(1);
+        }
+
+        [Fact]
+        public void SarifLogger_DoesNotAddInvocationWhenRunAlreadyHasInvocation()
+        {
+            // A caller that supplies its own invocation should see exactly that
+            // invocation in the output; the logger must not append a second one.
+            const string commandLine = "caller-supplied-invocation";
+
+            var run = new Run
+            {
+                Invocations = new List<Invocation>
+                {
+                    new Invocation { CommandLine = commandLine }
+                }
+            };
+
+            SarifLog sarifLog = RunSarifLoggerOverRun(run);
+
+            var invocations = sarifLog.Runs[0].Invocations;
+            invocations?.Count.Should().Be(1);
+            invocations[0].CommandLine.Should().Be(commandLine);
+        }
+
+        [Fact]
+        public void SarifLogger_RetainsAllCallerSuppliedInvocations()
+        {
+            // When a caller supplies multiple invocations, all of them are retained
+            // and no additional invocation is synthesized.
+            const string firstCommandLine = "first-caller-invocation";
+            const string secondCommandLine = "second-caller-invocation";
+
+            var run = new Run
+            {
+                Invocations = new List<Invocation>
+                {
+                    new Invocation { CommandLine = firstCommandLine },
+                    new Invocation { CommandLine = secondCommandLine }
+                }
+            };
+
+            SarifLog sarifLog = RunSarifLoggerOverRun(run);
+
+            var invocations = sarifLog.Runs[0].Invocations;
+            invocations?.Count.Should().Be(2);
+            invocations[0].CommandLine.Should().Be(firstCommandLine);
+            invocations[1].CommandLine.Should().Be(secondCommandLine);
+        }
+
+        private static SarifLog RunSarifLoggerOverRun(Run run)
+        {
             var sb = new StringBuilder();
 
             using (var textWriter = new StringWriter(sb))
@@ -827,10 +882,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             }
 
             string logText = sb.ToString();
-            SarifLog sarifLog = JsonConvert.DeserializeObject<SarifLog>(logText);
-
-            // The logger should have added an Invocation.
-            sarifLog.Runs[0].Invocations?.Count.Should().Be(1);
+            return JsonConvert.DeserializeObject<SarifLog>(logText);
         }
 
         [Fact]
