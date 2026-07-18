@@ -14,7 +14,7 @@
     <PackageVersion Include="Microsoft.Diagnostics.Tracing.EventRegister" Version="1.1.28" />
     <PackageVersion Include="Microsoft.Diagnostics.Tracing.TraceEvent" Version="3.2.4" />
     <PackageVersion Include="Microsoft.Bcl.HashCode" Version="6.0.0" />
-    <PackageVersion Include="Microsoft.Extensions.Configuration.EnvironmentVariables" Version="3.1.32" />
+    <PackageVersion Include="Microsoft.Extensions.Configuration.EnvironmentVariables" Version="10.0.10" />
     <PackageVersion Include="Microsoft.Extensions.Configuration.Json" Version="3.1.32" />
     <PackageVersion Include="Microsoft.Extensions.FileSystemGlobbing" Version="3.1.32" />
     <PackageVersion Include="Microsoft.Extensions.Logging.Abstractions" Version="3.1.32" />
