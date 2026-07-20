@@ -40,6 +40,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             //    - which lacks a Uri property (failure).
             ArtifactLocation artifactLocation = this;
             Uri stemUri = this.Uri;
+            string resolvedBaseString = null;
             while (!stemUri.IsAbsoluteUri)
             {
                 if (string.IsNullOrEmpty(artifactLocation.UriBaseId) ||
@@ -51,7 +52,15 @@ namespace Microsoft.CodeAnalysis.Sarif
 
                 string artifactLocationOriginalUriString = artifactLocation.Uri.OriginalString;
                 if (!artifactLocation.Uri.ToString().EndsWith("/")) { artifactLocationOriginalUriString += "/"; }
+                resolvedBaseString = artifactLocationOriginalUriString;
                 stemUri = new Uri(artifactLocationOriginalUriString + stemUri.OriginalString, UriKind.RelativeOrAbsolute);
+            }
+
+            // A relative reference must resolve at or beneath its base; '../' escapes (path traversal) are unresolvable.
+            var baseUri = new Uri(resolvedBaseString, UriKind.Absolute);
+            if (!baseUri.IsBaseOf(stemUri))
+            {
+                return false;
             }
 
             // If we got here, we found an absolute URI.
