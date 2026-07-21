@@ -8,7 +8,7 @@ using System.ComponentModel;
 using System.Runtime.Serialization;
 
 using Newtonsoft.Json;
-
+using Stj = System.Text.Json.Serialization;
 namespace Microsoft.CodeAnalysis.Sarif
 {
     /// <summary>
@@ -40,76 +40,90 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// The line number of the first character in the region.
         /// </summary>
         [DataMember(Name = "startLine", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("startLine")]
         public virtual int StartLine { get; set; }
 
         /// <summary>
         /// The column number of the first character in the region.
         /// </summary>
         [DataMember(Name = "startColumn", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("startColumn")]
         public virtual int StartColumn { get; set; }
 
         /// <summary>
         /// The line number of the last character in the region.
         /// </summary>
         [DataMember(Name = "endLine", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("endLine")]
         public virtual int EndLine { get; set; }
 
         /// <summary>
         /// The column number of the character following the end of the region.
         /// </summary>
         [DataMember(Name = "endColumn", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("endColumn")]
         public virtual int EndColumn { get; set; }
 
         /// <summary>
         /// The zero-based offset from the beginning of the artifact of the first character in the region.
         /// </summary>
         [DataMember(Name = "charOffset", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("charOffset")]
         [DefaultValue(-1)]
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
+        [Stj.JsonIgnore(Condition = Stj.JsonIgnoreCondition.WhenWritingDefault)]
         public virtual int CharOffset { get; set; }
 
         /// <summary>
         /// The length of the region in characters.
         /// </summary>
         [DataMember(Name = "charLength", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("charLength")]
         public virtual int CharLength { get; set; }
 
         /// <summary>
         /// The zero-based offset from the beginning of the artifact of the first byte in the region.
         /// </summary>
         [DataMember(Name = "byteOffset", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("byteOffset")]
         [DefaultValue(-1)]
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
+        [Stj.JsonIgnore(Condition = Stj.JsonIgnoreCondition.WhenWritingDefault)]
         public virtual int ByteOffset { get; set; }
 
         /// <summary>
         /// The length of the region in bytes.
         /// </summary>
         [DataMember(Name = "byteLength", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("byteLength")]
         public virtual int ByteLength { get; set; }
 
         /// <summary>
         /// The portion of the artifact contents within the specified region.
         /// </summary>
         [DataMember(Name = "snippet", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("snippet")]
         public virtual ArtifactContent Snippet { get; set; }
 
         /// <summary>
         /// A message relevant to the region.
         /// </summary>
         [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("message")]
         public virtual Message Message { get; set; }
 
         /// <summary>
         /// Specifies the source language, if any, of the portion of the artifact specified by the region object.
         /// </summary>
         [DataMember(Name = "sourceLanguage", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("sourceLanguage")]
         public virtual string SourceLanguage { get; set; }
 
         /// <summary>
         /// Key/value pairs that provide additional information about the region.
         /// </summary>
         [DataMember(Name = "properties", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("properties")]
         internal override IDictionary<string, SerializedPropertyInfo> Properties { get; set; }
 
         /// <summary>

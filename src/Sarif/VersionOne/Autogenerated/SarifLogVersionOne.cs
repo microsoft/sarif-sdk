@@ -5,7 +5,7 @@ using System;
 using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
-
+using Stj = System.Text.Json.Serialization;
 namespace Microsoft.CodeAnalysis.Sarif.VersionOne
 {
     /// <summary>
@@ -35,18 +35,21 @@ namespace Microsoft.CodeAnalysis.Sarif.VersionOne
         /// The URI of the JSON schema corresponding to the version.
         /// </summary>
         [DataMember(Name = "$schema", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("$schema")]
         public Uri SchemaUri { get; set; }
 
         /// <summary>
         /// The SARIF format version of this log file.
         /// </summary>
         [DataMember(Name = "version", IsRequired = true)]
+        [Stj.JsonPropertyName("version")]
         public SarifVersionVersionOne Version { get; set; }
 
         /// <summary>
         /// The set of runs contained in this log file.
         /// </summary>
         [DataMember(Name = "runs", IsRequired = true)]
+        [Stj.JsonPropertyName("runs")]
         public IList<RunVersionOne> Runs { get; set; }
 
         /// <summary>
