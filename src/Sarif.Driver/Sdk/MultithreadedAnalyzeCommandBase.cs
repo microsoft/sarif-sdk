@@ -137,17 +137,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         }
 
         /// <summary>
-        /// Runs analysis without blocking the calling thread. Unlike <see cref="Run(TOptions)"/>,
-        /// no stage of this pipeline waits on a task: target enumeration, scanning and result
-        /// logging are awaited, as are the post-uri health check and the log file post.
-        /// </summary>
-        public virtual async Task<int> RunAsync(TOptions options)
-        {
-            (int exitCode, TContext _) = await RunAsync(options, globalContext: null).ConfigureAwait(false);
-            return exitCode;
-        }
-
-        /// <summary>
         /// Runs analysis without blocking the calling thread, returning the global context
         /// alongside the exit code. An async method cannot accept the <c>ref</c> parameter that
         /// <see cref="Run(TOptions, ref TContext)"/> uses to hand back a context it created, so

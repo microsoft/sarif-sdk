@@ -92,14 +92,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         }
 
         [Fact]
-        public async Task RunAsync_SingleArgumentOverloadReturnsExitCode()
-        {
-            int exitCode = await CreateCommand().RunAsync(CreateOptions());
-
-            exitCode.Should().Be(SUCCESS);
-        }
-
-        [Fact]
         public async Task RunAsync_HonorsRichReturnCode()
         {
             TestAnalyzeOptions options = CreateOptions(AnalyzeNothing);
@@ -145,42 +137,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
             exitCode.Should().Be(FAILURE);
             context.RuntimeErrors.Should().Be(RuntimeConditions.AnalysisTimedOut);
-        }
-
-        [Fact]
-        public void RunAsync_DoesNotPostContinuationsToCallingSynchronizationContext()
-        {
-            var synchronizationContext = new RecordingSynchronizationContext();
-            int exitCode = FAILURE;
-            Exception failure = null;
-
-            // Blocking on RunAsync from a thread whose synchronization context never pumps
-            // deadlocks the moment any await in the pipeline captures that context.
-            var thread = new Thread(() =>
-            {
-                SynchronizationContext.SetSynchronizationContext(synchronizationContext);
-
-                try
-                {
-                    exitCode = CreateCommand().RunAsync(CreateOptions()).GetAwaiter().GetResult();
-                }
-                catch (Exception ex)
-                {
-                    failure = ex;
-                }
-            })
-            {
-                IsBackground = true,
-            };
-
-            thread.Start();
-
-            thread.Join(PipelineTimeout)
-                  .Should().BeTrue("RunAsync must not capture the calling synchronization context");
-
-            failure.Should().BeNull();
-            exitCode.Should().Be(SUCCESS);
-            synchronizationContext.PostCount.Should().Be(0);
         }
 
         [Fact]
