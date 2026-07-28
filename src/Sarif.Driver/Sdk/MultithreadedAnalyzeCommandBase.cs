@@ -40,7 +40,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         private long _filesMatchingGlobalFileDenyRegex;
         private long _filesExceedingSizeLimitCount;
         private Channel<uint> _resultsWritingChannel;
-        private Channel<uint> readyToScanChannel;
+        private Channel<uint> _readyToScanChannel;
         private ConcurrentDictionary<uint, TContext> _fileContexts;
 
         public static bool RaiseUnhandledExceptionInDriverCode { get; set; }
@@ -598,7 +598,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 SingleWriter = true,
                 SingleReader = false,
             };
-            readyToScanChannel = Channel.CreateBounded<uint>(channelOptions);
+            _readyToScanChannel = Channel.CreateBounded<uint>(channelOptions);
 
             channelOptions = new BoundedChannelOptions(globalContext.ChannelSize)
             {
@@ -805,7 +805,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             }
             finally
             {
-                readyToScanChannel.Writer.Complete();
+                _readyToScanChannel.Writer.Complete();
             }
 
             if (_filesExceedingSizeLimitCount > 0)
@@ -898,9 +898,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                     lock (globalContext)
                     {
                         Errors.LogTargetParseError(context, region: null, message, ex);
+                        globalContext.RuntimeErrors |= context.RuntimeErrors;
                     }
 
-                    globalContext.RuntimeErrors |= context.RuntimeErrors;
                     return false;
                 }
 
@@ -942,7 +942,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 DriverEventSource.Log.FirstArtifactQueued(fileContext.CurrentTarget.Uri.GetFilePath());
             }
 
-            await readyToScanChannel.Writer.WriteAsync(_fileContextsCount++);
+            await _readyToScanChannel.Writer.WriteAsync(_fileContextsCount++);
 
             return true;
         }
@@ -995,7 +995,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
         private async Task ScanTargetsAsync(TContext globalContext, IEnumerable<Skimmer<TContext>> skimmers, ISet<string> disabledSkimmers)
         {
-            ChannelReader<uint> reader = readyToScanChannel.Reader;
+            ChannelReader<uint> reader = _readyToScanChannel.Reader;
             globalContext.CancellationToken.ThrowIfCancellationRequested();
 
             // Wait until there is work or the channel is closed.
@@ -1004,7 +1004,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 // Loop while there is work to do.
                 while (reader.TryRead(out uint item))
                 {
-                    TContext perFileContext = _fileContexts[item]; ;
+                    TContext perFileContext = _fileContexts[item];
                     perFileContext.CancellationToken.ThrowIfCancellationRequested();
                     string filePath = perFileContext.CurrentTarget.Uri.GetFilePath();
 
@@ -1014,8 +1014,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                     DriverEventSource.Log.ReadArtifactStop(filePath, sizeInBytes);
 
                     DetermineApplicabilityAndAnalyze(perFileContext, skimmers, disabledSkimmers);
-                    globalContext.RuntimeErrors |= perFileContext.RuntimeErrors;
-                    if (perFileContext != null) { perFileContext.AnalysisComplete = true; }
+
+                    // Every scan worker merges into this flags enum, so the
+                    // read-modify-write must be serialized against its peers and against
+                    // the results consumer, which merges under the same lock.
+                    lock (globalContext)
+                    {
+                        globalContext.RuntimeErrors |= perFileContext.RuntimeErrors;
+                    }
+
+                    perFileContext.AnalysisComplete = true;
                     await _resultsWritingChannel.Writer.WriteAsync(item);
                 }
             }
@@ -1719,7 +1727,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         internal static bool IsTargetWithinFileSizeLimit(long size, long maxFileSizeInKB)
         {
             if (size == 0) { return false; }
-            ;
+
             size = Math.Min(long.MaxValue - 1023, size);
             long fileSizeInKb = (size + 1023) / 1024;
             return fileSizeInKb <= maxFileSizeInKB;
