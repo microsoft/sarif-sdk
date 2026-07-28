@@ -14,6 +14,7 @@ Each release entry below is prefixed with one of:
 Entries are terse by design: one line per change, present-tense behavior, complete but only essential data. No issue/PR archaeology or narrative — that history lives in the engineering system.
 
 ## **UNRELEASED**
+* NEW: `MultithreadedAnalyzeCommandBase.RunAsync` analyzes without blocking the caller, dispatching to new async virtuals that hold the work; `Run` keeps its signature and dispatches to their synchronous counterparts, so existing subclasses are unaffected.
 * BUG: `ArtifactLocation.TryReconstructAbsoluteUri` returns false (leaving `resolvedUri` null) when a relative `uri`'s `../` segments escape the `originalUriBaseIds` base it resolves through, so enrichment no longer reads files outside a declared base.
 
 ## **v5.5.0** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/v5.5.0) | [Driver](https://www.nuget.org/packages/Sarif.Driver/v5.5.0) | [Converters](https://www.nuget.org/packages/Sarif.Converters/v5.5.0) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/v5.5.0) | [Multitool Library](https://www.nuget.org/packages/Sarif.Multitool.Library/v5.5.0)

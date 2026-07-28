@@ -95,39 +95,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 // to utilize it in a separate thread.
                 TContext methodLocalContext = globalContext;
 
-                if (!string.IsNullOrEmpty(globalContext.EventsFilePath))
-                {
-                    Guid guid = EventSource.GetGuid(typeof(DriverEventSource));
-
-                    if (globalContext.EventsFilePath.Equals("console", StringComparison.OrdinalIgnoreCase))
-                    {
-                        globalContext.TraceEventSession = new TraceEventSession($"Sarif-Driver-{Guid.NewGuid()}");
-                        globalContext.TraceEventSession.BufferSizeMB = globalContext.EventsBufferSizeInMegabytes;
-                        TraceEventSession traceEventSession = globalContext.TraceEventSession;
-                        globalContext.TraceEventSession.Source.Dynamic.All += (e =>
-                        {
-                            Console.WriteLine($"{e.TimeStamp:MM/dd/yyyy hh:mm:ss.ffff},{e.ThreadID}," +
-                            $"{e.ProcessorNumber},{e.EventName},{e.TimeStampRelativeMSec},{e.FormattedMessage}");
-
-                            if (e.EventName.Equals("SessionEnded"))
-                            {
-                                traceEventSession.Dispose();
-                            }
-                        });
-                        traceEventSession.EnableProvider(guid);
-                    }
-                    else
-                    {
-                        string etlFilePath =
-                        Path.GetExtension(globalContext.EventsFilePath).Equals(".csv", StringComparison.OrdinalIgnoreCase)
-                            ? $"{Path.GetFileNameWithoutExtension(globalContext.EventsFilePath)}.etl"
-                            : globalContext.EventsFilePath;
-
-                        globalContext.TraceEventSession = new TraceEventSession($"Sarif-Driver-{Guid.NewGuid()}", etlFilePath);
-                        globalContext.TraceEventSession.BufferSizeMB = globalContext.EventsBufferSizeInMegabytes;
-                        globalContext.TraceEventSession.EnableProvider(guid);
-                    }
-                }
+                InitializeEventsSession(globalContext);
 
                 Task<int> analyzeTask = Task.Run(() =>
                 {
@@ -166,6 +134,115 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 globalContext.RichReturnCode == true
                     ? (int)globalContext.RuntimeErrors
                     : FAILURE;
+        }
+
+        /// <summary>
+        /// Runs analysis without blocking the calling thread. Unlike <see cref="Run(TOptions)"/>,
+        /// no stage of this pipeline waits on a task: target enumeration, scanning and result
+        /// logging are awaited, as are the post-uri health check and the log file post.
+        /// </summary>
+        public virtual async Task<int> RunAsync(TOptions options)
+        {
+            (int exitCode, TContext _) = await RunAsync(options, globalContext: null).ConfigureAwait(false);
+            return exitCode;
+        }
+
+        /// <summary>
+        /// Runs analysis without blocking the calling thread, returning the global context
+        /// alongside the exit code. An async method cannot accept the <c>ref</c> parameter that
+        /// <see cref="Run(TOptions, ref TContext)"/> uses to hand back a context it created, so
+        /// the context is returned instead. The returned context is always disposed.
+        /// </summary>
+        public virtual async Task<(int ExitCode, TContext GlobalContext)> RunAsync(TOptions options, TContext globalContext)
+        {
+            try
+            {
+                globalContext ??= new TContext();
+                options ??= new TOptions();
+                globalContext = InitializeGlobalContextFromOptions(options, ref globalContext);
+
+                // We must make a copy of the global context reference
+                // to utilize it in a separate thread.
+                TContext methodLocalContext = globalContext;
+
+                InitializeEventsSession(globalContext);
+
+                // The analysis is dispatched to the thread pool so that the timeout below covers
+                // the synchronous configuration work that precedes the first await within it.
+                Task<int> analyzeTask = Task.Run(() =>
+                {
+                    return RunAsync(methodLocalContext);
+                }, globalContext.CancellationToken);
+
+                int msDelay = globalContext.TimeoutInMilliseconds;
+                int result = FAILURE;
+
+                if (await Task.WhenAny(analyzeTask, Task.Delay(msDelay)).ConfigureAwait(false) == analyzeTask)
+                {
+                    result = await analyzeTask.ConfigureAwait(false);
+                }
+                else
+                {
+                    lock (globalContext)
+                    {
+                        Errors.LogAnalysisTimedOut(globalContext);
+                    }
+                }
+
+                DriverEventSource.Log.SessionEnded(result, globalContext.RuntimeErrors);
+                return (result, globalContext);
+            }
+            catch (Exception ex)
+            {
+                globalContext.RuntimeExceptions ??= new List<Exception>();
+                ProcessException(globalContext, ex);
+            }
+            finally
+            {
+                globalContext.Dispose();
+            }
+
+            return
+                (globalContext.RichReturnCode == true
+                    ? (int)globalContext.RuntimeErrors
+                    : FAILURE,
+                 globalContext);
+        }
+
+        private static void InitializeEventsSession(TContext globalContext)
+        {
+            if (string.IsNullOrEmpty(globalContext.EventsFilePath)) { return; }
+
+            Guid guid = EventSource.GetGuid(typeof(DriverEventSource));
+
+            if (globalContext.EventsFilePath.Equals("console", StringComparison.OrdinalIgnoreCase))
+            {
+                globalContext.TraceEventSession = new TraceEventSession($"Sarif-Driver-{Guid.NewGuid()}");
+                globalContext.TraceEventSession.BufferSizeMB = globalContext.EventsBufferSizeInMegabytes;
+                TraceEventSession traceEventSession = globalContext.TraceEventSession;
+                globalContext.TraceEventSession.Source.Dynamic.All += (e =>
+                {
+                    Console.WriteLine($"{e.TimeStamp:MM/dd/yyyy hh:mm:ss.ffff},{e.ThreadID}," +
+                    $"{e.ProcessorNumber},{e.EventName},{e.TimeStampRelativeMSec},{e.FormattedMessage}");
+
+                    if (e.EventName.Equals("SessionEnded"))
+                    {
+                        traceEventSession.Dispose();
+                    }
+                });
+                traceEventSession.EnableProvider(guid);
+            }
+            else
+            {
+                string etlFilePath =
+                Path.GetExtension(globalContext.EventsFilePath).Equals(".csv", StringComparison.OrdinalIgnoreCase)
+                    ? $"{Path.GetFileNameWithoutExtension(globalContext.EventsFilePath)}.etl"
+                    : globalContext.EventsFilePath;
+
+                globalContext.TraceEventSession = new TraceEventSession($"Sarif-Driver-{Guid.NewGuid()}", etlFilePath);
+                globalContext.TraceEventSession.BufferSizeMB = globalContext.EventsBufferSizeInMegabytes;
+                globalContext.TraceEventSession.EnableProvider(guid);
+            }
         }
 
         private void ProcessException(TContext globalContext, Exception ex)
@@ -219,11 +296,42 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
         private int Run(TContext globalContext)
         {
-            bool succeeded;
-            IDisposable disposableLogger;
-
             globalContext.FileSystem ??= FileSystem;
             globalContext = ValidateContext(globalContext);
+
+            ISet<Skimmer<TContext>> skimmers = InitializeRun(globalContext, out IDisposable disposableLogger);
+
+            // Run all multi-threaded analysis operations.
+            AnalyzeTargets(globalContext, skimmers);
+
+            CompleteAnalysis(globalContext, disposableLogger);
+
+            // Even if there are fatal errors, if the log file is generated, we can upload it with the ToolExecutionNotifications.
+            PostLogFile(globalContext);
+
+            return FinalizeRun(globalContext);
+        }
+
+        private async Task<int> RunAsync(TContext globalContext)
+        {
+            globalContext.FileSystem ??= FileSystem;
+            globalContext = await ValidateContextAsync(globalContext).ConfigureAwait(false);
+
+            ISet<Skimmer<TContext>> skimmers = InitializeRun(globalContext, out IDisposable disposableLogger);
+
+            // Run all multi-threaded analysis operations.
+            await AnalyzeTargetsAsync(globalContext, skimmers).ConfigureAwait(false);
+
+            CompleteAnalysis(globalContext, disposableLogger);
+
+            // Even if there are fatal errors, if the log file is generated, we can upload it with the ToolExecutionNotifications.
+            await PostLogFileAsync(globalContext).ConfigureAwait(false);
+
+            return FinalizeRun(globalContext);
+        }
+
+        private ISet<Skimmer<TContext>> InitializeRun(TContext globalContext, out IDisposable disposableLogger)
+        {
             disposableLogger = globalContext.Logger as IDisposable;
             InitializeOutputs(globalContext);
 
@@ -242,10 +350,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             // 3. Log analysis initiation
             globalContext.Logger.AnalysisStarted();
 
-            // 4. Run all multi-threaded analysis operations.
-            AnalyzeTargets(globalContext, skimmers);
+            return skimmers;
+        }
 
-            // 5. For test purposes, raise an unhandled exception if indicated
+        private void CompleteAnalysis(TContext globalContext, IDisposable disposableLogger)
+        {
+            // For test purposes, raise an unhandled exception if indicated
             if (RaiseUnhandledExceptionInDriverCode)
             {
                 throw new InvalidOperationException(GetType().Name);
@@ -279,12 +389,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             {
                 ProcessBaseline(globalContext);
             }
+        }
 
-            // Even if there are fatal errors, if the log file is generated, we can upload it with the ToolExecutionNotifications.
-            PostLogFile(globalContext);
-
+        private static int FinalizeRun(TContext globalContext)
+        {
             globalContext.Logger = null;
-            succeeded = (globalContext.RuntimeErrors & ~RuntimeConditions.Nonfatal) == RuntimeConditions.None;
+            bool succeeded = (globalContext.RuntimeErrors & ~RuntimeConditions.Nonfatal) == RuntimeConditions.None;
 
             return
                 globalContext.RichReturnCode
@@ -369,6 +479,34 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
         public virtual TContext ValidateContext(TContext globalContext)
         {
+            bool succeeded = ValidateContextCore(globalContext);
+            succeeded &= ValidatePostUriAsync(globalContext).GetAwaiter().GetResult();
+            succeeded &= ValidateInvocationPropertiesToLog(globalContext);
+
+            if (!succeeded)
+            {
+                ThrowExitApplicationException(ExitReason.InvalidCommandLineOption);
+            }
+
+            return globalContext;
+        }
+
+        public virtual async Task<TContext> ValidateContextAsync(TContext globalContext)
+        {
+            bool succeeded = ValidateContextCore(globalContext);
+            succeeded &= await ValidatePostUriAsync(globalContext).ConfigureAwait(false);
+            succeeded &= ValidateInvocationPropertiesToLog(globalContext);
+
+            if (!succeeded)
+            {
+                ThrowExitApplicationException(ExitReason.InvalidCommandLineOption);
+            }
+
+            return globalContext;
+        }
+
+        private static bool ValidateContextCore(TContext globalContext)
+        {
             bool succeeded = true;
 
             bool force = globalContext.OutputFileOptions.HasFlag(FilePersistenceOptions.ForceOverwrite);
@@ -388,51 +526,52 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                                        globalContext.PluginFilePaths,
                                        shouldExist: required ? true : (bool?)null);
 
+            return succeeded;
+        }
 
-            if (!string.IsNullOrEmpty(globalContext.PostUri))
+        private async Task<bool> ValidatePostUriAsync(TContext globalContext)
+        {
+            if (string.IsNullOrEmpty(globalContext.PostUri))
             {
-                try
-                {
-                    using HttpClientWrapper httpClient = GetHttpClientWrapper();
-                    string separator = globalContext.PostUri.Contains("?") ? "&" : "?";
-                    string uri = $"{globalContext.PostUri}{separator}healthcheck=true";
+                return true;
+            }
 
-                    var content = new StringContent(string.Empty);
-                    HttpResponseMessage httpResponseMessage = httpClient.PostAsync(uri, content).GetAwaiter().GetResult();
+            bool succeeded = true;
 
-                    // For health check with query parameter, we expect a 202 (Accepted) response.
-                    // We also maintain backwards compatibility with 422 (unprocessable payload) for servers
-                    // that don't support the healthcheck parameter but will accept valid SARIF files.
-                    if (httpResponseMessage.StatusCode != HttpStatusCode.Accepted &&
-                        httpResponseMessage.StatusCode != (HttpStatusCode)422)
-                    {
-                        Errors.LogErrorPostingLogFile(globalContext, globalContext.PostUri);
-                        globalContext.PostUri = null;
-                        succeeded = false;
-                    }
-                }
-                catch (Exception e)
+            try
+            {
+                using HttpClientWrapper httpClient = GetHttpClientWrapper();
+                string separator = globalContext.PostUri.Contains("?") ? "&" : "?";
+                string uri = $"{globalContext.PostUri}{separator}healthcheck=true";
+
+                var content = new StringContent(string.Empty);
+                HttpResponseMessage httpResponseMessage = await httpClient.PostAsync(uri, content).ConfigureAwait(false);
+
+                // For health check with query parameter, we expect a 202 (Accepted) response.
+                // We also maintain backwards compatibility with 422 (unprocessable payload) for servers
+                // that don't support the healthcheck parameter but will accept valid SARIF files.
+                if (httpResponseMessage.StatusCode != HttpStatusCode.Accepted &&
+                    httpResponseMessage.StatusCode != (HttpStatusCode)422)
                 {
                     Errors.LogErrorPostingLogFile(globalContext, globalContext.PostUri);
                     globalContext.PostUri = null;
                     succeeded = false;
-                    globalContext.RuntimeExceptions ??= new List<Exception>();
-                    globalContext.RuntimeExceptions.Add(e);
-                }
-                finally
-                {
-                    // TBD add logging if POST URI is null.
                 }
             }
-
-            succeeded &= ValidateInvocationPropertiesToLog(globalContext);
-
-            if (!succeeded)
+            catch (Exception e)
             {
-                ThrowExitApplicationException(ExitReason.InvalidCommandLineOption);
+                Errors.LogErrorPostingLogFile(globalContext, globalContext.PostUri);
+                globalContext.PostUri = null;
+                succeeded = false;
+                globalContext.RuntimeExceptions ??= new List<Exception>();
+                globalContext.RuntimeExceptions.Add(e);
+            }
+            finally
+            {
+                // TBD add logging if POST URI is null.
             }
 
-            return globalContext;
+            return succeeded;
         }
 
         private static ISet<string> InitializeStringSet(IEnumerable<string> strings)
@@ -445,6 +584,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         private void MultithreadedAnalyzeTargets(TContext globalContext,
                                                  IEnumerable<Skimmer<TContext>> skimmers,
                                                  ISet<string> disabledSkimmers)
+        {
+            MultithreadedAnalyzeTargetsAsync(globalContext, skimmers, disabledSkimmers).GetAwaiter().GetResult();
+        }
+
+        private async Task MultithreadedAnalyzeTargetsAsync(TContext globalContext,
+                                                            IEnumerable<Skimmer<TContext>> skimmers,
+                                                            ISet<string> disabledSkimmers)
         {
             globalContext.CancellationToken.ThrowIfCancellationRequested();
             var channelOptions = new BoundedChannelOptions(globalContext.ChannelSize)
@@ -488,12 +634,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             //    a log file that is byte-for-byte identical to previous log.
             var logResults = Task.Run(() => LogResultsAsync(globalContext));
 
-            Task.WhenAll(scanWorkers)
+            await Task.WhenAll(scanWorkers)
                 .ContinueWith(_ => _resultsWritingChannel.Writer.Complete())
-                .Wait();
+                .ConfigureAwait(false);
 
-            enumerateTargets.Wait();
-            logResults.Wait();
+            await enumerateTargets.ConfigureAwait(false);
+            await logResults.ConfigureAwait(false);
 
             if (_filesMatchingGlobalFileDenyRegex > 0)
             {
@@ -1180,6 +1326,19 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         protected virtual void AnalyzeTargets(TContext context,
                                               IEnumerable<Skimmer<TContext>> skimmers)
         {
+            ISet<string> disabledSkimmers = PrepareTargetAnalysis(context, skimmers);
+            MultithreadedAnalyzeTargets(context, skimmers, disabledSkimmers);
+        }
+
+        protected virtual async Task AnalyzeTargetsAsync(TContext context,
+                                                         IEnumerable<Skimmer<TContext>> skimmers)
+        {
+            ISet<string> disabledSkimmers = PrepareTargetAnalysis(context, skimmers);
+            await MultithreadedAnalyzeTargetsAsync(context, skimmers, disabledSkimmers).ConfigureAwait(false);
+        }
+
+        private ISet<string> PrepareTargetAnalysis(TContext context, IEnumerable<Skimmer<TContext>> skimmers)
+        {
             if (skimmers == null)
             {
                 Errors.LogNoRulesLoaded(context);
@@ -1196,7 +1355,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
             this.CheckIncompatibleRules(skimmers, context, disabledSkimmers);
 
-            MultithreadedAnalyzeTargets(context, skimmers, disabledSkimmers);
+            return disabledSkimmers;
         }
 
         public static ISet<string> BuildDisabledSkimmersSet(TContext context, IEnumerable<Skimmer<TContext>> skimmers)
