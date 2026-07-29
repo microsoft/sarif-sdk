@@ -14,6 +14,7 @@ using System.Net;
 using System.Net.Http;
 using System.Reflection;
 using System.Runtime.InteropServices;
+using System.Threading;
 using System.Threading.Channels;
 using System.Threading.Tasks;
 
@@ -85,55 +86,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
         public virtual int Run(TOptions options, ref TContext globalContext)
         {
-            try
-            {
-                globalContext ??= new TContext();
-                options ??= new TOptions();
-                globalContext = InitializeGlobalContextFromOptions(options, ref globalContext);
+            (int result, TContext usedContext) =
+                RunCoreAsync(options, globalContext, synchronous: true).GetAwaiter().GetResult();
 
-                // We must make a copy of the global context reference
-                // to utilize it in a separate thread.
-                TContext methodLocalContext = globalContext;
-
-                InitializeEventsSession(globalContext);
-
-                Task<int> analyzeTask = Task.Run(() =>
-                {
-                    return Run(methodLocalContext);
-                }, globalContext.CancellationToken);
-
-                int msDelay = globalContext.TimeoutInMilliseconds;
-                int result = FAILURE;
-
-                if (Task.WhenAny(analyzeTask, Task.Delay(msDelay)).GetAwaiter().GetResult() == analyzeTask)
-                {
-                    result = analyzeTask.Result;
-                }
-                else
-                {
-                    lock (globalContext)
-                    {
-                        Errors.LogAnalysisTimedOut(globalContext);
-                    }
-                }
-
-                DriverEventSource.Log.SessionEnded(result, globalContext.RuntimeErrors);
-                return result;
-            }
-            catch (Exception ex)
-            {
-                globalContext.RuntimeExceptions ??= new List<Exception>();
-                ProcessException(globalContext, ex);
-            }
-            finally
-            {
-                globalContext.Dispose();
-            }
-
-            return
-                globalContext.RichReturnCode == true
-                    ? (int)globalContext.RuntimeErrors
-                    : FAILURE;
+            globalContext = usedContext;
+            return result;
         }
 
         /// <summary>
@@ -143,6 +100,19 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         /// the context is returned instead. The returned context is always disposed.
         /// </summary>
         public virtual async Task<(int ExitCode, TContext GlobalContext)> RunAsync(TOptions options, TContext globalContext)
+        {
+            return await RunCoreAsync(options, globalContext, synchronous: false).ConfigureAwait(false);
+        }
+
+        /// <summary>
+        /// The single analysis pipeline shared by the synchronous <see cref="Run(TOptions, ref TContext)"/>
+        /// and asynchronous <see cref="RunAsync(TOptions, TContext)"/> entrypoints. <paramref name="synchronous"/>
+        /// selects the synchronous or asynchronous member of each virtual pair the pipeline dispatches to, so
+        /// that a subclass overriding either member is honored by the corresponding entrypoint. The context that
+        /// analysis actually used is returned (and always disposed) so the synchronous entrypoint can publish it
+        /// back through its <c>ref</c> parameter and the asynchronous entrypoint can hand it to its caller.
+        /// </summary>
+        private async Task<(int ExitCode, TContext GlobalContext)> RunCoreAsync(TOptions options, TContext globalContext, bool synchronous)
         {
             try
             {
@@ -160,22 +130,35 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 // the synchronous configuration work that precedes the first await within it.
                 Task<int> analyzeTask = Task.Run(() =>
                 {
-                    return RunAsync(methodLocalContext);
+                    return AnalyzeAsync(methodLocalContext, synchronous);
                 }, globalContext.CancellationToken);
 
                 int msDelay = globalContext.TimeoutInMilliseconds;
                 int result = FAILURE;
 
-                if (await Task.WhenAny(analyzeTask, Task.Delay(msDelay)).ConfigureAwait(false) == analyzeTask)
+                // Cancel the timeout as soon as analysis settles so a pending timer isn't left
+                // rooted for the (effectively unbounded) default timeout value.
+                using var timeoutSource = new CancellationTokenSource();
+
+                try
                 {
-                    result = await analyzeTask.ConfigureAwait(false);
-                }
-                else
-                {
-                    lock (globalContext)
+                    Task timeoutTask = Task.Delay(msDelay, timeoutSource.Token);
+
+                    if (await Task.WhenAny(analyzeTask, timeoutTask).ConfigureAwait(false) == analyzeTask)
                     {
-                        Errors.LogAnalysisTimedOut(globalContext);
+                        result = await analyzeTask.ConfigureAwait(false);
                     }
+                    else
+                    {
+                        lock (globalContext)
+                        {
+                            Errors.LogAnalysisTimedOut(globalContext);
+                        }
+                    }
+                }
+                finally
+                {
+                    timeoutSource.Cancel();
                 }
 
                 DriverEventSource.Log.SessionEnded(result, globalContext.RuntimeErrors);
@@ -283,38 +266,39 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             });
         }
 
-        private int Run(TContext globalContext)
+        private async Task<int> AnalyzeAsync(TContext globalContext, bool synchronous)
         {
             globalContext.FileSystem ??= FileSystem;
-            globalContext = ValidateContext(globalContext);
+
+            // Each virtual pair below is dispatched by the synchronous or asynchronous member so a
+            // subclass overriding either member is honored by the entrypoint that selected it.
+            globalContext = synchronous
+                ? ValidateContext(globalContext)
+                : await ValidateContextAsync(globalContext).ConfigureAwait(false);
 
             ISet<Skimmer<TContext>> skimmers = InitializeRun(globalContext, out IDisposable disposableLogger);
 
             // Run all multi-threaded analysis operations.
-            AnalyzeTargets(globalContext, skimmers);
+            if (synchronous)
+            {
+                AnalyzeTargets(globalContext, skimmers);
+            }
+            else
+            {
+                await AnalyzeTargetsAsync(globalContext, skimmers).ConfigureAwait(false);
+            }
 
             CompleteAnalysis(globalContext, disposableLogger);
 
             // Even if there are fatal errors, if the log file is generated, we can upload it with the ToolExecutionNotifications.
-            PostLogFile(globalContext);
-
-            return FinalizeRun(globalContext);
-        }
-
-        private async Task<int> RunAsync(TContext globalContext)
-        {
-            globalContext.FileSystem ??= FileSystem;
-            globalContext = await ValidateContextAsync(globalContext).ConfigureAwait(false);
-
-            ISet<Skimmer<TContext>> skimmers = InitializeRun(globalContext, out IDisposable disposableLogger);
-
-            // Run all multi-threaded analysis operations.
-            await AnalyzeTargetsAsync(globalContext, skimmers).ConfigureAwait(false);
-
-            CompleteAnalysis(globalContext, disposableLogger);
-
-            // Even if there are fatal errors, if the log file is generated, we can upload it with the ToolExecutionNotifications.
-            await PostLogFileAsync(globalContext).ConfigureAwait(false);
+            if (synchronous)
+            {
+                PostLogFile(globalContext);
+            }
+            else
+            {
+                await PostLogFileAsync(globalContext).ConfigureAwait(false);
+            }
 
             return FinalizeRun(globalContext);
         }
