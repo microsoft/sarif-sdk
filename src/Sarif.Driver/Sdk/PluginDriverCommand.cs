@@ -7,6 +7,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Security;
+using System.Threading.Tasks;
 
 using Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching;
 
@@ -227,12 +228,23 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             SarifPost(globalContext, httpClient);
         }
 
+        protected virtual async Task PostLogFileAsync(IAnalysisContext globalContext)
+        {
+            using HttpClientWrapper httpClient = GetHttpClientWrapper();
+            await SarifPostAsync(globalContext, httpClient).ConfigureAwait(false);
+        }
+
         protected virtual HttpClientWrapper GetHttpClientWrapper()
         {
             return new HttpClientWrapper();
         }
 
         internal static void SarifPost(IAnalysisContext globalContext, HttpClientWrapper httpClient)
+        {
+            SarifPostAsync(globalContext, httpClient).GetAwaiter().GetResult();
+        }
+
+        internal static async Task SarifPostAsync(IAnalysisContext globalContext, HttpClientWrapper httpClient)
         {
             if (string.IsNullOrWhiteSpace(globalContext.PostUri) ||
                 string.IsNullOrWhiteSpace(globalContext.OutputFilePath) ||
@@ -247,9 +259,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 string outputFilePath = globalContext.OutputFilePath;
                 IFileSystem fileSystem = globalContext.FileSystem;
 
-                (bool, string) result = SarifLog.Post(postUri, outputFilePath, fileSystem, httpClient)
-                    .GetAwaiter()
-                    .GetResult();
+                (bool, string) result = await SarifLog.Post(postUri, outputFilePath, fileSystem, httpClient).ConfigureAwait(false);
 
                 // This reporting isn't sent through the 'globalContext.Loggers' property
                 // because the post operation occurs after the backing SARIF log has 
