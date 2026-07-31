@@ -5,7 +5,7 @@ using System;
 using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
-
+using Stj = System.Text.Json.Serialization;
 namespace Microsoft.CodeAnalysis.Sarif.VersionOne
 {
     [DataContract]
@@ -32,12 +32,14 @@ namespace Microsoft.CodeAnalysis.Sarif.VersionOne
         /// A message relevant to a code location
         /// </summary>
         [DataMember(Name = "message", IsRequired = true)]
+        [Stj.JsonPropertyName("message")]
         public string Message { get; set; }
 
         /// <summary>
         /// An array of 'physicalLocation' objects associated with the annotation.
         /// </summary>
         [DataMember(Name = "locations", IsRequired = true)]
+        [Stj.JsonPropertyName("locations")]
         public IList<PhysicalLocationVersionOne> Locations { get; set; }
 
         /// <summary>

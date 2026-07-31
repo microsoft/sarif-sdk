@@ -5,7 +5,7 @@ using System;
 using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
-
+using Stj = System.Text.Json.Serialization;
 namespace Microsoft.CodeAnalysis.Sarif
 {
     /// <summary>
@@ -37,30 +37,35 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// A description of the identity and role played within the engineering system by this object's containing run object.
         /// </summary>
         [DataMember(Name = "description", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("description")]
         public virtual Message Description { get; set; }
 
         /// <summary>
         /// A hierarchical string that uniquely identifies this object's containing run object.
         /// </summary>
         [DataMember(Name = "id", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("id")]
         public virtual string Id { get; set; }
 
         /// <summary>
         /// A stable, unique identifier for this object's containing run object in the form of a GUID.
         /// </summary>
         [DataMember(Name = "guid", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("guid")]
         public virtual Guid? Guid { get; set; }
 
         /// <summary>
         /// A stable, unique identifier for the equivalence class of runs to which this object's containing run object belongs in the form of a GUID.
         /// </summary>
         [DataMember(Name = "correlationGuid", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("correlationGuid")]
         public virtual Guid? CorrelationGuid { get; set; }
 
         /// <summary>
         /// Key/value pairs that provide additional information about the run automation details.
         /// </summary>
         [DataMember(Name = "properties", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("properties")]
         internal override IDictionary<string, SerializedPropertyInfo> Properties { get; set; }
 
         /// <summary>

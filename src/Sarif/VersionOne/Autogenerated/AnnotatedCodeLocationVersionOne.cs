@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Runtime.Serialization;
 
 using Newtonsoft.Json;
-
+using Stj = System.Text.Json.Serialization;
 namespace Microsoft.CodeAnalysis.Sarif.VersionOne
 {
     /// <summary>
@@ -37,6 +37,7 @@ namespace Microsoft.CodeAnalysis.Sarif.VersionOne
         /// OBSOLETE (use "step" instead): An identifier for the location, unique within the scope of the code flow within which it occurs.
         /// </summary>
         [DataMember(Name = "id", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("id")]
         [JsonConverter(typeof(Microsoft.CodeAnalysis.Sarif.VersionOne.Readers.AnnotatedCodeLocationIdConverterVersionOne))]
         [JsonProperty("id", DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
         public int Id { get; set; }
@@ -45,84 +46,98 @@ namespace Microsoft.CodeAnalysis.Sarif.VersionOne
         /// The 0-based sequence number of the location in the code flow within which it occurs.
         /// </summary>
         [DataMember(Name = "step", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("step")]
         public int Step { get; set; }
 
         /// <summary>
         /// A file location to which this annotation refers.
         /// </summary>
         [DataMember(Name = "physicalLocation", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("physicalLocation")]
         public PhysicalLocationVersionOne PhysicalLocation { get; set; }
 
         /// <summary>
         /// The fully qualified name of the method or function that is executing.
         /// </summary>
         [DataMember(Name = "fullyQualifiedLogicalName", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("fullyQualifiedLogicalName")]
         public string FullyQualifiedLogicalName { get; set; }
 
         /// <summary>
         /// A key used to retrieve the annotation's logicalLocation from the logicalLocations dictionary.
         /// </summary>
         [DataMember(Name = "logicalLocationKey", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("logicalLocationKey")]
         public string LogicalLocationKey { get; set; }
 
         /// <summary>
         /// The name of the module that contains the code that is executing.
         /// </summary>
         [DataMember(Name = "module", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("module")]
         public string Module { get; set; }
 
         /// <summary>
         /// The thread identifier of the code that is executing.
         /// </summary>
         [DataMember(Name = "threadId", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("threadId")]
         public int ThreadId { get; set; }
 
         /// <summary>
         /// A message relevant to this annotation.
         /// </summary>
         [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("message")]
         public string Message { get; set; }
 
         /// <summary>
         /// Categorizes the location.
         /// </summary>
         [DataMember(Name = "kind", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("kind")]
         public AnnotatedCodeLocationKindVersionOne Kind { get; set; }
 
         /// <summary>
         /// Classifies state transitions in code locations relevant to a taint analysis.
         /// </summary>
         [DataMember(Name = "taintKind", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("taintKind")]
         public TaintKindVersionOne TaintKind { get; set; }
 
         /// <summary>
         /// The fully qualified name of the target on which this location operates. For an annotation of kind 'call', for example, the target refers to the fully qualified logical name of the function called from this location.
         /// </summary>
         [DataMember(Name = "target", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("target")]
         public string Target { get; set; }
 
         /// <summary>
         /// An ordered set of strings that comprise input or return values for the current operation. For an annotation of kind 'call', for example, this property may hold the ordered list of arguments passed to the callee.
         /// </summary>
         [DataMember(Name = "values", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("values")]
         public IList<string> Values { get; set; }
 
         /// <summary>
         /// A dictionary, each of whose keys specifies a variable or expression, the associated value of which represents the variable or expression value. For an annotation of kind 'continuation', for example, this dictionary might hold the current assumed values of a set of global variables.
         /// </summary>
         [DataMember(Name = "state", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("state")]
         public IDictionary<string, string> State { get; set; }
 
         /// <summary>
         /// A key used to retrieve the target's logicalLocation from the logicalLocations dictionary.
         /// </summary>
         [DataMember(Name = "targetKey", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("targetKey")]
         public string TargetKey { get; set; }
 
         /// <summary>
         /// OBSOLETE (use "importance" instead): True if this location is essential to understanding the code flow in which it occurs.
         /// </summary>
         [DataMember(Name = "essential", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("essential")]
         [JsonProperty("essential", DefaultValueHandling = DefaultValueHandling.Ignore)]
         public bool Essential { get; set; }
 
@@ -130,24 +145,28 @@ namespace Microsoft.CodeAnalysis.Sarif.VersionOne
         /// Specifies the importance of this location in understanding the code flow in which it occurs. The order from most to least important is "essential", "important", "unimportant". Default: "important".
         /// </summary>
         [DataMember(Name = "importance", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("importance")]
         public AnnotatedCodeLocationImportanceVersionOne Importance { get; set; }
 
         /// <summary>
         /// The source code at the specified location.
         /// </summary>
         [DataMember(Name = "snippet", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("snippet")]
         public string Snippet { get; set; }
 
         /// <summary>
         /// A set of messages relevant to the current annotated code location.
         /// </summary>
         [DataMember(Name = "annotations", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("annotations")]
         public IList<AnnotationVersionOne> Annotations { get; set; }
 
         /// <summary>
         /// Key/value pairs that provide additional information about the code location.
         /// </summary>
         [DataMember(Name = "properties", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("properties")]
         internal override IDictionary<string, SerializedPropertyInfo> Properties { get; set; }
 
         /// <summary>

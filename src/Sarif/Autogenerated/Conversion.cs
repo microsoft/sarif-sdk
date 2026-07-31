@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Runtime.Serialization;
 
 using Newtonsoft.Json;
-
+using Stj = System.Text.Json.Serialization;
 namespace Microsoft.CodeAnalysis.Sarif
 {
     /// <summary>
@@ -39,25 +39,30 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// A tool object that describes the converter.
         /// </summary>
         [DataMember(Name = "tool", IsRequired = true)]
+        [Stj.JsonPropertyName("tool")]
         public virtual Tool Tool { get; set; }
 
         /// <summary>
         /// An invocation object that describes the invocation of the converter.
         /// </summary>
         [DataMember(Name = "invocation", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("invocation")]
         public virtual Invocation Invocation { get; set; }
 
         /// <summary>
         /// The locations of the analysis tool's per-run log files.
         /// </summary>
         [DataMember(Name = "analysisToolLogFiles", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("analysisToolLogFiles")]
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
+        [Stj.JsonIgnore(Condition = Stj.JsonIgnoreCondition.WhenWritingDefault)]
         public virtual IList<ArtifactLocation> AnalysisToolLogFiles { get; set; }
 
         /// <summary>
         /// Key/value pairs that provide additional information about the conversion.
         /// </summary>
         [DataMember(Name = "properties", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("properties")]
         internal override IDictionary<string, SerializedPropertyInfo> Properties { get; set; }
 
         /// <summary>

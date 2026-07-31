@@ -5,7 +5,7 @@ using System;
 using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
-
+using Stj = System.Text.Json.Serialization;
 namespace Microsoft.CodeAnalysis.Sarif
 {
     /// <summary>
@@ -37,24 +37,28 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// UTF-8-encoded content from a text artifact.
         /// </summary>
         [DataMember(Name = "text", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("text")]
         public virtual string Text { get; set; }
 
         /// <summary>
         /// MIME Base64-encoded content from a binary artifact, or from a text artifact in its original encoding.
         /// </summary>
         [DataMember(Name = "binary", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("binary")]
         public virtual string Binary { get; set; }
 
         /// <summary>
         /// An alternate rendered representation of the artifact (e.g., a decompiled representation of a binary region).
         /// </summary>
         [DataMember(Name = "rendered", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("rendered")]
         public virtual MultiformatMessageString Rendered { get; set; }
 
         /// <summary>
         /// Key/value pairs that provide additional information about the artifact content.
         /// </summary>
         [DataMember(Name = "properties", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("properties")]
         internal override IDictionary<string, SerializedPropertyInfo> Properties { get; set; }
 
         /// <summary>

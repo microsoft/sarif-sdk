@@ -5,7 +5,7 @@ using System;
 using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
-
+using Stj = System.Text.Json.Serialization;
 namespace Microsoft.CodeAnalysis.Sarif.VersionOne
 {
     /// <summary>
@@ -35,12 +35,14 @@ namespace Microsoft.CodeAnalysis.Sarif.VersionOne
         /// A string that describes the proposed fix, enabling viewers to present a proposed change to an end user.
         /// </summary>
         [DataMember(Name = "description", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("description")]
         public string Description { get; set; }
 
         /// <summary>
         /// One or more file changes that comprise a fix for a result.
         /// </summary>
         [DataMember(Name = "fileChanges", IsRequired = true)]
+        [Stj.JsonPropertyName("fileChanges")]
         public IList<FileChangeVersionOne> FileChanges { get; set; }
 
         /// <summary>

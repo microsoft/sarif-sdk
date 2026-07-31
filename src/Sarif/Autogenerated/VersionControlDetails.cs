@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Runtime.Serialization;
 
 using Newtonsoft.Json;
-
+using Stj = System.Text.Json.Serialization;
 namespace Microsoft.CodeAnalysis.Sarif
 {
     /// <summary>
@@ -39,6 +39,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// The absolute URI of the repository.
         /// </summary>
         [DataMember(Name = "repositoryUri", IsRequired = true)]
+        [Stj.JsonPropertyName("repositoryUri")]
         [JsonConverter(typeof(Microsoft.CodeAnalysis.Sarif.Readers.UriConverter))]
         public virtual Uri RepositoryUri { get; set; }
 
@@ -46,24 +47,28 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// A string that uniquely and permanently identifies the revision within the repository.
         /// </summary>
         [DataMember(Name = "revisionId", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("revisionId")]
         public virtual string RevisionId { get; set; }
 
         /// <summary>
         /// The name of a branch containing the revision.
         /// </summary>
         [DataMember(Name = "branch", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("branch")]
         public virtual string Branch { get; set; }
 
         /// <summary>
         /// A tag that has been applied to the revision.
         /// </summary>
         [DataMember(Name = "revisionTag", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("revisionTag")]
         public virtual string RevisionTag { get; set; }
 
         /// <summary>
         /// A Coordinated Universal Time (UTC) date and time that can be used to synchronize an enlistment to the state of the repository at that time.
         /// </summary>
         [DataMember(Name = "asOfTimeUtc", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("asOfTimeUtc")]
         [JsonConverter(typeof(Microsoft.CodeAnalysis.Sarif.Readers.DateTimeConverter))]
         public virtual DateTime AsOfTimeUtc { get; set; }
 
@@ -71,12 +76,14 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// The location in the local file system to which the root of the repository was mapped at the time of the analysis.
         /// </summary>
         [DataMember(Name = "mappedTo", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("mappedTo")]
         public virtual ArtifactLocation MappedTo { get; set; }
 
         /// <summary>
         /// Key/value pairs that provide additional information about the version control details.
         /// </summary>
         [DataMember(Name = "properties", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("properties")]
         internal override IDictionary<string, SerializedPropertyInfo> Properties { get; set; }
 
         /// <summary>
