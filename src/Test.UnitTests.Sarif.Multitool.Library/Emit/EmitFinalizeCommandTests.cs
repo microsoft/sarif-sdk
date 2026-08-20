@@ -235,7 +235,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         }
 
         [Fact]
-        public void Run_WithNoCweEnrichment_SkipsTaxonomyEnrichmentButStillFloorsName()
+        public void Run_WithNoCweEnrichment_SkipsTaxonomyProseButStillNamesWeakness()
         {
             SeedWip(
                 (SarifEventKinds.RunHeader, RunHeader()),
@@ -251,12 +251,54 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             SarifLog log = LoadSarif();
             ReportingDescriptor descriptor = log.Runs[0].Tool.Driver.Rules[0];
             descriptor.Id.Should().Be("CWE-79");
-            // --no-cwe-enrichment suppresses taxonomy enrichment (the MITRE title, helpUri, descriptions)...
+            // --no-cwe-enrichment suppresses the MITRE prose (public data AdvSec already holds)...
             descriptor.HelpUri.Should().BeNull();
             descriptor.ShortDescription.Should().BeNull();
-            // ...but CWE-79 is a genuine Weakness, so the abstraction-aware name floor still names it
-            // to its honest id — the descriptor is never emitted nameless and GHAzDO-broken.
-            descriptor.Name.Should().Be("CWE-79");
+            descriptor.FullDescription.Should().BeNull();
+            descriptor.Help.Should().BeNull();
+            // ...but CWE-79 is a genuine Weakness, so name — cheap, and required for a spec-valid,
+            // GHAzDO-publishable descriptor — is still resolved from the taxonomy unconditionally.
+            descriptor.Name.Should().Be("CrossSiteScripting");
+        }
+
+        [Fact]
+        public void Run_WithNoCweEnrichment_HandlesWeaknessCategoryAndNovelRulesTogether()
+        {
+            // End-to-end coverage of the three rule shapes emit-finalize --no-cwe-enrichment must
+            // treat differently in a single run: a Weakness (named from the taxonomy), a Category
+            // (left nameless on purpose so it fails loudly), and a NOVEL- id (producer-owned, untouched).
+            SeedWip(
+                (SarifEventKinds.RunHeader, RunHeader()),
+                (SarifEventKinds.Result, new Result { RuleId = "CWE-79/template-xss", Message = new Message { Text = "xss" } }),
+                (SarifEventKinds.Result, new Result { RuleId = "CWE-89/string-concat-query", Message = new Message { Text = "sqli" } }),
+                (SarifEventKinds.Result, new Result { RuleId = "CWE-16/insecure-default-config", Message = new Message { Text = "config" } }),
+                (SarifEventKinds.Result, new Result { RuleId = "NOVEL-prompt-injection", Message = new Message { Text = "prompt" } }));
+
+            int exit = new EmitFinalizeCommand().Run(new EmitFinalizeOptions
+            {
+                OutputFilePath = OutPath,
+                NoCweEnrichment = true,
+            });
+
+            exit.Should().Be(CommandBase.SUCCESS);
+            IList<ReportingDescriptor> rules = LoadSarif().Runs[0].Tool.Driver.Rules;
+
+            ReportingDescriptor xss = rules.Single(r => r.Id == "CWE-79");
+            xss.Name.Should().Be("CrossSiteScripting");
+            xss.HelpUri.Should().BeNull();
+            xss.ShortDescription.Should().BeNull();
+
+            ReportingDescriptor sqli = rules.Single(r => r.Id == "CWE-89");
+            sqli.Name.Should().Be("SqlInjection");
+            sqli.HelpUri.Should().BeNull();
+
+            ReportingDescriptor category = rules.Single(r => r.Id == "CWE-16");
+            category.Name.Should().BeNull();
+            category.HelpUri.Should().BeNull();
+
+            ReportingDescriptor novel = rules.Single(r => r.Id == "NOVEL-prompt-injection");
+            novel.Name.Should().BeNull();
+            novel.HelpUri.Should().BeNull();
         }
 
         [Fact]
@@ -811,43 +853,43 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         }
 
         [Fact]
-        public void EnsureCweRuleDescriptorNames_FloorsUnbundledWeaknessNameToId()
+        public void EnsureCweRuleDescriptorNames_ResolvesNameFromTaxonomy()
         {
             // CWE-89 is a genuine Weakness; under --no-cwe-enrichment the replayer-created descriptor
-            // reaches finalize nameless, so the floor names it to its honest id (the SDK has no title
-            // to offer under that flag) and the descriptor stays GHAzDO-publishable.
+            // reaches finalize nameless, so this resolves its real MITRE title from the embedded
+            // taxonomy — cheap (~20 bytes) and spec-valid — rather than flooring to the bare id.
             Run run = BuildRun("CWE-89");
 
-            int floored = EmitFinalizeCommand.EnsureCweRuleDescriptorNames(run);
+            int modified = EmitFinalizeCommand.EnsureCweRuleDescriptorNames(run);
 
-            floored.Should().Be(1);
-            run.Tool.Driver.Rules[0].Name.Should().Be("CWE-89");
+            modified.Should().Be(1);
+            run.Tool.Driver.Rules[0].Name.Should().Be("SqlInjection");
         }
 
         [Fact]
         public void EnsureCweRuleDescriptorNames_LeavesCategoryDescriptorNameless()
         {
             // CWE-16 is a MITRE Category, not a Weakness, so mapping a result to it is a producer
-            // bug. The floor deliberately leaves it nameless so it fails loudly (AI1016 at validate,
+            // bug. This deliberately leaves it nameless so it fails loudly (AI1016 at validate,
             // GHAzDO2012 at ingestion) instead of being normalized into a publishable-looking descriptor.
             Run run = BuildRun("CWE-16");
 
-            int floored = EmitFinalizeCommand.EnsureCweRuleDescriptorNames(run);
+            int modified = EmitFinalizeCommand.EnsureCweRuleDescriptorNames(run);
 
-            floored.Should().Be(0);
+            modified.Should().Be(0);
             run.Tool.Driver.Rules[0].Name.Should().BeNull();
         }
 
         [Fact]
-        public void EnsureCweRuleDescriptorNames_FloorsEachUnnamedWeaknessIndependently()
+        public void EnsureCweRuleDescriptorNames_ResolvesEachUnnamedWeaknessIndependently()
         {
             Run run = BuildRun("CWE-79", "CWE-89");
 
-            int floored = EmitFinalizeCommand.EnsureCweRuleDescriptorNames(run);
+            int modified = EmitFinalizeCommand.EnsureCweRuleDescriptorNames(run);
 
-            floored.Should().Be(2);
-            run.Tool.Driver.Rules[0].Name.Should().Be("CWE-79");
-            run.Tool.Driver.Rules[1].Name.Should().Be("CWE-89");
+            modified.Should().Be(2);
+            run.Tool.Driver.Rules[0].Name.Should().Be("CrossSiteScripting");
+            run.Tool.Driver.Rules[1].Name.Should().Be("SqlInjection");
         }
 
         [Fact]
@@ -856,22 +898,22 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             Run run = BuildRun("CWE-79");
             run.Tool.Driver.Rules[0].Name = "Cross-site Scripting";
 
-            int floored = EmitFinalizeCommand.EnsureCweRuleDescriptorNames(run);
+            int modified = EmitFinalizeCommand.EnsureCweRuleDescriptorNames(run);
 
-            floored.Should().Be(0);
+            modified.Should().Be(0);
             run.Tool.Driver.Rules[0].Name.Should().Be("Cross-site Scripting");
         }
 
         [Fact]
         public void EnsureCweRuleDescriptorNames_LeavesNovelAndNonCweDescriptorsAlone()
         {
-            // The floor is the GHAzDO publishability guarantee for the CWE Weakness descriptors the SDK
-            // injects and enriches; a NOVEL- id and an arbitrary rule id are producer-owned and out of scope.
+            // This is the GHAzDO publishability guarantee for the CWE Weakness descriptors the SDK
+            // injects; a NOVEL- id and an arbitrary rule id are producer-owned and out of scope.
             Run run = BuildRun("NOVEL-prompt-injection", "MY-CUSTOM-RULE");
 
-            int floored = EmitFinalizeCommand.EnsureCweRuleDescriptorNames(run);
+            int modified = EmitFinalizeCommand.EnsureCweRuleDescriptorNames(run);
 
-            floored.Should().Be(0);
+            modified.Should().Be(0);
             run.Tool.Driver.Rules[0].Name.Should().BeNull();
             run.Tool.Driver.Rules[1].Name.Should().BeNull();
         }

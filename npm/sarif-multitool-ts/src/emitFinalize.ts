@@ -27,6 +27,7 @@ import { replay } from './eventLog.js';
 import { resolveWipPath, EmitVerbError } from './batch.js';
 import {
   enrichRunWithCweTaxonomy,
+  ensureCweRuleDescriptorNames,
   applyAISecuritySeverity,
   applyGitHubCweTags,
   collapseResultRuleSubIds,
@@ -37,7 +38,11 @@ import { validateFinalizedLog, type ValidationOutcome } from './validate.js';
 export interface EmitFinalizeOptions {
   /** Final SARIF file path. The event log is read from `<output>.wip.jsonl`. */
   output: string;
-  /** Skip CWE descriptor enrichment. */
+  /**
+   * Skip enrichment of CWE-as-rule-id descriptors with MITRE prose (shortDescription,
+   * fullDescription, help, helpUri) from the embedded CWE taxonomy — public data AdvSec can look
+   * up from the id alone. The descriptor still gets a valid `name` resolved from the taxonomy.
+   */
   noCweEnrichment?: boolean;
   /** Write minified JSON instead of two-space indented. */
   minify?: boolean;
@@ -102,6 +107,11 @@ export async function emitFinalize(opts: EmitFinalizeOptions): Promise<EmitFinal
     // consumer mis-reads columns for non-BMP source. Mirrors the .NET model
     // default (Run.cs sets ColumnKind.Utf16CodeUnits).
     run.columnKind ??= 'utf16CodeUnits';
+
+    // Always runs, whether or not full CWE taxonomy enrichment above ran: guarantees a
+    // spec-valid `name` on every CWE-Weakness descriptor even when the heavier MITRE prose
+    // (and helpUri) was skipped by `noCweEnrichment`.
+    ensureCweRuleDescriptorNames(run);
 
     applyAISecuritySeverity(run);
 

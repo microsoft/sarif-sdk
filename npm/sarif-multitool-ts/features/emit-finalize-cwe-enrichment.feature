@@ -27,3 +27,14 @@ Feature: emit-finalize enriches CWE rule descriptors and stamps security-severit
     When emit-results is invoked with a result at "src/app.ts" line 1 with ruleId "CWE-79/dom-xss"
     And emit-finalize is invoked
     Then the finalized SARIF result 0 ruleId equals "CWE-79"
+
+  Scenario: no-cwe-enrichment skips MITRE prose but still names the descriptor
+    When emit-results is invoked with a result at "src/app.ts" line 1 with ruleId "CWE-79/dom-xss"
+    And emit-finalize is invoked with no-cwe-enrichment
+    Then the finalized SARIF rule "CWE-79" has a non-empty "name"
+    And the finalized SARIF rule "CWE-79" has no "helpUri"
+    And the finalized SARIF rule "CWE-79" has no "shortDescription"
+    And the finalized SARIF rule "CWE-79" has no "fullDescription"
+    And the finalized SARIF rule "CWE-79" has no "help"
+    And the finalized SARIF rule "CWE-79" carries property "security-severity"
+    And the finalized SARIF rule "CWE-79" tags include "security"

@@ -203,5 +203,48 @@ namespace Microsoft.CodeAnalysis.Sarif.Taxonomies
             VerifyIsKnownWeakness(null, false);
             VerifyIsKnownWeakness("", false);
         }
+
+        // ----- TryGetName (house style: [Fact] + shared helper) -----
+
+        private static void VerifyTryGetName(string cweId, bool expectedFound, string expectedName)
+        {
+            bool found = CweTaxonomy.TryGetName(cweId, out string name);
+            found.Should().Be(expectedFound, "for '{0}'", cweId);
+            name.Should().Be(expectedName, "for '{0}'", cweId);
+        }
+
+        [Fact]
+        public void TryGetName_ReturnsTaxonomyNameForKnownWeakness()
+            => VerifyTryGetName("CWE-89", true, "SqlInjection");
+
+        [Fact]
+        public void TryGetName_ReturnsTaxonomyNameForWeaknessCarryingSubId()
+            => VerifyTryGetName("CWE-79/template-xss", true, "CrossSiteScripting");
+
+        [Fact]
+        public void TryGetName_ReturnsNameForDeprecatedWeakness()
+            // A deprecated Weakness still has a name; the caller decides whether to use it.
+            => VerifyTryGetName("CWE-247", true, "DeprecatedRelianceOnDnsLookupsInASecurityDecision");
+
+        [Fact]
+        public void TryGetName_ReturnsFalseForCategory()
+            // CWE-16 'Configuration' is a Category, not a Weakness.
+            => VerifyTryGetName("CWE-16", false, null);
+
+        [Fact]
+        public void TryGetName_ReturnsFalseForUnknownCweNumber()
+            => VerifyTryGetName("CWE-99999", false, null);
+
+        [Fact]
+        public void TryGetName_ReturnsFalseForNovelEscapeHatch()
+            => VerifyTryGetName("NOVEL-prompt-injection", false, null);
+
+        [Fact]
+        public void TryGetName_ReturnsFalseForBareNumberAndNullAndEmpty()
+        {
+            VerifyTryGetName("89", false, null);
+            VerifyTryGetName(null, false, null);
+            VerifyTryGetName("", false, null);
+        }
     }
 }

@@ -29,7 +29,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
         [Option(
             "no-cwe-enrichment",
-            HelpText = "Skip enrichment of CWE-as-rule-id descriptors from the embedded MITRE CWE taxonomy.",
+            HelpText = "Skip enrichment of CWE-as-rule-id descriptors with MITRE prose (shortDescription, fullDescription, help, helpUri) from the embedded CWE taxonomy — public data AdvSec can look up from the id alone. The descriptor still gets a valid name resolved from the taxonomy.",
             Default = false)]
         public bool NoCweEnrichment { get; set; }
 
