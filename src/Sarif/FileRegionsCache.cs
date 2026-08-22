@@ -360,25 +360,36 @@ namespace Microsoft.CodeAnalysis.Sarif
             region.CharLength = ReconcileRegionCoordinate(overwriteExistingData, nameof(Region.CharLength), charLength, region.CharLength);
         }
 
-        public HashData GetHashData(Uri uri, string fileText = null, byte[] fileBytes = null)
+        public HashData GetHashData(Uri uri, string fileText = null)
         {
             string path = uri.GetFilePath();
 
             if (fileText != null)
             {
                 _fileTextCache[path] = fileText;
-                _hashDataCache[path] = HashUtilities.ComputeHashesForText(fileText, HashAlgorithms);
-                return _hashDataCache[path];
-            }
-
-            if (fileBytes != null)
-            {
-                using var stream = new MemoryStream(fileBytes);
-                _hashDataCache[path] = HashUtilities.ComputeHashes(stream, HashAlgorithms);
-                return _hashDataCache[path];
+                return HashUtilities.ComputeHashesForText(fileText, HashAlgorithms);
             }
 
             return _hashDataCache[path];
+        }
+
+        internal HashData CacheHashData(Uri uri, IEnumeratedArtifact artifact)
+        {
+            string path = uri.GetFilePath();
+            HashData hashes;
+
+            if (artifact.IsBinary)
+            {
+                using var stream = new MemoryStream(artifact.Bytes);
+                hashes = HashUtilities.ComputeHashes(stream, HashAlgorithms);
+            }
+            else
+            {
+                hashes = HashUtilities.ComputeHashesForText(artifact.Contents, HashAlgorithms);
+            }
+
+            _hashDataCache[path] = hashes;
+            return hashes;
         }
 
         /// <summary>

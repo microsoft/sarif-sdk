@@ -221,6 +221,77 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         }
 
         [Fact]
+        public void MultithreadedAnalyzeCommandBase_RecursiveArchiveResultUsesEntryHash()
+        {
+            byte[] entryBytes = Encoding.UTF8.GetBytes("foo");
+            byte[] archiveBytes;
+
+            using (var archiveStream = new MemoryStream())
+            {
+                using (var archive = new ZipArchive(archiveStream, ZipArchiveMode.Create, leaveOpen: true))
+                {
+                    ZipArchiveEntry entry = archive.CreateEntry("result.txt");
+                    using Stream entryStream = entry.Open();
+                    entryStream.Write(entryBytes, 0, entryBytes.Length);
+                }
+
+                archiveBytes = archiveStream.ToArray();
+            }
+
+            HashData archiveHashes;
+            HashData entryHashes;
+
+            using (var archiveStream = new MemoryStream(archiveBytes))
+            using (var entryStream = new MemoryStream(entryBytes))
+            {
+                archiveHashes = HashUtilities.ComputeHashes(archiveStream);
+                entryHashes = HashUtilities.ComputeHashes(entryStream);
+            }
+
+            archiveHashes.Sha256.Should().NotBe(entryHashes.Sha256);
+
+            using var logger = new MemoryStreamSarifLogger(
+                dataToInsert: OptionallyEmittedData.Hashes,
+                levels: BaseLogger.ErrorWarningNote,
+                kinds: BaseLogger.Fail);
+
+            var artifact = new EnumeratedArtifact(FileSystem.Instance)
+            {
+                Uri = new Uri("file:///C:/in-memory.zip"),
+                Bytes = archiveBytes,
+            };
+
+            var properties = new PropertiesDictionary();
+            properties.SetProperty(TestRule.Behaviors, TestRuleBehaviors.LogError);
+
+            var context = new TestAnalysisContext
+            {
+                Logger = logger,
+                Policy = properties,
+                Recurse = true,
+                TargetsProvider = new ArtifactProvider(new[] { artifact }),
+            };
+
+            var options = new TestAnalyzeOptions
+            {
+                DataToInsert = new[] { OptionallyEmittedData.Hashes },
+            };
+
+            int result = new TestMultithreadedAnalyzeCommand().Run(options, ref context);
+            context.ValidateCommandExecution(result);
+
+            var run = logger.ToSarifLog().Runs[0];
+            run.Results.Should().ContainSingle();
+
+            Artifact resultArtifact = run.Artifacts.Single(
+                candidate => candidate.Location.Uri.OriginalString.Contains("path=result.txt"));
+
+            resultArtifact.Hashes["sha-256"].Should().Be(entryHashes.Sha256);
+            resultArtifact.Hashes["sha-256"].Should().NotBe(archiveHashes.Sha256);
+            run.Invocations[0].ToolExecutionNotifications.Should().BeNullOrEmpty();
+        }
+
+        [Fact]
         public void MultithreadedAnalyzeCommandBase_SkipsOversizedOpcFilesBeforeOpening()
         {
             var logger = new TestMessageLogger();

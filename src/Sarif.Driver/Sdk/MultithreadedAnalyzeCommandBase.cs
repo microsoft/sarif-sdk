@@ -716,6 +716,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
             if (results?.Count > 0)
             {
+                if (globalContext.DataToInsert.HasFlag(OptionallyEmittedData.Hashes))
+                {
+                    cachingLogger.FileRegionsCache ??=
+                        new FileRegionsCache(fileSystem: globalContext.FileSystem);
+                    cachingLogger.FileRegionsCache.CacheHashData(artifact.Uri, artifact);
+                }
+
                 foreach (KeyValuePair<ReportingDescriptor, IList<Tuple<Result, int?>>> kv in results)
                 {
                     globalContext.CancellationToken.ThrowIfCancellationRequested();

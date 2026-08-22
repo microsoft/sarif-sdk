@@ -44,18 +44,9 @@ namespace Microsoft.CodeAnalysis.Sarif
                 context.Logger.FileRegionsCache ??=
                     new FileRegionsCache(fileSystem: context.FileSystem);
 
-                if (skippedArtifact.IsBinary)
-                {
-                    context.Logger.FileRegionsCache.GetHashData(
-                        skippedArtifact.Uri,
-                        fileBytes: skippedArtifact.Bytes);
-                }
-                else
-                {
-                    context.Logger.FileRegionsCache.GetHashData(
-                        skippedArtifact.Uri,
-                        fileText: skippedArtifact.Contents);
-                }
+                context.Logger.FileRegionsCache.CacheHashData(
+                    skippedArtifact.Uri,
+                    skippedArtifact);
             }
 
             LogFileSkipped(context, skippedArtifact.Uri, reason);
