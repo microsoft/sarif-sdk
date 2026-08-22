@@ -39,7 +39,8 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentNullException(nameof(skippedArtifact));
             }
 
-            if (context.DataToInsert.HasFlag(OptionallyEmittedData.Hashes))
+            if (context.DataToInsert.HasFlag(OptionallyEmittedData.Hashes) &&
+                skippedArtifact is ZipArchiveArtifact)
             {
                 context.Logger.FileRegionsCache ??=
                     new FileRegionsCache(fileSystem: context.FileSystem);
