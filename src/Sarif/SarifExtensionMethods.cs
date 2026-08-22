@@ -263,9 +263,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         private static string AppendQueryToLocalPath(Uri uri)
         {
-            return
-                uri.LocalPath +
-                (string.IsNullOrEmpty(uri.Query) ? string.Empty : $"?{uri.Query}");
+            return uri.LocalPath + uri.Query;
         }
 
         public static string FormatForVisualStudio(this Region region)

@@ -801,8 +801,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             globalContext.CancellationToken.ThrowIfCancellationRequested();
 
             string filePath = artifact.Uri.GetFilePath();
-            string suffix = artifact.Uri.IsAbsoluteUri ? artifact.Uri.Query : string.Empty;
-            filePath = $"{filePath}{suffix}";
 
             if (globalContext.CompiledGlobalFileDenyRegex?.Match(filePath).Success == true)
             {
@@ -810,7 +808,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 DriverEventSource.Log.ArtifactNotScanned(filePath, DriverEventNames.FilePathDenied, artifact.SizeInBytes.Value, globalContext.GlobalFilePathDenyRegex);
 
                 string reason = $"its file path matched the global file deny regex: {globalContext.GlobalFilePathDenyRegex}";
-                Notes.LogFileSkipped(globalContext, filePath, reason);
+                Notes.LogFileSkipped(globalContext, artifact, reason);
                 return false;
             }
 
