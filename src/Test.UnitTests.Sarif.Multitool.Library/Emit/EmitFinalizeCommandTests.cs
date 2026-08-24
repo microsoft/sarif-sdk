@@ -262,6 +262,77 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         }
 
         [Fact]
+        public void Run_WithNoCweEnrichment_ValidatorConfirmsWeaknessPassesGHAzDO2012ButCategoryFails()
+        {
+            // The point of the fix is validator-observable: a Weakness (CWE-79) must actually pass
+            // GHAzDO2012 (name required) once finalize runs, while a Category (CWE-16) must actually
+            // still fail it. Asserting the Name property directly checks our own arithmetic; running
+            // the real validator over the finalized output checks the thing GHAzDO ingestion checks.
+            SeedWip(
+                (SarifEventKinds.RunHeader, RunHeader()),
+                (SarifEventKinds.Result, new Result { RuleId = "CWE-79/template-xss", Message = new Message { Text = "xss" } }),
+                (SarifEventKinds.Result, new Result { RuleId = "CWE-16/insecure-default-config", Message = new Message { Text = "config" } }));
+
+            int exit = new EmitFinalizeCommand().Run(new EmitFinalizeOptions
+            {
+                OutputFilePath = OutPath,
+                NoCweEnrichment = true,
+            });
+            exit.Should().Be(CommandBase.SUCCESS);
+
+            IList<ReportingDescriptor> finalizedRules = LoadSarif().Runs[0].Tool.Driver.Rules;
+            int xssRuleIndex = finalizedRules.ToList().FindIndex(r => r.Id == "CWE-79");
+            int categoryRuleIndex = finalizedRules.ToList().FindIndex(r => r.Id == "CWE-16");
+
+            SarifLog validationReport = RunGHAzDOValidator(OutPath);
+            List<Result> ghazdo2012Results = validationReport.Runs[0].Results
+                .Where(r => r.RuleId == "GHAzDO2012")
+                .ToList();
+
+            ghazdo2012Results.Should().Contain(
+                r => TargetsRuleAtIndex(r, categoryRuleIndex),
+                "the nameless Category descriptor must still fail GHAzDO2012");
+            ghazdo2012Results.Should().NotContain(
+                r => TargetsRuleAtIndex(r, xssRuleIndex),
+                "the named Weakness descriptor must pass GHAzDO2012 now that name is resolved");
+        }
+
+        private static SarifLog RunGHAzDOValidator(string targetPath)
+        {
+            string reportPath = targetPath + ".ghazdo-validate-report.sarif";
+            try
+            {
+                var options = new ValidateOptions
+                {
+                    TargetFileSpecifiers = new[] { targetPath },
+                    OutputFilePath = reportPath,
+                    OutputFileOptions = new[] { FilePersistenceOptions.ForceOverwrite },
+                    RuleKindOption = new List<RuleKind> { RuleKind.GHAzDO },
+                    Kind = new List<ResultKind> { ResultKind.Fail },
+                    Level = new List<FailureLevel> { FailureLevel.Note, FailureLevel.Warning, FailureLevel.Error },
+                };
+
+                var context = new SarifValidationContext { FileSystem = FileSystem.Instance };
+                new ValidateCommand().Run(options, ref context);
+
+                return SarifLog.Load(reportPath);
+            }
+            finally
+            {
+                if (File.Exists(reportPath)) { File.Delete(reportPath); }
+            }
+        }
+
+        // The validator's GHAzDO2012 result carries no ruleId/ruleIndex of its own (it's a
+        // reportingDescriptor-level finding on the *target* log, not a result-level one). Its
+        // message is built from a format string plus positional Arguments, the first of which is
+        // the JSON-pointer-derived path to the offending descriptor, e.g.
+        // "runs[0].tool.driver.rules[<index>]" — match on that argument, which is populated even
+        // when Message.Text itself is left for lazy resource-string formatting.
+        private static bool TargetsRuleAtIndex(Result result, int ruleIndex)
+            => result.Message?.Arguments?.Any(a => a == $"runs[0].tool.driver.rules[{ruleIndex}]") == true;
+
+        [Fact]
         public void Run_WithNoCweEnrichment_HandlesWeaknessCategoryAndNovelRulesTogether()
         {
             // End-to-end coverage of the three rule shapes emit-finalize --no-cwe-enrichment must
