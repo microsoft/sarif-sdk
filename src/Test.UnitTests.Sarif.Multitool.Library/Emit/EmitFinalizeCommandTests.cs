@@ -262,6 +262,46 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         }
 
         [Fact]
+        public void Run_WithNoCweEnrichment_LeavesProducerSuppliedNovelDescriptorFullyIntact()
+        {
+            // --no-cwe-enrichment must be scoped to CWE-as-rule-id descriptors only. A NOVEL- id is
+            // never touched by CweTaxonomyEnricher (nothing public describes it, so it's not in the
+            // embedded taxonomy) and EnsureCweRuleDescriptorNames skips it too (IsKnownWeakness is
+            // false for a NOVEL- id). Assert every producer-authored field -- not just Name -- survives
+            // byte-for-byte with the flag set, proving a non-CWE tool's output is completely unaffected.
+            const string novelId = "NOVEL-prompt-injection-via-system-message";
+            var novelDescriptor = new ReportingDescriptor
+            {
+                Id = novelId,
+                Name = "PromptInjectionViaSystemMessage",
+                HelpUri = new Uri("https://example.com/rules/novel-prompt-injection", UriKind.Absolute),
+                ShortDescription = new MultiformatMessageString { Text = "Untrusted content reaches a system-role prompt at runtime." },
+                FullDescription = new MultiformatMessageString { Text = "Untrusted content reaches a system-role prompt at runtime; full prose." },
+                Help = new MultiformatMessageString { Text = "Help text.", Markdown = "## Help" },
+            };
+
+            SeedWip(
+                (SarifEventKinds.RunHeader, RunHeader()),
+                (SarifEventKinds.RuleDescriptor, novelDescriptor),
+                (SarifEventKinds.Result, new Result { RuleId = novelId, Message = new Message { Text = "prompt injection" } }));
+
+            int exit = new EmitFinalizeCommand().Run(new EmitFinalizeOptions
+            {
+                OutputFilePath = OutPath,
+                NoCweEnrichment = true,
+            });
+
+            exit.Should().Be(CommandBase.SUCCESS);
+            ReportingDescriptor descriptor = LoadSarif().Runs[0].Tool.Driver.Rules.Single(r => r.Id == novelId);
+            descriptor.Name.Should().Be("PromptInjectionViaSystemMessage");
+            descriptor.HelpUri.Should().Be(novelDescriptor.HelpUri);
+            descriptor.ShortDescription.Text.Should().Be(novelDescriptor.ShortDescription.Text);
+            descriptor.FullDescription.Text.Should().Be(novelDescriptor.FullDescription.Text);
+            descriptor.Help.Text.Should().Be(novelDescriptor.Help.Text);
+            descriptor.Help.Markdown.Should().Be(novelDescriptor.Help.Markdown);
+        }
+
+        [Fact]
         public void Run_WithNoCweEnrichment_ValidatorConfirmsWeaknessPassesGHAzDO2012ButCategoryFails()
         {
             // The point of the fix is validator-observable: a Weakness (CWE-79) must actually pass
@@ -316,6 +356,57 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 new ValidateCommand().Run(options, ref context);
 
                 return SarifLog.Load(reportPath);
+            }
+            finally
+            {
+                if (File.Exists(reportPath)) { File.Delete(reportPath); }
+            }
+        }
+
+        [Fact]
+        public void Run_WithNoCweEnrichment_RealValidateFlagConfirmsWeaknessClearsSarif1001IdentityCollision()
+        {
+            // SARIF1001 (id/name collision forbidden, spec 3.49.7) is the other rule the design doc
+            // calls out alongside GHAzDO2012. Unlike GHAzDO2012, emit-finalize's own --validate flag
+            // already runs Sarif+AI rule kinds in production (RunValidatorAndReport), so this test
+            // drives that real flag/report instead of a hand-rolled validator invocation -- it proves
+            // the shipped --validate path itself, not just a re-implementation of it.
+            //
+            // Note: --validate's default FailureLevels filter is Error+Warning (BaseLogger.ErrorWarning);
+            // SARIF2012 is Note-level and so is never emitted by the shipped --validate flag today --
+            // that rule is exercised instead by the GHAzDO2012 test above via a direct validator
+            // invocation with an explicit Note;Warning;Error level filter.
+            SeedWip(
+                (SarifEventKinds.RunHeader, RunHeader()),
+                (SarifEventKinds.Result, new Result { RuleId = "CWE-79/template-xss", Message = new Message { Text = "xss" } }),
+                (SarifEventKinds.Result, new Result { RuleId = "CWE-16/insecure-default-config", Message = new Message { Text = "config" } }));
+
+            string reportPath = Path.Combine(
+                Path.GetDirectoryName(OutPath) ?? string.Empty,
+                Path.GetFileNameWithoutExtension(OutPath) + ".validate-report.sarif");
+
+            try
+            {
+                // Note: the exit code here reflects the run's overall AI1005/AI1006/AI1016 "no
+                // security-severity" findings baked into this minimal fixture -- unrelated to the
+                // name-resolution fix -- so it isn't asserted; the report contents are what matter.
+                new EmitFinalizeCommand().Run(new EmitFinalizeOptions
+                {
+                    OutputFilePath = OutPath,
+                    NoCweEnrichment = true,
+                    Validate = true,
+                });
+
+                IList<ReportingDescriptor> finalizedRules = LoadSarif().Runs[0].Tool.Driver.Rules;
+                int xssRuleIndex = finalizedRules.ToList().FindIndex(r => r.Id == "CWE-79");
+
+                File.Exists(reportPath).Should().BeTrue("--validate must persist a validate-report.sarif");
+                SarifLog validationReport = SarifLog.Load(reportPath);
+                IList<Result> results = validationReport.Runs[0].Results ?? new List<Result>();
+
+                results.Where(r => r.RuleId == "SARIF1001")
+                    .Should().NotContain(r => TargetsRuleAtIndex(r, xssRuleIndex),
+                        "CWE-79's resolved name ('CrossSiteScripting') differs from its id ('CWE-79'), so SARIF1001 does not fire");
             }
             finally
             {
