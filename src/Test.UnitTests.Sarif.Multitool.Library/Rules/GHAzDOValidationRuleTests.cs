@@ -110,6 +110,82 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         private static List<Result> ResultsFor(SarifLog output, string ruleId)
             => output.Runs[0].Results.Where(r => r.RuleId == ruleId).ToList();
 
+        private static Result CreateValidResult()
+        {
+            return new Result
+            {
+                RuleId = "RULE001",
+                Message = new Message { Text = "Test finding." },
+                Locations = new[]
+                {
+                    new Location
+                    {
+                        PhysicalLocation = new PhysicalLocation
+                        {
+                            ArtifactLocation = new ArtifactLocation
+                            {
+                                Uri = new System.Uri("src/example.cs", System.UriKind.Relative)
+                            },
+                            Region = new Region { StartLine = 1 }
+                        }
+                    }
+                }
+            };
+        }
+
+        [Fact]
+        public void GHAzDO1017_WhenPhysicalLocationIsValid_NoResult()
+        {
+            SarifLog log = CreateValidGHAzDOSarifLog();
+            log.Runs[0].Results.Add(CreateValidResult());
+
+            SarifLog output = RunGHAzDOValidation(log);
+
+            ResultsFor(output, "GHAzDO1017").Should().BeEmpty();
+        }
+
+        [Fact]
+        public void GHAzDO1017_WhenArtifactLocationIsMissing_ReportsError()
+        {
+            SarifLog log = CreateValidGHAzDOSarifLog();
+            Result result = CreateValidResult();
+            result.Locations[0].PhysicalLocation.ArtifactLocation = null;
+            log.Runs[0].Results.Add(result);
+
+            SarifLog output = RunGHAzDOValidation(log);
+
+            ResultsFor(output, "GHAzDO1017").Should().ContainSingle()
+                .Which.Level.Should().Be(FailureLevel.Error);
+        }
+
+        [Fact]
+        public void GHAzDO1017_WhenArtifactLocationUriIsMissing_ReportsError()
+        {
+            SarifLog log = CreateValidGHAzDOSarifLog();
+            Result result = CreateValidResult();
+            result.Locations[0].PhysicalLocation.ArtifactLocation.Uri = null;
+            log.Runs[0].Results.Add(result);
+
+            SarifLog output = RunGHAzDOValidation(log);
+
+            ResultsFor(output, "GHAzDO1017").Should().ContainSingle()
+                .Which.Level.Should().Be(FailureLevel.Error);
+        }
+
+        [Fact]
+        public void GHAzDO1017_WhenRegionIsMissing_ReportsError()
+        {
+            SarifLog log = CreateValidGHAzDOSarifLog();
+            Result result = CreateValidResult();
+            result.Locations[0].PhysicalLocation.Region = null;
+            log.Runs[0].Results.Add(result);
+
+            SarifLog output = RunGHAzDOValidation(log);
+
+            ResultsFor(output, "GHAzDO1017").Should().ContainSingle()
+                .Which.Level.Should().Be(FailureLevel.Error);
+        }
+
         [Fact]
         public void GHAzDO1019_WhenAllPipelinePropertiesValid_NoResult()
         {

@@ -162,6 +162,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
                 return ResourceManager.GetString("GHAzDO1017_ProvideRequiredPhysicalLocationProperties_FullDescription_Text", resourceCulture);
             }
         }
+
+        /// <summary>
+        ///   Looks up a localized string similar to {0}: The &apos;artifactLocation&apos; object on this &apos;physicalLocation&apos; object does not provide a &apos;uri&apos; object. This property is required by the {1} service..
+        /// </summary>
+        internal static string GHAzDO1017_ProvideRequiredPhysicalLocationProperties_Error_MissingArtifactLocationUri_Text {
+            get {
+                return ResourceManager.GetString("GHAzDO1017_ProvideRequiredPhysicalLocationProperties_Error_MissingArtifactLocationUri_Text", resourceCulture);
+            }
+        }
         
         /// <summary>
         ///   Looks up a localized string similar to {0}: This &apos;driver&apos; object does not provide a &apos;fullName&apos; value. This property is required by the {1} service..

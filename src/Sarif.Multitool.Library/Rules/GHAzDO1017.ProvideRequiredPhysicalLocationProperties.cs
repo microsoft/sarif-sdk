@@ -4,10 +4,12 @@
 using System.Collections.Generic;
 using System.Linq;
 
+using Microsoft.Json.Pointer;
+
 namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 {
     public class GHAzDOProvideRequiredPhysicalLocationProperties
-        : BaseProvideRequiredResultProperties
+        : BaseProvideRequiredPhysicalLocationProperties
     {
         /// <summary>
         /// GHAzDO1017
@@ -16,7 +18,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 
         public override MultiformatMessageString FullDescription => new MultiformatMessageString() { Text = RuleResources.GHAzDO1017_ProvideRequiredPhysicalLocationProperties_FullDescription_Text };
 
-        private readonly List<string> _messageResourceNames = new List<string>();
+        private readonly List<string> _messageResourceNames = new List<string>
+        {
+            nameof(RuleResources.GHAzDO1017_ProvideRequiredPhysicalLocationProperties_Error_MissingArtifactLocationUri_Text)
+        };
 
         protected override ICollection<string> MessageResourceNames => _messageResourceNames.Concat(BaseMessageResourceNames).ToList();
 
@@ -32,6 +37,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         protected override void Analyze(PhysicalLocation physicalLocation, string physicalLocationPointer)
         {
             base.Analyze(physicalLocation, physicalLocationPointer);
+
+            if (physicalLocation.ArtifactLocation != null && physicalLocation.ArtifactLocation.Uri == null)
+            {
+                LogResult(
+                    physicalLocationPointer.AtProperty(SarifPropertyName.ArtifactLocation),
+                    nameof(RuleResources.GHAzDO1017_ProvideRequiredPhysicalLocationProperties_Error_MissingArtifactLocationUri_Text));
+            }
         }
     }
 }

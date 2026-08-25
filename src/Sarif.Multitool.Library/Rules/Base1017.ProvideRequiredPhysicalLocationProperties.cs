@@ -23,7 +23,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             nameof(RuleResources.SARIF1007_RegionPropertiesMustBeConsistent_Error_RegionStartPropertyMustBePresent_Text)
         };
 
-        private ICollection<string> BaseMessageResourceNames => _baseMessageResourceNames;
+        protected ICollection<string> BaseMessageResourceNames => _baseMessageResourceNames;
 
         public override HashSet<RuleKind> RuleKinds => new HashSet<RuleKind>();
 

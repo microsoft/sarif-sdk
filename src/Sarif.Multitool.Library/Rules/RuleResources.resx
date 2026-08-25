@@ -607,7 +607,10 @@ Provide the 'physicalLocation' property. This property is required by the GHAzDO
   <data name="GHAzDO1017_ProvideRequiredPhysicalLocationProperties_FullDescription_Text" xml:space="preserve">
     <value>Provide the 'region' property, along with the appropriate region properties. This property is required by the GHAzDO (GitHub Advanced Security for Azure DevOps) service.
 
-Provide the 'artifactLocation' property. This property is required by the GHAzDO (GitHub Advanced Security for Azure DevOps) service.</value>
+Provide the 'artifactLocation' property and its 'uri' property. These properties are required by the GHAzDO (GitHub Advanced Security for Azure DevOps) service.</value>
+  </data>
+  <data name="GHAzDO1017_ProvideRequiredPhysicalLocationProperties_Error_MissingArtifactLocationUri_Text" xml:space="preserve">
+    <value>{0}: The 'artifactLocation' object on this 'physicalLocation' object does not provide a 'uri' object. This property is required by the {1} service.</value>
   </data>
   <data name="GHAzDO1018_ProvideRequiredToolProperties_FullDescription_Text" xml:space="preserve">
     <value>Provide information that makes it easy to identify the name and version of your tool.

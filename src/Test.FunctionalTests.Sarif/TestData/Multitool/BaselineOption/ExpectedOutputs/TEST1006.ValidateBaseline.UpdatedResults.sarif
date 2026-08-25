@@ -142,31 +142,6 @@
               "helpUri": "http://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html"
             },
             {
-              "id": "GHAzDO1017",
-              "name": "GHAzDOProvideRequiredPhysicalLocationProperties",
-              "fullDescription": {
-                "text": "Provide the 'region' property, along with the appropriate region properties. This property is required by the GHAzDO (GitHub Advanced Security for Azure DevOps) service.\r\n\r\nProvide the 'artifactLocation' property. This property is required by the GHAzDO (GitHub Advanced Security for Azure DevOps) service."
-              },
-              "messageStrings": {
-                "Error_EmptyLocationsArray": {
-                  "text": "{0}: The 'locations' array on this 'result' object is empty. This property is required by the {1} service."
-                },
-                "Error_MissingLocationsArray": {
-                  "text": "{0}: This 'result' object does not provide a 'locations' array. This property is required by the {1} service."
-                },
-                "Error_MissingMessageText": {
-                  "text": "{0}: The 'message' object on this 'result' object does not provide a 'text' property. This property is required by the {1} service."
-                },
-                "Error_MissingMessage": {
-                  "text": "{0}: This 'result' object does not provide a 'message' object. This property is required by the {1} service."
-                }
-              },
-              "defaultConfiguration": {
-                "level": "error"
-              },
-              "helpUri": "http://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html"
-            },
-            {
               "id": "SARIF2002",
               "name": "ProvideMessageArguments",
               "fullDescription": {
@@ -489,37 +464,8 @@
           }
         },
         {
-          "ruleId": "GHAzDO1017",
-          "ruleIndex": 5,
-          "level": "error",
-          "message": {
-            "id": "Error_MissingLocationsArray",
-            "arguments": [
-              "runs[0].results[0]",
-              "GHAzDO (GitHub Advanced Security for Azure DevOps)"
-            ]
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "index": 0
-                },
-                "region": {
-                  "startLine": 7,
-                  "startColumn": 9
-                }
-              }
-            }
-          ],
-          "baselineState": "new",
-          "properties": {
-            "ResultMatching": {}
-          }
-        },
-        {
           "ruleId": "SARIF2002",
-          "ruleIndex": 6,
+          "ruleIndex": 5,
           "level": "note",
           "message": {
             "id": "Note_Default",
@@ -662,37 +608,8 @@
           }
         },
         {
-          "ruleId": "GHAzDO1017",
-          "ruleIndex": 5,
-          "level": "error",
-          "message": {
-            "id": "Error_MissingLocationsArray",
-            "arguments": [
-              "runs[0].results[1]",
-              "GHAzDO (GitHub Advanced Security for Azure DevOps)"
-            ]
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "index": 0
-                },
-                "region": {
-                  "startLine": 13,
-                  "startColumn": 9
-                }
-              }
-            }
-          ],
-          "baselineState": "new",
-          "properties": {
-            "ResultMatching": {}
-          }
-        },
-        {
           "ruleId": "SARIF2002",
-          "ruleIndex": 6,
+          "ruleIndex": 5,
           "level": "note",
           "message": {
             "id": "Note_Default",
@@ -835,37 +752,8 @@
           }
         },
         {
-          "ruleId": "GHAzDO1017",
-          "ruleIndex": 5,
-          "level": "error",
-          "message": {
-            "id": "Error_MissingLocationsArray",
-            "arguments": [
-              "runs[0].results[2]",
-              "GHAzDO (GitHub Advanced Security for Azure DevOps)"
-            ]
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "index": 0
-                },
-                "region": {
-                  "startLine": 19,
-                  "startColumn": 9
-                }
-              }
-            }
-          ],
-          "baselineState": "new",
-          "properties": {
-            "ResultMatching": {}
-          }
-        },
-        {
           "ruleId": "SARIF2002",
-          "ruleIndex": 6,
+          "ruleIndex": 5,
           "level": "note",
           "message": {
             "id": "Note_Default",
@@ -893,7 +781,7 @@
         },
         {
           "ruleId": "GH1018",
-          "ruleIndex": 7,
+          "ruleIndex": 6,
           "level": "error",
           "message": {
             "id": "Error_MissingDriverRules",
@@ -922,7 +810,7 @@
         },
         {
           "ruleId": "GHAzDO1018",
-          "ruleIndex": 8,
+          "ruleIndex": 7,
           "level": "error",
           "message": {
             "id": "Error_MissingDriverRules",
@@ -951,7 +839,7 @@
         },
         {
           "ruleId": "GHAzDO1018",
-          "ruleIndex": 8,
+          "ruleIndex": 7,
           "level": "error",
           "message": {
             "id": "Error_MissingDriverRules",
@@ -980,7 +868,7 @@
         },
         {
           "ruleId": "SARIF2005",
-          "ruleIndex": 9,
+          "ruleIndex": 8,
           "message": {
             "id": "Warning_ProvideToolVersion",
             "arguments": [
@@ -1009,7 +897,7 @@
         },
         {
           "ruleId": "SARIF2005",
-          "ruleIndex": 9,
+          "ruleIndex": 8,
           "message": {
             "id": "Warning_ProvideToolnformationUri",
             "arguments": [
@@ -1037,7 +925,7 @@
         },
         {
           "ruleId": "SARIF2012",
-          "ruleIndex": 10,
+          "ruleIndex": 9,
           "level": "note",
           "message": {
             "id": "Note_ProvideMetadataForAllViolatedRules",
@@ -1065,7 +953,7 @@
         },
         {
           "ruleId": "GHAzDO1019",
-          "ruleIndex": 11,
+          "ruleIndex": 10,
           "level": "error",
           "message": {
             "id": "Error_MissingPhaseName",
@@ -1095,7 +983,7 @@
         },
         {
           "ruleId": "GHAzDO1019",
-          "ruleIndex": 11,
+          "ruleIndex": 10,
           "level": "error",
           "message": {
             "id": "Error_MissingBuildDefinitionName",
@@ -1125,7 +1013,7 @@
         },
         {
           "ruleId": "GHAzDO1019",
-          "ruleIndex": 11,
+          "ruleIndex": 10,
           "level": "error",
           "message": {
             "id": "Error_MissingBuildDefinitionId",
@@ -1155,7 +1043,7 @@
         },
         {
           "ruleId": "GHAzDO1019",
-          "ruleIndex": 11,
+          "ruleIndex": 10,
           "level": "error",
           "message": {
             "id": "Error_MissingPhaseId",
@@ -1185,7 +1073,7 @@
         },
         {
           "ruleId": "GHAzDO1020",
-          "ruleIndex": 12,
+          "ruleIndex": 11,
           "level": "error",
           "message": {
             "id": "Error_BadPrefix",
