@@ -372,10 +372,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             // drives that real flag/report instead of a hand-rolled validator invocation -- it proves
             // the shipped --validate path itself, not just a re-implementation of it.
             //
-            // Note: --validate's default FailureLevels filter is Error+Warning (BaseLogger.ErrorWarning);
-            // SARIF2012 is Note-level and so is never emitted by the shipped --validate flag today --
-            // that rule is exercised instead by the GHAzDO2012 test above via a direct validator
-            // invocation with an explicit Note;Warning;Error level filter.
+            // Note: --validate's default FailureLevels filter is Error+Warning (BaseLogger.ErrorWarning),
+            // so Note-level Sarif rules are not emitted on this path.
             SeedWip(
                 (SarifEventKinds.RunHeader, RunHeader()),
                 (SarifEventKinds.Result, new Result { RuleId = "CWE-79/template-xss", Message = new Message { Text = "xss" } }),
