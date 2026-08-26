@@ -13,7 +13,7 @@ Each release entry below is prefixed with one of:
 
 Entries are terse by design: one line per change, present-tense behavior, complete but only essential data. No issue/PR archaeology or narrative — that history lives in the engineering system.
 
-## **UNRELEASED**
+## **v5.7.0** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/v5.7.0) | [Driver](https://www.nuget.org/packages/Sarif.Driver/v5.7.0) | [Converters](https://www.nuget.org/packages/Sarif.Converters/v5.7.0) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/v5.7.0) | [Multitool Library](https://www.nuget.org/packages/Sarif.Multitool.Library/v5.7.0)
 * BUG: Recursive archive analysis hashes result-producing and denied entries from their extracted content and preserves archive-entry URIs in SARIF output.
 * BUG: `emit-finalize --no-cwe-enrichment` now resolves `name` from the embedded MITRE taxonomy unconditionally, so a CWE-as-rule-id descriptor stays spec-valid and GHAzDO-publishable even with the flag set; the TypeScript port gained the equivalent floor.
 
